@@ -1,0 +1,4 @@
+/src/content/docs/ja/ @biomejs/japanese-translation-reviewers
+.textlintrc.json @biomejs/japanese-translation-reviewers
+prh.yml @biomejs/japanese-translation-reviewers
+/.github/workflows/ja-translation.yaml @biomejs/japanese-translation-reviewers
