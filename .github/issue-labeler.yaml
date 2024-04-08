@@ -1,0 +1,11 @@
+# Language labelling is done by detecting the language code in the URL for
+# which the issue was created.
+
+"Lang-Chinese":
+  - "https://biomejs.dev/zh-cn/"
+"Lang-English":
+  - "https://biomejs.dev/(?!(zh-cn|ja|pt-br))"
+"Lang-Japanese":
+  - "https://biomejs.dev/ja/"
+"Lang-Portuguese":
+  - "https://biomejs.dev/pt-br/"

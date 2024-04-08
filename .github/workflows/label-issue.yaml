@@ -1,0 +1,22 @@
+name: Label issues
+
+on:
+  issues:
+    types: [opened, reopened, edited]
+
+permissions:
+  issues: write
+  contents: read
+    
+jobs:
+  label-issues:
+    name: Label issue
+    runs-on: ubuntu-latest
+    steps:
+      - name: Label documentation issues
+        uses: github/issue-labeler@c1b0f9f52a63158c4adc09425e858e87b32e9685
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          configuration-path: .github/issue-labeler.yaml
+          enable-versioned-regex: 0
+          sync-labels: 1
