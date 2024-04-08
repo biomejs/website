@@ -1,0 +1,3 @@
+[build]
+publish = "dist/"
+command = "npm i -g wasm-pack && pnpm run build:wasm && pnpm ci && pnpm run build:js"
