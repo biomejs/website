@@ -2,8 +2,8 @@ import { writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { argv } from "./utils/argv.js";
+import { PREAMBLE } from "./utils/constants.js";
 
-const PREAMBLE = "Generated file, do not edit by hand";
 const IMPORT_IMAGE = 'import { Image } from "astro:assets";';
 
 /**

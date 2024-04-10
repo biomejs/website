@@ -1,6 +1,6 @@
 /**
  * @param {string} key
- * @returns {string | true}
+ * @returns {string | true | null}
  */
 export function argv(key) {
 	if (process.argv.includes(`--${key}`)) {
