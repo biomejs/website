@@ -11,7 +11,7 @@
 		"tsc": "tsc --skipLibCheck",
 		"build": "pnpm build:wasm && pnpm build:js",
 		"build:js": "astro build",
-		"build:wasm-common": "wasm-pack build --out-dir ../../packages/@biomejs/wasm-web --target web --scope biomedev --mode no-install",
+		"build:wasm-common": "wasm-pack build --out-dir ../../packages/@biomejs/wasm-web --target web --scope biomedev --mode",
 		"build:wasm": "pnpm build:wasm-common --release ./biome/crates/biome_wasm --features format_css",
 		"build:wasm-dev": "pnpm build:wasm-common --profiling ./biome/crates/biome_wasm --features format_css",
 		"preview": "astro preview",
