@@ -1,0 +1,35 @@
+name: Update contributors
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
+
+permissions:
+  actions: write
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-contributors:
+    name: Update contributors
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+      - name: Install toolchain
+        uses: actions/setup-node@v4
+        with:
+          node-version: "*"
+      - name: Update contributors
+        run: node scripts/update-contributors.js --token=${{ secrets.GITHUB_TOKEN }}
+      - name: Create pull request
+        id: create-pull-request
+        uses: peter-evans/create-pull-request@70a41aba780001da0a30141984ae2a0c95d8704e # v6
+        with:
+          branch: chore/update-contributors
+          author: "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
+          title: "chore(website): update contributors"
+          commit-message: "chore(website): update contributors"
+          body: ""
+          labels: CI-Contributors
