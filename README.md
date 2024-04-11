@@ -4,7 +4,7 @@ The website source of [biomejs/biome](https://github.com/biomejs/biome).
 
 ## Clone
 
-This repository includes a submodule pointing to the [main repository](https://github.com/biomejs/biome). The submodule is required to build the WASM artifacts for the [website playground](https://biomejs.dev/), the [rule pages](https://biomejs.dev/linter/rules/), and perform some checks in the CI workflows.
+This repository includes a submodule pointing to the [main repository](https://github.com/biomejs/biome). The submodule is required to build the WASM artifacts for the [website playground](https://biomejs.dev/), populate the [rule pages](https://biomejs.dev/linter/rules/), and perform some checks in the CI workflows.
 
 To clone the repository including the submodule, run
 
