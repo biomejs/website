@@ -1,18 +1,15 @@
 ---
-title: noMisplacedAssertion (not released)
+title: noMisplacedAssertion (since v1.6.4)
 ---
 
 **Diagnostic Category: `lint/nursery/noMisplacedAssertion`**
-
-:::danger
-This rule hasn't been released yet.
-:::
 
 :::caution
 This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::
 
-Inspired from: <a href="https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-standalone-expect.md" target="_blank"><code>no-standalone-expect</code></a>
+Sources: 
+- Inspired from: <a href="https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-standalone-expect.md" target="_blank"><code>jest/no-standalone-expect</code></a>
 
 Checks that the assertion function, for example `expect`, is placed inside an `it()` function call.
 

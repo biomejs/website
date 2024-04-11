@@ -54,6 +54,18 @@ pnpm start:playground
 
 Please make sure you [have the submodule source also cloned](#clone).
 
+## Code generation
+
+The pages of the lint rules are all code generated from the repository `biomejs/biome`. To update the pages you have to install the Rust toolchain, because
+the code that does that requires reading the source code of the analyzer.
+
+First, make sure that you pull the latest version of the repository, then run the script via `cargo`:
+
+```shell
+pnpm checkout:biome
+cargo run -p codegen
+```
+
 ## Build
 
 This command generates static content into the `dist` directory:

@@ -8,7 +8,8 @@ title: noMisrefactoredShorthandAssign (since v1.3.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://rust-lang.github.io/rust-clippy/master/#/misrefactored_assign_op" target="_blank"><code>misrefactored_assign_op</code></a>
+Sources: 
+- Same as: <a href="https://rust-lang.github.io/rust-clippy/master/#/misrefactored_assign_op" target="_blank"><code>misrefactored_assign_op</code></a>
 
 Disallow shorthand assign when variable appears on both sides.
 

@@ -4,7 +4,8 @@ title: noParameterProperties (since v1.0.0)
 
 **Diagnostic Category: `lint/style/noParameterProperties`**
 
-Inspired from: <a href="https://typescript-eslint.io/rules/parameter-properties" target="_blank"><code>parameter-properties</code></a>
+Sources: 
+- Inspired from: <a href="https://typescript-eslint.io/rules/parameter-properties" target="_blank"><code>@typescript-eslint/parameter-properties</code></a>
 
 Disallow the use of parameter properties in class constructors.
 

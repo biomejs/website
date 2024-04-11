@@ -8,7 +8,8 @@ title: noUselessSwitchCase (since v1.0.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-useless-switch-case.md" target="_blank"><code>no-useless-switch-case</code></a>
+Sources: 
+- Same as: <a href="https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-useless-switch-case.md" target="_blank"><code>unicorn/no-useless-switch-case</code></a>
 
 Disallow useless `case` in `switch` statements.
 

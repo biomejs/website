@@ -4,7 +4,9 @@ title: useCollapsedElseIf (since v1.1.0)
 
 **Diagnostic Category: `lint/style/useCollapsedElseIf`**
 
-Source: <a href="https://eslint.org/docs/latest/rules/no-lonely-if" target="_blank"><code>no-lonely-if</code></a>
+Sources: 
+- Same as: <a href="https://eslint.org/docs/latest/rules/no-lonely-if" target="_blank"><code>no-lonely-if</code></a>
+- Same as: <a href="https://rust-lang.github.io/rust-clippy/master/#/collapsible_else_if" target="_blank"><code>collapsible_else_if</code></a>
 
 Enforce using `else if` instead of nested `if` in `else` clauses.
 

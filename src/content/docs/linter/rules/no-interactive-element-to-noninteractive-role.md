@@ -8,7 +8,8 @@ title: noInteractiveElementToNoninteractiveRole (since v1.3.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/no-interactive-element-to-noninteractive-role.md" target="_blank"><code>no-interactive-element-to-noninteractive-role</code></a>
+Sources: 
+- Same as: <a href="https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/no-interactive-element-to-noninteractive-role.md" target="_blank"><code>jsx-a11y/no-interactive-element-to-noninteractive-role</code></a>
 
 Enforce that non-interactive ARIA roles are not assigned to interactive HTML elements.
 

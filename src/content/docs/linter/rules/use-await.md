@@ -4,7 +4,9 @@ title: useAwait (since v1.4.0)
 
 **Diagnostic Category: `lint/suspicious/useAwait`**
 
-Source: <a href="https://eslint.org/docs/latest/rules/require-await" target="_blank"><code>require-await</code></a>
+Sources: 
+- Same as: <a href="https://eslint.org/docs/latest/rules/require-await" target="_blank"><code>require-await</code></a>
+- Same as: <a href="https://typescript-eslint.io/rules/require-await" target="_blank"><code>@typescript-eslint/require-await</code></a>
 
 Ensure `async` functions utilize `await`.
 

@@ -8,7 +8,8 @@ title: noConstAssign (since v1.0.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://eslint.org/docs/latest/rules/no-const-assign" target="_blank"><code>no-const-assign</code></a>
+Sources: 
+- Same as: <a href="https://eslint.org/docs/latest/rules/no-const-assign" target="_blank"><code>no-const-assign</code></a>
 
 Prevents from having `const` variables being re-assigned.
 

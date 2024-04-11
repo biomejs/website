@@ -8,7 +8,8 @@ title: useIsArray (since v1.0.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-instanceof-array.md" target="_blank"><code>no-instanceof-array</code></a>
+Sources: 
+- Same as: <a href="https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-instanceof-array.md" target="_blank"><code>unicorn/no-instanceof-array</code></a>
 
 Use `Array.isArray()` instead of `instanceof Array`.
 

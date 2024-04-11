@@ -8,7 +8,8 @@ title: noFocusedTests (since v1.6.0)
 This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::
 
-Inspired from: <a href="https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-focused-tests.md" target="_blank"><code>no-focused-tests</code></a>
+Sources: 
+- Inspired from: <a href="https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-focused-tests.md" target="_blank"><code>jest/no-focused-tests</code></a>
 
 Disallow focused tests.
 

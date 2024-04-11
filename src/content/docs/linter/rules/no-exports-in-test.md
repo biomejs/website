@@ -8,7 +8,8 @@ title: noExportsInTest (since v1.6.0)
 This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::
 
-Inspired from: <a href="https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-export.md" target="_blank"><code>no-export</code></a>
+Sources: 
+- Inspired from: <a href="https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-export.md" target="_blank"><code>jest/no-export</code></a>
 
 Disallow using `export` or `module.exports` in files containing tests
 

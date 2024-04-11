@@ -8,7 +8,8 @@ title: useJsxKeyInIterable (since v1.6.0)
 This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::
 
-Source: <a href="https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-key.md" target="_blank"><code>jsx-key</code></a>
+Sources: 
+- Same as: <a href="https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-key.md" target="_blank"><code>react/jsx-key</code></a>
 
 Disallow missing key props in iterators/collection literals.
 

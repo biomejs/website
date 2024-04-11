@@ -8,7 +8,8 @@ title: useExportType (since v1.5.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Inspired from: <a href="https://typescript-eslint.io/rules/consistent-type-exports" target="_blank"><code>consistent-type-exports</code></a>
+Sources: 
+- Inspired from: <a href="https://typescript-eslint.io/rules/consistent-type-exports" target="_blank"><code>@typescript-eslint/consistent-type-exports</code></a>
 
 Promotes the use of `export type` for types.
 

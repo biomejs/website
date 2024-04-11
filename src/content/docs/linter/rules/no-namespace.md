@@ -4,7 +4,8 @@ title: noNamespace (since v1.0.0)
 
 **Diagnostic Category: `lint/style/noNamespace`**
 
-Source: <a href="https://typescript-eslint.io/rules/no-namespace" target="_blank"><code>no-namespace</code></a>
+Sources: 
+- Same as: <a href="https://typescript-eslint.io/rules/no-namespace" target="_blank"><code>@typescript-eslint/no-namespace</code></a>
 
 Disallow the use of TypeScript's `namespace`s.
 

@@ -8,7 +8,8 @@ title: noBannedTypes (since v1.0.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://typescript-eslint.io/rules/ban-types" target="_blank"><code>ban-types</code></a>
+Sources: 
+- Same as: <a href="https://typescript-eslint.io/rules/ban-types" target="_blank"><code>@typescript-eslint/ban-types</code></a>
 
 Disallow primitive type aliases and misleading types.
 

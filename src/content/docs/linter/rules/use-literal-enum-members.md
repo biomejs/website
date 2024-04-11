@@ -8,7 +8,8 @@ title: useLiteralEnumMembers (since v1.0.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://typescript-eslint.io/rules/prefer-literal-enum-member" target="_blank"><code>prefer-literal-enum-member</code></a>
+Sources: 
+- Same as: <a href="https://typescript-eslint.io/rules/prefer-literal-enum-member" target="_blank"><code>@typescript-eslint/prefer-literal-enum-member</code></a>
 
 Require all enum members to be literal values.
 

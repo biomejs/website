@@ -1,18 +1,15 @@
 ---
-title: noDuplicateElseIf (not released)
+title: noDuplicateElseIf (since v1.6.2)
 ---
 
 **Diagnostic Category: `lint/nursery/noDuplicateElseIf`**
-
-:::danger
-This rule hasn't been released yet.
-:::
 
 :::caution
 This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::
 
-Source: <a href="https://eslint.org/docs/latest/rules/no-dupe-else-if" target="_blank"><code>no-dupe-else-if</code></a>
+Sources: 
+- Same as: <a href="https://eslint.org/docs/latest/rules/no-dupe-else-if" target="_blank"><code>no-dupe-else-if</code></a>
 
 Disallow duplicate conditions in if-else-if chains
 

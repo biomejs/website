@@ -8,7 +8,8 @@ title: noMisleadingInstantiator (since v1.3.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://typescript-eslint.io/rules/no-misused-new" target="_blank"><code>no-misused-new</code></a>
+Sources: 
+- Same as: <a href="https://typescript-eslint.io/rules/no-misused-new" target="_blank"><code>@typescript-eslint/no-misused-new</code></a>
 
 Enforce proper usage of `new` and `constructor`.
 

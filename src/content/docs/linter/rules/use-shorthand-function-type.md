@@ -8,7 +8,8 @@ title: useShorthandFunctionType (since v1.5.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://typescript-eslint.io/rules/prefer-function-type" target="_blank"><code>prefer-function-type</code></a>
+Sources: 
+- Same as: <a href="https://typescript-eslint.io/rules/prefer-function-type" target="_blank"><code>@typescript-eslint/prefer-function-type</code></a>
 
 Enforce using function types instead of object type with call signatures.
 

@@ -8,7 +8,8 @@ title: useImportType (since v1.5.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Inspired from: <a href="https://typescript-eslint.io/rules/consistent-type-imports" target="_blank"><code>consistent-type-imports</code></a>
+Sources: 
+- Inspired from: <a href="https://typescript-eslint.io/rules/consistent-type-imports" target="_blank"><code>@typescript-eslint/consistent-type-imports</code></a>
 
 Promotes the use of `import type` for types.
 
@@ -18,6 +19,12 @@ This also ensures that some modules are not loaded at runtime.
 
 The rule ensures that all imports used only as a type use a type-only `import`.
 It also groups inline type imports into a grouped `import type`.
+
+## Options
+
+This rule respects the [`jsxRuntime`](https://biomejs.dev/reference/configuration/#javascriptjsxruntime)
+setting and will make an exception for React globals if it is set to
+`"reactClassic"`.
 
 ## Examples
 

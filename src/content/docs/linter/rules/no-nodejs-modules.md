@@ -8,7 +8,8 @@ title: noNodejsModules (since v1.5.0)
 This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::
 
-Source: <a href="https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-nodejs-modules.md" target="_blank"><code>no-nodejs-modules</code></a>
+Sources: 
+- Same as: <a href="https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-nodejs-modules.md" target="_blank"><code>import/no-nodejs-modules</code></a>
 
 Forbid the use of Node.js builtin modules.
 

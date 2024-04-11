@@ -8,7 +8,8 @@ title: useAsConstAssertion (since v1.3.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://typescript-eslint.io/rules/prefer-as-const" target="_blank"><code>prefer-as-const</code></a>
+Sources: 
+- Same as: <a href="https://typescript-eslint.io/rules/prefer-as-const" target="_blank"><code>@typescript-eslint/prefer-as-const</code></a>
 
 Enforce the use of `as const` over literal type and type annotation.
 

@@ -4,7 +4,8 @@ title: useBlockStatements (since v1.0.0)
 
 **Diagnostic Category: `lint/style/useBlockStatements`**
 
-Source: <a href="https://eslint.org/docs/latest/rules/curly" target="_blank"><code>curly</code></a>
+Sources: 
+- Same as: <a href="https://eslint.org/docs/latest/rules/curly" target="_blank"><code>curly</code></a>
 
 Requires following curly brace conventions.
 

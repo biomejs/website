@@ -8,7 +8,10 @@ title: noPrecisionLoss (since v1.0.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://eslint.org/docs/latest/rules/no-loss-of-precision" target="_blank"><code>no-loss-of-precision</code></a>
+Sources: 
+- Same as: <a href="https://eslint.org/docs/latest/rules/no-loss-of-precision" target="_blank"><code>no-loss-of-precision</code></a>
+- Same as: <a href="https://typescript-eslint.io/rules/no-loss-of-precision" target="_blank"><code>@typescript-eslint/no-loss-of-precision</code></a>
+- Same as: <a href="https://rust-lang.github.io/rust-clippy/master/#/lossy_float_literal" target="_blank"><code>lossy_float_literal</code></a>
 
 Disallow literal numbers that lose precision
 

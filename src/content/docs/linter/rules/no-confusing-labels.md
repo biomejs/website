@@ -8,7 +8,8 @@ title: noConfusingLabels (since v1.0.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Inspired from: <a href="https://eslint.org/docs/latest/rules/no-labels" target="_blank"><code>no-labels</code></a>
+Sources: 
+- Inspired from: <a href="https://eslint.org/docs/latest/rules/no-labels" target="_blank"><code>no-labels</code></a>
 
 Disallow labeled statements that are not loops.
 

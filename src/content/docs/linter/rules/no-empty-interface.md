@@ -8,7 +8,8 @@ title: noEmptyInterface (since v1.0.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Inspired from: <a href="https://typescript-eslint.io/rules/no-empty-interface" target="_blank"><code>no-empty-interface</code></a>
+Sources: 
+- Inspired from: <a href="https://typescript-eslint.io/rules/no-empty-interface" target="_blank"><code>@typescript-eslint/no-empty-interface</code></a>
 
 Disallow the declaration of empty interfaces.
 

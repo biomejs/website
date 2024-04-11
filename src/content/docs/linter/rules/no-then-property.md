@@ -8,7 +8,8 @@ title: noThenProperty (since v1.5.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-thenable.md" target="_blank"><code>no-thenable</code></a>
+Sources: 
+- Same as: <a href="https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-thenable.md" target="_blank"><code>unicorn/no-thenable</code></a>
 
 Disallow `then` property.
 

@@ -4,7 +4,11 @@ title: noEmptyBlockStatements (since v1.3.0)
 
 **Diagnostic Category: `lint/suspicious/noEmptyBlockStatements`**
 
-Source: <a href="https://eslint.org/docs/latest/rules/no-empty" target="_blank"><code>no-empty</code></a>
+Sources: 
+- Same as: <a href="https://eslint.org/docs/latest/rules/no-empty" target="_blank"><code>no-empty</code></a>
+- Same as: <a href="https://eslint.org/docs/latest/rules/no-empty-static-block" target="_blank"><code>no-empty-static-block</code></a>
+- Same as: <a href="https://eslint.org/docs/latest/rules/no-empty-function" target="_blank"><code>no-empty-function</code></a>
+- Same as: <a href="https://typescript-eslint.io/rules/no-empty-function" target="_blank"><code>@typescript-eslint/no-empty-function</code></a>
 
 Disallow empty block statements and static blocks.
 

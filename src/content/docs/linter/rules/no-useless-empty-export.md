@@ -8,7 +8,8 @@ title: noUselessEmptyExport (since v1.0.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://typescript-eslint.io/rules/no-useless-empty-export" target="_blank"><code>no-useless-empty-export</code></a>
+Sources: 
+- Same as: <a href="https://typescript-eslint.io/rules/no-useless-empty-export" target="_blank"><code>@typescript-eslint/no-useless-empty-export</code></a>
 
 Disallow empty exports that don't change anything in a module file.
 

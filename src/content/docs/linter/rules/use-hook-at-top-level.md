@@ -4,7 +4,8 @@ title: useHookAtTopLevel (since v1.0.0)
 
 **Diagnostic Category: `lint/correctness/useHookAtTopLevel`**
 
-Source: <a href="https://github.com/facebook/react/blob/main/packages/eslint-plugin-react-hooks/README.md" target="_blank"><code>rules-of-hooks</code></a>
+Sources: 
+- Same as: <a href="https://github.com/facebook/react/blob/main/packages/eslint-plugin-react-hooks/README.md" target="_blank"><code>react-hooks/rules-of-hooks</code></a>
 
 Enforce that all React hooks are being called from the Top Level component functions.
 

@@ -8,7 +8,8 @@ title: noConsole (since v1.6.0)
 This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::
 
-Source: <a href="https://eslint.org/docs/latest/rules/no-console" target="_blank"><code>no-console</code></a>
+Sources: 
+- Same as: <a href="https://eslint.org/docs/latest/rules/no-console" target="_blank"><code>no-console</code></a>
 
 Disallow the use of `console`.
 

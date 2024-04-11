@@ -8,7 +8,8 @@ title: useKeyWithMouseEvents (since v1.0.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/mouse-events-have-key-events.md" target="_blank"><code>mouse-events-have-key-events</code></a>
+Sources: 
+- Same as: <a href="https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/mouse-events-have-key-events.md" target="_blank"><code>jsx-a11y/mouse-events-have-key-events</code></a>
 
 Enforce `onMouseOver` / `onMouseOut` are accompanied by `onFocus` / `onBlur`.
 

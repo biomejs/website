@@ -8,7 +8,8 @@ title: noExplicitAny (since v1.0.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://typescript-eslint.io/rules/no-explicit-any" target="_blank"><code>no-explicit-any</code></a>
+Sources: 
+- Same as: <a href="https://typescript-eslint.io/rules/no-explicit-any" target="_blank"><code>@typescript-eslint/no-explicit-any</code></a>
 
 Disallow the `any` type usage.
 

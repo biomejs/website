@@ -8,7 +8,8 @@ title: useExhaustiveDependencies (since v1.0.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://github.com/facebook/react/blob/main/packages/eslint-plugin-react-hooks/README.md" target="_blank"><code>exhaustive-deps</code></a>
+Sources: 
+- Same as: <a href="https://github.com/facebook/react/blob/main/packages/eslint-plugin-react-hooks/README.md" target="_blank"><code>react-hooks/exhaustive-deps</code></a>
 
 Enforce all dependencies are correctly specified in a React hook.
 

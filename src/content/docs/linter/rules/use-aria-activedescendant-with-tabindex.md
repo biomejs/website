@@ -8,7 +8,8 @@ title: useAriaActivedescendantWithTabindex (since v1.3.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/aria-activedescendant-has-tabindex.md" target="_blank"><code>aria-activedescendant-has-tabindex</code></a>
+Sources: 
+- Same as: <a href="https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/aria-activedescendant-has-tabindex.md" target="_blank"><code>jsx-a11y/aria-activedescendant-has-tabindex</code></a>
 
 Enforce that `tabIndex` is assigned to non-interactive HTML elements with `aria-activedescendant`.
 

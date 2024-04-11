@@ -8,7 +8,8 @@ title: noDuplicateTestHooks (since v1.6.0)
 This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::
 
-Inspired from: <a href="https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-duplicate-hooks.md" target="_blank"><code>no-duplicate-hooks</code></a>
+Sources: 
+- Inspired from: <a href="https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-duplicate-hooks.md" target="_blank"><code>jest/no-duplicate-hooks</code></a>
 
 A `describe` block should not contain duplicate hooks.
 
