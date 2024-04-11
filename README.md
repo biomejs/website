@@ -4,7 +4,7 @@ The website source of [biomejs/biome](https://github.com/biomejs/biome).
 
 ## Clone
 
-This repository includes a submodule pointing to the [main repository](https://github.com/biomejs/biome), which is required to build wasm artifacts for the [website playground](https://biomejs.dev/).
+This repository includes a submodule pointing to the [main repository](https://github.com/biomejs/biome). The submodule is required to build the WASM artifacts for the [website playground](https://biomejs.dev/), the [rule pages](https://biomejs.dev/linter/rules/), and perform some checks in the CI workflows.
 
 To clone the repository including the submodule, run
 
@@ -46,7 +46,7 @@ pnpm start
 
 Most changes are reflected live without having to restart the server.
 
-If you want to work on the playground, wasm artifacts of Biome are required. To build them, the [`wasm-pack`](https://rustwasm.github.io/wasm-pack/installer/) tool must be installed, and use the following command to build and start the website with a working playground:
+If you want to work on the playground, the WASM artifacts of Biome are required. To build them, the [`wasm-pack`](https://rustwasm.github.io/wasm-pack/installer/) tool must be installed, and use the following command to build and start the website with a working playground:
 
 ```shell
 pnpm start:playground
