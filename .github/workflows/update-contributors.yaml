@@ -29,7 +29,7 @@ jobs:
         with:
           branch: chore/update-contributors
           author: "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
-          title: "chore(website): update contributors"
-          commit-message: "chore(website): update contributors"
+          title: "chore(ci): update contributors"
+          commit-message: "chore(ci): update contributors"
           body: ""
           labels: CI-Contributors
