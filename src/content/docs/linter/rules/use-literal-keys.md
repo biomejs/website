@@ -8,7 +8,9 @@ title: useLiteralKeys (since v1.0.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://eslint.org/docs/latest/rules/dot-notation" target="_blank"><code>dot-notation</code></a>
+Sources: 
+- Same as: <a href="https://eslint.org/docs/latest/rules/dot-notation" target="_blank"><code>dot-notation</code></a>
+- Same as: <a href="https://typescript-eslint.io/rules/dot-notation" target="_blank"><code>@typescript-eslint/dot-notation</code></a>
 
 Enforce the usage of a literal access to properties over computed property access.
 

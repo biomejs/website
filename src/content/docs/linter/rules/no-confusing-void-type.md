@@ -8,7 +8,8 @@ title: noConfusingVoidType (since v1.2.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://typescript-eslint.io/rules/no-invalid-void-type" target="_blank"><code>no-invalid-void-type</code></a>
+Sources: 
+- Same as: <a href="https://typescript-eslint.io/rules/no-invalid-void-type" target="_blank"><code>@typescript-eslint/no-invalid-void-type</code></a>
 
 Disallow `void` type outside of generic or return types.
 

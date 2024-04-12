@@ -8,7 +8,8 @@ title: noCommaOperator (since v1.0.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://eslint.org/docs/latest/rules/no-sequences" target="_blank"><code>no-sequences</code></a>
+Sources: 
+- Same as: <a href="https://eslint.org/docs/latest/rules/no-sequences" target="_blank"><code>no-sequences</code></a>
 
 Disallow comma operator.
 

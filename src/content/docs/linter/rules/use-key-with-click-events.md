@@ -8,7 +8,8 @@ title: useKeyWithClickEvents (since v1.0.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/click-events-have-key-events.md" target="_blank"><code>click-events-have-key-events</code></a>
+Sources: 
+- Same as: <a href="https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/click-events-have-key-events.md" target="_blank"><code>jsx-a11y/click-events-have-key-events</code></a>
 
 Enforce onClick is accompanied by at least one of the following: `onKeyUp`, `onKeyDown`, `onKeyPress`.
 

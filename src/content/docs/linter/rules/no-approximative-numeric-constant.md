@@ -8,7 +8,8 @@ title: noApproximativeNumericConstant (since v1.3.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://rust-lang.github.io/rust-clippy/master/#/approx_constant" target="_blank"><code>approx_constant</code></a>
+Sources: 
+- Same as: <a href="https://rust-lang.github.io/rust-clippy/master/#/approx_constant" target="_blank"><code>approx_constant</code></a>
 
 Use standard constants instead of approximated literals.
 

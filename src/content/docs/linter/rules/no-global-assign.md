@@ -8,7 +8,8 @@ title: noGlobalAssign (since v1.5.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://eslint.org/docs/latest/rules/no-global-assign" target="_blank"><code>no-global-assign</code></a>
+Sources: 
+- Same as: <a href="https://eslint.org/docs/latest/rules/no-global-assign" target="_blank"><code>no-global-assign</code></a>
 
 Disallow assignments to native objects and read-only global variables.
 

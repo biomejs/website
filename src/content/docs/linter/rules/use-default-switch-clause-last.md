@@ -8,7 +8,8 @@ title: useDefaultSwitchClauseLast (since v1.0.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://eslint.org/docs/latest/rules/default-case-last" target="_blank"><code>default-case-last</code></a>
+Sources: 
+- Same as: <a href="https://eslint.org/docs/latest/rules/default-case-last" target="_blank"><code>default-case-last</code></a>
 
 Enforce default clauses in switch statements to be last
 

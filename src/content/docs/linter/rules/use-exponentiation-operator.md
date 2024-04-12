@@ -8,7 +8,8 @@ title: useExponentiationOperator (since v1.0.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://eslint.org/docs/latest/rules/prefer-exponentiation-operator" target="_blank"><code>prefer-exponentiation-operator</code></a>
+Sources: 
+- Same as: <a href="https://eslint.org/docs/latest/rules/prefer-exponentiation-operator" target="_blank"><code>prefer-exponentiation-operator</code></a>
 
 Disallow the use of `Math.pow` in favor of the `**` operator.
 

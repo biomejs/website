@@ -8,7 +8,8 @@ title: noThisInStatic (since v1.3.1)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://github.com/mysticatea/eslint-plugin/blob/master/docs/rules/no-this-in-static.md" target="_blank"><code>no-this-in-static</code></a>
+Sources: 
+- Same as: <a href="https://github.com/mysticatea/eslint-plugin/blob/master/docs/rules/no-this-in-static.md" target="_blank"><code>@mysticatea/no-this-in-static</code></a>
 
 Disallow `this` and `super` in `static` contexts.
 

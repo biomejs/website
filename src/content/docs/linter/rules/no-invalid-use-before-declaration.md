@@ -8,7 +8,9 @@ title: noInvalidUseBeforeDeclaration (since v1.5.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://typescript-eslint.io/rules/no-use-before-define" target="_blank"><code>no-use-before-define</code></a>
+Sources: 
+- Same as: <a href="https://eslint.org/docs/latest/rules/no-use-before-define" target="_blank"><code>no-use-before-define</code></a>
+- Same as: <a href="https://typescript-eslint.io/rules/no-use-before-define" target="_blank"><code>@typescript-eslint/no-use-before-define</code></a>
 
 Disallow the use of variables and function parameters before their declaration
 

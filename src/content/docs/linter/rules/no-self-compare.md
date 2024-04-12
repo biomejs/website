@@ -8,7 +8,9 @@ title: noSelfCompare (since v1.0.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://eslint.org/docs/latest/rules/no-self-compare" target="_blank"><code>no-self-compare</code></a>
+Sources: 
+- Same as: <a href="https://eslint.org/docs/latest/rules/no-self-compare" target="_blank"><code>no-self-compare</code></a>
+- Same as: <a href="https://rust-lang.github.io/rust-clippy/master/#/eq_op" target="_blank"><code>eq_op</code></a>
 
 Disallow comparisons where both sides are exactly the same.
 

@@ -1,18 +1,15 @@
 ---
-title: noDoneCallback (not released)
+title: noDoneCallback (since v1.6.1)
 ---
 
 **Diagnostic Category: `lint/nursery/noDoneCallback`**
-
-:::danger
-This rule hasn't been released yet.
-:::
 
 :::caution
 This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::
 
-Source: <a href="https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-done-callback.md" target="_blank"><code>no-done-callback</code></a>
+Sources: 
+- Same as: <a href="https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-done-callback.md" target="_blank"><code>jest/no-done-callback</code></a>
 
 Disallow using a callback in asynchronous tests and hooks.
 

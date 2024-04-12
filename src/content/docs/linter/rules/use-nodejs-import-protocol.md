@@ -8,7 +8,8 @@ title: useNodejsImportProtocol (since v1.5.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-node-protocol.md" target="_blank"><code>prefer-node-protocol</code></a>
+Sources: 
+- Same as: <a href="https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-node-protocol.md" target="_blank"><code>unicorn/prefer-node-protocol</code></a>
 
 Enforces using the `node:` protocol for Node.js builtin modules.
 

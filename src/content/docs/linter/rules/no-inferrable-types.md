@@ -8,7 +8,8 @@ title: noInferrableTypes (since v1.0.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://typescript-eslint.io/rules/no-inferrable-types" target="_blank"><code>no-inferrable-types</code></a>
+Sources: 
+- Same as: <a href="https://typescript-eslint.io/rules/no-inferrable-types" target="_blank"><code>@typescript-eslint/no-inferrable-types</code></a>
 
 Disallow type annotations for variables, parameters, and class properties initialized with a literal expression.
 

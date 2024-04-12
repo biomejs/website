@@ -8,7 +8,8 @@ title: useRegexLiterals (since v1.3.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://eslint.org/docs/latest/rules/prefer-regex-literals" target="_blank"><code>prefer-regex-literals</code></a>
+Sources: 
+- Same as: <a href="https://eslint.org/docs/latest/rules/prefer-regex-literals" target="_blank"><code>prefer-regex-literals</code></a>
 
 Enforce the use of the regular expression literals instead of the RegExp constructor if possible.
 

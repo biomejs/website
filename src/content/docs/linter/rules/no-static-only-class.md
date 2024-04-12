@@ -8,7 +8,9 @@ title: noStaticOnlyClass (since v1.0.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://typescript-eslint.io/rules/no-extraneous-class" target="_blank"><code>no-extraneous-class</code></a>
+Sources: 
+- Same as: <a href="https://typescript-eslint.io/rules/no-extraneous-class" target="_blank"><code>@typescript-eslint/no-extraneous-class</code></a>
+- Same as: <a href="https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-static-only-class.md" target="_blank"><code>unicorn/no-static-only-class</code></a>
 
 This rule reports when a class has no non-static members, such as for a class used exclusively as a static namespace.
 

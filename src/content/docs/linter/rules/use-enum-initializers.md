@@ -8,7 +8,8 @@ title: useEnumInitializers (since v1.0.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://typescript-eslint.io/rules/prefer-enum-initializers" target="_blank"><code>prefer-enum-initializers</code></a>
+Sources: 
+- Same as: <a href="https://typescript-eslint.io/rules/prefer-enum-initializers" target="_blank"><code>@typescript-eslint/prefer-enum-initializers</code></a>
 
 Require that each enum member value be explicitly initialized.
 

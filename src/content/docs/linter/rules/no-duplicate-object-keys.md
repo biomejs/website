@@ -8,7 +8,8 @@ title: noDuplicateObjectKeys (since v1.0.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://eslint.org/docs/latest/rules/no-dupe-keys" target="_blank"><code>no-dupe-keys</code></a>
+Sources: 
+- Same as: <a href="https://eslint.org/docs/latest/rules/no-dupe-keys" target="_blank"><code>no-dupe-keys</code></a>
 
 Prevents object literals having more than one property declaration for the same name.
 

@@ -8,7 +8,8 @@ title: noExcessiveNestedTestSuites (since v1.6.0)
 This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::
 
-Source: <a href="https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/max-nested-describe.md" target="_blank"><code>max-nested-describe</code></a>
+Sources: 
+- Same as: <a href="https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/max-nested-describe.md" target="_blank"><code>jest/max-nested-describe</code></a>
 
 This rule enforces a maximum depth to nested `describe()` in test files.
 

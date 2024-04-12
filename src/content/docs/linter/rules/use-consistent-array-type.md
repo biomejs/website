@@ -4,7 +4,8 @@ title: useConsistentArrayType (since v1.5.0)
 
 **Diagnostic Category: `lint/style/useConsistentArrayType`**
 
-Source: <a href="https://typescript-eslint.io/rules/array-type" target="_blank"><code>array-type</code></a>
+Sources: 
+- Same as: <a href="https://typescript-eslint.io/rules/array-type" target="_blank"><code>@typescript-eslint/array-type</code></a>
 
 Require consistently using either `T[]` or `Array<T>`
 

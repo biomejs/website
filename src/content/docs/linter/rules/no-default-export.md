@@ -4,7 +4,8 @@ title: noDefaultExport (since v1.4.0)
 
 **Diagnostic Category: `lint/style/noDefaultExport`**
 
-Source: <a href="https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-default-export.md" target="_blank"><code>no-default-export</code></a>
+Sources: 
+- Same as: <a href="https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-default-export.md" target="_blank"><code>import/no-default-export</code></a>
 
 Disallow default exports.
 

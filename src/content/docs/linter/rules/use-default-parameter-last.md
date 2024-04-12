@@ -8,7 +8,9 @@ title: useDefaultParameterLast (since v1.0.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://eslint.org/docs/latest/rules/default-param-last" target="_blank"><code>default-param-last</code></a>
+Sources: 
+- Same as: <a href="https://eslint.org/docs/latest/rules/default-param-last" target="_blank"><code>default-param-last</code></a>
+- Same as: <a href="https://typescript-eslint.io/rules/default-param-last" target="_blank"><code>@typescript-eslint/default-param-last</code></a>
 
 Enforce default function parameters and optional function parameters to be last.
 

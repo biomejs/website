@@ -8,7 +8,8 @@ title: useSingleVarDeclarator (since v1.0.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://eslint.org/docs/latest/rules/one-var" target="_blank"><code>one-var</code></a>
+Sources: 
+- Same as: <a href="https://eslint.org/docs/latest/rules/one-var" target="_blank"><code>one-var</code></a>
 
 Disallow multiple variable declarations in the same variable statement
 

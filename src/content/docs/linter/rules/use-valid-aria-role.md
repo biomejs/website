@@ -8,7 +8,8 @@ title: useValidAriaRole (since v1.4.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/aria-role.md" target="_blank"><code>aria-role</code></a>
+Sources: 
+- Same as: <a href="https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/aria-role.md" target="_blank"><code>jsx-a11y/aria-role</code></a>
 
 Elements with ARIA roles must use a valid, non-abstract ARIA role.
 

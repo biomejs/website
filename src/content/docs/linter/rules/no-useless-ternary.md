@@ -8,7 +8,8 @@ title: noUselessTernary (since v1.5.0)
 This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::
 
-Source: <a href="https://eslint.org/docs/latest/rules/no-unneeded-ternary" target="_blank"><code>no-unneeded-ternary</code></a>
+Sources: 
+- Same as: <a href="https://eslint.org/docs/latest/rules/no-unneeded-ternary" target="_blank"><code>no-unneeded-ternary</code></a>
 
 Disallow ternary operators when simpler alternatives exist.
 

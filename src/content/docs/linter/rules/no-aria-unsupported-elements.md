@@ -8,7 +8,8 @@ title: noAriaUnsupportedElements (since v1.0.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/aria-unsupported-elements.md" target="_blank"><code>aria-unsupported-elements</code></a>
+Sources: 
+- Same as: <a href="https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/aria-unsupported-elements.md" target="_blank"><code>jsx-a11y/aria-unsupported-elements</code></a>
 
 Enforce that elements that do not support ARIA roles, states, and properties do not have those attributes.
 

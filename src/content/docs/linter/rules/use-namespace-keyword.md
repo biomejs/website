@@ -8,7 +8,8 @@ title: useNamespaceKeyword (since v1.0.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://typescript-eslint.io/rules/prefer-namespace-keyword" target="_blank"><code>prefer-namespace-keyword</code></a>
+Sources: 
+- Same as: <a href="https://typescript-eslint.io/rules/prefer-namespace-keyword" target="_blank"><code>@typescript-eslint/prefer-namespace-keyword</code></a>
 
 Require using the `namespace` keyword over the `module` keyword to declare TypeScript namespaces.
 

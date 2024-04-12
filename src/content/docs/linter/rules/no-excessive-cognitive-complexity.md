@@ -4,7 +4,8 @@ title: noExcessiveCognitiveComplexity (since v1.0.0)
 
 **Diagnostic Category: `lint/complexity/noExcessiveCognitiveComplexity`**
 
-Source: <a href="https://github.com/SonarSource/eslint-plugin-sonarjs/blob/HEAD/docs/rules/cognitive-complexity.md" target="_blank"><code>cognitive-complexity</code></a>
+Sources: 
+- Same as: <a href="https://github.com/SonarSource/eslint-plugin-sonarjs/blob/HEAD/docs/rules/cognitive-complexity.md" target="_blank"><code>sonarjs/cognitive-complexity</code></a>
 
 Disallow functions that exceed a given Cognitive Complexity score.
 

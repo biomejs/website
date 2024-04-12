@@ -8,7 +8,8 @@ title: noNonoctalDecimalEscape (since v1.0.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://eslint.org/docs/latest/rules/no-nonoctal-decimal-escape" target="_blank"><code>no-nonoctal-decimal-escape</code></a>
+Sources: 
+- Same as: <a href="https://eslint.org/docs/latest/rules/no-nonoctal-decimal-escape" target="_blank"><code>no-nonoctal-decimal-escape</code></a>
 
 Disallow `\8` and `\9` escape sequences in string literals.
 

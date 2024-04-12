@@ -8,7 +8,8 @@ title: noMisleadingCharacterClass (since v1.5.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://eslint.org/docs/latest/rules/no-misleading-character-class" target="_blank"><code>no-misleading-character-class</code></a>
+Sources: 
+- Same as: <a href="https://eslint.org/docs/latest/rules/no-misleading-character-class" target="_blank"><code>no-misleading-character-class</code></a>
 
 Disallow characters made with multiple code points in character class syntax.
 

@@ -8,7 +8,8 @@ title: noPrototypeBuiltins (since v1.0.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://eslint.org/docs/latest/rules/no-prototype-builtins" target="_blank"><code>no-prototype-builtins</code></a>
+Sources: 
+- Same as: <a href="https://eslint.org/docs/latest/rules/no-prototype-builtins" target="_blank"><code>no-prototype-builtins</code></a>
 
 Disallow direct use of `Object.prototype` builtins.
 

@@ -8,7 +8,8 @@ title: noGlobalEval (since v1.5.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://eslint.org/docs/latest/rules/no-eval" target="_blank"><code>no-eval</code></a>
+Sources: 
+- Same as: <a href="https://eslint.org/docs/latest/rules/no-eval" target="_blank"><code>no-eval</code></a>
 
 Disallow the use of global `eval()`.
 

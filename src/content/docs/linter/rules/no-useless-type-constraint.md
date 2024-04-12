@@ -8,7 +8,8 @@ title: noUselessTypeConstraint (since v1.0.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://typescript-eslint.io/rules/no-unnecessary-type-constraint" target="_blank"><code>no-unnecessary-type-constraint</code></a>
+Sources: 
+- Same as: <a href="https://typescript-eslint.io/rules/no-unnecessary-type-constraint" target="_blank"><code>@typescript-eslint/no-unnecessary-type-constraint</code></a>
 
 Disallow using `any` or `unknown` as type constraint.
 

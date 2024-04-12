@@ -8,7 +8,8 @@ title: noAriaHiddenOnFocusable (since v1.4.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/no-aria-hidden-on-focusable.md" target="_blank"><code>no-aria-hidden-on-focusable</code></a>
+Sources: 
+- Same as: <a href="https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/no-aria-hidden-on-focusable.md" target="_blank"><code>jsx-a11y/no-aria-hidden-on-focusable</code></a>
 
 Enforce that aria-hidden="true" is not set on focusable elements.
 

@@ -8,7 +8,8 @@ title: noSetterReturn (since v1.0.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://eslint.org/docs/latest/rules/no-setter-return" target="_blank"><code>no-setter-return</code></a>
+Sources: 
+- Same as: <a href="https://eslint.org/docs/latest/rules/no-setter-return" target="_blank"><code>no-setter-return</code></a>
 
 Disallow returning a value from a setter
 

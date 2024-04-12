@@ -8,7 +8,8 @@ title: noAssignInExpressions (since v1.0.0)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Inspired from: <a href="https://eslint.org/docs/latest/rules/no-cond-assign" target="_blank"><code>no-cond-assign</code></a>
+Sources: 
+- Inspired from: <a href="https://eslint.org/docs/latest/rules/no-cond-assign" target="_blank"><code>no-cond-assign</code></a>
 
 Disallow assignments in expressions.
 

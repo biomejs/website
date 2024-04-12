@@ -8,7 +8,8 @@ title: noUselessLoneBlockStatements (since v1.3.3)
 This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
-Source: <a href="https://eslint.org/docs/latest/rules/no-lone-blocks" target="_blank"><code>no-lone-blocks</code></a>
+Sources: 
+- Same as: <a href="https://eslint.org/docs/latest/rules/no-lone-blocks" target="_blank"><code>no-lone-blocks</code></a>
 
 Disallow unnecessary nested block statements.
 

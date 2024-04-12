@@ -8,7 +8,8 @@ title: noNamespaceImport (since v1.6.0)
 This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::
 
-Source: <a href="https://github.com/thepassle/eslint-plugin-barrel-files/blob/main/docs/rules/avoid-namespace-import.md" target="_blank"><code>avoid-namespace-import</code></a>
+Sources: 
+- Same as: <a href="https://github.com/thepassle/eslint-plugin-barrel-files/blob/main/docs/rules/avoid-namespace-import.md" target="_blank"><code>barrel-files/avoid-namespace-import</code></a>
 
 Disallow the use of namespace imports.
 
