@@ -27,6 +27,9 @@ async function getContributors(
 	retryTimes = 5,
 	retryInterval = 1000,
 ) {
+	/**
+	 * @type {Contributor[]}
+	 */
 	const contributors = [];
 	const nextPageUrlRegEx = /<([^<>]+)>; rel="next"/;
 	let link = "https://api.github.com/repos/biomejs/biome/contributors";
@@ -40,7 +43,7 @@ async function getContributors(
 					...(token && { Authorization: `token ${token}` }),
 				},
 			});
-			if (resp.ok && resp.status >= 200 && resp.status < 400) {
+			if (resp.ok) {
 				retryLeft = 0;
 			} else if (retryLeft === 0 || resp.statusText === "rate limit exceeded") {
 				throw new Error(
@@ -66,7 +69,10 @@ async function getContributors(
 	}
 	return contributors
 		.filter((contributor) => !contributor.login.endsWith("[bot]"))
-		.sort(({ contributions: c1 }, { contributions: c2 }) => c2 - c1);
+		.sort(
+			({ contributions: c1, id: id1 }, { contributions: c2, id: id2 }) =>
+				c2 - c1 || id1 - id2,
+		);
 }
 
 /**
@@ -149,7 +155,9 @@ function makeContributorsContent(contributors) {
  * @returns {Promise<void>}
  */
 async function main() {
-	const root = fileURLToPath(new URL("../src/components", import.meta.url));
+	const root = fileURLToPath(
+		new URL("../src/components/generated", import.meta.url),
+	);
 	const token = argv("token");
 	const contributors = await getContributors(
 		typeof token === "string" ? token : undefined,
