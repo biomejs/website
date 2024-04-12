@@ -3,17 +3,17 @@ use biome_cli::biome_command;
 use biome_configuration::PartialConfiguration;
 use biome_js_formatter::context::JsFormatOptions;
 use biome_js_parser::{parse_module, JsParserOptions};
+use biome_js_syntax::JsFileSource;
 use biome_json_formatter::context::JsonFormatOptions;
 use biome_json_formatter::format_node;
 use biome_json_parser::{parse_json, JsonParserOptions};
+use biome_rowan::AstNode;
 use biome_service::VERSION;
 use schemars::schema::{RootSchema, Schema, SchemaObject};
 use schemars::schema_for;
 use serde_json::to_string;
 use std::convert::TryInto;
 use std::fs;
-use biome_js_syntax::{JsFileSource};
-use biome_rowan::AstNode;
 
 const CHANGELOG_FRONTMATTER: &str = r#"---
 title: Changelog
