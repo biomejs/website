@@ -3,6 +3,7 @@ use std::path::{Path, PathBuf};
 
 pub mod lintdoc;
 pub mod rules_sources;
+pub mod website;
 
 pub fn project_root() -> PathBuf {
     Path::new(
