@@ -35,7 +35,6 @@ use std::{
 };
 
 pub fn generate_rule_docs() -> Result<()> {
-
     let root = project_root().join("src/content/docs/linter/rules");
     let reference_groups = project_root().join("src/components/generated/Groups.astro");
     let rules_sources = project_root().join("src/content/docs/linter/rules-sources.mdx");
@@ -379,11 +378,8 @@ fn generate_rule(
                 "<a href=\"{source_rule_url}\" target=\"_blank\"><code>{rule_name}</code></a>"
             )?;
         }
-            writeln!(content)?;
-
+        writeln!(content)?;
     }
-
-
 
     let summary = parse_documentation(group, rule, docs, &mut content, has_fix_kind)?;
 
@@ -397,7 +393,6 @@ fn generate_rule(
 
     Ok(summary)
 }
-
 
 /// Parse the documentation fragment for a lint rule (in markdown) and generates
 /// the content for the corresponding documentation page
