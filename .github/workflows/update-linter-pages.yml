@@ -1,0 +1,38 @@
+name: Update linter pages
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
+
+permissions:
+  actions: write
+  contents: write
+  pull-requests: write
+
+
+env:
+  RUST_LOG: info
+  RUST_BACKTRACE: 1
+
+jobs:
+  update-linter-pages:
+    name: Update linter pages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+      - name: Install rust toolchain
+        uses: moonrepo/setup-rust@b8edcc56aab474d90c7cf0bb8beeaf8334c15e9f # v1
+      - name: Update generate files
+        run: cargo run -p codegen rules
+      - name: Create pull request
+        id: create-pull-request
+        uses: peter-evans/create-pull-request@70a41aba780001da0a30141984ae2a0c95d8704e # v6
+        with:
+          branch: chore/update-generated-files
+          author: "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
+          title: "chore(ci): update generated files"
+          commit-message: "chore(ci): update generated files"
+          body: ""
+          labels: CI-Linter-Pages

@@ -63,7 +63,15 @@ First, make sure that you pull the latest version of the repository, then run th
 
 ```shell
 pnpm checkout:biome
-cargo run -p codegen
+
+# generates only rules files
+cargo run -p codegen rules
+
+# generates only release files
+cargo run -p codegen release-files
+
+# generates all files
+cargo run -p codegen all
 ```
 
 ## Build
