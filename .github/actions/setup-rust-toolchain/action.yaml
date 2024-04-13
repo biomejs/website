@@ -1,0 +1,14 @@
+name: Setup Rust toolchain
+description: Setup Rust toolchain for codegen
+runs:
+  using: composite
+  steps:
+    - name: Unset envs for cache hashing
+      shell: bash
+      run: |
+        echo "GITHUB_WORKFLOW=" >> $GITHUB_ENV
+        echo "GITHUB_JOB=" >> $GITHUB_ENV
+    - name: Install rust toolchain
+      uses: moonrepo/setup-rust@b8edcc56aab474d90c7cf0bb8beeaf8334c15e9f # v1
+      with:
+        cache-target: "../codegen/target/debug"

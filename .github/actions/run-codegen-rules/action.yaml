@@ -1,0 +1,14 @@
+name: Run codegen rules
+description: Run codegen rules
+runs:
+  using: composite
+  steps:
+    - name: Setup Rust toolchain
+      uses: ./.github/actions/setup-rust-toolchain
+    - name: Update rules
+      shell: bash
+      run: cargo run --manifest-path codegen/Cargo.toml rules
+      env:
+        RUST_LOG: info
+        RUST_BACKTRACE: "1"
+        CARGO_INCREMENTAL: "1"

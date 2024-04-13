@@ -33,3 +33,8 @@ jobs:
           commit-message: "chore(ci): update contributors"
           body: ""
           labels: CI-Contributors
+      - name: Auto merge
+        if: ${{ steps.create-pull-request.outputs.pull-request-operation != 'closed' && steps.create-pull-request.outputs.pull-request-number != '' }}
+        run: gh pr merge --squash --auto --delete-branch ${{ steps.create-pull-request.outputs.pull-request-number }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
