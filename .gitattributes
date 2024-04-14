@@ -1,4 +1,4 @@
 pnpm-lock.yaml linguist-generated=true text=auto eol=lf
 # pages and components that are auto generated
-website/src/pages/lint/rules/**/*.md linguist-generated=true text=auto eol=lf
-website/src/components/generated/.astro linguist-generated=true text=auto eol=lf
+src/pages/lint/rules/**/*.md linguist-generated=true text=auto eol=lf
+src/components/generated/**/*.astro linguist-generated=true text=auto eol=lf
