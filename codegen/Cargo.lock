@@ -298,6 +298,7 @@ dependencies = [
  "oxc_resolver",
  "schemars",
  "serde",
+ "serde_json",
  "termcolor",
  "unicode-width",
 ]
@@ -360,6 +361,15 @@ dependencies = [
  "schemars",
  "serde",
  "tracing",
+]
+
+[[package]]
+name = "biome_grit_patterns"
+version = "0.0.1"
+dependencies = [
+ "biome_console",
+ "biome_diagnostics",
+ "serde",
 ]
 
 [[package]]
@@ -623,6 +633,7 @@ dependencies = [
  "biome_flags",
  "biome_formatter",
  "biome_fs",
+ "biome_grit_patterns",
  "biome_js_analyze",
  "biome_js_formatter",
  "biome_js_parser",
