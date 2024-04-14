@@ -86,7 +86,7 @@ pub fn generate_files() -> anyhow::Result<()> {
 
         fs::write(
             project_root().join("src/content/docs/reference/cli.mdx"),
-            format!("{cli_content}"),
+            &cli_content,
         )?;
         let schema_root_folder = project_root().join("src/pages/schemas");
         let schema_version_folder = schema_root_folder.join(VERSION);

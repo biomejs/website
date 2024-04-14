@@ -59,19 +59,20 @@ Please make sure you [have the submodule source also cloned](#clone).
 The pages of the lint rules are all code generated from the repository `biomejs/biome`. To update the pages you have to install the Rust toolchain, because
 the code that does that requires reading the source code of the analyzer.
 
-First, make sure that you pull the latest version of the repository, then run the script via `cargo`:
+First, make sure that you've pulled the latest version of the repository and installed the required toolchains, then run the corresponding scripts from the **repo root** via `pnpm`:
 
 ```shell
-pnpm checkout:biome
+# make sure your submodule is checked out at the correct commit
+pnpm checkout:biome .
 
-# generates only rules files
-cargo run -p codegen rules
+# generate only rules files
+pnpm codegen:rules
 
-# generates only release files
-cargo run -p codegen release-files
+# generate only release files
+pnpm codegen:release-files
 
-# generates all files
-cargo run -p codegen all
+# generate all files
+pnpm codegen:all
 ```
 
 ## Build

@@ -1,0 +1,63 @@
+name: Pin submodule and run codegen
+on:
+  workflow_dispatch:
+    inputs:
+      commit-id:
+        description: |
+          Commit ID of the submodule.
+          If ommited, HEAD will be used.
+        required: false
+        type: string
+  repository_dispatch:
+    types: [biome-push-on-main-event]
+
+permissions:
+  actions: write
+  contents: write
+  pull-requests: write
+
+jobs:
+  pin-submodule-and-run-codegen:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: "pin-submodule-and-run-codegen-${{ github.event_name }}"
+      cancel-in-progress: true
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+        with:
+          submodules: true
+      - name: Get commit ID of submodule (workflow dispatch, empty)
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.commit-id == '' }}
+        working-directory: ./biome
+        run: echo "COMMIT_ID=$(git ls-remote origin main | cut -f 1)" >> $GITHUB_ENV
+      - name: Get commit ID of submodule (workflow dispatch, non-empty)
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.commit-id != '' }}
+        run: echo "COMMIT_ID=${{ github.event.inputs.commit-id }}" >> $GITHUB_ENV
+      - name: Get commit ID of submodule (repository dispatch)
+        if: ${{ github.event_name == 'repository_dispatch'}}
+        run: echo "COMMIT_ID=${{ github.event.client_payload.event.head_commit.id }}" >> "$GITHUB_ENV"
+      - name: Get short commit ID
+        run: echo "SHORT_COMMIT_ID=$(echo ${{ env.COMMIT_ID }} | cut -c 1-7)" >> "$GITHUB_ENV"
+      - name: Checkout submodule to the commit ID
+        working-directory: ./biome
+        run: |
+          git fetch origin main --unshallow
+          git checkout ${{ env.COMMIT_ID }}
+      - name: Run codegen rules
+        uses: ./.github/actions/run-codegen-rules
+      - name: Create pull request
+        id: create-pull-request
+        uses: peter-evans/create-pull-request@70a41aba780001da0a30141984ae2a0c95d8704e # v6
+        with:
+          branch: "chore/pin-submodule-and-run-codegen-${{ github.event_name }}"
+          author: "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
+          title: "chore(ci): pin submodule to `${{ env.SHORT_COMMIT_ID }}` and run codegen"
+          commit-message: "chore(ci): pin submodule to `${{ env.SHORT_COMMIT_ID }}` and run codegen"
+          body: "Pin submodule to [`${{ env.SHORT_COMMIT_ID }}`](https://github.com/biomejs/biome/commit/${{ env.COMMIT_ID }}) and run codegen."
+          labels: CI-Submodule
+      - name: Auto merge
+        if: ${{ steps.create-pull-request.outputs.pull-request-operation != 'closed' && steps.create-pull-request.outputs.pull-request-number != '' }}
+        run: gh pr merge --squash --auto --delete-branch ${{ steps.create-pull-request.outputs.pull-request-number }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

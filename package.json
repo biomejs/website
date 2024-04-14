@@ -16,7 +16,11 @@
 		"build:wasm-dev": "pnpm build:wasm-common --profiling ./biome/crates/biome_wasm --features format_css",
 		"preview": "astro preview",
 		"textlint": "textlint './src/content/docs/ja/**/*.{md,mdx}'",
-		"textlint:fix": "textlint --fix './src/content/docs/ja/**/*.{md,mdx}'"
+		"textlint:fix": "textlint --fix './src/content/docs/ja/**/*.{md,mdx}'",
+		"codegen": "cargo run --manifest-path codegen/Cargo.toml",
+		"codegen:rules": "pnpm codegen rules",
+		"codegen:release-files": "pnpm codegen release-files",
+		"codegen:all": "pnpm codegen all"
 	},
 	"devDependencies": {
 		"@astrojs/netlify": "5.2.0",

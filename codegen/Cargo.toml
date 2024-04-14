@@ -1,36 +1,35 @@
 [package]
-name = "codegen"
-version = "0.1.0"
-edition = "2021"
+name        = "codegen"
+version     = "0.1.0"
+edition     = "2021"
 description = "Crate used to generate pages from the Rust source code of Biome"
-publish = false
+publish     = false
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
-biome_analyze      = { workspace = true }
-biome_console      = { workspace = true }
-biome_css_analyze  = { workspace = true }
-biome_css_parser   = { workspace = true }
-biome_css_syntax   = { workspace = true }
-biome_diagnostics  = { workspace = true }
-biome_js_analyze   = { workspace = true }
-biome_js_parser    = { workspace = true }
-biome_js_syntax    = { workspace = true }
-biome_js_formatter = { workspace = true }
-biome_json_formatter = {workspace = true }
-biome_json_analyze = { workspace = true }
-biome_json_parser  = { workspace = true }
-biome_json_syntax  = { workspace = true }
-biome_service      = { workspace = true }
-biome_string_case  = { workspace = true }
-biome_configuration = { workspace = true }
-biome_cli = { workspace = true }
-biome_rowan =  { workspace = true }
-schemars = "0.8.16"
+biome_analyze        = { path = "../biome/crates/biome_analyze" }
+biome_cli            = { path = "../biome/crates/biome_cli" }
+biome_configuration  = { path = "../biome/crates/biome_configuration" }
+biome_console        = { path = "../biome/crates/biome_console" }
+biome_css_analyze    = { path = "../biome/crates/biome_css_analyze" }
+biome_css_parser     = { path = "../biome/crates/biome_css_parser" }
+biome_css_syntax     = { path = "../biome/crates/biome_css_syntax" }
+biome_diagnostics    = { path = "../biome/crates/biome_diagnostics" }
+biome_js_analyze     = { path = "../biome/crates/biome_js_analyze" }
+biome_js_formatter   = { path = "../biome/crates/biome_js_formatter" }
+biome_js_parser      = { path = "../biome/crates/biome_js_parser" }
+biome_js_syntax      = { path = "../biome/crates/biome_js_syntax" }
+biome_json_analyze   = { path = "../biome/crates/biome_json_analyze" }
+biome_json_formatter = { path = "../biome/crates/biome_json_formatter" }
+biome_json_parser    = { path = "../biome/crates/biome_json_parser" }
+biome_json_syntax    = { path = "../biome/crates/biome_json_syntax" }
+biome_rowan          = { path = "../biome/crates/biome_rowan" }
+biome_service        = { path = "../biome/crates/biome_service" }
+biome_string_case    = { path = "../biome/crates/biome_string_case" }
+anyhow               = "1.0.82"
+bpaf                 = { version = "0.9.11", features = ["docgen"] }
 # If you update this library, be aware of the breaking changes
-pulldown-cmark     = { version = "0.9", default-features = false }
-anyhow = "1.0.82"
-fs2 = "0.4.3"
-serde_json = "1.0.115"
-bpaf = {  version = "0.9.11", features = ["docgen"]}
+pulldown-cmark       = { version = "0.9", default-features = false }
+schemars             = "0.8.16"
+serde_json           = "1.0.115"
+
