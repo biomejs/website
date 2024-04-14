@@ -63,7 +63,7 @@ First, make sure that you've pulled the latest version of the repository and ins
 
 ```shell
 # make sure your submodule is checked out at the correct commit
-pnpm checkout:biome .
+pnpm init:biome
 
 # generate only rules files
 pnpm codegen:rules
