@@ -36,6 +36,12 @@ for (let i = 0; i < array.length; i++) {
 ### Valid
 
 ```jsx
+for (let item of array) {
+   console.log(item);
+ }
+```
+
+```jsx
 for (let i = 0; i < array.length; i++) {
    console.log(i, array[i]);
  }
