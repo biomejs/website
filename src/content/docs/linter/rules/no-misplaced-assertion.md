@@ -147,6 +147,12 @@ describe("describe", () => {
 })
 ```
 
+```jsx
+test.each([1, 2, 3])('test', (a, b, expected) => {
+    expect(a + b).toBe(expected)
+})
+```
+
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)
