@@ -366,7 +366,7 @@ export default defineConfig({
 				mastodon: "https://fosstodon.org/@biomejs",
 			},
 			editLink: {
-				baseUrl: "https://github.com/biomejs/biome/edit/main/website/",
+				baseUrl: "https://github.com/biomejs/website/edit/main/",
 			},
 			components: {
 				SiteTitle: "./src/components/starlight/SiteTitle.astro",
