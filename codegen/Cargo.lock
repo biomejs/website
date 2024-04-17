@@ -609,7 +609,7 @@ dependencies = [
  "biome_text_edit",
  "biome_text_size",
  "countme",
- "hashbrown 0.14.3",
+ "hashbrown 0.12.3",
  "memoffset",
  "rustc-hash",
  "serde",
