@@ -2,7 +2,7 @@
 	"name": "@biomejs/website",
 	"private": true,
 	"scripts": {
-		"init:biome": "git submodule update --init --recursive",
+		"init:biome": "git -c submodule.\"xtask/coverage/Typescript\".update=none -c submodule.\"xtask/coverage/babel\".update=none -c submodule.\"xtask/coverage/test262\".update=none submodule update --init --recursive",
 		"checkout:biome": "cd biome && git checkout",
 		"start": "astro dev",
 		"start:playground": "pnpm build:wasm-dev && pnpm start",
