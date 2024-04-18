@@ -11,6 +11,7 @@ cache-control = '''
       max-age=31536000000
       '''
 
+[[headers]]
 for = "/_astro/*"
 [headers.values]
 #  Multi-value headers are expressed with multi-line strings
