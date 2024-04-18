@@ -3,10 +3,21 @@ publish = "dist/"
 command = "pnpm i --frozen-lockfile && npm i -g wasm-pack && pnpm init:biome && pnpm build:wasm-dev && pnpm build:js"
 
 [[headers]]
-for = "/assets/biome*.wasm"
+for = "/assets/*"
 [headers.values]
 #  Multi-value headers are expressed with multi-line strings
 cache-control = '''
       public,
-      max-age=31536000000
+      max-age=31536000000,
+      immutable
+      '''
+
+[[headers]]
+for = "/_astro/*"
+[headers.values]
+#  Multi-value headers are expressed with multi-line strings
+cache-control = '''
+      public,
+      max-age=31536000000,
+      immutable
       '''
