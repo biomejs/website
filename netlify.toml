@@ -1,6 +1,6 @@
 [build]
 publish = "dist/"
-command = "pnpm i --frozen-lockfile && npm i -g wasm-pack && pnpm init:biome && pnpm build:wasm-dev && pnpm build:js"
+command = "pnpm i --frozen-lockfile && npm i -g wasm-pack && pnpm build:wasm-dev && pnpm build:js"
 
 [[headers]]
 for = "/assets/*"
