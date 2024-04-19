@@ -208,9 +208,13 @@ dependencies = [
  "biome_analyze",
  "biome_console",
  "biome_css_syntax",
+ "biome_deserialize",
+ "biome_deserialize_macros",
  "biome_diagnostics",
  "biome_rowan",
  "lazy_static",
+ "schemars",
+ "serde",
 ]
 
 [[package]]
