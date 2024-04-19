@@ -1,6 +1,6 @@
 [build]
 publish = "dist/"
-command = "pnpm i --frozen-lockfile && npm i -g wasm-pack && pnpm build:wasm-dev && pnpm build:js"
+command = "pnpm i --frozen-lockfile && ([ -f \"./skip_wasm_build\" ] && echo \"Skip WASM build\" || (npm i -g wasm-pack && pnpm build:wasm-dev)) && pnpm build:js"
 
 [[headers]]
 for = "/assets/*"
@@ -21,3 +21,6 @@ cache-control = '''
       max-age=31536000000,
       immutable
       '''
+
+[[plugins]]
+package = "./scripts/netlify/plugins/wasm-cache"
