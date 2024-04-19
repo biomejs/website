@@ -153,6 +153,13 @@ test.each([1, 2, 3])('test', (a, b, expected) => {
 })
 ```
 
+```jsx
+import { waitFor } from '@testing-library/react';
+await waitFor(() => {
+  expect(111).toBe(222);
+});
+```
+
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)
