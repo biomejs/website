@@ -27,7 +27,7 @@ Disallow duplicate selectors within keyframe blocks.
 
 <pre class="language-text"><code class="language-text">nursery/noDuplicateSelectorsKeyframeBlock.js:1:26 <a href="https://biomejs.dev/linter/rules/no-duplicate-selectors-keyframe-block">lint/nursery/noDuplicateSelectorsKeyframeBlock</a> ━━━━━━━━━━
 
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unexpected duplicate selector: </span><span style="color: Tomato;"><strong>from</strong></span>
+<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The duplicate keyframe selector is overwritten by later one.</span>
   
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>@keyframes foo { from {} from {} }
    <strong>   │ </strong>                         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
@@ -43,7 +43,7 @@ Disallow duplicate selectors within keyframe blocks.
 
 <pre class="language-text"><code class="language-text">nursery/noDuplicateSelectorsKeyframeBlock.js:1:26 <a href="https://biomejs.dev/linter/rules/no-duplicate-selectors-keyframe-block">lint/nursery/noDuplicateSelectorsKeyframeBlock</a> ━━━━━━━━━━
 
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unexpected duplicate selector: </span><span style="color: Tomato;"><strong>FROM</strong></span>
+<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The duplicate keyframe selector is overwritten by later one.</span>
   
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>@keyframes foo { from {} FROM {} }
    <strong>   │ </strong>                         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
@@ -59,7 +59,7 @@ Disallow duplicate selectors within keyframe blocks.
 
 <pre class="language-text"><code class="language-text">nursery/noDuplicateSelectorsKeyframeBlock.js:1:24 <a href="https://biomejs.dev/linter/rules/no-duplicate-selectors-keyframe-block">lint/nursery/noDuplicateSelectorsKeyframeBlock</a> ━━━━━━━━━━
 
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unexpected duplicate selector: </span><span style="color: Tomato;"><strong>0%</strong></span>
+<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The duplicate keyframe selector is overwritten by later one.</span>
   
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>@keyframes foo { 0% {} 0% {} }
    <strong>   │ </strong>                       <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
