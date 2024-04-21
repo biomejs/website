@@ -62,8 +62,8 @@ devDependencies:
     specifier: 3.6.0
     version: 3.6.0(@algolia/client-search@4.23.2)(@types/react@18.2.75)(react-dom@18.2.0)(react@18.2.0)(search-insights@2.13.0)
   '@fontsource/inter':
-    specifier: 5.0.17
-    version: 5.0.17
+    specifier: 5.0.18
+    version: 5.0.18
   '@types/node':
     specifier: 20.12.7
     version: 20.12.7
@@ -1366,8 +1366,8 @@ packages:
       unist-util-visit-parents: 5.1.3
     dev: true
 
-  /@fontsource/inter@5.0.17:
-    resolution: {integrity: sha512-2meBGx1kt7u5LwzGc5Sz5rka6ZDrydg6nT3x6Wkt310vHXUchIywrO8pooWMzZdHYcyFY/cv4lEpJZgMD94bCg==}
+  /@fontsource/inter@5.0.18:
+    resolution: {integrity: sha512-YCsoYPTcs713sI7tLtxaPrIhXAXvEetGg5Ry02ivA8qUOb3fQHojbK/X9HLD5OOKvFUNR2Ynkwb1kR1hVKQHpw==}
     dev: true
 
   /@img/sharp-darwin-arm64@0.33.3:
