@@ -31,5 +31,5 @@ bpaf                 = { version = "0.9.11", features = ["docgen"] }
 # If you update this library, be aware of the breaking changes
 pulldown-cmark       = { version = "0.9", default-features = false }
 schemars             = "0.8.16"
-serde_json           = "1.0.115"
+serde_json           = "1.0.116"
 
