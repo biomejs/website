@@ -15,31 +15,45 @@ New entries must be placed in a section entitled `Unreleased`.
 Read
 our [guidelines for writing a good changelog entry](https://github.com/biomejs/biome/blob/main/CONTRIBUTING.md#changelog).
 
-## Unreleased
+## 1.7.1 (2024-04-22)
 
-### Analyzer
-
-### CLI
-
-### Configuration
 
 ### Editors
+
+#### Bug fixes
+
+- Fix [#2403](https://github.com/biomejs/biome/issues/2403) by printing the errors in the client console. Contributed by @ematipico
 
 ### Formatter
 
 #### Bug fixes
 
-### JavaScript APIs
+- Add parentheses for the return expression that has leading multiline comments. [#2504](https://github.com/biomejs/biome/pull/2504). Contributed by @ah-yu
+
+- Correctly format dangling comments of continue statements. [#2555](https://github.com/biomejs/biome/pull/2555). Contributed by @ah-yu
 
 ### Linter
-
-#### New features
 
 #### Bug fixes
 
 - Fix case where `jsxRuntime` wasn't being respected by `useImportType` rule ([#2473](https://github.com/biomejs/biome/issues/2473)).Contributed by @arendjr
+- Fix [#2460](https://github.com/biomejs/biome/issues/2460), where the rule `noUselessFragments` was crashing the linter in some cases. Now cases like these are correctly handled:
+  ```jsx
+  callFunction(<>{bar}</>)
+  ```
+  Contributed by @ematipico
+- Fix [#2366](https://github.com/biomejs/biome/issues/2366), where `noDuplicateJsonKeys` incorrectly computed the kes to highlight. Contributed by @ematipico
+#### Enhancements
 
-### Parser
+- The rule `noMisplacedAssertions` now considers valid calling `expect` inside `waitFor`:
+  ```js
+  import { waitFor } from '@testing-library/react';
+
+  await waitFor(() => {
+    expect(111).toBe(222);
+  });
+  ```
+  Contributed by @ematipico
 
 
 ## 1.7.0 (2024-04-15)
@@ -1146,7 +1160,7 @@ Additionally, the following rules are now recommended:
 - Add rule [noExcessiveNestedTestSuites](https://biomejs.dev/linter/rules/no-excessive-nested-test-suites/).
   Contributed by @vasucp1207
 
-- Add rule [useJsxKeyInIterable](https://biomejs.dev/linter/rules/use-jsx-key-in-iterable/). 
+- Add rule [useJsxKeyInIterable](https://biomejs.dev/linter/rules/use-jsx-key-in-iterable/).
   Contributed by @vohoanglong0107
 
 #### Enhancements
