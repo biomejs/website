@@ -1205,7 +1205,7 @@ export function GET() {
 							"A list of global bindings that should be ignored by the analyzers\n\nIf defined here, they should not emit diagnostics.",
 						anyOf: [{ $ref: "#/definitions/StringSet" }, { type: "null" }],
 					},
-					jsx_runtime: {
+					jsxRuntime: {
 						description:
 							"Indicates the type of runtime or transformation used for interpreting JSX.",
 						anyOf: [{ $ref: "#/definitions/JsxRuntime" }, { type: "null" }],
@@ -1425,13 +1425,13 @@ export function GET() {
 						description:
 							"Indicates a modern or native JSX environment, that doesn't require special handling by Biome.",
 						type: "string",
-						enum: ["Transparent"],
+						enum: ["transparent"],
 					},
 					{
 						description:
 							"Indicates a classic React environment that requires the `React` import.\n\nCorresponds to the `react` value for the `jsx` option in TypeScript's `tsconfig.json`.\n\nThis option should only be necessary if you cannot upgrade to a React version that supports the new JSX runtime. For more information about the old vs. new JSX runtime, please see: <https://legacy.reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html>",
 						type: "string",
-						enum: ["ReactClassic"],
+						enum: ["reactClassic"],
 					},
 				],
 			},
