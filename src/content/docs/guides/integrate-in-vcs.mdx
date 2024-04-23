@@ -21,7 +21,9 @@ This configuration doesn't do **anything per se**. You have to opt-in new featur
 
 ### Use the ignore file
 
-This is a feature that allows Biome to read the ignore file of the VCS and ignore all the files and folders that were specified in it. This is an opt-in feature, and you have to enable the `vcs.useIgnoreFile` field:
+This is a feature that allows Biome to read the ignore file of the VCS and ignore all the files and folders that were specified in it.
+For now, Biome only **takes the ignore file in the working directory into account**.
+This is an opt-in feature, and you have to enable the `vcs.useIgnoreFile` field:
 
 ```json title="biome.json" ins={5}
 {
@@ -53,7 +55,7 @@ First, you have to update your configuration file and tell Biome what's the defa
 Then, add the `--changed` option to your command, to process only those files that your VCS acknowledged as "changed". Biome, with the help of the VCS, will determine the changed file from the branch `main` and your current revision:
 
 ```shell
-biome format --changed
+biome check --changed
 ```
 
 :::caution
@@ -63,5 +65,16 @@ Biome doesn't check what's changed, this means that even adding spaces or newlin
 Alternatively, you can use the option `--since` to specify an arbitrary branch. This option **takes precedence** over the option `vcs.defaultBranch`. For example, you might want to check your changes against the `next` branch:
 
 ```shell
-biome format --changed --since=next
+biome check --changed --since=next
 ```
+
+### Process only staged files
+
+Before committing your changes, you may want to check the formatting and lints files that have been added to the _index_, also known as _staged files_.
+Add the `--staged` option to your command, to process only those files:
+
+```shell
+biome check --staged
+```
+
+The `--staged' option is not available on the `ci' command because you are not expected to commit changes in a CI environment.
