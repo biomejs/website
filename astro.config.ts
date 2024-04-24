@@ -110,6 +110,10 @@ export default defineConfig({
 								"pt-BR": "Integrando o Biome com o seu VCS",
 							},
 						},
+						{
+							label: "Migrate from ESLint and Prettier",
+							link: "/guides/migrate-eslint-prettier",
+						},
 					],
 				},
 				{

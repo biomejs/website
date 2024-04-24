@@ -1515,6 +1515,18 @@ export function GET() {
 				},
 				additionalProperties: false,
 			},
+			NoCssEmptyBlockConfiguration: {
+				anyOf: [
+					{ $ref: "#/definitions/RulePlainConfiguration" },
+					{ $ref: "#/definitions/RuleWithNoCssEmptyBlockOptions" },
+				],
+			},
+			NoCssEmptyBlockOptions: {
+				type: "object",
+				required: ["allowComments"],
+				properties: { allowComments: { type: "boolean" } },
+				additionalProperties: false,
+			},
 			Nursery: {
 				description: "A list of rules that belong to this group",
 				type: "object",
@@ -1542,6 +1554,13 @@ export function GET() {
 							"Disallow the use of Math.min and Math.max to clamp a value where the result itself is constant.",
 						anyOf: [
 							{ $ref: "#/definitions/RuleConfiguration" },
+							{ type: "null" },
+						],
+					},
+					noCssEmptyBlock: {
+						description: "Disallow CSS empty blocks.",
+						anyOf: [
+							{ $ref: "#/definitions/NoCssEmptyBlockConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -1575,6 +1594,13 @@ export function GET() {
 							{ type: "null" },
 						],
 					},
+					noDuplicateSelectorsKeyframeBlock: {
+						description: "Disallow duplicate selectors within keyframe blocks.",
+						anyOf: [
+							{ $ref: "#/definitions/RuleConfiguration" },
+							{ type: "null" },
+						],
+					},
 					noEvolvingAny: {
 						description:
 							"Disallow variables from evolving into any type through reassignments.",
@@ -1590,6 +1616,14 @@ export function GET() {
 							{ type: "null" },
 						],
 					},
+					noImportantInKeyframe: {
+						description:
+							"Disallow invalid !important within keyframe declarations",
+						anyOf: [
+							{ $ref: "#/definitions/RuleConfiguration" },
+							{ type: "null" },
+						],
+					},
 					noMisplacedAssertion: {
 						description:
 							"Checks that the assertion function, for example expect, is placed inside an it() function call.",
@@ -1600,6 +1634,14 @@ export function GET() {
 					},
 					noNodejsModules: {
 						description: "Forbid the use of Node.js builtin modules.",
+						anyOf: [
+							{ $ref: "#/definitions/RuleConfiguration" },
+							{ type: "null" },
+						],
+					},
+					noReactSpecificProps: {
+						description:
+							"Prevents React-specific JSX properties from being used.",
 						anyOf: [
 							{ $ref: "#/definitions/RuleConfiguration" },
 							{ type: "null" },
@@ -1948,6 +1990,15 @@ export function GET() {
 				properties: {
 					level: { $ref: "#/definitions/RulePlainConfiguration" },
 					options: { $ref: "#/definitions/NamingConventionOptions" },
+				},
+				additionalProperties: false,
+			},
+			RuleWithNoCssEmptyBlockOptions: {
+				type: "object",
+				required: ["level", "options"],
+				properties: {
+					level: { $ref: "#/definitions/RulePlainConfiguration" },
+					options: { $ref: "#/definitions/NoCssEmptyBlockOptions" },
 				},
 				additionalProperties: false,
 			},
