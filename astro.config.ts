@@ -262,6 +262,10 @@ export default defineConfig({
 							label: "Git Hooks",
 							link: "/recipes/git-hooks",
 						},
+						{
+							label: "Renovate",
+							link: "/recipes/renovate",
+						},
 					],
 				},
 				{
