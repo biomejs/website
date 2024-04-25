@@ -5,14 +5,16 @@ description: How to use the Biome formatter.
 
 import PackageManagerBiomeCommand from "@/components/PackageManagerBiomeCommand.astro";
 
-Biome is an opinionated formatter.
+Biome is an opinionated formatter that [supports multiple languages](/internals/language-support).
 It follows a similar [philosophy to Prettier](https://prettier.io/docs/en/option-philosophy.html),
 only supporting a few options to avoid debates over styles, turning into debates over Biome options.
 It deliberately [resists the urge to add new options](https://github.com/prettier/prettier/issues/40) to prevent [bike-shed discussions](https://en.wikipedia.org/wiki/Law_of_triviality) in teams so they can focus on what really matters instead.
 
-## Use the formatter with the CLI
 
-By default, the formatter **checks** the code and emit diagnostics if there are changes in formatting:
+## CLI
+
+The following command checks the formatting of the files in the `src` directory.
+It emits text differences if it finds code that is not formatted.
 
 <PackageManagerBiomeCommand command="format ./src" />
 
@@ -20,21 +22,32 @@ If you want to **apply** the new formatting, pass the `--write` option:
 
 <PackageManagerBiomeCommand command="format --write ./src" />
 
-Use the  `--help` flag to know what are the available options:
+The command accepts a list of files and directories.
 
-<PackageManagerBiomeCommand command="format --help" />
+:::caution
+If you pass a glob as a parameter, your shell will expand it.
+The result of the expansion depends on your shell.
+For example, some shells don't support the recursive glob `**` or the alternation `{}` in the following command:
 
-Or check the [CLI reference section](/reference/cli#biomeformat).
+```shell
+biome format ./src/**/*.test.{js,ts}
+```
+
+Shell expansion has a performance cost and a limit on the number of files you can pass to the command.
+:::
+
+For more information about all the available options, check the [CLI reference](/reference/cli#biome-format).
+
 
 ## Options
 
 Biome provides some options to tune the behavior of its formatter.
 Differently from other tools, Biome separates language-agnostic options from language-specific options.
 
-The formatter options can be set on the [CLI](reference/cli/#biome-format) or in the `biome.json` configuration file.
+The formatter options can be set on the [CLI](reference/cli#biome-format) or in the `biome.json` configuration file.
 Biome doesn't support `.editorconfig` [yet](https://github.com/biomejs/biome/issues/1724).
 
-It's recommended to use the configuration file to ensure that both the Biome CLI and the Biome LSP apply the same options.
+It's recommended to use the [configuration](/guides/how-biome-works#configuration) file to ensure that both the Biome CLI and the Biome LSP apply the same options.
 The following defaults are applied:
 
 ```json title="biome.json"
@@ -74,7 +87,7 @@ The main language-agnostic options supported by the Biome formatter are:
 - line width (default: `80`): The column width at which Biome wraps code;
 - tab width (default: `2`): The number of spaces per indention level.
 
-See the [configuration reference](/reference/configuration/#formatter) for more details.
+See the [configuration reference](/reference/configuration#formatter) for more details.
 
 
 ## Ignoring Code
@@ -111,3 +124,30 @@ const expr =
     0,
   ];
 ```
+
+
+## Ignoring files
+
+Biome doesn't provide ignore comments that ignore an entire file.
+However, you can ignore a file using the Biome configuration file.
+
+You can ignore files for all tools, including the formatter,
+using the [`files.ignore` configuration](/guides/how-biome-works#include-and-ignore-explained).
+By default, Biome ignores the [protected files](/guides/how-biome-works#protected-files).
+
+If you want to exclude files from being formatted, you can use `formatter.ignore`:
+
+```json title="biome.jsonc"
+{
+  "files": {
+    // All tools, including the formatter, ignore following files
+    "ignore": ["dist/**"]
+  },
+  "formatter": {
+    // Only the formatter ignores the following files
+    "ignore": ["test/**"]
+  }
+}
+```
+
+Note that you can also [ignore files ignored by your VCS](/guides/integrate-in-vcs#use-the-ignore-file).

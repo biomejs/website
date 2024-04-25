@@ -36,6 +36,7 @@ use std::{
 
 pub fn generate_rule_docs() -> Result<()> {
     let root = project_root().join("src/content/docs/linter/rules");
+    let index_page = root.join("index.mdx");
     let reference_groups = project_root().join("src/components/generated/Groups.astro");
     let rules_sources = project_root().join("src/content/docs/linter/rules-sources.mdx");
     let reference_number_of_rules =
@@ -67,21 +68,16 @@ pub fn generate_rule_docs() -> Result<()> {
     writeln!(index, "---")?;
     writeln!(index)?;
 
-    writeln!(
+    write!(
         index,
-        "Below the list of rules supported by Biome, divided by group. Here's a legend of the emojis:"
-    )?;
-    writeln!(
-        index,
-        "- The emoji ✅ indicates that the rule is part of the recommended rules."
-    )?;
-    writeln!(
-        index,
-        "- The emoji 🔧 indicates that the rule provides a code action (fix) that is **safe** to apply."
-    )?;
-    writeln!(
-        index,
-        "- The emoji ⚠️ indicates that the rule provides a code action (fix) that is **unsafe** to apply."
+        "
+import RecommendedRules from \"@/components/generated/RecommendedRules.astro\";
+
+Below the list of rules supported by Biome, divided by group. Here's a legend of the emojis:
+- The emoji ✅ indicates that the rule is part of the recommended rules.
+- The emoji 🔧 indicates that the rule provides a code action (fix) that is **safe** to apply.
+- The emoji ⚠️ indicates that the rule provides a code action (fix) that is **unsafe** to apply.
+"
     )?;
 
     // Accumulate errors for all lint rules to print all outstanding issues on
@@ -217,11 +213,19 @@ pub fn generate_rule_docs() -> Result<()> {
     );
 
     let number_of_rules_buffer = format!(
-        "<!-- this file is auto generated, use `cargo lintdoc` to update it -->\n \
-    <p>Biome's linter has a total of <strong><a href='/linter/rules'>{} rules</a></strong><p>",
-        number_or_rules
+        "<!-- this file is auto generated, use `cargo lintdoc` to update it -->\n{number_or_rules}"
     );
-    fs::write(root.join("index.mdx"), index)?;
+    write!(
+        index,
+        "
+## Recommended rules
+
+The recommendd rules are:
+
+<RecommendedRules />
+"
+    )?;
+    fs::write(index_page, index)?;
     fs::write(reference_groups, reference_buffer)?;
     fs::write(reference_number_of_rules, number_of_rules_buffer)?;
     fs::write(reference_recommended_rules, recommended_rules_buffer)?;
