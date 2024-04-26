@@ -742,6 +742,9 @@ fn assert_lint(
         return Ok(());
     }
     let mut rule_has_code_action = false;
+    let mut settings = WorkspaceSettings::default();
+    let key = settings.insert_project(PathBuf::new());
+    settings.register_current_project(key);
     match test.block_type {
         BlockType::Js(source_type) => {
             let parse = biome_js_parser::parse(code, source_type, JsParserOptions::default());
@@ -755,9 +758,6 @@ fn assert_lint(
                 }
             } else {
                 let root = parse.tree();
-
-                let mut settings = WorkspaceSettings::default();
-                settings.insert_project(PathBuf::new());
 
                 let rule_filter = RuleFilter::Rule(group, rule);
                 let filter = AnalysisFilter {
@@ -834,8 +834,6 @@ fn assert_lint(
             } else {
                 let root = parse.tree();
 
-                let settings = WorkspaceSettings::default();
-
                 let rule_filter = RuleFilter::Rule(group, rule);
                 let filter = AnalysisFilter {
                     enabled_rules: Some(slice::from_ref(&rule_filter)),
@@ -899,8 +897,6 @@ fn assert_lint(
                 }
             } else {
                 let root = parse.tree();
-
-                let settings = WorkspaceSettings::default();
 
                 let rule_filter = RuleFilter::Rule(group, rule);
                 let filter = AnalysisFilter {
