@@ -3,6 +3,9 @@ title: Rules
 description: List of available lint rules.
 ---
 
+
+import RecommendedRules from "@/components/generated/RecommendedRules.astro";
+
 Below the list of rules supported by Biome, divided by group. Here's a legend of the emojis:
 - The emoji ✅ indicates that the rule is part of the recommended rules.
 - The emoji 🔧 indicates that the rule provides a code action (fix) that is **safe** to apply.
@@ -281,6 +284,11 @@ Rules that belong to this group <strong>are not subject to semantic version</str
 | [noRestrictedImports](/linter/rules/no-restricted-imports) | Disallow specified modules when loaded by import or require. |  |
 | [noUndeclaredDependencies](/linter/rules/no-undeclared-dependencies) | Disallow the use of dependencies that aren't specified in the <code>package.json</code>. |  |
 | [noUnknownUnit](/linter/rules/no-unknown-unit) | Disallow unknown CSS units. |  |
-| [useConsistentNewBuiltin](/linter/rules/use-consistent-new-builtin) | Enforce the use of new for all builtins, except <code>String</code>, <code>Number</code>, <code>Boolean</code>, <code>Symbol</code> and <code>BigInt</code>. | <span aria-label="The rule has an unsafe fix" role="img" title="The rule has an unsafe fix">⚠️ </span> |
 | [useImportRestrictions](/linter/rules/use-import-restrictions) | Disallows package private imports. |  |
 | [useSortedClasses](/linter/rules/use-sorted-classes) | Enforce the sorting of CSS utility classes. | <span aria-label="The rule has an unsafe fix" role="img" title="The rule has an unsafe fix">⚠️ </span> |
+
+## Recommended rules
+
+The recommendd rules are:
+
+<RecommendedRules />

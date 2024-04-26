@@ -111,8 +111,9 @@ export default defineConfig({
 							},
 						},
 						{
-							label: "Migrate from ESLint and Prettier",
+							label: "Migrate from ESLint & Prettier",
 							link: "/guides/migrate-eslint-prettier",
+							badge: "new",
 						},
 					],
 				},
@@ -194,6 +195,7 @@ export default defineConfig({
 								{
 									label: "Introduction",
 									link: "/linter",
+									badge: "updated",
 									translations: {
 										ja: "イントロダクション",
 										"zh-CN": "介绍",
