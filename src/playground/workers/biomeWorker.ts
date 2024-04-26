@@ -47,7 +47,7 @@ self.addEventListener("message", async (e) => {
 
 				workspace = new Workspace();
 				workspace.registerProjectFolder({
-					setAsCurrentWorkspace: true
+					setAsCurrentWorkspace: true,
 				});
 
 				self.postMessage({ type: "init", loadingState: LoadingState.Success });
