@@ -9,17 +9,12 @@ description: Configuring Renovate Bot
 
 Renovate has a [shared preset rule](https://docs.renovatebot.com/presets-regexManagers/#regexmanagersbiomeversions) that can help keep the `$schema` version in-sync and up-to-date within the `biome.json` configuration files.
 
-To use, simply add `regexManagers:biomeVersions` to your `extends` list.
+To use, add `regexManagers:biomeVersions` to your `extends` list.
 
 
 ```json title="renovate.json"
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    ...
-    "regexManagers:biomeVersions"
-    ...
-  ]
-  ...
+  "extends": ["regexManagers:biomeVersions"]
 }
 ```
