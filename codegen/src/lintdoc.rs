@@ -22,8 +22,9 @@ use biome_json_parser::JsonParserOptions;
 use biome_json_syntax::JsonLanguage;
 use biome_service::settings::WorkspaceSettings;
 use biome_string_case::Case;
-use pulldown_cmark::{html::write_html, CodeBlockKind, Event, LinkType, Parser, Tag};
+use pulldown_cmark::{html::write_html, CodeBlockKind, Event, LinkType, Parser, Tag, TagEnd};
 use std::error::Error;
+use std::path::PathBuf;
 use std::{
     collections::BTreeMap,
     fmt::Write as _,
@@ -33,7 +34,6 @@ use std::{
     slice,
     str::{self, FromStr},
 };
-use std::path::PathBuf;
 
 pub fn generate_rule_docs() -> Result<()> {
     let root = project_root().join("src/content/docs/linter/rules");
@@ -419,9 +419,13 @@ fn parse_documentation(
     // language supported for analysis
     let mut language = None;
     let mut list_order = None;
+
+    // Tracks the type and metadata of the link
+    let mut start_link_tag: Option<Tag> = None;
+
     for event in parser {
         if is_summary {
-            if matches!(event, Event::End(Tag::Paragraph)) {
+            if matches!(event, Event::End(TagEnd::Paragraph)) {
                 is_summary = false;
             } else {
                 summary.push(event.clone());
@@ -457,7 +461,7 @@ fn parse_documentation(
                 language = Some((test, String::new()));
             }
 
-            Event::End(Tag::CodeBlock(_)) => {
+            Event::End(TagEnd::CodeBlock) => {
                 writeln!(content, "```")?;
                 writeln!(content)?;
 
@@ -488,10 +492,10 @@ fn parse_documentation(
             }
 
             // Other markdown events are emitted as-is
-            Event::Start(Tag::Heading(level, ..)) => {
+            Event::Start(Tag::Heading { level, .. }) => {
                 write!(content, "{} ", "#".repeat(level as usize))?;
             }
-            Event::End(Tag::Heading(..)) => {
+            Event::End(TagEnd::Heading { .. }) => {
                 writeln!(content)?;
                 writeln!(content)?;
             }
@@ -501,7 +505,7 @@ fn parse_documentation(
                     is_summary = true;
                 }
             }
-            Event::End(Tag::Paragraph) => {
+            Event::End(TagEnd::Paragraph) => {
                 writeln!(content)?;
                 writeln!(content)?;
             }
@@ -509,27 +513,45 @@ fn parse_documentation(
             Event::Code(text) => {
                 write!(content, "`{text}`")?;
             }
-
-            Event::Start(Tag::Link(kind, _, _)) => match kind {
-                LinkType::Autolink => {
-                    write!(content, "<")?;
+            Event::Start(ref link_tag @ Tag::Link { link_type, .. }) => {
+                start_link_tag = Some(link_tag.clone());
+                match link_type {
+                    LinkType::Autolink => {
+                        write!(content, "<")?;
+                    }
+                    LinkType::Inline | LinkType::Reference | LinkType::Shortcut => {
+                        write!(content, "[")?;
+                    }
+                    _ => {
+                        panic!("unimplemented link type")
+                    }
                 }
-                LinkType::Inline | LinkType::Reference | LinkType::Shortcut => {
-                    write!(content, "[")?;
-                }
-                _ => {
-                    panic!("unimplemented link type")
-                }
-            },
-            Event::End(Tag::Link(LinkType::Autolink, url, _)) => {
-                write!(content, "{url}>")?;
             }
-            Event::End(Tag::Link(_, url, title)) => {
-                write!(content, "]({url}")?;
-                if !title.is_empty() {
-                    write!(content, " \"{title}\"")?;
+            Event::End(TagEnd::Link) => {
+                if let Some(Tag::Link {
+                    link_type,
+                    dest_url,
+                    title,
+                    ..
+                }) = start_link_tag
+                {
+                    match link_type {
+                        LinkType::Autolink => {
+                            write!(content, ">")?;
+                        }
+                        LinkType::Inline | LinkType::Reference | LinkType::Shortcut => {
+                            write!(content, "]({dest_url}")?;
+                            if !title.is_empty() {
+                                write!(content, " \"{title}\"")?;
+                            }
+                            write!(content, ")")?;
+                        }
+                        _ => {
+                            panic!("unimplemented link type")
+                        }
+                    }
+                    start_link_tag = None;
                 }
-                write!(content, ")")?;
             }
 
             Event::SoftBreak => {
@@ -542,7 +564,7 @@ fn parse_documentation(
                 }
             }
 
-            Event::End(Tag::List(_)) => {
+            Event::End(TagEnd::List(_)) => {
                 list_order = None;
                 writeln!(content)?;
             }
@@ -554,7 +576,7 @@ fn parse_documentation(
                 }
             }
 
-            Event::End(Tag::Item) => {
+            Event::End(TagEnd::Item) => {
                 list_order = list_order.map(|item| item + 1);
                 writeln!(content)?;
             }
@@ -563,7 +585,7 @@ fn parse_documentation(
                 write!(content, "**")?;
             }
 
-            Event::End(Tag::Strong) => {
+            Event::End(TagEnd::Strong) => {
                 write!(content, "**")?;
             }
 
@@ -571,7 +593,7 @@ fn parse_documentation(
                 write!(content, "_")?;
             }
 
-            Event::End(Tag::Emphasis) => {
+            Event::End(TagEnd::Emphasis) => {
                 write!(content, "_")?;
             }
 
@@ -579,7 +601,7 @@ fn parse_documentation(
                 write!(content, "~")?;
             }
 
-            Event::End(Tag::Strikethrough) => {
+            Event::End(TagEnd::Strikethrough) => {
                 write!(content, "~")?;
             }
 
@@ -587,7 +609,7 @@ fn parse_documentation(
                 write!(content, ">")?;
             }
 
-            Event::End(Tag::BlockQuote) => {
+            Event::End(TagEnd::BlockQuote) => {
                 writeln!(content)?;
             }
 
