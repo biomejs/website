@@ -47,14 +47,14 @@ var a = undefined;
 </code></pre>
 
 ```jsx
-let b = undefined, c = 1, d = undefined;
+let b = undefined, c = 1, d = 2;
 ```
 
 <pre class="language-text"><code class="language-text">nursery/noUselessUndefinedInitialization.js:1:7 <a href="https://biomejs.dev/linter/rules/no-useless-undefined-initialization">lint/nursery/noUselessUndefinedInitialization</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">It's not necessary to initialize </span><span style="color: Orange;"><strong>b</strong></span><span style="color: Orange;"> to undefined.</span>
   
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>let b = undefined, c = 1, d = undefined;
+<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>let b = undefined, c = 1, d = 2;
    <strong>   │ </strong>      <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
     <strong>2 │ </strong>
   
@@ -62,22 +62,8 @@ let b = undefined, c = 1, d = undefined;
   
 <strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Remove undefined initialization.</span>
   
-<strong>  </strong><strong>  1 │ </strong>let<span style="opacity: 0.8;">·</span>b<span style="opacity: 0.8;">·</span><span style="color: Tomato;">=</span><span style="opacity: 0.8;"><span style="color: Tomato;">·</span></span><span style="color: Tomato;">u</span><span style="color: Tomato;">n</span><span style="color: Tomato;">d</span><span style="color: Tomato;">e</span><span style="color: Tomato;">f</span><span style="color: Tomato;">i</span><span style="color: Tomato;">n</span><span style="color: Tomato;">e</span><span style="color: Tomato;">d</span>,<span style="opacity: 0.8;">·</span>c<span style="opacity: 0.8;">·</span>=<span style="opacity: 0.8;">·</span>1,<span style="opacity: 0.8;">·</span>d<span style="opacity: 0.8;">·</span>=<span style="opacity: 0.8;">·</span>undefined;
-<strong>  </strong><strong>    │ </strong>      <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span>                       
-nursery/noUselessUndefinedInitialization.js:1:29 <a href="https://biomejs.dev/linter/rules/no-useless-undefined-initialization">lint/nursery/noUselessUndefinedInitialization</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━
-
-<strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">It's not necessary to initialize </span><span style="color: Orange;"><strong>d</strong></span><span style="color: Orange;"> to undefined.</span>
-  
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>let b = undefined, c = 1, d = undefined;
-   <strong>   │ </strong>                            <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
-    <strong>2 │ </strong>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">A variable that is declared and not initialized to any value automatically gets the value of undefined.</span>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Remove undefined initialization.</span>
-  
-<strong>  </strong><strong>  1 │ </strong>let<span style="opacity: 0.8;">·</span>b<span style="opacity: 0.8;">·</span>=<span style="opacity: 0.8;">·</span>undefined,<span style="opacity: 0.8;">·</span>c<span style="opacity: 0.8;">·</span>=<span style="opacity: 0.8;">·</span>1,<span style="opacity: 0.8;">·</span>d<span style="opacity: 0.8;">·</span><span style="color: Tomato;">=</span><span style="opacity: 0.8;"><span style="color: Tomato;">·</span></span><span style="color: Tomato;">u</span><span style="color: Tomato;">n</span><span style="color: Tomato;">d</span><span style="color: Tomato;">e</span><span style="color: Tomato;">f</span><span style="color: Tomato;">i</span><span style="color: Tomato;">n</span><span style="color: Tomato;">e</span><span style="color: Tomato;">d</span>;
-<strong>  </strong><strong>    │ </strong>                            <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span> 
+<strong>  </strong><strong>  1 │ </strong>let<span style="opacity: 0.8;">·</span>b<span style="opacity: 0.8;">·</span><span style="color: Tomato;">=</span><span style="opacity: 0.8;"><span style="color: Tomato;">·</span></span><span style="color: Tomato;">u</span><span style="color: Tomato;">n</span><span style="color: Tomato;">d</span><span style="color: Tomato;">e</span><span style="color: Tomato;">f</span><span style="color: Tomato;">i</span><span style="color: Tomato;">n</span><span style="color: Tomato;">e</span><span style="color: Tomato;">d</span>,<span style="opacity: 0.8;">·</span>c<span style="opacity: 0.8;">·</span>=<span style="opacity: 0.8;">·</span>1,<span style="opacity: 0.8;">·</span>d<span style="opacity: 0.8;">·</span>=<span style="opacity: 0.8;">·</span>2;
+<strong>  </strong><strong>    │ </strong>      <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span>               
 </code></pre>
 
 ```jsx
