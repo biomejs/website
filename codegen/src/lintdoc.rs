@@ -551,6 +551,8 @@ fn parse_documentation(
                         }
                     }
                     start_link_tag = None;
+                } else {
+                    panic!("missing start link tag");
                 }
             }
 
