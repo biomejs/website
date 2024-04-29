@@ -29,7 +29,7 @@ biome_string_case    = { path = "../biome/crates/biome_string_case" }
 anyhow               = "1.0.82"
 bpaf                 = { version = "0.9.12", features = ["docgen"] }
 # If you update this library, be aware of the breaking changes
-pulldown-cmark       = { version = "0.9", default-features = false }
+pulldown-cmark       = "0.10.3"
 schemars             = "0.8.17"
 serde_json           = "1.0.116"
 
