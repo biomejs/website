@@ -61,7 +61,7 @@
 		"rehype-autolink-headings": "7.1.0",
 		"rehype-slug": "6.0.0",
 		"remark-toc": "9.0.0",
-		"sass": "1.74.1",
+		"sass": "1.75.0",
 		"sharp": "0.33.3",
 		"textlint": "14.0.4",
 		"textlint-rule-preset-jtf-style": "2.3.14",
