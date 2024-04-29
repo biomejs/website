@@ -72,7 +72,7 @@
 	},
 	"dependencies": {
 		"astro": "^4.5.18",
-		"astro-og-canvas": "^0.4.2",
+		"astro-og-canvas": "^0.5.0",
 		"canvaskit-wasm": "^0.39.1"
 	},
 	"packageManager": "pnpm@8.15.7"
