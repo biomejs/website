@@ -24,3 +24,6 @@ cache-control = '''
 
 [[plugins]]
 package = "./scripts/netlify/plugins/wasm-cache"
+
+[context.deploy-preview.environment]
+SKIP_OG = "true"
