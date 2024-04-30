@@ -1,12 +1,8 @@
 ---
-title: useArrayLiterals (not released)
+title: useArrayLiterals (since v1.7.2)
 ---
 
 **Diagnostic Category: `lint/nursery/useArrayLiterals`**
-
-:::danger
-This rule hasn't been released yet.
-:::
 
 :::caution
 This rule is part of the [nursery](/linter/rules/#nursery) group.
