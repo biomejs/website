@@ -1,12 +1,8 @@
 ---
-title: useConsistentNewBuiltin (not released)
+title: useConsistentBuiltinInstatiation (since v1.7.2)
 ---
 
-**Diagnostic Category: `lint/nursery/useConsistentNewBuiltin`**
-
-:::danger
-This rule hasn't been released yet.
-:::
+**Diagnostic Category: `lint/nursery/useConsistentBuiltinInstatiation`**
 
 :::caution
 This rule is part of the [nursery](/linter/rules/#nursery) group.
@@ -16,12 +12,12 @@ Sources:
 - Same as: <a href="https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/new-for-builtins.md" target="_blank"><code>unicorn/new-for-builtins</code></a>
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-new-wrappers" target="_blank"><code>no-new-wrappers</code></a>
 
-Enforce the use of new for all builtins, except `String`, `Number`, `Boolean`, `Symbol` and `BigInt`.
+Enforce the use of `new` for all builtins, except `String`, `Number`, `Boolean`, `Symbol` and `BigInt`.
 
 `new Builtin()` and `Builtin()` work the same, but new should be preferred for consistency with other constructors.
 Enforces the use of new for following builtins:
 
-- Object
+- AggregateError
 - Array
 - ArrayBuffer
 - BigInt64Array
@@ -29,39 +25,44 @@ Enforces the use of new for following builtins:
 - DataView
 - Date
 - Error
+- EvalError
+- FinalizationRegistry
 - Float32Array
 - Float64Array
 - Function
-- Int8Array
 - Int16Array
 - Int32Array
+- Int8Array
 - Map
-- WeakMap
-- Set
-- WeakSet
+- Object
 - Promise
+- Proxy
+- RangeError
+- ReferenceError
 - RegExp
-- Uint8Array
+- Set
+- SharedArrayBuffer
+- SyntaxError
+- TypeError
+- URIError
 - Uint16Array
 - Uint32Array
+- Uint8Array
 - Uint8ClampedArray
-- SharedArrayBuffer
-- Proxy
+- WeakMap
 - WeakRef
-- FinalizationRegistry
+- WeakSet
 
 Disallows the use of new for following builtins:
 
-- String
-- Number
-- Boolean
-
-These builtins are handled by [noInvalidBuiltin](https://biomejs.dev/linter/rules/no-invalid-new-builtin/) rule:
-
-- Symbol
 - BigInt
+- Boolean
+- Number
+- String
+- Symbol
 
->These should not use new as that would create object wrappers for the primitive values, which is not what you want. However, without new they can be useful for coercing a value to that type.
+>These should not use `new` as that would create object wrappers for the primitive values, which is not what you want.
+However, without `new` they can be useful for coercing a value to that type.
 
 
 ## Examples
@@ -72,7 +73,7 @@ These builtins are handled by [noInvalidBuiltin](https://biomejs.dev/linter/rule
 const text = new String(10);
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useConsistentNewBuiltin.js:1:14 <a href="https://biomejs.dev/linter/rules/use-consistent-new-builtin">lint/nursery/useConsistentNewBuiltin</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">nursery/useConsistentBuiltinInstatiation.js:1:14 <a href="https://biomejs.dev/linter/rules/use-consistent-new-builtin">lint/nursery/useConsistentBuiltinInstatiation</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>String()</strong></span><span style="color: Orange;"> instead of </span><span style="color: Orange;"><strong>new String()</strong></span><span style="color: Orange;">.</span>
   
@@ -90,7 +91,7 @@ const text = new String(10);
 const now = Date();
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useConsistentNewBuiltin.js:1:13 <a href="https://biomejs.dev/linter/rules/use-consistent-new-builtin">lint/nursery/useConsistentNewBuiltin</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">nursery/useConsistentBuiltinInstatiation.js:1:13 <a href="https://biomejs.dev/linter/rules/use-consistent-new-builtin">lint/nursery/useConsistentBuiltinInstatiation</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>new Date()</strong></span><span style="color: Orange;"> instead of </span><span style="color: Orange;"><strong>Date()</strong></span><span style="color: Orange;">.</span>
   
@@ -110,7 +111,7 @@ const map = Map([
 ]);
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useConsistentNewBuiltin.js:1:13 <a href="https://biomejs.dev/linter/rules/use-consistent-new-builtin">lint/nursery/useConsistentNewBuiltin</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">nursery/useConsistentBuiltinInstatiation.js:1:13 <a href="https://biomejs.dev/linter/rules/use-consistent-new-builtin">lint/nursery/useConsistentBuiltinInstatiation</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>new Map()</strong></span><span style="color: Orange;"> instead of </span><span style="color: Orange;"><strong>Map()</strong></span><span style="color: Orange;">.</span>
   
