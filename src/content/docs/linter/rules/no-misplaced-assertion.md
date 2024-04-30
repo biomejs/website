@@ -1,8 +1,12 @@
 ---
-title: noMisplacedAssertion (since v1.6.4)
+title: noMisplacedAssertion (not released)
 ---
 
 **Diagnostic Category: `lint/nursery/noMisplacedAssertion`**
+
+:::danger
+This rule hasn't been released yet.
+:::
 
 :::caution
 This rule is part of the [nursery](/linter/rules/#nursery) group.
@@ -20,6 +24,19 @@ The rule will check for the following assertion calls:
 - `expect`
 - `assert`
 - `assertEquals`
+
+However, the rule will ignore the following assertion calls:
+
+- `expect.any`
+- `expect.anything`
+- `expect.closeTo`
+- `expect.arrayContaining`
+- `expect.objectContaining`
+- `expect.stringContaining`
+- `expect.stringMatching`
+- `expect.extend`
+- `expect.addEqualityTesters`
+- `expect.addSnapshotSerializer`
 
 If the assertion function is imported, the rule will check if they are imported from:
 
