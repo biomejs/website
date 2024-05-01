@@ -24,7 +24,7 @@
 	},
 	"devDependencies": {
 		"@astrojs/netlify": "5.2.0",
-		"@astrojs/prism": "3.0.0",
+		"@astrojs/prism": "3.1.0",
 		"@astrojs/react": "3.3.1",
 		"@astrojs/rss": "4.0.5",
 		"@astrojs/starlight": "0.21.5",

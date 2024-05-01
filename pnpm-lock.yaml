@@ -20,8 +20,8 @@ devDependencies:
     specifier: 5.2.0
     version: 5.2.0(astro@4.5.18)
   '@astrojs/prism':
-    specifier: 3.0.0
-    version: 3.0.0
+    specifier: 3.1.0
+    version: 3.1.0
   '@astrojs/react':
     specifier: 3.3.1
     version: 3.3.1(@types/react-dom@18.3.0)(@types/react@18.3.1)(react-dom@18.3.1)(react@18.3.1)(vite@5.2.10)
@@ -328,7 +328,7 @@ packages:
   /@astrojs/markdown-remark@5.0.0:
     resolution: {integrity: sha512-QBXbxXZamVRoqCNN2gjDXa7qYPUkJZq7KYFfg3DX7rze3QL6xiz4N+Wg202dNPRaIkQa16BV6D8+EHibQFubRg==}
     dependencies:
-      '@astrojs/prism': 3.0.0
+      '@astrojs/prism': 3.1.0
       github-slugger: 2.0.0
       hast-util-from-html: 2.0.1
       hast-util-to-text: 4.0.1
@@ -386,9 +386,9 @@ packages:
       esbuild: 0.19.12
     dev: true
 
-  /@astrojs/prism@3.0.0:
-    resolution: {integrity: sha512-g61lZupWq1bYbcBnYZqdjndShr/J3l/oFobBKPA3+qMat146zce3nz2kdO4giGbhYDt4gYdhmoBz0vZJ4sIurQ==}
-    engines: {node: '>=18.14.1'}
+  /@astrojs/prism@3.1.0:
+    resolution: {integrity: sha512-Z9IYjuXSArkAUx3N6xj6+Bnvx8OdUSHA8YoOgyepp3+zJmtVYJIl/I18GozdJVW1p5u/CNpl3Km7/gwTJK85cw==}
+    engines: {node: ^18.17.1 || ^20.3.0 || >=21.0.0}
     dependencies:
       prismjs: 1.29.0
 
