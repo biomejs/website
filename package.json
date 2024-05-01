@@ -71,7 +71,7 @@
 		"vite-plugin-svgr": "4.2.0"
 	},
 	"dependencies": {
-		"astro": "^4.5.18",
+		"astro": "^4.7.0",
 		"astro-og-canvas": "^0.5.0",
 		"canvaskit-wasm": "^0.39.1"
 	},
