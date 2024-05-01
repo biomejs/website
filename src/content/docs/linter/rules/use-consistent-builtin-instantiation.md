@@ -1,8 +1,8 @@
 ---
-title: useConsistentBuiltinInstatiation (since v1.7.2)
+title: useConsistentBuiltinInstantiation (since v1.7.2)
 ---
 
-**Diagnostic Category: `lint/nursery/useConsistentBuiltinInstatiation`**
+**Diagnostic Category: `lint/nursery/useConsistentBuiltinInstantiation`**
 
 :::caution
 This rule is part of the [nursery](/linter/rules/#nursery) group.
@@ -73,7 +73,7 @@ However, without `new` they can be useful for coercing a value to that type.
 const text = new String(10);
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useConsistentBuiltinInstatiation.js:1:14 <a href="https://biomejs.dev/linter/rules/use-consistent-new-builtin">lint/nursery/useConsistentBuiltinInstatiation</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━
+<pre class="language-text"><code class="language-text">nursery/useConsistentBuiltinInstantiation.js:1:14 <a href="https://biomejs.dev/linter/rules/use-consistent-new-builtin">lint/nursery/useConsistentBuiltinInstantiation</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>String()</strong></span><span style="color: Orange;"> instead of </span><span style="color: Orange;"><strong>new String()</strong></span><span style="color: Orange;">.</span>
   
@@ -91,7 +91,7 @@ const text = new String(10);
 const now = Date();
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useConsistentBuiltinInstatiation.js:1:13 <a href="https://biomejs.dev/linter/rules/use-consistent-new-builtin">lint/nursery/useConsistentBuiltinInstatiation</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━
+<pre class="language-text"><code class="language-text">nursery/useConsistentBuiltinInstantiation.js:1:13 <a href="https://biomejs.dev/linter/rules/use-consistent-new-builtin">lint/nursery/useConsistentBuiltinInstantiation</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>new Date()</strong></span><span style="color: Orange;"> instead of </span><span style="color: Orange;"><strong>Date()</strong></span><span style="color: Orange;">.</span>
   
@@ -111,7 +111,7 @@ const map = Map([
 ]);
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useConsistentBuiltinInstatiation.js:1:13 <a href="https://biomejs.dev/linter/rules/use-consistent-new-builtin">lint/nursery/useConsistentBuiltinInstatiation</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━
+<pre class="language-text"><code class="language-text">nursery/useConsistentBuiltinInstantiation.js:1:13 <a href="https://biomejs.dev/linter/rules/use-consistent-new-builtin">lint/nursery/useConsistentBuiltinInstantiation</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>new Map()</strong></span><span style="color: Orange;"> instead of </span><span style="color: Orange;"><strong>Map()</strong></span><span style="color: Orange;">.</span>
   
