@@ -5,7 +5,6 @@ use biome_js_formatter::context::JsFormatOptions;
 use biome_js_parser::{parse_module, JsParserOptions};
 use biome_js_syntax::JsFileSource;
 use biome_json_formatter::context::JsonFormatOptions;
-use biome_json_formatter::format_node;
 use biome_json_parser::{parse_json, JsonParserOptions};
 use biome_rowan::AstNode;
 use biome_service::VERSION;
@@ -15,7 +14,66 @@ use serde_json::to_string;
 use std::convert::TryInto;
 use std::fs;
 
-const CHANGELOG_FRONTMATTER: &str = r#"---
+/// Generates the following files:
+///
+/// - Default configuration file: `src/components/generated/DefaultConfiguration.mdx`
+/// - Changelog file: `src/content/docs/internals/changelog.md`
+/// - CLI doc file: `src/content/docs/reference/cli.mdx`
+/// - Schema js file: `src/pages/schemas/<version>/schema.json.js`
+///
+/// To generate the CLI doc and the schema of the current version,
+/// pass the environment variable `BIOME_VERSION`
+///
+pub fn generate_files() -> anyhow::Result<()> {
+    generate_default_configuration()?;
+    generate_changelog()?;
+
+    if VERSION != "0.0.0" {
+        generate_cli_doc()?;
+        generate_schema_js()?;
+    }
+
+    Ok(())
+}
+
+/// Generates the default configuration file: `src/components/generated/DefaultConfiguration.mdx`
+pub(crate) fn generate_default_configuration() -> anyhow::Result<()> {
+    let default_configuration_path =
+        project_root().join("src/components/generated/DefaultConfiguration.mdx");
+
+    let default_configuration_printed = biome_json_formatter::format_node(
+        JsonFormatOptions::default()
+            .with_line_width(60.try_into().expect("Line width must be within range.")),
+        parse_json(
+            &serde_json::to_string(&PartialConfiguration::init())?,
+            JsonParserOptions::default(),
+        )
+        .tree()
+        .syntax(),
+    )?
+    .print()?;
+
+    fs::write(
+        default_configuration_path,
+        format!(
+            r#"
+```json title="biome.json"
+{}
+```
+"#,
+            default_configuration_printed.as_code(),
+        ),
+    )?;
+
+    Ok(())
+}
+
+/// Generates the changelog file: `src/content/docs/internals/changelog.md`
+pub(crate) fn generate_changelog() -> anyhow::Result<()> {
+    let changelog_source_path = project_root().join("biome/CHANGELOG.md");
+    let changelog_target_path = project_root().join("src/content/docs/internals/changelog.md");
+
+    const CHANGELOG_FRONTMATTER: &str = r#"---
 title: Changelog
 description: The changelog of Biome
 tableOfContents:
@@ -23,108 +81,92 @@ tableOfContents:
 ---
 "#;
 
-/// Generates the following files:
-/// - src/content/docs/internals/changelog.md
-/// - src/components/generated/DefaultConfiguration.mdx
-/// - src/content/docs/reference/cli.mdx
-/// - the schema of the current version
-///
-/// To generate the schema of the current version, pass the environment variable `BIOME_VERSION`
-pub fn generate_files() -> anyhow::Result<()> {
-    let schema_content = generate_configuration_schema()?;
-    let changelog = fs::read_to_string(project_root().join("biome/CHANGELOG.md"))?;
-    let default_configuration =
-        project_root().join("src/components/generated/DefaultConfiguration.mdx");
-    fs::remove_file(project_root().join("src/content/docs/internals/changelog.md")).ok();
-    let changelog = format!("{CHANGELOG_FRONTMATTER}{changelog}");
+    let changelog_source_content = fs::read_to_string(changelog_source_path)?;
+    let changelog_target_content = format!("{CHANGELOG_FRONTMATTER}{changelog_source_content}");
 
-    let configuration_content = serde_json::to_string(&PartialConfiguration::init()).unwrap();
-    let tree = parse_json(&configuration_content, JsonParserOptions::default());
-    let formatted = format_node(
-        JsonFormatOptions::default().with_line_width(60.try_into().unwrap()),
-        tree.tree().syntax(),
-    )
-    .unwrap()
-    .print()
-    .unwrap();
-
-    let configuration = format!(
-        r#"
-```json title="biome.json"
-{}
-```
-"#,
-        formatted.as_code()
-    );
-
-    fs::write(default_configuration, configuration)?;
-
-    fs::write(
-        project_root().join("src/content/docs/internals/changelog.md"),
-        changelog,
-    )?;
-
-    if VERSION != "0.0.0" {
-        let parser = biome_command();
-        let markdown = parser.render_markdown("biome");
-        let mut cli_content =
-            fs::read_to_string(project_root().join("src/content/docs/reference/cli.mdx"))?;
-
-        let start = "\n[//]: # (Start-codegen)\n";
-        let end = "\n[//]: # (End-codegen)";
-
-        debug_assert!(cli_content.contains(start));
-        debug_assert!(cli_content.contains(end));
-
-        let start_index = cli_content
-            .find(start)
-            .expect("To contain start placeholder")
-            + start.len();
-        let end_index = cli_content.find(end).expect("To contain end placeholder");
-
-        cli_content.replace_range(start_index..end_index, &markdown);
-
-        fs::write(
-            project_root().join("src/content/docs/reference/cli.mdx"),
-            &cli_content,
-        )?;
-        let schema_root_folder = project_root().join("src/pages/schemas");
-        let schema_version_folder = schema_root_folder.join(VERSION);
-        let schema_js_file = schema_version_folder.join("schema.json.js");
-        if schema_version_folder.exists() {
-            fs::remove_file(schema_js_file.clone())?;
-            fs::remove_dir(schema_version_folder.clone())?;
-        }
-        fs::create_dir(schema_version_folder.clone())?;
-        let mut content = String::new();
-        content.push_str(
-            r#"// Run `BIOME_VERSION=<version number> cargo codegen-website
-// to generate a new schema
-export function GET() {"#,
-        );
-        content.push_str(&format!("const schema  = {};", schema_content));
-        content.push_str(
-            r#"return new Response(JSON.stringify(schema), {
-            status: 200,
-            headers: {
-                "content-type": "application/json"
-            }
-        })
-    }"#,
-        );
-        let node = parse_module(&content, JsParserOptions::default());
-        let result = biome_js_formatter::format_node(
-            JsFormatOptions::new(JsFileSource::js_module()),
-            node.tree().syntax(),
-        )
-        .unwrap();
-        fs::write(schema_js_file.clone(), result.print().unwrap().as_code())?;
-    }
+    fs::write(changelog_target_path, changelog_target_content)?;
 
     Ok(())
 }
 
-pub(crate) fn generate_configuration_schema() -> anyhow::Result<String> {
+/// Generates the CLI doc file: `src/content/docs/reference/cli.mdx`
+pub(crate) fn generate_cli_doc() -> anyhow::Result<()> {
+    let cli_doc_path = project_root().join("src/content/docs/reference/cli.mdx");
+
+    let mut cli_doc_content = fs::read_to_string(&cli_doc_path)?;
+
+    let start = "\n[//]: # (Start-codegen)\n";
+    let end = "\n[//]: # (End-codegen)";
+
+    debug_assert!(cli_doc_content.contains(start));
+    debug_assert!(cli_doc_content.contains(end));
+
+    let start_index = cli_doc_content
+        .find(start)
+        .expect("CLI doc should contain a start placeholder.")
+        + start.len();
+    let end_index = cli_doc_content
+        .find(end)
+        .expect("CLI doc should contain an end placeholder.");
+
+    cli_doc_content.replace_range(
+        start_index..end_index,
+        &biome_command().render_markdown("biome"),
+    );
+
+    fs::write(cli_doc_path, &cli_doc_content)?;
+
+    Ok(())
+}
+
+/// Generates the schema js file: `src/pages/schemas/<version>/schema.json.js`
+pub(crate) fn generate_schema_js() -> anyhow::Result<()> {
+    let schema_root_folder_path = project_root().join("src/pages/schemas");
+    let schema_version_folder_path = schema_root_folder_path.join(VERSION);
+    let schema_js_path = schema_version_folder_path.join("schema.json.js");
+
+    if schema_version_folder_path.exists() {
+        fs::remove_file(&schema_js_path)?;
+        fs::remove_dir(&schema_version_folder_path)?;
+    }
+
+    fs::create_dir(&schema_version_folder_path)?;
+
+    let mut schema_js_content = String::new();
+    schema_js_content.push_str(
+        r#"// Run `BIOME_VERSION=<version number> pnpm codegen:release-files
+// to generate a new schema
+export function GET() {"#,
+    );
+    schema_js_content.push_str(&format!(
+        "const schema = {};",
+        get_configuration_schema_content()?
+    ));
+    schema_js_content.push_str(
+        r#"return new Response(JSON.stringify(schema), {
+    status: 200,
+    headers: {
+        "content-type": "application/json"
+    }
+})
+}"#,
+    );
+
+    let schema_js_printed = biome_js_formatter::format_node(
+        JsFormatOptions::new(JsFileSource::js_module()),
+        parse_module(&schema_js_content, JsParserOptions::default())
+            .tree()
+            .syntax(),
+    )?
+    .print()?;
+
+    fs::write(&schema_js_path, schema_js_printed.as_code())?;
+
+    Ok(())
+}
+
+/// Get the content (stringified JSON) of the configuration schema
+pub(crate) fn get_configuration_schema_content() -> anyhow::Result<String> {
     let schema = rename_partial_references_in_schema(schema_for!(PartialConfiguration));
 
     let json_schema = to_string(&schema)?;
