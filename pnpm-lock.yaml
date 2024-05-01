@@ -9,8 +9,8 @@ dependencies:
     specifier: ^4.5.18
     version: 4.5.18(@types/node@20.12.7)(sass@1.75.0)(typescript@5.4.5)
   astro-og-canvas:
-    specifier: ^0.4.2
-    version: 0.4.2(astro@4.5.18)
+    specifier: ^0.5.0
+    version: 0.5.0(astro@4.5.18)
   canvaskit-wasm:
     specifier: ^0.39.1
     version: 0.39.1
@@ -2469,14 +2469,14 @@ packages:
       remark-expressive-code: 0.33.5
     dev: true
 
-  /astro-og-canvas@0.4.2(astro@4.5.18):
-    resolution: {integrity: sha512-OQsH6Gr2HX9ZRHdVy2OcXVBIPI65WvEtLG/60krnphh8d3ldhuAFunymYaNGcrdSZcYgXkHWejbPt//3qaRidA==}
+  /astro-og-canvas@0.5.0(astro@4.5.18):
+    resolution: {integrity: sha512-nrwZpFL9d6tVJRKV5OLZa3xSSh+Cbaaoay/R9jAgHCrJ79WNyN2rgRT/+wtP1O/bCQ+wVP3GC3mBQN7vogImvg==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       astro: ^3.0.0 || ^4.0.0
     dependencies:
       astro: 4.5.18(@types/node@20.12.7)(sass@1.75.0)(typescript@5.4.5)
-      canvaskit-wasm: 0.37.2
+      canvaskit-wasm: 0.39.1
       deterministic-object-hash: 2.0.2
       entities: 4.5.0
     dev: false
@@ -2747,10 +2747,6 @@ packages:
 
   /caniuse-lite@1.0.30001607:
     resolution: {integrity: sha512-WcvhVRjXLKFB/kmOFVwELtMxyhq3iM/MvmXcyCe2PNf166c39mptscOc/45TTS96n2gpNV2z7+NakArTWZCQ3w==}
-
-  /canvaskit-wasm@0.37.2:
-    resolution: {integrity: sha512-212imazRF98gLOTiU4JAXM7xDvaknI7jaPtAg4ETXGW5rLQs6pomgIvVPUSfoKnQVTdGgzj+B4e+/u0Da20aGg==}
-    dev: false
 
   /canvaskit-wasm@0.39.1:
     resolution: {integrity: sha512-Gy3lCmhUdKq+8bvDrs9t8+qf7RvcjuQn+we7vTVVyqgOVO1UVfHpsnBxkTZw+R4ApEJ3D5fKySl9TU11hmjl/A==}
