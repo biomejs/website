@@ -1,0 +1,21 @@
+name: File change guard
+
+on:
+  pull_request:
+
+permissions:
+  pull-requests: read
+
+jobs:
+  file-change-guard:
+    name: File change guard
+    runs-on: ubuntu-latest
+    if: github.repository_owner == 'biomejs'
+    steps:
+      - name: Prevent submodule changes by users
+        uses: xalvarez/prevent-file-change-action@ee75107299859769dd0d6707cfda13e983899483 # v1.6.0
+        with:
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          pattern: ^biome$
+          trustedAuthors: github-actions[bot]
+          allowNewFiles: false
