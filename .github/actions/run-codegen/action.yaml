@@ -1,0 +1,37 @@
+name: Run codegen
+description: Run codegen
+runs:
+  using: composite
+  steps:
+    - name: Setup Rust toolchain
+      uses: ./.github/actions/setup-rust-toolchain
+    - name: Check new version
+      shell: bash
+      run: |
+        version=$(git log -1 --format=%B | sed -n 's/.*release: v\([0-9]*\.[0-9]*\.[0-9]*\).*/\1/p')
+        if [[ -z "$version" ]]; then
+          echo "No version found"
+          echo "VERSION_CHANGED=false" >> $GITHUB_ENV
+        else
+          echo "Version found: $version"
+          echo "VERSION_CHANGED=true" >> $GITHUB_ENV
+          echo "NEW_VERSION=$version" >> $GITHUB_ENV
+        fi
+      working-directory: ./biome
+    - name: Codegen rules
+      if: ${{ env.VERSION_CHANGED == 'false' }}
+      shell: bash
+      run: cargo run --manifest-path codegen/Cargo.toml rules
+      env:
+        RUST_LOG: info
+        RUST_BACKTRACE: "1"
+        CARGO_INCREMENTAL: "1"
+    - name: Codegen all
+      if: ${{ env.VERSION_CHANGED == 'true' }}
+      shell: bash
+      run: cargo run --manifest-path codegen/Cargo.toml all
+      env:
+        RUST_LOG: info
+        RUST_BACKTRACE: "1"
+        CARGO_INCREMENTAL: "1"
+        BIOME_VERSION: ${{ env.NEW_VERSION }}
