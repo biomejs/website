@@ -1,0 +1,31 @@
+name: Forward preview link
+on:
+  issue_comment:
+    types: [created, edited]
+
+env:
+  BIOME_MAIN_REPO: Sec-ant/biome
+  BIOME_FORWARD_PREVIEW_LINK_EVENT_TYPE: biome-forward-preview-link-event
+
+jobs:
+  forward-preview-link:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: "forward-preview-link-${{ github.event.issue.id }}"
+      cancel-in-progress: true
+    if: ${{ github.event.issue.pull_request && contains(github.event.issue.labels.*.name, 'CI-Preview') && github.event.comment.user.login == 'netlify[bot]' }}
+    steps:
+      - name: Get PR number
+        run: echo "PR_NUMBER=$(echo '${{ github.event.issue.title }}' | grep -P 'PR (\d+)' -o | cut -d ' ' -f 2)" >> $GITHUB_ENV
+      - name: Forward preview link
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.BIOME_REPOSITORY_DISPATCH }}
+          repository: ${{ env.BIOME_MAIN_REPO }}
+          event-type: ${{ env.BIOME_FORWARD_PREVIEW_LINK_EVENT_TYPE }}
+          client-payload: |-
+            {
+              "pr_number": "${{ env.PR_NUMBER }}",
+              "body": ${{ toJson(github.event.comment.body) }},
+              "html_url": "${{ github.event.comment.html_url }}"
+            }

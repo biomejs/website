@@ -1,0 +1,65 @@
+name: Preview deployment
+on:
+  repository_dispatch:
+    types: [biome-pull-request-event]
+
+permissions:
+  actions: write
+  contents: write
+  pull-requests: write
+
+jobs:
+  close-pull-request:
+    if: ${{ github.event.client_payload.event.action == 'closed' }}
+    runs-on: ubuntu-latest
+    concurrency:
+      group: "preview-deployment-${{ github.event_name }}"
+      cancel-in-progress: true
+    steps:
+      - name: Close pull request
+        run: gh pr close "chore/preview-pr-${{ github.event.client_payload.event.pull_request.number }}" -d
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  preview-deployment:
+    if: ${{ github.event.client_payload.event.action != 'closed' }}
+    runs-on: ubuntu-latest
+    concurrency:
+      group: "preview-deployment-${{ github.event_name }}"
+      cancel-in-progress: true
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+        with:
+          submodules: true
+      - name: Set variables
+        run: |
+          echo "HEAD_REF=${{ github.event.client_payload.event.pull_request.head.ref }}" >> "$GITHUB_ENV"
+          echo "COMMIT_ID=${{ github.event.client_payload.event.pull_request.head.sha }}" >> "$GITHUB_ENV"
+          echo "SHORT_COMMIT_ID=$(echo ${{ github.event.client_payload.event.pull_request.head.sha }} | cut -c 1-7)" >> "$GITHUB_ENV"
+          echo "REPO_URL=${{ github.event.client_payload.event.pull_request.head.repo.html_url }}" >> "$GITHUB_ENV"
+          echo "PR_URL=${{ github.event.client_payload.event.pull_request.html_url }}" >> "$GITHUB_ENV"
+          echo "COMMIT_URL=${{ github.event.client_payload.event.pull_request.head.repo.html_url }}/commit/${{ github.event.client_payload.event.pull_request.head.sha }}" >> "$GITHUB_ENV"
+          echo "PR_NUMBER=${{ github.event.client_payload.event.pull_request.number }}" >> "$GITHUB_ENV"
+      - name: Checkout submodule to the commit ID
+        working-directory: ./biome
+        run: |
+          git fetch ${{ env.REPO_URL }} ${{ env.HEAD_REF }} --unshallow
+          git checkout ${{ env.COMMIT_ID }}
+      - name: Run codegen rules
+        uses: ./.github/actions/run-codegen-rules
+      - name: Create pull request
+        id: create-pull-request
+        uses: peter-evans/create-pull-request@c55203cfde3e5c11a452d352b4393e68b85b4533 # v6
+        with:
+          branch: "chore/preview-pr-${{ env.PR_NUMBER }}"
+          author: "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
+          title: "chore(ci): preview PR ${{ env.PR_NUMBER }} in the main repo"
+          commit-message: "chore(ci): preview PR ${{ env.PR_NUMBER }} in the main repo"
+          body: |
+            Preview PR [#${{ env.PR_NUMBER }}](${{ env.PR_URL }}) in the main repo.
+            Latest commit: [`${{ env.SHORT_COMMIT_ID }}`](${{ env.COMMIT_URL }})
+
+            This pull request is automatically opened to trigger the deployment of the website for preview. Do not edit by hand.
+          labels: CI-Preview
+          draft: true
