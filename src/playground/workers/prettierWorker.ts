@@ -158,7 +158,7 @@ function getPrettierParser(filename: string): string {
 		return "babel-ts";
 	}
 	if (isJsonFilename(filename)) {
-		return "json5";
+		return "json";
 	}
 	if (isCssFilename(filename)) {
 		return "css";
