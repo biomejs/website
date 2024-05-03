@@ -1695,7 +1695,7 @@ export function GET() {
 							{ type: "null" },
 						],
 					},
-					useConsistentBuiltinInstatiation: {
+					useConsistentBuiltinInstantiation: {
 						description:
 							"Enforce the use of new for all builtins, except String, Number, Boolean, Symbol and BigInt.",
 						anyOf: [
