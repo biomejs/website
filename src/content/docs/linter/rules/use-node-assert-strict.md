@@ -4,6 +4,10 @@ title: useNodeAssertStrict (since v1.6.0)
 
 **Diagnostic Category: `lint/style/useNodeAssertStrict`**
 
+:::note
+- This rule has a **safe** fix.
+:::
+
 Promotes the usage of `node:assert/strict` over `node:assert`.
 
 If you prefer stricter assertions when using the Node.js assertion module, the package `node:assert/strict` exposes a set of alias for stricter assertions.

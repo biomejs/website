@@ -5,7 +5,7 @@ title: noConstantCondition (since v1.0.0)
 **Diagnostic Category: `lint/correctness/noConstantCondition`**
 
 :::note
-This rule is recommended by Biome. A diagnostic error will appear when linting your code.
+- This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
 Sources: 

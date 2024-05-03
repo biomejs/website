@@ -4,6 +4,10 @@ title: noNewSymbol (since v1.0.0)
 
 **Diagnostic Category: `lint/correctness/noNewSymbol`**
 
+:::note
+- This rule has an **unsafe** fix.
+:::
+
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-new-symbol" target="_blank"><code>no-new-symbol</code></a>
 

@@ -4,8 +4,7 @@ use anyhow::Context;
 use anyhow::{bail, ensure, Result};
 use biome_analyze::{
     AnalysisFilter, AnalyzerOptions, ControlFlow, FixKind, GroupCategory, Queryable,
-    RegistryVisitor, Rule, RuleCategory, RuleFilter, RuleGroup, RuleMetadata, RuleSource,
-    RuleSourceKind,
+    RegistryVisitor, Rule, RuleCategory, RuleFilter, RuleGroup, RuleMetadata, RuleSourceKind,
 };
 use biome_console::fmt::Termcolor;
 use biome_console::{
@@ -265,19 +264,14 @@ fn generate_group(
                 "\t<li><a href='/linter/rules/{dashed_rule}'>{rule}</a></li>\n"
             ));
         }
-        let has_code_action = meta.fix_kind.is_some();
 
-        match generate_rule(
+        match generate_rule(GenRule {
             root,
             group,
             rule,
-            meta.docs,
-            meta.version,
             is_recommended,
-            has_code_action,
-            meta.sources,
-            meta.source_kind.as_ref(),
-        ) {
+            meta: &meta,
+        }) {
             Ok(summary) => {
                 let mut properties = String::new();
                 if is_recommended {
@@ -310,25 +304,29 @@ fn generate_group(
     Ok(())
 }
 
-#[allow(clippy::too_many_arguments)]
-/// Generates the documentation page for a single lint rule
-fn generate_rule(
-    root: &Path,
+struct GenRule<'a> {
+    root: &'a Path,
     group: &'static str,
     rule: &'static str,
-    docs: &'static str,
-    version: &'static str,
     is_recommended: bool,
-    has_fix_kind: bool,
-    sources: &[RuleSource],
-    source_kind: Option<&RuleSourceKind>,
-) -> Result<Vec<Event<'static>>> {
+    meta: &'a RuleMetadata,
+}
+
+/// Generates the documentation page for a single lint rule
+fn generate_rule(payload: GenRule) -> Result<Vec<Event<'static>>> {
+    let GenRule {
+        root,
+        group,
+        rule,
+        is_recommended,
+        meta,
+    } = payload;
     let mut content = Vec::new();
 
-    let title_version = if version == "next" {
+    let title_version = if meta.version == "next" {
         "(not released)".to_string()
     } else {
-        format!("(since v{version})")
+        format!("(since v{})", meta.version)
     };
     // Write the header for this lint rule
     writeln!(content, "---")?;
@@ -341,16 +339,28 @@ fn generate_rule(
 
     writeln!(content)?;
 
-    if version == "next" {
+    if meta.version == "next" {
         writeln!(content, ":::danger")?;
         writeln!(content, "This rule hasn't been released yet.")?;
         writeln!(content, ":::")?;
         writeln!(content)?;
     }
 
-    if is_recommended {
+    if is_recommended || meta.fix_kind.is_some() {
         writeln!(content, ":::note")?;
-        writeln!(content, "This rule is recommended by Biome. A diagnostic error will appear when linting your code.")?;
+        if is_recommended {
+            writeln!(content, "- This rule is recommended by Biome. A diagnostic error will appear when linting your code.")?;
+        }
+        if let Some(fix_kind) = meta.fix_kind.as_ref() {
+            match fix_kind {
+                FixKind::Safe => {
+                    writeln!(content, "- This rule has a **safe** fix.")?;
+                }
+                FixKind::Unsafe => {
+                    writeln!(content, "- This rule has an **unsafe** fix.")?;
+                }
+            }
+        }
         writeln!(content, ":::")?;
         writeln!(content)?;
     }
@@ -364,13 +374,13 @@ fn generate_rule(
         writeln!(content, ":::")?;
         writeln!(content)?;
     }
-    if !sources.is_empty() {
+    if !meta.sources.is_empty() {
         writeln!(content, "Sources: ")?;
 
-        for source in sources {
+        for source in meta.sources {
             let rule_name = source.to_namespaced_rule_name();
             let source_rule_url = source.to_rule_url();
-            match source_kind.copied().unwrap_or_default() {
+            match meta.source_kind.as_ref().copied().unwrap_or_default() {
                 RuleSourceKind::Inspired => {
                     write!(content, "- Inspired from: ")?;
                 }
@@ -386,7 +396,13 @@ fn generate_rule(
         writeln!(content)?;
     }
 
-    let summary = parse_documentation(group, rule, docs, &mut content, has_fix_kind)?;
+    let summary = parse_documentation(
+        group,
+        rule,
+        meta.docs,
+        &mut content,
+        meta.fix_kind.is_some(),
+    )?;
 
     writeln!(content, "## Related links")?;
     writeln!(content)?;

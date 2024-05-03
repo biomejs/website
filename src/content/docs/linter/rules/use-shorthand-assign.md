@@ -4,6 +4,10 @@ title: useShorthandAssign (since v1.3.0)
 
 **Diagnostic Category: `lint/style/useShorthandAssign`**
 
+:::note
+- This rule has an **unsafe** fix.
+:::
+
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/operator-assignment" target="_blank"><code>operator-assignment</code></a>
 

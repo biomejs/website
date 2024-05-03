@@ -5,7 +5,8 @@ title: noAriaHiddenOnFocusable (since v1.4.0)
 **Diagnostic Category: `lint/a11y/noAriaHiddenOnFocusable`**
 
 :::note
-This rule is recommended by Biome. A diagnostic error will appear when linting your code.
+- This rule is recommended by Biome. A diagnostic error will appear when linting your code.
+- This rule has an **unsafe** fix.
 :::
 
 Sources: 

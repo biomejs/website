@@ -4,6 +4,10 @@ title: noImplicitBoolean (since v1.0.0)
 
 **Diagnostic Category: `lint/style/noImplicitBoolean`**
 
+:::note
+- This rule has a **safe** fix.
+:::
+
 Sources: 
 - Same as: <a href="https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-boolean-value.md" target="_blank"><code>react/jsx-boolean-value</code></a>
 

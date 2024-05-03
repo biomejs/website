@@ -5,7 +5,7 @@ title: useExhaustiveDependencies (since v1.0.0)
 **Diagnostic Category: `lint/correctness/useExhaustiveDependencies`**
 
 :::note
-This rule is recommended by Biome. A diagnostic error will appear when linting your code.
+- This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
 Sources: 

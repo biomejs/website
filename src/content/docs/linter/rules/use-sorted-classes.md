@@ -4,6 +4,10 @@ title: useSortedClasses (since v1.6.0)
 
 **Diagnostic Category: `lint/nursery/useSortedClasses`**
 
+:::note
+- This rule has an **unsafe** fix.
+:::
+
 :::caution
 This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::

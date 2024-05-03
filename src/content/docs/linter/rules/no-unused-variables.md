@@ -4,6 +4,10 @@ title: noUnusedVariables (since v1.0.0)
 
 **Diagnostic Category: `lint/correctness/noUnusedVariables`**
 
+:::note
+- This rule has an **unsafe** fix.
+:::
+
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-unused-vars" target="_blank"><code>no-unused-vars</code></a>
 - Same as: <a href="https://typescript-eslint.io/rules/no-unused-vars" target="_blank"><code>@typescript-eslint/no-unused-vars</code></a>

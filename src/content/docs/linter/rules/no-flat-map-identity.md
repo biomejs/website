@@ -4,6 +4,10 @@ title: noFlatMapIdentity (since v1.7.0)
 
 **Diagnostic Category: `lint/nursery/noFlatMapIdentity`**
 
+:::note
+- This rule has a **safe** fix.
+:::
+
 :::caution
 This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::

@@ -4,6 +4,10 @@ title: useBlockStatements (since v1.0.0)
 
 **Diagnostic Category: `lint/style/useBlockStatements`**
 
+:::note
+- This rule has an **unsafe** fix.
+:::
+
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/curly" target="_blank"><code>curly</code></a>
 

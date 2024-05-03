@@ -4,6 +4,10 @@ title: noConstantMathMinMaxClamp (since v1.7.0)
 
 **Diagnostic Category: `lint/nursery/noConstantMathMinMaxClamp`**
 
+:::note
+- This rule has an **unsafe** fix.
+:::
+
 :::caution
 This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::

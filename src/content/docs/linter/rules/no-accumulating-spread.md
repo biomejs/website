@@ -5,7 +5,7 @@ title: noAccumulatingSpread (since v1.0.0)
 **Diagnostic Category: `lint/performance/noAccumulatingSpread`**
 
 :::note
-This rule is recommended by Biome. A diagnostic error will appear when linting your code.
+- This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
 Disallow the use of spread (`...`) syntax on accumulators.

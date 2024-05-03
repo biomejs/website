@@ -5,7 +5,7 @@ title: noInvalidUseBeforeDeclaration (since v1.5.0)
 **Diagnostic Category: `lint/correctness/noInvalidUseBeforeDeclaration`**
 
 :::note
-This rule is recommended by Biome. A diagnostic error will appear when linting your code.
+- This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
 Sources: 

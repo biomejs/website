@@ -5,7 +5,7 @@ title: noSvgWithoutTitle (since v1.0.0)
 **Diagnostic Category: `lint/a11y/noSvgWithoutTitle`**
 
 :::note
-This rule is recommended by Biome. A diagnostic error will appear when linting your code.
+- This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
 Enforces the usage of the `title` element for the `svg` element.
