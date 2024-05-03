@@ -345,17 +345,6 @@ export default defineConfig({
 			},
 			favicon: "/img/favicon.svg",
 			head: [
-				// {
-				// 	tag: "meta",
-				// 	attrs: { property: "og:image", content: `${site}/img/og.png?v=1` },
-				// },
-				// {
-				// 	tag: "meta",
-				// 	attrs: {
-				// 		property: "twitter:image",
-				// 		content: `${site}/img/og.png?v=1`,
-				// 	},
-				// },
 				{
 					tag: "link",
 					attrs: {
