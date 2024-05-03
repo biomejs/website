@@ -5,7 +5,8 @@ title: noInvalidNewBuiltin (since v1.3.0)
 **Diagnostic Category: `lint/correctness/noInvalidNewBuiltin`**
 
 :::note
-This rule is recommended by Biome. A diagnostic error will appear when linting your code.
+- This rule is recommended by Biome. A diagnostic error will appear when linting your code.
+- This rule has an **unsafe** fix.
 :::
 
 Sources: 

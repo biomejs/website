@@ -4,6 +4,10 @@ title: useConsistentArrayType (since v1.5.0)
 
 **Diagnostic Category: `lint/style/useConsistentArrayType`**
 
+:::note
+- This rule has an **unsafe** fix.
+:::
+
 Sources: 
 - Same as: <a href="https://typescript-eslint.io/rules/array-type" target="_blank"><code>@typescript-eslint/array-type</code></a>
 

@@ -5,7 +5,7 @@ title: noSuspiciousSemicolonInJsx (since v1.6.0)
 **Diagnostic Category: `lint/suspicious/noSuspiciousSemicolonInJsx`**
 
 :::note
-This rule is recommended by Biome. A diagnostic error will appear when linting your code.
+- This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
 It detects possible "wrong" semicolons inside JSX elements.

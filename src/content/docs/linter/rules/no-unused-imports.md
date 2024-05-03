@@ -4,6 +4,10 @@ title: noUnusedImports (since v1.3.0)
 
 **Diagnostic Category: `lint/correctness/noUnusedImports`**
 
+:::note
+- This rule has a **safe** fix.
+:::
+
 Disallow unused imports.
 
 Unused imports might be the result of an incomplete refactoring.

@@ -4,6 +4,10 @@ title: useShorthandArrayType (since v1.0.0)
 
 **Diagnostic Category: `lint/style/useShorthandArrayType`**
 
+:::note
+- This rule has an **unsafe** fix.
+:::
+
 When expressing array types, this rule promotes the usage of `T[]` shorthand instead of `Array<T>`.
 
 ## Examples

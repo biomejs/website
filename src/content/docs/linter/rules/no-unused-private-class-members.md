@@ -4,6 +4,10 @@ title: noUnusedPrivateClassMembers (since v1.3.3)
 
 **Diagnostic Category: `lint/correctness/noUnusedPrivateClassMembers`**
 
+:::note
+- This rule has an **unsafe** fix.
+:::
+
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-unused-private-class-members" target="_blank"><code>no-unused-private-class-members</code></a>
 

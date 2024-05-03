@@ -4,6 +4,10 @@ title: useSimplifiedLogicExpression (since v1.0.0)
 
 **Diagnostic Category: `lint/complexity/useSimplifiedLogicExpression`**
 
+:::note
+- This rule has an **unsafe** fix.
+:::
+
 Discard redundant terms from logical expressions.
 
 ## Examples

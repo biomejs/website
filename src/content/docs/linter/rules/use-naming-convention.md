@@ -4,6 +4,10 @@ title: useNamingConvention (since v1.0.0)
 
 **Diagnostic Category: `lint/style/useNamingConvention`**
 
+:::note
+- This rule has a **safe** fix.
+:::
+
 Sources: 
 - Inspired from: <a href="https://typescript-eslint.io/rules/naming-convention" target="_blank"><code>@typescript-eslint/naming-convention</code></a>
 

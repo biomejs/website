@@ -4,6 +4,10 @@ title: noNegationElse (since v1.0.0)
 
 **Diagnostic Category: `lint/style/noNegationElse`**
 
+:::note
+- This rule has a **safe** fix.
+:::
+
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-negated-condition" target="_blank"><code>no-negated-condition</code></a>
 - Same as: <a href="https://rust-lang.github.io/rust-clippy/master/#/if_not_else" target="_blank"><code>if_not_else</code></a>

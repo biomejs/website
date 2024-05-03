@@ -5,7 +5,8 @@ title: noInteractiveElementToNoninteractiveRole (since v1.3.0)
 **Diagnostic Category: `lint/a11y/noInteractiveElementToNoninteractiveRole`**
 
 :::note
-This rule is recommended by Biome. A diagnostic error will appear when linting your code.
+- This rule is recommended by Biome. A diagnostic error will appear when linting your code.
+- This rule has an **unsafe** fix.
 :::
 
 Sources: 

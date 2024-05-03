@@ -5,7 +5,8 @@ title: useSimpleNumberKeys (since v1.0.0)
 **Diagnostic Category: `lint/complexity/useSimpleNumberKeys`**
 
 :::note
-This rule is recommended by Biome. A diagnostic error will appear when linting your code.
+- This rule is recommended by Biome. A diagnostic error will appear when linting your code.
+- This rule has a **safe** fix.
 :::
 
 Disallow number literal object member names which are not base10 or uses underscore as separator

@@ -4,6 +4,10 @@ title: noConsoleLog (since v1.0.0)
 
 **Diagnostic Category: `lint/suspicious/noConsoleLog`**
 
+:::note
+- This rule has an **unsafe** fix.
+:::
+
 Sources: 
 - Inspired from: <a href="https://eslint.org/docs/latest/rules/no-console" target="_blank"><code>no-console</code></a>
 

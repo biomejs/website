@@ -1,8 +1,16 @@
 ---
-title: noReactSpecificProps (since v1.7.2)
+title: noReactSpecificProps (not released)
 ---
 
 **Diagnostic Category: `lint/nursery/noReactSpecificProps`**
+
+:::danger
+This rule hasn't been released yet.
+:::
+
+:::note
+- This rule has a **safe** fix.
+:::
 
 :::caution
 This rule is part of the [nursery](/linter/rules/#nursery) group.

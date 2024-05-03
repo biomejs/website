@@ -4,6 +4,10 @@ title: noSkippedTests (since v1.6.0)
 
 **Diagnostic Category: `lint/suspicious/noSkippedTests`**
 
+:::note
+- This rule has an **unsafe** fix.
+:::
+
 Sources: 
 - Inspired from: <a href="https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-disabled-tests.md" target="_blank"><code>jest/no-disabled-tests</code></a>
 
