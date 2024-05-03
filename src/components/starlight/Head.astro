@@ -32,9 +32,14 @@ const { isFallback, lang } = Astro.props;
 const ogImageUrl = await getOgImageUrl(Astro.url.pathname, !!isFallback);
 const imageSrc = ogImageUrl ?? "/img/og.png?v=2";
 const canonicalImageSrc = new URL(imageSrc, Astro.site);
+const isBlog = Astro.url.pathname.includes("/blog/");
 ---
 
 
 <Default {...Astro.props}><slot /></Default>
-<meta property="og:image" content={canonicalImageSrc} />
-<meta name="twitter:image" content={canonicalImageSrc} />
+<!-- Render this only we aren't inside a blog post. Blog posts have their own social image already  -->
+{!isBlog ? (
+    <meta property="og:image" content={canonicalImageSrc} />
+    <meta name="twitter:image" content={canonicalImageSrc} />
+) : ""}
+
