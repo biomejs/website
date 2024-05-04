@@ -48,7 +48,18 @@ This rule also checks the imported media queries and alerts of duplicates.
 @import 'a.css';
 ```
 
-<pre class="language-text"><code class="language-text"></code></pre>
+<pre class="language-text"><code class="language-text">nursery/noDuplicateAtImportRules.js:2:2 <a href="https://biomejs.dev/linter/rules/no-duplicate-at-import-rules">lint/nursery/noDuplicateAtImportRules</a> ━━━━━━━━━━━━━━━━━━━━━━
+
+<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Each </span><span style="color: Tomato;"><strong>@import</strong></span><span style="color: Tomato;"> should be unique unless differing by media queries.</span>
+  
+    <strong>1 │ </strong>@import &quot;a.css&quot;;
+<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>@import 'a.css';
+   <strong>   │ </strong> <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
+    <strong>3 │ </strong>
+  
+<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Consider removing one of the duplicated imports.</span>
+  
+</code></pre>
 
 ```css
 @import url('a.css');
