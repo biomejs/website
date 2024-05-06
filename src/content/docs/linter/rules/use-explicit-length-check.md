@@ -1,12 +1,8 @@
 ---
-title: useExplicitLengthCheck (not released)
+title: useExplicitLengthCheck (since v1.7.3)
 ---
 
 **Diagnostic Category: `lint/nursery/useExplicitLengthCheck`**
-
-:::danger
-This rule hasn't been released yet.
-:::
 
 :::note
 - This rule has an **unsafe** fix.
