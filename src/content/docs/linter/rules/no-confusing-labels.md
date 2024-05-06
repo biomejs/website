@@ -112,7 +112,7 @@ outer: while (a) {
 }
 ```
 
-```js
+```svelte
 <script>
 $: { /* reactive block */ }
 </script>

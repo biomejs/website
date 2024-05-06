@@ -459,15 +459,20 @@ fn parse_documentation(
                 write!(content, "```")?;
                 if !meta.is_empty() {
                     match test.block_type {
-                        BlockType::Js(source_type) => {
-                            match source_type.language() {
-                                Language::JavaScript => write!(content, "js")?,
-                                Language::TypeScript { .. } => write!(content, "ts")?,
+                        BlockType::Js(source_type) => match source_type.as_embedding_kind() {
+                            EmbeddingKind::Astro => write!(content, "astro")?,
+                            EmbeddingKind::Svelte => write!(content, "svelte")?,
+                            EmbeddingKind::Vue => write!(content, "vue")?,
+                            _ => {
+                                match source_type.language() {
+                                    Language::JavaScript => write!(content, "js")?,
+                                    Language::TypeScript { .. } => write!(content, "ts")?,
+                                };
+                                if source_type.variant().is_jsx() {
+                                    write!(content, "x")?;
+                                }
                             }
-                            if source_type.variant().is_jsx() {
-                                write!(content, "x")?;
-                            }
-                        }
+                        },
                         BlockType::Json => write!(content, "json")?,
                         BlockType::Css => write!(content, "css")?,
                     }

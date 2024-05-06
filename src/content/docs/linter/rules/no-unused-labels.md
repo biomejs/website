@@ -66,7 +66,7 @@ function nonNegative(n) {
 }
 ```
 
-```js
+```svelte
 <script>
 $: { /* reactive block */ }
 </script>
