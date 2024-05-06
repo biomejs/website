@@ -4,7 +4,8 @@
 	"schedule": ["before 9am on monday"],
 	"extends": [
 		"config:best-practices",
-		"helpers:pinGitHubActionDigestsToSemver"
+		"helpers:pinGitHubActionDigestsToSemver",
+		"regexManagers:biomeVersions"
 	],
 	"rangeStrategy": "bump",
 	"lockFileMaintenance": {
