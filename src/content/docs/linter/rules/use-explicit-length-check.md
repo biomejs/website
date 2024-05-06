@@ -366,33 +366,21 @@ const isNotEmpty = !(foo.length === 0);
 </code></pre>
 
 ```jsx
-if (foo.length || bar.length) {}
+if (foo.length) {}
 ```
 
 <pre class="language-text"><code class="language-text">nursery/useExplicitLengthCheck.js:1:5 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>.length &gt; 0</strong></span><span style="color: Orange;"> when checking </span><span style="color: Orange;"><strong>.length</strong></span><span style="color: Orange;"> is not zero.</span>
   
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>if (foo.length || bar.length) {}
+<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>if (foo.length) {}
    <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
     <strong>2 │ </strong>
   
 <strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Replace </span><span style="color: lightgreen;"><strong>.length</strong></span><span style="color: lightgreen;"> with </span><span style="color: lightgreen;"><strong>.length &gt; 0</strong></span>
   
-<strong>  </strong><strong>  1 │ </strong>if<span style="opacity: 0.8;">·</span>(foo.length<span style="opacity: 0.8;">·</span><span style="color: MediumSeaGreen;">&gt;</span><span style="opacity: 0.8;"><span style="color: MediumSeaGreen;">·</span></span><span style="color: MediumSeaGreen;">0</span>||<span style="opacity: 0.8;">·</span>bar.length)<span style="opacity: 0.8;">·</span>{}
-<strong>  </strong><strong>    │ </strong>               <span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span>                 
-nursery/useExplicitLengthCheck.js:1:19 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━
-
-<strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>.length &gt; 0</strong></span><span style="color: Orange;"> when checking </span><span style="color: Orange;"><strong>.length</strong></span><span style="color: Orange;"> is not zero.</span>
-  
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>if (foo.length || bar.length) {}
-   <strong>   │ </strong>                  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
-    <strong>2 │ </strong>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Replace </span><span style="color: lightgreen;"><strong>.length</strong></span><span style="color: lightgreen;"> with </span><span style="color: lightgreen;"><strong>.length &gt; 0</strong></span>
-  
-<strong>  </strong><strong>  1 │ </strong>if<span style="opacity: 0.8;">·</span>(foo.length<span style="opacity: 0.8;">·</span>||<span style="opacity: 0.8;">·</span>bar.length<span style="opacity: 0.8;"><span style="color: MediumSeaGreen;">·</span></span><span style="color: MediumSeaGreen;">&gt;</span><span style="opacity: 0.8;"><span style="color: MediumSeaGreen;">·</span></span><span style="color: MediumSeaGreen;">0</span>)<span style="opacity: 0.8;">·</span>{}
-<strong>  </strong><strong>    │ </strong>                            <span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span>    
+<strong>  </strong><strong>  1 │ </strong>if<span style="opacity: 0.8;">·</span>(foo.length<span style="opacity: 0.8;"><span style="color: MediumSeaGreen;">·</span></span><span style="color: MediumSeaGreen;">&gt;</span><span style="opacity: 0.8;"><span style="color: MediumSeaGreen;">·</span></span><span style="color: MediumSeaGreen;">0</span>)<span style="opacity: 0.8;">·</span>{}
+<strong>  </strong><strong>    │ </strong>              <span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span>    
 </code></pre>
 
 ```jsx
@@ -479,14 +467,14 @@ if (foo.length > 0 || bar.length > 0) {}
 
 ## Caveats
 
-This rule assumes that the `length` property is always numeric, even if it actually is not.
-In the example below the rule will trigger a warning, even though the `length` property is a string.
+This rule assumes that the `length`/`size` property is always numeric, even if it actually is not.
+In the example below the rule will trigger a warning, even though the `size` property is a string.
 
 ```jsx
 const foo1 = { size: "small" }; if (foo1.size) {}
 ```
 
-nursery/useExplicitLengthCheck.js:1:37 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">nursery/useExplicitLengthCheck.js:1:37 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>.size &gt; 0</strong></span><span style="color: Orange;"> when checking </span><span style="color: Orange;"><strong>.size</strong></span><span style="color: Orange;"> is not zero.</span>
   
@@ -498,8 +486,10 @@ nursery/useExplicitLengthCheck.js:1:37 <a href="https://biomejs.dev/linter/rules
   
 <strong>  </strong><strong>  1 │ </strong>const<span style="opacity: 0.8;">·</span>foo1<span style="opacity: 0.8;">·</span>=<span style="opacity: 0.8;">·</span>{<span style="opacity: 0.8;">·</span>size:<span style="opacity: 0.8;">·</span>&quot;small&quot;<span style="opacity: 0.8;">·</span>};<span style="opacity: 0.8;">·</span>if<span style="opacity: 0.8;">·</span>(foo1.size<span style="opacity: 0.8;"><span style="color: MediumSeaGreen;">·</span></span><span style="color: MediumSeaGreen;">&gt;</span><span style="opacity: 0.8;"><span style="color: MediumSeaGreen;">·</span></span><span style="color: MediumSeaGreen;">0</span>)<span style="opacity: 0.8;">·</span>{}
 <strong>  </strong><strong>    │ </strong>                                             <span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span>    
+</code></pre>
+
 To properly handle this case, type inference would be required, which is not supported by Biome at the moment.
-We recommend disabling this rule when working with non-numeric `length` properties.
+We recommend disabling this rule when working with non-numeric `length`/`size` properties.
 
 ## Related links
 
