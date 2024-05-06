@@ -850,7 +850,7 @@ fn assert_lint(
                     |signal| {
                         if let Some(mut diag) = signal.diagnostic() {
                             let category = diag.category().expect("linter diagnostic has no code");
-                            let severity = settings.current_settings().get_severity_from_rule_code(category).expect(
+                            let severity = settings.get_current_settings().get_severity_from_rule_code(category).expect(
                                 "If you see this error, it means you need to run cargo codegen-configuration",
                             );
 
@@ -923,7 +923,7 @@ fn assert_lint(
                     |signal| {
                         if let Some(mut diag) = signal.diagnostic() {
                             let category = diag.category().expect("linter diagnostic has no code");
-                            let severity = settings.current_settings().get_severity_from_rule_code(category).expect(
+                            let severity = settings.get_current_settings().get_severity_from_rule_code(category).expect(
                                 "If you see this error, it means you need to run cargo codegen-configuration",
                             );
 
@@ -987,7 +987,7 @@ fn assert_lint(
                     |signal| {
                         if let Some(mut diag) = signal.diagnostic() {
                             let category = diag.category().expect("linter diagnostic has no code");
-                            let severity = settings.current_settings().get_severity_from_rule_code(category).expect(
+                            let severity = settings.get_current_settings().get_severity_from_rule_code(category).expect(
                                 "If you see this error, it means you need to run cargo codegen-configuration",
                             );
 
