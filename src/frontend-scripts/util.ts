@@ -7,13 +7,17 @@ export const matchesDark: undefined | MediaQueryList =
 		: window.matchMedia("(prefers-color-scheme: dark)");
 
 export function getCurrentTheme(themeName?: string): ThemeName {
-	let currentScheme =
+	const currentScheme =
 		themeName ?? window.localStorage.getItem("starlight-theme");
 
-	if (currentScheme == null || currentScheme === "auto") {
-		currentScheme = matchesDark?.matches ? "dark" : "light";
+	switch (currentScheme) {
+		case "dark":
+			return "dark";
+		case "light":
+			return "light";
+		default:
+			return matchesDark?.matches ? "dark" : "light";
 	}
-	return currentScheme === "dark" ? "dark" : "light";
 }
 
 export function setCurrentTheme(theme: ThemeName) {

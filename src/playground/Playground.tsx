@@ -40,7 +40,7 @@ import {
 	useState,
 } from "react";
 
-export default function PlaygroundLoader({
+export default function Playground({
 	setPlaygroundState,
 	resetPlaygroundState,
 	playgroundState,
