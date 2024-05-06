@@ -16,6 +16,8 @@ Disallow labeled statements that are not loops.
 Labeled statements in JavaScript are used in conjunction with `break` and `continue` to control flow around multiple loops.
 Their use for other statements is suspicious and unfamiliar.
 
+The rule ignores reactive Svelte statements in Svelte components.
+
 ## Examples
 
 ### Invalid
@@ -108,6 +110,12 @@ outer: while (a) {
         break outer;
     }
 }
+```
+
+```js
+<script>
+$: { /* reactive block */ }
+</script>
 ```
 
 ## Related links
