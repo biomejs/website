@@ -16,6 +16,8 @@ Disallow unused labels.
 
 Labels that are declared and never used are most likely an error due to incomplete refactoring.
 
+The rule ignores reactive Svelte statements in Svelte components.
+
 ## Examples
 
 ### Invalid
@@ -62,6 +64,12 @@ function nonNegative(n) {
     DEV: assert(n >= 0);
     return n;
 }
+```
+
+```svelte
+<script>
+$: { /* reactive block */ }
+</script>
 ```
 
 ## Related links

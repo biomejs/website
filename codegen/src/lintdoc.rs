@@ -16,7 +16,7 @@ use biome_css_syntax::CssLanguage;
 use biome_diagnostics::termcolor::NoColor;
 use biome_diagnostics::{Diagnostic, DiagnosticExt, PrintDiagnostic};
 use biome_js_parser::JsParserOptions;
-use biome_js_syntax::{JsFileSource, JsLanguage, Language, ModuleKind};
+use biome_js_syntax::{EmbeddingKind, JsFileSource, JsLanguage, Language, ModuleKind};
 use biome_json_parser::JsonParserOptions;
 use biome_json_syntax::JsonLanguage;
 use biome_service::settings::WorkspaceSettings;
@@ -459,15 +459,20 @@ fn parse_documentation(
                 write!(content, "```")?;
                 if !meta.is_empty() {
                     match test.block_type {
-                        BlockType::Js(source_type) => {
-                            match source_type.language() {
-                                Language::JavaScript => write!(content, "js")?,
-                                Language::TypeScript { .. } => write!(content, "ts")?,
+                        BlockType::Js(source_type) => match source_type.as_embedding_kind() {
+                            EmbeddingKind::Astro => write!(content, "astro")?,
+                            EmbeddingKind::Svelte => write!(content, "svelte")?,
+                            EmbeddingKind::Vue => write!(content, "vue")?,
+                            _ => {
+                                match source_type.language() {
+                                    Language::JavaScript => write!(content, "js")?,
+                                    Language::TypeScript { .. } => write!(content, "ts")?,
+                                };
+                                if source_type.variant().is_jsx() {
+                                    write!(content, "x")?;
+                                }
                             }
-                            if source_type.variant().is_jsx() {
-                                write!(content, "x")?;
-                            }
-                        }
+                        },
                         BlockType::Json => write!(content, "json")?,
                         BlockType::Css => write!(content, "css")?,
                     }
@@ -687,6 +692,15 @@ impl FromStr for CodeBlockTest {
                 "tsx" => {
                     test.block_type = BlockType::Js(JsFileSource::tsx());
                 }
+                "svelte" => {
+                    test.block_type = BlockType::Js(JsFileSource::svelte());
+                }
+                "astro" => {
+                    test.block_type = BlockType::Js(JsFileSource::astro());
+                }
+                "vue" => {
+                    test.block_type = BlockType::Js(JsFileSource::vue());
+                }
 
                 // Other attributes
                 "expect_diagnostic" => {
@@ -791,6 +805,23 @@ fn assert_lint(
     settings.register_current_project(key);
     match test.block_type {
         BlockType::Js(source_type) => {
+            // Temporary support for astro, svelte and vue code blocks
+            let (code, source_type) = match source_type.as_embedding_kind() {
+                EmbeddingKind::Astro => (
+                    biome_service::file_handlers::AstroFileHandler::input(code),
+                    JsFileSource::ts(),
+                ),
+                EmbeddingKind::Svelte => (
+                    biome_service::file_handlers::SvelteFileHandler::input(code),
+                    biome_service::file_handlers::SvelteFileHandler::file_source(code),
+                ),
+                EmbeddingKind::Vue => (
+                    biome_service::file_handlers::VueFileHandler::input(code),
+                    biome_service::file_handlers::VueFileHandler::file_source(code),
+                ),
+                _ => (code, source_type),
+            };
+
             let parse = biome_js_parser::parse(code, source_type, JsParserOptions::default());
 
             if parse.has_errors() {
