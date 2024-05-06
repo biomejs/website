@@ -126,8 +126,7 @@ pub(crate) fn generate_schema_js() -> anyhow::Result<()> {
     let schema_js_path = schema_version_folder_path.join("schema.json.js");
 
     if schema_version_folder_path.exists() {
-        fs::remove_file(&schema_js_path)?;
-        fs::remove_dir(&schema_version_folder_path)?;
+        fs::remove_dir_all(&schema_version_folder_path)?;
     }
 
     fs::create_dir(&schema_version_folder_path)?;
