@@ -220,7 +220,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
         "
 ## Recommended rules
 
-The recommendd rules are:
+The recommended rules are:
 
 <RecommendedRules />
 "
