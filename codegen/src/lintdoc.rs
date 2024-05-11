@@ -33,6 +33,7 @@ use std::{
     slice,
     str::{self, FromStr},
 };
+use biome_analyze::options::JsxRuntime;
 
 pub fn generate_rule_docs() -> Result<()> {
     let root = project_root().join("src/content/docs/linter/rules");
@@ -840,7 +841,8 @@ fn assert_lint(
                     ..AnalysisFilter::default()
                 };
 
-                let options = AnalyzerOptions::default();
+                let mut options = AnalyzerOptions::default();
+                options.configuration.jsx_runtime = Some(JsxRuntime::default());
                 let (_, diagnostics) = biome_js_analyze::analyze(
                     &root,
                     filter,
