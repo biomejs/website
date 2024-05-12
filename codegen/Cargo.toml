@@ -7,7 +7,7 @@ publish     = false
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dependencies]
-biome_analyze        = { path = "../biome/crates/biome_analyze" }
+biome_analyze        = { path = "../biome/crates/biome_analyze", features = ["serde"] }
 biome_cli            = { path = "../biome/crates/biome_cli" }
 biome_configuration  = { path = "../biome/crates/biome_configuration" }
 biome_console        = { path = "../biome/crates/biome_console" }
@@ -32,4 +32,5 @@ bpaf                 = { version = "0.9.12", features = ["docgen"] }
 pulldown-cmark       = "0.10.3"
 schemars             = "0.8.17"
 serde_json           = "1.0.116"
+serde = { version = "1.0.200", features = ["derive"] }
 
