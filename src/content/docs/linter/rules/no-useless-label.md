@@ -7,6 +7,7 @@ title: noUselessLabel (since v1.0.0)
 :::note
 - This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 - This rule has a **safe** fix.
+- This rule is applied to **JavaScript and super languages** files.
 :::
 
 Sources: 

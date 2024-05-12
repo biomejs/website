@@ -6,6 +6,7 @@ title: noSkippedTests (since v1.6.0)
 
 :::note
 - This rule has an **unsafe** fix.
+- This rule is applied to **JavaScript and super languages** files.
 :::
 
 Sources: 

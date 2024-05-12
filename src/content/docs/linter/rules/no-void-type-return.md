@@ -6,6 +6,7 @@ title: noVoidTypeReturn (since v1.0.0)
 
 :::note
 - This rule is recommended by Biome. A diagnostic error will appear when linting your code.
+- This rule is applied to **TypeScript and TSX** files.
 :::
 
 Disallow returning a value from a function with the return type 'void'

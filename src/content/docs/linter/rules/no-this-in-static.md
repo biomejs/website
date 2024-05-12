@@ -7,6 +7,7 @@ title: noThisInStatic (since v1.3.1)
 :::note
 - This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 - This rule has an **unsafe** fix.
+- This rule is applied to **JavaScript and super languages** files.
 :::
 
 Sources: 
