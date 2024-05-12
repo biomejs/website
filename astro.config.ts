@@ -364,7 +364,7 @@ export default defineConfig({
 				"x.com": "https://twitter.com/biomejs",
 				mastodon: "https://fosstodon.org/@biomejs",
 				openCollective: "https://opencollective.com/biome",
-				youtube: 'https://youtube.com/@Biomejs',
+				youtube: "https://youtube.com/@Biomejs",
 			},
 			editLink: {
 				baseUrl: "https://github.com/biomejs/website/edit/main/",
