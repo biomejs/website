@@ -514,6 +514,7 @@ fn parse_documentation(
                         },
                         BlockType::Json => write!(content, "json")?,
                         BlockType::Css => write!(content, "css")?,
+                        BlockType::Foreign(ref lang) => write!(content, "{}", lang)?,
                     }
                 }
                 writeln!(content)?;
@@ -689,6 +690,7 @@ enum BlockType {
     Js(JsFileSource),
     Json,
     Css,
+    Foreign(String),
 }
 
 struct CodeBlockTest {
@@ -709,7 +711,7 @@ impl FromStr for CodeBlockTest {
             .filter(|token| !token.is_empty());
 
         let mut test = CodeBlockTest {
-            block_type: BlockType::Js(JsFileSource::default()),
+            block_type: BlockType::Foreign("".into()),
             expect_diagnostic: false,
             ignore: false,
         };
@@ -740,26 +742,24 @@ impl FromStr for CodeBlockTest {
                 "vue" => {
                     test.block_type = BlockType::Js(JsFileSource::vue());
                 }
-
+                "json" => {
+                    test.block_type = BlockType::Json;
+                }
+                "css" => {
+                    test.block_type = BlockType::Css;
+                }
                 // Other attributes
                 "expect_diagnostic" => {
                     test.expect_diagnostic = true;
                 }
-
                 "ignore" => {
                     test.ignore = true;
                 }
-
-                "json" => {
-                    test.block_type = BlockType::Json;
-                }
-
-                "css" => {
-                    test.block_type = BlockType::Css;
-                }
-
+                // A catch-all to regard unknown tokens as foreign languages,
+                // and do not run tests on these code blocks.
                 _ => {
-                    bail!("unknown code block attribute {token:?}")
+                    test.block_type = BlockType::Foreign(token.into());
+                    test.ignore = true;
                 }
             }
         }
@@ -1064,6 +1064,8 @@ fn assert_lint(
                 }
             }
         }
+        // Foreign code blocks should be already ignored by tests
+        BlockType::Foreign(..) => {}
     }
 
     Ok(())
