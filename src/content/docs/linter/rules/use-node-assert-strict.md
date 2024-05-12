@@ -6,6 +6,7 @@ title: useNodeAssertStrict (since v1.6.0)
 
 :::note
 - This rule has a **safe** fix.
+- This rule is applied to **JavaScript and super languages** files.
 :::
 
 Promotes the usage of `node:assert/strict` over `node:assert`.

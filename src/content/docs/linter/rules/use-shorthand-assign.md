@@ -6,6 +6,7 @@ title: useShorthandAssign (since v1.3.0)
 
 :::note
 - This rule has an **unsafe** fix.
+- This rule is applied to **JavaScript and super languages** files.
 :::
 
 Sources: 

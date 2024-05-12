@@ -6,6 +6,7 @@ title: useValidAriaValues (since v1.0.0)
 
 :::note
 - This rule is recommended by Biome. A diagnostic error will appear when linting your code.
+- This rule is applied to **JSX and TSX** files.
 :::
 
 Sources: 

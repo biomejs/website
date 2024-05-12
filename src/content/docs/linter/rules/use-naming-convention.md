@@ -6,6 +6,7 @@ title: useNamingConvention (since v1.0.0)
 
 :::note
 - This rule has a **safe** fix.
+- This rule is applied to **TypeScript and TSX** files.
 :::
 
 Sources: 

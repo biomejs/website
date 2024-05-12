@@ -6,6 +6,7 @@ title: noConstantMathMinMaxClamp (since v1.7.0)
 
 :::note
 - This rule has an **unsafe** fix.
+- This rule is applied to **JavaScript and super languages** files.
 :::
 
 :::caution

@@ -6,6 +6,7 @@ title: noUnusedImports (since v1.3.0)
 
 :::note
 - This rule has a **safe** fix.
+- This rule is applied to **JavaScript and super languages** files.
 :::
 
 Disallow unused imports.

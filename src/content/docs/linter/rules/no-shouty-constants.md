@@ -6,6 +6,7 @@ title: noShoutyConstants (since v1.0.0)
 
 :::note
 - This rule has an **unsafe** fix.
+- This rule is applied to **JavaScript and super languages** files.
 :::
 
 Disallow the use of constants which its value is the upper-case version of its name.

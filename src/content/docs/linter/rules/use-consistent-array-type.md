@@ -6,6 +6,7 @@ title: useConsistentArrayType (since v1.5.0)
 
 :::note
 - This rule has an **unsafe** fix.
+- This rule is applied to **TypeScript and TSX** files.
 :::
 
 Sources: 

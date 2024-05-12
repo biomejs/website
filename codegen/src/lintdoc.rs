@@ -2,6 +2,7 @@ use crate::project_root;
 use crate::rules_sources::generate_rule_sources;
 use anyhow::Context;
 use anyhow::{bail, ensure, Result};
+use biome_analyze::options::JsxRuntime;
 use biome_analyze::{
     AnalysisFilter, AnalyzerOptions, ControlFlow, FixKind, GroupCategory, Queryable,
     RegistryVisitor, Rule, RuleCategory, RuleFilter, RuleGroup, RuleMetadata, RuleSourceKind,
@@ -33,7 +34,6 @@ use std::{
     slice,
     str::{self, FromStr},
 };
-use biome_analyze::options::JsxRuntime;
 
 pub fn generate_rule_docs() -> Result<()> {
     let root = project_root().join("src/content/docs/linter/rules");
@@ -71,14 +71,18 @@ pub fn generate_rule_docs() -> Result<()> {
 
     write!(
         index,
-        "
-import RecommendedRules from \"@/components/generated/RecommendedRules.astro\";
+        r#"
+import RecommendedRules from "@/components/generated/RecommendedRules.astro";
+import {{ Icon }} from "@astrojs/starlight/components";
 
 Below the list of rules supported by Biome, divided by group. Here's a legend of the emojis:
-- The emoji ✅ indicates that the rule is part of the recommended rules.
-- The emoji 🔧 indicates that the rule provides a code action (fix) that is **safe** to apply.
-- The emoji ⚠️ indicates that the rule provides a code action (fix) that is **unsafe** to apply.
-"
+- The icon <span class='inline-icon'><Icon name="approve-check-circle" label="This rule is recommended" /></span> indicates that the rule is part of the recommended rules.
+- The icon <span class='inline-icon'><Icon name="seti:config" label="The rule has a safe fix" /></span> indicates that the rule provides a code action (fix) that is **safe** to apply.
+- The icon <span class='inline-icon'><Icon name="warning" label="The rule has an unsafe fix" /></span> indicates that the rule provides a code action (fix) that is **unsafe** to apply.
+- The icon <span class='inline-icon'><Icon name="seti:javascript" label="JavaScript and super languages rule" /></span> indicates that the rule is applied to JavaScript and super languages files.
+- The icon <span class='inline-icon'><Icon name="seti:typescript" label="TypeScript rule" /></span> indicates that the rule is applied to TypeScript and TSX files.
+- The icon <span class='inline-icon'><Icon name="seti:json" label="JSON rule" /></span> indicates that the rule is applied to JSON files.
+"#
     )?;
 
     // Accumulate errors for all lint rules to print all outstanding issues on
@@ -255,7 +259,7 @@ fn generate_group(
 
     for (rule, meta) in rules {
         // We don't document rules that haven't been released yet
-        if meta.version == "nex" {
+        if meta.version == "next" {
             continue;
         }
         let is_recommended = !is_nursery && meta.recommended;
@@ -276,13 +280,31 @@ fn generate_group(
             Ok(summary) => {
                 let mut properties = String::new();
                 if is_recommended {
-                    properties.push_str("<span aria-label=\"Recommended\" role=\"img\" title=\"Recommended\">✅ </span>");
+                    properties.push_str("<span class='inline-icon'><Icon name=\"approve-check-circle\" size=\"1.2rem\" label=\"This rule is recommended\" /></span>");
                 }
                 if let Some(fix_kind) = meta.fix_kind.as_ref() {
                     if *fix_kind == FixKind::Safe {
-                        properties.push_str("<span aria-label=\"The rule has a safe fix\" role=\"img\" title=\"The rule has a safe fix\">🔧 </span>");
+                        properties.push_str("<span class='inline-icon'><Icon name=\"seti:config\" label=\"The rule has a safe fix\" size=\"1.2rem\"  /></span>");
                     } else {
-                        properties.push_str("<span aria-label=\"The rule has an unsafe fix\" role=\"img\" title=\"The rule has an unsafe fix\">⚠️ </span>");
+                        properties.push_str("<span class='inline-icon'><Icon name=\"warning\" label=\"The rule has an unsafe fix\" size=\"1.2rem\" /></span>");
+                    }
+                }
+
+                match meta.language {
+                    "js" => {
+                        properties.push_str("<span class='inline-icon'><Icon name=\"seti:javascript\" label=\"JavaScript and super languages rule.\" size=\"1.2rem\"/></span>");
+                    }
+                    "jsx" => {
+                        properties.push_str("<span class='inline-icon'><Icon name=\"seti:javascript\" label=\"JSX rule\" size=\"1.2rem\"/></span>");
+                    }
+                    "ts" => {
+                        properties.push_str("<span class='inline-icon'><Icon name=\"seti:typescript\" label=\"TypeScript rule\" size=\"1.2rem\"/></span>");
+                    }
+                    "json" => {
+                        properties.push_str("<span class='inline-icon'><Icon name=\"seti:json\" label=\"JSON rule\" size=\"1.2rem\"/></span>");
+                    }
+                    _ => {
+                        eprintln!("Language {} isn't supported.", meta.language)
                     }
                 }
 
@@ -340,13 +362,6 @@ fn generate_rule(payload: GenRule) -> Result<Vec<Event<'static>>> {
 
     writeln!(content)?;
 
-    if meta.version == "next" {
-        writeln!(content, ":::danger")?;
-        writeln!(content, "This rule hasn't been released yet.")?;
-        writeln!(content, ":::")?;
-        writeln!(content)?;
-    }
-
     if is_recommended || meta.fix_kind.is_some() {
         writeln!(content, ":::note")?;
         if is_recommended {
@@ -360,6 +375,29 @@ fn generate_rule(payload: GenRule) -> Result<Vec<Event<'static>>> {
                 FixKind::Unsafe => {
                     writeln!(content, "- This rule has an **unsafe** fix.")?;
                 }
+            }
+        }
+        match meta.language {
+            "js" => {
+                writeln!(
+                    content,
+                    "- This rule is applied to **JavaScript and super languages** files."
+                )?;
+            }
+            "jsx" => {
+                writeln!(content, "- This rule is applied to **JSX and TSX** files.")?;
+            }
+            "ts" => {
+                writeln!(
+                    content,
+                    "- This rule is applied to **TypeScript and TSX** files."
+                )?;
+            }
+            "json" => {
+                writeln!(content, "- This rule is applied to **JSON** files.")?;
+            }
+            _ => {
+                eprintln!("Language {} isn't supported.", meta.language)
             }
         }
         writeln!(content, ":::")?;

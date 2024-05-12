@@ -6,6 +6,7 @@ title: useShorthandArrayType (since v1.0.0)
 
 :::note
 - This rule has an **unsafe** fix.
+- This rule is applied to **TypeScript and TSX** files.
 :::
 
 When expressing array types, this rule promotes the usage of `T[]` shorthand instead of `Array<T>`.

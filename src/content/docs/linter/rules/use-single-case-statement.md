@@ -6,6 +6,7 @@ title: useSingleCaseStatement (since v1.0.0)
 
 :::note
 - This rule has an **unsafe** fix.
+- This rule is applied to **JavaScript and super languages** files.
 :::
 
 Enforces switch clauses have a single statement, emits a quick fix wrapping the statements in a block.

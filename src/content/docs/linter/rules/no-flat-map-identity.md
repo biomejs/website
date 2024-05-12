@@ -6,6 +6,7 @@ title: noFlatMapIdentity (since v1.7.0)
 
 :::note
 - This rule has a **safe** fix.
+- This rule is applied to **JavaScript and super languages** files.
 :::
 
 :::caution

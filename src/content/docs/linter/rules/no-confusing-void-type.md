@@ -6,6 +6,7 @@ title: noConfusingVoidType (since v1.2.0)
 
 :::note
 - This rule is recommended by Biome. A diagnostic error will appear when linting your code.
+- This rule is applied to **TypeScript and TSX** files.
 :::
 
 Sources: 
