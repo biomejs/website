@@ -404,54 +404,57 @@ For example, you can enforce the use of [`CONSTANT_CASE`](https://en.wikipedia.o
 A selector descibes which decalrations the convention applies to.
 You can select a decalration based on several criteria:
 
-- `kind`: the kind of the declaration among:- `any` (default kind if the kind is unset)
-- `typeLike`: classes, enums, type aliases, and interfaces
-- `class`
-- `enum`
-- `interface`
-- `typeAlias`
-- `function`: named function declarations and expressions
-- `namespaceLike`: TypeScript namespaces, import and export namespaces (`import * as namspace from`)
-- `namespace`: TypeScript namespaces
-- `importNamespace`
-- `exportNamespace`
-- `importAlias`: default imports and aliases of named imports
-- `exportAlias`: aliases of re-exported names
-- `variable`: const, let, using, and var declarations
-- `const`
-- `let`
-- `var`
-- `using`
-- `functionParameter`
-- `catchParameter`
-- `indexParameter`: parameters of index signatures
-= `typeParameter`: generic type parameter
-- `classMember`: class properties, parameter properties, methods, getters, and setters
-- `classProperty`: class properties, including parameter properties
-- `classMethod`
-- `classGetter`
-- `classSetter`
-- `objectLiteralMember`: literal object properties, methods, getters, and setters
-- `objectLiteralProperty`
-- `objectLiteralMethod`
-- `objectLiteralGetter`
-- `objectLiteralSetter`
-- `typeMember`: properties, methods, getters, and setters declared in type alaises and interfaces
-- `typeProperty`
-- `typeMethod`
-- `typeGetter`
-- `typeSetter`
+- `kind`: the kind of the declaration among:
+    - `any` (default kind if the kind is unset)
+    - `typeLike`: classes, enums, type aliases, and interfaces
+    - `class`
+    - `enum`
+    - `interface`
+    - `typeAlias`
+    - `function`: named function declarations and expressions
+    - `namespaceLike`: TypeScript namespaces, import and export namespaces (`import * as namspace from`)
+    - `namespace`: TypeScript namespaces
+    - `importNamespace`
+    - `exportNamespace`
+    - `importAlias`: default imports and aliases of named imports
+    - `exportAlias`: aliases of re-exported names
+    - `variable`: const, let, using, and var declarations
+    - `const`
+    - `let`
+    - `var`
+    - `using`
+    - `functionParameter`
+    - `catchParameter`
+    - `indexParameter`: parameters of index signatures
+    - `typeParameter`: generic type parameter
+    - `classMember`: class properties, parameter properties, methods, getters, and setters
+    - `classProperty`: class properties, including parameter properties
+    - `classMethod`
+    - `classGetter`
+    - `classSetter`
+    - `objectLiteralMember`: literal object properties, methods, getters, and setters
+    - `objectLiteralProperty`
+    - `objectLiteralMethod`
+    - `objectLiteralGetter`
+    - `objectLiteralSetter`
+    - `typeMember`: properties, methods, getters, and setters declared in type alaises and interfaces
+    - `typeProperty`
+    - `typeMethod`
+    - `typeGetter`
+    - `typeSetter`
 
 
-- `modifiers`: an array of modifiers among:- `abstract`: applies to class members and classes
-- `private`: applies to class members
-- `protected`: applies to class members
-- `readonly`: applies to class members and type members
-- `static`: applies to class members
+- `modifiers`: an array of modifiers among:
+    - `abstract`: applies to class members and classes
+    - `private`: applies to class members
+    - `protected`: applies to class members
+    - `readonly`: applies to class members and type members
+    - `static`: applies to class members
 
 
-- `scope`: where the declaration appears. Allowd values:- `any`: anywhere (default value if the scope is unset)
-- `global`: the global scope (also includes the namespace scopes)
+- `scope`: where the declaration appears. Allowd values:
+    - `any`: anywhere (default value if the scope is unset)
+    - `global`: the global scope (also includes the namespace scopes)
 
 
 
@@ -461,10 +464,10 @@ The requirements of the convention are so verified on the declaration.
 
 A convention must set at least one requirement among:
 
-- `match`: a regular expression that the name of the declaration must match.
-If the regular expression captures a part of the name, then this part is checked against `formats`.
+- `match`: a regular expression that the name of the declaration must match.  
+If the regular expression captures a part of the name, then this part is checked against `formats`.  
 Only the first capture is tested. Other captures are ignored.
-- `formats`: the string [case](https://en.wikipedia.org/wiki/Naming_convention_(programming)#Examples_of_multiple-word_identifier_formats) that the name must follow.
+- `formats`: the string [case](https://en.wikipedia.org/wiki/Naming_convention_(programming)#Examples_of_multiple-word_identifier_formats) that the name must follow.  
 The supported cases are: [`PascalCase`](https://en.wikipedia.org/wiki/Camel_case), [`CONSTANT_CASE`](https://en.wikipedia.org/wiki/Snake_case), [`camelCase`](https://en.wikipedia.org/wiki/Camel_case), and [`snake_case`](https://en.wikipedia.org/wiki/Snake_case).
 
 If `match` is set and `formats` is unset,
@@ -476,8 +479,7 @@ If a forwarded capture is a part of the original name, then underscore and dolla
 
 In the following example:
 
-= We require `static readonly` class members to be in ["CONSTANT_CASE"].
-
+- We require `static readonly` class members to be in ["CONSTANT_CASE"].
 - We require `private` class members to start with an underscore `_` and to be in [`camelCase`](https://en.wikipedia.org/wiki/Camel_case).
 - We require global constants to be in ["CONSTANT_CASE"] and
 we allow these constants to be enclosed by double underscores or to be named `_SPECIAL_`.
