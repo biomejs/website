@@ -27,7 +27,7 @@
 		"@astrojs/prism": "3.1.0",
 		"@astrojs/react": "3.3.4",
 		"@astrojs/rss": "4.0.5",
-		"@astrojs/starlight": "0.22.1",
+		"@astrojs/starlight": "0.22.2",
 		"@biomejs/biome": "1.7.1",
 		"@biomejs/wasm-web": "link:./biome/packages/@biomejs/wasm-web",
 		"@codemirror/lang-css": "6.2.1",
