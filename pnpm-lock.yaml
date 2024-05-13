@@ -17,8 +17,8 @@ dependencies:
 
 devDependencies:
   '@astrojs/netlify':
-    specifier: 5.2.0
-    version: 5.2.0(astro@4.8.2)
+    specifier: 5.2.1
+    version: 5.2.1(astro@4.8.2)
   '@astrojs/prism':
     specifier: 3.1.0
     version: 3.1.0
@@ -400,8 +400,8 @@ packages:
       - supports-color
     dev: true
 
-  /@astrojs/netlify@5.2.0(astro@4.8.2):
-    resolution: {integrity: sha512-NFg3AdUToV7kbY5w2yHZY5UskqfsmIo9i0zIzQ2GgUcTwjyZCekZ89DLtKCJ1jFVle+QXJGsJAS61EYyptBDBQ==}
+  /@astrojs/netlify@5.2.1(astro@4.8.2):
+    resolution: {integrity: sha512-R2aXCwNblh7VwC8lXxOStDebGSI6cpOk2s39sT5Oi8XED8NkNfoL7ERahP962jfJE8O4TU1h1hhfY7ZUNXijbA==}
     peerDependencies:
       astro: ^4.2.0
     dependencies:
