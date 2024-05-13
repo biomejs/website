@@ -26,7 +26,7 @@ biome_json_syntax    = { path = "../biome/crates/biome_json_syntax" }
 biome_rowan          = { path = "../biome/crates/biome_rowan" }
 biome_service        = { path = "../biome/crates/biome_service" }
 biome_string_case    = { path = "../biome/crates/biome_string_case" }
-anyhow               = "1.0.82"
+anyhow               = "1.0.83"
 bpaf                 = { version = "0.9.12", features = ["docgen"] }
 # If you update this library, be aware of the breaking changes
 pulldown-cmark       = "0.10.3"
