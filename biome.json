@@ -1,7 +1,7 @@
 {
 	"$schema": "https://biomejs.dev/schemas/1.7.3/schema.json",
 	"files": {
-		"ignore": ["biome/**"]
+		"ignore": ["biome/**", "_metadata.json"]
 	},
 	"organizeImports": {
 		"enabled": true
