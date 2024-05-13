@@ -25,7 +25,7 @@
 	"devDependencies": {
 		"@astrojs/netlify": "5.2.0",
 		"@astrojs/prism": "3.1.0",
-		"@astrojs/react": "3.3.2",
+		"@astrojs/react": "3.3.4",
 		"@astrojs/rss": "4.0.5",
 		"@astrojs/starlight": "0.22.1",
 		"@biomejs/biome": "1.7.1",
@@ -71,7 +71,7 @@
 		"vite-plugin-svgr": "4.2.0"
 	},
 	"dependencies": {
-		"astro": "^4.7.1",
+		"astro": "^4.8.2",
 		"astro-og-canvas": "^0.5.0",
 		"canvaskit-wasm": "^0.39.1"
 	},
