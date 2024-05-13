@@ -3,6 +3,7 @@ use std::env;
 use std::path::{Path, PathBuf};
 
 pub mod lintdoc;
+pub mod metadata;
 pub mod rules_sources;
 pub mod website;
 
@@ -22,6 +23,10 @@ pub enum CodegenCommand {
     /// Updates the documentation of the rule pages
     #[bpaf(command)]
     Rules,
+
+    /// Metadata
+    #[bpaf(command)]
+    Metadata,
 
     /// Updates the files of a release
     #[bpaf(command)]

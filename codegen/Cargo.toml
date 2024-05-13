@@ -9,7 +9,7 @@ publish     = false
 [dependencies]
 biome_analyze        = { path = "../biome/crates/biome_analyze" }
 biome_cli            = { path = "../biome/crates/biome_cli" }
-biome_configuration  = { path = "../biome/crates/biome_configuration" }
+biome_configuration   = { path = "../biome/crates/biome_configuration" }
 biome_console        = { path = "../biome/crates/biome_console" }
 biome_css_analyze    = { path = "../biome/crates/biome_css_analyze" }
 biome_css_parser     = { path = "../biome/crates/biome_css_parser" }
@@ -30,6 +30,7 @@ anyhow               = "1.0.83"
 bpaf                 = { version = "0.9.12", features = ["docgen"] }
 # If you update this library, be aware of the breaking changes
 pulldown-cmark       = "0.10.3"
-schemars             = "0.8.17"
-serde_json           = "1.0.116"
+schemars             = "0.8.19"
+serde                = "1.0.201"
+serde_json           = "1.0.117"
 
