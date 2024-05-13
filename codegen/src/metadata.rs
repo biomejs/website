@@ -266,8 +266,10 @@ impl RegistryVisitor<CssLanguage> for Metadata {
     }
 }
 
+
+
 pub fn generate_json_metadata() -> anyhow::Result<()> {
-    let metadata_file = project_root().join("src/pages/metadata/_metadata.json");
+    let metadata_file = project_root().join("src/pages/metadata/rules.json.js");
     if metadata_file.exists() {
         fs::remove_file(&metadata_file)?;
     }
@@ -277,6 +279,18 @@ pub fn generate_json_metadata() -> anyhow::Result<()> {
     biome_css_analyze::visit_registry(&mut visitor);
 
     let content = serde_json::to_string_pretty(&visitor)?;
+
+    let content = format!(r#"export function GET() {{
+	const schema = {content};
+	// const json_file = new URL("_metadata.json", root);
+	return new Response(JSON.stringify(schema), {{
+		status: 200,
+		headers: {{
+			"content-type": "application/json",
+		}},
+	}});
+}}
+"#);
 
     fs::write(metadata_file, content)?;
 

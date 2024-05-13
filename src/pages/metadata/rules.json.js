@@ -1,4 +1,5 @@
-{
+export function GET() {
+	const schema = {
   "lints": {
     "languages": {
       "css": {
@@ -3037,4 +3038,12 @@
     },
     "numberOrRules": 1
   }
+};
+	// const json_file = new URL("_metadata.json", root);
+	return new Response(JSON.stringify(schema), {
+		status: 200,
+		headers: {
+			"content-type": "application/json",
+		},
+	});
 }
