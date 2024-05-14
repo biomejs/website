@@ -622,6 +622,7 @@ dependencies = [
  "biome_json_syntax",
  "biome_rowan",
  "lazy_static",
+ "rustc-hash",
 ]
 
 [[package]]
