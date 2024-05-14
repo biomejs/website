@@ -21,11 +21,14 @@ foobar;
 
 <pre class="language-text"><code class="language-text">correctness/noUndeclaredVariables.js:1:1 <a href="https://biomejs.dev/linter/rules/no-undeclared-variables">lint/correctness/noUndeclaredVariables</a> ━━━━━━━━━━━━━━━━━━━━
 
-<strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">The </span><span style="color: Orange;"><strong>foobar</strong></span><span style="color: Orange;"> variable is undeclared</span>
+<strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">The </span><span style="color: Orange;"><strong>foobar</strong></span><span style="color: Orange;"> variable is undeclared.</span>
   
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>foobar;
    <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
     <strong>2 │ </strong>
+  
+<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">By default, Biome recognizes browser and Mode.js globals.
+</span><span style="color: lightgreen;">  </span><span style="color: lightgreen;">  </span><span style="color: lightgreen;">You can ignore more globals using the </span><span style="color: lightgreen;"><a href="https://biomejs.dev/reference/configuration/#javascriptglobals">javascript.globals</a></span><span style="color: lightgreen;"> configuration.</span>
   
 </code></pre>
 
@@ -36,12 +39,15 @@ PromiseLike;
 
 <pre class="language-text"><code class="language-text">correctness/noUndeclaredVariables.js:2:1 <a href="https://biomejs.dev/linter/rules/no-undeclared-variables">lint/correctness/noUndeclaredVariables</a> ━━━━━━━━━━━━━━━━━━━━
 
-<strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">The </span><span style="color: Orange;"><strong>PromiseLike</strong></span><span style="color: Orange;"> variable is undeclared</span>
+<strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">The </span><span style="color: Orange;"><strong>PromiseLike</strong></span><span style="color: Orange;"> variable is undeclared.</span>
   
     <strong>1 │ </strong>// throw diagnostic for JavaScript files
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>PromiseLike;
    <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
     <strong>3 │ </strong>
+  
+<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">By default, Biome recognizes browser and Mode.js globals.
+</span><span style="color: lightgreen;">  </span><span style="color: lightgreen;">  </span><span style="color: lightgreen;">You can ignore more globals using the </span><span style="color: lightgreen;"><a href="https://biomejs.dev/reference/configuration/#javascriptglobals">javascript.globals</a></span><span style="color: lightgreen;"> configuration.</span>
   
 </code></pre>
 
