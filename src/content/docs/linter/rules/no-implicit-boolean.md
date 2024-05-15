@@ -10,7 +10,7 @@ title: noImplicitBoolean (since v1.0.0)
 :::
 
 Sources: 
-- Same as: <a href="https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-boolean-value.md" target="_blank"><code>react/jsx-boolean-value</code></a>
+- Inspired from: <a href="https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-boolean-value.md" target="_blank"><code>react/jsx-boolean-value</code></a>
 
 Disallow implicit `true` values on JSX boolean attributes
 
