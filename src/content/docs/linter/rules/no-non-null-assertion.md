@@ -73,7 +73,7 @@ interface Example {
   property?: string;
 }
 
-declare const example: Example;
+declare const foo: Example;
 const includesBaz = foo.property?.includes('baz') ?? false;
 ```
 
