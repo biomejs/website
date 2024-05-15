@@ -1,16 +1,21 @@
 {
 	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
 	"timezone": "Europe/Gibraltar",
-	"schedule": ["before 9am on monday"],
+	"schedule": [
+		"before 9am on monday"
+	],
 	"extends": [
 		"config:best-practices",
 		"helpers:pinGitHubActionDigestsToSemver",
-		"regexManagers:biomeVersions"
+		"customManagers:biomeVersions"
 	],
 	"rangeStrategy": "bump",
 	"lockFileMaintenance": {
 		"enabled": false
 	},
-	"assignees": ["@biomejs/maintainers", "@biomejs/core-contributors"],
+	"assignees": [
+		"@biomejs/maintainers",
+		"@biomejs/core-contributors"
+	],
 	"cloneSubmodules": true
 }
