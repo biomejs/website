@@ -5,7 +5,7 @@
 	"extends": [
 		"config:best-practices",
 		"helpers:pinGitHubActionDigestsToSemver",
-		"regexManagers:biomeVersions"
+		"customManagers:biomeVersions"
 	],
 	"rangeStrategy": "bump",
 	"lockFileMaintenance": {
