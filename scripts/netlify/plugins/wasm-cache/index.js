@@ -1,6 +1,6 @@
 import { execSync } from "node:child_process";
 import { existsSync } from "node:fs";
-import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { mkdir, readFile, rm, writeFile, readdir } from "node:fs/promises";
 import { basename, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -32,6 +32,11 @@ const CACHE_META_PATH = join(CACHE_BASE_PATH, CACHE_META_NAME);
 
 // This hook runs before building.
 export const onPreBuild = async () => {
+	// remove the cache before build.
+	for (const file of await readdir("/opt/build/cache")) {
+		await rm(join("/opt/build/cache", file), { recursive: true, force: true });
+	}
+
 	console.log("Started restoring WASM cache");
 	console.log(`WASM path: ${WASM_PATH}`);
 	console.log(`Cache store path: ${CACHE_STORE_PATH}`);
