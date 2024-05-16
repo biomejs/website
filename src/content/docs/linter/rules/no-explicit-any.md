@@ -45,17 +45,17 @@ let variable: any = 1;
 
 ```ts
 class SomeClass {
-  message: Array<Array<any>>;
+   message: Array<Array<any>>;
 }
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noExplicitAny.js:2:24 <a href="https://biomejs.dev/linter/rules/no-explicit-any">lint/suspicious/noExplicitAny</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">suspicious/noExplicitAny.js:2:25 <a href="https://biomejs.dev/linter/rules/no-explicit-any">lint/suspicious/noExplicitAny</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unexpected </span><span style="color: Tomato;"><strong>any</strong></span><span style="color: Tomato;">. Specify a different type.</span>
   
     <strong>1 │ </strong>class SomeClass {
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  message: Array&lt;Array&lt;any&gt;&gt;;
-   <strong>   │ </strong>                       <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
+<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>   message: Array&lt;Array&lt;any&gt;&gt;;
+   <strong>   │ </strong>                        <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
     <strong>3 │ </strong>}
     <strong>4 │ </strong>
   
@@ -88,7 +88,7 @@ let variable2 = 1;
 
 ```ts
 class SomeClass<T extends any> {
-  message: Array<Array<unknown>>;
+   message: Array<Array<unknown>>;
 }
 ```
 
