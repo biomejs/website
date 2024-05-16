@@ -426,7 +426,7 @@ You can select a decalration based on several criteria:
   - `functionParameter`
   - `catchParameter`
   - `indexParameter`: parameters of index signatures
-= `typeParameter`: generic type parameter
+  - `typeParameter`: generic type parameter
   - `classMember`: class properties, parameter properties, methods, getters, and setters
   - `classProperty`: class properties, including parameter properties
   - `classMethod`
@@ -452,7 +452,7 @@ You can select a decalration based on several criteria:
   - `static`: applies to class members
 
 
-- `scope`: where the declaration appears. Allowd values:
+- `scope`: where the declaration appears. Allowed values:
   - `any`: anywhere (default value if the scope is unset)
   - `global`: the global scope (also includes the namespace scopes)
 
@@ -479,10 +479,9 @@ If a forwarded capture is a part of the original name, then underscore and dolla
 
 In the following example:
 
-= We require `static readonly` class members to be in ["CONSTANT_CASE"].
-
+- We require `static readonly` class members to be in [`CONSTANT_CASE`](https://en.wikipedia.org/wiki/Snake_case).
 - We require `private` class members to start with an underscore `_` and to be in [`camelCase`](https://en.wikipedia.org/wiki/Camel_case).
-- We require global constants to be in ["CONSTANT_CASE"] and
+- We require global constants to be in [`CONSTANT_CASE`](https://en.wikipedia.org/wiki/Snake_case) and
 we allow these constants to be enclosed by double underscores or to be named `_SPECIAL_`.
 - We require interfaces to start with `I`, except for interfaces ending with `Error`,
 and to be in [`PascalCase`](https://en.wikipedia.org/wiki/Camel_case).
