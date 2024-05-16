@@ -404,54 +404,57 @@ For example, you can enforce the use of [`CONSTANT_CASE`](https://en.wikipedia.o
 A selector descibes which decalrations the convention applies to.
 You can select a decalration based on several criteria:
 
-- `kind`: the kind of the declaration among:- `any` (default kind if the kind is unset)
-- `typeLike`: classes, enums, type aliases, and interfaces
-- `class`
-- `enum`
-- `interface`
-- `typeAlias`
-- `function`: named function declarations and expressions
-- `namespaceLike`: TypeScript namespaces, import and export namespaces (`import * as namspace from`)
-- `namespace`: TypeScript namespaces
-- `importNamespace`
-- `exportNamespace`
-- `importAlias`: default imports and aliases of named imports
-- `exportAlias`: aliases of re-exported names
-- `variable`: const, let, using, and var declarations
-- `const`
-- `let`
-- `var`
-- `using`
-- `functionParameter`
-- `catchParameter`
-- `indexParameter`: parameters of index signatures
+- `kind`: the kind of the declaration among:
+  - `any` (default kind if the kind is unset)
+  - `typeLike`: classes, enums, type aliases, and interfaces
+  - `class`
+  - `enum`
+  - `interface`
+  - `typeAlias`
+  - `function`: named function declarations and expressions
+  - `namespaceLike`: TypeScript namespaces, import and export namespaces (`import * as namspace from`)
+  - `namespace`: TypeScript namespaces
+  - `importNamespace`
+  - `exportNamespace`
+  - `importAlias`: default imports and aliases of named imports
+  - `exportAlias`: aliases of re-exported names
+  - `variable`: const, let, using, and var declarations
+  - `const`
+  - `let`
+  - `var`
+  - `using`
+  - `functionParameter`
+  - `catchParameter`
+  - `indexParameter`: parameters of index signatures
 = `typeParameter`: generic type parameter
-- `classMember`: class properties, parameter properties, methods, getters, and setters
-- `classProperty`: class properties, including parameter properties
-- `classMethod`
-- `classGetter`
-- `classSetter`
-- `objectLiteralMember`: literal object properties, methods, getters, and setters
-- `objectLiteralProperty`
-- `objectLiteralMethod`
-- `objectLiteralGetter`
-- `objectLiteralSetter`
-- `typeMember`: properties, methods, getters, and setters declared in type alaises and interfaces
-- `typeProperty`
-- `typeMethod`
-- `typeGetter`
-- `typeSetter`
+  - `classMember`: class properties, parameter properties, methods, getters, and setters
+  - `classProperty`: class properties, including parameter properties
+  - `classMethod`
+  - `classGetter`
+  - `classSetter`
+  - `objectLiteralMember`: literal object properties, methods, getters, and setters
+  - `objectLiteralProperty`
+  - `objectLiteralMethod`
+  - `objectLiteralGetter`
+  - `objectLiteralSetter`
+  - `typeMember`: properties, methods, getters, and setters declared in type alaises and interfaces
+  - `typeProperty`
+  - `typeMethod`
+  - `typeGetter`
+  - `typeSetter`
 
 
-- `modifiers`: an array of modifiers among:- `abstract`: applies to class members and classes
-- `private`: applies to class members
-- `protected`: applies to class members
-- `readonly`: applies to class members and type members
-- `static`: applies to class members
+- `modifiers`: an array of modifiers among:
+  - `abstract`: applies to class members and classes
+  - `private`: applies to class members
+  - `protected`: applies to class members
+  - `readonly`: applies to class members and type members
+  - `static`: applies to class members
 
 
-- `scope`: where the declaration appears. Allowd values:- `any`: anywhere (default value if the scope is unset)
-- `global`: the global scope (also includes the namespace scopes)
+- `scope`: where the declaration appears. Allowd values:
+  - `any`: anywhere (default value if the scope is unset)
+  - `global`: the global scope (also includes the namespace scopes)
 
 
 

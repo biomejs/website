@@ -474,6 +474,7 @@ fn parse_documentation(
     // language supported for analysis
     let mut language = None;
     let mut list_order = None;
+    let mut list_indentation = 0;
 
     // Tracks the type and metadata of the link
     let mut start_link_tag: Option<Tag> = None;
@@ -621,17 +622,27 @@ fn parse_documentation(
                 writeln!(content)?;
             }
 
+            Event::HardBreak => {
+                writeln!(content, "<br />")?;
+            }
+
             Event::Start(Tag::List(num)) => {
+                list_indentation += 1;
                 if let Some(num) = num {
                     list_order = Some(num);
+                }
+                if list_indentation > 1 {
+                    writeln!(content)?;
                 }
             }
 
             Event::End(TagEnd::List(_)) => {
                 list_order = None;
+                list_indentation -= 1;
                 writeln!(content)?;
             }
             Event::Start(Tag::Item) => {
+                write!(content, "{}", "  ".repeat(list_indentation - 1))?;
                 if let Some(num) = list_order {
                     write!(content, "{num}. ")?;
                 } else {

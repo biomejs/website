@@ -18,8 +18,9 @@ This rule reports when a class has no non-static members, such as for a class us
 Users who come from a [OOP](https://en.wikipedia.org/wiki/Object-oriented_programming) paradigm may wrap their utility functions in an extra class,
 instead of putting them at the top level of an ECMAScript module. Doing so is generally unnecessary in JavaScript and TypeScript projects.
 
-- Wrapper classes add extra cognitive complexity to code without adding any structural improvements- Whatever would be put on them, such as utility functions, are already organized by virtue of being in a module.
-- As an alternative, you can import * as ... the module to get all of them in a single object.
+- Wrapper classes add extra cognitive complexity to code without adding any structural improvements
+  - Whatever would be put on them, such as utility functions, are already organized by virtue of being in a module.
+  - As an alternative, you can import * as ... the module to get all of them in a single object.
 
 
 - IDEs can't provide as good suggestions for static class or namespace imported properties when you start typing property names
