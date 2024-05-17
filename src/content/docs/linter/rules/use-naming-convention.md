@@ -328,7 +328,7 @@ The rule provides several options that are detailed in the following subsections
         "strictCase": false,
         "requireAscii": true,
         "enumMemberCase": "CONSTANT_CASE",
-        "custon": [
+        "conventions": [
             {
                 "selector": {
                     "kind": "memberLike",
@@ -358,7 +358,7 @@ Default: `true`
 When this option is set to `true`, it forbids names that include non-ASCII characters.
 For instance,  when the option is set to `true`, `café` or `안녕하세요` will throw an error.
 
-When the option is set to `false`, anames may include non-ASCII characters.
+When the option is set to `false`, names may include non-ASCII characters.
 `café` and `안녕하세요` are so valid.
 
 Default: `false`
@@ -401,8 +401,8 @@ For example, you can enforce the use of [`CONSTANT_CASE`](https://en.wikipedia.o
 }
 ```
 
-A selector descibes which decalrations the convention applies to.
-You can select a decalration based on several criteria:
+A selector describes which declarations the convention applies to.
+You can select a declaration based on several criteria:
 
 - `kind`: the kind of the declaration among:
   - `any` (default kind if the kind is unset)
@@ -412,7 +412,7 @@ You can select a decalration based on several criteria:
   - `interface`
   - `typeAlias`
   - `function`: named function declarations and expressions
-  - `namespaceLike`: TypeScript namespaces, import and export namespaces (`import * as namspace from`)
+  - `namespaceLike`: TypeScript namespaces, import and export namespaces (`import * as namespace from`)
   - `namespace`: TypeScript namespaces
   - `importNamespace`
   - `exportNamespace`
@@ -437,7 +437,7 @@ You can select a decalration based on several criteria:
   - `objectLiteralMethod`
   - `objectLiteralGetter`
   - `objectLiteralSetter`
-  - `typeMember`: properties, methods, getters, and setters declared in type alaises and interfaces
+  - `typeMember`: properties, methods, getters, and setters declared in type aliases and interfaces
   - `typeProperty`
   - `typeMethod`
   - `typeGetter`
@@ -491,7 +491,7 @@ and to be in [`PascalCase`](https://en.wikipedia.org/wiki/Camel_case).
  {
      "//": "...",
      "options": {
-         "custon": [
+         "conventions": [
              {
                  "selector": {
                      "kind": "classMember",
