@@ -71,16 +71,15 @@ struct JsonMetadata {
     /// Whether a rule is recommended or not
     pub recommended: bool,
     /// The kind of fix
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub fix_kind: Option<FixKind>,
+    pub fix_kind: FixKind,
     /// The source URL of the rule
     #[serde(skip_serializing_if = "Vec::is_empty")]
     pub sources: Vec<RuleSource>,
     /// The source kind of the rule
     #[serde(skip_serializing_if = "Option::is_none")]
     pub source_kind: Option<RuleSourceKind>,
-    
-    pub docs: String
+
+    pub docs: String,
 }
 
 impl From<RuleMetadata> for JsonMetadata {
@@ -93,7 +92,7 @@ impl From<RuleMetadata> for JsonMetadata {
             sources: value.sources.to_vec(),
             recommended: value.recommended,
             fix_kind: value.fix_kind,
-            docs: value.docs.to_string()
+            docs: value.docs.to_string(),
         }
     }
 }
@@ -266,8 +265,6 @@ impl RegistryVisitor<CssLanguage> for Metadata {
     }
 }
 
-
-
 pub fn generate_json_metadata() -> anyhow::Result<()> {
     let metadata_file = project_root().join("src/pages/metadata/rules.json.js");
     if metadata_file.exists() {
@@ -280,7 +277,8 @@ pub fn generate_json_metadata() -> anyhow::Result<()> {
 
     let content = serde_json::to_string_pretty(&visitor)?;
 
-    let content = format!(r#"export function GET() {{
+    let content = format!(
+        r#"export function GET() {{
 	const schema = {content};
 	// const json_file = new URL("_metadata.json", root);
 	return new Response(JSON.stringify(schema), {{
@@ -290,7 +288,8 @@ pub fn generate_json_metadata() -> anyhow::Result<()> {
 		}},
 	}});
 }}
-"#);
+"#
+    );
 
     fs::write(metadata_file, content)?;
 

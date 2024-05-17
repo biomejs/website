@@ -282,12 +282,15 @@ fn generate_group(
                 if is_recommended {
                     properties.push_str("<span class='inline-icon'><Icon name=\"approve-check-circle\" size=\"1.2rem\" label=\"This rule is recommended\" /></span>");
                 }
-                if let Some(fix_kind) = meta.fix_kind.as_ref() {
-                    if *fix_kind == FixKind::Safe {
+
+                match meta.fix_kind {
+                    FixKind::Safe => {
                         properties.push_str("<span class='inline-icon'><Icon name=\"seti:config\" label=\"The rule has a safe fix\" size=\"1.2rem\"  /></span>");
-                    } else {
+                    }
+                    FixKind::Unsafe => {
                         properties.push_str("<span class='inline-icon'><Icon name=\"warning\" label=\"The rule has an unsafe fix\" size=\"1.2rem\" /></span>");
                     }
+                    _ => {}
                 }
 
                 match meta.language {
@@ -362,20 +365,19 @@ fn generate_rule(payload: GenRule) -> Result<Vec<Event<'static>>> {
 
     writeln!(content)?;
 
-    if is_recommended || meta.fix_kind.is_some() {
+    if is_recommended || !matches!(meta.fix_kind, FixKind::None) {
         writeln!(content, ":::note")?;
         if is_recommended {
             writeln!(content, "- This rule is recommended by Biome. A diagnostic error will appear when linting your code.")?;
         }
-        if let Some(fix_kind) = meta.fix_kind.as_ref() {
-            match fix_kind {
-                FixKind::Safe => {
-                    writeln!(content, "- This rule has a **safe** fix.")?;
-                }
-                FixKind::Unsafe => {
-                    writeln!(content, "- This rule has an **unsafe** fix.")?;
-                }
+        match meta.fix_kind {
+            FixKind::Safe => {
+                writeln!(content, "- This rule has a **safe** fix.")?;
             }
+            FixKind::Unsafe => {
+                writeln!(content, "- This rule has an **unsafe** fix.")?;
+            }
+            _ => {}
         }
         match meta.language {
             "js" => {
@@ -440,7 +442,7 @@ fn generate_rule(payload: GenRule) -> Result<Vec<Event<'static>>> {
         rule,
         meta.docs,
         &mut content,
-        meta.fix_kind.is_some(),
+        !matches!(meta.fix_kind, FixKind::None),
     )?;
 
     writeln!(content, "## Related links")?;
