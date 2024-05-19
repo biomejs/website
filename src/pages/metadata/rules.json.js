@@ -4,18 +4,12 @@ export function GET() {
     "languages": {
       "css": {
         "nursery": {
-          "noColorInvalidHex": {
-            "deprecated": false,
-            "version": "next",
-            "name": "noColorInvalidHex",
-            "recommended": false,
-            "docs": " **WIP: This rule hasn't been implemented yet.**\n\n This is sample rule\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n p {}\n ```\n\n ### Valid\n\n ```css\n p {\n   color: red;\n }\n ```\n\n"
-          },
           "noCssEmptyBlock": {
             "deprecated": false,
             "version": "next",
             "name": "noCssEmptyBlock",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "stylelint": "no-empty-block"
@@ -28,6 +22,7 @@ export function GET() {
             "version": "next",
             "name": "noDuplicateAtImportRules",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "stylelint": "no-duplicate-at-import-rules"
@@ -40,6 +35,7 @@ export function GET() {
             "version": "next",
             "name": "noDuplicateFontNames",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "stylelint": "font-family-no-duplicate-names"
@@ -52,6 +48,7 @@ export function GET() {
             "version": "next",
             "name": "noDuplicateSelectorsKeyframeBlock",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "stylelint": "keyframe-block-no-duplicate-selectors"
@@ -64,6 +61,7 @@ export function GET() {
             "version": "next",
             "name": "noImportantInKeyframe",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "stylelint": "keyframe-declaration-no-important"
@@ -76,6 +74,7 @@ export function GET() {
             "version": "next",
             "name": "noInvalidPositionAtImportRule",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "stylelint": "no-invalid-position-at-import-rule"
@@ -88,6 +87,7 @@ export function GET() {
             "version": "next",
             "name": "noUnknownFunction",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "stylelint": "function-no-unknown"
@@ -100,6 +100,7 @@ export function GET() {
             "version": "next",
             "name": "noUnknownMediaFeatureName",
             "recommended": false,
+            "fixKind": "none",
             "sources": [
               {
                 "stylelint": "media-feature-name-no-unknown"
@@ -112,6 +113,7 @@ export function GET() {
             "version": "next",
             "name": "noUnknownProperty",
             "recommended": false,
+            "fixKind": "none",
             "docs": " Disallow unknown properties.\n\n This rule considers properties defined in the CSS Specifications and browser specific properties to be known.\n https://github.com/known-css/known-css-properties#source\n\n\n This rule ignores:\n\n - custom variables e.g. `--custom-property`\n - vendor-prefixed properties (e.g., `-moz-align-self,` `-webkit-align-self`)\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a {\n   colr: blue;\n }\n ```\n\n ```css,expect_diagnostic\n a {\n   my-property: 1;\n }\n ```\n\n ### Valid\n\n ```css\n a {\n   color: green;\n }\n ```\n\n ```css\n a {\n   fill: black;\n }\n ```\n\n ```css\n a {\n   -moz-align-self: center;\n }\n ```\n\n"
           },
           "noUnknownSelectorPseudoElement": {
@@ -119,6 +121,7 @@ export function GET() {
             "version": "next",
             "name": "noUnknownSelectorPseudoElement",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "stylelint": "selector-pseudo-element-no-unknown"
@@ -131,6 +134,7 @@ export function GET() {
             "version": "next",
             "name": "noUnknownUnit",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "stylelint": "unit-no-unknown"
@@ -143,6 +147,7 @@ export function GET() {
             "version": "next",
             "name": "noUnmatchableAnbSelector",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "stylelint": "selector-anb-no-unmatchable"
@@ -155,6 +160,7 @@ export function GET() {
             "version": "next",
             "name": "useGenericFontNames",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "stylelint": "font-family-no-missing-generic-family-keyword"
@@ -171,6 +177,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noExcessiveCognitiveComplexity",
             "recommended": false,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintSonarJs": "cognitive-complexity"
@@ -183,6 +190,7 @@ export function GET() {
             "version": "1.6.0",
             "name": "noExcessiveNestedTestSuites",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintJest": "max-nested-describe"
@@ -209,6 +217,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noForEach",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintUnicorn": "no-array-for-each"
@@ -237,6 +246,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noStaticOnlyClass",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintTypeScript": "no-extraneous-class"
@@ -265,6 +275,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noUselessCatch",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "no-useless-catch"
@@ -306,7 +317,7 @@ export function GET() {
             "version": "1.3.3",
             "name": "noUselessLoneBlockStatements",
             "recommended": true,
-            "fixKind": "unsafe",
+            "fixKind": "safe",
             "sources": [
               {
                 "eslint": "no-lone-blocks"
@@ -358,6 +369,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noVoid",
             "recommended": false,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "no-void"
@@ -370,6 +382,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noWith",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "no-with"
@@ -428,7 +441,7 @@ export function GET() {
             "version": "1.3.0",
             "name": "useRegexLiterals",
             "recommended": true,
-            "fixKind": "unsafe",
+            "fixKind": "safe",
             "sources": [
               {
                 "eslint": "prefer-regex-literals"
@@ -472,6 +485,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noConstantCondition",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "no-constant-condition"
@@ -484,6 +498,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noConstructorReturn",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "no-constructor-return"
@@ -496,6 +511,7 @@ export function GET() {
             "version": "1.3.0",
             "name": "noEmptyCharacterClassInRegex",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "no-empty-character-class"
@@ -508,6 +524,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noEmptyPattern",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "no-empty-pattern"
@@ -520,6 +537,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noGlobalObjectCalls",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "no-obj-calls"
@@ -532,6 +550,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noInnerDeclarations",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "no-inner-declarations"
@@ -544,6 +563,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noInvalidConstructorSuper",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "constructor-super"
@@ -569,6 +589,7 @@ export function GET() {
             "version": "1.5.0",
             "name": "noInvalidUseBeforeDeclaration",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "no-use-before-define"
@@ -610,6 +631,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noPrecisionLoss",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "no-loss-of-precision"
@@ -628,6 +650,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noSelfAssign",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "no-self-assign"
@@ -643,6 +666,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noSetterReturn",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "no-setter-return"
@@ -681,6 +705,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noUndeclaredVariables",
             "recommended": false,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "no-undef"
@@ -701,6 +726,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noUnreachable",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "no-unreachable"
@@ -713,6 +739,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noUnreachableSuper",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "no-this-before-super"
@@ -725,6 +752,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noUnsafeFinally",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "no-unsafe-finally"
@@ -737,6 +765,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noUnsafeOptionalChaining",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "no-unsafe-optional-chaining"
@@ -757,7 +786,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noUnusedLabels",
             "recommended": true,
-            "fixKind": "unsafe",
+            "fixKind": "safe",
             "sources": [
               {
                 "eslint": "no-unused-labels"
@@ -812,6 +841,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "useValidForDirection",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "for-direction"
@@ -824,6 +854,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "useYield",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "require-yield"
@@ -864,6 +895,7 @@ export function GET() {
             "version": "1.6.1",
             "name": "noDoneCallback",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintJest": "no-done-callback"
@@ -877,6 +909,7 @@ export function GET() {
             "version": "1.6.2",
             "name": "noDuplicateElseIf",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "no-dupe-else-if"
@@ -902,6 +935,7 @@ export function GET() {
             "version": "next",
             "name": "noMisplacedAssertion",
             "recommended": false,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintJest": "no-standalone-expect"
@@ -915,6 +949,7 @@ export function GET() {
             "version": "1.5.0",
             "name": "noNodejsModules",
             "recommended": false,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintImport": "no-nodejs-modules"
@@ -940,6 +975,7 @@ export function GET() {
             "version": "1.6.0",
             "name": "noRestrictedImports",
             "recommended": false,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "no-restricted-imports"
@@ -955,6 +991,7 @@ export function GET() {
             "version": "1.6.0",
             "name": "noUndeclaredDependencies",
             "recommended": false,
+            "fixKind": "none",
             "docs": " Disallow the use of dependencies that aren't specified in the `package.json`.\n\n Indirect dependencies will trigger the rule because they aren't declared in the `package.json`. This means that if package `@org/foo` has a dependency on `lodash`, and then you use\n `import \"lodash\"` somewhere in your project, the rule will trigger a diagnostic for this import.\n\n The rule ignores imports using a protocol such as `node:`, `bun:`, `jsr:`, `https:`.\n\n ## Examples\n\n ### Invalid\n\n ```js,ignore\n import \"vite\";\n ```\n\n ### Valid\n\n ```js,ignore\n import { A } from \"./local.js\";\n ```\n\n ```js,ignore\n import assert from \"node:assert\";\n ```\n"
           },
           "noUselessStringConcat": {
@@ -1018,6 +1055,7 @@ export function GET() {
             "version": "1.7.2",
             "name": "useDefaultSwitchClause",
             "recommended": false,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "default-case"
@@ -1044,6 +1082,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "useImportRestrictions",
             "recommended": false,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintImportAccess": "eslint-plugin-import-access"
@@ -1051,6 +1090,19 @@ export function GET() {
             ],
             "sourceKind": "inspired",
             "docs": " Disallows package private imports.\n\n This rules enforces the following restrictions:\n\n ## Package private visibility\n\n All exported symbols, such as types, functions or other things that may be exported, are\n considered to be \"package private\". This means that modules that reside in the same\n directory, as well as submodules of those \"sibling\" modules, are allowed to import them,\n while any other modules that are further away in the file system are restricted from\n importing them. A symbol's visibility may be extended by re-exporting from an index file.\n\n Notes:\n\n * This rule only applies to relative imports. External dependencies are exempted.\n * This rule only applies to imports for JavaScript and TypeScript files. Imports for\n   resources such as images or CSS files are exempted.\n\n Source: https://github.com/uhyo/eslint-plugin-import-access\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n // Attempt to import from `foo.js` from outside its `sub` module.\n import { fooPackageVariable } from \"./sub/foo.js\";\n ```\n ```js,expect_diagnostic\n // Attempt to import from `bar.ts` from outside its `aunt` module.\n import { barPackageVariable } from \"../aunt/bar.ts\";\n ```\n\n ```js,expect_diagnostic\n // Assumed to resolve to a JS/TS file.\n import { fooPackageVariable } from \"./sub/foo\";\n ```\n\n ```js,expect_diagnostic\n // If the `sub/foo` module is inaccessible, so is its index file.\n import { fooPackageVariable } from \"./sub/foo/index.js\";\n ```\n\n ### Valid\n\n ```js\n // Imports within the same module are always allowed.\n import { fooPackageVariable } from \"./foo.js\";\n\n // Resources (anything other than JS/TS files) are exempt.\n import { barResource } from \"../aunt/bar.png\";\n\n // A parent index file is accessible like other modules.\n import { internal } from \"../../index.js\";\n\n // If the `sub` module is accessible, so is its index file.\n import { subPackageVariable } from \"./sub/index.js\";\n\n // Library imports are exempt.\n import useAsync from \"react-use/lib/useAsync\";\n ```\n\n"
+          },
+          "useNumberToFixedDigitsArgument": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useNumberToFixedDigitsArgument",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "eslintUnicorn": "require-number-to-fixed-digits-argument"
+              }
+            ],
+            "docs": " Enforce using the digits argument with `Number#toFixed()`.\n\n When using `Number#toFixed()` explicitly specify the number of digits you want to appear after the decimal point,\n to avoid unexpected results, rather than relying on its default value of 0.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const string = number.toFixed();\n ```\n\n ### Valid\n\n ```js\n const string = foo.toFixed(0);\n ```\n ```js\n const string = foo.toFixed(2);\n ```\n\n ## Caveats\n\n This rule always assumes that `toFixed` is called on a number.\n It does not check the type of the callee.\n\n"
           },
           "useThrowNewError": {
             "deprecated": false,
@@ -1064,6 +1116,14 @@ export function GET() {
               }
             ],
             "docs": " Require `new` when throwing an error.\n\n While it's possible to instantiate `Error` without using the `new` keyword, it's better to be consistent: modern builtins require `new` to be instantiated.\n\n Rule matches errors when their name ends with the word \"Error\" and the first character is uppercase.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n throw Error();\n ```\n ```js,expect_diagnostic\n throw TypeError('biome');\n ```\n ```js,expect_diagnostic\n throw lib.TypeError();\n ```\n\n ### Valid\n\n ```js\n throw new Error();\n ```\n ```js\n throw new TypeError('biome');\n ```\n ```js\n throw new lib.TypeError();\n ```\n\n"
+          },
+          "useTopLevelRegex": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useTopLevelRegex",
+            "recommended": false,
+            "fixKind": "none",
+            "docs": " Require all regex literals to be declared at the top level.\n\n This rule is useful to avoid performance issues when using regex literals inside functions called many times (hot paths). Regex literals create a new RegExp object when they are evaluated. (See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp) By declaring them at the top level, this overhead can be avoided.\n\n It's important to note that this rule is not recommended for all cases. Placing regex literals at the top level can hurt startup times. In browser contexts, this can result in longer page loads.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function foo(someString) {\n     return /[a-Z]*/.test(someString)\n }\n ```\n\n ### Valid\n\n ```js\n const REGEX = /[a-Z]*/;\n\n function foo(someString) {\n     return REGEX.test(someString)\n }\n ```\n\n"
           }
         },
         "performance": {
@@ -1072,6 +1132,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noAccumulatingSpread",
             "recommended": true,
+            "fixKind": "none",
             "docs": " Disallow the use of spread (`...`) syntax on accumulators.\n\n Spread syntax allows an iterable to be expanded into its individual elements.\n\n Spread syntax should be avoided on accumulators (like those in `.reduce`)\n because it causes a time complexity of `O(n^2)` instead of `O(n)`.\n\n Source: https://prateeksurana.me/blog/why-using-object-spread-with-reduce-bad-idea/\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n var a = ['a', 'b', 'c'];\n a.reduce((acc, val) => [...acc, val], []);\n ```\n\n ```js,expect_diagnostic\n var a = ['a', 'b', 'c'];\n a.reduce((acc, val) => {return [...acc, val];}, []);\n ```\n\n ```js,expect_diagnostic\n var a = ['a', 'b', 'c'];\n a.reduce((acc, val) => ({...acc, [val]: val}), {});\n ```\n\n ### Valid\n\n ```js\n var a = ['a', 'b', 'c'];\n a.reduce((acc, val) => {acc.push(val); return acc}, []);\n ```\n\n"
           },
           "noDelete": {
@@ -1087,6 +1148,7 @@ export function GET() {
             "version": "1.6.0",
             "name": "noReExportAll",
             "recommended": false,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintBarrelFiles": "avoid-re-export-all"
@@ -1102,6 +1164,7 @@ export function GET() {
             "version": "1.5.0",
             "name": "noGlobalEval",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "no-eval"
@@ -1116,6 +1179,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noArguments",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "prefer-rest-params"
@@ -1128,6 +1192,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noCommaOperator",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "no-sequences"
@@ -1140,6 +1205,7 @@ export function GET() {
             "version": "1.4.0",
             "name": "noDefaultExport",
             "recommended": false,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintImport": "no-default-export"
@@ -1152,6 +1218,7 @@ export function GET() {
             "version": "1.6.0",
             "name": "noNamespaceImport",
             "recommended": false,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintBarrelFiles": "avoid-namespace-import"
@@ -1181,6 +1248,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noParameterAssign",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "no-param-reassign"
@@ -1193,6 +1261,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noRestrictedGlobals",
             "recommended": false,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "no-restricted-globals"
@@ -1314,19 +1383,21 @@ export function GET() {
             "version": "1.5.0",
             "name": "useFilenamingConvention",
             "recommended": false,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintUnicorn": "filename-case"
               }
             ],
             "sourceKind": "inspired",
-            "docs": " Enforce naming conventions for JavaScript and TypeScript filenames.\n\n Enforcing [naming conventions](https://en.wikipedia.org/wiki/Naming_convention_(programming)) helps to keep the codebase consistent.\n\n A filename consists of two parts: a name and a set of consecutive extension.\n For instance, `my-filename.test.js` has `my-filename` as name, and two consecutive extensions: `.test` and `.js`.\n\n The filename can start with a dot or a plus sign, be prefixed and suffixed by underscores `_`.\n For example, `.filename.js`, `+filename.js`, `__filename__.js`, or even `.__filename__.js`.\n\n The convention of prefixing a filename with a plus sign is used by\n [Sveltekit](https://kit.svelte.dev/docs/routing#page) and [Vike](https://vike.dev/route).\n\n By default, the rule ensures that the filename is either in [`camelCase`], [`kebab-case`], [`snake_case`],\n or equal to the name of one export in the file.\n\n ## Options\n\n The rule provides several options that are detailed in the following subsections.\n\n ```json\n {\n     \"//\": \"...\",\n     \"options\": {\n         \"strictCase\": false,\n         \"requireAscii\": true,\n         \"filenameCases\": [\"camelCase\", \"export\"]\n     }\n }\n ```\n\n ### strictCase\n\n When this option is set to `true`, it forbids consecutive uppercase characters in [`camelCase`] and [`PascalCase`].\n For instance,  when the option is set to `true`, `agentID` will throw an error.\n This name should be renamed to `agentId`.\n\n When the option is set to `false`, consecutive uppercase characters are allowed.\n `agentID` is so valid.\n\n Default: `true`\n\n ### requireAscii\n\n When this option is set to `true`, it forbids names that include non-ASCII characters.\n For instance,  when the option is set to `true`, `café` or `안녕하세요` will throw an error.\n\n When the option is set to `false`, a name may include non-ASCII characters.\n `café` and `안녕하세요` are so valid.\n\n Default: `false`\n\n **This option will be turned on by default in Biome 2.0.**\n\n ### filenameCases\n\n By default, the rule enforces that the filename  is either in [`camelCase`], [`kebab-case`], [`snake_case`], or equal to the name of one export in the file.\n\n You can enforce a stricter convention by setting `filenameCases` option.\n `filenameCases` accepts an array of cases among the following cases: [`camelCase`], [`kebab-case`], [`PascalCase`], [`snake_case`], and `export`.\n\n [case]: https://en.wikipedia.org/wiki/Naming_convention_(programming)#Examples_of_multiple-word_identifier_formats\n [`camelCase`]: https://en.wikipedia.org/wiki/Camel_case\n [`kebab-case`]: https://en.wikipedia.org/wiki/Letter_case#Kebab_case\n [`PascalCase`]: https://en.wikipedia.org/wiki/Camel_case\n [`snake_case`]: https://en.wikipedia.org/wiki/Snake_case\n"
+            "docs": " Enforce naming conventions for JavaScript and TypeScript filenames.\n\n Enforcing [naming conventions](https://en.wikipedia.org/wiki/Naming_convention_(programming)) helps to keep the codebase consistent.\n\n A filename consists of two parts: a name and a set of consecutive extension.\n For instance, `my-filename.test.js` has `my-filename` as name, and two consecutive extensions: `.test` and `.js`.\n\n The filename can start with a dot or a plus sign, be prefixed and suffixed by underscores `_`.\n For example, `.filename.js`, `+filename.js`, `__filename__.js`, or even `.__filename__.js`.\n\n The convention of prefixing a filename with a plus sign is used by\n [Sveltekit](https://kit.svelte.dev/docs/routing#page) and [Vike](https://vike.dev/route).\n\n By default, the rule ensures that the filename is either in [`camelCase`], [`kebab-case`], [`snake_case`],\n or equal to the name of one export in the file.\n\n ## Ignoring some files\n\n Sometimes you want to completly ignore some files.\n Biome ignore comments cannot be used because the rule applies on filenames not file contents.\n To ignore files, you can use [`overrides`](https://biomejs.dev/reference/configuration/#overrides).\n If you want to ignore all files in the `test` directory, then you can disable the rule for those files only:\n\n ```json\n {\n   \"overrides\": [\n     {\n        \"include\": [\"test/**/*\"],\n        \"linter\": {\n          \"style\": {\n            \"useFilenamingConvention\": \"off\"\n          }\n        }\n     }\n   ]\n }\n ```\n\n ## Options\n\n The rule provides several options that are detailed in the following subsections.\n\n ```json\n {\n     \"//\": \"...\",\n     \"options\": {\n         \"strictCase\": false,\n         \"requireAscii\": true,\n         \"filenameCases\": [\"camelCase\", \"export\"]\n     }\n }\n ```\n\n ### strictCase\n\n When this option is set to `true`, it forbids consecutive uppercase characters in [`camelCase`] and [`PascalCase`].\n For instance,  when the option is set to `true`, `agentID` will throw an error.\n This name should be renamed to `agentId`.\n\n When the option is set to `false`, consecutive uppercase characters are allowed.\n `agentID` is so valid.\n\n Default: `true`\n\n ### requireAscii\n\n When this option is set to `true`, it forbids names that include non-ASCII characters.\n For instance,  when the option is set to `true`, `café` or `안녕하세요` will throw an error.\n\n When the option is set to `false`, a name may include non-ASCII characters.\n `café` and `안녕하세요` are so valid.\n\n Default: `false`\n\n **This option will be turned on by default in Biome 2.0.**\n\n ### filenameCases\n\n By default, the rule enforces that the filename  is either in [`camelCase`], [`kebab-case`], [`snake_case`], or equal to the name of one export in the file.\n\n You can enforce a stricter convention by setting `filenameCases` option.\n `filenameCases` accepts an array of cases among the following cases: [`camelCase`], [`kebab-case`], [`PascalCase`], [`snake_case`], and `export`.\n\n [case]: https://en.wikipedia.org/wiki/Naming_convention_(programming)#Examples_of_multiple-word_identifier_formats\n [`camelCase`]: https://en.wikipedia.org/wiki/Camel_case\n [`kebab-case`]: https://en.wikipedia.org/wiki/Letter_case#Kebab_case\n [`PascalCase`]: https://en.wikipedia.org/wiki/Camel_case\n [`snake_case`]: https://en.wikipedia.org/wiki/Snake_case\n"
           },
           "useForOf": {
             "deprecated": false,
             "version": "1.5.0",
             "name": "useForOf",
             "recommended": false,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintTypeScript": "prefer-for-of"
@@ -1363,7 +1434,7 @@ export function GET() {
             "version": "1.5.0",
             "name": "useNumberNamespace",
             "recommended": true,
-            "fixKind": "unsafe",
+            "fixKind": "safe",
             "sources": [
               {
                 "eslintUnicorn": "prefer-number-properties"
@@ -1472,6 +1543,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noAssignInExpressions",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "no-cond-assign"
@@ -1485,6 +1557,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noAsyncPromiseExecutor",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "no-async-promise-executor"
@@ -1497,6 +1570,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noCatchAssign",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "no-ex-assign"
@@ -1509,6 +1583,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noClassAssign",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "no-class-assign"
@@ -1534,6 +1609,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noConfusingLabels",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "no-labels"
@@ -1561,6 +1637,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noControlCharactersInRegex",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "no-control-regex"
@@ -1599,6 +1676,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noDuplicateCase",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "no-duplicate-case"
@@ -1611,6 +1689,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noDuplicateClassMembers",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "no-dupe-class-members"
@@ -1639,6 +1718,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noDuplicateParameters",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "no-dupe-args"
@@ -1651,6 +1731,7 @@ export function GET() {
             "version": "1.6.0",
             "name": "noDuplicateTestHooks",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintJest": "no-duplicate-hooks"
@@ -1664,6 +1745,7 @@ export function GET() {
             "version": "1.3.0",
             "name": "noEmptyBlockStatements",
             "recommended": false,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "no-empty"
@@ -1685,6 +1767,7 @@ export function GET() {
             "version": "1.6.0",
             "name": "noExportsInTest",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintJest": "no-export"
@@ -1698,6 +1781,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noFallthroughSwitchClause",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "no-fallthrough"
@@ -1724,6 +1808,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noFunctionAssign",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "no-func-assign"
@@ -1736,6 +1821,7 @@ export function GET() {
             "version": "1.5.0",
             "name": "noGlobalAssign",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "no-global-assign"
@@ -1764,6 +1850,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noImportAssign",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "no-import-assign"
@@ -1776,6 +1863,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noLabelVar",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "no-label-var"
@@ -1814,6 +1902,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noPrototypeBuiltins",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "no-prototype-builtins"
@@ -1826,6 +1915,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noRedeclare",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "no-redeclare"
@@ -1849,6 +1939,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noSelfCompare",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "no-self-compare"
@@ -1864,6 +1955,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noShadowRestrictedNames",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "no-shadow-restricted-names"
@@ -1903,6 +1995,7 @@ export function GET() {
             "version": "1.6.0",
             "name": "noSuspiciousSemicolonInJsx",
             "recommended": true,
+            "fixKind": "none",
             "docs": " It detects possible \"wrong\" semicolons inside JSX elements.\n\n Semicolons that appear after a self-closing element or a closing element are usually the result of a typo of a refactor gone wrong.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const Component = () => {\n   return (\n     <div>\n       <div />;\n     </div>\n  );\n }\n ```\n\n ### Valid\n\n ```js\n const Component = () => {\n   return (\n     <div>\n       <div />\n       ;\n     </div>\n   );\n }\n const Component2 = () => {\n   return (\n     <div>\n       <span>;</span>\n     </div>\n   );\n }\n ```\n\n"
           },
           "noThenProperty": {
@@ -1910,6 +2003,7 @@ export function GET() {
             "version": "1.5.0",
             "name": "noThenProperty",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintUnicorn": "no-thenable"
@@ -1935,6 +2029,7 @@ export function GET() {
             "version": "1.4.0",
             "name": "useAwait",
             "recommended": false,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "require-await"
@@ -1950,6 +2045,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "useDefaultSwitchClauseLast",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "default-case-last"
@@ -1962,6 +2058,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "useGetterReturn",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslint": "getter-return"
@@ -2004,6 +2101,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noDuplicateJsonKeys",
             "recommended": true,
+            "fixKind": "none",
             "docs": " Disallow two keys with the same name inside a JSON object.\n\n ## Examples\n\n ### Invalid\n\n ```json,expect_diagnostic\n {\n   \"title\": \"New title\",\n   \"title\": \"Second title\"\n }\n ```\n\n ### Valid\n\n ```json\n {\n   \"title\": \"New title\",\n   \"secondTitle\": \"Second title\"\n }\n ```\n"
           }
         }
@@ -2158,6 +2256,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noRedundantAlt",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintJsxA11y": "img-redundant-alt"
@@ -2183,6 +2282,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noSvgWithoutTitle",
             "recommended": true,
+            "fixKind": "none",
             "docs": " Enforces the usage of the `title` element for the `svg` element.\n\n It is not possible to specify the `alt` attribute for the `svg` as for the `img`.\n To make svg accessible, the following methods are available:\n - provide the `title` element as the first child to `svg`\n - provide `role=\"img\"` and `aria-label` or `aria-labelledby` to `svg`\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n <svg>foo</svg>\n ```\n\n ```js,expect_diagnostic\n <svg>\n     <title></title>\n     <circle />\n </svg>\n ```\n\n ```js,expect_diagnostic\n <svg>foo</svg>\n ```\n\n ```js\n <svg role=\"img\" aria-label=\"\">\n     <span id=\"\">Pass</span>\n </svg>\n ```\n\n ```js\n <svg role=\"presentation\">foo</svg>\n ```\n\n ### Valid\n\n ```js\n <svg>\n     <rect />\n     <rect />\n     <g>\n         <circle />\n         <circle />\n         <g>\n             <title>Pass</title>\n             <circle />\n             <circle />\n         </g>\n     </g>\n </svg>\n ```\n\n ```js\n <svg>\n     <title>Pass</title>\n     <circle />\n </svg>\n ```\n\n ```js\n <svg role=\"img\" aria-labelledby=\"title\">\n     <span id=\"title\">Pass</span>\n </svg>\n ```\n\n ```js\n <svg role=\"img\" aria-label=\"title\">\n     <span id=\"title\">Pass</span>\n </svg>\n ```\n ```js\n <svg role=\"graphics-symbol\"><rect /></svg>\n ```\n\n ```js\n <svg role=\"graphics-symbol img\"><rect /></svg>\n ```\n\n ```js\n <svg aria-hidden=\"true\"><rect /></svg>\n ```\n\n\n ## Accessibility guidelines\n [Document Structure – SVG 1.1 (Second Edition)](https://www.w3.org/TR/SVG11/struct.html#DescriptionAndTitleElements)\n [ARIA: img role - Accessibility | MDN](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/img_role)\n [Accessible SVGs | CSS-Tricks - CSS-Tricks](https://css-tricks.com/accessible-svgs/)\n [Contextually Marking up accessible images and SVGs | scottohara.me](https://www.scottohara.me/blog/2019/05/22/contextual-images-svgs-and-a11y.html)\n [Accessible SVGs](https://www.unimelb.edu.au/accessibility/techniques/accessible-svgs)\n\n"
           },
           "useAltText": {
@@ -2190,6 +2290,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "useAltText",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintJsxA11y": "alt-text"
@@ -2228,6 +2329,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "useAriaPropsForRole",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintJsxA11y": "role-has-required-aria-props"
@@ -2240,6 +2342,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "useButtonType",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintReact": "button-has-type"
@@ -2252,6 +2355,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "useHeadingContent",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintJsxA11y": "heading-has-content"
@@ -2264,6 +2368,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "useHtmlLang",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintJsxA11y": "html-has-lang"
@@ -2276,6 +2381,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "useIframeTitle",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintJsxA11y": "iframe-has-title"
@@ -2288,6 +2394,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "useKeyWithClickEvents",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintJsxA11y": "click-events-have-key-events"
@@ -2300,6 +2407,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "useKeyWithMouseEvents",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintJsxA11y": "mouse-events-have-key-events"
@@ -2312,6 +2420,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "useMediaCaption",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintJsxA11y": "media-has-caption"
@@ -2324,6 +2433,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "useValidAnchor",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintJsxA11y": "anchor-is-valid"
@@ -2362,6 +2472,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "useValidAriaValues",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintJsxA11y": "aria-proptypes"
@@ -2374,6 +2485,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "useValidLang",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintJsxA11y": "lang"
@@ -2403,6 +2515,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noChildrenProp",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintReact": "no-children-prop"
@@ -2415,6 +2528,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noRenderReturnValue",
             "recommended": true,
+            "fixKind": "none",
             "docs": " Prevent the usage of the return value of `React.render`.\n\n > `ReactDOM.render()` currently returns a reference to the root `ReactComponent` instance. However, using this return value is legacy\n and should be avoided because future versions of React may render components asynchronously in some cases.\n If you need a reference to the root `ReactComponent` instance, the preferred solution is to attach a [callback ref](https://reactjs.org/docs/refs-and-the-dom.html#callback-refs)\n to the root element.\n\n Source: [ReactDOM documentation](https://facebook.github.io/react/docs/react-dom.html#render)\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n const foo = ReactDOM.render(<div />, document.body);\n ```\n\n ### Valid\n\n ```jsx\n ReactDOM.render(<div />, document.body);\n ```\n"
           },
           "noVoidElementsWithChildren": {
@@ -2435,6 +2549,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "useExhaustiveDependencies",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintReactHooks": "exhaustive-deps"
@@ -2447,6 +2562,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "useHookAtTopLevel",
             "recommended": false,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintReactHooks": "rules-of-hooks"
@@ -2459,6 +2575,7 @@ export function GET() {
             "version": "1.6.0",
             "name": "useJsxKeyInIterable",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintReact": "jsx-key"
@@ -2474,6 +2591,7 @@ export function GET() {
             "version": "next",
             "name": "useFocusableInteractive",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintJsxA11y": "interactive-support-focus"
@@ -2496,6 +2614,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noDangerouslySetInnerHtml",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintReact": "no-danger-with-children"
@@ -2508,6 +2627,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noDangerouslySetInnerHtmlWithChildren",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintReact": "no-danger"
@@ -2528,6 +2648,7 @@ export function GET() {
                 "eslintReact": "jsx-boolean-value"
               }
             ],
+            "sourceKind": "inspired",
             "docs": " Disallow implicit `true` values on JSX boolean attributes\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <input disabled />\n ```\n\n ### Valid\n\n ```jsx\n <input disabled={false} />\n```\n\n ```jsx\n <input disabled={''} />\n```\n\n ```jsx\n <input disabled={0} />\n```\n\n ```jsx\n <input disabled={undefined} />\n```\n\n ```jsx\n <input disabled='false' />\n```\n"
           },
           "useFragmentSyntax": {
@@ -2550,6 +2671,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noArrayIndexKey",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintReact": "no-array-index-key"
@@ -2575,6 +2697,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noDuplicateJsxProps",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintReact": "jsx-no-duplicate-props"
@@ -2604,6 +2727,7 @@ export function GET() {
             "version": "1.5.0",
             "name": "noEmptyTypeParameters",
             "recommended": true,
+            "fixKind": "none",
             "docs": " Disallow empty type parameters in type aliases and interfaces.\n\n TypeScript permits the use of empty type parameter lists in type alias and interface declarations; however, this practice is generally discouraged.\n Allowing empty type parameter lists can lead to unclear or ambiguous code, where the intention of the generic type is not self-evident.\n This rule disallows empty type parameter lists in type alias and interface declarations.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n interface Foo<> {}\n ```\n\n ```ts,expect_diagnostic\n type Bar<> = {};\n ```\n\n ### Valid\n\n ```ts\n interface Foo {}\n ```\n\n ```ts\n type Foo<T> = {\n  bar: T;\n }\n ```\n"
           },
           "noUselessEmptyExport": {
@@ -2666,6 +2790,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noVoidTypeReturn",
             "recommended": true,
+            "fixKind": "none",
             "docs": " Disallow returning a value from a function with the return type 'void'\n\n 'void' signals the absence of value. The returned value is likely to be ignored by the caller.\n Thus, returning a value when the return type of function is 'void', is undoubtedly an error.\n\n Only returning without a value is allowed, as it’s a control flow statement.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n class A {\n     f(): void {\n         return undefined;\n     }\n }\n ```\n\n ```ts,expect_diagnostic\n const a = {\n     f(): void {\n         return undefined;\n     }\n }\n ```\n\n ```ts,expect_diagnostic\n function f(): void {\n     return undefined;\n }\n ```\n\n ```ts,expect_diagnostic\n export default function(): void {\n     return undefined;\n }\n ```\n\n ```ts,expect_diagnostic\n const g = (): void => {\n     return undefined;\n };\n ```\n\n ```ts,expect_diagnostic\n const h = function(): void {\n     return undefined;\n };\n ```\n\n ### Valid\n\n ```js\n class A {\n     f() {\n         return undefined;\n     }\n }\n ```\n\n ```ts\n class B {\n     f(): void {}\n }\n ```\n\n ```ts\n function f(): void {\n     return;\n }\n ```\n\n"
           }
         },
@@ -2675,6 +2800,7 @@ export function GET() {
             "version": "1.6.3",
             "name": "noEvolvingAny",
             "recommended": true,
+            "fixKind": "none",
             "docs": " Disallow variables from evolving into `any` type through reassignments.\n\n In TypeScript, variables without explicit type annotations can evolve their types based on subsequent assignments.\n This behaviour can accidentally lead to variables with an `any` type, weakening type safety.\n Just like the `any` type, evolved `any` types disable many type-checking rules and should be avoided to maintain strong type safety.\n This rule prevents such cases by ensuring variables do not evolve into `any` type, encouraging explicit type annotations and controlled type evolutions.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n let a;\n ````\n\n ```ts,expect_diagnostic\n const b = [];\n ````\n\n ```ts,expect_diagnostic\n let c = null;\n ````\n\n\n ### Valid\n\n ```ts\n let a: number;\n let b = 1;\n var c : string;\n var d = \"abn\";\n const e: never[] = [];\n const f = [null];\n const g = ['1'];\n const h = [1];\n let workspace: Workspace | null = null;\n ```\n\n"
           }
         },
@@ -2684,6 +2810,7 @@ export function GET() {
             "version": "1.6.0",
             "name": "noBarrelFile",
             "recommended": false,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintBarrelFiles": "avoid-barrel-files"
@@ -2712,6 +2839,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noNamespace",
             "recommended": false,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintTypeScript": "no-namespace"
@@ -2730,13 +2858,14 @@ export function GET() {
                 "eslintTypeScript": "no-non-null-assertion"
               }
             ],
-            "docs": " Disallow non-null assertions using the `!` postfix operator.\n\n TypeScript's `!` non-null assertion operator asserts to the type system that an expression is non-nullable, as\n in not `null` or `undefined`. Using assertions to tell the type system new information is often a sign that\n code is not fully type-safe. It's generally better to structure program logic so that TypeScript understands\n when values may be nullable.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n interface Example {\n   property?: string;\n }\n declare const example: Example;\n const includesBaz = foo.property!.includes('baz');\n ```\n ```ts,expect_diagnostic\n (b!! as number) = \"test\";\n ```\n\n ### Valid\n\n ```ts\n interface Example {\n   property?: string;\n }\n\n declare const example: Example;\n const includesBaz = foo.property?.includes('baz') ?? false;\n ```\n\n"
+            "docs": " Disallow non-null assertions using the `!` postfix operator.\n\n TypeScript's `!` non-null assertion operator asserts to the type system that an expression is non-nullable, as\n in not `null` or `undefined`. Using assertions to tell the type system new information is often a sign that\n code is not fully type-safe. It's generally better to structure program logic so that TypeScript understands\n when values may be nullable.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n interface Example {\n   property?: string;\n }\n declare const foo: Example;\n const includesBaz = foo.property!.includes('baz');\n ```\n ```ts,expect_diagnostic\n (b!! as number) = \"test\";\n ```\n\n ### Valid\n\n ```ts\n interface Example {\n   property?: string;\n }\n\n declare const foo: Example;\n const includesBaz = foo.property?.includes('baz') ?? false;\n ```\n\n"
           },
           "noParameterProperties": {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noParameterProperties",
             "recommended": false,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintTypeScript": "parameter-properties"
@@ -2830,6 +2959,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "useLiteralEnumMembers",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintTypeScript": "prefer-literal-enum-member"
@@ -2849,7 +2979,7 @@ export function GET() {
               }
             ],
             "sourceKind": "inspired",
-            "docs": " Enforce naming conventions for everything across a codebase.\n\n Enforcing [naming conventions](https://en.wikipedia.org/wiki/Naming_convention_(programming)) helps to keep the codebase consistent,\n and reduces overhead when thinking about the name [case] of a variable.\n\n The following section describes the default conventions enforced by the rule.\n You can also enforce custom conventions with the [rule options](#options).\n\n ## Naming conventions\n\n All names can be prefixed and suffixed by underscores `_` and dollar signs `$`.\n\n ### Variable and parameter names\n\n All variables and function parameters are in [`camelCase`] or [`PascalCase`].\n Catch parameters are in [`camelCase`].\n\n Additionally, global variables declared as `const` or `var` may be in [`CONSTANT_CASE`].\n Global variables are declared at module or script level.\n Variables declared in a TypeScript `namespace` are also considered global.\n\n ```js\n function f(param, _unusedParam) {\n     let localValue = 0;\n     try {\n         /* ... */\n     } catch (customError) {\n         /* ... */\n     }\n }\n\n export const A_CONSTANT = 5;\n\n let aVariable = 0;\n\n export namespace ns {\n     export const ANOTHER_CONSTANT = \"\";\n }\n ```\n\n Examples of incorrect names:\n\n ```js,expect_diagnostic\n let a_value = 0;\n ```\n\n ```js,expect_diagnostic\n const fooYPosition = 0;\n ```\n\n ```js,expect_diagnostic\n function f(FIRST_PARAM) {}\n ```\n\n ### Function names\n\n - A `function` name is in [`camelCase`] or [`PascalCase`].\n - A global `function` can also be in `UPPERCASE`.\n   This allows supporting the frameworks that require some function to use valid [HTTP method names](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods).\n\n ```jsx\n function trimString(s) { /*...*/ }\n\n function Component() {\n     return <div></div>;\n }\n\n export function GET() { /*...*/ }\n ```\n\n ### TypeScript `enum` names\n\n A _TypeScript_ `enum` name is in [`PascalCase`].\n\n `enum` members are by default in [`PascalCase`].\n However, you can configure the [case] of `enum` members.\n See [options](#options) for more details.\n\n ```ts\n enum Status {\n     Open,\n     Close,\n }\n ```\n\n ### Classes\n\n - A class name is in [`PascalCase`].\n\n - Static property and static getter names are in [`camelCase`] or [`CONSTANT_CASE`].\n\n - Class property and method names are in [`camelCase`].\n\n ```js\n class Person {\n     static MAX_FRIEND_COUNT = 256;\n\n     static get SPECIAL_PERSON_INSTANCE() { /*...*/ }\n\n     initializedProperty = 0;\n\n     specialMethod() {}\n }\n ```\n\n ### TypeScript `type` aliases and `interface`\n\n - A `type` alias or an interface name are in [`PascalCase`].\n\n - Member names of a type are in [`camelCase`].\n\n - `readonly` property and getter names can also be in [`CONSTANT_CASE`].\n\n ```ts\n type Named = {\n     readonly fullName: string;\n\n     specialMethod(): void;\n };\n\n interface Named {\n     readonly fullName: string;\n\n     specialMethod(): void;\n }\n\n interface PersonConstructor {\n     readonly MAX_FRIEND_COUNT: number;\n\n     get SPECIAL_PERSON_INSTANCE(): Person;\n\n     new(): Person;\n }\n ```\n\n Examples of an incorrect type alias:\n\n ```ts,expect_diagnostic\n type person = { fullName: string };\n ```\n\n ### Literal object member names\n\n - Literal object members are in [`camelCase`].\n\n ```js\n const alice = {\n     fullName: \"Alice\",\n }\n ```\n\n Example of an incorrect name:\n\n ```js,expect_diagnostic\n const alice = {\n     full_name: \"Alice\",\n }\n ```\n\n ### Import and export aliases and namespaces\n\n Import and export namespaces are in [`camelCase`] or [`PascalCase`].\n\n ```js\n import * as myLib from \"my-lib\";\n import * as Framework from \"framework\";\n\n export * as myLib from \"my-lib\";\n export * as Framework from \"framework\";\n ```\n\n `import` and `export` aliases are in [`camelCase`], [`PascalCase`], or [`CONSTANT_CASE`]:\n\n ```js\n import assert, {\n     deepStrictEqual as deepEqual,\n     AssertionError as AssertError\n } from \"node:assert\";\n ```\n\n Examples of an incorrect name:\n\n ```ts,expect_diagnostic\n import * as MY_LIB from \"my-lib\";\n ```\n\n ### TypeScript type parameter names\n\n A _TypeScript_ type parameter name is in [`PascalCase`].\n\n ```ts\n function id<Val>(value: Val): Val { /* ... */}\n ```\n\n ### TypeScript `namespace` names\n\n A _TypeScript_ `namespace` names are in [`camelCase`] or in [`PascalCase`].\n\n ```ts\n namespace mathExtra {\n     /*...*/\n }\n\n namespace MathExtra {\n     /*...*/\n }\n ```\n\n ## Options\n\n The rule provides several options that are detailed in the following subsections.\n\n ```json\n {\n     \"//\": \"...\",\n     \"options\": {\n         \"strictCase\": false,\n         \"requireAscii\": true,\n         \"enumMemberCase\": \"CONSTANT_CASE\",\n         \"custon\": [\n             {\n                 \"selector\": {\n                     \"kind\": \"memberLike\",\n                     \"modifiers\": [\"private\"]\n                 },\n                 \"match\": \"_(.+)\",\n                 \"formats\": [\"camelCase\"]\n             }\n         ]\n     }\n }\n ```\n\n ### strictCase\n\n When this option is set to `true`, it forbids consecutive uppercase characters in [`camelCase`] and [`PascalCase`].\n For instance,  when the option is set to `true`, `HTTPServer` or `aHTTPServer` will throw an error.\n These names should be renamed to `HttpServer` and `aHttpServer`\n\n When the option is set to `false`, consecutive uppercase characters are allowed.\n `HTTPServer` and `aHTTPServer` are so valid.\n\n Default: `true`\n\n ### requireAscii\n\n When this option is set to `true`, it forbids names that include non-ASCII characters.\n For instance,  when the option is set to `true`, `café` or `안녕하세요` will throw an error.\n\n When the option is set to `false`, anames may include non-ASCII characters.\n `café` and `안녕하세요` are so valid.\n\n Default: `false`\n\n **This option will be turned on by default in Biome 2.0.**\n\n ### enumMemberCase\n\n By default, the rule enforces the naming convention followed by the [TypeScript Compiler team](https://www.typescriptlang.org/docs/handbook/enums.html):\n an `enum` member is in [`PascalCase`].\n\n You can enforce another convention by setting `enumMemberCase` option.\n The supported cases are: [`PascalCase`], [`CONSTANT_CASE`], and [`camelCase`].\n\n This option will be deprecated in the future.\n Use the `conventions` option instead.\n\n ### conventions\n\n The `conventions` option allows applying custom conventions.\n The option takes an array of conventions.\n Every convention is an object that includes a `selector` and some requirements (`match` and `formats`).\n\n For example, you can enforce the use of [`CONSTANT_CASE`] for global `const` declarations:\n\n ```json\n {\n     \"//\": \"...\",\n     \"options\": {\n         \"conventions\": [\n             {\n                 \"selector\": {\n                     \"kind\": \"const\",\n                     \"scope\": \"global\"\n                 },\n                 \"formats\": [\"CONSTANT_CASE\"]\n             }\n         ]\n     }\n }\n ```\n\n A selector descibes which decalrations the convention applies to.\n You can select a decalration based on several criteria:\n\n - `kind`: the kind of the declaration among:\n   - `any` (default kind if the kind is unset)\n   - `typeLike`: classes, enums, type aliases, and interfaces\n   - `class`\n   - `enum`\n   - `interface`\n   - `typeAlias`\n   - `function`: named function declarations and expressions\n   - `namespaceLike`: TypeScript namespaces, import and export namespaces (`import * as namspace from`)\n   - `namespace`: TypeScript namespaces\n   - `importNamespace`\n   - `exportNamespace`\n   - `importAlias`: default imports and aliases of named imports\n   - `exportAlias`: aliases of re-exported names\n   - `variable`: const, let, using, and var declarations\n   - `const`\n   - `let`\n   - `var`\n   - `using`\n   - `functionParameter`\n   - `catchParameter`\n   - `indexParameter`: parameters of index signatures\n   = `typeParameter`: generic type parameter\n   - `classMember`: class properties, parameter properties, methods, getters, and setters\n   - `classProperty`: class properties, including parameter properties\n   - `classMethod`\n   - `classGetter`\n   - `classSetter`\n   - `objectLiteralMember`: literal object properties, methods, getters, and setters\n   - `objectLiteralProperty`\n   - `objectLiteralMethod`\n   - `objectLiteralGetter`\n   - `objectLiteralSetter`\n   - `typeMember`: properties, methods, getters, and setters declared in type alaises and interfaces\n   - `typeProperty`\n   - `typeMethod`\n   - `typeGetter`\n   - `typeSetter`\n - `modifiers`: an array of modifiers among:\n   - `abstract`: applies to class members and classes\n   - `private`: applies to class members\n   - `protected`: applies to class members\n   - `readonly`: applies to class members and type members\n   - `static`: applies to class members\n - `scope`: where the declaration appears. Allowd values:\n   - `any`: anywhere (default value if the scope is unset)\n   - `global`: the global scope (also includes the namespace scopes)\n\n For each declaration,\n the `conventions` array is traversed until a selector selects the declaration.\n The requirements of the convention are so verified on the declaration.\n\n A convention must set at least one requirement among:\n\n - `match`: a regular expression that the name of the declaration must match.\n   If the regular expression captures a part of the name, then this part is checked against `formats`.\n   Only the first capture is tested. Other captures are ignored.\n - `formats`: the string [case] that the name must follow.\n   The supported cases are: [`PascalCase`], [`CONSTANT_CASE`], [`camelCase`], and [`snake_case`].\n\n If `match` is set and `formats` is unset,\n then the part of the name captured by the regular expression is forwarded to the next convention of the array.\n\n If a declaration is not selected or if a capture is forwarded while there is no more custom conventions,\n Then the declaration is verified against the default convention.\n If a forwarded capture is a part of the original name, then underscore and dollar signs are not trimmed.\n\n In the following example:\n\n = We require `static readonly` class members to be in [\"CONSTANT_CASE\"].\n - We require `private` class members to start with an underscore `_` and to be in [`camelCase`].\n - We require global constants to be in [\"CONSTANT_CASE\"] and\n   we allow these constants to be enclosed by double underscores or to be named `_SPECIAL_`.\n - We require interfaces to start with `I`, except for interfaces ending with `Error`,\n   and to be in [`PascalCase`].\n - All other names follow the default conventions\n\n```json5\n {\n     \"//\": \"...\",\n     \"options\": {\n         \"custon\": [\n             {\n                 \"selector\": {\n                     \"kind\": \"classMember\",\n                     \"modifiers\": [\"static\", \"readonly\"]\n                 },\n                 \"formats\": [\"CONSTANT_CASE\"]\n             },\n             {\n                 \"selector\": {\n                     \"kind\": \"classMember\",\n                     \"modifiers\": [\"private\"]\n                 },\n                 \"match\": \"_(.+)\",\n                 \"formats\": [\"camelCase\"]\n             }, {\n                 \"selector\": {\n                     \"kind\": \"const\",\n                     \"scope\": \"global\"\n                 },\n                 \"match\": \"__(.+)__|_SPECIAL_|(.+)\",\n                 \"formats\": [\"CONSTANT_CASE\"]\n             }, {\n                 \"selector\": {\n                     \"kind\": \"interface\"\n                 },\n                 \"match\": \"I(.*)|(.*)Error\",\n                 \"formats\": [\"PascalCase\"]\n             }\n             // default conventions\n         ]\n     }\n }\n ```\n\n ### Regular expression syntax\n\n The `match` option takes a regular expression that supports the following syntaxes:\n\n - Greedy quantifiers `*`, `?`, `+`, `{n}`, `{n,m}`, `{n,}`, `{m}`\n - Non-greedy quantifiers `*?`, `??`, `+?`, `{n}?`, `{n,m}?`, `{n,}?`, `{m}?`\n - Any character matcher `.`\n - Character classes `[a-z]`, `[xyz]`, `[^a-z]`\n - Alternations `|`\n - Capturing groups `()`\n - Non-capturing groups `(?:)`\n - A limited set of escaped characters including all special characters\n   and regular string escape characters `\\f`, `\\n`, `\\r`, `\\t`, `\\v`\n\n [case]: https://en.wikipedia.org/wiki/Naming_convention_(programming)#Examples_of_multiple-word_identifier_formats\n [`camelCase`]: https://en.wikipedia.org/wiki/Camel_case\n [`PascalCase`]: https://en.wikipedia.org/wiki/Camel_case\n [`CONSTANT_CASE`]: https://en.wikipedia.org/wiki/Snake_case\n [`snake_case`]: https://en.wikipedia.org/wiki/Snake_case\n"
+            "docs": " Enforce naming conventions for everything across a codebase.\n\n Enforcing [naming conventions](https://en.wikipedia.org/wiki/Naming_convention_(programming)) helps to keep the codebase consistent,\n and reduces overhead when thinking about the name [case] of a variable.\n\n The following section describes the default conventions enforced by the rule.\n You can also enforce custom conventions with the [rule options](#options).\n\n ## Naming conventions\n\n All names can be prefixed and suffixed by underscores `_` and dollar signs `$`.\n\n ### Variable and parameter names\n\n All variables and function parameters are in [`camelCase`] or [`PascalCase`].\n Catch parameters are in [`camelCase`].\n\n Additionally, global variables declared as `const` or `var` may be in [`CONSTANT_CASE`].\n Global variables are declared at module or script level.\n Variables declared in a TypeScript `namespace` are also considered global.\n\n ```js\n function f(param, _unusedParam) {\n     let localValue = 0;\n     try {\n         /* ... */\n     } catch (customError) {\n         /* ... */\n     }\n }\n\n export const A_CONSTANT = 5;\n\n let aVariable = 0;\n\n export namespace ns {\n     export const ANOTHER_CONSTANT = \"\";\n }\n ```\n\n Examples of incorrect names:\n\n ```js,expect_diagnostic\n let a_value = 0;\n ```\n\n ```js,expect_diagnostic\n const fooYPosition = 0;\n ```\n\n ```js,expect_diagnostic\n function f(FIRST_PARAM) {}\n ```\n\n ### Function names\n\n - A `function` name is in [`camelCase`] or [`PascalCase`].\n - A global `function` can also be in `UPPERCASE`.\n   This allows supporting the frameworks that require some function to use valid [HTTP method names](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods).\n\n ```jsx\n function trimString(s) { /*...*/ }\n\n function Component() {\n     return <div></div>;\n }\n\n export function GET() { /*...*/ }\n ```\n\n ### TypeScript `enum` names\n\n A _TypeScript_ `enum` name is in [`PascalCase`].\n\n `enum` members are by default in [`PascalCase`].\n However, you can configure the [case] of `enum` members.\n See [options](#options) for more details.\n\n ```ts\n enum Status {\n     Open,\n     Close,\n }\n ```\n\n ### Classes\n\n - A class name is in [`PascalCase`].\n\n - Static property and static getter names are in [`camelCase`] or [`CONSTANT_CASE`].\n\n - Class property and method names are in [`camelCase`].\n\n ```js\n class Person {\n     static MAX_FRIEND_COUNT = 256;\n\n     static get SPECIAL_PERSON_INSTANCE() { /*...*/ }\n\n     initializedProperty = 0;\n\n     specialMethod() {}\n }\n ```\n\n ### TypeScript `type` aliases and `interface`\n\n - A `type` alias or an interface name are in [`PascalCase`].\n\n - Member names of a type are in [`camelCase`].\n\n - `readonly` property and getter names can also be in [`CONSTANT_CASE`].\n\n ```ts\n type Named = {\n     readonly fullName: string;\n\n     specialMethod(): void;\n };\n\n interface Named {\n     readonly fullName: string;\n\n     specialMethod(): void;\n }\n\n interface PersonConstructor {\n     readonly MAX_FRIEND_COUNT: number;\n\n     get SPECIAL_PERSON_INSTANCE(): Person;\n\n     new(): Person;\n }\n ```\n\n Examples of an incorrect type alias:\n\n ```ts,expect_diagnostic\n type person = { fullName: string };\n ```\n\n ### Literal object member names\n\n - Literal object members are in [`camelCase`].\n\n ```js\n const alice = {\n     fullName: \"Alice\",\n }\n ```\n\n Example of an incorrect name:\n\n ```js,expect_diagnostic\n const alice = {\n     full_name: \"Alice\",\n }\n ```\n\n ### Import and export aliases and namespaces\n\n Import and export namespaces are in [`camelCase`] or [`PascalCase`].\n\n ```js\n import * as myLib from \"my-lib\";\n import * as Framework from \"framework\";\n\n export * as myLib from \"my-lib\";\n export * as Framework from \"framework\";\n ```\n\n `import` and `export` aliases are in [`camelCase`], [`PascalCase`], or [`CONSTANT_CASE`]:\n\n ```js\n import assert, {\n     deepStrictEqual as deepEqual,\n     AssertionError as AssertError\n } from \"node:assert\";\n ```\n\n Examples of an incorrect name:\n\n ```ts,expect_diagnostic\n import * as MY_LIB from \"my-lib\";\n ```\n\n ### TypeScript type parameter names\n\n A _TypeScript_ type parameter name is in [`PascalCase`].\n\n ```ts\n function id<Val>(value: Val): Val { /* ... */}\n ```\n\n ### TypeScript `namespace` names\n\n A _TypeScript_ `namespace` names are in [`camelCase`] or in [`PascalCase`].\n\n ```ts\n namespace mathExtra {\n     /*...*/\n }\n\n namespace MathExtra {\n     /*...*/\n }\n ```\n\n ## Options\n\n The rule provides several options that are detailed in the following subsections.\n\n ```json\n {\n     \"//\": \"...\",\n     \"options\": {\n         \"strictCase\": false,\n         \"requireAscii\": true,\n         \"enumMemberCase\": \"CONSTANT_CASE\",\n         \"conventions\": [\n             {\n                 \"selector\": {\n                     \"kind\": \"memberLike\",\n                     \"modifiers\": [\"private\"]\n                 },\n                 \"match\": \"_(.+)\",\n                 \"formats\": [\"camelCase\"]\n             }\n         ]\n     }\n }\n ```\n\n ### strictCase\n\n When this option is set to `true`, it forbids consecutive uppercase characters in [`camelCase`] and [`PascalCase`].\n For instance,  when the option is set to `true`, `HTTPServer` or `aHTTPServer` will throw an error.\n These names should be renamed to `HttpServer` and `aHttpServer`\n\n When the option is set to `false`, consecutive uppercase characters are allowed.\n `HTTPServer` and `aHTTPServer` are so valid.\n\n Default: `true`\n\n ### requireAscii\n\n When this option is set to `true`, it forbids names that include non-ASCII characters.\n For instance,  when the option is set to `true`, `café` or `안녕하세요` will throw an error.\n\n When the option is set to `false`, names may include non-ASCII characters.\n `café` and `안녕하세요` are so valid.\n\n Default: `false`\n\n **This option will be turned on by default in Biome 2.0.**\n\n ### enumMemberCase\n\n By default, the rule enforces the naming convention followed by the [TypeScript Compiler team](https://www.typescriptlang.org/docs/handbook/enums.html):\n an `enum` member is in [`PascalCase`].\n\n You can enforce another convention by setting `enumMemberCase` option.\n The supported cases are: [`PascalCase`], [`CONSTANT_CASE`], and [`camelCase`].\n\n This option will be deprecated in the future.\n Use the `conventions` option instead.\n\n ### conventions\n\n The `conventions` option allows applying custom conventions.\n The option takes an array of conventions.\n Every convention is an object that includes a `selector` and some requirements (`match` and `formats`).\n\n For example, you can enforce the use of [`CONSTANT_CASE`] for global `const` declarations:\n\n ```json\n {\n     \"//\": \"...\",\n     \"options\": {\n         \"conventions\": [\n             {\n                 \"selector\": {\n                     \"kind\": \"const\",\n                     \"scope\": \"global\"\n                 },\n                 \"formats\": [\"CONSTANT_CASE\"]\n             }\n         ]\n     }\n }\n ```\n\n A selector describes which declarations the convention applies to.\n You can select a declaration based on several criteria:\n\n - `kind`: the kind of the declaration among:\n   - `any` (default kind if the kind is unset)\n   - `typeLike`: classes, enums, type aliases, and interfaces\n   - `class`\n   - `enum`\n   - `interface`\n   - `typeAlias`\n   - `function`: named function declarations and expressions\n   - `namespaceLike`: TypeScript namespaces, import and export namespaces (`import * as namespace from`)\n   - `namespace`: TypeScript namespaces\n   - `importNamespace`\n   - `exportNamespace`\n   - `importAlias`: default imports and aliases of named imports\n   - `exportAlias`: aliases of re-exported names\n   - `variable`: const, let, using, and var declarations\n   - `const`\n   - `let`\n   - `var`\n   - `using`\n   - `functionParameter`\n   - `catchParameter`\n   - `indexParameter`: parameters of index signatures\n   - `typeParameter`: generic type parameter\n   - `classMember`: class properties, parameter properties, methods, getters, and setters\n   - `classProperty`: class properties, including parameter properties\n   - `classMethod`\n   - `classGetter`\n   - `classSetter`\n   - `objectLiteralMember`: literal object properties, methods, getters, and setters\n   - `objectLiteralProperty`\n   - `objectLiteralMethod`\n   - `objectLiteralGetter`\n   - `objectLiteralSetter`\n   - `typeMember`: properties, methods, getters, and setters declared in type aliases and interfaces\n   - `typeProperty`\n   - `typeMethod`\n   - `typeGetter`\n   - `typeSetter`\n - `modifiers`: an array of modifiers among:\n   - `abstract`: applies to class members and classes\n   - `private`: applies to class members\n   - `protected`: applies to class members\n   - `readonly`: applies to class members and type members\n   - `static`: applies to class members\n - `scope`: where the declaration appears. Allowed values:\n   - `any`: anywhere (default value if the scope is unset)\n   - `global`: the global scope (also includes the namespace scopes)\n\n For each declaration,\n the `conventions` array is traversed until a selector selects the declaration.\n The requirements of the convention are so verified on the declaration.\n\n A convention must set at least one requirement among:\n\n - `match`: a regular expression that the name of the declaration must match.\n   If the regular expression captures a part of the name, then this part is checked against `formats`.\n   Only the first capture is tested. Other captures are ignored.\n - `formats`: the string [case] that the name must follow.\n   The supported cases are: [`PascalCase`], [`CONSTANT_CASE`], [`camelCase`], and [`snake_case`].\n\n If `match` is set and `formats` is unset,\n then the part of the name captured by the regular expression is forwarded to the next convention of the array.\n\n If a declaration is not selected or if a capture is forwarded while there is no more custom conventions,\n Then the declaration is verified against the default convention.\n If a forwarded capture is a part of the original name, then underscore and dollar signs are not trimmed.\n\n In the following example:\n\n - We require `static readonly` class members to be in [`CONSTANT_CASE`].\n - We require `private` class members to start with an underscore `_` and to be in [`camelCase`].\n - We require global constants to be in [`CONSTANT_CASE`] and\n   we allow these constants to be enclosed by double underscores or to be named `_SPECIAL_`.\n - We require interfaces to start with `I`, except for interfaces ending with `Error`,\n   and to be in [`PascalCase`].\n - All other names follow the default conventions\n\n```json5\n {\n     \"//\": \"...\",\n     \"options\": {\n         \"conventions\": [\n             {\n                 \"selector\": {\n                     \"kind\": \"classMember\",\n                     \"modifiers\": [\"static\", \"readonly\"]\n                 },\n                 \"formats\": [\"CONSTANT_CASE\"]\n             },\n             {\n                 \"selector\": {\n                     \"kind\": \"classMember\",\n                     \"modifiers\": [\"private\"]\n                 },\n                 \"match\": \"_(.+)\",\n                 \"formats\": [\"camelCase\"]\n             }, {\n                 \"selector\": {\n                     \"kind\": \"const\",\n                     \"scope\": \"global\"\n                 },\n                 \"match\": \"__(.+)__|_SPECIAL_|(.+)\",\n                 \"formats\": [\"CONSTANT_CASE\"]\n             }, {\n                 \"selector\": {\n                     \"kind\": \"interface\"\n                 },\n                 \"match\": \"I(.*)|(.*)Error\",\n                 \"formats\": [\"PascalCase\"]\n             }\n             // default conventions\n         ]\n     }\n }\n ```\n\n ### Regular expression syntax\n\n The `match` option takes a regular expression that supports the following syntaxes:\n\n - Greedy quantifiers `*`, `?`, `+`, `{n}`, `{n,m}`, `{n,}`, `{m}`\n - Non-greedy quantifiers `*?`, `??`, `+?`, `{n}?`, `{n,m}?`, `{n,}?`, `{m}?`\n - Any character matcher `.`\n - Character classes `[a-z]`, `[xyz]`, `[^a-z]`\n - Alternations `|`\n - Capturing groups `()`\n - Non-capturing groups `(?:)`\n - A limited set of escaped characters including all special characters\n   and regular string escape characters `\\f`, `\\n`, `\\r`, `\\t`, `\\v`\n\n [case]: https://en.wikipedia.org/wiki/Naming_convention_(programming)#Examples_of_multiple-word_identifier_formats\n [`camelCase`]: https://en.wikipedia.org/wiki/Camel_case\n [`PascalCase`]: https://en.wikipedia.org/wiki/Camel_case\n [`CONSTANT_CASE`]: https://en.wikipedia.org/wiki/Snake_case\n [`snake_case`]: https://en.wikipedia.org/wiki/Snake_case\n"
           },
           "useShorthandArrayType": {
             "deprecated": true,
@@ -2879,12 +3009,13 @@ export function GET() {
             "version": "1.2.0",
             "name": "noConfusingVoidType",
             "recommended": true,
+            "fixKind": "unsafe",
             "sources": [
               {
                 "eslintTypeScript": "no-invalid-void-type"
               }
             ],
-            "docs": " Disallow `void` type outside of generic or return types.\n\n `void` in TypeScript refers to a function return that is meant to be ignored. Attempting to use a void type outside of a return type or generic type argument is often a sign of programmer error. `void` can also be misleading for other developers even if used correctly.\n\n > The `void` type means cannot be mixed with any other types, other than `never`, which accepts all types.\n > If you think you need this then you probably want the `undefined` type instead.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n let foo: void;\n ```\n\n ```ts,expect_diagnostic\n function logSomething(thing: void) {}\n ```\n\n ```ts,expect_diagnostic\n interface Interface {\n     prop: void;\n }\n ```\n\n ```ts,expect_diagnostic\n type PossibleValues = number | void;\n ```\n\n ### Valid\n\n ```ts\n function foo(): void {};\n ```\n\n ```ts\n function doSomething(this: void) {}\n ```\n\n ```ts\n function printArg<T = void>(arg: T) {}\n ```\n"
+            "docs": " Disallow `void` type outside of generic or return types.\n\n `void` in TypeScript refers to a function return that is meant to be ignored.\n Attempting to use a void type outside of a return type or a type parameter is often a sign of programmer error.\n `void` can also be misleading for other developers even if used correctly.\n\n > The `void` type means cannot be mixed with any other types, other than `never`, which accepts all types.\n > If you think you need this then you probably want the `undefined` type instead.\n\n The code action suggests using `undefined` instead of `void`.\n It is unsafe because a variable with the `void` type cannot be asigned to a variable with the `undefined` type.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n let foo: void;\n ```\n\n ```ts,expect_diagnostic\n function logSomething(thing: void) {}\n ```\n\n ```ts,expect_diagnostic\n interface Interface {\n     prop: void;\n }\n ```\n\n ```ts,expect_diagnostic\n type PossibleValues = number | void;\n ```\n\n ### Valid\n\n ```ts\n function foo(): void {};\n ```\n\n ```ts\n function doSomething(this: void) {}\n ```\n\n ```ts\n function printArg<T = void>(arg: T) {}\n ```\n"
           },
           "noConstEnum": {
             "deprecated": false,
@@ -2913,12 +3044,13 @@ export function GET() {
             "version": "1.0.0",
             "name": "noExplicitAny",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintTypeScript": "no-explicit-any"
               }
             ],
-            "docs": " Disallow the `any` type usage.\n\n The `any` type in TypeScript is a dangerous \"escape hatch\" from the type system.\n Using `any` disables many type checking rules and is generally best used only as a last resort or when prototyping code.\n\n TypeScript's `--noImplicitAny` compiler option prevents an implied `any`,\n but doesn't prevent `any` from being explicitly used the way this rule does.\n\n Sometimes you can use the type `unknown` instead of the type `any`.\n It also accepts any value, however it requires to check that a property exists before calling it.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n let variable: any = 1;\n ```\n\n ```ts,expect_diagnostic\n class SomeClass {\n   message: Array<Array<any>>;\n }\n ```\n\n ```ts,expect_diagnostic\n function fn(param: Array<any>): void {}\n ```\n\n ### Valid\n\n ```ts\n let variable: number = 1;\n let variable2 = 1;\n ```\n\n ```ts\n class SomeClass<T extends any> {\n   message: Array<Array<unknown>>;\n }\n ```\n\n ```ts\n function fn(param: Array<Array<unknown>>): Array<unknown> {}\n ```\n\n"
+            "docs": " Disallow the `any` type usage.\n\n The `any` type in TypeScript is a dangerous \"escape hatch\" from the type system.\n Using `any` disables many type checking rules and is generally best used only as a last resort or when prototyping code.\n\n TypeScript's `--noImplicitAny` compiler option prevents an implied `any`,\n but doesn't prevent `any` from being explicitly used the way this rule does.\n\n Sometimes you can use the type `unknown` instead of the type `any`.\n It also accepts any value, however it requires to check that a property exists before calling it.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n let variable: any = 1;\n ```\n\n ```ts,expect_diagnostic\n class SomeClass {\n    message: Array<Array<any>>;\n }\n ```\n\n ```ts,expect_diagnostic\n function fn(param: Array<any>): void {}\n ```\n\n ### Valid\n\n ```ts\n let variable: number = 1;\n let variable2 = 1;\n ```\n\n ```ts\n class SomeClass<T extends any> {\n    message: Array<Array<unknown>>;\n }\n ```\n\n ```ts\n function fn(param: Array<Array<unknown>>): Array<unknown> {}\n ```\n\n"
           },
           "noExtraNonNullAssertion": {
             "deprecated": false,
@@ -2938,6 +3070,7 @@ export function GET() {
             "version": "1.4.0",
             "name": "noImplicitAnyLet",
             "recommended": true,
+            "fixKind": "none",
             "docs": " Disallow use of implicit `any` type on variable declarations.\n\n TypeScript variable declaration without any type annotation and initialization have the `any` type.\n The any type in TypeScript is a dangerous “escape hatch” from the type system.\n Using any disables many type checking rules and is generally best used only as a last resort or when prototyping code.\n TypeScript’s [`--noImplicitAny` compiler option](https://www.typescriptlang.org/tsconfig#noImplicitAny) doesn't report this case.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n var a;\n a = 2;\n ````\n\n ```ts,expect_diagnostic\n let b;\n b = 1\n ```\n\n ### Valid\n\n ```ts\n var a = 1;\n let a:number;\n var b: number\n var b =10;\n ```\n\n"
           },
           "noMisleadingInstantiator": {
@@ -2945,6 +3078,7 @@ export function GET() {
             "version": "1.3.0",
             "name": "noMisleadingInstantiator",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintTypeScript": "no-misused-new"
@@ -2957,6 +3091,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noUnsafeDeclarationMerging",
             "recommended": true,
+            "fixKind": "none",
             "sources": [
               {
                 "eslintTypeScript": "no-unsafe-declaration-merging"
@@ -2980,7 +3115,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 237
+    "numberOrRules": 238
   },
   "syntax": {
     "languages": {
@@ -2991,6 +3126,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noDuplicatePrivateClassMembers",
             "recommended": false,
+            "fixKind": "none",
             "docs": " Catch a `SyntaxError` when defining duplicate private class members.\n\n ## Examples\n\n ```js\n class A {\n   #foo;\n   #foo;\n ```\n"
           },
           "noInitializerWithDefinite": {
@@ -2998,6 +3134,7 @@ export function GET() {
             "version": "1.4.0",
             "name": "noInitializerWithDefinite",
             "recommended": false,
+            "fixKind": "none",
             "docs": " Disallow initializing a variable with a definite assertion to prevent `SyntaxError`.\n\n ## Examples\n\n ```js\n let foo!: string = \"bar\";\n ```\n"
           },
           "noSuperWithoutExtends": {
@@ -3005,6 +3142,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noSuperWithoutExtends",
             "recommended": false,
+            "fixKind": "none",
             "docs": " Catch a `SyntaxError` when writing calling `super()` on a class that doesn't extends any class\n\n ## Examples\n\n ```js\n class A {\n ```\n"
           }
         },
@@ -3014,6 +3152,7 @@ export function GET() {
             "version": "1.5.0",
             "name": "noTypeOnlyImportAttributes",
             "recommended": false,
+            "fixKind": "none",
             "docs": " Disallow type-only imports and exports with import attributes.\n\n ## Examples\n\n ```js\n import type { A } from \"./a.json\" with { type: \"json\" };\n ```\n"
           }
         }
