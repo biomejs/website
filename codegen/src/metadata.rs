@@ -6,6 +6,7 @@ use biome_analyze::{
 use biome_css_syntax::CssLanguage;
 use biome_js_syntax::JsLanguage;
 use biome_json_syntax::JsonLanguage;
+use biome_string_case::Case;
 use serde::Serialize;
 use std::collections::BTreeMap;
 use std::fs;
@@ -68,11 +69,13 @@ struct JsonMetadata {
     pub version: String,
     /// The name of this rule, displayed in the diagnostics it emits
     pub name: String,
+    /// The rule's documentation URL
+    pub link: String,
     /// Whether a rule is recommended or not
     pub recommended: bool,
     /// The kind of fix
     pub fix_kind: FixKind,
-    /// The source URL of the rule
+    /// The source metadata of the rule
     #[serde(skip_serializing_if = "Vec::is_empty")]
     pub sources: Vec<RuleSource>,
     /// The source kind of the rule
@@ -90,6 +93,10 @@ impl From<RuleMetadata> for JsonMetadata {
             source_kind: value.source_kind,
             name: value.name.to_string(),
             sources: value.sources.to_vec(),
+            link: format!(
+                "https://biomejs.dev/linter/rules/{}",
+                Case::Kebab.convert(value.name)
+            ),
             recommended: value.recommended,
             fix_kind: value.fix_kind,
             docs: value.docs.to_string(),

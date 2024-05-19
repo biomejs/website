@@ -8,6 +8,7 @@ export function GET() {
             "deprecated": false,
             "version": "next",
             "name": "noCssEmptyBlock",
+            "link": "https://biomejs.dev/linter/rules/no-css-empty-block",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -21,6 +22,7 @@ export function GET() {
             "deprecated": false,
             "version": "next",
             "name": "noDuplicateAtImportRules",
+            "link": "https://biomejs.dev/linter/rules/no-duplicate-at-import-rules",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -34,6 +36,7 @@ export function GET() {
             "deprecated": false,
             "version": "next",
             "name": "noDuplicateFontNames",
+            "link": "https://biomejs.dev/linter/rules/no-duplicate-font-names",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -47,6 +50,7 @@ export function GET() {
             "deprecated": false,
             "version": "next",
             "name": "noDuplicateSelectorsKeyframeBlock",
+            "link": "https://biomejs.dev/linter/rules/no-duplicate-selectors-keyframe-block",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -60,6 +64,7 @@ export function GET() {
             "deprecated": false,
             "version": "next",
             "name": "noImportantInKeyframe",
+            "link": "https://biomejs.dev/linter/rules/no-important-in-keyframe",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -73,6 +78,7 @@ export function GET() {
             "deprecated": false,
             "version": "next",
             "name": "noInvalidPositionAtImportRule",
+            "link": "https://biomejs.dev/linter/rules/no-invalid-position-at-import-rule",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -86,6 +92,7 @@ export function GET() {
             "deprecated": false,
             "version": "next",
             "name": "noUnknownFunction",
+            "link": "https://biomejs.dev/linter/rules/no-unknown-function",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -99,6 +106,7 @@ export function GET() {
             "deprecated": false,
             "version": "next",
             "name": "noUnknownMediaFeatureName",
+            "link": "https://biomejs.dev/linter/rules/no-unknown-media-feature-name",
             "recommended": false,
             "fixKind": "none",
             "sources": [
@@ -112,6 +120,7 @@ export function GET() {
             "deprecated": false,
             "version": "next",
             "name": "noUnknownProperty",
+            "link": "https://biomejs.dev/linter/rules/no-unknown-property",
             "recommended": false,
             "fixKind": "none",
             "docs": " Disallow unknown properties.\n\n This rule considers properties defined in the CSS Specifications and browser specific properties to be known.\n https://github.com/known-css/known-css-properties#source\n\n\n This rule ignores:\n\n - custom variables e.g. `--custom-property`\n - vendor-prefixed properties (e.g., `-moz-align-self,` `-webkit-align-self`)\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a {\n   colr: blue;\n }\n ```\n\n ```css,expect_diagnostic\n a {\n   my-property: 1;\n }\n ```\n\n ### Valid\n\n ```css\n a {\n   color: green;\n }\n ```\n\n ```css\n a {\n   fill: black;\n }\n ```\n\n ```css\n a {\n   -moz-align-self: center;\n }\n ```\n\n"
@@ -120,6 +129,7 @@ export function GET() {
             "deprecated": false,
             "version": "next",
             "name": "noUnknownSelectorPseudoElement",
+            "link": "https://biomejs.dev/linter/rules/no-unknown-selector-pseudo-element",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -133,6 +143,7 @@ export function GET() {
             "deprecated": false,
             "version": "next",
             "name": "noUnknownUnit",
+            "link": "https://biomejs.dev/linter/rules/no-unknown-unit",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -146,6 +157,7 @@ export function GET() {
             "deprecated": false,
             "version": "next",
             "name": "noUnmatchableAnbSelector",
+            "link": "https://biomejs.dev/linter/rules/no-unmatchable-anb-selector",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -159,6 +171,7 @@ export function GET() {
             "deprecated": false,
             "version": "next",
             "name": "useGenericFontNames",
+            "link": "https://biomejs.dev/linter/rules/use-generic-font-names",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -176,6 +189,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noExcessiveCognitiveComplexity",
+            "link": "https://biomejs.dev/linter/rules/no-excessive-cognitive-complexity",
             "recommended": false,
             "fixKind": "none",
             "sources": [
@@ -189,6 +203,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.6.0",
             "name": "noExcessiveNestedTestSuites",
+            "link": "https://biomejs.dev/linter/rules/no-excessive-nested-test-suites",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -203,6 +218,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noExtraBooleanCast",
+            "link": "https://biomejs.dev/linter/rules/no-extra-boolean-cast",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -216,6 +232,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noForEach",
+            "link": "https://biomejs.dev/linter/rules/no-for-each",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -232,6 +249,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noMultipleSpacesInRegularExpressionLiterals",
+            "link": "https://biomejs.dev/linter/rules/no-multiple-spaces-in-regular-expression-literals",
             "recommended": true,
             "fixKind": "safe",
             "sources": [
@@ -245,6 +263,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noStaticOnlyClass",
+            "link": "https://biomejs.dev/linter/rules/no-static-only-class",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -261,6 +280,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.3.1",
             "name": "noThisInStatic",
+            "link": "https://biomejs.dev/linter/rules/no-this-in-static",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -274,6 +294,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noUselessCatch",
+            "link": "https://biomejs.dev/linter/rules/no-useless-catch",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -287,6 +308,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noUselessConstructor",
+            "link": "https://biomejs.dev/linter/rules/no-useless-constructor",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -303,6 +325,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noUselessLabel",
+            "link": "https://biomejs.dev/linter/rules/no-useless-label",
             "recommended": true,
             "fixKind": "safe",
             "sources": [
@@ -316,6 +339,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.3.3",
             "name": "noUselessLoneBlockStatements",
+            "link": "https://biomejs.dev/linter/rules/no-useless-lone-block-statements",
             "recommended": true,
             "fixKind": "safe",
             "sources": [
@@ -329,6 +353,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noUselessRename",
+            "link": "https://biomejs.dev/linter/rules/no-useless-rename",
             "recommended": true,
             "fixKind": "safe",
             "sources": [
@@ -342,6 +367,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noUselessSwitchCase",
+            "link": "https://biomejs.dev/linter/rules/no-useless-switch-case",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -355,6 +381,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.5.0",
             "name": "noUselessTernary",
+            "link": "https://biomejs.dev/linter/rules/no-useless-ternary",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -368,6 +395,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noVoid",
+            "link": "https://biomejs.dev/linter/rules/no-void",
             "recommended": false,
             "fixKind": "none",
             "sources": [
@@ -381,6 +409,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noWith",
+            "link": "https://biomejs.dev/linter/rules/no-with",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -394,6 +423,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useArrowFunction",
+            "link": "https://biomejs.dev/linter/rules/use-arrow-function",
             "recommended": true,
             "fixKind": "safe",
             "sources": [
@@ -408,6 +438,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useFlatMap",
+            "link": "https://biomejs.dev/linter/rules/use-flat-map",
             "recommended": true,
             "fixKind": "safe",
             "sources": [
@@ -424,6 +455,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useLiteralKeys",
+            "link": "https://biomejs.dev/linter/rules/use-literal-keys",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -440,6 +472,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.3.0",
             "name": "useRegexLiterals",
+            "link": "https://biomejs.dev/linter/rules/use-regex-literals",
             "recommended": true,
             "fixKind": "safe",
             "sources": [
@@ -453,6 +486,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useSimpleNumberKeys",
+            "link": "https://biomejs.dev/linter/rules/use-simple-number-keys",
             "recommended": true,
             "fixKind": "safe",
             "docs": " Disallow number literal object member names which are not base10 or uses underscore as separator\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n ({ 0x1: 1 });\n ```\n ```js,expect_diagnostic\n ({ 11_1.11: \"ee\" });\n ```\n ```js,expect_diagnostic\n ({ 0o1: 1 });\n ```\n ```js,expect_diagnostic\n ({ 1n: 1 });\n ```\n ```js,expect_diagnostic\n ({ 11_1.11: \"ee\" });\n ```\n\n ### Valid\n\n ```js\n ({ 0: \"zero\" });\n ({ 122: \"integer\" });\n ({ 1.22: \"floating point\" });\n ({ 3.1e12: \"floating point with e\" });\n ```\n\n"
@@ -461,6 +495,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useSimplifiedLogicExpression",
+            "link": "https://biomejs.dev/linter/rules/use-simplified-logic-expression",
             "recommended": false,
             "fixKind": "unsafe",
             "docs": " Discard redundant terms from logical expressions.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const boolExp = true;\n const r = true && boolExp;\n ```\n\n ```js,expect_diagnostic\n const boolExp2 = true;\n const r2 = boolExp || true;\n ```\n\n ```js,expect_diagnostic\n const nonNullExp = 123;\n const r3 = null ?? nonNullExp;\n ```\n\n ```js,expect_diagnostic\n const boolExpr1 = true;\n const boolExpr2 = false;\n const r4 = !boolExpr1 || !boolExpr2;\n ```\n\n ### Valid\n ```js\n const boolExpr3 = true;\n const boolExpr4 = false;\n const r5 = !(boolExpr1 && boolExpr2);\n const boolExpr5 = true;\n const boolExpr6 = false;\n ```\n\n"
@@ -471,6 +506,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noConstAssign",
+            "link": "https://biomejs.dev/linter/rules/no-const-assign",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -484,6 +520,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noConstantCondition",
+            "link": "https://biomejs.dev/linter/rules/no-constant-condition",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -497,6 +534,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noConstructorReturn",
+            "link": "https://biomejs.dev/linter/rules/no-constructor-return",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -510,6 +548,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.3.0",
             "name": "noEmptyCharacterClassInRegex",
+            "link": "https://biomejs.dev/linter/rules/no-empty-character-class-in-regex",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -523,6 +562,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noEmptyPattern",
+            "link": "https://biomejs.dev/linter/rules/no-empty-pattern",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -536,6 +576,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noGlobalObjectCalls",
+            "link": "https://biomejs.dev/linter/rules/no-global-object-calls",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -549,6 +590,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noInnerDeclarations",
+            "link": "https://biomejs.dev/linter/rules/no-inner-declarations",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -562,6 +604,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noInvalidConstructorSuper",
+            "link": "https://biomejs.dev/linter/rules/no-invalid-constructor-super",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -575,6 +618,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.3.0",
             "name": "noInvalidNewBuiltin",
+            "link": "https://biomejs.dev/linter/rules/no-invalid-new-builtin",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -588,6 +632,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.5.0",
             "name": "noInvalidUseBeforeDeclaration",
+            "link": "https://biomejs.dev/linter/rules/no-invalid-use-before-declaration",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -604,6 +649,7 @@ export function GET() {
             "deprecated": true,
             "version": "1.0.0",
             "name": "noNewSymbol",
+            "link": "https://biomejs.dev/linter/rules/no-new-symbol",
             "recommended": false,
             "fixKind": "unsafe",
             "sources": [
@@ -617,6 +663,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noNonoctalDecimalEscape",
+            "link": "https://biomejs.dev/linter/rules/no-nonoctal-decimal-escape",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -630,6 +677,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noPrecisionLoss",
+            "link": "https://biomejs.dev/linter/rules/no-precision-loss",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -649,6 +697,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noSelfAssign",
+            "link": "https://biomejs.dev/linter/rules/no-self-assign",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -665,6 +714,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noSetterReturn",
+            "link": "https://biomejs.dev/linter/rules/no-setter-return",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -678,6 +728,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noStringCaseMismatch",
+            "link": "https://biomejs.dev/linter/rules/no-string-case-mismatch",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -691,6 +742,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noSwitchDeclarations",
+            "link": "https://biomejs.dev/linter/rules/no-switch-declarations",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -704,6 +756,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noUndeclaredVariables",
+            "link": "https://biomejs.dev/linter/rules/no-undeclared-variables",
             "recommended": false,
             "fixKind": "none",
             "sources": [
@@ -717,6 +770,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noUnnecessaryContinue",
+            "link": "https://biomejs.dev/linter/rules/no-unnecessary-continue",
             "recommended": true,
             "fixKind": "unsafe",
             "docs": " Avoid using unnecessary `continue`.\n\n ## Examples\n\n ### Invalid\n ```js,expect_diagnostic\n loop: for (let i = 0; i < 5; i++) {\n   continue loop;\n }\n ```\n ```js,expect_diagnostic\n while (i--) {\n   continue;\n }\n ```\n ```js,expect_diagnostic\n while (1) {\n   continue;\n }\n ```\n ```js,expect_diagnostic\n for (let i = 0; i < 10; i++) {\n   if (i > 5) {\n     console.log(\"foo\");\n     continue;\n   } else if (i >= 5 && i < 8) {\n     console.log(\"test\");\n   } else {\n     console.log(\"test\");\n   }\n }\n ```\n ```js,expect_diagnostic\n for (let i = 0; i < 9; i++) {\n   continue;\n }\n ```\n\n ```js, expect_diagnostic\n test2: do {\n \tcontinue test2;\n } while (true);\n ```\n\n ### Valid\n ```js\n while (i) {\n   if (i > 5) {\n     continue;\n   }\n   console.log(i);\n   i--;\n }\n\n loop: while (1) {\n   forLoop: for (let i = 0; i < 5; i++) {\n     if (someCondition) {\n       continue loop;\n     }\n   }\n }\n ```\n"
@@ -725,6 +779,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noUnreachable",
+            "link": "https://biomejs.dev/linter/rules/no-unreachable",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -738,6 +793,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noUnreachableSuper",
+            "link": "https://biomejs.dev/linter/rules/no-unreachable-super",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -751,6 +807,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noUnsafeFinally",
+            "link": "https://biomejs.dev/linter/rules/no-unsafe-finally",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -764,6 +821,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noUnsafeOptionalChaining",
+            "link": "https://biomejs.dev/linter/rules/no-unsafe-optional-chaining",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -777,6 +835,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.3.0",
             "name": "noUnusedImports",
+            "link": "https://biomejs.dev/linter/rules/no-unused-imports",
             "recommended": false,
             "fixKind": "safe",
             "docs": " Disallow unused imports.\n\n Unused imports might be the result of an incomplete refactoring.\n The code fix can remove comments associated with an `import`.\n See the last invalid example.\n\n Note that the leading trivia, e.g., comments or newlines preceding\n the unused imports will also be removed. So that comment directives\n like `@ts-expect-error` won't be transferred to a wrong place.\n\n ## Options\n\n This rule respects the [`jsxRuntime`](https://biomejs.dev/reference/configuration/#javascriptjsxruntime)\n setting and will make an exception for React globals if it is set to\n `\"reactClassic\"`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import A from 'mod';\n ```\n\n ```js,expect_diagnostic\n import * as A from 'mod';\n ```\n\n ```ts,expect_diagnostic\n import { type A, B } from 'mod';\n\n export { B }\n ```\n\n ```js,expect_diagnostic\n // Header comment\n import /*inner comment */ A from 'mod'; // Associated comment\n\n // Another header comment\n import {\n     // A's header comment\n     type A, // A's comment\n     // B's header comment\n     B,\n } from 'mod';\n\n export { B }\n ```\n\n ### Valid\n\n ```ts\n import { A, type B } from 'mod';\n\n function f(arg: B): A {\n     return new A(arg);\n }\n ```\n"
@@ -785,6 +844,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noUnusedLabels",
+            "link": "https://biomejs.dev/linter/rules/no-unused-labels",
             "recommended": true,
             "fixKind": "safe",
             "sources": [
@@ -798,6 +858,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.3.3",
             "name": "noUnusedPrivateClassMembers",
+            "link": "https://biomejs.dev/linter/rules/no-unused-private-class-members",
             "recommended": false,
             "fixKind": "unsafe",
             "sources": [
@@ -811,6 +872,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noUnusedVariables",
+            "link": "https://biomejs.dev/linter/rules/no-unused-variables",
             "recommended": false,
             "fixKind": "unsafe",
             "sources": [
@@ -827,6 +889,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useIsNan",
+            "link": "https://biomejs.dev/linter/rules/use-is-nan",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -840,6 +903,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useValidForDirection",
+            "link": "https://biomejs.dev/linter/rules/use-valid-for-direction",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -853,6 +917,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useYield",
+            "link": "https://biomejs.dev/linter/rules/use-yield",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -868,6 +933,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.6.0",
             "name": "noConsole",
+            "link": "https://biomejs.dev/linter/rules/no-console",
             "recommended": false,
             "fixKind": "unsafe",
             "sources": [
@@ -881,6 +947,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.7.0",
             "name": "noConstantMathMinMaxClamp",
+            "link": "https://biomejs.dev/linter/rules/no-constant-math-min-max-clamp",
             "recommended": false,
             "fixKind": "unsafe",
             "sources": [
@@ -894,6 +961,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.6.1",
             "name": "noDoneCallback",
+            "link": "https://biomejs.dev/linter/rules/no-done-callback",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -908,6 +976,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.6.2",
             "name": "noDuplicateElseIf",
+            "link": "https://biomejs.dev/linter/rules/no-duplicate-else-if",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -921,6 +990,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.7.0",
             "name": "noFlatMapIdentity",
+            "link": "https://biomejs.dev/linter/rules/no-flat-map-identity",
             "recommended": true,
             "fixKind": "safe",
             "sources": [
@@ -934,6 +1004,7 @@ export function GET() {
             "deprecated": false,
             "version": "next",
             "name": "noMisplacedAssertion",
+            "link": "https://biomejs.dev/linter/rules/no-misplaced-assertion",
             "recommended": false,
             "fixKind": "none",
             "sources": [
@@ -948,6 +1019,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.5.0",
             "name": "noNodejsModules",
+            "link": "https://biomejs.dev/linter/rules/no-nodejs-modules",
             "recommended": false,
             "fixKind": "none",
             "sources": [
@@ -961,6 +1033,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.7.2",
             "name": "noReactSpecificProps",
+            "link": "https://biomejs.dev/linter/rules/no-react-specific-props",
             "recommended": false,
             "fixKind": "safe",
             "sources": [
@@ -974,6 +1047,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.6.0",
             "name": "noRestrictedImports",
+            "link": "https://biomejs.dev/linter/rules/no-restricted-imports",
             "recommended": false,
             "fixKind": "none",
             "sources": [
@@ -990,6 +1064,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.6.0",
             "name": "noUndeclaredDependencies",
+            "link": "https://biomejs.dev/linter/rules/no-undeclared-dependencies",
             "recommended": false,
             "fixKind": "none",
             "docs": " Disallow the use of dependencies that aren't specified in the `package.json`.\n\n Indirect dependencies will trigger the rule because they aren't declared in the `package.json`. This means that if package `@org/foo` has a dependency on `lodash`, and then you use\n `import \"lodash\"` somewhere in your project, the rule will trigger a diagnostic for this import.\n\n The rule ignores imports using a protocol such as `node:`, `bun:`, `jsr:`, `https:`.\n\n ## Examples\n\n ### Invalid\n\n ```js,ignore\n import \"vite\";\n ```\n\n ### Valid\n\n ```js,ignore\n import { A } from \"./local.js\";\n ```\n\n ```js,ignore\n import assert from \"node:assert\";\n ```\n"
@@ -998,6 +1073,7 @@ export function GET() {
             "deprecated": false,
             "version": "next",
             "name": "noUselessStringConcat",
+            "link": "https://biomejs.dev/linter/rules/no-useless-string-concat",
             "recommended": false,
             "fixKind": "unsafe",
             "sources": [
@@ -1011,6 +1087,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.7.2",
             "name": "noUselessUndefinedInitialization",
+            "link": "https://biomejs.dev/linter/rules/no-useless-undefined-initialization",
             "recommended": false,
             "fixKind": "unsafe",
             "sources": [
@@ -1025,6 +1102,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.7.2",
             "name": "useArrayLiterals",
+            "link": "https://biomejs.dev/linter/rules/use-array-literals",
             "recommended": false,
             "fixKind": "unsafe",
             "sources": [
@@ -1038,6 +1116,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.7.2",
             "name": "useConsistentBuiltinInstantiation",
+            "link": "https://biomejs.dev/linter/rules/use-consistent-builtin-instantiation",
             "recommended": false,
             "fixKind": "unsafe",
             "sources": [
@@ -1054,6 +1133,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.7.2",
             "name": "useDefaultSwitchClause",
+            "link": "https://biomejs.dev/linter/rules/use-default-switch-clause",
             "recommended": false,
             "fixKind": "none",
             "sources": [
@@ -1067,6 +1147,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.7.3",
             "name": "useExplicitLengthCheck",
+            "link": "https://biomejs.dev/linter/rules/use-explicit-length-check",
             "recommended": false,
             "fixKind": "unsafe",
             "sources": [
@@ -1081,6 +1162,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useImportRestrictions",
+            "link": "https://biomejs.dev/linter/rules/use-import-restrictions",
             "recommended": false,
             "fixKind": "none",
             "sources": [
@@ -1095,6 +1177,7 @@ export function GET() {
             "deprecated": false,
             "version": "next",
             "name": "useNumberToFixedDigitsArgument",
+            "link": "https://biomejs.dev/linter/rules/use-number-to-fixed-digits-argument",
             "recommended": false,
             "fixKind": "unsafe",
             "sources": [
@@ -1108,6 +1191,7 @@ export function GET() {
             "deprecated": false,
             "version": "next",
             "name": "useThrowNewError",
+            "link": "https://biomejs.dev/linter/rules/use-throw-new-error",
             "recommended": false,
             "fixKind": "unsafe",
             "sources": [
@@ -1121,6 +1205,7 @@ export function GET() {
             "deprecated": false,
             "version": "next",
             "name": "useTopLevelRegex",
+            "link": "https://biomejs.dev/linter/rules/use-top-level-regex",
             "recommended": false,
             "fixKind": "none",
             "docs": " Require all regex literals to be declared at the top level.\n\n This rule is useful to avoid performance issues when using regex literals inside functions called many times (hot paths). Regex literals create a new RegExp object when they are evaluated. (See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp) By declaring them at the top level, this overhead can be avoided.\n\n It's important to note that this rule is not recommended for all cases. Placing regex literals at the top level can hurt startup times. In browser contexts, this can result in longer page loads.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function foo(someString) {\n     return /[a-Z]*/.test(someString)\n }\n ```\n\n ### Valid\n\n ```js\n const REGEX = /[a-Z]*/;\n\n function foo(someString) {\n     return REGEX.test(someString)\n }\n ```\n\n"
@@ -1131,6 +1216,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noAccumulatingSpread",
+            "link": "https://biomejs.dev/linter/rules/no-accumulating-spread",
             "recommended": true,
             "fixKind": "none",
             "docs": " Disallow the use of spread (`...`) syntax on accumulators.\n\n Spread syntax allows an iterable to be expanded into its individual elements.\n\n Spread syntax should be avoided on accumulators (like those in `.reduce`)\n because it causes a time complexity of `O(n^2)` instead of `O(n)`.\n\n Source: https://prateeksurana.me/blog/why-using-object-spread-with-reduce-bad-idea/\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n var a = ['a', 'b', 'c'];\n a.reduce((acc, val) => [...acc, val], []);\n ```\n\n ```js,expect_diagnostic\n var a = ['a', 'b', 'c'];\n a.reduce((acc, val) => {return [...acc, val];}, []);\n ```\n\n ```js,expect_diagnostic\n var a = ['a', 'b', 'c'];\n a.reduce((acc, val) => ({...acc, [val]: val}), {});\n ```\n\n ### Valid\n\n ```js\n var a = ['a', 'b', 'c'];\n a.reduce((acc, val) => {acc.push(val); return acc}, []);\n ```\n\n"
@@ -1139,6 +1225,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noDelete",
+            "link": "https://biomejs.dev/linter/rules/no-delete",
             "recommended": true,
             "fixKind": "unsafe",
             "docs": " Disallow the use of the `delete` operator.\n\n The `delete` operator enables the removal of a property from an object.\n\n The `delete` operator should be avoided because it [can prevent some optimizations of _JavaScript_ engines](https://webkit.org/blog/10298/inline-caching-delete/).\n Moreover, it can lead to unexpected results.\n For instance, deleting an array element [does not change the length of the array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/delete#deleting_array_elements).\n\n The only legitimate use of `delete` is on an object that behaves like a _map_.\n To allow this pattern, this rule does not report `delete` on computed properties that are not literal values.\n Consider using [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) instead of an object.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const arr = [1, 2, 3];\n delete arr[0];\n ```\n\n ```js,expect_diagnostic\n const obj = {a: {b: {c: 123}}};\n delete obj.a.b.c;\n ```\n\n ### Valid\n\n ```js\n const foo = new Set([1,2,3]);\n foo.delete(1);\n```\n\n ```js\n const map = Object.create(null);\n const key = \"key\"\n map[key] = \"value\"\n delete map[key];\n```\n\n ```js\n let x = 5;\n delete f(); // uncovered by this rule.\n```\n\n"
@@ -1147,6 +1234,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.6.0",
             "name": "noReExportAll",
+            "link": "https://biomejs.dev/linter/rules/no-re-export-all",
             "recommended": false,
             "fixKind": "none",
             "sources": [
@@ -1163,6 +1251,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.5.0",
             "name": "noGlobalEval",
+            "link": "https://biomejs.dev/linter/rules/no-global-eval",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -1178,6 +1267,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noArguments",
+            "link": "https://biomejs.dev/linter/rules/no-arguments",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -1191,6 +1281,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noCommaOperator",
+            "link": "https://biomejs.dev/linter/rules/no-comma-operator",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -1204,6 +1295,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.4.0",
             "name": "noDefaultExport",
+            "link": "https://biomejs.dev/linter/rules/no-default-export",
             "recommended": false,
             "fixKind": "none",
             "sources": [
@@ -1217,6 +1309,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.6.0",
             "name": "noNamespaceImport",
+            "link": "https://biomejs.dev/linter/rules/no-namespace-import",
             "recommended": false,
             "fixKind": "none",
             "sources": [
@@ -1231,6 +1324,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noNegationElse",
+            "link": "https://biomejs.dev/linter/rules/no-negation-else",
             "recommended": false,
             "fixKind": "safe",
             "sources": [
@@ -1247,6 +1341,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noParameterAssign",
+            "link": "https://biomejs.dev/linter/rules/no-parameter-assign",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -1260,6 +1355,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noRestrictedGlobals",
+            "link": "https://biomejs.dev/linter/rules/no-restricted-globals",
             "recommended": false,
             "fixKind": "none",
             "sources": [
@@ -1273,6 +1369,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noShoutyConstants",
+            "link": "https://biomejs.dev/linter/rules/no-shouty-constants",
             "recommended": false,
             "fixKind": "unsafe",
             "docs": " Disallow the use of constants which its value is the upper-case version of its name.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const FOO = \"FOO\";\n console.log(FOO);\n ```\n\n ### Valid\n\n ```js\n let FOO = \"FOO\";\n console.log(FOO);\n ```\n\n ```js\n export const FOO = \"FOO\";\n console.log(FOO);\n ```\n\n ```js\n function f(FOO = \"FOO\") {\n     return FOO;\n }\n ```\n\n"
@@ -1281,6 +1378,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.3.0",
             "name": "noUselessElse",
+            "link": "https://biomejs.dev/linter/rules/no-useless-else",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -1298,6 +1396,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noVar",
+            "link": "https://biomejs.dev/linter/rules/no-var",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -1311,6 +1410,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useBlockStatements",
+            "link": "https://biomejs.dev/linter/rules/use-block-statements",
             "recommended": false,
             "fixKind": "unsafe",
             "sources": [
@@ -1324,6 +1424,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.1.0",
             "name": "useCollapsedElseIf",
+            "link": "https://biomejs.dev/linter/rules/use-collapsed-else-if",
             "recommended": false,
             "fixKind": "safe",
             "sources": [
@@ -1340,6 +1441,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useConst",
+            "link": "https://biomejs.dev/linter/rules/use-const",
             "recommended": true,
             "fixKind": "safe",
             "sources": [
@@ -1353,6 +1455,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useDefaultParameterLast",
+            "link": "https://biomejs.dev/linter/rules/use-default-parameter-last",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -1369,6 +1472,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useExponentiationOperator",
+            "link": "https://biomejs.dev/linter/rules/use-exponentiation-operator",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -1382,6 +1486,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.5.0",
             "name": "useFilenamingConvention",
+            "link": "https://biomejs.dev/linter/rules/use-filenaming-convention",
             "recommended": false,
             "fixKind": "none",
             "sources": [
@@ -1396,6 +1501,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.5.0",
             "name": "useForOf",
+            "link": "https://biomejs.dev/linter/rules/use-for-of",
             "recommended": false,
             "fixKind": "none",
             "sources": [
@@ -1412,6 +1518,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.6.0",
             "name": "useNodeAssertStrict",
+            "link": "https://biomejs.dev/linter/rules/use-node-assert-strict",
             "recommended": false,
             "fixKind": "safe",
             "docs": " Promotes the usage of `node:assert/strict` over `node:assert`.\n\n If you prefer stricter assertions when using the Node.js assertion module, the package `node:assert/strict` exposes a set of alias for stricter assertions.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import * as assert from \"node:assert\"\n ```\n\n ### Valid\n\n ```js\n import * as assert from \"node:assert/strict\"\n ```\n\n"
@@ -1420,6 +1527,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.5.0",
             "name": "useNodejsImportProtocol",
+            "link": "https://biomejs.dev/linter/rules/use-nodejs-import-protocol",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -1433,6 +1541,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.5.0",
             "name": "useNumberNamespace",
+            "link": "https://biomejs.dev/linter/rules/use-number-namespace",
             "recommended": true,
             "fixKind": "safe",
             "sources": [
@@ -1446,6 +1555,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useNumericLiterals",
+            "link": "https://biomejs.dev/linter/rules/use-numeric-literals",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -1459,6 +1569,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useSelfClosingElements",
+            "link": "https://biomejs.dev/linter/rules/use-self-closing-elements",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -1472,6 +1583,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.3.0",
             "name": "useShorthandAssign",
+            "link": "https://biomejs.dev/linter/rules/use-shorthand-assign",
             "recommended": false,
             "fixKind": "unsafe",
             "sources": [
@@ -1485,6 +1597,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useSingleCaseStatement",
+            "link": "https://biomejs.dev/linter/rules/use-single-case-statement",
             "recommended": false,
             "fixKind": "unsafe",
             "docs": " Enforces switch clauses have a single statement, emits a quick fix wrapping the statements in a block.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n switch (foo) {\n     case true:\n     case false:\n         let foo = '';\n         foo;\n }\n ```\n\n ### Valid\n\n ```js\n switch (foo) {\n     case true:\n     case false: {\n         let foo = '';\n         foo;\n     }\n }\n ```\n"
@@ -1493,6 +1606,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useSingleVarDeclarator",
+            "link": "https://biomejs.dev/linter/rules/use-single-var-declarator",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -1506,6 +1620,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useTemplate",
+            "link": "https://biomejs.dev/linter/rules/use-template",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -1519,6 +1634,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useWhile",
+            "link": "https://biomejs.dev/linter/rules/use-while",
             "recommended": true,
             "fixKind": "safe",
             "docs": " Enforce the use of `while` loops instead of `for` loops when the initializer and update expressions are not needed.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n for (; x.running;) {\n     x.step();\n }\n ```\n\n ### Valid\n\n ```js\n for(let x = 0; x < 10; i++) {}\n ```\n\n ```js\n let x = 0\n for(; x < 10; i++) {}\n ```\n\n ```js\n for(let x = 0; x < 10;) {\n     i++\n }\n ```\n"
@@ -1529,6 +1645,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.3.0",
             "name": "noApproximativeNumericConstant",
+            "link": "https://biomejs.dev/linter/rules/no-approximative-numeric-constant",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -1542,6 +1659,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noAssignInExpressions",
+            "link": "https://biomejs.dev/linter/rules/no-assign-in-expressions",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -1556,6 +1674,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noAsyncPromiseExecutor",
+            "link": "https://biomejs.dev/linter/rules/no-async-promise-executor",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -1569,6 +1688,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noCatchAssign",
+            "link": "https://biomejs.dev/linter/rules/no-catch-assign",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -1582,6 +1702,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noClassAssign",
+            "link": "https://biomejs.dev/linter/rules/no-class-assign",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -1595,6 +1716,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noCompareNegZero",
+            "link": "https://biomejs.dev/linter/rules/no-compare-neg-zero",
             "recommended": true,
             "fixKind": "safe",
             "sources": [
@@ -1608,6 +1730,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noConfusingLabels",
+            "link": "https://biomejs.dev/linter/rules/no-confusing-labels",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -1622,6 +1745,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noConsoleLog",
+            "link": "https://biomejs.dev/linter/rules/no-console-log",
             "recommended": false,
             "fixKind": "unsafe",
             "sources": [
@@ -1636,6 +1760,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noControlCharactersInRegex",
+            "link": "https://biomejs.dev/linter/rules/no-control-characters-in-regex",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -1649,6 +1774,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noDebugger",
+            "link": "https://biomejs.dev/linter/rules/no-debugger",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -1662,6 +1788,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noDoubleEquals",
+            "link": "https://biomejs.dev/linter/rules/no-double-equals",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -1675,6 +1802,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noDuplicateCase",
+            "link": "https://biomejs.dev/linter/rules/no-duplicate-case",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -1688,6 +1816,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noDuplicateClassMembers",
+            "link": "https://biomejs.dev/linter/rules/no-duplicate-class-members",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -1704,6 +1833,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noDuplicateObjectKeys",
+            "link": "https://biomejs.dev/linter/rules/no-duplicate-object-keys",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -1717,6 +1847,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noDuplicateParameters",
+            "link": "https://biomejs.dev/linter/rules/no-duplicate-parameters",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -1730,6 +1861,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.6.0",
             "name": "noDuplicateTestHooks",
+            "link": "https://biomejs.dev/linter/rules/no-duplicate-test-hooks",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -1744,6 +1876,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.3.0",
             "name": "noEmptyBlockStatements",
+            "link": "https://biomejs.dev/linter/rules/no-empty-block-statements",
             "recommended": false,
             "fixKind": "none",
             "sources": [
@@ -1766,6 +1899,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.6.0",
             "name": "noExportsInTest",
+            "link": "https://biomejs.dev/linter/rules/no-exports-in-test",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -1780,6 +1914,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noFallthroughSwitchClause",
+            "link": "https://biomejs.dev/linter/rules/no-fallthrough-switch-clause",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -1793,6 +1928,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.6.0",
             "name": "noFocusedTests",
+            "link": "https://biomejs.dev/linter/rules/no-focused-tests",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -1807,6 +1943,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noFunctionAssign",
+            "link": "https://biomejs.dev/linter/rules/no-function-assign",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -1820,6 +1957,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.5.0",
             "name": "noGlobalAssign",
+            "link": "https://biomejs.dev/linter/rules/no-global-assign",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -1833,6 +1971,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noGlobalIsFinite",
+            "link": "https://biomejs.dev/linter/rules/no-global-is-finite",
             "recommended": true,
             "fixKind": "unsafe",
             "docs": " Use `Number.isFinite` instead of global `isFinite`.\n\n `Number.isFinite()` and `isFinite()` [do not have the same behavior](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isFinite#difference_between_number.isfinite_and_global_isfinite).\n When the argument to `isFinite()` is not a number, the value is first coerced to a number.\n `Number.isFinite()` does not perform this coercion.\n Therefore, it is a more reliable way to test whether a number is finite.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n isFinite(false); // true\n ```\n\n ### Valid\n\n ```js\n Number.isFinite(false); // false\n ```\n"
@@ -1841,6 +1980,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noGlobalIsNan",
+            "link": "https://biomejs.dev/linter/rules/no-global-is-nan",
             "recommended": true,
             "fixKind": "unsafe",
             "docs": " Use `Number.isNaN` instead of global `isNaN`.\n\n `Number.isNaN()` and `isNaN()` [do not have the same behavior](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/isNaN#description).\n When the argument to `isNaN()` is not a number, the value is first coerced to a number.\n `Number.isNaN()` does not perform this coercion.\n Therefore, it is a more reliable way to test whether a value is `NaN`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n isNaN({}); // true\n ```\n\n ### Valid\n\n ```js\n Number.isNaN({}); // false\n ```\n\n"
@@ -1849,6 +1989,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noImportAssign",
+            "link": "https://biomejs.dev/linter/rules/no-import-assign",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -1862,6 +2003,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noLabelVar",
+            "link": "https://biomejs.dev/linter/rules/no-label-var",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -1875,6 +2017,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.5.0",
             "name": "noMisleadingCharacterClass",
+            "link": "https://biomejs.dev/linter/rules/no-misleading-character-class",
             "recommended": true,
             "fixKind": "safe",
             "sources": [
@@ -1888,6 +2031,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.3.0",
             "name": "noMisrefactoredShorthandAssign",
+            "link": "https://biomejs.dev/linter/rules/no-misrefactored-shorthand-assign",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -1901,6 +2045,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noPrototypeBuiltins",
+            "link": "https://biomejs.dev/linter/rules/no-prototype-builtins",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -1914,6 +2059,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noRedeclare",
+            "link": "https://biomejs.dev/linter/rules/no-redeclare",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -1930,6 +2076,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noRedundantUseStrict",
+            "link": "https://biomejs.dev/linter/rules/no-redundant-use-strict",
             "recommended": true,
             "fixKind": "safe",
             "docs": " Prevents from having redundant `\"use strict\"`.\n\n The directive `\"use strict\"` **isn't** needed in `.mjs` files, or in `.js` files inside projects where the `package.json` defines library as module:\n\n\n ```json,ignore\n {\n    \"type\": \"module\"\n }\n ```\n\n Instead, `.cjs` files are considered \"scripts\" and the directive `\"use strict\"` is accepted and advised.\n\n Note that the leading trivia, e.g., comments or newlines preceding\n the redundant `\"use strict\"` will also be removed. So that comment\n directives won't be transferred to a wrong place.\n\n ## Examples\n\n ### Invalid\n ```cjs,expect_diagnostic\n \"use strict\";\n function foo() {\n  \t\"use strict\";\n }\n ```\n ```cjs,expect_diagnostic\n \"use strict\";\n \"use strict\";\n\n function foo() {\n\n }\n ```\n ```cjs,expect_diagnostic\n function foo() {\n \"use strict\";\n \"use strict\";\n }\n ```\n ```cjs,expect_diagnostic\n class C1 {\n \ttest() {\n \t\t\"use strict\";\n \t}\n }\n ```\n ```cjs,expect_diagnostic\n const C2 = class {\n \ttest() {\n \t\t\"use strict\";\n \t}\n };\n\n ```\n ### Valid\n ```cjs\n function foo() {\n\n }\n```\n ```cjs\n  function foo() {\n     \"use strict\";\n }\n function bar() {\n     \"use strict\";\n }\n```\n\n"
@@ -1938,6 +2085,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noSelfCompare",
+            "link": "https://biomejs.dev/linter/rules/no-self-compare",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -1954,6 +2102,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noShadowRestrictedNames",
+            "link": "https://biomejs.dev/linter/rules/no-shadow-restricted-names",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -1967,6 +2116,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.6.0",
             "name": "noSkippedTests",
+            "link": "https://biomejs.dev/linter/rules/no-skipped-tests",
             "recommended": false,
             "fixKind": "unsafe",
             "sources": [
@@ -1981,6 +2131,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noSparseArray",
+            "link": "https://biomejs.dev/linter/rules/no-sparse-array",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -1994,6 +2145,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.6.0",
             "name": "noSuspiciousSemicolonInJsx",
+            "link": "https://biomejs.dev/linter/rules/no-suspicious-semicolon-in-jsx",
             "recommended": true,
             "fixKind": "none",
             "docs": " It detects possible \"wrong\" semicolons inside JSX elements.\n\n Semicolons that appear after a self-closing element or a closing element are usually the result of a typo of a refactor gone wrong.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const Component = () => {\n   return (\n     <div>\n       <div />;\n     </div>\n  );\n }\n ```\n\n ### Valid\n\n ```js\n const Component = () => {\n   return (\n     <div>\n       <div />\n       ;\n     </div>\n   );\n }\n const Component2 = () => {\n   return (\n     <div>\n       <span>;</span>\n     </div>\n   );\n }\n ```\n\n"
@@ -2002,6 +2154,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.5.0",
             "name": "noThenProperty",
+            "link": "https://biomejs.dev/linter/rules/no-then-property",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -2015,6 +2168,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noUnsafeNegation",
+            "link": "https://biomejs.dev/linter/rules/no-unsafe-negation",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -2028,6 +2182,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.4.0",
             "name": "useAwait",
+            "link": "https://biomejs.dev/linter/rules/use-await",
             "recommended": false,
             "fixKind": "none",
             "sources": [
@@ -2044,6 +2199,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useDefaultSwitchClauseLast",
+            "link": "https://biomejs.dev/linter/rules/use-default-switch-clause-last",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -2057,6 +2213,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useGetterReturn",
+            "link": "https://biomejs.dev/linter/rules/use-getter-return",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -2070,6 +2227,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useIsArray",
+            "link": "https://biomejs.dev/linter/rules/use-is-array",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -2083,6 +2241,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useValidTypeof",
+            "link": "https://biomejs.dev/linter/rules/use-valid-typeof",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -2100,6 +2259,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noDuplicateJsonKeys",
+            "link": "https://biomejs.dev/linter/rules/no-duplicate-json-keys",
             "recommended": true,
             "fixKind": "none",
             "docs": " Disallow two keys with the same name inside a JSON object.\n\n ## Examples\n\n ### Invalid\n\n ```json,expect_diagnostic\n {\n   \"title\": \"New title\",\n   \"title\": \"Second title\"\n }\n ```\n\n ### Valid\n\n ```json\n {\n   \"title\": \"New title\",\n   \"secondTitle\": \"Second title\"\n }\n ```\n"
@@ -2112,6 +2272,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noAccessKey",
+            "link": "https://biomejs.dev/linter/rules/no-access-key",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -2125,6 +2286,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.4.0",
             "name": "noAriaHiddenOnFocusable",
+            "link": "https://biomejs.dev/linter/rules/no-aria-hidden-on-focusable",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -2138,6 +2300,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noAriaUnsupportedElements",
+            "link": "https://biomejs.dev/linter/rules/no-aria-unsupported-elements",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -2151,6 +2314,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noAutofocus",
+            "link": "https://biomejs.dev/linter/rules/no-autofocus",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -2164,6 +2328,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noBlankTarget",
+            "link": "https://biomejs.dev/linter/rules/no-blank-target",
             "recommended": true,
             "fixKind": "safe",
             "sources": [
@@ -2177,6 +2342,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noDistractingElements",
+            "link": "https://biomejs.dev/linter/rules/no-distracting-elements",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -2190,6 +2356,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noHeaderScope",
+            "link": "https://biomejs.dev/linter/rules/no-header-scope",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -2203,6 +2370,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.3.0",
             "name": "noInteractiveElementToNoninteractiveRole",
+            "link": "https://biomejs.dev/linter/rules/no-interactive-element-to-noninteractive-role",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -2216,6 +2384,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noNoninteractiveElementToInteractiveRole",
+            "link": "https://biomejs.dev/linter/rules/no-noninteractive-element-to-interactive-role",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -2229,6 +2398,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noNoninteractiveTabindex",
+            "link": "https://biomejs.dev/linter/rules/no-noninteractive-tabindex",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -2242,6 +2412,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noPositiveTabindex",
+            "link": "https://biomejs.dev/linter/rules/no-positive-tabindex",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -2255,6 +2426,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noRedundantAlt",
+            "link": "https://biomejs.dev/linter/rules/no-redundant-alt",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -2268,6 +2440,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noRedundantRoles",
+            "link": "https://biomejs.dev/linter/rules/no-redundant-roles",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -2281,6 +2454,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noSvgWithoutTitle",
+            "link": "https://biomejs.dev/linter/rules/no-svg-without-title",
             "recommended": true,
             "fixKind": "none",
             "docs": " Enforces the usage of the `title` element for the `svg` element.\n\n It is not possible to specify the `alt` attribute for the `svg` as for the `img`.\n To make svg accessible, the following methods are available:\n - provide the `title` element as the first child to `svg`\n - provide `role=\"img\"` and `aria-label` or `aria-labelledby` to `svg`\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n <svg>foo</svg>\n ```\n\n ```js,expect_diagnostic\n <svg>\n     <title></title>\n     <circle />\n </svg>\n ```\n\n ```js,expect_diagnostic\n <svg>foo</svg>\n ```\n\n ```js\n <svg role=\"img\" aria-label=\"\">\n     <span id=\"\">Pass</span>\n </svg>\n ```\n\n ```js\n <svg role=\"presentation\">foo</svg>\n ```\n\n ### Valid\n\n ```js\n <svg>\n     <rect />\n     <rect />\n     <g>\n         <circle />\n         <circle />\n         <g>\n             <title>Pass</title>\n             <circle />\n             <circle />\n         </g>\n     </g>\n </svg>\n ```\n\n ```js\n <svg>\n     <title>Pass</title>\n     <circle />\n </svg>\n ```\n\n ```js\n <svg role=\"img\" aria-labelledby=\"title\">\n     <span id=\"title\">Pass</span>\n </svg>\n ```\n\n ```js\n <svg role=\"img\" aria-label=\"title\">\n     <span id=\"title\">Pass</span>\n </svg>\n ```\n ```js\n <svg role=\"graphics-symbol\"><rect /></svg>\n ```\n\n ```js\n <svg role=\"graphics-symbol img\"><rect /></svg>\n ```\n\n ```js\n <svg aria-hidden=\"true\"><rect /></svg>\n ```\n\n\n ## Accessibility guidelines\n [Document Structure – SVG 1.1 (Second Edition)](https://www.w3.org/TR/SVG11/struct.html#DescriptionAndTitleElements)\n [ARIA: img role - Accessibility | MDN](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/img_role)\n [Accessible SVGs | CSS-Tricks - CSS-Tricks](https://css-tricks.com/accessible-svgs/)\n [Contextually Marking up accessible images and SVGs | scottohara.me](https://www.scottohara.me/blog/2019/05/22/contextual-images-svgs-and-a11y.html)\n [Accessible SVGs](https://www.unimelb.edu.au/accessibility/techniques/accessible-svgs)\n\n"
@@ -2289,6 +2463,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useAltText",
+            "link": "https://biomejs.dev/linter/rules/use-alt-text",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -2302,6 +2477,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useAnchorContent",
+            "link": "https://biomejs.dev/linter/rules/use-anchor-content",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -2315,6 +2491,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.3.0",
             "name": "useAriaActivedescendantWithTabindex",
+            "link": "https://biomejs.dev/linter/rules/use-aria-activedescendant-with-tabindex",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -2328,6 +2505,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useAriaPropsForRole",
+            "link": "https://biomejs.dev/linter/rules/use-aria-props-for-role",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -2341,6 +2519,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useButtonType",
+            "link": "https://biomejs.dev/linter/rules/use-button-type",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -2354,6 +2533,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useHeadingContent",
+            "link": "https://biomejs.dev/linter/rules/use-heading-content",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -2367,6 +2547,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useHtmlLang",
+            "link": "https://biomejs.dev/linter/rules/use-html-lang",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -2380,6 +2561,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useIframeTitle",
+            "link": "https://biomejs.dev/linter/rules/use-iframe-title",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -2393,6 +2575,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useKeyWithClickEvents",
+            "link": "https://biomejs.dev/linter/rules/use-key-with-click-events",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -2406,6 +2589,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useKeyWithMouseEvents",
+            "link": "https://biomejs.dev/linter/rules/use-key-with-mouse-events",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -2419,6 +2603,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useMediaCaption",
+            "link": "https://biomejs.dev/linter/rules/use-media-caption",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -2432,6 +2617,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useValidAnchor",
+            "link": "https://biomejs.dev/linter/rules/use-valid-anchor",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -2445,6 +2631,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useValidAriaProps",
+            "link": "https://biomejs.dev/linter/rules/use-valid-aria-props",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -2458,6 +2645,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.4.0",
             "name": "useValidAriaRole",
+            "link": "https://biomejs.dev/linter/rules/use-valid-aria-role",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -2471,6 +2659,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useValidAriaValues",
+            "link": "https://biomejs.dev/linter/rules/use-valid-aria-values",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -2484,6 +2673,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useValidLang",
+            "link": "https://biomejs.dev/linter/rules/use-valid-lang",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -2499,6 +2689,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noUselessFragments",
+            "link": "https://biomejs.dev/linter/rules/no-useless-fragments",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -2514,6 +2705,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noChildrenProp",
+            "link": "https://biomejs.dev/linter/rules/no-children-prop",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -2527,6 +2719,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noRenderReturnValue",
+            "link": "https://biomejs.dev/linter/rules/no-render-return-value",
             "recommended": true,
             "fixKind": "none",
             "docs": " Prevent the usage of the return value of `React.render`.\n\n > `ReactDOM.render()` currently returns a reference to the root `ReactComponent` instance. However, using this return value is legacy\n and should be avoided because future versions of React may render components asynchronously in some cases.\n If you need a reference to the root `ReactComponent` instance, the preferred solution is to attach a [callback ref](https://reactjs.org/docs/refs-and-the-dom.html#callback-refs)\n to the root element.\n\n Source: [ReactDOM documentation](https://facebook.github.io/react/docs/react-dom.html#render)\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n const foo = ReactDOM.render(<div />, document.body);\n ```\n\n ### Valid\n\n ```jsx\n ReactDOM.render(<div />, document.body);\n ```\n"
@@ -2535,6 +2728,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noVoidElementsWithChildren",
+            "link": "https://biomejs.dev/linter/rules/no-void-elements-with-children",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -2548,6 +2742,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useExhaustiveDependencies",
+            "link": "https://biomejs.dev/linter/rules/use-exhaustive-dependencies",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -2561,6 +2756,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useHookAtTopLevel",
+            "link": "https://biomejs.dev/linter/rules/use-hook-at-top-level",
             "recommended": false,
             "fixKind": "none",
             "sources": [
@@ -2574,6 +2770,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.6.0",
             "name": "useJsxKeyInIterable",
+            "link": "https://biomejs.dev/linter/rules/use-jsx-key-in-iterable",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -2590,6 +2787,7 @@ export function GET() {
             "deprecated": false,
             "version": "next",
             "name": "useFocusableInteractive",
+            "link": "https://biomejs.dev/linter/rules/use-focusable-interactive",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -2603,6 +2801,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.6.0",
             "name": "useSortedClasses",
+            "link": "https://biomejs.dev/linter/rules/use-sorted-classes",
             "recommended": false,
             "fixKind": "unsafe",
             "docs": " Enforce the sorting of CSS utility classes.\n\n This rule implements the same sorting algorithm as [Tailwind CSS](https://tailwindcss.com/blog/automatic-class-sorting-with-prettier#how-classes-are-sorted), but supports any utility class framework including [UnoCSS](https://unocss.dev/).\n\n It is analogous to [`prettier-plugin-tailwindcss`](https://github.com/tailwindlabs/prettier-plugin-tailwindcss).\n\n\n :::caution\n ## Important notes\n\n This rule is a work in progress, and is only partially implemented. Progress is being tracked in the following GitHub issue: https://github.com/biomejs/biome/issues/1274\n\n Currently, utility class sorting is **not part of the formatter**, and is implemented as a linter rule instead, with an automatic fix. The fix is, at this stage, classified as unsafe. This means that **it won't be applied automatically** as part of IDE actions such as \"fix on save\".\n\n We appreciate any feedback on this rule, and encourage you to try it out and report any issues you find.\n\n **Please read this entire documentation page before reporting an issue.**\n\n Notably, keep in mind that the following features are not supported yet:\n\n - Variant sorting.\n - Custom utilitites and variants (such as ones introduced by Tailwind CSS plugins). Only the default Tailwind CSS configuration is supported.\n - Options such as `prefix` and `separator`.\n - Tagged template literals.\n - Object properties (e.g. in `clsx` calls).\n\n Please don't report issues about these features.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div class=\"px-2 foo p-4 bar\" />;\n ```\n\n ## Options\n\n ### Code-related\n\n ```json\n {\n     \"options\": {\n         \"attributes\": [\"classList\"],\n         \"functions\": [\"clsx\", \"cva\", \"tw\"]\n     }\n }\n ```\n\n #### attributes\n\n Classes in the `class` and `className` JSX attributes are always sorted. Use this option to add more attributes that should be sorted.\n\n #### functions\n\n If specified, strings in the indicated functions will be sorted. This is useful when working with libraries like [`clsx`](https://github.com/lukeed/clsx) or [`cva`](https://cva.style/).\n\n ```js,ignore\n clsx(\"px-2 foo p-4 bar\", {\n     \"block mx-4\": condition,\n });\n ```\n\n Tagged template literals are also supported, for example:\n\n ```js,ignore\n tw`px-2`;\n tw.div`px-2`;\n ```\n\n :::caution\n Tagged template literal support has not been implemented yet.\n :::\n\n ### Sort-related\n\n :::caution\n At the moment, this rule does not support customizing the sort options. Instead, the default Tailwind CSS configuration is hard-coded.\n :::\n\n ## Differences with [Prettier](https://github.com/tailwindlabs/prettier-plugin-tailwindcss)\n\n The main key difference is that Tailwind CSS and its Prettier plugin read and execute the `tailwind.config.js` JavaScript file, which Biome can't do. Instead, Biome implements a simpler version of the configuration. The trade-offs are explained below.\n\n ### Values are not known\n\n The rule has no knowledge of values such as colors, font sizes, or spacing values, which are normally defined in a configuration file like `tailwind.config.js`. Instead, the rule matches utilities that support values in a simpler way: if they start with a known utility prefix, such as `px-` or `text-`, they're considered valid.\n\n This has two implications:\n\n - False positives: classes can be wrongly recognized as utilities even though their values are incorrect. For example, if there's a `px-` utility defined in the configuration, it will match all of the following classes: `px-2`, `px-1337`, `px-[not-actually-valid]`, `px-literally-anything`.\n - No distinction between different utilities that share the same prefix: for example, `text-red-500` and `text-lg` are both interpreted as the same type of utility by this rule, even though the former refers to a color and the latter to a font size. This results in all utilities that share the same prefix being sorted together, regardless of their actual values.\n\n ### Custom additions must be specified\n\n The built-in Tailwind CSS preset (enabled by default) contains the set of utilities and variants that are available with the default configuration. More utilities and variants can be added through Tailwind CSS plugins. In Biome, these need to be manually specified in the Biome configuration file in order to \"extend\" the preset.\n\n ### Presets can't be modified\n\n In Tailwind CSS, core plugins (which provide the default utilities and variants) can be disabled. In Biome, however, there is no way to disable parts of a preset: it's all or nothing. A work-around is to, instead of using a preset, manually specify all utilities and variants in the Biome configuration file.\n\n ### Whitespace is collapsed\n\n The Tailwind CSS Prettier plugin preserves all original whitespace. This rule, however, collapses all whitespace (including newlines) into single spaces.\n\n This is a deliberate decision. We're unsure about this behavior, and would appreciate feedback on it. If this is a problem for you, please share a detailed explanation of your use case in [the GitHub issue](https://github.com/biomejs/biome/issues/1274).\n\n"
@@ -2613,6 +2812,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noDangerouslySetInnerHtml",
+            "link": "https://biomejs.dev/linter/rules/no-dangerously-set-inner-html",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -2626,6 +2826,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noDangerouslySetInnerHtmlWithChildren",
+            "link": "https://biomejs.dev/linter/rules/no-dangerously-set-inner-html-with-children",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -2641,6 +2842,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noImplicitBoolean",
+            "link": "https://biomejs.dev/linter/rules/no-implicit-boolean",
             "recommended": false,
             "fixKind": "safe",
             "sources": [
@@ -2655,6 +2857,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useFragmentSyntax",
+            "link": "https://biomejs.dev/linter/rules/use-fragment-syntax",
             "recommended": false,
             "fixKind": "unsafe",
             "sources": [
@@ -2670,6 +2873,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noArrayIndexKey",
+            "link": "https://biomejs.dev/linter/rules/no-array-index-key",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -2683,6 +2887,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noCommentText",
+            "link": "https://biomejs.dev/linter/rules/no-comment-text",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -2696,6 +2901,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noDuplicateJsxProps",
+            "link": "https://biomejs.dev/linter/rules/no-duplicate-jsx-props",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -2713,6 +2919,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noBannedTypes",
+            "link": "https://biomejs.dev/linter/rules/no-banned-types",
             "recommended": true,
             "fixKind": "safe",
             "sources": [
@@ -2726,6 +2933,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.5.0",
             "name": "noEmptyTypeParameters",
+            "link": "https://biomejs.dev/linter/rules/no-empty-type-parameters",
             "recommended": true,
             "fixKind": "none",
             "docs": " Disallow empty type parameters in type aliases and interfaces.\n\n TypeScript permits the use of empty type parameter lists in type alias and interface declarations; however, this practice is generally discouraged.\n Allowing empty type parameter lists can lead to unclear or ambiguous code, where the intention of the generic type is not self-evident.\n This rule disallows empty type parameter lists in type alias and interface declarations.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n interface Foo<> {}\n ```\n\n ```ts,expect_diagnostic\n type Bar<> = {};\n ```\n\n ### Valid\n\n ```ts\n interface Foo {}\n ```\n\n ```ts\n type Foo<T> = {\n  bar: T;\n }\n ```\n"
@@ -2734,6 +2942,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noUselessEmptyExport",
+            "link": "https://biomejs.dev/linter/rules/no-useless-empty-export",
             "recommended": true,
             "fixKind": "safe",
             "sources": [
@@ -2747,6 +2956,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noUselessThisAlias",
+            "link": "https://biomejs.dev/linter/rules/no-useless-this-alias",
             "recommended": true,
             "fixKind": "safe",
             "sources": [
@@ -2761,6 +2971,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noUselessTypeConstraint",
+            "link": "https://biomejs.dev/linter/rules/no-useless-type-constraint",
             "recommended": true,
             "fixKind": "safe",
             "sources": [
@@ -2774,6 +2985,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useOptionalChain",
+            "link": "https://biomejs.dev/linter/rules/use-optional-chain",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -2789,6 +3001,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noVoidTypeReturn",
+            "link": "https://biomejs.dev/linter/rules/no-void-type-return",
             "recommended": true,
             "fixKind": "none",
             "docs": " Disallow returning a value from a function with the return type 'void'\n\n 'void' signals the absence of value. The returned value is likely to be ignored by the caller.\n Thus, returning a value when the return type of function is 'void', is undoubtedly an error.\n\n Only returning without a value is allowed, as it’s a control flow statement.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n class A {\n     f(): void {\n         return undefined;\n     }\n }\n ```\n\n ```ts,expect_diagnostic\n const a = {\n     f(): void {\n         return undefined;\n     }\n }\n ```\n\n ```ts,expect_diagnostic\n function f(): void {\n     return undefined;\n }\n ```\n\n ```ts,expect_diagnostic\n export default function(): void {\n     return undefined;\n }\n ```\n\n ```ts,expect_diagnostic\n const g = (): void => {\n     return undefined;\n };\n ```\n\n ```ts,expect_diagnostic\n const h = function(): void {\n     return undefined;\n };\n ```\n\n ### Valid\n\n ```js\n class A {\n     f() {\n         return undefined;\n     }\n }\n ```\n\n ```ts\n class B {\n     f(): void {}\n }\n ```\n\n ```ts\n function f(): void {\n     return;\n }\n ```\n\n"
@@ -2799,6 +3012,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.6.3",
             "name": "noEvolvingAny",
+            "link": "https://biomejs.dev/linter/rules/no-evolving-any",
             "recommended": true,
             "fixKind": "none",
             "docs": " Disallow variables from evolving into `any` type through reassignments.\n\n In TypeScript, variables without explicit type annotations can evolve their types based on subsequent assignments.\n This behaviour can accidentally lead to variables with an `any` type, weakening type safety.\n Just like the `any` type, evolved `any` types disable many type-checking rules and should be avoided to maintain strong type safety.\n This rule prevents such cases by ensuring variables do not evolve into `any` type, encouraging explicit type annotations and controlled type evolutions.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n let a;\n ````\n\n ```ts,expect_diagnostic\n const b = [];\n ````\n\n ```ts,expect_diagnostic\n let c = null;\n ````\n\n\n ### Valid\n\n ```ts\n let a: number;\n let b = 1;\n var c : string;\n var d = \"abn\";\n const e: never[] = [];\n const f = [null];\n const g = ['1'];\n const h = [1];\n let workspace: Workspace | null = null;\n ```\n\n"
@@ -2809,6 +3023,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.6.0",
             "name": "noBarrelFile",
+            "link": "https://biomejs.dev/linter/rules/no-barrel-file",
             "recommended": false,
             "fixKind": "none",
             "sources": [
@@ -2825,6 +3040,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noInferrableTypes",
+            "link": "https://biomejs.dev/linter/rules/no-inferrable-types",
             "recommended": true,
             "fixKind": "safe",
             "sources": [
@@ -2838,6 +3054,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noNamespace",
+            "link": "https://biomejs.dev/linter/rules/no-namespace",
             "recommended": false,
             "fixKind": "none",
             "sources": [
@@ -2851,6 +3068,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noNonNullAssertion",
+            "link": "https://biomejs.dev/linter/rules/no-non-null-assertion",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -2864,6 +3082,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noParameterProperties",
+            "link": "https://biomejs.dev/linter/rules/no-parameter-properties",
             "recommended": false,
             "fixKind": "none",
             "sources": [
@@ -2878,6 +3097,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noUnusedTemplateLiteral",
+            "link": "https://biomejs.dev/linter/rules/no-unused-template-literal",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -2891,6 +3111,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.3.0",
             "name": "useAsConstAssertion",
+            "link": "https://biomejs.dev/linter/rules/use-as-const-assertion",
             "recommended": true,
             "fixKind": "safe",
             "sources": [
@@ -2904,6 +3125,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.5.0",
             "name": "useConsistentArrayType",
+            "link": "https://biomejs.dev/linter/rules/use-consistent-array-type",
             "recommended": false,
             "fixKind": "unsafe",
             "sources": [
@@ -2917,6 +3139,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useEnumInitializers",
+            "link": "https://biomejs.dev/linter/rules/use-enum-initializers",
             "recommended": true,
             "fixKind": "safe",
             "sources": [
@@ -2930,6 +3153,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.5.0",
             "name": "useExportType",
+            "link": "https://biomejs.dev/linter/rules/use-export-type",
             "recommended": true,
             "fixKind": "safe",
             "sources": [
@@ -2944,6 +3168,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.5.0",
             "name": "useImportType",
+            "link": "https://biomejs.dev/linter/rules/use-import-type",
             "recommended": true,
             "fixKind": "safe",
             "sources": [
@@ -2958,6 +3183,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useLiteralEnumMembers",
+            "link": "https://biomejs.dev/linter/rules/use-literal-enum-members",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -2971,6 +3197,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useNamingConvention",
+            "link": "https://biomejs.dev/linter/rules/use-naming-convention",
             "recommended": false,
             "fixKind": "safe",
             "sources": [
@@ -2985,6 +3212,7 @@ export function GET() {
             "deprecated": true,
             "version": "1.0.0",
             "name": "useShorthandArrayType",
+            "link": "https://biomejs.dev/linter/rules/use-shorthand-array-type",
             "recommended": false,
             "fixKind": "unsafe",
             "docs": " When expressing array types, this rule promotes the usage of `T[]` shorthand instead of `Array<T>`.\n\n ## Examples\n\n ### Invalid\n ```ts,expect_diagnostic\n let invalid: Array<foo>;\n ```\n\n ```ts,expect_diagnostic\n let invalid: Promise<Array<string>>;\n ```\n\n ```ts,expect_diagnostic\n let invalid: Array<Foo<Bar>>;\n ```\n\n ```ts,expect_diagnostic\n let invalid: Array<[number, number]>;\n ```\n\n ```ts,expect_diagnostic\n let invalid: Array<[number, number]>;\n ```\n\n ```ts,expect_diagnostic\n let invalid: ReadonlyArray<string>;\n ```\n\n ### Valid\n\n ```ts\n let valid: Array<Foo | Bar>;\n let valid: Array<keyof Bar>;\n let valid: Array<foo | bar>;\n ```\n"
@@ -2993,6 +3221,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.5.0",
             "name": "useShorthandFunctionType",
+            "link": "https://biomejs.dev/linter/rules/use-shorthand-function-type",
             "recommended": true,
             "fixKind": "safe",
             "sources": [
@@ -3008,6 +3237,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.2.0",
             "name": "noConfusingVoidType",
+            "link": "https://biomejs.dev/linter/rules/no-confusing-void-type",
             "recommended": true,
             "fixKind": "unsafe",
             "sources": [
@@ -3021,6 +3251,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noConstEnum",
+            "link": "https://biomejs.dev/linter/rules/no-const-enum",
             "recommended": true,
             "fixKind": "safe",
             "docs": " Disallow TypeScript `const enum`\n\n Const enums are enums that should be inlined at use sites.\n Const enums are not supported by bundlers and are incompatible with the `isolatedModules` mode.\n Their use can lead to import nonexistent values (because const enums are erased).\n\n Thus, library authors and bundler users should not use const enums.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n const enum Status {\n   Open,\n   Close,\n }\n ```\n\n ### Valid\n\n ```ts\n enum Status {\n   Open,\n   Close,\n }\n ```\n"
@@ -3029,6 +3260,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noEmptyInterface",
+            "link": "https://biomejs.dev/linter/rules/no-empty-interface",
             "recommended": true,
             "fixKind": "safe",
             "sources": [
@@ -3043,6 +3275,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noExplicitAny",
+            "link": "https://biomejs.dev/linter/rules/no-explicit-any",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -3056,6 +3289,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noExtraNonNullAssertion",
+            "link": "https://biomejs.dev/linter/rules/no-extra-non-null-assertion",
             "recommended": true,
             "fixKind": "safe",
             "sources": [
@@ -3069,6 +3303,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.4.0",
             "name": "noImplicitAnyLet",
+            "link": "https://biomejs.dev/linter/rules/no-implicit-any-let",
             "recommended": true,
             "fixKind": "none",
             "docs": " Disallow use of implicit `any` type on variable declarations.\n\n TypeScript variable declaration without any type annotation and initialization have the `any` type.\n The any type in TypeScript is a dangerous “escape hatch” from the type system.\n Using any disables many type checking rules and is generally best used only as a last resort or when prototyping code.\n TypeScript’s [`--noImplicitAny` compiler option](https://www.typescriptlang.org/tsconfig#noImplicitAny) doesn't report this case.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n var a;\n a = 2;\n ````\n\n ```ts,expect_diagnostic\n let b;\n b = 1\n ```\n\n ### Valid\n\n ```ts\n var a = 1;\n let a:number;\n var b: number\n var b =10;\n ```\n\n"
@@ -3077,6 +3312,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.3.0",
             "name": "noMisleadingInstantiator",
+            "link": "https://biomejs.dev/linter/rules/no-misleading-instantiator",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -3090,6 +3326,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noUnsafeDeclarationMerging",
+            "link": "https://biomejs.dev/linter/rules/no-unsafe-declaration-merging",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -3103,6 +3340,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "useNamespaceKeyword",
+            "link": "https://biomejs.dev/linter/rules/use-namespace-keyword",
             "recommended": true,
             "fixKind": "safe",
             "sources": [
@@ -3125,6 +3363,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noDuplicatePrivateClassMembers",
+            "link": "https://biomejs.dev/linter/rules/no-duplicate-private-class-members",
             "recommended": false,
             "fixKind": "none",
             "docs": " Catch a `SyntaxError` when defining duplicate private class members.\n\n ## Examples\n\n ```js\n class A {\n   #foo;\n   #foo;\n ```\n"
@@ -3133,6 +3372,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.4.0",
             "name": "noInitializerWithDefinite",
+            "link": "https://biomejs.dev/linter/rules/no-initializer-with-definite",
             "recommended": false,
             "fixKind": "none",
             "docs": " Disallow initializing a variable with a definite assertion to prevent `SyntaxError`.\n\n ## Examples\n\n ```js\n let foo!: string = \"bar\";\n ```\n"
@@ -3141,6 +3381,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "noSuperWithoutExtends",
+            "link": "https://biomejs.dev/linter/rules/no-super-without-extends",
             "recommended": false,
             "fixKind": "none",
             "docs": " Catch a `SyntaxError` when writing calling `super()` on a class that doesn't extends any class\n\n ## Examples\n\n ```js\n class A {\n ```\n"
@@ -3151,6 +3392,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.5.0",
             "name": "noTypeOnlyImportAttributes",
+            "link": "https://biomejs.dev/linter/rules/no-type-only-import-attributes",
             "recommended": false,
             "fixKind": "none",
             "docs": " Disallow type-only imports and exports with import attributes.\n\n ## Examples\n\n ```js\n import type { A } from \"./a.json\" with { type: \"json\" };\n ```\n"
@@ -3168,6 +3410,7 @@ export function GET() {
             "deprecated": false,
             "version": "1.0.0",
             "name": "organizeImports",
+            "link": "https://biomejs.dev/linter/rules/organize-imports",
             "recommended": false,
             "fixKind": "unsafe",
             "docs": " Provides a whole-source code action to sort the imports in the file\n using import groups and natural ordering.\n\n ## Examples\n\n ```js\n import React, {\n     FC,\n     useEffect,\n     useRef,\n     ChangeEvent,\n     KeyboardEvent,\n } from 'react';\n import { logger } from '@core/logger';\n import { reduce, debounce } from 'lodash';\n import { Message } from '../Message';\n import { createServer } from '@server/node';\n import { Alert } from '@ui/Alert';\n import { repeat, filter, add } from '../utils';\n import { initializeApp } from '@core/app';\n import { Popup } from '@ui/Popup';\n import { createConnection } from '@server/database';\n ```\n"
