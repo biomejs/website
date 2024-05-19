@@ -7,10 +7,6 @@ import { fileURLToPath } from "node:url";
 // The path of the WASM artifacts. This is what we want to cache and reuse.
 const WASM_PATH = resolve("../../../../biome/packages/@biomejs/wasm-web");
 
-// A dummy file acting like an environment variable to tell the build command
-// whether we should skip the WASM build or not.
-const SKIP_WASM_BUILD_FILE_PATH = resolve("../../../../skip_wasm_build");
-
 // Netlify will restore and backup all the files in /opt/build/cache in each deployment.
 // https://answers.netlify.com/t/cache-deploys-in-netlify/84740/6
 // We create a directory under this path for our dedicated WASM cache.
@@ -47,9 +43,6 @@ export const onPreBuild = async () => {
 		execSync(
 			`cp -afT "${join(CACHE_STORE_PATH, basename(WASM_PATH))}" "${WASM_PATH}"`,
 		);
-		// Create a dummy file to tell the build command we don't need to
-		// run `wasm-pack` anymore because we can use the restored cache.
-		execSync(`touch ${SKIP_WASM_BUILD_FILE_PATH}`);
 		console.log("Finished restoring WASM cache");
 	} catch {
 		// Otherwise we still build the WASM artifacts.
@@ -106,12 +99,12 @@ export const onPostBuild = async () => {
 	}
 
 	// Then, we update the meta of the WASM artifacts from the
-	// current deployment to make it accessible for the next 30
+	// current deployment to make it accessible for the next 3
 	// days. The duration is chosen by us. We can adjust it
 	// based on the storage limitation, if there're any.
 
-	// Update current build cache expiration time (now + 30 days)
-	cacheMeta[CACHE_STORE_PATH] = now + 30 * 24 * 3600 * 1000;
+	// Update current build cache expiration time (now + 3 days)
+	cacheMeta[CACHE_STORE_PATH] = now + 3 * 24 * 3600 * 1000;
 
 	// Finally, we save the updated cache meta and the cached
 	// WASM artifacts back to the cache dir. And Netlify will
