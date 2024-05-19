@@ -1,6 +1,6 @@
 import { execSync } from "node:child_process";
 import { existsSync } from "node:fs";
-import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import { basename, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -35,6 +35,12 @@ export const onPreBuild = async () => {
 	// Return if no cache can be restored.
 	if (!existsSync(CACHE_STORE_PATH)) {
 		console.log("WASM cache is not found");
+		// Remove possible stale WASM files
+		for (const file of await readdir(WASM_PATH)) {
+			if (file.endsWith(".wasm")) {
+				await rm(join(WASM_PATH, file), { force: true });
+			}
+		}
 		return;
 	}
 
