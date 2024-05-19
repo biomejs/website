@@ -1,0 +1,43 @@
+name: Run codegen
+description: Run codegen
+inputs:
+  kinds:
+    description: Which kinds of codegen to run
+    required: true
+    default: metadata, rules
+  version:
+    description: The version of Biome
+    required: true
+    default: "0.0.0"
+
+runs:
+  using: composite
+  steps:
+    - name: Setup Rust toolchain
+      uses: ./.github/actions/setup-rust-toolchain
+    - name: Codegen
+      shell: bash
+      run: |
+        kinds_input='${{ inputs.kinds }}'
+
+        # Split the string into an array based on comma or newline delimiter
+        IFS=$'\n,' read -r -a kinds_array <<< "$kinds_input"
+
+        # Trim whitespace from each element and filter out empty elements
+        kinds=()
+        for kind in "${kinds_array[@]}"; do
+          kind=$(echo "$kind" | sed 's/^[[:space:]]*//' | sed 's/[[:space:]]*$//')
+          if [ -n "$kind" ]; then
+            kinds+=("$kind")
+          fi
+        done
+
+        for kind in "${kinds[@]}"; do
+          echo "Running codegen for $kind"
+          cargo run --manifest-path codegen/Cargo.toml "$kind"
+        done
+      env:
+        RUST_LOG: info
+        RUST_BACKTRACE: "1"
+        CARGO_INCREMENTAL: "1"
+        BIOME_VERSION: ${{ inputs.version }}
