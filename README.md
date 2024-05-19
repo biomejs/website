@@ -70,6 +70,9 @@ pnpm init:biome
 # generate only rules files
 pnpm codegen:rules
 
+# generate only rules metadata
+pnpm codegen:metadata
+
 # generate only release files
 pnpm codegen:release-files
 
