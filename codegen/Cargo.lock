@@ -306,6 +306,7 @@ dependencies = [
  "oxc_resolver",
  "schemars",
  "serde",
+ "serde_ini",
  "serde_json",
  "termcolor",
  "unicode-width",

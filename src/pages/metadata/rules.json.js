@@ -1158,6 +1158,15 @@ export function GET() {
             "sourceKind": "inspired",
             "docs": " Enforce explicitly comparing the `length`, `size`, `byteLength` or `byteOffset` property of a value.\n\n This rule enforces a specific style length comparisons to make them more clear.\n\n ## Zero comparison examples\n Enforce comparison with === 0 when checking for zero length.\n\n ### Invalid\n\n ```js,expect_diagnostic\n const isEmpty = !foo.length;\n ```\n ```js,expect_diagnostic\n const isEmpty = foo.length == 0;\n ```\n ```js,expect_diagnostic\n const isEmpty = foo.length < 1;\n ```\n ```js,expect_diagnostic\n const isEmpty = 0 === foo.length;\n ```\n ```js,expect_diagnostic\n const isEmpty = 0 == foo.length;\n ```\n ```js,expect_diagnostic\n const isEmpty = 1 > foo.length;\n ```\n ```js,expect_diagnostic\n // Negative style is disallowed too\n const isEmpty = !(foo.length > 0);\n ```\n ```js,expect_diagnostic\n const isEmptySet = !foo.size;\n ```\n\n ### Valid\n\n ```js\n const isEmpty = foo.length === 0;\n ```\n\n ## Non-zero comparison examples\n Enforce comparison with > 0 when checking for non-zero length.\n\n ### Invalid\n ```js,expect_diagnostic\n const isNotEmpty = foo.length !== 0;\n ```\n ```js,expect_diagnostic\n const isNotEmpty = foo.length != 0;\n ```\n ```js,expect_diagnostic\n const isNotEmpty = foo.length >= 1;\n ```\n ```js,expect_diagnostic\n const isNotEmpty = 0 !== foo.length;\n ```\n ```js,expect_diagnostic\n const isNotEmpty = 0 != foo.length;\n ```\n ```js,expect_diagnostic\n const isNotEmpty = 1 <= foo.length;\n ```\n ```js,expect_diagnostic\n const isNotEmpty = Boolean(foo.length);\n ```\n ```js,expect_diagnostic\n // Negative style is disallowed too\n const isNotEmpty = !(foo.length === 0);\n ```\n ```js,expect_diagnostic\n if (foo.length) {}\n ```\n ```js,expect_diagnostic\n const biome = foo.length ? 1 : 2\n ```\n ```js,expect_diagnostic\n while (foo.length) {}\n ```\n ```js,expect_diagnostic\n do {} while (foo.length);\n ```\n ```js,expect_diagnostic\n for (; foo.length; ) {};\n ```\n\n ### Valid\n\n ```js\n const isNotEmpty = foo.length > 0;\n ```\n ```js\n if (foo.length > 0 || bar.length > 0) {}\n ```\n\n ## Caveats\n This rule assumes that the `length`/`size` property is always numeric, even if it actually is not.\n In the example below the rule will trigger a warning, even though the `size` property is a string.\n ```js,expect_diagnostic\n const foo1 = { size: \"small\" }; if (foo1.size) {}\n ```\n To properly handle this case, type inference would be required, which is not supported by Biome at the moment.\n We recommend disabling this rule when working with non-numeric `length`/`size` properties.\n\n"
           },
+          "useImportExtensions": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useImportExtensions",
+            "link": "https://biomejs.dev/linter/rules/use-import-extensions",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "docs": " Enforce file extensions for relative imports.\n\n Browsers and Node.js do not natively support importing files without extensions. This rule\n enforces the use of file extensions for relative imports to make the code more consistent.\n\n Tooling also benefits from explicit file extensions, because they do not need to guess which\n file to resolve.\n\n Rule checks static imports and dynamic imports calls such as `import()` and `require()`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import \"./foo\";\n ```\n ```js,expect_diagnostic\n import \"./bar/\";\n ```\n ```js,expect_diagnostic\n import \"../\";\n ```\n ```js,expect_diagnostic\n import \"../.\";\n ```\n ```js,expect_diagnostic\n import(\"./foo\");\n ```\n ```js,expect_diagnostic\n require(\"./foo\");\n ```\n\n ### Valid\n\n ```js\n import \"biome\";\n ```\n ```js\n import \"./foo.js\";\n ```\n ```js\n import \"./bar/index.js\";\n ```\n ```js\n import(\"./foo.js\");\n ```\n ```js\n require(\"./foo.js\");\n ```\n ## Caveats\n\n If you are using TypeScript, TypeScript version 5.0 and later is required, also make sure to enable\n [allowImportingTsExtensions=true](https://typescriptlang.org/tsconfig#allowImportingTsExtensions) in your `tsconfig.json`.\n\n Rule does not yet check filesystem for file type. It tries to guess which extension\n it should add based on the file extension of the current file and the import path.\n When applying the suggested fix, make sure to verify that the file type is correct.\n\n"
+          },
           "useImportRestrictions": {
             "deprecated": false,
             "version": "1.0.0",
@@ -3367,7 +3376,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 239
+    "numberOrRules": 240
   },
   "syntax": {
     "languages": {
