@@ -2797,6 +2797,20 @@ export function GET() {
             ],
             "docs": " Elements with an interactive role and interaction handlers must be focusable.\n\n HTML elements with interactive roles must have `tabIndex` defined to ensure they are\n focusable. Without tabIndex, assistive technologies may not recognize these elements as\n interactive.\n You could also consider switching from an interactive role to its semantic HTML element\n instead.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n <div role=\"button\" />\n ```\n\n ```js,expect_diagnostic\n <div role=\"tab\" />\n ```\n\n ### Valid\n\n ```js\n <div role=\"button\" tabIndex={0} />\n ```\n\n ```jsx\n <div />\n ```\n\n"
           },
+          "useSemanticElements": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useSemanticElements",
+            "link": "https://biomejs.dev/linter/rules/use-semantic-elements",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslintJsxA11y": "prefer-tag-over-role"
+              }
+            ],
+            "docs": " It detects the use of `role` attributes in JSX elements and suggests using semantic elements instead.\n\n The `role` attribute is used to define the purpose of an element, but it should be used as a last resort. Using semantic elements like `<button>`, `<input>`, `<textarea>`, `<a>`, `<img>`, `<table>`, `<article>`, `<section>`, `<nav>`, `<aside>`, `<header>`, `<footer>`, `<main>`, `<figure>`, `<figcaption>`, `<details>`, `<summary>`, `<dialog>`, `<menu>`, `<menuitem>`, `<fieldset>`, `<legend>`, `<caption>`, `<colgroup>`, `<col>`, `<optgroup>`, `<option>`, `<select>`, `<datalist>`, `<output>`, `<progress>`, `<meter>`, `<time>`, `<audio>`, `<video>`, `<track>`, `<source>`, `<embed>`, `<object>`, `<param>`, `<iframe>`, `<canvas>`, `<map>`, `<area>`, `<svg>`, `<math>` are more accessible and provide better semantics.\n\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div role=\"checkbox\">\n ```\n\n ```jsx,expect_diagnostic\n <div role=\"img\">\n ```\n\n ### Valid\n\n ```jsx\n <div>...</div>\n <header>...</header>\n <img alt=\"\" src=\"image.jpg\" />\n ```\n\n"
+          },
           "useSortedClasses": {
             "deprecated": false,
             "version": "1.6.0",
@@ -3353,7 +3367,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 238
+    "numberOrRules": 239
   },
   "syntax": {
     "languages": {
