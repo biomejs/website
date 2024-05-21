@@ -10,7 +10,7 @@ title: noDangerouslySetInnerHtml (since v1.0.0)
 :::
 
 Sources: 
-- Same as: <a href="https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-danger-with-children.md" target="_blank"><code>react/no-danger-with-children</code></a>
+- Same as: <a href="https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-danger.md" target="_blank"><code>react/no-danger</code></a>
 
 Prevent the usage of dangerous JSX props
 
