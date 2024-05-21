@@ -2840,7 +2840,7 @@ export function GET() {
             "fixKind": "none",
             "sources": [
               {
-                "eslintReact": "no-danger-with-children"
+                "eslintReact": "no-danger"
               }
             ],
             "docs": " Prevent the usage of dangerous JSX props\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n function createMarkup() {\n     return { __html: 'child' }\n }\n <div dangerouslySetInnerHTML={createMarkup()}></div>\n ```\n\n ```js,expect_diagnostic\n React.createElement('div', {\n     dangerouslySetInnerHTML: { __html: 'child' }\n });\n ```\n"
@@ -2854,7 +2854,7 @@ export function GET() {
             "fixKind": "none",
             "sources": [
               {
-                "eslintReact": "no-danger"
+                "eslintReact": "no-danger-with-children"
               }
             ],
             "docs": " Report when a DOM element or a component uses both `children` and `dangerouslySetInnerHTML` prop.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n function createMarkup() {\n     return { __html: 'child' }\n }\n <Component dangerouslySetInnerHTML={createMarkup()}>\"child1\"</Component>\n ```\n\n ```jsx,expect_diagnostic\n function createMarkup() {\n     return { __html: 'child' }\n }\n <Component dangerouslySetInnerHTML={createMarkup()} children=\"child1\" />\n ```\n\n ```js,expect_diagnostic\n React.createElement('div', { dangerouslySetInnerHTML: { __html: 'HTML' } }, 'children')\n ```\n"

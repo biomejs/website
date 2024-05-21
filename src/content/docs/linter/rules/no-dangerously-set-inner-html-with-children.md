@@ -10,7 +10,7 @@ title: noDangerouslySetInnerHtmlWithChildren (since v1.0.0)
 :::
 
 Sources: 
-- Same as: <a href="https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-danger.md" target="_blank"><code>react/no-danger</code></a>
+- Same as: <a href="https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-danger-with-children.md" target="_blank"><code>react/no-danger-with-children</code></a>
 
 Report when a DOM element or a component uses both `children` and `dangerouslySetInnerHTML` prop.
 
