@@ -19,7 +19,8 @@
 		"codegen:rules": "pnpm codegen rules",
 		"codegen:release-files": "pnpm codegen release-files",
 		"codegen:metadata": "pnpm codegen metadata",
-		"codegen:all": "pnpm codegen all"
+		"codegen:all": "pnpm codegen all",
+		"codegen:configuration": "pnpm codegen configuration"
 	},
 	"devDependencies": {
 		"@astrojs/netlify": "5.2.1",

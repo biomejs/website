@@ -6,6 +6,7 @@ pub mod lintdoc;
 pub mod metadata;
 pub mod rules_sources;
 pub mod website;
+pub mod configuration;
 
 pub fn project_root() -> PathBuf {
     Path::new(
@@ -31,6 +32,9 @@ pub enum CodegenCommand {
     /// Updates the files of a release
     #[bpaf(command)]
     ReleaseFiles,
+    
+    #[bpaf(command)]
+    Configuration,
 
     /// Updates the documentation of the rule pages and the files of a release  
     #[bpaf(command)]
