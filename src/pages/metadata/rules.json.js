@@ -1098,6 +1098,20 @@ export function GET() {
             "sourceKind": "inspired",
             "docs": " Disallow initializing variables to `undefined`.\n\n A variable that is declared and not initialized to any value automatically gets the value of `undefined`.\n It’s considered a best practice to avoid initializing variables to `undefined`.\n Please note that any inline comments attached to the initialization value or variable will be removed on auto-fix.\n Please be also aware that this differs from Eslint's behaviour and we are still discussing on how to properly handle this case.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n var a = undefined;\n ```\n ```js,expect_diagnostic\n let b = undefined, c = 1, d = 2;\n ```\n ```js,expect_diagnostic\n for (let i = 0; i < 100; i++) {\n \tlet i = undefined;\n }\n ```\n ```js,expect_diagnostic\n let f = /**/undefined/**/ ;\n ```\n ### Valid\n\n ```js\n var a = 1;\n ```\n ```js\n class Foo {\n \tbar = undefined;\n }\n ```\n\n"
           },
+          "noYodaExpression": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noYodaExpression",
+            "link": "https://biomejs.dev/linter/rules/no-yoda-expression",
+            "recommended": false,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "eslint": "yoda"
+              }
+            ],
+            "docs": " Disallow the use of yoda expressions.\n\n A Yoda expression is a programming style where, given a binary operation, the \"static\" part of the binary operation is placed on the left-hand side.\n This rule **forbids** the use of Yoda expressions and enforces the placing of the \"static\" part of the binary operations on the right-hand side.\n\n ## Exceptions\n\n Range expressions like `0 < value && value < 1` or `value <= 0 || 1 < value` are allowed.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n if (\"red\" == value) {}\n ```\n\n ```js,expect_diagnostic\n if (true === value) {}\n ```\n\n ```js,expect_diagnostic\n if (5 != value) {}\n ```\n\n ### Valid\n\n ```js\n if (value === \"red\") {}\n ```\n\n ```js\n if (value === value) {}\n ```\n\n ```js\n if (value != 5) {}\n ```\n\n ```js\n if (0 < value && value < 1) {}\n ```\n\n ## Resources\n - [Wikipedia definition](https://en.wikipedia.org/wiki/Yoda_conditions)\n\n"
+          },
           "useArrayLiterals": {
             "deprecated": false,
             "version": "1.7.2",
@@ -3397,7 +3411,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 241
+    "numberOrRules": 242
   },
   "syntax": {
     "languages": {
