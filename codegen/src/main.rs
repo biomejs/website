@@ -1,8 +1,8 @@
+use codegen::configuration::generate_configuration;
 use codegen::lintdoc::generate_rule_docs;
 use codegen::metadata::generate_json_metadata;
 use codegen::website::generate_files;
 use codegen::{codegen_command, CodegenCommand};
-use codegen::configuration::generate_configuration;
 
 fn main() -> anyhow::Result<()> {
     let result = codegen_command().fallback_to_usage().run();
@@ -20,9 +20,7 @@ fn main() -> anyhow::Result<()> {
             generate_json_metadata()?;
         }
         CodegenCommand::Metadata => generate_json_metadata()?,
-        CodegenCommand::Configuration => {
-            generate_configuration()?
-        }
+        CodegenCommand::Configuration => generate_configuration()?,
     }
 
     Ok(())

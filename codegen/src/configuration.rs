@@ -1,36 +1,126 @@
 //! Auto generate markdown documentation for the configuration schema.
+use biome_configuration::PartialConfiguration;
+use schemars::gen::{SchemaGenerator, SchemaSettings};
+use schemars::schema::{RootSchema, Schema, SchemaObject};
+use std::collections::VecDeque;
 use std::fs::File;
 use std::io::Write;
-use biome_configuration::PartialConfiguration;
 
 use schemars::schema_for;
 use serde_json::{to_string_pretty, Value};
 
-pub fn generate_configuration() -> anyhow::Result<()> {
-    let schema = schema_for!(PartialConfiguration);
-    let json_schema = to_string_pretty(&schema)?;
-    let schema: Value = serde_json::from_str(&json_schema)?;
-    let mut markdown = File::create("src/content/docs/reference/configuration_v2.mdx")?;
+struct Queue<'a> {
+    /// Queue of type names and definitions that need to be generated
+    queue: VecDeque<(&'a str, &'a SchemaObject)>,
+}
 
-    writeln!(markdown, "{}", generate_markdown_hearer())?;
+pub fn top_level_object(
+    buffer: &mut File,
+    root_schema: &RootSchema,
+    name: &String,
+    schema_object: &Schema,
+) -> anyhow::Result<()> {
+    writeln!(buffer, "## `{name}`")?;
+    writeln!(buffer)?;
+    let mut queue = VecDeque::new();
+    let schema_object = schema_object.clone().into_object();
+    let metadata = schema_object.metadata;
+    if let Some(metadata) = metadata {
+        if let Some(description) = metadata.description {
+            writeln!(buffer, "{description}")?;
+            writeln!(buffer)?;
+        }
+    }
 
-    if let Some(schema_object) = schema.as_object() {
-        if let Some(properties) = schema_object.get("properties").and_then(Value::as_object) {
-            for (name, details) in properties {
-                writeln!(markdown, "## `{}`", name)?;
-                writeln!(markdown)?;
-                if let Some(description) = details.get("description").and_then(Value::as_str) {
-                    if description.to_string().contains("```json") {
-                        let detail = format_code_block(description)?;
-                        writeln!(markdown, "{}", detail)?;
-                    } else {
-                        writeln!(markdown, "{}", description)?;
-                    }
-                }
-                writeln!(markdown, "\n")?;
+    let reference = schema_object
+        .subschemas
+        .and_then(|validation| validation.any_of)
+        .and_then(|any_of| any_of.into_iter().find(|any_of| any_of.is_ref()))
+        .map(|schema| schema.into_object())
+        .and_then(|schema| schema.reference);
+
+    if let Some(reference) = reference {
+        dbg!(&reference);
+        dbg!(&root_schema.definitions.keys());
+        let key = reference.trim_start_matches("#/definitions/");
+        match root_schema.definitions.get(key) {
+            Some(Schema::Object(schema)) => {
+                queue.push_back(schema);
+            }
+            None => {},
+            _ => {
+                unimplemented!("To implement.")
             }
         }
     }
+
+    dbg!(&queue);
+    Ok(())
+}
+
+pub fn generate_configuration() -> anyhow::Result<()> {
+    let root = schema_for!(PartialConfiguration);
+    let mut buffer = File::create("src/content/docs/reference/configuration_v2.mdx")?;
+    writeln!(buffer, "{}", generate_markdown_hearer())?;
+
+    dbg!(&root.schema.metadata);
+
+    writeln!(
+        buffer,
+        "{}",
+        &root.schema.metadata.clone().unwrap().description.unwrap()
+    )?;
+    writeln!(buffer)?;
+
+    if let Some(object) = &root.schema.object {
+        for (property_name, property_schema) in &object.properties {
+            top_level_object(&mut buffer, &root, property_name, property_schema)?;
+        }
+    }
+
+    // let metadataschema.schema.metadata;
+
+    // let json_schema = to_string_pretty(&schema)?;
+    // let schema: Value = serde_json::from_str(&json_schema)?;
+
+    // if let Some(schema_object) = schema.as_object() {
+    //     if let Some(properties) = schema_object.get("properties").and_then(Value::as_object) {
+    //         for (name, details) in properties {
+    //             writeln!(markdown, "## `{}`", name)?;
+    //             writeln!(markdown)?;
+    //             if let Some(description) = details.get("description").and_then(Value::as_str) {
+    //                 if description.to_string().contains("```json") {
+    //                     let detail = format_code_block(description)?;
+    //                     writeln!(markdown, "{}", detail)?;
+    //                 } else {
+    //                     writeln!(markdown, "{}", description)?;
+    //                 }
+    //             }
+    //             if let Some(details) = details.get("anyOf").and_then(Value::as_array) {
+    //                 for detail in details {
+    //             dbg!(&detail);
+    //                     let value = detail.get("description").and_then(Value::as_str);
+    //                     dbg!(value);
+    //                     // for (name, details) in detail {
+    //                     //     writeln!(markdown, "### `{}`", name)?;
+    //                     //     writeln!(markdown)?;
+    //                     //     if let Some(description) = details.get("description").and_then(Value::as_str) {
+    //                     //         if description.to_string().contains("```json") {
+    //                     //             let detail = format_code_block(description)?;
+    //                     //             writeln!(markdown, "{}", detail)?;
+    //                     //         } else {
+    //                     //             writeln!(markdown, "{}", description)?;
+    //                     //         }
+    //                     //     }
+    //                     //     writeln!(markdown, "\n")?;
+    //                     // }
+    //                 }
+    //
+    //             }
+    //             writeln!(markdown, "\n")?;
+    //         }
+    //     }
+    // }
 
     Ok(())
 }
@@ -42,10 +132,6 @@ emoji: ⚙️
 category: reference
 description: How to customize and configure Biome with biome.json.
 ---
-
-import LintGroups from "@/components/generated/Groups.astro";
-
-{/** Make sure to update the redirect in `static/_redirects` when changing the configuration title --> **/}
 "#;
 
     header.to_string()
