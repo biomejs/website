@@ -9,7 +9,7 @@ publish = "dist/"
 #      '''
 # temporary command
 command = '''
-git clone https://github.com/biomejs/biome.git --depth 0 &&
+git clone https://github.com/biomejs/biome.git --depth 1 &&
 pnpm i --frozen-lockfile && npm i -g wasm-pack && pnpm build:wasm-dev && pnpm build:js
 '''
 
