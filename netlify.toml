@@ -28,8 +28,9 @@ cache-control = '''
       immutable
       '''
 
-[[plugins]]
-package = "./scripts/netlify/plugins/wasm-cache"
+# Temporarly disable plugin
+#[[plugins]]
+#package = "./scripts/netlify/plugins/wasm-cache"
 
 [context.deploy-preview.environment]
 SKIP_OG = "true"
