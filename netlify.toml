@@ -9,6 +9,7 @@ publish = "dist/"
 #      '''
 # temporary command
 command = '''
+git checkout https://github.com/biomejs/biome.git --depth 0 &&
 pnpm i --frozen-lockfile && npm i -g wasm-pack && pnpm build:wasm-dev && pnpm build:js
 '''
 
