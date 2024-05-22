@@ -27,10 +27,6 @@ jobs:
         uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
         with:
           submodules: true
-      - name: Get commit ID of submodule (workflow dispatch, empty)
-        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.commit-id == '' }}
-        working-directory: ./biome
-        run: echo "COMMIT_ID=$(git ls-remote origin main | cut -f 1)" >> $GITHUB_ENV
       - name: Get commit ID of submodule (workflow dispatch, non-empty)
         if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.commit-id != '' }}
         run: echo "COMMIT_ID=${{ github.event.inputs.commit-id }}" >> $GITHUB_ENV
@@ -39,11 +35,6 @@ jobs:
         run: echo "COMMIT_ID=${{ github.event.client_payload.event.head_commit.id }}" >> "$GITHUB_ENV"
       - name: Get short commit ID
         run: echo "SHORT_COMMIT_ID=$(echo ${{ env.COMMIT_ID }} | cut -c 1-7)" >> "$GITHUB_ENV"
-      - name: Checkout submodule to the commit ID
-        working-directory: ./biome
-        run: |
-          git fetch origin main --unshallow
-          git checkout ${{ env.COMMIT_ID }}
       - name: Run codegen
         uses: ./.github/actions/run-codegen
         with:
