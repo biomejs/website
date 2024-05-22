@@ -4,20 +4,6 @@ export function GET() {
     "languages": {
       "css": {
         "nursery": {
-          "noCssEmptyBlock": {
-            "deprecated": false,
-            "version": "next",
-            "name": "noCssEmptyBlock",
-            "link": "https://biomejs.dev/linter/rules/no-css-empty-block",
-            "recommended": true,
-            "fixKind": "none",
-            "sources": [
-              {
-                "stylelint": "no-empty-block"
-              }
-            ],
-            "docs": " Disallow CSS empty blocks.\n\n By default, it will allow empty blocks with comments inside.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n p {}\n ```\n\n ```css,expect_diagnostic\n .b {}\n ```\n\n ```css,expect_diagnostic\n @media print { a {} }\n ```\n\n ### Valid\n\n ```css\n p {\n   color: red;\n }\n ```\n\n ```css\n p {\n   /* foo */\n }\n ```\n\n ```css\n @media print { a { color: pink; } }\n ```\n\n ## Options\n\n If false, exclude comments from being treated as content inside of a block.\n\n ```json\n {\n     \"noCssEmptyBlock\": {\n         \"options\": {\n           \"allowComments\": false\n         }\n     }\n }\n ```\n\n"
-          },
           "noDuplicateAtImportRules": {
             "deprecated": false,
             "version": "next",
@@ -59,6 +45,20 @@ export function GET() {
               }
             ],
             "docs": " Disallow duplicate selectors within keyframe blocks.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n @keyframes foo { from {} from {} }\n ```\n\n ```css,expect_diagnostic\n @keyframes foo { from {} FROM {} }\n ```\n\n ```css,expect_diagnostic\n @keyframes foo { 0% {} 0% {} }\n ```\n\n ### Valid\n\n ```css\n @keyframes foo { 0% {} 100% {} }\n ```\n\n ```css\n @keyframes foo { from {} to {} }\n ```\n\n"
+          },
+          "noEmptyBlock": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noEmptyBlock",
+            "link": "https://biomejs.dev/linter/rules/no-empty-block",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "stylelint": "no-empty-block"
+              }
+            ],
+            "docs": " Disallow CSS empty blocks.\n\n By default, it will allow empty blocks with comments inside.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n p {}\n ```\n\n ```css,expect_diagnostic\n .b {}\n ```\n\n ```css,expect_diagnostic\n @media print { a {} }\n ```\n\n ### Valid\n\n ```css\n p {\n   color: red;\n }\n ```\n\n ```css\n p {\n   /* foo */\n }\n ```\n\n ```css\n @media print { a { color: pink; } }\n ```\n\n"
           },
           "noImportantInKeyframe": {
             "deprecated": false,
