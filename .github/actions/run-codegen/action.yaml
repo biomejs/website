@@ -9,6 +9,9 @@ inputs:
     description: The version of Biome
     required: true
     default: "0.0.0"
+  revision:
+    description: The commit ID of the latest revision
+    required: true
 
 runs:
   using: composite
@@ -32,9 +35,12 @@ runs:
           fi
         done
 
+        echo "Update cargo to use biome packages for revision ${{ inputs.revision }}"
+        cargo update git+ssh://git@github.com/biomejs/biome.git?rev=${{ inputs.revision }}
+
         for kind in "${kinds[@]}"; do
           echo "Running codegen for $kind"
-          cargo run --manifest-path codegen/Cargo.toml "$kind"
+          cargo run "$kind"
         done
       env:
         RUST_LOG: info

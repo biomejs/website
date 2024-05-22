@@ -34,6 +34,7 @@ jobs:
         with:
           kinds: ${{ inputs.kinds }}
           version: ${{ inputs.version }}
+          revision: ${{ github.event.inputs.commit-id }}
       - name: Create pull request
         id: create-pull-request
         uses: peter-evans/create-pull-request@6d6857d36972b65feb161a90e484f2984215f83e # v6.0.5
