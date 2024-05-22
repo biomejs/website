@@ -1219,6 +1219,27 @@ export function GET() {
             ],
             "docs": " Require `new` when throwing an error.\n\n While it's possible to instantiate `Error` without using the `new` keyword, it's better to be consistent: modern builtins require `new` to be instantiated.\n\n Rule matches errors when their name ends with the word \"Error\" and the first character is uppercase.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n throw Error();\n ```\n ```js,expect_diagnostic\n throw TypeError('biome');\n ```\n ```js,expect_diagnostic\n throw lib.TypeError();\n ```\n\n ### Valid\n\n ```js\n throw new Error();\n ```\n ```js\n throw new TypeError('biome');\n ```\n ```js\n throw new lib.TypeError();\n ```\n\n"
           },
+          "useThrowOnlyError": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useThrowOnlyError",
+            "link": "https://biomejs.dev/linter/rules/use-throw-only-error",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslint": "no-throw-literal"
+              },
+              {
+                "eslintTypeScript": "no-throw-literal"
+              },
+              {
+                "eslint": "only-throw-error"
+              }
+            ],
+            "sourceKind": "inspired",
+            "docs": " Disallow throwing non-`Error` values.\n\n It is considered good practice only to throw the `Error` object itself or an object using the `Error` object\n as base objects for user-defined exceptions. The fundamental benefit of `Error` objects is that they automatically\n keep track of where they were built and originated.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n throw undefined;\n ```\n ```js,expect_diagnostic\n throw false;\n ```\n ```js,expect_diagnostic\n throw \"a\" + \"b\";\n ```\n\n ### Valid\n\n ```js\n throw new Error();\n ```\n ```js\n throw new TypeError('biome');\n ```\n ```js\n class CustomError extends Error {}\n\n throw new CustomError();\n ```\n\n ## Caveats\n\n This rule only covers cases where throwing the value can be known statically.\n Complex cases such as object and function access aren't checked.\n This will be improved in the future once Biome supports type inference.\n\n"
+          },
           "useTopLevelRegex": {
             "deprecated": false,
             "version": "next",
@@ -3376,7 +3397,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 240
+    "numberOrRules": 241
   },
   "syntax": {
     "languages": {
