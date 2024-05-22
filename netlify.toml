@@ -1,12 +1,16 @@
 [build]
 publish = "dist/"
+#command = '''
+#      pnpm i --frozen-lockfile &&
+#      ([ -n "$(find ./biome/packages/@biomejs/wasm-web -maxdepth 1 -type f -name '*.wasm' -print -quit)" ] &&
+#      echo "Skip WASM build" ||
+#      (npm i -g wasm-pack && pnpm build:wasm-dev)) &&
+#      pnpm build:js
+#      '''
+# temporary command
 command = '''
-      pnpm i --frozen-lockfile &&
-      ([ -n "$(find ./biome/packages/@biomejs/wasm-web -maxdepth 1 -type f -name '*.wasm' -print -quit)" ] &&
-      echo "Skip WASM build" ||
-      (npm i -g wasm-pack && pnpm build:wasm-dev)) &&
-      pnpm build:js
-      '''
+pnpm i --frozen-lockfile && npm i -g wasm-pack && pnpm build:wasm-dev && pnpm build:js
+'''
 
 [[headers]]
 for = "/assets/*"
