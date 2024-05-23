@@ -335,19 +335,29 @@ This is a current limitation that we will fix in a future release.
 
 ### Glob syntax explained
 
+A glob pattern specifies a set of filenames.
+Biome supports the following globs:
 
-The syntax and meaning of these two options loosely follow the [globset rules](https://docs.rs/globset/latest/globset/#syntax) but without the ability to set options.
+- `*` matches zero or more characters. It cannot match the path separator `/`.
+- `**` recursively matches directories and files.
+  This sequence **must** form a single path component,
+  so both `**a` and `b**` are invalid and will result in an error.
+  A sequence of more than two consecutive `*` characters is also invalid.
+- `[...]` matches any character inside the brackets.
+  Ranges of characters can also be specified, as ordered by Unicode, so e.g.
+  `[0-9]` specifies any character between 0 and 9 inclusive.
+- `[!...]` is the negation of `[...]`, i.e. it matches any characters **not** in the brackets.
 
+Some examples:
 
-> - `*` matches zero or more characters.- `**` recursively matches directories but are only legal in three situations.
-> First, if the glob starts with <code>\*\*&#x2F;</code>, then it matches
-> all directories. For example, <code>\*\*&#x2F;foo</code> matches `foo`
-> and `bar/foo` but not `foo/bar`. Secondly, if the glob ends with
-<code>&#x2F;\*\*</code>, then it matches all sub-entries. For example,
-  > <code>foo&#x2F;\*\*</code> matches `foo/a` and `foo/a/b`, but not `foo`.
-  > Thirdly, if the glob contains <code>&#x2F;\*\*&#x2F;</code> anywhere within
-  > the pattern, then it matches zero or more directories. Using `**` anywhere
-  > else is illegal (N.B. the glob `**` is allowed and means "match everything").- Metacharacters such as `*` and `?` can be escaped with character class
-> notation. e.g., `[*]` matches `*`.
+- `dist/**` matches the dist directory and all files in this directory.
+- `**/test/**` matches all files under any directory named `test`, regardless of where they are. E.g. `dist/test`, `src/test`.
+- `**/*.js` matches all files ending with the extension `.js` in all directories.
 
-Check the [wikipedia page](https://en.wikipedia.org/wiki/Glob_(programming)) for more information.
+These patterns can be used in a Biome configuration file.
+
+:::caution
+Glob patterns used on the command line are not interpreted by Biome.
+They are expanded by your shell.
+Some shells don't support the recursive glob `**`
+:::
