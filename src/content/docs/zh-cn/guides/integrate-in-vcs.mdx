@@ -59,7 +59,7 @@ biome format --changed
 Biome 不会检查变更内容，这意味着即使是在文件里增加了空格或新的一行，都会将该文件标记为“变更”
 :::
 
-或者，可以通过 `--since` 选项来制定任意一个分支。这个选项**优先**于 `vcs.defaultBranch` 选项。例如，你可能想要针对 `next` 分支来来检查变更：
+或者，可以通过 `--since` 选项来指定任意一个分支。这个选项**优先**于 `vcs.defaultBranch` 选项。例如，你可能想要针对 `next` 分支来检查变更：
 
 ```shell
 biome format --changed --since=next
