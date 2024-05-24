@@ -68,13 +68,13 @@ You can format files and directories using the [`format`](/reference/cli#biome-f
 
 <PackageManagerBiomeCommand command="format --write <files>"/>
 
-You can lint and apply [safe fixes](/linter#safe-fixes) to files and directories using the [`lint`](/reference/cli#biome-lint) command with the `--apply`:
+You can lint and apply [safe fixes](/linter#safe-fixes) to files and directories using the [`lint`](/reference/cli#biome-lint) command with the `--write`:
 
-<PackageManagerBiomeCommand command="lint --apply <files>"/>
+<PackageManagerBiomeCommand command="lint --write <files>"/>
 
 You can apply **both** of them by leveraging the [`check`](/reference/cli#biome-check) command:
 
-<PackageManagerBiomeCommand command="check --apply <files>"/>
+<PackageManagerBiomeCommand command="check --write <files>"/>
 
 The `check` command runs multiple tools at once.
 It formats, lints, and organizes imports.

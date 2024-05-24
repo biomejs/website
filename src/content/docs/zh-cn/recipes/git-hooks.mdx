@@ -34,7 +34,7 @@ Git 允许在运行 git 命令的过程中执行 [Git Hooks](https://git-scm.com
     commands:
       check:
         glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
-        run: npx biome check --apply --no-errors-on-unmatched --files-ignore-unknown=true {staged_files} && git update-index --again
+        run: npx biome check --write --no-errors-on-unmatched --files-ignore-unknown=true {staged_files} && git update-index --again
   ```
 
   `git update-index --again` 参数用于将更新的文件再次暂存。
@@ -94,11 +94,11 @@ lint-staged 的配置直接集成在 `package.json` 内。
     // Run Biome on staged files that have the following extensions: js, ts, jsx, tsx, json and jsonc
     "**.{js|ts|cjs|mjs|d.cts|d.mts|jsx|tsx|json|jsonc}": [
       "biome check --files-ignore-unknown=true", // Check formatting and lint
-      "biome check --apply --no-errors-on-unmatched", // Format, sort imports, lint, and apply safe fixes
-      "biome check --apply --organize-imports-enabled=false --no-errors-on-unmatched", // format and apply safe fixes
-      "biome check --apply-unsafe --no-errors-on-unmatched", // Format, sort imports, lints, apply safe/unsafe fixes
+      "biome check --write --no-errors-on-unmatched", // Format, sort imports, lint, and apply safe fixes
+      "biome check --write --organize-imports-enabled=false --no-errors-on-unmatched", // format and apply safe fixes
+      "biome check --write --unsafe --no-errors-on-unmatched", // Format, sort imports, lints, apply safe/unsafe fixes
       "biome format --write --no-errors-on-unmatched", // Format
-      "biome lint --apply --no-errors-on-unmatched", // Lint and apply safe fixes
+      "biome lint --write --no-errors-on-unmatched", // Lint and apply safe fixes
     ],
     // Alternatively you can pass every files and ignore unknown extensions
     "*": [
@@ -129,7 +129,7 @@ lint-staged 的配置直接集成在 `package.json` 内。
 - 提交前进行格式化，lint，以及进行安全的代码修复
 
   ```shell title=".husky/pre-commit"
-  git-format-staged --formatter 'biome check --apply --files-ignore-unknown=true --no-errors-on-unmatched \"{}\"' .
+  git-format-staged --formatter 'biome check --write --files-ignore-unknown=true --no-errors-on-unmatched \"{}\"' .
   ```
 
 
@@ -157,7 +157,7 @@ repos:
         additional_dependencies: ["@biomejs/biome@1.4.1"]
 ```
 
-这将会在你运行 `git commit` 命令时候，执行 `biome check --apply`。
+这将会在你运行 `git commit` 命令时候，执行 `biome check --write`。
 
 要注意的是，根据配置项 `additional_dependencies`，你必须要指定要使用哪个版本的 Biome。
 [pre-commit](https://pre-commit.com/) 单独安装工具并且需要知道安装哪个工具。
@@ -174,7 +174,7 @@ repos:
     hooks:
       - id: local-biome-check
         name: biome check
-        entry: npx biome check --apply --files-ignore-unknown=true --no-errors-on-unmatched
+        entry: npx biome check --write --files-ignore-unknown=true --no-errors-on-unmatched
         language: system
         types: [text]
         files: "\\.(jsx?|tsx?|c(js|ts)|m(js|ts)|d\\.(ts|cts|mts)|jsonc?)$"
@@ -212,7 +212,7 @@ pre-commit 配置项 `files ` 是可选的，
     exit 1;
   fi
 
-  npx biome check --apply --staged --files-ignore-unknown=true --no-errors-on-unmatched
+  npx biome check --write --staged --files-ignore-unknown=true --no-errors-on-unmatched
 
   git update-index --again
   ```

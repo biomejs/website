@@ -69,18 +69,18 @@ Biome distinguishes between **safe** and **unsafe** code fixes.
 Safe fixes are guaranteed to not change the semantic of your code.
 They can be applied without explicit review.
 
-To apply _safe fixes_, use `--apply`:
+To apply _safe fixes_, use `--write`:
 
-<PackageManagerBiomeCommand command="lint --apply ./src" />
+<PackageManagerBiomeCommand command="lint --write ./src" />
 
 ### Unsafe fixes
 
 Unsafe fixes may change the semantic of your program.
 Therefore, it's advised to manually review the changes.
 
-To apply _unsafe fixes_, use `--apply-unsafe`:
+To apply _unsafe fixes_, use `--write --unsafe`:
 
-<PackageManagerBiomeCommand command="lint --apply-unsafe ./src" />
+<PackageManagerBiomeCommand command="lint --write --unsafe ./src" />
 
 Note that this command also applies safe fixes.
 
