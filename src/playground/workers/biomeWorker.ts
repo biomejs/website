@@ -241,6 +241,8 @@ self.addEventListener("message", async (e) => {
 				path,
 				categories: categories,
 				max_diagnostics: Number.MAX_SAFE_INTEGER,
+				only: [],
+				skip: [],
 			});
 
 			const printer = new DiagnosticPrinter(path.path, code);
