@@ -202,7 +202,7 @@ Stop the Biome daemon server process
 
 Runs formatter, linter and import sorting to the requested files.
 
-**Usage**: **`biome`** **`check`** \[**`--write`**\] \[**`--unsafe`**\] \[**`--staged`**\] \[**`--changed`**\] \[**`--since`**=_`REF`_\] \[_`PATH`_\]...
+**Usage**: **`biome`** **`check`** \[**`--apply`**\] \[**`--apply-unsafe`**\] \[**`--staged`**\] \[**`--changed`**\] \[**`--since`**=_`REF`_\] \[_`PATH`_\]...
 
 **The configuration that is contained inside the file `biome.json`**
 - **`    --vcs-client-kind`**=_`<git>`_ &mdash; 
@@ -325,16 +325,10 @@ Runs formatter, linter and import sorting to the requested files.
 
 
 **Available options:**
-- **`    --write`** &mdash; 
-  Writes safe fixes, formatting and import sorting
-- **`    --unsafe`** &mdash; 
-  Allow to do unsafe fixes, should be used with `--write` or `--fix`
-- **`    --fix`** &mdash; 
-  Alias for `--write`, writes safe fixes, formatting and import sorting
 - **`    --apply`** &mdash; 
-  Alias for `--write`, writes safe fixes, formatting and import sorting (deprecated, use `--write`)
+  Apply safe fixes, formatting and import sorting
 - **`    --apply-unsafe`** &mdash; 
-  Alias for `--write --unsafe`, writes safe and unsafe fixes, formatting and import sorting (deprecated, use `--write --unsafe`)
+  Apply safe fixes and unsafe fixes, formatting and import sorting
 - **`    --formatter-enabled`**=_`<true|false>`_ &mdash; 
   Allow to enable or disable the formatter check.
 - **`    --linter-enabled`**=_`<true|false>`_ &mdash; 
@@ -361,7 +355,7 @@ Runs formatter, linter and import sorting to the requested files.
 
 Run various checks on a set of files.
 
-**Usage**: **`biome`** **`lint`** \[**`--write`**\] \[**`--unsafe`**\] \[**`--staged`**\] \[**`--changed`**\] \[**`--since`**=_`REF`_\] \[_`PATH`_\]...
+**Usage**: **`biome`** **`lint`** \[**`--apply`**\] \[**`--apply-unsafe`**\] \[**`--staged`**\] \[**`--changed`**\] \[**`--since`**=_`REF`_\] \[_`PATH`_\]...
 
 **Set of properties to integrate Biome with a VCS software.**
 - **`    --vcs-client-kind`**=_`<git>`_ &mdash; 
@@ -432,16 +426,10 @@ Run various checks on a set of files.
 
 
 **Available options:**
-- **`    --write`** &mdash; 
-  Writes safe fixes
-- **`    --unsafe`** &mdash; 
-  Allow to do unsafe fixes, should be used with `--write` or `--fix`
-- **`    --fix`** &mdash; 
-  Alias for `--write`, writes safe fixes
 - **`    --apply`** &mdash; 
-  Apply safe fixes, formatting and import sorting	  Alias for `--write`, writes safe fixes (deprecated, use `--write`)
+  Apply safe fixes, formatting and import sorting
 - **`    --apply-unsafe`** &mdash; 
-  Apply safe fixes and unsafe fixes, formatting and import sorting	  Alias for `--write --unsafe`, writes safe and unsafe fixes (deprecated, use `--write --unsafe`)
+  Apply safe fixes and unsafe fixes, formatting and import sorting
 - **`    --stdin-file-path`**=_`PATH`_ &mdash; 
   Use this option when you want to format code piped from `stdin`, and print the output to `stdout`.
 
@@ -605,8 +593,6 @@ Run the formatter on a set of files.
   Example: `echo 'let a;' | biome format --stdin-file-path=file.js`
 - **`    --write`** &mdash; 
   Writes formatted files to file system.
-- **`    --fix`** &mdash;
-  Alias for `--write`, writes formatted files to file system.
 - **`    --staged`** &mdash; 
   When set to true, only the files that have been staged (the ones prepared to be committed) will be linted.
 - **`    --changed`** &mdash; 
@@ -835,8 +821,6 @@ It updates the configuration when there are breaking changes
 **Available options:**
 - **`    --write`** &mdash; 
   Writes the new configuration file to disk
-- **`    --fix`** &mdash; 
-  Alias for `--write`, writes the new configuration file to disk
 - **`-h`**, **`--help`** &mdash; 
   Prints help information
 
