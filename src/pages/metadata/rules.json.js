@@ -1171,6 +1171,20 @@ export function GET() {
             ],
             "docs": " Require the default clause in switch statements.\n\n Some code conventions require that all switch statements have a default clause. The thinking is that it’s better\n to always explicitly state what the default behavior should be so that it’s clear whether or not the developer\n forgot to include the default behavior by mistake.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n switch (a) {\n     case 1:\n         /* code */\n         break;\n }\n ```\n\n ### Valid\n\n ```js\n switch (a) {\n     case 1:\n         /* code */\n         break;\n\n     default:\n         /* code */\n         break;\n }\n ```\n"
           },
+          "useErrorMessage": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useErrorMessage",
+            "link": "https://biomejs.dev/linter/rules/use-error-message",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslintUnicorn": "error-message"
+              }
+            ],
+            "docs": " Enforce passing a message value when creating a built-in error.\n\n This rule enforces a message value to be passed in when creating an instance of a built-in `Error` object,\n which leads to more readable and debuggable code.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n throw Error();\n ```\n ```js,expect_diagnostic\n throw Error('');\n ```\n ```js,expect_diagnostic\n throw new TypeError();\n ```\n ```js,expect_diagnostic\n const error = new AggregateError(errors);\n ```\n\n ### Valid\n\n ```js\n throw Error('Unexpected property.');\n ```\n ```js\n throw new TypeError('Array expected.');\n ```\n ```js\n const error = new AggregateError(errors, 'Promises rejected.');\n ```\n"
+          },
           "useExplicitLengthCheck": {
             "deprecated": false,
             "version": "1.7.3",
@@ -3425,7 +3439,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 243
+    "numberOrRules": 244
   },
   "syntax": {
     "languages": {
