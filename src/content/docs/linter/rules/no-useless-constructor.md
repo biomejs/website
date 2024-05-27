@@ -22,7 +22,7 @@ As such, providing an empty constructor or one that delegates into its parent is
 The rule ignores:
 
 - decorated classes;
-- constructors with at least one [parameter property](https://www.typescriptlang.org/docs/handbook/classes.html#parameter-properties);
+- constructors with at least one [parameter property](https://www.typescriptlang.org/docs/handbook/2/classes.html#parameter-properties);
 - `private` and `protected` constructors.
 
 ## Caveat
