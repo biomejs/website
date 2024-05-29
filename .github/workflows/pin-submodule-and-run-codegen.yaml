@@ -41,15 +41,18 @@ jobs:
           kinds: metadata, rules
           version: "0.0.0"
           revision: ${{ env.COMMIT_ID }}
+      - name: Update playground
+        run: |
+          pnpm i https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@${{ github.event.client_payload.event.head_commit.id }}
       - name: Create pull request
         id: create-pull-request
         uses: peter-evans/create-pull-request@6d6857d36972b65feb161a90e484f2984215f83e # v6.0.5
         with:
           branch: "chore/pin-submodule-and-run-codegen-${{ github.event_name }}"
           author: "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
-          title: "chore(ci): pin submodule to `${{ env.SHORT_COMMIT_ID }}` and run codegen"
-          commit-message: "chore(ci): pin submodule to `${{ env.SHORT_COMMIT_ID }}` and run codegen"
-          body: "Pin submodule to [`${{ env.SHORT_COMMIT_ID }}`](https://github.com/biomejs/biome/commit/${{ env.COMMIT_ID }}) and run codegen."
+          title: "chore(ci): update playground to `${{ env.SHORT_COMMIT_ID }}` and run codegen"
+          commit-message: "chore(ci): update playground to `${{ env.SHORT_COMMIT_ID }}` and run codegen"
+          body: "Update playground to [`${{ env.SHORT_COMMIT_ID }}`](https://github.com/biomejs/biome/commit/${{ env.COMMIT_ID }}) and run codegen."
           labels: CI-Submodule
       - name: Auto merge
         if: ${{ steps.create-pull-request.outputs.pull-request-operation != 'closed' && steps.create-pull-request.outputs.pull-request-number != '' }}
