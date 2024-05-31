@@ -883,7 +883,7 @@ export function GET() {
                 "eslintTypeScript": "no-unused-vars"
               }
             ],
-            "docs": " Disallow unused variables.\n\n There is an exception to this rule:\n variables that starts with underscore, e.g. `let _something;`.\n\n The pattern of having an underscore as prefix of a name of variable is a very diffuse\n pattern among programmers, and Biome decided to follow it.\n\n This rule won't report unused imports.\n If you want to report unused imports,\n enable [noUnusedImports](https://biomejs.dev/linter/rules/no-unused-imports/).\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n let a = 4;\n a++;\n ```\n\n ```js,expect_diagnostic\n function foo() {}\n ```\n\n ```js,expect_diagnostic\n export function foo(myVar) {\n     console.log('foo');\n }\n ```\n\n ```js,expect_diagnostic\n function foo() {\n     foo();\n }\n ```\n\n ```js,expect_diagnostic\n const foo = () => {\n     foo();\n };\n ```\n\n ```ts,expect_diagnostic\n export function f<T>() {}\n ```\n\n # Valid\n\n ```js\n function foo(b) {\n     console.log(b)\n };\n foo();\n ```\n\n ```js\n export function foo(_unused) {}\n ```\n\n ```ts\n function used_overloaded(): number;\n function used_overloaded(s: string): string;\n function used_overloaded(s?: string) {\n     return s;\n }\n used_overloaded();\n ```\n"
+            "docs": " Disallow unused variables.\n\n There is an exception to this rule:\n variables that starts with underscore, e.g. `let _something;`.\n\n The pattern of having an underscore as prefix of a name of variable is a very diffuse\n pattern among programmers, and Biome decided to follow it.\n\n This rule won't report unused imports.\n If you want to report unused imports,\n enable [noUnusedImports](https://biomejs.dev/linter/rules/no-unused-imports/).\n\n From `v1.9.0`, the rule won't check unused function parameters any more.\n Users should switch to\n [noUnusedFunctionParameters](https://biomejs.dev/linter/rules/no-unused-function-parameters/)\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n let a = 4;\n a++;\n ```\n\n ```js,expect_diagnostic\n function foo() {}\n ```\n\n ```js,expect_diagnostic\n export function foo(myVar) {\n     console.log('foo');\n }\n ```\n\n ```js,expect_diagnostic\n function foo() {\n     foo();\n }\n ```\n\n ```js,expect_diagnostic\n const foo = () => {\n     foo();\n };\n ```\n\n ```ts,expect_diagnostic\n export function f<T>() {}\n ```\n\n ### Valid\n\n ```js\n function foo(b) {\n     console.log(b)\n };\n foo();\n ```\n\n ```js\n export function foo(_unused) {}\n ```\n\n ```ts\n function used_overloaded(): number;\n function used_overloaded(s: string): string;\n function used_overloaded(s?: string) {\n     return s;\n }\n used_overloaded();\n ```\n"
           },
           "useIsNan": {
             "deprecated": false,
@@ -1068,6 +1068,15 @@ export function GET() {
             "recommended": false,
             "fixKind": "none",
             "docs": " Disallow the use of dependencies that aren't specified in the `package.json`.\n\n Indirect dependencies will trigger the rule because they aren't declared in the `package.json`. This means that if package `@org/foo` has a dependency on `lodash`, and then you use\n `import \"lodash\"` somewhere in your project, the rule will trigger a diagnostic for this import.\n\n The rule ignores imports using a protocol such as `node:`, `bun:`, `jsr:`, `https:`.\n\n ## Examples\n\n ### Invalid\n\n ```js,ignore\n import \"vite\";\n ```\n\n ### Valid\n\n ```js,ignore\n import { A } from \"./local.js\";\n ```\n\n ```js,ignore\n import assert from \"node:assert\";\n ```\n"
+          },
+          "noUnusedFunctionParameters": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noUnusedFunctionParameters",
+            "link": "https://biomejs.dev/linter/rules/no-unused-function-parameters",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "docs": " Disallow unused function parameters.\n\n There is an exception to this rule:\n parameters that starts with underscore, e.g. `function foo(_a, _b) {}`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function foo(myVar) {\n     console.log('foo');\n }\n ```\n\n ```js,expect_diagnostic\n new Promise((accept, reject) => {\n     window.setTimeout(accept, 1000);\n });\n ```\n\n ```js,expect_diagnostic\n const squares = [[1, 1], [2, 4], [3, 9], 4, 16]];\n squares.filter(([k, v]) => v > 5);\n ```\n\n ### Valid\n\n ```js\n function foo(myVar) {\n     console.log(myVar);\n }\n ```\n\n"
           },
           "noUselessStringConcat": {
             "deprecated": false,
@@ -2878,6 +2887,20 @@ export function GET() {
           }
         },
         "nursery": {
+          "noLabelWithoutControl": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noLabelWithoutControl",
+            "link": "https://biomejs.dev/linter/rules/no-label-without-control",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslintJsxA11y": "label-has-associated-control"
+              }
+            ],
+            "docs": " Enforce that a label element or component has a text label and an associated input.\n\n An \"input\" is considered one of the following elements: `input`, `meter`, `output`, `progress`, `select` or `textarea`.\n\n There are two supported ways to associate a label with an input:\n - Wrapping an input in a label element.\n - Adding a `for` attribute (or `htmlFor` in React) to a label and assigning it a DOM ID string associated with an input on the page.\n\n\n This rule checks that any `label` element (or an indicated custom component that will output a `label` element) meets one of these conditions:\n - Wraps an `input` element (or an indicated custom component that will output an `input` element)\n - Has a `for` or `htmlFor` attribute and that the `label` element/component has accessible text content.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <label for=\"js_id\" />;\n ```\n\n ```jsx,expect_diagnostic\n <label for=\"js_id\"><input /></label>;\n ```\n\n ```jsx,expect_diagnostic\n <label htmlFor=\"js_id\" />;\n ```\n\n ```jsx,expect_diagnostic\n <label htmlFor=\"js_id\"><input /></label>;\n ```\n\n ```jsx,expect_diagnostic\n <label>A label</label>;\n ```\n\n ```jsx,expect_diagnostic\n <div><label /><input /></div>;\n ```\n\n ### Valid\n\n ```jsx\n <label for=\"js_id\" aria-label=\"A label\" />;\n <label for=\"js_id\" aria-labelledby=\"A label\" />;\n <label htmlFor=\"js_id\" aria-label=\"A label\" />;\n <label htmlFor=\"js_id\" aria-labelledby=\"A label\" />;\n <label>A label<input /></label>;\n <label>A label<textarea /></label>;\n <label><img alt=\"A label\" /><input /></label>;\n ```\n\n ## Options\n\n The rule supports the following options:\n - `inputComponents` - An array of component names that should be considered the same as an `input` element.\n - `labelAttributes` - An array of attributes that should be treated as the `label` accessible text content.\n - `labelComponents` - An array of component names that should be considered the same as a `label` element.\n\n Both options `inputComponents` and `labelComponents` don't have support for namespace components (e.g. `<Control.Input>`).\n\n ```json\n {\n     \"//\": \"...\",\n     \"options\": {\n         \"inputComponents\": [\"CustomInput\"],\n         \"labelAttributes\": [\"label\"],\n         \"labelComponents\": [\"CustomLabel\"]\n     }\n }\n ```\n\n"
+          },
           "useFocusableInteractive": {
             "deprecated": false,
             "version": "next",
@@ -3453,7 +3476,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 245
+    "numberOrRules": 247
   },
   "syntax": {
     "languages": {
