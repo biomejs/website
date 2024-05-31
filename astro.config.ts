@@ -234,7 +234,7 @@ export default defineConfig({
 						{
 							label: "Reporters",
 							link: "/reference/reporters",
-							badge: "new"
+							badge: "new",
 						},
 						{
 							label: "Configuration",
