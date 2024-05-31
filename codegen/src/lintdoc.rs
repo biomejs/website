@@ -82,6 +82,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 - The icon <span class='inline-icon'><Icon name="seti:javascript" label="JavaScript and super languages rule" /></span> indicates that the rule is applied to JavaScript and super languages files.
 - The icon <span class='inline-icon'><Icon name="seti:typescript" label="TypeScript rule" /></span> indicates that the rule is applied to TypeScript and TSX files.
 - The icon <span class='inline-icon'><Icon name="seti:json" label="JSON rule" /></span> indicates that the rule is applied to JSON files.
+- The icon <span class='inline-icon'><Icon name="seti:css" label="CSS rule" /></span> indicates that the rule is applied to CSS files.
 "#
     )?;
 
@@ -306,6 +307,9 @@ fn generate_group(
                     "json" => {
                         properties.push_str("<span class='inline-icon'><Icon name=\"seti:json\" label=\"JSON rule\" size=\"1.2rem\"/></span>");
                     }
+                    "css" => {
+                        properties.push_str("<span class='inline-icon'><Icon name=\"seti:css\" label=\"CSS rule\" size=\"1.2rem\"/></span>");
+                    }
                     _ => {
                         eprintln!("Language {} isn't supported.", meta.language)
                     }
@@ -448,6 +452,7 @@ fn generate_rule(payload: GenRule) -> Result<Vec<Event<'static>>> {
     writeln!(content, "## Related links")?;
     writeln!(content)?;
     writeln!(content, "- [Disable a rule](/linter/#disable-a-lint-rule)")?;
+    writeln!(content, "- [Configure the rule fix](/linter#configure-the-rule-fix)")?;
     writeln!(content, "- [Rule options](/linter/#rule-options)")?;
 
     let dashed_rule = Case::Kebab.convert(rule);

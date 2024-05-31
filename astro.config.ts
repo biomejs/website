@@ -232,6 +232,11 @@ export default defineConfig({
 							link: "/reference/cli",
 						},
 						{
+							label: "Reporters",
+							link: "/reference/reporters",
+							badge: "new"
+						},
+						{
 							label: "Configuration",
 							link: "/reference/configuration",
 							translations: {
