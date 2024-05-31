@@ -25,6 +25,10 @@ This rule won't report unused imports.
 If you want to report unused imports,
 enable [noUnusedImports](https://biomejs.dev/linter/rules/no-unused-imports/).
 
+From `v1.9.0`, the rule won't check unused function parameters any more.
+Users should switch to
+[noUnusedFunctionParameters](https://biomejs.dev/linter/rules/no-unused-function-parameters/)
+
 ## Examples
 
 ### Invalid
@@ -166,7 +170,7 @@ export function f<T>() {}
   
 </code></pre>
 
-# Valid
+### Valid
 
 ```jsx
 function foo(b) {
