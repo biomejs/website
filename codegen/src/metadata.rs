@@ -74,7 +74,7 @@ struct JsonMetadata {
     /// Whether a rule is recommended or not
     pub recommended: bool,
     /// The kind of fix
-    pub fix_kind: Option<FixKind>,
+    pub fix_kind: FixKind,
     /// The source metadata of the rule
     #[serde(skip_serializing_if = "Vec::is_empty")]
     pub sources: Vec<RuleSource>,

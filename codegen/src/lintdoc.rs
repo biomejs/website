@@ -284,10 +284,10 @@ fn generate_group(
                 }
 
                 match meta.fix_kind {
-                    Some(FixKind::Safe) => {
+                    FixKind::Safe => {
                         properties.push_str("<span class='inline-icon'><Icon name=\"seti:config\" label=\"The rule has a safe fix\" size=\"1.2rem\"  /></span>");
                     }
-                    Some(FixKind::Unsafe) => {
+                    FixKind::Unsafe => {
                         properties.push_str("<span class='inline-icon'><Icon name=\"warning\" label=\"The rule has an unsafe fix\" size=\"1.2rem\" /></span>");
                     }
                     _ => {}
@@ -365,16 +365,16 @@ fn generate_rule(payload: GenRule) -> Result<Vec<Event<'static>>> {
 
     writeln!(content)?;
 
-    if is_recommended || !matches!(meta.fix_kind, None) {
+    if is_recommended || !matches!(meta.fix_kind, FixKind::None) {
         writeln!(content, ":::note")?;
         if is_recommended {
             writeln!(content, "- This rule is recommended by Biome. A diagnostic error will appear when linting your code.")?;
         }
         match meta.fix_kind {
-            Some(FixKind::Safe) => {
+            FixKind::Safe => {
                 writeln!(content, "- This rule has a **safe** fix.")?;
             }
-            Some(FixKind::Unsafe) => {
+            FixKind::Unsafe => {
                 writeln!(content, "- This rule has an **unsafe** fix.")?;
             }
             _ => {}
@@ -442,7 +442,7 @@ fn generate_rule(payload: GenRule) -> Result<Vec<Event<'static>>> {
         rule,
         meta.docs,
         &mut content,
-        !matches!(meta.fix_kind, None),
+        !matches!(meta.fix_kind, FixKind::None),
     )?;
 
     writeln!(content, "## Related links")?;
@@ -903,7 +903,7 @@ fn assert_lint(
                     |signal| {
                         if let Some(mut diag) = signal.diagnostic() {
                             let category = diag.category().expect("linter diagnostic has no code");
-                            let severity = settings.get_current_settings().get_severity_from_rule_code(category).expect(
+                            let severity = settings.get_current_settings().expect("project").get_severity_from_rule_code(category).expect(
                                 "If you see this error, it means you need to run cargo codegen-configuration",
                             );
 
@@ -976,7 +976,7 @@ fn assert_lint(
                     |signal| {
                         if let Some(mut diag) = signal.diagnostic() {
                             let category = diag.category().expect("linter diagnostic has no code");
-                            let severity = settings.get_current_settings().get_severity_from_rule_code(category).expect(
+                            let severity = settings.get_current_settings().expect("project").get_severity_from_rule_code(category).expect(
                                 "If you see this error, it means you need to run cargo codegen-configuration",
                             );
 
@@ -1040,7 +1040,7 @@ fn assert_lint(
                     |signal| {
                         if let Some(mut diag) = signal.diagnostic() {
                             let category = diag.category().expect("linter diagnostic has no code");
-                            let severity = settings.get_current_settings().get_severity_from_rule_code(category).expect(
+                            let severity = settings.get_current_settings().expect("project").get_severity_from_rule_code(category).expect(
                                 "If you see this error, it means you need to run cargo codegen-configuration",
                             );
 
