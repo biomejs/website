@@ -80,8 +80,6 @@ name = "biome_analyze"
 version = "0.5.7"
 dependencies = [
  "biome_console",
- "biome_deserialize",
- "biome_deserialize_macros",
  "biome_diagnostics",
  "biome_rowan",
  "bitflags 2.5.0",
@@ -140,7 +138,6 @@ dependencies = [
  "libc",
  "mimalloc",
  "rayon",
- "regex",
  "rustc-hash",
  "serde",
  "serde_json",
@@ -180,7 +177,6 @@ dependencies = [
  "rustc-hash",
  "schemars",
  "serde",
- "serde_ini",
  "serde_json",
 ]
 
@@ -216,7 +212,6 @@ dependencies = [
  "biome_deserialize_macros",
  "biome_diagnostics",
  "biome_rowan",
- "biome_suppression",
  "lazy_static",
  "schemars",
  "serde",
@@ -266,7 +261,7 @@ dependencies = [
 
 [[package]]
 name = "biome_deserialize"
-version = "0.6.0"
+version = "0.5.7"
 dependencies = [
  "biome_console",
  "biome_deserialize_macros",
@@ -283,7 +278,7 @@ dependencies = [
 
 [[package]]
 name = "biome_deserialize_macros"
-version = "0.6.0"
+version = "0.5.7"
 dependencies = [
  "biome_string_case",
  "proc-macro-error",
@@ -308,7 +303,6 @@ dependencies = [
  "oxc_resolver",
  "schemars",
  "serde",
- "serde_ini",
  "serde_json",
  "termcolor",
  "unicode-width",
@@ -415,7 +409,7 @@ dependencies = [
  "grit-pattern-matcher",
  "grit-util",
  "im",
- "rustc-hash",
+ "itertools",
  "serde",
 ]
 
@@ -624,12 +618,10 @@ dependencies = [
  "biome_analyze",
  "biome_console",
  "biome_diagnostics",
- "biome_json_analyze",
  "biome_json_factory",
  "biome_json_syntax",
  "biome_rowan",
  "lazy_static",
- "rustc-hash",
 ]
 
 [[package]]
@@ -1954,12 +1946,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "adad44e29e4c806119491a7f06f03de4d1af22c3a680dd47f1e6e179439d1f56"
 
 [[package]]
-name = "result"
-version = "1.0.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "194d8e591e405d1eecf28819740abed6d719d1a2db87fc0bcdedee9a26d55560"
-
-[[package]]
 name = "roaring"
 version = "0.10.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2067,17 +2053,6 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn 2.0.58",
-]
-
-[[package]]
-name = "serde_ini"
-version = "0.2.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "eb236687e2bb073a7521c021949be944641e671b8505a94069ca37b656c81139"
-dependencies = [
- "result",
- "serde",
- "void",
 ]
 
 [[package]]
@@ -2619,12 +2594,6 @@ name = "version_check"
 version = "0.9.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "49874b5167b65d7193b8aba1567f5c7d93d001cafc34600cee003eda787e483f"
-
-[[package]]
-name = "void"
-version = "1.0.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6a02e4885ed3bc0f2de90ea6dd45ebcbb66dacffe03547fadbb0eeae2770887d"
 
 [[package]]
 name = "walkdir"

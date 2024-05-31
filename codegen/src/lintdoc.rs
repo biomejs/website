@@ -284,10 +284,10 @@ fn generate_group(
                 }
 
                 match meta.fix_kind {
-                    FixKind::Safe => {
+                    Some(FixKind::Safe) => {
                         properties.push_str("<span class='inline-icon'><Icon name=\"seti:config\" label=\"The rule has a safe fix\" size=\"1.2rem\"  /></span>");
                     }
-                    FixKind::Unsafe => {
+                    Some(FixKind::Unsafe) => {
                         properties.push_str("<span class='inline-icon'><Icon name=\"warning\" label=\"The rule has an unsafe fix\" size=\"1.2rem\" /></span>");
                     }
                     _ => {}
@@ -365,16 +365,16 @@ fn generate_rule(payload: GenRule) -> Result<Vec<Event<'static>>> {
 
     writeln!(content)?;
 
-    if is_recommended || !matches!(meta.fix_kind, FixKind::None) {
+    if is_recommended || !matches!(meta.fix_kind, None) {
         writeln!(content, ":::note")?;
         if is_recommended {
             writeln!(content, "- This rule is recommended by Biome. A diagnostic error will appear when linting your code.")?;
         }
         match meta.fix_kind {
-            FixKind::Safe => {
+            Some(FixKind::Safe) => {
                 writeln!(content, "- This rule has a **safe** fix.")?;
             }
-            FixKind::Unsafe => {
+            Some(FixKind::Unsafe) => {
                 writeln!(content, "- This rule has an **unsafe** fix.")?;
             }
             _ => {}
@@ -442,7 +442,7 @@ fn generate_rule(payload: GenRule) -> Result<Vec<Event<'static>>> {
         rule,
         meta.docs,
         &mut content,
-        !matches!(meta.fix_kind, FixKind::None),
+        !matches!(meta.fix_kind, None),
     )?;
 
     writeln!(content, "## Related links")?;
