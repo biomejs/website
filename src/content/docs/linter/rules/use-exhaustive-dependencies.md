@@ -222,6 +222,28 @@ function component() {
 }
 ```
 
+## Ignoring a specific dependency
+
+Sometimes you may wish to ignore a diagnostic about a specific
+dependency without disabling _all_ linting for that hook. To do so,
+you may specify the name of a specific dependency between parentheses,
+like this:
+
+```jsx
+import { useEffect } from "react";
+
+function component() {
+    let a = 1;
+    // biome-ignore lint/correctness/useExhaustiveDependencies(a): <explanation>
+    useEffect(() => {
+        console.log(a);
+    }, []);
+}
+```
+
+If you wish to ignore multiple dependencies, you can add multiple
+comments and add a reason for each.
+
 ## Options
 
 Allows to specify custom hooks - from libraries or internal projects -
