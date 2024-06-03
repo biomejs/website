@@ -9,7 +9,7 @@ publish     = false
 [dependencies]
 biome_analyze        = { git = "https://github.com/biomejs/biome.git" }
 biome_cli            = { git = "https://github.com/biomejs/biome.git" }
-biome_configuration  = { git = "https://github.com/biomejs/biome.git" }
+biome_configuration   = { git = "https://github.com/biomejs/biome.git" }
 biome_console        = { git = "https://github.com/biomejs/biome.git" }
 biome_css_analyze    = { git = "https://github.com/biomejs/biome.git" }
 biome_css_parser     = { git = "https://github.com/biomejs/biome.git" }
