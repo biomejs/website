@@ -25,7 +25,7 @@ Alguns exemplos de configurações:
     commands:
       check:
         glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
-        run: npx biome check --no-errors-on-unmatched --files-ignore-unknown=true {staged_files}
+        run: npx @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true {staged_files}
   ```
 
 - Formatar, verificar erros e aplicar correções seguras antes de efetuar o commit.
@@ -35,7 +35,7 @@ Alguns exemplos de configurações:
     commands:
       check:
         glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
-        run: npx biome check --apply --no-errors-on-unmatched --files-ignore-unknown=true {staged_files} && git update-index --again
+        run: npx @biomejs/biome check --apply --no-errors-on-unmatched --files-ignore-unknown=true {staged_files} && git update-index --again
   ```
 
   `git update-index --again` adiciona novamente os arquivos em stage.
@@ -47,7 +47,7 @@ Alguns exemplos de configurações:
     commands:
       check:
         glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
-        run: npx biome check --no-errors-on-unmatched --files-ignore-unknown=true {pushed_files}
+        run: npx @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true {pushed_files}
   ```
 
 Não é necessário utilizar tanto `glob` quanto `--files-ignore-unknown=true`.
@@ -175,7 +175,7 @@ repos:
     hooks:
       - id: local-biome-check
         name: biome check
-        entry: npx biome check --apply --files-ignore-unknown=true --no-errors-on-unmatched
+        entry: npx @biomejs/biome check --apply --files-ignore-unknown=true --no-errors-on-unmatched
         language: system
         types: [text]
         files: "\\.(jsx?|tsx?|c(js|ts)|m(js|ts)|d\\.(ts|cts|mts)|jsonc?)$"
@@ -198,7 +198,7 @@ Alguns exemplos:
   #!/bin/sh
   set -eu
 
-  npx biome check --staged --files-ignore-unknown=true --no-errors-on-unmatched
+  npx @biomejs/biome check --staged --files-ignore-unknown=true --no-errors-on-unmatched
   ```
 
 - Formatar, verificar erros e aplicar correções seguras antes do commit.
@@ -212,7 +212,7 @@ Alguns exemplos:
     exit 1;
   fi
 
-  npx biome check --apply --staged --files-ignore-unknown=true --no-errors-on-unmatched
+  npx @biomejs/biome check --apply --staged --files-ignore-unknown=true --no-errors-on-unmatched
 
   git update-index --again
   ```
