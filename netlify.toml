@@ -1,6 +1,7 @@
 [build]
 publish = "dist/"
 command = '''
+      git clone https://github.com/biomejs/biome.git --depth 1 &&
       pnpm i --frozen-lockfile &&
       ([ -n "$(find ./biome/packages/@biomejs/wasm-web -maxdepth 1 -type f -name '*.wasm' -print -quit)" ] &&
       echo "Skip WASM build" ||
@@ -28,8 +29,9 @@ cache-control = '''
       immutable
       '''
 
-[[plugins]]
-package = "./scripts/netlify/plugins/wasm-cache"
+# Temporarly disable plugin
+#[[plugins]]
+#package = "./scripts/netlify/plugins/wasm-cache"
 
 [context.deploy-preview.environment]
 SKIP_OG = "true"

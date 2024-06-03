@@ -7,25 +7,25 @@ publish     = false
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dependencies]
-biome_analyze        = { path = "../biome/crates/biome_analyze" }
-biome_cli            = { path = "../biome/crates/biome_cli" }
-biome_configuration   = { path = "../biome/crates/biome_configuration" }
-biome_console        = { path = "../biome/crates/biome_console" }
-biome_css_analyze    = { path = "../biome/crates/biome_css_analyze" }
-biome_css_parser     = { path = "../biome/crates/biome_css_parser" }
-biome_css_syntax     = { path = "../biome/crates/biome_css_syntax" }
-biome_diagnostics    = { path = "../biome/crates/biome_diagnostics" }
-biome_js_analyze     = { path = "../biome/crates/biome_js_analyze" }
-biome_js_formatter   = { path = "../biome/crates/biome_js_formatter" }
-biome_js_parser      = { path = "../biome/crates/biome_js_parser" }
-biome_js_syntax      = { path = "../biome/crates/biome_js_syntax" }
-biome_json_analyze   = { path = "../biome/crates/biome_json_analyze" }
-biome_json_formatter = { path = "../biome/crates/biome_json_formatter" }
-biome_json_parser    = { path = "../biome/crates/biome_json_parser" }
-biome_json_syntax    = { path = "../biome/crates/biome_json_syntax" }
-biome_rowan          = { path = "../biome/crates/biome_rowan" }
-biome_service        = { path = "../biome/crates/biome_service" }
-biome_string_case    = { path = "../biome/crates/biome_string_case" }
+biome_analyze        = { git = "https://github.com/biomejs/biome.git" }
+biome_cli            = { git = "https://github.com/biomejs/biome.git" }
+biome_configuration  = { git = "https://github.com/biomejs/biome.git" }
+biome_console        = { git = "https://github.com/biomejs/biome.git" }
+biome_css_analyze    = { git = "https://github.com/biomejs/biome.git" }
+biome_css_parser     = { git = "https://github.com/biomejs/biome.git" }
+biome_css_syntax     = { git = "https://github.com/biomejs/biome.git" }
+biome_diagnostics    = { git = "https://github.com/biomejs/biome.git" }
+biome_js_analyze     = { git = "https://github.com/biomejs/biome.git" }
+biome_js_formatter   = { git = "https://github.com/biomejs/biome.git" }
+biome_js_parser      = { git = "https://github.com/biomejs/biome.git" }
+biome_js_syntax      = { git = "https://github.com/biomejs/biome.git" }
+biome_json_analyze   = { git = "https://github.com/biomejs/biome.git" }
+biome_json_formatter = { git = "https://github.com/biomejs/biome.git" }
+biome_json_parser    = { git = "https://github.com/biomejs/biome.git" }
+biome_json_syntax    = { git = "https://github.com/biomejs/biome.git" }
+biome_rowan          = { git = "https://github.com/biomejs/biome.git" }
+biome_service        = { git = "https://github.com/biomejs/biome.git" }
+biome_string_case    = { git = "https://github.com/biomejs/biome.git" }
 anyhow               = "1.0.83"
 bpaf                 = { version = "0.9.12", features = ["docgen"] }
 # If you update this library, be aware of the breaking changes

@@ -2,8 +2,6 @@
 	"name": "@biomejs/website",
 	"private": true,
 	"scripts": {
-		"init:biome": "git -c submodule.\"xtask/coverage/Typescript\".update=none -c submodule.\"xtask/coverage/babel\".update=none -c submodule.\"xtask/coverage/test262\".update=none submodule update --init --recursive",
-		"checkout:biome": "cd biome && git checkout",
 		"start": "astro dev",
 		"start:playground": "pnpm build:wasm-dev && pnpm start",
 		"format": "pnpm biome format --write .",
@@ -37,9 +35,6 @@
 		"@codemirror/lint": "6.8.0",
 		"@codemirror/state": "6.4.1",
 		"@codemirror/view": "6.26.3",
-		"@docsearch/css": "3.6.0",
-		"@docsearch/js": "3.6.0",
-		"@fontsource/inter": "5.0.18",
 		"@types/node": "20.12.12",
 		"@types/react": "18.3.2",
 		"@types/react-dom": "18.3.0",
