@@ -7,25 +7,25 @@ publish     = false
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dependencies]
-biome_analyze        = { git = "https://github.com/biomejs/biome.git" }
-biome_cli            = { git = "https://github.com/biomejs/biome.git" }
-biome_configuration   = { git = "https://github.com/biomejs/biome.git" }
-biome_console        = { git = "https://github.com/biomejs/biome.git" }
-biome_css_analyze    = { git = "https://github.com/biomejs/biome.git" }
-biome_css_parser     = { git = "https://github.com/biomejs/biome.git" }
-biome_css_syntax     = { git = "https://github.com/biomejs/biome.git" }
-biome_diagnostics    = { git = "https://github.com/biomejs/biome.git" }
-biome_js_analyze     = { git = "https://github.com/biomejs/biome.git" }
-biome_js_formatter   = { git = "https://github.com/biomejs/biome.git" }
-biome_js_parser      = { git = "https://github.com/biomejs/biome.git" }
-biome_js_syntax      = { git = "https://github.com/biomejs/biome.git" }
-biome_json_analyze   = { git = "https://github.com/biomejs/biome.git" }
-biome_json_formatter = { git = "https://github.com/biomejs/biome.git" }
-biome_json_parser    = { git = "https://github.com/biomejs/biome.git" }
-biome_json_syntax    = { git = "https://github.com/biomejs/biome.git" }
-biome_rowan          = { git = "https://github.com/biomejs/biome.git" }
-biome_service        = { git = "https://github.com/biomejs/biome.git" }
-biome_string_case    = { git = "https://github.com/biomejs/biome.git" }
+biome_analyze        = { git = "https://github.com/biomejs/biome.git", branch = "main" }
+biome_cli            = { git = "https://github.com/biomejs/biome.git", branch = "main" }
+biome_configuration   = { git = "https://github.com/biomejs/biome.git", branch = "main" }
+biome_console        = { git = "https://github.com/biomejs/biome.git", branch = "main" }
+biome_css_analyze    = { git = "https://github.com/biomejs/biome.git", branch = "main" }
+biome_css_parser     = { git = "https://github.com/biomejs/biome.git", branch = "main" }
+biome_css_syntax     = { git = "https://github.com/biomejs/biome.git", branch = "main" }
+biome_diagnostics    = { git = "https://github.com/biomejs/biome.git", branch = "main" }
+biome_js_analyze     = { git = "https://github.com/biomejs/biome.git", branch = "main" }
+biome_js_formatter   = { git = "https://github.com/biomejs/biome.git", branch = "main" }
+biome_js_parser      = { git = "https://github.com/biomejs/biome.git", branch = "main" }
+biome_js_syntax      = { git = "https://github.com/biomejs/biome.git", branch = "main" }
+biome_json_analyze   = { git = "https://github.com/biomejs/biome.git", branch = "main" }
+biome_json_formatter = { git = "https://github.com/biomejs/biome.git", branch = "main" }
+biome_json_parser    = { git = "https://github.com/biomejs/biome.git", branch = "main" }
+biome_json_syntax    = { git = "https://github.com/biomejs/biome.git", branch = "main" }
+biome_rowan          = { git = "https://github.com/biomejs/biome.git", branch = "main" }
+biome_service        = { git = "https://github.com/biomejs/biome.git", branch = "main" }
+biome_string_case    = { git = "https://github.com/biomejs/biome.git", branch = "main" }
 anyhow               = "1.0.83"
 bpaf                 = { version = "0.9.12", features = ["docgen"] }
 # If you update this library, be aware of the breaking changes
