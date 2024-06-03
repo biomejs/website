@@ -29,8 +29,8 @@ devDependencies:
     specifier: 4.0.6
     version: 4.0.6
   '@astrojs/starlight':
-    specifier: 0.23.1
-    version: 0.23.1(astro@4.9.2)
+    specifier: 0.23.2
+    version: 0.23.2(astro@4.9.2)
   '@biomejs/biome':
     specifier: 1.7.1
     version: 1.7.1
@@ -426,8 +426,8 @@ packages:
       zod: 3.23.8
     dev: true
 
-  /@astrojs/starlight@0.23.1(astro@4.9.2):
-    resolution: {integrity: sha512-BMVRpM4suTq4K2plzcISs/t5W3Xw2fHGWhSmF7lg90nps595yHp3j4gFpeukRrynwEhoNu0Bds1zgOBebC3Egg==}
+  /@astrojs/starlight@0.23.2(astro@4.9.2):
+    resolution: {integrity: sha512-j8odYR744qCilip9s0UXNzDQ66uu1klD24zRI5Aqzxoj01eVnAsEgDPC8rU/gDTvydKWhF5diBRC1QVDN5JIYw==}
     peerDependencies:
       astro: ^4.8.6
     dependencies:
