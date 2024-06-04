@@ -34,7 +34,7 @@ Gitリポジトリのルートに`lefthook.yml`というファイルを追加し
     commands:
       check:
         glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
-        run: npx @biomejs/biome check --apply --no-errors-on-unmatched --files-ignore-unknown=true {staged_files} && git update-index --again
+        run: npx @biomejs/biome check --write --no-errors-on-unmatched --files-ignore-unknown=true {staged_files} && git update-index --again
   ```
 
 `git update-index --again` は、ステージングされたファイルを再度ステージングします。
@@ -94,11 +94,11 @@ Git Hooks を実行するときに便利なコマンドの例です：
     // 次の拡張子を持つステージングファイルに対してBiomeを実行する: js, ts, jsx, tsx, json and jsonc
     "**.{js|ts|cjs|mjs|d.cts|d.mts|jsx|tsx|json|jsonc}": [
       "biome check --files-ignore-unknown=true", // フォーマットのチェックとリント
-      "biome check --apply --no-errors-on-unmatched", // フォーマット、インポート文のソート、リント、安全な修正の適用
-      "biome check --apply --organize-imports-enabled=false --no-errors-on-unmatched", // フォーマットと安全な修正の適用
-      "biome check --apply-unsafe --no-errors-on-unmatched", // フォーマット、インポート文のソート、リント、安全及び安全ではない修正の適用
+      "biome check --write --no-errors-on-unmatched", // フォーマット、インポート文のソート、リント、安全な修正の適用
+      "biome check --write --organize-imports-enabled=false --no-errors-on-unmatched", // フォーマットと安全な修正の適用
+      "biome check --write --unsafe --no-errors-on-unmatched", // フォーマット、インポート文のソート、リント、安全及び安全ではない修正の適用
       "biome format --write --no-errors-on-unmatched", // フォーマット
-      "biome lint --apply --no-errors-on-unmatched", // リントと安全な修正の適用
+      "biome lint --write --no-errors-on-unmatched", // リントと安全な修正の適用
     ],
     // あるいは、すべてのファイルを渡し、不明な拡張子を無視することもできます
     "*": [
@@ -128,7 +128,7 @@ _lefthook_、_pre-commit_、_lint-staged_ などの他のツールとは対照�
 - コミット前にformatやlintのチェック・安全な修正を行う
 
   ```shell title=".husky/pre-commit"
-  git-format-staged --formatter 'biome check --apply --files-ignore-unknown=true --no-errors-on-unmatched \"{}\"' .
+  git-format-staged --formatter 'biome check --write --files-ignore-unknown=true --no-errors-on-unmatched \"{}\"' .
   ```
 
 ## pre-commit
@@ -158,7 +158,7 @@ repos:
         additional_dependencies: ["@biomejs/biome@1.4.1"]
 ```
 
-これで`git commit`を実行したときに `biome check --apply` が実行されるようになりました。
+これで`git commit`を実行したときに `biome check --write` が実行されるようになりました。
 
 [pre-commit](https://pre-commit.com/)は別々にツールをインストールするため、pre-commit はどのツールがインストールされるか知っておく必要があります。
 そのため、`additional_dependencies` オプションを使ってBiomeのバージョンを指定しなくてはいけません。
@@ -174,7 +174,7 @@ repos:
     hooks:
       - id: local-biome-check
         name: biome check
-        entry: npx @biomejs/biome check --apply --files-ignore-unknown=true --no-errors-on-unmatched
+        entry: npx @biomejs/biome check --write --files-ignore-unknown=true --no-errors-on-unmatched
         language: system
         types: [text]
         files: "\\.(jsx?|tsx?|c(js|ts)|m(js|ts)|d\\.(ts|cts|mts)|jsonc?)$"
@@ -211,7 +211,7 @@ Biome は`--files-ignore-unknown=true`を指定することで未知のファイ
     exit 1;
   fi
 
-  npx @biomejs/biome check --apply --staged --files-ignore-unknown=true --no-errors-on-unmatched
+  npx @biomejs/biome check --write --staged --files-ignore-unknown=true --no-errors-on-unmatched
 
   git update-index --again
   ```

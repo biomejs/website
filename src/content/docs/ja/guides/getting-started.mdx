@@ -66,13 +66,13 @@ Biome CLIには多くのコマンドとオプションが用意されている�
 
 <PackageManagerBiomeCommand command="format --write <files>"/>
 
-[`lint`](/ja/reference/cli#biome-lint) コマンドを `--apply` オプションを指定し実行することで、ファイルやディレクトリに対してLintを実行し、[安全な修正](/ja/linter#安全な修正safe-fixes)を適用できます。
+[`lint`](/ja/reference/cli#biome-lint) コマンドを `--write` オプションを指定し実行することで、ファイルやディレクトリに対してLintを実行し、[安全な修正](/ja/linter#安全な修正safe-fixes)を適用できます。
 
-<PackageManagerBiomeCommand command="lint --apply <files>"/>
+<PackageManagerBiomeCommand command="lint --write <files>"/>
 
 [`check`](/ja/reference/cli#biome-check) コマンドを実行することで、それら**両方**のコマンドを実行できます。
 
-<PackageManagerBiomeCommand command="check --apply <files>"/>
+<PackageManagerBiomeCommand command="check --write <files>"/>
 
 `check` コマンドは複数のツールを一度に実行するためのコマンドです。現在は以下のことを行います。
 

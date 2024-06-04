@@ -129,7 +129,7 @@ You can use the CLI flag `--include-inspired` to migrate them.
 
 In Biome v1.7, we add support of [Prettier's `overrides`](https://prettier.io/docs/en/configuration.html#configuration-overrides) and attempts to convert `.prettierignore` glob patterns to globs supported by Biome.
 
-During the migration, Prettier's `overrides` is translated to [Biome's `overrides`](https://biomejs.dev/reference/configuration/#overrides).
+During the migration, Prettier's `overrides` is translated to [Biome's `overrides`](/reference/configuration/#overrides).
 Given the following `.prettierrc.json`
 
 ```json title=".prettierrc.json"
@@ -245,7 +245,7 @@ The new rules are:
 Once stable, a nursery rule is promoted to a stable group.
 The following rules are promoted:
 
-- [complexity/noExcessiveNestedTestSuites](https://biomejs.dev/linter/rules/no-excessive-nested-test-suites)
+- [complexity/noExcessiveNestedTestSuites](/linter/rules/no-excessive-nested-test-suites)
 - [complexity/noUselessTernary](/linter/rules/no-useless-ternary/)
 - [correctness/useJsxKeyInIterable](/linter/rules/use-jsx-key-in-iterable/)
 - [performance/noBarrelFile](/linter/rules/no-barrel-file/)
@@ -277,15 +277,15 @@ The following rules are promoted:
   biome format --config-path=./config/biome.json ./src
   ```
 
-- You can now ignore `React` imports in the rules [noUnusedImports](https://biomejs.dev/linter/rules/no-unused-imports/#options) and [useImportType](https://biomejs.dev/linter/rules/use-import-type/#options) by setting [`javascript.jsxRuntime`](https://biomejs.dev/reference/configuration/#javascriptjsxruntime) to `reactClassic`.
+- You can now ignore `React` imports in the rules [noUnusedImports](/linter/rules/no-unused-imports/#options) and [useImportType](/linter/rules/use-import-type/#options) by setting [`javascript.jsxRuntime`](/reference/configuration/#javascriptjsxruntime) to `reactClassic`.
 
-- Biome applies specific settings to [well-known files](https://biomejs.dev/guides/how-biome-works/#well-known-files).
+- Biome applies specific settings to [well-known files](/guides/how-biome-works/#well-known-files).
   It now recognizes more files and distinguishes between JSON files that only allow comments and JSON files that allow both comments and trailing commas.
 
 - In the React ecosystem, files ending in `.js` are allowed to contain JSX syntax.
   The Biome extension is now able to parse JSX syntax in files that are associated with the JavaScript language identifier.
 
-- [useExhaustiveDependencies](https://biomejs.dev/linter/rules/use-exhaustive-dependencies/) now supports Preact.
+- [useExhaustiveDependencies](/linter/rules/use-exhaustive-dependencies/) now supports Preact.
 
 See the [changelog](/internals/changelog/#170-2024-04-15) for more details.
 

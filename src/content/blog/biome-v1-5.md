@@ -140,14 +140,14 @@ The command `biome migrate` now updates the `$schema` value inside the configura
 
 ### New rules
 
-####  [useExportType](https://biomejs.dev/linter/rules/use-export-type)
+####  [useExportType](/linter/rules/use-export-type)
 
 ```ts
 interface I {}
 export { I };
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useExportType.js:2:8 <a href="https://biomejs.dev/linter/rules/use-export-type">lint/nursery/useExportType</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">nursery/useExportType.js:2:8 <a href="/linter/rules/use-export-type">lint/nursery/useExportType</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">All exports are only types and should thus use </span><span style="color: Tomato;"><strong>export type</strong></span><span style="color: Tomato;">.</span>
 
@@ -164,7 +164,7 @@ export { I };
 <strong>  </strong><strong>    │ </strong>       <span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span>
 </code></pre>
 
-####  [useImportType](https://biomejs.dev/linter/rules/use-import-type)
+####  [useImportType](/linter/rules/use-import-type)
 
 ```ts
 import { A } from "./mod.js";
@@ -172,7 +172,7 @@ type TypeOfA = typeof A;
 let a: A;
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useImportType.js:1:1 <a href="https://biomejs.dev/linter/rules/use-import-type">lint/nursery/useImportType</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">nursery/useImportType.js:1:1 <a href="/linter/rules/use-import-type">lint/nursery/useImportType</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">All these imports are only used as types.</span>
 
@@ -189,18 +189,18 @@ let a: A;
 <strong>  </strong><strong>    │ </strong>       <span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span>
 </code></pre>
 
-####  [useFilenamingConvention](https://biomejs.dev/linter/rules/use-filenaming-convention)
+####  [useFilenamingConvention](/linter/rules/use-filenaming-convention)
 
 Enforces naming conventions for JavaScript and TypeScript filenames.
 
-#### [useNodejsImportProtocol](https://biomejs.dev/linter/rules/use-nodejs-import-protocol)
+#### [useNodejsImportProtocol](/linter/rules/use-nodejs-import-protocol)
 
 ```jsx
 import fs from 'fs';
 ```
 
 
-<pre class="language-text"><code class="language-text">nursery/useNodejsImportProtocol.js:1:16 <a href="https://biomejs.dev/linter/rules/use-node-import-protocol">lint/nursery/useNodejsImportProtocol</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">nursery/useNodejsImportProtocol.js:1:16 <a href="/linter/rules/use-node-import-protocol">lint/nursery/useNodejsImportProtocol</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Import from Node.js builtin module &quot;</span><span style="color: Orange;"><strong>fs</strong></span><span style="color: Orange;">&quot; should use the &quot;</span><span style="color: Orange;"><strong>node:</strong></span><span style="color: Orange;">&quot; protocol.</span>
 
@@ -218,14 +218,14 @@ import fs from 'fs';
 
 </code></pre>
 
-#### [noNodejsModules](https://biomejs.dev/linter/rules/no-nodejs-modules)
+#### [noNodejsModules](/linter/rules/no-nodejs-modules)
 
 ```jsx
 import fs from "fs";
 import path from "node:path";
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noNodejsModules.js:1:16 <a href="https://biomejs.dev/linter/rules/no-nodejs-modules">lint/nursery/noNodejsModules</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">nursery/noNodejsModules.js:1:16 <a href="/linter/rules/no-nodejs-modules">lint/nursery/noNodejsModules</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Using Node.js modules are forbidden.</span>
 
@@ -240,7 +240,7 @@ import path from "node:path";
 
 </code></pre>
 
-#### [noInvalidUseBeforeDeclaration](https://biomejs.dev/linter/rules/no-invalid-use-before-declaration)
+#### [noInvalidUseBeforeDeclaration](/linter/rules/no-invalid-use-before-declaration)
 
 ```jsx
 function f() {
@@ -264,13 +264,13 @@ function f() {
 
 </code></pre>
 
-#### [noGlobalEval](https://biomejs.dev/linter/rules/no-global-eval)
+#### [noGlobalEval](/linter/rules/no-global-eval)
 
 ```jsx
 eval("var a = 0");
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noGlobalEval.js:1:1 <a href="https://biomejs.dev/linter/rules/no-global-eval">lint/nursery/noGlobalEval</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">nursery/noGlobalEval.js:1:1 <a href="/linter/rules/no-global-eval">lint/nursery/noGlobalEval</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>eval()</strong></span><span style="color: Tomato;"> exposes to security risks and performance issues.</span>
 
@@ -284,13 +284,13 @@ eval("var a = 0");
 
 </code></pre>
 
-#### [noGlobalAssign](https://biomejs.dev/linter/rules/no-global-assign)
+#### [noGlobalAssign](/linter/rules/no-global-assign)
 
 ```jsx
 Object = null;
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noGlobalAssign.js:1:1 <a href="https://biomejs.dev/linter/rules/no-global-assign">lint/nursery/noGlobalAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">nursery/noGlobalAssign.js:1:1 <a href="/linter/rules/no-global-assign">lint/nursery/noGlobalAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">A global variable should not be reassigned.</span>
 
@@ -302,13 +302,13 @@ Object = null;
 
 </code></pre>
 
-#### [noMisleadingCharacterClass](https://biomejs.dev/linter/rules/no-misleading-character-class)
+#### [noMisleadingCharacterClass](/linter/rules/no-misleading-character-class)
 
 ```jsx
 /^[Á]$/u;
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noMisleadingCharacterClass.js:1:1 <a href="https://biomejs.dev/linter/rules/no-misleading-character-class">lint/nursery/noMisleadingCharacterClass</a> ━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">nursery/noMisleadingCharacterClass.js:1:1 <a href="/linter/rules/no-misleading-character-class">lint/nursery/noMisleadingCharacterClass</a> ━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Unexpected combined character in the character class.</span>
 
@@ -318,7 +318,7 @@ Object = null;
 
 </code></pre>
 
-#### [noThenProperty](https://biomejs.dev/linter/rules/no-then-property)
+#### [noThenProperty](/linter/rules/no-then-property)
 
 ```jsx
 const foo = {
@@ -326,7 +326,7 @@ const foo = {
 };
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noThenProperty.js:2:5 <a href="https://biomejs.dev/linter/rules/no-then-property">lint/nursery/noThenProperty</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">nursery/noThenProperty.js:2:5 <a href="/linter/rules/no-then-property">lint/nursery/noThenProperty</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Do not add </span><span style="color: Tomato;"><strong>then</strong></span><span style="color: Tomato;"> to an object.</span>
 
@@ -344,13 +344,13 @@ const foo = {
 };
 ```
 
-#### [noUselessTernary](https://biomejs.dev/linter/rules/no-useless-ternary)
+#### [noUselessTernary](/linter/rules/no-useless-ternary)
 
 ```jsx
 var a = x ? true : true;
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noUselessTernary.js:1:9 <a href="https://biomejs.dev/linter/rules/no-useless-ternary">lint/nursery/noUselessTernary</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">nursery/noUselessTernary.js:1:9 <a href="/linter/rules/no-useless-ternary">lint/nursery/noUselessTernary</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unnecessary use of boolean literals in conditional expression.</span>
 

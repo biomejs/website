@@ -68,13 +68,13 @@ Você pode formatar arquivos e diretórios usando o comando [`format`](/referenc
 
 <PackageManagerBiomeCommand command="format --write <files>"/>
 
-Você pode analisar e aplicar [correções seguras](/pt-br/linter#correções-seguras) em arquivos e diretórios utilizando o comando [`lint`](/reference/cli#biome-lint) com o parâmetro `--apply`:
+Você pode analisar e aplicar [correções seguras](/pt-br/linter#correções-seguras) em arquivos e diretórios utilizando o comando [`lint`](/reference/cli#biome-lint) com o parâmetro `--write`:
 
-<PackageManagerBiomeCommand command="lint --apply <files>"/>
+<PackageManagerBiomeCommand command="lint --write <files>"/>
 
 Você pode aplicar **ambos** com o comando [`check`](/reference/cli#biome-check)
 
-<PackageManagerBiomeCommand command="check --apply <files>"/>
+<PackageManagerBiomeCommand command="check --write <files>"/>
 
 O comando `check` executa múltiplas ferramentas de uma vez. Até o momento, ele:
 

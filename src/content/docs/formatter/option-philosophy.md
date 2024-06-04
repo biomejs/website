@@ -13,7 +13,7 @@ Having such a strong opinion on formatting may seem heavy-handed, but the benefi
 
 Beyond the benefits within individual teams and organizations, the adoption of consistent formatters across the whole web ecosystem benefits everyone, making it easier to retain familiarity when moving between projects and helping newcomers learn and recognize patterns more intuitively without distractions.
 
-In the web ecosystem today, Prettier is by far the most popular code formatter, and it is also strongly opinionated, with a [strict philosophy on adding options](https://prettier.io/docs/en/option-philosophy). Biome aims to be [largely compatible with Prettier](https://biomejs.dev/blog/biome-wins-prettier-challenge), and as such, has adopted many of the opinions that Prettier implements, and configuration is no exception to that.
+In the web ecosystem today, Prettier is by far the most popular code formatter, and it is also strongly opinionated, with a [strict philosophy on adding options](https://prettier.io/docs/en/option-philosophy). Biome aims to be [largely compatible with Prettier](/blog/biome-wins-prettier-challenge), and as such, has adopted many of the opinions that Prettier implements, and configuration is no exception to that.
 
 Biome is proud to have reached such high compatibility with Prettier and make the migration path for users as painless as possible, but this also comes with similar caveats.
 
