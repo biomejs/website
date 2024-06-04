@@ -15,7 +15,7 @@
 		"preview": "astro preview",
 		"textlint": "textlint './src/content/docs/ja/**/*.{md,mdx}'",
 		"textlint:fix": "textlint --fix './src/content/docs/ja/**/*.{md,mdx}'",
-		"codegen": "cargo run",
+		"codegen": "cargo run --manifest-path=codege/Cargo.toml",
 		"codegen:rules": "pnpm codegen rules",
 		"codegen:release-files": "pnpm codegen release-files",
 		"codegen:metadata": "pnpm codegen metadata",
