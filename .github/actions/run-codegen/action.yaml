@@ -40,7 +40,7 @@ runs:
 
         for kind in "${kinds[@]}"; do
           echo "Running codegen for $kind"
-          cargo run "$kind"
+          cargo run -p codegen "$kind"
         done
       env:
         RUST_LOG: info
