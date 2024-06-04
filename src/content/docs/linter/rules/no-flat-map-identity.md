@@ -2,15 +2,12 @@
 title: noFlatMapIdentity (since v1.7.0)
 ---
 
-**Diagnostic Category: `lint/nursery/noFlatMapIdentity`**
+**Diagnostic Category: `lint/correctness/noFlatMapIdentity`**
 
 :::note
+- This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 - This rule has a **safe** fix.
 - This rule is applied to **JavaScript and super languages** files.
-:::
-
-:::caution
-This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::
 
 Sources: 
@@ -28,7 +25,7 @@ To achieve the same result (flattening an array) more concisely and efficiently,
 array.flatMap((arr) => arr);
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noFlatMapIdentity.js:1:1 <a href="https://biomejs.dev/linter/rules/no-flat-map-identity">lint/nursery/noFlatMapIdentity</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">correctness/noFlatMapIdentity.js:1:1 <a href="https://biomejs.dev/linter/rules/no-flat-map-identity">lint/correctness/noFlatMapIdentity</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Avoid unnecessary callback in </span><span style="color: Tomato;"><strong>flatMap</strong></span><span style="color: Tomato;"> call.</span>
   
@@ -50,7 +47,7 @@ array.flatMap((arr) => arr);
 array.flatMap((arr) => {return arr});
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noFlatMapIdentity.js:1:1 <a href="https://biomejs.dev/linter/rules/no-flat-map-identity">lint/nursery/noFlatMapIdentity</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">correctness/noFlatMapIdentity.js:1:1 <a href="https://biomejs.dev/linter/rules/no-flat-map-identity">lint/correctness/noFlatMapIdentity</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Avoid unnecessary callback in </span><span style="color: Tomato;"><strong>flatMap</strong></span><span style="color: Tomato;"> call.</span>
   

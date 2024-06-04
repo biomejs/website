@@ -2,15 +2,11 @@
 title: useArrayLiterals (since v1.7.2)
 ---
 
-**Diagnostic Category: `lint/nursery/useArrayLiterals`**
+**Diagnostic Category: `lint/correctness/useArrayLiterals`**
 
 :::note
 - This rule has an **unsafe** fix.
 - This rule is applied to **JavaScript and super languages** files.
-:::
-
-:::caution
-This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::
 
 Sources: 
@@ -29,7 +25,7 @@ The exception is when the Array constructor intentionally creates sparse arrays 
 Array();
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useArrayLiterals.js:1:1 <a href="https://biomejs.dev/linter/rules/use-array-literals">lint/nursery/useArrayLiterals</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">correctness/useArrayLiterals.js:1:1 <a href="https://biomejs.dev/linter/rules/use-array-literals">lint/correctness/useArrayLiterals</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Don't use Array constructors.</span>
   
@@ -47,7 +43,7 @@ Array();
 Array(0, 1, 2);
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useArrayLiterals.js:1:1 <a href="https://biomejs.dev/linter/rules/use-array-literals">lint/nursery/useArrayLiterals</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">correctness/useArrayLiterals.js:1:1 <a href="https://biomejs.dev/linter/rules/use-array-literals">lint/correctness/useArrayLiterals</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Don't use Array constructors.</span>
   
@@ -65,7 +61,7 @@ Array(0, 1, 2);
 new Array(0, 1, 2);
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useArrayLiterals.js:1:1 <a href="https://biomejs.dev/linter/rules/use-array-literals">lint/nursery/useArrayLiterals</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">correctness/useArrayLiterals.js:1:1 <a href="https://biomejs.dev/linter/rules/use-array-literals">lint/correctness/useArrayLiterals</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Don't use Array constructors.</span>
   
@@ -83,7 +79,7 @@ new Array(0, 1, 2);
 Array(...args);
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useArrayLiterals.js:1:1 <a href="https://biomejs.dev/linter/rules/use-array-literals">lint/nursery/useArrayLiterals</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">correctness/useArrayLiterals.js:1:1 <a href="https://biomejs.dev/linter/rules/use-array-literals">lint/correctness/useArrayLiterals</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Don't use Array constructors.</span>
   

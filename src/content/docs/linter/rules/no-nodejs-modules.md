@@ -2,11 +2,7 @@
 title: noNodejsModules (since v1.5.0)
 ---
 
-**Diagnostic Category: `lint/nursery/noNodejsModules`**
-
-:::caution
-This rule is part of the [nursery](/linter/rules/#nursery) group.
-:::
+**Diagnostic Category: `lint/correctness/noNodejsModules`**
 
 Sources: 
 - Same as: <a href="https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-nodejs-modules.md" target="_blank"><code>import/no-nodejs-modules</code></a>
@@ -23,7 +19,7 @@ This can be useful for client-side web projects that don't have access to those 
 import fs from "fs";
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noNodejsModules.js:1:16 <a href="https://biomejs.dev/linter/rules/no-nodejs-modules">lint/nursery/noNodejsModules</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">correctness/noNodejsModules.js:1:16 <a href="https://biomejs.dev/linter/rules/no-nodejs-modules">lint/correctness/noNodejsModules</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Using Node.js modules is forbidden.</span>
   
@@ -41,7 +37,7 @@ import fs from "fs";
 import path from "node:path";
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noNodejsModules.js:1:18 <a href="https://biomejs.dev/linter/rules/no-nodejs-modules">lint/nursery/noNodejsModules</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">correctness/noNodejsModules.js:1:18 <a href="https://biomejs.dev/linter/rules/no-nodejs-modules">lint/correctness/noNodejsModules</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Using Node.js modules is forbidden.</span>
   

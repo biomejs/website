@@ -41,9 +41,17 @@ jobs:
           kinds: metadata, rules
           version: "0.0.0"
           revision: ${{ env.COMMIT_ID }}
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          version: 8
       - name: Update playground
         run: |
-          pnpm i https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@${{ github.event.client_payload.event.head_commit.id }}
+          pnpm i https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@${{ env.COMMIT_ID }}
       - name: Create pull request
         id: create-pull-request
         uses: peter-evans/create-pull-request@6d6857d36972b65feb161a90e484f2984215f83e # v6.0.5

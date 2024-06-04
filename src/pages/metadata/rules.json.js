@@ -6,7 +6,7 @@ export function GET() {
         "nursery": {
           "noDuplicateAtImportRules": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.8.0",
             "name": "noDuplicateAtImportRules",
             "link": "https://biomejs.dev/linter/rules/no-duplicate-at-import-rules",
             "recommended": true,
@@ -20,7 +20,7 @@ export function GET() {
           },
           "noDuplicateFontNames": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.8.0",
             "name": "noDuplicateFontNames",
             "link": "https://biomejs.dev/linter/rules/no-duplicate-font-names",
             "recommended": true,
@@ -34,7 +34,7 @@ export function GET() {
           },
           "noDuplicateSelectorsKeyframeBlock": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.8.0",
             "name": "noDuplicateSelectorsKeyframeBlock",
             "link": "https://biomejs.dev/linter/rules/no-duplicate-selectors-keyframe-block",
             "recommended": true,
@@ -48,7 +48,7 @@ export function GET() {
           },
           "noEmptyBlock": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.8.0",
             "name": "noEmptyBlock",
             "link": "https://biomejs.dev/linter/rules/no-empty-block",
             "recommended": true,
@@ -58,11 +58,11 @@ export function GET() {
                 "stylelint": "no-empty-block"
               }
             ],
-            "docs": " Disallow CSS empty blocks.\n\n By default, it will allow empty blocks with comments inside.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n p {}\n ```\n\n ```css,expect_diagnostic\n .b {}\n ```\n\n ```css,expect_diagnostic\n @media print { a {} }\n ```\n\n ### Valid\n\n ```css\n p {\n   color: red;\n }\n ```\n\n ```css\n p {\n   /* foo */\n }\n ```\n\n ```css\n @media print { a { color: pink; } }\n ```\n\n"
+            "docs": " Disallow CSS empty blocks.\n\n By default, it will allow empty blocks with comments inside.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n p {}\n ```\n\n ```css,expect_diagnostic\n .b {}\n ```\n\n ```css,expect_diagnostic\n @media print { a {} }\n ```\n\n ### Valid\n\n ```css\n p {\n   color: red;\n }\n ```\n\n ```css\n p { /* foo */ }\n ```\n\n ```css\n @media print { a { color: pink; } }\n ```\n\n"
           },
           "noImportantInKeyframe": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.8.0",
             "name": "noImportantInKeyframe",
             "link": "https://biomejs.dev/linter/rules/no-important-in-keyframe",
             "recommended": true,
@@ -76,7 +76,7 @@ export function GET() {
           },
           "noInvalidPositionAtImportRule": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.8.0",
             "name": "noInvalidPositionAtImportRule",
             "link": "https://biomejs.dev/linter/rules/no-invalid-position-at-import-rule",
             "recommended": true,
@@ -90,7 +90,7 @@ export function GET() {
           },
           "noUnknownFunction": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.8.0",
             "name": "noUnknownFunction",
             "link": "https://biomejs.dev/linter/rules/no-unknown-function",
             "recommended": true,
@@ -104,7 +104,7 @@ export function GET() {
           },
           "noUnknownMediaFeatureName": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.8.0",
             "name": "noUnknownMediaFeatureName",
             "link": "https://biomejs.dev/linter/rules/no-unknown-media-feature-name",
             "recommended": false,
@@ -118,7 +118,7 @@ export function GET() {
           },
           "noUnknownProperty": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.8.0",
             "name": "noUnknownProperty",
             "link": "https://biomejs.dev/linter/rules/no-unknown-property",
             "recommended": false,
@@ -127,7 +127,7 @@ export function GET() {
           },
           "noUnknownSelectorPseudoElement": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.8.0",
             "name": "noUnknownSelectorPseudoElement",
             "link": "https://biomejs.dev/linter/rules/no-unknown-selector-pseudo-element",
             "recommended": true,
@@ -141,7 +141,7 @@ export function GET() {
           },
           "noUnknownUnit": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.8.0",
             "name": "noUnknownUnit",
             "link": "https://biomejs.dev/linter/rules/no-unknown-unit",
             "recommended": true,
@@ -155,7 +155,7 @@ export function GET() {
           },
           "noUnmatchableAnbSelector": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.8.0",
             "name": "noUnmatchableAnbSelector",
             "link": "https://biomejs.dev/linter/rules/no-unmatchable-anb-selector",
             "recommended": true,
@@ -169,7 +169,7 @@ export function GET() {
           },
           "useGenericFontNames": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.8.0",
             "name": "useGenericFontNames",
             "link": "https://biomejs.dev/linter/rules/use-generic-font-names",
             "recommended": true,
@@ -530,6 +530,20 @@ export function GET() {
             ],
             "docs": " Disallow constant expressions in conditions\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n if (false) {\n     doSomethingUnfinished();\n }\n ```\n\n ```js,expect_diagnostic\n if (Boolean(1)) {\n     doSomethingAlways();\n }\n ```\n\n ```js,expect_diagnostic\n if (undefined) {\n     doSomethingUnfinished();\n }\n ```\n\n ```js,expect_diagnostic\n for (;-2;) {\n     doSomethingForever();\n }\n ```\n\n ```js,expect_diagnostic\n while (typeof x) {\n     doSomethingForever();\n }\n ```\n\n ```js,expect_diagnostic\n var result = 0 ? a : b;\n ```\n\n ### Valid\n\n ```js\n if (x === 0) {\n     doSomething();\n }\n\n for (;;) {\n     doSomethingForever();\n }\n\n while (typeof x === \"undefined\") {\n     doSomething();\n }\n\n do {\n     doSomething();\n } while (x);\n\n var result = x !== 0 ? a : b;\n\n // Exception\n while (true) {\n     if (x) { break; }\n     x = f();\n }\n ```\n\n"
           },
+          "noConstantMathMinMaxClamp": {
+            "deprecated": false,
+            "version": "1.7.0",
+            "name": "noConstantMathMinMaxClamp",
+            "link": "https://biomejs.dev/linter/rules/no-constant-math-min-max-clamp",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "clippy": "min_max"
+              }
+            ],
+            "docs": " Disallow the use of `Math.min` and `Math.max` to clamp a value where the result itself is constant.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n Math.min(0, Math.max(100, x));\n ```\n\n ```js,expect_diagnostic\n Math.max(100, Math.min(0, x));\n ```\n ### Valid\n\n ```js\n Math.min(100, Math.max(0, x));\n ```\n\n"
+          },
           "noConstructorReturn": {
             "deprecated": false,
             "version": "1.0.0",
@@ -571,6 +585,20 @@ export function GET() {
               }
             ],
             "docs": " Disallows empty destructuring patterns.\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n var {} = foo;\n ```\n\n ```js,expect_diagnostic\n var {a: {}} = foo;\n ```\n\n ```js,expect_diagnostic\n function foo({}) {}\n ```\n\n ### Valid\n The following cases are valid because they create new bindings.\n\n ```js\n var {a = {}} = foo;\n var {a, b = {}} = foo;\n var {a = []} = foo;\n function foo({a = {}}) {}\n function foo({a = []}) {}\n var [a] = foo;\n ```\n"
+          },
+          "noFlatMapIdentity": {
+            "deprecated": false,
+            "version": "1.7.0",
+            "name": "noFlatMapIdentity",
+            "link": "https://biomejs.dev/linter/rules/no-flat-map-identity",
+            "recommended": true,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "clippy": "flat_map_identity"
+              }
+            ],
+            "docs": " Disallow to use unnecessary callback on `flatMap`.\n\n To achieve the same result (flattening an array) more concisely and efficiently, you should use `flat` instead.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n array.flatMap((arr) => arr);\n ```\n\n ```js,expect_diagnostic\n array.flatMap((arr) => {return arr});\n ```\n\n ### Valid\n\n ```js\n array.flatMap((arr) => arr * 2);\n ```\n\n"
           },
           "noGlobalObjectCalls": {
             "deprecated": false,
@@ -658,6 +686,20 @@ export function GET() {
               }
             ],
             "docs": " Disallow `new` operators with the `Symbol` object.\n\n `Symbol` cannot be instantiated. This results in throwing a `TypeError`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n var foo = new Symbol('foo');\n ```\n\n ### Valid\n\n ```js\n var bar = Symbol('bar');\n function baz() {\n     function Symbol() { }\n     new Symbol();\n }\n ```\n"
+          },
+          "noNodejsModules": {
+            "deprecated": false,
+            "version": "1.5.0",
+            "name": "noNodejsModules",
+            "link": "https://biomejs.dev/linter/rules/no-nodejs-modules",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslintImport": "no-nodejs-modules"
+              }
+            ],
+            "docs": " Forbid the use of Node.js builtin modules.\n\n This can be useful for client-side web projects that don't have access to those modules.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import fs from \"fs\";\n ```\n\n ```js,expect_diagnostic\n import path from \"node:path\";\n ```\n\n ### Valid\n\n ```js\n import fs from \"fs-custom\";\n ```\n"
           },
           "noNonoctalDecimalEscape": {
             "deprecated": false,
@@ -885,6 +927,20 @@ export function GET() {
             ],
             "docs": " Disallow unused variables.\n\n There is an exception to this rule:\n variables that starts with underscore, e.g. `let _something;`.\n\n The pattern of having an underscore as prefix of a name of variable is a very diffuse\n pattern among programmers, and Biome decided to follow it.\n\n This rule won't report unused imports.\n If you want to report unused imports,\n enable [noUnusedImports](https://biomejs.dev/linter/rules/no-unused-imports/).\n\n From `v1.9.0`, the rule won't check unused function parameters any more.\n Users should switch to\n [noUnusedFunctionParameters](https://biomejs.dev/linter/rules/no-unused-function-parameters/)\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n let a = 4;\n a++;\n ```\n\n ```js,expect_diagnostic\n function foo() {}\n ```\n\n ```js,expect_diagnostic\n export function foo(myVar) {\n     console.log('foo');\n }\n ```\n\n ```js,expect_diagnostic\n function foo() {\n     foo();\n }\n ```\n\n ```js,expect_diagnostic\n const foo = () => {\n     foo();\n };\n ```\n\n ```ts,expect_diagnostic\n export function f<T>() {}\n ```\n\n ### Valid\n\n ```js\n function foo(b) {\n     console.log(b)\n };\n foo();\n ```\n\n ```js\n export function foo(_unused) {}\n ```\n\n ```ts\n function used_overloaded(): number;\n function used_overloaded(s: string): string;\n function used_overloaded(s?: string) {\n     return s;\n }\n used_overloaded();\n ```\n"
           },
+          "useArrayLiterals": {
+            "deprecated": false,
+            "version": "1.7.2",
+            "name": "useArrayLiterals",
+            "link": "https://biomejs.dev/linter/rules/use-array-literals",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "eslint": "no-array-constructor"
+              }
+            ],
+            "docs": " Disallow Array constructors.\n\n Use of the Array constructor to construct a new array is generally discouraged in favor of array literal notation because of the single-argument pitfall and because the Array global may be redefined.\n The exception is when the Array constructor intentionally creates sparse arrays of a specified size by giving the constructor a single numeric argument.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n Array();\n ```\n\n ```js,expect_diagnostic\n Array(0, 1, 2);\n ```\n\n ```js,expect_diagnostic\n new Array(0, 1, 2);\n ```\n\n ```js,expect_diagnostic\n Array(...args);\n ```\n\n ### Valid\n\n ```js\n Array(500);\n ```\n\n ```js\n [0, 1, 2];\n ```\n\n"
+          },
           "useIsNan": {
             "deprecated": false,
             "version": "1.0.0",
@@ -943,20 +999,6 @@ export function GET() {
             ],
             "docs": " Disallow the use of `console`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n console.error('hello world')\n ```\n\n"
           },
-          "noConstantMathMinMaxClamp": {
-            "deprecated": false,
-            "version": "1.7.0",
-            "name": "noConstantMathMinMaxClamp",
-            "link": "https://biomejs.dev/linter/rules/no-constant-math-min-max-clamp",
-            "recommended": false,
-            "fixKind": "unsafe",
-            "sources": [
-              {
-                "clippy": "min_max"
-              }
-            ],
-            "docs": " Disallow the use of `Math.min` and `Math.max` to clamp a value where the result itself is constant.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n Math.min(0, Math.max(100, x));\n ```\n\n ```js,expect_diagnostic\n Math.max(100, Math.min(0, x));\n ```\n ### Valid\n\n ```js\n Math.min(100, Math.max(0, x));\n ```\n\n"
-          },
           "noDoneCallback": {
             "deprecated": false,
             "version": "1.6.1",
@@ -986,23 +1028,9 @@ export function GET() {
             ],
             "docs": " Disallow duplicate conditions in if-else-if chains\n\n if-else-if chains are commonly used when there is a need to execute only one branch\n (or at most one branch) out of several possible branches, based on certain conditions.\n\n Two identical test conditions in the same chain are almost always a mistake in the code.\n Unless there are side effects in the expressions,\n a duplicate will evaluate to the same true or false value as the identical expression earlier in the chain,\n meaning that its branch can never execute.\n\n Please note that this rule does not compare conditions from the chain with conditions inside statements\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n if (a) {\n     foo();\n } else if (b) {\n     bar();\n } else if (b) {\n     baz();\n }\n ```\n\n ### Valid\n\n ```js\n if (a) {\n     foo();\n } else if (b) {\n     bar();\n } else if (c) {\n     baz();\n }\n ```\n\n"
           },
-          "noFlatMapIdentity": {
-            "deprecated": false,
-            "version": "1.7.0",
-            "name": "noFlatMapIdentity",
-            "link": "https://biomejs.dev/linter/rules/no-flat-map-identity",
-            "recommended": true,
-            "fixKind": "safe",
-            "sources": [
-              {
-                "clippy": "flat_map_identity"
-              }
-            ],
-            "docs": " Disallow to use unnecessary callback on `flatMap`.\n\n To achieve the same result (flattening an array) more concisely and efficiently, you should use `flat` instead.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n array.flatMap((arr) => arr);\n ```\n\n ```js,expect_diagnostic\n array.flatMap((arr) => {return arr});\n ```\n\n ### Valid\n\n ```js\n array.flatMap((arr) => arr * 2);\n ```\n\n"
-          },
           "noMisplacedAssertion": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.8.0",
             "name": "noMisplacedAssertion",
             "link": "https://biomejs.dev/linter/rules/no-misplaced-assertion",
             "recommended": false,
@@ -1014,20 +1042,6 @@ export function GET() {
             ],
             "sourceKind": "inspired",
             "docs": " Checks that the assertion function, for example `expect`, is placed inside an `it()` function call.\n\n Placing (and using) the `expect` assertion function can result in unexpected behaviors when executing your testing suite.\n\n The rule will check for the following assertion calls:\n - `expect`\n - `assert`\n - `assertEquals`\n\n However, the rule will ignore the following assertion calls:\n - `expect.any`\n - `expect.anything`\n - `expect.closeTo`\n - `expect.arrayContaining`\n - `expect.objectContaining`\n - `expect.stringContaining`\n - `expect.stringMatching`\n - `expect.extend`\n - `expect.addEqualityTesters`\n - `expect.addSnapshotSerializer`\n\n If the assertion function is imported, the rule will check if they are imported from:\n - `\"chai\"`\n - `\"node:assert\"`\n - `\"node:assert/strict\"`\n - `\"bun:test\"`\n - `\"vitest\"`\n - Deno assertion module URL\n\n Check the [options](#options) if you need to change the defaults.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n describe(\"describe\", () => {\n     expect()\n })\n ```\n\n ```js,expect_diagnostic\n import assert from \"node:assert\";\n describe(\"describe\", () => {\n     assert.equal()\n })\n ```\n\n ```js,expect_diagnostic\n import {test, expect} from \"bun:test\";\n expect(1, 2)\n ```\n\n ```js,expect_diagnostic\n import {assertEquals} from \"https://deno.land/std@0.220.0/assert/mod.ts\";\n\n assertEquals(url.href, \"https://deno.land/foo.js\");\n Deno.test(\"url test\", () => {\n     const url = new URL(\"./foo.js\", \"https://deno.land/\");\n });\n ```\n\n ### Valid\n\n ```js\n import assert from \"node:assert\";\n describe(\"describe\", () => {\n     it(\"it\", () => {\n         assert.equal()\n     })\n })\n ```\n\n ```js\n describe(\"describe\", () => {\n     it(\"it\", () => {\n         expect()\n     })\n })\n ```\n\n ```js\n test.each([1, 2, 3])('test', (a, b, expected) => {\n     expect(a + b).toBe(expected)\n })\n ```\n\n ```js\n import { waitFor } from '@testing-library/react';\n await waitFor(() => {\n   expect(111).toBe(222);\n });\n ```\n\n"
-          },
-          "noNodejsModules": {
-            "deprecated": false,
-            "version": "1.5.0",
-            "name": "noNodejsModules",
-            "link": "https://biomejs.dev/linter/rules/no-nodejs-modules",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "eslintImport": "no-nodejs-modules"
-              }
-            ],
-            "docs": " Forbid the use of Node.js builtin modules.\n\n This can be useful for client-side web projects that don't have access to those modules.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import fs from \"fs\";\n ```\n\n ```js,expect_diagnostic\n import path from \"node:path\";\n ```\n\n ### Valid\n\n ```js\n import fs from \"fs-custom\";\n ```\n"
           },
           "noReactSpecificProps": {
             "deprecated": false,
@@ -1041,7 +1055,7 @@ export function GET() {
                 "eslintSolid": "no-react-specific-props"
               }
             ],
-            "docs": " Prevents React-specific JSX properties from being used.\n\n This rule is intended for use in JSX-based frameworks (mainly Solid.js)\n that do not use React-style prop names.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n <Hello className=\"John\" />\n ```\n\n ### Valid\n\n ```js\n <Hello class=\"Doe\" />\n ```\n"
+            "docs": " Prevents React-specific JSX properties from being used.\n\n This rule is intended for use in JSX-based frameworks (mainly **Solid.js**)\n that do not use React-style prop names.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n <Hello className=\"John\" />\n ```\n\n ### Valid\n\n ```js\n <Hello class=\"Doe\" />\n ```\n"
           },
           "noRestrictedImports": {
             "deprecated": false,
@@ -1071,7 +1085,7 @@ export function GET() {
           },
           "noUnusedFunctionParameters": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.8.0",
             "name": "noUnusedFunctionParameters",
             "link": "https://biomejs.dev/linter/rules/no-unused-function-parameters",
             "recommended": false,
@@ -1080,7 +1094,7 @@ export function GET() {
           },
           "noUselessStringConcat": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.8.0",
             "name": "noUselessStringConcat",
             "link": "https://biomejs.dev/linter/rules/no-useless-string-concat",
             "recommended": false,
@@ -1109,7 +1123,7 @@ export function GET() {
           },
           "noYodaExpression": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.8.0",
             "name": "noYodaExpression",
             "link": "https://biomejs.dev/linter/rules/no-yoda-expression",
             "recommended": false,
@@ -1123,7 +1137,7 @@ export function GET() {
           },
           "useAdjacentOverloadSignatures": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.8.0",
             "name": "useAdjacentOverloadSignatures",
             "link": "https://biomejs.dev/linter/rules/use-adjacent-overload-signatures",
             "recommended": false,
@@ -1133,21 +1147,7 @@ export function GET() {
                 "eslintTypeScript": "adjacent-overload-signatures"
               }
             ],
-            "docs": " Disallow the use of overload signatures that are not next to each other.\n\n Overload signatures must be adjacent.\n If a key is defined multiple times, only the last definition takes effect. Previous definitions are ignored.\n This rule is useful for preventing accidental overloads that are not adjacent.\n It is recommended to keep the overload signatures adjacent to make the code easier to read and maintain.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n type Foo = {\n   foo_type(s: string): void;\n   foo_type(n: number): void;\n   bar_type(): void;\n   foo_type(sn: string | number): void;\n };\n ```\n\n ```js,expect_diagnostic\n interface Foo {\n   foo_interface(s: string): void;\n   foo_interface(n: number): void;\n   bar_interface(): void;\n   foo_interface(sn: string | number): void;\n }\n ``\n\n ```js,expect_diagnostic\n class A {\n   fooA(s: string): void;\n   fooA(n: number): void;\n   barA(): void {};\n   fooA(sn: string | number): void {};\n }\n ```\n\n ### Valid\n\n ```js\n declare namespace Foo {\n   export function foo_declare(s: string): void;\n   export function foo_declare(n: number): void;\n   export function foo_declare(sn: string | number): void;\n   export function bar_declare(): void;\n }\n ````\n\n ```js\n type Foo = {\n   foo_type(s: string): void;\n   foo_type(n: number): void;\n   foo_type(sn: string | number): void;\n   bar_type(): void;\n };\n ```\n\n ```js\n interface Foo {\n   foo_interface(s: string): void;\n   foo_interface(n: number): void;\n   foo_interface(sn: string | number): void;\n   bar_interface(): void;\n }\n ```\n\n ```js\n class A {\n   fooA(s: string): void;\n   fooA(n: number): void;\n   fooA(sn: string | number): void {}\n   barA(): void {}\n }\n ```\n\n"
-          },
-          "useArrayLiterals": {
-            "deprecated": false,
-            "version": "1.7.2",
-            "name": "useArrayLiterals",
-            "link": "https://biomejs.dev/linter/rules/use-array-literals",
-            "recommended": false,
-            "fixKind": "unsafe",
-            "sources": [
-              {
-                "eslint": "no-array-constructor"
-              }
-            ],
-            "docs": " Disallow Array constructors.\n\n Use of the Array constructor to construct a new array is generally discouraged in favor of array literal notation because of the single-argument pitfall and because the Array global may be redefined.\n The exception is when the Array constructor intentionally creates sparse arrays of a specified size by giving the constructor a single numeric argument.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n Array();\n ```\n\n ```js,expect_diagnostic\n Array(0, 1, 2);\n ```\n\n ```js,expect_diagnostic\n new Array(0, 1, 2);\n ```\n\n ```js,expect_diagnostic\n Array(...args);\n ```\n\n ### Valid\n\n ```js\n Array(500);\n ```\n\n ```js\n [0, 1, 2];\n ```\n\n"
+            "docs": " Disallow the use of overload signatures that are not next to each other.\n\n Overload signatures must be adjacent.\n If a key is defined multiple times, only the last definition takes effect. Previous definitions are ignored.\n This rule is useful for preventing accidental overloads that are not adjacent.\n It is recommended to keep the overload signatures adjacent to make the code easier to read and maintain.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n type Foo = {\n   foo_type(s: string): void;\n   foo_type(n: number): void;\n   bar_type(): void;\n   foo_type(sn: string | number): void;\n };\n ```\n\n ```ts,expect_diagnostic\n interface Foo {\n   foo_interface(s: string): void;\n   foo_interface(n: number): void;\n   bar_interface(): void;\n   foo_interface(sn: string | number): void;\n }\n ```\n\n ```ts,expect_diagnostic,ignore\n class A {\n   fooA(s: string): void;\n   fooA(n: number): void;\n   barA(): void {};\n   fooA(sn: string | number): void {};\n }\n ```\n\n ### Valid\n\n ```ts\n declare namespace Foo {\n   export function foo_declare(s: string): void;\n   export function foo_declare(n: number): void;\n   export function foo_declare(sn: string | number): void;\n   export function bar_declare(): void;\n }\n ```\n\n ```ts\n type Foo = {\n   foo_type(s: string): void;\n   foo_type(n: number): void;\n   foo_type(sn: string | number): void;\n   bar_type(): void;\n };\n ```\n\n ```ts\n interface Foo {\n   foo_interface(s: string): void;\n   foo_interface(n: number): void;\n   foo_interface(sn: string | number): void;\n   bar_interface(): void;\n }\n ```\n\n ```ts\n class A {\n   fooA(s: string): void;\n   fooA(n: number): void;\n   fooA(sn: string | number): void {}\n   barA(): void {}\n }\n ```\n\n"
           },
           "useConsistentBuiltinInstantiation": {
             "deprecated": false,
@@ -1168,7 +1168,7 @@ export function GET() {
           },
           "useDateNow": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.8.0",
             "name": "useDateNow",
             "link": "https://biomejs.dev/linter/rules/use-date-now",
             "recommended": false,
@@ -1178,7 +1178,7 @@ export function GET() {
                 "eslintUnicorn": "prefer-date-now"
               }
             ],
-            "docs": " Use `Date.now()` to get the number of milliseconds since the Unix Epoch.\n\n `Date.now()` is more readable than `new Date().getTime()` and its variants,\n it also avoids unnecessary instantiation of `Date` object.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const foo = new Date().getTime();\n ```\n ```js,expect_diagnostic\n const foo = new Date().valueOf();\n ```\n ```js,expect_diagnostic\n const foo = +new Date;\n ```\n ```js,expect_diagnostic\n const foo = Number(new Date());\n ```\n ```js,expect_diagnostic\n const foo = new Date() * 2;\n ```\n\n ### Valid\n\n ```js\n const foo = Date.now();\n ```\n ```js\n const foo = Date.now() * 2;\n ```\n\n"
+            "docs": " Use `Date.now()` to get the number of milliseconds since the Unix Epoch.\n\n `Date.now()` is more readable than `new Date().getTime()` and its variants,\n it also avoids unnecessary instantiation of `Date` object.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const foo = new Date().getTime();\n ```\n\n ```js,expect_diagnostic\n const foo = new Date().valueOf();\n ```\n\n ```js,expect_diagnostic,ignore\n const foo = +new Date;\n ```\n\n ```js,expect_diagnostic\n const foo = Number(new Date());\n ```\n\n ```js,expect_diagnostic\n const foo = new Date() * 2;\n ```\n\n ### Valid\n\n ```js\n const foo = Date.now();\n ```\n ```js\n const foo = Date.now() * 2;\n ```\n\n"
           },
           "useDefaultSwitchClause": {
             "deprecated": false,
@@ -1196,7 +1196,7 @@ export function GET() {
           },
           "useErrorMessage": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.8.0",
             "name": "useErrorMessage",
             "link": "https://biomejs.dev/linter/rules/use-error-message",
             "recommended": false,
@@ -1225,12 +1225,12 @@ export function GET() {
           },
           "useImportExtensions": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.8.0",
             "name": "useImportExtensions",
             "link": "https://biomejs.dev/linter/rules/use-import-extensions",
             "recommended": false,
             "fixKind": "unsafe",
-            "docs": " Enforce file extensions for relative imports.\n\n Browsers and Node.js do not natively support importing files without extensions. This rule\n enforces the use of file extensions for relative imports to make the code more consistent.\n\n Tooling also benefits from explicit file extensions, because they do not need to guess which\n file to resolve.\n\n Rule checks static imports and dynamic imports calls such as `import()` and `require()`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import \"./foo\";\n ```\n ```js,expect_diagnostic\n import \"./bar/\";\n ```\n ```js,expect_diagnostic\n import \"../\";\n ```\n ```js,expect_diagnostic\n import \"../.\";\n ```\n ```js,expect_diagnostic\n import(\"./foo\");\n ```\n ```js,expect_diagnostic\n require(\"./foo\");\n ```\n\n ### Valid\n\n ```js\n import \"biome\";\n ```\n ```js\n import \"./foo.js\";\n ```\n ```js\n import \"./bar/index.js\";\n ```\n ```js\n import(\"./foo.js\");\n ```\n ```js\n require(\"./foo.js\");\n ```\n ## Caveats\n\n If you are using TypeScript, TypeScript version 5.0 and later is required, also make sure to enable\n [allowImportingTsExtensions=true](https://typescriptlang.org/tsconfig#allowImportingTsExtensions) in your `tsconfig.json`.\n\n Rule does not yet check filesystem for file type. It tries to guess which extension\n it should add based on the file extension of the current file and the import path.\n When applying the suggested fix, make sure to verify that the file type is correct.\n\n"
+            "docs": " Enforce file extensions for relative imports.\n\n Browsers and Node.js do not natively support importing files without extensions. This rule\n enforces the use of file extensions for relative imports to make the code more consistent.\n\n Tooling also benefits from explicit file extensions, because they do not need to guess which\n file to resolve.\n\n Rule checks static imports and dynamic imports calls such as `import()` and `require()`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic,ignore\n import \"./foo\";\n ```\n ```js,expect_diagnostic,ignore\n import \"./bar/\";\n ```\n ```js,expect_diagnostic,ignore\n import \"../\";\n ```\n ```js,expect_diagnostic,ignore\n import \"../.\";\n ```\n ```js,expect_diagnostic,ignore\n import(\"./foo\");\n ```\n ```js,expect_diagnostic,ignore\n require(\"./foo\");\n ```\n\n ### Valid\n\n ```js\n import \"biome\";\n ```\n ```js\n import \"./foo.js\";\n ```\n ```js\n import \"./bar/index.js\";\n ```\n ```js\n import(\"./foo.js\");\n ```\n ```js\n require(\"./foo.js\");\n ```\n ## Caveats\n\n If you are using TypeScript, TypeScript version 5.0 and later is required, also make sure to enable\n [allowImportingTsExtensions=true](https://typescriptlang.org/tsconfig#allowImportingTsExtensions) in your `tsconfig.json`.\n\n Rule does not yet check filesystem for file type. It tries to guess which extension\n it should add based on the file extension of the current file and the import path.\n When applying the suggested fix, make sure to verify that the file type is correct.\n\n"
           },
           "useImportRestrictions": {
             "deprecated": false,
@@ -1249,7 +1249,7 @@ export function GET() {
           },
           "useNumberToFixedDigitsArgument": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.8.0",
             "name": "useNumberToFixedDigitsArgument",
             "link": "https://biomejs.dev/linter/rules/use-number-to-fixed-digits-argument",
             "recommended": false,
@@ -1272,7 +1272,7 @@ export function GET() {
           },
           "useThrowNewError": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.8.0",
             "name": "useThrowNewError",
             "link": "https://biomejs.dev/linter/rules/use-throw-new-error",
             "recommended": false,
@@ -1286,7 +1286,7 @@ export function GET() {
           },
           "useThrowOnlyError": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.8.0",
             "name": "useThrowOnlyError",
             "link": "https://biomejs.dev/linter/rules/use-throw-only-error",
             "recommended": false,
@@ -1307,7 +1307,7 @@ export function GET() {
           },
           "useTopLevelRegex": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.8.0",
             "name": "useTopLevelRegex",
             "link": "https://biomejs.dev/linter/rules/use-top-level-regex",
             "recommended": false,
@@ -2889,7 +2889,7 @@ export function GET() {
         "nursery": {
           "noLabelWithoutControl": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.8.0",
             "name": "noLabelWithoutControl",
             "link": "https://biomejs.dev/linter/rules/no-label-without-control",
             "recommended": true,
@@ -2903,7 +2903,7 @@ export function GET() {
           },
           "useFocusableInteractive": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.8.0",
             "name": "useFocusableInteractive",
             "link": "https://biomejs.dev/linter/rules/use-focusable-interactive",
             "recommended": true,
@@ -2917,7 +2917,7 @@ export function GET() {
           },
           "useSemanticElements": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.8.0",
             "name": "useSemanticElements",
             "link": "https://biomejs.dev/linter/rules/use-semantic-elements",
             "recommended": true,
@@ -2927,7 +2927,7 @@ export function GET() {
                 "eslintJsxA11y": "prefer-tag-over-role"
               }
             ],
-            "docs": " It detects the use of `role` attributes in JSX elements and suggests using semantic elements instead.\n\n The `role` attribute is used to define the purpose of an element, but it should be used as a last resort. Using semantic elements like `<button>`, `<input>`, `<textarea>`, `<a>`, `<img>`, `<table>`, `<article>`, `<section>`, `<nav>`, `<aside>`, `<header>`, `<footer>`, `<main>`, `<figure>`, `<figcaption>`, `<details>`, `<summary>`, `<dialog>`, `<menu>`, `<menuitem>`, `<fieldset>`, `<legend>`, `<caption>`, `<colgroup>`, `<col>`, `<optgroup>`, `<option>`, `<select>`, `<datalist>`, `<output>`, `<progress>`, `<meter>`, `<time>`, `<audio>`, `<video>`, `<track>`, `<source>`, `<embed>`, `<object>`, `<param>`, `<iframe>`, `<canvas>`, `<map>`, `<area>`, `<svg>`, `<math>` are more accessible and provide better semantics.\n\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div role=\"checkbox\">\n ```\n\n ```jsx,expect_diagnostic\n <div role=\"img\">\n ```\n\n ### Valid\n\n ```jsx\n <div>...</div>\n <header>...</header>\n <img alt=\"\" src=\"image.jpg\" />\n ```\n\n"
+            "docs": " It detects the use of `role` attributes in JSX elements and suggests using semantic elements instead.\n\n The `role` attribute is used to define the purpose of an element, but it should be used as a last resort. Using semantic elements like `<button>`, `<input>`, `<textarea>`, `<a>`, `<img>`, `<table>`, `<article>`, `<section>`, `<nav>`, `<aside>`, `<header>`, `<footer>`, `<main>`, `<figure>`, `<figcaption>`, `<details>`, `<summary>`, `<dialog>`, `<menu>`, `<menuitem>`, `<fieldset>`, `<legend>`, `<caption>`, `<colgroup>`, `<col>`, `<optgroup>`, `<option>`, `<select>`, `<datalist>`, `<output>`, `<progress>`, `<meter>`, `<time>`, `<audio>`, `<video>`, `<track>`, `<source>`, `<embed>`, `<object>`, `<param>`, `<iframe>`, `<canvas>`, `<map>`, `<area>`, `<svg>`, `<math>` are more accessible and provide better semantics.\n\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div role=\"checkbox\">\n ```\n\n ```jsx,expect_diagnostic\n <div role=\"img\">\n ```\n\n ### Valid\n\n ```jsx\n <>\n  <div></div>\n  <header></header>\n  <img alt=\"\" src=\"image.jpg\" />\n </>\n ```\n\n"
           }
         },
         "security": {

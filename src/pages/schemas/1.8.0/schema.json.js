@@ -646,6 +646,14 @@ export function GET() {
 							{ type: "null" },
 						],
 					},
+					noConstantMathMinMaxClamp: {
+						description:
+							"Disallow the use of Math.min and Math.max to clamp a value where the result itself is constant.",
+						anyOf: [
+							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ type: "null" },
+						],
+					},
 					noConstructorReturn: {
 						description: "Disallow returning a value from a constructor.",
 						anyOf: [
@@ -665,6 +673,13 @@ export function GET() {
 						description: "Disallows empty destructuring patterns.",
 						anyOf: [
 							{ $ref: "#/definitions/RuleConfiguration" },
+							{ type: "null" },
+						],
+					},
+					noFlatMapIdentity: {
+						description: "Disallow to use unnecessary callback on flatMap.",
+						anyOf: [
+							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
 							{ type: "null" },
 						],
 					},
@@ -712,6 +727,13 @@ export function GET() {
 						description: "Disallow new operators with the Symbol object.",
 						anyOf: [
 							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ type: "null" },
+						],
+					},
+					noNodejsModules: {
+						description: "Forbid the use of Node.js builtin modules.",
+						anyOf: [
+							{ $ref: "#/definitions/RuleConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -860,6 +882,13 @@ export function GET() {
 					recommended: {
 						description: "It enables the recommended rules for this group",
 						type: ["boolean", "null"],
+					},
+					useArrayLiterals: {
+						description: "Disallow Array constructors.",
+						anyOf: [
+							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ type: "null" },
+						],
 					},
 					useExhaustiveDependencies: {
 						description:
@@ -1762,14 +1791,6 @@ export function GET() {
 							{ type: "null" },
 						],
 					},
-					noConstantMathMinMaxClamp: {
-						description:
-							"Disallow the use of Math.min and Math.max to clamp a value where the result itself is constant.",
-						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
-							{ type: "null" },
-						],
-					},
 					noDoneCallback: {
 						description:
 							"Disallow using a callback in asynchronous tests and hooks.",
@@ -1829,13 +1850,6 @@ export function GET() {
 							{ type: "null" },
 						],
 					},
-					noFlatMapIdentity: {
-						description: "Disallow to use unnecessary callback on flatMap.",
-						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
-							{ type: "null" },
-						],
-					},
 					noImportantInKeyframe: {
 						description:
 							"Disallow invalid !important within keyframe declarations",
@@ -1863,13 +1877,6 @@ export function GET() {
 					noMisplacedAssertion: {
 						description:
 							"Checks that the assertion function, for example expect, is placed inside an it() function call.",
-						anyOf: [
-							{ $ref: "#/definitions/RuleConfiguration" },
-							{ type: "null" },
-						],
-					},
-					noNodejsModules: {
-						description: "Forbid the use of Node.js builtin modules.",
 						anyOf: [
 							{ $ref: "#/definitions/RuleConfiguration" },
 							{ type: "null" },
@@ -1979,13 +1986,6 @@ export function GET() {
 							"Disallow the use of overload signatures that are not next to each other.",
 						anyOf: [
 							{ $ref: "#/definitions/RuleConfiguration" },
-							{ type: "null" },
-						],
-					},
-					useArrayLiterals: {
-						description: "Disallow Array constructors.",
-						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
 							{ type: "null" },
 						],
 					},
