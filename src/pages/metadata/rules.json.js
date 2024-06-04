@@ -1299,7 +1299,7 @@ export function GET() {
                 "eslintTypeScript": "no-throw-literal"
               },
               {
-                "eslint": "only-throw-error"
+                "eslintTypeScript": "only-throw-error"
               }
             ],
             "sourceKind": "inspired",
@@ -3131,14 +3131,14 @@ export function GET() {
           }
         },
         "nursery": {
-          "noEvolvingAny": {
+          "noEvolvingTypes": {
             "deprecated": false,
             "version": "1.6.3",
-            "name": "noEvolvingAny",
-            "link": "https://biomejs.dev/linter/rules/no-evolving-any",
-            "recommended": true,
+            "name": "noEvolvingTypes",
+            "link": "https://biomejs.dev/linter/rules/no-evolving-types",
+            "recommended": false,
             "fixKind": "none",
-            "docs": " Disallow variables from evolving into `any` type through reassignments.\n\n In TypeScript, variables without explicit type annotations can evolve their types based on subsequent assignments.\n This behaviour can accidentally lead to variables with an `any` type, weakening type safety.\n Just like the `any` type, evolved `any` types disable many type-checking rules and should be avoided to maintain strong type safety.\n This rule prevents such cases by ensuring variables do not evolve into `any` type, encouraging explicit type annotations and controlled type evolutions.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n let a;\n ````\n\n ```ts,expect_diagnostic\n const b = [];\n ````\n\n ```ts,expect_diagnostic\n let c = null;\n ````\n\n\n ### Valid\n\n ```ts\n let a: number;\n let b = 1;\n var c : string;\n var d = \"abn\";\n const e: never[] = [];\n const f = [null];\n const g = ['1'];\n const h = [1];\n let workspace: Workspace | null = null;\n ```\n\n"
+            "docs": " Disallow variables from evolving into `any` type through reassignments.\n\n In TypeScript, variables without explicit type annotations can evolve their types based on subsequent assignments.\n\n When  TypeScript's [noImplicitAny](https://www.typescriptlang.org/tsconfig/#noImplicitAny) is disabled,\n variables without explicit type annotations have implicitly the type `any`.\n Just like the `any` type, evolved `any` types disable many type-checking rules and should be avoided to maintain strong type safety.\n This rule prevents such cases by ensuring variables do not evolve into `any` type, encouraging explicit type annotations and controlled type evolutions.\n\n If you enabled TypeScript's [noImplicitAny](https://www.typescriptlang.org/tsconfig/#noImplicitAny) and want to benefit of evolving types,\n then we recommend to disable this rule.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n let a;\n ````\n\n ```ts,expect_diagnostic\n const b = [];\n ````\n\n ```ts,expect_diagnostic\n let c = null;\n ````\n\n\n ### Valid\n\n ```ts\n let a: number;\n let b = 1;\n var c : string;\n var d = \"abn\";\n const e: never[] = [];\n const f = [null];\n const g = ['1'];\n const h = [1];\n let workspace: Workspace | null = null;\n ```\n\n"
           }
         },
         "performance": {
@@ -3223,11 +3223,6 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/no-unused-template-literal",
             "recommended": true,
             "fixKind": "unsafe",
-            "sources": [
-              {
-                "eslintTypeScript": "no-useless-template-literals"
-              }
-            ],
             "docs": " Disallow template literals if interpolation and special-character handling are not needed\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const foo = `bar`\n ```\n\n ```js,expect_diagnostic\n const foo = `bar `\n ```\n\n ### Valid\n\n ```js\n const foo = `bar\n has newline`;\n ```\n\n ```js\n const foo = `\"bar\"`\n ```\n\n ```js\n const foo = `'bar'`\n ```\n"
           },
           "useAsConstAssertion": {

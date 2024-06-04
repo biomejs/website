@@ -68,4 +68,5 @@ it must either have an inherent tabIndex of zero or declare a tabIndex attribute
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
 - [Rule options](/linter/#rule-options)

@@ -72,4 +72,5 @@ Enforce that elements that do not support ARIA roles, states, and properties do 
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
 - [Rule options](/linter/#rule-options)

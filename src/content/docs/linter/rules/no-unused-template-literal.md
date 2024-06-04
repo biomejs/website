@@ -10,9 +10,6 @@ title: noUnusedTemplateLiteral (since v1.0.0)
 - This rule is applied to **TypeScript and TSX** files.
 :::
 
-Sources: 
-- Same as: <a href="https://typescript-eslint.io/rules/no-useless-template-literals" target="_blank"><code>@typescript-eslint/no-useless-template-literals</code></a>
-
 Disallow template literals if interpolation and special-character handling are not needed
 
 ## Examples
@@ -77,4 +74,5 @@ const foo = `'bar'`
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
 - [Rule options](/linter/#rule-options)

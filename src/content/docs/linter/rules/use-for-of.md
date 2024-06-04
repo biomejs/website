@@ -56,4 +56,5 @@ for (let i = 0, j = 0; i < array.length; i++) {
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
 - [Rule options](/linter/#rule-options)

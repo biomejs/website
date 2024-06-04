@@ -90,4 +90,5 @@ Enforce explicit `role` property is not the same as implicit/default role proper
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
 - [Rule options](/linter/#rule-options)
