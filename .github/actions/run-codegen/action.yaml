@@ -36,7 +36,7 @@ runs:
         done
 
         echo "Update cargo to use biome packages for revision ${{ inputs.revision }}"
-        cargo update git+ssh://git@github.com/biomejs/biome.git?branch=main#${{ inputs.revision }}
+        awk -v new_rev="${{ inputs.revision }}" '{gsub(/rev = "[^"]+"/, "rev = \"" new_rev "\"")} 1' codegen/Cargo.toml > temp && mv temp Cargo.toml
 
         for kind in "${kinds[@]}"; do
           echo "Running codegen for $kind"
