@@ -70,7 +70,7 @@ pub(crate) fn generate_default_configuration() -> anyhow::Result<()> {
 
 /// Generates the changelog file: `src/content/docs/internals/changelog.md`
 pub(crate) fn generate_changelog() -> anyhow::Result<()> {
-    let changelog_source_path = project_root().join("biome/CHANGELOG.md");
+    let changelog_source_path = project_root().join("../biome/CHANGELOG.md");
     let changelog_target_path = project_root().join("src/content/docs/internals/changelog.md");
 
     const CHANGELOG_FRONTMATTER: &str = r#"---
