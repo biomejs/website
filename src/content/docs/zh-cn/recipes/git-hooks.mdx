@@ -46,7 +46,7 @@ Git 允许在运行 git 命令的过程中执行 [Git Hooks](https://git-scm.com
     commands:
       check:
         glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
-        run: npx @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true {pushed_files}
+        run: npx @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true {push_files}
   ```
 
 注意你并不需要使用 `glob` 和 `--files-ignore-unknown=true` _Lefthook_。

@@ -46,7 +46,7 @@ Gitリポジトリのルートに`lefthook.yml`というファイルを追加し
     commands:
       check:
         glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
-        run: npx @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true {pushed_files}
+        run: npx @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true {push_files}
   ```
 
 `glob`と`--files-ignore-unknown=true` を併用する必要はありません。
