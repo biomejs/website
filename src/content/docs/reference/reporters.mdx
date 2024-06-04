@@ -38,6 +38,8 @@ lint/suspicious/noDebugger                              20 (20 error(s), 0 warni
 This reporter is experimental and subject to changes in patch releases.
 :::
 
+It emits the summary and diagnostics in a JSON format.
+
 ```shell
 biome ci --reporter=json
 ```
@@ -47,6 +49,8 @@ biome ci --reporter=json
 :::caution
 This reporter is experimental and subject to changes in patch releases.
 :::
+
+Same as `--reporter=json`, it emits the summary and diagnostics in a JSON format, and the output is formatted using the current JSON formatting options (configuration file or defaults).
 
 ```shell
 biome ci --reporter=json-pretty
