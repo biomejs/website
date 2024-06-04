@@ -651,6 +651,12 @@ https://legacy.reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.htm
 
 > Default: `"transparent"`
 
+### `json.linter.enabled`
+
+Enables Biome's formatter for JavaScript (and its super languages) files.
+
+> Default: `true`
+
 ## `json`
 
 Options applied to the JSON files.
@@ -737,6 +743,69 @@ Allowed values:
 - `"all"`: the trailing comma is kept **and** preferred.
 
 > Default: `"none"`
+
+### `json.linter.enabled`
+
+Enables Biome's formatter for JSON (and its super languages) files.
+
+> Default: `true`
+
+
+## `css`
+
+Options applied to the CSS files.
+
+### `css.formatter.enabled`
+
+Enables Biome's formatter for CSS (and its super languages) files.
+
+> Default: `false`
+
+### `css.formatter.indentStyle`
+
+
+The style of the indentation for CSS (and its super languages) files. It can be `"tab"` or `"space"`.
+
+> Default: `"tab"`
+
+
+### `css.formatter.indentSize`
+
+How big the indentation should be for CSS (and its super languages) files.
+
+> Default: `2`
+
+### `css.formatter.indentWidth`
+
+How big the indentation should be for CSS (and its super languages) files.
+
+> Default: `2`
+
+### `css.formatter.lineEnding`
+
+The type of line ending for CSS (and its super languages) files.
+- `"lf"`, Line Feed only (`\n`), common on Linux and macOS as well as inside git repos;
+- `"crlf"`, Carriage Return + Line Feed characters (`\r\n`), common on Windows;
+- `"cr"`, Carriage Return character only (`\r`), used very rarely.
+
+> Default: `"lf"`
+
+### `css.formatter.lineWidth`
+
+How many characters can be written on a single line in JSON (and its super languages) files.
+
+> Default: `80`
+
+### `css.formatter.quoteStyle`
+The type of quote used when representing string literals. It can be `"single"` or `"double"`.
+
+> Default: `"double"`
+
+### `css.linter.enabled`
+
+Enables Biome's formatter for CSS (and its super languages) files.
+
+> Default: `false`
 
 ## `overrides`
 
