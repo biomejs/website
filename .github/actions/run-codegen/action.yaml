@@ -35,8 +35,6 @@ runs:
           fi
         done
 
-        ls -l
-
         echo "Update cargo to use biome packages for revision ${{ inputs.revision }}"
         awk -v new_rev="${{ inputs.revision }}" '{gsub(/rev = "[^"]+"/, "rev = \"" new_rev "\"")} 1' Cargo.toml > temp && mv temp Cargo.toml
 
