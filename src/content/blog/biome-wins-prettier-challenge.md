@@ -139,17 +139,17 @@ biome check --diagnostic-level=error ./src
 
 ## New lint rules, and promoted rule
 
-Biome is a linter too, and it features [177 rules](https://biomejs.dev/linter/rules/)! In this release, some rules are promoted and new ones are available.
+Biome is a linter too, and it features [177 rules](/linter/rules/)! In this release, some rules are promoted and new ones are available.
 
 ### New rules
 
-- [noDefaultExport](https://biomejs.dev/linter/rules/no-default-export)
+- [noDefaultExport](/linter/rules/no-default-export)
 
   ```jsx
   export default function f() {}
   ```
 
-  <pre class="language-text"><code class="language-text">nursery/noDefaultExport.js:1:8 <a href="https://biomejs.dev/linter/rules/no-default-export">lint/nursery/noDefaultExport</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  <pre class="language-text"><code class="language-text">nursery/noDefaultExport.js:1:8 <a href="/linter/rules/no-default-export">lint/nursery/noDefaultExport</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Avoid </span><span style="color: Orange;"><strong>default</strong></span><span style="color: Orange;"> exports.</span>
 
@@ -163,13 +163,13 @@ Biome is a linter too, and it features [177 rules](https://biomejs.dev/linter/ru
 
   </code></pre>
 
-- [noAriaHiddenOnFocusable](https://biomejs.dev/linter/rules/no-aria-hidden-on-focusable)
+- [noAriaHiddenOnFocusable](/linter/rules/no-aria-hidden-on-focusable)
 
   ```jsx
   <div aria-hidden="true" tabIndex="0" />
   ```
 
-  <pre class="language-text"><code class="language-text">nursery/noAriaHiddenOnFocusable.js:1:1 <a href="https://biomejs.dev/linter/rules/no-aria-hidden-on-focusable">lint/nursery/noAriaHiddenOnFocusable</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━
+  <pre class="language-text"><code class="language-text">nursery/noAriaHiddenOnFocusable.js:1:1 <a href="/linter/rules/no-aria-hidden-on-focusable">lint/nursery/noAriaHiddenOnFocusable</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━
 
   <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Disallow </span><span style="color: Tomato;"><strong>aria-hidden=&quot;true&quot;</strong></span><span style="color: Tomato;"> from being set on focusable elements.</span>
 
@@ -185,14 +185,14 @@ Biome is a linter too, and it features [177 rules](https://biomejs.dev/linter/ru
   <strong>  </strong><strong>    │ </strong>     <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span>
   </code></pre>
 
-- [noImplicitAnyLet](https://biomejs.dev/linter/rules/no-implicit-any-let)
+- [noImplicitAnyLet](/linter/rules/no-implicit-any-let)
 
   ```ts
   var a;
   a = 2;
   ```
 
-  <pre class="language-text"><code class="language-text">nursery/noImplicitAnyLet.js:1:5 <a href="https://biomejs.dev/linter/rules/no-implicit-any-let">lint/nursery/noImplicitAnyLet</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  <pre class="language-text"><code class="language-text">nursery/noImplicitAnyLet.js:1:5 <a href="/linter/rules/no-implicit-any-let">lint/nursery/noImplicitAnyLet</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This variable implicitly has the </span><span style="color: Tomato;"><strong>any</strong></span><span style="color: Tomato;"> type.</span>
 
@@ -205,7 +205,7 @@ Biome is a linter too, and it features [177 rules](https://biomejs.dev/linter/ru
 
   </code></pre>
 
-- [useAwait](https://biomejs.dev/linter/rules/use-await)
+- [useAwait](/linter/rules/use-await)
 
   ```jsx
   async function fetchData() {
@@ -214,7 +214,7 @@ Biome is a linter too, and it features [177 rules](https://biomejs.dev/linter/ru
   }
   ```
 
-  <pre class="language-text"><code class="language-text">nursery/useAwait.js:1:1 <a href="https://biomejs.dev/linter/rules/use-await">lint/nursery/useAwait</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  <pre class="language-text"><code class="language-text">nursery/useAwait.js:1:1 <a href="/linter/rules/use-await">lint/nursery/useAwait</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This </span><span style="color: Tomato;"><strong>async</strong></span><span style="color: Tomato;"> function lacks an </span><span style="color: Tomato;"><strong>await</strong></span><span style="color: Tomato;"> expression.</span>
 
@@ -240,13 +240,13 @@ Biome is a linter too, and it features [177 rules](https://biomejs.dev/linter/ru
 
   </code></pre>
 
-- [useValidAriaRole](https://biomejs.dev/linter/rules/use-valid-aria-role)
+- [useValidAriaRole](/linter/rules/use-valid-aria-role)
 
   ```jsx
   <div role="datepicker"></div>
   ```
 
-  <pre class="language-text"><code class="language-text">nursery/useValidAriaRole.js:1:1 <a href="https://biomejs.dev/linter/rules/use-valid-aria-role">lint/nursery/useValidAriaRole</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  <pre class="language-text"><code class="language-text">nursery/useValidAriaRole.js:1:1 <a href="/linter/rules/use-valid-aria-role">lint/nursery/useValidAriaRole</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Enforce that elements with ARIA roles must use a valid, non-abstract ARIA role.</span>
 
@@ -263,13 +263,13 @@ Biome is a linter too, and it features [177 rules](https://biomejs.dev/linter/ru
   <strong>  </strong><strong>    │ </strong>     <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span>
   </code></pre>
 
-- [useRegexLiterals](https://biomejs.dev/linter/rules/use-regex-literals)
+- [useRegexLiterals](/linter/rules/use-regex-literals)
 
 ```jsx
 new RegExp("abc", "u");
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useRegexLiterals.js:1:1 <a href="https://biomejs.dev/linter/rules/use-regex-literals">lint/nursery/useRegexLiterals</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">nursery/useRegexLiterals.js:1:1 <a href="/linter/rules/use-regex-literals">lint/nursery/useRegexLiterals</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use a regular expression literal instead of the </span><span style="color: Orange;"><strong>RegExp</strong></span><span style="color: Orange;"> constructor.</span>
 
@@ -289,13 +289,13 @@ new RegExp("abc", "u");
 
 ### Recommended rules
 
-- [a11y/noAccessKey](https://biomejs.dev/linter/rules/no-access-key)
+- [a11y/noAccessKey](/linter/rules/no-access-key)
 
   ```jsx
   <input type="submit" accessKey="s" value="Submit" />
   ```
 
-  <pre class="language-text"><code class="language-text">a11y/noAccessKey.js:1:22 <a href="https://biomejs.dev/linter/rules/no-access-key">lint/a11y/noAccessKey</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  <pre class="language-text"><code class="language-text">a11y/noAccessKey.js:1:22 <a href="/linter/rules/no-access-key">lint/a11y/noAccessKey</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Avoid the </span><span style="color: Tomato;"><strong>accessKey</strong></span><span style="color: Tomato;"> attribute to reduce inconsistencies between keyboard shortcuts and screen reader keyboard comments.</span>
 
@@ -311,13 +311,13 @@ new RegExp("abc", "u");
   <strong>  </strong><strong>    │ </strong>                     <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span>
   </code></pre>
 
-- [a11y/useHeadingContent](https://biomejs.dev/linter/rules/use-heading-content)
+- [a11y/useHeadingContent](/linter/rules/use-heading-content)
 
   ```jsx
   <h1 />
   ```
 
-  <pre class="language-text"><code class="language-text">a11y/useHeadingContent.js:1:1 <a href="https://biomejs.dev/linter/rules/use-heading-content">lint/a11y/useHeadingContent</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  <pre class="language-text"><code class="language-text">a11y/useHeadingContent.js:1:1 <a href="/linter/rules/use-heading-content">lint/a11y/useHeadingContent</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Provide screen reader accessible content when using </span><span style="color: Tomato;"><strong>heading</strong></span><span style="color: Tomato;">  elements.</span>
 
@@ -329,13 +329,13 @@ new RegExp("abc", "u");
 
   </code></pre>
 
-- [complexity/useSimpleNumberKeys](https://biomejs.dev/linter/rules/use-simple-number-keys)
+- [complexity/useSimpleNumberKeys](/linter/rules/use-simple-number-keys)
 
   ```jsx
   ({ 0x1: 1 });
   ```
 
-  <pre class="language-text"><code class="language-text">complexity/useSimpleNumberKeys.js:1:4 <a href="https://biomejs.dev/linter/rules/use-simple-number-keys">lint/complexity/useSimpleNumberKeys</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━
+  <pre class="language-text"><code class="language-text">complexity/useSimpleNumberKeys.js:1:4 <a href="/linter/rules/use-simple-number-keys">lint/complexity/useSimpleNumberKeys</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━
 
   <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Hexadecimal number literal is not allowed here.</span>
 
@@ -353,23 +353,23 @@ new RegExp("abc", "u");
 
 ### Promoted rules
 
-- [a11y/noInteractiveElementToNoninteractiveRole](https://biomejs.dev/linter/rules/no-interactive-element-to-noninteractive-role)
-- [complexity/noThisInStatic](https://biomejs.dev/linter/rules/no-this-in-static)
-- [complexity/useArrowFunction](https://biomejs.dev/linter/rules/use-arrow-function)
-- [correctness/noEmptyCharacterClassInRegex](https://biomejs.dev/linter/rules/no-empty-character-class-in-regex)
-- [correctness/noInvalidNewBuiltin](https://biomejs.dev/linter/rules/no-invalid-new-builtin)
-- [style/noUselessElse](https://biomejs.dev/linter/rules/no-useless-else)
-- [style/useAsConstAssertion](https://biomejs.dev/linter/rules/use-as-const-assertion)
-- [style/useShorthandAssign](https://biomejs.dev/linter/rules/use-shorthand-assign)
-- [suspicious/noApproximativeNumericConstant](https://biomejs.dev/linter/rules/no-approximative-numeric-constant)
-- [suspicious/noMisleadingInstantiator](https://biomejs.dev/linter/rules/no-misleading-instantiator)
-- [suspicious/noMisrefactoredShorthandAssign](https://biomejs.dev/linter/rules/no-misrefactored-shorthand-assign)
+- [a11y/noInteractiveElementToNoninteractiveRole](/linter/rules/no-interactive-element-to-noninteractive-role)
+- [complexity/noThisInStatic](/linter/rules/no-this-in-static)
+- [complexity/useArrowFunction](/linter/rules/use-arrow-function)
+- [correctness/noEmptyCharacterClassInRegex](/linter/rules/no-empty-character-class-in-regex)
+- [correctness/noInvalidNewBuiltin](/linter/rules/no-invalid-new-builtin)
+- [style/noUselessElse](/linter/rules/no-useless-else)
+- [style/useAsConstAssertion](/linter/rules/use-as-const-assertion)
+- [style/useShorthandAssign](/linter/rules/use-shorthand-assign)
+- [suspicious/noApproximativeNumericConstant](/linter/rules/no-approximative-numeric-constant)
+- [suspicious/noMisleadingInstantiator](/linter/rules/no-misleading-instantiator)
+- [suspicious/noMisrefactoredShorthandAssign](/linter/rules/no-misrefactored-shorthand-assign)
 
 ### Deprecated rules
 
-- [correctness/noNewSymbol](https://biomejs.dev/linter/rules/no-new-symbol)
+- [correctness/noNewSymbol](/linter/rules/no-new-symbol)
 
-The rule is replaced by [correctness/noInvalidNewBuiltin](https://biomejs.dev/linter/rules/no-invalid-new-builtin)
+The rule is replaced by [correctness/noInvalidNewBuiltin](/linter/rules/no-invalid-new-builtin)
 
 ## Homage to our maintainers
 
