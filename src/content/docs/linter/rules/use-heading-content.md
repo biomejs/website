@@ -91,4 +91,5 @@ Enforce that heading elements (h1, h2, etc.) have content and that the content i
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
 - [Rule options](/linter/#rule-options)

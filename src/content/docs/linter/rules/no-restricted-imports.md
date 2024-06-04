@@ -32,4 +32,5 @@ Disallow specified modules when loaded by import or require.
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
 - [Rule options](/linter/#rule-options)

@@ -58,4 +58,5 @@ Non-interactive ARIA roles include `article`, `banner`, `complementary`, `img`, 
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
 - [Rule options](/linter/#rule-options)

@@ -116,4 +116,5 @@ or if the options is set to the "generic", that all will converted to `Array<T>`
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
 - [Rule options](/linter/#rule-options)

@@ -164,4 +164,5 @@ Enforces the usage of the attribute `title` for the element `iframe`.
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
 - [Rule options](/linter/#rule-options)

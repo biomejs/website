@@ -96,4 +96,5 @@ for (let s = "abc"; s === "abc"; s = s.toUpperCase()) {}
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
 - [Rule options](/linter/#rule-options)

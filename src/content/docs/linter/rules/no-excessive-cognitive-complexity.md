@@ -73,4 +73,5 @@ The allowed values range from 1 through 254. The default is 15.
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
 - [Rule options](/linter/#rule-options)
