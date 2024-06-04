@@ -38,20 +38,20 @@ lint规则可能提供自动代码修复。Biome 区分两种类型的修复。
 
 安全修复保证不会改变你的代码的语义。他们可以在没有明确审查的情况下应用。
 
-要应用 _安全修复_，使用 `--apply`：
+要应用 _安全修复_，使用 `--write`：
 
 ```shell
-biome check --apply ./src
+biome check --write ./src
 ```
 
 ### 不安全的修复
 
 不安全的修复可能改变你的程序的语义。因此，建议手动审查更改。
 
-要应用 _不安全的修复_，使用 `--apply-unsafe`：
+要应用 _不安全的修复_，使用 `--write --unsafe`：
 
 ```shell
-biome check --apply-unsafe ./src
+biome check --write --unsafe ./src
 ```
 
 ## 推荐的规则

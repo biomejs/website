@@ -38,20 +38,20 @@ As regras de Lint podem fornecer correções automáticas de código. O Biome cl
 
 As correções seguras não alteram a semântica do seu código. Elas podem ser aplicadas sem uma análise explicita.
 
-Para aplicar _correções seguras_, utilize o parâmetro `--apply`:
+Para aplicar _correções seguras_, utilize o parâmetro `--write`:
 
 ```shell
-biome check --apply ./src
+biome check --write ./src
 ```
 
 ### Correções não seguras
 
 Correções não seguras podem alterar a semântica do seu código. Portanto, é aconselhável revisar manualmente as alterações.
 
-Para aplicar _correções não seguras_, utilize o parâmetro `--apply-unsafe`:
+Para aplicar _correções não seguras_, utilize o parâmetro `--write --unsafe`:
 
 ```shell
-biome check --apply-unsafe ./src
+biome check --write --unsafe ./src
 ```
 
 ## Regras recomendadas

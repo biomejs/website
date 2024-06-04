@@ -34,7 +34,7 @@ Some examples of _Lefthook_ configurations:
     commands:
       check:
         glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
-        run: npx @biomejs/biome check --apply --no-errors-on-unmatched --files-ignore-unknown=true {staged_files} && git update-index --again
+        run: npx @biomejs/biome check --write --no-errors-on-unmatched --files-ignore-unknown=true {staged_files} && git update-index --again
   ```
 
   `git update-index --again` adds again the staged files.
@@ -94,11 +94,11 @@ Here's some example of commands that you could find useful when running the Git 
     // Run Biome on staged files that have the following extensions: js, ts, jsx, tsx, json and jsonc
     "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}": [
       "biome check --files-ignore-unknown=true", // Check formatting and lint
-      "biome check --apply --no-errors-on-unmatched", // Format, sort imports, lint, and apply safe fixes
-      "biome check --apply --organize-imports-enabled=false --no-errors-on-unmatched", // format and apply safe fixes
-      "biome check --apply-unsafe --no-errors-on-unmatched", // Format, sort imports, lints, apply safe/unsafe fixes
+      "biome check --write --no-errors-on-unmatched", // Format, sort imports, lint, and apply safe fixes
+      "biome check --write --organize-imports-enabled=false --no-errors-on-unmatched", // format and apply safe fixes
+      "biome check --write --unsafe --no-errors-on-unmatched", // Format, sort imports, lints, apply safe/unsafe fixes
       "biome format --write --no-errors-on-unmatched", // Format
-      "biome lint --apply --no-errors-on-unmatched", // Lint and apply safe fixes
+      "biome lint --write --no-errors-on-unmatched", // Lint and apply safe fixes
     ],
     // Alternatively you can pass every files and ignore unknown extensions
     "*": [
@@ -129,7 +129,7 @@ Some examples of configuration:
 - Format, lint, and apply safe code fixes before committing
 
   ```shell title=".husky/pre-commit"
-  git-format-staged --formatter 'biome check --apply --files-ignore-unknown=true --no-errors-on-unmatched \"{}\"' .
+  git-format-staged --formatter 'biome check --write --files-ignore-unknown=true --no-errors-on-unmatched \"{}\"' .
   ```
 
 
@@ -157,7 +157,7 @@ repos:
         additional_dependencies: ["@biomejs/biome@1.4.1"]
 ```
 
-This will run `biome check --apply` when you run `git commit`.
+This will run `biome check --write` when you run `git commit`.
 
 Note that you must specify which version of Biome to use thanks to the `additional_dependencies` option.
 [pre-commit](https://pre-commit.com/) separately installs tools and need to know which one to install.
@@ -174,7 +174,7 @@ repos:
     hooks:
       - id: local-biome-check
         name: biome check
-        entry: npx @biomejs/biome check --apply --files-ignore-unknown=true --no-errors-on-unmatched
+        entry: npx @biomejs/biome check --write --files-ignore-unknown=true --no-errors-on-unmatched
         language: system
         types: [text]
         files: "\\.(jsx?|tsx?|c(js|ts)|m(js|ts)|d\\.(ts|cts|mts)|jsonc?)$"
@@ -212,7 +212,7 @@ Some examples of shells scripts:
     exit 1;
   fi
 
-  npx @biomejs/biome check --apply --staged --files-ignore-unknown=true --no-errors-on-unmatched
+  npx @biomejs/biome check --write --staged --files-ignore-unknown=true --no-errors-on-unmatched
 
   git update-index --again
   ```
