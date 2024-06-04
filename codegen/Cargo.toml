@@ -4,6 +4,11 @@ version     = "0.1.0"
 edition     = "2021"
 description = "Crate used to generate pages from the Rust source code of Biome"
 publish     = false
+workspace = "../"
+
+[[bin]]
+name = "codegen"
+path = "src/main.rs"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dependencies]
