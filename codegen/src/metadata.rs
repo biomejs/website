@@ -273,7 +273,10 @@ impl RegistryVisitor<CssLanguage> for Metadata {
 }
 
 pub fn generate_json_metadata() -> anyhow::Result<()> {
+    println!("Project root {}", project_root().display());
     let metadata_file = project_root().join("src/pages/metadata/rules.json.js");
+    println!("Metadata file {}", metadata_file.display());
+    
     if metadata_file.exists() {
         fs::remove_file(&metadata_file)?;
     }

@@ -1,6 +1,7 @@
 [build]
 publish = "dist/"
 command = '''
+      rm -rf ./biome
       git clone https://github.com/biomejs/biome.git --depth 1 &&
       pnpm i --frozen-lockfile &&
       ([ -n "$(find ./biome/packages/@biomejs/wasm-web -maxdepth 1 -type f -name '*.wasm' -print -quit)" ] &&
