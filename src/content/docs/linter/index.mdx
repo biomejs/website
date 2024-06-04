@@ -129,7 +129,7 @@ The following configuration disables the recommended `noDebugger` rule and enabl
 
 The `warn` severity is useful in cases where there's a refactor going on and there's a need to make the CI pass. The diagnostic message is yellow. You can use `--error-on-warnings` to exit with an error code when a rule configured with `warn` is triggered.
 
-The `info` severity won't affect the CLI at all, even when `--error-on-warnings` is passed. The diagnostic message is blue.
+The `info` severity won't affect the exit status code of the CLI, even when `--error-on-warnings` is passed. The diagnostic message color is blue.
 
 ```json title="biome.json"
 {
