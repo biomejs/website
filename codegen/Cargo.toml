@@ -6,7 +6,7 @@ description = "Crate used to generate pages from the Rust source code of Biome"
 publish     = false
 
 [[bin]]
-name = "biome"
+name = "codegen"
 path = "src/main.rs"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
