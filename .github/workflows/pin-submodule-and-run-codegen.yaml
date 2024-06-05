@@ -80,7 +80,7 @@ jobs:
         name: Install pnpm
       - name: Update playground
         run: |
-          pnpm i https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@${{ GITHUB_SHA }}
+          pnpm i https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@${{ github.ref }}
       - name: Create pull request
         id: create-pull-request
         uses: peter-evans/create-pull-request@6d6857d36972b65feb161a90e484f2984215f83e # v6.0.5
