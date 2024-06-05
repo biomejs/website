@@ -41,6 +41,10 @@ jobs:
           kinds: metadata, rules
           version: "0.0.0"
           revision: ${{ env.COMMIT_ID }}
+      - name: Deploy playground
+        uses: ./.github/actions/build-playground
+        with:
+            revision: ${{ env.COMMIT_ID }}
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
