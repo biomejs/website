@@ -4,6 +4,9 @@ inputs:
   revision:
     description: The commit ID of the latest revision
     required: true
+  gh_token:
+    description: GitHub token
+    required: true
 
 runs:
   using: composite
@@ -38,7 +41,7 @@ runs:
       run: pnpx pkg-pr-new publish
 
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ inputs.gh_token }}
         RUST_LOG: info
         RUST_BACKTRACE: "1"
         CARGO_INCREMENTAL: "1"

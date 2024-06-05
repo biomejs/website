@@ -45,6 +45,7 @@ jobs:
         uses: ./.github/actions/build-playground
         with:
             revision: ${{ env.COMMIT_ID }}
+            gh_token: ${{ secrets.GITHUB_TOKEN}}
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
