@@ -73,6 +73,8 @@ jobs:
       - name: Publish
         working-directory: biome/packages/@biomejs/wasm-web
         run: pnpx pkg-pr-new publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: pnpm/action-setup@v4
         name: Install pnpm
