@@ -71,7 +71,7 @@ jobs:
         run: node update-package-name.mjs
 
       - name: Publish
-        working-directory: packages/@biomejs/wasm-web
+        working-directory: biome/packages/@biomejs/wasm-web
         run: pnpx pkg-pr-new publish
 
       - uses: pnpm/action-setup@v4
