@@ -1,69 +1,214 @@
 //! Auto generate markdown documentation for the configuration schema.
 use biome_configuration::PartialConfiguration;
-use schemars::gen::{SchemaGenerator, SchemaSettings};
-use schemars::schema::{RootSchema, Schema, SchemaObject};
+use schemars::schema::{InstanceType, RootSchema, Schema, SchemaObject, SingleOrVec};
+use schemars::schema_for;
+use serde_json::Value;
 use std::collections::VecDeque;
-use std::fs::File;
+use std::fmt::{Debug, Display, Formatter};
+use std::fs;
 use std::io::Write;
 
-use schemars::schema_for;
-use serde_json::{to_string_pretty, Value};
-
+#[derive(Default)]
 struct Queue<'a> {
     /// Queue of type names and definitions that need to be generated
-    queue: VecDeque<(&'a str, &'a SchemaObject)>,
+    queue: VecDeque<(String, &'a SchemaObject)>,
 }
 
-pub fn top_level_object(
-    buffer: &mut File,
-    root_schema: &RootSchema,
-    name: &String,
-    schema_object: &Schema,
+impl<'a> Queue<'a> {
+    fn push_back(&mut self, name: String, schema: &'a SchemaObject) {
+        self.queue.push_back((name, schema))
+    }
+
+    fn pop_front(&mut self) -> Option<(String, &'a SchemaObject)> {
+        self.queue.pop_front()
+    }
+}
+
+impl<'a> Display for Queue<'a> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        for (name, _) in &self.queue {
+            f.write_str(&name)?;
+        }
+        Ok(())
+    }
+}
+
+impl<'a> Debug for Queue<'a> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        std::fmt::Display::fmt(self, f)
+    }
+}
+
+struct Header {
+    level: u8,
+}
+
+#[derive(Clone, Default)]
+struct Title {
+    prefix: String,
+}
+
+impl Display for Title {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        f.write_str("`")?;
+        f.write_str(&self.prefix)?;
+        f.write_str("`")?;
+
+        Ok(())
+    }
+}
+
+impl Title {
+    fn add_prefix(&self, prefix: impl Into<String>) -> Title {
+        let prefix = if self.prefix.is_empty() {
+            prefix.into()
+        } else {
+            format!("{}.{}", self.prefix, prefix.into())
+        };
+        Title { prefix }
+    }
+}
+
+impl Default for Header {
+    fn default() -> Self {
+        Self { level: 3 }
+    }
+}
+
+impl Display for Header {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        for _i in 0..self.level {
+            f.write_str("#")?;
+        }
+        Ok(())
+    }
+}
+
+fn top_level_object<'q, 'a>(
+    queue: &'q mut Queue<'a>,
+    buffer: &mut Vec<u8>,
+    root_schema: &'a RootSchema,
+    schema_object: &'a SchemaObject,
+    header: &'q mut Header,
+    title: Title,
 ) -> anyhow::Result<()> {
-    writeln!(buffer, "## `{name}`")?;
-    writeln!(buffer)?;
-    let mut queue = VecDeque::new();
-    let schema_object = schema_object.clone().into_object();
-    let metadata = schema_object.metadata;
+    let metadata = schema_object.metadata.as_ref();
+
     if let Some(metadata) = metadata {
-        if let Some(description) = metadata.description {
+        if let Some(description) = metadata.description.as_ref() {
             writeln!(buffer, "{description}")?;
             writeln!(buffer)?;
         }
     }
 
-    let reference = schema_object
-        .subschemas
-        .and_then(|validation| validation.any_of)
-        .and_then(|any_of| any_of.into_iter().find(|any_of| any_of.is_ref()))
-        .map(|schema| schema.into_object())
-        .and_then(|schema| schema.reference);
+    if let Some(object) = schema_object.object.as_ref() {
+        for (prop_name, prop_schema) in &object.properties {
+            let key = prop_name.trim_start_matches("#/definitions/");
+            match &root_schema.definitions.get(key) {
+                Some(Schema::Object(schema)) => {
+                    queue.push_back(key.to_string(), schema);
+                    top_level_object(queue, buffer, root_schema, schema, header, title.clone())?
+                }
+                None => {
+                    let object = prop_schema.clone().into_object();
 
-    if let Some(reference) = reference {
-        dbg!(&reference);
-        dbg!(&root_schema.definitions.keys());
+                    if let Some(metadata) = &object.metadata {
+                        let new_title = title.add_prefix(key);
+                        writeln!(buffer, "{header} {new_title}")?;
+
+                        writeln!(buffer)?;
+
+                        if let Some(description) = metadata.description.as_ref() {
+                            writeln!(buffer, "{description}")?;
+                            writeln!(buffer)?;
+                        }
+                    }
+                    if let Some(instance_type) = &object.instance_type {
+                        match instance_type {
+                            SingleOrVec::Single(ty) => {
+                                if !ty.as_ref().eq(&InstanceType::Null) {
+                                    writeln!(buffer, "> **Type**: {ty:?}")?;
+                                }
+                            }
+                            SingleOrVec::Vec(tys) => {
+                                for ty in tys {
+                                    if !ty.eq(&InstanceType::Null) {
+                                        writeln!(buffer, "> **Type**: {ty:?}")?;
+                                    }
+                                }
+                            }
+                        }
+                        writeln!(buffer)?;
+                    }
+                    let references = pull_sub_schemas(&object);
+                    if let Some(references) = references {
+                        push_definitions(queue, references, root_schema);
+                        while let Some((_name, schema)) = queue.pop_front() {
+                            let new_title = title.add_prefix(key);
+                            top_level_object(queue, buffer, root_schema, schema, header, new_title)?
+                        }
+                    }
+                }
+                _ => {
+                    unimplemented!("To implement.")
+                }
+            }
+        }
+    }
+
+    let references = pull_sub_schemas(&schema_object);
+
+    if let Some(references) = references {
+        push_definitions(queue, references, root_schema);
+        while let Some((_name, schema)) = queue.pop_front() {
+            top_level_object(queue, buffer, root_schema, schema, header, title.clone())?
+        }
+    }
+
+    Ok(())
+}
+
+fn push_definitions<'q, 'a>(
+    queue: &'q mut Queue<'a>,
+    references: Vec<String>,
+    root_schema: &'a RootSchema,
+) {
+    for reference in references {
         let key = reference.trim_start_matches("#/definitions/");
         match root_schema.definitions.get(key) {
             Some(Schema::Object(schema)) => {
-                queue.push_back(schema);
+                queue.push_back(key.to_string(), schema);
             }
-            None => {},
+            None => {}
             _ => {
                 unimplemented!("To implement.")
             }
         }
     }
-
-    dbg!(&queue);
-    Ok(())
 }
 
-pub fn generate_configuration() -> anyhow::Result<()> {
-    let root = schema_for!(PartialConfiguration);
-    let mut buffer = File::create("src/content/docs/reference/configuration_v2.mdx")?;
-    writeln!(buffer, "{}", generate_markdown_hearer())?;
+fn pull_sub_schemas(schema_object: &SchemaObject) -> Option<Vec<String>> {
+    let result: Option<Vec<_>> = schema_object
+        .subschemas
+        .as_ref()
+        .and_then(|validation| validation.any_of.as_ref())
+        .map(|any_of| {
+            let res = any_of
+                .into_iter()
+                .filter(|any_of| any_of.is_ref())
+                .map(|any_of| any_of.clone().into_object())
+                .map(|schema| schema.reference.unwrap_or_default())
+                .collect();
 
-    dbg!(&root.schema.metadata);
+            res
+        });
+
+    result
+}
+
+pub fn generate_buffer(buffer: &mut Vec<u8>) -> anyhow::Result<()> {
+    let root = schema_for!(PartialConfiguration);
+    writeln!(buffer, "{}", generate_markdown_hearer())?;
 
     writeln!(
         buffer,
@@ -73,54 +218,36 @@ pub fn generate_configuration() -> anyhow::Result<()> {
     writeln!(buffer)?;
 
     if let Some(object) = &root.schema.object {
-        for (property_name, property_schema) in &object.properties {
-            top_level_object(&mut buffer, &root, property_name, property_schema)?;
+        let iter = object.properties.iter().enumerate();
+        for (_index, (property_name, property_schema)) in iter {
+            let mut queue = Queue::default();
+            let schema_object = property_schema.clone().into_object();
+            writeln!(buffer, "## `{property_name}`")?;
+            writeln!(buffer)?;
+            let mut header = Header::default();
+            let title = Title {
+                prefix: property_name.to_string(),
+            };
+            top_level_object(
+                &mut queue,
+                buffer,
+                &root,
+                &schema_object,
+                &mut header,
+                title,
+            )?;
         }
     }
 
-    // let metadataschema.schema.metadata;
+    Ok(())
+}
 
-    // let json_schema = to_string_pretty(&schema)?;
-    // let schema: Value = serde_json::from_str(&json_schema)?;
+pub fn generate_configuration() -> anyhow::Result<()> {
+    let mut buffer = Vec::new();
 
-    // if let Some(schema_object) = schema.as_object() {
-    //     if let Some(properties) = schema_object.get("properties").and_then(Value::as_object) {
-    //         for (name, details) in properties {
-    //             writeln!(markdown, "## `{}`", name)?;
-    //             writeln!(markdown)?;
-    //             if let Some(description) = details.get("description").and_then(Value::as_str) {
-    //                 if description.to_string().contains("```json") {
-    //                     let detail = format_code_block(description)?;
-    //                     writeln!(markdown, "{}", detail)?;
-    //                 } else {
-    //                     writeln!(markdown, "{}", description)?;
-    //                 }
-    //             }
-    //             if let Some(details) = details.get("anyOf").and_then(Value::as_array) {
-    //                 for detail in details {
-    //             dbg!(&detail);
-    //                     let value = detail.get("description").and_then(Value::as_str);
-    //                     dbg!(value);
-    //                     // for (name, details) in detail {
-    //                     //     writeln!(markdown, "### `{}`", name)?;
-    //                     //     writeln!(markdown)?;
-    //                     //     if let Some(description) = details.get("description").and_then(Value::as_str) {
-    //                     //         if description.to_string().contains("```json") {
-    //                     //             let detail = format_code_block(description)?;
-    //                     //             writeln!(markdown, "{}", detail)?;
-    //                     //         } else {
-    //                     //             writeln!(markdown, "{}", description)?;
-    //                     //         }
-    //                     //     }
-    //                     //     writeln!(markdown, "\n")?;
-    //                     // }
-    //                 }
-    //
-    //             }
-    //             writeln!(markdown, "\n")?;
-    //         }
-    //     }
-    // }
+    generate_buffer(&mut buffer)?;
+
+    fs::write("src/content/docs/reference/configuration_v2.mdx", buffer)?;
 
     Ok(())
 }
@@ -211,31 +338,13 @@ fn format_list_item(item: &str, needs_bullet_point: bool) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::path::PathBuf;
 
     #[test]
     fn test_format_code_block() {
-        let description = r#"```json title="biome.json" { "key": "value" } ```"#;
-        let expected = r#"```json title="biome.json"
-{
-  "key": "value"
-}
-"#;
-        assert_eq!(format_code_block(description), expected);
-
-        let description =
-            r#"```json title="config.json" { "key1": "value1", "key2": "value2" } ```"#;
-        let expected = r#"```json title="config.json"
-{
-  "key1": "value1",
-  "key2": "value2"
-}
-"#;
-        assert_eq!(format_code_block(description), expected);
-
-        let description = "This is a test string without JSON.";
-        assert_eq!(format_code_block(description), description);
-
-        let description = r#"```json title="invalid.json" { invalid JSON } ```"#;
-        assert_eq!(format_code_block(description), description);
+        let mut buffer = vec![];
+        generate_buffer(&mut buffer).unwrap();
+        let string = String::from_utf8(buffer).unwrap();
+        println!("{string}")
     }
 }

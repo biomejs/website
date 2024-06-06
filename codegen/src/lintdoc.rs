@@ -288,7 +288,7 @@ fn generate_group(
                     FixKind::Safe => {
                         properties.push_str("<span class='inline-icon'><Icon name=\"seti:config\" label=\"The rule has a safe fix\" size=\"1.2rem\"  /></span>");
                     }
-                    FixKind::Unsafe=> {
+                    FixKind::Unsafe => {
                         properties.push_str("<span class='inline-icon'><Icon name=\"warning\" label=\"The rule has an unsafe fix\" size=\"1.2rem\" /></span>");
                     }
                     FixKind::None => {}
@@ -452,7 +452,10 @@ fn generate_rule(payload: GenRule) -> Result<Vec<Event<'static>>> {
     writeln!(content, "## Related links")?;
     writeln!(content)?;
     writeln!(content, "- [Disable a rule](/linter/#disable-a-lint-rule)")?;
-    writeln!(content, "- [Configure the rule fix](/linter#configure-the-rule-fix)")?;
+    writeln!(
+        content,
+        "- [Configure the rule fix](/linter#configure-the-rule-fix)"
+    )?;
     writeln!(content, "- [Rule options](/linter/#rule-options)")?;
 
     let dashed_rule = Case::Kebab.convert(rule);
