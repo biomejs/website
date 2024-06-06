@@ -1,38 +1,26 @@
 [build]
-publish = "dist/"
-command = '''
-      rm -rf ./biome
-      git clone https://github.com/biomejs/biome.git --depth 1 &&
-      pnpm i --frozen-lockfile &&
-      ([ -n "$(find ./biome/packages/@biomejs/wasm-web -maxdepth 1 -type f -name '*.wasm' -print -quit)" ] &&
-      echo "Skip WASM build" ||
-      (npm i -g wasm-pack && pnpm build:wasm-dev)) &&
-      pnpm build:js
-      '''
+	command = "pnpm i --frozen-lockfile && pnpm build:js"
+	publish = "dist/"
 
 [[headers]]
-for = "/assets/*"
-[headers.values]
-#  Multi-value headers are expressed with multi-line strings
-cache-control = '''
-      public,
-      max-age=31536000000,
-      immutable
-      '''
+	for = "/assets/*"
+	[headers.values]
+		#  Multi-value headers are expressed with multi-line strings
+		cache-control = '''
+			public,
+			max-age=31536000000,
+			immutable
+			'''
 
 [[headers]]
-for = "/_astro/*"
-[headers.values]
-#  Multi-value headers are expressed with multi-line strings
-cache-control = '''
-      public,
-      max-age=31536000000,
-      immutable
-      '''
-
-# Temporarly disable plugin
-#[[plugins]]
-#package = "./scripts/netlify/plugins/wasm-cache"
+	for = "/_astro/*"
+	[headers.values]
+		#  Multi-value headers are expressed with multi-line strings
+		cache-control = '''
+			public,
+			max-age=31536000000,
+			immutable
+			'''
 
 [context.deploy-preview.environment]
-SKIP_OG = "true"
+	SKIP_OG = "true"

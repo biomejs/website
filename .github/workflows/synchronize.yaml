@@ -1,0 +1,76 @@
+name: Synchronize
+on:
+  workflow_dispatch:
+    inputs:
+      commit-id:
+        description: Commit ID of biomejs/biome
+        required: true
+        type: string
+  repository_dispatch:
+    types: [biome-push-on-main-event]
+
+permissions:
+  actions: write
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  synchronize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+
+      - name: Get commit ID (workflow dispatch, empty)
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.commit-id == '' }}
+        run: echo "You must provide a full commit ID." && exit 1
+
+      - name: Get commit ID (workflow dispatch, non-empty)
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.commit-id != '' }}
+        run: echo "COMMIT_ID=${{ github.event.inputs.commit-id }}" >> $GITHUB_ENV
+
+      - name: Get commit ID (repository dispatch)
+        if: ${{ github.event_name == 'repository_dispatch'}}
+        run: echo "COMMIT_ID=${{ github.event.client_payload.event.head_commit.id }}" >> "$GITHUB_ENV"
+
+      - name: Get short commit ID
+        run: echo "SHORT_COMMIT_ID=$(echo ${{ env.COMMIT_ID }} | cut -c 1-7)" >> "$GITHUB_ENV"
+
+      - name: Install pnpm
+        run: corepack enable
+
+      - name: Setup node
+        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Update revision
+        run: ./scripts/update-revision.sh '${{ env.COMMIT_ID }}'
+
+      - name: Run codegen
+        uses: ./.github/actions/run-codegen
+        with:
+          kinds: metadata, rules
+          version: "0.0.0"
+
+      - name: Create pull request
+        id: create-pull-request
+        uses: peter-evans/create-pull-request@6d6857d36972b65feb161a90e484f2984215f83e # v6.0.5
+        with:
+          branch: "chore/synchronize-${{ github.event_name }}"
+          author: "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
+          title: "chore(ci): synchronize to `${{ env.SHORT_COMMIT_ID }}`"
+          commit-message: "chore(ci): synchronize to `${{ env.SHORT_COMMIT_ID }}`"
+          body: "Synchronize to [`${{ env.SHORT_COMMIT_ID }}`](https://github.com/biomejs/biome/commit/${{ env.COMMIT_ID }})."
+          labels: CI-Synchronize
+
+      - name: Auto merge
+        if: ${{ steps.create-pull-request.outputs.pull-request-operation != 'closed' && steps.create-pull-request.outputs.pull-request-number != '' }}
+        run: gh pr merge --squash --auto --delete-branch ${{ steps.create-pull-request.outputs.pull-request-number }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
