@@ -167,13 +167,14 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
     let mut recommended_rules = String::new();
 
     let LintRulesVisitor {
-        mut groups,
+        groups,
         number_or_rules,
     } = visitor;
 
     let nursery_rules = groups
-        .remove("nursery")
-        .expect("Expected nursery group to exist");
+        .get("nursery")
+        .expect("Expected nursery group to exist")
+        .clone();
 
     writeln!(
         reference_buffer,
