@@ -1,6 +1,7 @@
 # [`biomejs.dev`](https://biomejs.dev/)
 
 [![Pin submodule and run codegen](https://github.com/biomejs/website/actions/workflows/pin-submodule-and-run-codegen.yaml/badge.svg?branch=main)](https://github.com/biomejs/website/actions/workflows/pin-submodule-and-run-codegen.yaml)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/efc84020-6a75-479a-bae3-df2e458d5c44/deploy-status?branch=main)](https://app.netlify.com/sites/biomejs/deploys)
 
 The website source of [biomejs/biome](https://github.com/biomejs/biome).
 
