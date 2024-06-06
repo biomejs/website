@@ -1,5 +1,5 @@
 [build]
-	command = "pnpm i --frozen-lockfile && pnpm build:js"
+	command = "pnpm i --frozen-lockfile && pnpm build"
 	publish = "dist/"
 
 [[headers]]
