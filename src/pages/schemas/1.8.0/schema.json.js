@@ -79,7 +79,7 @@ export function GET() {
 						description:
 							"Enforce that the accessKey attribute is not used on any HTML element.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -87,7 +87,7 @@ export function GET() {
 						description:
 							'Enforce that aria-hidden="true" is not set on focusable elements.',
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -95,14 +95,14 @@ export function GET() {
 						description:
 							"Enforce that elements that do not support ARIA roles, states, and properties do not have those attributes.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
 					noAutofocus: {
 						description: "Enforce that autoFocus prop is not used on elements.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -110,14 +110,14 @@ export function GET() {
 						description:
 							'Disallow target="_blank" attribute without rel="noreferrer"',
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
 					noDistractingElements: {
 						description: "Enforces that no distracting elements are used.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -125,7 +125,7 @@ export function GET() {
 						description:
 							"The scope prop should be used only on \\<th> elements.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -133,7 +133,7 @@ export function GET() {
 						description:
 							"Enforce that non-interactive ARIA roles are not assigned to interactive HTML elements.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -141,7 +141,7 @@ export function GET() {
 						description:
 							"Enforce that interactive ARIA roles are not assigned to non-interactive HTML elements.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -149,7 +149,7 @@ export function GET() {
 						description:
 							"Enforce that tabIndex is not assigned to non-interactive HTML elements.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -157,7 +157,7 @@ export function GET() {
 						description:
 							"Prevent the usage of positive integers on tabIndex property",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -173,7 +173,7 @@ export function GET() {
 						description:
 							"Enforce explicit role property is not the same as implicit/default role property on an element.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -201,7 +201,7 @@ export function GET() {
 						description:
 							"Enforce that anchors have content and that the content is accessible to screen readers.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -209,7 +209,7 @@ export function GET() {
 						description:
 							"Enforce that tabIndex is assigned to non-interactive HTML elements with aria-activedescendant.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -287,7 +287,7 @@ export function GET() {
 					useValidAriaProps: {
 						description: "Ensures that ARIA properties aria-* are all valid.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -295,9 +295,7 @@ export function GET() {
 						description:
 							"Elements with ARIA roles must use a valid, non-abstract ARIA role.",
 						anyOf: [
-							{
-								$ref: "#/definitions/RuleFixConfiguration_for_ValidAriaRoleOptions",
-							},
+							{ $ref: "#/definitions/ValidAriaRoleConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -334,7 +332,7 @@ export function GET() {
 						description:
 							"Disallow primitive type aliases and misleading types.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -365,7 +363,7 @@ export function GET() {
 					noExtraBooleanCast: {
 						description: "Disallow unnecessary boolean casts",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -380,7 +378,7 @@ export function GET() {
 						description:
 							"Disallow unclear usage of consecutive space characters in regular expression literals",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -395,7 +393,7 @@ export function GET() {
 					noThisInStatic: {
 						description: "Disallow this and super in static contexts.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -409,7 +407,7 @@ export function GET() {
 					noUselessConstructor: {
 						description: "Disallow unnecessary constructors.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -417,28 +415,28 @@ export function GET() {
 						description:
 							"Disallow empty exports that don't change anything in a module file.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
 					noUselessFragments: {
 						description: "Disallow unnecessary fragments",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
 					noUselessLabel: {
 						description: "Disallow unnecessary labels.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
 					noUselessLoneBlockStatements: {
 						description: "Disallow unnecessary nested block statements.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -446,14 +444,14 @@ export function GET() {
 						description:
 							"Disallow renaming import, export, and destructured assignments to the same name.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
 					noUselessSwitchCase: {
 						description: "Disallow useless case in switch statements.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -461,21 +459,21 @@ export function GET() {
 						description:
 							"Disallow ternary operators when simpler alternatives exist.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
 					noUselessThisAlias: {
 						description: "Disallow useless this aliasing.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
 					noUselessTypeConstraint: {
 						description: "Disallow using any or unknown as type constraint.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -501,7 +499,7 @@ export function GET() {
 					useArrowFunction: {
 						description: "Use arrow functions over function expressions.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -509,7 +507,7 @@ export function GET() {
 						description:
 							"Promotes the use of .flatMap() when map().flat() are used together.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -517,7 +515,7 @@ export function GET() {
 						description:
 							"Enforce the usage of a literal access to properties over computed property access.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -525,7 +523,7 @@ export function GET() {
 						description:
 							"Enforce using concise optional chain instead of chained logical expressions.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -533,7 +531,7 @@ export function GET() {
 						description:
 							"Enforce the use of the regular expression literals instead of the RegExp constructor if possible.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -541,14 +539,14 @@ export function GET() {
 						description:
 							"Disallow number literal object member names which are not base10 or uses underscore as separator",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
 					useSimplifiedLogicExpression: {
 						description: "Discard redundant terms from logical expressions.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -588,6 +586,12 @@ export function GET() {
 						type: "string",
 						enum: ["generic"],
 					},
+				],
+			},
+			ConsistentArrayTypeConfiguration: {
+				anyOf: [
+					{ $ref: "#/definitions/RulePlainConfiguration" },
+					{ $ref: "#/definitions/RuleWithConsistentArrayTypeOptions" },
 				],
 			},
 			ConsistentArrayTypeOptions: {
@@ -635,7 +639,7 @@ export function GET() {
 						description:
 							"Prevents from having const variables being re-assigned.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -650,7 +654,7 @@ export function GET() {
 						description:
 							"Disallow the use of Math.min and Math.max to clamp a value where the result itself is constant.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -679,7 +683,7 @@ export function GET() {
 					noFlatMapIdentity: {
 						description: "Disallow to use unnecessary callback on flatMap.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -711,7 +715,7 @@ export function GET() {
 						description:
 							"Disallow new operators with global non-constructor functions.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -726,7 +730,7 @@ export function GET() {
 					noNewSymbol: {
 						description: "Disallow new operators with the Symbol object.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -741,7 +745,7 @@ export function GET() {
 						description:
 							"Disallow \\8 and \\9 escape sequences in string literals.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -779,14 +783,14 @@ export function GET() {
 						description:
 							"Disallow comparison of expressions modifying the string case with non-compliant value.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
 					noSwitchDeclarations: {
 						description: "Disallow lexical declarations in switch clauses.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -801,7 +805,7 @@ export function GET() {
 					noUnnecessaryContinue: {
 						description: "Avoid using unnecessary continue.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -838,28 +842,28 @@ export function GET() {
 					noUnusedImports: {
 						description: "Disallow unused imports.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
 					noUnusedLabels: {
 						description: "Disallow unused labels.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
 					noUnusedPrivateClassMembers: {
 						description: "Disallow unused private class members",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
 					noUnusedVariables: {
 						description: "Disallow unused variables.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -867,7 +871,7 @@ export function GET() {
 						description:
 							"This rules prevents void elements (AKA self-closing elements) from having children.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -886,7 +890,7 @@ export function GET() {
 					useArrayLiterals: {
 						description: "Disallow Array constructors.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -909,7 +913,7 @@ export function GET() {
 					useIsNan: {
 						description: "Require calls to isNaN() when checking for NaN.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -978,9 +982,7 @@ export function GET() {
 					indentWidth: {
 						description:
 							"The size of the indentation applied to CSS (and its super languages) files. Default to 2.",
-						type: ["integer", "null"],
-						format: "uint8",
-						minimum: 0.0,
+						anyOf: [{ $ref: "#/definitions/IndentWidth" }, { type: "null" }],
 					},
 					lineEnding: {
 						description:
@@ -1190,9 +1192,7 @@ export function GET() {
 					indentSize: {
 						description:
 							"The size of the indentation, 2 by default (deprecated, use `indent-width`)",
-						type: ["integer", "null"],
-						format: "uint8",
-						minimum: 0.0,
+						anyOf: [{ $ref: "#/definitions/IndentWidth" }, { type: "null" }],
 					},
 					indentStyle: {
 						description: "The indent style.",
@@ -1203,9 +1203,7 @@ export function GET() {
 					},
 					indentWidth: {
 						description: "The size of the indentation, 2 by default",
-						type: ["integer", "null"],
-						format: "uint8",
-						minimum: 0.0,
+						anyOf: [{ $ref: "#/definitions/IndentWidth" }, { type: "null" }],
 					},
 					lineEnding: {
 						description: "The type of line ending.",
@@ -1265,6 +1263,7 @@ export function GET() {
 				},
 				additionalProperties: false,
 			},
+			IndentWidth: { type: "integer", format: "uint8", minimum: 0.0 },
 			JavascriptConfiguration: {
 				description: "A set of options applied to the JavaScript files",
 				type: "object",
@@ -1347,9 +1346,7 @@ export function GET() {
 					indentSize: {
 						description:
 							"The size of the indentation applied to JavaScript (and its super languages) files. Default to 2.",
-						type: ["integer", "null"],
-						format: "uint8",
-						minimum: 0.0,
+						anyOf: [{ $ref: "#/definitions/IndentWidth" }, { type: "null" }],
 					},
 					indentStyle: {
 						description:
@@ -1362,9 +1359,7 @@ export function GET() {
 					indentWidth: {
 						description:
 							"The size of the indentation applied to JavaScript (and its super languages) files. Default to 2.",
-						type: ["integer", "null"],
-						format: "uint8",
-						minimum: 0.0,
+						anyOf: [{ $ref: "#/definitions/IndentWidth" }, { type: "null" }],
 					},
 					jsxQuoteStyle: {
 						description: "The type of quotes used in JSX. Defaults to double.",
@@ -1469,9 +1464,7 @@ export function GET() {
 					indentSize: {
 						description:
 							"The size of the indentation applied to JSON (and its super languages) files. Default to 2.",
-						type: ["integer", "null"],
-						format: "uint8",
-						minimum: 0.0,
+						anyOf: [{ $ref: "#/definitions/IndentWidth" }, { type: "null" }],
 					},
 					indentStyle: {
 						description:
@@ -1484,9 +1477,7 @@ export function GET() {
 					indentWidth: {
 						description:
 							"The size of the indentation applied to JSON (and its super languages) files. Default to 2.",
-						type: ["integer", "null"],
-						format: "uint8",
-						minimum: 0.0,
+						anyOf: [{ $ref: "#/definitions/IndentWidth" }, { type: "null" }],
 					},
 					lineEnding: {
 						description:
@@ -1720,6 +1711,12 @@ export function GET() {
 				items: { $ref: "#/definitions/RestrictedModifier" },
 				uniqueItems: true,
 			},
+			NamingConventionConfiguration: {
+				anyOf: [
+					{ $ref: "#/definitions/RulePlainConfiguration" },
+					{ $ref: "#/definitions/RuleWithNamingConventionOptions" },
+				],
+			},
 			NamingConventionOptions: {
 				description: "Rule's options.",
 				type: "object",
@@ -1787,7 +1784,7 @@ export function GET() {
 					noConsole: {
 						description: "Disallow the use of console.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -1886,7 +1883,7 @@ export function GET() {
 						description:
 							"Prevents React-specific JSX properties from being used.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -1951,7 +1948,7 @@ export function GET() {
 					noUnusedFunctionParameters: {
 						description: "Disallow unused function parameters.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -1959,21 +1956,21 @@ export function GET() {
 						description:
 							"Disallow unnecessary concatenation of string or template literals.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
 					noUselessUndefinedInitialization: {
 						description: "Disallow initializing variables to undefined.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
 					noYodaExpression: {
 						description: "Disallow the use of yoda expressions.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -1993,7 +1990,7 @@ export function GET() {
 						description:
 							"Enforce the use of new for all builtins, except String, Number, Boolean, Symbol and BigInt.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -2001,7 +1998,7 @@ export function GET() {
 						description:
 							"Use Date.now() to get the number of milliseconds since the Unix Epoch.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -2024,7 +2021,7 @@ export function GET() {
 						description:
 							"Enforce explicitly comparing the length, size, byteLength or byteOffset property of a value.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -2047,7 +2044,7 @@ export function GET() {
 					useImportExtensions: {
 						description: "Enforce file extensions for relative imports.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -2062,7 +2059,7 @@ export function GET() {
 						description:
 							"Enforce using the digits argument with Number#toFixed().",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -2077,16 +2074,14 @@ export function GET() {
 					useSortedClasses: {
 						description: "Enforce the sorting of CSS utility classes.",
 						anyOf: [
-							{
-								$ref: "#/definitions/RuleFixConfiguration_for_UtilityClassSortingOptions",
-							},
+							{ $ref: "#/definitions/UtilityClassSortingConfiguration" },
 							{ type: "null" },
 						],
 					},
 					useThrowNewError: {
 						description: "Require new when throwing an error.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -2147,9 +2142,7 @@ export function GET() {
 					indentSize: {
 						description:
 							"The size of the indentation, 2 by default (deprecated, use `indent-width`)",
-						type: ["integer", "null"],
-						format: "uint8",
-						minimum: 0.0,
+						anyOf: [{ $ref: "#/definitions/IndentWidth" }, { type: "null" }],
 					},
 					indentStyle: {
 						description: "The indent style.",
@@ -2160,9 +2153,7 @@ export function GET() {
 					},
 					indentWidth: {
 						description: "The size of the indentation, 2 by default",
-						type: ["integer", "null"],
-						format: "uint8",
-						minimum: 0.0,
+						anyOf: [{ $ref: "#/definitions/IndentWidth" }, { type: "null" }],
 					},
 					lineEnding: {
 						description: "The type of line ending.",
@@ -2289,7 +2280,7 @@ export function GET() {
 					noDelete: {
 						description: "Disallow the use of the delete operator.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -2364,40 +2355,10 @@ export function GET() {
 					{ $ref: "#/definitions/RuleWithNoOptions" },
 				],
 			},
-			RuleFixConfiguration_for_ConsistentArrayTypeOptions: {
+			RuleFixConfiguration: {
 				anyOf: [
 					{ $ref: "#/definitions/RulePlainConfiguration" },
-					{
-						$ref: "#/definitions/RuleWithFixOptions_for_ConsistentArrayTypeOptions",
-					},
-				],
-			},
-			RuleFixConfiguration_for_NamingConventionOptions: {
-				anyOf: [
-					{ $ref: "#/definitions/RulePlainConfiguration" },
-					{
-						$ref: "#/definitions/RuleWithFixOptions_for_NamingConventionOptions",
-					},
-				],
-			},
-			RuleFixConfiguration_for_Null: {
-				anyOf: [
-					{ $ref: "#/definitions/RulePlainConfiguration" },
-					{ $ref: "#/definitions/RuleWithFixOptions_for_Null" },
-				],
-			},
-			RuleFixConfiguration_for_UtilityClassSortingOptions: {
-				anyOf: [
-					{ $ref: "#/definitions/RulePlainConfiguration" },
-					{
-						$ref: "#/definitions/RuleWithFixOptions_for_UtilityClassSortingOptions",
-					},
-				],
-			},
-			RuleFixConfiguration_for_ValidAriaRoleOptions: {
-				anyOf: [
-					{ $ref: "#/definitions/RulePlainConfiguration" },
-					{ $ref: "#/definitions/RuleWithFixOptions_for_ValidAriaRoleOptions" },
+					{ $ref: "#/definitions/RuleWithFixNoOptions" },
 				],
 			},
 			RulePlainConfiguration: {
@@ -2415,6 +2376,25 @@ export function GET() {
 					options: {
 						description: "Rule's options",
 						allOf: [{ $ref: "#/definitions/ComplexityOptions" }],
+					},
+				},
+				additionalProperties: false,
+			},
+			RuleWithConsistentArrayTypeOptions: {
+				type: "object",
+				required: ["level", "options"],
+				properties: {
+					fix: {
+						description: "The kind of the code actions emitted by the rule",
+						anyOf: [{ $ref: "#/definitions/FixKind" }, { type: "null" }],
+					},
+					level: {
+						description: "The severity of the emitted diagnostics by the rule",
+						allOf: [{ $ref: "#/definitions/RulePlainConfiguration" }],
+					},
+					options: {
+						description: "Rule's options",
+						allOf: [{ $ref: "#/definitions/ConsistentArrayTypeOptions" }],
 					},
 				},
 				additionalProperties: false,
@@ -2449,9 +2429,9 @@ export function GET() {
 				},
 				additionalProperties: false,
 			},
-			RuleWithFixOptions_for_ConsistentArrayTypeOptions: {
+			RuleWithFixNoOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -2460,83 +2440,6 @@ export function GET() {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
 						allOf: [{ $ref: "#/definitions/RulePlainConfiguration" }],
-					},
-					options: {
-						description: "Rule's options",
-						allOf: [{ $ref: "#/definitions/ConsistentArrayTypeOptions" }],
-					},
-				},
-				additionalProperties: false,
-			},
-			RuleWithFixOptions_for_NamingConventionOptions: {
-				type: "object",
-				required: ["level", "options"],
-				properties: {
-					fix: {
-						description: "The kind of the code actions emitted by the rule",
-						anyOf: [{ $ref: "#/definitions/FixKind" }, { type: "null" }],
-					},
-					level: {
-						description: "The severity of the emitted diagnostics by the rule",
-						allOf: [{ $ref: "#/definitions/RulePlainConfiguration" }],
-					},
-					options: {
-						description: "Rule's options",
-						allOf: [{ $ref: "#/definitions/NamingConventionOptions" }],
-					},
-				},
-				additionalProperties: false,
-			},
-			RuleWithFixOptions_for_Null: {
-				type: "object",
-				required: ["level", "options"],
-				properties: {
-					fix: {
-						description: "The kind of the code actions emitted by the rule",
-						anyOf: [{ $ref: "#/definitions/FixKind" }, { type: "null" }],
-					},
-					level: {
-						description: "The severity of the emitted diagnostics by the rule",
-						allOf: [{ $ref: "#/definitions/RulePlainConfiguration" }],
-					},
-					options: { description: "Rule's options", type: "null" },
-				},
-				additionalProperties: false,
-			},
-			RuleWithFixOptions_for_UtilityClassSortingOptions: {
-				type: "object",
-				required: ["level", "options"],
-				properties: {
-					fix: {
-						description: "The kind of the code actions emitted by the rule",
-						anyOf: [{ $ref: "#/definitions/FixKind" }, { type: "null" }],
-					},
-					level: {
-						description: "The severity of the emitted diagnostics by the rule",
-						allOf: [{ $ref: "#/definitions/RulePlainConfiguration" }],
-					},
-					options: {
-						description: "Rule's options",
-						allOf: [{ $ref: "#/definitions/UtilityClassSortingOptions" }],
-					},
-				},
-				additionalProperties: false,
-			},
-			RuleWithFixOptions_for_ValidAriaRoleOptions: {
-				type: "object",
-				required: ["level", "options"],
-				properties: {
-					fix: {
-						description: "The kind of the code actions emitted by the rule",
-						anyOf: [{ $ref: "#/definitions/FixKind" }, { type: "null" }],
-					},
-					level: {
-						description: "The severity of the emitted diagnostics by the rule",
-						allOf: [{ $ref: "#/definitions/RulePlainConfiguration" }],
-					},
-					options: {
-						description: "Rule's options",
-						allOf: [{ $ref: "#/definitions/ValidAriaRoleOptions" }],
 					},
 				},
 				additionalProperties: false,
@@ -2552,6 +2455,25 @@ export function GET() {
 					options: {
 						description: "Rule's options",
 						allOf: [{ $ref: "#/definitions/HooksOptions" }],
+					},
+				},
+				additionalProperties: false,
+			},
+			RuleWithNamingConventionOptions: {
+				type: "object",
+				required: ["level", "options"],
+				properties: {
+					fix: {
+						description: "The kind of the code actions emitted by the rule",
+						anyOf: [{ $ref: "#/definitions/FixKind" }, { type: "null" }],
+					},
+					level: {
+						description: "The severity of the emitted diagnostics by the rule",
+						allOf: [{ $ref: "#/definitions/RulePlainConfiguration" }],
+					},
+					options: {
+						description: "Rule's options",
+						allOf: [{ $ref: "#/definitions/NamingConventionOptions" }],
 					},
 				},
 				additionalProperties: false,
@@ -2608,6 +2530,44 @@ export function GET() {
 					options: {
 						description: "Rule's options",
 						allOf: [{ $ref: "#/definitions/RestrictedImportsOptions" }],
+					},
+				},
+				additionalProperties: false,
+			},
+			RuleWithUtilityClassSortingOptions: {
+				type: "object",
+				required: ["level", "options"],
+				properties: {
+					fix: {
+						description: "The kind of the code actions emitted by the rule",
+						anyOf: [{ $ref: "#/definitions/FixKind" }, { type: "null" }],
+					},
+					level: {
+						description: "The severity of the emitted diagnostics by the rule",
+						allOf: [{ $ref: "#/definitions/RulePlainConfiguration" }],
+					},
+					options: {
+						description: "Rule's options",
+						allOf: [{ $ref: "#/definitions/UtilityClassSortingOptions" }],
+					},
+				},
+				additionalProperties: false,
+			},
+			RuleWithValidAriaRoleOptions: {
+				type: "object",
+				required: ["level", "options"],
+				properties: {
+					fix: {
+						description: "The kind of the code actions emitted by the rule",
+						anyOf: [{ $ref: "#/definitions/FixKind" }, { type: "null" }],
+					},
+					level: {
+						description: "The severity of the emitted diagnostics by the rule",
+						allOf: [{ $ref: "#/definitions/RulePlainConfiguration" }],
+					},
+					options: {
+						description: "Rule's options",
+						allOf: [{ $ref: "#/definitions/ValidAriaRoleOptions" }],
 					},
 				},
 				additionalProperties: false,
@@ -2767,7 +2727,7 @@ export function GET() {
 						description:
 							"Disallow implicit true values on JSX boolean attributes",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -2775,7 +2735,7 @@ export function GET() {
 						description:
 							"Disallow type annotations for variables, parameters, and class properties initialized with a literal expression.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -2797,7 +2757,7 @@ export function GET() {
 						description:
 							"Disallow negation in the condition of an if statement if it has an else clause.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -2805,7 +2765,7 @@ export function GET() {
 						description:
 							"Disallow non-null assertions using the ! postfix operator.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -2836,7 +2796,7 @@ export function GET() {
 						description:
 							"Disallow the use of constants which its value is the upper-case version of its name.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -2844,21 +2804,21 @@ export function GET() {
 						description:
 							"Disallow template literals if interpolation and special-character handling are not needed",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
 					noUselessElse: {
 						description: "Disallow else block when the if block breaks early.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
 					noVar: {
 						description: "Disallow the use of var",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -2870,14 +2830,14 @@ export function GET() {
 						description:
 							"Enforce the use of as const over literal type and type annotation.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
 					useBlockStatements: {
 						description: "Requires following curly brace conventions.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -2885,7 +2845,7 @@ export function GET() {
 						description:
 							"Enforce using else if instead of nested if in else clauses.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -2893,9 +2853,7 @@ export function GET() {
 						description:
 							"Require consistently using either T\\[] or Array\\<T>",
 						anyOf: [
-							{
-								$ref: "#/definitions/RuleFixConfiguration_for_ConsistentArrayTypeOptions",
-							},
+							{ $ref: "#/definitions/ConsistentArrayTypeConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -2903,7 +2861,7 @@ export function GET() {
 						description:
 							"Require const declarations for variables that are only assigned once.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -2911,7 +2869,7 @@ export function GET() {
 						description:
 							"Enforce default function parameters and optional function parameters to be last.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -2919,7 +2877,7 @@ export function GET() {
 						description:
 							"Require that each enum member value be explicitly initialized.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -2927,14 +2885,14 @@ export function GET() {
 						description:
 							"Disallow the use of Math.pow in favor of the ** operator.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
 					useExportType: {
 						description: "Promotes the use of export type for types.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -2958,14 +2916,14 @@ export function GET() {
 						description:
 							"This rule enforces the use of \\<>...\\</> over \\<Fragment>...\\</Fragment>.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
 					useImportType: {
 						description: "Promotes the use of import type for types.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -2980,9 +2938,7 @@ export function GET() {
 						description:
 							"Enforce naming conventions for everything across a codebase.",
 						anyOf: [
-							{
-								$ref: "#/definitions/RuleFixConfiguration_for_NamingConventionOptions",
-							},
+							{ $ref: "#/definitions/NamingConventionConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -2990,7 +2946,7 @@ export function GET() {
 						description:
 							"Promotes the usage of node:assert/strict over node:assert.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -2998,14 +2954,14 @@ export function GET() {
 						description:
 							"Enforces using the node: protocol for Node.js builtin modules.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
 					useNumberNamespace: {
 						description: "Use the Number properties instead of global ones.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -3013,7 +2969,7 @@ export function GET() {
 						description:
 							"Disallow parseInt() and Number.parseInt() in favor of binary, octal, and hexadecimal literals",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -3021,7 +2977,7 @@ export function GET() {
 						description:
 							"Prevent extra closing tags for components without children",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -3029,7 +2985,7 @@ export function GET() {
 						description:
 							"When expressing array types, this rule promotes the usage of T\\[] shorthand instead of Array\\<T>.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -3037,7 +2993,7 @@ export function GET() {
 						description:
 							"Require assignment operator shorthand where possible.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -3045,7 +3001,7 @@ export function GET() {
 						description:
 							"Enforce using function types instead of object type with call signatures.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -3053,7 +3009,7 @@ export function GET() {
 						description:
 							"Enforces switch clauses have a single statement, emits a quick fix wrapping the statements in a block.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -3061,14 +3017,14 @@ export function GET() {
 						description:
 							"Disallow multiple variable declarations in the same variable statement",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
 					useTemplate: {
 						description: "Prefer template literals over string concatenation.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -3076,7 +3032,7 @@ export function GET() {
 						description:
 							"Enforce the use of while loops instead of for loops when the initializer and update expressions are not needed.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -3095,7 +3051,7 @@ export function GET() {
 						description:
 							"Use standard constants instead of approximated literals.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -3138,14 +3094,14 @@ export function GET() {
 					noCommentText: {
 						description: "Prevent comments from being inserted as text nodes",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
 					noCompareNegZero: {
 						description: "Disallow comparing against -0",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -3160,21 +3116,21 @@ export function GET() {
 						description:
 							"Disallow void type outside of generic or return types.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
 					noConsoleLog: {
 						description: "Disallow the use of console.log",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
 					noConstEnum: {
 						description: "Disallow TypeScript const enum",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -3189,14 +3145,14 @@ export function GET() {
 					noDebugger: {
 						description: "Disallow the use of debugger",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
 					noDoubleEquals: {
 						description: "Require the use of === and !==",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -3226,7 +3182,7 @@ export function GET() {
 						description:
 							"Prevents object literals having more than one property declaration for the same name.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -3254,7 +3210,7 @@ export function GET() {
 					noEmptyInterface: {
 						description: "Disallow the declaration of empty interfaces.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -3277,7 +3233,7 @@ export function GET() {
 						description:
 							"Prevents the wrong usage of the non-null assertion operator (!) in TypeScript files.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -3291,7 +3247,7 @@ export function GET() {
 					noFocusedTests: {
 						description: "Disallow focused tests.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -3313,14 +3269,14 @@ export function GET() {
 					noGlobalIsFinite: {
 						description: "Use Number.isFinite instead of global isFinite.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
 					noGlobalIsNan: {
 						description: "Use Number.isNaN instead of global isNaN.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -3350,7 +3306,7 @@ export function GET() {
 						description:
 							"Disallow characters made with multiple code points in character class syntax.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -3365,7 +3321,7 @@ export function GET() {
 						description:
 							"Disallow shorthand assign when variable appears on both sides.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -3387,7 +3343,7 @@ export function GET() {
 					noRedundantUseStrict: {
 						description: 'Prevents from having redundant "use strict".',
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -3410,14 +3366,14 @@ export function GET() {
 					noSkippedTests: {
 						description: "Disallow disabled tests.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
 					noSparseArray: {
 						description: "Disallow sparse arrays",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -3447,7 +3403,7 @@ export function GET() {
 					noUnsafeNegation: {
 						description: "Disallow using unsafe negation.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -3480,7 +3436,7 @@ export function GET() {
 					useIsArray: {
 						description: "Use Array.isArray() instead of instanceof Array.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -3488,7 +3444,7 @@ export function GET() {
 						description:
 							"Require using the namespace keyword over the module keyword to declare TypeScript namespaces.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -3496,7 +3452,7 @@ export function GET() {
 						description:
 							"This rule verifies the result of typeof $expr unary expressions is being compared to valid values, either string literals containing valid type names or other typeof expressions",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -3540,6 +3496,12 @@ export function GET() {
 					},
 				],
 			},
+			UtilityClassSortingConfiguration: {
+				anyOf: [
+					{ $ref: "#/definitions/RulePlainConfiguration" },
+					{ $ref: "#/definitions/RuleWithUtilityClassSortingOptions" },
+				],
+			},
 			UtilityClassSortingOptions: {
 				type: "object",
 				properties: {
@@ -3556,6 +3518,12 @@ export function GET() {
 					},
 				},
 				additionalProperties: false,
+			},
+			ValidAriaRoleConfiguration: {
+				anyOf: [
+					{ $ref: "#/definitions/RulePlainConfiguration" },
+					{ $ref: "#/definitions/RuleWithValidAriaRoleOptions" },
+				],
 			},
 			ValidAriaRoleOptions: {
 				type: "object",
