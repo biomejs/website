@@ -47,6 +47,9 @@ self.addEventListener("message", async (e) => {
 					await init(
 						"../../../node_modules/@biomejs/wasm-web/biome_wasm_bg.wasm?init",
 					);
+
+					// this is on purpose, let's see if it works
+					   	let b
 				} else {
 					await init();
 				}
