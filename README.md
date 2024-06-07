@@ -45,9 +45,6 @@ the code that does that requires reading the source code of the analyzer.
 First, make sure that you've pulled the latest version of the repository and installed the required toolchains, then run the corresponding scripts from the **repo root** via `pnpm`:
 
 ```shell
-# make sure your submodule is checked out at the correct commit
-pnpm init:biome
-
 # generate only rules files
 pnpm codegen:rules
 
