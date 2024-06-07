@@ -98,8 +98,12 @@ a = {
   
 <strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Use a literal key instead.</span>
   
-<strong>  </strong><strong>  2 │ </strong><span style="opacity: 0.8;">→ </span><span style="color: Tomato;">[</span><span style="color: Tomato;">'</span>b<span style="color: Tomato;">'</span><span style="color: Tomato;">]</span>:<span style="opacity: 0.8;">·</span>d
-<strong>  </strong><strong>    │ </strong>  <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span> <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span>   
+    <strong>1</strong> <strong>1</strong><strong> │ </strong>  a = {
+    <strong>2</strong>  <strong> │ </strong><span style="color: Tomato;">-</span> <span style="color: Tomato;"><span style="opacity: 0.8;">→ </span></span><span style="color: Tomato;"><strong>[</strong></span><span style="color: Tomato;"><strong>'</strong></span><span style="color: Tomato;">b</span><span style="color: Tomato;"><strong>'</strong></span><span style="color: Tomato;"><strong>]</strong></span><span style="color: Tomato;">:</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">d</span>
+      <strong>2</strong><strong> │ </strong><span style="color: MediumSeaGreen;">+</span> <span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">→ </span></span><span style="color: MediumSeaGreen;"><strong>&quot;</strong></span><span style="color: MediumSeaGreen;">b</span><span style="color: MediumSeaGreen;"><strong>&quot;</strong></span><span style="color: MediumSeaGreen;">:</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">d</span>
+    <strong>3</strong> <strong>3</strong><strong> │ </strong>  }
+    <strong>4</strong> <strong>4</strong><strong> │ </strong>  
+  
 </code></pre>
 
 ### Valid
