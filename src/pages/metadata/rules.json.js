@@ -3387,7 +3387,7 @@ export function GET() {
               }
             ],
             "sourceKind": "inspired",
-            "docs": " Disallow the declaration of empty interfaces.\n\n An empty interface in TypeScript does very little: any non-nullable value is assignable to `{}`.\n Using an empty interface is often a sign of programmer error, such as misunderstanding the concept of `{}` or forgetting to fill in fields.\n\n The rule ignores empty interfaces that `extends` one or multiple types.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n interface A {}\n ```\n\n ### Valid\n\n ```ts\n interface A {\n   prop: string;\n }\n\n // Allow empty interfaces that extend a type.\n interface B extends A {}\n ```\n"
+            "docs": " Disallow the declaration of empty interfaces.\n\n An empty interface in TypeScript does very little: any non-nullable value is assignable to `{}`.\n Using an empty interface is often a sign of programmer error, such as misunderstanding the concept of `{}` or forgetting to fill in fields.\n\n The rule ignores empty interfaces that `extends` one or multiple types.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n interface A {}\n ```\n\n ### Valid\n\n ```ts\n interface A {\n   prop: string;\n }\n\n // Allow empty interfaces that extend a type.\n interface B extends A {}\n\n // Allow empty interfaces in ambient modules\n declare module \"mod\" {\n   interface C {}\n }\n ```\n"
           },
           "noExplicitAny": {
             "deprecated": false,
