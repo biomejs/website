@@ -1,26 +1,16 @@
 # [`biomejs.dev`](https://biomejs.dev/)
 
-[![Pin submodule and run codegen](https://github.com/biomejs/website/actions/workflows/pin-submodule-and-run-codegen.yaml/badge.svg?branch=main)](https://github.com/biomejs/website/actions/workflows/pin-submodule-and-run-codegen.yaml)
+[![Synchronize](https://github.com/biomejs/website/actions/workflows/synchronize.yaml/badge.svg?branch=main)](https://github.com/biomejs/website/actions/workflows/synchronize.yaml)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/efc84020-6a75-479a-bae3-df2e458d5c44/deploy-status?branch=main)](https://app.netlify.com/sites/biomejs/deploys)
 
 The website source of [biomejs/biome](https://github.com/biomejs/biome).
 
 ## Clone
 
-This repository includes a submodule pointing to the [main repository](https://github.com/biomejs/biome). The submodule is required to build the WASM artifacts for the [website playground](https://biomejs.dev/playground/), populate the [rule pages](https://biomejs.dev/linter/rules/), and perform some checks in the CI workflows.
-
-To clone the repository including the submodule, run
-
-```shell
-git clone --recursive https://github.com/biomejs/website
-```
-
-If you've already cloned the repository without the `--recursive` flag, you can also fetch the submodule later:
+To clone the repository, run
 
 ```shell
 git clone https://github.com/biomejs/website
-cd website
-git submodule update --init --recursive
 ```
 
 ## Installation
@@ -37,8 +27,6 @@ Then install the required dependencies:
 pnpm i --frozen-lockfile
 ```
 
-To build the playground, you'll also need [`wasm-pack`](https://rustwasm.github.io/wasm-pack/installer/).
-
 ## Local Development
 
 This command starts a local development server:
@@ -48,14 +36,6 @@ pnpm start
 ```
 
 Most changes are reflected live without having to restart the server.
-
-If you want to work on the playground, the WASM artifacts of Biome are required. To build them, the [`wasm-pack`](https://rustwasm.github.io/wasm-pack/installer/) tool must be installed, and use the following command to build and start the website with a working playground:
-
-```shell
-pnpm start:playground
-```
-
-Please make sure you [have the submodule source also cloned](#clone).
 
 ## Code generation
 

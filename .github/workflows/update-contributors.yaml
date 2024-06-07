@@ -17,12 +17,15 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+
       - name: Setup node
         uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
         with:
           node-version: "*"
+
       - name: Update contributors
         run: node scripts/update-contributors.js --token=${{ secrets.GITHUB_TOKEN }}
+
       - name: Create pull request
         id: create-pull-request
         uses: peter-evans/create-pull-request@6d6857d36972b65feb161a90e484f2984215f83e # v6.0.5
@@ -33,6 +36,7 @@ jobs:
           commit-message: "chore(ci): update contributors"
           body: ""
           labels: CI-Contributors
+
       - name: Auto merge
         if: ${{ steps.create-pull-request.outputs.pull-request-operation != 'closed' && steps.create-pull-request.outputs.pull-request-number != '' }}
         run: gh pr merge --squash --auto --delete-branch ${{ steps.create-pull-request.outputs.pull-request-number }}

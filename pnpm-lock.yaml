@@ -35,8 +35,8 @@ devDependencies:
     specifier: 1.8.0
     version: 1.8.0
   '@biomejs/wasm-web':
-    specifier: link:./biome/packages/@biomejs/wasm-web
-    version: link:biome/packages/@biomejs/wasm-web
+    specifier: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@6a325ca
+    version: '@pkg.pr.new/biomejs/biome/@biomejs/wasm-web@6a325ca'
   '@codemirror/lang-css':
     specifier: 6.2.1
     version: 6.2.1(@codemirror/view@6.26.3)
@@ -7217,3 +7217,9 @@ packages:
 
   /zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
+
+  '@pkg.pr.new/biomejs/biome/@biomejs/wasm-web@6a325ca':
+    resolution: {tarball: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@6a325ca}
+    name: '@biomejs/wasm-web'
+    version: 0.0.0-pr.6a325ca60459d896a2c8c2ed5f62a5809d638375
+    dev: true

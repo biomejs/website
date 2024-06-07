@@ -9,15 +9,13 @@ inputs:
     description: The version of Biome
     required: true
     default: "0.0.0"
-  revision:
-    description: The commit ID of the latest revision
-    required: true
 
 runs:
   using: composite
   steps:
     - name: Setup Rust toolchain
       uses: ./.github/actions/setup-rust-toolchain
+
     - name: Codegen
       shell: bash
       run: |
@@ -34,9 +32,6 @@ runs:
             kinds+=("$kind")
           fi
         done
-
-        echo "Update cargo to use biome packages for revision ${{ inputs.revision }}"
-        awk -v new_rev="${{ inputs.revision }}" '{gsub(/rev = "[^"]+"/, "rev = \"" new_rev "\"")} 1' Cargo.toml > temp && mv temp Cargo.toml
 
         for kind in "${kinds[@]}"; do
           echo "Running codegen for $kind"

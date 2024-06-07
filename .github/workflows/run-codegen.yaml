@@ -29,12 +29,14 @@ jobs:
         uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
         with:
           submodules: true
+
       - name: Run codegen
         uses: ./.github/actions/run-codegen
         with:
           kinds: ${{ inputs.kinds }}
           version: ${{ inputs.version }}
           revision: ${{ github.event.inputs.commit-id }}
+
       - name: Create pull request
         id: create-pull-request
         uses: peter-evans/create-pull-request@6d6857d36972b65feb161a90e484f2984215f83e # v6.0.5
@@ -47,6 +49,7 @@ jobs:
             Run codegen ${{ inputs.kinds }}.
             `BIOME_VERSION=${{ inputs.version }}`
           labels: CI-Codegen
+
       - name: Auto merge
         if: ${{ steps.create-pull-request.outputs.pull-request-operation != 'closed' && steps.create-pull-request.outputs.pull-request-number != '' }}
         run: gh pr merge --squash --auto --delete-branch ${{ steps.create-pull-request.outputs.pull-request-number }}
