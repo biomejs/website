@@ -3,8 +3,8 @@
 	"private": true,
 	"scripts": {
 		"start": "astro dev",
-		"format": "pnpm biome format --write .",
-		"check": "pnpm biome check --write .",
+		"format": "pnpm biome format --write",
+		"check": "pnpm biome check --write",
 		"tsc": "tsc --skipLibCheck",
 		"build": "astro build",
 		"preview": "astro preview",
