@@ -880,6 +880,11 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/no-unused-imports",
             "recommended": false,
             "fixKind": "safe",
+            "sources": [
+              {
+                "eslintUnusedImports": "no-unused-imports"
+              }
+            ],
             "docs": " Disallow unused imports.\n\n Unused imports might be the result of an incomplete refactoring.\n The code fix can remove comments associated with an `import`.\n See the last invalid example.\n\n Note that the leading trivia, e.g., comments or newlines preceding\n the unused imports will also be removed. So that comment directives\n like `@ts-expect-error` won't be transferred to a wrong place.\n\n ## Options\n\n This rule respects the [`jsxRuntime`](https://biomejs.dev/reference/configuration/#javascriptjsxruntime)\n setting and will make an exception for React globals if it is set to\n `\"reactClassic\"`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import A from 'mod';\n ```\n\n ```js,expect_diagnostic\n import * as A from 'mod';\n ```\n\n ```ts,expect_diagnostic\n import { type A, B } from 'mod';\n\n export { B }\n ```\n\n ```js,expect_diagnostic\n // Header comment\n import /*inner comment */ A from 'mod'; // Associated comment\n\n // Another header comment\n import {\n     // A's header comment\n     type A, // A's comment\n     // B's header comment\n     B,\n } from 'mod';\n\n export { B }\n ```\n\n ### Valid\n\n ```ts\n import { A, type B } from 'mod';\n\n function f(arg: B): A {\n     return new A(arg);\n }\n ```\n"
           },
           "noUnusedLabels": {
@@ -923,6 +928,9 @@ export function GET() {
               },
               {
                 "eslintTypeScript": "no-unused-vars"
+              },
+              {
+                "eslintUnusedImports": "no-unused-vars"
               }
             ],
             "docs": " Disallow unused variables.\n\n There is an exception to this rule:\n variables that starts with underscore, e.g. `let _something;`.\n\n The pattern of having an underscore as prefix of a name of variable is a very diffuse\n pattern among programmers, and Biome decided to follow it.\n\n This rule won't report unused imports.\n If you want to report unused imports,\n enable [noUnusedImports](https://biomejs.dev/linter/rules/no-unused-imports/).\n\n From `v1.9.0`, the rule won't check unused function parameters any more.\n Users should switch to\n [noUnusedFunctionParameters](https://biomejs.dev/linter/rules/no-unused-function-parameters/)\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n let a = 4;\n a++;\n ```\n\n ```js,expect_diagnostic\n function foo() {}\n ```\n\n ```js,expect_diagnostic\n export function foo(myVar) {\n     console.log('foo');\n }\n ```\n\n ```js,expect_diagnostic\n function foo() {\n     foo();\n }\n ```\n\n ```js,expect_diagnostic\n const foo = () => {\n     foo();\n };\n ```\n\n ```ts,expect_diagnostic\n export function f<T>() {}\n ```\n\n ### Valid\n\n ```js\n function foo(b) {\n     console.log(b)\n };\n foo();\n ```\n\n ```js\n export function foo(_unused) {}\n ```\n\n ```ts\n function used_overloaded(): number;\n function used_overloaded(s: string): string;\n function used_overloaded(s?: string) {\n     return s;\n }\n used_overloaded();\n ```\n"
@@ -1741,6 +1749,11 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/use-while",
             "recommended": true,
             "fixKind": "safe",
+            "sources": [
+              {
+                "eslintSonarJs": "prefer-while"
+              }
+            ],
             "docs": " Enforce the use of `while` loops instead of `for` loops when the initializer and update expressions are not needed.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n for (; x.running;) {\n     x.step();\n }\n ```\n\n ### Valid\n\n ```js\n for(let x = 0; x < 10; i++) {}\n ```\n\n ```js\n let x = 0\n for(; x < 10; i++) {}\n ```\n\n ```js\n for(let x = 0; x < 10;) {\n     i++\n }\n ```\n"
           }
         },

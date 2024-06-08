@@ -10,6 +10,9 @@ title: useWhile (since v1.0.0)
 - This rule is applied to **JavaScript and super languages** files.
 :::
 
+Sources: 
+- Same as: <a href="https://github.com/SonarSource/eslint-plugin-sonarjs/blob/HEAD/docs/rules/prefer-while.md" target="_blank"><code>sonarjs/prefer-while</code></a>
+
 Enforce the use of `while` loops instead of `for` loops when the initializer and update expressions are not needed.
 
 ## Examples

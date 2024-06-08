@@ -9,6 +9,9 @@ title: noUnusedImports (since v1.3.0)
 - This rule is applied to **JavaScript and super languages** files.
 :::
 
+Sources: 
+- Same as: <a href="https://github.com/sweepline/eslint-plugin-unused-imports/blob/master/docs/rules/no-unused-imports.md" target="_blank"><code>unused-imports/no-unused-imports</code></a>
+
 Disallow unused imports.
 
 Unused imports might be the result of an incomplete refactoring.

@@ -12,6 +12,7 @@ title: noUnusedVariables (since v1.0.0)
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-unused-vars" target="_blank"><code>no-unused-vars</code></a>
 - Same as: <a href="https://typescript-eslint.io/rules/no-unused-vars" target="_blank"><code>@typescript-eslint/no-unused-vars</code></a>
+- Same as: <a href="https://github.com/sweepline/eslint-plugin-unused-imports/blob/master/docs/rules/no-unused-vars.md" target="_blank"><code>unused-imports/no-unused-vars</code></a>
 
 Disallow unused variables.
 
