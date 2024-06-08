@@ -1,13 +1,13 @@
 @import "../../styles/_variables";
 @import "../../styles/_mixins";
 
-.react-tabs__tab-panel  {
+.react-tabs__tab-panel {
   display: none;
   flex-direction: column;
   flex-grow: 1;
   overflow: hidden;
 
-  > pre[class*=language-] {
+  > pre[class*="language-"] {
     margin: 0;
     height: 100%;
 
@@ -16,9 +16,9 @@
     }
   }
 
-	@include mobile-only {
-		overflow: auto;
-	}
+  @include mobile-only {
+    overflow: auto;
+  }
 
   > iframe {
     height: 100%;
@@ -66,4 +66,13 @@
 
 .react-tabs__tab-panel--selected {
   display: flex;
+}
+
+.formatter-version {
+  font-family: "monospace";
+  text-decoration: unset;
+  color: unset;
+  &:hover {
+    text-decoration: underline;
+  }
 }
