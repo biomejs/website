@@ -36,7 +36,7 @@ devDependencies:
     version: 1.8.0
   '@biomejs/wasm-web':
     specifier: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@1811f6f
-    version: '@pkg.pr.new/biomejs/biome/@biomejs/wasm-web@1811f6f'
+    version: '@pkg.pr.new/biomejs/biome/@biomejs/wasm-web/1811f6f'
   '@codemirror/lang-css':
     specifier: 6.2.1
     version: 6.2.1(@codemirror/view@6.26.3)
@@ -98,8 +98,8 @@ devDependencies:
     specifier: 13.1.0
     version: 13.1.0
   mermaid:
-    specifier: 10.9.0
-    version: 10.9.0
+    specifier: 10.9.1
+    version: 10.9.1
   postcss:
     specifier: 8.4.38
     version: 8.4.38
@@ -4800,8 +4800,8 @@ packages:
     resolution: {integrity: sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==}
     engines: {node: '>= 8'}
 
-  /mermaid@10.9.0:
-    resolution: {integrity: sha512-swZju0hFox/B/qoLKK0rOxxgh8Cf7rJSfAUc1u8fezVihYMvrJAS45GzAxTVf4Q+xn9uMgitBcmWk7nWGXOs/g==}
+  /mermaid@10.9.1:
+    resolution: {integrity: sha512-Mx45Obds5W1UkW1nv/7dHRsbfMM1aOKA2+Pxs/IGHNonygDHwmng8xTHyS9z4KWVi0rbko8gjiBmuwwXQ7tiNA==}
     dependencies:
       '@braintree/sanitize-url': 6.0.4
       '@types/d3-scale': 4.0.8
@@ -7218,7 +7218,7 @@ packages:
   /zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
 
-  '@pkg.pr.new/biomejs/biome/@biomejs/wasm-web@1811f6f':
+  '@pkg.pr.new/biomejs/biome/@biomejs/wasm-web/1811f6f':
     resolution: {tarball: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@1811f6f}
     name: '@biomejs/wasm-web'
     version: 0.0.0-rev.1811f6fa364bb0ed6f6d63b928d45464d938dd72

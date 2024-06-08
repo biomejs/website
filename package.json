@@ -44,7 +44,7 @@
 		"html-escaper": "3.0.3",
 		"lang-rome-formatter-ir": "0.0.2",
 		"mdast-util-to-hast": "13.1.0",
-		"mermaid": "10.9.0",
+		"mermaid": "10.9.1",
 		"postcss": "8.4.38",
 		"prettier": "3.2.5",
 		"react": "18.3.1",
