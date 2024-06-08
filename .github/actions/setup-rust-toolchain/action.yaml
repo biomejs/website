@@ -10,5 +10,3 @@ runs:
         echo "GITHUB_JOB=" >> $GITHUB_ENV
     - name: Install rust toolchain
       uses: moonrepo/setup-rust@d8048d4fdff0633123678b093726e6d7c8ad6de5 # v1.2.0
-      with:
-        cache-target: "target/debug"

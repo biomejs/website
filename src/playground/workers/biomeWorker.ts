@@ -44,9 +44,11 @@ self.addEventListener("message", async (e) => {
 		case "init": {
 			try {
 				if (import.meta.env.DEV) {
-					await init("../../../node_modules/@biomejs/wasm-web/biome_wasm_bg.wasm?init");
+					await init(
+						"../../../node_modules/@biomejs/wasm-web/biome_wasm_bg.wasm?init",
+					);
 				} else {
-					await init()
+					await init();
 				}
 
 				workspace = new Workspace();
