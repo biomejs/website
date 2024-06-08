@@ -6,6 +6,9 @@ import rehypeSlug from "rehype-slug";
 import { searchForWorkspaceRoot } from "vite";
 import { rehypeAutolink } from "./plugins/rehype-autolink";
 
+import { version as biomeVersion } from "./node_modules/@biomejs/wasm-web/package.json";
+import { version as prettierVersion } from "./node_modules/prettier/package.json";
+
 const site = "https://biomejs.dev";
 // https://astro.build/config
 export default defineConfig({
@@ -413,6 +416,11 @@ export default defineConfig({
 				// https://vitejs.dev/config/server-options.html#server-fs-allow
 				allow: [searchForWorkspaceRoot(process.cwd())],
 			},
+		},
+
+		define: {
+			PRETTIER_VERSION: JSON.stringify(prettierVersion),
+			BIOME_VERSION: JSON.stringify(biomeVersion),
 		},
 	},
 });
