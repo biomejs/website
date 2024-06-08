@@ -1,6 +1,4 @@
 .astro/
 dist
 node_modules
-src/_includes/styles
-
 target/
