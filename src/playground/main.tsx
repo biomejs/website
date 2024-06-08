@@ -1,10 +1,12 @@
 import PlaygroundLoader from "@/playground/PlaygroundLoader";
 import React from "react";
-import ReactDom from "react-dom";
+import { createRoot } from "react-dom/client";
 
-ReactDom.render(
+const container = document.getElementById("root");
+const root = createRoot(container!);
+
+root.render(
 	<React.StrictMode>
 		<PlaygroundLoader />
 	</React.StrictMode>,
-	document.getElementById("root"),
 );
