@@ -22,7 +22,6 @@ description: A page that maps lint rules from other sources to Biome
 - [noUnknownProperty](/linter/rules/no-unknown-property) 
 - [noUnnecessaryContinue](/linter/rules/no-unnecessary-continue) 
 - [noUnusedFunctionParameters](/linter/rules/no-unused-function-parameters) 
-- [noUnusedImports](/linter/rules/no-unused-imports) 
 - [noUnusedTemplateLiteral](/linter/rules/no-unused-template-literal) 
 - [noVoidTypeReturn](/linter/rules/no-void-type-return) 
 - [useImportExtensions](/linter/rules/use-import-extensions) 
@@ -33,7 +32,6 @@ description: A page that maps lint rules from other sources to Biome
 - [useSingleCaseStatement](/linter/rules/use-single-case-statement) 
 - [useSortedClasses](/linter/rules/use-sorted-classes) 
 - [useTopLevelRegex](/linter/rules/use-top-level-regex) 
-- [useWhile](/linter/rules/use-while) 
 ## Rules from other sources
 :::note
 Some **Biome** rules might **not** have options, compared to the original rule.
@@ -262,6 +260,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | eslint-plugin-sonarjs rule name | Biome rule name |
 | ---- | ---- |
 | [cognitive-complexity](https://github.com/SonarSource/eslint-plugin-sonarjs/blob/HEAD/docs/rules/cognitive-complexity.md) |[noExcessiveCognitiveComplexity](/linter/rules/no-excessive-cognitive-complexity) (inspired) |
+| [prefer-while](https://github.com/SonarSource/eslint-plugin-sonarjs/blob/HEAD/docs/rules/prefer-while.md) |[useWhile](/linter/rules/use-while) |
 ### eslint-plugin-stylistic
 | eslint-plugin-stylistic rule name | Biome rule name |
 | ---- | ---- |
@@ -285,6 +284,11 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [prefer-number-properties](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-number-properties.md) |[useNumberNamespace](/linter/rules/use-number-namespace) |
 | [require-number-to-fixed-digits-argument](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/require-number-to-fixed-digits-argument.md) |[useNumberToFixedDigitsArgument](/linter/rules/use-number-to-fixed-digits-argument) |
 | [throw-new-error](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/throw-new-error.md) |[useThrowNewError](/linter/rules/use-throw-new-error) |
+### eslint-plugin-unused-imports
+| eslint-plugin-unused-imports rule name | Biome rule name |
+| ---- | ---- |
+| [no-unused-imports](https://github.com/sweepline/eslint-plugin-unused-imports/blob/master/docs/rules/no-unused-imports.md) |[noUnusedImports](/linter/rules/no-unused-imports) (inspired) |
+| [no-unused-vars](https://github.com/sweepline/eslint-plugin-unused-imports/blob/master/docs/rules/no-unused-vars.md) |[noUnusedVariables](/linter/rules/no-unused-variables) |
 ### typescript-eslint
 | typescript-eslint rule name | Biome rule name |
 | ---- | ---- |
