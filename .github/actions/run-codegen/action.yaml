@@ -21,10 +21,11 @@ runs:
     - name: Restore rust cache
       id: cache-restore
       uses: actions/cache/restore@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
-      key: rust-cache
-      path: |
-        $HOME/.cargo/registry
-        target/debug
+      with:
+        key: rust-cache
+        path: |
+          $HOME/.cargo/registry
+          target/debug
 
     - name: Codegen
       shell: bash
