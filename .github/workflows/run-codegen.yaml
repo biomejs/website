@@ -35,7 +35,6 @@ jobs:
         with:
           kinds: ${{ inputs.kinds }}
           version: ${{ inputs.version }}
-          revision: ${{ github.event.inputs.commit-id }}
 
       - name: Create pull request
         id: create-pull-request
