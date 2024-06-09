@@ -13,8 +13,19 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Setup Rust toolchain
-      uses: ./.github/actions/setup-rust-toolchain
+    - name: Install rust toolchain
+      uses: moonrepo/setup-rust@d8048d4fdff0633123678b093726e6d7c8ad6de5 # v1.2.0
+      with:
+        cache: false
+
+    - name: Restore rust cache
+      id: cache-restore
+      uses: actions/cache/restore@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
+      with:
+        key: rust-cache
+        path: |
+          $HOME/.cargo/registry
+          target/debug
 
     - name: Codegen
       shell: bash
@@ -42,3 +53,21 @@ runs:
         RUST_BACKTRACE: "1"
         CARGO_INCREMENTAL: "1"
         BIOME_VERSION: ${{ inputs.version }}
+
+    - name: Clear old rust cache
+      if: ${{ steps.cache-restore.outputs.cache-hit }}
+      shell: bash
+      run: |
+        gh extension install actions/gh-actions-cache
+        gh actions-cache delete rust-cache --confirm
+      env:
+        GH_TOKEN: ${{ github.token }}
+      continue-on-error: true
+
+    - name: Save new rust cache
+      uses: actions/cache/save@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
+      with:
+        key: rust-cache
+        path: |
+          $HOME/.cargo/registry
+          target/debug
