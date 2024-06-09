@@ -21,7 +21,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
         with:
-          node-version: "*"
+          node-version-file: ".node-version"
 
       - name: Update contributors
         run: node scripts/update-contributors.js --token=${{ secrets.GITHUB_TOKEN }}
