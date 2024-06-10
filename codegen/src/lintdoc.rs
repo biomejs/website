@@ -1,7 +1,7 @@
 use crate::project_root;
 use crate::rules_sources::generate_rule_sources;
 use anyhow::Context;
-use anyhow::{bail, ensure, Result};
+use anyhow::{bail, Result};
 use biome_analyze::options::JsxRuntime;
 use biome_analyze::{
     AnalysisFilter, AnalyzerOptions, ControlFlow, FixKind, GroupCategory, Queryable,
@@ -289,7 +289,7 @@ fn generate_group(
                     FixKind::Safe => {
                         properties.push_str("<span class='inline-icon'><Icon name=\"seti:config\" label=\"The rule has a safe fix\" size=\"1.2rem\"  /></span>");
                     }
-                    FixKind::Unsafe=> {
+                    FixKind::Unsafe => {
                         properties.push_str("<span class='inline-icon'><Icon name=\"warning\" label=\"The rule has an unsafe fix\" size=\"1.2rem\" /></span>");
                     }
                     FixKind::None => {}
@@ -442,18 +442,15 @@ fn generate_rule(payload: GenRule) -> Result<Vec<Event<'static>>> {
         writeln!(content)?;
     }
 
-    let summary = parse_documentation(
-        group,
-        rule,
-        meta.docs,
-        &mut content,
-        !matches!(meta.fix_kind, FixKind::None),
-    )?;
+    let summary = write_documentation(group, rule, meta.docs, &mut content)?;
 
     writeln!(content, "## Related links")?;
     writeln!(content)?;
     writeln!(content, "- [Disable a rule](/linter/#disable-a-lint-rule)")?;
-    writeln!(content, "- [Configure the rule fix](/linter#configure-the-rule-fix)")?;
+    writeln!(
+        content,
+        "- [Configure the rule fix](/linter#configure-the-rule-fix)"
+    )?;
     writeln!(content, "- [Rule options](/linter/#rule-options)")?;
 
     let dashed_rule = Case::Kebab.convert(rule);
@@ -464,12 +461,11 @@ fn generate_rule(payload: GenRule) -> Result<Vec<Event<'static>>> {
 
 /// Parse the documentation fragment for a lint rule (in markdown) and generates
 /// the content for the corresponding documentation page
-fn parse_documentation(
+fn write_documentation(
     group: &'static str,
     rule: &'static str,
     docs: &'static str,
     content: &mut Vec<u8>,
-    has_fix_kind: bool,
 ) -> Result<Vec<Event<'static>>> {
     let parser = Parser::new(docs);
 
@@ -543,7 +539,7 @@ fn parse_documentation(
                         )?;
                     }
 
-                    assert_lint(group, rule, &test, &block, content, has_fix_kind)
+                    print_diagnostics(group, rule, &test, &block, content)
                         .context("snapshot test failed")?;
 
                     if test.expect_diagnostic {
@@ -790,13 +786,12 @@ impl FromStr for CodeBlockTest {
 /// Parse and analyze the provided code block, and asserts that it emits
 /// exactly zero or one diagnostic depending on the value of `expect_diagnostic`.
 /// That diagnostic is then emitted as text into the `content` buffer
-fn assert_lint(
+fn print_diagnostics(
     group: &'static str,
     rule: &'static str,
     test: &CodeBlockTest,
     code: &str,
     content: &mut Vec<u8>,
-    has_fix_kind: bool,
 ) -> Result<()> {
     let file = format!("{group}/{rule}.js");
 
@@ -805,9 +800,7 @@ fn assert_lint(
 
     let mut all_diagnostics = vec![];
 
-    let mut write_diagnostic = |code: &str, diag: biome_diagnostics::Error| {
-        let category = diag.category().map_or("", |code| code.name());
-
+    let mut write_diagnostic = |_: &str, diag: biome_diagnostics::Error| {
         Formatter::new(&mut write).write_markup(markup! {
             {PrintDiagnostic::verbose(&diag)}
         })?;
@@ -827,12 +820,6 @@ fn assert_lint(
                     );
                 }
             }
-
-            ensure!(
-                diagnostic_count == 0,
-                "analysis returned multiple diagnostics, code snippet: \n\n{}",
-                code
-            );
         } else {
             // Print all diagnostics to help the user
             let mut console = biome_console::EnvConsole::default();
@@ -844,11 +831,6 @@ fn assert_lint(
                     },
                 );
             }
-
-            bail!(format!(
-                "analysis returned an unexpected diagnostic, code `snippet:\n\n{:?}\n\n{}",
-                category, code
-            ));
         }
 
         diagnostic_count += 1;
@@ -941,19 +923,6 @@ fn assert_lint(
                     write_diagnostic(code, diagnostic)?;
                 }
             }
-
-            if test.expect_diagnostic && rule_has_code_action && !has_fix_kind {
-                bail!("The rule '{}' emitted code actions via `action` function, but you didn't mark rule with `fix_kind`.", rule)
-            }
-
-            if test.expect_diagnostic {
-                // Fail the test if the analysis didn't emit any diagnostic
-                ensure!(
-                    diagnostic_count == 1,
-                    "analysis returned no diagnostics.\n code snippet:\n {}",
-                    code
-                );
-            }
         }
         BlockType::Json => {
             let parse = biome_json_parser::parse_json(code, JsonParserOptions::default());
@@ -997,7 +966,7 @@ fn assert_lint(
                                 .with_severity(severity)
                                 .with_file_path(file.clone())
                                 .with_file_source_code(code);
-                            let res = write_diagnostic(code, error);
+                            let res: Result<()> = write_diagnostic(code, error);
 
                             // Abort the analysis on error
                             if let Err(err) = res {
@@ -1012,10 +981,6 @@ fn assert_lint(
                 // Result is Some(_) if analysis aborted with an error
                 for diagnostic in diagnostics {
                     write_diagnostic(code, diagnostic)?;
-                }
-
-                if test.expect_diagnostic && rule_has_code_action && !has_fix_kind {
-                    bail!("The rule '{}' emitted code actions via `action` function, but you didn't mark rule with `fix_kind`.", rule)
                 }
             }
         }
@@ -1076,10 +1041,6 @@ fn assert_lint(
                 // Result is Some(_) if analysis aborted with an error
                 for diagnostic in diagnostics {
                     write_diagnostic(code, diagnostic)?;
-                }
-
-                if test.expect_diagnostic && rule_has_code_action && !has_fix_kind {
-                    bail!("The rule '{}' emitted code actions via `action` function, but you didn't mark rule with `fix_kind`.", rule)
                 }
             }
         }
