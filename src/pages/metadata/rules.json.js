@@ -88,6 +88,20 @@ export function GET() {
             ],
             "docs": " Disallow the use of `@import` at-rules in invalid positions.\n\n Any `@import` rules must precede all other valid at-rules and style rules in a stylesheet (ignoring `@charset` and `@layer`), or else the `@import` rule is invalid.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a {}\n @import 'foo.css';\n ```\n\n ### Valid\n\n ```css\n @import 'foo.css';\n a {}\n ```\n\n"
           },
+          "noShorthandPropertyOverrides": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noShorthandPropertyOverrides",
+            "link": "https://biomejs.dev/linter/rules/no-shorthand-property-overrides",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "stylelint": "declaration-block-no-shorthand-property-overrides"
+              }
+            ],
+            "docs": " Disallow shorthand properties that override related longhand properties.\n\n For details on shorthand properties, see the [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/CSS/Shorthand_properties).\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a { padding-left: 10px; padding: 20px; }\n ```\n\n ### Valid\n\n ```css\n a { padding: 10px; padding-left: 20px; }\n ```\n\n ```css\n a { transition-property: opacity; } a { transition: opacity 1s linear; }\n ```\n\n"
+          },
           "noUnknownFunction": {
             "deprecated": false,
             "version": "1.8.0",
@@ -3498,7 +3512,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 248
+    "numberOrRules": 249
   },
   "syntax": {
     "languages": {
