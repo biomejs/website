@@ -195,6 +195,20 @@ export function GET() {
             ],
             "docs": " Disallow unmatchable An+B selectors.\n\n Selectors that always evaluate to 0 will not match any elements.\n For more details about the An+B syntax, see:\n https://www.w3.org/TR/css-syntax-3/#anb-microsyntax\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a:nth-child(0) {}\n ```\n\n ```css,expect_diagnostic\n a:nth-last-child(0n) {}\n ```\n\n ```css,expect_diagnostic\n a:nth-of-type(0n+0) {}\n ```\n\n ```css,expect_diagnostic\n a:nth-last-of-type(0 of a) {}\n ```\n\n ### Valid\n\n ```css\n a:nth-child(1) {}\n ```\n\n ```css\n a:nth-last-child(1n) {}\n ```\n\n ```css\n a:nth-of-type(1n+0) {}\n ```\n\n ```css\n a:nth-last-of-type(1 of a) {}\n ```\n\n"
           },
+          "useConsistentGridAreas": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useConsistentGridAreas",
+            "link": "https://biomejs.dev/linter/rules/use-consistent-grid-areas",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "stylelint": "named-grid-areas-no-invalid"
+              }
+            ],
+            "docs": " Disallows invalid named grid areas in CSS Grid Layouts.\n\n For a named grid area to be valid, all strings must define:\n\n - the same number of cell tokens\n - at least one cell token\n\n And all named grid areas that spans multiple grid cells must form a single filled-in rectangle.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a { grid-template-areas: \"a a\"\n                          \"b b b\"; }\n ```\n\n ```css,expect_diagnostic\n a { grid-template-areas: \"b b b\"\n                          \"\"; }\n ```\n\n ```css,expect_diagnostic\n a { grid-template-areas: \"a a a\"\n                          \"b b a\"; }\n ```\n\n ### Valid\n\n ```css\n a { grid-template-areas: \"a a a\"\n                          \"b b b\"; }\n ```\n\n ```css\n a { grid-template-areas: \"a a a\"\n                          \"a a a\"; }\n ```\n\n"
+          },
           "useGenericFontNames": {
             "deprecated": false,
             "version": "1.8.0",
@@ -3512,7 +3526,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 249
+    "numberOrRules": 250
   },
   "syntax": {
     "languages": {
