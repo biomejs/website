@@ -37,7 +37,7 @@
 	biome_string_case    = { git = "https://github.com/biomejs/biome.git", rev = "32027ee6d6d7da25e2e76f1fcdb8751eb34d613d" }
 	bpaf                 = { version = "0.9.12", features = ["docgen"] }
 	# If you update this library, be aware of the breaking changes
-	pulldown-cmark = "0.10.3"
+	pulldown-cmark = "0.11.0"
 	schemars       = "0.8.21"
 	serde          = "1.0.203"
 	serde_json     = "1.0.117"
