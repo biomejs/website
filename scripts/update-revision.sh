@@ -17,4 +17,7 @@ pnpm add -D https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@$(echo $new_rev |
 # Update the rev values for the biome dependencies
 awk -v new_rev="$new_rev" '{gsub(/rev = "[^"]+"/, "rev = \"" new_rev "\""); print}' Cargo.toml >temp.toml && mv temp.toml Cargo.toml
 
+# Update Cargo.lock
+cargo update
+
 echo "Revision updated to $new_rev."
