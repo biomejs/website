@@ -914,7 +914,7 @@ fn print_diagnostics(
                 });
             }
         }
-        // Unknown code blocks should be already ignored by tests
+        // Unknown code blocks should be ignored by tests
         DocumentFileSource::Unknown => {}
     }
 
