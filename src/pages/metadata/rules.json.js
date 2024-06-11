@@ -3603,9 +3603,22 @@ export function GET() {
             "docs": " Provides a whole-source code action to sort the imports in the file\n using import groups and natural ordering.\n\n ## Examples\n\n ```js\n import React, {\n     FC,\n     useEffect,\n     useRef,\n     ChangeEvent,\n     KeyboardEvent,\n } from 'react';\n import { logger } from '@core/logger';\n import { reduce, debounce } from 'lodash';\n import { Message } from '../Message';\n import { createServer } from '@server/node';\n import { Alert } from '@ui/Alert';\n import { repeat, filter, add } from '../utils';\n import { initializeApp } from '@core/app';\n import { Popup } from '@ui/Popup';\n import { createConnection } from '@server/database';\n ```\n"
           }
         }
+      },
+      "json": {
+        "nursery": {
+          "useSortedKeys": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useSortedKeys",
+            "link": "https://biomejs.dev/linter/rules/use-sorted-keys",
+            "recommended": false,
+            "fixKind": "safe",
+            "docs": " Succinct description of the rule.\n\n Put context and details about the rule.\n As a starting point, you can take the description of the corresponding _ESLint_ rule (if any).\n\n Try to stay consistent with the descriptions of implemented rules.\n\n Add a link to the corresponding stylelint rule (if any):\n\n"
+          }
+        }
       }
     },
-    "numberOrRules": 1
+    "numberOrRules": 2
   }
 };
 	// const json_file = new URL("_metadata.json", root);
