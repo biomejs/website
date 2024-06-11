@@ -12,7 +12,7 @@ pub fn project_root() -> PathBuf {
         &env::var("CARGO_MANIFEST_DIR").unwrap_or_else(|_| env!("CARGO_MANIFEST_DIR").to_owned()),
     )
     .ancestors()
-    .nth(0)
+    .next()
     .unwrap()
     .to_path_buf()
 }
