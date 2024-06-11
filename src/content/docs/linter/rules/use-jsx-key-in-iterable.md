@@ -21,11 +21,11 @@ Check out React documentation for [explanation on the why does React need keys.]
 
 ### Invalid
 
-```js
+```jsx
 [<Hello />];
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:1:2 <a href="https://biomejs.dev/linter/rules/use-jsx-key-in-iterable">lint/correctness/useJsxKeyInIterable</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.jsx:1:2 <a href="https://biomejs.dev/linter/rules/use-jsx-key-in-iterable">lint/correctness/useJsxKeyInIterable</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Missing </span><span style="color: Tomato;"><strong>key</strong></span><span style="color: Tomato;"> property for this element in iterable.</span>
   
@@ -39,11 +39,11 @@ Check out React documentation for [explanation on the why does React need keys.]
   
 </code></pre>
 
-```js
+```jsx
 data.map((x) => <Hello>{x}</Hello>);
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:1:17 <a href="https://biomejs.dev/linter/rules/use-jsx-key-in-iterable">lint/correctness/useJsxKeyInIterable</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.jsx:1:17 <a href="https://biomejs.dev/linter/rules/use-jsx-key-in-iterable">lint/correctness/useJsxKeyInIterable</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Missing </span><span style="color: Tomato;"><strong>key</strong></span><span style="color: Tomato;"> property for this element in iterable.</span>
   
@@ -59,7 +59,7 @@ data.map((x) => <Hello>{x}</Hello>);
 
 ### Valid
 
-```js
+```jsx
 [<Hello key="first" />, <Hello key="second" />, <Hello key="third" />];
 data.map((x) => <Hello key={x.id}>{x}</Hello>);
 ```

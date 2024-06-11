@@ -1105,7 +1105,7 @@ export function GET() {
                 "eslintSolid": "no-react-specific-props"
               }
             ],
-            "docs": " Prevents React-specific JSX properties from being used.\n\n This rule is intended for use in JSX-based frameworks (mainly **Solid.js**)\n that do not use React-style prop names.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n <Hello className=\"John\" />\n ```\n\n ### Valid\n\n ```js\n <Hello class=\"Doe\" />\n ```\n"
+            "docs": " Prevents React-specific JSX properties from being used.\n\n This rule is intended for use in JSX-based frameworks (mainly **Solid.js**)\n that do not use React-style prop names.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <Hello className=\"John\" />\n ```\n\n ### Valid\n\n ```jsx\n <Hello class=\"Doe\" />\n ```\n"
           },
           "noRestrictedImports": {
             "deprecated": false,
@@ -1731,7 +1731,7 @@ export function GET() {
                 "eslintStylistic": "jsx-self-closing-comp"
               }
             ],
-            "docs": " Prevent extra closing tags for components without children\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n <div></div>\n ```\n\n ```js,expect_diagnostic\n <Component></Component>\n ```\n\n ```js,expect_diagnostic\n <Foo.bar></Foo.bar>\n ```\n\n ### Valid\n\n ```js\n <div />\n```\n\n ```js\n <div>child</div>\n```\n\n ```js\n <Component />\n```\n\n ```js\n <Component>child</Component>\n```\n\n ```js\n <Foo.bar />\n```\n\n ```js\n <Foo.bar>child</Foo.bar>\n```\n"
+            "docs": " Prevent extra closing tags for components without children\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div></div>\n ```\n\n ```jsx,expect_diagnostic\n <Component></Component>\n ```\n\n ```jsx,expect_diagnostic\n <Foo.bar></Foo.bar>\n ```\n\n ### Valid\n\n ```js\n <div />\n```\n\n ```js\n <div>child</div>\n```\n\n ```js\n <Component />\n```\n\n ```js\n <Component>child</Component>\n```\n\n ```js\n <Foo.bar />\n```\n\n ```js\n <Foo.bar>child</Foo.bar>\n```\n"
           },
           "useShorthandAssign": {
             "deprecated": false,
@@ -2307,7 +2307,7 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/no-suspicious-semicolon-in-jsx",
             "recommended": true,
             "fixKind": "none",
-            "docs": " It detects possible \"wrong\" semicolons inside JSX elements.\n\n Semicolons that appear after a self-closing element or a closing element are usually the result of a typo of a refactor gone wrong.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const Component = () => {\n   return (\n     <div>\n       <div />;\n     </div>\n  );\n }\n ```\n\n ### Valid\n\n ```js\n const Component = () => {\n   return (\n     <div>\n       <div />\n       ;\n     </div>\n   );\n }\n const Component2 = () => {\n   return (\n     <div>\n       <span>;</span>\n     </div>\n   );\n }\n ```\n\n"
+            "docs": " It detects possible \"wrong\" semicolons inside JSX elements.\n\n Semicolons that appear after a self-closing element or a closing element are usually the result of a typo of a refactor gone wrong.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n const Component = () => {\n   return (\n     <div>\n       <div />;\n     </div>\n  );\n }\n ```\n\n ### Valid\n\n ```jsx\n const Component = () => {\n   return (\n     <div>\n       <div />\n       ;\n     </div>\n   );\n }\n const Component2 = () => {\n   return (\n     <div>\n       <span>;</span>\n     </div>\n   );\n }\n ```\n\n"
           },
           "noThenProperty": {
             "deprecated": false,
@@ -2453,7 +2453,7 @@ export function GET() {
                 "eslintJsxA11y": "no-aria-hidden-on-focusable"
               }
             ],
-            "docs": " Enforce that aria-hidden=\"true\" is not set on focusable elements.\n\n `aria-hidden=\"true\"` can be used to hide purely decorative content from screen reader users.\n A focusable element with `aria-hidden=\"true\"` can be reached by keyboard.\n This can lead to confusion or unexpected behavior for screen reader users.\n\n ## Example\n\n ### Invalid\n\n ```js,expect_diagnostic\n <div aria-hidden=\"true\" tabIndex=\"0\" />\n ```\n\n ```js, expect_diagnostic\n <a href=\"/\" aria-hidden=\"true\" />\n ```\n\n ### Valid\n\n ```js\n <button aria-hidden=\"true\" tabIndex=\"-1\" />\n ```\n\n ```js\n <div aria-hidden=\"true\"><a href=\"#\"></a></div>\n ```\n\n ## Resources\n\n - [aria-hidden elements do not contain focusable elements](https://dequeuniversity.com/rules/axe/html/4.4/aria-hidden-focus)\n - [Element with aria-hidden has no content in sequential focus navigation](https://www.w3.org/WAI/standards-guidelines/act/rules/6cfa84/proposed/)\n - [MDN aria-hidden](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden)\n\n"
+            "docs": " Enforce that aria-hidden=\"true\" is not set on focusable elements.\n\n `aria-hidden=\"true\"` can be used to hide purely decorative content from screen reader users.\n A focusable element with `aria-hidden=\"true\"` can be reached by keyboard.\n This can lead to confusion or unexpected behavior for screen reader users.\n\n ## Example\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div aria-hidden=\"true\" tabIndex=\"0\" />\n ```\n\n ```jsx,expect_diagnostic\n <a href=\"/\" aria-hidden=\"true\" />\n ```\n\n ### Valid\n\n ```jsx\n <button aria-hidden=\"true\" tabIndex=\"-1\" />\n ```\n\n ```jsx\n <div aria-hidden=\"true\"><a href=\"#\"></a></div>\n ```\n\n ## Resources\n\n - [aria-hidden elements do not contain focusable elements](https://dequeuniversity.com/rules/axe/html/4.4/aria-hidden-focus)\n - [Element with aria-hidden has no content in sequential focus navigation](https://www.w3.org/WAI/standards-guidelines/act/rules/6cfa84/proposed/)\n - [MDN aria-hidden](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden)\n\n"
           },
           "noAriaUnsupportedElements": {
             "deprecated": false,
@@ -2616,7 +2616,7 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/no-svg-without-title",
             "recommended": true,
             "fixKind": "none",
-            "docs": " Enforces the usage of the `title` element for the `svg` element.\n\n It is not possible to specify the `alt` attribute for the `svg` as for the `img`.\n To make svg accessible, the following methods are available:\n - provide the `title` element as the first child to `svg`\n - provide `role=\"img\"` and `aria-label` or `aria-labelledby` to `svg`\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n <svg>foo</svg>\n ```\n\n ```js,expect_diagnostic\n <svg>\n     <title></title>\n     <circle />\n </svg>\n ```\n\n ```js,expect_diagnostic\n <svg>foo</svg>\n ```\n\n ```js\n <svg role=\"img\" aria-label=\"\">\n     <span id=\"\">Pass</span>\n </svg>\n ```\n\n ```js\n <svg role=\"presentation\">foo</svg>\n ```\n\n ### Valid\n\n ```js\n <svg>\n     <rect />\n     <rect />\n     <g>\n         <circle />\n         <circle />\n         <g>\n             <title>Pass</title>\n             <circle />\n             <circle />\n         </g>\n     </g>\n </svg>\n ```\n\n ```js\n <svg>\n     <title>Pass</title>\n     <circle />\n </svg>\n ```\n\n ```js\n <svg role=\"img\" aria-labelledby=\"title\">\n     <span id=\"title\">Pass</span>\n </svg>\n ```\n\n ```js\n <svg role=\"img\" aria-label=\"title\">\n     <span id=\"title\">Pass</span>\n </svg>\n ```\n ```js\n <svg role=\"graphics-symbol\"><rect /></svg>\n ```\n\n ```js\n <svg role=\"graphics-symbol img\"><rect /></svg>\n ```\n\n ```js\n <svg aria-hidden=\"true\"><rect /></svg>\n ```\n\n\n ## Accessibility guidelines\n [Document Structure – SVG 1.1 (Second Edition)](https://www.w3.org/TR/SVG11/struct.html#DescriptionAndTitleElements)\n [ARIA: img role - Accessibility | MDN](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/img_role)\n [Accessible SVGs | CSS-Tricks - CSS-Tricks](https://css-tricks.com/accessible-svgs/)\n [Contextually Marking up accessible images and SVGs | scottohara.me](https://www.scottohara.me/blog/2019/05/22/contextual-images-svgs-and-a11y.html)\n [Accessible SVGs](https://www.unimelb.edu.au/accessibility/techniques/accessible-svgs)\n\n"
+            "docs": " Enforces the usage of the `title` element for the `svg` element.\n\n It is not possible to specify the `alt` attribute for the `svg` as for the `img`.\n To make svg accessible, the following methods are available:\n - provide the `title` element as the first child to `svg`\n - provide `role=\"img\"` and `aria-label` or `aria-labelledby` to `svg`\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <svg>foo</svg>\n ```\n\n ```jsx,expect_diagnostic\n <svg>\n     <title></title>\n     <circle />\n </svg>\n ```\n\n ```jsx,expect_diagnostic\n <svg>foo</svg>\n ```\n\n ```jsx\n <svg role=\"img\" aria-label=\"\">\n     <span id=\"\">Pass</span>\n </svg>\n ```\n\n ```jsx\n <svg role=\"presentation\">foo</svg>\n ```\n\n ### Valid\n\n ```jsx\n <svg>\n     <rect />\n     <rect />\n     <g>\n         <circle />\n         <circle />\n         <g>\n             <title>Pass</title>\n             <circle />\n             <circle />\n         </g>\n     </g>\n </svg>\n ```\n\n ```jsx\n <svg>\n     <title>Pass</title>\n     <circle />\n </svg>\n ```\n\n ```jsx\n <svg role=\"img\" aria-labelledby=\"title\">\n     <span id=\"title\">Pass</span>\n </svg>\n ```\n\n ```jsx\n <svg role=\"img\" aria-label=\"title\">\n     <span id=\"title\">Pass</span>\n </svg>\n ```\n ```jsx\n <svg role=\"graphics-symbol\"><rect /></svg>\n ```\n\n ```jsx\n <svg role=\"graphics-symbol img\"><rect /></svg>\n ```\n\n ```jsx\n <svg aria-hidden=\"true\"><rect /></svg>\n ```\n\n\n ## Accessibility guidelines\n [Document Structure – SVG 1.1 (Second Edition)](https://www.w3.org/TR/SVG11/struct.html#DescriptionAndTitleElements)\n [ARIA: img role - Accessibility | MDN](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/img_role)\n [Accessible SVGs | CSS-Tricks - CSS-Tricks](https://css-tricks.com/accessible-svgs/)\n [Contextually Marking up accessible images and SVGs | scottohara.me](https://www.scottohara.me/blog/2019/05/22/contextual-images-svgs-and-a11y.html)\n [Accessible SVGs](https://www.unimelb.edu.au/accessibility/techniques/accessible-svgs)\n\n"
           },
           "useAltText": {
             "deprecated": false,
@@ -2812,7 +2812,7 @@ export function GET() {
                 "eslintJsxA11y": "aria-role"
               }
             ],
-            "docs": " Elements with ARIA roles must use a valid, non-abstract ARIA role.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n <div role=\"datepicker\"></div>\n ```\n\n ```js,expect_diagnostic\n <div role=\"range\"></div>\n ```\n\n ```js,expect_diagnostic\n <div role=\"\"></div>\n ```\n\n ```js,expect_diagnostic\n <Foo role=\"foo\"></Foo>\n ```\n\n ### Valid\n\n ```js\n <>\n   <div role=\"button\"></div>\n   <div role={role}></div>\n   <div></div>\n </>\n ```\n\n ## Options\n\n ```json\n {\n     \"//\": \"...\",\n     \"options\": {\n         \"allowInvalidRoles\": [\"invalid-role\", \"text\"],\n         \"nonIgnoreDom\": true\n     }\n }\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 4.1.2](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value)\n\n ## Resources\n\n - [Chrome Audit Rules, AX_ARIA_01](https://github.com/GoogleChrome/accessibility-developer-tools/wiki/Audit-Rules#ax_aria_01)\n - [DPUB-ARIA roles](https://www.w3.org/TR/dpub-aria-1.0/)\n - [MDN: Using ARIA: Roles, states, and properties](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques)\n\n"
+            "docs": " Elements with ARIA roles must use a valid, non-abstract ARIA role.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div role=\"datepicker\"></div>\n ```\n\n ```jsx,expect_diagnostic\n <div role=\"range\"></div>\n ```\n\n ```jsx,expect_diagnostic\n <div role=\"\"></div>\n ```\n\n ```jsx,expect_diagnostic\n <Foo role=\"foo\"></Foo>\n ```\n\n ### Valid\n\n ```jsx\n <>\n   <div role=\"button\"></div>\n   <div role={role}></div>\n   <div></div>\n </>\n ```\n\n ## Options\n\n ```json\n {\n     \"//\": \"...\",\n     \"options\": {\n         \"allowInvalidRoles\": [\"invalid-role\", \"text\"],\n         \"nonIgnoreDom\": true\n     }\n }\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 4.1.2](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value)\n\n ## Resources\n\n - [Chrome Audit Rules, AX_ARIA_01](https://github.com/GoogleChrome/accessibility-developer-tools/wiki/Audit-Rules#ax_aria_01)\n - [DPUB-ARIA roles](https://www.w3.org/TR/dpub-aria-1.0/)\n - [MDN: Using ARIA: Roles, states, and properties](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques)\n\n"
           },
           "useValidAriaValues": {
             "deprecated": false,
@@ -2872,7 +2872,7 @@ export function GET() {
                 "eslintReact": "no-children-prop"
               }
             ],
-            "docs": " Prevent passing of **children** as props.\n\n When using JSX, the children should be nested between the opening and closing tags.\n When not using JSX, the children should be passed as additional arguments to `React.createElement`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n <FirstComponent children={'foo'} />\n ```\n\n ```js,expect_diagnostic\n React.createElement('div', { children: 'foo' });\n ```\n"
+            "docs": " Prevent passing of **children** as props.\n\n When using JSX, the children should be nested between the opening and closing tags.\n When not using JSX, the children should be passed as additional arguments to `React.createElement`.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <FirstComponent children={'foo'} />\n ```\n\n ```js,expect_diagnostic\n React.createElement('div', { children: 'foo' });\n ```\n"
           },
           "noRenderReturnValue": {
             "deprecated": false,
@@ -2938,7 +2938,7 @@ export function GET() {
               }
             ],
             "sourceKind": "sameLogic",
-            "docs": " Disallow missing key props in iterators/collection literals.\n\n Warn if an element that likely requires a key prop--namely, one present in an array literal or an arrow function expression.\n Check out React documentation for [explanation on the why does React need keys.](https://react.dev/learn/rendering-lists#why-does-react-need-keys)\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n [<Hello />];\n ```\n ```js,expect_diagnostic\n data.map((x) => <Hello>{x}</Hello>);\n ```\n\n ### Valid\n\n ```js\n [<Hello key=\"first\" />, <Hello key=\"second\" />, <Hello key=\"third\" />];\n data.map((x) => <Hello key={x.id}>{x}</Hello>);\n ```\n\n"
+            "docs": " Disallow missing key props in iterators/collection literals.\n\n Warn if an element that likely requires a key prop--namely, one present in an array literal or an arrow function expression.\n Check out React documentation for [explanation on the why does React need keys.](https://react.dev/learn/rendering-lists#why-does-react-need-keys)\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n [<Hello />];\n ```\n ```jsx,expect_diagnostic\n data.map((x) => <Hello>{x}</Hello>);\n ```\n\n ### Valid\n\n ```jsx\n [<Hello key=\"first\" />, <Hello key=\"second\" />, <Hello key=\"third\" />];\n data.map((x) => <Hello key={x.id}>{x}</Hello>);\n ```\n\n"
           }
         },
         "nursery": {
@@ -2968,7 +2968,7 @@ export function GET() {
                 "eslintJsxA11y": "interactive-support-focus"
               }
             ],
-            "docs": " Elements with an interactive role and interaction handlers must be focusable.\n\n HTML elements with interactive roles must have `tabIndex` defined to ensure they are\n focusable. Without tabIndex, assistive technologies may not recognize these elements as\n interactive.\n You could also consider switching from an interactive role to its semantic HTML element\n instead.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n <div role=\"button\" />\n ```\n\n ```js,expect_diagnostic\n <div role=\"tab\" />\n ```\n\n ### Valid\n\n ```js\n <div role=\"button\" tabIndex={0} />\n ```\n\n ```jsx\n <div />\n ```\n\n"
+            "docs": " Elements with an interactive role and interaction handlers must be focusable.\n\n HTML elements with interactive roles must have `tabIndex` defined to ensure they are\n focusable. Without tabIndex, assistive technologies may not recognize these elements as\n interactive.\n You could also consider switching from an interactive role to its semantic HTML element\n instead.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div role=\"button\" />\n ```\n\n ```jsx,expect_diagnostic\n <div role=\"tab\" />\n ```\n\n ### Valid\n\n ```jsx\n <div role=\"button\" tabIndex={0} />\n ```\n\n ```jsx\n <div />\n ```\n\n"
           },
           "useSemanticElements": {
             "deprecated": false,
@@ -3043,7 +3043,7 @@ export function GET() {
                 "eslintReact": "jsx-fragments"
               }
             ],
-            "docs": " This rule enforces the use of `<>...</>` over `<Fragment>...</Fragment>`.\n\n The shorthand fragment syntax saves keystrokes and is only inapplicable when keys are required.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n <Fragment>child</Fragment>\n ```\n\n ```js,expect_diagnostic\n <React.Fragment>child</React.Fragment>\n ```\n"
+            "docs": " This rule enforces the use of `<>...</>` over `<Fragment>...</Fragment>`.\n\n The shorthand fragment syntax saves keystrokes and is only inapplicable when keys are required.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <Fragment>child</Fragment>\n ```\n\n ```jsx,expect_diagnostic\n <React.Fragment>child</React.Fragment>\n ```\n"
           }
         },
         "suspicious": {
@@ -3073,7 +3073,7 @@ export function GET() {
                 "eslintReact": "jsx-no-comment-textnodes"
               }
             ],
-            "docs": " Prevent comments from being inserted as text nodes\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const a3 = <div>// comment</div>;\n ```\n\n ```js,expect_diagnostic\n const a4 = <div>/* comment */</div>;\n ```\n\n ```js,expect_diagnostic\n const a5 = <div>/** comment */</div>;\n ```\n\n ### Valid\n\n ```js\n const a = <div>{/* comment */}</div>;\n const a1 = <div>{/** comment */}</div>;\n const a2 = <div className={\"cls\" /* comment */}></div>;\n ```\n"
+            "docs": " Prevent comments from being inserted as text nodes\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n const a3 = <div>// comment</div>;\n ```\n\n ```jsx,expect_diagnostic\n const a4 = <div>/* comment */</div>;\n ```\n\n ```jsx,expect_diagnostic\n const a5 = <div>/** comment */</div>;\n ```\n\n ### Valid\n\n ```jsx\n const a = <div>{/* comment */}</div>;\n const a1 = <div>{/** comment */}</div>;\n const a2 = <div className={\"cls\" /* comment */}></div>;\n ```\n"
           },
           "noDuplicateJsxProps": {
             "deprecated": false,
@@ -3087,7 +3087,7 @@ export function GET() {
                 "eslintReact": "jsx-no-duplicate-props"
               }
             ],
-            "docs": " Prevents JSX properties to be assigned multiple times.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n <Hello name=\"John\" name=\"John\" />\n ```\n\n ```js,expect_diagnostic\n <label xml:lang=\"en-US\" xml:lang=\"en-US\"></label>\n ```\n\n ### Valid\n\n ```js\n <Hello firstname=\"John\" lastname=\"Doe\" />\n ```\n\n ```js\n <label xml:lang=\"en-US\" lang=\"en-US\"></label>\n ```\n"
+            "docs": " Prevents JSX properties to be assigned multiple times.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <Hello name=\"John\" name=\"John\" />\n ```\n\n ```jsx,expect_diagnostic\n <label xml:lang=\"en-US\" xml:lang=\"en-US\"></label>\n ```\n\n ### Valid\n\n ```jsx\n <Hello firstname=\"John\" lastname=\"Doe\" />\n ```\n\n ```jsx\n <label xml:lang=\"en-US\" lang=\"en-US\"></label>\n ```\n"
           }
         }
       },

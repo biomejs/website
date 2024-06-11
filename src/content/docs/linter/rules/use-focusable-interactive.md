@@ -23,11 +23,11 @@ instead.
 
 ### Invalid
 
-```js
+```jsx
 <div role="button" />
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/use-focusable-interactive">lint/nursery/useFocusableInteractive</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.jsx:1:1 <a href="https://biomejs.dev/linter/rules/use-focusable-interactive">lint/nursery/useFocusableInteractive</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The HTML element with the interactive role </span><span style="color: Tomato;"><strong>&quot;button&quot;</strong></span><span style="color: Tomato;"> is not focusable.</span>
   
@@ -41,11 +41,11 @@ instead.
   
 </code></pre>
 
-```js
+```jsx
 <div role="tab" />
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/use-focusable-interactive">lint/nursery/useFocusableInteractive</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.jsx:1:1 <a href="https://biomejs.dev/linter/rules/use-focusable-interactive">lint/nursery/useFocusableInteractive</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The HTML element with the interactive role </span><span style="color: Tomato;"><strong>&quot;tab&quot;</strong></span><span style="color: Tomato;"> is not focusable.</span>
   
@@ -61,7 +61,7 @@ instead.
 
 ### Valid
 
-```js
+```jsx
 <div role="button" tabIndex={0} />
 ```
 

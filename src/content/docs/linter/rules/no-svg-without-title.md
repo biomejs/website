@@ -21,11 +21,11 @@ To make svg accessible, the following methods are available:
 
 ### Invalid
 
-```js
+```jsx
 <svg>foo</svg>
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-svg-without-title">lint/a11y/noSvgWithoutTitle</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.jsx:1:1 <a href="https://biomejs.dev/linter/rules/no-svg-without-title">lint/a11y/noSvgWithoutTitle</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Alternative text </span><span style="color: Tomato;"><strong>title</strong></span><span style="color: Tomato;"> element cannot be empty</span>
   
@@ -37,14 +37,14 @@ To make svg accessible, the following methods are available:
   
 </code></pre>
 
-```js
+```jsx
 <svg>
     <title></title>
     <circle />
 </svg>
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-svg-without-title">lint/a11y/noSvgWithoutTitle</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.jsx:1:1 <a href="https://biomejs.dev/linter/rules/no-svg-without-title">lint/a11y/noSvgWithoutTitle</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Alternative text </span><span style="color: Tomato;"><strong>title</strong></span><span style="color: Tomato;"> element cannot be empty</span>
   
@@ -57,11 +57,11 @@ To make svg accessible, the following methods are available:
   
 </code></pre>
 
-```js
+```jsx
 <svg>foo</svg>
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-svg-without-title">lint/a11y/noSvgWithoutTitle</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.jsx:1:1 <a href="https://biomejs.dev/linter/rules/no-svg-without-title">lint/a11y/noSvgWithoutTitle</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Alternative text </span><span style="color: Tomato;"><strong>title</strong></span><span style="color: Tomato;"> element cannot be empty</span>
   
@@ -73,19 +73,19 @@ To make svg accessible, the following methods are available:
   
 </code></pre>
 
-```js
+```jsx
 <svg role="img" aria-label="">
     <span id="">Pass</span>
 </svg>
 ```
 
-```js
+```jsx
 <svg role="presentation">foo</svg>
 ```
 
 ### Valid
 
-```js
+```jsx
 <svg>
     <rect />
     <rect />
@@ -101,34 +101,34 @@ To make svg accessible, the following methods are available:
 </svg>
 ```
 
-```js
+```jsx
 <svg>
     <title>Pass</title>
     <circle />
 </svg>
 ```
 
-```js
+```jsx
 <svg role="img" aria-labelledby="title">
     <span id="title">Pass</span>
 </svg>
 ```
 
-```js
+```jsx
 <svg role="img" aria-label="title">
     <span id="title">Pass</span>
 </svg>
 ```
 
-```js
+```jsx
 <svg role="graphics-symbol"><rect /></svg>
 ```
 
-```js
+```jsx
 <svg role="graphics-symbol img"><rect /></svg>
 ```
 
-```js
+```jsx
 <svg aria-hidden="true"><rect /></svg>
 ```
 

@@ -23,11 +23,11 @@ This can lead to confusion or unexpected behavior for screen reader users.
 
 ### Invalid
 
-```js
+```jsx
 <div aria-hidden="true" tabIndex="0" />
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-aria-hidden-on-focusable">lint/a11y/noAriaHiddenOnFocusable</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.jsx:1:1 <a href="https://biomejs.dev/linter/rules/no-aria-hidden-on-focusable">lint/a11y/noAriaHiddenOnFocusable</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Disallow </span><span style="color: Tomato;"><strong>aria-hidden=&quot;true&quot;</strong></span><span style="color: Tomato;"> from being set on focusable elements.</span>
   
@@ -43,11 +43,11 @@ This can lead to confusion or unexpected behavior for screen reader users.
 <strong>  </strong><strong>    │ </strong>     <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span>               
 </code></pre>
 
-```js
+```jsx
 <a href="/" aria-hidden="true" />
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-aria-hidden-on-focusable">lint/a11y/noAriaHiddenOnFocusable</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.jsx:1:1 <a href="https://biomejs.dev/linter/rules/no-aria-hidden-on-focusable">lint/a11y/noAriaHiddenOnFocusable</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Disallow </span><span style="color: Tomato;"><strong>aria-hidden=&quot;true&quot;</strong></span><span style="color: Tomato;"> from being set on focusable elements.</span>
   
@@ -65,11 +65,11 @@ This can lead to confusion or unexpected behavior for screen reader users.
 
 ### Valid
 
-```js
+```jsx
 <button aria-hidden="true" tabIndex="-1" />
 ```
 
-```js
+```jsx
 <div aria-hidden="true"><a href="#"></a></div>
 ```
 
