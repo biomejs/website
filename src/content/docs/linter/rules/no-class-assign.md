@@ -20,12 +20,12 @@ A class declaration creates a variable that we can modify, however, the modifica
 
 ### Invalid
 
-```jsx
+```js
 class A {}
 A = 0;
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noClassAssign.js:2:1 <a href="https://biomejs.dev/linter/rules/no-class-assign">lint/suspicious/noClassAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:1 <a href="https://biomejs.dev/linter/rules/no-class-assign">lint/suspicious/noClassAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">'A' is a class.</span>
   
@@ -43,12 +43,12 @@ A = 0;
   
 </code></pre>
 
-```jsx
+```js
 A = 0;
 class A {}
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noClassAssign.js:1:1 <a href="https://biomejs.dev/linter/rules/no-class-assign">lint/suspicious/noClassAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-class-assign">lint/suspicious/noClassAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">'A' is a class.</span>
   
@@ -66,7 +66,7 @@ class A {}
   
 </code></pre>
 
-```jsx
+```js
 class A {
 	b() {
 		A = 0;
@@ -74,7 +74,7 @@ class A {
 }
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noClassAssign.js:3:3 <a href="https://biomejs.dev/linter/rules/no-class-assign">lint/suspicious/noClassAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:3:3 <a href="https://biomejs.dev/linter/rules/no-class-assign">lint/suspicious/noClassAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">'A' is a class.</span>
   
@@ -94,7 +94,7 @@ class A {
   
 </code></pre>
 
-```jsx
+```js
 let A = class A {
 	b() {
 		A = 0;
@@ -103,7 +103,7 @@ let A = class A {
 }
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noClassAssign.js:3:3 <a href="https://biomejs.dev/linter/rules/no-class-assign">lint/suspicious/noClassAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:3:3 <a href="https://biomejs.dev/linter/rules/no-class-assign">lint/suspicious/noClassAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">'A' is a class.</span>
   
@@ -125,12 +125,12 @@ let A = class A {
 
 ### Valid
 
-```jsx
+```js
 let A = class A {}
 A = 0; // A is a variable.
 ```
 
-```jsx
+```js
 let A = class {
     b() {
         A = 0; // A is a variable.
@@ -138,7 +138,7 @@ let A = class {
 }
 ```
 
-```jsx
+```js
 class A {
 	b(A) {
 		A = 0; // A is a parameter.

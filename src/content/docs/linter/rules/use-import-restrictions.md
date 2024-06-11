@@ -35,12 +35,12 @@ Source: https://github.com/uhyo/eslint-plugin-import-access
 
 ### Invalid
 
-```jsx
+```js
 // Attempt to import from `foo.js` from outside its `sub` module.
 import { fooPackageVariable } from "./sub/foo.js";
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useImportRestrictions.js:2:36 <a href="https://biomejs.dev/linter/rules/use-import-restrictions">lint/nursery/useImportRestrictions</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:36 <a href="https://biomejs.dev/linter/rules/use-import-restrictions">lint/nursery/useImportRestrictions</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Importing package private symbols is prohibited from outside the module directory.</span>
   
@@ -53,12 +53,12 @@ import { fooPackageVariable } from "./sub/foo.js";
   
 </code></pre>
 
-```jsx
+```js
 // Attempt to import from `bar.ts` from outside its `aunt` module.
 import { barPackageVariable } from "../aunt/bar.ts";
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useImportRestrictions.js:2:36 <a href="https://biomejs.dev/linter/rules/use-import-restrictions">lint/nursery/useImportRestrictions</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:36 <a href="https://biomejs.dev/linter/rules/use-import-restrictions">lint/nursery/useImportRestrictions</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Importing package private symbols is prohibited from outside the module directory.</span>
   
@@ -71,12 +71,12 @@ import { barPackageVariable } from "../aunt/bar.ts";
   
 </code></pre>
 
-```jsx
+```js
 // Assumed to resolve to a JS/TS file.
 import { fooPackageVariable } from "./sub/foo";
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useImportRestrictions.js:2:36 <a href="https://biomejs.dev/linter/rules/use-import-restrictions">lint/nursery/useImportRestrictions</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:36 <a href="https://biomejs.dev/linter/rules/use-import-restrictions">lint/nursery/useImportRestrictions</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Importing package private symbols is prohibited from outside the module directory.</span>
   
@@ -89,12 +89,12 @@ import { fooPackageVariable } from "./sub/foo";
   
 </code></pre>
 
-```jsx
+```js
 // If the `sub/foo` module is inaccessible, so is its index file.
 import { fooPackageVariable } from "./sub/foo/index.js";
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useImportRestrictions.js:2:36 <a href="https://biomejs.dev/linter/rules/use-import-restrictions">lint/nursery/useImportRestrictions</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:36 <a href="https://biomejs.dev/linter/rules/use-import-restrictions">lint/nursery/useImportRestrictions</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Importing package private symbols is prohibited from outside the module directory.</span>
   
@@ -109,7 +109,7 @@ import { fooPackageVariable } from "./sub/foo/index.js";
 
 ### Valid
 
-```jsx
+```js
 // Imports within the same module are always allowed.
 import { fooPackageVariable } from "./foo.js";
 

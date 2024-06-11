@@ -28,11 +28,11 @@ It ignores CommonJS default exports.
 
 ### Invalid
 
-```jsx
+```js
 export default function f() {};
 ```
 
-<pre class="language-text"><code class="language-text">style/noDefaultExport.js:1:8 <a href="https://biomejs.dev/linter/rules/no-default-export">lint/style/noDefaultExport</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:8 <a href="https://biomejs.dev/linter/rules/no-default-export">lint/style/noDefaultExport</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Avoid </span><span style="color: Orange;"><strong>default</strong></span><span style="color: Orange;"> exports.</span>
   
@@ -46,11 +46,11 @@ export default function f() {};
   
 </code></pre>
 
-```jsx
+```js
 export default class C {};
 ```
 
-<pre class="language-text"><code class="language-text">style/noDefaultExport.js:1:8 <a href="https://biomejs.dev/linter/rules/no-default-export">lint/style/noDefaultExport</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:8 <a href="https://biomejs.dev/linter/rules/no-default-export">lint/style/noDefaultExport</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Avoid </span><span style="color: Orange;"><strong>default</strong></span><span style="color: Orange;"> exports.</span>
   
@@ -64,14 +64,14 @@ export default class C {};
   
 </code></pre>
 
-```jsx
+```js
 export default {
     f() {},
     g() {},
 };
 ```
 
-<pre class="language-text"><code class="language-text">style/noDefaultExport.js:1:8 <a href="https://biomejs.dev/linter/rules/no-default-export">lint/style/noDefaultExport</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:8 <a href="https://biomejs.dev/linter/rules/no-default-export">lint/style/noDefaultExport</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Avoid </span><span style="color: Orange;"><strong>default</strong></span><span style="color: Orange;"> exports.</span>
   
@@ -86,11 +86,11 @@ export default {
   
 </code></pre>
 
-```jsx
+```js
 export { X as default };
 ```
 
-<pre class="language-text"><code class="language-text">style/noDefaultExport.js:1:15 <a href="https://biomejs.dev/linter/rules/no-default-export">lint/style/noDefaultExport</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:15 <a href="https://biomejs.dev/linter/rules/no-default-export">lint/style/noDefaultExport</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Avoid </span><span style="color: Orange;"><strong>default</strong></span><span style="color: Orange;"> exports.</span>
   
@@ -106,13 +106,13 @@ export { X as default };
 
 ### Valid
 
-```jsx
+```js
 export function f () {};
 export class C {};
 export { default as X } from "mod";
 ```
 
-```js
+```cjs
 module.exports = class {};
 ```
 

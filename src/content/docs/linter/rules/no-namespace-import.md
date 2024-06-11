@@ -17,11 +17,11 @@ Modern bundlers are generally capable of handling namespace imports effectively,
 
 ### Invalid
 
-```jsx
+```js
 import * as foo from "foo";
 ```
 
-<pre class="language-text"><code class="language-text">style/noNamespaceImport.js:1:8 <a href="https://biomejs.dev/linter/rules/no-namespace-import">lint/style/noNamespaceImport</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:8 <a href="https://biomejs.dev/linter/rules/no-namespace-import">lint/style/noNamespaceImport</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Avoid namespace imports, it can prevent efficient tree shaking and increase bundle size.</span>
   

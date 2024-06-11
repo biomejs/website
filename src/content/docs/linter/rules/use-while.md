@@ -19,13 +19,13 @@ Enforce the use of `while` loops instead of `for` loops when the initializer and
 
 ### Invalid
 
-```jsx
+```js
 for (; x.running;) {
     x.step();
 }
 ```
 
-<pre class="language-text"><code class="language-text">style/useWhile.js:1:1 <a href="https://biomejs.dev/linter/rules/use-while">lint/style/useWhile</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/use-while">lint/style/useWhile</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Use a </span><span style="color: Tomato;"><strong>while</strong></span><span style="color: Tomato;"> loop instead of a </span><span style="color: Tomato;"><strong>for</strong></span><span style="color: Tomato;"> loop.</span>
   
@@ -47,16 +47,16 @@ for (; x.running;) {
 
 ### Valid
 
-```jsx
+```js
 for(let x = 0; x < 10; i++) {}
 ```
 
-```jsx
+```js
 let x = 0
 for(; x < 10; i++) {}
 ```
 
-```jsx
+```js
 for(let x = 0; x < 10;) {
     i++
 }

@@ -18,7 +18,7 @@ A `describe` block should not contain duplicate hooks.
 
 ### Invalid
 
-```jsx
+```js
 describe('foo', () => {
   beforeEach(() => {
     // some setup
@@ -32,7 +32,7 @@ describe('foo', () => {
 });
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noDuplicateTestHooks.js:5:3 <a href="https://biomejs.dev/linter/rules/no-duplicate-test-hooks">lint/suspicious/noDuplicateTestHooks</a> ━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:5:3 <a href="https://biomejs.dev/linter/rules/no-duplicate-test-hooks">lint/suspicious/noDuplicateTestHooks</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Disallow duplicate setup and teardown hooks.</span>
   
@@ -50,7 +50,7 @@ describe('foo', () => {
   
 </code></pre>
 
-```jsx
+```js
 describe('foo', () => {
   beforeEach(() => {
     // some setup
@@ -66,7 +66,7 @@ describe('foo', () => {
 });
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noDuplicateTestHooks.js:9:4 <a href="https://biomejs.dev/linter/rules/no-duplicate-test-hooks">lint/suspicious/noDuplicateTestHooks</a> ━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:9:4 <a href="https://biomejs.dev/linter/rules/no-duplicate-test-hooks">lint/suspicious/noDuplicateTestHooks</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Disallow duplicate setup and teardown hooks.</span>
   
@@ -86,7 +86,7 @@ describe('foo', () => {
 
 ### Valid
 
-```jsx
+```js
 describe('foo', () => {
   beforeEach(() => {
     // some setup

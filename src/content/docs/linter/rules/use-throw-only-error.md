@@ -23,11 +23,11 @@ keep track of where they were built and originated.
 
 ### Invalid
 
-```jsx
+```js
 throw undefined;
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useThrowOnlyError.js:1:1 <a href="https://biomejs.dev/linter/rules/use-throw-only-error">lint/nursery/useThrowOnlyError</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/use-throw-only-error">lint/nursery/useThrowOnlyError</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Throwing non-</span><span style="color: Orange;"><strong>Error</strong></span><span style="color: Orange;"> values is not allowed.</span>
   
@@ -39,11 +39,11 @@ throw undefined;
   
 </code></pre>
 
-```jsx
+```js
 throw false;
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useThrowOnlyError.js:1:1 <a href="https://biomejs.dev/linter/rules/use-throw-only-error">lint/nursery/useThrowOnlyError</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/use-throw-only-error">lint/nursery/useThrowOnlyError</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Throwing non-</span><span style="color: Orange;"><strong>Error</strong></span><span style="color: Orange;"> values is not allowed.</span>
   
@@ -55,11 +55,11 @@ throw false;
   
 </code></pre>
 
-```jsx
+```js
 throw "a" + "b";
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useThrowOnlyError.js:1:1 <a href="https://biomejs.dev/linter/rules/use-throw-only-error">lint/nursery/useThrowOnlyError</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/use-throw-only-error">lint/nursery/useThrowOnlyError</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Throwing non-</span><span style="color: Orange;"><strong>Error</strong></span><span style="color: Orange;"> values is not allowed.</span>
   
@@ -73,15 +73,15 @@ throw "a" + "b";
 
 ### Valid
 
-```jsx
+```js
 throw new Error();
 ```
 
-```jsx
+```js
 throw new TypeError('biome');
 ```
 
-```jsx
+```js
 class CustomError extends Error {}
 
 throw new CustomError();

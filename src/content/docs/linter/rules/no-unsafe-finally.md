@@ -23,7 +23,7 @@ which is considered as unexpected behavior.
 
 ### Invalid
 
-```jsx
+```js
 (() => {
     try {
         return 1; // 1 is returned but suspended until finally block ends
@@ -35,7 +35,7 @@ which is considered as unexpected behavior.
 })();
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noUnsafeFinally.js:7:9 <a href="https://biomejs.dev/linter/rules/no-unsafe-finally">lint/correctness/noUnsafeFinally</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:7:9 <a href="https://biomejs.dev/linter/rules/no-unsafe-finally">lint/correctness/noUnsafeFinally</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unsafe usage of 'return'.</span>
   
@@ -50,7 +50,7 @@ which is considered as unexpected behavior.
   
 </code></pre>
 
-```jsx
+```js
 (() => {
     try {
         throw new Error("Try"); // error is thrown but suspended until finally block ends
@@ -60,7 +60,7 @@ which is considered as unexpected behavior.
 })();
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noUnsafeFinally.js:5:9 <a href="https://biomejs.dev/linter/rules/no-unsafe-finally">lint/correctness/noUnsafeFinally</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:5:9 <a href="https://biomejs.dev/linter/rules/no-unsafe-finally">lint/correctness/noUnsafeFinally</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unsafe usage of 'return'.</span>
   
@@ -75,7 +75,7 @@ which is considered as unexpected behavior.
   
 </code></pre>
 
-```jsx
+```js
 (() => {
     try {
         throw new Error("Try")
@@ -87,7 +87,7 @@ which is considered as unexpected behavior.
 })();
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noUnsafeFinally.js:7:9 <a href="https://biomejs.dev/linter/rules/no-unsafe-finally">lint/correctness/noUnsafeFinally</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:7:9 <a href="https://biomejs.dev/linter/rules/no-unsafe-finally">lint/correctness/noUnsafeFinally</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unsafe usage of 'throw'.</span>
   
@@ -102,7 +102,7 @@ which is considered as unexpected behavior.
   
 </code></pre>
 
-```jsx
+```js
 (() => {
     label: try {
       return 0; // 0 is returned but suspended until finally block ends
@@ -113,7 +113,7 @@ which is considered as unexpected behavior.
 })();
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noUnsafeFinally.js:5:7 <a href="https://biomejs.dev/linter/rules/no-unsafe-finally">lint/correctness/noUnsafeFinally</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:5:7 <a href="https://biomejs.dev/linter/rules/no-unsafe-finally">lint/correctness/noUnsafeFinally</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unsafe usage of 'break'.</span>
   
@@ -128,7 +128,7 @@ which is considered as unexpected behavior.
   
 </code></pre>
 
-```jsx
+```js
 function a() {
   switch (condition) {
     case 'a': {
@@ -146,7 +146,7 @@ function a() {
 }
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noUnsafeFinally.js:8:9 <a href="https://biomejs.dev/linter/rules/no-unsafe-finally">lint/correctness/noUnsafeFinally</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:8:9 <a href="https://biomejs.dev/linter/rules/no-unsafe-finally">lint/correctness/noUnsafeFinally</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unsafe usage of 'break'.</span>
   
@@ -163,7 +163,7 @@ function a() {
 
 ### Valid
 
-```jsx
+```js
 let foo = function() {
     try {
         return 1;
@@ -175,7 +175,7 @@ let foo = function() {
 };
 ```
 
-```jsx
+```js
 let foo = function() {
     try {
         return 1;
@@ -189,7 +189,7 @@ let foo = function() {
 };
 ```
 
-```jsx
+```js
 let foo = function(a) {
     try {
         return 1;

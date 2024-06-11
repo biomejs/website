@@ -25,11 +25,11 @@ that do not use React-style prop names.
 
 ### Invalid
 
-```jsx
+```js
 <Hello className="John" />
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noReactSpecificProps.js:1:8 <a href="https://biomejs.dev/linter/rules/no-react-specific-props">lint/nursery/noReactSpecificProps</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:8 <a href="https://biomejs.dev/linter/rules/no-react-specific-props">lint/nursery/noReactSpecificProps</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">This JSX attribute is specific to React.</span>
   
@@ -53,7 +53,7 @@ that do not use React-style prop names.
 
 ### Valid
 
-```jsx
+```js
 <Hello class="Doe" />
 ```
 

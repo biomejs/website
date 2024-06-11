@@ -18,12 +18,12 @@ Disallow reassigning function declarations.
 
 ### Invalid
 
-```jsx
+```js
 function foo() { };
 foo = bar;
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noFunctionAssign.js:1:10 <a href="https://biomejs.dev/linter/rules/no-function-assign">lint/suspicious/noFunctionAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:10 <a href="https://biomejs.dev/linter/rules/no-function-assign">lint/suspicious/noFunctionAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Do not reassign a function declaration.</span>
   
@@ -43,13 +43,13 @@ foo = bar;
   
 </code></pre>
 
-```jsx
+```js
 function foo() {
     foo = bar;
  }
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noFunctionAssign.js:1:10 <a href="https://biomejs.dev/linter/rules/no-function-assign">lint/suspicious/noFunctionAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:10 <a href="https://biomejs.dev/linter/rules/no-function-assign">lint/suspicious/noFunctionAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Do not reassign a function declaration.</span>
   
@@ -70,12 +70,12 @@ function foo() {
   
 </code></pre>
 
-```jsx
+```js
 foo = bar;
 function foo() { };
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noFunctionAssign.js:2:10 <a href="https://biomejs.dev/linter/rules/no-function-assign">lint/suspicious/noFunctionAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:10 <a href="https://biomejs.dev/linter/rules/no-function-assign">lint/suspicious/noFunctionAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Do not reassign a function declaration.</span>
   
@@ -97,12 +97,12 @@ function foo() { };
   
 </code></pre>
 
-```jsx
+```js
 [foo] = bar;
 function foo() { };
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noFunctionAssign.js:2:10 <a href="https://biomejs.dev/linter/rules/no-function-assign">lint/suspicious/noFunctionAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:10 <a href="https://biomejs.dev/linter/rules/no-function-assign">lint/suspicious/noFunctionAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Do not reassign a function declaration.</span>
   
@@ -124,12 +124,12 @@ function foo() { };
   
 </code></pre>
 
-```jsx
+```js
 ({ x: foo = 0 } = bar);
 function foo() { };
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noFunctionAssign.js:2:10 <a href="https://biomejs.dev/linter/rules/no-function-assign">lint/suspicious/noFunctionAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:10 <a href="https://biomejs.dev/linter/rules/no-function-assign">lint/suspicious/noFunctionAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Do not reassign a function declaration.</span>
   
@@ -151,13 +151,13 @@ function foo() { };
   
 </code></pre>
 
-```jsx
+```js
 function foo() {
     [foo] = bar;
  }
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noFunctionAssign.js:1:10 <a href="https://biomejs.dev/linter/rules/no-function-assign">lint/suspicious/noFunctionAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:10 <a href="https://biomejs.dev/linter/rules/no-function-assign">lint/suspicious/noFunctionAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Do not reassign a function declaration.</span>
   
@@ -178,14 +178,14 @@ function foo() {
   
 </code></pre>
 
-```jsx
+```js
 (function () {
     ({ x: foo = 0 } = bar);
     function foo() { };
  })();
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noFunctionAssign.js:3:14 <a href="https://biomejs.dev/linter/rules/no-function-assign">lint/suspicious/noFunctionAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:3:14 <a href="https://biomejs.dev/linter/rules/no-function-assign">lint/suspicious/noFunctionAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Do not reassign a function declaration.</span>
   
@@ -212,42 +212,42 @@ function foo() {
 
 ### Valid
 
-```jsx
+```js
 function foo() {
     var foo = bar;
  }
 ```
 
-```jsx
+```js
 function foo(foo) {
     foo = bar;
  }
 ```
 
-```jsx
+```js
 function foo() {
     var foo;
     foo = bar;
  }
 ```
 
-```jsx
+```js
 var foo = () => {};
 foo = bar;
 ```
 
-```jsx
+```js
 var foo = function() {};
 foo = bar;
 ```
 
-```jsx
+```js
 var foo = function() {
     foo = bar;
  };
 ```
 
-```jsx
+```js
 import bar from 'bar';
 function foo() {
     var foo = bar;

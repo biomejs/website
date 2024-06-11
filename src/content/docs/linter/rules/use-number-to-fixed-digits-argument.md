@@ -25,11 +25,11 @@ to avoid unexpected results, rather than relying on its default value of 0.
 
 ### Invalid
 
-```jsx
+```js
 const string = number.toFixed();
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useNumberToFixedDigitsArgument.js:1:30 <a href="https://biomejs.dev/linter/rules/use-number-to-fixed-digits-argument">lint/nursery/useNumberToFixedDigitsArgument</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:30 <a href="https://biomejs.dev/linter/rules/use-number-to-fixed-digits-argument">lint/nursery/useNumberToFixedDigitsArgument</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Specify the number of digits you want to appear after the decimal point.</span>
   
@@ -45,11 +45,11 @@ const string = number.toFixed();
 
 ### Valid
 
-```jsx
+```js
 const string = foo.toFixed(0);
 ```
 
-```jsx
+```js
 const string = foo.toFixed(2);
 ```
 

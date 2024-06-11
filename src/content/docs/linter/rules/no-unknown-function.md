@@ -29,7 +29,7 @@ Data sources of known CSS value functions are:
 a { transform: unknown(1); }
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noUnknownFunction.js:1:16 <a href="https://biomejs.dev/linter/rules/no-unknown-function">lint/nursery/noUnknownFunction</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.css:1:16 <a href="https://biomejs.dev/linter/rules/no-unknown-function">lint/nursery/noUnknownFunction</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unexpected unknown function: </span><span style="color: Tomato;"><strong>unknown</strong></span>
   

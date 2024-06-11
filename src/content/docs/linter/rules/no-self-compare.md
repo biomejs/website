@@ -26,11 +26,11 @@ However, it is far more appropriate to use `typeof x === 'number' && Number.isNa
 
 ### Invalid
 
-```jsx
+```js
 if (x === x) {}
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noSelfCompare.js:1:5 <a href="https://biomejs.dev/linter/rules/no-self-compare">lint/suspicious/noSelfCompare</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:5 <a href="https://biomejs.dev/linter/rules/no-self-compare">lint/suspicious/noSelfCompare</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Comparing to itself is potentially pointless.</span>
   
@@ -40,11 +40,11 @@ if (x === x) {}
   
 </code></pre>
 
-```jsx
+```js
 if (a.b.c() !== a.b .c()) {}
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noSelfCompare.js:1:5 <a href="https://biomejs.dev/linter/rules/no-self-compare">lint/suspicious/noSelfCompare</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:5 <a href="https://biomejs.dev/linter/rules/no-self-compare">lint/suspicious/noSelfCompare</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Comparing to itself is potentially pointless.</span>
   

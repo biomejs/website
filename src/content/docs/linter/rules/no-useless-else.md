@@ -31,7 +31,7 @@ reducing the indentation level by one.
 
 ### Invalid
 
-```jsx
+```js
 while (x > 0) {
     if (f(x)) {
         break;
@@ -41,7 +41,7 @@ while (x > 0) {
 }
 ```
 
-<pre class="language-text"><code class="language-text">style/noUselessElse.js:4:7 <a href="https://biomejs.dev/linter/rules/no-useless-else">lint/style/noUselessElse</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:4:7 <a href="https://biomejs.dev/linter/rules/no-useless-else">lint/style/noUselessElse</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This </span><span style="color: Tomato;"><strong>else</strong></span><span style="color: Tomato;"> clause can be omitted because previous branches break early.</span>
   
@@ -68,7 +68,7 @@ while (x > 0) {
   
 </code></pre>
 
-```jsx
+```js
 function f(x) {
     if (x < 0) {
         return 0;
@@ -78,7 +78,7 @@ function f(x) {
 }
 ```
 
-<pre class="language-text"><code class="language-text">style/noUselessElse.js:4:7 <a href="https://biomejs.dev/linter/rules/no-useless-else">lint/style/noUselessElse</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:4:7 <a href="https://biomejs.dev/linter/rules/no-useless-else">lint/style/noUselessElse</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This </span><span style="color: Tomato;"><strong>else</strong></span><span style="color: Tomato;"> clause can be omitted because previous branches break early.</span>
   
@@ -105,7 +105,7 @@ function f(x) {
   
 </code></pre>
 
-```jsx
+```js
 function f(x) {
     if (x < 0) {
         throw new RangeError();
@@ -115,7 +115,7 @@ function f(x) {
 }
 ```
 
-<pre class="language-text"><code class="language-text">style/noUselessElse.js:4:7 <a href="https://biomejs.dev/linter/rules/no-useless-else">lint/style/noUselessElse</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:4:7 <a href="https://biomejs.dev/linter/rules/no-useless-else">lint/style/noUselessElse</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This </span><span style="color: Tomato;"><strong>else</strong></span><span style="color: Tomato;"> clause can be omitted because previous branches break early.</span>
   
@@ -144,7 +144,7 @@ function f(x) {
 
 ### Valid
 
-```jsx
+```js
 function f(x) {
     if (x < 0) {
         return 0;
@@ -153,7 +153,7 @@ function f(x) {
 }
 ```
 
-```jsx
+```js
 function f(x) {
     if (x < 0) {
         console.info("negative number");

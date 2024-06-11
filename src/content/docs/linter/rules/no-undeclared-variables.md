@@ -15,11 +15,11 @@ If you need to allow-list some global bindings, you can use the [`javascript.glo
 
 ### Invalid
 
-```jsx
+```js
 foobar;
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noUndeclaredVariables.js:1:1 <a href="https://biomejs.dev/linter/rules/no-undeclared-variables">lint/correctness/noUndeclaredVariables</a> ━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-undeclared-variables">lint/correctness/noUndeclaredVariables</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">The </span><span style="color: Orange;"><strong>foobar</strong></span><span style="color: Orange;"> variable is undeclared.</span>
   
@@ -32,12 +32,12 @@ foobar;
   
 </code></pre>
 
-```jsx
+```js
 // throw diagnostic for JavaScript files
 PromiseLike;
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noUndeclaredVariables.js:2:1 <a href="https://biomejs.dev/linter/rules/no-undeclared-variables">lint/correctness/noUndeclaredVariables</a> ━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:1 <a href="https://biomejs.dev/linter/rules/no-undeclared-variables">lint/correctness/noUndeclaredVariables</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">The </span><span style="color: Orange;"><strong>PromiseLike</strong></span><span style="color: Orange;"> variable is undeclared.</span>
   

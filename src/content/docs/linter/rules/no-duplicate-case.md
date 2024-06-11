@@ -20,7 +20,7 @@ If a switch statement has duplicate test expressions in case clauses, it is like
 
 ### Invalid
 
-```jsx
+```js
 switch (a) {
     case 1:
         break;
@@ -31,7 +31,7 @@ switch (a) {
 }
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noDuplicateCase.js:4:10 <a href="https://biomejs.dev/linter/rules/no-duplicate-case">lint/suspicious/noDuplicateCase</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:4:10 <a href="https://biomejs.dev/linter/rules/no-duplicate-case">lint/suspicious/noDuplicateCase</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Duplicate case label.</span>
   
@@ -52,7 +52,7 @@ switch (a) {
   
 </code></pre>
 
-```jsx
+```js
 switch (a) {
     case one:
         break;
@@ -63,7 +63,7 @@ switch (a) {
 }
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noDuplicateCase.js:4:10 <a href="https://biomejs.dev/linter/rules/no-duplicate-case">lint/suspicious/noDuplicateCase</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:4:10 <a href="https://biomejs.dev/linter/rules/no-duplicate-case">lint/suspicious/noDuplicateCase</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Duplicate case label.</span>
   
@@ -84,7 +84,7 @@ switch (a) {
   
 </code></pre>
 
-```jsx
+```js
 switch (a) {
     case "1":
         break;
@@ -95,7 +95,7 @@ switch (a) {
 }
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noDuplicateCase.js:4:10 <a href="https://biomejs.dev/linter/rules/no-duplicate-case">lint/suspicious/noDuplicateCase</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:4:10 <a href="https://biomejs.dev/linter/rules/no-duplicate-case">lint/suspicious/noDuplicateCase</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Duplicate case label.</span>
   
@@ -118,7 +118,7 @@ switch (a) {
 
 ### Valid
 
-```jsx
+```js
 switch (a) {
     case 1:
         break;
@@ -129,7 +129,7 @@ switch (a) {
 }
 ```
 
-```jsx
+```js
 switch (a) {
     case one:
         break;
@@ -140,7 +140,7 @@ switch (a) {
 }
 ```
 
-```jsx
+```js
 switch (a) {
     case "1":
         break;

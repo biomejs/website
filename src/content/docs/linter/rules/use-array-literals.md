@@ -21,11 +21,11 @@ The exception is when the Array constructor intentionally creates sparse arrays 
 
 ### Invalid
 
-```jsx
+```js
 Array();
 ```
 
-<pre class="language-text"><code class="language-text">correctness/useArrayLiterals.js:1:1 <a href="https://biomejs.dev/linter/rules/use-array-literals">lint/correctness/useArrayLiterals</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/use-array-literals">lint/correctness/useArrayLiterals</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Don't use Array constructors.</span>
   
@@ -39,11 +39,11 @@ Array();
   
 </code></pre>
 
-```jsx
+```js
 Array(0, 1, 2);
 ```
 
-<pre class="language-text"><code class="language-text">correctness/useArrayLiterals.js:1:1 <a href="https://biomejs.dev/linter/rules/use-array-literals">lint/correctness/useArrayLiterals</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/use-array-literals">lint/correctness/useArrayLiterals</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Don't use Array constructors.</span>
   
@@ -57,11 +57,11 @@ Array(0, 1, 2);
   
 </code></pre>
 
-```jsx
+```js
 new Array(0, 1, 2);
 ```
 
-<pre class="language-text"><code class="language-text">correctness/useArrayLiterals.js:1:1 <a href="https://biomejs.dev/linter/rules/use-array-literals">lint/correctness/useArrayLiterals</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/use-array-literals">lint/correctness/useArrayLiterals</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Don't use Array constructors.</span>
   
@@ -75,11 +75,11 @@ new Array(0, 1, 2);
   
 </code></pre>
 
-```jsx
+```js
 Array(...args);
 ```
 
-<pre class="language-text"><code class="language-text">correctness/useArrayLiterals.js:1:1 <a href="https://biomejs.dev/linter/rules/use-array-literals">lint/correctness/useArrayLiterals</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/use-array-literals">lint/correctness/useArrayLiterals</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Don't use Array constructors.</span>
   
@@ -95,11 +95,11 @@ Array(...args);
 
 ### Valid
 
-```jsx
+```js
 Array(500);
 ```
 
-```jsx
+```js
 [0, 1, 2];
 ```
 

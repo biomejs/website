@@ -19,11 +19,11 @@ Disallow comparison of expressions modifying the string case with non-compliant 
 
 ### Invalid
 
-```jsx
+```js
 if (s.toUpperCase() === "Abc") {}
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noStringCaseMismatch.js:1:5 <a href="https://biomejs.dev/linter/rules/no-string-case-mismatch">lint/correctness/noStringCaseMismatch</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:5 <a href="https://biomejs.dev/linter/rules/no-string-case-mismatch">lint/correctness/noStringCaseMismatch</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This expression always returns false.</span>
   
@@ -51,11 +51,11 @@ if (s.toUpperCase() === "Abc") {}
   
 </code></pre>
 
-```jsx
+```js
 while (s.toLowerCase() === "Abc") {}
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noStringCaseMismatch.js:1:8 <a href="https://biomejs.dev/linter/rules/no-string-case-mismatch">lint/correctness/noStringCaseMismatch</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:8 <a href="https://biomejs.dev/linter/rules/no-string-case-mismatch">lint/correctness/noStringCaseMismatch</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This expression always returns false.</span>
   
@@ -85,7 +85,7 @@ while (s.toLowerCase() === "Abc") {}
 
 ### Valid
 
-```jsx
+```js
 if (s.toUpperCase() === "ABC") {}
 while (s.toLowerCase() === "abc") {}
 for (;s.toLocaleLowerCase() === "ABC";) {}

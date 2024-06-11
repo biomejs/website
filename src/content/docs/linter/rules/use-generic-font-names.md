@@ -33,7 +33,7 @@ The following special situations are ignored:
 a { font-family: Arial; }
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useGenericFontNames.js:1:18 <a href="https://biomejs.dev/linter/rules/use-generic-font-names">lint/nursery/useGenericFontNames</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.css:1:18 <a href="https://biomejs.dev/linter/rules/use-generic-font-names">lint/nursery/useGenericFontNames</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Generic font family missing.</span>
   
@@ -56,7 +56,7 @@ a { font-family: Arial; }
 a { font: normal 14px/32px -apple-system, BlinkMacSystemFont; }
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useGenericFontNames.js:1:43 <a href="https://biomejs.dev/linter/rules/use-generic-font-names">lint/nursery/useGenericFontNames</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.css:1:43 <a href="https://biomejs.dev/linter/rules/use-generic-font-names">lint/nursery/useGenericFontNames</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Generic font family missing.</span>
   

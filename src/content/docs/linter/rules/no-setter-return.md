@@ -22,7 +22,7 @@ Only returning without a value is allowed, as it’s a control flow statement.
 
 ### Invalid
 
-```jsx
+```js
 class A {
     set foo(x) {
         return x;
@@ -30,7 +30,7 @@ class A {
 }
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noSetterReturn.js:3:9 <a href="https://biomejs.dev/linter/rules/no-setter-return">lint/correctness/noSetterReturn</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:3:9 <a href="https://biomejs.dev/linter/rules/no-setter-return">lint/correctness/noSetterReturn</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The setter should not </span><span style="color: Tomato;"><strong>return</strong></span><span style="color: Tomato;"> a value.</span>
   
@@ -56,7 +56,7 @@ class A {
   
 </code></pre>
 
-```jsx
+```js
 const b = {
     set foo(x) {
         return x;
@@ -64,7 +64,7 @@ const b = {
 };
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noSetterReturn.js:3:9 <a href="https://biomejs.dev/linter/rules/no-setter-return">lint/correctness/noSetterReturn</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:3:9 <a href="https://biomejs.dev/linter/rules/no-setter-return">lint/correctness/noSetterReturn</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The setter should not </span><span style="color: Tomato;"><strong>return</strong></span><span style="color: Tomato;"> a value.</span>
   
@@ -90,7 +90,7 @@ const b = {
   
 </code></pre>
 
-```jsx
+```js
 const c = {
     set foo(x) {
         if (x) {
@@ -100,7 +100,7 @@ const c = {
 };
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noSetterReturn.js:4:13 <a href="https://biomejs.dev/linter/rules/no-setter-return">lint/correctness/noSetterReturn</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:4:13 <a href="https://biomejs.dev/linter/rules/no-setter-return">lint/correctness/noSetterReturn</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The setter should not </span><span style="color: Tomato;"><strong>return</strong></span><span style="color: Tomato;"> a value.</span>
   
@@ -130,7 +130,7 @@ const c = {
 
 ### Valid
 
-```jsx
+```js
 // early-return
 class A {
     set foo(x) {
@@ -141,7 +141,7 @@ class A {
 }
 ```
 
-```jsx
+```js
 // not a setter
 class B {
   set(x) {

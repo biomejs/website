@@ -19,11 +19,11 @@ Disallow comparing against `-0`
 
 ### Invalid
 
-```jsx
+```js
 (1 >= -0)
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noCompareNegZero.js:1:2 <a href="https://biomejs.dev/linter/rules/no-compare-neg-zero">lint/suspicious/noCompareNegZero</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:2 <a href="https://biomejs.dev/linter/rules/no-compare-neg-zero">lint/suspicious/noCompareNegZero</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Do not use the &gt;= operator to compare against -0.</span>
   
@@ -39,7 +39,7 @@ Disallow comparing against `-0`
 
 ### Valid
 
-```jsx
+```js
 (1 >= 0)
 ```
 

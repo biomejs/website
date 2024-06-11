@@ -18,11 +18,11 @@ Disallow the use of `console.log`
 
 ### Invalid
 
-```jsx
+```js
 console.log()
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noConsoleLog.js:1:1 <a href="https://biomejs.dev/linter/rules/no-console-log">lint/suspicious/noConsoleLog</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-console-log">lint/suspicious/noConsoleLog</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Don't use </span><span style="color: Orange;"><strong>console.log</strong></span>
   
@@ -42,7 +42,7 @@ console.log()
 
 ### Valid
 
-```jsx
+```js
 console.info("info");
 console.warn("warn");
 console.error("error");

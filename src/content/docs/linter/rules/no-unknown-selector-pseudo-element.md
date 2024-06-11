@@ -25,7 +25,7 @@ This rule ignores vendor-prefixed pseudo-element selectors.
 a::pseudo {}
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noUnknownSelectorPseudoElement.js:1:4 <a href="https://biomejs.dev/linter/rules/no-unknown-selector-pseudo-element">lint/nursery/noUnknownSelectorPseudoElement</a> ━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.css:1:4 <a href="https://biomejs.dev/linter/rules/no-unknown-selector-pseudo-element">lint/nursery/noUnknownSelectorPseudoElement</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unexpected unknown pseudo-elements: </span><span style="color: Tomato;"><strong>pseudo</strong></span>
   
@@ -48,7 +48,7 @@ a::pseudo {}
 a::PSEUDO {}
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noUnknownSelectorPseudoElement.js:1:4 <a href="https://biomejs.dev/linter/rules/no-unknown-selector-pseudo-element">lint/nursery/noUnknownSelectorPseudoElement</a> ━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.css:1:4 <a href="https://biomejs.dev/linter/rules/no-unknown-selector-pseudo-element">lint/nursery/noUnknownSelectorPseudoElement</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unexpected unknown pseudo-elements: </span><span style="color: Tomato;"><strong>PSEUDO</strong></span>
   
@@ -71,7 +71,7 @@ a::PSEUDO {}
 a::element {}
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noUnknownSelectorPseudoElement.js:1:4 <a href="https://biomejs.dev/linter/rules/no-unknown-selector-pseudo-element">lint/nursery/noUnknownSelectorPseudoElement</a> ━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.css:1:4 <a href="https://biomejs.dev/linter/rules/no-unknown-selector-pseudo-element">lint/nursery/noUnknownSelectorPseudoElement</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unexpected unknown pseudo-elements: </span><span style="color: Tomato;"><strong>element</strong></span>
   

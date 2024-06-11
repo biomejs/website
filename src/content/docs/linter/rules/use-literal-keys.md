@@ -20,11 +20,11 @@ Enforce the usage of a literal access to properties over computed property acces
 
 ### Invalid
 
-```jsx
+```js
 a.b["c"];
 ```
 
-<pre class="language-text"><code class="language-text">complexity/useLiteralKeys.js:1:5 <a href="https://biomejs.dev/linter/rules/use-literal-keys">lint/complexity/useLiteralKeys</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:5 <a href="https://biomejs.dev/linter/rules/use-literal-keys">lint/complexity/useLiteralKeys</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The computed expression can be simplified without the use of a string literal.</span>
   
@@ -40,11 +40,11 @@ a.b["c"];
   
 </code></pre>
 
-```jsx
+```js
 a.c[`d`]
 ```
 
-<pre class="language-text"><code class="language-text">complexity/useLiteralKeys.js:1:5 <a href="https://biomejs.dev/linter/rules/use-literal-keys">lint/complexity/useLiteralKeys</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:5 <a href="https://biomejs.dev/linter/rules/use-literal-keys">lint/complexity/useLiteralKeys</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The computed expression can be simplified without the use of a string literal.</span>
   
@@ -60,11 +60,11 @@ a.c[`d`]
   
 </code></pre>
 
-```jsx
+```js
 a.c[`d`] = "something"
 ```
 
-<pre class="language-text"><code class="language-text">complexity/useLiteralKeys.js:1:5 <a href="https://biomejs.dev/linter/rules/use-literal-keys">lint/complexity/useLiteralKeys</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:5 <a href="https://biomejs.dev/linter/rules/use-literal-keys">lint/complexity/useLiteralKeys</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The computed expression can be simplified without the use of a string literal.</span>
   
@@ -80,13 +80,13 @@ a.c[`d`] = "something"
   
 </code></pre>
 
-```jsx
+```js
 a = {
 	['b']: d
 }
 ```
 
-<pre class="language-text"><code class="language-text">complexity/useLiteralKeys.js:2:3 <a href="https://biomejs.dev/linter/rules/use-literal-keys">lint/complexity/useLiteralKeys</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:3 <a href="https://biomejs.dev/linter/rules/use-literal-keys">lint/complexity/useLiteralKeys</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The computed expression can be simplified without the use of a string literal.</span>
   
@@ -108,7 +108,7 @@ a = {
 
 ### Valid
 
-```jsx
+```js
 a["c" + "d"];
 a[d.c];
 ```

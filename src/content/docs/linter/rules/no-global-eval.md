@@ -26,11 +26,11 @@ Moreover, changing variables in the caller's scope is expensive in modern _JavaS
 
 ### Invalid
 
-```jsx
+```js
 eval("var a = 0");
 ```
 
-<pre class="language-text"><code class="language-text">security/noGlobalEval.js:1:1 <a href="https://biomejs.dev/linter/rules/no-global-eval">lint/security/noGlobalEval</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-global-eval">lint/security/noGlobalEval</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>eval()</strong></span><span style="color: Tomato;"> exposes to security risks and performance issues.</span>
   
@@ -44,11 +44,11 @@ eval("var a = 0");
   
 </code></pre>
 
-```jsx
+```js
 (0, globalThis.eval)("var a = 0")
 ```
 
-<pre class="language-text"><code class="language-text">security/noGlobalEval.js:1:5 <a href="https://biomejs.dev/linter/rules/no-global-eval">lint/security/noGlobalEval</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:5 <a href="https://biomejs.dev/linter/rules/no-global-eval">lint/security/noGlobalEval</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>eval()</strong></span><span style="color: Tomato;"> exposes to security risks and performance issues.</span>
   
@@ -62,11 +62,11 @@ eval("var a = 0");
   
 </code></pre>
 
-```jsx
+```js
 f(eval);
 ```
 
-<pre class="language-text"><code class="language-text">security/noGlobalEval.js:1:3 <a href="https://biomejs.dev/linter/rules/no-global-eval">lint/security/noGlobalEval</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:3 <a href="https://biomejs.dev/linter/rules/no-global-eval">lint/security/noGlobalEval</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>eval()</strong></span><span style="color: Tomato;"> exposes to security risks and performance issues.</span>
   
@@ -80,11 +80,11 @@ f(eval);
   
 </code></pre>
 
-```jsx
+```js
 const aliasedEval = eval;
 ```
 
-<pre class="language-text"><code class="language-text">security/noGlobalEval.js:1:21 <a href="https://biomejs.dev/linter/rules/no-global-eval">lint/security/noGlobalEval</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:21 <a href="https://biomejs.dev/linter/rules/no-global-eval">lint/security/noGlobalEval</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>eval()</strong></span><span style="color: Tomato;"> exposes to security risks and performance issues.</span>
   
@@ -100,7 +100,7 @@ const aliasedEval = eval;
 
 ### Valid
 
-```js
+```cjs
 function f(eval) {
     eval("let a = 0;");
 }
@@ -108,7 +108,7 @@ function f(eval) {
 
 The rule is not able to detect cases where the global object is aliased:
 
-```jsx
+```js
 let foo = globalThis;
 foo.eval("let a = 0;");
 ```

@@ -21,7 +21,7 @@ forgot to include the default behavior by mistake.
 
 ### Invalid
 
-```jsx
+```js
 switch (a) {
     case 1:
         /* code */
@@ -29,7 +29,7 @@ switch (a) {
 }
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useDefaultSwitchClause.js:1:1 <a href="https://biomejs.dev/linter/rules/use-default-switch-clause">lint/nursery/useDefaultSwitchClause</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/use-default-switch-clause">lint/nursery/useDefaultSwitchClause</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Expected a default switch clause.</span>
   
@@ -50,7 +50,7 @@ switch (a) {
 
 ### Valid
 
-```jsx
+```js
 switch (a) {
     case 1:
         /* code */

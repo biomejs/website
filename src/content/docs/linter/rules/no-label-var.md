@@ -18,12 +18,12 @@ Disallow labels that share a name with a variable
 
 ### Invalid
 
-```jsx
+```js
 const x1 = "test";
 x1: expr;
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noLabelVar.js:2:1 <a href="https://biomejs.dev/linter/rules/no-label-var">lint/suspicious/noLabelVar</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:1 <a href="https://biomejs.dev/linter/rules/no-label-var">lint/suspicious/noLabelVar</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Do not use the </span><span style="color: Tomato;"><strong>x1</strong></span><span style="color: Tomato;"> variable name as a label</span>
   
@@ -45,7 +45,7 @@ x1: expr;
 
 ### Valid
 
-```jsx
+```js
 const x = "test";
 z: expr;
 ```

@@ -34,7 +34,7 @@ It is unsafe because a variable with the `void` type cannot be asigned to a vari
 let foo: void;
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noConfusingVoidType.js:1:10 <a href="https://biomejs.dev/linter/rules/no-confusing-void-type">lint/suspicious/noConfusingVoidType</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.ts:1:10 <a href="https://biomejs.dev/linter/rules/no-confusing-void-type">lint/suspicious/noConfusingVoidType</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>void</strong></span><span style="color: Tomato;"> is confusing outside a return type or a type parameter.</span>
   
@@ -54,7 +54,7 @@ let foo: void;
 function logSomething(thing: void) {}
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noConfusingVoidType.js:1:30 <a href="https://biomejs.dev/linter/rules/no-confusing-void-type">lint/suspicious/noConfusingVoidType</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.ts:1:30 <a href="https://biomejs.dev/linter/rules/no-confusing-void-type">lint/suspicious/noConfusingVoidType</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>void</strong></span><span style="color: Tomato;"> is confusing outside a return type or a type parameter.</span>
   
@@ -76,7 +76,7 @@ interface Interface {
 }
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noConfusingVoidType.js:2:11 <a href="https://biomejs.dev/linter/rules/no-confusing-void-type">lint/suspicious/noConfusingVoidType</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.ts:2:11 <a href="https://biomejs.dev/linter/rules/no-confusing-void-type">lint/suspicious/noConfusingVoidType</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>void</strong></span><span style="color: Tomato;"> is confusing outside a return type or a type parameter.</span>
   
@@ -100,7 +100,7 @@ interface Interface {
 type PossibleValues = number | void;
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noConfusingVoidType.js:1:32 <a href="https://biomejs.dev/linter/rules/no-confusing-void-type">lint/suspicious/noConfusingVoidType</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.ts:1:32 <a href="https://biomejs.dev/linter/rules/no-confusing-void-type">lint/suspicious/noConfusingVoidType</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>void</strong></span><span style="color: Tomato;"> is confusing inside a union type.</span>
   

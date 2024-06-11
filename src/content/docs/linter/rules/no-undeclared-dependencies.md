@@ -19,17 +19,17 @@ The rule ignores imports using a protocol such as `node:`, `bun:`, `jsr:`, `http
 
 ### Invalid
 
-```jsx
+```js
 import "vite";
 ```
 
 ### Valid
 
-```jsx
+```js
 import { A } from "./local.js";
 ```
 
-```jsx
+```js
 import assert from "node:assert";
 ```
 

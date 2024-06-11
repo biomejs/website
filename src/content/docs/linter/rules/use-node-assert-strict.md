@@ -17,11 +17,11 @@ If you prefer stricter assertions when using the Node.js assertion module, the p
 
 ### Invalid
 
-```jsx
+```js
 import * as assert from "node:assert"
 ```
 
-<pre class="language-text"><code class="language-text">style/useNodeAssertStrict.js:1:25 <a href="https://biomejs.dev/linter/rules/use-node-assert-strict">lint/style/useNodeAssertStrict</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:25 <a href="https://biomejs.dev/linter/rules/use-node-assert-strict">lint/style/useNodeAssertStrict</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>node:assert/strict</strong></span><span style="color: Orange;"> instead.</span>
   
@@ -39,7 +39,7 @@ import * as assert from "node:assert"
 
 ### Valid
 
-```jsx
+```js
 import * as assert from "node:assert/strict"
 ```
 

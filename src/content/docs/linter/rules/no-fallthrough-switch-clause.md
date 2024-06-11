@@ -24,7 +24,7 @@ This can lead to unexpected behavior when forgotten.
 
 ### Invalid
 
-```jsx
+```js
 switch (bar) {
 	case 0:
 		a();
@@ -33,7 +33,7 @@ switch (bar) {
 }
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noFallthroughSwitchClause.js:2:2 <a href="https://biomejs.dev/linter/rules/no-fallthrough-switch-clause">lint/suspicious/noFallthroughSwitchClause</a> ━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:2 <a href="https://biomejs.dev/linter/rules/no-fallthrough-switch-clause">lint/suspicious/noFallthroughSwitchClause</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This case is falling through to the next case.</span>
   
@@ -51,7 +51,7 @@ switch (bar) {
 
 ### Valid
 
-```jsx
+```js
 switch (foo) {
 	case 1:
     case 2:

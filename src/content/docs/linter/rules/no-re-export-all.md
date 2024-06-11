@@ -17,11 +17,11 @@ Additionally, it complicates the codebase, making it difficult to navigate and u
 
 ### Invalid
 
-```jsx
+```js
 export * from "foo";
 ```
 
-<pre class="language-text"><code class="language-text">performance/noReExportAll.js:1:8 <a href="https://biomejs.dev/linter/rules/no-re-export-all">lint/performance/noReExportAll</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:8 <a href="https://biomejs.dev/linter/rules/no-re-export-all">lint/performance/noReExportAll</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Do not use export all ( </span><span style="color: Orange;"><strong>export * from ...</strong></span><span style="color: Orange;"> ).</span>
   
@@ -33,11 +33,11 @@ export * from "foo";
   
 </code></pre>
 
-```jsx
+```js
 export * as foo from "foo";
 ```
 
-<pre class="language-text"><code class="language-text">performance/noReExportAll.js:1:8 <a href="https://biomejs.dev/linter/rules/no-re-export-all">lint/performance/noReExportAll</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:8 <a href="https://biomejs.dev/linter/rules/no-re-export-all">lint/performance/noReExportAll</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Do not use export all ( </span><span style="color: Orange;"><strong>export * from ...</strong></span><span style="color: Orange;"> ).</span>
   
@@ -51,7 +51,7 @@ export * as foo from "foo";
 
 ### Valid
 
-```jsx
+```js
 export { foo } from "foo";
 ```
 

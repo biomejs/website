@@ -15,7 +15,7 @@ Enforces switch clauses have a single statement, emits a quick fix wrapping the 
 
 ### Invalid
 
-```jsx
+```js
 switch (foo) {
     case true:
     case false:
@@ -24,7 +24,7 @@ switch (foo) {
 }
 ```
 
-<pre class="language-text"><code class="language-text">style/useSingleCaseStatement.js:4:9 <a href="https://biomejs.dev/linter/rules/use-single-case-statement">lint/style/useSingleCaseStatement</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:4:9 <a href="https://biomejs.dev/linter/rules/use-single-case-statement">lint/style/useSingleCaseStatement</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">A </span><span style="color: Orange;"><strong>switch clause</strong></span><span style="color: Orange;"> should only have a single statement.</span>
   
@@ -54,7 +54,7 @@ switch (foo) {
 
 ### Valid
 
-```jsx
+```js
 switch (foo) {
     case true:
     case false: {

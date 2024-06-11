@@ -22,11 +22,11 @@ side effects that may occur during refactoring.
 
 ### Invalid
 
-```jsx
+```js
 a += a + b
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noMisrefactoredShorthandAssign.js:1:1 <a href="https://biomejs.dev/linter/rules/no-misrefactored-shorthand-assign">lint/suspicious/noMisrefactoredShorthandAssign</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-misrefactored-shorthand-assign">lint/suspicious/noMisrefactoredShorthandAssign</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Variable appears on both sides of an assignment operation.</span>
   
@@ -42,11 +42,11 @@ a += a + b
 <strong>  </strong><strong>    │ </strong>     <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span> 
 </code></pre>
 
-```jsx
+```js
 a -= a - b
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noMisrefactoredShorthandAssign.js:1:1 <a href="https://biomejs.dev/linter/rules/no-misrefactored-shorthand-assign">lint/suspicious/noMisrefactoredShorthandAssign</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-misrefactored-shorthand-assign">lint/suspicious/noMisrefactoredShorthandAssign</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Variable appears on both sides of an assignment operation.</span>
   
@@ -62,11 +62,11 @@ a -= a - b
 <strong>  </strong><strong>    │ </strong>     <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span> 
 </code></pre>
 
-```jsx
+```js
 a *= a * b
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noMisrefactoredShorthandAssign.js:1:1 <a href="https://biomejs.dev/linter/rules/no-misrefactored-shorthand-assign">lint/suspicious/noMisrefactoredShorthandAssign</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-misrefactored-shorthand-assign">lint/suspicious/noMisrefactoredShorthandAssign</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Variable appears on both sides of an assignment operation.</span>
   
@@ -84,15 +84,15 @@ a *= a * b
 
 ### Valid
 
-```jsx
+```js
 a += b
 ```
 
-```jsx
+```js
 a = a + b
 ```
 
-```jsx
+```js
 a = a - b
 ```
 

@@ -21,7 +21,7 @@ It is often unintended and indicative of a programmer error.
 
 ### Invalid
 
-```jsx
+```js
 try {
 
 } catch (e) {
@@ -30,7 +30,7 @@ try {
 }
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noCatchAssign.js:5:3 <a href="https://biomejs.dev/linter/rules/no-catch-assign">lint/suspicious/noCatchAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:5:3 <a href="https://biomejs.dev/linter/rules/no-catch-assign">lint/suspicious/noCatchAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Reassigning a </span><span style="color: Tomato;"><strong>catch parameter</strong></span><span style="color: Tomato;"> is confusing.</span>
   
@@ -56,7 +56,7 @@ try {
 
 ### Valid
 
-```jsx
+```js
 try {
 
 } catch (e) {

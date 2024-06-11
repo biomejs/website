@@ -14,13 +14,13 @@ This rule recommends a `for-of` loop when in a `for` loop, the index used to ext
 
 ### Invalid
 
-```jsx
+```js
 for (let i = 0; i < array.length; i++) {
   console.log(array[i]);
 }
 ```
 
-<pre class="language-text"><code class="language-text">style/useForOf.js:1:1 <a href="https://biomejs.dev/linter/rules/use-for-of">lint/style/useForOf</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/use-for-of">lint/style/useForOf</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>for-of</strong></span><span style="color: Orange;"> loop instead of a </span><span style="color: Orange;"><strong>for loop</strong></span><span style="color: Orange;">.</span>
   
@@ -35,19 +35,19 @@ for (let i = 0; i < array.length; i++) {
 
 ### Valid
 
-```jsx
+```js
 for (let item of array) {
    console.log(item);
  }
 ```
 
-```jsx
+```js
 for (let i = 0; i < array.length; i++) {
    console.log(i, array[i]);
  }
 ```
 
-```jsx
+```js
 for (let i = 0, j = 0; i < array.length; i++) {
    console.log(i, array[i]);
  }

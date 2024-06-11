@@ -18,7 +18,7 @@ Disallow `\8` and `\9` escape sequences in string literals.
 Since ECMAScript 2021, the escape sequences \8 and \9 have been defined as non-octal decimal escape sequences.
 However, most JavaScript engines consider them to be "useless" escapes. For example:
 
-```jsx
+```js
 "\8" === "8"; // true
 "\9" === "9"; // true
 ```
@@ -32,11 +32,11 @@ Regardless of your targeted environment, it is recommended to avoid using these 
 
 ### Invalid
 
-```jsx
+```js
 const x = "\8";
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noNonoctalDecimalEscape.js:1:12 <a href="https://biomejs.dev/linter/rules/no-nonoctal-decimal-escape">lint/correctness/noNonoctalDecimalEscape</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:12 <a href="https://biomejs.dev/linter/rules/no-nonoctal-decimal-escape">lint/correctness/noNonoctalDecimalEscape</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Don't use </span><span style="color: Tomato;"><strong>`\8`</strong></span><span style="color: Tomato;"> and </span><span style="color: Tomato;"><strong>`\9`</strong></span><span style="color: Tomato;"> escape sequences in string literals.</span>
   
@@ -52,11 +52,11 @@ const x = "\8";
 <strong>  </strong><strong>    │ </strong>           <span style="color: Tomato;">-</span>   
 </code></pre>
 
-```jsx
+```js
 const x = "Don't use \8 escape.";
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noNonoctalDecimalEscape.js:1:22 <a href="https://biomejs.dev/linter/rules/no-nonoctal-decimal-escape">lint/correctness/noNonoctalDecimalEscape</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:22 <a href="https://biomejs.dev/linter/rules/no-nonoctal-decimal-escape">lint/correctness/noNonoctalDecimalEscape</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Don't use </span><span style="color: Tomato;"><strong>`\8`</strong></span><span style="color: Tomato;"> and </span><span style="color: Tomato;"><strong>`\9`</strong></span><span style="color: Tomato;"> escape sequences in string literals.</span>
   
@@ -72,11 +72,11 @@ const x = "Don't use \8 escape.";
 <strong>  </strong><strong>    │ </strong>                     <span style="color: Tomato;">-</span>           
 </code></pre>
 
-```jsx
+```js
 const x = "Don't use \9 escape.";
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noNonoctalDecimalEscape.js:1:22 <a href="https://biomejs.dev/linter/rules/no-nonoctal-decimal-escape">lint/correctness/noNonoctalDecimalEscape</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:22 <a href="https://biomejs.dev/linter/rules/no-nonoctal-decimal-escape">lint/correctness/noNonoctalDecimalEscape</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Don't use </span><span style="color: Tomato;"><strong>`\8`</strong></span><span style="color: Tomato;"> and </span><span style="color: Tomato;"><strong>`\9`</strong></span><span style="color: Tomato;"> escape sequences in string literals.</span>
   
@@ -94,11 +94,11 @@ const x = "Don't use \9 escape.";
 
 ### Valid
 
-```jsx
+```js
 const x = "8";
 ```
 
-```jsx
+```js
 const x = "Don't use \\8 and \\9 escapes.";
 ```
 

@@ -31,7 +31,7 @@ Data sources of known CSS media feature are:
 @media screen and (unknown > 320px) {}
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noUnknownMediaFeatureName.js:1:8 <a href="https://biomejs.dev/linter/rules/no-unknown-media-feature-name">lint/nursery/noUnknownMediaFeatureName</a> ━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.css:1:8 <a href="https://biomejs.dev/linter/rules/no-unknown-media-feature-name">lint/nursery/noUnknownMediaFeatureName</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Don't use unknown media feature names.</span>
   
@@ -49,7 +49,7 @@ Data sources of known CSS media feature are:
 @media only screen and (min-width: 320px) and (max-width: 480px) and (unknown: 150dpi) {}
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noUnknownMediaFeatureName.js:1:8 <a href="https://biomejs.dev/linter/rules/no-unknown-media-feature-name">lint/nursery/noUnknownMediaFeatureName</a> ━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.css:1:8 <a href="https://biomejs.dev/linter/rules/no-unknown-media-feature-name">lint/nursery/noUnknownMediaFeatureName</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Don't use unknown media feature names.</span>
   
@@ -67,7 +67,7 @@ Data sources of known CSS media feature are:
 @media (not(unknown < 320px)) and (max-width > 640px) {}
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noUnknownMediaFeatureName.js:1:8 <a href="https://biomejs.dev/linter/rules/no-unknown-media-feature-name">lint/nursery/noUnknownMediaFeatureName</a> ━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.css:1:8 <a href="https://biomejs.dev/linter/rules/no-unknown-media-feature-name">lint/nursery/noUnknownMediaFeatureName</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Don't use unknown media feature names.</span>
   
@@ -85,7 +85,7 @@ Data sources of known CSS media feature are:
 @media (400px <= unknown <= 700px) {}
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noUnknownMediaFeatureName.js:1:8 <a href="https://biomejs.dev/linter/rules/no-unknown-media-feature-name">lint/nursery/noUnknownMediaFeatureName</a> ━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.css:1:8 <a href="https://biomejs.dev/linter/rules/no-unknown-media-feature-name">lint/nursery/noUnknownMediaFeatureName</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Don't use unknown media feature names.</span>
   

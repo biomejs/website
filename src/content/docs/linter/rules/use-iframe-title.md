@@ -22,7 +22,7 @@ Enforces the usage of the attribute `title` for the element `iframe`.
  <iframe />
 ```
 
-<pre class="language-text"><code class="language-text">a11y/useIframeTitle.js:1:2 <a href="https://biomejs.dev/linter/rules/use-iframe-title">lint/a11y/useIframeTitle</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.jsx:1:2 <a href="https://biomejs.dev/linter/rules/use-iframe-title">lint/a11y/useIframeTitle</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Provide a </span><span style="color: Tomato;"><strong>title</strong></span><span style="color: Tomato;"> attribute when using </span><span style="color: Tomato;"><strong>iframe</strong></span><span style="color: Tomato;"> elements.</span>
   
@@ -38,7 +38,7 @@ Enforces the usage of the attribute `title` for the element `iframe`.
 <iframe></iframe>
 ```
 
-<pre class="language-text"><code class="language-text">a11y/useIframeTitle.js:1:1 <a href="https://biomejs.dev/linter/rules/use-iframe-title">lint/a11y/useIframeTitle</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.jsx:1:1 <a href="https://biomejs.dev/linter/rules/use-iframe-title">lint/a11y/useIframeTitle</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Provide a </span><span style="color: Tomato;"><strong>title</strong></span><span style="color: Tomato;"> attribute when using </span><span style="color: Tomato;"><strong>iframe</strong></span><span style="color: Tomato;"> elements.</span>
   
@@ -54,7 +54,7 @@ Enforces the usage of the attribute `title` for the element `iframe`.
 <iframe title="" />
 ```
 
-<pre class="language-text"><code class="language-text">a11y/useIframeTitle.js:1:1 <a href="https://biomejs.dev/linter/rules/use-iframe-title">lint/a11y/useIframeTitle</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.jsx:1:1 <a href="https://biomejs.dev/linter/rules/use-iframe-title">lint/a11y/useIframeTitle</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Provide a </span><span style="color: Tomato;"><strong>title</strong></span><span style="color: Tomato;"> attribute when using </span><span style="color: Tomato;"><strong>iframe</strong></span><span style="color: Tomato;"> elements.</span>
   
@@ -70,7 +70,7 @@ Enforces the usage of the attribute `title` for the element `iframe`.
 <iframe title={""} />
 ```
 
-<pre class="language-text"><code class="language-text">a11y/useIframeTitle.js:1:1 <a href="https://biomejs.dev/linter/rules/use-iframe-title">lint/a11y/useIframeTitle</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.jsx:1:1 <a href="https://biomejs.dev/linter/rules/use-iframe-title">lint/a11y/useIframeTitle</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Provide a </span><span style="color: Tomato;"><strong>title</strong></span><span style="color: Tomato;"> attribute when using </span><span style="color: Tomato;"><strong>iframe</strong></span><span style="color: Tomato;"> elements.</span>
   
@@ -86,7 +86,7 @@ Enforces the usage of the attribute `title` for the element `iframe`.
 <iframe title={undefined} />
 ```
 
-<pre class="language-text"><code class="language-text">a11y/useIframeTitle.js:1:1 <a href="https://biomejs.dev/linter/rules/use-iframe-title">lint/a11y/useIframeTitle</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.jsx:1:1 <a href="https://biomejs.dev/linter/rules/use-iframe-title">lint/a11y/useIframeTitle</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Provide a </span><span style="color: Tomato;"><strong>title</strong></span><span style="color: Tomato;"> attribute when using </span><span style="color: Tomato;"><strong>iframe</strong></span><span style="color: Tomato;"> elements.</span>
   
@@ -102,7 +102,7 @@ Enforces the usage of the attribute `title` for the element `iframe`.
 <iframe title={false} />
 ```
 
-<pre class="language-text"><code class="language-text">a11y/useIframeTitle.js:1:1 <a href="https://biomejs.dev/linter/rules/use-iframe-title">lint/a11y/useIframeTitle</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.jsx:1:1 <a href="https://biomejs.dev/linter/rules/use-iframe-title">lint/a11y/useIframeTitle</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Provide a </span><span style="color: Tomato;"><strong>title</strong></span><span style="color: Tomato;"> attribute when using </span><span style="color: Tomato;"><strong>iframe</strong></span><span style="color: Tomato;"> elements.</span>
   
@@ -118,7 +118,7 @@ Enforces the usage of the attribute `title` for the element `iframe`.
 <iframe title={true} />
 ```
 
-<pre class="language-text"><code class="language-text">a11y/useIframeTitle.js:1:1 <a href="https://biomejs.dev/linter/rules/use-iframe-title">lint/a11y/useIframeTitle</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.jsx:1:1 <a href="https://biomejs.dev/linter/rules/use-iframe-title">lint/a11y/useIframeTitle</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Provide a </span><span style="color: Tomato;"><strong>title</strong></span><span style="color: Tomato;"> attribute when using </span><span style="color: Tomato;"><strong>iframe</strong></span><span style="color: Tomato;"> elements.</span>
   
@@ -134,7 +134,7 @@ Enforces the usage of the attribute `title` for the element `iframe`.
 <iframe title={42} />
 ```
 
-<pre class="language-text"><code class="language-text">a11y/useIframeTitle.js:1:1 <a href="https://biomejs.dev/linter/rules/use-iframe-title">lint/a11y/useIframeTitle</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.jsx:1:1 <a href="https://biomejs.dev/linter/rules/use-iframe-title">lint/a11y/useIframeTitle</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Provide a </span><span style="color: Tomato;"><strong>title</strong></span><span style="color: Tomato;"> attribute when using </span><span style="color: Tomato;"><strong>iframe</strong></span><span style="color: Tomato;"> elements.</span>
   

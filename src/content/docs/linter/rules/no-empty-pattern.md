@@ -18,11 +18,11 @@ Disallows empty destructuring patterns.
 
 ### Invalid
 
-```jsx
+```js
 var {} = foo;
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noEmptyPattern.js:1:5 <a href="https://biomejs.dev/linter/rules/no-empty-pattern">lint/correctness/noEmptyPattern</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:5 <a href="https://biomejs.dev/linter/rules/no-empty-pattern">lint/correctness/noEmptyPattern</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unexpected empty object pattern.</span>
   
@@ -32,11 +32,11 @@ var {} = foo;
   
 </code></pre>
 
-```jsx
+```js
 var {a: {}} = foo;
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noEmptyPattern.js:1:9 <a href="https://biomejs.dev/linter/rules/no-empty-pattern">lint/correctness/noEmptyPattern</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:9 <a href="https://biomejs.dev/linter/rules/no-empty-pattern">lint/correctness/noEmptyPattern</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unexpected empty object pattern.</span>
   
@@ -46,11 +46,11 @@ var {a: {}} = foo;
   
 </code></pre>
 
-```jsx
+```js
 function foo({}) {}
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noEmptyPattern.js:1:14 <a href="https://biomejs.dev/linter/rules/no-empty-pattern">lint/correctness/noEmptyPattern</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:14 <a href="https://biomejs.dev/linter/rules/no-empty-pattern">lint/correctness/noEmptyPattern</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unexpected empty object pattern.</span>
   
@@ -64,7 +64,7 @@ function foo({}) {}
 
 The following cases are valid because they create new bindings.
 
-```jsx
+```js
 var {a = {}} = foo;
 var {a, b = {}} = foo;
 var {a = []} = foo;

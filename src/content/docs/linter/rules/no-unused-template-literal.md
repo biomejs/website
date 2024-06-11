@@ -16,11 +16,11 @@ Disallow template literals if interpolation and special-character handling are n
 
 ### Invalid
 
-```jsx
+```js
 const foo = `bar`
 ```
 
-<pre class="language-text"><code class="language-text">style/noUnusedTemplateLiteral.js:1:13 <a href="https://biomejs.dev/linter/rules/no-unused-template-literal">lint/style/noUnusedTemplateLiteral</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:13 <a href="https://biomejs.dev/linter/rules/no-unused-template-literal">lint/style/noUnusedTemplateLiteral</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Do not use template literals if interpolation and special-character handling are not needed.</span>
   
@@ -36,11 +36,11 @@ const foo = `bar`
   
 </code></pre>
 
-```jsx
+```js
 const foo = `bar `
 ```
 
-<pre class="language-text"><code class="language-text">style/noUnusedTemplateLiteral.js:1:13 <a href="https://biomejs.dev/linter/rules/no-unused-template-literal">lint/style/noUnusedTemplateLiteral</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:13 <a href="https://biomejs.dev/linter/rules/no-unused-template-literal">lint/style/noUnusedTemplateLiteral</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Do not use template literals if interpolation and special-character handling are not needed.</span>
   
@@ -58,16 +58,16 @@ const foo = `bar `
 
 ### Valid
 
-```jsx
+```js
 const foo = `bar
 has newline`;
 ```
 
-```jsx
+```js
 const foo = `"bar"`
 ```
 
-```jsx
+```js
 const foo = `'bar'`
 ```
 

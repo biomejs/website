@@ -20,11 +20,11 @@ JavaScript provides shorthand operators combining a variable assignment and simp
 
 ### Invalid
 
-```jsx
+```js
 a = a + 1;
 ```
 
-<pre class="language-text"><code class="language-text">style/useShorthandAssign.js:1:1 <a href="https://biomejs.dev/linter/rules/use-shorthand-assign">lint/style/useShorthandAssign</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/use-shorthand-assign">lint/style/useShorthandAssign</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Assignment </span><span style="color: Orange;"><strong>(=)</strong></span><span style="color: Orange;"> can be replaced with operator assignment </span><span style="color: Orange;"><strong>+=</strong></span><span style="color: Orange;">.</span>
   
@@ -40,11 +40,11 @@ a = a + 1;
   
 </code></pre>
 
-```jsx
+```js
 a = a - 1;
 ```
 
-<pre class="language-text"><code class="language-text">style/useShorthandAssign.js:1:1 <a href="https://biomejs.dev/linter/rules/use-shorthand-assign">lint/style/useShorthandAssign</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/use-shorthand-assign">lint/style/useShorthandAssign</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Assignment </span><span style="color: Orange;"><strong>(=)</strong></span><span style="color: Orange;"> can be replaced with operator assignment </span><span style="color: Orange;"><strong>-=</strong></span><span style="color: Orange;">.</span>
   
@@ -60,11 +60,11 @@ a = a - 1;
   
 </code></pre>
 
-```jsx
+```js
 a = a * 1;
 ```
 
-<pre class="language-text"><code class="language-text">style/useShorthandAssign.js:1:1 <a href="https://biomejs.dev/linter/rules/use-shorthand-assign">lint/style/useShorthandAssign</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/use-shorthand-assign">lint/style/useShorthandAssign</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Assignment </span><span style="color: Orange;"><strong>(=)</strong></span><span style="color: Orange;"> can be replaced with operator assignment </span><span style="color: Orange;"><strong>*=</strong></span><span style="color: Orange;">.</span>
   
@@ -82,15 +82,15 @@ a = a * 1;
 
 ### Valid
 
-```jsx
+```js
 a += 1;
 ```
 
-```jsx
+```js
 a -= 1;
 ```
 
-```jsx
+```js
 a *= 1;
 ```
 

@@ -24,7 +24,7 @@ An empty `case` clause that precedes the `default` clause is thus useless.
 
 ### Invalid
 
-```jsx
+```js
 switch (foo) {
     case 0:
     default:
@@ -34,7 +34,7 @@ switch (foo) {
 }
 ```
 
-<pre class="language-text"><code class="language-text">complexity/noUselessSwitchCase.js:2:5 <a href="https://biomejs.dev/linter/rules/no-useless-switch-case">lint/complexity/noUselessSwitchCase</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:5 <a href="https://biomejs.dev/linter/rules/no-useless-switch-case">lint/complexity/noUselessSwitchCase</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Useless </span><span style="color: Tomato;"><strong>case clause</strong></span><span style="color: Tomato;">.</span>
   
@@ -64,7 +64,7 @@ switch (foo) {
   
 </code></pre>
 
-```jsx
+```js
 switch (foo) {
     default:
     case 0:
@@ -74,7 +74,7 @@ switch (foo) {
 }
 ```
 
-<pre class="language-text"><code class="language-text">complexity/noUselessSwitchCase.js:3:5 <a href="https://biomejs.dev/linter/rules/no-useless-switch-case">lint/complexity/noUselessSwitchCase</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:3:5 <a href="https://biomejs.dev/linter/rules/no-useless-switch-case">lint/complexity/noUselessSwitchCase</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Useless </span><span style="color: Tomato;"><strong>case clause</strong></span><span style="color: Tomato;">.</span>
   
@@ -108,7 +108,7 @@ switch (foo) {
 
 ### Valid
 
-```jsx
+```js
 switch (foo) {
     case 0:
         break;
@@ -117,7 +117,7 @@ switch (foo) {
 }
 ```
 
-```jsx
+```js
 switch (foo) {
     case 0:
         break;

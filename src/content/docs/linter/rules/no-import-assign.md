@@ -18,12 +18,12 @@ Disallow assigning to imported bindings
 
 ### Invalid
 
-```jsx
+```js
 import x from "y";
 x = 1;
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noImportAssign.js:2:1 <a href="https://biomejs.dev/linter/rules/no-import-assign">lint/suspicious/noImportAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:1 <a href="https://biomejs.dev/linter/rules/no-import-assign">lint/suspicious/noImportAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The imported variable </span><span style="color: Tomato;"><strong>x</strong></span><span style="color: Tomato;"> is read-only</span>
   
@@ -43,12 +43,12 @@ x = 1;
   
 </code></pre>
 
-```jsx
+```js
 import y from "y";
 [y] = 1;
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noImportAssign.js:2:2 <a href="https://biomejs.dev/linter/rules/no-import-assign">lint/suspicious/noImportAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:2 <a href="https://biomejs.dev/linter/rules/no-import-assign">lint/suspicious/noImportAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The imported variable </span><span style="color: Tomato;"><strong>y</strong></span><span style="color: Tomato;"> is read-only</span>
   
@@ -68,12 +68,12 @@ import y from "y";
   
 </code></pre>
 
-```jsx
+```js
 import z from "y";
 ({ z } = 1);
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noImportAssign.js:2:4 <a href="https://biomejs.dev/linter/rules/no-import-assign">lint/suspicious/noImportAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:4 <a href="https://biomejs.dev/linter/rules/no-import-assign">lint/suspicious/noImportAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The imported variable </span><span style="color: Tomato;"><strong>z</strong></span><span style="color: Tomato;"> is read-only</span>
   
@@ -93,12 +93,12 @@ import z from "y";
   
 </code></pre>
 
-```jsx
+```js
 import a from "y";
 [...a] = 1;
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noImportAssign.js:2:5 <a href="https://biomejs.dev/linter/rules/no-import-assign">lint/suspicious/noImportAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:5 <a href="https://biomejs.dev/linter/rules/no-import-assign">lint/suspicious/noImportAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The imported variable </span><span style="color: Tomato;"><strong>a</strong></span><span style="color: Tomato;"> is read-only</span>
   
@@ -118,12 +118,12 @@ import a from "y";
   
 </code></pre>
 
-```jsx
+```js
 import b from "y";
 ({ ...b } = 1);
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noImportAssign.js:2:7 <a href="https://biomejs.dev/linter/rules/no-import-assign">lint/suspicious/noImportAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:7 <a href="https://biomejs.dev/linter/rules/no-import-assign">lint/suspicious/noImportAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The imported variable </span><span style="color: Tomato;"><strong>b</strong></span><span style="color: Tomato;"> is read-only</span>
   
@@ -143,12 +143,12 @@ import b from "y";
   
 </code></pre>
 
-```jsx
+```js
 import c from "y";
 for (c in y) {};
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noImportAssign.js:2:6 <a href="https://biomejs.dev/linter/rules/no-import-assign">lint/suspicious/noImportAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:6 <a href="https://biomejs.dev/linter/rules/no-import-assign">lint/suspicious/noImportAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The imported variable </span><span style="color: Tomato;"><strong>c</strong></span><span style="color: Tomato;"> is read-only</span>
   
@@ -168,12 +168,12 @@ for (c in y) {};
   
 </code></pre>
 
-```jsx
+```js
 import d from "y";
 d += 1;
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noImportAssign.js:2:1 <a href="https://biomejs.dev/linter/rules/no-import-assign">lint/suspicious/noImportAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:1 <a href="https://biomejs.dev/linter/rules/no-import-assign">lint/suspicious/noImportAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The imported variable </span><span style="color: Tomato;"><strong>d</strong></span><span style="color: Tomato;"> is read-only</span>
   
@@ -193,12 +193,12 @@ d += 1;
   
 </code></pre>
 
-```jsx
+```js
 import * as e from "y";
 e = 1;
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noImportAssign.js:2:1 <a href="https://biomejs.dev/linter/rules/no-import-assign">lint/suspicious/noImportAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:1 <a href="https://biomejs.dev/linter/rules/no-import-assign">lint/suspicious/noImportAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The imported variable </span><span style="color: Tomato;"><strong>e</strong></span><span style="color: Tomato;"> is read-only</span>
   

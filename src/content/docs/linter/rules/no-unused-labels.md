@@ -23,7 +23,7 @@ The rule ignores reactive Svelte statements in Svelte components.
 
 ### Invalid
 
-```jsx
+```js
 LOOP: for (const x of xs) {
     if (x > 0) {
         break;
@@ -32,7 +32,7 @@ LOOP: for (const x of xs) {
 }
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noUnusedLabels.js:1:1 <a href="https://biomejs.dev/linter/rules/no-unused-labels">lint/correctness/noUnusedLabels</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-unused-labels">lint/correctness/noUnusedLabels</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unused </span><span style="color: Tomato;"><strong>label</strong></span><span style="color: Tomato;">.</span>
   
@@ -51,7 +51,7 @@ LOOP: for (const x of xs) {
 
 ### Valid
 
-```jsx
+```js
 LOOP: for (const x of xs) {
     if (x > 0) {
         break LOOP;
@@ -60,7 +60,7 @@ LOOP: for (const x of xs) {
 }
 ```
 
-```jsx
+```js
 function nonNegative(n) {
     DEV: assert(n >= 0);
     return n;

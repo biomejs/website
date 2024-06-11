@@ -25,13 +25,13 @@ assignments to a property of a parameter.
 
 ### Invalid
 
-```jsx
+```js
 function f(param) {
     param = 13;
 }
 ```
 
-<pre class="language-text"><code class="language-text">style/noParameterAssign.js:2:5 <a href="https://biomejs.dev/linter/rules/no-parameter-assign">lint/style/noParameterAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:5 <a href="https://biomejs.dev/linter/rules/no-parameter-assign">lint/style/noParameterAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Reassigning a </span><span style="color: Tomato;"><strong>function parameter</strong></span><span style="color: Tomato;"> is confusing.</span>
   
@@ -52,13 +52,13 @@ function f(param) {
   
 </code></pre>
 
-```jsx
+```js
 function f(param) {
     param++;
 }
 ```
 
-<pre class="language-text"><code class="language-text">style/noParameterAssign.js:2:5 <a href="https://biomejs.dev/linter/rules/no-parameter-assign">lint/style/noParameterAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:5 <a href="https://biomejs.dev/linter/rules/no-parameter-assign">lint/style/noParameterAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Reassigning a </span><span style="color: Tomato;"><strong>function parameter</strong></span><span style="color: Tomato;"> is confusing.</span>
   
@@ -79,13 +79,13 @@ function f(param) {
   
 </code></pre>
 
-```jsx
+```js
 function f(param) {
     for (param of arr) {}
 }
 ```
 
-<pre class="language-text"><code class="language-text">style/noParameterAssign.js:2:10 <a href="https://biomejs.dev/linter/rules/no-parameter-assign">lint/style/noParameterAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:10 <a href="https://biomejs.dev/linter/rules/no-parameter-assign">lint/style/noParameterAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Reassigning a </span><span style="color: Tomato;"><strong>function parameter</strong></span><span style="color: Tomato;"> is confusing.</span>
   
@@ -114,7 +114,7 @@ class C {
 }
 ```
 
-<pre class="language-text"><code class="language-text">style/noParameterAssign.js:3:9 <a href="https://biomejs.dev/linter/rules/no-parameter-assign">lint/style/noParameterAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.ts:3:9 <a href="https://biomejs.dev/linter/rules/no-parameter-assign">lint/style/noParameterAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Reassigning a </span><span style="color: Tomato;"><strong>function parameter</strong></span><span style="color: Tomato;"> is confusing.</span>
   
@@ -139,7 +139,7 @@ class C {
 
 ### Valid
 
-```jsx
+```js
 function f(param) {
     let local = param;
 }

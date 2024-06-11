@@ -33,7 +33,7 @@ This rule checks that any `label` element (or an indicated custom component that
 <label for="js_id" />;
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noLabelWithoutControl.js:1:1 <a href="https://biomejs.dev/linter/rules/no-label-without-control">lint/nursery/noLabelWithoutControl</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.jsx:1:1 <a href="https://biomejs.dev/linter/rules/no-label-without-control">lint/nursery/noLabelWithoutControl</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">A form label must be associated with an input.</span>
   
@@ -49,7 +49,7 @@ This rule checks that any `label` element (or an indicated custom component that
 <label for="js_id"><input /></label>;
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noLabelWithoutControl.js:1:1 <a href="https://biomejs.dev/linter/rules/no-label-without-control">lint/nursery/noLabelWithoutControl</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.jsx:1:1 <a href="https://biomejs.dev/linter/rules/no-label-without-control">lint/nursery/noLabelWithoutControl</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">A form label must be associated with an input.</span>
   
@@ -65,7 +65,7 @@ This rule checks that any `label` element (or an indicated custom component that
 <label htmlFor="js_id" />;
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noLabelWithoutControl.js:1:1 <a href="https://biomejs.dev/linter/rules/no-label-without-control">lint/nursery/noLabelWithoutControl</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.jsx:1:1 <a href="https://biomejs.dev/linter/rules/no-label-without-control">lint/nursery/noLabelWithoutControl</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">A form label must be associated with an input.</span>
   
@@ -81,7 +81,7 @@ This rule checks that any `label` element (or an indicated custom component that
 <label htmlFor="js_id"><input /></label>;
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noLabelWithoutControl.js:1:1 <a href="https://biomejs.dev/linter/rules/no-label-without-control">lint/nursery/noLabelWithoutControl</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.jsx:1:1 <a href="https://biomejs.dev/linter/rules/no-label-without-control">lint/nursery/noLabelWithoutControl</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">A form label must be associated with an input.</span>
   
@@ -97,7 +97,7 @@ This rule checks that any `label` element (or an indicated custom component that
 <label>A label</label>;
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noLabelWithoutControl.js:1:1 <a href="https://biomejs.dev/linter/rules/no-label-without-control">lint/nursery/noLabelWithoutControl</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.jsx:1:1 <a href="https://biomejs.dev/linter/rules/no-label-without-control">lint/nursery/noLabelWithoutControl</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">A form label must be associated with an input.</span>
   
@@ -113,7 +113,7 @@ This rule checks that any `label` element (or an indicated custom component that
 <div><label /><input /></div>;
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noLabelWithoutControl.js:1:6 <a href="https://biomejs.dev/linter/rules/no-label-without-control">lint/nursery/noLabelWithoutControl</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.jsx:1:6 <a href="https://biomejs.dev/linter/rules/no-label-without-control">lint/nursery/noLabelWithoutControl</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">A form label must be associated with an input.</span>
   

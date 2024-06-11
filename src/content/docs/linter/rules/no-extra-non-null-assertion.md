@@ -26,7 +26,7 @@ Prevents the wrong usage of the non-null assertion operator (`!`) in TypeScript 
 const bar = foo!!.bar;
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noExtraNonNullAssertion.js:1:13 <a href="https://biomejs.dev/linter/rules/no-extra-non-null-assertion">lint/suspicious/noExtraNonNullAssertion</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.ts:1:13 <a href="https://biomejs.dev/linter/rules/no-extra-non-null-assertion">lint/suspicious/noExtraNonNullAssertion</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Forbidden extra non-null assertion.</span>
   
@@ -46,7 +46,7 @@ function fn(bar?: { n: number }) {
 }
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noExtraNonNullAssertion.js:2:10 <a href="https://biomejs.dev/linter/rules/no-extra-non-null-assertion">lint/suspicious/noExtraNonNullAssertion</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.ts:2:10 <a href="https://biomejs.dev/linter/rules/no-extra-non-null-assertion">lint/suspicious/noExtraNonNullAssertion</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Forbidden extra non-null assertion.</span>
   
@@ -68,7 +68,7 @@ function fn(bar?: { n: number }) {
 }
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noExtraNonNullAssertion.js:2:12 <a href="https://biomejs.dev/linter/rules/no-extra-non-null-assertion">lint/suspicious/noExtraNonNullAssertion</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.ts:2:12 <a href="https://biomejs.dev/linter/rules/no-extra-non-null-assertion">lint/suspicious/noExtraNonNullAssertion</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Forbidden extra non-null assertion.</span>
   

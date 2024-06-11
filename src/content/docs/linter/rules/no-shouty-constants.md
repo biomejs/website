@@ -15,12 +15,12 @@ Disallow the use of constants which its value is the upper-case version of its n
 
 ### Invalid
 
-```jsx
+```js
 const FOO = "FOO";
 console.log(FOO);
 ```
 
-<pre class="language-text"><code class="language-text">style/noShoutyConstants.js:1:7 <a href="https://biomejs.dev/linter/rules/no-shouty-constants">lint/style/noShoutyConstants</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:7 <a href="https://biomejs.dev/linter/rules/no-shouty-constants">lint/style/noShoutyConstants</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Redundant constant declaration.</span>
   
@@ -52,17 +52,17 @@ console.log(FOO);
 
 ### Valid
 
-```jsx
+```js
 let FOO = "FOO";
 console.log(FOO);
 ```
 
-```jsx
+```js
 export const FOO = "FOO";
 console.log(FOO);
 ```
 
-```jsx
+```js
 function f(FOO = "FOO") {
     return FOO;
 }

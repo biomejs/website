@@ -21,11 +21,11 @@ Assigning values to these global variables can be problematic as it can override
 
 ### Invalid
 
-```jsx
+```js
 Object = null;
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noGlobalAssign.js:1:1 <a href="https://biomejs.dev/linter/rules/no-global-assign">lint/suspicious/noGlobalAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-global-assign">lint/suspicious/noGlobalAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">A global variable should not be reassigned.</span>
   
@@ -37,11 +37,11 @@ Object = null;
   
 </code></pre>
 
-```jsx
+```js
 window = {};
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noGlobalAssign.js:1:1 <a href="https://biomejs.dev/linter/rules/no-global-assign">lint/suspicious/noGlobalAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-global-assign">lint/suspicious/noGlobalAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">A global variable should not be reassigned.</span>
   
@@ -53,11 +53,11 @@ window = {};
   
 </code></pre>
 
-```jsx
+```js
 undefined = true;
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noGlobalAssign.js:1:1 <a href="https://biomejs.dev/linter/rules/no-global-assign">lint/suspicious/noGlobalAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-global-assign">lint/suspicious/noGlobalAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">A global variable should not be reassigned.</span>
   
@@ -71,11 +71,11 @@ undefined = true;
 
 ### Valid
 
-```jsx
+```js
 a = 0;
 ```
 
-```jsx
+```js
 let window;
 window = {};
 ```

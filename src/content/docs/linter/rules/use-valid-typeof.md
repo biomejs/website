@@ -19,11 +19,11 @@ This rule verifies the result of `typeof $expr` unary expressions is being compa
 
 ### Invalid
 
-```jsx
+```js
 typeof foo === "strnig"
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/useValidTypeof.js:1:16 <a href="https://biomejs.dev/linter/rules/use-valid-typeof">lint/suspicious/useValidTypeof</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:16 <a href="https://biomejs.dev/linter/rules/use-valid-typeof">lint/suspicious/useValidTypeof</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Invalid `typeof` comparison value</span>
   
@@ -35,11 +35,11 @@ typeof foo === "strnig"
   
 </code></pre>
 
-```jsx
+```js
 typeof foo == "undefimed"
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/useValidTypeof.js:1:15 <a href="https://biomejs.dev/linter/rules/use-valid-typeof">lint/suspicious/useValidTypeof</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:15 <a href="https://biomejs.dev/linter/rules/use-valid-typeof">lint/suspicious/useValidTypeof</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Invalid `typeof` comparison value</span>
   
@@ -51,11 +51,11 @@ typeof foo == "undefimed"
   
 </code></pre>
 
-```jsx
+```js
 typeof bar != "nunber"
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/useValidTypeof.js:1:15 <a href="https://biomejs.dev/linter/rules/use-valid-typeof">lint/suspicious/useValidTypeof</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:15 <a href="https://biomejs.dev/linter/rules/use-valid-typeof">lint/suspicious/useValidTypeof</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Invalid `typeof` comparison value</span>
   
@@ -67,11 +67,11 @@ typeof bar != "nunber"
   
 </code></pre>
 
-```jsx
+```js
 typeof bar !== "fucntion"
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/useValidTypeof.js:1:16 <a href="https://biomejs.dev/linter/rules/use-valid-typeof">lint/suspicious/useValidTypeof</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:16 <a href="https://biomejs.dev/linter/rules/use-valid-typeof">lint/suspicious/useValidTypeof</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Invalid `typeof` comparison value</span>
   
@@ -83,11 +83,11 @@ typeof bar !== "fucntion"
   
 </code></pre>
 
-```jsx
+```js
 typeof foo === undefined
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/useValidTypeof.js:1:16 <a href="https://biomejs.dev/linter/rules/use-valid-typeof">lint/suspicious/useValidTypeof</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:16 <a href="https://biomejs.dev/linter/rules/use-valid-typeof">lint/suspicious/useValidTypeof</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Invalid `typeof` comparison value</span>
   
@@ -103,11 +103,11 @@ typeof foo === undefined
 <strong>  </strong><strong>    │ </strong>               <span style="color: MediumSeaGreen;">+</span>         <span style="color: MediumSeaGreen;">+</span>
 </code></pre>
 
-```jsx
+```js
 typeof bar == Object
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/useValidTypeof.js:1:15 <a href="https://biomejs.dev/linter/rules/use-valid-typeof">lint/suspicious/useValidTypeof</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:15 <a href="https://biomejs.dev/linter/rules/use-valid-typeof">lint/suspicious/useValidTypeof</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Invalid `typeof` comparison value</span>
   
@@ -125,11 +125,11 @@ typeof bar == Object
   
 </code></pre>
 
-```jsx
+```js
 typeof foo === baz
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/useValidTypeof.js:1:16 <a href="https://biomejs.dev/linter/rules/use-valid-typeof">lint/suspicious/useValidTypeof</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:16 <a href="https://biomejs.dev/linter/rules/use-valid-typeof">lint/suspicious/useValidTypeof</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Invalid `typeof` comparison value</span>
   
@@ -141,11 +141,11 @@ typeof foo === baz
   
 </code></pre>
 
-```jsx
+```js
 typeof foo == 5
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/useValidTypeof.js:1:15 <a href="https://biomejs.dev/linter/rules/use-valid-typeof">lint/suspicious/useValidTypeof</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:15 <a href="https://biomejs.dev/linter/rules/use-valid-typeof">lint/suspicious/useValidTypeof</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Invalid `typeof` comparison value</span>
   
@@ -157,11 +157,11 @@ typeof foo == 5
   
 </code></pre>
 
-```jsx
+```js
 typeof foo == -5
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/useValidTypeof.js:1:15 <a href="https://biomejs.dev/linter/rules/use-valid-typeof">lint/suspicious/useValidTypeof</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:15 <a href="https://biomejs.dev/linter/rules/use-valid-typeof">lint/suspicious/useValidTypeof</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Invalid `typeof` comparison value</span>
   
@@ -175,15 +175,15 @@ typeof foo == -5
 
 ### Valid
 
-```jsx
+```js
 typeof foo === "string"
 ```
 
-```jsx
+```js
 typeof bar == "undefined"
 ```
 
-```jsx
+```js
 typeof bar === typeof qux
 ```
 

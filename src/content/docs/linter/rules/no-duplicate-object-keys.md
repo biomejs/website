@@ -21,14 +21,14 @@ If an object property with the same name is defined multiple times (except when 
 
 ### Invalid
 
-```jsx
+```js
 const obj = {
    	a: 1,
    	a: 2,
 }
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noDuplicateObjectKeys.js:2:5 <a href="https://biomejs.dev/linter/rules/no-duplicate-object-keys">lint/suspicious/noDuplicateObjectKeys</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:5 <a href="https://biomejs.dev/linter/rules/no-duplicate-object-keys">lint/suspicious/noDuplicateObjectKeys</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This property value named a is later overwritten by an object member with the same name.</span>
   
@@ -58,14 +58,14 @@ const obj = {
   
 </code></pre>
 
-```jsx
+```js
 const obj = {
    	set a(v) {},
    	a: 2,
 }
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noDuplicateObjectKeys.js:2:5 <a href="https://biomejs.dev/linter/rules/no-duplicate-object-keys">lint/suspicious/noDuplicateObjectKeys</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:5 <a href="https://biomejs.dev/linter/rules/no-duplicate-object-keys">lint/suspicious/noDuplicateObjectKeys</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This setter named a is later overwritten by an object member with the same name.</span>
   
@@ -97,14 +97,14 @@ const obj = {
 
 ### Valid
 
-```jsx
+```js
 const obj = {
    	a: 1,
    	b: 2,
 }
 ```
 
-```jsx
+```js
 const obj = {
    	get a() { return 1; },
    	set a(v) {},

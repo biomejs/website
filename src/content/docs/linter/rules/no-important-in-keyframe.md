@@ -30,7 +30,7 @@ Using `!important` within keyframes declarations is completely ignored in some b
 }
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noImportantInKeyframe.js:6:18 <a href="https://biomejs.dev/linter/rules/no-important-in-keyframe">lint/nursery/noImportantInKeyframe</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.css:6:18 <a href="https://biomejs.dev/linter/rules/no-important-in-keyframe">lint/nursery/noImportantInKeyframe</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Using </span><span style="color: Tomato;"><strong>!important</strong></span><span style="color: Tomato;"> within keyframes declaration is completely ignored in some browsers.</span>
   

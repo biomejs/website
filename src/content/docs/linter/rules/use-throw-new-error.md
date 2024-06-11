@@ -26,11 +26,11 @@ Rule matches errors when their name ends with the word "Error" and the first cha
 
 ### Invalid
 
-```jsx
+```js
 throw Error();
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useThrowNewError.js:1:7 <a href="https://biomejs.dev/linter/rules/use-throw-new-error">lint/nursery/useThrowNewError</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:7 <a href="https://biomejs.dev/linter/rules/use-throw-new-error">lint/nursery/useThrowNewError</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>new Error()</strong></span><span style="color: Orange;"> instead of </span><span style="color: Orange;"><strong>Error()</strong></span><span style="color: Orange;"> when throwing an error.</span>
   
@@ -46,11 +46,11 @@ throw Error();
 <strong>  </strong><strong>    │ </strong>      <span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span>        
 </code></pre>
 
-```jsx
+```js
 throw TypeError('biome');
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useThrowNewError.js:1:7 <a href="https://biomejs.dev/linter/rules/use-throw-new-error">lint/nursery/useThrowNewError</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:7 <a href="https://biomejs.dev/linter/rules/use-throw-new-error">lint/nursery/useThrowNewError</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>new TypeError()</strong></span><span style="color: Orange;"> instead of </span><span style="color: Orange;"><strong>TypeError()</strong></span><span style="color: Orange;"> when throwing an error.</span>
   
@@ -66,11 +66,11 @@ throw TypeError('biome');
 <strong>  </strong><strong>    │ </strong>      <span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span>                   
 </code></pre>
 
-```jsx
+```js
 throw lib.TypeError();
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useThrowNewError.js:1:7 <a href="https://biomejs.dev/linter/rules/use-throw-new-error">lint/nursery/useThrowNewError</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:7 <a href="https://biomejs.dev/linter/rules/use-throw-new-error">lint/nursery/useThrowNewError</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>new TypeError()</strong></span><span style="color: Orange;"> instead of </span><span style="color: Orange;"><strong>TypeError()</strong></span><span style="color: Orange;"> when throwing an error.</span>
   
@@ -88,15 +88,15 @@ throw lib.TypeError();
 
 ### Valid
 
-```jsx
+```js
 throw new Error();
 ```
 
-```jsx
+```js
 throw new TypeError('biome');
 ```
 
-```jsx
+```js
 throw new lib.TypeError();
 ```
 

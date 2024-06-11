@@ -49,13 +49,13 @@ Check the [options](#options) if you need to change the defaults.
 
 ### Invalid
 
-```jsx
+```js
 describe("describe", () => {
     expect()
 })
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noMisplacedAssertion.js:2:5 <a href="https://biomejs.dev/linter/rules/no-misplaced-assertion">lint/nursery/noMisplacedAssertion</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:5 <a href="https://biomejs.dev/linter/rules/no-misplaced-assertion">lint/nursery/noMisplacedAssertion</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">The assertion isn't inside a </span><span style="color: Orange;"><strong>it()</strong></span><span style="color: Orange;">, </span><span style="color: Orange;"><strong>test()</strong></span><span style="color: Orange;"> or </span><span style="color: Orange;"><strong>Deno.test()</strong></span><span style="color: Orange;"> function call.</span>
   
@@ -71,14 +71,14 @@ describe("describe", () => {
   
 </code></pre>
 
-```jsx
+```js
 import assert from "node:assert";
 describe("describe", () => {
     assert.equal()
 })
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noMisplacedAssertion.js:3:5 <a href="https://biomejs.dev/linter/rules/no-misplaced-assertion">lint/nursery/noMisplacedAssertion</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:3:5 <a href="https://biomejs.dev/linter/rules/no-misplaced-assertion">lint/nursery/noMisplacedAssertion</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">The assertion isn't inside a </span><span style="color: Orange;"><strong>it()</strong></span><span style="color: Orange;">, </span><span style="color: Orange;"><strong>test()</strong></span><span style="color: Orange;"> or </span><span style="color: Orange;"><strong>Deno.test()</strong></span><span style="color: Orange;"> function call.</span>
   
@@ -95,12 +95,12 @@ describe("describe", () => {
   
 </code></pre>
 
-```jsx
+```js
 import {test, expect} from "bun:test";
 expect(1, 2)
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noMisplacedAssertion.js:2:1 <a href="https://biomejs.dev/linter/rules/no-misplaced-assertion">lint/nursery/noMisplacedAssertion</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:1 <a href="https://biomejs.dev/linter/rules/no-misplaced-assertion">lint/nursery/noMisplacedAssertion</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">The assertion isn't inside a </span><span style="color: Orange;"><strong>it()</strong></span><span style="color: Orange;">, </span><span style="color: Orange;"><strong>test()</strong></span><span style="color: Orange;"> or </span><span style="color: Orange;"><strong>Deno.test()</strong></span><span style="color: Orange;"> function call.</span>
   
@@ -115,7 +115,7 @@ expect(1, 2)
   
 </code></pre>
 
-```jsx
+```js
 import {assertEquals} from "https://deno.land/std@0.220.0/assert/mod.ts";
 
 assertEquals(url.href, "https://deno.land/foo.js");
@@ -124,7 +124,7 @@ Deno.test("url test", () => {
 });
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noMisplacedAssertion.js:3:1 <a href="https://biomejs.dev/linter/rules/no-misplaced-assertion">lint/nursery/noMisplacedAssertion</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:3:1 <a href="https://biomejs.dev/linter/rules/no-misplaced-assertion">lint/nursery/noMisplacedAssertion</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">The assertion isn't inside a </span><span style="color: Orange;"><strong>it()</strong></span><span style="color: Orange;">, </span><span style="color: Orange;"><strong>test()</strong></span><span style="color: Orange;"> or </span><span style="color: Orange;"><strong>Deno.test()</strong></span><span style="color: Orange;"> function call.</span>
   
@@ -143,7 +143,7 @@ Deno.test("url test", () => {
 
 ### Valid
 
-```jsx
+```js
 import assert from "node:assert";
 describe("describe", () => {
     it("it", () => {
@@ -152,7 +152,7 @@ describe("describe", () => {
 })
 ```
 
-```jsx
+```js
 describe("describe", () => {
     it("it", () => {
         expect()
@@ -160,13 +160,13 @@ describe("describe", () => {
 })
 ```
 
-```jsx
+```js
 test.each([1, 2, 3])('test', (a, b, expected) => {
     expect(a + b).toBe(expected)
 })
 ```
 
-```jsx
+```js
 import { waitFor } from '@testing-library/react';
 await waitFor(() => {
   expect(111).toBe(222);

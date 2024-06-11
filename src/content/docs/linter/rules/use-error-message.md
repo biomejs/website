@@ -20,11 +20,11 @@ which leads to more readable and debuggable code.
 
 ### Invalid
 
-```jsx
+```js
 throw Error();
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useErrorMessage.js:1:12 <a href="https://biomejs.dev/linter/rules/use-error-message">lint/nursery/useErrorMessage</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:12 <a href="https://biomejs.dev/linter/rules/use-error-message">lint/nursery/useErrorMessage</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Provide an error message for the error.</span>
   
@@ -36,11 +36,11 @@ throw Error();
   
 </code></pre>
 
-```jsx
+```js
 throw Error('');
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useErrorMessage.js:1:12 <a href="https://biomejs.dev/linter/rules/use-error-message">lint/nursery/useErrorMessage</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:12 <a href="https://biomejs.dev/linter/rules/use-error-message">lint/nursery/useErrorMessage</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Error message should not be an empty string.</span>
   
@@ -52,11 +52,11 @@ throw Error('');
   
 </code></pre>
 
-```jsx
+```js
 throw new TypeError();
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useErrorMessage.js:1:20 <a href="https://biomejs.dev/linter/rules/use-error-message">lint/nursery/useErrorMessage</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:20 <a href="https://biomejs.dev/linter/rules/use-error-message">lint/nursery/useErrorMessage</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Provide an error message for the error.</span>
   
@@ -68,11 +68,11 @@ throw new TypeError();
   
 </code></pre>
 
-```jsx
+```js
 const error = new AggregateError(errors);
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useErrorMessage.js:1:33 <a href="https://biomejs.dev/linter/rules/use-error-message">lint/nursery/useErrorMessage</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:33 <a href="https://biomejs.dev/linter/rules/use-error-message">lint/nursery/useErrorMessage</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Provide an error message for the error.</span>
   
@@ -86,15 +86,15 @@ const error = new AggregateError(errors);
 
 ### Valid
 
-```jsx
+```js
 throw Error('Unexpected property.');
 ```
 
-```jsx
+```js
 throw new TypeError('Array expected.');
 ```
 
-```jsx
+```js
 const error = new AggregateError(errors, 'Promises rejected.');
 ```
 

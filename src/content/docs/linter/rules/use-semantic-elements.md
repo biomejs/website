@@ -23,7 +23,7 @@ The `role` attribute is used to define the purpose of an element, but it should 
 <div role="checkbox">
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useSemanticElements.js:2:1 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.jsx:2:1 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">expected `&lt;` but instead the file ends</span>
   
@@ -43,7 +43,7 @@ The `role` attribute is used to define the purpose of an element, but it should 
 <div role="img">
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useSemanticElements.js:2:1 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.jsx:2:1 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">expected `&lt;` but instead the file ends</span>
   

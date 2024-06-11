@@ -20,11 +20,11 @@ Disallow `new` operators with the `Symbol` object.
 
 ### Invalid
 
-```jsx
+```js
 var foo = new Symbol('foo');
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noNewSymbol.js:1:11 <a href="https://biomejs.dev/linter/rules/no-new-symbol">lint/correctness/noNewSymbol</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:11 <a href="https://biomejs.dev/linter/rules/no-new-symbol">lint/correctness/noNewSymbol</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;"><strong>Symbol</strong></span><span style="color: Orange;"> cannot be called as a constructor.</span>
   
@@ -40,7 +40,7 @@ var foo = new Symbol('foo');
 
 ### Valid
 
-```jsx
+```js
 var bar = Symbol('bar');
 function baz() {
     function Symbol() { }

@@ -19,12 +19,12 @@ Disallow unnecessary boolean casts
 
 ### Invalid
 
-```jsx
+```js
 if (!Boolean(foo)) {
 }
 ```
 
-<pre class="language-text"><code class="language-text">complexity/noExtraBooleanCast.js:1:6 <a href="https://biomejs.dev/linter/rules/no-extra-boolean-cast">lint/complexity/noExtraBooleanCast</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:6 <a href="https://biomejs.dev/linter/rules/no-extra-boolean-cast">lint/complexity/noExtraBooleanCast</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Avoid redundant `Boolean` call</span>
   
@@ -41,11 +41,11 @@ if (!Boolean(foo)) {
 <strong>  </strong><strong>    │ </strong>     <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span>   <span style="color: Tomato;">-</span>   
 </code></pre>
 
-```jsx
+```js
 while (!!foo) {}
 ```
 
-<pre class="language-text"><code class="language-text">complexity/noExtraBooleanCast.js:1:8 <a href="https://biomejs.dev/linter/rules/no-extra-boolean-cast">lint/complexity/noExtraBooleanCast</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:8 <a href="https://biomejs.dev/linter/rules/no-extra-boolean-cast">lint/complexity/noExtraBooleanCast</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Avoid redundant double-negation.</span>
   
@@ -61,14 +61,14 @@ while (!!foo) {}
 <strong>  </strong><strong>    │ </strong>       <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span>       
 </code></pre>
 
-```jsx
+```js
 let x = 1;
 do {
 1 + 1;
 } while (Boolean(x));
 ```
 
-<pre class="language-text"><code class="language-text">complexity/noExtraBooleanCast.js:4:10 <a href="https://biomejs.dev/linter/rules/no-extra-boolean-cast">lint/complexity/noExtraBooleanCast</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:4:10 <a href="https://biomejs.dev/linter/rules/no-extra-boolean-cast">lint/complexity/noExtraBooleanCast</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Avoid redundant `Boolean` call</span>
   
@@ -86,11 +86,11 @@ do {
 <strong>  </strong><strong>    │ </strong>         <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span> <span style="color: Tomato;">-</span>  
 </code></pre>
 
-```jsx
+```js
 for (; !!foo; ) {}
 ```
 
-<pre class="language-text"><code class="language-text">complexity/noExtraBooleanCast.js:1:8 <a href="https://biomejs.dev/linter/rules/no-extra-boolean-cast">lint/complexity/noExtraBooleanCast</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:8 <a href="https://biomejs.dev/linter/rules/no-extra-boolean-cast">lint/complexity/noExtraBooleanCast</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Avoid redundant double-negation.</span>
   
@@ -106,11 +106,11 @@ for (; !!foo; ) {}
 <strong>  </strong><strong>    │ </strong>       <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span>         
 </code></pre>
 
-```jsx
+```js
 new Boolean(!!x);
 ```
 
-<pre class="language-text"><code class="language-text">complexity/noExtraBooleanCast.js:1:13 <a href="https://biomejs.dev/linter/rules/no-extra-boolean-cast">lint/complexity/noExtraBooleanCast</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:13 <a href="https://biomejs.dev/linter/rules/no-extra-boolean-cast">lint/complexity/noExtraBooleanCast</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Avoid redundant double-negation.</span>
   
@@ -128,7 +128,7 @@ new Boolean(!!x);
 
 ### Valid
 
-```jsx
+```js
 Boolean(!x);
 !x;
 !!x;

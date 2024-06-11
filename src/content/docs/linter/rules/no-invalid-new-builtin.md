@@ -25,11 +25,11 @@ will throw a `TypeError` if you attempt to do so. These functions are:
 
 ### Invalid
 
-```jsx
+```js
 let foo = new Symbol('foo');
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noInvalidNewBuiltin.js:1:11 <a href="https://biomejs.dev/linter/rules/no-invalid-new-builtin">lint/correctness/noInvalidNewBuiltin</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:11 <a href="https://biomejs.dev/linter/rules/no-invalid-new-builtin">lint/correctness/noInvalidNewBuiltin</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>Symbol</strong></span><span style="color: Tomato;"> cannot be called as a constructor.</span>
   
@@ -45,11 +45,11 @@ let foo = new Symbol('foo');
 <strong>  </strong><strong>    │ </strong>          <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span>              
 </code></pre>
 
-```jsx
+```js
 let bar = new BigInt(9007199254740991);
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noInvalidNewBuiltin.js:1:11 <a href="https://biomejs.dev/linter/rules/no-invalid-new-builtin">lint/correctness/noInvalidNewBuiltin</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:11 <a href="https://biomejs.dev/linter/rules/no-invalid-new-builtin">lint/correctness/noInvalidNewBuiltin</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>BigInt</strong></span><span style="color: Tomato;"> cannot be called as a constructor.</span>
   
@@ -67,7 +67,7 @@ let bar = new BigInt(9007199254740991);
 
 ### Valid
 
-```jsx
+```js
 let foo = Symbol('foo');
 
 function baz(Symbol) {
@@ -75,7 +75,7 @@ function baz(Symbol) {
 }
 ```
 
-```jsx
+```js
 let bar = BigInt(9007199254740991);
 
 function quux(BigInt) {

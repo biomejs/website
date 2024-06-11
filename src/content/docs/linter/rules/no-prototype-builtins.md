@@ -27,11 +27,11 @@ As for the `hasOwn` method, `foo.hasOwn("bar")` should be replaced with `Object.
 
 ### Invalid
 
-```jsx
+```js
 var invalid = foo.hasOwnProperty("bar");
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noPrototypeBuiltins.js:1:19 <a href="https://biomejs.dev/linter/rules/no-prototype-builtins">lint/suspicious/noPrototypeBuiltins</a> ━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:19 <a href="https://biomejs.dev/linter/rules/no-prototype-builtins">lint/suspicious/noPrototypeBuiltins</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Do not access Object.prototype method 'hasOwnProperty' from target object.</span>
   
@@ -45,11 +45,11 @@ var invalid = foo.hasOwnProperty("bar");
   
 </code></pre>
 
-```jsx
+```js
 var invalid = foo.isPrototypeOf(bar);
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noPrototypeBuiltins.js:1:19 <a href="https://biomejs.dev/linter/rules/no-prototype-builtins">lint/suspicious/noPrototypeBuiltins</a> ━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:19 <a href="https://biomejs.dev/linter/rules/no-prototype-builtins">lint/suspicious/noPrototypeBuiltins</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Do not access Object.prototype method 'isPrototypeOf' from target object.</span>
   
@@ -59,11 +59,11 @@ var invalid = foo.isPrototypeOf(bar);
   
 </code></pre>
 
-```jsx
+```js
 var invalid = foo.propertyIsEnumerable("bar");
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noPrototypeBuiltins.js:1:19 <a href="https://biomejs.dev/linter/rules/no-prototype-builtins">lint/suspicious/noPrototypeBuiltins</a> ━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:19 <a href="https://biomejs.dev/linter/rules/no-prototype-builtins">lint/suspicious/noPrototypeBuiltins</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Do not access Object.prototype method 'propertyIsEnumerable' from target object.</span>
   
@@ -75,7 +75,7 @@ var invalid = foo.propertyIsEnumerable("bar");
 
 ### Valid
 
-```jsx
+```js
 var valid = Object.hasOwn(foo, "bar");
 var valid = Object.prototype.isPrototypeOf.call(foo, bar);
 var valid = {}.propertyIsEnumerable.call(foo, "bar");

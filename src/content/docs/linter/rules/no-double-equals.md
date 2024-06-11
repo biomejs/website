@@ -27,11 +27,11 @@ comparing to both `null` and `undefined`.
 
 ### Invalid
 
-```jsx
+```js
 foo == bar
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noDoubleEquals.js:1:5 <a href="https://biomejs.dev/linter/rules/no-double-equals">lint/suspicious/noDoubleEquals</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:5 <a href="https://biomejs.dev/linter/rules/no-double-equals">lint/suspicious/noDoubleEquals</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Use </span><span style="color: Tomato;"><strong>===</strong></span><span style="color: Tomato;"> instead of </span><span style="color: Tomato;"><strong>==</strong></span>
   
@@ -55,19 +55,19 @@ foo == bar
 
 ### Valid
 
-```jsx
+```js
 foo == null
 ```
 
-```jsx
+```js
 foo != null
 ```
 
-```jsx
+```js
 null == foo
 ```
 
-```jsx
+```js
 null != foo
 ```
 

@@ -24,7 +24,7 @@ a {}
 @import 'foo.css';
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noInvalidPositionAtImportRule.js:2:2 <a href="https://biomejs.dev/linter/rules/no-invalid-position-at-import-rule">lint/nursery/noInvalidPositionAtImportRule</a> ━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.css:2:2 <a href="https://biomejs.dev/linter/rules/no-invalid-position-at-import-rule">lint/nursery/noInvalidPositionAtImportRule</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This </span><span style="color: Tomato;"><strong>@import</strong></span><span style="color: Tomato;"> is in the wrong position.</span>
   
