@@ -74,11 +74,11 @@ However, without `new` they can be useful for coercing a value to that type.
 
 ### Invalid
 
-```jsx
+```js
 const text = new String(10);
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useConsistentBuiltinInstantiation.js:1:14 <a href="https://biomejs.dev/linter/rules/use-consistent-new-builtin">lint/nursery/useConsistentBuiltinInstantiation</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:14 <a href="https://biomejs.dev/linter/rules/use-consistent-new-builtin">lint/nursery/useConsistentBuiltinInstantiation</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>String()</strong></span><span style="color: Orange;"> instead of </span><span style="color: Orange;"><strong>new String()</strong></span><span style="color: Orange;">.</span>
   
@@ -92,11 +92,11 @@ const text = new String(10);
 <strong>  </strong><strong>    │ </strong>             <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span>           
 </code></pre>
 
-```jsx
+```js
 const now = Date();
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useConsistentBuiltinInstantiation.js:1:13 <a href="https://biomejs.dev/linter/rules/use-consistent-new-builtin">lint/nursery/useConsistentBuiltinInstantiation</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:13 <a href="https://biomejs.dev/linter/rules/use-consistent-new-builtin">lint/nursery/useConsistentBuiltinInstantiation</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>new Date()</strong></span><span style="color: Orange;"> instead of </span><span style="color: Orange;"><strong>Date()</strong></span><span style="color: Orange;">.</span>
   
@@ -110,13 +110,13 @@ const now = Date();
 <strong>  </strong><strong>    │ </strong>            <span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span>       
 </code></pre>
 
-```jsx
+```js
 const map = Map([
   ['foo', 'bar']
 ]);
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useConsistentBuiltinInstantiation.js:1:13 <a href="https://biomejs.dev/linter/rules/use-consistent-new-builtin">lint/nursery/useConsistentBuiltinInstantiation</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:13 <a href="https://biomejs.dev/linter/rules/use-consistent-new-builtin">lint/nursery/useConsistentBuiltinInstantiation</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>new Map()</strong></span><span style="color: Orange;"> instead of </span><span style="color: Orange;"><strong>Map()</strong></span><span style="color: Orange;">.</span>
   
@@ -135,15 +135,15 @@ const map = Map([
 
 ### Valid
 
-```jsx
+```js
 const text = String(10);
 ```
 
-```jsx
+```js
 const now = new Date();
 ```
 
-```jsx
+```js
 const map = new Map([
  ['foo', 'bar']
 ]);

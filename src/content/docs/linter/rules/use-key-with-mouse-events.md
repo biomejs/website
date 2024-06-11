@@ -24,7 +24,7 @@ Coding for the keyboard is important for users with physical disabilities who ca
 <div onMouseOver={() => {}} />
 ```
 
-<pre class="language-text"><code class="language-text">a11y/useKeyWithMouseEvents.js:1:1 <a href="https://biomejs.dev/linter/rules/use-key-with-mouse-events">lint/a11y/useKeyWithMouseEvents</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.jsx:1:1 <a href="https://biomejs.dev/linter/rules/use-key-with-mouse-events">lint/a11y/useKeyWithMouseEvents</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">onMouseOver must be accompanied by onFocus for accessibility.</span>
   
@@ -40,7 +40,7 @@ Coding for the keyboard is important for users with physical disabilities who ca
 <div onMouseOut={() => {}} />
 ```
 
-<pre class="language-text"><code class="language-text">a11y/useKeyWithMouseEvents.js:1:1 <a href="https://biomejs.dev/linter/rules/use-key-with-mouse-events">lint/a11y/useKeyWithMouseEvents</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.jsx:1:1 <a href="https://biomejs.dev/linter/rules/use-key-with-mouse-events">lint/a11y/useKeyWithMouseEvents</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">onMouseOut must be accompanied by onBlur for accessibility.</span>
   

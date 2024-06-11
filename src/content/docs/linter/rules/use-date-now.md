@@ -25,11 +25,11 @@ it also avoids unnecessary instantiation of `Date` object.
 
 ### Invalid
 
-```jsx
+```js
 const foo = new Date().getTime();
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useDateNow.js:1:13 <a href="https://biomejs.dev/linter/rules/use-date-now">lint/nursery/useDateNow</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:13 <a href="https://biomejs.dev/linter/rules/use-date-now">lint/nursery/useDateNow</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>Date.now()</strong></span><span style="color: Orange;"> instead of </span><span style="color: Orange;"><strong>new Date().getTime</strong></span><span style="color: Orange;">.</span>
   
@@ -47,11 +47,11 @@ const foo = new Date().getTime();
   
 </code></pre>
 
-```jsx
+```js
 const foo = new Date().valueOf();
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useDateNow.js:1:13 <a href="https://biomejs.dev/linter/rules/use-date-now">lint/nursery/useDateNow</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:13 <a href="https://biomejs.dev/linter/rules/use-date-now">lint/nursery/useDateNow</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>Date.now()</strong></span><span style="color: Orange;"> instead of </span><span style="color: Orange;"><strong>new Date().valueOf</strong></span><span style="color: Orange;">.</span>
   
@@ -69,17 +69,17 @@ const foo = new Date().valueOf();
   
 </code></pre>
 
-```jsx
+```js
 const foo = +new Date;
 ```
 
 <pre class="language-text"><code class="language-text"></code></pre>
 
-```jsx
+```js
 const foo = Number(new Date());
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useDateNow.js:1:13 <a href="https://biomejs.dev/linter/rules/use-date-now">lint/nursery/useDateNow</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:13 <a href="https://biomejs.dev/linter/rules/use-date-now">lint/nursery/useDateNow</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>Date.now()</strong></span><span style="color: Orange;"> instead of </span><span style="color: Orange;"><strong>Number(new Date())</strong></span><span style="color: Orange;">.</span>
   
@@ -97,11 +97,11 @@ const foo = Number(new Date());
   
 </code></pre>
 
-```jsx
+```js
 const foo = new Date() * 2;
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useDateNow.js:1:13 <a href="https://biomejs.dev/linter/rules/use-date-now">lint/nursery/useDateNow</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:13 <a href="https://biomejs.dev/linter/rules/use-date-now">lint/nursery/useDateNow</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>Date.now()</strong></span><span style="color: Orange;"> instead of </span><span style="color: Orange;"><strong>new Date()</strong></span><span style="color: Orange;">.</span>
   
@@ -121,11 +121,11 @@ const foo = new Date() * 2;
 
 ### Valid
 
-```jsx
+```js
 const foo = Date.now();
 ```
 
-```jsx
+```js
 const foo = Date.now() * 2;
 ```
 

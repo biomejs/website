@@ -23,11 +23,11 @@ Block scope is common in many other programming languages and helps programmers 
 
 ### Invalid
 
-```jsx
+```js
 var foo = 1;
 ```
 
-<pre class="language-text"><code class="language-text">style/noVar.js:1:1 <a href="https://biomejs.dev/linter/rules/no-var">lint/style/noVar</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-var">lint/style/noVar</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Use </span><span style="color: Tomato;"><strong>let</strong></span><span style="color: Tomato;"> or </span><span style="color: Tomato;"><strong>const</strong></span><span style="color: Tomato;"> instead of </span><span style="color: Tomato;"><strong>var</strong></span><span style="color: Tomato;">.</span>
   
@@ -49,7 +49,7 @@ var foo = 1;
 
 ### Valid
 
-```jsx
+```js
 const foo = 1;
 let bar = 1;
 ```

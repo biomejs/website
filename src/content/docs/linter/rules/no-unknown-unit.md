@@ -25,7 +25,7 @@ a {
 }
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noUnknownUnit.js:2:12 <a href="https://biomejs.dev/linter/rules/no-unknown-unit">lint/nursery/noUnknownUnit</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.css:2:12 <a href="https://biomejs.dev/linter/rules/no-unknown-unit">lint/nursery/noUnknownUnit</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unexpected unknown unit: </span><span style="color: Tomato;"><strong>pixels</strong></span>
   
@@ -52,7 +52,7 @@ a {
 }
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noUnknownUnit.js:2:24 <a href="https://biomejs.dev/linter/rules/no-unknown-unit">lint/nursery/noUnknownUnit</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.css:2:24 <a href="https://biomejs.dev/linter/rules/no-unknown-unit">lint/nursery/noUnknownUnit</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unexpected unknown unit: </span><span style="color: Tomato;"><strong>pixels</strong></span>
   

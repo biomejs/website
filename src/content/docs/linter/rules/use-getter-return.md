@@ -18,13 +18,13 @@ Enforce `get` methods to always return a value.
 
 ### Invalid
 
-```jsx
+```js
 class Person {
     get firstName() {}
 }
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/useGetterReturn.js:2:5 <a href="https://biomejs.dev/linter/rules/use-getter-return">lint/suspicious/useGetterReturn</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:5 <a href="https://biomejs.dev/linter/rules/use-getter-return">lint/suspicious/useGetterReturn</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This </span><span style="color: Tomato;"><strong>getter</strong></span><span style="color: Tomato;"> should </span><span style="color: Tomato;"><strong>return</strong></span><span style="color: Tomato;"> a value.</span>
   
@@ -36,7 +36,7 @@ class Person {
   
 </code></pre>
 
-```jsx
+```js
 const obj = {
     get firstName() {
         return;
@@ -44,7 +44,7 @@ const obj = {
 }
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/useGetterReturn.js:3:9 <a href="https://biomejs.dev/linter/rules/use-getter-return">lint/suspicious/useGetterReturn</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:3:9 <a href="https://biomejs.dev/linter/rules/use-getter-return">lint/suspicious/useGetterReturn</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This </span><span style="color: Tomato;"><strong>return</strong></span><span style="color: Tomato;"> should return a value because it is located in a </span><span style="color: Tomato;"><strong>getter</strong></span><span style="color: Tomato;">.</span>
   
@@ -57,7 +57,7 @@ const obj = {
   
 </code></pre>
 
-```jsx
+```js
 class Option {
     get value() {
         if (this.hasValue) {
@@ -69,7 +69,7 @@ class Option {
 }
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/useGetterReturn.js:2:5 <a href="https://biomejs.dev/linter/rules/use-getter-return">lint/suspicious/useGetterReturn</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:5 <a href="https://biomejs.dev/linter/rules/use-getter-return">lint/suspicious/useGetterReturn</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This </span><span style="color: Tomato;"><strong>getter</strong></span><span style="color: Tomato;"> should </span><span style="color: Tomato;"><strong>return</strong></span><span style="color: Tomato;"> a value.</span>
   
@@ -90,7 +90,7 @@ class Option {
 
 ### Valid
 
-```jsx
+```js
 class Person {
     get firstName() {
         return this.fullname.split(" ")[0];
@@ -98,7 +98,7 @@ class Person {
 }
 ```
 
-```jsx
+```js
 const obj = {
     get firstName() {
         return this.fullname.split(" ")[0];

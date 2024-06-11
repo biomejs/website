@@ -31,7 +31,7 @@ type Foo = {
 };
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useAdjacentOverloadSignatures.js:5:3 <a href="https://biomejs.dev/linter/rules/use-adjacent-overload-signatures">lint/nursery/useAdjacentOverloadSignatures</a> ━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.ts:5:3 <a href="https://biomejs.dev/linter/rules/use-adjacent-overload-signatures">lint/nursery/useAdjacentOverloadSignatures</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">All foo_type signatures must be adjacent.</span>
   
@@ -53,7 +53,7 @@ interface Foo {
 }
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useAdjacentOverloadSignatures.js:5:3 <a href="https://biomejs.dev/linter/rules/use-adjacent-overload-signatures">lint/nursery/useAdjacentOverloadSignatures</a> ━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.ts:5:3 <a href="https://biomejs.dev/linter/rules/use-adjacent-overload-signatures">lint/nursery/useAdjacentOverloadSignatures</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">All foo_interface signatures must be adjacent.</span>
   

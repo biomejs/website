@@ -27,37 +27,37 @@ Rule checks static imports and dynamic imports calls such as `import()` and `req
 
 ### Invalid
 
-```jsx
+```js
 import "./foo";
 ```
 
 <pre class="language-text"><code class="language-text"></code></pre>
 
-```jsx
+```js
 import "./bar/";
 ```
 
 <pre class="language-text"><code class="language-text"></code></pre>
 
-```jsx
+```js
 import "../";
 ```
 
 <pre class="language-text"><code class="language-text"></code></pre>
 
-```jsx
+```js
 import "../.";
 ```
 
 <pre class="language-text"><code class="language-text"></code></pre>
 
-```jsx
+```js
 import("./foo");
 ```
 
 <pre class="language-text"><code class="language-text"></code></pre>
 
-```jsx
+```js
 require("./foo");
 ```
 
@@ -65,23 +65,23 @@ require("./foo");
 
 ### Valid
 
-```jsx
+```js
 import "biome";
 ```
 
-```jsx
+```js
 import "./foo.js";
 ```
 
-```jsx
+```js
 import "./bar/index.js";
 ```
 
-```jsx
+```js
 import("./foo.js");
 ```
 
-```jsx
+```js
 require("./foo.js");
 ```
 

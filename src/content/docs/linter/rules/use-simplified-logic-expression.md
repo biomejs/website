@@ -15,12 +15,12 @@ Discard redundant terms from logical expressions.
 
 ### Invalid
 
-```jsx
+```js
 const boolExp = true;
 const r = true && boolExp;
 ```
 
-<pre class="language-text"><code class="language-text">complexity/useSimplifiedLogicExpression.js:2:11 <a href="https://biomejs.dev/linter/rules/use-simplified-logic-expression">lint/complexity/useSimplifiedLogicExpression</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:11 <a href="https://biomejs.dev/linter/rules/use-simplified-logic-expression">lint/complexity/useSimplifiedLogicExpression</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Logical expression contains unnecessary complexity.</span>
   
@@ -35,12 +35,12 @@ const r = true && boolExp;
 <strong>  </strong><strong>    │ </strong>          <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span>        
 </code></pre>
 
-```jsx
+```js
 const boolExp2 = true;
 const r2 = boolExp || true;
 ```
 
-<pre class="language-text"><code class="language-text">complexity/useSimplifiedLogicExpression.js:2:12 <a href="https://biomejs.dev/linter/rules/use-simplified-logic-expression">lint/complexity/useSimplifiedLogicExpression</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:12 <a href="https://biomejs.dev/linter/rules/use-simplified-logic-expression">lint/complexity/useSimplifiedLogicExpression</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Logical expression contains unnecessary complexity.</span>
   
@@ -55,12 +55,12 @@ const r2 = boolExp || true;
 <strong>  </strong><strong>    │ </strong>           <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span>     
 </code></pre>
 
-```jsx
+```js
 const nonNullExp = 123;
 const r3 = null ?? nonNullExp;
 ```
 
-<pre class="language-text"><code class="language-text">complexity/useSimplifiedLogicExpression.js:2:12 <a href="https://biomejs.dev/linter/rules/use-simplified-logic-expression">lint/complexity/useSimplifiedLogicExpression</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:12 <a href="https://biomejs.dev/linter/rules/use-simplified-logic-expression">lint/complexity/useSimplifiedLogicExpression</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Logical expression contains unnecessary complexity.</span>
   
@@ -75,13 +75,13 @@ const r3 = null ?? nonNullExp;
 <strong>  </strong><strong>    │ </strong>           <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span>           
 </code></pre>
 
-```jsx
+```js
 const boolExpr1 = true;
 const boolExpr2 = false;
 const r4 = !boolExpr1 || !boolExpr2;
 ```
 
-<pre class="language-text"><code class="language-text">complexity/useSimplifiedLogicExpression.js:3:12 <a href="https://biomejs.dev/linter/rules/use-simplified-logic-expression">lint/complexity/useSimplifiedLogicExpression</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:3:12 <a href="https://biomejs.dev/linter/rules/use-simplified-logic-expression">lint/complexity/useSimplifiedLogicExpression</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Logical expression contains unnecessary complexity.</span>
   
@@ -103,7 +103,7 @@ const r4 = !boolExpr1 || !boolExpr2;
 
 ### Valid
 
-```jsx
+```js
 const boolExpr3 = true;
 const boolExpr4 = false;
 const r5 = !(boolExpr1 && boolExpr2);

@@ -22,13 +22,13 @@ parameters that starts with underscore, e.g. `function foo(_a, _b) {}`.
 
 ### Invalid
 
-```jsx
+```js
 function foo(myVar) {
     console.log('foo');
 }
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noUnusedFunctionParameters.js:1:14 <a href="https://biomejs.dev/linter/rules/no-unused-function-parameters">lint/nursery/noUnusedFunctionParameters</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:14 <a href="https://biomejs.dev/linter/rules/no-unused-function-parameters">lint/nursery/noUnusedFunctionParameters</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">This </span><span style="color: Orange;"><strong>parameter</strong></span><span style="color: Orange;"> is unused.</span>
   
@@ -48,13 +48,13 @@ function foo(myVar) {
   
 </code></pre>
 
-```jsx
+```js
 new Promise((accept, reject) => {
     window.setTimeout(accept, 1000);
 });
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noUnusedFunctionParameters.js:1:22 <a href="https://biomejs.dev/linter/rules/no-unused-function-parameters">lint/nursery/noUnusedFunctionParameters</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:22 <a href="https://biomejs.dev/linter/rules/no-unused-function-parameters">lint/nursery/noUnusedFunctionParameters</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">This </span><span style="color: Orange;"><strong>parameter</strong></span><span style="color: Orange;"> is unused.</span>
   
@@ -74,12 +74,12 @@ new Promise((accept, reject) => {
   
 </code></pre>
 
-```jsx
+```js
 const squares = [[1, 1], [2, 4], [3, 9], [4, 16]];
 squares.filter(([k, v]) => v > 5);
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noUnusedFunctionParameters.js:2:18 <a href="https://biomejs.dev/linter/rules/no-unused-function-parameters">lint/nursery/noUnusedFunctionParameters</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:18 <a href="https://biomejs.dev/linter/rules/no-unused-function-parameters">lint/nursery/noUnusedFunctionParameters</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">This </span><span style="color: Orange;"><strong>parameter</strong></span><span style="color: Orange;"> is unused.</span>
   
@@ -101,7 +101,7 @@ squares.filter(([k, v]) => v > 5);
 
 ### Valid
 
-```jsx
+```js
 function foo(myVar) {
     console.log(myVar);
 }

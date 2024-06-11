@@ -18,13 +18,13 @@ Disallow constant expressions in conditions
 
 ### Invalid
 
-```jsx
+```js
 if (false) {
     doSomethingUnfinished();
 }
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noConstantCondition.js:1:5 <a href="https://biomejs.dev/linter/rules/no-constant-condition">lint/correctness/noConstantCondition</a> ━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:5 <a href="https://biomejs.dev/linter/rules/no-constant-condition">lint/correctness/noConstantCondition</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unexpected constant condition.</span>
   
@@ -35,13 +35,13 @@ if (false) {
   
 </code></pre>
 
-```jsx
+```js
 if (Boolean(1)) {
     doSomethingAlways();
 }
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noConstantCondition.js:1:5 <a href="https://biomejs.dev/linter/rules/no-constant-condition">lint/correctness/noConstantCondition</a> ━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:5 <a href="https://biomejs.dev/linter/rules/no-constant-condition">lint/correctness/noConstantCondition</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unexpected constant condition.</span>
   
@@ -52,13 +52,13 @@ if (Boolean(1)) {
   
 </code></pre>
 
-```jsx
+```js
 if (undefined) {
     doSomethingUnfinished();
 }
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noConstantCondition.js:1:5 <a href="https://biomejs.dev/linter/rules/no-constant-condition">lint/correctness/noConstantCondition</a> ━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:5 <a href="https://biomejs.dev/linter/rules/no-constant-condition">lint/correctness/noConstantCondition</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unexpected constant condition.</span>
   
@@ -69,13 +69,13 @@ if (undefined) {
   
 </code></pre>
 
-```jsx
+```js
 for (;-2;) {
     doSomethingForever();
 }
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noConstantCondition.js:1:7 <a href="https://biomejs.dev/linter/rules/no-constant-condition">lint/correctness/noConstantCondition</a> ━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:7 <a href="https://biomejs.dev/linter/rules/no-constant-condition">lint/correctness/noConstantCondition</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unexpected constant condition.</span>
   
@@ -86,13 +86,13 @@ for (;-2;) {
   
 </code></pre>
 
-```jsx
+```js
 while (typeof x) {
     doSomethingForever();
 }
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noConstantCondition.js:1:8 <a href="https://biomejs.dev/linter/rules/no-constant-condition">lint/correctness/noConstantCondition</a> ━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:8 <a href="https://biomejs.dev/linter/rules/no-constant-condition">lint/correctness/noConstantCondition</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unexpected constant condition.</span>
   
@@ -103,11 +103,11 @@ while (typeof x) {
   
 </code></pre>
 
-```jsx
+```js
 var result = 0 ? a : b;
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noConstantCondition.js:1:14 <a href="https://biomejs.dev/linter/rules/no-constant-condition">lint/correctness/noConstantCondition</a> ━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:14 <a href="https://biomejs.dev/linter/rules/no-constant-condition">lint/correctness/noConstantCondition</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unexpected constant condition.</span>
   
@@ -119,7 +119,7 @@ var result = 0 ? a : b;
 
 ### Valid
 
-```jsx
+```js
 if (x === 0) {
     doSomething();
 }

@@ -26,12 +26,12 @@ Consider using [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Ref
 
 ### Invalid
 
-```jsx
+```js
 const arr = [1, 2, 3];
 delete arr[0];
 ```
 
-<pre class="language-text"><code class="language-text">performance/noDelete.js:2:1 <a href="https://biomejs.dev/linter/rules/no-delete">lint/performance/noDelete</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:1 <a href="https://biomejs.dev/linter/rules/no-delete">lint/performance/noDelete</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Avoid the </span><span style="color: Tomato;"><strong>delete</strong></span><span style="color: Tomato;"> operator which can impact performance.</span>
   
@@ -49,12 +49,12 @@ delete arr[0];
   
 </code></pre>
 
-```jsx
+```js
 const obj = {a: {b: {c: 123}}};
 delete obj.a.b.c;
 ```
 
-<pre class="language-text"><code class="language-text">performance/noDelete.js:2:1 <a href="https://biomejs.dev/linter/rules/no-delete">lint/performance/noDelete</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:1 <a href="https://biomejs.dev/linter/rules/no-delete">lint/performance/noDelete</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Avoid the </span><span style="color: Tomato;"><strong>delete</strong></span><span style="color: Tomato;"> operator which can impact performance.</span>
   
@@ -74,19 +74,19 @@ delete obj.a.b.c;
 
 ### Valid
 
-```jsx
+```js
 const foo = new Set([1,2,3]);
 foo.delete(1);
 ```
 
-```jsx
+```js
 const map = Object.create(null);
 const key = "key"
 map[key] = "value"
 delete map[key];
 ```
 
-```jsx
+```js
 let x = 5;
 delete f(); // uncovered by this rule.
 ```

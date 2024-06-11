@@ -19,13 +19,13 @@ This rule checks the function parameter of hooks & tests for use of the done arg
 
 ### Invalid
 
-```jsx
+```js
 beforeEach(done => {
     // ...
 });
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noDoneCallback.js:1:12 <a href="https://biomejs.dev/linter/rules/no-done-callback">lint/nursery/noDoneCallback</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:12 <a href="https://biomejs.dev/linter/rules/no-done-callback">lint/nursery/noDoneCallback</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Disallow using a callback in asynchronous tests and hooks.</span>
   
@@ -38,13 +38,13 @@ beforeEach(done => {
   
 </code></pre>
 
-```jsx
+```js
 test('myFunction()', done => {
     // ...
 });
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noDoneCallback.js:1:22 <a href="https://biomejs.dev/linter/rules/no-done-callback">lint/nursery/noDoneCallback</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:22 <a href="https://biomejs.dev/linter/rules/no-done-callback">lint/nursery/noDoneCallback</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Disallow using a callback in asynchronous tests and hooks.</span>
   
@@ -59,13 +59,13 @@ test('myFunction()', done => {
 
 ### Valid
 
-```jsx
+```js
 beforeEach(async () => {
     // ...
 });
 ```
 
-```jsx
+```js
 test('myFunction()', () => {
     expect(myFunction()).toBeTruthy();
 });

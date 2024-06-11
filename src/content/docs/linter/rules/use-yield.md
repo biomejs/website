@@ -20,13 +20,13 @@ This rule generates warnings for generator functions that do not have the `yield
 
 ### Invalid
 
-```jsx
+```js
 function* foo() {
   return 10;
 }
 ```
 
-<pre class="language-text"><code class="language-text">correctness/useYield.js:1:1 <a href="https://biomejs.dev/linter/rules/use-yield">lint/correctness/useYield</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/use-yield">lint/correctness/useYield</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This generator function doesn't contain </span><span style="color: Tomato;"><strong>yield</strong></span><span style="color: Tomato;">.</span>
   
@@ -41,7 +41,7 @@ function* foo() {
 
 ### Valid
 
-```jsx
+```js
 function* foo() {
   yield 5;
   return 10;

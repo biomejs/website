@@ -20,7 +20,7 @@ To improve code clarity in your tests, the rule limits nested `describe` to 5.
 
 ### Invalid
 
-```jsx
+```js
 describe('foo', () => {
   describe('bar', () => {
     describe('baz', () => {
@@ -38,7 +38,7 @@ describe('foo', () => {
 });
 ```
 
-<pre class="language-text"><code class="language-text">complexity/noExcessiveNestedTestSuites.js:6:11 <a href="https://biomejs.dev/linter/rules/no-excessive-nested-test-suites">lint/complexity/noExcessiveNestedTestSuites</a> ━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:6:11 <a href="https://biomejs.dev/linter/rules/no-excessive-nested-test-suites">lint/complexity/noExcessiveNestedTestSuites</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Excessive `describe()` nesting detected.</span>
   
@@ -62,7 +62,7 @@ describe('foo', () => {
 
 ### Valid
 
-```jsx
+```js
 describe('foo', () => {
   describe('bar', () => {
     it('should get something', () => {

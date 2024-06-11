@@ -23,14 +23,14 @@ It can cause unexpected behaviours.
 
 ### Invalid
 
-```jsx
+```js
 class Foo {
   bar() { }
   bar() { }
 }
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noDuplicateClassMembers.js:3:3 <a href="https://biomejs.dev/linter/rules/no-duplicate-class-members">lint/suspicious/noDuplicateClassMembers</a> ━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:3:3 <a href="https://biomejs.dev/linter/rules/no-duplicate-class-members">lint/suspicious/noDuplicateClassMembers</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Duplicate class member name &quot;bar&quot;</span>
   
@@ -43,14 +43,14 @@ class Foo {
   
 </code></pre>
 
-```jsx
+```js
 class Foo {
   bar() { }
   get bar() { }
 }
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noDuplicateClassMembers.js:3:3 <a href="https://biomejs.dev/linter/rules/no-duplicate-class-members">lint/suspicious/noDuplicateClassMembers</a> ━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:3:3 <a href="https://biomejs.dev/linter/rules/no-duplicate-class-members">lint/suspicious/noDuplicateClassMembers</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Duplicate class member name &quot;bar&quot;</span>
   
@@ -63,14 +63,14 @@ class Foo {
   
 </code></pre>
 
-```jsx
+```js
 class Foo {
   bar;
   bar() { }
 }
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noDuplicateClassMembers.js:3:3 <a href="https://biomejs.dev/linter/rules/no-duplicate-class-members">lint/suspicious/noDuplicateClassMembers</a> ━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:3:3 <a href="https://biomejs.dev/linter/rules/no-duplicate-class-members">lint/suspicious/noDuplicateClassMembers</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Duplicate class member name &quot;bar&quot;</span>
   
@@ -83,14 +83,14 @@ class Foo {
   
 </code></pre>
 
-```jsx
+```js
 class Foo {
   static bar() { }
   static bar() { }
 }
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noDuplicateClassMembers.js:3:3 <a href="https://biomejs.dev/linter/rules/no-duplicate-class-members">lint/suspicious/noDuplicateClassMembers</a> ━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:3:3 <a href="https://biomejs.dev/linter/rules/no-duplicate-class-members">lint/suspicious/noDuplicateClassMembers</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Duplicate class member name &quot;bar&quot;</span>
   
@@ -105,35 +105,35 @@ class Foo {
 
 ### Valid
 
-```jsx
+```js
 class Foo {
   bar() { }
   qux() { }
 }
 ```
 
-```jsx
+```js
 class Foo {
   set bar(value) { }
   get bar() { }
 }
 ```
 
-```jsx
+```js
 class Foo {
   bar;
   qux;
 }
 ```
 
-```jsx
+```js
 class Foo {
   bar;
   qux() { }
 }
 ```
 
-```jsx
+```js
 class Foo {
   static bar() { }
   bar() { }

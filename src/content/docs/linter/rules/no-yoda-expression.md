@@ -29,11 +29,11 @@ Range expressions like `0 < value && value < 1` or `value <= 0 || 1 < value` are
 
 ### Invalid
 
-```jsx
+```js
 if ("red" == value) {}
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noYodaExpression.js:1:5 <a href="https://biomejs.dev/linter/rules/no-yoda-expression">lint/nursery/noYodaExpression</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:5 <a href="https://biomejs.dev/linter/rules/no-yoda-expression">lint/nursery/noYodaExpression</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Avoid the use of yoda expressions.</span>
   
@@ -51,11 +51,11 @@ if ("red" == value) {}
   
 </code></pre>
 
-```jsx
+```js
 if (true === value) {}
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noYodaExpression.js:1:5 <a href="https://biomejs.dev/linter/rules/no-yoda-expression">lint/nursery/noYodaExpression</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:5 <a href="https://biomejs.dev/linter/rules/no-yoda-expression">lint/nursery/noYodaExpression</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Avoid the use of yoda expressions.</span>
   
@@ -73,11 +73,11 @@ if (true === value) {}
   
 </code></pre>
 
-```jsx
+```js
 if (5 != value) {}
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noYodaExpression.js:1:5 <a href="https://biomejs.dev/linter/rules/no-yoda-expression">lint/nursery/noYodaExpression</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:5 <a href="https://biomejs.dev/linter/rules/no-yoda-expression">lint/nursery/noYodaExpression</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Avoid the use of yoda expressions.</span>
   
@@ -97,19 +97,19 @@ if (5 != value) {}
 
 ### Valid
 
-```jsx
+```js
 if (value === "red") {}
 ```
 
-```jsx
+```js
 if (value === value) {}
 ```
 
-```jsx
+```js
 if (value != 5) {}
 ```
 
-```jsx
+```js
 if (0 < value && value < 1) {}
 ```
 

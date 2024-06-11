@@ -50,7 +50,7 @@ Please don't report issues about these features.
 <div class="px-2 foo p-4 bar" />;
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useSortedClasses.js:1:12 <a href="https://biomejs.dev/linter/rules/use-sorted-classes">lint/nursery/useSortedClasses</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.jsx:1:12 <a href="https://biomejs.dev/linter/rules/use-sorted-classes">lint/nursery/useSortedClasses</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">These CSS classes should be sorted.</span>
   
@@ -87,7 +87,7 @@ Classes in the `class` and `className` JSX attributes are always sorted. Use thi
 
 If specified, strings in the indicated functions will be sorted. This is useful when working with libraries like [`clsx`](https://github.com/lukeed/clsx) or [`cva`](https://cva.style/).
 
-```jsx
+```js
 clsx("px-2 foo p-4 bar", {
     "block mx-4": condition,
 });
@@ -95,7 +95,7 @@ clsx("px-2 foo p-4 bar", {
 
 Tagged template literals are also supported, for example:
 
-```jsx
+```js
 tw`px-2`;
 tw.div`px-2`;
 ```

@@ -18,7 +18,7 @@ Disallow renaming import, export, and destructured assignments to the same name.
 ES2015 allows for the renaming of references in import and export statements as well as destructuring assignments.
 This gives programmers a concise syntax for performing these operations while renaming these references:
 
-```jsx
+```js
 import { foo as bar } from "baz";
 export { foo as bar };
 let { foo: bar } = baz;
@@ -31,11 +31,11 @@ This is a completely redundant operation, as this is the same as not renaming at
 
 ### Invalid
 
-```jsx
+```js
 import { foo as foo } from "bar";
 ```
 
-<pre class="language-text"><code class="language-text">complexity/noUselessRename.js:1:10 <a href="https://biomejs.dev/linter/rules/no-useless-rename">lint/complexity/noUselessRename</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:10 <a href="https://biomejs.dev/linter/rules/no-useless-rename">lint/complexity/noUselessRename</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Useless rename.</span>
   
@@ -49,11 +49,11 @@ import { foo as foo } from "bar";
 <strong>  </strong><strong>    │ </strong>             <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span>             
 </code></pre>
 
-```jsx
+```js
 export { foo as foo };
 ```
 
-<pre class="language-text"><code class="language-text">complexity/noUselessRename.js:1:10 <a href="https://biomejs.dev/linter/rules/no-useless-rename">lint/complexity/noUselessRename</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:10 <a href="https://biomejs.dev/linter/rules/no-useless-rename">lint/complexity/noUselessRename</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Useless rename.</span>
   
@@ -67,11 +67,11 @@ export { foo as foo };
 <strong>  </strong><strong>    │ </strong>             <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span>  
 </code></pre>
 
-```jsx
+```js
 let { foo: foo } = bar;
 ```
 
-<pre class="language-text"><code class="language-text">complexity/noUselessRename.js:1:7 <a href="https://biomejs.dev/linter/rules/no-useless-rename">lint/complexity/noUselessRename</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:7 <a href="https://biomejs.dev/linter/rules/no-useless-rename">lint/complexity/noUselessRename</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Useless rename.</span>
   
@@ -87,15 +87,15 @@ let { foo: foo } = bar;
 
 ### Valid
 
-```jsx
+```js
 import { foo as bar } from "baz";
 ```
 
-```jsx
+```js
 export { foo as bar };
 ```
 
-```jsx
+```js
 let { foo: bar } = baz;
 ```
 

@@ -34,11 +34,11 @@ Therefore, it is a more reliable way to test whether a value is `NaN`.
 
 ### Invalid
 
-```jsx
+```js
 123 == NaN
 ```
 
-<pre class="language-text"><code class="language-text">correctness/useIsNan.js:1:1 <a href="https://biomejs.dev/linter/rules/use-is-nan">lint/correctness/useIsNan</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/use-is-nan">lint/correctness/useIsNan</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Use the Number.isNaN function to compare with NaN.</span>
   
@@ -54,11 +54,11 @@ Therefore, it is a more reliable way to test whether a value is `NaN`.
   
 </code></pre>
 
-```jsx
+```js
 123 != NaN
 ```
 
-<pre class="language-text"><code class="language-text">correctness/useIsNan.js:1:1 <a href="https://biomejs.dev/linter/rules/use-is-nan">lint/correctness/useIsNan</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/use-is-nan">lint/correctness/useIsNan</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Use the Number.isNaN function to compare with NaN.</span>
   
@@ -74,11 +74,11 @@ Therefore, it is a more reliable way to test whether a value is `NaN`.
   
 </code></pre>
 
-```jsx
+```js
 switch(foo) { case (NaN): break; }
 ```
 
-<pre class="language-text"><code class="language-text">correctness/useIsNan.js:1:20 <a href="https://biomejs.dev/linter/rules/use-is-nan">lint/correctness/useIsNan</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:20 <a href="https://biomejs.dev/linter/rules/use-is-nan">lint/correctness/useIsNan</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">'case NaN' can never match. Use Number.isNaN before the switch.</span>
   
@@ -88,11 +88,11 @@ switch(foo) { case (NaN): break; }
   
 </code></pre>
 
-```jsx
+```js
 Number.NaN == "abc"
 ```
 
-<pre class="language-text"><code class="language-text">correctness/useIsNan.js:1:1 <a href="https://biomejs.dev/linter/rules/use-is-nan">lint/correctness/useIsNan</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/use-is-nan">lint/correctness/useIsNan</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Use the Number.isNaN function to compare with NaN.</span>
   
@@ -110,7 +110,7 @@ Number.NaN == "abc"
 
 ### Valid
 
-```jsx
+```js
 if (Number.isNaN(123) !== true) {}
 
 foo(Number.NaN / 2)

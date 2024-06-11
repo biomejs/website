@@ -10,17 +10,18 @@ use biome_analyze::{
 use biome_console::fmt::Termcolor;
 use biome_console::{
     fmt::{Formatter, HTML},
-    markup, Console, Markup, MarkupBuf,
+    markup, Markup, MarkupBuf,
 };
 use biome_css_parser::CssParserOptions;
 use biome_css_syntax::CssLanguage;
 use biome_diagnostics::termcolor::NoColor;
 use biome_diagnostics::{Diagnostic, DiagnosticExt, PrintDiagnostic};
 use biome_js_parser::JsParserOptions;
-use biome_js_syntax::{EmbeddingKind, JsFileSource, JsLanguage, Language, ModuleKind};
+use biome_js_syntax::{EmbeddingKind, JsFileSource, JsLanguage};
 use biome_json_parser::JsonParserOptions;
 use biome_json_syntax::JsonLanguage;
 use biome_service::settings::WorkspaceSettings;
+use biome_service::workspace::DocumentFileSource;
 use biome_string_case::Case;
 use pulldown_cmark::{html::write_html, CodeBlockKind, Event, LinkType, Parser, Tag, TagEnd};
 use std::error::Error;
@@ -500,28 +501,7 @@ fn write_documentation(
 
                 // Erase the lintdoc-specific attributes in the output by
                 // re-generating the language ID from the source type
-                write!(content, "```")?;
-                if !meta.is_empty() {
-                    match test.block_type {
-                        BlockType::Js(source_type) => match source_type.as_embedding_kind() {
-                            EmbeddingKind::Astro => write!(content, "astro")?,
-                            EmbeddingKind::Svelte => write!(content, "svelte")?,
-                            EmbeddingKind::Vue => write!(content, "vue")?,
-                            _ => {
-                                match source_type.language() {
-                                    Language::JavaScript => write!(content, "js")?,
-                                    Language::TypeScript { .. } => write!(content, "ts")?,
-                                };
-                                if source_type.variant().is_jsx() {
-                                    write!(content, "x")?;
-                                }
-                            }
-                        },
-                        BlockType::Json => write!(content, "json")?,
-                        BlockType::Css => write!(content, "css")?,
-                        BlockType::Foreign(ref lang) => write!(content, "{}", lang)?,
-                    }
-                }
+                write!(content, "```{}", &test.tag)?;
                 writeln!(content)?;
 
                 language = Some((test, String::new()));
@@ -701,17 +681,16 @@ fn write_documentation(
     Ok(summary)
 }
 
-enum BlockType {
-    Js(JsFileSource),
-    Json,
-    Css,
-    Foreign(String),
-}
-
 struct CodeBlockTest {
-    block_type: BlockType,
+    tag: String,
     expect_diagnostic: bool,
     ignore: bool,
+}
+
+impl CodeBlockTest {
+    fn document_file_source(&self) -> DocumentFileSource {
+        DocumentFileSource::from_extension(&self.tag)
+    }
 }
 
 impl FromStr for CodeBlockTest {
@@ -726,56 +705,18 @@ impl FromStr for CodeBlockTest {
             .filter(|token| !token.is_empty());
 
         let mut test = CodeBlockTest {
-            block_type: BlockType::Foreign("".into()),
+            tag: String::new(),
             expect_diagnostic: false,
             ignore: false,
         };
 
         for token in tokens {
             match token {
-                // Determine the language, using the same list of extensions as `compute_source_type_from_path_or_extension`
-                "cjs" => {
-                    test.block_type = BlockType::Js(
-                        JsFileSource::js_module().with_module_kind(ModuleKind::Script),
-                    );
-                }
-                "js" | "mjs" | "jsx" => {
-                    test.block_type = BlockType::Js(JsFileSource::jsx());
-                }
-                "ts" | "mts" | "cts" => {
-                    test.block_type = BlockType::Js(JsFileSource::ts());
-                }
-                "tsx" => {
-                    test.block_type = BlockType::Js(JsFileSource::tsx());
-                }
-                "svelte" => {
-                    test.block_type = BlockType::Js(JsFileSource::svelte());
-                }
-                "astro" => {
-                    test.block_type = BlockType::Js(JsFileSource::astro());
-                }
-                "vue" => {
-                    test.block_type = BlockType::Js(JsFileSource::vue());
-                }
-                "json" => {
-                    test.block_type = BlockType::Json;
-                }
-                "css" => {
-                    test.block_type = BlockType::Css;
-                }
                 // Other attributes
-                "expect_diagnostic" => {
-                    test.expect_diagnostic = true;
-                }
-                "ignore" => {
-                    test.ignore = true;
-                }
-                // A catch-all to regard unknown tokens as foreign languages,
-                // and do not run tests on these code blocks.
-                _ => {
-                    test.block_type = BlockType::Foreign(token.into());
-                    test.ignore = true;
-                }
+                "expect_diagnostic" => test.expect_diagnostic = true,
+                "ignore" => test.ignore = true,
+                // Regard as language tags, last one wins
+                _ => test.tag = token.to_string(),
             }
         }
 
@@ -793,47 +734,14 @@ fn print_diagnostics(
     code: &str,
     content: &mut Vec<u8>,
 ) -> Result<()> {
-    let file = format!("{group}/{rule}.js");
+    let file_path = format!("code-block.{}", test.tag);
 
     let mut write = HTML(content);
-    let mut diagnostic_count = 0;
-
-    let mut all_diagnostics = vec![];
 
     let mut write_diagnostic = |_: &str, diag: biome_diagnostics::Error| {
         Formatter::new(&mut write).write_markup(markup! {
             {PrintDiagnostic::verbose(&diag)}
         })?;
-
-        all_diagnostics.push(diag);
-        // Fail the test if the analysis returns more diagnostics than expected
-        if test.expect_diagnostic {
-            // Print all diagnostics to help the user
-            if all_diagnostics.len() > 1 {
-                let mut console = biome_console::EnvConsole::default();
-                for diag in all_diagnostics.iter() {
-                    console.println(
-                        biome_console::LogLevel::Error,
-                        markup! {
-                            {PrintDiagnostic::verbose(diag)}
-                        },
-                    );
-                }
-            }
-        } else {
-            // Print all diagnostics to help the user
-            let mut console = biome_console::EnvConsole::default();
-            for diag in all_diagnostics.iter() {
-                console.println(
-                    biome_console::LogLevel::Error,
-                    markup! {
-                        {PrintDiagnostic::verbose(diag)}
-                    },
-                );
-            }
-        }
-
-        diagnostic_count += 1;
         Ok(())
     };
     if test.ignore {
@@ -843,10 +751,10 @@ fn print_diagnostics(
     let mut settings = WorkspaceSettings::default();
     let key = settings.insert_project(PathBuf::new());
     settings.register_current_project(key);
-    match test.block_type {
-        BlockType::Js(source_type) => {
+    match test.document_file_source() {
+        DocumentFileSource::Js(file_source) => {
             // Temporary support for astro, svelte and vue code blocks
-            let (code, source_type) = match source_type.as_embedding_kind() {
+            let (code, file_source) = match file_source.as_embedding_kind() {
                 EmbeddingKind::Astro => (
                     biome_service::file_handlers::AstroFileHandler::input(code),
                     JsFileSource::ts(),
@@ -859,16 +767,14 @@ fn print_diagnostics(
                     biome_service::file_handlers::VueFileHandler::input(code),
                     biome_service::file_handlers::VueFileHandler::file_source(code),
                 ),
-                _ => (code, source_type),
+                _ => (code, file_source),
             };
 
-            let parse = biome_js_parser::parse(code, source_type, JsParserOptions::default());
+            let parse = biome_js_parser::parse(code, file_source, JsParserOptions::default());
 
             if parse.has_errors() {
                 for diag in parse.into_diagnostics() {
-                    let error = diag
-                        .with_file_path(file.clone())
-                        .with_file_source_code(code);
+                    let error = diag.with_file_path(&file_path).with_file_source_code(code);
                     write_diagnostic(code, error)?;
                 }
             } else {
@@ -882,56 +788,42 @@ fn print_diagnostics(
 
                 let mut options = AnalyzerOptions::default();
                 options.configuration.jsx_runtime = Some(JsxRuntime::default());
-                let (_, diagnostics) = biome_js_analyze::analyze(
-                    &root,
-                    filter,
-                    &options,
-                    source_type,
-                    None,
-                    |signal| {
-                        if let Some(mut diag) = signal.diagnostic() {
-                            let category = diag.category().expect("linter diagnostic has no code");
-                            let severity = settings.get_current_settings().expect("project").get_severity_from_rule_code(category).expect(
+                biome_js_analyze::analyze(&root, filter, &options, file_source, None, |signal| {
+                    if let Some(mut diag) = signal.diagnostic() {
+                        let category = diag.category().expect("linter diagnostic has no code");
+                        let severity = settings.get_current_settings().expect("project").get_severity_from_rule_code(category).expect(
                                 "If you see this error, it means you need to run cargo codegen-configuration",
                             );
 
-                            for action in signal.actions() {
-                                if !action.is_suppression() {
-                                    rule_has_code_action = true;
-                                    diag = diag.add_code_suggestion(action.into());
-                                }
-                            }
-
-                            let error = diag
-                                .with_severity(severity)
-                                .with_file_path(file.clone())
-                                .with_file_source_code(code);
-                            let res = write_diagnostic(code, error);
-
-                            // Abort the analysis on error
-                            if let Err(err) = res {
-                                return ControlFlow::Break(err);
+                        for action in signal.actions() {
+                            if !action.is_suppression() {
+                                rule_has_code_action = true;
+                                diag = diag.add_code_suggestion(action.into());
                             }
                         }
 
-                        ControlFlow::Continue(())
-                    },
-                );
+                        let error = diag
+                            .with_severity(severity)
+                            .with_file_path(&file_path)
+                            .with_file_source_code(code);
+                        let res = write_diagnostic(code, error);
 
-                // Result is Some(_) if analysis aborted with an error
-                for diagnostic in diagnostics {
-                    write_diagnostic(code, diagnostic)?;
-                }
+                        // Abort the analysis on error
+                        if let Err(err) = res {
+                            return ControlFlow::Break(err);
+                        }
+                    }
+
+                    ControlFlow::Continue(())
+                });
             }
         }
-        BlockType::Json => {
-            let parse = biome_json_parser::parse_json(code, JsonParserOptions::default());
+        DocumentFileSource::Json(file_source) => {
+            let parse = biome_json_parser::parse_json(code, JsonParserOptions::from(&file_source));
 
             if parse.has_errors() {
                 for diag in parse.into_diagnostics() {
-                    let error = diag
-                        .with_file_path(file.clone())
-                        .with_file_source_code(code);
+                    let error = diag.with_file_path(&file_path).with_file_source_code(code);
                     write_diagnostic(code, error)?;
                 }
             } else {
@@ -944,54 +836,42 @@ fn print_diagnostics(
                 };
 
                 let options = AnalyzerOptions::default();
-                let (_, diagnostics) = biome_json_analyze::analyze(
-                    &root,
-                    filter,
-                    &options,
-                    |signal| {
-                        if let Some(mut diag) = signal.diagnostic() {
-                            let category = diag.category().expect("linter diagnostic has no code");
-                            let severity = settings.get_current_settings().expect("project").get_severity_from_rule_code(category).expect(
+                biome_json_analyze::analyze(&root, filter, &options, |signal| {
+                    if let Some(mut diag) = signal.diagnostic() {
+                        let category = diag.category().expect("linter diagnostic has no code");
+                        let severity = settings.get_current_settings().expect("project").get_severity_from_rule_code(category).expect(
                                 "If you see this error, it means you need to run cargo codegen-configuration",
                             );
 
-                            for action in signal.actions() {
-                                if !action.is_suppression() {
-                                    rule_has_code_action = true;
-                                    diag = diag.add_code_suggestion(action.into());
-                                }
-                            }
-
-                            let error = diag
-                                .with_severity(severity)
-                                .with_file_path(file.clone())
-                                .with_file_source_code(code);
-                            let res: Result<()> = write_diagnostic(code, error);
-
-                            // Abort the analysis on error
-                            if let Err(err) = res {
-                                return ControlFlow::Break(err);
+                        for action in signal.actions() {
+                            if !action.is_suppression() {
+                                rule_has_code_action = true;
+                                diag = diag.add_code_suggestion(action.into());
                             }
                         }
 
-                        ControlFlow::Continue(())
-                    },
-                );
+                        let error = diag
+                            .with_severity(severity)
+                            .with_file_path(&file_path)
+                            .with_file_source_code(code);
+                        let res: Result<()> = write_diagnostic(code, error);
 
-                // Result is Some(_) if analysis aborted with an error
-                for diagnostic in diagnostics {
-                    write_diagnostic(code, diagnostic)?;
-                }
+                        // Abort the analysis on error
+                        if let Err(err) = res {
+                            return ControlFlow::Break(err);
+                        }
+                    }
+
+                    ControlFlow::Continue(())
+                });
             }
         }
-        BlockType::Css => {
+        DocumentFileSource::Css(..) => {
             let parse = biome_css_parser::parse_css(code, CssParserOptions::default());
 
             if parse.has_errors() {
                 for diag in parse.into_diagnostics() {
-                    let error = diag
-                        .with_file_path(file.clone())
-                        .with_file_source_code(code);
+                    let error = diag.with_file_path(&file_path).with_file_source_code(code);
                     write_diagnostic(code, error)?;
                 }
             } else {
@@ -1004,48 +884,38 @@ fn print_diagnostics(
                 };
 
                 let options = AnalyzerOptions::default();
-                let (_, diagnostics) = biome_css_analyze::analyze(
-                    &root,
-                    filter,
-                    &options,
-                    |signal| {
-                        if let Some(mut diag) = signal.diagnostic() {
-                            let category = diag.category().expect("linter diagnostic has no code");
-                            let severity = settings.get_current_settings().expect("project").get_severity_from_rule_code(category).expect(
+                biome_css_analyze::analyze(&root, filter, &options, |signal| {
+                    if let Some(mut diag) = signal.diagnostic() {
+                        let category = diag.category().expect("linter diagnostic has no code");
+                        let severity = settings.get_current_settings().expect("project").get_severity_from_rule_code(category).expect(
                                 "If you see this error, it means you need to run cargo codegen-configuration",
                             );
 
-                            for action in signal.actions() {
-                                if !action.is_suppression() {
-                                    rule_has_code_action = true;
-                                    diag = diag.add_code_suggestion(action.into());
-                                }
-                            }
-
-                            let error = diag
-                                .with_severity(severity)
-                                .with_file_path(file.clone())
-                                .with_file_source_code(code);
-                            let res = write_diagnostic(code, error);
-
-                            // Abort the analysis on error
-                            if let Err(err) = res {
-                                return ControlFlow::Break(err);
+                        for action in signal.actions() {
+                            if !action.is_suppression() {
+                                rule_has_code_action = true;
+                                diag = diag.add_code_suggestion(action.into());
                             }
                         }
 
-                        ControlFlow::Continue(())
-                    },
-                );
+                        let error = diag
+                            .with_severity(severity)
+                            .with_file_path(&file_path)
+                            .with_file_source_code(code);
+                        let res = write_diagnostic(code, error);
 
-                // Result is Some(_) if analysis aborted with an error
-                for diagnostic in diagnostics {
-                    write_diagnostic(code, diagnostic)?;
-                }
+                        // Abort the analysis on error
+                        if let Err(err) = res {
+                            return ControlFlow::Break(err);
+                        }
+                    }
+
+                    ControlFlow::Continue(())
+                });
             }
         }
-        // Foreign code blocks should be already ignored by tests
-        BlockType::Foreign(..) => {}
+        // Unknown code blocks should be ignored by tests
+        DocumentFileSource::Unknown => {}
     }
 
     Ok(())

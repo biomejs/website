@@ -22,11 +22,11 @@ suggesting the format `import fs from "node:fs";` instead.
 
 ### Invalid
 
-```jsx
+```js
 import fs from 'fs';
 ```
 
-<pre class="language-text"><code class="language-text">style/useNodejsImportProtocol.js:1:16 <a href="https://biomejs.dev/linter/rules/use-nodejs-import-protocol">lint/style/useNodejsImportProtocol</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:16 <a href="https://biomejs.dev/linter/rules/use-nodejs-import-protocol">lint/style/useNodejsImportProtocol</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">A Node.js builtin module should be imported with the </span><span style="color: Tomato;"><strong>node:</strong></span><span style="color: Tomato;"> protocol.</span>
   
@@ -44,11 +44,11 @@ import fs from 'fs';
   
 </code></pre>
 
-```jsx
+```js
 import os from 'os';
 ```
 
-<pre class="language-text"><code class="language-text">style/useNodejsImportProtocol.js:1:16 <a href="https://biomejs.dev/linter/rules/use-nodejs-import-protocol">lint/style/useNodejsImportProtocol</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:16 <a href="https://biomejs.dev/linter/rules/use-nodejs-import-protocol">lint/style/useNodejsImportProtocol</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">A Node.js builtin module should be imported with the </span><span style="color: Tomato;"><strong>node:</strong></span><span style="color: Tomato;"> protocol.</span>
   
@@ -66,11 +66,11 @@ import os from 'os';
   
 </code></pre>
 
-```jsx
+```js
 import path from 'path';
 ```
 
-<pre class="language-text"><code class="language-text">style/useNodejsImportProtocol.js:1:18 <a href="https://biomejs.dev/linter/rules/use-nodejs-import-protocol">lint/style/useNodejsImportProtocol</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:18 <a href="https://biomejs.dev/linter/rules/use-nodejs-import-protocol">lint/style/useNodejsImportProtocol</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">A Node.js builtin module should be imported with the </span><span style="color: Tomato;"><strong>node:</strong></span><span style="color: Tomato;"> protocol.</span>
   
@@ -90,7 +90,7 @@ import path from 'path';
 
 ### Valid
 
-```jsx
+```js
 import fs from 'node:fs';
 
 import os from 'node:os';

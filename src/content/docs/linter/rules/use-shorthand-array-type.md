@@ -19,7 +19,7 @@ When expressing array types, this rule promotes the usage of `T[]` shorthand ins
 let invalid: Array<foo>;
 ```
 
-<pre class="language-text"><code class="language-text">style/useShorthandArrayType.js:1:14 <a href="https://biomejs.dev/linter/rules/use-shorthand-array-type">lint/style/useShorthandArrayType</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.ts:1:14 <a href="https://biomejs.dev/linter/rules/use-shorthand-array-type">lint/style/useShorthandArrayType</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>shorthand T[] syntax</strong></span><span style="color: Orange;"> instead of </span><span style="color: Orange;"><strong>Array&lt;T&gt; syntax.</strong></span>
   
@@ -39,7 +39,7 @@ let invalid: Array<foo>;
 let invalid: Promise<Array<string>>;
 ```
 
-<pre class="language-text"><code class="language-text">style/useShorthandArrayType.js:1:22 <a href="https://biomejs.dev/linter/rules/use-shorthand-array-type">lint/style/useShorthandArrayType</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.ts:1:22 <a href="https://biomejs.dev/linter/rules/use-shorthand-array-type">lint/style/useShorthandArrayType</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>shorthand T[] syntax</strong></span><span style="color: Orange;"> instead of </span><span style="color: Orange;"><strong>Array&lt;T&gt; syntax.</strong></span>
   
@@ -59,7 +59,7 @@ let invalid: Promise<Array<string>>;
 let invalid: Array<Foo<Bar>>;
 ```
 
-<pre class="language-text"><code class="language-text">style/useShorthandArrayType.js:1:14 <a href="https://biomejs.dev/linter/rules/use-shorthand-array-type">lint/style/useShorthandArrayType</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.ts:1:14 <a href="https://biomejs.dev/linter/rules/use-shorthand-array-type">lint/style/useShorthandArrayType</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>shorthand T[] syntax</strong></span><span style="color: Orange;"> instead of </span><span style="color: Orange;"><strong>Array&lt;T&gt; syntax.</strong></span>
   
@@ -79,7 +79,7 @@ let invalid: Array<Foo<Bar>>;
 let invalid: Array<[number, number]>;
 ```
 
-<pre class="language-text"><code class="language-text">style/useShorthandArrayType.js:1:14 <a href="https://biomejs.dev/linter/rules/use-shorthand-array-type">lint/style/useShorthandArrayType</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.ts:1:14 <a href="https://biomejs.dev/linter/rules/use-shorthand-array-type">lint/style/useShorthandArrayType</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>shorthand T[] syntax</strong></span><span style="color: Orange;"> instead of </span><span style="color: Orange;"><strong>Array&lt;T&gt; syntax.</strong></span>
   
@@ -99,7 +99,7 @@ let invalid: Array<[number, number]>;
 let invalid: Array<[number, number]>;
 ```
 
-<pre class="language-text"><code class="language-text">style/useShorthandArrayType.js:1:14 <a href="https://biomejs.dev/linter/rules/use-shorthand-array-type">lint/style/useShorthandArrayType</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.ts:1:14 <a href="https://biomejs.dev/linter/rules/use-shorthand-array-type">lint/style/useShorthandArrayType</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>shorthand T[] syntax</strong></span><span style="color: Orange;"> instead of </span><span style="color: Orange;"><strong>Array&lt;T&gt; syntax.</strong></span>
   
@@ -119,7 +119,7 @@ let invalid: Array<[number, number]>;
 let invalid: ReadonlyArray<string>;
 ```
 
-<pre class="language-text"><code class="language-text">style/useShorthandArrayType.js:1:14 <a href="https://biomejs.dev/linter/rules/use-shorthand-array-type">lint/style/useShorthandArrayType</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.ts:1:14 <a href="https://biomejs.dev/linter/rules/use-shorthand-array-type">lint/style/useShorthandArrayType</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>shorthand readonly T[] syntax</strong></span><span style="color: Orange;"> instead of </span><span style="color: Orange;"><strong>ReadonlyArray&lt;T&gt; syntax.</strong></span>
   

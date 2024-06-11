@@ -19,11 +19,11 @@ Disallow using unsafe negation.
 
 ### Invalid
 
-```jsx
+```js
 !1 in [1,2];
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noUnsafeNegation.js:1:1 <a href="https://biomejs.dev/linter/rules/no-unsafe-negation">lint/suspicious/noUnsafeNegation</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-unsafe-negation">lint/suspicious/noUnsafeNegation</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The negation operator is used unsafely on the left side of this binary expression.</span>
   
@@ -37,11 +37,11 @@ Disallow using unsafe negation.
 <strong>  </strong><strong>    │ </strong> <span style="color: MediumSeaGreen;">+</span>          <span style="color: MediumSeaGreen;">+</span> 
 </code></pre>
 
-```jsx
+```js
 /**test*/!/** test*/1 instanceof [1,2];
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noUnsafeNegation.js:1:10 <a href="https://biomejs.dev/linter/rules/no-unsafe-negation">lint/suspicious/noUnsafeNegation</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:10 <a href="https://biomejs.dev/linter/rules/no-unsafe-negation">lint/suspicious/noUnsafeNegation</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The negation operator is used unsafely on the left side of this binary expression.</span>
   
@@ -57,7 +57,7 @@ Disallow using unsafe negation.
 
 ### Valid
 
-```jsx
+```js
 -1 in [1,2];
 ~1 in [1,2];
 typeof 1 in [1,2];

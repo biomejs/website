@@ -30,14 +30,14 @@ directives won't be transferred to a wrong place.
 
 ### Invalid
 
-```js
+```cjs
 "use strict";
 function foo() {
  	"use strict";
 }
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noRedundantUseStrict.js:3:3 <a href="https://biomejs.dev/linter/rules/no-redundant-use-strict">lint/suspicious/noRedundantUseStrict</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.cjs:3:3 <a href="https://biomejs.dev/linter/rules/no-redundant-use-strict">lint/suspicious/noRedundantUseStrict</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Redundant </span><span style="color: Tomato;"><strong>use strict</strong></span><span style="color: Tomato;"> directive.</span>
   
@@ -65,7 +65,7 @@ function foo() {
   
 </code></pre>
 
-```js
+```cjs
 "use strict";
 "use strict";
 
@@ -74,7 +74,7 @@ function foo() {
 }
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noRedundantUseStrict.js:2:1 <a href="https://biomejs.dev/linter/rules/no-redundant-use-strict">lint/suspicious/noRedundantUseStrict</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.cjs:2:1 <a href="https://biomejs.dev/linter/rules/no-redundant-use-strict">lint/suspicious/noRedundantUseStrict</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Redundant </span><span style="color: Tomato;"><strong>use strict</strong></span><span style="color: Tomato;"> directive.</span>
   
@@ -100,14 +100,14 @@ function foo() {
   
 </code></pre>
 
-```js
+```cjs
 function foo() {
 "use strict";
 "use strict";
 }
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noRedundantUseStrict.js:3:1 <a href="https://biomejs.dev/linter/rules/no-redundant-use-strict">lint/suspicious/noRedundantUseStrict</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.cjs:3:1 <a href="https://biomejs.dev/linter/rules/no-redundant-use-strict">lint/suspicious/noRedundantUseStrict</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Redundant </span><span style="color: Tomato;"><strong>use strict</strong></span><span style="color: Tomato;"> directive.</span>
   
@@ -136,7 +136,7 @@ function foo() {
   
 </code></pre>
 
-```js
+```cjs
 class C1 {
 	test() {
 		"use strict";
@@ -144,7 +144,7 @@ class C1 {
 }
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noRedundantUseStrict.js:3:3 <a href="https://biomejs.dev/linter/rules/no-redundant-use-strict">lint/suspicious/noRedundantUseStrict</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.cjs:3:3 <a href="https://biomejs.dev/linter/rules/no-redundant-use-strict">lint/suspicious/noRedundantUseStrict</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Redundant </span><span style="color: Tomato;"><strong>use strict</strong></span><span style="color: Tomato;"> directive.</span>
   
@@ -176,7 +176,7 @@ class C1 {
   
 </code></pre>
 
-```js
+```cjs
 const C2 = class {
 	test() {
 		"use strict";
@@ -185,7 +185,7 @@ const C2 = class {
 
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noRedundantUseStrict.js:3:3 <a href="https://biomejs.dev/linter/rules/no-redundant-use-strict">lint/suspicious/noRedundantUseStrict</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.cjs:3:3 <a href="https://biomejs.dev/linter/rules/no-redundant-use-strict">lint/suspicious/noRedundantUseStrict</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Redundant </span><span style="color: Tomato;"><strong>use strict</strong></span><span style="color: Tomato;"> directive.</span>
   
@@ -219,13 +219,13 @@ const C2 = class {
 
 ### Valid
 
-```js
+```cjs
 function foo() {
 
 }
 ```
 
-```js
+```cjs
  function foo() {
     "use strict";
 }

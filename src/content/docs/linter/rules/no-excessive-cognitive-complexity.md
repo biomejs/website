@@ -26,7 +26,7 @@ algorithm: https://redirect.sonarsource.com/doc/cognitive-complexity.html
 
 ### Invalid
 
-```jsx
+```js
 function tooComplex() {
     for (let x = 0; x < 10; x++) {
         for (let y = 0; y < 10; y++) {
@@ -42,7 +42,7 @@ function tooComplex() {
 }
 ```
 
-<pre class="language-text"><code class="language-text">complexity/noExcessiveCognitiveComplexity.js:1:10 <a href="https://biomejs.dev/linter/rules/no-excessive-cognitive-complexity">lint/complexity/noExcessiveCognitiveComplexity</a> ━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:10 <a href="https://biomejs.dev/linter/rules/no-excessive-cognitive-complexity">lint/complexity/noExcessiveCognitiveComplexity</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Excessive complexity detected.</span>
   

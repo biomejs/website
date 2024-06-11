@@ -20,11 +20,11 @@ Disabled test are useful when developing and debugging, although they should not
 
 ### Invalid
 
-```jsx
+```js
 describe.skip("test", () => {});
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noSkippedTests.js:1:10 <a href="https://biomejs.dev/linter/rules/no-skipped-tests">lint/suspicious/noSkippedTests</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:10 <a href="https://biomejs.dev/linter/rules/no-skipped-tests">lint/suspicious/noSkippedTests</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Don't disable tests.</span>
   
@@ -42,11 +42,11 @@ describe.skip("test", () => {});
 <strong>  </strong><strong>    │ </strong>        <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span>                   
 </code></pre>
 
-```jsx
+```js
 test.skip("test", () => {});
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noSkippedTests.js:1:6 <a href="https://biomejs.dev/linter/rules/no-skipped-tests">lint/suspicious/noSkippedTests</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:6 <a href="https://biomejs.dev/linter/rules/no-skipped-tests">lint/suspicious/noSkippedTests</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Don't disable tests.</span>
   
@@ -66,7 +66,7 @@ test.skip("test", () => {});
 
 ## Valid
 
-```jsx
+```js
 test.only("test", () => {});
 test("test", () => {});
 ```

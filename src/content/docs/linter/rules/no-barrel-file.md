@@ -25,7 +25,7 @@ export * from "foo";
 export * from "bar";
 ```
 
-<pre class="language-text"><code class="language-text">performance/noBarrelFile.js:1:1 <a href="https://biomejs.dev/linter/rules/no-barrel-file">lint/performance/noBarrelFile</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.ts:1:1 <a href="https://biomejs.dev/linter/rules/no-barrel-file">lint/performance/noBarrelFile</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Avoid barrel files, they slow down performance, and cause large module graphs with modules that go unused.</span>
   
@@ -43,7 +43,7 @@ export { foo } from "foo";
 export { bar } from "bar";
 ```
 
-<pre class="language-text"><code class="language-text">performance/noBarrelFile.js:1:1 <a href="https://biomejs.dev/linter/rules/no-barrel-file">lint/performance/noBarrelFile</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.ts:1:1 <a href="https://biomejs.dev/linter/rules/no-barrel-file">lint/performance/noBarrelFile</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Avoid barrel files, they slow down performance, and cause large module graphs with modules that go unused.</span>
   
@@ -60,7 +60,7 @@ export { bar } from "bar";
 export { default as module1 } from "./module1";
 ```
 
-<pre class="language-text"><code class="language-text">performance/noBarrelFile.js:1:1 <a href="https://biomejs.dev/linter/rules/no-barrel-file">lint/performance/noBarrelFile</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.ts:1:1 <a href="https://biomejs.dev/linter/rules/no-barrel-file">lint/performance/noBarrelFile</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Avoid barrel files, they slow down performance, and cause large module graphs with modules that go unused.</span>
   

@@ -20,12 +20,12 @@ Promotes the use of `.flatMap()` when `map().flat()` are used together.
 
 ### Invalid
 
-```jsx
+```js
 const array = ["split", "the text", "into words"];
 array.map(sentence => sentence.split(' ')).flat();
 ```
 
-<pre class="language-text"><code class="language-text">complexity/useFlatMap.js:2:1 <a href="https://biomejs.dev/linter/rules/use-flat-map">lint/complexity/useFlatMap</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:1 <a href="https://biomejs.dev/linter/rules/use-flat-map">lint/complexity/useFlatMap</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The call chain </span><span style="color: Tomato;"><strong>.map().flat()</strong></span><span style="color: Tomato;"> can be replaced with a single </span><span style="color: Tomato;"><strong>.flatMap()</strong></span><span style="color: Tomato;"> call.</span>
   
@@ -43,12 +43,12 @@ array.map(sentence => sentence.split(' ')).flat();
   
 </code></pre>
 
-```jsx
+```js
 const array = ["split", "the text", "into words"];
 array.map(sentence => sentence.split(' ')).flat(1);
 ```
 
-<pre class="language-text"><code class="language-text">complexity/useFlatMap.js:2:1 <a href="https://biomejs.dev/linter/rules/use-flat-map">lint/complexity/useFlatMap</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:1 <a href="https://biomejs.dev/linter/rules/use-flat-map">lint/complexity/useFlatMap</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The call chain </span><span style="color: Tomato;"><strong>.map().flat()</strong></span><span style="color: Tomato;"> can be replaced with a single </span><span style="color: Tomato;"><strong>.flatMap()</strong></span><span style="color: Tomato;"> call.</span>
   
@@ -68,7 +68,7 @@ array.map(sentence => sentence.split(' ')).flat(1);
 
 ### Valid
 
-```jsx
+```js
 const array = ["split", "the text", "into words"];
 array.map(sentence => sentence.split(' ')).flat(2);
 ```

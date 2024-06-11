@@ -33,11 +33,11 @@ The Intl object does not have a [[Call]] internal method; it is not possible to 
 
 ### Invalid
 
-```jsx
+```js
 var math = Math();
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noGlobalObjectCalls.js:1:12 <a href="https://biomejs.dev/linter/rules/no-global-object-calls">lint/correctness/noGlobalObjectCalls</a> ━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:12 <a href="https://biomejs.dev/linter/rules/no-global-object-calls">lint/correctness/noGlobalObjectCalls</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>Math</strong></span><span style="color: Tomato;"> is not a function.</span>
   
@@ -47,11 +47,11 @@ var math = Math();
   
 </code></pre>
 
-```jsx
+```js
 var newMath = new Math();
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noGlobalObjectCalls.js:1:19 <a href="https://biomejs.dev/linter/rules/no-global-object-calls">lint/correctness/noGlobalObjectCalls</a> ━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:19 <a href="https://biomejs.dev/linter/rules/no-global-object-calls">lint/correctness/noGlobalObjectCalls</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>Math</strong></span><span style="color: Tomato;"> is not a function.</span>
   
@@ -61,11 +61,11 @@ var newMath = new Math();
   
 </code></pre>
 
-```jsx
+```js
 var json = JSON();
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noGlobalObjectCalls.js:1:12 <a href="https://biomejs.dev/linter/rules/no-global-object-calls">lint/correctness/noGlobalObjectCalls</a> ━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:12 <a href="https://biomejs.dev/linter/rules/no-global-object-calls">lint/correctness/noGlobalObjectCalls</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>Json</strong></span><span style="color: Tomato;"> is not a function.</span>
   
@@ -75,11 +75,11 @@ var json = JSON();
   
 </code></pre>
 
-```jsx
+```js
 var newJSON = new JSON();
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noGlobalObjectCalls.js:1:19 <a href="https://biomejs.dev/linter/rules/no-global-object-calls">lint/correctness/noGlobalObjectCalls</a> ━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:19 <a href="https://biomejs.dev/linter/rules/no-global-object-calls">lint/correctness/noGlobalObjectCalls</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>Json</strong></span><span style="color: Tomato;"> is not a function.</span>
   
@@ -89,11 +89,11 @@ var newJSON = new JSON();
   
 </code></pre>
 
-```jsx
+```js
 var reflect = Reflect();
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noGlobalObjectCalls.js:1:15 <a href="https://biomejs.dev/linter/rules/no-global-object-calls">lint/correctness/noGlobalObjectCalls</a> ━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:15 <a href="https://biomejs.dev/linter/rules/no-global-object-calls">lint/correctness/noGlobalObjectCalls</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>Reflect</strong></span><span style="color: Tomato;"> is not a function.</span>
   
@@ -103,11 +103,11 @@ var reflect = Reflect();
   
 </code></pre>
 
-```jsx
+```js
 var newReflect = new Reflect();
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noGlobalObjectCalls.js:1:22 <a href="https://biomejs.dev/linter/rules/no-global-object-calls">lint/correctness/noGlobalObjectCalls</a> ━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:22 <a href="https://biomejs.dev/linter/rules/no-global-object-calls">lint/correctness/noGlobalObjectCalls</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>Reflect</strong></span><span style="color: Tomato;"> is not a function.</span>
   
@@ -117,11 +117,11 @@ var newReflect = new Reflect();
   
 </code></pre>
 
-```jsx
+```js
 var atomics = Atomics();
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noGlobalObjectCalls.js:1:15 <a href="https://biomejs.dev/linter/rules/no-global-object-calls">lint/correctness/noGlobalObjectCalls</a> ━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:15 <a href="https://biomejs.dev/linter/rules/no-global-object-calls">lint/correctness/noGlobalObjectCalls</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>Atomics</strong></span><span style="color: Tomato;"> is not a function.</span>
   
@@ -131,11 +131,11 @@ var atomics = Atomics();
   
 </code></pre>
 
-```jsx
+```js
 var newAtomics = new Atomics();
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noGlobalObjectCalls.js:1:22 <a href="https://biomejs.dev/linter/rules/no-global-object-calls">lint/correctness/noGlobalObjectCalls</a> ━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:22 <a href="https://biomejs.dev/linter/rules/no-global-object-calls">lint/correctness/noGlobalObjectCalls</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>Atomics</strong></span><span style="color: Tomato;"> is not a function.</span>
   
@@ -145,11 +145,11 @@ var newAtomics = new Atomics();
   
 </code></pre>
 
-```jsx
+```js
 var intl = Intl();
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noGlobalObjectCalls.js:1:12 <a href="https://biomejs.dev/linter/rules/no-global-object-calls">lint/correctness/noGlobalObjectCalls</a> ━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:12 <a href="https://biomejs.dev/linter/rules/no-global-object-calls">lint/correctness/noGlobalObjectCalls</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>Intl</strong></span><span style="color: Tomato;"> is not a function.</span>
   
@@ -159,11 +159,11 @@ var intl = Intl();
   
 </code></pre>
 
-```jsx
+```js
 var newIntl = new Intl();
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noGlobalObjectCalls.js:1:19 <a href="https://biomejs.dev/linter/rules/no-global-object-calls">lint/correctness/noGlobalObjectCalls</a> ━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:19 <a href="https://biomejs.dev/linter/rules/no-global-object-calls">lint/correctness/noGlobalObjectCalls</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>Intl</strong></span><span style="color: Tomato;"> is not a function.</span>
   
@@ -175,7 +175,7 @@ var newIntl = new Intl();
 
 ### Valid
 
-```jsx
+```js
 function area(r) {
     return Math.PI * r * r;
 }

@@ -22,11 +22,11 @@ Also, parentheses limit the scope of short-circuiting in chains.
 
 ### Invalid
 
-```jsx
+```js
 1 in obj?.foo;
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noUnsafeOptionalChaining.js:1:9 <a href="https://biomejs.dev/linter/rules/no-unsafe-optional-chaining">lint/correctness/noUnsafeOptionalChaining</a> ━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:9 <a href="https://biomejs.dev/linter/rules/no-unsafe-optional-chaining">lint/correctness/noUnsafeOptionalChaining</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unsafe usage of optional chaining.</span>
   
@@ -42,11 +42,11 @@ Also, parentheses limit the scope of short-circuiting in chains.
   
 </code></pre>
 
-```js
+```cjs
 with (obj?.foo);
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noUnsafeOptionalChaining.js:1:10 <a href="https://biomejs.dev/linter/rules/no-unsafe-optional-chaining">lint/correctness/noUnsafeOptionalChaining</a> ━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.cjs:1:10 <a href="https://biomejs.dev/linter/rules/no-unsafe-optional-chaining">lint/correctness/noUnsafeOptionalChaining</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unsafe usage of optional chaining.</span>
   
@@ -62,11 +62,11 @@ with (obj?.foo);
   
 </code></pre>
 
-```jsx
+```js
 for (bar of obj?.foo);
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noUnsafeOptionalChaining.js:1:16 <a href="https://biomejs.dev/linter/rules/no-unsafe-optional-chaining">lint/correctness/noUnsafeOptionalChaining</a> ━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:16 <a href="https://biomejs.dev/linter/rules/no-unsafe-optional-chaining">lint/correctness/noUnsafeOptionalChaining</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unsafe usage of optional chaining.</span>
   
@@ -82,11 +82,11 @@ for (bar of obj?.foo);
   
 </code></pre>
 
-```jsx
+```js
 bar instanceof obj?.foo;
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noUnsafeOptionalChaining.js:1:19 <a href="https://biomejs.dev/linter/rules/no-unsafe-optional-chaining">lint/correctness/noUnsafeOptionalChaining</a> ━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:19 <a href="https://biomejs.dev/linter/rules/no-unsafe-optional-chaining">lint/correctness/noUnsafeOptionalChaining</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unsafe usage of optional chaining.</span>
   
@@ -102,11 +102,11 @@ bar instanceof obj?.foo;
   
 </code></pre>
 
-```jsx
+```js
 const { bar } = obj?.foo;
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noUnsafeOptionalChaining.js:1:20 <a href="https://biomejs.dev/linter/rules/no-unsafe-optional-chaining">lint/correctness/noUnsafeOptionalChaining</a> ━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:20 <a href="https://biomejs.dev/linter/rules/no-unsafe-optional-chaining">lint/correctness/noUnsafeOptionalChaining</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unsafe usage of optional chaining.</span>
   
@@ -122,11 +122,11 @@ const { bar } = obj?.foo;
   
 </code></pre>
 
-```jsx
+```js
 (obj?.foo)();
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noUnsafeOptionalChaining.js:1:5 <a href="https://biomejs.dev/linter/rules/no-unsafe-optional-chaining">lint/correctness/noUnsafeOptionalChaining</a> ━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:5 <a href="https://biomejs.dev/linter/rules/no-unsafe-optional-chaining">lint/correctness/noUnsafeOptionalChaining</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unsafe usage of optional chaining.</span>
   
@@ -142,11 +142,11 @@ const { bar } = obj?.foo;
   
 </code></pre>
 
-```jsx
+```js
 (baz?.bar).foo;
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noUnsafeOptionalChaining.js:1:5 <a href="https://biomejs.dev/linter/rules/no-unsafe-optional-chaining">lint/correctness/noUnsafeOptionalChaining</a> ━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:5 <a href="https://biomejs.dev/linter/rules/no-unsafe-optional-chaining">lint/correctness/noUnsafeOptionalChaining</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unsafe usage of optional chaining.</span>
   
@@ -164,7 +164,7 @@ const { bar } = obj?.foo;
 
 ### Valid
 
-```jsx
+```js
 (obj?.foo)?.();
 obj?.foo();
 (obj?.foo ?? bar)();

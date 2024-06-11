@@ -23,11 +23,11 @@ The executor function can also be an async function. However, this is usually a 
 
 ### Invalid
 
-```jsx
+```js
 new Promise(async function foo(resolve, reject) {})
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noAsyncPromiseExecutor.js:1:13 <a href="https://biomejs.dev/linter/rules/no-async-promise-executor">lint/suspicious/noAsyncPromiseExecutor</a> ━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:13 <a href="https://biomejs.dev/linter/rules/no-async-promise-executor">lint/suspicious/noAsyncPromiseExecutor</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Promise executor functions should not be `async`.</span>
   
@@ -37,11 +37,11 @@ new Promise(async function foo(resolve, reject) {})
   
 </code></pre>
 
-```jsx
+```js
   new Promise(async (resolve, reject) => {})
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noAsyncPromiseExecutor.js:1:15 <a href="https://biomejs.dev/linter/rules/no-async-promise-executor">lint/suspicious/noAsyncPromiseExecutor</a> ━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:15 <a href="https://biomejs.dev/linter/rules/no-async-promise-executor">lint/suspicious/noAsyncPromiseExecutor</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Promise executor functions should not be `async`.</span>
   
@@ -51,11 +51,11 @@ new Promise(async function foo(resolve, reject) {})
   
 </code></pre>
 
-```jsx
+```js
   new Promise(((((async () => {})))))
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noAsyncPromiseExecutor.js:1:19 <a href="https://biomejs.dev/linter/rules/no-async-promise-executor">lint/suspicious/noAsyncPromiseExecutor</a> ━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:19 <a href="https://biomejs.dev/linter/rules/no-async-promise-executor">lint/suspicious/noAsyncPromiseExecutor</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Promise executor functions should not be `async`.</span>
   
@@ -67,7 +67,7 @@ new Promise(async function foo(resolve, reject) {})
 
 ### Valid
 
-```jsx
+```js
   new Promise((resolve, reject) => {})
   new Promise((resolve, reject) => {}, async function unrelated() {})
   new Foo(async (resolve, reject) => {})

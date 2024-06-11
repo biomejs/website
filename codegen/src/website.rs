@@ -159,7 +159,7 @@ export function GET() {"#,
     )?
     .print()?;
 
-    fs::write(&schema_js_path, schema_js_printed.as_code())?;
+    fs::write(schema_js_path, schema_js_printed.as_code())?;
 
     Ok(())
 }

@@ -31,7 +31,7 @@ enum Version {
 }
 ```
 
-<pre class="language-text"><code class="language-text">style/useEnumInitializers.js:1:6 <a href="https://biomejs.dev/linter/rules/use-enum-initializers">lint/style/useEnumInitializers</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.ts:1:6 <a href="https://biomejs.dev/linter/rules/use-enum-initializers">lint/style/useEnumInitializers</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This </span><span style="color: Tomato;"><strong>enum declaration</strong></span><span style="color: Tomato;"> contains members that are implicitly initialized.</span>
   
@@ -63,7 +63,7 @@ enum Status {
 }
 ```
 
-<pre class="language-text"><code class="language-text">style/useEnumInitializers.js:1:6 <a href="https://biomejs.dev/linter/rules/use-enum-initializers">lint/style/useEnumInitializers</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.ts:1:6 <a href="https://biomejs.dev/linter/rules/use-enum-initializers">lint/style/useEnumInitializers</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This </span><span style="color: Tomato;"><strong>enum declaration</strong></span><span style="color: Tomato;"> contains members that are implicitly initialized.</span>
   
@@ -97,7 +97,7 @@ enum Color {
 }
 ```
 
-<pre class="language-text"><code class="language-text">style/useEnumInitializers.js:1:6 <a href="https://biomejs.dev/linter/rules/use-enum-initializers">lint/style/useEnumInitializers</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.ts:1:6 <a href="https://biomejs.dev/linter/rules/use-enum-initializers">lint/style/useEnumInitializers</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This </span><span style="color: Tomato;"><strong>enum declaration</strong></span><span style="color: Tomato;"> contains members that are implicitly initialized.</span>
   

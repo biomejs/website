@@ -22,11 +22,11 @@ boolean values instead of using the logical NOT (`!`) or double NOT (`!!`) to co
 
 ### Invalid
 
-```jsx
+```js
 var a = x ? true : true;
 ```
 
-<pre class="language-text"><code class="language-text">complexity/noUselessTernary.js:1:9 <a href="https://biomejs.dev/linter/rules/no-useless-ternary">lint/complexity/noUselessTernary</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:9 <a href="https://biomejs.dev/linter/rules/no-useless-ternary">lint/complexity/noUselessTernary</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unnecessary use of boolean literals in conditional expression.</span>
   
@@ -45,11 +45,11 @@ var a = x ? true : true;
 <strong>  </strong><strong>    │ </strong>        <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span>     
 </code></pre>
 
-```jsx
+```js
 var a = foo === 1 ? false : true;
 ```
 
-<pre class="language-text"><code class="language-text">complexity/noUselessTernary.js:1:9 <a href="https://biomejs.dev/linter/rules/no-useless-ternary">lint/complexity/noUselessTernary</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:9 <a href="https://biomejs.dev/linter/rules/no-useless-ternary">lint/complexity/noUselessTernary</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unnecessary use of boolean literals in conditional expression.</span>
   
@@ -70,11 +70,11 @@ var a = foo === 1 ? false : true;
   
 </code></pre>
 
-```jsx
+```js
 var a = foo + 1 ? false : true;
 ```
 
-<pre class="language-text"><code class="language-text">complexity/noUselessTernary.js:1:9 <a href="https://biomejs.dev/linter/rules/no-useless-ternary">lint/complexity/noUselessTernary</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:9 <a href="https://biomejs.dev/linter/rules/no-useless-ternary">lint/complexity/noUselessTernary</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unnecessary use of boolean literals in conditional expression.</span>
   
@@ -95,11 +95,11 @@ var a = foo + 1 ? false : true;
   
 </code></pre>
 
-```jsx
+```js
 var a = foo + 1 ? true : false;
 ```
 
-<pre class="language-text"><code class="language-text">complexity/noUselessTernary.js:1:9 <a href="https://biomejs.dev/linter/rules/no-useless-ternary">lint/complexity/noUselessTernary</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:9 <a href="https://biomejs.dev/linter/rules/no-useless-ternary">lint/complexity/noUselessTernary</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unnecessary use of boolean literals in conditional expression.</span>
   
@@ -122,11 +122,11 @@ var a = foo + 1 ? true : false;
 
 ### Valid
 
-```jsx
+```js
 var a = x === 2 ? 'Yes' : 'No';
 ```
 
-```jsx
+```js
 var a = x === 2 ? 'Yes' : false;
 ```
 

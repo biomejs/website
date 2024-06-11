@@ -22,11 +22,11 @@ A duplicated name might be a typing error.
 
 ### Invalid
 
-```jsx
+```js
 var f = function(a, b, b) {}
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noDuplicateParameters.js:1:24 <a href="https://biomejs.dev/linter/rules/no-duplicate-parameters">lint/suspicious/noDuplicateParameters</a> ━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:24 <a href="https://biomejs.dev/linter/rules/no-duplicate-parameters">lint/suspicious/noDuplicateParameters</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Duplicate parameter name.</span>
   
@@ -38,11 +38,11 @@ var f = function(a, b, b) {}
   
 </code></pre>
 
-```jsx
+```js
 function b(a, b, b) {}
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noDuplicateParameters.js:1:18 <a href="https://biomejs.dev/linter/rules/no-duplicate-parameters">lint/suspicious/noDuplicateParameters</a> ━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:18 <a href="https://biomejs.dev/linter/rules/no-duplicate-parameters">lint/suspicious/noDuplicateParameters</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Duplicate parameter name.</span>
   
@@ -56,7 +56,7 @@ function b(a, b, b) {}
 
 ### Valid
 
-```jsx
+```js
 function i(i, b, c) {}
 var j = function (j, b, c) {};
 function k({ k, b }, { c, d }) {}

@@ -29,13 +29,13 @@ Moreover, `function` declarations in nested blocks are allowed inside _ES module
 
 ### Invalid
 
-```js
+```cjs
 if (test) {
     function f() {}
 }
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noInnerDeclarations.js:2:5 <a href="https://biomejs.dev/linter/rules/no-inner-declarations">lint/correctness/noInnerDeclarations</a> ━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.cjs:2:5 <a href="https://biomejs.dev/linter/rules/no-inner-declarations">lint/correctness/noInnerDeclarations</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This </span><span style="color: Tomato;"><strong>function</strong></span><span style="color: Tomato;"> should be declared at the root of the </span><span style="color: Tomato;"><strong>script</strong></span><span style="color: Tomato;">.</span>
   
@@ -50,13 +50,13 @@ if (test) {
   
 </code></pre>
 
-```jsx
+```js
 if (test) {
     var x = 1;
 }
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noInnerDeclarations.js:2:5 <a href="https://biomejs.dev/linter/rules/no-inner-declarations">lint/correctness/noInnerDeclarations</a> ━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:5 <a href="https://biomejs.dev/linter/rules/no-inner-declarations">lint/correctness/noInnerDeclarations</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This </span><span style="color: Tomato;"><strong>var</strong></span><span style="color: Tomato;"> should be declared at the root of the </span><span style="color: Tomato;"><strong>module</strong></span><span style="color: Tomato;">.</span>
   
@@ -71,7 +71,7 @@ if (test) {
   
 </code></pre>
 
-```js
+```cjs
 function f() {
     if (test) {
         function g() {}
@@ -79,7 +79,7 @@ function f() {
 }
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noInnerDeclarations.js:3:9 <a href="https://biomejs.dev/linter/rules/no-inner-declarations">lint/correctness/noInnerDeclarations</a> ━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.cjs:3:9 <a href="https://biomejs.dev/linter/rules/no-inner-declarations">lint/correctness/noInnerDeclarations</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This </span><span style="color: Tomato;"><strong>function</strong></span><span style="color: Tomato;"> should be declared at the root of the </span><span style="color: Tomato;"><strong>enclosing function</strong></span><span style="color: Tomato;">.</span>
   
@@ -95,7 +95,7 @@ function f() {
   
 </code></pre>
 
-```jsx
+```js
 function f() {
     if (test) {
         var x = 1;
@@ -103,7 +103,7 @@ function f() {
 }
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noInnerDeclarations.js:3:9 <a href="https://biomejs.dev/linter/rules/no-inner-declarations">lint/correctness/noInnerDeclarations</a> ━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:3:9 <a href="https://biomejs.dev/linter/rules/no-inner-declarations">lint/correctness/noInnerDeclarations</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This </span><span style="color: Tomato;"><strong>var</strong></span><span style="color: Tomato;"> should be declared at the root of the </span><span style="color: Tomato;"><strong>enclosing function</strong></span><span style="color: Tomato;">.</span>
   
@@ -121,7 +121,7 @@ function f() {
 
 ### Valid
 
-```jsx
+```js
 // inside a module, function declarations are block-scoped and thus allowed.
 if (test) {
     function f() {}
@@ -129,23 +129,23 @@ if (test) {
 export {}
 ```
 
-```jsx
+```js
 function f() { }
 ```
 
-```jsx
+```js
 function f() {
     function g() {}
 }
 ```
 
-```jsx
+```js
 function f() {
     var x = 1;
 }
 ```
 
-```jsx
+```js
 function f() {
     if (test) {
         const g = function() {};

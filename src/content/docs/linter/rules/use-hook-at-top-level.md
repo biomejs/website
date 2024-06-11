@@ -15,7 +15,7 @@ To understand why this required see https://reactjs.org/docs/hooks-rules.html#on
 
 ### Invalid
 
-```jsx
+```js
 function Component1({ a }) {
     if (a == 1) {
         useEffect();
@@ -23,7 +23,7 @@ function Component1({ a }) {
 }
 ```
 
-<pre class="language-text"><code class="language-text">correctness/useHookAtTopLevel.js:3:9 <a href="https://biomejs.dev/linter/rules/use-hook-at-top-level">lint/correctness/useHookAtTopLevel</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:3:9 <a href="https://biomejs.dev/linter/rules/use-hook-at-top-level">lint/correctness/useHookAtTopLevel</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">This hook is being called conditionally, but all hooks must be called in the exact same order in every component render.</span>
   
@@ -40,7 +40,7 @@ function Component1({ a }) {
   
 </code></pre>
 
-```jsx
+```js
 function Component1({ a }) {
     if (a != 1) {
         return;
@@ -50,7 +50,7 @@ function Component1({ a }) {
 }
 ```
 
-<pre class="language-text"><code class="language-text">correctness/useHookAtTopLevel.js:6:5 <a href="https://biomejs.dev/linter/rules/use-hook-at-top-level">lint/correctness/useHookAtTopLevel</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:6:5 <a href="https://biomejs.dev/linter/rules/use-hook-at-top-level">lint/correctness/useHookAtTopLevel</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">This hook is being called conditionally, but all hooks must be called in the exact same order in every component render.</span>
   
@@ -79,7 +79,7 @@ function Component1({ a }) {
 
 ### Valid
 
-```jsx
+```js
 function Component1() {
     useEffect();
 }

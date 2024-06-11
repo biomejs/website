@@ -25,7 +25,7 @@ https://www.w3.org/TR/css-syntax-3/#anb-microsyntax
 a:nth-child(0) {}
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noUnmatchableAnbSelector.js:1:13 <a href="https://biomejs.dev/linter/rules/no-unmatchable-anb-selector">lint/nursery/noUnmatchableAnbSelector</a> ━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.css:1:13 <a href="https://biomejs.dev/linter/rules/no-unmatchable-anb-selector">lint/nursery/noUnmatchableAnbSelector</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This selector will never match any elements.</span>
   
@@ -43,7 +43,7 @@ a:nth-child(0) {}
 a:nth-last-child(0n) {}
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noUnmatchableAnbSelector.js:1:18 <a href="https://biomejs.dev/linter/rules/no-unmatchable-anb-selector">lint/nursery/noUnmatchableAnbSelector</a> ━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.css:1:18 <a href="https://biomejs.dev/linter/rules/no-unmatchable-anb-selector">lint/nursery/noUnmatchableAnbSelector</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This selector will never match any elements.</span>
   
@@ -61,7 +61,7 @@ a:nth-last-child(0n) {}
 a:nth-of-type(0n+0) {}
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noUnmatchableAnbSelector.js:1:15 <a href="https://biomejs.dev/linter/rules/no-unmatchable-anb-selector">lint/nursery/noUnmatchableAnbSelector</a> ━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.css:1:15 <a href="https://biomejs.dev/linter/rules/no-unmatchable-anb-selector">lint/nursery/noUnmatchableAnbSelector</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This selector will never match any elements.</span>
   
@@ -79,7 +79,7 @@ a:nth-of-type(0n+0) {}
 a:nth-last-of-type(0 of a) {}
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noUnmatchableAnbSelector.js:1:20 <a href="https://biomejs.dev/linter/rules/no-unmatchable-anb-selector">lint/nursery/noUnmatchableAnbSelector</a> ━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.css:1:20 <a href="https://biomejs.dev/linter/rules/no-unmatchable-anb-selector">lint/nursery/noUnmatchableAnbSelector</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This selector will never match any elements.</span>
   

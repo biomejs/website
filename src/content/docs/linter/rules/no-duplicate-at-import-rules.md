@@ -26,7 +26,7 @@ This rule also checks the imported media queries and alerts of duplicates.
 @import 'a.css';
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noDuplicateAtImportRules.js:2:2 <a href="https://biomejs.dev/linter/rules/no-duplicate-at-import-rules">lint/nursery/noDuplicateAtImportRules</a> ━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.css:2:2 <a href="https://biomejs.dev/linter/rules/no-duplicate-at-import-rules">lint/nursery/noDuplicateAtImportRules</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Each </span><span style="color: Tomato;"><strong>@import</strong></span><span style="color: Tomato;"> should be unique unless differing by media queries.</span>
   
@@ -44,7 +44,7 @@ This rule also checks the imported media queries and alerts of duplicates.
 @import 'a.css';
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noDuplicateAtImportRules.js:2:2 <a href="https://biomejs.dev/linter/rules/no-duplicate-at-import-rules">lint/nursery/noDuplicateAtImportRules</a> ━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.css:2:2 <a href="https://biomejs.dev/linter/rules/no-duplicate-at-import-rules">lint/nursery/noDuplicateAtImportRules</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Each </span><span style="color: Tomato;"><strong>@import</strong></span><span style="color: Tomato;"> should be unique unless differing by media queries.</span>
   
@@ -62,7 +62,7 @@ This rule also checks the imported media queries and alerts of duplicates.
 @import url('a.css');
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noDuplicateAtImportRules.js:2:2 <a href="https://biomejs.dev/linter/rules/no-duplicate-at-import-rules">lint/nursery/noDuplicateAtImportRules</a> ━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.css:2:2 <a href="https://biomejs.dev/linter/rules/no-duplicate-at-import-rules">lint/nursery/noDuplicateAtImportRules</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Each </span><span style="color: Tomato;"><strong>@import</strong></span><span style="color: Tomato;"> should be unique unless differing by media queries.</span>
   

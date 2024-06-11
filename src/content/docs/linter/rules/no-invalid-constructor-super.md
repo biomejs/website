@@ -18,7 +18,7 @@ Prevents the incorrect use of `super()` inside classes. It also checks whether a
 
 ### Invalid
 
-```jsx
+```js
 class A {
     constructor() {
         super();
@@ -26,7 +26,7 @@ class A {
 }
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noInvalidConstructorSuper.js:3:9 <a href="https://biomejs.dev/linter/rules/no-invalid-constructor-super">lint/correctness/noInvalidConstructorSuper</a> ━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:3:9 <a href="https://biomejs.dev/linter/rules/no-invalid-constructor-super">lint/correctness/noInvalidConstructorSuper</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This class should not have a </span><span style="color: Tomato;"><strong>super()</strong></span><span style="color: Tomato;"> call. You should remove it.</span>
   
@@ -39,7 +39,7 @@ class A {
   
 </code></pre>
 
-```jsx
+```js
 class A extends undefined {
     constructor() {
         super();
@@ -47,7 +47,7 @@ class A extends undefined {
 }
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noInvalidConstructorSuper.js:3:9 <a href="https://biomejs.dev/linter/rules/no-invalid-constructor-super">lint/correctness/noInvalidConstructorSuper</a> ━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:3:9 <a href="https://biomejs.dev/linter/rules/no-invalid-constructor-super">lint/correctness/noInvalidConstructorSuper</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This class calls </span><span style="color: Tomato;"><strong>super()</strong></span><span style="color: Tomato;">, but the class extends from a non-constructor.</span>
   
@@ -69,7 +69,7 @@ class A extends undefined {
 
 ### Valid
 
-```jsx
+```js
 export default class A extends B {
     constructor() {
         super();
@@ -77,7 +77,7 @@ export default class A extends B {
 }
 ```
 
-```jsx
+```js
 export class A {
     constructor() {}
 }

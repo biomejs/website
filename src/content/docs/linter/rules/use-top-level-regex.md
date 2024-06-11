@@ -21,13 +21,13 @@ Additionally, this rule ignores regular expressions with the `g` and/or `y` flag
 
 ### Invalid
 
-```jsx
+```js
 function foo(someString) {
     return /[a-Z]*/.test(someString)
 }
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useTopLevelRegex.js:2:12 <a href="https://biomejs.dev/linter/rules/use-top-level-regex">lint/nursery/useTopLevelRegex</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:12 <a href="https://biomejs.dev/linter/rules/use-top-level-regex">lint/nursery/useTopLevelRegex</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">This regex literal is not defined in the top level scope. This can lead to performance issues if this function is called frequently.</span>
   
@@ -43,7 +43,7 @@ function foo(someString) {
 
 ### Valid
 
-```jsx
+```js
 const REGEX = /[a-Z]*/;
 
 function foo(someString) {
@@ -51,7 +51,7 @@ function foo(someString) {
 }
 ```
 
-```jsx
+```js
 function foo(str) {
     return /[a-Z]*/g.exec(str)
 }

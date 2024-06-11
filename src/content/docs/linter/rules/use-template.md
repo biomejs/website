@@ -19,11 +19,11 @@ Prefer template literals over string concatenation.
 
 ### Invalid
 
-```jsx
+```js
 const s = foo + "baz";
 ```
 
-<pre class="language-text"><code class="language-text">style/useTemplate.js:1:11 <a href="https://biomejs.dev/linter/rules/use-template">lint/style/useTemplate</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:11 <a href="https://biomejs.dev/linter/rules/use-template">lint/style/useTemplate</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>Template</strong></span><span style="color: Tomato;"> literals are preferred over </span><span style="color: Tomato;"><strong>string concatenation.</strong></span>
   
@@ -39,11 +39,11 @@ const s = foo + "baz";
   
 </code></pre>
 
-```jsx
+```js
 const s = 1 + 2 + "foo" + 3;
 ```
 
-<pre class="language-text"><code class="language-text">style/useTemplate.js:1:11 <a href="https://biomejs.dev/linter/rules/use-template">lint/style/useTemplate</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:11 <a href="https://biomejs.dev/linter/rules/use-template">lint/style/useTemplate</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>Template</strong></span><span style="color: Tomato;"> literals are preferred over </span><span style="color: Tomato;"><strong>string concatenation.</strong></span>
   
@@ -59,11 +59,11 @@ const s = 1 + 2 + "foo" + 3;
   
 </code></pre>
 
-```jsx
+```js
 const s = 1 * 2 + "foo";
 ```
 
-<pre class="language-text"><code class="language-text">style/useTemplate.js:1:11 <a href="https://biomejs.dev/linter/rules/use-template">lint/style/useTemplate</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:11 <a href="https://biomejs.dev/linter/rules/use-template">lint/style/useTemplate</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>Template</strong></span><span style="color: Tomato;"> literals are preferred over </span><span style="color: Tomato;"><strong>string concatenation.</strong></span>
   
@@ -79,11 +79,11 @@ const s = 1 * 2 + "foo";
   
 </code></pre>
 
-```jsx
+```js
 const s = 1 + "foo" + 2 + "bar" + "baz" + 3;
 ```
 
-<pre class="language-text"><code class="language-text">style/useTemplate.js:1:11 <a href="https://biomejs.dev/linter/rules/use-template">lint/style/useTemplate</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:11 <a href="https://biomejs.dev/linter/rules/use-template">lint/style/useTemplate</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>Template</strong></span><span style="color: Tomato;"> literals are preferred over </span><span style="color: Tomato;"><strong>string concatenation.</strong></span>
   
@@ -101,11 +101,11 @@ const s = 1 + "foo" + 2 + "bar" + "baz" + 3;
 
 ### Valid
 
-```jsx
+```js
 let s = "foo" + "bar" + `baz`;
 ```
 
-```jsx
+```js
 let s = `value: ${1}`;
 ```
 

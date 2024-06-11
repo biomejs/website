@@ -26,11 +26,11 @@ Enforce comparison with === 0 when checking for zero length.
 
 ### Invalid
 
-```jsx
+```js
 const isEmpty = !foo.length;
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useExplicitLengthCheck.js:1:17 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:17 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>.length === 0</strong></span><span style="color: Orange;"> when checking </span><span style="color: Orange;"><strong>.length</strong></span><span style="color: Orange;"> is zero.</span>
   
@@ -46,11 +46,11 @@ const isEmpty = !foo.length;
   
 </code></pre>
 
-```jsx
+```js
 const isEmpty = foo.length == 0;
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useExplicitLengthCheck.js:1:17 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:17 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>.length === 0</strong></span><span style="color: Orange;"> when checking </span><span style="color: Orange;"><strong>.length</strong></span><span style="color: Orange;"> is zero.</span>
   
@@ -64,11 +64,11 @@ const isEmpty = foo.length == 0;
 <strong>  </strong><strong>    │ </strong>                             <span style="color: MediumSeaGreen;">+</span>   
 </code></pre>
 
-```jsx
+```js
 const isEmpty = foo.length < 1;
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useExplicitLengthCheck.js:1:17 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:17 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>.length === 0</strong></span><span style="color: Orange;"> when checking </span><span style="color: Orange;"><strong>.length</strong></span><span style="color: Orange;"> is zero.</span>
   
@@ -84,11 +84,11 @@ const isEmpty = foo.length < 1;
   
 </code></pre>
 
-```jsx
+```js
 const isEmpty = 0 === foo.length;
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useExplicitLengthCheck.js:1:17 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:17 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>.length === 0</strong></span><span style="color: Orange;"> when checking </span><span style="color: Orange;"><strong>.length</strong></span><span style="color: Orange;"> is zero.</span>
   
@@ -104,11 +104,11 @@ const isEmpty = 0 === foo.length;
   
 </code></pre>
 
-```jsx
+```js
 const isEmpty = 0 == foo.length;
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useExplicitLengthCheck.js:1:17 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:17 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>.length === 0</strong></span><span style="color: Orange;"> when checking </span><span style="color: Orange;"><strong>.length</strong></span><span style="color: Orange;"> is zero.</span>
   
@@ -124,11 +124,11 @@ const isEmpty = 0 == foo.length;
   
 </code></pre>
 
-```jsx
+```js
 const isEmpty = 1 > foo.length;
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useExplicitLengthCheck.js:1:17 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:17 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>.length === 0</strong></span><span style="color: Orange;"> when checking </span><span style="color: Orange;"><strong>.length</strong></span><span style="color: Orange;"> is zero.</span>
   
@@ -144,12 +144,12 @@ const isEmpty = 1 > foo.length;
   
 </code></pre>
 
-```jsx
+```js
 // Negative style is disallowed too
 const isEmpty = !(foo.length > 0);
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useExplicitLengthCheck.js:2:17 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:17 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>.length === 0</strong></span><span style="color: Orange;"> when checking </span><span style="color: Orange;"><strong>.length</strong></span><span style="color: Orange;"> is zero.</span>
   
@@ -167,11 +167,11 @@ const isEmpty = !(foo.length > 0);
   
 </code></pre>
 
-```jsx
+```js
 const isEmptySet = !foo.size;
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useExplicitLengthCheck.js:1:20 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:20 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>.size === 0</strong></span><span style="color: Orange;"> when checking </span><span style="color: Orange;"><strong>.size</strong></span><span style="color: Orange;"> is zero.</span>
   
@@ -189,7 +189,7 @@ const isEmptySet = !foo.size;
 
 ### Valid
 
-```jsx
+```js
 const isEmpty = foo.length === 0;
 ```
 
@@ -199,11 +199,11 @@ Enforce comparison with > 0 when checking for non-zero length.
 
 ### Invalid
 
-```jsx
+```js
 const isNotEmpty = foo.length !== 0;
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useExplicitLengthCheck.js:1:20 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:20 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>.length &gt; 0</strong></span><span style="color: Orange;"> when checking </span><span style="color: Orange;"><strong>.length</strong></span><span style="color: Orange;"> is not zero.</span>
   
@@ -219,11 +219,11 @@ const isNotEmpty = foo.length !== 0;
   
 </code></pre>
 
-```jsx
+```js
 const isNotEmpty = foo.length != 0;
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useExplicitLengthCheck.js:1:20 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:20 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>.length &gt; 0</strong></span><span style="color: Orange;"> when checking </span><span style="color: Orange;"><strong>.length</strong></span><span style="color: Orange;"> is not zero.</span>
   
@@ -239,11 +239,11 @@ const isNotEmpty = foo.length != 0;
   
 </code></pre>
 
-```jsx
+```js
 const isNotEmpty = foo.length >= 1;
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useExplicitLengthCheck.js:1:20 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:20 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>.length &gt; 0</strong></span><span style="color: Orange;"> when checking </span><span style="color: Orange;"><strong>.length</strong></span><span style="color: Orange;"> is not zero.</span>
   
@@ -259,11 +259,11 @@ const isNotEmpty = foo.length >= 1;
   
 </code></pre>
 
-```jsx
+```js
 const isNotEmpty = 0 !== foo.length;
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useExplicitLengthCheck.js:1:20 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:20 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>.length &gt; 0</strong></span><span style="color: Orange;"> when checking </span><span style="color: Orange;"><strong>.length</strong></span><span style="color: Orange;"> is not zero.</span>
   
@@ -279,11 +279,11 @@ const isNotEmpty = 0 !== foo.length;
   
 </code></pre>
 
-```jsx
+```js
 const isNotEmpty = 0 != foo.length;
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useExplicitLengthCheck.js:1:20 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:20 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>.length &gt; 0</strong></span><span style="color: Orange;"> when checking </span><span style="color: Orange;"><strong>.length</strong></span><span style="color: Orange;"> is not zero.</span>
   
@@ -299,11 +299,11 @@ const isNotEmpty = 0 != foo.length;
   
 </code></pre>
 
-```jsx
+```js
 const isNotEmpty = 1 <= foo.length;
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useExplicitLengthCheck.js:1:20 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:20 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>.length &gt; 0</strong></span><span style="color: Orange;"> when checking </span><span style="color: Orange;"><strong>.length</strong></span><span style="color: Orange;"> is not zero.</span>
   
@@ -319,11 +319,11 @@ const isNotEmpty = 1 <= foo.length;
   
 </code></pre>
 
-```jsx
+```js
 const isNotEmpty = Boolean(foo.length);
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useExplicitLengthCheck.js:1:20 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:20 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>.length &gt; 0</strong></span><span style="color: Orange;"> when checking </span><span style="color: Orange;"><strong>.length</strong></span><span style="color: Orange;"> is not zero.</span>
   
@@ -339,12 +339,12 @@ const isNotEmpty = Boolean(foo.length);
   
 </code></pre>
 
-```jsx
+```js
 // Negative style is disallowed too
 const isNotEmpty = !(foo.length === 0);
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useExplicitLengthCheck.js:2:20 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:20 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>.length &gt; 0</strong></span><span style="color: Orange;"> when checking </span><span style="color: Orange;"><strong>.length</strong></span><span style="color: Orange;"> is not zero.</span>
   
@@ -362,11 +362,11 @@ const isNotEmpty = !(foo.length === 0);
   
 </code></pre>
 
-```jsx
+```js
 if (foo.length) {}
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useExplicitLengthCheck.js:1:5 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:5 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>.length &gt; 0</strong></span><span style="color: Orange;"> when checking </span><span style="color: Orange;"><strong>.length</strong></span><span style="color: Orange;"> is not zero.</span>
   
@@ -380,11 +380,11 @@ if (foo.length) {}
 <strong>  </strong><strong>    │ </strong>              <span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span>    
 </code></pre>
 
-```jsx
+```js
 const biome = foo.length ? 1 : 2
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useExplicitLengthCheck.js:1:15 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:15 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>.length &gt; 0</strong></span><span style="color: Orange;"> when checking </span><span style="color: Orange;"><strong>.length</strong></span><span style="color: Orange;"> is not zero.</span>
   
@@ -398,11 +398,11 @@ const biome = foo.length ? 1 : 2
 <strong>  </strong><strong>    │ </strong>                         <span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span>       
 </code></pre>
 
-```jsx
+```js
 while (foo.length) {}
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useExplicitLengthCheck.js:1:8 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:8 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>.length &gt; 0</strong></span><span style="color: Orange;"> when checking </span><span style="color: Orange;"><strong>.length</strong></span><span style="color: Orange;"> is not zero.</span>
   
@@ -416,11 +416,11 @@ while (foo.length) {}
 <strong>  </strong><strong>    │ </strong>                 <span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span>    
 </code></pre>
 
-```jsx
+```js
 do {} while (foo.length);
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useExplicitLengthCheck.js:1:14 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:14 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>.length &gt; 0</strong></span><span style="color: Orange;"> when checking </span><span style="color: Orange;"><strong>.length</strong></span><span style="color: Orange;"> is not zero.</span>
   
@@ -434,11 +434,11 @@ do {} while (foo.length);
 <strong>  </strong><strong>    │ </strong>             <span style="color: MediumSeaGreen;">+</span>          <span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span>  
 </code></pre>
 
-```jsx
+```js
 for (; foo.length; ) {};
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useExplicitLengthCheck.js:1:8 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:8 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>.length &gt; 0</strong></span><span style="color: Orange;"> when checking </span><span style="color: Orange;"><strong>.length</strong></span><span style="color: Orange;"> is not zero.</span>
   
@@ -454,11 +454,11 @@ for (; foo.length; ) {};
 
 ### Valid
 
-```jsx
+```js
 const isNotEmpty = foo.length > 0;
 ```
 
-```jsx
+```js
 if (foo.length > 0 || bar.length > 0) {}
 ```
 
@@ -467,11 +467,11 @@ if (foo.length > 0 || bar.length > 0) {}
 This rule assumes that the `length`/`size` property is always numeric, even if it actually is not.
 In the example below the rule will trigger a warning, even though the `size` property is a string.
 
-```jsx
+```js
 const foo1 = { size: "small" }; if (foo1.size) {}
 ```
 
-<pre class="language-text"><code class="language-text">nursery/useExplicitLengthCheck.js:1:37 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:37 <a href="https://biomejs.dev/linter/rules/use-explicit-length-check">lint/nursery/useExplicitLengthCheck</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use </span><span style="color: Orange;"><strong>.size &gt; 0</strong></span><span style="color: Orange;"> when checking </span><span style="color: Orange;"><strong>.size</strong></span><span style="color: Orange;"> is not zero.</span>
   

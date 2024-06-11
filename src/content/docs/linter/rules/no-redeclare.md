@@ -19,12 +19,12 @@ Disallow variable, function, class, and type redeclarations in the same scope.
 
 ### Invalid
 
-```jsx
+```js
 var a = 3;
 var a = 10;
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noRedeclare.js:2:5 <a href="https://biomejs.dev/linter/rules/no-redeclare">lint/suspicious/noRedeclare</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:5 <a href="https://biomejs.dev/linter/rules/no-redeclare">lint/suspicious/noRedeclare</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Shouldn't redeclare 'a'. Consider to delete it or rename it.</span>
   
@@ -42,12 +42,12 @@ var a = 10;
   
 </code></pre>
 
-```jsx
+```js
 let a = 3;
 let a = 10;
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noRedeclare.js:2:5 <a href="https://biomejs.dev/linter/rules/no-redeclare">lint/suspicious/noRedeclare</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:5 <a href="https://biomejs.dev/linter/rules/no-redeclare">lint/suspicious/noRedeclare</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Shouldn't redeclare 'a'. Consider to delete it or rename it.</span>
   
@@ -65,12 +65,12 @@ let a = 10;
   
 </code></pre>
 
-```jsx
+```js
 function f() {}
 function f() {}
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noRedeclare.js:2:10 <a href="https://biomejs.dev/linter/rules/no-redeclare">lint/suspicious/noRedeclare</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:10 <a href="https://biomejs.dev/linter/rules/no-redeclare">lint/suspicious/noRedeclare</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Shouldn't redeclare 'f'. Consider to delete it or rename it.</span>
   
@@ -88,7 +88,7 @@ function f() {}
   
 </code></pre>
 
-```jsx
+```js
 class C {
     static {
         var c = 3;
@@ -97,7 +97,7 @@ class C {
 }
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noRedeclare.js:4:13 <a href="https://biomejs.dev/linter/rules/no-redeclare">lint/suspicious/noRedeclare</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:4:13 <a href="https://biomejs.dev/linter/rules/no-redeclare">lint/suspicious/noRedeclare</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Shouldn't redeclare 'c'. Consider to delete it or rename it.</span>
   
@@ -124,7 +124,7 @@ type Person = { name: string; }
 class Person { name: string; }
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noRedeclare.js:2:7 <a href="https://biomejs.dev/linter/rules/no-redeclare">lint/suspicious/noRedeclare</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.ts:2:7 <a href="https://biomejs.dev/linter/rules/no-redeclare">lint/suspicious/noRedeclare</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Shouldn't redeclare 'Person'. Consider to delete it or rename it.</span>
   
@@ -144,7 +144,7 @@ class Person { name: string; }
 
 ### Valid
 
-```jsx
+```js
 var a = 3;
 a = 10;
 ```

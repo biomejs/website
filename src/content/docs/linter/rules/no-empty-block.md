@@ -23,7 +23,7 @@ By default, it will allow empty blocks with comments inside.
 p {}
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noEmptyBlock.js:1:3 <a href="https://biomejs.dev/linter/rules/no-empty-block">lint/nursery/noEmptyBlock</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.css:1:3 <a href="https://biomejs.dev/linter/rules/no-empty-block">lint/nursery/noEmptyBlock</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">An empty block isn't allowed.</span>
   
@@ -39,7 +39,7 @@ p {}
 .b {}
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noEmptyBlock.js:1:4 <a href="https://biomejs.dev/linter/rules/no-empty-block">lint/nursery/noEmptyBlock</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.css:1:4 <a href="https://biomejs.dev/linter/rules/no-empty-block">lint/nursery/noEmptyBlock</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">An empty block isn't allowed.</span>
   
@@ -55,7 +55,7 @@ p {}
 @media print { a {} }
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noEmptyBlock.js:1:18 <a href="https://biomejs.dev/linter/rules/no-empty-block">lint/nursery/noEmptyBlock</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.css:1:18 <a href="https://biomejs.dev/linter/rules/no-empty-block">lint/nursery/noEmptyBlock</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">An empty block isn't allowed.</span>
   

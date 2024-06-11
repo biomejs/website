@@ -23,7 +23,7 @@ Enforce explicit `role` property is not the same as implicit/default role proper
 <article role='article'></article>
 ```
 
-<pre class="language-text"><code class="language-text">a11y/noRedundantRoles.js:1:15 <a href="https://biomejs.dev/linter/rules/no-redundant-roles">lint/a11y/noRedundantRoles</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.jsx:1:15 <a href="https://biomejs.dev/linter/rules/no-redundant-roles">lint/a11y/noRedundantRoles</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Using the role attribute 'article' on the 'article' element is redundant, because it is implied by the semantic 'article' element.</span>
   
@@ -41,7 +41,7 @@ Enforce explicit `role` property is not the same as implicit/default role proper
 <button role='button'></button>
 ```
 
-<pre class="language-text"><code class="language-text">a11y/noRedundantRoles.js:1:14 <a href="https://biomejs.dev/linter/rules/no-redundant-roles">lint/a11y/noRedundantRoles</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.jsx:1:14 <a href="https://biomejs.dev/linter/rules/no-redundant-roles">lint/a11y/noRedundantRoles</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Using the role attribute 'button' on the 'button' element is redundant, because it is implied by the semantic 'button' element.</span>
   
@@ -59,7 +59,7 @@ Enforce explicit `role` property is not the same as implicit/default role proper
 <h1 role='heading' aria-level='1'>title</h1>
 ```
 
-<pre class="language-text"><code class="language-text">a11y/noRedundantRoles.js:1:10 <a href="https://biomejs.dev/linter/rules/no-redundant-roles">lint/a11y/noRedundantRoles</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.jsx:1:10 <a href="https://biomejs.dev/linter/rules/no-redundant-roles">lint/a11y/noRedundantRoles</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Using the role attribute 'heading' on the 'h1' element is redundant, because it is implied by the semantic 'h1' element.</span>
   

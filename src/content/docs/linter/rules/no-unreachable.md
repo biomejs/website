@@ -18,14 +18,14 @@ Disallow unreachable code
 
 ### Invalid
 
-```jsx
+```js
 function example() {
     return;
     neverCalled();
 }
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noUnreachable.js:3:5 <a href="https://biomejs.dev/linter/rules/no-unreachable">lint/correctness/noUnreachable</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:3:5 <a href="https://biomejs.dev/linter/rules/no-unreachable">lint/correctness/noUnreachable</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This code will never be reached ...</span>
   
@@ -46,7 +46,7 @@ function example() {
   
 </code></pre>
 
-```jsx
+```js
 function example() {
     for(let i = 0; i < 10; ++i) {
         break;
@@ -54,7 +54,7 @@ function example() {
 }
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noUnreachable.js:2:28 <a href="https://biomejs.dev/linter/rules/no-unreachable">lint/correctness/noUnreachable</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:28 <a href="https://biomejs.dev/linter/rules/no-unreachable">lint/correctness/noUnreachable</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This code will never be reached ...</span>
   
@@ -75,7 +75,7 @@ function example() {
   
 </code></pre>
 
-```jsx
+```js
 function example() {
     for(const key in value) {
         continue;
@@ -84,7 +84,7 @@ function example() {
 }
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noUnreachable.js:4:9 <a href="https://biomejs.dev/linter/rules/no-unreachable">lint/correctness/noUnreachable</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:4:9 <a href="https://biomejs.dev/linter/rules/no-unreachable">lint/correctness/noUnreachable</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This code will never be reached ...</span>
   

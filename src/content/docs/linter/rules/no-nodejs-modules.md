@@ -15,11 +15,11 @@ This can be useful for client-side web projects that don't have access to those 
 
 ### Invalid
 
-```jsx
+```js
 import fs from "fs";
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noNodejsModules.js:1:16 <a href="https://biomejs.dev/linter/rules/no-nodejs-modules">lint/correctness/noNodejsModules</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:16 <a href="https://biomejs.dev/linter/rules/no-nodejs-modules">lint/correctness/noNodejsModules</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Using Node.js modules is forbidden.</span>
   
@@ -33,11 +33,11 @@ import fs from "fs";
   
 </code></pre>
 
-```jsx
+```js
 import path from "node:path";
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noNodejsModules.js:1:18 <a href="https://biomejs.dev/linter/rules/no-nodejs-modules">lint/correctness/noNodejsModules</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:18 <a href="https://biomejs.dev/linter/rules/no-nodejs-modules">lint/correctness/noNodejsModules</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Using Node.js modules is forbidden.</span>
   
@@ -53,7 +53,7 @@ import path from "node:path";
 
 ### Valid
 
-```jsx
+```js
 import fs from "fs-custom";
 ```
 

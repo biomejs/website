@@ -24,7 +24,7 @@ To ensure that the lexical declarations only apply to the current `switch` claus
 
 ### Invalid
 
-```jsx
+```js
 switch (foo) {
     case 0:
         const x = 1;
@@ -35,7 +35,7 @@ switch (foo) {
 }
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noSwitchDeclarations.js:3:9 <a href="https://biomejs.dev/linter/rules/no-switch-declarations">lint/correctness/noSwitchDeclarations</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:3:9 <a href="https://biomejs.dev/linter/rules/no-switch-declarations">lint/correctness/noSwitchDeclarations</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Other switch clauses can erroneously access this </span><span style="color: Tomato;"><strong>declaration</strong></span><span style="color: Tomato;">.
 </span><span style="color: Tomato;">  </span><span style="color: Tomato;">  </span><span style="color: Tomato;">Wrap the declaration in a block to restrict its access to the switch clause.</span>
@@ -72,7 +72,7 @@ switch (foo) {
   
 </code></pre>
 
-```jsx
+```js
 switch (foo) {
     case 0:
         function f() {}
@@ -83,7 +83,7 @@ switch (foo) {
 }
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noSwitchDeclarations.js:3:9 <a href="https://biomejs.dev/linter/rules/no-switch-declarations">lint/correctness/noSwitchDeclarations</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:3:9 <a href="https://biomejs.dev/linter/rules/no-switch-declarations">lint/correctness/noSwitchDeclarations</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Other switch clauses can erroneously access this </span><span style="color: Tomato;"><strong>declaration</strong></span><span style="color: Tomato;">.
 </span><span style="color: Tomato;">  </span><span style="color: Tomato;">  </span><span style="color: Tomato;">Wrap the declaration in a block to restrict its access to the switch clause.</span>
@@ -120,7 +120,7 @@ switch (foo) {
   
 </code></pre>
 
-```jsx
+```js
 switch (foo) {
     case 0:
         class A {}
@@ -131,7 +131,7 @@ switch (foo) {
 }
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noSwitchDeclarations.js:3:9 <a href="https://biomejs.dev/linter/rules/no-switch-declarations">lint/correctness/noSwitchDeclarations</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:3:9 <a href="https://biomejs.dev/linter/rules/no-switch-declarations">lint/correctness/noSwitchDeclarations</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Other switch clauses can erroneously access this </span><span style="color: Tomato;"><strong>declaration</strong></span><span style="color: Tomato;">.
 </span><span style="color: Tomato;">  </span><span style="color: Tomato;">  </span><span style="color: Tomato;">Wrap the declaration in a block to restrict its access to the switch clause.</span>
@@ -170,7 +170,7 @@ switch (foo) {
 
 ### Valid
 
-```jsx
+```js
 switch (foo) {
     case 0: {
         const x = 1;

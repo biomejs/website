@@ -22,11 +22,11 @@ They are often the result of a typing mistake.
 
 ### Invalid
 
-```jsx
+```js
 /^a[]/.test("a"); // false
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noEmptyCharacterClassInRegex.js:1:4 <a href="https://biomejs.dev/linter/rules/no-empty-character-class-in-regex">lint/correctness/noEmptyCharacterClassInRegex</a> ━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:4 <a href="https://biomejs.dev/linter/rules/no-empty-character-class-in-regex">lint/correctness/noEmptyCharacterClassInRegex</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The regular expression includes this </span><span style="color: Tomato;"><strong>empty character class</strong></span><span style="color: Tomato;">.</span>
   
@@ -40,11 +40,11 @@ They are often the result of a typing mistake.
   
 </code></pre>
 
-```jsx
+```js
 /^a[^]/.test("ax"); // true
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noEmptyCharacterClassInRegex.js:1:4 <a href="https://biomejs.dev/linter/rules/no-empty-character-class-in-regex">lint/correctness/noEmptyCharacterClassInRegex</a> ━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:4 <a href="https://biomejs.dev/linter/rules/no-empty-character-class-in-regex">lint/correctness/noEmptyCharacterClassInRegex</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The regular expression includes this </span><span style="color: Tomato;"><strong>negated empty character class</strong></span><span style="color: Tomato;">.</span>
   
@@ -60,15 +60,15 @@ They are often the result of a typing mistake.
 
 ### Valid
 
-```jsx
+```js
 /^a[xy]/.test("ay"); // true
 ```
 
-```jsx
+```js
 /^a[^xy]/.test("ab"); // true
 ```
 
-```jsx
+```js
 /^a\[]/.test("a[]"); // true
 ```
 

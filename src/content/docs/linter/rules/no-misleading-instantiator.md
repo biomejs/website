@@ -34,7 +34,7 @@ interface I {
 }
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noMisleadingInstantiator.js:2:3 <a href="https://biomejs.dev/linter/rules/no-misleading-instantiator">lint/suspicious/noMisleadingInstantiator</a> ━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.ts:2:3 <a href="https://biomejs.dev/linter/rules/no-misleading-instantiator">lint/suspicious/noMisleadingInstantiator</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Don't use the </span><span style="color: Tomato;"><strong>new</strong></span><span style="color: Tomato;"> method in interfaces.</span>
   
@@ -54,7 +54,7 @@ class C {
 }
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noMisleadingInstantiator.js:2:3 <a href="https://biomejs.dev/linter/rules/no-misleading-instantiator">lint/suspicious/noMisleadingInstantiator</a> ━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.ts:2:3 <a href="https://biomejs.dev/linter/rules/no-misleading-instantiator">lint/suspicious/noMisleadingInstantiator</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Don't use the </span><span style="color: Tomato;"><strong>new</strong></span><span style="color: Tomato;"> method in classes.</span>
   

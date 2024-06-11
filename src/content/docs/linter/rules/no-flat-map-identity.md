@@ -21,11 +21,11 @@ To achieve the same result (flattening an array) more concisely and efficiently,
 
 ### Invalid
 
-```jsx
+```js
 array.flatMap((arr) => arr);
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noFlatMapIdentity.js:1:1 <a href="https://biomejs.dev/linter/rules/no-flat-map-identity">lint/correctness/noFlatMapIdentity</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-flat-map-identity">lint/correctness/noFlatMapIdentity</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Avoid unnecessary callback in </span><span style="color: Tomato;"><strong>flatMap</strong></span><span style="color: Tomato;"> call.</span>
   
@@ -43,11 +43,11 @@ array.flatMap((arr) => arr);
   
 </code></pre>
 
-```jsx
+```js
 array.flatMap((arr) => {return arr});
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noFlatMapIdentity.js:1:1 <a href="https://biomejs.dev/linter/rules/no-flat-map-identity">lint/correctness/noFlatMapIdentity</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-flat-map-identity">lint/correctness/noFlatMapIdentity</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Avoid unnecessary callback in </span><span style="color: Tomato;"><strong>flatMap</strong></span><span style="color: Tomato;"> call.</span>
   
@@ -67,7 +67,7 @@ array.flatMap((arr) => {return arr});
 
 ### Valid
 
-```jsx
+```js
 array.flatMap((arr) => arr * 2);
 ```
 

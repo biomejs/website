@@ -21,11 +21,11 @@ Therefore, it is a more reliable way to test whether a number is finite.
 
 ### Invalid
 
-```jsx
+```js
 isFinite(false); // true
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noGlobalIsFinite.js:1:1 <a href="https://biomejs.dev/linter/rules/no-global-is-finite">lint/suspicious/noGlobalIsFinite</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-global-is-finite">lint/suspicious/noGlobalIsFinite</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>isFinite</strong></span><span style="color: Tomato;"> is unsafe. It attempts a type coercion. Use </span><span style="color: Tomato;"><strong>Number.isFinite</strong></span><span style="color: Tomato;"> instead.</span>
   
@@ -45,7 +45,7 @@ isFinite(false); // true
 
 ### Valid
 
-```jsx
+```js
 Number.isFinite(false); // false
 ```
 

@@ -25,11 +25,11 @@ Concatenation of multiple strings is allowed when the strings are spread over mu
 
 ### Invalid
 
-```jsx
+```js
 const a = "a" + "b";
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noUselessStringConcat.js:1:11 <a href="https://biomejs.dev/linter/rules/no-useless-string-concat">lint/nursery/noUselessStringConcat</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:11 <a href="https://biomejs.dev/linter/rules/no-useless-string-concat">lint/nursery/noUselessStringConcat</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Useless string concatenation.</span>
   
@@ -47,11 +47,11 @@ const a = "a" + "b";
   
 </code></pre>
 
-```jsx
+```js
 const a = "a" + "b" + "c";
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noUselessStringConcat.js:1:11 <a href="https://biomejs.dev/linter/rules/no-useless-string-concat">lint/nursery/noUselessStringConcat</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:11 <a href="https://biomejs.dev/linter/rules/no-useless-string-concat">lint/nursery/noUselessStringConcat</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Useless string concatenation.</span>
   
@@ -69,11 +69,11 @@ const a = "a" + "b" + "c";
   
 </code></pre>
 
-```jsx
+```js
 const a = (foo + "a") + ("b" + "c");
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noUselessStringConcat.js:1:26 <a href="https://biomejs.dev/linter/rules/no-useless-string-concat">lint/nursery/noUselessStringConcat</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:26 <a href="https://biomejs.dev/linter/rules/no-useless-string-concat">lint/nursery/noUselessStringConcat</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Useless string concatenation.</span>
   
@@ -93,27 +93,27 @@ const a = (foo + "a") + ("b" + "c");
 
 ### Valid
 
-```jsx
+```js
 const a = 1 + 1;
 ```
 
-```jsx
+```js
 const a = 1 * '2';
 ```
 
-```jsx
+```js
 const a = 1 - 2;
 ```
 
-```jsx
+```js
 const a = foo + bar;
 ```
 
-```jsx
+```js
 const a = 'foo' + bar;
 ```
 
-```jsx
+```js
 const a = 'foo' +
           'bar'
 ```

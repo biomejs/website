@@ -23,7 +23,7 @@ Only returning without a value is allowed, as it’s a control flow statement.
 
 ### Invalid
 
-```jsx
+```js
 class A {
     constructor() {
         return 0;
@@ -31,7 +31,7 @@ class A {
 }
 ```
 
-<pre class="language-text"><code class="language-text">correctness/noConstructorReturn.js:3:9 <a href="https://biomejs.dev/linter/rules/no-constructor-return">lint/correctness/noConstructorReturn</a> ━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:3:9 <a href="https://biomejs.dev/linter/rules/no-constructor-return">lint/correctness/noConstructorReturn</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The </span><span style="color: Tomato;"><strong>constructor</strong></span><span style="color: Tomato;"> should not </span><span style="color: Tomato;"><strong>return</strong></span><span style="color: Tomato;"> a value.</span>
   
@@ -59,13 +59,13 @@ class A {
 
 ### Valid
 
-```jsx
+```js
 class A {
     constructor() {}
 }
 ```
 
-```jsx
+```js
 class B {
     constructor(x) {
         return;

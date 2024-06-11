@@ -33,7 +33,7 @@ something.forEach((Element, index) => {
 });
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noArrayIndexKey.js:2:21 <a href="https://biomejs.dev/linter/rules/no-array-index-key">lint/suspicious/noArrayIndexKey</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.jsx:2:21 <a href="https://biomejs.dev/linter/rules/no-array-index-key">lint/suspicious/noArrayIndexKey</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Avoid using the index of an array as key property in an element.</span>
   
@@ -62,7 +62,7 @@ React.Children.map(this.props.children, (child, index) => (
 ))
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noArrayIndexKey.js:2:38 <a href="https://biomejs.dev/linter/rules/no-array-index-key">lint/suspicious/noArrayIndexKey</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.jsx:2:38 <a href="https://biomejs.dev/linter/rules/no-array-index-key">lint/suspicious/noArrayIndexKey</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Avoid using the index of an array as key property in an element.</span>
   
@@ -91,7 +91,7 @@ something.forEach((Element, index) => {
 });
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noArrayIndexKey.js:2:33 <a href="https://biomejs.dev/linter/rules/no-array-index-key">lint/suspicious/noArrayIndexKey</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.jsx:2:33 <a href="https://biomejs.dev/linter/rules/no-array-index-key">lint/suspicious/noArrayIndexKey</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Avoid using the index of an array as key property in an element.</span>
   
@@ -120,7 +120,7 @@ something.forEach((Element, index) => {
 });
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noArrayIndexKey.js:2:30 <a href="https://biomejs.dev/linter/rules/no-array-index-key">lint/suspicious/noArrayIndexKey</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.jsx:2:30 <a href="https://biomejs.dev/linter/rules/no-array-index-key">lint/suspicious/noArrayIndexKey</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Avoid using the index of an array as key property in an element.</span>
   

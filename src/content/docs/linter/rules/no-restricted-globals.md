@@ -17,11 +17,11 @@ global variables by enabling an environment, but still want to disallow some of 
 
 ### Invalid
 
-```jsx
+```js
 console.log(event)
 ```
 
-<pre class="language-text"><code class="language-text">style/noRestrictedGlobals.js:1:13 <a href="https://biomejs.dev/linter/rules/no-restricted-globals">lint/style/noRestrictedGlobals</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:13 <a href="https://biomejs.dev/linter/rules/no-restricted-globals">lint/style/noRestrictedGlobals</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Do not use the global variable </span><span style="color: Orange;"><strong>event</strong></span><span style="color: Orange;">.</span>
   
@@ -35,7 +35,7 @@ console.log(event)
 
 ### Valid
 
-```jsx
+```js
 function f(event) {
     console.log(event)
 }

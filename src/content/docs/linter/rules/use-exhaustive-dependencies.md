@@ -39,7 +39,7 @@ If you want to add more hooks to the rule, check the [options](#options).
 
 ### Invalid
 
-```jsx
+```js
 import { useEffect } from "react";
 
 function component() {
@@ -50,7 +50,7 @@ function component() {
 }
 ```
 
-<pre class="language-text"><code class="language-text">correctness/useExhaustiveDependencies.js:5:5 <a href="https://biomejs.dev/linter/rules/use-exhaustive-dependencies">lint/correctness/useExhaustiveDependencies</a> ━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:5:5 <a href="https://biomejs.dev/linter/rules/use-exhaustive-dependencies">lint/correctness/useExhaustiveDependencies</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This hook does not specify all of its dependencies: a</span>
   
@@ -74,7 +74,7 @@ function component() {
   
 </code></pre>
 
-```jsx
+```js
 import { useEffect } from "react";
 
 function component() {
@@ -84,7 +84,7 @@ function component() {
 }
 ```
 
-<pre class="language-text"><code class="language-text">correctness/useExhaustiveDependencies.js:5:5 <a href="https://biomejs.dev/linter/rules/use-exhaustive-dependencies">lint/correctness/useExhaustiveDependencies</a> ━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:5:5 <a href="https://biomejs.dev/linter/rules/use-exhaustive-dependencies">lint/correctness/useExhaustiveDependencies</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This hook specifies more dependencies than necessary: b</span>
   
@@ -106,7 +106,7 @@ function component() {
   
 </code></pre>
 
-```jsx
+```js
 import { useEffect, useState } from "react";
 
 function component() {
@@ -118,7 +118,7 @@ function component() {
 }
 ```
 
-<pre class="language-text"><code class="language-text">correctness/useExhaustiveDependencies.js:5:5 <a href="https://biomejs.dev/linter/rules/use-exhaustive-dependencies">lint/correctness/useExhaustiveDependencies</a> ━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:5:5 <a href="https://biomejs.dev/linter/rules/use-exhaustive-dependencies">lint/correctness/useExhaustiveDependencies</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This hook specifies more dependencies than necessary: setName</span>
   
@@ -140,7 +140,7 @@ function component() {
   
 </code></pre>
 
-```jsx
+```js
 import { useEffect } from "react";
 
 function component() {
@@ -152,7 +152,7 @@ function component() {
 }
 ```
 
-<pre class="language-text"><code class="language-text">correctness/useExhaustiveDependencies.js:6:5 <a href="https://biomejs.dev/linter/rules/use-exhaustive-dependencies">lint/correctness/useExhaustiveDependencies</a> ━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:6:5 <a href="https://biomejs.dev/linter/rules/use-exhaustive-dependencies">lint/correctness/useExhaustiveDependencies</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This hook does not specify all of its dependencies: b</span>
   
@@ -178,7 +178,7 @@ function component() {
 
 ### Valid
 
-```jsx
+```js
 import { useEffect } from "react";
 
 function component() {
@@ -189,7 +189,7 @@ function component() {
 }
 ```
 
-```jsx
+```js
 import { useEffect } from "react";
 
 function component() {
@@ -200,7 +200,7 @@ function component() {
 }
 ```
 
-```jsx
+```js
 import { useEffect, useState } from "react";
 
 function component() {
@@ -212,7 +212,7 @@ function component() {
 }
 ```
 
-```jsx
+```js
 import { useEffect } from "react";
 let outer = false;
 function component() {
@@ -229,7 +229,7 @@ dependency without disabling _all_ linting for that hook. To do so,
 you may specify the name of a specific dependency between parentheses,
 like this:
 
-```jsx
+```js
 import { useEffect } from "react";
 
 function component() {
@@ -272,7 +272,7 @@ dependencies array to validate against.
 
 Given the previous example, your hooks can be used like this:
 
-```jsx
+```js
 function Foo() {
     const location = useLocation(() => {}, []);
     const query = useQuery([], () => {});
@@ -311,7 +311,7 @@ hook that would be configured like this is `useState()`.
 
 With this configuration, the following is valid:
 
-```jsx
+```js
 const dispatch = useDispatch();
 // No need to list `dispatch` as dependency:
 const doAction = useCallback(() => dispatch(someAction()), []);

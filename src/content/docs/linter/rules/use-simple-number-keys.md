@@ -16,11 +16,11 @@ Disallow number literal object member names which are not base10 or uses undersc
 
 ### Invalid
 
-```jsx
+```js
 ({ 0x1: 1 });
 ```
 
-<pre class="language-text"><code class="language-text">complexity/useSimpleNumberKeys.js:1:4 <a href="https://biomejs.dev/linter/rules/use-simple-number-keys">lint/complexity/useSimpleNumberKeys</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:4 <a href="https://biomejs.dev/linter/rules/use-simple-number-keys">lint/complexity/useSimpleNumberKeys</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Hexadecimal number literal is not allowed here.</span>
   
@@ -36,11 +36,11 @@ Disallow number literal object member names which are not base10 or uses undersc
   
 </code></pre>
 
-```jsx
+```js
 ({ 11_1.11: "ee" });
 ```
 
-<pre class="language-text"><code class="language-text">complexity/useSimpleNumberKeys.js:1:4 <a href="https://biomejs.dev/linter/rules/use-simple-number-keys">lint/complexity/useSimpleNumberKeys</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:4 <a href="https://biomejs.dev/linter/rules/use-simple-number-keys">lint/complexity/useSimpleNumberKeys</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Number literal with underscore is not allowed here.</span>
   
@@ -56,11 +56,11 @@ Disallow number literal object member names which are not base10 or uses undersc
   
 </code></pre>
 
-```jsx
+```js
 ({ 0o1: 1 });
 ```
 
-<pre class="language-text"><code class="language-text">complexity/useSimpleNumberKeys.js:1:4 <a href="https://biomejs.dev/linter/rules/use-simple-number-keys">lint/complexity/useSimpleNumberKeys</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:4 <a href="https://biomejs.dev/linter/rules/use-simple-number-keys">lint/complexity/useSimpleNumberKeys</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Octal number literal is not allowed here.</span>
   
@@ -76,11 +76,11 @@ Disallow number literal object member names which are not base10 or uses undersc
   
 </code></pre>
 
-```jsx
+```js
 ({ 1n: 1 });
 ```
 
-<pre class="language-text"><code class="language-text">complexity/useSimpleNumberKeys.js:1:4 <a href="https://biomejs.dev/linter/rules/use-simple-number-keys">lint/complexity/useSimpleNumberKeys</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:4 <a href="https://biomejs.dev/linter/rules/use-simple-number-keys">lint/complexity/useSimpleNumberKeys</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Bigint is not allowed here.</span>
   
@@ -96,11 +96,11 @@ Disallow number literal object member names which are not base10 or uses undersc
   
 </code></pre>
 
-```jsx
+```js
 ({ 11_1.11: "ee" });
 ```
 
-<pre class="language-text"><code class="language-text">complexity/useSimpleNumberKeys.js:1:4 <a href="https://biomejs.dev/linter/rules/use-simple-number-keys">lint/complexity/useSimpleNumberKeys</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:4 <a href="https://biomejs.dev/linter/rules/use-simple-number-keys">lint/complexity/useSimpleNumberKeys</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Number literal with underscore is not allowed here.</span>
   
@@ -118,7 +118,7 @@ Disallow number literal object member names which are not base10 or uses undersc
 
 ### Valid
 
-```jsx
+```js
 ({ 0: "zero" });
 ({ 122: "integer" });
 ({ 1.22: "floating point" });

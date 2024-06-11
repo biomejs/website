@@ -29,7 +29,7 @@ Even if there is no "fall through" logic, it’s still unexpected to see the def
 
 ### Invalid
 
-```jsx
+```js
 switch (foo) {
     default:
         break;
@@ -38,7 +38,7 @@ switch (foo) {
 }
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/useDefaultSwitchClauseLast.js:2:5 <a href="https://biomejs.dev/linter/rules/use-default-switch-clause-last">lint/suspicious/useDefaultSwitchClauseLast</a> ━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:5 <a href="https://biomejs.dev/linter/rules/use-default-switch-clause-last">lint/suspicious/useDefaultSwitchClauseLast</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The </span><span style="color: Tomato;"><strong>default</strong></span><span style="color: Tomato;"> clause should be the last </span><span style="color: Tomato;"><strong>switch</strong></span><span style="color: Tomato;"> clause.</span>
   
@@ -65,7 +65,7 @@ switch (foo) {
   
 </code></pre>
 
-```jsx
+```js
 switch (foo) {
     default:
         f();
@@ -74,7 +74,7 @@ switch (foo) {
 }
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/useDefaultSwitchClauseLast.js:2:5 <a href="https://biomejs.dev/linter/rules/use-default-switch-clause-last">lint/suspicious/useDefaultSwitchClauseLast</a> ━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:5 <a href="https://biomejs.dev/linter/rules/use-default-switch-clause-last">lint/suspicious/useDefaultSwitchClauseLast</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The </span><span style="color: Tomato;"><strong>default</strong></span><span style="color: Tomato;"> clause should be the last </span><span style="color: Tomato;"><strong>switch</strong></span><span style="color: Tomato;"> clause.</span>
   
@@ -101,7 +101,7 @@ switch (foo) {
   
 </code></pre>
 
-```jsx
+```js
 switch (foo) {
     case 0:
         break;
@@ -111,7 +111,7 @@ switch (foo) {
 }
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/useDefaultSwitchClauseLast.js:4:5 <a href="https://biomejs.dev/linter/rules/use-default-switch-clause-last">lint/suspicious/useDefaultSwitchClauseLast</a> ━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:4:5 <a href="https://biomejs.dev/linter/rules/use-default-switch-clause-last">lint/suspicious/useDefaultSwitchClauseLast</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The </span><span style="color: Tomato;"><strong>default</strong></span><span style="color: Tomato;"> clause should be the last </span><span style="color: Tomato;"><strong>switch</strong></span><span style="color: Tomato;"> clause.</span>
   
@@ -139,7 +139,7 @@ switch (foo) {
 
 ### Valid
 
-```jsx
+```js
 switch (foo) {
     case 0:
         break;
@@ -149,7 +149,7 @@ switch (foo) {
 }
 ```
 
-```jsx
+```js
 switch (foo) {
     case 0:
         break;

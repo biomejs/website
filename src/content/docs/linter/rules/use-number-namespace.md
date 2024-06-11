@@ -24,11 +24,11 @@ You can use the dedicated rules [noGlobalIsFinite](https://biomejs.dev/linter/ru
 
 ### Invalid
 
-```jsx
+```js
 parseInt("1"); // true
 ```
 
-<pre class="language-text"><code class="language-text">style/useNumberNamespace.js:1:1 <a href="https://biomejs.dev/linter/rules/use-number-namespace">lint/style/useNumberNamespace</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/use-number-namespace">lint/style/useNumberNamespace</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Use </span><span style="color: Tomato;"><strong>Number.parseInt</strong></span><span style="color: Tomato;"> instead of the equivalent global.</span>
   
@@ -46,11 +46,11 @@ parseInt("1"); // true
   
 </code></pre>
 
-```jsx
+```js
 parseFloat("1.1"); // true
 ```
 
-<pre class="language-text"><code class="language-text">style/useNumberNamespace.js:1:1 <a href="https://biomejs.dev/linter/rules/use-number-namespace">lint/style/useNumberNamespace</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/use-number-namespace">lint/style/useNumberNamespace</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Use </span><span style="color: Tomato;"><strong>Number.parseFloat</strong></span><span style="color: Tomato;"> instead of the equivalent global.</span>
   
@@ -68,11 +68,11 @@ parseFloat("1.1"); // true
   
 </code></pre>
 
-```jsx
+```js
 NaN; // true
 ```
 
-<pre class="language-text"><code class="language-text">style/useNumberNamespace.js:1:1 <a href="https://biomejs.dev/linter/rules/use-number-namespace">lint/style/useNumberNamespace</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/use-number-namespace">lint/style/useNumberNamespace</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Use </span><span style="color: Tomato;"><strong>Number.NaN</strong></span><span style="color: Tomato;"> instead of the equivalent global.</span>
   
@@ -90,11 +90,11 @@ NaN; // true
   
 </code></pre>
 
-```jsx
+```js
 Infinity; // true
 ```
 
-<pre class="language-text"><code class="language-text">style/useNumberNamespace.js:1:1 <a href="https://biomejs.dev/linter/rules/use-number-namespace">lint/style/useNumberNamespace</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/use-number-namespace">lint/style/useNumberNamespace</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Use </span><span style="color: Tomato;"><strong>Number.Infinity</strong></span><span style="color: Tomato;"> instead of the equivalent global.</span>
   
@@ -112,11 +112,11 @@ Infinity; // true
   
 </code></pre>
 
-```jsx
+```js
 -Infinity; // true
 ```
 
-<pre class="language-text"><code class="language-text">style/useNumberNamespace.js:1:2 <a href="https://biomejs.dev/linter/rules/use-number-namespace">lint/style/useNumberNamespace</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:2 <a href="https://biomejs.dev/linter/rules/use-number-namespace">lint/style/useNumberNamespace</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Use </span><span style="color: Tomato;"><strong>Number.Infinity</strong></span><span style="color: Tomato;"> instead of the equivalent global.</span>
   
@@ -136,23 +136,23 @@ Infinity; // true
 
 ### Valid
 
-```jsx
+```js
 Number.parseInt("1"); // false
 ```
 
-```jsx
+```js
 Number.parseFloat("1.1"); // false
 ```
 
-```jsx
+```js
 Number.NaN; // false
 ```
 
-```jsx
+```js
 Number.POSITIVE_INFINITY; // false
 ```
 
-```jsx
+```js
 Number.NEGATIVE_INFINITY; // false
 ```
 

@@ -25,7 +25,7 @@ Autofocusing elements can cause usability issues for sighted and non-sighted use
 <input autoFocus />
 ```
 
-<pre class="language-text"><code class="language-text">a11y/noAutofocus.js:1:8 <a href="https://biomejs.dev/linter/rules/no-autofocus">lint/a11y/noAutofocus</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.jsx:1:8 <a href="https://biomejs.dev/linter/rules/no-autofocus">lint/a11y/noAutofocus</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Avoid the </span><span style="color: Tomato;"><strong>autoFocus</strong></span><span style="color: Tomato;"> attribute.</span>
   
@@ -43,7 +43,7 @@ Autofocusing elements can cause usability issues for sighted and non-sighted use
 <input autoFocus="true" />
 ```
 
-<pre class="language-text"><code class="language-text">a11y/noAutofocus.js:1:8 <a href="https://biomejs.dev/linter/rules/no-autofocus">lint/a11y/noAutofocus</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.jsx:1:8 <a href="https://biomejs.dev/linter/rules/no-autofocus">lint/a11y/noAutofocus</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Avoid the </span><span style="color: Tomato;"><strong>autoFocus</strong></span><span style="color: Tomato;"> attribute.</span>
   
@@ -61,7 +61,7 @@ Autofocusing elements can cause usability issues for sighted and non-sighted use
 <input autoFocus={"false"} />
 ```
 
-<pre class="language-text"><code class="language-text">a11y/noAutofocus.js:1:8 <a href="https://biomejs.dev/linter/rules/no-autofocus">lint/a11y/noAutofocus</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.jsx:1:8 <a href="https://biomejs.dev/linter/rules/no-autofocus">lint/a11y/noAutofocus</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Avoid the </span><span style="color: Tomato;"><strong>autoFocus</strong></span><span style="color: Tomato;"> attribute.</span>
   
@@ -79,7 +79,7 @@ Autofocusing elements can cause usability issues for sighted and non-sighted use
 <input autoFocus={undefined} />
 ```
 
-<pre class="language-text"><code class="language-text">a11y/noAutofocus.js:1:8 <a href="https://biomejs.dev/linter/rules/no-autofocus">lint/a11y/noAutofocus</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.jsx:1:8 <a href="https://biomejs.dev/linter/rules/no-autofocus">lint/a11y/noAutofocus</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Avoid the </span><span style="color: Tomato;"><strong>autoFocus</strong></span><span style="color: Tomato;"> attribute.</span>
   

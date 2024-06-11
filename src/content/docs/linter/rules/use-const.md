@@ -22,12 +22,12 @@ variables that are only assigned once can be declared as `const`.
 
 ### Invalid
 
-```jsx
+```js
 let a = 3;
 console.log(a);
 ```
 
-<pre class="language-text"><code class="language-text">style/useConst.js:1:1 <a href="https://biomejs.dev/linter/rules/use-const">lint/style/useConst</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/use-const">lint/style/useConst</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This </span><span style="color: Tomato;"><strong>let</strong></span><span style="color: Tomato;"> declares a variable that is only assigned once.</span>
   
@@ -52,14 +52,14 @@ console.log(a);
   
 </code></pre>
 
-```jsx
+```js
 // `a` is redefined (not reassigned) on each loop step.
 for (let a of [1, 2, 3]) {
     console.log(a);
 }
 ```
 
-<pre class="language-text"><code class="language-text">style/useConst.js:2:6 <a href="https://biomejs.dev/linter/rules/use-const">lint/style/useConst</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:6 <a href="https://biomejs.dev/linter/rules/use-const">lint/style/useConst</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This </span><span style="color: Tomato;"><strong>let</strong></span><span style="color: Tomato;"> declares a variable that is only assigned once.</span>
   
@@ -87,14 +87,14 @@ for (let a of [1, 2, 3]) {
   
 </code></pre>
 
-```jsx
+```js
 // `a` is redefined (not reassigned) on each loop step.
 for (let a in [1, 2, 3]) {
     console.log(a);
 }
 ```
 
-<pre class="language-text"><code class="language-text">style/useConst.js:2:6 <a href="https://biomejs.dev/linter/rules/use-const">lint/style/useConst</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:6 <a href="https://biomejs.dev/linter/rules/use-const">lint/style/useConst</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This </span><span style="color: Tomato;"><strong>let</strong></span><span style="color: Tomato;"> declares a variable that is only assigned once.</span>
   
@@ -122,12 +122,12 @@ for (let a in [1, 2, 3]) {
   
 </code></pre>
 
-```jsx
+```js
 let a;
 a = 0;
 ```
 
-<pre class="language-text"><code class="language-text">style/useConst.js:1:1 <a href="https://biomejs.dev/linter/rules/use-const">lint/style/useConst</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/use-const">lint/style/useConst</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This </span><span style="color: Tomato;"><strong>let</strong></span><span style="color: Tomato;"> declares a variable that is only assigned once.</span>
   
@@ -145,7 +145,7 @@ a = 0;
   
 </code></pre>
 
-```jsx
+```js
 let a = 3;
 {
     let a = 4;
@@ -153,7 +153,7 @@ let a = 3;
 }
 ```
 
-<pre class="language-text"><code class="language-text">style/useConst.js:1:1 <a href="https://biomejs.dev/linter/rules/use-const">lint/style/useConst</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/use-const">lint/style/useConst</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This </span><span style="color: Tomato;"><strong>let</strong></span><span style="color: Tomato;"> declares a variable that is only assigned once.</span>
   
@@ -180,18 +180,18 @@ let a = 3;
 
 ### Valid
 
-```jsx
+```js
 let a = 2;
 a = 3;
 console.log(a);
 ```
 
-```jsx
+```js
 let a = 1, b = 2;
 b = 3;
 ```
 
-```jsx
+```js
 let a;
 a; // the variable is read before its assignement
 a = 0;

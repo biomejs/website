@@ -21,11 +21,11 @@ These syntaxes interpret the object's then method as intended for the resolution
 
 ### Invalid
 
-```jsx
+```js
 export {then};
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noThenProperty.js:1:9 <a href="https://biomejs.dev/linter/rules/no-then-property">lint/suspicious/noThenProperty</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:9 <a href="https://biomejs.dev/linter/rules/no-then-property">lint/suspicious/noThenProperty</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Do not export </span><span style="color: Tomato;"><strong>then</strong></span><span style="color: Tomato;">.</span>
   
@@ -35,13 +35,13 @@ export {then};
   
 </code></pre>
 
-```jsx
+```js
 const foo = {
     then() {}
 };
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noThenProperty.js:2:5 <a href="https://biomejs.dev/linter/rules/no-then-property">lint/suspicious/noThenProperty</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:5 <a href="https://biomejs.dev/linter/rules/no-then-property">lint/suspicious/noThenProperty</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Do not add </span><span style="color: Tomato;"><strong>then</strong></span><span style="color: Tomato;"> to an object.</span>
   
@@ -53,13 +53,13 @@ const foo = {
   
 </code></pre>
 
-```jsx
+```js
 const foo = {
     get then() {}
 };
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noThenProperty.js:2:9 <a href="https://biomejs.dev/linter/rules/no-then-property">lint/suspicious/noThenProperty</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:9 <a href="https://biomejs.dev/linter/rules/no-then-property">lint/suspicious/noThenProperty</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Do not add </span><span style="color: Tomato;"><strong>then</strong></span><span style="color: Tomato;"> to an object.</span>
   
@@ -71,13 +71,13 @@ const foo = {
   
 </code></pre>
 
-```jsx
+```js
 const foo = {
    get then() {}
 };
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noThenProperty.js:2:8 <a href="https://biomejs.dev/linter/rules/no-then-property">lint/suspicious/noThenProperty</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:8 <a href="https://biomejs.dev/linter/rules/no-then-property">lint/suspicious/noThenProperty</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Do not add </span><span style="color: Tomato;"><strong>then</strong></span><span style="color: Tomato;"> to an object.</span>
   
@@ -89,11 +89,11 @@ const foo = {
   
 </code></pre>
 
-```jsx
+```js
 foo.then = function () {}
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noThenProperty.js:1:1 <a href="https://biomejs.dev/linter/rules/no-then-property">lint/suspicious/noThenProperty</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-then-property">lint/suspicious/noThenProperty</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Do not add </span><span style="color: Tomato;"><strong>then</strong></span><span style="color: Tomato;"> to an object.</span>
   
@@ -103,13 +103,13 @@ foo.then = function () {}
   
 </code></pre>
 
-```jsx
+```js
 class Foo {
     then() {}
 }
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noThenProperty.js:2:5 <a href="https://biomejs.dev/linter/rules/no-then-property">lint/suspicious/noThenProperty</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:5 <a href="https://biomejs.dev/linter/rules/no-then-property">lint/suspicious/noThenProperty</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Do not add </span><span style="color: Tomato;"><strong>then</strong></span><span style="color: Tomato;"> to a class.</span>
   
@@ -121,13 +121,13 @@ class Foo {
   
 </code></pre>
 
-```jsx
+```js
 class Foo {
     static then() {}
 }
 ```
 
-<pre class="language-text"><code class="language-text">suspicious/noThenProperty.js:2:12 <a href="https://biomejs.dev/linter/rules/no-then-property">lint/suspicious/noThenProperty</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:12 <a href="https://biomejs.dev/linter/rules/no-then-property">lint/suspicious/noThenProperty</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Do not add </span><span style="color: Tomato;"><strong>then</strong></span><span style="color: Tomato;"> to a class.</span>
   
@@ -141,23 +141,23 @@ class Foo {
 
 ### Valid
 
-```jsx
+```js
 export {then as success};
 ```
 
-```jsx
+```js
 const foo = {
     success() {}
 };
 ```
 
-```jsx
+```js
 class Foo {
     success() {}
 }
 ```
 
-```jsx
+```js
 const foo = bar.then;
 ```
 

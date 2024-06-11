@@ -27,11 +27,11 @@ Please be also aware that this differs from Eslint's behaviour.
 
 ### Invalid
 
-```jsx
+```js
 var a = undefined;
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noUselessUndefinedInitialization.js:1:7 <a href="https://biomejs.dev/linter/rules/no-useless-undefined-initialization">lint/nursery/noUselessUndefinedInitialization</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:7 <a href="https://biomejs.dev/linter/rules/no-useless-undefined-initialization">lint/nursery/noUselessUndefinedInitialization</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">It's not necessary to initialize </span><span style="color: Orange;"><strong>a</strong></span><span style="color: Orange;"> to undefined.</span>
   
@@ -47,11 +47,11 @@ var a = undefined;
 <strong>  </strong><strong>    │ </strong>      <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span> 
 </code></pre>
 
-```jsx
+```js
 let b = undefined, c = 1, d = 2;
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noUselessUndefinedInitialization.js:1:7 <a href="https://biomejs.dev/linter/rules/no-useless-undefined-initialization">lint/nursery/noUselessUndefinedInitialization</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:7 <a href="https://biomejs.dev/linter/rules/no-useless-undefined-initialization">lint/nursery/noUselessUndefinedInitialization</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">It's not necessary to initialize </span><span style="color: Orange;"><strong>b</strong></span><span style="color: Orange;"> to undefined.</span>
   
@@ -67,13 +67,13 @@ let b = undefined, c = 1, d = 2;
 <strong>  </strong><strong>    │ </strong>      <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span>               
 </code></pre>
 
-```jsx
+```js
 for (let i = 0; i < 100; i++) {
 	let i = undefined;
 }
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noUselessUndefinedInitialization.js:2:8 <a href="https://biomejs.dev/linter/rules/no-useless-undefined-initialization">lint/nursery/noUselessUndefinedInitialization</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:2:8 <a href="https://biomejs.dev/linter/rules/no-useless-undefined-initialization">lint/nursery/noUselessUndefinedInitialization</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">It's not necessary to initialize </span><span style="color: Orange;"><strong>i</strong></span><span style="color: Orange;"> to undefined.</span>
   
@@ -91,11 +91,11 @@ for (let i = 0; i < 100; i++) {
 <strong>  </strong><strong>    │ </strong>        <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span> 
 </code></pre>
 
-```jsx
+```js
 let f = /**/undefined/**/ ;
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noUselessUndefinedInitialization.js:1:7 <a href="https://biomejs.dev/linter/rules/no-useless-undefined-initialization">lint/nursery/noUselessUndefinedInitialization</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.js:1:7 <a href="https://biomejs.dev/linter/rules/no-useless-undefined-initialization">lint/nursery/noUselessUndefinedInitialization</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">It's not necessary to initialize </span><span style="color: Orange;"><strong>f</strong></span><span style="color: Orange;"> to undefined.</span>
   
@@ -115,11 +115,11 @@ let f = /**/undefined/**/ ;
 
 ### Valid
 
-```jsx
+```js
 var a = 1;
 ```
 
-```jsx
+```js
 class Foo {
 	bar = undefined;
 }

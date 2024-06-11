@@ -21,7 +21,7 @@ Disallow duplicate selectors within keyframe blocks.
 @keyframes foo { from {} from {} }
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noDuplicateSelectorsKeyframeBlock.js:1:26 <a href="https://biomejs.dev/linter/rules/no-duplicate-selectors-keyframe-block">lint/nursery/noDuplicateSelectorsKeyframeBlock</a> ━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.css:1:26 <a href="https://biomejs.dev/linter/rules/no-duplicate-selectors-keyframe-block">lint/nursery/noDuplicateSelectorsKeyframeBlock</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The duplicate keyframe selector is overwritten by later one.</span>
   
@@ -37,7 +37,7 @@ Disallow duplicate selectors within keyframe blocks.
 @keyframes foo { from {} FROM {} }
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noDuplicateSelectorsKeyframeBlock.js:1:26 <a href="https://biomejs.dev/linter/rules/no-duplicate-selectors-keyframe-block">lint/nursery/noDuplicateSelectorsKeyframeBlock</a> ━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.css:1:26 <a href="https://biomejs.dev/linter/rules/no-duplicate-selectors-keyframe-block">lint/nursery/noDuplicateSelectorsKeyframeBlock</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The duplicate keyframe selector is overwritten by later one.</span>
   
@@ -53,7 +53,7 @@ Disallow duplicate selectors within keyframe blocks.
 @keyframes foo { 0% {} 0% {} }
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noDuplicateSelectorsKeyframeBlock.js:1:24 <a href="https://biomejs.dev/linter/rules/no-duplicate-selectors-keyframe-block">lint/nursery/noDuplicateSelectorsKeyframeBlock</a> ━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.css:1:24 <a href="https://biomejs.dev/linter/rules/no-duplicate-selectors-keyframe-block">lint/nursery/noDuplicateSelectorsKeyframeBlock</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The duplicate keyframe selector is overwritten by later one.</span>
   

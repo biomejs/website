@@ -28,7 +28,7 @@ a {
 }
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noUnknownProperty.js:2:3 <a href="https://biomejs.dev/linter/rules/no-unknown-property">lint/nursery/noUnknownProperty</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.css:2:3 <a href="https://biomejs.dev/linter/rules/no-unknown-property">lint/nursery/noUnknownProperty</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Unknown property is not allowed.</span>
   
@@ -50,7 +50,7 @@ a {
 }
 ```
 
-<pre class="language-text"><code class="language-text">nursery/noUnknownProperty.js:2:3 <a href="https://biomejs.dev/linter/rules/no-unknown-property">lint/nursery/noUnknownProperty</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.css:2:3 <a href="https://biomejs.dev/linter/rules/no-unknown-property">lint/nursery/noUnknownProperty</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Unknown property is not allowed.</span>
   
