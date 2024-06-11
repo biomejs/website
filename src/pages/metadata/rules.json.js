@@ -1124,6 +1124,20 @@ export function GET() {
             ],
             "docs": " Disallow specified modules when loaded by import or require.\n\n ## Options\n\n ```json\n {\n     \"noRestrictedImports\": {\n         \"options\": {\n             \"paths\": {\n                 \"lodash\": \"Using lodash is not encouraged\",\n                 \"underscore\": \"Using underscore is not encouraged\"\n             }\n         }\n     }\n }\n ```\n"
           },
+          "noSubstr": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noSubstr",
+            "link": "https://biomejs.dev/linter/rules/no-substr",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "eslintUnicorn": "prefer-string-slice"
+              }
+            ],
+            "docs": " Enforce the use of `String.slice()` over `String.substr()` and `String.substring()`.\n\n `String.slice()` is preferred over `String.substr()` and `String.substring()` because it is a more popular option with clearer behavior,\n  and it has a consistent counterpart in arrays.\n\n Note that `String.substr`, `String.substring` and `String.slice` are not identical when arguments are passed.\n For detailed differences, refer to the MDN documentation:\n - [The difference between substring() and substr()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/substring#the_difference_between_substring_and_substr)\n - [Differences between substring() and slice()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/substring#differences_between_substring_and_slice)\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n foo.substr();\n ```\n\n ```js,expect_diagnostic\n foo.substring();\n ```\n\n ### Valid\n\n ```js\n foo.slice(beginIndex, endIndex);\n ```\n\n"
+          },
           "noUndeclaredDependencies": {
             "deprecated": false,
             "version": "1.6.0",
@@ -3526,7 +3540,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 250
+    "numberOrRules": 251
   },
   "syntax": {
     "languages": {
