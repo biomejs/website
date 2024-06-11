@@ -21,7 +21,10 @@ enforces the use of file extensions for relative imports to make the code more c
 Tooling also benefits from explicit file extensions, because they do not need to guess which
 file to resolve.
 
-Rule checks static imports and dynamic imports calls such as `import()` and `require()`.
+The rule checks static imports and dynamic imports calls such as `import()` and `require()`.
+
+To ensure that Visual Studio Code adds the file extension when it automatically imports a variable,
+you may set [`javascript.preferences.importModuleSpecifierEnding` and `typescript.preferences.importModuleSpecifierEnding`](https://code.visualstudio.com/docs/getstarted/settings) to the desired file extension.
 
 ## Examples
 

@@ -15,6 +15,9 @@ Indirect dependencies will trigger the rule because they aren't declared in the 
 
 The rule ignores imports using a protocol such as `node:`, `bun:`, `jsr:`, `https:`.
 
+To ensure that Visual Studio Code uses relative imports when it automatically imports a variable,
+you may set [`javascript.preferences.importModuleSpecifier` and `typescript.preferences.importModuleSpecifier`](https://code.visualstudio.com/docs/getstarted/settings) to `relative`.
+
 ## Examples
 
 ### Invalid
