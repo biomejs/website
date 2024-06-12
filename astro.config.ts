@@ -96,13 +96,27 @@ export default defineConfig({
 							},
 						},
 						{
-							label: "Integrate Biome in your editor",
-							link: "/guides/integrate-in-editor",
+							label: "Biome in your IDE",
 							translations: {
 								ja: "Biome をあなたのエディタに導入する",
 								"zh-CN": "编辑器中使用 Biome",
-								"pt-BR": "Integrando o Biome no seu editor",
+								"pt-BR": "Biome no seu editor",
 							},
+							items: [
+								{
+									label: "First-party plugins",
+									link: "/guides/editors/first-party-plugins",
+									badge: "updated",
+								},
+								{
+									label: "Third-party plugins",
+									link: "/guides/editors/third-party-plugins",
+								},
+								{
+									label: "Integrate Biome in an editor plugin",
+									link: "/guides/editors/create-a-plugin",
+								},
+							],
 						},
 						{
 							label: "Integrate Biome with your VCS",
@@ -198,7 +212,6 @@ export default defineConfig({
 								{
 									label: "Introduction",
 									link: "/linter",
-									badge: "updated",
 									translations: {
 										ja: "イントロダクション",
 										"zh-CN": "介绍",
