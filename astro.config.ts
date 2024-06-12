@@ -106,17 +106,17 @@ export default defineConfig({
 								{
 									label: "First-party plugins",
 									link: "/guides/editors/first-party-plugins",
-									badge: "updated"
+									badge: "updated",
 								},
 								{
 									label: "Third-party plugins",
-									link: "/guides/editors/third-party-plugins"
+									link: "/guides/editors/third-party-plugins",
 								},
 								{
 									label: "Integrate Biome in an editor plugin",
 									link: "/guides/editors/create-a-plugin",
 								},
-							]
+							],
 						},
 						{
 							label: "Integrate Biome with your VCS",
