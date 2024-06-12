@@ -4,8 +4,9 @@ use anyhow::Context;
 use anyhow::{bail, Result};
 use biome_analyze::options::JsxRuntime;
 use biome_analyze::{
-    AnalysisFilter, AnalyzerOptions, ControlFlow, FixKind, GroupCategory, Queryable,
-    RegistryVisitor, Rule, RuleCategory, RuleFilter, RuleGroup, RuleMetadata, RuleSourceKind,
+    AnalysisFilter, AnalyzerConfiguration, AnalyzerOptions, ControlFlow, FixKind, GroupCategory,
+    Queryable, RegistryVisitor, Rule, RuleCategory, RuleFilter, RuleGroup, RuleMetadata,
+    RuleSourceKind,
 };
 use biome_console::fmt::Termcolor;
 use biome_console::{
@@ -94,7 +95,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
     #[derive(Default)]
     struct LintRulesVisitor {
         groups: BTreeMap<&'static str, BTreeMap<&'static str, RuleMetadata>>,
-        number_or_rules: u16,
+        number_of_rules: u16,
     }
 
     impl RegistryVisitor<JsLanguage> for LintRulesVisitor {
@@ -110,7 +111,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
             R::Query: Queryable<Language = JsLanguage>,
             <R::Query as Queryable>::Output: Clone,
         {
-            self.number_or_rules += 1;
+            self.number_of_rules += 1;
             self.groups
                 .entry(<R::Group as RuleGroup>::NAME)
                 .or_default()
@@ -131,7 +132,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
             R::Query: Queryable<Language = JsonLanguage>,
             <R::Query as Queryable>::Output: Clone,
         {
-            self.number_or_rules += 1;
+            self.number_of_rules += 1;
             self.groups
                 .entry(<R::Group as RuleGroup>::NAME)
                 .or_default()
@@ -152,7 +153,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
             R::Query: Queryable<Language = CssLanguage>,
             <R::Query as Queryable>::Output: Clone,
         {
-            self.number_or_rules += 1;
+            self.number_of_rules += 1;
             self.groups
                 .entry(<R::Group as RuleGroup>::NAME)
                 .or_default()
@@ -169,7 +170,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 
     let LintRulesVisitor {
         groups,
-        number_or_rules,
+        number_of_rules,
     } = visitor;
 
     let nursery_rules = groups
@@ -221,7 +222,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
     );
 
     let number_of_rules_buffer = format!(
-        "<!-- this file is auto generated, use `cargo lintdoc` to update it -->\n{number_or_rules}"
+        "<!-- this file is auto generated, use `cargo lintdoc` to update it -->\n{number_of_rules}"
     );
     write!(
         index,
@@ -786,9 +787,13 @@ fn print_diagnostics(
                     ..AnalysisFilter::default()
                 };
 
-                let mut options = AnalyzerOptions::default();
-                options.configuration.jsx_runtime = Some(JsxRuntime::default());
-                options.file_path = PathBuf::from(&file_path);
+                let options = AnalyzerOptions {
+                    configuration: AnalyzerConfiguration {
+                        jsx_runtime: Some(JsxRuntime::default()),
+                        ..Default::default()
+                    },
+                    file_path: PathBuf::from(&file_path),
+                };
                 biome_js_analyze::analyze(&root, filter, &options, file_source, None, |signal| {
                     if let Some(mut diag) = signal.diagnostic() {
                         let category = diag.category().expect("linter diagnostic has no code");
@@ -836,8 +841,10 @@ fn print_diagnostics(
                     ..AnalysisFilter::default()
                 };
 
-                let mut options = AnalyzerOptions::default();
-                options.file_path = PathBuf::from(&file_path);
+                let options = AnalyzerOptions {
+                    file_path: PathBuf::from(&file_path),
+                    ..Default::default()
+                };
                 biome_json_analyze::analyze(&root, filter, &options, |signal| {
                     if let Some(mut diag) = signal.diagnostic() {
                         let category = diag.category().expect("linter diagnostic has no code");
@@ -885,8 +892,10 @@ fn print_diagnostics(
                     ..AnalysisFilter::default()
                 };
 
-                let mut options = AnalyzerOptions::default();
-                options.file_path = PathBuf::from(&file_path);
+                let options = AnalyzerOptions {
+                    file_path: PathBuf::from(&file_path),
+                    ..Default::default()
+                };
                 biome_css_analyze::analyze(&root, filter, &options, |signal| {
                     if let Some(mut diag) = signal.diagnostic() {
                         let category = diag.category().expect("linter diagnostic has no code");
