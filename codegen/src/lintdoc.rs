@@ -788,6 +788,7 @@ fn print_diagnostics(
 
                 let mut options = AnalyzerOptions::default();
                 options.configuration.jsx_runtime = Some(JsxRuntime::default());
+                options.file_path = PathBuf::from(&file_path);
                 biome_js_analyze::analyze(&root, filter, &options, file_source, None, |signal| {
                     if let Some(mut diag) = signal.diagnostic() {
                         let category = diag.category().expect("linter diagnostic has no code");
@@ -835,7 +836,8 @@ fn print_diagnostics(
                     ..AnalysisFilter::default()
                 };
 
-                let options = AnalyzerOptions::default();
+                let mut options = AnalyzerOptions::default();
+                options.file_path = PathBuf::from(&file_path);
                 biome_json_analyze::analyze(&root, filter, &options, |signal| {
                     if let Some(mut diag) = signal.diagnostic() {
                         let category = diag.category().expect("linter diagnostic has no code");
@@ -883,7 +885,8 @@ fn print_diagnostics(
                     ..AnalysisFilter::default()
                 };
 
-                let options = AnalyzerOptions::default();
+                let mut options = AnalyzerOptions::default();
+                options.file_path = PathBuf::from(&file_path);
                 biome_css_analyze::analyze(&root, filter, &options, |signal| {
                     if let Some(mut diag) = signal.diagnostic() {
                         let category = diag.category().expect("linter diagnostic has no code");
