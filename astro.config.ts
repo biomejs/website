@@ -293,6 +293,10 @@ export default defineConfig({
 							label: "Renovate",
 							link: "/recipes/renovate",
 						},
+						{
+							label: "Social Badges",
+							link: "/recipes/badges",
+						},
 					],
 				},
 				{
