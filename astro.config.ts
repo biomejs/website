@@ -8,6 +8,7 @@ import { rehypeAutolink } from "./plugins/rehype-autolink";
 
 import { version as biomeVersion } from "./node_modules/@biomejs/wasm-web/package.json";
 import { version as prettierVersion } from "./node_modules/prettier/package.json";
+import { bundledLanguages } from "./node_modules/shiki";
 
 const site = "https://biomejs.dev";
 // https://astro.build/config
@@ -410,6 +411,15 @@ export default defineConfig({
 	markdown: {
 		syntaxHighlight: "prism",
 		rehypePlugins: [rehypeSlug, ...rehypeAutolink()],
+		shikiConfig: {
+			langs: [
+				{
+					...(await bundledLanguages.javascript()).default[0],
+					scopeName: "source.cjs",
+					aliases: ["cjs"],
+				},
+			],
+		},
 	},
 
 	adapter: netlify({
