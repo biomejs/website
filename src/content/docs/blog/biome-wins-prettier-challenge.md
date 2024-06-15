@@ -1,16 +1,12 @@
 ---
 title: Biome formatter wins the Prettier challenge
-description: Biome formatter now 95% compatible with Prettier
-summary: Biome formatter now 95% compatible with Prettier
+excerpt: Biome formatter now 95% compatible with Prettier
 authors:
   - ema
   - team
-pubDate: 2023-11-27
-coverImage:
-  lightSrc: "@/assets/blog/prettier-challenge.png"
-  darkSrc: "@/assets/blog/prettier-challenge.png"
-  alt: The Prettier challenge banner, with the Biome logo over it
-socialImage: "@/assets/blog/prettier-challenge.png"
+date: 2023-11-27
+tags:
+  - Announcements
 ---
 
 With the release of Biome **`v1.4.0`**, we claim the bounty of the [Prettier challenge](https://console.algora.io/challenges/prettier)!

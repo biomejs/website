@@ -1,16 +1,12 @@
 ---
 title: Roadmap 2024
-description: Roadmap 2024 and new logo
-summary: Roadmap 2024, new logo and homepage
+excerpt: Roadmap 2024, new logo and homepage
 authors:
   - ema
   - team
-pubDate: 2024-01-08
-coverImage:
-  lightSrc: "@/assets/blog/roadmap-2024/banner-light.png"
-  darkSrc: "@/assets/blog/roadmap-2024/banner-dark.png"
-  alt: The Prettier challenge banner, with the Biome logo over it
-socialImage: "@/assets/social-logo.png"
+date: 2024-01-08
+tags:
+  - Announcements
 ---
 
 We are thrilled to share what the Core Contributors and Maintainers would like to focus on in 2024.

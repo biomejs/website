@@ -5,7 +5,7 @@ import { defineConfig } from "astro/config";
 import rehypeSlug from "rehype-slug";
 import { searchForWorkspaceRoot } from "vite";
 import { rehypeAutolink } from "./plugins/rehype-autolink";
-
+import starlightBlog from 'starlight-blog'
 import { version as biomeVersion } from "./node_modules/@biomejs/wasm-web/package.json";
 import { version as prettierVersion } from "./node_modules/prettier/package.json";
 import { bundledLanguages } from "./node_modules/shiki";
@@ -21,6 +21,29 @@ export default defineConfig({
 	integrations: [
 		react(),
 		starlight({
+			plugins: [starlightBlog({
+				prefix: "blog",
+				authors: {
+					ema: {
+						"name": "Emanuele Stoppa",
+						"picture": "https://avatars.githubusercontent.com/u/602478?v=4",
+						"url": "https://twitter.com/ematipico"
+					},
+					conaclos: {
+						"name": "Victorien Elvinger",
+						"picture": "https://avatars.githubusercontent.com/u/2358560?s=96&v=4",
+						"url": "https://twitter.com/Conaclos"
+					},
+					core: {
+						"name": "Biome Core Team",
+						"picture": "/img/logo-avatar.png"
+					},
+					team: {
+						"name": "Biome Core Team, Biome Maintainers",
+						"picture": "/img/logo-avatar.png"
+					}
+				}
+			})],
 			title: "Biome",
 			defaultLocale: "root",
 			locales: {
@@ -42,20 +65,6 @@ export default defineConfig({
 				},
 			},
 			sidebar: [
-				{
-					label: "Blog",
-					link: "../blog",
-					translations: { ja: "ブログ", "zh-CN": "博客" },
-				},
-				{
-					label: "Playground",
-					link: "../playground",
-					translations: {
-						ja: "プレイグラウンド",
-						"zh-CN": "演练场",
-						"pt-BR": "Ambiente de testes",
-					},
-				},
 				{
 					label: "Guides",
 					translations: { ja: "ガイド", "zh-CN": "指南", "pt-BR": "Guias" },
@@ -397,7 +406,7 @@ export default defineConfig({
 			},
 			components: {
 				SiteTitle: "./src/components/starlight/SiteTitle.astro",
-				Sidebar: "./src/components/starlight/Sidebar.astro",
+				// Sidebar: "./src/components/starlight/Sidebar.astro",
 				Hero: "./src/components/starlight/Hero.astro",
 				Head: "./src/components/starlight/Head.astro",
 			},
