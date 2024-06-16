@@ -107,9 +107,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 
         fn record_rule<R>(&mut self)
         where
-            R: Rule + 'static,
-            R::Query: Queryable<Language = JsLanguage>,
-            <R::Query as Queryable>::Output: Clone,
+            R: Rule<Query: Queryable<Language = JsLanguage, Output: Clone>> + 'static,
         {
             self.number_of_rules += 1;
             self.groups
@@ -128,9 +126,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 
         fn record_rule<R>(&mut self)
         where
-            R: Rule + 'static,
-            R::Query: Queryable<Language = JsonLanguage>,
-            <R::Query as Queryable>::Output: Clone,
+            R: Rule<Query: Queryable<Language = JsonLanguage, Output: Clone>> + 'static,
         {
             self.number_of_rules += 1;
             self.groups
@@ -149,9 +145,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 
         fn record_rule<R>(&mut self)
         where
-            R: Rule + 'static,
-            R::Query: Queryable<Language = CssLanguage>,
-            <R::Query as Queryable>::Output: Clone,
+            R: Rule<Query: Queryable<Language = CssLanguage, Output: Clone>> + 'static,
         {
             self.number_of_rules += 1;
             self.groups

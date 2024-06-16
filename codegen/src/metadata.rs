@@ -117,9 +117,7 @@ impl RegistryVisitor<JsLanguage> for Metadata {
 
     fn record_rule<R>(&mut self)
     where
-        R: Rule + 'static,
-        R::Query: Queryable<Language = JsLanguage>,
-        <R::Query as Queryable>::Output: Clone,
+        R: Rule<Query: Queryable<Language = JsLanguage, Output: Clone>> + 'static,
     {
         match self.current_category.expect("Category to exists.") {
             RuleCategory::Syntax => {
@@ -173,9 +171,7 @@ impl RegistryVisitor<JsonLanguage> for Metadata {
 
     fn record_rule<R>(&mut self)
     where
-        R: Rule + 'static,
-        R::Query: Queryable<Language = JsonLanguage>,
-        <R::Query as Queryable>::Output: Clone,
+        R: Rule<Query: Queryable<Language = JsonLanguage, Output: Clone>> + 'static,
     {
         match self.current_category.expect("Category to exists.") {
             RuleCategory::Syntax => {
@@ -229,9 +225,7 @@ impl RegistryVisitor<CssLanguage> for Metadata {
 
     fn record_rule<R>(&mut self)
     where
-        R: Rule + 'static,
-        R::Query: Queryable<Language = CssLanguage>,
-        <R::Query as Queryable>::Output: Clone,
+        R: Rule<Query: Queryable<Language = CssLanguage, Output: Clone>> + 'static,
     {
         match self.current_category.expect("Category to exists.") {
             RuleCategory::Syntax => {
