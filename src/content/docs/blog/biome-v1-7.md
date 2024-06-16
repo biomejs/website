@@ -1,18 +1,14 @@
 ---
 title: Biome v1.7
-description: Migrate from Prettier and ESLint with one command!
-summary: |
+excerpt: |
   This new version provides an easy path to migrate from ESLint and Prettier.
   It also introduces machine-readable reports for the formatter and the linter, new linter rules, and many fixes.
 authors:
   - conaclos
   - team
-pubDate: 2024-04-15
-coverImage:
-  lightSrc: "@/assets/blog/roadmap-2024/banner-light.png"
-  darkSrc: "@/assets/blog/roadmap-2024/banner-dark.png"
-  alt: The brand of the project. It says "Biome, toolchain of the web"
-socialImage: "@/assets/social-logo.png"
+date: 2024-04-15
+tags:
+  - Releases
 ---
 
 Today we’re excited to announce the release of Biome v1.7!

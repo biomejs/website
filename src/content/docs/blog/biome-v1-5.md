@@ -1,19 +1,15 @@
 ---
 title: Biome v1.5
-description: 97% compatibility rate with Prettier, over 190 lint rules
-summary: |
+excerpt: |
   This version has few features around the CLI and many fixes in our formatter.
   The TypeScript, JSX and JavaScript formatter has surpassed the 97% compatibility rate with Prettier.
   Biome now provides over 190 lint rules.
 authors:
   - ema
   - team
-pubDate: 2024-01-08
-coverImage:
-  lightSrc: "@/assets/blog/roadmap-2024/banner-light.png"
-  darkSrc: "@/assets/blog/roadmap-2024/banner-dark.png"
-  alt: The brand of the project. It says "Biome, toolchain of the web"
-socialImage: "@/assets/social-logo.png"
+date: 2024-01-08
+tags:
+  - Releases
 ---
 
 Along with the [Roadmap for 2024](/blog/roadmap-2024), the [new logo and homepage](/blog/roadmap-2024#new-logo-and-homepage), we also published a new version. This version has few features around the CLI and **many** fixes in our formatter. Our TypeScript, JSX and JavaScript formatting has surpassed the **97% compatibility rate** with Prettier. Biome now provides **over 190 lint rules**.
@@ -61,7 +57,7 @@ biome format --changed --write
 
 For quite some time, users were confused by the difference between the commands `check` and `ci`because, until now, their behaviours have been very similar. From this version, the command `ci` can detect the GitHub CI environment and print annotation in the PRs.
 
-![Screenshot of a GitHub annotation printed by Biome](../../assets/blog/roadmap-2024/github-annotation.png)
+![Screenshot of a GitHub annotation printed by Biome](../../../assets/blog/roadmap-2024/github-annotation.png)
 
 It's possible that you would need to change your permissions of your workflow files in case you don't see the annotations:
 
