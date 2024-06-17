@@ -19,8 +19,8 @@ importers:
         version: 0.39.1
     devDependencies:
       '@astrojs/netlify':
-        specifier: 5.2.1
-        version: 5.2.1(astro@4.10.1(@types/node@20.14.2)(sass@1.77.5)(typescript@5.4.5))
+        specifier: 5.3.0
+        version: 5.3.0(astro@4.10.1(@types/node@20.14.2)(sass@1.77.5)(typescript@5.4.5))
       '@astrojs/prism':
         specifier: 3.1.0
         version: 3.1.0
@@ -173,8 +173,8 @@ packages:
     peerDependencies:
       astro: ^4.8.0
 
-  '@astrojs/netlify@5.2.1':
-    resolution: {integrity: sha512-R2aXCwNblh7VwC8lXxOStDebGSI6cpOk2s39sT5Oi8XED8NkNfoL7ERahP962jfJE8O4TU1h1hhfY7ZUNXijbA==}
+  '@astrojs/netlify@5.3.0':
+    resolution: {integrity: sha512-ynae62kF9Ak/MvTTZyfcgFd9LIycCLZ6s8H2wFY0QWIGqia1OST/DwvCpl7A9r/b/H7AnBSX7ZvcgN8wn/kfPg==}
     peerDependencies:
       astro: ^4.2.0
 
@@ -4023,7 +4023,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/netlify@5.2.1(astro@4.10.1(@types/node@20.14.2)(sass@1.77.5)(typescript@5.4.5))':
+  '@astrojs/netlify@5.3.0(astro@4.10.1(@types/node@20.14.2)(sass@1.77.5)(typescript@5.4.5))':
     dependencies:
       '@astrojs/underscore-redirects': 0.3.3
       '@netlify/functions': 2.6.0
