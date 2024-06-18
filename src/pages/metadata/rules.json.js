@@ -74,6 +74,20 @@ export function GET() {
             ],
             "docs": " Disallow invalid `!important` within keyframe declarations\n\n Using `!important` within keyframes declarations is completely ignored in some browsers.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n @keyframes foo {\n     from {\n       opacity: 0;\n     }\n     to {\n       opacity: 1 !important;\n     }\n }\n ```\n\n ### Valid\n\n ```css\n @keyframes foo {\n     from {\n       opacity: 0;\n     }\n     to {\n       opacity: 1;\n     }\n }\n ```\n\n"
           },
+          "noInvalidDirectionInLinearGradient": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noInvalidDirectionInLinearGradient",
+            "link": "https://biomejs.dev/linter/rules/no-invalid-direction-in-linear-gradient",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "stylelint": "function-linear-gradient-no-nonstandard-direction"
+              }
+            ],
+            "docs": " Disallow non-standard direction values for linear gradient functions.\n\n A valid and standard direction value is one of the following:\n - an angle\n - to plus a side-or-corner (`to top`, `to bottom`, `to left`, `to right`; `to top right`, `to right top`, `to bottom left`, etc.)\n\n A common mistake (matching outdated non-standard syntax) is to use just a side-or-corner without the preceding to.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n .foo { background: linear-gradient(top, #fff, #000); }\n ```\n\n ```css,expect_diagnostic\n .foo { background: linear-gradient(45, #fff, #000); }\n ```\n\n ### Valid\n\n ```css\n .foo { background: linear-gradient(to top, #fff, #000); }\n ```\n\n ```css\n .foo { background: linear-gradient(45deg, #fff, #000); }\n ```\n\n"
+          },
           "noInvalidPositionAtImportRule": {
             "deprecated": false,
             "version": "1.8.0",
@@ -3554,7 +3568,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 252
+    "numberOrRules": 253
   },
   "syntax": {
     "languages": {
