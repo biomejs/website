@@ -233,6 +233,10 @@ export function isCssFilename(filename: string): boolean {
 	return filename.endsWith(".css");
 }
 
+export function isGraphqlFilename(filename: string): boolean {
+	return filename.endsWith(".gql") || filename.endsWith(".graphql");
+}
+
 export function modifyFilename(
 	filename: string,
 	opts: ExtensionOptions,
@@ -279,7 +283,8 @@ export function isValidExtension(filename: string): boolean {
 		isTypeScriptFilename(filename) ||
 		isJsxFilename(filename) ||
 		isJsonFilename(filename) ||
-		isCssFilename(filename)
+		isCssFilename(filename) ||
+		isGraphqlFilename(filename)
 	);
 }
 

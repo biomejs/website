@@ -18,7 +18,7 @@ import type {
 import {
 	getCurrentCode,
 	getFileState,
-	isCssFilename,
+	isCssFilename, isGraphqlFilename,
 	isJsonFilename,
 	isJsxFilename,
 	isTypeScriptFilename,
@@ -27,6 +27,7 @@ import {
 import { css } from "@codemirror/lang-css";
 import { javascript } from "@codemirror/lang-javascript";
 import { json } from "@codemirror/lang-json";
+import { graphql } from 'cm6-graphql';
 import { EditorSelection } from "@codemirror/state";
 import type { ViewUpdate } from "@codemirror/view";
 import type { ReactCodeMirrorRef } from "@uiw/react-codemirror";
@@ -59,6 +60,9 @@ export default function Playground({
 		}
 		if (isCssFilename(playgroundState.currentFile)) {
 			return [css()];
+		}
+		if (isGraphqlFilename(playgroundState.currentFile)) {
+			return [graphql()]
 		}
 		return [
 			javascript({
