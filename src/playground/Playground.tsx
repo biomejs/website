@@ -18,7 +18,8 @@ import type {
 import {
 	getCurrentCode,
 	getFileState,
-	isCssFilename, isGraphqlFilename,
+	isCssFilename,
+	isGraphqlFilename,
 	isJsonFilename,
 	isJsxFilename,
 	isTypeScriptFilename,
@@ -27,10 +28,10 @@ import {
 import { css } from "@codemirror/lang-css";
 import { javascript } from "@codemirror/lang-javascript";
 import { json } from "@codemirror/lang-json";
-import { graphql } from 'cm6-graphql';
 import { EditorSelection } from "@codemirror/state";
 import type { ViewUpdate } from "@codemirror/view";
 import type { ReactCodeMirrorRef } from "@uiw/react-codemirror";
+import { graphql } from "cm6-graphql";
 import * as codeMirrorLangBiomeAst from "codemirror-lang-rome-ast";
 import {
 	createRef,
@@ -62,7 +63,7 @@ export default function Playground({
 			return [css()];
 		}
 		if (isGraphqlFilename(playgroundState.currentFile)) {
-			return [graphql()]
+			return [graphql()];
 		}
 		return [
 			javascript({
