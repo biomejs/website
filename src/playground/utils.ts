@@ -226,7 +226,7 @@ export function isModuleFilename(filename: string): boolean {
 }
 
 export function isJsonFilename(filename: string): boolean {
-	return filename.endsWith(".json");
+	return filename.endsWith(".json") || filename.endsWith(".jsonc");
 }
 
 export function isCssFilename(filename: string): boolean {
