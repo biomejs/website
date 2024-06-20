@@ -10,7 +10,11 @@ import {
 	QuoteStyle,
 	Semicolons,
 } from "@/playground/types";
-import { isCssFilename, isJsonFilename } from "@/playground/utils";
+import {
+	isCssFilename,
+	isGraphqlFilename,
+	isJsonFilename,
+} from "@/playground/utils";
 import init, {
 	DiagnosticPrinter,
 	type PartialConfiguration as Configuration,
@@ -220,7 +224,9 @@ self.addEventListener("message", async (e) => {
 			});
 
 			const controlFlowGraph = !(
-				isJsonFilename(filename) || isCssFilename(filename)
+				isJsonFilename(filename) ||
+				isCssFilename(filename) ||
+				isGraphqlFilename(filename)
 			)
 				? workspace.getControlFlowGraph({
 						path,
