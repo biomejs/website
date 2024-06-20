@@ -23,7 +23,7 @@
 		"@astrojs/rss": "4.0.6",
 		"@astrojs/starlight": "0.24.2",
 		"@biomejs/biome": "1.8.1",
-		"@biomejs/wasm-web": "https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@8e55bcf",
+		"@biomejs/wasm-web": "https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@54b4c9a",
 		"@codemirror/lang-css": "6.2.1",
 		"@codemirror/lang-javascript": "6.2.2",
 		"@codemirror/lang-json": "6.0.1",
