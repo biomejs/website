@@ -8,6 +8,9 @@ title: noUnknownProperty (since v1.8.0)
 This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::
 
+Sources: 
+- Same as: <a href="https://github.com/stylelint/stylelint/blob/main/lib/rules/property-no-unknown/README.md" target="_blank"><code>stylelint/property-no-unknown</code></a>
+
 Disallow unknown properties.
 
 This rule considers properties defined in the CSS Specifications and browser specific properties to be known.
@@ -30,7 +33,7 @@ a {
 
 <pre class="language-text"><code class="language-text">code-block.css:2:3 <a href="https://biomejs.dev/linter/rules/no-unknown-property">lint/nursery/noUnknownProperty</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-<strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Unknown property is not allowed.</span>
+<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unknown property is not allowed.</span>
   
     <strong>1 │ </strong>a {
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  colr: blue;
@@ -52,7 +55,7 @@ a {
 
 <pre class="language-text"><code class="language-text">code-block.css:2:3 <a href="https://biomejs.dev/linter/rules/no-unknown-property">lint/nursery/noUnknownProperty</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-<strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Unknown property is not allowed.</span>
+<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unknown property is not allowed.</span>
   
     <strong>1 │ </strong>a {
 <strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  my-property: 1;
