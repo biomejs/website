@@ -207,7 +207,7 @@ Some examples of shells scripts:
   #!/bin/sh
   set -eu
 
-  if ! git status --short | grep --quiet '^MM'; then
+  if git status --short | grep --quiet '^MM'; then
     printf '%s\n' "ERROR: Some staged files have unstaged changes" >&2
     exit 1;
   fi
