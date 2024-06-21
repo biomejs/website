@@ -195,6 +195,7 @@ export default function Playground({
 					children: (
 						<DiagnosticsListTab
 							editorRef={editorRef}
+							code={code}
 							diagnostics={biomeOutput.diagnostics.list}
 						/>
 					),
@@ -295,6 +296,7 @@ export default function Playground({
 						editorRef={editorRef}
 						console={biomeOutput.diagnostics.console}
 						diagnostics={biomeOutput.diagnostics.list}
+						code={code}
 					/>
 				</Resizable>
 			</div>

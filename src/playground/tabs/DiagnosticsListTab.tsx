@@ -1,6 +1,7 @@
 import errorIcon from "@/assets/svg/error.svg";
 import infoIcon from "@/assets/svg/info.svg";
 import warningIcon from "@/assets/svg/warning.svg";
+import { spanInBytesToSpanInCodeUnits } from "@/playground/utils";
 import type { Diagnostic } from "@biomejs/wasm-web";
 import { EditorSelection } from "@codemirror/state";
 import type { ReactCodeMirrorRef } from "@uiw/react-codemirror";
@@ -8,6 +9,7 @@ import type { ReactCodeMirrorRef } from "@uiw/react-codemirror";
 interface Props {
 	editorRef: React.RefObject<ReactCodeMirrorRef>;
 	diagnostics: Diagnostic[];
+	code: string;
 }
 
 function renderDiagnosticMessage(diagnostic: Diagnostic) {
@@ -57,27 +59,30 @@ function DiagnosticIcon({ severity }: { severity: Diagnostic["severity"] }) {
 function DiagnosticListItem({
 	editorRef,
 	diagnostic,
+	code,
 }: {
 	diagnostic: Diagnostic;
 	editorRef: React.RefObject<ReactCodeMirrorRef>;
+	code: string;
 }) {
-	const span = diagnostic.location?.span;
-
 	function onClick() {
 		const view = editorRef.current?.view;
 		if (view === undefined) {
 			return;
 		}
 
+		const span = diagnostic.location?.span;
 		if (span === undefined) {
 			return;
 		}
 
+		const [from, to] = spanInBytesToSpanInCodeUnits(span, code);
+
 		view.dispatch({
 			scrollIntoView: true,
 			selection: EditorSelection.create([
-				EditorSelection.range(span[0], span[1]),
-				EditorSelection.cursor(span[0]),
+				EditorSelection.range(from, to),
+				EditorSelection.cursor(from),
 			]),
 		});
 	}
@@ -90,7 +95,11 @@ function DiagnosticListItem({
 	);
 }
 
-export default function DiagnosticsListTab({ editorRef, diagnostics }: Props) {
+export default function DiagnosticsListTab({
+	editorRef,
+	diagnostics,
+	code,
+}: Props) {
 	if (diagnostics.length === 0) {
 		return <div className="empty-panel">No diagnostics present</div>;
 	}
@@ -99,8 +108,13 @@ export default function DiagnosticsListTab({ editorRef, diagnostics }: Props) {
 		<ul className="diagnostics-list">
 			{diagnostics.map((diag, i) => {
 				return (
-					// biome-ignore lint/suspicious/noArrayIndexKey: Diagnostic has no stable id.
-					<DiagnosticListItem key={i} editorRef={editorRef} diagnostic={diag} />
+					<DiagnosticListItem
+						// biome-ignore lint/suspicious/noArrayIndexKey: Diagnostic has no stable id.
+						key={i}
+						editorRef={editorRef}
+						diagnostic={diag}
+						code={code}
+					/>
 				);
 			})}
 		</ul>

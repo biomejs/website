@@ -291,3 +291,76 @@ export function isValidExtension(filename: string): boolean {
 export function normalizeFilename(filename: string): string {
 	return isValidExtension(filename) ? filename : `${filename}.js`;
 }
+
+/**
+ * Returns how many bytes the UTF-16 code unit would be, if represented in utf8
+ * Credit to: https://stackoverflow.com/a/73096001/4668057
+ */
+function getUtf8ByteLength(codeUnit: string) {
+	const code = codeUnit.charCodeAt(0);
+	if (code < 128) {
+		return 1;
+	}
+	if (code < 2048) {
+		return 2;
+	}
+	// UTF-16 high surrogate
+	if (55296 <= code && code <= 56319) {
+		return 4;
+	}
+	// UTF-16 low surrogate
+	if (56320 <= code && code <= 57343) {
+		return 0;
+	}
+	if (code < 65536) {
+		return 3;
+	}
+	throw `Bad UTF-16 code unit: ${codeUnit}`;
+}
+
+/**
+ * Converts the span in UTF-8 byte offets to a span in code unit offsets.
+ * May misbehave if the specified byte span doesn't fall exactly to the code unit boundaries
+ * Credit to: https://stackoverflow.com/a/73096001/4668057
+ */
+export function spanInBytesToSpanInCodeUnits(
+	[startInBytes, endInBytes]: [number, number],
+	str: string,
+) {
+	const spanInCodeUnits: [number, number] = [startInBytes, endInBytes];
+
+	let currCodeUnitIndex = 0;
+
+	// Scan through the string, looking for the start of the substring
+	let bytePos = 0;
+	while (bytePos < startInBytes) {
+		const byteLength = getUtf8ByteLength(str.charAt(currCodeUnitIndex));
+		bytePos += byteLength;
+		++currCodeUnitIndex;
+
+		// Make sure to include low surrogate
+		if (byteLength === 4 && bytePos === startInBytes) {
+			++currCodeUnitIndex;
+		}
+	}
+
+	// We've found the start, we update the start of spanInCodeUnits,
+	spanInCodeUnits[0] = currCodeUnitIndex;
+
+	// Now scan through the following string to find the end
+	while (bytePos < endInBytes) {
+		const byteLength = getUtf8ByteLength(str.charAt(currCodeUnitIndex));
+		bytePos += byteLength;
+		++currCodeUnitIndex;
+
+		// Make sure to include low surrogate
+		if (byteLength === 4 && bytePos === endInBytes) {
+			++currCodeUnitIndex;
+		}
+	}
+
+	// We've found the end, we update the end of spanInCodeUnits,
+	spanInCodeUnits[1] = currCodeUnitIndex;
+
+	return spanInCodeUnits;
+}

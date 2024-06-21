@@ -9,12 +9,14 @@ interface Props {
 	editorRef: React.RefObject<ReactCodeMirrorRef>;
 	console: string;
 	diagnostics: Diagnostic[];
+	code: string;
 }
 
 export default function DiagnosticsPane({
 	editorRef,
 	diagnostics,
 	console,
+	code,
 }: Props) {
 	const [tab, setTab] = useState("diagnostics");
 
@@ -31,6 +33,7 @@ export default function DiagnosticsPane({
 						<DiagnosticsListTab
 							editorRef={editorRef}
 							diagnostics={diagnostics}
+							code={code}
 						/>
 					),
 				},
