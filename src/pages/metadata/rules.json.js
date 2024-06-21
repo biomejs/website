@@ -149,8 +149,13 @@ export function GET() {
             "version": "1.8.0",
             "name": "noUnknownProperty",
             "link": "https://biomejs.dev/linter/rules/no-unknown-property",
-            "recommended": false,
+            "recommended": true,
             "fixKind": "none",
+            "sources": [
+              {
+                "stylelint": "property-no-unknown"
+              }
+            ],
             "docs": " Disallow unknown properties.\n\n This rule considers properties defined in the CSS Specifications and browser specific properties to be known.\n https://github.com/known-css/known-css-properties#source\n\n\n This rule ignores:\n\n - custom variables e.g. `--custom-property`\n - vendor-prefixed properties (e.g., `-moz-align-self,` `-webkit-align-self`)\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a {\n   colr: blue;\n }\n ```\n\n ```css,expect_diagnostic\n a {\n   my-property: 1;\n }\n ```\n\n ### Valid\n\n ```css\n a {\n   color: green;\n }\n ```\n\n ```css\n a {\n   fill: black;\n }\n ```\n\n ```css\n a {\n   -moz-align-self: center;\n }\n ```\n\n"
           },
           "noUnknownPseudoClassSelector": {
