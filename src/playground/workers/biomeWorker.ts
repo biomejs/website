@@ -272,7 +272,9 @@ self.addEventListener("message", async (e) => {
 				? workspace.formatFile({
 						path,
 					})
-				: false;
+				: {
+						code: "",
+					};
 
 			const biomeOutput: BiomeOutput = {
 				syntax: {
