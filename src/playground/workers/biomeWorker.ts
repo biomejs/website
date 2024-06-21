@@ -10,7 +10,11 @@ import {
 	QuoteStyle,
 	Semicolons,
 } from "@/playground/types";
-import { isCssFilename, isJsonFilename } from "@/playground/utils";
+import {
+	isCssFilename,
+	isGraphqlFilename,
+	isJsonFilename,
+} from "@/playground/utils";
 import init, {
 	DiagnosticPrinter,
 	type PartialConfiguration as Configuration,
@@ -219,8 +223,12 @@ self.addEventListener("message", async (e) => {
 				path,
 			});
 
+			const isGraphql = isGraphqlFilename(filename);
+
 			const controlFlowGraph = !(
-				isJsonFilename(filename) || isCssFilename(filename)
+				isJsonFilename(filename) ||
+				isCssFilename(filename) ||
+				isGraphql
 			)
 				? workspace.getControlFlowGraph({
 						path,
@@ -228,13 +236,17 @@ self.addEventListener("message", async (e) => {
 					})
 				: "";
 
-			const formatterIr = workspace.getFormatterIr({
-				path,
-			});
+			const formatterIr = isGraphql
+				? ""
+				: workspace.getFormatterIr({
+						path,
+					});
 
-			const importSorting = workspace.organizeImports({
-				path,
-			});
+			const importSorting = isGraphql
+				? { code: "" }
+				: workspace.organizeImports({
+						path,
+					});
 
 			const categories: RuleCategories = [];
 			if (configuration?.formatter?.enabled) {
@@ -243,22 +255,30 @@ self.addEventListener("message", async (e) => {
 			if (configuration?.linter?.enabled) {
 				categories.push("Lint");
 			}
-			const diagnosticsResult = workspace.pullDiagnostics({
-				path,
-				categories: categories,
-				max_diagnostics: Number.MAX_SAFE_INTEGER,
-				only: [],
-				skip: [],
-			});
+			const diagnosticsResult = !isGraphql
+				? workspace.pullDiagnostics({
+						path,
+						categories: categories,
+						max_diagnostics: Number.MAX_SAFE_INTEGER,
+						only: [],
+						skip: [],
+					})
+				: {
+						diagnostics: [],
+						errors: 0,
+						skipped_diagnostics: 0,
+					};
 
 			const printer = new DiagnosticPrinter(path.path, code);
 			for (const diag of diagnosticsResult.diagnostics) {
 				printer.print_verbose(diag);
 			}
 
-			const printed = workspace.formatFile({
-				path,
-			});
+			const printed = !isGraphql
+				? workspace.formatFile({
+						path,
+					})
+				: false;
 
 			const biomeOutput: BiomeOutput = {
 				syntax: {

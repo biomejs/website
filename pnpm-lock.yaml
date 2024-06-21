@@ -7,16 +7,6 @@ settings:
 importers:
 
   .:
-    dependencies:
-      astro:
-        specifier: ^4.10.3
-        version: 4.10.3(@types/node@20.14.2)(sass@1.77.5)(typescript@5.4.5)
-      astro-og-canvas:
-        specifier: ^0.5.1
-        version: 0.5.1(astro@4.10.3(@types/node@20.14.2)(sass@1.77.5)(typescript@5.4.5))
-      canvaskit-wasm:
-        specifier: ^0.39.1
-        version: 0.39.1
     devDependencies:
       '@astrojs/netlify':
         specifier: 5.3.0
@@ -37,8 +27,8 @@ importers:
         specifier: 1.8.1
         version: 1.8.1
       '@biomejs/wasm-web':
-        specifier: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@54b4c9a
-        version: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@54b4c9a
+        specifier: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@ad7881a
+        version: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@ad7881a
       '@codemirror/lang-css':
         specifier: 6.2.1
         version: 6.2.1(@codemirror/view@6.28.1)
@@ -72,9 +62,21 @@ importers:
       '@vitejs/plugin-react':
         specifier: 4.3.1
         version: 4.3.1(vite@5.3.1(@types/node@20.14.2)(sass@1.77.5))
+      astro:
+        specifier: ^4.10.3
+        version: 4.10.3(@types/node@20.14.2)(sass@1.77.5)(typescript@5.4.5)
+      astro-og-canvas:
+        specifier: ^0.5.1
+        version: 0.5.1(astro@4.10.3(@types/node@20.14.2)(sass@1.77.5)(typescript@5.4.5))
       autoprefixer:
         specifier: 10.4.19
         version: 10.4.19(postcss@8.4.38)
+      canvaskit-wasm:
+        specifier: ^0.39.1
+        version: 0.39.1
+      cm6-graphql:
+        specifier: ^0.0.15
+        version: 0.0.15(@codemirror/autocomplete@6.15.0(@codemirror/language@6.10.1)(@codemirror/state@6.4.1)(@codemirror/view@6.28.1)(@lezer/common@1.2.1))(@codemirror/language@6.10.1)(@codemirror/lint@6.8.0)(@codemirror/state@6.4.1)(@codemirror/view@6.28.1)(@lezer/highlight@1.2.0)(graphql@16.8.2)
       codemirror-lang-rome-ast:
         specifier: 0.0.6
         version: 0.0.6
@@ -455,9 +457,9 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@biomejs/wasm-web@https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@54b4c9a':
-    resolution: {tarball: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@54b4c9a}
-    version: 0.0.0-rev.54b4c9a39078836843ef363bb6986fad74834480
+  '@biomejs/wasm-web@https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@ad7881a':
+    resolution: {tarball: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@ad7881a}
+    version: 0.0.0-rev.ad7881a16b38ea930fa668bce5196cae38bef3de
 
   '@braintree/sanitize-url@6.0.4':
     resolution: {integrity: sha512-s3jaWicZd0pkP0jf5ysyHUI/RE7MHos6qlToFcGWXVp+ykHOy77OUMrfbgJ9it2C5bow7OIQwYYaHjk9XlBQ2A==}
@@ -1696,6 +1698,17 @@ packages:
     resolution: {integrity: sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==}
     engines: {node: '>=6'}
 
+  cm6-graphql@0.0.15:
+    resolution: {integrity: sha512-YEIfCj/jrgm0bfTND1l/T/ZwKPFLtqRvt/LfNfpUbPnRcJy2TvEoEIv3VqtJDCVnCHfoDfQDrRIqkIU8vo318A==}
+    peerDependencies:
+      '@codemirror/autocomplete': 6.2.0
+      '@codemirror/language': 6.2.1
+      '@codemirror/lint': 6.2.1
+      '@codemirror/state': 6.2.0
+      '@codemirror/view': 6.2.1
+      '@lezer/highlight': ^1.0.0
+      graphql: ^16.5.0
+
   codemirror-lang-rome-ast@0.0.6:
     resolution: {integrity: sha512-2E4E4rNcj6XxLsVjCZJeOsdEXpfdgiejuLrbq6O4muXzf0KSv5X0ScQrs3LK5LmGwoQUC0AowYbfdj3lsaLWkQ==}
 
@@ -2248,6 +2261,16 @@ packages:
 
   graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
+
+  graphql-language-service@5.2.1:
+    resolution: {integrity: sha512-8ewD6otGO43vg2TiEGjoLz3CweTwfaf4ZnqfNREqZXS2JSJGXtsRBOMMknCxMfFVh4x14ql3jyDrXcyAAtbmkQ==}
+    hasBin: true
+    peerDependencies:
+      graphql: ^15.5.0 || ^16.0.0
+
+  graphql@16.8.2:
+    resolution: {integrity: sha512-cvVIBILwuoSyD54U4cF/UXDh5yAobhNV/tPygI4lZhgOIJQE/WLWC4waBRb4I6bDVYb3OVx3lfHbaQOEoUD5sg==}
+    engines: {node: ^12.22.0 || ^14.16.0 || ^16.0.0 || >=17.0.0}
 
   gray-matter@4.0.3:
     resolution: {integrity: sha512-5v6yZd4JK3eMI3FqqCouswVqwugaA9r4dNZB1wwcmrD02QkV5H0y7XBQW8QwQqEaZY1pM9aqORSORhJRdNK44Q==}
@@ -3020,6 +3043,9 @@ packages:
 
   nth-check@2.1.1:
     resolution: {integrity: sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w==}
+
+  nullthrows@1.1.1:
+    resolution: {integrity: sha512-2vPPEi+Z7WqML2jZYddDIfy5Dqb0r2fze2zTxNNknZaFpVHU3mFB3R+DWeJWGVx0ecvttSGlJTI+WG+8Z4cDWw==}
 
   object-assign@3.0.0:
     resolution: {integrity: sha512-jHP15vXVGeVh1HuaA2wY6lxk+whK/x4KBG88VXeRma7CCun7iGD5qPc4eYykQ9sdQvg8jkwFKsSxHln2ybW3xQ==}
@@ -3880,6 +3906,9 @@ packages:
       vite:
         optional: true
 
+  vscode-languageserver-types@3.17.5:
+    resolution: {integrity: sha512-Ld1VelNuX9pdF39h2Hgaeb5hEZM2Z3jUrrMgWQAu82jMtZp7p3vJT3BzToKtZI7NgQssZje5o0zryOrhQvzQAg==}
+
   w3c-keyname@2.2.8:
     resolution: {integrity: sha512-dpojBhNsCNN7T82Tm7k26A6G9ML3NkhDsnw9n/eoxSRlVBB4CEtIQ/KTCLI2Fwf3ataSXRhYFkQi3SlnFwPvPQ==}
 
@@ -4382,7 +4411,7 @@ snapshots:
   '@biomejs/cli-win32-x64@1.8.1':
     optional: true
 
-  '@biomejs/wasm-web@https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@54b4c9a': {}
+  '@biomejs/wasm-web@https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@ad7881a': {}
 
   '@braintree/sanitize-url@6.0.4': {}
 
@@ -5565,6 +5594,17 @@ snapshots:
 
   clsx@2.1.1: {}
 
+  cm6-graphql@0.0.15(@codemirror/autocomplete@6.15.0(@codemirror/language@6.10.1)(@codemirror/state@6.4.1)(@codemirror/view@6.28.1)(@lezer/common@1.2.1))(@codemirror/language@6.10.1)(@codemirror/lint@6.8.0)(@codemirror/state@6.4.1)(@codemirror/view@6.28.1)(@lezer/highlight@1.2.0)(graphql@16.8.2):
+    dependencies:
+      '@codemirror/autocomplete': 6.15.0(@codemirror/language@6.10.1)(@codemirror/state@6.4.1)(@codemirror/view@6.28.1)(@lezer/common@1.2.1)
+      '@codemirror/language': 6.10.1
+      '@codemirror/lint': 6.8.0
+      '@codemirror/state': 6.4.1
+      '@codemirror/view': 6.28.1
+      '@lezer/highlight': 1.2.0
+      graphql: 16.8.2
+      graphql-language-service: 5.2.1(graphql@16.8.2)
+
   codemirror-lang-rome-ast@0.0.6:
     dependencies:
       '@codemirror/autocomplete': 6.15.0(@codemirror/language@6.10.1)(@codemirror/state@6.4.1)(@codemirror/view@6.28.1)(@lezer/common@1.2.1)
@@ -6188,6 +6228,14 @@ snapshots:
       get-intrinsic: 1.2.4
 
   graceful-fs@4.2.11: {}
+
+  graphql-language-service@5.2.1(graphql@16.8.2):
+    dependencies:
+      graphql: 16.8.2
+      nullthrows: 1.1.1
+      vscode-languageserver-types: 3.17.5
+
+  graphql@16.8.2: {}
 
   gray-matter@4.0.3:
     dependencies:
@@ -7498,6 +7546,8 @@ snapshots:
     dependencies:
       boolbase: 1.0.0
 
+  nullthrows@1.1.1: {}
+
   object-assign@3.0.0: {}
 
   object-keys@1.1.1: {}
@@ -8597,6 +8647,8 @@ snapshots:
   vitefu@0.2.5(vite@5.3.1(@types/node@20.14.2)(sass@1.77.5)):
     optionalDependencies:
       vite: 5.3.1(@types/node@20.14.2)(sass@1.77.5)
+
+  vscode-languageserver-types@3.17.5: {}
 
   w3c-keyname@2.2.8: {}
 

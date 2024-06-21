@@ -23,7 +23,7 @@
 		"@astrojs/rss": "4.0.6",
 		"@astrojs/starlight": "0.24.2",
 		"@biomejs/biome": "1.8.1",
-		"@biomejs/wasm-web": "https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@54b4c9a",
+		"@biomejs/wasm-web": "https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@ad7881a",
 		"@codemirror/lang-css": "6.2.1",
 		"@codemirror/lang-javascript": "6.2.2",
 		"@codemirror/lang-json": "6.0.1",
@@ -59,12 +59,11 @@
 		"textlint-rule-prh": "6.0.0",
 		"typescript": "5.4.5",
 		"vite": "5.3.1",
-		"vite-plugin-svgr": "4.2.0"
-	},
-	"dependencies": {
+		"vite-plugin-svgr": "4.2.0",
 		"astro": "^4.10.3",
 		"astro-og-canvas": "^0.5.1",
-		"canvaskit-wasm": "^0.39.1"
+		"canvaskit-wasm": "^0.39.1",
+		"cm6-graphql": "^0.0.15"
 	},
 	"packageManager": "pnpm@9.3.0"
 }

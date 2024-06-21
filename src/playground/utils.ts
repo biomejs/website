@@ -226,11 +226,15 @@ export function isModuleFilename(filename: string): boolean {
 }
 
 export function isJsonFilename(filename: string): boolean {
-	return filename.endsWith(".json");
+	return filename.endsWith(".json") || filename.endsWith(".jsonc");
 }
 
 export function isCssFilename(filename: string): boolean {
 	return filename.endsWith(".css");
+}
+
+export function isGraphqlFilename(filename: string): boolean {
+	return filename.endsWith(".gql") || filename.endsWith(".graphql");
 }
 
 export function modifyFilename(
@@ -279,7 +283,8 @@ export function isValidExtension(filename: string): boolean {
 		isTypeScriptFilename(filename) ||
 		isJsxFilename(filename) ||
 		isJsonFilename(filename) ||
-		isCssFilename(filename)
+		isCssFilename(filename) ||
+		isGraphqlFilename(filename)
 	);
 }
 
