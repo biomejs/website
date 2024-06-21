@@ -255,19 +255,13 @@ self.addEventListener("message", async (e) => {
 			if (configuration?.linter?.enabled) {
 				categories.push("Lint");
 			}
-			const diagnosticsResult = !isGraphql
-				? workspace.pullDiagnostics({
-						path,
-						categories: categories,
-						max_diagnostics: Number.MAX_SAFE_INTEGER,
-						only: [],
-						skip: [],
-					})
-				: {
-						diagnostics: [],
-						errors: 0,
-						skipped_diagnostics: 0,
-					};
+			const diagnosticsResult = workspace.pullDiagnostics({
+				path,
+				categories: categories,
+				max_diagnostics: Number.MAX_SAFE_INTEGER,
+				only: [],
+				skip: [],
+			});
 
 			const printer = new DiagnosticPrinter(path.path, code);
 			for (const diag of diagnosticsResult.diagnostics) {
