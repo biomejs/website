@@ -46,6 +46,6 @@ const isBlog = Astro.url.pathname.includes("/blog/");
 <script>
   import { prefetch } from "astro:prefetch";
   import WASM_URL from "../../../node_modules/@biomejs/wasm-web/biome_wasm_bg.wasm?url";
-  // prefetch the wasm file
-  prefetch(WASM_URL);
+  // I don't know why the url doesn't match the actual url...
+  prefetch(WASM_URL.replace("biome_wasm_bg.", "biome_wasm_bg-"));
 </script>
