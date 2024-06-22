@@ -43,3 +43,9 @@ const isBlog = Astro.url.pathname.includes("/blog/");
     <meta name="twitter:image" content={canonicalImageSrc} />
 ) : ""}
 
+<script>
+  import { prefetch } from "astro:prefetch";
+  import WASM_URL from "../../../node_modules/@biomejs/wasm-web/biome_wasm_bg.wasm?url";
+  // prefetch the wasm file
+  prefetch(WASM_URL);
+</script>
