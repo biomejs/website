@@ -315,7 +315,7 @@ function getUtf8ByteLength(codeUnit: string) {
 	if (code < 65536) {
 		return 3;
 	}
-	throw `Bad UTF-16 code unit: ${codeUnit}`;
+	throw new Error(`Bad UTF-16 code unit "${codeUnit}" with code ${code}`);
 }
 
 /**
@@ -333,7 +333,7 @@ export function spanInBytesToSpanInCodeUnits(
 
 	// Scan through the string, looking for the start of the substring
 	let bytePos = 0;
-	while (bytePos < startInBytes) {
+	while (bytePos < startInBytes && currCodeUnitIndex < str.length) {
 		const byteLength = getUtf8ByteLength(str.charAt(currCodeUnitIndex));
 		bytePos += byteLength;
 		++currCodeUnitIndex;
@@ -348,7 +348,7 @@ export function spanInBytesToSpanInCodeUnits(
 	spanInCodeUnits[0] = currCodeUnitIndex;
 
 	// Now scan through the following string to find the end
-	while (bytePos < endInBytes) {
+	while (bytePos < endInBytes && currCodeUnitIndex < str.length) {
 		const byteLength = getUtf8ByteLength(str.charAt(currCodeUnitIndex));
 		bytePos += byteLength;
 		++currCodeUnitIndex;
