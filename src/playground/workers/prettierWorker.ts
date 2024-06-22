@@ -8,7 +8,7 @@ import {
 	type QuoteProperties,
 	QuoteStyle,
 	Semicolons,
-	type TrailingComma,
+	type TrailingCommas,
 	defaultPlaygroundState,
 } from "@/playground/types";
 import {
@@ -41,7 +41,7 @@ self.addEventListener("message", async (e) => {
 				quoteStyle,
 				jsxQuoteStyle,
 				quoteProperties,
-				trailingComma,
+				trailingCommas: trailingComma,
 				semicolons,
 				arrowParentheses,
 				bracketSpacing,
@@ -92,7 +92,7 @@ async function formatWithPrettier(
 		quoteStyle: QuoteStyle;
 		jsxQuoteStyle: QuoteStyle;
 		quoteProperties: QuoteProperties;
-		trailingComma: TrailingComma;
+		trailingComma: TrailingCommas;
 		semicolons: Semicolons;
 		arrowParentheses: ArrowParentheses;
 		bracketSpacing: boolean;

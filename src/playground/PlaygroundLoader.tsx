@@ -11,7 +11,7 @@ import {
 	type QuoteProperties,
 	type QuoteStyle,
 	type Semicolons,
-	type TrailingComma,
+	type TrailingCommas,
 	defaultPlaygroundState,
 	emptyBiomeOutput,
 	emptyPrettierOutput,
@@ -323,9 +323,11 @@ function initState(
 			quoteProperties:
 				(searchParams.get("quoteProperties") as QuoteProperties) ??
 				defaultPlaygroundState.settings.quoteProperties,
-			trailingComma:
-				(searchParams.get("trailingComma") as TrailingComma) ??
-				defaultPlaygroundState.settings.trailingComma,
+			trailingCommas:
+				(searchParams.get("trailingCommas") as TrailingCommas) ??
+				// This is kept for backward compatibility
+				(searchParams.get("trailingComma") as TrailingCommas) ??
+				defaultPlaygroundState.settings.trailingCommas,
 			indentWidth: Number.parseInt(
 				searchParams.get("indentWidth") ??
 					String(defaultPlaygroundState.settings.indentWidth),

@@ -8,7 +8,7 @@ import {
 	QuoteStyle,
 	Semicolons,
 	SourceType,
-	TrailingComma,
+	TrailingCommas,
 } from "@/playground/types";
 import {
 	classnames,
@@ -44,7 +44,7 @@ export default function SettingsTab({
 			quoteStyle,
 			jsxQuoteStyle,
 			quoteProperties,
-			trailingComma,
+			trailingCommas,
 			semicolons,
 			arrowParentheses,
 			bracketSpacing,
@@ -82,9 +82,9 @@ export default function SettingsTab({
 		setPlaygroundState,
 		"quoteProperties",
 	);
-	const setTrailingComma = createPlaygroundSettingsSetter(
+	const setTrailingCommas = createPlaygroundSettingsSetter(
 		setPlaygroundState,
-		"trailingComma",
+		"trailingCommas",
 	);
 	const setSemicolons = createPlaygroundSettingsSetter(
 		setPlaygroundState,
@@ -263,8 +263,8 @@ export default function SettingsTab({
 				setJsxQuoteStyle={setJsxQuoteStyle}
 				quoteProperties={quoteProperties}
 				setQuoteProperties={setQuoteProperties}
-				trailingComma={trailingComma}
-				setTrailingComma={setTrailingComma}
+				trailingCommas={trailingCommas}
+				setTrailingCommas={setTrailingCommas}
 				semicolons={semicolons}
 				setSemicolons={setSemicolons}
 				arrowParentheses={arrowParentheses}
@@ -598,8 +598,8 @@ function FormatterSettings({
 	setJsxQuoteStyle,
 	quoteProperties,
 	setQuoteProperties,
-	trailingComma,
-	setTrailingComma,
+	trailingCommas,
+	setTrailingCommas,
 	semicolons,
 	setSemicolons,
 	arrowParentheses,
@@ -623,8 +623,8 @@ function FormatterSettings({
 	setJsxQuoteStyle: (value: QuoteStyle) => void;
 	quoteProperties: QuoteProperties;
 	setQuoteProperties: (value: QuoteProperties) => void;
-	trailingComma: TrailingComma;
-	setTrailingComma: (value: TrailingComma) => void;
+	trailingCommas: TrailingCommas;
+	setTrailingCommas: (value: TrailingCommas) => void;
 	semicolons: Semicolons;
 	setSemicolons: (value: Semicolons) => void;
 	arrowParentheses: ArrowParentheses;
@@ -712,16 +712,18 @@ function FormatterSettings({
 				</div>
 
 				<div className="field-row">
-					<label htmlFor="trailingComma">Trailing Comma</label>
+					<label htmlFor="trailingCommas">Trailing Commas</label>
 					<select
-						id="trailingComma"
-						name="trailingComma"
-						value={trailingComma ?? "all"}
-						onChange={(e) => setTrailingComma(e.target.value as TrailingComma)}
+						id="trailingCommas"
+						name="trailingCommas"
+						value={trailingCommas ?? "all"}
+						onChange={(e) =>
+							setTrailingCommas(e.target.value as TrailingCommas)
+						}
 					>
-						<option value={TrailingComma.All}>All</option>
-						<option value={TrailingComma.Es5}>ES5</option>
-						<option value={TrailingComma.None}>None</option>
+						<option value={TrailingCommas.All}>All</option>
+						<option value={TrailingCommas.Es5}>ES5</option>
+						<option value={TrailingCommas.None}>None</option>
 					</select>
 				</div>
 

@@ -29,7 +29,7 @@ export enum QuoteProperties {
 	Preserve = "preserve",
 }
 
-export enum TrailingComma {
+export enum TrailingCommas {
 	All = "all",
 	Es5 = "es5",
 	None = "none",
@@ -114,7 +114,7 @@ export interface PlaygroundSettings {
 	quoteStyle: QuoteStyle;
 	jsxQuoteStyle: QuoteStyle;
 	quoteProperties: QuoteProperties;
-	trailingComma: TrailingComma;
+	trailingCommas: TrailingCommas;
 	semicolons: Semicolons;
 	arrowParentheses: ArrowParentheses;
 	attributePosition: AttributePosition;
@@ -161,7 +161,7 @@ export const defaultPlaygroundState: PlaygroundState = {
 		quoteStyle: QuoteStyle.Double,
 		jsxQuoteStyle: QuoteStyle.Double,
 		quoteProperties: QuoteProperties.AsNeeded,
-		trailingComma: TrailingComma.All,
+		trailingCommas: TrailingCommas.All,
 		semicolons: Semicolons.Always,
 		arrowParentheses: ArrowParentheses.Always,
 		attributePosition: AttributePosition.Auto,
