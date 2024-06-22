@@ -1,4 +1,4 @@
-import { useTheme } from "@/playground/utils";
+import { spanInBytesToSpanInCodeUnits, useTheme } from "@/playground/utils";
 import type { Diagnostic as BiomeDiagnostic } from "@biomejs/wasm-web";
 import type { Diagnostic as CodeMirrorDiagnostic } from "@codemirror/lint";
 import { lintGutter, setDiagnostics } from "@codemirror/lint";
@@ -27,6 +27,7 @@ function getDiagnosticMessage(diagnostic: BiomeDiagnostic): string {
 
 function biomeDiagnosticsToCodeMirror(
 	biome: BiomeDiagnostic[],
+	doc: string,
 ): CodeMirrorDiagnostic[] {
 	const codeMirror: CodeMirrorDiagnostic[] = [];
 
@@ -59,9 +60,11 @@ function biomeDiagnosticsToCodeMirror(
 			}
 		}
 
+		const [from, to] = spanInBytesToSpanInCodeUnits(span, doc);
+
 		codeMirror.push({
-			from: span[0],
-			to: span[1],
+			from,
+			to,
 			severity,
 			message: getDiagnosticMessage(diag),
 		});
@@ -97,7 +100,13 @@ export default forwardRef<ReactCodeMirrorRef, Props>(function CodeMirror(
 	useEffect(() => {
 		if (editor !== undefined && diagnostics !== undefined) {
 			editor.dispatch(
-				setDiagnostics(editor.state, biomeDiagnosticsToCodeMirror(diagnostics)),
+				setDiagnostics(
+					editor.state,
+					biomeDiagnosticsToCodeMirror(
+						diagnostics,
+						editor.state.doc.toString(),
+					),
+				),
 			);
 		}
 	}, [editor, diagnostics]);
