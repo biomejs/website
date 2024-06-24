@@ -33,7 +33,7 @@ We appreciate any feedback on this rule, and encourage you to try it out and rep
 
 Notably, keep in mind that the following features are not supported yet:
 
-- Variant sorting.
+- Variant sorting (arbitrary variants are not supported yet).
 - Custom utilitites and variants (such as ones introduced by Tailwind CSS plugins). Only the default Tailwind CSS configuration is supported.
 - Options such as `prefix` and `separator`.
 - Tagged template literals.
