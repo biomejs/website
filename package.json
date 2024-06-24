@@ -30,7 +30,7 @@
 		"@codemirror/lint": "6.8.1",
 		"@codemirror/state": "6.4.1",
 		"@codemirror/view": "6.28.2",
-		"@types/node": "20.14.2",
+		"@types/node": "20.14.8",
 		"@types/react": "18.3.3",
 		"@types/react-dom": "18.3.0",
 		"@uiw/react-codemirror": "4.22.2",
