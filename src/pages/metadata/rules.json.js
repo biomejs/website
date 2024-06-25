@@ -1745,7 +1745,7 @@ export function GET() {
                 "eslintUnicorn": "prefer-node-protocol"
               }
             ],
-            "docs": " Enforces using the `node:` protocol for Node.js builtin modules.\n\n The rule marks traditional imports like `import fs from \"fs\";` as invalid,\n suggesting the format `import fs from \"node:fs\";` instead.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import fs from 'fs';\n ```\n\n ```js,expect_diagnostic\n import os from 'os';\n ```\n\n ```js,expect_diagnostic\n import path from 'path';\n ```\n\n ### Valid\n\n ```js\n import fs from 'node:fs';\n\n import os from 'node:os';\n\n import path from 'node:path';\n ```\n\n"
+            "docs": " Enforces using the `node:` protocol for Node.js builtin modules.\n\n The rule marks traditional imports like `import fs from \"fs\";` as invalid,\n suggesting the format `import fs from \"node:fs\";` instead.\n\n The rule also isn't triggered if there are dependencies declared in the `package.json` that match\n the name of a built-in Node.js module.\n\n :::caution\n The rule doesn't support dependencies installed inside a monorepo.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import fs from 'fs';\n ```\n\n ```js,expect_diagnostic\n import os from 'os';\n ```\n\n ```js,expect_diagnostic\n import path from 'path';\n ```\n\n ### Valid\n\n ```js\n import fs from 'node:fs';\n\n import os from 'node:os';\n\n import path from 'node:path';\n ```\n\n"
           },
           "useNumberNamespace": {
             "deprecated": false,
