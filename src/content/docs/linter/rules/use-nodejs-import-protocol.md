@@ -18,6 +18,13 @@ Enforces using the `node:` protocol for Node.js builtin modules.
 The rule marks traditional imports like `import fs from "fs";` as invalid,
 suggesting the format `import fs from "node:fs";` instead.
 
+The rule also isn't triggered if there are dependencies declared in the `package.json` that match
+the name of a built-in Node.js module.
+
+:::caution
+The rule doesn't support dependencies installed inside a monorepo.
+:::
+
 ## Examples
 
 ### Invalid
