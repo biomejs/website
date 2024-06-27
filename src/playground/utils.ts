@@ -319,7 +319,7 @@ function getUtf8ByteLength(codeUnit: string) {
 }
 
 /**
- * Converts the span in UTF-8 byte offets to a span in code unit offsets.
+ * Converts the span in UTF-8 byte offsets to a span in code unit offsets.
  * May misbehave if the specified byte span doesn't fall exactly to the code unit boundaries
  * Credit to: https://stackoverflow.com/a/73096001/4668057
  */
