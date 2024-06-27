@@ -15,7 +15,7 @@ New entries must be placed in a section entitled `Unreleased`.
 Read
 our [guidelines for writing a good changelog entry](https://github.com/biomejs/biome/blob/main/CONTRIBUTING.md#changelog).
 
-## v1.8.3 (2022-06-27)
+## v1.8.3 (2024-06-27)
 
 ### CLI
 
