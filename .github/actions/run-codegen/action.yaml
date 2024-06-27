@@ -80,7 +80,7 @@ runs:
       run: |
         echo "Cleaning target/debug before saving"
         echo "Removing examples and incremental directories"
-        find "target/debug" -type d \( -name "examples" -o -name "incremental" \) -exec rm -rf {} \;
+        find "target/debug" -type d \( -name "examples" -o -name "incremental" \) -exec rm -rf {} +
         echo "Removing dep-info files (*.d)"
         find "target/debug" -type f -name "*.d" -exec rm -f {} \;
       continue-on-error: true
