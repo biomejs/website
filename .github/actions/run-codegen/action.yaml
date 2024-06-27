@@ -68,10 +68,9 @@ runs:
     - name: Clean Cargo Registry
       shell: bash
       run: |
-        CARGO_HOME="${CARGO_HOME:-$HOME/.cargo}"
-        printf "Cleaning ~/.cargo before saving\n"
+        echo "Cleaning ~/.cargo before saving"
         cargo cache --autoclean
-        index_dir="$CARGO_HOME/registry/index"
+        index_dir="$HOME/.cargo/registry/index"
         if [[ -d "$index_dir" ]]; then
           find "$index_dir" -type d -name ".git" -execdir rm -rf {} \;
         fi
@@ -79,14 +78,11 @@ runs:
     - name: Clean Target Profile
       shell: bash
       run: |
-        WORKSPACE_ROOT="${GITHUB_WORKSPACE:-$PWD}"
-        target_profile=$(jq -r '.target_profile' < config.json) || { printf "Error reading target profile from config.json\n" >&2; exit 1; }
-        printf "Cleaning target/%s before saving\n" "$target_profile"
-        target_dir="$WORKSPACE_ROOT/target/$target_profile"
-        printf "Removing examples and incremental directories\n"
-        find "$target_dir" -type d \( -name "examples" -o -name "incremental" \) -exec rm -rf {} \;
-        printf "Removing dep-info files (*.d)\n"
-        find "$target_dir" -type f -name "*.d" -exec rm -f {} \;
+        echo "Cleaning target/debug before saving"
+        echo "Removing examples and incremental directories"
+        find "target/debug" -type d \( -name "examples" -o -name "incremental" \) -exec rm -rf {} \;
+        echo "Removing dep-info files (*.d)"
+        find "target/debug" -type f -name "*.d" -exec rm -f {} \;
 
     - name: Save new rust cache
       uses: actions/cache/save@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
