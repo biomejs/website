@@ -83,6 +83,7 @@ runs:
         find "target/debug" -type d \( -name "examples" -o -name "incremental" \) -exec rm -rf {} \;
         echo "Removing dep-info files (*.d)"
         find "target/debug" -type f -name "*.d" -exec rm -f {} \;
+      continue-on-error: true
 
     - name: Save new rust cache
       uses: actions/cache/save@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
