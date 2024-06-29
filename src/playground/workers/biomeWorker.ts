@@ -236,11 +236,9 @@ self.addEventListener("message", async (e) => {
 					})
 				: "";
 
-			const formatterIr = isGraphql
-				? ""
-				: workspace.getFormatterIr({
-						path,
-					});
+			const formatterIr = workspace.getFormatterIr({
+				path,
+			});
 
 			const importSorting = isGraphql
 				? { code: "" }
@@ -268,13 +266,9 @@ self.addEventListener("message", async (e) => {
 				printer.print_verbose(diag);
 			}
 
-			const printed = !isGraphql
-				? workspace.formatFile({
-						path,
-					})
-				: {
-						code: "",
-					};
+			const printed = workspace.formatFile({
+				path,
+			});
 
 			const biomeOutput: BiomeOutput = {
 				syntax: {
