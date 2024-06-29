@@ -167,10 +167,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
         number_of_rules,
     } = visitor;
 
-    let nursery_rules = groups
-        .get("nursery")
-        .expect("Expected nursery group to exist")
-        .clone();
+    assert!(groups.contains_key("nursery"), "Expected nursery group to exist");
 
     writeln!(
         reference_buffer,
@@ -189,15 +186,6 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
         generate_reference(group, &mut reference_buffer)?;
     }
 
-    generate_group(
-        "nursery",
-        nursery_rules,
-        &root,
-        &mut index,
-        &mut errors,
-        &mut recommended_rules,
-    )?;
-    generate_reference("nursery", &mut reference_buffer)?;
     if !errors.is_empty() {
         bail!(
             "failed to generate documentation pages for the following rules:\n{}",
