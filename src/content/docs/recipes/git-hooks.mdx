@@ -23,6 +23,7 @@ Some examples of _Lefthook_ configurations:
   pre-commit:
     commands:
       check:
+        root: .
         glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
         run: npx @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true {staged_files}
   ```
@@ -33,6 +34,7 @@ Some examples of _Lefthook_ configurations:
   pre-commit:
     commands:
       check:
+        root: .
         glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
         run: npx @biomejs/biome check --write --no-errors-on-unmatched --files-ignore-unknown=true {staged_files} && git update-index --again
   ```
@@ -45,6 +47,7 @@ Some examples of _Lefthook_ configurations:
   pre-push:
     commands:
       check:
+        root: .
         glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
         run: npx @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true {push_files}
   ```
