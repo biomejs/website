@@ -180,6 +180,41 @@ import("./foo.js");
 require("./foo.js");
 ```
 
+### Options
+
+Use the options to specify the correct import extensions for your project based on the linted
+file extension. These mappings will override the rule's default logic.
+
+Currently, Biome determines the import extension based on the inspected file extension.
+The `suggestedExtensions` option works as a map, where the key is the source file extension
+and the value should provide two possible mappings for imports:
+
+- `module` is used for module imports that start with a lower-case character, e.g. `foo.js`
+- `component` is used for component files that start with an upper-case character, e.g. `Foo.jsx` (which is a common convention for React JSX)
+
+For example, if you want `.ts` files to import other modules as `.js` (or `.jsx`), you should
+configure the following options in your Biome config:
+
+```json
+{
+    "//": "...",
+    "options": {
+        "suggestedExtensions": {
+            "ts": {
+                "module": "js",
+                "component": "jsx"
+            }
+        }
+    }
+}
+```
+
+:::caution
+Mainly, this is a temporary workaround that allows Biome to propose correct import extensions
+for TypeScript projects that use ES Modules. TypeScript requires you to specify imports to
+the actual files used in runtime: `.js` or `.mjs` (see more here: https://github.com/microsoft/TypeScript/issues/49083#issuecomment-1435399267).
+:::
+
 ## Caveats
 
 If you are using TypeScript, TypeScript version 5.0 and later is required, also make sure to enable
