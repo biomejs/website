@@ -35,6 +35,8 @@ By default, this rule checks for alternative text on the following elements: `<i
   
 <strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Meaningful alternative text on elements helps users relying on screen readers to understand content's purpose within a page.</span>
   
+<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">If the content is decorative, redundant, or obscured, consider hiding it from assistive technologies with the </span><span style="color: lightgreen;"><strong>aria-hidden</strong></span><span style="color: lightgreen;"> attribute.</span>
+  
 </code></pre>
 
 ```jsx
@@ -50,6 +52,8 @@ By default, this rule checks for alternative text on the following elements: `<i
     <strong>2 │ </strong>
   
 <strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Meaningful alternative text on elements helps users relying on screen readers to understand content's purpose within a page.</span>
+  
+<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">If the content is decorative, redundant, or obscured, consider hiding it from assistive technologies with the </span><span style="color: lightgreen;"><strong>aria-hidden</strong></span><span style="color: lightgreen;"> attribute.</span>
   
 </code></pre>
 
