@@ -69,7 +69,7 @@
 }
 
 .formatter-version {
-  font-family: "monospace";
+  font-family: $code-font;
   text-decoration: unset;
   color: unset;
   &:hover {
