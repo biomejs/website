@@ -167,7 +167,10 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
         number_of_rules,
     } = visitor;
 
-    assert!(groups.contains_key("nursery"), "Expected nursery group to exist");
+    assert!(
+        groups.contains_key("nursery"),
+        "Expected nursery group to exist"
+    );
 
     writeln!(
         reference_buffer,
@@ -827,7 +830,7 @@ fn print_diagnostics(
                     file_path: PathBuf::from(&file_path),
                     ..Default::default()
                 };
-                biome_json_analyze::analyze(&root, filter, &options, |signal| {
+                biome_json_analyze::analyze(&root, filter, &options, file_source, |signal| {
                     if let Some(mut diag) = signal.diagnostic() {
                         let category = diag.category().expect("linter diagnostic has no code");
                         let severity = settings.get_current_settings().expect("project").get_severity_from_rule_code(category).expect(
@@ -909,7 +912,8 @@ fn print_diagnostics(
             }
         }
         // Unknown code blocks should be ignored by tests
-        DocumentFileSource::Unknown => {} | DocumentFileSource::Graphql(_) => {}
+        DocumentFileSource::Unknown => {}
+        DocumentFileSource::Graphql(_) => {}
     }
 
     Ok(())

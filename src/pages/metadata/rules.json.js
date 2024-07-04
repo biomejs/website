@@ -1097,6 +1097,15 @@ export function GET() {
             ],
             "docs": " Disallow duplicate conditions in if-else-if chains\n\n if-else-if chains are commonly used when there is a need to execute only one branch\n (or at most one branch) out of several possible branches, based on certain conditions.\n\n Two identical test conditions in the same chain are almost always a mistake in the code.\n Unless there are side effects in the expressions,\n a duplicate will evaluate to the same true or false value as the identical expression earlier in the chain,\n meaning that its branch can never execute.\n\n Please note that this rule does not compare conditions from the chain with conditions inside statements\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n if (a) {\n     foo();\n } else if (b) {\n     bar();\n } else if (b) {\n     baz();\n }\n ```\n\n ### Valid\n\n ```js\n if (a) {\n     foo();\n } else if (b) {\n     bar();\n } else if (c) {\n     baz();\n }\n ```\n\n"
           },
+          "noDynamicNamespaceImportAccess": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noDynamicNamespaceImportAccess",
+            "link": "https://biomejs.dev/linter/rules/no-dynamic-namespace-import-access",
+            "recommended": false,
+            "fixKind": "none",
+            "docs": " Disallow accessing namespace imports dynamically.\n\n Accessing namespace imports dynamically can prevent efficient tree shaking and increase bundle size.\n This happens because the bundler cannot determine which parts of the namespace are used at compile time,\n so it must include the entire namespace in the bundle.\n\n Instead, consider using named imports or if that is not possible\n access the namespaced import properties statically.\n\n If you want to completely disallow namespace imports, consider using the [noNamespaceImport](https://biomejs.dev/linter/rules/no-namespace-import/) rule.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import * as foo from \"foo\"\n foo[\"bar\"]\n ```\n\n ```js,expect_diagnostic\n import * as foo from \"foo\"\n const key = \"bar\"\n foo[key]\n ```\n\n ### Valid\n\n ```js\n import * as foo from \"foo\"\n foo.bar\n ```\n\n ```js\n import { bar } from \"foo\"\n bar\n ```\n\n ```js\n import messages from \"i18n\"\n const knownMessagesMap = {\n  hello: messages.hello,\n  goodbye: messages.goodbye\n }\n\n const dynamicKey = \"hello\"\n knownMessagesMap[dynamicKey]\n ```\n\n"
+          },
           "noExportedImports": {
             "deprecated": false,
             "version": "next",
@@ -3582,7 +3591,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 254
+    "numberOrRules": 255
   },
   "syntax": {
     "languages": {
@@ -3647,15 +3656,15 @@ export function GET() {
         }
       },
       "json": {
-        "nursery": {
+        "refactor": {
           "useSortedKeys": {
             "deprecated": false,
             "version": "next",
             "name": "useSortedKeys",
             "link": "https://biomejs.dev/linter/rules/use-sorted-keys",
             "recommended": false,
-            "fixKind": "safe",
-            "docs": " Succinct description of the rule.\n\n Put context and details about the rule.\n As a starting point, you can take the description of the corresponding _ESLint_ rule (if any).\n\n Try to stay consistent with the descriptions of implemented rules.\n\n Add a link to the corresponding stylelint rule (if any):\n\n"
+            "fixKind": "none",
+            "docs": " Sorts the keys of a JSON object in natural order\n"
           }
         }
       }
