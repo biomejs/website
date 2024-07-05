@@ -25,7 +25,7 @@ or equal to the name of one export in the file.
 
 ## Ignoring some files
 
-Sometimes you want to completly ignore some files.
+Sometimes you want to completely ignore some files.
 Biome ignore comments cannot be used because the rule applies on filenames not file contents.
 To ignore files, you can use [`overrides`](https://biomejs.dev/reference/configuration/#overrides).
 If you want to ignore all files in the `test` directory, then you can disable the rule for those files only:
