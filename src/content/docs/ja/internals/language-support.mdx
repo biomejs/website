@@ -3,7 +3,7 @@ title: 言語サポート
 description: Biomeがサポートする言語と機能。
 ---
 
-凡例:
+凡例：
 - ✅: 対応済み
 - 🚫: 進行中ではない
 - ⌛️: 進行中
@@ -37,9 +37,9 @@ Biomeは、TypeScriptバージョン5.2をサポートしています。
 
 ## JSONCサポート
 
-JSONCは「コメント付きJSON」の略です。この形式は、[VS Code](https://code.visualstudio.com/docs/languages/json#_json-with-comments)、[TypeScript](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html)、[Babel](https://babeljs.io/docs/config-files)などのさまざまなツールで広く使用されています。JSONCは、構成ファイルにコメントを追加できるため便利です。ただし、JSONCは厳密な標準ではないため、ツールごとに末尾のカンマの扱いが異なる場合があります。これに対応するために、Biomeは専用のJSONC言語設定を提供する代わりに、JSONのパースおよびフォーマット機能を拡張し、 `json.parser.allowComments` 、 `json.parser.allowTrailingCommas` 、 `json.formatter.trailingCommas` などのオプションを提供しています。このアプローチにより、BiomeはさまざまなバリエーションのJSONファイルを効果的にサポートできます。
+JSONCは「コメント付きJSON」の略です。この形式は、[VS Code](https://code.visualstudio.com/docs/languages/json#_json-with-comments)、[TypeScript](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html)、[Babel](https://babeljs.io/docs/config-files)などのさまざまなツールで広く使用されています。JSONCは、構成ファイルにコメントを追加できるため便利です。ただし、JSONCは厳密な標準ではないため、ツールごとに末尾のカンマの扱いが異なる場合があります。これに対応するために、Biomeは専用のJSONC言語設定を提供する代わりに、JSONのパースおよびformat機能を拡張し、 `json.parser.allowComments` 、 `json.parser.allowTrailingCommas` 、 `json.formatter.trailingCommas` などのオプションを提供しています。このアプローチにより、BiomeはさまざまなバリエーションのJSONファイルを効果的にサポートできます。
 
-`.jsonc` 拡張子を持つファイルや[言語識別子](https://code.visualstudio.com/docs/languages/identifiers)に従って `jsonc` として識別されるファイルに対して、Biomeは自動的に次のデフォルト設定を適用してパースおよびフォーマットを行います:
+`.jsonc` 拡張子を持つファイルや[言語識別子](https://code.visualstudio.com/docs/languages/identifiers)に従って `jsonc` として識別されるファイルに対して、Biomeは自動的に次のデフォルト設定を適用してパースおよびformatを行います：
 
 - `json.parser.allowComments`: `true`
 - `json.parser.allowTrailingCommas`: `true`
@@ -51,11 +51,11 @@ JSONCは「コメント付きJSON」の略です。この形式は、[VS Code](h
 
 ## HTML拡張言語のサポート
 
-バージョン `1.6.0` 以降、これらの言語は**部分的に**サポートされています。Biomeは時間とともに改善され、プロジェクトを調整するためのオプションが増えていく予定です。しかし、現在ではいくつかの期待と制限を考慮する必要があります:
+バージョン `1.6.0` 以降、これらの言語は**部分的に**サポートされています。Biomeは時間とともに改善され、プロジェクトを調整するためのオプションが増えていく予定です。しかし、現在ではいくつかの期待と制限を考慮する必要があります：
 - `.astro` ファイルでは、**フロントマター部分のみ**がサポートされています。
 - `.vue` および `.svelte` ファイルでは、**\<script\>タグ部分のみ**がサポートされています。
 - 診断は上記の部分に属するコードフレームのみを表示します。
-- `.vue` および `.svelte` ファイルを**フォーマット**する際、JavaScript/TypeScriptコードのインデントは最初から始まります。
+- `.vue` および `.svelte` ファイルを**format**する際、JavaScript/TypeScriptコードのインデントは最初から始まります。
 
   ```vue title="file.vue" del={2} ins={3}
   <script>
@@ -74,7 +74,7 @@ JSONCは「コメント付きJSON」の略です。この形式は、[VS Code](h
   }
   ```
 
-- `.svelte` ファイルを**静的解析**する際、コンパイラエラーを防ぐために `useConst` をオフにすることをお勧めします。オプション `overrides` を使用します:
+- `.svelte` ファイルを**静的解析**する際、コンパイラエラーを防ぐために `useConst` をオフにすることをお勧めします。オプション `overrides` を使用します：
 
   ```json
     {
