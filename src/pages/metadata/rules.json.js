@@ -1115,6 +1115,21 @@ export function GET() {
             "fixKind": "none",
             "docs": " Disallow exporting an imported variable.\n\n In JavaScript, you can re-export a variable either by using `export from` or\n by first importing the variable and then exporting it with a regular `export`.\n\n You may prefer to use the first approach, as it clearly communicates the intention\n to re-export an import, and can make static analysis easier.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import { A } from \"mod\";\n export { A };\n ```\n\n ```js,expect_diagnostic\n import * as ns from \"mod\";\n export { ns };\n ```\n\n ```js,expect_diagnostic\n import D from \"mod\";\n export { D };\n ```\n\n ### Valid\n\n ```js\n export { A } from \"mod\";\n export * as ns from \"mod\";\n export { default as D } from \"mod\";\n ```\n\n"
           },
+          "noIrregularWhitespace": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noIrregularWhitespace",
+            "link": "https://biomejs.dev/linter/rules/no-irregular-whitespace",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslint": "no-irregular-whitespace"
+              }
+            ],
+            "sourceKind": "sameLogic",
+            "docs": " Disallows the use of irregular whitespace characters.\n\n Invalid or irregular whitespace causes issues with ECMAScript 5 parsers and also makes code harder to debug.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const\u000bcount\u000b=\u000b1;\n ```\n\n ```js,expect_diagnostic\n const foo = 'thing';\n ```\n\n ### Valid\n\n ```js\n const count = 1;\n ```\n\n ```js\n const foo = '\u000b';\n ```\n\n"
+          },
           "noMisplacedAssertion": {
             "deprecated": false,
             "version": "1.8.0",
@@ -3600,7 +3615,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 256
+    "numberOrRules": 257
   },
   "syntax": {
     "languages": {
