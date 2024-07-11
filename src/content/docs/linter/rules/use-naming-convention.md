@@ -669,7 +669,7 @@ and to be in [`PascalCase`](https://en.wikipedia.org/wiki/Camel_case).
                 "selector": {
                     "kind": "interface"
                 },
-                "match": "I(.*)|(.*)Error",
+                "match": "I(.*)|(.*?)Error",
                 "formats": ["PascalCase"]
             }
             // default conventions
