@@ -28,7 +28,7 @@ then we recommend to disable this rule.
 let a;
 ```
 
-<pre class="language-text"><code class="language-text">code-block.ts:1:5 <a href="https://biomejs.dev/linter/rules/no-evolving-any">lint/nursery/noEvolvingTypes</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.ts:1:5 <a href="https://biomejs.dev/linter/rules/no-evolving-types">lint/nursery/noEvolvingTypes</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">The type of this variable may evolve implicitly to any type, including the </span><span style="color: Orange;"><strong>any</strong></span><span style="color: Orange;"> type.</span>
   
@@ -44,7 +44,7 @@ let a;
 const b = [];
 ```
 
-<pre class="language-text"><code class="language-text">code-block.ts:1:7 <a href="https://biomejs.dev/linter/rules/no-evolving-any">lint/nursery/noEvolvingTypes</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.ts:1:7 <a href="https://biomejs.dev/linter/rules/no-evolving-types">lint/nursery/noEvolvingTypes</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">The type of this variable may evolve implicitly to any type, including the </span><span style="color: Orange;"><strong>any</strong></span><span style="color: Orange;"> type.</span>
   
@@ -60,7 +60,7 @@ const b = [];
 let c = null;
 ```
 
-<pre class="language-text"><code class="language-text">code-block.ts:1:5 <a href="https://biomejs.dev/linter/rules/no-evolving-any">lint/nursery/noEvolvingTypes</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<pre class="language-text"><code class="language-text">code-block.ts:1:5 <a href="https://biomejs.dev/linter/rules/no-evolving-types">lint/nursery/noEvolvingTypes</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">The type of this variable may evolve implicitly to any type, including the </span><span style="color: Orange;"><strong>any</strong></span><span style="color: Orange;"> type.</span>
   
