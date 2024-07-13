@@ -132,6 +132,9 @@ export default defineConfig({
 							label: "Migrate from ESLint & Prettier",
 							link: "/guides/migrate-eslint-prettier",
 							badge: "new",
+							translations: {
+								ja: "ESLintとPrettierからの移行",
+							}.
 						},
 					],
 				},
