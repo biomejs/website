@@ -1,0 +1,197 @@
+---
+title: Migrate from ESLint and Prettier
+description: Learn how you can ease your migration from ESLint and Prettier
+---
+
+import PackageManagerBiomeCommand from "@/components/PackageManagerBiomeCommand.astro";
+
+Biomeには容易にESLintとPrettierから移行するためのコマンドがあります。
+
+詳細について知りたくない場合は、ただ以下のコマンドを実行してください。
+
+```shell
+biome migrate eslint --write
+biome migrate prettier --write
+```
+
+## ESLintからの移行
+
+多くのBiome linterのルールはESLintやESLintのプラグインのルールから作られています。Biomeには[TypeScript ESLint](https://typescript-eslint.io/)、[ESLint JSX A11y](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y)、[ESLint React](https://github.com/jsx-eslint/eslint-plugin-react)、[ESLint Unicorn](https://github.com/sindresorhus/eslint-plugin-unicorn)などのESLintプラグインのルールがあります。
+しかし、Biomeのルールの名前には、独自の慣習があります。
+Biomeは`camelCaseRuleName`を使う一方で、ESLintは`kebab-case-rule-name`を使います。
+Biomeは、よりわかりやすく伝えるために違う名前を使うことが多くあります。
+あるルールの出所は、そのルールを説明するページで見つけることができます。
+また、ESLintのルールに対応するBiomeのルールは[Rules sources](/ja/linter/rules-sources/)で見つけることができます。
+
+移行を容易にするために、Biomeは`biome migrate eslint`サブコマンドを提供します。
+このサブコマンドはESLintの設定を読み込んで、Biomeの設定に移行することを試みます。
+このサブコマンドは古い設定ファイルも新しいflat configもサポートしています。
+古い設定ファイルの`extends`フィールドもサポートしていて、プラグインの設定と共有設定の両方を読み込みます。
+このサブコマンドは`.eslintignore`も移行します。
+
+次のESLintの設定:
+
+```json title=".eslintrc.json"
+{
+  "extends": ["plugin:unicorn/recommended"],
+  "plugins": ["unicorn"],
+  "ignore_patterns": ["dist/**"],
+  "globals": {
+    "Global1": "readonly"
+  },
+  "rules": {
+    "eqeqeq": "error"
+  },
+  "overrides": [
+    {
+      "files": ["tests/**"],
+      "rules": {
+        "eqeqeq": "off"
+      }
+    }
+  ]
+}
+```
+と次のBiomeの設定があります。
+
+```json title="biome.json"
+{
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": true
+		}
+	}
+}
+```
+
+ESLintの設定をBiomeに移行するために以下のコードを実行できます。
+
+<PackageManagerBiomeCommand command="migrate eslint --write"/>
+
+このコマンドは最初のBiomeの設定を上書きします。
+例えば、`recommended`は無効にされます。
+結果は以下のようになります。
+
+```json title="biome.json"
+{
+	"organizeImports": { "enabled": true },
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": false,
+			"complexity": {
+				"noForEach": "error",
+				"noStaticOnlyClass": "error",
+				"noUselessSwitchCase": "error",
+				"useFlatMap": "error"
+			},
+			"style": {
+				"noNegationElse": "off",
+				"useForOf": "error",
+				"useNodejsImportProtocol": "error",
+				"useNumberNamespace": "error"
+			},
+			"suspicious": {
+				"noDoubleEquals": "error",
+				"noThenProperty": "error",
+				"useIsArray": "error"
+			}
+		}
+	},
+	"javascript": { "globals": ["Global1"] },
+	"overrides": [
+		{
+			"include": ["tests/**"],
+			"linter": { "rules": { "suspicious": { "noDoubleEquals": "off" } } }
+		}
+	]
+}
+```
+
+このサブコマンドはESLintの全てのプラグインと`extends`フィールドを読み込むためにNode.jsを必要とします。
+今は、`biome migrate eslint`はYAMLで書かれた設定ファイルをサポートしていません。
+
+デフォルトでは、Biomeはインスパイアされたルールを移行しません。
+`--include-inspired`を使うことでインスパイアされたルールを移行することができます。
+
+<PackageManagerBiomeCommand command="migrate eslint --write --include-inspired"/>
+
+Biomeがいくつかのルールオプションを実装しないか、元の実装からわずかに逸脱することを選択したため、ESLintとまったく同じ動作を得る可能性は低いことに注意してください。
+
+ESLintはVCS ignoreファイルを使用しているので、Biomeの[VCS インテグレーション](/ja/guides/integrate-in-vcs/)を有効にすることを推奨します。
+
+:::caution
+一部のプラグインや共有設定は、循環参照を含むオブジェクトをエクスポートすることがあります。Biomeはそのような設定を読み込むことができない場合があります。
+:::
+
+## Prettierからの移行
+
+BiomeはPrettier formatterとできるだけ近い動作をするようにしています。
+しかし、Biomeは異なるデフォルトを使用します。
+例えば、Biomeはスペースの代わりにタブを使用します。
+`biome migrate prettier --write`を実行することで容易にBiomeに移行することができます。
+
+次のPrettierの設定の場合、
+
+```json title=".prettierrc.json"
+{
+	"useTabs": false,
+	"singleQuote": true,
+	"overrides": [
+		{
+      		"files": ["*.json"],
+      		"options": { "tabWidth": 2 }
+    	}
+	]
+}
+```
+
+以下のコマンドを実行することでPrettierの設定をBiomeに移行することができます。
+
+<PackageManagerBiomeCommand command="migrate prettier --write"/>
+
+結果は以下のようになります。
+
+```json title="biome.json"
+{
+	"formatter": {
+		"enabled": true,
+		"formatWithErrors": false,
+		"indentStyle": "space",
+		"indentWidth": 2,
+		"lineEnding": "lf",
+		"lineWidth": 80,
+		"attributePosition": "auto"
+	},
+	"organizeImports": { "enabled": true },
+	"linter": { "enabled": true, "rules": { "recommended": true } },
+	"javascript": {
+		"formatter": {
+			"jsxQuoteStyle": "double",
+			"quoteProperties": "asNeeded",
+			"trailingCommas": "all",
+			"semicolons": "asNeeded",
+			"arrowParentheses": "always",
+			"bracketSpacing": true,
+			"bracketSameLine": false,
+			"quoteStyle": "single",
+			"attributePosition": "auto"
+		}
+	},
+	"overrides": [
+		{
+			"include": ["*.json"],
+			"formatter": {
+				"indentWidth": 2
+			}
+		}
+	]
+}
+```
+
+このサブコマンドは`.prettierrc.js`などの設定を読み込むためにNode.jsを必要とします。
+`biome migrate prettier`はJSON5、TOML、YAMLで書かれた設定ファイルをさぽーとしていません。
+
+
+PrettierはVCSファイルをサポートしているので、Biomeの[VCS インテグレーション](/ja/guides/integrate-in-vcs)を有効にすることを推奨します。
