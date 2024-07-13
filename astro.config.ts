@@ -134,7 +134,7 @@ export default defineConfig({
 							badge: "new",
 							translations: {
 								ja: "ESLintとPrettierからの移行",
-							}.
+							},
 						},
 					],
 				},
