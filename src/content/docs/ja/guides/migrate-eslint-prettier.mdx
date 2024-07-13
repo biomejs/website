@@ -16,18 +16,17 @@ biome migrate prettier --write
 
 ## ESLintからの移行
 
-多くのBiome linterのルールはESLintやESLintのプラグインのルールから作られています。Biomeには[TypeScript ESLint](https://typescript-eslint.io/)、[ESLint JSX A11y](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y)、[ESLint React](https://github.com/jsx-eslint/eslint-plugin-react)、[ESLint Unicorn](https://github.com/sindresorhus/eslint-plugin-unicorn)などのESLintプラグインのルールがあります。
-しかし、Biomeのルールの名前には、独自の慣習があります。
-Biomeは`camelCaseRuleName`を使う一方で、ESLintは`kebab-case-rule-name`を使います。
-Biomeは、よりわかりやすく伝えるために違う名前を使うことが多くあります。
+多くのBiome linterのルールはESLintやESLintのプラグインのルールからインスパイアされて作られています。Biomeには[TypeScript ESLint](https://typescript-eslint.io/)、[ESLint JSX A11y](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y)、[ESLint React](https://github.com/jsx-eslint/eslint-plugin-react)、[ESLint Unicorn](https://github.com/sindresorhus/eslint-plugin-unicorn)などのESLintプラグインのルールがあります。
+しかし、Biomeのルールの名前には、独自の慣習があって、例えばBiomeは`camelCaseRuleName`を使う一方で、ESLintは`kebab-case-rule-name`を使います。
+Biomeは、違う名前を使うことが多くあります。
 あるルールの出所は、そのルールを説明するページで見つけることができます。
-また、ESLintのルールに対応するBiomeのルールは[Rules sources](/ja/linter/rules-sources/)で見つけることができます。
+もしくは、あるESLintのルールに対応するBiomeのルールは[Rules sources](/ja/linter/rules-sources/)で見つけることができます。
 
 移行を容易にするために、Biomeは`biome migrate eslint`サブコマンドを提供します。
 このサブコマンドはESLintの設定を読み込んで、Biomeの設定に移行することを試みます。
 このサブコマンドは古い設定ファイルも新しいflat configもサポートしています。
 古い設定ファイルの`extends`フィールドもサポートしていて、プラグインの設定と共有設定の両方を読み込みます。
-このサブコマンドは`.eslintignore`も移行します。
+また、このサブコマンドは`.eslintignore`も移行します。
 
 次のESLintの設定:
 
@@ -132,7 +131,7 @@ BiomeはPrettier formatterとできるだけ近い動作をするようにして
 例えば、Biomeはスペースの代わりにタブを使用します。
 `biome migrate prettier --write`を実行することで容易にBiomeに移行することができます。
 
-次のPrettierの設定の場合、
+次のPrettierの設定:
 
 ```json title=".prettierrc.json"
 {
@@ -146,8 +145,7 @@ BiomeはPrettier formatterとできるだけ近い動作をするようにして
 	]
 }
 ```
-
-以下のコマンドを実行することでPrettierの設定をBiomeに移行することができます。
+がある場合、以下のコマンドを実行することでPrettierの設定をBiomeに移行することができます。
 
 <PackageManagerBiomeCommand command="migrate prettier --write"/>
 
