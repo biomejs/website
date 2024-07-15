@@ -66,13 +66,13 @@ As of version `1.6.0`, these languages are **partially** supported. Biome will g
   </script>
   ```
 
-- When **linting** `.svelte`, '.astro' or '.vue' files, it's advised to turn off few additional rules to prevent compiler errors. Use the option `overrides` for that:
+- When **linting** `.svelte`, `.astro` or `.vue` files, it's advised to turn off few additional rules to prevent compiler errors. Use the option `overrides` for that:
 
   ```json
     {
       "overrides": [
         {
-          "include": ["*.svelte"],
+          "include": ["*.svelte", "*.astro", "*.vue"],
           "linter": {
             "rules": {
               "style": {
