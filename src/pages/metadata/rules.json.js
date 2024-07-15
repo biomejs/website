@@ -1176,6 +1176,20 @@ export function GET() {
             ],
             "docs": " Disallow specified modules when loaded by import or require.\n\n ## Options\n\n ```json\n {\n     \"noRestrictedImports\": {\n         \"options\": {\n             \"paths\": {\n                 \"lodash\": \"Using lodash is not encouraged\",\n                 \"underscore\": \"Using underscore is not encouraged\"\n             }\n         }\n     }\n }\n ```\n"
           },
+          "noStaticElementInteractions": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noStaticElementInteractions",
+            "link": "https://biomejs.dev/linter/rules/no-static-element-interactions",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslintJsxA11y": "no-static-element-interactions"
+              }
+            ],
+            "docs": " Enforce that static, visible elements (such as `<div>`) that have click handlers use the valid role attribute.\n\n Static HTML elements do not have semantic meaning. This is clear in the case of `<div>` and `<span>`. It is less so clear in the case of elements that seem semantic, but that do not have a semantic mapping in the accessibility layer. For example `<a>` without href attribute, `<meta>`, `<script>`, `<picture>`, `<section>`, and `<colgroup>` -- to name a few -- have no semantic layer mapping. They are as void of meaning as `<div>`.\n\n The [WAI-ARIA role attribute](https://www.w3.org/TR/wai-aria-1.1/#usage_intro) confers a semantic mapping to an element. The semantic value can then be expressed to a user via assistive technology.\n In order to add interactivity such as a mouse or key event listener to a static element, that element must be given a role value as well.\n\n Source: [jsx-a11y/no-static-element-interactions](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/no-static-element-interactions.md)\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div onClick={() => {}}></div>;\n ```\n\n ```jsx,expect_diagnostic\n <span onClick={() => {}}></span>;\n ```\n\n When `<a>` does not have \"href\" attribute, that is non-interactive.\n ```jsx,expect_diagnostic\n <a onClick={() => {}}></a>\n ```\n\n ### Valid\n\n ```jsx\n <>\n     <div role=\"button\" onClick={() => {}}></div>\n     <span role=\"scrollbar\" onClick={() => {}}></span>\n     <a href=\"http://example.com\" onClick={() => {}}></a>\n </>\n ```\n\n"
+          },
           "noSubstr": {
             "deprecated": false,
             "version": "next",
@@ -3630,7 +3644,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 258
+    "numberOrRules": 259
   },
   "syntax": {
     "languages": {
