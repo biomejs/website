@@ -3045,6 +3045,21 @@ export function GET() {
             ],
             "docs": " Enforce that a label element or component has a text label and an associated input.\n\n An \"input\" is considered one of the following elements: `input`, `meter`, `output`, `progress`, `select` or `textarea`.\n\n There are two supported ways to associate a label with an input:\n - Wrapping an input in a label element.\n - Adding a `for` attribute (or `htmlFor` in React) to a label and assigning it a DOM ID string associated with an input on the page.\n\n\n This rule checks that any `label` element (or an indicated custom component that will output a `label` element) meets one of these conditions:\n - Wraps an `input` element (or an indicated custom component that will output an `input` element)\n - Has a `for` or `htmlFor` attribute and that the `label` element/component has accessible text content.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <label for=\"js_id\" />;\n ```\n\n ```jsx,expect_diagnostic\n <label for=\"js_id\"><input /></label>;\n ```\n\n ```jsx,expect_diagnostic\n <label htmlFor=\"js_id\" />;\n ```\n\n ```jsx,expect_diagnostic\n <label htmlFor=\"js_id\"><input /></label>;\n ```\n\n ```jsx,expect_diagnostic\n <label>A label</label>;\n ```\n\n ```jsx,expect_diagnostic\n <div><label /><input /></div>;\n ```\n\n ### Valid\n\n ```jsx\n <label for=\"js_id\" aria-label=\"A label\" />;\n <label for=\"js_id\" aria-labelledby=\"A label\" />;\n <label htmlFor=\"js_id\" aria-label=\"A label\" />;\n <label htmlFor=\"js_id\" aria-labelledby=\"A label\" />;\n <label>A label<input /></label>;\n <label>A label<textarea /></label>;\n <label><img alt=\"A label\" /><input /></label>;\n ```\n\n ## Options\n\n The rule supports the following options:\n - `inputComponents` - An array of component names that should be considered the same as an `input` element.\n - `labelAttributes` - An array of attributes that should be treated as the `label` accessible text content.\n - `labelComponents` - An array of component names that should be considered the same as a `label` element.\n\n Both options `inputComponents` and `labelComponents` don't have support for namespace components (e.g. `<Control.Input>`).\n\n ```json\n {\n     \"//\": \"...\",\n     \"options\": {\n         \"inputComponents\": [\"CustomInput\"],\n         \"labelAttributes\": [\"label\"],\n         \"labelComponents\": [\"CustomLabel\"]\n     }\n }\n ```\n\n"
           },
+          "useConsistentCurlyBraces": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useConsistentCurlyBraces",
+            "link": "https://biomejs.dev/linter/rules/use-consistent-curly-braces",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "eslintReact": "jsx-curly-brace-presence"
+              }
+            ],
+            "sourceKind": "inspired",
+            "docs": " This rule enforces consistent use of curly braces inside JSX attributes and JSX children.\n\n For situations where JSX expressions are unnecessary, please refer to [the React doc](https://facebook.github.io/react/docs/jsx-in-depth.html) and [this page about JSX gotchas](https://github.com/facebook/react/blob/v15.4.0-rc.3/docs/docs/02.3-jsx-gotchas.md#html-entities).\n\n This rule will check for and warn about unnecessary curly braces in both JSX props and children.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <Foo>{'Hello world'}</Foo>\n ```\n ```jsx,expect_diagnostic\n <Foo foo={'bar'} />\n ```\n ```jsx,expect_diagnostic\n <Foo foo=<Bar /> />\n ```\n\n ### Valid\n\n ```js\n <>\n     <Foo>Hello world</Foo>\n     <Foo foo=\"bar\" />\n     <Foo foo={5} />\n     <Foo foo={<Bar />} />\n </>\n ```\n\n"
+          },
           "useFocusableInteractive": {
             "deprecated": false,
             "version": "1.8.0",
@@ -3615,7 +3630,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 257
+    "numberOrRules": 258
   },
   "syntax": {
     "languages": {
