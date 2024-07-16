@@ -12,28 +12,28 @@ It [supports multiple languages](/internals/language-support) and provides a tot
 
 ## Rules
 
-The linter is organized into groups and rules. Every rule belongs to a specific group.
+The linter is organized into rules.
 A rule emits a diagnostic when it encounters a code that doesn't meet its requirements.
-For example, the [noDebugger](/linter/rules/no-debugger) rule reports using the `debugger` instruction in JavaScript code.
+For example, the [noDebugger](/linter/rules/no-debugger) rule reports the use of the `debugger` instruction in JavaScript code.
 
-A rule emits diagnostics with a `warn` or `error` severity.
+A rule emits diagnostics with a `info`, `warn` or `error` severity.
 Diagnostics with an `error` severity cause the command to exit with a non-zero code,
-While diagnostics with a `warn` severity don't cause the command to fail.
+While diagnostics with a `info` or a `warn` severity don't cause the command to fail.
 
-You can tell biome to tail a command with `warn` rules by using the CLI option `--error-on-warnings`:
+You can cause a command that emits `warn` diagnostics to fail by using the `--error-on-warnings` option:
 
 ```shell
 biome lint --error-on-warnings ./src
 ```
 
-By default, the Biome linter only runs [**recommended rules**](/linter/rules#recommended-rules).
+By default, the Biome linter only runs the [**recommended rules**](/linter/rules#recommended-rules).
 To disable _all rules_, you can disable the recommended rules in your Biome configuration file.
-This may be useful in cases when you want to enable only a few rules.
-Recommended rules emit diagnostics with the `error` severity.
+This may be useful in cases when you only want to enable a few rules.
+The recommended rules emit diagnostics with the `error` severity.
 
-Rules are organized into groups.
+The rules are divided into groups.
 For example, the `noDebugger` rule is part of the [`suspicious` group](/linter/rules#suspicious).
-A Rule from this group detects code that is likely to be incorrect or useless.
+Rules from this group detect code that is likely to be incorrect or useless.
 The description of each group can be found on the [rules page](/linter/rules/).
 
 Unlike other linters, we don't provide any rules that check for code formatting.
@@ -56,11 +56,9 @@ To apply _safe fixes_, use `--write`:
 Unsafe fixes may change the semantic of your program.
 Therefore, it's advised to manually review the changes.
 
-To apply _unsafe fixes_, use `--write --unsafe`:
+To apply both _safe fixes_ and _unsafe fixes_, use `--write --unsafe`:
 
 <PackageManagerBiomeCommand command="lint --write --unsafe ./src" />
-
-Note that this command also applies safe fixes.
 
 ### Rule pillars
 
@@ -109,9 +107,9 @@ biome lint --skip=style --skip=style/useNamingConvention
 
 ### Run a rule or a group
 
-Since version **v1.8.0**, the command `biome lint` accepts an option `--only` allows you to run a single rule or the rules that belong to a group.
+Since version **v1.8.0**, the command `biome lint` accepts an option `--only` that allows you to run a single rule or the rules that belong to a group.
 
-For example, the following command runs only the rule`style/useNamingConvention`, the rule `style/noInferrableTypes` and the rules that belong to `a11y`. If the rule is disabled in the configuration, then its severity level is set to error for a recommended rule or warn otherwise.
+For example, the following command runs only the rule`style/useNamingConvention`, the rule `style/noInferrableTypes` and the rules that belong to `a11y`. If the rule is disabled in the configuration, then its severity level is set to `error` for a recommended rule or `warn` otherwise.
 
 ```shell
 biome lint --only=style/useNamingConvention --only=style/noInferrableTypes --only=a11y
@@ -150,7 +148,9 @@ The `info` severity won't affect the exit status code of the CLI, even when `--e
 
 ### Configure the rule fix
 
-Since version **v1.8.0**, it's possible to configure the entity of a fix, using the option `fix`. There are three options:
+Since version **v1.8.0**, it's possible to configure the entity of a fix, using the option `fix`.
+There are three options:
+
 - `none`: the rule won't emit a code fix;
 - `safe`: the rule will emit a [safe fix](#safe-fixes);
 - `unsafe`: the rule will emit an [unsafe fix](#unsafe-fixes);

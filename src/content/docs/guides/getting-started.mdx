@@ -3,12 +3,13 @@ title: Getting Started
 description: Learn how to set up a new project with Biome.
 ---
 
+import DefaultConfiguration from "@/components/generated/DefaultConfiguration.mdx";
 import PackageManagerBiomeCommand from "@/components/PackageManagerBiomeCommand.astro";
 import PackageManagerCommand from "@/components/PackageManagerCommand.astro";
 
 ## Installation
 
-The fastest way to download Biome is to use `npm` or your preferred package manager.
+The fastest way to download Biome is to use a package manager such as `npm`.
 This requires Node.js v14.18 or newer.
 The CLI is also available as a [standalone executable](/guides/manual-installation) if you want to use Biome without installing Node.js.
 
@@ -21,39 +22,29 @@ To install Biome, run the following commands in a directory containing a `packag
   bun="add --dev --exact @biomejs/biome"
 />
 
-It's **highly recommended** not to use a range operator when installing Biome.
+:::note
+We instruct the package manager to pin an exact version of Biome.
+This ensures that everyone within a project has exactly the same version of Biome.
+Even a patch release can result in slightly different behavior.
 See the [versioning page](/internals/versioning/) for more information.
+:::
 
 ## Configuration
 
-We recommend that you create a `biome.json` configuration file for each project.
+We recommend that you create a `biome.json` or a `biome.jsonc` configuration file for each project.
 This eliminates the need to repeat the CLI options each time you run a command,
 and ensures that Biome uses the same configuration in your editor.
-If you are happy with Biome's defaults, you don't need to create the configuration.
-To create the configuration, run the `init` command in the root folder of your project:
+Some options are also only available from a configuration file.
+If you are happy with Biome's defaults, you don't need to create a configuration file.
+To create the `biome.json` file, run the `init` command in the root folder of your project:
 
 <PackageManagerBiomeCommand command="init"/>
 
-After running the `init` command, you'll now have a new `biome.json` file in your directory:
+Pass the `--jsonc` option to emit a `biome.jsonc` file instead.
 
-```json title="biome.json"
-{
-  "$schema": "https://biomejs.dev/schemas/1.8.3/schema.json",
-  "organizeImports": {
-    "enabled": false
-  },
-  "linter": {
-    "enabled": true,
-    "rules": {
-      "recommended": true
-    }
-  }
-}
-```
+After running the `init` command, you'll have a new `biome.json` file in your directory:
 
-Alternatively, you can run `biome init --jsonc` to emit a `biome.jsonc` file instead.
-
-<PackageManagerBiomeCommand command="init --jsonc"/>
+<DefaultConfiguration/>
 
 The `linter.enabled: true` enables the linter and `rules.recommended: true` enables the [recommended rules](/linter/rules/).
 This corresponds to the default settings.
@@ -62,17 +53,17 @@ Formatting is enabled **by default**, but you can [disable](/reference/configura
 
 ## Usage
 
-Biome CLI comes with many commands and options, so you can use only what you need.
+The Biome CLI comes with many commands and options, so you can use only what you need.
 
-You can format files and directories using the [`format`](/reference/cli#biome-format) command and the `--write` option:
+You can format files and directories using the [`format`](/reference/cli#biome-format) command with the `--write` option:
 
 <PackageManagerBiomeCommand command="format --write <files>"/>
 
-You can lint and apply [safe fixes](/linter#safe-fixes) to files and directories using the [`lint`](/reference/cli#biome-lint) command with the `--write`:
+You can lint and apply [safe fixes](/linter#safe-fixes) to files and directories using the [`lint`](/reference/cli#biome-lint) command with the `--write` option:
 
 <PackageManagerBiomeCommand command="lint --write <files>"/>
 
-You can apply **both** of them by leveraging the [`check`](/reference/cli#biome-check) command:
+You can run **both** of them by leveraging the [`check`](/reference/cli#biome-check) command:
 
 <PackageManagerBiomeCommand command="check --write <files>"/>
 
