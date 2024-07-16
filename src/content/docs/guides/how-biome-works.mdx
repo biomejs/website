@@ -2,7 +2,7 @@
 title: How Biome works
 description: Learn how Biome works, like assumptions, configuration and more.
 ---
-import DefaultConfiguration from "@/components/generated/DefaultConfiguration.mdx";
+
 import {FileTree} from '@astrojs/starlight/components';
 
 This is a guide that explains how the tool works, assumptions, and internal information useful when setting up the project and the configuration file.
@@ -12,22 +12,20 @@ This is a guide that explains how the tool works, assumptions, and internal info
 The configuration file is considered **optional**, Biome has good defaults. Use the configuration
 file to change those defaults.
 
-The Biome configuration file is named `biome.json` and should be placed in the root directory of your project. The root
-directory is usually the directory containing your project's `package.json`.
-
-Since version `1.6.0`, Biome accepts also the file `biome.jsonc`.
+The Biome configuration file is named `biome.json` or `biome.jsonc` and should be placed in the root directory of your project.
+The root directory is usually the directory containing your project's `package.json`.
 
 :::note
 If both `biome.json` and `biome.jsonc` are present in the same folder, the priority will be given to `biome.json`
 :::
 
-This configuration file enables the formatter and sets the preferred indent style and width. The linter is disabled:
+The following configuration file enables the formatter, sets the indent style and line width, and disabled the linter:
 
 ```json title="biome.json"
 {
   "formatter": {
     "enabled": true,
-    "indentStyle": "tab",
+    "indentStyle": "space",
     "lineWidth": 120
   },
   "linter": {
@@ -36,18 +34,12 @@ This configuration file enables the formatter and sets the preferred indent styl
 }
 ```
 
-### Default configuration
-
-When you run `biome init`, the default configuration emitted is the following:
-
-<DefaultConfiguration/>
-
 ### Configuration file resolution
 
 Biome uses auto discovery to find the nearest configuration file. It starts looking for one in the current
 working directory, and then it starts looking in the parent directories until:
 - it finds a `biome.json` or a `biome.jsonc` file;
-- it applies Biome's defaults if **no configuration file is found**;
+- it applies Biome's defaults if **no configuration file is found**.
 
 Here's an example:
 
@@ -70,13 +62,13 @@ Here's an example:
 will use the configuration file `app/frontend/biome.json`;
 
 :::note
-Most Biome commands support using the `--config-path` command line option. This allows you to specify a custom configuration file or a directory where Biome can look for a `biome.json` or `biome.jsonc` file. When you use `--config-path`, the standard configuration file resolution process is **disabled**.
+The Biome commands support using the `--config-path` option. This allows you to specify a custom configuration file or a directory where Biome can look for a `biome.json` or `biome.jsonc` file. When you use `--config-path`, the standard configuration file resolution process is **disabled**.
 
 If `--config-path` points directly to a file, you can use names other than `biome.json` or `biome.jsonc`. Biome will read a `.json` file using a standard JSON parser. For files with other extensions, Biome will treat them as `.jsonc` files, using a more flexible JSON parser that allows comments and trailing commas.
 :::
 
 :::caution
-Biome doesn't support nested `biome.json` files, neither in CLI nor in LSP. [Follow and help the support in the relative issue](https://github.com/biomejs/biome/issues/2228)
+Biome doesn't support nested `biome.json` files, neither in CLI nor in LSP. [Follow and help the support in the related issue](https://github.com/biomejs/biome/issues/2228)
 :::
 
 ### The `extends` option
@@ -126,7 +118,7 @@ And linter rules in `linter.json`:
 The entries defined in this array:
 - must exist in the file system;
 - are resolved from the path where the `biome.json` file is defined;
-- must be relative paths or [paths to library](#extends-biomejson-from-a-library)
+- must be relative paths or [paths to library](#extend-biomejson-from-a-library)
 - must be reachable by Biome, e.g. symbolic links might not be resolved by Biome, if they are relative paths;
 - are processed in the order they are listed, with settings in later files overriding earlier ones;
 
@@ -147,7 +139,7 @@ In order to do so, the first thing to do is to set up your "shared" Biome config
 ```
 
 :::note
-You can also export `biome.jsonc` files. Just change `./biome.json` to `./biome.jsonc` and it should work.
+You can also export `biome.jsonc` files. Just change `./biome.json` to `./biome.jsonc`.
 :::
 
 Make sure that `@org/shared-configs` is correctly installed in your project, and update the `biome.json` file to look like the following snippet:
@@ -205,14 +197,6 @@ This means that if you take advantage of the [configuration file resolution](#co
 
 Given the previous example, when you run the command `npm run check`, Biome will eventually find the configuration file in `~home`. Since the command was run from `~home/www/too-app`, that folder is considered the **working directory**. Biome will read the `files.ignore` option, and all those entries will be resolved from `~home/www/todo-app`.json
 
-## Protected Files
-
-The following files are currently ignored by Biome. This means that no diagnostics will be ever emitted by Biome for those files.
-
-- `composer.lock`
-- `npm-shrinkwrap.json`
-- `package-lock.json`
-- `yarn.lock`
 
 ## Well-known Files
 
@@ -266,6 +250,17 @@ The following files are parsed as `JSON` files with the options `json.parser.all
 - `typedoc.json`
 - `typescript.json`
 
+
+## Protected Files
+
+The following files are currently ignored by Biome. This means that no diagnostics will be ever emitted by Biome for those files.
+
+- `composer.lock`
+- `npm-shrinkwrap.json`
+- `package-lock.json`
+- `yarn.lock`
+
+
 ## `include` and `ignore` explained
 
 Biome will resolve the globs specified in `include` and `ignore` relatively from the working directory.
@@ -274,9 +269,9 @@ The working directory is the directory where you usually run a CLI command.
 This means that you have to place **particular attention** when the configuration file is placed in
 a different directory from where you execute your command.
 
-For example, you have a project that contains two directories called `backend/` and `frontend/`,
-and decide to place your `biome.json` at the root folder of the project.
-Inside the `frontend/` project, you have your `package.json` with some scripts that run Biome:
+For example, let's take a project that contains two directories `backend/` and `frontend/`
+and a Biome configuration file `biome.json` at the root directory of the project.
+Inside the `frontend/` directory, a `package.json` specifies a `format` script that runs Biome:
 
 <FileTree>
 - backend
@@ -311,11 +306,27 @@ Inside the `frontend/` project, you have your `package.json` with some scripts t
 }
 ```
 
-When you run the script `format` inside `frontend/package.json`,
-the working directory resolved by that script will be `frontend/`,
-the globs `src/**/*.js` and `src/**/*.ts` will have as "base" directory `frontend/`.
+When you run the script `format` from `frontend/package.json`,
+the working directory resolved by that script will be `frontend/`.
+The globs `src/**/*.js` and `src/**/*.ts` will have as "base" directory `frontend/`.
 
-Although `include` doesn't contain `test`, Biome will still traverse the folder.
+At the moment, Biome uses a glob library that treats all globs as having a `**/` prefix.
+This means that `src/**/*.js` and `**/src/**/*.js` are treated as identical.
+They match both `src/file.js` and `test/src/file.js`.
+This is something we plan to fix in Biome 2, as it will be a breaking change.
+To avoid traversing the `test` folder, you can use the `ignore` field:
+
+```json title="biome.json"
+{
+  "files": {
+    "include": ["src/**/*.js", "src/**/*.ts"],
+    "ignore": ["test"]
+  },
+  "formatter": {
+    "indentStyle": "space"
+  }
+}
+```
 
 :::note
 `include` and `ignore` have a slightly different semantics.
