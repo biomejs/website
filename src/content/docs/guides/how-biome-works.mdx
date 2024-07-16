@@ -19,7 +19,7 @@ The root directory is usually the directory containing your project's `package.j
 If both `biome.json` and `biome.jsonc` are present in the same folder, the priority will be given to `biome.json`
 :::
 
-The following configuration file enables the formatter, sets the indent style and line width, and disabled the linter:
+The following configuration file enables the formatter, sets the indent style and line width, and disables the linter:
 
 ```json title="biome.json"
 {
@@ -62,7 +62,7 @@ Here's an example:
 will use the configuration file `app/frontend/biome.json`;
 
 :::note
-The Biome commands support using the `--config-path` option. This allows you to specify a custom configuration file or a directory where Biome can look for a `biome.json` or `biome.jsonc` file. When you use `--config-path`, the standard configuration file resolution process is **disabled**.
+Biome commands support using the `--config-path` option. This allows you to specify a custom configuration file or a directory where Biome can look for a `biome.json` or `biome.jsonc` file. When you use `--config-path`, the standard configuration file resolution process is **disabled**.
 
 If `--config-path` points directly to a file, you can use names other than `biome.json` or `biome.jsonc`. Biome will read a `.json` file using a standard JSON parser. For files with other extensions, Biome will treat them as `.jsonc` files, using a more flexible JSON parser that allows comments and trailing commas.
 :::
@@ -313,7 +313,7 @@ The globs `src/**/*.js` and `src/**/*.ts` will have as "base" directory `fronten
 At the moment, Biome uses a glob library that treats all globs as having a `**/` prefix.
 This means that `src/**/*.js` and `**/src/**/*.js` are treated as identical.
 They match both `src/file.js` and `test/src/file.js`.
-This is something we plan to fix in Biome 2, as it will be a breaking change.
+This is something we plan to fix in Biome **v2.0.0**, as it will be a breaking change.
 To avoid traversing the `test` folder, you can use the `ignore` field:
 
 ```json title="biome.json"
