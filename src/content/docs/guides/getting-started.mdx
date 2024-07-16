@@ -3,6 +3,7 @@ title: Getting Started
 description: Learn how to set up a new project with Biome.
 ---
 
+import DefaultConfiguration from "@/components/generated/DefaultConfiguration.mdx";
 import PackageManagerBiomeCommand from "@/components/PackageManagerBiomeCommand.astro";
 import PackageManagerCommand from "@/components/PackageManagerCommand.astro";
 
@@ -43,20 +44,7 @@ Pass the `--jsonc` option to emit a `biome.jsonc` file instead.
 
 After running the `init` command, you'll have a new `biome.json` file in your directory:
 
-```json title="biome.json"
-{
-  "$schema": "https://biomejs.dev/schemas/1.8.3/schema.json",
-  "organizeImports": {
-    "enabled": false
-  },
-  "linter": {
-    "enabled": true,
-    "rules": {
-      "recommended": true
-    }
-  }
-}
-```
+<DefaultConfiguration/>
 
 The `linter.enabled: true` enables the linter and `rules.recommended: true` enables the [recommended rules](/linter/rules/).
 This corresponds to the default settings.
