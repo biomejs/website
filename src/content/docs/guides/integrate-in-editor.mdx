@@ -3,12 +3,12 @@ title: Integrate Biome in your editor
 description: Learn how you can integrate Biome with editors and IDEs
 ---
 
-Biome has [LSP](https://microsoft.github.io/language-server-protocol/) first-class support. If your editor does implement LSP, then the integration of Biome should be seamless.
+Biome has [LSP](https://microsoft.github.io/language-server-protocol/) first-class support. If your editor implements LSP, then the integration of Biome should be seamless.
 
 ### Use the LSP proxy
 
 Biome has a command called `lsp-proxy`. When executed, Biome will spawn two processes:
-- a [daemon](/internals/architecture#daemon) that does execute the requested operations;
+- a [daemon](/internals/architecture#daemon) that executes the requested operations;
 - a server that functions as a proxy between the requests of the client - the editor - and the server - the daemon;
 
 If your editor is able to interact with a server and send [JSON-RPC](https://www.jsonrpc.org/) request, you only need to configure the editor run that command.
@@ -17,7 +17,7 @@ You can check how the [`neo-vim biome plugin`](https://github.com/neovim/nvim-ls
 
 ### Use `stdin`
 
-If your editor doesn't support LSP, you use directly the binary `biome` and call it using [standard input](https://en.wikipedia.org/wiki/Standard_streams#Standard_input_(stdin)).
+If your editor doesn't support LSP, you can use the `biome` binary directly and call it using [standard input](https://en.wikipedia.org/wiki/Standard_streams#Standard_input_(stdin)).
 
 The following commands can be called via standard input:
 - [`format`](/reference/cli/#biome-format)
@@ -64,7 +64,10 @@ Operations via the daemon are significantly slower than the CLI itself, so it's 
 
 ### Daemon logs
 
-The Biome daemon saves logs in your file system. Logs are stored in a folder called `biome-logs`. The path of  this folder changes based on your operative system:
+The Biome daemon saves logs in your file system.
+Logs are stored in a folder called `biome-logs`.
+The path to this folder will vary depending on your operating system:
+
 -  Linux: `~/.cache/biome`;
 -  Windows: `C:\Users\<UserName>\AppData\Local\biomejs\biome\cache`
 -  macOS: `/Users/<UserName>/Library/Caches/dev.biomejs.biome`
@@ -72,10 +75,14 @@ The Biome daemon saves logs in your file system. Logs are stored in a folder cal
 For other operative systems, you can find the folder in the system's temporary directory.
 
 To obtain the precise path, execute the following command:
+
 ```shell
 biome explain daemon-logs
 ```
 
 The log files are rotated on an hourly basis.
+You can remove the logs using the `clean` command:
 
-
+```shell
+biome clean
+```
