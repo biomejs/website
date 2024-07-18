@@ -214,6 +214,15 @@ export function GET() {
             ],
             "docs": " Disallow unmatchable An+B selectors.\n\n Selectors that always evaluate to 0 will not match any elements.\n For more details about the An+B syntax, see:\n https://www.w3.org/TR/css-syntax-3/#anb-microsyntax\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a:nth-child(0) {}\n ```\n\n ```css,expect_diagnostic\n a:nth-last-child(0n) {}\n ```\n\n ```css,expect_diagnostic\n a:nth-of-type(0n+0) {}\n ```\n\n ```css,expect_diagnostic\n a:nth-last-of-type(0 of a) {}\n ```\n\n ### Valid\n\n ```css\n a:nth-child(1) {}\n ```\n\n ```css\n a:nth-last-child(1n) {}\n ```\n\n ```css\n a:nth-of-type(1n+0) {}\n ```\n\n ```css\n a:nth-last-of-type(1 of a) {}\n ```\n\n"
           },
+          "noValueAtRule": {
+            "deprecated": false,
+            "version": "1.8.0",
+            "name": "noValueAtRule",
+            "link": "https://biomejs.dev/linter/rules/no-value-at-rule",
+            "recommended": false,
+            "fixKind": "none",
+            "docs": " Disallow use of `@value` rule in css modules.\n\n Use of CSS variables is recommended instead of `@value` rule.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n @value red: #FF0000;\n ```\n\n ### Valid\n\n ```css\n :root {\n   --red: #FF0000\n }\n\n p {\n   background-color: var(--red);\n }\n ```\n\n"
+          },
           "useConsistentGridAreas": {
             "deprecated": false,
             "version": "next",
@@ -3658,7 +3667,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 260
+    "numberOrRules": 261
   },
   "syntax": {
     "languages": {
