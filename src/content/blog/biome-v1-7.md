@@ -279,7 +279,7 @@ The following rules are promoted:
 
 - You can now ignore `React` imports in the rules [noUnusedImports](/linter/rules/no-unused-imports/#options) and [useImportType](/linter/rules/use-import-type/#options) by setting [`javascript.jsxRuntime`](/reference/configuration/#javascriptjsxruntime) to `reactClassic`.
 
-- Biome applies specific settings to [well-known files](/guides/how-biome-works/#well-known-files).
+- Biome applies specific settings to [well-known files](/guides/configure-biome/#well-known-files).
   It now recognizes more files and distinguishes between JSON files that only allow comments and JSON files that allow both comments and trailing commas.
 
 - In the React ecosystem, files ending in `.js` are allowed to contain JSX syntax.
