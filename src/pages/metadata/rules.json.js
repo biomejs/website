@@ -1453,6 +1453,20 @@ export function GET() {
             "fixKind": "none",
             "docs": " Require regex literals to be declared at the top level.\n\n This rule is useful to avoid performance issues when using regex literals inside functions called many times (hot paths). Regex literals create a new RegExp object when they are evaluated. (See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp) By declaring them at the top level, this overhead can be avoided.\n\n It's important to note that this rule is not recommended for all cases. Placing regex literals at the top level can hurt startup times. In browser contexts, this can result in longer page loads.\n\n Additionally, this rule ignores regular expressions with the `g` and/or `y` flags, as they maintain internal state and can cause\n [side effects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/lastIndex#avoiding_side_effects) when calling `test` and `exec` with them.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function foo(someString) {\n     return /[a-Z]*/.test(someString)\n }\n ```\n\n ### Valid\n\n ```js\n const REGEX = /[a-Z]*/;\n\n function foo(someString) {\n     return REGEX.test(someString)\n }\n ```\n\n ```js\n function foo(str) {\n     return /[a-Z]*/g.exec(str)\n }\n ```\n\n"
           },
+          "useTrimStartEnd": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useTrimStartEnd",
+            "link": "https://biomejs.dev/linter/rules/use-trim-start-end",
+            "recommended": false,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "eslintUnicorn": "prefer-string-trim-start-end"
+              }
+            ],
+            "docs": " Enforce the use of `String.trimStart()` and `String.trimEnd()` over `String.trimLeft()` and `String.trimRight()`.\n\n While `String.trimLeft()` and `String.trimRight()` are aliases for `String.trimStart()` and `String.trimEnd()`,\n only using the latter pair ensures consistency and is preferable for their direction-independent wording.\n\n Note that `String.trimStart()` and `String.trimEnd()` methods do not take any parameters. Any arguments passed to these methods will be ignored.\n See the MDN documentation for more details:\n - [String.prototype.trimStart()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trimStart)\n - [String.prototype.trimEnd()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trimEnd)\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const foo = bar.trimLeft();\n ```\n\n ```js,expect_diagnostic\n const foo = bar.trimRight();\n ```\n\n ### Valid\n\n ```js\n const foo = bar.trimStart();\n ```\n\n ```js\n const foo = bar.trimEnd();\n ```\n\n"
+          },
           "useValidAutocomplete": {
             "deprecated": false,
             "version": "next",
@@ -3644,7 +3658,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 259
+    "numberOrRules": 260
   },
   "syntax": {
     "languages": {
