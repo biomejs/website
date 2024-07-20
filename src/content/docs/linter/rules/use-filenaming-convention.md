@@ -20,6 +20,9 @@ For example, `.filename.js`, `+filename.js`, `__filename__.js`, or even `.__file
 The convention of prefixing a filename with a plus sign is used by
 [Sveltekit](https://kit.svelte.dev/docs/routing#page) and [Vike](https://vike.dev/route).
 
+Also, the rule supports dynamic route syntaxes of [Next.js](https://nextjs.org/docs/pages/building-your-application/routing/dynamic-routes#catch-all-segments), [SolidStart](https://docs.solidjs.com/solid-start/building-your-application/routing#renaming-index), [Nuxt](https://nuxt.com/docs/guide/directory-structure/server#catch-all-route), and [Astro](https://docs.astro.build/en/guides/routing/#rest-parameters).
+For example `[...slug].js` and `[[...slug]].js` are valid filenames.
+
 By default, the rule ensures that the filename is either in [`camelCase`](https://en.wikipedia.org/wiki/Camel_case), [`kebab-case`](https://en.wikipedia.org/wiki/Letter_case#Kebab_case), [`snake_case`](https://en.wikipedia.org/wiki/Snake_case),
 or equal to the name of one export in the file.
 
