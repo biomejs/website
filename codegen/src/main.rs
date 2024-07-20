@@ -1,3 +1,4 @@
+use codegen::configuration::generate_configuration;
 use codegen::lintdoc::generate_rule_docs;
 use codegen::metadata::generate_json_metadata;
 use codegen::website::generate_files;
@@ -19,6 +20,7 @@ fn main() -> anyhow::Result<()> {
             generate_json_metadata()?;
         }
         CodegenCommand::Metadata => generate_json_metadata()?,
+        CodegenCommand::Configuration => generate_configuration()?,
     }
 
     Ok(())

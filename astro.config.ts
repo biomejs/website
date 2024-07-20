@@ -258,7 +258,7 @@ export default defineConfig({
 						},
 						{
 							label: "Configuration",
-							link: "/reference/configuration",
+							link: "/reference/configuration_v2",
 							translations: {
 								ja: "設定",
 								"zh-CN": "配置",
