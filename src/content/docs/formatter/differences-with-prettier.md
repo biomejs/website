@@ -192,24 +192,24 @@ Diff
 ```ts title="example.ts" del={3, 8, 13, 19} ins={4, 9, 14, 20}
 // Multiple accessibility modifiers
 class Foo {
-  private a = 1;
   private public a  = 1;
+  private a = 1;
 }
 
 // Declare function with body
-declare function foo() {};
 declare function foo ( ) {  }
+declare function foo() {};
 
 // Invalid use of abstract
 class Bar {
-  abstract foo;
   abstract  foo  ;
+  abstract foo;
 }
 
 // Duplicate Readonly
 class Read {
-  readonly x: number;
   readonly readonly   x: number;
+  readonly x: number;
 }
 ```
 
@@ -249,14 +249,14 @@ interface L<in const T> {}
 return someVeryLongStringA && someVeryLongStringB && someVeryLongStringC && someVeryLongStringD
 ```
 
-```js title="example.js" del={1, 2, 3, 4, 5, 6} ins={7}
+```js title="example.js" del={2, 3, 4, 5, 6, 7} ins={1}
+return someVeryLongStringA && someVeryLongStringB && someVeryLongStringC && someVeryLongStringD
 return (
   someVeryLongStringA &&
   someVeryLongStringB &&
   someVeryLongStringC &&
   someVeryLongStringD
 );
-return someVeryLongStringA && someVeryLongStringB && someVeryLongStringC && someVeryLongStringD
 ```
 
 ### Erroneous self-increment and self-decrement
