@@ -44,10 +44,10 @@ For more information about all the available options, check the [CLI reference](
 Biome provides some options to tune the behavior of its formatter.
 Differently from other tools, Biome separates language-agnostic options from language-specific options.
 
-The formatter options can be set on the [CLI](/reference/cli/#biome-format) or via a [Biome configuration file](/guides/how-biome-works/#configuration).
+The formatter options can be set on the [CLI](/reference/cli/#biome-format) or via a [Biome configuration file](/guides/configure-biome).
 Biome doesn't support `.editorconfig` [yet](https://github.com/biomejs/biome/issues/1724).
 
-It's recommended to use a [Biome configuration file](/guides/how-biome-works#configuration) to ensure that both the Biome CLI and the Biome LSP apply the same options.
+It's recommended to use a [Biome configuration file](/guides/configure-biome) to ensure that both the Biome CLI and the Biome LSP apply the same options.
 The following defaults are applied:
 
 ```json title="biome.json"
@@ -90,7 +90,7 @@ The main language-agnostic options supported by the Biome formatter are:
 See the [configuration reference](/reference/configuration#formatter) for more details.
 
 
-## Ignoring Code
+## Ignore Code
 
 There are times when the formatted code isn't ideal.
 
@@ -125,29 +125,5 @@ const expr =
   ];
 ```
 
-
-## Ignoring files
-
 Biome doesn't provide ignore comments that ignore an entire file.
-However, you can ignore a file using the Biome configuration file.
-
-You can ignore files for all tools, including the formatter,
-using the [`files.ignore` configuration](/guides/how-biome-works#include-and-ignore-explained).
-By default, Biome ignores the [protected files](/guides/how-biome-works#protected-files).
-
-If you want to exclude files from being formatted, you can use `formatter.ignore`:
-
-```json title="biome.jsonc"
-{
-  "files": {
-    // All tools, including the formatter, ignore following files
-    "ignore": ["dist/**"]
-  },
-  "formatter": {
-    // Only the formatter ignores the following files
-    "ignore": ["test/**"]
-  }
-}
-```
-
-Note that you can also [ignore files ignored by your VCS](/guides/integrate-in-vcs#use-the-ignore-file).
+However, you can [ignore a file using the Biome configuration file](/guides/configure-biome/#ignore-files).
