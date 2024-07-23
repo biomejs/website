@@ -86,7 +86,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 - The icon <span class='inline-icon' title="TypeScript rule"><Icon name="seti:typescript" label="TypeScript rule" /></span> indicates that the rule is applied to TypeScript and TSX files.
 - The icon <span class='inline-icon' title="JSON rule"><Icon name="seti:json" label="JSON rule" /></span> indicates that the rule is applied to JSON files.
 - The icon <span class='inline-icon' title="CSS rule"><Icon name="seti:css" label="CSS rule" /></span> indicates that the rule is applied to CSS files.
-- The icon <span class='inline-icon' title="GraphQL rule"><Icon name="seti:graphql" label="GraphQL rule" /></span> indicates that the rule is applied to CSS files.
+- The icon <span class='inline-icon' title="GraphQL rule"><Icon name="seti:graphql" label="GraphQL rule" /></span> indicates that the rule is applied to GraphQL files.
 "#
     )?;
 
