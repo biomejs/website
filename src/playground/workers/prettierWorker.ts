@@ -123,6 +123,7 @@ async function formatWithPrettier(
 			bracketSpacing: options.bracketSpacing,
 			bracketSameLine: options.bracketSameLine,
 			singleAttributePerLine: options.singleAttributePerLine ?? false,
+			embeddedLanguageFormatting: "off",
 		};
 
 		// @ts-expect-error
