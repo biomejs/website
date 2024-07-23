@@ -3214,7 +3214,7 @@ export function GET() {
                 "eslintReact": "jsx-no-comment-textnodes"
               }
             ],
-            "docs": " Prevent comments from being inserted as text nodes\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n const a3 = <div>// comment</div>;\n ```\n\n ```jsx,expect_diagnostic\n const a4 = <div>/* comment */</div>;\n ```\n\n ```jsx,expect_diagnostic\n const a5 = <div>/** comment */</div>;\n ```\n\n ### Valid\n\n ```jsx\n const a = <div>{/* comment */}</div>;\n const a1 = <div>{/** comment */}</div>;\n const a2 = <div className={\"cls\" /* comment */}></div>;\n ```\n"
+            "docs": " Prevent comments from being inserted as text nodes\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div>// comment</div>;\n ```\n\n ```jsx,expect_diagnostic\n <div>/* comment */</div>;\n ```\n\n ```jsx,expect_diagnostic\n <div>/** comment */</div>;\n ```\n\n ```jsx,expect_diagnostic\n <div>text /* comment */</div>;\n ```\n\n ```jsx,expect_diagnostic\n <div>/* comment */ text</div>;\n ```\n\n ```jsx,expect_diagnostic\n <div>\n     text\n     // comment\n </div>;\n ```\n\n ```jsx,expect_diagnostic\n <div>\n     // comment\n    text\n </div>;\n ```\n\n ```jsx,expect_diagnostic\n <div>\n     /* comment */\n     text\n </div>;\n ```\n\n ### Valid\n\n ```jsx\n <>\n    <div>{/* comment */}</div>;\n    <div>{/** comment */}</div>;\n    <div className={\"cls\" /* comment */}></div>;\n    <div>text {/* comment */}</div>;\n    <div>{/* comment */} text</div>;\n </>\n ```\n"
           },
           "noDuplicateJsxProps": {
             "deprecated": false,
