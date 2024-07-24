@@ -49,6 +49,9 @@ description: A page that maps lint rules from other sources to Biome
     let mut exclusive_biome_rules = BTreeSet::<(String, String)>::new();
 
     for (rule_name, metadata) in rules {
+        if metadata.version == "next" {
+            continue;
+        }
         let kebab_rule_name = Case::Kebab.convert(rule_name);
         if metadata.sources.is_empty() {
             exclusive_biome_rules.insert((

@@ -8,10 +8,8 @@ description: A page that maps lint rules from other sources to Biome
 - [noConstEnum](/linter/rules/no-const-enum) 
 - [noDelete](/linter/rules/no-delete) 
 - [noDuplicateJsonKeys](/linter/rules/no-duplicate-json-keys) 
-- [noDynamicNamespaceImportAccess](/linter/rules/no-dynamic-namespace-import-access) 
 - [noEmptyTypeParameters](/linter/rules/no-empty-type-parameters) 
 - [noEvolvingTypes](/linter/rules/no-evolving-types) 
-- [noExportedImports](/linter/rules/no-exported-imports) 
 - [noGlobalIsFinite](/linter/rules/no-global-is-finite) 
 - [noGlobalIsNan](/linter/rules/no-global-is-nan) 
 - [noImplicitAnyLet](/linter/rules/no-implicit-any-let) 
@@ -103,7 +101,6 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-global-assign](https://eslint.org/docs/latest/rules/no-global-assign) |[noGlobalAssign](/linter/rules/no-global-assign) |
 | [no-import-assign](https://eslint.org/docs/latest/rules/no-import-assign) |[noImportAssign](/linter/rules/no-import-assign) |
 | [no-inner-declarations](https://eslint.org/docs/latest/rules/no-inner-declarations) |[noInnerDeclarations](/linter/rules/no-inner-declarations) |
-| [no-irregular-whitespace](https://eslint.org/docs/latest/rules/no-irregular-whitespace) |[noIrregularWhitespace](/linter/rules/no-irregular-whitespace) |
 | [no-label-var](https://eslint.org/docs/latest/rules/no-label-var) |[noLabelVar](/linter/rules/no-label-var) |
 | [no-labels](https://eslint.org/docs/latest/rules/no-labels) |[noConfusingLabels](/linter/rules/no-confusing-labels) (inspired) |
 | [no-lone-blocks](https://eslint.org/docs/latest/rules/no-lone-blocks) |[noUselessLoneBlockStatements](/linter/rules/no-useless-lone-block-statements) |
@@ -162,29 +159,20 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [use-isnan](https://eslint.org/docs/latest/rules/use-isnan) |[useIsNan](/linter/rules/use-is-nan) |
 | [valid-typeof](https://eslint.org/docs/latest/rules/valid-typeof) |[useValidTypeof](/linter/rules/use-valid-typeof) |
 | [yoda](https://eslint.org/docs/latest/rules/yoda) |[noYodaExpression](/linter/rules/no-yoda-expression) |
-### GraphQL-ESLint
-| GraphQL-ESLint rule name | Biome rule name |
-| ---- | ---- |
-| [no-duplicate-fields](https://the-guild.dev/graphql/eslint/rules/no-duplicate-fields) |[noDuplicatedFields](/linter/rules/no-duplicated-fields) |
-| [require-deprecation-reason](https://the-guild.dev/graphql/eslint/rules/require-deprecation-reason) |[useDeprecatedReason](/linter/rules/use-deprecated-reason) |
 ### Stylelint
 | Stylelint rule name | Biome rule name |
 | ---- | ---- |
-| [declaration-block-no-shorthand-property-overrides](https://github.com/stylelint/stylelint/blob/main/lib/rules/declaration-block-no-shorthand-property-overrides/README.md) |[noShorthandPropertyOverrides](/linter/rules/no-shorthand-property-overrides) |
 | [font-family-no-duplicate-names](https://github.com/stylelint/stylelint/blob/main/lib/rules/font-family-no-duplicate-names/README.md) |[noDuplicateFontNames](/linter/rules/no-duplicate-font-names) |
 | [font-family-no-missing-generic-family-keyword](https://github.com/stylelint/stylelint/blob/main/lib/rules/font-family-no-missing-generic-family-keyword/README.md) |[useGenericFontNames](/linter/rules/use-generic-font-names) |
-| [function-linear-gradient-no-nonstandard-direction](https://github.com/stylelint/stylelint/blob/main/lib/rules/function-linear-gradient-no-nonstandard-direction/README.md) |[noInvalidDirectionInLinearGradient](/linter/rules/no-invalid-direction-in-linear-gradient) |
 | [function-no-unknown](https://github.com/stylelint/stylelint/blob/main/lib/rules/function-no-unknown/README.md) |[noUnknownFunction](/linter/rules/no-unknown-function) |
 | [keyframe-block-no-duplicate-selectors](https://github.com/stylelint/stylelint/blob/main/lib/rules/keyframe-block-no-duplicate-selectors/README.md) |[noDuplicateSelectorsKeyframeBlock](/linter/rules/no-duplicate-selectors-keyframe-block) |
 | [keyframe-declaration-no-important](https://github.com/stylelint/stylelint/blob/main/lib/rules/keyframe-declaration-no-important/README.md) |[noImportantInKeyframe](/linter/rules/no-important-in-keyframe) |
 | [media-feature-name-no-unknown](https://github.com/stylelint/stylelint/blob/main/lib/rules/media-feature-name-no-unknown/README.md) |[noUnknownMediaFeatureName](/linter/rules/no-unknown-media-feature-name) |
-| [named-grid-areas-no-invalid](https://github.com/stylelint/stylelint/blob/main/lib/rules/named-grid-areas-no-invalid/README.md) |[useConsistentGridAreas](/linter/rules/use-consistent-grid-areas) |
 | [no-duplicate-at-import-rules](https://github.com/stylelint/stylelint/blob/main/lib/rules/no-duplicate-at-import-rules/README.md) |[noDuplicateAtImportRules](/linter/rules/no-duplicate-at-import-rules) (inspired) |
 | [no-empty-block](https://github.com/stylelint/stylelint/blob/main/lib/rules/no-empty-block/README.md) |[noEmptyBlock](/linter/rules/no-empty-block) |
 | [no-invalid-position-at-import-rule](https://github.com/stylelint/stylelint/blob/main/lib/rules/no-invalid-position-at-import-rule/README.md) |[noInvalidPositionAtImportRule](/linter/rules/no-invalid-position-at-import-rule) |
 | [property-no-unknown](https://github.com/stylelint/stylelint/blob/main/lib/rules/property-no-unknown/README.md) |[noUnknownProperty](/linter/rules/no-unknown-property) |
 | [selector-anb-no-unmatchable](https://github.com/stylelint/stylelint/blob/main/lib/rules/selector-anb-no-unmatchable/README.md) |[noUnmatchableAnbSelector](/linter/rules/no-unmatchable-anb-selector) |
-| [selector-pseudo-class-no-unknown](https://github.com/stylelint/stylelint/blob/main/lib/rules/selector-pseudo-class-no-unknown/README.md) |[noUnknownPseudoClassSelector](/linter/rules/no-unknown-pseudo-class-selector) |
 | [selector-pseudo-element-no-unknown](https://github.com/stylelint/stylelint/blob/main/lib/rules/selector-pseudo-element-no-unknown/README.md) |[noUnknownSelectorPseudoElement](/linter/rules/no-unknown-selector-pseudo-element) |
 | [unit-no-unknown](https://github.com/stylelint/stylelint/blob/main/lib/rules/unit-no-unknown/README.md) |[noUnknownUnit](/linter/rules/no-unknown-unit) |
 ### eslint-plugin-barrel-files
@@ -223,7 +211,6 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [aria-proptypes](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/aria-proptypes.md) |[useValidAriaValues](/linter/rules/use-valid-aria-values) |
 | [aria-role](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/aria-role.md) |[useValidAriaRole](/linter/rules/use-valid-aria-role) |
 | [aria-unsupported-elements](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/aria-unsupported-elements.md) |[noAriaUnsupportedElements](/linter/rules/no-aria-unsupported-elements) |
-| [autocomplete-valid](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/autocomplete-valid.md) |[useValidAutocomplete](/linter/rules/use-valid-autocomplete) |
 | [click-events-have-key-events](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/click-events-have-key-events.md) |[useKeyWithClickEvents](/linter/rules/use-key-with-click-events) |
 | [heading-has-content](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/heading-has-content.md) |[useHeadingContent](/linter/rules/use-heading-content) |
 | [html-has-lang](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/html-has-lang.md) |[useHtmlLang](/linter/rules/use-html-lang) |
@@ -242,7 +229,6 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-noninteractive-element-to-interactive-role](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/no-noninteractive-element-to-interactive-role.md) |[noNoninteractiveElementToInteractiveRole](/linter/rules/no-noninteractive-element-to-interactive-role) |
 | [no-noninteractive-tabindex](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/no-noninteractive-tabindex.md) |[noNoninteractiveTabindex](/linter/rules/no-noninteractive-tabindex) |
 | [no-redundant-roles](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/no-redundant-roles.md) |[noRedundantRoles](/linter/rules/no-redundant-roles) |
-| [no-static-element-interactions](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/no-static-element-interactions.md) |[noStaticElementInteractions](/linter/rules/no-static-element-interactions) |
 | [prefer-tag-over-role](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/prefer-tag-over-role.md) |[useSemanticElements](/linter/rules/use-semantic-elements) |
 | [role-has-required-aria-props](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/role-has-required-aria-props.md) |[useAriaPropsForRole](/linter/rules/use-aria-props-for-role) |
 | [scope](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/scope.md) |[noHeaderScope](/linter/rules/no-header-scope) |
@@ -252,7 +238,6 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | ---- | ---- |
 | [button-has-type](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/button-has-type.md) |[useButtonType](/linter/rules/use-button-type) |
 | [jsx-boolean-value](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-boolean-value.md) |[noImplicitBoolean](/linter/rules/no-implicit-boolean) (inspired) |
-| [jsx-curly-brace-presence](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-curly-brace-presence.md) |[useConsistentCurlyBraces](/linter/rules/use-consistent-curly-braces) (inspired) |
 | [jsx-fragments](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-fragments.md) |[useFragmentSyntax](/linter/rules/use-fragment-syntax) |
 | [jsx-key](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-key.md) |[useJsxKeyInIterable](/linter/rules/use-jsx-key-in-iterable) |
 | [jsx-no-comment-textnodes](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-no-comment-textnodes.md) |[noCommentText](/linter/rules/no-comment-text) |
@@ -299,8 +284,6 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [prefer-date-now](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-date-now.md) |[useDateNow](/linter/rules/use-date-now) |
 | [prefer-node-protocol](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-node-protocol.md) |[useNodejsImportProtocol](/linter/rules/use-nodejs-import-protocol) |
 | [prefer-number-properties](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-number-properties.md) |[useNumberNamespace](/linter/rules/use-number-namespace) |
-| [prefer-string-slice](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-string-slice.md) |[noSubstr](/linter/rules/no-substr) |
-| [prefer-string-trim-start-end](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-string-trim-start-end.md) |[useTrimStartEnd](/linter/rules/use-trim-start-end) |
 | [require-number-to-fixed-digits-argument](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/require-number-to-fixed-digits-argument.md) |[useNumberToFixedDigitsArgument](/linter/rules/use-number-to-fixed-digits-argument) |
 | [throw-new-error](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/throw-new-error.md) |[useThrowNewError](/linter/rules/use-throw-new-error) |
 ### eslint-plugin-unused-imports
