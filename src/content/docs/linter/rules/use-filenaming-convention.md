@@ -39,10 +39,8 @@ If you want to ignore all files in the `test` directory, then you can disable th
     {
        "include": ["test/**/*"],
        "linter": {
-         "rules": {
-           "style": {
-             "useFilenamingConvention": "off"
-           }
+         "style": {
+           "useFilenamingConvention": "off"
          }
        }
     }
