@@ -21,8 +21,8 @@ importers:
         specifier: 4.0.7
         version: 4.0.7
       '@astrojs/starlight':
-        specifier: 0.25.1
-        version: 0.25.1(astro@4.12.2(@types/node@20.14.11)(sass@1.77.8)(typescript@5.5.3))
+        specifier: 0.25.2
+        version: 0.25.2(astro@4.12.2(@types/node@20.14.11)(sass@1.77.8)(typescript@5.5.3))
       '@biomejs/biome':
         specifier: 1.8.3
         version: 1.8.3
@@ -202,8 +202,8 @@ packages:
   '@astrojs/sitemap@3.1.5':
     resolution: {integrity: sha512-GLdzJ01387Uzb8RKYpsYLlg/GzoPnGbmDeQNkarSE11i2+l9Qp8Nj/WoTEy9nkTS25fxxy0kxDfJmreeVleCqg==}
 
-  '@astrojs/starlight@0.25.1':
-    resolution: {integrity: sha512-tniE870QpwDs7stJk/qb1LwE78761Fi77qF/UsWedDU90gC6gPjGOHNrbQYUABAmkQ63t3/Jpq9/kmS6sfHT0g==}
+  '@astrojs/starlight@0.25.2':
+    resolution: {integrity: sha512-VcFe9yXB0oUIoEU0lLdDA3jnbtjVzSXXpX/oI8OW4ofEHCt8L9V27f+NzRjB0A1+2D6FxAEoAw3NKoP06PLRQA==}
     peerDependencies:
       astro: ^4.8.6
 
@@ -1251,9 +1251,6 @@ packages:
     resolution: {integrity: sha512-wQGI+LY/Py20zdUPq+XCem7JcPOyzIJBm3dli+56DJsQOHbnXZFEwgmnC6el1TPAfC8lBT3m+z69RmLykNUbew==}
     cpu: [x64]
     os: [win32]
-
-  '@shikijs/core@1.10.0':
-    resolution: {integrity: sha512-BZcr6FCmPfP6TXaekvujZcnkFmJHZ/Yglu97r/9VjzVndQA56/F4WjUKtJRQUnK59Wi7p/UTAOekMfCJv7jnYg==}
 
   '@shikijs/core@1.11.0':
     resolution: {integrity: sha512-VbEhDAhT/2ozO0TPr5/ZQBO/NWLqtk4ZiBf6NplYpF38mKjNfMMied5fNEfIfYfN+cdKvhDB4VMcKvG/g9c3zg==}
@@ -3558,10 +3555,6 @@ packages:
     resolution: {integrity: sha512-qoF6Vz3BjU2tP6OfZqHOvCU0ACmu/6jhGaINSQRI9mM7wCxNQTKB3JUAN4SVoN2ybElEDTxBIABRep7e569iJw==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
-  remark-smartypants@3.0.1:
-    resolution: {integrity: sha512-qyshfCl2eLO0i0558e79ZJsfojC5wjnYLByjt0FmjJQN6aYwcRxpoj784LZJSoWCdnA2ubh5rLNGb8Uur/wDng==}
-    engines: {node: '>=16.0.0'}
-
   remark-smartypants@3.0.2:
     resolution: {integrity: sha512-ILTWeOriIluwEvPjv67v7Blgrcx+LZOkAUVtKI3putuhlZm84FnqDORNXPPm+HY3NdZOMhyDwZ1E+eZB/Df5dA==}
     engines: {node: '>=16.0.0'}
@@ -3716,9 +3709,6 @@ packages:
   shebang-regex@3.0.0:
     resolution: {integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==}
     engines: {node: '>=8'}
-
-  shiki@1.10.0:
-    resolution: {integrity: sha512-YD2sXQ+TMD/F9BimV9Jn0wj35pqOvywvOG/3PB6hGHyGKlM7TJ9tyJ02jOb2kF8F0HfJwKNYrh3sW7jEcuRlXA==}
 
   shiki@1.11.0:
     resolution: {integrity: sha512-NqH/O1zRHvnuk/WfSL6b7+DtI7/kkMMSQGlZhm9DyzSU+SoIHhaw/fBZMr+zp9R8KjdIzkk3JKSC6hORuGDyng==}
@@ -4249,12 +4239,12 @@ snapshots:
       remark-parse: 11.0.0
       remark-rehype: 11.1.0
       remark-smartypants: 2.1.0
-      shiki: 1.10.0
+      shiki: 1.11.0
       unified: 11.0.5
       unist-util-remove-position: 5.0.0
       unist-util-visit: 5.0.0
       unist-util-visit-parents: 6.0.1
-      vfile: 6.0.1
+      vfile: 6.0.2
     transitivePeerDependencies:
       - supports-color
 
@@ -4285,7 +4275,7 @@ snapshots:
     dependencies:
       '@astrojs/markdown-remark': 5.1.0
       '@mdx-js/mdx': 3.0.1
-      acorn: 8.12.0
+      acorn: 8.12.1
       astro: 4.12.2(@types/node@20.14.11)(sass@1.77.8)(typescript@5.5.3)
       es-module-lexer: 1.5.4
       estree-util-visit: 2.0.0
@@ -4295,10 +4285,10 @@ snapshots:
       kleur: 4.1.5
       rehype-raw: 7.0.0
       remark-gfm: 4.0.0
-      remark-smartypants: 3.0.1
+      remark-smartypants: 3.0.2
       source-map: 0.7.4
       unist-util-visit: 5.0.0
-      vfile: 6.0.1
+      vfile: 6.0.2
     transitivePeerDependencies:
       - supports-color
 
@@ -4342,7 +4332,7 @@ snapshots:
       stream-replace-string: 2.0.0
       zod: 3.23.8
 
-  '@astrojs/starlight@0.25.1(astro@4.12.2(@types/node@20.14.11)(sass@1.77.8)(typescript@5.5.3))':
+  '@astrojs/starlight@0.25.2(astro@4.12.2(@types/node@20.14.11)(sass@1.77.8)(typescript@5.5.3))':
     dependencies:
       '@astrojs/mdx': 3.1.0(astro@4.12.2(@types/node@20.14.11)(sass@1.77.8)(typescript@5.5.3))
       '@astrojs/sitemap': 3.1.5
@@ -4358,13 +4348,14 @@ snapshots:
       hastscript: 9.0.0
       mdast-util-directive: 3.0.0
       mdast-util-to-markdown: 2.1.0
+      mdast-util-to-string: 4.0.0
       pagefind: 1.1.0
       rehype: 13.0.1
       rehype-format: 5.0.0
       remark-directive: 3.0.0
       unified: 11.0.5
       unist-util-visit: 5.0.0
-      vfile: 6.0.1
+      vfile: 6.0.2
     transitivePeerDependencies:
       - supports-color
 
@@ -4924,7 +4915,7 @@ snapshots:
   '@expressive-code/plugin-shiki@0.35.3':
     dependencies:
       '@expressive-code/core': 0.35.3
-      shiki: 1.10.0
+      shiki: 1.11.0
 
   '@expressive-code/plugin-text-markers@0.35.3':
     dependencies:
@@ -5103,7 +5094,7 @@ snapshots:
       unist-util-position-from-estree: 2.0.0
       unist-util-stringify-position: 4.0.0
       unist-util-visit: 5.0.0
-      vfile: 6.0.1
+      vfile: 6.0.2
     transitivePeerDependencies:
       - supports-color
 
@@ -5394,8 +5385,6 @@ snapshots:
 
   '@rollup/rollup-win32-x64-msvc@4.14.1':
     optional: true
-
-  '@shikijs/core@1.10.0': {}
 
   '@shikijs/core@1.11.0':
     dependencies:
@@ -5759,9 +5748,13 @@ snapshots:
     dependencies:
       acorn: 8.12.0
 
-  acorn-jsx@5.3.2(acorn@8.12.0):
+  acorn-import-attributes@1.9.5(acorn@8.12.1):
     dependencies:
-      acorn: 8.12.0
+      acorn: 8.12.1
+
+  acorn-jsx@5.3.2(acorn@8.12.1):
+    dependencies:
+      acorn: 8.12.1
 
   acorn@8.12.0: {}
 
@@ -6761,7 +6754,7 @@ snapshots:
       devlop: 1.1.0
       hast-util-from-parse5: 8.0.1
       parse5: 7.1.2
-      vfile: 6.0.1
+      vfile: 6.0.2
       vfile-message: 4.0.2
 
   hast-util-from-parse5@8.0.1:
@@ -6771,7 +6764,7 @@ snapshots:
       devlop: 1.1.0
       hastscript: 8.0.0
       property-information: 6.5.0
-      vfile: 6.0.1
+      vfile: 6.0.2
       vfile-location: 5.0.2
       web-namespaces: 2.0.1
 
@@ -6815,7 +6808,7 @@ snapshots:
       parse5: 7.1.2
       unist-util-position: 5.0.0
       unist-util-visit: 5.0.0
-      vfile: 6.0.1
+      vfile: 6.0.2
       web-namespaces: 2.0.1
       zwitch: 2.0.4
 
@@ -6969,8 +6962,8 @@ snapshots:
 
   import-in-the-middle@1.8.1:
     dependencies:
-      acorn: 8.12.0
-      acorn-import-attributes: 1.9.5(acorn@8.12.0)
+      acorn: 8.12.1
+      acorn-import-attributes: 1.9.5(acorn@8.12.1)
       cjs-module-lexer: 1.3.1
       module-details-from-path: 1.0.3
 
@@ -7721,8 +7714,8 @@ snapshots:
 
   micromark-extension-mdxjs@3.0.0:
     dependencies:
-      acorn: 8.12.0
-      acorn-jsx: 5.3.2(acorn@8.12.0)
+      acorn: 8.12.1
+      acorn-jsx: 5.3.2(acorn@8.12.1)
       micromark-extension-mdx-expression: 3.0.0
       micromark-extension-mdx-jsx: 3.0.0
       micromark-extension-mdx-md: 2.0.0
@@ -8221,7 +8214,7 @@ snapshots:
       nlcst-to-string: 4.0.0
       unist-util-modify-children: 4.0.0
       unist-util-visit-children: 3.0.0
-      vfile: 6.0.1
+      vfile: 6.0.2
 
   parse5@7.1.2:
     dependencies:
@@ -8448,7 +8441,7 @@ snapshots:
     dependencies:
       '@types/hast': 3.0.4
       hast-util-raw: 9.0.2
-      vfile: 6.0.1
+      vfile: 6.0.2
 
   rehype-slug@6.0.0:
     dependencies:
@@ -8544,13 +8537,6 @@ snapshots:
     dependencies:
       retext: 8.1.0
       retext-smartypants: 5.2.0
-      unist-util-visit: 5.0.0
-
-  remark-smartypants@3.0.1:
-    dependencies:
-      retext: 9.0.0
-      retext-smartypants: 6.1.0
-      unified: 11.0.5
       unist-util-visit: 5.0.0
 
   remark-smartypants@3.0.2:
@@ -8771,10 +8757,6 @@ snapshots:
       shebang-regex: 3.0.0
 
   shebang-regex@3.0.0: {}
-
-  shiki@1.10.0:
-    dependencies:
-      '@shikijs/core': 1.10.0
 
   shiki@1.11.0:
     dependencies:
@@ -9051,7 +9033,7 @@ snapshots:
       extend: 3.0.2
       is-plain-obj: 4.1.0
       trough: 2.2.0
-      vfile: 6.0.1
+      vfile: 6.0.2
 
   unified@11.0.5:
     dependencies:
@@ -9061,7 +9043,7 @@ snapshots:
       extend: 3.0.2
       is-plain-obj: 4.1.0
       trough: 2.2.0
-      vfile: 6.0.1
+      vfile: 6.0.2
 
   unified@9.2.2:
     dependencies:
@@ -9205,7 +9187,7 @@ snapshots:
   vfile-location@5.0.2:
     dependencies:
       '@types/unist': 3.0.2
-      vfile: 6.0.1
+      vfile: 6.0.2
 
   vfile-message@2.0.4:
     dependencies:
