@@ -29,7 +29,7 @@
 		"@codemirror/lang-json": "6.0.1",
 		"@codemirror/lint": "6.8.1",
 		"@codemirror/state": "6.4.1",
-		"@codemirror/view": "6.28.6",
+		"@codemirror/view": "6.29.1",
 		"@types/node": "20.14.11",
 		"@types/react": "18.3.3",
 		"@types/react-dom": "18.3.0",
