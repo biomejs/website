@@ -24,7 +24,7 @@ Gitリポジトリのルートに`lefthook.yml`というファイルを追加し
     commands:
       check:
         glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
-        run: npx @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true {staged_files}
+        run: npx @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {staged_files}
   ```
 
 - コミット前にformatチェックやlintを行い、[安全な修正](/ja/linter#安全な修正safe-fixes)を行う
@@ -34,7 +34,7 @@ Gitリポジトリのルートに`lefthook.yml`というファイルを追加し
     commands:
       check:
         glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
-        run: npx @biomejs/biome check --write --no-errors-on-unmatched --files-ignore-unknown=true {staged_files}
+        run: npx @biomejs/biome check --write --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {staged_files}
         stage_fixed: true
   ```
 
@@ -47,7 +47,7 @@ Gitリポジトリのルートに`lefthook.yml`というファイルを追加し
     commands:
       check:
         glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
-        run: npx @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true {push_files}
+        run: npx @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {push_files}
   ```
 
 `glob`と`--files-ignore-unknown=true` を併用する必要はありません。
