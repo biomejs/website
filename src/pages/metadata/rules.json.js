@@ -102,6 +102,20 @@ export function GET() {
             ],
             "docs": " Disallow the use of `@import` at-rules in invalid positions.\n\n Any `@import` rules must precede all other valid at-rules and style rules in a stylesheet (ignoring `@charset` and `@layer`), or else the `@import` rule is invalid.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a {}\n @import 'foo.css';\n ```\n\n ### Valid\n\n ```css\n @import 'foo.css';\n a {}\n ```\n\n"
           },
+          "noIrregularWhitespaceCss": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noIrregularWhitespaceCss",
+            "link": "https://biomejs.dev/linter/rules/no-irregular-whitespace-css",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "stylelint": "no-irregular-whitespace"
+              }
+            ],
+            "docs": " Disallows the use of irregular whitespace.\n\n Using irregular whitespace would lead to the failure of selecting the correct target.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n .firstClass\u000b.secondClass {\n   color: red;\n }\n ```\n\n ```css,expect_diagnostic\n .firstClass .secondClass {\n   color:\u000bred;\n }\n ```\n ### Valid\n\n ```css\n .firstClass .secondClass {\n   color: red;\n }\n ```\n\n"
+          },
           "noShorthandPropertyOverrides": {
             "deprecated": false,
             "version": "next",
@@ -3667,7 +3681,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 261
+    "numberOrRules": 262
   },
   "syntax": {
     "languages": {
