@@ -36,6 +36,7 @@ use std::{
     slice,
     str::{self, FromStr},
 };
+use biome_graphql_syntax::GraphqlLanguage;
 
 pub fn generate_rule_docs() -> Result<()> {
     let root = project_root().join("src/content/docs/linter/rules");
@@ -78,13 +79,14 @@ import RecommendedRules from "@/components/generated/RecommendedRules.astro";
 import {{ Icon }} from "@astrojs/starlight/components";
 
 Below the list of rules supported by Biome, divided by group. Here's a legend of the emojis:
-- The icon <span class='inline-icon'><Icon name="approve-check-circle" label="This rule is recommended" /></span> indicates that the rule is part of the recommended rules.
-- The icon <span class='inline-icon'><Icon name="seti:config" label="The rule has a safe fix" /></span> indicates that the rule provides a code action (fix) that is **safe** to apply.
-- The icon <span class='inline-icon'><Icon name="warning" label="The rule has an unsafe fix" /></span> indicates that the rule provides a code action (fix) that is **unsafe** to apply.
-- The icon <span class='inline-icon'><Icon name="seti:javascript" label="JavaScript and super languages rule" /></span> indicates that the rule is applied to JavaScript and super languages files.
-- The icon <span class='inline-icon'><Icon name="seti:typescript" label="TypeScript rule" /></span> indicates that the rule is applied to TypeScript and TSX files.
-- The icon <span class='inline-icon'><Icon name="seti:json" label="JSON rule" /></span> indicates that the rule is applied to JSON files.
-- The icon <span class='inline-icon'><Icon name="seti:css" label="CSS rule" /></span> indicates that the rule is applied to CSS files.
+- The icon <span class='inline-icon' title="This rule is recommended"><Icon name="approve-check-circle"x label="This rule is recommended" /></span> indicates that the rule is part of the recommended rules.
+- The icon <span class='inline-icon' title="This rule has a safe fix"><Icon name="seti:config" label="The rule has a safe fix" /></span> indicates that the rule provides a code action (fix) that is **safe** to apply.
+- The icon <span class='inline-icon' title="This rule has an unsafe fix"><Icon name="warning" label="The rule has an unsafe fix" /></span> indicates that the rule provides a code action (fix) that is **unsafe** to apply.
+- The icon <span class='inline-icon' title="JavaScript and super languages rule"><Icon name="seti:javascript" label="JavaScript and super languages rule" /></span> indicates that the rule is applied to JavaScript and super languages files.
+- The icon <span class='inline-icon' title="TypeScript rule"><Icon name="seti:typescript" label="TypeScript rule" /></span> indicates that the rule is applied to TypeScript and TSX files.
+- The icon <span class='inline-icon' title="JSON rule"><Icon name="seti:json" label="JSON rule" /></span> indicates that the rule is applied to JSON files.
+- The icon <span class='inline-icon' title="CSS rule"><Icon name="seti:css" label="CSS rule" /></span> indicates that the rule is applied to CSS files.
+- The icon <span class='inline-icon' title="GraphQL rule"><Icon name="seti:graphql" label="GraphQL rule" /></span> indicates that the rule is applied to GraphQL files.
 "#
     )?;
 
@@ -154,11 +156,31 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
                 .insert(R::METADATA.name, R::METADATA);
         }
     }
+    impl RegistryVisitor<GraphqlLanguage> for LintRulesVisitor {
+        fn record_category<C: GroupCategory<Language = GraphqlLanguage>>(&mut self) {
+            if matches!(C::CATEGORY, RuleCategory::Lint) {
+                C::record_groups(self);
+            }
+        }
+
+        fn record_rule<R>(&mut self)
+        where
+            R: Rule<Query: Queryable<Language = GraphqlLanguage, Output: Clone>> + 'static,
+        {
+            self.number_of_rules += 1;
+            self.groups
+                .entry(<R::Group as RuleGroup>::NAME)
+                .or_default()
+                .insert(R::METADATA.name, R::METADATA);
+        }
+    }
 
     let mut visitor = LintRulesVisitor::default();
     biome_js_analyze::visit_registry(&mut visitor);
     biome_json_analyze::visit_registry(&mut visitor);
     biome_css_analyze::visit_registry(&mut visitor);
+    biome_graphql_analyze::visit_registry(&mut visitor);
+
 
     let mut recommended_rules = String::new();
 
@@ -167,10 +189,10 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
         number_of_rules,
     } = visitor;
 
-    let nursery_rules = groups
-        .get("nursery")
-        .expect("Expected nursery group to exist")
-        .clone();
+    assert!(
+        groups.contains_key("nursery"),
+        "Expected nursery group to exist"
+    );
 
     writeln!(
         reference_buffer,
@@ -189,15 +211,6 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
         generate_reference(group, &mut reference_buffer)?;
     }
 
-    generate_group(
-        "nursery",
-        nursery_rules,
-        &root,
-        &mut index,
-        &mut errors,
-        &mut recommended_rules,
-    )?;
-    generate_reference("nursery", &mut reference_buffer)?;
     if !errors.is_empty() {
         bail!(
             "failed to generate documentation pages for the following rules:\n{}",
@@ -278,34 +291,37 @@ fn generate_group(
             Ok(summary) => {
                 let mut properties = String::new();
                 if is_recommended {
-                    properties.push_str("<span class='inline-icon'><Icon name=\"approve-check-circle\" size=\"1.2rem\" label=\"This rule is recommended\" /></span>");
+                    properties.push_str("<span class='inline-icon' title=\"This rule is recommended\" ><Icon name=\"approve-check-circle\" size=\"1.2rem\" label=\"This rule is recommended\" /></span>");
                 }
 
                 match meta.fix_kind {
                     FixKind::Safe => {
-                        properties.push_str("<span class='inline-icon'><Icon name=\"seti:config\" label=\"The rule has a safe fix\" size=\"1.2rem\"  /></span>");
+                        properties.push_str("<span class='inline-icon' title='The rule has a safe fix.'><Icon name=\"seti:config\" label=\"The rule has a safe fix\" size=\"1.2rem\"  /></span>");
                     }
                     FixKind::Unsafe => {
-                        properties.push_str("<span class='inline-icon'><Icon name=\"warning\" label=\"The rule has an unsafe fix\" size=\"1.2rem\" /></span>");
+                        properties.push_str("<span class='inline-icon' title=\"The rule has an unsafe fix\" ><Icon name=\"warning\" label=\"The rule has an unsafe fix\" size=\"1.2rem\" /></span>");
                     }
                     FixKind::None => {}
                 }
 
                 match meta.language {
                     "js" => {
-                        properties.push_str("<span class='inline-icon'><Icon name=\"seti:javascript\" label=\"JavaScript and super languages rule.\" size=\"1.2rem\"/></span>");
+                        properties.push_str("<span class='inline-icon' title=\"JavaScript and super languages rule.\"><Icon name=\"seti:javascript\" label=\"JavaScript and super languages rule.\" size=\"1.2rem\"/></span>");
                     }
                     "jsx" => {
-                        properties.push_str("<span class='inline-icon'><Icon name=\"seti:javascript\" label=\"JSX rule\" size=\"1.2rem\"/></span>");
+                        properties.push_str("<span class='inline-icon'  title=\"JSX rule.\"><Icon name=\"seti:javascript\" label=\"JSX rule\" size=\"1.2rem\"/></span>");
                     }
                     "ts" => {
-                        properties.push_str("<span class='inline-icon'><Icon name=\"seti:typescript\" label=\"TypeScript rule\" size=\"1.2rem\"/></span>");
+                        properties.push_str("<span class='inline-icon'  title=\"TypeScript rule.\"><Icon name=\"seti:typescript\" label=\"TypeScript rule\" size=\"1.2rem\"/></span>");
                     }
                     "json" => {
-                        properties.push_str("<span class='inline-icon'><Icon name=\"seti:json\" label=\"JSON rule\" size=\"1.2rem\"/></span>");
+                        properties.push_str("<span class='inline-icon' title=\"JSON rule.\"><Icon name=\"seti:json\" label=\"JSON rule\" size=\"1.2rem\"/></span>");
                     }
                     "css" => {
-                        properties.push_str("<span class='inline-icon'><Icon name=\"seti:css\" label=\"CSS rule\" size=\"1.2rem\"/></span>");
+                        properties.push_str("<span class='inline-icon' title=\"CSS rule.\"><Icon name=\"seti:css\" label=\"CSS rule\" size=\"1.2rem\"/></span>");
+                    }
+                    "graphql" => {
+                        properties.push_str("<span class='inline-icon' title=\"GraphQL rule\"><Icon name=\"seti:graphql\" label=\"GraphQL rule\" size=\"1.2rem\"/></span>");
                     }
                     _ => {
                         eprintln!("Language {} isn't supported.", meta.language)
@@ -839,7 +855,7 @@ fn print_diagnostics(
                     file_path: PathBuf::from(&file_path),
                     ..Default::default()
                 };
-                biome_json_analyze::analyze(&root, filter, &options, |signal| {
+                biome_json_analyze::analyze(&root, filter, &options, file_source, |signal| {
                     if let Some(mut diag) = signal.diagnostic() {
                         let category = diag.category().expect("linter diagnostic has no code");
                         let severity = settings.get_current_settings().expect("project").get_severity_from_rule_code(category).expect(
@@ -921,7 +937,8 @@ fn print_diagnostics(
             }
         }
         // Unknown code blocks should be ignored by tests
-        DocumentFileSource::Unknown => {} | DocumentFileSource::Graphql(_) => {}
+        DocumentFileSource::Unknown => {}
+        DocumentFileSource::Graphql(_) => {}
     }
 
     Ok(())

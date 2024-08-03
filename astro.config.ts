@@ -79,21 +79,21 @@ export default defineConfig({
 							},
 						},
 						{
+							label: "Configure Biome",
+							link: "/guides/configure-biome",
+							translations: {
+								ja: "バイオームの設定",
+								"zh-CN": "配置生物群落",
+								"pt-BR": "Configurar Bioma",
+							},
+						},
+						{
 							label: "Use Biome in big projects",
 							link: "/guides/big-projects",
 							translations: {
 								ja: "大きなプロジェクトでのBiomeの使用方法",
 								"zh-CN": "大型项目中使用 Biome",
 								"pt-BR": "Usando o Biome em projetos grandes",
-							},
-						},
-						{
-							label: "How Biome works",
-							link: "/guides/how-biome-works",
-							translations: {
-								ja: "Biome の振る舞い",
-								"zh-CN": "Biome 工作原理",
-								"pt-BR": "Como o Biome funciona",
 							},
 						},
 						{
@@ -132,6 +132,9 @@ export default defineConfig({
 							label: "Migrate from ESLint & Prettier",
 							link: "/guides/migrate-eslint-prettier",
 							badge: "new",
+							translations: {
+								ja: "ESLintとPrettierからの移行",
+							},
 						},
 					],
 				},

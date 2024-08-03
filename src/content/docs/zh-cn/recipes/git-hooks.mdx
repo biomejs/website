@@ -24,7 +24,7 @@ Git 允许在运行 git 命令的过程中执行 [Git Hooks](https://git-scm.com
     commands:
       check:
         glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
-        run: npx @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true {staged_files}
+        run: npx @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {staged_files}
   ```
 
 - 提交前进行格式化，lint，以及进行安全的代码修复
@@ -34,10 +34,11 @@ Git 允许在运行 git 命令的过程中执行 [Git Hooks](https://git-scm.com
     commands:
       check:
         glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
-        run: npx @biomejs/biome check --write --no-errors-on-unmatched --files-ignore-unknown=true {staged_files} && git update-index --again
+        run: npx @biomejs/biome check --write --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {staged_files}
+        stage_fixed: true
   ```
 
-  `git update-index --again` 参数用于将更新的文件再次暂存。
+  `stage_fixed: true` 参数用于将更新的文件再次暂存。
 
 - 推送前进行格式化和 lint
 
@@ -46,7 +47,7 @@ Git 允许在运行 git 命令的过程中执行 [Git Hooks](https://git-scm.com
     commands:
       check:
         glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
-        run: npx @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true {push_files}
+        run: npx @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {push_files}
   ```
 
 注意你并不需要使用 `glob` 和 `--files-ignore-unknown=true` _Lefthook_。
@@ -92,7 +93,7 @@ lint-staged 的配置直接集成在 `package.json` 内。
 {
   "lint-staged": {
     // Run Biome on staged files that have the following extensions: js, ts, jsx, tsx, json and jsonc
-    "**.{js|ts|cjs|mjs|d.cts|d.mts|jsx|tsx|json|jsonc}": [
+    "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}": [
       "biome check --files-ignore-unknown=true", // Check formatting and lint
       "biome check --write --no-errors-on-unmatched", // Format, sort imports, lint, and apply safe fixes
       "biome check --write --organize-imports-enabled=false --no-errors-on-unmatched", // format and apply safe fixes

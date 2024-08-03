@@ -3,18 +3,24 @@ title: 言語サポート
 description: Biomeがサポートする言語と機能。
 ---
 
+凡例：
+- ✅: 対応済み
+- 🚫: 進行中ではない
+- ⌛️: 進行中
+- ⚠️: 一部サポート（いくつかの注意点あり）
+
 | Language | Parsing | Formatting | Linting |
 | -------- | ------- | ---------- | ------- |
-| [JavaScript](#javascript-support) | <span aria-label="対応済み" role="img">✅</span> | <span aria-label="対応済み" role="img">✅</span> | <span aria-label="対応済み" role="img">✅</span> |
-| [TypeScript](#typescript-support) | <span aria-label="対応済み" role="img">✅</span> | <span aria-label="対応済み" role="img">✅</span> | <span aria-label="対応済み" role="img">✅</span> |
+| [JavaScript](#javascriptのサポート) | <span aria-label="対応済み" role="img">✅</span> | <span aria-label="対応済み" role="img">✅</span> | <span aria-label="対応済み" role="img">✅</span> |
+| [TypeScript](#typescriptのサポート) | <span aria-label="対応済み" role="img">✅</span> | <span aria-label="対応済み" role="img">✅</span> | <span aria-label="対応済み" role="img">✅</span> |
 | JSX | <span aria-label="対応済み" role="img">✅</span> | <span aria-label="対応済み" role="img">✅</span> | <span aria-label="対応済み" role="img">✅</span> |
 | TSX | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> |
 | JSON | <span aria-label="対応済み" role="img">✅</span> | <span aria-label="対応済み" role="img">✅</span> | <span aria-label="対応済み" role="img">✅</span> |
 | JSONC | <span aria-label="対応済み" role="img">✅</span> | <span aria-label="対応済み" role="img">✅</span> | <span aria-label="対応済み" role="img">✅</span> |
 | HTML | <span aria-label="進行中" role="img">⌛️</span> | <span aria-label="進行中ではない" role="img">🚫</span> | <span aria-label="進行中ではない" role="img">🚫</span> |
-| [Vue](#html-super-languages-support) | <span aria-label="進行中ではない" role="img">🚫</span> | <span aria-label="進行中ではない" role="img">🚫</span> | <span aria-label="進行中ではない" role="img">🚫</span> |
-| [Svelte](#html-super-languages-support) | <span aria-label="進行中ではない" role="img">🚫</span> | <span aria-label="進行中ではない" role="img">🚫</span> | <span aria-label="進行中ではない" role="img">🚫</span> |
-| [Astro](#html-super-languages-support) | <span aria-label="進行中ではない" role="img">🚫</span> | <span aria-label="進行中ではない" role="img">🚫</span> | <span aria-label="進行中ではない" role="img">🚫</span> |
+| [Vue](#html拡張言語のサポート) | <span aria-label="一部サポート" role="img">⚠️</span> | <span aria-label="一部サポート" role="img">⚠️</span> | <span aria-label="一部サポート" role="img">⚠️</span> |
+| [Svelte](#html拡張言語のサポート) | <span aria-label="一部サポート" role="img">⚠️</span> | <span aria-label="一部サポート" role="img">⚠️</span> | <span aria-label="一部サポート" role="img">⚠️</span> |
+| [Astro](#html拡張言語のサポート) | <span aria-label="一部サポート" role="img">⚠️</span> | <span aria-label="一部サポート" role="img">⚠️</span> | <span aria-label="一部サポート" role="img">⚠️</span> |
 | CSS | <span aria-label="対応済み" role="img">✅️</span> | <span aria-label="進行中" role="img">⌛️</span> | <span aria-label="進行中" role="img">⌛️</span> |
 | [YAML](https://github.com/biomejs/biome/issues/2365) | <span aria-label="進行中" role="img">⌛️</span> | <span aria-label="進行中ではない" role="img">🚫</span> | <span aria-label="進行中ではない" role="img">🚫</span> |
 | [GraphQL](https://github.com/biomejs/biome/issues/1927) | <span aria-label="進行中" role="img">⌛️</span> | <span aria-label="進行中ではない" role="img">🚫</span> | <span aria-label="進行中ではない" role="img">🚫</span> |
@@ -29,6 +35,60 @@ Biomeは、JavaScript（ES2023）をサポートしています。
 
 Biomeは、TypeScriptバージョン5.2をサポートしています。
 
+## JSONCサポート
+
+JSONCは「コメント付きJSON」の略です。この形式は、[VS Code](https://code.visualstudio.com/docs/languages/json#_json-with-comments)、[TypeScript](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html)、[Babel](https://babeljs.io/docs/config-files)などのさまざまなツールで広く使用されています。JSONCは、構成ファイルにコメントを追加できるため便利です。ただし、JSONCは厳密な標準ではないため、ツールごとに末尾のカンマの扱いが異なる場合があります。これに対応するために、Biomeは専用のJSONC言語設定を提供する代わりに、JSONのパースおよびformat機能を拡張し、 `json.parser.allowComments` 、 `json.parser.allowTrailingCommas` 、 `json.formatter.trailingCommas` などのオプションを提供しています。このアプローチにより、BiomeはさまざまなバリエーションのJSONファイルを効果的にサポートできます。
+
+`.jsonc` 拡張子を持つファイルや[言語識別子](https://code.visualstudio.com/docs/languages/identifiers)に従って `jsonc` として識別されるファイルに対して、Biomeは自動的に次のデフォルト設定を適用してパースおよびformatを行います：
+
+- `json.parser.allowComments`: `true`
+- `json.parser.allowTrailingCommas`: `true`
+- `json.formatter.trailingCommas`: `none`
+
+`tsconfig.json` や `.babelrc` などのよく知られたファイルは `.jsonc` 拡張子を使用しませんが、コメントや末尾のカンマを許可するものもあります。一方、 `.eslintrc.json` のようなファイルはコメントのみを許可します。Biomeはこれらのファイルを識別し、適切に `json.parser.allowTrailingCommas` オプションを調整して正しくパースできるようにします。
+
+[このセクション](/ja/guides/configure-biome#既知のファイル)では、Biomeが認識できる既知のファイルの完全なリストを提供しています。
+
 ## HTML拡張言語のサポート
 
-HTML拡張言語を適切にサポートするためには、CSS、HTML、JavaScriptのパースが必要です。これらのパーサーが利用可能になったとき、サポート作業を開始できます。
+バージョン `1.6.0` 以降、これらの言語は**部分的に**サポートされています。Biomeは時間とともに改善され、プロジェクトを調整するためのオプションが増えていく予定です。しかし、現在ではいくつかの期待と制限を考慮する必要があります：
+- `.astro` ファイルでは、**フロントマター部分のみ**がサポートされています。
+- `.vue` および `.svelte` ファイルでは、**\<script\>タグ部分のみ**がサポートされています。
+- 診断は上記の部分に属するコードフレームのみを表示します。
+- `.vue` および `.svelte` ファイルを**format**する際、JavaScript/TypeScriptコードのインデントは最初から始まります。
+
+  ```vue title="file.vue" del={2} ins={3}
+  <script>
+    import Component from "./Component.vue";
+  import Component from "./Component.vue";
+  </script>
+  ```
+
+- `.astro` ファイルを**静的解析**する際、誤検知を避けるために `javascript.globals` に `"Astro"` を追加する必要があります。
+
+  ```json title="biome.json"
+  {
+    "javascript": {
+      "globals": ["Astro"]
+    }
+  }
+  ```
+
+- `.svelte` ファイルを**静的解析**する際、コンパイラエラーを防ぐために `useConst` をオフにすることをお勧めします。オプション `overrides` を使用します：
+
+  ```json
+    {
+      "overrides": [
+        {
+          "include": ["*.svelte"],
+          "linter": {
+            "rules": {
+              "style": {
+                "useConst": "off"
+              }
+            }
+          }
+        }
+      ]
+    }
+    ```

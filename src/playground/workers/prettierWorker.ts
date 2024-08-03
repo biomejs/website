@@ -13,6 +13,7 @@ import {
 } from "@/playground/types";
 import {
 	isCssFilename,
+	isGraphqlFilename,
 	isJsonFilename,
 	isTypeScriptFilename,
 } from "@/playground/utils";
@@ -21,6 +22,8 @@ import * as prettier from "prettier";
 import parserBabel from "prettier/esm/parser-babel.mjs";
 // @ts-expect-error
 import pluginEstree from "prettier/plugins/estree.mjs";
+// @ts-expect-error
+import pluginGraphql from "prettier/plugins/graphql.mjs";
 // @ts-expect-error
 import pluginCss from "prettier/plugins/postcss.mjs";
 
@@ -106,7 +109,7 @@ async function formatWithPrettier(
 			tabWidth: options.indentWidth,
 			printWidth: options.lineWidth,
 			filepath: options.filepath,
-			plugins: [parserBabel, pluginEstree, pluginCss],
+			plugins: [parserBabel, pluginEstree, pluginCss, pluginGraphql],
 			parser: getPrettierParser(options.filepath),
 			singleQuote: options.quoteStyle === QuoteStyle.Single,
 			jsxSingleQuote: options.jsxQuoteStyle === QuoteStyle.Single,
@@ -120,6 +123,7 @@ async function formatWithPrettier(
 			bracketSpacing: options.bracketSpacing,
 			bracketSameLine: options.bracketSameLine,
 			singleAttributePerLine: options.singleAttributePerLine ?? false,
+			embeddedLanguageFormatting: "off",
 		};
 
 		// @ts-expect-error
@@ -162,6 +166,9 @@ function getPrettierParser(filename: string): string {
 	}
 	if (isCssFilename(filename)) {
 		return "css";
+	}
+	if (isGraphqlFilename(filename)) {
+		return "graphql";
 	}
 	return "babel";
 }

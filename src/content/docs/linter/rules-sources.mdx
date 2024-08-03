@@ -10,7 +10,6 @@ description: A page that maps lint rules from other sources to Biome
 - [noDuplicateJsonKeys](/linter/rules/no-duplicate-json-keys) 
 - [noEmptyTypeParameters](/linter/rules/no-empty-type-parameters) 
 - [noEvolvingTypes](/linter/rules/no-evolving-types) 
-- [noExportedImports](/linter/rules/no-exported-imports) 
 - [noGlobalIsFinite](/linter/rules/no-global-is-finite) 
 - [noGlobalIsNan](/linter/rules/no-global-is-nan) 
 - [noImplicitAnyLet](/linter/rules/no-implicit-any-let) 
@@ -23,6 +22,7 @@ description: A page that maps lint rules from other sources to Biome
 - [noUnnecessaryContinue](/linter/rules/no-unnecessary-continue) 
 - [noUnusedFunctionParameters](/linter/rules/no-unused-function-parameters) 
 - [noUnusedTemplateLiteral](/linter/rules/no-unused-template-literal) 
+- [noValueAtRule](/linter/rules/no-value-at-rule) 
 - [noVoidTypeReturn](/linter/rules/no-void-type-return) 
 - [useImportExtensions](/linter/rules/use-import-extensions) 
 - [useNodeAssertStrict](/linter/rules/use-node-assert-strict) 
@@ -31,6 +31,7 @@ description: A page that maps lint rules from other sources to Biome
 - [useSimplifiedLogicExpression](/linter/rules/use-simplified-logic-expression) 
 - [useSingleCaseStatement](/linter/rules/use-single-case-statement) 
 - [useSortedClasses](/linter/rules/use-sorted-classes) 
+- [useStrictMode](/linter/rules/use-strict-mode) 
 - [useTopLevelRegex](/linter/rules/use-top-level-regex) 
 ## Rules from other sources
 :::note
@@ -161,21 +162,17 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 ### Stylelint
 | Stylelint rule name | Biome rule name |
 | ---- | ---- |
-| [declaration-block-no-shorthand-property-overrides](https://github.com/stylelint/stylelint/blob/main/lib/rules/declaration-block-no-shorthand-property-overrides/README.md) |[noShorthandPropertyOverrides](/linter/rules/no-shorthand-property-overrides) |
 | [font-family-no-duplicate-names](https://github.com/stylelint/stylelint/blob/main/lib/rules/font-family-no-duplicate-names/README.md) |[noDuplicateFontNames](/linter/rules/no-duplicate-font-names) |
 | [font-family-no-missing-generic-family-keyword](https://github.com/stylelint/stylelint/blob/main/lib/rules/font-family-no-missing-generic-family-keyword/README.md) |[useGenericFontNames](/linter/rules/use-generic-font-names) |
-| [function-linear-gradient-no-nonstandard-direction](https://github.com/stylelint/stylelint/blob/main/lib/rules/function-linear-gradient-no-nonstandard-direction/README.md) |[noInvalidDirectionInLinearGradient](/linter/rules/no-invalid-direction-in-linear-gradient) |
 | [function-no-unknown](https://github.com/stylelint/stylelint/blob/main/lib/rules/function-no-unknown/README.md) |[noUnknownFunction](/linter/rules/no-unknown-function) |
 | [keyframe-block-no-duplicate-selectors](https://github.com/stylelint/stylelint/blob/main/lib/rules/keyframe-block-no-duplicate-selectors/README.md) |[noDuplicateSelectorsKeyframeBlock](/linter/rules/no-duplicate-selectors-keyframe-block) |
 | [keyframe-declaration-no-important](https://github.com/stylelint/stylelint/blob/main/lib/rules/keyframe-declaration-no-important/README.md) |[noImportantInKeyframe](/linter/rules/no-important-in-keyframe) |
 | [media-feature-name-no-unknown](https://github.com/stylelint/stylelint/blob/main/lib/rules/media-feature-name-no-unknown/README.md) |[noUnknownMediaFeatureName](/linter/rules/no-unknown-media-feature-name) |
-| [named-grid-areas-no-invalid](https://github.com/stylelint/stylelint/blob/main/lib/rules/named-grid-areas-no-invalid/README.md) |[useConsistentGridAreas](/linter/rules/use-consistent-grid-areas) |
 | [no-duplicate-at-import-rules](https://github.com/stylelint/stylelint/blob/main/lib/rules/no-duplicate-at-import-rules/README.md) |[noDuplicateAtImportRules](/linter/rules/no-duplicate-at-import-rules) (inspired) |
 | [no-empty-block](https://github.com/stylelint/stylelint/blob/main/lib/rules/no-empty-block/README.md) |[noEmptyBlock](/linter/rules/no-empty-block) |
 | [no-invalid-position-at-import-rule](https://github.com/stylelint/stylelint/blob/main/lib/rules/no-invalid-position-at-import-rule/README.md) |[noInvalidPositionAtImportRule](/linter/rules/no-invalid-position-at-import-rule) |
 | [property-no-unknown](https://github.com/stylelint/stylelint/blob/main/lib/rules/property-no-unknown/README.md) |[noUnknownProperty](/linter/rules/no-unknown-property) |
 | [selector-anb-no-unmatchable](https://github.com/stylelint/stylelint/blob/main/lib/rules/selector-anb-no-unmatchable/README.md) |[noUnmatchableAnbSelector](/linter/rules/no-unmatchable-anb-selector) |
-| [selector-pseudo-class-no-unknown](https://github.com/stylelint/stylelint/blob/main/lib/rules/selector-pseudo-class-no-unknown/README.md) |[noUnknownPseudoClassSelector](/linter/rules/no-unknown-pseudo-class-selector) |
 | [selector-pseudo-element-no-unknown](https://github.com/stylelint/stylelint/blob/main/lib/rules/selector-pseudo-element-no-unknown/README.md) |[noUnknownSelectorPseudoElement](/linter/rules/no-unknown-selector-pseudo-element) |
 | [unit-no-unknown](https://github.com/stylelint/stylelint/blob/main/lib/rules/unit-no-unknown/README.md) |[noUnknownUnit](/linter/rules/no-unknown-unit) |
 ### eslint-plugin-barrel-files
@@ -214,7 +211,6 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [aria-proptypes](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/aria-proptypes.md) |[useValidAriaValues](/linter/rules/use-valid-aria-values) |
 | [aria-role](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/aria-role.md) |[useValidAriaRole](/linter/rules/use-valid-aria-role) |
 | [aria-unsupported-elements](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/aria-unsupported-elements.md) |[noAriaUnsupportedElements](/linter/rules/no-aria-unsupported-elements) |
-| [autocomplete-valid](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/autocomplete-valid.md) |[useValidAutocomplete](/linter/rules/use-valid-autocomplete) |
 | [click-events-have-key-events](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/click-events-have-key-events.md) |[useKeyWithClickEvents](/linter/rules/use-key-with-click-events) |
 | [heading-has-content](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/heading-has-content.md) |[useHeadingContent](/linter/rules/use-heading-content) |
 | [html-has-lang](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/html-has-lang.md) |[useHtmlLang](/linter/rules/use-html-lang) |
@@ -288,7 +284,6 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [prefer-date-now](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-date-now.md) |[useDateNow](/linter/rules/use-date-now) |
 | [prefer-node-protocol](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-node-protocol.md) |[useNodejsImportProtocol](/linter/rules/use-nodejs-import-protocol) |
 | [prefer-number-properties](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-number-properties.md) |[useNumberNamespace](/linter/rules/use-number-namespace) |
-| [prefer-string-slice](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-string-slice.md) |[noSubstr](/linter/rules/no-substr) |
 | [require-number-to-fixed-digits-argument](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/require-number-to-fixed-digits-argument.md) |[useNumberToFixedDigitsArgument](/linter/rules/use-number-to-fixed-digits-argument) |
 | [throw-new-error](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/throw-new-error.md) |[useThrowNewError](/linter/rules/use-throw-new-error) |
 ### eslint-plugin-unused-imports

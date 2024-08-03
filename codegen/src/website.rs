@@ -7,7 +7,7 @@ use biome_js_syntax::JsFileSource;
 use biome_json_formatter::context::JsonFormatOptions;
 use biome_json_parser::{parse_json, JsonParserOptions};
 use biome_rowan::AstNode;
-use biome_service::VERSION;
+use biome_configuration::VERSION;
 use schemars::schema::{RootSchema, Schema, SchemaObject};
 use schemars::schema_for;
 use serde_json::to_string;

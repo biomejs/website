@@ -49,7 +49,7 @@ For files with an extension name of `.jsonc` or those identified as `jsonc` acco
 
 Please note, some well-known files like `tsconfig.json` and `.babelrc` don't use the `.jsonc` extension but still allow comments and trailing commas. While others, such as `.eslintrc.json`, only allow comments. Biome is able to identify these files and adjusts the `json.parser.allowTrailingCommas` option accordingly to ensure they are correctly parsed.
 
-[This section](../../guides/how-biome-works#well-known-files) gives the full list of well-known files that Biome can recognize.
+[This section](../../guides/configure-biome#well-known-files) gives the full list of well-known files that Biome can recognize.
 
 ## HTML super languages support
 
@@ -65,27 +65,19 @@ As of version `1.6.0`, these languages are **partially** supported. Biome will g
   import Component from "./Component.vue";
   </script>
   ```
-- When **linting** `.astro` files, you have to add `"Astro"` to `javascript.globals`, to avoid possible false positives from some lint rules.
 
-  ```json title="biome.json"
-  {
-    "javascript": {
-      "globals": ["Astro"]
-    }
-  }
-  ```
-
-- When **linting** `.svelte` files, it's advised to turn off `useConst` to prevent compiler errors. Use the option `overrides` for that:
+- When **linting** `.svelte`, `.astro` or `.vue` files, it's advised to turn off few additional rules to prevent compiler errors. Use the option `overrides` for that:
 
   ```json
     {
       "overrides": [
         {
-          "include": ["*.svelte"],
+          "include": ["*.svelte", "*.astro", "*.vue"],
           "linter": {
             "rules": {
               "style": {
-                "useConst": "off"
+                "useConst": "off",
+                "useImportType": "off"
               }
             }
           }
