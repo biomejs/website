@@ -3733,7 +3733,7 @@ export function GET() {
   "assist": {
     "languages": {
       "js": {
-        "correctness": {
+        "source": {
           "organizeImports": {
             "deprecated": false,
             "version": "1.0.0",
@@ -3746,7 +3746,7 @@ export function GET() {
         }
       },
       "json": {
-        "refactor": {
+        "source": {
           "useSortedKeys": {
             "deprecated": false,
             "version": "next",
