@@ -1245,6 +1245,20 @@ export function GET() {
             "fixKind": "unsafe",
             "docs": " Disallow unused function parameters.\n\n There is an exception to this rule:\n parameters that starts with underscore, e.g. `function foo(_a, _b) {}`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function foo(myVar) {\n     console.log('foo');\n }\n ```\n\n ```js,expect_diagnostic\n new Promise((accept, reject) => {\n     window.setTimeout(accept, 1000);\n });\n ```\n\n ```js,expect_diagnostic\n const squares = [[1, 1], [2, 4], [3, 9], [4, 16]];\n squares.filter(([k, v]) => v > 5);\n ```\n\n ### Valid\n\n ```js\n function foo(myVar) {\n     console.log(myVar);\n }\n ```\n\n"
           },
+          "noUselessEscapeInRegex": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noUselessEscapeInRegex",
+            "link": "https://biomejs.dev/linter/rules/no-useless-escape-in-regex",
+            "recommended": true,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "eslint": "no-useless-escape"
+              }
+            ],
+            "docs": " Disallow unnecessary escape sequence in regular expression literals.\n\n Escaping non-special characters in regular expression literals doesn't have any effect.\n Hence, they may confuse a reader.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n /\\a/;\n ```\n\n ```js,expect_diagnostic\n /[\\-]/;\n ```\n\n ```js,expect_diagnostic\n /[\\&]/v;\n ```\n\n ### Valid\n\n ```js\n /\\^\\d\\b/\n ```\n\n ```js\n /[\\b]/\n ```\n"
+          },
           "noUselessStringConcat": {
             "deprecated": false,
             "version": "1.8.0",
@@ -3681,7 +3695,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 262
+    "numberOrRules": 263
   },
   "syntax": {
     "languages": {
