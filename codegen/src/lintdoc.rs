@@ -17,6 +17,7 @@ use biome_css_parser::CssParserOptions;
 use biome_css_syntax::CssLanguage;
 use biome_diagnostics::termcolor::NoColor;
 use biome_diagnostics::{Diagnostic, DiagnosticExt, PrintDiagnostic};
+use biome_graphql_syntax::GraphqlLanguage;
 use biome_js_parser::JsParserOptions;
 use biome_js_syntax::{EmbeddingKind, JsFileSource, JsLanguage};
 use biome_json_parser::JsonParserOptions;
@@ -36,7 +37,6 @@ use std::{
     slice,
     str::{self, FromStr},
 };
-use biome_graphql_syntax::GraphqlLanguage;
 
 pub fn generate_rule_docs() -> Result<()> {
     let root = project_root().join("src/content/docs/linter/rules");
@@ -180,7 +180,6 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
     biome_json_analyze::visit_registry(&mut visitor);
     biome_css_analyze::visit_registry(&mut visitor);
     biome_graphql_analyze::visit_registry(&mut visitor);
-
 
     let mut recommended_rules = String::new();
 
