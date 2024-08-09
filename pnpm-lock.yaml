@@ -9,8 +9,8 @@ importers:
   .:
     devDependencies:
       '@astrojs/netlify':
-        specifier: 5.4.0
-        version: 5.4.0(@opentelemetry/api@1.9.0)(astro@4.13.2(@types/node@20.14.11)(sass@1.77.8)(typescript@5.5.4))
+        specifier: 5.5.0
+        version: 5.5.0(@opentelemetry/api@1.9.0)(astro@4.13.2(@types/node@20.14.11)(sass@1.77.8)(typescript@5.5.4))
       '@astrojs/prism':
         specifier: 3.1.0
         version: 3.1.0
@@ -175,8 +175,8 @@ packages:
     peerDependencies:
       astro: ^4.8.0
 
-  '@astrojs/netlify@5.4.0':
-    resolution: {integrity: sha512-zaV/jV4Dm93oahh/Xneh2pOBKOiiFRGpRWwFvH+rkIUR52lfwIWZhngDPxKSKm6TzUd/7vhdba96sEU6cmkxWQ==}
+  '@astrojs/netlify@5.5.0':
+    resolution: {integrity: sha512-3jSYa7CZe1qVVSZpEG3iNr6wV34SurXyvN4G00rGVFv91OQBywItHsARUKQeCtv4dx+aVHQbyLMijF+0RIQveg==}
     peerDependencies:
       astro: ^4.2.0
 
@@ -4252,7 +4252,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/netlify@5.4.0(@opentelemetry/api@1.9.0)(astro@4.13.2(@types/node@20.14.11)(sass@1.77.8)(typescript@5.5.4))':
+  '@astrojs/netlify@5.5.0(@opentelemetry/api@1.9.0)(astro@4.13.2(@types/node@20.14.11)(sass@1.77.8)(typescript@5.5.4))':
     dependencies:
       '@astrojs/internal-helpers': 0.4.1
       '@astrojs/underscore-redirects': 0.3.4
@@ -5074,7 +5074,7 @@ snapshots:
       nopt: 5.0.0
       npmlog: 5.0.1
       rimraf: 3.0.2
-      semver: 7.6.2
+      semver: 7.6.3
       tar: 6.2.1
     transitivePeerDependencies:
       - encoding
@@ -5200,7 +5200,7 @@ snapshots:
       '@types/shimmer': 1.0.5
       import-in-the-middle: 1.8.1
       require-in-the-middle: 7.3.0
-      semver: 7.6.2
+      semver: 7.6.3
       shimmer: 1.2.1
     transitivePeerDependencies:
       - supports-color
@@ -5294,7 +5294,7 @@ snapshots:
       '@opentelemetry/propagator-b3': 1.25.1(@opentelemetry/api@1.9.0)
       '@opentelemetry/propagator-jaeger': 1.25.1(@opentelemetry/api@1.9.0)
       '@opentelemetry/sdk-trace-base': 1.25.1(@opentelemetry/api@1.9.0)
-      semver: 7.6.2
+      semver: 7.6.3
 
   '@opentelemetry/semantic-conventions@1.25.1': {}
 
@@ -6946,7 +6946,7 @@ snapshots:
   https-proxy-agent@5.0.1:
     dependencies:
       agent-base: 6.0.2
-      debug: 4.3.5
+      debug: 4.3.6
     transitivePeerDependencies:
       - supports-color
 
