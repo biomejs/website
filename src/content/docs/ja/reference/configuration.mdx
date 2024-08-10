@@ -1,0 +1,1011 @@
+---
+title: 設定
+description: biome.jsonを使用してBiomeをカスタマイズおよび設定する方法
+---
+
+import LintGroups from "@/components/generated/Groups.astro";
+
+{/** 設定のタイトルを変更する際は、static/_redirects 内のリダイレクトも忘れずに更新してください。 --> **/}
+
+## `$schema`
+
+JSONスキーマファイルへのパスを指定できます。
+
+`biome.json` 用のJSONスキーマファイルを公開しています。
+
+`@biomejs/biome` パッケージが `node_modules` フォルダにインストールされている場合、そのスキーマへの相対パスを指定できます。
+
+
+```json title="biome.json"
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json"
+}
+```
+
+スキーマファイルの解決に問題がある場合は、このサイトで提供されているスキーマも使用できます。
+
+
+
+```json title="biome.json"
+{
+  "$schema": "https://biomejs.dev/schemas/1.8.3/schema.json"
+}
+```
+
+## `extends`
+
+他のJSONファイルへのパスのリストです。Biomeは `extends` リストに含まれるファイルのオプションを解決して適用し、最終的に `biome.json` ファイルに含まれるオプションを適用します。
+
+```json title="biome.json"
+{
+  "extends": ["./biome.base.json"]
+}
+```
+
+
+## `files`
+
+### `files.maxSize`
+
+ソースコードファイルの最大許容サイズをバイト単位で指定します。この制限を超えるファイルは、パフォーマンス上の理由で無視されます。
+
+> デフォルト: `1048576` (1024*1024, 1MB)
+
+### `files.ignore`
+
+Biomeは、パターンに一致するファイルやフォルダを無視します。
+Unixシェルスタイルのパターンのリストで指定します。
+
+
+```json title="biome.json"
+{
+  "files": {
+    "ignore": ["scripts/*.js"]
+  }
+}
+```
+
+
+### `files.include`
+
+Biomeは、これらのパターンに一致するファイルやフォルダのみを処理します。
+Unixシェルスタイルのパターンのリストで指定します。
+
+
+```json title="biome.json"
+{
+  "files": {
+    "include": ["scripts/*.js"]
+  }
+}
+```
+
+:::caution
+`include` と `ignore` の両方が指定されている場合、`ignore` が `include` よりも**優先**されます。
+:::
+
+例えば、下記のような指定を考えます。
+
+```json title="biome.json"
+{
+  "files": {
+    "include": ["scripts/**/*.js", "src/**/*.js"],
+    "ignore": ["scripts/**/*.js"]
+  }
+}
+```
+
+パターン `src/**/*.js` に一致するファイルのみが処理され、パターン `scripts/**/*.js` に一致するファイルは無視されます。
+
+### `files.ignoreUnknown`
+
+Biomeは、処理できないファイルに遭遇した場合、診断情報を出力しません。
+
+
+
+```json title="biome.json"
+{
+  "files": {
+    "ignoreUnknown": true
+  }
+}
+```
+
+> デフォルト: `false`
+
+## `vcs`
+
+BiomeをVCS（バージョン管理システム）ソフトウェアと統合するためのプロパティのセットです。
+
+### `vcs.enabled`
+
+BiomeがVCSクライアントと統合するかどうかを指定します。
+
+> デフォルト: `false`
+
+### `vcs.clientKind`
+
+VSCクライアントの種類を指定します。
+
+値:
+- `"git"`
+
+### `vcs.useIgnoreFile`
+
+BiomeがVCSの無視ファイルを使用するかどうかを指定します。`true` に設定すると、Biomeは無視ファイルに指定されたファイルを無視します。
+
+### `vcs.root`
+
+BiomeがVCSファイルを探すフォルダを指定します。デフォルトでは、Biomeは `biome.json` が見つかったフォルダを使用します。
+
+もしBiomeが設定を見つけられない場合、現在の作業ディレクトリを使用しようとします。現在の作業ディレクトリも見つからない場合、BiomeはVCS統合を使用せず、診断情報が出力されます。
+
+### `vcs.defaultBranch`
+
+プロジェクトのメインブランチです。Biomeは、変更されたファイルを評価する際にこのブランチを使用します。
+
+## `linter`
+
+### `linter.enabled`
+
+Biomeのリンターを有効にします。
+
+> デフォルト: `true`
+
+### `linter.ignore`
+
+Biomeのリンターは、パターンに一致するファイルやフォルダを無視します。
+Unixシェルスタイルのパターンのリストで指定します。
+
+
+
+```json title="biome.json"
+{
+  "linter": {
+    "ignore": ["scripts/*.js"]
+  }
+}
+```
+
+
+### `linter.include`
+
+Biomeのリンターは、これらのパターンに一致するファイルやフォルダのみを処理します。
+Unixシェルスタイルのパターンのリストで指定します。
+
+
+
+```json title="biome.json"
+{
+  "linter": {
+    "include": ["scripts/*.js"]
+  }
+}
+```
+
+:::caution
+`include` と `ignore` の両方が指定されている場合、`ignore` が `include` よりも**優先**されます。
+:::
+
+例えば、下記のような指定を考えます。
+
+```json title="biome.json"
+{
+  "linter": {
+    "include": ["scripts/**/*.js", "src/**/*.js"],
+    "ignore": ["scripts/**/*.js"]
+  }
+}
+```
+
+パターン `src/**/*.js` に一致するファイルのみが処理され、パターン `scripts/**/*.js` に一致するファイルは無視されます。
+
+
+### `linter.rules.recommended`
+
+すべてのグループに対して [推奨ルール](/linter/rules) を有効にします。
+
+> デフォルト: `true`
+
+
+### `linter.rules.all`
+
+すべてのグループに対して、すべての [ルール](/linter/rules) を有効または無効にします。
+
+`recommended` と `all` が両方 `true` の場合、Biomeは診断情報を出力し、デフォルトにフォールバックします。
+
+
+
+```json title="biome.json"
+{
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "all": true
+    }
+  }
+}
+```
+
+このフラグを組み合わせて、異なるルールグループを有効または無効にすることもできます。
+
+
+
+```json title="biome.json"
+{
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "all": true,
+      "style": {
+        "all": false
+      },
+      "complexity": {
+        "all": false
+      }
+    }
+  }
+}
+```
+
+前述の例では、Biomeはすべてのルールを有効にしますが、 `style` および `complexity` グループに属するルールは除外されます。
+
+
+### `linter.rules.[group]`
+
+単一のグループのルールに影響を与えるオプションです。Biomeは次のグループをサポートしています。
+
+<LintGroups/>
+
+### `linter.rules.[group].recommended`
+
+
+特定のグループに対して推奨されるルールを有効にします。
+
+例:
+
+
+
+```json title="biome.json"
+{
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "nursery": {
+        "recommended": true
+      }
+    }
+  }
+}
+```
+
+
+### `linter.rules.[group].all`
+
+特定のグループのすべてのルールを有効にします。
+
+例:
+
+
+
+```json title="biome.json"
+{
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "nursery": {
+        "all": true
+      }
+    }
+  }
+}
+```
+
+## `formatter`
+
+これらのオプションはすべての言語に適用されます。
+下記には、言語固有のフォーマットオプションが追加で記載されています。
+
+### `formatter.enabled`
+
+Biomeのフォーマッターを有効にします。
+
+> デフォルト: `true`
+
+### `formatter.ignore`
+
+Biomeのフォーマッターは、パターンに一致するファイルやフォルダを無視します。
+Unixシェルスタイルのパターンのリストで指定します。
+
+
+```json title="biome.json"
+{
+  "formatter": {
+    "ignore": ["scripts/*.js"]
+  }
+}
+```
+
+### `formatter.include`
+
+Biomeのフォーマッターは、これらのパターンに一致するファイルやフォルダのみを処理します。
+Unixシェルスタイルのパターンのリストで指定します。
+
+
+```json title="biome.json"
+{
+  "formatter": {
+    "include": ["scripts/*.js"]
+  }
+}
+```
+
+:::caution
+`include` と `ignore` の両方が指定されている場合、`ignore` が `include` よりも**優先**されます。
+:::
+
+例えば、下記のような指定を考えます。
+
+```json title="biome.json"
+{
+  "formatter": {
+    "include": ["scripts/**/*.js", "src/**/*.js"],
+    "ignore": ["scripts/**/*.js"]
+  }
+}
+```
+
+パターン `src/**/*.js` に一致するファイルのみが処理され、パターン `scripts/**/*.js` に一致するファイルは無視されます。
+
+
+### `formatter.formatWithErrors`
+
+構文エラーがあるドキュメントをフォーマットできるようにします。
+
+
+
+```json title="biome.json"
+{
+  "formatter": {
+    "formatWithErrors": true
+  }
+}
+```
+
+> デフォルト: `false`
+
+### `formatter.indentStyle`
+
+インデントのスタイルです。 `"tab"` または `"space"` のいずれかを指定できます。
+
+> デフォルト: `"tab"`
+
+### `formatter.indentSize`
+
+このオプションは廃止されました。代わりに [`formatter.indentWidth`](#formatterindentwidth) を使用してください。
+
+<details>
+<summary>廃止されました</summary>
+
+インデントのサイズを指定します。
+
+> デフォルト: `2`
+
+</details>
+
+### `formatter.indentWidth`
+
+インデントのサイズを指定します。
+
+> デフォルト: `2`
+
+### `formatter.lineEnding`
+
+改行コードの種類を指定します。
+- `"lf"`: Line Feed のみ (`\n`)、Linux や macOS、または git リポジトリ内で一般的です。
+- `"crlf"`: Carriage Return + Line Feed 文字 (`\r\n`)、Windows で一般的です。
+- `"cr"`: Carriage Return 文字のみ (`\r`)、非常にまれに使用されます。
+
+> デフォルト: `"lf"`
+
+### `formatter.lineWidth`
+
+行の文字数を指定します。
+
+> デフォルト: `80`
+
+### `formatter.attributePosition`
+
+HTML言語（あるいはHTMLベースの言語）における属性の位置スタイルを指定します。
+
+- `"auto"`: 属性は自動的にフォーマットされ、特定の基準に達したときのみ複数行に折り返されます。
+- `"multiline"`: 属性は常に複数行でフォーマットされます。
+
+> デフォルト: `"auto"`
+
+## `organizeImports`
+
+### `organizeImports.enabled`
+
+Biomeのインポートのソート機能を有効にします。
+
+> デフォルト: `true`
+
+### `organizeImports.ignore`
+
+
+Biomeは、パターンに一致するファイルやフォルダを無視します。
+Unixシェルスタイルのパターンのリストで指定します。
+
+
+
+```json title="biome.json"
+{
+  "organizeImports": {
+    "ignore": ["scripts/*.js"]
+  }
+}
+```
+
+
+### `organizeImports.include`
+
+Biomeは、これらのパターンに一致するファイルやフォルダのみを処理します。
+Unixシェルスタイルのパターンのリストで指定します。
+
+
+
+```json title="biome.json"
+{
+  "organizeImports": {
+    "include": ["scripts/*.js"]
+  }
+}
+```
+
+:::caution
+`include` と `ignore` の両方が指定されている場合、`ignore` が `include` よりも**優先**されます。
+:::
+
+例えば、下記のような指定を考えます。
+
+```json title="biome.json"
+{
+  "organizeImports": {
+    "include": ["scripts/**/*.js", "src/**/*.js"],
+    "ignore": ["scripts/**/*.js"]
+  }
+}
+```
+
+パターン `src/**/*.js` に一致するファイルのみが処理され、パターン `scripts/**/*.js` に一致するファイルは無視されます。
+
+
+## `javascript`
+
+これらのオプションは、JavaScript（および TypeScript）ファイルにのみ適用されます。
+
+### `javascript.parser.unsafeParameterDecoratorsEnabled`
+
+安全でない/実験的なパラメータデコレーターをサポートするようにします。
+
+
+```json title="biome.json"
+{
+  "javascript": {
+    "parser": {
+      "unsafeParameterDecoratorsEnabled": true
+    }
+  }
+}
+```
+
+> デフォルト: `false`
+
+### `javascript.formatter.quoteStyle`
+
+文字列リテラルを表現する際に使用する引用符の種類です。 `"single"` または `"double"` のいずれかを指定できます。
+
+> デフォルト: `"double"`
+
+### `javascript.formatter.jsxQuoteStyle`
+
+JSXの文字列リテラルを表現する際に使用する引用符の種類です。 `"single"` または `"double"` のいずれかを指定できます。
+
+> デフォルト: `"double"`
+
+### `javascript.formatter.quoteProperties`
+
+オブジェクト内のプロパティが引用符で囲まれるべき時期を指定します。 `"asNeeded"` または `"preserve"` のいずれかを選択できます。
+
+> デフォルト: `"asNeeded"`
+
+### `javascript.formatter.trailingComma`
+
+このオプションは廃止されました。代わりに [`javascript.formatter.trailingCommas`](#javascriptformattertrailingcommas) を使用してください。
+
+<details>
+<summary>廃止されました</summary>
+
+複数行のカンマ区切りの構文構造で、可能な限り末尾カンマを追加します。可能な値は次の通りです。
+- `"all"`: 末尾カンマが常に追加されます。
+- `"es5"`: 末尾カンマが、古いバージョンのJavaScriptでサポートされている場所にのみ追加されます。
+- `"none"`: 末尾カンマは決して追加されません。
+
+> デフォルト: `"all"`
+
+</details>
+
+### `javascript.formatter.trailingCommas`
+
+複数行のカンマ区切りの構文構造で、可能な限り末尾カンマを追加します。可能な値は次の通りです。
+- `"all"`: 末尾カンマが常に追加されます。
+- `"es5"`: 末尾カンマが、古いバージョンのJavaScriptでサポートされている場所にのみ追加されます。
+- `"none"`: 末尾カンマは決して追加されません。
+
+> デフォルト: `"all"`
+
+
+### `javascript.formatter.semicolons`
+
+フォーマッターがセミコロンを出力する場所を指定します。
+- `"always"`: 各ステートメントの末尾に常にセミコロンが追加されます。
+- `"asNeeded"`: セミコロンは必要な場所にのみ追加され、ASI から保護します。
+
+> デフォルト: `"always"`
+
+例:
+
+```json title="biome.json"
+{
+  "javascript": {
+    "formatter": {
+      "semicolons": "asNeeded"
+    }
+  }
+}
+```
+
+### `javascript.formatter.arrowParentheses`
+
+アロー関数に不要な括弧を追加するかどうかを指定します：
+- `"always"`: 括弧が常に追加されます。
+- `"asNeeded"`: 必要な場合にのみ括弧が追加されます。
+
+> デフォルト: `"always"`
+
+### `javascript.formatter.enabled`
+
+JavaScript（およびその拡張言語）ファイル用のBiomeフォーマッターを有効にします。
+
+> デフォルト `true`
+
+### `javascript.formatter.indentStyle`
+
+JavaScript（およびその拡張言語）ファイルのインデントスタイルです。 `"tab"` または `"space"` のいずれかを指定できます。
+
+> デフォルト: `"tab"`
+
+### `javascript.formatter.indentSize`
+
+このオプションは廃止されました。代わりに [`javascript.formatter.indentWidth`](#javascriptformatterindentwidth) を使用してください。
+
+<details>
+<summary>廃止されました</summary>
+
+JavaScript（およびその拡張言語）ファイルのインデントサイズを指定します。
+
+> デフォルト: `2`
+
+</details>
+
+### `javascript.formatter.indentWidth`
+
+JavaScript（およびその拡張言語）ファイルのインデントサイズを指定します。
+
+> デフォルト: `2`
+
+### `javascript.formatter.lineEnding`
+
+JavaScript（およびその拡張言語）ファイルの改行コードの種類を指定します。
+- `"lf"`: Line Feed のみ (`\n`)、Linux や macOS、または git リポジトリ内で一般的です。
+- `"crlf"`: Carriage Return + Line Feed 文字 (`\r\n`)、Windows で一般的です。
+- `"cr"`: Carriage Return 文字のみ (`\r`)、非常にまれに使用されます。
+
+> デフォルト: `"lf"`
+
+### `javascript.formatter.lineWidth`
+
+JavaScript（およびその拡張言語）ファイルの行の文字数を指定します。
+
+> デフォルト: `80`
+
+### `javascript.formatter.bracketSameLine`
+
+複数行のJSX要素の終了タグ `>` を最後の属性行に配置するかどうかを指定します。
+
+> デフォルト: `false`
+
+### `javascript.formatter.bracketSpacing`
+
+括弧と内部の値の間にスペースを追加するかどうかを指定します。
+
+> デフォルト: `true`
+
+### `javascript.formatter.attributePosition`
+
+JSX要素における属性の位置スタイルを指定します。
+- `"auto"`: 属性は自動的にフォーマットされ、特定の基準に達したときのみ複数行に折り返されます。
+- `"multiline"`: 属性は常に複数行でフォーマットされます。
+
+> デフォルト: `"auto"`
+
+### `javascript.globals`
+
+Biomeが無視すべきグローバル名前のリストです。
+
+```json title="biome.json"
+{
+  "javascript": {
+    "globals": ["$", "_", "externalVariable"]
+  }
+}
+```
+
+### `javascript.jsxRuntime`
+
+JSXを解釈するために使用されるランタイムまたは変換のタイプを示します。
+- `"transparent"` &mdash; 特別な処理がBiomeによって必要ない、モダンまたはネイティブなJSX環境を示します。
+- `"reactClassic"` &mdash; `React` インポートが必要な古いReact環境を示します。TypeScriptの [`tsconfig.json`](https://www.typescriptlang.org/tsconfig#jsx) における `jsx` オプションの `react` 値に対応します。
+
+```json title="biome.json"
+{
+  "javascript": {
+    "jsxRuntime": "reactClassic"
+  }
+}
+```
+
+```json title="biome.json"
+{
+  "javascript": {
+    "jsxRuntime": "reactClassic"
+  }
+}
+```
+
+古いJSXランタイムと新しいJSXランタイムについての詳細は、以下をご覧ください。
+https://legacy.reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html
+
+> デフォルト: `"transparent"`
+
+### `javascript.linter.enabled`
+
+JavaScript（およびその拡張言語）ファイル用のBiomeフォーマッターを有効にします。
+
+> デフォルト: `true`
+
+## `json`
+
+JSONファイルに適用されるオプションです。
+
+### `json.parser.allowComments`
+
+JSONファイル内のコメントの解析を有効にします。
+
+
+
+```json title="biome.json"
+{
+  "json": {
+    "parser": {
+      "allowComments": true
+    }
+  }
+}
+```
+
+### `json.parser.allowTrailingCommas`
+
+JSONファイル内の末尾カンマの解析を有効にします。
+
+
+
+```json title="biome.json"
+{
+  "json": {
+    "parser": {
+      "allowTrailingCommas": true
+    }
+  }
+}
+```
+
+### `json.formatter.enabled`
+
+JSON（およびその拡張言語）ファイル用のBiomeフォーマッターを有効にします。
+
+> デフォルト: `true`
+
+### `json.formatter.indentStyle`
+
+JSON（およびその拡張言語）ファイルのインデントスタイルです。 `"tab"` または `"space"` のいずれかを指定できます。
+
+> デフォルト: `"tab"`
+
+
+### `json.formatter.indentSize`
+
+このオプションは廃止されました。代わりに [`json.formatter.indentWidth`](#jsonformatterindentwidth) を使用してください。
+
+<details>
+<summary>廃止されました</summary>
+
+JSON（およびその拡張言語）ファイルのインデントサイズを指定します。
+
+> デフォルト: `2`
+
+</details>
+
+### `json.formatter.indentWidth`
+
+JSON（およびその拡張言語）ファイルのインデントサイズを指定します。
+
+> デフォルト: `2`
+
+### `json.formatter.lineEnding`
+
+JSON（およびその拡張言語）ファイルの改行コードの種類を指定します。
+- `"lf"`: Line Feed のみ (`\n`)、Linux や macOS、または git リポジトリ内で一般的です。
+- `"crlf"`: Carriage Return + Line Feed 文字 (`\r\n`)、Windows で一般的です。
+- `"cr"`: Carriage Return 文字のみ (`\r`)、非常にまれに使用されます。
+
+> デフォルト: `"lf"`
+
+### `json.formatter.lineWidth`
+
+JSON（およびその拡張言語）ファイルの行の文字数を指定します。
+
+> デフォルト: `80`
+
+### `json.formatter.trailingCommas`
+
+複数行のカンマ区切りの構文構造で、可能な限り末尾カンマを追加します。
+
+許可される値は次の通りです。
+- ` "none"`: 末尾カンマは削除されます。
+- `"all"`: 末尾カンマは保持され、**推奨**されます。
+
+> デフォルト: `"none"`
+
+### `json.linter.enabled`
+
+JSON（およびその拡張言語）ファイル用のBiomeフォーマッターを有効にします。
+
+> デフォルト: `true`
+
+
+## `css`
+
+CSSファイルに適用されるオプションです。
+
+### `css.parser.cssModules`
+
+[CSS modules](https://github.com/css-modules/css-modules) の解析を有効にします。
+
+> デフォルト: `false`
+
+### `css.formatter.enabled`
+
+CSS（およびその拡張言語）ファイル用のBiomeフォーマッターを有効にします。
+
+> デフォルト: `false`
+
+### `css.formatter.indentStyle`
+
+CSS（およびその拡張言語）ファイルのインデントスタイルです。 `"tab"` または `"space"` のいずれかを指定できます。
+
+> デフォルト: `"tab"`
+
+
+### `css.formatter.indentWidth`
+
+CSS（およびその拡張言語）ファイルのインデントサイズを指定します。
+
+> デフォルト: `2`
+
+### `css.formatter.lineEnding`
+
+CSS（およびその拡張言語）ファイルの改行コードの種類を指定します。
+- `"lf"`: Line Feed のみ (`\n`)、Linux や macOS、または git リポジトリ内で一般的です。
+- `"crlf"`: Carriage Return + Line Feed 文字 (`\r\n`)、Windows で一般的です。
+- `"cr"`: Carriage Return 文字のみ (`\r`)、非常にまれに使用されます。
+
+> デフォルト: `"lf"`
+
+### `css.formatter.lineWidth`
+
+CSS（およびその拡張言語）ファイルの行の文字数を指定します。
+
+> デフォルト: `80`
+
+### `css.formatter.quoteStyle`
+
+文字列リテラルを表現する際に使用する引用符の種類です。 `"single"` または `"double"` のいずれかを指定できます。
+
+> デフォルト: `"double"`
+
+### `css.linter.enabled`
+
+CSS（およびその拡張言語）ファイル用のBiomeリンターを有効にします。
+
+> デフォルト: `false`
+
+## `overrides`
+
+パターンのリストです。
+この設定を使用して、特定のファイルに対するツールの動作を変更します。
+ファイルがオーバーライドパターンに一致すると、そのパターンに指定された設定がトップレベルの設定を上書きします。
+パターンの順序は重要です。ファイルが三つのパターンに一致する場合、最初のパターンのみが使用されます。
+
+### `overrides.<ITEM>.ignore`
+
+Unixシェルスタイルのパターンのリストです。Biomeは、これらのパターンに一致するファイルに対してオーバーライドを適用しません。
+
+
+```json title="biome.json"
+{
+  "overrides": [{
+    "ignore": ["scripts/*.js"]
+  }]
+}
+```
+
+### `overrides.<ITEM>.include`
+
+Unixシェルスタイルのパターンのリストです。Biomeは、これらのパターンに一致するファイルにのみオーバーライドを適用します。
+
+
+```json title="biome.json"
+{
+  "overrides": [{
+    "include": ["scripts/*.js"]
+  }]
+}
+```
+
+### `overrides.<ITEM>.formatter`
+
+`ignore` と `include` を除いた、[上位のformatter](#formatter) 設定のオプションが含まれます。
+
+#### Examples
+
+例えば、`generated/**` のグロブパスに含まれる特定のファイルに対して、フォーマッターの `lineWidth` や `indentStyle` を変更することが可能です。
+
+
+```json title="biome.json"
+{
+  "formatter": {
+    "lineWidth": 100
+  },
+  "overrides": [
+    {
+      "include": ["generated/**"],
+      "formatter": {
+        "lineWidth": 160,
+        "indentStyle": "space"
+      }
+    }
+  ]
+}
+```
+
+### `overrides.<ITEM>.linter`
+
+`ignore` と `include` を除いた、[上位のlinter](#linter) 設定のオプションが含まれます。
+
+#### Examples
+
+特定のグロブパスに対しては特定のルールを無効にし、他のグロブパスに対してはリンターを無効にすることができます。
+
+
+
+```json title="biome.json"
+{
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true
+    }
+  },
+  "overrides": [
+    {
+      "include": ["lib/**"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noDebugger": "off"
+          }
+        }
+      }
+    },
+    {
+      "include": ["shims/**"],
+      "linter": {
+        "enabled": false
+      }
+    }
+  ]
+}
+```
+
+### `overrides.<ITEM>.organizeImports`
+
+`ignore` と `include` を除いた、[上位のorganizeImports](#organizeimports) 設定のオプションが含まれます。
+
+### `overrides.<ITEM>.javascript`
+
+[上位のjavascript](#javascript) 設定のオプションが含まれます。
+
+#### Examples
+
+特定のフォルダ内のJavaScriptファイルのフォーマット動作を変更することができます。
+
+
+
+```json title="biome.json"
+{
+  "formatter": {
+    "lineWidth": 120
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single"
+    }
+  },
+  "overrides": [
+    {
+      "include": ["lib/**"],
+      "javascript": {
+        "formatter": {
+          "quoteStyle": "double"
+        }
+      }
+    }
+  ]
+}
+```
+
+
+### `overrides.<ITEM>.json`
+
+[上位のjson](#json) 設定のオプションが含まれます。
+
+
+#### Examples
+
+特定のJSONファイルに対して解析機能を有効にすることができます。
+
+
+
+```json title="biome.json"
+{
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true
+    }
+  },
+  "overrides": [
+    {
+      "include": [".vscode/**"],
+      "json": {
+        "parser": {
+          "allowComments": true,
+          "allowTrailingCommas": true
+        }
+      }
+    }
+  ]
+}
+```
