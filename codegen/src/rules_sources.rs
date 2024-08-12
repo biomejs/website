@@ -1,6 +1,5 @@
 use crate::lintdoc::RuleToDocument;
 use anyhow::Result;
-use biome_analyze::RuleMetadata;
 use biome_string_case::Case;
 use std::cmp::Ordering;
 use std::collections::{BTreeMap, BTreeSet};
@@ -50,7 +49,7 @@ description: A page that maps lint rules from other sources to Biome
     let mut exclusive_biome_rules = BTreeSet::<(String, String)>::new();
 
     for (rule_name, rule_to_document) in rules {
-        for (langauge, metadata) in rule_to_document.language_to_metadata {
+        for (_, metadata) in rule_to_document.language_to_metadata {
             if metadata.version == "next" {
                 continue;
             }

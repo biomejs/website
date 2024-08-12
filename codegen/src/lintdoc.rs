@@ -26,7 +26,7 @@ use biome_service::settings::WorkspaceSettings;
 use biome_service::workspace::DocumentFileSource;
 use biome_string_case::Case;
 use pulldown_cmark::{html::write_html, CodeBlockKind, Event, LinkType, Parser, Tag, TagEnd};
-use std::collections::HashMap;
+use std::collections::{BTreeSet, HashMap};
 use std::error::Error;
 use std::path::PathBuf;
 use std::{
@@ -350,29 +350,8 @@ fn generate_group(
                 FixKind::None => {}
             }
 
-            match *language {
-                "js" => {
-                    properties.push_str("<span class='inline-icon' title=\"JavaScript and super languages rule.\"><Icon name=\"seti:javascript\" label=\"JavaScript and super languages rule.\" size=\"1.2rem\"/></span>");
-                }
-                "jsx" => {
-                    properties.push_str("<span class='inline-icon'  title=\"JSX rule.\"><Icon name=\"seti:javascript\" label=\"JSX rule\" size=\"1.2rem\"/></span>");
-                }
-                "ts" => {
-                    properties.push_str("<span class='inline-icon'  title=\"TypeScript rule.\"><Icon name=\"seti:typescript\" label=\"TypeScript rule\" size=\"1.2rem\"/></span>");
-                }
-                "json" => {
-                    properties.push_str("<span class='inline-icon' title=\"JSON rule.\"><Icon name=\"seti:json\" label=\"JSON rule\" size=\"1.2rem\"/></span>");
-                }
-                "css" => {
-                    properties.push_str("<span class='inline-icon' title=\"CSS rule.\"><Icon name=\"seti:css\" label=\"CSS rule\" size=\"1.2rem\"/></span>");
-                }
-                "graphql" => {
-                    properties.push_str("<span class='inline-icon' title=\"GraphQL rule\"><Icon name=\"seti:graphql\" label=\"GraphQL rule\" size=\"1.2rem\"/></span>");
-                }
-                _ => {
-                    eprintln!("Language {} isn't supported.", language)
-                }
-            }
+
+            to_language_icon(language, &mut properties);
 
             let mut summary_html = Vec::new();
             write_html(&mut summary_html, summary.clone().into_iter())?;
@@ -405,10 +384,8 @@ fn generate_rule(payload: GenRule) -> Result<Vec<Event<'static>>> {
     let mut content = Vec::new();
 
     // // Write the header for this lint rule
-    writeln!(content, "---")?;
-    writeln!(content, "title: {}", payload.rule_name)?;
-    writeln!(content, "---")?;
-    let result: Vec<_> = payload
+
+    let result: BTreeSet<_> = payload
         .rule_to_document
         .language_to_metadata
         .iter()
@@ -425,6 +402,15 @@ fn generate_rule(payload: GenRule) -> Result<Vec<Event<'static>>> {
             .ok()
         })
         .collect();
+
+    let mut summary_text = Vec::new();
+    write_html(&mut summary_text, summary.clone().into_iter())?;
+    let summary_text = String::from_utf8_lossy(&summary_text);
+    
+    writeln!(content, "---")?;
+    writeln!(content, "title: {}", payload.rule_name)?;
+    writeln!(content, "description: |\n  '{}'", summary_text.replace("'", "\'"))?;
+    writeln!(content, "---")?;
 
     for (_, component, import) in result.clone() {
         writeln!(
@@ -480,6 +466,8 @@ fn generate_rule_content<'a>(
     let mut content = Vec::new();
 
     let is_recommended = !is_nursery && meta.recommended;
+    
+    writeln!(content, "**Since**: `v{}`", meta.version)?;
 
     if is_recommended || !matches!(meta.fix_kind, FixKind::None) {
         writeln!(content, ":::note")?;
@@ -494,29 +482,6 @@ fn generate_rule_content<'a>(
                 writeln!(content, "- This rule has an **unsafe** fix.")?;
             }
             FixKind::None => {}
-        }
-        match meta.language {
-            "js" => {
-                writeln!(
-                    content,
-                    "- This rule is applied to **JavaScript and super languages** files."
-                )?;
-            }
-            "jsx" => {
-                writeln!(content, "- This rule is applied to **JSX and TSX** files.")?;
-            }
-            "ts" => {
-                writeln!(
-                    content,
-                    "- This rule is applied to **TypeScript and TSX** files."
-                )?;
-            }
-            "json" => {
-                writeln!(content, "- This rule is applied to **JSON** files.")?;
-            }
-            _ => {
-                eprintln!("Language {} isn't supported.", meta.language)
-            }
         }
         writeln!(content, ":::")?;
         writeln!(content)?;
@@ -1141,11 +1106,37 @@ fn markup_to_string(markup: &MarkupBuf) -> String {
 fn to_language_tab(language: &str) -> &str {
     match language {
         "js" => "JavaScript (and super languages)",
-        "jsx" => "JSX",
-        "ts" => "TypeScript",
+        "jsx" => "JSX and TSX",
+        "ts" => "TypeScript and TSX",
         "json" => "JSON (and super languages)",
         "css" => "CSS",
         "graphql" => "GraphQL",
+        _ => {
+            panic!("Language {} isn't supported.", language)
+        }
+    }
+}
+
+fn to_language_icon(language: &str, properties: &mut String) {
+    match language {
+        "js" => {
+            properties.push_str("<span class='inline-icon' title=\"JavaScript and super languages rule.\"><Icon name=\"seti:javascript\" label=\"JavaScript and super languages rule.\" size=\"1.2rem\"/></span>");
+        }
+        "jsx" => {
+            properties.push_str("<span class='inline-icon'  title=\"JSX rule.\"><Icon name=\"seti:javascript\" label=\"JSX rule\" size=\"1.2rem\"/></span>");
+        }
+        "ts" => {
+            properties.push_str("<span class='inline-icon'  title=\"TypeScript rule.\"><Icon name=\"seti:typescript\" label=\"TypeScript rule\" size=\"1.2rem\"/></span>");
+        }
+        "json" => {
+            properties.push_str("<span class='inline-icon' title=\"JSON rule.\"><Icon name=\"seti:json\" label=\"JSON rule\" size=\"1.2rem\"/></span>");
+        }
+        "css" => {
+            properties.push_str("<span class='inline-icon' title=\"CSS rule.\"><Icon name=\"seti:css\" label=\"CSS rule\" size=\"1.2rem\"/></span>");
+        }
+        "graphql" => {
+            properties.push_str("<span class='inline-icon' title=\"GraphQL rule\"><Icon name=\"seti:graphql\" label=\"GraphQL rule\" size=\"1.2rem\"/></span>");
+        }
         _ => {
             panic!("Language {} isn't supported.", language)
         }

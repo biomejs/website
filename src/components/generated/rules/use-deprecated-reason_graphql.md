@@ -1,0 +1,38 @@
+**Since**: `vnext`
+:::caution
+This rule is part of the [nursery](/linter/rules/#nursery) group.
+:::
+
+Sources: 
+- Same as: <a href="https://the-guild.dev/graphql/eslint/rules/require-deprecation-reason" target="_blank"><code>graphql/require-deprecation-reason</code></a>
+
+Require specifying the reason argument when using @deprecated directive
+
+This rule checks the parameter of @deprecated directive for the use of reason argument,
+suggesting user to add it in case the argument is missing.
+
+## Examples
+
+### Invalid
+
+```graphql
+query {
+  member @deprecated
+}
+```
+
+<pre class="language-text"><code class="language-text"></code></pre>
+
+### Valid
+
+```graphql
+query {
+  member @deprecated(reason: "Why?")
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
