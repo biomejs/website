@@ -1,3 +1,4 @@
+use crate::lintdoc::RuleToDocument;
 use anyhow::Result;
 use biome_analyze::RuleMetadata;
 use biome_string_case::Case;
@@ -27,7 +28,7 @@ impl PartialOrd for SourceSet {
 }
 
 pub(crate) fn generate_rule_sources(
-    rules: BTreeMap<&str, BTreeMap<&'static str, RuleMetadata>>,
+    rules: BTreeMap<&str, BTreeMap<&'static str, RuleToDocument>>,
 ) -> Result<Vec<u8>> {
     let mut buffer = vec![];
 
@@ -43,44 +44,46 @@ description: A page that maps lint rules from other sources to Biome
     let rules = rules
         .into_iter()
         .flat_map(|(_, rule)| rule)
-        .collect::<BTreeMap<&str, RuleMetadata>>();
+        .collect::<BTreeMap<&str, RuleToDocument>>();
 
     let mut rules_by_source = BTreeMap::<String, BTreeSet<SourceSet>>::new();
     let mut exclusive_biome_rules = BTreeSet::<(String, String)>::new();
 
-    for (rule_name, metadata) in rules {
-        if metadata.version == "next" {
-            continue;
-        }
-        let kebab_rule_name = Case::Kebab.convert(rule_name);
-        if metadata.sources.is_empty() {
-            exclusive_biome_rules.insert((
-                rule_name.to_string(),
-                format!("/linter/rules/{}", kebab_rule_name),
-            ));
-        } else {
-            for source in metadata.sources {
-                let set = rules_by_source.get_mut(&format!("{source}"));
-                if let Some(set) = set {
-                    set.insert(SourceSet {
-                        biome_rule_name: rule_name.to_string(),
-                        biome_link: format!("/linter/rules/{}", kebab_rule_name),
-                        source_link: source.to_rule_url(),
-                        source_rule_name: source.as_rule_name().to_string(),
-                        inspired: metadata
-                            .source_kind
-                            .map_or(false, |kind| kind.is_inspired()),
-                    });
-                } else {
-                    let mut set = BTreeSet::new();
-                    set.insert(SourceSet {
-                        biome_rule_name: rule_name.to_string(),
-                        biome_link: format!("/linter/rules/{}", kebab_rule_name),
-                        source_link: source.to_rule_url(),
-                        source_rule_name: source.as_rule_name().to_string(),
-                        inspired: metadata.source_kind.map_or(true, |kind| kind.is_inspired()),
-                    });
-                    rules_by_source.insert(format!("{source}"), set);
+    for (rule_name, rule_to_document) in rules {
+        for (langauge, metadata) in rule_to_document.language_to_metadata {
+            if metadata.version == "next" {
+                continue;
+            }
+            let kebab_rule_name = Case::Kebab.convert(rule_name);
+            if metadata.sources.is_empty() {
+                exclusive_biome_rules.insert((
+                    rule_name.to_string(),
+                    format!("/linter/rules/{}", kebab_rule_name),
+                ));
+            } else {
+                for source in metadata.sources {
+                    let set = rules_by_source.get_mut(&format!("{source}"));
+                    if let Some(set) = set {
+                        set.insert(SourceSet {
+                            biome_rule_name: rule_name.to_string(),
+                            biome_link: format!("/linter/rules/{}", kebab_rule_name),
+                            source_link: source.to_rule_url(),
+                            source_rule_name: source.as_rule_name().to_string(),
+                            inspired: metadata
+                                .source_kind
+                                .map_or(false, |kind| kind.is_inspired()),
+                        });
+                    } else {
+                        let mut set = BTreeSet::new();
+                        set.insert(SourceSet {
+                            biome_rule_name: rule_name.to_string(),
+                            biome_link: format!("/linter/rules/{}", kebab_rule_name),
+                            source_link: source.to_rule_url(),
+                            source_rule_name: source.as_rule_name().to_string(),
+                            inspired: metadata.source_kind.map_or(true, |kind| kind.is_inspired()),
+                        });
+                        rules_by_source.insert(format!("{source}"), set);
+                    }
                 }
             }
         }

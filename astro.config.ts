@@ -412,10 +412,11 @@ export default defineConfig({
 	},
 
 	markdown: {
-		syntaxHighlight: "prism",
+		syntaxHighlight: "shiki",
 		rehypePlugins: [rehypeSlug, ...rehypeAutolink()],
 		shikiConfig: {
 			langs: [
+				// @ts-expect-error
 				{
 					...(await bundledLanguages.javascript()).default[0],
 					scopeName: "source.cjs",
