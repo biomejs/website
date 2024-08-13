@@ -1,0 +1,39 @@
+**Since**: `vnext`
+:::caution
+This rule is part of the [nursery](/linter/rules/#nursery) group.
+:::
+
+Sources: 
+- Same as: <a href="https://the-guild.dev/graphql/eslint/rules/no-duplicate-fields" target="_blank"><code>graphql/no-duplicate-fields</code></a>
+
+No duplicated fields in GraphQL operations.
+
+Checks for duplicate fields in selection set, variables in operation definition, or in arguments set of a field.
+
+## Examples
+
+### Invalid
+
+```graphql
+query test($v: String, $t: String, $v: String) {
+  id
+}
+```
+
+<pre class="language-text"><code class="language-text"></code></pre>
+
+### Valid
+
+```graphql
+query {
+  user {
+    id
+  }
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)

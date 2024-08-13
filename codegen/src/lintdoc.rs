@@ -26,6 +26,7 @@ use biome_service::settings::WorkspaceSettings;
 use biome_service::workspace::DocumentFileSource;
 use biome_string_case::Case;
 use pulldown_cmark::{html::write_html, CodeBlockKind, Event, LinkType, Parser, Tag, TagEnd};
+use std::collections::{BTreeSet, HashMap};
 use std::error::Error;
 use std::path::PathBuf;
 use std::{
@@ -38,6 +39,107 @@ use std::{
     str::{self, FromStr},
 };
 
+#[derive(Debug, Default, Clone)]
+pub(crate) struct RuleToDocument {
+    pub(crate) language_to_metadata: HashMap<&'static str, RuleMetadata>,
+}
+
+#[derive(Default)]
+struct LintRulesVisitor {
+    /// This is mapped to:
+    /// - group (correctness) -> list of rules
+    /// - list or rules is mapped to
+    /// - rule name -> list of languages
+    /// - list of languages is mapped to
+    /// - language -> metadata
+    ///   
+    groups: BTreeMap<&'static str, BTreeMap<&'static str, RuleToDocument>>,
+    number_of_rules: u16,
+}
+
+impl LintRulesVisitor {
+    fn push_rule<R, L>(&mut self)
+    where
+        R: Rule<Options: Default, Query: Queryable<Language = L, Output: Clone>> + 'static,
+    {
+        self.number_of_rules += 1;
+        let group = self
+            .groups
+            .entry(<R::Group as RuleGroup>::NAME)
+            .or_default();
+        if let Some(rules_to_document) = group.get_mut(R::METADATA.name) {
+            rules_to_document
+                .language_to_metadata
+                .insert(R::METADATA.language, R::METADATA);
+        } else {
+            let mut rule_to_document = RuleToDocument::default();
+            rule_to_document
+                .language_to_metadata
+                .insert(R::METADATA.language, R::METADATA);
+            group.insert(R::METADATA.name, rule_to_document);
+        };
+    }
+}
+
+impl RegistryVisitor<JsLanguage> for LintRulesVisitor {
+    fn record_category<C: GroupCategory<Language = JsLanguage>>(&mut self) {
+        if matches!(C::CATEGORY, RuleCategory::Lint) {
+            C::record_groups(self);
+        }
+    }
+
+    fn record_rule<R>(&mut self)
+    where
+        R: Rule<Query: Queryable<Language = JsLanguage, Output: Clone>> + 'static,
+    {
+        self.push_rule::<R, <R::Query as Queryable>::Language>()
+    }
+}
+
+impl RegistryVisitor<JsonLanguage> for LintRulesVisitor {
+    fn record_category<C: GroupCategory<Language = JsonLanguage>>(&mut self) {
+        if matches!(C::CATEGORY, RuleCategory::Lint) {
+            C::record_groups(self);
+        }
+    }
+
+    fn record_rule<R>(&mut self)
+    where
+        R: Rule<Query: Queryable<Language = JsonLanguage, Output: Clone>> + 'static,
+    {
+        self.push_rule::<R, <R::Query as Queryable>::Language>()
+    }
+}
+
+impl RegistryVisitor<CssLanguage> for LintRulesVisitor {
+    fn record_category<C: GroupCategory<Language = CssLanguage>>(&mut self) {
+        if matches!(C::CATEGORY, RuleCategory::Lint) {
+            C::record_groups(self);
+        }
+    }
+
+    fn record_rule<R>(&mut self)
+    where
+        R: Rule<Query: Queryable<Language = CssLanguage, Output: Clone>> + 'static,
+    {
+        self.push_rule::<R, <R::Query as Queryable>::Language>()
+    }
+}
+impl RegistryVisitor<GraphqlLanguage> for LintRulesVisitor {
+    fn record_category<C: GroupCategory<Language = GraphqlLanguage>>(&mut self) {
+        if matches!(C::CATEGORY, RuleCategory::Lint) {
+            C::record_groups(self);
+        }
+    }
+
+    fn record_rule<R>(&mut self)
+    where
+        R: Rule<Query: Queryable<Language = GraphqlLanguage, Output: Clone>> + 'static,
+    {
+        self.push_rule::<R, <R::Query as Queryable>::Language>()
+    }
+}
+
 pub fn generate_rule_docs() -> Result<()> {
     let root = project_root().join("src/content/docs/linter/rules");
     let index_page = root.join("index.mdx");
@@ -47,6 +149,7 @@ pub fn generate_rule_docs() -> Result<()> {
         project_root().join("src/components/generated/NumberOfRules.astro");
     let reference_recommended_rules =
         project_root().join("src/components/generated/RecommendedRules.astro");
+    let generated_content_root = project_root().join("src/components/generated/rules");
     // Clear the rules directory ignoring "not found" errors
 
     if root.exists() {
@@ -61,7 +164,20 @@ pub fn generate_rule_docs() -> Result<()> {
             }
         }
     }
+    if generated_content_root.exists() {
+        if let Err(err) = fs::remove_dir_all(&generated_content_root) {
+            let is_not_found = err
+                .source()
+                .and_then(|err| err.downcast_ref::<io::Error>())
+                .map_or(false, |err| matches!(err.kind(), io::ErrorKind::NotFound));
+
+            if !is_not_found {
+                return Err(err.into());
+            }
+        }
+    }
     fs::create_dir_all(&root)?;
+    fs::create_dir_all(&generated_content_root)?;
 
     // Content of the index page
     let mut index = Vec::new();
@@ -94,87 +210,6 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
     // failure instead of just the first one
     let mut errors = Vec::new();
 
-    #[derive(Default)]
-    struct LintRulesVisitor {
-        groups: BTreeMap<&'static str, BTreeMap<&'static str, RuleMetadata>>,
-        number_of_rules: u16,
-    }
-
-    impl RegistryVisitor<JsLanguage> for LintRulesVisitor {
-        fn record_category<C: GroupCategory<Language = JsLanguage>>(&mut self) {
-            if matches!(C::CATEGORY, RuleCategory::Lint) {
-                C::record_groups(self);
-            }
-        }
-
-        fn record_rule<R>(&mut self)
-        where
-            R: Rule<Query: Queryable<Language = JsLanguage, Output: Clone>> + 'static,
-        {
-            self.number_of_rules += 1;
-            self.groups
-                .entry(<R::Group as RuleGroup>::NAME)
-                .or_default()
-                .insert(R::METADATA.name, R::METADATA);
-        }
-    }
-
-    impl RegistryVisitor<JsonLanguage> for LintRulesVisitor {
-        fn record_category<C: GroupCategory<Language = JsonLanguage>>(&mut self) {
-            if matches!(C::CATEGORY, RuleCategory::Lint) {
-                C::record_groups(self);
-            }
-        }
-
-        fn record_rule<R>(&mut self)
-        where
-            R: Rule<Query: Queryable<Language = JsonLanguage, Output: Clone>> + 'static,
-        {
-            self.number_of_rules += 1;
-            self.groups
-                .entry(<R::Group as RuleGroup>::NAME)
-                .or_default()
-                .insert(R::METADATA.name, R::METADATA);
-        }
-    }
-
-    impl RegistryVisitor<CssLanguage> for LintRulesVisitor {
-        fn record_category<C: GroupCategory<Language = CssLanguage>>(&mut self) {
-            if matches!(C::CATEGORY, RuleCategory::Lint) {
-                C::record_groups(self);
-            }
-        }
-
-        fn record_rule<R>(&mut self)
-        where
-            R: Rule<Query: Queryable<Language = CssLanguage, Output: Clone>> + 'static,
-        {
-            self.number_of_rules += 1;
-            self.groups
-                .entry(<R::Group as RuleGroup>::NAME)
-                .or_default()
-                .insert(R::METADATA.name, R::METADATA);
-        }
-    }
-    impl RegistryVisitor<GraphqlLanguage> for LintRulesVisitor {
-        fn record_category<C: GroupCategory<Language = GraphqlLanguage>>(&mut self) {
-            if matches!(C::CATEGORY, RuleCategory::Lint) {
-                C::record_groups(self);
-            }
-        }
-
-        fn record_rule<R>(&mut self)
-        where
-            R: Rule<Query: Queryable<Language = GraphqlLanguage, Output: Clone>> + 'static,
-        {
-            self.number_of_rules += 1;
-            self.groups
-                .entry(<R::Group as RuleGroup>::NAME)
-                .or_default()
-                .insert(R::METADATA.name, R::METADATA);
-        }
-    }
-
     let mut visitor = LintRulesVisitor::default();
     biome_js_analyze::visit_registry(&mut visitor);
     biome_json_analyze::visit_registry(&mut visitor);
@@ -203,6 +238,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
             group,
             rules,
             &root,
+            &generated_content_root,
             &mut index,
             &mut errors,
             &mut recommended_rules,
@@ -251,8 +287,9 @@ The recommended rules are:
 
 fn generate_group(
     group: &'static str,
-    rules: BTreeMap<&'static str, RuleMetadata>,
-    root: &Path,
+    rules: BTreeMap<&'static str, RuleToDocument>,
+    content_root: &Path,
+    generated_root: &Path,
     main_page_buffer: &mut dyn io::Write,
     errors: &mut Vec<(&'static str, anyhow::Error)>,
     recommended_rules: &mut String,
@@ -267,79 +304,64 @@ fn generate_group(
     writeln!(main_page_buffer, "| Rule name | Description | Properties |")?;
     writeln!(main_page_buffer, "| --- | --- | --- |")?;
 
-    for (rule, meta) in rules {
-        // We don't document rules that haven't been released yet
-        if meta.version == "next" {
-            continue;
-        }
-        let is_recommended = !is_nursery && meta.recommended;
-        let dashed_rule = Case::Kebab.convert(rule);
-        if is_recommended {
-            recommended_rules.push_str(&format!(
-                "\t<li><a href='/linter/rules/{dashed_rule}'>{rule}</a></li>\n"
-            ));
-        }
-
-        match generate_rule(GenRule {
-            root,
+    for (rule_name, rule_to_document) in rules {
+        let summary = generate_rule(GenRule {
+            generated_root,
+            content_root,
             group,
-            rule,
-            is_recommended,
-            meta: &meta,
-        }) {
-            Ok(summary) => {
-                let mut properties = String::new();
-                if is_recommended {
-                    properties.push_str("<span class='inline-icon' title=\"This rule is recommended\" ><Icon name=\"approve-check-circle\" size=\"1.2rem\" label=\"This rule is recommended\" /></span>");
-                }
+            rule_name,
+            is_nursery,
+            rule_to_document: &rule_to_document,
+        });
 
-                match meta.fix_kind {
-                    FixKind::Safe => {
-                        properties.push_str("<span class='inline-icon' title='The rule has a safe fix.'><Icon name=\"seti:config\" label=\"The rule has a safe fix\" size=\"1.2rem\"  /></span>");
-                    }
-                    FixKind::Unsafe => {
-                        properties.push_str("<span class='inline-icon' title=\"The rule has an unsafe fix\" ><Icon name=\"warning\" label=\"The rule has an unsafe fix\" size=\"1.2rem\" /></span>");
-                    }
-                    FixKind::None => {}
-                }
-
-                match meta.language {
-                    "js" => {
-                        properties.push_str("<span class='inline-icon' title=\"JavaScript and super languages rule.\"><Icon name=\"seti:javascript\" label=\"JavaScript and super languages rule.\" size=\"1.2rem\"/></span>");
-                    }
-                    "jsx" => {
-                        properties.push_str("<span class='inline-icon'  title=\"JSX rule.\"><Icon name=\"seti:javascript\" label=\"JSX rule\" size=\"1.2rem\"/></span>");
-                    }
-                    "ts" => {
-                        properties.push_str("<span class='inline-icon'  title=\"TypeScript rule.\"><Icon name=\"seti:typescript\" label=\"TypeScript rule\" size=\"1.2rem\"/></span>");
-                    }
-                    "json" => {
-                        properties.push_str("<span class='inline-icon' title=\"JSON rule.\"><Icon name=\"seti:json\" label=\"JSON rule\" size=\"1.2rem\"/></span>");
-                    }
-                    "css" => {
-                        properties.push_str("<span class='inline-icon' title=\"CSS rule.\"><Icon name=\"seti:css\" label=\"CSS rule\" size=\"1.2rem\"/></span>");
-                    }
-                    "graphql" => {
-                        properties.push_str("<span class='inline-icon' title=\"GraphQL rule\"><Icon name=\"seti:graphql\" label=\"GraphQL rule\" size=\"1.2rem\"/></span>");
-                    }
-                    _ => {
-                        eprintln!("Language {} isn't supported.", meta.language)
-                    }
-                }
-
-                let mut summary_html = Vec::new();
-                write_html(&mut summary_html, summary.into_iter())?;
-                let summary_html = String::from_utf8_lossy(&summary_html);
-                write!(
-                    main_page_buffer,
-                    "| [{rule}](/linter/rules/{dashed_rule}) | {summary_html} | {properties} |"
-                )?;
-
-                writeln!(main_page_buffer)?;
-            }
+        let summary = match summary {
+            Ok(summary) => summary,
             Err(err) => {
-                errors.push((rule, err));
+                errors.push((rule_name, err));
+                continue;
             }
+        };
+
+        for (language, meta) in &rule_to_document.clone().language_to_metadata {
+            // We don't document rules that haven't been released yet
+            if meta.version == "next" {
+                continue;
+            }
+            let is_recommended = !is_nursery && meta.recommended;
+            let dashed_rule = Case::Kebab.convert(rule_name);
+            if is_recommended {
+                recommended_rules.push_str(&format!(
+                    "\t<li><a href='/linter/rules/{dashed_rule}'>{rule_name}</a></li>\n"
+                ));
+            }
+
+            let mut properties = String::new();
+            if is_recommended {
+                properties.push_str("<span class='inline-icon' title=\"This rule is recommended\" ><Icon name=\"approve-check-circle\" size=\"1.2rem\" label=\"This rule is recommended\" /></span>");
+            }
+
+            match meta.fix_kind {
+                FixKind::Safe => {
+                    properties.push_str("<span class='inline-icon' title='The rule has a safe fix.'><Icon name=\"seti:config\" label=\"The rule has a safe fix\" size=\"1.2rem\"  /></span>");
+                }
+                FixKind::Unsafe => {
+                    properties.push_str("<span class='inline-icon' title=\"The rule has an unsafe fix\" ><Icon name=\"warning\" label=\"The rule has an unsafe fix\" size=\"1.2rem\" /></span>");
+                }
+                FixKind::None => {}
+            }
+
+
+            to_language_icon(language, &mut properties);
+
+            let mut summary_html = Vec::new();
+            write_html(&mut summary_html, summary.clone().into_iter())?;
+            let summary_html = String::from_utf8_lossy(&summary_html);
+            write!(
+                main_page_buffer,
+                "| [{rule_name}](/linter/rules/{dashed_rule}) | {summary_html} | {properties} |"
+            )?;
+
+            writeln!(main_page_buffer)?;
         }
     }
 
@@ -347,39 +369,105 @@ fn generate_group(
 }
 
 struct GenRule<'a> {
-    root: &'a Path,
+    content_root: &'a Path,
+    generated_root: &'a Path,
     group: &'static str,
-    rule: &'static str,
-    is_recommended: bool,
-    meta: &'a RuleMetadata,
+    rule_name: &'static str,
+    is_nursery: bool,
+    rule_to_document: &'a RuleToDocument,
 }
 
 /// Generates the documentation page for a single lint rule
 fn generate_rule(payload: GenRule) -> Result<Vec<Event<'static>>> {
-    let GenRule {
-        root,
-        group,
-        rule,
-        is_recommended,
-        meta,
-    } = payload;
+    let mut summary = Vec::new();
+
     let mut content = Vec::new();
 
-    let title_version = if meta.version == "next" {
-        "(not released)".to_string()
-    } else {
-        format!("(since v{})", meta.version)
-    };
-    // Write the header for this lint rule
+    // // Write the header for this lint rule
+
+    let result: BTreeSet<_> = payload
+        .rule_to_document
+        .language_to_metadata
+        .iter()
+        .filter_map(|(language, meta)| {
+            generate_rule_content(
+                language,
+                payload.group,
+                payload.rule_name,
+                payload.is_nursery,
+                meta,
+                &mut summary,
+                payload.generated_root,
+            )
+            .ok()
+        })
+        .collect();
+
+    let mut summary_text = Vec::new();
+    write_html(&mut summary_text, summary.clone().into_iter())?;
+    let summary_text = String::from_utf8_lossy(&summary_text);
+    
     writeln!(content, "---")?;
-    writeln!(content, "title: {rule} {title_version}")?;
+    writeln!(content, "title: {}", payload.rule_name)?;
+    writeln!(content, "description: |\n  '{}'", summary_text.replace("'", "\'"))?;
     writeln!(content, "---")?;
+
+    for (_, component, import) in result.clone() {
+        writeln!(
+            content,
+            "import {} from \"@/components/generated/rules/{}\"",
+            component, import
+        )?;
+    }
+
+    writeln!(
+        content,
+        r#"import {{ Tabs, TabItem }} from '@astrojs/starlight/components';"#
+    )?;
+
     writeln!(content)?;
 
-    write!(content, "**Diagnostic Category: `lint/{group}/{rule}`**")?;
-    writeln!(content)?;
+    writeln!(
+        content,
+        "**Diagnostic Category: `lint/{}/{}`**",
+        payload.group, payload.rule_name
+    )?;
 
-    writeln!(content)?;
+    writeln!(content, "<Tabs>")?;
+
+    for (language, component, _) in result {
+        writeln!(
+            content,
+            "<TabItem label=\"{}\"><{} /></TabItem>",
+            language, component
+        )?;
+    }
+
+    writeln!(content, "</Tabs>\n")?;
+
+    let rule_name_case = Case::Kebab.convert(payload.rule_name);
+    fs::write(
+        payload.content_root.join(format!("{rule_name_case}.mdx")),
+        content,
+    )?;
+
+    Ok(summary)
+}
+
+fn generate_rule_content<'a>(
+    language: &'static str,
+    group: &'static str,
+    rule_name: &'static str,
+    is_nursery: bool,
+    meta: &RuleMetadata,
+    summary: &mut Vec<Event<'static>>,
+    root: &'a Path,
+) -> Result<(String, String, String)> {
+    let mut content = Vec::new();
+
+    let is_recommended = !is_nursery && meta.recommended;
+    
+    writeln!(content, "**Since**: `v{}`", meta.version)?;
 
     if is_recommended || !matches!(meta.fix_kind, FixKind::None) {
         writeln!(content, ":::note")?;
@@ -394,29 +482,6 @@ fn generate_rule(payload: GenRule) -> Result<Vec<Event<'static>>> {
                 writeln!(content, "- This rule has an **unsafe** fix.")?;
             }
             FixKind::None => {}
-        }
-        match meta.language {
-            "js" => {
-                writeln!(
-                    content,
-                    "- This rule is applied to **JavaScript and super languages** files."
-                )?;
-            }
-            "jsx" => {
-                writeln!(content, "- This rule is applied to **JSX and TSX** files.")?;
-            }
-            "ts" => {
-                writeln!(
-                    content,
-                    "- This rule is applied to **TypeScript and TSX** files."
-                )?;
-            }
-            "json" => {
-                writeln!(content, "- This rule is applied to **JSON** files.")?;
-            }
-            _ => {
-                eprintln!("Language {} isn't supported.", meta.language)
-            }
         }
         writeln!(content, ":::")?;
         writeln!(content)?;
@@ -453,7 +518,7 @@ fn generate_rule(payload: GenRule) -> Result<Vec<Event<'static>>> {
         writeln!(content)?;
     }
 
-    let summary = write_documentation(group, rule, meta.docs, &mut content)?;
+    write_documentation(group, rule_name, meta.docs, &mut content, summary)?;
 
     writeln!(content, "## Related links")?;
     writeln!(content)?;
@@ -464,10 +529,16 @@ fn generate_rule(payload: GenRule) -> Result<Vec<Event<'static>>> {
     )?;
     writeln!(content, "- [Rule options](/linter/#rule-options)")?;
 
-    let dashed_rule = Case::Kebab.convert(rule);
-    fs::write(root.join(format!("{dashed_rule}.md")), content)?;
+    let dashed_rule = Case::Kebab.convert(rule_name);
+    let component_name = format!("Content{}", Case::Pascal.convert(language));
+    let import_name = format!("{dashed_rule}_{language}.md");
+    fs::write(root.join(import_name.clone()), content)?;
 
-    Ok(summary)
+    Ok((
+        to_language_tab(language).to_string(),
+        component_name,
+        import_name,
+    ))
 }
 
 /// Parse the documentation fragment for a lint rule (in markdown) and generates
@@ -477,12 +548,12 @@ fn write_documentation(
     rule: &'static str,
     docs: &'static str,
     content: &mut Vec<u8>,
-) -> Result<Vec<Event<'static>>> {
-    let parser = Parser::new(docs);
-
     // Parser events for the first paragraph of documentation in the resulting
     // content, used as a short summary of what the rule does in the rules page
-    let mut summary = Vec::new();
+    summary: &mut Vec<Event<'static>>,
+) -> Result<()> {
+    let parser = Parser::new(docs);
+
     let mut is_summary = false;
 
     // Tracks the content of the current code block if it's using a
@@ -688,7 +759,7 @@ fn write_documentation(
         }
     }
 
-    Ok(summary)
+    Ok(())
 }
 
 struct CodeBlockTest {
@@ -1030,4 +1101,44 @@ fn markup_to_string(markup: &MarkupBuf) -> String {
         .expect("to have written in the buffer");
 
     String::from_utf8(buffer).expect("to have convert a buffer into a String")
+}
+
+fn to_language_tab(language: &str) -> &str {
+    match language {
+        "js" => "JavaScript (and super languages)",
+        "jsx" => "JSX and TSX",
+        "ts" => "TypeScript and TSX",
+        "json" => "JSON (and super languages)",
+        "css" => "CSS",
+        "graphql" => "GraphQL",
+        _ => {
+            panic!("Language {} isn't supported.", language)
+        }
+    }
+}
+
+fn to_language_icon(language: &str, properties: &mut String) {
+    match language {
+        "js" => {
+            properties.push_str("<span class='inline-icon' title=\"JavaScript and super languages rule.\"><Icon name=\"seti:javascript\" label=\"JavaScript and super languages rule.\" size=\"1.2rem\"/></span>");
+        }
+        "jsx" => {
+            properties.push_str("<span class='inline-icon'  title=\"JSX rule.\"><Icon name=\"seti:javascript\" label=\"JSX rule\" size=\"1.2rem\"/></span>");
+        }
+        "ts" => {
+            properties.push_str("<span class='inline-icon'  title=\"TypeScript rule.\"><Icon name=\"seti:typescript\" label=\"TypeScript rule\" size=\"1.2rem\"/></span>");
+        }
+        "json" => {
+            properties.push_str("<span class='inline-icon' title=\"JSON rule.\"><Icon name=\"seti:json\" label=\"JSON rule\" size=\"1.2rem\"/></span>");
+        }
+        "css" => {
+            properties.push_str("<span class='inline-icon' title=\"CSS rule.\"><Icon name=\"seti:css\" label=\"CSS rule\" size=\"1.2rem\"/></span>");
+        }
+        "graphql" => {
+            properties.push_str("<span class='inline-icon' title=\"GraphQL rule\"><Icon name=\"seti:graphql\" label=\"GraphQL rule\" size=\"1.2rem\"/></span>");
+        }
+        _ => {
+            panic!("Language {} isn't supported.", language)
+        }
+    }
 }
