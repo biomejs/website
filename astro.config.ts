@@ -252,6 +252,10 @@ export default defineConfig({
 							link: "/reference/cli",
 						},
 						{
+							label: "Environment variables",
+							link: "/reference/environment-variables",
+						},
+						{
 							label: "Reporters",
 							link: "/reference/reporters",
 							badge: "new",
