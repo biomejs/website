@@ -4,7 +4,7 @@ This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::
 
 Sources: 
-- Same as: <a href="https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/interactive-support-focus.md" target="_blank"><code>jsx-a11y/interactive-support-focus</code></a>
+- Same as: <a href="https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/interactive-supports-focus.md" target="_blank"><code>jsx-a11y/interactive-supports-focus</code></a>
 
 Elements with an interactive role and interaction handlers must be focusable.
 

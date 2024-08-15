@@ -90,6 +90,29 @@ and the [the noopener documentation](https://html.spec.whatwg.org/multipage/link
 <a href='http://external.link' target='_blank' rel="noopener" {...props}>child</a>
 ```
 
+## Options
+
+The option `allowDomains` allows specific domains to use `target="_blank"` without `rel="noreferrer"`.
+In the following configuration, it's allowed to use the domains `https://example.com` and `example.org`:
+
+```json
+{
+    "//": "...",
+    "options": {
+        "allowDomains": ["https://example.com", "example.org"]
+    }
+}
+```
+
+```jsx
+<>
+  <a target="_blank" href="https://example.com"></a>
+  <a target="_blank" href="example.org"></a>
+</>
+```
+
+Biome doesn't check if the list contains valid URLs.
+
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)
