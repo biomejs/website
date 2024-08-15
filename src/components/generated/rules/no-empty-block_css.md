@@ -4,7 +4,7 @@ This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::
 
 Sources: 
-- Same as: <a href="https://github.com/stylelint/stylelint/blob/main/lib/rules/no-empty-block/README.md" target="_blank"><code>stylelint/no-empty-block</code></a>
+- Same as: <a href="https://github.com/stylelint/stylelint/blob/main/lib/rules/block-no-empty/README.md" target="_blank"><code>stylelint/block-no-empty</code></a>
 
 Disallow CSS empty blocks.
 

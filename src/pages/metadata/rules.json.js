@@ -55,7 +55,7 @@ export function GET() {
             "fixKind": "none",
             "sources": [
               {
-                "stylelint": "no-empty-block"
+                "stylelint": "block-no-empty"
               }
             ],
             "docs": " Disallow CSS empty blocks.\n\n By default, it will allow empty blocks with comments inside.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n p {}\n ```\n\n ```css,expect_diagnostic\n .b {}\n ```\n\n ```css,expect_diagnostic\n @media print { a {} }\n ```\n\n ### Valid\n\n ```css\n p {\n   color: red;\n }\n ```\n\n ```css\n p { /* foo */ }\n ```\n\n ```css\n @media print { a { color: pink; } }\n ```\n\n"
@@ -1472,9 +1472,6 @@ export function GET() {
                 "eslint": "no-throw-literal"
               },
               {
-                "eslintTypeScript": "no-throw-literal"
-              },
-              {
                 "eslintTypeScript": "only-throw-error"
               }
             ],
@@ -2449,7 +2446,7 @@ export function GET() {
             "fixKind": "unsafe",
             "sources": [
               {
-                "eslint": "no-sparse-array"
+                "eslint": "no-sparse-arrays"
               }
             ],
             "docs": " Disallow sparse arrays\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n [1,,2]\n ```\n"
@@ -2649,7 +2646,7 @@ export function GET() {
                 "eslintReact": "jsx-no-target-blank"
               }
             ],
-            "docs": " Disallow `target=\"_blank\"` attribute without `rel=\"noreferrer\"`\n\n When creating anchor `a` element, there are times when its link has to be opened in a new browser tab\n via `target=\"_blank\"` attribute. This attribute has to paired with `rel=\"noreferrer\"` or you're incur\n in a security issue.\n\n Refer to [the noreferrer documentation](https://html.spec.whatwg.org/multipage/links.html#link-type-noreferrer)\n and the [the noopener documentation](https://html.spec.whatwg.org/multipage/links.html#link-type-noopener)\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <a href='http://external.link' target='_blank'>child</a>\n ```\n\n ```jsx,expect_diagnostic\n <a href='http://external.link' target='_blank' rel=\"noopener\">child</a>\n ```\n\n ```jsx,expect_diagnostic\n <a {...props} href='http://external.link' target='_blank' rel=\"noopener\">child</a>\n ```\n\n ### Valid\n\n ```jsx\n <a href='http://external.link' rel='noreferrer' target='_blank'>child</a>\n ```\n\n ```jsx\n <a href='http://external.link' target='_blank' rel=\"noopener\" {...props}>child</a>\n ```\n"
+            "docs": " Disallow `target=\"_blank\"` attribute without `rel=\"noreferrer\"`\n\n When creating anchor `a` element, there are times when its link has to be opened in a new browser tab\n via `target=\"_blank\"` attribute. This attribute has to paired with `rel=\"noreferrer\"` or you're incur\n in a security issue.\n\n Refer to [the noreferrer documentation](https://html.spec.whatwg.org/multipage/links.html#link-type-noreferrer)\n and the [the noopener documentation](https://html.spec.whatwg.org/multipage/links.html#link-type-noopener)\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <a href='http://external.link' target='_blank'>child</a>\n ```\n\n ```jsx,expect_diagnostic\n <a href='http://external.link' target='_blank' rel=\"noopener\">child</a>\n ```\n\n ```jsx,expect_diagnostic\n <a {...props} href='http://external.link' target='_blank' rel=\"noopener\">child</a>\n ```\n\n ### Valid\n\n ```jsx\n <a href='http://external.link' rel='noreferrer' target='_blank'>child</a>\n ```\n\n ```jsx\n <a href='http://external.link' target='_blank' rel=\"noopener\" {...props}>child</a>\n ```\n\n ## Options\n\n The option `allowDomains` allows specific domains to use `target=\"_blank\"` without `rel=\"noreferrer\"`.\n In the following configuration, it's allowed to use the domains `https://example.com` and `example.org`:\n\n ```json,ignore\n {\n     \"//\": \"...\",\n     \"options\": {\n         \"allowDomains\": [\"https://example.com\", \"example.org\"]\n     }\n }\n ```\n\n ```jsx,ignore\n <>\n   <a target=\"_blank\" href=\"https://example.com\"></a>\n   <a target=\"_blank\" href=\"example.org\"></a>\n </>\n ```\n\n Biome doesn't check if the list contains valid URLs.\n"
           },
           "noDistractingElements": {
             "deprecated": false,
@@ -3134,7 +3131,7 @@ export function GET() {
             "fixKind": "none",
             "sources": [
               {
-                "eslintJsxA11y": "interactive-support-focus"
+                "eslintJsxA11y": "interactive-supports-focus"
               }
             ],
             "docs": " Elements with an interactive role and interaction handlers must be focusable.\n\n HTML elements with interactive roles must have `tabIndex` defined to ensure they are\n focusable. Without tabIndex, assistive technologies may not recognize these elements as\n interactive.\n You could also consider switching from an interactive role to its semantic HTML element\n instead.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div role=\"button\" />\n ```\n\n ```jsx,expect_diagnostic\n <div role=\"tab\" />\n ```\n\n ### Valid\n\n ```jsx\n <div role=\"button\" tabIndex={0} />\n ```\n\n ```jsx\n <div />\n ```\n\n"

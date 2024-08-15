@@ -5,7 +5,7 @@
 :::
 
 Sources: 
-- Same as: <a href="https://eslint.org/docs/latest/rules/no-sparse-array" target="_blank"><code>no-sparse-array</code></a>
+- Same as: <a href="https://eslint.org/docs/latest/rules/no-sparse-arrays" target="_blank"><code>no-sparse-arrays</code></a>
 
 Disallow sparse arrays
 

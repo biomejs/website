@@ -5,7 +5,6 @@ This rule is part of the [nursery](/linter/rules/#nursery) group.
 
 Sources: 
 - Inspired from: <a href="https://eslint.org/docs/latest/rules/no-throw-literal" target="_blank"><code>no-throw-literal</code></a>
-- Inspired from: <a href="https://typescript-eslint.io/rules/no-throw-literal" target="_blank"><code>@typescript-eslint/no-throw-literal</code></a>
 - Inspired from: <a href="https://typescript-eslint.io/rules/only-throw-error" target="_blank"><code>@typescript-eslint/only-throw-error</code></a>
 
 Disallow throwing non-`Error` values.
