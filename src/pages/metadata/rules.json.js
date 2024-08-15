@@ -380,13 +380,13 @@ export function GET() {
             "name": "noUselessCatch",
             "link": "https://biomejs.dev/linter/rules/no-useless-catch",
             "recommended": true,
-            "fixKind": "none",
+            "fixKind": "unsafe",
             "sources": [
               {
                 "eslint": "no-useless-catch"
               }
             ],
-            "docs": " Disallow unnecessary `catch` clauses.\n\n A `catch` clause that only rethrows the original error is redundant,\n and has no effect on the runtime behavior of the program.\n These redundant clauses can be a source of confusion and code bloat,\n so it’s better to disallow these unnecessary `catch` clauses.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n try {\n     doSomething();\n } catch(e) {\n     throw e;\n }\n ```\n ```js,expect_diagnostic\n try {\n     doSomething();\n } catch(e) {\n     throw e;\n } finally {\n     doCleanUp();\n }\n ```\n ### Valid\n\n ```js\n try {\n     doSomething();\n } catch(e) {\n     doSomethingWhenCatch();\n     throw e;\n }\n ```\n\n ```js\n try {\n     doSomething();\n } catch(e) {\n     handleError(e);\n }\n ```\n\n"
+            "docs": " Disallow unnecessary `catch` clauses.\n\n A `catch` clause that only rethrows the original error is redundant,\n and has no effect on the runtime behavior of the program.\n These redundant clauses can be a source of confusion and code bloat,\n so it’s better to disallow these unnecessary `catch` clauses.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n try {\n     doSomething();\n } catch(e) {\n     throw e;\n }\n ```\n ```js,expect_diagnostic\n try {\n     doSomething();\n } catch(e) {\n     throw e;\n } finally {\n     doCleanUp();\n }\n ```\n ### Valid\n\n ```js\n try {\n     doSomething();\n } catch(e) {\n     doSomethingWhenCatch();\n     throw e;\n }\n ```\n\n ```js\n try {\n     doSomething();\n } catch(e) {\n     handleError(e);\n }\n ```\n\n ```js\n try {\n     doSomething();\n } finally {\n     doCleanUp();\n }\n ```\n\n"
           },
           "noUselessConstructor": {
             "deprecated": false,
