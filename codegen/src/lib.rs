@@ -2,6 +2,7 @@ use bpaf::Bpaf;
 use std::env;
 use std::path::{Path, PathBuf};
 
+pub mod diagnostics;
 pub mod lintdoc;
 pub mod metadata;
 pub mod rules_sources;
@@ -27,6 +28,10 @@ pub enum CodegenCommand {
     /// Metadata
     #[bpaf(command)]
     Metadata,
+
+    /// Diagnostics
+    #[bpaf(command)]
+    Diagnostics,
 
     /// Updates the files of a release
     #[bpaf(command)]

@@ -1039,6 +1039,7 @@ dependencies = [
  "biome_rowan",
  "biome_service",
  "biome_string_case",
+ "biome_text_edit",
  "bpaf",
  "pulldown-cmark",
  "schemars",

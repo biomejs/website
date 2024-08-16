@@ -34,6 +34,7 @@ pub(crate) fn generate_rule_sources(
     writeln!(
         buffer,
         r#"---
+# This file was auto generated. Don't attempt to modify it.
 title: Rules sources
 description: A page that maps lint rules from other sources to Biome
 ---
