@@ -37,6 +37,7 @@
 	biome_json_syntax    = { git = "https://github.com/biomejs/biome.git", rev = "ffb66d962bfc1056e40dd1fd5c3196fb6d804a78" }
 	biome_rowan          = { git = "https://github.com/biomejs/biome.git", rev = "ffb66d962bfc1056e40dd1fd5c3196fb6d804a78" }
 	biome_service        = { git = "https://github.com/biomejs/biome.git", rev = "ffb66d962bfc1056e40dd1fd5c3196fb6d804a78" }
+    biome_text_edit = { git = "https://github.com/biomejs/biome.git", rev = "ffb66d962bfc1056e40dd1fd5c3196fb6d804a78" }
 	biome_string_case    = { git = "https://github.com/biomejs/biome.git", rev = "ffb66d962bfc1056e40dd1fd5c3196fb6d804a78" }
 	bpaf                 = { version = "0.9.12", features = ["docgen"] }
 	# If you update this library, be aware of the breaking changes

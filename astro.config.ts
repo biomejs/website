@@ -107,7 +107,6 @@ export default defineConfig({
 								{
 									label: "First-party plugins",
 									link: "/guides/editors/first-party-plugins",
-									badge: "updated",
 								},
 								{
 									label: "Third-party plugins",
@@ -131,7 +130,6 @@ export default defineConfig({
 						{
 							label: "Migrate from ESLint & Prettier",
 							link: "/guides/migrate-eslint-prettier",
-							badge: "new",
 							translations: {
 								ja: "ESLintとPrettierからの移行",
 							},
@@ -252,9 +250,13 @@ export default defineConfig({
 							link: "/reference/cli",
 						},
 						{
+							label: "Diagnostics",
+							link: "/reference/diagnostics",
+							badge: "new",
+						},
+						{
 							label: "Reporters",
 							link: "/reference/reporters",
-							badge: "new",
 						},
 						{
 							label: "Configuration",

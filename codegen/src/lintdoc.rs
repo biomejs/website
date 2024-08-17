@@ -230,7 +230,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 
     writeln!(
         reference_buffer,
-        "<!-- this file is auto generated, use `cargo lintdoc` to update it -->"
+        "<!-- this file is auto generated, use `pnpm codegen:all` to update it -->"
     )?;
     let rule_sources_buffer = generate_rule_sources(groups.clone())?;
     for (group, rules) in groups {
@@ -350,7 +350,6 @@ fn generate_group(
                 FixKind::None => {}
             }
 
-
             to_language_icon(language, &mut properties);
 
             let mut summary_html = Vec::new();
@@ -406,10 +405,14 @@ fn generate_rule(payload: GenRule) -> Result<Vec<Event<'static>>> {
     let mut summary_text = Vec::new();
     write_html(&mut summary_text, summary.clone().into_iter())?;
     let summary_text = String::from_utf8_lossy(&summary_text);
-    
+
     writeln!(content, "---")?;
     writeln!(content, "title: {}", payload.rule_name)?;
-    writeln!(content, "description: |\n  '{}'", summary_text.replace("'", "\'"))?;
+    writeln!(
+        content,
+        "description: |\n  '{}'",
+        summary_text.replace("'", "\'")
+    )?;
     writeln!(content, "---")?;
 
     for (_, component, import) in result.clone() {
@@ -466,7 +469,7 @@ fn generate_rule_content<'a>(
     let mut content = Vec::new();
 
     let is_recommended = !is_nursery && meta.recommended;
-    
+
     writeln!(content, "**Since**: `v{}`", meta.version)?;
 
     if is_recommended || !matches!(meta.fix_kind, FixKind::None) {
