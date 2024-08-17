@@ -88,11 +88,6 @@ export default defineConfig({
 							},
 						},
 						{
-							label: "Diagnostics anatomy",
-							link: "/guides/diagnostics-anatomy",
-							badge: "new",
-						},
-						{
 							label: "Use Biome in big projects",
 							link: "/guides/big-projects",
 							translations: {
@@ -253,6 +248,11 @@ export default defineConfig({
 						{
 							label: "CLI",
 							link: "/reference/cli",
+						},
+						{
+							label: "Diagnostics",
+							link: "/reference/diagnostics",
+							badge: "new",
 						},
 						{
 							label: "Reporters",
