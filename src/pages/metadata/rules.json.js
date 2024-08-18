@@ -783,7 +783,7 @@ export function GET() {
                 "eslintImport": "no-nodejs-modules"
               }
             ],
-            "docs": " Forbid the use of Node.js builtin modules.\n\n This can be useful for client-side web projects that don't have access to those modules.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import fs from \"fs\";\n ```\n\n ```js,expect_diagnostic\n import path from \"node:path\";\n ```\n\n ### Valid\n\n ```js\n import fs from \"fs-custom\";\n ```\n"
+            "docs": " Forbid the use of Node.js builtin modules.\n\n This can be useful for client-side web projects that don't have access to those modules.\n\n The rule also isn't triggered if there are dependencies declared in the `package.json` that match\n the name of a built-in Node.js module.\n\n Type-only imports are ignored.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import fs from \"fs\";\n ```\n\n ```js,expect_diagnostic\n import path from \"node:path\";\n ```\n\n ### Valid\n\n ```js\n import fs from \"fs-custom\";\n ```\n\n ```ts\n import type path from \"node:path\";\n ```\n"
           },
           "noNonoctalDecimalEscape": {
             "deprecated": false,
