@@ -552,6 +552,20 @@ export function GET() {
             ],
             "docs": " Enforce the usage of a literal access to properties over computed property access.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n a.b[\"c\"];\n ```\n\n ```js,expect_diagnostic\n a.c[`d`]\n ```\n\n ```js,expect_diagnostic\n a.c[`d`] = \"something\"\n ```\n\n ```js,expect_diagnostic\n a = {\n \t['b']: d\n }\n ```\n\n ### Valid\n\n ```js\n a[\"c\" + \"d\"];\n a[d.c];\n ```\n\n"
           },
+          "useOptionalChain": {
+            "deprecated": false,
+            "version": "1.0.0",
+            "name": "useOptionalChain",
+            "link": "https://biomejs.dev/linter/rules/use-optional-chain",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "eslintTypeScript": "prefer-optional-chain"
+              }
+            ],
+            "docs": " Enforce using concise optional chain instead of chained logical expressions.\n\n TypeScript 3.7 introduced support for the optional chain operator, which was later standardized and included in the ECMAScript specification.\n This operator allows you to safely access properties and methods on objects when they are potentially `null` or `undefined`.\n The optional chain operator only chains when the property value is `null` or `undefined`.\n It is much safer than relying upon logical operator chaining; which chains on any truthy value.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n foo && foo.bar && foo.bar.baz && foo.bar.baz.buzz\n ```\n\n ```js,expect_diagnostic\n foo.bar && foo.bar.baz.buzz\n ```\n\n ```js,expect_diagnostic\n foo !== undefined && foo.bar != undefined && foo.bar.baz !== null && foo.bar.baz.buzz\n ```\n\n ```js,expect_diagnostic\n ((foo || {}).bar || {}).baz;\n ```\n\n ```js,expect_diagnostic\n (await (foo1 || {}).foo2 || {}).foo3;\n ```\n\n ```ts,expect_diagnostic\n (((typeof x) as string) || {}).bar;\n ```\n\n ### Valid\n\n ```js\n foo && bar;\n```\n ```js\n foo || {};\n```\n\n ```js\n (foo = 2 || {}).bar;\n```\n\n ```js\n foo || foo.bar;\n```\n\n ```js\n foo[\"some long\"] && foo[\"some long string\"].baz\n```\n\n"
+          },
           "useRegexLiterals": {
             "deprecated": false,
             "version": "1.3.0",
@@ -3324,20 +3338,6 @@ export function GET() {
               }
             ],
             "docs": " Disallow using `any` or `unknown` as type constraint.\n\n Generic type parameters (`<T>`) in TypeScript may be **constrained** with [`extends`](https://www.typescriptlang.org/docs/handbook/generics.html#generic-constraints).\n A supplied type must then be a subtype of the supplied constraint.\n All types are subtypes of `any` and `unknown`.\n It is thus useless to extend from `any` or `unknown`.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n interface FooAny<T extends any> {}\n ```\n ```ts,expect_diagnostic\n type BarAny<T extends any> = {};\n ```\n ```ts,expect_diagnostic\n class BazAny<T extends any> {\n }\n ```\n ```ts,expect_diagnostic\n class BazAny {\n   quxAny<U extends any>() {}\n }\n ```\n ```ts,expect_diagnostic\n const QuuxAny = <T extends any>() => {};\n ```\n ```ts,expect_diagnostic\n function QuuzAny<T extends any>() {}\n ```\n\n ```ts,expect_diagnostic\n interface FooUnknown<T extends unknown> {}\n ```\n ```ts,expect_diagnostic\n type BarUnknown<T extends unknown> = {};\n ```\n ```ts,expect_diagnostic\n class BazUnknown<T extends unknown> {\n }\n ```ts,expect_diagnostic\n class BazUnknown {\n   quxUnknown<U extends unknown>() {}\n }\n ```\n ```ts,expect_diagnostic\n const QuuxUnknown = <T extends unknown>() => {};\n ```\n ```ts,expect_diagnostic\n function QuuzUnknown<T extends unknown>() {}\n ```\n\n ### Valid\n\n ```ts\n interface Foo<T> {}\n\n type Bar<T> = {};\n```\n"
-          },
-          "useOptionalChain": {
-            "deprecated": false,
-            "version": "1.0.0",
-            "name": "useOptionalChain",
-            "link": "https://biomejs.dev/linter/rules/use-optional-chain",
-            "recommended": true,
-            "fixKind": "unsafe",
-            "sources": [
-              {
-                "eslintTypeScript": "prefer-optional-chain"
-              }
-            ],
-            "docs": " Enforce using concise optional chain instead of chained logical expressions.\n\n TypeScript 3.7 added support for the optional chain operator.\n This operator allows you to safely access properties and methods on objects when they are potentially `null` or `undefined`.\n The optional chain operator only chains when the property value is `null` or `undefined`.\n It is much safer than relying upon logical operator chaining; which chains on any truthy value.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n foo && foo.bar && foo.bar.baz && foo.bar.baz.buzz\n ```\n\n ```js,expect_diagnostic\n foo.bar && foo.bar.baz.buzz\n ```\n\n ```js,expect_diagnostic\n foo !== undefined && foo.bar != undefined && foo.bar.baz !== null && foo.bar.baz.buzz\n ```\n\n ```js,expect_diagnostic\n ((foo || {}).bar || {}).baz;\n ```\n\n ```js,expect_diagnostic\n (await (foo1 || {}).foo2 || {}).foo3;\n ```\n\n ```ts,expect_diagnostic\n (((typeof x) as string) || {}).bar;\n ```\n\n ### Valid\n\n ```js\n foo && bar;\n```\n ```js\n foo || {};\n```\n\n ```js\n (foo = 2 || {}).bar;\n```\n\n ```js\n foo || foo.bar;\n```\n\n ```js\n foo[\"some long\"] && foo[\"some long string\"].baz\n```\n\n"
           }
         },
         "correctness": {

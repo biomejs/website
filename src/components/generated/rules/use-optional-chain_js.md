@@ -9,7 +9,7 @@ Sources:
 
 Enforce using concise optional chain instead of chained logical expressions.
 
-TypeScript 3.7 added support for the optional chain operator.
+TypeScript 3.7 introduced support for the optional chain operator, which was later standardized and included in the ECMAScript specification.
 This operator allows you to safely access properties and methods on objects when they are potentially `null` or `undefined`.
 The optional chain operator only chains when the property value is `null` or `undefined`.
 It is much safer than relying upon logical operator chaining; which chains on any truthy value.
