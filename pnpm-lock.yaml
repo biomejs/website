@@ -9,8 +9,8 @@ importers:
   .:
     devDependencies:
       '@astrojs/netlify':
-        specifier: 5.5.0
-        version: 5.5.0(@opentelemetry/api@1.9.0)(astro@4.13.3(@types/node@20.14.15)(sass@1.77.8)(typescript@5.5.4))
+        specifier: 5.5.1
+        version: 5.5.1(@opentelemetry/api@1.9.0)(astro@4.13.3(@types/node@20.14.15)(sass@1.77.8)(typescript@5.5.4))
       '@astrojs/prism':
         specifier: 3.1.0
         version: 3.1.0
@@ -175,8 +175,8 @@ packages:
     peerDependencies:
       astro: ^4.8.0
 
-  '@astrojs/netlify@5.5.0':
-    resolution: {integrity: sha512-3jSYa7CZe1qVVSZpEG3iNr6wV34SurXyvN4G00rGVFv91OQBywItHsARUKQeCtv4dx+aVHQbyLMijF+0RIQveg==}
+  '@astrojs/netlify@5.5.1':
+    resolution: {integrity: sha512-tC5L51/bMo5SjM+7/eKw+NJL4aXDr8BLGLgrN874YU+lX4Q4VqiFsy/yLjfgj7NXFHNdK8CTCrTrcg89knKryw==}
     peerDependencies:
       astro: ^4.2.0
 
@@ -4187,7 +4187,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/netlify@5.5.0(@opentelemetry/api@1.9.0)(astro@4.13.3(@types/node@20.14.15)(sass@1.77.8)(typescript@5.5.4))':
+  '@astrojs/netlify@5.5.1(@opentelemetry/api@1.9.0)(astro@4.13.3(@types/node@20.14.15)(sass@1.77.8)(typescript@5.5.4))':
     dependencies:
       '@astrojs/internal-helpers': 0.4.1
       '@astrojs/underscore-redirects': 0.3.4
