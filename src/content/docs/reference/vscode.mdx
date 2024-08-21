@@ -1,140 +1,79 @@
 ---
-title: VSCode extension
+title: VS Code extension
 description: Notes about the Biome's VSCode extension
 ---
-# Biome VS Code Extension
 
-[Biome](https://biomejs.dev/) unifies your development stack by combining the functionality of separate tools. It uses a single configuration file, has fantastic performance, and works with any stack. This extension brings Biome to your editor so that you can:
+**Biome** ships with a first-party **VS Code extension** that provides the following 
+features.
 
-- Format files *on save* or when issuing the *Format Document* command
-- See lints while you type and apply code fixes
-- Perform refactors
+- Format on save
+- Real-time code linting
+- Code refactoring with quick fixes
 
-## Installation
+In this document, we'll go over how to install and configure the extension.
 
-You can install the code extension by heading to the extension's [Visual Studio Code Market Place page](https://marketplace.visualstudio.com/items?itemName=biomejs.biome) or from within VS Code by either:
+## Installing the extension
 
-- Open the *extensions* tab (_View_ → _Extensions)_ and search for Biome.
-- Open the _Quick Open Overlay_ (<kbd>Ctrl</kbd>/<kbd title="Cmd">⌘</kbd>+<kbd>P</kbd> or _Go -> Go to File_), enter `ext install biomejs.biome`, and hit enter.
+The extension is available both on the 
+[VS Marketplace](https://marketplace.visualstudio.com/items?itemName=biomejs.biome) and the 
+[Open VSX registry](https://open-vsx.org/extension/biomejs/biome) and can be installed directly
+by clicking one of the following links:
 
-## Getting Started
+[![](https://img.shields.io/badge/Install%20Biome-in%20VS%20Code-007ACC?style=flat&logo=biome)](vscode:extension/biomejs.biome)
 
-### Default Formatter
+[![](https://img.shields.io/badge/Install%20Biome-in%20VSCodium-007ACC?style=flat&logo=biome)](vscodium:extension/biomejs.biome)
 
-Configure Biome as the default formatter for supported files to ensure that VS Code uses Biome over other formatters that you may have installed. You can do so by opening a JavaScript or TypeScript and then:
+## Configuration reference
 
-- Open the Command Palette (<kbd>Ctrl</kbd>/<kbd title="Cmd">⌘</kbd>+<kbd title="Shift">⇧</kbd>+<kbd>P</kbd> or View → Command Palette)
-- Select _Format Document With…_
-- Select _Configure Default Formatter…_
-- Select Biome
+The following sections describe the configuration options available in the extension.
 
-You can also enable Biome for specific languages only:
+### `biome.enabled`
 
-- [Open the `settings.json`](https://code.visualstudio.com/docs/getstarted/settings#_settingsjson): open the _Command Palette_(<kbd>Ctrl</kbd>/<kbd title="Cmd">⌘</kbd>+<kbd title="Shift">⇧</kbd>+<kbd>P</kbd>) and select _Preferences: Open User Settings (JSON)_
-- And set the `editor.defaultFormatter` to `biomejs.biome` for the desired language
+The `biome.enabled` setting controls whether the extension is enabled or not. By default,
+the extension is enabled.
+
+The `biome.enabled` setting controls whether the extension is enabled or not. By default, 
+the extension is enabled. This setting can be set at various levels, including globally,
+workspace, and folder.
+
+VS Code's [setting precedence rules](https://code.visualstudio.com/docs/getstarted/settings#_settings-precedence) apply, 
+so if you set the `biome.enabled` setting to `false` at the workspace level, the extension 
+will be disabled for all folders in the workspace, but you can override this setting at the 
+folder level.
+
+### `biome.requireConfigFile`
+
+The `biome.requireConfigFile` setting controls whether the extension requires a `biome.{json,jsonc}`
+file to be present at the root of a project in order to enable the extension for that project. By default,
+the extension does not require a configuration file to be present.
+
+If you always explicitly create a configuration, this setting can be handy to ensure that the extension
+is only enabled for Biome projects, an not others.
+
+### `biome.lsp.bin`
+
+The `biome.lsp.bin` setting allows you to specify the path to the `Biome` binary that the extension
+should use to run the language server. By default, the extension will attempt to use the `biome` binary
+provided by your dependencies. When this setting is set, the discovery mechanism will be bypassed and
+the specified binary will be used instead.
 
 ```json title="settings.json"
 {
-	"editor.defaultFormatter": "<other formatter>",
-	"[javascript]": {
-		"editor.defaultFormatter": "biomejs.biome"
+	"biome.lsp.bin": "path/to/biome"
+}
+```
+
+This setting can also be specified as an object, allowing you to specify the path to the binary for
+different platforms. The keys of the object should be a valid combo (`{platform}-{arch}`) of a platform and an architecture
+identifier as defined by the Node.js [`process.platform`](https://nodejs.org/api/process.html#process_process_platform) 
+and [`process.arch`](https://nodejs.org/api/process.html#process_process_arch) values. The value of the object should be
+the path to the binary for that platform and architecture.
+
+```json title="settings.json"
+{
+	"biome.lsp.bin": {
+		"linux-x64": "path/to/biome-linux",
+		"darwin-x64": "path/to/biome-darwin",
+		"win32-x64": "path/to/biome-win32.exe"
 	}
 }
-```
-
-This configuration sets Biome as the default formatter for JavaScript files. All other files will be formatted using `<other formatter>`
-
-## Configuration Resolution
-
-The extension automatically loads the `biome.json` file from the workspace’s root directory.
-
-## Biome Resolution
-
-The extension tries to use Biome from your project's local dependencies (`node_modules/@biomejs/biome`). We recommend adding Biome as a project dependency to ensure that NPM scripts and the extension use the same Biome version.
-
-You can also explicitly specify the `Biome` binary the extension should use by configuring the `biome.lspBin` setting in your editor options.
-
-If the project has no dependency on Biome and no explicit path is configured, the extension uses the Biome version included in its bundle.
-
-## Usage
-
-### Format document
-
-To format an entire document, open the _Command Palette_ (<kbd>Ctrl</kbd>/<kbd title="Cmd">⌘</kbd>+<kbd title="Shift">⇧</kbd>+<kbd>P</kbd>) and select _Format Document_.
-
-To format a text range, select the text you want to format, open the _Command Palette_ (<kbd>Ctrl</kbd>/<kbd title="Cmd">⌘</kbd>+<kbd title="Shift">⇧</kbd>+<kbd>P</kbd>), and select _Format Selection_.
-
-### Format on save
-
-Biome respects VS Code's _Format on Save_ setting. To enable format on save, open the settings (_File_ -> _Preferences_ -> _Settings_), search for `editor.formatOnSave`, and enable the option.
-
-### Fix on save
-
-Biome respects VS Code's _Code Actions On Save_ setting. To enable fix on save, add
-
-
-```json title="settings.json"
-{
-  "editor.codeActionsOnSave": {
-    "source.fixAll.biome": "explicit"
-  }
-}
-```
-
-in vscode `settings.json`.
-
-### Imports Sorting [Experimental]
-
-The Biome VS Code extension supports imports sorting through the "Organize Imports" code action. By default this action can be run using the <kbd title="Shift">⇧</kbd>+<kbd>Alt</kbd>+<kbd>O</kbd> keyboard shortcut, or is accessible through the _Command Palette_ (<kbd>Ctrl</kbd>/<kbd title="Cmd">⌘</kbd>+<kbd title="Shift">⇧</kbd>+<kbd>P</kbd>) by selecting _Organize Imports_.
-
-You can add the following to your editor configuration if you want the action to run automatically on save instead of calling it manually:
-
-```json title="settings.json"
-{
-	"editor.codeActionsOnSave":{
-		"source.organizeImports.biome": "explicit"
-	}
-}
-```
-
-## Extension Settings
-
-### `biome.lspBin`
-
-The `biome.lspBin` option overrides the Biome binary used by the extension.
-The workspace folder is used as the base path if the path is relative.
-
-### `biome.rename`
-
-Enables Biome to handle renames in the workspace (experimental).
-
-## Versioning
-
-We follow the specs suggested by [the official documentation](https://code.visualstudio.com/api/working-with-extensions/publishing-extension#prerelease-extensions):
-
-Odd minor versions are dedicated to pre-releases, e.g. `*.5.*` .
-Even minor versions are dedicated to official releases, e.g. `*.6.*`.
-
-
-## Troubleshooting
-
-### I installed `@biomejs/biome`, but the extension shows a warning saying that it could not resolve library
-
-The library `@biomejs/biome` specifies some optional dependencies that are installed based on your OS and architecture.
-
-It's possible though, that the extension can't resolve the binary when loading the extension. This is caused - probably - by your package manager.
-
-**To resolve the issue**, try to install the binary manually. The warning should show you the binary that belongs to your machine.
-
-**If you work in a team that use different OSs/architectures**, it's advised to install all the binaries:
-
-- `@biomejs/cli-darwin-arm64`
-- `@biomejs/cli-darwin-x64`
-- `@biomejs/cli-linux-arm64`
-- `@biomejs/cli-linux-x64`
-- `@biomejs/cli-win32-arm64`
-- `@biomejs/cli-win32-x64`
-
-### My `biome.json` file is ignored in a multi-root workspace
-
-Currently, support for multi-root workspaces is limited, making `biome.json` files placed in individual root folders sometimes invisible to the extension. For now, you may need to set up an individual workspace for each folder that depends on Biome. You can track our progress on [this issue](https://github.com/biomejs/biome/issues/1573).
