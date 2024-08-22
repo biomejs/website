@@ -5,18 +5,31 @@
 	line-height: var(--sl-line-height-headings);
 }
 
+:root {
+	--sl-text-h2: 1.25em;
+	--sl-text-h3: 1.125em;
+	--sl-text-h4: 1em;
+	--sl-text-h5: 0.875em;
+}
+
 /* Set font-size on wrapper element, so line-height, margins etc. match heading size. */
 .sl-markdown-content {
 	.level-h2 {
 		font-size: var(--sl-text-h2);
+		margin-top: 1.6em;
+		margin-bottom: 0.8em;
 	}
 
 	.level-h3 {
 		font-size: var(--sl-text-h3);
+		margin-top: 1.56em;
+		margin-bottom: 0.4em;
 	}
 
 	.level-h4 {
 		font-size: var(--sl-text-h4);
+		margin-top: 1.43em;
+		margin-bottom: 0.58em;
 	}
 
 	.level-h5 {
