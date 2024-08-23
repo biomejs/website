@@ -20,18 +20,7 @@ beforeEach(done => {
 });
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:1:12 <a href="https://biomejs.dev/linter/rules/no-done-callback">lint/nursery/noDoneCallback</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Disallow using a callback in asynchronous tests and hooks.</span>
-  
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>beforeEach(done =&gt; {
-   <strong>   │ </strong>           <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
-    <strong>2 │ </strong>    // ...
-    <strong>3 │ </strong>});
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Return a Promise instead of relying on callback parameter.</span>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:1:12 <a href="https://biomejs.dev/linter/rules/no-done-callback">lint/nursery/noDoneCallback</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Disallow using a callback in asynchronous tests and hooks.</span><br />  <br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>beforeEach(done =&gt; {<br />   <strong>   │ </strong>           <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>    // ...<br />    <strong>3 │ </strong>});<br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Return a Promise instead of relying on callback parameter.</span><br />  <br /></code></pre>
 
 ```js
 test('myFunction()', done => {
@@ -39,18 +28,7 @@ test('myFunction()', done => {
 });
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:1:22 <a href="https://biomejs.dev/linter/rules/no-done-callback">lint/nursery/noDoneCallback</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Disallow using a callback in asynchronous tests and hooks.</span>
-  
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>test('myFunction()', done =&gt; {
-   <strong>   │ </strong>                     <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
-    <strong>2 │ </strong>    // ...
-    <strong>3 │ </strong>});
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Return a Promise instead of relying on callback parameter.</span>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:1:22 <a href="https://biomejs.dev/linter/rules/no-done-callback">lint/nursery/noDoneCallback</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Disallow using a callback in asynchronous tests and hooks.</span><br />  <br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>test('myFunction()', done =&gt; {<br />   <strong>   │ </strong>                     <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>    // ...<br />    <strong>3 │ </strong>});<br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Return a Promise instead of relying on callback parameter.</span><br />  <br /></code></pre>
 
 ### Valid
 

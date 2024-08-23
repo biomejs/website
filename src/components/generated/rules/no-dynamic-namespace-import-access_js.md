@@ -23,18 +23,7 @@ import * as foo from "foo"
 foo["bar"]
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:2:1 <a href="https://biomejs.dev/linter/rules/no-dynamic-namespace-import-access">lint/nursery/noDynamicNamespaceImportAccess</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Avoid accessing namespace imports dynamically, it can prevent efficient tree shaking and increase bundle size.</span>
-  
-    <strong>1 │ </strong>import * as foo from &quot;foo&quot;
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>foo[&quot;bar&quot;]
-   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
-    <strong>3 │ </strong>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Prefer static property access or use named imports instead.</span>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:2:1 <a href="https://biomejs.dev/linter/rules/no-dynamic-namespace-import-access">lint/nursery/noDynamicNamespaceImportAccess</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Avoid accessing namespace imports dynamically, it can prevent efficient tree shaking and increase bundle size.</span><br />  <br />    <strong>1 │ </strong>import * as foo from &quot;foo&quot;<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>foo[&quot;bar&quot;]<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Prefer static property access or use named imports instead.</span><br />  <br /></code></pre>
 
 ```js
 import * as foo from "foo"
@@ -42,19 +31,7 @@ const key = "bar"
 foo[key]
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:3:1 <a href="https://biomejs.dev/linter/rules/no-dynamic-namespace-import-access">lint/nursery/noDynamicNamespaceImportAccess</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Avoid accessing namespace imports dynamically, it can prevent efficient tree shaking and increase bundle size.</span>
-  
-    <strong>1 │ </strong>import * as foo from &quot;foo&quot;
-    <strong>2 │ </strong>const key = &quot;bar&quot;
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>foo[key]
-   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
-    <strong>4 │ </strong>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Prefer static property access or use named imports instead.</span>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:3:1 <a href="https://biomejs.dev/linter/rules/no-dynamic-namespace-import-access">lint/nursery/noDynamicNamespaceImportAccess</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Avoid accessing namespace imports dynamically, it can prevent efficient tree shaking and increase bundle size.</span><br />  <br />    <strong>1 │ </strong>import * as foo from &quot;foo&quot;<br />    <strong>2 │ </strong>const key = &quot;bar&quot;<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>foo[key]<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Prefer static property access or use named imports instead.</span><br />  <br /></code></pre>
 
 ### Valid
 

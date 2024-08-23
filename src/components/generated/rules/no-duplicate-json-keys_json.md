@@ -16,28 +16,7 @@ Disallow two keys with the same name inside a JSON object.
 }
 ```
 
-<pre class="language-text"><code class="language-text">code-block.json:2:3 <a href="https://biomejs.dev/linter/rules/no-duplicate-json-keys">lint/nursery/noDuplicateJsonKeys</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The key </span><span style="color: Tomato;"><strong>title</strong></span><span style="color: Tomato;"> was already declared.</span>
-  
-    <strong>1 │ </strong>{
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  &quot;title&quot;: &quot;New title&quot;,
-   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
-    <strong>3 │ </strong>  &quot;title&quot;: &quot;Second title&quot;
-    <strong>4 │ </strong>}
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This where a duplicated key was declared again.</span>
-  
-    <strong>1 │ </strong>{
-    <strong>2 │ </strong>  &quot;title&quot;: &quot;New title&quot;,
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>  &quot;title&quot;: &quot;Second title&quot;
-   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
-    <strong>4 │ </strong>}
-    <strong>5 │ </strong>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">If a key is defined multiple times, only the last definition takes effect. Previous definitions are ignored.</span>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.json:2:3 <a href="https://biomejs.dev/linter/rules/no-duplicate-json-keys">lint/nursery/noDuplicateJsonKeys</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The key </span><span style="color: Tomato;"><strong>title</strong></span><span style="color: Tomato;"> was already declared.</span><br />  <br />    <strong>1 │ </strong>{<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  &quot;title&quot;: &quot;New title&quot;,<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>  &quot;title&quot;: &quot;Second title&quot;<br />    <strong>4 │ </strong>}<br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This where a duplicated key was declared again.</span><br />  <br />    <strong>1 │ </strong>{<br />    <strong>2 │ </strong>  &quot;title&quot;: &quot;New title&quot;,<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>  &quot;title&quot;: &quot;Second title&quot;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>}<br />    <strong>5 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">If a key is defined multiple times, only the last definition takes effect. Previous definitions are ignored.</span><br />  <br /></code></pre>
 
 ### Valid
 

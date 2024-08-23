@@ -18,37 +18,13 @@ Invalid or irregular whitespace causes issues with various parsers and also make
 letcount;
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:1:4 <a href="https://biomejs.dev/linter/rules/no-irregular-whitespace">lint/nursery/noIrregularWhitespace</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Irregular whitespaces found.</span>
-  
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>let<span style="opacity: 0.8;">␋</span>count;
-   <strong>   │ </strong>   <strong><span style="color: Tomato;">^</span></strong>
-    <strong>2 │ </strong>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Irregular whitespaces can cause issues to other parsers, and make the code harder to debug.</span>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Replace the irregular whitespaces with normal whitespaces or tabs.</span>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:1:4 <a href="https://biomejs.dev/linter/rules/no-irregular-whitespace">lint/nursery/noIrregularWhitespace</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Irregular whitespaces found.</span><br />  <br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>let<span style="opacity: 0.8;">␋</span>count;<br />   <strong>   │ </strong>   <strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Irregular whitespaces can cause issues to other parsers, and make the code harder to debug.</span><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Replace the irregular whitespaces with normal whitespaces or tabs.</span><br />  <br /></code></pre>
 
 ```js
 let foo;
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:1:4 <a href="https://biomejs.dev/linter/rules/no-irregular-whitespace">lint/nursery/noIrregularWhitespace</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Irregular whitespaces found.</span>
-  
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>let<span style="opacity: 0.8;">␠</span>foo;
-   <strong>   │ </strong>   <strong><span style="color: Tomato;">^</span></strong>
-    <strong>2 │ </strong>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Irregular whitespaces can cause issues to other parsers, and make the code harder to debug.</span>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Replace the irregular whitespaces with normal whitespaces or tabs.</span>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:1:4 <a href="https://biomejs.dev/linter/rules/no-irregular-whitespace">lint/nursery/noIrregularWhitespace</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Irregular whitespaces found.</span><br />  <br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>let<span style="opacity: 0.8;">␠</span>foo;<br />   <strong>   │ </strong>   <strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Irregular whitespaces can cause issues to other parsers, and make the code harder to debug.</span><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Replace the irregular whitespaces with normal whitespaces or tabs.</span><br />  <br /></code></pre>
 
 ### Valid
 

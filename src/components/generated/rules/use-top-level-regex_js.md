@@ -22,19 +22,7 @@ function foo(someString) {
 }
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:2:12 <a href="https://biomejs.dev/linter/rules/use-top-level-regex">lint/nursery/useTopLevelRegex</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">This regex literal is not defined in the top level scope. This can lead to performance issues if this function is called frequently.</span>
-  
-    <strong>1 │ </strong>function foo(someString) {
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>    return /[a-Z]*/.test(someString)
-   <strong>   │ </strong>           <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
-    <strong>3 │ </strong>}
-    <strong>4 │ </strong>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Move the regex literal outside of this scope, and place it at the top level of this module, as a constant.</span>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:2:12 <a href="https://biomejs.dev/linter/rules/use-top-level-regex">lint/nursery/useTopLevelRegex</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">This regex literal is not defined in the top level scope. This can lead to performance issues if this function is called frequently.</span><br />  <br />    <strong>1 │ </strong>function foo(someString) {<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>    return /[a-Z]*/.test(someString)<br />   <strong>   │ </strong>           <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>}<br />    <strong>4 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Move the regex literal outside of this scope, and place it at the top level of this module, as a constant.</span><br />  <br /></code></pre>
 
 ### Valid
 

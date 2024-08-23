@@ -20,49 +20,19 @@ This rule ignores vendor-prefixed pseudo-class selectors.
 a:unknown {}
 ```
 
-<pre class="language-text"><code class="language-text">code-block.css:1:3 <a href="https://biomejs.dev/linter/rules/no-unknown-pseudo-class-selector">lint/nursery/noUnknownPseudoClassSelector</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unexpected unknown pseudo-class </span><span style="color: Tomato;"><strong>unknown</strong></span><span style="color: Tomato;"> </span>
-  
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>a:unknown {}
-   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
-    <strong>2 │ </strong>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">See </span><span style="color: lightgreen;"><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes">MDN web docs</a></span><span style="color: lightgreen;"> for more details.</span>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.css:1:3 <a href="https://biomejs.dev/linter/rules/no-unknown-pseudo-class-selector">lint/nursery/noUnknownPseudoClassSelector</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unexpected unknown pseudo-class </span><span style="color: Tomato;"><strong>unknown</strong></span><span style="color: Tomato;"> </span><br />  <br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>a:unknown {}<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">See </span><span style="color: lightgreen;"><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes">MDN web docs</a></span><span style="color: lightgreen;"> for more details.</span><br />  <br /></code></pre>
 
 ```css
 a:UNKNOWN {}
 ```
 
-<pre class="language-text"><code class="language-text">code-block.css:1:3 <a href="https://biomejs.dev/linter/rules/no-unknown-pseudo-class-selector">lint/nursery/noUnknownPseudoClassSelector</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unexpected unknown pseudo-class </span><span style="color: Tomato;"><strong>UNKNOWN</strong></span><span style="color: Tomato;"> </span>
-  
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>a:UNKNOWN {}
-   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
-    <strong>2 │ </strong>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">See </span><span style="color: lightgreen;"><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes">MDN web docs</a></span><span style="color: lightgreen;"> for more details.</span>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.css:1:3 <a href="https://biomejs.dev/linter/rules/no-unknown-pseudo-class-selector">lint/nursery/noUnknownPseudoClassSelector</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unexpected unknown pseudo-class </span><span style="color: Tomato;"><strong>UNKNOWN</strong></span><span style="color: Tomato;"> </span><br />  <br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>a:UNKNOWN {}<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">See </span><span style="color: lightgreen;"><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes">MDN web docs</a></span><span style="color: lightgreen;"> for more details.</span><br />  <br /></code></pre>
 
 ```css
 a:hoverr {}
 ```
 
-<pre class="language-text"><code class="language-text">code-block.css:1:3 <a href="https://biomejs.dev/linter/rules/no-unknown-pseudo-class-selector">lint/nursery/noUnknownPseudoClassSelector</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unexpected unknown pseudo-class </span><span style="color: Tomato;"><strong>hoverr</strong></span><span style="color: Tomato;"> </span>
-  
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>a:hoverr {}
-   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
-    <strong>2 │ </strong>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">See </span><span style="color: lightgreen;"><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes">MDN web docs</a></span><span style="color: lightgreen;"> for more details.</span>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.css:1:3 <a href="https://biomejs.dev/linter/rules/no-unknown-pseudo-class-selector">lint/nursery/noUnknownPseudoClassSelector</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unexpected unknown pseudo-class </span><span style="color: Tomato;"><strong>hoverr</strong></span><span style="color: Tomato;"> </span><br />  <br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>a:hoverr {}<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">See </span><span style="color: lightgreen;"><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes">MDN web docs</a></span><span style="color: lightgreen;"> for more details.</span><br />  <br /></code></pre>
 
 ### Valid
 

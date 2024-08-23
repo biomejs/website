@@ -22,33 +22,13 @@ The use of the comma operator in the initialization and update parts of a `for` 
 const foo = (doSomething(), 0);
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:1:27 <a href="https://biomejs.dev/linter/rules/no-comma-operator">lint/style/noCommaOperator</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The comma operator is disallowed.</span>
-  
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>const foo = (doSomething(), 0);
-   <strong>   │ </strong>                          <strong><span style="color: Tomato;">^</span></strong>
-    <strong>2 │ </strong>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Its use is often confusing and obscures side effects.</span>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:1:27 <a href="https://biomejs.dev/linter/rules/no-comma-operator">lint/style/noCommaOperator</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The comma operator is disallowed.</span><br />  <br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>const foo = (doSomething(), 0);<br />   <strong>   │ </strong>                          <strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Its use is often confusing and obscures side effects.</span><br />  <br /></code></pre>
 
 ```js
 for (; doSomething(), !!test; ) {}
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:1:21 <a href="https://biomejs.dev/linter/rules/no-comma-operator">lint/style/noCommaOperator</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The comma operator is disallowed.</span>
-  
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>for (; doSomething(), !!test; ) {}
-   <strong>   │ </strong>                    <strong><span style="color: Tomato;">^</span></strong>
-    <strong>2 │ </strong>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Its use is often confusing and obscures side effects.</span>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:1:21 <a href="https://biomejs.dev/linter/rules/no-comma-operator">lint/style/noCommaOperator</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The comma operator is disallowed.</span><br />  <br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>for (; doSomething(), !!test; ) {}<br />   <strong>   │ </strong>                    <strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Its use is often confusing and obscures side effects.</span><br />  <br /></code></pre>
 
 ```js
 // Use a semicolon instead.
@@ -56,19 +36,7 @@ let a, b;
 a = 1, b = 2;
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:3:6 <a href="https://biomejs.dev/linter/rules/no-comma-operator">lint/style/noCommaOperator</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The comma operator is disallowed.</span>
-  
-    <strong>1 │ </strong>// Use a semicolon instead.
-    <strong>2 │ </strong>let a, b;
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>a = 1, b = 2;
-   <strong>   │ </strong>     <strong><span style="color: Tomato;">^</span></strong>
-    <strong>4 │ </strong>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Its use is often confusing and obscures side effects.</span>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:3:6 <a href="https://biomejs.dev/linter/rules/no-comma-operator">lint/style/noCommaOperator</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The comma operator is disallowed.</span><br />  <br />    <strong>1 │ </strong>// Use a semicolon instead.<br />    <strong>2 │ </strong>let a, b;<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>a = 1, b = 2;<br />   <strong>   │ </strong>     <strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Its use is often confusing and obscures side effects.</span><br />  <br /></code></pre>
 
 ### Valid
 

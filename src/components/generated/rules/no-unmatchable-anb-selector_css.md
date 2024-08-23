@@ -20,73 +20,25 @@ https://www.w3.org/TR/css-syntax-3/#anb-microsyntax
 a:nth-child(0) {}
 ```
 
-<pre class="language-text"><code class="language-text">code-block.css:1:13 <a href="https://biomejs.dev/linter/rules/no-unmatchable-anb-selector">lint/nursery/noUnmatchableAnbSelector</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This selector will never match any elements.</span>
-  
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>a:nth-child(0) {}
-   <strong>   │ </strong>            <strong><span style="color: Tomato;">^</span></strong>
-    <strong>2 │ </strong>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Avoid using An+B selectors that always evaluate to 0.</span>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">For more details, see </span><span style="color: lightgreen;"><a href="https://www.w3.org/TR/css-syntax-3/#anb-microsyntax">the official spec for An+B selectors</a></span><span style="color: lightgreen;">.</span>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.css:1:13 <a href="https://biomejs.dev/linter/rules/no-unmatchable-anb-selector">lint/nursery/noUnmatchableAnbSelector</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This selector will never match any elements.</span><br />  <br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>a:nth-child(0) {}<br />   <strong>   │ </strong>            <strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Avoid using An+B selectors that always evaluate to 0.</span><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">For more details, see </span><span style="color: lightgreen;"><a href="https://www.w3.org/TR/css-syntax-3/#anb-microsyntax">the official spec for An+B selectors</a></span><span style="color: lightgreen;">.</span><br />  <br /></code></pre>
 
 ```css
 a:nth-last-child(0n) {}
 ```
 
-<pre class="language-text"><code class="language-text">code-block.css:1:18 <a href="https://biomejs.dev/linter/rules/no-unmatchable-anb-selector">lint/nursery/noUnmatchableAnbSelector</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This selector will never match any elements.</span>
-  
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>a:nth-last-child(0n) {}
-   <strong>   │ </strong>                 <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
-    <strong>2 │ </strong>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Avoid using An+B selectors that always evaluate to 0.</span>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">For more details, see </span><span style="color: lightgreen;"><a href="https://www.w3.org/TR/css-syntax-3/#anb-microsyntax">the official spec for An+B selectors</a></span><span style="color: lightgreen;">.</span>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.css:1:18 <a href="https://biomejs.dev/linter/rules/no-unmatchable-anb-selector">lint/nursery/noUnmatchableAnbSelector</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This selector will never match any elements.</span><br />  <br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>a:nth-last-child(0n) {}<br />   <strong>   │ </strong>                 <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Avoid using An+B selectors that always evaluate to 0.</span><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">For more details, see </span><span style="color: lightgreen;"><a href="https://www.w3.org/TR/css-syntax-3/#anb-microsyntax">the official spec for An+B selectors</a></span><span style="color: lightgreen;">.</span><br />  <br /></code></pre>
 
 ```css
 a:nth-of-type(0n+0) {}
 ```
 
-<pre class="language-text"><code class="language-text">code-block.css:1:15 <a href="https://biomejs.dev/linter/rules/no-unmatchable-anb-selector">lint/nursery/noUnmatchableAnbSelector</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This selector will never match any elements.</span>
-  
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>a:nth-of-type(0n+0) {}
-   <strong>   │ </strong>              <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
-    <strong>2 │ </strong>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Avoid using An+B selectors that always evaluate to 0.</span>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">For more details, see </span><span style="color: lightgreen;"><a href="https://www.w3.org/TR/css-syntax-3/#anb-microsyntax">the official spec for An+B selectors</a></span><span style="color: lightgreen;">.</span>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.css:1:15 <a href="https://biomejs.dev/linter/rules/no-unmatchable-anb-selector">lint/nursery/noUnmatchableAnbSelector</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This selector will never match any elements.</span><br />  <br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>a:nth-of-type(0n+0) {}<br />   <strong>   │ </strong>              <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Avoid using An+B selectors that always evaluate to 0.</span><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">For more details, see </span><span style="color: lightgreen;"><a href="https://www.w3.org/TR/css-syntax-3/#anb-microsyntax">the official spec for An+B selectors</a></span><span style="color: lightgreen;">.</span><br />  <br /></code></pre>
 
 ```css
 a:nth-last-of-type(0 of a) {}
 ```
 
-<pre class="language-text"><code class="language-text">code-block.css:1:20 <a href="https://biomejs.dev/linter/rules/no-unmatchable-anb-selector">lint/nursery/noUnmatchableAnbSelector</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This selector will never match any elements.</span>
-  
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>a:nth-last-of-type(0 of a) {}
-   <strong>   │ </strong>                   <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
-    <strong>2 │ </strong>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Avoid using An+B selectors that always evaluate to 0.</span>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">For more details, see </span><span style="color: lightgreen;"><a href="https://www.w3.org/TR/css-syntax-3/#anb-microsyntax">the official spec for An+B selectors</a></span><span style="color: lightgreen;">.</span>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.css:1:20 <a href="https://biomejs.dev/linter/rules/no-unmatchable-anb-selector">lint/nursery/noUnmatchableAnbSelector</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This selector will never match any elements.</span><br />  <br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>a:nth-last-of-type(0 of a) {}<br />   <strong>   │ </strong>                   <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Avoid using An+B selectors that always evaluate to 0.</span><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">For more details, see </span><span style="color: lightgreen;"><a href="https://www.w3.org/TR/css-syntax-3/#anb-microsyntax">the official spec for An+B selectors</a></span><span style="color: lightgreen;">.</span><br />  <br /></code></pre>
 
 ### Valid
 

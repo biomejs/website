@@ -24,18 +24,7 @@ class Foo {
 }
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:3:3 <a href="https://biomejs.dev/linter/rules/no-duplicate-class-members">lint/suspicious/noDuplicateClassMembers</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Duplicate class member name &quot;bar&quot;</span>
-  
-    <strong>1 │ </strong>class Foo {
-    <strong>2 │ </strong>  bar() { }
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>  bar() { }
-   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
-    <strong>4 │ </strong>}
-    <strong>5 │ </strong>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:3:3 <a href="https://biomejs.dev/linter/rules/no-duplicate-class-members">lint/suspicious/noDuplicateClassMembers</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Duplicate class member name &quot;bar&quot;</span><br />  <br />    <strong>1 │ </strong>class Foo {<br />    <strong>2 │ </strong>  bar() { }<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>  bar() { }<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>}<br />    <strong>5 │ </strong><br />  <br /></code></pre>
 
 ```js
 class Foo {
@@ -44,18 +33,7 @@ class Foo {
 }
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:3:3 <a href="https://biomejs.dev/linter/rules/no-duplicate-class-members">lint/suspicious/noDuplicateClassMembers</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Duplicate class member name &quot;bar&quot;</span>
-  
-    <strong>1 │ </strong>class Foo {
-    <strong>2 │ </strong>  bar() { }
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>  get bar() { }
-   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
-    <strong>4 │ </strong>}
-    <strong>5 │ </strong>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:3:3 <a href="https://biomejs.dev/linter/rules/no-duplicate-class-members">lint/suspicious/noDuplicateClassMembers</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Duplicate class member name &quot;bar&quot;</span><br />  <br />    <strong>1 │ </strong>class Foo {<br />    <strong>2 │ </strong>  bar() { }<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>  get bar() { }<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>}<br />    <strong>5 │ </strong><br />  <br /></code></pre>
 
 ```js
 class Foo {
@@ -64,18 +42,7 @@ class Foo {
 }
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:3:3 <a href="https://biomejs.dev/linter/rules/no-duplicate-class-members">lint/suspicious/noDuplicateClassMembers</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Duplicate class member name &quot;bar&quot;</span>
-  
-    <strong>1 │ </strong>class Foo {
-    <strong>2 │ </strong>  bar;
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>  bar() { }
-   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
-    <strong>4 │ </strong>}
-    <strong>5 │ </strong>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:3:3 <a href="https://biomejs.dev/linter/rules/no-duplicate-class-members">lint/suspicious/noDuplicateClassMembers</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Duplicate class member name &quot;bar&quot;</span><br />  <br />    <strong>1 │ </strong>class Foo {<br />    <strong>2 │ </strong>  bar;<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>  bar() { }<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>}<br />    <strong>5 │ </strong><br />  <br /></code></pre>
 
 ```js
 class Foo {
@@ -84,18 +51,7 @@ class Foo {
 }
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:3:3 <a href="https://biomejs.dev/linter/rules/no-duplicate-class-members">lint/suspicious/noDuplicateClassMembers</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Duplicate class member name &quot;bar&quot;</span>
-  
-    <strong>1 │ </strong>class Foo {
-    <strong>2 │ </strong>  static bar() { }
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>  static bar() { }
-   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
-    <strong>4 │ </strong>}
-    <strong>5 │ </strong>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:3:3 <a href="https://biomejs.dev/linter/rules/no-duplicate-class-members">lint/suspicious/noDuplicateClassMembers</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Duplicate class member name &quot;bar&quot;</span><br />  <br />    <strong>1 │ </strong>class Foo {<br />    <strong>2 │ </strong>  static bar() { }<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>  static bar() { }<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>}<br />    <strong>5 │ </strong><br />  <br /></code></pre>
 
 ### Valid
 

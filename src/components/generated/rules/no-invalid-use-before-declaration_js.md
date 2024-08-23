@@ -25,20 +25,7 @@ function f() {
 }
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:3:11 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Const declarations must have an initialized value.</span>
-  
-    <strong>1 │ </strong>function f() {
-    <strong>2 │ </strong>    console.log(x);
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>    const x;
-   <strong>   │ </strong>          <strong><span style="color: Tomato;">^</span></strong>
-    <strong>4 │ </strong>}
-    <strong>5 │ </strong>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This variable needs to be initialized.</span>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:3:11 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Const declarations must have an initialized value.</span><br />  <br />    <strong>1 │ </strong>function f() {<br />    <strong>2 │ </strong>    console.log(x);<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>    const x;<br />   <strong>   │ </strong>          <strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>}<br />    <strong>5 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This variable needs to be initialized.</span><br />  <br /></code></pre>
 
 ```js
 function f() {
@@ -47,46 +34,13 @@ function f() {
 }
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:2:17 <a href="https://biomejs.dev/linter/rules/no-invalid-use-before-declaration">lint/correctness/noInvalidUseBeforeDeclaration</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This variable is used before its declaration.</span>
-  
-    <strong>1 │ </strong>function f() {
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>    console.log(x);
-   <strong>   │ </strong>                <strong><span style="color: Tomato;">^</span></strong>
-    <strong>3 │ </strong>    var x = 0;
-    <strong>4 │ </strong>}
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The variable is declared here:</span>
-  
-    <strong>1 │ </strong>function f() {
-    <strong>2 │ </strong>    console.log(x);
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>    var x = 0;
-   <strong>   │ </strong>        <strong><span style="color: Tomato;">^</span></strong>
-    <strong>4 │ </strong>}
-    <strong>5 │ </strong>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:2:17 <a href="https://biomejs.dev/linter/rules/no-invalid-use-before-declaration">lint/correctness/noInvalidUseBeforeDeclaration</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This variable is used before its declaration.</span><br />  <br />    <strong>1 │ </strong>function f() {<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>    console.log(x);<br />   <strong>   │ </strong>                <strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>    var x = 0;<br />    <strong>4 │ </strong>}<br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The variable is declared here:</span><br />  <br />    <strong>1 │ </strong>function f() {<br />    <strong>2 │ </strong>    console.log(x);<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>    var x = 0;<br />   <strong>   │ </strong>        <strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>}<br />    <strong>5 │ </strong><br />  <br /></code></pre>
 
 ```js
 function f(a = b, b = 0) {}
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:1:16 <a href="https://biomejs.dev/linter/rules/no-invalid-use-before-declaration">lint/correctness/noInvalidUseBeforeDeclaration</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This parameter is used before its declaration.</span>
-  
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>function f(a = b, b = 0) {}
-   <strong>   │ </strong>               <strong><span style="color: Tomato;">^</span></strong>
-    <strong>2 │ </strong>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The parameter is declared here:</span>
-  
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>function f(a = b, b = 0) {}
-   <strong>   │ </strong>                  <strong><span style="color: Tomato;">^</span></strong>
-    <strong>2 │ </strong>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:1:16 <a href="https://biomejs.dev/linter/rules/no-invalid-use-before-declaration">lint/correctness/noInvalidUseBeforeDeclaration</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This parameter is used before its declaration.</span><br />  <br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>function f(a = b, b = 0) {}<br />   <strong>   │ </strong>               <strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The parameter is declared here:</span><br />  <br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>function f(a = b, b = 0) {}<br />   <strong>   │ </strong>                  <strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br /></code></pre>
 
 ### Valid
 

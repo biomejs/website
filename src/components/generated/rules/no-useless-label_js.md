@@ -21,22 +21,7 @@ loop: while(a) {
 }
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:2:11 <a href="https://biomejs.dev/linter/rules/no-useless-label">lint/complexity/noUselessLabel</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unnecessary </span><span style="color: Tomato;"><strong>label</strong></span><span style="color: Tomato;">.</span>
-  
-    <strong>1 │ </strong>loop: while(a) {
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>    break loop;
-   <strong>   │ </strong>          <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
-    <strong>3 │ </strong>}
-    <strong>4 │ </strong>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Safe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Remove the unnecessary </span><span style="color: lightgreen;"><strong>label</strong></span><span style="color: lightgreen;">.
-</span><span style="color: lightgreen;">  </span><span style="color: lightgreen;">  </span><span style="color: lightgreen;">You can achieve the same result without the label.</span>
-  
-<strong>  </strong><strong>  2 │ </strong><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span>break<span style="opacity: 0.8;"><span style="color: Tomato;">·</span></span><span style="color: Tomato;">l</span><span style="color: Tomato;">o</span><span style="color: Tomato;">o</span><span style="color: Tomato;">p</span>;
-<strong>  </strong><strong>    │ </strong>         <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span> 
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:2:11 <a href="https://biomejs.dev/linter/rules/no-useless-label">lint/complexity/noUselessLabel</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unnecessary </span><span style="color: Tomato;"><strong>label</strong></span><span style="color: Tomato;">.</span><br />  <br />    <strong>1 │ </strong>loop: while(a) {<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>    break loop;<br />   <strong>   │ </strong>          <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>}<br />    <strong>4 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Safe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Remove the unnecessary </span><span style="color: lightgreen;"><strong>label</strong></span><span style="color: lightgreen;">.<br /></span><span style="color: lightgreen;">  </span><span style="color: lightgreen;">  </span><span style="color: lightgreen;">You can achieve the same result without the label.</span><br />  <br /><strong>  </strong><strong>  2 │ </strong><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span>break<span style="opacity: 0.8;"><span style="color: Tomato;">·</span></span><span style="color: Tomato;">l</span><span style="color: Tomato;">o</span><span style="color: Tomato;">o</span><span style="color: Tomato;">p</span>;<br /><strong>  </strong><strong>    │ </strong>         <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span> <br /></code></pre>
 
 ### Valid
 

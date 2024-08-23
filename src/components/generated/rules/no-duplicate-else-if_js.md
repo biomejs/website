@@ -32,18 +32,7 @@ if (a) {
 }
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:5:12 <a href="https://biomejs.dev/linter/rules/no-duplicate-else-if">lint/nursery/noDuplicateElseIf</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This branch can never execute. Its condition is a duplicate or covered by previous conditions in the if-else-if chain.</span>
-  
-    <strong>3 │ </strong>} else if (b) {
-    <strong>4 │ </strong>    bar();
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>5 │ </strong>} else if (b) {
-   <strong>   │ </strong>           <strong><span style="color: Tomato;">^</span></strong>
-    <strong>6 │ </strong>    baz();
-    <strong>7 │ </strong>}
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:5:12 <a href="https://biomejs.dev/linter/rules/no-duplicate-else-if">lint/nursery/noDuplicateElseIf</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This branch can never execute. Its condition is a duplicate or covered by previous conditions in the if-else-if chain.</span><br />  <br />    <strong>3 │ </strong>} else if (b) {<br />    <strong>4 │ </strong>    bar();<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>5 │ </strong>} else if (b) {<br />   <strong>   │ </strong>           <strong><span style="color: Tomato;">^</span></strong><br />    <strong>6 │ </strong>    baz();<br />    <strong>7 │ </strong>}<br />  <br /></code></pre>
 
 ### Valid
 
