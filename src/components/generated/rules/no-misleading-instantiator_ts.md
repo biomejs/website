@@ -28,19 +28,7 @@ interface I {
 }
 ```
 
-<pre class="language-text"><code class="language-text">code-block.ts:2:3 <a href="https://biomejs.dev/linter/rules/no-misleading-instantiator">lint/suspicious/noMisleadingInstantiator</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Don't use the </span><span style="color: Tomato;"><strong>new</strong></span><span style="color: Tomato;"> method in interfaces.</span>
-  
-    <strong>1 │ </strong>interface I {
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  new (): I;
-   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
-    <strong>3 │ </strong>  constructor(): void;
-    <strong>4 │ </strong>}
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;"><strong>new</strong></span><span style="color: lightgreen;"> in an interface suggests it's instantiable, which is incorrect. The returned type should different from the constructor's type.</span>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.ts:2:3 <a href="https://biomejs.dev/linter/rules/no-misleading-instantiator">lint/suspicious/noMisleadingInstantiator</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Don't use the </span><span style="color: Tomato;"><strong>new</strong></span><span style="color: Tomato;"> method in interfaces.</span><br />  <br />    <strong>1 │ </strong>interface I {<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  new (): I;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>  constructor(): void;<br />    <strong>4 │ </strong>}<br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;"><strong>new</strong></span><span style="color: lightgreen;"> in an interface suggests it's instantiable, which is incorrect. The returned type should different from the constructor's type.</span><br />  <br /></code></pre>
 
 ```ts
 class C {
@@ -48,19 +36,7 @@ class C {
 }
 ```
 
-<pre class="language-text"><code class="language-text">code-block.ts:2:3 <a href="https://biomejs.dev/linter/rules/no-misleading-instantiator">lint/suspicious/noMisleadingInstantiator</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Don't use the </span><span style="color: Tomato;"><strong>new</strong></span><span style="color: Tomato;"> method in classes.</span>
-  
-    <strong>1 │ </strong>class C {
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  new(): C;
-   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
-    <strong>3 │ </strong>}
-    <strong>4 │ </strong>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;"><strong>new</strong></span><span style="color: lightgreen;"> is typically used to instantiate objects. In classes, its usage can be misleading.</span>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.ts:2:3 <a href="https://biomejs.dev/linter/rules/no-misleading-instantiator">lint/suspicious/noMisleadingInstantiator</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Don't use the </span><span style="color: Tomato;"><strong>new</strong></span><span style="color: Tomato;"> method in classes.</span><br />  <br />    <strong>1 │ </strong>class C {<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  new(): C;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>}<br />    <strong>4 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;"><strong>new</strong></span><span style="color: lightgreen;"> is typically used to instantiate objects. In classes, its usage can be misleading.</span><br />  <br /></code></pre>
 
 ### Valid
 

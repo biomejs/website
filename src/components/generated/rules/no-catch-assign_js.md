@@ -24,29 +24,7 @@ try {
 }
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:5:3 <a href="https://biomejs.dev/linter/rules/no-catch-assign">lint/suspicious/noCatchAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Reassigning a </span><span style="color: Tomato;"><strong>catch parameter</strong></span><span style="color: Tomato;"> is confusing.</span>
-  
-    <strong>3 │ </strong>} catch (e) {
-    <strong>4 │ </strong>  e;
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>5 │ </strong>  e = 10;
-   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong>
-    <strong>6 │ </strong>}
-    <strong>7 │ </strong>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The </span><span style="color: lightgreen;"><strong>catch parameter</strong></span><span style="color: lightgreen;"> is declared here:</span>
-  
-    <strong>1 │ </strong>try {
-    <strong>2 │ </strong>
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>} catch (e) {
-   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong>
-    <strong>4 │ </strong>  e;
-    <strong>5 │ </strong>  e = 10;
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Use a local variable instead.</span>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:5:3 <a href="https://biomejs.dev/linter/rules/no-catch-assign">lint/suspicious/noCatchAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Reassigning a </span><span style="color: Tomato;"><strong>catch parameter</strong></span><span style="color: Tomato;"> is confusing.</span><br />  <br />    <strong>3 │ </strong>} catch (e) {<br />    <strong>4 │ </strong>  e;<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>5 │ </strong>  e = 10;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><br />    <strong>6 │ </strong>}<br />    <strong>7 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The </span><span style="color: lightgreen;"><strong>catch parameter</strong></span><span style="color: lightgreen;"> is declared here:</span><br />  <br />    <strong>1 │ </strong>try {<br />    <strong>2 │ </strong><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>} catch (e) {<br />   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>  e;<br />    <strong>5 │ </strong>  e = 10;<br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Use a local variable instead.</span><br />  <br /></code></pre>
 
 ### Valid
 

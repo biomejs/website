@@ -23,49 +23,19 @@ then we recommend to disable this rule.
 let a;
 ```
 
-<pre class="language-text"><code class="language-text">code-block.ts:1:5 <a href="https://biomejs.dev/linter/rules/no-evolving-types">lint/nursery/noEvolvingTypes</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">The type of this variable may evolve implicitly to any type, including the </span><span style="color: Orange;"><strong>any</strong></span><span style="color: Orange;"> type.</span>
-  
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>let a;
-   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong>
-    <strong>2 │ </strong>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Add an explicit type or initialization to avoid implicit type evolution.</span>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.ts:1:5 <a href="https://biomejs.dev/linter/rules/no-evolving-types">lint/nursery/noEvolvingTypes</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">The type of this variable may evolve implicitly to any type, including the </span><span style="color: Orange;"><strong>any</strong></span><span style="color: Orange;"> type.</span><br />  <br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>let a;<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Add an explicit type or initialization to avoid implicit type evolution.</span><br />  <br /></code></pre>
 
 ```ts
 const b = [];
 ```
 
-<pre class="language-text"><code class="language-text">code-block.ts:1:7 <a href="https://biomejs.dev/linter/rules/no-evolving-types">lint/nursery/noEvolvingTypes</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">The type of this variable may evolve implicitly to any type, including the </span><span style="color: Orange;"><strong>any</strong></span><span style="color: Orange;"> type.</span>
-  
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>const b = [];
-   <strong>   │ </strong>      <strong><span style="color: Tomato;">^</span></strong>
-    <strong>2 │ </strong>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Add an explicit type or initialization to avoid implicit type evolution.</span>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.ts:1:7 <a href="https://biomejs.dev/linter/rules/no-evolving-types">lint/nursery/noEvolvingTypes</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">The type of this variable may evolve implicitly to any type, including the </span><span style="color: Orange;"><strong>any</strong></span><span style="color: Orange;"> type.</span><br />  <br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>const b = [];<br />   <strong>   │ </strong>      <strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Add an explicit type or initialization to avoid implicit type evolution.</span><br />  <br /></code></pre>
 
 ```ts
 let c = null;
 ```
 
-<pre class="language-text"><code class="language-text">code-block.ts:1:5 <a href="https://biomejs.dev/linter/rules/no-evolving-types">lint/nursery/noEvolvingTypes</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">The type of this variable may evolve implicitly to any type, including the </span><span style="color: Orange;"><strong>any</strong></span><span style="color: Orange;"> type.</span>
-  
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>let c = null;
-   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong>
-    <strong>2 │ </strong>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Add an explicit type or initialization to avoid implicit type evolution.</span>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.ts:1:5 <a href="https://biomejs.dev/linter/rules/no-evolving-types">lint/nursery/noEvolvingTypes</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">The type of this variable may evolve implicitly to any type, including the </span><span style="color: Orange;"><strong>any</strong></span><span style="color: Orange;"> type.</span><br />  <br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>let c = null;<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Add an explicit type or initialization to avoid implicit type evolution.</span><br />  <br /></code></pre>
 
 ### Valid
 

@@ -18,41 +18,13 @@ The `role` attribute is used to define the purpose of an element, but it should 
 <div role="checkbox">
 ```
 
-<pre class="language-text"><code class="language-text">code-block.jsx:2:1 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">expected `&lt;` but instead the file ends</span>
-  
-    <strong>1 │ </strong>&lt;div role=&quot;checkbox&quot;&gt;
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>
-   <strong>   │ </strong>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">the file ends here</span>
-  
-    <strong>1 │ </strong>&lt;div role=&quot;checkbox&quot;&gt;
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>
-   <strong>   │ </strong>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.jsx:2:1 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">expected `&lt;` but instead the file ends</span><br />  <br />    <strong>1 │ </strong>&lt;div role=&quot;checkbox&quot;&gt;<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong><br />   <strong>   │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">the file ends here</span><br />  <br />    <strong>1 │ </strong>&lt;div role=&quot;checkbox&quot;&gt;<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong><br />   <strong>   │ </strong><br />  <br /></code></pre>
 
 ```jsx
 <div role="img">
 ```
 
-<pre class="language-text"><code class="language-text">code-block.jsx:2:1 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">expected `&lt;` but instead the file ends</span>
-  
-    <strong>1 │ </strong>&lt;div role=&quot;img&quot;&gt;
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>
-   <strong>   │ </strong>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">the file ends here</span>
-  
-    <strong>1 │ </strong>&lt;div role=&quot;img&quot;&gt;
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>
-   <strong>   │ </strong>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.jsx:2:1 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">expected `&lt;` but instead the file ends</span><br />  <br />    <strong>1 │ </strong>&lt;div role=&quot;img&quot;&gt;<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong><br />   <strong>   │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">the file ends here</span><br />  <br />    <strong>1 │ </strong>&lt;div role=&quot;img&quot;&gt;<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong><br />   <strong>   │ </strong><br />  <br /></code></pre>
 
 ### Valid
 

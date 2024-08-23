@@ -25,20 +25,7 @@ Using `!important` within keyframes declarations is completely ignored in some b
 }
 ```
 
-<pre class="language-text"><code class="language-text">code-block.css:6:18 <a href="https://biomejs.dev/linter/rules/no-important-in-keyframe">lint/nursery/noImportantInKeyframe</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Using </span><span style="color: Tomato;"><strong>!important</strong></span><span style="color: Tomato;"> within keyframes declaration is completely ignored in some browsers.</span>
-  
-    <strong>4 │ </strong>    }
-    <strong>5 │ </strong>    to {
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>6 │ </strong>      opacity: 1 !important;
-   <strong>   │ </strong>                 <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
-    <strong>7 │ </strong>    }
-    <strong>8 │ </strong>}
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Consider removing useless </span><span style="color: lightgreen;"><strong>!important</strong></span><span style="color: lightgreen;"> declaration.</span>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.css:6:18 <a href="https://biomejs.dev/linter/rules/no-important-in-keyframe">lint/nursery/noImportantInKeyframe</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Using </span><span style="color: Tomato;"><strong>!important</strong></span><span style="color: Tomato;"> within keyframes declaration is completely ignored in some browsers.</span><br />  <br />    <strong>4 │ </strong>    }<br />    <strong>5 │ </strong>    to {<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>6 │ </strong>      opacity: 1 !important;<br />   <strong>   │ </strong>                 <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>7 │ </strong>    }<br />    <strong>8 │ </strong>}<br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Consider removing useless </span><span style="color: lightgreen;"><strong>!important</strong></span><span style="color: lightgreen;"> declaration.</span><br />  <br /></code></pre>
 
 ### Valid
 

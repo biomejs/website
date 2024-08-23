@@ -27,18 +27,7 @@ enum Computed {
 }
 ```
 
-<pre class="language-text"><code class="language-text">code-block.ts:4:9 <a href="https://biomejs.dev/linter/rules/use-literal-enum-members">lint/style/useLiteralEnumMembers</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The enum member should be initialized with a literal value such as a number or a string.</span>
-  
-    <strong>2 │ </strong>enum Computed {
-    <strong>3 │ </strong>    A,
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>    B = x,
-   <strong>   │ </strong>        <strong><span style="color: Tomato;">^</span></strong>
-    <strong>5 │ </strong>}
-    <strong>6 │ </strong>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.ts:4:9 <a href="https://biomejs.dev/linter/rules/use-literal-enum-members">lint/style/useLiteralEnumMembers</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The enum member should be initialized with a literal value such as a number or a string.</span><br />  <br />    <strong>2 │ </strong>enum Computed {<br />    <strong>3 │ </strong>    A,<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>    B = x,<br />   <strong>   │ </strong>        <strong><span style="color: Tomato;">^</span></strong><br />    <strong>5 │ </strong>}<br />    <strong>6 │ </strong><br />  <br /></code></pre>
 
 ### Valid
 

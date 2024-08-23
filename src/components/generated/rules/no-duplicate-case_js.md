@@ -25,26 +25,7 @@ switch (a) {
 }
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:4:10 <a href="https://biomejs.dev/linter/rules/no-duplicate-case">lint/suspicious/noDuplicateCase</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Duplicate case label.</span>
-  
-    <strong>2 │ </strong>    case 1:
-    <strong>3 │ </strong>        break;
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>    case 1:
-   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong>
-    <strong>5 │ </strong>        break;
-    <strong>6 │ </strong>    default:
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The first similar label is here:</span>
-  
-    <strong>1 │ </strong>switch (a) {
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>    case 1:
-   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong>
-    <strong>3 │ </strong>        break;
-    <strong>4 │ </strong>    case 1:
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:4:10 <a href="https://biomejs.dev/linter/rules/no-duplicate-case">lint/suspicious/noDuplicateCase</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Duplicate case label.</span><br />  <br />    <strong>2 │ </strong>    case 1:<br />    <strong>3 │ </strong>        break;<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>    case 1:<br />   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong><br />    <strong>5 │ </strong>        break;<br />    <strong>6 │ </strong>    default:<br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The first similar label is here:</span><br />  <br />    <strong>1 │ </strong>switch (a) {<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>    case 1:<br />   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>        break;<br />    <strong>4 │ </strong>    case 1:<br />  <br /></code></pre>
 
 ```js
 switch (a) {
@@ -57,26 +38,7 @@ switch (a) {
 }
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:4:10 <a href="https://biomejs.dev/linter/rules/no-duplicate-case">lint/suspicious/noDuplicateCase</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Duplicate case label.</span>
-  
-    <strong>2 │ </strong>    case one:
-    <strong>3 │ </strong>        break;
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>    case one:
-   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
-    <strong>5 │ </strong>        break;
-    <strong>6 │ </strong>    default:
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The first similar label is here:</span>
-  
-    <strong>1 │ </strong>switch (a) {
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>    case one:
-   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
-    <strong>3 │ </strong>        break;
-    <strong>4 │ </strong>    case one:
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:4:10 <a href="https://biomejs.dev/linter/rules/no-duplicate-case">lint/suspicious/noDuplicateCase</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Duplicate case label.</span><br />  <br />    <strong>2 │ </strong>    case one:<br />    <strong>3 │ </strong>        break;<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>    case one:<br />   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>5 │ </strong>        break;<br />    <strong>6 │ </strong>    default:<br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The first similar label is here:</span><br />  <br />    <strong>1 │ </strong>switch (a) {<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>    case one:<br />   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>        break;<br />    <strong>4 │ </strong>    case one:<br />  <br /></code></pre>
 
 ```js
 switch (a) {
@@ -89,26 +51,7 @@ switch (a) {
 }
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:4:10 <a href="https://biomejs.dev/linter/rules/no-duplicate-case">lint/suspicious/noDuplicateCase</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Duplicate case label.</span>
-  
-    <strong>2 │ </strong>    case &quot;1&quot;:
-    <strong>3 │ </strong>        break;
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>    case &quot;1&quot;:
-   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
-    <strong>5 │ </strong>        break;
-    <strong>6 │ </strong>    default:
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The first similar label is here:</span>
-  
-    <strong>1 │ </strong>switch (a) {
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>    case &quot;1&quot;:
-   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
-    <strong>3 │ </strong>        break;
-    <strong>4 │ </strong>    case &quot;1&quot;:
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:4:10 <a href="https://biomejs.dev/linter/rules/no-duplicate-case">lint/suspicious/noDuplicateCase</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Duplicate case label.</span><br />  <br />    <strong>2 │ </strong>    case &quot;1&quot;:<br />    <strong>3 │ </strong>        break;<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>    case &quot;1&quot;:<br />   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>5 │ </strong>        break;<br />    <strong>6 │ </strong>    default:<br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The first similar label is here:</span><br />  <br />    <strong>1 │ </strong>switch (a) {<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>    case &quot;1&quot;:<br />   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>        break;<br />    <strong>4 │ </strong>    case &quot;1&quot;:<br />  <br /></code></pre>
 
 ### Valid
 

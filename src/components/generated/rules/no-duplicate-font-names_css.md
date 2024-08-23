@@ -20,49 +20,19 @@ This rule ignores var(--custom-property) variable syntaxes now.
 a { font-family: "Lucida Grande", 'Arial', sans-serif, sans-serif; }
 ```
 
-<pre class="language-text"><code class="language-text">code-block.css:1:56 <a href="https://biomejs.dev/linter/rules/no-font-family-duplicate-names">lint/nursery/noDuplicateFontNames</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Duplicate font names are redundant and unnecessary: </span><span style="color: Tomato;"><strong>sans-serif</strong></span>
-  
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>a { font-family: &quot;Lucida Grande&quot;, 'Arial', sans-serif, sans-serif; }
-   <strong>   │ </strong>                                                       <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
-    <strong>2 │ </strong>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove duplicate font names within the property</span>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.css:1:56 <a href="https://biomejs.dev/linter/rules/no-font-family-duplicate-names">lint/nursery/noDuplicateFontNames</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Duplicate font names are redundant and unnecessary: </span><span style="color: Tomato;"><strong>sans-serif</strong></span><br />  <br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>a { font-family: &quot;Lucida Grande&quot;, 'Arial', sans-serif, sans-serif; }<br />   <strong>   │ </strong>                                                       <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove duplicate font names within the property</span><br />  <br /></code></pre>
 
 ```css
 a { font-family: 'Arial', "Lucida Grande", Arial, sans-serif; }
 ```
 
-<pre class="language-text"><code class="language-text">code-block.css:1:44 <a href="https://biomejs.dev/linter/rules/no-font-family-duplicate-names">lint/nursery/noDuplicateFontNames</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Duplicate font names are redundant and unnecessary: </span><span style="color: Tomato;"><strong>Arial</strong></span>
-  
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>a { font-family: 'Arial', &quot;Lucida Grande&quot;, Arial, sans-serif; }
-   <strong>   │ </strong>                                           <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
-    <strong>2 │ </strong>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove duplicate font names within the property</span>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.css:1:44 <a href="https://biomejs.dev/linter/rules/no-font-family-duplicate-names">lint/nursery/noDuplicateFontNames</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Duplicate font names are redundant and unnecessary: </span><span style="color: Tomato;"><strong>Arial</strong></span><br />  <br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>a { font-family: 'Arial', &quot;Lucida Grande&quot;, Arial, sans-serif; }<br />   <strong>   │ </strong>                                           <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove duplicate font names within the property</span><br />  <br /></code></pre>
 
 ```css
 a { FONT: italic 300 16px/30px Arial, " Arial", serif; }
 ```
 
-<pre class="language-text"><code class="language-text">code-block.css:1:39 <a href="https://biomejs.dev/linter/rules/no-font-family-duplicate-names">lint/nursery/noDuplicateFontNames</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Duplicate font names are redundant and unnecessary: </span><span style="color: Tomato;"><strong>Arial</strong></span>
-  
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>a { FONT: italic 300 16px/30px Arial, &quot; Arial&quot;, serif; }
-   <strong>   │ </strong>                                      <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
-    <strong>2 │ </strong>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove duplicate font names within the property</span>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.css:1:39 <a href="https://biomejs.dev/linter/rules/no-font-family-duplicate-names">lint/nursery/noDuplicateFontNames</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Duplicate font names are redundant and unnecessary: </span><span style="color: Tomato;"><strong>Arial</strong></span><br />  <br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>a { FONT: italic 300 16px/30px Arial, &quot; Arial&quot;, serif; }<br />   <strong>   │ </strong>                                      <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove duplicate font names within the property</span><br />  <br /></code></pre>
 
 ### Valid
 

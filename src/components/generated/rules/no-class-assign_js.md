@@ -19,46 +19,14 @@ class A {}
 A = 0;
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:2:1 <a href="https://biomejs.dev/linter/rules/no-class-assign">lint/suspicious/noClassAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">'A' is a class.</span>
-  
-    <strong>1 │ </strong>class A {}
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>A = 0;
-   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong>
-    <strong>3 │ </strong>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">'A' is defined here.</span>
-  
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>class A {}
-   <strong>   │ </strong>      <strong><span style="color: Tomato;">^</span></strong>
-    <strong>2 │ </strong>A = 0;
-    <strong>3 │ </strong>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:2:1 <a href="https://biomejs.dev/linter/rules/no-class-assign">lint/suspicious/noClassAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">'A' is a class.</span><br />  <br />    <strong>1 │ </strong>class A {}<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>A = 0;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">'A' is defined here.</span><br />  <br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>class A {}<br />   <strong>   │ </strong>      <strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>A = 0;<br />    <strong>3 │ </strong><br />  <br /></code></pre>
 
 ```js
 A = 0;
 class A {}
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-class-assign">lint/suspicious/noClassAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">'A' is a class.</span>
-  
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>A = 0;
-   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong>
-    <strong>2 │ </strong>class A {}
-    <strong>3 │ </strong>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">'A' is defined here.</span>
-  
-    <strong>1 │ </strong>A = 0;
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>class A {}
-   <strong>   │ </strong>      <strong><span style="color: Tomato;">^</span></strong>
-    <strong>3 │ </strong>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-class-assign">lint/suspicious/noClassAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">'A' is a class.</span><br />  <br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>A = 0;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>class A {}<br />    <strong>3 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">'A' is defined here.</span><br />  <br />    <strong>1 │ </strong>A = 0;<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>class A {}<br />   <strong>   │ </strong>      <strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong><br />  <br /></code></pre>
 
 ```js
 class A {
@@ -68,25 +36,7 @@ class A {
 }
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:3:3 <a href="https://biomejs.dev/linter/rules/no-class-assign">lint/suspicious/noClassAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">'A' is a class.</span>
-  
-    <strong>1 │ </strong>class A {
-    <strong>2 │ </strong>	b() {
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>		A = 0;
-   <strong>   │ </strong>		<strong><span style="color: Tomato;">^</span></strong>
-    <strong>4 │ </strong>	}
-    <strong>5 │ </strong>}
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">'A' is defined here.</span>
-  
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>class A {
-   <strong>   │ </strong>      <strong><span style="color: Tomato;">^</span></strong>
-    <strong>2 │ </strong>	b() {
-    <strong>3 │ </strong>		A = 0;
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:3:3 <a href="https://biomejs.dev/linter/rules/no-class-assign">lint/suspicious/noClassAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">'A' is a class.</span><br />  <br />    <strong>1 │ </strong>class A {<br />    <strong>2 │ </strong>	b() {<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>		A = 0;<br />   <strong>   │ </strong>		<strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>	}<br />    <strong>5 │ </strong>}<br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">'A' is defined here.</span><br />  <br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>class A {<br />   <strong>   │ </strong>      <strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>	b() {<br />    <strong>3 │ </strong>		A = 0;<br />  <br /></code></pre>
 
 ```js
 let A = class A {
@@ -97,25 +47,7 @@ let A = class A {
 }
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:3:3 <a href="https://biomejs.dev/linter/rules/no-class-assign">lint/suspicious/noClassAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">'A' is a class.</span>
-  
-    <strong>1 │ </strong>let A = class A {
-    <strong>2 │ </strong>	b() {
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>		A = 0;
-   <strong>   │ </strong>		<strong><span style="color: Tomato;">^</span></strong>
-    <strong>4 │ </strong>		// `let A` is shadowed by the class name.
-    <strong>5 │ </strong>	}
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">'A' is defined here.</span>
-  
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>let A = class A {
-   <strong>   │ </strong>              <strong><span style="color: Tomato;">^</span></strong>
-    <strong>2 │ </strong>	b() {
-    <strong>3 │ </strong>		A = 0;
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:3:3 <a href="https://biomejs.dev/linter/rules/no-class-assign">lint/suspicious/noClassAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">'A' is a class.</span><br />  <br />    <strong>1 │ </strong>let A = class A {<br />    <strong>2 │ </strong>	b() {<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>		A = 0;<br />   <strong>   │ </strong>		<strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>		// `let A` is shadowed by the class name.<br />    <strong>5 │ </strong>	}<br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">'A' is defined here.</span><br />  <br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>let A = class A {<br />   <strong>   │ </strong>              <strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>	b() {<br />    <strong>3 │ </strong>		A = 0;<br />  <br /></code></pre>
 
 ### Valid
 

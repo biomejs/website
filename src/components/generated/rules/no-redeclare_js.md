@@ -18,69 +18,21 @@ var a = 3;
 var a = 10;
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:2:5 <a href="https://biomejs.dev/linter/rules/no-redeclare">lint/suspicious/noRedeclare</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Shouldn't redeclare 'a'. Consider to delete it or rename it.</span>
-  
-    <strong>1 │ </strong>var a = 3;
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>var a = 10;
-   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong>
-    <strong>3 │ </strong>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">'a' is defined here:</span>
-  
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>var a = 3;
-   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong>
-    <strong>2 │ </strong>var a = 10;
-    <strong>3 │ </strong>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:2:5 <a href="https://biomejs.dev/linter/rules/no-redeclare">lint/suspicious/noRedeclare</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Shouldn't redeclare 'a'. Consider to delete it or rename it.</span><br />  <br />    <strong>1 │ </strong>var a = 3;<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>var a = 10;<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">'a' is defined here:</span><br />  <br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>var a = 3;<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>var a = 10;<br />    <strong>3 │ </strong><br />  <br /></code></pre>
 
 ```js
 let a = 3;
 let a = 10;
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:2:5 <a href="https://biomejs.dev/linter/rules/no-redeclare">lint/suspicious/noRedeclare</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Shouldn't redeclare 'a'. Consider to delete it or rename it.</span>
-  
-    <strong>1 │ </strong>let a = 3;
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>let a = 10;
-   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong>
-    <strong>3 │ </strong>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">'a' is defined here:</span>
-  
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>let a = 3;
-   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong>
-    <strong>2 │ </strong>let a = 10;
-    <strong>3 │ </strong>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:2:5 <a href="https://biomejs.dev/linter/rules/no-redeclare">lint/suspicious/noRedeclare</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Shouldn't redeclare 'a'. Consider to delete it or rename it.</span><br />  <br />    <strong>1 │ </strong>let a = 3;<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>let a = 10;<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">'a' is defined here:</span><br />  <br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>let a = 3;<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>let a = 10;<br />    <strong>3 │ </strong><br />  <br /></code></pre>
 
 ```js
 function f() {}
 function f() {}
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:2:10 <a href="https://biomejs.dev/linter/rules/no-redeclare">lint/suspicious/noRedeclare</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Shouldn't redeclare 'f'. Consider to delete it or rename it.</span>
-  
-    <strong>1 │ </strong>function f() {}
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>function f() {}
-   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong>
-    <strong>3 │ </strong>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">'f' is defined here:</span>
-  
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>function f() {}
-   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong>
-    <strong>2 │ </strong>function f() {}
-    <strong>3 │ </strong>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:2:10 <a href="https://biomejs.dev/linter/rules/no-redeclare">lint/suspicious/noRedeclare</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Shouldn't redeclare 'f'. Consider to delete it or rename it.</span><br />  <br />    <strong>1 │ </strong>function f() {}<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>function f() {}<br />   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">'f' is defined here:</span><br />  <br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>function f() {}<br />   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>function f() {}<br />    <strong>3 │ </strong><br />  <br /></code></pre>
 
 ```js
 class C {
@@ -91,50 +43,14 @@ class C {
 }
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:4:13 <a href="https://biomejs.dev/linter/rules/no-redeclare">lint/suspicious/noRedeclare</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Shouldn't redeclare 'c'. Consider to delete it or rename it.</span>
-  
-    <strong>2 │ </strong>    static {
-    <strong>3 │ </strong>        var c = 3;
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>        var c = 10;
-   <strong>   │ </strong>            <strong><span style="color: Tomato;">^</span></strong>
-    <strong>5 │ </strong>    }
-    <strong>6 │ </strong>}
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">'c' is defined here:</span>
-  
-    <strong>1 │ </strong>class C {
-    <strong>2 │ </strong>    static {
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>        var c = 3;
-   <strong>   │ </strong>            <strong><span style="color: Tomato;">^</span></strong>
-    <strong>4 │ </strong>        var c = 10;
-    <strong>5 │ </strong>    }
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:4:13 <a href="https://biomejs.dev/linter/rules/no-redeclare">lint/suspicious/noRedeclare</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Shouldn't redeclare 'c'. Consider to delete it or rename it.</span><br />  <br />    <strong>2 │ </strong>    static {<br />    <strong>3 │ </strong>        var c = 3;<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>        var c = 10;<br />   <strong>   │ </strong>            <strong><span style="color: Tomato;">^</span></strong><br />    <strong>5 │ </strong>    }<br />    <strong>6 │ </strong>}<br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">'c' is defined here:</span><br />  <br />    <strong>1 │ </strong>class C {<br />    <strong>2 │ </strong>    static {<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>        var c = 3;<br />   <strong>   │ </strong>            <strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>        var c = 10;<br />    <strong>5 │ </strong>    }<br />  <br /></code></pre>
 
 ```ts
 type Person = { name: string; }
 class Person { name: string; }
 ```
 
-<pre class="language-text"><code class="language-text">code-block.ts:2:7 <a href="https://biomejs.dev/linter/rules/no-redeclare">lint/suspicious/noRedeclare</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Shouldn't redeclare 'Person'. Consider to delete it or rename it.</span>
-  
-    <strong>1 │ </strong>type Person = { name: string; }
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>class Person { name: string; }
-   <strong>   │ </strong>      <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
-    <strong>3 │ </strong>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">'Person' is defined here:</span>
-  
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>type Person = { name: string; }
-   <strong>   │ </strong>     <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
-    <strong>2 │ </strong>class Person { name: string; }
-    <strong>3 │ </strong>
-  
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.ts:2:7 <a href="https://biomejs.dev/linter/rules/no-redeclare">lint/suspicious/noRedeclare</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Shouldn't redeclare 'Person'. Consider to delete it or rename it.</span><br />  <br />    <strong>1 │ </strong>type Person = { name: string; }<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>class Person { name: string; }<br />   <strong>   │ </strong>      <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">'Person' is defined here:</span><br />  <br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>type Person = { name: string; }<br />   <strong>   │ </strong>     <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>class Person { name: string; }<br />    <strong>3 │ </strong><br />  <br /></code></pre>
 
 ### Valid
 

@@ -23,57 +23,19 @@ Hence, they may confuse a reader.
 /\a/;
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:1:2 <a href="https://biomejs.dev/linter/rules/no-useless-escape-in-regex">lint/nursery/noUselessEscapeInRegex</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The character doesn't need to be escaped.</span>
-  
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>/\a/;
-   <strong>   │ </strong> <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
-    <strong>2 │ </strong>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Safe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Unescape the character.</span>
-  
-<strong>  </strong><strong>  1 │ </strong>/<span style="color: Tomato;">\</span>a/;
-<strong>  </strong><strong>    │ </strong> <span style="color: Tomato;">-</span>   
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:1:2 <a href="https://biomejs.dev/linter/rules/no-useless-escape-in-regex">lint/nursery/noUselessEscapeInRegex</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The character doesn't need to be escaped.</span><br />  <br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>/\a/;<br />   <strong>   │ </strong> <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Safe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Unescape the character.</span><br />  <br /><strong>  </strong><strong>  1 │ </strong>/<span style="color: Tomato;">\</span>a/;<br /><strong>  </strong><strong>    │ </strong> <span style="color: Tomato;">-</span>   <br /></code></pre>
 
 ```js
 /[\-]/;
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:1:3 <a href="https://biomejs.dev/linter/rules/no-useless-escape-in-regex">lint/nursery/noUselessEscapeInRegex</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The character doesn't need to be escaped.</span>
-  
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>/[\-]/;
-   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
-    <strong>2 │ </strong>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The character should only be escaped if it appears in the middle of the character class or under the `v` flag.</span>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Safe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Unescape the character.</span>
-  
-<strong>  </strong><strong>  1 │ </strong>/[<span style="color: Tomato;">\</span>-]/;
-<strong>  </strong><strong>    │ </strong>  <span style="color: Tomato;">-</span>    
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:1:3 <a href="https://biomejs.dev/linter/rules/no-useless-escape-in-regex">lint/nursery/noUselessEscapeInRegex</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The character doesn't need to be escaped.</span><br />  <br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>/[\-]/;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The character should only be escaped if it appears in the middle of the character class or under the `v` flag.</span><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Safe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Unescape the character.</span><br />  <br /><strong>  </strong><strong>  1 │ </strong>/[<span style="color: Tomato;">\</span>-]/;<br /><strong>  </strong><strong>    │ </strong>  <span style="color: Tomato;">-</span>    <br /></code></pre>
 
 ```js
 /[\&]/v;
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:1:3 <a href="https://biomejs.dev/linter/rules/no-useless-escape-in-regex">lint/nursery/noUselessEscapeInRegex</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The character doesn't need to be escaped.</span>
-  
-<strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>/[\&amp;]/v;
-   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong>
-    <strong>2 │ </strong>
-  
-<strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Safe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Unescape the character.</span>
-  
-<strong>  </strong><strong>  1 │ </strong>/[<span style="color: Tomato;">\</span>&amp;]/v;
-<strong>  </strong><strong>    │ </strong>  <span style="color: Tomato;">-</span>     
-</code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:1:3 <a href="https://biomejs.dev/linter/rules/no-useless-escape-in-regex">lint/nursery/noUselessEscapeInRegex</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The character doesn't need to be escaped.</span><br />  <br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>/[\&amp;]/v;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Safe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Unescape the character.</span><br />  <br /><strong>  </strong><strong>  1 │ </strong>/[<span style="color: Tomato;">\</span>&amp;]/v;<br /><strong>  </strong><strong>    │ </strong>  <span style="color: Tomato;">-</span>     <br /></code></pre>
 
 ### Valid
 
