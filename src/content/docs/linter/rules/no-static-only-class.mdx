@@ -3,11 +3,120 @@ title: noStaticOnlyClass
 description: |
   'This rule reports when a class has no non-static members, such as for a class used exclusively as a static namespace.'
 ---
-import ContentJs from "@/components/generated/rules/no-static-only-class_js.md"
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 **Diagnostic Category: `lint/complexity/noStaticOnlyClass`**
 <Tabs>
-<TabItem label="JavaScript (and super languages)"><ContentJs /></TabItem>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+**Since**: `v1.0.0`
+:::note
+- This rule is recommended by Biome. A diagnostic error will appear when linting your code.
+:::
+
+Sources: 
+- Same as: <a href="https://typescript-eslint.io/rules/no-extraneous-class" target="_blank"><code>@typescript-eslint/no-extraneous-class</code></a>
+- Same as: <a href="https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-static-only-class.md" target="_blank"><code>unicorn/no-static-only-class</code></a>
+
+This rule reports when a class has no non-static members, such as for a class used exclusively as a static namespace.
+
+Users who come from a [OOP](https://en.wikipedia.org/wiki/Object-oriented_programming) paradigm may wrap their utility functions in an extra class,
+instead of putting them at the top level of an ECMAScript module. Doing so is generally unnecessary in JavaScript and TypeScript projects.
+
+- Wrapper classes add extra cognitive complexity to code without adding any structural improvements
+  - Whatever would be put on them, such as utility functions, are already organized by virtue of being in a module.
+  - As an alternative, you can import * as ... the module to get all of them in a single object.
+
+
+- IDEs can't provide as good suggestions for static class or namespace imported properties when you start typing property names
+- It's more difficult to statically analyze code for unused variables, etc. when they're all on the class (see: [Finding dead code (and dead types) in TypeScript](https://effectivetypescript.com/2020/10/20/tsprune)).
+
+## Examples
+
+### Invalid
+
+```js
+class X {
+  static foo = false;
+  static bar() {};
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-static-only-class">lint/complexity/noStaticOnlyClass</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Avoid classes that contain only static members.</span><br />  <br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>class X &#123;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  static foo = false;<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>  static bar() &#123;&#125;;<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>&#125;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>5 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Prefer using simple functions instead of classes with only static members.</span><br />  <br /></code></pre>
+
+```js
+class StaticConstants {
+  static readonly version = 42;
+
+  static isProduction() {
+    return process.env.NODE_ENV === 'production';
+  }
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:2:10 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">'readonly' modifier can only be used in TypeScript files</span><br />  <br />    <strong>1 │ </strong>class StaticConstants &#123;<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  static readonly version = 42;<br />   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong><br />    <strong>4 │ </strong>  static isProduction() &#123;<br />  <br /></code></pre>
+
+### Valid
+
+```js
+const X = {
+  foo: false,
+  bar() {}
+};
+```
+
+```js
+export const version = 42;
+
+export function isProduction() {
+  return process.env.NODE_ENV === 'production';
+}
+
+function logHelloWorld() {
+  console.log('Hello, world!');
+}
+```
+
+```js
+class Empty {}
+```
+
+## Notes on Mutating Variables
+
+One case you need to be careful of is exporting mutable variables. While class properties can be mutated externally, exported variables are always constant. This means that importers can only ever read the first value they are assigned and cannot write to the variables.
+
+Needing to write to an exported variable is very rare and is generally considered a code smell. If you do need it you can accomplish it using getter and setter functions:
+
+```js
+export class Utilities {
+  static mutableCount = 1;
+  static incrementCount() {
+    Utilities.mutableCount += 1;
+  }
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:8 <a href="https://biomejs.dev/linter/rules/no-static-only-class">lint/complexity/noStaticOnlyClass</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Avoid classes that contain only static members.</span><br />  <br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>export class Utilities &#123;<br />   <strong>   │ </strong>       <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  static mutableCount = 1;<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>  static incrementCount() &#123;<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>    Utilities.mutableCount += 1;<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>5 │ </strong>  &#125;<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>6 │ </strong>&#125;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>7 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Prefer using simple functions instead of classes with only static members.</span><br />  <br /></code></pre>
+
+Do this instead:
+
+```js
+let mutableCount = 1;
+
+export function getMutableCount() {
+  return mutableField;
+}
+
+export function incrementCount() {
+  mutableField += 1;
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
 </Tabs>
 

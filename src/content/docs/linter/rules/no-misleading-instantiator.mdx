@@ -3,11 +3,69 @@ title: noMisleadingInstantiator
 description: |
   'Enforce proper usage of <code>new</code> and <code>constructor</code>.'
 ---
-import ContentTs from "@/components/generated/rules/no-misleading-instantiator_ts.md"
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 **Diagnostic Category: `lint/suspicious/noMisleadingInstantiator`**
 <Tabs>
-<TabItem label="TypeScript and TSX"><ContentTs /></TabItem>
+<TabItem label="TypeScript and TSX" icon="seti:typescript">
+**Since**: `v1.3.0`
+:::note
+- This rule is recommended by Biome. A diagnostic error will appear when linting your code.
+:::
+
+Sources: 
+- Same as: <a href="https://typescript-eslint.io/rules/no-misused-new" target="_blank"><code>@typescript-eslint/no-misused-new</code></a>
+
+Enforce proper usage of `new` and `constructor`.
+
+In JavaScript, classes utilize the `constructor` method to initialize a new instance. On the other hand, TypeScript interfaces can describe a class type with a `new()` method signature, though this pattern is not commonly seen in real-world code. Developers, especially those new to JavaScript or TypeScript, might occasionally confuse the use of `constructor` with `new`.
+This rule triggers warnings in the following scenarios:
+
+- When a class has a method named `new`.
+- When an interface defines a method named `constructor` or `new` that returns the interface type.
+- When a type alias has a `constructor` method.
+
+You should not use this rule if you intentionally want a class with a `new` method, and you're confident nobody working in your code will mistake it with an `constructor`.
+
+## Examples
+
+### Invalid
+
+```ts
+interface I {
+  new (): I;
+  constructor(): void;
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.ts:2:3 <a href="https://biomejs.dev/linter/rules/no-misleading-instantiator">lint/suspicious/noMisleadingInstantiator</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Don't use the </span><span style="color: Tomato;"><strong>new</strong></span><span style="color: Tomato;"> method in interfaces.</span><br />  <br />    <strong>1 │ </strong>interface I &#123;<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  new (): I;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>  constructor(): void;<br />    <strong>4 │ </strong>&#125;<br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;"><strong>new</strong></span><span style="color: lightgreen;"> in an interface suggests it's instantiable, which is incorrect. The returned type should different from the constructor's type.</span><br />  <br /></code></pre>
+
+```ts
+class C {
+  new(): C;
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.ts:2:3 <a href="https://biomejs.dev/linter/rules/no-misleading-instantiator">lint/suspicious/noMisleadingInstantiator</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Don't use the </span><span style="color: Tomato;"><strong>new</strong></span><span style="color: Tomato;"> method in classes.</span><br />  <br />    <strong>1 │ </strong>class C &#123;<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  new(): C;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;"><strong>new</strong></span><span style="color: lightgreen;"> is typically used to instantiate objects. In classes, its usage can be misleading.</span><br />  <br /></code></pre>
+
+### Valid
+
+```ts
+declare class C {
+  constructor();
+}
+
+interface I {
+  new (): C;
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
 </Tabs>
 

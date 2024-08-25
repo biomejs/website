@@ -3,11 +3,45 @@ title: noLabelVar
 description: |
   'Disallow labels that share a name with a variable'
 ---
-import ContentJs from "@/components/generated/rules/no-label-var_js.md"
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 **Diagnostic Category: `lint/suspicious/noLabelVar`**
 <Tabs>
-<TabItem label="JavaScript (and super languages)"><ContentJs /></TabItem>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+**Since**: `v1.0.0`
+:::note
+- This rule is recommended by Biome. A diagnostic error will appear when linting your code.
+:::
+
+Sources: 
+- Same as: <a href="https://eslint.org/docs/latest/rules/no-label-var" target="_blank"><code>no-label-var</code></a>
+
+Disallow labels that share a name with a variable
+
+## Examples
+
+### Invalid
+
+```js
+const x1 = "test";
+x1: expr;
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:2:1 <a href="https://biomejs.dev/linter/rules/no-label-var">lint/suspicious/noLabelVar</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Do not use the </span><span style="color: Tomato;"><strong>x1</strong></span><span style="color: Tomato;"> variable name as a label</span><br />  <br />    <strong>1 │ </strong>const x1 = &quot;test&quot;;<br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>x1: expr;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The variable is declared here</span><br />  <br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>const x1 = &quot;test&quot;;<br />   <strong>   │ </strong>      <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>x1: expr;<br />    <strong>3 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Creating a label with the same name as an in-scope variable leads to confusion.</span><br />  <br /></code></pre>
+
+### Valid
+
+```js
+const x = "test";
+z: expr;
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
 </Tabs>
 

@@ -3,11 +3,37 @@ title: noVoid
 description: |
   'Disallow the use of <code>void</code> operators, which is not a familiar operator.'
 ---
-import ContentJs from "@/components/generated/rules/no-void_js.md"
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 **Diagnostic Category: `lint/complexity/noVoid`**
 <Tabs>
-<TabItem label="JavaScript (and super languages)"><ContentJs /></TabItem>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+**Since**: `v1.0.0`
+Sources: 
+- Same as: <a href="https://eslint.org/docs/latest/rules/no-void" target="_blank"><code>no-void</code></a>
+
+Disallow the use of `void` operators, which is not a familiar operator.
+
+>The `void` operator is often used merely to obtain the undefined primitive value,
+usually using `void(0)` (which is equivalent to `void 0`). In these cases, the global variable `undefined` can be used.
+
+
+## Examples
+
+### Invalid
+
+```js
+void 0;
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-void">lint/complexity/noVoid</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Orange;">  </span></strong><strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">The use of </span><span style="color: Orange;"><strong>void</strong></span><span style="color: Orange;"> is not allowed.</span><br />  <br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>void 0;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">If you use </span><span style="color: lightgreen;"><strong>void</strong></span><span style="color: lightgreen;"> to alter the return type of a function or return `undefined`, use the global `undefined` instead.</span><br />  <br /></code></pre>
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
 </Tabs>
 
