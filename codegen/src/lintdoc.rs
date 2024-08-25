@@ -25,7 +25,7 @@ use biome_json_syntax::JsonLanguage;
 use biome_service::settings::WorkspaceSettings;
 use biome_service::workspace::DocumentFileSource;
 use biome_string_case::Case;
-use pulldown_cmark::{html::write_html, CodeBlockKind, Event, LinkType, Parser, Tag, TagEnd};
+use pulldown_cmark::{CodeBlockKind, Event, LinkType, Parser, Tag, TagEnd};
 use std::collections::{BTreeSet, HashMap};
 use std::error::Error;
 use std::path::PathBuf;
@@ -335,9 +335,7 @@ fn generate_group(
 
             push_language_icon(language, &mut properties);
 
-            let mut summary_html = Vec::new();
-            write_html(&mut summary_html, summary.clone().into_iter())?;
-            let summary_html = String::from_utf8_lossy(&summary_html);
+            let summary_html = events_to_text(summary.clone());
             write!(
                 content,
                 "| [{rule_name}](/linter/rules/{dashed_rule}) | {summary_html} | {properties} |"
@@ -383,9 +381,7 @@ fn generate_rule(payload: GenRule) -> Result<Vec<Event<'static>>> {
         })
         .collect();
 
-    let mut summary_text = Vec::new();
-    write_html(&mut summary_text, summary.clone().into_iter())?;
-    let summary_text = String::from_utf8_lossy(&summary_text);
+    let summary_text = events_to_text(summary.clone());
 
     writeln!(content, "---")?;
     writeln!(content, "title: {}", payload.rule_name)?;
@@ -1126,4 +1122,17 @@ fn push_language_icon(language: &str, properties: &mut String) {
             panic!("Language {} isn't supported.", language)
         }
     }
+}
+
+fn events_to_text(events: Vec<Event>) -> String {
+    let mut buffer = String::new();
+
+    for event in events {
+        match event {
+            Event::Text(text) => buffer.push_str(&*text),
+            _ => {}
+        }
+    }
+
+    buffer
 }
