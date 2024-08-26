@@ -1330,6 +1330,20 @@ export function GET() {
             ],
             "docs": " Disallow the use of overload signatures that are not next to each other.\n\n Overload signatures must be adjacent.\n If a key is defined multiple times, only the last definition takes effect. Previous definitions are ignored.\n This rule is useful for preventing accidental overloads that are not adjacent.\n It is recommended to keep the overload signatures adjacent to make the code easier to read and maintain.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n type Foo = {\n   foo_type(s: string): void;\n   foo_type(n: number): void;\n   bar_type(): void;\n   foo_type(sn: string | number): void;\n };\n ```\n\n ```ts,expect_diagnostic\n interface Foo {\n   foo_interface(s: string): void;\n   foo_interface(n: number): void;\n   bar_interface(): void;\n   foo_interface(sn: string | number): void;\n }\n ```\n\n ```ts,expect_diagnostic,ignore\n class A {\n   fooA(s: string): void;\n   fooA(n: number): void;\n   barA(): void {};\n   fooA(sn: string | number): void {};\n }\n ```\n\n ### Valid\n\n ```ts\n declare namespace Foo {\n   export function foo_declare(s: string): void;\n   export function foo_declare(n: number): void;\n   export function foo_declare(sn: string | number): void;\n   export function bar_declare(): void;\n }\n ```\n\n ```ts\n type Foo = {\n   foo_type(s: string): void;\n   foo_type(n: number): void;\n   foo_type(sn: string | number): void;\n   bar_type(): void;\n };\n ```\n\n ```ts\n interface Foo {\n   foo_interface(s: string): void;\n   foo_interface(n: number): void;\n   foo_interface(sn: string | number): void;\n   bar_interface(): void;\n }\n ```\n\n ```ts\n class A {\n   fooA(s: string): void;\n   fooA(n: number): void;\n   fooA(sn: string | number): void {}\n   barA(): void {}\n }\n ```\n\n"
           },
+          "useAriaPropsSupportedByRole": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useAriaPropsSupportedByRole",
+            "link": "https://biomejs.dev/linter/rules/use-aria-props-supported-by-role",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslintJsxA11y": "role-supports-aria-props"
+              }
+            ],
+            "docs": " Enforce that ARIA properties are valid for the roles that are supported by the element.\n\n Invalid ARIA properties can make it difficult for users of assistive technologies to understand the purpose of the element.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <a href=\"#\" aria-checked />\n ```\n\n ```jsx,expect_diagnostic\n <img alt=\"foobar\" aria-checked />\n ```\n\n ### Valid\n\n ```js\n <>\n     <a href=\"#\" aria-expanded />\n     <img alt=\"foobar\" aria-hidden />\n     <div role=\"heading\" aria-level=\"1\" />\n </>\n ```\n\n"
+          },
           "useConsistentBuiltinInstantiation": {
             "deprecated": false,
             "version": "1.7.2",
@@ -3692,7 +3706,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 263
+    "numberOrRules": 264
   },
   "syntax": {
     "languages": {
