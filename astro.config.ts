@@ -276,6 +276,11 @@ export default defineConfig({
 								"pt-BR": "Extensão do VSCode",
 							},
 						},
+						{
+							label: "GritQL",
+							link: "/reference/gritql",
+							badge: "experimental"
+						},
 					],
 				},
 				{
