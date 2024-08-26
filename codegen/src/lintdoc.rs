@@ -25,7 +25,7 @@ use biome_json_syntax::JsonLanguage;
 use biome_service::settings::WorkspaceSettings;
 use biome_service::workspace::DocumentFileSource;
 use biome_string_case::Case;
-use pulldown_cmark::{html::write_html, CodeBlockKind, Event, LinkType, Parser, Tag, TagEnd};
+use pulldown_cmark::{CodeBlockKind, Event, LinkType, Parser, Tag, TagEnd};
 use std::collections::{BTreeSet, HashMap};
 use std::error::Error;
 use std::path::PathBuf;
@@ -149,7 +149,6 @@ pub fn generate_rule_docs() -> Result<()> {
         project_root().join("src/components/generated/NumberOfRules.astro");
     let reference_recommended_rules =
         project_root().join("src/components/generated/RecommendedRules.astro");
-    let generated_content_root = project_root().join("src/components/generated/rules");
     // Clear the rules directory ignoring "not found" errors
 
     if root.exists() {
@@ -164,20 +163,7 @@ pub fn generate_rule_docs() -> Result<()> {
             }
         }
     }
-    if generated_content_root.exists() {
-        if let Err(err) = fs::remove_dir_all(&generated_content_root) {
-            let is_not_found = err
-                .source()
-                .and_then(|err| err.downcast_ref::<io::Error>())
-                .map_or(false, |err| matches!(err.kind(), io::ErrorKind::NotFound));
-
-            if !is_not_found {
-                return Err(err.into());
-            }
-        }
-    }
     fs::create_dir_all(&root)?;
-    fs::create_dir_all(&generated_content_root)?;
 
     // Content of the index page
     let mut index = Vec::new();
@@ -238,7 +224,6 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
             group,
             rules,
             &root,
-            &generated_content_root,
             &mut index,
             &mut errors,
             &mut recommended_rules,
@@ -289,24 +274,22 @@ fn generate_group(
     group: &'static str,
     rules: BTreeMap<&'static str, RuleToDocument>,
     content_root: &Path,
-    generated_root: &Path,
-    main_page_buffer: &mut dyn io::Write,
+    content: &mut dyn io::Write,
     errors: &mut Vec<(&'static str, anyhow::Error)>,
     recommended_rules: &mut String,
 ) -> io::Result<()> {
     let (group_name, description) = extract_group_metadata(group);
     let is_nursery = group == "nursery";
 
-    writeln!(main_page_buffer, "\n## {group_name}")?;
-    writeln!(main_page_buffer)?;
-    write_markup_to_string(main_page_buffer, description)?;
-    writeln!(main_page_buffer)?;
-    writeln!(main_page_buffer, "| Rule name | Description | Properties |")?;
-    writeln!(main_page_buffer, "| --- | --- | --- |")?;
+    writeln!(content, "\n## {group_name}")?;
+    writeln!(content)?;
+    write_markup_to_string(content, description)?;
+    writeln!(content)?;
+    writeln!(content, "| Rule name | Description | Properties |")?;
+    writeln!(content, "| --- | --- | --- |")?;
 
     for (rule_name, rule_to_document) in rules {
         let summary = generate_rule(GenRule {
-            generated_root,
             content_root,
             group,
             rule_name,
@@ -350,17 +333,15 @@ fn generate_group(
                 FixKind::None => {}
             }
 
-            to_language_icon(language, &mut properties);
+            push_language_icon(language, &mut properties);
 
-            let mut summary_html = Vec::new();
-            write_html(&mut summary_html, summary.clone().into_iter())?;
-            let summary_html = String::from_utf8_lossy(&summary_html);
+            let summary_html = events_to_text(summary.clone());
             write!(
-                main_page_buffer,
+                content,
                 "| [{rule_name}](/linter/rules/{dashed_rule}) | {summary_html} | {properties} |"
             )?;
 
-            writeln!(main_page_buffer)?;
+            writeln!(content)?;
         }
     }
 
@@ -369,7 +350,6 @@ fn generate_group(
 
 struct GenRule<'a> {
     content_root: &'a Path,
-    generated_root: &'a Path,
     group: &'static str,
     rule_name: &'static str,
     is_nursery: bool,
@@ -396,15 +376,12 @@ fn generate_rule(payload: GenRule) -> Result<Vec<Event<'static>>> {
                 payload.is_nursery,
                 meta,
                 &mut summary,
-                payload.generated_root,
             )
             .ok()
         })
         .collect();
 
-    let mut summary_text = Vec::new();
-    write_html(&mut summary_text, summary.clone().into_iter())?;
-    let summary_text = String::from_utf8_lossy(&summary_text);
+    let summary_text = events_to_text(summary.clone());
 
     writeln!(content, "---")?;
     writeln!(content, "title: {}", payload.rule_name)?;
@@ -414,14 +391,6 @@ fn generate_rule(payload: GenRule) -> Result<Vec<Event<'static>>> {
         summary_text.replace("'", "\'")
     )?;
     writeln!(content, "---")?;
-
-    for (_, component, import) in result.clone() {
-        writeln!(
-            content,
-            "import {} from \"@/components/generated/rules/{}\"",
-            component, import
-        )?;
-    }
 
     writeln!(
         content,
@@ -438,12 +407,14 @@ fn generate_rule(payload: GenRule) -> Result<Vec<Event<'static>>> {
 
     writeln!(content, "<Tabs>")?;
 
-    for (language, component, _) in result {
+    for (rule_content, language, icon) in result {
         writeln!(
             content,
-            "<TabItem label=\"{}\"><{} /></TabItem>",
-            language, component
+            "<TabItem label=\"{}\" icon=\"{}\">",
+            language, icon
         )?;
+        writeln!(content, "{}", String::from_utf8(rule_content).unwrap())?;
+        writeln!(content, "</TabItem>")?;
     }
 
     writeln!(content, "</Tabs>\n")?;
@@ -464,11 +435,9 @@ fn generate_rule_content<'a>(
     is_nursery: bool,
     meta: &RuleMetadata,
     summary: &mut Vec<Event<'static>>,
-    root: &'a Path,
-) -> Result<(String, String, String)> {
-    let mut content = Vec::new();
-
+) -> Result<(Vec<u8>, String, String)> {
     let is_recommended = !is_nursery && meta.recommended;
+    let mut content = Vec::new();
 
     writeln!(content, "**Since**: `v{}`", meta.version)?;
 
@@ -532,15 +501,10 @@ fn generate_rule_content<'a>(
     )?;
     writeln!(content, "- [Rule options](/linter/#rule-options)")?;
 
-    let dashed_rule = Case::Kebab.convert(rule_name);
-    let component_name = format!("Content{}", Case::Pascal.convert(language));
-    let import_name = format!("{dashed_rule}_{language}.md");
-    fs::write(root.join(import_name.clone()), content)?;
-
     Ok((
+        content,
         to_language_tab(language).to_string(),
-        component_name,
-        import_name,
+        to_language_icon(language).to_string(),
     ))
 }
 
@@ -820,7 +784,7 @@ fn print_diagnostics(
 ) -> Result<()> {
     let file_path = format!("code-block.{}", test.tag);
 
-    let mut write = HTML(content);
+    let mut write = HTML::new(content).with_mdx();
 
     let mut write_diagnostic = |_: &str, diag: biome_diagnostics::Error| {
         Formatter::new(&mut write).write_markup(markup! {
@@ -1091,7 +1055,7 @@ Rules that belong to this group "<Emphasis>"are not subject to semantic version"
 }
 
 pub fn write_markup_to_string(buffer: &mut dyn io::Write, markup: Markup) -> io::Result<()> {
-    let mut write = HTML(buffer);
+    let mut write = HTML::new(buffer).with_mdx();
     let mut fmt = Formatter::new(&mut write);
     fmt.write_markup(markup)
 }
@@ -1120,7 +1084,21 @@ fn to_language_tab(language: &str) -> &str {
     }
 }
 
-fn to_language_icon(language: &str, properties: &mut String) {
+fn to_language_icon(language: &str) -> &str {
+    match language {
+        "js" => "seti:javascript",
+        "jsx" => "seti:javascript",
+        "ts" => "seti:typescript",
+        "json" => "seti:json",
+        "css" => "seti:css",
+        "graphql" => "seti:graphql",
+        _ => {
+            panic!("Language {} isn't supported.", language)
+        }
+    }
+}
+
+fn push_language_icon(language: &str, properties: &mut String) {
     match language {
         "js" => {
             properties.push_str("<span class='inline-icon' title=\"JavaScript and super languages rule.\"><Icon name=\"seti:javascript\" label=\"JavaScript and super languages rule.\" size=\"1.2rem\"/></span>");
@@ -1144,4 +1122,17 @@ fn to_language_icon(language: &str, properties: &mut String) {
             panic!("Language {} isn't supported.", language)
         }
     }
+}
+
+fn events_to_text(events: Vec<Event>) -> String {
+    let mut buffer = String::new();
+
+    for event in events {
+        match event {
+            Event::Text(text) => buffer.push_str(&*text),
+            _ => {}
+        }
+    }
+
+    buffer
 }

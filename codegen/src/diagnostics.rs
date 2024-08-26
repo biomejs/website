@@ -107,7 +107,7 @@ fn print_diagnostic(diagnostic: biome_diagnostics::Error, root: &Path, name: &st
         "<pre class='language-text'><code class='language-text'>"
     )?;
 
-    let mut writer = HTML(&mut content);
+    let mut writer = HTML::new(&mut content).with_mdx();
 
     let mut write_diagnostic = |diag: biome_diagnostics::Error| -> Result<()> {
         Formatter::new(&mut writer).write_markup(markup! {

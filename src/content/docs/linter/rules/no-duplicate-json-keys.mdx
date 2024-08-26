@@ -3,11 +3,46 @@ title: noDuplicateJsonKeys
 description: |
   'Disallow two keys with the same name inside a JSON object.'
 ---
-import ContentJson from "@/components/generated/rules/no-duplicate-json-keys_json.md"
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 **Diagnostic Category: `lint/nursery/noDuplicateJsonKeys`**
 <Tabs>
-<TabItem label="JSON (and super languages)"><ContentJson /></TabItem>
+<TabItem label="JSON (and super languages)" icon="seti:json">
+**Since**: `v1.0.0`
+:::caution
+This rule is part of the [nursery](/linter/rules/#nursery) group.
+:::
+
+Disallow two keys with the same name inside a JSON object.
+
+## Examples
+
+### Invalid
+
+```json
+{
+  "title": "New title",
+  "title": "Second title"
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.json:2:3 <a href="https://biomejs.dev/linter/rules/no-duplicate-json-keys">lint/nursery/noDuplicateJsonKeys</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The key </span><span style="color: Tomato;"><strong>title</strong></span><span style="color: Tomato;"> was already declared.</span><br />  <br />    <strong>1 │ </strong>&#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  &quot;title&quot;: &quot;New title&quot;,<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>  &quot;title&quot;: &quot;Second title&quot;<br />    <strong>4 │ </strong>&#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This where a duplicated key was declared again.</span><br />  <br />    <strong>1 │ </strong>&#123;<br />    <strong>2 │ </strong>  &quot;title&quot;: &quot;New title&quot;,<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>  &quot;title&quot;: &quot;Second title&quot;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>&#125;<br />    <strong>5 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">If a key is defined multiple times, only the last definition takes effect. Previous definitions are ignored.</span><br />  <br /></code></pre>
+
+### Valid
+
+```json
+{
+  "title": "New title",
+  "secondTitle": "Second title"
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
 </Tabs>
 
