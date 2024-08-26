@@ -279,7 +279,7 @@ export default defineConfig({
 						{
 							label: "GritQL",
 							link: "/reference/gritql",
-							badge: "experimental"
+							badge: "experimental",
 						},
 					],
 				},
