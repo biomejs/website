@@ -24,7 +24,7 @@ It is generally bad practice to use `==` for comparison instead of
 and are thus not prefered. Using strict equality operators is almost
 always best practice.
 
-For ergonomic reasons, this rule makes an exception for `== null` for
+For ergonomic reasons, this rule makes by default an exception for `== null` for
 comparing to both `null` and `undefined`.
 
 ## Examples
@@ -35,7 +35,7 @@ comparing to both `null` and `undefined`.
 foo == bar
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:1:5 <a href="https://biomejs.dev/linter/rules/no-double-equals">lint/suspicious/noDoubleEquals</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Use </span><span style="color: Tomato;"><strong>===</strong></span><span style="color: Tomato;"> instead of </span><span style="color: Tomato;"><strong>==</strong></span><br />  <br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>foo == bar<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;"><strong>==</strong></span><span style="color: lightgreen;"> is only allowed when comparing against </span><span style="color: lightgreen;"><strong>null</strong></span><br />  <br /><strong><span style="color: Tomato;">  </span></strong><strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>foo == bar<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Using </span><span style="color: lightgreen;"><strong>==</strong></span><span style="color: lightgreen;"> may be unsafe if you are relying on type coercion</span><br />  <br /><strong><span style="color: lightgreen;">  </span></strong><strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Use </span><span style="color: lightgreen;"><strong>===</strong></span><br />  <br /><strong>  </strong><strong>  1 │ </strong>foo<span style="opacity: 0.8;">·</span>==<span style="color: MediumSeaGreen;">=</span><span style="opacity: 0.8;">·</span>bar<br /><strong>  </strong><strong>    │ </strong>      <span style="color: MediumSeaGreen;">+</span>    <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:1:5 <a href="https://biomejs.dev/linter/rules/no-double-equals">lint/suspicious/noDoubleEquals</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Use </span><span style="color: Tomato;"><strong>===</strong></span><span style="color: Tomato;"> instead of </span><span style="color: Tomato;"><strong>==</strong></span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>foo == bar<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;"><strong>==</strong></span><span style="color: lightgreen;"> is only allowed when comparing against </span><span style="color: lightgreen;"><strong>null</strong></span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>foo == bar<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Using </span><span style="color: lightgreen;"><strong>==</strong></span><span style="color: lightgreen;"> may be unsafe if you are relying on type coercion</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Use </span><span style="color: lightgreen;"><strong>===</strong></span><br />  <br />  <strong>  1 │ </strong>foo<span style="opacity: 0.8;">·</span>==<span style="color: MediumSeaGreen;">=</span><span style="opacity: 0.8;">·</span>bar<br />  <strong>    │ </strong>      <span style="color: MediumSeaGreen;">+</span>    <br /></code></pre>
 
 ### Valid
 
@@ -54,6 +54,30 @@ null == foo
 ```js
 null != foo
 ```
+
+## Options
+
+The rule provides the option described below.
+
+```json
+{
+    "//":"...",
+    "options": {
+        "ignoreNull": true
+    }
+}
+```
+
+### ignoreNull
+
+When this option is set to `true`, an exception will be made for checking against `null`,
+as relying on the double equals operator to compare with `null` is frequently used to check
+equality with either `null` or `undefined`.
+
+When the option is set to `false`, all double equal operators will be forbidden without
+exceptions.
+
+Default: `true`
 
 ## Related links
 
