@@ -1,0 +1,65 @@
+---
+title: noEnum
+description: |
+  'Disallow TypeScript enum.'
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+**Diagnostic Category: `lint/nursery/noEnum`**
+<Tabs>
+<TabItem label="TypeScript and TSX" icon="seti:typescript">
+**Since**: `vnext`
+:::caution
+This rule is part of the [nursery](/linter/rules/#nursery) group.
+:::
+
+Disallow TypeScript enum.
+
+TypeScript enums are not a type-level extension to JavaScript like type annotations or definitions.
+Users may wish to disable non-type-level extensions to use bundlers or compilers that only strip types.
+
+Const enums are not covered by this rule since `noConstEnum` already handles them.
+Enums within the ambient context, including declaration files, are ignores as well.
+
+## Examples
+
+### Invalid
+
+```ts
+enum Foo {
+    BAR = 'bar',
+    BAZ = 'baz',
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.ts:1:1 <a href="https://biomejs.dev/linter/rules/no-enum">lint/nursery/noEnum</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Don't use </span><span style="color: Orange;"><strong>enum</strong></span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>enum Foo &#123;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>    BAR = 'bar',<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>    BAZ = 'baz',<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>&#125;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>5 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">TypeScript enums are not a type-level extension to JavaScript like type annotations or definitions. Users may wish to disable non-type-level extensions to use bundlers or compilers that only strip types.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Use JavaScript objects or TypeScript unions instead.</span><br />  <br /></code></pre>
+
+### Valid
+
+```ts
+const Foo = {
+    BAR: 'bar',
+    BAZ: 'baz',
+} as const
+```
+
+```ts
+type Foo = 'bar' | 'baz'
+```
+
+```ts
+const enum Foo {
+    BAR = 'bar',
+    BAZ = 'baz',
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
+</Tabs>
+

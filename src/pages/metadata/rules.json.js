@@ -3366,6 +3366,15 @@ export function GET() {
           }
         },
         "nursery": {
+          "noEnum": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noEnum",
+            "link": "https://biomejs.dev/linter/rules/no-enum",
+            "recommended": false,
+            "fixKind": "none",
+            "docs": " Disallow TypeScript enum.\n\n TypeScript enums are not a type-level extension to JavaScript like type annotations or definitions.\n Users may wish to disable non-type-level extensions to use bundlers or compilers that only strip types.\n\n Const enums are not covered by this rule since `noConstEnum` already handles them.\n Enums within the ambient context, including declaration files, are ignores as well.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n enum Foo {\n     BAR = 'bar',\n     BAZ = 'baz',\n }\n ```\n\n ### Valid\n\n ```ts\n const Foo = {\n     BAR: 'bar',\n     BAZ: 'baz',\n } as const\n ```\n\n ```ts\n type Foo = 'bar' | 'baz'\n ```\n\n ```ts\n const enum Foo {\n     BAR = 'bar',\n     BAZ = 'baz',\n }\n ```\n\n\n"
+          },
           "noEvolvingTypes": {
             "deprecated": false,
             "version": "1.6.3",
@@ -3706,7 +3715,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 264
+    "numberOrRules": 265
   },
   "syntax": {
     "languages": {
