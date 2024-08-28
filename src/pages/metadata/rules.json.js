@@ -3776,6 +3776,21 @@ export function GET() {
             "recommended": false,
             "fixKind": "unsafe",
             "docs": " Provides a whole-source code action to sort the imports in the file\n using import groups and natural ordering.\n\n ## Examples\n\n ```js\n import React, {\n     FC,\n     useEffect,\n     useRef,\n     ChangeEvent,\n     KeyboardEvent,\n } from 'react';\n import { logger } from '@core/logger';\n import { reduce, debounce } from 'lodash';\n import { Message } from '../Message';\n import { createServer } from '@server/node';\n import { Alert } from '@ui/Alert';\n import { repeat, filter, add } from '../utils';\n import { initializeApp } from '@core/app';\n import { Popup } from '@ui/Popup';\n import { createConnection } from '@server/database';\n ```\n"
+          },
+          "sortJsxProps": {
+            "deprecated": false,
+            "version": "next",
+            "name": "sortJsxProps",
+            "link": "https://biomejs.dev/linter/rules/sort-jsx-props",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslintReact": "jsx-sort-props"
+              }
+            ],
+            "sourceKind": "sameLogic",
+            "docs": " Enforce props sorting in JSX elements.\n\n This rule checks if the JSX props are sorted in a consistent way.\n Props are sorted alphabetically.\n This rule will not consider spread props as sortable.\n Instead, whenever it encounters a spread prop, it will sort all the\n previous non spread props up until the nearest spread prop, if one\n exist.\n This prevents breaking the override of certain props using spread\n props.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n <Hello lastName=\"Smith\" firstName=\"John\" />;\n ```\n\n ### Valid\n\n ```js\n <Hello firstName=\"John\" lastName=\"Smith\" />;\n <Hello lastName=\"Smith\" {...this.props} firstName=\"John\" />;\n <Hello tel={5555555} {...this.props} firstName=\"John\"  {...another.props} lastName=\"Smith\" />;\n ```\n\n"
           }
         }
       },
@@ -3793,7 +3808,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 2
+    "numberOrRules": 3
   }
 };
 	// const json_file = new URL("_metadata.json", root);
