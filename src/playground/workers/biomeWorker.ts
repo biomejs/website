@@ -40,7 +40,7 @@ let configuration: undefined | Configuration;
 function getPathForFile(file: File): BiomePath {
 	return {
 		path: file.filename,
-		kind: ["Handleable"],
+		kind: 1 << 4,
 		was_written: false,
 	};
 }
