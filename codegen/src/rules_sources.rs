@@ -1,4 +1,5 @@
 use crate::lintdoc::RuleToDocument;
+use crate::shared::add_codegen_disclaimer_frontmatter;
 use anyhow::Result;
 use biome_string_case::Case;
 use std::cmp::Ordering;
@@ -31,10 +32,11 @@ pub(crate) fn generate_rule_sources(
 ) -> Result<Vec<u8>> {
     let mut buffer = vec![];
 
+    writeln!(buffer, "---")?;
+    add_codegen_disclaimer_frontmatter(&mut buffer)?;
     writeln!(
         buffer,
-        r#"---
-# This file was auto generated. Don't attempt to modify it.
+        r#"
 title: Rules sources
 description: A page that maps lint rules from other sources to Biome
 ---

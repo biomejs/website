@@ -1,5 +1,6 @@
 use crate::project_root;
 use crate::rules_sources::generate_rule_sources;
+use crate::shared::add_codegen_disclaimer_frontmatter;
 use anyhow::Context;
 use anyhow::{bail, Result};
 use biome_analyze::options::JsxRuntime;
@@ -169,6 +170,7 @@ pub fn generate_rule_docs() -> Result<()> {
     let mut index = Vec::new();
     let mut reference_buffer = Vec::new();
     writeln!(index, "---")?;
+    add_codegen_disclaimer_frontmatter(&mut index)?;
     writeln!(index, "title: Rules")?;
     writeln!(index, "description: List of available lint rules.")?;
     writeln!(index, "---")?;
@@ -384,10 +386,11 @@ fn generate_rule(payload: GenRule) -> Result<Vec<Event<'static>>> {
     let summary_text = events_to_text(summary.clone());
 
     writeln!(content, "---")?;
+    add_codegen_disclaimer_frontmatter(&mut content)?;
     writeln!(content, "title: {}", payload.rule_name)?;
     writeln!(
         content,
-        "description: |\n  '{}'",
+        "description: |\n  {}",
         summary_text.replace("'", "\'")
     )?;
     writeln!(content, "---")?;

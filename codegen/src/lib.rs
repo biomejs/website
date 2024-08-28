@@ -6,6 +6,7 @@ pub mod diagnostics;
 pub mod lintdoc;
 pub mod metadata;
 pub mod rules_sources;
+mod shared;
 pub mod website;
 
 pub fn project_root() -> PathBuf {
