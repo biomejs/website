@@ -1330,6 +1330,20 @@ export function GET() {
             ],
             "docs": " Disallow the use of overload signatures that are not next to each other.\n\n Overload signatures must be adjacent.\n If a key is defined multiple times, only the last definition takes effect. Previous definitions are ignored.\n This rule is useful for preventing accidental overloads that are not adjacent.\n It is recommended to keep the overload signatures adjacent to make the code easier to read and maintain.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n type Foo = {\n   foo_type(s: string): void;\n   foo_type(n: number): void;\n   bar_type(): void;\n   foo_type(sn: string | number): void;\n };\n ```\n\n ```ts,expect_diagnostic\n interface Foo {\n   foo_interface(s: string): void;\n   foo_interface(n: number): void;\n   bar_interface(): void;\n   foo_interface(sn: string | number): void;\n }\n ```\n\n ```ts,expect_diagnostic,ignore\n class A {\n   fooA(s: string): void;\n   fooA(n: number): void;\n   barA(): void {};\n   fooA(sn: string | number): void {};\n }\n ```\n\n ### Valid\n\n ```ts\n declare namespace Foo {\n   export function foo_declare(s: string): void;\n   export function foo_declare(n: number): void;\n   export function foo_declare(sn: string | number): void;\n   export function bar_declare(): void;\n }\n ```\n\n ```ts\n type Foo = {\n   foo_type(s: string): void;\n   foo_type(n: number): void;\n   foo_type(sn: string | number): void;\n   bar_type(): void;\n };\n ```\n\n ```ts\n interface Foo {\n   foo_interface(s: string): void;\n   foo_interface(n: number): void;\n   foo_interface(sn: string | number): void;\n   bar_interface(): void;\n }\n ```\n\n ```ts\n class A {\n   fooA(s: string): void;\n   fooA(n: number): void;\n   fooA(sn: string | number): void {}\n   barA(): void {}\n }\n ```\n\n"
           },
+          "useAriaPropsSupportedByRole": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useAriaPropsSupportedByRole",
+            "link": "https://biomejs.dev/linter/rules/use-aria-props-supported-by-role",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslintJsxA11y": "role-supports-aria-props"
+              }
+            ],
+            "docs": " Enforce that ARIA properties are valid for the roles that are supported by the element.\n\n Invalid ARIA properties can make it difficult for users of assistive technologies to understand the purpose of the element.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <a href=\"#\" aria-checked />\n ```\n\n ```jsx,expect_diagnostic\n <img alt=\"foobar\" aria-checked />\n ```\n\n ### Valid\n\n ```js\n <>\n     <a href=\"#\" aria-expanded />\n     <img alt=\"foobar\" aria-hidden />\n     <div role=\"heading\" aria-level=\"1\" />\n </>\n ```\n\n"
+          },
           "useConsistentBuiltinInstantiation": {
             "deprecated": false,
             "version": "1.7.2",
@@ -2165,7 +2179,7 @@ export function GET() {
                 "eslint": "no-dupe-keys"
               }
             ],
-            "docs": " Prevents object literals having more than one property declaration for the same name.\n\n If an object property with the same name is defined multiple times (except when combining a getter with a setter), only the last definition makes it into the object and previous definitions are ignored, which is likely a mistake.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const obj = {\n\t\ta: 1,\n\t\ta: 2,\n }\n ```\n\n ```js,expect_diagnostic\n const obj = {\n\t\tset a(v) {},\n\t\ta: 2,\n }\n ```\n\n ### Valid\n\n ```js\n const obj = {\n\t\ta: 1,\n\t\tb: 2,\n }\n ```\n\n ```js\n const obj = {\n\t\tget a() { return 1; },\n\t\tset a(v) {},\n }\n ```\n\n"
+            "docs": " Disallow two keys with the same name inside objects.\n\n If an object property with the same name is defined multiple times (except when combining a getter with a setter), only the last definition makes it into the object and previous definitions are ignored, which is likely a mistake.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const obj = {\n\t\ta: 1,\n\t\ta: 2,\n }\n ```\n\n ```js,expect_diagnostic\n const obj = {\n\t\tset a(v) {},\n\t\ta: 2,\n }\n ```\n\n ### Valid\n\n ```js\n const obj = {\n\t\ta: 1,\n\t\tb: 2,\n }\n ```\n\n ```js\n const obj = {\n\t\tget a() { return 1; },\n\t\tset a(v) {},\n }\n ```\n\n"
           },
           "noDuplicateParameters": {
             "deprecated": false,
@@ -2578,15 +2592,15 @@ export function GET() {
         }
       },
       "json": {
-        "nursery": {
-          "noDuplicateJsonKeys": {
+        "suspicious": {
+          "noDuplicateObjectKeys": {
             "deprecated": false,
             "version": "1.0.0",
-            "name": "noDuplicateJsonKeys",
-            "link": "https://biomejs.dev/linter/rules/no-duplicate-json-keys",
+            "name": "noDuplicateObjectKeys",
+            "link": "https://biomejs.dev/linter/rules/no-duplicate-object-keys",
             "recommended": true,
             "fixKind": "none",
-            "docs": " Disallow two keys with the same name inside a JSON object.\n\n ## Examples\n\n ### Invalid\n\n ```json,expect_diagnostic\n {\n   \"title\": \"New title\",\n   \"title\": \"Second title\"\n }\n ```\n\n ### Valid\n\n ```json\n {\n   \"title\": \"New title\",\n   \"secondTitle\": \"Second title\"\n }\n ```\n"
+            "docs": " Disallow two keys with the same name inside objects.\n\n ## Examples\n\n ### Invalid\n\n ```json,expect_diagnostic\n {\n   \"title\": \"New title\",\n   \"title\": \"Second title\"\n }\n ```\n\n ### Valid\n\n ```json\n {\n   \"title\": \"New title\",\n   \"secondTitle\": \"Second title\"\n }\n ```\n"
           }
         }
       },
@@ -2618,7 +2632,7 @@ export function GET() {
                 "eslintJsxA11y": "no-aria-hidden-on-focusable"
               }
             ],
-            "docs": " Enforce that aria-hidden=\"true\" is not set on focusable elements.\n\n `aria-hidden=\"true\"` can be used to hide purely decorative content from screen reader users.\n A focusable element with `aria-hidden=\"true\"` can be reached by keyboard.\n This can lead to confusion or unexpected behavior for screen reader users.\n\n ## Example\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div aria-hidden=\"true\" tabIndex=\"0\" />\n ```\n\n ```jsx,expect_diagnostic\n <a href=\"/\" aria-hidden=\"true\" />\n ```\n\n ### Valid\n\n ```jsx\n <button aria-hidden=\"true\" tabIndex=\"-1\" />\n ```\n\n ```jsx\n <div aria-hidden=\"true\"><a href=\"#\"></a></div>\n ```\n\n ## Resources\n\n - [aria-hidden elements do not contain focusable elements](https://dequeuniversity.com/rules/axe/html/4.4/aria-hidden-focus)\n - [Element with aria-hidden has no content in sequential focus navigation](https://www.w3.org/WAI/standards-guidelines/act/rules/6cfa84/proposed/)\n - [MDN aria-hidden](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden)\n\n"
+            "docs": " Enforce that aria-hidden=\"true\" is not set on focusable elements.\n\n `aria-hidden=\"true\"` can be used to hide purely decorative content from screen reader users.\n A focusable element with `aria-hidden=\"true\"` can be reached by keyboard.\n This can lead to confusion or unexpected behavior for screen reader users.\n\n ## Example\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div aria-hidden=\"true\" tabIndex=\"0\" />\n ```\n\n ```jsx,expect_diagnostic\n <a href=\"/\" aria-hidden=\"true\" />\n ```\n\n ### Valid\n\n ```jsx\n <button aria-hidden=\"true\" tabIndex=\"-1\" />\n ```\n\n ```jsx\n <button aria-hidden=\"true\" tabIndex={-1} />\n ```\n\n ```jsx\n <div aria-hidden=\"true\"><a href=\"#\"></a></div>\n ```\n\n ## Resources\n\n - [aria-hidden elements do not contain focusable elements](https://dequeuniversity.com/rules/axe/html/4.4/aria-hidden-focus)\n - [Element with aria-hidden has no content in sequential focus navigation](https://www.w3.org/WAI/standards-guidelines/act/rules/6cfa84/proposed/)\n - [MDN aria-hidden](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden)\n\n"
           },
           "noAriaUnsupportedElements": {
             "deprecated": false,
@@ -2702,7 +2716,7 @@ export function GET() {
                 "eslintJsxA11y": "no-interactive-element-to-noninteractive-role"
               }
             ],
-            "docs": " Enforce that non-interactive ARIA roles are not assigned to interactive HTML elements.\n\n Interactive HTML elements indicate controls in the user interface.\n Interactive elements include `<a href>`, `<button>`, `<input>`, `<select>`, `<textarea>`.\n Non-interactive HTML elements and non-interactive ARIA roles indicate content and containers in the user interface.\n Non-interactive elements include `<main>`, `<area>`, `<h1>` (,`<h2>`, etc), `<img>`, `<li>`, `<ul>` and `<ol>`.\n\n [WAI-ARIA roles](https://www.w3.org/TR/wai-aria-1.1/#usage_intro) should not be used to convert an interactive element to a non-interactive element.\n Non-interactive ARIA roles include `article`, `banner`, `complementary`, `img`, `listitem`, `main`, `region` and `tooltip`.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <input role=\"img\" />;\n ```\n\n ### Valid\n\n ```jsx\n <input role=\"button\" />;\n ```\n\n"
+            "docs": " Enforce that non-interactive ARIA roles are not assigned to interactive HTML elements.\n\n Interactive HTML elements indicate controls in the user interface.\n Interactive elements include `<a href>`, `<button>`, `<input>`, `<select>`, `<textarea>`.\n Non-interactive HTML elements and non-interactive ARIA roles indicate content and containers in the user interface.\n Non-interactive elements include `<main>`, `<area>`, `<h1>` (,`<h2>`, etc), `<img>`, `<li>`, `<ul>` and `<ol>`.\n\n [WAI-ARIA roles](https://www.w3.org/TR/wai-aria-1.1/#usage_intro) should not be used to convert an interactive element to a non-interactive element.\n Non-interactive ARIA roles include `article`, `banner`, `complementary`, `img`, `listitem`, `main`, `region` and `tooltip`.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <input role=\"img\" />;\n ```\n\n ### Valid\n\n ```jsx\n <input role=\"button\" />;\n ```\n\n ```jsx\n <canvas role=\"img\" />;\n ```\n\n"
           },
           "noNoninteractiveElementToInteractiveRole": {
             "deprecated": false,
@@ -3352,6 +3366,15 @@ export function GET() {
           }
         },
         "nursery": {
+          "noEnum": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noEnum",
+            "link": "https://biomejs.dev/linter/rules/no-enum",
+            "recommended": false,
+            "fixKind": "none",
+            "docs": " Disallow TypeScript enum.\n\n TypeScript enums are not a type-level extension to JavaScript like type annotations or definitions.\n Users may wish to disable non-type-level extensions to use bundlers or compilers that only strip types.\n\n Const enums are not covered by this rule since `noConstEnum` already handles them.\n Enums within the ambient context, including declaration files, are ignores as well.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n enum Foo {\n     BAR = 'bar',\n     BAZ = 'baz',\n }\n ```\n\n ### Valid\n\n ```ts\n const Foo = {\n     BAR: 'bar',\n     BAZ: 'baz',\n } as const\n ```\n\n ```ts\n type Foo = 'bar' | 'baz'\n ```\n\n ```ts\n const enum Foo {\n     BAR = 'bar',\n     BAZ = 'baz',\n }\n ```\n\n\n"
+          },
           "noEvolvingTypes": {
             "deprecated": false,
             "version": "1.6.3",
@@ -3692,7 +3715,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 263
+    "numberOrRules": 265
   },
   "syntax": {
     "languages": {
@@ -3753,6 +3776,21 @@ export function GET() {
             "recommended": false,
             "fixKind": "unsafe",
             "docs": " Provides a whole-source code action to sort the imports in the file\n using import groups and natural ordering.\n\n ## Examples\n\n ```js\n import React, {\n     FC,\n     useEffect,\n     useRef,\n     ChangeEvent,\n     KeyboardEvent,\n } from 'react';\n import { logger } from '@core/logger';\n import { reduce, debounce } from 'lodash';\n import { Message } from '../Message';\n import { createServer } from '@server/node';\n import { Alert } from '@ui/Alert';\n import { repeat, filter, add } from '../utils';\n import { initializeApp } from '@core/app';\n import { Popup } from '@ui/Popup';\n import { createConnection } from '@server/database';\n ```\n"
+          },
+          "sortJsxProps": {
+            "deprecated": false,
+            "version": "next",
+            "name": "sortJsxProps",
+            "link": "https://biomejs.dev/linter/rules/sort-jsx-props",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslintReact": "jsx-sort-props"
+              }
+            ],
+            "sourceKind": "sameLogic",
+            "docs": " Enforce props sorting in JSX elements.\n\n This rule checks if the JSX props are sorted in a consistent way.\n Props are sorted alphabetically.\n This rule will not consider spread props as sortable.\n Instead, whenever it encounters a spread prop, it will sort all the\n previous non spread props up until the nearest spread prop, if one\n exist.\n This prevents breaking the override of certain props using spread\n props.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n <Hello lastName=\"Smith\" firstName=\"John\" />;\n ```\n\n ### Valid\n\n ```js\n <Hello firstName=\"John\" lastName=\"Smith\" />;\n <Hello lastName=\"Smith\" {...this.props} firstName=\"John\" />;\n <Hello tel={5555555} {...this.props} firstName=\"John\"  {...another.props} lastName=\"Smith\" />;\n ```\n\n"
           }
         }
       },
@@ -3770,7 +3808,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 2
+    "numberOrRules": 3
   }
 };
 	// const json_file = new URL("_metadata.json", root);
