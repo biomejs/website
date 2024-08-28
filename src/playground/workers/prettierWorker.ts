@@ -152,7 +152,11 @@ async function formatWithPrettier(
 		}
 		return {
 			type: "ERROR",
-			stack: (err as Error).stack ?? "",
+			stack: `
+			name: ${(err as Error).name}
+			message: ${(err as Error).message}
+			stack: ${(err as Error).stack ?? ""}
+			`,
 		};
 	}
 }
