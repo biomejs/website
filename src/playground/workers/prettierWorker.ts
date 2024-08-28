@@ -14,16 +14,23 @@ import {
 import {
 	isCssFilename,
 	isGraphqlFilename,
+	isHtmlFilename,
 	isJsonFilename,
+	isSvelteFilename,
 	isTypeScriptFilename,
+	isVueFilename,
 } from "@/playground/utils";
 import * as prettier from "prettier";
+// @ts-expect-error
+import * as pluginSvelte from "prettier-plugin-svelte/browser";
 // @ts-expect-error
 import parserBabel from "prettier/esm/parser-babel.mjs";
 // @ts-expect-error
 import pluginEstree from "prettier/plugins/estree.mjs";
 // @ts-expect-error
 import pluginGraphql from "prettier/plugins/graphql.mjs";
+// @ts-expect-error
+import pluginHtml from "prettier/plugins/html.mjs";
 // @ts-expect-error
 import pluginCss from "prettier/plugins/postcss.mjs";
 
@@ -109,7 +116,14 @@ async function formatWithPrettier(
 			tabWidth: options.indentWidth,
 			printWidth: options.lineWidth,
 			filepath: options.filepath,
-			plugins: [parserBabel, pluginEstree, pluginCss, pluginGraphql],
+			plugins: [
+				parserBabel,
+				pluginEstree,
+				pluginCss,
+				pluginGraphql,
+				pluginHtml,
+				pluginSvelte,
+			],
 			parser: getPrettierParser(options.filepath),
 			singleQuote: options.quoteStyle === QuoteStyle.Single,
 			jsxSingleQuote: options.jsxQuoteStyle === QuoteStyle.Single,
@@ -169,6 +183,15 @@ function getPrettierParser(filename: string): string {
 	}
 	if (isGraphqlFilename(filename)) {
 		return "graphql";
+	}
+	if (isHtmlFilename(filename)) {
+		return "html";
+	}
+	if (isVueFilename(filename)) {
+		return "vue";
+	}
+	if (isSvelteFilename(filename)) {
+		return "svelte";
 	}
 	return "babel";
 }
