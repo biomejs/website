@@ -118,8 +118,8 @@ async function formatWithPrettier(
 			filepath: options.filepath,
 			plugins: [
 				parserBabel,
-				pluginEstree,
 				pluginCss,
+				pluginEstree,
 				pluginGraphql,
 				pluginHtml,
 				pluginSvelte,
