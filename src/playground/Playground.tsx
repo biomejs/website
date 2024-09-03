@@ -20,16 +20,22 @@ import {
 	getFileState,
 	isCssFilename,
 	isGraphqlFilename,
+	isHtmlFilename,
 	isJsonFilename,
 	isJsxFilename,
+	isSvelteFilename,
 	isTypeScriptFilename,
+	isVueFilename,
 	useWindowSize,
 } from "@/playground/utils";
 import { css } from "@codemirror/lang-css";
+import { html } from "@codemirror/lang-html";
 import { javascript } from "@codemirror/lang-javascript";
 import { json } from "@codemirror/lang-json";
+import { vue } from "@codemirror/lang-vue";
 import { EditorSelection } from "@codemirror/state";
 import type { ViewUpdate } from "@codemirror/view";
+import { svelte } from "@replit/codemirror-lang-svelte";
 import type { ReactCodeMirrorRef } from "@uiw/react-codemirror";
 import { graphql } from "cm6-graphql";
 import * as codeMirrorLangBiomeAst from "codemirror-lang-rome-ast";
@@ -64,6 +70,15 @@ export default function Playground({
 		}
 		if (isGraphqlFilename(playgroundState.currentFile)) {
 			return [graphql()];
+		}
+		if (isHtmlFilename(playgroundState.currentFile)) {
+			return [html()];
+		}
+		if (isVueFilename(playgroundState.currentFile)) {
+			return [vue()];
+		}
+		if (isSvelteFilename(playgroundState.currentFile)) {
+			return [svelte()];
 		}
 		return [
 			javascript({
