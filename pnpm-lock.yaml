@@ -111,7 +111,7 @@ importers:
         specifier: 3.3.3
         version: 3.3.3
       prettier-plugin-svelte:
-        specifier: ^3.2.6
+        specifier: 3.2.6
         version: 3.2.6(prettier@3.3.3)(svelte@4.2.19)
       react:
         specifier: 18.3.1
