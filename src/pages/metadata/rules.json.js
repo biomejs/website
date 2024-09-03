@@ -3384,6 +3384,20 @@ export function GET() {
             "fixKind": "none",
             "docs": " Disallow variables from evolving into `any` type through reassignments.\n\n In TypeScript, variables without explicit type annotations can evolve their types based on subsequent assignments.\n\n When  TypeScript's [noImplicitAny](https://www.typescriptlang.org/tsconfig/#noImplicitAny) is disabled,\n variables without explicit type annotations have implicitly the type `any`.\n Just like the `any` type, evolved `any` types disable many type-checking rules and should be avoided to maintain strong type safety.\n This rule prevents such cases by ensuring variables do not evolve into `any` type, encouraging explicit type annotations and controlled type evolutions.\n\n If you enabled TypeScript's [noImplicitAny](https://www.typescriptlang.org/tsconfig/#noImplicitAny) and want to benefit of evolving types,\n then we recommend to disable this rule.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n let a;\n ````\n\n ```ts,expect_diagnostic\n const b = [];\n ````\n\n ```ts,expect_diagnostic\n let c = null;\n ````\n\n\n ### Valid\n\n ```ts\n let a: number;\n let b = 1;\n var c : string;\n var d = \"abn\";\n const e: never[] = [];\n const f = [null];\n const g = ['1'];\n const h = [1];\n let workspace: Workspace | null = null;\n ```\n\n"
           },
+          "noRestrictedTypes": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noRestrictedTypes",
+            "link": "https://biomejs.dev/linter/rules/no-restricted-types",
+            "recommended": false,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "eslintTypeScript": "no-restricted-types"
+              }
+            ],
+            "docs": " Disallow user defined types.\n\n This rule allows you to specify type names that you don’t want to use in your application.\n\n To prevent use of commonly misleading types, you can refer to [noBannedTypes](https://biomejs.dev/linter/rules/no-banned-types/)\n\n ## Options\n\n Use the options to specify additional types that you want to restrict in your\n source code.\n\n ```json\n {\n     \"//\": \"...\",\n     \"options\": {\n         \"types\": {\n            \"Foo\": {\n               \"message\": \"Only bar is allowed\",\n               \"use\": \"bar\"\n             },\n             \"OldAPI\": {\n                 \"message\": \"Use NewAPI instead\"\n             }\n         }\n     }\n }\n ```\n\n In the example above, the rule will emit a diagnostics if tried to use `Foo` or `OldAPI` are used.\n\n"
+          },
           "useConsistentMemberAccessibility": {
             "deprecated": false,
             "version": "next",
@@ -3729,7 +3743,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 266
+    "numberOrRules": 267
   },
   "syntax": {
     "languages": {
