@@ -82,7 +82,7 @@ export default defineConfig({
 							label: "Configure Biome",
 							link: "/guides/configure-biome",
 							translations: {
-								ja: "バイオームの設定",
+								ja: "Biome の設定",
 								"zh-CN": "配置生物群落",
 								"pt-BR": "Configurar Bioma",
 							},
