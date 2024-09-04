@@ -6,7 +6,7 @@ We're using [Starlight](https://starlight.astro.build/) for our docs website, wh
 
 ## How to contribute
 
-(Read the [contribution guidelines](../CONTRIBUTING.md) first for general information about contributing to this project.)
+(Read the [contribution guidelines](https://github.com/biomejs/biome/blob/main/CONTRIBUTING.md) first for general information about contributing to this project.)
 
 ### Initial Translation
 
