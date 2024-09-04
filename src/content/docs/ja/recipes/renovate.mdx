@@ -1,0 +1,19 @@
+---
+title: Renovate
+description: RenovateのBotを設定する
+---
+
+[Renovate](https://docs.renovatebot.com/) は人気のある、依存関係の更新の自動化ツールです。
+
+## biome.json
+
+Renovate には `biome.json`の設定ファイル内で`$schema`のバージョンが同期されて最新の状態を保つことを支援する、[共通の preset rule](https://docs.renovatebot.com/presets-customManagers/#custommanagersbiomeversions) があります。
+
+使用するには、`customManagers:biomeVersions` を `extends` の配列に追加します。
+
+```json title="renovate.json"
+{
+	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
+	"extends": ["customManagers:biomeVersions"]
+}
+```

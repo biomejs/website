@@ -302,6 +302,9 @@ export default defineConfig({
 						{
 							label: "Social Badges",
 							link: "/recipes/badges",
+							translations: {
+								ja: "ソーシャルバッジ",
+							},
 						},
 					],
 				},
