@@ -186,11 +186,11 @@ export function GET() {
             ],
             "docs": " Disallow unknown properties.\n\n This rule considers properties defined in the CSS Specifications and browser specific properties to be known.\n https://github.com/known-css/known-css-properties#source\n\n\n This rule ignores:\n\n - custom variables e.g. `--custom-property`\n - vendor-prefixed properties (e.g., `-moz-align-self,` `-webkit-align-self`)\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a {\n   colr: blue;\n }\n ```\n\n ```css,expect_diagnostic\n a {\n   my-property: 1;\n }\n ```\n\n ### Valid\n\n ```css\n a {\n   color: green;\n }\n ```\n\n ```css\n a {\n   fill: black;\n }\n ```\n\n ```css\n a {\n   -moz-align-self: center;\n }\n ```\n\n"
           },
-          "noUnknownPseudoClassSelector": {
+          "noUnknownPseudoClass": {
             "deprecated": false,
             "version": "next",
-            "name": "noUnknownPseudoClassSelector",
-            "link": "https://biomejs.dev/linter/rules/no-unknown-pseudo-class-selector",
+            "name": "noUnknownPseudoClass",
+            "link": "https://biomejs.dev/linter/rules/no-unknown-pseudo-class",
             "recommended": true,
             "fixKind": "none",
             "sources": [
@@ -200,11 +200,11 @@ export function GET() {
             ],
             "docs": " Disallow unknown pseudo-class selectors.\n\n For details on known pseudo-class, see the [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes)\n\n This rule ignores vendor-prefixed pseudo-class selectors.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a:unknown {}\n ```\n\n ```css,expect_diagnostic\n a:UNKNOWN {}\n ```\n\n ```css,expect_diagnostic\n a:hoverr {}\n ```\n\n ### Valid\n\n ```css\n a:hover {}\n ```\n\n ```css\n a:focus {}\n ```\n\n ```css\n :not(p) {}\n ```\n\n ```css\n input:-moz-placeholder {}\n ```\n\n"
           },
-          "noUnknownSelectorPseudoElement": {
+          "noUnknownPseudoElement": {
             "deprecated": false,
             "version": "1.8.0",
-            "name": "noUnknownSelectorPseudoElement",
-            "link": "https://biomejs.dev/linter/rules/no-unknown-selector-pseudo-element",
+            "name": "noUnknownPseudoElement",
+            "link": "https://biomejs.dev/linter/rules/no-unknown-pseudo-element",
             "recommended": true,
             "fixKind": "none",
             "sources": [
