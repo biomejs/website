@@ -18,6 +18,20 @@ export function GET() {
             ],
             "docs": " Disallow duplicate `@import` rules.\n\n This rule checks if the file urls of the @import rules are duplicates.\n\n This rule also checks the imported media queries and alerts of duplicates.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n @import 'a.css';\n @import 'a.css';\n ```\n\n ```css,expect_diagnostic\n @import \"a.css\";\n @import 'a.css';\n ```\n\n ```css,expect_diagnostic\n @import url('a.css');\n @import url('a.css');\n ```\n\n ### Valid\n\n ```css\n @import 'a.css';\n @import 'b.css';\n ```\n\n ```css\n @import url('a.css') tv;\n @import url('a.css') projection;\n ```\n\n"
           },
+          "noDuplicateCustomProperties": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noDuplicateCustomProperties",
+            "link": "https://biomejs.dev/linter/rules/no-duplicate-custom-properties",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "stylelint": "declaration-block-no-duplicate-custom-properties"
+              }
+            ],
+            "docs": " Disallow duplicate custom properties within declaration blocks.\n\n This rule checks the declaration blocks for duplicate custom properties.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a { --custom-property: pink; --custom-property: orange;  }\n ```\n\n ```css,expect_diagnostic\n a { --custom-property: pink; background: orange; --custom-property: orange }\n ```\n\n ### Valid\n\n ```css\n a { --custom-property: pink; }\n ```\n\n ```css\n a { --custom-property: pink; --cUstOm-prOpErtY: orange; }\n ```\n\n"
+          },
           "noDuplicateFontNames": {
             "deprecated": false,
             "version": "1.8.0",
@@ -3743,7 +3757,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 267
+    "numberOrRules": 268
   },
   "syntax": {
     "languages": {
