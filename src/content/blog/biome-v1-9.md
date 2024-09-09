@@ -1,5 +1,5 @@
 ---
-title: Biome v1.9 Anniversary release
+title: Biome v1.9 Anniversary Release
 description: First year of Biome and release of Biome 1.9 that brings CSS formatting and linting by default, a new search command
 summary: |
   TODO
@@ -16,7 +16,7 @@ socialImage: "@/assets/social-logo.png"
 
 Today we’re excited to announce the release of Biome v1.9 and to celebrate the first anniversary of Biome 🎊
 
-Let's take a look back at the first year of Biome and then look at the new features in Biome 1.9.
+Let's take a look back at the first year of Biome and then explore the new features in Biome 1.9.
 
 
 ## One year of Biome
@@ -40,7 +40,7 @@ We surpassed 2.7 million monthly NPM downloads in August 2024.
 ![Biome monthly NPM downloads](../../assets/blog/biome-v1-9/biome-monthly-npm-downloads.svg)
 
 We also gained sponsorship, notably [Shiguredo](https://shiguredo.jp/), [l2BEAT](https://l2beat.com/), [Phoenix Labs](https://www.phoenixlabs.dev/), [KANAME](https://kanamekey.com/), [Nanabit](https://nanabit.dev/), [Vital](https://vital.io/), [CodeRabbit](https://coderabbit.ai/), and [Forge42](https://forge42.dev/).
-These sponsorships are vitals to the project.
+These sponsorships are vital to the project.
 
 We also gained many new contributors.
 We started with a team of 5 core contributors, and we are now a team of 8 core contributors and 10 maintainers.
@@ -139,15 +139,15 @@ biome check --graphql-formatter-enabled=false --css-linter-enabled=false
 
 The `biome search` command allows you to search in your project using GritQL syntax.
 
-[GritQL](https://docs.grit.io/language/overview) is a powerful language that lets you do structural searches on your codebase.
-This means that trivia such as whitespace or even the type of strings quotes used will be ignored in your search query.
+[GritQL](https://docs.grit.io/language/overview) is a powerful query language that lets you do structural searches on your codebase.
+This means that trivia such as whitespace or even the type of string quotes used will be ignored in your search query.
 It also has many features for querying the structure of your code, making it much more elegant for searching code than regular expressions.
 
 While we believe this command may already be useful to users in some situations (especially when integrated in the IDE extensions!), we also had an ulterior motive for adding this command:
 We intend to utilize GritQL for our plugin efforts, and by allowing our users to try it out in a first iteration, we hope to gain insight in the type of queries you want to do, as well as the bugs we need to focus on.
 
 For now, the search command is explicitly marked as **EXPERIMENTAL**, since many limitations remain.
-Keep this in mind when you try it out, and please let us know your issues and your opinion!
+Keep this in mind when you try it out, and please let us know what you think!
 
 Note: GritQL escapes code snippets using backticks, but most shells interpret backticks as command invocations. To avoid this, it's best to put single quotes around your Grit queries.
 For instance, the following command search for all `console.log` invocations:
