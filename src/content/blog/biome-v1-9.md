@@ -60,7 +60,7 @@ It is not able to parse CSS dialects such as SCSS.
 Note that you may still encounter some rough edges.
 Please report any problems you encounter!
 
-The CSS linter provides 15 stable lint rules that was ported from [styelint](https://stylelint.io/):
+The CSS linter provides 15 stable lint rules that were ported from [styelint](https://stylelint.io/):
 
 - [a11y/useGenericFontNames](https://biomejs.dev/linter/rules/use-generic-font-names/)
 - [correctness/noInvalidDirectionInLinearGradient](https://biomejs.dev/linter/rules/no-invalid-direction-in-linear-gradient/)
@@ -146,7 +146,7 @@ It also has many features for querying the structure of your code, making it muc
 While we believe this command may already be useful to users in some situations (especially when integrated in the IDE extensions!), we also had an ulterior motive for adding this command:
 We intend to utilize GritQL for our plugin efforts, and by allowing our users to try it out in a first iteration, we hope to gain insight in the type of queries you want to do, as well as the bugs we need to focus on.
 
-For now, the search command is explicitly marked as **EXPERIMENTAL**, since many limitations remain.
+For now, the search command is explicitly marked as **EXPERIMENTAL**, since many limitations are yet to be fixed or explored.
 Keep this in mind when you try it out, and please let us know what you think!
 
 Note: GritQL escapes code snippets using backticks, but most shells interpret backticks as command invocations. To avoid this, it's best to put single quotes around your Grit queries.
