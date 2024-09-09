@@ -33,7 +33,7 @@ This has also pushed contributions to Prettier to greatly improve its performanc
 This challenge was a win for the whole web ecosystem!
 
 Winning the challenge brought Biome to light.
-People have shown a lot of interest and Biome has been quickly adopted by many projects, including big ones such as [Ant Design](https://ant.design/), [Astro](https://astro.build/), [Sentry](https://sentry.io/), [daisyUI](https://daisyui.com/), [Refine](https://refine.dev/), [Discord](https://discord.com/), [Pulumi](https://www.pulumi.com/), [Label Studio](https://labelstud.io/), [Spicetify](https://spicetify.app/), [Apify](https://apify.com/), [Slint](https://slint.dev/), [Rspack](https://rspack.dev/), [FluidFrameowrk](https://fluidframework.com/), [and others](https://sourcegraph.com/search?q=file:biome.json&patternType=literal&sm=0).
+People have shown a lot of interest and Biome has been quickly adopted by many projects, including big ones such as [Ant Design](https://ant.design/), [Astro](https://astro.build/), [Sentry](https://sentry.io/), [daisyUI](https://daisyui.com/), [Refine](https://refine.dev/), [Discord](https://discord.com/), [Pulumi](https://www.pulumi.com/), [Label Studio](https://labelstud.io/), [Spicetify](https://spicetify.app/), [Apify](https://apify.com/), [Slint](https://slint.dev/), [Rspack](https://rspack.dev/), [FluidFramework](https://fluidframework.com/), [and others](https://sourcegraph.com/search?q=file:biome.json&patternType=literal&sm=0).
 
 We surpassed 2.7 million monthly NPM downloads in August 2024.
 
@@ -55,12 +55,9 @@ As we celebrate Biome's first year, we're pleased to announce the release of Bio
 ### Stable CSS formatter and linter
 
 We are thrilled to announce that Biome's CSS formatter and linter are now considered stable and are enabled by default.
-Biome only parses **standard CSS syntax**.
-It is not able to parse CSS dialects such as SCSS.
-Note that you may still encounter some rough edges.
-Please report any problems you encounter!
+Do note that Biome only parses **standard CSS syntax** so far, and doesn't yet handle CSS dialects such as SCSS. Since this is brand new functionality, you may also still run into some rough edges. Please report any problems you encounter!
 
-The CSS linter provides 15 stable lint rules that were ported from [styelint](https://stylelint.io/):
+The CSS linter provides 15 stable lint rules that were ported from [stylelint](https://stylelint.io/):
 
 - [a11y/useGenericFontNames](https://biomejs.dev/linter/rules/use-generic-font-names/)
 - [correctness/noInvalidDirectionInLinearGradient](https://biomejs.dev/linter/rules/no-invalid-direction-in-linear-gradient/)
@@ -107,7 +104,7 @@ Special thanks to [Yoshiaki Togami @togami2864](https://github.com/togami2864) f
 
 ### Stable GraphQL formatter and linter
 
-Biome now formats and lints GraphQL files by default.
+Another brand new feature: Biome now formats and lints GraphQL files by default.
 
 For now, Biome provides two nursery rules:
 
@@ -142,26 +139,26 @@ Special thanks to [Võ Hoàng Long @vohoanglong0107](https://github.com/vohoangl
 
 ### Search command
 
-The `biome search` command allows you to search in your project using GritQL syntax.
+Back in February, one of our Core Contributors published [a proposal for plugin support](https://github.com/biomejs/biome/discussions/1762). One of the highlights was the use of GritQL as a foundation for our plugin system.
 
-[GritQL](https://docs.grit.io/language/overview) is a powerful query language that lets you do structural searches on your codebase.
-This means that trivia such as whitespace or even the type of string quotes used will be ignored in your search query.
-It also has many features for querying the structure of your code, making it much more elegant for searching code than regular expressions.
+[GritQL](https://docs.grit.io/language/overview) is a powerful query language that lets you do structural searches on your codebase. This means that trivia such as whitespace or even the type of string quotes used will be ignored in your search query. It also has many features for querying the structure of your code, making it much more elegant for searching code than regular expressions.
 
-While we believe this command may already be useful to users in some situations (especially when integrated in the IDE extensions!), we also had an ulterior motive for adding this command:
-We intend to utilize GritQL for our plugin efforts, and by allowing our users to try it out in a first iteration, we hope to gain insight in the type of queries you want to do, as well as the bugs we need to focus on.
+Integrating a query language such as GritQL is no easy feat, and throughout the year we published [multiple](https://github.com/biomejs/biome/discussions/2286) [status](https://github.com/biomejs/biome/discussions/2585) [updates](https://github.com/biomejs/biome/discussions/3392). Today, we release the first product of this effort: A new `biome search` command.
 
-For now, the search command is explicitly marked as **EXPERIMENTAL**, since many limitations are yet to be fixed or explored.
-Keep this in mind when you try it out, and please let us know what you think!
+While we believe this command may already be useful to users in some situations (especially when it gets integrated in our IDE extensions!), this command is really a stepping stone towards our plugin efforts. By allowing our users to try it out in a first iteration, we hope to gain insight into the type of queries you want to do, as well as the bugs we need to focus on.
 
-Note: GritQL escapes code snippets using backticks, but most shells interpret backticks as command invocations. To avoid this, it's best to put single quotes around your Grit queries.
+For now, the search command is explicitly marked as **EXPERIMENTAL**, since many limitations are yet to be fixed or explored. Keep this in mind when you try it out, and please let us know what you think!
+
+Even though there are still plenty of limitations, we do believe the integration has progressed far enough that we can shift our focus towards the integration of actual plugins. We cannot yet promise a timeline, but we'll keep you posted!
+
+PS.: GritQL escapes code snippets using backticks, but most shells interpret backticks as command invocations. To avoid this, it's best to put single quotes around your Grit queries.
 For instance, the following command search for all `console.log` invocations:
 
 ```shell
 biome search '`console.log($message)`'
 ```
 
-Special thanks to [Arend van Beelen @arendjr](https://github.com/arendjr) for implementing this feature all by himself!
+Special thanks to [Grit](https://grit.io) for open-sourcing GritQL, [Arend van Beelen @arendjr](https://github.com/arendjr) for integrating the GritQL engine into Biome, and to [@BackupMiles] for implementing the formatting of search results in the `biome search` command!
 
 ### `.editorconfig` support
 
@@ -176,7 +173,7 @@ This is an opt-in feature. You have to turn it on in your Biome configuration fi
 }
 ```
 
-Note that all options specified in the Biome configuration file overrides the ones specified in `.editorconfig`.
+Note that all options specified in the Biome configuration file override the ones specified in `.editorconfig`.
 For now, only the `.editorconfig` at the root of your project is taken into account.
 
 Special thanks to [Carson McManus @dyc3](https://github.com/dyc3) for implementing this feature!
