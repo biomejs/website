@@ -100,7 +100,7 @@ biome check --css-formatter-enabled=false --css-linter-enabled=false
 ```
 
 Special thanks to [Denis Bezrukov @denbezrukov](https://github.com/denbezrukov) and [Jon Egeland @faultyserver](https://github.com/faultyserver) for implementing most of the CSS parser and formatter!
-Special thanks to [Yoshiaki Togami @togami2864](https://github.com/togami2864) for coordinating the implementation and implementing most of the CSS lint rules!
+Special thanks to [Yoshiaki Togami @togami2864](https://github.com/togami2864) for coordinating the implementation and for implementing most of the CSS lint rules!
 
 ### Stable GraphQL formatter and linter
 
