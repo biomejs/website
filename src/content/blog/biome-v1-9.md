@@ -102,6 +102,9 @@ biome lint --css-linter-enabled=false
 biome check --css-formatter-enabled=false --css-linter-enabled=false
 ```
 
+Special thanks to [Denis Bezrukov @denbezrukov](https://github.com/denbezrukov) and [Jon Egeland @faultyserver](https://github.com/faultyserver) for implementing most of the CSS parser and formatter!
+Special thanks to [Yoshiaki Togami @togami2864](https://github.com/togami2864) for coordinating the implementation and implementing most of the CSS lint rules!
+
 ### Stable GraphQL formatter and linter
 
 Biome now formats and lints GraphQL files by default.
@@ -135,6 +138,8 @@ biome lint --graphql-linter-enabled=false
 biome check --graphql-formatter-enabled=false --css-linter-enabled=false
 ```
 
+Special thanks to [Võ Hoàng Long @vohoanglong0107](https://github.com/vohoanglong0107) for implementing most of the features related to GraphQL.
+
 ### Search command
 
 The `biome search` command allows you to search in your project using GritQL syntax.
@@ -156,6 +161,8 @@ For instance, the following command search for all `console.log` invocations:
 biome search '`console.log($message)`'
 ```
 
+Special thanks to [Arend van Beelen @arendjr](https://github.com/arendjr) for implementing this feature all by himself!
+
 ### `.editorconfig` support
 
 Biome is now able to take the [`.editorconfig`](https://editorconfig.org/) of your project into account.
@@ -171,6 +178,8 @@ This is an opt-in feature. You have to turn it on in your Biome configuration fi
 
 Note that all options specified in the Biome configuration file overrides the ones specified in `.editorconfig`.
 For now, only the `.editorconfig` at the root of your project is taken into account.
+
+Special thanks to [Carson McManus @dyc3](https://github.com/dyc3) for implementing this feature!
 
 ### JavaScript formatter and linter
 
