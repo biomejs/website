@@ -1227,6 +1227,21 @@ export function GET() {
             ],
             "docs": " Disallow specified modules when loaded by import or require.\n\n ## Options\n\n ```json\n {\n     \"noRestrictedImports\": {\n         \"options\": {\n             \"paths\": {\n                 \"lodash\": \"Using lodash is not encouraged\",\n                 \"underscore\": \"Using underscore is not encouraged\"\n             }\n         }\n     }\n }\n ```\n"
           },
+          "noSecrets": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noSecrets",
+            "link": "https://biomejs.dev/linter/rules/no-secrets",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslint": "no-secrets/no-secrets"
+              }
+            ],
+            "sourceKind": "inspired",
+            "docs": " Disallow usage of sensitive data such as API keys and tokens.\n\n This rule checks for high-entropy strings and matches common patterns\n for secrets, such as AWS keys, Slack tokens, and private keys.\n\n While this rule is helpful, it's not infallible. Always review your code carefully and consider implementing additional security measures like automated secret scanning in your CI/CD and git pipeline, such as GitGuardian or GitHub protections.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const secret = \"AKIA1234567890EXAMPLE\";\n ```\n\n ### Valid\n\n ```js\n const nonSecret = \"hello world\";\n ```\n"
+          },
           "noStaticElementInteractions": {
             "deprecated": false,
             "version": "next",
@@ -3757,7 +3772,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 268
+    "numberOrRules": 269
   },
   "syntax": {
     "languages": {
