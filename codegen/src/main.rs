@@ -24,6 +24,7 @@ fn main() -> anyhow::Result<()> {
         CodegenCommand::Metadata => generate_json_metadata()?,
         CodegenCommand::Env => {
             generate_env_variables()?;
+        }
         CodegenCommand::Diagnostics => {
             generate_diagnostics()?;
         }
