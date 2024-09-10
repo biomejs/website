@@ -255,6 +255,10 @@ export default defineConfig({
 							badge: "new",
 						},
 						{
+							label: "Environment variables",
+							link: "/reference/environment-variables",
+						},
+						{
 							label: "Reporters",
 							link: "/reference/reporters",
 						},
