@@ -249,7 +249,7 @@ export default defineConfig({
 							label: "CLI",
 							link: "/reference/cli",
 						},
-            {
+						{
 							label: "Diagnostics",
 							link: "/reference/diagnostics",
 							badge: "new",
@@ -257,7 +257,7 @@ export default defineConfig({
 						{
 							label: "Environment variables",
 							link: "/reference/environment-variables",
-            },
+						},
 						{
 							label: "Reporters",
 							link: "/reference/reporters",
