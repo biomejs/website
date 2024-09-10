@@ -53,7 +53,7 @@ struct LintRulesVisitor {
     /// - rule name -> list of languages
     /// - list of languages is mapped to
     /// - language -> metadata
-    ///   
+    ///
     groups: BTreeMap<&'static str, BTreeMap<&'static str, RuleToDocument>>,
     number_of_rules: u16,
 }
@@ -979,6 +979,7 @@ fn print_diagnostics(
         // Unknown code blocks should be ignored by tests
         DocumentFileSource::Unknown => {}
         DocumentFileSource::Graphql(_) => {}
+        _ => {}
     }
 
     Ok(())
