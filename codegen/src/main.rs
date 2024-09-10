@@ -1,3 +1,4 @@
+use codegen::diagnostics::generate_diagnostics;
 use codegen::lintdoc::generate_rule_docs;
 use codegen::metadata::generate_json_metadata;
 use codegen::website::generate_files;
@@ -23,6 +24,8 @@ fn main() -> anyhow::Result<()> {
         CodegenCommand::Metadata => generate_json_metadata()?,
         CodegenCommand::Env => {
             generate_env_variables()?;
+        CodegenCommand::Diagnostics => {
+            generate_diagnostics()?;
         }
     }
 

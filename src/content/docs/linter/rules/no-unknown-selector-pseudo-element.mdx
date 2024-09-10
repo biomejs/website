@@ -1,13 +1,76 @@
 ---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
 title: noUnknownSelectorPseudoElement
 description: |
-  'Disallow unknown pseudo-element selectors.'
+  Disallow unknown pseudo-element selectors.
 ---
-import ContentCss from "@/components/generated/rules/no-unknown-selector-pseudo-element_css.md"
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 **Diagnostic Category: `lint/nursery/noUnknownSelectorPseudoElement`**
 <Tabs>
-<TabItem label="CSS"><ContentCss /></TabItem>
+<TabItem label="CSS" icon="seti:css">
+**Since**: `v1.8.0`
+:::caution
+This rule is part of the [nursery](/linter/rules/#nursery) group.
+:::
+
+Sources: 
+- Same as: <a href="https://github.com/stylelint/stylelint/blob/main/lib/rules/selector-pseudo-element-no-unknown/README.md" target="_blank"><code>stylelint/selector-pseudo-element-no-unknown</code></a>
+
+Disallow unknown pseudo-element selectors.
+
+For details on known CSS pseudo-elements, see the [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements#list_of_pseudo-elements).
+
+This rule ignores vendor-prefixed pseudo-element selectors.
+
+## Examples
+
+### Invalid
+
+```css
+a::pseudo {}
+```
+
+<pre class="language-text"><code class="language-text">code-block.css:1:4 <a href="https://biomejs.dev/linter/rules/no-unknown-selector-pseudo-element">lint/nursery/noUnknownSelectorPseudoElement</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unexpected unknown pseudo-elements: </span><span style="color: Tomato;"><strong>pseudo</strong></span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>a::pseudo &#123;&#125;<br />   <strong>   │ </strong>   <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">See </span><span style="color: lightgreen;"><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements#list_of_pseudo-elements">MDN web docs</a></span><span style="color: lightgreen;"> for more details.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Use a known pseudo-elements instead, such as:</span><br />  <br />  - after<br />  - backdrop<br />  - before<br />  - etc.<br />  <br /></code></pre>
+
+```css
+a::PSEUDO {}
+```
+
+<pre class="language-text"><code class="language-text">code-block.css:1:4 <a href="https://biomejs.dev/linter/rules/no-unknown-selector-pseudo-element">lint/nursery/noUnknownSelectorPseudoElement</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unexpected unknown pseudo-elements: </span><span style="color: Tomato;"><strong>PSEUDO</strong></span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>a::PSEUDO &#123;&#125;<br />   <strong>   │ </strong>   <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">See </span><span style="color: lightgreen;"><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements#list_of_pseudo-elements">MDN web docs</a></span><span style="color: lightgreen;"> for more details.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Use a known pseudo-elements instead, such as:</span><br />  <br />  - after<br />  - backdrop<br />  - before<br />  - etc.<br />  <br /></code></pre>
+
+```css
+a::element {}
+```
+
+<pre class="language-text"><code class="language-text">code-block.css:1:4 <a href="https://biomejs.dev/linter/rules/no-unknown-selector-pseudo-element">lint/nursery/noUnknownSelectorPseudoElement</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unexpected unknown pseudo-elements: </span><span style="color: Tomato;"><strong>element</strong></span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>a::element &#123;&#125;<br />   <strong>   │ </strong>   <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">See </span><span style="color: lightgreen;"><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements#list_of_pseudo-elements">MDN web docs</a></span><span style="color: lightgreen;"> for more details.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Use a known pseudo-elements instead, such as:</span><br />  <br />  - after<br />  - backdrop<br />  - before<br />  - etc.<br />  <br /></code></pre>
+
+### Valid
+
+```css
+a:before {}
+```
+
+```css
+a::before {}
+```
+
+```css
+::selection {}
+```
+
+```css
+input::-moz-placeholder {}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
 </Tabs>
 

@@ -1,13 +1,73 @@
 ---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
 title: useConsistentCurlyBraces
 description: |
-  'This rule enforces consistent use of curly braces inside JSX attributes and JSX children.'
+  This rule enforces consistent use of curly braces inside JSX attributes and JSX children.
 ---
-import ContentJsx from "@/components/generated/rules/use-consistent-curly-braces_jsx.md"
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 **Diagnostic Category: `lint/nursery/useConsistentCurlyBraces`**
 <Tabs>
-<TabItem label="JSX and TSX"><ContentJsx /></TabItem>
+<TabItem label="JSX and TSX" icon="seti:javascript">
+**Since**: `vnext`
+:::note
+- This rule has an **unsafe** fix.
+:::
+
+:::caution
+This rule is part of the [nursery](/linter/rules/#nursery) group.
+:::
+
+Sources: 
+- Inspired from: <a href="https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-curly-brace-presence.md" target="_blank"><code>react/jsx-curly-brace-presence</code></a>
+
+This rule enforces consistent use of curly braces inside JSX attributes and JSX children.
+
+For situations where JSX expressions are unnecessary, please refer to [the React doc](https://facebook.github.io/react/docs/jsx-in-depth.html) and [this page about JSX gotchas](https://github.com/facebook/react/blob/v15.4.0-rc.3/docs/docs/02.3-jsx-gotchas.md#html-entities).
+
+This rule will check for and warn about unnecessary curly braces in both JSX props and children.
+
+## Examples
+
+### Invalid
+
+```jsx
+<Foo>{'Hello world'}</Foo>
+```
+
+<pre class="language-text"><code class="language-text">code-block.jsx:1:6 <a href="https://biomejs.dev/linter/rules/use-consistent-curly-braces">lint/nursery/useConsistentCurlyBraces</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Should not have curly braces around expression.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;Foo&gt;&#123;'Hello world'&#125;&lt;/Foo&gt;<br />   <strong>   │ </strong>     <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">JSX child does not need to be wrapped in curly braces.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Remove curly braces around the expression.</span><br />  <br />  <strong>  1 │ </strong>&lt;Foo&gt;<span style="color: Tomato;">&#123;</span><span style="color: Tomato;">'</span>Hello<span style="opacity: 0.8;">·</span>world<span style="color: Tomato;">'</span><span style="color: Tomato;">&#125;</span>&lt;/Foo&gt;<br />  <strong>    │ </strong>     <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span>           <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span>      <br /></code></pre>
+
+```jsx
+<Foo foo={'bar'} />
+```
+
+<pre class="language-text"><code class="language-text">code-block.jsx:1:10 <a href="https://biomejs.dev/linter/rules/use-consistent-curly-braces">lint/nursery/useConsistentCurlyBraces</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Should not have curly braces around expression.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;Foo foo=&#123;'bar'&#125; /&gt;<br />   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">JSX attribute value does not need to be wrapped in curly braces.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Remove curly braces around the expression.</span><br />  <br />  <strong>  1 │ </strong>&lt;Foo<span style="opacity: 0.8;">·</span>foo=<span style="color: Tomato;">&#123;</span>'bar'<span style="color: Tomato;">&#125;</span><span style="opacity: 0.8;">·</span>/&gt;<br />  <strong>    │ </strong>         <span style="color: Tomato;">-</span>     <span style="color: Tomato;">-</span>   <br /></code></pre>
+
+```jsx
+<Foo foo=<Bar /> />
+```
+
+<pre class="language-text"><code class="language-text">code-block.jsx:1:10 <a href="https://biomejs.dev/linter/rules/use-consistent-curly-braces">lint/nursery/useConsistentCurlyBraces</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Should have curly braces around expression.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;Foo foo=&lt;Bar /&gt; /&gt;<br />   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">JSX attribute value should be wrapped in curly braces. This will make the JSX attribute value more readable.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Add curly braces around the expression.</span><br />  <br />  <strong>  1 │ </strong>&lt;Foo<span style="opacity: 0.8;">·</span>foo=<span style="color: MediumSeaGreen;">&#123;</span>&lt;Bar<span style="opacity: 0.8;">·</span>/&gt;<span style="color: MediumSeaGreen;">&#125;</span><span style="opacity: 0.8;">·</span>/&gt;<br />  <strong>    │ </strong>         <span style="color: MediumSeaGreen;">+</span>       <span style="color: MediumSeaGreen;">+</span>   <br /></code></pre>
+
+### Valid
+
+```jsx
+<>
+    <Foo>Hello world</Foo>
+    <Foo foo="bar" />
+    <Foo foo={5} />
+    <Foo foo={<Bar />} />
+</>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
 </Tabs>
 

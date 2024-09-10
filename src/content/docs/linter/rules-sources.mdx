@@ -1,4 +1,8 @@
 ---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+
 title: Rules sources
 description: A page that maps lint rules from other sources to Biome
 ---
@@ -7,7 +11,7 @@ description: A page that maps lint rules from other sources to Biome
 - [noAccumulatingSpread](/linter/rules/no-accumulating-spread) 
 - [noConstEnum](/linter/rules/no-const-enum) 
 - [noDelete](/linter/rules/no-delete) 
-- [noDuplicateJsonKeys](/linter/rules/no-duplicate-json-keys) 
+- [noDuplicateObjectKeys](/linter/rules/no-duplicate-object-keys) 
 - [noEmptyTypeParameters](/linter/rules/no-empty-type-parameters) 
 - [noEvolvingTypes](/linter/rules/no-evolving-types) 
 - [noGlobalIsFinite](/linter/rules/no-global-is-finite) 
@@ -124,7 +128,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-sequences](https://eslint.org/docs/latest/rules/no-sequences) |[noCommaOperator](/linter/rules/no-comma-operator) |
 | [no-setter-return](https://eslint.org/docs/latest/rules/no-setter-return) |[noSetterReturn](/linter/rules/no-setter-return) |
 | [no-shadow-restricted-names](https://eslint.org/docs/latest/rules/no-shadow-restricted-names) |[noShadowRestrictedNames](/linter/rules/no-shadow-restricted-names) |
-| [no-sparse-array](https://eslint.org/docs/latest/rules/no-sparse-array) |[noSparseArray](/linter/rules/no-sparse-array) |
+| [no-sparse-arrays](https://eslint.org/docs/latest/rules/no-sparse-arrays) |[noSparseArray](/linter/rules/no-sparse-array) |
 | [no-this-before-super](https://eslint.org/docs/latest/rules/no-this-before-super) |[noUnreachableSuper](/linter/rules/no-unreachable-super) |
 | [no-throw-literal](https://eslint.org/docs/latest/rules/no-throw-literal) |[useThrowOnlyError](/linter/rules/use-throw-only-error) (inspired) |
 | [no-undef](https://eslint.org/docs/latest/rules/no-undef) |[noUndeclaredVariables](/linter/rules/no-undeclared-variables) |
@@ -162,6 +166,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 ### Stylelint
 | Stylelint rule name | Biome rule name |
 | ---- | ---- |
+| [block-no-empty](https://github.com/stylelint/stylelint/blob/main/lib/rules/block-no-empty/README.md) |[noEmptyBlock](/linter/rules/no-empty-block) |
 | [font-family-no-duplicate-names](https://github.com/stylelint/stylelint/blob/main/lib/rules/font-family-no-duplicate-names/README.md) |[noDuplicateFontNames](/linter/rules/no-duplicate-font-names) |
 | [font-family-no-missing-generic-family-keyword](https://github.com/stylelint/stylelint/blob/main/lib/rules/font-family-no-missing-generic-family-keyword/README.md) |[useGenericFontNames](/linter/rules/use-generic-font-names) |
 | [function-no-unknown](https://github.com/stylelint/stylelint/blob/main/lib/rules/function-no-unknown/README.md) |[noUnknownFunction](/linter/rules/no-unknown-function) |
@@ -169,7 +174,6 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [keyframe-declaration-no-important](https://github.com/stylelint/stylelint/blob/main/lib/rules/keyframe-declaration-no-important/README.md) |[noImportantInKeyframe](/linter/rules/no-important-in-keyframe) |
 | [media-feature-name-no-unknown](https://github.com/stylelint/stylelint/blob/main/lib/rules/media-feature-name-no-unknown/README.md) |[noUnknownMediaFeatureName](/linter/rules/no-unknown-media-feature-name) |
 | [no-duplicate-at-import-rules](https://github.com/stylelint/stylelint/blob/main/lib/rules/no-duplicate-at-import-rules/README.md) |[noDuplicateAtImportRules](/linter/rules/no-duplicate-at-import-rules) (inspired) |
-| [no-empty-block](https://github.com/stylelint/stylelint/blob/main/lib/rules/no-empty-block/README.md) |[noEmptyBlock](/linter/rules/no-empty-block) |
 | [no-invalid-position-at-import-rule](https://github.com/stylelint/stylelint/blob/main/lib/rules/no-invalid-position-at-import-rule/README.md) |[noInvalidPositionAtImportRule](/linter/rules/no-invalid-position-at-import-rule) |
 | [property-no-unknown](https://github.com/stylelint/stylelint/blob/main/lib/rules/property-no-unknown/README.md) |[noUnknownProperty](/linter/rules/no-unknown-property) |
 | [selector-anb-no-unmatchable](https://github.com/stylelint/stylelint/blob/main/lib/rules/selector-anb-no-unmatchable/README.md) |[noUnmatchableAnbSelector](/linter/rules/no-unmatchable-anb-selector) |
@@ -216,7 +220,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [html-has-lang](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/html-has-lang.md) |[useHtmlLang](/linter/rules/use-html-lang) |
 | [iframe-has-title](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/iframe-has-title.md) |[useIframeTitle](/linter/rules/use-iframe-title) |
 | [img-redundant-alt](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/img-redundant-alt.md) |[noRedundantAlt](/linter/rules/no-redundant-alt) |
-| [interactive-support-focus](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/interactive-support-focus.md) |[useFocusableInteractive](/linter/rules/use-focusable-interactive) |
+| [interactive-supports-focus](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/interactive-supports-focus.md) |[useFocusableInteractive](/linter/rules/use-focusable-interactive) |
 | [label-has-associated-control](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/label-has-associated-control.md) |[noLabelWithoutControl](/linter/rules/no-label-without-control) |
 | [lang](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/lang.md) |[useValidLang](/linter/rules/use-valid-lang) |
 | [media-has-caption](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/media-has-caption.md) |[useMediaCaption](/linter/rules/use-media-caption) |
@@ -317,7 +321,6 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-redeclare](https://typescript-eslint.io/rules/no-redeclare) |[noRedeclare](/linter/rules/no-redeclare) |
 | [no-restricted-imports](https://typescript-eslint.io/rules/no-restricted-imports) |[noRestrictedImports](/linter/rules/no-restricted-imports) |
 | [no-this-alias](https://typescript-eslint.io/rules/no-this-alias) |[noUselessThisAlias](/linter/rules/no-useless-this-alias) (inspired) |
-| [no-throw-literal](https://typescript-eslint.io/rules/no-throw-literal) |[useThrowOnlyError](/linter/rules/use-throw-only-error) (inspired) |
 | [no-unnecessary-type-constraint](https://typescript-eslint.io/rules/no-unnecessary-type-constraint) |[noUselessTypeConstraint](/linter/rules/no-useless-type-constraint) |
 | [no-unsafe-declaration-merging](https://typescript-eslint.io/rules/no-unsafe-declaration-merging) |[noUnsafeDeclarationMerging](/linter/rules/no-unsafe-declaration-merging) |
 | [no-unused-vars](https://typescript-eslint.io/rules/no-unused-vars) |[noUnusedVariables](/linter/rules/no-unused-variables) |

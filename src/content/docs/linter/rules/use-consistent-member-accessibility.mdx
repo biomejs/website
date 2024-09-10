@@ -1,0 +1,229 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: useConsistentMemberAccessibility
+description: |
+  Require consistent accessibility modifiers on class properties and methods.
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+**Diagnostic Category: `lint/nursery/useConsistentMemberAccessibility`**
+<Tabs>
+<TabItem label="TypeScript and TSX" icon="seti:typescript">
+**Since**: `vnext`
+:::caution
+This rule is part of the [nursery](/linter/rules/#nursery) group.
+:::
+
+Sources: 
+- Same as: <a href="https://typescript-eslint.io/rules/explicit-member-accessibility" target="_blank"><code>@typescript-eslint/explicit-member-accessibility</code></a>
+
+Require consistent accessibility modifiers on class properties and methods.
+
+TypeScript allows placing explicit `public`, `protected`, and `private` accessibility modifiers in front of class members.
+The modifiers exist solely in the type system and just serve to describe who is allowed to access those members.
+Leaving off accessibility modifiers makes for less code to read and write. Members are public by default.
+
+However, adding in consistent accessibility modifiers can be helpful in codebases with many classes for enforcing proper privacy of members.
+Some developers also find it preferable for code readability to keep member publicity explicit.
+
+## Examples
+
+### Invalid
+
+The following patterns are considered incorrect code with the default options `noPublic`:
+
+```js
+class Animal {
+  public constructor(
+    public breed,
+    name,
+  ) {
+    // Parameter property and constructor
+    this.animalName = name;
+  }
+  public animalName: string; // Property
+  public get name(): string {
+    // get accessor
+    return this.animalName;
+  }
+  public set name(value: string) {
+    // set accessor
+    this.animalName = value;
+  }
+  public walk() {
+    // method
+  }
+}
+```
+
+The following patterns are considered incorrect code with the accessibility set to `explicit`:
+
+```ts
+class Animal {
+  // Constructor is not set accessibility modifier
+  constructor(
+    public breed,
+    name,
+  ) {
+    // Parameter property and constructor
+    this.animalName = name;
+  }
+  private animalName: string; // Property
+  public get name(): string {
+    // get accessor
+    return this.animalName;
+  }
+  public set name(value: string) {
+    // set accessor
+    this.animalName = value;
+  }
+  protected walk() {
+    // method
+  }
+}
+```
+
+The following patterns are considered incorrect code with the accessibility set to `none`:
+
+```ts
+class Animal {
+  constructor(
+    protected breed,
+    name,
+  ) {
+    // Parameter property and constructor
+    this.name = name;
+  }
+  // Property is set accessibility modifier
+  private animalName: string; // Property
+  get name(): string {
+    // get accessor
+    return this.animalName;
+  }
+  // set accessor is set accessibility modifier
+  set name(value: string) {
+    // set accessor
+    this.animalName = value;
+  }
+  // walk() is set accessibility modifier
+  protected walk() {
+    // method
+  }
+}
+```
+
+### Valid
+
+The following patterns are considered correct code with the default options `noPublic`:
+
+```ts
+class Animal {
+  constructor(
+    public breed,
+    name,
+  ) {
+    // Parameter property and constructor
+    this.animalName = name;
+  }
+  private animalName: string; // Property
+  get name(): string {
+    // get accessor
+    return this.animalName;
+  }
+  set name(value: string) {
+    // set accessor
+    this.animalName = value;
+  }
+  protected walk() {
+    // method
+  }
+}
+```
+
+The following patterns are considered correct code with the accessibility set to `explicit`:
+
+```ts
+class Animal {
+  public constructor(
+    public breed,
+    name,
+  ) {
+    // Parameter property and constructor
+    this.animalName = name;
+  }
+  private animalName: string; // Property
+  public get name(): string {
+    // get accessor
+    return this.animalName;
+  }
+  public set name(value: string) {
+    // set accessor
+    this.animalName = value;
+  }
+  protected walk() {
+    // method
+  }
+}
+```
+
+The following patterns are considered correct code with the accessibility set to `none`:
+
+```ts
+class Animal {
+  constructor(
+    breed,
+    name,
+  ) {
+    // Parameter property and constructor
+    this.name = name;
+  }
+  animalName: string; // Property
+  get name(): string {
+    // get accessor
+    return this.animalName;
+  }
+  set name(value: string) {
+    // set accessor
+    this.animalName = value;
+  }
+  walk() {
+    // method
+  }
+}
+```
+
+## Options
+
+The rule supports the following options:
+
+```json
+{
+    "//": "...",
+    "options": {
+        "accessibility": "explicit"
+    }
+}
+```
+
+### `accessibility`
+
+This option determines the required accessibility modifiers on class properties and methods.
+It can be set to one of the following values:
+
+- `noPublic` - forbid the use of public (a safe fix will remove it).
+- `explicit` - requires an accessibility modifier for every member that allows that (a safe fix will add public).
+- `none` - forbid all accessibility modifiers (public, protected, private).
+
+Default: `noPublic`.
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
+</Tabs>
+

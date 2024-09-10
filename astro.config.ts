@@ -82,7 +82,7 @@ export default defineConfig({
 							label: "Configure Biome",
 							link: "/guides/configure-biome",
 							translations: {
-								ja: "バイオームの設定",
+								ja: "Biome の設定",
 								"zh-CN": "配置生物群落",
 								"pt-BR": "Configurar Bioma",
 							},
@@ -107,7 +107,6 @@ export default defineConfig({
 								{
 									label: "First-party plugins",
 									link: "/guides/editors/first-party-plugins",
-									badge: "updated",
 								},
 								{
 									label: "Third-party plugins",
@@ -131,7 +130,6 @@ export default defineConfig({
 						{
 							label: "Migrate from ESLint & Prettier",
 							link: "/guides/migrate-eslint-prettier",
-							badge: "new",
 							translations: {
 								ja: "ESLintとPrettierからの移行",
 							},
@@ -251,14 +249,18 @@ export default defineConfig({
 							label: "CLI",
 							link: "/reference/cli",
 						},
+            {
+							label: "Diagnostics",
+							link: "/reference/diagnostics",
+							badge: "new",
+						},
 						{
 							label: "Environment variables",
 							link: "/reference/environment-variables",
-						},
+            },
 						{
 							label: "Reporters",
 							link: "/reference/reporters",
-							badge: "new",
 						},
 						{
 							label: "Configuration",
@@ -277,6 +279,11 @@ export default defineConfig({
 								"zh-CN": "VSCode 扩展",
 								"pt-BR": "Extensão do VSCode",
 							},
+						},
+						{
+							label: "GritQL",
+							link: "/reference/gritql",
+							badge: "experimental",
 						},
 					],
 				},
@@ -304,6 +311,9 @@ export default defineConfig({
 						{
 							label: "Social Badges",
 							link: "/recipes/badges",
+							translations: {
+								ja: "ソーシャルバッジ",
+							},
 						},
 					],
 				},

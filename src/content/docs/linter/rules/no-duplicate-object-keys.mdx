@@ -1,13 +1,110 @@
 ---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
 title: noDuplicateObjectKeys
 description: |
-  'Prevents object literals having more than one property declaration for the same name.'
+  Disallow two keys with the same name inside objects.
 ---
-import ContentJs from "@/components/generated/rules/no-duplicate-object-keys_js.md"
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 **Diagnostic Category: `lint/suspicious/noDuplicateObjectKeys`**
 <Tabs>
-<TabItem label="JavaScript (and super languages)"><ContentJs /></TabItem>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+**Since**: `v1.0.0`
+:::note
+- This rule is recommended by Biome. A diagnostic error will appear when linting your code.
+- This rule has an **unsafe** fix.
+:::
+
+Sources: 
+- Same as: <a href="https://eslint.org/docs/latest/rules/no-dupe-keys" target="_blank"><code>no-dupe-keys</code></a>
+
+Disallow two keys with the same name inside objects.
+
+If an object property with the same name is defined multiple times (except when combining a getter with a setter), only the last definition makes it into the object and previous definitions are ignored, which is likely a mistake.
+
+## Examples
+
+### Invalid
+
+```js
+const obj = {
+   	a: 1,
+   	a: 2,
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:2:5 <a href="https://biomejs.dev/linter/rules/no-duplicate-object-keys">lint/suspicious/noDuplicateObjectKeys</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This property value named a is later overwritten by an object member with the same name.</span><br />  <br />    <strong>1 │ </strong>const obj = &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>   	a: 1,<br />   <strong>   │ </strong>   	<strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>   	a: 2,<br />    <strong>4 │ </strong>&#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Overwritten with this value.</span><br />  <br />    <strong>1 │ </strong>const obj = &#123;<br />    <strong>2 │ </strong>   	a: 1,<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>   	a: 2,<br />   <strong>   │ </strong>   	<strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>&#125;<br />    <strong>5 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">If an object property with the same name is defined multiple times (except when combining a getter with a setter), only the last definition makes it into the object and previous definitions are ignored.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Remove this property value named a</span><br />  <br />    <strong>1</strong> <strong>1</strong><strong> │ </strong>  const obj = &#123;<br />    <strong>2</strong>  <strong> │ </strong><span style="color: Tomato;">-</span> <span style="color: Tomato;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: Tomato;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: Tomato;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: Tomato;"><span style="opacity: 0.8;"><strong>→ </strong></span></span><span style="color: Tomato;"><strong>a</strong></span><span style="color: Tomato;"><strong>:</strong></span><span style="color: Tomato;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: Tomato;"><strong>1</strong></span><span style="color: Tomato;"><strong>,</strong></span><br />    <strong>3</strong> <strong>2</strong><strong> │ </strong>     	a: 2,<br />    <strong>4</strong> <strong>3</strong><strong> │ </strong>  &#125;<br />  <br /></code></pre>
+
+```js
+const obj = {
+   	set a(v) {},
+   	a: 2,
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:2:5 <a href="https://biomejs.dev/linter/rules/no-duplicate-object-keys">lint/suspicious/noDuplicateObjectKeys</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This setter named a is later overwritten by an object member with the same name.</span><br />  <br />    <strong>1 │ </strong>const obj = &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>   	set a(v) &#123;&#125;,<br />   <strong>   │ </strong>   	<strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>   	a: 2,<br />    <strong>4 │ </strong>&#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Overwritten with this value.</span><br />  <br />    <strong>1 │ </strong>const obj = &#123;<br />    <strong>2 │ </strong>   	set a(v) &#123;&#125;,<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>   	a: 2,<br />   <strong>   │ </strong>   	<strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>&#125;<br />    <strong>5 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">If an object property with the same name is defined multiple times (except when combining a getter with a setter), only the last definition makes it into the object and previous definitions are ignored.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Remove this setter named a</span><br />  <br />    <strong>1</strong> <strong>1</strong><strong> │ </strong>  const obj = &#123;<br />    <strong>2</strong>  <strong> │ </strong><span style="color: Tomato;">-</span> <span style="color: Tomato;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: Tomato;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: Tomato;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: Tomato;"><span style="opacity: 0.8;"><strong>→ </strong></span></span><span style="color: Tomato;"><strong>s</strong></span><span style="color: Tomato;"><strong>e</strong></span><span style="color: Tomato;"><strong>t</strong></span><span style="color: Tomato;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: Tomato;"><strong>a</strong></span><span style="color: Tomato;"><strong>(</strong></span><span style="color: Tomato;"><strong>v</strong></span><span style="color: Tomato;"><strong>)</strong></span><span style="color: Tomato;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: Tomato;"><strong>&#123;</strong></span><span style="color: Tomato;"><strong>&#125;</strong></span><span style="color: Tomato;"><strong>,</strong></span><br />    <strong>3</strong> <strong>2</strong><strong> │ </strong>     	a: 2,<br />    <strong>4</strong> <strong>3</strong><strong> │ </strong>  &#125;<br />  <br /></code></pre>
+
+### Valid
+
+```js
+const obj = {
+   	a: 1,
+   	b: 2,
+}
+```
+
+```js
+const obj = {
+   	get a() { return 1; },
+   	set a(v) {},
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
+<TabItem label="JSON (and super languages)" icon="seti:json">
+**Since**: `v1.0.0`
+:::note
+- This rule is recommended by Biome. A diagnostic error will appear when linting your code.
+:::
+
+Disallow two keys with the same name inside objects.
+
+## Examples
+
+### Invalid
+
+```json
+{
+  "title": "New title",
+  "title": "Second title"
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.json:2:3 <a href="https://biomejs.dev/linter/rules/no-duplicate-object-keys">lint/suspicious/noDuplicateObjectKeys</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The key </span><span style="color: Tomato;"><strong>title</strong></span><span style="color: Tomato;"> was already declared.</span><br />  <br />    <strong>1 │ </strong>&#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  &quot;title&quot;: &quot;New title&quot;,<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>  &quot;title&quot;: &quot;Second title&quot;<br />    <strong>4 │ </strong>&#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This where a duplicated key was declared again.</span><br />  <br />    <strong>1 │ </strong>&#123;<br />    <strong>2 │ </strong>  &quot;title&quot;: &quot;New title&quot;,<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>  &quot;title&quot;: &quot;Second title&quot;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>&#125;<br />    <strong>5 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">If a key is defined multiple times, only the last definition takes effect. Previous definitions are ignored.</span><br />  <br /></code></pre>
+
+### Valid
+
+```json
+{
+  "title": "New title",
+  "secondTitle": "Second title"
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
 </Tabs>
 

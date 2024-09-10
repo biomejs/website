@@ -12,6 +12,7 @@ import {
 } from "@/playground/types";
 import {
 	isCssFilename,
+	isFrameworkTemplateFilename,
 	isGraphqlFilename,
 	isJsonFilename,
 } from "@/playground/utils";
@@ -40,6 +41,8 @@ let configuration: undefined | Configuration;
 function getPathForFile(file: File): BiomePath {
 	return {
 		path: file.filename,
+		kind: ["Handleable"],
+		was_written: false,
 	};
 }
 
@@ -218,17 +221,24 @@ self.addEventListener("message", async (e) => {
 			}
 			files.set(filename, file);
 			const path = getPathForFile(file);
+			const isFrameworkTemplate = isFrameworkTemplateFilename(filename);
 
-			const syntaxTree = workspace.getSyntaxTree({
-				path,
-			});
+			const syntaxTree = !isFrameworkTemplate
+				? workspace.getSyntaxTree({
+						path,
+					})
+				: {
+						ast: "Not available",
+						cst: "Not available",
+					};
 
 			const isGraphql = isGraphqlFilename(filename);
 
 			const controlFlowGraph = !(
 				isJsonFilename(filename) ||
 				isCssFilename(filename) ||
-				isGraphql
+				isGraphql ||
+				isFrameworkTemplate
 			)
 				? workspace.getControlFlowGraph({
 						path,
@@ -236,9 +246,11 @@ self.addEventListener("message", async (e) => {
 					})
 				: "";
 
-			const formatterIr = workspace.getFormatterIr({
-				path,
-			});
+			const formatterIr = !isFrameworkTemplate
+				? workspace.getFormatterIr({
+						path,
+					})
+				: "Not available";
 
 			const importSorting = isGraphql
 				? { code: "" }

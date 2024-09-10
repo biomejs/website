@@ -1,13 +1,49 @@
 ---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
 title: noWith
 description: |
-  'Disallow <code>with</code> statements in non-strict contexts.'
+  Disallow  statements in non-strict contexts.
 ---
-import ContentJs from "@/components/generated/rules/no-with_js.md"
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 **Diagnostic Category: `lint/complexity/noWith`**
 <Tabs>
-<TabItem label="JavaScript (and super languages)"><ContentJs /></TabItem>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+**Since**: `v1.0.0`
+:::note
+- This rule is recommended by Biome. A diagnostic error will appear when linting your code.
+:::
+
+Sources: 
+- Same as: <a href="https://eslint.org/docs/latest/rules/no-with" target="_blank"><code>no-with</code></a>
+
+Disallow `with` statements in non-strict contexts.
+
+The `with` statement is potentially problematic because it adds members of an object to the current
+scope, making it impossible to tell what a variable inside the block actually refers to.
+
+## Examples
+
+### Invalid
+
+```cjs
+function f() {
+  with (point) {
+    r = Math.sqrt(x * x + y * y); // is r a member of point?
+  }
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.cjs:2:3 <a href="https://biomejs.dev/linter/rules/no-with">lint/complexity/noWith</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unexpected use of </span><span style="color: Tomato;"><strong>with</strong></span><span style="color: Tomato;"> statement.</span><br />  <br />    <strong>1 │ </strong>function f() &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  with (point) &#123;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>    r = Math.sqrt(x &#42; x + y &#42; y); // is r a member of point?<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>  &#125;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><br />    <strong>5 │ </strong>&#125;<br />    <strong>6 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The with statement is potentially problematic because it adds members of an object to the current<br /></span>    <span style="color: lightgreen;">scope, making it impossible to tell what a variable inside the block actually refers to.</span><br />  <br /></code></pre>
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
 </Tabs>
 

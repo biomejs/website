@@ -1,13 +1,64 @@
 ---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
 title: noImportantInKeyframe
 description: |
-  'Disallow invalid <code>!important</code> within keyframe declarations'
+  Disallow invalid  within keyframe declarations
 ---
-import ContentCss from "@/components/generated/rules/no-important-in-keyframe_css.md"
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 **Diagnostic Category: `lint/nursery/noImportantInKeyframe`**
 <Tabs>
-<TabItem label="CSS"><ContentCss /></TabItem>
+<TabItem label="CSS" icon="seti:css">
+**Since**: `v1.8.0`
+:::caution
+This rule is part of the [nursery](/linter/rules/#nursery) group.
+:::
+
+Sources: 
+- Same as: <a href="https://github.com/stylelint/stylelint/blob/main/lib/rules/keyframe-declaration-no-important/README.md" target="_blank"><code>stylelint/keyframe-declaration-no-important</code></a>
+
+Disallow invalid `!important` within keyframe declarations
+
+Using `!important` within keyframes declarations is completely ignored in some browsers.
+
+## Examples
+
+### Invalid
+
+```css
+@keyframes foo {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1 !important;
+    }
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.css:6:18 <a href="https://biomejs.dev/linter/rules/no-important-in-keyframe">lint/nursery/noImportantInKeyframe</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Using </span><span style="color: Tomato;"><strong>!important</strong></span><span style="color: Tomato;"> within keyframes declaration is completely ignored in some browsers.</span><br />  <br />    <strong>4 │ </strong>    &#125;<br />    <strong>5 │ </strong>    to &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>6 │ </strong>      opacity: 1 !important;<br />   <strong>   │ </strong>                 <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>7 │ </strong>    &#125;<br />    <strong>8 │ </strong>&#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Consider removing useless </span><span style="color: lightgreen;"><strong>!important</strong></span><span style="color: lightgreen;"> declaration.</span><br />  <br /></code></pre>
+
+### Valid
+
+```css
+@keyframes foo {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
 </Tabs>
 

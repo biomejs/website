@@ -237,6 +237,30 @@ export function isGraphqlFilename(filename: string): boolean {
 	return filename.endsWith(".gql") || filename.endsWith(".graphql");
 }
 
+export function isHtmlFilename(filename: string): boolean {
+	return filename.endsWith(".html");
+}
+
+export function isFrameworkTemplateFilename(filename: string): boolean {
+	return (
+		isVueFilename(filename) ||
+		isSvelteFilename(filename) ||
+		isAstroFilename(filename)
+	);
+}
+
+export function isVueFilename(filename: string): boolean {
+	return filename.endsWith(".vue");
+}
+
+export function isSvelteFilename(filename: string): boolean {
+	return filename.endsWith(".svelte");
+}
+
+export function isAstroFilename(filename: string): boolean {
+	return filename.endsWith(".astro");
+}
+
 export function modifyFilename(
 	filename: string,
 	opts: ExtensionOptions,
@@ -284,7 +308,9 @@ export function isValidExtension(filename: string): boolean {
 		isJsxFilename(filename) ||
 		isJsonFilename(filename) ||
 		isCssFilename(filename) ||
-		isGraphqlFilename(filename)
+		isGraphqlFilename(filename) ||
+		isHtmlFilename(filename) ||
+		isFrameworkTemplateFilename(filename)
 	);
 }
 

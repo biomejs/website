@@ -1,13 +1,61 @@
 ---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
 title: noImplicitAnyLet
 description: |
-  'Disallow use of implicit <code>any</code> type on variable declarations.'
+  Disallow use of implicit  type on variable declarations.
 ---
-import ContentTs from "@/components/generated/rules/no-implicit-any-let_ts.md"
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 **Diagnostic Category: `lint/suspicious/noImplicitAnyLet`**
 <Tabs>
-<TabItem label="TypeScript and TSX"><ContentTs /></TabItem>
+<TabItem label="TypeScript and TSX" icon="seti:typescript">
+**Since**: `v1.4.0`
+:::note
+- This rule is recommended by Biome. A diagnostic error will appear when linting your code.
+:::
+
+Disallow use of implicit `any` type on variable declarations.
+
+TypeScript variable declaration without any type annotation and initialization have the `any` type.
+The any type in TypeScript is a dangerous “escape hatch” from the type system.
+Using any disables many type checking rules and is generally best used only as a last resort or when prototyping code.
+TypeScript’s [`--noImplicitAny` compiler option](https://www.typescriptlang.org/tsconfig#noImplicitAny) doesn't report this case.
+
+## Examples
+
+### Invalid
+
+```ts
+var a;
+a = 2;
+```
+
+<pre class="language-text"><code class="language-text">code-block.ts:1:5 <a href="https://biomejs.dev/linter/rules/no-implicit-any-let">lint/suspicious/noImplicitAnyLet</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This variable implicitly has the </span><span style="color: Tomato;"><strong>any</strong></span><span style="color: Tomato;"> type.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>var a;<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>a = 2;<br />    <strong>3 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Variable declarations without type annotation and initialization implicitly have the </span><span style="color: lightgreen;"><strong>any</strong></span><span style="color: lightgreen;"> type. Declare a type or initialize the variable with some value.</span><br />  <br /></code></pre>
+
+```ts
+let b;
+b = 1
+```
+
+<pre class="language-text"><code class="language-text">code-block.ts:1:5 <a href="https://biomejs.dev/linter/rules/no-implicit-any-let">lint/suspicious/noImplicitAnyLet</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This variable implicitly has the </span><span style="color: Tomato;"><strong>any</strong></span><span style="color: Tomato;"> type.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>let b;<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>b = 1<br />    <strong>3 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Variable declarations without type annotation and initialization implicitly have the </span><span style="color: lightgreen;"><strong>any</strong></span><span style="color: lightgreen;"> type. Declare a type or initialize the variable with some value.</span><br />  <br /></code></pre>
+
+### Valid
+
+```ts
+var a = 1;
+let a:number;
+var b: number
+var b =10;
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
 </Tabs>
 

@@ -55,7 +55,7 @@ export function GET() {
             "fixKind": "none",
             "sources": [
               {
-                "stylelint": "no-empty-block"
+                "stylelint": "block-no-empty"
               }
             ],
             "docs": " Disallow CSS empty blocks.\n\n By default, it will allow empty blocks with comments inside.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n p {}\n ```\n\n ```css,expect_diagnostic\n .b {}\n ```\n\n ```css,expect_diagnostic\n @media print { a {} }\n ```\n\n ### Valid\n\n ```css\n p {\n   color: red;\n }\n ```\n\n ```css\n p { /* foo */ }\n ```\n\n ```css\n @media print { a { color: pink; } }\n ```\n\n"
@@ -87,6 +87,20 @@ export function GET() {
               }
             ],
             "docs": " Disallow non-standard direction values for linear gradient functions.\n\n A valid and standard direction value is one of the following:\n - an angle\n - to plus a side-or-corner (`to top`, `to bottom`, `to left`, `to right`; `to top right`, `to right top`, `to bottom left`, etc.)\n\n A common mistake (matching outdated non-standard syntax) is to use just a side-or-corner without the preceding to.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n .foo { background: linear-gradient(top, #fff, #000); }\n ```\n\n ```css,expect_diagnostic\n .foo { background: linear-gradient(45, #fff, #000); }\n ```\n\n ### Valid\n\n ```css\n .foo { background: linear-gradient(to top, #fff, #000); }\n ```\n\n ```css\n .foo { background: linear-gradient(45deg, #fff, #000); }\n ```\n\n"
+          },
+          "noInvalidGridAreas": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noInvalidGridAreas",
+            "link": "https://biomejs.dev/linter/rules/no-invalid-grid-areas",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "stylelint": "named-grid-areas-no-invalid"
+              }
+            ],
+            "docs": " Disallows invalid named grid areas in CSS Grid Layouts.\n\n For a named grid area to be valid, all strings must define:\n\n - the same number of cell tokens\n - at least one cell token\n\n And all named grid areas that spans multiple grid cells must form a single filled-in rectangle.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a { grid-template-areas: \"a a\"\n                          \"b b b\"; }\n ```\n\n ```css,expect_diagnostic\n a { grid-template-areas: \"b b b\"\n                          \"\"; }\n ```\n\n ```css,expect_diagnostic\n a { grid-template-areas: \"a a a\"\n                          \"b b a\"; }\n ```\n\n ### Valid\n\n ```css\n a { grid-template-areas: \"a a a\"\n                          \"b b b\"; }\n ```\n\n ```css\n a { grid-template-areas: \"a a a\"\n                          \"a a a\"; }\n ```\n\n"
           },
           "noInvalidPositionAtImportRule": {
             "deprecated": false,
@@ -237,20 +251,6 @@ export function GET() {
             "fixKind": "none",
             "docs": " Disallow use of `@value` rule in css modules.\n\n Use of CSS variables is recommended instead of `@value` rule.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n @value red: #FF0000;\n ```\n\n ### Valid\n\n ```css\n :root {\n   --red: #FF0000\n }\n\n p {\n   background-color: var(--red);\n }\n ```\n\n"
           },
-          "useConsistentGridAreas": {
-            "deprecated": false,
-            "version": "next",
-            "name": "useConsistentGridAreas",
-            "link": "https://biomejs.dev/linter/rules/use-consistent-grid-areas",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "stylelint": "named-grid-areas-no-invalid"
-              }
-            ],
-            "docs": " Disallows invalid named grid areas in CSS Grid Layouts.\n\n For a named grid area to be valid, all strings must define:\n\n - the same number of cell tokens\n - at least one cell token\n\n And all named grid areas that spans multiple grid cells must form a single filled-in rectangle.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a { grid-template-areas: \"a a\"\n                          \"b b b\"; }\n ```\n\n ```css,expect_diagnostic\n a { grid-template-areas: \"b b b\"\n                          \"\"; }\n ```\n\n ```css,expect_diagnostic\n a { grid-template-areas: \"a a a\"\n                          \"b b a\"; }\n ```\n\n ### Valid\n\n ```css\n a { grid-template-areas: \"a a a\"\n                          \"b b b\"; }\n ```\n\n ```css\n a { grid-template-areas: \"a a a\"\n                          \"a a a\"; }\n ```\n\n"
-          },
           "useGenericFontNames": {
             "deprecated": false,
             "version": "1.8.0",
@@ -380,13 +380,13 @@ export function GET() {
             "name": "noUselessCatch",
             "link": "https://biomejs.dev/linter/rules/no-useless-catch",
             "recommended": true,
-            "fixKind": "none",
+            "fixKind": "unsafe",
             "sources": [
               {
                 "eslint": "no-useless-catch"
               }
             ],
-            "docs": " Disallow unnecessary `catch` clauses.\n\n A `catch` clause that only rethrows the original error is redundant,\n and has no effect on the runtime behavior of the program.\n These redundant clauses can be a source of confusion and code bloat,\n so it’s better to disallow these unnecessary `catch` clauses.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n try {\n     doSomething();\n } catch(e) {\n     throw e;\n }\n ```\n ```js,expect_diagnostic\n try {\n     doSomething();\n } catch(e) {\n     throw e;\n } finally {\n     doCleanUp();\n }\n ```\n ### Valid\n\n ```js\n try {\n     doSomething();\n } catch(e) {\n     doSomethingWhenCatch();\n     throw e;\n }\n ```\n\n ```js\n try {\n     doSomething();\n } catch(e) {\n     handleError(e);\n }\n ```\n\n"
+            "docs": " Disallow unnecessary `catch` clauses.\n\n A `catch` clause that only rethrows the original error is redundant,\n and has no effect on the runtime behavior of the program.\n These redundant clauses can be a source of confusion and code bloat,\n so it’s better to disallow these unnecessary `catch` clauses.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n try {\n     doSomething();\n } catch(e) {\n     throw e;\n }\n ```\n ```js,expect_diagnostic\n try {\n     doSomething();\n } catch(e) {\n     throw e;\n } finally {\n     doCleanUp();\n }\n ```\n ### Valid\n\n ```js\n try {\n     doSomething();\n } catch(e) {\n     doSomethingWhenCatch();\n     throw e;\n }\n ```\n\n ```js\n try {\n     doSomething();\n } catch(e) {\n     handleError(e);\n }\n ```\n\n ```js\n try {\n     doSomething();\n } finally {\n     doCleanUp();\n }\n ```\n\n"
           },
           "noUselessConstructor": {
             "deprecated": false,
@@ -551,6 +551,20 @@ export function GET() {
               }
             ],
             "docs": " Enforce the usage of a literal access to properties over computed property access.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n a.b[\"c\"];\n ```\n\n ```js,expect_diagnostic\n a.c[`d`]\n ```\n\n ```js,expect_diagnostic\n a.c[`d`] = \"something\"\n ```\n\n ```js,expect_diagnostic\n a = {\n \t['b']: d\n }\n ```\n\n ### Valid\n\n ```js\n a[\"c\" + \"d\"];\n a[d.c];\n ```\n\n"
+          },
+          "useOptionalChain": {
+            "deprecated": false,
+            "version": "1.0.0",
+            "name": "useOptionalChain",
+            "link": "https://biomejs.dev/linter/rules/use-optional-chain",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "eslintTypeScript": "prefer-optional-chain"
+              }
+            ],
+            "docs": " Enforce using concise optional chain instead of chained logical expressions.\n\n TypeScript 3.7 introduced support for the optional chain operator, which was later standardized and included in the ECMAScript specification.\n This operator allows you to safely access properties and methods on objects when they are potentially `null` or `undefined`.\n The optional chain operator only chains when the property value is `null` or `undefined`.\n It is much safer than relying upon logical operator chaining; which chains on any truthy value.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n foo && foo.bar && foo.bar.baz && foo.bar.baz.buzz\n ```\n\n ```js,expect_diagnostic\n foo.bar && foo.bar.baz.buzz\n ```\n\n ```js,expect_diagnostic\n foo !== undefined && foo.bar != undefined && foo.bar.baz !== null && foo.bar.baz.buzz\n ```\n\n ```js,expect_diagnostic\n ((foo || {}).bar || {}).baz;\n ```\n\n ```js,expect_diagnostic\n (await (foo1 || {}).foo2 || {}).foo3;\n ```\n\n ```ts,expect_diagnostic\n (((typeof x) as string) || {}).bar;\n ```\n\n ### Valid\n\n ```js\n foo && bar;\n```\n ```js\n foo || {};\n```\n\n ```js\n (foo = 2 || {}).bar;\n```\n\n ```js\n foo || foo.bar;\n```\n\n ```js\n foo[\"some long\"] && foo[\"some long string\"].baz\n```\n\n"
           },
           "useRegexLiterals": {
             "deprecated": false,
@@ -783,7 +797,7 @@ export function GET() {
                 "eslintImport": "no-nodejs-modules"
               }
             ],
-            "docs": " Forbid the use of Node.js builtin modules.\n\n This can be useful for client-side web projects that don't have access to those modules.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import fs from \"fs\";\n ```\n\n ```js,expect_diagnostic\n import path from \"node:path\";\n ```\n\n ### Valid\n\n ```js\n import fs from \"fs-custom\";\n ```\n"
+            "docs": " Forbid the use of Node.js builtin modules.\n\n This can be useful for client-side web projects that don't have access to those modules.\n\n The rule also isn't triggered if there are dependencies declared in the `package.json` that match\n the name of a built-in Node.js module.\n\n Type-only imports are ignored.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import fs from \"fs\";\n ```\n\n ```js,expect_diagnostic\n import path from \"node:path\";\n ```\n\n ### Valid\n\n ```js\n import fs from \"fs-custom\";\n ```\n\n ```ts\n import type path from \"node:path\";\n ```\n"
           },
           "noNonoctalDecimalEscape": {
             "deprecated": false,
@@ -1089,7 +1103,7 @@ export function GET() {
                 "eslint": "no-console"
               }
             ],
-            "docs": " Disallow the use of `console`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n console.error('hello world')\n ```\n\n"
+            "docs": " Disallow the use of `console`.\n\n In a browser environment, it’s considered a best practice to log messages using `console`.\n Such messages are considered to be for debugging purposes and therefore not suitable to ship to the client.\n In general, calls using `console` should be stripped before being pushed to production.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n console.error('hello world')\n ```\n\n"
           },
           "noDoneCallback": {
             "deprecated": false,
@@ -1316,6 +1330,20 @@ export function GET() {
             ],
             "docs": " Disallow the use of overload signatures that are not next to each other.\n\n Overload signatures must be adjacent.\n If a key is defined multiple times, only the last definition takes effect. Previous definitions are ignored.\n This rule is useful for preventing accidental overloads that are not adjacent.\n It is recommended to keep the overload signatures adjacent to make the code easier to read and maintain.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n type Foo = {\n   foo_type(s: string): void;\n   foo_type(n: number): void;\n   bar_type(): void;\n   foo_type(sn: string | number): void;\n };\n ```\n\n ```ts,expect_diagnostic\n interface Foo {\n   foo_interface(s: string): void;\n   foo_interface(n: number): void;\n   bar_interface(): void;\n   foo_interface(sn: string | number): void;\n }\n ```\n\n ```ts,expect_diagnostic,ignore\n class A {\n   fooA(s: string): void;\n   fooA(n: number): void;\n   barA(): void {};\n   fooA(sn: string | number): void {};\n }\n ```\n\n ### Valid\n\n ```ts\n declare namespace Foo {\n   export function foo_declare(s: string): void;\n   export function foo_declare(n: number): void;\n   export function foo_declare(sn: string | number): void;\n   export function bar_declare(): void;\n }\n ```\n\n ```ts\n type Foo = {\n   foo_type(s: string): void;\n   foo_type(n: number): void;\n   foo_type(sn: string | number): void;\n   bar_type(): void;\n };\n ```\n\n ```ts\n interface Foo {\n   foo_interface(s: string): void;\n   foo_interface(n: number): void;\n   foo_interface(sn: string | number): void;\n   bar_interface(): void;\n }\n ```\n\n ```ts\n class A {\n   fooA(s: string): void;\n   fooA(n: number): void;\n   fooA(sn: string | number): void {}\n   barA(): void {}\n }\n ```\n\n"
           },
+          "useAriaPropsSupportedByRole": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useAriaPropsSupportedByRole",
+            "link": "https://biomejs.dev/linter/rules/use-aria-props-supported-by-role",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslintJsxA11y": "role-supports-aria-props"
+              }
+            ],
+            "docs": " Enforce that ARIA properties are valid for the roles that are supported by the element.\n\n Invalid ARIA properties can make it difficult for users of assistive technologies to understand the purpose of the element.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <a href=\"#\" aria-checked />\n ```\n\n ```jsx,expect_diagnostic\n <img alt=\"foobar\" aria-checked />\n ```\n\n ### Valid\n\n ```js\n <>\n     <a href=\"#\" aria-expanded />\n     <img alt=\"foobar\" aria-hidden />\n     <div role=\"heading\" aria-level=\"1\" />\n </>\n ```\n\n"
+          },
           "useConsistentBuiltinInstantiation": {
             "deprecated": false,
             "version": "1.7.2",
@@ -1470,9 +1498,6 @@ export function GET() {
             "sources": [
               {
                 "eslint": "no-throw-literal"
-              },
-              {
-                "eslintTypeScript": "no-throw-literal"
               },
               {
                 "eslintTypeScript": "only-throw-error"
@@ -2109,7 +2134,7 @@ export function GET() {
                 "eslint": "eqeqeq"
               }
             ],
-            "docs": " Require the use of `===` and `!==`\n\n It is generally bad practice to use `==` for comparison instead of\n `===`. Double operators will trigger implicit [type coercion](https://developer.mozilla.org/en-US/docs/Glossary/Type_coercion)\n and are thus not prefered. Using strict equality operators is almost\n always best practice.\n\n For ergonomic reasons, this rule makes an exception for `== null` for\n comparing to both `null` and `undefined`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n foo == bar\n ```\n\n ### Valid\n\n ```js\n foo == null\n```\n\n ```js\n foo != null\n```\n\n ```js\n null == foo\n```\n\n ```js\n null != foo\n```\n"
+            "docs": " Require the use of `===` and `!==`\n\n It is generally bad practice to use `==` for comparison instead of\n `===`. Double operators will trigger implicit [type coercion](https://developer.mozilla.org/en-US/docs/Glossary/Type_coercion)\n and are thus not preferred. Using strict equality operators is almost\n always best practice.\n\n For ergonomic reasons, this rule makes by default an exception for `== null` for\n comparing to both `null` and `undefined`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n foo == bar\n ```\n\n ### Valid\n\n ```js\n foo == null\n```\n\n ```js\n foo != null\n```\n\n ```js\n null == foo\n```\n\n ```js\n null != foo\n```\n\n ## Options\n\n The rule provides the option described below.\n\n ```json\n {\n     \"//\":\"...\",\n     \"options\": {\n         \"ignoreNull\": true\n     }\n }\n ```\n\n ### ignoreNull\n\n When this option is set to `true`, an exception will be made for checking against `null`,\n as relying on the double equals operator to compare with `null` is frequently used to check\n equality with either `null` or `undefined`.\n\n When the option is set to `false`, all double equal operators will be forbidden without\n exceptions.\n\n Default: `true`\n\n\n"
           },
           "noDuplicateCase": {
             "deprecated": false,
@@ -2154,7 +2179,7 @@ export function GET() {
                 "eslint": "no-dupe-keys"
               }
             ],
-            "docs": " Prevents object literals having more than one property declaration for the same name.\n\n If an object property with the same name is defined multiple times (except when combining a getter with a setter), only the last definition makes it into the object and previous definitions are ignored, which is likely a mistake.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const obj = {\n\t\ta: 1,\n\t\ta: 2,\n }\n ```\n\n ```js,expect_diagnostic\n const obj = {\n\t\tset a(v) {},\n\t\ta: 2,\n }\n ```\n\n ### Valid\n\n ```js\n const obj = {\n\t\ta: 1,\n\t\tb: 2,\n }\n ```\n\n ```js\n const obj = {\n\t\tget a() { return 1; },\n\t\tset a(v) {},\n }\n ```\n\n"
+            "docs": " Disallow two keys with the same name inside objects.\n\n If an object property with the same name is defined multiple times (except when combining a getter with a setter), only the last definition makes it into the object and previous definitions are ignored, which is likely a mistake.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const obj = {\n\t\ta: 1,\n\t\ta: 2,\n }\n ```\n\n ```js,expect_diagnostic\n const obj = {\n\t\tset a(v) {},\n\t\ta: 2,\n }\n ```\n\n ### Valid\n\n ```js\n const obj = {\n\t\ta: 1,\n\t\tb: 2,\n }\n ```\n\n ```js\n const obj = {\n\t\tget a() { return 1; },\n\t\tset a(v) {},\n }\n ```\n\n"
           },
           "noDuplicateParameters": {
             "deprecated": false,
@@ -2449,7 +2474,7 @@ export function GET() {
             "fixKind": "unsafe",
             "sources": [
               {
-                "eslint": "no-sparse-array"
+                "eslint": "no-sparse-arrays"
               }
             ],
             "docs": " Disallow sparse arrays\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n [1,,2]\n ```\n"
@@ -2567,15 +2592,15 @@ export function GET() {
         }
       },
       "json": {
-        "nursery": {
-          "noDuplicateJsonKeys": {
+        "suspicious": {
+          "noDuplicateObjectKeys": {
             "deprecated": false,
             "version": "1.0.0",
-            "name": "noDuplicateJsonKeys",
-            "link": "https://biomejs.dev/linter/rules/no-duplicate-json-keys",
+            "name": "noDuplicateObjectKeys",
+            "link": "https://biomejs.dev/linter/rules/no-duplicate-object-keys",
             "recommended": true,
             "fixKind": "none",
-            "docs": " Disallow two keys with the same name inside a JSON object.\n\n ## Examples\n\n ### Invalid\n\n ```json,expect_diagnostic\n {\n   \"title\": \"New title\",\n   \"title\": \"Second title\"\n }\n ```\n\n ### Valid\n\n ```json\n {\n   \"title\": \"New title\",\n   \"secondTitle\": \"Second title\"\n }\n ```\n"
+            "docs": " Disallow two keys with the same name inside objects.\n\n ## Examples\n\n ### Invalid\n\n ```json,expect_diagnostic\n {\n   \"title\": \"New title\",\n   \"title\": \"Second title\"\n }\n ```\n\n ### Valid\n\n ```json\n {\n   \"title\": \"New title\",\n   \"secondTitle\": \"Second title\"\n }\n ```\n"
           }
         }
       },
@@ -2607,7 +2632,7 @@ export function GET() {
                 "eslintJsxA11y": "no-aria-hidden-on-focusable"
               }
             ],
-            "docs": " Enforce that aria-hidden=\"true\" is not set on focusable elements.\n\n `aria-hidden=\"true\"` can be used to hide purely decorative content from screen reader users.\n A focusable element with `aria-hidden=\"true\"` can be reached by keyboard.\n This can lead to confusion or unexpected behavior for screen reader users.\n\n ## Example\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div aria-hidden=\"true\" tabIndex=\"0\" />\n ```\n\n ```jsx,expect_diagnostic\n <a href=\"/\" aria-hidden=\"true\" />\n ```\n\n ### Valid\n\n ```jsx\n <button aria-hidden=\"true\" tabIndex=\"-1\" />\n ```\n\n ```jsx\n <div aria-hidden=\"true\"><a href=\"#\"></a></div>\n ```\n\n ## Resources\n\n - [aria-hidden elements do not contain focusable elements](https://dequeuniversity.com/rules/axe/html/4.4/aria-hidden-focus)\n - [Element with aria-hidden has no content in sequential focus navigation](https://www.w3.org/WAI/standards-guidelines/act/rules/6cfa84/proposed/)\n - [MDN aria-hidden](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden)\n\n"
+            "docs": " Enforce that aria-hidden=\"true\" is not set on focusable elements.\n\n `aria-hidden=\"true\"` can be used to hide purely decorative content from screen reader users.\n A focusable element with `aria-hidden=\"true\"` can be reached by keyboard.\n This can lead to confusion or unexpected behavior for screen reader users.\n\n ## Example\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div aria-hidden=\"true\" tabIndex=\"0\" />\n ```\n\n ```jsx,expect_diagnostic\n <a href=\"/\" aria-hidden=\"true\" />\n ```\n\n ### Valid\n\n ```jsx\n <button aria-hidden=\"true\" tabIndex=\"-1\" />\n ```\n\n ```jsx\n <button aria-hidden=\"true\" tabIndex={-1} />\n ```\n\n ```jsx\n <div aria-hidden=\"true\"><a href=\"#\"></a></div>\n ```\n\n ## Resources\n\n - [aria-hidden elements do not contain focusable elements](https://dequeuniversity.com/rules/axe/html/4.4/aria-hidden-focus)\n - [Element with aria-hidden has no content in sequential focus navigation](https://www.w3.org/WAI/standards-guidelines/act/rules/6cfa84/proposed/)\n - [MDN aria-hidden](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden)\n\n"
           },
           "noAriaUnsupportedElements": {
             "deprecated": false,
@@ -2649,7 +2674,7 @@ export function GET() {
                 "eslintReact": "jsx-no-target-blank"
               }
             ],
-            "docs": " Disallow `target=\"_blank\"` attribute without `rel=\"noreferrer\"`\n\n When creating anchor `a` element, there are times when its link has to be opened in a new browser tab\n via `target=\"_blank\"` attribute. This attribute has to paired with `rel=\"noreferrer\"` or you're incur\n in a security issue.\n\n Refer to [the noreferrer documentation](https://html.spec.whatwg.org/multipage/links.html#link-type-noreferrer)\n and the [the noopener documentation](https://html.spec.whatwg.org/multipage/links.html#link-type-noopener)\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <a href='http://external.link' target='_blank'>child</a>\n ```\n\n ```jsx,expect_diagnostic\n <a href='http://external.link' target='_blank' rel=\"noopener\">child</a>\n ```\n\n ```jsx,expect_diagnostic\n <a {...props} href='http://external.link' target='_blank' rel=\"noopener\">child</a>\n ```\n\n ### Valid\n\n ```jsx\n <a href='http://external.link' rel='noreferrer' target='_blank'>child</a>\n ```\n\n ```jsx\n <a href='http://external.link' target='_blank' rel=\"noopener\" {...props}>child</a>\n ```\n"
+            "docs": " Disallow `target=\"_blank\"` attribute without `rel=\"noreferrer\"`\n\n When creating anchor `a` element, there are times when its link has to be opened in a new browser tab\n via `target=\"_blank\"` attribute. This attribute has to paired with `rel=\"noreferrer\"` or you're incur\n in a security issue.\n\n Refer to [the noreferrer documentation](https://html.spec.whatwg.org/multipage/links.html#link-type-noreferrer)\n and the [the noopener documentation](https://html.spec.whatwg.org/multipage/links.html#link-type-noopener)\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <a href='http://external.link' target='_blank'>child</a>\n ```\n\n ```jsx,expect_diagnostic\n <a href='http://external.link' target='_blank' rel=\"noopener\">child</a>\n ```\n\n ```jsx,expect_diagnostic\n <a {...props} href='http://external.link' target='_blank' rel=\"noopener\">child</a>\n ```\n\n ### Valid\n\n ```jsx\n <a href='http://external.link' rel='noreferrer' target='_blank'>child</a>\n ```\n\n ```jsx\n <a href='http://external.link' target='_blank' rel=\"noopener\" {...props}>child</a>\n ```\n\n ## Options\n\n The option `allowDomains` allows specific domains to use `target=\"_blank\"` without `rel=\"noreferrer\"`.\n In the following configuration, it's allowed to use the domains `https://example.com` and `example.org`:\n\n ```json,ignore\n {\n     \"//\": \"...\",\n     \"options\": {\n         \"allowDomains\": [\"https://example.com\", \"example.org\"]\n     }\n }\n ```\n\n ```jsx,ignore\n <>\n   <a target=\"_blank\" href=\"https://example.com\"></a>\n   <a target=\"_blank\" href=\"example.org\"></a>\n </>\n ```\n\n Biome doesn't check if the list contains valid URLs.\n"
           },
           "noDistractingElements": {
             "deprecated": false,
@@ -2691,7 +2716,7 @@ export function GET() {
                 "eslintJsxA11y": "no-interactive-element-to-noninteractive-role"
               }
             ],
-            "docs": " Enforce that non-interactive ARIA roles are not assigned to interactive HTML elements.\n\n Interactive HTML elements indicate controls in the user interface.\n Interactive elements include `<a href>`, `<button>`, `<input>`, `<select>`, `<textarea>`.\n Non-interactive HTML elements and non-interactive ARIA roles indicate content and containers in the user interface.\n Non-interactive elements include `<main>`, `<area>`, `<h1>` (,`<h2>`, etc), `<img>`, `<li>`, `<ul>` and `<ol>`.\n\n [WAI-ARIA roles](https://www.w3.org/TR/wai-aria-1.1/#usage_intro) should not be used to convert an interactive element to a non-interactive element.\n Non-interactive ARIA roles include `article`, `banner`, `complementary`, `img`, `listitem`, `main`, `region` and `tooltip`.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <input role=\"img\" />;\n ```\n\n ### Valid\n\n ```jsx\n <input role=\"button\" />;\n ```\n\n"
+            "docs": " Enforce that non-interactive ARIA roles are not assigned to interactive HTML elements.\n\n Interactive HTML elements indicate controls in the user interface.\n Interactive elements include `<a href>`, `<button>`, `<input>`, `<select>`, `<textarea>`.\n Non-interactive HTML elements and non-interactive ARIA roles indicate content and containers in the user interface.\n Non-interactive elements include `<main>`, `<area>`, `<h1>` (,`<h2>`, etc), `<img>`, `<li>`, `<ul>` and `<ol>`.\n\n [WAI-ARIA roles](https://www.w3.org/TR/wai-aria-1.1/#usage_intro) should not be used to convert an interactive element to a non-interactive element.\n Non-interactive ARIA roles include `article`, `banner`, `complementary`, `img`, `listitem`, `main`, `region` and `tooltip`.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <input role=\"img\" />;\n ```\n\n ### Valid\n\n ```jsx\n <input role=\"button\" />;\n ```\n\n ```jsx\n <canvas role=\"img\" />;\n ```\n\n"
           },
           "noNoninteractiveElementToInteractiveRole": {
             "deprecated": false,
@@ -2854,7 +2879,7 @@ export function GET() {
                 "eslintJsxA11y": "heading-has-content"
               }
             ],
-            "docs": " Enforce that heading elements (h1, h2, etc.) have content and that the content is accessible to screen readers. Accessible means that it is not hidden using the aria-hidden prop.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <h1 />\n ```\n\n ```jsx,expect_diagnostic\n <h1><div aria-hidden /></h1>\n ```\n\n ```jsx,expect_diagnostic\n <h1></h1>\n ```\n\n ### Valid\n\n ```jsx\n <h1>heading</h1>\n ```\n\n ```jsx\n <h1><div aria-hidden=\"true\"></div>visible content</h1>\n ```\n\n ```jsx\n <h1 dangerouslySetInnerHTML={{ __html: \"heading\" }} />\n ```\n\n ```jsx\n <h1><div aria-hidden />visible content</h1>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 2.4.6](https://www.w3.org/TR/UNDERSTANDING-WCAG20/navigation-mechanisms-descriptive.html)\n\n"
+            "docs": " Enforce that heading elements (h1, h2, etc.) have content and that the content is accessible to screen readers. Accessible means that it is not hidden using the aria-hidden prop.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <h1 />\n ```\n\n ```jsx,expect_diagnostic\n <h1><div aria-hidden /></h1>\n ```\n\n ```jsx,expect_diagnostic\n <h1 aria-label=\"Screen reader content\" aria-hidden>invisible content</h1>\n ```\n\n\n ```jsx,expect_diagnostic\n <h1></h1>\n ```\n\n ### Valid\n\n ```jsx\n <h1>heading</h1>\n ```\n\n ```jsx\n <h1><div aria-hidden=\"true\"></div>visible content</h1>\n ```\n\n ```jsx\n <h1 aria-label=\"Screen reader content\"><div aria-hidden=\"true\">invisible content</div></h1>\n ```\n\n ```jsx\n <h1 dangerouslySetInnerHTML={{ __html: \"heading\" }} />\n ```\n\n ```jsx\n <h1><div aria-hidden />visible content</h1>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 2.4.6](https://www.w3.org/TR/UNDERSTANDING-WCAG20/navigation-mechanisms-descriptive.html)\n\n"
           },
           "useHtmlLang": {
             "deprecated": false,
@@ -3134,7 +3159,7 @@ export function GET() {
             "fixKind": "none",
             "sources": [
               {
-                "eslintJsxA11y": "interactive-support-focus"
+                "eslintJsxA11y": "interactive-supports-focus"
               }
             ],
             "docs": " Elements with an interactive role and interaction handlers must be focusable.\n\n HTML elements with interactive roles must have `tabIndex` defined to ensure they are\n focusable. Without tabIndex, assistive technologies may not recognize these elements as\n interactive.\n You could also consider switching from an interactive role to its semantic HTML element\n instead.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div role=\"button\" />\n ```\n\n ```jsx,expect_diagnostic\n <div role=\"tab\" />\n ```\n\n ### Valid\n\n ```jsx\n <div role=\"button\" tabIndex={0} />\n ```\n\n ```jsx\n <div />\n ```\n\n"
@@ -3327,20 +3352,6 @@ export function GET() {
               }
             ],
             "docs": " Disallow using `any` or `unknown` as type constraint.\n\n Generic type parameters (`<T>`) in TypeScript may be **constrained** with [`extends`](https://www.typescriptlang.org/docs/handbook/generics.html#generic-constraints).\n A supplied type must then be a subtype of the supplied constraint.\n All types are subtypes of `any` and `unknown`.\n It is thus useless to extend from `any` or `unknown`.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n interface FooAny<T extends any> {}\n ```\n ```ts,expect_diagnostic\n type BarAny<T extends any> = {};\n ```\n ```ts,expect_diagnostic\n class BazAny<T extends any> {\n }\n ```\n ```ts,expect_diagnostic\n class BazAny {\n   quxAny<U extends any>() {}\n }\n ```\n ```ts,expect_diagnostic\n const QuuxAny = <T extends any>() => {};\n ```\n ```ts,expect_diagnostic\n function QuuzAny<T extends any>() {}\n ```\n\n ```ts,expect_diagnostic\n interface FooUnknown<T extends unknown> {}\n ```\n ```ts,expect_diagnostic\n type BarUnknown<T extends unknown> = {};\n ```\n ```ts,expect_diagnostic\n class BazUnknown<T extends unknown> {\n }\n ```ts,expect_diagnostic\n class BazUnknown {\n   quxUnknown<U extends unknown>() {}\n }\n ```\n ```ts,expect_diagnostic\n const QuuxUnknown = <T extends unknown>() => {};\n ```\n ```ts,expect_diagnostic\n function QuuzUnknown<T extends unknown>() {}\n ```\n\n ### Valid\n\n ```ts\n interface Foo<T> {}\n\n type Bar<T> = {};\n```\n"
-          },
-          "useOptionalChain": {
-            "deprecated": false,
-            "version": "1.0.0",
-            "name": "useOptionalChain",
-            "link": "https://biomejs.dev/linter/rules/use-optional-chain",
-            "recommended": true,
-            "fixKind": "unsafe",
-            "sources": [
-              {
-                "eslintTypeScript": "prefer-optional-chain"
-              }
-            ],
-            "docs": " Enforce using concise optional chain instead of chained logical expressions.\n\n TypeScript 3.7 added support for the optional chain operator.\n This operator allows you to safely access properties and methods on objects when they are potentially `null` or `undefined`.\n The optional chain operator only chains when the property value is `null` or `undefined`.\n It is much safer than relying upon logical operator chaining; which chains on any truthy value.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n foo && foo.bar && foo.bar.baz && foo.bar.baz.buzz\n ```\n\n ```js,expect_diagnostic\n foo.bar && foo.bar.baz.buzz\n ```\n\n ```js,expect_diagnostic\n foo !== undefined && foo.bar != undefined && foo.bar.baz !== null && foo.bar.baz.buzz\n ```\n\n ```js,expect_diagnostic\n ((foo || {}).bar || {}).baz;\n ```\n\n ```js,expect_diagnostic\n (await (foo1 || {}).foo2 || {}).foo3;\n ```\n\n ```ts,expect_diagnostic\n (((typeof x) as string) || {}).bar;\n ```\n\n ### Valid\n\n ```js\n foo && bar;\n```\n ```js\n foo || {};\n```\n\n ```js\n (foo = 2 || {}).bar;\n```\n\n ```js\n foo || foo.bar;\n```\n\n ```js\n foo[\"some long\"] && foo[\"some long string\"].baz\n```\n\n"
           }
         },
         "correctness": {
@@ -3355,6 +3366,15 @@ export function GET() {
           }
         },
         "nursery": {
+          "noEnum": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noEnum",
+            "link": "https://biomejs.dev/linter/rules/no-enum",
+            "recommended": false,
+            "fixKind": "none",
+            "docs": " Disallow TypeScript enum.\n\n TypeScript enums are not a type-level extension to JavaScript like type annotations or definitions.\n Users may wish to disable non-type-level extensions to use bundlers or compilers that only strip types.\n\n Const enums are not covered by this rule since `noConstEnum` already handles them.\n Enums within the ambient context, including declaration files, are ignores as well.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n enum Foo {\n     BAR = 'bar',\n     BAZ = 'baz',\n }\n ```\n\n ### Valid\n\n ```ts\n const Foo = {\n     BAR: 'bar',\n     BAZ: 'baz',\n } as const\n ```\n\n ```ts\n type Foo = 'bar' | 'baz'\n ```\n\n ```ts\n const enum Foo {\n     BAR = 'bar',\n     BAZ = 'baz',\n }\n ```\n\n\n"
+          },
           "noEvolvingTypes": {
             "deprecated": false,
             "version": "1.6.3",
@@ -3363,6 +3383,34 @@ export function GET() {
             "recommended": false,
             "fixKind": "none",
             "docs": " Disallow variables from evolving into `any` type through reassignments.\n\n In TypeScript, variables without explicit type annotations can evolve their types based on subsequent assignments.\n\n When  TypeScript's [noImplicitAny](https://www.typescriptlang.org/tsconfig/#noImplicitAny) is disabled,\n variables without explicit type annotations have implicitly the type `any`.\n Just like the `any` type, evolved `any` types disable many type-checking rules and should be avoided to maintain strong type safety.\n This rule prevents such cases by ensuring variables do not evolve into `any` type, encouraging explicit type annotations and controlled type evolutions.\n\n If you enabled TypeScript's [noImplicitAny](https://www.typescriptlang.org/tsconfig/#noImplicitAny) and want to benefit of evolving types,\n then we recommend to disable this rule.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n let a;\n ````\n\n ```ts,expect_diagnostic\n const b = [];\n ````\n\n ```ts,expect_diagnostic\n let c = null;\n ````\n\n\n ### Valid\n\n ```ts\n let a: number;\n let b = 1;\n var c : string;\n var d = \"abn\";\n const e: never[] = [];\n const f = [null];\n const g = ['1'];\n const h = [1];\n let workspace: Workspace | null = null;\n ```\n\n"
+          },
+          "noRestrictedTypes": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noRestrictedTypes",
+            "link": "https://biomejs.dev/linter/rules/no-restricted-types",
+            "recommended": false,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "eslintTypeScript": "no-restricted-types"
+              }
+            ],
+            "docs": " Disallow user defined types.\n\n This rule allows you to specify type names that you don’t want to use in your application.\n\n To prevent use of commonly misleading types, you can refer to [noBannedTypes](https://biomejs.dev/linter/rules/no-banned-types/)\n\n ## Options\n\n Use the options to specify additional types that you want to restrict in your\n source code.\n\n ```json\n {\n     \"//\": \"...\",\n     \"options\": {\n         \"types\": {\n            \"Foo\": {\n               \"message\": \"Only bar is allowed\",\n               \"use\": \"bar\"\n             },\n             \"OldAPI\": {\n                 \"message\": \"Use NewAPI instead\"\n             }\n         }\n     }\n }\n ```\n\n In the example above, the rule will emit a diagnostics if tried to use `Foo` or `OldAPI` are used.\n\n"
+          },
+          "useConsistentMemberAccessibility": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useConsistentMemberAccessibility",
+            "link": "https://biomejs.dev/linter/rules/use-consistent-member-accessibility",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslintTypeScript": "explicit-member-accessibility"
+              }
+            ],
+            "docs": " Require consistent accessibility modifiers on class properties and methods.\n\n TypeScript allows placing explicit `public`, `protected`, and `private` accessibility modifiers in front of class members.\n The modifiers exist solely in the type system and just serve to describe who is allowed to access those members.\n Leaving off accessibility modifiers makes for less code to read and write. Members are public by default.\n\n However, adding in consistent accessibility modifiers can be helpful in codebases with many classes for enforcing proper privacy of members.\n Some developers also find it preferable for code readability to keep member publicity explicit.\n\n ## Examples\n\n ### Invalid\n\n The following patterns are considered incorrect code with the default options `noPublic`:\n\n ```js,ignore\n class Animal {\n   public constructor(\n     public breed,\n     name,\n   ) {\n     // Parameter property and constructor\n     this.animalName = name;\n   }\n   public animalName: string; // Property\n   public get name(): string {\n     // get accessor\n     return this.animalName;\n   }\n   public set name(value: string) {\n     // set accessor\n     this.animalName = value;\n   }\n   public walk() {\n     // method\n   }\n }\n ```\n\n The following patterns are considered incorrect code with the accessibility set to `explicit`:\n\n ```ts,ignore\n class Animal {\n   // Constructor is not set accessibility modifier\n   constructor(\n     public breed,\n     name,\n   ) {\n     // Parameter property and constructor\n     this.animalName = name;\n   }\n   private animalName: string; // Property\n   public get name(): string {\n     // get accessor\n     return this.animalName;\n   }\n   public set name(value: string) {\n     // set accessor\n     this.animalName = value;\n   }\n   protected walk() {\n     // method\n   }\n }\n ```\n\n The following patterns are considered incorrect code with the accessibility set to `none`:\n\n ```ts,ignore\n class Animal {\n   constructor(\n     protected breed,\n     name,\n   ) {\n     // Parameter property and constructor\n     this.name = name;\n   }\n   // Property is set accessibility modifier\n   private animalName: string; // Property\n   get name(): string {\n     // get accessor\n     return this.animalName;\n   }\n   // set accessor is set accessibility modifier\n   set name(value: string) {\n     // set accessor\n     this.animalName = value;\n   }\n   // walk() is set accessibility modifier\n   protected walk() {\n     // method\n   }\n }\n ```\n\n ### Valid\n\n The following patterns are considered correct code with the default options `noPublic`:\n\n ```ts,ignore\n class Animal {\n   constructor(\n     public breed,\n     name,\n   ) {\n     // Parameter property and constructor\n     this.animalName = name;\n   }\n   private animalName: string; // Property\n   get name(): string {\n     // get accessor\n     return this.animalName;\n   }\n   set name(value: string) {\n     // set accessor\n     this.animalName = value;\n   }\n   protected walk() {\n     // method\n   }\n }\n ```\n\n The following patterns are considered correct code with the accessibility set to `explicit`:\n\n ```ts,ignore\n class Animal {\n   public constructor(\n     public breed,\n     name,\n   ) {\n     // Parameter property and constructor\n     this.animalName = name;\n   }\n   private animalName: string; // Property\n   public get name(): string {\n     // get accessor\n     return this.animalName;\n   }\n   public set name(value: string) {\n     // set accessor\n     this.animalName = value;\n   }\n   protected walk() {\n     // method\n   }\n }\n ```\n\n The following patterns are considered correct code with the accessibility set to `none`:\n\n ```ts,ignore\n class Animal {\n   constructor(\n     breed,\n     name,\n   ) {\n     // Parameter property and constructor\n     this.name = name;\n   }\n   animalName: string; // Property\n   get name(): string {\n     // get accessor\n     return this.animalName;\n   }\n   set name(value: string) {\n     // set accessor\n     this.animalName = value;\n   }\n   walk() {\n     // method\n   }\n }\n ```\n\n ## Options\n\n The rule supports the following options:\n\n ```json\n {\n     \"//\": \"...\",\n     \"options\": {\n         \"accessibility\": \"explicit\"\n     }\n }\n ```\n\n ### `accessibility`\n\n This option determines the required accessibility modifiers on class properties and methods.\n It can be set to one of the following values:\n\n - `noPublic` - forbid the use of public (a safe fix will remove it).\n - `explicit` - requires an accessibility modifier for every member that allows that (a safe fix will add public).\n - `none` - forbid all accessibility modifiers (public, protected, private).\n\n Default: `noPublic`.\n\n"
           }
         },
         "performance": {
@@ -3695,7 +3743,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 263
+    "numberOrRules": 267
   },
   "syntax": {
     "languages": {
@@ -3756,6 +3804,21 @@ export function GET() {
             "recommended": false,
             "fixKind": "unsafe",
             "docs": " Provides a whole-source code action to sort the imports in the file\n using import groups and natural ordering.\n\n ## Examples\n\n ```js\n import React, {\n     FC,\n     useEffect,\n     useRef,\n     ChangeEvent,\n     KeyboardEvent,\n } from 'react';\n import { logger } from '@core/logger';\n import { reduce, debounce } from 'lodash';\n import { Message } from '../Message';\n import { createServer } from '@server/node';\n import { Alert } from '@ui/Alert';\n import { repeat, filter, add } from '../utils';\n import { initializeApp } from '@core/app';\n import { Popup } from '@ui/Popup';\n import { createConnection } from '@server/database';\n ```\n"
+          },
+          "sortJsxProps": {
+            "deprecated": false,
+            "version": "next",
+            "name": "sortJsxProps",
+            "link": "https://biomejs.dev/linter/rules/sort-jsx-props",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslintReact": "jsx-sort-props"
+              }
+            ],
+            "sourceKind": "sameLogic",
+            "docs": " Enforce props sorting in JSX elements.\n\n This rule checks if the JSX props are sorted in a consistent way.\n Props are sorted alphabetically.\n This rule will not consider spread props as sortable.\n Instead, whenever it encounters a spread prop, it will sort all the\n previous non spread props up until the nearest spread prop, if one\n exist.\n This prevents breaking the override of certain props using spread\n props.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n <Hello lastName=\"Smith\" firstName=\"John\" />;\n ```\n\n ### Valid\n\n ```js\n <Hello firstName=\"John\" lastName=\"Smith\" />;\n <Hello lastName=\"Smith\" {...this.props} firstName=\"John\" />;\n <Hello tel={5555555} {...this.props} firstName=\"John\"  {...another.props} lastName=\"Smith\" />;\n ```\n\n"
           }
         }
       },
@@ -3773,7 +3836,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 2
+    "numberOrRules": 3
   }
 };
 	// const json_file = new URL("_metadata.json", root);

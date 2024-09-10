@@ -1,13 +1,76 @@
 ---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
 title: noUnusedLabels
 description: |
-  'Disallow unused labels.'
+  Disallow unused labels.
 ---
-import ContentJs from "@/components/generated/rules/no-unused-labels_js.md"
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 **Diagnostic Category: `lint/correctness/noUnusedLabels`**
 <Tabs>
-<TabItem label="JavaScript (and super languages)"><ContentJs /></TabItem>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+**Since**: `v1.0.0`
+:::note
+- This rule is recommended by Biome. A diagnostic error will appear when linting your code.
+- This rule has a **safe** fix.
+:::
+
+Sources: 
+- Same as: <a href="https://eslint.org/docs/latest/rules/no-unused-labels" target="_blank"><code>no-unused-labels</code></a>
+
+Disallow unused labels.
+
+Labels that are declared and never used are most likely an error due to incomplete refactoring.
+
+The rule ignores reactive Svelte statements in Svelte components.
+
+## Examples
+
+### Invalid
+
+```js
+LOOP: for (const x of xs) {
+    if (x > 0) {
+        break;
+    }
+    f(x);
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-unused-labels">lint/correctness/noUnusedLabels</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unused </span><span style="color: Tomato;"><strong>label</strong></span><span style="color: Tomato;">.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>LOOP: for (const x of xs) &#123;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>    if (x &gt; 0) &#123;<br />    <strong>3 │ </strong>        break;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The label is not used by any </span><span style="color: lightgreen;"><strong>break</strong></span><span style="color: lightgreen;"> statement and continue statement.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Safe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Remove the unused </span><span style="color: lightgreen;"><strong>label</strong></span><span style="color: lightgreen;">.</span><br />  <br />  <strong>  1 │ </strong><span style="color: Tomato;">L</span><span style="color: Tomato;">O</span><span style="color: Tomato;">O</span><span style="color: Tomato;">P</span><span style="color: Tomato;">:</span><span style="opacity: 0.8;"><span style="color: Tomato;">·</span></span>for<span style="opacity: 0.8;">·</span>(const<span style="opacity: 0.8;">·</span>x<span style="opacity: 0.8;">·</span>of<span style="opacity: 0.8;">·</span>xs)<span style="opacity: 0.8;">·</span>&#123;<br />  <strong>    │ </strong><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span>                     <br /></code></pre>
+
+### Valid
+
+```js
+LOOP: for (const x of xs) {
+    if (x > 0) {
+        break LOOP;
+    }
+    f(x);
+}
+```
+
+```js
+function nonNegative(n) {
+    DEV: assert(n >= 0);
+    return n;
+}
+```
+
+```svelte
+<script>
+$: { /* reactive block */ }
+</script>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
 </Tabs>
 

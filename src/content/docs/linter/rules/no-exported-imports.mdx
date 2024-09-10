@@ -1,13 +1,68 @@
 ---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
 title: noExportedImports
 description: |
-  'Disallow exporting an imported variable.'
+  Disallow exporting an imported variable.
 ---
-import ContentJs from "@/components/generated/rules/no-exported-imports_js.md"
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 **Diagnostic Category: `lint/nursery/noExportedImports`**
 <Tabs>
-<TabItem label="JavaScript (and super languages)"><ContentJs /></TabItem>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+**Since**: `vnext`
+:::caution
+This rule is part of the [nursery](/linter/rules/#nursery) group.
+:::
+
+Disallow exporting an imported variable.
+
+In JavaScript, you can re-export a variable either by using `export from` or
+by first importing the variable and then exporting it with a regular `export`.
+
+You may prefer to use the first approach, as it clearly communicates the intention
+to re-export an import, and can make static analysis easier.
+
+## Examples
+
+### Invalid
+
+```js
+import { A } from "mod";
+export { A };
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:10 <a href="https://biomejs.dev/linter/rules/no-exported-imports">lint/nursery/noExportedImports</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">An import should not be exported. Use </span><span style="color: Orange;"><strong>export from</strong></span><span style="color: Orange;"> instead.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>import &#123; A &#125; from &quot;mod&quot;;<br />   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>export &#123; A &#125;;<br />    <strong>3 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;"><strong>export from</strong></span><span style="color: lightgreen;"> makes it clearer that the intention is to re-export a variable.</span><br />  <br /></code></pre>
+
+```js
+import * as ns from "mod";
+export { ns };
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:8 <a href="https://biomejs.dev/linter/rules/no-exported-imports">lint/nursery/noExportedImports</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">An import should not be exported. Use </span><span style="color: Orange;"><strong>export from</strong></span><span style="color: Orange;"> instead.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>import &#42; as ns from &quot;mod&quot;;<br />   <strong>   │ </strong>       <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>export &#123; ns &#125;;<br />    <strong>3 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;"><strong>export from</strong></span><span style="color: lightgreen;"> makes it clearer that the intention is to re-export a variable.</span><br />  <br /></code></pre>
+
+```js
+import D from "mod";
+export { D };
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:8 <a href="https://biomejs.dev/linter/rules/no-exported-imports">lint/nursery/noExportedImports</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">An import should not be exported. Use </span><span style="color: Orange;"><strong>export from</strong></span><span style="color: Orange;"> instead.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>import D from &quot;mod&quot;;<br />   <strong>   │ </strong>       <strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>export &#123; D &#125;;<br />    <strong>3 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;"><strong>export from</strong></span><span style="color: lightgreen;"> makes it clearer that the intention is to re-export a variable.</span><br />  <br /></code></pre>
+
+### Valid
+
+```js
+export { A } from "mod";
+export * as ns from "mod";
+export { default as D } from "mod";
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
 </Tabs>
 
