@@ -1,0 +1,83 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noCommonJs
+description: |
+  Disallow use of CommonJs module system in favor of ESM style imports.
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+**Diagnostic Category: `lint/nursery/noCommonJs`**
+<Tabs>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+**Since**: `v1.9.0`
+:::caution
+This rule is part of the [nursery](/linter/rules/#nursery) group.
+:::
+
+Sources: 
+- Same as: <a href="https://typescript-eslint.io/rules/no-require-imports" target="_blank"><code>@typescript-eslint/no-require-imports</code></a>
+- Same as: <a href="https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-commonjs.md" target="_blank"><code>import/no-commonjs</code></a>
+
+Disallow use of CommonJs module system in favor of ESM style imports.
+
+ESM-style `import`s are modern alternative to CommonJS `require` imports. Supported by all modern browsers and Node.js versions.
+Tooling can more easily statically analyze and tree-shake ESM `import`s compared to CommonJs.
+
+## Examples
+
+### Invalid
+
+```js
+require('node:fs');
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-common-js">lint/nursery/noCommonJs</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use ESM </span><span style="color: Orange;"><strong>import</strong></span><span style="color: Orange;">s instead of </span><span style="color: Orange;"><strong>require</strong></span><span style="color: Orange;">.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>require('node:fs');<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">ESM-style </span><span style="color: lightgreen;"><strong>import</strong></span><span style="color: lightgreen;"> statements are more easily statically analyzable and tree-shakable compared to CommonJs </span><span style="color: lightgreen;"><strong>require</strong></span><span style="color: lightgreen;">.</span><br />  <br /></code></pre>
+
+```js
+module.exports = { a: 'b' }
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-common-js">lint/nursery/noCommonJs</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use ESM </span><span style="color: Orange;"><strong>export</strong></span><span style="color: Orange;">s instead of </span><span style="color: Orange;"><strong>module.exports</strong></span><span style="color: Orange;">.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>module.exports = &#123; a: 'b' &#125;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">ESM-style </span><span style="color: lightgreen;"><strong>export</strong></span><span style="color: lightgreen;"> statements are more easily statically analyzable and tree-shakable compared to CommonJs </span><span style="color: lightgreen;"><strong>module.exports</strong></span><span style="color: lightgreen;">.</span><br />  <br /></code></pre>
+
+```js
+exports.a = 'b';
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-common-js">lint/nursery/noCommonJs</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use ESM </span><span style="color: Orange;"><strong>export</strong></span><span style="color: Orange;">s instead of </span><span style="color: Orange;"><strong>module.exports</strong></span><span style="color: Orange;">.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>exports.a = 'b';<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">ESM-style </span><span style="color: lightgreen;"><strong>export</strong></span><span style="color: lightgreen;"> statements are more easily statically analyzable and tree-shakable compared to CommonJs </span><span style="color: lightgreen;"><strong>module.exports</strong></span><span style="color: lightgreen;">.</span><br />  <br /></code></pre>
+
+### Valid
+
+```js
+import fs from 'node:fs';
+```
+
+```js
+import('node:fs')
+```
+
+```js
+export const a = 'b';
+```
+
+```js
+export default { a: 'b' };
+```
+
+## Caveats
+
+Rule is automatically disabled inside `.cjs` and `.cts` files, because they are explicitly CommonJs files.
+
+This rule could be helpful if you are migrating from CommonJs to ESM,
+but if you wish to continue using CommonJs, you can safely disable it.
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
+</Tabs>
+
