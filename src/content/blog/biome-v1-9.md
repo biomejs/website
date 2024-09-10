@@ -139,25 +139,48 @@ Special thanks to [Võ Hoàng Long @vohoanglong0107](https://github.com/vohoangl
 
 ### Search command
 
-Back in February, one of our Core Contributors published [a proposal for plugin support](https://github.com/biomejs/biome/discussions/1762). One of the highlights was the use of GritQL as a foundation for our plugin system.
+Back in February, one of our Core Contributors published [a proposal for plugin support](https://github.com/biomejs/biome/discussions/1762).
+One of the highlights was the use of GritQL as a foundation for our plugin system.
 
-[GritQL](https://docs.grit.io/language/overview) is a powerful query language that lets you do structural searches on your codebase. This means that trivia such as whitespace or even the type of string quotes used will be ignored in your search query. It also has many features for querying the structure of your code, making it much more elegant for searching code than regular expressions.
+[GritQL](https://docs.grit.io/language/overview) is a powerful query language that lets you do structural searches on your codebase.
+This means that trivia such as whitespace or even the type of string quotes used will be ignored in your search query.
+It also has many features for querying the structure of your code, making it much more elegant for searching code than regular expressions.
 
-Integrating a query language such as GritQL is no easy feat, and throughout the year we published [multiple](https://github.com/biomejs/biome/discussions/2286) [status](https://github.com/biomejs/biome/discussions/2585) [updates](https://github.com/biomejs/biome/discussions/3392). Today, we release the first product of this effort: A new `biome search` command.
+Integrating a query language such as GritQL is no easy feat, and throughout the year we published [multiple](https://github.com/biomejs/biome/discussions/2286) [status](https://github.com/biomejs/biome/discussions/2585) [updates](https://github.com/biomejs/biome/discussions/3392).
+Today, we release the first product of this effort: A new `biome search` command.
 
-While we believe this command may already be useful to users in some situations (especially when it gets integrated in our IDE extensions!), this command is really a stepping stone towards our plugin efforts. By allowing our users to try it out in a first iteration, we hope to gain insight into the type of queries you want to do, as well as the bugs we need to focus on.
+While we believe this command may already be useful to users in some situations (especially when it gets integrated in our IDE extensions!), this command is really a stepping stone towards our plugin efforts.
+By allowing our users to try it out in a first iteration, we hope to gain insight into the type of queries you want to do, as well as the bugs we need to focus on.
 
-For now, the search command is explicitly marked as **EXPERIMENTAL**, since many limitations are yet to be fixed or explored. Keep this in mind when you try it out, and please let us know what you think!
-For an overview of specific limitations, please see the [corresponding issue](https://github.com/biomejs/biome/issues/2582).
+For now, the `search` command is explicitly marked as **EXPERIMENTAL**, since many limitations are yet to be fixed or explored.
+Keep this in mind when you try it out, and please let us know what you think!
+For an overview of specific limitations, please see the [dedicated issue](https://github.com/biomejs/biome/issues/2582).
 
-Even though there are still plenty of limitations, we do believe the integration has progressed far enough that we can shift our focus towards the integration of actual plugins. We cannot yet promise a timeline, but we'll keep you posted!
+Even though there are still plenty of limitations, we do believe the integration has progressed far enough that we can shift our focus towards the integration of actual plugins.
+We cannot yet promise a timeline, but we'll keep you posted!
 
-PS.: GritQL escapes code snippets using backticks, but most shells interpret backticks as command invocations. To avoid this, it's best to put single quotes around your Grit queries.
+PS.: GritQL escapes code snippets using backticks, but most shells interpret backticks as command invocations.
+To avoid this, it's best to put single quotes around your Grit queries.
 For instance, the following command search for all `console.log` invocations:
 
 ```shell
-biome search '`console.log($message)`'
+biome search '`console.log($message)` where { $message <: contains "manifest" }' ./packages
 ```
+
+<pre class="language-text"><code class="language-text">./packages/@biomejs/biome/scripts/generate-packages.mjs:50:2 search ━━━
+
+  <strong>50 │ 	<span style="color: #3aa0d7;">console.log(`Update manifest ${manifestPath}`);</span></strong>
+
+./packages/@biomejs/biome/scripts/generate-packages.mjs:68:2 search ━━━
+
+  <strong>68 │ 	<span style="color: #3aa0d7;">console.log(`Copy binary ${binaryTarget}`);</span></strong>
+
+./packages/@biomejs/biome/scripts/generate-packages.mjs:84:2 search ━━━
+
+  <strong>84 │ 	<span style="color: #3aa0d7;">console.log(`Update manifest ${manifestPath}`);</span></strong>
+
+<span style="color: #3aa0d7;">Searched 21 files in 15ms. Found 1 matches.</span>
+</code></pre>
 
 Special thanks to [Grit](https://grit.io) for open-sourcing GritQL, [Arend van Beelen @arendjr](https://github.com/arendjr) for integrating the GritQL engine into Biome, and to [@BackupMiles] for implementing the formatting of search results in the `biome search` command!
 
