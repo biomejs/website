@@ -1105,6 +1105,23 @@ export function GET() {
           }
         },
         "nursery": {
+          "noCommonJs": {
+            "deprecated": false,
+            "version": "1.9.0",
+            "name": "noCommonJs",
+            "link": "https://biomejs.dev/linter/rules/no-common-js",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslintTypeScript": "no-require-imports"
+              },
+              {
+                "eslintImport": "no-commonjs"
+              }
+            ],
+            "docs": " Disallow use of CommonJs module system in favor of ESM style imports.\n\n ESM-style `import`s are modern alternative to CommonJS `require` imports. Supported by all modern browsers and Node.js versions.\n Tooling can more easily statically analyze and tree-shake ESM `import`s compared to CommonJs.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n require('node:fs');\n ```\n ```js,expect_diagnostic\n module.exports = { a: 'b' }\n ```\n ```js,expect_diagnostic\n exports.a = 'b';\n ```\n\n ### Valid\n\n ```js\n import fs from 'node:fs';\n ```\n ```js\n import('node:fs')\n ```\n ```js\n export const a = 'b';\n ```\n ```js\n export default { a: 'b' };\n ```\n\n ## Caveats\n\n Rule is automatically disabled inside `.cjs` and `.cts` files, because they are explicitly CommonJs files.\n\n This rule could be helpful if you are migrating from CommonJs to ESM,\n but if you wish to continue using CommonJs, you can safely disable it.\n\n"
+          },
           "noConsole": {
             "deprecated": false,
             "version": "1.6.0",
@@ -3772,7 +3789,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 269
+    "numberOrRules": 270
   },
   "syntax": {
     "languages": {
