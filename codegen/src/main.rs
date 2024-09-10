@@ -3,6 +3,7 @@ use codegen::lintdoc::generate_rule_docs;
 use codegen::metadata::generate_json_metadata;
 use codegen::website::generate_files;
 use codegen::{codegen_command, CodegenCommand};
+use codegen::env_variables::generate_env_variables;
 
 fn main() -> anyhow::Result<()> {
     let result = codegen_command().fallback_to_usage().run();
@@ -18,8 +19,11 @@ fn main() -> anyhow::Result<()> {
             generate_rule_docs()?;
             generate_files()?;
             generate_json_metadata()?;
+            generate_env_variables()?;
         }
         CodegenCommand::Metadata => generate_json_metadata()?,
+        CodegenCommand::Env => {
+            generate_env_variables()?;
         CodegenCommand::Diagnostics => {
             generate_diagnostics()?;
         }

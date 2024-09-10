@@ -8,6 +8,7 @@ pub mod metadata;
 pub mod rules_sources;
 mod shared;
 pub mod website;
+pub mod env_variables;
 
 pub fn project_root() -> PathBuf {
     Path::new(
@@ -37,6 +38,10 @@ pub enum CodegenCommand {
     /// Updates the files of a release
     #[bpaf(command)]
     ReleaseFiles,
+
+    /// Updates the files of a release
+    #[bpaf(command)]
+    Env,
 
     /// Updates the documentation of the rule pages and the files of a release  
     #[bpaf(command)]
