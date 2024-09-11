@@ -10,12 +10,6 @@ import {
 	QuoteStyle,
 	Semicolons,
 } from "@/playground/types";
-import {
-	isCssFilename,
-	isFrameworkTemplateFilename,
-	isGraphqlFilename,
-	isJsonFilename,
-} from "@/playground/utils";
 import init, {
 	DiagnosticPrinter,
 	type PartialConfiguration as Configuration,
@@ -221,42 +215,49 @@ self.addEventListener("message", async (e) => {
 			}
 			files.set(filename, file);
 			const path = getPathForFile(file);
-			const isFrameworkTemplate = isFrameworkTemplateFilename(filename);
+			const fileFeatures = workspace.fileFeatures({
+				features: ["Debug", "Format", "Lint", "OrganizeImports"],
+				path,
+			});
 
-			const syntaxTree = !isFrameworkTemplate
-				? workspace.getSyntaxTree({
-						path,
-					})
-				: {
-						ast: "Not available",
-						cst: "Not available",
-					};
+			const syntaxTree =
+				fileFeatures.features_supported.get("Debug") === "Supported"
+					? workspace.getSyntaxTree({
+							path,
+						})
+					: { ast: "Not supported", cst: "Not supported" };
 
-			const isGraphql = isGraphqlFilename(filename);
+			let controlFlowGraph = "";
+			try {
+				controlFlowGraph =
+					fileFeatures.features_supported.get("Debug") === "Supported"
+						? workspace.getControlFlowGraph({
+								path,
+								cursor: cursorPosition,
+							})
+						: "";
+			} catch (e) {
+				console.warn("Failed to get control flow graph:", e);
+				controlFlowGraph = "";
+			}
 
-			const controlFlowGraph = !(
-				isJsonFilename(filename) ||
-				isCssFilename(filename) ||
-				isGraphql ||
-				isFrameworkTemplate
-			)
-				? workspace.getControlFlowGraph({
-						path,
-						cursor: cursorPosition,
-					})
-				: "";
+			const formatterIr =
+				fileFeatures.features_supported.get("Debug") === "Supported"
+					? workspace.getFormatterIr({
+							path,
+						})
+					: "Not supported";
 
-			const formatterIr = !isFrameworkTemplate
-				? workspace.getFormatterIr({
-						path,
-					})
-				: "Not available";
-
-			const importSorting = isGraphql
-				? { code: "" }
-				: workspace.organizeImports({
-						path,
-					});
+			const importSorting =
+				fileFeatures.features_supported.get("OrganizeImports") === "Supported"
+					? workspace.organizeImports({
+							path,
+						})
+					: {
+							code:
+								fileFeatures.features_supported.get("OrganizeImports") ??
+								"Not supported",
+						};
 
 			const categories: RuleCategories = [];
 			if (configuration?.formatter?.enabled) {
@@ -278,9 +279,12 @@ self.addEventListener("message", async (e) => {
 				printer.print_verbose(diag);
 			}
 
-			const printed = workspace.formatFile({
-				path,
-			});
+			const printed =
+				fileFeatures.features_supported.get("Format") === "Supported"
+					? workspace.formatFile({
+							path,
+						})
+					: { code: "Not supported" };
 
 			const biomeOutput: BiomeOutput = {
 				syntax: {
