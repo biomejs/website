@@ -202,7 +202,7 @@ export function GET() {
           },
           "noUnknownPseudoClass": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.8.0",
             "name": "noUnknownPseudoClass",
             "link": "https://biomejs.dev/linter/rules/no-unknown-pseudo-class",
             "recommended": true,
@@ -1275,7 +1275,7 @@ export function GET() {
           },
           "noSubstr": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.8.2",
             "name": "noSubstr",
             "link": "https://biomejs.dev/linter/rules/no-substr",
             "recommended": false,
@@ -3183,7 +3183,7 @@ export function GET() {
           },
           "useConsistentCurlyBraces": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.8.2",
             "name": "useConsistentCurlyBraces",
             "link": "https://biomejs.dev/linter/rules/use-consistent-curly-braces",
             "recommended": false,
@@ -3442,7 +3442,7 @@ export function GET() {
                 "eslintTypeScript": "no-restricted-types"
               }
             ],
-            "docs": " Disallow user defined types.\n\n This rule allows you to specify type names that you don’t want to use in your application.\n\n To prevent use of commonly misleading types, you can refer to [noBannedTypes](https://biomejs.dev/linter/rules/no-banned-types/)\n\n ## Options\n\n Use the options to specify additional types that you want to restrict in your\n source code.\n\n ```json\n {\n     \"//\": \"...\",\n     \"options\": {\n         \"types\": {\n            \"Foo\": {\n               \"message\": \"Only bar is allowed\",\n               \"use\": \"bar\"\n             },\n             \"OldAPI\": {\n                 \"message\": \"Use NewAPI instead\"\n             }\n         }\n     }\n }\n ```\n\n In the example above, the rule will emit a diagnostics if tried to use `Foo` or `OldAPI` are used.\n\n"
+            "docs": " Disallow user defined types.\n\n This rule allows you to specify type names that you don’t want to use in your application.\n\n To prevent use of commonly misleading types, you can refer to [noBannedTypes](https://biomejs.dev/linter/rules/no-banned-types/)\n\n ## Options\n\n Use the options to specify additional types that you want to restrict in your\n source code.\n\n ```json\n {\n     \"//\": \"...\",\n     \"options\": {\n         \"types\": {\n            \"Foo\": {\n               \"message\": \"Only bar is allowed\",\n               \"use\": \"bar\"\n             },\n             \"OldAPI\": \"Use NewAPI instead\"\n         }\n     }\n }\n ```\n\n In the example above, the rule will emit a diagnostics if `Foo` or `OldAPI` are used.\n\n"
           },
           "useConsistentMemberAccessibility": {
             "deprecated": false,
