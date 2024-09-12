@@ -8,12 +8,12 @@ description: |
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-**Diagnostic Category: `lint/nursery/noDuplicateSelectorsKeyframeBlock`**
+**Diagnostic Category: `lint/suspicious/noDuplicateSelectorsKeyframeBlock`**
 <Tabs>
 <TabItem label="CSS" icon="seti:css">
 **Since**: `v1.8.0`
-:::caution
-This rule is part of the [nursery](/linter/rules/#nursery) group.
+:::note
+- This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
 Sources: 
@@ -29,19 +29,19 @@ Disallow duplicate selectors within keyframe blocks.
 @keyframes foo { from {} from {} }
 ```
 
-<pre class="language-text"><code class="language-text">code-block.css:1:26 <a href="https://biomejs.dev/linter/rules/no-duplicate-selectors-keyframe-block">lint/nursery/noDuplicateSelectorsKeyframeBlock</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The duplicate keyframe selector is overwritten by later one.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>@keyframes foo &#123; from &#123;&#125; from &#123;&#125; &#125;<br />   <strong>   │ </strong>                         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Consider using a different percentage value or keyword to avoid duplication</span><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.css:1:26 <a href="https://biomejs.dev/linter/rules/no-duplicate-selectors-keyframe-block">lint/suspicious/noDuplicateSelectorsKeyframeBlock</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The duplicate keyframe selector is overwritten by later one.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>@keyframes foo &#123; from &#123;&#125; from &#123;&#125; &#125;<br />   <strong>   │ </strong>                         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Consider using a different percentage value or keyword to avoid duplication</span><br />  <br /></code></pre>
 
 ```css
 @keyframes foo { from {} FROM {} }
 ```
 
-<pre class="language-text"><code class="language-text">code-block.css:1:26 <a href="https://biomejs.dev/linter/rules/no-duplicate-selectors-keyframe-block">lint/nursery/noDuplicateSelectorsKeyframeBlock</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The duplicate keyframe selector is overwritten by later one.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>@keyframes foo &#123; from &#123;&#125; FROM &#123;&#125; &#125;<br />   <strong>   │ </strong>                         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Consider using a different percentage value or keyword to avoid duplication</span><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.css:1:26 <a href="https://biomejs.dev/linter/rules/no-duplicate-selectors-keyframe-block">lint/suspicious/noDuplicateSelectorsKeyframeBlock</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The duplicate keyframe selector is overwritten by later one.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>@keyframes foo &#123; from &#123;&#125; FROM &#123;&#125; &#125;<br />   <strong>   │ </strong>                         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Consider using a different percentage value or keyword to avoid duplication</span><br />  <br /></code></pre>
 
 ```css
 @keyframes foo { 0% {} 0% {} }
 ```
 
-<pre class="language-text"><code class="language-text">code-block.css:1:24 <a href="https://biomejs.dev/linter/rules/no-duplicate-selectors-keyframe-block">lint/nursery/noDuplicateSelectorsKeyframeBlock</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The duplicate keyframe selector is overwritten by later one.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>@keyframes foo &#123; 0% &#123;&#125; 0% &#123;&#125; &#125;<br />   <strong>   │ </strong>                       <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Consider using a different percentage value or keyword to avoid duplication</span><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.css:1:24 <a href="https://biomejs.dev/linter/rules/no-duplicate-selectors-keyframe-block">lint/suspicious/noDuplicateSelectorsKeyframeBlock</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The duplicate keyframe selector is overwritten by later one.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>@keyframes foo &#123; 0% &#123;&#125; 0% &#123;&#125; &#125;<br />   <strong>   │ </strong>                       <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Consider using a different percentage value or keyword to avoid duplication</span><br />  <br /></code></pre>
 
 ### Valid
 

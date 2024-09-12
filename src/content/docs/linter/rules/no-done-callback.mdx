@@ -8,40 +8,36 @@ description: |
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-**Diagnostic Category: `lint/nursery/noDoneCallback`**
+**Diagnostic Category: `lint/style/noDoneCallback`**
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
 **Since**: `v1.6.1`
-:::caution
-This rule is part of the [nursery](/linter/rules/#nursery) group.
-:::
-
 Sources: 
 - Same as: <a href="https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-done-callback.md" target="_blank"><code>jest/no-done-callback</code></a>
 
 Disallow using a callback in asynchronous tests and hooks.
 
-This rule checks the function parameter of hooks & tests for use of the done argument, suggesting you return a promise instead.
+This rule checks the function parameter of hooks and tests for use of the `done` argument, suggesting you return a promise instead.
 
 ## Examples
 
 ### Invalid
 
 ```js
-beforeEach(done => {
+beforeEach((done) => {
     // ...
 });
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:1:12 <a href="https://biomejs.dev/linter/rules/no-done-callback">lint/nursery/noDoneCallback</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Disallow using a callback in asynchronous tests and hooks.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>beforeEach(done =&gt; &#123;<br />   <strong>   │ </strong>           <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>    // ...<br />    <strong>3 │ </strong>&#125;);<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Return a Promise instead of relying on callback parameter.</span><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:1:13 <a href="https://biomejs.dev/linter/rules/no-done-callback">lint/style/noDoneCallback</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Disallow using a callback in asynchronous tests and hooks.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>beforeEach((done) =&gt; &#123;<br />   <strong>   │ </strong>            <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>    // ...<br />    <strong>3 │ </strong>&#125;);<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Return a Promise instead of relying on callback parameter.</span><br />  <br /></code></pre>
 
 ```js
-test('myFunction()', done => {
+test('tets-name', (done) => {
     // ...
 });
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:1:22 <a href="https://biomejs.dev/linter/rules/no-done-callback">lint/nursery/noDoneCallback</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Disallow using a callback in asynchronous tests and hooks.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>test('myFunction()', done =&gt; &#123;<br />   <strong>   │ </strong>                     <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>    // ...<br />    <strong>3 │ </strong>&#125;);<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Return a Promise instead of relying on callback parameter.</span><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:1:20 <a href="https://biomejs.dev/linter/rules/no-done-callback">lint/style/noDoneCallback</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Disallow using a callback in asynchronous tests and hooks.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>test('tets-name', (done) =&gt; &#123;<br />   <strong>   │ </strong>                   <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>    // ...<br />    <strong>3 │ </strong>&#125;);<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Return a Promise instead of relying on callback parameter.</span><br />  <br /></code></pre>
 
 ### Valid
 
@@ -52,7 +48,7 @@ beforeEach(async () => {
 ```
 
 ```js
-test('myFunction()', () => {
+test('test-name', () => {
     expect(myFunction()).toBeTruthy();
 });
 ```

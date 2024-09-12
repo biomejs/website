@@ -8,14 +8,10 @@ description: |
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-**Diagnostic Category: `lint/nursery/noUndeclaredDependencies`**
+**Diagnostic Category: `lint/correctness/noUndeclaredDependencies`**
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
 **Since**: `v1.6.0`
-:::caution
-This rule is part of the [nursery](/linter/rules/#nursery) group.
-:::
-
 Disallow the use of dependencies that aren't specified in the `package.json`.
 
 Indirect dependencies will trigger the rule because they aren't declared in the `package.json`. This means that if package `@org/foo` has a dependency on `lodash`, and then you use
