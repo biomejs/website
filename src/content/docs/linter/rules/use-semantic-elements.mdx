@@ -8,12 +8,12 @@ description: |
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-**Diagnostic Category: `lint/nursery/useSemanticElements`**
+**Diagnostic Category: `lint/a11y/useSemanticElements`**
 <Tabs>
 <TabItem label="JSX and TSX" icon="seti:javascript">
 **Since**: `v1.8.0`
-:::caution
-This rule is part of the [nursery](/linter/rules/#nursery) group.
+:::note
+- This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
 Sources: 
@@ -21,7 +21,8 @@ Sources:
 
 It detects the use of `role` attributes in JSX elements and suggests using semantic elements instead.
 
-The `role` attribute is used to define the purpose of an element, but it should be used as a last resort. Using semantic elements like `<button>`, `<input>`, `<textarea>`, `<a>`, `<img>`, `<table>`, `<article>`, `<section>`, `<nav>`, `<aside>`, `<header>`, `<footer>`, `<main>`, `<figure>`, `<figcaption>`, `<details>`, `<summary>`, `<dialog>`, `<menu>`, `<menuitem>`, `<fieldset>`, `<legend>`, `<caption>`, `<colgroup>`, `<col>`, `<optgroup>`, `<option>`, `<select>`, `<datalist>`, `<output>`, `<progress>`, `<meter>`, `<time>`, `<audio>`, `<video>`, `<track>`, `<source>`, `<embed>`, `<object>`, `<param>`, `<iframe>`, `<canvas>`, `<map>`, `<area>`, `<svg>`, `<math>` are more accessible and provide better semantics.
+The `role` attribute is used to define the purpose of an element, but it should be used as a last resort.
+Using semantic elements like `<button>`, `<nav>` and others are more accessible and provide better semantics.
 
 ## Examples
 
