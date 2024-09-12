@@ -58,7 +58,7 @@ In June 2024, Biome won the [JSNation's productivity booster Open Source Award](
 
 As we celebrate Biome's first year, we're pleased to announce the release of Biome 1.9, which brings many new features and bug fixes.
 
-Once you have upgraded to Biome v1.9.0, migrate your Biome configuration to the new version by running the `migarte` command:
+Once you have upgraded to Biome v1.9.0, migrate your Biome configuration to the new version by running the `migrate` command:
 
 ```shell
 biome migrate --write
