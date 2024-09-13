@@ -24,7 +24,7 @@ Disallow the use of global `eval()`.
 The `eval()` function evaluates the passed string as a _JavaScript_ code.
 The executed code can access and mutate variables in the scope where the function is called.
 
-The use of `eval()` exposes to [security risks and performance issues](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval#never_use_eval!).
+The use of `eval()` exposes to [security risks and performance issues](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval#never_use_direct_eval!).
 If the executed code is somehow affected by a malicious party,
 then you may end up executing malicious code with the privileges of the caller.
 Moreover, changing variables in the caller's scope is expensive in modern _JavaScript_ interpreters.
