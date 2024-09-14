@@ -2092,7 +2092,7 @@ export function GET() {
                 "eslint": "no-console"
               }
             ],
-            "docs": " Disallow the use of `console`.\n\n In a browser environment, it’s considered a best practice to log messages using `console`.\n Such messages are considered to be for debugging purposes and therefore not suitable to ship to the client.\n In general, calls using `console` should be stripped before being pushed to production.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n console.error('hello world')\n ```\n\n"
+            "docs": " Disallow the use of `console`.\n\n In a browser environment, it’s considered a best practice to log messages using `console`.\n Such messages are considered to be for debugging purposes and therefore not suitable to ship to the client.\n In general, calls using `console` should be stripped before being pushed to production.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n console.error('hello world')\n ```\n\n ## Options\n\n Use the options to specify the allowed `console` methods.\n\n ```json\n {\n   \"//\": \"...\",\n   \"options\": {\n     \"allow\": [\"assert\", \"error\", \"info\", \"warn\"]\n   }\n }\n ```\n\n"
           },
           "noConsoleLog": {
             "deprecated": true,
