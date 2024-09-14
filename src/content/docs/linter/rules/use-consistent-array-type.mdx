@@ -60,9 +60,7 @@ const valid: readonly string[] = ['a', 'b'];
 
 ## Options
 
-The rule provides two options that help to specify what type of array declarations to use.
-
-Default: "shorthand"
+Use the options to specify the syntax of array declarations to use.
 
 ```json
 {
@@ -73,10 +71,14 @@ Default: "shorthand"
 }
 ```
 
-### Syntax
+### syntax
 
-By default, all array declarations will be converted to `T[]` or `readonly T[]`, which it means `shorthand`,
-or if the options is set to the "generic", that all will converted to `Array<T>` or `ReadonlyArray<T>`.
+The syntax to use:
+
+- `generic`: array declarations will be converted to `Array<T>` or `ReadonlyArray<T>`
+- `shorthand`: array declarations will be converted to `T[]` or `readonly T[]`
+
+Default: `shorthand`
 
 ## Related links
 
