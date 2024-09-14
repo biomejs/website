@@ -155,6 +155,55 @@ setting.
 	</TabItem>
 </Tabs>
 
+## Features
+
+### Formatting
+
+The Biome extension registers itself as a formatter for [supported file types](/internals/language-support), and supports formatting a whole file, or a selection of code.
+
+Run either of the following commands from the [command palette](https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette):
+
+- To format a whole file, run the `Format Document` command.
+- To format a selection of code, select the code and run the `Format Selection` command.
+
+#### Formatting on save
+
+To enable formatting on save, set VS Code's [`editor.formatOnSave`](vscode://settings/editor.formatOnSave) setting to `true`.
+
+### Code fixing
+
+The Biome extension registers itself as a code action provider for [supported file types](/internals/language-support), and provides code fixes for diagnostics.
+
+#### Manual quick fixes
+
+To manually apply a quick fix, select the diagnostic and click the `Quick Fix` button.
+
+#### Fix on save
+
+To enable fix on save, update VS Code's [`editor.codeActionsOnSave`](vscode://settings/editor.codeActionsOnSave) setting to include the following:
+
+```diff
+{
+  "editor.codeActionsOnSave": {
++    "quickfix.biome": "explicit"
+  }
+}
+```
+
+### Import sorting
+
+The extension is able to sort imports on save for [supported file types](/internals/language-support). To enable this feature, set VS Code's [`editor.codeActionsOnSave`](vscode://settings/editor.codeActionsOnSave) setting to include the following:
+
+```diff
+{
+  "editor.codeActionsOnSave": {
++    "source.organizeImports.biome": "explicit"
+  }
+}
+```
+
+
+
 ## Settings reference
 
 The following settings are available for the extension.
