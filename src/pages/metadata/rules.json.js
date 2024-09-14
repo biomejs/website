@@ -1256,6 +1256,20 @@ export function GET() {
             "sourceKind": "sameLogic",
             "docs": " Disallows the use of irregular whitespace characters.\n\n Invalid or irregular whitespace causes issues with various parsers and also makes code harder to debug.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n let\u000bcount;\n ```\n\n ```js,expect_diagnostic\n let foo;\n ```\n\n ### Valid\n\n ```js\n const count = 1;\n ```\n\n ```js\n const foo = '\u000b';\n ```\n\n"
           },
+          "noProcessEnv": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noProcessEnv",
+            "link": "https://biomejs.dev/linter/rules/no-process-env",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslintN": "no-process-env"
+              }
+            ],
+            "docs": " Disallow the use of `process.env`.\n\n The `process.env` object in Node.js stores configuration settings. Using it directly throughout a project can cause problems:\n\n 1. It's harder to maintain\n 2. It can lead to conflicts in team development\n 3. It complicates deployment across multiple servers\n\n A better practice is to keep all settings in one configuration file and reference it throughout the project.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n if (process.env.NODE_ENV === 'development') {\n   // ...\n }\n ```\n\n ### Valid\n\n ```js\n const config = require('./config');\n if (config.NODE_ENV === 'development') {\n   // ...\n }\n ```\n\n"
+          },
           "noRestrictedImports": {
             "deprecated": false,
             "version": "1.6.0",
@@ -3795,7 +3809,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 271
+    "numberOrRules": 272
   },
   "syntax": {
     "languages": {
