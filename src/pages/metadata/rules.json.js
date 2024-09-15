@@ -1258,7 +1258,7 @@ export function GET() {
           },
           "noProcessEnv": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.9.1",
             "name": "noProcessEnv",
             "link": "https://biomejs.dev/linter/rules/no-process-env",
             "recommended": false,
