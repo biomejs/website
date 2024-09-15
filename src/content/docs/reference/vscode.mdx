@@ -289,3 +289,22 @@ You may want to set this setting to `verbose` when you encounter issues with the
 **Default:** `false` | **Scopes:** `global`, `workspace`, `workspace folder`
 
 This **experimental** setting control whether Biome should be used to rename symbols when using the `Rename Symbol` command.
+
+## Troubleshooting
+
+There may be times when you encounter unexpected issues with the extension. Here a a couple tip to help you troubleshoot 
+the most common issues, and reset the extension's state.
+
+### Resetting the extension
+
+The extension uses VS Code's [global state](https://code.visualstudio.com/api/references/vscode-api#ExtensionContext.globalState) to keep track of its state between VS Code restarts. 
+It also uses VS Code's [global storage](https://code.visualstudio.com/api/references/vscode-api#ExtensionContext.globalStorageUri) to
+keep temporary copies of the biome binaries that it uses.
+
+Both can be cleared and reset by running the `Biome: Troubleshoot - Reset` command from the [command palette](https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette) 
+, which will stop all active sessions, clear the global state and restart the extension.
+
+### Accessing the LSP trace
+
+If you encounter issues with the extension, we may ask you to share the LSP trace with us. You can do so by setting the [`biome.lsp.trace.server`](#biomelsptrace_server) setting to `verbose`,
+and re-running the action that caused the issue. The trace will be made available the [output](vscode://workbrench/panel) panel, under the `Biome LSP trace (xxx)` select option.
