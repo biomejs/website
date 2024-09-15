@@ -1134,6 +1134,7 @@ fn events_to_text(events: Vec<Event>) -> String {
     for event in events {
         match event {
             Event::Text(text) => buffer.push_str(&*text),
+            Event::Code(text) => buffer.push_str(format!("`{}`", text).as_str()),
             _ => {}
         }
     }
