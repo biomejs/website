@@ -442,6 +442,12 @@ fn generate_rule_content<'a>(
     let is_recommended = !is_nursery && meta.recommended;
     let mut content = Vec::new();
 
+    if let Some(reason) = &meta.deprecated {
+        writeln!(content, ":::caution[Deprecated]")?;
+        writeln!(content, "This rule is deprecated and will be removed in the next major release.\n**Reason**: {}", reason)?;
+        writeln!(content, ":::")?;
+    }
+
     writeln!(content, "**Since**: `v{}`", meta.version)?;
 
     if is_recommended || !matches!(meta.fix_kind, FixKind::None) {
