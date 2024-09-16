@@ -27,8 +27,8 @@ importers:
         specifier: 1.8.3
         version: 1.8.3
       '@biomejs/wasm-web':
-        specifier: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@62efa7d
-        version: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@62efa7d
+        specifier: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@0e22abe
+        version: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@0e22abe
       '@codemirror/lang-css':
         specifier: 6.3.0
         version: 6.3.0(@codemirror/view@6.33.0)
@@ -445,9 +445,9 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@biomejs/wasm-web@https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@62efa7d':
-    resolution: {tarball: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@62efa7d}
-    version: 0.0.0-rev.62efa7d0352534c5c644c0dcccfbbd058dff5752
+  '@biomejs/wasm-web@https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@0e22abe':
+    resolution: {tarball: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@0e22abe}
+    version: 0.0.0-rev.0e22abe4ba77ce59b9c9cfbc4ac0c027eece2283
 
   '@braintree/sanitize-url@6.0.4':
     resolution: {integrity: sha512-s3jaWicZd0pkP0jf5ysyHUI/RE7MHos6qlToFcGWXVp+ykHOy77OUMrfbgJ9it2C5bow7OIQwYYaHjk9XlBQ2A==}
@@ -4158,7 +4158,7 @@ snapshots:
       '@vercel/nft': 0.27.4
       astro: 4.15.4(@types/node@20.16.5)(rollup@4.21.2)(sass@1.77.8)(typescript@5.5.4)
       esbuild: 0.21.5
-      vite: 5.4.3(@types/node@20.16.5)(sass@1.77.8)
+      vite: 5.4.5(@types/node@20.16.5)(sass@1.77.8)
     transitivePeerDependencies:
       - '@opentelemetry/api'
       - '@types/node'
@@ -4507,7 +4507,7 @@ snapshots:
   '@biomejs/cli-win32-x64@1.8.3':
     optional: true
 
-  '@biomejs/wasm-web@https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@62efa7d': {}
+  '@biomejs/wasm-web@https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@0e22abe': {}
 
   '@braintree/sanitize-url@6.0.4': {}
 
@@ -6025,7 +6025,7 @@ snapshots:
   css-tree@2.3.1:
     dependencies:
       mdn-data: 2.0.30
-      source-map-js: 1.2.0
+      source-map-js: 1.2.1
 
   cssesc@3.0.0: {}
 
