@@ -1,0 +1,147 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noMissingVarFunction
+description: |
+  Disallow missing var function for css variables.
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+**Diagnostic Category: `lint/nursery/noMissingVarFunction`**
+<Tabs>
+<TabItem label="CSS" icon="seti:css">
+**Since**: `vnext`
+:::caution
+This rule is part of the [nursery](/linter/rules/#nursery) group.
+:::
+
+Sources: 
+- Same as: <a href="https://github.com/stylelint/stylelint/blob/main/lib/rules/custom-property-no-missing-var-function/README.md" target="_blank"><code>stylelint/custom-property-no-missing-var-function</code></a>
+
+Disallow missing var function for css variables.
+
+This rule has the following limitations:
+
+- It only reports custom properties that are defined and accesible within the same source.
+- It does not check properties that can contain author-defined identifiers.
+- It ignores the following properties:
+  - `animation`
+  - `animation-name`
+  - `counter-increment`
+  - `counter-reset`
+  - `counter-set`
+  - `grid-column`
+  - `grid-column-end`
+  - `grid-column-start`
+  - `grid-row`
+  - `grid-row-end`
+  - `grid-row-start`
+  - `list-style`
+  - `list-style-type`
+  - `transition`
+  - `transition-property`
+  - `view-transition-name`
+  - `will-change`
+
+
+
+## Examples
+
+### Invalid
+
+```css
+a {
+  --foo: red;
+  color: --foo;
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.css:3:10 <a href="https://biomejs.dev/linter/rules/no-missing-var-function">lint/nursery/noMissingVarFunction</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">CSS variables '</span><span style="color: Tomato;"><strong>--foo</strong></span><span style="color: Tomato;">' is used without the 'var()' function</span><br />  <br />    <strong>1 │ </strong>a &#123;<br />    <strong>2 │ </strong>  --foo: red;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>  color: --foo;<br />   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>&#125;<br />    <strong>5 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">CSS variables should be used with the 'var()' function to ensure proper fallback behavior and browser compatibility.</span><br />  <br /></code></pre>
+
+```css
+.parent {
+  --foo: red;
+  .child {
+    color: --foo;
+  }
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.css:4:12 <a href="https://biomejs.dev/linter/rules/no-missing-var-function">lint/nursery/noMissingVarFunction</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">CSS variables '</span><span style="color: Tomato;"><strong>--foo</strong></span><span style="color: Tomato;">' is used without the 'var()' function</span><br />  <br />    <strong>2 │ </strong>  --foo: red;<br />    <strong>3 │ </strong>  .child &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>    color: --foo;<br />   <strong>   │ </strong>           <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>5 │ </strong>  &#125;<br />    <strong>6 │ </strong>&#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">CSS variables should be used with the 'var()' function to ensure proper fallback behavior and browser compatibility.</span><br />  <br /></code></pre>
+
+```css
+@property --bar {}
+
+a {
+  color: --bar;
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.css:4:10 <a href="https://biomejs.dev/linter/rules/no-missing-var-function">lint/nursery/noMissingVarFunction</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">CSS variables '</span><span style="color: Tomato;"><strong>--bar</strong></span><span style="color: Tomato;">' is used without the 'var()' function</span><br />  <br />    <strong>3 │ </strong>a &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>  color: --bar;<br />   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>5 │ </strong>&#125;<br />    <strong>6 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">CSS variables should be used with the 'var()' function to ensure proper fallback behavior and browser compatibility.</span><br />  <br /></code></pre>
+
+```css
+:root {
+  --baz: 0;
+}
+
+a {
+  --foo: --baz;
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.css:6:10 <a href="https://biomejs.dev/linter/rules/no-missing-var-function">lint/nursery/noMissingVarFunction</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">CSS variables '</span><span style="color: Tomato;"><strong>--baz</strong></span><span style="color: Tomato;">' is used without the 'var()' function</span><br />  <br />    <strong>5 │ </strong>a &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>6 │ </strong>  --foo: --baz;<br />   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>7 │ </strong>&#125;<br />    <strong>8 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">CSS variables should be used with the 'var()' function to ensure proper fallback behavior and browser compatibility.</span><br />  <br /></code></pre>
+
+### Valid
+
+```css
+p {
+  color: var(--foo);
+}
+```
+
+```css
+p {
+  --foo: red;
+  color: var(--foo);
+}
+```
+
+```css
+p {
+  color: --foo;
+}
+```
+
+```css
+*:root {
+--global: red;
+}
+
+a {
+    color: var(--global);
+}
+```
+
+```css
+@property --global-value {}
+a {
+  color: var(--global-value);
+}
+```
+
+```css
+a {
+  view-transition-name: --bbb;
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
+</Tabs>
+
