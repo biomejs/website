@@ -105,16 +105,16 @@ export default defineConfig({
 							},
 							items: [
 								{
-									label: "First-party plugins",
-									link: "/guides/editors/first-party-plugins",
+									label: "First-party extensions",
+									link: "/guides/editors/first-party-extensions",
 								},
 								{
-									label: "Third-party plugins",
-									link: "/guides/editors/third-party-plugins",
+									label: "Third-party extensions",
+									link: "/guides/editors/third-party-extensions",
 								},
 								{
-									label: "Integrate Biome in an editor plugin",
-									link: "/guides/editors/create-a-plugin",
+									label: "Integrate Biome in an editor extension",
+									link: "/guides/editors/create-a-extension",
 								},
 							],
 						},
@@ -278,6 +278,16 @@ export default defineConfig({
 								ja: "VSCode拡張機能",
 								"zh-CN": "VSCode 扩展",
 								"pt-BR": "Extensão do VSCode",
+							},
+						},
+						{
+							label: "Zed extension",
+							link: "/reference/zed",
+							badge: "new",
+							translations: {
+								ja: "Zed拡張機能",
+								"zh-CN": "Zed 扩展",
+								"pt-BR": "Extensão do Zed",
 							},
 						},
 						{
