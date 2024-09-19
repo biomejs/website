@@ -164,7 +164,7 @@ export function GET() {
           },
           "noMissingVarFunction": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.9.2",
             "name": "noMissingVarFunction",
             "link": "https://biomejs.dev/linter/rules/no-missing-var-function",
             "recommended": true,
@@ -3245,7 +3245,7 @@ export function GET() {
         "nursery": {
           "useComponentExportOnlyModules": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.9.2",
             "name": "useComponentExportOnlyModules",
             "link": "https://biomejs.dev/linter/rules/use-component-export-only-modules",
             "recommended": false,
