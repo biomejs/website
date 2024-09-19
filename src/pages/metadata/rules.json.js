@@ -1270,6 +1270,20 @@ export function GET() {
             "sourceKind": "sameLogic",
             "docs": " Disallows the use of irregular whitespace characters.\n\n Invalid or irregular whitespace causes issues with various parsers and also makes code harder to debug.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n let\u000bcount;\n ```\n\n ```js,expect_diagnostic\n let foo;\n ```\n\n ### Valid\n\n ```js\n const count = 1;\n ```\n\n ```js\n const foo = '\u000b';\n ```\n\n"
           },
+          "noOctalEscape": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noOctalEscape",
+            "link": "https://biomejs.dev/linter/rules/no-octal-escape",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslint": "no-octal-escape"
+              }
+            ],
+            "docs": " Disallow octal escape sequences in string literals\n\n As of the ECMAScript 5 specification, octal escape sequences in string literals are deprecated and should not be used.\n Unicode escape sequences should be used instead.\n\n ### Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n var foo = \"Copyright \\251\";\n ```\n\n ### Valid\n\n ```js\n var foo = \"Copyright \\u00A9\";   // unicode\n\n var foo = \"Copyright \\xA9\";     // hexadecimal\n ```\n\n"
+          },
           "noProcessEnv": {
             "deprecated": false,
             "version": "1.9.1",
@@ -3838,7 +3852,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 274
+    "numberOrRules": 275
   },
   "syntax": {
     "languages": {
