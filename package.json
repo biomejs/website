@@ -19,7 +19,7 @@
 		"codegen:all": "pnpm codegen all"
 	},
 	"devDependencies": {
-		"@astrojs/netlify": "5.5.2",
+		"@astrojs/netlify": "5.5.3",
 		"@astrojs/prism": "3.1.0",
 		"@astrojs/react": "3.6.2",
 		"@astrojs/rss": "4.0.7",

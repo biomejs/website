@@ -9,8 +9,8 @@ importers:
   .:
     devDependencies:
       '@astrojs/netlify':
-        specifier: 5.5.2
-        version: 5.5.2(@opentelemetry/api@1.9.0)(@types/node@20.16.5)(astro@4.15.7(@types/node@20.16.5)(rollup@4.21.2)(sass@1.77.8)(typescript@5.5.4))(sass@1.77.8)
+        specifier: 5.5.3
+        version: 5.5.3(@opentelemetry/api@1.9.0)(@types/node@20.16.5)(astro@4.15.7(@types/node@20.16.5)(rollup@4.21.2)(sass@1.77.8)(typescript@5.5.4))(sass@1.77.8)
       '@astrojs/prism':
         specifier: 3.1.0
         version: 3.1.0
@@ -187,8 +187,8 @@ packages:
     peerDependencies:
       astro: ^4.8.0
 
-  '@astrojs/netlify@5.5.2':
-    resolution: {integrity: sha512-J8a5Uz04156i8WN38iLQSLKAUKNJH+cGNbizRLoVdqRcfHY5cTwnZzXSSjjrvNNmErk0wsHlmJEA3SYXqCqXEw==}
+  '@astrojs/netlify@5.5.3':
+    resolution: {integrity: sha512-MDbbJY/Qp02WY9TFusXGA9TFSfaRwc/nlyYhk0YZ2ll2KW2DKrXLCJLC17kdhGqKDyg6w4P6juOOgbcGEpfaUw==}
     peerDependencies:
       astro: ^4.2.0
 
@@ -4152,7 +4152,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/netlify@5.5.2(@opentelemetry/api@1.9.0)(@types/node@20.16.5)(astro@4.15.7(@types/node@20.16.5)(rollup@4.21.2)(sass@1.77.8)(typescript@5.5.4))(sass@1.77.8)':
+  '@astrojs/netlify@5.5.3(@opentelemetry/api@1.9.0)(@types/node@20.16.5)(astro@4.15.7(@types/node@20.16.5)(rollup@4.21.2)(sass@1.77.8)(typescript@5.5.4))(sass@1.77.8)':
     dependencies:
       '@astrojs/internal-helpers': 0.4.1
       '@astrojs/underscore-redirects': 0.3.4
@@ -5577,7 +5577,7 @@ snapshots:
 
   agent-base@6.0.2:
     dependencies:
-      debug: 4.3.6
+      debug: 4.3.7
     transitivePeerDependencies:
       - supports-color
 
@@ -6761,7 +6761,7 @@ snapshots:
   https-proxy-agent@5.0.1:
     dependencies:
       agent-base: 6.0.2
-      debug: 4.3.6
+      debug: 4.3.7
     transitivePeerDependencies:
       - supports-color
 
@@ -7761,7 +7761,7 @@ snapshots:
 
   micromark@2.11.4:
     dependencies:
-      debug: 4.3.6
+      debug: 4.3.7
       parse-entities: 2.0.0
     transitivePeerDependencies:
       - supports-color
@@ -8395,7 +8395,7 @@ snapshots:
 
   require-in-the-middle@7.3.0:
     dependencies:
-      debug: 4.3.6
+      debug: 4.3.7
       module-details-from-path: 1.0.3
       resolve: 1.22.8
     transitivePeerDependencies:
