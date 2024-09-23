@@ -120,6 +120,16 @@ class Test {
 const func = (value: number) => ({ foo: 'bar', value }) as const;
 ```
 
+```ts
+// Callbacks without return types
+setTimeout(function() { console.log("Hello!"); }, 1000);
+```
+
+```ts
+// IIFE
+(() => {})();
+```
+
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)
