@@ -19,7 +19,7 @@
 	}
 
 	span {
-		margin: calc($unit / 2) 0;
+		margin: calc(var(--unit) / 2) 0;
 	}
 }
 
@@ -36,7 +36,7 @@ ul.credits-people-list {
 		li {
 			width: 130px;
 			margin: 0;
-			margin: calc($unit / 4);
+			margin: calc(var(--unit) / 4);
 
 			img {
 				width: 128px;
@@ -44,13 +44,13 @@ ul.credits-people-list {
 			}
 
 			span {
-				margin: calc($unit / 2) 0;
+				margin: calc(var(--unit) / 2) 0;
 			}
 		}
 	}
 
 	li {
-		margin: 0 $unit $unit;
+		margin: 0 var(--unit) var(--unit);
 		width: 220px;
 		list-style: none;
 		border: 1px solid var(--sl-border);
@@ -77,6 +77,6 @@ ul.credits-people-list {
 
 	span {
 		display: block;
-		margin: $unit 0;
+		margin: var(--unit) 0;
 	}
 }

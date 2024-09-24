@@ -1,7 +1,7 @@
 @import "_variables";
 
 @mixin desktop-only {
-  @media only screen and (min-width: $mobile-breakpoint + 1) {
+  @media only screen and (min-width: var(--mobile-breakpoint) + 1) {
     @content;
   }
 }
@@ -19,7 +19,7 @@
 }
 
 @mixin mobile-only {
-  @media only screen and (max-width: $mobile-breakpoint) {
+  @media only screen and (max-width: var(--mobile-breakpoint)) {
     @content;
   }
 }

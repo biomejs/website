@@ -29,7 +29,7 @@ body {
 }
 
 code {
-	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
 	-moz-tab-size: 2;
 	tab-size: 2;
 	background-color: var(--inline-code-background-color);
@@ -44,22 +44,23 @@ pre code {
 
 h1 {
 	font-size: 2em;
-	line-height: calc($body-line-height / 2em);
+	line-height: calc(var(--body-line-height) / 2em);
 }
 
 h2 {
 	font-size: 1.5em;
-	line-height: calc($body-line-height / 1.5em);
+	line-height: calc(var(--body-line-height) / 1.5em);
 }
 
 h3 {
 	font-size: 1.2em;
-	line-height: calc($body-line-height / 1.2em);
+	line-height: calc(var(--body-line-height) / 1.2em);
 }
 
-h4, h5 {
+h4,
+h5 {
 	font-size: 1em;
-	line-height: calc($body-line-height / 1em);
+	line-height: calc(var(--body-line-height) / 1em);
 }
 
 h1,
@@ -91,18 +92,18 @@ h5 {
 	position: absolute;
 	right: 0;
 	top: -40px;
-	padding: calc($unit / 2) $unit;
+	padding: calc(var(--unit) / 2) var(--unit);
 	z-index: 100;
 	background: var(--logo-font-color);
 	color: var(--container-color);
 	font-weight: bold;
 }
 
-.skip-to-content a:focus{
+.skip-to-content a:focus {
 	position: absolute;
 	right: 0;
 	top: 0;
-	padding: $unit;
+	padding: var(--unit);
 	z-index: 100;
 }
 
@@ -117,7 +118,8 @@ h5 {
 }
 
 .foreground-svg {
-	path, polygon {
+	path,
+	polygon {
 		fill: var(--sl-color-text-accent);
 	}
 }

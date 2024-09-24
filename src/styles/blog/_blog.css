@@ -123,26 +123,26 @@
 div.tags {
   display: flex;
   justify-content: flex-end;
-  margin-top: $unit * 2;
+  margin-top: var(--unit) * 2;
   align-items: center;
   color: var(--sub-text-color);
 
   > a.tag {
-    margin-left: calc($unit / 2);
+    margin-left: calc(var(--unit) / 2);
   }
 }
 
 div.tags-page {
-  margin-top: calc($unit * 2);
+  margin-top: calc(var(--unit) * 2);
 
   > a.tag {
-    margin-right: calc($unit / 2);
+    margin-right: calc(var(--unit) / 2);
   }
 }
 
 a.tag {
   background: var(--soft-border-color);
-  padding: calc($unit / 4) calc($unit / 2);
+  padding: calc(var(--unit) / 4) calc(var(--unit) / 2);
   text-decoration: none;
   border-radius: 4px;
 
@@ -153,7 +153,7 @@ a.tag {
 
   &:active {
     background: var(--primary-color);
-    color: $gray-4;
+    color: var(--gray-4);
   }
 }
 
