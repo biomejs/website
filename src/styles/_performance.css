@@ -6,7 +6,7 @@
 
 .head {
 	text-align: center;
-	@include desktop-only {
+	@mixin desktop-only {
 		font-size: 3.7rem;
 	}
 }

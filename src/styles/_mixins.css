@@ -1,30 +1,30 @@
 @import "_variables";
 
-@mixin desktop-only {
+@define-mixin desktop-only {
   @media only screen and (min-width: var(--mobile-breakpoint) + 1) {
     @content;
   }
 }
 
-@mixin large-screen-only {
+@define-mixin large-screen-only {
   @media only screen and (min-width: 1201px) {
     @content;
   }
 }
 
-@mixin small-screen-only {
+@define-mixin small-screen-only {
   @media only screen and (max-width: 1200px) {
     @content;
   }
 }
 
-@mixin mobile-only {
+@define-mixin mobile-only {
   @media only screen and (max-width: var(--mobile-breakpoint)) {
     @content;
   }
 }
 
-@mixin button {
+@define-mixin button {
   background: rgba(0, 0, 0, 0.05);
   border-radius: 40px;
   padding: 8px 21px;
@@ -40,7 +40,7 @@
     background: darken(#e9ecef, 5%);
   }
 
-  @include dark-mode {
+  @mixin dark-mode {
     background: rgba(255, 255, 255, 0.1);
 
     &:hover {
@@ -53,19 +53,19 @@
   }
 }
 
-@mixin transition-timing {
+@define-mixin transition-timing {
   transition-duration: 200ms;
   transition-timing-function: cubic-bezier(0.57, 0.33, 0.19, 0.97);
 }
 
-@mixin dark-mode {
-	@at-root :root[data-theme='dark'] #{if(&, "&", "")} {
-		@content;
-	}
+@define-mixin dark-mode {
+  :root[data-theme="dark"] {
+    @mixin-content;
+  }
 
-	@media (prefers-color-scheme: dark) {
-		@at-root :root[data-theme='auto'] #{if(&, "&", "")} {
-			@content;
-		}
-	}
+  @media (prefers-color-scheme: dark) {
+    :root[data-theme="auto"] {
+      @mixin-content;
+    }
+  }
 }

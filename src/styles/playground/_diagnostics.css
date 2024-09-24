@@ -5,7 +5,7 @@
 	height: 200px;
 	border-top: 1px solid var(--sl-border);
 
-	@include dark-mode {
+	@mixin dark-mode {
 		.empty-panel {
 			background-color: #282c34;
 		}
@@ -29,7 +29,7 @@ ul.diagnostics-list {
 	height: 100%;
 	overflow: auto;
 
-	@include dark-mode {
+	@mixin dark-mode {
 		background-color: #282c34;
 	}
 

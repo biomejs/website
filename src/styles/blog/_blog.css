@@ -17,7 +17,7 @@
 		border-bottom: none;
 		font-size: 42px;
 
-		@include mobile-only {
+		@mixin mobile-only {
 			margin-top: 0;
 		}
 	}
@@ -42,7 +42,7 @@
 
 	> pre,
 	> figure > video {
-		@include mobile-only {
+		@mixin mobile-only {
 			border-radius: 0;
 		}
 	}
@@ -55,7 +55,7 @@
 	margin-bottom: 1.5em;
 	line-height: 36px;
 
-	@include mobile-only {
+	@mixin mobile-only {
 		flex-direction: column;
 	}
 
@@ -114,7 +114,7 @@
 	time {
 		margin-left: auto;
 
-		@include mobile-only {
+		@mixin mobile-only {
 			margin-left: 0;
 		}
 	}
@@ -162,7 +162,7 @@ a.tag {
 	overflow: hidden;
 	position: relative;
 
-	@include desktop-only {
+	@mixin desktop-only {
 		margin-top: 24px;
 	}
 
@@ -172,7 +172,7 @@ a.tag {
 		width: auto;
 		object-fit: contain;
 
-		@include mobile-only {
+		@mixin mobile-only {
 			border-radius: 0;
 		}
 	}

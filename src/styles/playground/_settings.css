@@ -89,20 +89,20 @@
 		border: 1px solid var(--sl-color-gray-5);
 		padding: 0 10px;
 
-		@include dark-mode {
+		@mixin dark-mode {
 			color: inherit;
 			background-color: transparent;
 		}
 	}
 
 	select {
-		@include button;
+		@mixin button;
 		border-radius: 6px;
 		padding: 2px 6px;
 		color: inherit;
 		border: 1px solid var(--sl-color-gray-5);
 
-		@include dark-mode {
+		@mixin dark-mode {
 			border: 1px solid var(--sl-color-gray-4);
 
 			& option {
@@ -112,7 +112,7 @@
 	}
 
 	button {
-		@include button;
+		@mixin button;
 		border-radius: 0;
 		border: 1px solid var(--sl-color-gray-5);
 		padding: 2px 6px;
@@ -218,7 +218,7 @@
 
 				background-color: var(--sl-color-gray-6);
 
-				@include dark-mode {
+				@mixin dark-mode {
 					background-color: var(--sl-color-gray-5);
 				}
 			}

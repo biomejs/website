@@ -21,7 +21,7 @@
 			width: 9.3rem;
 		}
 
-		@include small-screen-only {
+		@mixin small-screen-only {
 			&.discord {
 				background-color: var(--sl-discord);
 				color: var(--sl-community-link);
@@ -33,7 +33,7 @@
 			color: var(--sl-community-link);
 		}
 
-		@include small-screen-only {
+		@mixin small-screen-only {
 			&.x,
 			&.github {
 				background-color: black;
@@ -46,7 +46,7 @@
 			color: var(--sl-community-link);
 		}
 
-		@include small-screen-only {
+		@mixin small-screen-only {
 			&.mastodon {
 				background-color: var(--sl-mastodon);
 				color: var(--sl-community-link);
@@ -118,7 +118,7 @@
 	}
 }
 
-@include small-screen-only {
+@mixin small-screen-only {
 	.community {
 		height: 60rem;
 	}

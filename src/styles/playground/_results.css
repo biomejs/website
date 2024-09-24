@@ -77,7 +77,7 @@
 }
 
 .cm-gutters {
-	@include dark-mode {
+	@mixin dark-mode {
 		background-color: #2b313d;
 		border-right: 1px solid #313744;
 	}

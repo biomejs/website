@@ -11,12 +11,12 @@
 		margin: 0;
 		height: 100%;
 
-		@include dark-mode {
+		@mixin dark-mode {
 			background-color: #282c34 !important;
 		}
 	}
 
-	@include mobile-only {
+	@mixin mobile-only {
 		overflow: auto;
 	}
 

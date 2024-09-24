@@ -53,7 +53,7 @@ pre[class*="language-"] {
 pre[class*="language-"] {
 	background: #282c34;
 
-	@include dark-mode {
+	@mixin dark-mode {
 		background: darken(#282c34, 5%);
 	}
 }
