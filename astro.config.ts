@@ -202,6 +202,10 @@ export default defineConfig({
 										"pt-BR": "Princípios de configuração",
 									},
 								},
+								{
+									label: "EditorConfig support",
+									link: "/formatter/editorconfig-support",
+								},
 							],
 							translations: {
 								"zh-CN": "格式化程序",
