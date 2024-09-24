@@ -1,36 +1,39 @@
-$color-1: #e18403;
-$color-2: #ed9f03;
-$color-3: #f7b604;
-$color-4: #f7b911; /*logo color*/
-$color-5: #ffdc1c;
-$color-6: #fff065;
-$color-7: #fffcb4;
+:root {
+	--color-1: #e18403;
+	--color-2: #ed9f03;
+	--color-3: #f7b604;
+	--color-4: #f7b911; /*logo color*/
+	--color-5: #ffdc1c;
+	--color-6: #fff065;
+	--color-7: #fffcb4;
 
-$gray-1: darken(#27272a, 15%);
-$gray-2: darken(#27272a, 10%);
-$gray-3: darken(#27272a, 3%);
-$gray-4: #27272a; /*logo gray*/
-$gray-5: lighten(#27272a, 25%);
-$gray-6: lighten(#27272a, 45%);
-$gray-7: lighten(#27272a, 70%);
-$gray-8: lighten(#27272a, 80%);
+	--gray-1: #020202;
+	--gray-2: #0e0e10;
+	--gray-3: #202022;
+	--gray-4: #27272a; /*logo gray*/
+	--gray-5: #64646c;
+	--gray-6: #98989f;
+	--gray-7: #dadadc;
+	--gray-8: #f4f4f5;
 
-$code-font: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
-$body-line-height: 1.5em;
+	--code-font: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+		monospace;
+	--body-line-height: 1.5em;
 
-$unit: 16px;
-$unit-border-radius: 4px;
+	--unit: 16px;
+	--unit-border-radius: 4px;
 
-$mobile-breakpoint: 768px;
+	--mobile-breakpoint: 768px;
+}
 
 /* CSS variables */
 
 :root,
 ::backdrop {
-  --sl-border: var(--sl-color-gray-5);
+	--sl-border: var(--sl-color-gray-5);
 }
 
 :root[data-theme="light"],
 [data-theme="light"] ::backdrop {
-  --sl-border: var(--sl-color-gray-6);
+	--sl-border: var(--sl-color-gray-6);
 }
