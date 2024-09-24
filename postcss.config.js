@@ -1,3 +1,3 @@
 module.exports = {
-  plugins: [require("postcss-mixins"), require("autoprefixer")],
+	plugins: [require("postcss-mixins"), require("autoprefixer")],
 };
