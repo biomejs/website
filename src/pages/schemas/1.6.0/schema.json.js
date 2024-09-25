@@ -1869,7 +1869,7 @@ export function GET() {
 			},
 			RuleWithComplexityOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: { $ref: "#/definitions/RulePlainConfiguration" },
 					options: { $ref: "#/definitions/ComplexityOptions" },
@@ -1878,7 +1878,7 @@ export function GET() {
 			},
 			RuleWithConsistentArrayTypeOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: { $ref: "#/definitions/RulePlainConfiguration" },
 					options: { $ref: "#/definitions/ConsistentArrayTypeOptions" },
@@ -1887,7 +1887,7 @@ export function GET() {
 			},
 			RuleWithDeprecatedHooksOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: { $ref: "#/definitions/RulePlainConfiguration" },
 					options: { $ref: "#/definitions/DeprecatedHooksOptions" },
@@ -1896,7 +1896,7 @@ export function GET() {
 			},
 			RuleWithFilenamingConventionOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: { $ref: "#/definitions/RulePlainConfiguration" },
 					options: { $ref: "#/definitions/FilenamingConventionOptions" },
@@ -1905,7 +1905,7 @@ export function GET() {
 			},
 			RuleWithHooksOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: { $ref: "#/definitions/RulePlainConfiguration" },
 					options: { $ref: "#/definitions/HooksOptions" },
@@ -1914,7 +1914,7 @@ export function GET() {
 			},
 			RuleWithNamingConventionOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: { $ref: "#/definitions/RulePlainConfiguration" },
 					options: { $ref: "#/definitions/NamingConventionOptions" },
@@ -1923,7 +1923,7 @@ export function GET() {
 			},
 			RuleWithNoOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: { $ref: "#/definitions/RulePlainConfiguration" },
 					options: { type: "null" },
@@ -1932,7 +1932,7 @@ export function GET() {
 			},
 			RuleWithRestrictedGlobalsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: { $ref: "#/definitions/RulePlainConfiguration" },
 					options: { $ref: "#/definitions/RestrictedGlobalsOptions" },
@@ -1941,7 +1941,7 @@ export function GET() {
 			},
 			RuleWithRestrictedImportsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: { $ref: "#/definitions/RulePlainConfiguration" },
 					options: { $ref: "#/definitions/RestrictedImportsOptions" },
@@ -1950,7 +1950,7 @@ export function GET() {
 			},
 			RuleWithUtilityClassSortingOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: { $ref: "#/definitions/RulePlainConfiguration" },
 					options: { $ref: "#/definitions/UtilityClassSortingOptions" },
@@ -1959,7 +1959,7 @@ export function GET() {
 			},
 			RuleWithValidAriaRoleOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: { $ref: "#/definitions/RulePlainConfiguration" },
 					options: { $ref: "#/definitions/ValidAriaRoleOptions" },
