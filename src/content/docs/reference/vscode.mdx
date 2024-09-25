@@ -194,7 +194,7 @@ To enable fix on save, update VS Code's [`editor.codeActionsOnSave`](vscode://se
 
 The extension is able to sort imports on save for [supported file types](/internals/language-support). To enable this feature, set VS Code's [`editor.codeActionsOnSave`](vscode://settings/editor.codeActionsOnSave) setting to include the following:
 
-```diff
+```diff title="settings.json"
 {
   "editor.codeActionsOnSave": {
 +    "source.organizeImports.biome": "explicit"
