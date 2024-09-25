@@ -79,8 +79,8 @@ specific workspace folders.
 
 #### Using the `biome.requireConfigFile` setting
 
-The [`biome.requireConfigFile`](#biomerequireconfigfile) setting can be set globally and per-project. When setting it globally, it applies to all workspace folders, unless
-they themselves override the setting. This allows you to require the presence of a [Biome configuration file](/guides/configure-biome#configuration-file-structure) for a Biome project to be enabled. 
+The [`biome.requireConfigFile`](#biomerequireconfigfile) setting can be set globally and per project. When setting it globally, it applies to all workspace folders unless
+they override the setting. This allows you to require the presence of a [Biome configuration file](/guides/configure-biome#configuration-file-structure) for a Biome project to be enabled. 
 
 It is a good idea to enable this setting globally when you know you always use a `biome.json` file, and you want to avoid the extension creating projects
 for workspace folders that don't use Biome. 
