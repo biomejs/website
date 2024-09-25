@@ -47,7 +47,7 @@ The extension automatically creates a project at the root of every workspace fol
 #### Defining projects in a workspace
 
 To define projects in a **workspace**, add a `settings.biome.projects` property to the `.code-workspace` file. This setting accepts an
-array of project definitions, each of which has the following properties:
+array of project definitions, each of which must specify the following properties:
 
 - `name`: The **name of the workspace folder** that the project is associated with
 - `path` : The **path to the project directory**, _relative to the root of the workspace folder_.
@@ -57,7 +57,7 @@ Please refer to the [`biome.projects` config reference](#biomeprojects) for more
 #### Defining projects in a workspace folder
 
 To define projects in a **workspace folder**, add a `biome.projects` property to the `.vscode/settings.json` file. This setting accepts an
-array of project definitions, each of which has the following properties:
+array of project definitions, each of which must specify the following property:
 
 - `path`: The **path to the project directory**, _relative to the root of the workspace folder_.
 
