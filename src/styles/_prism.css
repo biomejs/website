@@ -37,7 +37,7 @@ code[class*="language-"] ::selection {
 /* Code blocks */
 pre[class*="language-"] {
 	padding: 1em;
-	margin: .5em 0;
+	margin: 0.5em 0;
 	overflow: auto;
 
 	* {
@@ -54,14 +54,14 @@ pre[class*="language-"] {
 	background: #282c34;
 
 	@mixin dark-mode {
-		background: darken(#282c34, 5%);
+		background: #1d2026;
 	}
 }
 
 /* Inline code */
 :not(pre) > code[class*="language-"] {
-	padding: .1em;
-	border-radius: .3em;
+	padding: 0.1em;
+	border-radius: 0.3em;
 	white-space: normal;
 }
 

@@ -37,7 +37,7 @@
 	}
 
 	&:active {
-		background: darken(#e9ecef, 5%);
+		background: #dadfe4;
 	}
 
 	@mixin dark-mode {

@@ -31,7 +31,7 @@
 	}
 
 	@mixin dark-mode {
-		background: darken(#282c34, 5%);
+		background: #1d2026;
 		border-color: #222;
 	}
 
