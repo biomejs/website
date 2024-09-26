@@ -23,10 +23,11 @@ export default React.forwardRef<ReactCodeMirrorRef, Props>(function SyntaxTab(
 					ref={ref}
 					extensions={biomeAstCodeMirrorExtension}
 					readOnly={true}
+					data-testid="ast-output"
 				/>
 			</Collapsible>
 			<Collapsible heading="CST">
-				<CodeMirror value={cst} readOnly={true} />
+				<CodeMirror value={cst} readOnly={true} data-testid="cst-output" />
 			</Collapsible>
 		</>
 	);

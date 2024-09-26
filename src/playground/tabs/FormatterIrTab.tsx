@@ -20,16 +20,22 @@ export default function FormatterIrTab({ biome, prettier }: Props) {
 					value={biome}
 					extensions={formatterIrCodeMirrorExtension}
 					readOnly={true}
+					data-testid="biome-ir-output"
 				/>
 			</Collapsible>
 			<Collapsible className="prettier" heading={<PrettierHeader />}>
 				{prettier.type === "ERROR" ? (
-					<CodeMirror value={prettier.stack} readOnly={true} />
+					<CodeMirror
+						value={prettier.stack}
+						readOnly={true}
+						data-testid="prettier-ir-output"
+					/>
 				) : (
 					<CodeMirror
 						value={prettier.ir}
 						extensions={formatterIrCodeMirrorExtension}
 						readOnly={true}
+						data-testid="prettier-ir-output"
 					/>
 				)}
 			</Collapsible>

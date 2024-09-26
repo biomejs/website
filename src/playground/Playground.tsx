@@ -188,12 +188,14 @@ export default function Playground({
 			onUpdate={onUpdate}
 			onChange={onChange}
 			autoFocus={true}
+			data-testid="editor"
 		/>
 	);
 
 	const results = (
 		<Tabs
 			className="results-tabs"
+			data-testid="results-tabs"
 			selectedTab={playgroundState.tab}
 			onSelect={(tab) => setPlaygroundState((state) => ({ ...state, tab }))}
 			tabs={[

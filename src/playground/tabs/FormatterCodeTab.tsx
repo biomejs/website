@@ -63,6 +63,7 @@ export default function FormatterCodeTab({
 					extensions={extensions}
 					placeholder="Biome Output"
 					readOnly={true}
+					data-testid="biome-output"
 				/>
 			</Collapsible>
 			<Collapsible
@@ -79,6 +80,7 @@ export default function FormatterCodeTab({
 						value={prettier.stack}
 						placeholder="Prettier Error"
 						readOnly={true}
+						data-testid="prettier-output"
 					/>
 				) : (
 					<CodeMirror
@@ -86,6 +88,7 @@ export default function FormatterCodeTab({
 						extensions={extensions}
 						placeholder="Prettier Output"
 						readOnly={true}
+						data-testid="prettier-output"
 					/>
 				)}
 			</Collapsible>
