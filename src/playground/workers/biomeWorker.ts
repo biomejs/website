@@ -243,11 +243,12 @@ self.addEventListener("message", async (e) => {
 
 			let formatterIr = "";
 			try {
-				fileFeatures.features_supported.get("Debug") === "Supported"
-					? workspace.getFormatterIr({
-							path,
-						})
-					: "Not supported";
+				formatterIr =
+					fileFeatures.features_supported.get("Debug") === "Supported"
+						? workspace.getFormatterIr({
+								path,
+							})
+						: "Not supported";
 			} catch (e) {
 				console.error(e);
 				formatterIr = "Can't format";
