@@ -31,7 +31,7 @@
 		.dot {
 			width: 3px;
 			height: 3px;
-			background-color: rgba(#000, 50%);
+			background-color: rgba(0, 0, 0, 0.5);
 			border-radius: 50%;
 		}
 
@@ -205,7 +205,7 @@
 			height: 30px;
 
 			&:hover {
-				background: rgba(#000, 5%);
+				background: rgba(0, 0, 0, 0.05);
 
 				button {
 					display: block;

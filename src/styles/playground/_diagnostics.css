@@ -50,11 +50,11 @@ ul.diagnostics-list {
 		}
 
 		&:nth-child(2n) {
-			background-color: rgba(#000, 10%);
+			background-color: rgba(0, 0, 0, 0.1);
 		}
 
 		&:hover {
-			background-color: rgba(#000, 20%);
+			background-color: rgba(0, 0, 0, 0.1);
 		}
 	}
 }
