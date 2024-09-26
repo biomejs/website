@@ -66,7 +66,7 @@ h2 {
 	}
 
 	&.biome {
-		background-color: rgb(96, 165, 250, 20) !important;
+		background-color: rgba(96, 165, 250, 20) !important;
 	}
 
 	&.prettier {
