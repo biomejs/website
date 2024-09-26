@@ -241,12 +241,17 @@ self.addEventListener("message", async (e) => {
 				controlFlowGraph = "";
 			}
 
-			const formatterIr =
+			let formatterIr = "";
+			try {
 				fileFeatures.features_supported.get("Debug") === "Supported"
 					? workspace.getFormatterIr({
 							path,
 						})
 					: "Not supported";
+			} catch (e) {
+				console.error(e);
+				formatterIr = "Can't format";
+			}
 
 			const importSorting =
 				fileFeatures.features_supported.get("OrganizeImports") === "Supported"
@@ -279,12 +284,22 @@ self.addEventListener("message", async (e) => {
 				printer.print_verbose(diag);
 			}
 
-			const printed =
-				fileFeatures.features_supported.get("Format") === "Supported"
-					? workspace.formatFile({
-							path,
-						})
-					: { code: "Not supported" };
+			let printed = {
+				code: "",
+			};
+			try {
+				printed =
+					fileFeatures.features_supported.get("Format") === "Supported"
+						? workspace.formatFile({
+								path,
+							})
+						: { code: "Not supported" };
+			} catch (e) {
+				console.error(e);
+				printed = {
+					code: "Can't format with errors",
+				};
+			}
 
 			const biomeOutput: BiomeOutput = {
 				syntax: {
