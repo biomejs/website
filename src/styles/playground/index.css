@@ -66,11 +66,11 @@ h2 {
 	}
 
 	&.biome {
-		background-color: rgb(96, 165, 250) !important;
+		background-color: rgb(96 165 250 / 20%) !important;
 	}
 
 	&.prettier {
-		background-color: rgba(53, 95, 117, 0.329) !important;
+		background-color: rgb(53 95 117 / 40%) !important;
 	}
 
 	img {
