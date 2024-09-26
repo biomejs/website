@@ -3,3 +3,7 @@ dist
 node_modules
 target/
 .netlify/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
