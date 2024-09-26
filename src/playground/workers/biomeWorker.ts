@@ -288,11 +288,12 @@ self.addEventListener("message", async (e) => {
 				code: "",
 			};
 			try {
-				fileFeatures.features_supported.get("Format") === "Supported"
-					? workspace.formatFile({
-							path,
-						})
-					: { code: "Not supported" };
+				printed =
+					fileFeatures.features_supported.get("Format") === "Supported"
+						? workspace.formatFile({
+								path,
+							})
+						: { code: "Not supported" };
 			} catch (e) {
 				console.error(e);
 				printed = {
