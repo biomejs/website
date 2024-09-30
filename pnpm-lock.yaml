@@ -120,8 +120,8 @@ importers:
         specifier: 8.4.47
         version: 8.4.47
       postcss-mixins:
-        specifier: ^11.0.1
-        version: 11.0.1(postcss@8.4.47)
+        specifier: ^11.0.2
+        version: 11.0.2(postcss@8.4.47)
       prettier:
         specifier: 3.3.3
         version: 3.3.3
@@ -3331,20 +3331,20 @@ packages:
     peerDependencies:
       postcss: ^8.4.21
 
-  postcss-mixins@11.0.1:
-    resolution: {integrity: sha512-jM9F8bdfP6v/2kCV6Z1PbRribZqB7gh+grtgLnWayQLDo/nLLyEZtmMZ/od6n2YNkyWJo/CAKLHqWNmef0SMVA==}
+  postcss-mixins@11.0.2:
+    resolution: {integrity: sha512-8EQyQD4J5S/GoEC356CeA9I3e5njtjf90BHxlidxldTx9TU3z9Cf59SujZLbcNxWU5tJDBPUu3/DVJnzJ6lWHQ==}
     engines: {node: ^18.0 || ^ 20.0 || >= 22.0}
     peerDependencies:
       postcss: ^8.2.14
 
-  postcss-nested@6.0.1:
-    resolution: {integrity: sha512-mEp4xPMi5bSWiMbsgoPfcP74lsWLHkQbZc3sY+jWYd65CUwXrUaTp0fmNpa01ZcETKlIgUdFN/MpS2xZtqL9dQ==}
+  postcss-nested@6.2.0:
+    resolution: {integrity: sha512-HQbt28KulC5AJzG+cZtj9kvKB93CFCdLvog1WFLf1D+xmMvPGlBstkpTEZfK5+AN9hfJocyBFCNiqyS48bpgzQ==}
     engines: {node: '>=12.0'}
     peerDependencies:
       postcss: ^8.2.14
 
-  postcss-selector-parser@6.0.16:
-    resolution: {integrity: sha512-A0RVJrX+IUkVZbW3ClroRWurercFhieevHB38sr2+l9eUClMqome3LmEmnhlNy+5Mr2EYN6B2Kaw9wYdd+VHiw==}
+  postcss-selector-parser@6.1.2:
+    resolution: {integrity: sha512-Q8qQfPiZ+THO/3ZrOrO0cJJKfpYCagtMUkXbnEfmgUjwXg6z/WBeOyS9APBBPCTSiDV+s4SwQGu8yFsiMRIudg==}
     engines: {node: '>=4'}
 
   postcss-simple-vars@7.0.1:
@@ -4742,7 +4742,7 @@ snapshots:
       hast-util-to-text: 4.0.2
       hastscript: 9.0.0
       postcss: 8.4.47
-      postcss-nested: 6.0.1(postcss@8.4.47)
+      postcss-nested: 6.2.0(postcss@8.4.47)
       unist-util-visit: 5.0.0
       unist-util-visit-parents: 6.0.1
 
@@ -8188,7 +8188,7 @@ snapshots:
       camelcase-css: 2.0.1
       postcss: 8.4.47
 
-  postcss-mixins@11.0.1(postcss@8.4.47):
+  postcss-mixins@11.0.2(postcss@8.4.47):
     dependencies:
       postcss: 8.4.47
       postcss-js: 4.0.1(postcss@8.4.47)
@@ -8196,12 +8196,12 @@ snapshots:
       sugarss: 4.0.1(postcss@8.4.47)
       tinyglobby: 0.2.6
 
-  postcss-nested@6.0.1(postcss@8.4.47):
+  postcss-nested@6.2.0(postcss@8.4.47):
     dependencies:
       postcss: 8.4.47
-      postcss-selector-parser: 6.0.16
+      postcss-selector-parser: 6.1.2
 
-  postcss-selector-parser@6.0.16:
+  postcss-selector-parser@6.1.2:
     dependencies:
       cssesc: 3.0.0
       util-deprecate: 1.0.2
