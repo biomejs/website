@@ -235,6 +235,7 @@ export default function SettingsTab({
 					type="button"
 					onClick={toggleSingleFileMode}
 					onKeyDown={toggleSingleFileMode}
+					data-testid="toggle-single-file-mode"
 				>
 					{singleFileMode ? "Multi-file mode" : "Single-file mode"}
 				</button>

@@ -1270,6 +1270,20 @@ export function GET() {
             "sourceKind": "sameLogic",
             "docs": " Disallows the use of irregular whitespace characters.\n\n Invalid or irregular whitespace causes issues with various parsers and also makes code harder to debug.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n let\u000bcount;\n ```\n\n ```js,expect_diagnostic\n let foo;\n ```\n\n ### Valid\n\n ```js\n const count = 1;\n ```\n\n ```js\n const foo = '\u000b';\n ```\n\n"
           },
+          "noNestedTernary": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noNestedTernary",
+            "link": "https://biomejs.dev/linter/rules/no-nested-ternary",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslint": "no-nested-ternary"
+              }
+            ],
+            "docs": " Disallow nested ternary expressions.\n\n Nesting ternary expressions can make code more difficult to understand.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const thing = foo ? bar : baz === qux ? quxx : foobar;\n ```\n\n ```js,expect_diagnostic\n foo ? baz === qux ? quxx() : foobar() : bar();\n ```\n\n ### Valid\n\n ```js\n const thing = foo ? bar : foobar;\n ```\n\n ```js\n let thing;\n\n if (foo) {\n     thing = bar;\n } else if (baz === qux) {\n     thing = quxx;\n } else {\n     thing = foobar;\n }\n ```\n\n"
+          },
           "noOctalEscape": {
             "deprecated": false,
             "version": "next",
@@ -3866,7 +3880,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 276
+    "numberOrRules": 277
   },
   "syntax": {
     "languages": {
