@@ -59,12 +59,12 @@
 }
 
 @define-mixin dark-mode {
-	:root[data-theme="dark"] {
+	:root[data-theme="dark"] & {
 		@mixin-content;
 	}
 
 	@media (prefers-color-scheme: dark) {
-		:root[data-theme="auto"] {
+		:root[data-theme="auto"] & {
 			@mixin-content;
 		}
 	}
