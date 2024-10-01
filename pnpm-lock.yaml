@@ -54,7 +54,7 @@ importers:
         specifier: 6.33.0
         version: 6.33.0
       '@playwright/test':
-        specifier: ^1.47.2
+        specifier: 1.47.2
         version: 1.47.2
       '@replit/codemirror-lang-svelte':
         specifier: 6.0.0
