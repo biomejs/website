@@ -361,6 +361,22 @@ Given the following example:
 Only the files that match the patter `src/**/*.js` will be formatted, while the files that match the pattern
 `scripts/**/*.js` will be ignored.
 
+### `formatter.useEditorconfig`
+
+Biome is able to take the `.editorconfig` of your project into account. This is an opt-in feature. You have to turn it on in your Biome configuration file.
+
+
+
+```json title="biome.json"
+{
+  "formatter": {
+    "useEditorconfig": true
+  }
+}
+```
+
+> Default: `false`
+
 ### `formatter.formatWithErrors`
 
 Allows to format a document that has syntax errors.
