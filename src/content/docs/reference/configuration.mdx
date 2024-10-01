@@ -425,6 +425,14 @@ The attribute position style in HTMLish languages.
 
 > Default: `"auto"`
 
+### `formatter.useEditorconfig`
+
+Whether Biome should use the `.editorconfig` file to determine the formatting options. If `true`, the applicable options in the `.editorconfig` file will be used, but any configuration in the `biome.json` file will still take precedence.
+
+When migrating from Prettier with `biome migrate`, this option is set to `true` to match the behavior of Prettier.
+
+> Default: `false`
+
 ## `organizeImports`
 
 ### `organizeImports.enabled`
