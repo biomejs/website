@@ -131,8 +131,7 @@ h5 {
 	@mixin mobile-only {
 		scroll-padding-top: 64px;
 	}
-}
-
-@mixin dark-mode {
-	color-scheme: dark only;
+	@mixin dark-mode {
+		color-scheme: dark only;
+	}
 }
