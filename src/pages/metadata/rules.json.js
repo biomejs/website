@@ -134,6 +134,20 @@ export function GET() {
           }
         },
         "nursery": {
+          "noDescendingSpecificity": {
+            "deprecated": false,
+            "version": "1.9.3",
+            "name": "noDescendingSpecificity",
+            "link": "https://biomejs.dev/linter/rules/no-descending-specificity",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "stylelint": "no-descending-specificity"
+              }
+            ],
+            "docs": " Disallow a lower specificity selector from coming after a higher specificity selector.\n\n This rule prohibits placing selectors with lower specificity after selectors with higher specificity.\n By maintaining the order of the source and specificity as consistently as possible, it enhances readability.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n b a { color: red; }\n a { color: red; }\n ```\n\n ```css,expect_diagnostic\n a {\n   & > b { color: red; }\n }\n b { color: red; }\n ```\n\n ```css,expect_diagnostic\n :root input {\n     color: red;\n }\n html input {\n     color: red;\n }\n ```\n\n\n ### Valid\n\n ```css\n a { color: red; }\n b a { color: red; }\n ```\n\n ```css\n b { color: red; }\n a {\n   & > b { color: red; }\n }\n ```\n\n ```css\n a:hover { color: red; }\n a { color: red; }\n ```\n\n ```css\n a b {\n     color: red;\n }\n /* This selector is overwritten by the one above it, but this is not an error because the rule only evaluates it as a compound selector */\n :where(a) :is(b) {\n     color: blue;\n }\n ```\n\n"
+          },
           "noDuplicateCustomProperties": {
             "deprecated": false,
             "version": "1.9.0",
@@ -522,6 +536,21 @@ export function GET() {
               }
             ],
             "docs": " Disallow ternary operators when simpler alternatives exist.\n\n It’s a common mistake in JavaScript to use a conditional expression to select between two\n boolean values instead of using the logical NOT (`!`) or double NOT (`!!`) to convert the test to a boolean.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n var a = x ? true : true;\n ```\n\n ```js,expect_diagnostic\n var a = foo === 1 ? false : true;\n ```\n\n ```js,expect_diagnostic\n var a = foo + 1 ? false : true;\n ```\n\n ```js,expect_diagnostic\n var a = foo + 1 ? true : false;\n ```\n\n ### Valid\n\n ```js\n var a = x === 2 ? 'Yes' : 'No';\n ```\n\n ```js\n var a = x === 2 ? 'Yes' : false;\n ```\n\n ## Resources\n\n Logical NOT: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_NOT\n\n"
+          },
+          "noUselessThisAlias": {
+            "deprecated": false,
+            "version": "1.0.0",
+            "name": "noUselessThisAlias",
+            "link": "https://biomejs.dev/linter/rules/no-useless-this-alias",
+            "recommended": true,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "eslintTypeScript": "no-this-alias"
+              }
+            ],
+            "sourceKind": "inspired",
+            "docs": " Disallow useless `this` aliasing.\n\n Arrow functions inherits `this` from their enclosing scope;\n this makes `this` aliasing useless in this situation.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n class A {\n     method() {\n         const self = this;\n         return () => {\n             return self;\n         }\n     }\n }\n ```\n\n ### Valid\n\n ```js\n class A {\n     method() {\n         const self = this;\n         return function() {\n             this.g();\n             return self;\n         }\n     }\n }\n ```\n\n"
           },
           "noUselessUndefinedInitialization": {
             "deprecated": false,
@@ -1272,7 +1301,7 @@ export function GET() {
           },
           "noNestedTernary": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.9.3",
             "name": "noNestedTernary",
             "link": "https://biomejs.dev/linter/rules/no-nested-ternary",
             "recommended": false,
@@ -1286,7 +1315,7 @@ export function GET() {
           },
           "noOctalEscape": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.9.3",
             "name": "noOctalEscape",
             "link": "https://biomejs.dev/linter/rules/no-octal-escape",
             "recommended": false,
@@ -1371,6 +1400,20 @@ export function GET() {
               }
             ],
             "docs": " Enforce the use of `String.slice()` over `String.substr()` and `String.substring()`.\n\n `String.slice()` is preferred over `String.substr()` and `String.substring()` because it is a more popular option with clearer behavior,\n  and it has a consistent counterpart in arrays.\n\n Note that `String.substr`, `String.substring` and `String.slice` are not identical when arguments are passed.\n For detailed differences, refer to the MDN documentation:\n - [The difference between substring() and substr()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/substring#the_difference_between_substring_and_substr)\n - [Differences between substring() and slice()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/substring#differences_between_substring_and_slice)\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n foo.substr();\n ```\n\n ```js,expect_diagnostic\n foo.substring();\n ```\n\n ### Valid\n\n ```js\n foo.slice(beginIndex, endIndex);\n ```\n\n"
+          },
+          "noTemplateCurlyInString": {
+            "deprecated": false,
+            "version": "1.9.3",
+            "name": "noTemplateCurlyInString",
+            "link": "https://biomejs.dev/linter/rules/no-template-curly-in-string",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslint": "no-template-curly-in-string"
+              }
+            ],
+            "docs": " Disallow template literal placeholder syntax in regular strings.\n\n ECMAScript 6 allows programmers to create strings containing variable or expressions using template literals,\n instead of string concatenation, by writing expressions like ${variable} between two backtick quotes (`).\n It can be easy to use the wrong quotes when wanting to use template literals, by writing \"${variable}\",\n and end up with the literal value \"${variable}\" instead of a string containing the value of the injected expressions.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const a = \"Hello ${name}!\";\n ```\n\n ```js,expect_diagnostic\n const a = 'Hello ${name}!';\n ```\n\n ```js,expect_diagnostic\n const a = \"Time: ${12 * 60 * 60 * 1000}\";\n ```\n\n ### Valid\n\n ```js\n const a = `Hello ${name}!`;\n const a = `Time: ${12 * 60 * 60 * 1000}`;\n\n const a = templateFunction`Hello ${name}`;\n ```\n\n"
           },
           "noUselessEscapeInRegex": {
             "deprecated": false,
@@ -1893,7 +1936,7 @@ export function GET() {
                 "eslintUnicorn": "prefer-number-properties"
               }
             ],
-            "docs": " Use the `Number` properties instead of global ones.\n\n _ES2015_ moved some globals into the `Number` properties for consistency.\n\n The rule doesn't report the globals `isFinite` and `isNan` because they have a slightly different behavior to their corresponding `Number`'s properties `Number.isFinite` and `Number.isNan`.\n You can use the dedicated rules [noGlobalIsFinite](https://biomejs.dev/linter/rules/no-global-is-finite/) and  [noGlobalIsNan](https://biomejs.dev/linter/rules/no-global-is-nan/) to enforce the use of `Number.isFinite` and `Number.isNan`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n parseInt(\"1\"); // true\n ```\n\n ```js,expect_diagnostic\n parseFloat(\"1.1\"); // true\n ```\n\n ```js,expect_diagnostic\n NaN; // true\n ```\n\n ```js,expect_diagnostic\n Infinity; // true\n ```\n\n ```js,expect_diagnostic\n -Infinity; // true\n ```\n\n ### Valid\n\n ```js\n Number.parseInt(\"1\"); // false\n ```\n\n ```js\n Number.parseFloat(\"1.1\"); // false\n ```\n\n ```js\n Number.NaN; // false\n ```\n\n ```js\n Number.POSITIVE_INFINITY; // false\n ```\n\n ```js\n Number.NEGATIVE_INFINITY; // false\n ```\n\n"
+            "docs": " Use the `Number` properties instead of global ones.\n\n _ES2015_ moved some globals into the `Number` properties for consistency.\n\n The rule doesn't report the globals `isFinite` and `isNaN` because they have a slightly different behavior to their corresponding `Number`'s properties `Number.isFinite` and `Number.isNaN`.\n You can use the dedicated rules [noGlobalIsFinite](https://biomejs.dev/linter/rules/no-global-is-finite/) and  [noGlobalIsNan](https://biomejs.dev/linter/rules/no-global-is-nan/) to enforce the use of `Number.isFinite` and `Number.isNaN`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n parseInt(\"1\"); // true\n ```\n\n ```js,expect_diagnostic\n parseFloat(\"1.1\"); // true\n ```\n\n ```js,expect_diagnostic\n NaN; // true\n ```\n\n ```js,expect_diagnostic\n Infinity; // true\n ```\n\n ```js,expect_diagnostic\n -Infinity; // true\n ```\n\n ### Valid\n\n ```js\n Number.parseInt(\"1\"); // false\n ```\n\n ```js\n Number.parseFloat(\"1.1\"); // false\n ```\n\n ```js\n Number.NaN; // false\n ```\n\n ```js\n Number.POSITIVE_INFINITY; // false\n ```\n\n ```js\n Number.NEGATIVE_INFINITY; // false\n ```\n\n"
           },
           "useNumericLiterals": {
             "deprecated": false,
@@ -3099,7 +3142,7 @@ export function GET() {
                 "eslintJsxA11y": "prefer-tag-over-role"
               }
             ],
-            "docs": " It detects the use of `role` attributes in JSX elements and suggests using semantic elements instead.\n\n The `role` attribute is used to define the purpose of an element, but it should be used as a last resort.\n Using semantic elements like `<button>`, `<nav>` and others are more accessible and provide better semantics.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div role=\"checkbox\">\n ```\n\n ```jsx,expect_diagnostic\n <div role=\"img\">\n ```\n\n ### Valid\n\n ```jsx\n <>\n  <div></div>\n  <header></header>\n  <img alt=\"\" src=\"image.jpg\" />\n </>\n ```\n\n"
+            "docs": " It detects the use of `role` attributes in JSX elements and suggests using semantic elements instead.\n\n The `role` attribute is used to define the purpose of an element, but it should be used as a last resort.\n Using semantic elements like `<button>`, `<nav>` and others are more accessible and provide better semantics.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div role=\"checkbox\"></div>\n ```\n\n ```jsx,expect_diagnostic\n <div role=\"separator\"></div>\n ```\n\n ### Valid\n\n ```jsx\n <>\n   <input type=\"checkbox\">label</input>\n   <hr/>\n </>;\n ```\n\n All elements with `role=\"img\"` are ignored:\n\n ```jsx\n <div role=\"img\" aria-label=\"That cat is so cute\">\n   <p>&#x1F408; &#x1F602;</p>\n </div>\n ```\n"
           },
           "useValidAnchor": {
             "deprecated": false,
@@ -3141,7 +3184,7 @@ export function GET() {
                 "eslintJsxA11y": "aria-role"
               }
             ],
-            "docs": " Elements with ARIA roles must use a valid, non-abstract ARIA role.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div role=\"datepicker\"></div>\n ```\n\n ```jsx,expect_diagnostic\n <div role=\"range\"></div>\n ```\n\n ```jsx,expect_diagnostic\n <div role=\"\"></div>\n ```\n\n ```jsx,expect_diagnostic\n <Foo role=\"foo\"></Foo>\n ```\n\n ### Valid\n\n ```jsx\n <>\n   <div role=\"button\"></div>\n   <div role={role}></div>\n   <div></div>\n </>\n ```\n\n ## Options\n\n ```json\n {\n     \"//\": \"...\",\n     \"options\": {\n         \"allowInvalidRoles\": [\"invalid-role\", \"text\"],\n         \"nonIgnoreDom\": true\n     }\n }\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 4.1.2](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value)\n\n ## Resources\n\n - [Chrome Audit Rules, AX_ARIA_01](https://github.com/GoogleChrome/accessibility-developer-tools/wiki/Audit-Rules#ax_aria_01)\n - [DPUB-ARIA roles](https://www.w3.org/TR/dpub-aria-1.0/)\n - [MDN: Using ARIA: Roles, states, and properties](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques)\n\n"
+            "docs": " Elements with ARIA roles must use a valid, non-abstract ARIA role.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div role=\"datepicker\"></div>\n ```\n\n ```jsx,expect_diagnostic\n <div role=\"range\"></div>\n ```\n\n ```jsx,expect_diagnostic\n <div role=\"\"></div>\n ```\n\n ```jsx,expect_diagnostic\n <Foo role=\"foo\"></Foo>\n ```\n\n ### Valid\n\n ```jsx\n <>\n   <div role=\"button\"></div>\n   <div role={role}></div>\n   <div></div>\n </>\n ```\n\n ## Options\n\n ```json\n {\n     \"//\": \"...\",\n     \"options\": {\n         \"allowInvalidRoles\": [\"invalid-role\", \"text\"],\n         \"ignoreNonDom\": true\n     }\n }\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 4.1.2](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value)\n\n ## Resources\n\n - [Chrome Audit Rules, AX_ARIA_01](https://github.com/GoogleChrome/accessibility-developer-tools/wiki/Audit-Rules#ax_aria_01)\n - [DPUB-ARIA roles](https://www.w3.org/TR/dpub-aria-1.0/)\n - [MDN: Using ARIA: Roles, states, and properties](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques)\n\n"
           },
           "useValidAriaValues": {
             "deprecated": false,
@@ -3447,21 +3490,6 @@ export function GET() {
             ],
             "docs": " Disallow empty exports that don't change anything in a module file.\n\n An empty `export {}` is sometimes useful to turn a file that would otherwise be a script into a module.\n Per the [TypeScript Handbook Modules page](https://www.typescriptlang.org/docs/handbook/modules.html):\n\n > In TypeScript, just as in ECMAScript 2015,\n > any file containing a top-level import or export is considered a module.\n > Conversely, a file without any top-level import or export declarations is treated as a script\n > whose contents are available in the global scope.\n\n However, an `export {}` statement does nothing if there are any other top-level import or export in the file.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import { A } from \"module\";\n export {};\n ```\n\n ```js,expect_diagnostic\n export const A = 0;\n export {};\n ```\n\n ### Valid\n\n ```js\n export {};\n ```\n\n"
           },
-          "noUselessThisAlias": {
-            "deprecated": false,
-            "version": "1.0.0",
-            "name": "noUselessThisAlias",
-            "link": "https://biomejs.dev/linter/rules/no-useless-this-alias",
-            "recommended": true,
-            "fixKind": "safe",
-            "sources": [
-              {
-                "eslintTypeScript": "no-this-alias"
-              }
-            ],
-            "sourceKind": "inspired",
-            "docs": " Disallow useless `this` aliasing.\n\n Arrow functions inherits `this` from their enclosing scope;\n this makes `this` aliasing useless in this situation.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n class A {\n     method() {\n         const self = this;\n         return () => {\n             return self;\n         }\n     }\n }\n ```\n\n ### Valid\n\n ```js\n class A {\n     method() {\n         const self = this;\n         return function() {\n             this.g();\n             return self;\n         }\n     }\n }\n ```\n\n"
-          },
           "noUselessTypeConstraint": {
             "deprecated": false,
             "version": "1.0.0",
@@ -3528,7 +3556,7 @@ export function GET() {
           },
           "useExplicitFunctionReturnType": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.9.3",
             "name": "useExplicitFunctionReturnType",
             "link": "https://biomejs.dev/linter/rules/use-explicit-function-return-type",
             "recommended": false,
@@ -3538,7 +3566,7 @@ export function GET() {
                 "eslintTypeScript": "explicit-function-return-type"
               }
             ],
-            "docs": " Require explicit return types on functions and class methods.\n\n Functions in TypeScript often don't need to be given an explicit return type annotation.\n Leaving off the return type is less code to read or write and allows the compiler to infer it from the contents of the function.\n\n However, explicit return types do make it visually more clear what type is returned by a function.\n They can also speed up TypeScript type checking performance in large codebases with many large functions.\n Explicit return types also reduce the chance of bugs by asserting the return type, and it avoids surprising \"action at a distance,\" where changing the body of one function may cause failures inside another function.\n\n This rule enforces that functions do have an explicit return type annotation.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n // Should indicate that no value is returned (void)\n function test() {\n   return;\n }\n ```\n\n ```ts,expect_diagnostic\n // Should indicate that a number is returned\n var fn = function () {\n    return 1;\n };\n ```\n\n ```ts,expect_diagnostic\n // Should indicate that a string is returned\n var arrowFn = () => 'test';\n ```\n\n ```ts,expect_diagnostic\n class Test {\n   // Should indicate that no value is returned (void)\n   method() {\n     return;\n   }\n }\n ```\n\n ```ts,expect_diagnostic\n // Should indicate that no value is returned (void)\n function test(a: number) {\n   a += 1;\n }\n ```\n\n ```ts,expect_diagnostic\n // Should use const assertions\n const func = (value: number) => ({ type: 'X', value }) as any;\n ```\n\n ### Valid\n ```ts\n // No return value should be expected (void)\n function test(): void {\n   return;\n }\n ```\n\n ```ts\n // A return value of type number\n var fn = function (): number {\n   return 1;\n }\n ```\n\n ```ts\n // A return value of type string\n var arrowFn = (): string => 'test';\n ```\n\n ```ts\n class Test {\n   // No return value should be expected (void)\n   method(): void {\n     return;\n   }\n }\n ```\n\n ```ts\n const func = (value: number) => ({ foo: 'bar', value }) as const;\n ```\n\n ```ts\n // Callbacks without return types\n setTimeout(function() { console.log(\"Hello!\"); }, 1000);\n ```\n ```ts\n // IIFE\n (() => {})();\n ```\n\n"
+            "docs": " Require explicit return types on functions and class methods.\n\n Functions in TypeScript often don't need to be given an explicit return type annotation.\n Leaving off the return type is less code to read or write and allows the compiler to infer it from the contents of the function.\n\n However, explicit return types do make it visually more clear what type is returned by a function.\n They can also speed up TypeScript type checking performance in large codebases with many large functions.\n Explicit return types also reduce the chance of bugs by asserting the return type, and it avoids surprising \"action at a distance,\" where changing the body of one function may cause failures inside another function.\n\n This rule enforces that functions do have an explicit return type annotation.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n // Should indicate that no value is returned (void)\n function test() {\n   return;\n }\n ```\n\n ```ts,expect_diagnostic\n // Should indicate that a number is returned\n var fn = function () {\n    return 1;\n };\n ```\n\n ```ts,expect_diagnostic\n // Should indicate that a string is returned\n var arrowFn = () => 'test';\n ```\n\n ```ts,expect_diagnostic\n class Test {\n   // Should indicate that no value is returned (void)\n   method() {\n     return;\n   }\n }\n ```\n\n ```ts,expect_diagnostic\n // Should indicate that no value is returned (void)\n function test(a: number) {\n   a += 1;\n }\n ```\n\n ```ts,expect_diagnostic\n // Should use const assertions\n const func = (value: number) => ({ type: 'X', value }) as any;\n ```\n\n The following pattern is considered incorrect code for a higher-order function, as the returned function does not specify a return type:\n\n ```ts,expect_diagnostic\n const arrowFn = () => () => {};\n ```\n\n ```ts,expect_diagnostic\n const arrowFn = () => {\n   return () => { };\n }\n ```\n\n The following pattern is considered incorrect code for a higher-order function because the function body contains multiple statements. We only check whether the first statement is a function return.\n\n ```ts,expect_diagnostic\n // A function has multiple statements in the body\n function f() {\n   if (x) {\n     return 0;\n   }\n   return (): void => {}\n }\n ```\n\n ```ts,expect_diagnostic\n // A function has multiple statements in the body\n function f() {\n   let str = \"test\";\n   return (): string => {\n     str;\n   }\n }\n ```\n\n ### Valid\n ```ts\n // No return value should be expected (void)\n function test(): void {\n   return;\n }\n ```\n\n ```ts\n // A return value of type number\n var fn = function (): number {\n   return 1;\n }\n ```\n\n ```ts\n // A return value of type string\n var arrowFn = (): string => 'test';\n ```\n\n ```ts\n class Test {\n   // No return value should be expected (void)\n   method(): void {\n     return;\n   }\n }\n ```\n\n The following patterns are considered correct code for a function immediately returning a value with `as const`:\n\n ```ts\n const func = (value: number) => ({ foo: 'bar', value }) as const;\n ```\n\n The following patterns are considered correct code for a function allowed within specific expression contexts, such as an IIFE, a function passed as an argument, or a function inside an array:\n\n ```ts\n // Callbacks without return types\n setTimeout(function() { console.log(\"Hello!\"); }, 1000);\n ```\n ```ts\n // IIFE\n (() => {})();\n ```\n\n ```ts\n // a function inside an array\n [function () {}, () => {}];\n ```\n\n The following pattern is considered correct code for a higher-order function, where the returned function explicitly specifies a return type and the function body contains only one statement:\n\n ```ts\n // the outer function returns an inner function that has a `void` return type\n const arrowFn = () => (): void => {};\n ```\n\n ```ts\n // the outer function returns an inner function that has a `void` return type\n const arrowFn = () => {\n   return (): void => { };\n }\n ```\n\n"
           }
         },
         "performance": {
@@ -3880,7 +3908,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 277
+    "numberOrRules": 279
   },
   "syntax": {
     "languages": {

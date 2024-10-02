@@ -29,25 +29,32 @@ Using semantic elements like `<button>`, `<nav>` and others are more accessible 
 ### Invalid
 
 ```jsx
-<div role="checkbox">
+<div role="checkbox"></div>
 ```
 
-<pre class="language-text"><code class="language-text">code-block.jsx:2:1 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">expected `&lt;` but instead the file ends</span><br />  <br />    <strong>1 │ </strong>&lt;div role=&quot;checkbox&quot;&gt;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong><br />   <strong>   │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">the file ends here</span><br />  <br />    <strong>1 │ </strong>&lt;div role=&quot;checkbox&quot;&gt;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong><br />   <strong>   │ </strong><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.jsx:1:6 <a href="https://biomejs.dev/linter/rules/use-semantic-elements">lint/a11y/useSemanticElements</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The elements with the following roles can be changed to the following elements:<br /></span>    <span style="color: Tomato;">&lt;input type=&quot;checkbox&quot;&gt;<br /></span>  <br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;div role=&quot;checkbox&quot;&gt;&lt;/div&gt;<br />   <strong>   │ </strong>     <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">For examples and more information, see </span><span style="color: lightgreen;"><a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles">WAI-ARIA Roles</a></span><br />  <br /></code></pre>
 
 ```jsx
-<div role="img">
+<div role="separator"></div>
 ```
 
-<pre class="language-text"><code class="language-text">code-block.jsx:2:1 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">expected `&lt;` but instead the file ends</span><br />  <br />    <strong>1 │ </strong>&lt;div role=&quot;img&quot;&gt;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong><br />   <strong>   │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">the file ends here</span><br />  <br />    <strong>1 │ </strong>&lt;div role=&quot;img&quot;&gt;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong><br />   <strong>   │ </strong><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.jsx:1:6 <a href="https://biomejs.dev/linter/rules/use-semantic-elements">lint/a11y/useSemanticElements</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The elements with the following roles can be changed to the following elements:<br /></span>    <span style="color: Tomato;">&lt;hr&gt;<br /></span>  <br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;div role=&quot;separator&quot;&gt;&lt;/div&gt;<br />   <strong>   │ </strong>     <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">For examples and more information, see </span><span style="color: lightgreen;"><a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles">WAI-ARIA Roles</a></span><br />  <br /></code></pre>
 
 ### Valid
 
 ```jsx
 <>
- <div></div>
- <header></header>
- <img alt="" src="image.jpg" />
-</>
+  <input type="checkbox">label</input>
+  <hr/>
+</>;
+```
+
+All elements with `role="img"` are ignored:
+
+```jsx
+<div role="img" aria-label="That cat is so cute">
+  <p>&#x1F408; &#x1F602;</p>
+</div>
 ```
 
 ## Related links
