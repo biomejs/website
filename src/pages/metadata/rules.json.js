@@ -2397,7 +2397,7 @@ export function GET() {
                 "eslint": "no-global-assign"
               }
             ],
-            "docs": " Disallow assignments to native objects and read-only global variables.\n\n _JavaScript environments contain numerous built-in global variables, such as `window` in browsers and `process` in _Node.js.\n Assigning values to these global variables can be problematic as it can override essential functionality.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n Object = null;\n ```\n\n ```js,expect_diagnostic\n window = {};\n ```\n\n ```js,expect_diagnostic\n undefined = true;\n ```\n\n ### Valid\n\n ```js\n a = 0;\n ```\n\n ```js\n let window;\n window = {};\n ```\n"
+            "docs": " Disallow assignments to native objects and read-only global variables.\n\n JavaScript's environments contain numerous built-in global variables, such as `window` in browsers and `process` in Node.js.\n Assigning values to these global variables can be problematic as it can override essential functionality.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n Object = null;\n ```\n\n ```js,expect_diagnostic\n window = {};\n ```\n\n ```js,expect_diagnostic\n undefined = true;\n ```\n\n ### Valid\n\n ```js\n a = 0;\n ```\n\n ```js\n let window;\n window = {};\n ```\n"
           },
           "noGlobalIsFinite": {
             "deprecated": false,
