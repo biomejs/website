@@ -7,7 +7,7 @@ on:
         required: true
         type: string
   repository_dispatch:
-    types: [biome-push-on-main-event]
+    types: [ biome-push-on-main-event ]
 
 permissions:
   actions: write
@@ -39,6 +39,9 @@ jobs:
 
       - name: Get short commit ID
         run: echo "SHORT_COMMIT_ID=$(echo ${{ env.COMMIT_ID }} | cut -c 1-7)" >> "$GITHUB_ENV"
+
+      - name: Free Disk Space
+        uses: ./.github/actions/free-disk-space
 
       - name: Install pnpm
         run: corepack enable
