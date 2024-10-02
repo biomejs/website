@@ -1,5 +1,5 @@
 @import "../_variables";
-@import "../card";
+@import "../_card";
 
 .blog {
 	margin: 0 auto;
@@ -17,7 +17,7 @@
 		border-bottom: none;
 		font-size: 42px;
 
-		@include mobile-only {
+		@mixin mobile-only {
 			margin-top: 0;
 		}
 	}
@@ -40,9 +40,9 @@
 		margin-bottom: 20px;
 	}
 
-	>pre,
-	>figure>video {
-		@include mobile-only {
+	> pre,
+	> figure > video {
+		@mixin mobile-only {
 			border-radius: 0;
 		}
 	}
@@ -55,11 +55,11 @@
 	margin-bottom: 1.5em;
 	line-height: 36px;
 
-	@include mobile-only {
+	@mixin mobile-only {
 		flex-direction: column;
 	}
 
-	>img {
+	> img {
 		max-width: 100%;
 	}
 
@@ -77,7 +77,7 @@
 		&::after {
 			border-radius: 50%;
 			box-shadow: inset 0 0 0px 1px rgba(0, 0, 0, 0.1);
-			content: '';
+			content: "";
 			display: block;
 			height: 100%;
 			position: absolute;
@@ -114,7 +114,7 @@
 	time {
 		margin-left: auto;
 
-		@include mobile-only {
+		@mixin mobile-only {
 			margin-left: 0;
 		}
 	}
@@ -123,26 +123,26 @@
 div.tags {
 	display: flex;
 	justify-content: flex-end;
-	margin-top: $unit * 2;
+	margin-top: calc(var(--unit) * 2);
 	align-items: center;
 	color: var(--sub-text-color);
 
-	>a.tag {
-		margin-left: calc($unit / 2);
+	> a.tag {
+		margin-left: calc(var(--unit) / 2);
 	}
 }
 
 div.tags-page {
-	margin-top: calc($unit * 2);
+	margin-top: calc(var(--unit) * 2);
 
-	>a.tag {
-		margin-right: calc($unit / 2);
+	> a.tag {
+		margin-right: calc(var(--unit) / 2);
 	}
 }
 
 a.tag {
 	background: var(--soft-border-color);
-	padding: calc($unit / 4) calc($unit / 2);
+	padding: calc(var(--unit) / 4) calc(var(--unit) / 2);
 	text-decoration: none;
 	border-radius: 4px;
 
@@ -153,7 +153,7 @@ a.tag {
 
 	&:active {
 		background: var(--primary-color);
-		color: $gray-4;
+		color: var(--gray-4);
 	}
 }
 
@@ -162,7 +162,7 @@ a.tag {
 	overflow: hidden;
 	position: relative;
 
-	@include desktop-only {
+	@mixin desktop-only {
 		margin-top: 24px;
 	}
 
@@ -172,7 +172,7 @@ a.tag {
 		width: auto;
 		object-fit: contain;
 
-		@include mobile-only {
+		@mixin mobile-only {
 			border-radius: 0;
 		}
 	}
@@ -194,7 +194,7 @@ a.tag {
 	}
 }
 
-// 2022-11-08-rome-10.md
+/* 2022-11-08-rome-10.md */
 .blog-biome-10-buttons {
 	display: flex;
 	gap: 10px;
@@ -206,4 +206,3 @@ a.tag {
 .blog-biome-10-quote {
 	font-size: 20px;
 }
-

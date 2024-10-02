@@ -12,7 +12,8 @@
 @import "_tabs";
 @import "_settings";
 
-html, body {
+html,
+body {
 	width: 100%;
 	height: 100%;
 }
@@ -48,7 +49,7 @@ body {
 #root {
 	display: flex;
 	width: 100%;
-	height: calc(100vh - 65px); // header size + border
+	height: calc(100vh - 65px); /* header size + border */
 }
 
 h2 {
@@ -60,16 +61,16 @@ h2 {
 	box-shadow: inset 0 1px 0 var(--sl-border), inset 0 -1px 0 var(--sl-border);
 	background-color: var(--sl-color-gray-6);
 
-	@include dark-mode {
+	@mixin dark-mode {
 		background-color: var(--sl-color-gray-5);
 	}
 
 	&.biome {
-		background-color: rgba(#60a5fa, 20%) !important;
+		background-color: rgb(96 165 250 / 20%) !important;
 	}
 
 	&.prettier {
-		background-color: rgba(#355F75, 40%) !important;
+		background-color: rgb(53 95 117 / 40%) !important;
 	}
 
 	img {
@@ -93,7 +94,8 @@ h2 {
 	}
 }
 
-.code-pane, .results-pane {
+.code-pane,
+.results-pane {
 	width: 100%;
 	min-width: 0;
 }
@@ -106,6 +108,6 @@ h2 {
 	width: 100%;
 }
 
-input[type=checkbox] {
+input[type="checkbox"] {
 	accent-color: var(--sl-color-text-accent);
 }

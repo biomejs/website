@@ -1,0 +1,83 @@
+@import "_variables";
+
+@define-mixin desktop-only {
+	@media only screen and (min-width: calc(var(--mobile-breakpoint) + 1)) {
+		@mixin-content;
+	}
+}
+
+@define-mixin large-screen-only {
+	@media only screen and (min-width: 1201px) {
+		@mixin-content;
+	}
+}
+
+@define-mixin small-screen-only {
+	@media only screen and (max-width: 1200px) {
+		@mixin-content;
+	}
+}
+
+@define-mixin mobile-only {
+	@media only screen and (max-width: var(--mobile-breakpoint)) {
+		@mixin-content;
+	}
+}
+
+@define-mixin button {
+	background: rgba(0, 0, 0, 0.05);
+	border-radius: 40px;
+	padding: 8px 21px;
+	font-weight: 500;
+	font-size: 0.75rem;
+	line-height: 1rem;
+
+	&:hover {
+		background: #e9ecef;
+	}
+
+	&:active {
+		background: #dadfe4;
+	}
+
+	@mixin dark-mode {
+		background: rgba(255, 255, 255, 0.1);
+
+		&:hover {
+			background: rgba(255, 255, 255, 0.2);
+		}
+
+		&:active {
+			background: rgba(255, 255, 255, 0.3);
+		}
+	}
+}
+
+@define-mixin transition-timing {
+	transition-duration: 200ms;
+	transition-timing-function: cubic-bezier(0.57, 0.33, 0.19, 0.97);
+}
+
+@define-mixin light-mode {
+	:root[data-theme="light"] & {
+		@mixin-content;
+	}
+
+	@media (prefers-color-scheme: light) {
+		:root[data-theme="auto"] & {
+			@mixin-content;
+		}
+	}
+}
+
+@define-mixin dark-mode {
+	:root[data-theme="dark"] & {
+		@mixin-content;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		:root[data-theme="auto"] & {
+			@mixin-content;
+		}
+	}
+}

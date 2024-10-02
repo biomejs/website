@@ -1,4 +1,4 @@
-import "@/styles/_progress.scss";
+import "@/styles/_progress.css";
 import { useEffect, useState } from "react";
 
 const ProgressBar = ({

@@ -1,0 +1,5 @@
+.inline-icon {
+	svg {
+		display: inline !important;
+	}
+}

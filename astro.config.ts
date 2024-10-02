@@ -409,7 +409,7 @@ export default defineConfig({
 			],
 			customCss: [
 				// Relative path to your custom CSS file
-				"./src/styles/index.scss",
+				"./src/styles/index.css",
 			],
 			social: {
 				discord: "https://discord.gg/BypW39g6Yc",

@@ -14,7 +14,6 @@
 
 /* Set font-size on wrapper element, so line-height, margins etc. match heading size. */
 .sl-markdown-content {
-
 	.level-h2 {
 		font-size: var(--sl-markdown-text-h2);
 		margin-top: 1.6em;
@@ -56,7 +55,7 @@
 	}
 }
 
-.sl-markdown-content .heading-wrapper> :first-child {
+.sl-markdown-content .heading-wrapper > :first-child {
 	margin-inline-end: calc(var(--icon-size) + var(--icon-spacing));
 	display: inline;
 }
@@ -82,7 +81,7 @@
 	}
 }
 
-.sl-markdown-content .heading-wrapper:hover>.anchor-link,
+.sl-markdown-content .heading-wrapper:hover > .anchor-link,
 .sl-markdown-content .anchor-link:focus {
 	opacity: 1;
 }
@@ -97,27 +96,27 @@
 		margin-inline-start: calc(-1 * (var(--icon-size) + var(--icon-spacing)));
 	}
 
-	.sl-markdown-content .heading-wrapper> :first-child,
+	.sl-markdown-content .heading-wrapper > :first-child,
 	.sl-markdown-content .anchor-link {
 		margin: 0;
 	}
 }
 
 /* Show blog/playground only as part of mobile hamburger menu */
-.sidebar-content>ul>li:nth-child(1) {
+.sidebar-content > ul > li:nth-child(1) {
 	display: none;
 }
 
-.sidebar-content>ul>li:nth-child(2) {
+.sidebar-content > ul > li:nth-child(2) {
 	display: none;
 }
 
 @media (max-width: 50rem) {
-	.sidebar-content>ul>li:nth-child(1) {
+	.sidebar-content > ul > li:nth-child(1) {
 		display: block;
 	}
 
-	.sidebar-content>ul>li:nth-child(2) {
+	.sidebar-content > ul > li:nth-child(2) {
 		display: block;
 	}
 }
