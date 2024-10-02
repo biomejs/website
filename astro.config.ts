@@ -1,4 +1,3 @@
-import netlify from "@astrojs/netlify";
 import react from "@astrojs/react";
 import starlight from "@astrojs/starlight";
 import { defineConfig } from "astro/config";
@@ -449,10 +448,6 @@ export default defineConfig({
 			],
 		},
 	},
-
-	adapter: netlify({
-		imageCDN: false,
-	}),
 
 	vite: {
 		resolve: {
