@@ -591,7 +591,11 @@ fn write_documentation(
                     write!(block, "{text}")?;
                 }
 
-                write!(content, "{text}")?;
+                if matches!(text.as_ref(), "`" | "*" | "_") {
+                    write!(content, "\\{text}")?;
+                } else {
+                    write!(content, "{text}")?;
+                }
             }
 
             // Other markdown events are emitted as-is
