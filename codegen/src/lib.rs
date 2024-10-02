@@ -3,12 +3,12 @@ use std::env;
 use std::path::{Path, PathBuf};
 
 pub mod diagnostics;
+pub mod env_variables;
 pub mod lintdoc;
 pub mod metadata;
 pub mod rules_sources;
 mod shared;
 pub mod website;
-pub mod env_variables;
 
 pub fn project_root() -> PathBuf {
     Path::new(
