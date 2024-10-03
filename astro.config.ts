@@ -4,11 +4,10 @@ import starlight from "@astrojs/starlight";
 import { defineConfig } from "astro/config";
 import rehypeSlug from "rehype-slug";
 import { searchForWorkspaceRoot } from "vite";
-import { rehypeAutolink } from "./plugins/rehype-autolink";
-
 import { version as biomeVersion } from "./node_modules/@biomejs/wasm-web/package.json";
 import { version as prettierVersion } from "./node_modules/prettier/package.json";
 import { bundledLanguages } from "./node_modules/shiki";
+import { rehypeAutolink } from "./plugins/rehype-autolink";
 
 const site = "https://biomejs.dev";
 // https://astro.build/config
@@ -412,7 +411,7 @@ export default defineConfig({
 				"./src/styles/index.css",
 			],
 			social: {
-				discord: "https://discord.gg/BypW39g6Yc",
+				discord: "https://biomejs.dev/chat",
 				github: "https://github.com/biomejs/biome",
 				"x.com": "https://twitter.com/biomejs",
 				mastodon: "https://fosstodon.org/@biomejs",
