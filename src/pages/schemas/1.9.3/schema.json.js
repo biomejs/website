@@ -385,7 +385,6 @@ export function GET() {
 			},
 			AllowDomainOptions: {
 				type: "object",
-				required: ["allowDomains"],
 				properties: {
 					allowDomains: {
 						description:
@@ -689,11 +688,11 @@ export function GET() {
 			ComplexityOptions: {
 				description: "Options for the rule `noExcessiveCognitiveComplexity`.",
 				type: "object",
-				required: ["maxAllowedComplexity"],
 				properties: {
 					maxAllowedComplexity: {
 						description:
 							"The maximum complexity score that we allow. Anything higher is considered excessive.",
+						default: 15,
 						type: "integer",
 						format: "uint8",
 						minimum: 1.0,
@@ -723,9 +722,11 @@ export function GET() {
 			},
 			ConsistentArrayTypeOptions: {
 				type: "object",
-				required: ["syntax"],
 				properties: {
-					syntax: { $ref: "#/definitions/ConsistentArrayType" },
+					syntax: {
+						default: "shorthand",
+						allOf: [{ $ref: "#/definitions/ConsistentArrayType" }],
+					},
 				},
 				additionalProperties: false,
 			},
@@ -739,9 +740,11 @@ export function GET() {
 			},
 			ConsistentMemberAccessibilityOptions: {
 				type: "object",
-				required: ["accessibility"],
 				properties: {
-					accessibility: { $ref: "#/definitions/Accessibility" },
+					accessibility: {
+						default: "noPublic",
+						allOf: [{ $ref: "#/definitions/Accessibility" }],
+					},
 				},
 				additionalProperties: false,
 			},
@@ -1122,7 +1125,7 @@ export function GET() {
 						description:
 							"Enforce all dependencies are correctly specified in a React hook.",
 						anyOf: [
-							{ $ref: "#/definitions/HooksConfiguration" },
+							{ $ref: "#/definitions/UseExhaustiveDependenciesConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -1280,10 +1283,9 @@ export function GET() {
 			},
 			CustomRestrictedTypeOptions: {
 				type: "object",
-				required: ["message"],
 				properties: {
-					message: { type: "string" },
-					use: { type: ["string", "null"] },
+					message: { default: "", type: "string" },
+					use: { default: null, type: ["string", "null"] },
 				},
 				additionalProperties: false,
 			},
@@ -1549,11 +1551,11 @@ export function GET() {
 			},
 			Hook: {
 				type: "object",
-				required: ["name"],
 				properties: {
 					closureIndex: {
 						description:
 							'The "position" of the closure function, starting from zero.\n\nFor example, for React\'s `useEffect()` hook, the closure index is 0.',
+						default: null,
 						type: ["integer", "null"],
 						format: "uint8",
 						minimum: 0.0,
@@ -1561,38 +1563,24 @@ export function GET() {
 					dependenciesIndex: {
 						description:
 							'The "position" of the array of dependencies, starting from zero.\n\nFor example, for React\'s `useEffect()` hook, the dependencies index is 1.',
+						default: null,
 						type: ["integer", "null"],
 						format: "uint8",
 						minimum: 0.0,
 					},
-					name: { description: "The name of the hook.", type: "string" },
+					name: {
+						description: "The name of the hook.",
+						default: "",
+						type: "string",
+					},
 					stableResult: {
 						description:
 							"Whether the result of the hook is stable.\n\nSet to `true` to mark the identity of the hook's return value as stable, or use a number/an array of numbers to mark the \"positions\" in the return array as stable.\n\nFor example, for React's `useRef()` hook the value would be `true`, while for `useState()` it would be `[1]`.",
+						default: null,
 						anyOf: [
 							{ $ref: "#/definitions/StableHookResult" },
 							{ type: "null" },
 						],
-					},
-				},
-				additionalProperties: false,
-			},
-			HooksConfiguration: {
-				anyOf: [
-					{ $ref: "#/definitions/RulePlainConfiguration" },
-					{ $ref: "#/definitions/RuleWithHooksOptions" },
-				],
-			},
-			HooksOptions: {
-				description: "Options for the rule `useExhaustiveDependencies`",
-				type: "object",
-				required: ["hooks"],
-				properties: {
-					hooks: {
-						description:
-							"List of hooks of which the dependencies should be validated.",
-						type: "array",
-						items: { $ref: "#/definitions/Hook" },
 					},
 				},
 				additionalProperties: false,
@@ -2155,23 +2143,25 @@ export function GET() {
 			},
 			NoLabelWithoutControlOptions: {
 				type: "object",
-				required: ["inputComponents", "labelAttributes", "labelComponents"],
 				properties: {
 					inputComponents: {
 						description:
 							"Array of component names that should be considered the same as an `input` element.",
+						default: [],
 						type: "array",
 						items: { type: "string" },
 					},
 					labelAttributes: {
 						description:
 							"Array of attributes that should be treated as the `label` accessible text content.",
+						default: [],
 						type: "array",
 						items: { type: "string" },
 					},
 					labelComponents: {
 						description:
 							"Array of component names that should be considered the same as a `label` element.",
+						default: [],
 						type: "array",
 						items: { type: "string" },
 					},
@@ -2186,9 +2176,9 @@ export function GET() {
 			},
 			NoRestrictedTypesOptions: {
 				type: "object",
-				required: ["types"],
 				properties: {
 					types: {
+						default: {},
 						type: "object",
 						additionalProperties: {
 							$ref: "#/definitions/CustomRestrictedType",
@@ -2208,6 +2198,14 @@ export function GET() {
 					noCommonJs: {
 						description:
 							"Disallow use of CommonJs module system in favor of ESM style imports.",
+						anyOf: [
+							{ $ref: "#/definitions/RuleConfiguration" },
+							{ type: "null" },
+						],
+					},
+					noDescendingSpecificity: {
+						description:
+							"Disallow a lower specificity selector from coming after a higher specificity selector.",
 						anyOf: [
 							{ $ref: "#/definitions/RuleConfiguration" },
 							{ type: "null" },
@@ -2328,6 +2326,14 @@ export function GET() {
 							"Enforce the use of String.slice() over String.substr() and String.substring().",
 						anyOf: [
 							{ $ref: "#/definitions/RuleFixConfiguration" },
+							{ type: "null" },
+						],
+					},
+					noTemplateCurlyInString: {
+						description:
+							"Disallow template literal placeholder syntax in regular strings.",
+						anyOf: [
+							{ $ref: "#/definitions/RuleConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -2689,7 +2695,6 @@ export function GET() {
 			RestrictedGlobalsOptions: {
 				description: "Options for the rule `noRestrictedGlobals`.",
 				type: "object",
-				required: ["deniedGlobals"],
 				properties: {
 					deniedGlobals: {
 						description: "A list of names that should trigger the rule",
@@ -2708,7 +2713,6 @@ export function GET() {
 			RestrictedImportsOptions: {
 				description: "Options for the rule `noRestrictedImports`.",
 				type: "object",
-				required: ["paths"],
 				properties: {
 					paths: {
 						description: "A list of names that should trigger the rule",
@@ -2850,21 +2854,6 @@ export function GET() {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
 						allOf: [{ $ref: "#/definitions/RulePlainConfiguration" }],
-					},
-				},
-				additionalProperties: false,
-			},
-			RuleWithHooksOptions: {
-				type: "object",
-				required: ["level", "options"],
-				properties: {
-					level: {
-						description: "The severity of the emitted diagnostics by the rule",
-						allOf: [{ $ref: "#/definitions/RulePlainConfiguration" }],
-					},
-					options: {
-						description: "Rule's options",
-						allOf: [{ $ref: "#/definitions/HooksOptions" }],
 					},
 				},
 				additionalProperties: false,
@@ -3014,6 +3003,21 @@ export function GET() {
 						allOf: [
 							{ $ref: "#/definitions/UseComponentExportOnlyModulesOptions" },
 						],
+					},
+				},
+				additionalProperties: false,
+			},
+			RuleWithUseExhaustiveDependenciesOptions: {
+				type: "object",
+				required: ["level", "options"],
+				properties: {
+					level: {
+						description: "The severity of the emitted diagnostics by the rule",
+						allOf: [{ $ref: "#/definitions/RulePlainConfiguration" }],
+					},
+					options: {
+						description: "Rule's options",
+						allOf: [{ $ref: "#/definitions/UseExhaustiveDependenciesOptions" }],
 					},
 				},
 				additionalProperties: false,
@@ -3632,15 +3636,16 @@ export function GET() {
 			},
 			SuggestedExtensionMapping: {
 				type: "object",
-				required: ["component", "module"],
 				properties: {
 					component: {
 						description:
 							"Extension that should be used for component file imports",
+						default: "",
 						type: "string",
 					},
 					module: {
 						description: "Extension that should be used for module imports",
+						default: "",
 						type: "string",
 					},
 				},
@@ -4219,6 +4224,38 @@ export function GET() {
 				},
 				additionalProperties: false,
 			},
+			UseExhaustiveDependenciesConfiguration: {
+				anyOf: [
+					{ $ref: "#/definitions/RulePlainConfiguration" },
+					{ $ref: "#/definitions/RuleWithUseExhaustiveDependenciesOptions" },
+				],
+			},
+			UseExhaustiveDependenciesOptions: {
+				description: "Options for the rule `useExhaustiveDependencies`",
+				type: "object",
+				properties: {
+					hooks: {
+						description:
+							"List of hooks of which the dependencies should be validated.",
+						default: [],
+						type: "array",
+						items: { $ref: "#/definitions/Hook" },
+					},
+					reportMissingDependenciesArray: {
+						description:
+							"Whether to report an error when a hook has no dependencies array.",
+						default: false,
+						type: "boolean",
+					},
+					reportUnnecessaryDependencies: {
+						description:
+							"Whether to report an error when a dependency is listed in the dependencies array but isn't used. Defaults to true.",
+						default: true,
+						type: "boolean",
+					},
+				},
+				additionalProperties: false,
+			},
 			UseImportExtensionsConfiguration: {
 				anyOf: [
 					{ $ref: "#/definitions/RulePlainConfiguration" },
@@ -4227,11 +4264,11 @@ export function GET() {
 			},
 			UseImportExtensionsOptions: {
 				type: "object",
-				required: ["suggestedExtensions"],
 				properties: {
 					suggestedExtensions: {
 						description:
 							"A map of custom import extension mappings, where the key is the inspected file extension, and the value is a pair of `module` extension and `component` import extension",
+						default: {},
 						type: "object",
 						additionalProperties: {
 							$ref: "#/definitions/SuggestedExtensionMapping",
@@ -4248,11 +4285,11 @@ export function GET() {
 			},
 			UseValidAutocompleteOptions: {
 				type: "object",
-				required: ["inputComponents"],
 				properties: {
 					inputComponents: {
 						description:
 							"`input` like custom components that should be checked.",
+						default: [],
 						type: "array",
 						items: { type: "string" },
 					},
@@ -4270,6 +4307,7 @@ export function GET() {
 				properties: {
 					attributes: {
 						description: "Additional attributes that will be sorted.",
+						default: ["class", "className"],
 						type: ["array", "null"],
 						items: { type: "string" },
 					},
@@ -4290,10 +4328,13 @@ export function GET() {
 			},
 			ValidAriaRoleOptions: {
 				type: "object",
-				required: ["allowInvalidRoles", "ignoreNonDom"],
 				properties: {
-					allowInvalidRoles: { type: "array", items: { type: "string" } },
-					ignoreNonDom: { type: "boolean" },
+					allowInvalidRoles: {
+						default: [],
+						type: "array",
+						items: { type: "string" },
+					},
+					ignoreNonDom: { default: false, type: "boolean" },
 				},
 				additionalProperties: false,
 			},

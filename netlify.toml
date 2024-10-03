@@ -24,3 +24,8 @@
 
 [context.deploy-preview.environment]
 	SKIP_OG = "true"
+
+[[redirects]]
+	from   = "/chat"
+	status = 301
+	to     = "https://discord.gg/BypW39g6Yc"
