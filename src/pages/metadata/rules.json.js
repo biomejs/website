@@ -1529,6 +1529,21 @@ export function GET() {
             "fixKind": "none",
             "docs": " Disallow the use of spread (`...`) syntax on accumulators.\n\n Spread syntax allows an iterable to be expanded into its individual elements.\n\n Spread syntax should be avoided on accumulators (like those in `.reduce`)\n because it causes a time complexity of `O(n^2)` instead of `O(n)`.\n\n Source: https://prateeksurana.me/blog/why-using-object-spread-with-reduce-bad-idea/\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n var a = ['a', 'b', 'c'];\n a.reduce((acc, val) => [...acc, val], []);\n ```\n\n ```js,expect_diagnostic\n var a = ['a', 'b', 'c'];\n a.reduce((acc, val) => {return [...acc, val];}, []);\n ```\n\n ```js,expect_diagnostic\n var a = ['a', 'b', 'c'];\n a.reduce((acc, val) => ({...acc, [val]: val}), {});\n ```\n\n ### Valid\n\n ```js\n var a = ['a', 'b', 'c'];\n a.reduce((acc, val) => {acc.push(val); return acc}, []);\n ```\n\n"
           },
+          "noBarrelFile": {
+            "deprecated": false,
+            "version": "1.6.0",
+            "name": "noBarrelFile",
+            "link": "https://biomejs.dev/linter/rules/no-barrel-file",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslintBarrelFiles": "avoid-barrel-files"
+              }
+            ],
+            "sourceKind": "inspired",
+            "docs": " Disallow the use of barrel file.\n\n A barrel file is a file that re-exports all of the exports from other files in a directory.\n This structure results in the unnecessary loading of many modules, significantly impacting performance in large-scale applications.\n Additionally, it complicates the codebase, making it difficult to navigate and understand the project's dependency graph.\n This rule ignores .d.ts files and type-only exports.\n\n For a more detailed explanation, check out https://marvinh.dev/blog/speeding-up-javascript-ecosystem-part-7/\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n export * from \"foo\";\n export * from \"bar\";\n ```\n\n ```js,expect_diagnostic\n export { foo } from \"foo\";\n export { bar } from \"bar\";\n ```\n\n ```js,expect_diagnostic\n export { default as module1 } from \"./module1\";\n ```\n\n ### Valid\n\n ```ts\n export type * from \"foo\";\n export type { foo } from \"foo\";\n ```\n\n"
+          },
           "noDelete": {
             "deprecated": false,
             "version": "1.0.0",
@@ -2397,7 +2412,7 @@ export function GET() {
                 "eslint": "no-global-assign"
               }
             ],
-            "docs": " Disallow assignments to native objects and read-only global variables.\n\n _JavaScript environments contain numerous built-in global variables, such as `window` in browsers and `process` in _Node.js.\n Assigning values to these global variables can be problematic as it can override essential functionality.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n Object = null;\n ```\n\n ```js,expect_diagnostic\n window = {};\n ```\n\n ```js,expect_diagnostic\n undefined = true;\n ```\n\n ### Valid\n\n ```js\n a = 0;\n ```\n\n ```js\n let window;\n window = {};\n ```\n"
+            "docs": " Disallow assignments to native objects and read-only global variables.\n\n JavaScript's environments contain numerous built-in global variables, such as `window` in browsers and `process` in Node.js.\n Assigning values to these global variables can be problematic as it can override essential functionality.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n Object = null;\n ```\n\n ```js,expect_diagnostic\n window = {};\n ```\n\n ```js,expect_diagnostic\n undefined = true;\n ```\n\n ### Valid\n\n ```js\n a = 0;\n ```\n\n ```js\n let window;\n window = {};\n ```\n"
           },
           "noGlobalIsFinite": {
             "deprecated": false,
@@ -3567,23 +3582,6 @@ export function GET() {
               }
             ],
             "docs": " Require explicit return types on functions and class methods.\n\n Functions in TypeScript often don't need to be given an explicit return type annotation.\n Leaving off the return type is less code to read or write and allows the compiler to infer it from the contents of the function.\n\n However, explicit return types do make it visually more clear what type is returned by a function.\n They can also speed up TypeScript type checking performance in large codebases with many large functions.\n Explicit return types also reduce the chance of bugs by asserting the return type, and it avoids surprising \"action at a distance,\" where changing the body of one function may cause failures inside another function.\n\n This rule enforces that functions do have an explicit return type annotation.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n // Should indicate that no value is returned (void)\n function test() {\n   return;\n }\n ```\n\n ```ts,expect_diagnostic\n // Should indicate that a number is returned\n var fn = function () {\n    return 1;\n };\n ```\n\n ```ts,expect_diagnostic\n // Should indicate that a string is returned\n var arrowFn = () => 'test';\n ```\n\n ```ts,expect_diagnostic\n class Test {\n   // Should indicate that no value is returned (void)\n   method() {\n     return;\n   }\n }\n ```\n\n ```ts,expect_diagnostic\n // Should indicate that no value is returned (void)\n function test(a: number) {\n   a += 1;\n }\n ```\n\n ```ts,expect_diagnostic\n // Should use const assertions\n const func = (value: number) => ({ type: 'X', value }) as any;\n ```\n\n The following pattern is considered incorrect code for a higher-order function, as the returned function does not specify a return type:\n\n ```ts,expect_diagnostic\n const arrowFn = () => () => {};\n ```\n\n ```ts,expect_diagnostic\n const arrowFn = () => {\n   return () => { };\n }\n ```\n\n The following pattern is considered incorrect code for a higher-order function because the function body contains multiple statements. We only check whether the first statement is a function return.\n\n ```ts,expect_diagnostic\n // A function has multiple statements in the body\n function f() {\n   if (x) {\n     return 0;\n   }\n   return (): void => {}\n }\n ```\n\n ```ts,expect_diagnostic\n // A function has multiple statements in the body\n function f() {\n   let str = \"test\";\n   return (): string => {\n     str;\n   }\n }\n ```\n\n ### Valid\n ```ts\n // No return value should be expected (void)\n function test(): void {\n   return;\n }\n ```\n\n ```ts\n // A return value of type number\n var fn = function (): number {\n   return 1;\n }\n ```\n\n ```ts\n // A return value of type string\n var arrowFn = (): string => 'test';\n ```\n\n ```ts\n class Test {\n   // No return value should be expected (void)\n   method(): void {\n     return;\n   }\n }\n ```\n\n The following patterns are considered correct code for a function immediately returning a value with `as const`:\n\n ```ts\n const func = (value: number) => ({ foo: 'bar', value }) as const;\n ```\n\n The following patterns are considered correct code for a function allowed within specific expression contexts, such as an IIFE, a function passed as an argument, or a function inside an array:\n\n ```ts\n // Callbacks without return types\n setTimeout(function() { console.log(\"Hello!\"); }, 1000);\n ```\n ```ts\n // IIFE\n (() => {})();\n ```\n\n ```ts\n // a function inside an array\n [function () {}, () => {}];\n ```\n\n The following pattern is considered correct code for a higher-order function, where the returned function explicitly specifies a return type and the function body contains only one statement:\n\n ```ts\n // the outer function returns an inner function that has a `void` return type\n const arrowFn = () => (): void => {};\n ```\n\n ```ts\n // the outer function returns an inner function that has a `void` return type\n const arrowFn = () => {\n   return (): void => { };\n }\n ```\n\n"
-          }
-        },
-        "performance": {
-          "noBarrelFile": {
-            "deprecated": false,
-            "version": "1.6.0",
-            "name": "noBarrelFile",
-            "link": "https://biomejs.dev/linter/rules/no-barrel-file",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "eslintBarrelFiles": "avoid-barrel-files"
-              }
-            ],
-            "sourceKind": "inspired",
-            "docs": " Disallow the use of barrel file.\n\n A barrel file is a file that re-exports all of the exports from other files in a directory.\n This structure results in the unnecessary loading of many modules, significantly impacting performance in large-scale applications.\n Additionally, it complicates the codebase, making it difficult to navigate and understand the project's dependency graph.\n This rule ignores .d.ts files and type-only exports.\n\n For a more detailed explanation, check out https://marvinh.dev/blog/speeding-up-javascript-ecosystem-part-7/\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n export * from \"foo\";\n export * from \"bar\";\n ```\n\n ```ts,expect_diagnostic\n export { foo } from \"foo\";\n export { bar } from \"bar\";\n ```\n\n ```ts,expect_diagnostic\n export { default as module1 } from \"./module1\";\n ```\n\n ### Valid\n\n ```ts\n export type * from \"foo\";\n export type { foo } from \"foo\";\n ```\n\n"
           }
         },
         "style": {
