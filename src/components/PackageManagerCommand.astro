@@ -16,6 +16,9 @@ import { TabItem, Tabs } from "@astrojs/starlight/components";
   <TabItem label="bun" icon="bun">
     <Code code={`bun${Astro.props.bun ? "" : "x"} ${Astro.props.bunx ?? Astro.props.bun ?? Astro.props.command}`} lang="bash"  />
   </TabItem>
+  <TabItem label="deno" icon="seti:deno">
+    <Code code={`deno ${Astro.props.deno ?? Astro.props.command}`} lang="bash"  />
+  </TabItem>
 </Tabs>
 
 
