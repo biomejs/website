@@ -3329,6 +3329,21 @@ export function GET() {
           }
         },
         "nursery": {
+          "noHeadElement": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noHeadElement",
+            "link": "https://biomejs.dev/linter/rules/no-head-element",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslintNext": "no-head-element"
+              }
+            ],
+            "sourceKind": "sameLogic",
+            "docs": " Prevent usage of `<head>` element in a Next.js project.\n\n Next.js provides a specialized `<Head />` component from `next/head` that manages\n the `<head>` tag for optimal server-side rendering, client-side navigation, and\n automatic deduplication of tags such as `<meta>` and `<title>`.\n\n This rule only checks files that are outside of the [`app/` directory](https://nextjs.org/docs/app), as it's typically\n handled differently in Next.js.\n\n ## Examples\n\n ### Invalid\n ```jsx,expect_diagnostic\n function Index() {\n   return (\n     <head>\n       <title>Invalid</title>\n     </head>\n   )\n }\n ```\n\n ### Valid\n\n ```jsx\n import Head from 'next/head'\n\n function Index() {\n   return (\n     <Head>\n       <title>All good!</title>\n     </Head>\n   )\n }\n ```\n"
+          },
           "useComponentExportOnlyModules": {
             "deprecated": false,
             "version": "1.9.2",
@@ -3906,7 +3921,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 279
+    "numberOrRules": 280
   },
   "syntax": {
     "languages": {
