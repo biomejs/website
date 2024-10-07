@@ -195,6 +195,38 @@ const arrowFn = () => {
 }
 ```
 
+The following patterns are considered correct for type annotations on variables in function expressions:
+
+```ts
+// A function with a type assertion using `as`
+const asTyped = (() => '') as () => string;
+```
+
+```ts
+// A function with a type assertion using `<>`
+const castTyped = <() => string>(() => '');
+```
+
+```ts
+// A variable declarator with a type annotation.
+type FuncType = () => string;
+const arrowFn: FuncType = () => 'test';
+```
+
+```ts
+// A function is a default parameter with a type annotation
+type CallBack = () => void;
+const f = (gotcha: CallBack = () => { }): void => { };
+```
+
+```ts
+// A class property with a type annotation
+type MethodType = () => void;
+class App {
+    private method: MethodType = () => { };
+}
+```
+
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)
