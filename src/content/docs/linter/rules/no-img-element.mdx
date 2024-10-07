@@ -1,0 +1,77 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noImgElement
+description: |
+  Prevent usage of `<img>` element in a Next.js project.
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+**Diagnostic Category: `lint/nursery/noImgElement`**
+<Tabs>
+<TabItem label="JSX and TSX" icon="seti:javascript">
+**Since**: `vnext`
+:::caution
+This rule is part of the [nursery](/linter/rules/#nursery) group.
+:::
+
+Sources: 
+- Same as: <a href="https://nextjs.org/docs/messages/no-img-element" target="_blank"><code>@next/no-img-element</code></a>
+
+Prevent usage of `<img>` element in a Next.js project.
+
+Using the `<img>` element can result in slower Largest Contentful Paint (LCP)
+and higher bandwidth usage, as it lacks the optimizations provided by the `<Image />`
+component from `next/image`. Next.js's `<Image />` automatically optimizes images
+by serving responsive sizes and using modern formats, improving performance and reducing bandwidth.
+
+If your project is self-hosted, ensure that you have sufficient storage and have
+installed the `sharp` package to support optimized images. When deploying to managed
+hosting providers, be aware of potential additional costs or usage.
+
+## Examples
+
+### Invalid
+
+```jsx
+<img alt="Foo" />
+```
+
+<pre class="language-text"><code class="language-text">code-block.jsx:1:1 <a href="https://biomejs.dev/linter/rules/no-img-element">lint/nursery/noImgElement</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Don't use </span><span style="color: Orange;"><strong>&lt;img&gt;</strong></span><span style="color: Orange;"> element.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;img alt=&quot;Foo&quot; /&gt;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Using the </span><span style="color: lightgreen;"><strong>&lt;img&gt;</strong></span><span style="color: lightgreen;"> can lead to slower LCP and higher bandwidth. Consider using </span><span style="color: lightgreen;"><strong>&lt;Image /&gt;</strong></span><span style="color: lightgreen;"> from </span><span style="color: lightgreen;"><strong>next/image</strong></span><span style="color: lightgreen;"> to automatically optimize images.</span><br />  <br /></code></pre>
+
+```jsx
+<div>
+  <img alt="Foo" />
+</div>
+```
+
+<pre class="language-text"><code class="language-text">code-block.jsx:2:3 <a href="https://biomejs.dev/linter/rules/no-img-element">lint/nursery/noImgElement</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Don't use </span><span style="color: Orange;"><strong>&lt;img&gt;</strong></span><span style="color: Orange;"> element.</span><br />  <br />    <strong>1 │ </strong>&lt;div&gt;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  &lt;img alt=&quot;Foo&quot; /&gt;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>&lt;/div&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Using the </span><span style="color: lightgreen;"><strong>&lt;img&gt;</strong></span><span style="color: lightgreen;"> can lead to slower LCP and higher bandwidth. Consider using </span><span style="color: lightgreen;"><strong>&lt;Image /&gt;</strong></span><span style="color: lightgreen;"> from </span><span style="color: lightgreen;"><strong>next/image</strong></span><span style="color: lightgreen;"> to automatically optimize images.</span><br />  <br /></code></pre>
+
+### Valid
+
+```jsx
+<img />
+```
+
+```jsx
+<Image src="https://example.com/hero.jpg" />
+```
+
+```jsx
+<picture>
+  <source srcSet="https://example.com/hero.avif" type="image/avif" />
+  <source srcSet="https://example.com/hero.webp" type="image/webp" />
+  <img src="https://example.com/hero.jpg" />
+</picture>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
+</Tabs>
+
