@@ -3344,6 +3344,21 @@ export function GET() {
             "sourceKind": "sameLogic",
             "docs": " Prevent usage of `<head>` element in a Next.js project.\n\n Next.js provides a specialized `<Head />` component from `next/head` that manages\n the `<head>` tag for optimal server-side rendering, client-side navigation, and\n automatic deduplication of tags such as `<meta>` and `<title>`.\n\n This rule only checks files that are outside of the [`app/` directory](https://nextjs.org/docs/app), as it's typically\n handled differently in Next.js.\n\n ## Examples\n\n ### Invalid\n ```jsx,expect_diagnostic\n function Index() {\n   return (\n     <head>\n       <title>Invalid</title>\n     </head>\n   )\n }\n ```\n\n ### Valid\n\n ```jsx\n import Head from 'next/head'\n\n function Index() {\n   return (\n     <Head>\n       <title>All good!</title>\n     </Head>\n   )\n }\n ```\n"
           },
+          "noImgElement": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noImgElement",
+            "link": "https://biomejs.dev/linter/rules/no-img-element",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslintNext": "no-img-element"
+              }
+            ],
+            "sourceKind": "sameLogic",
+            "docs": " Prevent usage of `<img>` element in a Next.js project.\n\n Using the `<img>` element can result in slower Largest Contentful Paint (LCP)\n and higher bandwidth usage, as it lacks the optimizations provided by the `<Image />`\n component from `next/image`. Next.js's `<Image />` automatically optimizes images\n by serving responsive sizes and using modern formats, improving performance and reducing bandwidth.\n\n If your project is self-hosted, ensure that you have sufficient storage and have\n installed the `sharp` package to support optimized images. When deploying to managed\n hosting providers, be aware of potential additional costs or usage.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <img alt=\"Foo\" />\n ```\n\n ```jsx,expect_diagnostic\n <div>\n   <img alt=\"Foo\" />\n </div>\n ```\n\n ### Valid\n\n ```jsx\n <img />\n ```\n\n ```jsx\n <Image src=\"https://example.com/hero.jpg\" />\n ```\n\n ```jsx\n <picture>\n   <source srcSet=\"https://example.com/hero.avif\" type=\"image/avif\" />\n   <source srcSet=\"https://example.com/hero.webp\" type=\"image/webp\" />\n   <img src=\"https://example.com/hero.jpg\" />\n </picture>\n ```\n\n"
+          },
           "useComponentExportOnlyModules": {
             "deprecated": false,
             "version": "1.9.2",
@@ -3921,7 +3936,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 280
+    "numberOrRules": 281
   },
   "syntax": {
     "languages": {
