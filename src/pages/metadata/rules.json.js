@@ -218,6 +218,20 @@ export function GET() {
             ],
             "docs": " Disallow unknown pseudo-element selectors.\n\n For details on known CSS pseudo-elements, see the [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements#list_of_pseudo-elements).\n\n This rule ignores vendor-prefixed pseudo-element selectors.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a::pseudo {}\n ```\n\n ```css,expect_diagnostic\n a::PSEUDO {}\n ```\n\n ```css,expect_diagnostic\n a::element {}\n ```\n\n ### Valid\n\n ```css\n a:before {}\n ```\n\n ```css\n a::before {}\n ```\n\n ```css\n ::selection {}\n ```\n\n ```css\n input::-moz-placeholder {}\n ```\n\n"
           },
+          "noUnknownTypeSelector": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noUnknownTypeSelector",
+            "link": "https://biomejs.dev/linter/rules/no-unknown-type-selector",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "stylelint": "selector-type-no-unknown"
+              }
+            ],
+            "docs": " Disallow unknown type selectors.\n\n This rule considers tags defined in the HTML, SVG, and MathML specifications to be known.\n For details on known CSS type selectors, see the following links\n - https://developer.mozilla.org/en-US/docs/Web/CSS/Type_selectors\n - https://developer.mozilla.org/ja/docs/Web/HTML/Element\n - https://developer.mozilla.org/ja/docs/Web/SVG/Element\n - https://developer.mozilla.org/ja/docs/Web/MathML/Element\n\n This rule allows custom elements.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n unknown {}\n ```\n\n ```css,expect_diagnostic\n unknown > ul {}\n ```\n\n ```css,expect_diagnostic\n x-Foo {}\n ```\n\n ### Valid\n\n ```css\n input {}\n ```\n\n ```css\n ul > li {}\n ```\n\n ```css\n x-foo {}\n ```\n\n"
+          },
           "noValueAtRule": {
             "deprecated": false,
             "version": "1.8.0",
@@ -3936,7 +3950,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 281
+    "numberOrRules": 282
   },
   "syntax": {
     "languages": {
