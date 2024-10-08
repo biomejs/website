@@ -120,7 +120,7 @@ importers:
         specifier: 8.4.47
         version: 8.4.47
       postcss-mixins:
-        specifier: ^11.0.2
+        specifier: 11.0.3
         version: 11.0.3(postcss@8.4.47)
       prettier:
         specifier: 3.3.3
