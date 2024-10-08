@@ -4044,7 +4044,6 @@ export function GET() {
     "numberOrRules": 3
   }
 };
-	// const json_file = new URL("_metadata.json", root);
 	return new Response(JSON.stringify(schema), {
 		status: 200,
 		headers: {

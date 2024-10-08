@@ -5,14 +5,19 @@ use biome_analyze::{
 };
 use biome_css_syntax::CssLanguage;
 use biome_js_syntax::JsLanguage;
+use biome_json_formatter::context::JsonFormatOptions;
+use biome_json_parser::{parse_json, JsonParserOptions};
 use biome_json_syntax::JsonLanguage;
 use biome_string_case::Case;
+use schemars::{schema_for, JsonSchema};
 use serde::Serialize;
+use serde_json::to_string;
 use std::collections::BTreeMap;
 use std::fs;
 
-#[derive(Default, Debug, Serialize)]
-#[serde(rename_all = "camelCase")]
+#[derive(Default, Debug, Serialize, JsonSchema)]
+#[serde(rename_all = "camelCase", default)]
+#[schemars(title = "RulesMetadata")]
 struct Metadata {
     lints: Rules,
     syntax: Rules,
@@ -23,15 +28,16 @@ struct Metadata {
     current_group: Option<String>,
 }
 
-#[derive(Default, Debug, Serialize)]
-#[serde(rename_all = "camelCase")]
+#[derive(Default, Debug, Serialize, JsonSchema)]
+#[serde(rename_all = "camelCase", default)]
 struct Rules {
     languages:
         BTreeMap<RuleLanguageMeta, BTreeMap<RuleGroupMeta, BTreeMap<RuleNameMeta, JsonMetadata>>>,
     number_or_rules: u16,
 }
 
-#[derive(Default, Debug, Serialize, Ord, PartialOrd, PartialEq, Eq)]
+#[derive(Default, Debug, Serialize, Ord, PartialOrd, PartialEq, Eq, JsonSchema)]
+#[serde(rename_all = "camelCase", default)]
 struct RuleGroupMeta(&'static str);
 
 impl From<&'static str> for RuleGroupMeta {
@@ -40,8 +46,8 @@ impl From<&'static str> for RuleGroupMeta {
     }
 }
 
-#[derive(Default, Debug, Serialize, Ord, PartialOrd, PartialEq, Eq)]
-#[serde(rename_all = "camelCase")]
+#[derive(Default, Debug, Serialize, Ord, PartialOrd, PartialEq, Eq, JsonSchema)]
+#[serde(rename_all = "camelCase", default)]
 struct RuleLanguageMeta(&'static str);
 
 impl From<&'static str> for RuleLanguageMeta {
@@ -50,8 +56,8 @@ impl From<&'static str> for RuleLanguageMeta {
     }
 }
 
-#[derive(Default, Debug, Serialize, Ord, PartialOrd, PartialEq, Eq)]
-#[serde(rename_all = "camelCase")]
+#[derive(Default, Debug, Serialize, Ord, PartialOrd, PartialEq, Eq, JsonSchema)]
+#[serde(rename_all = "camelCase", default)]
 struct RuleNameMeta(&'static str);
 
 impl From<&'static str> for RuleNameMeta {
@@ -60,8 +66,8 @@ impl From<&'static str> for RuleNameMeta {
     }
 }
 
-#[derive(Default, Debug, Serialize)]
-#[serde(rename_all = "camelCase")]
+#[derive(Default, Debug, Serialize, JsonSchema)]
+#[serde(rename_all = "camelCase", default)]
 struct JsonMetadata {
     /// It marks if a rule is deprecated, and if so a reason has to be provided.
     pub deprecated: bool,
@@ -269,6 +275,7 @@ impl RegistryVisitor<CssLanguage> for Metadata {
 pub fn generate_json_metadata() -> anyhow::Result<()> {
     println!("Project root {}", project_root().display());
     let metadata_file = project_root().join("src/pages/metadata/rules.json.js");
+    let schema_file = project_root().join("src/pages/metadata/schema.json.js");
     println!("Metadata file {}", metadata_file.display());
 
     if metadata_file.exists() {
@@ -284,7 +291,6 @@ pub fn generate_json_metadata() -> anyhow::Result<()> {
     let content = format!(
         r#"export function GET() {{
 	const schema = {content};
-	// const json_file = new URL("_metadata.json", root);
 	return new Response(JSON.stringify(schema), {{
 		status: 200,
 		headers: {{
@@ -294,8 +300,28 @@ pub fn generate_json_metadata() -> anyhow::Result<()> {
 }}
 "#
     );
+    let schema = schema_for!(Metadata);
+    let json_schema = to_string(&schema)?;
+    let parsed = parse_json(&json_schema, JsonParserOptions::default());
+    let formatted =
+        biome_json_formatter::format_node(JsonFormatOptions::default(), &parsed.syntax())?
+            .print()?;
 
     fs::write(metadata_file, content)?;
+    let content = format!(
+        r#"export function GET() {{
+	const schema = {};
+	return new Response(JSON.stringify(schema), {{
+		status: 200,
+		headers: {{
+			"content-type": "application/json",
+		}},
+	}});
+}}
+"#,
+        formatted.as_code()
+    );
+    fs::write(schema_file, content)?;
 
     Ok(())
 }

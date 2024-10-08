@@ -1,7 +1,7 @@
 {
 	"$schema": "https://biomejs.dev/schemas/1.8.3/schema.json",
 	"files": {
-		"ignore": ["rules.json.js"]
+		"ignore": ["rules.json.js", "metadata.json.js"]
 	},
 	"organizeImports": {
 		"enabled": true
