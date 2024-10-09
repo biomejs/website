@@ -1471,6 +1471,21 @@ export function GET() {
             ],
             "docs": " Enforce that ARIA properties are valid for the roles that are supported by the element.\n\n Invalid ARIA properties can make it difficult for users of assistive technologies to understand the purpose of the element.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <a href=\"#\" aria-checked />\n ```\n\n ```jsx,expect_diagnostic\n <img alt=\"foobar\" aria-checked />\n ```\n\n ### Valid\n\n ```js\n <>\n     <a href=\"#\" aria-expanded />\n     <img alt=\"foobar\" aria-hidden />\n     <div role=\"heading\" aria-level=\"1\" />\n </>\n ```\n\n"
           },
+          "useAtIndex": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useAtIndex",
+            "link": "https://biomejs.dev/linter/rules/use-at-index",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "eslintUnicorn": "prefer-at"
+              }
+            ],
+            "sourceKind": "inspired",
+            "docs": " Use `at()` instead of integer index access.\n\n Accessing an element at the end of an array or a string is inconvenient because you have to subtract the length of the array or the string from the backward 1-based index of the element to access.\n For example, to access the last element of an array or a string, you would have to write `array[array.length - 1]`.\n A more convenient way to achieve the same thing is to use the `at()` method with a negative index.\n To access the last element of an array or a string just write `array.at(-1)`.\n\n This rule enforces the usage of `at()` over index access, `chatAt()`, and `slice()[0]` when `at()` is more convenient.\n\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const foo = array[array.length - 1];\n ```\n\n ```js,expect_diagnostic\n const foo = array[array.length - 5];\n ```\n\n ```js,expect_diagnostic\n const foo = array.slice(-1)[0];\n ```\n\n ```js,expect_diagnostic\n const foo = array.slice(-1).pop();\n ```\n\n ```js,expect_diagnostic\n const foo = array.slice(-5).shift();\n ```\n\n ```js,expect_diagnostic\n const foo = string.charAt(string.length - 5);\n ```\n\n ### Valid\n\n ```js\n const foo = array.at(-1);\n ```\n\n ```js\n const foo = array.at(-5);\n ```\n\n ```js\n const foo = array[100];\n ```\n\n ```js\n const foo = array.at(array.length - 1);\n ```\n\n ```js\n array[array.length - 1] = foo;\n ```\n"
+          },
           "useImportRestrictions": {
             "deprecated": false,
             "version": "1.0.0",
@@ -3965,7 +3980,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 283
+    "numberOrRules": 284
   },
   "syntax": {
     "languages": {
