@@ -3358,6 +3358,21 @@ export function GET() {
             "sourceKind": "sameLogic",
             "docs": " Prevent usage of `<head>` element in a Next.js project.\n\n Next.js provides a specialized `<Head />` component from `next/head` that manages\n the `<head>` tag for optimal server-side rendering, client-side navigation, and\n automatic deduplication of tags such as `<meta>` and `<title>`.\n\n This rule only checks files that are outside of the [`app/` directory](https://nextjs.org/docs/app), as it's typically\n handled differently in Next.js.\n\n ## Examples\n\n ### Invalid\n ```jsx,expect_diagnostic\n function Index() {\n   return (\n     <head>\n       <title>Invalid</title>\n     </head>\n   )\n }\n ```\n\n ### Valid\n\n ```jsx\n import Head from 'next/head'\n\n function Index() {\n   return (\n     <Head>\n       <title>All good!</title>\n     </Head>\n   )\n }\n ```\n"
           },
+          "noHeadImportInDocument": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noHeadImportInDocument",
+            "link": "https://biomejs.dev/linter/rules/no-head-import-in-document",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslintNext": "no-head-import-in-document"
+              }
+            ],
+            "sourceKind": "sameLogic",
+            "docs": " Prevent using the `next/head` module in `pages/_document.js` on Next.js projects.\n\n Importing `next/head` within the custom `pages/_document.js` file can cause\n unexpected behavior in your application. The `next/head` component is designed\n to be used at the page level, and when used in the custom document it can interfere\n with the global document structure, which leads to issues with rendering and SEO.\n\n To modify `<head>` elements across all pages, you should use the `<Head />`\n component from the `next/document` module.\n\n ## Examples\n\n ### Valid\n\n ```jsx\n // pages/_document.js\n import Document, { Html, Head, Main, NextScript } from \"next/document\";\n\n class MyDocument extends Document {\n   static async getInitialProps(ctx) {\n     //...\n   }\n\n   render() {\n     return (\n       <Html>\n         <Head></Head>\n       </Html>\n     );\n   }\n }\n\n export default MyDocument;\n ```\n\n"
+          },
           "noImgElement": {
             "deprecated": false,
             "version": "next",
@@ -3950,7 +3965,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 282
+    "numberOrRules": 283
   },
   "syntax": {
     "languages": {
