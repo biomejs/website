@@ -1500,6 +1500,20 @@ export function GET() {
             "sourceKind": "inspired",
             "docs": " Use `at()` instead of integer index access.\n\n Accessing an element at the end of an array or a string is inconvenient because you have to subtract the length of the array or the string from the backward 1-based index of the element to access.\n For example, to access the last element of an array or a string, you would have to write `array[array.length - 1]`.\n A more convenient way to achieve the same thing is to use the `at()` method with a negative index.\n To access the last element of an array or a string just write `array.at(-1)`.\n\n This rule enforces the usage of `at()` over index access, `chatAt()`, and `slice()[0]` when `at()` is more convenient.\n\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const foo = array[array.length - 1];\n ```\n\n ```js,expect_diagnostic\n const foo = array[array.length - 5];\n ```\n\n ```js,expect_diagnostic\n const foo = array.slice(-1)[0];\n ```\n\n ```js,expect_diagnostic\n const foo = array.slice(-1).pop();\n ```\n\n ```js,expect_diagnostic\n const foo = array.slice(-5).shift();\n ```\n\n ```js,expect_diagnostic\n const foo = string.charAt(string.length - 5);\n ```\n\n ### Valid\n\n ```js\n const foo = array.at(-1);\n ```\n\n ```js\n const foo = array.at(-5);\n ```\n\n ```js\n const foo = array[100];\n ```\n\n ```js\n const foo = array.at(array.length - 1);\n ```\n\n ```js\n array[array.length - 1] = foo;\n ```\n"
           },
+          "useGuardForIn": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useGuardForIn",
+            "link": "https://biomejs.dev/linter/rules/use-guard-for-in",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslint": "guard-for-in"
+              }
+            ],
+            "docs": " Require `for-in` loops to include an `if` statement.\n\n Looping over objects with a `for-in` loop will include properties inherited through the prototype chain.\n This behavior can lead to unexpected items in your for loop.\n\n For codebases that do not support ES2022, `Object.prototype.hasOwnProperty.call(foo, key)` can be used as a check that the property is not inherited.\n\n For codebases that do support ES2022, `Object.hasOwn(foo, key)` can be used as a shorter and more reliable alternative.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n for (key in foo) {\n   doSomething(key);\n }\n ```\n\n ### Valid\n\n ```js\n for (key in foo) {\n   if (Object.hasOwn(foo, key)) {\n    doSomething(key);\n   }\n }\n ```\n\n ```js\n for (key in foo) {\n   if (Object.prototype.hasOwnProperty.call(foo, key)) {\n     doSomething(key);\n   }\n }\n ```\n\n ```js\n for (key in foo) {\n   if ({}.hasOwnProperty.call(foo, key)) {\n     doSomething(key);\n   }\n }\n ```\n\n"
+          },
           "useImportRestrictions": {
             "deprecated": false,
             "version": "1.0.0",
@@ -3994,7 +4008,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 285
+    "numberOrRules": 286
   },
   "syntax": {
     "languages": {
