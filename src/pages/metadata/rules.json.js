@@ -1266,6 +1266,20 @@ export function GET() {
             ],
             "docs": " Disallow use of CommonJs module system in favor of ESM style imports.\n\n ESM-style `import`s are modern alternative to CommonJS `require` imports. Supported by all modern browsers and Node.js versions.\n Tooling can more easily statically analyze and tree-shake ESM `import`s compared to CommonJs.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n require('node:fs');\n ```\n ```js,expect_diagnostic\n module.exports = { a: 'b' }\n ```\n ```js,expect_diagnostic\n exports.a = 'b';\n ```\n\n ### Valid\n\n ```js\n import fs from 'node:fs';\n ```\n ```js\n import('node:fs')\n ```\n ```js\n export const a = 'b';\n ```\n ```js\n export default { a: 'b' };\n ```\n\n ## Caveats\n\n Rule is automatically disabled inside `.cjs` and `.cts` files, because they are explicitly CommonJs files.\n\n This rule could be helpful if you are migrating from CommonJs to ESM,\n but if you wish to continue using CommonJs, you can safely disable it.\n\n"
           },
+          "noDocumentCookie": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noDocumentCookie",
+            "link": "https://biomejs.dev/linter/rules/no-document-cookie",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslintUnicorn": "no-document-cookie"
+              }
+            ],
+            "docs": " Disallow direct assignments to `document.cookie`.\n\n It's not recommended to use document.cookie directly as it's easy to get the string wrong.\n Instead, you should use the [Cookie Store API](https://developer.mozilla.org/en-US/docs/Web/API/CookieStore).\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n document.cookie = \"foo=bar\";\n ```\n\n ```js,expect_diagnostic\n document.cookie += \"; foo=bar\";\n ```\n\n ### Valid\n\n ```js\n const array = document.cookie.split(\"; \");\n ```\n\n ```js\n await cookieStore\n   .set({\n     name: \"foo\",\n     value: \"bar\",\n     expires: Date.now() + 24 * 60 * 60,\n     domain: \"example.com\",\n })\n ```\n\n ```js\n import Cookies from 'js-cookie';\n\n Cookies.set('foo', 'bar');\n ```\n\n"
+          },
           "noDuplicateElseIf": {
             "deprecated": false,
             "version": "1.6.2",
@@ -3980,7 +3994,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 284
+    "numberOrRules": 285
   },
   "syntax": {
     "languages": {
