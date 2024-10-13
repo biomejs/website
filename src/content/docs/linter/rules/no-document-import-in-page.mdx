@@ -1,0 +1,53 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noDocumentImportInPage
+description: |
+  Prevents importing `next/document` outside of `pages/_document.jsx` in Next.js projects.
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+**Diagnostic Category: `lint/nursery/noDocumentImportInPage`**
+<Tabs>
+<TabItem label="JSX and TSX" icon="seti:javascript">
+**Since**: `vnext`
+:::caution
+This rule is part of the [nursery](/linter/rules/#nursery) group.
+:::
+
+Sources: 
+- Same as: <a href="https://nextjs.org/docs/messages/no-document-import-in-page" target="_blank"><code>@next/no-document-import-in-page</code></a>
+
+Prevents importing `next/document` outside of `pages/_document.jsx` in Next.js projects.
+
+The `next/document` module is intended for customizing the document structure globally in Next.js.
+Importing it outside of `pages/_document.js` can cause unexpected behavior and break certain features of the framework.
+
+## Examples
+
+### Valid
+
+```jsx
+import { Document, Html } from 'next/document'
+
+export default class MyDocument extends Document {
+  render() {
+    return (
+      <Html lang="en">
+        {/* */}
+      </Html>
+    )
+  }
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
+</Tabs>
+
