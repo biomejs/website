@@ -3386,6 +3386,21 @@ export function GET() {
           }
         },
         "nursery": {
+          "noDocumentImportInPage": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noDocumentImportInPage",
+            "link": "https://biomejs.dev/linter/rules/no-document-import-in-page",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslintNext": "no-document-import-in-page"
+              }
+            ],
+            "sourceKind": "sameLogic",
+            "docs": " Prevents importing `next/document` outside of `pages/_document.jsx` in Next.js projects.\n\n The `next/document` module is intended for customizing the document structure globally in Next.js.\n Importing it outside of `pages/_document.js` can cause unexpected behavior and break certain features of the framework.\n\n ## Examples\n\n ### Valid\n\n ```jsx\n import { Document, Html } from 'next/document'\n\n export default class MyDocument extends Document {\n   render() {\n     return (\n       <Html lang=\"en\">\n         {/* */}\n       </Html>\n     )\n   }\n }\n ```\n\n"
+          },
           "noHeadElement": {
             "deprecated": false,
             "version": "next",
@@ -4008,7 +4023,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 286
+    "numberOrRules": 287
   },
   "syntax": {
     "languages": {
