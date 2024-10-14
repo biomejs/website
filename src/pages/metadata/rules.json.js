@@ -162,6 +162,20 @@ export function GET() {
             ],
             "docs": " Disallow duplicate custom properties within declaration blocks.\n\n This rule checks the declaration blocks for duplicate custom properties.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a { --custom-property: pink; --custom-property: orange;  }\n ```\n\n ```css,expect_diagnostic\n a { --custom-property: pink; background: orange; --custom-property: orange }\n ```\n\n ### Valid\n\n ```css\n a { --custom-property: pink; }\n ```\n\n ```css\n a { --custom-property: pink; --cUstOm-prOpErtY: orange; }\n ```\n\n"
           },
+          "noDuplicateProperties": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noDuplicateProperties",
+            "link": "https://biomejs.dev/linter/rules/no-duplicate-properties",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "stylelint": "declaration-block-no-duplicate-properties"
+              }
+            ],
+            "docs": " Disallow duplicate properties within declaration blocks.\n\n This rule checks the declaration blocks for duplicate properties. It ignores custom properties.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a {\n   color: pink;\n   color: orange;\n }\n ```\n\n ### Valid\n\n ```css\n a {\n   color: pink;\n   background: orange;\n }\n ```\n\n"
+          },
           "noIrregularWhitespace": {
             "deprecated": false,
             "version": "1.9.9",
@@ -4023,7 +4037,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 287
+    "numberOrRules": 288
   },
   "syntax": {
     "languages": {
