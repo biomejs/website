@@ -1,0 +1,57 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noUselessStringRaw
+description: |
+  Disallow unnecessary `String.raw` function in template string literals without any escape sequence.
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+**Diagnostic Category: `lint/nursery/noUselessStringRaw`**
+<Tabs>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+**Since**: `vnext`
+:::caution
+This rule is part of the [nursery](/linter/rules/#nursery) group.
+:::
+
+Disallow unnecessary `String.raw` function in template string literals without any escape sequence.
+
+`String.raw` is useless when contains a raw string without any escape-like sequence.
+
+## Examples
+
+### Invalid
+
+```js
+String.raw`a`;
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-useless-string-raw">lint/nursery/noUselessStringRaw</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">String.raw is useless when the raw string doesn't contain any escape sequence.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>String.raw`a`;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove the String.raw call beacause it's useless here, String.raw can deal with string which contains escape sequence like &#92;n, &#92;t, &#92;r, &#92;&#92;, &#92;&quot;, &#92;'.</span><br />  <br /></code></pre>
+
+```js
+String.raw`a ${v}`;
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-useless-string-raw">lint/nursery/noUselessStringRaw</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">String.raw is useless when the raw string doesn't contain any escape sequence.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>String.raw`a $&#123;v&#125;`;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove the String.raw call beacause it's useless here, String.raw can deal with string which contains escape sequence like &#92;n, &#92;t, &#92;r, &#92;&#92;, &#92;&quot;, &#92;'.</span><br />  <br /></code></pre>
+
+### Valid
+
+```js
+String.raw`\n ${a}`;
+```
+
+```js
+String.raw`\n`;
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
+</Tabs>
+
