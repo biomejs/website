@@ -1471,6 +1471,15 @@ export function GET() {
             ],
             "docs": " Disallow unnecessary escape sequence in regular expression literals.\n\n Escaping non-special characters in regular expression literals doesn't have any effect.\n Hence, they may confuse a reader.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n /\\a/;\n ```\n\n ```js,expect_diagnostic\n /[\\-]/;\n ```\n\n ```js,expect_diagnostic\n /[\\&]/v;\n ```\n\n ### Valid\n\n ```js\n /\\^\\d\\b/\n ```\n\n ```js\n /[\\b]/\n ```\n"
           },
+          "noUselessStringRaw": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noUselessStringRaw",
+            "link": "https://biomejs.dev/linter/rules/no-useless-string-raw",
+            "recommended": false,
+            "fixKind": "none",
+            "docs": " Disallow unnecessary `String.raw` function in template string literals without any escape sequence.\n\n `String.raw` is useless when contains a raw string without any escape-like sequence.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n String.raw`a`;\n ```\n\n ```js,expect_diagnostic\n String.raw`a ${v}`;\n ```\n\n ### Valid\n\n ```js\n String.raw`\\n ${a}`;\n ```\n\n ```js\n String.raw`\\n`;\n ```\n"
+          },
           "useAdjacentOverloadSignatures": {
             "deprecated": false,
             "version": "1.9.0",
@@ -4037,7 +4046,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 288
+    "numberOrRules": 289
   },
   "syntax": {
     "languages": {
