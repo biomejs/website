@@ -3515,6 +3515,21 @@ export function GET() {
             ],
             "sourceKind": "inspired",
             "docs": " This rule enforces consistent use of curly braces inside JSX attributes and JSX children.\n\n For situations where JSX expressions are unnecessary, please refer to [the React doc](https://facebook.github.io/react/docs/jsx-in-depth.html) and [this page about JSX gotchas](https://github.com/facebook/react/blob/v15.4.0-rc.3/docs/docs/02.3-jsx-gotchas.md#html-entities).\n\n This rule will check for and warn about unnecessary curly braces in both JSX props and children.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <Foo>{'Hello world'}</Foo>\n ```\n ```jsx,expect_diagnostic\n <Foo foo={'bar'} />\n ```\n ```jsx,expect_diagnostic\n <Foo foo=<Bar /> />\n ```\n\n ### Valid\n\n ```jsx\n <>\n     <Foo>Hello world</Foo>\n     <Foo foo=\"bar\" />\n     <Foo foo={5} />\n     <Foo foo={<Bar />} />\n </>\n ```\n\n"
+          },
+          "useGoogleFontDisplay": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useGoogleFontDisplay",
+            "link": "https://biomejs.dev/linter/rules/use-google-font-display",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslintNext": "google-font-display"
+              }
+            ],
+            "sourceKind": "sameLogic",
+            "docs": " Enforces the use of a recommended `display` strategy with Google Fonts.\n\n The `display` property controls how a font is displayed while it is loading. When using Google Fonts,\n it's important to specify an appropriate value for this property to ensure good user experience and prevent layout shifts.\n\n This rule flags the absence of the `display` parameter, or the usage of less optimal values such as `auto`, `block`, or `fallback`.\n Using `&display=optional` is generally recommended as it minimizes the risk of invisible text or layout shifts.\n In cases where swapping to the custom font after it has loaded is important, consider using `&display=swap`.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <link href=\"https://fonts.googleapis.com/css2?family=Krona+One\" />\n ```\n\n ```jsx,expect_diagnostic\n <link href=\"https://fonts.googleapis.com/css2?family=Krona+One&display=auto\" />\n ```\n\n ```jsx,expect_diagnostic\n <link href=\"https://fonts.googleapis.com/css2?family=Krona+One&display=block\" />\n ```\n\n ```jsx,expect_diagnostic\n <link href=\"https://fonts.googleapis.com/css2?family=Krona+One&display=fallback\" />\n ```\n\n ### Valid\n\n ```jsx\n <link href=\"https://fonts.googleapis.com/css2?family=Krona+One&display=optional\" rel=\"stylesheet\" />\n ```\n\n ```jsx\n <link href=\"https://fonts.googleapis.com/css2?display=unknown\" rel=\"stylesheet\" />\n ```\n\n ```jsx\n <link rel=\"stylesheet\" />\n ```\n"
           }
         },
         "security": {
@@ -4063,7 +4078,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 290
+    "numberOrRules": 291
   },
   "syntax": {
     "languages": {
