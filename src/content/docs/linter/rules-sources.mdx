@@ -31,6 +31,7 @@ description: A page that maps lint rules from other sources to Biome
 - [noUnnecessaryContinue](/linter/rules/no-unnecessary-continue) 
 - [noUnusedFunctionParameters](/linter/rules/no-unused-function-parameters) 
 - [noUnusedTemplateLiteral](/linter/rules/no-unused-template-literal) 
+- [noUselessStringRaw](/linter/rules/no-useless-string-raw) 
 - [noValueAtRule](/linter/rules/no-value-at-rule) 
 - [noVoidTypeReturn](/linter/rules/no-void-type-return) 
 - [useImportExtensions](/linter/rules/use-import-extensions) 
@@ -50,11 +51,20 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | @mysticatea/eslint-plugin rule name | Biome rule name |
 | ---- | ---- |
 | [no-this-in-static](https://github.com/mysticatea/eslint-plugin/blob/master/docs/rules/no-this-in-static.md) |[noThisInStatic](/linter/rules/no-this-in-static) (inspired) |
+### @next/eslint-plugin-next
+| @next/eslint-plugin-next rule name | Biome rule name |
+| ---- | ---- |
+| [google-font-display](https://nextjs.org/docs/messages/google-font-display) |[useGoogleFontDisplay](/linter/rules/use-google-font-display) |
+| [no-document-import-in-page](https://nextjs.org/docs/messages/no-document-import-in-page) |[noDocumentImportInPage](/linter/rules/no-document-import-in-page) |
+| [no-head-element](https://nextjs.org/docs/messages/no-head-element) |[noHeadElement](/linter/rules/no-head-element) |
+| [no-head-import-in-document](https://nextjs.org/docs/messages/no-head-import-in-document) |[noHeadImportInDocument](/linter/rules/no-head-import-in-document) |
+| [no-img-element](https://nextjs.org/docs/messages/no-img-element) |[noImgElement](/linter/rules/no-img-element) |
 ### Clippy
 | Clippy rule name | Biome rule name |
 | ---- | ---- |
 | [approx_constant](https://rust-lang.github.io/rust-clippy/master/#/approx_constant) |[noApproximativeNumericConstant](/linter/rules/no-approximative-numeric-constant) (inspired) |
 | [collapsible_else_if](https://rust-lang.github.io/rust-clippy/master/#/collapsible_else_if) |[useCollapsedElseIf](/linter/rules/use-collapsed-else-if) |
+| [collapsible_if](https://rust-lang.github.io/rust-clippy/master/#/collapsible_if) |[useCollapsedIf](/linter/rules/use-collapsed-if) |
 | [eq_op](https://rust-lang.github.io/rust-clippy/master/#/eq_op) |[noSelfCompare](/linter/rules/no-self-compare) |
 | [flat_map_identity](https://rust-lang.github.io/rust-clippy/master/#/flat_map_identity) |[noFlatMapIdentity](/linter/rules/no-flat-map-identity) |
 | [if_not_else](https://rust-lang.github.io/rust-clippy/master/#/if_not_else) |[noNegationElse](/linter/rules/no-negation-else) |
@@ -78,6 +88,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [eqeqeq](https://eslint.org/docs/latest/rules/eqeqeq) |[noDoubleEquals](/linter/rules/no-double-equals) |
 | [for-direction](https://eslint.org/docs/latest/rules/for-direction) |[useValidForDirection](/linter/rules/use-valid-for-direction) |
 | [getter-return](https://eslint.org/docs/latest/rules/getter-return) |[useGetterReturn](/linter/rules/use-getter-return) |
+| [guard-for-in](https://eslint.org/docs/latest/rules/guard-for-in) |[useGuardForIn](/linter/rules/use-guard-for-in) |
 | [no-array-constructor](https://eslint.org/docs/latest/rules/no-array-constructor) |[useArrayLiterals](/linter/rules/use-array-literals) |
 | [no-async-promise-executor](https://eslint.org/docs/latest/rules/no-async-promise-executor) |[noAsyncPromiseExecutor](/linter/rules/no-async-promise-executor) |
 | [no-case-declarations](https://eslint.org/docs/latest/rules/no-case-declarations) |[noSwitchDeclarations](/linter/rules/no-switch-declarations) |
@@ -184,6 +195,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [block-no-empty](https://github.com/stylelint/stylelint/blob/main/lib/rules/block-no-empty/README.md) |[noEmptyBlock](/linter/rules/no-empty-block) |
 | [custom-property-no-missing-var-function](https://github.com/stylelint/stylelint/blob/main/lib/rules/custom-property-no-missing-var-function/README.md) |[noMissingVarFunction](/linter/rules/no-missing-var-function) |
 | [declaration-block-no-duplicate-custom-properties](https://github.com/stylelint/stylelint/blob/main/lib/rules/declaration-block-no-duplicate-custom-properties/README.md) |[noDuplicateCustomProperties](/linter/rules/no-duplicate-custom-properties) |
+| [declaration-block-no-duplicate-properties](https://github.com/stylelint/stylelint/blob/main/lib/rules/declaration-block-no-duplicate-properties/README.md) |[noDuplicateProperties](/linter/rules/no-duplicate-properties) |
 | [declaration-block-no-shorthand-property-overrides](https://github.com/stylelint/stylelint/blob/main/lib/rules/declaration-block-no-shorthand-property-overrides/README.md) |[noShorthandPropertyOverrides](/linter/rules/no-shorthand-property-overrides) |
 | [font-family-no-duplicate-names](https://github.com/stylelint/stylelint/blob/main/lib/rules/font-family-no-duplicate-names/README.md) |[noDuplicateFontNames](/linter/rules/no-duplicate-font-names) |
 | [font-family-no-missing-generic-family-keyword](https://github.com/stylelint/stylelint/blob/main/lib/rules/font-family-no-missing-generic-family-keyword/README.md) |[useGenericFontNames](/linter/rules/use-generic-font-names) |
@@ -201,6 +213,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [selector-anb-no-unmatchable](https://github.com/stylelint/stylelint/blob/main/lib/rules/selector-anb-no-unmatchable/README.md) |[noUnmatchableAnbSelector](/linter/rules/no-unmatchable-anb-selector) |
 | [selector-pseudo-class-no-unknown](https://github.com/stylelint/stylelint/blob/main/lib/rules/selector-pseudo-class-no-unknown/README.md) |[noUnknownPseudoClass](/linter/rules/no-unknown-pseudo-class) |
 | [selector-pseudo-element-no-unknown](https://github.com/stylelint/stylelint/blob/main/lib/rules/selector-pseudo-element-no-unknown/README.md) |[noUnknownPseudoElement](/linter/rules/no-unknown-pseudo-element) |
+| [selector-type-no-unknown](https://github.com/stylelint/stylelint/blob/main/lib/rules/selector-type-no-unknown/README.md) |[noUnknownTypeSelector](/linter/rules/no-unknown-type-selector) |
 | [unit-no-unknown](https://github.com/stylelint/stylelint/blob/main/lib/rules/unit-no-unknown/README.md) |[noUnknownUnit](/linter/rules/no-unknown-unit) |
 ### eslint-plugin-barrel-files
 | eslint-plugin-barrel-files rule name | Biome rule name |
@@ -318,13 +331,16 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [explicit-length-check](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/explicit-length-check.md) |[useExplicitLengthCheck](/linter/rules/use-explicit-length-check) |
 | [filename-case](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/filename-case.md) |[useFilenamingConvention](/linter/rules/use-filenaming-convention) (inspired) |
 | [new-for-builtins](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/new-for-builtins.md) |[noInvalidBuiltinInstantiation](/linter/rules/no-invalid-builtin-instantiation) |
-| [no-array-for-each](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-array-for-each.md) |[noForEach](/linter/rules/no-for-each) (inspired) |
+| [no-array-for-each](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-array-for-each.md) |[noForEach](/linter/rules/no-for-each) |
+| [no-document-cookie](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-document-cookie.md) |[noDocumentCookie](/linter/rules/no-document-cookie) (inspired) |
 | [no-for-loop](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-for-loop.md) |[useForOf](/linter/rules/use-for-of) |
 | [no-instanceof-array](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-instanceof-array.md) |[useIsArray](/linter/rules/use-is-array) |
+| [no-lonely-if](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-lonely-if.md) |[useCollapsedIf](/linter/rules/use-collapsed-if) |
 | [no-static-only-class](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-static-only-class.md) |[noStaticOnlyClass](/linter/rules/no-static-only-class) |
 | [no-thenable](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-thenable.md) |[noThenProperty](/linter/rules/no-then-property) |
 | [no-useless-switch-case](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-useless-switch-case.md) |[noUselessSwitchCase](/linter/rules/no-useless-switch-case) |
 | [prefer-array-flat-map](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-array-flat-map.md) |[useFlatMap](/linter/rules/use-flat-map) |
+| [prefer-at](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-at.md) |[useAtIndex](/linter/rules/use-at-index) (inspired) |
 | [prefer-date-now](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-date-now.md) |[useDateNow](/linter/rules/use-date-now) |
 | [prefer-node-protocol](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-node-protocol.md) |[useNodejsImportProtocol](/linter/rules/use-nodejs-import-protocol) |
 | [prefer-number-properties](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-number-properties.md) |[useNumberNamespace](/linter/rules/use-number-namespace) |
