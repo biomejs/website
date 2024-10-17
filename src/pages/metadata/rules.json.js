@@ -164,7 +164,7 @@ export function GET() {
           },
           "noDuplicateProperties": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.9.4",
             "name": "noDuplicateProperties",
             "link": "https://biomejs.dev/linter/rules/no-duplicate-properties",
             "recommended": true,
@@ -234,7 +234,7 @@ export function GET() {
           },
           "noUnknownTypeSelector": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.9.4",
             "name": "noUnknownTypeSelector",
             "link": "https://biomejs.dev/linter/rules/no-unknown-type-selector",
             "recommended": true,
@@ -1282,7 +1282,7 @@ export function GET() {
           },
           "noDocumentCookie": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.9.4",
             "name": "noDocumentCookie",
             "link": "https://biomejs.dev/linter/rules/no-document-cookie",
             "recommended": false,
@@ -1473,7 +1473,7 @@ export function GET() {
           },
           "noUselessStringRaw": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.9.4",
             "name": "noUselessStringRaw",
             "link": "https://biomejs.dev/linter/rules/no-useless-string-raw",
             "recommended": false,
@@ -1510,7 +1510,7 @@ export function GET() {
           },
           "useAtIndex": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.9.4",
             "name": "useAtIndex",
             "link": "https://biomejs.dev/linter/rules/use-at-index",
             "recommended": false,
@@ -1525,7 +1525,7 @@ export function GET() {
           },
           "useCollapsedIf": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.9.4",
             "name": "useCollapsedIf",
             "link": "https://biomejs.dev/linter/rules/use-collapsed-if",
             "recommended": false,
@@ -1542,7 +1542,7 @@ export function GET() {
           },
           "useGuardForIn": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.9.4",
             "name": "useGuardForIn",
             "link": "https://biomejs.dev/linter/rules/use-guard-for-in",
             "recommended": false,
@@ -3428,7 +3428,7 @@ export function GET() {
         "nursery": {
           "noDocumentImportInPage": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.9.4",
             "name": "noDocumentImportInPage",
             "link": "https://biomejs.dev/linter/rules/no-document-import-in-page",
             "recommended": false,
@@ -3443,7 +3443,7 @@ export function GET() {
           },
           "noHeadElement": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.9.4",
             "name": "noHeadElement",
             "link": "https://biomejs.dev/linter/rules/no-head-element",
             "recommended": false,
@@ -3458,7 +3458,7 @@ export function GET() {
           },
           "noHeadImportInDocument": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.9.4",
             "name": "noHeadImportInDocument",
             "link": "https://biomejs.dev/linter/rules/no-head-import-in-document",
             "recommended": false,
@@ -3473,7 +3473,7 @@ export function GET() {
           },
           "noImgElement": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.9.4",
             "name": "noImgElement",
             "link": "https://biomejs.dev/linter/rules/no-img-element",
             "recommended": false,
@@ -3518,7 +3518,7 @@ export function GET() {
           },
           "useGoogleFontDisplay": {
             "deprecated": false,
-            "version": "next",
+            "version": "1.9.4",
             "name": "useGoogleFontDisplay",
             "link": "https://biomejs.dev/linter/rules/use-google-font-display",
             "recommended": false,
