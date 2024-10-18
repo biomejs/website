@@ -192,14 +192,6 @@ our [guidelines for writing a good changelog entry](https://github.com/biomejs/b
 
 #### New features
 
-- Add support for parsing the defer attribute in import statements ([#4215](https://github.com/biomejs/biome/issues/4215)).
-
-   ```js
-   import defer * as myModule from "my-module";
-   ```
-
-  Contributed by @fireairforce
-
 - Add support for parsing typescript's `resolution-mode` in Import Types([#2115](https://github.com/biomejs/biome/issues/2115))
 
   ```ts
