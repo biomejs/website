@@ -19,21 +19,27 @@ Enforce naming conventions for JavaScript and TypeScript filenames.
 
 Enforcing [naming conventions](https://en.wikipedia.org/wiki/Naming_convention_(programming)) helps to keep the codebase consistent.
 
-A filename consists of two parts: a name and a set of consecutive extension.
+A filename consists of two parts: a name and a set of consecutive extensions.
 For instance, `my-filename.test.js` has `my-filename` as name, and two consecutive extensions: `.test` and `.js`.
 
-The filename can start with a dot or a plus sign, be prefixed and suffixed by underscores `_`.
-For example, `.filename.js`, `+filename.js`, `__filename__.js`, or even `.__filename__.js`.
-
-The convention of prefixing a filename with a plus sign is used by
-[Sveltekit](https://kit.svelte.dev/docs/routing#page) and [Vike](https://vike.dev/route).
-
-Also, the rule supports dynamic route syntaxes of [Next.js](https://nextjs.org/docs/pages/building-your-application/routing/dynamic-routes#catch-all-segments), [SolidStart](https://docs.solidjs.com/solid-start/building-your-application/routing#renaming-index), [Nuxt](https://nuxt.com/docs/guide/directory-structure/server#catch-all-route), and [Astro](https://docs.astro.build/en/guides/routing/#rest-parameters).
-For example `[...slug].js` and `[[...slug]].js` are valid filenames.
-
-By default, the rule ensures that the filename is either in [`camelCase`](https://en.wikipedia.org/wiki/Camel_case), [`kebab-case`](https://en.wikipedia.org/wiki/Letter_case#Kebab_case), [`snake_case`](https://en.wikipedia.org/wiki/Snake_case),
+By default, the rule ensures that the name is either in [`camelCase`](https://en.wikipedia.org/wiki/Camel_case), [`kebab-case`](https://en.wikipedia.org/wiki/Letter_case#Kebab_case), [`snake_case`](https://en.wikipedia.org/wiki/Snake_case),
 or equal to the name of one export in the file.
 By default, the rule ensures that the extensions are either in [`camelCase`](https://en.wikipedia.org/wiki/Camel_case), [`kebab-case`](https://en.wikipedia.org/wiki/Letter_case#Kebab_case), or [`snake_case`](https://en.wikipedia.org/wiki/Snake_case).
+
+The rule supports the following exceptions:
+
+- The name of the file can start with a dot or a plus sign, be prefixed and suffixed by underscores `_`.
+For example, `.filename.js`, `+filename.js`, `__filename__.js`, or even `.__filename__.js`.
+
+The convention of prefixing a filename with a plus sign is used by [Sveltekit](https://kit.svelte.dev/docs/routing#page) and [Vike](https://vike.dev/route).
+
+
+- Also, the rule supports dynamic route syntaxes of [Next.js](https://nextjs.org/docs/pages/building-your-application/routing/dynamic-routes#catch-all-segments), [SolidStart](https://docs.solidjs.com/solid-start/building-your-application/routing#renaming-index), [Nuxt](https://nuxt.com/docs/guide/directory-structure/server#catch-all-route), and [Astro](https://docs.astro.build/en/guides/routing/#rest-parameters).
+For example `[...slug].js` and `[[...slug]].js` are valid filenames.
+
+
+
+Note that if you specify the \`match' option, the previous exceptions will no longer be handled.
 
 ## Ignoring some files
 
@@ -69,6 +75,7 @@ The rule provides several options that are detailed in the following subsections
     "options": {
         "strictCase": false,
         "requireAscii": true,
+        "match": "%?(.+?)[.](.+)",
         "filenameCases": ["camelCase", "export"]
     }
 }
@@ -96,6 +103,30 @@ When the option is set to `false`, a name may include non-ASCII characters.
 Default: `false`
 
 **This option will be turned on by default in Biome 2.0.**
+
+### match
+
+`match` defines a regular expression that the filename must match.
+If the regex has capturing groups, then the first capture is considered as the filename
+and the second one as file extensions separated by dots.
+
+For example, given the regular expression `%?(.+?)\.(.+)` and the filename `%index.d.ts`,
+the filename matches the regular expression with two captures: `index` and `d.ts`.
+The captures are checked against `filenameCases`.
+Note that we use the non-greedy quantifier `+?` to stop capturing as soon as we met the next character (`.`).
+If we use the greedy quantifier `+` instead, then the captures could be `index.d` and `ts`.
+
+The regular expression supports the following syntaxes:
+
+- Greedy quantifiers `*`, `?`, `+`, `{n}`, `{n,m}`, `{n,}`, `{m}`
+- Non-greedy quantifiers `*?`, `??`, `+?`, `{n}?`, `{n,m}?`, `{n,}?`, `{m}?`
+- Any character matcher `.`
+- Character classes `[a-z]`, `[xyz]`, `[^a-z]`
+- Alternations `|`
+- Capturing groups `()`
+- Non-capturing groups `(?:)`
+- A limited set of escaped characters including all special characters
+and regular string escape characters `\f`, `\n`, `\r`, `\t`, `\v`
 
 ### filenameCases
 
