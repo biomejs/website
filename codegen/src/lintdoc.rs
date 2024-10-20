@@ -246,8 +246,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
     }
     let recommended_rules_buffer = format!(
         "<!-- this file is auto generated, use `cargo lintdoc` to update it -->\n \
-    <ul>\n{}\n</ul>",
-        recommended_rules
+    <ul>\n{recommended_rules}\n</ul>"
     );
 
     let number_of_rules_buffer = format!(
@@ -411,11 +410,7 @@ fn generate_rule(payload: GenRule) -> Result<Vec<Event<'static>>> {
     writeln!(content, "<Tabs>")?;
 
     for (rule_content, language, icon) in result {
-        writeln!(
-            content,
-            "<TabItem label=\"{}\" icon=\"{}\">",
-            language, icon
-        )?;
+        writeln!(content, "<TabItem label=\"{language}\" icon=\"{icon}\">")?;
         writeln!(content, "{}", String::from_utf8(rule_content).unwrap())?;
         writeln!(content, "</TabItem>")?;
     }
@@ -444,7 +439,7 @@ fn generate_rule_content<'a>(
 
     if let Some(reason) = &meta.deprecated {
         writeln!(content, ":::caution[Deprecated]")?;
-        writeln!(content, "This rule is deprecated and will be removed in the next major release.\n**Reason**: {}", reason)?;
+        writeln!(content, "This rule is deprecated and will be removed in the next major release.\n**Reason**: {reason}")?;
         writeln!(content, ":::")?;
     }
 
@@ -1093,7 +1088,7 @@ fn to_language_tab(language: &str) -> &str {
         "css" => "CSS",
         "graphql" => "GraphQL",
         _ => {
-            panic!("Language {} isn't supported.", language)
+            panic!("Language {language} isn't supported.")
         }
     }
 }
@@ -1107,7 +1102,7 @@ fn to_language_icon(language: &str) -> &str {
         "css" => "seti:css",
         "graphql" => "seti:graphql",
         _ => {
-            panic!("Language {} isn't supported.", language)
+            panic!("Language {language} isn't supported.")
         }
     }
 }
@@ -1133,7 +1128,7 @@ fn push_language_icon(language: &str, properties: &mut String) {
             properties.push_str("<span class='inline-icon' title=\"GraphQL rule\"><Icon name=\"seti:graphql\" label=\"GraphQL rule\" size=\"1.2rem\"/></span>");
         }
         _ => {
-            panic!("Language {} isn't supported.", language)
+            panic!("Language {language} isn't supported.")
         }
     }
 }
@@ -1144,7 +1139,7 @@ fn events_to_text(events: Vec<Event>) -> String {
     for event in events {
         match event {
             Event::Text(text) => buffer.push_str(&*text),
-            Event::Code(text) => buffer.push_str(format!("`{}`", text).as_str()),
+            Event::Code(text) => buffer.push_str(format!("`{text}`").as_str()),
             _ => {}
         }
     }

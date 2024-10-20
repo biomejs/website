@@ -29,7 +29,7 @@ pub fn generate_env_variables() -> Result<()> {
 
     let env = biome_flags::biome_env();
 
-    writeln!(content, "{}", HEADER)?;
+    writeln!(content, "{HEADER}")?;
 
     writeln!(
         content,
@@ -50,7 +50,7 @@ pub fn generate_env_variables() -> Result<()> {
         env.biome_config_path.description()
     )?;
 
-    writeln!(content, "{}", FOOTER)?;
+    writeln!(content, "{FOOTER}")?;
 
     fs::write(file_path, content)?;
 

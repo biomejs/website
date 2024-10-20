@@ -60,7 +60,7 @@ description: A page that maps lint rules from other sources to Biome
             if metadata.sources.is_empty() {
                 exclusive_biome_rules.insert((
                     rule_name.to_string(),
-                    format!("/linter/rules/{}", kebab_rule_name),
+                    format!("/linter/rules/{kebab_rule_name}"),
                 ));
             } else {
                 for source in metadata.sources {
@@ -68,7 +68,7 @@ description: A page that maps lint rules from other sources to Biome
                     if let Some(set) = set {
                         set.insert(SourceSet {
                             biome_rule_name: rule_name.to_string(),
-                            biome_link: format!("/linter/rules/{}", kebab_rule_name),
+                            biome_link: format!("/linter/rules/{kebab_rule_name}"),
                             source_link: source.to_rule_url(),
                             source_rule_name: source.as_rule_name().to_string(),
                             inspired: metadata
@@ -79,7 +79,7 @@ description: A page that maps lint rules from other sources to Biome
                         let mut set = BTreeSet::new();
                         set.insert(SourceSet {
                             biome_rule_name: rule_name.to_string(),
-                            biome_link: format!("/linter/rules/{}", kebab_rule_name),
+                            biome_link: format!("/linter/rules/{kebab_rule_name}"),
                             source_link: source.to_rule_url(),
                             source_rule_name: source.as_rule_name().to_string(),
                             inspired: metadata.source_kind.map_or(true, |kind| kind.is_inspired()),
@@ -93,7 +93,7 @@ description: A page that maps lint rules from other sources to Biome
 
     writeln!(buffer, "## Biome exclusive rules",)?;
     for (rule, link) in exclusive_biome_rules {
-        writeln!(buffer, "- [{}]({}) ", rule, link)?;
+        writeln!(buffer, "- [{rule}]({link}) ")?;
     }
 
     writeln!(buffer, "## Rules from other sources",)?;
