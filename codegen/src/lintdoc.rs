@@ -410,10 +410,7 @@ fn generate_rule(payload: GenRule) -> Result<Vec<Event<'static>>> {
     writeln!(content, "<Tabs>")?;
 
     for (rule_content, language, icon) in result {
-        writeln!(
-            content,
-            "<TabItem label=\"{language}\" icon=\"{icon}\">"
-        )?;
+        writeln!(content, "<TabItem label=\"{language}\" icon=\"{icon}\">")?;
         writeln!(content, "{}", String::from_utf8(rule_content).unwrap())?;
         writeln!(content, "</TabItem>")?;
     }
