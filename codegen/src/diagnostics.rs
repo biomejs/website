@@ -120,7 +120,7 @@ fn print_diagnostic(diagnostic: biome_diagnostics::Error, root: &Path, name: &st
 
     writeln!(content, "</code></pre>")?;
 
-    fs::write(root.join(format!("{}.md", name)), content)?;
+    fs::write(root.join(format!("{name}.md")), content)?;
 
     Ok(())
 }
