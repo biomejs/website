@@ -2090,7 +2090,7 @@ export function GET() {
                 "eslintStylistic": "jsx-self-closing-comp"
               }
             ],
-            "docs": " Prevent extra closing tags for components without children\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div></div>\n ```\n\n ```jsx,expect_diagnostic\n <Component></Component>\n ```\n\n ```jsx,expect_diagnostic\n <Foo.bar></Foo.bar>\n ```\n\n ### Valid\n\n ```js\n <div />\n```\n\n ```js\n <div>child</div>\n```\n\n ```js\n <Component />\n```\n\n ```js\n <Component>child</Component>\n```\n\n ```js\n <Foo.bar />\n```\n\n ```js\n <Foo.bar>child</Foo.bar>\n```\n"
+            "docs": " Prevent extra closing tags for components without children\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div></div>\n ```\n\n ```jsx,expect_diagnostic\n <Component></Component>\n ```\n\n ```jsx,expect_diagnostic\n <Foo.bar></Foo.bar>\n ```\n\n ### Valid\n\n ```js\n <div />\n```\n\n ```js\n <div>child</div>\n```\n\n ```js\n <Component />\n```\n\n ```js\n <Component>child</Component>\n```\n\n ```js\n <Foo.bar />\n```\n\n ```js\n <Foo.bar>child</Foo.bar>\n```\n\n ## Options\n\n ### `ignoreHtmlElements`\n\n **Since version 2.0.0**.\n\n Default: `false`\n\n This option allows you to specify whether to ignore checking native HTML elements.\n\n In the following example, when the option is set to \"true\", it will not self close native HTML elements.\n\n ```json\n {\n     \"//\":\"...\",\n     \"options\": {\n         \"ignoreHtmlElements\": true\n     }\n }\n ```\n\n ```jsx,ignore\n <div></div>\n ```\n\n\n"
           },
           "useShorthandAssign": {
             "deprecated": false,
@@ -2616,17 +2616,20 @@ export function GET() {
           },
           "noPrototypeBuiltins": {
             "deprecated": false,
-            "version": "1.0.0",
+            "version": "1.1.0",
             "name": "noPrototypeBuiltins",
             "link": "https://biomejs.dev/linter/rules/no-prototype-builtins",
             "recommended": true,
-            "fixKind": "none",
+            "fixKind": "safe",
             "sources": [
               {
                 "eslint": "no-prototype-builtins"
+              },
+              {
+                "eslint": "prefer-object-has-own"
               }
             ],
-            "docs": " Disallow direct use of `Object.prototype` builtins.\n\n ECMAScript 5.1 added `Object.create` which allows the creation of an object with a custom prototype.\n This pattern is often used for objects used as Maps. However, this pattern can lead to errors\n if something else relies on prototype properties/methods.\n Moreover, the methods could be shadowed, this can lead to random bugs and denial of service\n vulnerabilities. For example, calling `hasOwnProperty` directly on parsed JSON like `{\"hasOwnProperty\": 1}` could lead to vulnerabilities.\n To avoid subtle bugs like this, you should call these methods from `Object.prototype`.\n For example, `foo.isPrototypeOf(bar)` should be replaced with `Object.prototype.isPrototypeOf.call(foo, \"bar\")`\n As for the `hasOwn` method, `foo.hasOwn(\"bar\")` should be replaced with `Object.hasOwn(foo, \"bar\")`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n var invalid = foo.hasOwnProperty(\"bar\");\n ```\n\n ```js,expect_diagnostic\n var invalid = foo.isPrototypeOf(bar);\n ```\n\n ```js,expect_diagnostic\n var invalid = foo.propertyIsEnumerable(\"bar\");\n ```\n\n ### Valid\n\n ```js\n var valid = Object.hasOwn(foo, \"bar\");\n var valid = Object.prototype.isPrototypeOf.call(foo, bar);\n var valid = {}.propertyIsEnumerable.call(foo, \"bar\");\n ```\n\n"
+            "docs": " Disallow direct use of `Object.prototype` builtins.\n\n ECMAScript 5.1 added `Object.create` which allows the creation of an object with a custom prototype.\n This pattern is often used for objects used as Maps. However, this pattern can lead to errors\n if something else relies on prototype properties/methods.\n Moreover, the methods could be shadowed, this can lead to random bugs and denial of service\n vulnerabilities. For example, calling `hasOwnProperty` directly on parsed JSON like `{\"hasOwnProperty\": 1}` could lead to vulnerabilities.\n To avoid subtle bugs like this, you should call these methods from `Object.prototype`.\n For example, `foo.isPrototypeOf(bar)` should be replaced with `Object.prototype.isPrototypeOf.call(foo, \"bar\")`\n As for the `hasOwn` method, `foo.hasOwn(\"bar\")` should be replaced with `Object.hasOwn(foo, \"bar\")`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n var invalid = foo.hasOwnProperty(\"bar\");\n ```\n\n ```js,expect_diagnostic\n var invalid = foo.isPrototypeOf(bar);\n ```\n\n ```js,expect_diagnostic\n var invalid = foo.propertyIsEnumerable(\"bar\");\n ```\n\n ```js,expect_diagnostic\n Object.hasOwnProperty.call(foo, \"bar\");\n ```\n\n ### Valid\n\n ```js\n var valid = Object.hasOwn(foo, \"bar\");\n var valid = Object.prototype.isPrototypeOf.call(foo, bar);\n var valid = {}.propertyIsEnumerable.call(foo, \"bar\");\n ```\n\n"
           },
           "noReactSpecificProps": {
             "deprecated": false,
