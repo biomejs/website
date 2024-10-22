@@ -4117,7 +4117,7 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/no-initializer-with-definite",
             "recommended": false,
             "fixKind": "none",
-            "docs": " Disallow initializing a variable with a definite assertion to prevent `SyntaxError`.\n\n ## Examples\n\n ```js\n let foo!: string = \"bar\";\n ```\n"
+            "docs": " Disallow initializing a variable with a definite assertion to prevent `SyntaxError`.\n\n ## Examples\n\n ```ts\n let foo!: string = \"bar\";\n ```\n"
           },
           "noSuperWithoutExtends": {
             "deprecated": false,
@@ -4135,7 +4135,7 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/no-type-only-import-attributes",
             "recommended": false,
             "fixKind": "none",
-            "docs": " Disallow type-only imports and exports with import attributes.\n\n ## Examples\n\n ```js\n import type { A } from \"./a.json\" with { type: \"json\" };\n ```\n"
+            "docs": " Disallow type-only imports and exports with import attributes.\n\n There is one exception: TypeScript 5.3 and above allow this in CommonJS files, e.g. files ending with the `.cts` extension.\n See the [TypeScript docs](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-3.html#stable-support-resolution-mode-in-import-types).\n\n ## Examples\n\n ### Invalid\n\n ```ts\n import type { A } from \"./a.json\" with { type: \"json\" };\n ```\n\n ### Valid\n\n ```cts\n import type { A } from \"./a.json\" with { \"resolution-mode\": \"require\" };\n ```\n\n"
           }
         }
       }
