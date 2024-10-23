@@ -114,8 +114,8 @@ importers:
         specifier: 13.2.0
         version: 13.2.0
       mermaid:
-        specifier: 10.9.2
-        version: 10.9.2
+        specifier: 10.9.3
+        version: 10.9.3
       postcss:
         specifier: 8.4.47
         version: 8.4.47
@@ -2851,8 +2851,8 @@ packages:
     resolution: {integrity: sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==}
     engines: {node: '>= 8'}
 
-  mermaid@10.9.2:
-    resolution: {integrity: sha512-UkZyMSuIYcI1Q0H+2pv/5CiY84sOwQ2XlKoDZMl9Y/MtrLEtxQtyA6LWGkMxnZxj0dJqI+7nw51bYjNnrbdFsQ==}
+  mermaid@10.9.3:
+    resolution: {integrity: sha512-V80X1isSEvAewIL3xhmz/rVmc27CVljcsbWxkxlWJWY/1kQa4XOABqpDl2qQLGKzpKm6WbTfUEKImBlUfFYArw==}
 
   micromark-core-commonmark@1.1.0:
     resolution: {integrity: sha512-BgHO1aRbolh2hcrzL2d1La37V0Aoz73ymF8rAcKnohLy93titmv62E0gP8Hrx9PKcKrqCZ1BbLGbP3bEhoXYlw==}
@@ -7531,7 +7531,7 @@ snapshots:
 
   merge2@1.4.1: {}
 
-  mermaid@10.9.2:
+  mermaid@10.9.3:
     dependencies:
       '@braintree/sanitize-url': 6.0.4
       '@types/d3-scale': 4.0.8
