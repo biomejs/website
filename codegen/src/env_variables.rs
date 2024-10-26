@@ -3,14 +3,14 @@ use anyhow::Result;
 use std::fs;
 use std::io::Write;
 
-const HEADER: &'static str = r#"---
+const HEADER: &str = r#"---
 # Don't modify this file. This file is autogenerate by `codegen/src/env_variables.rs`
 
 title: Environment variables
 description: A list of the environment variables available via Biome
 ---"#;
 
-const FOOTER: &'static str = r#"
+const FOOTER: &str = r#"
 ### `BIOME_BINARY`
 
 Overrides the Biome binary being used. This allows you, for example, to use a system-wide Biome binary.
