@@ -1,0 +1,56 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: useNamedOperation
+description: |
+  Enforce specifying the name of GraphQL operations.
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+**Diagnostic Category: `lint/nursery/useNamedOperation`**
+<Tabs>
+<TabItem label="GraphQL" icon="seti:graphql">
+**Since**: `vnext`
+:::note
+- This rule has an **unsafe** fix.
+:::
+
+:::caution
+This rule is part of the [nursery](/linter/rules/#nursery) group.
+:::
+
+Sources: 
+- Same as: <a href="https://the-guild.dev/graphql/eslint/rules/no-anonymous-operations" target="_blank"><code>graphql/no-anonymous-operations</code></a>
+
+Enforce specifying the name of GraphQL operations.
+
+This is useful because most GraphQL client libraries use the operation name for caching purposes.
+
+## Examples
+
+### Invalid
+
+```graphql
+query {}
+```
+
+<pre class="language-text"><code class="language-text"></code></pre>
+
+### Valid
+
+```graphql
+query Human {
+  name
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
+</Tabs>
+
