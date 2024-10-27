@@ -387,11 +387,7 @@ fn generate_rule(payload: GenRule) -> Result<Vec<Event<'static>>> {
     writeln!(content, "---")?;
     add_codegen_disclaimer_frontmatter(&mut content)?;
     writeln!(content, "title: {}", payload.rule_name)?;
-    writeln!(
-        content,
-        "description: |\n  {}",
-        summary_text.replace("'", "\'")
-    )?;
+    writeln!(content, "description: |\n  {summary_text}")?;
     writeln!(content, "---")?;
 
     writeln!(
