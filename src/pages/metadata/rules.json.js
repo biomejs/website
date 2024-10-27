@@ -3547,6 +3547,21 @@ export function GET() {
             ],
             "sourceKind": "sameLogic",
             "docs": " Enforces the use of a recommended `display` strategy with Google Fonts.\n\n The `display` property controls how a font is displayed while it is loading. When using Google Fonts,\n it's important to specify an appropriate value for this property to ensure good user experience and prevent layout shifts.\n\n This rule flags the absence of the `display` parameter, or the usage of less optimal values such as `auto`, `block`, or `fallback`.\n Using `&display=optional` is generally recommended as it minimizes the risk of invisible text or layout shifts.\n In cases where swapping to the custom font after it has loaded is important, consider using `&display=swap`.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <link href=\"https://fonts.googleapis.com/css2?family=Krona+One\" />\n ```\n\n ```jsx,expect_diagnostic\n <link href=\"https://fonts.googleapis.com/css2?family=Krona+One&display=auto\" />\n ```\n\n ```jsx,expect_diagnostic\n <link href=\"https://fonts.googleapis.com/css2?family=Krona+One&display=block\" />\n ```\n\n ```jsx,expect_diagnostic\n <link href=\"https://fonts.googleapis.com/css2?family=Krona+One&display=fallback\" />\n ```\n\n ### Valid\n\n ```jsx\n <link href=\"https://fonts.googleapis.com/css2?family=Krona+One&display=optional\" rel=\"stylesheet\" />\n ```\n\n ```jsx\n <link href=\"https://fonts.googleapis.com/css2?display=unknown\" rel=\"stylesheet\" />\n ```\n\n ```jsx\n <link rel=\"stylesheet\" />\n ```\n"
+          },
+          "useGoogleFontPreconnect": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useGoogleFontPreconnect",
+            "link": "https://biomejs.dev/linter/rules/use-google-font-preconnect",
+            "recommended": false,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "eslintNext": "google-font-preconnect"
+              }
+            ],
+            "sourceKind": "sameLogic",
+            "docs": " Ensure the `preconnect` attribute is used when using Google Fonts.\n\n When using Google Fonts, adding the `rel=\"preconnect\"` attribute to the `<link>` tag\n that points to `https://fonts.gstatic.com` is recommended to initiate an early\n connection to the font's origin. This improves page load performance by reducing latency.\n\n Failing to use `preconnect` may result in slower font loading times, affecting user experience.\n\n Note: Next.js automatically adds this preconnect link starting from version 12.0.1, but in cases\n where it's manually added, this rule ensures the `preconnect` attribute is properly used.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <link href=\"https://fonts.gstatic.com\"/>\n ```\n\n ```jsx,expect_diagnostic\n <link rel=\"preload\" href=\"https://fonts.gstatic.com\"/>\n ```\n\n ### Valid\n\n ```jsx\n <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\"/>\n ```\n\n ```jsx\n <link href=\"/logo.svg\" rel=\"icon\" />\n ```\n\n"
           }
         },
         "security": {
@@ -4095,7 +4110,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 292
+    "numberOrRules": 293
   },
   "syntax": {
     "languages": {
