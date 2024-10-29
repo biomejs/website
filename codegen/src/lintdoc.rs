@@ -426,7 +426,7 @@ fn generate_rule(payload: GenRule) -> Result<Vec<Event<'static>>> {
     Ok(summary)
 }
 
-fn generate_rule_content<'a>(
+fn generate_rule_content(
     language: &'static str,
     group: &'static str,
     rule_name: &'static str,
