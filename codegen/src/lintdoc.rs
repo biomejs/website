@@ -239,9 +239,6 @@ fn generate_and_write_rule_pages(rule_category: RuleCategory, rules: Rules) -> R
     }
     fs::create_dir_all(&root)?;
 
-    // create rule sources
-    if matches!(rule_category, RuleCategory::Lint) {}
-
     let mut recommended_rules = String::new();
 
     let Rules {
@@ -358,6 +355,7 @@ The recommended rules are:
     Ok(())
 }
 
+#[allow(clippy::too_many_arguments)]
 fn generate_group(
     group: &'static str,
     rules: &BTreeMap<&'static str, RuleToDocument>,
@@ -389,7 +387,7 @@ fn generate_group(
                 group,
                 rule_name,
                 is_nursery,
-                rule_to_document: &rule_to_document,
+                rule_to_document,
             },
             path_prefix,
             middle_path,
@@ -497,7 +495,7 @@ fn generate_rule(
     writeln!(
         content,
         "description: |\n  {}",
-        summary_text.replace("'", "\'")
+        summary_text.replace("'", "\\'")
     )?;
     writeln!(content, "---")?;
 
@@ -537,7 +535,8 @@ fn generate_rule(
     Ok(summary)
 }
 
-fn generate_rule_content<'a>(
+#[allow(clippy::too_many_arguments)]
+fn generate_rule_content(
     language: &'static str,
     group: &'static str,
     rule_name: &'static str,
@@ -902,7 +901,7 @@ impl FromStr for CodeBlockTest {
         // This is based on the parsing logic for code block languages in `rustdoc`:
         // https://github.com/rust-lang/rust/blob/6ac8adad1f7d733b5b97d1df4e7f96e73a46db42/src/librustdoc/html/markdown.rs#L873
         let tokens = input
-            .split(|c| c == ',' || c == ' ' || c == '\t')
+            .split([',', ' ', '\t'])
             .map(str::trim)
             .filter(|token| !token.is_empty());
 
