@@ -5,9 +5,9 @@ use anyhow::Context;
 use anyhow::{bail, Result};
 use biome_analyze::options::JsxRuntime;
 use biome_analyze::{
-    AnalysisFilter, AnalyzerConfiguration, AnalyzerOptions, ControlFlow, FixKind, GroupCategory,
-    Queryable, RegistryVisitor, Rule, RuleCategory, RuleFilter, RuleGroup, RuleMetadata,
-    RuleSourceKind,
+    AnalysisFilter, AnalyzerAction, AnalyzerConfiguration, AnalyzerOptions, ControlFlow, FixKind,
+    GroupCategory, Queryable, RegistryVisitor, Rule, RuleCategory, RuleFilter, RuleGroup,
+    RuleMetadata, RuleSourceKind,
 };
 use biome_console::fmt::Termcolor;
 use biome_console::{
@@ -17,15 +17,16 @@ use biome_console::{
 use biome_css_parser::CssParserOptions;
 use biome_css_syntax::CssLanguage;
 use biome_diagnostics::termcolor::NoColor;
-use biome_diagnostics::{Diagnostic, DiagnosticExt, PrintDiagnostic};
+use biome_diagnostics::{Diagnostic, DiagnosticExt, PrintDiagnostic, Severity, Visit};
 use biome_graphql_syntax::GraphqlLanguage;
 use biome_js_parser::JsParserOptions;
 use biome_js_syntax::{EmbeddingKind, JsFileSource, JsLanguage};
 use biome_json_parser::JsonParserOptions;
 use biome_json_syntax::JsonLanguage;
-use biome_service::settings::WorkspaceSettings;
+use biome_service::settings::{ServiceLanguage, WorkspaceSettings};
 use biome_service::workspace::DocumentFileSource;
 use biome_string_case::Case;
+use biome_text_edit::TextEdit;
 use pulldown_cmark::{CodeBlockKind, Event, LinkType, Parser, Tag, TagEnd};
 use std::collections::{BTreeSet, HashMap};
 use std::error::Error;
@@ -46,7 +47,14 @@ pub(crate) struct RuleToDocument {
 }
 
 #[derive(Default)]
-struct LintRulesVisitor {
+struct RulesVisitor {
+    lints: Rules,
+    actions: Rules,
+}
+
+#[derive(Default)]
+
+struct Rules {
     /// This is mapped to:
     /// - group (correctness) -> list of rules
     /// - list or rules is mapped to
@@ -57,34 +65,58 @@ struct LintRulesVisitor {
     groups: BTreeMap<&'static str, BTreeMap<&'static str, RuleToDocument>>,
     number_of_rules: u16,
 }
-
-impl LintRulesVisitor {
+impl RulesVisitor {
     fn push_rule<R, L>(&mut self)
     where
         R: Rule<Options: Default, Query: Queryable<Language = L, Output: Clone>> + 'static,
     {
-        self.number_of_rules += 1;
-        let group = self
-            .groups
-            .entry(<R::Group as RuleGroup>::NAME)
-            .or_default();
-        if let Some(rules_to_document) = group.get_mut(R::METADATA.name) {
-            rules_to_document
-                .language_to_metadata
-                .insert(R::METADATA.language, R::METADATA);
+        if <R::Group as RuleGroup>::Category::CATEGORY == RuleCategory::Lint {
+            let lints = &mut self.lints;
+            lints.number_of_rules += 1;
+            let group = lints
+                .groups
+                .entry(<R::Group as RuleGroup>::NAME)
+                .or_default();
+            if let Some(rules_to_document) = group.get_mut(R::METADATA.name) {
+                rules_to_document
+                    .language_to_metadata
+                    .insert(R::METADATA.language, R::METADATA);
+            } else {
+                let mut rule_to_document = RuleToDocument::default();
+                rule_to_document
+                    .language_to_metadata
+                    .insert(R::METADATA.language, R::METADATA);
+                group.insert(R::METADATA.name, rule_to_document);
+            };
         } else {
-            let mut rule_to_document = RuleToDocument::default();
-            rule_to_document
-                .language_to_metadata
-                .insert(R::METADATA.language, R::METADATA);
-            group.insert(R::METADATA.name, rule_to_document);
-        };
+            // For now, we exclude it from the docs
+            if R::METADATA.name == "organizeImports" {
+                return;
+            }
+            let actions = &mut self.actions;
+            actions.number_of_rules += 1;
+            let group = actions
+                .groups
+                .entry(<R::Group as RuleGroup>::NAME)
+                .or_default();
+            if let Some(rules_to_document) = group.get_mut(R::METADATA.name) {
+                rules_to_document
+                    .language_to_metadata
+                    .insert(R::METADATA.language, R::METADATA);
+            } else {
+                let mut rule_to_document = RuleToDocument::default();
+                rule_to_document
+                    .language_to_metadata
+                    .insert(R::METADATA.language, R::METADATA);
+                group.insert(R::METADATA.name, rule_to_document);
+            };
+        }
     }
 }
 
-impl RegistryVisitor<JsLanguage> for LintRulesVisitor {
+impl RegistryVisitor<JsLanguage> for RulesVisitor {
     fn record_category<C: GroupCategory<Language = JsLanguage>>(&mut self) {
-        if matches!(C::CATEGORY, RuleCategory::Lint) {
+        if matches!(C::CATEGORY, RuleCategory::Lint | RuleCategory::Action) {
             C::record_groups(self);
         }
     }
@@ -97,9 +129,9 @@ impl RegistryVisitor<JsLanguage> for LintRulesVisitor {
     }
 }
 
-impl RegistryVisitor<JsonLanguage> for LintRulesVisitor {
+impl RegistryVisitor<JsonLanguage> for RulesVisitor {
     fn record_category<C: GroupCategory<Language = JsonLanguage>>(&mut self) {
-        if matches!(C::CATEGORY, RuleCategory::Lint) {
+        if matches!(C::CATEGORY, RuleCategory::Lint | RuleCategory::Action) {
             C::record_groups(self);
         }
     }
@@ -112,9 +144,9 @@ impl RegistryVisitor<JsonLanguage> for LintRulesVisitor {
     }
 }
 
-impl RegistryVisitor<CssLanguage> for LintRulesVisitor {
+impl RegistryVisitor<CssLanguage> for RulesVisitor {
     fn record_category<C: GroupCategory<Language = CssLanguage>>(&mut self) {
-        if matches!(C::CATEGORY, RuleCategory::Lint) {
+        if matches!(C::CATEGORY, RuleCategory::Lint | RuleCategory::Action) {
             C::record_groups(self);
         }
     }
@@ -126,9 +158,9 @@ impl RegistryVisitor<CssLanguage> for LintRulesVisitor {
         self.push_rule::<R, <R::Query as Queryable>::Language>()
     }
 }
-impl RegistryVisitor<GraphqlLanguage> for LintRulesVisitor {
+impl RegistryVisitor<GraphqlLanguage> for RulesVisitor {
     fn record_category<C: GroupCategory<Language = GraphqlLanguage>>(&mut self) {
-        if matches!(C::CATEGORY, RuleCategory::Lint) {
+        if matches!(C::CATEGORY, RuleCategory::Lint | RuleCategory::Action) {
             C::record_groups(self);
         }
     }
@@ -142,15 +174,56 @@ impl RegistryVisitor<GraphqlLanguage> for LintRulesVisitor {
 }
 
 pub fn generate_rule_docs() -> Result<()> {
-    let root = project_root().join("src/content/docs/linter/rules");
+    let mut visitor = RulesVisitor::default();
+    biome_js_analyze::visit_registry(&mut visitor);
+    biome_json_analyze::visit_registry(&mut visitor);
+    biome_css_analyze::visit_registry(&mut visitor);
+    biome_graphql_analyze::visit_registry(&mut visitor);
+
+    let RulesVisitor { actions, lints } = visitor;
+
+    generate_and_write_rule_pages(RuleCategory::Lint, lints)?;
+    generate_and_write_rule_pages(RuleCategory::Action, actions)?;
+
+    Ok(())
+}
+
+fn generate_and_write_rule_pages(rule_category: RuleCategory, rules: Rules) -> Result<()> {
+    let root = match rule_category {
+        RuleCategory::Lint => project_root().join("src/content/docs/linter/rules"),
+        RuleCategory::Action => project_root().join("src/content/docs/assist/actions"),
+        _ => unimplemented!(""),
+    };
     let index_page = root.join("index.mdx");
-    let reference_groups = project_root().join("src/components/generated/Groups.astro");
-    let rules_sources = project_root().join("src/content/docs/linter/rules-sources.mdx");
-    let reference_number_of_rules =
-        project_root().join("src/components/generated/NumberOfRules.astro");
-    let reference_recommended_rules =
-        project_root().join("src/components/generated/RecommendedRules.astro");
-    // Clear the rules directory ignoring "not found" errors
+    let reference_groups = match rule_category {
+        RuleCategory::Lint => project_root().join("src/components/generated/linter/Groups.astro"),
+        RuleCategory::Action => project_root().join("src/components/generated/assist/Groups.astro"),
+        _ => unimplemented!(""),
+    };
+    let rules_sources = match rule_category {
+        RuleCategory::Lint => project_root().join("src/content/docs/linter/rules-sources.mdx"),
+        RuleCategory::Action => project_root().join("src/content/docs/assist/actions-sources.mdx"),
+        _ => unimplemented!(""),
+    };
+    let reference_number_of_rules = match rule_category {
+        RuleCategory::Lint => {
+            project_root().join("src/components/generated/linter/NumberOfRules.astro")
+        }
+        RuleCategory::Action => {
+            project_root().join("src/components/generated/assist/NumberOfRules.astro")
+        }
+        _ => unimplemented!(""),
+    };
+
+    let reference_recommended_rules = match rule_category {
+        RuleCategory::Lint => {
+            project_root().join("src/components/generated/linter/RecommendedRules.astro")
+        }
+        RuleCategory::Action => {
+            project_root().join("src/components/generated/assist/RecommendedRules.astro")
+        }
+        _ => unimplemented!(""),
+    };
 
     if root.exists() {
         if let Err(err) = fs::remove_dir_all(&root) {
@@ -166,20 +239,51 @@ pub fn generate_rule_docs() -> Result<()> {
     }
     fs::create_dir_all(&root)?;
 
+    // create rule sources
+    if matches!(rule_category, RuleCategory::Lint) {}
+
+    let mut recommended_rules = String::new();
+
+    let Rules {
+        groups,
+        number_of_rules,
+    } = rules;
+
+    let title = match rule_category {
+        RuleCategory::Lint => "Rules",
+        RuleCategory::Action => "Actions",
+        _ => unimplemented!(""),
+    };
+
+    let description = match rule_category {
+        RuleCategory::Lint => "List of available lint rules",
+        RuleCategory::Action => "List of available lint actions",
+        _ => unimplemented!(""),
+    };
+
+    let path_prefix = match rule_category {
+        RuleCategory::Lint => "linter",
+        RuleCategory::Action => "assist",
+        _ => unimplemented!(""),
+    };
+
+    // Accumulate errors for all lint rules to print all outstanding issues on
+    // failure instead of just the first one
+    let mut errors = Vec::new();
     // Content of the index page
     let mut index = Vec::new();
     let mut reference_buffer = Vec::new();
     writeln!(index, "---")?;
     add_codegen_disclaimer_frontmatter(&mut index)?;
-    writeln!(index, "title: Rules")?;
-    writeln!(index, "description: List of available lint rules.")?;
+    writeln!(index, "title: {title}")?;
+    writeln!(index, "description: {description}")?;
     writeln!(index, "---")?;
     writeln!(index)?;
 
     write!(
         index,
         r#"
-import RecommendedRules from "@/components/generated/RecommendedRules.astro";
+import RecommendedRules from "@/components/generated/{path_prefix}/RecommendedRules.astro";
 import {{ Icon }} from "@astrojs/starlight/components";
 
 Below the list of rules supported by Biome, divided by group. Here's a legend of the emojis:
@@ -194,34 +298,11 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 "#
     )?;
 
-    // Accumulate errors for all lint rules to print all outstanding issues on
-    // failure instead of just the first one
-    let mut errors = Vec::new();
-
-    let mut visitor = LintRulesVisitor::default();
-    biome_js_analyze::visit_registry(&mut visitor);
-    biome_json_analyze::visit_registry(&mut visitor);
-    biome_css_analyze::visit_registry(&mut visitor);
-    biome_graphql_analyze::visit_registry(&mut visitor);
-
-    let mut recommended_rules = String::new();
-
-    let LintRulesVisitor {
-        groups,
-        number_of_rules,
-    } = visitor;
-
-    assert!(
-        groups.contains_key("nursery"),
-        "Expected nursery group to exist"
-    );
-
     writeln!(
         reference_buffer,
         "<!-- this file is auto generated, use `pnpm codegen:all` to update it -->"
     )?;
-    let rule_sources_buffer = generate_rule_sources(groups.clone())?;
-    for (group, rules) in groups {
+    for (group, rules) in &groups {
         generate_group(
             group,
             rules,
@@ -229,6 +310,8 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
             &mut index,
             &mut errors,
             &mut recommended_rules,
+            path_prefix,
+            rule_category,
         )?;
         generate_reference(group, &mut reference_buffer)?;
     }
@@ -266,22 +349,32 @@ The recommended rules are:
     fs::write(reference_groups, reference_buffer)?;
     fs::write(reference_number_of_rules, number_of_rules_buffer)?;
     fs::write(reference_recommended_rules, recommended_rules_buffer)?;
-    fs::write(rules_sources, rule_sources_buffer)?;
+
+    if rule_category == RuleCategory::Lint {
+        let rule_sources_buffer = generate_rule_sources(groups.clone(), rule_category)?;
+        fs::write(rules_sources, rule_sources_buffer)?;
+    }
 
     Ok(())
 }
 
 fn generate_group(
     group: &'static str,
-    rules: BTreeMap<&'static str, RuleToDocument>,
+    rules: &BTreeMap<&'static str, RuleToDocument>,
     content_root: &Path,
     content: &mut dyn io::Write,
     errors: &mut Vec<(&'static str, anyhow::Error)>,
     recommended_rules: &mut String,
+    path_prefix: &str,
+    rule_category: RuleCategory,
 ) -> io::Result<()> {
     let (group_name, description) = extract_group_metadata(group);
     let is_nursery = group == "nursery";
-
+    let middle_path = match rule_category {
+        RuleCategory::Lint => "rules",
+        RuleCategory::Action => "actions",
+        _ => unimplemented!(""),
+    };
     writeln!(content, "\n## {group_name}")?;
     writeln!(content)?;
     write_markup_to_string(content, description)?;
@@ -290,13 +383,18 @@ fn generate_group(
     writeln!(content, "| --- | --- | --- |")?;
 
     for (rule_name, rule_to_document) in rules {
-        let summary = generate_rule(GenRule {
-            content_root,
-            group,
-            rule_name,
-            is_nursery,
-            rule_to_document: &rule_to_document,
-        });
+        let summary = generate_rule(
+            GenRule {
+                content_root,
+                group,
+                rule_name,
+                is_nursery,
+                rule_to_document: &rule_to_document,
+            },
+            path_prefix,
+            middle_path,
+            rule_category,
+        );
 
         let summary = match summary {
             Ok(summary) => summary,
@@ -313,9 +411,10 @@ fn generate_group(
             }
             let is_recommended = !is_nursery && meta.recommended;
             let dashed_rule = Case::Kebab.convert(rule_name);
+
             if is_recommended {
                 recommended_rules.push_str(&format!(
-                    "\t<li><a href='/linter/rules/{dashed_rule}'>{rule_name}</a></li>\n"
+                    "\t<li><a href='/{path_prefix}/{middle_path}/{dashed_rule}'>{rule_name}</a></li>\n"
                 ));
             }
 
@@ -339,7 +438,7 @@ fn generate_group(
             let summary_html = events_to_text(summary.clone());
             write!(
                 content,
-                "| [{rule_name}](/linter/rules/{dashed_rule}) | {summary_html} | {properties} |"
+                "| [{rule_name}](/{path_prefix}/{middle_path}/{dashed_rule}) | {summary_html} | {properties} |"
             )?;
 
             writeln!(content)?;
@@ -358,7 +457,12 @@ struct GenRule<'a> {
 }
 
 /// Generates the documentation page for a single lint rule
-fn generate_rule(payload: GenRule) -> Result<Vec<Event<'static>>> {
+fn generate_rule(
+    payload: GenRule,
+    path_prefix: &str,
+    middle_path: &str,
+    rule_category: RuleCategory,
+) -> Result<Vec<Event<'static>>> {
     let mut summary = Vec::new();
 
     let mut content = Vec::new();
@@ -377,6 +481,9 @@ fn generate_rule(payload: GenRule) -> Result<Vec<Event<'static>>> {
                 payload.is_nursery,
                 meta,
                 &mut summary,
+                path_prefix,
+                middle_path,
+                rule_category,
             )
             .ok()
         })
@@ -400,10 +507,14 @@ fn generate_rule(payload: GenRule) -> Result<Vec<Event<'static>>> {
     )?;
 
     writeln!(content)?;
-
+    let category = match rule_category {
+        RuleCategory::Lint => "lint",
+        RuleCategory::Action => "assist",
+        _ => unimplemented!(""),
+    };
     writeln!(
         content,
-        "**Diagnostic Category: `lint/{}/{}`**",
+        "**Diagnostic Category: `{category}/{}/{}`**",
         payload.group, payload.rule_name
     )?;
 
@@ -433,6 +544,9 @@ fn generate_rule_content<'a>(
     is_nursery: bool,
     meta: &RuleMetadata,
     summary: &mut Vec<Event<'static>>,
+    path_prefix: &str,
+    middle_path: &str,
+    rule_category: RuleCategory,
 ) -> Result<(Vec<u8>, String, String)> {
     let is_recommended = !is_nursery && meta.recommended;
     let mut content = Vec::new();
@@ -444,6 +558,7 @@ fn generate_rule_content<'a>(
     }
 
     writeln!(content, "**Since**: `v{}`", meta.version)?;
+    writeln!(content)?;
 
     if is_recommended || !matches!(meta.fix_kind, FixKind::None) {
         writeln!(content, ":::note")?;
@@ -467,7 +582,7 @@ fn generate_rule_content<'a>(
         writeln!(content, ":::caution")?;
         writeln!(
             content,
-            "This rule is part of the [nursery](/linter/rules/#nursery) group."
+            "This rule is part of the [nursery](/{path_prefix}/{middle_path}/#nursery) group."
         )?;
         writeln!(content, ":::")?;
         writeln!(content)?;
@@ -496,14 +611,19 @@ fn generate_rule_content<'a>(
 
     write_documentation(group, rule_name, meta.docs, &mut content, summary)?;
 
-    writeln!(content, "## Related links")?;
-    writeln!(content)?;
-    writeln!(content, "- [Disable a rule](/linter/#disable-a-lint-rule)")?;
-    writeln!(
-        content,
-        "- [Configure the rule fix](/linter#configure-the-rule-fix)"
-    )?;
-    writeln!(content, "- [Rule options](/linter/#rule-options)")?;
+    if rule_category == RuleCategory::Lint {
+        writeln!(content, "## Related links")?;
+        writeln!(content)?;
+        writeln!(
+            content,
+            "- [Disable a rule](/{path_prefix}/#disable-a-lint-rule)"
+        )?;
+        writeln!(
+            content,
+            "- [Configure the rule fix](/{path_prefix}#configure-the-rule-fix)"
+        )?;
+        writeln!(content, "- [Rule options](/{path_prefix}/#rule-options)")?;
+    }
 
     Ok((
         content,
@@ -569,12 +689,37 @@ fn write_documentation(
                             content,
                             "<pre class=\"language-text\"><code class=\"language-text\">"
                         )?;
+                    } else if test.expect_diff {
+                        write!(
+                            content,
+                            "<pre class=\"language-diff\"><code class=\"language-diff\">"
+                        )?;
                     }
 
-                    print_diagnostics(group, rule, &test, &block, content)
-                        .context("snapshot test failed")?;
-
+                    let mut buffer = HTML::new(&mut *content).with_mdx();
                     if test.expect_diagnostic {
+                        print_diagnostics_or_actions(
+                            group,
+                            rule,
+                            &test,
+                            &block,
+                            ToPrintKind::Diagnostics,
+                            &mut buffer,
+                        )
+                        .context("snapshot test failed")?;
+                    } else if test.expect_diff {
+                        print_diagnostics_or_actions(
+                            group,
+                            rule,
+                            &test,
+                            &block,
+                            ToPrintKind::Actions,
+                            &mut buffer,
+                        )
+                        .context("snapshot test failed")?;
+                    }
+
+                    if test.expect_diagnostic || test.expect_diff {
                         writeln!(content, "</code></pre>")?;
                         writeln!(content)?;
                     }
@@ -740,6 +885,7 @@ fn write_documentation(
 struct CodeBlockTest {
     tag: String,
     expect_diagnostic: bool,
+    expect_diff: bool,
     ignore: bool,
 }
 
@@ -763,6 +909,7 @@ impl FromStr for CodeBlockTest {
         let mut test = CodeBlockTest {
             tag: String::new(),
             expect_diagnostic: false,
+            expect_diff: false,
             ignore: false,
         };
 
@@ -770,6 +917,7 @@ impl FromStr for CodeBlockTest {
             match token {
                 // Other attributes
                 "expect_diagnostic" => test.expect_diagnostic = true,
+                "expect_diff" => test.expect_diff = true,
                 "ignore" => test.ignore = true,
                 // Regard as language tags, last one wins
                 _ => test.tag = token.to_string(),
@@ -780,26 +928,64 @@ impl FromStr for CodeBlockTest {
     }
 }
 
+enum ToPrintKind {
+    Diagnostics,
+    Actions,
+}
+
+fn write_diagnostic(buffer: &mut HTML<&mut Vec<u8>>, diag: biome_diagnostics::Error) -> Result<()> {
+    Formatter::new(buffer).write_markup(markup! {
+        {PrintDiagnostic::verbose(&diag)}
+    })?;
+    Ok(())
+}
+
+#[derive(Debug)]
+struct CodeAction(TextEdit);
+
+impl Diagnostic for CodeAction {
+    fn message(&self, fmt: &mut Formatter<'_>) -> io::Result<()> {
+        fmt.write_markup(markup!("Source action diff:"))
+    }
+
+    fn severity(&self) -> Severity {
+        Severity::Information
+    }
+
+    fn advices(&self, visitor: &mut dyn Visit) -> io::Result<()> {
+        visitor.record_diff(&self.0)
+    }
+}
+
+fn write_action<L: ServiceLanguage>(
+    buffer: &mut HTML<&mut Vec<u8>>,
+    source: &str,
+    file_path: &str,
+    action: AnalyzerAction<L>,
+) -> Result<()> {
+    let (_, text_edit) = action.mutation.as_text_range_and_edit().unwrap_or_default();
+    let action = CodeAction(text_edit)
+        .with_file_source_code(source)
+        .with_file_path(file_path);
+    Formatter::new(buffer).write_markup(markup! {
+        {PrintDiagnostic::simple(&action)}
+    })?;
+    Ok(())
+}
+
 /// Parse and analyze the provided code block, and asserts that it emits
 /// exactly zero or one diagnostic depending on the value of `expect_diagnostic`.
 /// That diagnostic is then emitted as text into the `content` buffer
-fn print_diagnostics(
+fn print_diagnostics_or_actions(
     group: &'static str,
     rule: &'static str,
     test: &CodeBlockTest,
     code: &str,
-    content: &mut Vec<u8>,
+    to_print_kind: ToPrintKind,
+    buffer: &mut HTML<&mut Vec<u8>>,
 ) -> Result<()> {
     let file_path = format!("code-block.{}", test.tag);
 
-    let mut write = HTML::new(content).with_mdx();
-
-    let mut write_diagnostic = |_: &str, diag: biome_diagnostics::Error| {
-        Formatter::new(&mut write).write_markup(markup! {
-            {PrintDiagnostic::verbose(&diag)}
-        })?;
-        Ok(())
-    };
     if test.ignore {
         return Ok(());
     }
@@ -831,7 +1017,7 @@ fn print_diagnostics(
             if parse.has_errors() {
                 for diag in parse.into_diagnostics() {
                     let error = diag.with_file_path(&file_path).with_file_source_code(code);
-                    write_diagnostic(code, error)?;
+                    write_diagnostic(buffer, error)?;
                 }
             } else {
                 let root = parse.tree();
@@ -850,28 +1036,45 @@ fn print_diagnostics(
                     file_path: PathBuf::from(&file_path),
                 };
                 biome_js_analyze::analyze(&root, filter, &options, file_source, None, |signal| {
-                    if let Some(mut diag) = signal.diagnostic() {
-                        let category = diag.category().expect("linter diagnostic has no code");
-                        let severity = settings.get_current_settings().expect("project").get_severity_from_rule_code(category).expect(
-                                "If you see this error, it means you need to run cargo codegen-configuration",
-                            );
+                    match to_print_kind {
+                        ToPrintKind::Diagnostics => {
+                            if let Some(mut diag) = signal.diagnostic() {
+                                let category =
+                                    diag.category().expect("linter diagnostic has no code");
+                                let severity = settings.get_current_settings().expect("project").get_severity_from_rule_code(category).expect(
+                                    "If you see this error, it means you need to run cargo codegen-configuration",
+                                );
 
-                        for action in signal.actions() {
-                            if !action.is_suppression() {
-                                rule_has_code_action = true;
-                                diag = diag.add_code_suggestion(action.into());
+                                for action in signal.actions() {
+                                    if !action.is_suppression() {
+                                        rule_has_code_action = true;
+                                        diag = diag.add_code_suggestion(action.into());
+                                    }
+                                }
+
+                                let error = diag
+                                    .with_severity(severity)
+                                    .with_file_path(&file_path)
+                                    .with_file_source_code(code);
+                                let res = write_diagnostic(buffer, error);
+
+                                // Abort the analysis on error
+                                if let Err(err) = res {
+                                    return ControlFlow::Break(err);
+                                }
                             }
                         }
-
-                        let error = diag
-                            .with_severity(severity)
-                            .with_file_path(&file_path)
-                            .with_file_source_code(code);
-                        let res = write_diagnostic(code, error);
-
-                        // Abort the analysis on error
-                        if let Err(err) = res {
-                            return ControlFlow::Break(err);
+                        ToPrintKind::Actions => {
+                            for action in signal.actions() {
+                                if !action.is_suppression() {
+                                    let res =
+                                        write_action(buffer, code, file_path.as_str(), action);
+                                    // Abort the analysis on error
+                                    if let Err(err) = res {
+                                        return ControlFlow::Break(err);
+                                    }
+                                }
+                            }
                         }
                     }
 
@@ -885,7 +1088,7 @@ fn print_diagnostics(
             if parse.has_errors() {
                 for diag in parse.into_diagnostics() {
                     let error = diag.with_file_path(&file_path).with_file_source_code(code);
-                    write_diagnostic(code, error)?;
+                    write_diagnostic(buffer, error)?;
                 }
             } else {
                 let root = parse.tree();
@@ -901,28 +1104,45 @@ fn print_diagnostics(
                     ..Default::default()
                 };
                 biome_json_analyze::analyze(&root, filter, &options, file_source, |signal| {
-                    if let Some(mut diag) = signal.diagnostic() {
-                        let category = diag.category().expect("linter diagnostic has no code");
-                        let severity = settings.get_current_settings().expect("project").get_severity_from_rule_code(category).expect(
-                                "If you see this error, it means you need to run cargo codegen-configuration",
-                            );
+                    match to_print_kind {
+                        ToPrintKind::Diagnostics => {
+                            if let Some(mut diag) = signal.diagnostic() {
+                                let category =
+                                    diag.category().expect("linter diagnostic has no code");
+                                let severity = settings.get_current_settings().expect("project").get_severity_from_rule_code(category).expect(
+                                    "If you see this error, it means you need to run cargo codegen-configuration",
+                                );
 
-                        for action in signal.actions() {
-                            if !action.is_suppression() {
-                                rule_has_code_action = true;
-                                diag = diag.add_code_suggestion(action.into());
+                                for action in signal.actions() {
+                                    if !action.is_suppression() {
+                                        rule_has_code_action = true;
+                                        diag = diag.add_code_suggestion(action.into());
+                                    }
+                                }
+
+                                let error = diag
+                                    .with_severity(severity)
+                                    .with_file_path(&file_path)
+                                    .with_file_source_code(code);
+                                let res: Result<()> = write_diagnostic(buffer, error);
+
+                                // Abort the analysis on error
+                                if let Err(err) = res {
+                                    return ControlFlow::Break(err);
+                                }
                             }
                         }
-
-                        let error = diag
-                            .with_severity(severity)
-                            .with_file_path(&file_path)
-                            .with_file_source_code(code);
-                        let res: Result<()> = write_diagnostic(code, error);
-
-                        // Abort the analysis on error
-                        if let Err(err) = res {
-                            return ControlFlow::Break(err);
+                        ToPrintKind::Actions => {
+                            for action in signal.actions() {
+                                if !action.is_suppression() {
+                                    let res =
+                                        write_action(buffer, code, file_path.as_str(), action);
+                                    // Abort the analysis on error
+                                    if let Err(err) = res {
+                                        return ControlFlow::Break(err);
+                                    }
+                                }
+                            }
                         }
                     }
 
@@ -936,7 +1156,7 @@ fn print_diagnostics(
             if parse.has_errors() {
                 for diag in parse.into_diagnostics() {
                     let error = diag.with_file_path(&file_path).with_file_source_code(code);
-                    write_diagnostic(code, error)?;
+                    write_diagnostic(buffer, error)?;
                 }
             } else {
                 let root = parse.tree();
@@ -952,28 +1172,45 @@ fn print_diagnostics(
                     ..Default::default()
                 };
                 biome_css_analyze::analyze(&root, filter, &options, |signal| {
-                    if let Some(mut diag) = signal.diagnostic() {
-                        let category = diag.category().expect("linter diagnostic has no code");
-                        let severity = settings.get_current_settings().expect("project").get_severity_from_rule_code(category).expect(
-                                "If you see this error, it means you need to run cargo codegen-configuration",
-                            );
+                    match to_print_kind {
+                        ToPrintKind::Diagnostics => {
+                            if let Some(mut diag) = signal.diagnostic() {
+                                let category =
+                                    diag.category().expect("linter diagnostic has no code");
+                                let severity = settings.get_current_settings().expect("project").get_severity_from_rule_code(category).expect(
+                                    "If you see this error, it means you need to run cargo codegen-configuration",
+                                );
 
-                        for action in signal.actions() {
-                            if !action.is_suppression() {
-                                rule_has_code_action = true;
-                                diag = diag.add_code_suggestion(action.into());
+                                for action in signal.actions() {
+                                    if !action.is_suppression() {
+                                        rule_has_code_action = true;
+                                        diag = diag.add_code_suggestion(action.into());
+                                    }
+                                }
+
+                                let error = diag
+                                    .with_severity(severity)
+                                    .with_file_path(&file_path)
+                                    .with_file_source_code(code);
+                                let res = write_diagnostic(buffer, error);
+
+                                // Abort the analysis on error
+                                if let Err(err) = res {
+                                    return ControlFlow::Break(err);
+                                }
                             }
                         }
-
-                        let error = diag
-                            .with_severity(severity)
-                            .with_file_path(&file_path)
-                            .with_file_source_code(code);
-                        let res = write_diagnostic(code, error);
-
-                        // Abort the analysis on error
-                        if let Err(err) = res {
-                            return ControlFlow::Break(err);
+                        ToPrintKind::Actions => {
+                            for action in signal.actions() {
+                                if !action.is_suppression() {
+                                    let res =
+                                        write_action(buffer, code, file_path.as_str(), action);
+                                    // Abort the analysis on error
+                                    if let Err(err) = res {
+                                        return ControlFlow::Break(err);
+                                    }
+                                }
+                            }
                         }
                     }
 
@@ -981,10 +1218,78 @@ fn print_diagnostics(
                 });
             }
         }
+
+        DocumentFileSource::Graphql(_) => {
+            let parse = biome_graphql_parser::parse_graphql(code);
+
+            if parse.has_errors() {
+                for diag in parse.into_diagnostics() {
+                    let error = diag.with_file_path(&file_path).with_file_source_code(code);
+                    write_diagnostic(buffer, error)?;
+                }
+            } else {
+                let root = parse.tree();
+
+                let rule_filter = RuleFilter::Rule(group, rule);
+                let filter = AnalysisFilter {
+                    enabled_rules: Some(slice::from_ref(&rule_filter)),
+                    ..AnalysisFilter::default()
+                };
+
+                let options = AnalyzerOptions {
+                    file_path: PathBuf::from(&file_path),
+                    ..Default::default()
+                };
+                biome_graphql_analyze::analyze(&root, filter, &options, |signal| {
+                    match to_print_kind {
+                        ToPrintKind::Diagnostics => {
+                            if let Some(mut diag) = signal.diagnostic() {
+                                let category =
+                                    diag.category().expect("linter diagnostic has no code");
+                                let severity = settings.get_current_settings().expect("project").get_severity_from_rule_code(category).expect(
+                                    "If you see this error, it means you need to run cargo codegen-configuration",
+                                );
+
+                                for action in signal.actions() {
+                                    if !action.is_suppression() {
+                                        rule_has_code_action = true;
+                                        diag = diag.add_code_suggestion(action.into());
+                                    }
+                                }
+
+                                let error = diag
+                                    .with_severity(severity)
+                                    .with_file_path(&file_path)
+                                    .with_file_source_code(code);
+                                let res = write_diagnostic(buffer, error);
+
+                                // Abort the analysis on error
+                                if let Err(err) = res {
+                                    return ControlFlow::Break(err);
+                                }
+                            }
+                        }
+                        ToPrintKind::Actions => {
+                            for action in signal.actions() {
+                                if !action.is_suppression() {
+                                    let res =
+                                        write_action(buffer, code, file_path.as_str(), action);
+                                    // Abort the analysis on error
+                                    if let Err(err) = res {
+                                        return ControlFlow::Break(err);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    ControlFlow::Continue(())
+                });
+            }
+        }
+        DocumentFileSource::Html(_) | DocumentFileSource::Grit(_) => todo!(),
         // Unknown code blocks should be ignored by tests
         DocumentFileSource::Unknown => {}
-        DocumentFileSource::Graphql(_) => {}
-        _ => {}
     }
 
     Ok(())
@@ -1057,6 +1362,12 @@ Rules that belong to this group "<Emphasis>"are not subject to semantic version"
             "Suspicious",
             markup! {
                 "Rules that detect code that is likely to be incorrect or useless."
+            },
+        ),
+        "source" => (
+            "Source",
+            markup! {
+                "Rules that generate code actions that are safe to apply to the code."
             },
         ),
         _ => panic!("Unknown group ID {group:?}"),

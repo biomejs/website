@@ -12,6 +12,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
 **Since**: `v1.8.0`
+
 Require regex literals to be declared at the top level.
 
 This rule is useful to avoid performance issues when using regex literals inside functions called many times (hot paths). Regex literals create a new RegExp object when they are evaluated. (See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp) By declaring them at the top level, this overhead can be avoided.
