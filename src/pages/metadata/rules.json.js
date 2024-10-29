@@ -4183,7 +4183,7 @@ export function GET() {
               }
             ],
             "sourceKind": "sameLogic",
-            "docs": " Enforce props sorting in JSX elements.\n\n This rule checks if the JSX props are sorted in a consistent way.\n Props are sorted alphabetically.\n This rule will not consider spread props as sortable.\n Instead, whenever it encounters a spread prop, it will sort all the\n previous non spread props up until the nearest spread prop, if one\n exist.\n This prevents breaking the override of certain props using spread\n props.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n <Hello lastName=\"Smith\" firstName=\"John\" />;\n ```\n\n ### Valid\n\n ```js\n <Hello firstName=\"John\" lastName=\"Smith\" />;\n <Hello lastName=\"Smith\" {...this.props} firstName=\"John\" />;\n <Hello tel={5555555} {...this.props} firstName=\"John\"  {...another.props} lastName=\"Smith\" />;\n ```\n\n"
+            "docs": " Enforce props sorting in JSX elements.\n\n This rule checks if the JSX props are sorted in a consistent way.\n Props are sorted alphabetically.\n This rule will not consider spread props as sortable.\n Instead, whenever it encounters a spread prop, it will sort all the\n previous non spread props up until the nearest spread prop, if one\n exist.\n This prevents breaking the override of certain props using spread\n props.\n\n ## Examples\n\n ```js,expect_diff\n <Hello lastName=\"Smith\" firstName=\"John\" />;\n ```\n\n ```js,expect_diff\n <Hello lastName=\"Smith\" firstName=\"John\" {...this.props} tel=\"0000\" address=\"111 Main Street\"  {...another.props} lastName=\"Smith\" />;\n ```\n\n"
           }
         }
       },
@@ -4196,7 +4196,7 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/use-sorted-keys",
             "recommended": false,
             "fixKind": "none",
-            "docs": " Sorts the keys of a JSON object in natural order\n"
+            "docs": " Sorts the keys of a JSON object in natural order\n\n ## Examples\n\n ```json,expect_diff\n {\n     \"vase\": \"fancy\",\n     \"nested\": {\n         \"omega\": \"bar\",\n         \"alpha\": \"foo\"\n     }\n }\n ```\n"
           }
         }
       }
