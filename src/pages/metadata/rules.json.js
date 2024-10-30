@@ -1208,7 +1208,7 @@ export function GET() {
                 "eslint": "no-array-constructor"
               }
             ],
-            "docs": " Disallow Array constructors.\n\n Use of the Array constructor to construct a new array is generally discouraged in favor of array literal notation because of the single-argument pitfall and because the Array global may be redefined.\n The exception is when the Array constructor intentionally creates sparse arrays of a specified size by giving the constructor a single numeric argument.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n Array();\n ```\n\n ```js,expect_diagnostic\n Array(0, 1, 2);\n ```\n\n ```js,expect_diagnostic\n new Array(0, 1, 2);\n ```\n\n ```js,expect_diagnostic\n Array(...args);\n ```\n\n ### Valid\n\n ```js\n Array(500);\n ```\n\n ```js\n [0, 1, 2];\n ```\n\n"
+            "docs": " Disallow Array constructors.\n\n Use of the Array constructor to construct a new array is generally discouraged in favor of array literal notation because of the single-argument pitfall and because the Array global may be redefined.\n The exception is when the Array constructor intentionally creates sparse arrays of a specified size by giving the constructor a single numeric argument.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const xs = Array();\n ```\n\n ```js,expect_diagnostic\n const xs = Array(0, 1, 2);\n ```\n\n ```js,expect_diagnostic\n const xs = new Array(0, 1, 2);\n ```\n\n ```js,expect_diagnostic\n const xs = Array(...args);\n ```\n\n ### Valid\n\n ```js\n const xs = Array(65000);\n ```\n\n ```js\n const xs = [0, 1, 2];\n ```\n\n"
           },
           "useImportExtensions": {
             "deprecated": false,
