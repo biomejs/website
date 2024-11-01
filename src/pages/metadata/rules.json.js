@@ -22,7 +22,7 @@ export function GET() {
         "correctness": {
           "noInvalidDirectionInLinearGradient": {
             "deprecated": false,
-            "version": "1.9.9",
+            "version": "1.9.0",
             "name": "noInvalidDirectionInLinearGradient",
             "link": "https://biomejs.dev/linter/rules/no-invalid-direction-in-linear-gradient",
             "recommended": true,
@@ -36,7 +36,7 @@ export function GET() {
           },
           "noInvalidGridAreas": {
             "deprecated": false,
-            "version": "1.9.9",
+            "version": "1.9.0",
             "name": "noInvalidGridAreas",
             "link": "https://biomejs.dev/linter/rules/no-invalid-grid-areas",
             "recommended": true,
@@ -178,7 +178,7 @@ export function GET() {
           },
           "noIrregularWhitespace": {
             "deprecated": false,
-            "version": "1.9.9",
+            "version": "1.9.0",
             "name": "noIrregularWhitespace",
             "link": "https://biomejs.dev/linter/rules/no-irregular-whitespace",
             "recommended": false,
