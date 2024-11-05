@@ -241,6 +241,10 @@ export function isHtmlFilename(filename: string): boolean {
 	return filename.endsWith(".html");
 }
 
+export function isGritFilename(filename: string): boolean {
+	return filename.endsWith(".grit");
+}
+
 export function isFrameworkTemplateFilename(filename: string): boolean {
 	return (
 		isVueFilename(filename) ||
@@ -310,7 +314,8 @@ export function isValidExtension(filename: string): boolean {
 		isCssFilename(filename) ||
 		isGraphqlFilename(filename) ||
 		isHtmlFilename(filename) ||
-		isFrameworkTemplateFilename(filename)
+		isFrameworkTemplateFilename(filename) ||
+		isGritFilename(filename)
 	);
 }
 
