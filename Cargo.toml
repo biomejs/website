@@ -15,7 +15,7 @@
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dependencies]
-	anyhow                = "1.0.91"
+	anyhow                = "1.0.93"
 	biome_analyze         = { git = "https://github.com/biomejs/biome.git", rev = "ec46f37b82b375ae184d8d2aef81222999235a4a" }
 	biome_cli             = { git = "https://github.com/biomejs/biome.git", rev = "ec46f37b82b375ae184d8d2aef81222999235a4a" }
 	biome_configuration   = { git = "https://github.com/biomejs/biome.git", rev = "ec46f37b82b375ae184d8d2aef81222999235a4a" }
