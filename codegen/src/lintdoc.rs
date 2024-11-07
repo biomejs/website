@@ -390,7 +390,7 @@ fn generate_rule(payload: GenRule) -> Result<Vec<Event<'static>>> {
     writeln!(
         content,
         "description: |\n  {}",
-        summary_text.replace("'", "\'")
+        summary_text.replace("'", "\\'")
     )?;
     writeln!(content, "---")?;
 
@@ -848,6 +848,7 @@ fn print_diagnostics(
                         ..Default::default()
                     },
                     file_path: PathBuf::from(&file_path),
+                    suppression_reason: None,
                 };
                 biome_js_analyze::analyze(&root, filter, &options, file_source, None, |signal| {
                     if let Some(mut diag) = signal.diagnostic() {
