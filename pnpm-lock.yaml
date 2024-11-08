@@ -27,8 +27,8 @@ importers:
         specifier: 1.8.3
         version: 1.8.3
       '@biomejs/wasm-web':
-        specifier: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@ec46f37
-        version: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@ec46f37
+        specifier: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@27b93c2
+        version: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@27b93c2
       '@codemirror/lang-css':
         specifier: 6.3.0
         version: 6.3.0(@codemirror/view@6.34.1)
@@ -527,9 +527,9 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@biomejs/wasm-web@https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@ec46f37':
-    resolution: {tarball: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@ec46f37}
-    version: 0.0.0-rev.ec46f37b82b375ae184d8d2aef81222999235a4a
+  '@biomejs/wasm-web@https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@27b93c2':
+    resolution: {tarball: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@27b93c2}
+    version: 0.0.0-rev.27b93c2d975f73c4a7d35dad6988b22e405a0561
 
   '@braintree/sanitize-url@6.0.4':
     resolution: {integrity: sha512-s3jaWicZd0pkP0jf5ysyHUI/RE7MHos6qlToFcGWXVp+ykHOy77OUMrfbgJ9it2C5bow7OIQwYYaHjk9XlBQ2A==}
@@ -4848,7 +4848,7 @@ snapshots:
   '@biomejs/cli-win32-x64@1.8.3':
     optional: true
 
-  '@biomejs/wasm-web@https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@ec46f37': {}
+  '@biomejs/wasm-web@https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@27b93c2': {}
 
   '@braintree/sanitize-url@6.0.4': {}
 
@@ -6322,7 +6322,7 @@ snapshots:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.0
       '@types/estree': 1.0.5
-      acorn: 8.13.0
+      acorn: 8.14.0
       estree-walker: 3.0.3
       periscopic: 3.1.0
 
@@ -9185,7 +9185,7 @@ snapshots:
       '@jridgewell/sourcemap-codec': 1.5.0
       '@jridgewell/trace-mapping': 0.3.25
       '@types/estree': 1.0.5
-      acorn: 8.13.0
+      acorn: 8.14.0
       aria-query: 5.3.2
       axobject-query: 4.1.0
       code-red: 1.0.4
