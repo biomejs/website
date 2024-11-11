@@ -14,10 +14,10 @@ description: Biomeがサポートする言語と機能。
 | [JavaScript](#javascriptのサポート) | <span aria-label="対応済み" role="img">✅</span> | <span aria-label="対応済み" role="img">✅</span> | <span aria-label="対応済み" role="img">✅</span> |
 | [TypeScript](#typescriptのサポート) | <span aria-label="対応済み" role="img">✅</span> | <span aria-label="対応済み" role="img">✅</span> | <span aria-label="対応済み" role="img">✅</span> |
 | JSX | <span aria-label="対応済み" role="img">✅</span> | <span aria-label="対応済み" role="img">✅</span> | <span aria-label="対応済み" role="img">✅</span> |
-| TSX | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> |
+| TSX | <span aria-label="対応済み" role="img">✅</span> | <span aria-label="対応済み" role="img">✅</span> | <span aria-label="対応済み" role="img">✅</span> |
 | JSON | <span aria-label="対応済み" role="img">✅</span> | <span aria-label="対応済み" role="img">✅</span> | <span aria-label="対応済み" role="img">✅</span> |
 | JSONC | <span aria-label="対応済み" role="img">✅</span> | <span aria-label="対応済み" role="img">✅</span> | <span aria-label="対応済み" role="img">✅</span> |
-| HTML | <span aria-label="進行中" role="img">⌛️</span> | <span aria-label="進行中ではない" role="img">🚫</span> | <span aria-label="進行中ではない" role="img">🚫</span> |
+| HTML | <span aria-label="進行中" role="img">⌛️</span> | <span aria-label="進行中" role="img">⌛️</span> | <span aria-label="進行中ではない" role="img">🚫</span> |
 | [Vue](#html拡張言語のサポート) | <span aria-label="一部サポート" role="img">⚠️</span> | <span aria-label="一部サポート" role="img">⚠️</span> | <span aria-label="一部サポート" role="img">⚠️</span> |
 | [Svelte](#html拡張言語のサポート) | <span aria-label="一部サポート" role="img">⚠️</span> | <span aria-label="一部サポート" role="img">⚠️</span> | <span aria-label="一部サポート" role="img">⚠️</span> |
 | [Astro](#html拡張言語のサポート) | <span aria-label="一部サポート" role="img">⚠️</span> | <span aria-label="一部サポート" role="img">⚠️</span> | <span aria-label="一部サポート" role="img">⚠️</span> |
@@ -28,7 +28,7 @@ description: Biomeがサポートする言語と機能。
 
 ## JavaScriptのサポート
 
-Biomeは、JavaScript（ES2023）をサポートしています。
+Biomeは、JavaScript（ES2024）をサポートしています。
 また、公式の構文のみをサポートしています。新しい構文に対する機能の開発は、その構文の提案が[Stage 3](https://github.com/tc39/proposals#stage-3)に達したときに開始されます。
 
 ## TypeScriptのサポート
@@ -64,27 +64,18 @@ JSONCは「コメント付きJSON」の略です。この形式は、[VS Code](h
   </script>
   ```
 
-- `.astro` ファイルを**静的解析**する際、誤検知を避けるために `javascript.globals` に `"Astro"` を追加する必要があります。
-
-  ```json title="biome.json"
-  {
-    "javascript": {
-      "globals": ["Astro"]
-    }
-  }
-  ```
-
-- `.svelte` ファイルを**静的解析**する際、コンパイラエラーを防ぐために `useConst` をオフにすることをお勧めします。オプション `overrides` を使用します：
+- `.svelte` 、`.astro` 、 `.vue` ファイルを**静的解析**する際、コンパイラエラーを防ぐためにいくつかのルールをオフにすることをお勧めします。オプション `overrides` を使用します：
 
   ```json
     {
       "overrides": [
         {
-          "include": ["*.svelte"],
+          "include": ["*.svelte", "*.astro", "*.vue"],
           "linter": {
             "rules": {
               "style": {
-                "useConst": "off"
+                "useConst": "off",
+                "useImportType": "off"
               }
             }
           }
