@@ -2,6 +2,18 @@ import type { Diagnostic } from "@biomejs/wasm-web";
 import type { parser } from "codemirror-lang-rome-ast";
 import type { Dispatch, SetStateAction } from "react";
 
+export enum TabKeys {
+	Code = "code",
+	Diagnostics = "diagnostics",
+	Formatter = "formatter",
+	FormatterIr = "formatter-ir",
+	Syntax = "syntax",
+	ControlFlogGraph = "control-flow-graph",
+	ImportSorting = "import-sorting",
+	Console = "console",
+	Settings = "settings",
+}
+
 export type { Options as PrettierOptions } from "prettier";
 
 export enum IndentStyle {
@@ -136,7 +148,7 @@ export interface PlaygroundFileState {
 export interface PlaygroundState {
 	currentFile: string;
 	singleFileMode: boolean;
-	tab: string;
+	tab: TabKeys;
 	cursorPosition: number;
 	files: Record<string, undefined | PlaygroundFileState>;
 	settings: PlaygroundSettings;
@@ -144,7 +156,7 @@ export interface PlaygroundState {
 
 export const defaultPlaygroundState: PlaygroundState = {
 	cursorPosition: 0,
-	tab: "formatter",
+	tab: TabKeys.Formatter,
 	currentFile: "main.tsx",
 	singleFileMode: false,
 	files: {

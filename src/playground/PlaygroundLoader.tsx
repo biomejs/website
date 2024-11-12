@@ -302,7 +302,9 @@ function initState(
 
 	return {
 		cursorPosition: 0,
-		tab: searchParams.get("tab") ?? "formatter",
+		tab:
+			(searchParams.get("tab") as PlaygroundState["tab"]) ??
+			defaultPlaygroundState.tab,
 		singleFileMode,
 		currentFile: Object.keys(files)[0] ?? "main.js",
 		files,

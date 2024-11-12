@@ -1,18 +1,19 @@
 import { classnames } from "@/playground/utils";
 import type React from "react";
+import type { TabKeys } from "../types";
 
-interface Tab {
-	key: string;
+interface Tab<T = string> {
+	key: T;
 	title: React.ReactNode;
 	visible?: boolean;
 	children: React.ReactNode;
 }
 
-interface Props {
+interface Props<TabKeys = string> {
 	className?: string;
 	selectedTab: string;
 	onSelect: (key: string) => void;
-	tabs: Tab[];
+	tabs: Tab<TabKeys>[];
 }
 
 export default function Tabs({
@@ -20,7 +21,7 @@ export default function Tabs({
 	tabs,
 	selectedTab,
 	onSelect,
-}: Props) {
+}: Props<TabKeys>) {
 	return (
 		<div className={className}>
 			<ul className="react-tabs__tab-list" role="tablist">
