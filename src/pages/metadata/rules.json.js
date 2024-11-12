@@ -1334,6 +1334,21 @@ export function GET() {
             "fixKind": "none",
             "docs": " Disallow exporting an imported variable.\n\n In JavaScript, you can re-export a variable either by using `export from` or\n by first importing the variable and then exporting it with a regular `export`.\n\n You may prefer to use the first approach, as it clearly communicates the intention\n to re-export an import, and can make static analysis easier.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import { A } from \"mod\";\n export { A };\n ```\n\n ```js,expect_diagnostic\n import * as ns from \"mod\";\n export { ns };\n ```\n\n ```js,expect_diagnostic\n import D from \"mod\";\n export { D };\n ```\n\n ### Valid\n\n ```js\n export { A } from \"mod\";\n export * as ns from \"mod\";\n export { default as D } from \"mod\";\n ```\n\n"
           },
+          "noGlobalDirnameFilename": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noGlobalDirnameFilename",
+            "link": "https://biomejs.dev/linter/rules/no-global-dirname-filename",
+            "recommended": false,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "eslintUnicorn": "prefer-module"
+              }
+            ],
+            "sourceKind": "inspired",
+            "docs": " Disallow the use of `__dirname` and `__filename` in the global scope.\n\n They are [not available in ES modules](https://nodejs.org/api/esm.html#esm_no_filename_or_dirname).\n Starting with Node.js 20.11, `import.meta.dirname` and `import.meta.filename` have been introduced in ES modules, providing identical functionality to `__dirname` and `__filename` in CommonJS (CJS).\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const dirname = __dirname;\n ```\n\n ```js,expect_diagnostic\n const filename = __filename;\n ```\n\n ``` js,expect_diagnostic\n const foo = { __filename }\n ```\n\n ```js,expect_diagnostic\n if (__dirname.startsWith(\"/project/src/\")) {}\n ```\n\n ### Valid\n\n ```js\n const dirname = import.meta.dirname\n const filename = import.meta.filename\n const foo = {__filename: import.meta.filename };\n if (import.meta.dirname.startsWith(\"/project/src/\")) {}\n ```\n\n"
+          },
           "noIrregularWhitespace": {
             "deprecated": false,
             "version": "1.9.0",
@@ -4118,7 +4133,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 293
+    "numberOrRules": 294
   },
   "syntax": {
     "languages": {
