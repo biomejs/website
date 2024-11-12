@@ -253,7 +253,7 @@ export default function Playground({
 					),
 				},
 				{
-					key: TabKeys.ControlFlogGraph,
+					key: TabKeys.ControlFlowGraph,
 					title: "Control Flow Graph",
 					children: (
 						<ControlFlowTab graph={biomeOutput.analysis.controlFlowGraph} />

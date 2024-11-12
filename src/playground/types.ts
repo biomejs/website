@@ -8,7 +8,7 @@ export enum TabKeys {
 	Formatter = "formatter",
 	FormatterIr = "formatter-ir",
 	Syntax = "syntax",
-	ControlFlogGraph = "control-flow-graph",
+	ControlFlowGraph = "control-flow-graph",
 	ImportSorting = "import-sorting",
 	Console = "console",
 	Settings = "settings",

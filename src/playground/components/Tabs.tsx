@@ -2,14 +2,14 @@ import { classnames } from "@/playground/utils";
 import type React from "react";
 import type { TabKeys } from "../types";
 
-interface Tab<T = string> {
-	key: T;
+interface Tab<TabKeys> {
+	key: TabKeys;
 	title: React.ReactNode;
 	visible?: boolean;
 	children: React.ReactNode;
 }
 
-interface Props<TabKeys = string> {
+interface Props<TabKeys> {
 	className?: string;
 	selectedTab: string;
 	onSelect: (key: string) => void;
