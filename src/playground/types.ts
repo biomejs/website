@@ -2,7 +2,7 @@ import type { Diagnostic } from "@biomejs/wasm-web";
 import type { parser } from "codemirror-lang-rome-ast";
 import type { Dispatch, SetStateAction } from "react";
 
-export enum TabKeys {
+export enum PlaygroundTab {
 	Code = "code",
 	Diagnostics = "diagnostics",
 	Formatter = "formatter",
@@ -148,7 +148,7 @@ export interface PlaygroundFileState {
 export interface PlaygroundState {
 	currentFile: string;
 	singleFileMode: boolean;
-	tab: TabKeys;
+	tab: PlaygroundTab;
 	cursorPosition: number;
 	files: Record<string, undefined | PlaygroundFileState>;
 	settings: PlaygroundSettings;
@@ -156,7 +156,7 @@ export interface PlaygroundState {
 
 export const defaultPlaygroundState: PlaygroundState = {
 	cursorPosition: 0,
-	tab: TabKeys.Formatter,
+	tab: PlaygroundTab.Formatter,
 	currentFile: "main.tsx",
 	singleFileMode: false,
 	files: {

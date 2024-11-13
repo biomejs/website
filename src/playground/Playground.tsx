@@ -14,7 +14,7 @@ import SyntaxTab from "@/playground/tabs/SyntaxTab";
 import {
 	type BiomeAstSyntacticData,
 	type PlaygroundProps,
-	TabKeys,
+	PlaygroundTab,
 } from "@/playground/types";
 import {
 	getCurrentCode,
@@ -199,17 +199,17 @@ export default function Playground({
 			data-testid="results-tabs"
 			selectedTab={playgroundState.tab}
 			onSelect={(tab) =>
-				setPlaygroundState((state) => ({ ...state, tab: tab as TabKeys }))
+				setPlaygroundState((state) => ({ ...state, tab: tab as PlaygroundTab }))
 			}
 			tabs={[
 				{
-					key: TabKeys.Code,
+					key: PlaygroundTab.Code,
 					title: "Code",
 					visible: hasNarrowViewport,
 					children: editor,
 				},
 				{
-					key: TabKeys.Diagnostics,
+					key: PlaygroundTab.Diagnostics,
 					title: "Diagnostics",
 					visible: hasNarrowViewport,
 					children: (
@@ -221,7 +221,7 @@ export default function Playground({
 					),
 				},
 				{
-					key: TabKeys.Formatter,
+					key: PlaygroundTab.Formatter,
 					title: "Formatter",
 					children: (
 						<FormatterCodeTab
@@ -232,7 +232,7 @@ export default function Playground({
 					),
 				},
 				{
-					key: TabKeys.FormatterIr,
+					key: PlaygroundTab.FormatterIr,
 					title: "Formatter IR",
 					children: (
 						<FormatterIrTab
@@ -242,7 +242,7 @@ export default function Playground({
 					),
 				},
 				{
-					key: TabKeys.Syntax,
+					key: PlaygroundTab.Syntax,
 					title: "Syntax",
 					children: (
 						<SyntaxTab
@@ -253,14 +253,14 @@ export default function Playground({
 					),
 				},
 				{
-					key: TabKeys.ControlFlowGraph,
+					key: PlaygroundTab.ControlFlowGraph,
 					title: "Control Flow Graph",
 					children: (
 						<ControlFlowTab graph={biomeOutput.analysis.controlFlowGraph} />
 					),
 				},
 				{
-					key: TabKeys.ImportSorting,
+					key: PlaygroundTab.ImportSorting,
 					title: "Import Sorting",
 					children: (
 						<ImportSortingTab
@@ -270,7 +270,7 @@ export default function Playground({
 					),
 				},
 				{
-					key: TabKeys.Console,
+					key: PlaygroundTab.Console,
 					title: "Console",
 					visible: hasNarrowViewport,
 					children: (
@@ -278,7 +278,7 @@ export default function Playground({
 					),
 				},
 				{
-					key: TabKeys.Settings,
+					key: PlaygroundTab.Settings,
 					title: "Settings",
 					visible: hasNarrowViewport,
 					children: (
