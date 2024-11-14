@@ -2890,7 +2890,7 @@ export function GET() {
                 "eslint": "valid-typeof"
               }
             ],
-            "docs": " This rule verifies the result of `typeof $expr` unary expressions is being compared to valid values, either string literals containing valid type names or other `typeof` expressions\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n typeof foo === \"strnig\"\n ```\n\n ```js,expect_diagnostic\n typeof foo == \"undefimed\"\n ```\n\n ```js,expect_diagnostic\n typeof bar != \"nunber\"\n ```\n\n ```js,expect_diagnostic\n typeof bar !== \"fucntion\"\n ```\n\n ```js,expect_diagnostic\n typeof foo === undefined\n ```\n\n ```js,expect_diagnostic\n typeof bar == Object\n ```\n\n ```js,expect_diagnostic\n typeof foo === baz\n ```\n\n ```js,expect_diagnostic\n typeof foo == 5\n ```\n\n ```js,expect_diagnostic\n typeof foo == -5\n ```\n\n ### Valid\n\n ```js\n typeof foo === \"string\"\n ```\n\n ```js\n typeof bar == \"undefined\"\n ```\n\n ```js\n typeof bar === typeof qux\n ```\n"
+            "docs": " This rule checks that the result of a `typeof' expression is compared to a valid value.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n typeof foo === \"strnig\";\n ```\n\n ```js,expect_diagnostic\n typeof foo == \"undefimed\";\n ```\n\n ```js,expect_diagnostic\n typeof bar != \"nunber\";\n ```\n\n ```js,expect_diagnostic\n typeof foo === undefined;\n ```\n\n ```js,expect_diagnostic\n typeof foo == 0;\n ```\n\n ### Valid\n\n ```js\n typeof foo === \"string\";\n ```\n\n ```js\n typeof bar == \"undefined\";\n ```\n\n ```js\n typeof bar === typeof qux;\n ```\n\n ```js\n typeof foo === bar\n ```\n"
           }
         }
       },
