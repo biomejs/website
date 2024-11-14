@@ -23,7 +23,9 @@
 	biome_css_analyze     = { git = "https://github.com/biomejs/biome.git", rev = "b945258f2124fad62802ea7d28376ca2e69f8824" }
 	biome_css_parser      = { git = "https://github.com/biomejs/biome.git", rev = "b945258f2124fad62802ea7d28376ca2e69f8824" }
 	biome_css_syntax      = { git = "https://github.com/biomejs/biome.git", rev = "b945258f2124fad62802ea7d28376ca2e69f8824" }
+	biome_deserialize     = { git = "https://github.com/biomejs/biome.git", rev = "b945258f2124fad62802ea7d28376ca2e69f8824" }
 	biome_diagnostics     = { git = "https://github.com/biomejs/biome.git", rev = "b945258f2124fad62802ea7d28376ca2e69f8824" }
+	biome_fs              = { git = "https://github.com/biomejs/biome.git", rev = "b945258f2124fad62802ea7d28376ca2e69f8824" }
 	biome_flags           = { git = "https://github.com/biomejs/biome.git", rev = "b945258f2124fad62802ea7d28376ca2e69f8824" }
 	biome_graphql_analyze = { git = "https://github.com/biomejs/biome.git", rev = "b945258f2124fad62802ea7d28376ca2e69f8824" }
 	biome_graphql_parser  = { git = "https://github.com/biomejs/biome.git", rev = "b945258f2124fad62802ea7d28376ca2e69f8824" }
@@ -33,6 +35,7 @@
 	biome_js_parser       = { git = "https://github.com/biomejs/biome.git", rev = "b945258f2124fad62802ea7d28376ca2e69f8824" }
 	biome_js_syntax       = { git = "https://github.com/biomejs/biome.git", rev = "b945258f2124fad62802ea7d28376ca2e69f8824" }
 	biome_json_analyze    = { git = "https://github.com/biomejs/biome.git", rev = "b945258f2124fad62802ea7d28376ca2e69f8824" }
+	biome_json_factory    = { git = "https://github.com/biomejs/biome.git", rev = "b945258f2124fad62802ea7d28376ca2e69f8824" }
 	biome_json_formatter  = { git = "https://github.com/biomejs/biome.git", rev = "b945258f2124fad62802ea7d28376ca2e69f8824" }
 	biome_json_parser     = { git = "https://github.com/biomejs/biome.git", rev = "b945258f2124fad62802ea7d28376ca2e69f8824" }
 	biome_json_syntax     = { git = "https://github.com/biomejs/biome.git", rev = "b945258f2124fad62802ea7d28376ca2e69f8824" }
