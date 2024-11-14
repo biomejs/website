@@ -736,11 +736,23 @@ fn write_documentation(
             }
 
             Event::Text(text) => {
-                if let Some((_, block)) = &mut language {
-                    write!(block, "{text}")?;
+                let mut hide_line = false;
+
+                if let Some((test, block)) = &mut language {
+                    if let Some(inner_text) = text.strip_prefix("# ") {
+                        // Lines prefixed with "# " are hidden from the public documentation
+                        write!(block, "{inner_text}")?;
+                        hide_line = true;
+                        test.hidden_lines.push(test.line_count);
+                    } else {
+                        write!(block, "{text}")?;
+                    }
+                    test.line_count += 1;
                 }
 
-                if matches!(text.as_ref(), "`" | "*" | "_") {
+                if hide_line {
+                    // Line should not be emitted into the output
+                } else if matches!(text.as_ref(), "`" | "*" | "_") {
                     write!(content, "\\{text}")?;
                 } else {
                     write!(content, "{text}")?;
@@ -908,6 +920,12 @@ struct CodeBlockTest {
     /// Whether to use the last code block that was marked with
     /// `options` as the configuration settings for this code block.
     use_options: bool,
+
+    /// The number of lines in this code block.
+    line_count: u32,
+
+    // The indices of lines that should be hidden from the public documentation.
+    hidden_lines: Vec<u32>,
 }
 
 impl CodeBlockTest {
@@ -933,6 +951,8 @@ impl FromStr for CodeBlockTest {
             ignore: false,
             options: false,
             use_options: false,
+            line_count: 0,
+            hidden_lines: vec![],
         };
 
         for token in tokens {
