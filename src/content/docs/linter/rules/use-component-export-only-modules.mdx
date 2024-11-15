@@ -83,9 +83,8 @@ export default memo(Component);
 
 Some tools, such as [Vite](https://vitejs.dev/), allow exporting constants along with components. By enabling the following, the rule will support the pattern.
 
-```json
+```options
 {
-    "//": "...",
     "options":{
         "allowConstantExport" : true
     }
@@ -98,9 +97,8 @@ If you use a framework that handles [Hot Module Replacement(HMR)](https://remix.
 
 Example for [Remix](https://remix.run/docs/en/main/discussion/hot-module-replacement#supported-exports):
 
-```json
+```options
 {
-    "//": "...",
     "options":{
         "allowExportNames": ["json", "loader", "headers", "meta", "links", "scripts"]
     }
