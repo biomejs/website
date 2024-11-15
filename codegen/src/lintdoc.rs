@@ -535,6 +535,23 @@ fn make_json_object_with_single_member<V: Into<AnyJsonValue>>(
     )
 }
 
+fn get_first_member<V: Into<AnyJsonValue>>(parent: V, expected_name: &str) -> Option<AnyJsonValue> {
+    let parent_value: AnyJsonValue = parent.into();
+    let member = parent_value
+        .as_json_object_value()?
+        .json_member_list()
+        .into_iter()
+        .next()?
+        .ok()?;
+    let member_name = member.name().ok()?.inner_string_text().ok()?.to_string();
+
+    if member_name.as_str() == expected_name {
+        member.value().ok()
+    } else {
+        None
+    }
+}
+
 /// Parse the options fragment for a lint rule and return the parsed options.
 fn parse_rule_options(
     group: &'static str,
@@ -624,6 +641,10 @@ fn parse_rule_options(
                     let wrapped_offset = synthetic_root
                         .value()
                         .ok()
+                        .and_then(|v| get_first_member(v, "linter"))
+                        .and_then(|v| get_first_member(v, "rules"))
+                        .and_then(|v| get_first_member(v, group))
+                        .and_then(|v| get_first_member(v, rule))
                         .map(|v| AstNode::range(&v).start());
                     let subtract_offset = wrapped_offset
                         .zip(original_offset)
