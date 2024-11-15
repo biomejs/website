@@ -5,5 +5,6 @@ target/
 .netlify/
 /test-results/
 /playwright-report/
+.pnpm-store
 /blob-report/
 /playwright/.cache/
