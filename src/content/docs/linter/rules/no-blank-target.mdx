@@ -66,7 +66,7 @@ and the [the noopener documentation](https://html.spec.whatwg.org/multipage/link
 The option `allowDomains` allows specific domains to use `target="_blank"` without `rel="noreferrer"`.
 In the following configuration, it's allowed to use the domains `https://example.com` and `example.org`:
 
-```options
+```json
 {
     "options": {
         "allowDomains": ["https://example.com", "example.org"]
@@ -74,7 +74,7 @@ In the following configuration, it's allowed to use the domains `https://example
 }
 ```
 
-```use_options
+```jsx
 <>
   <a target='_blank' testme href='https://example.com'></a>
   <a target='_blank' href='example.org'></a>
@@ -83,7 +83,7 @@ In the following configuration, it's allowed to use the domains `https://example
 
 The diagnostic is applied to all domains not in the allow list:
 
-```options
+```json
 {
     "options": {
         "allowDomains": ["https://example.com"]
@@ -91,14 +91,14 @@ The diagnostic is applied to all domains not in the allow list:
 }
 ```
 
-```use_options
+```jsx
 <>
   <a target='_blank' testme href='https://example.com'></a>
   <a target='_blank' href='example.org'></a>
 </>
 ```
 
-<pre class="language-text"><code class="language-text"></code></pre>
+<pre class="language-text"><code class="language-text">code-block.jsx:3:6 <a href="https://biomejs.dev/linter/rules/no-blank-target">lint/a11y/noBlankTarget</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Avoid using </span><span style="color: Orange;"><strong>target=&quot;&#95;blank&quot;</strong></span><span style="color: Orange;"> without </span><span style="color: Orange;"><strong>rel=&quot;noreferrer&quot;</strong></span><span style="color: Orange;">.</span><br />  <br />    <strong>1 │ </strong>&lt;&gt;<br />    <strong>2 │ </strong>  &lt;a target='&#95;blank' testme href='https://example.com'&gt;&lt;/a&gt;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>  &lt;a target='&#95;blank' href='example.org'&gt;&lt;/a&gt;<br />   <strong>   │ </strong>     <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>&lt;/&gt;<br />    <strong>5 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Opening external links in new tabs without rel=&quot;noreferrer&quot; is a security risk. See </span><span style="color: lightgreen;"><a href="https://html.spec.whatwg.org/multipage/links.html#link-type-noopener">the explanation</a></span><span style="color: lightgreen;"> for more details.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Safe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Add the </span><span style="color: lightgreen;"><strong>rel=&quot;noreferrer&quot;</strong></span><span style="color: lightgreen;"> attribute.</span><br />  <br />  <strong>  3 │ </strong><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span>&lt;a<span style="opacity: 0.8;">·</span>target='&#95;blank'<span style="opacity: 0.8;">·</span>href='example.org'<span style="opacity: 0.8;"><span style="color: MediumSeaGreen;">·</span></span><span style="color: MediumSeaGreen;">r</span><span style="color: MediumSeaGreen;">e</span><span style="color: MediumSeaGreen;">l</span><span style="color: MediumSeaGreen;">=</span><span style="color: MediumSeaGreen;">&quot;</span><span style="color: MediumSeaGreen;">n</span><span style="color: MediumSeaGreen;">o</span><span style="color: MediumSeaGreen;">r</span><span style="color: MediumSeaGreen;">e</span><span style="color: MediumSeaGreen;">f</span><span style="color: MediumSeaGreen;">e</span><span style="color: MediumSeaGreen;">r</span><span style="color: MediumSeaGreen;">r</span><span style="color: MediumSeaGreen;">e</span><span style="color: MediumSeaGreen;">r</span><span style="color: MediumSeaGreen;">&quot;</span>&gt;&lt;/a&gt;<br />  <strong>    │ </strong>                                       <span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span>     <br /></code></pre>
 
 Biome doesn't check if the list contains valid URLs.
 
