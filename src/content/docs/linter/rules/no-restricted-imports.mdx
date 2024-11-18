@@ -24,7 +24,7 @@ Disallow specified modules when loaded by import or require.
 
 ## Options
 
-```options
+```json
 {
     "options": {
         "paths": {
@@ -39,28 +39,28 @@ Disallow specified modules when loaded by import or require.
 
 ### Invalid
 
-```use_options
+```js
 import "lodash";
 import "allowed-import";
 ```
 
-<pre class="language-text"><code class="language-text"></code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:1:8 <a href="https://biomejs.dev/linter/rules/no-restricted-imports">lint/nursery/noRestrictedImports</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Using lodash is not encouraged</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>import &quot;lodash&quot;;<br />   <strong>   │ </strong>       <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>import &quot;allowed-import&quot;;<br />    <strong>3 │ </strong><br />  <br /></code></pre>
 
-```use_options
+```js
 const underscore = await import("underscore");
 ```
 
-<pre class="language-text"><code class="language-text"></code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:1:33 <a href="https://biomejs.dev/linter/rules/no-restricted-imports">lint/nursery/noRestrictedImports</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Using underscore is not encouraged</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>const underscore = await import(&quot;underscore&quot;);<br />   <strong>   │ </strong>                                <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br /></code></pre>
 
-```use_options
+```js
 const lodash = require("lodash");
 ```
 
-<pre class="language-text"><code class="language-text"></code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:1:24 <a href="https://biomejs.dev/linter/rules/no-restricted-imports">lint/nursery/noRestrictedImports</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Using lodash is not encouraged</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>const lodash = require(&quot;lodash&quot;);<br />   <strong>   │ </strong>                       <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br /></code></pre>
 
 ### Valid
 
-```use_options
+```js
 import "allowed-import";
 const myImport = await import("allowed-import");
 const myImport = require("allowed-import");

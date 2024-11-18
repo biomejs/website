@@ -300,7 +300,7 @@ and use [overrides](https://biomejs.dev/reference/configuration/#overrides)
 in your [`biome.json`](https://biomejs.dev/reference/configuration/)
 to disable the `useNamingConvention` rule for those files:
 
-```full_options
+```jsonc
 {
   "linter": {
     "rules": {
@@ -345,7 +345,7 @@ declare module "myExternalModule" {
 
 The rule provides several options that are detailed in the following subsections.
 
-```options
+```json
 {
     "options": {
         "strictCase": false,
@@ -374,7 +374,7 @@ When this option is set to `true`, it forbids consecutive uppercase characters i
 For instance, `HTTPServer` or `aHTTPServer` are not permitted for `strictCase: true`.
 These names should be renamed to `HttpServer` and `aHttpServer`:
 
-```options
+```json
 {
     "options": {
         "strictCase": true
@@ -382,17 +382,17 @@ These names should be renamed to `HttpServer` and `aHttpServer`:
 }
 ```
 
-```use_options
+```js
 class HTTPServer {
 }
 ```
 
-<pre class="language-text"><code class="language-text"></code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:1:7 <a href="https://biomejs.dev/linter/rules/use-naming-convention">lint/style/useNamingConvention</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Two consecutive uppercase characters are not allowed in PascalCase because </span><span style="color: Orange;"><strong>strictCase</strong></span><span style="color: Orange;"> is set to `true`.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>class HTTPServer &#123;<br />   <strong>   │ </strong>      <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>&#125;<br />    <strong>3 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">If you want to use consecutive uppercase characters in PascalCase, then set the </span><span style="color: lightgreen;"><strong>strictCase</strong></span><span style="color: lightgreen;"> option to `false`.<br /></span>    <span style="color: lightgreen;">See the rule </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/rules/use-naming-convention#options">options</a></span><span style="color: lightgreen;"> for more details.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Safe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Rename this symbol in </span><span style="color: lightgreen;"><strong>PascalCase</strong></span><span style="color: lightgreen;">.</span><br />  <br />    <strong>1</strong>  <strong> │ </strong><span style="color: Tomato;">-</span> <span style="color: Tomato;">c</span><span style="color: Tomato;">l</span><span style="color: Tomato;">a</span><span style="color: Tomato;">s</span><span style="color: Tomato;">s</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;"><strong>H</strong></span><span style="color: Tomato;"><strong>T</strong></span><span style="color: Tomato;"><strong>T</strong></span><span style="color: Tomato;"><strong>P</strong></span><span style="color: Tomato;"><strong>S</strong></span><span style="color: Tomato;"><strong>e</strong></span><span style="color: Tomato;"><strong>r</strong></span><span style="color: Tomato;"><strong>v</strong></span><span style="color: Tomato;"><strong>e</strong></span><span style="color: Tomato;"><strong>r</strong></span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">&#123;</span><br />      <strong>1</strong><strong> │ </strong><span style="color: MediumSeaGreen;">+</span> <span style="color: MediumSeaGreen;">c</span><span style="color: MediumSeaGreen;">l</span><span style="color: MediumSeaGreen;">a</span><span style="color: MediumSeaGreen;">s</span><span style="color: MediumSeaGreen;">s</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;"><strong>H</strong></span><span style="color: MediumSeaGreen;"><strong>t</strong></span><span style="color: MediumSeaGreen;"><strong>t</strong></span><span style="color: MediumSeaGreen;"><strong>p</strong></span><span style="color: MediumSeaGreen;"><strong>S</strong></span><span style="color: MediumSeaGreen;"><strong>e</strong></span><span style="color: MediumSeaGreen;"><strong>r</strong></span><span style="color: MediumSeaGreen;"><strong>v</strong></span><span style="color: MediumSeaGreen;"><strong>e</strong></span><span style="color: MediumSeaGreen;"><strong>r</strong></span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">&#123;</span><br />    <strong>2</strong> <strong>2</strong><strong> │ </strong>  &#125;<br />    <strong>3</strong> <strong>3</strong><strong> │ </strong>  <br />  <br /></code></pre>
 
 When `strictCase` is set to `false`, consecutive uppercase characters are allowed.
 For example, `HTTPServer` and `aHTTPServer` would be considered valid then:
 
-```options
+```json
 {
     "options": {
         "strictCase": false
@@ -400,7 +400,7 @@ For example, `HTTPServer` and `aHTTPServer` would be considered valid then:
 }
 ```
 
-```use_options
+```js
 class HTTPServer {
 }
 ```
@@ -436,7 +436,7 @@ Every convention is an object that includes an optional `selector` and one or mo
 
 For example, you can enforce the use of [`CONSTANT_CASE`](https://en.wikipedia.org/wiki/Snake_case) for global `const` declarations:
 
-```options
+```json
 {
     "options": {
         "conventions": [
@@ -528,7 +528,7 @@ In the following example, we check the following conventions:
 - A private property starts with `_` and consists of at least two characters
 - The captured name (the name without the leading `_`) is in [`camelCase`](https://en.wikipedia.org/wiki/Camel_case).
 
-```options
+```json
 {
     "options": {
         "conventions": [
@@ -549,7 +549,7 @@ If `match` is set and `formats` is unset,
 then the part of the name captured by the regular expression is forwarded to the next conventions of the array.
 In the following example, we require that private class members start with `_` and all class members are in ["camelCase"].
 
-```options
+```jsonc
 {
     "options": {
         "conventions": [
@@ -577,7 +577,7 @@ then the declaration name is verified against the default conventions.
 Because the default conventions already ensure that class members are in ["camelCase"],
 the previous example can be simplified to:
 
-```options
+```jsonc
 {
     "options": {
         "conventions": [
@@ -601,7 +601,7 @@ In the previous example, the capture is a part of the name because `_` is not in
 
 You can reset all default conventions by adding a convention at the end of the array that accepts anything:
 
-```options
+```jsonc
 {
     "options": {
         "conventions": [
@@ -630,7 +630,7 @@ we allow these constants to be enclosed by double underscores or to be named `_S
 and to be in [`PascalCase`](https://en.wikipedia.org/wiki/Camel_case).
 - All other names follow the default conventions
 
-```options
+```jsonc
 {
     "options": {
         "conventions": [
