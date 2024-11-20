@@ -33,7 +33,7 @@
 		"@codemirror/lang-vue": "0.1.3",
 		"@codemirror/lint": "6.8.2",
 		"@codemirror/state": "6.4.1",
-		"@codemirror/view": "6.34.1",
+		"@codemirror/view": "6.34.3",
 		"@playwright/test": "1.47.2",
 		"@replit/codemirror-lang-svelte": "6.0.0",
 		"@types/node": "20.17.3",
