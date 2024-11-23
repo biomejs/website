@@ -55,7 +55,7 @@
 		"lang-rome-formatter-ir": "0.0.2",
 		"mdast-util-to-hast": "13.2.0",
 		"mermaid": "10.9.3",
-		"postcss": "8.4.47",
+		"postcss": "8.4.49",
 		"postcss-mixins": "11.0.3",
 		"prettier": "3.3.3",
 		"prettier-plugin-svelte": "3.2.7",
