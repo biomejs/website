@@ -34,7 +34,7 @@
 		"@codemirror/lint": "6.8.3",
 		"@codemirror/state": "6.4.1",
 		"@codemirror/view": "6.35.0",
-		"@playwright/test": "1.47.2",
+		"@playwright/test": "1.49.0",
 		"@replit/codemirror-lang-svelte": "6.0.0",
 		"@types/node": "20.17.7",
 		"@types/react": "18.3.12",
