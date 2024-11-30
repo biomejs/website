@@ -84,6 +84,32 @@ for (const el of els) {
 }
 ```
 
+## Options
+
+**Since v2.0.0**
+
+The rule provides a `validIdentifiers` option that allows specific variable names to call `forEach`.
+In the following configuration, it's allowed to call `forEach` with expressions that match `Effect` or `_`:
+
+```json
+{
+    "options": {
+        "allowedIdentifiers": ["Effect", "_"]
+    }
+}
+```
+
+```js
+Effect.forEach((el) => {
+  f(el);
+})
+_.forEach((el) => {
+  f(el);
+})
+```
+
+Values with dots (e.g., "lib.\_") will not be accepted.
+
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)
