@@ -204,6 +204,20 @@ export function GET() {
             ],
             "docs": " Disallow missing var function for css variables.\n\n This rule has the following limitations:\n - It only reports custom properties that are defined and accesible within the same source.\n - It does not check properties that can contain author-defined identifiers.\n - It ignores the following properties:\n   - `animation`\n   - `animation-name`\n   - `counter-increment`\n   - `counter-reset`\n   - `counter-set`\n   - `grid-column`\n   - `grid-column-end`\n   - `grid-column-start`\n   - `grid-row`\n   - `grid-row-end`\n   - `grid-row-start`\n   - `list-style`\n   - `list-style-type`\n   - `transition`\n   - `transition-property`\n   - `view-transition-name`\n   - `will-change`\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a {\n   --foo: red;\n   color: --foo;\n }\n ```\n\n ```css,expect_diagnostic\n .parent {\n   --foo: red;\n   .child {\n     color: --foo;\n   }\n }\n ```\n\n ```css,expect_diagnostic\n @property --bar {}\n\n a {\n   color: --bar;\n }\n ```\n\n ```css,expect_diagnostic\n :root {\n   --baz: 0;\n }\n\n a {\n   --foo: --baz;\n }\n ```\n\n ### Valid\n\n ```css\n p {\n   color: var(--foo);\n }\n ```\n\n ```css\n p {\n   --foo: red;\n   color: var(--foo);\n }\n ```\n\n ```css\n p {\n   color: --foo;\n }\n ```\n\n ```css\n *:root {\n --global: red;\n }\n\n a {\n     color: var(--global);\n }\n ```\n\n ```css\n @property --global-value {}\n a {\n   color: var(--global-value);\n }\n ```\n\n ```css\n a {\n   view-transition-name: --bbb;\n }\n ```\n\n"
           },
+          "noUnknownAtRule": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noUnknownAtRule",
+            "link": "https://biomejs.dev/linter/rules/no-unknown-at-rule",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "stylelint": "at-rule-no-unknown"
+              }
+            ],
+            "docs": " Disallow unknown at-rules.\n\n For details on known at-rules, see the [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule).\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n @uNkNoWn {}\n ```\n\n ```css,expect_diagnostic\n @unknown-at-rule {\n   font-size: 14px;\n }\n ```\n\n ### Valid\n\n ```css\n @charset 'UTF-8';\n ```\n\n ```css\n @media (max-width: 960px) {\n   body {\n     font-size: 13px;\n   }\n }\n ```\n"
+          },
           "noUnknownPseudoClass": {
             "deprecated": false,
             "version": "1.8.0",
@@ -4147,7 +4161,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 295
+    "numberOrRules": 296
   },
   "syntax": {
     "languages": {
