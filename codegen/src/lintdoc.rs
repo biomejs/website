@@ -201,7 +201,7 @@ fn generate_and_write_rule_pages(rule_category: RuleCategory, rules: Rules) -> R
     };
     let index_page = root.join("index.mdx");
     let reference_groups = match rule_category {
-        RuleCategory::Lint => project_root().join("src/components/generated/linter/Groups.astro"),
+        RuleCategory::Lint => project_root().join("src/components/generated/Groups.astro"),
         RuleCategory::Action => project_root().join("src/components/generated/assist/Groups.astro"),
         _ => unimplemented!(""),
     };
@@ -211,9 +211,7 @@ fn generate_and_write_rule_pages(rule_category: RuleCategory, rules: Rules) -> R
         _ => unimplemented!(""),
     };
     let reference_number_of_rules = match rule_category {
-        RuleCategory::Lint => {
-            project_root().join("src/components/generated/linter/NumberOfRules.astro")
-        }
+        RuleCategory::Lint => project_root().join("src/components/generated/NumberOfRules.astro"),
         RuleCategory::Action => {
             project_root().join("src/components/generated/assist/NumberOfRules.astro")
         }
@@ -222,7 +220,7 @@ fn generate_and_write_rule_pages(rule_category: RuleCategory, rules: Rules) -> R
 
     let reference_recommended_rules = match rule_category {
         RuleCategory::Lint => {
-            project_root().join("src/components/generated/linter/RecommendedRules.astro")
+            project_root().join("src/components/generated/RecommendedRules.astro")
         }
         RuleCategory::Action => {
             project_root().join("src/components/generated/assist/RecommendedRules.astro")
