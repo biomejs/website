@@ -11,4 +11,12 @@ Contrary to linter rules, assist actions are meant for editors and IDEs, and the
 
 Assist actions are very close [LSP code actions](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#codeActionKind) in semantics.
 
+## CLI
 
+Assist actions can be enforced via CLI via `check` command:
+
+<PackageManagerBiomeCommand command="check" />
+
+However, the `check` is meant for running multiple tools at once, so if you want to check only the assist actions, you should run:
+
+<PackageManagerBiomeCommand command="check --formatter-enabled=false --linter-enabled=false --organize-imports-enabled=false" />

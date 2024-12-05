@@ -10,6 +10,33 @@ Biome's linter statically analyzes your code to find and fix common errors and t
 It [supports multiple languages](/internals/language-support) and provides a total of [**<NumberOfRules/> rules**](/linter/rules/).
 
 
+## CLI
+
+The following command runs the linter on all files from the root of your project:
+
+<PackageManagerBiomeCommand command="lint" />
+
+Or you can specify a folder, for example `./src`
+
+<PackageManagerBiomeCommand command="lint ./src" />
+
+The command accepts a list of files and directories.
+
+:::caution
+If you pass a glob as a parameter, your shell will expand it.
+The result of the expansion depends on your shell.
+For example, some shells don't support the recursive glob `**` or the alternation `{}` in the following command:
+
+```shell
+biome lint ./src/**/*.test.{js,ts}
+```
+
+Shell expansion has a performance cost and a limit on the number of files you can pass to the command.
+:::
+
+For more information about all the available options, check the [CLI reference](/reference/cli#biome-lint).
+
+
 ## Rules
 
 The linter is organized into rules.
@@ -72,28 +99,6 @@ If a code action is not applicable a note should tell the user what they should 
 
 If you think a rule doesn't follow these pillars,
 please [open an issue](https://github.com/biomejs/biome/issues/new?assignees=&labels=S-To+triage&projects=&template=01_bug.yml&title=%F0%9F%90%9B+%3CTITLE%3E).
-
-## CLI
-
-The following command runs the linter on all files in the `src` directory:
-
-<PackageManagerBiomeCommand command="lint ./src" />
-
-The command accepts a list of files and directories.
-
-:::caution
-If you pass a glob as a parameter, your shell will expand it.
-The result of the expansion depends on your shell.
-For example, some shells don't support the recursive glob `**` or the alternation `{}` in the following command:
-
-```shell
-biome lint ./src/**/*.test.{js,ts}
-```
-
-Shell expansion has a performance cost and a limit on the number of files you can pass to the command.
-:::
-
-For more information about all the available options, check the [CLI reference](/reference/cli#biome-lint).
 
 ### Skip a rule or a group
 
