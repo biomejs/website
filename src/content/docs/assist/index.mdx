@@ -12,7 +12,24 @@ Contrary to linter rules, assist actions are meant for editors and IDEs, and the
 
 Assist actions are very close [LSP code actions](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#codeActionKind) in semantics.
 
-## CLI
+Biome assist is enabled by default. In the following example, you can enable the assist and enable the action `useSortedKeys`:
+
+```json title="biome.json"
+{
+    "assist": {
+        "enabled": true,
+        "actions": {
+            "source": {
+                "useSortedKeys": "on"
+            }
+        }
+    }
+}
+```
+
+Assist actions **don't** emit diagnostics in the editor, but they can
+
+## Enforce assist actions via CLI
 
 Assist actions can be enforced via CLI via `check` command:
 

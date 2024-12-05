@@ -508,16 +508,6 @@ fn generate_rule(
     )?;
 
     writeln!(content)?;
-    let category = match rule_category {
-        RuleCategory::Lint => "lint",
-        RuleCategory::Action => "assist",
-        _ => unimplemented!(""),
-    };
-    writeln!(
-        content,
-        "**Diagnostic Category: `{category}/{}/{}`**",
-        payload.group, payload.rule_name
-    )?;
 
     writeln!(content, "<Tabs>")?;
 
@@ -574,11 +564,21 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
     }
 
     writeln!(content, "**Since**: `v{}`", meta.version)?;
+    let category = match rule_category {
+        RuleCategory::Lint => "lint",
+        RuleCategory::Action => "assist",
+        _ => unimplemented!(""),
+    };
 
     match rule_category {
         RuleCategory::Lint => {
             if is_recommended || !matches!(meta.fix_kind, FixKind::None) {
                 writeln!(content, ":::note")?;
+                writeln!(
+                    content,
+                    "- Diagnostic Category: [`{category}/{}/{}`](/reference/diagnostics#diagnostic-category)",
+                    group, rule_name
+                )?;
                 if is_recommended {
                     writeln!(content, "- This rule is **recommended**. A [diagnostic error](/reference/diagnostics#error) will appear when linting your code.")?;
                 }
@@ -596,7 +596,15 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
         }
         RuleCategory::Action => {
             writeln!(content, ":::note")?;
-            writeln!(content, "- Use the code action `source.biome.{}` in your LSP-ready IDE to apply this action on save.", rule_name)?;
+            writeln!(
+                content,
+                "- Diagnostic Category: [`{category}/{}/{}`](/reference/diagnostics#diagnostic-category)",
+                group, rule_name
+            )?;
+            if is_recommended {
+                writeln!(content, "- This action is **recommended**.")?;
+            }
+            writeln!(content, "- Use the code `source.biome.{}` in your LSP-ready IDE to apply this action on save.", rule_name)?;
             writeln!(content, ":::")?;
         }
         RuleCategory::Syntax | RuleCategory::Transformation => {
