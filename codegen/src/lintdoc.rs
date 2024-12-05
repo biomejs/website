@@ -562,7 +562,6 @@ fn generate_rule_content(
     }
 
     writeln!(content, "**Since**: `v{}`", meta.version)?;
-    writeln!(content)?;
 
     if is_recommended || !matches!(meta.fix_kind, FixKind::None) {
         writeln!(content, ":::note")?;
