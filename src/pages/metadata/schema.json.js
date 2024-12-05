@@ -110,6 +110,13 @@ export function GET() {
 					"additionalProperties": false
 				},
 				{
+					"description": "Rules from [graphql-schema-linter](https://github.com/cjoudrey/graphql-schema-linter)",
+					"type": "object",
+					"required": ["eslintGraphqlSchemaLinter"],
+					"properties": { "eslintGraphqlSchemaLinter": { "type": "string" } },
+					"additionalProperties": false
+				},
+				{
 					"description": "Rules from [Eslint Plugin Import](https://github.com/import-js/eslint-plugin-import)",
 					"type": "object",
 					"required": ["eslintImport"],

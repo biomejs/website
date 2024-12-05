@@ -4,7 +4,7 @@
 
 title: noUndeclaredVariables
 description: |
-  Prevents the usage of variables that haven't been declared inside the document.
+  Prevents the usage of variables that haven\'t been declared inside the document.
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
@@ -19,6 +19,19 @@ Sources:
 Prevents the usage of variables that haven't been declared inside the document.
 
 If you need to allow-list some global bindings, you can use the [`javascript.globals`](/reference/configuration/#javascriptglobals) configuration.
+
+## Options (Since v2.0.0)
+
+The rule provides a `checkTypes` option that make the rule checks undeclared types.
+The option defaults to `true`.
+
+```json
+{
+    "options": {
+        "checkTypes": true
+    }
+}
+```
 
 ## Examples
 

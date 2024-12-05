@@ -9,6 +9,7 @@ use biome_analyze::{
     GroupCategory, Queryable, RegistryVisitor, Rule, RuleCategory, RuleFilter, RuleGroup,
     RuleMetadata, RuleSourceKind,
 };
+use biome_configuration::PartialConfiguration;
 use biome_console::fmt::Termcolor;
 use biome_console::{
     fmt::{Formatter, HTML},
@@ -16,13 +17,17 @@ use biome_console::{
 };
 use biome_css_parser::CssParserOptions;
 use biome_css_syntax::CssLanguage;
+use biome_deserialize::json::deserialize_from_json_ast;
 use biome_diagnostics::termcolor::NoColor;
 use biome_diagnostics::{Diagnostic, DiagnosticExt, PrintDiagnostic, Severity, Visit};
+use biome_fs::BiomePath;
 use biome_graphql_syntax::GraphqlLanguage;
 use biome_js_parser::JsParserOptions;
 use biome_js_syntax::{EmbeddingKind, JsFileSource, JsLanguage};
+use biome_json_factory::make;
 use biome_json_parser::JsonParserOptions;
-use biome_json_syntax::JsonLanguage;
+use biome_json_syntax::{AnyJsonValue, JsonLanguage, JsonObjectValue};
+use biome_rowan::{AstNode, TextSize};
 use biome_service::settings::{ServiceLanguage, WorkspaceSettings};
 use biome_service::workspace::DocumentFileSource;
 use biome_string_case::Case;
@@ -631,6 +636,200 @@ fn generate_rule_content(
     ))
 }
 
+/// Creates a synthetic JSON AST for an object literal with a single member.
+fn make_json_object_with_single_member<V: Into<AnyJsonValue>>(
+    name: &str,
+    value: V,
+) -> JsonObjectValue {
+    make::json_object_value(
+        make::token(biome_json_syntax::JsonSyntaxKind::L_CURLY),
+        make::json_member_list(
+            [make::json_member(
+                make::json_member_name(make::json_string_literal(name)),
+                make::token(biome_json_syntax::JsonSyntaxKind::COLON),
+                value.into(),
+            )],
+            [],
+        ),
+        make::token(biome_json_syntax::JsonSyntaxKind::R_CURLY),
+    )
+}
+
+fn get_first_member<V: Into<AnyJsonValue>>(parent: V, expected_name: &str) -> Option<AnyJsonValue> {
+    let parent_value: AnyJsonValue = parent.into();
+    let member = parent_value
+        .as_json_object_value()?
+        .json_member_list()
+        .into_iter()
+        .next()?
+        .ok()?;
+    let member_name = member.name().ok()?.inner_string_text().ok()?.to_string();
+
+    if member_name.as_str() == expected_name {
+        member.value().ok()
+    } else {
+        None
+    }
+}
+
+/// Parse the options fragment for a lint rule and return the parsed options.
+fn parse_rule_options(
+    group: &'static str,
+    rule: &'static str,
+    test: &CodeBlockTest,
+    code: &str,
+    content: &mut Vec<u8>,
+) -> anyhow::Result<Option<PartialConfiguration>> {
+    let file_path = format!("code-block.{}", test.tag);
+
+    let mut write = HTML::new(content).with_mdx();
+
+    let mut write_diagnostic = |_: &str, diag: biome_diagnostics::Error| {
+        Formatter::new(&mut write).write_markup(markup! {
+            {PrintDiagnostic::verbose(&diag)}
+        })?;
+        anyhow::Ok(Option::<PartialConfiguration>::None)
+    };
+
+    match test.document_file_source() {
+        DocumentFileSource::Json(file_source) => {
+            let parse = biome_json_parser::parse_json(code, JsonParserOptions::from(&file_source));
+
+            if parse.has_errors() {
+                for diag in parse.into_diagnostics() {
+                    let error = diag.with_file_path(&file_path).with_file_source_code(code);
+                    write_diagnostic(code, error)?;
+                }
+                // Parsing failed, but test.expect_diagnostic is true
+                return Ok(None);
+            }
+
+            let parsed_root = parse.tree();
+            let parsed_options = parsed_root.value()?;
+
+            let (root, subtract_offset) = match test.options {
+                OptionsParsingMode::NoOptions => {
+                    unreachable!("parse_rule_options should only be called for options blocks")
+                }
+                OptionsParsingMode::RuleOptionsOnly => {
+                    // By convention, the configuration blocks in the documentation
+                    // only contain the settings for the lint rule itself, like so:
+                    //
+                    // ```json,options
+                    // {
+                    //     "options": {
+                    //         ...
+                    //     }
+                    // }
+                    // ```
+                    //
+                    // We therefore extend the JSON AST with some synthetic elements
+                    // to make it match the structure expected by the configuration parse:
+                    //
+                    // {
+                    //     "linter": {
+                    //         "rules": {
+                    //             "<group>": {
+                    //                 "<rule>": {<options>}
+                    //             }
+                    //         }
+                    //     }
+                    // }
+                    let synthetic_tree = make_json_object_with_single_member(
+                        "linter",
+                        make_json_object_with_single_member(
+                            "rules",
+                            make_json_object_with_single_member(
+                                group,
+                                make_json_object_with_single_member(rule, parsed_options),
+                            ),
+                        ),
+                    );
+
+                    // Create a new JsonRoot from the synthetic AST
+                    let eof_token = parsed_root.eof_token()?;
+                    let mut root_builder = make::json_root(synthetic_tree.into(), eof_token);
+                    if let Some(bom_token) = parsed_root.bom_token() {
+                        root_builder = root_builder.with_bom_token(bom_token);
+                    }
+                    let synthetic_root = root_builder.build();
+
+                    // Adjust source code spans to account for the synthetic nodes
+                    // so that errors are reported at the correct source code locations:
+                    let original_offset =
+                        parsed_root.value().ok().map(|v| AstNode::range(&v).start());
+                    let wrapped_offset = synthetic_root
+                        .value()
+                        .ok()
+                        .and_then(|v| get_first_member(v, "linter"))
+                        .and_then(|v| get_first_member(v, "rules"))
+                        .and_then(|v| get_first_member(v, group))
+                        .and_then(|v| get_first_member(v, rule))
+                        .map(|v| AstNode::range(&v).start());
+                    let subtract_offset = wrapped_offset
+                        .zip(original_offset)
+                        .and_then(|(wrapped, original)| wrapped.checked_sub(original))
+                        .unwrap_or_default();
+
+                    (synthetic_root, subtract_offset)
+                }
+                OptionsParsingMode::FullConfiguration => {
+                    // In some rare cases, we want to be able to display full JSON configuration
+                    // instead, e.t. to be able to show off per-file overrides:
+                    //
+                    // ```json,full-options
+                    // {
+                    //     "linter": {
+                    //         "rules": {
+                    //             "<group>": {
+                    //                 "<rule>": {<options>}
+                    //             }
+                    //         }
+                    //     }
+                    // }
+                    // ```
+                    (parsed_root, TextSize::from(0))
+                }
+            };
+
+            // Deserialize the configuration from the partially-synthetic AST,
+            // and report any errors encountered during deserialization.
+            let deserialized = deserialize_from_json_ast::<PartialConfiguration>(&root, "");
+            let (partial_configuration, deserialize_diagnostics) = deserialized.consume();
+
+            if !deserialize_diagnostics.is_empty() {
+                for diag in deserialize_diagnostics {
+                    // Adjust source code spans to account for the synthetic nodes
+                    // so that errors are reported at the correct source code locations:
+                    let new_span = diag
+                        .location()
+                        .span
+                        .and_then(|span| span.checked_sub(subtract_offset));
+
+                    let error = diag
+                        .with_file_path(&file_path)
+                        .with_file_source_code(code)
+                        .with_file_span(new_span);
+
+                    write_diagnostic(code, error)?;
+                }
+                // Deserialization failed, but test.expect_diagnostic is true
+                return Ok(None);
+            }
+
+            let Some(result) = partial_configuration else {
+                bail!("Failed to deserialize configuration options for '{group}/{rule}' from the following code block due to unknown error.\n\n{code}");
+            };
+
+            Ok(Some(result))
+        }
+        _ => {
+            // Only JSON code blocks can contain configuration options
+            bail!("The following non-JSON code block for '{group}/{rule}' was marked as containing configuration options. Only JSON code blocks can used to provide configuration options.\n\n{code}");
+        }
+    }
+}
+
 /// Parse the documentation fragment for a lint rule (in markdown) and generates
 /// the content for the corresponding documentation page
 fn write_documentation(
@@ -645,6 +844,9 @@ fn write_documentation(
     let parser = Parser::new(docs);
 
     let mut is_summary = false;
+
+    // Track the last configuration options block that was encountered
+    let mut last_options: Option<PartialConfiguration> = None;
 
     // Tracks the content of the current code block if it's using a
     // language supported for analysis
@@ -695,28 +897,35 @@ fn write_documentation(
                         )?;
                     }
 
-                    let mut buffer = HTML::new(&mut *content).with_mdx();
-                    if test.expect_diagnostic {
-                        print_diagnostics_or_actions(
-                            group,
-                            rule,
-                            &test,
-                            &block,
-                            ToPrintKind::Diagnostics,
-                            &mut buffer,
-                        )
-                        .context("snapshot test failed")?;
-                    } else if test.expect_diff {
-                        print_diagnostics_or_actions(
-                            group,
-                            rule,
-                            &test,
-                            &block,
-                            ToPrintKind::Actions,
-                            &mut buffer,
-                        )
-                        .context("snapshot test failed")?;
+                    if test.options != OptionsParsingMode::NoOptions {
+                        last_options = parse_rule_options(group, rule, &test, &block, content)
+                            .context("snapshot test failed")?;
+                    } else {
+                        print_diagnostics(group, rule, &test, &block, &last_options, content)
+                            .context("snapshot test failed")?;
                     }
+                    // let mut buffer = HTML::new(&mut *content).with_mdx();
+                    // if test.expect_diagnostic {
+                    //     print_diagnostics_or_actions(
+                    //         group,
+                    //         rule,
+                    //         &test,
+                    //         &block,
+                    //         ToPrintKind::Diagnostics,
+                    //         &mut buffer,
+                    //     )
+                    //     .context("snapshot test failed")?;
+                    // } else if test.expect_diff {
+                    //     print_diagnostics_or_actions(
+                    //         group,
+                    //         rule,
+                    //         &test,
+                    //         &block,
+                    //         ToPrintKind::Actions,
+                    //         &mut buffer,
+                    //     )
+                    //     .context("snapshot test failed")?;
+                    // }
 
                     if test.expect_diagnostic || test.expect_diff {
                         writeln!(content, "</code></pre>")?;
@@ -726,11 +935,23 @@ fn write_documentation(
             }
 
             Event::Text(text) => {
-                if let Some((_, block)) = &mut language {
-                    write!(block, "{text}")?;
+                let mut hide_line = false;
+
+                if let Some((test, block)) = &mut language {
+                    if let Some(inner_text) = text.strip_prefix("# ") {
+                        // Lines prefixed with "# " are hidden from the public documentation
+                        write!(block, "{inner_text}")?;
+                        hide_line = true;
+                        test.hidden_lines.push(test.line_count);
+                    } else {
+                        write!(block, "{text}")?;
+                    }
+                    test.line_count += 1;
                 }
 
-                if matches!(text.as_ref(), "`" | "*" | "_") {
+                if hide_line {
+                    // Line should not be emitted into the output
+                } else if matches!(text.as_ref(), "`" | "*" | "_") {
                     write!(content, "\\{text}")?;
                 } else {
                     write!(content, "{text}")?;
@@ -882,10 +1103,45 @@ fn write_documentation(
 }
 
 struct CodeBlockTest {
+    /// The language tag of this code block.
     tag: String,
+
+    /// True if this is an invalid example that should trigger a diagnostic.
     expect_diagnostic: bool,
+
+    /// Whether to expect a code diff
     expect_diff: bool,
+
+    /// Whether to ignore this code block.
     ignore: bool,
+
+    /// Whether this is a block of configuration options instead
+    /// of a valid/invalid code example, and if yes, how that
+    /// block of configuration options should be parsed:
+    options: OptionsParsingMode,
+
+    /// Whether to use the last code block that was marked with
+    /// `options` as the configuration settings for this code block.
+    use_options: bool,
+
+    /// The number of lines in this code block.
+    line_count: u32,
+
+    // The indices of lines that should be hidden from the public documentation.
+    hidden_lines: Vec<u32>,
+}
+
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+enum OptionsParsingMode {
+    /// This code block does not contain configuration options.
+    #[default]
+    NoOptions,
+
+    /// This code block contains the options for a single rule only.
+    RuleOptionsOnly,
+
+    /// This code block contains JSON that adheres to the full `biome.json` schema.
+    FullConfiguration,
 }
 
 impl CodeBlockTest {
@@ -910,6 +1166,10 @@ impl FromStr for CodeBlockTest {
             expect_diagnostic: false,
             expect_diff: false,
             ignore: false,
+            options: OptionsParsingMode::NoOptions,
+            use_options: false,
+            line_count: 0,
+            hidden_lines: vec![],
         };
 
         for token in tokens {
@@ -918,6 +1178,9 @@ impl FromStr for CodeBlockTest {
                 "expect_diagnostic" => test.expect_diagnostic = true,
                 "expect_diff" => test.expect_diff = true,
                 "ignore" => test.ignore = true,
+                "options" => test.options = OptionsParsingMode::RuleOptionsOnly,
+                "full_options" => test.options = OptionsParsingMode::FullConfiguration,
+                "use_options" => test.use_options = true,
                 // Regard as language tags, last one wins
                 _ => test.tag = token.to_string(),
             }
@@ -925,6 +1188,36 @@ impl FromStr for CodeBlockTest {
 
         Ok(test)
     }
+}
+
+fn create_analyzer_options<L>(
+    workspace_settings: &WorkspaceSettings,
+    file_path: &String,
+    test: &CodeBlockTest,
+) -> AnalyzerOptions
+where
+    L: ServiceLanguage,
+{
+    let path = BiomePath::new(PathBuf::from(&file_path));
+    let file_source = &test.document_file_source();
+    let supression_reason = None;
+
+    let settings = workspace_settings.get_current_settings();
+    let linter = settings.map(|s| &s.linter);
+    let overrides = settings.map(|s| &s.override_settings);
+    let language_settings = settings
+        .map(|s| L::lookup_settings(&s.languages))
+        .map(|result| &result.linter);
+
+    L::resolve_analyzer_options(
+        settings,
+        linter,
+        overrides,
+        language_settings,
+        &path,
+        file_source,
+        supression_reason,
+    )
 }
 
 enum ToPrintKind {
@@ -980,6 +1273,8 @@ fn print_diagnostics_or_actions(
     rule: &'static str,
     test: &CodeBlockTest,
     code: &str,
+    config: &Option<PartialConfiguration>,
+    content: &mut Vec<u8>,
     to_print_kind: ToPrintKind,
     buffer: &mut HTML<&mut Vec<u8>>,
 ) -> Result<()> {
@@ -989,9 +1284,23 @@ fn print_diagnostics_or_actions(
         return Ok(());
     }
     let mut rule_has_code_action = false;
+
+    // Create a synthetic workspace configuration
     let mut settings = WorkspaceSettings::default();
     let key = settings.insert_project(PathBuf::new());
     settings.register_current_project(key);
+
+    // Load settings from the preceding `json,options` block if requested
+    if test.use_options {
+        let Some(partial_config) = config else {
+            bail!("Code blocks tagged with 'use_options' must be preceded by a valid 'json,options' code block.");
+        };
+
+        settings
+            .get_current_settings_mut()
+            .merge_with_configuration(partial_config.clone(), None, None, &[])?;
+    }
+
     match test.document_file_source() {
         DocumentFileSource::Js(file_source) => {
             // Temporary support for astro, svelte and vue code blocks
@@ -1027,13 +1336,12 @@ fn print_diagnostics_or_actions(
                     ..AnalysisFilter::default()
                 };
 
-                let options = AnalyzerOptions {
-                    configuration: AnalyzerConfiguration {
-                        jsx_runtime: Some(JsxRuntime::default()),
-                        ..Default::default()
-                    },
-                    file_path: PathBuf::from(&file_path),
+                let options = {
+                    let mut o = create_analyzer_options::<JsLanguage>(&settings, &file_path, &test);
+                    o.configuration.jsx_runtime = Some(JsxRuntime::default());
+                    o
                 };
+
                 biome_js_analyze::analyze(&root, filter, &options, file_source, None, |signal| {
                     match to_print_kind {
                         ToPrintKind::Diagnostics => {
@@ -1098,10 +1406,9 @@ fn print_diagnostics_or_actions(
                     ..AnalysisFilter::default()
                 };
 
-                let options = AnalyzerOptions {
-                    file_path: PathBuf::from(&file_path),
-                    ..Default::default()
-                };
+                let options: AnalyzerOptions =
+                    create_analyzer_options::<JsonLanguage>(&settings, &file_path, &test);
+
                 biome_json_analyze::analyze(&root, filter, &options, file_source, |signal| {
                     match to_print_kind {
                         ToPrintKind::Diagnostics => {
@@ -1166,10 +1473,8 @@ fn print_diagnostics_or_actions(
                     ..AnalysisFilter::default()
                 };
 
-                let options = AnalyzerOptions {
-                    file_path: PathBuf::from(&file_path),
-                    ..Default::default()
-                };
+                let options = create_analyzer_options::<JsonLanguage>(&settings, &file_path, &test);
+
                 biome_css_analyze::analyze(&root, filter, &options, |signal| {
                     match to_print_kind {
                         ToPrintKind::Diagnostics => {

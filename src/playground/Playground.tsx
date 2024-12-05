@@ -11,9 +11,10 @@ import FormatterIrTab from "@/playground/tabs/FormatterIrTab";
 import ImportSortingTab from "@/playground/tabs/ImportSortingTab";
 import SettingsTab from "@/playground/tabs/SettingsTab";
 import SyntaxTab from "@/playground/tabs/SyntaxTab";
-import type {
-	BiomeAstSyntacticData,
-	PlaygroundProps,
+import {
+	type BiomeAstSyntacticData,
+	type PlaygroundProps,
+	PlaygroundTab,
 } from "@/playground/types";
 import {
 	getCurrentCode,
@@ -197,16 +198,18 @@ export default function Playground({
 			className="results-tabs"
 			data-testid="results-tabs"
 			selectedTab={playgroundState.tab}
-			onSelect={(tab) => setPlaygroundState((state) => ({ ...state, tab }))}
+			onSelect={(tab) =>
+				setPlaygroundState((state) => ({ ...state, tab: tab as PlaygroundTab }))
+			}
 			tabs={[
 				{
-					key: "code",
+					key: PlaygroundTab.Code,
 					title: "Code",
 					visible: hasNarrowViewport,
 					children: editor,
 				},
 				{
-					key: "diagnostics",
+					key: PlaygroundTab.Diagnostics,
 					title: "Diagnostics",
 					visible: hasNarrowViewport,
 					children: (
@@ -218,7 +221,7 @@ export default function Playground({
 					),
 				},
 				{
-					key: "formatter",
+					key: PlaygroundTab.Formatter,
 					title: "Formatter",
 					children: (
 						<FormatterCodeTab
@@ -229,7 +232,7 @@ export default function Playground({
 					),
 				},
 				{
-					key: "formatter-ir",
+					key: PlaygroundTab.FormatterIr,
 					title: "Formatter IR",
 					children: (
 						<FormatterIrTab
@@ -239,7 +242,7 @@ export default function Playground({
 					),
 				},
 				{
-					key: "syntax",
+					key: PlaygroundTab.Syntax,
 					title: "Syntax",
 					children: (
 						<SyntaxTab
@@ -250,14 +253,14 @@ export default function Playground({
 					),
 				},
 				{
-					key: "cfg",
+					key: PlaygroundTab.ControlFlowGraph,
 					title: "Control Flow Graph",
 					children: (
 						<ControlFlowTab graph={biomeOutput.analysis.controlFlowGraph} />
 					),
 				},
 				{
-					key: "import-sorting",
+					key: PlaygroundTab.ImportSorting,
 					title: "Import Sorting",
 					children: (
 						<ImportSortingTab
@@ -267,7 +270,7 @@ export default function Playground({
 					),
 				},
 				{
-					key: "Console",
+					key: PlaygroundTab.Console,
 					title: "Console",
 					visible: hasNarrowViewport,
 					children: (
@@ -275,7 +278,7 @@ export default function Playground({
 					),
 				},
 				{
-					key: "settings",
+					key: PlaygroundTab.Settings,
 					title: "Settings",
 					visible: hasNarrowViewport,
 					children: (

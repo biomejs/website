@@ -35,8 +35,8 @@ let configuration: undefined | Configuration;
 function getPathForFile(file: File): BiomePath {
 	return {
 		path: file.filename,
-		kind: ["Handleable"],
-		was_written: false,
+		kind: ["handleable"],
+		wasWritten: false,
 	};
 }
 
@@ -172,7 +172,7 @@ self.addEventListener("message", async (e) => {
 
 			workspace.updateSettings({
 				configuration,
-				gitignore_matches: [],
+				gitignoreMatches: [],
 			});
 			break;
 		}
@@ -216,12 +216,12 @@ self.addEventListener("message", async (e) => {
 			files.set(filename, file);
 			const path = getPathForFile(file);
 			const fileFeatures = workspace.fileFeatures({
-				features: ["Debug", "Format", "Lint", "OrganizeImports"],
+				features: ["debug", "format", "lint", "organizeImports"],
 				path,
 			});
 
 			const syntaxTree =
-				fileFeatures.features_supported.get("Debug") === "Supported"
+				fileFeatures.featuresSupported.get("debug") === "supported"
 					? workspace.getSyntaxTree({
 							path,
 						})
@@ -230,7 +230,7 @@ self.addEventListener("message", async (e) => {
 			let controlFlowGraph = "";
 			try {
 				controlFlowGraph =
-					fileFeatures.features_supported.get("Debug") === "Supported"
+					fileFeatures.featuresSupported.get("debug") === "supported"
 						? workspace.getControlFlowGraph({
 								path,
 								cursor: cursorPosition,
@@ -244,7 +244,7 @@ self.addEventListener("message", async (e) => {
 			let formatterIr = "";
 			try {
 				formatterIr =
-					fileFeatures.features_supported.get("Debug") === "Supported"
+					fileFeatures.featuresSupported.get("debug") === "supported"
 						? workspace.getFormatterIr({
 								path,
 							})
@@ -255,27 +255,27 @@ self.addEventListener("message", async (e) => {
 			}
 
 			const importSorting =
-				fileFeatures.features_supported.get("OrganizeImports") === "Supported"
+				fileFeatures.featuresSupported.get("organizeImports") === "supported"
 					? workspace.organizeImports({
 							path,
 						})
 					: {
 							code:
-								fileFeatures.features_supported.get("OrganizeImports") ??
+								fileFeatures.featuresSupported.get("organizeImports") ??
 								"Not supported",
 						};
 
 			const categories: RuleCategories = [];
 			if (configuration?.formatter?.enabled) {
-				categories.push("Syntax");
+				categories.push("syntax");
 			}
 			if (configuration?.linter?.enabled) {
-				categories.push("Lint");
+				categories.push("lint");
 			}
 			const diagnosticsResult = workspace.pullDiagnostics({
 				path,
 				categories: categories,
-				max_diagnostics: Number.MAX_SAFE_INTEGER,
+				maxDiagnostics: Number.MAX_SAFE_INTEGER,
 				only: [],
 				skip: [],
 			});
@@ -290,7 +290,7 @@ self.addEventListener("message", async (e) => {
 			};
 			try {
 				printed =
-					fileFeatures.features_supported.get("Format") === "Supported"
+					fileFeatures.featuresSupported.get("format") === "supported"
 						? workspace.formatFile({
 								path,
 							})

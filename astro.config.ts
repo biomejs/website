@@ -422,6 +422,7 @@ export default defineConfig({
 				mastodon: "https://fosstodon.org/@biomejs",
 				openCollective: "https://opencollective.com/biome",
 				youtube: "https://youtube.com/@Biomejs",
+				blueSky: "https://bsky.app/profile/biomejs.dev",
 			},
 			editLink: {
 				baseUrl: "https://github.com/biomejs/website/edit/main/",
@@ -445,7 +446,7 @@ export default defineConfig({
 		shikiConfig: {
 			langAlias: {
 				cjs: "javascript",
-				grit: "text",
+				grit: "txt",
 			},
 		},
 	},
