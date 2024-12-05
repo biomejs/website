@@ -21,7 +21,7 @@ runs:
 
     - name: Restore rust cache
       id: cache-restore
-      uses: actions/cache/restore@3624ceb22c1c5a301c8db4169662070a689d9ea8 # v4.1.1
+      uses: actions/cache/restore@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0
       with:
         key: rust-cache
         path: |
@@ -86,7 +86,7 @@ runs:
       continue-on-error: true
 
     - name: Save new rust cache
-      uses: actions/cache/save@3624ceb22c1c5a301c8db4169662070a689d9ea8 # v4.1.1
+      uses: actions/cache/save@1bd1e32a3bdc45362d1e726936510720a7c30a57 # v4.2.0
       with:
         key: rust-cache
         path: |
