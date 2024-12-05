@@ -580,7 +580,7 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
             if is_recommended || !matches!(meta.fix_kind, FixKind::None) {
                 writeln!(content, ":::note")?;
                 if is_recommended {
-                    writeln!(content, "- This rule is **recommended**. A diagnostic error will appear when linting your code.")?;
+                    writeln!(content, "- This rule is **recommended**. A [diagnostic error](/reference/diagnostics#error) will appear when linting your code.")?;
                 }
                 match meta.fix_kind {
                     FixKind::Safe => {
