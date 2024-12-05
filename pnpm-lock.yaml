@@ -27,8 +27,8 @@ importers:
         specifier: 1.8.3
         version: 1.8.3
       '@biomejs/wasm-web':
-        specifier: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@66458a1
-        version: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@66458a1
+        specifier: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@799cf2e
+        version: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@799cf2e
       '@codemirror/lang-css':
         specifier: 6.3.1
         version: 6.3.1(@codemirror/view@6.35.0)
@@ -409,9 +409,9 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@biomejs/wasm-web@https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@66458a1':
-    resolution: {tarball: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@66458a1}
-    version: 0.0.0-rev.66458a12a048b0e686b242d9d4dd0f0e90d1f92a
+  '@biomejs/wasm-web@https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@799cf2e':
+    resolution: {tarball: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@799cf2e}
+    version: 0.0.0-rev.799cf2e2d1f74762671400d6f9b289ea5f5cabb0
 
   '@braintree/sanitize-url@6.0.4':
     resolution: {integrity: sha512-s3jaWicZd0pkP0jf5ysyHUI/RE7MHos6qlToFcGWXVp+ykHOy77OUMrfbgJ9it2C5bow7OIQwYYaHjk9XlBQ2A==}
@@ -2674,9 +2674,6 @@ packages:
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
 
-  magic-string@0.30.12:
-    resolution: {integrity: sha512-Ea8I3sQMVXr8JhN4z+H/d8zwo+tYDgHE9+5G4Wnrwhs0gaK9fXTKx0Tw5Xwsd/bCPTTZNRAdpyzvoeORe9LYpw==}
-
   magic-string@0.30.14:
     resolution: {integrity: sha512-5c99P1WKTed11ZC0HMJOj6CDIue6F8ySu+bJL+85q1zBEIY8IklrJ1eiKC2NDRh3Ct3FcvmJPyQHb9erXMTJNw==}
 
@@ -4542,7 +4539,7 @@ snapshots:
   '@biomejs/cli-win32-x64@1.8.3':
     optional: true
 
-  '@biomejs/wasm-web@https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@66458a1': {}
+  '@biomejs/wasm-web@https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@799cf2e': {}
 
   '@braintree/sanitize-url@6.0.4': {}
 
@@ -7114,10 +7111,6 @@ snapshots:
     dependencies:
       yallist: 3.1.1
 
-  magic-string@0.30.12:
-    dependencies:
-      '@jridgewell/sourcemap-codec': 1.5.0
-
   magic-string@0.30.14:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.0
@@ -8902,7 +8895,7 @@ snapshots:
       estree-walker: 3.0.3
       is-reference: 3.0.2
       locate-character: 3.0.0
-      magic-string: 0.30.12
+      magic-string: 0.30.14
       periscopic: 3.1.0
 
   svg-parser@2.0.4: {}
