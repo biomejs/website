@@ -3,7 +3,7 @@ title: 設定
 description: biome.jsonを使用してBiomeをカスタマイズおよび設定する方法
 ---
 
-import LintGroups from "@/components/generated/Groups.astro";
+import LintGroups from "@/components/generated/linter/Groups.astro";
 
 {/** 設定のタイトルを変更する際は、static/_redirects 内のリダイレクトも忘れずに更新してください。 --> **/}
 
@@ -387,11 +387,11 @@ Unixシェル形式のパターンのリストで指定します。
 このオプションは廃止されました。代わりに [`formatter.indentWidth`](#formatterindentwidth) を使用してください。
 
 <details>
-<summary>廃止されました</summary>
+    <summary>廃止されました</summary>
 
-インデントのサイズを指定します。
+    インデントのサイズを指定します。
 
-> デフォルト: `2`
+    > デフォルト: `2`
 
 </details>
 
@@ -527,14 +527,14 @@ JSXの文字列リテラルを表現する際に使用する引用符の種類�
 このオプションは廃止されました。代わりに [`javascript.formatter.trailingCommas`](#javascriptformattertrailingcommas) を使用してください。
 
 <details>
-<summary>廃止されました</summary>
+    <summary>廃止されました</summary>
 
-複数行のカンマ区切りの構文構造で、可能な限り末尾カンマを追加します。可能な値は次の通りです。
-- `"all"`: 末尾カンマが常に追加されます。
-- `"es5"`: 末尾カンマが、古いバージョンのJavaScriptでサポートされている場所にのみ追加されます。
-- `"none"`: 末尾カンマは決して追加されません。
+    複数行のカンマ区切りの構文構造で、可能な限り末尾カンマを追加します。可能な値は次の通りです。
+    - `"all"`: 末尾カンマが常に追加されます。
+    - `"es5"`: 末尾カンマが、古いバージョンのJavaScriptでサポートされている場所にのみ追加されます。
+    - `"none"`: 末尾カンマは決して追加されません。
 
-> デフォルト: `"all"`
+    > デフォルト: `"all"`
 
 </details>
 
@@ -593,11 +593,11 @@ JavaScript（およびその拡張言語）ファイルのインデントスタ�
 このオプションは廃止されました。代わりに [`javascript.formatter.indentWidth`](#javascriptformatterindentwidth) を使用してください。
 
 <details>
-<summary>廃止されました</summary>
+    <summary>廃止されました</summary>
 
-JavaScript（およびその拡張言語）ファイルのインデントサイズを指定します。
+    JavaScript（およびその拡張言語）ファイルのインデントサイズを指定します。
 
-> デフォルト: `2`
+    > デフォルト: `2`
 
 </details>
 
@@ -741,11 +741,11 @@ JSON（およびその拡張言語）ファイルのインデントスタイル�
 このオプションは廃止されました。代わりに [`json.formatter.indentWidth`](#jsonformatterindentwidth) を使用してください。
 
 <details>
-<summary>廃止されました</summary>
+    <summary>廃止されました</summary>
 
-JSON（およびその拡張言語）ファイルのインデントサイズを指定します。
+    JSON（およびその拡張言語）ファイルのインデントサイズを指定します。
 
-> デフォルト: `2`
+    > デフォルト: `2`
 
 </details>
 

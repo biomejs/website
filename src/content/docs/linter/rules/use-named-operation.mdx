@@ -8,11 +8,11 @@ description: |
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-**Diagnostic Category: `lint/nursery/useNamedOperation`**
 <Tabs>
 <TabItem label="GraphQL" icon="seti:graphql">
 **Since**: `vnext`
 :::note
+- Diagnostic Category: [`lint/nursery/useNamedOperation`](/reference/diagnostics#diagnostic-category)
 - This rule has an **unsafe** fix.
 :::
 
@@ -35,7 +35,7 @@ This is useful because most GraphQL client libraries use the operation name for 
 query {}
 ```
 
-<pre class="language-text"><code class="language-text"></code></pre>
+<pre class="language-text"><code class="language-text">code-block.graphql:1:1 <a href="https://biomejs.dev/linter/rules/use-named-operation">lint/nursery/useNamedOperation</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Anonymous GraphQL operations are forbidden. Make sure to name your query.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>query &#123;&#125;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Most GraphQL client libraries use the operation name for caching purposes.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Rename this query to Query.</span><br />  <br />  <strong>  1 │ </strong>query<span style="opacity: 0.8;">·</span><span style="color: MediumSeaGreen;">Q</span><span style="color: MediumSeaGreen;">u</span><span style="color: MediumSeaGreen;">e</span><span style="color: MediumSeaGreen;">r</span><span style="color: MediumSeaGreen;">y</span>&#123;&#125;<br />  <strong>    │ </strong>      <span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span>  <br /></code></pre>
 
 ### Valid
 

@@ -4,8 +4,12 @@ import starlight from "@astrojs/starlight";
 import { defineConfig } from "astro/config";
 import rehypeSlug from "rehype-slug";
 import { searchForWorkspaceRoot } from "vite";
-import { version as biomeVersion } from "./node_modules/@biomejs/wasm-web/package.json";
-import { version as prettierVersion } from "./node_modules/prettier/package.json";
+import { version as biomeVersion } from "./node_modules/@biomejs/wasm-web/package.json" with {
+	type: "json",
+};
+import { version as prettierVersion } from "./node_modules/prettier/package.json" with {
+	type: "json",
+};
 import { rehypeAutolink } from "./plugins/rehype-autolink";
 
 const site = "https://biomejs.dev";
@@ -135,75 +139,15 @@ export default defineConfig({
 					],
 				},
 				{
-					label: "Tools",
-					translations: {
-						ja: "ツール",
-						"zh-CN": "工具",
-						"pt-BR": "Ferramentas",
-					},
+					label: "Analyzer",
 					items: [
 						{
-							label: "Analyzer",
-							items: [
-								{
-									label: "Introduction",
-									link: "/analyzer",
-									translations: {
-										ja: "イントロダクション",
-										"zh-CN": "介绍",
-										"pt-BR": "Introdução",
-									},
-								},
-								{
-									label: "Import Sorting",
-									link: "/analyzer/import-sorting",
-									translations: {
-										ja: "Import文のソート",
-										"zh-CN": "导入排序",
-										"pt-BR": "Ordenação de importações",
-									},
-								},
-							],
+							label: "Introduction",
+							link: "/analyzer",
 							translations: {
-								ja: "Analyzer",
-								"zh-CN": "分析器",
-								"pt-BR": "Analisador",
-							},
-						},
-						{
-							label: "Formatter",
-							items: [
-								{
-									label: "Introduction",
-									link: "/formatter",
-									translations: {
-										ja: "イントロダクション",
-										"zh-CN": "介绍",
-										"pt-BR": "Introdução",
-									},
-								},
-								{
-									label: "Differences with Prettier",
-									link: "/formatter/differences-with-prettier",
-									translations: {
-										ja: "Prettier との違い",
-										"zh-CN": "与 Prettier 的区别",
-										"pt-BR": "Diferenças em relação ao Prettier",
-									},
-								},
-								{
-									label: "Formatter Option Philosophy",
-									link: "/formatter/option-philosophy",
-									translations: {
-										ja: "Formatterオプションに対する考え方",
-										"zh-CN": "格式化配置理念",
-										"pt-BR": "Princípios de configuração",
-									},
-								},
-							],
-							translations: {
-								"zh-CN": "格式化程序",
-								"pt-BR": "Formatador",
+								ja: "イントロダクション",
+								"zh-CN": "介绍",
+								"pt-BR": "Introdução",
 							},
 						},
 						{
@@ -233,7 +177,71 @@ export default defineConfig({
 								},
 							],
 						},
+						{
+							label: "Assist",
+							badge: "new",
+							items: [
+								{
+									label: "Introduction",
+									link: "/assist",
+								},
+								{
+									label: "Actions",
+									link: "/assist/actions",
+								},
+							],
+						},
+						{
+							label: "Import Sorting",
+							link: "/analyzer/import-sorting",
+							translations: {
+								ja: "Import文のソート",
+								"zh-CN": "导入排序",
+								"pt-BR": "Ordenação de importações",
+							},
+						},
 					],
+					translations: {
+						ja: "Analyzer",
+						"zh-CN": "分析器",
+						"pt-BR": "Analisador",
+					},
+				},
+				{
+					label: "Formatter",
+					items: [
+						{
+							label: "Introduction",
+							link: "/formatter",
+							translations: {
+								ja: "イントロダクション",
+								"zh-CN": "介绍",
+								"pt-BR": "Introdução",
+							},
+						},
+						{
+							label: "Differences with Prettier",
+							link: "/formatter/differences-with-prettier",
+							translations: {
+								ja: "Prettier との違い",
+								"zh-CN": "与 Prettier 的区别",
+								"pt-BR": "Diferenças em relação ao Prettier",
+							},
+						},
+						{
+							label: "Formatter Option Philosophy",
+							link: "/formatter/option-philosophy",
+							translations: {
+								ja: "Formatterオプションに対する考え方",
+								"zh-CN": "格式化配置理念",
+								"pt-BR": "Princípios de configuração",
+							},
+						},
+					],
+					translations: {
+						"zh-CN": "格式化程序",
+						"pt-BR": "Formatador",
+					},
 				},
 				{
 					label: "Reference",
@@ -250,7 +258,6 @@ export default defineConfig({
 						{
 							label: "Diagnostics",
 							link: "/reference/diagnostics",
-							badge: "new",
 						},
 						{
 							label: "Environment variables",
@@ -281,7 +288,6 @@ export default defineConfig({
 						{
 							label: "Zed extension",
 							link: "/reference/zed",
-							badge: "new",
 							translations: {
 								ja: "Zed拡張機能",
 								"zh-CN": "Zed 扩展",
