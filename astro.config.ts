@@ -6,7 +6,6 @@ import rehypeSlug from "rehype-slug";
 import { searchForWorkspaceRoot } from "vite";
 import { version as biomeVersion } from "./node_modules/@biomejs/wasm-web/package.json";
 import { version as prettierVersion } from "./node_modules/prettier/package.json";
-import { bundledLanguages } from "./node_modules/shiki";
 import { rehypeAutolink } from "./plugins/rehype-autolink";
 
 const site = "https://biomejs.dev";
@@ -439,14 +438,10 @@ export default defineConfig({
 		syntaxHighlight: "shiki",
 		rehypePlugins: [rehypeSlug, ...rehypeAutolink()],
 		shikiConfig: {
-			langs: [
-				// @ts-expect-error
-				{
-					...(await bundledLanguages.javascript()).default[0],
-					scopeName: "source.cjs",
-					aliases: ["cjs"],
-				},
-			],
+			langAlias: {
+				cjs: "javascript",
+				grit: "txt",
+			},
 		},
 	},
 
