@@ -5,9 +5,9 @@ use anyhow::Context;
 use anyhow::{bail, Result};
 use biome_analyze::options::JsxRuntime;
 use biome_analyze::{
-    AnalysisFilter, AnalyzerAction, AnalyzerConfiguration, AnalyzerOptions, ControlFlow, FixKind,
-    GroupCategory, Queryable, RegistryVisitor, Rule, RuleCategory, RuleFilter, RuleGroup,
-    RuleMetadata, RuleSourceKind,
+    AnalysisFilter, AnalyzerAction, AnalyzerOptions, ControlFlow, FixKind, GroupCategory,
+    Queryable, RegistryVisitor, Rule, RuleCategory, RuleFilter, RuleGroup, RuleMetadata,
+    RuleSourceKind,
 };
 use biome_configuration::PartialConfiguration;
 use biome_console::fmt::Termcolor;
@@ -897,35 +897,35 @@ fn write_documentation(
                         )?;
                     }
 
+                    let mut buffer = HTML::new(&mut *content).with_mdx();
                     if test.options != OptionsParsingMode::NoOptions {
                         last_options = parse_rule_options(group, rule, &test, &block, content)
                             .context("snapshot test failed")?;
                     } else {
-                        print_diagnostics(group, rule, &test, &block, &last_options, content)
+                        if test.expect_diagnostic {
+                            print_diagnostics_or_actions(
+                                group,
+                                rule,
+                                &test,
+                                &block,
+                                &last_options,
+                                &mut buffer,
+                                ToPrintKind::Diagnostics,
+                            )
                             .context("snapshot test failed")?;
+                        } else if test.expect_diff {
+                            print_diagnostics_or_actions(
+                                group,
+                                rule,
+                                &test,
+                                &block,
+                                &last_options,
+                                &mut buffer,
+                                ToPrintKind::Actions,
+                            )
+                            .context("snapshot test failed")?;
+                        }
                     }
-                    // let mut buffer = HTML::new(&mut *content).with_mdx();
-                    // if test.expect_diagnostic {
-                    //     print_diagnostics_or_actions(
-                    //         group,
-                    //         rule,
-                    //         &test,
-                    //         &block,
-                    //         ToPrintKind::Diagnostics,
-                    //         &mut buffer,
-                    //     )
-                    //     .context("snapshot test failed")?;
-                    // } else if test.expect_diff {
-                    //     print_diagnostics_or_actions(
-                    //         group,
-                    //         rule,
-                    //         &test,
-                    //         &block,
-                    //         ToPrintKind::Actions,
-                    //         &mut buffer,
-                    //     )
-                    //     .context("snapshot test failed")?;
-                    // }
 
                     if test.expect_diagnostic || test.expect_diff {
                         writeln!(content, "</code></pre>")?;
@@ -1274,9 +1274,8 @@ fn print_diagnostics_or_actions(
     test: &CodeBlockTest,
     code: &str,
     config: &Option<PartialConfiguration>,
-    content: &mut Vec<u8>,
-    to_print_kind: ToPrintKind,
     buffer: &mut HTML<&mut Vec<u8>>,
+    to_print_kind: ToPrintKind,
 ) -> Result<()> {
     let file_path = format!("code-block.{}", test.tag);
 
