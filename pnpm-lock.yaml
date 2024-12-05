@@ -72,8 +72,8 @@ importers:
         specifier: 4.23.6
         version: 4.23.6(@babel/runtime@7.24.4)(@codemirror/autocomplete@6.15.0(@codemirror/language@6.10.1)(@codemirror/state@6.4.1)(@codemirror/view@6.35.0)(@lezer/common@1.2.1))(@codemirror/language@6.10.1)(@codemirror/lint@6.8.4)(@codemirror/search@6.5.6)(@codemirror/state@6.4.1)(@codemirror/theme-one-dark@6.1.2)(@codemirror/view@6.35.0)(codemirror@6.0.1(@lezer/common@1.2.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@vitejs/plugin-react':
-        specifier: 4.3.3
-        version: 4.3.3(vite@5.4.11(@types/node@20.17.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49)))
+        specifier: 4.3.4
+        version: 4.3.4(vite@5.4.11(@types/node@20.17.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49)))
       astro:
         specifier: 4.16.16
         version: 4.16.16(@types/node@20.17.7)(rollup@4.21.2)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.5.4)
@@ -322,14 +322,14 @@ packages:
     peerDependencies:
       '@babel/core': ^7.0.0-0
 
-  '@babel/plugin-transform-react-jsx-self@7.24.7':
-    resolution: {integrity: sha512-fOPQYbGSgH0HUp4UJO4sMBFjY6DuWq+2i8rixyUMb3CdGixs/gccURvYOAhajBdKDoGajFr3mUq5rH3phtkGzw==}
+  '@babel/plugin-transform-react-jsx-self@7.25.9':
+    resolution: {integrity: sha512-y8quW6p0WHkEhmErnfe58r7x0A70uKphQm8Sp8cV7tjNQwK56sNVK0M73LK3WuYmsuyrftut4xAkjjgU0twaMg==}
     engines: {node: '>=6.9.0'}
     peerDependencies:
       '@babel/core': ^7.0.0-0
 
-  '@babel/plugin-transform-react-jsx-source@7.24.7':
-    resolution: {integrity: sha512-J2z+MWzZHVOemyLweMqngXrgGC42jQ//R0KdxqkIz/OrbVIIlhFI3WigZ5fO+nwFvBlncr4MGapd8vTyc7RPNQ==}
+  '@babel/plugin-transform-react-jsx-source@7.25.9':
+    resolution: {integrity: sha512-+iqjT8xmXhhYv4/uiYd8FNQsraMFZIfxVSqxxVSZP0WbbSAWvBXAul0m/zu+7Vv4O/3WtApy9pmaTMiumEZgfg==}
     engines: {node: '>=6.9.0'}
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -1381,11 +1381,11 @@ packages:
     engines: {node: '>=16'}
     hasBin: true
 
-  '@vitejs/plugin-react@4.3.3':
-    resolution: {integrity: sha512-NooDe9GpHGqNns1i8XDERg0Vsg5SSYRhRxxyTGogUdkdNt47jal+fbuYi+Yfq6pzRCKXyoPcWisfxE6RIM3GKA==}
+  '@vitejs/plugin-react@4.3.4':
+    resolution: {integrity: sha512-SCCPBJtYLdE8PX/7ZQAs1QAZ8Jqwih+0VBLum1EGqmCCQal+MIUqLCzj3ZUy8ufbC0cAM4LRlSTm7IQJwWT4ug==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
-      vite: ^4.2.0 || ^5.0.0
+      vite: ^4.2.0 || ^5.0.0 || ^6.0.0
 
   '@webgpu/types@0.1.21':
     resolution: {integrity: sha512-pUrWq3V5PiSGFLeLxoGqReTZmiiXwY3jRkIG5sLLKjyqNxrwm/04b4nw7LSmGWJcKk59XOM/YRTUwOzo4MMlow==}
@@ -4276,7 +4276,7 @@ snapshots:
     dependencies:
       '@types/react': 18.3.12
       '@types/react-dom': 18.3.1
-      '@vitejs/plugin-react': 4.3.3(vite@5.4.11(@types/node@20.17.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49)))
+      '@vitejs/plugin-react': 4.3.4(vite@5.4.11(@types/node@20.17.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49)))
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       ultrahtml: 1.5.3
@@ -4456,12 +4456,12 @@ snapshots:
       '@babel/core': 7.26.0
       '@babel/helper-plugin-utils': 7.25.9
 
-  '@babel/plugin-transform-react-jsx-self@7.24.7(@babel/core@7.26.0)':
+  '@babel/plugin-transform-react-jsx-self@7.25.9(@babel/core@7.26.0)':
     dependencies:
       '@babel/core': 7.26.0
       '@babel/helper-plugin-utils': 7.25.9
 
-  '@babel/plugin-transform-react-jsx-source@7.24.7(@babel/core@7.26.0)':
+  '@babel/plugin-transform-react-jsx-source@7.25.9(@babel/core@7.26.0)':
     dependencies:
       '@babel/core': 7.26.0
       '@babel/helper-plugin-utils': 7.25.9
@@ -5643,11 +5643,11 @@ snapshots:
       - encoding
       - supports-color
 
-  '@vitejs/plugin-react@4.3.3(vite@5.4.11(@types/node@20.17.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49)))':
+  '@vitejs/plugin-react@4.3.4(vite@5.4.11(@types/node@20.17.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49)))':
     dependencies:
       '@babel/core': 7.26.0
-      '@babel/plugin-transform-react-jsx-self': 7.24.7(@babel/core@7.26.0)
-      '@babel/plugin-transform-react-jsx-source': 7.24.7(@babel/core@7.26.0)
+      '@babel/plugin-transform-react-jsx-self': 7.25.9(@babel/core@7.26.0)
+      '@babel/plugin-transform-react-jsx-source': 7.25.9(@babel/core@7.26.0)
       '@types/babel__core': 7.20.5
       react-refresh: 0.14.2
       vite: 5.4.11(@types/node@20.17.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))
