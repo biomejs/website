@@ -475,17 +475,17 @@ fn generate_rule(
         .language_to_metadata
         .iter()
         .filter_map(|(language, meta)| {
-            generate_rule_content(
+            generate_rule_content(RuleContent {
                 language,
-                payload.group,
-                payload.rule_name,
-                payload.is_nursery,
+                group: payload.group,
+                rule_name: payload.rule_name,
+                is_nursery: payload.is_nursery,
                 meta,
-                &mut summary,
+                summary: &mut summary,
                 path_prefix,
                 middle_path,
                 rule_category,
-            )
+            })
             .ok()
         })
         .collect();
@@ -538,18 +538,32 @@ fn generate_rule(
     Ok(summary)
 }
 
-#[allow(clippy::too_many_arguments)]
-fn generate_rule_content(
+#[derive(Debug)]
+struct RuleContent<'a> {
     language: &'static str,
     group: &'static str,
     rule_name: &'static str,
     is_nursery: bool,
-    meta: &RuleMetadata,
-    summary: &mut Vec<Event<'static>>,
-    path_prefix: &str,
-    middle_path: &str,
+    meta: &'a RuleMetadata,
+    summary: &'a mut Vec<Event<'static>>,
+    path_prefix: &'a str,
+    middle_path: &'a str,
     rule_category: RuleCategory,
-) -> Result<(Vec<u8>, String, String)> {
+}
+
+#[allow(clippy::too_many_arguments)]
+fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, String)> {
+    let RuleContent {
+        language,
+        group,
+        rule_name,
+        is_nursery,
+        meta,
+        summary,
+        path_prefix,
+        middle_path,
+        rule_category,
+    } = rule_content;
     let is_recommended = !is_nursery && meta.recommended;
     let mut content = Vec::new();
 
@@ -561,23 +575,36 @@ fn generate_rule_content(
 
     writeln!(content, "**Since**: `v{}`", meta.version)?;
 
-    if is_recommended || !matches!(meta.fix_kind, FixKind::None) {
-        writeln!(content, ":::note")?;
-        if is_recommended {
-            writeln!(content, "- This rule is recommended by Biome. A diagnostic error will appear when linting your code.")?;
-        }
-        match meta.fix_kind {
-            FixKind::Safe => {
-                writeln!(content, "- This rule has a **safe** fix.")?;
+    match rule_category {
+        RuleCategory::Lint => {
+            if is_recommended || !matches!(meta.fix_kind, FixKind::None) {
+                writeln!(content, ":::note")?;
+                if is_recommended {
+                    writeln!(content, "- This rule is **recommended**. A diagnostic error will appear when linting your code.")?;
+                }
+                match meta.fix_kind {
+                    FixKind::Safe => {
+                        writeln!(content, "- This rule has a **safe** fix.")?;
+                    }
+                    FixKind::Unsafe => {
+                        writeln!(content, "- This rule has an **unsafe** fix.")?;
+                    }
+                    FixKind::None => {}
+                }
+                writeln!(content, ":::")?;
             }
-            FixKind::Unsafe => {
-                writeln!(content, "- This rule has an **unsafe** fix.")?;
-            }
-            FixKind::None => {}
         }
-        writeln!(content, ":::")?;
-        writeln!(content)?;
+        RuleCategory::Action => {
+            writeln!(content, ":::note")?;
+            writeln!(content, "- Use the code action `source.biome.{}` in your LSP-ready IDE to apply this action on save.", rule_name)?;
+            writeln!(content, ":::")?;
+        }
+        RuleCategory::Syntax | RuleCategory::Transformation => {
+            unimplemented!("Should be implemented")
+        }
     }
+
+    writeln!(content)?;
 
     if group == "nursery" {
         writeln!(content, ":::caution")?;
