@@ -16,7 +16,7 @@ importers:
         version: 3.2.0
       '@astrojs/react':
         specifier: 3.6.3
-        version: 3.6.3(@types/node@20.17.7)(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))
+        version: 3.6.3(@types/node@20.17.7)(@types/react-dom@18.3.3(@types/react@18.3.14))(@types/react@18.3.14)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))
       '@astrojs/rss':
         specifier: 4.0.9
         version: 4.0.9
@@ -63,11 +63,11 @@ importers:
         specifier: 20.17.7
         version: 20.17.7
       '@types/react':
-        specifier: 18.3.12
-        version: 18.3.12
+        specifier: 18.3.14
+        version: 18.3.14
       '@types/react-dom':
-        specifier: 18.3.1
-        version: 18.3.1
+        specifier: 18.3.3
+        version: 18.3.3(@types/react@18.3.14)
       '@uiw/react-codemirror':
         specifier: 4.23.6
         version: 4.23.6(@babel/runtime@7.24.4)(@codemirror/autocomplete@6.15.0(@codemirror/language@6.10.1)(@codemirror/state@6.5.0)(@codemirror/view@6.35.3)(@lezer/common@1.2.1))(@codemirror/language@6.10.1)(@codemirror/lint@6.8.4)(@codemirror/search@6.5.6)(@codemirror/state@6.5.0)(@codemirror/theme-one-dark@6.1.2)(@codemirror/view@6.35.3)(codemirror@6.0.1(@lezer/common@1.2.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1333,11 +1333,13 @@ packages:
   '@types/prop-types@15.7.12':
     resolution: {integrity: sha512-5zvhXYtRNRluoE/jAp4GVsSduVUzNWKkOZrCDBWYtE7biZywwdC2AcEzg+cSMLFRfVgeAFqpfNabiPjxFddV1Q==}
 
-  '@types/react-dom@18.3.1':
-    resolution: {integrity: sha512-qW1Mfv8taImTthu4KoXgDfLuk4bydU6Q/TkADnDWWHwi4NX4BR+LWfTp2sVmTqRrsHvyDDTelgelxJ+SsejKKQ==}
+  '@types/react-dom@18.3.3':
+    resolution: {integrity: sha512-uTYkxTLkYp41nq/ULXyXMtkNT1vu5fXJoqad6uTNCOGat5t9cLgF4vMNLBXsTOXpdOI44XzKPY1M5RRm0bQHuw==}
+    peerDependencies:
+      '@types/react': ^18.0.0
 
-  '@types/react@18.3.12':
-    resolution: {integrity: sha512-D2wOSq/d6Agt28q7rSI3jhU7G6aiuzljDGZ2hTZHIkrTLUI+AF3WMeKkEZ9nN2fkBAlcktT6vcZjDFiIhMYEQw==}
+  '@types/react@18.3.14':
+    resolution: {integrity: sha512-NzahNKvjNhVjuPBQ+2G7WlxstQ+47kXZNHlUvFakDViuIEfGY926GqhMueQFZ7woG+sPiQKlF36XfrIUVSUfFg==}
 
   '@types/sax@1.2.7':
     resolution: {integrity: sha512-rO73L89PJxeYM3s3pPPjiPgVVcymqU490g0YO5n5By0k2Erzj6tay/4lr1CHAAU4JyOWd1rpQ8bCf6cZfHU96A==}
@@ -4275,10 +4277,10 @@ snapshots:
     dependencies:
       prismjs: 1.29.0
 
-  '@astrojs/react@3.6.3(@types/node@20.17.7)(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))':
+  '@astrojs/react@3.6.3(@types/node@20.17.7)(@types/react-dom@18.3.3(@types/react@18.3.14))(@types/react@18.3.14)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))':
     dependencies:
-      '@types/react': 18.3.12
-      '@types/react-dom': 18.3.1
+      '@types/react': 18.3.14
+      '@types/react-dom': 18.3.3(@types/react@18.3.14)
       '@vitejs/plugin-react': 4.3.3(vite@5.4.11(@types/node@20.17.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49)))
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
@@ -5582,11 +5584,11 @@ snapshots:
 
   '@types/prop-types@15.7.12': {}
 
-  '@types/react-dom@18.3.1':
+  '@types/react-dom@18.3.3(@types/react@18.3.14)':
     dependencies:
-      '@types/react': 18.3.12
+      '@types/react': 18.3.14
 
-  '@types/react@18.3.12':
+  '@types/react@18.3.14':
     dependencies:
       '@types/prop-types': 15.7.12
       csstype: 3.1.3
