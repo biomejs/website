@@ -40,7 +40,7 @@
 		"@types/react": "18.3.14",
 		"@types/react-dom": "18.3.3",
 		"@uiw/react-codemirror": "4.23.6",
-		"@vitejs/plugin-react": "4.3.3",
+		"@vitejs/plugin-react": "4.3.4",
 		"astro": "4.16.17",
 		"astro-og-canvas": "0.5.5",
 		"autoprefixer": "10.4.20",
