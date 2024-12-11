@@ -78,8 +78,8 @@ importers:
         specifier: 4.16.16
         version: 4.16.16(@types/node@20.17.9)(rollup@4.21.2)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.5.4)
       astro-og-canvas:
-        specifier: 0.5.4
-        version: 0.5.4(astro@4.16.16(@types/node@20.17.9)(rollup@4.21.2)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.5.4))
+        specifier: 0.5.5
+        version: 0.5.5(astro@4.16.16(@types/node@20.17.9)(rollup@4.21.2)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.5.4))
       autoprefixer:
         specifier: 10.4.20
         version: 10.4.20(postcss@8.4.49)
@@ -1475,11 +1475,11 @@ packages:
     peerDependencies:
       astro: ^4.0.0-beta || ^5.0.0-beta || ^3.3.0
 
-  astro-og-canvas@0.5.4:
-    resolution: {integrity: sha512-bKopjX5DZ0WZH3kmUl82EVBhGzoCQwH5Ja4YdB5MO1EtWFZpWzvKWWptsOKGhjz+Kn85+gD/kgw25ebrvYufSg==}
+  astro-og-canvas@0.5.5:
+    resolution: {integrity: sha512-dbZ7voJAmvy8Zyv5zFsgENs9G4uhcCJ4nVuUPb7ymu8+Vp/jr/fdQDKPrLYUG2TSi/1HejYRnzkXcSv6ntlDTA==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
-      astro: ^3.0.0 || ^4.0.0
+      astro: ^3.0.0 || ^4.0.0 || ^5.0.0
 
   astro@4.16.16:
     resolution: {integrity: sha512-H1CttrV6+JFrDBQx0Mcbq5i5AeLhCbztB786+9wEu3svWL/QPNeCGqF0dgNORAYmP+rODGCPu/y9qKSh87iLuA==}
@@ -5683,7 +5683,7 @@ snapshots:
       astro: 4.16.16(@types/node@20.17.9)(rollup@4.21.2)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.5.4)
       rehype-expressive-code: 0.38.3
 
-  astro-og-canvas@0.5.4(astro@4.16.16(@types/node@20.17.9)(rollup@4.21.2)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.5.4)):
+  astro-og-canvas@0.5.5(astro@4.16.16(@types/node@20.17.9)(rollup@4.21.2)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.5.4)):
     dependencies:
       astro: 4.16.16(@types/node@20.17.9)(rollup@4.21.2)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.5.4)
       canvaskit-wasm: 0.39.1
