@@ -26,14 +26,14 @@ hero:
       variant: secondary
 ---
 
-import { Card, CardGrid } from "@astrojs/starlight/components";
+import {Card, CardGrid} from "@astrojs/starlight/components";
 import Inputf from "@/components/formatter/input.md";
 import Outputf from "@/components/formatter/output.md";
 import ProgressBarContainer from "@/playground/components/Progress.tsx";
 import Community from "@/components/generated/Community.astro";
-import { Icon } from "@astrojs/starlight/components";
+import {Icon} from "@astrojs/starlight/components";
 import arrow from "@/assets/svg/arrow-right.svg";
-import { Image } from "astro:assets";
+import {Image} from "astro:assets";
 import "@/styles/_performance.css";
 import "@/styles/_installation.css";
 import "@/styles/_community.css";
@@ -41,6 +41,7 @@ import Netlify from "@/components/Netlify.astro";
 import Sponsors from "@/components/Sponsors.astro";
 import LinterExample from "@/components/linter/example.md";
 import NumberOfRules from "@/components/generated/NumberOfRules.astro";
+import AwardBanner from "@/components/AwardBanner.astro"
 
 <div class="gradient"></div>
 <div class="grid"></div>
@@ -49,41 +50,44 @@ import NumberOfRules from "@/components/generated/NumberOfRules.astro";
 <div class="hero-code">
     <h2 class="head">Format code like Prettier, save time</h2>
 
-    **Biome is a [fast formatter](https://github.com/biomejs/biome/tree/main/benchmark#formatting)** for _JavaScript_, _TypeScript_, _JSX_, _TSX_, _JSON_, _CSS_ and _GraphQL_ that scores **[97% compatibility with _Prettier_](https://console.algora.io/challenges/prettier)**, **saving CI and developer time**.
+    **Biome is a [fast formatter](https://github.com/biomejs/biome/tree/main/benchmark#formatting)** for _JavaScript_,
+    _TypeScript_, _JSX_, _TSX_, _JSON_, _CSS_ and _GraphQL_ that scores **[97% compatibility with
+    _Prettier_](https://console.algora.io/challenges/prettier)**, **saving CI and developer time**.
 
     Biome can even **format malformed code** as you write it in [your favorite editor](/guides/integrate-in-editor/).
 
     <div class="linter format">
-      <div class="inp">
-        <span>CODE</span>
-        <Inputf />
-      </div>
-      <div class="out">
-        <span>OUTPUT</span>
-        <Outputf />
-      </div>
-      <div class="perf-out">
-        <span>PERFORMANCE</span>
-        <div class="bench-comp">
-          <div class="bench">
-            <div>
-              <ProgressBarContainer
-                client:visible
-                data={[
-                  { duration: 0.41, label: "Biome", color: "#33ff66" },
-                  { duration: 14.35, label: "Prettier", color: "#ff0033" }
-                ]}
-              />
-            </div>
-          </div>
-          <div class="perf-comp">
-            <div class="comp">~35x</div>
-            <div class="comp-des">
-              Faster than Prettier when formatting 171,127 lines of code in 2,104 files with an Intel Core i7 1270P.
-            </div>
-          </div>
+        <div class="inp">
+            <span>CODE</span>
+            <Inputf/>
         </div>
-      </div>
+        <div class="out">
+            <span>OUTPUT</span>
+            <Outputf/>
+        </div>
+        <div class="perf-out">
+            <span>PERFORMANCE</span>
+            <div class="bench-comp">
+                <div class="bench">
+                    <div>
+                        <ProgressBarContainer
+                            client:visible
+                            data={[
+                                {duration: 0.41, label: "Biome", color: "#33ff66"},
+                                {duration: 14.35, label: "Prettier", color: "#ff0033"}
+                            ]}
+                        />
+                    </div>
+                </div>
+                <div class="perf-comp">
+                    <div class="comp">~35x</div>
+                    <div class="comp-des">
+                        Faster than Prettier when formatting 171,127 lines of code in 2,104 files with an Intel Core i7
+                        1270P.
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     Try the Biome formatter on the [playground](/playground/) or directly on your project:
@@ -98,11 +102,14 @@ import NumberOfRules from "@/components/generated/NumberOfRules.astro";
 <div class="hero-code">
     <h2 class="head">Fix problems, learn best practice</h2>
 
-    **Biome is a [performant linter](https://github.com/biomejs/biome/tree/main/benchmark#linting)** for _JavaScript_, _TypeScript_, _JSX_, _CSS_ and _GraphQL_ that features **[<NumberOfRules/> rules](/linter/rules/)** from ESLint, TypeScript ESLint, and [other sources](/linter/rules-sources/).
+    **Biome is a [performant linter](https://github.com/biomejs/biome/tree/main/benchmark#linting)** for _JavaScript_,
+    _TypeScript_, _JSX_, _CSS_ and _GraphQL_ that features **[<NumberOfRules/> rules](/linter/rules/)** from ESLint,
+    TypeScript ESLint, and [other sources](/linter/rules-sources/).
 
-    **Biome outputs detailed and contextualized diagnostics** that help you to improve your code and become a better programmer!
+    **Biome outputs detailed and contextualized diagnostics** that help you to improve your code and become a better
+    programmer!
 
-    <LinterExample />
+    <LinterExample/>
 
     Try the Biome linter on the [playground](/playground/) or directly on your project:
 
@@ -134,88 +141,90 @@ import NumberOfRules from "@/components/generated/NumberOfRules.astro";
 
 <div class="card-cnt">
 
-<CardGrid>
-    <Card title="Fast" icon="rocket">
-      Built with Rust and an innovative architecture inspired by rust-analyzer.
-    </Card>
-    <Card title="Simple" icon="pencil">
-      Zero configuration needed to get started. Extensive options available for
-      when you need them.
-    </Card>
-    <Card title="Scalable" icon="random">
-      Designed to handle codebases of any size. Focus on growing product instead
-      of your tools.
-    </Card>
-    <Card title="Optimized" icon="setting">
-      With tight internal integration we are able to reuse previous work and any
-      improvement to one tool improves them all.
-    </Card>
-    <Card title="Actionable & Informative" icon="information">
-      Avoid obscure error messages, when we tell you something is wrong, we tell
-      you exactly where the problem is and how to fix it.
-    </Card>
-    <Card title="Batteries Included" icon="add-document">
-      Out of the box support for all the language features you use today. First
-      class support for TypeScript and JSX.
-    </Card>
-  </CardGrid>
+    <CardGrid>
+        <Card title="Fast" icon="rocket">
+            Built with Rust and an innovative architecture inspired by rust-analyzer.
+        </Card>
+        <Card title="Simple" icon="pencil">
+            Zero configuration needed to get started. Extensive options available for
+            when you need them.
+        </Card>
+        <Card title="Scalable" icon="random">
+            Designed to handle codebases of any size. Focus on growing product instead
+            of your tools.
+        </Card>
+        <Card title="Optimized" icon="setting">
+            With tight internal integration we are able to reuse previous work and any
+            improvement to one tool improves them all.
+        </Card>
+        <Card title="Actionable & Informative" icon="information">
+            Avoid obscure error messages, when we tell you something is wrong, we tell
+            you exactly where the problem is and how to fix it.
+        </Card>
+        <Card title="Batteries Included" icon="add-document">
+            Out of the box support for all the language features you use today. First
+            class support for TypeScript and JSX.
+        </Card>
+    </CardGrid>
 </div>
 <div class="installation-body">
-  <div class="installation">
-    <div class="installation-left">
-      <h2 class="head">Try Biome</h2>
-      <div class="installation-description">
-        Install Biome using your preferred package manager AND integrate it in your editor.
-      </div>
-      <a class="installation-biome" href="/guides/getting-started/#installation">
-        Install with package manager
-        <Image src={arrow} alt="arrow" />
-      </a>
-      <a
-        href="/guides/integrate-in-editor/"
-        class="installation-extension"
-      >
-        Integrate Biome in your editor
-        <Image src={arrow} alt="arrow" />
-      </a>
+    <div class="installation">
+        <div class="installation-left">
+            <h2 class="head">Try Biome</h2>
+            <div class="installation-description">
+                Install Biome using your preferred package manager AND integrate it in your editor.
+            </div>
+            <a class="installation-biome" href="/guides/getting-started/#installation">
+                Install with package manager
+                <Image src={arrow} alt="arrow"/>
+            </a>
+            <a
+                href="/guides/integrate-in-editor/"
+                class="installation-extension"
+            >
+                Integrate Biome in your editor
+                <Image src={arrow} alt="arrow"/>
+            </a>
+        </div>
+
+        <div class="extension-img"></div>
+
     </div>
-
-    <div class="extension-img"></div>
-
-  </div>
 </div>
+
+<AwardBanner/>
 
 <div class="community">
-  <div class="community-grid"></div>
-  <h2 class="head">Community</h2>
-  <div class="community-connect">
-    <div class="community-description">
-      Powered by our open-source contributors
+    <div class="community-grid"></div>
+    <h2 class="head">Community</h2>
+    <div class="community-connect">
+        <div class="community-description">
+            Powered by our open-source contributors
+        </div>
+        <div class="community-links">
+            <a href="https://biomejs.dev/chat" class="discord">
+                <Icon name="discord"/>
+                <p>Discord</p>
+            </a>
+            <a href="https://github.com/biomejs/biome" class="github">
+                <Icon name="github"/>
+                <p>GitHub</p>
+            </a>
+            <a href="https://twitter.com/biomejs" class="x">
+                <Icon name="x.com"/>
+                <p>Twitter</p>
+            </a>
+            <a href="https://fosstodon.org/@biomejs" class="mastodon">
+                <Icon name="mastodon"/>
+                <p>Mastodon</p>
+            </a>
+        </div>
     </div>
-    <div class="community-links">
-      <a href="https://biomejs.dev/chat" class="discord">
-        <Icon name="discord" />
-        <p>Discord</p>
-      </a>
-      <a href="https://github.com/biomejs/biome" class="github">
-        <Icon name="github" />
-        <p>GitHub</p>
-      </a>
-      <a href="https://twitter.com/biomejs" class="x">
-        <Icon name="x.com" />
-        <p>Twitter</p>
-      </a>
-      <a href="https://fosstodon.org/@biomejs" class="mastodon">
-        <Icon name="mastodon" />
-        <p>Mastodon</p>
-      </a>
+    <div class="connect">
+        <Community/>
     </div>
-  </div>
-  <div class="connect">
-    <Community />
-  </div>
 </div>
 
-<Sponsors title="Sponsors" />
+<Sponsors title="Sponsors"/>
 
-<Netlify />
+<Netlify/>
