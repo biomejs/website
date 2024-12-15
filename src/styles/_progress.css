@@ -20,7 +20,6 @@
 	height: 1.2rem;
 	background: var(--sl-color-gray-5);
 	position: relative;
-	overflow: hidden;
 }
 
 .bar {
@@ -34,6 +33,8 @@
 	right: 2%;
 	top: 0%;
 	font-size: 0.7rem;
+	font-weight: 600;
+	transform: translateY(-100%);
 }
 
 @media only screen and (max-width: 1080px) {
