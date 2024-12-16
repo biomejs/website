@@ -70,7 +70,7 @@
 		"textlint-rule-prh": "6.0.0",
 		"typescript": "5.5.4",
 		"vite": "5.4.11",
-		"vite-plugin-svgr": "4.2.0"
+		"vite-plugin-svgr": "4.3.0"
 	},
 	"packageManager": "pnpm@9.6.0"
 }
