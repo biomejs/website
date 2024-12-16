@@ -1,0 +1,60 @@
+---
+title: Installation manuelle
+description: Installez Biome manuellement
+---
+
+Utiliser le binaire autonome de l’interface en ligne de commande de Biome peut être un bon choix si vous n’utilisez pas déjà Node.js ou `npm` (ou tout autre gestionnaire de paquets).
+Autrement dit, Biome ne devrait pas être la seule raison pour que vous ayez un `package.json`.
+
+:::note
+Si vous utilisez déjà `npm` ou un autre gestionnaire de paquets, alors utiliser le gestionnaire de paquets est la [manière préférée d’installer](/fr/guides/getting-started#installation) Biome.
+Vous êtes déjà familiarisé avec l’outillage et l’installation et la mise à jour sont plus simples.
+:::
+
+## Plateformes prises en charge
+
+Vous devez choisir le bon binaire pour votre plateforme afin que Biome marche. La table suivante devrait vous aider à le faire.
+
+| Architecture CPU | Windows       | macOS                               | Linux         | Linux (musl)       |
+| ---------------- | ------------- | ----------------------------------- | ------------- | ------------------ |
+| `arm64`          | `win32-arm64` | `darwin-arm64` (M1 ou plus récente) | `linux-arm64` | `linux-arm64-musl` |
+| `x64`            | `win32-x64`   | `darwin-x64`                        | `linux-x64`   | `linux-x64-musl`   |
+
+:::note
+Utilisez la variante Linux pour Windows Subsystem for Linux (WSL).
+:::
+
+## Homebrew
+
+Biome est disponible sous forme de [formule Homebrew](https://formulae.brew.sh/formula/biome) pour les utilisateurs de macOS et de Linux.
+
+```shell
+brew install biome
+```
+
+## Utiliser un binaire publié
+
+Pour installer Biome, prenez l’exécutable pour votre plateforme de la [dernière version de l’interface en ligne de commande](https://github.com/biomejs/biome/releases) sur GitHub et donnez-lui des permissions d’exécution.
+
+```shell
+# macOS arm (M1 ou plus récente)
+curl -L https://github.com/biomejs/biome/releases/download/cli%2Fv<version>/biome-darwin-arm64 -o biome
+chmod +x biome
+
+# Linux (x86_64)
+curl -L https://github.com/biomejs/biome/releases/download/cli%2Fv<version>/biome-linux-x64 -o biome
+chmod +x biome
+
+# Windows (x86_64, Powershell)
+Invoke-WebRequest -Uri "https://github.com/biomejs/biome/releases/download/cli%2Fv<version>/biome-win32-x64.exe" -OutFile "biome.exe"
+```
+
+:::note
+Assurez-vous de remplacer `<version>` par la version de Biome que vous voulez installer.
+:::
+
+À présent, vous pouvez utiliser Biome tout simplement en exécutant `./biome`.
+
+## Étapes suivantes
+
+Suivez notre [guide de démarrage](/fr/guides/getting-started/).
