@@ -1420,6 +1420,20 @@ export function GET() {
             ],
             "docs": " Disallow the use of `process.env`.\n\n The `process.env` object in Node.js stores configuration settings. Using it directly throughout a project can cause problems:\n\n 1. It's harder to maintain\n 2. It can lead to conflicts in team development\n 3. It complicates deployment across multiple servers\n\n A better practice is to keep all settings in one configuration file and reference it throughout the project.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n if (process.env.NODE_ENV === 'development') {\n   // ...\n }\n ```\n\n ### Valid\n\n ```js\n const config = require('./config');\n if (config.NODE_ENV === 'development') {\n   // ...\n }\n ```\n\n"
           },
+          "noProcessGlobal": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noProcessGlobal",
+            "link": "https://biomejs.dev/linter/rules/no-process-global",
+            "recommended": false,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "denoLint": "no-process-global"
+              }
+            ],
+            "docs": " Disallow the use of `process` global.\n\n Node.js and Deno expose `process` global but they are hard to statically analyze by tools,\n so code should not assume they are available. Instead, `import process from \"node:process\"`.\n\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const foo = process.env.FOO;\n ```\n\n ### Valid\n\n ```js\n import process from \"node:process\";\n\n const foo = process.env.FOO;\n ```\n\n The rule is not able to detect cases where the global object is aliased:\n\n ```js\n const foo = globalThis;\n const bar = foo.process;\n ```\n\n"
+          },
           "noRestrictedImports": {
             "deprecated": false,
             "version": "1.6.0",
@@ -4161,7 +4175,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 296
+    "numberOrRules": 297
   },
   "syntax": {
     "languages": {
