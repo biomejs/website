@@ -1,0 +1,900 @@
+---
+title: Конфігурація
+description: Як налаштувати та конфігурувати Biome за допомогою biome.json.
+---
+
+import LintGroups from "@/components/generated/Groups.astro";
+
+{/** Обов'язково оновіть перенаправлення в `static/_redirects` при зміні заголовка конфігурації --> **/}
+
+## `$schema`
+
+Дозволяє вказати шлях до файлу JSON схеми.
+
+Ми публікуємо файл JSON схеми для `biome.json`.
+
+Ви можете вказати відносний шлях до схеми пакету `@biomejs/biome`, якщо `@biomejs/biome` встановлено в папці `node_modules`:
+
+Якщо у вас виникають проблеми з вирішенням фізичного файлу, ви можете використовувати той, що опублікований на цьому сайті:
+
+
+
+```json title="biome.json"
+{
+  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json"
+}
+```
+
+## `extends`
+
+Список шляхів до інших JSON файлів. Biome вирішує та застосовує опції файлів, що містяться у списку `extends`, і в кінцевому підсумку застосовує опції, що містяться у файлі `biome.json`.
+
+## `files`
+
+### `files.maxSize`
+
+Максимально допустимий розмір файлів вихідного коду в байтах. Файли, що перевищують цей ліміт, будуть ігноруватися з міркувань продуктивності.
+
+> За замовчуванням: `1048576` (1024*1024, 1MB)
+
+### `files.ignore`
+
+Список шаблонів у стилі Unix shell. Biome ігнорує файли та папки, що відповідають цим шаблонам.
+
+
+```json title="biome.json"
+{
+  "files": {
+    "ignore": ["scripts/*.js"]
+  }
+}
+```
+
+
+### `files.include`
+
+Список шаблонів у стилі Unix shell. Biome обробляє лише файли та папки, що відповідають цим шаблонам.
+
+
+
+```json title="biome.json"
+{
+  "files": {
+    "include": ["scripts/*.js"]
+  }
+}
+```
+
+:::warning
+Коли вказані і `include`, і `ignore`, `ignore` має **пріоритет** над `include`
+:::
+
+Розглянемо наступний приклад:
+
+
+
+```json title="biome.json"
+{
+  "files": {
+    "include": ["scripts/**/*.js", "src/**/*.js"],
+    "ignore": ["scripts/**/*.js"]
+  }
+}
+```
+
+Лише файли, що відповідають шаблону `src/**/*.js`, будуть оброблятися, тоді як файли, що відповідають шаблону
+`scripts/**/*.js`, будуть ігноруватися.
+
+### `files.ignoreUnknown`
+
+Biome не буде видавати діагностику, якщо зустріне файли, які не може обробити.
+
+
+
+```json title="biome.json"
+{
+  "files": {
+    "ignoreUnknown": true
+  }
+}
+```
+
+> За замовчуванням: `false`
+
+## `vcs`
+
+Набір властивостей для інтеграції Biome з VCS (системою контролю версій).
+
+### `vcs.enabled`
+
+Чи повинен Biome інтегруватися з клієнтом VCS
+
+> За замовчуванням: `false`
+
+### `vcs.clientKind`
+
+Тип клієнта.
+
+Значення:
+- `"git"`
+
+### `vcs.useIgnoreFile`
+
+Чи повинен Biome використовувати файл ігнорування VCS. Коли `true`, Biome буде ігнорувати файли, зазначені у файлі ігнорування.
+
+### `vcs.root`
+
+Папка, де Biome повинен шукати файли VCS. За замовчуванням, Biome використовуватиме ту саму папку, де був знайдений `biome.json`.
+
+Якщо Biome не може знайти конфігурацію, він спробує використовувати поточну робочу директорію.
+Якщо поточна робоча директорія не може бути знайдена, Biome не використовуватиме інтеграцію з VCS, і буде видано діагностичне повідомлення.
+
+### `vcs.defaultBranch`
+
+Основна гілка проекту. Biome використовуватиме цю гілку при оцінці змінених файлів.
+
+## `linter`
+
+### `linter.enabled`
+
+Вмикає лінтер Biome
+
+> За замовчуванням: `true`
+
+### `linter.ignore`
+
+Масив шаблонів у стилі Unix shell.
+
+
+
+```json title="biome.json"
+{
+  "linter": {
+    "ignore": ["scripts/*.js"]
+  }
+}
+```
+
+
+### `linter.include`
+
+Список шаблонів у стилі Unix shell. Biome обробляє лише файли та папки, що відповідають цим шаблонам.
+
+
+
+```json title="biome.json"
+{
+  "linter": {
+    "include": ["scripts/*.js"]
+  }
+}
+```
+
+:::warning
+Коли вказані і `include`, і `ignore`, `ignore` має **пріоритет** над `include`
+:::
+
+Розглянемо наступний приклад:
+
+
+
+```json title="biome.json"
+{
+  "linter": {
+    "include": ["scripts/**/*.js", "src/**/*.js"],
+    "ignore": ["scripts/**/*.js"]
+  }
+}
+```
+
+Лише файли, що відповідають шаблону `src/**/*.js`, будуть перевірятися лінтером, тоді як файли, що відповідають шаблону
+`scripts/**/*.js`, будуть ігноруватися.
+
+### `linter.rules.recommended`
+
+Вмикає [рекомендовані правила](/linter/rules) для всіх груп.
+
+> За замовчуванням: `true`
+
+
+### `linter.rules.all`
+
+Вмикає або вимикає всі [правила](/linter/rules) для всіх груп.
+
+Якщо `recommended` і `all` обидва `true`, Biome видасть діагностичне повідомлення і повернеться до своїх налаштувань за замовчуванням.
+
+
+
+```json title="biome.json"
+{
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "all": true
+    }
+  }
+}
+```
+
+Також можна комбінувати цей прапорець для ввімкнення/вимкнення різних груп правил:
+
+
+
+```json title="biome.json"
+{
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "all": true,
+      "style": {
+        "all": false
+      },
+      "complexity": {
+        "all": false
+      }
+    }
+  }
+}
+```
+
+У попередньому прикладі Biome ввімкне всі правила, за винятком правил, що належать до груп `style` та `complexity`.
+
+
+### `linter.rules.[group]`
+
+Опції, що впливають на правила однієї групи. Biome підтримує наступні групи:
+
+<LintGroups/>
+
+### `linter.rules.[group].recommended`
+
+Вмикає рекомендовані правила для однієї групи.
+
+Приклад:
+
+
+
+```json title="biome.json"
+{
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "nursery": {
+        "recommended": true
+      }
+    }
+  }
+}
+```
+
+
+### `linter.rules.[group].all`
+
+Вмикає всі правила для однієї групи.
+
+Приклад:
+
+
+
+```json title="biome.json"
+{
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "nursery": {
+        "all": true
+      }
+    }
+  }
+}
+```
+
+## `formatter`
+
+Ці опції застосовуються до всіх мов. Існують додаткові опції форматування для конкретних мов нижче.
+
+### `formatter.enabled`
+
+Вмикає форматувач Biome
+
+> За замовчуванням: `true`
+
+### `formatter.ignore`
+
+Масив шаблонів у стилі Unix shell.
+
+
+
+```json title="biome.json"
+{
+  "formatter": {
+    "ignore": ["scripts/*.js"]
+  }
+}
+```
+
+### `formatter.include`
+
+Список шаблонів у стилі Unix shell. Biome обробляє лише файли та папки, що відповідають цим шаблонам.
+
+
+
+```json title="biome.json"
+{
+  "formatter": {
+    "include": ["scripts/*.js"]
+  }
+}
+```
+
+:::warning
+Коли вказані і `include`, і `ignore`, `ignore` має **пріоритет** над `include`
+:::
+
+Розглянемо наступний приклад:
+
+
+
+```json title="biome.json"
+{
+  "formatter": {
+    "include": ["scripts/**/*.js", "src/**/*.js"],
+    "ignore": ["scripts/**/*.js"]
+  }
+}
+```
+
+Лише файли, що відповідають шаблону `src/**/*.js`, будуть форматуватися, тоді як файли, що відповідають шаблону
+`scripts/**/*.js`, будуть ігноруватися.
+
+### `formatter.formatWithErrors`
+
+Дозволяє форматувати документ, що має синтаксичні помилки.
+
+
+
+```json title="biome.json"
+{
+  "formatter": {
+    "formatWithErrors": true
+  }
+}
+```
+
+> За замовчуванням: `false`
+
+### `formatter.indentStyle`
+
+Стиль відступів. Може бути `"tab"` або `"space"`.
+
+> За замовчуванням: `"tab"`
+
+### `formatter.indentSize`
+
+Цей параметр застарілий, будь ласка, використовуйте [`formatter.indentWidth`](#formatterindentwidth) замість нього.
+
+<details>
+<summary>Застарілий</summary>
+
+Розмір відступу.
+
+> За замовчуванням: `2`
+
+</details>
+
+### `formatter.indentWidth`
+
+Розмір відступу.
+
+> За замовчуванням: `2`
+
+### `formatter.lineEnding`
+
+Тип закінчення рядка.
+- `"lf"`, тільки Line Feed (`\n`), поширений на Linux та macOS, а також у git репозиторіях;
+- `"crlf"`, символи Carriage Return + Line Feed (`\r\n`), поширені на Windows;
+- `"cr"`, тільки символ Carriage Return (`\r`), використовується дуже рідко.
+
+> За замовчуванням: `"lf"`
+
+### `formatter.lineWidth`
+
+Скільки символів може бути написано в одному рядку.
+
+> За замовчуванням: `80`
+
+### `formatter.attributePosition`
+
+Стиль розташування атрибутів у HTML-подібних мовах.
+- `"auto"`, атрибути автоматично форматуються і будуть розміщені на кількох рядках лише тоді, коли вони досягнуть певних критеріїв;
+- `"multiline"`, атрибути завжди форматуються на кількох рядках, незалежно від критеріїв.
+
+> За замовчуванням: `"auto"`
+
+### `formatter.useEditorconfig`
+
+Чи повинен Biome використовувати файл `.editorconfig` для визначення параметрів форматування. Якщо `true`, застосовуватимуться відповідні параметри з файлу `.editorconfig`, але будь-яка конфігурація у файлі `biome.json` матиме пріоритет.
+
+При міграції з Prettier за допомогою `biome migrate`, цей параметр встановлюється на `true`, щоб відповідати поведінці Prettier.
+
+> За замовчуванням: `false`
+
+## `organizeImports`
+
+### `organizeImports.enabled`
+
+Вмикає сортування імпортів Biome.
+
+> За замовчуванням: `true`
+
+### `organizeImports.ignore`
+
+
+Список шаблонів у стилі Unix shell. Biome ігнорує файли та папки, що відповідають цим шаблонам.
+
+
+
+```json title="biome.json"
+{
+  "organizeImports": {
+    "ignore": ["scripts/*.js"]
+  }
+}
+```
+
+
+### `organizeImports.include`
+
+Список шаблонів у стилі Unix shell. Biome обробляє лише файли та папки, що відповідають цим шаблонам.
+
+
+
+```json title="biome.json"
+{
+  "organizeImports": {
+    "include": ["scripts/*.js"]
+  }
+}
+```
+
+:::caution
+Коли вказані і `include`, і `ignore`, `ignore` має **пріоритет** над `include`
+:::
+
+Розглянемо наступний приклад:
+
+
+
+```json title="biome.json"
+{
+  "organizeImports": {
+    "include": ["scripts/**/*.js", "src/**/*.js"],
+    "ignore": ["scripts/**/*.js"]
+  }
+}
+```
+
+Лише файли, що відповідають шаблону `src/**/*.js`, будуть мати впорядковані імпорти, тоді як файли, що відповідають шаблону
+`scripts/**/*.js`, будуть ігноруватися.
+### `javascript.formatter.arrowParentheses`
+
+Чи додавати непотрібні дужки до стрілкових функцій:
+- `"always"`, дужки завжди додаються;
+- `"asNeeded"`, дужки додаються лише тоді, коли вони потрібні.
+
+> За замовчуванням: `"always"`
+
+### `javascript.formatter.enabled`
+
+Вмикає форматувач Biome для JavaScript (та його надмов).
+
+> За замовчуванням: `true`
+
+### `javascript.formatter.indentStyle`
+
+Стиль відступів для JavaScript (та його надмов). Може бути `"tab"` або `"space"`.
+
+> За замовчуванням: `"tab"`
+
+### `javascript.formatter.indentSize`
+
+Цей параметр застарілий, будь ласка, використовуйте [`javascript.formatter.indentWidth`](#javascriptformatterindentwidth) замість нього.
+
+<details>
+<summary>Застарілий</summary>
+
+Розмір відступу для JavaScript (та його надмов).
+
+> За замовчуванням: `2`
+
+</details>
+
+### `javascript.formatter.indentWidth`
+
+Розмір відступу для JavaScript (та його надмов).
+
+> За замовчуванням: `2`
+
+### `javascript.formatter.lineEnding`
+
+Тип закінчення рядка для JavaScript (та його надмов).
+- `"lf"`, тільки Line Feed (`\n`), поширений на Linux та macOS, а також у git репозиторіях;
+- `"crlf"`, символи Carriage Return + Line Feed (`\r\n`), поширені на Windows;
+- `"cr"`, тільки символ Carriage Return (`\r`), використовується дуже рідко.
+
+> За замовчуванням: `"lf"`
+
+### `javascript.formatter.lineWidth`
+
+Скільки символів може бути написано в одному рядку в JavaScript (та його надмовах).
+
+> За замовчуванням: `80`
+
+### `javascript.formatter.bracketSameLine`
+
+Виберіть, чи повинен закриваючий `>` багаторядкового елемента JSX бути на останньому рядку атрибутів чи ні.
+
+> За замовчуванням: `false`
+
+### `javascript.formatter.bracketSpacing`
+
+Виберіть, чи повинні додаватися пробіли між дужками та внутрішніми значеннями.
+
+> За замовчуванням: `true`
+
+### `javascript.formatter.attributePosition`
+
+Стиль розташування атрибутів у JSX елементах.
+- `"auto"`, атрибути автоматично форматуються і будуть розміщені на кількох рядках лише тоді, коли вони досягнуть певних критеріїв;
+- `"multiline"`, атрибути завжди форматуються на кількох рядках, незалежно від критеріїв.
+
+> За замовчуванням: `"auto"`
+
+### `javascript.globals`
+
+Список глобальних імен, які Biome повинен ігнорувати (аналізатор, лінтер тощо).
+
+```json title="biome.json"
+{
+  "javascript": {
+    "globals": ["$", "_", "externalVariable"]
+  }
+}
+```
+
+### `javascript.jsxRuntime`
+
+Вказує тип середовища виконання або трансформації для інтерпретації JSX.
+
+- `"transparent"` &mdash; Вказує на сучасне або нативне середовище JSX, яке не потребує спеціальної обробки Biome.
+- `"reactClassic"` &mdash; Вказує на класичне середовище React, яке потребує імпорту `React`. Відповідає значенню `react` для опції `jsx` у [`tsconfig.json`](https://www.typescriptlang.org/tsconfig#jsx) TypeScript.
+
+```json title="biome.json"
+{
+  "javascript": {
+    "jsxRuntime": "reactClassic"
+  }
+}
+```
+
+Для отримання додаткової інформації про старе та нове середовище виконання JSX, будь ласка, дивіться:
+https://legacy.reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html
+
+> За замовчуванням: `"transparent"`
+
+### `javascript.linter.enabled`
+
+Вмикає лінтер Biome для JavaScript (та його надмов).
+
+> За замовчуванням: `true`
+
+## `json`
+
+Опції, що застосовуються до JSON файлів.
+
+### `json.parser.allowComments`
+
+Дозволяє парсинг коментарів у JSON файлах.
+
+```json title="biome.json"
+{
+  "json": {
+    "parser": {
+      "allowComments": true
+    }
+  }
+}
+```
+
+### `json.parser.allowTrailingCommas`
+
+Дозволяє парсинг кінцевих ком.
+
+```json title="biome.json"
+{
+  "json": {
+    "parser": {
+      "allowTrailingCommas": true
+    }
+  }
+}
+```
+
+### `json.formatter.enabled`
+
+Вмикає форматувач Biome для JSON (та його надмов).
+
+> За замовчуванням: `true`
+
+### `json.formatter.indentStyle`
+
+Стиль відступів для JSON (та його надмов). Може бути `"tab"` або `"space"`.
+
+> За замовчуванням: `"tab"`
+
+### `json.formatter.indentSize`
+
+Цей параметр застарілий, будь ласка, використовуйте [`json.formatter.indentWidth`](#jsonformatterindentwidth) замість нього.
+
+<details>
+<summary>Застарілий</summary>
+
+Розмір відступу для JSON (та його надмов).
+
+> За замовчуванням: `2`
+
+</details>
+
+### `json.formatter.indentWidth`
+
+Розмір відступу для JSON (та його надмов).
+
+> За замовчуванням: `2`
+
+### `json.formatter.lineEnding`
+
+Тип закінчення рядка для JSON (та його надмов).
+- `"lf"`, тільки Line Feed (`\n`), поширений на Linux та macOS, а також у git репозиторіях;
+- `"crlf"`, символи Carriage Return + Line Feed (`\r\n`), поширені на Windows;
+- `"cr"`, тільки символ Carriage Return (`\r`), використовується дуже рідко.
+
+> За замовчуванням: `"lf"`
+
+### `json.formatter.lineWidth`
+
+Скільки символів може бути написано в одному рядку в JSON (та його надмовах).
+
+> За замовчуванням: `80`
+
+### `json.formatter.trailingCommas`
+
+Друкувати кінцеві коми скрізь, де це можливо, у багаторядкових синтаксичних структурах, розділених комами.
+
+Допустимі значення:
+- `"none"`: кінцева кома видаляється;
+- `"all"`: кінцева кома зберігається **і** є кращою.
+
+> За замовчуванням: `"none"`
+
+### `json.linter.enabled`
+
+Вмикає лінтер Biome для JSON (та його надмов).
+
+> За замовчуванням: `true`
+
+
+## `css`
+
+Опції, що застосовуються до CSS файлів.
+
+### `css.parser.cssModules`
+
+Дозволяє парсинг [CSS модулів](https://github.com/css-modules/css-modules)
+
+> За замовчуванням: `false`
+
+### `css.formatter.enabled`
+
+Вмикає форматувач Biome для CSS (та його надмов).
+
+> За замовчуванням: `false`
+
+### `css.formatter.indentStyle`
+
+Стиль відступів для CSS (та його надмов). Може бути `"tab"` або `"space"`.
+
+> За замовчуванням: `"tab"`
+
+### `css.formatter.indentWidth`
+
+Розмір відступу для CSS (та його надмов).
+
+> За замовчуванням: `2`
+
+### `css.formatter.lineEnding`
+
+Тип закінчення рядка для CSS (та його надмов).
+- `"lf"`, тільки Line Feed (`\n`), поширений на Linux та macOS, а також у git репозиторіях;
+- `"crlf"`, символи Carriage Return + Line Feed (`\r\n`), поширені на Windows;
+- `"cr"`, тільки символ Carriage Return (`\r`), використовується дуже рідко.
+
+> За замовчуванням: `"lf"`
+
+### `css.formatter.lineWidth`
+
+Скільки символів може бути написано в одному рядку в CSS (та його надмовах).
+
+> За замовчуванням: `80`
+
+### `css.formatter.quoteStyle`
+
+Тип лапок, що використовуються при представленні рядкових літералів. Може бути `"single"` або `"double"`.
+
+> За замовчуванням: `"double"`
+
+### `css.linter.enabled`
+
+Вмикає лінтер Biome для CSS (та його надмов).
+
+> За замовчуванням: `false`
+
+## `overrides`
+
+Список шаблонів.
+
+Використовуйте цю конфігурацію для зміни поведінки інструментів для певних файлів.
+
+Коли файл відповідає шаблону перевизначення, конфігурація, зазначена в цьому шаблоні, замінить конфігурацію верхнього рівня.
+
+Порядок шаблонів має значення. Якщо файл може відповідати трьом шаблонам, використовується лише перший.
+
+### `overrides.<ITEM>.ignore`
+
+Список шаблонів у стилі Unix shell. Biome не застосовуватиме перевизначення до файлів, що відповідають шаблону.
+
+```json title="biome.json"
+{
+  "overrides": [{
+    "ignore": ["scripts/*.js"]
+  }]
+}
+```
+
+### `overrides.<ITEM>.include`
+
+Список шаблонів у стилі Unix shell. Biome застосовуватиме перевизначення лише до файлів, що відповідають шаблону.
+
+```json title="biome.json"
+{
+  "overrides": [{
+    "include": ["scripts/*.js"]
+  }]
+}
+```
+
+### `overrides.<ITEM>.formatter`
+
+Включатиме опції конфігурації [форматувача верхнього рівня](#formatter), за винятком `ignore` та `include`.
+
+#### Приклади
+
+Наприклад, можна змінити `lineWidth`, `indentStyle` форматувача для певних файлів, що включені в шлях `generated/**`:
+
+```json title="biome.json"
+{
+  "formatter": {
+    "lineWidth": 100
+  },
+  "overrides": [
+    {
+      "include": ["generated/**"],
+      "formatter": {
+        "lineWidth": 160,
+        "indentStyle": "space"
+      }
+    }
+  ]
+}
+```
+
+### `overrides.<ITEM>.linter`
+
+Включатиме опції конфігурації [лінтера верхнього рівня](#linter), за винятком `ignore` та `include`.
+
+#### Приклади
+
+Ви можете вимкнути певні правила для певних шляхів, і вимкнути лінтер для інших шляхів:
+
+```json title="biome.json"
+{
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true
+    }
+  },
+  "overrides": [
+    {
+      "include": ["lib/**"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noDebugger": "off"
+          }
+        }
+      }
+    },
+    {
+      "include": ["shims/**"],
+      "linter": {
+        "enabled": false
+      }
+    }
+  ]
+}
+```
+
+### `overrides.<ITEM>.organizeImports`
+
+Включатиме опції конфігурації [упорядкування імпортів верхнього рівня](#organizeimports), за винятком `ignore` та `include`.
+
+### `overrides.<ITEM>.javascript`
+
+Включатиме опції конфігурації [javascript верхнього рівня](#javascript).
+
+#### Приклади
+
+Ви можете змінити поведінку форматування JavaScript файлів у певних папках:
+
+```json title="biome.json"
+{
+  "formatter": {
+    "lineWidth": 120
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single"
+    }
+  },
+  "overrides": [
+    {
+      "include": ["lib/**"],
+      "javascript": {
+        "formatter": {
+          "quoteStyle": "double"
+        }
+      }
+    }
+  ]
+}
+```
+
+### `overrides.<ITEM>.json`
+
+Включатиме опції конфігурації [json верхнього рівня](#json).
+
+#### Приклади
+
+Ви можете ввімкнути функції парсингу для певних JSON файлів:
+
+```json title="biome.json"
+{
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true
+    }
+  },
+  "overrides": [
+    {
+      "include": [".vscode/**"],
+      "json": {
+        "parser": {
+          "allowComments": true,
+          "allowTrailingCommas": true
+        }
+      }
+    }
+  ]
+}
+```

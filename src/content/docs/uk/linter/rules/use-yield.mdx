@@ -1,0 +1,62 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: useYield
+description: |
+  Require generator functions to contain `yield`.
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+**Diagnostic Category: `lint/correctness/useYield`**
+<Tabs>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+**Since**: `v1.0.0`
+:::note
+- This rule is recommended by Biome. A diagnostic error will appear when linting your code.
+:::
+
+Sources: 
+- Same as: <a href="https://eslint.org/docs/latest/rules/require-yield" target="_blank"><code>require-yield</code></a>
+
+Require generator functions to contain `yield`.
+
+This rule generates warnings for generator functions that do not have the `yield` keyword.
+
+## Examples
+
+### Invalid
+
+```js
+function* foo() {
+  return 10;
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/use-yield">lint/correctness/useYield</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This generator function doesn't contain </span><span style="color: Tomato;"><strong>yield</strong></span><span style="color: Tomato;">.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>function&#42; foo() &#123;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  return 10;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>&#125;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong><br />  <br /></code></pre>
+
+### Valid
+
+```js
+function* foo() {
+  yield 5;
+  return 10;
+}
+
+function foo() {
+  return 10;
+}
+
+// This rule does not warn on empty generator functions.
+function* foo() { }
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
+</Tabs>
+

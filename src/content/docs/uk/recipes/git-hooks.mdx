@@ -1,0 +1,221 @@
+---
+title: Git Hooks
+description: Використання Biome в Git Hooks
+---
+
+Git дозволяє виконувати скрипти під час виконання команди git за допомогою [Git Hooks](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks).
+Наприклад, ви можете форматувати та перевіряти файли перед комітом або пушем.
+Існує кілька інструментів, які спрощують управління Git Hooks.
+У наступних розділах ми представимо деякі з них і як їх можна використовувати з Biome.
+
+
+## Lefthook
+
+[Lefthook](https://github.com/evilmartians/lefthook) забезпечує швидкий, кросплатформенний і незалежний від залежностей менеджер хуків.
+Його можна [встановити через NPM](https://github.com/evilmartians/lefthook#install).
+
+Додайте файл з назвою `lefthook.yml` в корінь вашого Git репозиторію.
+Деякі приклади конфігурацій _Lefthook_:
+
+- Перевірка форматування та лінтингу перед комітом
+
+  ```yaml title="lefthook.yml"
+  pre-commit:
+    commands:
+      check:
+        glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
+        run: npx @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {staged_files}
+  ```
+
+- Форматування, лінтинг та застосування безпечних виправлень перед комітом
+
+  ```yaml title="lefthook.yml"
+  pre-commit:
+    commands:
+      check:
+        glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
+        run: npx @biomejs/biome check --write --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {staged_files}
+        stage_fixed: true
+  ```
+
+  `stage_fixed: true` додає знову зафіксовані файли.
+
+- Перевірка форматування та лінтингу перед пушем
+
+  ```yaml title="lefthook.yml"
+  pre-push:
+    commands:
+      check:
+        glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
+        run: npx @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {push_files}
+  ```
+
+Зверніть увагу, що вам не потрібно використовувати одночасно `glob` і `--files-ignore-unknown=true`.
+Використання лише `--files-ignore-unknown=true` дозволяє обробляти файли, підтримувані Biome зараз і в майбутньому.
+Якщо ви хочете більше контролю над тим, які файли обробляються, ви повинні використовувати `glob`.
+
+`--no-errors-on-unmatched` приглушує можливі помилки у випадку, якщо *жоден файл не обробляється*.
+
+Після налаштування запустіть `lefthook install`, щоб налаштувати хуки.
+
+
+## Husky
+
+[Husky](https://github.com/typicode/husky) є широко використовуваним менеджером хуків в екосистемі JavaScript.
+Husky не приховує незастейджені зміни і не може надати список зафіксованих файлів.
+Ось чому його часто використовують разом з іншим інструментом, таким як _lint-staged_ або _git-format-staged_.
+
+Якщо ваш проект містить `package.json`,
+ви можете автоматично налаштувати хуки _husky_ під час встановлення пакету, використовуючи `scripts.prepare`:
+
+```json title="package.json"
+{
+  "scripts": {
+    "prepare": "husky"
+  }
+}
+```
+
+### lint-staged
+
+[lint-staged](https://github.com/lint-staged/lint-staged) є одним з найбільш використовуваних інструментів в екосистемі JavaScript.
+
+Додайте наступну конфігурацію husky:
+
+```shell title=".husky/pre-commit"
+lint-staged
+```
+
+Конфігурація lint-staged безпосередньо вбудована в `package.json`.
+Ось деякі приклади команд, які можуть бути корисними при запуску Git хуків:
+
+```jsonc title="package.json"
+{
+  "lint-staged": {
+    // Запустіть Biome на зафіксованих файлах, які мають наступні розширення: js, ts, jsx, tsx, json і jsonc
+    "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}": [
+      "biome check --files-ignore-unknown=true", // Перевірка форматування та лінтингу
+      "biome check --write --no-errors-on-unmatched", // Форматування, сортування імпортів, лінтинг та застосування безпечних виправлень
+      "biome check --write --organize-imports-enabled=false --no-errors-on-unmatched", // Форматування та застосування безпечних виправлень
+      "biome check --write --unsafe --no-errors-on-unmatched", // Форматування, сортування імпортів, лінтинг, застосування безпечних/небезпечних виправлень
+      "biome format --write --no-errors-on-unmatched", // Форматування
+      "biome lint --write --no-errors-on-unmatched", // Лінтинг та застосування безпечних виправлень
+    ],
+    // Альтернативно ви можете передати всі файли та ігнорувати невідомі розширення
+    "*": [
+      "biome check --no-errors-on-unmatched --files-ignore-unknown=true", // Перевірка форматування та лінтингу
+    ]
+  }
+}
+```
+
+Не забудьте використовувати опцію CLI `--no-errors-on-unmatched` у вашій команді, щоб приглушити можливі помилки у випадку, якщо *жоден файл не обробляється*.
+
+
+### git-format-staged
+
+На відміну від інших інструментів, таких як _lefthook_, _pre-commit_ і _lint-staged_,
+[git-format-staged](https://github.com/hallettj/git-format-staged) не використовує `git stash` внутрішньо.
+Це уникає ручного втручання, коли виникають конфлікти між незастейдженими змінами та оновленими зафіксованими змінами.
+Дивіться [порівняння _git-format-staged_ з іншими інструментами](https://github.com/hallettj/git-format-staged#comparisons-to-similar-utilities).
+
+Деякі приклади конфігурації:
+
+- Перевірка форматування та лінтингу перед комітом
+
+  ```shell title=".husky/pre-commit"
+  git-format-staged --formatter 'biome check --files-ignore-unknown=true --no-errors-on-unmatched \"{}\"' .
+  ```
+
+- Форматування, лінтинг та застосування безпечних виправлень перед комітом
+
+  ```shell title=".husky/pre-commit"
+  git-format-staged --formatter 'biome check --write --files-ignore-unknown=true --no-errors-on-unmatched \"{}\"' .
+  ```
+
+
+## pre-commit
+
+[pre-commit](https://pre-commit.com/) забезпечує багатомовний менеджер хуків.
+Biome надає чотири [pre-commit](https://pre-commit.com/) хуки через репозиторій [biomejs/pre-commit](https://github.com/biomejs/pre-commit).
+
+| hook `id`       | опис                                                                        |
+| --------------- | --------------------------------------------------------------------------- |
+| `biome-ci`      | Перевірка форматування, перевірка організації імпортів та лінтинг           |
+| `biome-check`   | Форматування, організація імпортів, лінтинг та застосування безпечних виправлень до зафіксованих файлів |
+| `biome-format`  | Форматування зафіксованих файлів                                            |
+| `biome-lint`    | Лінтинг та застосування безпечних виправлень до зафіксованих файлів         |
+
+У наступному прикладі ми припускаємо, що ви [встановили pre-commit](https://pre-commit.com/index.html#install) і запустили `pre-commit install` у вашому репозиторії.
+Якщо ви хочете використовувати хук `biome-check`, додайте наступну конфігурацію pre-commit до кореня вашого проекту у файлі з назвою `.pre-commit-config.yaml`:
+
+```yaml title=".pre-commit-config.yaml"
+repos:
+-   repo: https://github.com/biomejs/pre-commit
+    rev: "v0.1.0"  # Використовуйте sha / тег, на який ви хочете вказати
+    hooks:
+    -   id: biome-check
+        additional_dependencies: ["@biomejs/biome@1.4.1"]
+```
+
+Це запустить `biome check --write`, коли ви запустите `git commit`.
+
+Зверніть увагу, що ви повинні вказати, яку версію Biome використовувати завдяки опції `additional_dependencies`.
+[pre-commit](https://pre-commit.com/) окремо встановлює інструменти і потребує знати, який саме встановити.
+
+Якщо Biome вже встановлений як `npm` пакет у вашому локальному репозиторії,
+то може бути обтяжливо оновлювати як `package.json`, так і `.pre-commit-config.yaml`, коли ви оновлюєте Biome.
+Замість використання наданих хуків Biome, ви можете вказати свій власний [локальний хук](https://pre-commit.com/index.html#repository-local-hooks).
+
+Наприклад, якщо ви використовуєте `npm`, ви можете написати наступний хук у `.pre-commit-config.yaml`:
+
+```yaml title=".pre-commit-config.yaml"
+repos:
+  - repo: local
+    hooks:
+      - id: local-biome-check
+        name: biome check
+        entry: npx @biomejs/biome check --write --files-ignore-unknown=true --no-errors-on-unmatched
+        language: system
+        types: [text]
+        files: "\\.(jsx?|tsx?|c(js|ts)|m(js|ts)|d\\.(ts|cts|mts)|jsonc?)$"
+```
+
+Опція pre-commit `files` є необов'язковою,
+оскільки Biome здатний ігнорувати невідомі файли (використовуючи опцію `--files-ignore-unknown=true`).
+
+
+## Shell script
+
+Ви також можете використовувати власний shell скрипт.
+Зверніть увагу, що ви можете зіткнутися з проблемами сумісності між платформами.
+Ми рекомендуємо використовувати спеціалізований інструмент, як представлено в попередніх розділах.
+
+Деякі приклади shell скриптів:
+
+- Перевірка форматування та лінтингу перед комітом
+
+  ```shell title=".git/hooks/pre-commit"
+  #!/bin/sh
+  set -eu
+
+  npx @biomejs/biome check --staged --files-ignore-unknown=true --no-errors-on-unmatched
+  ```
+
+- Форматування, лінтинг та застосування безпечних виправлень перед комітом
+
+  ```shell title=".git/hooks/pre-commit"
+  #!/bin/sh
+  set -eu
+
+  if git status --short | grep --quiet '^MM'; then
+    printf '%s\n' "ERROR: Деякі зафіксовані файли мають незастейджені зміни" >&2
+    exit 1;
+  fi
+
+  npx @biomejs/biome check --write --staged --files-ignore-unknown=true --no-errors-on-unmatched
+
+  git update-index --again
+  ```
+
+  Зверніть увагу, що ми змушуємо хук завершитися з помилкою, якщо зафіксовані файли мають незастейджені зміни.

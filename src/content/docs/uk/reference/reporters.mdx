@@ -1,0 +1,99 @@
+---
+title: Репортери
+description: Контроль виводу Biome за допомогою репортерів
+---
+
+З версії **v1.8.0**, CLI Biome приймає аргумент `--reporter`, який дозволяє змінювати спосіб виведення діагностики та підсумків у термінал.
+
+## Підсумок
+
+
+```shell
+biome check --reporter=summary
+```
+
+```
+Formatter ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+The following files needs to be formatted:
+main.ts
+index.ts
+
+Organize Imports ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+The following files needs to have their imports sorted:
+main.ts
+index.ts
+
+Analyzer ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Some analyzer rules were triggered
+
+Rule Name                                               Diagnostics
+lint/suspicious/noImplicitAnyLet                        12 (12 error(s), 0 warning(s), 0 info(s))
+lint/suspicious/noDoubleEquals                          8 (8 error(s), 0 warning(s), 0 info(s))
+lint/suspicious/noRedeclare                             12 (12 error(s), 0 warning(s), 0 info(s))
+lint/suspicious/noDebugger                              20 (20 error(s), 0 warning(s), 0 info(s))
+```
+
+## JSON
+
+:::caution
+Цей репортер є експериментальним і може змінюватися в патч-релізах.
+:::
+
+Виводить підсумок і діагностику у форматі JSON.
+
+```shell
+biome ci --reporter=json
+```
+
+## JSON pretty
+
+:::caution
+Цей репортер є експериментальним і може змінюватися в патч-релізах.
+:::
+
+Те саме, що і `--reporter=json`, він виводить підсумок і діагностику у форматі JSON, а вихідні дані форматуються за допомогою поточних параметрів форматування JSON (файл конфігурації або значення за замовчуванням).
+
+```shell
+biome ci --reporter=json-pretty
+```
+
+## GitHub
+
+Використовуйте цей репортер у GitHub workflow. При правильній конфігурації у PR workflow, GitHub виведе повідомлення для кожного info/warning/error, що виникає.
+
+```shell
+biome ci --reporter=github
+```
+
+```
+::error title=lint/suspicious/noDoubleEquals,file=main.ts,line=4,endLine=4,col=3,endColumn=5::Use === instead of ==
+::error title=lint/suspicious/noDebugger,file=main.ts,line=6,endLine=6,col=1,endColumn=9::This is an unexpected use of the debugger statement.
+::error title=lint/nursery/noEvolvingAny,file=main.ts,line=8,endLine=8,col=5,endColumn=6::This variable's type is not allowed to evolve implicitly, leading to potential any types.
+```
+
+## JUnit
+
+```shell
+biome check --reporter=junit
+```
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Biome" tests="16" failures="16" errors="20" time="<TIME>">
+  <testsuite name="main.ts" tests="1" disabled="0" errors="0" failures="1" package="org.biome">
+      <testcase name="org.biome.lint.suspicious.noDoubleEquals" line="4" column="3">
+          <failure message="Use === instead of ==. == is only allowed when comparing against `null`">line 3, col 2, Use === instead of ==. == is only allowed when comparing against `null`</failure>
+      </testcase>
+  </testsuite>
+  <testsuite name="main.ts" tests="1" disabled="0" errors="0" failures="1" package="org.biome">
+      <testcase name="org.biome.lint.suspicious.noDebugger" line="6" column="1">
+          <failure message="This is an unexpected use of the debugger statement.">line 5, col 0, This is an unexpected use of the debugger statement.</failure>
+      </testcase>
+  </testsuite>
+  <testsuite name="main.ts" tests="1" disabled="0" errors="0" failures="1" package="org.biome">
+      <testcase name="org.biome.lint.nursery.noEvolvingAny" line="8" column="5">
+          <failure message="This variable's type is not allowed to evolve implicitly, leading to potential any types.">line 7, col 4, This variable's type is not allowed to evolve implicitly, leading to potential any types.</failure>
+      </testcase>
+  </testsuite>
+</testsuites>
+```

@@ -1,0 +1,59 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noFocusedTests
+description: |
+  Disallow focused tests.
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+**Diagnostic Category: `lint/suspicious/noFocusedTests`**
+<Tabs>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+**Since**: `v1.6.0`
+:::note
+- This rule is recommended by Biome. A diagnostic error will appear when linting your code.
+- This rule has an **unsafe** fix.
+:::
+
+Sources: 
+- Inspired from: <a href="https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-focused-tests.md" target="_blank"><code>jest/no-focused-tests</code></a>
+
+Disallow focused tests.
+
+Disabled test are useful when developing and debugging, because it forces the test suite to run only certain tests.
+
+However, in pull/merge request, you usually want to run all the test suite.
+
+## Examples
+
+### Invalid
+
+```js
+describe.only("foo", () => {});
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:10 <a href="https://biomejs.dev/linter/rules/no-focused-tests">lint/suspicious/noFocusedTests</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Don't focus the test.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>describe.only(&quot;foo&quot;, () =&gt; &#123;&#125;);<br />   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The 'only' method is often used for debugging or during implementation. It should be removed before deploying to production.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Consider removing 'only' to ensure all tests are executed.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Remove focus from test.</span><br />  <br />  <strong>  1 │ </strong>describe<span style="color: Tomato;">.</span><span style="color: Tomato;">o</span><span style="color: Tomato;">n</span><span style="color: Tomato;">l</span><span style="color: Tomato;">y</span>(&quot;foo&quot;,<span style="opacity: 0.8;">·</span>()<span style="opacity: 0.8;">·</span>=&gt;<span style="opacity: 0.8;">·</span>&#123;&#125;);<br />  <strong>    │ </strong>        <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span>                  <br /></code></pre>
+
+```js
+test.only("foo", () => {});
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:6 <a href="https://biomejs.dev/linter/rules/no-focused-tests">lint/suspicious/noFocusedTests</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Don't focus the test.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>test.only(&quot;foo&quot;, () =&gt; &#123;&#125;);<br />   <strong>   │ </strong>     <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The 'only' method is often used for debugging or during implementation. It should be removed before deploying to production.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Consider removing 'only' to ensure all tests are executed.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Remove focus from test.</span><br />  <br />  <strong>  1 │ </strong>test<span style="color: Tomato;">.</span><span style="color: Tomato;">o</span><span style="color: Tomato;">n</span><span style="color: Tomato;">l</span><span style="color: Tomato;">y</span>(&quot;foo&quot;,<span style="opacity: 0.8;">·</span>()<span style="opacity: 0.8;">·</span>=&gt;<span style="opacity: 0.8;">·</span>&#123;&#125;);<br />  <strong>    │ </strong>    <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span>                  <br /></code></pre>
+
+### Valid
+
+```js
+test("foo", () => {});
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
+</Tabs>
+

@@ -1,0 +1,174 @@
+---
+title: Сортування імпортів
+description: Що надає сортування імпортів у Biome
+---
+
+Biome дозволяє сортувати оператори імпорту, використовуючи [природний порядок](https://en.wikipedia.org/wiki/Natural_sort_order).
+
+Ця функція увімкнена за замовчуванням, але її можна вимкнути через конфігурацію:
+
+```json title="biome.json"
+{
+  "organizeImports": {
+    "enabled": false
+  }
+}
+```
+
+:::note
+Сортувальник імпортів не видаляє невикористані імпорти.
+Ми надаємо правило лінтера [noUnusedImports](/linter/rules/no-unused-imports/) з безпечним виправленням, яке видаляє невикористані імпорти.
+:::
+
+## Як сортуються імпорти
+
+Оператори імпорту сортуються за "відстанню". Модулі, які "далі" від користувача, розміщуються зверху, модулі "ближче" до користувача розміщуються знизу:
+
+1. модулі, імпортовані через протокол `bun:`. Це застосовується при написанні коду, який виконується Bun;
+1. вбудовані модулі Node.js, які явно імпортуються за допомогою протоколу `node:` та загальні вбудовані модулі Node, такі як `assert`;
+1. модулі, імпортовані через протокол `npm:`. Це застосовується при написанні коду, який виконується Deno;
+1. модулі, що містять протокол `:`. Зазвичай це "віртуальні модулі", модулі, які впроваджуються вашим робочим середовищем, наприклад, `vite`;
+1. модулі, імпортовані через URL;
+1. модулі, імпортовані з бібліотек;
+1. модулі, імпортовані через абсолютні імпорти;
+1. модулі, імпортовані з іменем, яке починається з `#`. Це застосовується при використанні [субшляхових імпортів Node](https://nodejs.org/api/packages.html#subpath-imports);
+1. модулі, імпортовані через відносні імпорти;
+1. модулі, які не вдалося ідентифікувати за попередніми критеріями;
+
+Наприклад, враховуючи наступний код:
+
+```ts title="example.ts"
+import uncle from "../uncle";
+import sibling from "./sibling";
+import express from "npm:express";
+import imageUrl from "url:./image.png";
+import { sortBy } from "virtual:utils";
+import assert from "node:assert";
+import aunt from "../aunt";
+import { VERSION } from "https://deno.land/std/version.ts";
+import { mock, test } from "node:test";
+import { expect } from "bun:test";
+import { internal } from "#internal";
+import { secret } from "/absolute/path";
+import React from "react";
+```
+
+Вони будуть відсортовані таким чином:
+
+```ts title="example.ts"
+ import { expect } from "bun:test";
+ import assert from "node:assert";
+ import { mock, test } from "node:test";
+ import express from "npm:express";
+ import { sortBy } from "virtual:utils";
+ import { VERSION } from "https://deno.land/std/version.ts";
+ import React from "react";
+ import { secret } from "/absolute/path";
+ import { internal } from "#internal";
+ import aunt from "../aunt";
+ import uncle from "../uncle";
+ import sibling from "./sibling";
+ import imageUrl from "url:./image.png";
+```
+
+Ви можете застосувати сортування двома способами: через [CLI](#import-sorting-via-cli) або [розширення VSCode](#import-sorting-via-vscode-extension).
+
+## Груповані імпорти
+
+Дуже поширено мати оператори імпорту в певному порядку, особливо коли ви працюєте над фронтенд-проектом і імпортуєте файли CSS:
+
+```js title="example.js"
+import "../styles/reset.css";
+import "../styles/layout.css";
+import { Grid } from "../components/Grid.jsx";
+```
+
+Ще один поширений випадок - імпорт поліфілів або файлів-шимів, які повинні залишатися на початку файлу:
+
+```js title="example.js"
+import "../polyfills/array/flatMap";
+import { functionThatUsesFlatMap } from "./utils.js";
+```
+
+У таких випадках Biome відсортує всі ці три імпорти, і може статися так, що порядок **порушить** вашу програму.
+
+Щоб уникнути цього, створіть "групу" імпортів. Ви створюєте "групу", додаючи **новий рядок** для розділення груп.
+
+Таким чином, Biome обмежить сортування лише операторами імпорту, які належать до однієї групи:
+
+```js title="example.js"
+// група 1, лише ці два файли будуть відсортовані
+import "../styles/reset.css";
+import "../styles/layout.css";
+
+// група 2, лише цей один файл буде відсортований
+import { Grid } from "../components/Grid.jsx";
+```
+
+```js title="example.js"
+// група 1, поліфіл/шим
+import "../polyfills/array/flatMap";
+
+// група 2, файли, які потребують поліфіл/шим
+import { functionThatUsesFlatMap } from "./utils.js";
+```
+
+## Імпорти з побічними ефектами
+
+[Імпорти з побічними ефектами](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#forms_of_import_declarations) - це оператори імпорту, які зазвичай не імпортують жодного імені:
+
+```js
+import "./global.js"
+```
+
+Оскільки важко визначити, які побічні ефекти викликає модуль, сортувальник імпортів припускає, що кожен імпорт з побічними ефектами формує свою власну групу імпортів.
+
+Наприклад, наступні імпорти формують 4 групи імпортів.
+
+```js name="file.js"
+import sibling from "./sibling";       // Група імпорту 1
+import { internal } from "#internal";  // Група імпорту 1
+import "z";  // Група імпорту 2
+import "a";  // Група імпорту 3
+import React from "react";         // Група імпорту 4
+import assert from "node:assert";  // Група імпорту 4
+```
+
+Кожна група сортується незалежно наступним чином:
+
+```js name="file.js"
+import { internal } from "#internal";  // Група імпорту 1
+import sibling from "./sibling";      // Група імпорту 1
+import "z";  // Група імпорту 2
+import "a";  // Група імпорту 3
+import assert from "node:assert";  // Група імпорту 4
+import React from "react";         // Група імпорту 4
+```
+
+## Сортування імпортів через CLI
+
+Використовуючи команду `check` з опцією `--write`. Якщо ви хочете лише впорядкувати імпорти, ви можете використовувати check таким чином:
+
+```shell
+biome check \
+  --formatter-enabled=false\
+  --linter-enabled=false \
+  --organize-imports-enabled=true \
+  --write \
+  ./path/to/src
+```
+
+## Сортування імпортів через розширення VSCode
+
+Розширення Biome для VS Code підтримує сортування імпортів через дію "Організувати імпорти".
+За замовчуванням, цю дію можна виконати за допомогою комбінації клавіш <kbd title="Shift">⇧</kbd>+<kbd>Alt</kbd>+<kbd>O</kbd>, або вона доступна через _Командну палітру_ (<kbd>Ctrl</kbd>/<kbd title="Cmd">⌘</kbd>+<kbd title="Shift">⇧</kbd>+<kbd>P</kbd>) шляхом вибору _Організувати імпорти_.
+
+Ви можете додати наступне до конфігурації вашого редактора, якщо хочете, щоб дія виконувалася автоматично при збереженні замість виклику вручну:
+
+```json title="settings.json"
+{
+  "editor.codeActionsOnSave":{
+    "source.organizeImports.biome": "explicit"
+  }
+}
+```

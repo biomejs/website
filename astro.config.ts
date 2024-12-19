@@ -39,6 +39,10 @@ export default defineConfig({
 					label: "Português",
 					lang: "pt-BR",
 				},
+				"uk": {
+					label: "Українська",
+					lang: "uk",
+				}
 			},
 			sidebar: [
 				{

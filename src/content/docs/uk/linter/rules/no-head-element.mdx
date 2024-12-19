@@ -1,0 +1,69 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noHeadElement
+description: |
+  Prevent usage of `<head>` element in a Next.js project.
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+**Diagnostic Category: `lint/nursery/noHeadElement`**
+<Tabs>
+<TabItem label="JSX and TSX" icon="seti:javascript">
+**Since**: `v1.9.4`
+:::caution
+This rule is part of the [nursery](/linter/rules/#nursery) group.
+:::
+
+Sources: 
+- Same as: <a href="https://nextjs.org/docs/messages/no-head-element" target="_blank"><code>@next/no-head-element</code></a>
+
+Prevent usage of `<head>` element in a Next.js project.
+
+Next.js provides a specialized `<Head />` component from `next/head` that manages
+the `<head>` tag for optimal server-side rendering, client-side navigation, and
+automatic deduplication of tags such as `<meta>` and `<title>`.
+
+This rule only checks files that are outside of the [`app/` directory](https://nextjs.org/docs/app), as it's typically
+handled differently in Next.js.
+
+## Examples
+
+### Invalid
+
+```jsx
+function Index() {
+  return (
+    <head>
+      <title>Invalid</title>
+    </head>
+  )
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.jsx:2:11 <a href="https://biomejs.dev/linter/rules/no-head-element">lint/nursery/noHeadElement</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Don't use </span><span style="color: Orange;"><strong>&lt;head&gt;</strong></span><span style="color: Orange;"> element.</span><br />  <br />    <strong>1 │ </strong>function Index() &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  return (<br />   <strong>   │ </strong>          <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>    &lt;head&gt;<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>      &lt;title&gt;Invalid&lt;/title&gt;<br />    <strong>5 │ </strong>    &lt;/head&gt;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Using the </span><span style="color: lightgreen;"><strong>&lt;head&gt;</strong></span><span style="color: lightgreen;"> element can cause unexpected behavior in a Next.js application. Use </span><span style="color: lightgreen;"><strong>&lt;Head /&gt;</strong></span><span style="color: lightgreen;"> from </span><span style="color: lightgreen;"><strong>next/head</strong></span><span style="color: lightgreen;"> instead.</span><br />  <br /></code></pre>
+
+### Valid
+
+```jsx
+import Head from 'next/head'
+
+function Index() {
+  return (
+    <Head>
+      <title>All good!</title>
+    </Head>
+  )
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
+</Tabs>
+

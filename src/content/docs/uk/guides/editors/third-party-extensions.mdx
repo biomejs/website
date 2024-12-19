@@ -1,0 +1,61 @@
+---
+title: Розширення від сторонніх розробників
+description: Дізнайтеся, як налаштувати розширення від сторонніх розробників
+---
+
+Це розширення, які підтримуються іншими спільнотами, які ви встановлюєте у свій редактор:
+- [`vim`](https://www.vim.org/): [`ALE`](https://github.com/dense-analysis/ale) підтримує Biome, просто дотримуйтесь інструкцій з встановлення
+- [`neovim`](https://neovim.io/): вам потрібно буде встановити [`nvim-lspconfig`](https://github.com/neovim/nvim-lspconfig/) і дотримуватися [інструкцій](https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#biome). [`ALE`](https://github.com/dense-analysis/ale) також підтримує Biome.
+- [`helix`](https://helix-editor.com/): дотримуйтесь інструкцій з [цього посібника](#helix)
+- [`coc-biome`](https://github.com/fannheyward/coc-biome): розширення Biome для [`coc.nvim`](https://github.com/neoclide/coc.nvim)
+- [`sublime text`](https://www.sublimetext.com/): дотримуйтесь інструкцій з встановлення [`LSP-biome`](https://github.com/sublimelsp/LSP-biome)
+- [`Emacs`](https://www.gnu.org/software/emacs/): переконайтеся, що у вас встановлено [`lsp-mode`](https://github.com/emacs-lsp/lsp-mode), дотримуйтесь інструкцій з встановлення [`lsp-biome`](https://github.com/cxa/lsp-biome), щоб увімкнути підтримку Biome у `lsp-mode`
+
+:::note
+Чи є розширення для редактора, яке тут не вказано? Будь ласка, подайте PR, і ми будемо раді додати його до списку
+:::
+
+### Helix
+
+Наразі Biome підтримує наступні розширення файлів: `js`, `jsx`, `ts`, `tsx`, `d.ts`, `json` та `jsonc`.
+
+Biome має команду `lsp-proxy`, яка діє як сервер для Language Server Protocol через stdin/stdout.
+
+#### Helix 23.10
+
+Helix 23.10 має [підтримку для кількох мовних серверів](https://github.com/helix-editor/helix/pull/2507). Тепер ви можете використовувати Biome разом з `typescript-language-server`.
+
+```toml
+[language-server]
+biome = { command = "biome", args = ["lsp-proxy"] }
+
+[[language]]
+name = "javascript"
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
+auto-format = true
+
+[[language]]
+name = "typescript"
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
+auto-format = true
+
+[[language]]
+name = "tsx"
+auto-format = true
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
+
+[[language]]
+name = "jsx"
+auto-format = true
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
+
+[[language]]
+name = "json"
+language-servers = [ { name = "vscode-json-language-server", except-features = [ "format" ] }, "biome" ]
+```
+
+### Відеозапис
+
+#### Дія коду
+
+<video src="https://user-images.githubusercontent.com/17974631/

@@ -1,0 +1,57 @@
+---
+title: Безперервна Інтеграція
+description: Використання Biome в середовищі CI
+---
+
+Запуск Biome в середовищі CI є простим. Ознайомтеся з наступними прикладами для натхнення.
+
+## GitHub Actions
+
+Ми надаємо офіційну [GitHub Action](https://github.com/marketplace/actions/setup-biome) для налаштування Biome у вашому runner.
+Ось як може виглядати простий workflow:
+
+```yaml title="pull_request.yml"
+name: Якість коду
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Biome
+        uses: biomejs/setup-biome@v2
+        with:
+          version: latest
+      - name: Run Biome
+        run: biome ci .
+```
+
+### Сторонні дії
+
+Це дії, які підтримуються іншими спільнотами, і які ви використовуєте у своєму runner:
+
+- [reviewdog-action-biome](https://github.com/marketplace/actions/run-biome-with-reviewdog): запуск Biome з reviewdog для створення коментарів та пропозицій щодо змін у pull request.
+
+```yaml title="pull_request.yml"
+name: reviewdog
+on: [pull_request]
+jobs:
+  biome:
+    name: runner / Biome
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: mongolyy/reviewdog-action-biome@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
+```
+

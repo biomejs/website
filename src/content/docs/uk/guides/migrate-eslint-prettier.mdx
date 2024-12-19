@@ -1,0 +1,202 @@
+---
+title: Міграція з ESLint та Prettier
+description: Дізнайтеся, як полегшити міграцію з ESLint та Prettier
+---
+
+import PackageManagerBiomeCommand from "@/components/PackageManagerBiomeCommand.astro";
+
+Biome надає спеціальні команди для полегшення міграції з ESLint та Prettier.
+
+Якщо ви не хочете знати деталі, просто виконайте наступні команди:
+
+```shell
+biome migrate eslint --write
+biome migrate prettier --write
+```
+
+## Міграція з ESLint
+
+Багато правил лінтера Biome натхненні або ідентичні правилам ESLint або правилам плагінів ESLint.
+Ми підтримуємо деякі плагіни ESLint, такі як [TypeScript ESLint](https://typescript-eslint.io/), [ESLint JSX A11y](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y), [ESLint React](https://github.com/jsx-eslint/eslint-plugin-react) та [ESLint Unicorn](https://github.com/sindresorhus/eslint-plugin-unicorn).
+Однак Biome має власну конвенцію щодо іменування своїх правил.
+Biome використовує `camelCaseRuleName`, тоді як ESLint використовує `kebab-case-rule-name`.
+Більше того, Biome часто обирає інші назви, щоб краще передати намір своїх правил.
+Джерело правила можна знайти на сторінці, що описує правило.
+Ви також можете знайти еквівалентне правило Biome для правила ESLint за допомогою [спеціальної сторінки](/linter/rules-sources).
+
+Для полегшення міграції Biome надає підкоманду `biome migrate eslint`.
+Ця підкоманда зчитує вашу конфігурацію ESLint і намагається перенести її налаштування до Biome.
+Підкоманда може обробляти як застарілі, так і нові конфігураційні файли.
+Вона підтримує поле `extends` застарілої конфігурації та завантажує як спільні, так і плагінові конфігурації.
+Підкоманда також мігрує `.eslintignore`.
+
+Маючи наступну конфігурацію ESLint:
+
+```json title=".eslintrc.json"
+{
+	"extends": ["plugin:unicorn/recommended"],
+	"plugins": ["unicorn"],
+	"ignore_patterns": ["dist/**"],
+	"globals": {
+		"Global1": "readonly"
+	},
+	"rules": {
+		"eqeqeq": "error"
+	},
+	"overrides": [
+		{
+			"files": ["tests/**"],
+			"rules": {
+				"eqeqeq": "off"
+			}
+		}
+	]
+}
+```
+
+І наступну конфігурацію Biome:
+
+```json title="biome.json"
+{
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": true
+		}
+	}
+}
+```
+
+Виконайте наступну команду для міграції вашої конфігурації ESLint до Biome.
+
+<PackageManagerBiomeCommand command="migrate eslint --write"/>
+
+Підкоманда перезаписує вашу початкову конфігурацію Biome.
+Наприклад, вона вимикає `recommended`.
+Це призводить до наступної конфігурації Biome:
+
+```json title="biome.json"
+{
+	"organizeImports": { "enabled": true },
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": false,
+			"complexity": {
+				"noForEach": "error",
+				"noStaticOnlyClass": "error",
+				"noUselessSwitchCase": "error",
+				"useFlatMap": "error"
+			},
+			"style": {
+				"noNegationElse": "off",
+				"useForOf": "error",
+				"useNodejsImportProtocol": "error",
+				"useNumberNamespace": "error"
+			},
+			"suspicious": {
+				"noDoubleEquals": "error",
+				"noThenProperty": "error",
+				"useIsArray": "error"
+			}
+		}
+	},
+	"javascript": { "globals": ["Global1"] },
+	"overrides": [
+		{
+			"include": ["tests/**"],
+			"linter": { "rules": { "suspicious": { "noDoubleEquals": "off" } } }
+		}
+	]
+}
+```
+
+Підкоманда потребує Node.js для завантаження та вирішення всіх плагінів і `extends`, налаштованих у конфігураційному файлі ESLint.
+На даний момент `biome migrate eslint` не підтримує конфігурації, написані в YAML.
+
+За замовчуванням Biome не мігрує натхненні правила.
+Ви можете використовувати прапорець CLI `--include-inspired`, щоб мігрувати їх.
+
+<PackageManagerBiomeCommand command="migrate eslint --write --include-inspired"/>
+
+Зверніть увагу, що ви навряд чи отримаєте точно таку ж поведінку, як у ESLint, оскільки Biome вирішив не реалізовувати деякі опції правил або трохи відхилитися від оригінальної реалізації.
+
+Оскільки ESLint враховує файли ігнорування VCS,
+ми рекомендуємо вам увімкнути [інтеграцію Biome з VCS](/guides/integrate-in-vcs).
+
+:::увага
+Деякі плагіни або спільні конфігурації можуть експортувати об'єкт із циклічним посиланням.
+Biome може не вдатися завантажити таку конфігурацію.
+:::
+
+## Міграція з Prettier
+
+Biome намагається максимально відповідати форматувальнику Prettier.
+Однак Biome використовує інші значення за замовчуванням для свого форматувальника.
+Наприклад, він використовує табуляцію для відступів замість пробілів.
+Ви можете легко мігрувати до Biome, виконавши `biome migrate prettier --write`.
+
+Маючи наступну конфігурацію Prettier:
+
+```json title=".prettierrc.json"
+{
+	"useTabs": false,
+	"singleQuote": true,
+	"overrides": [
+		{
+					"files": ["*.json"],
+					"options": { "tabWidth": 2 }
+			}
+	]
+}
+```
+
+Виконайте наступну команду для міграції вашої конфігурації Prettier до Biome.
+
+<PackageManagerBiomeCommand command="migrate prettier --write"/>
+
+Це призводить до наступної конфігурації Biome:
+
+```json title="biome.json"
+{
+	"formatter": {
+		"enabled": true,
+		"formatWithErrors": false,
+		"indentStyle": "space",
+		"indentWidth": 2,
+		"lineEnding": "lf",
+		"lineWidth": 80,
+		"attributePosition": "auto"
+	},
+	"organizeImports": { "enabled": true },
+	"linter": { "enabled": true, "rules": { "recommended": true } },
+	"javascript": {
+		"formatter": {
+			"jsxQuoteStyle": "double",
+			"quoteProperties": "asNeeded",
+			"trailingCommas": "all",
+			"semicolons": "asNeeded",
+			"arrowParentheses": "always",
+			"bracketSpacing": true,
+			"bracketSameLine": false,
+			"quoteStyle": "single",
+			"attributePosition": "auto"
+		}
+	},
+	"overrides": [
+		{
+			"include": ["*.json"],
+			"formatter": {
+				"indentWidth": 2
+			}
+		}
+	]
+}
+```
+
+Підкоманда потребує Node.js для завантаження конфігурацій JavaScript, таких як `.prettierrc.js`.
+`biome migrate prettier` не підтримує конфігурації, написані в JSON5, TOML або YAML.
+
+Оскільки Prettier враховує файли ігнорування VCS,
+ми рекомендуємо вам увімкнути [інтеграцію Biome з VCS](/guides/integrate-in-vcs).
+

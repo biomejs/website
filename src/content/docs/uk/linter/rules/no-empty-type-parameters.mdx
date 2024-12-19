@@ -1,0 +1,61 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noEmptyTypeParameters
+description: |
+  Disallow empty type parameters in type aliases and interfaces.
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+**Diagnostic Category: `lint/complexity/noEmptyTypeParameters`**
+<Tabs>
+<TabItem label="TypeScript and TSX" icon="seti:typescript">
+**Since**: `v1.5.0`
+:::note
+- This rule is recommended by Biome. A diagnostic error will appear when linting your code.
+:::
+
+Disallow empty type parameters in type aliases and interfaces.
+
+TypeScript permits the use of empty type parameter lists in type alias and interface declarations; however, this practice is generally discouraged.
+Allowing empty type parameter lists can lead to unclear or ambiguous code, where the intention of the generic type is not self-evident.
+This rule disallows empty type parameter lists in type alias and interface declarations.
+
+## Examples
+
+### Invalid
+
+```ts
+interface Foo<> {}
+```
+
+<pre class="language-text"><code class="language-text">code-block.ts:1:14 <a href="https://biomejs.dev/linter/rules/no-empty-type-parameters">lint/complexity/noEmptyTypeParameters</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Using an </span><span style="color: Tomato;"><strong>empty type parameter list</strong></span><span style="color: Tomato;"> is confusing.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>interface Foo&lt;&gt; &#123;&#125;<br />   <strong>   │ </strong>             <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove the empty type parameter list or add a type parameter.</span><br />  <br /></code></pre>
+
+```ts
+type Bar<> = {};
+```
+
+<pre class="language-text"><code class="language-text">code-block.ts:1:9 <a href="https://biomejs.dev/linter/rules/no-empty-type-parameters">lint/complexity/noEmptyTypeParameters</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Using an </span><span style="color: Tomato;"><strong>empty type parameter list</strong></span><span style="color: Tomato;"> is confusing.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>type Bar&lt;&gt; = &#123;&#125;;<br />   <strong>   │ </strong>        <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove the empty type parameter list or add a type parameter.</span><br />  <br /></code></pre>
+
+### Valid
+
+```ts
+interface Foo {}
+```
+
+```ts
+type Foo<T> = {
+ bar: T;
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
+</Tabs>
+
