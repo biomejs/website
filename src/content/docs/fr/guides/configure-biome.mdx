@@ -75,8 +75,7 @@ ce qui inclut TypeScript, JSX et TSX.
 
 ## Résolution du fichier de configuration
 
-Biome utilise l’autodécouverte pour trouver le fichier de configuration le plus proche.
-Il regarde dans le répertoire de travail et dans les répertoires parents jusqu’à ce qu’il trouve un fichier `biome.json` ou `biome.jsonc`.
+Biome prend en compte le fichier de configuration le plus proche, en débutant sa recherche dans le répertoire de travail courant et en remontant la hiérarchie des répertoires jusqu’à trouver un fichier `biome.json` ou `biome.jsonc`.
 Si aucune configuration n’est trouvée, alors il applique les réglages par défaut de Biome.
 Si `biome.json` et `biome.jsonc` sont présents en même temps dans le même dossier, la priorité sera donnée à `biome.json`.
 
