@@ -1,0 +1,40 @@
+---
+title: Assist
+description: Learn about Biome assist
+---
+
+import NumberOfRules from "@/components/generated/assist/NumberOfRules.astro";
+import PackageManagerBiomeCommand from "@/components/PackageManagerBiomeCommand.astro";
+
+Biome assist offers a series of actions (or rules) meant to improve code quality and DX of the users.
+
+Contrary to linter rules, assist actions are meant for editors and IDEs, and they can include things like sorting of properties or fields, simplification of binary expressions and more. The assist has **[<NumberOfRules /> actions](/assist/actions)**.
+
+Assist actions are very close [LSP code actions](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#codeActionKind) in semantics.
+
+Biome assist is enabled by default. In the following example, you can enable the assist and enable the action `useSortedKeys`:
+
+```json title="biome.json"
+{
+    "assist": {
+        "enabled": true,
+        "actions": {
+            "source": {
+                "useSortedKeys": "on"
+            }
+        }
+    }
+}
+```
+
+Assist actions **don't** emit diagnostics in the editor, but they can
+
+## Enforce assist actions via CLI
+
+Assist actions can be enforced via CLI via `check` command:
+
+<PackageManagerBiomeCommand command="check" />
+
+However, the `check` is meant for running multiple tools at once, so if you want to check only the assist actions, you should run:
+
+<PackageManagerBiomeCommand command="check --formatter-enabled=false --linter-enabled=false --organize-imports-enabled=false" />
