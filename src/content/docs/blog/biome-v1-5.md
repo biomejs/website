@@ -8,15 +8,17 @@ summary: |
 authors:
   - ema
   - team
-pubDate: 2024-01-08
-coverImage:
-  lightSrc: "@/assets/blog/roadmap-2024/banner-light.png"
-  darkSrc: "@/assets/blog/roadmap-2024/banner-dark.png"
+date: 2024-01-08
+cover:
+  light: "@/assets/blog/roadmap-2024/banner-light.png"
+  dark: "@/assets/blog/roadmap-2024/banner-dark.png"
   alt: The brand of the project. It says "Biome, toolchain of the web"
 socialImage: "@/assets/social-logo.png"
 ---
 
-Along with the [Roadmap for 2024](/blog/roadmap-2024), the [new logo and homepage](/blog/roadmap-2024#new-logo-and-homepage), we also published a new version. This version has few features around the CLI and **many** fixes in our formatter. Our TypeScript, JSX and JavaScript formatting has surpassed the **97% compatibility rate** with Prettier. Biome now provides **over 190 lint rules**.
+Along with the [Roadmap for 2024](/blog/roadmap-2024), the [new logo and homepage](/blog/roadmap-2024#new-logo-and-homepage), we also published a new version. This version has few features around the CLI and
+**many** fixes in our formatter. Our TypeScript, JSX and JavaScript formatting has surpassed the **97% compatibility
+rate** with Prettier. Biome now provides **over 190 lint rules**.
 
 Update Biome using the following commands:
 
@@ -61,7 +63,7 @@ biome format --changed --write
 
 For quite some time, users were confused by the difference between the commands `check` and `ci`because, until now, their behaviours have been very similar. From this version, the command `ci` can detect the GitHub CI environment and print annotation in the PRs.
 
-![Screenshot of a GitHub annotation printed by Biome](../../assets/blog/roadmap-2024/github-annotation.png)
+![Screenshot of a GitHub annotation printed by Biome](../../../assets/blog/roadmap-2024/github-annotation.png)
 
 It's possible that you would need to change your permissions of your workflow files in case you don't see the annotations:
 
@@ -88,6 +90,7 @@ No fix available.
 This rule is recommended.
 
 # Description
+
 Disallow the use of spread (`...`) syntax on accumulators.
 
 Spread syntax allows an iterable to be expanded into its individual elements.
@@ -143,8 +146,10 @@ The command `biome migrate` now updates the `$schema` value inside the configura
 ####  [useExportType](/linter/rules/use-export-type)
 
 ```ts
-interface I {}
-export { I };
+interface I {
+}
+
+export {I};
 ```
 
 <pre class="language-text"><code class="language-text">nursery/useExportType.js:2:8 <a href="/linter/rules/use-export-type">lint/nursery/useExportType</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -167,7 +172,8 @@ export { I };
 ####  [useImportType](/linter/rules/use-import-type)
 
 ```ts
-import { A } from "./mod.js";
+import {A} from "./mod.js";
+
 type TypeOfA = typeof A;
 let a: A;
 ```
@@ -198,7 +204,6 @@ Enforces naming conventions for JavaScript and TypeScript filenames.
 ```jsx
 import fs from 'fs';
 ```
-
 
 <pre class="language-text"><code class="language-text">nursery/useNodejsImportProtocol.js:1:16 <a href="/linter/rules/use-node-import-protocol">lint/nursery/useNodejsImportProtocol</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━
 
@@ -322,7 +327,8 @@ Object = null;
 
 ```jsx
 const foo = {
-    then() {}
+    then() {
+    }
 };
 ```
 
@@ -340,7 +346,8 @@ const foo = {
 
 ```jsx
 const foo = {
-    get then() {}
+    get then() {
+    }
 };
 ```
 

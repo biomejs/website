@@ -5,10 +5,10 @@ summary: Roadmap 2024, new logo and homepage
 authors:
   - ema
   - team
-pubDate: 2024-01-08
-coverImage:
-  lightSrc: "@/assets/blog/roadmap-2024/banner-light.png"
-  darkSrc: "@/assets/blog/roadmap-2024/banner-dark.png"
+date: 2024-01-08
+cover:
+  light: "@/assets/blog/roadmap-2024/banner-light.png"
+  dark: "@/assets/blog/roadmap-2024/banner-dark.png"
   alt: The Prettier challenge banner, with the Biome logo over it
 socialImage: "@/assets/social-logo.png"
 ---
@@ -18,16 +18,22 @@ We are thrilled to share what the Core Contributors and Maintainers would like t
 We want to remind you that Biome is a community-driven project, so we can only promise that some of the ideas outlined below will be shipped.
 
 However, if you're excited about some aspects of the project, and you want to see some of them developed faster than others, you can help us in many ways:
-- [**Be involved in the project and the community**](https://github.com/biomejs). Please help us to build those features.
-- [**Sponsor us**](https://opencollective.com/biome). Ask your company to sponsor us. Biome is so fast that it can reduce your company's CI times and save money. Performance is part of our mission. Plus, sponsorship is a good medium of _advertisement_ for your company.
-- [**Improve our documentation with ideas, recipes, or guides**](/guides/getting-started). Translate our documentation and help us to make Biome available to people who aren't proficient in English.
 
+- [**Be involved in the project and the community
+  **](https://github.com/biomejs). Please help us to build those features.
+- [**Sponsor us
+  **](https://opencollective.com/biome). Ask your company to sponsor us. Biome is so fast that it can reduce your company's CI times and save money. Performance is part of our mission. Plus, sponsorship is a good medium of
+  _advertisement_ for your company.
+- [**Improve our documentation with ideas, recipes, or guides
+  **](/guides/getting-started). Translate our documentation and help us to make Biome available to people who aren't proficient in English.
 
 ## Preface
 
-The project is young and can't compete against giants such as Prettier, ESLint, Webpack, Vite, ESBuild, etc. However, the recent events (sponsors, bounty challenge, Biome being a fork of Rome) showed that the users **have** interest in the project, and we showed those users that we have the tools to fulfil a need.
+The project is young and can't compete against giants such as Prettier, ESLint, Webpack, Vite, ESBuild, etc. However, the recent events (sponsors, bounty challenge, Biome being a fork of Rome) showed that the users
+**have** interest in the project, and we showed those users that we have the tools to fulfil a need.
 
-Moving small projects from ESLint/Prettier is easy, but moving **big** code bases is challenging and time-consuming; this is a big friction point in Biome.
+Moving small projects from ESLint/Prettier is easy, but moving **big
+** code bases is challenging and time-consuming; this is a big friction point in Biome.
 
 Users have different needs, though, so it will only be possible to satisfy some of them. We want to ensure that all features and contributions to our project [embrace our philosophy](/internals/philosophy/) and provide the best experience by default.
 
@@ -46,9 +52,8 @@ Users have different needs, though, so it will only be possible to satisfy some 
 - Offer guides on our website to users who want to migrate from ESlint (CLI commands and configuration)
 - Offer a section on our website that shows a mapping of the ESLint rules to our rules
 - Offer commands to ease the transition
-  - A command called `biome migrate prettier` that will read `.prettierrc` and `.prettierignore` will update the `biome.json` file (or create it) with the configuration from the Prettier files.
-  - A command called `biome migrate eslint` will read the JSON configuration of Eslint and the ignore file. There will be expectations and limitations.
-
+    - A command called `biome migrate prettier` that will read `.prettierrc` and `.prettierignore` will update the `biome.json` file (or create it) with the configuration from the Prettier files.
+    - A command called `biome migrate eslint` will read the JSON configuration of Eslint and the ignore file. There will be expectations and limitations.
 
 ## Expand Biome's language support
 
@@ -77,6 +82,7 @@ With project resolution, we will be able to provide more lint rules, some of whi
 With dependency resolution, we can - for example - detect dependencies that aren't used inside a project.
 
 With this infrastructure, our LSP is going to be more powerful and provide more features, for example:
+
 - rename variables across a project;
 - auto-complete for imports;
 - in-line types
@@ -92,6 +98,7 @@ Once we have something we can rely on, we can slowly widen the capabilities of o
 ### CLI
 
 More features for the command line tool, such as:
+
 - Add the `explain` command for offline documentation;
 - Allow the output to be exported in different formats (JSON, etc.)
 - Auto-completion for other shells such as `zsh`;
@@ -100,12 +107,12 @@ More features for the command line tool, such as:
 
 ## Plugins
 
-We will explore plugins and come up with a design that fits Biome.
-Biome is different from other tools because Biome is a toolchain that has multiple tools in it, so we have to think out of the box and propose a design that might differ from the tools people are used to.
+We will explore plugins and come up with a design that fits Biome. Biome is different from other tools because Biome is a toolchain that has multiple tools in it, so we have to think out of the box and propose a design that might differ from the tools people are used to.
 
 We don't know yet what a Biome's plugin will look like, although a plugin should be able to tap all the tools that Biome offers.
 
 Some ideas that we will consider:
+
 - DSL
 - WASM
 - A Runtime
@@ -120,7 +127,10 @@ We will provide the ability to transform TypeScript and JSX files into JavaScrip
 
 Biome has a growing ecosystem, with an official VSCode extension, an official IntelliJ extension, and a Discord bot. We want to grow the features these tools provide and welcome anyone who wants to help us.
 
-Our community is slowly growing, and we want to reward everyone who sticks around and contributes to Biome. At Biome, **we value every contribution**, so you don't need to be proficient in Rust to help us. Even participating in discussions and helping us to shape our features or helping other people are considered *contributions*. If you'd like to continue contributing to our ecosystem, we also encourage you to [nominate yourself as a maintainer of the project](https://github.com/biomejs/biome/blob/main/GOVERNANCE.md#maintainer-nomination).
+Our community is slowly growing, and we want to reward everyone who sticks around and contributes to Biome. At Biome, *
+*we value every contribution
+**, so you don't need to be proficient in Rust to help us. Even participating in discussions and helping us to shape our features or helping other people are considered
+*contributions*. If you'd like to continue contributing to our ecosystem, we also encourage you to [nominate yourself as a maintainer of the project](https://github.com/biomejs/biome/blob/main/GOVERNANCE.md#maintainer-nomination).
 
 Recently Biome started its own [YouTube Channel](https://www.youtube.com/channel/UC6ssscaFgCSlbv1Pb6krGVw). We will use this channel to share learning content with the community.
 
@@ -128,6 +138,9 @@ Recently Biome started its own [YouTube Channel](https://www.youtube.com/channel
 
 With this blog post, we also want to officially announce our new logo, homepage and rebranding of the website.
 
-With this new logo, we want to give a different meaning to the project. Biome **isn't** a fork of Rome anymore, but a self-sufficient project ready to bloom.
+With this new logo, we want to give a different meaning to the project. Biome **isn't
+** a fork of Rome anymore, but a self-sufficient project ready to bloom.
 
-The triangle of the logo represents the mountains - **soil** -, and the curly shape on the bottom left represents a wave of the ocean - **water**. Two elements that are important in creating a self-sufficient ecosystem, so it can thrive and grow.
+The triangle of the logo represents the mountains - **soil
+** -, and the curly shape on the bottom left represents a wave of the ocean - **water
+**. Two elements that are important in creating a self-sufficient ecosystem, so it can thrive and grow.
