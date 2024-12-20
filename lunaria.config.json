@@ -1,7 +1,9 @@
 {
 	"$schema": "./node_modules/@lunariajs/core/config.schema.json",
 	"repository": {
-		"name": "biomejs/website"
+		"name": "biomejs/website",
+		"branch": "main",
+		"rootDir": "."
 	},
 	"dashboard": {
 		"title": "Biome i18n dashboard",
