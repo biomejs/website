@@ -11,16 +11,16 @@ description: Мови та функції, які підтримуються Bio
 
 | Мова | Парсинг | Форматування | Лінтинг |
 | -------- | ------- | ---------- | ------- |
-| [JavaScript](#javascript-support) | <span aria-label="Підтримується" role="img">✅</span> | <span aria-label="Підтримується" role="img">✅</span> | <span aria-label="Підтримується" role="img">✅</span> |
-| [TypeScript](#typescript-support) | <span aria-label="Підтримується" role="img">✅</span> | <span aria-label="Підтримується" role="img">✅</span> | <span aria-label="Підтримується" role="img">✅</span> |
+| [JavaScript](#підтримка-javascript) | <span aria-label="Підтримується" role="img">✅</span> | <span aria-label="Підтримується" role="img">✅</span> | <span aria-label="Підтримується" role="img">✅</span> |
+| [TypeScript](#підтримка-typescript) | <span aria-label="Підтримується" role="img">✅</span> | <span aria-label="Підтримується" role="img">✅</span> | <span aria-label="Підтримується" role="img">✅</span> |
 | JSX | <span aria-label="Підтримується" role="img">✅</span> | <span aria-label="Підтримується" role="img">✅</span> | <span aria-label="Підтримується" role="img">✅</span> |
 | TSX | <span aria-label="Підтримується" role="img">✅</span> | <span aria-label="Підтримується" role="img">✅</span> | <span aria-label="Підтримується" role="img">✅</span> |
 | JSON | <span aria-label="Підтримується" role="img">✅</span> | <span aria-label="Підтримується" role="img">✅</span> | <span aria-label="Підтримується" role="img">✅</span> |
 | JSONC | <span aria-label="Підтримується" role="img">✅</span> | <span aria-label="Підтримується" role="img">✅</span> | <span aria-label="Підтримується" role="img">✅</span> |
 | HTML | <span aria-label="В розробці" role="img">⌛️</span> | <span aria-label="В розробці" role="img">⌛️</span> | <span aria-label="Не в розробці" role="img">🚫</span> |
-| [Vue](#html-super-languages-support) | <span aria-label="Частково підтримується" role="img">⚠️</span> | <span aria-label="Частково підтримується" role="img">⚠️</span> | <span aria-label="Частково підтримується" role="img">⚠️</span> |
-| [Svelte](#html-super-languages-support) | <span aria-label="Частково підтримується" role="img">⚠️</span> | <span aria-label="Частково підтримується" role="img">⚠️</span> | <span aria-label="Частково підтримується" role="img">⚠️</span> |
-| [Astro](#html-super-languages-support) | <span aria-label="Частково підтримується" role="img">⚠️</span> | <span aria-label="Частково підтримується" role="img">⚠️</span> | <span aria-label="Частково підтримується" role="img">⚠️</span> |
+| [Vue](#підтримка-супер-мов-html) | <span aria-label="Частково підтримується" role="img">⚠️</span> | <span aria-label="Частково підтримується" role="img">⚠️</span> | <span aria-label="Частково підтримується" role="img">⚠️</span> |
+| [Svelte](#підтримка-супер-мов-html) | <span aria-label="Частково підтримується" role="img">⚠️</span> | <span aria-label="Частково підтримується" role="img">⚠️</span> | <span aria-label="Частково підтримується" role="img">⚠️</span> |
+| [Astro](#підтримка-супер-мов-html) | <span aria-label="Частково підтримується" role="img">⚠️</span> | <span aria-label="Частково підтримується" role="img">⚠️</span> | <span aria-label="Частково підтримується" role="img">⚠️</span> |
 | CSS | <span aria-label="Підтримується" role="img">✅️</span> | <span aria-label="Підтримується" role="img">✅️</span> | <span aria-label="Підтримується" role="img">✅️</span> |
 | [YAML](https://github.com/biomejs/biome/issues/2365) | <span aria-label="В розробці" role="img">⌛️</span> | <span aria-label="Не в розробці" role="img">🚫</span> | <span aria-label="Не в розробці" role="img">🚫</span> |
 | GraphQL | <span aria-label="Підтримується" role="img">✅️</span> | <span aria-label="Підтримується" role="img">✅️</span> | <span aria-label="Підтримується" role="img">✅️</span> |
@@ -51,7 +51,7 @@ JSONC означає "JSON з коментарями". Цей формат ши�
 
 [Цей розділ](../../guides/configure-biome#well-known-files) надає повний список відомих файлів, які Biome може розпізнати.
 
-## Підтримка HTML супер мов
+## Підтримка супер мов HTML
 
 Станом на версію `1.6.0`, ці мови **частково** підтримуються. Biome буде покращуватися з часом і надаватиме більше опцій для налаштування вашого проекту. На сьогодні є деякі очікування та обмеження, які слід враховувати:
 - Для файлів `.astro` підтримується **лише** частина файлу **frontmatter**.
