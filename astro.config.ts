@@ -1,6 +1,7 @@
 import netlify from "@astrojs/netlify";
 import react from "@astrojs/react";
 import starlight from "@astrojs/starlight";
+import lunaria from "@lunariajs/starlight";
 import { defineConfig } from "astro/config";
 import rehypeSlug from "rehype-slug";
 import starlightBlog from "starlight-blog";
@@ -8,7 +9,6 @@ import { searchForWorkspaceRoot } from "vite";
 import { version as biomeVersion } from "./node_modules/@biomejs/wasm-web/package.json";
 import { version as prettierVersion } from "./node_modules/prettier/package.json";
 import { rehypeAutolink } from "./plugins/rehype-autolink";
-import lunaria from "@lunariajs/starlight";
 
 const site = "https://biomejs.dev";
 // https://astro.build/config
