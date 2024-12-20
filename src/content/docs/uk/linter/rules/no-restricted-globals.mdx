@@ -1,0 +1,68 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noRestrictedGlobals
+description: |
+  This rule allows you to specify global variable names that you don’t want to use in your application.
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+**Diagnostic Category: `lint/style/noRestrictedGlobals`**
+<Tabs>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+**Since**: `v1.0.0`
+Sources: 
+- Same as: <a href="https://eslint.org/docs/latest/rules/no-restricted-globals" target="_blank"><code>no-restricted-globals</code></a>
+
+This rule allows you to specify global variable names that you don’t want to use in your application.
+
+References to the global identifiers `error` and `event` are always disallowed by this rule.
+
+>Disallowing usage of specific global variables can be useful if you want to allow a set of
+global variables by enabling an environment, but still want to disallow some of those.
+
+
+## Examples
+
+### Invalid
+
+```js
+console.log(event)
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:13 <a href="https://biomejs.dev/linter/rules/no-restricted-globals">lint/style/noRestrictedGlobals</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Do not use the global variable </span><span style="color: Orange;"><strong>event</strong></span><span style="color: Orange;">.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>console.log(event)<br />   <strong>   │ </strong>            <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Use a local variable instead.</span><br />  <br /></code></pre>
+
+### Valid
+
+```js
+function f(event) {
+    console.log(event)
+}
+```
+
+## Options
+
+Use the options to specify additional globals that you want to restrict in your
+source code.
+
+```json
+{
+    "options": {
+        "deniedGlobals": ["$", "MooTools"]
+    }
+}
+```
+
+In the example above, the rule will emit a diagnostics if tried to use `$` or `MooTools` without
+creating a local variable.
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
+</Tabs>
+
