@@ -1,7 +1,7 @@
 import { writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { argv } from "./utils/argv.js";
+import { parseArgs } from "node:util";
 import { PREAMBLE } from "./utils/constants.js";
 
 const IMPORT_IMAGE = 'import { Image } from "astro:assets";';
@@ -158,7 +158,16 @@ async function main() {
 	const root = fileURLToPath(
 		new URL("../src/components/generated", import.meta.url),
 	);
-	const token = argv("token");
+	const parsedResult = parseArgs({
+		options: {
+			token: {
+				type: "string",
+			},
+		},
+		args: process.argv.slice(2),
+	});
+
+	const token = parsedResult.values.token;
 	const contributors = await getContributors(
 		typeof token === "string" ? token : undefined,
 	);
