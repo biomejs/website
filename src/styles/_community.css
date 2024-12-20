@@ -17,6 +17,7 @@
 		&.github,
 		&.mastodon,
 		&.x,
+		&.blueSky,
 		&.discord {
 			width: 9.3rem;
 		}
@@ -54,6 +55,17 @@
 		}
 		&.mastodon:hover {
 			background-color: var(--sl-mastodon);
+			color: var(--sl-community-link);
+		}
+
+		@mixin small-screen-only {
+			&.blueSky {
+				background-color: var(--sl-blueSky);
+				color: var(--sl-community-link);
+			}
+		}
+		&.blueSky:hover {
+			background-color: var(--sl-blueSky);
 			color: var(--sl-community-link);
 		}
 

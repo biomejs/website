@@ -1,6 +1,7 @@
 import netlify from "@astrojs/netlify";
 import react from "@astrojs/react";
 import starlight from "@astrojs/starlight";
+import lunaria from "@lunariajs/starlight";
 import { defineConfig } from "astro/config";
 import rehypeSlug from "rehype-slug";
 import starlightBlog from "starlight-blog";
@@ -50,6 +51,9 @@ export default defineConfig({
 							picture: "/img/logo-avatar.png",
 						},
 					},
+				}),
+				lunaria({
+					route: "i18n-dashboard",
 				}),
 			],
 			locales: {
@@ -475,16 +479,6 @@ export default defineConfig({
 				replacesTitle: true,
 			},
 			favicon: "/img/favicon.svg",
-			head: [
-				{
-					tag: "link",
-					attrs: {
-						rel: "alternate",
-						type: "application/rss+xml",
-						href: `${site}/feed.xml`,
-					},
-				},
-			],
 			customCss: [
 				// Relative path to your custom CSS file
 				"./src/styles/index.css",
