@@ -1,6 +1,8 @@
 // src/content/config.ts
 import { type ImageFunction, defineCollection, z } from "astro:content";
+import { docsLoader } from "@astrojs/starlight/loaders";
 import { docsSchema } from "@astrojs/starlight/schema";
+import { glob } from "astro/loaders";
 
 const blogSchema = (image: ImageFunction) =>
 	z.object({
@@ -31,13 +33,20 @@ const authorsSchema = z.object({
 });
 
 export const collections = {
-	docs: defineCollection({ schema: docsSchema() }),
+	docs: defineCollection({ loader: docsLoader(), schema: docsSchema() }),
 	blog: defineCollection({
-		type: "content",
+		loader: glob({
+			base: "./src/blog/posts",
+			pattern: "{*.mdx,*.md}",
+		}),
 		schema: ({ image }) => blogSchema(image),
 	}),
 	authors: defineCollection({
-		type: "data",
+		loader: glob({
+			base: "./src/blog/authors",
+			pattern: "*.json",
+		}),
+
 		schema: authorsSchema,
 	}),
 };

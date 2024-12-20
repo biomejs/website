@@ -40,6 +40,7 @@ export default function Tabs({
 
 					return (
 						<li
+							tabIndex={0}
 							key={tab.key}
 							id={`tab-${tab.key}`}
 							className={classnames(

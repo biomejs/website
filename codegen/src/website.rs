@@ -123,6 +123,7 @@ pub(crate) fn generate_cli_doc() -> anyhow::Result<()> {
 pub(crate) fn generate_schema_js() -> anyhow::Result<()> {
     let schema_root_folder_path = project_root().join("src/pages/schemas");
     let schema_version_folder_path = schema_root_folder_path.join(VERSION);
+    let schema_latest_path = schema_root_folder_path.join("latest/schema.json.js");
     let schema_js_path = schema_version_folder_path.join("schema.json.js");
 
     if schema_version_folder_path.exists() {
@@ -160,6 +161,7 @@ export function GET() {"#,
     .print()?;
 
     fs::write(schema_js_path, schema_js_printed.as_code())?;
+    fs::write(schema_latest_path, schema_js_printed.as_code())?;
 
     Ok(())
 }
