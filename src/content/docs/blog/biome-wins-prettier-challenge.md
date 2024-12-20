@@ -5,15 +5,16 @@ summary: Biome formatter now 95% compatible with Prettier
 authors:
   - ema
   - team
-pubDate: 2023-11-27
-coverImage:
-  lightSrc: "@/assets/blog/prettier-challenge.png"
-  darkSrc: "@/assets/blog/prettier-challenge.png"
+date: 2023-11-27
+cover:
+  light: "@/assets/blog/prettier-challenge.png"
+  dark: "@/assets/blog/prettier-challenge.png"
   alt: The Prettier challenge banner, with the Biome logo over it
 socialImage: "@/assets/blog/prettier-challenge.png"
 ---
 
-With the release of Biome **`v1.4.0`**, we claim the bounty of the [Prettier challenge](https://console.algora.io/challenges/prettier)!
+With the release of Biome **`v1.4.0`
+**, we claim the bounty of the [Prettier challenge](https://console.algora.io/challenges/prettier)!
 
 With `v1.4.0`, you'll get a better formatter experience, more formatting options, new VSCode features, new sponsors and more!
 
@@ -27,7 +28,8 @@ yarn upgrade --exact @biomejs/biome@1.4.0
 
 ## Better formatter
 
-Biome formatter has now **over 96% in terms of compatibility** against [Prettier](https://prettier.io/)! This score is computed for JavaScript, TypeScript, and JSX formatting.
+Biome formatter has now **over 96% in terms of compatibility
+** against [Prettier](https://prettier.io/)! This score is computed for JavaScript, TypeScript, and JSX formatting.
 
 Merit of challenge that was launched by [Christopher Chedeau](https://twitter.com/Vjeux/status/1722733472522142022), one of the Prettier's creators.
 
@@ -39,8 +41,7 @@ I believe the main factors that made this possible are three:
 2. Communication. We used [GitHub](https://github.com/biomejs/biome/issues/720) as only medium of coordination. We provided information, instructions and help on how to deliver.
 3. Infrastructure. Biome relies on a solid testing infrastructure, built by [previous](https://github.com/MichaReiser) Rome Tools [employees](https://github.com/ematipico) and [contributors](https://github.com/IWANABETHATGUY/). It's able to catch every reformat bug, provide granular diffs and warn the user if the emitted output is the different from the one emitted by Prettier.
 
-Before the challenge, Biome had roughly a compatibility rate of 85%, based on our internal metrics (JavaScript, TypeScript and JSX, on options parity). Even though 85% might seem high,
-the impact of a low number such as 15% on big code bases is huge, and people might feel intimidated by so many changes, causing early adopters to receive frictions when bring Biome to their team. A member of our community shared some insights:
+Before the challenge, Biome had roughly a compatibility rate of 85%, based on our internal metrics (JavaScript, TypeScript and JSX, on options parity). Even though 85% might seem high, the impact of a low number such as 15% on big code bases is huge, and people might feel intimidated by so many changes, causing early adopters to receive frictions when bring Biome to their team. A member of our community shared some insights:
 
 > As a great example of how much even just that last 5% has improved things for large codebases (and specifically with `bracketSpacing` and now `bracketSameLine` implemented) i ran it one project in our monorepo [...].
 >
@@ -120,7 +121,8 @@ We removed the bundled binary from the extension, and you'll be able to download
   <source src="https://github.com/biomejs/biome-vscode/assets/649677/c7c1bf81-10a5-4cd6-bbdf-019d983a2d6a" type="video/mp4">
 </video>
 
-From today, we release a [**nightly**](https://marketplace.visualstudio.com/items?itemName=biomejs.biome-nightly) version of the extension. This is a version meant for early adopters and to test things before they are officially released.
+From today, we release a [**nightly
+**](https://marketplace.visualstudio.com/items?itemName=biomejs.biome-nightly) version of the extension. This is a version meant for early adopters and to test things before they are officially released.
 
 ## Some CLI goodies
 

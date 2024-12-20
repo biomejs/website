@@ -3,6 +3,7 @@ import react from "@astrojs/react";
 import starlight from "@astrojs/starlight";
 import { defineConfig } from "astro/config";
 import rehypeSlug from "rehype-slug";
+import starlightBlog from "starlight-blog";
 import { searchForWorkspaceRoot } from "vite";
 import { version as biomeVersion } from "./node_modules/@biomejs/wasm-web/package.json";
 import { version as prettierVersion } from "./node_modules/prettier/package.json";
@@ -21,6 +22,36 @@ export default defineConfig({
 		starlight({
 			title: "Biome",
 			defaultLocale: "root",
+			plugins: [
+				starlightBlog({
+					title: {
+						en: "Blog",
+						ja: "ブログ",
+						"zh-CN": "博客",
+					},
+					authors: {
+						conaclos: {
+							name: "Victorien Elvinger",
+							picture:
+								"https://avatars.githubusercontent.com/u/2358560?s=96&v=4",
+							url: "https://twitter.com/Conaclos",
+						},
+						ema: {
+							name: "Emanuele Stoppa",
+							picture: "https://avatars.githubusercontent.com/u/602478?v=4",
+							url: "https://twitter.com/ematipico",
+						},
+						team: {
+							name: "Biome Core Team, Biome Maintainers",
+							picture: "/img/logo-avatar.png",
+						},
+						core: {
+							name: "Biome Core Team",
+							picture: "/img/logo-avatar.png",
+						},
+					},
+				}),
+			],
 			locales: {
 				root: {
 					label: "English",
@@ -44,11 +75,6 @@ export default defineConfig({
 				},
 			},
 			sidebar: [
-				{
-					label: "Blog",
-					link: "../blog",
-					translations: { ja: "ブログ", "zh-CN": "博客" },
-				},
 				{
 					label: "Playground",
 					link: "../playground",
@@ -477,7 +503,6 @@ export default defineConfig({
 			},
 			components: {
 				SiteTitle: "./src/components/starlight/SiteTitle.astro",
-				Sidebar: "./src/components/starlight/Sidebar.astro",
 				Hero: "./src/components/starlight/Hero.astro",
 				Head: "./src/components/starlight/Head.astro",
 			},
