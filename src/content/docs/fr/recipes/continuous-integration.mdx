@@ -1,0 +1,56 @@
+---
+title: Intégration continue
+description: Utiliser Biome dans un environnement d’intégration continue
+---
+
+L’exécution de Biome dans un environnement d’intégration continue est facile. Jetez un coup d’œil aux exemples suivants pour trouver l’inspiration.
+
+## GitHub Actions
+
+Nous fournissons une [action GitHub](https://github.com/marketplace/actions/setup-biome) officielle pour installer Biome dans votre runner.
+Voici ce à quoi un simple workflow pourrait ressembler&nbsp;:
+
+```yaml title="pull_request.yml"
+name: Code quality
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Biome
+        uses: biomejs/setup-biome@v2
+        with:
+          version: latest
+      - name: Run Biome
+        run: biome ci .
+```
+
+## Actions tierces
+
+Ce sont des actions maintenues par d’autres communautés que vous pouvez utiliser dans votre runner&nbsp;:
+
+- [reviewdog-action-biome](https://github.com/marketplace/actions/run-biome-with-reviewdog)&nbsp;: exécutez Biome avec reviewdog et faites des suggestions de commentaire et de commit dans la pull request.
+
+```yaml title="pull_request.yml"
+name: reviewdog
+on: [pull_request]
+jobs:
+  biome:
+    name: runner / Biome
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: mongolyy/reviewdog-action-biome@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
+```
