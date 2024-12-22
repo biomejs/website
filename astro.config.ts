@@ -147,6 +147,7 @@ export default defineConfig({
 									link: "/guides/editors/first-party-extensions",
 									translations: {
 										fr: "Extensions officielles",
+                                        ja: "Biome 公式拡張機能",
 									},
 								},
 								{
@@ -154,6 +155,7 @@ export default defineConfig({
 									link: "/guides/editors/third-party-extensions",
 									translations: {
 										fr: "Extensions tierces",
+                                        ja: "サードパーティの拡張機能",
 									},
 								},
 								{
@@ -161,6 +163,7 @@ export default defineConfig({
 									link: "/guides/editors/create-a-extension",
 									translations: {
 										fr: "Intégrer Biome à une extension pour un éditeur",
+                                        ja: "エディタ拡張機能への Biome の統合",
 									},
 								},
 							],
