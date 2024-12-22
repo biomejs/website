@@ -10,52 +10,56 @@ import { version as biomeVersion } from "./node_modules/@biomejs/wasm-web/packag
 import { version as prettierVersion } from "./node_modules/prettier/package.json";
 import { rehypeAutolink } from "./plugins/rehype-autolink";
 
-const site = "https://biomejs.dev";
+const plugins = [
+	starlightBlog({
+		title: {
+			en: "Blog",
+			ja: "ブログ",
+			"zh-CN": "博客",
+		},
+		authors: {
+			conaclos: {
+				name: "Victorien Elvinger",
+				picture: "https://avatars.githubusercontent.com/u/2358560?s=96&v=4",
+				url: "https://twitter.com/Conaclos",
+			},
+			ema: {
+				name: "Emanuele Stoppa",
+				picture: "https://avatars.githubusercontent.com/u/602478?v=4",
+				url: "https://twitter.com/ematipico",
+			},
+			team: {
+				name: "Biome Core Team, Biome Maintainers",
+				picture: "/img/logo-avatar.png",
+			},
+			core: {
+				name: "Biome Core Team",
+				picture: "/img/logo-avatar.png",
+			},
+		},
+	}),
+];
+
+// @ts-ignore
+if (process.env?.E2E !== true) {
+	plugins.push(
+		lunaria({
+			route: "i18n-dashboard",
+		}),
+	);
+}
+
 // https://astro.build/config
 export default defineConfig({
-	site,
+	site: "https://biomejs.dev",
 	output: "static",
-
 	compressHTML: true,
-
 	integrations: [
 		react(),
 		starlight({
 			title: "Biome",
 			defaultLocale: "root",
-			plugins: [
-				starlightBlog({
-					title: {
-						en: "Blog",
-						ja: "ブログ",
-						"zh-CN": "博客",
-					},
-					authors: {
-						conaclos: {
-							name: "Victorien Elvinger",
-							picture:
-								"https://avatars.githubusercontent.com/u/2358560?s=96&v=4",
-							url: "https://twitter.com/Conaclos",
-						},
-						ema: {
-							name: "Emanuele Stoppa",
-							picture: "https://avatars.githubusercontent.com/u/602478?v=4",
-							url: "https://twitter.com/ematipico",
-						},
-						team: {
-							name: "Biome Core Team, Biome Maintainers",
-							picture: "/img/logo-avatar.png",
-						},
-						core: {
-							name: "Biome Core Team",
-							picture: "/img/logo-avatar.png",
-						},
-					},
-				}),
-				lunaria({
-					route: "i18n-dashboard",
-				}),
-			],
+			plugins,
 			locales: {
 				root: {
 					label: "English",
