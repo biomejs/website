@@ -70,7 +70,7 @@
 		"rehype-slug": "6.0.0",
 		"remark-toc": "9.0.0",
 		"sharp": "0.33.5",
-		"starlight-blog": "^0.16.1",
+		"starlight-blog": "0.16.1",
 		"textlint": "14.4.0",
 		"textlint-rule-preset-jtf-style": "2.3.14",
 		"textlint-rule-prh": "6.0.0",

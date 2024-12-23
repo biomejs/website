@@ -19,7 +19,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
           # Necessary for Lunaria to work properly
           # Makes the action clone the entire git history
@@ -41,4 +41,4 @@ jobs:
       - run: pnpm install
 
       - name: Generate Lunaria Overview
-        uses: yanthomasdev/lunaria-action@v0.1.0
+        uses: yanthomasdev/lunaria-action@06ad5ab2704d030708baf3b279ca0446b418e853 # v0.1.0
