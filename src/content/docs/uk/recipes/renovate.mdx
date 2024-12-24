@@ -1,0 +1,19 @@
+---
+title: Renovate
+description: Налаштування Renovate Bot
+---
+
+[Renovate](https://docs.renovatebot.com/) - це популярний інструмент для автоматичного оновлення залежностей.
+
+## biome.json
+
+Renovate має [спільне правило пресету](https://docs.renovatebot.com/presets-customManagers/#custommanagersbiomeversions), яке може допомогти підтримувати версію `$schema` в актуальному стані в конфігураційних файлах `biome.json`.
+
+Щоб використовувати, додайте `customManagers:biomeVersions` до вашого списку `extends`.
+
+```json title="renovate.json"
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["customManagers:biomeVersions"]
+}
+```

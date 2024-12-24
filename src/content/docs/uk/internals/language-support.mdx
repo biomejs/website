@@ -1,0 +1,87 @@
+---
+title: Підтримка мов
+description: Мови та функції, які підтримуються Biome.
+---
+
+Легенда:
+- ✅: Підтримується
+- 🚫: Не в розробці
+- ⌛️: В розробці
+- ⚠️: Частково підтримується (з деякими застереженнями)
+
+| Мова | Парсинг | Форматування | Лінтинг |
+| -------- | ------- | ---------- | ------- |
+| [JavaScript](#підтримка-javascript) | <span aria-label="Підтримується" role="img">✅</span> | <span aria-label="Підтримується" role="img">✅</span> | <span aria-label="Підтримується" role="img">✅</span> |
+| [TypeScript](#підтримка-typescript) | <span aria-label="Підтримується" role="img">✅</span> | <span aria-label="Підтримується" role="img">✅</span> | <span aria-label="Підтримується" role="img">✅</span> |
+| JSX | <span aria-label="Підтримується" role="img">✅</span> | <span aria-label="Підтримується" role="img">✅</span> | <span aria-label="Підтримується" role="img">✅</span> |
+| TSX | <span aria-label="Підтримується" role="img">✅</span> | <span aria-label="Підтримується" role="img">✅</span> | <span aria-label="Підтримується" role="img">✅</span> |
+| JSON | <span aria-label="Підтримується" role="img">✅</span> | <span aria-label="Підтримується" role="img">✅</span> | <span aria-label="Підтримується" role="img">✅</span> |
+| JSONC | <span aria-label="Підтримується" role="img">✅</span> | <span aria-label="Підтримується" role="img">✅</span> | <span aria-label="Підтримується" role="img">✅</span> |
+| HTML | <span aria-label="В розробці" role="img">⌛️</span> | <span aria-label="В розробці" role="img">⌛️</span> | <span aria-label="Не в розробці" role="img">🚫</span> |
+| [Vue](#підтримка-супер-мов-html) | <span aria-label="Частково підтримується" role="img">⚠️</span> | <span aria-label="Частково підтримується" role="img">⚠️</span> | <span aria-label="Частково підтримується" role="img">⚠️</span> |
+| [Svelte](#підтримка-супер-мов-html) | <span aria-label="Частково підтримується" role="img">⚠️</span> | <span aria-label="Частково підтримується" role="img">⚠️</span> | <span aria-label="Частково підтримується" role="img">⚠️</span> |
+| [Astro](#підтримка-супер-мов-html) | <span aria-label="Частково підтримується" role="img">⚠️</span> | <span aria-label="Частково підтримується" role="img">⚠️</span> | <span aria-label="Частково підтримується" role="img">⚠️</span> |
+| CSS | <span aria-label="Підтримується" role="img">✅️</span> | <span aria-label="Підтримується" role="img">✅️</span> | <span aria-label="Підтримується" role="img">✅️</span> |
+| [YAML](https://github.com/biomejs/biome/issues/2365) | <span aria-label="В розробці" role="img">⌛️</span> | <span aria-label="Не в розробці" role="img">🚫</span> | <span aria-label="Не в розробці" role="img">🚫</span> |
+| GraphQL | <span aria-label="Підтримується" role="img">✅️</span> | <span aria-label="Підтримується" role="img">✅️</span> | <span aria-label="Підтримується" role="img">✅️</span> |
+| [Markdown](https://github.com/biomejs/biome/issues/3718) | <span aria-label="В розробці" role="img">⌛️</span> | <span aria-label="Не в розробці" role="img">🚫</span> | <span aria-label="Не в розробці" role="img">🚫</span> |
+
+## Підтримка JavaScript
+
+Biome підтримує версію мови ES2024.
+
+Biome підтримує лише офіційний синтаксис. Команда починає розробку нового синтаксису, коли пропозиція досягає
+[Третього етапу](https://github.com/tc39/proposals#stage-3).
+
+## Підтримка TypeScript
+
+Biome підтримує версію TypeScript 5.6.
+
+## Підтримка JSONC
+
+JSONC означає "JSON з коментарями". Цей формат широко використовується різними інструментами, такими як [VS Code](https://code.visualstudio.com/docs/languages/json#_json-with-comments), [TypeScript](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html), [Babel](https://babeljs.io/docs/config-files), тощо, оскільки він дозволяє користувачам додавати коментарі до конфігураційних файлів. Однак, оскільки JSONC не є строго визначеним стандартом, існують деякі варіації в тому, як різні інструменти обробляють кінцеві коми у файлах JSONC. Щоб врахувати це, Biome не надає спеціальної конфігурації мови для JSONC. Натомість ми покращили наші можливості парсингу та форматування JSON з такими опціями, як `json.parser.allowComments`, `json.parser.allowTrailingCommas` та `json.formatter.trailingCommas`. Цей підхід дозволяє Biome ефективно підтримувати різні варіанти файлів JSON.
+
+Для файлів з розширенням `.jsonc` або тих, які ідентифікуються як `jsonc` відповідно до [ідентифікатора мови](https://code.visualstudio.com/docs/languages/identifiers), Biome автоматично застосовує наступні налаштування за замовчуванням для їх парсингу та форматування:
+
+- `json.parser.allowComments`: `true`
+- `json.parser.allowTrailingCommas`: `true`
+- `json.formatter.trailingCommas`: `none`
+
+Зверніть увагу, що деякі відомі файли, такі як `tsconfig.json` та `.babelrc`, не використовують розширення `.jsonc`, але все одно дозволяють коментарі та кінцеві коми. Інші, такі як `.eslintrc.json`, дозволяють лише коментарі. Biome може ідентифікувати ці файли та відповідно налаштовує опцію `json.parser.allowTrailingCommas`, щоб забезпечити їх правильний парсинг.
+
+[Цей розділ](../../guides/configure-biome#well-known-files) надає повний список відомих файлів, які Biome може розпізнати.
+
+## Підтримка супер мов HTML
+
+Станом на версію `1.6.0`, ці мови **частково** підтримуються. Biome буде покращуватися з часом і надаватиме більше опцій для налаштування вашого проекту. На сьогодні є деякі очікування та обмеження, які слід враховувати:
+- Для файлів `.astro` підтримується **лише** частина файлу **frontmatter**.
+- Для файлів `.vue` та `.svelte` підтримуються **лише** теги **\<script\>**.
+- Діагностика показуватиме лише фрейми коду, які належать до вищезазначених частин.
+- При **форматуванні** файлів `.vue` та `.svelte` відступи коду JavaScript/TypeScript починатимуться з початку.
+
+  ```vue title="file.vue" del={2} ins={3}
+  <script>
+    import Component from "./Component.vue";
+  import Component from "./Component.vue";
+  </script>
+  ```
+
+- При **лінтингу** файлів `.svelte`, `.astro` або `.vue` рекомендується вимкнути кілька додаткових правил, щоб уникнути помилок компілятора. Використовуйте опцію `overrides` для цього:
+
+  ```json
+    {
+      "overrides": [
+        {
+          "include": ["*.svelte", "*.astro", "*.vue"],
+          "linter": {
+            "rules": {
+              "style": {
+                "useConst": "off",
+                "useImportType": "off"
+              }
+            }
+          }
+        }
+      ]
+    }
+    ```

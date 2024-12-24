@@ -1,0 +1,77 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: useGuardForIn
+description: |
+  Require `for-in` loops to include an `if` statement.
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+**Diagnostic Category: `lint/nursery/useGuardForIn`**
+<Tabs>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+**Since**: `v1.9.4`
+:::caution
+This rule is part of the [nursery](/linter/rules/#nursery) group.
+:::
+
+Sources: 
+- Same as: <a href="https://eslint.org/docs/latest/rules/guard-for-in" target="_blank"><code>guard-for-in</code></a>
+
+Require `for-in` loops to include an `if` statement.
+
+Looping over objects with a `for-in` loop will include properties inherited through the prototype chain.
+This behavior can lead to unexpected items in your for loop.
+
+For codebases that do not support ES2022, `Object.prototype.hasOwnProperty.call(foo, key)` can be used as a check that the property is not inherited.
+
+For codebases that do support ES2022, `Object.hasOwn(foo, key)` can be used as a shorter and more reliable alternative.
+
+## Examples
+
+### Invalid
+
+```js
+for (key in foo) {
+  doSomething(key);
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/use-guard-for-in">lint/nursery/useGuardForIn</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">The body of a for-in should be wrapped in an `if` statement.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>for (key in foo) &#123;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  doSomething(key);<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>&#125;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Looping over the object with for-in loop  will include properties that are inherited through the prototype chain, the behaviour can lead to some unexpected items in your loop.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">To resolve this issue, add an if statement like `if (Object.hasOwn(foo, key)) &#123;...&#125;` to filter out the extraneous properties. </span><br />  <br /></code></pre>
+
+### Valid
+
+```js
+for (key in foo) {
+  if (Object.hasOwn(foo, key)) {
+   doSomething(key);
+  }
+}
+```
+
+```js
+for (key in foo) {
+  if (Object.prototype.hasOwnProperty.call(foo, key)) {
+    doSomething(key);
+  }
+}
+```
+
+```js
+for (key in foo) {
+  if ({}.hasOwnProperty.call(foo, key)) {
+    doSomething(key);
+  }
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
+</Tabs>
+
