@@ -1,0 +1,74 @@
+---
+title: サードパーティの拡張機能
+description: サードパーティの拡張機能の設定方法を学びます
+---
+
+以下は他のコミュニティによって管理されている拡張機能で、エディタにインストールして使用します：
+
+- [`vim`](https://www.vim.org/): [`ALE`](https://github.com/dense-analysis/ale) が Biome をサポートしています。インストール手順に従ってください。
+- [`neovim`](https://neovim.io/): [`nvim-lspconfig`](https://github.com/neovim/nvim-lspconfig/) をインストールし、[指示](https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#biome)に従ってください。また、[`ALE`](https://github.com/dense-analysis/ale) も Biome をサポートしています。
+- [`helix`](https://helix-editor.com/): [このマニュアル](#helix)の指示に従ってください。
+- [`coc-biome`](https://github.com/fannheyward/coc-biome): [`coc.nvim`](https://github.com/neoclide/coc.nvim) 用の Biome 拡張機能。
+- [`sublime text`](https://www.sublimetext.com/): [`LSP-biome`](https://github.com/sublimelsp/LSP-biome) のインストール手順に従ってください。
+- [`Emacs`](https://www.gnu.org/software/emacs/): [`lsp-mode`](https://github.com/emacs-lsp/lsp-mode) をインストールし、[`lsp-biome`](https://github.com/cxa/lsp-biome) のインストール手順に従って `lsp-mode` で Biome サポートを有効にします。
+
+:::note
+ここに記載されていないエディタ用の拡張機能がありますか？ぜひPRを送ってください。リストに追加します。
+:::
+
+### Helix
+
+現在、Biomeはこれらのファイル拡張子をサポートしています：`js`、`jsx`、`ts`、`tsx`、`d.ts`、`json`、 `jsonc`
+
+Biomeには `lsp-proxy` コマンドがあり、標準入力/出力を介して Language Server Protocol のサーバーとして動作します。
+
+#### Helix 23.10
+
+Helix 23.10 では[複数の言語サーバーのサポート](https://github.com/helix-editor/helix/pull/2507)が追加されました。これにより、`typescript-language-server` と Biome を併用できます。
+
+```toml
+[language-server]
+biome = { command = "biome", args = ["lsp-proxy"] }
+
+[[language]]
+name = "javascript"
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
+auto-format = true
+
+[[language]]
+name = "typescript"
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
+auto-format = true
+
+[[language]]
+name = "tsx"
+auto-format = true
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
+
+[[language]]
+name = "jsx"
+auto-format = true
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
+
+[[language]]
+name = "json"
+language-servers = [ { name = "vscode-json-language-server", except-features = [ "format" ] }, "biome" ]
+```
+
+### 動画
+
+#### コードアクション
+
+<video
+	src='https://user-images.githubusercontent.com/17974631/190205045-aeb86f87-1915-4d8b-8aad-2c046443ba83.mp4'
+	width='720'
+	controls
+></video>
+
+#### format
+
+<video
+	src='https://user-images.githubusercontent.com/17974631/190205065-ddfde866-5f7c-4f53-8a62-b6cbb577982f.mp4'
+	width='720'
+	controls
+></video>
