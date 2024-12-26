@@ -188,7 +188,7 @@ Le fichier de configuration de Biome peut être utilisé pour affiner les fichie
 Vous pouvez lister explicitement les fichiers à traiter en utilisant `include` et ceux à ne pas traiter en utilisant `ignore`.
 `include` et `ignore` acceptent des motifs glob comme `src/**/*.js`.
 Référez-vous à la [section correspondante](#la-syntaxe-glob-expliquée) pour connaître les glob pris en charge.
-`include` s’applique toujours en premier avant de faire appliquer `ignore`,
+`include` s’applique toujours avant `ignore`,
 ce qui vous permet d’inclure certains fichiers et d’en ignorer certains parmi ceux que vous avez inclus.
 
 :::note
