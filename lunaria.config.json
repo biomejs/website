@@ -24,6 +24,7 @@
 			"type": "universal",
 			"ignore": [
 				"node_modules",
+				"dist",
 				"src/content/docs/linter/rules/*.{mdx,md}",
 				"src/content/docs/assist/actions/*.{mdx,md}",
 				"src/content/docs/blog/*.{md,mdx}",
