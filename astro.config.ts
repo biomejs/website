@@ -1,26 +1,65 @@
 import netlify from "@astrojs/netlify";
 import react from "@astrojs/react";
 import starlight from "@astrojs/starlight";
+import lunaria from "@lunariajs/starlight";
 import { defineConfig } from "astro/config";
 import rehypeSlug from "rehype-slug";
+import starlightBlog from "starlight-blog";
 import { searchForWorkspaceRoot } from "vite";
 import { version as biomeVersion } from "./node_modules/@biomejs/wasm-web/package.json";
 import { version as prettierVersion } from "./node_modules/prettier/package.json";
 import { rehypeAutolink } from "./plugins/rehype-autolink";
 
-const site = "https://biomejs.dev";
+const plugins = [
+	starlightBlog({
+		title: {
+			en: "Blog",
+			ja: "ブログ",
+			"zh-CN": "博客",
+		},
+		authors: {
+			conaclos: {
+				name: "Victorien Elvinger",
+				picture: "https://avatars.githubusercontent.com/u/2358560?s=96&v=4",
+				url: "https://twitter.com/Conaclos",
+			},
+			ema: {
+				name: "Emanuele Stoppa",
+				picture: "https://avatars.githubusercontent.com/u/602478?v=4",
+				url: "https://twitter.com/ematipico",
+			},
+			team: {
+				name: "Biome Core Team, Biome Maintainers",
+				picture: "/img/logo-avatar.png",
+			},
+			core: {
+				name: "Biome Core Team",
+				picture: "/img/logo-avatar.png",
+			},
+		},
+	}),
+];
+
+// @ts-ignore
+if (process.env?.E2E !== true) {
+	plugins.push(
+		lunaria({
+			route: "i18n-dashboard",
+		}),
+	);
+}
+
 // https://astro.build/config
 export default defineConfig({
-	site,
+	site: "https://biomejs.dev",
 	output: "static",
-
 	compressHTML: true,
-
 	integrations: [
 		react(),
 		starlight({
 			title: "Biome",
 			defaultLocale: "root",
+			plugins,
 			locales: {
 				root: {
 					label: "English",
@@ -44,11 +83,6 @@ export default defineConfig({
 				},
 			},
 			sidebar: [
-				{
-					label: "Blog",
-					link: "../blog",
-					translations: { ja: "ブログ", "zh-CN": "博客" },
-				},
 				{
 					label: "Playground",
 					link: "../playground",
@@ -449,16 +483,6 @@ export default defineConfig({
 				replacesTitle: true,
 			},
 			favicon: "/img/favicon.svg",
-			head: [
-				{
-					tag: "link",
-					attrs: {
-						rel: "alternate",
-						type: "application/rss+xml",
-						href: `${site}/feed.xml`,
-					},
-				},
-			],
 			customCss: [
 				// Relative path to your custom CSS file
 				"./src/styles/index.css",
@@ -477,7 +501,6 @@ export default defineConfig({
 			},
 			components: {
 				SiteTitle: "./src/components/starlight/SiteTitle.astro",
-				Sidebar: "./src/components/starlight/Sidebar.astro",
 				Hero: "./src/components/starlight/Hero.astro",
 				Head: "./src/components/starlight/Head.astro",
 			},
@@ -499,9 +522,9 @@ export default defineConfig({
 		},
 	},
 
-	adapter: netlify({
-		imageCDN: false,
-	}),
+	// adapter: netlify({
+	// 	imageCDN: false,
+	// }),
 
 	vite: {
 		resolve: {
