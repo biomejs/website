@@ -40,14 +40,14 @@ const plugins = [
 	}),
 ];
 
-// if (process.env?.E2E !== "true") {
-plugins.push(
-	lunaria({
-		route: "i18n-dashboard",
-		sync: true,
-	}),
-);
-// }
+if (process.env?.E2E !== "true") {
+	plugins.push(
+		lunaria({
+			route: "i18n-dashboard",
+			sync: true,
+		}),
+	);
+}
 
 // https://astro.build/config
 export default defineConfig({
