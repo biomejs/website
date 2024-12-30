@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Label documentation issues
-        uses: github/issue-labeler@50f02baa9587156323c3ca2c1ed396d220796ba6
+        uses: github/issue-labeler@411dd122ee7386163194b2a61132422e54ec0d99
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           configuration-path: .github/issue-labeler.yaml
