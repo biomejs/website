@@ -3,7 +3,8 @@
 	"repository": {
 		"name": "biomejs/website",
 		"branch": "main",
-		"rootDir": "."
+		"rootDir": "src/content/docs",
+		"hosting": "github"
 	},
 	"dashboard": {
 		"title": "Biome i18n dashboard",
@@ -22,6 +23,8 @@
 			"pattern": "src/content/docs/@lang/@path",
 			"type": "universal",
 			"ignore": [
+				"node_modules",
+				"dist",
 				"src/content/docs/linter/rules/*.{mdx,md}",
 				"src/content/docs/assist/actions/*.{mdx,md}",
 				"src/content/docs/blog/*.{md,mdx}",
