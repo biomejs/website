@@ -28,7 +28,7 @@
 		"@astrojs/rss": "4.0.10",
 		"@astrojs/starlight": "0.30.3",
 		"@biomejs/biome": "1.9.4",
-		"@biomejs/wasm-web": "https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@d4054fe",
+		"@biomejs/wasm-web": "https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@6ea885f",
 		"@codemirror/lang-css": "6.3.1",
 		"@codemirror/lang-html": "6.4.9",
 		"@codemirror/lang-javascript": "6.2.2",
@@ -75,8 +75,11 @@
 		"textlint-rule-preset-jtf-style": "2.3.14",
 		"textlint-rule-prh": "6.0.0",
 		"typescript": "5.5.4",
-		"vite": "5.4.11",
+		"vite": "6.0.5",
 		"vite-plugin-svgr": "4.3.0"
 	},
-	"packageManager": "pnpm@9.6.0"
+	"packageManager": "pnpm@9.15.2",
+	"dependencies": {
+		"@astrojs/node": "^9.0.0"
+	}
 }
