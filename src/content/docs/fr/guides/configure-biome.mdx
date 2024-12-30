@@ -1,0 +1,385 @@
+---
+title: Configurer Biome
+description: Apprenez comment la configuration de Biome fonctionne.
+---
+
+import {FileTree} from '@astrojs/starlight/components';
+
+Ce guide vous aidera à comprendre comment configurer Biome.
+Il explique la structure d’un fichier de configuration de Biome et la manière dont Biome résoud sa configuration.
+Si vous êtes déjà familiarisé avec la configuration de Biome, il se peut que vous vouliez jeter un coup d’œil à la [référence de la configuration](/fr/reference/configuration/), qui détaille toutes les options disponibles.
+
+Biome vous permet de personnaliser son comportement en utilisant des options en ligne de commande ou un fichier de configuration nommé `biome.json` ou `biome.jsonc`.
+Nous vous recommandons de créer un fichier de configuration pour chaque projet,
+ce qui assure que chaque membre de votre équipe a la même configuration à la fois en ligne de commande et dans tout éditeur doté de l’extension de Biome.
+La plupart des options disponibles dans le fichier de configuration sont également disponibles en ligne de commande.
+
+## Structure du fichier de configuration
+
+Le fichier de configuration de Biome est nommé `biome.json` ou `biome.jsonc`.
+Il est habituellement placé dans le répertoire racine de votre projet, où se trouve généralement `package.json`.
+
+Parce que Biome est un ensemble d’outils, sa configuration est organisée autour des outils qu’il fournit.
+Biome fournit actuellement trois outils&nbsp;: l‘outil de formatage, l’outil de linting et le trieur d’imports (aussi appelé l’organisateur d’imports).
+Tous ces outils sont activés par défaut.
+Vous pouvez désactiver un ou plusieurs d’entre eux en utilisant la propriété `<outil>.enabled`&nbsp;:
+
+```json title="biome.json"
+{
+  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "formatter": {
+    "enabled": false
+  },
+  "linter": {
+    "enabled": false
+  },
+  "organizeImports": {
+    "enabled": false
+  }
+}
+```
+
+Les options qui s’appliquent à plus d’un langage sont placées dans le champ de l’outil correspondant.
+Les options propres à un langage sont placées sous un champ `<langage>.<outil>`,
+ce qui permet également d’écraser des options générales pour un langage donné.
+Vous pouvez également activer ou désactiver un outil basé sur le langage.
+Dans l’exemple suivant, nous configurons les options générales `formatter.indentStyle` et `formatter.lineWidth` pour tous les langages.
+En outre, nous définissons l’option `quoteStyle` propre à JavaScript dans `javascript.formatter` et nous écrasons `formatter.lineWidth`.
+Nous avons désactivé l’outil de formatage pour les fichiers JSON.
+
+```json5 title="biome.jsonc"
+{
+  "formatter": {
+    "indentStyle": "space", // `tab` par défaut
+    "lineWidth": 100 // `80` par défaut
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single", // `double` par défaut
+      "lineWidth": 120 // écrase `formatter.lineWidth`
+    }
+  },
+  "json": {
+    "formatter": {
+      "enabled": false
+    }
+  }
+}
+```
+
+:::note
+Biome fait référence sous le nom de `javascript` à toutes les variantes du langage JavaScript,
+ce qui inclut TypeScript, JSX et TSX.
+:::
+
+
+## Résolution du fichier de configuration
+
+Biome prend en compte le fichier de configuration le plus proche, en débutant sa recherche dans le répertoire de travail courant et en remontant la hiérarchie des répertoires jusqu’à trouver un fichier `biome.json` ou `biome.jsonc`.
+Si aucune configuration n’est trouvée, alors il applique les réglages par défaut de Biome.
+Si `biome.json` et `biome.jsonc` sont présents en même temps dans le même dossier, la priorité sera donnée à `biome.json`.
+
+Voici un exemple&nbsp;:
+
+<FileTree>
+- app
+  - backend
+    - biome.json
+    - package.json
+  - frontend
+    - biome.json
+    - legacy
+      - package.json
+    - new
+      - package.json
+</FileTree>
+
+
+- Les commandes de Biome qui s’exécutent dans `app/backend/package.json` utiliseront le fichier de configuration `app/backend/biome.json`&nbsp;;
+- les commandes de Biome qui s’exécutent dans `app/frontend/legacy/package.json` et `app/frontend/new/package.json`
+utiliseront le fichier de configuration `app/frontend/biome.json`&nbsp;;
+
+:::caution
+Biome ne prend pas en charge les fichiers `biome.json` imbriqués, ni en ligne de commande ni en LSP. [Suivre et aider à la prise en charge dans le ticket correspondant](https://github.com/biomejs/biome/issues/2228)
+:::
+
+:::note
+Les commandes de Biome prennent en charge l’utilisation de l’option `--config-path` et de la variable d’environnement `BIOME_CONFIG_PATH`,
+ce qui vous permet de spécifier un fichier de configuration personnalisé ou un répertoire où Biome peut trouver un fichier `biome.json` ou `biome.jsonc`.
+Quand vous utilisez `--config-path` ou `BIOME_CONFIG_PATH`, le processus standard de résolution du fichier de configuration est **désactivé.**
+
+Si `--config-path` ou `BIOME_CONFIG_PATH` pointent directement sur un fichier, vous pouvez utiliser des noms autres que `biome.json` ou `biome.jsonc`.
+Biome lira un fichier `.json` en utilisant un analyseur JSON standard.
+Pour les fichiers avec d’autres extensions, Biome les traitera comme des fichiers `.jsonc`, en utilisant un analyseur JSON plus flexible qui autorise les commentaires et les virgules de fin.
+:::
+
+
+## Partager un fichier de configuration
+
+Le champ `extends` vous permet de séparer votre configuration en plusieurs fichiers.
+Ainsi, vous pouvez partager des réglages communs avec différents projets ou dossiers.
+
+Voici un exemple de la manière dont vous pourriez mettre en place votre configuration pour étendre un fichier de configuration `common.json`&nbsp;:
+
+```json title="biome.json"
+{
+  "extends": ["./common.json"]
+}
+```
+
+Les entrées définies dans `extends` sont résolues à partir du chemin où le fichier `biome.json` est défini.
+Elles sont traitées dans leur ordre d’apparition, les réglages d’une entrée écrasant ceux des entrées précédentes.
+
+Biome est capable de résoudre des fichiers de configuration à partir du répertoire `node_modules/`.
+Donc, vous pouvez exporter votre fichier de configuration depuis un paquet et l’importer dans plusieurs projets.
+
+Supposons que vous voulez partager une configuration d’un paquet appelé `@org/shared-configs`, en utilisant le spécificateur `@org/shared-configs/biome`.
+Vous devez créer une entrée `exports` dans le `package.json` de ce paquet&nbsp;:
+
+```json title="package.json" ins={5,3}
+{
+  "name": "@org/shared-configs",
+  "type": "module",
+  "exports": {
+    "./biome": "./biome.json"
+  }
+}
+```
+
+Assurez-vous que `@org/shared-configs` est correctement installé dans votre projet et mettez à jour le fichier `biome.json` pour qu’il ressemble à l’extrait suivant&nbsp;:
+
+```json title="biome.json"
+{
+  "extends": ["@org/shared-configs/biome"]
+}
+```
+
+Biome tentera de **résoudre** votre paquet `@org/shared-configs/` depuis votre répertoire de travail.
+Le répertoire de travail est&nbsp;:
+
+- en utilisant l’interface en ligne de commande, le répertoire depuis lequel vous exécutez vos scripts.
+  Cela correspond habituellement à la localisation de votre fichier `package.json`&nbsp;;
+- en utilisant le LSP, le répertoire racine de votre projet.
+
+:::caution
+Les chemins commençant avec un point `.` ou finissant en `.json` ou `.jsonc` **ne seront pas** résolus depuis `node_modules/`.
+:::
+
+Pour plus d’informations sur l’algorithme de résolution, consulter la [documentation de Node.js](https://nodejs.org/api/esm.html#resolution-and-loading-algorithm).
+
+
+## Ignorer des fichiers
+
+La première façon de contrôler quels fichiers et répertoires sont traités par Biome est de les lister en ligne de commande.
+Avec la commande suivante, nous ne formatons que `file1.js` et tous les fichiers du répertoire `src`.
+Les répertoires sont parcourus de manière récursive.
+
+```shell
+biome format file1.js src/
+```
+
+:::caution
+Les globs utilisés en ligne de commande ne sont pas interprétés par Biome.
+Ils sont évalués par votre shell.
+Certains shells ne prennent pas en charge le glob récursif `**`.
+:::
+
+Le fichier de configuration de Biome peut être utilisé pour affiner les fichiers à traiter.
+Vous pouvez lister explicitement les fichiers à traiter en utilisant `include` et ceux à ne pas traiter en utilisant `ignore`.
+`include` et `ignore` acceptent des motifs glob comme `src/**/*.js`.
+Référez-vous à la [section correspondante](#la-syntaxe-glob-expliquée) pour connaître les glob pris en charge.
+`include` s’applique toujours avant `ignore`,
+ce qui vous permet d’inclure certains fichiers et d’en ignorer certains parmi ceux que vous avez inclus.
+
+:::note
+`include` et `ignore` ont une sémantique légèrement différente.
+`include` n’empêche pas Biome de parcourir un dossier.
+Si vous voulez empêcher Biome de parcourir un dossier, vous devez ajouter le dossier à `ignore`.
+:::
+
+Biome fournit les champs globaux `files.include` et `files.ignore`, qui s’appliquent à tous les outils.
+Vous pouvez également inclure et ignorer des fichiers au niveau d’un outil, en utilisant `<outil>.include` et `<outil>.ignore`.
+Notez qu’ils n’écrasent pas les `files.include` et `files.ignore` globaux.
+`files.include` et `files.ignore` s’appliquent en premier avant les `include` et `ignore` d’un outil.
+
+Prenons la configuration suivante&nbsp;:
+
+```json title="biome.json"
+{
+  "files": {
+    "include": ["src/**/*.js", "test/**/*.js"],
+    "ignore": ["**/*.min.js"],
+  },
+  "linter": {
+    "ignore": ["test"]
+  }
+}
+```
+
+Et exécutons la commande suivante&nbsp;:
+
+```shell
+biome format test/
+```
+
+La commande formatera les fichiers du répertoire `test` qui se terminent par l’extension `.js` et pas par l’extension `.min.js`.
+Les fichiers de `src` ne sont pas formatés parce que le répertoire n’est pas listé en ligne de commande.
+
+Si nous exécutons la commande suivante, aucun fichier n’est analysé parce que le répertoire `test` est explicitement ignoré par l’outil de linting.
+
+```shell
+biome lint test/
+```
+
+Biome résoud les globs par rapport au répertoire de travail.
+Le répertoire de travail est le répertoire où vous exécutez habituellement une commande en ligne de commande,
+ce qui veut dire que vous devez faire **particulièrement attention** quand le fichier de configuration est placé dans un répertoire différent de celui où vous exécutez votre commande.
+Dans le cas d’un éditeur (LSP), le répertoire de travail est le répertoire racine de votre projet.
+
+Prenons un projet qui contient deux répertoires `backend/` et `frontend/`, ainsi que le fichier de configuration de Biome que nous avons présenté auparavant.
+Dans le réperoire `frontend/`, un `package.json` spécifie un script `format` qui exécute l’outil de formatage de Biome.
+
+<FileTree>
+- backend
+  - ...
+- biome.json
+- frontend
+  - package.json
+  - src
+    - ...
+  - test
+    - ...
+</FileTree>
+
+```json title="frontend/package.json"
+{
+  "name": "frontend-project",
+  "scripts": {
+    "format": "biome format --write ./"
+  }
+}
+```
+
+Quand vous exécutez le script `format` de `frontend/package.json`,
+le répertoire de travail résolu par ce script sera `frontend/`.
+Les globs `src/**/*.js` et `test/**/*.js` auront pour répertoire de «&nbsp;base&nbsp;» `frontend/`.
+Ainsi, seuls les fichiers dans `frontend/src/` et `frontend/test/` seront formatés.
+
+```json title="biome.json"
+{
+  "files": {
+    "include": ["src/**/*.js", "src/**/*.ts"],
+    "ignore": ["test"]
+  },
+  "formatter": {
+    "indentStyle": "space"
+  }
+}
+```
+
+:::caution
+`ignore` et `include` dans `overrides` ont une sémantique **différente&nbsp;:**
+- pour `ignore`&nbsp;: si un fichier correspond aux globs, **ne pas faire appliquer** la configuration dans cet écrasement et continuer à faire appliquer les écrasements suivants&nbsp;;
+- pour `include`&nbsp;: si un fichier correspond aux globs, **faire appliquer** la configuration dans cet écrasement et continuer à faire appliquer les écrasements suivants.
+:::
+
+:::note
+Par défaut, Biome ignore toujours certains fichiers réputés être des **fichiers protégés,**
+ce qui veut dire que jamais aucun diagnostic ne sera émis par Biome pour ces fichiers.
+En ce moment, les fichiers suivants sont protégés&nbsp;:
+
+- `composer.lock`
+- `npm-shrinkwrap.json`
+- `package-lock.json`
+- `yarn.lock`
+:::
+
+:::note
+Vous pouvez également [ignorer les fichiers ignorés par votre VCS](/fr/guides/integrate-in-vcs#use-the-ignore-file).
+:::
+
+
+## Fichiers bien connus
+
+Voici quelques fichiers bien connus que nous traitons spécifiquement, en nous basant sur leur nom plutôt que sur leur extension.
+Actuellement, les fichiers bien connus ne sont que des fichiers semblables à du JSON, mais nous pourrons élargir la liste pour y inclure d’autres types quand nous prendrons en charge de nouveaux analyseurs.
+
+Les fichiers suivants sont analysés comme des fichiers `JSON` avec les deux options `json.parser.allowComments` et `json.parser.allowTrailingCommas` définies à `false`.
+
+- `.all-contributorsrc`
+- `.arcconfig`
+- `.auto-changelog`
+- `.bowerrc`
+- `.c8rc`
+- `.htmlhintrc`
+- `.imgbotconfig`
+- `.jslintrc`
+- `.nycrc`
+- `.tern-config`
+- `.tern-project`
+- `.vuerc`
+- `.watchmanconfig`
+- `mcmod.info`
+
+Les fichiers suivants sont analysés comme des fichiers `JSON` avec l’option `json.parser.allowComments` définie à `true`, mais avec l’option `json.parser.allowTrailingCommas` définie à `false`. C’est parce que les outils traitant ces fichiers ne peuvent qu’enlever les commentaires.
+
+- `.ember-cli`
+- `.eslintrc.json`
+- `.jscsrc`
+- `.jshintrc`
+- `tslint.json`
+- `turbo.json`
+
+Les fichiers suivants sont analysés comme des fichiers `JSON` avec les options `json.parser.allowComments` et `json.parser.allowTrailingCommas` définies à `true`. C’est parce que les outils traitant ces fichiers sont conçus pour tenir compte de tels réglages.
+
+- `.babelrc`
+- `.babelrc.json`
+- `.devcontainer.json`
+- `.hintrc`
+- `.hintrc.json`
+- `.swcrc`
+- `api-documenter.json`
+- `api-extractor.json`
+- `babel.config.json`
+- `deno.json`
+- `devcontainer.json`
+- `dprint.json`
+- `jsconfig.json`
+- `jsr.json`
+- `language-configuration.json`
+- `tsconfig.json`
+- `typedoc.json`
+- `typescript.json`
+
+
+## La syntaxe glob expliquée
+
+Un motif glob spécifie un ensemble de noms de fichier.
+Biome prend en charge les globs suivants&nbsp;:
+
+- `*` correspond à zéro ou plusieurs caractères. Il ne peut pas correspondre au séparateur de chemin `/`.
+- `**` correspond à des répertoires et à des fichiers de manière récursive.
+  Cette séquence **doit** former un seul composant de chemin,
+  donc `**a` et `b**` sont tous les deux invalides et provoqueront une erreur.
+  Une séquence de plus de deux caractères `*` consécutifs est également invalide.
+- `[...]` correspond à n’importe quel caractère se trouvant entre les crochets.
+  Des plages de caractères peuvent également être spécifiées, selon leur ordre dans Unicode, donc
+  `[0-9]`, par exemple, spécifie tout caractère compris entre 0 et 9.
+- `[!...]` est la négation de `[...]`, c’est-à-dire qu’il correspond à tout caractère ne se trouvant **pas** entre les crochets.
+
+Quelques exemples&nbsp;:
+
+- `dist/**` correspond au réperoire `dist` et à tous les fichiers dans ce réperoire.
+- `**/test/**` correspond à tous les fichiers de tout répertoire appelé `test`, indépendamment de son emplacement. Par exemple, `dist/test`, `src/test`.
+- `**/*.js` correspond à tous les fichiers se terminant par l’extension `.js` dans tous les répertoires.
+
+Biome utilise une librairie glob qui traite tous les globs comme s’ils avaient un préfixe `**/`.
+Ce qui veut dire que `src/**/*.js` et `**/src/**/*.js` sont traités de manière identique.
+Ils correspondent à la fois à `src/file.js` et à `test/src/file.js`.
+
+:::caution
+Ces motifs peuvent être utilisés dans un fichier de configuration de Biome.
+Les motifs glob utilisés en ligne de commande ne sont pas interprétés par Biome.
+Ils sont développés par votre shell.
+Certains shells ne prennent pas en charge le glob récursif `**`.
+:::
