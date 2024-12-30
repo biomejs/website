@@ -7,10 +7,10 @@ summary: |
 authors:
   - conaclos
   - team
-pubDate: 2024-04-15
-coverImage:
-  lightSrc: "@/assets/blog/roadmap-2024/banner-light.png"
-  darkSrc: "@/assets/blog/roadmap-2024/banner-dark.png"
+date: 2024-04-15
+cover:
+  light: "@/assets/blog/roadmap-2024/banner-light.png"
+  dark: "@/assets/blog/roadmap-2024/banner-dark.png"
   alt: The brand of the project. It says "Biome, toolchain of the web"
 socialImage: "@/assets/social-logo.png"
 ---
