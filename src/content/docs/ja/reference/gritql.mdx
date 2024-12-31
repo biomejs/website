@@ -9,7 +9,7 @@ GritQL は、ソースコードの構造検索を実行するためのクエリ�
 
 GritQL は[オープンソース](https://github.com/getgrit/gritql/)であり、[Grit.io](https://grit.io/)によって作成されました。
 
-Biome は GritQL を 2 つの目的で統合しています:
+Biome は GritQL を 2 つの目的で統合しています：
 
 - IDE 拡張機能にも拡張したいと考えている、[`biome search`](/reference/cli/#biome-search) コマンド
 - 現在進行中の、プラグインへの取り組み
@@ -25,7 +25,7 @@ GritQL クエリは _パターン_ を通じて機能します。
 
 このパターンは、文字列 `'Hello, world!'` が渡された全ての `console.log()` の呼び出しに一致します。
 ただし、GridQLは _構造的_ マッチングを行うため、フォーマットの詳細には関心がありません。
-これもマッチします:
+これもマッチします：
 
 ```js
 console.log (
@@ -33,7 +33,7 @@ console.log (
 )
 ```
 
-そして、これもマッチします（引用符が変化したことに注目してください）:
+そして、これもマッチします（引用符が変化したことに注目してください）：
 
 ```js
 console.log("Hello, world!")
@@ -41,7 +41,7 @@ console.log("Hello, world!")
 
 :::note
 ほとんどのシェルはバッククォートをコマンド呼び出しとして解釈しますが、これは GritQL のコードスニペットと競合します。
-そのため、`biome search` コマンドを使用する場合は、 Grit クエリを _シングルクォート_ で囲むのが最適です:
+そのため、`biome search` コマンドを使用する場合は、 Grit クエリを _シングルクォート_ で囲むのが最適です：
 
 ```shell
 biome search '`console.log($message)`' # 全ての `console.log()` 呼び出しを検索
@@ -57,7 +57,7 @@ GritQL クエリでは変数も使用できます。
 `console.log($message)`
 ```
 
-これは、`console` オブジェクトの任意のメソッドに一致します:
+これは、`console` オブジェクトの任意のメソッドに一致します：
 
 ```grit
 `console.$method($message)`
@@ -74,7 +74,7 @@ GritQL クエリでは変数も使用できます。
 ## 条件
 
 `where` 演算子を使用してパターンに条件を追加できます。
-これは通常、`<:` マッチ演算子と一緒に使用されます:
+これは通常、`<:` マッチ演算子と一緒に使用されます：
 
 ```grit
 `console.$method($message)` where {
@@ -82,7 +82,7 @@ GritQL クエリでは変数も使用できます。
 }
 ```
 
-このクエリは先ほど見た `console.log($message)` パターンと同じですが、他の演算子を追加するとすぐに、さらに興味深いものになります:
+このクエリは先ほど見た `console.log($message)` パターンと同じですが、他の演算子を追加するとすぐに、さらに興味深いものになります：
 
 ```grit
 `console.$method($message)` where {
@@ -101,8 +101,8 @@ Biome は Grit の全ての機能を（まだ）サポートしていないこ�
 Biome は GritQL サポートに積極的に取り組んでいます。
 多くの機能がすでに動作していますが、バグがまだ発生することが予想され、一部の機能はまだ完全に欠落しています。
 
-サポートされている GritQL の機能と、まだ進行中の機能の詳細な概要については、GitHub の Issue を参照してください: https://github.com/biomejs/biome/issues/2582
+サポートされている GritQL の機能と、まだ進行中の機能の詳細な概要については、GitHub の Issue を参照してください： https://github.com/biomejs/biome/issues/2582
 
-プラグインの取り組みの方向性を示す詳細な RFC もあります: https://github.com/biomejs/biome/discussions/1762
+プラグインの取り組みの方向性を示す詳細な RFC もあります： https://github.com/biomejs/biome/discussions/1762
 
-**まとめ**: 私たちは、純粋な GritQL プラグイン、または GritQL を使用して操作したいコードを選択する JS/TS プラグインのいずれかをサポートするプラグインに取り組んでいます。お楽しみに!
+**まとめ**： 私たちは、純粋な GritQL プラグイン、または GritQL を使用して操作したいコードを選択する JS/TS プラグインのいずれかをサポートするプラグインに取り組んでいます。お楽しみに!
