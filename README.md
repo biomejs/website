@@ -32,7 +32,7 @@ pnpm i --frozen-lockfile
 This command starts a local development server:
 
 ```shell
-pnpm start
+pnpm dev
 ```
 
 Most changes are reflected live without having to restart the server.
