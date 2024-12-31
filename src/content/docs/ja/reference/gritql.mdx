@@ -1,22 +1,22 @@
 ---
 title: GritQL [実験的機能]
-description: Biome における GritQL の基本的な使い方
+description: BiomeにおけるGritQLの基本的な使い方
 ---
 
-GritQL は、ソースコードの構造検索を実行するためのクエリ言語です。
+GritQLは、ソースコードの構造検索を実行するためのクエリ言語です。
 つまり、空白や、文字列で使用される引用符の種類などの些細な情報は、検索クエリでは無視されます。
 さらに、スニペット、マッチング、ネスト、変数など、構文構造をクエリできる多くの機能も提供します。
 
-GritQL は[オープンソース](https://github.com/getgrit/gritql/)であり、[Grit.io](https://grit.io/)によって作成されました。
+GritQLは[オープンソース](https://github.com/getgrit/gritql/)であり、[Grit.io](https://grit.io/)によって作成されました。
 
-Biome は GritQL を 2 つの目的で統合しています：
+BiomeはGritQLを2つの目的で統合しています：
 
-- IDE 拡張機能にも拡張したいと考えている、[`biome search`](/reference/cli/#biome-search) コマンド
+- IDE拡張機能にも拡張したいと考えている、[`biome search`](/reference/cli/#biome-search) コマンド
 - 現在進行中の、プラグインへの取り組み
 
 ## パターン
 
-GritQL クエリは _パターン_ を通じて機能します。
+GritQLクエリは _パターン_ を通じて機能します。
 最もよく見られるパターンは、バッククォートで囲まれた通常のソースコードのように見えるコードスニペットです。
 
 ```grit
@@ -24,7 +24,7 @@ GritQL クエリは _パターン_ を通じて機能します。
 ```
 
 このパターンは、文字列 `'Hello, world!'` が渡された全ての `console.log()` の呼び出しに一致します。
-ただし、GridQLは _構造的_ マッチングを行うため、format の詳細には関心がありません。
+ただし、GridQLは _構造的_ マッチングを行うため、フォーマットの詳細には関心がありません。
 これもマッチします：
 
 ```js
@@ -40,8 +40,8 @@ console.log("Hello, world!")
 ```
 
 :::note
-ほとんどのシェルはバッククォートをコマンド呼び出しとして解釈しますが、これは GritQL のコードスニペットと競合します。
-そのため、`biome search` コマンドを使用する場合は、 Grit クエリを _シングルクォート_ で囲むのが最適です：
+ほとんどのシェルはバッククォートをコマンド呼び出しとして解釈しますが、これはGritQLのコードスニペットと競合します。
+そのため、`biome search` コマンドを使用する場合は、 Gritクエリを _シングルクォート_ で囲むのが最適です：
 
 ```shell
 biome search '`console.log($message)`' # 全ての `console.log()` 呼び出しを検索
@@ -50,7 +50,7 @@ biome search '`console.log($message)`' # 全ての `console.log()` 呼び出し�
 
 ## 変数
 
-GritQL クエリでは変数も使用できます。
+GritQLクエリでは変数も使用できます。
 次のクエリは渡されるメッセージに関係なく、全ての `console.log()` 呼び出しに一致します。
 
 ```grit
@@ -63,7 +63,7 @@ GritQL クエリでは変数も使用できます。
 `console.$method($message)`
 ```
 
-同じ変数名が 1 つのスニペット内で複数回出現することもできます。
+同じ変数名が1つのスニペット内で複数回出現することもできます。
 
 ```grit
 `$fn && $fn()`
@@ -92,17 +92,17 @@ GritQL クエリでは変数も使用できます。
 
 ## 言語ドキュメント
 
-GritQL とその構文については、公式の [GritQL 言語ドキュメント](https://docs.grit.io/language/overview)を参照してください。
+GritQLとその構文については、公式の [GritQL 言語ドキュメント](https://docs.grit.io/language/overview)を参照してください。
 
-Biome は Grit の全ての機能を（まだ）サポートしていないことに注意してください。
+BiomeはGritの全ての機能を（まだ）サポートしていないことに注意してください。
 
 ## 統合状況
 
-Biome は GritQL サポートに積極的に取り組んでいます。
+BiomeはGritQLサポートに積極的に取り組んでいます。
 多くの機能がすでに動作していますが、バグがまだ発生することが予想され、一部の機能はまだ完全に欠落しています。
 
-サポートされている GritQL の機能と、まだ進行中の機能の詳細な概要については、GitHub の Issue を参照してください： https://github.com/biomejs/biome/issues/2582
+サポートされているGritQLの機能と、まだ進行中の機能の詳細な概要については、GitHubのIssueを参照してください： https://github.com/biomejs/biome/issues/2582
 
-プラグインの取り組みの方向性を示す詳細な RFC もあります： https://github.com/biomejs/biome/discussions/1762
+プラグインの取り組みの方向性を示す詳細なRFCもあります： https://github.com/biomejs/biome/discussions/1762
 
-**まとめ**： 私たちは、純粋な GritQL プラグイン、または GritQL を使用して操作したいコードを選択する JS/TS プラグインのいずれかをサポートするプラグインに取り組んでいます。お楽しみに!
+**まとめ**： 私たちは、純粋なGritQLプラグイン、またはGritQLを使用して操作したいコードを選択するJS/TSプラグインのいずれかをサポートするプラグインに取り組んでいます。お楽しみに!

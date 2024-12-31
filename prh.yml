@@ -1,23 +1,26 @@
-# prh version
 version: 1
 rules:
-  - expected: lint
-    patterns: リント
-  - expected: linter
+  - expected: リント
     patterns:
-      - リンター
-      - リンタ
-  - expected: format
+      - /\blint\b(?!-staged)(?!\s*\/)/ # accept lint-staged, ignore /lint/ in import statement
+  - expected: リンタ
     patterns:
-      - フォーマット
-  - expected: formatter
+      - /\blinter\b(?!\s*\/)/
+  - expected: フォーマット
     patterns:
-      - フォーマッター
-      - フォーマッタ
-  - expected: analyzer
+      - /\bformat\b(?!\s*\/)/
+  - expected: フォーマッタ
     patterns:
-      - アナライザー
-      - アナライザ
+      - /\bformatter\b(?!\s*\/)/
+  - expected: アナライザ
+    patterns:
+      - /\banalyzer\b(?!\s*\/)/
+  - expected: パース
+    patterns:
+      - /\bparse\b(?!\s*\/)/
+  - expected: パーサ
+    patterns:
+      - /\bparser\b(?!\s*\/)/
   - expected: TypeScript
     patterns:
       - typescript

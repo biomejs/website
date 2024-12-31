@@ -1,12 +1,12 @@
 ---
 title: VSCode拡張機能
-description: BiomeのVSCode拡張機能について
+description: BiomeのVSCode拡張機能
 ---
 # Biome VS Code 拡張機能
 
-Biome は、開発スタックを統合し、複数のツールの機能を1つにまとめます。単一の設定ファイルを使用し、素晴らしいパフォーマンスで、あらゆる環境で動作します。この拡張機能はエディタ上で、以下のことを可能にします：
+Biomeは、開発スタックを統合し、複数のツールの機能を1つにまとめます。単一の設定ファイルを使用し、素晴らしいパフォーマンスで、あらゆる環境で動作します。この拡張機能はエディタ上で、以下のことを可能にします：
 
-- ファイルを*保存時*にformat、*ドキュメントのフォーマット*コマンドの使用
+- ファイルを*保存時*にフォーマット、*ドキュメントのフォーマット*コマンドの使用
 - タイプ中に静的解析の結果を確認し、コード修正を適用
 - リファクタリングの実行
 
@@ -19,9 +19,9 @@ VS Codeの拡張機能をインストールするには、[Visual Studio Code �
 
 ## はじめに
 
-### デフォルトのformatterに設定する
+### デフォルトのフォーマッタに設定する
 
-Biomeを、サポートされているファイルのデフォルトformatterとして設定し、VS Codeが他にインストールされているformatterではなくBiomeを使用するようにします。これを行うには、JavaScriptまたはTypeScript形式のファイルを開いて次の操作を行います：
+Biomeを、サポートされているファイルのデフォルトフォーマッタとして設定し、VS Codeが他にインストールされているフォーマッタではなくBiomeを使用するようにします。これを行うには、JavaScriptまたはTypeScript形式のファイルを開いて次の操作を行います：
 
 - コマンドパレットを開く（<kbd>Ctrl</kbd>/<kbd title="Cmd">⌘</kbd>+<kbd title="Shift">⇧</kbd>+<kbd>P</kbd> または表示 → コマンドパレット）
 - _ドキュメントのフォーマット..._ を選択
@@ -42,7 +42,7 @@ Biomeを、サポートされているファイルのデフォルトformatterと
 }
 ```
 
-この設定の場合、BiomeをJavaScriptファイルのデフォルトformatterとして設定します。その他のファイルは`<other formatter>`を使ってformatされます。
+この設定の場合、BiomeをJavaScriptファイルのデフォルトフォーマッタとして設定します。その他のファイルは`<other formatter>`を使ってフォーマットされます。
 
 ## 設定の読み込み
 
@@ -58,15 +58,15 @@ Biomeを、サポートされているファイルのデフォルトformatterと
 
 ## 使用方法
 
-### ドキュメントのformat
+### ドキュメントのフォーマット
 
-ドキュメント全体をformatするには、_コマンドパレット_（<kbd>Ctrl</kbd>/<kbd title="Cmd">⌘</kbd>+<kbd title="Shift">⇧</kbd>+<kbd>P</kbd>）を開き、_ドキュメントのフォーマット_ を選択します。
+ドキュメント全体をフォーマットするには、_コマンドパレット_（<kbd>Ctrl</kbd>/<kbd title="Cmd">⌘</kbd>+<kbd title="Shift">⇧</kbd>+<kbd>P</kbd>）を開き、_ドキュメントのフォーマット_ を選択します。
 
-ドキュメントの一部をformatするには、formatしたいテキストを選択し、_コマンドパレット_（<kbd>Ctrl</kbd>/<kbd title="Cmd">⌘</kbd>+<kbd title="Shift">⇧</kbd>+<kbd>P</kbd>）を開き、_選択範囲のフォーマット_ を選択します。
+ドキュメントの一部をフォーマットするには、フォーマットしたいテキストを選択し、_コマンドパレット_（<kbd>Ctrl</kbd>/<kbd title="Cmd">⌘</kbd>+<kbd title="Shift">⇧</kbd>+<kbd>P</kbd>）を開き、_選択範囲のフォーマット_ を選択します。
 
-### 保存時のformat
+### 保存時のフォーマット
 
-Biomeは、VS Codeの _保存時のフォーマット_ 設定を尊重します。保存時のformatを有効にするには、設定を開き（_ファイル_ -> _設定_ -> _設定_）、`editor.formatOnSave`を検索し、オプションを有効にします。
+Biomeは、VS Codeの _保存時のフォーマット_ 設定を尊重します。保存時のフォーマットを有効にするには、設定を開き（_ファイル_ -> _設定_ -> _設定_）、`editor.formatOnSave`を検索し、オプションを有効にします。
 
 ### 保存時の修正
 
@@ -85,7 +85,7 @@ Biomeは、VS Codeの _保存時のコードアクション_ 設定を尊重し�
 
 ### インポートの並び替え [実験的機能]
 
-BiomeのVS Code拡張機能は、Organize Imports コードアクションを通じてインポートの並び替えをサポートしています。デフォルトでは、このアクションは<kbd title="Shift">⇧</kbd>+<kbd>Alt</kbd>+<kbd>O</kbd>のキーボードショートカットを使用して実行することができます。または、_コマンドパレット_ (<kbd>Ctrl</kbd>/<kbd title="Cmd">⌘</kbd>+<kbd title="Shift">⇧</kbd>+<kbd>P</kbd>) を開き、Organize Imports を選択してアクセスすることもできます。
+BiomeのVS Code拡張機能は、Organize Importsコードアクションを通じてインポートの並び替えをサポートしています。デフォルトでは、このアクションは<kbd title="Shift">⇧</kbd>+<kbd>Alt</kbd>+<kbd>O</kbd>のキーボードショートカットを使用して実行することができます。または、_コマンドパレット_ (<kbd>Ctrl</kbd>/<kbd title="Cmd">⌘</kbd>+<kbd title="Shift">⇧</kbd>+<kbd>P</kbd>) を開き、Organize Importsを選択してアクセスすることもできます。
 
 保存時に自動的にこのアクションを実行したい場合は、エディタの設定に以下を追加してください：
 

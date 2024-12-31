@@ -1,13 +1,13 @@
 ---
-title: エディタ拡張機能への Biome の統合
-description: Biome をエディタや IDE に統合する方法を学びます
+title: エディタ拡張機能へのBiomeの統合
+description: BiomeをエディタやIDEに統合する方法
 ---
 
-Biome は [LSP](https://microsoft.github.io/language-server-protocol/) を一流のサポートとして提供しています。エディタがLSPを実装している場合、Biome の統合はシームレスに行われるはずです。
+Biomeは [LSP](https://microsoft.github.io/language-server-protocol/) を一流のサポートとして提供しています。エディタがLSPを実装している場合、Biomeの統合はシームレスに行われるはずです。
 
 ### LSP プロキシを使用する
 
-Biome には `lsp-proxy` というコマンドがあります。このコマンドを実行すると、Biomeは以下の2つのプロセスを生成します：
+Biomeには `lsp-proxy` というコマンドがあります。このコマンドを実行すると、Biomeは以下の2つのプロセスを生成します：
 
 - 要求された操作を実行する[デーモン](/internals/architecture#daemon)
 - クライアント（エディタ）からのリクエストとサーバー（デーモン）間のプロキシとして機能するサーバー
@@ -26,9 +26,9 @@ Biome には `lsp-proxy` というコマンドがあります。このコマン�
 - [`lint`](/reference/cli/#biome-lint)
 - [`check`](/reference/cli/#biome-check)
 
-Biome は新しい出力（変更がない場合は元の出力）を[標準出力](<https://en.wikipedia.org/wiki/Standard_streams#Standard_output_(stdout)>)に、診断結果を[標準エラー](<https://en.wikipedia.org/wiki/Standard_streams#Standard_error_(stderr)>)に返します。
+Biomeは新しい出力（変更がない場合は元の出力）を[標準出力](<https://en.wikipedia.org/wiki/Standard_streams#Standard_output_(stdout)>)に、診断結果を[標準エラー](<https://en.wikipedia.org/wiki/Standard_streams#Standard_error_(stderr)>)に返します。
 
-`stdin` を使用する場合、`--stdin-file-path` オプションを渡す必要があります。このファイルパスは**ファイルシステム上に存在する必要はありません**。任意の名前で構いませんが、**重要なのは**正しいファイル拡張子を指定することです。これにより、Biome は**ファイルの処理方法**を認識します。
+`stdin` を使用する場合、`--stdin-file-path` オプションを渡す必要があります。このファイルパスは**ファイルシステム上に存在する必要はありません**。任意の名前で構いませんが、**重要なのは**正しいファイル拡張子を指定することです。これにより、Biomeは**ファイルの処理方法**を認識します。
 
 エディタがバイナリのパスを解決し、必要に応じて呼び出す責任を負います。サポートしているアーキテクチャとOSに基づいて、バイナリはnpmに配布されています：
 
