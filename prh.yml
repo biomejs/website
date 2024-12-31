@@ -15,6 +15,9 @@ rules:
   - expected: アナライザ
     patterns:
       - /\banalyzer\b(?!\s*\/)/
+  - expected: パーサ
+    patterns:
+      - /\bparser\b(?!\s*\/)/
   - expected: TypeScript
     patterns:
       - typescript
