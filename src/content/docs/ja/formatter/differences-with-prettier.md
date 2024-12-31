@@ -1,6 +1,6 @@
 ---
-title: Prettier との違い
-description: Prettier との違いを深く解説
+title: Prettierとの違い
+description: Prettierとの違いを深く解説
 ---
 
 Prettierとの間にいくつかの相違点が存在します。
