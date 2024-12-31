@@ -5,8 +5,8 @@ description: BiomeにおけるGit Hooksの利用
 
 Gitでは、[Git Hooks](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks) を使うことでgitコマンドの実行中にスクリプトを実行することができます。
 例えば、コミットやプッシュの前にステージングされたファイルに対してフォーマットやリントを実行できます。
-Git Hooks の管理を簡単にするツールがいくつかあります。
-以下のセクションでは、それらのツールで Biome を使う方法を紹介します。
+Git Hooksの管理を簡単にするツールがいくつかあります。
+以下のセクションでは、それらのツールでBiomeを使う方法を紹介します。
 
 
 ## Lefthook
@@ -62,7 +62,7 @@ Gitリポジトリのルートに`lefthook.yml`というファイルを追加し
 ## Husky
 
 [Husky](https://github.com/typicode/husky)は、JavaScriptエコシステムで広く使われているフックマネージャーです。
-Husky はステージングされていない変更を無視したり、ステージングされているファイルのみを対象としたりすることができません。
+Huskyはステージングされていない変更を無視したり、ステージングされているファイルのみを対象としたりすることができません。
 そのため、 _lint-staged_ や _git-format-staged_ といった別のツールと組み合わせて使われることが多いです。
 
 プロジェクトに `package.json` が含まれている場合、`scripts.prepare` を使ってパッケージのインストール時に自動的に _husky_ のフックを設定することができます：
@@ -79,14 +79,14 @@ Husky はステージングされていない変更を無視したり、ステ�
 
 [lint-staged](https://github.com/lint-staged/lint-staged)は、JavaScriptのエコシステムで最も使われているツールのひとつです。
 
-husky の設定に以下の項目を追加します：
+huskyの設定に以下の項目を追加します：
 
 ```shell title=".husky/pre-commit"
 lint-staged
 ```
 
-lint-staged の設定は `package.json` に直接埋め込まれます。
-Git Hooks を実行するときに便利なコマンドの例です：
+lint-stagedの設定は `package.json` に直接埋め込まれます。
+Git Hooksを実行するときに便利なコマンドの例です：
 
 ```jsonc title="package.json"
 {
@@ -136,7 +136,7 @@ _lefthook_、_pre-commit_、_lint-staged_ などの他のツールとは対照�
 
 
 [pre-commit](https://pre-commit.com/)は、多言語フックマネージャーです。
-Biome は [biomejs/pre-commit](https://github.com/biomejs/pre-commit) リポジトリ経由で4つの [pre-commit](https://pre-commit.com/) のフックを提供します。
+Biomeは [biomejs/pre-commit](https://github.com/biomejs/pre-commit) リポジトリ経由で4つの [pre-commit](https://pre-commit.com/) のフックを提供します。
 
 
 | hook `id`       | description                                                                 |
@@ -161,10 +161,10 @@ repos:
 
 これで`git commit`を実行したときに `biome check --write` が実行されるようになりました。
 
-[pre-commit](https://pre-commit.com/)は別々にツールをインストールするため、pre-commit はどのツールがインストールされるか知っておく必要があります。
+[pre-commit](https://pre-commit.com/)は別々にツールをインストールするため、pre-commitはどのツールがインストールされるか知っておく必要があります。
 そのため、`additional_dependencies` オプションを使ってBiomeのバージョンを指定しなくてはいけません。
 
-Biome がすでに `npm` のパッケージとしてローカルリポジトリにインストールされている場合、Biome を更新する際に `package.json` と `.pre-commit-config.yaml` の両方を更新するのは開発者の負担になります。
+Biomeがすでに `npm` のパッケージとしてローカルリポジトリにインストールされている場合、Biomeを更新する際に `package.json` と `.pre-commit-config.yaml` の両方を更新するのは開発者の負担になります。
 提供されているBiomeフックを使う代わりに、独自の[ローカルフック](https://pre-commit.com/index.html#repository-local-hooks)を指定できます。
 
 例えば、`npm` を使用する場合、`.pre-commit-config.yaml` に以下のようなフックを書くことができます：
@@ -181,7 +181,7 @@ repos:
         files: "\\.(jsx?|tsx?|c(js|ts)|m(js|ts)|d\\.(ts|cts|mts)|jsonc?)$"
 ```
 
-Biome は`--files-ignore-unknown=true`を指定することで未知のファイルを無視するため、pre-commit の `files` オプションは必須ではありません。
+Biomeは`--files-ignore-unknown=true`を指定することで未知のファイルを無視するため、pre-commitの `files` オプションは必須ではありません。
 
 ## Shell script
 

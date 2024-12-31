@@ -16,7 +16,7 @@ biome migrate prettier --write
 
 ## ESLintからの移行
 
-多くのBiome リンタのルールはESLintやESLintのプラグインのルールからインスパイアされて作られています。Biomeには[TypeScript ESLint](https://typescript-eslint.io/)、[ESLint JSX A11y](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y)、[ESLint React](https://github.com/jsx-eslint/eslint-plugin-react)、[ESLint Unicorn](https://github.com/sindresorhus/eslint-plugin-unicorn)などのESLintプラグインのルールがあります。
+多くのBiomeリンタのルールはESLintやESLintのプラグインのルールからインスパイアされて作られています。Biomeには[TypeScript ESLint](https://typescript-eslint.io/)、[ESLint JSX A11y](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y)、[ESLint React](https://github.com/jsx-eslint/eslint-plugin-react)、[ESLint Unicorn](https://github.com/sindresorhus/eslint-plugin-unicorn)などのESLintプラグインのルールがあります。
 しかし、Biomeのルールの名前には独自の慣習があり、例えばBiomeは`camelCaseRuleName`を使う一方で、ESLintは`kebab-case-rule-name`を使います。
 Biomeは、異なるルール名を採用しているケースが多くあります。
 あるルールの出所は、そのルールを説明するページで見つけることができます。
@@ -126,7 +126,7 @@ ESLintはVCS ignoreファイルを使用しているので、Biomeの[VCS イン
 
 ## Prettierからの移行
 
-BiomeはPrettier フォーマッタとできるだけ近い動作をするようにしています。
+BiomeはPrettierフォーマッタとできるだけ近い動作をするようにしています。
 しかし、Biomeは異なるデフォルトを使用します。
 例えば、Biomeはスペースの代わりにタブを使用します。
 `biome migrate prettier --write`を実行することで容易にBiomeに移行することができます。

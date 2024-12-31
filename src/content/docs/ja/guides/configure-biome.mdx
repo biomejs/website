@@ -7,10 +7,10 @@ import DefaultConfiguration from "@/components/generated/DefaultConfiguration.md
 
 ## 設定ファイル
 
-Biome はデフォルトで十分な機能を提供するので、設定ファイルの使用は**オプショナル**です。
+Biomeはデフォルトで十分な機能を提供するので、設定ファイルの使用は**オプショナル**です。
 デフォルトの挙動を変更したい時に設定ファイルを使用してください。
 
-Biome の設定ファイルは `biome.json` という名前で、プロジェクトのルートディレクトリに置く必要があります。
+Biomeの設定ファイルは `biome.json` という名前で、プロジェクトのルートディレクトリに置く必要があります。
 通常、プロジェクトの `package.json` が置かれているところがルートディレクトリになります。
 
 例えば、以下の設定ファイルはフォーマッタを有効にし、インデントスタイルと幅を設定します。リンタは無効になっています：
@@ -37,10 +37,10 @@ Biome の設定ファイルは `biome.json` という名前で、プロジェク
 ### 設定ファイルの解決
 
 
-Biome は最も近い `biome.json` を自動で検出します。
+Biomeは最も近い `biome.json` を自動で検出します。
 実行時のディレクトリから `biome.json` を探索し、以下の条件を満たすまで親ディレクトリを探索します：
 - `biome.json` ファイルが見つかった場合
-- **`biome.json` が見つからなかった場合**、Biome のデフォルト設定を適用します
+- **`biome.json` が見つからなかった場合**、Biomeのデフォルト設定を適用します
 
 例えば以下のようなディレクトリ構成の場合：
 
@@ -58,14 +58,14 @@ Biome は最も近い `biome.json` を自動で検出します。
 
 ```
 
-- `app/backend/package.json` で実行された biome コマンドは `app/backend/biome.json` を使用します
-- `app/frontend/legacy/package.json` や `app/frontend/new/package.json` で実行された biome コマンドは `app/frontend/biome.json` を使用します
+- `app/backend/package.json` で実行されたbiomeコマンドは `app/backend/biome.json` を使用します
+- `app/frontend/legacy/package.json` や `app/frontend/new/package.json` で実行されたbiomeコマンドは `app/frontend/biome.json` を使用します
 
 
 ## 既知のファイル
 
-以下のファイルは現在 Biome によって無視されます。
-つまり、これらのファイルに対して Biome は何も診断を行いません。
+以下のファイルは現在Biomeによって無視されます。
+つまり、これらのファイルに対してBiomeは何も診断を行いません。
 
 - `package.json`
 - `package-lock.json`
@@ -82,7 +82,7 @@ Biome は最も近い `biome.json` を自動で検出します。
 
 
 `json.parser.allowComments` と `json.parser.allowTrailingCommas` オプションが `true` に設定されている時、以下のファイルは **`JSON` ファイル** としてパースされます。
-これは、VSCode などのエディタがそのように扱うためです。
+これは、VSCodeなどのエディタがそのように扱うためです。
 
 - `tslint.json`
 - `babel.config.json`

@@ -5,12 +5,12 @@ description: サードパーティの拡張機能の設定方法を学びます
 
 以下は他のコミュニティによって管理されている拡張機能で、エディタにインストールして使用します：
 
-- [`vim`](https://www.vim.org/): [`ALE`](https://github.com/dense-analysis/ale) が Biome をサポートしています。インストール手順に従ってください。
-- [`neovim`](https://neovim.io/): [`nvim-lspconfig`](https://github.com/neovim/nvim-lspconfig/) をインストールし、[指示](https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#biome)に従ってください。また、[`ALE`](https://github.com/dense-analysis/ale) も Biome をサポートしています。
+- [`vim`](https://www.vim.org/): [`ALE`](https://github.com/dense-analysis/ale) がBiomeをサポートしています。インストール手順に従ってください。
+- [`neovim`](https://neovim.io/): [`nvim-lspconfig`](https://github.com/neovim/nvim-lspconfig/) をインストールし、[指示](https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#biome)に従ってください。また、[`ALE`](https://github.com/dense-analysis/ale) もBiomeをサポートしています。
 - [`helix`](https://helix-editor.com/): [このマニュアル](#helix)の指示に従ってください。
-- [`coc-biome`](https://github.com/fannheyward/coc-biome): [`coc.nvim`](https://github.com/neoclide/coc.nvim) 用の Biome 拡張機能。
+- [`coc-biome`](https://github.com/fannheyward/coc-biome): [`coc.nvim`](https://github.com/neoclide/coc.nvim) 用のBiome拡張機能。
 - [`sublime text`](https://www.sublimetext.com/): [`LSP-biome`](https://github.com/sublimelsp/LSP-biome) のインストール手順に従ってください。
-- [`Emacs`](https://www.gnu.org/software/emacs/): [`lsp-mode`](https://github.com/emacs-lsp/lsp-mode) をインストールし、[`lsp-biome`](https://github.com/cxa/lsp-biome) のインストール手順に従って `lsp-mode` で Biome サポートを有効にします。
+- [`Emacs`](https://www.gnu.org/software/emacs/): [`lsp-mode`](https://github.com/emacs-lsp/lsp-mode) をインストールし、[`lsp-biome`](https://github.com/cxa/lsp-biome) のインストール手順に従って `lsp-mode` でBiomeサポートを有効にします。
 
 :::note
 ここに記載されていないエディタ用の拡張機能がありますか？ぜひPRを送ってください。リストに追加します。
@@ -20,11 +20,11 @@ description: サードパーティの拡張機能の設定方法を学びます
 
 現在、Biomeはこれらのファイル拡張子をサポートしています：`js`、`jsx`、`ts`、`tsx`、`d.ts`、`json`、 `jsonc`
 
-Biomeには `lsp-proxy` コマンドがあり、標準入力/出力を介して Language Server Protocol のサーバーとして動作します。
+Biomeには `lsp-proxy` コマンドがあり、標準入力/出力を介してLanguage Server Protocolのサーバーとして動作します。
 
 #### Helix 23.10
 
-Helix 23.10 では[複数の言語サーバーのサポート](https://github.com/helix-editor/helix/pull/2507)が追加されました。これにより、`typescript-language-server` と Biome を併用できます。
+Helix 23.10では[複数の言語サーバーのサポート](https://github.com/helix-editor/helix/pull/2507)が追加されました。これにより、`typescript-language-server` とBiomeを併用できます。
 
 ```toml
 [language-server]

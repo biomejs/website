@@ -13,7 +13,7 @@ Biomeは*「opinionated」なフォーマッタ*です。理想的には、コ�
 
 個々のチームや組織内での利点に加えて、一貫したフォーマッタの採用は、ウェブエコシステム全体に利益をもたらし、プロジェクト間の移動時に熟知を維持しやすくし、新人がパターンをより直感的に学び、認識しやすくすることに役立ちます。
 
-現在のウェブエコシステムでは、Prettierが最も人気のあるフォーマッタです。Biome と同様に「opinionated」であり、[オプションの追加に関する厳格な考え方](https://prettier.io/docs/en/option-philosophy)を持っています。Biomeは、[Prettierとの互換性を大いに重視しています](/blog/biome-wins-prettier-challenge)。そのため、Prettierが実装している多くの意見を採用し、設定もその例外ではありません。
+現在のウェブエコシステムでは、Prettierが最も人気のあるフォーマッタです。Biomeと同様に「opinionated」であり、[オプションの追加に関する厳格な考え方](https://prettier.io/docs/en/option-philosophy)を持っています。Biomeは、[Prettierとの互換性を大いに重視しています](/blog/biome-wins-prettier-challenge)。そのため、Prettierが実装している多くの意見を採用し、設定もその例外ではありません。
 
 BiomeはPrettierとの高い互換性を誇り、ユーザーの移行プロセスを可能な限り痛みのないものにしていますが、それには同様の注意点も伴っています。
 
