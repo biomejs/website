@@ -1,23 +1,21 @@
 # prh version
 version: 1
 rules:
-  - expected: lint
-    patterns: リント
-  - expected: linter
+  - expected: リント
     patterns:
-      - リンター
-      - リンタ
-  - expected: format
+      - lint
+  - expected: リンタ
     patterns:
-      - フォーマット
-  - expected: formatter
+      - linter
+  - expected: フォーマット
     patterns:
-      - フォーマッター
-      - フォーマッタ
-  - expected: analyzer
+      - format
+  - expected:  フォーマッタ
     patterns:
-      - アナライザー
-      - アナライザ
+      - formatter
+  - expected: アナライザ
+    patterns:
+      - analyzer
   - expected: TypeScript
     patterns:
       - typescript

@@ -4,7 +4,7 @@ description: BiomeにおけるGit Hooksの利用
 ---
 
 Gitでは、[Git Hooks](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks) を使うことでgitコマンドの実行中にスクリプトを実行することができます。
-例えば、コミットやプッシュの前にステージングされたファイルに対してformatやlintを実行できます。
+例えば、コミットやプッシュの前にステージングされたファイルに対してフォーマットやリントを実行できます。
 Git Hooks の管理を簡単にするツールがいくつかあります。
 以下のセクションでは、それらのツールで Biome を使う方法を紹介します。
 
@@ -17,7 +17,7 @@ Git Hooks の管理を簡単にするツールがいくつかあります。
 Gitリポジトリのルートに`lefthook.yml`というファイルを追加します。
 以下は _Lefthook_ の設定例です：
 
-- コミット前にformatとlintのチェックを行う
+- コミット前にフォーマットとリントのチェックを行う
 
   ```yaml title="lefthook.yml"
   pre-commit:
@@ -27,7 +27,7 @@ Gitリポジトリのルートに`lefthook.yml`というファイルを追加し
         run: npx @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {staged_files}
   ```
 
-- コミット前にformatチェックやlintを行い、[安全な修正](/ja/linter#安全な修正safe-fixes)を行う
+- コミット前にフォーマットチェックやリントを行い、[安全な修正](/ja/linter#安全な修正safe-fixes)を行う
 
   ```yaml title="lefthook.yml"
   pre-commit:
@@ -40,7 +40,7 @@ Gitリポジトリのルートに`lefthook.yml`というファイルを追加し
 
   `stage_fixed: true` は、ステージングされたファイルを再度ステージングします。
 
-- プッシュ前にformatとlintのチェックを行う
+- プッシュ前にフォーマットとリントのチェックを行う
 
   ```yaml title="lefthook.yml"
   pre-push:
@@ -75,7 +75,7 @@ Husky はステージングされていない変更を無視したり、ステ�
 }
 ```
 
-### lint-staged
+### リント-staged
 
 [lint-staged](https://github.com/lint-staged/lint-staged)は、JavaScriptのエコシステムで最も使われているツールのひとつです。
 
@@ -85,7 +85,7 @@ husky の設定に以下の項目を追加します：
 lint-staged
 ```
 
-lint-staged の設定は `package.json` に直接埋め込まれます。
+リント-staged の設定は `package.json` に直接埋め込まれます。
 Git Hooks を実行するときに便利なコマンドの例です：
 
 ```jsonc title="package.json"
@@ -112,7 +112,7 @@ Git Hooks を実行するときに便利なコマンドの例です：
 *処理されなかったファイルがない* 場合を示すエラーを非表示にするため、コマンド実行時に`--no-errors-on-unmatched`を使用することを忘れないでください。
 
 
-### git-format-staged
+### git-フォーマット-staged
 
 _lefthook_、_pre-commit_、_lint-staged_ などの他のツールとは対照的に、[git-format-staged](https://github.com/hallettj/git-format-staged) は内部的に `git stash` を使用しません。
 これにより、ステージングされていない変更とステージングされた変更の間で衝突が発生した場合に、手動で介入する必要がなくなります。
@@ -121,12 +121,12 @@ _lefthook_、_pre-commit_、_lint-staged_ などの他のツールとは対照�
 
 設定例：
 
-- コミット前にformatとlintのチェックを行う
+- コミット前にフォーマットとリントのチェックを行う
   ```shell title=".husky/pre-commit"
   git-format-staged --formatter 'biome check --files-ignore-unknown=true --no-errors-on-unmatched \"{}\"' .
   ```
 
-- コミット前にformatやlintのチェック・安全な修正を行う
+- コミット前にフォーマットやリントのチェック・安全な修正を行う
 
   ```shell title=".husky/pre-commit"
   git-format-staged --formatter 'biome check --write --files-ignore-unknown=true --no-errors-on-unmatched \"{}\"' .
@@ -141,10 +141,10 @@ Biome は [biomejs/pre-commit](https://github.com/biomejs/pre-commit) リポジ�
 
 | hook `id`       | description                                                                 |
 | --------------- | --------------------------------------------------------------------------- |
-| `biome-ci`      | formatのチェック、インポート文が正しく並んでいるかのチェック、lint        |
-| `biome-check`   | format、インポート文の整理、lint、コミットされたファイルへ安全な修正の適用 |
-| `biome-format`  | コミットされたファイルのformat                                           |
-| `biome-lint`    | lint、コミットされたファイルへ安全な修正の適用                                |
+| `biome-ci`      | フォーマットのチェック、インポート文が正しく並んでいるかのチェック、リント        |
+| `biome-check`   | フォーマット、インポート文の整理、リント、コミットされたファイルへ安全な修正の適用 |
+| `biome-format`  | コミットされたファイルのフォーマット                                           |
+| `biome-lint`    | リント、コミットされたファイルへ安全な修正の適用                                |
 
 以下の例では、リポジトリに [pre-commit](https://pre-commit.com/index.html#install) をインストールして `pre-commit install` を実行したと仮定します。
 `biome-check` フックを使いたい場合は、プロジェクトのルートにある `.pre-commit-config.yaml` というファイルに次の設定を追加してください：
@@ -192,7 +192,7 @@ Biome は`--files-ignore-unknown=true`を指定することで未知のファイ
 
 シェルスクリプトの例：
 
-- コミット前にformatとlintのチェックを行う
+- コミット前にフォーマットとリントのチェックを行う
 
   ```shell title=".git/hooks/pre-commit"
   #!/bin/sh
@@ -201,7 +201,7 @@ Biome は`--files-ignore-unknown=true`を指定することで未知のファイ
   npx @biomejs/biome check --staged --files-ignore-unknown=true --no-errors-on-unmatched
   ```
 
-- コミット前にformatやlintのチェック、安全な修正を行う
+- コミット前にフォーマットやリントのチェック、安全な修正を行う
 
   ```shell title=".git/hooks/pre-commit"
   #!/bin/sh

@@ -4,13 +4,13 @@ head:
   - tag: title
     content: Biome、Webのためのツールチェーン
 template: splash
-description: format、lintなどが一瞬で完了します！
+description: フォーマット、リントなどが一瞬で完了します！
 editUrl: false
 next: false
 
 hero:
   title: Web開発のためのたった1つのツールチェーン
-  tagline: format、lintなどが一瞬で完了します！
+  tagline: フォーマット、リントなどが一瞬で完了します！
   image:
     alt: Biome、Webのためのツールチェーン
     dark: "@/assets/svg/slogan-dark-transparent.svg"
@@ -27,8 +27,8 @@ hero:
 ---
 
 import { Card, CardGrid } from "@astrojs/starlight/components";
-import Inputf from "@/components/formatter/input.md";
-import Outputf from "@/components/formatter/output.md";
+import Inputf from "@/components/フォーマッタ/input.md";
+import Outputf from "@/components/フォーマッタ/output.md";
 import ProgressBarContainer from "@/playground/components/Progress.tsx";
 import Community from "@/components/generated/Community.astro";
 import { Icon } from "@astrojs/starlight/components";
@@ -39,7 +39,7 @@ import "@/styles/_installation.css";
 import "@/styles/_community.css";
 import Netlify from "@/components/Netlify.astro";
 import Sponsors from "@/components/Sponsors.astro";
-import LinterExample from "@/components/linter/example.md";
+import LinterExample from "@/components/リンタ/example.md";
 import AwardBanner from "@/components/AwardBanner.astro"
 
 <div class="gradient"></div>
@@ -47,11 +47,11 @@ import AwardBanner from "@/components/AwardBanner.astro"
 
 
 <div class="hero-code">
-    <h2 class="head">Prettierのようにコードをformat、しかも高速</h2>
+    <h2 class="head">Prettierのようにコードをフォーマット、しかも高速</h2>
 
-    **Biomeは _JavaScript_、_TypeScript_、_JSX_、_JSON_、_CSS_ そして _GraphQL_ のための[高速なformatter](https://github.com/biomejs/biome/tree/main/benchmark#formatting)** であり、[**_Prettier_ と97%の互換性**](https://console.algora.io/challenges/prettier)を持ち、**CIと開発者の時間を節約します**。
+    **Biomeは _JavaScript_、_TypeScript_、_JSX_、_JSON_、_CSS_ そして _GraphQL_ のための[高速なフォーマッタ](https://github.com/biomejs/biome/tree/main/benchmark#formatting)** であり、[**_Prettier_ と97%の互換性**](https://console.algora.io/challenges/prettier)を持ち、**CIと開発者の時間を節約します**。
 
-    Biomeは、[お気に入りのエディタ](/ja/guides/integrate-in-editor/)でコードを書く際に、**不正な形式のコード**さえもformatできます。
+    Biomeは、[お気に入りのエディタ](/ja/guides/integrate-in-editor/)でコードを書く際に、**不正な形式のコード**さえもフォーマットできます。
 
     <div class="linter format">
       <div class="inp">
@@ -79,14 +79,14 @@ import AwardBanner from "@/components/AwardBanner.astro"
           <div class="perf-comp">
             <div class="comp">~35x</div>
             <div class="comp-des">
-              BiomeはPrettierよりも高速です（Intel Core i7 1270Pを使用して、2,104ファイルにわたる171,127行のコードをformatした場合）。
+              BiomeはPrettierよりも高速です（Intel Core i7 1270Pを使用して、2,104ファイルにわたる171,127行のコードをフォーマットした場合）。
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    [プレイグラウンド](/playground/)か、あなたのプロジェクトで直接Biomeのformatterを試してみましょう:
+    [プレイグラウンド](/playground/)か、あなたのプロジェクトで、Biomeのフォーマッタを試してみましょう:
 
     ```shell
     npm i -D --save-exact @biomejs/biome
@@ -98,13 +98,13 @@ import AwardBanner from "@/components/AwardBanner.astro"
 <div class="hero-code">
     <h2 class="head">問題を修正し、ベストプラクティスを学ぶ</h2>
 
-    **Biomeは _JavaScript_、_TypeScript_、_JSX_、_CSS_ そして _GraphQL_ のための[高性能なlinter](https://github.com/biomejs/biome/tree/main/benchmark#linting)** であり、ESLint、typescript-eslint、[その他のソース](https://github.com/biomejs/biome/discussions/3)に由来する **[200以上のルール](/linter/rules/)** を備えています。
+    **Biomeは _JavaScript_、_TypeScript_、_JSX_、_CSS_ そして _GraphQL_ のための[高性能なリンタ](https://github.com/biomejs/biome/tree/main/benchmark#linting)** であり、ESLint、typescript-eslint、[その他のソース](https://github.com/biomejs/biome/discussions/3)に由来する **[200以上のルール](/linter/rules/)** を備えています。
 
     **Biomeは、文脈を考慮した詳細な診断を出力**してくれるため、あなたがコードを改善してより優れたプログラマーになるのに役立ちます！
 
     <LinterExample />
 
-    [プレイグラウンド](/playground/)か、あなたのプロジェクトで直接Biomeのlinterを試してみましょう:
+    [プレイグラウンド](/playground/)か、あなたのプロジェクトで、Biomeのリンタを試してみましょう:
 
     ```shell
     npm i -D --save-exact @biomejs/biome
