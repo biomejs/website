@@ -1,0 +1,49 @@
+---
+title: Versionnage
+description: Comment nous versionnons Biome.
+---
+
+Les correctifs apportés aux règles de linting, au formatage, etc. pourraient empêcher vos scripts de passer. En raison de la nature de ces changements,
+il est **fortement recommandé** d’enregistrer la version _exacte_ dans votre `package.json`, au lieu d’utiliser les opérateurs de plage de versions.
+
+Cette méthode assurera que votre script n’échouera pas de manière inattendue.
+
+## Gestion sémantique de version
+
+Biome suit la [gestion sémantique de version](https://semver.org/lang/fr/). En raison de la nature de Biome en tant qu’ensemble d’outils, il n’est peut-être pas clair de savoir quels changements sont considérés comme majeurs, mineurs ou comme des correctifs. C’est pourquoi Biome utilise le guide de versionnage suivant&nbsp;:
+
+### Version corrective
+
+* Correction d’une règle de linting qui soulève des erreurs de linting pour du code valide (faux positifs)&nbsp;;
+* correction de suggestions de code incorrectes&nbsp;;
+* correction du formatage d’une syntaxe qui engendre du code invalide ou change la sémantique du programme&nbsp;;
+* amélioration de la documentation&nbsp;;
+* changements internes qui ne changent pas les fonctionnalités de Biome&nbsp;:
+  * refactorisations,
+  * amélioration des performances,
+  * augmentation ou changements dans la couverture des tests&nbsp;;
+* amélioration de la formulation des diagnostics ou correction de leur rendu&nbsp;;
+* republication après échec de la publication d’une version&nbsp;;
+* changement dans le formatage d’une syntaxe établie.
+
+### Version mineure
+
+* Ajout d’une nouvelle règle ou promotion d’une règle de linting existante auprès d’un groupe stable qui n’est pas recommandé par défaut&nbsp;;
+* ajout de la prise en charge du linting et du formatage pour une fonctionnalité de langage récemment introduite, même si cela engendre plus de rapports d’erreurs de linting&nbsp;;
+* suppression de règles recommandées&nbsp;;
+* obsolescence de règles existantes&nbsp;;
+* ajout de nouvelles options de configuration facultatives qui ne changent pas le formatage ni ne rapportent davantage d’erreurs de linting&nbsp;;
+* ajout d’une nouvelle règle de linting recommandée ou promotion d’une règle de linting existante provenant du groupe expérimental auprès d’une règle de linting recommandée dans un groupe stable&nbsp;;
+* suppression d’une règle non *expérimentale* ou rétrogradation d’une règle vers le groupe *expérimental.*
+
+### Version majeure
+* Changements dans la configuration qui engendrent du formatage différent ou davantage de rapports d’erreurs de linting (ajout/suppression d’options, changement de la valeur par défaut)&nbsp;;
+* changements dans l’API publique de Biome&nbsp;;
+* promotion de nouvelles fonctionnalités ou d’outils qui requièrent une mise en avant.
+
+## Extension pour Visual Studio Code
+
+Visual Studio Code [ne prend pas en charge les tags de pré-version](https://code.visualstudio.com/api/working-with-extensions/publishing-extension#prerelease-extensions) pour les extensions. C’est pourquoi Biome utilise le schéma de version suivant pour distinguer les versions stables des versions de prévisualisation&nbsp;:
+* les versions stables utilisent des nombres pairs&nbsp;: 10, 12, 14, 16…
+* les versions de prévisualisation utilisent des nombres impairs&nbsp;: 11, 13, 15, 17…
+
