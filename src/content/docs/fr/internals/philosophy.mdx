@@ -1,0 +1,45 @@
+---
+title: Philosophie
+description: Comment nous pensons au développement de Biome.
+---
+
+Cette liste inclut l’esprit général que le projet devrait respecter.
+Cette liste n’est pas exhaustive. Certains points sont évidents, mais présentés pour être complets.
+
+## Gestion du projet
+
+- **Définissez des attentes claires.** Faites que l’intention du projet et les décisions soient bien connues à l’avance.
+  Rien ne devrait être surprenant.
+
+- **Communication claire des décisions.** Il se pourrait que l’équipe évalue les options et prenne des décisions en utilisant des canaux privés.
+  L’équipe essaiera de maintenir des discussions publiques en utilisant des canaux comme les [discussions de GitHub](https://github.com/biomejs/biome/discussions) ou [Discord](https://biomejs.dev/chat). Il se pourrait que de fréquentes vérifications en privé aient lieu.
+  Quand des décisions sont prises via des canaux privés, l’équipe doit s’engager à les communiquer en utilisant les canaux publics.
+
+## Technique
+
+- **Les erreurs devraient suggérer des corrections et des pistes si possible.** Ces dernières devraient être déduites et filtrées à partir de l’usage pour réduire l’apparition de messages non pertinents ou qui ne sont d’aucune aide.
+
+- **Des messages d’erreur uniques et spécifiques.** Pas de messages d’erreur génériques,
+  ce qui aide les utilisateurs à comprendre ce qui ne va pas et devrait fournir aux personnes chargées de la maintenance un point d’appel unique et les renseignements nécessaires au débogage.
+
+- **Optimisez l’API.** Remettez en question l’existence de toutes les options et de tous les drapeaux.
+  Sont-ils nécessaires&nbsp;? Peuvent-ils être combinés&nbsp;? Comment pouvons-nous réduire les ramifications du code&nbsp;?
+
+- **Documentez le code.** Efforcez-vous de documenter le code autant que possible, en particulier le code «&nbsp;difficile à lire&nbsp;» ou les logiques particulières qui demandent des explications.
+  Un code bien documenté aide à sa maintenabilité, en particulier quand plusieurs personnes travaillent dessus. Le développeur qui prendra votre relais bénéficiera de vos connaissances&nbsp;: partagez-les.
+
+- **Réduisez le jargon.** Ne partez pas du principe que les utilisateurs comprendront une terminologie spécifique.
+  Efforcez-vous de fournir des termes avec un sens précis pour les experts et les débutants.
+  Par exemple, utilisez le mot «&nbsp;caractère&nbsp;» là où vous utiliseriez traditionellement le mot «&nbsp;token&nbsp;» lors de la production d’erreurs d’analyse.
+
+- **Utilisez la verbosité lors du nommage des commandes et des drapeaux.** Pas d’abréviations inutiles et confuses.
+
+- **Utilisez une terminologie inclusive.** Utilisez des pronoms neutres en termes de genre. Pas d’affronts validistes.
+  Pas d’utilisation de termes qui pourraient être considérés comme un manquement d’égards.
+
+- **Développez pour des clients génériques.** Ne partez pas du principe qu’un terminal ne consommera que des sorties utilisant du code ANSI.
+  Utilisez des abstractions qui pourraient être généralisées à une visualisation dans un IDE, un navigateur ou d’autres environnements.
+
+- **La sortie dans un terminal devrait être sans ambiguïtés.** En concevant une sortie dans un terminal, ne vous reposez pas seulement sur des éléments de mise en forme comme les couleurs.
+  Utilisez toujours une combinaison de mise en forme, de symboles et d’espacements.
+  Si tous les codes ANSI sont supprimés, toute la sortie devrait rester compréhensible.
