@@ -3582,6 +3582,20 @@ export function GET() {
             "sourceKind": "sameLogic",
             "docs": " Prevent usage of `<img>` element in a Next.js project.\n\n Using the `<img>` element can result in slower Largest Contentful Paint (LCP)\n and higher bandwidth usage, as it lacks the optimizations provided by the `<Image />`\n component from `next/image`. Next.js's `<Image />` automatically optimizes images\n by serving responsive sizes and using modern formats, improving performance and reducing bandwidth.\n\n If your project is self-hosted, ensure that you have sufficient storage and have\n installed the `sharp` package to support optimized images. When deploying to managed\n hosting providers, be aware of potential additional costs or usage.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <img alt=\"Foo\" />\n ```\n\n ```jsx,expect_diagnostic\n <div>\n   <img alt=\"Foo\" />\n </div>\n ```\n\n ### Valid\n\n ```jsx\n <img />\n ```\n\n ```jsx\n <Image src=\"https://example.com/hero.jpg\" />\n ```\n\n ```jsx\n <picture>\n   <source srcSet=\"https://example.com/hero.avif\" type=\"image/avif\" />\n   <source srcSet=\"https://example.com/hero.webp\" type=\"image/webp\" />\n   <img src=\"https://example.com/hero.jpg\" />\n </picture>\n ```\n\n"
           },
+          "noNoninteractiveElementInteractions": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noNoninteractiveElementInteractions",
+            "link": "https://biomejs.dev/linter/rules/no-noninteractive-element-interactions",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslintJsxA11y": "no-noninteractive-element-interactions"
+              }
+            ],
+            "docs": " Disallow use event handlers on non-interactive elements.\n\n Non-interactive HTML elements indicate _content_ and _containers_ in the user interface.\n Non-interactive elements include `<main>`, `<area>`, `<h1>` (,`<h2>`, etc), `<img>`, `<li>`, `<ul>` and `<ol>`.\n\n A Non-interactive element does not support event handlers(mouse and key handlers).\n\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div onClick={() => {}}>button</div>\n ```\n\n ### Valid\n\n ```jsx\n <button onClick={() => { }}>button</button>\n ```\n\n ```jsx\n // Adding a role to element does not add behavior.\n // If not used semantic HTML elements like `button`, developers need to implement the expected behavior for role(like focusability and key press support)\n // See https://www.w3.org/WAI/ARIA/apg/\n <div role=\"button\" onClick={() => { }}>button</div>\n ```\n\n ```jsx\n // The role=\"presentation\" attribute removes the semantic meaning of an element, indicating that it should be ignored by assistive technologies.\n // Therefore, it's acceptable to add event handlers to elements with role=\"presentation\" for visual effects or other purposes,\n // but users relying on assistive technologies may not be able to interact with these elements.\n <div role=\"presentation\" onClick={() => { }}>button</div>\n ```\n\n ```jsx\n // Hidden from screen reader.\n <div onClick={() => {}} aria-hidden />\n ```\n\n ```jsx\n // Custom component is not checked.\n <SomeComponent onClick={() => {}}>button</SomeComponent>\n ```\n\n ```jsx\n // Spread attributes is not supported.\n <div {...{\"onClick\":() => {}}}>button</div>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 4.1.2](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value)\n\n ### Resources\n\n - [WAI-ARIA roles](https://www.w3.org/TR/wai-aria-1.1/#usage_intro)\n - [WAI-ARIA Authoring Practices Guide - Design Patterns and Widgets](https://www.w3.org/TR/wai-aria-practices-1.1/#aria_ex)\n - [Fundamental Keyboard Navigation Conventions](https://www.w3.org/TR/wai-aria-practices-1.1/#kbd_generalnav)\n - [Mozilla Developer Network - ARIA Techniques](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_button_role#Keyboard_and_focus)\n\n"
+          },
           "useComponentExportOnlyModules": {
             "deprecated": false,
             "version": "1.9.2",
@@ -4189,7 +4203,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 298
+    "numberOrRules": 299
   },
   "syntax": {
     "languages": {
