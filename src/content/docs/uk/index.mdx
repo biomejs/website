@@ -1,0 +1,218 @@
+---
+title: Biome
+head:
+  - tag: title
+    content: Biome, інструментарій для вебу
+template: splash
+description: Форматування, лінтинг та більше за частку секунди.
+editUrl: false
+next: false
+
+hero:
+  title: Один інструментарій для вашого веб-проєкту
+  tagline: Форматування, лінтинг та більше за частку секунди.
+  image:
+    alt: Biome, інструментарій для вебу
+    dark: "@/assets/svg/slogan-dark-transparent.svg"
+    light: "@/assets/svg/slogan-light-transparent.svg"
+  actions:
+    - text: Почати
+      link: /guides/getting-started/
+      icon: right-arrow
+      variant: primary
+    - text: Переглянути на GitHub
+      link: https://github.com/biomejs/biome
+      icon: external
+      variant: secondary
+---
+
+import { Card, CardGrid } from "@astrojs/starlight/components";
+import Inputf from "@/components/formatter/input.md";
+import Outputf from "@/components/formatter/output.md";
+import ProgressBarContainer from "@/playground/components/Progress.tsx";
+import Community from "@/components/generated/Community.astro";
+import { Icon } from "@astrojs/starlight/components";
+import arrow from "@/assets/svg/arrow-right.svg";
+import { Image } from "astro:assets";
+import "@/styles/_performance.css";
+import "@/styles/_installation.css";
+import "@/styles/_community.css";
+import Netlify from "@/components/Netlify.astro";
+import Sponsors from "@/components/Sponsors.astro";
+import LinterExample from "@/components/linter/example.md";
+import NumberOfRules from "@/components/generated/NumberOfRules.astro";
+
+<div class="gradient"></div>
+<div class="grid"></div>
+
+
+<div class="hero-code">
+    <h2 class="head">Форматуйте код як Prettier, економте час</h2>
+
+    **Biome є [швидким форматувальником](https://github.com/biomejs/biome/tree/main/benchmark#formatting)** для _JavaScript_, _TypeScript_, _JSX_, _TSX_, _JSON_, _CSS_ та _GraphQL_, що має **[97% сумісність з _Prettier_](https://console.algora.io/challenges/prettier)**, **економлячи час CI та розробників**.
+
+    Biome може навіть **форматувати некоректний код** під час написання у [вашому улюбленому редакторі](/guides/integrate-in-editor/).
+
+    <div class="linter format">
+      <div class="inp">
+        <span>КОД</span>
+        <Inputf />
+      </div>
+      <div class="out">
+        <span>ВИХІД</span>
+        <Outputf />
+      </div>
+      <div class="perf-out">
+        <span>ПРОДУКТИВНІСТЬ</span>
+        <div class="bench-comp">
+          <div class="bench">
+            <div>
+              <ProgressBarContainer
+                client:visible
+                data={[
+                  { duration: 0.41, label: "Biome", color: "#33ff66" },
+                  { duration: 14.35, label: "Prettier", color: "#ff0033" }
+                ]}
+              />
+            </div>
+          </div>
+          <div class="perf-comp">
+            <div class="comp">В ~35 разів</div>
+            <div class="comp-des">
+              Швидше за Prettier при форматуванні 171,127 рядків коду у 2,104 файлах з Intel Core i7 1270P.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    Спробуйте форматувальник Biome на [пісочниці](/playground/) або безпосередньо на вашому проєкті:
+
+    ```shell
+    npm i -D --save-exact @biomejs/biome
+    npx @biomejs/biome format --write ./src
+    ```
+</div>
+
+
+<div class="hero-code">
+    <h2 class="head">Виправляйте проблеми, вивчайте найкращі практики</h2>
+
+    **Biome є [продуктивним лінтером](https://github.com/biomejs/biome/tree/main/benchmark#linting)** для _JavaScript_, _TypeScript_, _JSX_, _CSS_ та _GraphQL_, що має **[<NumberOfRules/> правил](/linter/rules/)** з ESLint, TypeScript ESLint та [інших джерел](/linter/rules-sources/).
+
+    **Biome видає детальні та контекстуалізовані діагностики**, що допомагають покращити ваш код та стати кращим програмістом!
+
+    <LinterExample />
+
+    Спробуйте лінтер Biome на [пісочниці](/playground/) або безпосередньо на вашому проєкті:
+
+    ```shell
+    npm i -D --save-exact @biomejs/biome
+    npx @biomejs/biome lint --write ./src
+    ```
+
+</div>
+
+
+<div class="hero-code">
+    <h2 class="head">Все одразу</h2>
+
+    Ви можете не тільки форматувати та лінтити ваш код окремо, але й робити це **все одразу за допомогою однієї команди**!
+
+    Кожен інструмент інтегрується бездоганно з іншими, створюючи **єдиний інструментарій** для веб-проєктів.
+
+    Запустіть всі інструменти за допомогою команди `check`:
+
+    ```shell
+    npm i -D --save-exact @biomejs/biome
+    npx @biomejs/biome check --write ./src
+    ```
+
+</div>
+
+
+
+<div class="card-cnt">
+
+<CardGrid>
+    <Card title="Швидкий" icon="rocket">
+      Створений на Rust та інноваційній архітектурі, натхненній rust-analyzer.
+    </Card>
+    <Card title="Простий" icon="pencil">
+      Нульова конфігурація для початку роботи. Широкі можливості налаштування для
+      тих випадків, коли вони потрібні.
+    </Card>
+    <Card title="Масштабований" icon="random">
+      Розроблений для роботи з кодовими базами будь-якого розміру. Зосередьтеся на розвитку продукту, а не інструментів.
+    </Card>
+    <Card title="Оптимізований" icon="setting">
+      Завдяки тісній внутрішній інтеграції ми можемо повторно використовувати попередню роботу, і будь-яке покращення одного інструменту покращує всі інші.
+    </Card>
+    <Card title="Інформативний" icon="information">
+      Уникайте незрозумілих повідомлень про помилки, коли ми повідомляємо про проблему, ми точно вказуємо, де вона знаходиться і як її виправити.
+    </Card>
+    <Card title="Все включено" icon="add-document">
+      Підтримка всіх мовних функцій, які ви використовуєте сьогодні. Першокласна підтримка TypeScript та JSX.
+    </Card>
+  </CardGrid>
+</div>
+<div class="installation-body">
+  <div class="installation">
+    <div class="installation-left">
+      <h2 class="head">Спробуйте Biome</h2>
+      <div class="installation-description">
+        Встановіть Biome за допомогою вашого улюбленого менеджера пакетів та інтегруйте його у ваш редактор.
+      </div>
+      <a class="installation-biome" href="/guides/getting-started/#installation">
+        Встановити за допомогою менеджера пакетів
+        <Image src={arrow} alt="arrow" />
+      </a>
+      <a
+        href="/guides/integrate-in-editor/"
+        class="installation-extension"
+      >
+        Інтегрувати Biome у ваш редактор
+        <Image src={arrow} alt="arrow" />
+      </a>
+    </div>
+
+    <div class="extension-img"></div>
+
+  </div>
+</div>
+
+<div class="community">
+  <div class="community-grid"></div>
+  <h2 class="head">Спільнота</h2>
+  <div class="community-connect">
+    <div class="community-description">
+      Підтримується нашими учасниками з відкритим вихідним кодом
+    </div>
+    <div class="community-links">
+      <a href="https://biomejs.dev/chat" class="discord">
+        <Icon name="discord" />
+        <p>Discord</p>
+      </a>
+      <a href="https://github.com/biomejs/biome" class="github">
+        <Icon name="github" />
+        <p>GitHub</p>
+      </a>
+      <a href="https://twitter.com/biomejs" class="x">
+        <Icon name="x.com" />
+        <p>Twitter</p>
+      </a>
+      <a href="https://fosstodon.org/@biomejs" class="mastodon">
+        <Icon name="mastodon" />
+        <p>Mastodon</p>
+      </a>
+    </div>
+  </div>
+  <div class="connect">
+    <Community />
+  </div>
+</div>
+
+<Sponsors title="Спонсори" />
+
+<Netlify />
+
