@@ -1,0 +1,129 @@
+---
+title: Outil de formatage
+description: Comment utiliser l’outil de formatage de Biome.
+---
+
+import PackageManagerBiomeCommand from "@/components/PackageManagerBiomeCommand.astro";
+
+Biome est un outil de formatage opiniâtre qui [prend en charge plusieurs langages](/fr/internals/language-support).
+Il suit une [philosophie semblable à celle de Prettier](https://prettier.io/docs/en/option-philosophy.html),
+ne prenant en charge que quelques options pour éviter que les débats sur les styles ne se changent en débats sur les options de Biome.
+Il [résiste délibérément à l’envie d’ajouter de nouvelles options](https://github.com/prettier/prettier/issues/40) pour empêcher des [discussions sur les abris à vélos](https://fr.wikipedia.org/wiki/Loi_de_futilité_de_Parkinson) dans les équipes, afin qu’elles se concentrent, à la place, sur ce qui importe vraiment.
+
+
+## Ligne de commande
+
+La commande suivante vérifie le formatage des fichiers dans le répertoire `src`.
+Elle génère des différences textuelles si elle trouve du code qui n’est pas formaté.
+
+<PackageManagerBiomeCommand command="format ./src" />
+
+Si vous voulez **faire appliquer** le nouveau formatage, passez l’option `--write`&nbsp;:
+
+<PackageManagerBiomeCommand command="format --write ./src" />
+
+La commande accepte une liste de fichiers et de répertoires.
+
+:::caution
+Si vous passez un glob en paramètre, votre shell l’évaluera.
+Le résultat de l’évaluation dépend de votre shell.
+Par exemple, certains shells ne prennent pas en charge le glob récursif `**` ou l’alternance `{}` dans la commande suivante&nbsp;:
+
+```shell
+biome format ./src/**/*.test.{js,ts}
+```
+
+L’évaluation du shell a un coût en termes de performances et des limites sur le nombre de fichiers que vous pouvez passer à la commande.
+:::
+
+Pour plus de renseignements sur toutes les options disponibles, consultez la [référence de la ligne de commande](/fr/reference/cli#biome-format).
+
+
+## Options
+
+Biome fournit quelques options pour régler le comportement de son outil de formatage.
+À la différence d’autres outils, Biome sépare les options indépendantes des langages de celles propres à un langage.
+
+Les options de formatage peuvent être configurées en [ligne de commande](/fr/reference/cli/#biome-format) ou via un [fichier de configuration de Biome](/fr/guides/configure-biome).
+À partir de la v1.9, Biome prend en charge le chargement de fichiers `.editorconfig`.
+
+Il est recommandé d’utiliser un [fichier de configuration de Biome](/fr/guides/configure-biome) pour s’assurer que la ligne de commande de Biome et le LSP de Biome appliquent tous les deux les mêmes options.
+Les réglages par défaut suivants s’appliquent&nbsp;:
+
+```json title="biome.json"
+{
+  "formatter": {
+    "enabled": true,
+    "formatWithErrors": false,
+    "ignore": [],
+    "attributePosition": "auto",
+    "indentStyle": "tab",
+    "indentWidth": 2,
+    "lineWidth": 80,
+    "lineEnding": "lf"
+  },
+  "javascript": {
+    "formatter": {
+      "arrowParentheses":"always",
+      "bracketSameLine": false,
+      "bracketSpacing": true,
+      "jsxQuoteStyle": "double",
+      "quoteProperties": "asNeeded",
+      "semicolons": "always",
+      "trailingCommas": "all"
+    }
+  },
+  "json": {
+    "formatter": {
+      "trailingCommas": "none"
+    }
+  }
+}
+```
+
+Les principales options indépendantes des langages qui sont prises en charge par l’outil de formatage de Biome sont&nbsp;:
+
+- le style d’indentation (par défaut&nbsp;: `tab`)&nbsp;: utilisez des espaces ou des tabulations pour l’indentation&nbsp;;
+- la largeur de l’indentation (par défaut&nbsp;: `2`)&nbsp;: le nombre d’espaces par niveau d’indentation&nbsp;;
+- la largeur de ligne (par défaut&nbsp;: `80`)&nbsp;: la largeur de colonne à laquelle Biome fait passer le code à la ligne.
+
+Voir la [référence de la configuration](/fr/reference/configuration#formatter) pour plus de détails.
+
+
+## Ignorer du code
+
+Il y a des fois où le formatage du code n’est pas l’idéal.
+
+Pour ces cas-là, vous pouvez utiliser un commentaire de suppression de format&nbsp;:
+
+```js title="example.js"
+// biome-ignore format: <explanation>
+```
+
+Exemple&nbsp;:
+
+```js title="example.js"
+const expr =
+  // biome-ignore format: le tableau ne devrait pas être formaté
+  [
+    (2 * n) / (r - l),
+    0,
+    (r + l) / (r - l),
+    0,
+    0,
+    (2 * n) / (t - b),
+    (t + b) / (t - b),
+    0,
+    0,
+    0,
+    -(f + n) / (f - n),
+    -(2 * f * n) / (f - n),
+    0,
+    0,
+    -1,
+    0,
+  ];
+```
+
+Biome ne fournit pas de commentaires pour ignorer un fichier entier.
+Cependant, vous pouvez [ignorer un fichier en utilisant le fichier de configuration de Biome](/fr/guides/configure-biome/#ignore-files).
