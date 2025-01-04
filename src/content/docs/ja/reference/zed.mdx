@@ -1,0 +1,96 @@
+---
+title: Zed拡張機能
+description: BiomeのZed拡張機能
+---
+
+## インストール方法
+
+Zed >= **v0.131.0** が必要です。
+
+この拡張機能は、Zedエディタで利用できます。 `zed: extensions` を開き、 _Biome_ と検索してください。
+
+## 設定
+
+デフォルトでは、biome.jsonファイルは **ワークスペースのルート** に配置する必要があります。
+
+それ以外の場合は、LSP設定を通じて構成できます。
+
+
+```jsonc
+// settings.json
+{
+  "lsp": {
+    "biome": {
+      "settings": {
+        "config_path": "<path>/biome.json"
+      }
+    }
+  }
+}
+```
+
+### フォーマット
+
+言語サーバーをフォーマッタとして使用するには、設定でbiomeをフォーマッタとして指定してください。
+
+```jsonc
+// settings.json
+{
+  "formatter": {
+    "language_server": {
+      "name": "biome"
+    }
+  }
+}
+```
+
+### biome.jsonが存在する場合にのみbiomeを有効にする
+
+```jsonc
+// settings.json
+{
+  "lsp": {
+    "biome": {
+      "settings": {
+        "require_config_file": true
+      }
+    }
+  }
+}
+```
+
+### プロジェクトベースの設定
+
+すべてのプロジェクトでbiomeの実行を除外したい場合は、次の手順に従ってください。
+
+1. ユーザー設定でbiome言語サーバーを無効にする。
+
+```jsonc
+// settings.json
+{
+  "language_servers": [ "!biome", "..." ]
+}
+```
+
+2. そして、プロジェクトのローカル設定で有効にします。
+
+```jsonc
+// <workspace>/.zed/settings.json
+{
+  "language_servers": [ "biome", "..." ]
+}
+```
+
+また、[`languages`](https://zed.dev/docs/configuring-zed#languages)キーを使用して言語ごとに設定することもできます。
+
+### フォーマット時にコードアクションを実行する
+
+```jsonc
+// settings.json
+{
+  "code_actions_on_format": {
+    "source.fixAll.biome": true,
+    "source.organizeImports.biome": true
+  }
+}
+```
