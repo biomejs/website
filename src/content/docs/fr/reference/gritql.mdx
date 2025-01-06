@@ -1,0 +1,120 @@
+---
+title: GritQL [EXPÉRIMENTAL]
+description: Utilisation de base de GritQL dans Biome
+---
+
+GritQL est un langage de requête pour effectuer des recherches structurelles dans du code source,
+ce qui veut dire que les futilités comme les espaces, ou même le type de guillemets utilisé dans
+les chaînes de caractères, seront ignorées dans votre requête. En outre, il offre beaucoup de
+fonctionnalités qui vous permettent d’effectuer des requêtes sur la structure de la syntaxe comme les snippets, les correspondances,
+les imbrications et les variables.
+
+GritQL est [open source](https://github.com/getgrit/gritql/) et est créé par [Grit.io](https://grit.io/).
+
+Biome intègre GritQL pour deux objectifs&nbsp;:
+
+- la commande [`biome search`](/fr/reference/cli/#biome-search), que nous espérons
+  étendre aussi à nos extensions pour IDE,
+- nos efforts en cours en matière de plug-in.
+
+## Modèles
+
+Les requêtes GritQL fonctionnent à travers des _modèles._ Le modèle le plus fréquent que vous verrez est
+le snippet de code, qui ressemble à du code source ordinaire entouré de backticks&nbsp;:
+
+```grit
+`console.log('Hello, world!')`
+```
+
+Ce modèle trouvera n’importe quel appel à `console.log()` se voyant passer la chaîne
+`'Hello, world!'`. Mais, parce que GritQL pratique la correspondance _structurelle,_ il ne
+tient pas compte des détails de formatage. Il trouve également&nbsp;:
+
+```js
+console.log (
+    'Hello, world!'
+)
+```
+
+Il en est de même pour le code suivant (notez le changement dans les guillemets)&nbsp;:
+
+```js
+console.log("Hello, world!")
+```
+
+:::note
+La plupart des shells interprètent les backticks comme des invocations de commande, entrant en conflit avec
+les snippets de code de GritQL. Donc, en utilisant la commande `biome search`, il vaut mieux
+entourer vos requêtes Grit de _guillemets simples&nbsp;:_
+
+```shell
+biome search '`console.log($message)`' # trouver toutes les invocations de `console.log`
+```
+:::
+
+## Variables
+
+Les requêtes GritQL peuvent également avoir des _variables._ La requête suivante trouvera n’importe quel appel à
+`console.log()`, indépendamment du message passé&nbsp;:
+
+```grit
+`console.log($message)`
+```
+
+Cette requête trouvera aussi n’importe quelle méthode de l’objet `console`&nbsp;:
+
+```grit
+`console.$method($message)`
+```
+
+Le même nom de variable peut être utilisé plusieurs fois dans un même snippet&nbsp;:
+
+```grit
+`$fn && $fn()`
+```
+
+Cette requête trouvera `foo && foo()`, voire `foo.bar && foo.bar()`, mais pas
+`foo && bar()`.
+
+## Conditions
+
+Vous pouvez ajouter des conditions aux modèles en utilisant l’opérateur `where`, qui est
+couramment utilisé avec _l’opérateur match,_ `<:`&nbsp;:
+
+```grit
+`console.$method($message)` where {
+    $method <: `log`
+}
+```
+
+Cette requête est identique au modèle `console.log($message)` que nous avons vu plus haut,
+mais devient vite plus intéressant avec l’ajout d’autres opérateurs&nbsp;:
+
+```grit
+`console.$method($message)` where {
+    $method <: or { `log`, `info`, `warn`, `error` }
+}
+```
+
+## Documentation du langage
+
+Pour plus de renseignements sur GritQL et sa syntaxe, voir la
+[documentation du langage de GritQL](https://docs.grit.io/language/overview) officielle.
+
+Veuillez garder à l’esprit que Biome ne prend pas (encore) en charge la totalité des fonctionnalités de Grit.
+
+## État d’intégration
+
+La prise en charge de GritQL dans Biome est en développement actif. Beaucoup de choses fonctionnent déjà&nbsp;;
+mais, il faut encore s’attendre à des bugs et certaines fonctionnalités manquent franchement encore.
+
+Pour un aperçu détaillé des fonctionnalités de GritQL prises en charge et de celles
+dont la prise en charge est encore en cours, veuillez voir le ticket sur GitHub&nbsp;:
+https://github.com/biomejs/biome/issues/2582.
+
+Nous avons également une RFC détaillée qui guide la direction à prendre pour nos efforts en matière de plug-in&nbsp;:
+https://github.com/biomejs/biome/discussions/1762.
+
+**tl;dr&nbsp;:** Nous travaillons sur la prise en charge des plug-ins, qui peuvent être des
+plug-ins en pur GritQL ou des plug-ins en JS/TS utilisant GritQL pour sélectionner le code sur lequel ils souhaitent
+opérer. Restez à l'écoute&nbsp;!
