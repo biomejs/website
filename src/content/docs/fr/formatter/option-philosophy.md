@@ -19,7 +19,7 @@ Biome est fier d’avoir atteint pareil degré de compatibilité avec Prettier e
 
 ## Options existantes
 
-Biome a commencé avec un sous-ensemble strict d’options de configuration, ciblant les guides de style les plus communs et les plus discutés dans l’écosystème JavaScript&nbsp;: styles d’indentation (tabulations contre espaces), largeurs de l’indentation (2 espaces pour égaler une tabulation ou 4&nbsp;?) et points-virgules imposés. L’ajout d’options pour ces points était considéré comme suffisant pour répondre aux besoins de la plupart des gens et il n’était pas fortement envisagé d’en ajouter d’autres.
+Biome a commencé avec un sous-ensemble strict d’options de configuration, ciblant les guides de style les plus courants et les plus discutés dans l’écosystème JavaScript&nbsp;: styles d’indentation (tabulations contre espaces), largeurs de l’indentation (2 espaces pour égaler une tabulation ou 4&nbsp;?) et points-virgules imposés. L’ajout d’options pour ces points était considéré comme suffisant pour répondre aux besoins de la plupart des gens et il n’était pas fortement envisagé d’en ajouter d’autres.
 
 En s’appuyant sur la [philosophie d’option de Prettier](https://prettier.io/docs/en/option-philosophy), Biome a eu la chance de prendre un nouveau départ et d’éviter les écueils dans lesquels Prettier est tombé avec ses autres options existantes, comme `--bracket-same-line` et `--arrow-parens`&nbsp;:
 
