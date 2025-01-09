@@ -94,6 +94,11 @@ export default defineConfig({
 					},
 				},
 				{
+					label: "Support",
+					link: "../support",
+					translations: {},
+				},
+				{
 					label: "Guides",
 					translations: { ja: "ガイド", "zh-CN": "指南", "pt-BR": "Guias" },
 					items: [
