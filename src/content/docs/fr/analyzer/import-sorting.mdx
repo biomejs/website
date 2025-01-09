@@ -1,0 +1,174 @@
+---
+title: Tri des imports
+description: Ce que le tri des imports de Biome fournit
+---
+
+Biome permet le tri des déclarations d’import en utilisant [l’ordre naturel](https://en.wikipedia.org/wiki/Natural_sort_order).
+
+Cette fonctionnalité est activée par défaut, mais peut être désactivée via la configuration&nbsp;:
+
+```json title="biome.json"
+{
+  "organizeImports": {
+    "enabled": false
+  }
+}
+```
+
+:::note
+Le trieur des imports ne supprime pas les imports inutilisés.
+Nous fournissons la règle de linting [noUnusedImports](/fr/linter/rules/no-unused-imports/) avec une correction sûre qui supprime les imports inutilisés.
+:::
+
+## Comment les imports sont triés
+
+Les déclarations d’import sont triées par «&nbsp;distance&nbsp;». Les modules qui sont les plus «&nbsp;éloignés&nbsp;» de l’utilisateur sont placés au-dessus, les plus «&nbsp;proches&nbsp;» en-dessous&nbsp;:
+
+1. les modules importés via le protocole `bun:` (applicable à l’écriture de code exécuté par Bun),
+1. les modules Node.js natifs qui sont explicitement importés en utilisant le protocole `node:` et les modules Node natifs communs comme `assert`,
+1. les modules importés via le protocole `npm:` (applicable à l’écriture de code exécuté par Deno),
+1. les modules qui contiennent le protocole `:` (ils sont habituellement considérés comme des «&nbsp;modules virtuels&nbsp;», des modules qui sont injectés par votre environnement de travail&nbsp;: par exemple, `vite`),
+1. les modules importés via une URL,
+1. les modules importés de librairies,
+1. les modules importés via des imports absolus,
+1. les modules importés d’un nom préfixé par `#` (applicable à l’utilisation des [imports subpath de Node](https://nodejs.org/api/packages.html#subpath-imports)),
+1. les modules importés via des imports relatifs,
+1. les modules qui n’ont pas pu être identifiés par les critères précédents.
+
+Par exemple, dans le code suivant&nbsp;:
+
+```ts title="example.ts"
+import uncle from "../uncle";
+import sibling from "./sibling";
+import express from "npm:express";
+import imageUrl from "url:./image.png";
+import { sortBy } from "virtual:utils";
+import assert from "node:assert";
+import aunt from "../aunt";
+import { VERSION } from "https://deno.land/std/version.ts";
+import { mock, test } from "node:test";
+import { expect } from "bun:test";
+import { internal } from "#interne";
+import { secret } from "/chemin/absolu";
+import React from "react";
+```
+
+Ils seront triés comme suit&nbsp;:
+
+```ts title="example.ts"
+ import { expect } from "bun:test";
+ import assert from "node:assert";
+ import { mock, test } from "node:test";
+ import express from "npm:express";
+ import { sortBy } from "virtual:utils";
+ import { VERSION } from "https://deno.land/std/version.ts";
+ import React from "react";
+ import { secret } from "/chemin/absolu";
+ import { internal } from "#interne";
+ import aunt from "../aunt";
+ import uncle from "../uncle";
+ import sibling from "./sibling";
+ import imageUrl from "url:./image.png";
+```
+
+Vous pouvez faire appliquer le tri de deux manières&nbsp;: via la [ligne de commande](#tri-des-imports-via-la-ligne-de-commande) ou l’[extension pour VSCode](#tri-des-imports-via-lextension-pour-vscode).
+
+## Imports groupés
+
+Il est très répandu d’avoir des déclarations d’import dans un certain ordre, surtout quand vous travaillez sur un projet frontend et importez des fichiers CSS&nbsp;:
+
+```js title="example.js"
+import "../styles/reset.css";
+import "../styles/layout.css";
+import { Grid } from "../components/Grid.jsx";
+```
+
+Un autre cas répandu est l’import de polyfills ou de fichiers de calage, qui a besoin de rester en haut du fichier&nbsp;:
+
+```js title="example.js"
+import "../polyfills/array/flatMap";
+import { functionThatUsesFlatMap } from "./utils.js";
+```
+
+Dans ces cas, Biome triera tous ces trois imports et il se pourrait que l’ordre **casse** votre application.
+
+Pour éviter cela, créez un «&nbsp;groupe&nbsp;» d’imports. Vous créez un «&nbsp;groupe&nbsp;» en ajoutant une **nouvelle ligne** pour séparer les groupes.
+
+Ainsi, Biome limitera le tri aux seules déclarations d’import qui appartiennent au même groupe&nbsp;:
+
+```js title="example.js"
+// groupe 1, seuls ces deux fichiers seront triés
+import "../styles/reset.css";
+import "../styles/layout.css";
+
+// groupe 2, seul celui-ci est trié
+import { Grid } from "../components/Grid.jsx";
+```
+
+```js title="example.js"
+// groupe 1, le polyfill/fichier de calage
+import "../polyfills/array/flatMap";
+
+// groupe 2, les fichiers qui requièrent le polyfill/fichier de calage
+import { functionThatUsesFlatMap } from "./utils.js";
+```
+
+## Imports à effet secondaire
+
+Les [imports à effet secondaire](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#forms_of_import_declarations) sont des déclarations d’import qui habituellement n’importent aucun nom&nbsp;:
+
+```js
+import "./global.js"
+```
+
+Puisqu’il est difficile de déterminer quels effets secondaires un module provoque, le trieur d’import part du principe que chaque import à effet secondaire forme son propre groupe d’imports.
+
+Par exemple, les imports suivants forment 4 groupes d’imports&nbsp;:
+
+```js name="file.js"
+import sibling from "./sibling";       // Groupe d’imports 1
+import { internal } from "#internal";  // Groupe d’imports 1
+import "z";  // Groupe d’imports 2
+import "a";  // Groupe d’imports 3
+import React from "react";         // Groupe d’imports 4
+import assert from "node:assert";  // Groupe d’imports 4
+```
+
+Chaque groupe est trié indépendamment, comme suit&nbsp;:
+
+```js name="file.js"
+import { internal } from "#internal";  // Groupe d’imports 1
+import sibling from "./sibling";      // Groupe d’imports 1
+import "z";  // Groupe d’imports 2
+import "a";  // Groupe d’imports 3
+import assert from "node:assert";  // Groupe d’imports 4
+import React from "react";         // Groupe d’imports 4
+```
+
+## Tri des imports via la ligne de commande
+
+En utilisant la commande `check`, avec l’option `--write`. Si vous ne voulez qu’ordonner les imports, vous pouvez utiliser `check` comme ceci&nbsp;:
+
+```shell
+biome check \
+    --formatter-enabled=false\
+    --linter-enabled=false \
+    --organize-imports-enabled=true \
+    --write \
+    ./chemin/vers/src
+```
+
+## Tri des imports via l’extension pour VSCode
+
+L’extension Biome pour VS Code prend en charge le tri des imports à travers l’action de code «&nbsp;Organiser les importations&nbsp;».
+Par défaut, cette action peut être exécutée en utilisant le raccourci clavier <kbd title="Majuscule">⇧</kbd>+<kbd>Alt</kbd>/<kbd title="Option">⌥</kbd>+<kbd>O</kbd> ou est accessible via la _palette de commandes_ (<kbd>Ctrl</kbd>/<kbd title="Pomme">⌘</kbd>+<kbd title="Majuscule">⇧</kbd>+<kbd>P</kbd>) en sélectionnant _Organiser les importations._
+
+Vous pouvez ajouter le code suivant à la configuration de votre éditeur si vous voulez que l’action s’exécute automatiquement à l’enregistrement au lieu de l’appeler manuellement&nbsp;:
+
+```json title="settings.json"
+{
+	"editor.codeActionsOnSave":{
+		"source.organizeImports.biome": "explicit"
+	}
+}
+```
