@@ -1,0 +1,95 @@
+---
+title: Розширення Zed
+description: Примітки щодо розширення Biome для Zed
+---
+
+## Встановлення
+
+Потрібен Zed версії >= **v0.131.0**.
+
+Це розширення доступне у перегляді розширень всередині редактора Zed. Відкрийте `zed: extensions` і знайдіть _Biome_.
+
+## Конфігурація
+
+За замовчуванням файл biome.json повинен бути в **корені робочої області**.
+
+Інакше його можна налаштувати через налаштування lsp:
+
+```jsonc
+// settings.json
+{
+  "lsp": {
+    "biome": {
+      "settings": {
+        "config_path": "<path>/biome.json"
+      }
+    }
+  }
+}
+```
+
+### Форматування
+
+Щоб використовувати мовний сервер як форматувальник, вкажіть biome як форматувальник у налаштуваннях:
+
+```jsonc
+// settings.json
+{
+  "formatter": {
+    "language_server": {
+      "name": "biome"
+    }
+  }
+}
+```
+
+### Увімкнути biome лише за наявності biome.json
+
+```jsonc
+// settings.json
+{
+  "lsp": {
+    "biome": {
+      "settings": {
+        "require_config_file": true
+      }
+    }
+  }
+}
+```
+
+### Конфігурація на основі проекту
+
+Якщо ви хочете виключити biome з запуску в кожному проекті,
+
+1. Вимкніть мовний сервер biome в налаштуваннях користувача:
+
+```jsonc
+// settings.json
+{
+  "language_servers": [ "!biome", "..." ]
+}
+```
+
+2. І увімкніть його в локальних налаштуваннях проекту:
+
+```jsonc
+// <workspace>/.zed/settings.json
+{
+  "language_servers": [ "biome", "..." ]
+}
+```
+
+Те ж саме можна налаштувати для кожної мови за допомогою ключа [`languages`](https://zed.dev/docs/configuring-zed#languages).
+
+### Виконання дій з кодом під час форматування:
+
+```jsonc
+// settings.json
+{
+  "code_actions_on_format": {
+    "source.fixAll.biome": true,
+    "source.organizeImports.biome": true
+  }
+}
+```

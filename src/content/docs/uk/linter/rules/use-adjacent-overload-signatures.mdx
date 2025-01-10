@@ -1,0 +1,112 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: useAdjacentOverloadSignatures
+description: |
+  Disallow the use of overload signatures that are not next to each other.
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+**Diagnostic Category: `lint/nursery/useAdjacentOverloadSignatures`**
+<Tabs>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+**Since**: `v1.9.0`
+:::caution
+This rule is part of the [nursery](/linter/rules/#nursery) group.
+:::
+
+Sources: 
+- Same as: <a href="https://typescript-eslint.io/rules/adjacent-overload-signatures" target="_blank"><code>@typescript-eslint/adjacent-overload-signatures</code></a>
+
+Disallow the use of overload signatures that are not next to each other.
+
+Overload signatures must be adjacent.
+If a key is defined multiple times, only the last definition takes effect. Previous definitions are ignored.
+This rule is useful for preventing accidental overloads that are not adjacent.
+It is recommended to keep the overload signatures adjacent to make the code easier to read and maintain.
+
+## Examples
+
+### Invalid
+
+```ts
+type Foo = {
+  foo_type(s: string): void;
+  foo_type(n: number): void;
+  bar_type(): void;
+  foo_type(sn: string | number): void;
+};
+```
+
+<pre class="language-text"><code class="language-text">code-block.ts:5:3 <a href="https://biomejs.dev/linter/rules/use-adjacent-overload-signatures">lint/nursery/useAdjacentOverloadSignatures</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">All foo&#95;type signatures must be adjacent.</span><br />  <br />    <strong>3 │ </strong>  foo&#95;type(n: number): void;<br />    <strong>4 │ </strong>  bar&#95;type(): void;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>5 │ </strong>  foo&#95;type(sn: string | number): void;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>6 │ </strong>&#125;;<br />    <strong>7 │ </strong><br />  <br /></code></pre>
+
+```ts
+interface Foo {
+  foo_interface(s: string): void;
+  foo_interface(n: number): void;
+  bar_interface(): void;
+  foo_interface(sn: string | number): void;
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.ts:5:3 <a href="https://biomejs.dev/linter/rules/use-adjacent-overload-signatures">lint/nursery/useAdjacentOverloadSignatures</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">All foo&#95;interface signatures must be adjacent.</span><br />  <br />    <strong>3 │ </strong>  foo&#95;interface(n: number): void;<br />    <strong>4 │ </strong>  bar&#95;interface(): void;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>5 │ </strong>  foo&#95;interface(sn: string | number): void;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>6 │ </strong>&#125;<br />    <strong>7 │ </strong><br />  <br /></code></pre>
+
+```ts
+class A {
+  fooA(s: string): void;
+  fooA(n: number): void;
+  barA(): void {};
+  fooA(sn: string | number): void {};
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.ts:5:3 <a href="https://biomejs.dev/linter/rules/use-adjacent-overload-signatures">lint/nursery/useAdjacentOverloadSignatures</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">All fooA signatures must be adjacent.</span><br />  <br />    <strong>3 │ </strong>  fooA(n: number): void;<br />    <strong>4 │ </strong>  barA(): void &#123;&#125;;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>5 │ </strong>  fooA(sn: string | number): void &#123;&#125;;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>6 │ </strong>&#125;<br />    <strong>7 │ </strong><br />  <br /></code></pre>
+
+### Valid
+
+```ts
+declare namespace Foo {
+  export function foo_declare(s: string): void;
+  export function foo_declare(n: number): void;
+  export function foo_declare(sn: string | number): void;
+  export function bar_declare(): void;
+}
+```
+
+```ts
+type Foo = {
+  foo_type(s: string): void;
+  foo_type(n: number): void;
+  foo_type(sn: string | number): void;
+  bar_type(): void;
+};
+```
+
+```ts
+interface Foo {
+  foo_interface(s: string): void;
+  foo_interface(n: number): void;
+  foo_interface(sn: string | number): void;
+  bar_interface(): void;
+}
+```
+
+```ts
+class A {
+  fooA(s: string): void;
+  fooA(n: number): void;
+  fooA(sn: string | number): void {}
+  barA(): void {}
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
+</Tabs>
+

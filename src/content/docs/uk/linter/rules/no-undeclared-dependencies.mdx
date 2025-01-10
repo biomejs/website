@@ -1,0 +1,94 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noUndeclaredDependencies
+description: |
+  Disallow the use of dependencies that aren\'t specified in the `package.json`.
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+**Diagnostic Category: `lint/correctness/noUndeclaredDependencies`**
+<Tabs>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+**Since**: `v1.6.0`
+Sources: 
+- Same as: <a href="https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-extraneous-dependencies.md" target="_blank"><code>import/no-extraneous-dependencies</code></a>
+
+Disallow the use of dependencies that aren't specified in the `package.json`.
+
+Indirect dependencies will trigger the rule because they aren't declared in the `package.json`.
+This means that if the package `@org/foo` has a dependency on `lodash`, and then you use
+`import "lodash"` somewhere in your project, the rule will trigger a diagnostic for this import.
+
+The rule ignores imports that are not valid package names.
+This includes internal imports that start with `#` and `@/` and imports with a protocol such as `node:`, `bun:`, `jsr:`, `https:`.
+
+To ensure that Visual Studio Code uses relative imports when it automatically imports a variable,
+you may set [`javascript.preferences.importModuleSpecifier` and `typescript.preferences.importModuleSpecifier`](https://code.visualstudio.com/docs/getstarted/settings) to `relative`.
+
+## Examples
+
+### Invalid
+
+```js
+import "vite";
+```
+
+### Valid
+
+```js
+import { A } from "./local.js";
+```
+
+```js
+import assert from "node:assert";
+```
+
+## Options
+
+**Since v2.0.0**
+
+This rule supports the following options:
+
+- `devDependencies`: If set to `false`, then the rule will show an error when `devDependencies` are imported. Defaults to `true`.
+- `peerDependencies`: If set to `false`, then the rule will show an error when `peerDependencies` are imported. Defaults to `true`.
+- `optionalDependencies`: If set to `false`, then the rule will show an error when `optionalDependencies` are imported. Defaults to `true`.
+
+You can set the options like this:
+
+```json
+{
+  "options": {
+    "devDependencies": false,
+    "peerDependencies": false,
+    "optionalDependencies": false
+  }
+}
+```
+
+You can also use an array of globs instead of literal booleans.
+When using an array of globs, the setting will be set to `true` (no errors reported)
+if the name of the file being linted (i.e. not the imported file/module) matches a single glob
+in the array, and `false` otherwise.
+
+In the following example, only test files can use dependencies in `devDependencies` section.
+`dependencies`, `peerDependencies`, and `optionalDependencies` are always available.
+
+```json
+{
+  "options": {
+    "devDependencies": ["tests/*.test.js", "tests/*.spec.js"]
+  }
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
+</Tabs>
+

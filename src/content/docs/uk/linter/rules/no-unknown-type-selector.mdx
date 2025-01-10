@@ -1,0 +1,78 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noUnknownTypeSelector
+description: |
+  Disallow unknown type selectors.
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+**Diagnostic Category: `lint/nursery/noUnknownTypeSelector`**
+<Tabs>
+<TabItem label="CSS" icon="seti:css">
+**Since**: `v1.9.4`
+:::caution
+This rule is part of the [nursery](/linter/rules/#nursery) group.
+:::
+
+Sources: 
+- Same as: <a href="https://github.com/stylelint/stylelint/blob/main/lib/rules/selector-type-no-unknown/README.md" target="_blank"><code>stylelint/selector-type-no-unknown</code></a>
+
+Disallow unknown type selectors.
+
+This rule considers tags defined in the HTML, SVG, and MathML specifications to be known.
+For details on known CSS type selectors, see the following links
+
+- https://developer.mozilla.org/en-US/docs/Web/CSS/Type_selectors
+- https://developer.mozilla.org/ja/docs/Web/HTML/Element
+- https://developer.mozilla.org/ja/docs/Web/SVG/Element
+- https://developer.mozilla.org/ja/docs/Web/MathML/Element
+
+This rule allows custom elements.
+
+## Examples
+
+### Invalid
+
+```css
+unknown {}
+```
+
+<pre class="language-text"><code class="language-text">code-block.css:1:1 <a href="https://biomejs.dev/linter/rules/no-unknown-type-selector">lint/nursery/noUnknownTypeSelector</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unknown type selector is not allowed.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>unknown &#123;&#125;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">See </span><span style="color: lightgreen;"><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Type_selectors">MDN web docs</a></span><span style="color: lightgreen;"> for more details.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Consider replacing the unknown type selector with valid one.</span><br />  <br /></code></pre>
+
+```css
+unknown > ul {}
+```
+
+<pre class="language-text"><code class="language-text">code-block.css:1:1 <a href="https://biomejs.dev/linter/rules/no-unknown-type-selector">lint/nursery/noUnknownTypeSelector</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unknown type selector is not allowed.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>unknown &gt; ul &#123;&#125;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">See </span><span style="color: lightgreen;"><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Type_selectors">MDN web docs</a></span><span style="color: lightgreen;"> for more details.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Consider replacing the unknown type selector with valid one.</span><br />  <br /></code></pre>
+
+```css
+x-Foo {}
+```
+
+<pre class="language-text"><code class="language-text">code-block.css:1:1 <a href="https://biomejs.dev/linter/rules/no-unknown-type-selector">lint/nursery/noUnknownTypeSelector</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unknown type selector is not allowed.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>x-Foo &#123;&#125;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">See </span><span style="color: lightgreen;"><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Type_selectors">MDN web docs</a></span><span style="color: lightgreen;"> for more details.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Consider replacing the unknown type selector with valid one.</span><br />  <br /></code></pre>
+
+### Valid
+
+```css
+input {}
+```
+
+```css
+ul > li {}
+```
+
+```css
+x-foo {}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
+</Tabs>
+

@@ -1,0 +1,60 @@
+---
+title: Ручна установка
+description: Встановіть Biome вручну
+---
+
+Використання автономного CLI-бінарного файлу Biome може бути чудовим вибором, якщо ви ще не використовуєте Node.js або `npm` (або будь-який інший менеджер пакетів).
+Іншими словами, Biome не повинен бути єдиною причиною для наявності `package.json`.
+
+:::note
+Якщо ви вже використовуєте `npm` або інший менеджер пакетів, то використання менеджера пакетів є [переважним способом установки](/guides/getting-started#installation) Biome.
+Ви вже знайомі з інструментами, і установка та оновлення є простішими.
+:::
+
+## Підтримувані платформи
+
+Вам потрібно вибрати правильний бінарний файл для вашої платформи, щоб Biome працював. Наступна таблиця допоможе вам у цьому.
+
+| Архітектура CPU | Windows       | macOS                        | Linux         | Linux (musl)       |
+| --------------- | ------------- | ---------------------------- | ------------- | ------------------ |
+| `arm64`         | `win32-arm64` | `darwin-arm64` (M1 або новіше) | `linux-arm64` | `linux-arm64-musl` |
+| `x64`           | `win32-x64`   | `darwin-x64`                 | `linux-x64`   | `linux-x64-musl`   |
+
+:::note
+Використовуйте варіант Linux для Windows Subsystem for Linux (WSL).
+:::
+
+## Homebrew
+
+Biome доступний як [формула Homebrew](https://formulae.brew.sh/formula/biome) для користувачів macOS та Linux.
+
+```shell
+brew install biome
+```
+
+## Використання опублікованого бінарного файлу
+
+Щоб встановити Biome, завантажте виконуваний файл для вашої платформи з [останнього випуску CLI](https://github.com/biomejs/biome/releases) на GitHub і надайте йому права на виконання.
+
+```shell
+# macOS arm (M1 або новіше)
+curl -L https://github.com/biomejs/biome/releases/download/cli%2Fv<version>/biome-darwin-arm64 -o biome
+chmod +x biome
+
+# Linux (x86_64)
+curl -L https://github.com/biomejs/biome/releases/download/cli%2Fv<version>/biome-linux-x64 -o biome
+chmod +x biome
+
+# Windows (x86_64, Powershell)
+Invoke-WebRequest -Uri "https://github.com/biomejs/biome/releases/download/cli%2Fv<version>/biome-win32-x64.exe" -OutFile "biome.exe"
+```
+
+:::note
+Обов'язково замініть `<version>` на версію Biome, яку ви хочете встановити.
+:::
+
+Тепер ви можете використовувати Biome, просто запустивши `./biome`.
+
+## Наступні кроки
+
+Слідуйте нашому [Посібнику з початку роботи](/guides/getting-started/).
