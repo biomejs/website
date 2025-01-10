@@ -26,14 +26,14 @@ hero:
       variant: secondary
 ---
 
-import {Card, CardGrid} from "@astrojs/starlight/components";
+import { Card, CardGrid } from "@astrojs/starlight/components";
 import Inputf from "@/components/formatter/input.md";
 import Outputf from "@/components/formatter/output.md";
 import ProgressBarContainer from "@/playground/components/Progress.tsx";
 import Community from "@/components/generated/Community.astro";
-import {Icon} from "@astrojs/starlight/components";
+import { Icon } from "@astrojs/starlight/components";
 import arrow from "@/assets/svg/arrow-right.svg";
-import {Image} from "astro:assets";
+import { Image } from "astro:assets";
 import "@/styles/_performance.css";
 import "@/styles/_installation.css";
 import "@/styles/_community.css";
@@ -153,10 +153,6 @@ import AwardBanner from "@/components/AwardBanner.astro"
             Designed to handle codebases of any size. Focus on growing product instead
             of your tools.
         </Card>
-        <Card title="Optimized" icon="setting">
-            With tight internal integration we are able to reuse previous work and any
-            improvement to one tool improves them all.
-        </Card>
         <Card title="Actionable & Informative" icon="information">
             Avoid obscure error messages, when we tell you something is wrong, we tell
             you exactly where the problem is and how to fix it.
@@ -164,6 +160,10 @@ import AwardBanner from "@/components/AwardBanner.astro"
         <Card title="Batteries Included" icon="add-document">
             Out of the box support for all the language features you use today. First
             class support for TypeScript and JSX.
+        </Card>
+        <Card title="Commercial Support" icon="phone">
+            We offer <a href="/support/">commercial support</a> to organizations that
+            need it through our community of contributors.
         </Card>
     </CardGrid>
 </div>
