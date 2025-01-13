@@ -19,6 +19,7 @@ This rule is part of the [nursery](/linter/rules/#nursery) group.
 Sources: 
 - Same as: <a href="https://nextjs.org/docs/messages/no-document-import-in-page" target="_blank"><code>@next/no-document-import-in-page</code></a>
 
+## Description
 Prevents importing `next/document` outside of `pages/_document.jsx` in Next.js projects.
 
 The `next/document` module is intended for customizing the document structure globally in Next.js.
@@ -42,6 +43,19 @@ export default class MyDocument extends Document {
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noDocumentImportInPage": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

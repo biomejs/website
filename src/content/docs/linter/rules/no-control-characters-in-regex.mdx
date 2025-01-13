@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-control-regex" target="_blank"><code>no-control-regex</code></a>
 
+## Description
 Prevents from having control characters and some escape sequences that match control characters in regular expressions.
 
 Control characters are hidden special characters that are numbered from 0 to 31 in the ASCII system.
@@ -90,6 +91,19 @@ var pattern5 = /\n/;
 var pattern6 = new RegExp("\x20");
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noControlCharactersInRegex": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

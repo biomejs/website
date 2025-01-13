@@ -20,6 +20,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-var" target="_blank"><code>no-var</code></a>
 
+## Description
 Disallow the use of `var`
 
 ECMAScript 6 allows programmers to create variables with block scope instead of function scope using the let and const keywords.
@@ -43,6 +44,19 @@ const foo = 1;
 let bar = 1;
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"noVar": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

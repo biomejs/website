@@ -20,6 +20,7 @@ Sources:
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-redeclare" target="_blank"><code>no-redeclare</code></a>
 - Same as: <a href="https://typescript-eslint.io/rules/no-redeclare" target="_blank"><code>@typescript-eslint/no-redeclare</code></a>
 
+## Description
 Disallow variable, function, class, and type redeclarations in the same scope.
 
 ## Examples
@@ -80,6 +81,19 @@ class Foo {
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noRedeclare": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

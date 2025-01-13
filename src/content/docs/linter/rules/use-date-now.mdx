@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-date-now.md" target="_blank"><code>unicorn/prefer-date-now</code></a>
 
+## Description
 Use `Date.now()` to get the number of milliseconds since the Unix Epoch.
 
 `Date.now()` is more readable than `new Date().getTime()` and its variants,
@@ -68,6 +69,19 @@ const foo = Date.now();
 const foo = Date.now() * 2;
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"complexity": {
+				"useDateNow": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

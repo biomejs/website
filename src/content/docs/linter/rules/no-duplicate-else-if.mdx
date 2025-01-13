@@ -19,6 +19,7 @@ This rule is part of the [nursery](/linter/rules/#nursery) group.
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-dupe-else-if" target="_blank"><code>no-dupe-else-if</code></a>
 
+## Description
 Disallow duplicate conditions in if-else-if chains
 
 if-else-if chains are commonly used when there is a need to execute only one branch
@@ -59,6 +60,19 @@ if (a) {
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noDuplicateElseIf": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

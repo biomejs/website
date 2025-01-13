@@ -21,6 +21,7 @@ Sources:
 - Same as: <a href="https://typescript-eslint.io/rules/no-unused-vars" target="_blank"><code>@typescript-eslint/no-unused-vars</code></a>
 - Same as: <a href="https://github.com/sweepline/eslint-plugin-unused-imports/blob/master/docs/rules/no-unused-vars.md" target="_blank"><code>unused-imports/no-unused-vars</code></a>
 
+## Description
 Disallow unused variables.
 
 There is an exception to this rule:
@@ -108,6 +109,19 @@ function used_overloaded(s?: string) {
 used_overloaded();
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noUnusedVariables": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

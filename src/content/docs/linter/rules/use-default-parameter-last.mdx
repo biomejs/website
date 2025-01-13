@@ -21,6 +21,7 @@ Sources:
 - Same as: <a href="https://eslint.org/docs/latest/rules/default-param-last" target="_blank"><code>default-param-last</code></a>
 - Same as: <a href="https://typescript-eslint.io/rules/default-param-last" target="_blank"><code>@typescript-eslint/default-param-last</code></a>
 
+## Description
 Enforce default function parameters and optional function parameters to be last.
 
 Default and optional parameters that precede a required parameter cannot be omitted at call site.
@@ -69,6 +70,19 @@ function f(a: number, b?: number, c = 0) {}
 function f(a: number, b = 0, c?: number) {}
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useDefaultParameterLast": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

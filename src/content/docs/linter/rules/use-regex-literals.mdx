@@ -20,6 +20,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/prefer-regex-literals" target="_blank"><code>prefer-regex-literals</code></a>
 
+## Description
 Enforce the use of the regular expression literals instead of the RegExp constructor if possible.
 
 There are two ways to create a regular expression:
@@ -51,6 +52,19 @@ new RegExp("abc", "u");
 new RegExp("abc", flags);
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"complexity": {
+				"useRegexLiterals": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

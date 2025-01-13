@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Inspired from: <a href="https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-export.md" target="_blank"><code>jest/no-export</code></a>
 
+## Description
 Disallow using `export` or `module.exports` in files containing tests
 
 This rule aims to eliminate duplicate runs of tests by exporting things from test files.
@@ -47,6 +48,19 @@ describe('a test', () => {
 });
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noExportsInTest": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

@@ -20,6 +20,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-unsafe-negation" target="_blank"><code>no-unsafe-negation</code></a>
 
+## Description
 Disallow using unsafe negation.
 
 ## Examples
@@ -49,6 +50,19 @@ delete 1 in [1,2];
 +1 instanceof [1,2];
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noUnsafeNegation": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

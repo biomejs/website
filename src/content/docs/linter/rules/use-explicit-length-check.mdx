@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/explicit-length-check.md" target="_blank"><code>unicorn/explicit-length-check</code></a>
 
+## Description
 Enforce explicitly comparing the `length`, `size`, `byteLength` or `byteOffset` property of a value.
 
 This rule enforces a specific style length comparisons to make them more clear.
@@ -193,6 +194,19 @@ const foo1 = { size: "small" }; if (foo1.size) {}
 To properly handle this case, type inference would be required, which is not supported by Biome at the moment.
 We recommend disabling this rule when working with non-numeric `length`/`size` properties.
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useExplicitLengthCheck": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)
