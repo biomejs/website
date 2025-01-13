@@ -37,7 +37,7 @@ import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
         </div>
     </div>
     <div class="sponsorship">
-        <Icon color="red" name="heart" size="6rem" />
+        <Icon class="logo" color="red" name="heart" size="6rem" />
         <div>
             <h2>Were you looking to support Biome instead?</h2>
             <p>
@@ -51,7 +51,7 @@ import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
     <p class="fineprint">
         Support requests are subject to contributor availability. For terms and
         conditions, please see our
-        <a href="https://github.com/biomejs/biome/blob/main/GOVERNANCE.md">Governance document</a>.
+        <a href="https://github.com/biomejs/biome/blob/main/GOVERNANCE.md#paid-contracting">Governance document</a>.
     </p>
 </StarlightPage>
 
@@ -91,5 +91,18 @@ import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
     .fineprint {
         color: var(--sl-color-gray-3);
         text-align: center;
+    }
+
+    @media screen and (max-width: 480px) {
+        .ctas {
+            flex-direction: column;
+        }
+
+        .sponsorship {
+            margin: 7rem 2rem 4rem;
+        }
+        .sponsorship>.logo {
+            display: none;
+        }
     }
 </style>
