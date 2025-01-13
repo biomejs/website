@@ -20,6 +20,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/aria-role.md" target="_blank"><code>jsx-a11y/aria-role</code></a>
 
+## Description
 Elements with ARIA roles must use a valid, non-abstract ARIA role.
 
 ## Examples
@@ -81,6 +82,19 @@ Elements with ARIA roles must use a valid, non-abstract ARIA role.
 - [DPUB-ARIA roles](https://www.w3.org/TR/dpub-aria-1.0/)
 - [MDN: Using ARIA: Roles, states, and properties](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"a11y": {
+				"useValidAriaRole": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

@@ -19,6 +19,7 @@ This rule is part of the [nursery](/linter/rules/#nursery) group.
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-template-curly-in-string" target="_blank"><code>no-template-curly-in-string</code></a>
 
+## Description
 Disallow template literal placeholder syntax in regular strings.
 
 ECMAScript 6 allows programmers to create strings containing variable or expressions using template literals,
@@ -57,6 +58,19 @@ const a = `Time: ${12 * 60 * 60 * 1000}`;
 const a = templateFunction`Hello ${name}`;
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noTemplateCurlyInString": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

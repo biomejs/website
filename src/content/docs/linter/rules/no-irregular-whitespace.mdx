@@ -19,6 +19,7 @@ This rule is part of the [nursery](/linter/rules/#nursery) group.
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-irregular-whitespace" target="_blank"><code>no-irregular-whitespace</code></a>
 
+## Description
 Disallows the use of irregular whitespace characters.
 
 Invalid or irregular whitespace causes issues with various parsers and also makes code harder to debug.
@@ -49,6 +50,19 @@ const count = 1;
 const foo = '';
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noIrregularWhitespace": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)
@@ -65,6 +79,7 @@ This rule is part of the [nursery](/linter/rules/#nursery) group.
 Sources: 
 - Same as: <a href="https://github.com/stylelint/stylelint/blob/main/lib/rules/no-irregular-whitespace/README.md" target="_blank"><code>stylelint/no-irregular-whitespace</code></a>
 
+## Description
 Disallows the use of irregular whitespace characters.
 
 Using irregular whitespace would lead to the failure of selecting the correct target.
@@ -97,6 +112,19 @@ Using irregular whitespace would lead to the failure of selecting the correct ta
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noIrregularWhitespace": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

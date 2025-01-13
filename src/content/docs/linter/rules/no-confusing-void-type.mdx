@@ -20,6 +20,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://typescript-eslint.io/rules/no-invalid-void-type" target="_blank"><code>@typescript-eslint/no-invalid-void-type</code></a>
 
+## Description
 Disallow `void` type outside of generic or return types.
 
 `void` in TypeScript refers to a function return that is meant to be ignored.
@@ -77,6 +78,19 @@ function doSomething(this: void) {}
 function printArg<T = void>(arg: T) {}
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noConfusingVoidType": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

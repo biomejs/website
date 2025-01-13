@@ -23,6 +23,7 @@ This rule is part of the [nursery](/linter/rules/#nursery) group.
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-useless-escape" target="_blank"><code>no-useless-escape</code></a>
 
+## Description
 Disallow unnecessary escape sequence in regular expression literals.
 
 Escaping non-special characters in regular expression literals doesn't have any effect.
@@ -60,6 +61,19 @@ Hence, they may confuse a reader.
 /[\b]/
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noUselessEscapeInRegex": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

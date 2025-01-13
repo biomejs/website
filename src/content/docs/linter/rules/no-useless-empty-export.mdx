@@ -20,6 +20,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://typescript-eslint.io/rules/no-useless-empty-export" target="_blank"><code>@typescript-eslint/no-useless-empty-export</code></a>
 
+## Description
 Disallow empty exports that don't change anything in a module file.
 
 An empty `export {}` is sometimes useful to turn a file that would otherwise be a script into a module.
@@ -57,6 +58,19 @@ export {};
 export {};
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"complexity": {
+				"noUselessEmptyExport": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

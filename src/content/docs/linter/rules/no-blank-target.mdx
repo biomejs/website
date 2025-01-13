@@ -20,6 +20,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-no-target-blank.md" target="_blank"><code>react/jsx-no-target-blank</code></a>
 
+## Description
 Disallow `target="_blank"` attribute without `rel="noreferrer"`
 
 When creating anchor `a` element, there are times when its link has to be opened in a new browser tab
@@ -102,6 +103,19 @@ The diagnostic is applied to all domains not in the allow list:
 
 Biome doesn't check if the list contains valid URLs.
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"a11y": {
+				"noBlankTarget": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

@@ -16,6 +16,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
 
+## Description
 Prevent the usage of the return value of `React.render`.
 
 >`ReactDOM.render()` currently returns a reference to the root `ReactComponent` instance. However, using this return value is legacy
@@ -42,6 +43,19 @@ const foo = ReactDOM.render(<div />, document.body);
 ReactDOM.render(<div />, document.body);
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noRenderReturnValue": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

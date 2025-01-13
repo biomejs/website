@@ -19,6 +19,7 @@ This rule is part of the [nursery](/linter/rules/#nursery) group.
 Sources: 
 - Same as: <a href="https://github.com/stylelint/stylelint/blob/main/lib/rules/at-rule-no-unknown/README.md" target="_blank"><code>stylelint/at-rule-no-unknown</code></a>
 
+## Description
 Disallow unknown at-rules.
 
 For details on known at-rules, see the [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule).
@@ -55,6 +56,19 @@ For details on known at-rules, see the [MDN web docs](https://developer.mozilla.
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noUnknownAtRule": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

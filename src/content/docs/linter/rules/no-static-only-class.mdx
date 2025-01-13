@@ -20,6 +20,7 @@ Sources:
 - Same as: <a href="https://typescript-eslint.io/rules/no-extraneous-class" target="_blank"><code>@typescript-eslint/no-extraneous-class</code></a>
 - Same as: <a href="https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-static-only-class.md" target="_blank"><code>unicorn/no-static-only-class</code></a>
 
+## Description
 This rule reports when a class has no non-static members, such as for a class used exclusively as a static namespace.
 
 Users who come from a [OOP](https://en.wikipedia.org/wiki/Object-oriented_programming) paradigm may wrap their utility functions in an extra class,
@@ -114,6 +115,19 @@ export function incrementCount() {
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"complexity": {
+				"noStaticOnlyClass": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

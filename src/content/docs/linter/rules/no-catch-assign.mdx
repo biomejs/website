@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-ex-assign" target="_blank"><code>no-ex-assign</code></a>
 
+## Description
 Disallow reassigning exceptions in catch clauses.
 
 Assignment to a `catch` parameter can be misleading and confusing.
@@ -50,6 +51,19 @@ try {
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noCatchAssign": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

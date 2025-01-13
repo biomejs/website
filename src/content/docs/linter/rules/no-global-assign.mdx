@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-global-assign" target="_blank"><code>no-global-assign</code></a>
 
+## Description
 Disallow assignments to native objects and read-only global variables.
 
 JavaScript's environments contain numerous built-in global variables, such as `window` in browsers and `process` in Node.js.
@@ -57,6 +58,19 @@ let window;
 window = {};
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noGlobalAssign": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

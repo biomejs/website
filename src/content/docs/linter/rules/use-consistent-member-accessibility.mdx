@@ -19,6 +19,7 @@ This rule is part of the [nursery](/linter/rules/#nursery) group.
 Sources: 
 - Same as: <a href="https://typescript-eslint.io/rules/explicit-member-accessibility" target="_blank"><code>@typescript-eslint/explicit-member-accessibility</code></a>
 
+## Description
 Require consistent accessibility modifiers on class properties and methods.
 
 TypeScript allows placing explicit `public`, `protected`, and `private` accessibility modifiers in front of class members.
@@ -345,6 +346,19 @@ It can be set to one of the following values:
 
 **Default:** `noPublic`
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useConsistentMemberAccessibility": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

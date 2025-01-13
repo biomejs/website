@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-key.md" target="_blank"><code>react/jsx-key</code></a>
 
+## Description
 Disallow missing key props in iterators/collection literals.
 
 Warn if an element that likely requires a key prop--namely, one present in an array literal or an arrow function expression.
@@ -47,6 +48,19 @@ data.map((x) => <Hello>{x}</Hello>);
 data.map((x) => <Hello key={x.id}>{x}</Hello>);
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"useJsxKeyInIterable": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

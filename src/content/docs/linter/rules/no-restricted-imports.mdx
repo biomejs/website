@@ -20,6 +20,7 @@ Sources:
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-restricted-imports" target="_blank"><code>no-restricted-imports</code></a>
 - Same as: <a href="https://typescript-eslint.io/rules/no-restricted-imports" target="_blank"><code>@typescript-eslint/no-restricted-imports</code></a>
 
+## Description
 Disallow specified modules when loaded by import or require.
 
 ## Examples
@@ -334,6 +335,19 @@ import { Baz } from 'import-bar';
 import { Bar } from 'import-bar';
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noRestrictedImports": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

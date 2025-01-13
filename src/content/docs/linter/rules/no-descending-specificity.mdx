@@ -19,6 +19,7 @@ This rule is part of the [nursery](/linter/rules/#nursery) group.
 Sources: 
 - Same as: <a href="https://github.com/stylelint/stylelint/blob/main/lib/rules/no-descending-specificity/README.md" target="_blank"><code>stylelint/no-descending-specificity</code></a>
 
+## Description
 Disallow a lower specificity selector from coming after a higher specificity selector.
 
 This rule prohibits placing selectors with lower specificity after selectors with higher specificity.
@@ -84,6 +85,19 @@ a b {
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noDescendingSpecificity": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

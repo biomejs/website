@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-useless-concat" target="_blank"><code>no-useless-concat</code></a>
 
+## Description
 Disallow unnecessary concatenation of string or template literals.
 
 This rule aims to flag the concatenation of 2 literals when they could be combined into a single literal. Literals can be strings or template literals.
@@ -73,6 +74,19 @@ const a = 'foo' +
           'bar'
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"complexity": {
+				"noUselessStringConcat": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

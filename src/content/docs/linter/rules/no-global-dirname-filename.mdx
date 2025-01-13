@@ -23,6 +23,7 @@ This rule is part of the [nursery](/linter/rules/#nursery) group.
 Sources: 
 - Inspired from: <a href="https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-module.md" target="_blank"><code>unicorn/prefer-module</code></a>
 
+## Description
 Disallow the use of `__dirname` and `__filename` in the global scope.
 
 They are [not available in ES modules](https://nodejs.org/api/esm.html#esm_no_filename_or_dirname).
@@ -65,6 +66,19 @@ const foo = {__filename: import.meta.filename };
 if (import.meta.dirname.startsWith("/project/src/")) {}
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noGlobalDirnameFilename": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)
