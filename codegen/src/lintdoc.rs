@@ -8,7 +8,7 @@ use biome_analyze::{
     AnalysisFilter, AnalyzerOptions, ControlFlow, FixKind, GroupCategory, Queryable,
     RegistryVisitor, Rule, RuleCategory, RuleFilter, RuleGroup, RuleMetadata, RuleSourceKind,
 };
-use biome_configuration::{ PartialConfiguration};
+use biome_configuration::PartialConfiguration;
 use biome_console::fmt::Termcolor;
 use biome_console::{
     fmt::{Formatter, HTML},
@@ -19,6 +19,7 @@ use biome_css_syntax::CssLanguage;
 use biome_deserialize::json::deserialize_from_json_ast;
 use biome_diagnostics::termcolor::NoColor;
 use biome_diagnostics::{Diagnostic, DiagnosticExt, PrintDiagnostic};
+use biome_formatter::LineWidth;
 use biome_fs::BiomePath;
 use biome_graphql_syntax::GraphqlLanguage;
 use biome_js_parser::JsParserOptions;
@@ -45,7 +46,6 @@ use std::{
     slice,
     str::{self, FromStr},
 };
-use biome_formatter::LineWidth;
 
 #[derive(Debug, Default, Clone)]
 pub(crate) struct RuleToDocument {
@@ -727,7 +727,11 @@ fn write_how_to_configure(
     );
 
     let parsed = biome_json_parser::parse_json(&json, JsonParserOptions::default());
-    let printed = format_node(JsonFormatOptions::default().with_line_width(LineWidth::try_from(1).unwrap()), &parsed.syntax())?.print()?;
+    let printed = format_node(
+        JsonFormatOptions::default().with_line_width(LineWidth::try_from(1).unwrap()),
+        &parsed.syntax(),
+    )?
+    .print()?;
 
     writeln!(content, "```json title=\"biome.json\"")?;
     writeln!(content, "{}", printed.as_code())?;
@@ -747,9 +751,8 @@ fn write_documentation(
     // content, used as a short summary of what the rule does in the rules page
     summary: &mut Vec<Event<'static>>,
 ) -> Result<()> {
-    
     writeln!(content, "## Description")?;
-    
+
     let parser = Parser::new(docs);
 
     let mut is_summary = false;
