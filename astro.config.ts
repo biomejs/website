@@ -203,6 +203,7 @@ export default defineConfig({
 									translations: {
 										fr: "Intégrer Biome à une extension pour un éditeur",
 										ja: "エディタ拡張機能への Biome の統合",
+										"zh-CN": "在编辑器扩展中集成 Biome",
 										uk: "Інтеграція Biome в розширення редактора",
 									},
 								},
