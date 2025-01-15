@@ -44,7 +44,6 @@ if (process.env?.E2E !== "true") {
 	plugins.push(
 		lunaria({
 			route: "i18n-dashboard",
-			sync: true,
 		}),
 	);
 }
