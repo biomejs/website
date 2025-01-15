@@ -128,7 +128,7 @@ export default defineConfig({
 							translations: {
 								fr: "Configurer Biome",
 								ja: "Biome の設定",
-								"zh-CN": "配置生物群落",
+								"zh-CN": "配置 Biome",
 								"pt-BR": "Configurar Bioma",
 							},
 						},
