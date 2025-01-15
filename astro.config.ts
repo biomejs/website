@@ -44,7 +44,6 @@ if (process.env?.E2E !== "true") {
 	plugins.push(
 		lunaria({
 			route: "i18n-dashboard",
-			sync: true,
 		}),
 	);
 }
@@ -94,6 +93,11 @@ export default defineConfig({
 					},
 				},
 				{
+					label: "Support",
+					link: "../support",
+					translations: {},
+				},
+				{
 					label: "Guides",
 					translations: { ja: "ガイド", "zh-CN": "指南", "pt-BR": "Guias" },
 					items: [
@@ -123,7 +127,7 @@ export default defineConfig({
 							translations: {
 								fr: "Configurer Biome",
 								ja: "Biome の設定",
-								"zh-CN": "配置生物群落",
+								"zh-CN": "配置 Biome",
 								"pt-BR": "Configurar Bioma",
 							},
 						},

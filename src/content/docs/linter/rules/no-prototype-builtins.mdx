@@ -21,6 +21,7 @@ Sources:
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-prototype-builtins" target="_blank"><code>no-prototype-builtins</code></a>
 - Same as: <a href="https://eslint.org/docs/latest/rules/prefer-object-has-own" target="_blank"><code>prefer-object-has-own</code></a>
 
+## Description
 Disallow direct use of `Object.prototype` builtins.
 
 ECMAScript 5.1 added `Object.create` which allows the creation of an object with a custom prototype.
@@ -68,6 +69,19 @@ var valid = Object.prototype.isPrototypeOf.call(foo, bar);
 var valid = {}.propertyIsEnumerable.call(foo, "bar");
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noPrototypeBuiltins": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

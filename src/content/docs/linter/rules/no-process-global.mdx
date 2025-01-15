@@ -23,6 +23,7 @@ This rule is part of the [nursery](/linter/rules/#nursery) group.
 Sources: 
 - Same as: <a href="https://lint.deno.land/rules/no-process-global" target="_blank"><code>deno-lint/no-process-global</code></a>
 
+## Description
 Disallow the use of `process` global.
 
 Node.js and Deno expose `process` global but they are hard to statically analyze by tools,
@@ -53,6 +54,19 @@ const foo = globalThis;
 const bar = foo.process;
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noProcessGlobal": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

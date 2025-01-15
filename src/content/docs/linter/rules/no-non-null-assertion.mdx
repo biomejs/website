@@ -20,6 +20,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://typescript-eslint.io/rules/no-non-null-assertion" target="_blank"><code>@typescript-eslint/no-non-null-assertion</code></a>
 
+## Description
 Disallow non-null assertions using the `!` postfix operator.
 
 TypeScript's `!` non-null assertion operator asserts to the type system that an expression is non-nullable, as
@@ -58,6 +59,19 @@ declare const foo: Example;
 const includesBaz = foo.property?.includes('baz') ?? false;
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"noNonNullAssertion": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

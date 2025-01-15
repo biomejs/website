@@ -16,6 +16,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - This rule has an **unsafe** fix.
 :::
 
+## Description
 Enforce file extensions for relative imports.
 
 Browsers and Node.js do not natively support importing files without extensions. This rule
@@ -134,6 +135,19 @@ Rule does not yet check filesystem for file type. It tries to guess which extens
 it should add based on the file extension of the current file and the import path.
 When applying the suggested fix, make sure to verify that the file type is correct.
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"useImportExtensions": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

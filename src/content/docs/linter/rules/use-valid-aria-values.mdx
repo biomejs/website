@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/aria-proptypes.md" target="_blank"><code>jsx-a11y/aria-proptypes</code></a>
 
+## Description
 Enforce that ARIA state and property values are valid.
 
 ## Examples
@@ -67,6 +68,19 @@ Enforce that ARIA state and property values are valid.
 - [ARIA Spec, States and Properties](https://www.w3.org/TR/wai-aria/#states_and_properties)
 - [Chrome Audit Rules, AX_ARIA_04](https://github.com/GoogleChrome/accessibility-developer-tools/wiki/Audit-Rules#ax_aria_04)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"a11y": {
+				"useValidAriaValues": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

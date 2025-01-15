@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://github.com/stylelint/stylelint/blob/main/lib/rules/media-feature-name-no-unknown/README.md" target="_blank"><code>stylelint/media-feature-name-no-unknown</code></a>
 
+## Description
 Disallow unknown media feature names.
 
 This rule considers media feature names defined in the CSS Specifications, up to and including Editor's Drafts, to be known.
@@ -81,6 +82,19 @@ Data sources of known CSS media feature are:
 @media screen and (-webkit-width > 320px) {}
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noUnknownMediaFeatureName": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

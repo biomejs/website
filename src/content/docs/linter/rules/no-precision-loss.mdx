@@ -21,6 +21,7 @@ Sources:
 - Same as: <a href="https://typescript-eslint.io/rules/no-loss-of-precision" target="_blank"><code>@typescript-eslint/no-loss-of-precision</code></a>
 - Same as: <a href="https://rust-lang.github.io/rust-clippy/master/#/lossy_float_literal" target="_blank"><code>lossy_float_literal</code></a>
 
+## Description
 Disallow literal numbers that lose precision
 
 ## Examples
@@ -63,6 +64,19 @@ const x = 9007199254740991
 const x = 9007_1992547409_91
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noPrecisionLoss": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

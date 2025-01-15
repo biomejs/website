@@ -20,6 +20,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/prefer-numeric-literals" target="_blank"><code>prefer-numeric-literals</code></a>
 
+## Description
 Disallow `parseInt()` and `Number.parseInt()` in favor of binary, octal, and hexadecimal literals
 
 _JavaScript_ provides literal forms for binary, octal, and hexadecimal numbers.
@@ -68,6 +69,19 @@ Number.parseInt(foo);
 Number.parseInt(foo, 2);
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useNumericLiterals": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

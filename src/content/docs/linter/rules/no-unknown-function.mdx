@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://github.com/stylelint/stylelint/blob/main/lib/rules/function-no-unknown/README.md" target="_blank"><code>stylelint/function-no-unknown</code></a>
 
+## Description
 Disallow unknown CSS value functions.
 
 This rule ignores double-dashed custom functions, e.g. `--custom-function()`.
@@ -45,6 +46,19 @@ a { transform: unknown(1); }
 a { transform: scale(1); }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noUnknownFunction": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

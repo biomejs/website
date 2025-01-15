@@ -19,6 +19,7 @@ This rule is part of the [nursery](/linter/rules/#nursery) group.
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-nested-ternary" target="_blank"><code>no-nested-ternary</code></a>
 
+## Description
 Disallow nested ternary expressions.
 
 Nesting ternary expressions can make code more difficult to understand.
@@ -57,6 +58,19 @@ if (foo) {
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noNestedTernary": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

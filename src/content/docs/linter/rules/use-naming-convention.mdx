@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Inspired from: <a href="https://typescript-eslint.io/rules/naming-convention" target="_blank"><code>@typescript-eslint/naming-convention</code></a>
 
+## Description
 Enforce naming conventions for everything across a codebase.
 
 Enforcing [naming conventions](https://en.wikipedia.org/wiki/Naming_convention_(programming)) helps to keep the codebase consistent,
@@ -690,6 +691,19 @@ The `match` option takes a regular expression that supports the following syntax
 - A limited set of escaped characters including all special characters
 and regular string escape characters `\f`, `\n`, `\r`, `\t`, `\v`
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useNamingConvention": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

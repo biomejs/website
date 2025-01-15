@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-no-duplicate-props.md" target="_blank"><code>react/jsx-no-duplicate-props</code></a>
 
+## Description
 Prevents JSX properties to be assigned multiple times.
 
 ## Examples
@@ -47,6 +48,19 @@ Prevents JSX properties to be assigned multiple times.
 <label xml:lang="en-US" lang="en-US"></label>
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noDuplicateJsxProps": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

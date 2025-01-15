@@ -20,6 +20,7 @@ This rule is deprecated and will be removed in the next major release.
 - This rule has an **unsafe** fix.
 :::
 
+## Description
 Enforces switch clauses have a single statement, emits a quick fix wrapping the statements in a block.
 
 ## Examples
@@ -49,6 +50,19 @@ switch (foo) {
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useSingleCaseStatement": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

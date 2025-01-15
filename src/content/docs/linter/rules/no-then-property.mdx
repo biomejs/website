@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-thenable.md" target="_blank"><code>unicorn/no-thenable</code></a>
 
+## Description
 Disallow `then` property.
 
 When combining objects with a `then` method (thenable objects) with await expressions or dynamic imports, caution is necessary.
@@ -102,6 +103,19 @@ class Foo {
 const foo = bar.then;
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noThenProperty": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)
