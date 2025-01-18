@@ -46,7 +46,7 @@
 	biome_text_edit       = { git = "https://github.com/biomejs/biome.git", rev = "d097b65f5c16bbdf2f6c86bd3831757dc044fe22" }
 	bpaf                  = { version = "0.9.15", features = ["docgen"] }
 	# If you update this library, be aware of the breaking changes
-	pulldown-cmark = "0.10.3"
+	pulldown-cmark = "0.12.2"
 	schemars       = "0.8.21"
 	serde          = "1.0.217"
 	serde_json     = "1.0.134"
