@@ -18,6 +18,11 @@ const plugins = [
 			"zh-CN": "博客",
 		},
 		authors: {
+			arendjr: {
+				name: "Arend van Beelen jr.",
+				picture: "https://avatars.githubusercontent.com/u/533294?v=4",
+				url: "https://arendjr.nl/",
+			},
 			conaclos: {
 				name: "Victorien Elvinger",
 				picture: "https://avatars.githubusercontent.com/u/2358560?s=96&v=4",
@@ -98,8 +103,8 @@ export default defineConfig({
 					},
 				},
 				{
-					label: "Support",
-					link: "../support",
+					label: "Enterprise",
+					link: "../enterprise",
 					translations: {
 						uk: "Підтримка",
 					},
