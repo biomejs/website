@@ -969,11 +969,11 @@ fn write_documentation(
                 write!(content, "~")?;
             }
 
-            Event::Start(Tag::BlockQuote) => {
+            Event::Start(Tag::BlockQuote(_)) => {
                 write!(content, ">")?;
             }
 
-            Event::End(TagEnd::BlockQuote) => {
+            Event::End(TagEnd::BlockQuote(_)) => {
                 writeln!(content)?;
             }
 
