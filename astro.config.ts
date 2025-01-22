@@ -26,12 +26,12 @@ const plugins = [
 			conaclos: {
 				name: "Victorien Elvinger",
 				picture: "https://avatars.githubusercontent.com/u/2358560?s=96&v=4",
-				url: "https://twitter.com/Conaclos",
+				url: "https://bsky.app/profile/conaclos.bsky.social",
 			},
 			ema: {
 				name: "Emanuele Stoppa",
 				picture: "https://avatars.githubusercontent.com/u/602478?v=4",
-				url: "https://twitter.com/ematipico",
+				url: "https://bsky.app/profile/ematipico.xyz",
 			},
 			team: {
 				name: "Biome Core Team, Biome Maintainers",
@@ -551,7 +551,6 @@ export default defineConfig({
 			social: {
 				discord: "https://biomejs.dev/chat",
 				github: "https://github.com/biomejs/biome",
-				"x.com": "https://twitter.com/biomejs",
 				mastodon: "https://fosstodon.org/@biomejs",
 				openCollective: "https://opencollective.com/biome",
 				youtube: "https://youtube.com/@Biomejs",
