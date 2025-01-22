@@ -31,7 +31,7 @@ yarn upgrade --exact @biomejs/biome@1.4.0
 Biome formatter has now **over 96% in terms of compatibility
 ** against [Prettier](https://prettier.io/)! This score is computed for JavaScript, TypeScript, and JSX formatting.
 
-Merit of challenge that was launched by [Christopher Chedeau](https://twitter.com/Vjeux/status/1722733472522142022), one of the Prettier's creators.
+Merit of challenge that was launched by [Christopher Chedeau](http://blog.vjeux.com/), one of the Prettier's creators.
 
 The challenge attracted the attention of many people, and some of them decided to contribute to Biome to claim part of the bounty. I did see something amazing: contributors had an amazing coordination, they took ownership of the tasks and delivered the solution in a matter of hours.
 

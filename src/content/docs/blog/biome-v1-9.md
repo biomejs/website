@@ -34,7 +34,7 @@ We gained sponsorship, notably [Shiguredo](https://shiguredo.jp/), [l2BEAT](http
 
 We also gained many new contributors. Contributors who have made a significant contribution are regularly invited to join the Biome team. We started with a team of 5 core contributors, and we are now a team of [8 core contributors and 10 maintainers](https://github.com/biomejs/biome/blob/main/CONTRIBUTING.md#current-members).
 
-In June 2024, Biome won the [JSNation's productivity booster Open Source Award](https://x.com/thejsnation/status/1805561129915060248).
+In June 2024, Biome won the [JSNation's productivity booster Open Source Award](https://osawards.com/javascript/2024).
 
 ## Biome v1.9
 
