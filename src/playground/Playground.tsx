@@ -48,6 +48,7 @@ import {
 	useRef,
 	useState,
 } from "react";
+import AnalyzerFixesTab from "./tabs/AnalyzerFixesTab";
 
 export default function Playground({
 	setPlaygroundState,
@@ -238,6 +239,16 @@ export default function Playground({
 						<FormatterIrTab
 							biome={biomeOutput.formatter.ir}
 							prettier={prettierOutput}
+						/>
+					),
+				},
+				{
+					key: PlaygroundTab.AnalyzerFixes,
+					title: "Analyzer Fixes",
+					children: (
+						<AnalyzerFixesTab
+							code={biomeOutput.analysis.fixed}
+							extensions={codeMirrorExtensions}
 						/>
 					),
 				},

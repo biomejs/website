@@ -1,4 +1,4 @@
-import type { Diagnostic } from "@biomejs/wasm-web";
+import type { Diagnostic, FixFileMode } from "@biomejs/wasm-web";
 import type { parser } from "codemirror-lang-rome-ast";
 import type { Dispatch, SetStateAction } from "react";
 
@@ -12,6 +12,7 @@ export enum PlaygroundTab {
 	ImportSorting = "import-sorting",
 	Console = "console",
 	Settings = "settings",
+	AnalyzerFixes = "analyzer-fixes",
 }
 
 export type { Options as PrettierOptions } from "prettier";
@@ -92,6 +93,8 @@ export interface BiomeOutput {
 	};
 	analysis: {
 		controlFlowGraph: string;
+		/** The snippet with lint fixes applied. */
+		fixed: string;
 	};
 	importSorting: {
 		code: string;
@@ -113,6 +116,7 @@ export const emptyBiomeOutput: BiomeOutput = {
 	},
 	analysis: {
 		controlFlowGraph: "",
+		fixed: "",
 	},
 	importSorting: {
 		code: "",
@@ -134,6 +138,7 @@ export interface PlaygroundSettings {
 	bracketSameLine: boolean;
 	lintRules: LintRules;
 	enabledLinting: boolean;
+	analyzerFixMode: FixFileMode;
 	importSortingEnabled: boolean;
 	unsafeParameterDecoratorsEnabled: boolean;
 	allowComments: boolean;
@@ -181,6 +186,7 @@ export const defaultPlaygroundState: PlaygroundState = {
 		bracketSameLine: false,
 		lintRules: LintRules.Recommended,
 		enabledLinting: true,
+		analyzerFixMode: "SafeFixes",
 		importSortingEnabled: true,
 		unsafeParameterDecoratorsEnabled: true,
 		allowComments: true,
