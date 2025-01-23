@@ -20,6 +20,7 @@ import {
 	modifyFilename,
 	normalizeFilename,
 } from "@/playground/utils";
+import type { FixFileMode } from "@biomejs/wasm-web";
 import type { Dispatch, SetStateAction } from "react";
 import type React from "react";
 import { useState } from "react";
@@ -51,6 +52,7 @@ export default function SettingsTab({
 			bracketSameLine,
 			lintRules,
 			enabledLinting,
+			analyzerFixMode,
 			importSortingEnabled,
 			unsafeParameterDecoratorsEnabled,
 			allowComments,
@@ -113,6 +115,10 @@ export default function SettingsTab({
 	const setEnabledLinting = createPlaygroundSettingsSetter(
 		setPlaygroundState,
 		"enabledLinting",
+	);
+	const setAnalyzerFixMode = createPlaygroundSettingsSetter(
+		setPlaygroundState,
+		"analyzerFixMode",
 	);
 
 	const setImportSorting = createPlaygroundSettingsSetter(
@@ -282,6 +288,8 @@ export default function SettingsTab({
 				setLintRules={setLintRules}
 				enabledLinting={enabledLinting}
 				setEnabledLinting={setEnabledLinting}
+				analyzerFixMode={analyzerFixMode}
+				setAnalyzerFixMode={setAnalyzerFixMode}
 			/>
 			<ImportSortingSettings
 				importSortingEnabled={importSortingEnabled}
@@ -799,11 +807,15 @@ function LinterSettings({
 	setLintRules,
 	enabledLinting,
 	setEnabledLinting,
+	analyzerFixMode,
+	setAnalyzerFixMode,
 }: {
 	lintRules: LintRules;
 	setLintRules: (value: LintRules) => void;
 	enabledLinting: boolean;
 	setEnabledLinting: (value: boolean) => void;
+	analyzerFixMode: FixFileMode;
+	setAnalyzerFixMode: (value: FixFileMode) => void;
 }) {
 	return (
 		<>
@@ -831,6 +843,21 @@ function LinterSettings({
 					>
 						<option value={LintRules.Recommended}>Recommended</option>
 						<option value={LintRules.All}>All</option>
+					</select>
+				</div>
+				<div className="field-row">
+					<label htmlFor="analyzer-fix-mode">Fix Mode</label>
+					<select
+						id="analyzer-fix-mode"
+						aria-describedby="analyzer-fix-mode-description"
+						name="analyzer-fix-mode"
+						disabled={!enabledLinting}
+						value={analyzerFixMode ?? "SafeFixes"}
+						onChange={(e) => setAnalyzerFixMode(e.target.value as FixFileMode)}
+					>
+						<option value={"SafeFixes"}>Safe Fixes</option>
+						<option value={"SafeAndUnsafeFixes"}>Safe and Unsafe Fixes</option>
+						<option value={"ApplySuppressions"}>Apply Suppressions</option>
 					</select>
 				</div>
 			</section>
