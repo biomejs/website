@@ -268,6 +268,15 @@ export function GET() {
             "recommended": false,
             "fixKind": "none",
             "docs": " Disallow use of `@value` rule in css modules.\n\n Use of CSS variables is recommended instead of `@value` rule.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n @value red: #FF0000;\n ```\n\n ### Valid\n\n ```css\n :root {\n   --red: #FF0000\n }\n\n p {\n   background-color: var(--red);\n }\n ```\n\n"
+          },
+          "useSortedProperties": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useSortedProperties",
+            "link": "https://biomejs.dev/linter/rules/use-sorted-properties",
+            "recommended": false,
+            "fixKind": "safe",
+            "docs": " Enforce ordering of CSS properties and nested rules.\n\n This rule ensures the contents of a CSS rule are ordered consistantly.\n\n Properties are ordered semantically, with more important properties near the top and\n similar properties grouped together. Nested rules and at-rules are placed after properties.\n\n The ordering is roughly:\n 1. Custom properties\n 1. Layout properties (display, flex, grid)\n 1. Margin and padding properties\n 1. Typography properties (font, color)\n 1. Interaction properties (pointer-events, visibility)\n 1. Background and border properties\n 1. Transition and animation properties\n 1. Nested rules, media queries and other at-rules\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n p {\n   transition: opactity 1s ease;\n   border: 1px solid black;\n   pointer-events: none;\n   color: black;\n   margin: 8px;\n   display: block;\n   --custom: 100;\n }\n ```\n\n ```css,expect_diagnostic\n p {\n   span { color: blue; }\n   color: red;\n }\n ```\n\n ### Valid\n\n ```css\n p {\n   --custom:·100;\n   display:·block;\n   margin:·8px;\n   color: black;\n   pointer-events:·none;\n   border:·1px·solid·black;\n   transition:·opactity·1s·ease;\n }\n ```\n\n ```css\n p {\n   color: red;\n   span { color: blue; }\n }\n ```\n\n"
           }
         },
         "suspicious": {
@@ -4203,7 +4212,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 299
+    "numberOrRules": 300
   },
   "syntax": {
     "languages": {
