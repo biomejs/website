@@ -12,10 +12,11 @@ import {
 } from "@/playground/types";
 import init, {
 	DiagnosticPrinter,
-	type PartialConfiguration as Configuration,
+	type Configuration,
 	type BiomePath,
 	type RuleCategories,
 	Workspace,
+	type ProjectKey,
 } from "@biomejs/wasm-web";
 
 let workspace: Workspace | null = null;
@@ -29,16 +30,13 @@ type File = {
 };
 
 const files: Map<string, File> = new Map();
+let projectKey: ProjectKey = 0;
 
 let configuration: undefined | Configuration;
 let fullSettings: undefined | PlaygroundSettings;
 
 function getPathForFile(file: File): BiomePath {
-	return {
-		path: file.filename,
-		kind: ["Handleable"],
-		was_written: false,
-	};
+	return file.filename;
 }
 
 self.addEventListener("message", async (e) => {
@@ -54,8 +52,9 @@ self.addEventListener("message", async (e) => {
 				}
 
 				workspace = new Workspace();
-				workspace.registerProjectFolder({
-					setAsCurrentWorkspace: true,
+				projectKey = workspace.openProject({
+					openUninitialized: true,
+					path: "/",
 				});
 
 				self.postMessage({ type: "init", loadingState: LoadingState.Success });
@@ -110,7 +109,7 @@ self.addEventListener("message", async (e) => {
 					enabled: enabledLinting,
 				},
 
-				organizeImports: {
+				assist: {
 					enabled: importSortingEnabled,
 				},
 
@@ -175,7 +174,8 @@ self.addEventListener("message", async (e) => {
 
 			workspace.updateSettings({
 				configuration,
-				gitignore_matches: [],
+				gitignoreMatches: [],
+				projectKey,
 			});
 			break;
 		}
@@ -200,7 +200,12 @@ self.addEventListener("message", async (e) => {
 				workspace.openFile({
 					path: getPathForFile(file),
 					version: 0,
-					content: code,
+					persistNodeCache: true,
+					projectKey,
+					content: {
+						type: "fromClient",
+						content: code,
+					},
 				});
 			} else {
 				file = {
@@ -213,29 +218,37 @@ self.addEventListener("message", async (e) => {
 				workspace.openFile({
 					path: getPathForFile(file),
 					version: file.version,
-					content: code,
+					persistNodeCache: true,
+					projectKey,
+					content: {
+						type: "fromClient",
+						content: code,
+					},
 				});
 			}
 			files.set(filename, file);
 			const path = getPathForFile(file);
 			const fileFeatures = workspace.fileFeatures({
-				features: ["Debug", "Format", "Lint", "OrganizeImports"],
+				features: ["debug", "format", "lint", "assist"],
+				projectKey,
 				path,
 			});
 
 			const syntaxTree =
-				fileFeatures.features_supported.get("Debug") === "Supported"
+				fileFeatures.featuresSupported.get("debug") === "supported"
 					? workspace.getSyntaxTree({
 							path,
+							projectKey,
 						})
 					: { ast: "Not supported", cst: "Not supported" };
 
 			let controlFlowGraph = "";
 			try {
 				controlFlowGraph =
-					fileFeatures.features_supported.get("Debug") === "Supported"
+					fileFeatures.featuresSupported.get("debug") === "supported"
 						? workspace.getControlFlowGraph({
 								path,
+								projectKey,
 								cursor: cursorPosition,
 							})
 						: "";
@@ -247,9 +260,10 @@ self.addEventListener("message", async (e) => {
 			let formatterIr = "";
 			try {
 				formatterIr =
-					fileFeatures.features_supported.get("Debug") === "Supported"
+					fileFeatures.featuresSupported.get("debug") === "supported"
 						? workspace.getFormatterIr({
 								path,
+								projectKey,
 							})
 						: "Not supported";
 			} catch (e) {
@@ -258,32 +272,33 @@ self.addEventListener("message", async (e) => {
 			}
 
 			const importSorting =
-				fileFeatures.features_supported.get("OrganizeImports") === "Supported"
-					? workspace.organizeImports({
+				fileFeatures.featuresSupported.get("assist") === "supported"
+					? // FIXME: are assists available here yet?
+						workspace.organizeImports({
 							path,
 						})
 					: {
 							code:
-								fileFeatures.features_supported.get("OrganizeImports") ??
-								"Not supported",
+								fileFeatures.featuresSupported.get("assist") ?? "Not supported",
 						};
 
 			const categories: RuleCategories = [];
 			if (configuration?.formatter?.enabled) {
-				categories.push("Syntax");
+				categories.push("syntax");
 			}
 			if (configuration?.linter?.enabled) {
-				categories.push("Lint");
+				categories.push("lint");
 			}
 			const diagnosticsResult = workspace.pullDiagnostics({
 				path,
 				categories: categories,
-				max_diagnostics: Number.MAX_SAFE_INTEGER,
+				maxDiagnostics: Number.MAX_SAFE_INTEGER,
+				projectKey,
 				only: [],
 				skip: [],
 			});
 
-			const printer = new DiagnosticPrinter(path.path, code);
+			const printer = new DiagnosticPrinter(path, code);
 			for (const diag of diagnosticsResult.diagnostics) {
 				printer.print_verbose(diag);
 			}
@@ -293,9 +308,10 @@ self.addEventListener("message", async (e) => {
 			};
 			try {
 				printed =
-					fileFeatures.features_supported.get("Format") === "Supported"
+					fileFeatures.featuresSupported.get("format") === "supported"
 						? workspace.formatFile({
 								path,
+								projectKey,
 							})
 						: { code: "Not supported" };
 			} catch (e) {
@@ -310,14 +326,15 @@ self.addEventListener("message", async (e) => {
 			};
 			try {
 				fixed =
-					fileFeatures.features_supported.get("Lint") === "Supported"
+					fileFeatures.featuresSupported.get("lint") === "supported"
 						? workspace.fixFile({
 								path,
+								projectKey,
 								only: [],
 								skip: [],
-								rule_categories: ["Lint"],
-								should_format: false,
-								fix_file_mode: fullSettings?.analyzerFixMode ?? "SafeFixes",
+								ruleCategories: ["lint"],
+								shouldFormat: false,
+								fixFileMode: fullSettings?.analyzerFixMode ?? "safeFixes",
 							})
 						: { code: "Not supported" };
 			} catch (e) {
