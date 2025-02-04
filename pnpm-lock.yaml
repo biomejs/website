@@ -84,8 +84,8 @@ importers:
         specifier: 5.2.4
         version: 5.2.4(@types/node@20.17.14)(jiti@1.21.7)(rollup@4.28.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)
       astro-og-canvas:
-        specifier: 0.5.5
-        version: 0.5.5(astro@5.2.4(@types/node@20.17.14)(jiti@1.21.7)(rollup@4.28.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
+        specifier: 0.5.6
+        version: 0.5.6(astro@5.2.4(@types/node@20.17.14)(jiti@1.21.7)(rollup@4.28.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
       autoprefixer:
         specifier: 10.4.20
         version: 10.4.20(postcss@8.4.49)
@@ -1671,8 +1671,8 @@ packages:
     peerDependencies:
       astro: ^4.0.0-beta || ^5.0.0-beta || ^3.3.0
 
-  astro-og-canvas@0.5.5:
-    resolution: {integrity: sha512-dbZ7voJAmvy8Zyv5zFsgENs9G4uhcCJ4nVuUPb7ymu8+Vp/jr/fdQDKPrLYUG2TSi/1HejYRnzkXcSv6ntlDTA==}
+  astro-og-canvas@0.5.6:
+    resolution: {integrity: sha512-w75UErZdRxYyoVnTz4IXn6T869PBrwYQEjPecWVaev9faYCHC3Uk7R47KCO3u+MSDkc8tCENz4ghVDrLImx9SA==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       astro: ^3.0.0 || ^4.0.0 || ^5.0.0
@@ -6151,7 +6151,7 @@ snapshots:
       astro: 5.2.4(@types/node@20.17.14)(jiti@1.21.7)(rollup@4.28.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)
       rehype-expressive-code: 0.38.3
 
-  astro-og-canvas@0.5.5(astro@5.2.4(@types/node@20.17.14)(jiti@1.21.7)(rollup@4.28.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)):
+  astro-og-canvas@0.5.6(astro@5.2.4(@types/node@20.17.14)(jiti@1.21.7)(rollup@4.28.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)):
     dependencies:
       astro: 5.2.4(@types/node@20.17.14)(jiti@1.21.7)(rollup@4.28.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)
       canvaskit-wasm: 0.39.1
