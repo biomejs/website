@@ -20,7 +20,11 @@ import {
 	modifyFilename,
 	normalizeFilename,
 } from "@/playground/utils";
-import type { FixFileMode } from "@biomejs/wasm-web";
+import type {
+	FixFileMode,
+	RuleDomain,
+	RuleDomainValue,
+} from "@biomejs/wasm-web";
 import type { Dispatch, SetStateAction } from "react";
 import type React from "react";
 import { useState } from "react";
@@ -53,10 +57,11 @@ export default function SettingsTab({
 			lintRules,
 			enabledLinting,
 			analyzerFixMode,
-			importSortingEnabled,
+			enabledAssist,
 			unsafeParameterDecoratorsEnabled,
 			allowComments,
 			attributePosition,
+			ruleDomains,
 		},
 	},
 }: SettingsTabProps) {
@@ -121,9 +126,9 @@ export default function SettingsTab({
 		"analyzerFixMode",
 	);
 
-	const setImportSorting = createPlaygroundSettingsSetter(
+	const setEnabledAssist = createPlaygroundSettingsSetter(
 		setPlaygroundState,
-		"importSortingEnabled",
+		"enabledAssist",
 	);
 
 	const setUnsafeParameterDecoratorsEnabled = createPlaygroundSettingsSetter(
@@ -133,6 +138,11 @@ export default function SettingsTab({
 	const setAllowComments = createPlaygroundSettingsSetter(
 		setPlaygroundState,
 		"allowComments",
+	);
+
+	const setRuleDomains = createPlaygroundSettingsSetter(
+		setPlaygroundState,
+		"ruleDomains",
 	);
 
 	function setCurrentFilename(newFilename: string) {
@@ -290,10 +300,12 @@ export default function SettingsTab({
 				setEnabledLinting={setEnabledLinting}
 				analyzerFixMode={analyzerFixMode}
 				setAnalyzerFixMode={setAnalyzerFixMode}
+				ruleDomains={ruleDomains}
+				setRuleDomains={setRuleDomains}
 			/>
-			<ImportSortingSettings
-				importSortingEnabled={importSortingEnabled}
-				setImportSorting={setImportSorting}
+			<AssistSettings
+				enabledAssist={enabledAssist}
+				setEnabledAssist={setEnabledAssist}
 			/>
 			<SyntaxSettings
 				filename={currentFile}
@@ -809,6 +821,8 @@ function LinterSettings({
 	setEnabledLinting,
 	analyzerFixMode,
 	setAnalyzerFixMode,
+	ruleDomains,
+	setRuleDomains,
 }: {
 	lintRules: LintRules;
 	setLintRules: (value: LintRules) => void;
@@ -816,7 +830,31 @@ function LinterSettings({
 	setEnabledLinting: (value: boolean) => void;
 	analyzerFixMode: FixFileMode;
 	setAnalyzerFixMode: (value: FixFileMode) => void;
+	ruleDomains: Record<RuleDomain, RuleDomainValue>;
+	setRuleDomains: (value: Record<RuleDomain, RuleDomainValue>) => void;
 }) {
+	const updateDomain = (domain: RuleDomain, value: RuleDomainValue) => {
+		setRuleDomains({
+			...ruleDomains,
+			[domain]: value,
+		});
+	};
+	if (ruleDomains === undefined) {
+		ruleDomains = {};
+	}
+
+	const domainConfigs: Array<{
+		id: RuleDomain;
+		label: string;
+	}> = [
+		{ id: "react", label: "React Rules" },
+		{ id: "test", label: "Test Rules" },
+		{ id: "solid", label: "Solid Rules" },
+		{ id: "next", label: "Next.js Rules" },
+	];
+
+	const domainValues: RuleDomainValue[] = ["all", "recommended", "none"];
+
 	return (
 		<>
 			<h2>Linter options</h2>
@@ -831,6 +869,7 @@ function LinterSettings({
 					/>
 					<label htmlFor="linting-enabled">Linter enabled</label>
 				</div>
+
 				<div className="field-row">
 					<label htmlFor="lint-rules">Lint Rules</label>
 					<select
@@ -860,31 +899,52 @@ function LinterSettings({
 						<option value={"applySuppressions"}>Apply Suppressions</option>
 					</select>
 				</div>
+
+				<h3>Domains</h3>
+				{domainConfigs.map(({ id, label }) => (
+					<div key={id} className="field-row">
+						<label htmlFor={`${id}-domain`}>{label}</label>
+						<select
+							id={`${id}-domain`}
+							value={ruleDomains[id] ?? "none"}
+							onChange={(e) =>
+								updateDomain(id, e.target.value as RuleDomainValue)
+							}
+							disabled={!enabledLinting}
+						>
+							{domainValues.map((value) => (
+								<option key={value} value={value}>
+									{value.charAt(0).toUpperCase() + value.slice(1)}
+								</option>
+							))}
+						</select>
+					</div>
+				))}
 			</section>
 		</>
 	);
 }
 
-export function ImportSortingSettings({
-	importSortingEnabled,
-	setImportSorting,
+export function AssistSettings({
+	enabledAssist,
+	setEnabledAssist,
 }: {
-	importSortingEnabled: boolean;
-	setImportSorting: (value: boolean) => void;
+	enabledAssist: boolean;
+	setEnabledAssist: (value: boolean) => void;
 }) {
 	return (
 		<>
-			<h2>Import sorting options</h2>
+			<h2>Assist options</h2>
 			<section>
 				<div className="field-row">
 					<input
-						id="import-sorting-enabled"
-						name="import-sorting-enabled"
+						id="assist-enabled"
+						name="assist-enabled"
 						type="checkbox"
-						checked={importSortingEnabled}
-						onChange={(e) => setImportSorting(e.target.checked)}
+						checked={enabledAssist}
+						onChange={(e) => setEnabledAssist(e.target.checked)}
 					/>
-					<label htmlFor="import-sorting-enabled">Import sorting enabled</label>
+					<label htmlFor="assist-enabled">Assists enabled</label>
 				</div>
 			</section>
 		</>

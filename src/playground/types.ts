@@ -1,4 +1,9 @@
-import type { Diagnostic, FixFileMode } from "@biomejs/wasm-web";
+import type {
+	Diagnostic,
+	FixFileMode,
+	RuleDomain,
+	RuleDomainValue,
+} from "@biomejs/wasm-web";
 import type { parser } from "codemirror-lang-rome-ast";
 import type { Dispatch, SetStateAction } from "react";
 
@@ -96,9 +101,6 @@ export interface BiomeOutput {
 		/** The snippet with lint fixes applied. */
 		fixed: string;
 	};
-	importSorting: {
-		code: string;
-	};
 }
 
 export const emptyBiomeOutput: BiomeOutput = {
@@ -118,9 +120,6 @@ export const emptyBiomeOutput: BiomeOutput = {
 		controlFlowGraph: "",
 		fixed: "",
 	},
-	importSorting: {
-		code: "",
-	},
 };
 
 export interface PlaygroundSettings {
@@ -139,9 +138,10 @@ export interface PlaygroundSettings {
 	lintRules: LintRules;
 	enabledLinting: boolean;
 	analyzerFixMode: FixFileMode;
-	importSortingEnabled: boolean;
+	enabledAssist: boolean;
 	unsafeParameterDecoratorsEnabled: boolean;
 	allowComments: boolean;
+	ruleDomains: Record<RuleDomain, RuleDomainValue>;
 }
 
 export interface PlaygroundFileState {
@@ -187,9 +187,10 @@ export const defaultPlaygroundState: PlaygroundState = {
 		lintRules: LintRules.Recommended,
 		enabledLinting: true,
 		analyzerFixMode: "safeFixes",
-		importSortingEnabled: true,
+		enabledAssist: true,
 		unsafeParameterDecoratorsEnabled: true,
 		allowComments: true,
+		ruleDomains: {},
 	},
 };
 

@@ -88,10 +88,11 @@ self.addEventListener("message", async (e) => {
 				arrowParentheses,
 				bracketSpacing,
 				bracketSameLine,
-				importSortingEnabled,
+				enabledAssist,
 				unsafeParameterDecoratorsEnabled,
 				allowComments,
 				attributePosition,
+				ruleDomains,
 			} = e.data.settings as PlaygroundSettings;
 
 			configuration = {
@@ -107,10 +108,11 @@ self.addEventListener("message", async (e) => {
 
 				linter: {
 					enabled: enabledLinting,
+					domains: ruleDomains,
 				},
 
 				assist: {
-					enabled: importSortingEnabled,
+					enabled: enabledAssist,
 				},
 
 				javascript: {
@@ -165,12 +167,16 @@ self.addEventListener("message", async (e) => {
 					break;
 				}
 				case LintRules.All: {
-					// temporary until we update the UI to be able to select rules better.
-					configuration.linter!.domains = {
-						test: "all",
-						react: "all",
-						solid: "all",
-						next: "all",
+					// TODO: not entirely sure what to do here now that we have rule domains, and no longer have a single "all" option
+					configuration.linter!.rules = {
+						a11y: "on",
+						nursery: "on",
+						complexity: "on",
+						correctness: "on",
+						performance: "on",
+						security: "on",
+						style: "on",
+						suspicious: "on",
 					};
 					break;
 				}
@@ -275,10 +281,6 @@ self.addEventListener("message", async (e) => {
 				formatterIr = "Can't format";
 			}
 
-			const importSorting = {
-				code: "Moved to Analyzer Fixes tab",
-			};
-
 			const categories: RuleCategories = [];
 			if (configuration?.formatter?.enabled) {
 				categories.push("syntax");
@@ -362,9 +364,6 @@ self.addEventListener("message", async (e) => {
 				analysis: {
 					controlFlowGraph,
 					fixed: fixed.code,
-				},
-				importSorting: {
-					code: importSorting.code,
 				},
 			};
 
