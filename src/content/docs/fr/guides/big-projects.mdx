@@ -1,0 +1,128 @@
+---
+title: Utiliser Biome dans de gros projets
+description: Un petit guide sur la manière de configurer Biome dans de gros projets
+---
+
+import {FileTree} from '@astrojs/starlight/components';
+
+Biome peut fournir quelques outils qui peuvent vous aider à l’utiliser correctement dans de gros projets, comme un monorepo ou des espaces de travail qui contiennent plusieurs projets.
+
+
+## Utiliser plusieurs fichiers de configuration
+
+Quand vous utilisez les fonctionnalités de Biome — soit en ligne de commande soit avec LSP — l’outil cherche le fichier de configuration le plus proche en utilisant le répertoire de travail actuel.
+
+Si Biome n’y trouve pas le fichier de configuration, il **se met à remonter** la hiérarchie des répertoires du système de fichiers jusqu’à ce qu’il en trouve un.
+
+Vous pouvez tirer profit de cette fonctionnalité pour faire appliquer différents paramètres sur la base du projet/dossier.
+
+Supposons que nous avons un projet qui contient une appli backend et une nouvelle appli frontend.
+
+
+<FileTree>
+  - app
+    - backend
+      - biome.json
+      - package.json
+    - frontend
+      - biome.json
+      - legacy-app
+        - package.json
+      - new-app
+        - package.json
+</FileTree>
+
+Ce qui veut dire que, quand vous exécutez un script du fichier `app/backend/package.json`, Biome utilisera le fichier de configuration `app/backend/biome.json`.
+
+Quand vous exécutez un script de `app/frontend/legacy-app/package.json` ou `app/frontend/new-app/package.json`, Biome utilisera le fichier de configuration `app/frontend/biome.json`.
+
+## Partager la configuration
+
+Il est possible d’utiliser l’option de configuration [`extends`](/fr/guides/configure-biome/#share-a-configuration-file) pour répartir les options entre les fichiers.
+
+Partons du principe que nous avons ces prérequis&nbsp;:
+- `legacy-app` doit être formatée avec des espaces,
+- `backend` et `new-app` doivent être formatées avec des tabulations,
+- toutes les applis doivent être formatées avec des lignes de 120 caractères,
+- l’appli `backend` a besoin d’options de linting supplémentaires.
+
+Nous commençons par créer un nouveau fichier de configuration dans `app/biome.json` et y plaçons les options partagées&nbsp;:
+
+
+```json title="app/biome.json"
+{
+  "formatter": {
+    "enabled": true,
+    "lineWidth": 120
+  }
+}
+```
+
+Maintenant, **déplaçons** `app/frontend/biome.json` vers `app/frontend/legacy-app/` parce que c’est là que nous avons besoin d’utiliser un formatage différent.
+
+
+```json title="app/frontend/legacy-app/biome.json"
+{
+  "formatter": {
+    "indentStyle": "space"
+  }
+}
+```
+
+Puis, nous demandons à Biome d’hériter de toutes les options du fichier principal `app/biome.json`, en utilisant la propriété `extends`&nbsp;:
+
+```json title="app/frontend/legacy-app/biome.json" ins={2}
+{
+   "extends": ["../../biome.json"],
+   "formatter": {
+     "indentStyle": "space"
+   }
+}
+```
+
+Passons à `app/backend/biome.json`, où nous avons besoin d’activer le linting&nbsp;:
+
+
+```json title="app/backend/biome.json"
+{
+  "extends": ["../biome.json"],
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true
+    }
+  }
+}
+```
+
+## Monorepos
+
+Les monorepos sont des dépôts particuliers où plusieurs libraries sont stockées et maintenues dans un seul gros dépôt. Chaque librairie représente un projet indépendant, qui peut contenir différentes configurations.
+
+Biome ne prend pas très bien en charge les monorepos en raison de certaines limites dans la résolution des fichiers de configuration imbriqués. Vous pouvez [aider en suivant le ticket correspondant](https://github.com/biomejs/biome/issues/2228).
+
+Pour une meilleure expérience développeur malgré les limites actuelles, il est conseillé d’avoir un `biome.json` à la racine du monorepo et d’utiliser la configuration [`overrides`](/fr/reference/configuration/#overrides) pour changer le comportement de Biome dans certains paquets.
+
+Dans l’exemple suivant, nous désactivons la règle `suspicious/noConsoleLog` dans le paquet `packages/logger`.
+
+```json title="biome.jsonc"
+
+{
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true
+    }
+  },
+  "overrides": [{
+      "include": ["packages/logger/**"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noConsoleLog": "off"
+          }
+        }
+      }
+  }]
+}
+```
