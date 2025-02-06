@@ -23,6 +23,7 @@ This rule is part of the [nursery](/linter/rules/#nursery) group.
 Sources: 
 - Same as: <a href="https://nextjs.org/docs/messages/google-font-preconnect" target="_blank"><code>@next/google-font-preconnect</code></a>
 
+## Description
 Ensure the `preconnect` attribute is used when using Google Fonts.
 
 When using Google Fonts, adding the `rel="preconnect"` attribute to the `<link>` tag
@@ -60,6 +61,19 @@ where it's manually added, this rule ensures the `preconnect` attribute is prope
 <link href="/logo.svg" rel="icon" />
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useGoogleFontPreconnect": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

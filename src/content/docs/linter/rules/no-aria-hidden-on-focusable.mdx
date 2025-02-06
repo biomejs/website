@@ -20,6 +20,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/no-aria-hidden-on-focusable.md" target="_blank"><code>jsx-a11y/no-aria-hidden-on-focusable</code></a>
 
+## Description
 Enforce that aria-hidden="true" is not set on focusable elements.
 
 `aria-hidden="true"` can be used to hide purely decorative content from screen reader users.
@@ -62,6 +63,19 @@ This can lead to confusion or unexpected behavior for screen reader users.
 - [Element with aria-hidden has no content in sequential focus navigation](https://www.w3.org/WAI/standards-guidelines/act/rules/6cfa84/proposed/)
 - [MDN aria-hidden](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"a11y": {
+				"noAriaHiddenOnFocusable": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

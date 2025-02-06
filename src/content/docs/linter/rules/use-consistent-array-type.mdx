@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://typescript-eslint.io/rules/array-type" target="_blank"><code>@typescript-eslint/array-type</code></a>
 
+## Description
 Require consistently using either `T[]` or `Array<T>`
 
 _TypeScript_ provides two equivalent ways to define an array type: `T[]` and `Array<T>`.
@@ -79,6 +80,19 @@ The syntax to use:
 
 Default: `shorthand`
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useConsistentArrayType": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

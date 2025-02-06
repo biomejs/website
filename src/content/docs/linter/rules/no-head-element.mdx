@@ -19,6 +19,7 @@ This rule is part of the [nursery](/linter/rules/#nursery) group.
 Sources: 
 - Same as: <a href="https://nextjs.org/docs/messages/no-head-element" target="_blank"><code>@next/no-head-element</code></a>
 
+## Description
 Prevent usage of `<head>` element in a Next.js project.
 
 Next.js provides a specialized `<Head />` component from `next/head` that manages
@@ -58,6 +59,19 @@ function Index() {
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noHeadElement": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

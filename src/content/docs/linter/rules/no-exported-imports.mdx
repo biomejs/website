@@ -16,6 +16,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::
 
+## Description
 Disallow exporting an imported variable.
 
 In JavaScript, you can re-export a variable either by using `export from` or
@@ -57,6 +58,19 @@ export * as ns from "mod";
 export { default as D } from "mod";
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noExportedImports": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

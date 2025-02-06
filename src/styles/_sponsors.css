@@ -2,11 +2,8 @@
 	margin-top: 7rem;
 	display: flex;
 	flex-wrap: wrap;
+	align-items: center;
 	.sponsors-row {
-		flex-grow: 1;
-		width: 33%;
-		img {
-			height: 120px;
-		}
+		margin: 0 auto;
 	}
 }

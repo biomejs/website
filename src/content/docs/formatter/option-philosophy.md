@@ -25,7 +25,7 @@ Leaning on the [Prettier Option Philosophy](https://prettier.io/docs/en/option-p
 
 > …[these] are not the type of options we’re happy to have. They cause a lot of bike-shedding in teams, and we’re sorry for that. Difficult to remove now, these options exist as a historical artifact and should not motivate adding more options (“If *those* options exist, why can’t this one?”).
 
-However, when the [Prettier Challenge was announced](https://twitter.com/Vjeux/status/1722733472522142022), Biome decided to accept the challenge, which required implementing all of the configuration options that Prettier had to achieve full compatibility.
+However, when the [Prettier Challenge](https://console.algora.io/challenges/prettier) was announced, Biome decided to accept the challenge, which required implementing all of the configuration options that Prettier had to achieve full compatibility.
 
 Biome still shares Prettier's philosophy about these options and considers them a legacy feature for compatibility rather than a baseline feature set. Their existence does not indicate that more options will be added, nor should they be used as a rationale to support the existence of other options in the future.
 

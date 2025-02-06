@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/interactive-supports-focus.md" target="_blank"><code>jsx-a11y/interactive-supports-focus</code></a>
 
+## Description
 Elements with an interactive role and interaction handlers must be focusable.
 
 HTML elements with interactive roles must have `tabIndex` defined to ensure they are
@@ -53,6 +54,19 @@ instead.
 <div />
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"a11y": {
+				"useFocusableInteractive": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

@@ -19,6 +19,7 @@ This rule is part of the [nursery](/linter/rules/#nursery) group.
 Sources: 
 - Same as: <a href="https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/role-supports-aria-props.md" target="_blank"><code>jsx-a11y/role-supports-aria-props</code></a>
 
+## Description
 Enforce that ARIA properties are valid for the roles that are supported by the element.
 
 Invalid ARIA properties can make it difficult for users of assistive technologies to understand the purpose of the element.
@@ -49,6 +50,19 @@ Invalid ARIA properties can make it difficult for users of assistive technologie
 </>
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useAriaPropsSupportedByRole": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

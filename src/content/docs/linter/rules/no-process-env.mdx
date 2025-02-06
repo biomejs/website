@@ -19,6 +19,7 @@ This rule is part of the [nursery](/linter/rules/#nursery) group.
 Sources: 
 - Same as: <a href="https://github.com/eslint-community/eslint-plugin-n/blob/master/docs/rules/no-process-env.md" target="_blank"><code>n/no-process-env</code></a>
 
+## Description
 Disallow the use of `process.env`.
 
 The `process.env` object in Node.js stores configuration settings. Using it directly throughout a project can cause problems:
@@ -50,6 +51,19 @@ if (config.NODE_ENV === 'development') {
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noProcessEnv": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

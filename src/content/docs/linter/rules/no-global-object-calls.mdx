@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-obj-calls" target="_blank"><code>no-obj-calls</code></a>
 
+## Description
 Disallow calling global object properties as functions
 
 ECMAScript provides several global objects that are intended to be used as-is.
@@ -116,6 +117,19 @@ var first = Atomics.load(foo, 0);
 var segmenterFr = new Intl.Segmenter("fr", { granularity: "word" });
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noGlobalObjectCalls": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

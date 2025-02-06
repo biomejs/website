@@ -23,6 +23,7 @@ This rule is part of the [nursery](/linter/rules/#nursery) group.
 Sources: 
 - Same as: <a href="https://the-guild.dev/graphql/eslint/rules/no-anonymous-operations" target="_blank"><code>graphql/no-anonymous-operations</code></a>
 
+## Description
 Enforce specifying the name of GraphQL operations.
 
 This is useful because most GraphQL client libraries use the operation name for caching purposes.
@@ -45,6 +46,19 @@ query Human {
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useNamedOperation": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

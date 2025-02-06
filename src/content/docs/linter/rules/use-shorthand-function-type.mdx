@@ -20,6 +20,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://typescript-eslint.io/rules/prefer-function-type" target="_blank"><code>@typescript-eslint/prefer-function-type</code></a>
 
+## Description
 Enforce using function types instead of object type with call signatures.
 
 TypeScript allows for two common ways to declare a type for a function:
@@ -87,6 +88,19 @@ interface Overloaded {
 type Intersection = ((data: string) => number) & ((id: number) => string);
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useShorthandFunctionType": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

@@ -20,6 +20,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-dupe-keys" target="_blank"><code>no-dupe-keys</code></a>
 
+## Description
 Disallow two keys with the same name inside objects.
 
 If an object property with the same name is defined multiple times (except when combining a getter with a setter), only the last definition makes it into the object and previous definitions are ignored, which is likely a mistake.
@@ -62,6 +63,19 @@ const obj = {
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noDuplicateObjectKeys": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)
@@ -76,6 +90,7 @@ const obj = {
 - This rule is **recommended**. A [diagnostic error](/reference/diagnostics#error) will appear when linting your code.
 :::
 
+## Description
 Disallow two keys with the same name inside objects.
 
 ## Examples
@@ -100,6 +115,19 @@ Disallow two keys with the same name inside objects.
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noDuplicateObjectKeys": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

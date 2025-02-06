@@ -20,6 +20,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://github.com/SonarSource/eslint-plugin-sonarjs/blob/HEAD/docs/rules/prefer-while.md" target="_blank"><code>sonarjs/prefer-while</code></a>
 
+## Description
 Enforce the use of `while` loops instead of `for` loops when the initializer and update expressions are not needed.
 
 ## Examples
@@ -51,6 +52,19 @@ for(let x = 0; x < 10;) {
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useWhile": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

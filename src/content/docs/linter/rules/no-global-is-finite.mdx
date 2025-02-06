@@ -17,6 +17,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - This rule has an **unsafe** fix.
 :::
 
+## Description
 Use `Number.isFinite` instead of global `isFinite`.
 
 `Number.isFinite()` and `isFinite()` [do not have the same behavior](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isFinite#difference_between_number.isfinite_and_global_isfinite).
@@ -40,6 +41,19 @@ isFinite(false); // true
 Number.isFinite(false); // false
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noGlobalIsFinite": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

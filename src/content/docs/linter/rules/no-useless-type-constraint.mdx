@@ -20,6 +20,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://typescript-eslint.io/rules/no-unnecessary-type-constraint" target="_blank"><code>@typescript-eslint/no-unnecessary-type-constraint</code></a>
 
+## Description
 Disallow using `any` or `unknown` as type constraint.
 
 Generic type parameters (`<T>`) in TypeScript may be **constrained** with [`extends`](https://www.typescriptlang.org/docs/handbook/generics.html#generic-constraints).
@@ -113,6 +114,19 @@ interface Foo<T> {}
 type Bar<T> = {};
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"complexity": {
+				"noUselessTypeConstraint": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

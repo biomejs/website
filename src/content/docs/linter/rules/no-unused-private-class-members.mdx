@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-unused-private-class-members" target="_blank"><code>no-unused-private-class-members</code></a>
 
+## Description
 Disallow unused private class members
 
 Private class members that are declared and not used anywhere in the code are most likely an error due to incomplete refactoring.
@@ -68,6 +69,19 @@ class UsedMember {
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noUnusedPrivateClassMembers": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

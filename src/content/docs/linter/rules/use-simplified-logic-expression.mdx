@@ -16,6 +16,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - This rule has an **unsafe** fix.
 :::
 
+## Description
 Discard redundant terms from logical expressions.
 
 ## Examples
@@ -61,6 +62,19 @@ const boolExpr5 = true;
 const boolExpr6 = false;
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"complexity": {
+				"useSimplifiedLogicExpression": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

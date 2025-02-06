@@ -19,6 +19,7 @@ This rule is part of the [nursery](/linter/rules/#nursery) group.
 Sources: 
 - Same as: <a href="https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/exports-last.md" target="_blank"><code>import/exports-last</code></a>
 
+## Description
 Require that all exports are declared after all non-export statements.
 
 Enforces that export statements are placed at the end of the module, after all other statements.
@@ -46,6 +47,19 @@ const a = 1;
 export { a };
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useExportsLast": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

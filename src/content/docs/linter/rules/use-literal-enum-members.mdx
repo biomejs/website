@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://typescript-eslint.io/rules/prefer-literal-enum-member" target="_blank"><code>@typescript-eslint/prefer-literal-enum-member</code></a>
 
+## Description
 Require all enum members to be literal values.
 
 Usually, an enum member is initialized with a literal number or a literal string.
@@ -75,6 +76,19 @@ enum FileAccess {
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useLiteralEnumMembers": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

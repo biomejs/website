@@ -24,6 +24,7 @@ Sources:
 - Same as: <a href="https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-lonely-if.md" target="_blank"><code>unicorn/no-lonely-if</code></a>
 - Same as: <a href="https://rust-lang.github.io/rust-clippy/master/#/collapsible_if" target="_blank"><code>collapsible_if</code></a>
 
+## Description
 Enforce using single `if` instead of nested `if` clauses.
 
 If an `if (b)` statement is the only statement in an `if (a)` block, it is often clearer to use an `if (a && b)` form.
@@ -80,6 +81,19 @@ if (condition) {
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useCollapsedIf": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

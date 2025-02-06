@@ -15,6 +15,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://typescript-eslint.io/rules/no-namespace" target="_blank"><code>@typescript-eslint/no-namespace</code></a>
 
+## Description
 Disallow the use of TypeScript's `namespace`s.
 
 Namespaces are an old way to organize your code in TypeScript.
@@ -64,6 +65,19 @@ declare global {}
 declare module 'foo' {}
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"noNamespace": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

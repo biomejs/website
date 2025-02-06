@@ -31,6 +31,7 @@ type File = {
 const files: Map<string, File> = new Map();
 
 let configuration: undefined | Configuration;
+let fullSettings: undefined | PlaygroundSettings;
 
 function getPathForFile(file: File): BiomePath {
 	return {
@@ -71,6 +72,8 @@ self.addEventListener("message", async (e) => {
 				console.error("Workspace was not initialized");
 				break;
 			}
+
+			fullSettings = e.data.settings;
 
 			const {
 				lineWidth,
@@ -302,6 +305,28 @@ self.addEventListener("message", async (e) => {
 				};
 			}
 
+			let fixed = {
+				code: "",
+			};
+			try {
+				fixed =
+					fileFeatures.features_supported.get("Lint") === "Supported"
+						? workspace.fixFile({
+								path,
+								only: [],
+								skip: [],
+								rule_categories: ["Lint"],
+								should_format: false,
+								fix_file_mode: fullSettings?.analyzerFixMode ?? "SafeFixes",
+							})
+						: { code: "Not supported" };
+			} catch (e) {
+				console.error(e);
+				fixed = {
+					code: "Can't apply fixes with errors",
+				};
+			}
+
 			const biomeOutput: BiomeOutput = {
 				syntax: {
 					// Replace 4 spaced indentation with 2
@@ -319,6 +344,7 @@ self.addEventListener("message", async (e) => {
 				},
 				analysis: {
 					controlFlowGraph,
+					fixed: fixed.code,
 				},
 				importSorting: {
 					code: importSorting.code,

@@ -17,6 +17,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - This rule has a **safe** fix.
 :::
 
+## Description
 Disallow TypeScript `const enum`
 
 Const enums are enums that should be inlined at use sites.
@@ -47,6 +48,19 @@ enum Status {
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noConstEnum": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

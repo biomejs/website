@@ -23,6 +23,7 @@ This rule is part of the [nursery](/linter/rules/#nursery) group.
 Sources: 
 - Inspired from: <a href="https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-at.md" target="_blank"><code>unicorn/prefer-at</code></a>
 
+## Description
 Use `at()` instead of integer index access.
 
 Accessing an element at the end of an array or a string is inconvenient because you have to subtract the length of the array or the string from the backward 1-based index of the element to access.
@@ -94,6 +95,19 @@ const foo = array.at(array.length - 1);
 array[array.length - 1] = foo;
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useAtIndex": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

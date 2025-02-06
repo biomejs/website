@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://github.com/stylelint/stylelint/blob/main/lib/rules/font-family-no-missing-generic-family-keyword/README.md" target="_blank"><code>stylelint/font-family-no-missing-generic-family-keyword</code></a>
 
+## Description
 Disallow a missing generic family keyword within font families.
 
 The generic font family can be:
@@ -71,6 +72,19 @@ a { font-family: var(--font); }
 @font-face { font-family: Gentium; }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"a11y": {
+				"useGenericFontNames": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

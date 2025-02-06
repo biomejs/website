@@ -19,6 +19,7 @@ This rule is part of the [nursery](/linter/rules/#nursery) group.
 Sources: 
 - Same as: <a href="https://the-guild.dev/graphql/eslint/rules/require-deprecation-reason" target="_blank"><code>graphql/require-deprecation-reason</code></a>
 
+## Description
 Require specifying the reason argument when using `@deprecated` directive
 
 This rule checks the parameter of `@deprecated` directive for the use of reason argument,
@@ -44,6 +45,19 @@ query {
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useDeprecatedReason": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

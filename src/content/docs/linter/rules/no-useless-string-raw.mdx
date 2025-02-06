@@ -16,6 +16,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::
 
+## Description
 Disallow unnecessary `String.raw` function in template string literals without any escape sequence.
 
 `String.raw` is useless when contains a raw string without any escape-like sequence.
@@ -46,6 +47,19 @@ String.raw`\n ${a}`;
 String.raw`\n`;
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noUselessStringRaw": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

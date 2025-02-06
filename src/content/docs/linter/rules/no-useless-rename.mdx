@@ -20,6 +20,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-useless-rename" target="_blank"><code>no-useless-rename</code></a>
 
+## Description
 Disallow renaming import, export, and destructured assignments to the same name.
 
 ES2015 allows for the renaming of references in import and export statements as well as destructuring assignments.
@@ -70,6 +71,19 @@ export { foo as bar };
 let { foo: bar } = baz;
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"complexity": {
+				"noUselessRename": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

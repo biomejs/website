@@ -19,6 +19,7 @@ This rule is part of the [nursery](/linter/rules/#nursery) group.
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/guard-for-in" target="_blank"><code>guard-for-in</code></a>
 
+## Description
 Require `for-in` loops to include an `if` statement.
 
 Looping over objects with a `for-in` loop will include properties inherited through the prototype chain.
@@ -66,6 +67,19 @@ for (key in foo) {
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useGuardForIn": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

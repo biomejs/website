@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-unsafe-finally" target="_blank"><code>no-unsafe-finally</code></a>
 
+## Description
 Disallow control flow statements in finally blocks.
 
 JavaScript suspends the control flow statements of `try` and `catch` blocks until
@@ -148,6 +149,19 @@ let foo = function(a) {
 };
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noUnsafeFinally": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

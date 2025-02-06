@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Inspired from: <a href="https://eslint.org/docs/latest/rules/no-labels" target="_blank"><code>no-labels</code></a>
 
+## Description
 Disallow labeled statements that are not loops.
 
 Labeled statements in JavaScript are used in conjunction with `break` and `continue` to control flow around multiple loops.
@@ -79,6 +80,19 @@ $: { /* reactive block */ }
 </script>
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noConfusingLabels": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

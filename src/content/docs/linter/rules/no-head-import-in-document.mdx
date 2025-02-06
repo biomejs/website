@@ -19,6 +19,7 @@ This rule is part of the [nursery](/linter/rules/#nursery) group.
 Sources: 
 - Same as: <a href="https://nextjs.org/docs/messages/no-head-import-in-document" target="_blank"><code>@next/no-head-import-in-document</code></a>
 
+## Description
 Prevent using the `next/head` module in `pages/_document.js` on Next.js projects.
 
 Importing `next/head` within the custom `pages/_document.js` file can cause
@@ -54,6 +55,19 @@ class MyDocument extends Document {
 export default MyDocument;
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noHeadImportInDocument": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

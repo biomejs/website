@@ -19,6 +19,7 @@ This rule is part of the [nursery](/linter/rules/#nursery) group.
 Sources: 
 - Same as: <a href="https://github.com/stylelint/stylelint/blob/main/lib/rules/custom-property-no-missing-var-function/README.md" target="_blank"><code>stylelint/custom-property-no-missing-var-function</code></a>
 
+## Description
 Disallow missing var function for css variables.
 
 This rule has the following limitations:
@@ -136,6 +137,19 @@ a {
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noMissingVarFunction": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

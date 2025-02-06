@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/iframe-has-title.md" target="_blank"><code>jsx-a11y/iframe-has-title</code></a>
 
+## Description
 Enforces the usage of the attribute `title` for the element `iframe`.
 
 ## Examples
@@ -88,6 +89,19 @@ Enforces the usage of the attribute `title` for the element `iframe`.
 - [WCAG 2.4.1](https://www.w3.org/WAI/WCAG21/Understanding/bypass-blocks)
 - [WCAG 4.1.2](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"a11y": {
+				"useIframeTitle": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

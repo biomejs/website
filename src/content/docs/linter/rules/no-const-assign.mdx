@@ -20,6 +20,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-const-assign" target="_blank"><code>no-const-assign</code></a>
 
+## Description
 Prevents from having `const` variables being re-assigned.
 
 Trying to assign a value to a `const` will cause an `TypeError` when the code is executed.
@@ -65,6 +66,19 @@ let b = 10;
 b = 20;
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noConstAssign": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

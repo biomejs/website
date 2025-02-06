@@ -20,6 +20,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/aria-unsupported-elements.md" target="_blank"><code>jsx-a11y/aria-unsupported-elements</code></a>
 
+## Description
 Enforce that elements that do not support ARIA roles, states, and properties do not have those attributes.
 
 ## Examples
@@ -48,6 +49,19 @@ Enforce that elements that do not support ARIA roles, states, and properties do 
 <html></html>
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"a11y": {
+				"noAriaUnsupportedElements": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

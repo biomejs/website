@@ -19,6 +19,7 @@ This rule is part of the [nursery](/linter/rules/#nursery) group.
 Sources: 
 - Same as: <a href="https://the-guild.dev/graphql/eslint/rules/no-duplicate-fields" target="_blank"><code>graphql/no-duplicate-fields</code></a>
 
+## Description
 No duplicated fields in GraphQL operations.
 
 Checks for duplicate fields in selection set, variables in operation definition, or in arguments set of a field.
@@ -45,6 +46,19 @@ query {
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noDuplicatedFields": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

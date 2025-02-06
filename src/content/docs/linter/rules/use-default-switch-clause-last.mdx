@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/default-case-last" target="_blank"><code>default-case-last</code></a>
 
+## Description
 Enforce default clauses in switch statements to be last
 
 A switch statement can optionally have a default clause.
@@ -89,6 +90,19 @@ switch (foo) {
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"useDefaultSwitchClauseLast": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

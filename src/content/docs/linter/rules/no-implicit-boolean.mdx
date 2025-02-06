@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Inspired from: <a href="https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-boolean-value.md" target="_blank"><code>react/jsx-boolean-value</code></a>
 
+## Description
 Disallow implicit `true` values on JSX boolean attributes
 
 ## Examples
@@ -53,6 +54,19 @@ Disallow implicit `true` values on JSX boolean attributes
 <input disabled='false' />
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"noImplicitBoolean": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

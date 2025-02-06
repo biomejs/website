@@ -20,6 +20,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-unneeded-ternary" target="_blank"><code>no-unneeded-ternary</code></a>
 
+## Description
 Disallow ternary operators when simpler alternatives exist.
 
 It’s a common mistake in JavaScript to use a conditional expression to select between two
@@ -67,6 +68,19 @@ var a = x === 2 ? 'Yes' : false;
 
 Logical NOT: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_NOT
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"complexity": {
+				"noUselessTernary": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

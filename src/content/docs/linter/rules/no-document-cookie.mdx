@@ -19,6 +19,7 @@ This rule is part of the [nursery](/linter/rules/#nursery) group.
 Sources: 
 - Same as: <a href="https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-document-cookie.md" target="_blank"><code>unicorn/no-document-cookie</code></a>
 
+## Description
 Disallow direct assignments to `document.cookie`.
 
 It's not recommended to use document.cookie directly as it's easy to get the string wrong.
@@ -62,6 +63,19 @@ import Cookies from 'js-cookie';
 Cookies.set('foo', 'bar');
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noDocumentCookie": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

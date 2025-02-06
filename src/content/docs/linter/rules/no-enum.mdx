@@ -16,6 +16,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::
 
+## Description
 Disallow TypeScript enum.
 
 TypeScript enums are not a type-level extension to JavaScript like type annotations or definitions.
@@ -57,6 +58,19 @@ const enum Foo {
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noEnum": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

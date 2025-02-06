@@ -20,6 +20,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/no-access-key.md" target="_blank"><code>jsx-a11y/no-access-key</code></a>
 
+## Description
 Enforce that the `accessKey` attribute is not used on any HTML element.
 
 The `accessKey` assigns a keyboard shortcut to the current element. However, the `accessKey` value
@@ -54,6 +55,19 @@ this rule suggests users remove the `accessKey` attribute on elements.
 - [WebAIM: Keyboard Accessibility - Accesskey](https://webaim.org/techniques/keyboard/accesskey#spec)
 - [MDN `accesskey` documentation](https://developer.mozilla.org/docs/Web/HTML/Global_attributes/accesskey)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"a11y": {
+				"noAccessKey": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

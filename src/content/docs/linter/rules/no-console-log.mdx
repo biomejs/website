@@ -20,6 +20,7 @@ This rule is deprecated and will be removed in the next major release.
 - This rule has an **unsafe** fix.
 :::
 
+## Description
 Disallow the use of `console.log`
 
 ## Examples
@@ -44,6 +45,19 @@ const console = { log() {} };
 console.log();
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noConsoleLog": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

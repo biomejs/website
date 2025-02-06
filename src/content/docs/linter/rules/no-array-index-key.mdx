@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-array-index-key.md" target="_blank"><code>react/no-array-index-key</code></a>
 
+## Description
 Discourage the usage of Array index in keys.
 
 >We don’t recommend using indexes for keys if the order of items may change.
@@ -80,6 +81,19 @@ something.forEach((item) => {
 });
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noArrayIndexKey": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

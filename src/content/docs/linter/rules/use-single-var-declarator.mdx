@@ -20,6 +20,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/one-var" target="_blank"><code>one-var</code></a>
 
+## Description
 Disallow multiple variable declarations in the same variable statement
 
 In JavaScript, multiple variables can be declared within a single `var`, `const` or `let` declaration.
@@ -48,6 +49,19 @@ let baz;
 for (let i = 0, x = 1; i < arr.length; i++) {}
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useSingleVarDeclarator": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

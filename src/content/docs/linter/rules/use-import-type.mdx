@@ -20,6 +20,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Inspired from: <a href="https://typescript-eslint.io/rules/consistent-type-imports" target="_blank"><code>@typescript-eslint/consistent-type-imports</code></a>
 
+## Description
 Promotes the use of `import type` for types.
 
 _TypeScript_ allows specifying a `type` keyword on an `import` to indicate that the `import` doesn't exist at runtime.
@@ -112,6 +113,19 @@ import { B } from "./mod.js" with {};
 export type { B };
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useImportType": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

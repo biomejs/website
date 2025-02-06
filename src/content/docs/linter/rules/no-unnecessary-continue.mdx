@@ -17,6 +17,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - This rule has an **unsafe** fix.
 :::
 
+## Description
 Avoid using unnecessary `continue`.
 
 ## Examples
@@ -98,6 +99,19 @@ loop: while (1) {
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noUnnecessaryContinue": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

@@ -16,6 +16,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::
 
+## Description
 Disallow use of `@value` rule in css modules.
 
 Use of CSS variables is recommended instead of `@value` rule.
@@ -42,6 +43,19 @@ p {
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noValueAtRule": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

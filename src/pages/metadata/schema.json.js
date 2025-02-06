@@ -248,6 +248,13 @@ export function GET() {
 					"required": ["eslintNoSecrets"],
 					"properties": { "eslintNoSecrets": { "type": "string" } },
 					"additionalProperties": false
+				},
+				{
+					"description": "Rules from [deno lint](https://github.com/denoland/deno_lint)",
+					"type": "object",
+					"required": ["denoLint"],
+					"properties": { "denoLint": { "type": "string" } },
+					"additionalProperties": false
 				}
 			]
 		},

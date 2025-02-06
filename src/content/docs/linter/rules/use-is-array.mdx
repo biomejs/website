@@ -20,6 +20,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-instanceof-array.md" target="_blank"><code>unicorn/no-instanceof-array</code></a>
 
+## Description
 Use `Array.isArray()` instead of `instanceof Array`.
 
 In _JavaScript_ some array-like objects such as _arguments_ are not instances of the `Array` class.    ///
@@ -47,6 +48,19 @@ const xs = [];
 if (Array.isArray(xs)) {}
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"useIsArray": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

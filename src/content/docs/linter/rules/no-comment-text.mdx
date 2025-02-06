@@ -20,6 +20,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-no-comment-textnodes.md" target="_blank"><code>react/jsx-no-comment-textnodes</code></a>
 
+## Description
 Prevent comments from being inserted as text nodes
 
 ## Examples
@@ -95,6 +96,19 @@ Prevent comments from being inserted as text nodes
 </>
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noCommentText": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

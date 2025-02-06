@@ -20,6 +20,7 @@ Sources:
 - Same as: <a href="https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-array-for-each.md" target="_blank"><code>unicorn/no-array-for-each</code></a>
 - Same as: <a href="https://rust-lang.github.io/rust-clippy/master/#/needless_for_each" target="_blank"><code>needless_for_each</code></a>
 
+## Description
 Prefer `for...of` statement instead of `Array.forEach`.
 
 Here's a summary of why `forEach` may be disallowed, and why `for...of` is preferred for almost any use-case of `forEach`:
@@ -110,6 +111,19 @@ _.forEach((el) => {
 
 Values with dots (e.g., "lib.\_") will not be accepted.
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"complexity": {
+				"noForEach": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

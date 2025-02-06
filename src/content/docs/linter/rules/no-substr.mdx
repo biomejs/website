@@ -23,6 +23,7 @@ This rule is part of the [nursery](/linter/rules/#nursery) group.
 Sources: 
 - Same as: <a href="https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-string-slice.md" target="_blank"><code>unicorn/prefer-string-slice</code></a>
 
+## Description
 Enforce the use of `String.slice()` over `String.substr()` and `String.substring()`.
 
 `String.slice()` is preferred over `String.substr()` and `String.substring()` because it is a more popular option with clearer behavior,
@@ -56,6 +57,19 @@ foo.substring();
 foo.slice(beginIndex, endIndex);
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noSubstr": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

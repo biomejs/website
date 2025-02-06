@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Inspired from: <a href="https://eslint.org/docs/latest/rules/no-cond-assign" target="_blank"><code>no-cond-assign</code></a>
 
+## Description
 Disallow assignments in expressions.
 
 In expressions, it is common to mistype a comparison operator (such as `==`) as an assignment operator (such as `=`).
@@ -59,6 +60,19 @@ let a;
 a = 1;
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noAssignInExpressions": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

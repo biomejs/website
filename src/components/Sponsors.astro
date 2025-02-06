@@ -1,16 +1,28 @@
 ---
-// import { Image } from "astro:assets";
+import { Image } from "astro:assets";
+import darkVercel from "../assets/sponsors/vercel-logotype-dark.png";
+import lightVercel from "../assets/sponsors/vercel-logotype-light.png";
+
 const { title } = Astro.props;
 ---
 <h2 class="head">{title}</h2>
 <div class="sponsors">
-	<!-- <a class="sponsors-row" href="#" rel="nofollow" title="Sponsor name">
+	<a class="sponsors-row" href="https://vercel.com" rel="nofollow" title="Vercel" target="_blank">
 		<Image
-			alt="Name of the sponsor"
-			src="#"
-			data-canonical-src="#"
-			width="320"
-			height="100"
+			alt="Vercel"
+			src={darkVercel}
+			data-canonical-src={darkVercel.src}
+			width="300"
+			class="dark:sl-hidden"
+			loading="eager"
 		/>
-	</a> -->
+		<Image
+			alt="Vercel"
+			src={lightVercel}
+			data-canonical-src={lightVercel.src}
+			width="300"
+			class="light:sl-hidden"
+			loading="eager"
+		/>
+	</a>
 </div>

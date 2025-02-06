@@ -20,6 +20,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-useless-catch" target="_blank"><code>no-useless-catch</code></a>
 
+## Description
 Disallow unnecessary `catch` clauses.
 
 A `catch` clause that only rethrows the original error is redundant,
@@ -80,6 +81,19 @@ try {
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"complexity": {
+				"noUselessCatch": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

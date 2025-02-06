@@ -20,6 +20,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-nonoctal-decimal-escape" target="_blank"><code>no-nonoctal-decimal-escape</code></a>
 
+## Description
 Disallow `\8` and `\9` escape sequences in string literals.
 
 Since ECMAScript 2021, the escape sequences \8 and \9 have been defined as non-octal decimal escape sequences.
@@ -67,6 +68,19 @@ const x = "8";
 const x = "Don't use \\8 and \\9 escapes.";
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noNonoctalDecimalEscape": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

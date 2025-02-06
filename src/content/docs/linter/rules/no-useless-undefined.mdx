@@ -23,6 +23,7 @@ This rule is part of the [nursery](/linter/rules/#nursery) group.
 Sources: 
 - Same as: <a href="https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-useless-undefined.md" target="_blank"><code>unicorn/no-useless-undefined</code></a>
 
+## Description
 Disallow the use of useless `undefined`.
 
 `undefined` is the default value for new variables, parameters, return statements, etc., so specifying it doesn't make any difference.
@@ -93,6 +94,19 @@ function foo({bar}) {}
 foo();
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noUselessUndefined": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

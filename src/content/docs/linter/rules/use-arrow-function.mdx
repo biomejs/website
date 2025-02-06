@@ -20,6 +20,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Inspired from: <a href="https://eslint.org/docs/latest/rules/prefer-arrow-callback" target="_blank"><code>prefer-arrow-callback</code></a>
 
+## Description
 Use arrow functions over function expressions.
 
 An arrow function expression is a compact alternative to a regular function expression,
@@ -72,6 +73,19 @@ const z = function(this: A): number {
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"complexity": {
+				"useArrowFunction": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

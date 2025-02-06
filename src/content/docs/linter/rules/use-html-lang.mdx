@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/html-has-lang.md" target="_blank"><code>jsx-a11y/html-has-lang</code></a>
 
+## Description
 Enforce that `html` element has `lang` attribute.
 
 ## Examples
@@ -77,6 +78,19 @@ Enforce that `html` element has `lang` attribute.
 
 - [WCAG 3.1.1](https://www.w3.org/WAI/WCAG21/Understanding/language-of-page)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"a11y": {
+				"useHtmlLang": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

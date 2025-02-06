@@ -16,6 +16,7 @@ Sources:
 - Same as: <a href="https://eslint.org/docs/latest/rules/require-await" target="_blank"><code>require-await</code></a>
 - Same as: <a href="https://typescript-eslint.io/rules/require-await" target="_blank"><code>@typescript-eslint/require-await</code></a>
 
+## Description
 Ensure `async` functions utilize `await`.
 
 This rule reports `async` functions that lack an `await` expression. As `async`
@@ -55,6 +56,19 @@ function processData() {
 async function noop() { }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"useAwait": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

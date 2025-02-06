@@ -16,6 +16,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - This rule has an **unsafe** fix.
 :::
 
+## Description
 Disallow unused function parameters.
 
 There is an exception to this rule:
@@ -56,6 +57,19 @@ function foo(myVar) {
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noUnusedFunctionParameters": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

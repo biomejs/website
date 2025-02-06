@@ -20,6 +20,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://typescript-eslint.io/rules/prefer-as-const" target="_blank"><code>@typescript-eslint/prefer-as-const</code></a>
 
+## Description
 Enforce the use of `as const` over literal type and type annotation.
 
 In TypeScript, there are three common ways to specify that a value is of a specific type such as `2` and not a general type such as `number`:
@@ -56,6 +57,19 @@ let bar = 'bar' as string;
 let foo = { bar: 'baz' };
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useAsConstAssertion": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

@@ -21,6 +21,7 @@ Sources:
 - Same as: <a href="https://eslint.org/docs/latest/rules/dot-notation" target="_blank"><code>dot-notation</code></a>
 - Same as: <a href="https://typescript-eslint.io/rules/dot-notation" target="_blank"><code>@typescript-eslint/dot-notation</code></a>
 
+## Description
 Enforce the usage of a literal access to properties over computed property access.
 
 ## Examples
@@ -60,6 +61,19 @@ a["c" + "d"];
 a[d.c];
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"complexity": {
+				"useLiteralKeys": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

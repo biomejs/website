@@ -18,6 +18,7 @@ Sources:
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-empty-function" target="_blank"><code>no-empty-function</code></a>
 - Same as: <a href="https://typescript-eslint.io/rules/no-empty-function" target="_blank"><code>@typescript-eslint/no-empty-function</code></a>
 
+## Description
 Disallow empty block statements and static blocks.
 
 Empty static blocks and block statements, while not technically errors, usually occur due to refactoring that wasn’t completed. They can cause confusion when reading code.
@@ -69,6 +70,19 @@ try {
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noEmptyBlockStatements": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

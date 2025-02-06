@@ -20,6 +20,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-compare-neg-zero" target="_blank"><code>no-compare-neg-zero</code></a>
 
+## Description
 Disallow comparing against `-0`
 
 ## Examples
@@ -38,6 +39,19 @@ Disallow comparing against `-0`
 (1 >= 0)
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noCompareNegZero": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

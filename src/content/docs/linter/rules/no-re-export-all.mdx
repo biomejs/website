@@ -15,6 +15,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://github.com/thepassle/eslint-plugin-barrel-files/blob/main/docs/rules/avoid-re-export-all.md" target="_blank"><code>barrel-files/avoid-re-export-all</code></a>
 
+## Description
 Avoid re-export all.
 
 Deeply nested import chains in modular projects, where a barrel file imports another barrel file, can lead to increased load times and complexity.
@@ -48,6 +49,19 @@ export type * from "foo";
 export type * as bar from "bar";
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"performance": {
+				"noReExportAll": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

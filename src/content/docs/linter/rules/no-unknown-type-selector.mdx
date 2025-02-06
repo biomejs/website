@@ -19,6 +19,7 @@ This rule is part of the [nursery](/linter/rules/#nursery) group.
 Sources: 
 - Same as: <a href="https://github.com/stylelint/stylelint/blob/main/lib/rules/selector-type-no-unknown/README.md" target="_blank"><code>stylelint/selector-type-no-unknown</code></a>
 
+## Description
 Disallow unknown type selectors.
 
 This rule considers tags defined in the HTML, SVG, and MathML specifications to be known.
@@ -67,6 +68,19 @@ ul > li {}
 x-foo {}
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noUnknownTypeSelector": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

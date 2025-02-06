@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://rust-lang.github.io/rust-clippy/master/#/min_max" target="_blank"><code>min_max</code></a>
 
+## Description
 Disallow the use of `Math.min` and `Math.max` to clamp a value where the result itself is constant.
 
 ## Examples
@@ -43,6 +44,19 @@ Math.max(100, Math.min(0, x));
 Math.min(100, Math.max(0, x));
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noConstantMathMinMaxClamp": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

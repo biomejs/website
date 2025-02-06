@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/img-redundant-alt.md" target="_blank"><code>jsx-a11y/img-redundant-alt</code></a>
 
+## Description
 Enforce `img` alt prop does not contain the word "image", "picture", or "photo".
 
 The rule will first check if `aria-hidden` is truthy to determine whether to enforce the rule. If the image is
@@ -56,6 +57,19 @@ hidden, then the rule will always succeed.
 </>
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"a11y": {
+				"noRedundantAlt": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

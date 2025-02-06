@@ -23,6 +23,7 @@ This rule is deprecated and will be removed in the next major release.
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-new-symbol" target="_blank"><code>no-new-symbol</code></a>
 
+## Description
 Disallow `new` operators with the `Symbol` object.
 
 `Symbol` cannot be instantiated. This results in throwing a `TypeError`.
@@ -47,6 +48,19 @@ function baz() {
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noNewSymbol": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

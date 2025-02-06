@@ -19,6 +19,7 @@ This rule is part of the [nursery](/linter/rules/#nursery) group.
 Sources: 
 - Same as: <a href="https://typescript-eslint.io/rules/adjacent-overload-signatures" target="_blank"><code>@typescript-eslint/adjacent-overload-signatures</code></a>
 
+## Description
 Disallow the use of overload signatures that are not next to each other.
 
 Overload signatures must be adjacent.
@@ -101,6 +102,19 @@ class A {
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useAdjacentOverloadSignatures": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

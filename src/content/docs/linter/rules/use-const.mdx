@@ -20,6 +20,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/prefer-const" target="_blank"><code>prefer-const</code></a>
 
+## Description
 Require `const` declarations for variables that are only assigned once.
 
 Variables that are initialized and never reassigned and
@@ -90,6 +91,19 @@ a; // the variable is read before its assignement
 a = 0;
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useConst": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

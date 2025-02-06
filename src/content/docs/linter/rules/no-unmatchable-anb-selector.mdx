@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://github.com/stylelint/stylelint/blob/main/lib/rules/selector-anb-no-unmatchable/README.md" target="_blank"><code>stylelint/selector-anb-no-unmatchable</code></a>
 
+## Description
 Disallow unmatchable An+B selectors.
 
 Selectors that always evaluate to 0 will not match any elements.
@@ -71,6 +72,19 @@ a:nth-of-type(1n+0) {}
 a:nth-last-of-type(1 of a) {}
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noUnmatchableAnbSelector": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

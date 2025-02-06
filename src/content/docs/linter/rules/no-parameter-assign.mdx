@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-param-reassign" target="_blank"><code>no-param-reassign</code></a>
 
+## Description
 Disallow reassigning `function` parameters.
 
 Assignment to a `function` parameters can be misleading and confusing,
@@ -74,6 +75,19 @@ function f(param) {
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"noParameterAssign": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

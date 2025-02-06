@@ -21,6 +21,7 @@ Sources:
 - Same as: <a href="https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/new-for-builtins.md" target="_blank"><code>unicorn/new-for-builtins</code></a>
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-new-native-nonconstructor" target="_blank"><code>no-new-native-nonconstructor</code></a>
 
+## Description
 Ensure that builtins are correctly instantiated.
 
 The following builtins require `new` to be instantiate:
@@ -83,6 +84,19 @@ const map = new Map([
 ]);
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noInvalidBuiltinInstantiation": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

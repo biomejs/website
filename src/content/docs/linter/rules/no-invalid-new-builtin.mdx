@@ -20,6 +20,7 @@ This rule is deprecated and will be removed in the next major release.
 - This rule has an **unsafe** fix.
 :::
 
+## Description
 Disallow `new` operators with global non-constructor functions.
 
 Some global functions cannot be called using the new operator and
@@ -62,6 +63,19 @@ function quux(BigInt) {
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noInvalidNewBuiltin": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

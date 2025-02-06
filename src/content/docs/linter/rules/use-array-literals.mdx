@@ -20,6 +20,7 @@ Sources:
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-array-constructor" target="_blank"><code>no-array-constructor</code></a>
 - Same as: <a href="https://typescript-eslint.io/rules/no-array-constructor" target="_blank"><code>@typescript-eslint/no-array-constructor</code></a>
 
+## Description
 Disallow Array constructors.
 
 Use of the Array constructor to construct a new array is generally discouraged in favor of array literal notation because of the single-argument pitfall and because the Array global may be redefined.
@@ -63,6 +64,19 @@ const xs = Array(65000);
 const xs = [0, 1, 2];
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"useArrayLiterals": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

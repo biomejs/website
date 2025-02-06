@@ -5,7 +5,7 @@ description: biome.jsonを使用してBiomeをカスタマイズおよび設定�
 
 import LintGroups from "@/components/generated/linter/Groups.astro";
 
-{/** 設定のタイトルを変更する際は、static/_redirects 内のリダイレクトも忘れずに更新してください。 --> **/}
+{/** 設定のタイトルを変更する際は、static/_redirects内のリダイレクトも忘れずに更新してください。 --> **/}
 
 ## `$schema`
 
@@ -148,13 +148,13 @@ BiomeがVCSファイルを探すフォルダを指定します。デフォルト
 
 ### `linter.enabled`
 
-Biomeのlinterを有効にします。
+Biomeのリンタを有効にします。
 
 > デフォルト: `true`
 
 ### `linter.ignore`
 
-Biomeのlinterは、パターンに一致するファイルやフォルダを無視します。
+Biomeのリンタは、パターンに一致するファイルやフォルダを無視します。
 Unixシェル形式のパターンのリストで指定します。
 
 
@@ -170,7 +170,7 @@ Unixシェル形式のパターンのリストで指定します。
 
 ### `linter.include`
 
-Biomeのlinterは、これらのパターンに一致するファイルやフォルダのみを処理します。
+Biomeのリンタは、これらのパターンに一致するファイルやフォルダのみを処理します。
 Unixシェル形式のパターンのリストで指定します。
 
 
@@ -304,17 +304,17 @@ Unixシェル形式のパターンのリストで指定します。
 ## `formatter`
 
 これらのオプションはすべての言語に適用されます。
-下記には、言語固有のformatterオプションが追加で記載されています。
+下記には、言語固有のフォーマッタオプションが追加で記載されています。
 
 ### `formatter.enabled`
 
-Biomeのformatterを有効にします。
+Biomeのフォーマッタを有効にします。
 
 > デフォルト: `true`
 
 ### `formatter.ignore`
 
-Biomeのformatterは、パターンに一致するファイルやフォルダを無視します。
+Biomeのフォーマッタは、パターンに一致するファイルやフォルダを無視します。
 Unixシェル形式のパターンのリストで指定します。
 
 
@@ -328,7 +328,7 @@ Unixシェル形式のパターンのリストで指定します。
 
 ### `formatter.include`
 
-Biomeのformatterは、これらのパターンに一致するファイルやフォルダのみを処理します。
+Biomeのフォーマッタは、これらのパターンに一致するファイルやフォルダのみを処理します。
 Unixシェル形式のパターンのリストで指定します。
 
 
@@ -404,9 +404,9 @@ Unixシェル形式のパターンのリストで指定します。
 ### `formatter.lineEnding`
 
 改行コードの種類を指定します。
-- `"lf"`: Line Feed のみ (`\n`)、Linux や macOS、または git リポジトリ内で一般的です。
-- `"crlf"`: Carriage Return + Line Feed 文字 (`\r\n`)、Windows で一般的です。
-- `"cr"`: Carriage Return 文字のみ (`\r`)、非常にまれに使用されます。
+- `"lf"`: Line Feedのみ (`\n`)、LinuxやmacOS、またはgitリポジトリ内で一般的です。
+- `"crlf"`: Carriage Return + Line Feed文字 (`\r\n`)、Windowsで一般的です。
+- `"cr"`: Carriage Return文字のみ (`\r`)、非常にまれに使用されます。
 
 > デフォルト: `"lf"`
 
@@ -420,8 +420,8 @@ Unixシェル形式のパターンのリストで指定します。
 
 HTML言語（あるいはHTMLベースの言語）における属性の位置スタイルを指定します。
 
-- `"auto"`: 属性は自動的にformatされ、特定の基準に達したときのみ複数行に折り返されます。
-- `"multiline"`: 属性は常に複数行でformatされます。
+- `"auto"`: 属性は自動的にフォーマットされ、特定の基準に達したときのみ複数行に折り返されます。
+- `"multiline"`: 属性は常に複数行でフォーマットされます。
 
 > デフォルト: `"auto"`
 
@@ -485,7 +485,7 @@ Unixシェル形式のパターンのリストで指定します。
 
 ## `javascript`
 
-これらのオプションは、JavaScript（および TypeScript）ファイルにのみ適用されます。
+これらのオプションは、JavaScript（およびTypeScript）ファイルにのみ適用されます。
 
 ### `javascript.parser.unsafeParameterDecoratorsEnabled`
 
@@ -550,9 +550,9 @@ JSXの文字列リテラルを表現する際に使用する引用符の種類�
 
 ### `javascript.formatter.semicolons`
 
-formatterがセミコロンを出力する場所を指定します。
+フォーマッタがセミコロンを出力する場所を指定します。
 - `"always"`: 各ステートメントの末尾に常にセミコロンが追加されます。
-- `"asNeeded"`: セミコロンは必要な場所にのみ追加され、ASI から保護します。
+- `"asNeeded"`: セミコロンは必要な場所にのみ追加され、ASIから保護します。
 
 > デフォルト: `"always"`
 
@@ -578,7 +578,7 @@ formatterがセミコロンを出力する場所を指定します。
 
 ### `javascript.formatter.enabled`
 
-JavaScript（およびその拡張言語）ファイル用のBiomeformatterを有効にします。
+JavaScript（およびその拡張言語）ファイル用のBiomeフォーマッタを有効にします。
 
 > デフォルト `true`
 
@@ -610,9 +610,9 @@ JavaScript（およびその拡張言語）ファイルのインデントサイ�
 ### `javascript.formatter.lineEnding`
 
 JavaScript（およびその拡張言語）ファイルの改行コードの種類を指定します。
-- `"lf"`: Line Feed のみ (`\n`)、Linux や macOS、または git リポジトリ内で一般的です。
-- `"crlf"`: Carriage Return + Line Feed 文字 (`\r\n`)、Windows で一般的です。
-- `"cr"`: Carriage Return 文字のみ (`\r`)、非常にまれに使用されます。
+- `"lf"`: Line Feedのみ (`\n`)、LinuxやmacOS、またはgitリポジトリ内で一般的です。
+- `"crlf"`: Carriage Return + Line Feed文字 (`\r\n`)、Windowsで一般的です。
+- `"cr"`: Carriage Return文字のみ (`\r`)、非常にまれに使用されます。
 
 > デフォルト: `"lf"`
 
@@ -637,8 +637,8 @@ JavaScript（およびその拡張言語）ファイルの行の文字数を指�
 ### `javascript.formatter.attributePosition`
 
 JSX要素における属性の位置スタイルを指定します。
-- `"auto"`: 属性は自動的にformatされ、特定の基準に達したときのみ複数行に折り返されます。
-- `"multiline"`: 属性は常に複数行でformatされます。
+- `"auto"`: 属性は自動的にフォーマットされ、特定の基準に達したときのみ複数行に折り返されます。
+- `"multiline"`: 属性は常に複数行でフォーマットされます。
 
 > デフォルト: `"auto"`
 
@@ -668,14 +668,6 @@ JSXを解釈するために使用されるランタイムまたは変換のタ�
 }
 ```
 
-```json title="biome.json"
-{
-  "javascript": {
-    "jsxRuntime": "reactClassic"
-  }
-}
-```
-
 古いJSXランタイムと新しいJSXランタイムについての詳細は、以下をご覧ください。
 https://legacy.reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html
 
@@ -683,7 +675,7 @@ https://legacy.reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.htm
 
 ### `javascript.linter.enabled`
 
-JavaScript（およびその拡張言語）ファイル用のBiomeformatterを有効にします。
+JavaScript（およびその拡張言語）ファイル用のBiomeフォーマッタを有効にします。
 
 > デフォルト: `true`
 
@@ -725,7 +717,7 @@ JSONファイル内の末尾カンマの解析を有効にします。
 
 ### `json.formatter.enabled`
 
-JSON（およびその拡張言語）ファイル用のBiomeformatterを有効にします。
+JSON（およびその拡張言語）ファイル用のBiomeフォーマッタを有効にします。
 
 > デフォルト: `true`
 
@@ -758,9 +750,9 @@ JSON（およびその拡張言語）ファイルのインデントサイズを�
 ### `json.formatter.lineEnding`
 
 JSON（およびその拡張言語）ファイルの改行コードの種類を指定します。
-- `"lf"`: Line Feed のみ (`\n`)、Linux や macOS、または git リポジトリ内で一般的です。
-- `"crlf"`: Carriage Return + Line Feed 文字 (`\r\n`)、Windows で一般的です。
-- `"cr"`: Carriage Return 文字のみ (`\r`)、非常にまれに使用されます。
+- `"lf"`: Line Feedのみ (`\n`)、LinuxやmacOS、またはgitリポジトリ内で一般的です。
+- `"crlf"`: Carriage Return + Line Feed文字 (`\r\n`)、Windowsで一般的です。
+- `"cr"`: Carriage Return文字のみ (`\r`)、非常にまれに使用されます。
 
 > デフォルト: `"lf"`
 
@@ -782,7 +774,7 @@ JSON（およびその拡張言語）ファイルの行の文字数を指定し�
 
 ### `json.linter.enabled`
 
-JSON（およびその拡張言語）ファイル用のBiomeのlinterを有効にします。
+JSON（およびその拡張言語）ファイル用のBiomeのリンタを有効にします。
 
 > デフォルト: `true`
 
@@ -799,7 +791,7 @@ CSSファイルに適用されるオプションです。
 
 ### `css.formatter.enabled`
 
-CSS（およびその拡張言語）ファイル用のBiomeのformatterを有効にします。
+CSS（およびその拡張言語）ファイル用のBiomeのフォーマッタを有効にします。
 
 > デフォルト: `false`
 
@@ -819,9 +811,9 @@ CSS（およびその拡張言語）ファイルのインデントサイズを�
 ### `css.formatter.lineEnding`
 
 CSS（およびその拡張言語）ファイルの改行コードの種類を指定します。
-- `"lf"`: Line Feed のみ (`\n`)、Linux や macOS、または git リポジトリ内で一般的です。
-- `"crlf"`: Carriage Return + Line Feed 文字 (`\r\n`)、Windows で一般的です。
-- `"cr"`: Carriage Return 文字のみ (`\r`)、非常にまれに使用されます。
+- `"lf"`: Line Feedのみ (`\n`)、LinuxやmacOS、またはgitリポジトリ内で一般的です。
+- `"crlf"`: Carriage Return + Line Feed文字 (`\r\n`)、Windowsで一般的です。
+- `"cr"`: Carriage Return文字のみ (`\r`)、非常にまれに使用されます。
 
 > デフォルト: `"lf"`
 
@@ -839,7 +831,7 @@ CSS（およびその拡張言語）ファイルの行の文字数を指定し�
 
 ### `css.linter.enabled`
 
-CSS（およびその拡張言語）ファイル用のBiomeのlinterを有効にします。
+CSS（およびその拡張言語）ファイル用のBiomeのリンタを有効にします。
 
 > デフォルト: `false`
 
@@ -882,7 +874,7 @@ Unixシェル形式のパターンのリストです。Biomeは、これらの�
 
 #### Examples
 
-例えば、`generated/**` のグロブパスに含まれる特定のファイルに対して、formatterの `lineWidth` や `indentStyle` を変更することが可能です。
+例えば、`generated/**` のグロブパスに含まれる特定のファイルに対して、フォーマッタの `lineWidth` や `indentStyle` を変更することが可能です。
 
 
 ```json title="biome.json"
@@ -908,7 +900,7 @@ Unixシェル形式のパターンのリストです。Biomeは、これらの�
 
 #### Examples
 
-特定のグロブパスに対しては特定のルールを無効にし、他のグロブパスに対してはlinterを無効にすることができます。
+特定のグロブパスに対しては特定のルールを無効にし、他のグロブパスに対してはリンタを無効にすることができます。
 
 
 

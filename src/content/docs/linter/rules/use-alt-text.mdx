@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/alt-text.md" target="_blank"><code>jsx-a11y/alt-text</code></a>
 
+## Description
 Enforce that all elements that require alternative text have meaningful information to relay back to the end user.
 
 This is a critical component of accessibility for screen reader users in order for them to understand the content's purpose on the page.
@@ -62,6 +63,19 @@ By default, this rule checks for alternative text on the following elements: `<i
 
 - [WCAG 1.1.1](https://www.w3.org/WAI/WCAG21/Understanding/non-text-content.html)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"a11y": {
+				"useAltText": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

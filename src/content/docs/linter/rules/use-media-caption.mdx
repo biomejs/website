@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/media-has-caption.md" target="_blank"><code>jsx-a11y/media-has-caption</code></a>
 
+## Description
 Enforces that `audio` and `video` elements must have a `track` for captions.
 
 ## Examples
@@ -49,6 +50,19 @@ Enforces that `audio` and `video` elements must have a `track` for captions.
 	<video muted {...props}></video>
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"a11y": {
+				"useMediaCaption": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

@@ -20,6 +20,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://typescript-eslint.io/rules/prefer-enum-initializers" target="_blank"><code>@typescript-eslint/prefer-enum-initializers</code></a>
 
+## Description
 Require that each enum member value be explicitly initialized.
 
 _TypeScript_ enums are a practical way to organize semantically related constant values.
@@ -83,6 +84,19 @@ declare enum Weather {
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useEnumInitializers": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

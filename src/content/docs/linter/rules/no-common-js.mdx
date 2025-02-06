@@ -20,6 +20,7 @@ Sources:
 - Same as: <a href="https://typescript-eslint.io/rules/no-require-imports" target="_blank"><code>@typescript-eslint/no-require-imports</code></a>
 - Same as: <a href="https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-commonjs.md" target="_blank"><code>import/no-commonjs</code></a>
 
+## Description
 Disallow use of CommonJs module system in favor of ESM style imports.
 
 ESM-style `import`s are modern alternative to CommonJS `require` imports. Supported by all modern browsers and Node.js versions.
@@ -72,6 +73,19 @@ Rule is automatically disabled inside `.cjs` and `.cts` files, because they are 
 This rule could be helpful if you are migrating from CommonJs to ESM,
 but if you wish to continue using CommonJs, you can safely disable it.
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noCommonJs": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

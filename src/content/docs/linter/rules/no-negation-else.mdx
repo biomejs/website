@@ -20,6 +20,7 @@ Sources:
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-negated-condition" target="_blank"><code>no-negated-condition</code></a>
 - Same as: <a href="https://rust-lang.github.io/rust-clippy/master/#/if_not_else" target="_blank"><code>if_not_else</code></a>
 
+## Description
 Disallow negation in the condition of an `if` statement if it has an `else` clause.
 
 ## Examples
@@ -56,6 +57,19 @@ if (!cond) { f(); }
 if (!!val) { f(); } else { g(); }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"noNegationElse": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

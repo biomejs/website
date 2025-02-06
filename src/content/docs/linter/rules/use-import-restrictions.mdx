@@ -19,6 +19,7 @@ This rule is part of the [nursery](/linter/rules/#nursery) group.
 Sources: 
 - Inspired from: <a href="https://github.com/uhyo/eslint-plugin-import-access" target="_blank"><code>import-access/eslint-plugin-import-access</code></a>
 
+## Description
 Disallows package private imports.
 
 This rules enforces the following restrictions:
@@ -90,6 +91,19 @@ import { subPackageVariable } from "./sub/index.js";
 import useAsync from "react-use/lib/useAsync";
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useImportRestrictions": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

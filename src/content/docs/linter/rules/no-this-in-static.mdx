@@ -20,6 +20,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://github.com/mysticatea/eslint-plugin/blob/master/docs/rules/no-this-in-static.md" target="_blank"><code>@mysticatea/no-this-in-static</code></a>
 
+## Description
 Disallow `this` and `super` in `static` contexts.
 
 In JavaScript, the `this` keyword in static contexts refers to the class (the constructor) instance,
@@ -88,6 +89,19 @@ class A {
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"complexity": {
+				"noThisInStatic": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

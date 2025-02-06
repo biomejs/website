@@ -17,6 +17,7 @@
 	--sl-perf-progress: #60a5fa;
 	--sl-discord: #5865f2;
 	--sl-mastodon: #6364ff;
+	--sl-blueSky: #0085ff;
 }
 
 /* Dark mode colors. */
@@ -37,6 +38,7 @@
 	--sl-perf-progress: #60a5fa;
 	--sl-discord: #5865f2;
 	--sl-mastodon: #6364ff;
+	--sl-blueSky: #0085ff;
 }
 
 .card-cnt {
@@ -73,6 +75,7 @@
 	);
 	transform: translate(-50%, -50%);
 	transition: width .2s ease, height .2s ease;
+	pointer-events: none;
 }
 
 .card-cnt > .card-grid > .card:hover::before {

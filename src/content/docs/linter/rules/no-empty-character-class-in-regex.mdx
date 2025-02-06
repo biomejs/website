@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-empty-character-class" target="_blank"><code>no-empty-character-class</code></a>
 
+## Description
 Disallow empty character classes in regular expression literals.
 
 Empty character classes don't match anything.
@@ -55,6 +56,19 @@ They are often the result of a typing mistake.
 /^a\[]/.test("a[]"); // true
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noEmptyCharacterClassInRegex": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

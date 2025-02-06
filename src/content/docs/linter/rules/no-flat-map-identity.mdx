@@ -20,6 +20,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://rust-lang.github.io/rust-clippy/master/#/flat_map_identity" target="_blank"><code>flat_map_identity</code></a>
 
+## Description
 Disallow to use unnecessary callback on `flatMap`.
 
 To achieve the same result (flattening an array) more concisely and efficiently, you should use `flat` instead.
@@ -46,6 +47,19 @@ array.flatMap((arr) => {return arr});
 array.flatMap((arr) => arr * 2);
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noFlatMapIdentity": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

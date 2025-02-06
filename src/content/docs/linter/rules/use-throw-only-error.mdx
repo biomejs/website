@@ -16,6 +16,7 @@ Sources:
 - Inspired from: <a href="https://eslint.org/docs/latest/rules/no-throw-literal" target="_blank"><code>no-throw-literal</code></a>
 - Inspired from: <a href="https://typescript-eslint.io/rules/only-throw-error" target="_blank"><code>@typescript-eslint/only-throw-error</code></a>
 
+## Description
 Disallow throwing non-`Error` values.
 
 It is considered good practice only to throw the `Error` object itself or an object using the `Error` object
@@ -66,6 +67,19 @@ This rule only covers cases where throwing the value can be known statically.
 Complex cases such as object and function access aren't checked.
 This will be improved in the future once Biome supports type inference.
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useThrowOnlyError": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

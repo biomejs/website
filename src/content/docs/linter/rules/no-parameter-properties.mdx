@@ -15,6 +15,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Inspired from: <a href="https://typescript-eslint.io/rules/parameter-properties" target="_blank"><code>@typescript-eslint/parameter-properties</code></a>
 
+## Description
 Disallow the use of parameter properties in class constructors.
 
 TypeScript includes a "parameter properties" shorthand for declaring a class constructor parameter and class property in one location.
@@ -42,6 +43,19 @@ class A {
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"noParameterProperties": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

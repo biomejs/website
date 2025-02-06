@@ -20,6 +20,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-number-properties.md" target="_blank"><code>unicorn/prefer-number-properties</code></a>
 
+## Description
 Use the `Number` properties instead of global ones.
 
 _ES2015_ moved some globals into the `Number` properties for consistency.
@@ -83,6 +84,19 @@ Number.POSITIVE_INFINITY; // false
 Number.NEGATIVE_INFINITY; // false
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useNumberNamespace": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

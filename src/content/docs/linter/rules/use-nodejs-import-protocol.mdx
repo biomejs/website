@@ -20,6 +20,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-node-protocol.md" target="_blank"><code>unicorn/prefer-node-protocol</code></a>
 
+## Description
 Enforces using the `node:` protocol for Node.js builtin modules.
 
 The rule marks traditional imports like `import fs from "fs";` as invalid,
@@ -64,6 +65,19 @@ import os from 'node:os';
 import path from 'node:path';
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useNodejsImportProtocol": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)
