@@ -1,6 +1,7 @@
 use crate::lintdoc::RuleToDocument;
 use crate::shared::add_codegen_disclaimer_frontmatter;
 use anyhow::Result;
+use biome_analyze::RuleCategory;
 use biome_string_case::Case;
 use std::cmp::Ordering;
 use std::collections::{BTreeMap, BTreeSet};
@@ -29,6 +30,7 @@ impl PartialOrd for SourceSet {
 
 pub(crate) fn generate_rule_sources(
     rules: BTreeMap<&str, BTreeMap<&'static str, RuleToDocument>>,
+    rule_category: RuleCategory,
 ) -> Result<Vec<u8>> {
     let mut buffer = vec![];
 
@@ -50,6 +52,11 @@ description: A page that maps lint rules from other sources to Biome
 
     let mut rules_by_source = BTreeMap::<String, BTreeSet<SourceSet>>::new();
     let mut exclusive_biome_rules = BTreeSet::<(String, String)>::new();
+    let prefix_path = match rule_category {
+        RuleCategory::Lint => "linter/rules",
+        RuleCategory::Action => "assist/actions",
+        _ => unreachable!(""),
+    };
 
     for (rule_name, rule_to_document) in rules {
         for (_, metadata) in rule_to_document.language_to_metadata {
@@ -60,7 +67,7 @@ description: A page that maps lint rules from other sources to Biome
             if metadata.sources.is_empty() {
                 exclusive_biome_rules.insert((
                     rule_name.to_string(),
-                    format!("/linter/rules/{kebab_rule_name}"),
+                    format!("/{prefix_path}/{kebab_rule_name}"),
                 ));
             } else {
                 for source in metadata.sources {
@@ -68,7 +75,7 @@ description: A page that maps lint rules from other sources to Biome
                     if let Some(set) = set {
                         set.insert(SourceSet {
                             biome_rule_name: rule_name.to_string(),
-                            biome_link: format!("/linter/rules/{kebab_rule_name}"),
+                            biome_link: format!("/{prefix_path}/{kebab_rule_name}"),
                             source_link: source.to_rule_url(),
                             source_rule_name: source.as_rule_name().to_string(),
                             inspired: metadata
@@ -79,7 +86,7 @@ description: A page that maps lint rules from other sources to Biome
                         let mut set = BTreeSet::new();
                         set.insert(SourceSet {
                             biome_rule_name: rule_name.to_string(),
-                            biome_link: format!("/linter/rules/{kebab_rule_name}"),
+                            biome_link: format!("/{prefix_path}/{kebab_rule_name}"),
                             source_link: source.to_rule_url(),
                             source_rule_name: source.as_rule_name().to_string(),
                             inspired: metadata.source_kind.map_or(true, |kind| kind.is_inspired()),
