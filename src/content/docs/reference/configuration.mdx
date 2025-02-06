@@ -3,7 +3,7 @@ title: Configuration
 description: How to customize and configure Biome with biome.json.
 ---
 
-import LintGroups from "@/components/generated/Groups.astro";
+import LintGroups from "@/components/generated/linter/Groups.astro";
 
 {/** Make sure to update the redirect in `static/_redirects` when changing the configuration title --> **/}
 
@@ -388,11 +388,11 @@ The style of the indentation. It can be `"tab"` or `"space"`.
 This option is deprecated, please use [`formatter.indentWidth`](#formatterindentwidth) instead.
 
 <details>
-<summary>Deprecated</summary>
+    <summary>Deprecated</summary>
 
-How big the indentation should be.
+    How big the indentation should be.
 
-> Default: `2`
+    > Default: `2`
 
 </details>
 
@@ -538,14 +538,14 @@ When properties inside objects should be quoted. It can be `"asNeeded"` or `"pre
 This option is deprecated, please use [`javascript.formatter.trailingCommas`](#javascriptformattertrailingcommas) instead.
 
 <details>
-<summary>Deprecated</summary>
+    <summary>Deprecated</summary>
 
-Print trailing commas wherever possible in multi-line comma-separated syntactic structures. Possible values:
-- `"all"`, the trailing comma is always added;
-- `"es5"`, the trailing comma is added only in places where it's supported by older version of JavaScript;
-- `"none"`, trailing commas are never added.
+    Print trailing commas wherever possible in multi-line comma-separated syntactic structures. Possible values:
+    - `"all"`, the trailing comma is always added;
+    - `"es5"`, the trailing comma is added only in places where it's supported by older version of JavaScript;
+    - `"none"`, trailing commas are never added.
 
-> Default: `"all"`
+    > Default: `"all"`
 
 </details>
 
@@ -605,11 +605,11 @@ The style of the indentation for JavaScript (and its super languages) files. It 
 This option is deprecated, please use [`javascript.formatter.indentWidth`](#javascriptformatterindentwidth) instead.
 
 <details>
-<summary>Deprecated</summary>
+    <summary>Deprecated</summary>
 
-How big the indentation should be for JavaScript (and its super languages) files.
+    How big the indentation should be for JavaScript (and its super languages) files.
 
-> Default: `2`
+    > Default: `2`
 
 </details>
 
@@ -671,10 +671,10 @@ A list of global names that Biome should ignore (analyzer, linter, etc.)
 Indicates the type of runtime or transformation used for interpreting JSX.
 
 - `"transparent"` &mdash; Indicates a modern or native JSX environment, that
-  doesn't require special handling by Biome.
+doesn't require special handling by Biome.
 - `"reactClassic"` &mdash; Indicates a classic React environment that requires
-  the `React` import. Corresponds to the `react` value for the
-  `jsx` option in TypeScript's [`tsconfig.json`](https://www.typescriptlang.org/tsconfig#jsx).
+the `React` import. Corresponds to the `react` value for the
+`jsx` option in TypeScript's [`tsconfig.json`](https://www.typescriptlang.org/tsconfig#jsx).
 
 ```json title="biome.json"
 {
@@ -750,11 +750,11 @@ The style of the indentation for JSON (and its super languages) files. It can be
 This option is deprecated, please use [`json.formatter.indentWidth`](#jsonformatterindentwidth) instead.
 
 <details>
-<summary>Deprecated</summary>
+    <summary>Deprecated</summary>
 
-How big the indentation should be for JSON (and its super languages) files.
+    How big the indentation should be for JSON (and its super languages) files.
 
-> Default: `2`
+    > Default: `2`
 
 </details>
 

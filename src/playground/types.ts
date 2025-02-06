@@ -186,7 +186,7 @@ export const defaultPlaygroundState: PlaygroundState = {
 		bracketSameLine: false,
 		lintRules: LintRules.Recommended,
 		enabledLinting: true,
-		analyzerFixMode: "SafeFixes",
+		analyzerFixMode: "safeFixes",
 		importSortingEnabled: true,
 		unsafeParameterDecoratorsEnabled: true,
 		allowComments: true,
