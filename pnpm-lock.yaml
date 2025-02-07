@@ -84,8 +84,8 @@ importers:
         specifier: 5.2.4
         version: 5.2.4(@types/node@20.17.14)(jiti@1.21.7)(rollup@4.34.4)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)
       astro-og-canvas:
-        specifier: 0.5.5
-        version: 0.5.5(astro@5.2.4(@types/node@20.17.14)(jiti@1.21.7)(rollup@4.34.4)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
+        specifier: 0.5.6
+        version: 0.5.6(astro@5.2.4(@types/node@20.17.14)(jiti@1.21.7)(rollup@4.34.4)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
       autoprefixer:
         specifier: 10.4.20
         version: 10.4.20(postcss@8.4.49)
@@ -1524,8 +1524,8 @@ packages:
     peerDependencies:
       astro: ^4.0.0-beta || ^5.0.0-beta || ^3.3.0
 
-  astro-og-canvas@0.5.5:
-    resolution: {integrity: sha512-dbZ7voJAmvy8Zyv5zFsgENs9G4uhcCJ4nVuUPb7ymu8+Vp/jr/fdQDKPrLYUG2TSi/1HejYRnzkXcSv6ntlDTA==}
+  astro-og-canvas@0.5.6:
+    resolution: {integrity: sha512-w75UErZdRxYyoVnTz4IXn6T869PBrwYQEjPecWVaev9faYCHC3Uk7R47KCO3u+MSDkc8tCENz4ghVDrLImx9SA==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       astro: ^3.0.0 || ^4.0.0 || ^5.0.0
@@ -2702,9 +2702,6 @@ packages:
 
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
-
-  magic-string@0.30.14:
-    resolution: {integrity: sha512-5c99P1WKTed11ZC0HMJOj6CDIue6F8ySu+bJL+85q1zBEIY8IklrJ1eiKC2NDRh3Ct3FcvmJPyQHb9erXMTJNw==}
 
   magic-string@0.30.17:
     resolution: {integrity: sha512-sNPKHvyjVf7gyjwS4xGTaW/mCnF8wnjtifKBEhxfZ7E/S8tQ0rssrwGNn6q8JH/ohItJfSQp9mBtQYuTlH5QnA==}
@@ -5914,7 +5911,7 @@ snapshots:
       astro: 5.2.4(@types/node@20.17.14)(jiti@1.21.7)(rollup@4.34.4)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)
       rehype-expressive-code: 0.38.3
 
-  astro-og-canvas@0.5.5(astro@5.2.4(@types/node@20.17.14)(jiti@1.21.7)(rollup@4.34.4)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)):
+  astro-og-canvas@0.5.6(astro@5.2.4(@types/node@20.17.14)(jiti@1.21.7)(rollup@4.34.4)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)):
     dependencies:
       astro: 5.2.4(@types/node@20.17.14)(jiti@1.21.7)(rollup@4.34.4)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)
       canvaskit-wasm: 0.39.1
@@ -6209,7 +6206,7 @@ snapshots:
   code-red@1.0.4:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.0
-      '@types/estree': 1.0.5
+      '@types/estree': 1.0.6
       acorn: 8.14.0
       estree-walker: 3.0.3
       periscopic: 3.1.0
@@ -7181,7 +7178,7 @@ snapshots:
 
   is-reference@3.0.2:
     dependencies:
-      '@types/estree': 1.0.5
+      '@types/estree': 1.0.6
 
   is-utf8@0.2.1: {}
 
@@ -7317,10 +7314,6 @@ snapshots:
   lru-cache@5.1.1:
     dependencies:
       yallist: 3.1.1
-
-  magic-string@0.30.14:
-    dependencies:
-      '@jridgewell/sourcemap-codec': 1.5.0
 
   magic-string@0.30.17:
     dependencies:
@@ -8397,7 +8390,7 @@ snapshots:
 
   periscopic@3.1.0:
     dependencies:
-      '@types/estree': 1.0.5
+      '@types/estree': 1.0.6
       estree-walker: 3.0.3
       is-reference: 3.0.2
 
@@ -9120,7 +9113,7 @@ snapshots:
       '@ampproject/remapping': 2.3.0
       '@jridgewell/sourcemap-codec': 1.5.0
       '@jridgewell/trace-mapping': 0.3.25
-      '@types/estree': 1.0.5
+      '@types/estree': 1.0.6
       acorn: 8.14.0
       aria-query: 5.3.2
       axobject-query: 4.1.0
@@ -9129,7 +9122,7 @@ snapshots:
       estree-walker: 3.0.3
       is-reference: 3.0.2
       locate-character: 3.0.0
-      magic-string: 0.30.14
+      magic-string: 0.30.17
       periscopic: 3.1.0
 
   svg-parser@2.0.4: {}
