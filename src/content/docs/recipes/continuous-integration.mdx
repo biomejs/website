@@ -54,3 +54,29 @@ jobs:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-review
 ```
+
+## GitLab CI
+
+Below is an example configuration:
+
+```yaml title=".gitlab-ci.yml"
+# Define pipeline stages
+stages:
+  - quality
+
+# Lint job configuration: runs code quality checks using Biome
+lint:
+    image: node:lts         # Use the latest Node.js LTS image
+    stage: quality          # Run in the quality stage
+    before_script:
+        - npm install       # Install dependencies using npm
+    script:
+        - npm run biome ci src --reporter=summary  # Execute Biome using npx on the 'src' directory
+    needs: []               # No dependent jobs needed
+    cache:
+        paths:
+            - node_modules  # Cache node_modules for faster builds
+    rules:
+        - if: $CI_COMMIT_BRANCH    # Run job for commits on branches
+        - if: $CI_MERGE_REQUEST_ID # Run job for merge requests
+```
