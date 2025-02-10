@@ -66,17 +66,20 @@ stages:
 
 # Lint job configuration: runs code quality checks using Biome
 lint:
-    image: node:lts         # Use the latest Node.js LTS image
-    stage: quality          # Run in the quality stage
-    before_script:
-        - npm install       # Install dependencies using npm
+    image: 
+      name: ghcr.io/biomejs/biome:latest  # Use the latest Biome Docker image
+      entrypoint: [""]                    # This is required for the image to work in GitLab CI
+    stage: quality                        # Run in the quality stage
     script:
-        - npm run biome ci src --reporter=summary  # Execute Biome using npx on the 'src' directory
-    needs: []               # No dependent jobs needed
-    cache:
+        - biome ci src --reporter=gitlab --colors=off --log-level=none --diagnostic-level=error > code-quality.json  # Execute Biome on the 'src' directory
+    artifacts:
         paths:
-            - node_modules  # Cache node_modules for faster builds
+            - code-quality.json    # Collect the code quality report as an artifact
+    needs: []                      # No dependent jobs needed
     rules:
         - if: $CI_COMMIT_BRANCH    # Run job for commits on branches
         - if: $CI_MERGE_REQUEST_ID # Run job for merge requests
+    allow_failure: true            # Allow the job to fail (adjust as needed)
 ```
+
+> **Note:** If your project's source code is located in another directory, replace `src` with that directory's path in the command.
