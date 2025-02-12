@@ -1,0 +1,102 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: useSortedProperties
+description: |
+  Enforce ordering of CSS properties and nested rules.
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="CSS" icon="seti:css">
+**Since**: `vnext`
+:::note
+- Diagnostic Category: [`assist/source/useSortedProperties`](/reference/diagnostics#diagnostic-category)
+- Use the code `source.biome.useSortedProperties` in your LSP-ready IDE to apply this action on save.
+:::
+
+## Description
+Enforce ordering of CSS properties and nested rules.
+
+This rule ensures the contents of a CSS rule are ordered consistently.
+
+Properties are ordered semantically, with more important properties near the top and
+similar properties grouped together. Nested rules and at-rules are placed after properties.
+
+The ordering is roughly:
+
+1. Custom properties
+2. Layout properties (display, flex, grid)
+3. Margin and padding properties
+4. Typography properties (font, color)
+5. Interaction properties (pointer-events, visibility)
+6. Background and border properties
+7. Transition and animation properties
+8. Nested rules, media queries and other at-rules
+
+## Examples
+
+### Invalid
+
+```css
+p {
+  transition: opactity 1s ease;
+  border: 1px solid black;
+  pointer-events: none;
+  color: black;
+  margin: 8px;
+  display: block;
+  --custom: 100;
+}
+```
+
+<pre class="language-text"><code class="language-text"></code></pre>
+
+```css
+p {
+  span { color: blue; }
+  color: red;
+}
+```
+
+<pre class="language-text"><code class="language-text"></code></pre>
+
+### Valid
+
+```css
+p {
+  --custom:·100;
+  display:·block;
+  margin:·8px;
+  color: black;
+  pointer-events:·none;
+  border:·1px·solid·black;
+  transition:·opactity·1s·ease;
+}
+```
+
+```css
+p {
+  color: red;
+  span { color: blue; }
+}
+```
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"source": {
+				"useSortedProperties": "error"
+			}
+		}
+	}
+}
+
+```
+
+</TabItem>
+</Tabs>
+
