@@ -5,11 +5,11 @@ use anyhow::Context;
 use anyhow::{bail, Result};
 use biome_analyze::options::JsxRuntime;
 use biome_analyze::{
-    AnalysisFilter, AnalyzerAction, AnalyzerOptions, ControlFlow, FixKind, GroupCategory,
-    Queryable, RegistryVisitor, Rule, RuleCategory, RuleFilter, RuleGroup, RuleMetadata,
-    RuleSourceKind,
+    AnalysisFilter, AnalyzerAction, AnalyzerConfiguration, AnalyzerOptions, ControlFlow, FixKind,
+    GroupCategory, Queryable, RegistryVisitor, Rule, RuleCategory, RuleFilter, RuleGroup,
+    RuleMetadata, RuleSourceKind,
 };
-use biome_configuration::PartialConfiguration;
+use biome_configuration::Configuration;
 use biome_console::fmt::Termcolor;
 use biome_console::{
     fmt::{Formatter, HTML},
@@ -31,14 +31,13 @@ use biome_json_formatter::format_node;
 use biome_json_parser::JsonParserOptions;
 use biome_json_syntax::{AnyJsonValue, JsonLanguage, JsonObjectValue};
 use biome_rowan::{AstNode, TextSize};
-use biome_service::settings::{ServiceLanguage, WorkspaceSettings};
+use biome_service::settings::{ServiceLanguage, Settings};
 use biome_service::workspace::DocumentFileSource;
 use biome_string_case::Case;
 use biome_text_edit::TextEdit;
 use pulldown_cmark::{CodeBlockKind, Event, LinkType, Parser, Tag, TagEnd};
 use std::collections::{BTreeSet, HashMap};
 use std::error::Error;
-use std::path::PathBuf;
 use std::{
     collections::BTreeMap,
     fmt::Write as _,
@@ -715,7 +714,7 @@ fn parse_rule_options(
     test: &CodeBlockTest,
     code: &str,
     content: &mut Vec<u8>,
-) -> anyhow::Result<Option<PartialConfiguration>> {
+) -> anyhow::Result<Option<Configuration>> {
     let file_path = format!("code-block.{}", test.tag);
 
     let mut write = HTML::new(content).with_mdx();
@@ -724,7 +723,7 @@ fn parse_rule_options(
         Formatter::new(&mut write).write_markup(markup! {
             {PrintDiagnostic::verbose(&diag)}
         })?;
-        anyhow::Ok(Option::<PartialConfiguration>::None)
+        anyhow::Ok(Option::<Configuration>::None)
     };
 
     match test.document_file_source() {
@@ -830,7 +829,7 @@ fn parse_rule_options(
 
             // Deserialize the configuration from the partially-synthetic AST,
             // and report any errors encountered during deserialization.
-            let deserialized = deserialize_from_json_ast::<PartialConfiguration>(&root, "");
+            let deserialized = deserialize_from_json_ast::<Configuration>(&root, "");
             let (partial_configuration, deserialize_diagnostics) = deserialized.consume();
 
             if !deserialize_diagnostics.is_empty() {
@@ -910,7 +909,7 @@ fn write_documentation(
     let mut is_summary = false;
 
     // Track the last configuration options block that was encountered
-    let mut last_options: Option<PartialConfiguration> = None;
+    let mut last_options: Option<Configuration> = None;
 
     // Tracks the content of the current code block if it's using a
     // language supported for analysis
@@ -1255,18 +1254,18 @@ impl FromStr for CodeBlockTest {
 }
 
 fn create_analyzer_options<L>(
-    workspace_settings: &WorkspaceSettings,
+    settings: &Settings,
     file_path: &String,
     test: &CodeBlockTest,
 ) -> AnalyzerOptions
 where
     L: ServiceLanguage,
 {
-    let path = BiomePath::new(PathBuf::from(&file_path));
+    let path = BiomePath::new(&file_path);
     let file_source = &test.document_file_source();
     let supression_reason = None;
 
-    let settings = workspace_settings.get_current_settings();
+    let settings = Some(settings);
     let linter = settings.map(|s| &s.linter);
     let overrides = settings.map(|s| &s.override_settings);
     let language_settings = settings
@@ -1337,7 +1336,7 @@ fn print_diagnostics_or_actions(
     rule: &'static str,
     test: &CodeBlockTest,
     code: &str,
-    config: &Option<PartialConfiguration>,
+    config: &Option<Configuration>,
     buffer: &mut HTML<&mut Vec<u8>>,
     to_print_kind: ToPrintKind,
 ) -> Result<()> {
@@ -1349,9 +1348,9 @@ fn print_diagnostics_or_actions(
     let mut rule_has_code_action = false;
 
     // Create a synthetic workspace configuration
-    let mut settings = WorkspaceSettings::default();
-    let key = settings.insert_project(PathBuf::new());
-    settings.register_current_project(key);
+    let mut settings = Settings::default();
+    // let key = settings.insert_project(PathBuf::new());
+    // settings.register_current_project(key);
 
     // Load settings from the preceding `json,options` block if requested
     if test.use_options {
@@ -1359,9 +1358,7 @@ fn print_diagnostics_or_actions(
             bail!("Code blocks tagged with 'use_options' must be preceded by a valid 'json,options' code block.");
         };
 
-        settings
-            .get_current_settings_mut()
-            .merge_with_configuration(partial_config.clone(), None, None, &[])?;
+        settings.merge_with_configuration(partial_config.clone(), None, None, &[])?;
     }
 
     match test.document_file_source() {
@@ -1399,57 +1396,59 @@ fn print_diagnostics_or_actions(
                     ..AnalysisFilter::default()
                 };
 
-                let options = {
-                    let mut o = create_analyzer_options::<JsLanguage>(&settings, &file_path, &test);
-                    o.configuration.jsx_runtime = Some(JsxRuntime::default());
-                    o
-                };
+                let options = create_analyzer_options::<JsLanguage>(&settings, &file_path, &test)
+                    .with_configuration(
+                        AnalyzerConfiguration::default().with_jsx_runtime(JsxRuntime::default()),
+                    );
 
-                biome_js_analyze::analyze(&root, filter, &options, file_source, None, |signal| {
-                    match to_print_kind {
-                        ToPrintKind::Diagnostics => {
-                            if let Some(mut diag) = signal.diagnostic() {
-                                let category =
-                                    diag.category().expect("linter diagnostic has no code");
-                                let severity = settings.get_current_settings().expect("project").get_severity_from_rule_code(category).expect(
-                                    "If you see this error, it means you need to run cargo codegen-configuration",
-                                );
+                // TODO: JsAnalyzerServices doesn't have a builder API yet, so we can't just do `.with_file_source(file_source)`
+                let analyzer_services =
+                    (Default::default(), Default::default(), file_source).into();
 
-                                for action in signal.actions() {
-                                    if !action.is_suppression() {
-                                        rule_has_code_action = true;
-                                        diag = diag.add_code_suggestion(action.into());
+                biome_js_analyze::analyze(
+                    &root,
+                    filter,
+                    &options,
+                    vec![],
+                    analyzer_services,
+                    |signal| {
+                        match to_print_kind {
+                            ToPrintKind::Diagnostics => {
+                                if let Some(mut diag) = signal.diagnostic() {
+                                    for action in signal.actions() {
+                                        if !action.is_suppression() {
+                                            rule_has_code_action = true;
+                                            diag = diag.add_code_suggestion(action.into());
+                                        }
                                     }
-                                }
 
-                                let error = diag
-                                    .with_severity(severity)
-                                    .with_file_path(&file_path)
-                                    .with_file_source_code(code);
-                                let res = write_diagnostic(buffer, error);
+                                    let error =
+                                        diag.with_file_path(&file_path).with_file_source_code(code);
+                                    let res = write_diagnostic(buffer, error);
 
-                                // Abort the analysis on error
-                                if let Err(err) = res {
-                                    return ControlFlow::Break(err);
-                                }
-                            }
-                        }
-                        ToPrintKind::Actions => {
-                            for action in signal.actions() {
-                                if !action.is_suppression() {
-                                    let res =
-                                        write_action(buffer, code, file_path.as_str(), action);
                                     // Abort the analysis on error
                                     if let Err(err) = res {
                                         return ControlFlow::Break(err);
                                     }
                                 }
                             }
+                            ToPrintKind::Actions => {
+                                for action in signal.actions() {
+                                    if !action.is_suppression() {
+                                        let res =
+                                            write_action(buffer, code, file_path.as_str(), action);
+                                        // Abort the analysis on error
+                                        if let Err(err) = res {
+                                            return ControlFlow::Break(err);
+                                        }
+                                    }
+                                }
+                            }
                         }
-                    }
 
-                    ControlFlow::Continue(())
-                });
+                        ControlFlow::Continue(())
+                    },
+                );
             }
         }
         DocumentFileSource::Json(file_source) => {
@@ -1476,12 +1475,6 @@ fn print_diagnostics_or_actions(
                     match to_print_kind {
                         ToPrintKind::Diagnostics => {
                             if let Some(mut diag) = signal.diagnostic() {
-                                let category =
-                                    diag.category().expect("linter diagnostic has no code");
-                                let severity = settings.get_current_settings().expect("project").get_severity_from_rule_code(category).expect(
-                                    "If you see this error, it means you need to run cargo codegen-configuration",
-                                );
-
                                 for action in signal.actions() {
                                     if !action.is_suppression() {
                                         rule_has_code_action = true;
@@ -1489,10 +1482,8 @@ fn print_diagnostics_or_actions(
                                     }
                                 }
 
-                                let error = diag
-                                    .with_severity(severity)
-                                    .with_file_path(&file_path)
-                                    .with_file_source_code(code);
+                                let error =
+                                    diag.with_file_path(&file_path).with_file_source_code(code);
                                 let res: Result<()> = write_diagnostic(buffer, error);
 
                                 // Abort the analysis on error
@@ -1538,16 +1529,10 @@ fn print_diagnostics_or_actions(
 
                 let options = create_analyzer_options::<JsonLanguage>(&settings, &file_path, &test);
 
-                biome_css_analyze::analyze(&root, filter, &options, |signal| {
+                biome_css_analyze::analyze(&root, filter, &options, vec![], |signal| {
                     match to_print_kind {
                         ToPrintKind::Diagnostics => {
                             if let Some(mut diag) = signal.diagnostic() {
-                                let category =
-                                    diag.category().expect("linter diagnostic has no code");
-                                let severity = settings.get_current_settings().expect("project").get_severity_from_rule_code(category).expect(
-                                    "If you see this error, it means you need to run cargo codegen-configuration",
-                                );
-
                                 for action in signal.actions() {
                                     if !action.is_suppression() {
                                         rule_has_code_action = true;
@@ -1555,10 +1540,8 @@ fn print_diagnostics_or_actions(
                                     }
                                 }
 
-                                let error = diag
-                                    .with_severity(severity)
-                                    .with_file_path(&file_path)
-                                    .with_file_source_code(code);
+                                let error =
+                                    diag.with_file_path(&file_path).with_file_source_code(code);
                                 let res = write_diagnostic(buffer, error);
 
                                 // Abort the analysis on error
@@ -1603,20 +1586,11 @@ fn print_diagnostics_or_actions(
                     ..AnalysisFilter::default()
                 };
 
-                let options = AnalyzerOptions {
-                    file_path: PathBuf::from(&file_path),
-                    ..Default::default()
-                };
+                let options = AnalyzerOptions::default().with_file_path(&file_path);
                 biome_graphql_analyze::analyze(&root, filter, &options, |signal| {
                     match to_print_kind {
                         ToPrintKind::Diagnostics => {
                             if let Some(mut diag) = signal.diagnostic() {
-                                let category =
-                                    diag.category().expect("linter diagnostic has no code");
-                                let severity = settings.get_current_settings().expect("project").get_severity_from_rule_code(category).expect(
-                                    "If you see this error, it means you need to run cargo codegen-configuration",
-                                );
-
                                 for action in signal.actions() {
                                     if !action.is_suppression() {
                                         rule_has_code_action = true;
@@ -1624,10 +1598,8 @@ fn print_diagnostics_or_actions(
                                     }
                                 }
 
-                                let error = diag
-                                    .with_severity(severity)
-                                    .with_file_path(&file_path)
-                                    .with_file_source_code(code);
+                                let error =
+                                    diag.with_file_path(&file_path).with_file_source_code(code);
                                 let res = write_diagnostic(buffer, error);
 
                                 // Abort the analysis on error

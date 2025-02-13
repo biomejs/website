@@ -1,0 +1,114 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noImportCycles
+description: |
+  Prevent import cycles.
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+**Since**: `vnext`
+
+:::caution
+This rule is part of the [nursery](/linter/rules/#nursery) group.
+:::
+
+Sources: 
+- Same as: <a href="https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-cycle.md" target="_blank"><code>import/no-cycle</code></a>
+
+## Description
+Prevent import cycles.
+
+This rule warns when a file imports another file that, either directly
+or indirectly, imports the original file again.
+
+Cycles can lead to symbols that are unexpectedly `undefined` and are
+generally considered poor code hygiene.
+
+If a cycle is detected, it is advised to move code such that imports
+only go in a single direction, i.e. they don't point "back" to the
+importing file.
+
+## Examples
+
+### Invalid
+
+**`foobar.js`**
+
+```js
+import { baz } from "./baz.js";
+
+export function foo() {
+    baz();
+}
+
+export function bar() {
+    console.log("foobar");
+}
+```
+
+**`baz.js`**
+
+```js
+import { bar } from "./foobar.js";
+
+export function baz() {
+    bar();
+}
+```
+
+### Valid
+
+**`foo.js`**
+
+```js
+import { baz } from "./baz.js";
+
+export function foo() {
+    baz();
+}
+```
+
+**`bar.js`**
+
+```js
+export function bar() {
+    console.log("foobar");
+}
+```
+
+**`baz.js`**
+
+```js
+import { bar } from "./bar.js";
+
+export function baz() {
+    bar();
+}
+```
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noImportCycles": "error"
+			}
+		}
+	}
+}
+
+```
+## Related links
+
+- [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
+</Tabs>
+

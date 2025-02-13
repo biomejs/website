@@ -22,7 +22,7 @@
     "lunaria:preview": "lunaria preview"
   },
   "devDependencies": {
-    "@astrojs/netlify": "6.0.1",
+    "@astrojs/netlify": "6.1.0",
     "@astrojs/prism": "3.2.0",
     "@astrojs/react": "4.2.0",
     "@astrojs/rss": "4.0.11",
@@ -41,13 +41,13 @@
     "@lunariajs/starlight": "0.1.1",
     "@playwright/test": "1.49.1",
     "@replit/codemirror-lang-svelte": "6.0.0",
-    "@types/node": "20.17.14",
+    "@types/node": "20.17.17",
     "@types/react": "18.3.18",
     "@types/react-dom": "18.3.5",
     "@uiw/react-codemirror": "4.23.7",
     "@vitejs/plugin-react": "4.3.4",
     "astro": "5.2.4",
-    "astro-og-canvas": "0.5.5",
+    "astro-og-canvas": "0.5.6",
     "autoprefixer": "10.4.20",
     "canvaskit-wasm": "0.39.1",
     "cm6-graphql": "0.2.0",
@@ -75,7 +75,7 @@
     "textlint-rule-preset-jtf-style": "2.3.14",
     "textlint-rule-prh": "6.0.0",
     "typescript": "5.7.3",
-    "vite": "6.0.9",
+    "vite": "6.1.0",
     "vite-plugin-svgr": "4.3.0"
   },
   "packageManager": "pnpm@9.15.4"
