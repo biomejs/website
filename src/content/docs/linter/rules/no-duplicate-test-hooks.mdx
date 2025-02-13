@@ -10,14 +10,15 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-**Since**: `v1.6.0`
-:::note
+## Summary
+- Rule available since: `v1.6.0`
 - Diagnostic Category: [`lint/suspicious/noDuplicateTestHooks`](/reference/diagnostics#diagnostic-category)
-- This rule is **recommended**. A [diagnostic error](/reference/diagnostics#error) will appear when linting your code.
-:::
-
-Sources: 
-- Inspired from: <a href="https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-duplicate-hooks.md" target="_blank"><code>jest/no-duplicate-hooks</code></a>
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`test`](/linter/domains#test)
+- Sources: 
+  - Inspired from [`jest/no-duplicate-hooks`](https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-duplicate-hooks.md)
 
 ## Description
 A `describe` block should not contain duplicate hooks.

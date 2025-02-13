@@ -10,15 +10,17 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="TypeScript and TSX" icon="seti:typescript">
-**Since**: `v1.9.3`
+## Summary
+- Rule available since: `v1.9.3`
+- Diagnostic Category: [`lint/nursery/useExplicitType`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`@typescript-eslint/explicit-function-return-type`](https://typescript-eslint.io/rules/explicit-function-return-type)
 
 :::caution
 This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::
-
-Sources: 
-- Same as: <a href="https://typescript-eslint.io/rules/explicit-function-return-type" target="_blank"><code>@typescript-eslint/explicit-function-return-type</code></a>
-
 ## Description
 Require explicit return types on functions and class methods.
 

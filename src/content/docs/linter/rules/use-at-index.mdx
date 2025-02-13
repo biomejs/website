@@ -10,19 +10,17 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-**Since**: `v1.9.4`
-:::note
+## Summary
+- Rule available since: `v1.9.4`
 - Diagnostic Category: [`lint/nursery/useAtIndex`](/reference/diagnostics#diagnostic-category)
-- This rule has an **unsafe** fix.
-:::
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Inspired from [`unicorn/prefer-at`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-at.md)
 
 :::caution
 This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::
-
-Sources: 
-- Inspired from: <a href="https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-at.md" target="_blank"><code>unicorn/prefer-at</code></a>
-
 ## Description
 Use `at()` instead of integer index access.
 

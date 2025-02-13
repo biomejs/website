@@ -10,14 +10,13 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-**Since**: `v1.8.0`
-:::note
+## Summary
+- Rule available since: `v1.8.0`
 - Diagnostic Category: [`lint/complexity/useDateNow`](/reference/diagnostics#diagnostic-category)
-- This rule has an **unsafe** fix.
-:::
-
-Sources: 
-- Same as: <a href="https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-date-now.md" target="_blank"><code>unicorn/prefer-date-now</code></a>
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`unicorn/prefer-date-now`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-date-now.md)
 
 ## Description
 Use `Date.now()` to get the number of milliseconds since the Unix Epoch.

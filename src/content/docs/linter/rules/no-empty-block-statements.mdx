@@ -10,13 +10,16 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-**Since**: `v1.3.0`
-
-Sources: 
-- Same as: <a href="https://eslint.org/docs/latest/rules/no-empty" target="_blank"><code>no-empty</code></a>
-- Same as: <a href="https://eslint.org/docs/latest/rules/no-empty-static-block" target="_blank"><code>no-empty-static-block</code></a>
-- Same as: <a href="https://eslint.org/docs/latest/rules/no-empty-function" target="_blank"><code>no-empty-function</code></a>
-- Same as: <a href="https://typescript-eslint.io/rules/no-empty-function" target="_blank"><code>@typescript-eslint/no-empty-function</code></a>
+## Summary
+- Rule available since: `v1.3.0`
+- Diagnostic Category: [`lint/suspicious/noEmptyBlockStatements`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`no-empty`](https://eslint.org/docs/latest/rules/no-empty)
+  - Same as [`no-empty-static-block`](https://eslint.org/docs/latest/rules/no-empty-static-block)
+  - Same as [`no-empty-function`](https://eslint.org/docs/latest/rules/no-empty-function)
+  - Same as [`@typescript-eslint/no-empty-function`](https://typescript-eslint.io/rules/no-empty-function)
 
 ## Description
 Disallow empty block statements and static blocks.

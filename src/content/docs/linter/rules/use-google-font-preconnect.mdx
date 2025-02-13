@@ -10,19 +10,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JSX and TSX" icon="seti:javascript">
-**Since**: `vnext`
-:::note
+## Summary
+- Rule available since: `vnext`
 - Diagnostic Category: [`lint/nursery/useGoogleFontPreconnect`](/reference/diagnostics#diagnostic-category)
-- This rule has a **safe** fix.
-:::
+- This rule has a [**safe**](/linter/#safe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`next`](/linter/domains#next)
+- Sources: 
+  - Same as [`@next/google-font-preconnect`](https://nextjs.org/docs/messages/google-font-preconnect)
 
 :::caution
 This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::
-
-Sources: 
-- Same as: <a href="https://nextjs.org/docs/messages/google-font-preconnect" target="_blank"><code>@next/google-font-preconnect</code></a>
-
 ## Description
 Ensure the `preconnect` attribute is used when using Google Fonts.
 

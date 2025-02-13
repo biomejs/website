@@ -10,12 +10,11 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-**Since**: `v1.6.0`
-:::note
+## Summary
+- Rule available since: `v1.6.0`
 - Diagnostic Category: [`lint/style/useNodeAssertStrict`](/reference/diagnostics#diagnostic-category)
-- This rule has a **safe** fix.
-:::
-
+- This rule has a [**safe**](/linter/#safe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
 ## Description
 Promotes the usage of `node:assert/strict` over `node:assert`.
 

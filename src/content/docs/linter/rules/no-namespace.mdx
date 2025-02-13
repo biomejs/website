@@ -10,10 +10,13 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="TypeScript and TSX" icon="seti:typescript">
-**Since**: `v1.0.0`
-
-Sources: 
-- Same as: <a href="https://typescript-eslint.io/rules/no-namespace" target="_blank"><code>@typescript-eslint/no-namespace</code></a>
+## Summary
+- Rule available since: `v1.0.0`
+- Diagnostic Category: [`lint/style/noNamespace`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`@typescript-eslint/no-namespace`](https://typescript-eslint.io/rules/no-namespace)
 
 ## Description
 Disallow the use of TypeScript's `namespace`s.

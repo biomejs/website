@@ -10,10 +10,13 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-**Since**: `v1.5.0`
-
-Sources: 
-- Same as: <a href="https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-nodejs-modules.md" target="_blank"><code>import/no-nodejs-modules</code></a>
+## Summary
+- Rule available since: `v1.5.0`
+- Diagnostic Category: [`lint/correctness/noNodejsModules`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`import/no-nodejs-modules`](https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-nodejs-modules.md)
 
 ## Description
 Forbid the use of Node.js builtin modules.

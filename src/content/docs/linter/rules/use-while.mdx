@@ -10,14 +10,13 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-**Since**: `v1.0.0`
-:::note
+## Summary
+- Rule available since: `v1.0.0`
 - Diagnostic Category: [`lint/complexity/useWhile`](/reference/diagnostics#diagnostic-category)
-- This rule has a **safe** fix.
-:::
-
-Sources: 
-- Same as: <a href="https://github.com/SonarSource/eslint-plugin-sonarjs/blob/HEAD/docs/rules/prefer-while.md" target="_blank"><code>sonarjs/prefer-while</code></a>
+- This rule has a [**safe**](/linter/#safe-fixes) fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- Sources: 
+  - Same as [`sonarjs/prefer-while`](https://github.com/SonarSource/eslint-plugin-sonarjs/blob/HEAD/docs/rules/prefer-while.md)
 
 ## Description
 Enforce the use of `while` loops instead of `for` loops when the initializer and update expressions are not needed.

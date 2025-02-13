@@ -10,14 +10,13 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="TypeScript and TSX" icon="seti:typescript">
-**Since**: `v1.0.0`
-:::note
+## Summary
+- Rule available since: `v1.0.0`
 - Diagnostic Category: [`lint/style/noInferrableTypes`](/reference/diagnostics#diagnostic-category)
-- This rule has a **safe** fix.
-:::
-
-Sources: 
-- Same as: <a href="https://typescript-eslint.io/rules/no-inferrable-types" target="_blank"><code>@typescript-eslint/no-inferrable-types</code></a>
+- This rule has a [**safe**](/linter/#safe-fixes) fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- Sources: 
+  - Same as [`@typescript-eslint/no-inferrable-types`](https://typescript-eslint.io/rules/no-inferrable-types)
 
 ## Description
 Disallow type annotations for variables, parameters, and class properties initialized with a literal expression.

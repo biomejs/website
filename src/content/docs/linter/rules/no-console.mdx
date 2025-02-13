@@ -10,14 +10,13 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-**Since**: `v1.6.0`
-:::note
+## Summary
+- Rule available since: `v1.6.0`
 - Diagnostic Category: [`lint/suspicious/noConsole`](/reference/diagnostics#diagnostic-category)
-- This rule has an **unsafe** fix.
-:::
-
-Sources: 
-- Same as: <a href="https://eslint.org/docs/latest/rules/no-console" target="_blank"><code>no-console</code></a>
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`no-console`](https://eslint.org/docs/latest/rules/no-console)
 
 ## Description
 Disallow the use of `console`.

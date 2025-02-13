@@ -10,10 +10,13 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-**Since**: `v1.0.0`
-
-Sources: 
-- Same as: <a href="https://eslint.org/docs/latest/rules/no-void" target="_blank"><code>no-void</code></a>
+## Summary
+- Rule available since: `v1.0.0`
+- Diagnostic Category: [`lint/complexity/noVoid`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`no-void`](https://eslint.org/docs/latest/rules/no-void)
 
 ## Description
 Disallow the use of `void` operators, which is not a familiar operator.

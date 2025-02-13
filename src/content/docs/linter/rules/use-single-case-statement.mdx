@@ -14,12 +14,11 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 This rule is deprecated and will be removed in the next major release.
 **Reason**: Use the rule noSwitchDeclarations instead
 :::
-**Since**: `v1.0.0`
-:::note
+## Summary
+- Rule available since: `v1.0.0`
 - Diagnostic Category: [`lint/style/useSingleCaseStatement`](/reference/diagnostics#diagnostic-category)
-- This rule has an **unsafe** fix.
-:::
-
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
 ## Description
 Enforces switch clauses have a single statement, emits a quick fix wrapping the statements in a block.
 

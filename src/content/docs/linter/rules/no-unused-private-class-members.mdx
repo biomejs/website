@@ -10,14 +10,13 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-**Since**: `v1.3.3`
-:::note
+## Summary
+- Rule available since: `v1.3.3`
 - Diagnostic Category: [`lint/correctness/noUnusedPrivateClassMembers`](/reference/diagnostics#diagnostic-category)
-- This rule has an **unsafe** fix.
-:::
-
-Sources: 
-- Same as: <a href="https://eslint.org/docs/latest/rules/no-unused-private-class-members" target="_blank"><code>no-unused-private-class-members</code></a>
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`no-unused-private-class-members`](https://eslint.org/docs/latest/rules/no-unused-private-class-members)
 
 ## Description
 Disallow unused private class members

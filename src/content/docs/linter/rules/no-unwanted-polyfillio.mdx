@@ -10,15 +10,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JSX and TSX" icon="seti:javascript">
-**Since**: `vnext`
+## Summary
+- Rule available since: `vnext`
+- Diagnostic Category: [`lint/nursery/noUnwantedPolyfillio`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- This rule belongs to the following domains:
+  - [`next`](/linter/domains#next)
+- Sources: 
+  - Same as [`@next/no-unwanted-polyfillio`](https://nextjs.org/docs/messages/no-unwanted-polyfillio)
 
 :::caution
 This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::
-
-Sources: 
-- Same as: <a href="https://nextjs.org/docs/messages/no-unwanted-polyfillio" target="_blank"><code>@next/no-unwanted-polyfillio</code></a>
-
 ## Description
 Prevent duplicate polyfills from Polyfill.io.
 

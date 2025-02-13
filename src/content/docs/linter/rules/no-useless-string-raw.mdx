@@ -10,12 +10,14 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-**Since**: `v1.9.4`
-
+## Summary
+- Rule available since: `v1.9.4`
+- Diagnostic Category: [`lint/nursery/noUselessStringRaw`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
 :::caution
 This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::
-
 ## Description
 Disallow unnecessary `String.raw` function in template string literals without any escape sequence.
 

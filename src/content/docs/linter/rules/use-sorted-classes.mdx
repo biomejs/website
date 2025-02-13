@@ -10,16 +10,14 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-**Since**: `v1.6.0`
-:::note
+## Summary
+- Rule available since: `v1.6.0`
 - Diagnostic Category: [`lint/nursery/useSortedClasses`](/reference/diagnostics#diagnostic-category)
-- This rule has an **unsafe** fix.
-:::
-
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
 :::caution
 This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::
-
 ## Description
 Enforce the sorting of CSS utility classes.
 

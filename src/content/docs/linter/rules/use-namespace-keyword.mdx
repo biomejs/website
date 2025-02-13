@@ -10,15 +10,14 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="TypeScript and TSX" icon="seti:typescript">
-**Since**: `v1.0.0`
-:::note
+## Summary
+- Rule available since: `v1.0.0`
 - Diagnostic Category: [`lint/suspicious/useNamespaceKeyword`](/reference/diagnostics#diagnostic-category)
-- This rule is **recommended**. A [diagnostic error](/reference/diagnostics#error) will appear when linting your code.
-- This rule has a **safe** fix.
-:::
-
-Sources: 
-- Same as: <a href="https://typescript-eslint.io/rules/prefer-namespace-keyword" target="_blank"><code>@typescript-eslint/prefer-namespace-keyword</code></a>
+- This rule is **recommended**, which means is enabled by default.
+- This rule has a [**safe**](/linter/#safe-fixes) fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Same as [`@typescript-eslint/prefer-namespace-keyword`](https://typescript-eslint.io/rules/prefer-namespace-keyword)
 
 ## Description
 Require using the `namespace` keyword over the `module` keyword to declare TypeScript namespaces.

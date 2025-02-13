@@ -556,7 +556,7 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
         middle_path,
         rule_category,
     } = rule_content;
-    let is_recommended = !is_nursery && meta.recommended;
+    let is_recommended = !is_nursery && meta.recommended && meta.domains.is_empty();
     let mut content = Vec::new();
 
     if let Some(reason) = &meta.deprecated {
@@ -564,8 +564,9 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
         writeln!(content, "This rule is deprecated and will be removed in the next major release.\n**Reason**: {reason}")?;
         writeln!(content, ":::")?;
     }
+    writeln!(content, "## Summary")?;
 
-    writeln!(content, "**Since**: `v{}`", meta.version)?;
+    writeln!(content, "- Rule available since: `v{}`", meta.version)?;
     let category = match rule_category {
         RuleCategory::Lint => "lint",
         RuleCategory::Action => "assist",
@@ -574,30 +575,27 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
 
     match rule_category {
         RuleCategory::Lint => {
-            if is_recommended || !matches!(meta.fix_kind, FixKind::None) {
-                writeln!(content, ":::note")?;
-                writeln!(
-                    content,
-                    "- Diagnostic Category: [`{category}/{}/{}`](/reference/diagnostics#diagnostic-category)",
-                    group, rule_name
-                )?;
-                if is_recommended {
-                    writeln!(content, "- This rule is **recommended**. A [diagnostic error](/reference/diagnostics#error) will appear when linting your code.")?;
+            writeln!(
+                content,
+                "- Diagnostic Category: [`{category}/{}/{}`](/reference/diagnostics#diagnostic-category)",
+                group, rule_name
+            )?;
+            if is_recommended {
+                writeln!(content, "- This rule is **recommended**, which means is enabled by default.")?;
+            }
+            match meta.fix_kind {
+                FixKind::Safe => {
+                    writeln!(content, "- This rule has a [**safe**](/linter/#safe-fixes) fix.")?;
                 }
-                match meta.fix_kind {
-                    FixKind::Safe => {
-                        writeln!(content, "- This rule has a **safe** fix.")?;
-                    }
-                    FixKind::Unsafe => {
-                        writeln!(content, "- This rule has an **unsafe** fix.")?;
-                    }
-                    FixKind::None => {}
+                FixKind::Unsafe => {
+                    writeln!(content, "- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.")?;
                 }
-                writeln!(content, ":::")?;
+                FixKind::None => {
+                    writeln!(content, "- This rule doesn't have a fix.")?;
+                }
             }
         }
         RuleCategory::Action => {
-            writeln!(content, ":::note")?;
             writeln!(
                 content,
                 "- Diagnostic Category: [`{category}/{}/{}`](/reference/diagnostics#diagnostic-category)",
@@ -607,14 +605,56 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
                 writeln!(content, "- This action is **recommended**.")?;
             }
             writeln!(content, "- Use the code `source.biome.{}` in your LSP-ready IDE to apply this action on save.", rule_name)?;
-            writeln!(content, ":::")?;
         }
         RuleCategory::Syntax | RuleCategory::Transformation => {
             unimplemented!("Should be implemented")
         }
     }
+    
+    match meta.severity {
+        Severity::Information => {
+            writeln!(content, "- The default severity of this rule is [**information**](/reference/diagnostics#information).")?;
+        }
+        Severity::Warning => {
+            writeln!(content, "- The default severity of this rule is [**warning**](/reference/diagnostics#warning).")?;
+        }
+        Severity::Error => {
+            writeln!(content, "- The default severity of this rule is [**error**](/reference/diagnostics#error).")?;
+        }
+        Severity::Hint |
+        Severity::Fatal => panic!("Unsupported severity {}", meta.severity),
+    }
+    
+    if !meta.domains.is_empty() {
+        writeln!(content, "- This rule belongs to the following domains:")?;
+        for domain in meta.domains {
+            let domain = markup_to_string(&markup!({domain}).to_owned());
+            writeln!(content, "  - [`{domain}`](/linter/domains#{domain})")?;
+        }
 
-    writeln!(content)?;
+    }
+
+    if !meta.sources.is_empty() {
+        writeln!(content, "- Sources: ")?;
+
+        for source in meta.sources {
+            let rule_name = source.to_namespaced_rule_name();
+            let source_rule_url = source.to_rule_url();
+            match meta.source_kind.as_ref().copied().unwrap_or_default() {
+                RuleSourceKind::Inspired => {
+                    write!(content, "{:2}- Inspired from ", " ")?;
+                }
+                RuleSourceKind::SameLogic => {
+                    write!(content, "{:2}- Same as ", " ")?;
+                }
+            };
+            writeln!(
+                content,
+                 "[`{rule_name}`]({source_rule_url})"
+            )?;
+        }
+        writeln!(content)?;
+    }
 
     if group == "nursery" {
         writeln!(content, ":::caution")?;
@@ -623,29 +663,9 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
             "This rule is part of the [nursery](/{path_prefix}/{middle_path}/#nursery) group."
         )?;
         writeln!(content, ":::")?;
-        writeln!(content)?;
     }
-    if !meta.sources.is_empty() {
-        writeln!(content, "Sources: ")?;
 
-        for source in meta.sources {
-            let rule_name = source.to_namespaced_rule_name();
-            let source_rule_url = source.to_rule_url();
-            match meta.source_kind.as_ref().copied().unwrap_or_default() {
-                RuleSourceKind::Inspired => {
-                    write!(content, "- Inspired from: ")?;
-                }
-                RuleSourceKind::SameLogic => {
-                    write!(content, "- Same as: ")?;
-                }
-            };
-            writeln!(
-                content,
-                "<a href=\"{source_rule_url}\" target=\"_blank\"><code>{rule_name}</code></a>"
-            )?;
-        }
-        writeln!(content)?;
-    }
+
 
     write_documentation(group, rule_name, meta.docs, &mut content, summary)?;
     write_how_to_configure(group, rule_name, &mut content)?;

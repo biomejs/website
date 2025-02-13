@@ -10,19 +10,17 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-**Since**: `vnext`
-:::note
+## Summary
+- Rule available since: `vnext`
 - Diagnostic Category: [`lint/nursery/noGlobalDirnameFilename`](/reference/diagnostics#diagnostic-category)
-- This rule has a **safe** fix.
-:::
+- This rule has a [**safe**](/linter/#safe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Inspired from [`unicorn/prefer-module`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-module.md)
 
 :::caution
 This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::
-
-Sources: 
-- Inspired from: <a href="https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-module.md" target="_blank"><code>unicorn/prefer-module</code></a>
-
 ## Description
 Disallow the use of `__dirname` and `__filename` in the global scope.
 

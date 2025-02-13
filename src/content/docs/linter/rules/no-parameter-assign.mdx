@@ -10,10 +10,13 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-**Since**: `v1.0.0`
-
-Sources: 
-- Same as: <a href="https://eslint.org/docs/latest/rules/no-param-reassign" target="_blank"><code>no-param-reassign</code></a>
+## Summary
+- Rule available since: `v1.0.0`
+- Diagnostic Category: [`lint/style/noParameterAssign`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- Sources: 
+  - Same as [`no-param-reassign`](https://eslint.org/docs/latest/rules/no-param-reassign)
 
 ## Description
 Disallow reassigning `function` parameters.

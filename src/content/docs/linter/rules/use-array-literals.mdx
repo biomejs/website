@@ -10,15 +10,14 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-**Since**: `v1.7.2`
-:::note
+## Summary
+- Rule available since: `v1.7.2`
 - Diagnostic Category: [`lint/correctness/useArrayLiterals`](/reference/diagnostics#diagnostic-category)
-- This rule has an **unsafe** fix.
-:::
-
-Sources: 
-- Same as: <a href="https://eslint.org/docs/latest/rules/no-array-constructor" target="_blank"><code>no-array-constructor</code></a>
-- Same as: <a href="https://typescript-eslint.io/rules/no-array-constructor" target="_blank"><code>@typescript-eslint/no-array-constructor</code></a>
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`no-array-constructor`](https://eslint.org/docs/latest/rules/no-array-constructor)
+  - Same as [`@typescript-eslint/no-array-constructor`](https://typescript-eslint.io/rules/no-array-constructor)
 
 ## Description
 Disallow Array constructors.

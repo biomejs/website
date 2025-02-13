@@ -10,10 +10,13 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="TypeScript and TSX" icon="seti:typescript">
-**Since**: `v1.0.0`
-
-Sources: 
-- Inspired from: <a href="https://typescript-eslint.io/rules/parameter-properties" target="_blank"><code>@typescript-eslint/parameter-properties</code></a>
+## Summary
+- Rule available since: `v1.0.0`
+- Diagnostic Category: [`lint/style/noParameterProperties`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Inspired from [`@typescript-eslint/parameter-properties`](https://typescript-eslint.io/rules/parameter-properties)
 
 ## Description
 Disallow the use of parameter properties in class constructors.

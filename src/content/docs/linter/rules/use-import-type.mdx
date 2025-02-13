@@ -10,14 +10,13 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="TypeScript and TSX" icon="seti:typescript">
-**Since**: `v1.5.0`
-:::note
+## Summary
+- Rule available since: `v1.5.0`
 - Diagnostic Category: [`lint/style/useImportType`](/reference/diagnostics#diagnostic-category)
-- This rule has a **safe** fix.
-:::
-
-Sources: 
-- Inspired from: <a href="https://typescript-eslint.io/rules/consistent-type-imports" target="_blank"><code>@typescript-eslint/consistent-type-imports</code></a>
+- This rule has a [**safe**](/linter/#safe-fixes) fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- Sources: 
+  - Inspired from [`@typescript-eslint/consistent-type-imports`](https://typescript-eslint.io/rules/consistent-type-imports)
 
 ## Description
 Promotes the use of `import type` for types.

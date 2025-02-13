@@ -10,14 +10,13 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="TypeScript and TSX" icon="seti:typescript">
-**Since**: `v1.5.0`
-:::note
+## Summary
+- Rule available since: `v1.5.0`
 - Diagnostic Category: [`lint/style/useShorthandFunctionType`](/reference/diagnostics#diagnostic-category)
-- This rule has a **safe** fix.
-:::
-
-Sources: 
-- Same as: <a href="https://typescript-eslint.io/rules/prefer-function-type" target="_blank"><code>@typescript-eslint/prefer-function-type</code></a>
+- This rule has a [**safe**](/linter/#safe-fixes) fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- Sources: 
+  - Same as [`@typescript-eslint/prefer-function-type`](https://typescript-eslint.io/rules/prefer-function-type)
 
 ## Description
 Enforce using function types instead of object type with call signatures.

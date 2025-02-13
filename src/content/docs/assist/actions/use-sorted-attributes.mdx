@@ -10,14 +10,13 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JSX and TSX" icon="seti:javascript">
-**Since**: `v2.0.0`
-:::note
+## Summary
+- Rule available since: `v2.0.0`
 - Diagnostic Category: [`assist/source/useSortedAttributes`](/reference/diagnostics#diagnostic-category)
 - Use the code `source.biome.useSortedAttributes` in your LSP-ready IDE to apply this action on save.
-:::
-
-Sources: 
-- Same as: <a href="https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-sort-props.md" target="_blank"><code>react/jsx-sort-props</code></a>
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`react/jsx-sort-props`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-sort-props.md)
 
 ## Description
 Enforce attribute sorting in JSX elements.

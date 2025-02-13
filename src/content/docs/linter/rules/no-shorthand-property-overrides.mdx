@@ -10,14 +10,14 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="CSS" icon="seti:css">
-**Since**: `v1.8.2`
-:::note
+## Summary
+- Rule available since: `v1.8.2`
 - Diagnostic Category: [`lint/suspicious/noShorthandPropertyOverrides`](/reference/diagnostics#diagnostic-category)
-- This rule is **recommended**. A [diagnostic error](/reference/diagnostics#error) will appear when linting your code.
-:::
-
-Sources: 
-- Same as: <a href="https://github.com/stylelint/stylelint/blob/main/lib/rules/declaration-block-no-shorthand-property-overrides/README.md" target="_blank"><code>stylelint/declaration-block-no-shorthand-property-overrides</code></a>
+- This rule is **recommended**, which means is enabled by default.
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Same as [`stylelint/declaration-block-no-shorthand-property-overrides`](https://github.com/stylelint/stylelint/blob/main/lib/rules/declaration-block-no-shorthand-property-overrides/README.md)
 
 ## Description
 Disallow shorthand properties that override related longhand properties.

@@ -10,19 +10,17 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-**Since**: `v1.8.2`
-:::note
+## Summary
+- Rule available since: `v1.8.2`
 - Diagnostic Category: [`lint/nursery/noSubstr`](/reference/diagnostics#diagnostic-category)
-- This rule has an **unsafe** fix.
-:::
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`unicorn/prefer-string-slice`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-string-slice.md)
 
 :::caution
 This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::
-
-Sources: 
-- Same as: <a href="https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-string-slice.md" target="_blank"><code>unicorn/prefer-string-slice</code></a>
-
 ## Description
 Enforce the use of `String.slice()` over `String.substr()` and `String.substring()`.
 

@@ -14,14 +14,13 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 This rule is deprecated and will be removed in the next major release.
 **Reason**: Use `noInvalidNewBuiltin` instead.
 :::
-**Since**: `v1.0.0`
-:::note
+## Summary
+- Rule available since: `v1.0.0`
 - Diagnostic Category: [`lint/correctness/noNewSymbol`](/reference/diagnostics#diagnostic-category)
-- This rule has an **unsafe** fix.
-:::
-
-Sources: 
-- Same as: <a href="https://eslint.org/docs/latest/rules/no-new-symbol" target="_blank"><code>no-new-symbol</code></a>
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`no-new-symbol`](https://eslint.org/docs/latest/rules/no-new-symbol)
 
 ## Description
 Disallow `new` operators with the `Symbol` object.

@@ -10,19 +10,17 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-**Since**: `v1.9.0`
-:::note
+## Summary
+- Rule available since: `v1.9.0`
 - Diagnostic Category: [`lint/nursery/noUselessEscapeInRegex`](/reference/diagnostics#diagnostic-category)
-- This rule has a **safe** fix.
-:::
+- This rule has a [**safe**](/linter/#safe-fixes) fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Same as [`no-useless-escape`](https://eslint.org/docs/latest/rules/no-useless-escape)
 
 :::caution
 This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::
-
-Sources: 
-- Same as: <a href="https://eslint.org/docs/latest/rules/no-useless-escape" target="_blank"><code>no-useless-escape</code></a>
-
 ## Description
 Disallow unnecessary escape sequence in regular expression literals.
 

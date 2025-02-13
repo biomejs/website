@@ -10,15 +10,17 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="CSS" icon="seti:css">
-**Since**: `v1.9.4`
+## Summary
+- Rule available since: `v1.9.4`
+- Diagnostic Category: [`lint/nursery/noDuplicateProperties`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Same as [`stylelint/declaration-block-no-duplicate-properties`](https://github.com/stylelint/stylelint/blob/main/lib/rules/declaration-block-no-duplicate-properties/README.md)
 
 :::caution
 This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::
-
-Sources: 
-- Same as: <a href="https://github.com/stylelint/stylelint/blob/main/lib/rules/declaration-block-no-duplicate-properties/README.md" target="_blank"><code>stylelint/declaration-block-no-duplicate-properties</code></a>
-
 ## Description
 Disallow duplicate properties within declaration blocks.
 

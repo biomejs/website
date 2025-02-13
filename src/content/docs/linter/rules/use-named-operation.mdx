@@ -10,19 +10,17 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="GraphQL" icon="seti:graphql">
-**Since**: `vnext`
-:::note
+## Summary
+- Rule available since: `vnext`
 - Diagnostic Category: [`lint/nursery/useNamedOperation`](/reference/diagnostics#diagnostic-category)
-- This rule has an **unsafe** fix.
-:::
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`graphql/no-anonymous-operations`](https://the-guild.dev/graphql/eslint/rules/no-anonymous-operations)
 
 :::caution
 This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::
-
-Sources: 
-- Same as: <a href="https://the-guild.dev/graphql/eslint/rules/no-anonymous-operations" target="_blank"><code>graphql/no-anonymous-operations</code></a>
-
 ## Description
 Enforce specifying the name of GraphQL operations.
 
