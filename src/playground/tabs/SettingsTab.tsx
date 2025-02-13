@@ -852,12 +852,12 @@ function LinterSettings({
 						aria-describedby="analyzer-fix-mode-description"
 						name="analyzer-fix-mode"
 						disabled={!enabledLinting}
-						value={analyzerFixMode ?? "SafeFixes"}
+						value={analyzerFixMode ?? "safeFixes"}
 						onChange={(e) => setAnalyzerFixMode(e.target.value as FixFileMode)}
 					>
-						<option value={"SafeFixes"}>Safe Fixes</option>
-						<option value={"SafeAndUnsafeFixes"}>Safe and Unsafe Fixes</option>
-						<option value={"ApplySuppressions"}>Apply Suppressions</option>
+						<option value={"safeFixes"}>Safe Fixes</option>
+						<option value={"safeAndUnsafeFixes"}>Safe and Unsafe Fixes</option>
+						<option value={"applySuppressions"}>Apply Suppressions</option>
 					</select>
 				</div>
 			</section>
