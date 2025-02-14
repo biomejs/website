@@ -9,6 +9,7 @@ import {
 	Semicolons,
 	SourceType,
 	TrailingCommas,
+	WhitespaceSensitivity,
 } from "@/playground/types";
 import {
 	classnames,
@@ -54,6 +55,8 @@ export default function SettingsTab({
 			arrowParentheses,
 			bracketSpacing,
 			bracketSameLine,
+			indentScriptAndStyle,
+			whitespaceSensitivity,
 			lintRules,
 			enabledLinting,
 			analyzerFixMode,
@@ -113,6 +116,16 @@ export default function SettingsTab({
 		setPlaygroundState,
 		"bracketSameLine",
 	);
+	const setIndentScriptAndStyle = createPlaygroundSettingsSetter(
+		setPlaygroundState,
+		"indentScriptAndStyle",
+	);
+
+	const setWhitespaceSensitivity = createPlaygroundSettingsSetter(
+		setPlaygroundState,
+		"whitespaceSensitivity",
+	);
+
 	const setLintRules = createPlaygroundSettingsSetter(
 		setPlaygroundState,
 		"lintRules",
@@ -292,6 +305,10 @@ export default function SettingsTab({
 				setBracketSpacing={setBracketSpacing}
 				bracketSameLine={bracketSameLine}
 				setBracketSameLine={setBracketSameLine}
+				indentScriptAndStyle={indentScriptAndStyle}
+				setIndentScriptAndStyle={setIndentScriptAndStyle}
+				whitespaceSensitivity={whitespaceSensitivity}
+				setWhitespaceSensitivity={setWhitespaceSensitivity}
 			/>
 			<LinterSettings
 				lintRules={lintRules}
@@ -631,6 +648,10 @@ function FormatterSettings({
 	setBracketSpacing,
 	bracketSameLine,
 	setBracketSameLine,
+	indentScriptAndStyle,
+	setIndentScriptAndStyle,
+	whitespaceSensitivity,
+	setWhitespaceSensitivity,
 }: {
 	lineWidth: number;
 	setLineWidth: (value: number) => void;
@@ -656,6 +677,10 @@ function FormatterSettings({
 	setBracketSpacing: (value: boolean) => void;
 	bracketSameLine: boolean;
 	setBracketSameLine: (value: boolean) => void;
+	indentScriptAndStyle: boolean;
+	setIndentScriptAndStyle: (value: boolean) => void;
+	whitespaceSensitivity: WhitespaceSensitivity;
+	setWhitespaceSensitivity: (value: WhitespaceSensitivity) => void;
 }) {
 	return (
 		<>
@@ -808,6 +833,33 @@ function FormatterSettings({
 						checked={bracketSameLine}
 						onChange={(e) => setBracketSameLine(e.target.checked)}
 					/>
+				</div>
+
+				<h3>HTML</h3>
+				<div className="field-row">
+					<label htmlFor="indentScriptAndStyle">Indent Script And Style</label>
+					<input
+						id="indentScriptAndStyle"
+						name="indentScriptAndStyle"
+						type="checkbox"
+						checked={indentScriptAndStyle}
+						onChange={(e) => setIndentScriptAndStyle(e.target.checked)}
+					/>
+				</div>
+				<div className="field-row">
+					<label htmlFor="whitespaceSensitivity">Whitespace Sensitivity</label>
+					<select
+						id="whitespaceSensitivity"
+						name="whitespaceSensitivity"
+						value={whitespaceSensitivity}
+						onChange={(e) =>
+							setWhitespaceSensitivity(e.target.value as WhitespaceSensitivity)
+						}
+					>
+						<option value={WhitespaceSensitivity.Css}>CSS</option>
+						<option value={WhitespaceSensitivity.Strict}>Strict</option>
+						<option value={WhitespaceSensitivity.Ignore}>Ignore</option>
+					</select>
 				</div>
 			</section>
 		</>
