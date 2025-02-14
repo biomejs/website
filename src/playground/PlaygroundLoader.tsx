@@ -28,6 +28,7 @@ import {
 	isTypeScriptFilename,
 	normalizeFilename,
 } from "@/playground/utils";
+import type { FixFileMode } from "@biomejs/wasm-web";
 import {
 	type Dispatch,
 	type SetStateAction,
@@ -355,9 +356,12 @@ function initState(
 			enabledLinting:
 				searchParams.get("enabledLinting") === "true" ||
 				defaultPlaygroundState.settings.enabledLinting,
-			importSortingEnabled:
-				searchParams.get("importSortingEnabled") === "true" ||
-				defaultPlaygroundState.settings.importSortingEnabled,
+			enabledAssist:
+				searchParams.get("enabledAssist") === "true" ||
+				defaultPlaygroundState.settings.enabledAssist,
+			analyzerFixMode:
+				(searchParams.get("analyzerFixMode") as FixFileMode) ||
+				defaultPlaygroundState.settings.analyzerFixMode,
 			unsafeParameterDecoratorsEnabled:
 				searchParams.get("unsafeParameterDecoratorsEnabled") === "true" ||
 				defaultPlaygroundState.settings.unsafeParameterDecoratorsEnabled,
