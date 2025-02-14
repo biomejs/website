@@ -36,8 +36,9 @@ use biome_service::workspace::DocumentFileSource;
 use biome_string_case::Case;
 use biome_text_edit::TextEdit;
 use pulldown_cmark::{CodeBlockKind, Event, LinkType, Parser, Tag, TagEnd};
-use std::collections::{BTreeSet, HashMap};
+use std::collections::{BTreeSet, HashMap, HashSet};
 use std::error::Error;
+use std::path::PathBuf;
 use std::{
     collections::BTreeMap,
     fmt::Write as _,
@@ -59,8 +60,7 @@ struct RulesVisitor {
     actions: Rules,
 }
 
-#[derive(Default)]
-
+#[derive(Default, Clone)]
 struct Rules {
     /// This is mapped to:
     /// - group (correctness) -> list of rules
@@ -70,8 +70,47 @@ struct Rules {
     /// - language -> metadata
     ///
     groups: BTreeMap<&'static str, BTreeMap<&'static str, RuleToDocument>>,
-    number_of_rules: u16,
+    number_of_rules: HashSet<&'static str>,
 }
+
+enum SupportedLanguages {
+    Js,
+    Css,
+    Graphql,
+    Json,
+}
+
+impl SupportedLanguages {
+    fn to_visitor(&self) -> RulesVisitor {
+        let mut visitor = RulesVisitor::default();
+        match self {
+            SupportedLanguages::Js => biome_js_analyze::visit_registry(&mut visitor),
+            SupportedLanguages::Css => biome_css_analyze::visit_registry(&mut visitor),
+            SupportedLanguages::Graphql => biome_graphql_analyze::visit_registry(&mut visitor),
+            SupportedLanguages::Json => biome_json_analyze::visit_registry(&mut visitor),
+        };
+        visitor
+    }
+
+    fn as_language_path(&self, root: &Path) -> PathBuf {
+        match self {
+            SupportedLanguages::Js => root.join("javascript"),
+            SupportedLanguages::Css => root.join("css"),
+            SupportedLanguages::Graphql => root.join("graphql"),
+            SupportedLanguages::Json => root.join("json"),
+        }
+    }
+
+    const fn as_prefix(&self) -> &str {
+        match self {
+            SupportedLanguages::Js => "JavaScript",
+            SupportedLanguages::Css => "CSS",
+            SupportedLanguages::Graphql => "GraphQL",
+            SupportedLanguages::Json => "JSON",
+        }
+    }
+}
+
 impl RulesVisitor {
     fn push_rule<R, L>(&mut self)
     where
@@ -79,7 +118,7 @@ impl RulesVisitor {
     {
         if <R::Group as RuleGroup>::Category::CATEGORY == RuleCategory::Lint {
             let lints = &mut self.lints;
-            lints.number_of_rules += 1;
+            lints.number_of_rules.insert(R::METADATA.name);
             let group = lints
                 .groups
                 .entry(<R::Group as RuleGroup>::NAME)
@@ -101,7 +140,7 @@ impl RulesVisitor {
                 return;
             }
             let actions = &mut self.actions;
-            actions.number_of_rules += 1;
+            actions.number_of_rules.insert(R::METADATA.name);
             let group = actions
                 .groups
                 .entry(<R::Group as RuleGroup>::NAME)
@@ -181,6 +220,19 @@ impl RegistryVisitor<GraphqlLanguage> for RulesVisitor {
 }
 
 pub fn generate_rule_docs() -> Result<()> {
+    let linter_root = project_root().join("src/content/docs/linter");
+    let actions_root = project_root().join("src/content/docs/assist");
+    generate_language_rule_docs(&linter_root, &actions_root, SupportedLanguages::Js)?;
+    generate_language_rule_docs(&linter_root, &actions_root, SupportedLanguages::Json)?;
+    generate_language_rule_docs(&linter_root, &actions_root, SupportedLanguages::Css)?;
+    generate_language_rule_docs(&linter_root, &actions_root, SupportedLanguages::Graphql)?;
+
+    generate_number_of_rules_and_actions()?;
+    generate_rule_pages()?;
+    Ok(())
+}
+
+fn generate_number_of_rules_and_actions() -> Result<()> {
     let mut visitor = RulesVisitor::default();
     biome_js_analyze::visit_registry(&mut visitor);
     biome_json_analyze::visit_registry(&mut visitor);
@@ -188,50 +240,38 @@ pub fn generate_rule_docs() -> Result<()> {
     biome_graphql_analyze::visit_registry(&mut visitor);
 
     let RulesVisitor { actions, lints } = visitor;
+    let number_of_rules = lints.number_of_rules.len();
+    let number_of_actions = actions.number_of_rules.len();
+    let number_of_rules_buffer = format!(
+        "<!-- this file is auto generated, use `cargo lintdoc` to update it -->\n{number_of_rules}"
+    );
+    let number_of_actions_buffer = format!(
+        "<!-- this file is auto generated, use `cargo lintdoc` to update it -->\n{number_of_actions}"
+    );
 
-    generate_and_write_rule_pages(RuleCategory::Lint, lints)?;
-    generate_and_write_rule_pages(RuleCategory::Action, actions)?;
+    fs::write(
+        project_root().join("src/components/generated/linter/NumberOfRules.astro"),
+        number_of_rules_buffer,
+    )?;
+    fs::write(
+        project_root().join("src/components/generated/assist/NumberOfRules.astro"),
+        number_of_actions_buffer,
+    )?;
 
     Ok(())
 }
 
-fn generate_and_write_rule_pages(rule_category: RuleCategory, rules: Rules) -> Result<()> {
-    let root = match rule_category {
-        RuleCategory::Lint => project_root().join("src/content/docs/linter/rules"),
-        RuleCategory::Action => project_root().join("src/content/docs/assist/actions"),
-        _ => unimplemented!(""),
-    };
-    let index_page = root.join("index.mdx");
-    let reference_groups = match rule_category {
-        RuleCategory::Lint => project_root().join("src/components/generated/Groups.astro"),
-        RuleCategory::Action => project_root().join("src/components/generated/assist/Groups.astro"),
-        _ => unimplemented!(""),
-    };
-    let rules_sources = match rule_category {
-        RuleCategory::Lint => project_root().join("src/content/docs/linter/rules-sources.mdx"),
-        RuleCategory::Action => project_root().join("src/content/docs/assist/actions-sources.mdx"),
-        _ => unimplemented!(""),
-    };
-    let reference_number_of_rules = match rule_category {
-        RuleCategory::Lint => project_root().join("src/components/generated/NumberOfRules.astro"),
-        RuleCategory::Action => {
-            project_root().join("src/components/generated/assist/NumberOfRules.astro")
-        }
-        _ => unimplemented!(""),
-    };
+fn generate_language_rule_docs(
+    linter_root: &Path,
+    actions_root: &Path,
+    supported_languages: SupportedLanguages,
+) -> Result<()> {
+    let visitor = supported_languages.to_visitor();
+    let linter_root = supported_languages.as_language_path(&linter_root);
+    let actions_root = supported_languages.as_language_path(&actions_root);
 
-    let reference_recommended_rules = match rule_category {
-        RuleCategory::Lint => {
-            project_root().join("src/components/generated/RecommendedRules.astro")
-        }
-        RuleCategory::Action => {
-            project_root().join("src/components/generated/assist/RecommendedRules.astro")
-        }
-        _ => unimplemented!(""),
-    };
-
-    if root.exists() {
-        if let Err(err) = fs::remove_dir_all(&root) {
+    if linter_root.exists() {
+        if let Err(err) = fs::remove_dir_all(&linter_root) {
             let is_not_found = err
                 .source()
                 .and_then(|err| err.downcast_ref::<io::Error>())
@@ -242,14 +282,109 @@ fn generate_and_write_rule_pages(rule_category: RuleCategory, rules: Rules) -> R
             }
         }
     }
-    fs::create_dir_all(&root)?;
+    fs::create_dir_all(&linter_root)?;
 
+    if actions_root.exists() {
+        if let Err(err) = fs::remove_dir_all(&actions_root) {
+            let is_not_found = err
+                .source()
+                .and_then(|err| err.downcast_ref::<io::Error>())
+                .map_or(false, |err| matches!(err.kind(), io::ErrorKind::NotFound));
+
+            if !is_not_found {
+                return Err(err.into());
+            }
+        }
+    }
+    fs::create_dir_all(&actions_root)?;
+
+    let RulesVisitor { actions, lints } = visitor;
+    let lint_sources = linter_root.join("sources.mdx");
+    let actions_sources = actions_root.join("sources.mdx");
+    generate_language_page(
+        RuleCategory::Lint,
+        lints.clone(),
+        linter_root.join("rules.mdx"),
+        &supported_languages,
+    )?;
+    generate_language_page(
+        RuleCategory::Action,
+        actions.clone(),
+        actions_root.join("actions.mdx"),
+        &supported_languages,
+    )?;
+
+    let rule_sources_buffer = generate_rule_sources(lints.groups.clone(), RuleCategory::Lint)?;
+    fs::write(lint_sources, rule_sources_buffer)?;
+    let rule_sources_buffer = generate_rule_sources(actions.groups.clone(), RuleCategory::Action)?;
+    fs::write(actions_sources, rule_sources_buffer)?;
+
+    Ok(())
+}
+
+/// Generate the pages of all rules
+fn generate_rule_pages() -> Result<()> {
+    let mut visitor = RulesVisitor::default();
+    biome_js_analyze::visit_registry(&mut visitor);
+    biome_json_analyze::visit_registry(&mut visitor);
+    biome_css_analyze::visit_registry(&mut visitor);
+    biome_graphql_analyze::visit_registry(&mut visitor);
+
+    let RulesVisitor { actions, lints } = visitor;
+
+    let linter_root = project_root().join("src/content/docs/linter/rules");
+    let actions_root = project_root().join("src/content/docs/assist/actions");
+
+    for (group, rules) in &lints.groups {
+        let is_nursery = *group == "nursery";
+        for (rule_name, rule_to_document) in rules {
+            generate_rule(
+                GenRule {
+                    content_root: &linter_root,
+                    group,
+                    rule_name,
+                    is_nursery,
+                    rule_to_document,
+                },
+                "linter",
+                "rules",
+                RuleCategory::Lint,
+            )?;
+        }
+    }
+
+    for (group, rules) in &actions.groups {
+        let is_nursery = *group == "nursery";
+        for (rule_name, rule_to_document) in rules {
+            generate_rule(
+                GenRule {
+                    content_root: &actions_root,
+                    group,
+                    rule_name,
+                    is_nursery,
+                    rule_to_document,
+                },
+                "assist",
+                "action",
+                RuleCategory::Action,
+            )?;
+        }
+    }
+
+    Ok(())
+}
+
+/// It generates the summary page for each language, which present the rules that belong to this language
+fn generate_language_page(
+    rule_category: RuleCategory,
+    rules: Rules,
+    index_page: PathBuf,
+    language_prefix: &SupportedLanguages,
+) -> Result<()> {
+    let language_prefix = language_prefix.as_prefix();
     let mut recommended_rules = String::new();
 
-    let Rules {
-        groups,
-        number_of_rules,
-    } = rules;
+    let Rules { groups, .. } = rules;
 
     let title = match rule_category {
         RuleCategory::Lint => "Rules",
@@ -269,34 +404,25 @@ fn generate_and_write_rule_pages(rule_category: RuleCategory, rules: Rules) -> R
         _ => unimplemented!(""),
     };
 
-    // Accumulate errors for all lint rules to print all outstanding issues on
-    // failure instead of just the first one
-    let mut errors = Vec::new();
     // Content of the index page
     let mut index = Vec::new();
     let mut reference_buffer = Vec::new();
     writeln!(index, "---")?;
     add_codegen_disclaimer_frontmatter(&mut index)?;
-    writeln!(index, "title: {title}")?;
-    writeln!(index, "description: {description}")?;
+    writeln!(index, "title: {language_prefix} {title}")?;
+    writeln!(index, "description: {description} for {language_prefix}")?;
     writeln!(index, "---")?;
     writeln!(index)?;
 
     write!(
         index,
         r#"
-import RecommendedRules from "@/components/generated/{path_prefix}/RecommendedRules.astro";
 import {{ Icon }} from "@astrojs/starlight/components";
 
 Below the list of rules supported by Biome, divided by group. Here's a legend of the emojis:
 - The icon <span class='inline-icon' title="This rule is recommended"><Icon name="approve-check-circle"x label="This rule is recommended" /></span> indicates that the rule is part of the recommended rules.
 - The icon <span class='inline-icon' title="This rule has a safe fix"><Icon name="seti:config" label="The rule has a safe fix" /></span> indicates that the rule provides a code action (fix) that is **safe** to apply.
 - The icon <span class='inline-icon' title="This rule has an unsafe fix"><Icon name="warning" label="The rule has an unsafe fix" /></span> indicates that the rule provides a code action (fix) that is **unsafe** to apply.
-- The icon <span class='inline-icon' title="JavaScript and super languages rule"><Icon name="seti:javascript" label="JavaScript and super languages rule" /></span> indicates that the rule is applied to JavaScript and super languages files.
-- The icon <span class='inline-icon' title="TypeScript rule"><Icon name="seti:typescript" label="TypeScript rule" /></span> indicates that the rule is applied to TypeScript and TSX files.
-- The icon <span class='inline-icon' title="JSON rule"><Icon name="seti:json" label="JSON rule" /></span> indicates that the rule is applied to JSON files.
-- The icon <span class='inline-icon' title="CSS rule"><Icon name="seti:css" label="CSS rule" /></span> indicates that the rule is applied to CSS files.
-- The icon <span class='inline-icon' title="GraphQL rule"><Icon name="seti:graphql" label="GraphQL rule" /></span> indicates that the rule is applied to GraphQL files.
 "#
     )?;
 
@@ -308,54 +434,18 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
         generate_group(
             group,
             rules,
-            &root,
             &mut index,
-            &mut errors,
             &mut recommended_rules,
             path_prefix,
             rule_category,
         )?;
-        generate_reference(group, &mut reference_buffer)?;
     }
 
-    if !errors.is_empty() {
-        bail!(
-            "failed to generate documentation pages for the following rules:\n{}",
-            errors
-                .into_iter()
-                .fold(String::new(), |mut s, (rule, err)| {
-                    s.push_str(&format!("- {rule}: {err:?}\n"));
-                    s
-                })
-        );
-    }
-    let recommended_rules_buffer = format!(
-        "<!-- this file is auto generated, use `cargo lintdoc` to update it -->\n \
-    <ul>\n{recommended_rules}\n</ul>"
-    );
+    let recommended_rules_buffer = format!("## Recommended rules \n{recommended_rules}");
 
-    let number_of_rules_buffer = format!(
-        "<!-- this file is auto generated, use `cargo lintdoc` to update it -->\n{number_of_rules}"
-    );
-    write!(
-        index,
-        "
-## Recommended rules
+    writeln!(index, "{recommended_rules_buffer}")?;
 
-The recommended rules are:
-
-<RecommendedRules />
-"
-    )?;
     fs::write(index_page, index)?;
-    fs::write(reference_groups, reference_buffer)?;
-    fs::write(reference_number_of_rules, number_of_rules_buffer)?;
-    fs::write(reference_recommended_rules, recommended_rules_buffer)?;
-
-    if rule_category == RuleCategory::Lint {
-        let rule_sources_buffer = generate_rule_sources(groups.clone(), rule_category)?;
-        fs::write(rules_sources, rule_sources_buffer)?;
-    }
 
     Ok(())
 }
@@ -364,60 +454,41 @@ The recommended rules are:
 fn generate_group(
     group: &'static str,
     rules: &BTreeMap<&'static str, RuleToDocument>,
-    content_root: &Path,
     content: &mut dyn io::Write,
-    errors: &mut Vec<(&'static str, anyhow::Error)>,
     recommended_rules: &mut String,
     path_prefix: &str,
     rule_category: RuleCategory,
-) -> io::Result<()> {
-    let (group_name, description) = extract_group_metadata(group);
+) -> Result<()> {
     let is_nursery = group == "nursery";
     let middle_path = match rule_category {
         RuleCategory::Lint => "rules",
         RuleCategory::Action => "actions",
         _ => unimplemented!(""),
     };
-    writeln!(content, "\n## {group_name}")?;
-    writeln!(content)?;
-    write_markup_to_string(content, description)?;
+    writeln!(content, "\n## `{group}`")?;
     writeln!(content)?;
     writeln!(content, "| Rule name | Description | Properties |")?;
     writeln!(content, "| --- | --- | --- |")?;
 
     for (rule_name, rule_to_document) in rules {
-        let summary = generate_rule(
-            GenRule {
-                content_root,
-                group,
-                rule_name,
-                is_nursery,
-                rule_to_document,
-            },
-            path_prefix,
-            middle_path,
-            rule_category,
-        );
-
-        let summary = match summary {
-            Ok(summary) => summary,
-            Err(err) => {
-                errors.push((rule_name, err));
-                continue;
-            }
-        };
-
-        for (language, meta) in &rule_to_document.clone().language_to_metadata {
+        for (_, meta) in &rule_to_document.clone().language_to_metadata {
             // We don't document rules that haven't been released yet
             if meta.version == "next" {
                 continue;
             }
-            let is_recommended = !is_nursery && meta.recommended;
+            let is_recommended = !is_nursery && meta.recommended && meta.domains.is_empty();
             let dashed_rule = Case::Kebab.convert(rule_name);
-
+            let severity = match meta.severity {
+                Severity::Information => format!("(Severity: Information"),
+                Severity::Warning => format!("Severity: Warning"),
+                Severity::Error => format!("Severity: Error"),
+                Severity::Hint | Severity::Fatal => {
+                    unreachable!("A rule doesn't have this severity.")
+                }
+            };
             if is_recommended {
                 recommended_rules.push_str(&format!(
-                    "\t<li><a href='/{path_prefix}/{middle_path}/{dashed_rule}'>{rule_name}</a></li>\n"
+                    "- [{rule_name}](/{path_prefix}/{middle_path}/{dashed_rule}) ({severity})\n"
                 ));
             }
 
@@ -436,9 +507,7 @@ fn generate_group(
                 FixKind::None => {}
             }
 
-            push_language_icon(language, &mut properties);
-
-            let summary_html = events_to_text(summary.clone());
+            let summary_html = extract_summary_from_rule(meta.docs);
             write!(
                 content,
                 "| [{rule_name}](/{path_prefix}/{middle_path}/{dashed_rule}) | {summary_html} | {properties} |"
@@ -465,42 +534,52 @@ fn generate_rule(
     path_prefix: &str,
     middle_path: &str,
     rule_category: RuleCategory,
-) -> Result<Vec<Event<'static>>> {
-    let mut summary = Vec::new();
-
+) -> Result<()> {
     let mut content = Vec::new();
 
-    // // Write the header for this lint rule
+    let mut errors = Vec::new();
 
     let result: BTreeSet<_> = payload
         .rule_to_document
         .language_to_metadata
         .iter()
         .filter_map(|(language, meta)| {
-            generate_rule_content(RuleContent {
+            let result = generate_rule_content(RuleContent {
                 language,
                 group: payload.group,
                 rule_name: payload.rule_name,
                 is_nursery: payload.is_nursery,
                 meta,
-                summary: &mut summary,
                 path_prefix,
                 middle_path,
                 rule_category,
-            })
-            .ok()
+            });
+
+            match result {
+                Ok(result) => Some(result),
+                Err(err) => {
+                    errors.push(err);
+                    None
+                }
+            }
         })
         .collect();
 
-    let summary_text = events_to_text(summary.clone());
+    if !errors.is_empty() {
+        bail!(
+            "Errors generate while generating rule content for {}: {:?}",
+            payload.rule_name,
+            errors
+        );
+    }
 
     writeln!(content, "---")?;
     add_codegen_disclaimer_frontmatter(&mut content)?;
     writeln!(content, "title: {}", payload.rule_name)?;
     writeln!(
         content,
-        "description: |\n  {}",
-        summary_text.replace("'", "\\'")
+        "description: Learn more about {}",
+        payload.rule_name
     )?;
     writeln!(content, "---")?;
 
@@ -527,7 +606,7 @@ fn generate_rule(
         content,
     )?;
 
-    Ok(summary)
+    Ok(())
 }
 
 #[derive(Debug)]
@@ -537,7 +616,6 @@ struct RuleContent<'a> {
     rule_name: &'static str,
     is_nursery: bool,
     meta: &'a RuleMetadata,
-    summary: &'a mut Vec<Event<'static>>,
     path_prefix: &'a str,
     middle_path: &'a str,
     rule_category: RuleCategory,
@@ -551,7 +629,6 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
         rule_name,
         is_nursery,
         meta,
-        summary,
         path_prefix,
         middle_path,
         rule_category,
@@ -581,14 +658,23 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
                 group, rule_name
             )?;
             if is_recommended {
-                writeln!(content, "- This rule is **recommended**, which means is enabled by default.")?;
+                writeln!(
+                    content,
+                    "- This rule is **recommended**, which means is enabled by default."
+                )?;
             }
             match meta.fix_kind {
                 FixKind::Safe => {
-                    writeln!(content, "- This rule has a [**safe**](/linter/#safe-fixes) fix.")?;
+                    writeln!(
+                        content,
+                        "- This rule has a [**safe**](/linter/#safe-fixes) fix."
+                    )?;
                 }
                 FixKind::Unsafe => {
-                    writeln!(content, "- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.")?;
+                    writeln!(
+                        content,
+                        "- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix."
+                    )?;
                 }
                 FixKind::None => {
                     writeln!(content, "- This rule doesn't have a fix.")?;
@@ -610,7 +696,7 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
             unimplemented!("Should be implemented")
         }
     }
-    
+
     match meta.severity {
         Severity::Information => {
             writeln!(content, "- The default severity of this rule is [**information**](/reference/diagnostics#information).")?;
@@ -619,19 +705,20 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
             writeln!(content, "- The default severity of this rule is [**warning**](/reference/diagnostics#warning).")?;
         }
         Severity::Error => {
-            writeln!(content, "- The default severity of this rule is [**error**](/reference/diagnostics#error).")?;
+            writeln!(
+                content,
+                "- The default severity of this rule is [**error**](/reference/diagnostics#error)."
+            )?;
         }
-        Severity::Hint |
-        Severity::Fatal => panic!("Unsupported severity {}", meta.severity),
+        Severity::Hint | Severity::Fatal => panic!("Unsupported severity {}", meta.severity),
     }
-    
+
     if !meta.domains.is_empty() {
         writeln!(content, "- This rule belongs to the following domains:")?;
         for domain in meta.domains {
-            let domain = markup_to_string(&markup!({domain}).to_owned());
+            let domain = markup_to_string(&markup!({ domain }).to_owned());
             writeln!(content, "  - [`{domain}`](/linter/domains#{domain})")?;
         }
-
     }
 
     if !meta.sources.is_empty() {
@@ -648,10 +735,7 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
                     write!(content, "{:2}- Same as ", " ")?;
                 }
             };
-            writeln!(
-                content,
-                 "[`{rule_name}`]({source_rule_url})"
-            )?;
+            writeln!(content, "[`{rule_name}`]({source_rule_url})")?;
         }
         writeln!(content)?;
     }
@@ -665,9 +749,7 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
         writeln!(content, ":::")?;
     }
 
-
-
-    write_documentation(group, rule_name, meta.docs, &mut content, summary)?;
+    write_documentation(group, rule_name, meta.docs, &mut content)?;
     write_how_to_configure(group, rule_name, &mut content)?;
 
     if rule_category == RuleCategory::Lint {
@@ -918,15 +1000,10 @@ fn write_documentation(
     rule: &'static str,
     docs: &'static str,
     content: &mut Vec<u8>,
-    // Parser events for the first paragraph of documentation in the resulting
-    // content, used as a short summary of what the rule does in the rules page
-    summary: &mut Vec<Event<'static>>,
 ) -> Result<()> {
     writeln!(content, "## Description")?;
 
     let parser = Parser::new(docs);
-
-    let mut is_summary = false;
 
     // Track the last configuration options block that was encountered
     let mut last_options: Option<Configuration> = None;
@@ -941,14 +1018,6 @@ fn write_documentation(
     let mut start_link_tag: Option<Tag> = None;
 
     for event in parser {
-        if is_summary {
-            if matches!(event, Event::End(TagEnd::Paragraph)) {
-                is_summary = false;
-            } else {
-                summary.push(event.clone());
-            }
-        }
-
         match event {
             // CodeBlock-specific handling
             Event::Start(Tag::CodeBlock(CodeBlockKind::Fenced(meta))) => {
@@ -1050,11 +1119,7 @@ fn write_documentation(
                 writeln!(content)?;
             }
 
-            Event::Start(Tag::Paragraph) => {
-                if summary.is_empty() && !is_summary {
-                    is_summary = true;
-                }
-            }
+            Event::Start(Tag::Paragraph) => {}
             Event::End(TagEnd::Paragraph) => {
                 writeln!(content)?;
                 writeln!(content)?;
@@ -1654,85 +1719,6 @@ fn print_diagnostics_or_actions(
     Ok(())
 }
 
-fn generate_reference(group: &'static str, buffer: &mut dyn io::Write) -> io::Result<()> {
-    let (group_name, description) = extract_group_metadata(group);
-    let description = markup_to_string(&description.to_owned());
-    let description = description.replace('\n', " ");
-    writeln!(
-        buffer,
-        "<li><code>{}</code>: {}</li>",
-        group_name.to_lowercase(),
-        description
-    )
-}
-
-fn extract_group_metadata(group: &str) -> (&str, Markup) {
-    match group {
-        "a11y" => (
-            "Accessibility",
-            markup! {
-                "Rules focused on preventing accessibility problems."
-            },
-        ),
-        "complexity" => (
-            "Complexity",
-            markup! {
-                "Rules that focus on inspecting complex code that could be simplified."
-            },
-        ),
-        "correctness" => (
-            "Correctness",
-            markup! {
-                "Rules that detect code that is guaranteed to be incorrect or useless."
-            },
-        ),
-        "nursery" => (
-            "Nursery",
-            markup! {
-                "New rules that are still under development.
-
-Nursery rules require explicit opt-in via configuration on stable versions because they may still have bugs or performance problems.
-They are enabled by default on nightly builds, but as they are unstable their diagnostic severity may be set to either error or
-warning, depending on whether we intend for the rule to be recommended or not when it eventually gets stabilized.
-Nursery rules get promoted to other groups once they become stable or may be removed.
-
-Rules that belong to this group "<Emphasis>"are not subject to semantic version"</Emphasis>"."
-            },
-        ),
-        "performance" => (
-            "Performance",
-            markup! {
-                "Rules catching ways your code could be written to run faster, or generally be more efficient."
-            },
-        ),
-        "security" => (
-            "Security",
-            markup! {
-                "Rules that detect potential security flaws."
-            },
-        ),
-        "style" => (
-            "Style",
-            markup! {
-                "Rules enforcing a consistent and idiomatic way of writing your code."
-            },
-        ),
-        "suspicious" => (
-            "Suspicious",
-            markup! {
-                "Rules that detect code that is likely to be incorrect or useless."
-            },
-        ),
-        "source" => (
-            "Source",
-            markup! {
-                "Rules that generate code actions that are safe to apply to the code."
-            },
-        ),
-        _ => panic!("Unknown group ID {group:?}"),
-    }
-}
-
 pub fn write_markup_to_string(buffer: &mut dyn io::Write, markup: Markup) -> io::Result<()> {
     let mut write = HTML::new(buffer).with_mdx();
     let mut fmt = Formatter::new(&mut write);
@@ -1777,32 +1763,6 @@ fn to_language_icon(language: &str) -> &str {
     }
 }
 
-fn push_language_icon(language: &str, properties: &mut String) {
-    match language {
-        "js" => {
-            properties.push_str("<span class='inline-icon' title=\"JavaScript and super languages rule.\"><Icon name=\"seti:javascript\" label=\"JavaScript and super languages rule.\" size=\"1.2rem\"/></span>");
-        }
-        "jsx" => {
-            properties.push_str("<span class='inline-icon'  title=\"JSX rule.\"><Icon name=\"seti:javascript\" label=\"JSX rule\" size=\"1.2rem\"/></span>");
-        }
-        "ts" => {
-            properties.push_str("<span class='inline-icon'  title=\"TypeScript rule.\"><Icon name=\"seti:typescript\" label=\"TypeScript rule\" size=\"1.2rem\"/></span>");
-        }
-        "json" => {
-            properties.push_str("<span class='inline-icon' title=\"JSON rule.\"><Icon name=\"seti:json\" label=\"JSON rule\" size=\"1.2rem\"/></span>");
-        }
-        "css" => {
-            properties.push_str("<span class='inline-icon' title=\"CSS rule.\"><Icon name=\"seti:css\" label=\"CSS rule\" size=\"1.2rem\"/></span>");
-        }
-        "graphql" => {
-            properties.push_str("<span class='inline-icon' title=\"GraphQL rule\"><Icon name=\"seti:graphql\" label=\"GraphQL rule\" size=\"1.2rem\"/></span>");
-        }
-        _ => {
-            panic!("Language {language} isn't supported.")
-        }
-    }
-}
-
 fn events_to_text(events: Vec<Event>) -> String {
     let mut buffer = String::new();
 
@@ -1815,4 +1775,12 @@ fn events_to_text(events: Vec<Event>) -> String {
     }
 
     buffer
+}
+
+fn extract_summary_from_rule(content: &str) -> String {
+    let mut lines = content.lines();
+    let parser = Parser::new(lines.next().unwrap());
+    let events: Vec<_> = parser.collect();
+
+    events_to_text(events)
 }

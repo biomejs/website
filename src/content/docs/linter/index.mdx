@@ -5,25 +5,24 @@ description: How to use the Biome linter.
 
 import NumberOfRules from "@/components/generated/linter/NumberOfRules.astro";
 import PackageManagerBiomeCommand from "@/components/PackageManagerBiomeCommand.astro";
+import { Steps } from '@astrojs/starlight/components';
 
 Biome's linter statically analyzes your code to find and fix common errors and to help you write better, modern code.
 It [supports multiple languages](/internals/language-support) and provides a total of [**<NumberOfRules/> rules**](/linter/rules/).
 
 
-## CLI
-
 The following command runs the linter on all files from the root of your project:
 
 <PackageManagerBiomeCommand command="lint" />
 
-Or you can specify a folder, for example `./src`
+Or you can specify one or multiple folders, for example `./src` and `./public`
 
-<PackageManagerBiomeCommand command="lint ./src" />
+<PackageManagerBiomeCommand command="lint ./src ./public" />
 
 The command accepts a list of files and directories.
 
 :::caution
-If you pass a glob as a parameter, your shell will expand it.
+If you pass a glob as a parameter, your shell will expand it. **Biome doesn't support globs**.
 The result of the expansion depends on your shell.
 For example, some shells don't support the recursive glob `**` or the alternation `{}` in the following command:
 
@@ -32,20 +31,27 @@ biome lint ./src/**/*.test.{js,ts}
 ```
 
 Shell expansion has a performance cost and a limit on the number of files you can pass to the command.
+
+The use of globs is **discouraged**, instead use the `includes` configuration.
 :::
 
 For more information about all the available options, check the [CLI reference](/reference/cli#biome-lint).
-
 
 ## Rules
 
 The linter is organized into rules.
 A rule emits a diagnostic when it encounters a code that doesn't meet its requirements.
-For example, the [noDebugger](/linter/rules/no-debugger) rule reports the use of the `debugger` instruction in JavaScript code.
+For example, the [noDebugger](/linter/rules/no-debugger) rule reports the use of the `debugger` statements in JavaScript code.
 
-A rule emits diagnostics with a `info`, `warn` or `error` severity.
-Diagnostics with an `error` severity cause the command to exit with a non-zero code,
-While diagnostics with a `info` or a `warn` severity don't cause the command to fail.
+Biome linter ships with a set of recommended rules that varies based on languages, which are enabled by default when you avail of the default Biome configuration (or no-configuration) when you run the `lint` or `check` command:
+
+```shell
+biome lint
+```
+
+Each lint rule ships with a default [severity](/diagnostics#diagnostic-severity), which you can learn about from the documentation of each rule.
+
+The rules are divided into [groups](#linter-groups). For example, the `noDebugger` rule is part of the [`suspicious` group](#suspicious).
 
 You can cause a command that emits `warn` diagnostics to fail by using the `--error-on-warnings` option:
 
@@ -53,15 +59,10 @@ You can cause a command that emits `warn` diagnostics to fail by using the `--er
 biome lint --error-on-warnings ./src
 ```
 
-By default, the Biome linter only runs the [**recommended rules**](/linter/rules#recommended-rules).
 To disable _all rules_, you can disable the recommended rules in your Biome configuration file.
 This may be useful in cases when you only want to enable a few rules.
-The recommended rules emit diagnostics with the `error` severity.
 
-The rules are divided into groups.
-For example, the `noDebugger` rule is part of the [`suspicious` group](/linter/rules#suspicious).
-Rules from this group detect code that is likely to be incorrect or useless.
-The description of each group can be found on the [rules page](/linter/rules/).
+
 
 Unlike other linters, we don't provide any rules that check for code formatting.
 This kind of checking is covered by our [code formatter](/formatter/).
@@ -69,7 +70,7 @@ This kind of checking is covered by our [code formatter](/formatter/).
 Many rules provide a **code fix** that can be automatically applied.
 Biome distinguishes between **safe** and **unsafe** code fixes.
 
-### Safe fixes
+## Safe fixes
 
 Safe fixes are guaranteed to not change the semantic of your code.
 They can be applied without explicit review.
@@ -78,7 +79,7 @@ To apply _safe fixes_, use `--write`:
 
 <PackageManagerBiomeCommand command="lint --write ./src" />
 
-### Unsafe fixes
+## Unsafe fixes
 
 Unsafe fixes may change the semantic of your program.
 Therefore, it's advised to manually review the changes.
@@ -87,7 +88,7 @@ To apply both _safe fixes_ and _unsafe fixes_, use `--write --unsafe`:
 
 <PackageManagerBiomeCommand command="lint --write --unsafe ./src" />
 
-### Rule pillars
+## Rule pillars
 
 We believe that rules should be informative and explain to the user why a rule is triggered and tell the user what they should to do fix the error.
 A rule should follow these **pillars**:
@@ -100,9 +101,9 @@ If a code action is not applicable a note should tell the user what they should 
 If you think a rule doesn't follow these pillars,
 please [open an issue](https://github.com/biomejs/biome/issues/new?assignees=&labels=S-To+triage&projects=&template=01_bug.yml&title=%F0%9F%90%9B+%3CTITLE%3E).
 
-### Skip a rule or a group
+## Skip a rule or a group
 
-Since version **v1.8.0**, the command `biome lint` accepts an option `--skip` that allows to disable a rule or rules that belong to a group.
+The command `biome lint` accepts an option `--skip` that allows to disable a rule or rules that belong to a group.
 
 For example, the following command skips all the rules that belong to the `style` group and the `suspicious/noExplicitAny` rule:
 
@@ -110,9 +111,9 @@ For example, the following command skips all the rules that belong to the `style
 biome lint --skip=style --skip=suspicious/noExplicitAny
 ```
 
-### Run a rule or a group
+## Run a rule or a group
 
-Since version **v1.8.0**, the command `biome lint` accepts an option `--only` that allows you to run a single rule or the rules that belong to a group.
+The command `biome lint` accepts an option `--only` that allows you to run a single rule or the rules that belong to a group.
 
 For example, the following command runs only the rule`style/useNamingConvention`, the rule `style/noInferrableTypes` and the rules that belong to `a11y`. If the rule is disabled in the configuration, then its severity level is set to `error` for a recommended rule or `warn` otherwise.
 
@@ -120,40 +121,56 @@ For example, the following command runs only the rule`style/useNamingConvention`
 biome lint --only=style/useNamingConvention --only=style/noInferrableTypes --only=a11y
 ```
 
-## Configuration
+## Disable a rule
 
-A rule can be configured based on your needs.
+You can turn off a rule with `off`.
 
-### Disable a rule
+The following configuration disables the recommended rule `noDebugger`:
 
-A rule is enabled whether its severity is `error`, `warn` or `info`. You can turn off a rule with `off`.
-
-The following configuration disables the recommended `noDebugger` rule and enables the `noShoutyConstants` and `useNamingConvention` rules.
-
-The `warn` severity is useful in cases where there's a refactor going on and there's a need to make the CI pass. The diagnostic message is yellow. You can use `--error-on-warnings` to exit with an error code when a rule configured with `warn` is triggered.
-
-The `info` severity won't affect the exit status code of the CLI, even when `--error-on-warnings` is passed. The diagnostic message color is blue.
-
-```json title="biome.json"
+```json title="biome.json" ins="\"off\""
 {
   "linter": {
     "rules": {
       "suspicious": {
-        "noDebugger": "off",
-        "noConsoleLog": "info"
-      },
-      "style": {
-        "noShoutyConstants": "warn",
-        "useNamingConvention": "error"
+        "noDebugger": "off"
       }
     }
   }
 }
 ```
 
-### Configure the rule fix
+## Rule severity
 
-Since version **v1.8.0**, it's possible to configure the entity of a fix, using the option `fix`.
+Biome lint rules are shipped with their own default severity. If you want to avail of rule default severity, you can use the `"on"` configuration:
+
+For example the `noShoutyConstants` isn't recommended by default, and when it's triggered in emits a diagnostic with information severity.
+
+If you're happy with this default and you want to avail of it, the configuration will look like this:
+
+```json title="biome.json" ins="\"on\""
+{
+  "linter": {
+    "rules": {
+      "style": {
+        "noShoutyConstants": "on"
+      }
+    }
+  }
+}
+```
+
+If you aren't happy with the default severity, Biome allows you to change it with `"error"`, `"warn"` and `"info"`
+
+The [`"error"`](/reference/diagnostics#error) severity is useful when you want to block the CI if there's a violation that belongs to a certain rule.
+
+The [`warn`](/reference/diagnostics#warning) severity is useful in cases where there's a refactor going on and there's a need to make the CI pass.  You can use `--error-on-warnings` to exit with an error code when a rule configured with `warn` is triggered.
+
+The [`info`](/reference/diagnostics#information) severity won't affect the exit status code of the CLI, even when `--error-on-warnings` is passed.
+
+
+## Configure the rule fix
+
+It's possible to configure the entity of a fix, using the option `fix`.
 There are three options:
 
 - `none`: the rule won't emit a code fix;
@@ -211,6 +228,35 @@ You can set them by shaping the value of the rule differently.
 ```
 
 
+## Linter Groups
+
+The linter divides rules under _groups_. Groups are meant to offer some sort of category which rules falls under. This information becomes useful, for users, when choosing a rule to enable/disable, or for developers when creating new lint rules.
+
+### Accessibility
+
+Rules focused on preventing accessibility problems.
+
+### Complexity
+Rules that focus on inspecting complex code that could be simplified.
+
+### Correctness
+Rules that detect code that is guaranteed to be incorrect or useless.
+
+### Nursery
+New rules that are still under development.  Nursery rules require explicit opt-in via configuration on stable versions because they may still have bugs or performance problems. They are enabled by default on nightly builds, but as they are unstable their diagnostic severity may be set to either error or warning, depending on whether we intend for the rule to be recommended or not when it eventually gets stabilized. Nursery rules get promoted to other groups once they become stable or may be removed.  Rules that belong to this group are not subject to semantic version.
+
+### Performance
+Rules catching ways your code could be written to run faster, or generally be more efficient.
+
+### Security
+Rules that detect potential security flaws.
+
+### Style
+Rules enforcing a consistent and idiomatic way of writing your code. This rules, by design, *will never emit errors* unless configured otherwise.
+
+### Suspicious
+Rules that detect code that is likely to be incorrect or useless.
+
 ## Suppress lint rules
 
 There are times when a developer wants to suppress a lint rule for a specific line of the code, more lines of code, or the entire file.
@@ -257,8 +303,6 @@ debugger;
 
 ### Top-level suppressions
 
-**Since**: `v2.0.0`
-
 They disable a lint rule for an entire file. They must be placed **at the top of the file**, and they must start with `biome-ignore-all`.
 
 These suppression comments are very useful when you want to suppression some lint rule *for a particular file*, and you don't want to rely to a single configuration override to achieve that.
@@ -276,8 +320,6 @@ debugger
 When a top-level suppression comment isn't at the top of the file, it is considered *unused* and Biome will emit a diagnostic with category `suppression/unused`.
 
 ### Range suppressions
-
-**Since**: `v2.0.0`
 
 They disable a lint rule from a particular line of code, to another line of code, called range.
 
@@ -322,6 +364,18 @@ Many of Biome lint rules are inspired from other linters.
 If you want to migrate from other linters such as ESLint or `typescript-eslint`, check the [rules sources page](/linter/rules-sources)
 If you are migrating from ESLint, we have a dedicated [migration guide](/guides/migrate-eslint-prettier#migrate-from-eslint).
 
+<Steps>
+
+1. Use the command `biome migrate eslint` to port the rules defined in your `eslint` configuration file to `biome.json`:
+    ```shell
+    biome migrate eslint
+    ```
+2. Lint the project by suppressing possible new rules that are caught by Biome, using the following command:
+    ```shell
+    biome lint --write --unsafe --suppress="suppressed due to migration"
+    ```
+   The command will suppress all linting violation that Biome finds, using the reason `"suppressed due to migration"`. Now the linter shouldn't error anymore, and it's possible to remove the suppression comments at a later stage.
+</Steps>
 
 ## Frequently Asked Questions (FAQ)
 
