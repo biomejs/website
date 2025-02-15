@@ -88,6 +88,8 @@ self.addEventListener("message", async (e) => {
 				arrowParentheses,
 				bracketSpacing,
 				bracketSameLine,
+				indentScriptAndStyle,
+				whitespaceSensitivity,
 				enabledAssist,
 				unsafeParameterDecoratorsEnabled,
 				allowComments,
@@ -153,6 +155,12 @@ self.addEventListener("message", async (e) => {
 				json: {
 					parser: {
 						allowComments,
+					},
+				},
+				html: {
+					formatter: {
+						indentScriptAndStyle,
+						whitespaceSensitivity,
 					},
 				},
 			};

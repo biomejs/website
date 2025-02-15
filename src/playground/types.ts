@@ -73,6 +73,12 @@ export enum AttributePosition {
 	Multiline = "multiline",
 }
 
+export enum WhitespaceSensitivity {
+	Css = "css",
+	Strict = "strict",
+	Ignore = "ignore",
+}
+
 export type PrettierOutput =
 	| { type: "SUCCESS"; code: string; ir: string }
 	| { type: "ERROR"; stack: string };
@@ -142,6 +148,8 @@ export interface PlaygroundSettings {
 	unsafeParameterDecoratorsEnabled: boolean;
 	allowComments: boolean;
 	ruleDomains: Record<RuleDomain, RuleDomainValue>;
+	indentScriptAndStyle: boolean;
+	whitespaceSensitivity: WhitespaceSensitivity;
 }
 
 export interface PlaygroundFileState {
@@ -191,6 +199,8 @@ export const defaultPlaygroundState: PlaygroundState = {
 		unsafeParameterDecoratorsEnabled: true,
 		allowComments: true,
 		ruleDomains: {},
+		indentScriptAndStyle: false,
+		whitespaceSensitivity: WhitespaceSensitivity.Css,
 	},
 };
 
