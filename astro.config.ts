@@ -437,6 +437,9 @@ export default defineConfig({
 						{
 							label: "Diagnostics",
 							link: "/reference/diagnostics",
+							translations: {
+								ja: "診断",
+							},
 						},
 						{
 							label: "Environment variables",
@@ -444,6 +447,7 @@ export default defineConfig({
 							translations: {
 								fr: "Variables d’environnement",
 								uk: "Змінні середовища",
+								ja: "環境変数",
 							},
 						},
 						{
@@ -452,6 +456,7 @@ export default defineConfig({
 							translations: {
 								fr: "Outils de reporting",
 								uk: "Звіти",
+								ja: "リポータ",
 							},
 						},
 						{
