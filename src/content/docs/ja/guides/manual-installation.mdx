@@ -32,7 +32,34 @@ BiomeはmacOSとLinuxユーザー向けに [Homebrew formula](https://formulae.b
 brew install biome
 ```
 
-## Biomeのインストール
+## Docker
+
+Biomeはバージョン `v1.7.0` 移行の各バージョンについて **amd64** および **arm64** アーキテクチャをサポートした
+[公式のDockerイメージ](https://github.com/biomejs/docker/pkgs/container/biome) を公開しています。
+
+```
+ghcr.io/biomejs/biome:{major}
+ghcr.io/biomejs/biome:{major}.{minor}
+ghcr.io/biomejs/biome:{major}.{minor}.{patch}
+```
+
+以下はDockerイメージを利用するいくつかの例です:
+
+:::note
+デフォルトの作業ディレクトリはDockerイメージ内の `/code` です。
+:::
+
+```shell
+# ファイルをリントする
+docker run -v $(pwd):/code ghcr.io/biomejs/biome lint
+docker run -v $(pwd):/code ghcr.io/biomejs/biome lint --write
+
+# ファイルをフォーマットする
+docker run -v $(pwd):/code ghcr.io/biomejs/biome format
+docker run -v $(pwd):/code ghcr.io/biomejs/biome format --write
+```
+
+## 公開されたバイナリを利用する
 
 Biomeをインストールするには、GitHub上の[最新のCLIリリース](https://github.com/biomejs/biome/releases) からプラットフォームに合った実行可能ファイルを取得し、実行権限を与えてください。
 
@@ -57,4 +84,4 @@ Invoke-WebRequest -Uri "https://github.com/biomejs/biome/releases/download/cli%2
 
 ## 次のステップ
 
-Biomeの使用方法については [getting started セクション](/ja/guides/getting-started#next-steps) で詳しく読むことができます。
+[はじめる](/ja/guides/getting-started/) を参照してください。

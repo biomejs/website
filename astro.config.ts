@@ -160,7 +160,7 @@ export default defineConfig({
 							link: "/guides/big-projects",
 							translations: {
 								fr: "Utiliser Biome dans de gros projets",
-								ja: "大きなプロジェクトでのBiomeの使用方法",
+								ja: "大規模プロジェクトでのBiomeの使用方法",
 								"zh-CN": "大型项目中使用 Biome",
 								"pt-BR": "Usando o Biome em projetos grandes",
 								uk: "Використання Biome в великих проектах",
@@ -363,15 +363,6 @@ export default defineConfig({
 									link: "/assist/actions",
 								},
 							],
-						},
-						{
-							label: "Import Sorting",
-							link: "/analyzer/import-sorting",
-							translations: {
-								ja: "Import文のソート",
-								"zh-CN": "导入排序",
-								"pt-BR": "Ordenação de importações",
-							},
 						},
 					],
 				},

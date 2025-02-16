@@ -3,6 +3,8 @@ title: 大規模プロジェクトでのBiomeの使用方法
 description: 大規模プロジェクトでBiomeを使用するための簡単なガイド
 ---
 
+import {FileTree} from '@astrojs/starlight/components';
+
 Biomeは、モノレポや複数のプロジェクトを含むワークスペースなどの大規模なプロジェクトで、適切に使用するためのツールを提供しています。
 
 ## 複数の設定ファイルの使用
@@ -16,18 +18,18 @@ Biomeの機能をCLIやLSPで使用する場合、ツールは現在の作業デ
 例えば、`backend`ディレクトリと`frontend`ディレクトリを含むプロジェクトがあるとします。
 
 
-```
-app
-├── backend
-│   ├── biome.json
-│   └── package.json
-└── frontend
-    ├── biome.json
-    ├── legacy-app
-    │   └── package.json
-    └── new-app
-        └── package.json
-```
+<FileTree>
+  - app
+    - backend
+      - biome.json
+      - package.json
+    - frontend
+      - biome.json
+      - legacy-app
+        - package.json
+      - new-app
+        - package.json
+</FileTree>
 
 この場合、`app/backend/package.json`からスクリプトを実行すると、Biomeは`app/backend/biome.json`を設定ファイルとして使用します。
 
@@ -89,5 +91,37 @@ app
       "recommended": true
     }
   }
+}
+```
+
+## モノレポ
+
+モノレポは、複数のライブラリを単一の大きなリポジトリに保存して管理されるリポジトリです。それぞれのライブラリは独立したプロジェクトであり、異なる構成を持つことがあります。
+
+Biomeはネストされた設定ファイルの解決においていくらかの制限があり、モノレポを適切にサポートしていません。[関連したIssueを手伝い、フォロー](https://github.com/biomejs/biome/issues/2228)してください。
+
+現在の制限の下でより良い開発者体験を実現するには、モノレポのルートに `biome.json` を配置し、[`overrides`](/reference/configuration/#overrides) 設定を使っていくつかのパッケージでBiomeの動作を変更することを推奨しています。
+
+以下の例では、パッケージ `packages/logger` の中ではルール `suspecious/noConsoleLog` を無効化しています。
+
+```json title="biome.jsonc"
+
+{
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true
+    }
+  },
+  "overrides": [{
+      "include": ["packages/logger/**"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noConsoleLog": "off"
+          }
+        }
+      }
+  }]
 }
 ```

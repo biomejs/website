@@ -2,97 +2,380 @@
 title: Biomeの設定
 description: Biomeを使用して新しいプロジェクトをセットアップする方法
 ---
-import DefaultConfiguration from "@/components/generated/DefaultConfiguration.mdx";
 
+import {FileTree} from '@astrojs/starlight/components';
+
+このガイドでは、Biomeの設定方法を理解するために役立ちます。
+Biomeの設定ファイルの構成と、Biomeがどのように設定を解決するかを説明します。
+あなたがすでに設定方法について詳しい場合は、利用可能なすべてのオプションの詳細が記載された[設定リファレンス](/reference/configuration/)を参照してください。
+
+Biomeでは、CLIのオプションか `biome.json` または `biome.jsonc` の設定ファイルを使って動作をカスタマイズできます。
+設定ファイルをそれぞれのプロジェクトに作成することを推奨しています。
+これにより、CLIおよびBiomeと連携したエディタにおいてチームのメンバが同じ設定を使うことを保証できます。
+設定ファイルで利用可能なオプションの多くはCLIでも利用できます。
 
 ## 設定ファイル
 
-Biomeはデフォルトで十分な機能を提供するので、設定ファイルの使用は**オプショナル**です。
-デフォルトの挙動を変更したい時に設定ファイルを使用してください。
+Biomeはツールチェーンであるため、設定は提供されるツールごとに整理されています。
+現時点では、Biomeはフォーマッタ、リンタ、import文のソート（import文の整理とも呼ばれます）の3つのツールを提供しています。
+これらのツールはデフォルトですべて有効になっています。
+`<tool>.enabled` フィールドによっていくつかを無効にできます:
 
-Biomeの設定ファイルは `biome.json` という名前で、プロジェクトのルートディレクトリに置く必要があります。
-通常、プロジェクトの `package.json` が置かれているところがルートディレクトリになります。
-
-例えば、以下の設定ファイルはフォーマッタを有効にし、インデントスタイルと幅を設定します。リンタは無効になっています：
-
-```json
+```json title="biome.json"
 {
+  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
   "formatter": {
-    "enabled": true,
-    "indentStyle": "tab",
-    "lineWidth": 120
+    "enabled": false
   },
   "linter": {
+    "enabled": false
+  },
+  "organizeImports": {
     "enabled": false
   }
 }
 ```
 
-### デフォルトの設定
+2つ以上の言語に適用されるオプションは対応するツールのフィールドの中に配置されています。
+言語に固有のツールのオプションは `<language>.<tool>` の下に配置されています。
+特定の言語について一般のオプションを上書きすることもできます。
+また、言語によってツールを有効または有効にすることもできます。
+以下の例では、一般のオプション `formatter.indentStyle` と `formatter.lineWidth` をすべての言語に設定しています。
+加えて、`javascript.formatter` の中ではJavaScript固有のオプション `quoteStyle` を設定し、`formatter.lineWidth` を上書きしています。
+JSONファイルについてはフォーマッタを無効にしました。
 
-`biome init` を実行すると、以下のデフォルト設定が出力されます：
-
-<DefaultConfiguration />
-
-### 設定ファイルの解決
-
-
-Biomeは最も近い `biome.json` を自動で検出します。
-実行時のディレクトリから `biome.json` を探索し、以下の条件を満たすまで親ディレクトリを探索します：
-- `biome.json` ファイルが見つかった場合
-- **`biome.json` が見つからなかった場合**、Biomeのデフォルト設定を適用します
-
-例えば以下のようなディレクトリ構成の場合：
-
-```
-└── app
-    ├── backend
-    │   ├── package.json
-    │   └── biome.json
-    └── frontend
-        ├── legacy
-        │   └── package.json
-        ├── new
-        │   └── package.json
-        └── biome.json
-
+```json5 title="biome.jsonc"
+{
+  "formatter": {
+    "indentStyle": "space", // デフォルトは `tab`
+    "lineWidth": 100 // デフォルトは `80`
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single", // デフォルトは `double`
+      "lineWidth": 120 // `formatter.lineWidth` を上書き
+    }
+  },
+  "json": {
+    "formatter": {
+      "enabled": false
+    }
+  }
+}
 ```
 
-- `app/backend/package.json` で実行されたbiomeコマンドは `app/backend/biome.json` を使用します
-- `app/frontend/legacy/package.json` や `app/frontend/new/package.json` で実行されたbiomeコマンドは `app/frontend/biome.json` を使用します
+:::note
+Biomeでは、JavaScript言語のすべての種類を `javascript` と呼んでいます。
+これにはTypeScript、JSX、TSXを含みます。
+:::
+
+
+## 設定ファイルの解決
+
+Biomeは最も近い設定ファイルを見つけるために自動探索を利用します。
+作業ディレクトリとその親ディレクトリから `biome.json` または `biome.jsonc` ファイルを見つけます。
+いずれの設定も見つからない場合は、Biomeのデフォルトを適用します。
+`biome.json` と `biome.jsonc` の両方が同じフォルダにある場合は、`biome.json` を優先します。
+
+以下は例です:
+
+<FileTree>
+- app
+  - backend
+    - biome.json
+    - package.json
+  - frontend
+    - biome.json
+    - legacy
+      - package.json
+    - new
+      - package.json
+</FileTree>
+
+
+- `app/backend/package.json` で実行されたBiomeのコマンドは `app/backend/biome.json` の設定ファイルを使います
+- `app/frontend/legacy/package.json` または `app/frontend/new/package.json` で実行されたBiomeのコマンドは
+  `app/frontend/biome.json` の設定ファイルを使います
+
+:::caution
+BiomeはCLIとLSPのいずれにおいてもネストされた `biome.json` ファイルをサポートしていません。[関連するIssueをフォローして手伝ってください](https://github.com/biomejs/biome/issues/2228)．
+:::
+
+:::note
+Biomeのコマンドは `--config-path` オプションと `BIOME_CONFIG_PATH` 環境変数の利用をサポートしています。
+カスタムの設定ファイル、もしくは `biome.json` や `biome.jsonc` ファイルを見つけるためのディレクトリを指定できます。
+`--config-path` または `BIOME_CONFIG_PATH` を使う場合、標準的な設定ファイルの解決は**無効になります**。
+
+`--config-path` または `BIOME_CONFIG_PATH` がファイルを直接参照する場合、`biome.json` と `biome.jsonc` 以外の名前を使えます。
+Biomeは `.json` ファイルを標準的なJSONパーサで読み込みます。
+他の拡張子を持つファイルについては、Biomeは `.jsonc` ファイルとして扱い、コメントや末尾のカンマを許容するより柔軟なJSONパーサを使います。
+:::
+
+
+## 設定ファイルの共有
+
+`extends` フィールドは設定を複数のファイルに分割することを可能にします。
+この方法により、異なるプロジェクトやフォルダとの間で共通の設定を共有できます。
+
+以下は `common.json` 設定ファイルを継承した設定を行う方法を示した例です:
+
+```json title="biome.json"
+{
+  "extends": ["./common.json"]
+}
+```
+
+`extends` に定義されたエントリは `biome.json` ファイルの定義されたパスから解決されます。
+記載された順に処理され、後に記載されたファイルの設定がその前の設定を上書きします。
+
+Biomeは `node_modules/` ディレクトリから設定ファイルを解決できます。
+従って、パッケージから設定ファイルをエクスポートして、複数のプロジェクトでそれをインポートできます。
+
+そのようにするためには、まず "共有された" Biomeの設定を作成する必要があります。
+パッケージ `@org/shared-configs` から設定ファイルを指定子 `@org/shared-configs/biome` で共有することを考えましょう。
+このパッケージの `package.json` に `exports` エントリを作成する必要があります:
+
+```json title="package.json" ins={5,3}
+{
+  "name": "@org/shared-configs",
+  "type": "module",
+  "exports": {
+    "./biome": "./biome.json"
+  }
+}
+```
+`@org/shared-configs` がプロジェクトに正しくインストールされていることを確認し、`biome.json` を以下の例のように更新します:
+
+```json title="biome.json"
+{
+  "extends": ["@org/shared-configs/biome"]
+}
+```
+Biomeは `@org/shared-configs/` を作業ディレクトリから **解決** しようとします。
+作業ディレクトリは:
+
+- CLIを利用している場合、スクリプトを実行するディレクトリです。
+  一般的にこれは `package.json` ファイルの場所と同じです
+- LSPを利用している場合、プロジェクトのルートディレクトリです
+
+:::caution
+どのように解決されるかの破壊的な変更を防ぐために、ドット `.` で始まるパスと `.json` または `.jsonc` で終わるパスは `node_modules/` から解決**されません**。
+:::
+
+解決アルゴリズムの詳細な情報については、[Node.jsのドキュメント](https://nodejs.org/api/esm.html#resolution-and-loading-algorithm)を参照してください.
+
+
+## ファイルを無視する
+
+Biomeが処理するファイルまたはディレクトリを制御する最初の方法は、それらをCLIで列挙することです。
+以下のコマンドでは、 `file1.js` および `src` ディレクトリ内のすべてのファイルのみをフォーマットします。
+ディレクトリは再帰的に探索されます。
+
+```shell
+biome format file1.js src/
+```
+
+:::caution
+コマンドラインで利用されるglobパターンはBiomeによって解釈されず、シェルによって展開されます。
+いくつかのシェルは再帰的なglob `**` をサポートしていません。
+:::
+
+Biomeの設定ファイルはどのファイルが処理されるかを調整するのに利用できます。
+`include` で処理するファイルを明示的に列挙し、`ignore` を使用して処理しないファイルを列挙できます。
+`include` と `ignore` は `src/**/*.js` などの glob パターンを受け入れます。
+どのglob文法がサポートされているかについては[関連するセクション](#glob文法の説明)を参照してください。
+`include` は常に `ignore` よりも先に適用されます。
+これにより、一部のファイルを含めたり、含めたファイルの一部を無視したりできます。
+
+:::note
+`include` と `ignore` は少し違うセマンティクスを持ちます。
+`include` はBiomeがフォルダを探索するのを妨げません。
+従って、Biomeがフォルダを探索するのを防ぎたい場合は、フォルダを `ignore` に追加する必要があります。
+:::
+
+Biomeは、すべてのツールに適用されるグローバルな `files.include` および `files.ignore` フィールドを提供します。
+`<tool>.include` および `<tool>.ignore` によって、ツールレベルでファイルを含めたり無視したりすることもできます。
+これらはグローバルな `files.include` および `files.ignore` を上書きしないことに注意してください。
+`files.include` および `files.ignore` は、ツールの `include` および `ignore` よりも先に適用されます。
+
+次のような設定を考えます:
+
+```json title="biome.json"
+{
+  "files": {
+    "include": ["src/**/*.js", "test/**/*.js"],
+    "ignore": ["**/*.min.js"]
+  },
+  "linter": {
+    "ignore": ["test"]
+  }
+}
+```
+
+そして、以下のコマンドを実行します:
+
+```shell
+biome format test/
+```
+
+このコマンドは、`test` ディレクトリにおいて `.js` 拡張子で終わり `.min.js` 拡張子で終わらないファイルをフォーマットします。
+ディレクトリがCLIで列挙されていないため、`src` 内のファイルはフォーマットされません。
+
+次のコマンドを実行すると、`test` ディレクトリはリンタに対して明示的に無視されているため、ファイルはリントされません。
+
+```shell
+biome lint test/
+```
+
+Biomeは、作業ディレクトリから相対的にglobを解決します。
+作業ディレクトリは通常、CLIコマンドを実行するディレクトリです。
+つまり、設定ファイルがコマンドを実行するのとは別のディレクトリに配置されている場合は、**特に注意**する必要があります。
+エディタ（LSP）の場合、作業ディレクトリはプロジェクトのルートディレクトリです。
+
+2つのディレクトリ `backend/` と `frontend/` と、先ほど紹介したBiomeの設定ファイルを含むプロジェクトを考えてみましょう。
+`frontend/` ディレクトリ内では、`package.json` がBiomeのフォーマッタを実行する `format` スクリプトを指定します。
+
+<FileTree>
+- backend
+  - ...
+- biome.json
+- frontend
+  - package.json
+  - src
+    - ...
+  - test
+    - ...
+</FileTree>
+
+```json title="frontend/package.json"
+{
+  "name": "frontend-project",
+  "scripts": {
+    "format": "biome format --write ./"
+  }
+}
+```
+
+`frontend/package.json` からスクリプト `format` を実行すると、そのスクリプトにおける作業ディレクトリは `frontend/` になります。
+`src/**/*.js` と `test/**/*.js` のglobは、`frontend/` を "ベース" ディレクトリとします。
+従って、`frontend/src/` と `frontend/test/` のファイルのみがフォーマットされます。
+
+```json title="biome.json"
+{
+  "files": {
+    "include": ["src/**/*.js", "src/**/*.ts"],
+    "ignore": ["test"]
+  },
+  "formatter": {
+    "indentStyle": "space"
+  }
+}
+```
+
+:::caution
+`overrides` 内の `ignore` と `include` は**異なる**セマンティクスを持ちます:
+- `ignore` の場合: ファイルがglobにマッチする場合、このオーバライド内の設定を**_適用しない_**で、次のオーバライドを適用します。
+- `include` の場合: ファイルがglobにマッチする場合、このオーバライド内の設定を**適用**し、次のオーバライドを適用します。
+:::
+
+:::note
+デフォルトでは、Biomeは**保護されたファイル**と呼ばれるファイルを常に無視します。
+つまり、これらのファイルに対してはBiomeが診断結果を出力することはありません。
+現時点では、以下のファイルが保護されています:
+
+- `composer.lock`
+- `npm-shrinkwrap.json`
+- `package-lock.json`
+- `yarn.lock`
+:::
+
+:::note
+[VCSで無視されたファイルを無視する](/guides/integrate-in-vcs#use-the-ignore-file)こともできます。
+:::
 
 
 ## 既知のファイル
 
-以下のファイルは現在Biomeによって無視されます。
-つまり、これらのファイルに対してBiomeは何も診断を行いません。
+拡張子ではなくファイルの名前に基づいて特別に扱われる、いくつかの既知のファイルが存在します。
+現在は既知のファイルはJSONライクなファイルのみですが、新たなパーサをサポートした場合はリストを拡張して他の種類も含める可能性があります。
 
-- `package.json`
-- `package-lock.json`
-- `npm-shrinkwrap.json`
-- `yarn.lock`
-- `composer.json`
-- `composer.lock`
-- `typescript.json`
-- `tsconfig.json`
-- `jsconfig.json`
-- `deno.json`
-- `deno.jsonc`
+以下のファイルは `JSON` ファイルとして、オプション `json.parser.allowComments` と `json.parser.allowTrailingCommas` を `false` にした状態でパースされます。
 
+- `.all-contributorsrc`
+- `.arcconfig`
+- `.auto-changelog`
+- `.bowerrc`
+- `.c8rc`
+- `.htmlhintrc`
+- `.imgbotconfig`
+- `.jslintrc`
+- `.nycrc`
+- `.tern-config`
+- `.tern-project`
+- `.vuerc`
+- `.watchmanconfig`
+- `mcmod.info`
 
+以下のファイルは `JSON` ファイルとして、オプション `json.parser.allowComments` を `true` に、`json.parser.allowTrailingCommas` を `false` にした状態でパースされます。
+これは、これらのファイルを使用するツールがコメントの削除のみを行うためです。
 
-`json.parser.allowComments` と `json.parser.allowTrailingCommas` オプションが `true` に設定されている時、以下のファイルは **`JSON` ファイル** としてパースされます。
-これは、VSCodeなどのエディタがそのように扱うためです。
-
-- `tslint.json`
-- `babel.config.json`
-- `.babelrc.json`
 - `.ember-cli`
-- `typedoc.json`
-- `.eslintrc`
 - `.eslintrc.json`
-- `.jsfmtrc`
+- `.jscsrc`
 - `.jshintrc`
-- `.swcrc`
-- `.hintrc`
+- `tslint.json`
+- `turbo.json`
+
+以下のファイルは `JSON` ファイルとして、オプション `json.parser.allowComments` と `json.parser.allowTrailingCommas` を `true` にした状態でパースされます。
+これは、これらのファイルを使用するツールがそのような設定を受け入れるようになっているためです。
+
 - `.babelrc`
+- `.babelrc.json`
+- `.devcontainer.json`
+- `.hintrc`
+- `.hintrc.json`
+- `.swcrc`
+- `api-documenter.json`
+- `api-extractor.json`
+- `babel.config.json`
+- `deno.json`
+- `devcontainer.json`
+- `dprint.json`
+- `jsconfig.json`
+- `jsr.json`
+- `language-configuration.json`
+- `tsconfig.json`
+- `typedoc.json`
+- `typescript.json`
+
+
+## Glob文法の説明
+
+globパターンはファイル名の集合を指定します。
+Biomeは次のglobをサポートしています:
+
+- `*` は 0 個以上の文字にマッチします。パス区切り文字 `/` にはマッチしません。
+- `**` はディレクトリとファイルに対して再帰的にマッチします。
+  このシーケンスは単一のパスコンポーネント**でなければなりません**。
+  したがって、`**a` と `b**` はどちらも無効であり、エラーになります。
+  連続する `*` 文字が 2 つ以上続くシーケンスも無効です。
+- `[...]` は括弧内の任意の文字にマッチします。
+  Unicode の順序による文字の範囲も指定できます。
+  例えば、`[0-9]` は 0 から 9 までの任意の文字を指定します。
+- `[!...]` は `[...]` の否定です。つまり、括弧内に**含まれない**任意の文字に一致します。
+
+いくつかの例です:
+
+- `dist/**` は、distディレクトリと、その中のすべてのファイルにマッチします。
+- `**/test/**` は、場所に関係なく、`test` という名前のディレクトリの下にあるすべてのファイルにマッチします。例: `dist/test`、`src/test`。
+- `**/*.js` は、すべてのディレクトリ内の拡張子 `.js` で終わるすべてのファイルにマッチします。
+
+Biomeが利用するglobライブラリは、すべてのglobが `**/` 接頭辞を持つものとして扱います。
+つまり、`src/**/*.js` と `**/src/**/*.js` は同一として扱われます。
+これらは `src/file.js` と `test/src/file.js` の両方にマッチします。
+
+:::caution
+これらのパターンはBiome設定ファイルで利用できます。
+コマンドラインで利用されるglobパターンはBiomeでは解釈されず、シェルによって展開されます。
+一部のシェルは再帰的なglob `**` をサポートしていません。
+:::

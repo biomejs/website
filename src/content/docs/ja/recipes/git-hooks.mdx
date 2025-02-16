@@ -91,9 +91,8 @@ Git Hooksを実行するときに便利なコマンドの例です：
 ```jsonc title="package.json"
 {
   "lint-staged": {
-    // Run Biome on staged files that have the following extensions: js, ts, jsx, tsx, json and jsonc
     // 次の拡張子を持つステージングファイルに対してBiomeを実行する: js, ts, jsx, tsx, json and jsonc
-    "**.{js|ts|cjs|mjs|d.cts|d.mts|jsx|tsx|json|jsonc}": [
+    "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}": [
       "biome check --files-ignore-unknown=true", // フォーマットのチェックとリント
       "biome check --write --no-errors-on-unmatched", // フォーマット、インポート文のソート、リント、安全な修正の適用
       "biome check --write --organize-imports-enabled=false --no-errors-on-unmatched", // フォーマットと安全な修正の適用
@@ -207,7 +206,7 @@ Biomeは`--files-ignore-unknown=true`を指定することで未知のファイ�
   #!/bin/sh
   set -eu
 
-  if ! git status --short | grep --quiet '^MM'; then
+  if git status --short | grep --quiet '^MM'; then
     printf '%s\n' "ERROR: Some staged files have unstaged changes" >&2
     exit 1;
   fi

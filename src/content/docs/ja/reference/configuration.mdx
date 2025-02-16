@@ -425,6 +425,15 @@ HTML言語（あるいはHTMLベースの言語）における属性の位置ス
 
 > デフォルト: `"auto"`
 
+### `formatter.useEditorconfig`
+
+フォーマットのオプションを導出するために `.editorconfig` ファイルを利用するかを指定します。
+`true` の場合、`.editorconfig` ファイルの中の適用可能なオプションが利用されますが、`biome.json` ファイルの設定が優先されます。
+
+`biome migrate` でPrettierから移行する場合、このオプションはPrettierの動作と一致させるため `true` に設定されます。
+
+> Default: `false`
+
 ## `organizeImports`
 
 ### `organizeImports.enabled`

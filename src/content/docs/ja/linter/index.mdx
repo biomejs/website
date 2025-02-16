@@ -4,34 +4,69 @@ description: Biomeリンタの使い方
 ---
 
 import NumberOfRules from "@/components/generated/linter/NumberOfRules.astro";
-import RecommendedRules from "@/components/generated/linter/RecommendedRules.astro";
+import PackageManagerBiomeCommand from "@/components/PackageManagerBiomeCommand.astro";
 
 Biomeのリンタはあなたのコードを静的に分析し、典型的なエラーを検出して、より自然なコードを書く手助けをします。
 [複数の言語](/internals/language-support)をサポートし、全部で[**<NumberOfRules/> 個のルール**](/linter/rules/)を提供しています。
 
-## CLI経由でリンタを使用する
+## CLI
 
-CLIから以下のコマンドを実行することで、エラーを検出できます：
+以下のコマンドはプロジェクトのルートからすべてのファイルに対してリンタを実行します:
+
+<PackageManagerBiomeCommand command="lint" />
+
+または、フォルダを指定できます。例えば `./src` を指定します:
+
+<PackageManagerBiomeCommand command="lint ./src" />
+
+コマンドはファイルとディレクトリのリストを受け入れます。
+
+:::caution
+globをパラメータとして渡す場合、シェルがそれを展開します。
+シェルによって展開結果は異なります。
+例えば、いくつかのシェルは以下のコマンドのような再帰的なglob `**` や代替 `{}` をサポートしていません:
 
 ```shell
-biome lint ./src
+biome lint ./src/**/*.test.{js,ts}
 ```
 
-オプションの詳細については、[CLIページ](/reference/cli#biome-lint)を参照してください。
+シェルの展開にはパフォーマンスのコストがあり、またコマンドに渡せるファイルの数には制限があります。
+:::
 
-## ルールの基盤
+利用可能なすべてのオプションについて、詳しくは[CLIリファレンス](/ja/reference/cli#biome-lint)を参照してください。
 
-私たちは、ただルールを指示的に指摘するのではなく、なぜそのルールがトリガーされた理由をユーザーに説明し、エラーを修正する方法をユーザーに伝えることが大切だと考えています。ルールは以下のような**重要な要素**に沿って選定されています：
 
-1. ユーザーに対してエラーの説明を行います。これは基本的に診断のメッセージです。
-2. 次に、ユーザーに対してエラーがトリガーされた理由を説明します。これは基本的に追加のノードで実装されます。
-3. 最後にユーザーに何をすべきかを伝えます。これは基本的にコードアクションを使用して実装されます。コードアクションが適用できない場合は、ノートでユーザーに何をすべきかを伝えます。
+## ルール
 
-もしルールがこれらの要素に従っていないと感じたのであれば、[イシューを作成](https://github.com/biomejs/biome/issues/new?assignees=&labels=S-To+triage&projects=&template=01_bug.yml&title=%F0%9F%90%9B+%3CTITLE%3E)してください。
+リンタはルールに整理されています。
+ルールはその要求に満たないコードを検知すると診断結果を出力します。
+例えば、[noDebugger](/ja/linter/rules/no-debugger) ルールはJavaScriptコードでの `debugger` 命令の利用を報告します。
 
-## コード修正
+ルールは診断結果を `info`、`warn`、`error` の重大度で出力します。
+`error` 重大度の診断結果はコマンドを非ゼロのステータスコードで終了させます。
+`info` または `warn` 重大度の診断結果はコマンドを失敗させません。
 
-リントルールは自動的なコード修正を提供する場合があります。Biomeでは、2種類の修正を区別しています。
+`--error-on-warnings` オプションを使うことで、 `warn` の診断結果にコマンドを失敗させることができます:
+
+```shell
+biome lint --error-on-warnings ./src
+```
+
+デフォルトでは、Biomeのリンタは[**推奨されたルール**](/ja/linter/rules#recommended-rules)のみを実行します。
+_すべてのルール_を無効化するには、Biomeの設定ファイルで推奨されたルールを無効化します。
+これはいくつかのルールのみを有効化したいときに有用です。
+推奨されたルールは `error` 重大度で診断結果を出力します。
+
+ルールはグループに分割されています。
+例えば、`noDebugger` ルールは [`suspicious` グループ](/ja/linter/rules#suspicious) の一部です。
+このグループのルールは、間違っている可能性があるか不要であるコードを検出します。
+各グループの説明は[ルール](/ja/linter/rules/)ページで確認できます。
+
+他のリンタとは違い、コードのフォーマットをチェックするルールを提供していません。
+こうしたチェックは[コードフォーマッタ](/ja/formatter/)が行います。
+
+多くのルールは自動的に適用できる**コード修正**を提供しています。
+Biomeでは、**安全な**修正と**安全ではない**修正を区別しています。
 
 ### 安全な修正（Safe fixes）
 
@@ -39,9 +74,7 @@ biome lint ./src
 
 _安全な修正_ を適用するには、`--write`を使用します：
 
-```shell
-biome check --write ./src
-```
+<PackageManagerBiomeCommand command="lint --write ./src" />
 
 ### 安全ではない修正（Unsafe fixes）
 
@@ -49,21 +82,137 @@ biome check --write ./src
 
 _安全ではない修正_ を適用するには、`--write --unsafe`を使用します：
 
+<PackageManagerBiomeCommand command="lint --write --unsafe ./src" />
+
+### ルールの基盤
+
+私たちは、ただルールを指示的に指摘するのではなく、なぜそのルールがトリガーされた理由をユーザーに説明し、エラーを修正する方法をユーザーに伝えることが大切だと考えています。
+ルールは以下のような**重要な要素**に沿って選定されています：
+
+1. ユーザーに対してエラーの説明を行います。これは基本的に診断のメッセージです。
+2. 次に、ユーザーに対してエラーがトリガーされた理由を説明します。これは基本的に追加のノードで実装されます。
+3. 最後にユーザーに何をすべきかを伝えます。これは基本的にコードアクションを使用して実装されます。
+   コードアクションが適用できない場合は、ノートでユーザーに何をすべきかを伝えます。
+
+もしルールがこれらの要素に従っていないと感じたのであれば、[イシューを作成](https://github.com/biomejs/biome/issues/new?assignees=&labels=S-To+triage&projects=&template=01_bug.yml&title=%F0%9F%90%9B+%3CTITLE%3E)してください。
+
+### ルールまたはグループをスキップする
+
+バージョン **v1.8.0** から、`biome lint` コマンドはルールまたはルールの属するグループを無効化する `--skip` オプションを受け入れるようになりました。
+
+例えば、以下のコマンドは `style` グループに属するすべてのルールと `suspicious/noExplicitAny` ルールをスキップします:
+
 ```shell
-biome check --write --unsafe ./src
+biome lint --skip=style --skip=suspicious/noExplicitAny
 ```
 
+### ルールまたはスキップを実行する
 
-## 推奨ルール
+バージョン **v1.8.0** から、`biome lint` コマンドは特定のルールまたはルールの属するグループのみを実行する `--only` オプションを受け入れるようになりました。
 
-リンタが有効になっている場合、いくつかのルールが推奨されます。推奨ルールはエラー診断を発行します。推奨ルールの一覧は以下に記載されています：
+例えば、以下のコマンドは `style/useNamingConvension` ルール、`style/noInferrableTypes` ルール、そして `a11y` グループに属するすべてのルールのみを実行します。
+ルールが設定によって無効化されている場合、推奨されるルールの重大度は `error` に設定され、それ以外のルールの重大度は `warn` に設定されます。
 
-<RecommendedRules />
+```shell
+biome lint --only=style/useNamingConvention --only=style/noInferrableTypes --only=a11y
+```
+
+## 設定
+
+ルールはニーズに応じて設定できます。
+
+### リントルールの無効化
+
+重大度 `error`、`warn`、`info` のいずれかを指定するとルールは有効化され、`off` を指定すると無効化されます。
+
+以下の設定では、推奨された `noDebugger` ルールを無効化し、`noShoutyConstants` と `useNamingConvention` ルールを有効化します。
+
+重大度 `warn` はリファクタリングの最中にCIをパスさせる必要がある場合に便利です。
+診断結果のメッセージは黄色です。
+`--error-on-warnings` を使うことで、 `warn` が指定されたルールが検知された場合にエラーコードで終了させられます。
+
+重大度 `info` は `--error-on-warnings` が渡されたとしても、CLIの終了ステータスコードに影響しません。
+診断結果のメッセージは青色です。
+
+```json title="biome.json"
+{
+  "linter": {
+    "rules": {
+      "suspicious": {
+        "noDebugger": "off",
+        "noConsoleLog": "info"
+      },
+      "style": {
+        "noShoutyConstants": "warn",
+        "useNamingConvention": "error"
+      }
+    }
+  }
+}
+```
+
+### ルール修正の設定
+
+バージョン **v1.8.0** から、 `fix` オプションによって修正方法を設定できるようになりました。
+次の3つのオプションがあります:
+
+- `none`: ルールはコード修正を出力しません
+- `safe`: ルールは[安全な修正](#安全な修正safe-fixes)のみを出力します
+- `unsafe`: ルールは[安全ではない修正](#安全ではない修正unsafe-fixes)も出力します
+
+```json title="biome.json"
+{
+  "linter": {
+    "rules": {
+      "correctness": {
+        "noUnusedVariables": {
+          "level": "error",
+          "fix": "none"
+        }
+      },
+      "style": {
+        "useConst": {
+          "level": "warn",
+          "fix": "unsafe"
+        },
+        "useTemplate": {
+          "level": "warn",
+          "fix": "safe"
+        }
+      }
+    }
+  }
+}
+```
+
+## ルールの設定
+
+いくつかのルールには、より詳細な設定があります。  
+ルールに詳細な設定がある場合、ルールの値を変更することで指定できます。
+
+- `level` は診断の重大度を示します
+- `options` はルールによって異なります
+
+```json title="biome.json"
+{
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "correctness": {
+        "noCommentText": {
+          "level": "warn",
+          "options": {}
+        }
+      }
+    }
+  }
+}
+```
 
 
 ## コードの無視
 
-特定のコード行に対するリントを無視したい場合があります。  
+特定のコード行に対するリントを無視したい場合があります。
 これは、リンタが指摘している行の上に抑制コメントを追加することで実現できます。
 
 抑制コメントは、以下の形式で記述します：
@@ -89,94 +238,13 @@ debugger;
 debugger;
 ```
 
+Biomeはファイル全体を無視するためのコメントを提供していません。
+しかし、[Biomeの設定ファイルでファイルを無視](/ja/guides/configure-biome#ファイルを無視する)できます。
+[VCSで無視されるファイルを無視する](/ja/guides/integrate-in-vcs#無視するファイルを設定する)こともできます。
 
-## 設定
 
-### リントルールの有効化
+## 他のリンタからの移行
 
-推奨されるルールはデフォルトで有効になっており、エラーの重大度で診断を発行します。  
-推奨されないルールはデフォルトで無効になっていますが、設定を通じて有効にすることができます。  
-これらのルールによって発行される診断は、ドキュメント内で警告の重大度で表示されます。
-
-ルールを有効にするには、診断の重大度を必要に応じて変更する必要があります：
-
-```json
-{
-  "linter": {
-    "enabled": true,
-    "rules": {
-      "style": {
-        "useBlockStatements": "error",
-        "useShorthandArrayType": "error",
-        "noShoutyConstants": "warn"
-      }
-    }
-  }
-}
-```
-
-### リントルールの無効化
-
-ルールを無効化するには無効にしたい設定の項目に`"off"`という値を追加します。  
-例：
-
-```json
-{
-  "linter": {
-    "enabled": true,
-    "rules": {
-      "suspicious": {
-        "noCommentText": "off"
-      },
-      "style": {
-        "noUnusedTemplateLiteral": "off"
-      }
-    }
-  }
-}
-```
-
-### 診断の重大度の変更
-
-Biomeのほとんどのルールは**エラー**を発行しますが、その重大度は自由に変更することができます。  
-ルールの値として`"warn"`を追記することで変更が適用されます。  
-例：
-
-```json
-{
-  "linter": {
-    "enabled": true,
-    "rules": {
-      "suspicious": {
-        "noCommentText": "warn"
-      }
-    }
-  }
-}
-```
-
-これは、リファクタリングが行われている最中や、CIをパスする必要がある場合に便利です。
-
-## ルールの設定
-
-いくつかのルールには、より詳細な設定があります。  
-ルールに詳細な設定がある場合、ルールの値を変更することで指定できます。
-
-```json
-{
-  "linter": {
-    "enabled": true,
-    "rules": {
-      "correctness": {
-        "noCommentText": {
-          "level": "warn",
-          "options": {}
-        }
-      }
-    }
-  }
-}
-```
-
-- `level` は診断の重大度を示し、有効な値は`"off"`、`"warn"`、`"error"`です；
-- `options` はルールに基づいて変更されます。
+Biomeの多くのリントルールは他のリンタを参考にしています。
+ESLintや `typescript-eslint` などの他のリンタから移行する場合は、[ルールのソース](/ja/linter/rules-sources)ページを確認してください。
+ESLintから移行する場合は、専用の[移行ガイド](/ja/guides/migrate-eslint-prettier#eslintからの移行)があります。
