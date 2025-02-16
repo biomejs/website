@@ -12,7 +12,7 @@ Biomeのアシストはユーザのコード品質とDXを向上するための�
 
 アシストのアクションは [LSPのコードアクション](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#codeActionKind) とよく似たセマンティクスを持ちます。
 
-Biomeのアシストはデフォルトで有効になっています。以下の例では、アシストを有効にした上でアクション `useSortKeys` を有効にしています:
+Biomeのアシストはデフォルトで有効になっています。以下の例では、アシストを有効にした上でアクション `useSortKeys` を有効にしています：
 
 ```json title="biome.json"
 {
@@ -27,14 +27,14 @@ Biomeのアシストはデフォルトで有効になっています。以下の
 }
 ```
 
-アシストのアクションはエディタに診断結果を表示 **しません**。しかし、以下の方法があります:
+アシストのアクションはエディタに診断結果を表示 **しません**。しかし、以下の方法があります：
 
 ## CLIでアシストのアクションを強制する
 
-アシストのアクションはCLIの `check` コマンドで強制できます:
+アシストのアクションはCLIの `check` コマンドで強制できます：
 
 <PackageManagerBiomeCommand command="check" />
 
-しかし， `check` は複数のツールを一度に実行するためのものであり、アシストのアクションのみを確認したい場合は以下を実行するべきです:
+しかし、`check` は複数のツールを一度に実行するためのものであり、アシストのアクションのみを確認したい場合は以下を実行するべきです：
 
 <PackageManagerBiomeCommand command="check --formatter-enabled=false --linter-enabled=false --organize-imports-enabled=false" />
