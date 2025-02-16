@@ -11,11 +11,11 @@ Biomeのリンタはあなたのコードを静的に分析し、典型的なエ
 
 ## CLI
 
-以下のコマンドはプロジェクトのルートからすべてのファイルに対してリンタを実行します:
+以下のコマンドはプロジェクトのルートからすべてのファイルに対してリンタを実行します：
 
 <PackageManagerBiomeCommand command="lint" />
 
-または、フォルダを指定できます。例えば `./src` を指定します:
+または、フォルダを指定できます。例えば `./src` を指定します：
 
 <PackageManagerBiomeCommand command="lint ./src" />
 
@@ -24,7 +24,7 @@ Biomeのリンタはあなたのコードを静的に分析し、典型的なエ
 :::caution
 globをパラメータとして渡す場合、シェルがそれを展開します。
 シェルによって展開結果は異なります。
-例えば、いくつかのシェルは以下のコマンドのような再帰的なglob `**` や代替 `{}` をサポートしていません:
+例えば、いくつかのシェルは以下のコマンドのような再帰的なglob `**` や代替 `{}` をサポートしていません：
 
 ```shell
 biome lint ./src/**/*.test.{js,ts}
@@ -46,7 +46,7 @@ biome lint ./src/**/*.test.{js,ts}
 `error` 重大度の診断結果はコマンドを非ゼロのステータスコードで終了させます。
 `info` または `warn` 重大度の診断結果はコマンドを失敗させません。
 
-`--error-on-warnings` オプションを使うことで、 `warn` の診断結果にコマンドを失敗させることができます:
+`--error-on-warnings` オプションを使うことで、 `warn` の診断結果にコマンドを失敗させることができます：
 
 ```shell
 biome lint --error-on-warnings ./src
@@ -100,7 +100,7 @@ _安全ではない修正_ を適用するには、`--write --unsafe`を使用�
 
 バージョン **v1.8.0** から、`biome lint` コマンドはルールまたはルールの属するグループを無効化する `--skip` オプションを受け入れるようになりました。
 
-例えば、以下のコマンドは `style` グループに属するすべてのルールと `suspicious/noExplicitAny` ルールをスキップします:
+例えば、以下のコマンドは `style` グループに属するすべてのルールと `suspicious/noExplicitAny` ルールをスキップします：
 
 ```shell
 biome lint --skip=style --skip=suspicious/noExplicitAny
@@ -154,7 +154,7 @@ biome lint --only=style/useNamingConvention --only=style/noInferrableTypes --onl
 ### ルール修正の設定
 
 バージョン **v1.8.0** から、 `fix` オプションによって修正方法を設定できるようになりました。
-次の3つのオプションがあります:
+次の3つのオプションがあります：
 
 - `none`: ルールはコード修正を出力しません
 - `safe`: ルールは[安全な修正](#安全な修正safe-fixes)のみを出力します

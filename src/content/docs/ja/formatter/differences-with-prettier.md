@@ -295,7 +295,7 @@ BiomeはJavaScriptとTypeScriptのすべての形式を扱う独自のパーサ�
 
 これらのケースはBiomeではバグや非互換とは考えません。Prettierにおいて、`typescript`パーサではフォーマットされたコードに違いがあるが`babel`や`babel-ts`では一致する場合、Biomeではその出力は互換性があると考えます。
 
-例として、Biomeと`typescript`パーサを使うPrettier 3.1.0でフォーマットされた以下のケースを考えます:
+例として、Biomeと`typescript`パーサを使うPrettier 3.1.0でフォーマットされた以下のケースを考えます：
 
 入力
 

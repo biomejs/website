@@ -75,7 +75,7 @@ echo "console.log('')" | biome format --use-server --stdin-file-path=dummy.js
 
 Biomeのデーモンは、ファイルシステムにログを保存します。
 ログは 、`biome-logs` というフォルダに保存され、
-このフォルダへのパスははOSごとに異なります:
+このフォルダへのパスははOSごとに異なります：
 
 -  Linux: `~/.cache/biome`;
 -  Windows: `C:\Users\<UserName>\AppData\Local\biomejs\biome\cache`
@@ -83,14 +83,14 @@ Biomeのデーモンは、ファイルシステムにログを保存します。
 
 その他のOSでは、システムの一時ディレクトリでフォルダを見つけられます。
 
-正確なパスを得るには、以下のコマンドを実行します:
+正確なパスを得るには、以下のコマンドを実行します：
 
 ```shell
 biome explain daemon-logs
 ```
 
 ログファイルは、1時間ごとにローテーションされます。
-`clean` コマンドを利用してログを削除できます:
+`clean` コマンドを利用してログを削除できます：
 
 ```shell
 biome clean
