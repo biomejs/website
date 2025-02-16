@@ -654,6 +654,14 @@ The attribute position style in jsx elements.
 
 > Default: `"auto"`
 
+### `javascript.formatter.objectWrap`
+
+Whether to enforce collapsing object literals when possible.
+- `"preserve"`, object literals are expanded if the first property has a leading newline.
+- `"collapse"`, enforce object literals to collapse if possible (shorter than the max line width).
+
+> Default: `"preserve"`
+
 ### `javascript.globals`
 
 A list of global names that Biome should ignore (analyzer, linter, etc.)
@@ -788,6 +796,12 @@ Allowed values:
 - `"all"`: the trailing comma is kept **and** preferred.
 
 > Default: `"none"`
+
+### `json.formatter.bracketSpacing`
+
+Choose whether spaces should be added between brackets and inner values
+
+> Default: `true`
 
 ### `json.linter.enabled`
 
