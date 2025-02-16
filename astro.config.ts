@@ -357,10 +357,19 @@ export default defineConfig({
 								{
 									label: "Introduction",
 									link: "/assist",
+									translations: {
+										ja: "イントロダクション",
+										"zh-CN": "介绍",
+										"pt-BR": "Introdução",
+										uk: "Вступ",
+									},
 								},
 								{
 									label: "Actions",
 									link: "/assist/actions",
+									translations: {
+										ja: "アクション",
+									},
 								},
 							],
 						},
