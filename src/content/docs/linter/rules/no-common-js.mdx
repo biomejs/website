@@ -3,23 +3,24 @@
 # Head to the `biomejs/biome` repository, and modify the source code in there.
 
 title: noCommonJs
-description: |
-  Disallow use of CommonJs module system in favor of ESM style imports.
+description: Learn more about noCommonJs
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-**Since**: `v1.9.0`
+## Summary
+- Rule available since: `v1.9.0`
+- Diagnostic Category: [`lint/nursery/noCommonJs`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`@typescript-eslint/no-require-imports`](https://typescript-eslint.io/rules/no-require-imports)
+  - Same as [`import/no-commonjs`](https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-commonjs.md)
 
 :::caution
 This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::
-
-Sources: 
-- Same as: <a href="https://typescript-eslint.io/rules/no-require-imports" target="_blank"><code>@typescript-eslint/no-require-imports</code></a>
-- Same as: <a href="https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-commonjs.md" target="_blank"><code>import/no-commonjs</code></a>
-
 ## Description
 Disallow use of CommonJs module system in favor of ESM style imports.
 

@@ -3,22 +3,20 @@
 # Head to the `biomejs/biome` repository, and modify the source code in there.
 
 title: noDebugger
-description: |
-  Disallow the use of `debugger`
+description: Learn more about noDebugger
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-**Since**: `v1.0.0`
-:::note
+## Summary
+- Rule available since: `v1.0.0`
 - Diagnostic Category: [`lint/suspicious/noDebugger`](/reference/diagnostics#diagnostic-category)
-- This rule is **recommended**. A [diagnostic error](/reference/diagnostics#error) will appear when linting your code.
-- This rule has an **unsafe** fix.
-:::
-
-Sources: 
-- Same as: <a href="https://eslint.org/docs/latest/rules/no-debugger" target="_blank"><code>no-debugger</code></a>
+- This rule is **recommended**, which means is enabled by default.
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Same as [`no-debugger`](https://eslint.org/docs/latest/rules/no-debugger)
 
 ## Description
 Disallow the use of `debugger`

@@ -3,26 +3,23 @@
 # Head to the `biomejs/biome` repository, and modify the source code in there.
 
 title: noTsIgnore
-description: |
-  Prevents the use of the TypeScript directive `@ts-ignore`.
+description: Learn more about noTsIgnore
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-**Since**: `vnext`
-:::note
+## Summary
+- Rule available since: `vnext`
 - Diagnostic Category: [`lint/nursery/noTsIgnore`](/reference/diagnostics#diagnostic-category)
-- This rule has a **safe** fix.
-:::
+- This rule has a [**safe**](/linter/#safe-fixes) fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- Sources: 
+  - Inspired from [`ban-ts-comment`](https://eslint.org/docs/latest/rules/ban-ts-comment)
 
 :::caution
 This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::
-
-Sources: 
-- Inspired from: <a href="https://eslint.org/docs/latest/rules/ban-ts-comment" target="_blank"><code>ban-ts-comment</code></a>
-
 ## Description
 Prevents the use of the TypeScript directive `@ts-ignore`.
 

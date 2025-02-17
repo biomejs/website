@@ -3,21 +3,20 @@
 # Head to the `biomejs/biome` repository, and modify the source code in there.
 
 title: noDuplicateSelectorsKeyframeBlock
-description: |
-  Disallow duplicate selectors within keyframe blocks.
+description: Learn more about noDuplicateSelectorsKeyframeBlock
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="CSS" icon="seti:css">
-**Since**: `v1.8.0`
-:::note
+## Summary
+- Rule available since: `v1.8.0`
 - Diagnostic Category: [`lint/suspicious/noDuplicateSelectorsKeyframeBlock`](/reference/diagnostics#diagnostic-category)
-- This rule is **recommended**. A [diagnostic error](/reference/diagnostics#error) will appear when linting your code.
-:::
-
-Sources: 
-- Same as: <a href="https://github.com/stylelint/stylelint/blob/main/lib/rules/keyframe-block-no-duplicate-selectors/README.md" target="_blank"><code>stylelint/keyframe-block-no-duplicate-selectors</code></a>
+- This rule is **recommended**, which means is enabled by default.
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Same as [`stylelint/keyframe-block-no-duplicate-selectors`](https://github.com/stylelint/stylelint/blob/main/lib/rules/keyframe-block-no-duplicate-selectors/README.md)
 
 ## Description
 Disallow duplicate selectors within keyframe blocks.

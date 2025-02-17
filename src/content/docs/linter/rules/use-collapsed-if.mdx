@@ -3,27 +3,24 @@
 # Head to the `biomejs/biome` repository, and modify the source code in there.
 
 title: useCollapsedIf
-description: |
-  Enforce using single `if` instead of nested `if` clauses.
+description: Learn more about useCollapsedIf
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-**Since**: `v1.9.4`
-:::note
+## Summary
+- Rule available since: `v1.9.4`
 - Diagnostic Category: [`lint/nursery/useCollapsedIf`](/reference/diagnostics#diagnostic-category)
-- This rule has a **safe** fix.
-:::
+- This rule has a [**safe**](/linter/#safe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`unicorn/no-lonely-if`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-lonely-if.md)
+  - Same as [`collapsible_if`](https://rust-lang.github.io/rust-clippy/master/#/collapsible_if)
 
 :::caution
 This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::
-
-Sources: 
-- Same as: <a href="https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-lonely-if.md" target="_blank"><code>unicorn/no-lonely-if</code></a>
-- Same as: <a href="https://rust-lang.github.io/rust-clippy/master/#/collapsible_if" target="_blank"><code>collapsible_if</code></a>
-
 ## Description
 Enforce using single `if` instead of nested `if` clauses.
 

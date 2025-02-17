@@ -3,22 +3,20 @@
 # Head to the `biomejs/biome` repository, and modify the source code in there.
 
 title: useAnchorContent
-description: |
-  Enforce that anchors have content and that the content is accessible to screen readers.
+description: Learn more about useAnchorContent
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JSX and TSX" icon="seti:javascript">
-**Since**: `v1.0.0`
-:::note
+## Summary
+- Rule available since: `v1.0.0`
 - Diagnostic Category: [`lint/a11y/useAnchorContent`](/reference/diagnostics#diagnostic-category)
-- This rule is **recommended**. A [diagnostic error](/reference/diagnostics#error) will appear when linting your code.
-- This rule has an **unsafe** fix.
-:::
-
-Sources: 
-- Same as: <a href="https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/anchor-has-content.md" target="_blank"><code>jsx-a11y/anchor-has-content</code></a>
+- This rule is **recommended**, which means is enabled by default.
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Same as [`jsx-a11y/anchor-has-content`](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/anchor-has-content.md)
 
 ## Description
 Enforce that anchors have content and that the content is accessible to screen readers.

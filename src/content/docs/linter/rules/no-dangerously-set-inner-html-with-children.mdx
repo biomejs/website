@@ -3,21 +3,20 @@
 # Head to the `biomejs/biome` repository, and modify the source code in there.
 
 title: noDangerouslySetInnerHtmlWithChildren
-description: |
-  Report when a DOM element or a component uses both `children` and `dangerouslySetInnerHTML` prop.
+description: Learn more about noDangerouslySetInnerHtmlWithChildren
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JSX and TSX" icon="seti:javascript">
-**Since**: `v1.0.0`
-:::note
+## Summary
+- Rule available since: `v1.0.0`
 - Diagnostic Category: [`lint/security/noDangerouslySetInnerHtmlWithChildren`](/reference/diagnostics#diagnostic-category)
-- This rule is **recommended**. A [diagnostic error](/reference/diagnostics#error) will appear when linting your code.
-:::
-
-Sources: 
-- Same as: <a href="https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-danger-with-children.md" target="_blank"><code>react/no-danger-with-children</code></a>
+- This rule is **recommended**, which means is enabled by default.
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Same as [`react/no-danger-with-children`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-danger-with-children.md)
 
 ## Description
 Report when a DOM element or a component uses both `children` and `dangerouslySetInnerHTML` prop.

@@ -3,21 +3,19 @@
 # Head to the `biomejs/biome` repository, and modify the source code in there.
 
 title: noYodaExpression
-description: |
-  Disallow the use of yoda expressions.
+description: Learn more about noYodaExpression
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-**Since**: `v1.8.0`
-:::note
+## Summary
+- Rule available since: `v1.8.0`
 - Diagnostic Category: [`lint/style/noYodaExpression`](/reference/diagnostics#diagnostic-category)
-- This rule has a **safe** fix.
-:::
-
-Sources: 
-- Same as: <a href="https://eslint.org/docs/latest/rules/yoda" target="_blank"><code>yoda</code></a>
+- This rule has a [**safe**](/linter/#safe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`yoda`](https://eslint.org/docs/latest/rules/yoda)
 
 ## Description
 Disallow the use of yoda expressions.

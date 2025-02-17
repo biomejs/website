@@ -3,21 +3,19 @@
 # Head to the `biomejs/biome` repository, and modify the source code in there.
 
 title: useAsConstAssertion
-description: |
-  Enforce the use of `as const` over literal type and type annotation.
+description: Learn more about useAsConstAssertion
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="TypeScript and TSX" icon="seti:typescript">
-**Since**: `v1.3.0`
-:::note
+## Summary
+- Rule available since: `v1.3.0`
 - Diagnostic Category: [`lint/style/useAsConstAssertion`](/reference/diagnostics#diagnostic-category)
-- This rule has a **safe** fix.
-:::
-
-Sources: 
-- Same as: <a href="https://typescript-eslint.io/rules/prefer-as-const" target="_blank"><code>@typescript-eslint/prefer-as-const</code></a>
+- This rule has a [**safe**](/linter/#safe-fixes) fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- Sources: 
+  - Same as [`@typescript-eslint/prefer-as-const`](https://typescript-eslint.io/rules/prefer-as-const)
 
 ## Description
 Enforce the use of `as const` over literal type and type annotation.

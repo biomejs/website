@@ -3,22 +3,23 @@
 # Head to the `biomejs/biome` repository, and modify the source code in there.
 
 title: noUnknownPseudoElement
-description: |
-  Disallow unknown pseudo-element selectors.
+description: Learn more about noUnknownPseudoElement
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="CSS" icon="seti:css">
-**Since**: `v1.8.0`
+## Summary
+- Rule available since: `v1.8.0`
+- Diagnostic Category: [`lint/nursery/noUnknownPseudoElement`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Same as [`stylelint/selector-pseudo-element-no-unknown`](https://github.com/stylelint/stylelint/blob/main/lib/rules/selector-pseudo-element-no-unknown/README.md)
 
 :::caution
 This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::
-
-Sources: 
-- Same as: <a href="https://github.com/stylelint/stylelint/blob/main/lib/rules/selector-pseudo-element-no-unknown/README.md" target="_blank"><code>stylelint/selector-pseudo-element-no-unknown</code></a>
-
 ## Description
 Disallow unknown pseudo-element selectors.
 

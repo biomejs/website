@@ -3,22 +3,72 @@
 # Head to the `biomejs/biome` repository, and modify the source code in there.
 
 title: noDuplicateObjectKeys
-description: |
-  Disallow two keys with the same name inside objects.
+description: Learn more about noDuplicateObjectKeys
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
-<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-**Since**: `v1.0.0`
-:::note
+<TabItem label="JSON (and super languages)" icon="seti:json">
+## Summary
+- Rule available since: `v1.0.0`
 - Diagnostic Category: [`lint/suspicious/noDuplicateObjectKeys`](/reference/diagnostics#diagnostic-category)
-- This rule is **recommended**. A [diagnostic error](/reference/diagnostics#error) will appear when linting your code.
-- This rule has an **unsafe** fix.
-:::
+- This rule is **recommended**, which means is enabled by default.
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+## Description
+Disallow two keys with the same name inside objects.
 
-Sources: 
-- Same as: <a href="https://eslint.org/docs/latest/rules/no-dupe-keys" target="_blank"><code>no-dupe-keys</code></a>
+## Examples
+
+### Invalid
+
+```json
+{
+  "title": "New title",
+  "title": "Second title"
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.json:2:3 <a href="https://biomejs.dev/linter/rules/no-duplicate-object-keys">lint/suspicious/noDuplicateObjectKeys</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The key </span><span style="color: Tomato;"><strong>title</strong></span><span style="color: Tomato;"> was already declared.</span><br />  <br />    <strong>1 │ </strong>&#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  &quot;title&quot;: &quot;New title&quot;,<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>  &quot;title&quot;: &quot;Second title&quot;<br />    <strong>4 │ </strong>&#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This where a duplicated key was declared again.</span><br />  <br />    <strong>1 │ </strong>&#123;<br />    <strong>2 │ </strong>  &quot;title&quot;: &quot;New title&quot;,<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>  &quot;title&quot;: &quot;Second title&quot;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>&#125;<br />    <strong>5 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">If a key is defined multiple times, only the last definition takes effect. Previous definitions are ignored.</span><br />  <br /></code></pre>
+
+### Valid
+
+```json
+{
+  "title": "New title",
+  "secondTitle": "Second title"
+}
+```
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noDuplicateObjectKeys": "error"
+			}
+		}
+	}
+}
+
+```
+## Related links
+
+- [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+## Summary
+- Rule available since: `v1.0.0`
+- Diagnostic Category: [`lint/suspicious/noDuplicateObjectKeys`](/reference/diagnostics#diagnostic-category)
+- This rule is **recommended**, which means is enabled by default.
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Same as [`no-dupe-keys`](https://eslint.org/docs/latest/rules/no-dupe-keys)
 
 ## Description
 Disallow two keys with the same name inside objects.
@@ -60,58 +110,6 @@ const obj = {
 const obj = {
    	get a() { return 1; },
    	set a(v) {},
-}
-```
-
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"suspicious": {
-				"noDuplicateObjectKeys": "error"
-			}
-		}
-	}
-}
-
-```
-## Related links
-
-- [Disable a rule](/linter/#disable-a-lint-rule)
-- [Configure the rule fix](/linter#configure-the-rule-fix)
-- [Rule options](/linter/#rule-options)
-
-</TabItem>
-<TabItem label="JSON (and super languages)" icon="seti:json">
-**Since**: `v1.0.0`
-:::note
-- Diagnostic Category: [`lint/suspicious/noDuplicateObjectKeys`](/reference/diagnostics#diagnostic-category)
-- This rule is **recommended**. A [diagnostic error](/reference/diagnostics#error) will appear when linting your code.
-:::
-
-## Description
-Disallow two keys with the same name inside objects.
-
-## Examples
-
-### Invalid
-
-```json
-{
-  "title": "New title",
-  "title": "Second title"
-}
-```
-
-<pre class="language-text"><code class="language-text">code-block.json:2:3 <a href="https://biomejs.dev/linter/rules/no-duplicate-object-keys">lint/suspicious/noDuplicateObjectKeys</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The key </span><span style="color: Tomato;"><strong>title</strong></span><span style="color: Tomato;"> was already declared.</span><br />  <br />    <strong>1 │ </strong>&#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  &quot;title&quot;: &quot;New title&quot;,<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>  &quot;title&quot;: &quot;Second title&quot;<br />    <strong>4 │ </strong>&#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This where a duplicated key was declared again.</span><br />  <br />    <strong>1 │ </strong>&#123;<br />    <strong>2 │ </strong>  &quot;title&quot;: &quot;New title&quot;,<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>  &quot;title&quot;: &quot;Second title&quot;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>&#125;<br />    <strong>5 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">If a key is defined multiple times, only the last definition takes effect. Previous definitions are ignored.</span><br />  <br /></code></pre>
-
-### Valid
-
-```json
-{
-  "title": "New title",
-  "secondTitle": "Second title"
 }
 ```
 

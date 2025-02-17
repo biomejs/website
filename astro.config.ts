@@ -68,6 +68,14 @@ export default defineConfig({
 			title: "Biome",
 			defaultLocale: "root",
 			plugins,
+			expressiveCode: {
+				shiki: {
+					langAlias: {
+						cjs: "javascript",
+						grit: "txt",
+					},
+				},
+			},
 			locales: {
 				root: {
 					label: "English",
@@ -327,8 +335,8 @@ export default defineConfig({
 									},
 								},
 								{
-									label: "Rules",
-									link: "/linter/rules",
+									label: "JavaScript Rules",
+									link: "/linter/javascript/rules",
 									translations: {
 										fr: "Règles",
 										ja: "ルール",
@@ -338,11 +346,35 @@ export default defineConfig({
 									},
 								},
 								{
-									label: "Rules sources",
-									link: "/linter/rules-sources",
+									label: "JavaScript Rules sources",
+									link: "/linter/javascript/sources",
 									translations: {
 										fr: "Sources des règles",
 									},
+								},
+								{
+									label: "CSS Rules",
+									link: "/linter/css/rules",
+								},
+								{
+									label: "CSS Rules sources",
+									link: "/linter/css/sources",
+								},
+								{
+									label: "JSON Rules",
+									link: "/linter/json/rules",
+								},
+								{
+									label: "JSON Rules sources",
+									link: "/linter/json/sources",
+								},
+								{
+									label: "GraphQL Rules",
+									link: "/linter/graphql/rules",
+								},
+								{
+									label: "GraphQL Rules sources",
+									link: "/linter/graphql/sources",
 								},
 							],
 							translations: {
@@ -365,11 +397,36 @@ export default defineConfig({
 									},
 								},
 								{
-									label: "Actions",
-									link: "/assist/actions",
-									translations: {
-										ja: "アクション",
-									},
+									label: "JavaScript Actions",
+									link: "/assist/javascript/actions",
+								},
+								{
+									label: "JavaScript Actions sources",
+									link: "/assist/javascript/sources",
+								},
+								{
+									label: "CSS Actions",
+									link: "/assist/css/actions",
+								},
+								{
+									label: "CSS Actions sources",
+									link: "/assist/css/sources",
+								},
+								{
+									label: "JSON Actions",
+									link: "/assist/json/actions",
+								},
+								{
+									label: "JSON Actions sources",
+									link: "/assist/json/sources",
+								},
+								{
+									label: "GraphQL Actions",
+									link: "/assist/graphql/actions",
+								},
+								{
+									label: "GraphQL Actions sources",
+									link: "/assist/graphql/sources",
 								},
 							],
 						},

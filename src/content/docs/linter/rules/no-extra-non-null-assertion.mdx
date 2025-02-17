@@ -3,22 +3,20 @@
 # Head to the `biomejs/biome` repository, and modify the source code in there.
 
 title: noExtraNonNullAssertion
-description: |
-  Prevents the wrong usage of the non-null assertion operator (`!`) in TypeScript files.
+description: Learn more about noExtraNonNullAssertion
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="TypeScript and TSX" icon="seti:typescript">
-**Since**: `v1.0.0`
-:::note
+## Summary
+- Rule available since: `v1.0.0`
 - Diagnostic Category: [`lint/suspicious/noExtraNonNullAssertion`](/reference/diagnostics#diagnostic-category)
-- This rule is **recommended**. A [diagnostic error](/reference/diagnostics#error) will appear when linting your code.
-- This rule has a **safe** fix.
-:::
-
-Sources: 
-- Same as: <a href="https://typescript-eslint.io/rules/no-extra-non-null-assertion" target="_blank"><code>@typescript-eslint/no-extra-non-null-assertion</code></a>
+- This rule is **recommended**, which means is enabled by default.
+- This rule has a [**safe**](/linter/#safe-fixes) fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Same as [`@typescript-eslint/no-extra-non-null-assertion`](https://typescript-eslint.io/rules/no-extra-non-null-assertion)
 
 ## Description
 Prevents the wrong usage of the non-null assertion operator (`!`) in TypeScript files.

@@ -3,22 +3,25 @@
 # Head to the `biomejs/biome` repository, and modify the source code in there.
 
 title: noImgElement
-description: |
-  Prevent usage of `<img>` element in a Next.js project.
+description: Learn more about noImgElement
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JSX and TSX" icon="seti:javascript">
-**Since**: `v1.9.4`
+## Summary
+- Rule available since: `v1.9.4`
+- Diagnostic Category: [`lint/nursery/noImgElement`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`next`](/linter/domains#next)
+- Sources: 
+  - Same as [`@next/no-img-element`](https://nextjs.org/docs/messages/no-img-element)
 
 :::caution
 This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::
-
-Sources: 
-- Same as: <a href="https://nextjs.org/docs/messages/no-img-element" target="_blank"><code>@next/no-img-element</code></a>
-
 ## Description
 Prevent usage of `<img>` element in a Next.js project.
 
