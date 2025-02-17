@@ -75,7 +75,6 @@ lint:
     artifacts:
         paths:
             - code-quality.json    # Collect the code quality report as an artifact
-    needs: []                      # No dependent jobs needed
     rules:
         - if: $CI_COMMIT_BRANCH    # Run job for commits on branches
         - if: $CI_MERGE_REQUEST_ID # Run job for merge requests
