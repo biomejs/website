@@ -281,19 +281,19 @@ Suppression comments have the following format:
 
 Let's break it down:
 
-- `biome-ignore`, `biome-ignore-all`, `biome-ignore-start` and `biome-ignore-end` are the start of a suppression comment'
-- `lint` is the **category** of the suppression comment, and in this case it suppresses the linter;
-- `/suspicious/noDebugger` or `/suspicious`: **optional**, group and name, or group of the rule you want to suppress;
+- `biome-ignore`, `biome-ignore-all`, `biome-ignore-start` and `biome-ignore-end` are the start of a suppression comment.
+- `lint` is the **category** of the suppression comment, and in this case it suppresses the linter.
+- `/suspicious/noDebugger` or `/suspicious`: **optional**, group and name, or group of the rule you want to suppress.
 - `(foo)`: **optional**, values associated to the suppression comment, these values are used by the specific rules. Refer to the documentation
 of the single rule to learn if they are used.
-- `<explanation>` explanation why the rule is disabled
+- `<explanation>` explanation why the rule is disabled.
 
 
 ### Inline suppressions
 
 They disable a lint rule for the **next line** of code.
 
-The following example, the suppression comment `biome-ignore lint/suspicious/noDebugger: reason` will disable the `debugger;` statement at line 2, but the `debugger` at line 3 will still raise a diagnostic:
+In the following example, the suppression comment `biome-ignore lint/suspicious/noDebugger: reason` will disable the `debugger;` statement at line 2, but the `debugger` at line 3 will still raise a diagnostic:
 
 ```js title="file.js" ins={1}
 // biome-ignore lint/suspicious/noDebugger: reason
@@ -344,7 +344,7 @@ The following example goes more in detail:
 - The comment `// biome-ignore-end lint/suspicious/noDoubleEquals: reason` at line 7 terminates the suppression of `noDoubleEquals` that was started by the suppression comment at line 3.
 - The `debugger` statement at line 8 **doesn't** raise diagnostics due to the suppression comment at line 3.
 - The `f == g` statement raises a diagnostic because the rule `noDoubleEquals` isn't suppressed anymore.
-- The rule `noDebugger` is disabled for the rest of the file because there's nt `biome-ignore-end` that "closes" the suppression comment at line 2.
+- The rule `noDebugger` is disabled for the rest of the file because there isn't a suppression comment `biome-ignore-end` that "closes" the suppression comment at line 2.
 
 ```js name="file.js"
 debugger;
@@ -361,7 +361,7 @@ f == g;
 ## Migrate from other linters
 
 Many of Biome lint rules are inspired from other linters.
-If you want to migrate from other linters such as ESLint or `typescript-eslint`, check the [rules sources page](/linter/rules-sources)
+If you want to migrate from other linters such as ESLint or `typescript-eslint`, check the [rules sources page](/linter/rules-sources).
 If you are migrating from ESLint, we have a dedicated [migration guide](/guides/migrate-eslint-prettier#migrate-from-eslint).
 
 <Steps>
@@ -381,9 +381,9 @@ If you are migrating from ESLint, we have a dedicated [migration guide](/guides/
 
 > Why does rule X has an *unsafe* fix? It seems safe to me.
 
-There are different reasons why the Biome team decides to mark a fix unsafe, but mostly it boils down to the following reasons:
+There are different reasons why the Biome team decides to mark a fix unsafe, but mostly it boils down to the following:
 - The lint rule is still under heavy development, as well as the fix.
 - The rule fix can change the semantics of a program, so the fix must be opted in by the user.
 - The rule fix can deteriorate the DX while typing and/or saving. An example is `noUnusedVariables`, which adds `_` to the name of unused variables. This can deteriorate the DX of programmers while typing and saving.
 
-If a code fix doesn't follow under three guidelines, it's possible that the team forgot to make the rule fix safe. Open an issue or send a PR!
+If a code fix doesn't follow under these three guidelines, it's possible that the team forgot to make the rule fix safe. Open an issue or send a PR!
