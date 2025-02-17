@@ -3,23 +3,22 @@
 # Head to the `biomejs/biome` repository, and modify the source code in there.
 
 title: noPrecisionLoss
-description: |
-  Disallow literal numbers that lose precision
+description: Learn more about noPrecisionLoss
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-**Since**: `v1.0.0`
-:::note
+## Summary
+- Rule available since: `v1.0.0`
 - Diagnostic Category: [`lint/correctness/noPrecisionLoss`](/reference/diagnostics#diagnostic-category)
-- This rule is **recommended**. A [diagnostic error](/reference/diagnostics#error) will appear when linting your code.
-:::
-
-Sources: 
-- Same as: <a href="https://eslint.org/docs/latest/rules/no-loss-of-precision" target="_blank"><code>no-loss-of-precision</code></a>
-- Same as: <a href="https://typescript-eslint.io/rules/no-loss-of-precision" target="_blank"><code>@typescript-eslint/no-loss-of-precision</code></a>
-- Same as: <a href="https://rust-lang.github.io/rust-clippy/master/#/lossy_float_literal" target="_blank"><code>lossy_float_literal</code></a>
+- This rule is **recommended**, which means is enabled by default.
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Same as [`no-loss-of-precision`](https://eslint.org/docs/latest/rules/no-loss-of-precision)
+  - Same as [`@typescript-eslint/no-loss-of-precision`](https://typescript-eslint.io/rules/no-loss-of-precision)
+  - Same as [`lossy_float_literal`](https://rust-lang.github.io/rust-clippy/master/#/lossy_float_literal)
 
 ## Description
 Disallow literal numbers that lose precision

@@ -3,22 +3,20 @@
 # Head to the `biomejs/biome` repository, and modify the source code in there.
 
 title: useDefaultParameterLast
-description: |
-  Enforce default function parameters and optional function parameters to be last.
+description: Learn more about useDefaultParameterLast
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-**Since**: `v1.0.0`
-:::note
+## Summary
+- Rule available since: `v1.0.0`
 - Diagnostic Category: [`lint/style/useDefaultParameterLast`](/reference/diagnostics#diagnostic-category)
-- This rule has an **unsafe** fix.
-:::
-
-Sources: 
-- Same as: <a href="https://eslint.org/docs/latest/rules/default-param-last" target="_blank"><code>default-param-last</code></a>
-- Same as: <a href="https://typescript-eslint.io/rules/default-param-last" target="_blank"><code>@typescript-eslint/default-param-last</code></a>
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- Sources: 
+  - Same as [`default-param-last`](https://eslint.org/docs/latest/rules/default-param-last)
+  - Same as [`@typescript-eslint/default-param-last`](https://typescript-eslint.io/rules/default-param-last)
 
 ## Description
 Enforce default function parameters and optional function parameters to be last.

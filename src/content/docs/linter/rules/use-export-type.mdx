@@ -3,21 +3,19 @@
 # Head to the `biomejs/biome` repository, and modify the source code in there.
 
 title: useExportType
-description: |
-  Promotes the use of `export type` for types.
+description: Learn more about useExportType
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="TypeScript and TSX" icon="seti:typescript">
-**Since**: `v1.5.0`
-:::note
+## Summary
+- Rule available since: `v1.5.0`
 - Diagnostic Category: [`lint/style/useExportType`](/reference/diagnostics#diagnostic-category)
-- This rule has a **safe** fix.
-:::
-
-Sources: 
-- Inspired from: <a href="https://typescript-eslint.io/rules/consistent-type-exports" target="_blank"><code>@typescript-eslint/consistent-type-exports</code></a>
+- This rule has a [**safe**](/linter/#safe-fixes) fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- Sources: 
+  - Inspired from [`@typescript-eslint/consistent-type-exports`](https://typescript-eslint.io/rules/consistent-type-exports)
 
 ## Description
 Promotes the use of `export type` for types.

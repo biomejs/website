@@ -3,21 +3,20 @@
 # Head to the `biomejs/biome` repository, and modify the source code in there.
 
 title: noInvalidPositionAtImportRule
-description: |
-  Disallow the use of `@import` at-rules in invalid positions.
+description: Learn more about noInvalidPositionAtImportRule
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="CSS" icon="seti:css">
-**Since**: `v1.8.0`
-:::note
+## Summary
+- Rule available since: `v1.8.0`
 - Diagnostic Category: [`lint/correctness/noInvalidPositionAtImportRule`](/reference/diagnostics#diagnostic-category)
-- This rule is **recommended**. A [diagnostic error](/reference/diagnostics#error) will appear when linting your code.
-:::
-
-Sources: 
-- Same as: <a href="https://github.com/stylelint/stylelint/blob/main/lib/rules/no-invalid-position-at-import-rule/README.md" target="_blank"><code>stylelint/no-invalid-position-at-import-rule</code></a>
+- This rule is **recommended**, which means is enabled by default.
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Same as [`stylelint/no-invalid-position-at-import-rule`](https://github.com/stylelint/stylelint/blob/main/lib/rules/no-invalid-position-at-import-rule/README.md)
 
 ## Description
 Disallow the use of `@import` at-rules in invalid positions.

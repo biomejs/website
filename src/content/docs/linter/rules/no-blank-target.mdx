@@ -3,22 +3,20 @@
 # Head to the `biomejs/biome` repository, and modify the source code in there.
 
 title: noBlankTarget
-description: |
-  Disallow `target="_blank"` attribute without `rel="noreferrer"`
+description: Learn more about noBlankTarget
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JSX and TSX" icon="seti:javascript">
-**Since**: `v1.0.0`
-:::note
+## Summary
+- Rule available since: `v1.0.0`
 - Diagnostic Category: [`lint/a11y/noBlankTarget`](/reference/diagnostics#diagnostic-category)
-- This rule is **recommended**. A [diagnostic error](/reference/diagnostics#error) will appear when linting your code.
-- This rule has a **safe** fix.
-:::
-
-Sources: 
-- Same as: <a href="https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-no-target-blank.md" target="_blank"><code>react/jsx-no-target-blank</code></a>
+- This rule is **recommended**, which means is enabled by default.
+- This rule has a [**safe**](/linter/#safe-fixes) fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Same as [`react/jsx-no-target-blank`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-no-target-blank.md)
 
 ## Description
 Disallow `target="_blank"` attribute without `rel="noreferrer"`

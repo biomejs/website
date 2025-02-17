@@ -3,23 +3,21 @@
 # Head to the `biomejs/biome` repository, and modify the source code in there.
 
 title: noUnusedVariables
-description: |
-  Disallow unused variables.
+description: Learn more about noUnusedVariables
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-**Since**: `v1.0.0`
-:::note
+## Summary
+- Rule available since: `v1.0.0`
 - Diagnostic Category: [`lint/correctness/noUnusedVariables`](/reference/diagnostics#diagnostic-category)
-- This rule has an **unsafe** fix.
-:::
-
-Sources: 
-- Same as: <a href="https://eslint.org/docs/latest/rules/no-unused-vars" target="_blank"><code>no-unused-vars</code></a>
-- Same as: <a href="https://typescript-eslint.io/rules/no-unused-vars" target="_blank"><code>@typescript-eslint/no-unused-vars</code></a>
-- Same as: <a href="https://github.com/sweepline/eslint-plugin-unused-imports/blob/master/docs/rules/no-unused-vars.md" target="_blank"><code>unused-imports/no-unused-vars</code></a>
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`no-unused-vars`](https://eslint.org/docs/latest/rules/no-unused-vars)
+  - Same as [`@typescript-eslint/no-unused-vars`](https://typescript-eslint.io/rules/no-unused-vars)
+  - Same as [`unused-imports/no-unused-vars`](https://github.com/sweepline/eslint-plugin-unused-imports/blob/master/docs/rules/no-unused-vars.md)
 
 ## Description
 Disallow unused variables.

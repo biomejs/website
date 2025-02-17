@@ -3,22 +3,20 @@
 # Head to the `biomejs/biome` repository, and modify the source code in there.
 
 title: noEmptyInterface
-description: |
-  Disallow the declaration of empty interfaces.
+description: Learn more about noEmptyInterface
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="TypeScript and TSX" icon="seti:typescript">
-**Since**: `v1.0.0`
-:::note
+## Summary
+- Rule available since: `v1.0.0`
 - Diagnostic Category: [`lint/suspicious/noEmptyInterface`](/reference/diagnostics#diagnostic-category)
-- This rule is **recommended**. A [diagnostic error](/reference/diagnostics#error) will appear when linting your code.
-- This rule has a **safe** fix.
-:::
-
-Sources: 
-- Inspired from: <a href="https://typescript-eslint.io/rules/no-empty-interface" target="_blank"><code>@typescript-eslint/no-empty-interface</code></a>
+- This rule is **recommended**, which means is enabled by default.
+- This rule has a [**safe**](/linter/#safe-fixes) fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Inspired from [`@typescript-eslint/no-empty-interface`](https://typescript-eslint.io/rules/no-empty-interface)
 
 ## Description
 Disallow the declaration of empty interfaces.

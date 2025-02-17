@@ -3,22 +3,21 @@
 # Head to the `biomejs/biome` repository, and modify the source code in there.
 
 title: noSelfCompare
-description: |
-  Disallow comparisons where both sides are exactly the same.
+description: Learn more about noSelfCompare
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-**Since**: `v1.0.0`
-:::note
+## Summary
+- Rule available since: `v1.0.0`
 - Diagnostic Category: [`lint/suspicious/noSelfCompare`](/reference/diagnostics#diagnostic-category)
-- This rule is **recommended**. A [diagnostic error](/reference/diagnostics#error) will appear when linting your code.
-:::
-
-Sources: 
-- Same as: <a href="https://eslint.org/docs/latest/rules/no-self-compare" target="_blank"><code>no-self-compare</code></a>
-- Same as: <a href="https://rust-lang.github.io/rust-clippy/master/#/eq_op" target="_blank"><code>eq_op</code></a>
+- This rule is **recommended**, which means is enabled by default.
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Same as [`no-self-compare`](https://eslint.org/docs/latest/rules/no-self-compare)
+  - Same as [`eq_op`](https://rust-lang.github.io/rust-clippy/master/#/eq_op)
 
 ## Description
 Disallow comparisons where both sides are exactly the same.
