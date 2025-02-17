@@ -3,22 +3,20 @@
 # Head to the `biomejs/biome` repository, and modify the source code in there.
 
 title: noMisleadingCharacterClass
-description: |
-  Disallow characters made with multiple code points in character class syntax.
+description: Learn more about noMisleadingCharacterClass
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-**Since**: `v1.5.0`
-:::note
+## Summary
+- Rule available since: `v1.5.0`
 - Diagnostic Category: [`lint/suspicious/noMisleadingCharacterClass`](/reference/diagnostics#diagnostic-category)
-- This rule is **recommended**. A [diagnostic error](/reference/diagnostics#error) will appear when linting your code.
-- This rule has a **safe** fix.
-:::
-
-Sources: 
-- Same as: <a href="https://eslint.org/docs/latest/rules/no-misleading-character-class" target="_blank"><code>no-misleading-character-class</code></a>
+- This rule is **recommended**, which means is enabled by default.
+- This rule has a [**safe**](/linter/#safe-fixes) fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Same as [`no-misleading-character-class`](https://eslint.org/docs/latest/rules/no-misleading-character-class)
 
 ## Description
 Disallow characters made with multiple code points in character class syntax.

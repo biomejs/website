@@ -3,22 +3,23 @@
 # Head to the `biomejs/biome` repository, and modify the source code in there.
 
 title: noOctalEscape
-description: |
-  Disallow octal escape sequences in string literals
+description: Learn more about noOctalEscape
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-**Since**: `v1.9.3`
+## Summary
+- Rule available since: `v1.9.3`
+- Diagnostic Category: [`lint/nursery/noOctalEscape`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`no-octal-escape`](https://eslint.org/docs/latest/rules/no-octal-escape)
 
 :::caution
 This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::
-
-Sources: 
-- Same as: <a href="https://eslint.org/docs/latest/rules/no-octal-escape" target="_blank"><code>no-octal-escape</code></a>
-
 ## Description
 Disallow octal escape sequences in string literals
 

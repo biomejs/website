@@ -1,0 +1,40 @@
+---
+title: Assist
+description: Biomeのアシストについて
+---
+
+import NumberOfRules from "@/components/generated/assist/NumberOfRules.astro";
+import PackageManagerBiomeCommand from "@/components/PackageManagerBiomeCommand.astro";
+
+Biomeのアシストはユーザのコード品質とDXを向上するためのアクション（またはルール）を提供します。
+
+リンタのルールとは違い、アシストのアクションはエディタやIDE向けであり、プロパティおよびフィールドのソートや二項式の単純化といったものを含みます。アシストには **[<NumberOfRules />つのアクション](/assist/actions)** があります．
+
+アシストのアクションは [LSPのコードアクション](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#codeActionKind) とよく似たセマンティクスを持ちます。
+
+Biomeのアシストはデフォルトで有効になっています。以下の例では、アシストを有効にした上でアクション `useSortKeys` を有効にしています：
+
+```json title="biome.json"
+{
+    "assist": {
+        "enabled": true,
+        "actions": {
+            "source": {
+                "useSortedKeys": "on"
+            }
+        }
+    }
+}
+```
+
+アシストのアクションはエディタに診断結果を表示 **しません**。しかし、以下の方法があります：
+
+## CLIでアシストのアクションを強制する
+
+アシストのアクションはCLIの `check` コマンドで強制できます：
+
+<PackageManagerBiomeCommand command="check" />
+
+しかし、`check` は複数のツールを一度に実行するためのものであり、アシストのアクションのみを確認したい場合は以下を実行するべきです：
+
+<PackageManagerBiomeCommand command="check --formatter-enabled=false --linter-enabled=false --organize-imports-enabled=false" />

@@ -34,13 +34,25 @@ pub(crate) fn generate_rule_sources(
 ) -> Result<Vec<u8>> {
     let mut buffer = vec![];
 
+    let name = match rule_category {
+        RuleCategory::Lint => "Rules",
+        RuleCategory::Action => "Actions",
+        _ => unreachable!(""),
+    };
+
+    let name_lower_case = match rule_category {
+        RuleCategory::Lint => "rules",
+        RuleCategory::Action => "actions",
+        _ => unreachable!(""),
+    };
+
     writeln!(buffer, "---")?;
     add_codegen_disclaimer_frontmatter(&mut buffer)?;
     writeln!(
         buffer,
         r#"
-title: Rules sources
-description: A page that maps lint rules from other sources to Biome
+title: {name} sources
+description: A page that maps {name_lower_case} from other sources to Biome
 ---
     "#
     )?;
@@ -98,12 +110,12 @@ description: A page that maps lint rules from other sources to Biome
         }
     }
 
-    writeln!(buffer, "## Biome exclusive rules",)?;
+    writeln!(buffer, "## Biome exclusive {name_lower_case}",)?;
     for (rule, link) in exclusive_biome_rules {
         writeln!(buffer, "- [{rule}]({link}) ")?;
     }
 
-    writeln!(buffer, "## Rules from other sources",)?;
+    writeln!(buffer, "## {name} from other sources",)?;
     writeln!(
         buffer,
         r#":::note
@@ -113,7 +125,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 
     for (source, rules) in rules_by_source {
         writeln!(buffer, "### {source}")?;
-        writeln!(buffer, r#"| {source} rule name | Biome rule name |"#)?;
+        writeln!(buffer, r#"| {source} {name} name | Biome {name} name |"#)?;
         writeln!(buffer, r#"| ---- | ---- |"#)?;
 
         push_to_table(rules, &mut buffer)?;

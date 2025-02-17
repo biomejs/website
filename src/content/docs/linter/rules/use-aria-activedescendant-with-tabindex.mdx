@@ -3,22 +3,20 @@
 # Head to the `biomejs/biome` repository, and modify the source code in there.
 
 title: useAriaActivedescendantWithTabindex
-description: |
-  Enforce that `tabIndex` is assigned to non-interactive HTML elements with `aria-activedescendant`.
+description: Learn more about useAriaActivedescendantWithTabindex
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JSX and TSX" icon="seti:javascript">
-**Since**: `v1.3.0`
-:::note
+## Summary
+- Rule available since: `v1.3.0`
 - Diagnostic Category: [`lint/a11y/useAriaActivedescendantWithTabindex`](/reference/diagnostics#diagnostic-category)
-- This rule is **recommended**. A [diagnostic error](/reference/diagnostics#error) will appear when linting your code.
-- This rule has an **unsafe** fix.
-:::
-
-Sources: 
-- Same as: <a href="https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/aria-activedescendant-has-tabindex.md" target="_blank"><code>jsx-a11y/aria-activedescendant-has-tabindex</code></a>
+- This rule is **recommended**, which means is enabled by default.
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Same as [`jsx-a11y/aria-activedescendant-has-tabindex`](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/aria-activedescendant-has-tabindex.md)
 
 ## Description
 Enforce that `tabIndex` is assigned to non-interactive HTML elements with `aria-activedescendant`.

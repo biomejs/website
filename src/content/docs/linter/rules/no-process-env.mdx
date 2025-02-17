@@ -3,22 +3,23 @@
 # Head to the `biomejs/biome` repository, and modify the source code in there.
 
 title: noProcessEnv
-description: |
-  Disallow the use of `process.env`.
+description: Learn more about noProcessEnv
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-**Since**: `v1.9.1`
+## Summary
+- Rule available since: `v1.9.1`
+- Diagnostic Category: [`lint/nursery/noProcessEnv`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`n/no-process-env`](https://github.com/eslint-community/eslint-plugin-n/blob/master/docs/rules/no-process-env.md)
 
 :::caution
 This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::
-
-Sources: 
-- Same as: <a href="https://github.com/eslint-community/eslint-plugin-n/blob/master/docs/rules/no-process-env.md" target="_blank"><code>n/no-process-env</code></a>
-
 ## Description
 Disallow the use of `process.env`.
 

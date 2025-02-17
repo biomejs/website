@@ -5,8 +5,6 @@ category: 参考
 description: 如何使用biome.json自定义和配置Biome。
 ---
 
-import LintGroups from "@/components/generated/linter/Groups.astro";
-
 {/* * 当更改配置标题时，请确保更新 `static/_redirects` 中的重定向 * */}
 
 ## `$schema`
@@ -266,7 +264,14 @@ Biome应检查VCS文件的文件夹。默认情况下，Biome将使用找到 `bi
 
 影响单个组规则的选项。Biome支持以下组：
 
-<LintGroups/>
+- accessibility: Rules focused on preventing accessibility problems.
+- complexity: Rules that focus on inspecting complex code that could be simplified.
+- correctness: Rules that detect code that is guaranteed to be incorrect or useless.
+- nursery: New rules that are still under development.  Nursery rules require explicit opt-in via configuration on stable versions because they may still have bugs or performance problems. They are enabled by default on nightly builds, but as they are unstable their diagnostic severity may be set to either error or warning, depending on whether we intend for the rule to be recommended or not when it eventually gets stabilized. Nursery rules get promoted to other groups once they become stable or may be removed.  Rules that belong to this group are not subject to semantic version.
+- performance: Rules catching ways your code could be written to run faster, or generally be more efficient.
+- security: Rules that detect potential security flaws.
+- style: Rules enforcing a consistent and idiomatic way of writing your code.
+- suspicious: Rules that detect code that is likely to be incorrect or useless.
 
 ### `linter.rules.[group].recommended`
 

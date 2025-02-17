@@ -3,8 +3,6 @@ title: 設定
 description: biome.jsonを使用してBiomeをカスタマイズおよび設定する方法
 ---
 
-import LintGroups from "@/components/generated/linter/Groups.astro";
-
 {/** 設定のタイトルを変更する際は、static/_redirects内のリダイレクトも忘れずに更新してください。 --> **/}
 
 ## `$schema`
@@ -255,7 +253,15 @@ Unixシェル形式のパターンのリストで指定します。
 
 単一のグループのルールに影響を与えるオプションです。Biomeは次のグループをサポートしています。
 
-<LintGroups/>
+- accessibility: Rules focused on preventing accessibility problems.
+- complexity: Rules that focus on inspecting complex code that could be simplified.
+- correctness: Rules that detect code that is guaranteed to be incorrect or useless.
+- nursery: New rules that are still under development.  Nursery rules require explicit opt-in via configuration on stable versions because they may still have bugs or performance problems. They are enabled by default on nightly builds, but as they are unstable their diagnostic severity may be set to either error or warning, depending on whether we intend for the rule to be recommended or not when it eventually gets stabilized. Nursery rules get promoted to other groups once they become stable or may be removed.  Rules that belong to this group are not subject to semantic version.
+- performance: Rules catching ways your code could be written to run faster, or generally be more efficient.
+- security: Rules that detect potential security flaws.
+- style: Rules enforcing a consistent and idiomatic way of writing your code.
+- suspicious: Rules that detect code that is likely to be incorrect or useless.
+
 
 ### `linter.rules.[group].recommended`
 
@@ -425,6 +431,12 @@ HTML言語（あるいはHTMLベースの言語）における属性の位置ス
 
 > デフォルト: `"auto"`
 
+### `formatter.bracketSpacing`
+
+括弧と内部の値の間にスペースを追加するかどうかを指定します。
+
+> デフォルト: `true`
+
 ### `formatter.useEditorconfig`
 
 フォーマットのオプションを導出するために `.editorconfig` ファイルを利用するかを指定します。
@@ -432,7 +444,7 @@ HTML言語（あるいはHTMLベースの言語）における属性の位置ス
 
 `biome migrate` でPrettierから移行する場合、このオプションはPrettierの動作と一致させるため `true` に設定されます。
 
-> Default: `false`
+> デフォルト: `false`
 
 ## `organizeImports`
 
@@ -651,6 +663,14 @@ JSX要素における属性の位置スタイルを指定します。
 
 > デフォルト: `"auto"`
 
+### `javascript.formatter.objectWrap`
+
+可能な場合にオブジェクトリテラルを折り畳むように矯正するかどうかを指定します。
+- `"preserve"`: 最初のプロパティの前に改行がある場合、オブジェクトリテラルは展開されます。
+- `"collapse"`: 可能な場合（最大の行長よりも短い場合）、オブジェクトリテラルを折りたたむように強制します。
+
+> デフォルト: `"preserve"`
+
 ### `javascript.globals`
 
 Biomeが無視すべきグローバル名前のリストです。
@@ -780,6 +800,12 @@ JSON（およびその拡張言語）ファイルの行の文字数を指定し�
 - `"all"`: 末尾カンマは保持され、**推奨**されます。
 
 > デフォルト: `"none"`
+
+### `json.formatter.bracketSpacing`
+
+括弧と内部の値の間にスペースを追加するかどうかを指定します。
+
+> デフォルト: `true`
 
 ### `json.linter.enabled`
 

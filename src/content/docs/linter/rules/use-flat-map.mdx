@@ -3,23 +3,21 @@
 # Head to the `biomejs/biome` repository, and modify the source code in there.
 
 title: useFlatMap
-description: |
-  Promotes the use of `.flatMap()` when `map().flat()` are used together.
+description: Learn more about useFlatMap
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-**Since**: `v1.0.0`
-:::note
+## Summary
+- Rule available since: `v1.0.0`
 - Diagnostic Category: [`lint/complexity/useFlatMap`](/reference/diagnostics#diagnostic-category)
-- This rule is **recommended**. A [diagnostic error](/reference/diagnostics#error) will appear when linting your code.
-- This rule has a **safe** fix.
-:::
-
-Sources: 
-- Same as: <a href="https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-array-flat-map.md" target="_blank"><code>unicorn/prefer-array-flat-map</code></a>
-- Same as: <a href="https://rust-lang.github.io/rust-clippy/master/#/map_flatten" target="_blank"><code>map_flatten</code></a>
+- This rule is **recommended**, which means is enabled by default.
+- This rule has a [**safe**](/linter/#safe-fixes) fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Same as [`unicorn/prefer-array-flat-map`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-array-flat-map.md)
+  - Same as [`map_flatten`](https://rust-lang.github.io/rust-clippy/master/#/map_flatten)
 
 ## Description
 Promotes the use of `.flatMap()` when `map().flat()` are used together.

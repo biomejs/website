@@ -3,21 +3,19 @@
 # Head to the `biomejs/biome` repository, and modify the source code in there.
 
 title: noSkippedTests
-description: |
-  Disallow disabled tests.
+description: Learn more about noSkippedTests
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-**Since**: `v1.6.0`
-:::note
+## Summary
+- Rule available since: `v1.6.0`
 - Diagnostic Category: [`lint/suspicious/noSkippedTests`](/reference/diagnostics#diagnostic-category)
-- This rule has an **unsafe** fix.
-:::
-
-Sources: 
-- Inspired from: <a href="https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-disabled-tests.md" target="_blank"><code>jest/no-disabled-tests</code></a>
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Inspired from [`jest/no-disabled-tests`](https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-disabled-tests.md)
 
 ## Description
 Disallow disabled tests.

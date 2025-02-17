@@ -3,8 +3,6 @@ title: Configuration
 description: How to customize and configure Biome with biome.json.
 ---
 
-import LintGroups from "@/components/generated/linter/Groups.astro";
-
 {/** Make sure to update the redirect in `static/_redirects` when changing the configuration title --> **/}
 
 ## `$schema`
@@ -257,7 +255,15 @@ In the previous example, Biome will enable all rules, exception for rules that b
 
 Options that influence the rules of a single group. Biome supports the following groups:
 
-<LintGroups/>
+- accessibility: Rules focused on preventing accessibility problems.
+- complexity: Rules that focus on inspecting complex code that could be simplified.
+- correctness: Rules that detect code that is guaranteed to be incorrect or useless.
+- nursery: New rules that are still under development.  Nursery rules require explicit opt-in via configuration on stable versions because they may still have bugs or performance problems. They are enabled by default on nightly builds, but as they are unstable their diagnostic severity may be set to either error or warning, depending on whether we intend for the rule to be recommended or not when it eventually gets stabilized. Nursery rules get promoted to other groups once they become stable or may be removed.  Rules that belong to this group are not subject to semantic version.
+- performance: Rules catching ways your code could be written to run faster, or generally be more efficient.
+- security: Rules that detect potential security flaws.
+- style: Rules enforcing a consistent and idiomatic way of writing your code.
+- suspicious: Rules that detect code that is likely to be incorrect or useless.
+
 
 ### `linter.rules.[group].recommended`
 
@@ -424,6 +430,12 @@ The attribute position style in HTMLish languages.
 - `"multiline"`, the attributes will collapse in multiple lines if more then 1 attribute is used.
 
 > Default: `"auto"`
+
+### `formatter.bracketSpacing`
+
+Choose whether spaces should be added between brackets and inner values.
+
+> Default: `true`
 
 ### `formatter.useEditorconfig`
 
@@ -642,7 +654,7 @@ Choose whether the ending `>` of a multi-line JSX element should be on the last 
 
 ### `javascript.formatter.bracketSpacing`
 
-Choose whether spaces should be added between brackets and inner values
+Choose whether spaces should be added between brackets and inner values.
 
 > Default: `true`
 
@@ -653,6 +665,14 @@ The attribute position style in jsx elements.
 - `"multiline"`, enforce single attribute per line.
 
 > Default: `"auto"`
+
+### `javascript.formatter.objectWrap`
+
+Whether to enforce collapsing object literals when possible.
+- `"preserve"`, object literals are expanded if the first property has a leading newline.
+- `"collapse"`, enforce object literals to collapse if possible (shorter than the max line width).
+
+> Default: `"preserve"`
 
 ### `javascript.globals`
 
@@ -788,6 +808,12 @@ Allowed values:
 - `"all"`: the trailing comma is kept **and** preferred.
 
 > Default: `"none"`
+
+### `json.formatter.bracketSpacing`
+
+Choose whether spaces should be added between brackets and inner values.
+
+> Default: `true`
 
 ### `json.linter.enabled`
 

@@ -3,21 +3,19 @@
 # Head to the `biomejs/biome` repository, and modify the source code in there.
 
 title: noConstantMathMinMaxClamp
-description: |
-  Disallow the use of `Math.min` and `Math.max` to clamp a value where the result itself is constant.
+description: Learn more about noConstantMathMinMaxClamp
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-**Since**: `v1.7.0`
-:::note
+## Summary
+- Rule available since: `v1.7.0`
 - Diagnostic Category: [`lint/correctness/noConstantMathMinMaxClamp`](/reference/diagnostics#diagnostic-category)
-- This rule has an **unsafe** fix.
-:::
-
-Sources: 
-- Same as: <a href="https://rust-lang.github.io/rust-clippy/master/#/min_max" target="_blank"><code>min_max</code></a>
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`min_max`](https://rust-lang.github.io/rust-clippy/master/#/min_max)
 
 ## Description
 Disallow the use of `Math.min` and `Math.max` to clamp a value where the result itself is constant.
