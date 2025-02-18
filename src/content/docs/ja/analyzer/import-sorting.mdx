@@ -15,27 +15,34 @@ Biomeは、import文を[自然順](https://ja.wikipedia.org/wiki/自然順)に�
 }
 ```
 
-## Import文がどのようにソートされるか
+:::note
+Import文のソート機能は不要なインポートを削除しません。
+不要なインポートを削除する安全な修正を持つリンタのルール [noUnusedImports](/linter/rules/no-unused-imports/) を提供しています。
+:::
+
+## Import文のソート方法
 
 import文は、"距離" によってソートされます。ユーザーから "遠い" モジュールが上に配置され、ユーザーに "近い" モジュールが下に配置されます。
 
 1. `bun:`プロトコルを介してインポートされたモジュール。これはBunによって実行されるコードを書く場合に適用されます。
 2. `node:`プロトコルを使用して明示的にインポートされるNode.jsの組み込みモジュールおよび`assert`などの一般的なNodeビルトイン。
 3. `npm:`プロトコルを介してインポートされたモジュール。これはDenoで実行されるコードを書く場合に適用されます。
-4. URLを介してインポートされたモジュール。
-5. ライブラリからインポートされたモジュール。
-6. 絶対インポート (absolute import) を使用してインポートされたモジュール。
-7. `#`の接頭辞が付いた名前からインポートされたモジュール。これは、[Nodeのサブパスインポート](https://nodejs.org/api/packages.html#subpath-imports)を使用する場合に適用されます。
-8. 相対インポート (relative import) を使用してインポートされたモジュール。
-9. 前述の基準で識別できなかったモジュール。
+4. `:`プロトコルを介してインポートされたモジュール。これは"バーチャルモジュール"と呼ばれ、`vite`などの作業環境によって注入されます。
+5. URLを介してインポートされたモジュール。
+6. ライブラリからインポートされたモジュール。
+7. 絶対インポート (absolute import) を使用してインポートされたモジュール。
+8. `#`の接頭辞が付いた名前からインポートされたモジュール。これは、[Nodeのサブパスインポート](https://nodejs.org/api/packages.html#subpath-imports)を使用する場合に適用されます。
+9. 相対インポート (relative import) を使用してインポートされたモジュール。
+10. 前述の基準で識別できなかったモジュール。
 
 例えば、次のコードが与えられた場合、
 
-```ts
+```ts title="example.ts"
 import uncle from "../uncle";
 import sibling from "./sibling";
 import express from "npm:express";
 import imageUrl from "url:./image.png";
+import { sortBy } from "virtual:utils";
 import assert from "node:assert";
 import aunt from "../aunt";
 import { VERSION } from "https://deno.land/std/version.ts";
@@ -48,11 +55,12 @@ import React from "react";
 
 次のようにソートされます。
 
-```ts
+```ts title="example.ts"
 import { expect } from "bun:test";
 import assert from "node:assert";
 import { mock, test } from "node:test";
 import express from "npm:express";
+import { sortBy } from "virtual:utils";
 import { VERSION } from "https://deno.land/std/version.ts";
 import React from "react";
 import { secret } from "/absolute/path";
@@ -69,7 +77,7 @@ import imageUrl from "url:./image.png";
 
 主にフロントエンドのプロジェクトで作業する場合やCSSファイルをインポートする際には、特定の順序でimport文を宣言することは一般的です。
 
-```js
+```js title="example.js"
 import "../styles/reset.css";
 import "../styles/layout.css";
 import { Grid } from "../components/Grid.jsx";
@@ -77,7 +85,7 @@ import { Grid } from "../components/Grid.jsx";
 
 他の一般的なケースは、polyfillやshimファイルをインポートすることです。これらはファイルの先頭に配置する必要があります。
 
-```js
+```js title="example.js"
 import "../polyfills/array/flatMap";
 import { functionThatUsesFlatMap } from "./utils.js";
 ```
@@ -88,7 +96,7 @@ import { functionThatUsesFlatMap } from "./utils.js";
 
 これによりBiomeは、ソートの対象をグループに属するimport文のみに制限します。
 
-```js
+```js title="example.js"
 // group 1, only these two files will be sorted
 import "../styles/reset.css";
 import "../styles/layout.css";
@@ -97,20 +105,57 @@ import "../styles/layout.css";
 import { Grid } from "../components/Grid.jsx";
 ```
 
-```js
+```js title="example.js"
 // group 1, the polyfill/shim
 import "../polyfills/array/flatMap";
 
-// group 2, the files tha require the polyfill/shim
+// group 2, the files that require the polyfill/shim
 import { functionThatUsesFlatMap } from "./utils.js";
+```
+
+## 副作用のインポート
+
+[副作用のインポート](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Statements/import#%E5%89%AF%E4%BD%9C%E7%94%A8%E3%81%AE%E3%81%9F%E3%82%81%E3%81%A0%E3%81%91%E3%81%AB%E3%83%A2%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%AB%E3%82%92%E3%82%A4%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%88%E3%81%99%E3%82%8B) はいかなる名前もインポートしないimport文です：
+
+```js
+import "./global.js"
+```
+
+モジュールがどのような副作用をもたらすかを判断することは難しいため、import文のソート機能は副作用のインポートがそれぞれのグループを成すと仮定します。
+
+例えば、以下のimport文は4つのグループから成ります：
+
+```js name="file.js"
+import sibling from "./sibling";       // Import group 1
+import { internal } from "#internal";  // Import group 1
+import "z";  // Import group 2
+import "a";  // Import group 3
+import React from "react";         // Import group 4
+import assert from "node:assert";  // Import group 4
+```
+
+それぞれのグループは以下のように独立してソートされます：
+
+```js name="file.js"
+import { internal } from "#internal";  // Import group 1
+import sibling from "./sibling";      // Import group 1
+import "z";  // Import group 2
+import "a";  // Import group 3
+import assert from "node:assert";  // Import group 4
+import React from "react";         // Import group 4
 ```
 
 ## CLIを使用した場合
 
-オプション`--write`を指定して、`check`コマンドを実行します。
+オプション`--write`を指定して、`check`コマンドを実行します。Import文のソートのみを行いたい場合は、以下のように`check`コマンドを実行します：
 
 ```shell
-biome check --write ./path/to/src
+biome check \
+    --formatter-enabled=false\
+    --linter-enabled=false \
+    --organize-imports-enabled=true \
+    --write \
+    ./path/to/src
 ```
 
 ## VS Code拡張機能を使用した場合
@@ -123,8 +168,8 @@ BiomeのVS Code拡張機能は、_Organize Imports_ コードアクションに�
 
 ```json title="settings.json"
 {
-  "editor.codeActionsOnSave": {
-    "source.organizeImports.biome": "explicit"
-  }
+	"editor.codeActionsOnSave":{
+		"source.organizeImports.biome": "explicit"
+	}
 }
 ```
