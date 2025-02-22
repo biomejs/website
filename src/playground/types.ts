@@ -68,9 +68,15 @@ export enum ArrowParentheses {
 	Always = "always",
 	AsNeeded = "as-needed",
 }
+
 export enum AttributePosition {
 	Auto = "auto",
 	Multiline = "multiline",
+}
+
+export enum ObjectWrap {
+	Preserve = "preserve",
+	Collapse = "collapse",
 }
 
 export enum WhitespaceSensitivity {
@@ -141,6 +147,7 @@ export interface PlaygroundSettings {
 	attributePosition: AttributePosition;
 	bracketSpacing: boolean;
 	bracketSameLine: boolean;
+	objectWrap: ObjectWrap;
 	lintRules: LintRules;
 	enabledLinting: boolean;
 	analyzerFixMode: FixFileMode;
@@ -192,6 +199,7 @@ export const defaultPlaygroundState: PlaygroundState = {
 		attributePosition: AttributePosition.Auto,
 		bracketSpacing: true,
 		bracketSameLine: false,
+		objectWrap: ObjectWrap.Preserve,
 		lintRules: LintRules.Recommended,
 		enabledLinting: true,
 		analyzerFixMode: "safeFixes",
