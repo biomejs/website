@@ -2,6 +2,7 @@ import {
 	ArrowParentheses,
 	AttributePosition,
 	IndentStyle,
+	type ObjectWrap,
 	type PlaygroundSettings,
 	type PrettierOptions,
 	type PrettierOutput,
@@ -58,6 +59,7 @@ self.addEventListener("message", async (e) => {
 				bracketSpacing,
 				bracketSameLine,
 				attributePosition,
+				objectWrap,
 				indentScriptAndStyle,
 				whitespaceSensitivity,
 			} = settings;
@@ -79,6 +81,7 @@ self.addEventListener("message", async (e) => {
 				bracketSameLine,
 				singleAttributePerLine:
 					attributePosition === AttributePosition.Multiline,
+				objectWrap,
 				vueIndentScriptAndStyle: indentScriptAndStyle,
 				whitespaceSensitivity,
 			});
@@ -113,6 +116,7 @@ async function formatWithPrettier(
 		bracketSpacing: boolean;
 		bracketSameLine: boolean;
 		singleAttributePerLine?: boolean;
+		objectWrap: ObjectWrap;
 		vueIndentScriptAndStyle: boolean;
 		whitespaceSensitivity: WhitespaceSensitivity;
 	},
@@ -144,6 +148,7 @@ async function formatWithPrettier(
 			bracketSpacing: options.bracketSpacing,
 			bracketSameLine: options.bracketSameLine,
 			singleAttributePerLine: options.singleAttributePerLine ?? false,
+			objectWrap: options.objectWrap,
 			embeddedLanguageFormatting: "off",
 			vueIndentScriptAndStyle: options.vueIndentScriptAndStyle,
 			htmlWhitespaceSensitivity: options.whitespaceSensitivity,

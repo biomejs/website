@@ -3,6 +3,7 @@ import {
 	AttributePosition,
 	IndentStyle,
 	LintRules,
+	ObjectWrap,
 	type PlaygroundState,
 	QuoteProperties,
 	QuoteStyle,
@@ -55,6 +56,7 @@ export default function SettingsTab({
 			arrowParentheses,
 			bracketSpacing,
 			bracketSameLine,
+			objectWrap,
 			indentScriptAndStyle,
 			whitespaceSensitivity,
 			lintRules,
@@ -115,6 +117,10 @@ export default function SettingsTab({
 	const setBracketSameLine = createPlaygroundSettingsSetter(
 		setPlaygroundState,
 		"bracketSameLine",
+	);
+	const setObjectWrap = createPlaygroundSettingsSetter(
+		setPlaygroundState,
+		"objectWrap",
 	);
 	const setIndentScriptAndStyle = createPlaygroundSettingsSetter(
 		setPlaygroundState,
@@ -305,6 +311,8 @@ export default function SettingsTab({
 				setBracketSpacing={setBracketSpacing}
 				bracketSameLine={bracketSameLine}
 				setBracketSameLine={setBracketSameLine}
+				objectWrap={objectWrap}
+				setObjectWrap={setObjectWrap}
 				indentScriptAndStyle={indentScriptAndStyle}
 				setIndentScriptAndStyle={setIndentScriptAndStyle}
 				whitespaceSensitivity={whitespaceSensitivity}
@@ -648,6 +656,8 @@ function FormatterSettings({
 	setBracketSpacing,
 	bracketSameLine,
 	setBracketSameLine,
+	objectWrap,
+	setObjectWrap,
 	indentScriptAndStyle,
 	setIndentScriptAndStyle,
 	whitespaceSensitivity,
@@ -677,6 +687,8 @@ function FormatterSettings({
 	setBracketSpacing: (value: boolean) => void;
 	bracketSameLine: boolean;
 	setBracketSameLine: (value: boolean) => void;
+	objectWrap: ObjectWrap;
+	setObjectWrap: (value: ObjectWrap) => void;
 	indentScriptAndStyle: boolean;
 	setIndentScriptAndStyle: (value: boolean) => void;
 	whitespaceSensitivity: WhitespaceSensitivity;
@@ -833,6 +845,18 @@ function FormatterSettings({
 						checked={bracketSameLine}
 						onChange={(e) => setBracketSameLine(e.target.checked)}
 					/>
+				</div>
+				<div className="field-row">
+					<label htmlFor="objectWrap">Object Wrap</label>
+					<select
+						id="objectWrap"
+						name="objectWrap"
+						value={objectWrap ?? ObjectWrap.Preserve}
+						onChange={(e) => setObjectWrap(e.target.value as ObjectWrap)}
+					>
+						<option value={ObjectWrap.Preserve}>Preserve</option>
+						<option value={ObjectWrap.Collapse}>Collapse</option>
+					</select>
 				</div>
 
 				<h3>HTML</h3>

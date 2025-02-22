@@ -5,6 +5,7 @@ import {
 	IndentStyle,
 	LintRules,
 	LoadingState,
+	ObjectWrap,
 	type PlaygroundSettings,
 	QuoteProperties,
 	QuoteStyle,
@@ -88,6 +89,7 @@ self.addEventListener("message", async (e) => {
 				arrowParentheses,
 				bracketSpacing,
 				bracketSameLine,
+				objectWrap,
 				indentScriptAndStyle,
 				whitespaceSensitivity,
 				enabledAssist,
@@ -106,6 +108,8 @@ self.addEventListener("message", async (e) => {
 					indentWidth,
 					attributePosition:
 						attributePosition === AttributePosition.Auto ? "auto" : "multiline",
+					objectWrap:
+						objectWrap === ObjectWrap.Preserve ? "preserve" : "collapse",
 				},
 
 				linter: {
