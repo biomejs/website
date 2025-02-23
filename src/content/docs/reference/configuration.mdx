@@ -437,6 +437,14 @@ Choose whether spaces should be added between brackets and inner values.
 
 > Default: `true`
 
+### `formatter.objectWrap`
+
+Whether to enforce collapsing object literals when possible.
+- `"preserve"`, object literals are expanded if the first property has a leading newline.
+- `"collapse"`, enforce object literals to collapse if possible (shorter than the max line width).
+
+> Default: `"preserve"`
+
 ### `formatter.useEditorconfig`
 
 Whether Biome should use the `.editorconfig` file to determine the formatting options. If `true`, the applicable options in the `.editorconfig` file will be used, but any configuration in the `biome.json` file will still take precedence.
@@ -814,6 +822,14 @@ Allowed values:
 Choose whether spaces should be added between brackets and inner values.
 
 > Default: `true`
+
+### `json.formatter.objectWrap`
+
+Whether to enforce collapsing object literals when possible.
+- `"preserve"`, object literals are expanded if the first property has a leading newline.
+- `"collapse"`, enforce object literals to collapse if possible (shorter than the max line width).
+
+> Default: `"preserve"`
 
 ### `json.linter.enabled`
 
