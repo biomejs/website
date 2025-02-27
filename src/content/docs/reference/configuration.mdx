@@ -203,52 +203,9 @@ Only the files that match the patter `src/**/*.js` will be linted, while the fil
 
 ### `linter.rules.recommended`
 
-Enables the [recommended rules](/linter/rules) for all groups.
+Enables the recommended rules for all groups.
 
 > Default: `true`
-
-
-### `linter.rules.all`
-
-Enable or disable all [rules](/linter/rules) for all groups.
-
-If `recommended` and `all` are both `true`, Biome will emit a diagnostic and fallback to its defaults.
-
-
-
-```json title="biome.json"
-{
-  "linter": {
-    "enabled": true,
-    "rules": {
-      "all": true
-    }
-  }
-}
-```
-
-It's also possible to combine this flag to enable/disable different rule groups:
-
-
-
-```json title="biome.json"
-{
-  "linter": {
-    "enabled": true,
-    "rules": {
-      "all": true,
-      "style": {
-        "all": false
-      },
-      "complexity": {
-        "all": false
-      }
-    }
-  }
-}
-```
-
-In the previous example, Biome will enable all rules, exception for rules that belong to the `style` and `complexity` groups.
 
 
 ### `linter.rules.[group]`
@@ -264,14 +221,37 @@ Options that influence the rules of a single group. Biome supports the following
 - style: Rules enforcing a consistent and idiomatic way of writing your code.
 - suspicious: Rules that detect code that is likely to be incorrect or useless.
 
+Each group can accept, as a value, a string that represents the severity or an object where each rule can be configured.
+
+When passing the severity, you can control the severity emitted by all the rules that belong to a group.
+For example, you can configure the `a11y` group to emit information diagnostics:
+
+```json title="biome.json"
+{
+  "linter": {
+    "rules": {
+      "a11y": "info"
+    }
+  }
+}
+```
+
+Here's the accepted values:
+- `"on"`: each rule that belongs to the group will emit a diagnostic with the default severity of the rule. Refer to the documentation of the rule, or use the `explain` command:
+    ```shell showLineNumbers=false
+    biome explain noDebugger
+    ```
+- `"off"`: all rules that belong to a group won't emit any diagnostic.
+- `"info"`: all rules that belong to a group will emit a [diagnostic with information severity](/reference/diagnostics#information).
+- `"warn"`: all rules that belong to a group will emit a [diagnostic with warning severity](/reference/diagnostics#warning).
+- `"error"`: all rules that belong to a group will emit a [diagnostic with error severity](/reference/diagnostics#error).
+
 
 ### `linter.rules.[group].recommended`
 
 Enables the recommended rules for a single group.
 
 Example:
-
-
 
 ```json title="biome.json"
 {
@@ -286,31 +266,9 @@ Example:
 }
 ```
 
-
-### `linter.rules.[group].all`
-
-Enables all rules for a single group.
-
-Example:
-
-
-
-```json title="biome.json"
-{
-  "linter": {
-    "enabled": true,
-    "rules": {
-      "nursery": {
-        "all": true
-      }
-    }
-  }
-}
-```
-
 ## `formatter`
 
-These options apply to all languages.  There are additional language-specific formatting options below.
+These options apply to all languages. There are additional language-specific formatting options below.
 
 ### `formatter.enabled`
 
@@ -389,18 +347,6 @@ The style of the indentation. It can be `"tab"` or `"space"`.
 
 > Default: `"tab"`
 
-### `formatter.indentSize`
-
-This option is deprecated, please use [`formatter.indentWidth`](#formatterindentwidth) instead.
-
-<details>
-    <summary>Deprecated</summary>
-
-    How big the indentation should be.
-
-    > Default: `2`
-
-</details>
 
 ### `formatter.indentWidth`
 
@@ -521,8 +467,6 @@ These options apply only to JavaScript (and TypeScript) files.
 
 Allows to support the unsafe/experimental parameter decorators.
 
-
-
 ```json title="biome.json"
 {
   "javascript": {
@@ -535,9 +479,28 @@ Allows to support the unsafe/experimental parameter decorators.
 
 > Default: `false`
 
+
+### `javascript.parser.jsxEverywhere`
+
+When set to `true`, allows to parse JSX syntax inside `.js` files. When set to `false`, Biome will raise diagnostics when it encounters JSX syntax inside `.js` files.
+
+> Default: `true`
+
+```json title="biome.json"
+{
+  "javascript": {
+    "parser": {
+      "jsxEverywhere": false
+    }
+  }
+}
+```
+
 ### `javascript.formatter.quoteStyle`
 
 The type of quote used when representing string literals. It can be `"single"` or `"double"`.
+
+
 
 > Default: `"double"`
 
@@ -547,27 +510,31 @@ The type of quote used when representing jsx string literals. It can be `"single
 
 > Default: `"double"`
 
+```json title="biome.json"
+{
+  "javascript": {
+    "formatter": {
+      "jsxQuoteStyle": "single"
+    }
+  }
+}
+```
+
 ### `javascript.formatter.quoteProperties`
 
 When properties inside objects should be quoted. It can be `"asNeeded"` or `"preserve"`.
 
 > Default: `"asNeeded"`
 
-### `javascript.formatter.trailingComma`
-
-This option is deprecated, please use [`javascript.formatter.trailingCommas`](#javascriptformattertrailingcommas) instead.
-
-<details>
-    <summary>Deprecated</summary>
-
-    Print trailing commas wherever possible in multi-line comma-separated syntactic structures. Possible values:
-    - `"all"`, the trailing comma is always added;
-    - `"es5"`, the trailing comma is added only in places where it's supported by older version of JavaScript;
-    - `"none"`, trailing commas are never added.
-
-    > Default: `"all"`
-
-</details>
+```json title="biome.json"
+{
+  "javascript": {
+    "formatter": {
+      "quoteProperties": "preserve"
+    }
+  }
+}
+```
 
 ### `javascript.formatter.trailingCommas`
 
@@ -587,7 +554,6 @@ It configures where the formatter prints semicolons:
 > Default: `"always"`
 
 Example:
-
 
 
 ```json title="biome.json"
@@ -620,18 +586,6 @@ The style of the indentation for JavaScript (and its super languages) files. It 
 
 > Default: `"tab"`
 
-### `javascript.formatter.indentSize`
-
-This option is deprecated, please use [`javascript.formatter.indentWidth`](#javascriptformatterindentwidth) instead.
-
-<details>
-    <summary>Deprecated</summary>
-
-    How big the indentation should be for JavaScript (and its super languages) files.
-
-    > Default: `2`
-
-</details>
 
 ### `javascript.formatter.indentWidth`
 
@@ -719,9 +673,37 @@ https://legacy.reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.htm
 
 ### `javascript.linter.enabled`
 
-Enables Biome's formatter for JavaScript (and its super languages) files.
+Enables Biome's linter for JavaScript (and its super languages) files.
 
 > Default: `true`
+
+
+```json title="biome.json"
+{
+  "javascript": {
+    "linter": {
+      "enabled": false
+    }
+  }
+}
+```
+
+
+### `javascript.assist.enabled`
+
+Enables Biome's assist for JavaScript (and its super languages) files.
+
+> Default: `true`
+
+```json title="biome.json"
+{
+  "javascript": {
+    "assist": {
+      "enabled": false
+    }
+  }
+}
+```
 
 ## `json`
 
@@ -745,7 +727,7 @@ Enables the parsing of comments in JSON files.
 
 ### `json.parser.allowTrailingCommas`
 
-Enables the parsing of trailing Commas in JSON files.
+Enables the parsing of trailing commas in JSON files.
 
 
 
@@ -765,6 +747,16 @@ Enables Biome's formatter for JSON (and its super languages) files.
 
 > Default: `true`
 
+```json title="biome.json"
+{
+  "json": {
+    "formatter": {
+      "enabled": false
+    }
+  }
+}
+```
+
 ### `json.formatter.indentStyle`
 
 
@@ -772,19 +764,6 @@ The style of the indentation for JSON (and its super languages) files. It can be
 
 > Default: `"tab"`
 
-
-### `json.formatter.indentSize`
-
-This option is deprecated, please use [`json.formatter.indentWidth`](#jsonformatterindentwidth) instead.
-
-<details>
-    <summary>Deprecated</summary>
-
-    How big the indentation should be for JSON (and its super languages) files.
-
-    > Default: `2`
-
-</details>
 
 ### `json.formatter.indentWidth`
 
@@ -831,12 +810,48 @@ Whether to enforce collapsing object literals when possible.
 
 > Default: `"preserve"`
 
+### `json.formatter.expand`
+
+Whether to expand arrays and objects literals on multiple lines.
+- `"followSource"`: arrays and objects literals are formatted by following Prettier heuristics
+- `"always"`: arrays and objects literals are formatted on multiple lines, regardless of length of the list.
+
+When formatting `package.json`, Biome will use `always` unless configured otherwise.
+
+> Default: `"followSource"`
+
 ### `json.linter.enabled`
 
 Enables Biome's formatter for JSON (and its super languages) files.
 
 > Default: `true`
 
+```json title="biome.json"
+{
+  "json": {
+    "linter": {
+      "enabled": false
+    }
+  }
+}
+```
+
+
+### `json.assist.enabled`
+
+Enables Biome's assist for JSON (and its super languages) files.
+
+> Default: `true`
+
+```json title="biome.json"
+{
+  "json": {
+    "assist": {
+      "enabled": false
+    }
+  }
+}
+```
 
 ## `css`
 
@@ -850,49 +865,238 @@ Enables parsing of [CSS modules](https://github.com/css-modules/css-modules)
 
 ### `css.formatter.enabled`
 
-Enables Biome's formatter for CSS (and its super languages) files.
+Enables Biome's formatter for CSS files.
 
 > Default: `false`
+
+```json title="biome.json"
+{
+  "css": {
+    "formatter": {
+      "enabled": false
+    }
+  }
+}
+```
 
 ### `css.formatter.indentStyle`
 
 
-The style of the indentation for CSS (and its super languages) files. It can be `"tab"` or `"space"`.
+The style of the indentation for CSS files. It can be `"tab"` or `"space"`.
 
 > Default: `"tab"`
 
 
 ### `css.formatter.indentWidth`
 
-How big the indentation should be for CSS (and its super languages) files.
+How big the indentation should be for CSS files.
 
 > Default: `2`
 
+
+```json title="biome.json"
+{
+  "css": {
+    "formatter": {
+      "indentWidth": 2
+    }
+  }
+}
+```
+
 ### `css.formatter.lineEnding`
 
-The type of line ending for CSS (and its super languages) files.
+The type of line ending for CSS  files.
 - `"lf"`, Line Feed only (`\n`), common on Linux and macOS as well as inside git repos;
 - `"crlf"`, Carriage Return + Line Feed characters (`\r\n`), common on Windows;
 - `"cr"`, Carriage Return character only (`\r`), used very rarely.
 
 > Default: `"lf"`
 
+
+
 ### `css.formatter.lineWidth`
 
-How many characters can be written on a single line in JSON (and its super languages) files.
+How many characters can be written on a single line in CSS files.
 
 > Default: `80`
 
 ### `css.formatter.quoteStyle`
+
 The type of quote used when representing string literals. It can be `"single"` or `"double"`.
 
 > Default: `"double"`
 
 ### `css.linter.enabled`
 
-Enables Biome's linter for CSS (and its super languages) files.
+Enables Biome's linter for CSS files.
+
+> Default: `true`
+
+```json title="biome.json"
+{
+  "css": {
+    "linter": {
+      "enabled": false
+    }
+  }
+}
+```
+
+### `css.assist.enabled`
+
+Enables Biome's assist for CSS files.
+
+> Default: `true`
+
+```json title="biome.json"
+{
+  "css": {
+    "assist": {
+      "enabled": false
+    }
+  }
+}
+```
+
+## `graphql`
+
+Options applied to the GraphQL files.
+
+
+### `graphql.formatter.enabled`
+
+Enables Biome's formatter for GraphQL files.
 
 > Default: `false`
+
+### `graphql.formatter.indentStyle`
+
+
+The style of the indentation for GraphQL files. It can be `"tab"` or `"space"`.
+
+> Default: `"tab"`
+
+
+### `graphql.formatter.indentWidth`
+
+How big the indentation should be for GraphQL files.
+
+> Default: `2`
+
+### `graphql.formatter.lineEnding`
+
+The type of line ending for GraphQL files.
+- `"lf"`, Line Feed only (`\n`), common on Linux and macOS as well as inside git repos;
+- `"crlf"`, Carriage Return + Line Feed characters (`\r\n`), common on Windows;
+- `"cr"`, Carriage Return character only (`\r`), used very rarely.
+
+> Default: `"lf"`
+
+### `graphql.formatter.lineWidth`
+
+How many characters can be written on a single line in √ files.
+
+> Default: `80`
+
+### `graphql.formatter.quoteStyle`
+
+The type of quote used when representing string literals. It can be `"single"` or `"double"`.
+
+> Default: `"double"`
+
+### `graphql.linter.enabled`
+
+Enables Biome's linter for GraphQL files.
+
+> Default: `true`
+
+### `graphql.assist.enabled`
+
+Enables Biome's assist for GraphQL files.
+
+> Default: `true`
+
+
+
+## `grit`
+
+Options applied to the Grit files.
+
+
+### `grit.formatter.enabled`
+
+Enables Biome's formatter for Grit files.
+
+> Default: `false`
+
+### `grit.formatter.indentStyle`
+
+
+The style of the indentation for Grit files. It can be `"tab"` or `"space"`.
+
+> Default: `"tab"`
+
+
+### `grit.formatter.indentWidth`
+
+How big the indentation should be for Grit files.
+
+> Default: `2`
+
+### `grit.formatter.lineEnding`
+
+The type of line ending for Grit files.
+- `"lf"`, Line Feed only (`\n`), common on Linux and macOS as well as inside git repos;
+- `"crlf"`, Carriage Return + Line Feed characters (`\r\n`), common on Windows;
+- `"cr"`, Carriage Return character only (`\r`), used very rarely.
+
+> Default: `"lf"`
+
+### `grit.formatter.lineWidth`
+
+How many characters can be written on a single line in √ files.
+
+> Default: `80`
+
+### `grit.formatter.quoteStyle`
+
+The type of quote used when representing string literals. It can be `"single"` or `"double"`.
+
+> Default: `"double"`
+
+### `grit.linter.enabled`
+
+Enables Biome's linter for Grit files.
+
+> Default: `true`
+
+```json title="biome.json"
+{
+  "grit": {
+    "linter": {
+      "enabled": false
+    }
+  }
+}
+```
+
+### `grit.assist.enabled`
+
+Enables Biome's assist for Grit files.
+
+> Default: `true`
+
+```json title="biome.json"
+{
+  "grit": {
+    "assist": {
+      "enabled": false
+    }
+  }
+}
+```
+
 
 ## `overrides`
 
