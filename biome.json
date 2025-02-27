@@ -1,10 +1,7 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "files": {
-    "ignore": [
-      "rules.json.js",
-      "schema.json.js"
-    ]
+    "ignore": ["rules.json.js", "schema.json.js"]
   },
   "organizeImports": {
     "enabled": true
