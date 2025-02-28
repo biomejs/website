@@ -8,7 +8,6 @@ import DiagnosticsConsoleTab from "@/playground/tabs/DiagnosticsConsoleTab";
 import DiagnosticsListTab from "@/playground/tabs/DiagnosticsListTab";
 import FormatterCodeTab from "@/playground/tabs/FormatterCodeTab";
 import FormatterIrTab from "@/playground/tabs/FormatterIrTab";
-import ImportSortingTab from "@/playground/tabs/ImportSortingTab";
 import SettingsTab from "@/playground/tabs/SettingsTab";
 import SyntaxTab from "@/playground/tabs/SyntaxTab";
 import {
@@ -268,16 +267,6 @@ export default function Playground({
 					title: "Control Flow Graph",
 					children: (
 						<ControlFlowTab graph={biomeOutput.analysis.controlFlowGraph} />
-					),
-				},
-				{
-					key: PlaygroundTab.ImportSorting,
-					title: "Import Sorting",
-					children: (
-						<ImportSortingTab
-							code={biomeOutput.importSorting.code}
-							extensions={codeMirrorExtensions}
-						/>
 					),
 				},
 				{

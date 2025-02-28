@@ -3,17 +3,19 @@
 # Head to the `biomejs/biome` repository, and modify the source code in there.
 
 title: useFilenamingConvention
-description: |
-  Enforce naming conventions for JavaScript and TypeScript filenames.
+description: Learn more about useFilenamingConvention
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-**Diagnostic Category: `lint/style/useFilenamingConvention`**
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-**Since**: `v1.5.0`
-Sources: 
-- Inspired from: <a href="https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/filename-case.md" target="_blank"><code>unicorn/filename-case</code></a>
+## Summary
+- Rule available since: `v1.5.0`
+- Diagnostic Category: [`lint/style/useFilenamingConvention`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Inspired from [`unicorn/filename-case`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/filename-case.md)
 
 ## Description
 Enforce naming conventions for JavaScript and TypeScript filenames.
@@ -53,7 +55,7 @@ If you want to ignore all files in the `test` directory, then you can disable th
 {
   "overrides": [
     {
-       "include": ["test/**/*"],
+       "includes": ["test/**/*"],
        "linter": {
          "rules": {
            "style": {
@@ -100,9 +102,7 @@ For instance,  when the option is set to `true`, `café` or `안녕하세요` wi
 When the option is set to `false`, a name may include non-ASCII characters.
 `café` and `안녕하세요` are so valid.
 
-Default: `false`
-
-**This option will be turned on by default in Biome 2.0.**
+Default: `true`
 
 ### match (Since v2.0.0)
 

@@ -2,6 +2,7 @@ import {
 	ArrowParentheses,
 	AttributePosition,
 	IndentStyle,
+	type ObjectWrap,
 	type PlaygroundSettings,
 	type PrettierOptions,
 	type PrettierOutput,
@@ -20,6 +21,7 @@ import {
 	isTypeScriptFilename,
 	isVueFilename,
 } from "@/playground/utils";
+import type { WhitespaceSensitivity } from "@biomejs/wasm-web";
 import * as prettier from "prettier";
 // @ts-expect-error
 import * as pluginSvelte from "prettier-plugin-svelte/browser";
@@ -57,6 +59,9 @@ self.addEventListener("message", async (e) => {
 				bracketSpacing,
 				bracketSameLine,
 				attributePosition,
+				objectWrap,
+				indentScriptAndStyle,
+				whitespaceSensitivity,
 			} = settings;
 			const code = e.data.code as string;
 			const filename = e.data.filename as string;
@@ -76,6 +81,9 @@ self.addEventListener("message", async (e) => {
 				bracketSameLine,
 				singleAttributePerLine:
 					attributePosition === AttributePosition.Multiline,
+				objectWrap,
+				vueIndentScriptAndStyle: indentScriptAndStyle,
+				whitespaceSensitivity,
 			});
 
 			self.postMessage({
@@ -108,6 +116,9 @@ async function formatWithPrettier(
 		bracketSpacing: boolean;
 		bracketSameLine: boolean;
 		singleAttributePerLine?: boolean;
+		objectWrap: ObjectWrap;
+		vueIndentScriptAndStyle: boolean;
+		whitespaceSensitivity: WhitespaceSensitivity;
 	},
 ): Promise<PrettierOutput> {
 	try {
@@ -137,7 +148,10 @@ async function formatWithPrettier(
 			bracketSpacing: options.bracketSpacing,
 			bracketSameLine: options.bracketSameLine,
 			singleAttributePerLine: options.singleAttributePerLine ?? false,
+			objectWrap: options.objectWrap,
 			embeddedLanguageFormatting: "off",
+			vueIndentScriptAndStyle: options.vueIndentScriptAndStyle,
+			htmlWhitespaceSensitivity: options.whitespaceSensitivity,
 		};
 
 		// @ts-expect-error

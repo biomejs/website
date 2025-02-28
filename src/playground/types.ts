@@ -1,4 +1,9 @@
-import type { Diagnostic, FixFileMode } from "@biomejs/wasm-web";
+import type {
+	Diagnostic,
+	FixFileMode,
+	RuleDomain,
+	RuleDomainValue,
+} from "@biomejs/wasm-web";
 import type { parser } from "codemirror-lang-rome-ast";
 import type { Dispatch, SetStateAction } from "react";
 
@@ -63,9 +68,21 @@ export enum ArrowParentheses {
 	Always = "always",
 	AsNeeded = "as-needed",
 }
+
 export enum AttributePosition {
 	Auto = "auto",
 	Multiline = "multiline",
+}
+
+export enum ObjectWrap {
+	Preserve = "preserve",
+	Collapse = "collapse",
+}
+
+export enum WhitespaceSensitivity {
+	Css = "css",
+	Strict = "strict",
+	Ignore = "ignore",
 }
 
 export type PrettierOutput =
@@ -96,9 +113,6 @@ export interface BiomeOutput {
 		/** The snippet with lint fixes applied. */
 		fixed: string;
 	};
-	importSorting: {
-		code: string;
-	};
 }
 
 export const emptyBiomeOutput: BiomeOutput = {
@@ -118,9 +132,6 @@ export const emptyBiomeOutput: BiomeOutput = {
 		controlFlowGraph: "",
 		fixed: "",
 	},
-	importSorting: {
-		code: "",
-	},
 };
 
 export interface PlaygroundSettings {
@@ -136,12 +147,16 @@ export interface PlaygroundSettings {
 	attributePosition: AttributePosition;
 	bracketSpacing: boolean;
 	bracketSameLine: boolean;
+	objectWrap: ObjectWrap;
 	lintRules: LintRules;
 	enabledLinting: boolean;
 	analyzerFixMode: FixFileMode;
-	importSortingEnabled: boolean;
+	enabledAssist: boolean;
 	unsafeParameterDecoratorsEnabled: boolean;
 	allowComments: boolean;
+	ruleDomains: Record<RuleDomain, RuleDomainValue>;
+	indentScriptAndStyle: boolean;
+	whitespaceSensitivity: WhitespaceSensitivity;
 }
 
 export interface PlaygroundFileState {
@@ -184,12 +199,16 @@ export const defaultPlaygroundState: PlaygroundState = {
 		attributePosition: AttributePosition.Auto,
 		bracketSpacing: true,
 		bracketSameLine: false,
+		objectWrap: ObjectWrap.Preserve,
 		lintRules: LintRules.Recommended,
 		enabledLinting: true,
-		analyzerFixMode: "SafeFixes",
-		importSortingEnabled: true,
+		analyzerFixMode: "safeFixes",
+		enabledAssist: true,
 		unsafeParameterDecoratorsEnabled: true,
 		allowComments: true,
+		ruleDomains: {},
+		indentScriptAndStyle: false,
+		whitespaceSensitivity: WhitespaceSensitivity.Css,
 	},
 };
 

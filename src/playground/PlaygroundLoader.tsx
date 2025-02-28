@@ -6,12 +6,14 @@ import {
 	type IndentStyle,
 	type LintRules,
 	LoadingState,
+	type ObjectWrap,
 	type PlaygroundSettings,
 	type PlaygroundState,
 	type QuoteProperties,
 	type QuoteStyle,
 	type Semicolons,
 	type TrailingCommas,
+	type WhitespaceSensitivity,
 	defaultPlaygroundState,
 	emptyBiomeOutput,
 	emptyPrettierOutput,
@@ -28,6 +30,7 @@ import {
 	isTypeScriptFilename,
 	normalizeFilename,
 } from "@/playground/utils";
+import type { FixFileMode } from "@biomejs/wasm-web";
 import {
 	type Dispatch,
 	type SetStateAction,
@@ -246,6 +249,14 @@ function buildLocation(state: PlaygroundState): string {
 		}
 	}
 
+	// handle rule domains
+	for (const key in state.settings.ruleDomains) {
+		const value = state.settings.ruleDomains[key];
+		if (value !== undefined && value !== "none") {
+			queryStringObj[`ruleDomains.${key}`] = value;
+		}
+	}
+
 	const queryString = new URLSearchParams(queryStringObj).toString();
 	lastSearchStore.set(queryString);
 
@@ -300,6 +311,19 @@ function initState(
 		files = defaultPlaygroundState.files;
 	}
 
+	// handle rule domains
+	const ruleDomains: Record<string, string> = {};
+	const prefixLength = "ruleDomains.".length;
+	for (const key of searchParams.keys()) {
+		if (key.startsWith("ruleDomains.")) {
+			const domain = key.slice(prefixLength);
+			const value = searchParams.get(key);
+			if (value) {
+				ruleDomains[domain] = value;
+			}
+		}
+	}
+
 	return {
 		cursorPosition: 0,
 		tab:
@@ -349,21 +373,34 @@ function initState(
 			bracketSameLine:
 				searchParams.get("bracketSameLine") === "true" ||
 				defaultPlaygroundState.settings.bracketSameLine,
+			objectWrap:
+				(searchParams.get("objectWrap") as ObjectWrap) ??
+				defaultPlaygroundState.settings.objectWrap,
+			whitespaceSensitivity:
+				(searchParams.get("whitespaceSensitivity") as WhitespaceSensitivity) ??
+				defaultPlaygroundState.settings.whitespaceSensitivity,
+			indentScriptAndStyle:
+				searchParams.get("indentScriptAndStyle") === "true" ||
+				defaultPlaygroundState.settings.indentScriptAndStyle,
 			lintRules:
 				(searchParams.get("lintRules") as LintRules) ??
 				defaultPlaygroundState.settings.lintRules,
 			enabledLinting:
 				searchParams.get("enabledLinting") === "true" ||
 				defaultPlaygroundState.settings.enabledLinting,
-			importSortingEnabled:
-				searchParams.get("importSortingEnabled") === "true" ||
-				defaultPlaygroundState.settings.importSortingEnabled,
+			enabledAssist:
+				searchParams.get("enabledAssist") === "true" ||
+				defaultPlaygroundState.settings.enabledAssist,
+			analyzerFixMode:
+				(searchParams.get("analyzerFixMode") as FixFileMode) ||
+				defaultPlaygroundState.settings.analyzerFixMode,
 			unsafeParameterDecoratorsEnabled:
 				searchParams.get("unsafeParameterDecoratorsEnabled") === "true" ||
 				defaultPlaygroundState.settings.unsafeParameterDecoratorsEnabled,
 			allowComments:
 				searchParams.get("allowComments") === "true" ||
 				defaultPlaygroundState.settings.allowComments,
+			ruleDomains,
 		},
 	};
 }
