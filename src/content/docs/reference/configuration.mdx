@@ -241,10 +241,10 @@ Here's the accepted values:
     ```shell showLineNumbers=false
     biome explain noDebugger
     ```
-- `"off"`: all rules that belong to a group won't emit any diagnostic.
-- `"info"`: all rules that belong to a group will emit a [diagnostic with information severity](/reference/diagnostics#information).
-- `"warn"`: all rules that belong to a group will emit a [diagnostic with warning severity](/reference/diagnostics#warning).
-- `"error"`: all rules that belong to a group will emit a [diagnostic with error severity](/reference/diagnostics#error).
+- `"off"`: none of the rules that belong to the group will emit any diagnostics.
+- `"info"`: all rules that belong to the group will emit a [diagnostic with information severity](/reference/diagnostics#information).
+- `"warn"`: all rules that belong to the group will emit a [diagnostic with warning severity](/reference/diagnostics#warning).
+- `"error"`: all rules that belong to the group will emit a [diagnostic with error severity](/reference/diagnostics#error).
 
 
 ### `linter.rules.[group].recommended`
@@ -365,7 +365,7 @@ The type of line ending.
 
 ### `formatter.lineWidth`
 
-How many characters can be written on a single line.
+The amount of characters that can be written on a single line..
 
 > Default: `80`
 
@@ -604,7 +604,7 @@ The type of line ending for JavaScript (and its super languages) files.
 
 ### `javascript.formatter.lineWidth`
 
-How many characters can be written on a single line in JavaScript (and its super languages) files.
+The amount of characters that can be written on a single line in JavaScript (and its super languages) files.
 
 > Default: `80`
 
@@ -782,7 +782,7 @@ The type of line ending for JSON (and its super languages) files.
 
 ### `json.formatter.lineWidth`
 
-How many characters can be written on a single line in JSON (and its super languages) files.
+The amount of characters that can be written on a single line in JSON (and its super languages) files.
 
 > Default: `80`
 
@@ -917,7 +917,7 @@ The type of line ending for CSS  files.
 
 ### `css.formatter.lineWidth`
 
-How many characters can be written on a single line in CSS files.
+The amount of characters that can be written on a single line in CSS files.
 
 > Default: `80`
 
@@ -995,7 +995,7 @@ The type of line ending for GraphQL files.
 
 ### `graphql.formatter.lineWidth`
 
-How many characters can be written on a single line in √ files.
+The amount of characters that can be written on a single line in GraphQL files.
 
 > Default: `80`
 
@@ -1055,7 +1055,7 @@ The type of line ending for Grit files.
 
 ### `grit.formatter.lineWidth`
 
-How many characters can be written on a single line in √ files.
+The amount of characters that can be written on a single line in Grit files.
 
 > Default: `80`
 
