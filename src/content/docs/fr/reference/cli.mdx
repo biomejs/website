@@ -1,0 +1,1168 @@
+---
+title: CLI
+description: Commandes et arguments disponibles dans l’interface en ligne de commande de Biome.
+---
+
+[//]: # (Start-codegen)
+
+
+
+# Résumé des commandes
+
+  * [`biome`↴](#biome)
+  * [`biome version`↴](#biome-version)
+  * [`biome rage`↴](#biome-rage)
+  * [`biome start`↴](#biome-start)
+  * [`biome stop`↴](#biome-stop)
+  * [`biome check`↴](#biome-check)
+  * [`biome lint`↴](#biome-lint)
+  * [`biome format`↴](#biome-format)
+  * [`biome ci`↴](#biome-ci)
+  * [`biome init`↴](#biome-init)
+  * [`biome lsp-proxy`↴](#biome-lsp-proxy)
+  * [`biome migrate`↴](#biome-migrate)
+  * [`biome migrate prettier`↴](#biome-migrate-prettier)
+  * [`biome migrate eslint`↴](#biome-migrate-eslint)
+  * [`biome search`↴](#biome-search)
+  * [`biome explain`↴](#biome-explain)
+  * [`biome clean`↴](#biome-clean)
+
+## biome
+
+Interface en ligne de commande officielle de Biome. Utilisez-la pour vérifier la bonne tenue de votre projet ou exécutez-la pour vérifier de simples fichiers.
+
+**Utilisation&nbsp;:** **`biome`** _`COMMANDE…`_
+
+**Options disponibles&nbsp;:**
+- **`-h`**, **`--help`** &mdash; 
+  Affiche les informations d’aide.
+- **`-V`**, **`--version`** &mdash; 
+  Affiche les informations de version.
+
+
+
+**Commandes disponibles&nbsp;:**
+- **`version`** &mdash; 
+  Montre la version de Biome et quitte.
+- **`rage`** &mdash; 
+  Affiche les informations pour le débogage.
+- **`start`** &mdash; 
+  Démarre le processus du serveur démon de Biome.
+- **`stop`** &mdash; 
+  Arrête le processus du serveur démon de Biome.
+- **`check`** &mdash; 
+  Exécute l’outil de formatage, l’outil de linting et le tri des imports dans les fichiers demandés.
+- **`lint`** &mdash; 
+  Exécute diverses vérifications sur un ensemble de fichiers.
+- **`format`** &mdash; 
+  Exécute l’outil de formatage sur un ensemble de fichiers.
+- **`ci`** &mdash; 
+  Commande à utiliser dans les environnements d’intégration continue. Exécute l’outil de formatage, l’outil de linting et le tri des imports dans les fichiers demandés.
+- **`init`** &mdash; 
+  Démarre un nouveau projet Biome. Crée un fichier de configuration avec quelques réglages par défaut.
+- **`lsp-proxy`** &mdash; 
+  Agit comme un serveur pour le Language Server Protocol pour stdin/stdout.
+- **`migrate`** &mdash; 
+  Met à jour la configuration quand il y a des changements importants.
+- **`search`** &mdash; 
+  EXPÉRIMENTAL&nbsp;: Cherche des modèles Grit dans tout le projet.
+- **`explain`** &mdash; 
+  Montre la documentation de divers aspects de l’interface en ligne de commande.
+- **`clean`** &mdash; 
+  Nettoie les logs engendrés par le démon.
+
+
+## biome version
+
+Montre la version de Biome et quitte.
+
+**Utilisation&nbsp;:** **`biome`** **`version`** 
+
+**Options globales appliquées à toutes les commandes&nbsp;:**
+- **`    --colors`**=_`<off|force>`_ &mdash; 
+  Définit le mode de formatage pour le balisage&nbsp;: `off` affiche tout en texte plein&nbsp;; `force` force le formatage du balisage en utilisant l’ANSI, même si la sortie de console est déterminée pour être incompatible.
+- **`    --use-server`** &mdash; 
+  Connecte à une instance de serveur démon de Biome en cours d’exécution.
+- **`    --verbose`** &mdash; 
+  Affiche des diagnostics supplémentaires, certains diagnostics montrant plus d’informations. Affiche également les fichiers qui ont été traités et ceux qui ont été modifiés.
+- **`    --config-path`**=_`CHEMIN`_ &mdash; 
+  Définit le chemin vers le fichier de configuration ou le chemin du répertoire pour trouver `biome.json` ou `biome.jsonc`. Si utilisée, elle désactive la résolution du fichier de configuration par défaut.
+- **`    --max-diagnostics`**=_`<none|<NOMBRE>>`_ &mdash; 
+  Limite le nombre de diagnostics affichés. Quand `none` est indiqué, la limite est annulée.
+   
+  [valeur par défaut&nbsp;: 20]
+- **`    --skip-errors`** &mdash; 
+  Saute les fichiers comportant des erreurs de syntaxe au lieu d’engendrer un diagnostic d’erreur.
+- **`    --no-errors-on-unmatched`** &mdash; 
+  Passe sous silence les erreurs qui auraient été déclenchées pour le cas où aucun fichier n’aurait été traité pendant l’exécution de la commande.
+- **`    --error-on-warnings`** &mdash; 
+  Demande à Biome de quitter avec un code d’erreur si des diagnostics émettent des avertissements.
+- **`    --reporter`**=_`<json|json-pretty|github|junit|summary|gitlab>`_ &mdash; 
+  Permet de modifier la manière dont les diagnostics et les résumés sont rapportés.
+- **`    --log-level`**=_`<none|debug|info|warn|error>`_ &mdash; 
+  Le niveau de log. Dans l’ordre, du plus verbeux au moins verbeux&nbsp;: `debug`, `info`, `warn`, `error`.
+
+  La valeur `none` ne montrera aucun log.
+   
+  [valeur par défaut&nbsp;: none]
+- **`    --log-kind`**=_`<pretty|compact|json>`_ &mdash; 
+  La mise en forme du log.
+   
+  [valeur par défaut&nbsp;: pretty]
+- **`    --diagnostic-level`**=_`<info|warn|error>`_ &mdash; 
+  Le niveau de diagnostic à afficher. Dans l’ordre, du moins important au plus important&nbsp;: `info`, `warn`, `error`. Passer `--diagnostic-level=error` forcera Biome à n’afficher que les diagnostics qui ne comportent que des erreurs.
+   
+  [valeur par défaut&nbsp;: info]
+
+
+
+**Options disponibles&nbsp;:**
+- **`-h`**, **`--help`** &mdash; 
+  Affiche les informations d’aide.
+
+
+## biome rage
+
+Affiche les informations pour le débogage.
+
+**Utilisation&nbsp;:** **`biome`** **`rage`** \[**`--daemon-logs`**\] \[**`--formatter`**\] \[**`--linter`**\]
+
+**Options globales appliquées à toutes les commandes&nbsp;:**
+- **`    --colors`**=_`<off|force>`_ &mdash; 
+  Définit le mode de formatage pour le balisage&nbsp;: `off` affiche tout en texte plein&nbsp;; `force` force le formatage du balisage en utilisant l’ANSI, même si la sortie de console est déterminée pour être incompatible.
+- **`    --use-server`** &mdash; 
+  Connecte à une instance de serveur démon de Biome en cours d’exécution.
+- **`    --verbose`** &mdash; 
+  Affiche des diagnostics supplémentaires, certains diagnostics montrant plus d’informations. Affiche également les fichiers qui ont été traités et ceux qui ont été modifiés.
+- **`    --config-path`**=_`CHEMIN`_ &mdash; 
+  Définit le chemin vers le fichier de configuration ou le chemin du répertoire pour trouver `biome.json` ou `biome.jsonc`. Si utilisée, elle désactive la résolution du fichier de configuration par défaut.
+- **`    --max-diagnostics`**=_`<none|<NOMBRE>>`_ &mdash; 
+  Limite le nombre de diagnostics affichés. Quand `none` est indiqué, la limite est annulée.
+   
+  [valeur par défaut&nbsp;: 20]
+- **`    --skip-errors`** &mdash; 
+  Saute les fichiers comportant des erreurs de syntaxe au lieu d’engendrer un diagnostic d’erreur.
+- **`    --no-errors-on-unmatched`** &mdash; 
+  Passe sous silence les erreurs qui auraient été déclenchées pour le cas où aucun fichier n’aurait été traité pendant l’exécution de la commande.
+- **`    --error-on-warnings`** &mdash; 
+  Demande à Biome de quitter avec un code d’erreur si des diagnostics émettent des avertissements.
+- **`    --reporter`**=_`<json|json-pretty|github|junit|summary|gitlab>`_ &mdash; 
+  Permet de modifier la manière dont les diagnostics et les résumés sont rapportés.
+- **`    --log-level`**=_`<none|debug|info|warn|error>`_ &mdash; 
+  Le niveau de log. Dans l’ordre, du plus verbeux au moins verbeux&nbsp;: `debug`, `info`, `warn`, `error`.
+
+  La valeur `none` ne montrera aucun log.
+   
+  [valeur par défaut&nbsp;: none]
+- **`    --log-kind`**=_`<pretty|compact|json>`_ &mdash; 
+  La mise en forme du log.
+   
+  [valeur par défaut&nbsp;: pretty]
+- **`    --diagnostic-level`**=_`<info|warn|error>`_ &mdash; 
+  Le niveau de diagnostic à afficher. Dans l’ordre, du moins important au plus important&nbsp;: `info`, `warn`, `error`. Passer `--diagnostic-level=error` forcera Biome à n’afficher que les diagnostics qui ne comportent que des erreurs.
+   
+  [valeur par défaut&nbsp;: info]
+
+
+
+**Options disponibles&nbsp;:**
+- **`    --daemon-logs`** &mdash; 
+  Affiche les logs du serveur démon de Biome.
+- **`    --formatter`** &mdash; 
+  Affiche les options de formatage appliquées.
+- **`    --linter`** &mdash; 
+  Affiche les options de linting appliquées.
+- **`-h`**, **`--help`** &mdash; 
+  Affiche les informations d’aide.
+
+
+## biome start
+
+Démarre le processus du serveur démon de Biome.
+
+**Utilisation&nbsp;:** **`biome`** **`start`** \[**`--config-path`**=_`CHEMIN`_\]
+
+**Options disponibles&nbsp;:**
+- **`    --log-prefix-name`**=_`CHAÎNE`_ &mdash; 
+  Permet de modifier le préfixe appliqué au nom du fichier de logs.
+   
+  Utilise la variable d’environnement **`BIOME_LOG_PREFIX_NAME`**.
+   
+  [valeur par défaut&nbsp;: server.log]
+- **`    --log-path`**=_`CHEMIN`_ &mdash; 
+  Permet de modifier le dossier d’emplacement des logs.
+   
+  Utilise la variable d’environnement **`BIOME_LOG_PATH`**.
+- **`    --config-path`**=_`CHEMIN`_ &mdash; 
+  Permet de définir un chemin personnalisé vers le fichier de configuration ou un chemin de répertoire personnalisé pour trouver `biome.json` ou `biome.jsonc`.
+   
+  Utilise la variable d’environnement **`BIOME_CONFIG_PATH`**.
+- **`-h`**, **`--help`** &mdash; 
+  Affiche les informations d’aide.
+
+
+## biome stop
+
+Arrête le processus du serveur démon de Biome.
+
+**Utilisation&nbsp;:** **`biome`** **`stop`** 
+
+**Options disponibles&nbsp;:**
+- **`-h`**, **`--help`** &mdash; 
+  Affiche les informations d’aide.
+
+
+## biome check
+
+Exécute l’outil de formatage, l’outil de linting et le tri des imports dans les fichiers demandés.
+
+**Utilisation&nbsp;:** **`biome`** **`check`** \[**`--write`**\] \[**`--unsafe`**\] \[**`--assists-enabled`**=_`<true|false>`_\] \[**`--staged`**\] \[**`--changed`**\] \[**`--since`**=_`RÉF`_\] \[_`CHEMIN`_\]…
+
+**La configuration qui est contenue dans le fichier `biome.json`&nbsp;:**
+- **`    --vcs-enabled`**=_`<true|false>`_ &mdash; 
+  Si Biome devrait s’intégrer au client VCS ou non.
+- **`    --vcs-client-kind`**=_`<git>`_ &mdash; 
+  Le type de client.
+- **`    --vcs-use-ignore-file`**=_`<true|false>`_ &mdash; 
+  Si Biome devrait utiliser le fichier ignore du VCS. Si `true`, Biome ignorera les fichiers spécifiés dans le fichier ignore.
+- **`    --vcs-root`**=_`CHEMIN`_ &mdash; 
+  Le dossier où Biome devrait vérifier la présence d’un fichier ignore. Par défaut, Biome utilisera le même dossier que celui où `biome.json` a été trouvé.
+
+  Si Biome ne peut trouver la configuration, il tentera d’utiliser le répertoire de l’espace de travail actuel. Si aucun répertoire de l’espace de travail actuel ne peut être trouvé, Biome n’utilisera pas l’intégration au VCS et un diagnostic sera engendré.
+- **`    --vcs-default-branch`**=_`BRANCHE`_ &mdash; 
+  La branche principale du projet.
+- **`    --files-max-size`**=_`NOMBRE`_ &mdash; 
+  La taille maximale autorisée pour les fichiers de code source, en octets. Les fichiers au-dessus de cette limite seront ignorés pour des questions de performances. Définie par défaut à 1&nbsp;Mo.
+- **`    --files-ignore-unknown`**=_`<true|false>`_ &mdash; 
+  Demande à Biome de ne pas engendrer de diagnostics lors de la prise en charge de fichiers qu’il ne connaît pas.
+- **`    --use-editorconfig`**=_`<true|false>`_ &mdash; 
+  Utilise n’importe quel fichier `.editorconfig` pour configurer l’outil de formatage. La configuration de `biome.json` écrasera celle de `.editorconfig`. Valeur par défaut&nbsp;: `false`.
+- **`    --indent-style`**=_`<tab|space>`_ &mdash; 
+  Le style d’indentation.
+- **`    --indent-size`**=_`NOMBRE`_ &mdash; 
+  La taille de l’indentation, 2 par défaut (obsolète, utilisez `indent-width`).
+- **`    --indent-width`**=_`NOMBRE`_ &mdash; 
+  La taille de l’indentation, 2 par défaut.
+- **`    --line-ending`**=_`<lf|crlf|cr>`_ &mdash; 
+  Le type de fin de ligne.
+- **`    --line-width`**=_`NOMBRE`_ &mdash; 
+  Quelle est la largeur maximale d’une ligne. Définie par défaut à 80.
+- **`    --attribute-position`**=_`<multiline|auto>`_ &mdash; 
+  Le style du positionnement des attributs en HTML et dans les langages assimilés. Par défaut&nbsp;: auto.
+- **`    --bracket-spacing`**=_`<true|false>`_ &mdash; 
+  S’il faut insérer ou non des espaces autour des accolades dans les littéraux d’objet. Définie par défaut à `true`.
+- **`    --jsx-quote-style`**=_`<double|single>`_ &mdash; 
+  Le type de guillemets utilisé dans JSX. Définie par défaut à `double`.
+- **`    --quote-properties`**=_`<preserve|as-needed>`_ &mdash; 
+  Quand les propriétés d’objet sont entourées de guillemets. Définie par défaut à `asNeeded`.
+- **`    --trailing-comma`**=_`<all|es5|none>`_ &mdash; 
+  Ajoute si possible des virgules de fin dans les structures syntaxiques séparées par des virgules et réparties en plusieurs lignes. Définie par défaut à `all`.
+- **`    --trailing-commas`**=_`<all|es5|none>`_ &mdash; 
+  Ajoute si possible des virgules de fin dans les structures syntaxiques séparées par des virgules et réparties en plusieurs lignes. Définie par défaut à `all`.
+- **`    --semicolons`**=_`<always|as-needed>`_ &mdash; 
+  Si l’outil de formatage ajoute un point-virgule à toutes les instructions ou seulement dans celles où il est nécessaire à cause de l’insertion automatique de points-virgules.
+- **`    --arrow-parentheses`**=_`<always|as-needed>`_ &mdash; 
+  S’il faut ajouter ou non des parenthèses non nécessaires aux fonctions fléchées. Définie par défaut à `always`.
+- **`    --bracket-same-line`**=_`<true|false>`_ &mdash; 
+  S’il faut insérer le chevron de fermeture des balises HTML/JSX réparties sur plusieurs lignes à la fin de la dernière ligne ou le laisser seul sur la ligne suivante. Définie par défaut à `false`.
+- **`    --javascript-formatter-enabled`**=_`<true|false>`_ &mdash; 
+  Contrôle l’outil de formatage pour les fichiers JavaScript (et ses super-langages).
+- **`    --javascript-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
+  Le style d’indentation appliqué aux fichiers JavaScript (et ses super-langages).
+- **`    --javascript-formatter-indent-size`**=_`NOMBRE`_ &mdash; 
+  La taille de l’indentation appliquée aux fichiers JavaScript (et ses super-langages). Définie par défaut à 2.
+- **`    --javascript-formatter-indent-width`**=_`NOMBRE`_ &mdash; 
+  La taille de l’indentation appliquée aux fichiers JavaScript (et ses super-langages). Définie par défaut à 2.
+- **`    --javascript-formatter-line-ending`**=_`<lf|crlf|cr>`_ &mdash; 
+  Le type de fin de ligne appliquée aux fichiers JavaScript (et ses super-langages).
+- **`    --javascript-formatter-line-width`**=_`NOMBRE`_ &mdash; 
+  La largeur maximale d’une ligne appliquée aux fichiers JavaScript (et ses super-langages). Définie par défaut à 80.
+- **`    --quote-style`**=_`<double|single>`_ &mdash; 
+  Le type de guillemets appliqué au code JavaScript. Définie par défaut à `double`.
+- **`    --javascript-attribute-position`**=_`<multiline|auto>`_ &mdash; 
+  Le style du positionnement des attributs dans les éléments JSX. Définie par défaut à `auto`.
+- **`    --javascript-linter-enabled`**=_`<true|false>`_ &mdash; 
+  Contrôle l’outil de linting pour les fichiers JavaScript (et ses super-langages).
+- **`    --javascript-assists-enabled`**=_`<true|false>`_ &mdash; 
+  Contrôle l’outil de linting pour les fichiers JavaScript (et ses super-langages).
+- **`    --json-formatter-enabled`**=_`<true|false>`_ &mdash; 
+  Contrôle l’outil de formatage pour les fichiers JSON (et ses super-langages).
+- **`    --json-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
+  Le style d’indentation appliqué aux fichiers JSON (et ses super-langages).
+- **`    --json-formatter-indent-width`**=_`NOMBRE`_ &mdash; 
+  La taille de l’indentation appliquée aux fichiers JSON (et ses super-langages). Définie par défaut à 2.
+- **`    --json-formatter-indent-size`**=_`NOMBRE`_ &mdash; 
+  La taille de l’indentation appliquée aux fichiers JSON (et ses super-langages). Définie par défaut à 2.
+- **`    --json-formatter-line-ending`**=_`<lf|crlf|cr>`_ &mdash; 
+  Le type de fin de ligne appliquée aux fichiers JSON (et ses super-langages).
+- **`    --json-formatter-line-width`**=_`NOMBRE`_ &mdash; 
+  La largeur maximale d’une ligne appliquée aux fichiers JSON (et ses super-langages). Définie par défaut à 80.
+- **`    --json-formatter-trailing-commas`**=_`<none|all>`_ &mdash; 
+  Ajoute si possible des virgules de fin dans les structures syntaxiques séparées par des virgules et réparties en plusieurs lignes. Définie par défaut à `none`.
+- **`    --json-linter-enabled`**=_`<true|false>`_ &mdash; 
+  Contrôle l’outil de linting pour les fichiers JSON (et ses super-langages).
+- **`    --json-assists-enabled`**=_`<true|false>`_ &mdash; 
+  Contrôle l’outil de linting pour les fichiers JSON (et ses super-langages).
+- **`    --css-formatter-enabled`**=_`<true|false>`_ &mdash; 
+  Contrôle l’outil de formatage pour les fichiers CSS (et ses super-langages).
+- **`    --css-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
+  Le style d’indentation appliqué aux fichiers CSS (et ses super-langages).
+- **`    --css-formatter-indent-width`**=_`NOMBRE`_ &mdash; 
+  La taille de l’indentation appliquée aux fichiers CSS (et ses super-langages). Définie par défaut à 2.
+- **`    --css-formatter-line-ending`**=_`<lf|crlf|cr>`_ &mdash; 
+  Le type de fin de ligne appliquée aux fichiers CSS (et ses super-langages).
+- **`    --css-formatter-line-width`**=_`NOMBRE`_ &mdash; 
+  La largeur maximale d’une ligne appliquée aux fichiers CSS (et ses super-langages). Définie par défaut à 80.
+- **`    --css-formatter-quote-style`**=_`<double|single>`_ &mdash; 
+  Le type de guillemets appliqué au code CSS. Définie par défaut à `double`.
+- **`    --css-linter-enabled`**=_`<true|false>`_ &mdash; 
+  Contrôle l’outil de linting pour les fichiers CSS.
+- **`    --css-assists-enabled`**=_`<true|false>`_ &mdash; 
+  Contrôle les assists pour les fichiers CSS.
+- **`    --graphql-formatter-enabled`**=_`<true|false>`_ &mdash; 
+  Contrôle l’outil de formatage pour les fichiers GraphQL.
+- **`    --graphql-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
+  Le style d’indentation appliqué aux fichiers GraphQL.
+- **`    --graphql-formatter-indent-width`**=_`NOMBRE`_ &mdash; 
+  La taille de l’indentation appliquée aux fichiers GraphQL. Définie par défaut à 2.
+- **`    --graphql-formatter-line-ending`**=_`<lf|crlf|cr>`_ &mdash; 
+  Le type de fin de ligne appliquée aux fichiers GraphQL.
+- **`    --graphql-formatter-line-width`**=_`NOMBRE`_ &mdash; 
+  La largeur maximale d’une ligne appliquée aux fichiers GraphQL. Définie par défaut à 80.
+- **`    --graphql-formatter-quote-style`**=_`<double|single>`_ &mdash; 
+  Le type de guillemets appliqué au code GraphQL. Définie par défaut à `double`.
+- **`    --graphql-linter-enabled`**=_`<true|false>`_ &mdash; 
+  Contrôle l’outil de formatage pour les fichiers GraphQL.
+- **`    --assists-enabled`**=_`<true|false>`_ &mdash; 
+  Si Biome devrait activer ou non les assists via LSP.
+
+
+
+**Options globales appliquées à toutes les commandes&nbsp;:**
+- **`    --colors`**=_`<off|force>`_ &mdash; 
+  Définit le mode de formatage pour le balisage&nbsp;: `off` affiche tout en texte plein&nbsp;; `force` force le formatage du balisage en utilisant l’ANSI, même si la sortie de console est déterminée pour être incompatible.
+- **`    --use-server`** &mdash; 
+  Connecte à une instance de serveur démon de Biome en cours d’exécution.
+- **`    --verbose`** &mdash; 
+  Affiche des diagnostics supplémentaires, certains diagnostics montrant plus d’informations. Affiche également les fichiers qui ont été traités et ceux qui ont été modifiés.
+- **`    --config-path`**=_`CHEMIN`_ &mdash; 
+  Définit le chemin vers le fichier de configuration ou le chemin du répertoire pour trouver `biome.json` ou `biome.jsonc`. Si utilisée, elle désactive la résolution du fichier de configuration par défaut.
+- **`    --max-diagnostics`**=_`<none|<NOMBRE>>`_ &mdash; 
+  Limite le nombre de diagnostics affichés. Quand `none` est indiqué, la limite est annulée.
+   
+  [valeur par défaut&nbsp;: 20]
+- **`    --skip-errors`** &mdash; 
+  Saute les fichiers comportant des erreurs de syntaxe au lieu d’engendrer un diagnostic d’erreur.
+- **`    --no-errors-on-unmatched`** &mdash; 
+  Passe sous silence les erreurs qui auraient été déclenchées pour le cas où aucun fichier n’aurait été traité pendant l’exécution de la commande.
+- **`    --error-on-warnings`** &mdash; 
+  Demande à Biome de quitter avec un code d’erreur si des diagnostics émettent des avertissements.
+- **`    --reporter`**=_`<json|json-pretty|github|junit|summary|gitlab>`_ &mdash; 
+  Permet de modifier la manière dont les diagnostics et les résumés sont rapportés.
+- **`    --log-level`**=_`<none|debug|info|warn|error>`_ &mdash; 
+  Le niveau de log. Dans l’ordre, du plus verbeux au moins verbeux&nbsp;: `debug`, `info`, `warn`, `error`.
+
+  La valeur `none` ne montrera aucun log.
+   
+  [valeur par défaut&nbsp;: none]
+- **`    --log-kind`**=_`<pretty|compact|json>`_ &mdash; 
+  La mise en forme du log.
+   
+  [valeur par défaut&nbsp;: pretty]
+- **`    --diagnostic-level`**=_`<info|warn|error>`_ &mdash; 
+  Le niveau de diagnostic à afficher. Dans l’ordre, du moins important au plus important&nbsp;: `info`, `warn`, `error`. Passer `--diagnostic-level=error` forcera Biome à n’afficher que les diagnostics qui ne comportent que des erreurs.
+   
+  [valeur par défaut&nbsp;: info]
+
+
+
+**Items de positionnement disponibles&nbsp;:**
+- _`CHEMIN`_ &mdash; 
+  Simple fichier, simple chemin ou liste de chemins.
+
+
+
+**Options disponibles&nbsp;:**
+- **`    --write`** &mdash; 
+  Écrit les corrections sûres, le formatage et le tri des imports.
+- **`    --unsafe`** &mdash; 
+  Permet d’effectuer des corrections non sûres, devrait être utilisée avec `--write` ou `--fix`.
+- **`    --fix`** &mdash; 
+  Alias de `--write`, écrit les corrections sûres, le formatage et le tri des imports.
+- **`    --apply`** &mdash; 
+  Alias de `--write`, écrit les corrections sûres, le formatage et le tri des imports. (Obsolète, utilisez `--write`).
+- **`    --apply-unsafe`** &mdash; 
+  Alias de `--write --unsafe`, écrit les corrections sûres et non sûres, le formatage et le tri des imports. (Obsolète, utilisez `--write --unsafe`).
+- **`    --formatter-enabled`**=_`<true|false>`_ &mdash; 
+  Permet d’activer ou désactiver les vérifications par l’outil de formatage.
+- **`    --linter-enabled`**=_`<true|false>`_ &mdash; 
+  Permet d’activer ou désactiver les vérifications par l’outil de linting.
+- **`    --organize-imports-enabled`**=_`<true|false>`_ &mdash; 
+  Permet d’activer ou désactiver l’organisation des imports.
+- **`    --assists-enabled`**=_`<true|false>`_ &mdash; 
+  Permet d’activer ou désactiver les assists.
+- **`    --stdin-file-path`**=_`CHEMIN`_ &mdash; 
+  Utilisez cette option quand vous voulez formater du code acheminé du `stdin` et afficher la sortie vers `stdout`.
+
+  Le fichier n’a pas besoin d’exister sur le disque, ce qui importe est l’extension du fichier. En fonction de l’extension, Biome sait comment vérifier le code.
+
+  Exemple&nbsp;: `echo 'let a;' | biome check --stdin-file-path=file.js`
+- **`    --staged`** &mdash; 
+  Si définie à `true`, seuls les fichiers qui ont été indexés (ceux préparés pour un commit) seront analysés. Cette option devrait être utilisée en travaillant localement.
+- **`    --changed`** &mdash; 
+  Si définie à `true`, seuls les fichiers qui ont été modifiés, comparés à votre configuration `defaultBranch`, seront analysés. Cette option devrait être utilisée dans les environnements d’intégration continue.
+- **`    --since`**=_`RÉF`_ &mdash; 
+  Utilisez cette option pour spécifier la branche de base à laquelle comparer quand vous utilisez le drapeau `--changed` et que `defaultBranch` n’est pas définie dans votre `biome.json`.
+- **`-h`**, **`--help`** &mdash; 
+  Affiche les informations d’aide.
+
+
+## biome lint
+
+Exécute diverses vérifications sur un ensemble de fichiers.
+
+**Utilisation&nbsp;:** **`biome`** **`lint`** \[**`--write`**\] \[**`--unsafe`**\] \[**`--suppress`**\] \[**`--reason`**=_`CHAÎNE`_\] \[**`--only`**=_`<GROUPE|RÈGLE>`_\]… \[**`--skip`**=_`<GROUPE|RÈGLE>`_\]… \[**`--staged`**\] \[**`--changed`**\] \[**`--since`**=_`RÉF`_\] \[_`CHEMIN`_\]…
+
+**Ensemble de propriétés pour intégrer Biome à un VCS&nbsp;:**
+- **`    --vcs-enabled`**=_`<true|false>`_ &mdash; 
+  Si Biome devrait s’intégrer au client VCS ou non.
+- **`    --vcs-client-kind`**=_`<git>`_ &mdash; 
+  Le type de client.
+- **`    --vcs-use-ignore-file`**=_`<true|false>`_ &mdash; 
+  Si Biome devrait utiliser le fichier ignore du VCS. Si `true`, Biome ignorera les fichiers spécifiés dans le fichier ignore.
+- **`    --vcs-root`**=_`CHEMIN`_ &mdash; 
+  Le dossier où Biome devrait vérifier la présence d’un fichier ignore. Par défaut, Biome utilisera le même dossier que celui où `biome.json` a été trouvé.
+
+  Si Biome ne peut trouver la configuration, il tentera d’utiliser le répertoire de l’espace de travail actuel. Si aucun répertoire de l’espace de travail actuel ne peut être trouvé, Biome n’utilisera pas l’intégration au VCS et un diagnostic sera engendré.
+- **`    --vcs-default-branch`**=_`BRANCHE`_ &mdash; 
+  La branche principale du projet.
+
+
+
+**La configuration du système de fichiers&nbsp;:**
+- **`    --files-max-size`**=_`NOMBRE`_ &mdash; 
+  La taille maximale autorisée pour les fichiers de code source, en octets. Les fichiers au-dessus de cette limite seront ignorés pour des questions de performances. Définie par défaut à 1&nbsp;Mo.
+- **`    --files-ignore-unknown`**=_`<true|false>`_ &mdash; 
+  Demande à Biome de ne pas engendrer de diagnostics lors de la prise en charge de fichiers qu’il ne connaît pas.
+
+
+
+**Options de l’outil de linting propres à l’outil de linting de JavaScript&nbsp;:**
+- **`    --javascript-linter-enabled`**=_`<true|false>`_ &mdash; 
+  Contrôle l’outil de linting pour les fichiers JavaScript (et ses super-langages).
+
+
+
+**Options de l’outil de linting propres à l’outil de linting de JSON&nbsp;:**
+- **`    --json-linter-enabled`**=_`<true|false>`_ &mdash; 
+  Contrôle l’outil de linting pour les fichiers JSON (et ses super-langages).
+
+
+
+**Options globales appliquées à toutes les commandes&nbsp;:**
+- **`    --colors`**=_`<off|force>`_ &mdash; 
+  Définit le mode de formatage pour le balisage&nbsp;: `off` affiche tout en texte plein&nbsp;; `force` force le formatage du balisage en utilisant l’ANSI, même si la sortie de console est déterminée pour être incompatible.
+- **`    --use-server`** &mdash; 
+  Connecte à une instance de serveur démon de Biome en cours d’exécution.
+- **`    --verbose`** &mdash; 
+  Affiche des diagnostics supplémentaires, certains diagnostics montrant plus d’informations. Affiche également les fichiers qui ont été traités et ceux qui ont été modifiés.
+- **`    --config-path`**=_`CHEMIN`_ &mdash; 
+  Définit le chemin vers le fichier de configuration ou le chemin du répertoire pour trouver `biome.json` ou `biome.jsonc`. Si utilisée, elle désactive la résolution du fichier de configuration par défaut.
+- **`    --max-diagnostics`**=_`<none|<NOMBRE>>`_ &mdash; 
+  Limite le nombre de diagnostics affichés. Quand `none` est indiqué, la limite est annulée.
+   
+  [valeur par défaut&nbsp;: 20]
+- **`    --skip-errors`** &mdash; 
+  Saute les fichiers comportant des erreurs de syntaxe au lieu d’engendrer un diagnostic d’erreur.
+- **`    --no-errors-on-unmatched`** &mdash; 
+  Passe sous silence les erreurs qui auraient été déclenchées pour le cas où aucun fichier n’aurait été traité pendant l’exécution de la commande.
+- **`    --error-on-warnings`** &mdash; 
+  Demande à Biome de quitter avec un code d’erreur si des diagnostics émettent des avertissements.
+- **`    --reporter`**=_`<json|json-pretty|github|junit|summary|gitlab>`_ &mdash; 
+  Permet de modifier la manière dont les diagnostics et les résumés sont rapportés.
+- **`    --log-level`**=_`<none|debug|info|warn|error>`_ &mdash; 
+  Le niveau de log. Dans l’ordre, du plus verbeux au moins verbeux&nbsp;: `debug`, `info`, `warn`, `error`.
+
+  La valeur `none` ne montrera aucun log.
+   
+  [valeur par défaut&nbsp;: none]
+- **`    --log-kind`**=_`<pretty|compact|json>`_ &mdash; 
+  La mise en forme du log.
+   
+  [valeur par défaut&nbsp;: pretty]
+- **`    --diagnostic-level`**=_`<info|warn|error>`_ &mdash; 
+  Le niveau de diagnostic à afficher. Dans l’ordre, du moins important au plus important&nbsp;: `info`, `warn`, `error`. Passer `--diagnostic-level=error` forcera Biome à n’afficher que les diagnostics qui ne comportent que des erreurs.
+   
+  [valeur par défaut&nbsp;: info]
+
+
+
+**Items de positionnement disponibles&nbsp;:**
+- _`CHEMIN`_ &mdash; 
+  Simple fichier, simple chemin ou liste de chemins.
+
+
+
+**Options disponibles&nbsp;:**
+- **`    --write`** &mdash; 
+  Écrit les corrections sûres.
+- **`    --unsafe`** &mdash; 
+  Permet d’effectuer des corrections non sûres, devrait être utilisée avec `--write` ou `--fix`.
+- **`    --fix`** &mdash; 
+  Alias de`--write`, écrit les corrections sûres.
+- **`    --apply`** &mdash; 
+  Alias de`--write`, écrit les corrections sûres. (Obsolète, utilisez `--write`).
+- **`    --apply-unsafe`** &mdash; 
+  Alias de`--write --unsafe`, écrit les corrections sûres et non sûres. (Obsolète, utilisez `--write --unsafe`).
+- **`    --suppress`** &mdash; 
+  Corrige les violations des règles de linting avec un commentaire de suppression au lieu d’utiliser une action de code de règle (correction).
+- **`    --reason`**=_`CHAÎNE`_ &mdash; 
+  Explication de la suppression des diagnostics avec `--suppress`.
+- **`    --only`**=_`<GROUPE|RÈGLE>`_ &mdash; 
+  N’exécute que la règle en question ou le groupe de règles. Si le niveau de sévérité d’une règle est à `off`, alors le niveau de sévérité de la règle est défini à `error` si c’est une règle recommandée, à `warn` sinon.
+
+  Exemple&nbsp;: `biome lint --only=correctness/noUnusedVariables --only=suspicious`
+- **`    --skip`**=_`<GROUPE|RÈGLE>`_ &mdash; 
+  Saute la règle en question ou le groupe de règles en définissant le niveau de sévérité des règles à `off`. Cette option est prioritaire sur `--only`.
+
+  Exemple&nbsp;: `biome lint --skip=correctness/noUnusedVariables --skip=suspicious`
+- **`    --stdin-file-path`**=_`CHEMIN`_ &mdash; 
+  Utilisez cette option quand vous voulez formater du code acheminé du `stdin` et afficher la sortie vers `stdout`.
+
+  Le fichier n’a pas besoin d’exister sur le disque, ce qui importe est l’extension du fichier. En fonction de l’extension, Biome sait comment analyser le code.
+
+  Exemple&nbsp;: `echo 'let a;' | biome lint --stdin-file-path=file.js`
+- **`    --staged`** &mdash; 
+  Si définie à `true`, seuls les fichiers qui ont été indexés (ceux préparés pour un commit) seront analysés.
+- **`    --changed`** &mdash; 
+  Si définie à `true`, seuls les fichiers qui ont été modifiés, comparés à votre configuration `defaultBranch`, seront analysés.
+- **`    --since`**=_`RÉF`_ &mdash; 
+  Utilisez cette option pour spécifier la branche de base à laquelle comparer quand vous utilisez le drapeau `--changed` et que `defaultBranch` n’est pas définie dans votre `biome.json`.
+- **`-h`**, **`--help`** &mdash; 
+  Affiche les informations d’aide.
+
+
+## biome format
+
+Exécute l’outil de formatage sur un ensemble de fichiers.
+
+**Utilisation&nbsp;:** **`biome`** **`format`** \[**`--write`**\] \[**`--staged`**\] \[**`--changed`**\] \[**`--since`**=_`RÉF`_\] \[_`CHEMIN`_\]…
+
+**Options génériques appliquées à tous les fichiers&nbsp;:**
+- **`    --use-editorconfig`**=_`<true|false>`_ &mdash; 
+  Utilise n’importe quel fichier `.editorconfig` pour configurer l’outil de formatage. La configuration de `biome.json` écrasera celle de `.editorconfig`. Valeur par défaut&nbsp;: `false`.
+- **`    --indent-style`**=_`<tab|space>`_ &mdash; 
+  Le style d’indentation.
+- **`    --indent-size`**=_`NOMBRE`_ &mdash; 
+  La taille de l’indentation, 2 par défaut (obsolète, utilisez `indent-width`).
+- **`    --indent-width`**=_`NOMBRE`_ &mdash; 
+  La taille de l’indentation, 2 par défaut.
+- **`    --line-ending`**=_`<lf|crlf|cr>`_ &mdash; 
+  Le type de fin de ligne.
+- **`    --line-width`**=_`NOMBRE`_ &mdash; 
+  Quelle est la largeur maximale d’une ligne. Définie par défaut à 80.
+- **`    --attribute-position`**=_`<multiline|auto>`_ &mdash; 
+  Le style du positionnement des attributs en HTML et dans les langages assimilés. Par défaut&nbsp;: auto.
+- **`    --bracket-spacing`**=_`<true|false>`_ &mdash; 
+  S’il faut insérer ou non des espaces autour des accolades dans les littéraux d’objet. Définie par défaut à `true`.
+
+
+
+**Options de formatage propres aux fichiers JavaScript&nbsp;:**
+- **`    --jsx-quote-style`**=_`<double|single>`_ &mdash; 
+  Le type de guillemets utilisé dans JSX. Définie par défaut à `double`.
+- **`    --quote-properties`**=_`<preserve|as-needed>`_ &mdash; 
+  Quand les propriétés d’objet sont entourées de guillemets. Définie par défaut à `asNeeded`.
+- **`    --trailing-comma`**=_`<all|es5|none>`_ &mdash; 
+  Ajoute si possible des virgules de fin dans les structures syntaxiques séparées par des virgules et réparties en plusieurs lignes. Définie par défaut à `all`.
+- **`    --trailing-commas`**=_`<all|es5|none>`_ &mdash; 
+  Ajoute si possible des virgules de fin dans les structures syntaxiques séparées par des virgules et réparties en plusieurs lignes. Définie par défaut à `all`.
+- **`    --semicolons`**=_`<always|as-needed>`_ &mdash; 
+  Si l’outil de formatage ajoute un point-virgule à toutes les instructions ou seulement dans celles où il est nécessaire à cause de l’insertion automatique de points-virgules.
+- **`    --arrow-parentheses`**=_`<always|as-needed>`_ &mdash; 
+  S’il faut ajouter ou non des parenthèses non nécessaires aux fonctions fléchées. Définie par défaut à `always`.
+- **`    --bracket-same-line`**=_`<true|false>`_ &mdash; 
+  S’il faut insérer le chevron de fermeture des balises HTML/JSX réparties sur plusieurs lignes à la fin de la dernière ligne ou le laisser seul sur la ligne suivante. Définie par défaut à `false`.
+- **`    --javascript-formatter-enabled`**=_`<true|false>`_ &mdash; 
+  Contrôle l’outil de formatage pour les fichiers JavaScript (et ses super-langages).
+- **`    --javascript-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
+  Le style d’indentation appliqué aux fichiers JavaScript (et ses super-langages).
+- **`    --javascript-formatter-indent-size`**=_`NOMBRE`_ &mdash; 
+  La taille de l’indentation appliquée aux fichiers JavaScript (et ses super-langages). Définie par défaut à 2.
+- **`    --javascript-formatter-indent-width`**=_`NOMBRE`_ &mdash; 
+  La taille de l’indentation appliquée aux fichiers JavaScript (et ses super-langages). Définie par défaut à 2.
+- **`    --javascript-formatter-line-ending`**=_`<lf|crlf|cr>`_ &mdash; 
+  Le type de fin de ligne appliquée aux fichiers JavaScript (et ses super-langages).
+- **`    --javascript-formatter-line-width`**=_`NOMBRE`_ &mdash; 
+  La largeur maximale d’une ligne appliquée aux fichiers JavaScript (et ses super-langages). Définie par défaut à 80.
+- **`    --quote-style`**=_`<double|single>`_ &mdash; 
+  Le type de guillemets appliqué au code JavaScript. Définie par défaut à `double`.
+- **`    --javascript-attribute-position`**=_`<multiline|auto>`_ &mdash; 
+  Le style du positionnement des attributs dans les éléments JSX. Définie par défaut à `auto`.
+- **`    --bracket-spacing`**=_`<true|false>`_ &mdash; 
+  S’il faut insérer ou non des espaces autour des accolades dans les littéraux d’objet. Définie par défaut à `true`.
+
+
+
+**Ensemble de propriétés pour intégrer Biome à un VCS&nbsp;:**
+- **`    --vcs-enabled`**=_`<true|false>`_ &mdash; 
+  Si Biome devrait s’intégrer au client VCS ou non.
+- **`    --vcs-client-kind`**=_`<git>`_ &mdash; 
+  Le type de client.
+- **`    --vcs-use-ignore-file`**=_`<true|false>`_ &mdash; 
+  Si Biome devrait utiliser le fichier ignore du VCS. Si `true`, Biome ignorera les fichiers spécifiés dans le fichier ignore.
+- **`    --vcs-root`**=_`CHEMIN`_ &mdash; 
+  Le dossier où Biome devrait vérifier la présence d’un fichier ignore. Par défaut, Biome utilisera le même dossier que celui où `biome.json` a été trouvé.
+
+  Si Biome ne peut trouver la configuration, il tentera d’utiliser le répertoire de l’espace de travail actuel. Si aucun répertoire de l’espace de travail actuel ne peut être trouvé, Biome n’utilisera pas l’intégration au VCS et un diagnostic sera engendré.
+- **`    --vcs-default-branch`**=_`BRANCHE`_ &mdash; 
+  La branche principale du projet.
+
+
+
+**La configuration du système de fichiers&nbsp;:**
+- **`    --files-max-size`**=_`NOMBRE`_ &mdash; 
+  La taille maximale autorisée pour les fichiers de code source, en octets. Les fichiers au-dessus de cette limite seront ignorés pour des questions de performances. Définie par défaut à 1&nbsp;Mo.
+- **`    --files-ignore-unknown`**=_`<true|false>`_ &mdash; 
+  Demande à Biome de ne pas engendrer de diagnostics lors de la prise en charge de fichiers qu’il ne connaît pas.
+
+
+
+**Options globales appliquées à toutes les commandes&nbsp;:**
+- **`    --colors`**=_`<off|force>`_ &mdash; 
+  Définit le mode de formatage pour le balisage&nbsp;: `off` affiche tout en texte plein&nbsp;; `force` force le formatage du balisage en utilisant l’ANSI, même si la sortie de console est déterminée pour être incompatible.
+- **`    --use-server`** &mdash; 
+  Connecte à une instance de serveur démon de Biome en cours d’exécution.
+- **`    --verbose`** &mdash; 
+  Affiche des diagnostics supplémentaires, certains diagnostics montrant plus d’informations. Affiche également les fichiers qui ont été traités et ceux qui ont été modifiés.
+- **`    --config-path`**=_`CHEMIN`_ &mdash; 
+  Définit le chemin vers le fichier de configuration ou le chemin du répertoire pour trouver `biome.json` ou `biome.jsonc`. Si utilisée, elle désactive la résolution du fichier de configuration par défaut.
+- **`    --max-diagnostics`**=_`<none|<NOMBRE>>`_ &mdash; 
+  Limite le nombre de diagnostics affichés. Quand `none` est indiqué, la limite est annulée.
+   
+  [valeur par défaut&nbsp;: 20]
+- **`    --skip-errors`** &mdash; 
+  Saute les fichiers comportant des erreurs de syntaxe au lieu d’engendrer un diagnostic d’erreur.
+- **`    --no-errors-on-unmatched`** &mdash; 
+  Passe sous silence les erreurs qui auraient été déclenchées pour le cas où aucun fichier n’aurait été traité pendant l’exécution de la commande.
+- **`    --error-on-warnings`** &mdash; 
+  Demande à Biome de quitter avec un code d’erreur si des diagnostics émettent des avertissements.
+- **`    --reporter`**=_`<json|json-pretty|github|junit|summary|gitlab>`_ &mdash; 
+  Permet de modifier la manière dont les diagnostics et les résumés sont rapportés.
+- **`    --log-level`**=_`<none|debug|info|warn|error>`_ &mdash; 
+  Le niveau de log. Dans l’ordre, du plus verbeux au moins verbeux&nbsp;: `debug`, `info`, `warn`, `error`.
+
+  La valeur `none` ne montrera aucun log.
+   
+  [valeur par défaut&nbsp;: none]
+- **`    --log-kind`**=_`<pretty|compact|json>`_ &mdash; 
+  La mise en forme du log.
+   
+  [valeur par défaut&nbsp;: pretty]
+- **`    --diagnostic-level`**=_`<info|warn|error>`_ &mdash; 
+  Le niveau de diagnostic à afficher. Dans l’ordre, du moins important au plus important&nbsp;: `info`, `warn`, `error`. Passer `--diagnostic-level=error` forcera Biome à n’afficher que les diagnostics qui ne comportent que des erreurs.
+   
+  [valeur par défaut&nbsp;: info]
+
+
+
+**Items de positionnement disponibles&nbsp;:**
+- _`CHEMIN`_ &mdash; 
+  Simple fichier, simple chemin ou liste de chemins..
+
+
+
+**Options disponibles&nbsp;:**
+- **`    --json-formatter-enabled`**=_`<true|false>`_ &mdash; 
+  Contrôle l’outil de formatage pour les fichiers JSON (et ses super-langages).
+- **`    --json-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
+  Le style d’indentation appliqué aux fichiers JSON (et ses super-langages).
+- **`    --json-formatter-indent-width`**=_`NOMBRE`_ &mdash; 
+  La taille de l’indentation appliquée aux fichiers JSON (et ses super-langages). Définie par défaut à 2.
+- **`    --json-formatter-indent-size`**=_`NOMBRE`_ &mdash; 
+  La taille de l’indentation appliquée aux fichiers JSON (et ses super-langages). Définie par défaut à 2.
+- **`    --json-formatter-line-ending`**=_`<lf|crlf|cr>`_ &mdash; 
+  Le type de fin de ligne appliquée aux fichiers JSON (et ses super-langages).
+- **`    --json-formatter-line-width`**=_`NOMBRE`_ &mdash; 
+  La largeur maximale d’une ligne appliquée aux fichiers JSON (et ses super-langages). Définie par défaut à 80.
+- **`    --json-formatter-trailing-commas`**=_`<none|all>`_ &mdash; 
+  Ajoute si possible des virgules de fin dans les structures syntaxiques séparées par des virgules et réparties en plusieurs lignes. Définie par défaut à `none`.
+- **`    --stdin-file-path`**=_`CHEMIN`_ &mdash; 
+  Utilisez cette option quand vous voulez formater du code acheminé du `stdin` et afficher la sortie vers `stdout`.
+
+  Le fichier n’a pas besoin d’exister sur le disque, ce qui importe est l’extension du fichier. En fonction de l’extension, Biome sait comment formater le code.
+
+  Exemple&nbsp;: `echo 'let a;' | biome format --stdin-file-path=file.js`
+- **`    --write`** &mdash; 
+  Écrit les fichiers formatés dans le système de fichiers.
+- **`    --fix`** &mdash; 
+  Alias de `--write`, écrit les fichiers formatés dans le système de fichiers.
+- **`    --staged`** &mdash; 
+  Si définie à `true`, seuls les fichiers qui ont été indexés (ceux préparés pour un commit) seront analysés.
+- **`    --changed`** &mdash; 
+  Si définie à `true`, seuls les fichiers qui ont été modifiés, comparés à votre configuration `defaultBranch`, seront analysés.
+- **`    --since`**=_`RÉF`_ &mdash; 
+  Utilisez cette option pour spécifier la branche de base à laquelle comparer quand vous utilisez le drapeau `--changed` et que `defaultBranch` n’est pas définie dans votre `biome.json`.
+- **`-h`**, **`--help`** &mdash; 
+  Affiche les informations d’aide.
+
+
+## biome ci
+
+Commande à utiliser dans les environnements d’intégration continue. Exécute l’outil de formatage, l’outil de linting et le tri des imports dans les fichiers demandés.
+
+Les fichiers ne seront pas modifiés&nbsp;: la commande est une opération en lecture seule.
+
+**Utilisation&nbsp;:** **`biome`** **`ci`** \[**`--formatter-enabled`**=_`<true|false>`_\] \[**`--linter-enabled`**=_`<true|false>`_\] \[**`--organize-imports-enabled`**=_`<true|false>`_\] \[**`--assists-enabled`**=_`<true|false>`_\] \[**`--changed`**\] \[**`--since`**=_`RÉF`_\] \[_`CHEMIN`_\]…
+
+**La configuration qui est contenue dans le fichier `biome.json`&nbsp;:**
+- **`    --vcs-enabled`**=_`<true|false>`_ &mdash; 
+  Si Biome devrait s’intégrer au client VCS ou non.
+- **`    --vcs-client-kind`**=_`<git>`_ &mdash; 
+  Le type de client.
+- **`    --vcs-use-ignore-file`**=_`<true|false>`_ &mdash; 
+  Si Biome devrait utiliser le fichier ignore du VCS. Si `true`, Biome ignorera les fichiers spécifiés dans le fichier ignore.
+- **`    --vcs-root`**=_`CHEMIN`_ &mdash; 
+  Le dossier où Biome devrait vérifier la présence d’un fichier ignore. Par défaut, Biome utilisera le même dossier que celui où `biome.json` a été trouvé.
+
+  Si Biome ne peut trouver la configuration, il tentera d’utiliser le répertoire de l’espace de travail actuel. Si aucun répertoire de l’espace de travail actuel ne peut être trouvé, Biome n’utilisera pas l’intégration au VCS et un diagnostic sera engendré.
+- **`    --vcs-default-branch`**=_`BRANCHE`_ &mdash; 
+  La branche principale du projet.
+- **`    --files-max-size`**=_`NOMBRE`_ &mdash; 
+  La taille maximale autorisée pour les fichiers de code source, en octets. Les fichiers au-dessus de cette limite seront ignorés pour des questions de performances. Définie par défaut à 1&nbsp;Mo.
+- **`    --files-ignore-unknown`**=_`<true|false>`_ &mdash; 
+  Demande à Biome de ne pas engendrer de diagnostics lors de la prise en charge de fichiers qu’il ne connaît pas.
+- **`    --use-editorconfig`**=_`<true|false>`_ &mdash; 
+  Utilise n’importe quel fichier `.editorconfig` pour configurer l’outil de formatage. La configuration de `biome.json` écrasera celle de `.editorconfig`. Valeur par défaut&nbsp;: `false`.
+- **`    --indent-style`**=_`<tab|space>`_ &mdash; 
+  Le style d’indentation.
+- **`    --indent-size`**=_`NOMBRE`_ &mdash; 
+  La taille de l’indentation, 2 par défaut (obsolète, utilisez `indent-width`).
+- **`    --indent-width`**=_`NOMBRE`_ &mdash; 
+  La taille de l’indentation, 2 par défaut.
+- **`    --line-ending`**=_`<lf|crlf|cr>`_ &mdash; 
+  Le type de fin de ligne.
+- **`    --line-width`**=_`NOMBRE`_ &mdash; 
+  Quelle est la largeur maximale d’une ligne. Définie par défaut à 80.
+- **`    --attribute-position`**=_`<multiline|auto>`_ &mdash; 
+  Le style du positionnement des attributs en HTML et dans les langages assimilés. Par défaut&nbsp;: auto.
+- **`    --bracket-spacing`**=_`<true|false>`_ &mdash; 
+  S’il faut insérer ou non des espaces autour des accolades dans les littéraux d’objet. Définie par défaut à `true`.
+- **`    --jsx-quote-style`**=_`<double|single>`_ &mdash; 
+  Le type de guillemets utilisé dans JSX. Définie par défaut à `double`.
+- **`    --quote-properties`**=_`<preserve|as-needed>`_ &mdash; 
+  Quand les propriétés d’objet sont entourées de guillemets. Définie par défaut à `asNeeded`.
+- **`    --trailing-comma`**=_`<all|es5|none>`_ &mdash; 
+  Ajoute si possible des virgules de fin dans les structures syntaxiques séparées par des virgules et réparties en plusieurs lignes. Définie par défaut à `all`.
+- **`    --trailing-commas`**=_`<all|es5|none>`_ &mdash; 
+  Ajoute si possible des virgules de fin dans les structures syntaxiques séparées par des virgules et réparties en plusieurs lignes. Définie par défaut à `all`.
+- **`    --semicolons`**=_`<always|as-needed>`_ &mdash; 
+  Si l’outil de formatage ajoute un point-virgule à toutes les instructions ou seulement dans celles où il est nécessaire à cause de l’insertion automatique de points-virgules.
+- **`    --arrow-parentheses`**=_`<always|as-needed>`_ &mdash; 
+  S’il faut ajouter ou non des parenthèses non nécessaires aux fonctions fléchées. Définie par défaut à `always`.
+- **`    --bracket-same-line`**=_`<true|false>`_ &mdash; 
+  S’il faut insérer le chevron de fermeture des balises HTML/JSX réparties sur plusieurs lignes à la fin de la dernière ligne ou le laisser seul sur la ligne suivante. Définie par défaut à `false`.
+- **`    --javascript-formatter-enabled`**=_`<true|false>`_ &mdash; 
+  Contrôle l’outil de formatage pour les fichiers JavaScript (et ses super-langages).
+- **`    --javascript-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
+  Le style d’indentation appliqué aux fichiers JavaScript (et ses super-langages).
+- **`    --javascript-formatter-indent-size`**=_`NOMBRE`_ &mdash; 
+  La taille de l’indentation appliquée aux fichiers JavaScript (et ses super-langages). Définie par défaut à 2.
+- **`    --javascript-formatter-indent-width`**=_`NOMBRE`_ &mdash; 
+  La taille de l’indentation appliquée aux fichiers JavaScript (et ses super-langages). Définie par défaut à 2.
+- **`    --javascript-formatter-line-ending`**=_`<lf|crlf|cr>`_ &mdash; 
+  Le type de fin de ligne appliquée aux fichiers JavaScript (et ses super-langages).
+- **`    --javascript-formatter-line-width`**=_`NOMBRE`_ &mdash; 
+  La largeur maximale d’une ligne appliquée aux fichiers JavaScript (et ses super-langages). Définie par défaut à 80.
+- **`    --quote-style`**=_`<double|single>`_ &mdash; 
+  Le type de guillemets appliqué au code JavaScript. Définie par défaut à `double`.
+- **`    --javascript-attribute-position`**=_`<multiline|auto>`_ &mdash; 
+  Le style du positionnement des attributs dans les éléments JSX. Définie par défaut à `auto`.
+- **`    --javascript-linter-enabled`**=_`<true|false>`_ &mdash; 
+  Contrôle l’outil de linting pour les fichiers JavaScript (et ses super-langages).
+- **`    --javascript-assists-enabled`**=_`<true|false>`_ &mdash; 
+  Contrôle l’outil de linting pour les fichiers JavaScript (et ses super-langages).
+- **`    --json-formatter-enabled`**=_`<true|false>`_ &mdash; 
+  Contrôle l’outil de formatage pour les fichiers JSON (et ses super-langages).
+- **`    --json-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
+  Le style d’indentation appliqué aux fichiers JSON (et ses super-langages).
+- **`    --json-formatter-indent-width`**=_`NOMBRE`_ &mdash; 
+  La taille de l’indentation appliquée aux fichiers JSON (et ses super-langages). Définie par défaut à 2.
+- **`    --json-formatter-indent-size`**=_`NOMBRE`_ &mdash; 
+  La taille de l’indentation appliquée aux fichiers JSON (et ses super-langages). Définie par défaut à 2.
+- **`    --json-formatter-line-ending`**=_`<lf|crlf|cr>`_ &mdash; 
+  Le type de fin de ligne appliquée aux fichiers JSON (et ses super-langages).
+- **`    --json-formatter-line-width`**=_`NOMBRE`_ &mdash; 
+  La largeur maximale d’une ligne appliquée aux fichiers JSON (et ses super-langages). Définie par défaut à 80.
+- **`    --json-formatter-trailing-commas`**=_`<none|all>`_ &mdash; 
+  Ajoute si possible des virgules de fin dans les structures syntaxiques séparées par des virgules et réparties en plusieurs lignes. Définie par défaut à `none`.
+- **`    --json-linter-enabled`**=_`<true|false>`_ &mdash; 
+  Contrôle l’outil de linting pour les fichiers JSON (et ses super-langages).
+- **`    --json-assists-enabled`**=_`<true|false>`_ &mdash; 
+  Contrôle l’outil de linting pour les fichiers JSON (et ses super-langages).
+- **`    --css-formatter-enabled`**=_`<true|false>`_ &mdash; 
+  Contrôle l’outil de formatage pour les fichiers CSS (et ses super-langages).
+- **`    --css-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
+  Le style d’indentation appliqué aux fichiers CSS (et ses super-langages).
+- **`    --css-formatter-indent-width`**=_`NOMBRE`_ &mdash; 
+  La taille de l’indentation appliquée aux fichiers CSS (et ses super-langages). Définie par défaut à 2.
+- **`    --css-formatter-line-ending`**=_`<lf|crlf|cr>`_ &mdash; 
+  Le type de fin de ligne appliquée aux fichiers CSS (et ses super-langages).
+- **`    --css-formatter-line-width`**=_`NOMBRE`_ &mdash; 
+  La largeur maximale d’une ligne appliquée aux fichiers CSS (et ses super-langages). Définie par défaut à 80.
+- **`    --css-formatter-quote-style`**=_`<double|single>`_ &mdash; 
+  Le type de guillemets appliqué au code CSS. Définie par défaut à `double`.
+- **`    --css-linter-enabled`**=_`<true|false>`_ &mdash; 
+  Contrôle l’outil de linting pour les fichiers CSS.
+- **`    --css-assists-enabled`**=_`<true|false>`_ &mdash; 
+  Contrôle les assists pour les fichiers CSS.
+- **`    --graphql-formatter-enabled`**=_`<true|false>`_ &mdash; 
+  Contrôle l’outil de formatage pour les fichiers GraphQL.
+- **`    --graphql-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
+  Le style d’indentation appliqué aux fichiers GraphQL.
+- **`    --graphql-formatter-indent-width`**=_`NOMBRE`_ &mdash; 
+  La taille de l’indentation appliquée aux fichiers GraphQL. Définie par défaut à 2.
+- **`    --graphql-formatter-line-ending`**=_`<lf|crlf|cr>`_ &mdash; 
+  Le type de fin de ligne appliquée aux fichiers GraphQL.
+- **`    --graphql-formatter-line-width`**=_`NOMBRE`_ &mdash; 
+  La largeur maximale d’une ligne appliquée aux fichiers GraphQL. Définie par défaut à 80.
+- **`    --graphql-formatter-quote-style`**=_`<double|single>`_ &mdash; 
+  Le type de guillemets appliqué au code GraphQL. Définie par défaut à `double`.
+- **`    --graphql-linter-enabled`**=_`<true|false>`_ &mdash; 
+  Contrôle l’outil de formatage pour les fichiers GraphQL.
+- **`    --assists-enabled`**=_`<true|false>`_ &mdash; 
+  Si Biome devrait activer ou non les assists via LSP.
+
+
+
+**Options globales appliquées à toutes les commandes&nbsp;:**
+- **`    --colors`**=_`<off|force>`_ &mdash; 
+  Définit le mode de formatage pour le balisage&nbsp;: `off` affiche tout en texte plein&nbsp;; `force` force le formatage du balisage en utilisant l’ANSI, même si la sortie de console est déterminée pour être incompatible.
+- **`    --use-server`** &mdash; 
+  Connecte à une instance de serveur démon de Biome en cours d’exécution.
+- **`    --verbose`** &mdash; 
+  Affiche des diagnostics supplémentaires, certains diagnostics montrant plus d’informations. Affiche également les fichiers qui ont été traités et ceux qui ont été modifiés.
+- **`    --config-path`**=_`CHEMIN`_ &mdash; 
+  Définit le chemin vers le fichier de configuration ou le chemin du répertoire pour trouver `biome.json` ou `biome.jsonc`. Si utilisée, elle désactive la résolution du fichier de configuration par défaut.
+- **`    --max-diagnostics`**=_`<none|<NOMBRE>>`_ &mdash; 
+  Limite le nombre de diagnostics affichés. Quand `none` est indiqué, la limite est annulée.
+   
+  [valeur par défaut&nbsp;: 20]
+- **`    --skip-errors`** &mdash; 
+  Saute les fichiers comportant des erreurs de syntaxe au lieu d’engendrer un diagnostic d’erreur.
+- **`    --no-errors-on-unmatched`** &mdash; 
+  Passe sous silence les erreurs qui auraient été déclenchées pour le cas où aucun fichier n’aurait été traité pendant l’exécution de la commande.
+- **`    --error-on-warnings`** &mdash; 
+  Demande à Biome de quitter avec un code d’erreur si des diagnostics émettent des avertissements.
+- **`    --reporter`**=_`<json|json-pretty|github|junit|summary|gitlab>`_ &mdash; 
+  Permet de modifier la manière dont les diagnostics et les résumés sont rapportés.
+- **`    --log-level`**=_`<none|debug|info|warn|error>`_ &mdash; 
+  Le niveau de log. Dans l’ordre, du plus verbeux au moins verbeux&nbsp;: `debug`, `info`, `warn`, `error`.
+
+  La valeur `none` ne montrera aucun log.
+   
+  [valeur par défaut&nbsp;: none]
+- **`    --log-kind`**=_`<pretty|compact|json>`_ &mdash; 
+  La mise en forme du log.
+   
+  [valeur par défaut&nbsp;: pretty]
+- **`    --diagnostic-level`**=_`<info|warn|error>`_ &mdash; 
+  Le niveau de diagnostic à afficher. Dans l’ordre, du moins important au plus important&nbsp;: `info`, `warn`, `error`. Passer `--diagnostic-level=error` forcera Biome à n’afficher que les diagnostics qui ne comportent que des erreurs.
+   
+  [valeur par défaut&nbsp;: info]
+
+
+
+**Items de positionnement disponibles&nbsp;:**
+- _`CHEMIN`_ &mdash; 
+  Simple fichier, simple chemin ou liste de chemins.
+
+
+
+**Options disponibles&nbsp;:**
+- **`    --formatter-enabled`**=_`<true|false>`_ &mdash; 
+  Permet d’activer ou désactiver les vérifications par l’outil de formatage.
+- **`    --linter-enabled`**=_`<true|false>`_ &mdash; 
+  Permet d’activer ou désactiver les vérifications par l’outil de linting.
+- **`    --organize-imports-enabled`**=_`<true|false>`_ &mdash; 
+  Permet d’activer ou désactiver l’organisation des imports.
+- **`    --assists-enabled`**=_`<true|false>`_ &mdash; 
+  Permet d’activer ou désactiver les assists.
+- **`    --changed`** &mdash; 
+  Si définie à `true`, seuls les fichiers qui ont été modifiés, comparés à votre configuration `defaultBranch`, seront analysés.
+- **`    --since`**=_`RÉF`_ &mdash; 
+  Utilisez cette option pour spécifier la branche de base à laquelle comparer quand vous utilisez le drapeau `--changed` et que `defaultBranch` n’est pas définie dans votre `biome.json`.
+- **`-h`**, **`--help`** &mdash; 
+  Affiche les informations d’aide.
+
+
+## biome init
+
+Démarre un nouveau projet Biome. Crée un fichier de configuration avec quelques réglages par défaut.
+
+**Utilisation&nbsp;:** **`biome`** **`init`** \[**`--jsonc`**\]
+
+**Options disponibles&nbsp;:**
+- **`    --jsonc`** &mdash; 
+  Demande à Biome de générer un fichier `biome.jsonc`.
+- **`-h`**, **`--help`** &mdash; 
+  Affiche les informations d’aide.
+
+
+## biome lsp-proxy
+
+Agit comme un serveur pour le Language Server Protocol pour stdin/stdout.
+
+**Utilisation&nbsp;:** **`biome`** **`lsp-proxy`** \[**`--config-path`**=_`CHEMIN`_\]
+
+**Options disponibles&nbsp;:**
+- **`    --log-prefix-name`**=_`CHAÎNE`_ &mdash; 
+  Permet de modifier le préfixe appliqué au nom du fichier de logs.
+   
+  Utilise la variable d’environnement **`BIOME_LOG_PREFIX_NAME`**.
+   
+  [valeur par défaut&nbsp;: server.log]
+- **`    --log-path`**=_`CHEMIN`_ &mdash; 
+  Permet de modifier le dossier d’emplacement des logs.
+   
+  Utilise la variable d’environnement **`BIOME_LOG_PATH`**.
+- **`    --config-path`**=_`CHEMIN`_ &mdash; 
+  Permet de définir un chemin personnalisé vers le fichier de configuration ou un chemin de répertoire personnalisé pour trouver `biome.json` ou `biome.jsonc`.
+   
+  Utilise la variable d’environnement **`BIOME_CONFIG_PATH`**.
+- **`-h`**, **`--help`** &mdash; 
+  Affiche les informations d’aide.
+
+
+## biome migrate
+
+Met à jour la configuration quand il y a des changements importants.
+
+**Utilisation&nbsp;:** **`biome`** **`migrate`** \[**`--write`**\] \[_`COMMANDE…`_\]
+
+**Options globales appliquées à toutes les commandes&nbsp;:**
+- **`    --colors`**=_`<off|force>`_ &mdash; 
+  Définit le mode de formatage pour le balisage&nbsp;: `off` affiche tout en texte plein&nbsp;; `force` force le formatage du balisage en utilisant l’ANSI, même si la sortie de console est déterminée pour être incompatible.
+- **`    --use-server`** &mdash; 
+  Connecte à une instance de serveur démon de Biome en cours d’exécution.
+- **`    --verbose`** &mdash; 
+  Affiche des diagnostics supplémentaires, certains diagnostics montrant plus d’informations. Affiche également les fichiers qui ont été traités et ceux qui ont été modifiés.
+- **`    --config-path`**=_`CHEMIN`_ &mdash; 
+  Définit le chemin vers le fichier de configuration ou le chemin du répertoire pour trouver `biome.json` ou `biome.jsonc`. Si utilisée, elle désactive la résolution du fichier de configuration par défaut.
+- **`    --max-diagnostics`**=_`<none|<NOMBRE>>`_ &mdash; 
+  Limite le nombre de diagnostics affichés. Quand `none` est indiqué, la limite est annulée.
+   
+  [valeur par défaut&nbsp;: 20]
+- **`    --skip-errors`** &mdash; 
+  Saute les fichiers comportant des erreurs de syntaxe au lieu d’engendrer un diagnostic d’erreur.
+- **`    --no-errors-on-unmatched`** &mdash; 
+  Passe sous silence les erreurs qui auraient été déclenchées pour le cas où aucun fichier n’aurait été traité pendant l’exécution de la commande.
+- **`    --error-on-warnings`** &mdash; 
+  Demande à Biome de quitter avec un code d’erreur si des diagnostics émettent des avertissements.
+- **`    --reporter`**=_`<json|json-pretty|github|junit|summary|gitlab>`_ &mdash; 
+  Permet de modifier la manière dont les diagnostics et les résumés sont rapportés.
+- **`    --log-level`**=_`<none|debug|info|warn|error>`_ &mdash; 
+  Le niveau de log. Dans l’ordre, du plus verbeux au moins verbeux&nbsp;: `debug`, `info`, `warn`, `error`.
+
+  La valeur `none` ne montrera aucun log.
+   
+  [valeur par défaut&nbsp;: none]
+- **`    --log-kind`**=_`<pretty|compact|json>`_ &mdash; 
+  La mise en forme du log.
+   
+  [valeur par défaut&nbsp;: pretty]
+- **`    --diagnostic-level`**=_`<info|warn|error>`_ &mdash; 
+  Le niveau de diagnostic à afficher. Dans l’ordre, du moins important au plus important&nbsp;: `info`, `warn`, `error`. Passer `--diagnostic-level=error` forcera Biome à n’afficher que les diagnostics qui ne comportent que des erreurs.
+   
+  [valeur par défaut&nbsp;: info]
+
+
+
+**Options disponibles&nbsp;:**
+- **`    --write`** &mdash; 
+  Écrit le nouveau fichier de configuration sur le disque.
+- **`    --fix`** &mdash; 
+  Alias de `--write`, écrit le nouveau fichier de configuration sur le disque.
+- **`-h`**, **`--help`** &mdash; 
+  Affiche les informations d’aide.
+
+
+
+**Commandes disponibles&nbsp;:**
+- **`prettier`** &mdash; 
+  Elle tente de trouver les fichiers `.prettierrc`/`prettier.json` et `.prettierignore` et de décalquer la configuration de Prettier dans le fichier de configuration de Biome.
+- **`eslint`** &mdash; 
+  Elle tente de trouver le fichier de configuration d’ESLint dans le répertoire de l’espace de travail et de mettre à jour le fichier de configuration de Biome en conséquence.
+
+
+## biome migrate prettier
+
+Elle tente de trouver les fichiers `.prettierrc`/`prettier.json` et `.prettierignore` et de décalquer la configuration de Prettier dans le fichier de configuration de Biome.
+
+**Utilisation&nbsp;:** **`biome`** **`migrate`** **`prettier`** 
+
+**Options disponibles&nbsp;:**
+- **`-h`**, **`--help`** &mdash; 
+  Affiche les informations d’aide.
+
+
+## biome migrate eslint
+
+Elle tente de trouver le fichier de configuration d’ESLint dans le répertoire de l’espace de travail et de mettre à jour le fichier de configuration de Biome en conséquence.
+
+**Utilisation&nbsp;:** **`biome`** **`migrate`** **`eslint`** \[**`--include-inspired`**\] \[**`--include-nursery`**\]
+
+**Options disponibles&nbsp;:**
+- **`    --include-inspired`** &mdash; 
+  Inclut les règles inspirées d’une règle d’ESLint lors de la migration.
+- **`    --include-nursery`** &mdash; 
+  Inclut les règles expérimentales lors de la migration.
+- **`-h`**, **`--help`** &mdash; 
+  Affiche les informations d’aide.
+
+
+## biome search
+
+EXPÉRIMENTAL&nbsp;: Cherche des modèles Grit dans tout le projet.
+
+Note&nbsp;: GritQL échappe les snippets de code avec des backticks&nbsp;; mais, la plupart des shells interprètent les backticks comme des invocations de commande. Pour éviter cela, il vaut mieux entourer vos requêtes Grit de guillemets simples.
+
+### Exemple
+
+  ```shell
+  biome search '`console.log($message)`' # trouve toutes les invocations de `console.log`
+  ```
+
+
+**Utilisation&nbsp;:** **`biome`** **`search`** _`MODÈLE`_ \[_`CHEMIN`_\]…
+
+**Options globales appliquées à toutes les commandes&nbsp;:**
+- **`    --colors`**=_`<off|force>`_ &mdash; 
+  Définit le mode de formatage pour le balisage&nbsp;: `off` affiche tout en texte plein&nbsp;; `force` force le formatage du balisage en utilisant l’ANSI, même si la sortie de console est déterminée pour être incompatible.
+- **`    --use-server`** &mdash; 
+  Connecte à une instance de serveur démon de Biome en cours d’exécution.
+- **`    --verbose`** &mdash; 
+  Affiche des diagnostics supplémentaires, certains diagnostics montrant plus d’informations. Affiche également les fichiers qui ont été traités et ceux qui ont été modifiés.
+- **`    --config-path`**=_`CHEMIN`_ &mdash; 
+  Définit le chemin vers le fichier de configuration ou le chemin du répertoire pour trouver `biome.json` ou `biome.jsonc`. Si utilisée, elle désactive la résolution du fichier de configuration par défaut.
+- **`    --max-diagnostics`**=_`<none|<NOMBRE>>`_ &mdash; 
+  Limite le nombre de diagnostics affichés. Quand `none` est indiqué, la limite est annulée.
+   
+  [valeur par défaut&nbsp;: 20]
+- **`    --skip-errors`** &mdash; 
+  Saute les fichiers comportant des erreurs de syntaxe au lieu d’engendrer un diagnostic d’erreur.
+- **`    --no-errors-on-unmatched`** &mdash; 
+  Passe sous silence les erreurs qui auraient été déclenchées pour le cas où aucun fichier n’aurait été traité pendant l’exécution de la commande.
+- **`    --error-on-warnings`** &mdash; 
+  Demande à Biome de quitter avec un code d’erreur si des diagnostics émettent des avertissements.
+- **`    --reporter`**=_`<json|json-pretty|github|junit|summary|gitlab>`_ &mdash; 
+  Permet de modifier la manière dont les diagnostics et les résumés sont rapportés.
+- **`    --log-level`**=_`<none|debug|info|warn|error>`_ &mdash; 
+  Le niveau de log. Dans l’ordre, du plus verbeux au moins verbeux&nbsp;: `debug`, `info`, `warn`, `error`.
+
+  La valeur `none` ne montrera aucun log.
+   
+  [valeur par défaut&nbsp;: none]
+- **`    --log-kind`**=_`<pretty|compact|json>`_ &mdash; 
+  La mise en forme du log.
+   
+  [valeur par défaut&nbsp;: pretty]
+- **`    --diagnostic-level`**=_`<info|warn|error>`_ &mdash; 
+  Le niveau de diagnostic à afficher. Dans l’ordre, du moins important au plus important&nbsp;: `info`, `warn`, `error`. Passer `--diagnostic-level=error` forcera Biome à n’afficher que les diagnostics qui ne comportent que des erreurs.
+   
+  [valeur par défaut&nbsp;: info]
+
+
+
+**La configuration du système de fichiers&nbsp;:**
+- **`    --files-max-size`**=_`NOMBRE`_ &mdash; 
+  La taille maximale autorisée pour les fichiers de code source, en octets. Les fichiers au-dessus de cette limite seront ignorés pour des questions de performances. Définie par défaut à 1&nbsp;Mo.
+- **`    --files-ignore-unknown`**=_`<true|false>`_ &mdash; 
+  Demande à Biome de ne pas engendrer de diagnostics lors de la prise en charge de fichiers qu’il ne connaît pas.
+
+
+
+**Ensemble de propriétés pour intégrer Biome à un VCS&nbsp;:**
+- **`    --vcs-enabled`**=_`<true|false>`_ &mdash; 
+  Si Biome devrait s’intégrer au client VCS ou non.
+- **`    --vcs-client-kind`**=_`<git>`_ &mdash; 
+  Le type de client.
+- **`    --vcs-use-ignore-file`**=_`<true|false>`_ &mdash; 
+  Si Biome devrait utiliser le fichier ignore du VCS. Si `true`, Biome ignorera les fichiers spécifiés dans le fichier ignore.
+- **`    --vcs-root`**=_`CHEMIN`_ &mdash; 
+  Le dossier où Biome devrait vérifier la présence d’un fichier ignore. Par défaut, Biome utilisera le même dossier que celui où `biome.json` a été trouvé.
+
+  Si Biome ne peut trouver la configuration, il tentera d’utiliser le répertoire de l’espace de travail actuel. Si aucun répertoire de l’espace de travail actuel ne peut être trouvé, Biome n’utilisera pas l’intégration au VCS et un diagnostic sera engendré.
+- **`    --vcs-default-branch`**=_`BRANCHE`_ &mdash; 
+  La branche principale du projet.
+
+
+
+**Items de positionnement disponibles&nbsp;:**
+- _`MODÈLE`_ &mdash; 
+  Le modèle GritQL à rechercher.
+
+  Notez que la commande `search` ne prend (actuellement) pas en charge les réécritures.
+- _`CHEMIN`_ &mdash; 
+  Simple fichier, simple chemin ou liste de chemins..
+
+
+
+**Options disponibles&nbsp;:**
+- **`    --stdin-file-path`**=_`CHEMIN`_ &mdash; 
+  Utilisez cette option quand vous voulez chercher dans du code acheminé du `stdin` et afficher la sortie vers `stdout`.
+
+  Le fichier n’a pas besoin d’exister sur le disque, ce qui importe est l’extension du fichier. En fonction de l’extension, Biome sait comment analyser le code.
+
+  Exemple&nbsp;: `echo 'let a;' | biome search 'let $var' --stdin-file-path=file.js`
+- **`-h`**, **`--help`** &mdash; 
+  Affiche les informations d’aide.
+
+
+## biome explain
+
+Montre la documentation de divers aspects de l’interface en ligne de commande.
+
+### Exemples
+
+  ```shell
+  biome explain noDebugger
+  ```
+
+
+  ```shell
+  biome explain daemon-logs
+  ```
+
+
+**Utilisation&nbsp;:** **`biome`** **`explain`** _`NOM`_
+
+**Items de positionnement disponibles&nbsp;:**
+- _`NOM`_ &mdash; 
+  Simple nom pour lequel afficher la documentation.
+
+
+
+**Options disponibles&nbsp;:**
+- **`-h`**, **`--help`** &mdash; 
+  Affiche les informations d’aide.
+
+
+## biome clean
+
+Nettoie les logs engendrés par le démon.
+
+**Utilisation&nbsp;:** **`biome`** **`clean`** 
+
+**Options disponibles&nbsp;:**
+- **`-h`**, **`--help`** &mdash; 
+  Affiche les informations d’aide.
+
+
+
+[//]: # (End-codegen)
+
+
+## Information utile
+
+- En rencontrant des liens symboliques, la ligne de commande les évaluera jusqu’à trois niveaux de profondeur. Les niveaux plus profonds déclencheront un diagnostic d’erreur.
