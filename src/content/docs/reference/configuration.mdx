@@ -813,7 +813,7 @@ Whether to enforce collapsing object literals when possible.
 ### `json.formatter.expand`
 
 Whether to expand arrays and objects literals on multiple lines.
-- `"followSource"`: arrays and objects literals are formatted by following Prettier heuristics
+- `"followSource"`: arrays and objects literals are formatted on multiple lines if they already were on multiple lines, or if they don't fit on a single line.
 - `"always"`: arrays and objects literals are formatted on multiple lines, regardless of length of the list.
 
 When formatting `package.json`, Biome will use `always` unless configured otherwise.
