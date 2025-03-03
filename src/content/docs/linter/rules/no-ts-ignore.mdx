@@ -1,0 +1,75 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noTsIgnore
+description: |
+  Prevents the use of the TypeScript directive `@ts-ignore`.
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+**Diagnostic Category: `lint/nursery/noTsIgnore`**
+<Tabs>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+**Since**: `vnext`
+:::note
+- This rule has a **safe** fix.
+:::
+
+:::caution
+This rule is part of the [nursery](/linter/rules/#nursery) group.
+:::
+
+Sources: 
+- Inspired from: <a href="https://eslint.org/docs/latest/rules/ban-ts-comment" target="_blank"><code>ban-ts-comment</code></a>
+
+## Description
+Prevents the use of the TypeScript directive `@ts-ignore`.
+
+The directive `@ts-ignore` suppresses all compilation errors, even ones that could be considered bugs
+coming from an upstream library or the compiler itself. If you use `@ts-ignore`, it won't be possible to know
+when and if the bug is fixed.
+
+The rule promotes the use the directive `@ts-expect-error`, which is meant to raise an error if there aren't any errors.
+This means that once the bug is fixed, you can delete the directive, safely.
+
+## Examples
+
+### Invalid
+
+```ts
+// @ts-ignore
+let foo;
+```
+
+<pre class="language-text"><code class="language-text">code-block.ts:1:4 <a href="https://biomejs.dev/linter/rules/no-ts-ignore">lint/nursery/noTsIgnore</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Unsafe use of the </span><span style="color: Orange;"><strong>@ts-ignore</strong></span><span style="color: Orange;"> directive found in this comment.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>// @ts-ignore<br />   <strong>   │ </strong>   <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>let foo;<br />    <strong>3 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The directive is applied to this line.</span><br />  <br />    <strong>1 │ </strong>// @ts-ignore<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>let foo;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The </span><span style="color: lightgreen;"><strong>@ts-ignore</strong></span><span style="color: lightgreen;"> directive suppresses any kind of error, even possible errors that might be fixed by upstream libraries or the compiler itself.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Safe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Use the </span><span style="color: lightgreen;"><strong>@ts-expect-error</strong></span><span style="color: lightgreen;"> directive instead.</span><br />  <br />    <strong>1</strong>  <strong> │ </strong><span style="color: Tomato;">-</span> <span style="color: Tomato;">/</span><span style="color: Tomato;">/</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">@</span><span style="color: Tomato;">t</span><span style="color: Tomato;">s</span><span style="color: Tomato;">-</span><span style="color: Tomato;"><strong>i</strong></span><span style="color: Tomato;"><strong>g</strong></span><span style="color: Tomato;"><strong>n</strong></span><span style="color: Tomato;"><strong>o</strong></span><span style="color: Tomato;"><strong>r</strong></span><span style="color: Tomato;"><strong>e</strong></span><br />      <strong>1</strong><strong> │ </strong><span style="color: MediumSeaGreen;">+</span> <span style="color: MediumSeaGreen;">/</span><span style="color: MediumSeaGreen;">/</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">@</span><span style="color: MediumSeaGreen;">t</span><span style="color: MediumSeaGreen;">s</span><span style="color: MediumSeaGreen;">-</span><span style="color: MediumSeaGreen;"><strong>e</strong></span><span style="color: MediumSeaGreen;"><strong>x</strong></span><span style="color: MediumSeaGreen;"><strong>p</strong></span><span style="color: MediumSeaGreen;"><strong>e</strong></span><span style="color: MediumSeaGreen;"><strong>c</strong></span><span style="color: MediumSeaGreen;"><strong>t</strong></span><span style="color: MediumSeaGreen;"><strong>-</strong></span><span style="color: MediumSeaGreen;"><strong>e</strong></span><span style="color: MediumSeaGreen;"><strong>r</strong></span><span style="color: MediumSeaGreen;"><strong>r</strong></span><span style="color: MediumSeaGreen;"><strong>o</strong></span><span style="color: MediumSeaGreen;"><strong>r</strong></span><br />    <strong>2</strong> <strong>2</strong><strong> │ </strong>  let foo;<br />    <strong>3</strong> <strong>3</strong><strong> │ </strong>  <br />  <br /></code></pre>
+
+### Valid
+
+```ts
+// @ts-expect-error
+let foo;
+```
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noTsIgnore": "error"
+			}
+		}
+	}
+}
+
+```
+## Related links
+
+- [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
+</Tabs>
+

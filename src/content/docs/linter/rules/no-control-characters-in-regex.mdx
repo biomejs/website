@@ -4,7 +4,7 @@
 
 title: noControlCharactersInRegex
 description: |
-  Prevents from having control characters and some escape sequences that match control characters in regular expressions.
+  Prevents from having control characters and some escape sequences that match control characters in regular expression literals.
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
@@ -20,7 +20,7 @@ Sources:
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-control-regex" target="_blank"><code>no-control-regex</code></a>
 
 ## Description
-Prevents from having control characters and some escape sequences that match control characters in regular expressions.
+Prevents from having control characters and some escape sequences that match control characters in regular expression literals.
 
 Control characters are hidden special characters that are numbered from 0 to 31 in the ASCII system.
 They're not commonly used in JavaScript text. So, if you see them in a pattern (called a regular expression), it's probably a mistake.
@@ -68,18 +68,6 @@ Control escapes such as `\t` and `\n` are allowed by this rule.
 
 <pre class="language-text"><code class="language-text">code-block.js:1:18 <a href="https://biomejs.dev/linter/rules/no-control-characters-in-regex">lint/suspicious/noControlCharactersInRegex</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unexpected control character in a regular expression.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong> var pattern5 = /&#92;u&#123;C&#125;/u;<br />   <strong>   │ </strong>                 <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Control characters are unusual and potentially incorrect inputs, so they are disallowed.</span><br />  <br /></code></pre>
 
-```js
- var pattern7 = new RegExp("\x0C");
-```
-
-<pre class="language-text"><code class="language-text">code-block.js:1:29 <a href="https://biomejs.dev/linter/rules/no-control-characters-in-regex">lint/suspicious/noControlCharactersInRegex</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unexpected control character in a regular expression.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong> var pattern7 = new RegExp(&quot;&#92;x0C&quot;);<br />   <strong>   │ </strong>                            <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Control characters are unusual and potentially incorrect inputs, so they are disallowed.</span><br />  <br /></code></pre>
-
-```js
- var pattern7 = new RegExp("\\x0C");
-```
-
-<pre class="language-text"><code class="language-text">code-block.js:1:29 <a href="https://biomejs.dev/linter/rules/no-control-characters-in-regex">lint/suspicious/noControlCharactersInRegex</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unexpected control character in a regular expression.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong> var pattern7 = new RegExp(&quot;&#92;&#92;x0C&quot;);<br />   <strong>   │ </strong>                            <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Control characters are unusual and potentially incorrect inputs, so they are disallowed.</span><br />  <br /></code></pre>
-
 ### Valid
 
 ```js
@@ -88,7 +76,6 @@ var pattern2 = /\u0020/;
 var pattern3 = /\u{20}/u;
 var pattern4 = /\t/;
 var pattern5 = /\n/;
-var pattern6 = new RegExp("\x20");
 ```
 
 ## How to configure

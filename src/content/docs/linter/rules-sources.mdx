@@ -9,7 +9,6 @@ description: A page that maps lint rules from other sources to Biome
     
 ## Biome exclusive rules
 - [noAccumulatingSpread](/linter/rules/no-accumulating-spread) 
-- [noConsoleLog](/linter/rules/no-console-log) 
 - [noConstEnum](/linter/rules/no-const-enum) 
 - [noDelete](/linter/rules/no-delete) 
 - [noDuplicateObjectKeys](/linter/rules/no-duplicate-object-keys) 
@@ -61,20 +60,20 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 ### Clippy
 | Clippy rule name | Biome rule name |
 | ---- | ---- |
-| [approx_constant](https://rust-lang.github.io/rust-clippy/master/#/approx_constant) |[noApproximativeNumericConstant](/linter/rules/no-approximative-numeric-constant) (inspired) |
-| [collapsible_else_if](https://rust-lang.github.io/rust-clippy/master/#/collapsible_else_if) |[useCollapsedElseIf](/linter/rules/use-collapsed-else-if) |
-| [collapsible_if](https://rust-lang.github.io/rust-clippy/master/#/collapsible_if) |[useCollapsedIf](/linter/rules/use-collapsed-if) |
-| [eq_op](https://rust-lang.github.io/rust-clippy/master/#/eq_op) |[noSelfCompare](/linter/rules/no-self-compare) |
-| [flat_map_identity](https://rust-lang.github.io/rust-clippy/master/#/flat_map_identity) |[noFlatMapIdentity](/linter/rules/no-flat-map-identity) |
-| [if_not_else](https://rust-lang.github.io/rust-clippy/master/#/if_not_else) |[noNegationElse](/linter/rules/no-negation-else) |
-| [lossy_float_literal](https://rust-lang.github.io/rust-clippy/master/#/lossy_float_literal) |[noPrecisionLoss](/linter/rules/no-precision-loss) |
-| [map_flatten](https://rust-lang.github.io/rust-clippy/master/#/map_flatten) |[useFlatMap](/linter/rules/use-flat-map) |
-| [match_str_case_mismatch](https://rust-lang.github.io/rust-clippy/master/#/match_str_case_mismatch) |[noStringCaseMismatch](/linter/rules/no-string-case-mismatch) |
-| [min_max](https://rust-lang.github.io/rust-clippy/master/#/min_max) |[noConstantMathMinMaxClamp](/linter/rules/no-constant-math-min-max-clamp) |
-| [misrefactored_assign_op](https://rust-lang.github.io/rust-clippy/master/#/misrefactored_assign_op) |[noMisrefactoredShorthandAssign](/linter/rules/no-misrefactored-shorthand-assign) |
-| [needless_for_each](https://rust-lang.github.io/rust-clippy/master/#/needless_for_each) |[noForEach](/linter/rules/no-for-each) |
-| [redundant_else 	](https://rust-lang.github.io/rust-clippy/master/#/redundant_else 	) |[noUselessElse](/linter/rules/no-useless-else) (inspired) |
-| [self_assignment](https://rust-lang.github.io/rust-clippy/master/#/self_assignment) |[noSelfAssign](/linter/rules/no-self-assign) |
+| [approx_constant](https://rust-lang.github.io/rust-clippy/master/#approx_constant) |[noApproximativeNumericConstant](/linter/rules/no-approximative-numeric-constant) (inspired) |
+| [collapsible_else_if](https://rust-lang.github.io/rust-clippy/master/#collapsible_else_if) |[useCollapsedElseIf](/linter/rules/use-collapsed-else-if) |
+| [collapsible_if](https://rust-lang.github.io/rust-clippy/master/#collapsible_if) |[useCollapsedIf](/linter/rules/use-collapsed-if) |
+| [eq_op](https://rust-lang.github.io/rust-clippy/master/#eq_op) |[noSelfCompare](/linter/rules/no-self-compare) |
+| [flat_map_identity](https://rust-lang.github.io/rust-clippy/master/#flat_map_identity) |[noFlatMapIdentity](/linter/rules/no-flat-map-identity) |
+| [if_not_else](https://rust-lang.github.io/rust-clippy/master/#if_not_else) |[noNegationElse](/linter/rules/no-negation-else) |
+| [lossy_float_literal](https://rust-lang.github.io/rust-clippy/master/#lossy_float_literal) |[noPrecisionLoss](/linter/rules/no-precision-loss) |
+| [map_flatten](https://rust-lang.github.io/rust-clippy/master/#map_flatten) |[useFlatMap](/linter/rules/use-flat-map) |
+| [match_str_case_mismatch](https://rust-lang.github.io/rust-clippy/master/#match_str_case_mismatch) |[noStringCaseMismatch](/linter/rules/no-string-case-mismatch) |
+| [min_max](https://rust-lang.github.io/rust-clippy/master/#min_max) |[noConstantMathMinMaxClamp](/linter/rules/no-constant-math-min-max-clamp) |
+| [misrefactored_assign_op](https://rust-lang.github.io/rust-clippy/master/#misrefactored_assign_op) |[noMisrefactoredShorthandAssign](/linter/rules/no-misrefactored-shorthand-assign) |
+| [needless_for_each](https://rust-lang.github.io/rust-clippy/master/#needless_for_each) |[noForEach](/linter/rules/no-for-each) |
+| [redundant_else 	](https://rust-lang.github.io/rust-clippy/master/#redundant_else 	) |[noUselessElse](/linter/rules/no-useless-else) (inspired) |
+| [self_assignment](https://rust-lang.github.io/rust-clippy/master/#self_assignment) |[noSelfAssign](/linter/rules/no-self-assign) |
 ### ESLint
 | ESLint rule name | Biome rule name |
 | ---- | ---- |
@@ -228,10 +227,6 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-default-export](https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-default-export.md) |[noDefaultExport](/linter/rules/no-default-export) |
 | [no-extraneous-dependencies](https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-extraneous-dependencies.md) |[noUndeclaredDependencies](/linter/rules/no-undeclared-dependencies) |
 | [no-nodejs-modules](https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-nodejs-modules.md) |[noNodejsModules](/linter/rules/no-nodejs-modules) |
-### eslint-plugin-import-access
-| eslint-plugin-import-access rule name | Biome rule name |
-| ---- | ---- |
-| [eslint-plugin-import-access](https://github.com/uhyo/eslint-plugin-import-access) |[useImportRestrictions](/linter/rules/use-import-restrictions) (inspired) |
 ### eslint-plugin-jest
 | eslint-plugin-jest rule name | Biome rule name |
 | ---- | ---- |
