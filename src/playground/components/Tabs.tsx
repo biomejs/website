@@ -12,16 +12,16 @@ interface Tab<K> {
 interface Props<K> {
 	className?: string;
 	selectedTab: string;
-	onSelect: (key: string) => void;
+	onSelect: (key: K) => void;
 	tabs: Tab<K>[];
 }
 
-export default function Tabs({
+export default function Tabs<K extends string = PlaygroundTab>({
 	className,
 	tabs,
 	selectedTab,
 	onSelect,
-}: Props<PlaygroundTab>) {
+}: Props<K>) {
 	return (
 		<div className={className}>
 			<ul className="react-tabs__tab-list" role="tablist">

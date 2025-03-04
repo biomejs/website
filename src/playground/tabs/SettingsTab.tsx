@@ -53,7 +53,7 @@ export default function SettingsTab({
 			lintRules,
 			enabledLinting,
 			analyzerFixMode,
-			importSortingEnabled,
+			enabledAssist,
 			unsafeParameterDecoratorsEnabled,
 			allowComments,
 			attributePosition,
@@ -121,9 +121,9 @@ export default function SettingsTab({
 		"analyzerFixMode",
 	);
 
-	const setImportSorting = createPlaygroundSettingsSetter(
+	const setEnabledAssist = createPlaygroundSettingsSetter(
 		setPlaygroundState,
-		"importSortingEnabled",
+		"enabledAssist",
 	);
 
 	const setUnsafeParameterDecoratorsEnabled = createPlaygroundSettingsSetter(
@@ -291,9 +291,9 @@ export default function SettingsTab({
 				analyzerFixMode={analyzerFixMode}
 				setAnalyzerFixMode={setAnalyzerFixMode}
 			/>
-			<ImportSortingSettings
-				importSortingEnabled={importSortingEnabled}
-				setImportSorting={setImportSorting}
+			<AssistSettings
+				enabledAssist={enabledAssist}
+				setEnabledAssist={setEnabledAssist}
 			/>
 			<SyntaxSettings
 				filename={currentFile}
@@ -852,12 +852,12 @@ function LinterSettings({
 						aria-describedby="analyzer-fix-mode-description"
 						name="analyzer-fix-mode"
 						disabled={!enabledLinting}
-						value={analyzerFixMode ?? "SafeFixes"}
+						value={analyzerFixMode ?? "safeFixes"}
 						onChange={(e) => setAnalyzerFixMode(e.target.value as FixFileMode)}
 					>
-						<option value={"SafeFixes"}>Safe Fixes</option>
-						<option value={"SafeAndUnsafeFixes"}>Safe and Unsafe Fixes</option>
-						<option value={"ApplySuppressions"}>Apply Suppressions</option>
+						<option value={"safeFixes"}>Safe Fixes</option>
+						<option value={"safeAndUnsafeFixes"}>Safe and Unsafe Fixes</option>
+						<option value={"applySuppressions"}>Apply Suppressions</option>
 					</select>
 				</div>
 			</section>
@@ -865,26 +865,26 @@ function LinterSettings({
 	);
 }
 
-export function ImportSortingSettings({
-	importSortingEnabled,
-	setImportSorting,
+export function AssistSettings({
+	enabledAssist,
+	setEnabledAssist,
 }: {
-	importSortingEnabled: boolean;
-	setImportSorting: (value: boolean) => void;
+	enabledAssist: boolean;
+	setEnabledAssist: (value: boolean) => void;
 }) {
 	return (
 		<>
-			<h2>Import sorting options</h2>
+			<h2>Assist options</h2>
 			<section>
 				<div className="field-row">
 					<input
-						id="import-sorting-enabled"
-						name="import-sorting-enabled"
+						id="assist-enabled"
+						name="assist-enabled"
 						type="checkbox"
-						checked={importSortingEnabled}
-						onChange={(e) => setImportSorting(e.target.checked)}
+						checked={enabledAssist}
+						onChange={(e) => setEnabledAssist(e.target.checked)}
 					/>
-					<label htmlFor="import-sorting-enabled">Import sorting enabled</label>
+					<label htmlFor="assist-enabled">Assist enabled</label>
 				</div>
 			</section>
 		</>
