@@ -79,6 +79,26 @@ $: { /* reactive block */ }
 </script>
 ```
 
+## Options
+
+Use the options to allow specific labels in your code.
+Labels can be used to mark code that should be removed under certain conditions,
+such as in production builds.
+Some bundlers, such as [esbuild](https://esbuild.github.io/api/#drop-labels) and Vite,
+can be configured to remove labeled statements.
+
+```json
+{
+    "options": {
+        "allowedLabels": ["DEV"]
+    }
+}
+```
+
+```js
+DEV: assertSomeCondition();
+```
+
 ## How to configure
 ```json title="biome.json"
 {

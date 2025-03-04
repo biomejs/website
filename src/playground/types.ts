@@ -14,7 +14,6 @@ export enum PlaygroundTab {
 	FormatterIr = "formatter-ir",
 	Syntax = "syntax",
 	ControlFlowGraph = "control-flow-graph",
-	ImportSorting = "import-sorting",
 	Console = "console",
 	Settings = "settings",
 	AnalyzerFixes = "analyzer-fixes",

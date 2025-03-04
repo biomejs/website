@@ -349,7 +349,6 @@ The rule provides several options that are detailed in the following subsections
     "options": {
         "strictCase": false,
         "requireAscii": false,
-        "enumMemberCase": "CONSTANT_CASE",
         "conventions": [
             {
                 "selector": {
@@ -414,17 +413,6 @@ For example, `café` and `안녕하세요` would be considered valid then.
 
 **Default:** `true`
 
-### enumMemberCase
-
-By default, the rule enforces the naming convention followed by the [TypeScript Compiler team](https://www.typescriptlang.org/docs/handbook/enums.html):
-an `enum` member is in [`PascalCase`](https://en.wikipedia.org/wiki/Camel_case).
-
-You can enforce another convention by setting `enumMemberCase` option.
-The supported cases are: [`PascalCase`](https://en.wikipedia.org/wiki/Camel_case), [`CONSTANT_CASE`](https://en.wikipedia.org/wiki/Snake_case), and [`camelCase`](https://en.wikipedia.org/wiki/Camel_case).
-
-**This option will be deprecated in the future.**
-**Use the [`conventions`](#conventions-since-v180) option instead.**
-
 ### conventions (Since v1.8.0)
 
 The `conventions` option allows applying custom conventions.
@@ -457,6 +445,7 @@ You can select a declaration based on several criteria:
   - `typeLike`: classes, enums, type aliases, and interfaces
   - `class`
   - `enum`
+  - `enumMember`
   - `interface`
   - `typeAlias`
   - `function`: named function declarations and expressions
@@ -522,8 +511,9 @@ If nothing is captured, then `formats` is ignored.
 
 In the following example, we check the following conventions:
 
-- A private property starts with `_` and consists of at least two characters
+- A private property starts with `_` and consists of at least two characters.
 - The captured name (the name without the leading `_`) is in [`camelCase`](https://en.wikipedia.org/wiki/Camel_case).
+- An enum member is in [`PascalCase`](https://en.wikipedia.org/wiki/Camel_case) or [`CONSTANT_CASE`](https://en.wikipedia.org/wiki/Snake_case).
 
 ```json
 {
@@ -536,6 +526,12 @@ In the following example, we check the following conventions:
                 },
                 "match": "_(.+)",
                 "formats": ["camelCase"]
+            },
+            {
+                "selector": {
+                    "kind": "enumMember"
+                },
+                "formats": ["PascalCase", "CONSTANT_CASE"]
             }
         ]
     }
@@ -685,7 +681,9 @@ The `match` option takes a regular expression that supports the following syntax
 - Non-capturing groups `(?:)`
 - Case-insensitive groups `(?i:)` and case-sensitive groups `(?-i:)`
 - A limited set of escaped characters including all special characters
-and regular string escape characters `\f`, `\n`, `\r`, `\t`, `\v`
+and regular string escape characters `\f`, `\n`, `\r`, `\t`, `\v`.
+Note that you can also escape special characters using character classes.
+For example, `\$` and `[$]` are two valid patterns that escape `$`.
 
 ## How to configure
 ```json title="biome.json"

@@ -388,12 +388,12 @@ function initState(
 			enabledLinting:
 				searchParams.get("enabledLinting") === "true" ||
 				defaultPlaygroundState.settings.enabledLinting,
+			analyzerFixMode:
+				(searchParams.get("analyzerFixMode") as FixFileMode) ??
+				defaultPlaygroundState.settings.analyzerFixMode,
 			enabledAssist:
 				searchParams.get("enabledAssist") === "true" ||
 				defaultPlaygroundState.settings.enabledAssist,
-			analyzerFixMode:
-				(searchParams.get("analyzerFixMode") as FixFileMode) ||
-				defaultPlaygroundState.settings.analyzerFixMode,
 			unsafeParameterDecoratorsEnabled:
 				searchParams.get("unsafeParameterDecoratorsEnabled") === "true" ||
 				defaultPlaygroundState.settings.unsafeParameterDecoratorsEnabled,

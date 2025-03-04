@@ -127,7 +127,9 @@ The regular expression supports the following syntaxes:
 - Non-capturing groups `(?:)`
 - Case-insensitive groups `(?i:)` and case-sensitive groups `(?-i:)`
 - A limited set of escaped characters including all special characters
-and regular string escape characters `\f`, `\n`, `\r`, `\t`, `\v`
+and regular string escape characters `\f`, `\n`, `\r`, `\t`, `\v`.
+Note that you can also escape special characters using character classes.
+For example, `\$` and `[$]` are two valid patterns that escape `$`.
 
 ### filenameCases
 

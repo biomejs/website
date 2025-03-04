@@ -1020,7 +1020,7 @@ export function AssistSettings({
 						checked={enabledAssist}
 						onChange={(e) => setEnabledAssist(e.target.checked)}
 					/>
-					<label htmlFor="assist-enabled">Assists enabled</label>
+					<label htmlFor="assist-enabled">Assist enabled</label>
 				</div>
 			</section>
 		</>

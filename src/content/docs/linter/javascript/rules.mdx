@@ -61,7 +61,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noExcessiveCognitiveComplexity](/linter/rules/no-excessive-cognitive-complexity) | Disallow functions that exceed a given Cognitive Complexity score. |  |
 | [noExcessiveNestedTestSuites](/linter/rules/no-excessive-nested-test-suites) | This rule enforces a maximum depth to nested `describe()` in test files. |  |
 | [noExtraBooleanCast](/linter/rules/no-extra-boolean-cast) | Disallow unnecessary boolean casts | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
-| [noForEach](/linter/rules/no-for-each) | Prefer `for...of` statement instead of `Array.forEach`. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [noForEach](/linter/rules/no-for-each) | Prefer `for...of` statement instead of `Array.forEach`. |  |
 | [noMultipleSpacesInRegularExpressionLiterals](/linter/rules/no-multiple-spaces-in-regular-expression-literals) | Disallow unclear usage of consecutive space characters in regular expression literals | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [noStaticOnlyClass](/linter/rules/no-static-only-class) | This rule reports when a class has no non-static members, such as for a class used exclusively as a static namespace. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
 | [noThisInStatic](/linter/rules/no-this-in-static) | Disallow `this` and `super` in `static` contexts. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
@@ -112,7 +112,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noNodejsModules](/linter/rules/no-nodejs-modules) | Forbid the use of Node.js builtin modules. |  |
 | [noNonoctalDecimalEscape](/linter/rules/no-nonoctal-decimal-escape) | Disallow `\8` and `\9` escape sequences in string literals. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noPrecisionLoss](/linter/rules/no-precision-loss) | Disallow literal numbers that lose precision | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
-| [noRenderReturnValue](/linter/rules/no-render-return-value) | Prevent the usage of the return value of `React.render`. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [noRenderReturnValue](/linter/rules/no-render-return-value) | Prevent the usage of the return value of `React.render`. |  |
 | [noSelfAssign](/linter/rules/no-self-assign) | Disallow assignments where both sides are exactly the same. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
 | [noSetterReturn](/linter/rules/no-setter-return) | Disallow returning a value from a setter | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
 | [noStringCaseMismatch](/linter/rules/no-string-case-mismatch) | Disallow comparison of expressions modifying the string case with non-compliant value. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
@@ -156,7 +156,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noImgElement](/linter/rules/no-img-element) | Prevent usage of `<img>` element in a Next.js project. |  |
 | [noIrregularWhitespace](/linter/rules/no-irregular-whitespace) | Disallows the use of irregular whitespace characters. |  |
 | [noNestedTernary](/linter/rules/no-nested-ternary) | Disallow nested ternary expressions. |  |
-| [noOctalEscape](/linter/rules/no-octal-escape) | Disallow octal escape sequences in string literals |  |
+| [noOctalEscape](/linter/rules/no-octal-escape) | Disallow octal escape sequences in string literals | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [noProcessEnv](/linter/rules/no-process-env) | Disallow the use of `process.env`. |  |
 | [noRestrictedImports](/linter/rules/no-restricted-imports) | Disallow specified modules when loaded by import or require. |  |
 | [noRestrictedTypes](/linter/rules/no-restricted-types) | Disallow user defined types. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
@@ -187,7 +187,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | --- | --- | --- |
 | [noAccumulatingSpread](/linter/rules/no-accumulating-spread) | Disallow the use of spread (`...`) syntax on accumulators. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
 | [noBarrelFile](/linter/rules/no-barrel-file) | Disallow the use of barrel file. |  |
-| [noDelete](/linter/rules/no-delete) | Disallow the use of the `delete` operator. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [noDelete](/linter/rules/no-delete) | Disallow the use of the `delete` operator. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noReExportAll](/linter/rules/no-re-export-all) | Avoid re-export all. |  |
 | [useTopLevelRegex](/linter/rules/use-top-level-regex) | Require regex literals to be declared at the top level. |  |
 
@@ -268,7 +268,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noConfusingVoidType](/linter/rules/no-confusing-void-type) | Disallow `void` type outside of generic or return types. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noConsole](/linter/rules/no-console) | Disallow the use of `console`. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noConstEnum](/linter/rules/no-const-enum) | Disallow TypeScript `const enum` | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
-| [noControlCharactersInRegex](/linter/rules/no-control-characters-in-regex) | Prevents from having control characters and some escape sequences that match control characters in regular expressions. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [noControlCharactersInRegex](/linter/rules/no-control-characters-in-regex) | Prevents from having control characters and some escape sequences that match control characters in regular expression literals. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
 | [noDebugger](/linter/rules/no-debugger) | Disallow the use of `debugger` | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noDoubleEquals](/linter/rules/no-double-equals) | Require the use of `===` and `!==`. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noDuplicateCase](/linter/rules/no-duplicate-case) | Disallow duplicate case labels. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
@@ -303,7 +303,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noSelfCompare](/linter/rules/no-self-compare) | Disallow comparisons where both sides are exactly the same. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
 | [noShadowRestrictedNames](/linter/rules/no-shadow-restricted-names) | Disallow identifiers from shadowing restricted names. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
 | [noSkippedTests](/linter/rules/no-skipped-tests) | Disallow disabled tests. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
-| [noSparseArray](/linter/rules/no-sparse-array) | Disallow sparse arrays | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [noSparseArray](/linter/rules/no-sparse-array) | Prevents the use of sparse arrays (arrays with holes). | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noSuspiciousSemicolonInJsx](/linter/rules/no-suspicious-semicolon-in-jsx) | It detects possible "wrong" semicolons inside JSX elements. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
 | [noThenProperty](/linter/rules/no-then-property) | Disallow `then` property. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
 | [noUnsafeDeclarationMerging](/linter/rules/no-unsafe-declaration-merging) | Disallow unsafe declaration merging between interfaces and classes. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
@@ -316,7 +316,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [useIsArray](/linter/rules/use-is-array) | Use `Array.isArray()` instead of `instanceof Array`. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useNamespaceKeyword](/linter/rules/use-namespace-keyword) | Require using the `namespace` keyword over the `module` keyword to declare TypeScript namespaces. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [useNumberToFixedDigitsArgument](/linter/rules/use-number-to-fixed-digits-argument) | Enforce using the digits argument with `Number#toFixed()`. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
-| [useValidTypeof](/linter/rules/use-valid-typeof) | This rule checks that the result of a `typeof' expression is compared to a valid value. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [useValidTypeof](/linter/rules/use-valid-typeof) | This rule checks that the result of a `typeof` expression is compared to a valid value. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 ## Recommended rules 
 - [noAccessKey](/linter/rules/no-access-key) (Severity: Error)
 - [noAriaHiddenOnFocusable](/linter/rules/no-aria-hidden-on-focusable) (Severity: Error)
@@ -354,26 +354,25 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 - [noBannedTypes](/linter/rules/no-banned-types) (Severity: Error)
 - [noEmptyTypeParameters](/linter/rules/no-empty-type-parameters) (Severity: Error)
 - [noExtraBooleanCast](/linter/rules/no-extra-boolean-cast) (Severity: Error)
-- [noForEach](/linter/rules/no-for-each) (Severity: Error)
 - [noMultipleSpacesInRegularExpressionLiterals](/linter/rules/no-multiple-spaces-in-regular-expression-literals) (Severity: Error)
 - [noStaticOnlyClass](/linter/rules/no-static-only-class) (Severity: Error)
-- [noThisInStatic](/linter/rules/no-this-in-static) (Severity: Error)
-- [noUselessCatch](/linter/rules/no-useless-catch) (Severity: Error)
-- [noUselessConstructor](/linter/rules/no-useless-constructor) (Severity: Error)
-- [noUselessEmptyExport](/linter/rules/no-useless-empty-export) (Severity: Error)
-- [noUselessFragments](/linter/rules/no-useless-fragments) (Severity: Error)
-- [noUselessLabel](/linter/rules/no-useless-label) (Severity: Error)
-- [noUselessLoneBlockStatements](/linter/rules/no-useless-lone-block-statements) (Severity: Error)
+- [noThisInStatic](/linter/rules/no-this-in-static) (Severity: Warning)
+- [noUselessCatch](/linter/rules/no-useless-catch) ((Severity: Information)
+- [noUselessConstructor](/linter/rules/no-useless-constructor) ((Severity: Information)
+- [noUselessEmptyExport](/linter/rules/no-useless-empty-export) ((Severity: Information)
+- [noUselessFragments](/linter/rules/no-useless-fragments) ((Severity: Information)
+- [noUselessLabel](/linter/rules/no-useless-label) ((Severity: Information)
+- [noUselessLoneBlockStatements](/linter/rules/no-useless-lone-block-statements) ((Severity: Information)
 - [noUselessRename](/linter/rules/no-useless-rename) (Severity: Error)
-- [noUselessSwitchCase](/linter/rules/no-useless-switch-case) (Severity: Error)
-- [noUselessTernary](/linter/rules/no-useless-ternary) (Severity: Error)
-- [noUselessThisAlias](/linter/rules/no-useless-this-alias) (Severity: Error)
-- [noUselessTypeConstraint](/linter/rules/no-useless-type-constraint) (Severity: Error)
+- [noUselessSwitchCase](/linter/rules/no-useless-switch-case) ((Severity: Information)
+- [noUselessTernary](/linter/rules/no-useless-ternary) ((Severity: Information)
+- [noUselessThisAlias](/linter/rules/no-useless-this-alias) ((Severity: Information)
+- [noUselessTypeConstraint](/linter/rules/no-useless-type-constraint) ((Severity: Information)
 - [noWith](/linter/rules/no-with) (Severity: Error)
-- [useArrowFunction](/linter/rules/use-arrow-function) (Severity: Error)
+- [useArrowFunction](/linter/rules/use-arrow-function) (Severity: Warning)
 - [useFlatMap](/linter/rules/use-flat-map) (Severity: Error)
 - [useLiteralKeys](/linter/rules/use-literal-keys) (Severity: Error)
-- [useOptionalChain](/linter/rules/use-optional-chain) (Severity: Error)
+- [useOptionalChain](/linter/rules/use-optional-chain) (Severity: Warning)
 - [useRegexLiterals](/linter/rules/use-regex-literals) (Severity: Error)
 - [useSimpleNumberKeys](/linter/rules/use-simple-number-keys) (Severity: Error)
 - [noChildrenProp](/linter/rules/no-children-prop) (Severity: Error)
@@ -382,7 +381,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 - [noConstructorReturn](/linter/rules/no-constructor-return) (Severity: Error)
 - [noEmptyCharacterClassInRegex](/linter/rules/no-empty-character-class-in-regex) (Severity: Error)
 - [noEmptyPattern](/linter/rules/no-empty-pattern) (Severity: Error)
-- [noFlatMapIdentity](/linter/rules/no-flat-map-identity) (Severity: Error)
+- [noFlatMapIdentity](/linter/rules/no-flat-map-identity) ((Severity: Information)
 - [noGlobalObjectCalls](/linter/rules/no-global-object-calls) (Severity: Error)
 - [noInnerDeclarations](/linter/rules/no-inner-declarations) (Severity: Error)
 - [noInvalidBuiltinInstantiation](/linter/rules/no-invalid-builtin-instantiation) (Severity: Error)
@@ -390,7 +389,6 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 - [noInvalidUseBeforeDeclaration](/linter/rules/no-invalid-use-before-declaration) (Severity: Error)
 - [noNonoctalDecimalEscape](/linter/rules/no-nonoctal-decimal-escape) (Severity: Error)
 - [noPrecisionLoss](/linter/rules/no-precision-loss) (Severity: Error)
-- [noRenderReturnValue](/linter/rules/no-render-return-value) (Severity: Error)
 - [noSelfAssign](/linter/rules/no-self-assign) (Severity: Error)
 - [noSetterReturn](/linter/rules/no-setter-return) (Severity: Error)
 - [noStringCaseMismatch](/linter/rules/no-string-case-mismatch) (Severity: Error)
@@ -400,14 +398,13 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 - [noUnreachableSuper](/linter/rules/no-unreachable-super) (Severity: Error)
 - [noUnsafeFinally](/linter/rules/no-unsafe-finally) (Severity: Error)
 - [noUnsafeOptionalChaining](/linter/rules/no-unsafe-optional-chaining) (Severity: Error)
-- [noUnusedLabels](/linter/rules/no-unused-labels) (Severity: Error)
+- [noUnusedLabels](/linter/rules/no-unused-labels) (Severity: Warning)
 - [noVoidElementsWithChildren](/linter/rules/no-void-elements-with-children) (Severity: Error)
 - [noVoidTypeReturn](/linter/rules/no-void-type-return) (Severity: Error)
 - [useIsNan](/linter/rules/use-is-nan) (Severity: Error)
 - [useValidForDirection](/linter/rules/use-valid-for-direction) (Severity: Error)
 - [useYield](/linter/rules/use-yield) (Severity: Error)
 - [noAccumulatingSpread](/linter/rules/no-accumulating-spread) (Severity: Error)
-- [noDelete](/linter/rules/no-delete) (Severity: Error)
 - [noDangerouslySetInnerHtml](/linter/rules/no-dangerously-set-inner-html) (Severity: Error)
 - [noDangerouslySetInnerHtmlWithChildren](/linter/rules/no-dangerously-set-inner-html-with-children) (Severity: Error)
 - [noGlobalEval](/linter/rules/no-global-eval) (Severity: Error)
@@ -450,7 +447,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 - [noSelfCompare](/linter/rules/no-self-compare) (Severity: Error)
 - [noShadowRestrictedNames](/linter/rules/no-shadow-restricted-names) (Severity: Error)
 - [noSparseArray](/linter/rules/no-sparse-array) (Severity: Error)
-- [noSuspiciousSemicolonInJsx](/linter/rules/no-suspicious-semicolon-in-jsx) (Severity: Error)
+- [noSuspiciousSemicolonInJsx](/linter/rules/no-suspicious-semicolon-in-jsx) (Severity: Warning)
 - [noThenProperty](/linter/rules/no-then-property) (Severity: Error)
 - [noUnsafeDeclarationMerging](/linter/rules/no-unsafe-declaration-merging) (Severity: Error)
 - [noUnsafeNegation](/linter/rules/no-unsafe-negation) (Severity: Error)

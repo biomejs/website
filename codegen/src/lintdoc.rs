@@ -1350,18 +1350,13 @@ where
     let file_source = &test.document_file_source();
     let supression_reason = None;
 
-    let settings = Some(settings);
-    let linter = settings.map(|s| &s.linter);
-    let overrides = settings.map(|s| &s.override_settings);
-    let language_settings = settings
-        .map(|s| L::lookup_settings(&s.languages))
-        .map(|result| &result.linter);
+    let language_settings = L::lookup_settings(&settings.languages);
+    let environment = L::resolve_environment(Some(settings));
 
     L::resolve_analyzer_options(
-        settings,
-        linter,
-        overrides,
-        language_settings,
+        Some(settings),
+        Some(&language_settings.linter),
+        environment,
         &path,
         file_source,
         supression_reason,
@@ -1443,7 +1438,7 @@ fn print_diagnostics_or_actions(
             bail!("Code blocks tagged with 'use_options' must be preceded by a valid 'json,options' code block.");
         };
 
-        settings.merge_with_configuration(partial_config.clone(), None, None, &[])?;
+        settings.merge_with_configuration(partial_config.clone(), None)?;
     }
 
     match test.document_file_source() {
@@ -1494,7 +1489,7 @@ fn print_diagnostics_or_actions(
                     &root,
                     filter,
                     &options,
-                    vec![],
+                    &[],
                     analyzer_services,
                     |signal| {
                         match to_print_kind {
@@ -1614,7 +1609,7 @@ fn print_diagnostics_or_actions(
 
                 let options = create_analyzer_options::<JsonLanguage>(&settings, &file_path, &test);
 
-                biome_css_analyze::analyze(&root, filter, &options, vec![], |signal| {
+                biome_css_analyze::analyze(&root, filter, &options, &[], |signal| {
                     match to_print_kind {
                         ToPrintKind::Diagnostics => {
                             if let Some(mut diag) = signal.diagnostic() {
@@ -1714,6 +1709,7 @@ fn print_diagnostics_or_actions(
         DocumentFileSource::Html(_) | DocumentFileSource::Grit(_) => todo!(),
         // Unknown code blocks should be ignored by tests
         DocumentFileSource::Unknown => {}
+        _ => {}
     }
 
     Ok(())

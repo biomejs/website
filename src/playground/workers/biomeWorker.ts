@@ -15,12 +15,13 @@ import init, {
 	DiagnosticPrinter,
 	type Configuration,
 	type BiomePath,
+	type ProjectKey,
 	type RuleCategories,
 	Workspace,
-	type ProjectKey,
 } from "@biomejs/wasm-web";
 
 let workspace: Workspace | null = null;
+let projectKey: ProjectKey | null = null;
 let fileCounter = 0;
 
 type File = {
@@ -31,7 +32,6 @@ type File = {
 };
 
 const files: Map<string, File> = new Map();
-let projectKey: ProjectKey = 0;
 
 let configuration: undefined | Configuration;
 let fullSettings: undefined | PlaygroundSettings;
@@ -68,7 +68,7 @@ self.addEventListener("message", async (e) => {
 		}
 
 		case "updateSettings": {
-			if (!workspace) {
+			if (!workspace || projectKey == null) {
 				console.error("Workspace was not initialized");
 				break;
 			}
@@ -196,14 +196,13 @@ self.addEventListener("message", async (e) => {
 
 			workspace.updateSettings({
 				configuration,
-				gitignoreMatches: [],
 				projectKey,
 			});
 			break;
 		}
 
 		case "update": {
-			if (!workspace) {
+			if (!workspace || !projectKey) {
 				console.error("Workspace was not initialized");
 				break;
 			}
@@ -220,14 +219,14 @@ self.addEventListener("message", async (e) => {
 				};
 
 				workspace.openFile({
-					path: getPathForFile(file),
-					version: 0,
-					persistNodeCache: true,
 					projectKey,
+					path: getPathForFile(file),
 					content: {
 						type: "fromClient",
 						content: code,
+						version: 0,
 					},
+					persistNodeCache: true,
 				});
 			} else {
 				file = {
@@ -238,29 +237,29 @@ self.addEventListener("message", async (e) => {
 				};
 
 				workspace.openFile({
-					path: getPathForFile(file),
-					version: file.version,
-					persistNodeCache: true,
 					projectKey,
+					path: getPathForFile(file),
 					content: {
 						type: "fromClient",
 						content: code,
+						version: file.version,
 					},
+					persistNodeCache: true,
 				});
 			}
 			files.set(filename, file);
 			const path = getPathForFile(file);
 			const fileFeatures = workspace.fileFeatures({
-				features: ["debug", "format", "lint", "assist"],
 				projectKey,
 				path,
+				features: ["debug", "format", "lint", "assist"],
 			});
 
 			const syntaxTree =
 				fileFeatures.featuresSupported.get("debug") === "supported"
 					? workspace.getSyntaxTree({
-							path,
 							projectKey,
+							path,
 						})
 					: { ast: "Not supported", cst: "Not supported" };
 
@@ -269,8 +268,8 @@ self.addEventListener("message", async (e) => {
 				controlFlowGraph =
 					fileFeatures.featuresSupported.get("debug") === "supported"
 						? workspace.getControlFlowGraph({
-								path,
 								projectKey,
+								path,
 								cursor: cursorPosition,
 							})
 						: "";
@@ -284,8 +283,8 @@ self.addEventListener("message", async (e) => {
 				formatterIr =
 					fileFeatures.featuresSupported.get("debug") === "supported"
 						? workspace.getFormatterIr({
-								path,
 								projectKey,
+								path,
 							})
 						: "Not supported";
 			} catch (e) {
@@ -304,10 +303,10 @@ self.addEventListener("message", async (e) => {
 				categories.push("action");
 			}
 			const diagnosticsResult = workspace.pullDiagnostics({
+				projectKey,
 				path,
 				categories,
 				maxDiagnostics: Number.MAX_SAFE_INTEGER,
-				projectKey,
 				only: [],
 				skip: [],
 			});
@@ -324,8 +323,8 @@ self.addEventListener("message", async (e) => {
 				printed =
 					fileFeatures.featuresSupported.get("format") === "supported"
 						? workspace.formatFile({
-								path,
 								projectKey,
+								path,
 							})
 						: { code: "Not supported" };
 			} catch (e) {
@@ -342,8 +341,8 @@ self.addEventListener("message", async (e) => {
 				fixed =
 					fileFeatures.featuresSupported.get("lint") === "supported"
 						? workspace.fixFile({
-								path,
 								projectKey,
+								path,
 								only: [],
 								skip: [],
 								ruleCategories: categories,
