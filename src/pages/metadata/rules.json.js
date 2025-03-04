@@ -202,7 +202,7 @@ export function GET() {
                 "stylelint": "custom-property-no-missing-var-function"
               }
             ],
-            "docs": " Disallow missing var function for css variables.\n\n This rule has the following limitations:\n - It only reports custom properties that are defined and accesible within the same source.\n - It does not check properties that can contain author-defined identifiers.\n - It ignores the following properties:\n   - `animation`\n   - `animation-name`\n   - `counter-increment`\n   - `counter-reset`\n   - `counter-set`\n   - `grid-column`\n   - `grid-column-end`\n   - `grid-column-start`\n   - `grid-row`\n   - `grid-row-end`\n   - `grid-row-start`\n   - `list-style`\n   - `list-style-type`\n   - `transition`\n   - `transition-property`\n   - `view-transition-name`\n   - `will-change`\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a {\n   --foo: red;\n   color: --foo;\n }\n ```\n\n ```css,expect_diagnostic\n .parent {\n   --foo: red;\n   .child {\n     color: --foo;\n   }\n }\n ```\n\n ```css,expect_diagnostic\n @property --bar {}\n\n a {\n   color: --bar;\n }\n ```\n\n ```css,expect_diagnostic\n :root {\n   --baz: 0;\n }\n\n a {\n   --foo: --baz;\n }\n ```\n\n ### Valid\n\n ```css\n p {\n   color: var(--foo);\n }\n ```\n\n ```css\n p {\n   --foo: red;\n   color: var(--foo);\n }\n ```\n\n ```css\n p {\n   color: --foo;\n }\n ```\n\n ```css\n *:root {\n --global: red;\n }\n\n a {\n     color: var(--global);\n }\n ```\n\n ```css\n @property --global-value {}\n a {\n   color: var(--global-value);\n }\n ```\n\n ```css\n a {\n   view-transition-name: --bbb;\n }\n ```\n\n"
+            "docs": " Disallow missing var function for css variables.\n\n This rule has the following limitations:\n - It only reports custom properties that are defined and accessible within the same source.\n - It does not check properties that can contain author-defined identifiers.\n - It ignores the following properties:\n   - `animation`\n   - `animation-name`\n   - `counter-increment`\n   - `counter-reset`\n   - `counter-set`\n   - `grid-column`\n   - `grid-column-end`\n   - `grid-column-start`\n   - `grid-row`\n   - `grid-row-end`\n   - `grid-row-start`\n   - `list-style`\n   - `list-style-type`\n   - `transition`\n   - `transition-property`\n   - `view-transition-name`\n   - `will-change`\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a {\n   --foo: red;\n   color: --foo;\n }\n ```\n\n ```css,expect_diagnostic\n .parent {\n   --foo: red;\n   .child {\n     color: --foo;\n   }\n }\n ```\n\n ```css,expect_diagnostic\n @property --bar {}\n\n a {\n   color: --bar;\n }\n ```\n\n ```css,expect_diagnostic\n :root {\n   --baz: 0;\n }\n\n a {\n   --foo: --baz;\n }\n ```\n\n ### Valid\n\n ```css\n p {\n   color: var(--foo);\n }\n ```\n\n ```css\n p {\n   --foo: red;\n   color: var(--foo);\n }\n ```\n\n ```css\n p {\n   color: --foo;\n }\n ```\n\n ```css\n *:root {\n --global: red;\n }\n\n a {\n     color: var(--global);\n }\n ```\n\n ```css\n @property --global-value {}\n a {\n   color: var(--global-value);\n }\n ```\n\n ```css\n a {\n   view-transition-name: --bbb;\n }\n ```\n\n"
           },
           "noUnknownAtRule": {
             "deprecated": false,
@@ -260,6 +260,15 @@ export function GET() {
             ],
             "docs": " Disallow unknown type selectors.\n\n This rule considers tags defined in the HTML, SVG, and MathML specifications to be known.\n For details on known CSS type selectors, see the following links\n - https://developer.mozilla.org/en-US/docs/Web/CSS/Type_selectors\n - https://developer.mozilla.org/ja/docs/Web/HTML/Element\n - https://developer.mozilla.org/ja/docs/Web/SVG/Element\n - https://developer.mozilla.org/ja/docs/Web/MathML/Element\n\n This rule allows custom elements.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n unknown {}\n ```\n\n ```css,expect_diagnostic\n unknown > ul {}\n ```\n\n ```css,expect_diagnostic\n x-Foo {}\n ```\n\n ### Valid\n\n ```css\n input {}\n ```\n\n ```css\n ul > li {}\n ```\n\n ```css\n x-foo {}\n ```\n\n"
           },
+          "noUselessEscapeInString": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noUselessEscapeInString",
+            "link": "https://biomejs.dev/linter/rules/no-useless-escape-in-string",
+            "recommended": true,
+            "fixKind": "safe",
+            "docs": " Disallow unnecessary escapes in string literals.\n\n Escaping non-special characters in string literals doesn't have any effect.\n Hence, they may confuse a reader.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a::after {\n   content: \"\\a\"\n }\n ```\n\n ```css,expect_diagnostic\n a::after {\n   content: \"\\'\"\n }\n ```\n\n ### Valid\n\n ```css\n a::after {\n   content: \"\\\"\"\n }\n ```\n\n ```css\n a::after {\n   content: \"\\n\"\n }\n ```\n\n"
+          },
           "noValueAtRule": {
             "deprecated": false,
             "version": "1.8.0",
@@ -268,15 +277,6 @@ export function GET() {
             "recommended": false,
             "fixKind": "none",
             "docs": " Disallow use of `@value` rule in css modules.\n\n Use of CSS variables is recommended instead of `@value` rule.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n @value red: #FF0000;\n ```\n\n ### Valid\n\n ```css\n :root {\n   --red: #FF0000\n }\n\n p {\n   background-color: var(--red);\n }\n ```\n\n"
-          },
-          "useSortedProperties": {
-            "deprecated": false,
-            "version": "next",
-            "name": "useSortedProperties",
-            "link": "https://biomejs.dev/linter/rules/use-sorted-properties",
-            "recommended": false,
-            "fixKind": "safe",
-            "docs": " Enforce ordering of CSS properties and nested rules.\n\n This rule ensures the contents of a CSS rule are ordered consistantly.\n\n Properties are ordered semantically, with more important properties near the top and\n similar properties grouped together. Nested rules and at-rules are placed after properties.\n\n The ordering is roughly:\n 1. Custom properties\n 1. Layout properties (display, flex, grid)\n 1. Margin and padding properties\n 1. Typography properties (font, color)\n 1. Interaction properties (pointer-events, visibility)\n 1. Background and border properties\n 1. Transition and animation properties\n 1. Nested rules, media queries and other at-rules\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n p {\n   transition: opactity 1s ease;\n   border: 1px solid black;\n   pointer-events: none;\n   color: black;\n   margin: 8px;\n   display: block;\n   --custom: 100;\n }\n ```\n\n ```css,expect_diagnostic\n p {\n   span { color: blue; }\n   color: red;\n }\n ```\n\n ### Valid\n\n ```css\n p {\n   --custom:·100;\n   display:·block;\n   margin:·8px;\n   color: black;\n   pointer-events:·none;\n   border:·1px·solid·black;\n   transition:·opactity·1s·ease;\n }\n ```\n\n ```css\n p {\n   color: red;\n   span { color: blue; }\n }\n ```\n\n"
           }
         },
         "suspicious": {
@@ -416,7 +416,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noForEach",
             "link": "https://biomejs.dev/linter/rules/no-for-each",
-            "recommended": true,
+            "recommended": false,
             "fixKind": "none",
             "sources": [
               {
@@ -753,6 +753,20 @@ export function GET() {
             "recommended": false,
             "fixKind": "unsafe",
             "docs": " Discard redundant terms from logical expressions.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const boolExp = true;\n const r = true && boolExp;\n ```\n\n ```js,expect_diagnostic\n const boolExp2 = true;\n const r2 = boolExp || true;\n ```\n\n ```js,expect_diagnostic\n const nonNullExp = 123;\n const r3 = null ?? nonNullExp;\n ```\n\n ```js,expect_diagnostic\n const boolExpr1 = true;\n const boolExpr2 = false;\n const r4 = !boolExpr1 || !boolExpr2;\n ```\n\n ### Valid\n ```js\n const boolExpr3 = true;\n const boolExpr4 = false;\n const r5 = !(boolExpr1 && boolExpr2);\n const boolExpr5 = true;\n const boolExpr6 = false;\n ```\n\n"
+          },
+          "useWhile": {
+            "deprecated": false,
+            "version": "1.0.0",
+            "name": "useWhile",
+            "link": "https://biomejs.dev/linter/rules/use-while",
+            "recommended": false,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "eslintSonarJs": "prefer-while"
+              }
+            ],
+            "docs": " Enforce the use of `while` loops instead of `for` loops when the initializer and update expressions are not needed.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n for (; x.running;) {\n     x.step();\n }\n ```\n\n ### Valid\n\n ```js\n for(let x = 0; x < 10; i++) {}\n ```\n\n ```js\n let x = 0\n for(; x < 10; i++) {}\n ```\n\n ```js\n for(let x = 0; x < 10;) {\n     i++\n }\n ```\n"
           }
         },
         "correctness": {
@@ -1294,6 +1308,21 @@ export function GET() {
           }
         },
         "nursery": {
+          "noAwaitInLoop": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noAwaitInLoop",
+            "link": "https://biomejs.dev/linter/rules/no-await-in-loop",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslint": "no-await-in-loop"
+              }
+            ],
+            "sourceKind": "sameLogic",
+            "docs": " Disallow `await` inside loops.\n\n Using `await` in a loop makes your asynchronous operations run one after another instead of all at once. This can slow things down and might cause unhandled errors. Instead, create all the promises together and then wait for them simultaneously using methods like `Promise.all()`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n async function invalid() {\n     for (const thing of things) {\n         const result = await asyncWork();\n     }\n }\n ```\n\n ### Valid\n\n ```js\n async function valid() {\n     await Promise.all(things.map((thing) => asyncWork(thing)))\n }\n ```\n\n"
+          },
           "noCommonJs": {
             "deprecated": false,
             "version": "1.9.0",
@@ -1310,6 +1339,36 @@ export function GET() {
               }
             ],
             "docs": " Disallow use of CommonJs module system in favor of ESM style imports.\n\n ESM-style `import`s are modern alternative to CommonJS `require` imports. Supported by all modern browsers and Node.js versions.\n Tooling can more easily statically analyze and tree-shake ESM `import`s compared to CommonJs.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n require('node:fs');\n ```\n ```js,expect_diagnostic\n module.exports = { a: 'b' }\n ```\n ```js,expect_diagnostic\n exports.a = 'b';\n ```\n\n ### Valid\n\n ```js\n import fs from 'node:fs';\n ```\n ```js\n import('node:fs')\n ```\n ```js\n export const a = 'b';\n ```\n ```js\n export default { a: 'b' };\n ```\n\n ## Caveats\n\n Rule is automatically disabled inside `.cjs` and `.cts` files, because they are explicitly CommonJs files.\n\n This rule could be helpful if you are migrating from CommonJs to ESM,\n but if you wish to continue using CommonJs, you can safely disable it.\n\n"
+          },
+          "noConstantBinaryExpression": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noConstantBinaryExpression",
+            "link": "https://biomejs.dev/linter/rules/no-constant-binary-expression",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslint": "no-constant-binary-expression"
+              }
+            ],
+            "sourceKind": "sameLogic",
+            "docs": " Disallow expressions where the operation doesn't affect the value\n\n Comparisons which will always evaluate to true or false and logical expressions\n (`||`, `&&`, `??`) which either always short-circuit or never short-circuit are both likely\n indications of programmer error.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const value1 = +x == null;\n ```\n\n ```js,expect_diagnostic\n const value2 = condition ? x : {} || DEFAULT;\n ```\n\n ```js,expect_diagnostic\n const value3 = !foo == null;\n ```\n\n ```js,expect_diagnostic\n const value4 = new Boolean(foo) === true;\n ```\n\n ```js,expect_diagnostic\n const objIsEmpty = someObj === {};\n ```\n\n ```js,expect_diagnostic\n const arrIsEmpty = someArr === [];\n ```\n\n ```js,expect_diagnostic\n const shortCircuit1 = condition1 && false && condition2;\n ```\n\n ```js,expect_diagnostic\n const shortCircuit2 = condition1 || true || condition2;\n ```\n\n ```js,expect_diagnostic\n const shortCircuit3 = condition1 ?? \"non-nullish\" ?? condition2;\n ```\n\n ### Valid\n\n ```js\n const value1 = x == null;\n ```\n\n ```js\n const value2 = (condition ? x : {}) || DEFAULT;\n ```\n\n ```js\n const value3 = !(foo == null);\n ```\n\n ```js\n const value4 = Boolean(foo) === true;\n ```\n\n ```js\n const objIsEmpty = Object.keys(someObj).length === 0;\n ```\n\n ```js\n const arrIsEmpty = someArr.length === 0;\n ```\n\n"
+          },
+          "noDestructuredProps": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noDestructuredProps",
+            "link": "https://biomejs.dev/linter/rules/no-destructured-props",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslintSolid": "no-destructure"
+              }
+            ],
+            "sourceKind": "inspired",
+            "docs": " Disallow destructuring props inside JSX components in Solid projects.\n\n In Solid, props must be used with property accesses (props.foo) to preserve reactivity.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n let Component = ({}) => <div />;\n ```\n\n ```jsx,expect_diagnostic\n let Component = ({ a: A }) => <div a={A} />;\n ```\n\n ```tsx,expect_diagnostic\n let Component = ({ prop1 }: Props) => <div p1={prop1} />;\n ```\n\n ### Valid\n\n ```jsx\n let Component = (props) => <div />;\n ```\n\n ```jsx\n let Component = (props) => <div a={props.a} />;\n ```\n\n"
           },
           "noDocumentCookie": {
             "deprecated": false,
@@ -1372,6 +1431,20 @@ export function GET() {
             "sourceKind": "inspired",
             "docs": " Disallow the use of `__dirname` and `__filename` in the global scope.\n\n They are [not available in ES modules](https://nodejs.org/api/esm.html#esm_no_filename_or_dirname).\n Starting with Node.js 20.11, `import.meta.dirname` and `import.meta.filename` have been introduced in ES modules, providing identical functionality to `__dirname` and `__filename` in CommonJS (CJS).\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const dirname = __dirname;\n ```\n\n ```js,expect_diagnostic\n const filename = __filename;\n ```\n\n ``` js,expect_diagnostic\n const foo = { __filename }\n ```\n\n ```js,expect_diagnostic\n if (__dirname.startsWith(\"/project/src/\")) {}\n ```\n\n ### Valid\n\n ```js\n const dirname = import.meta.dirname\n const filename = import.meta.filename\n const foo = {__filename: import.meta.filename };\n if (import.meta.dirname.startsWith(\"/project/src/\")) {}\n ```\n\n"
           },
+          "noImportCycles": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noImportCycles",
+            "link": "https://biomejs.dev/linter/rules/no-import-cycles",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslintImport": "no-cycle"
+              }
+            ],
+            "docs": " Prevent import cycles.\n\n This rule warns when a file imports another file that, either directly\n or indirectly, imports the original file again.\n\n Cycles can lead to symbols that are unexpectedly `undefined` and are\n generally considered poor code hygiene.\n\n If a cycle is detected, it is advised to move code such that imports\n only go in a single direction, i.e. they don't point \"back\" to the\n importing file.\n\n ## Examples\n\n ### Invalid\n\n **`foobar.js`**\n ```js\n import { baz } from \"./baz.js\";\n\n export function foo() {\n     baz();\n }\n\n export function bar() {\n     console.log(\"foobar\");\n }\n ```\n\n **`baz.js`**\n ```js\n import { bar } from \"./foobar.js\";\n\n export function baz() {\n     bar();\n }\n ```\n\n ### Valid\n\n **`foo.js`**\n ```js\n import { baz } from \"./baz.js\";\n\n export function foo() {\n     baz();\n }\n ```\n\n **`bar.js`**\n ```js\n export function bar() {\n     console.log(\"foobar\");\n }\n ```\n\n **`baz.js`**\n ```js\n import { bar } from \"./bar.js\";\n\n export function baz() {\n     bar();\n }\n ```\n\n"
+          },
           "noIrregularWhitespace": {
             "deprecated": false,
             "version": "1.9.0",
@@ -1406,14 +1479,28 @@ export function GET() {
             "version": "1.9.3",
             "name": "noOctalEscape",
             "link": "https://biomejs.dev/linter/rules/no-octal-escape",
-            "recommended": false,
-            "fixKind": "none",
+            "recommended": true,
+            "fixKind": "safe",
             "sources": [
               {
                 "eslint": "no-octal-escape"
               }
             ],
-            "docs": " Disallow octal escape sequences in string literals\n\n As of the ECMAScript 5 specification, octal escape sequences in string literals are deprecated and should not be used.\n Unicode escape sequences should be used instead.\n\n ### Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n var foo = \"Copyright \\251\";\n ```\n\n ### Valid\n\n ```js\n var foo = \"Copyright \\u00A9\";   // unicode\n\n var foo = \"Copyright \\xA9\";     // hexadecimal\n ```\n\n"
+            "docs": " Disallow octal escape sequences in string literals\n\n As of the ECMAScript 5 specification, octal escape sequences in string literals are deprecated and should not be used.\n Unicode escape sequences should be used instead.\n\n ### Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const foo = \"Copyright \\251\";\n ```\n\n ### Valid\n\n ```js\n const foo = \"Copyright \\u00A9\"; // unicode escape\n const bar = \"Copyright \\xA9\"; // hexadecimal escape\n ```\n\n"
+          },
+          "noPackagePrivateImports": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noPackagePrivateImports",
+            "link": "https://biomejs.dev/linter/rules/no-package-private-imports",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslintImportAccess": "eslint-plugin-import-access"
+              }
+            ],
+            "docs": " Restricts imports of \"package private\" exports.\n\n By enabling this rule, all exported symbols, such as types, functions\n or other things that may be exported, are considered to be \"package\n private\". This means that modules that reside in the same directory, as\n well as submodules of those \"sibling\" modules, are allowed to import\n them, while any other modules that are further away in the file system\n are restricted from importing them. A symbol's visibility may be\n extended by re-exporting from an index file.\n\n Notes:\n\n * This rule only applies to relative imports. External dependencies\n   as well as TypeScript aliases are exempted.\n * This rule only applies to imports for JavaScript and TypeScript\n   files. Imports for resources such as images or CSS files are exempted.\n\n Source: https://github.com/uhyo/eslint-plugin-import-access\n\n #### Examples (Invalid)\n\n ```js,expect_diagnostic\n // Attempt to import from `foo.js` from outside its `sub` module.\n import { fooPackageVariable } from \"./sub/foo.js\";\n ```\n ```js,expect_diagnostic\n // Attempt to import from `bar.ts` from outside its `aunt` module.\n import { barPackageVariable } from \"../aunt/bar.ts\";\n ```\n\n ```js,expect_diagnostic\n // Assumed to resolve to a JS/TS file.\n import { fooPackageVariable } from \"./sub/foo\";\n ```\n\n ```js,expect_diagnostic\n // If the `sub/foo` module is inaccessible, so is its index file.\n import { fooPackageVariable } from \"./sub/foo/index.js\";\n ```\n\n #### Examples (Valid)\n\n ```js\n // Imports within the same module are always allowed.\n import { fooPackageVariable } from \"./foo.js\";\n\n // Resources (anything other than JS/TS files) are exempt.\n import { barResource } from \"../aunt/bar.png\";\n\n // A parent index file is accessible like other modules.\n import { internal } from \"../../index.js\";\n\n // If the `sub` module is accessible, so is its index file.\n import { subPackageVariable } from \"./sub/index.js\";\n\n // Library imports are exempt.\n import useAsync from \"react-use/lib/useAsync\";\n ```\n\n"
           },
           "noProcessEnv": {
             "deprecated": false,
@@ -1458,7 +1545,7 @@ export function GET() {
                 "eslintTypeScript": "no-restricted-imports"
               }
             ],
-            "docs": " Disallow specified modules when loaded by import or require.\n\n ## Examples\n\n ```json\n {\n     \"noRestrictedImports\": {\n         \"options\": {\n             \"paths\": {\n                 \"lodash\": \"Using lodash is not encouraged\",\n                 \"underscore\": \"Using underscore is not encouraged\"\n             }\n         }\n     }\n }\n ```\n\n **Since**: `v2`\n\n ```json,options\n {\n     \"options\": {\n         \"paths\": {\n             \"lodash\": \"Using lodash is not encouraged.\",\n             \"underscore\": \"\",\n             \"import-foo\": { \"importNames\": [\"Bar\"] },\n             \"import-bar\": { \"allowImportNames\": [\"Bar\"] }\n         }\n     }\n }\n ```\n\n ### Invalid\n\n ```js,expect_diagnostic,use_options\n import \"lodash\";\n import \"allowed-import\";\n ```\n\n ```js,expect_diagnostic,use_options\n const underscore = await import(\"underscore\");\n ```\n\n ```js,expect_diagnostic,use_options\n const lodash = require(\"lodash\");\n ```\n\n ### Valid\n\n ```js,use_options\n import \"allowed-import\";\n const myImport = await import(\"allowed-import\");\n const myImport = require(\"allowed-import\");\n ```\n\n ## Supported Import Syntaxes\n\n The rule tries to parse the context of the import to see if only one or more\n of the allowed import names have been imported from a given module.\n\n All of the following import syntaxes are supported:\n\n ### Static `import` (and re-`export`) declarations\n\n Normal static [ESM `import` declarations](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) are supported:\n\n ```js\n // Static `import` declaration:\n // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import\n\n import \"sideeffect-import\";\n import * as alias1 from \"namespace-import\";\n import { export1, export2 as alias2, \"string-name\" as alias3, default as defaultExport /* … */ } from \"named-import\";\n import defaultExport from \"default-import\";\n import defaultExport, * as alias5 from \"default+namespace-import\";\n import defaultExport, { export1 /* … */ } from \"default+named-import\";\n\n export * from \"namespace-import\";\n export { export1, export2 as alias2, \"string-name\" as alias3, default as defaultExport /* … */ } from \"named-import\";\n ```\n\n The TypeScript-specific [type-only imports](https://www.typescriptlang.org/docs/handbook/modules/reference.html#type-only-imports-and-exports) are also supported:\n\n ```ts\n // TypeScript-specific type-only `import` declaration:\n // https://www.typescriptlang.org/docs/handbook/modules/reference.html#type-only-imports-and-exports\n\n import { type export1, type export2 as alias2, type \"string-name\" as alias3, type default as defaultExport /* … */ } from \"named-import\";\n import type { export1, export2 as alias2, \"string-name\" as alias3, default as defaultExport /* … */ } from \"named-import\";\n import type defaultExport from \"default-import\";\n ```\n\n ### Dynamic `import()` calls\n\n Dynamic [ESM `import()` calls](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import) are also supported.\n Because the import is performed at runtime, it is not always possible to determine which import names are being used.\n Nevertheless, the rule tries to detect the following common usage patterns where the set of imported names is determined statically:\n\n ```js\n // Dynamic `import()` calls:\n // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import\n\n import('sideeffect-import');\n await import('sideeffect-import');\n\n // ...using await + destructuring-assignment:\n const alias1 = await import('namespace-import');\n const { default: defaultExport } = await import('default-import')\n const { export1, export2: alias2, \"string-name\": alias3, default: defaultExport /* … */ } = await import(\"named-import\");\n\n // ...using then() with arrow-function + destructuring parameters:\n import('namespace-import').then(alias1 => { /* … */ });\n import('namespace-import').then((alias1) => { /* … */ });\n import('default-import').then(({ default: defaultExport }) => { /* … */ });\n import('named-import').then(({ export1, export2: alias2, \"string-name\": alias3, default: defaultExport /* … */ }) => { /* … */ });\n\n // ...using then() with function + destructuring parameters:\n import('namespace-import').then(function(alias1) { /* … */ });\n import('default-import').then(function({ default: defaultExport }) { /* … */ });\n import('named-import').then(function({ export1, export2: alias2, \"string-name\": alias3, default: defaultExport /* … */ }) { /* … */ });\n\n // Standalone `import('...')` calls that appear in some other\n // unrecognized context will be treated as a namespace import,\n // because the return value of `import('...')` is a namespace object:\n\n myFunction(...args, import(\"namespace-import\"), ...args)\n ```\n\n ### Dynamic `require()` calls\n\n NodeJS-style `require()` calls are also supported.\n Due to the way `require()` works, these are always treated as default imports.\n\n ```js\n // Dynamic `require()` call\n const defaultExport = require('default-import');\n ```\n\n ## Options\n\n ```json\n {\n     \"noRestrictedImports\": {\n         \"options\": {\n             \"paths\": {\n                 \"lodash\": \"Using lodash is not encouraged\",\n                 \"underscore\": \"Using underscore is not encouraged\"\n             }\n         }\n     }\n }\n ```\n\n **Since**: `v2`\n\n Use the options to specify the import paths and/or specific import names within them that you want to restrict in your source code.\n\n ```json,options\n {\n     \"options\": {\n         \"paths\": {\n             \"lodash\": \"Using lodash is not encouraged\",\n             \"underscore\": \"Using underscore is not encouraged\",\n             \"import-foo\": {\n                 \"importNames\": [\"Bar\"],\n                 \"message\": \"Please use Bar from /import-bar/baz/ instead.\"\n             },\n             \"import-bar\": {\n               \"allowImportNames\": [\"Bar\"],\n               \"message\": \"Please use only Bar from import-bar.\"\n             }\n         }\n     }\n }\n ```\n\n ### `paths`\n\n An object that lists the import paths that are either wholly or partially restricted.\n\n The keys of the object are the import paths to restrict, and the values can be:\n - A string with a custom message to show in the diagnostic when any\n - An object with additional options, as explained [below](#pathsimportimportnames).\n\n In the example below, we restrict the two paths `services-deprecated` and `constants`, with two particular messages.\n Importing `services-deprecated` will emit the message `Use services instead.`.\n Importing `constants` will emit the message `This file will be deleted soon.`:\n\n ```json,options\n {\n     \"options\": {\n         \"paths\": {\n             \"services-deprecated\": {\n                 \"message\": \"Use services instead.\"\n             },\n\t            \"constants\": \"This file will be deleted soon.\"\n         }\n     }\n }\n ```\n\n ```js,expect_diagnostic,use_options\n import * as namespaceAlias from 'services-deprecated';\n ```\n\n ```js,expect_diagnostic,use_options\n import { export1 } from 'constants';\n ```\n\n ### `paths.<import>.message`\n\n Specifies the message to be shown when the restricted import is used.\n\n A default message will be generated if `message` is empty or not specified:\n\n ```json,options\n {\n     \"options\": {\n         \"paths\": {\n             \"import-foo\": { }\n         }\n     }\n }\n ```\n\n ```js,expect_diagnostic,use_options\n import { export1 } 'import-foo';\n ```\n\n ### `paths.<import>.importNames`\n\n Specifies the array of import names that should be explicitly forbidden.\n The following import name specifiers are supported:\n\n - **Named import:** `\"someIdentifier\"` (`import { someIdentifier } from 'named-import'`)\n - **Default import:** `\"default\"` (`import defaultExport from 'default-import'`)\n - **Namespace import:** `\"*\"` (`import * as alias1 from 'namespace-import'`)\n - **Side effect/Bare import:** `\"\"` (`import \"sideeffect-import\"`)\n\n **Only one of `importNames` and `allowImportNames` must be specified.**\n\n ```json,options\n {\n     \"options\": {\n         \"paths\": {\n             \"import-foo\": {\n                 \"importNames\": [\"Bar\"],\n                 \"message\": \"Please use Bar from /import-bar/baz/ instead.\"\n             }\n         }\n     }\n }\n ```\n\n #### Invalid\n\n ```js,expect_diagnostic,use_options\n import { Bar } from 'import-foo';\n ```\n\n #### Valid\n\n ```js,use_options\n import { Foo } from 'import-foo';\n ```\n\n ### `paths.<import>.allowImportNames`\n\n Specifies the set of import names that should be explicitly allowed.\n See `importNames` for the set of supported import name specifiers.\n\n **Only one of `importNames` and `allowImportNames` must be specified.**\n\n ```json,options\n {\n     \"options\": {\n         \"paths\": {\n             \"import-bar\": {\n               \"allowImportNames\": [\"Bar\"]\n             }\n         }\n     }\n }\n ```\n\n #### Invalid\n\n ```js,expect_diagnostic,use_options\n import { Baz } from 'import-bar';\n ```\n\n #### Valid\n\n ```js,use_options\n import { Bar } from 'import-bar';\n ```\n"
+            "docs": " Disallow specified modules when loaded by import or require.\n\n ## Examples\n\n ```json\n {\n     \"noRestrictedImports\": {\n         \"options\": {\n             \"paths\": {\n                 \"lodash\": \"Using lodash is not encouraged\",\n                 \"underscore\": \"Using underscore is not encouraged\"\n             }\n         }\n     }\n }\n ```\n\n **Since**: `v2`\n\n ```json,options\n {\n     \"options\": {\n         \"paths\": {\n             \"lodash\": \"Using lodash is not encouraged.\",\n             \"underscore\": \"\",\n             \"import-foo\": { \"importNames\": [\"Bar\"] },\n             \"import-bar\": { \"allowImportNames\": [\"Bar\"] }\n         }\n     }\n }\n ```\n\n ### Invalid\n\n ```js,expect_diagnostic,use_options\n import \"lodash\";\n import \"allowed-import\";\n ```\n\n ```js,expect_diagnostic,use_options\n const underscore = await import(\"underscore\");\n ```\n\n ```js,expect_diagnostic,use_options\n const lodash = require(\"lodash\");\n ```\n\n ### Valid\n\n ```js,use_options\n import \"allowed-import\";\n const myImport = await import(\"allowed-import\");\n const myImport = require(\"allowed-import\");\n ```\n\n ## Supported Import Syntaxes\n\n The rule tries to parse the context of the import to see if only one or more\n of the allowed import names have been imported from a given module.\n\n All of the following import syntaxes are supported:\n\n ### Static `import` (and re-`export`) declarations\n\n Normal static [ESM `import` declarations](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) are supported:\n\n ```js\n // Static `import` declaration:\n // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import\n\n import \"sideeffect-import\";\n import * as alias1 from \"namespace-import\";\n import { export1, export2 as alias2, \"string-name\" as alias3, default as defaultExport /* … */ } from \"named-import\";\n import defaultExport from \"default-import\";\n import defaultExport, * as alias5 from \"default+namespace-import\";\n import defaultExport, { export1 /* … */ } from \"default+named-import\";\n\n export * from \"namespace-import\";\n export { export1, export2 as alias2, \"string-name\" as alias3, default as defaultExport /* … */ } from \"named-import\";\n ```\n\n The TypeScript-specific [type-only imports](https://www.typescriptlang.org/docs/handbook/modules/reference.html#type-only-imports-and-exports) are also supported:\n\n ```ts\n // TypeScript-specific type-only `import` declaration:\n // https://www.typescriptlang.org/docs/handbook/modules/reference.html#type-only-imports-and-exports\n\n import { type export1, type export2 as alias2, type \"string-name\" as alias3, type default as defaultExport /* … */ } from \"named-import\";\n import type { export1, export2 as alias2, \"string-name\" as alias3, default as defaultExport /* … */ } from \"named-import\";\n import type defaultExport from \"default-import\";\n ```\n\n ### Dynamic `import()` calls\n\n Dynamic [ESM `import()` calls](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import) are also supported.\n Because the import is performed at runtime, it is not always possible to determine which import names are being used.\n Nevertheless, the rule tries to detect the following common usage patterns where the set of imported names is determined statically:\n\n ```js\n // Dynamic `import()` calls:\n // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import\n\n import('sideeffect-import');\n await import('sideeffect-import');\n\n // ...using await + destructuring-assignment:\n const alias1 = await import('namespace-import');\n const { default: defaultExport } = await import('default-import')\n const { export1, export2: alias2, \"string-name\": alias3, default: defaultExport /* … */ } = await import(\"named-import\");\n\n // ...using then() with arrow-function + destructuring parameters:\n import('namespace-import').then(alias1 => { /* … */ });\n import('namespace-import').then((alias1) => { /* … */ });\n import('default-import').then(({ default: defaultExport }) => { /* … */ });\n import('named-import').then(({ export1, export2: alias2, \"string-name\": alias3, default: defaultExport /* … */ }) => { /* … */ });\n\n // ...using then() with function + destructuring parameters:\n import('namespace-import').then(function(alias1) { /* … */ });\n import('default-import').then(function({ default: defaultExport }) { /* … */ });\n import('named-import').then(function({ export1, export2: alias2, \"string-name\": alias3, default: defaultExport /* … */ }) { /* … */ });\n\n // Standalone `import('...')` calls that appear in some other\n // unrecognized context will be treated as a namespace import,\n // because the return value of `import('...')` is a namespace object:\n\n myFunction(...args, import(\"namespace-import\"), ...args)\n ```\n\n ### Dynamic `require()` calls\n\n NodeJS-style `require()` calls are also supported.\n Due to the way `require()` works, these are always treated as default imports.\n\n ```js\n // Dynamic `require()` call\n const defaultExport = require('default-import');\n ```\n\n ## Options\n\n ```json\n {\n     \"noRestrictedImports\": {\n         \"options\": {\n             \"paths\": {\n                 \"lodash\": \"Using lodash is not encouraged\",\n                 \"underscore\": \"Using underscore is not encouraged\"\n             }\n         }\n     }\n }\n ```\n\n **Since**: `v2`\n\n Use the options to specify the import paths and/or specific import names within them that you want to restrict in your source code.\n\n ```json,options\n {\n     \"options\": {\n         \"paths\": {\n             \"lodash\": \"Using lodash is not encouraged\",\n             \"underscore\": \"Using underscore is not encouraged\",\n             \"import-foo\": {\n                 \"importNames\": [\"Bar\"],\n                 \"message\": \"Please use Bar from /import-bar/baz/ instead.\"\n             },\n             \"import-bar\": {\n               \"allowImportNames\": [\"Bar\"],\n               \"message\": \"Please use only Bar from import-bar.\"\n             }\n         }\n     }\n }\n ```\n\n ### `paths`\n\n An object that lists the import paths that are either wholly or partially restricted.\n\n The keys of the object are the import paths to restrict, and the values can be:\n - A string with a custom message to show in the diagnostic when any\n - An object with additional options, as explained [below](#pathsimportimportnames).\n\n In the example below, we restrict the two paths `services-deprecated` and `constants`, with two particular messages.\n Importing `services-deprecated` will emit the message `Use services instead.`.\n Importing `constants` will emit the message `This file will be deleted soon.`:\n\n ```json,options\n {\n     \"options\": {\n         \"paths\": {\n             \"services-deprecated\": {\n                 \"message\": \"Use services instead.\"\n             },\n\t            \"constants\": \"This file will be deleted soon.\"\n         }\n     }\n }\n ```\n\n ```js,expect_diagnostic,use_options\n import * as namespaceAlias from 'services-deprecated';\n ```\n\n ```js,expect_diagnostic,use_options\n import { export1 } from 'constants';\n ```\n\n ### `paths.<import>.message`\n\n Specifies the message to be shown when the restricted import is used.\n\n A default message will be generated if `message` is empty or not specified:\n\n ```json,options\n {\n     \"options\": {\n         \"paths\": {\n             \"import-foo\": { }\n         }\n     }\n }\n ```\n\n ```js,expect_diagnostic,use_options\n import { export1 } 'import-foo';\n ```\n\n ### `paths.<import>.importNames`\n\n Specifies the array of import names that should be explicitly forbidden.\n The following import name specifiers are supported:\n\n - **Named import:** `\"someIdentifier\"` (`import { someIdentifier } from 'named-import'`)\n - **Default import:** `\"default\"` (`import defaultExport from 'default-import'`)\n - **Namespace import:** `\"*\"` (`import * as alias1 from 'namespace-import'`)\n - **Side effect/Bare import:** `\"\"` (`import \"sideeffect-import\"`)\n\n **Only one of `importNames` and `allowImportNames` must be specified.**\n\n ```json,options\n {\n     \"options\": {\n         \"paths\": {\n             \"import-foo\": {\n                 \"importNames\": [\"Bar\"],\n                 \"message\": \"Please use Bar from /import-bar/baz/ instead.\"\n             }\n         }\n     }\n }\n ```\n\n #### Invalid\n\n ```js,expect_diagnostic,use_options\n import { Bar } from 'import-foo';\n ```\n\n #### Valid\n\n ```js,use_options\n import { Foo } from 'import-foo';\n ```\n\n ### `paths.<import>.allowImportNames`\n\n Specifies the set of import names that should be explicitly allowed.\n See `importNames` for the set of supported import name specifiers.\n\n **Only one of `importNames` and `allowImportNames` must be specified.**\n\n ```json,options\n {\n     \"options\": {\n         \"paths\": {\n             \"import-bar\": {\n               \"allowImportNames\": [\"Bar\"]\n             },\n             \"restrictPackagePrivate\": \"all\"\n         }\n     }\n }\n ```\n\n #### Invalid\n\n ```js,expect_diagnostic,use_options\n import { Baz } from 'import-bar';\n ```\n\n #### Valid\n\n ```js,use_options\n import { Bar } from 'import-bar';\n ```\n"
           },
           "noSecrets": {
             "deprecated": false,
@@ -1517,6 +1604,21 @@ export function GET() {
             ],
             "docs": " Disallow template literal placeholder syntax in regular strings.\n\n ECMAScript 6 allows programmers to create strings containing variable or expressions using template literals,\n instead of string concatenation, by writing expressions like `${variable}` between two backtick quotes (\\`).\n It can be easy to use the wrong quotes when wanting to use template literals, by writing `\"${variable}\"`,\n and end up with the literal value `\"${variable}\"` instead of a string containing the value of the injected expressions.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const a = \"Hello ${name}!\";\n ```\n\n ```js,expect_diagnostic\n const a = 'Hello ${name}!';\n ```\n\n ```js,expect_diagnostic\n const a = \"Time: ${12 * 60 * 60 * 1000}\";\n ```\n\n ### Valid\n\n ```js\n const a = `Hello ${name}!`;\n const a = `Time: ${12 * 60 * 60 * 1000}`;\n\n const a = templateFunction`Hello ${name}`;\n ```\n\n"
           },
+          "noTsIgnore": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noTsIgnore",
+            "link": "https://biomejs.dev/linter/rules/no-ts-ignore",
+            "recommended": true,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "eslint": "ban-ts-comment"
+              }
+            ],
+            "sourceKind": "inspired",
+            "docs": " Prevents the use of the TypeScript directive `@ts-ignore`.\n\n The directive `@ts-ignore` suppresses all compilation errors, even ones that could be considered bugs\n coming from an upstream library or the compiler itself. If you use `@ts-ignore`, it won't be possible to know\n when and if the bug is fixed.\n\n The rule promotes the use the directive `@ts-expect-error`, which is meant to raise an error if there aren't any errors.\n This means that once the bug is fixed, you can delete the directive, safely.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n // @ts-ignore\n let foo;\n ```\n\n ### Valid\n\n ```ts\n // @ts-expect-error\n let foo;\n ```\n\n"
+          },
           "noUselessEscapeInRegex": {
             "deprecated": false,
             "version": "1.9.0",
@@ -1530,6 +1632,15 @@ export function GET() {
               }
             ],
             "docs": " Disallow unnecessary escape sequence in regular expression literals.\n\n Escaping non-special characters in regular expression literals doesn't have any effect.\n Hence, they may confuse a reader.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n /\\a/;\n ```\n\n ```js,expect_diagnostic\n /[\\-]/;\n ```\n\n ```js,expect_diagnostic\n /[\\&]/v;\n ```\n\n ### Valid\n\n ```js\n /\\^\\d\\b/\n ```\n\n ```js\n /[\\b]/\n ```\n"
+          },
+          "noUselessEscapeInString": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noUselessEscapeInString",
+            "link": "https://biomejs.dev/linter/rules/no-useless-escape-in-string",
+            "recommended": true,
+            "fixKind": "safe",
+            "docs": " Disallow unnecessary escapes in string literals.\n\n Escaping non-special characters in string literals doesn't have any effect.\n Hence, they may confuse a reader.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const s = \"\\a\";\n ```\n\n ```js,expect_diagnostic\n const o = {\n     \"\\a\": 0,\n };\n ```\n\n ```js,expect_diagnostic\n const s = `${0}\\a`;\n ```\n\n ### Valid\n\n ```js\n const s = \"\\n\";\n ```\n\n Tagged string template are ignored:\n\n ```js\n const s = tagged`\\a`;\n ```\n\n JSX strings are ignored:\n\n ```jsx\n <div attr=\"str\\a\"/>;\n ```\n\n"
           },
           "noUselessStringRaw": {
             "deprecated": false,
@@ -1580,7 +1691,7 @@ export function GET() {
                 "eslintJsxA11y": "role-supports-aria-props"
               }
             ],
-            "docs": " Enforce that ARIA properties are valid for the roles that are supported by the element.\n\n Invalid ARIA properties can make it difficult for users of assistive technologies to understand the purpose of the element.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <a href=\"#\" aria-checked />\n ```\n\n ```jsx,expect_diagnostic\n <img alt=\"foobar\" aria-checked />\n ```\n\n ### Valid\n\n ```js\n <>\n     <a href=\"#\" aria-expanded />\n     <img alt=\"foobar\" aria-hidden />\n     <div role=\"heading\" aria-level=\"1\" />\n </>\n ```\n\n"
+            "docs": " Enforce that ARIA properties are valid for the roles that are supported by the element.\n\n Invalid ARIA properties can make it difficult for users of assistive technologies to understand the purpose of the element.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <a href=\"#\" aria-checked />\n ```\n\n ```jsx,expect_diagnostic\n <img alt=\"foobar\" aria-checked />\n ```\n\n ### Valid\n\n ```jsx\n <>\n     <a href=\"#\" aria-expanded />\n     <img alt=\"foobar\" aria-hidden />\n     <div role=\"heading\" aria-level=\"1\" />\n </>\n ```\n\n"
           },
           "useAtIndex": {
             "deprecated": false,
@@ -1614,6 +1725,21 @@ export function GET() {
             ],
             "docs": " Enforce using single `if` instead of nested `if` clauses.\n\n If an `if (b)` statement is the only statement in an `if (a)` block, it is often clearer to use an `if (a && b)` form.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n if (condition) {\n     if (anotherCondition) {\n         // ...\n     }\n }\n ```\n\n ```js,expect_diagnostic\n if (condition) {\n     // Comment\n     if (anotherCondition) {\n         // ...\n     }\n }\n ```\n\n ### Valid\n\n ```js\n if (condition && anotherCondition) {\n     // ...\n }\n ```\n\n ```js\n if (condition) {\n     if (anotherCondition) {\n         // ...\n     }\n     doSomething();\n }\n ```\n\n ```js\n if (condition) {\n     if (anotherCondition) {\n         // ...\n     } else {\n         // ...\n     }\n }\n ```\n\n"
           },
+          "useConsistentObjectDefinition": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useConsistentObjectDefinition",
+            "link": "https://biomejs.dev/linter/rules/use-consistent-object-definition",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslint": "object-shorthand"
+              }
+            ],
+            "sourceKind": "inspired",
+            "docs": " Require the consistent declaration of object literals. Defaults to explicit definitions.\n\n ECMAScript 6 provides two ways to define an object literal: `{foo: foo}` and `{foo}`.\n The two styles are functionally equivalent.\n Using the same style consistently across your codebase makes it easier to quickly read and understand object definitions.\n\n ## Example\n\n ### Invalid\n\n ```json,options\n {\n     \"options\": {\n         \"syntax\": \"explicit\"\n     }\n }\n ```\n\n ```js,expect_diagnostic,use_options\n let foo = 1;\n let invalid = {\n     foo\n };\n ```\n\n ```js,expect_diagnostic,use_options\n let invalid = {\n     bar() { return \"bar\"; },\n };\n ```\n\n ### Valid\n\n ```js,use_options\n let foo = 1;\n let valid = {\n     foo: foo,\n     bar: function() { return \"bar\"; },\n };\n ```\n\n ### Invalid\n\n ```json,options\n {\n     \"options\": {\n         \"syntax\": \"shorthand\"\n     }\n }\n ```\n\n ```js,expect_diagnostic,use_options\n let foo = 1;\n let invalid = {\n     foo: foo\n };\n ```\n\n ```js,expect_diagnostic,use_options\n let invalid = {\n     bar: function() { return \"bar\"; },\n };\n ```\n\n ### Valid\n\n ```js,use_options\n let foo = 1;\n let valid = {\n     foo,\n     bar() { return \"bar\"; },\n };\n ```\n\n ## Options\n\n Use the options to specify the syntax of object literals to enforce.\n\n ```json,options\n {\n     \"options\": {\n         \"syntax\": \"explicit\"\n     }\n }\n ```\n\n ### syntax\n\n The syntax to use:\n - `explicit`: enforces the use of explicit object property syntax in every case.\n - `shorthand`: enforces the use of shorthand object property syntax when possible.\n\n **Default:** `explicit`\n\n"
+          },
           "useExportsLast": {
             "deprecated": false,
             "version": "next",
@@ -1627,6 +1753,21 @@ export function GET() {
               }
             ],
             "docs": " Require that all exports are declared after all non-export statements.\n\n Enforces that export statements are placed at the end of the module, after all other statements.\n\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n export const a = 1;\n const b = 2;\n ```\n\n ### Valid\n\n ```js\n const a = 1;\n export const b = 2;\n ```\n\n ```js\n const a = 1;\n export { a };\n ```\n\n"
+          },
+          "useForComponent": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useForComponent",
+            "link": "https://biomejs.dev/linter/rules/use-for-component",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslintSolid": "perfer-for"
+              }
+            ],
+            "sourceKind": "inspired",
+            "docs": " Enforce using Solid's `<For />` component for mapping an array to JSX elements.\n\n In Solid, `<For />` component for efficiently rendering lists. Array#map causes DOM elements to be recreated.\n\n For details on `<For />` Component, see the [Solid docs about Components](https://docs.solidjs.com/reference/components/for).\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n let Component = (props) => <ol>{props.data.map(d => <li>{d.text}</li>)}</ol>;\n ```\n\n ```jsx,expect_diagnostic\n let Component = (props) => <>{props.data.map(d => <li>{d.text}</li>)}</>;\n ```\n\n ```jsx,expect_diagnostic\n let Component = (props) => (\n   <ol>\n     {props.data.map((d) => (\n       <li key={d.id}>{d.text}</li>\n     ))}\n   </ol>\n );\n ```\n\n ### Valid\n\n ```jsx\n let Component = (props) => <ol><For each={props.data}>{d => <li>{d.text}</li>}</For></ol>;\n ```\n\n ```jsx\n let abc = x.map(y => y + z);\n ```\n\n ```jsx\n let Component = (props) => {\n  let abc = x.map(y => y + z);\n  return <div>Hello, world!</div>;\n }\n ```\n\n"
           },
           "useGuardForIn": {
             "deprecated": false,
@@ -1642,21 +1783,6 @@ export function GET() {
             ],
             "docs": " Require `for-in` loops to include an `if` statement.\n\n Looping over objects with a `for-in` loop will include properties inherited through the prototype chain.\n This behavior can lead to unexpected items in your for loop.\n\n For codebases that do not support ES2022, `Object.prototype.hasOwnProperty.call(foo, key)` can be used as a check that the property is not inherited.\n\n For codebases that do support ES2022, `Object.hasOwn(foo, key)` can be used as a shorter and more reliable alternative.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n for (key in foo) {\n   doSomething(key);\n }\n ```\n\n ### Valid\n\n ```js\n for (key in foo) {\n   if (Object.hasOwn(foo, key)) {\n    doSomething(key);\n   }\n }\n ```\n\n ```js\n for (key in foo) {\n   if (Object.prototype.hasOwnProperty.call(foo, key)) {\n     doSomething(key);\n   }\n }\n ```\n\n ```js\n for (key in foo) {\n   if ({}.hasOwnProperty.call(foo, key)) {\n     doSomething(key);\n   }\n }\n ```\n\n"
           },
-          "useImportRestrictions": {
-            "deprecated": false,
-            "version": "1.0.0",
-            "name": "useImportRestrictions",
-            "link": "https://biomejs.dev/linter/rules/use-import-restrictions",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "eslintImportAccess": "eslint-plugin-import-access"
-              }
-            ],
-            "sourceKind": "inspired",
-            "docs": " Disallows package private imports.\n\n This rules enforces the following restrictions:\n\n ## Package private visibility\n\n All exported symbols, such as types, functions or other things that may be exported, are\n considered to be \"package private\". This means that modules that reside in the same\n directory, as well as submodules of those \"sibling\" modules, are allowed to import them,\n while any other modules that are further away in the file system are restricted from\n importing them. A symbol's visibility may be extended by re-exporting from an index file.\n\n Notes:\n\n * This rule only applies to relative imports. External dependencies are exempted.\n * This rule only applies to imports for JavaScript and TypeScript files. Imports for\n   resources such as images or CSS files are exempted.\n\n Source: https://github.com/uhyo/eslint-plugin-import-access\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n // Attempt to import from `foo.js` from outside its `sub` module.\n import { fooPackageVariable } from \"./sub/foo.js\";\n ```\n ```js,expect_diagnostic\n // Attempt to import from `bar.ts` from outside its `aunt` module.\n import { barPackageVariable } from \"../aunt/bar.ts\";\n ```\n\n ```js,expect_diagnostic\n // Assumed to resolve to a JS/TS file.\n import { fooPackageVariable } from \"./sub/foo\";\n ```\n\n ```js,expect_diagnostic\n // If the `sub/foo` module is inaccessible, so is its index file.\n import { fooPackageVariable } from \"./sub/foo/index.js\";\n ```\n\n ### Valid\n\n ```js\n // Imports within the same module are always allowed.\n import { fooPackageVariable } from \"./foo.js\";\n\n // Resources (anything other than JS/TS files) are exempt.\n import { barResource } from \"../aunt/bar.png\";\n\n // A parent index file is accessible like other modules.\n import { internal } from \"../../index.js\";\n\n // If the `sub` module is accessible, so is its index file.\n import { subPackageVariable } from \"./sub/index.js\";\n\n // Library imports are exempt.\n import useAsync from \"react-use/lib/useAsync\";\n ```\n\n"
-          },
           "useParseIntRadix": {
             "deprecated": false,
             "version": "next",
@@ -1669,7 +1795,7 @@ export function GET() {
                 "eslint": "radix"
               }
             ],
-            "docs": " Enforce the consistent use of the radix argument when using `parseInt()`.\n\n When using the `parseInt()` function it is common to omit the second argument, the radix, and let the function try to determine from the first argument what type of number it is. By default, `parseInt()` will autodetect decimal and hexadecimal (via `0x` prefix). Prior to ECMAScript 5, `parseInt()` also autodetected octal literals, which caused problems because many developers assumed a leading `0` would be ignored.\n\n This confusion led to the suggestion that you always use the radix parameter to `parseInt()` to eliminate unintended consequences.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n parseInt(\"071\");\n parseInt(someValue);\n parseInt(\"071\", \"abc\");\n parseInt(\"071\", 37);\n parseInt();\n ```\n\n ### Valid\n\n ```js\n parseInt(\"071\", 10);\n parseInt(\"071\", 8);\n parseFloat(someValue);\n ```\n\n"
+            "docs": " Enforce the consistent use of the radix argument when using `parseInt()`.\n\n When using the `parseInt()` function it is common to omit the second argument, the radix, and let the function try to determine from the first argument what type of number it is. By default, `parseInt()` will autodetect decimal and hexadecimal (via `0x` prefix). Prior to ECMAScript 5, `parseInt()` also autodetected octal literals, which caused problems because many developers assumed a leading `0` would be ignored.\n\n This confusion led to the suggestion that you always use the radix parameter to `parseInt()` to eliminate unintended consequences.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n parseInt(\"071\");\n ```\n\n ```js,expect_diagnostic\n parseInt(someValue);\n ```\n\n ```js,expect_diagnostic\n parseInt(\"071\", \"abc\");\n ```\n\n ```js,expect_diagnostic\n parseInt(\"071\", 37);\n ```\n\n ```js,expect_diagnostic\n parseInt();\n ```\n\n ### Valid\n\n ```js\n parseInt(\"071\", 10);\n parseInt(\"071\", 8);\n parseFloat(someValue);\n ```\n\n"
           },
           "useSortedClasses": {
             "deprecated": false,
@@ -1687,7 +1813,21 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/use-strict-mode",
             "recommended": true,
             "fixKind": "safe",
-            "docs": " Enforce the use of the directive `\"use strict\"` in script files.\n\n The JavaScript [strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode) prohibits some obsolete JavaScript syntaxes and makes some slight semantic chnmages to allow more optimizations by JavaScript engines.\n  EcmaScript modules are always in strict mode, while JavaScript scripts are by default in non-strict mode, also known as _sloppy mode_.\n A developer can add the `\"use strict\"` directive at the start of a script file to enable the strict mode in that file.\n\n Biome considers a CommonJS (`.cjs`) file as a script file.\n By default, Biome recognizes a JavaScript file (`.js`) as a module file, except if `\"type\": \"commonjs\"` is specified in `package.json`.\n\n ## Examples\n\n ### Invalid\n\n ```cjs,expect_diagnostic\n var a = 1;\n ```\n\n ### Valid\n\n ```cjs\n \"use strict\";\n\n var a = 1;\n ```\n\n"
+            "docs": " Enforce the use of the directive `\"use strict\"` in script files.\n\n The JavaScript [strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode) prohibits some obsolete JavaScript syntaxes and makes some slight semantic changes to allow more optimizations by JavaScript engines.\n EcmaScript modules are always in strict mode, while JavaScript scripts are by default in non-strict mode, also known as _sloppy mode_.\n A developer can add the `\"use strict\"` directive at the start of a script file to enable the strict mode in that file.\n\n Biome considers a CommonJS (`.cjs`) file as a script file.\n By default, Biome recognizes a JavaScript file (`.js`) as a module file, except if `\"type\": \"commonjs\"` is specified in `package.json`.\n\n ## Examples\n\n ### Invalid\n\n ```cjs,expect_diagnostic\n var a = 1;\n ```\n\n ### Valid\n\n ```cjs\n \"use strict\";\n\n var a = 1;\n ```\n\n"
+          },
+          "useSymbolDescription": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useSymbolDescription",
+            "link": "https://biomejs.dev/linter/rules/use-symbol-description",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslint": "symbol-description"
+              }
+            ],
+            "docs": " Require a description parameter for the `Symbol()`.\n\n `Symbol` can have an optional description parameter which can be useful for\n debugging and making the purpose of the symbol clearer.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n Symbol();\n ```\n ```js,expect_diagnostic\n Symbol('');\n ```\n```js,expect_diagnostic\n Symbol(``);\n ```\n\n ### Valid\n\n ```js\n Symbol('description');\n ```\n\n"
           },
           "useTrimStartEnd": {
             "deprecated": false,
@@ -1748,7 +1888,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noDelete",
             "link": "https://biomejs.dev/linter/rules/no-delete",
-            "recommended": true,
+            "recommended": false,
             "fixKind": "unsafe",
             "docs": " Disallow the use of the `delete` operator.\n\n The `delete` operator enables the removal of a property from an object.\n\n The `delete` operator should be avoided because it [can prevent some optimizations of _JavaScript_ engines](https://webkit.org/blog/10298/inline-caching-delete/).\n Moreover, it can lead to unexpected results.\n For instance, deleting an array element [does not change the length of the array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/delete#deleting_array_elements).\n\n The only legitimate use of `delete` is on an object that behaves like a _map_.\n To allow this pattern, this rule does not report `delete` on computed properties that are not literal values.\n Consider using [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) instead of an object.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const arr = [1, 2, 3];\n delete arr[0];\n ```\n\n ```js,expect_diagnostic\n const obj = {a: {b: {c: 123}}};\n delete obj.a.b.c;\n ```\n\n ### Valid\n\n ```js\n const foo = new Set([1,2,3]);\n foo.delete(1);\n```\n\n ```js\n const map = Object.create(null);\n const key = \"key\"\n map[key] = \"value\"\n delete map[key];\n```\n\n ```js\n let x = 5;\n delete f(); // uncovered by this rule.\n```\n\n"
           },
@@ -1799,7 +1939,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noArguments",
             "link": "https://biomejs.dev/linter/rules/no-arguments",
-            "recommended": true,
+            "recommended": false,
             "fixKind": "none",
             "sources": [
               {
@@ -1813,7 +1953,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noCommaOperator",
             "link": "https://biomejs.dev/linter/rules/no-comma-operator",
-            "recommended": true,
+            "recommended": false,
             "fixKind": "none",
             "sources": [
               {
@@ -1887,7 +2027,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noParameterAssign",
             "link": "https://biomejs.dev/linter/rules/no-parameter-assign",
-            "recommended": true,
+            "recommended": false,
             "fixKind": "none",
             "sources": [
               {
@@ -1924,7 +2064,7 @@ export function GET() {
             "version": "1.3.0",
             "name": "noUselessElse",
             "link": "https://biomejs.dev/linter/rules/no-useless-else",
-            "recommended": true,
+            "recommended": false,
             "fixKind": "unsafe",
             "sources": [
               {
@@ -1936,20 +2076,6 @@ export function GET() {
             ],
             "sourceKind": "inspired",
             "docs": " Disallow `else` block when the `if` block breaks early.\n\n If an `if` block breaks early using a breaking statement (`return`, `break`, `continue`, or `throw`),\n then the `else` block becomes useless.\n Its contents can be placed outside of the block.\n\n If an `if` block breaks early using a breaking statement (`return`, `break`, `continue`, or `throw`),\n then the `else` block becomes unnecessary.\n This is because the content of the `else` block will never be executed in conjunction with the `if` block,\n as the breaking statement ensures the control flow exits the `if` block immediately.\n Therefore, the `else` block is redundant, and its content can be placed outside of the block,\n reducing the indentation level by one.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n while (x > 0) {\n     if (f(x)) {\n         break;\n     } else {\n         x++\n     }\n }\n ```\n\n ```js,expect_diagnostic\n function f(x) {\n     if (x < 0) {\n         return 0;\n     } else {\n         return x;\n     }\n }\n ```\n\n ```js,expect_diagnostic\n function f(x) {\n     if (x < 0) {\n         throw new RangeError();\n     } else {\n         return x;\n     }\n }\n ```\n\n ### Valid\n\n ```js\n function f(x) {\n     if (x < 0) {\n         return 0;\n     }\n     return x;\n }\n ```\n\n ```js\n function f(x) {\n     if (x < 0) {\n         console.info(\"negative number\");\n     } else if (x > 0) {\n         return x;\n     } else {\n         console.info(\"number 0\");\n     }\n }\n ```\n"
-          },
-          "noVar": {
-            "deprecated": false,
-            "version": "1.0.0",
-            "name": "noVar",
-            "link": "https://biomejs.dev/linter/rules/no-var",
-            "recommended": true,
-            "fixKind": "unsafe",
-            "sources": [
-              {
-                "eslint": "no-var"
-              }
-            ],
-            "docs": " Disallow the use of `var`\n\n ECMAScript 6 allows programmers to create variables with block scope instead of function scope using the let and const keywords.\n\n Block scope is common in many other programming languages and helps programmers avoid mistakes.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n var foo = 1;\n ```\n\n ### Valid\n\n ```js\n const foo = 1;\n let bar = 1;\n```\n"
           },
           "noYodaExpression": {
             "deprecated": false,
@@ -2015,7 +2141,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "useConst",
             "link": "https://biomejs.dev/linter/rules/use-const",
-            "recommended": true,
+            "recommended": false,
             "fixKind": "safe",
             "sources": [
               {
@@ -2029,7 +2155,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "useDefaultParameterLast",
             "link": "https://biomejs.dev/linter/rules/use-default-parameter-last",
-            "recommended": true,
+            "recommended": false,
             "fixKind": "unsafe",
             "sources": [
               {
@@ -2074,7 +2200,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "useExponentiationOperator",
             "link": "https://biomejs.dev/linter/rules/use-exponentiation-operator",
-            "recommended": true,
+            "recommended": false,
             "fixKind": "unsafe",
             "sources": [
               {
@@ -2096,7 +2222,7 @@ export function GET() {
               }
             ],
             "sourceKind": "inspired",
-            "docs": " Enforce naming conventions for JavaScript and TypeScript filenames.\n\n Enforcing [naming conventions](https://en.wikipedia.org/wiki/Naming_convention_(programming)) helps to keep the codebase consistent.\n\n A filename consists of two parts: a name and a set of consecutive extensions.\n For instance, `my-filename.test.js` has `my-filename` as name, and two consecutive extensions: `.test` and `.js`.\n\n By default, the rule ensures that the name is either in [`camelCase`], [`kebab-case`], [`snake_case`],\n or equal to the name of one export in the file.\n By default, the rule ensures that the extensions are either in [`camelCase`], [`kebab-case`], or [`snake_case`].\n\n The rule supports the following exceptions:\n\n - The name of the file can start with a dot or a plus sign, be prefixed and suffixed by underscores `_`.\n   For example, `.filename.js`, `+filename.js`, `__filename__.js`, or even `.__filename__.js`.\n\n   The convention of prefixing a filename with a plus sign is used by [Sveltekit](https://kit.svelte.dev/docs/routing#page) and [Vike](https://vike.dev/route).\n\n - Also, the rule supports dynamic route syntaxes of [Next.js](https://nextjs.org/docs/pages/building-your-application/routing/dynamic-routes#catch-all-segments), [SolidStart](https://docs.solidjs.com/solid-start/building-your-application/routing#renaming-index), [Nuxt](https://nuxt.com/docs/guide/directory-structure/server#catch-all-route), and [Astro](https://docs.astro.build/en/guides/routing/#rest-parameters).\n   For example `[...slug].js` and `[[...slug]].js` are valid filenames.\n\n Note that if you specify the `match' option, the previous exceptions will no longer be handled.\n\n ## Ignoring some files\n\n Sometimes you want to completely ignore some files.\n Biome ignore comments cannot be used because the rule applies on filenames not file contents.\n To ignore files, you can use [`overrides`](https://biomejs.dev/reference/configuration/#overrides).\n If you want to ignore all files in the `test` directory, then you can disable the rule for those files only:\n\n ```json\n {\n   \"overrides\": [\n     {\n        \"include\": [\"test/**/*\"],\n        \"linter\": {\n          \"rules\": {\n            \"style\": {\n              \"useFilenamingConvention\": \"off\"\n            }\n          }\n        }\n     }\n   ]\n }\n ```\n\n ## Options\n\n The rule provides several options that are detailed in the following subsections.\n\n ```jsonc,options\n {\n     \"options\": {\n         \"strictCase\": false,\n         \"requireAscii\": true,\n         \"match\": \"%?(.+?)[.](.+)\", // Since v2.0.0\n         \"filenameCases\": [\"camelCase\", \"export\"]\n     }\n }\n ```\n\n ### strictCase\n\n When this option is set to `true`, it forbids consecutive uppercase characters in [`camelCase`] and [`PascalCase`].\n For instance,  when the option is set to `true`, `agentID` will throw an error.\n This name should be renamed to `agentId`.\n\n When the option is set to `false`, consecutive uppercase characters are allowed.\n `agentID` is so valid.\n\n Default: `true`\n\n ### requireAscii\n\n When this option is set to `true`, it forbids names that include non-ASCII characters.\n For instance,  when the option is set to `true`, `café` or `안녕하세요` will throw an error.\n\n When the option is set to `false`, a name may include non-ASCII characters.\n `café` and `안녕하세요` are so valid.\n\n Default: `false`\n\n **This option will be turned on by default in Biome 2.0.**\n\n ### match (Since v2.0.0)\n\n `match` defines a regular expression that the filename must match.\n If the regex has capturing groups, then the first capture is considered as the filename\n and the second one as file extensions separated by dots.\n\n For example, given the regular expression `%?(.+?)\\.(.+)` and the filename `%index.d.ts`,\n the filename matches the regular expression with two captures: `index` and `d.ts`.\n The captures are checked against `filenameCases`.\n Note that we use the non-greedy quantifier `+?` to stop capturing as soon as we met the next character (`.`).\n If we use the greedy quantifier `+` instead, then the captures could be `index.d` and `ts`.\n\n The regular expression supports the following syntaxes:\n\n - Greedy quantifiers `*`, `?`, `+`, `{n}`, `{n,m}`, `{n,}`, `{m}`\n - Non-greedy quantifiers `*?`, `??`, `+?`, `{n}?`, `{n,m}?`, `{n,}?`, `{m}?`\n - Any character matcher `.`\n - Character classes `[a-z]`, `[xyz]`, `[^a-z]`\n - Alternations `|`\n - Capturing groups `()`\n - Non-capturing groups `(?:)`\n - Case-insensitive groups `(?i:)` and case-sensitive groups `(?-i:)`\n - A limited set of escaped characters including all special characters\n   and regular string escape characters `\\f`, `\\n`, `\\r`, `\\t`, `\\v`\n\n ### filenameCases\n\n By default, the rule enforces that the filename  is either in [`camelCase`], [`kebab-case`], [`snake_case`], or equal to the name of one export in the file.\n\n You can enforce a stricter convention by setting `filenameCases` option.\n `filenameCases` accepts an array of cases among the following cases: [`camelCase`], [`kebab-case`], [`PascalCase`], [`snake_case`], and `export`.\n\n This option also applies to the file extensions.\n Extensions in lowercase are always allowed regardless of how `filenameCases` is set.\n\n [case]: https://en.wikipedia.org/wiki/Naming_convention_(programming)#Examples_of_multiple-word_identifier_formats\n [`camelCase`]: https://en.wikipedia.org/wiki/Camel_case\n [`kebab-case`]: https://en.wikipedia.org/wiki/Letter_case#Kebab_case\n [`PascalCase`]: https://en.wikipedia.org/wiki/Camel_case\n [`snake_case`]: https://en.wikipedia.org/wiki/Snake_case\n"
+            "docs": " Enforce naming conventions for JavaScript and TypeScript filenames.\n\n Enforcing [naming conventions](https://en.wikipedia.org/wiki/Naming_convention_(programming)) helps to keep the codebase consistent.\n\n A filename consists of two parts: a name and a set of consecutive extensions.\n For instance, `my-filename.test.js` has `my-filename` as name, and two consecutive extensions: `.test` and `.js`.\n\n By default, the rule ensures that the name is either in [`camelCase`], [`kebab-case`], [`snake_case`],\n or equal to the name of one export in the file.\n By default, the rule ensures that the extensions are either in [`camelCase`], [`kebab-case`], or [`snake_case`].\n\n The rule supports the following exceptions:\n\n - The name of the file can start with a dot or a plus sign, be prefixed and suffixed by underscores `_`.\n   For example, `.filename.js`, `+filename.js`, `__filename__.js`, or even `.__filename__.js`.\n\n   The convention of prefixing a filename with a plus sign is used by [Sveltekit](https://kit.svelte.dev/docs/routing#page) and [Vike](https://vike.dev/route).\n\n - Also, the rule supports dynamic route syntaxes of [Next.js](https://nextjs.org/docs/pages/building-your-application/routing/dynamic-routes#catch-all-segments), [SolidStart](https://docs.solidjs.com/solid-start/building-your-application/routing#renaming-index), [Nuxt](https://nuxt.com/docs/guide/directory-structure/server#catch-all-route), and [Astro](https://docs.astro.build/en/guides/routing/#rest-parameters).\n   For example `[...slug].js` and `[[...slug]].js` are valid filenames.\n\n Note that if you specify the `match' option, the previous exceptions will no longer be handled.\n\n ## Ignoring some files\n\n Sometimes you want to completely ignore some files.\n Biome ignore comments cannot be used because the rule applies on filenames not file contents.\n To ignore files, you can use [`overrides`](https://biomejs.dev/reference/configuration/#overrides).\n If you want to ignore all files in the `test` directory, then you can disable the rule for those files only:\n\n ```json\n {\n   \"overrides\": [\n     {\n        \"includes\": [\"test/**/*\"],\n        \"linter\": {\n          \"rules\": {\n            \"style\": {\n              \"useFilenamingConvention\": \"off\"\n            }\n          }\n        }\n     }\n   ]\n }\n ```\n\n ## Options\n\n The rule provides several options that are detailed in the following subsections.\n\n ```jsonc,options\n {\n     \"options\": {\n         \"strictCase\": false,\n         \"requireAscii\": true,\n         \"match\": \"%?(.+?)[.](.+)\", // Since v2.0.0\n         \"filenameCases\": [\"camelCase\", \"export\"]\n     }\n }\n ```\n\n ### strictCase\n\n When this option is set to `true`, it forbids consecutive uppercase characters in [`camelCase`] and [`PascalCase`].\n For instance,  when the option is set to `true`, `agentID` will throw an error.\n This name should be renamed to `agentId`.\n\n When the option is set to `false`, consecutive uppercase characters are allowed.\n `agentID` is so valid.\n\n Default: `true`\n\n ### requireAscii\n\n When this option is set to `true`, it forbids names that include non-ASCII characters.\n For instance,  when the option is set to `true`, `café` or `안녕하세요` will throw an error.\n\n When the option is set to `false`, a name may include non-ASCII characters.\n `café` and `안녕하세요` are so valid.\n\n Default: `true`\n\n ### match (Since v2.0.0)\n\n `match` defines a regular expression that the filename must match.\n If the regex has capturing groups, then the first capture is considered as the filename\n and the second one as file extensions separated by dots.\n\n For example, given the regular expression `%?(.+?)\\.(.+)` and the filename `%index.d.ts`,\n the filename matches the regular expression with two captures: `index` and `d.ts`.\n The captures are checked against `filenameCases`.\n Note that we use the non-greedy quantifier `+?` to stop capturing as soon as we met the next character (`.`).\n If we use the greedy quantifier `+` instead, then the captures could be `index.d` and `ts`.\n\n The regular expression supports the following syntaxes:\n\n - Greedy quantifiers `*`, `?`, `+`, `{n}`, `{n,m}`, `{n,}`, `{m}`\n - Non-greedy quantifiers `*?`, `??`, `+?`, `{n}?`, `{n,m}?`, `{n,}?`, `{m}?`\n - Any character matcher `.`\n - Character classes `[a-z]`, `[xyz]`, `[^a-z]`\n - Alternations `|`\n - Capturing groups `()`\n - Non-capturing groups `(?:)`\n - Case-insensitive groups `(?i:)` and case-sensitive groups `(?-i:)`\n - A limited set of escaped characters including all special characters\n   and regular string escape characters `\\f`, `\\n`, `\\r`, `\\t`, `\\v`.\n   Note that you can also escape special characters using character classes.\n   For example, `\\$` and `[$]` are two valid patterns that escape `$`.\n\n ### filenameCases\n\n By default, the rule enforces that the filename  is either in [`camelCase`], [`kebab-case`], [`snake_case`], or equal to the name of one export in the file.\n\n You can enforce a stricter convention by setting `filenameCases` option.\n `filenameCases` accepts an array of cases among the following cases: [`camelCase`], [`kebab-case`], [`PascalCase`], [`snake_case`], and `export`.\n\n This option also applies to the file extensions.\n Extensions in lowercase are always allowed regardless of how `filenameCases` is set.\n\n [case]: https://en.wikipedia.org/wiki/Naming_convention_(programming)#Examples_of_multiple-word_identifier_formats\n [`camelCase`]: https://en.wikipedia.org/wiki/Camel_case\n [`kebab-case`]: https://en.wikipedia.org/wiki/Letter_case#Kebab_case\n [`PascalCase`]: https://en.wikipedia.org/wiki/Camel_case\n [`snake_case`]: https://en.wikipedia.org/wiki/Snake_case\n"
           },
           "useForOf": {
             "deprecated": false,
@@ -2129,7 +2255,7 @@ export function GET() {
             "version": "1.5.0",
             "name": "useNodejsImportProtocol",
             "link": "https://biomejs.dev/linter/rules/use-nodejs-import-protocol",
-            "recommended": true,
+            "recommended": false,
             "fixKind": "unsafe",
             "sources": [
               {
@@ -2143,7 +2269,7 @@ export function GET() {
             "version": "1.5.0",
             "name": "useNumberNamespace",
             "link": "https://biomejs.dev/linter/rules/use-number-namespace",
-            "recommended": true,
+            "recommended": false,
             "fixKind": "safe",
             "sources": [
               {
@@ -2157,7 +2283,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "useNumericLiterals",
             "link": "https://biomejs.dev/linter/rules/use-numeric-literals",
-            "recommended": true,
+            "recommended": false,
             "fixKind": "unsafe",
             "sources": [
               {
@@ -2171,14 +2297,14 @@ export function GET() {
             "version": "1.0.0",
             "name": "useSelfClosingElements",
             "link": "https://biomejs.dev/linter/rules/use-self-closing-elements",
-            "recommended": true,
-            "fixKind": "unsafe",
+            "recommended": false,
+            "fixKind": "safe",
             "sources": [
               {
                 "eslintStylistic": "jsx-self-closing-comp"
               }
             ],
-            "docs": " Prevent extra closing tags for components without children\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div></div>\n ```\n\n ```jsx,expect_diagnostic\n <Component></Component>\n ```\n\n ```jsx,expect_diagnostic\n <Foo.bar></Foo.bar>\n ```\n\n ### Valid\n\n ```js\n <div />\n```\n\n ```js\n <div>child</div>\n```\n\n ```js\n <Component />\n```\n\n ```js\n <Component>child</Component>\n```\n\n ```js\n <Foo.bar />\n```\n\n ```js\n <Foo.bar>child</Foo.bar>\n```\n\n ## Options\n\n ### `ignoreHtmlElements`\n\n **Since version 2.0.0**.\n\n Default: `false`\n\n This option allows you to specify whether to ignore checking native HTML elements.\n\n In the following example, when the option is set to \"true\", it will not self close native HTML elements.\n\n ```json\n {\n     \"//\":\"...\",\n     \"options\": {\n         \"ignoreHtmlElements\": true\n     }\n }\n ```\n\n ```jsx,ignore\n <div></div>\n ```\n\n\n"
+            "docs": " Prevent extra closing tags for components without children\n\n JSX elements without children should be marked as self-closing. In JSX, it is valid for any element to be self-closing.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div></div>\n ```\n\n ```jsx,expect_diagnostic\n <Component></Component>\n ```\n\n ```jsx,expect_diagnostic\n <Foo.bar></Foo.bar>\n ```\n\n ### Valid\n\n ```jsx\n <div />\n```\n\n ```jsx\n <div>child</div>\n```\n\n ```jsx\n <Component />\n```\n\n ```jsx\n <Component>child</Component>\n```\n\n ```jsx\n <Foo.bar />\n```\n\n ```jsx\n <Foo.bar>child</Foo.bar>\n```\n\n ## Options\n\n ### `ignoreHtmlElements`\n\n **Since version 2.0.0**.\n\n Default: `false`\n\n This option allows you to specify whether to ignore checking native HTML elements.\n\n In the following example, when the option is set to \"true\", it will not self close native HTML elements.\n\n ```json\n {\n     \"//\":\"...\",\n     \"options\": {\n         \"ignoreHtmlElements\": true\n     }\n }\n ```\n\n ```jsx,ignore\n <div></div>\n ```\n\n\n"
           },
           "useShorthandAssign": {
             "deprecated": false,
@@ -2208,7 +2334,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "useSingleVarDeclarator",
             "link": "https://biomejs.dev/linter/rules/use-single-var-declarator",
-            "recommended": true,
+            "recommended": false,
             "fixKind": "unsafe",
             "sources": [
               {
@@ -2222,7 +2348,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "useTemplate",
             "link": "https://biomejs.dev/linter/rules/use-template",
-            "recommended": true,
+            "recommended": false,
             "fixKind": "unsafe",
             "sources": [
               {
@@ -2262,20 +2388,6 @@ export function GET() {
             ],
             "sourceKind": "inspired",
             "docs": " Disallow throwing non-`Error` values.\n\n It is considered good practice only to throw the `Error` object itself or an object using the `Error` object\n as base objects for user-defined exceptions. The fundamental benefit of `Error` objects is that they automatically\n keep track of where they were built and originated.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n throw undefined;\n ```\n ```js,expect_diagnostic\n throw false;\n ```\n ```js,expect_diagnostic\n throw \"a\" + \"b\";\n ```\n\n ### Valid\n\n ```js\n throw new Error();\n ```\n ```js\n throw new TypeError('biome');\n ```\n ```js\n class CustomError extends Error {}\n\n throw new CustomError();\n ```\n\n ## Caveats\n\n This rule only covers cases where throwing the value can be known statically.\n Complex cases such as object and function access aren't checked.\n This will be improved in the future once Biome supports type inference.\n\n"
-          },
-          "useWhile": {
-            "deprecated": false,
-            "version": "1.0.0",
-            "name": "useWhile",
-            "link": "https://biomejs.dev/linter/rules/use-while",
-            "recommended": true,
-            "fixKind": "safe",
-            "sources": [
-              {
-                "eslintSonarJs": "prefer-while"
-              }
-            ],
-            "docs": " Enforce the use of `while` loops instead of `for` loops when the initializer and update expressions are not needed.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n for (; x.running;) {\n     x.step();\n }\n ```\n\n ### Valid\n\n ```js\n for(let x = 0; x < 10; i++) {}\n ```\n\n ```js\n let x = 0\n for(; x < 10; i++) {}\n ```\n\n ```js\n for(let x = 0; x < 10;) {\n     i++\n }\n ```\n"
           }
         },
         "suspicious": {
@@ -2377,7 +2489,7 @@ export function GET() {
               }
             ],
             "sourceKind": "inspired",
-            "docs": " Disallow labeled statements that are not loops.\n\n Labeled statements in JavaScript are used in conjunction with `break` and `continue` to control flow around multiple loops.\n Their use for other statements is suspicious and unfamiliar.\n\n The rule ignores reactive Svelte statements in Svelte components.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n label: f();\n ```\n\n ```js,expect_diagnostic\n label: {\n     f();\n     break label;\n }\n ```\n\n ```js,expect_diagnostic\n label: if (a) {\n     f()\n     break label;\n }\n ```\n\n ```js,expect_diagnostic\n label: switch (a) {\n     case 0:\n         break label;\n }\n ```\n\n ### Valid\n\n ```js\n outer: while (a) {\n     while(b) {\n         break outer;\n     }\n }\n ```\n\n ```svelte\n <script>\n $: { /* reactive block */ }\n </script>\n ```\n"
+            "docs": " Disallow labeled statements that are not loops.\n\n Labeled statements in JavaScript are used in conjunction with `break` and `continue` to control flow around multiple loops.\n Their use for other statements is suspicious and unfamiliar.\n\n The rule ignores reactive Svelte statements in Svelte components.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n label: f();\n ```\n\n ```js,expect_diagnostic\n label: {\n     f();\n     break label;\n }\n ```\n\n ```js,expect_diagnostic\n label: if (a) {\n     f()\n     break label;\n }\n ```\n\n ```js,expect_diagnostic\n label: switch (a) {\n     case 0:\n         break label;\n }\n ```\n\n ### Valid\n\n ```js\n outer: while (a) {\n     while(b) {\n         break outer;\n     }\n }\n ```\n\n ```svelte\n <script>\n $: { /* reactive block */ }\n </script>\n ```\n ## Options\n\n Use the options to allow specific labels in your code.\n Labels can be used to mark code that should be removed under certain conditions,\n such as in production builds.\n Some bundlers, such as [esbuild](https://esbuild.github.io/api/#drop-labels) and Vite,\n can be configured to remove labeled statements.\n\n ```json,options\n {\n     \"options\": {\n         \"allowedLabels\": [\"DEV\"]\n     }\n }\n ```\n\n ```js,use_options\n DEV: assertSomeCondition();\n ```\n\n"
           },
           "noConsole": {
             "deprecated": false,
@@ -2393,15 +2505,6 @@ export function GET() {
             ],
             "docs": " Disallow the use of `console`.\n\n In a browser environment, it’s considered a best practice to log messages using `console`.\n Such messages are considered to be for debugging purposes and therefore not suitable to ship to the client.\n In general, calls using `console` should be stripped before being pushed to production.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n console.error('hello world')\n ```\n\n ## Options\n\n Use the options to explicitly allow a specific subset of `console` methods.\n\n ```json,options\n {\n   \"options\": {\n     \"allow\": [\"assert\", \"error\", \"info\", \"warn\"]\n   }\n }\n ```\n\n ```js,expect_diagnostic,use_options\n console.error(\"error message\"); // Allowed\n console.warn(\"warning message\"); // Allowed\n console.info(\"info message\"); // Allowed\n console.log(\"log message\");\n console.assert(true, \"explanation\"); // Allowed\n ```\n"
           },
-          "noConsoleLog": {
-            "deprecated": true,
-            "version": "1.0.0",
-            "name": "noConsoleLog",
-            "link": "https://biomejs.dev/linter/rules/no-console-log",
-            "recommended": false,
-            "fixKind": "unsafe",
-            "docs": " Disallow the use of `console.log`\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n console.log()\n ```\n\n ### Valid\n\n ```js\n console.info(\"info\");\n console.warn(\"warn\");\n console.error(\"error\");\n console.assert(true);\n console.table([\"foo\", \"bar\"]);\n const console = { log() {} };\n console.log();\n ```\n\n"
-          },
           "noControlCharactersInRegex": {
             "deprecated": false,
             "version": "1.0.0",
@@ -2414,7 +2517,7 @@ export function GET() {
                 "eslint": "no-control-regex"
               }
             ],
-            "docs": " Prevents from having control characters and some escape sequences that match control characters in regular expressions.\n\n Control characters are hidden special characters that are numbered from 0 to 31 in the ASCII system.\n They're not commonly used in JavaScript text. So, if you see them in a pattern (called a regular expression), it's probably a mistake.\n\n The following elements of regular expression patterns are considered possible errors in typing and are therefore disallowed by this rule:\n\n - Hexadecimal character escapes from `\\x00` to `\\x1F`\n - Unicode character escapes from `\\u0000` to `\\u001F`\n - Unicode code point escapes from `\\u{0}` to `\\u{1F}`\n - Unescaped raw characters from U+0000 to U+001F\n\n Control escapes such as `\\t` and `\\n` are allowed by this rule.\n\n ## Examples\n\n ### Invalid\n ```js,expect_diagnostic\n  var pattern1 = /\\x00/;\n ```\n ```js,expect_diagnostic\n  var pattern2 = /\\x0C/;\n ```\n ```js,expect_diagnostic\n  var pattern3 = /\\x1F/;\n ```\n ```js,expect_diagnostic\n  var pattern4 = /\\u000C/;\n ```\n ```js,expect_diagnostic\n  var pattern5 = /\\u{C}/u;\n ```\n ```js,expect_diagnostic\n  var pattern7 = new RegExp(\"\\x0C\");\n ```\n ```js,expect_diagnostic\n  var pattern7 = new RegExp(\"\\\\x0C\");\n ```\n\n ### Valid\n ```js\n var pattern1 = /\\x20/;\n var pattern2 = /\\u0020/;\n var pattern3 = /\\u{20}/u;\n var pattern4 = /\\t/;\n var pattern5 = /\\n/;\n var pattern6 = new RegExp(\"\\x20\");\n ```\n\n"
+            "docs": " Prevents from having control characters and some escape sequences that match control characters in regular expression literals.\n\n Control characters are hidden special characters that are numbered from 0 to 31 in the ASCII system.\n They're not commonly used in JavaScript text. So, if you see them in a pattern (called a regular expression), it's probably a mistake.\n\n The following elements of regular expression patterns are considered possible errors in typing and are therefore disallowed by this rule:\n\n - Hexadecimal character escapes from `\\x00` to `\\x1F`\n - Unicode character escapes from `\\u0000` to `\\u001F`\n - Unicode code point escapes from `\\u{0}` to `\\u{1F}`\n - Unescaped raw characters from U+0000 to U+001F\n\n Control escapes such as `\\t` and `\\n` are allowed by this rule.\n\n ## Examples\n\n ### Invalid\n ```js,expect_diagnostic\n  var pattern1 = /\\x00/;\n ```\n ```js,expect_diagnostic\n  var pattern2 = /\\x0C/;\n ```\n ```js,expect_diagnostic\n  var pattern3 = /\\x1F/;\n ```\n ```js,expect_diagnostic\n  var pattern4 = /\\u000C/;\n ```\n ```js,expect_diagnostic\n  var pattern5 = /\\u{C}/u;\n ```\n\n ### Valid\n ```js\n var pattern1 = /\\x20/;\n var pattern2 = /\\u0020/;\n var pattern3 = /\\u{20}/u;\n var pattern4 = /\\t/;\n var pattern5 = /\\n/;\n ```\n\n"
           },
           "noDebugger": {
             "deprecated": false,
@@ -2671,7 +2774,7 @@ export function GET() {
                 "eslint": "no-misleading-character-class"
               }
             ],
-            "docs": " Disallow characters made with multiple code points in character class syntax.\n\n Unicode includes the characters which are made with multiple code points. e.g. Á, 🇯🇵, 👨‍👩‍👦.\n A RegExp character class `/[abc]/` cannot handle characters with multiple code points.\n For example, the character `❇️` consists of two code points: `❇` (U+2747) and `VARIATION SELECTOR-16` (U+FE0F).\n If this character is in a RegExp character class, it will match to either `❇` or `VARIATION SELECTOR-16` rather than `❇️`.\n This rule reports the regular expressions which include multiple code point characters in character class syntax.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n /^[Á]$/u;\n ```\n\n ```js,expect_diagnostic\n /^[❇️]$/u;\n ```\n\n ```js,expect_diagnostic\n /^[👶🏻]$/u;\n ```\n\n ```js,expect_diagnostic\n /^[🇯🇵]$/u;\n ```\n\n ```js,expect_diagnostic\n /^[👨‍👩‍👦]$/u;\n ```\n\n ```js,expect_diagnostic\n /^[👍]$/; // surrogate pair without u flag\n ```\n\n ### Valid\n\n ```js\n /^[abc]$/;\n /^[👍]$/u;\n /^[\\q{👶🏻}]$/v;\n ```\n"
+            "docs": " Disallow characters made with multiple code points in character class syntax.\n\n Unicode includes the characters which are made with multiple code points. e.g. Á, 🇯🇵, 👨‍👩‍👦.\n A RegExp character class `/[abc]/` cannot handle characters with multiple code points.\n For example, the character `❇️` consists of two code points: `❇` (U+2747) and `VARIATION SELECTOR-16` (U+FE0F).\n If this character is in a RegExp character class, it will match to either `❇` or `VARIATION SELECTOR-16` rather than `❇️`.\n This rule reports the regular expression literals which include multiple code point characters in character class syntax.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n /^[Á]$/u;\n ```\n\n ```js,expect_diagnostic\n /^[❇️]$/u;\n ```\n\n ```js,expect_diagnostic\n /^[👶🏻]$/u;\n ```\n\n ```js,expect_diagnostic\n /^[🇯🇵]$/u;\n ```\n\n ```js,expect_diagnostic\n /^[👨‍👩‍👦]$/u;\n ```\n\n ```js,expect_diagnostic\n /^[👍]$/; // surrogate pair without u flag\n ```\n\n ### Valid\n\n ```js\n /^[abc]$/;\n /^[👍]$/u;\n /^[\\q{👶🏻}]$/v;\n ```\n"
           },
           "noMisplacedAssertion": {
             "deprecated": false,
@@ -2817,16 +2920,7 @@ export function GET() {
                 "eslint": "no-sparse-arrays"
               }
             ],
-            "docs": " Disallow sparse arrays\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n [1,,2]\n ```\n"
-          },
-          "noSuspiciousSemicolonInJsx": {
-            "deprecated": false,
-            "version": "1.6.0",
-            "name": "noSuspiciousSemicolonInJsx",
-            "link": "https://biomejs.dev/linter/rules/no-suspicious-semicolon-in-jsx",
-            "recommended": true,
-            "fixKind": "none",
-            "docs": " It detects possible \"wrong\" semicolons inside JSX elements.\n\n Semicolons that appear after a self-closing element or a closing element are usually the result of a typo of a refactor gone wrong.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n const Component = () => {\n   return (\n     <div>\n       <div />;\n     </div>\n  );\n }\n ```\n\n ### Valid\n\n ```jsx\n const Component = () => {\n   return (\n     <div>\n       <div />\n       ;\n     </div>\n   );\n }\n const Component2 = () => {\n   return (\n     <div>\n       <span>;</span>\n     </div>\n   );\n }\n ```\n\n"
+            "docs": " Prevents the use of sparse arrays (arrays with holes).\n\n Sparse arrays may contain empty slots due to the use of multiple commas between two items, like the following:\n\n ```js,ignore\n const items = [a,,,b];\n ```\n Arrays with holes might yield incorrect information. For example, the previous snippet, `items` has a length of `4`, but did the user\n really intended to have an array with four items? Or was it a typo.\n\n This rule enforce the user to explicitly an `undefined` in places where there's a hole.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n [1,,2]\n ```\n\n ### Valid\n\n ```js\n [1, undefined, 2]\n ```\n"
           },
           "noThenProperty": {
             "deprecated": false,
@@ -2855,6 +2949,20 @@ export function GET() {
               }
             ],
             "docs": " Disallow using unsafe negation.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n !1 in [1,2];\n ```\n\n ```js,expect_diagnostic\n /**test*/!/** test*/1 instanceof [1,2];\n ```\n\n ### Valid\n ```js\n -1 in [1,2];\n ~1 in [1,2];\n typeof 1 in [1,2];\n void 1 in [1,2];\n delete 1 in [1,2];\n +1 instanceof [1,2];\n ```\n"
+          },
+          "noVar": {
+            "deprecated": false,
+            "version": "1.0.0",
+            "name": "noVar",
+            "link": "https://biomejs.dev/linter/rules/no-var",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "eslint": "no-var"
+              }
+            ],
+            "docs": " Disallow the use of `var`\n\n ECMAScript 6 allows programmers to create variables with block scope instead of function scope using the let and const keywords.\n\n Block scope is common in many other programming languages and helps programmers avoid mistakes.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n var foo = 1;\n ```\n\n ### Valid\n\n ```js\n const foo = 1;\n let bar = 1;\n```\n"
           },
           "useAwait": {
             "deprecated": false,
@@ -2955,7 +3063,7 @@ export function GET() {
                 "eslint": "valid-typeof"
               }
             ],
-            "docs": " This rule checks that the result of a `typeof' expression is compared to a valid value.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n typeof foo === \"strnig\";\n ```\n\n ```js,expect_diagnostic\n typeof foo == \"undefimed\";\n ```\n\n ```js,expect_diagnostic\n typeof bar != \"nunber\";\n ```\n\n ```js,expect_diagnostic\n typeof foo === undefined;\n ```\n\n ```js,expect_diagnostic\n typeof foo == 0;\n ```\n\n ### Valid\n\n ```js\n typeof foo === \"string\";\n ```\n\n ```js\n typeof bar == \"undefined\";\n ```\n\n ```js\n typeof bar === typeof qux;\n ```\n\n ```js\n typeof foo === bar\n ```\n"
+            "docs": " This rule checks that the result of a `typeof` expression is compared to a valid value.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n typeof foo === \"strnig\";\n ```\n\n ```js,expect_diagnostic\n typeof foo == \"undefimed\";\n ```\n\n ```js,expect_diagnostic\n typeof bar != \"nunber\";\n ```\n\n ```js,expect_diagnostic\n typeof foo === undefined;\n ```\n\n ```js,expect_diagnostic\n typeof foo == 0;\n ```\n\n ### Valid\n\n ```js\n typeof foo === \"string\";\n ```\n\n ```js\n typeof bar == \"undefined\";\n ```\n\n ```js\n typeof bar === typeof qux;\n ```\n\n ```js\n typeof foo === bar\n ```\n"
           }
         }
       },
@@ -3505,7 +3613,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "useHookAtTopLevel",
             "link": "https://biomejs.dev/linter/rules/use-hook-at-top-level",
-            "recommended": false,
+            "recommended": true,
             "fixKind": "none",
             "sources": [
               {
@@ -3536,7 +3644,7 @@ export function GET() {
             "version": "1.9.4",
             "name": "noDocumentImportInPage",
             "link": "https://biomejs.dev/linter/rules/no-document-import-in-page",
-            "recommended": false,
+            "recommended": true,
             "fixKind": "none",
             "sources": [
               {
@@ -3551,7 +3659,7 @@ export function GET() {
             "version": "1.9.4",
             "name": "noHeadElement",
             "link": "https://biomejs.dev/linter/rules/no-head-element",
-            "recommended": false,
+            "recommended": true,
             "fixKind": "none",
             "sources": [
               {
@@ -3566,7 +3674,7 @@ export function GET() {
             "version": "1.9.4",
             "name": "noHeadImportInDocument",
             "link": "https://biomejs.dev/linter/rules/no-head-import-in-document",
-            "recommended": false,
+            "recommended": true,
             "fixKind": "none",
             "sources": [
               {
@@ -3581,7 +3689,7 @@ export function GET() {
             "version": "1.9.4",
             "name": "noImgElement",
             "link": "https://biomejs.dev/linter/rules/no-img-element",
-            "recommended": false,
+            "recommended": true,
             "fixKind": "none",
             "sources": [
               {
@@ -3604,6 +3712,21 @@ export function GET() {
               }
             ],
             "docs": " Disallow use event handlers on non-interactive elements.\n\n Non-interactive HTML elements indicate _content_ and _containers_ in the user interface.\n Non-interactive elements include `<main>`, `<area>`, `<h1>` (,`<h2>`, etc), `<img>`, `<li>`, `<ul>` and `<ol>`.\n\n A Non-interactive element does not support event handlers(mouse and key handlers).\n\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div onClick={() => {}}>button</div>\n ```\n\n ### Valid\n\n ```jsx\n <button onClick={() => { }}>button</button>\n ```\n\n ```jsx\n // Adding a role to element does not add behavior.\n // If not used semantic HTML elements like `button`, developers need to implement the expected behavior for role(like focusability and key press support)\n // See https://www.w3.org/WAI/ARIA/apg/\n <div role=\"button\" onClick={() => { }}>button</div>\n ```\n\n ```jsx\n // The role=\"presentation\" attribute removes the semantic meaning of an element, indicating that it should be ignored by assistive technologies.\n // Therefore, it's acceptable to add event handlers to elements with role=\"presentation\" for visual effects or other purposes,\n // but users relying on assistive technologies may not be able to interact with these elements.\n <div role=\"presentation\" onClick={() => { }}>button</div>\n ```\n\n ```jsx\n // Hidden from screen reader.\n <div onClick={() => {}} aria-hidden />\n ```\n\n ```jsx\n // Custom component is not checked.\n <SomeComponent onClick={() => {}}>button</SomeComponent>\n ```\n\n ```jsx\n // Spread attributes is not supported.\n <div {...{\"onClick\":() => {}}}>button</div>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 4.1.2](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value)\n\n ### Resources\n\n - [WAI-ARIA roles](https://www.w3.org/TR/wai-aria-1.1/#usage_intro)\n - [WAI-ARIA Authoring Practices Guide - Design Patterns and Widgets](https://www.w3.org/TR/wai-aria-practices-1.1/#aria_ex)\n - [Fundamental Keyboard Navigation Conventions](https://www.w3.org/TR/wai-aria-practices-1.1/#kbd_generalnav)\n - [Mozilla Developer Network - ARIA Techniques](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_button_role#Keyboard_and_focus)\n\n"
+          },
+          "noUnwantedPolyfillio": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noUnwantedPolyfillio",
+            "link": "https://biomejs.dev/linter/rules/no-unwanted-polyfillio",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslintNext": "no-unwanted-polyfillio"
+              }
+            ],
+            "sourceKind": "sameLogic",
+            "docs": " Prevent duplicate polyfills from Polyfill.io.\n\n You are using polyfills from Polyfill.io and including polyfills already shipped with Next.js.\n This unnecessarily increases page weight which can affect loading performance.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <script src='https://polyfill.io/v3/polyfill.min.js?features=AbortController,Object.fromEntries'></script>\n ```\n\n ```jsx,expect_diagnostic\n import NextScript from 'next/script';\n\n export function MyApp({ Component, pageProps }) {\n   return <NextScript src='https://polyfill.io/v3/polyfill.min.js?features=Array.prototype.copyWithin' />\n }\n ```\n\n ### Valid\n\n ```jsx\n <>\n   <script src='https://polyfill.io/v3/polyfill.min.js?features=AbortController'></script>\n   <script src='https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver'></script>\n   <Script src='https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver' />\n   <Script src='https://polyfill-fastly.io/v3/polyfill.min.js?features=IntersectionObserver' />\n </>\n ```\n\n"
           },
           "useComponentExportOnlyModules": {
             "deprecated": false,
@@ -3640,7 +3763,7 @@ export function GET() {
             "version": "1.9.4",
             "name": "useGoogleFontDisplay",
             "link": "https://biomejs.dev/linter/rules/use-google-font-display",
-            "recommended": false,
+            "recommended": true,
             "fixKind": "none",
             "sources": [
               {
@@ -3655,7 +3778,7 @@ export function GET() {
             "version": "next",
             "name": "useGoogleFontPreconnect",
             "link": "https://biomejs.dev/linter/rules/use-google-font-preconnect",
-            "recommended": false,
+            "recommended": true,
             "fixKind": "safe",
             "sources": [
               {
@@ -3769,6 +3892,15 @@ export function GET() {
               }
             ],
             "docs": " Prevents JSX properties to be assigned multiple times.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <Hello name=\"John\" name=\"John\" />\n ```\n\n ```jsx,expect_diagnostic\n <label xml:lang=\"en-US\" xml:lang=\"en-US\"></label>\n ```\n\n ### Valid\n\n ```jsx\n <Hello firstname=\"John\" lastname=\"Doe\" />\n ```\n\n ```jsx\n <label xml:lang=\"en-US\" lang=\"en-US\"></label>\n ```\n"
+          },
+          "noSuspiciousSemicolonInJsx": {
+            "deprecated": false,
+            "version": "1.6.0",
+            "name": "noSuspiciousSemicolonInJsx",
+            "link": "https://biomejs.dev/linter/rules/no-suspicious-semicolon-in-jsx",
+            "recommended": true,
+            "fixKind": "none",
+            "docs": " It detects possible \"wrong\" semicolons inside JSX elements.\n\n Semicolons that appear after a self-closing element or a closing element are usually the result of a typo of a refactor gone wrong.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n const Component = () => {\n   return (\n     <div>\n       <div />;\n     </div>\n  );\n }\n ```\n\n ### Valid\n\n ```jsx\n const Component = () => {\n   return (\n     <div>\n       <div />\n       ;\n     </div>\n   );\n }\n const Component2 = () => {\n   return (\n     <div>\n       <span>;</span>\n     </div>\n   );\n }\n ```\n\n"
           }
         }
       },
@@ -3847,6 +3979,20 @@ export function GET() {
             "fixKind": "none",
             "docs": " Disallow TypeScript enum.\n\n TypeScript enums are not a type-level extension to JavaScript like type annotations or definitions.\n Users may wish to disable non-type-level extensions to use bundlers or compilers that only strip types.\n\n Const enums are not covered by this rule since `noConstEnum` already handles them.\n Enums within the ambient context, including declaration files, are ignores as well.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n enum Foo {\n     BAR = 'bar',\n     BAZ = 'baz',\n }\n ```\n\n ### Valid\n\n ```ts\n const Foo = {\n     BAR: 'bar',\n     BAZ: 'baz',\n } as const\n ```\n\n ```ts\n type Foo = 'bar' | 'baz'\n ```\n\n ```ts\n const enum Foo {\n     BAR = 'bar',\n     BAZ = 'baz',\n }\n ```\n\n\n"
           },
+          "noFloatingPromises": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noFloatingPromises",
+            "link": "https://biomejs.dev/linter/rules/no-floating-promises",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "eslintTypeScript": "no-floating-promises"
+              }
+            ],
+            "docs": " Require Promise-like statements to be handled appropriately.\n\n A \"floating\" `Promise` is one that is created without any code set up to handle any errors it might throw.\n Floating Promises can lead to several issues, including improperly sequenced operations, unhandled Promise rejections, and other unintended consequences.\n\n This rule will report Promise-valued statements that are not treated in one of the following ways:\n - Calling its `.then()` method with two arguments\n - Calling its `.catch()` method with one argument\n - `await`ing it\n - `return`ing it\n - `void`ing it\n\n :::caution\n ## Important notes\n\n This rule is a work in progress, and is only partially implemented.\n Progress is being tracked in the following GitHub issue: https://github.com/biomejs/biome/issues/3187\n :::\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n async function returnsPromise(): Promise<string> {\n   return 'value';\n }\n returnsPromise().then(() => {});\n ```\n\n ```ts,expect_diagnostic\n const returnsPromise = async (): Promise<string> => {\n   return 'value';\n }\n async function returnsPromiseInAsyncFunction() {\n   returnsPromise().then(() => {});\n }\n ```\n\n ```ts,expect_diagnostic\n const promise = new Promise((resolve) => resolve('value'));\n promise.then(() => { }).finally(() => { });\n ```\n\n ```ts,expect_diagnostic\n Promise.all([p1, p2, p3])\n ```\n\n ```ts,expect_diagnostic\n class Api {\n   async returnsPromise(): Promise<string> {\n     return 'value';\n   }\n   async someMethod() {\n     this.returnsPromise();\n   }\n }\n ```\n\n ```ts,expect_diagnostic\n class Parent {\n   async returnsPromise(): Promise<string> {\n     return 'value';\n   }\n }\n\n class Child extends Parent {\n   async someMethod() {\n     this.returnsPromise();\n   }\n }\n ```\n\n ```ts,expect_diagnostic\n class Api {\n   async returnsPromise(): Promise<string> {\n     return 'value';\n   }\n }\n const api = new Api();\n api.returnsPromise().then(() => {}).finally(() => {});\n ```\n\n ```ts,expect_diagnostic\n const obj = {\n   async returnsPromise(): Promise<string> {\n     return 'value';\n   },\n };\n\n obj.returnsPromise();\n ```\n\n ```ts,expect_diagnostic\n type Props = {\n   returnsPromise: () => Promise<void>;\n };\n\n async function testCallingReturnsPromise(props: Props) {\n   props.returnsPromise();\n }\n ```\n ### Valid\n\n ```ts\n async function returnsPromise(): Promise<string> {\n   return 'value';\n }\n\n await returnsPromise();\n\n void returnsPromise();\n\n // Calling .then() with two arguments\n returnsPromise().then(\n   () => {},\n   () => {},\n );\n\n // Calling .catch() with one argument\n returnsPromise().catch(() => {});\n\n await Promise.all([p1, p2, p3])\n\n class Api {\n   async returnsPromise(): Promise<string> {\n     return 'value';\n   }\n   async someMethod() {\n     await this.returnsPromise();\n   }\n }\n ```\n\n ```ts\n type Props = {\n   returnsPromise: () => Promise<void>;\n };\n\n async function testCallingReturnsPromise(props: Props) {\n   return props.returnsPromise();\n }\n ```\n\n"
+          },
           "noRestrictedTypes": {
             "deprecated": false,
             "version": "1.9.0",
@@ -3896,7 +4042,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noInferrableTypes",
             "link": "https://biomejs.dev/linter/rules/no-inferrable-types",
-            "recommended": true,
+            "recommended": false,
             "fixKind": "safe",
             "sources": [
               {
@@ -3924,7 +4070,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noNonNullAssertion",
             "link": "https://biomejs.dev/linter/rules/no-non-null-assertion",
-            "recommended": true,
+            "recommended": false,
             "fixKind": "unsafe",
             "sources": [
               {
@@ -3953,7 +4099,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "noUnusedTemplateLiteral",
             "link": "https://biomejs.dev/linter/rules/no-unused-template-literal",
-            "recommended": true,
+            "recommended": false,
             "fixKind": "unsafe",
             "docs": " Disallow template literals if interpolation and special-character handling are not needed\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const foo = `bar`\n ```\n\n ```js,expect_diagnostic\n const foo = `bar `\n ```\n\n ### Valid\n\n ```js\n const foo = `bar\n has newline`;\n ```\n\n ```js\n const foo = `\"bar\"`\n ```\n\n ```js\n const foo = `'bar'`\n ```\n"
           },
@@ -3962,7 +4108,7 @@ export function GET() {
             "version": "1.3.0",
             "name": "useAsConstAssertion",
             "link": "https://biomejs.dev/linter/rules/use-as-const-assertion",
-            "recommended": true,
+            "recommended": false,
             "fixKind": "safe",
             "sources": [
               {
@@ -3990,7 +4136,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "useEnumInitializers",
             "link": "https://biomejs.dev/linter/rules/use-enum-initializers",
-            "recommended": true,
+            "recommended": false,
             "fixKind": "safe",
             "sources": [
               {
@@ -4004,7 +4150,7 @@ export function GET() {
             "version": "1.5.0",
             "name": "useExportType",
             "link": "https://biomejs.dev/linter/rules/use-export-type",
-            "recommended": true,
+            "recommended": false,
             "fixKind": "safe",
             "sources": [
               {
@@ -4019,7 +4165,7 @@ export function GET() {
             "version": "1.5.0",
             "name": "useImportType",
             "link": "https://biomejs.dev/linter/rules/use-import-type",
-            "recommended": true,
+            "recommended": false,
             "fixKind": "safe",
             "sources": [
               {
@@ -4034,7 +4180,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "useLiteralEnumMembers",
             "link": "https://biomejs.dev/linter/rules/use-literal-enum-members",
-            "recommended": true,
+            "recommended": false,
             "fixKind": "none",
             "sources": [
               {
@@ -4056,7 +4202,7 @@ export function GET() {
               }
             ],
             "sourceKind": "inspired",
-            "docs": " Enforce naming conventions for everything across a codebase.\n\n Enforcing [naming conventions](https://en.wikipedia.org/wiki/Naming_convention_(programming)) helps to keep the codebase consistent,\n and reduces overhead when thinking about the name [case] of a variable.\n\n The following section describes the default conventions enforced by the rule.\n You can also enforce custom conventions with the [rule options](#options).\n\n ## Naming conventions\n\n All names can be prefixed and suffixed by underscores `_` and dollar signs `$`.\n\n ### Variable and parameter names\n\n All variables and function parameters are in [`camelCase`] or [`PascalCase`].\n Catch parameters are in [`camelCase`].\n\n Additionally, global variables declared as `const` or `var` may be in [`CONSTANT_CASE`].\n Global variables are declared at module or script level.\n Variables declared in a TypeScript `namespace` are also considered global.\n\n ```js\n function f(param, _unusedParam) {\n     let localValue = 0;\n     try {\n         /* ... */\n     } catch (customError) {\n         /* ... */\n     }\n }\n\n export const A_CONSTANT = 5;\n\n let aVariable = 0;\n\n export namespace ns {\n     export const ANOTHER_CONSTANT = \"\";\n }\n ```\n\n Examples of incorrect names:\n\n ```js,expect_diagnostic\n let a_value = 0;\n ```\n\n ```js,expect_diagnostic\n const fooYPosition = 0;\n ```\n\n ```js,expect_diagnostic\n function f(FIRST_PARAM) {}\n ```\n\n ### Function names\n\n - A `function` name is in [`camelCase`] or [`PascalCase`].\n - A global `function` can also be in `UPPERCASE`.\n   This allows supporting the frameworks that require some function to use valid [HTTP method names](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods).\n\n ```jsx\n function trimString(s) { /*...*/ }\n\n function Component() {\n     return <div></div>;\n }\n\n export function GET() { /*...*/ }\n ```\n\n ### TypeScript `enum` names\n\n A _TypeScript_ `enum` name is in [`PascalCase`].\n\n `enum` members are by default in [`PascalCase`].\n However, you can configure the [case] of `enum` members.\n See [options](#options) for more details.\n\n ```ts\n enum Status {\n     Open,\n     Close,\n }\n ```\n\n ### Classes\n\n - A class name is in [`PascalCase`].\n\n - Static property and static getter names are in [`camelCase`] or [`CONSTANT_CASE`].\n\n - Class property and method names are in [`camelCase`].\n\n ```js\n class Person {\n     static MAX_FRIEND_COUNT = 256;\n\n     static get SPECIAL_PERSON_INSTANCE() { /*...*/ }\n\n     initializedProperty = 0;\n\n     specialMethod() {}\n }\n ```\n\n ### TypeScript `type` aliases and `interface`\n\n - A `type` alias or an interface name are in [`PascalCase`].\n\n - Member names of a type are in [`camelCase`].\n\n - `readonly` property and getter names can also be in [`CONSTANT_CASE`].\n\n ```ts\n type Named = {\n     readonly fullName: string;\n\n     specialMethod(): void;\n };\n\n interface Named {\n     readonly fullName: string;\n\n     specialMethod(): void;\n }\n\n interface PersonConstructor {\n     readonly MAX_FRIEND_COUNT: number;\n\n     get SPECIAL_PERSON_INSTANCE(): Person;\n\n     new(): Person;\n }\n ```\n\n Examples of an incorrect type alias:\n\n ```ts,expect_diagnostic\n type person = { fullName: string };\n ```\n\n ### Literal object member names\n\n - Literal object members are in [`camelCase`].\n\n ```js\n const alice = {\n     fullName: \"Alice\",\n }\n ```\n\n Example of an incorrect name:\n\n ```js,expect_diagnostic\n const alice = {\n     full_name: \"Alice\",\n }\n ```\n\n ### Import and export aliases and namespaces\n\n Import and export namespaces are in [`camelCase`] or [`PascalCase`].\n\n ```js\n import * as myLib from \"my-lib\";\n import * as Framework from \"framework\";\n\n export * as myLib from \"my-lib\";\n export * as Framework from \"framework\";\n ```\n\n `import` and `export` aliases are in [`camelCase`], [`PascalCase`], or [`CONSTANT_CASE`]:\n\n ```js\n import assert, {\n     deepStrictEqual as deepEqual,\n     AssertionError as AssertError\n } from \"node:assert\";\n ```\n\n Examples of an incorrect name:\n\n ```ts,expect_diagnostic\n import * as MY_LIB from \"my-lib\";\n ```\n\n ### TypeScript type parameter names\n\n A _TypeScript_ type parameter name is in [`PascalCase`].\n\n ```ts\n function id<Val>(value: Val): Val { /* ... */}\n ```\n\n ### TypeScript `namespace` names\n\n A _TypeScript_ `namespace` name is in [`camelCase`] or in [`PascalCase`].\n\n ```ts\n namespace mathExtra {\n     /*...*/\n }\n\n namespace MathExtra {\n     /*...*/\n }\n ```\n\n ## Ignored declarations\n\n Note that some declarations are always ignored.\n You cannot apply a convention to them.\n This is the case for:\n\n - Member names that are not identifiers\n\n   ```js\n   class C {\n     [\"not an identifier\"]() {}\n   }\n   ```\n\n - Named imports\n\n  ```js\n   import { an_IMPORT } from \"mod\"\n   ```\n\n - Destructured object properties\n\n   ```js\n   const { destructed_PROP } = obj;\n   ```\n\n - Class members marked with `override`:\n\n   ```ts\n   class C extends B {\n     override overridden_METHOD() {}\n   }\n   ```\n\n - Declarations inside an external TypeScript module\n\n   :::caution\n   **Bug:** Declarations inside external TypeScript modules are currently not ignored.\n   This is a bug, and is tracked under [#4545](https://github.com/biomejs/biome/issues/4545).\n\n   Until the bug is fixed, we recommend one of the following workarounds:\n\n   - Move the type declarations for external modules into separate `.d.ts` files,\n     and use [overrides](https://biomejs.dev/reference/configuration/#overrides)\n     in your [`biome.json`](https://biomejs.dev/reference/configuration/)\n     to disable the `useNamingConvention` rule for those files:\n\n     ```jsonc,full_options\n     {\n       \"linter\": {\n         \"rules\": {\n           \"style\": {\n             \"useNamingConvention\": \"warn\"\n           }\n           // ...\n         }\n       },\n       // ...\n       \"overrides\": [\n         {\n           \"include\": [\"typings/*.d.ts\"],\n           \"linter\": {\n             \"rules\": {\n               \"style\": {\n                 \"useNamingConvention\": \"off\"\n               }\n             }\n           }\n         }\n       ]\n     }\n     ```\n\n   - Use [`// biome-ignore lint/style/useNamingConvention: <explanation>`](https://biomejs.dev/linter/#ignore-code)\n     to ignore the problematic lines.\n   :::\n\n   ```ts,ignore\n   declare module \"myExternalModule\" {\n     export interface my_INTERFACE {}\n   }\n   ```\n\n ## Options\n\n The rule provides several options that are detailed in the following subsections.\n\n ```json,options\n {\n     \"options\": {\n         \"strictCase\": false,\n         \"requireAscii\": true,\n         \"enumMemberCase\": \"CONSTANT_CASE\",\n         \"conventions\": [\n             {\n                 \"selector\": {\n                     \"kind\": \"classMember\",\n                     \"modifiers\": [\"private\"]\n                 },\n                 \"match\": \"_(.+)\",\n                 \"formats\": [\"camelCase\"]\n             }\n         ]\n     }\n }\n ```\n\n ### strictCase\n\n When this option is set to `true`, it forbids consecutive uppercase characters in [`camelCase`] and [`PascalCase`].\n\n **Default:** `true`\n\n For instance, `HTTPServer` or `aHTTPServer` are not permitted for `strictCase: true`.\n These names should be renamed to `HttpServer` and `aHttpServer`:\n\n ```json,options\n {\n     \"options\": {\n         \"strictCase\": true\n     }\n }\n ```\n\n ```js,expect_diagnostic,use_options\n class HTTPServer {\n }\n ```\n\n When `strictCase` is set to `false`, consecutive uppercase characters are allowed.\n For example, `HTTPServer` and `aHTTPServer` would be considered valid then:\n\n ```json,options\n {\n     \"options\": {\n         \"strictCase\": false\n     }\n }\n ```\n\n ```js,use_options\n class HTTPServer {\n }\n ```\n\n ### requireAscii\n\n When `true`, names must only consist of ASCII characters only,\n forbidding names like `café` or `안녕하세요` that include non-ASCII characters.\n\n When `requireAscii` is set to `false`, names may include non-ASCII characters.\n For example, `café` and `안녕하세요` would be considered valid then.\n\n **Default:** `false`\n\n **This option will be turned on by default in Biome 2.0.**\n\n ### enumMemberCase\n\n By default, the rule enforces the naming convention followed by the [TypeScript Compiler team](https://www.typescriptlang.org/docs/handbook/enums.html):\n an `enum` member is in [`PascalCase`].\n\n You can enforce another convention by setting `enumMemberCase` option.\n The supported cases are: [`PascalCase`], [`CONSTANT_CASE`], and [`camelCase`].\n\n **This option will be deprecated in the future.**\n **Use the [`conventions`](#conventions-since-v180) option instead.**\n\n ### conventions (Since v1.8.0)\n\n The `conventions` option allows applying custom conventions.\n The option takes an array of conventions.\n Every convention is an object that includes an optional `selector` and one or more requirements (`match` and `formats`).\n\n For example, you can enforce the use of [`CONSTANT_CASE`] for global `const` declarations:\n\n ```json,options\n {\n     \"options\": {\n         \"conventions\": [\n             {\n                 \"selector\": {\n                     \"kind\": \"const\",\n                     \"scope\": \"global\"\n                 },\n                 \"formats\": [\"CONSTANT_CASE\"]\n             }\n         ]\n     }\n }\n ```\n\n A selector describes which declarations the convention applies to.\n You can select a declaration based on several criteria:\n\n - `kind`: the kind of the declaration among:\n   - `any` (default kind if the kind is unset)\n   - `typeLike`: classes, enums, type aliases, and interfaces\n   - `class`\n   - `enum`\n   - `interface`\n   - `typeAlias`\n   - `function`: named function declarations and expressions\n   - `namespaceLike`: TypeScript namespaces, import and export namespaces (`import * as namespace from`)\n   - `namespace`: TypeScript namespaces\n   - `importNamespace`\n   - `exportNamespace`\n   - `importAlias`: default imports and aliases of named imports\n   - `exportAlias`: aliases of re-exported names\n   - `variable`: const, let, using, and var declarations\n   - `const`\n   - `let`\n   - `var`\n   - `using`\n   - `functionParameter`\n   - `catchParameter`\n   - `indexParameter`: parameters of index signatures\n   - `typeParameter`: generic type parameter\n   - `classMember`: class properties, parameter properties, methods, getters, and setters\n   - `classProperty`: class properties, including parameter properties\n   - `classMethod`\n   - `classGetter`\n   - `classSetter`\n   - `objectLiteralMember`: literal object properties, methods, getters, and setters\n   - `objectLiteralProperty`\n   - `objectLiteralMethod`\n   - `objectLiteralGetter`\n   - `objectLiteralSetter`\n   - `typeMember`: properties, methods, getters, and setters declared in type aliases and interfaces\n   - `typeProperty`\n   - `typeMethod`\n   - `typeGetter`\n   - `typeSetter`\n - `modifiers`: an array of modifiers among:\n   - `abstract`: applies to class members and classes\n   - `private`: applies to class members\n   - `protected`: applies to class members\n   - `readonly`: applies to class members and type members\n   - `static`: applies to class members\n - `scope`: where the declaration appears. Allowed values:\n   - `any`: anywhere (default value if the scope is unset)\n   - `global`: the global scope (also includes the namespace scopes)\n\n For each declaration,\n the `conventions` array is traversed until a selector selects the declaration.\n The requirements of the convention are so verified on the declaration.\n\n A convention must set at least one requirement among:\n\n - `match`: a regular expression that the name of the declaration must match.\n - `formats`: the string [case] that the name must follow.\n   The supported cases are: [`PascalCase`], [`CONSTANT_CASE`], [`camelCase`], and [`snake_case`].\n\n If both `match` and `formats` are set, then `formats` is checked against the first capture of the regular expression.\n Only the first capture is tested. Other captures are ignored.\n If nothing is captured, then `formats` is ignored.\n\n In the following example, we check the following conventions:\n\n - A private property starts with `_` and consists of at least two characters\n - The captured name (the name without the leading `_`) is in [`camelCase`].\n\n ```json,options\n {\n     \"options\": {\n         \"conventions\": [\n             {\n                 \"selector\": {\n                     \"kind\": \"classMember\",\n                     \"modifiers\": [\"private\"]\n                 },\n                 \"match\": \"_(.+)\",\n                 \"formats\": [\"camelCase\"]\n             }\n         ]\n     }\n }\n ```\n\n If `match` is set and `formats` is unset,\n then the part of the name captured by the regular expression is forwarded to the next conventions of the array.\n In the following example, we require that private class members start with `_` and all class members are in [\"camelCase\"].\n\n ```jsonc,options\n {\n     \"options\": {\n         \"conventions\": [\n             {\n                 \"selector\": {\n                     \"kind\": \"classMember\",\n                     \"modifiers\": [\"private\"]\n                 },\n                 \"match\": \"_(.+)\"\n                 // We don't need to specify `formats` because the capture is forwarded to the next conventions.\n             },\n             {\n                 \"selector\": {\n                     \"kind\": \"classMember\"\n                 },\n                 \"formats\": [\"camelCase\"]\n             }\n         ]\n     }\n }\n ```\n\n If a declaration is not selected or if a capture is forwarded while there are no more conventions,\n then the declaration name is verified against the default conventions.\n Because the default conventions already ensure that class members are in [\"camelCase\"],\n the previous example can be simplified to:\n\n ```jsonc,options\n {\n     \"options\": {\n         \"conventions\": [\n             {\n                 \"selector\": {\n                     \"kind\": \"classMember\",\n                     \"modifiers\": [\"private\"]\n                 },\n                 \"match\": \"_(.+)\"\n                 // We don't need to specify `formats` because the capture is forwarded to the next conventions.\n             }\n             // default conventions\n         ]\n     }\n }\n ```\n\n If the capture is identical to the initial name (it is not a part of the initial name),\n then, leading and trailing underscore and dollar signs are trimmed before being checked against default conventions.\n In the previous example, the capture is a part of the name because `_` is not included in the capture.\n\n You can reset all default conventions by adding a convention at the end of the array that accepts anything:\n\n ```jsonc,options\n {\n     \"options\": {\n         \"conventions\": [\n             // your conventions\n             // ...\n\n             // Otherwise, accept anything\n             {\n                 \"match\": \".*\"\n             }\n         ]\n     }\n }\n ```\n\n Let's take a more complex example with the following conventions:\n\n - Accept variable names `i`, `j`, and check all other names against the next conventions.\n - All identifiers must contain at least two characters.\n - We require `private` class members to start with an underscore `_`.\n - We require `static readonly` class properties to be in [`CONSTANT_CASE`].\n   A `private static readonly` property must also start with an underscore as dictated by the previous convention.\n - We require global constants to be in [`CONSTANT_CASE`] and\n   we allow these constants to be enclosed by double underscores or to be named `_SPECIAL_`.\n - We require interfaces to start with `I`, except for interfaces ending with `Error`,\n   and to be in [`PascalCase`].\n - All other names follow the default conventions\n\n ```jsonc,options\n {\n     \"options\": {\n         \"conventions\": [\n             {\n                 \"selector\": {\n                     \"kind\": \"variable\"\n                 },\n                 \"match\": \"[ij]|(.*)\"\n             },\n             {\n                 \"match\": \"(.{2,})\"\n             },\n             {\n                 \"selector\": {\n                     \"kind\": \"classMember\",\n                     \"modifiers\": [\"private\"]\n                 },\n                 \"match\": \"_(.+)\"\n             }, {\n                 \"selector\": {\n                     \"kind\": \"classProperty\",\n                     \"modifiers\": [\"static\", \"readonly\"]\n                 },\n                 \"formats\": [\"CONSTANT_CASE\"]\n             }, {\n                 \"selector\": {\n                     \"kind\": \"const\",\n                     \"scope\": \"global\"\n                 },\n                 \"match\": \"__(.+)__|_SPECIAL_|(.+)\",\n                 \"formats\": [\"CONSTANT_CASE\"]\n             }, {\n                 \"selector\": {\n                     \"kind\": \"interface\"\n                 },\n                 \"match\": \"I(.*)|(.*?)Error\",\n                 \"formats\": [\"PascalCase\"]\n             }\n             // default conventions\n         ]\n     }\n }\n ```\n\n ### Regular expression syntax\n\n The `match` option takes a regular expression that supports the following syntaxes:\n\n - Greedy quantifiers `*`, `?`, `+`, `{n}`, `{n,m}`, `{n,}`, `{m}`\n - Non-greedy quantifiers `*?`, `??`, `+?`, `{n}?`, `{n,m}?`, `{n,}?`, `{m}?`\n - Any character matcher `.`\n - Character classes `[a-z]`, `[xyz]`, `[^a-z]`\n - Alternations `|`\n - Capturing groups `()`\n - Non-capturing groups `(?:)`\n - Case-insensitive groups `(?i:)` and case-sensitive groups `(?-i:)`\n - A limited set of escaped characters including all special characters\n   and regular string escape characters `\\f`, `\\n`, `\\r`, `\\t`, `\\v`\n\n [case]: https://en.wikipedia.org/wiki/Naming_convention_(programming)#Examples_of_multiple-word_identifier_formats\n [`camelCase`]: https://en.wikipedia.org/wiki/Camel_case\n [`PascalCase`]: https://en.wikipedia.org/wiki/Camel_case\n [`CONSTANT_CASE`]: https://en.wikipedia.org/wiki/Snake_case\n [`snake_case`]: https://en.wikipedia.org/wiki/Snake_case\n"
+            "docs": " Enforce naming conventions for everything across a codebase.\n\n Enforcing [naming conventions](https://en.wikipedia.org/wiki/Naming_convention_(programming)) helps to keep the codebase consistent,\n and reduces overhead when thinking about the name [case] of a variable.\n\n The following section describes the default conventions enforced by the rule.\n You can also enforce custom conventions with the [rule options](#options).\n\n ## Naming conventions\n\n All names can be prefixed and suffixed by underscores `_` and dollar signs `$`.\n\n ### Variable and parameter names\n\n All variables and function parameters are in [`camelCase`] or [`PascalCase`].\n Catch parameters are in [`camelCase`].\n\n Additionally, global variables declared as `const` or `var` may be in [`CONSTANT_CASE`].\n Global variables are declared at module or script level.\n Variables declared in a TypeScript `namespace` are also considered global.\n\n ```js\n function f(param, _unusedParam) {\n     let localValue = 0;\n     try {\n         /* ... */\n     } catch (customError) {\n         /* ... */\n     }\n }\n\n export const A_CONSTANT = 5;\n\n let aVariable = 0;\n\n export namespace ns {\n     export const ANOTHER_CONSTANT = \"\";\n }\n ```\n\n Examples of incorrect names:\n\n ```js,expect_diagnostic\n let a_value = 0;\n ```\n\n ```js,expect_diagnostic\n const fooYPosition = 0;\n ```\n\n ```js,expect_diagnostic\n function f(FIRST_PARAM) {}\n ```\n\n ### Function names\n\n - A `function` name is in [`camelCase`] or [`PascalCase`].\n - A global `function` can also be in `UPPERCASE`.\n   This allows supporting the frameworks that require some function to use valid [HTTP method names](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods).\n\n ```jsx\n function trimString(s) { /*...*/ }\n\n function Component() {\n     return <div></div>;\n }\n\n export function GET() { /*...*/ }\n ```\n\n ### TypeScript `enum` names\n\n A _TypeScript_ `enum` name is in [`PascalCase`].\n\n `enum` members are by default in [`PascalCase`].\n However, you can configure the [case] of `enum` members.\n See [options](#options) for more details.\n\n ```ts\n enum Status {\n     Open,\n     Close,\n }\n ```\n\n ### Classes\n\n - A class name is in [`PascalCase`].\n\n - Static property and static getter names are in [`camelCase`] or [`CONSTANT_CASE`].\n\n - Class property and method names are in [`camelCase`].\n\n ```js\n class Person {\n     static MAX_FRIEND_COUNT = 256;\n\n     static get SPECIAL_PERSON_INSTANCE() { /*...*/ }\n\n     initializedProperty = 0;\n\n     specialMethod() {}\n }\n ```\n\n ### TypeScript `type` aliases and `interface`\n\n - A `type` alias or an interface name are in [`PascalCase`].\n\n - Member names of a type are in [`camelCase`].\n\n - `readonly` property and getter names can also be in [`CONSTANT_CASE`].\n\n ```ts\n type Named = {\n     readonly fullName: string;\n\n     specialMethod(): void;\n };\n\n interface Named {\n     readonly fullName: string;\n\n     specialMethod(): void;\n }\n\n interface PersonConstructor {\n     readonly MAX_FRIEND_COUNT: number;\n\n     get SPECIAL_PERSON_INSTANCE(): Person;\n\n     new(): Person;\n }\n ```\n\n Examples of an incorrect type alias:\n\n ```ts,expect_diagnostic\n type person = { fullName: string };\n ```\n\n ### Literal object member names\n\n - Literal object members are in [`camelCase`].\n\n ```js\n const alice = {\n     fullName: \"Alice\",\n }\n ```\n\n Example of an incorrect name:\n\n ```js,expect_diagnostic\n const alice = {\n     full_name: \"Alice\",\n }\n ```\n\n ### Import and export aliases and namespaces\n\n Import and export namespaces are in [`camelCase`] or [`PascalCase`].\n\n ```js\n import * as myLib from \"my-lib\";\n import * as Framework from \"framework\";\n\n export * as myLib from \"my-lib\";\n export * as Framework from \"framework\";\n ```\n\n `import` and `export` aliases are in [`camelCase`], [`PascalCase`], or [`CONSTANT_CASE`]:\n\n ```js\n import assert, {\n     deepStrictEqual as deepEqual,\n     AssertionError as AssertError\n } from \"node:assert\";\n ```\n\n Examples of an incorrect name:\n\n ```ts,expect_diagnostic\n import * as MY_LIB from \"my-lib\";\n ```\n\n ### TypeScript type parameter names\n\n A _TypeScript_ type parameter name is in [`PascalCase`].\n\n ```ts\n function id<Val>(value: Val): Val { /* ... */}\n ```\n\n ### TypeScript `namespace` names\n\n A _TypeScript_ `namespace` name is in [`camelCase`] or in [`PascalCase`].\n\n ```ts\n namespace mathExtra {\n     /*...*/\n }\n\n namespace MathExtra {\n     /*...*/\n }\n ```\n\n ## Ignored declarations\n\n Note that some declarations are always ignored.\n You cannot apply a convention to them.\n This is the case for:\n\n - Member names that are not identifiers\n\n   ```js\n   class C {\n     [\"not an identifier\"]() {}\n   }\n   ```\n\n - Named imports\n\n  ```js\n   import { an_IMPORT } from \"mod\"\n   ```\n\n - Destructured object properties\n\n   ```js\n   const { destructed_PROP } = obj;\n   ```\n\n - Class members marked with `override`:\n\n   ```ts\n   class C extends B {\n     override overridden_METHOD() {}\n   }\n   ```\n\n - Declarations inside an external TypeScript module\n\n   :::caution\n   **Bug:** Declarations inside external TypeScript modules are currently not ignored.\n   This is a bug, and is tracked under [#4545](https://github.com/biomejs/biome/issues/4545).\n\n   Until the bug is fixed, we recommend one of the following workarounds:\n\n   - Move the type declarations for external modules into separate `.d.ts` files,\n     and use [overrides](https://biomejs.dev/reference/configuration/#overrides)\n     in your [`biome.json`](https://biomejs.dev/reference/configuration/)\n     to disable the `useNamingConvention` rule for those files:\n\n     ```jsonc,full_options\n     {\n       \"linter\": {\n         \"rules\": {\n           \"style\": {\n             \"useNamingConvention\": \"warn\"\n           }\n           // ...\n         }\n       },\n       // ...\n       \"overrides\": [\n         {\n           \"includes\": [\"typings/*.d.ts\"],\n           \"linter\": {\n             \"rules\": {\n               \"style\": {\n                 \"useNamingConvention\": \"off\"\n               }\n             }\n           }\n         }\n       ]\n     }\n     ```\n\n   - Use [`// biome-ignore lint/style/useNamingConvention: <explanation>`](https://biomejs.dev/linter/#ignore-code)\n     to ignore the problematic lines.\n   :::\n\n   ```ts,ignore\n   declare module \"myExternalModule\" {\n     export interface my_INTERFACE {}\n   }\n   ```\n\n ## Options\n\n The rule provides several options that are detailed in the following subsections.\n\n ```json,options\n {\n     \"options\": {\n         \"strictCase\": false,\n         \"requireAscii\": false,\n         \"conventions\": [\n             {\n                 \"selector\": {\n                     \"kind\": \"classMember\",\n                     \"modifiers\": [\"private\"]\n                 },\n                 \"match\": \"_(.+)\",\n                 \"formats\": [\"camelCase\"]\n             }\n         ]\n     }\n }\n ```\n\n ### strictCase\n\n When this option is set to `true`, it forbids consecutive uppercase characters in [`camelCase`] and [`PascalCase`].\n\n **Default:** `true`\n\n For instance, `HTTPServer` or `aHTTPServer` are not permitted for `strictCase: true`.\n These names should be renamed to `HttpServer` and `aHttpServer`:\n\n ```json,options\n {\n     \"options\": {\n         \"strictCase\": true\n     }\n }\n ```\n\n ```js,expect_diagnostic,use_options\n class HTTPServer {\n }\n ```\n\n When `strictCase` is set to `false`, consecutive uppercase characters are allowed.\n For example, `HTTPServer` and `aHTTPServer` would be considered valid then:\n\n ```json,options\n {\n     \"options\": {\n         \"strictCase\": false\n     }\n }\n ```\n\n ```js,use_options\n class HTTPServer {\n }\n ```\n\n ### requireAscii\n\n When `true`, names must only consist of ASCII characters only,\n forbidding names like `café` or `안녕하세요` that include non-ASCII characters.\n\n When `requireAscii` is set to `false`, names may include non-ASCII characters.\n For example, `café` and `안녕하세요` would be considered valid then.\n\n **Default:** `true`\n\n ### conventions (Since v1.8.0)\n\n The `conventions` option allows applying custom conventions.\n The option takes an array of conventions.\n Every convention is an object that includes an optional `selector` and one or more requirements (`match` and `formats`).\n\n For example, you can enforce the use of [`CONSTANT_CASE`] for global `const` declarations:\n\n ```json,options\n {\n     \"options\": {\n         \"conventions\": [\n             {\n                 \"selector\": {\n                     \"kind\": \"const\",\n                     \"scope\": \"global\"\n                 },\n                 \"formats\": [\"CONSTANT_CASE\"]\n             }\n         ]\n     }\n }\n ```\n\n A selector describes which declarations the convention applies to.\n You can select a declaration based on several criteria:\n\n - `kind`: the kind of the declaration among:\n   - `any` (default kind if the kind is unset)\n   - `typeLike`: classes, enums, type aliases, and interfaces\n   - `class`\n   - `enum`\n   - `enumMember`\n   - `interface`\n   - `typeAlias`\n   - `function`: named function declarations and expressions\n   - `namespaceLike`: TypeScript namespaces, import and export namespaces (`import * as namespace from`)\n   - `namespace`: TypeScript namespaces\n   - `importNamespace`\n   - `exportNamespace`\n   - `importAlias`: default imports and aliases of named imports\n   - `exportAlias`: aliases of re-exported names\n   - `variable`: const, let, using, and var declarations\n   - `const`\n   - `let`\n   - `var`\n   - `using`\n   - `functionParameter`\n   - `catchParameter`\n   - `indexParameter`: parameters of index signatures\n   - `typeParameter`: generic type parameter\n   - `classMember`: class properties, parameter properties, methods, getters, and setters\n   - `classProperty`: class properties, including parameter properties\n   - `classMethod`\n   - `classGetter`\n   - `classSetter`\n   - `objectLiteralMember`: literal object properties, methods, getters, and setters\n   - `objectLiteralProperty`\n   - `objectLiteralMethod`\n   - `objectLiteralGetter`\n   - `objectLiteralSetter`\n   - `typeMember`: properties, methods, getters, and setters declared in type aliases and interfaces\n   - `typeProperty`\n   - `typeMethod`\n   - `typeGetter`\n   - `typeSetter`\n - `modifiers`: an array of modifiers among:\n   - `abstract`: applies to class members and classes\n   - `private`: applies to class members\n   - `protected`: applies to class members\n   - `readonly`: applies to class members and type members\n   - `static`: applies to class members\n - `scope`: where the declaration appears. Allowed values:\n   - `any`: anywhere (default value if the scope is unset)\n   - `global`: the global scope (also includes the namespace scopes)\n\n For each declaration,\n the `conventions` array is traversed until a selector selects the declaration.\n The requirements of the convention are so verified on the declaration.\n\n A convention must set at least one requirement among:\n\n - `match`: a regular expression that the name of the declaration must match.\n - `formats`: the string [case] that the name must follow.\n   The supported cases are: [`PascalCase`], [`CONSTANT_CASE`], [`camelCase`], and [`snake_case`].\n\n If both `match` and `formats` are set, then `formats` is checked against the first capture of the regular expression.\n Only the first capture is tested. Other captures are ignored.\n If nothing is captured, then `formats` is ignored.\n\n In the following example, we check the following conventions:\n\n - A private property starts with `_` and consists of at least two characters.\n - The captured name (the name without the leading `_`) is in [`camelCase`].\n - An enum member is in [`PascalCase`] or [`CONSTANT_CASE`].\n\n ```json,options\n {\n     \"options\": {\n         \"conventions\": [\n             {\n                 \"selector\": {\n                     \"kind\": \"classMember\",\n                     \"modifiers\": [\"private\"]\n                 },\n                 \"match\": \"_(.+)\",\n                 \"formats\": [\"camelCase\"]\n             },\n             {\n                 \"selector\": {\n                     \"kind\": \"enumMember\"\n                 },\n                 \"formats\": [\"PascalCase\", \"CONSTANT_CASE\"]\n             }\n         ]\n     }\n }\n ```\n\n If `match` is set and `formats` is unset,\n then the part of the name captured by the regular expression is forwarded to the next conventions of the array.\n In the following example, we require that private class members start with `_` and all class members are in [\"camelCase\"].\n\n ```jsonc,options\n {\n     \"options\": {\n         \"conventions\": [\n             {\n                 \"selector\": {\n                     \"kind\": \"classMember\",\n                     \"modifiers\": [\"private\"]\n                 },\n                 \"match\": \"_(.+)\"\n                 // We don't need to specify `formats` because the capture is forwarded to the next conventions.\n             },\n             {\n                 \"selector\": {\n                     \"kind\": \"classMember\"\n                 },\n                 \"formats\": [\"camelCase\"]\n             }\n         ]\n     }\n }\n ```\n\n If a declaration is not selected or if a capture is forwarded while there are no more conventions,\n then the declaration name is verified against the default conventions.\n Because the default conventions already ensure that class members are in [\"camelCase\"],\n the previous example can be simplified to:\n\n ```jsonc,options\n {\n     \"options\": {\n         \"conventions\": [\n             {\n                 \"selector\": {\n                     \"kind\": \"classMember\",\n                     \"modifiers\": [\"private\"]\n                 },\n                 \"match\": \"_(.+)\"\n                 // We don't need to specify `formats` because the capture is forwarded to the next conventions.\n             }\n             // default conventions\n         ]\n     }\n }\n ```\n\n If the capture is identical to the initial name (it is not a part of the initial name),\n then, leading and trailing underscore and dollar signs are trimmed before being checked against default conventions.\n In the previous example, the capture is a part of the name because `_` is not included in the capture.\n\n You can reset all default conventions by adding a convention at the end of the array that accepts anything:\n\n ```jsonc,options\n {\n     \"options\": {\n         \"conventions\": [\n             // your conventions\n             // ...\n\n             // Otherwise, accept anything\n             {\n                 \"match\": \".*\"\n             }\n         ]\n     }\n }\n ```\n\n Let's take a more complex example with the following conventions:\n\n - Accept variable names `i`, `j`, and check all other names against the next conventions.\n - All identifiers must contain at least two characters.\n - We require `private` class members to start with an underscore `_`.\n - We require `static readonly` class properties to be in [`CONSTANT_CASE`].\n   A `private static readonly` property must also start with an underscore as dictated by the previous convention.\n - We require global constants to be in [`CONSTANT_CASE`] and\n   we allow these constants to be enclosed by double underscores or to be named `_SPECIAL_`.\n - We require interfaces to start with `I`, except for interfaces ending with `Error`,\n   and to be in [`PascalCase`].\n - All other names follow the default conventions\n\n ```jsonc,options\n {\n     \"options\": {\n         \"conventions\": [\n             {\n                 \"selector\": {\n                     \"kind\": \"variable\"\n                 },\n                 \"match\": \"[ij]|(.*)\"\n             },\n             {\n                 \"match\": \"(.{2,})\"\n             },\n             {\n                 \"selector\": {\n                     \"kind\": \"classMember\",\n                     \"modifiers\": [\"private\"]\n                 },\n                 \"match\": \"_(.+)\"\n             }, {\n                 \"selector\": {\n                     \"kind\": \"classProperty\",\n                     \"modifiers\": [\"static\", \"readonly\"]\n                 },\n                 \"formats\": [\"CONSTANT_CASE\"]\n             }, {\n                 \"selector\": {\n                     \"kind\": \"const\",\n                     \"scope\": \"global\"\n                 },\n                 \"match\": \"__(.+)__|_SPECIAL_|(.+)\",\n                 \"formats\": [\"CONSTANT_CASE\"]\n             }, {\n                 \"selector\": {\n                     \"kind\": \"interface\"\n                 },\n                 \"match\": \"I(.*)|(.*?)Error\",\n                 \"formats\": [\"PascalCase\"]\n             }\n             // default conventions\n         ]\n     }\n }\n ```\n\n ### Regular expression syntax\n\n The `match` option takes a regular expression that supports the following syntaxes:\n\n - Greedy quantifiers `*`, `?`, `+`, `{n}`, `{n,m}`, `{n,}`, `{m}`\n - Non-greedy quantifiers `*?`, `??`, `+?`, `{n}?`, `{n,m}?`, `{n,}?`, `{m}?`\n - Any character matcher `.`\n - Character classes `[a-z]`, `[xyz]`, `[^a-z]`\n - Alternations `|`\n - Capturing groups `()`\n - Non-capturing groups `(?:)`\n - Case-insensitive groups `(?i:)` and case-sensitive groups `(?-i:)`\n - A limited set of escaped characters including all special characters\n   and regular string escape characters `\\f`, `\\n`, `\\r`, `\\t`, `\\v`.\n   Note that you can also escape special characters using character classes.\n   For example, `\\$` and `[$]` are two valid patterns that escape `$`.\n\n [case]: https://en.wikipedia.org/wiki/Naming_convention_(programming)#Examples_of_multiple-word_identifier_formats\n [`camelCase`]: https://en.wikipedia.org/wiki/Camel_case\n [`PascalCase`]: https://en.wikipedia.org/wiki/Camel_case\n [`CONSTANT_CASE`]: https://en.wikipedia.org/wiki/Snake_case\n [`snake_case`]: https://en.wikipedia.org/wiki/Snake_case\n"
           },
           "useShorthandArrayType": {
             "deprecated": true,
@@ -4072,7 +4218,7 @@ export function GET() {
             "version": "1.5.0",
             "name": "useShorthandFunctionType",
             "link": "https://biomejs.dev/linter/rules/use-shorthand-function-type",
-            "recommended": true,
+            "recommended": false,
             "fixKind": "safe",
             "sources": [
               {
@@ -4212,7 +4358,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 300
+    "numberOrRules": 310
   },
   "syntax": {
     "languages": {
@@ -4261,6 +4407,19 @@ export function GET() {
   },
   "assist": {
     "languages": {
+      "css": {
+        "source": {
+          "useSortedProperties": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useSortedProperties",
+            "link": "https://biomejs.dev/linter/rules/use-sorted-properties",
+            "recommended": false,
+            "fixKind": "safe",
+            "docs": " Enforce ordering of CSS properties and nested rules.\n\n This rule ensures the contents of a CSS rule are ordered consistently.\n\n Properties are ordered semantically, with more important properties near the top and\n similar properties grouped together. Nested rules and at-rules are placed after properties.\n\n The ordering is roughly:\n 1. Custom properties\n 1. Layout properties (display, flex, grid)\n 1. Margin and padding properties\n 1. Typography properties (font, color)\n 1. Interaction properties (pointer-events, visibility)\n 1. Background and border properties\n 1. Transition and animation properties\n 1. Nested rules, media queries and other at-rules\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n p {\n   transition: opactity 1s ease;\n   border: 1px solid black;\n   pointer-events: none;\n   color: black;\n   margin: 8px;\n   display: block;\n   --custom: 100;\n }\n ```\n\n ```css,expect_diagnostic\n p {\n   span { color: blue; }\n   color: red;\n }\n ```\n\n ### Valid\n\n ```css\n p {\n   --custom:·100;\n   display:·block;\n   margin:·8px;\n   color: black;\n   pointer-events:·none;\n   border:·1px·solid·black;\n   transition:·opactity·1s·ease;\n }\n ```\n\n ```css\n p {\n   color: red;\n   span { color: blue; }\n }\n ```\n\n"
+          }
+        }
+      },
       "js": {
         "source": {
           "organizeImports": {
@@ -4268,8 +4427,8 @@ export function GET() {
             "version": "1.0.0",
             "name": "organizeImports",
             "link": "https://biomejs.dev/linter/rules/organize-imports",
-            "recommended": false,
-            "fixKind": "unsafe",
+            "recommended": true,
+            "fixKind": "safe",
             "docs": " Provides a whole-source code action to sort the imports in the file\n using import groups and natural ordering.\n\n ## Examples\n\n ```js\n import React, {\n     FC,\n     useEffect,\n     useRef,\n     ChangeEvent,\n     KeyboardEvent,\n } from 'react';\n import { logger } from '@core/logger';\n import { reduce, debounce } from 'lodash';\n import { Message } from '../Message';\n import { createServer } from '@server/node';\n import { Alert } from '@ui/Alert';\n import { repeat, filter, add } from '../utils';\n import { initializeApp } from '@core/app';\n import { Popup } from '@ui/Popup';\n import { createConnection } from '@server/database';\n ```\n"
           }
         }
@@ -4307,7 +4466,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 3
+    "numberOrRules": 4
   }
 };
 	return new Response(JSON.stringify(schema), {
