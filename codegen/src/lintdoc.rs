@@ -2,18 +2,19 @@ use crate::project_root;
 use crate::rules_sources::generate_rule_sources;
 use crate::shared::add_codegen_disclaimer_frontmatter;
 use anyhow::Context;
-use anyhow::{bail, Result};
+use anyhow::{Result, bail};
 use biome_analyze::options::JsxRuntime;
 use biome_analyze::{
     AnalysisFilter, AnalyzerAction, AnalyzerConfiguration, AnalyzerOptions, ControlFlow, FixKind,
-    GroupCategory, Queryable, RegistryVisitor, Rule, RuleCategory, RuleFilter, RuleGroup,
-    RuleMetadata, RuleSourceKind,
+    GroupCategory, Queryable, RegistryVisitor, Rule, RuleCategory, RuleDomain, RuleFilter,
+    RuleGroup, RuleMetadata, RuleSourceKind,
 };
 use biome_configuration::Configuration;
 use biome_console::fmt::Termcolor;
 use biome_console::{
+    Markup, MarkupBuf,
     fmt::{Formatter, HTML},
-    markup, Markup, MarkupBuf,
+    markup,
 };
 use biome_css_parser::CssParserOptions;
 use biome_css_syntax::CssLanguage;
@@ -71,6 +72,7 @@ struct Rules {
     ///
     groups: BTreeMap<&'static str, BTreeMap<&'static str, RuleToDocument>>,
     number_of_rules: HashSet<&'static str>,
+    domains_to_document: DocDomains,
 }
 
 enum SupportedLanguages {
@@ -134,6 +136,7 @@ impl RulesVisitor {
                     .insert(R::METADATA.language, R::METADATA);
                 group.insert(R::METADATA.name, rule_to_document);
             };
+            self.lints.domains_to_document.add_rule(R::METADATA);
         } else {
             // For now, we exclude it from the docs
             if R::METADATA.name == "organizeImports" {
@@ -227,8 +230,38 @@ pub fn generate_rule_docs() -> Result<()> {
     generate_language_rule_docs(&linter_root, &actions_root, SupportedLanguages::Css)?;
     generate_language_rule_docs(&linter_root, &actions_root, SupportedLanguages::Graphql)?;
 
+    generate_domains()?;
     generate_number_of_rules_and_actions()?;
     generate_rule_pages()?;
+    Ok(())
+}
+
+fn generate_domains() -> Result<()> {
+    let mut visitor = RulesVisitor::default();
+    biome_js_analyze::visit_registry(&mut visitor);
+    biome_json_analyze::visit_registry(&mut visitor);
+    biome_css_analyze::visit_registry(&mut visitor);
+    biome_graphql_analyze::visit_registry(&mut visitor);
+    let RulesVisitor { lints, .. } = visitor;
+    let domains = lints.domains_to_document;
+    let mut buffer = Vec::new();
+
+    writeln!(buffer, "---")?;
+    writeln!(
+        buffer,
+        "# this file is auto generated, use `pnpm codegen:rules` to update it"
+    )?;
+    writeln!(buffer, "title: Domains")?;
+    writeln!(buffer, "description: List of available domains")?;
+    writeln!(buffer, "---")?;
+
+    domains.write_description(&mut buffer)?;
+
+    fs::write(
+        project_root().join("src/content/docs/linter/domains.mdx"),
+        buffer,
+    )?;
+
     Ok(())
 }
 
@@ -243,10 +276,10 @@ fn generate_number_of_rules_and_actions() -> Result<()> {
     let number_of_rules = lints.number_of_rules.len();
     let number_of_actions = actions.number_of_rules.len();
     let number_of_rules_buffer = format!(
-        "<!-- this file is auto generated, use `cargo lintdoc` to update it -->\n{number_of_rules}"
+        "<!-- this file is auto generated, use `pnpm codegen:rules` to update it -->\n{number_of_rules}"
     );
     let number_of_actions_buffer = format!(
-        "<!-- this file is auto generated, use `cargo lintdoc` to update it -->\n{number_of_actions}"
+        "<!-- this file is auto generated, use `pnpm codegen:rules` to update it -->\n{number_of_actions}"
     );
 
     fs::write(
@@ -267,15 +300,15 @@ fn generate_language_rule_docs(
     supported_languages: SupportedLanguages,
 ) -> Result<()> {
     let visitor = supported_languages.to_visitor();
-    let linter_root = supported_languages.as_language_path(&linter_root);
-    let actions_root = supported_languages.as_language_path(&actions_root);
+    let linter_root = supported_languages.as_language_path(linter_root);
+    let actions_root = supported_languages.as_language_path(actions_root);
 
     if linter_root.exists() {
         if let Err(err) = fs::remove_dir_all(&linter_root) {
             let is_not_found = err
                 .source()
                 .and_then(|err| err.downcast_ref::<io::Error>())
-                .map_or(false, |err| matches!(err.kind(), io::ErrorKind::NotFound));
+                .is_some_and(|err| matches!(err.kind(), io::ErrorKind::NotFound));
 
             if !is_not_found {
                 return Err(err.into());
@@ -289,7 +322,7 @@ fn generate_language_rule_docs(
             let is_not_found = err
                 .source()
                 .and_then(|err| err.downcast_ref::<io::Error>())
-                .map_or(false, |err| matches!(err.kind(), io::ErrorKind::NotFound));
+                .is_some_and(|err| matches!(err.kind(), io::ErrorKind::NotFound));
 
             if !is_not_found {
                 return Err(err.into());
@@ -423,6 +456,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 - The icon <span class='inline-icon' title="This rule is recommended"><Icon name="approve-check-circle"x label="This rule is recommended" /></span> indicates that the rule is part of the recommended rules.
 - The icon <span class='inline-icon' title="This rule has a safe fix"><Icon name="seti:config" label="The rule has a safe fix" /></span> indicates that the rule provides a code action (fix) that is **safe** to apply.
 - The icon <span class='inline-icon' title="This rule has an unsafe fix"><Icon name="warning" label="The rule has an unsafe fix" /></span> indicates that the rule provides a code action (fix) that is **unsafe** to apply.
+- The icon <span class='inline-icon' title="This rule hasn't been released"><Icon name="error" label="This rule hasn't been released" /></span> indicates that the rule hasn't been released yet.
 "#
     )?;
 
@@ -471,17 +505,13 @@ fn generate_group(
     writeln!(content, "| --- | --- | --- |")?;
 
     for (rule_name, rule_to_document) in rules {
-        for (_, meta) in &rule_to_document.clone().language_to_metadata {
-            // We don't document rules that haven't been released yet
-            if meta.version == "next" {
-                continue;
-            }
+        for meta in rule_to_document.clone().language_to_metadata.values() {
             let is_recommended = !is_nursery && meta.recommended && meta.domains.is_empty();
             let dashed_rule = Case::Kebab.convert(rule_name);
             let severity = match meta.severity {
-                Severity::Information => format!("(Severity: Information"),
-                Severity::Warning => format!("Severity: Warning"),
-                Severity::Error => format!("Severity: Error"),
+                Severity::Information => "(Severity: Information".to_string(),
+                Severity::Warning => "Severity: Warning".to_string(),
+                Severity::Error => "Severity: Error".to_string(),
                 Severity::Hint | Severity::Fatal => {
                     unreachable!("A rule doesn't have this severity.")
                 }
@@ -505,6 +535,10 @@ fn generate_group(
                     properties.push_str("<span class='inline-icon' title=\"The rule has an unsafe fix\" ><Icon name=\"warning\" label=\"The rule has an unsafe fix\" size=\"1.2rem\" /></span>");
                 }
                 FixKind::None => {}
+            }
+
+            if meta.version == "next" {
+                properties.push_str("<span class='inline-icon' title=\"This rule hasn't been released yet\"><Icon name=\"error\" label=\"This rule hasn't been released yet\" size=\"1.2rem\" /></span>");
             }
 
             let summary_html = extract_summary_from_rule(meta.docs);
@@ -638,12 +672,25 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
 
     if let Some(reason) = &meta.deprecated {
         writeln!(content, ":::caution[Deprecated]")?;
-        writeln!(content, "This rule is deprecated and will be removed in the next major release.\n**Reason**: {reason}")?;
+        writeln!(
+            content,
+            "This rule is deprecated and will be removed in the next major release.\n**Reason**: {reason}"
+        )?;
         writeln!(content, ":::")?;
     }
     writeln!(content, "## Summary")?;
 
-    writeln!(content, "- Rule available since: `v{}`", meta.version)?;
+    if meta.version == "next" {
+        writeln!(content, ":::danger")?;
+        writeln!(
+            content,
+            "This rules hasn't been released yet. If you want to try it, you can request and try a preview release of Biome"
+        )?;
+        writeln!(content, ":::")?;
+    } else {
+        writeln!(content, "- Rule available since: `v{}`", meta.version)?;
+    }
+
     let category = match rule_category {
         RuleCategory::Lint => "lint",
         RuleCategory::Action => "assist",
@@ -690,7 +737,11 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
             if is_recommended {
                 writeln!(content, "- This action is **recommended**.")?;
             }
-            writeln!(content, "- Use the code `source.biome.{}` in your LSP-ready IDE to apply this action on save.", rule_name)?;
+            writeln!(
+                content,
+                "- Use the code `source.biome.{}` in your LSP-ready IDE to apply this action on save.",
+                rule_name
+            )?;
         }
         RuleCategory::Syntax | RuleCategory::Transformation => {
             unimplemented!("Should be implemented")
@@ -699,10 +750,16 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
 
     match meta.severity {
         Severity::Information => {
-            writeln!(content, "- The default severity of this rule is [**information**](/reference/diagnostics#information).")?;
+            writeln!(
+                content,
+                "- The default severity of this rule is [**information**](/reference/diagnostics#information)."
+            )?;
         }
         Severity::Warning => {
-            writeln!(content, "- The default severity of this rule is [**warning**](/reference/diagnostics#warning).")?;
+            writeln!(
+                content,
+                "- The default severity of this rule is [**warning**](/reference/diagnostics#warning)."
+            )?;
         }
         Severity::Error => {
             writeln!(
@@ -955,14 +1012,18 @@ fn parse_rule_options(
             }
 
             let Some(result) = partial_configuration else {
-                bail!("Failed to deserialize configuration options for '{group}/{rule}' from the following code block due to unknown error.\n\n{code}");
+                bail!(
+                    "Failed to deserialize configuration options for '{group}/{rule}' from the following code block due to unknown error.\n\n{code}"
+                );
             };
 
             Ok(Some(result))
         }
         _ => {
             // Only JSON code blocks can contain configuration options
-            bail!("The following non-JSON code block for '{group}/{rule}' was marked as containing configuration options. Only JSON code blocks can used to provide configuration options.\n\n{code}");
+            bail!(
+                "The following non-JSON code block for '{group}/{rule}' was marked as containing configuration options. Only JSON code blocks can used to provide configuration options.\n\n{code}"
+            );
         }
     }
 }
@@ -1053,30 +1114,28 @@ fn write_documentation(
                     if test.options != OptionsParsingMode::NoOptions {
                         last_options = parse_rule_options(group, rule, &test, &block, content)
                             .context("snapshot test failed")?;
-                    } else {
-                        if test.expect_diagnostic {
-                            print_diagnostics_or_actions(
-                                group,
-                                rule,
-                                &test,
-                                &block,
-                                &last_options,
-                                &mut buffer,
-                                ToPrintKind::Diagnostics,
-                            )
-                            .context("snapshot test failed")?;
-                        } else if test.expect_diff {
-                            print_diagnostics_or_actions(
-                                group,
-                                rule,
-                                &test,
-                                &block,
-                                &last_options,
-                                &mut buffer,
-                                ToPrintKind::Actions,
-                            )
-                            .context("snapshot test failed")?;
-                        }
+                    } else if test.expect_diagnostic {
+                        print_diagnostics_or_actions(
+                            group,
+                            rule,
+                            &test,
+                            &block,
+                            &last_options,
+                            &mut buffer,
+                            ToPrintKind::Diagnostics,
+                        )
+                        .context("snapshot test failed")?;
+                    } else if test.expect_diff {
+                        print_diagnostics_or_actions(
+                            group,
+                            rule,
+                            &test,
+                            &block,
+                            &last_options,
+                            &mut buffer,
+                            ToPrintKind::Actions,
+                        )
+                        .context("snapshot test failed")?;
                     }
 
                     if test.expect_diagnostic || test.expect_diff {
@@ -1346,7 +1405,7 @@ fn create_analyzer_options<L>(
 where
     L: ServiceLanguage,
 {
-    let path = BiomePath::new(&file_path);
+    let path = BiomePath::new(file_path);
     let file_source = &test.document_file_source();
     let supression_reason = None;
 
@@ -1435,7 +1494,9 @@ fn print_diagnostics_or_actions(
     // Load settings from the preceding `json,options` block if requested
     if test.use_options {
         let Some(partial_config) = config else {
-            bail!("Code blocks tagged with 'use_options' must be preceded by a valid 'json,options' code block.");
+            bail!(
+                "Code blocks tagged with 'use_options' must be preceded by a valid 'json,options' code block."
+            );
         };
 
         settings.merge_with_configuration(partial_config.clone(), None)?;
@@ -1476,7 +1537,7 @@ fn print_diagnostics_or_actions(
                     ..AnalysisFilter::default()
                 };
 
-                let options = create_analyzer_options::<JsLanguage>(&settings, &file_path, &test)
+                let options = create_analyzer_options::<JsLanguage>(&settings, &file_path, test)
                     .with_configuration(
                         AnalyzerConfiguration::default().with_jsx_runtime(JsxRuntime::default()),
                     );
@@ -1549,7 +1610,7 @@ fn print_diagnostics_or_actions(
                 };
 
                 let options: AnalyzerOptions =
-                    create_analyzer_options::<JsonLanguage>(&settings, &file_path, &test);
+                    create_analyzer_options::<JsonLanguage>(&settings, &file_path, test);
 
                 biome_json_analyze::analyze(&root, filter, &options, file_source, |signal| {
                     match to_print_kind {
@@ -1607,7 +1668,7 @@ fn print_diagnostics_or_actions(
                     ..AnalysisFilter::default()
                 };
 
-                let options = create_analyzer_options::<JsonLanguage>(&settings, &file_path, &test);
+                let options = create_analyzer_options::<JsonLanguage>(&settings, &file_path, test);
 
                 biome_css_analyze::analyze(&root, filter, &options, &[], |signal| {
                     match to_print_kind {
@@ -1779,4 +1840,117 @@ fn extract_summary_from_rule(content: &str) -> String {
     let events: Vec<_> = parser.collect();
 
     events_to_text(events)
+}
+
+#[derive(Default, Debug, Clone)]
+struct DocDomains {
+    /// A list where we associate a rule domain with the rules that belong to it
+    domain_to_rules: HashMap<RuleDomain, Vec<RuleMetadata>>,
+}
+
+impl DocDomains {
+    fn add_rule(&mut self, rule: RuleMetadata) {
+        if !rule.domains.is_empty() {
+            for domain in rule.domains {
+                let domain_to_update = self.domain_to_rules.entry(*domain).or_default();
+
+                domain_to_update.push(rule.clone());
+            }
+        }
+    }
+
+    fn write_description(self, buffer: &mut Vec<u8>) -> Result<()> {
+        let mut domains = self.domain_to_rules.into_iter().collect::<Vec<_>>();
+        domains.sort_by(|a, b| {
+            // this is gross
+            // TODO: remove once RuleDomain implements Ord and PartialOrd
+            let a = format!("{:?}", a.0);
+            let b = format!("{:?}", b.0);
+            a.cmp(&b)
+        });
+        for (domain, rules) in &domains {
+            let name = Case::Pascal.convert(format!("{domain:?}").as_str());
+            match domain {
+                RuleDomain::React => {
+                    writeln!(buffer, "## {name}")?;
+                    writeln!(
+                        buffer,
+                        "Use this domain inside React projects. It enables a set of rules that can help catching bugs and enforce correct practices. This domain enable rules that might conflict with the Solid domain."
+                    )?;
+                }
+                RuleDomain::Test => {
+                    writeln!(buffer, "## {name}")?;
+                    writeln!(
+                        buffer,
+                        "Use this domain when linting test files. It enables a set of rules that are library agnostic, and can help to catch possible misuse of the test APIs."
+                    )?;
+                }
+                RuleDomain::Solid => {
+                    writeln!(buffer, "## {name}")?;
+                    writeln!(
+                        buffer,
+                        "Use this domain inside Solid projects. This domain enables rules that might conflict with the React domain."
+                    )?;
+                }
+                RuleDomain::Next => {
+                    writeln!(buffer, "## {name}")?;
+                    writeln!(buffer, "Use this domain inside Next.js projects.")?;
+                }
+            }
+            Self::write_dependencies(domain, name.as_str(), buffer)?;
+            Self::write_globals(domain, name.as_str(), buffer)?;
+            Self::write_rules(rules.as_slice(), name.as_str(), buffer)?
+        }
+
+        Ok(())
+    }
+
+    fn write_rules(rules: &[RuleMetadata], name: &str, buffer: &mut Vec<u8>) -> Result<()> {
+        if !rules.is_empty() {
+            writeln!(buffer, "### {name} rules")?;
+            writeln!(buffer, "Rules that belong to the domain:")?;
+
+            for rule in rules {
+                let dashed_rule = Case::Kebab.convert(rule.name);
+
+                writeln!(buffer, "- [{}](/linter/rules/{dashed_rule})", rule.name)?;
+            }
+        }
+
+        Ok(())
+    }
+
+    fn write_dependencies(domain: &RuleDomain, name: &str, buffer: &mut Vec<u8>) -> Result<()> {
+        let dependencies = domain.manifest_dependencies();
+        if !dependencies.is_empty() {
+            writeln!(buffer, "### {name} dependencies")?;
+            writeln!(
+                buffer,
+                "Enabled when the following dependencies are declared:"
+            )?;
+            for (name, version) in domain.manifest_dependencies() {
+                writeln!(buffer, "- `{name}`: `{version}`")?;
+            }
+            writeln!(buffer)?;
+        }
+        Ok(())
+    }
+
+    fn write_globals(domain: &RuleDomain, name: &str, buffer: &mut Vec<u8>) -> Result<()> {
+        let globals = domain.globals();
+
+        if !globals.is_empty() {
+            writeln!(buffer, "### {name} globals")?;
+            writeln!(
+                buffer,
+                "When enabled, the following global bindings are recognised by Biome:"
+            )?;
+            for global in globals {
+                writeln!(buffer, "- `{global}`")?;
+            }
+            writeln!(buffer)?;
+        }
+
+        Ok(())
+    }
 }
