@@ -5,6 +5,18 @@ description: List of available domains
 ---
 ## Next
 Use this domain inside Next.js projects.
+### Next Activation
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"domains": {
+				"next": "on"
+			}
+		}
+	}
+}
+```
 ### Next dependencies
 Enabled when the following dependencies are declared:
 - `next`: `>=14.0.0`
@@ -22,6 +34,18 @@ Rules that belong to the domain:
 - [useGoogleFontPreconnect](/linter/rules/use-google-font-preconnect)
 ## React
 Use this domain inside React projects. It enables a set of rules that can help catching bugs and enforce correct practices. This domain enable rules that might conflict with the Solid domain.
+### React Activation
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"domains": {
+				"react": "on"
+			}
+		}
+	}
+}
+```
 ### React dependencies
 Enabled when the following dependencies are declared:
 - `react`: `>=16.0.0`
@@ -34,6 +58,18 @@ Rules that belong to the domain:
 - [useJsxKeyInIterable](/linter/rules/use-jsx-key-in-iterable)
 ## Solid
 Use this domain inside Solid projects. This domain enables rules that might conflict with the React domain.
+### Solid Activation
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"domains": {
+				"solid": "on"
+			}
+		}
+	}
+}
+```
 ### Solid dependencies
 Enabled when the following dependencies are declared:
 - `solid`: `>=1.0.0`
@@ -45,6 +81,18 @@ Rules that belong to the domain:
 - [noReactSpecificProps](/linter/rules/no-react-specific-props)
 ## Test
 Use this domain when linting test files. It enables a set of rules that are library agnostic, and can help to catch possible misuse of the test APIs.
+### Test Activation
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"domains": {
+				"test": "on"
+			}
+		}
+	}
+}
+```
 ### Test dependencies
 Enabled when the following dependencies are declared:
 - `jest`: `>=26.0.0`

@@ -1,3 +1,4 @@
+use crate::domains::{DocDomains, generate_domains};
 use crate::project_root;
 use crate::rules_sources::generate_rule_sources;
 use crate::shared::add_codegen_disclaimer_frontmatter;
@@ -6,8 +7,8 @@ use anyhow::{Result, bail};
 use biome_analyze::options::JsxRuntime;
 use biome_analyze::{
     AnalysisFilter, AnalyzerAction, AnalyzerConfiguration, AnalyzerOptions, ControlFlow, FixKind,
-    GroupCategory, Queryable, RegistryVisitor, Rule, RuleCategory, RuleDomain, RuleFilter,
-    RuleGroup, RuleMetadata, RuleSourceKind,
+    GroupCategory, Queryable, RegistryVisitor, Rule, RuleCategory, RuleFilter, RuleGroup,
+    RuleMetadata, RuleSourceKind,
 };
 use biome_configuration::Configuration;
 use biome_console::fmt::Termcolor;
@@ -51,18 +52,18 @@ use std::{
 };
 
 #[derive(Debug, Default, Clone)]
-pub(crate) struct RuleToDocument {
-    pub(crate) language_to_metadata: HashMap<&'static str, RuleMetadata>,
+pub struct RuleToDocument {
+    pub language_to_metadata: HashMap<&'static str, RuleMetadata>,
 }
 
 #[derive(Default)]
-struct RulesVisitor {
-    lints: Rules,
-    actions: Rules,
+pub struct RulesVisitor {
+    pub lints: Rules,
+    pub actions: Rules,
 }
 
 #[derive(Default, Clone)]
-struct Rules {
+pub struct Rules {
     /// This is mapped to:
     /// - group (correctness) -> list of rules
     /// - list or rules is mapped to
@@ -72,7 +73,7 @@ struct Rules {
     ///
     groups: BTreeMap<&'static str, BTreeMap<&'static str, RuleToDocument>>,
     number_of_rules: HashSet<&'static str>,
-    domains_to_document: DocDomains,
+    pub(crate) domains_to_document: DocDomains,
 }
 
 enum SupportedLanguages {
@@ -233,35 +234,6 @@ pub fn generate_rule_docs() -> Result<()> {
     generate_domains()?;
     generate_number_of_rules_and_actions()?;
     generate_rule_pages()?;
-    Ok(())
-}
-
-fn generate_domains() -> Result<()> {
-    let mut visitor = RulesVisitor::default();
-    biome_js_analyze::visit_registry(&mut visitor);
-    biome_json_analyze::visit_registry(&mut visitor);
-    biome_css_analyze::visit_registry(&mut visitor);
-    biome_graphql_analyze::visit_registry(&mut visitor);
-    let RulesVisitor { lints, .. } = visitor;
-    let domains = lints.domains_to_document;
-    let mut buffer = Vec::new();
-
-    writeln!(buffer, "---")?;
-    writeln!(
-        buffer,
-        "# this file is auto generated, use `pnpm codegen:rules` to update it"
-    )?;
-    writeln!(buffer, "title: Domains")?;
-    writeln!(buffer, "description: List of available domains")?;
-    writeln!(buffer, "---")?;
-
-    domains.write_description(&mut buffer)?;
-
-    fs::write(
-        project_root().join("src/content/docs/linter/domains.mdx"),
-        buffer,
-    )?;
-
     Ok(())
 }
 
@@ -1840,117 +1812,4 @@ fn extract_summary_from_rule(content: &str) -> String {
     let events: Vec<_> = parser.collect();
 
     events_to_text(events)
-}
-
-#[derive(Default, Debug, Clone)]
-struct DocDomains {
-    /// A list where we associate a rule domain with the rules that belong to it
-    domain_to_rules: HashMap<RuleDomain, Vec<RuleMetadata>>,
-}
-
-impl DocDomains {
-    fn add_rule(&mut self, rule: RuleMetadata) {
-        if !rule.domains.is_empty() {
-            for domain in rule.domains {
-                let domain_to_update = self.domain_to_rules.entry(*domain).or_default();
-
-                domain_to_update.push(rule.clone());
-            }
-        }
-    }
-
-    fn write_description(self, buffer: &mut Vec<u8>) -> Result<()> {
-        let mut domains = self.domain_to_rules.into_iter().collect::<Vec<_>>();
-        domains.sort_by(|a, b| {
-            // this is gross
-            // TODO: remove once RuleDomain implements Ord and PartialOrd
-            let a = format!("{:?}", a.0);
-            let b = format!("{:?}", b.0);
-            a.cmp(&b)
-        });
-        for (domain, rules) in &domains {
-            let name = Case::Pascal.convert(format!("{domain:?}").as_str());
-            match domain {
-                RuleDomain::React => {
-                    writeln!(buffer, "## {name}")?;
-                    writeln!(
-                        buffer,
-                        "Use this domain inside React projects. It enables a set of rules that can help catching bugs and enforce correct practices. This domain enable rules that might conflict with the Solid domain."
-                    )?;
-                }
-                RuleDomain::Test => {
-                    writeln!(buffer, "## {name}")?;
-                    writeln!(
-                        buffer,
-                        "Use this domain when linting test files. It enables a set of rules that are library agnostic, and can help to catch possible misuse of the test APIs."
-                    )?;
-                }
-                RuleDomain::Solid => {
-                    writeln!(buffer, "## {name}")?;
-                    writeln!(
-                        buffer,
-                        "Use this domain inside Solid projects. This domain enables rules that might conflict with the React domain."
-                    )?;
-                }
-                RuleDomain::Next => {
-                    writeln!(buffer, "## {name}")?;
-                    writeln!(buffer, "Use this domain inside Next.js projects.")?;
-                }
-            }
-            Self::write_dependencies(domain, name.as_str(), buffer)?;
-            Self::write_globals(domain, name.as_str(), buffer)?;
-            Self::write_rules(rules.as_slice(), name.as_str(), buffer)?
-        }
-
-        Ok(())
-    }
-
-    fn write_rules(rules: &[RuleMetadata], name: &str, buffer: &mut Vec<u8>) -> Result<()> {
-        if !rules.is_empty() {
-            writeln!(buffer, "### {name} rules")?;
-            writeln!(buffer, "Rules that belong to the domain:")?;
-
-            for rule in rules {
-                let dashed_rule = Case::Kebab.convert(rule.name);
-
-                writeln!(buffer, "- [{}](/linter/rules/{dashed_rule})", rule.name)?;
-            }
-        }
-
-        Ok(())
-    }
-
-    fn write_dependencies(domain: &RuleDomain, name: &str, buffer: &mut Vec<u8>) -> Result<()> {
-        let dependencies = domain.manifest_dependencies();
-        if !dependencies.is_empty() {
-            writeln!(buffer, "### {name} dependencies")?;
-            writeln!(
-                buffer,
-                "Enabled when the following dependencies are declared:"
-            )?;
-            for (name, version) in domain.manifest_dependencies() {
-                writeln!(buffer, "- `{name}`: `{version}`")?;
-            }
-            writeln!(buffer)?;
-        }
-        Ok(())
-    }
-
-    fn write_globals(domain: &RuleDomain, name: &str, buffer: &mut Vec<u8>) -> Result<()> {
-        let globals = domain.globals();
-
-        if !globals.is_empty() {
-            writeln!(buffer, "### {name} globals")?;
-            writeln!(
-                buffer,
-                "When enabled, the following global bindings are recognised by Biome:"
-            )?;
-            for global in globals {
-                writeln!(buffer, "- `{global}`")?;
-            }
-            writeln!(buffer)?;
-        }
-
-        Ok(())
-    }
 }
