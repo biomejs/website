@@ -6,8 +6,12 @@ import { defineConfig } from "astro/config";
 import rehypeSlug from "rehype-slug";
 import starlightBlog from "starlight-blog";
 import { searchForWorkspaceRoot } from "vite";
-import { version as biomeVersion } from "./node_modules/@biomejs/wasm-web/package.json";
-import { version as prettierVersion } from "./node_modules/prettier/package.json";
+import { version as biomeVersion } from "./node_modules/@biomejs/wasm-web/package.json" with {
+	type: "json",
+};
+import { version as prettierVersion } from "./node_modules/prettier/package.json" with {
+	type: "json",
+};
 import { rehypeAutolink } from "./plugins/rehype-autolink";
 
 const plugins = [
@@ -64,6 +68,14 @@ export default defineConfig({
 			title: "Biome",
 			defaultLocale: "root",
 			plugins,
+			expressiveCode: {
+				shiki: {
+					langAlias: {
+						cjs: "javascript",
+						grit: "txt",
+					},
+				},
+			},
 			locales: {
 				root: {
 					label: "English",
@@ -156,7 +168,7 @@ export default defineConfig({
 							link: "/guides/big-projects",
 							translations: {
 								fr: "Utiliser Biome dans de gros projets",
-								ja: "大きなプロジェクトでのBiomeの使用方法",
+								ja: "大規模プロジェクトでのBiomeの使用方法",
 								"zh-CN": "大型项目中使用 Biome",
 								"pt-BR": "Usando o Biome em projetos grandes",
 								uk: "Використання Biome в великих проектах",
@@ -323,8 +335,8 @@ export default defineConfig({
 									},
 								},
 								{
-									label: "Rules",
-									link: "/linter/rules",
+									label: "JavaScript Rules",
+									link: "/linter/javascript/rules",
 									translations: {
 										fr: "Règles",
 										ja: "ルール",
@@ -334,11 +346,35 @@ export default defineConfig({
 									},
 								},
 								{
-									label: "Rules sources",
-									link: "/linter/rules-sources",
+									label: "JavaScript Rules sources",
+									link: "/linter/javascript/sources",
 									translations: {
 										fr: "Sources des règles",
 									},
+								},
+								{
+									label: "CSS Rules",
+									link: "/linter/css/rules",
+								},
+								{
+									label: "CSS Rules sources",
+									link: "/linter/css/sources",
+								},
+								{
+									label: "JSON Rules",
+									link: "/linter/json/rules",
+								},
+								{
+									label: "JSON Rules sources",
+									link: "/linter/json/sources",
+								},
+								{
+									label: "GraphQL Rules",
+									link: "/linter/graphql/rules",
+								},
+								{
+									label: "GraphQL Rules sources",
+									link: "/linter/graphql/sources",
 								},
 							],
 							translations: {
@@ -346,7 +382,91 @@ export default defineConfig({
 								uk: "Лінтер",
 							},
 						},
+						{
+							label: "Assist",
+							badge: "new",
+							items: [
+								{
+									label: "Introduction",
+									link: "/assist",
+									translations: {
+										ja: "イントロダクション",
+										"zh-CN": "介绍",
+										"pt-BR": "Introdução",
+										uk: "Вступ",
+									},
+								},
+								{
+									label: "JavaScript Actions",
+									link: "/assist/javascript/actions",
+								},
+								{
+									label: "JavaScript Actions sources",
+									link: "/assist/javascript/sources",
+								},
+								{
+									label: "CSS Actions",
+									link: "/assist/css/actions",
+								},
+								{
+									label: "CSS Actions sources",
+									link: "/assist/css/sources",
+								},
+								{
+									label: "JSON Actions",
+									link: "/assist/json/actions",
+								},
+								{
+									label: "JSON Actions sources",
+									link: "/assist/json/sources",
+								},
+								{
+									label: "GraphQL Actions",
+									link: "/assist/graphql/actions",
+								},
+								{
+									label: "GraphQL Actions sources",
+									link: "/assist/graphql/sources",
+								},
+							],
+						},
 					],
+				},
+				{
+					label: "Formatter",
+					items: [
+						{
+							label: "Introduction",
+							link: "/formatter",
+							translations: {
+								ja: "イントロダクション",
+								"zh-CN": "介绍",
+								"pt-BR": "Introdução",
+							},
+						},
+						{
+							label: "Differences with Prettier",
+							link: "/formatter/differences-with-prettier",
+							translations: {
+								ja: "Prettier との違い",
+								"zh-CN": "与 Prettier 的区别",
+								"pt-BR": "Diferenças em relação ao Prettier",
+							},
+						},
+						{
+							label: "Formatter Option Philosophy",
+							link: "/formatter/option-philosophy",
+							translations: {
+								ja: "Formatterオプションに対する考え方",
+								"zh-CN": "格式化配置理念",
+								"pt-BR": "Princípios de configuração",
+							},
+						},
+					],
+					translations: {
+						"zh-CN": "格式化程序",
+						"pt-BR": "Formatador",
+					},
 				},
 				{
 					label: "Reference",
@@ -365,7 +485,9 @@ export default defineConfig({
 						{
 							label: "Diagnostics",
 							link: "/reference/diagnostics",
-							badge: "new",
+							translations: {
+								ja: "診断",
+							},
 						},
 						{
 							label: "Environment variables",
@@ -373,6 +495,7 @@ export default defineConfig({
 							translations: {
 								fr: "Variables d’environnement",
 								uk: "Змінні середовища",
+								ja: "環境変数",
 							},
 						},
 						{
@@ -381,6 +504,7 @@ export default defineConfig({
 							translations: {
 								fr: "Outils de reporting",
 								uk: "Звіти",
+								ja: "リポータ",
 							},
 						},
 						{
@@ -407,7 +531,6 @@ export default defineConfig({
 						{
 							label: "Zed extension",
 							link: "/reference/zed",
-							badge: "new",
 							translations: {
 								fr: "Extension pour Zed",
 								ja: "Zed拡張機能",

@@ -3,22 +3,23 @@
 # Head to the `biomejs/biome` repository, and modify the source code in there.
 
 title: useConsistentObjectDefinition
-description: |
-  Require the consistent declaration of object literals. Defaults to explicit definitions.
+description: Learn more about useConsistentObjectDefinition
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-**Diagnostic Category: `lint/nursery/useConsistentObjectDefinition`**
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-**Since**: `vnext`
+## Summary
+- Rule available since: `vnext`
+- Diagnostic Category: [`lint/nursery/useConsistentObjectDefinition`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Inspired from [`object-shorthand`](https://eslint.org/docs/latest/rules/object-shorthand)
+
 :::caution
 This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::
-
-Sources: 
-- Inspired from: <a href="https://eslint.org/docs/latest/rules/object-shorthand" target="_blank"><code>object-shorthand</code></a>
-
 ## Description
 Require the consistent declaration of object literals. Defaults to explicit definitions.
 
@@ -102,7 +103,7 @@ let valid = {
 };
 ```
 
-code-block.js:3:5 <a href="https://biomejs.dev/linter/rules/use-consistent-object-definition">lint/nursery/useConsistentObjectDefinition</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Do not use shorthand object property syntax.</span><br />  <br />    <strong>1 │ </strong>let foo = 1;<br />    <strong>2 │ </strong>let valid = &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>    foo,<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>    bar() &#123; return &quot;bar&quot;; &#125;,<br />    <strong>5 │ </strong>&#125;;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Using explicit object property syntax makes object definitions more readable and consistent.</span><br />  <br />code-block.js:4:5 <a href="https://biomejs.dev/linter/rules/use-consistent-object-definition">lint/nursery/useConsistentObjectDefinition</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Do not use shorthand object property syntax.</span><br />  <br />    <strong>2 │ </strong>let valid = &#123;<br />    <strong>3 │ </strong>    foo,<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>    bar() &#123; return &quot;bar&quot;; &#125;,<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>5 │ </strong>&#125;;<br />    <strong>6 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Using explicit object property syntax makes object definitions more readable and consistent.</span><br />  <br />## Options
+## Options
 
 Use the options to specify the syntax of object literals to enforce.
 

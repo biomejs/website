@@ -3,21 +3,20 @@
 # Head to the `biomejs/biome` repository, and modify the source code in there.
 
 title: noConfusingLabels
-description: |
-  Disallow labeled statements that are not loops.
+description: Learn more about noConfusingLabels
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-**Diagnostic Category: `lint/suspicious/noConfusingLabels`**
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-**Since**: `v1.0.0`
-:::note
-- This rule is recommended by Biome. A diagnostic error will appear when linting your code.
-:::
-
-Sources: 
-- Inspired from: <a href="https://eslint.org/docs/latest/rules/no-labels" target="_blank"><code>no-labels</code></a>
+## Summary
+- Rule available since: `v1.0.0`
+- Diagnostic Category: [`lint/suspicious/noConfusingLabels`](/reference/diagnostics#diagnostic-category)
+- This rule is **recommended**, which means is enabled by default.
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Inspired from [`no-labels`](https://eslint.org/docs/latest/rules/no-labels)
 
 ## Description
 Disallow labeled statements that are not loops.
@@ -100,7 +99,7 @@ can be configured to remove labeled statements.
 DEV: assertSomeCondition();
 ```
 
-code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-confusing-labels">lint/suspicious/noConfusingLabels</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unexpected </span><span style="color: Tomato;"><strong>label</strong></span><span style="color: Tomato;">.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>DEV: assertSomeCondition();<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Only loops should be labeled.<br /></span>    <span style="color: lightgreen;">The use of labels for other statements is suspicious and unfamiliar.</span><br />  <br />## How to configure
+## How to configure
 ```json title="biome.json"
 {
 	"linter": {
