@@ -143,7 +143,7 @@ impl DocDomains {
     }
 
     fn write_activation(name: &str, buffer: &mut Vec<u8>) -> anyhow::Result<()> {
-        writeln!(buffer, "### {name} Activation")?;
+        writeln!(buffer, "### {name} activation")?;
         let value = make_config_json(Case::Lower.convert(name).as_str());
 
         let formatted = format_node(
