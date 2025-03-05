@@ -1,0 +1,134 @@
+---
+title: Diagnostics
+description: Apprenez les différentes parties des diagnostics de Biome
+---
+import DiagnosticFatal from "@/components/generated/diagnostics/DiagnosticFatal.md";
+import DiagnosticError from "@/components/generated/diagnostics/DiagnosticError.md";
+import DiagnosticWarning from "@/components/generated/diagnostics/DiagnosticWarning.md";
+import DiagnosticInformation from "@/components/generated/diagnostics/DiagnosticInformation.md";
+import DiagnosticVerbose from "@/components/generated/diagnostics/DiagnosticVerbose.md";
+import DiagnosticInternal from "@/components/generated/diagnostics/DiagnosticInternal.md";
+import DiagnosticFixable from "@/components/generated/diagnostics/DiagnosticFixable.md";
+import DiagnosticDeprecated from "@/components/generated/diagnostics/DiagnosticDeprecated.md";
+import DiagnosticCategorySimple from "@/components/generated/diagnostics/DiagnosticCategorySimple.md";
+import DiagnosticCategoryLink from "@/components/generated/diagnostics/DiagnosticCategoryLink.md";
+import DiagnosticLocFile from "@/components/generated/diagnostics/DiagnosticLocFile.md";
+import DiagnosticLocFrame from "@/components/generated/diagnostics/DiagnosticLocFrame.md";
+import DiagnosticLocAll from "@/components/generated/diagnostics/DiagnosticLocAll.md";
+import DiagnosticLocMultiline from "@/components/generated/diagnostics/DiagnosticLocMultiline.md";
+import DiagnosticWithAdvice from "@/components/generated/diagnostics/DiagnosticWithAdvice.md";
+
+Les diagnostics de Biome sont remplis d’informations et fournissent habituellement toutes les informations dont vous avez besoin pour comprendre les erreurs et les corriger.
+
+Les diagnostics sont utilisés non seulement pour les erreurs, mais aussi pour fournir des informations structurées, des avertissements et des tuyaux.
+
+Cette page fournit un aperçu de toutes les informations qu’un diagnostic peut comporter. Apprendre toutes les différentes parties d’un diagnostic peut vous aider à identifier les parties importantes et certains «&nbsp;secrets&nbsp;» qui se cachent derrière.
+
+## Sévérité du diagnostic
+
+La sévérité du diagnostic peut affecter la ligne de commande. Par exemple, les diagnostics d’erreur forceront la ligne de commande à quitter avec un code d’erreur.
+
+### Fatal
+
+Le texte des diagnostics d’erreur est en rouge. Les diagnostics fatals sont habituellement émis quand une erreur inattendue s’est produite au sein de Biome. Comparés aux erreurs, ils ont le [tag fatal](#tags-du-diagnostic).
+
+<DiagnosticFatal />
+
+### Erreur
+
+Le texte des diagnostics d’erreur est en rouge. Habituellement, ils devraient être abordés parce qu’ils émettront un code d’erreur lorsque la ligne de commande les rencontre.
+
+<DiagnosticError />
+
+### Avertissement
+
+Le texte des diagnostics d’avertissement est en jaune. Habituellement, ils devraient être abordés. Les avertissements ne sont pas bloquants et la ligne de commande ne cessera pas de travailler.
+
+<DiagnosticWarning />
+
+### Information
+
+Le texte des diagnostics d’information est en vert. Ils fournissent des informations utiles et ne sont pas censés bloquer la ligne de commande.
+
+<DiagnosticInformation />
+
+## Tags du diagnostic
+
+Les tags peuvent être vus comme des métadonnées rattachées à un diagnostic et peuvent affecter les clients de différentes manières.
+
+### Verbose
+
+Les diagnostics verbeux (_verbose_) sont habituellement cachés. Via la ligne de commande, vous pouvez afficher ces diagnostics en utilisant l’option `--verbose`.
+
+<DiagnosticVerbose />
+
+### Internal
+
+Les diagnostics internes (_internal_) sont émis quand une erreur interne s’est produite. Les utilisateurs sont habituellement encouragés à envoyer un rapport de bug quand ils en voient un.
+
+<DiagnosticInternal />
+
+### Fixable
+
+Les diagnostics corrigibles (_fixable_) sont émis pour ces situations particulières qui peuvent être corrigées par l’utilisateur. Ils sont habituellement utilisés pour les diagnostics de linting qui ont une action de code.
+
+<DiagnosticFixable />
+
+### Deprecated
+
+Les diagnostics qui comportent du code qui est obsolète.
+
+<DiagnosticDeprecated />
+
+## Catégorie de diagnostic
+
+La catégorie est utile aux diagnostics de groupe. De façon facultative, une catégorie peut avoir un lien, par exemple pour les catégories appartenant aux règles de linting, comme dans l’exemple ci-dessous.
+
+### Simple catégorie
+
+Ce diagnostic appartient à la catégorie «&nbsp;`check`&nbsp;», ce qui veut dire qu’il est émis à l’exécution de la commande `check`&nbsp;:
+
+<DiagnosticCategorySimple />
+
+### Catégorie avec lien
+
+Ce diagnostic appartient à la catégorie «&nbsp;`lint/a11y/noAccessKey`&nbsp;». Le lien mène l’utilisateur vers la page web de la règle de linting `noAccessKey`.
+
+<DiagnosticCategoryLink />
+
+## Localisation du diagnostic
+
+Les diagnostics peuvent avoir une «&nbsp;localisation&nbsp;». Une localisation est composée de trois parties facultatives&nbsp;:
+- une ressource, qui est à l’origine de l’émission du diagnostic&nbsp;;
+- le code source du fichier&nbsp;;
+- une portée (ou un échantillon de texte), habituellement la **ligne** et la **colonne** dans le fichier.
+
+### Chemin du fichier du diagnostic
+
+Le chemin du fichier est habituellement la première information que vous voyez, en haut à gauche du diagnostic.
+
+<DiagnosticLocFile />
+
+### Code source du diagnostic
+
+Cela montre la manière dont le code source associé au fichier est affiché. Notez que la ligne et la colonne ne sont pas affichées.
+
+<DiagnosticLocFrame />
+
+### Ligne et colonne du diagnostic
+
+Les **ligne** et **colonne** sont habituellement affichées à côté du chemin du fichier et ne le sont que s’il y a du code source qui leur est associé.
+
+<DiagnosticLocAll />
+
+Quand les diagnostics sont affichés au sein du terminal d’un IDE, vous pouvez cliquer sur `chemin/vers/le/fichier.js:2:2` et l’IDE ouvrira le fichier en question et placera le curseur au début de la portée.
+
+<DiagnosticLocMultiline />
+
+## Conseils du diagnostic
+
+En outre, nos diagnostics peuvent contenir des conseils. Les conseils sont des messages qui peuvent être ajoutés au message originel.
+
+Ces conseils sont de différents types et formes. Habituellement, les conseils sont toujours affichés, à moins d’être de type _verbose._
+
+<DiagnosticWithAdvice />
