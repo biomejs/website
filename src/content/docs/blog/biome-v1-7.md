@@ -187,8 +187,7 @@ biome lint --reporter=json-pretty .
 
 For now, we support two report formats: `json` and `json-pretty`.
 
-Note that the report format is **experimental
-**, and it might change in the future. Please try this feature and let us know if any information needs to be added to the reports.
+Note that the report format is **experimental**, and it might change in the future. Please try this feature and let us know if any information needs to be added to the reports.
 
 ## Check `git` staged files
 

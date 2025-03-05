@@ -19,21 +19,17 @@ We want to remind you that Biome is a community-driven project, so we can only p
 
 However, if you're excited about some aspects of the project, and you want to see some of them developed faster than others, you can help us in many ways:
 
-- [**Be involved in the project and the community
-  **](https://github.com/biomejs). Please help us to build those features.
-- [**Sponsor us
-  **](https://opencollective.com/biome). Ask your company to sponsor us. Biome is so fast that it can reduce your company's CI times and save money. Performance is part of our mission. Plus, sponsorship is a good medium of
+- [**Be involved in the project and the community**](https://github.com/biomejs). Please help us to build those features.
+- [**Sponsor us**](https://opencollective.com/biome). Ask your company to sponsor us. Biome is so fast that it can reduce your company's CI times and save money. Performance is part of our mission. Plus, sponsorship is a good medium of
   _advertisement_ for your company.
-- [**Improve our documentation with ideas, recipes, or guides
-  **](/guides/getting-started). Translate our documentation and help us to make Biome available to people who aren't proficient in English.
+- [**Improve our documentation with ideas, recipes, or guides**](/guides/getting-started). Translate our documentation and help us to make Biome available to people who aren't proficient in English.
 
 ## Preface
 
 The project is young and can't compete against giants such as Prettier, ESLint, Webpack, Vite, ESBuild, etc. However, the recent events (sponsors, bounty challenge, Biome being a fork of Rome) showed that the users
 **have** interest in the project, and we showed those users that we have the tools to fulfil a need.
 
-Moving small projects from ESLint/Prettier is easy, but moving **big
-** code bases is challenging and time-consuming; this is a big friction point in Biome.
+Moving small projects from ESLint/Prettier is easy, but moving **big** code bases is challenging and time-consuming; this is a big friction point in Biome.
 
 Users have different needs, though, so it will only be possible to satisfy some of them. We want to ensure that all features and contributions to our project [embrace our philosophy](/internals/philosophy/) and provide the best experience by default.
 
@@ -127,9 +123,7 @@ We will provide the ability to transform TypeScript and JSX files into JavaScrip
 
 Biome has a growing ecosystem, with an official VSCode extension, an official IntelliJ extension, and a Discord bot. We want to grow the features these tools provide and welcome anyone who wants to help us.
 
-Our community is slowly growing, and we want to reward everyone who sticks around and contributes to Biome. At Biome, *
-*we value every contribution
-**, so you don't need to be proficient in Rust to help us. Even participating in discussions and helping us to shape our features or helping other people are considered
+Our community is slowly growing, and we want to reward everyone who sticks around and contributes to Biome. At Biome, **we value every contribution**, so you don't need to be proficient in Rust to help us. Even participating in discussions and helping us to shape our features or helping other people are considered
 *contributions*. If you'd like to continue contributing to our ecosystem, we also encourage you to [nominate yourself as a maintainer of the project](https://github.com/biomejs/biome/blob/main/GOVERNANCE.md#maintainer-nomination).
 
 Recently Biome started its own [YouTube Channel](https://www.youtube.com/channel/UC6ssscaFgCSlbv1Pb6krGVw). We will use this channel to share learning content with the community.
@@ -138,9 +132,6 @@ Recently Biome started its own [YouTube Channel](https://www.youtube.com/channel
 
 With this blog post, we also want to officially announce our new logo, homepage and rebranding of the website.
 
-With this new logo, we want to give a different meaning to the project. Biome **isn't
-** a fork of Rome anymore, but a self-sufficient project ready to bloom.
+With this new logo, we want to give a different meaning to the project. Biome **isn't** a fork of Rome anymore, but a self-sufficient project ready to bloom.
 
-The triangle of the logo represents the mountains - **soil
-** -, and the curly shape on the bottom left represents a wave of the ocean - **water
-**. Two elements that are important in creating a self-sufficient ecosystem, so it can thrive and grow.
+The triangle of the logo represents the mountains - **soil** -, and the curly shape on the bottom left represents a wave of the ocean - **water**. Two elements that are important in creating a self-sufficient ecosystem, so it can thrive and grow.

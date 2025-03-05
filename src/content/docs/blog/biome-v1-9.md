@@ -48,9 +48,7 @@ biome migrate --write
 
 ### Stable CSS formatter and linter
 
-We are thrilled to announce that Biome's CSS formatter and linter are now considered stable and are **enabled by default
-**. Do note that Biome only parses **standard CSS syntax
-** so far, and doesn't yet handle CSS dialects such as SCSS. As this is brand new functionality, you may also still run into some rough edges. Please report any problems you encounter!
+We are thrilled to announce that Biome's CSS formatter and linter are now considered stable and are **enabled by default**. Do note that Biome only parses **standard CSS syntax** so far, and doesn't yet handle CSS dialects such as SCSS. As this is brand new functionality, you may also still run into some rough edges. Please report any problems you encounter!
 
 The CSS linter provides 15 stable lint rules that were ported from [stylelint](https://stylelint.io/):
 
@@ -147,8 +145,7 @@ Integrating a query language such as GritQL is no easy feat, and throughout the 
 
 While we believe this command may already be useful to users in some situations (especially when it gets integrated in our IDE extensions!), this command is really a stepping stone towards our plugin efforts. By allowing our users to try it out in a first iteration, we hope to gain insight into the type of queries you want to do, as well as the bugs we need to focus on.
 
-For now, the `search` command is explicitly marked as **EXPERIMENTAL
-**, since many limitations are yet to be fixed or explored. Keep this in mind when you try it out, and please let us know what you think!
+For now, the `search` command is explicitly marked as **EXPERIMENTAL**, since many limitations are yet to be fixed or explored. Keep this in mind when you try it out, and please let us know what you think!
 For an overview of specific limitations, please see the [dedicated issue](https://github.com/biomejs/biome/issues/2582).
 
 Even though there are still plenty of limitations, we do believe the integration has progressed far enough that we can shift our focus towards the integration of actual plugins. We cannot yet promise a timeline, but we'll keep you posted!
