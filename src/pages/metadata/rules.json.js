@@ -1323,6 +1323,20 @@ export function GET() {
             "sourceKind": "sameLogic",
             "docs": " Disallow `await` inside loops.\n\n Using `await` in a loop makes your asynchronous operations run one after another instead of all at once. This can slow things down and might cause unhandled errors. Instead, create all the promises together and then wait for them simultaneously using methods like `Promise.all()`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n async function invalid() {\n     for (const thing of things) {\n         const result = await asyncWork();\n     }\n }\n ```\n\n ### Valid\n\n ```js\n async function valid() {\n     await Promise.all(things.map((thing) => asyncWork(thing)))\n }\n ```\n\n"
           },
+          "noBitwiseOperators": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noBitwiseOperators",
+            "link": "https://biomejs.dev/linter/rules/no-bitwise-operators",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslint": "no-bitwise"
+              }
+            ],
+            "docs": " Disallow bitwise operators.\n\n The use of bitwise operators in JavaScript is very rare and often `&` or `|` is simply a mistyped `&&` or `||`,\n which will lead to unexpected behavior.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n let x = y | z;\n ```\n\n ```js,expect_diagnostic\n x |= y;\n ```\n\n ### Valid\n\n ```js\n let x = y || z;\n ```\n\n ```js\n let x = y && z;\n ```\n\n ## Options\n\n The rule provides the options described below.\n\n ### allow\n\n Allows a list of bitwise operators to be used as exceptions.\n\n ```json,options\n {\n     \"options\": {\n         \"allow\": [\"&\", \"|\", \"^\", \"~\", \"<<\", \">>\", \">>>\"]\n     }\n }\n ```\n\n"
+          },
           "noCommonJs": {
             "deprecated": false,
             "version": "1.9.0",
@@ -4358,7 +4372,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 310
+    "numberOrRules": 311
   },
   "syntax": {
     "languages": {
