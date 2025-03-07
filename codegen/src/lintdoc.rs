@@ -656,7 +656,7 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
         writeln!(content, ":::danger")?;
         writeln!(
             content,
-            "This rules hasn't been released yet. If you want to try it, you can request and try a preview release of Biome"
+            "This rule hasn't been released yet. If you want to try it, you can request and try a preview release of Biome"
         )?;
         writeln!(content, ":::")?;
     } else {
