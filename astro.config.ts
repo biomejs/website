@@ -335,6 +335,10 @@ export default defineConfig({
 									},
 								},
 								{
+									label: "Domains",
+									link: "/linter/domains",
+								},
+								{
 									label: "JavaScript Rules",
 									link: "/linter/javascript/rules",
 									translations: {
