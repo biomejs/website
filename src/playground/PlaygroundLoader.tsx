@@ -29,7 +29,11 @@ import {
 	guessLanguage,
 	normalizeFilename,
 } from "@/playground/utils";
-import type { FixFileMode } from "@biomejs/wasm-web";
+import type {
+	FixFileMode,
+	RuleDomain,
+	RuleDomainValue,
+} from "@biomejs/wasm-web";
 import {
 	type Dispatch,
 	type SetStateAction,
@@ -243,7 +247,7 @@ function buildLocation(state: PlaygroundState): string {
 
 	// handle rule domains
 	for (const key in state.settings.ruleDomains) {
-		const value = state.settings.ruleDomains[key];
+		const value = state.settings.ruleDomains[key as RuleDomain];
 		if (value !== undefined && value !== "none") {
 			queryStringObj[`ruleDomains.${key}`] = value;
 		}
@@ -303,12 +307,12 @@ function initState(
 	}
 
 	// handle rule domains
-	const ruleDomains: Record<string, string> = {};
+	const ruleDomains = defaultPlaygroundState.settings.ruleDomains;
 	const prefixLength = "ruleDomains.".length;
 	for (const key of searchParams.keys()) {
 		if (key.startsWith("ruleDomains.")) {
-			const domain = key.slice(prefixLength);
-			const value = searchParams.get(key);
+			const domain = key.slice(prefixLength) as RuleDomain;
+			const value = searchParams.get(key) as RuleDomainValue;
 			if (value) {
 				ruleDomains[domain] = value;
 			}
