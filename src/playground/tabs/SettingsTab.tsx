@@ -260,15 +260,15 @@ export default function SettingsTab({
 		}));
 	}
 
-	const currentFileExtension = currentFile.split(".").at(-1);
-	const language =
-		Object.values(Language).find((ext) => ext === currentFileExtension) ??
-		Language.JS;
+	const language = guessLanguage(currentFile);
 
 	function setLanguage(language: Language): void {
 		renameFile(
 			currentFile,
-			`${currentFile.substring(0, currentFile.lastIndexOf("."))}.${language}`,
+			modifyFilename(currentFile, {
+				language,
+				script: isScriptFilename(currentFile),
+			}),
 		);
 	}
 
