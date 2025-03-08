@@ -1,6 +1,7 @@
 import {
 	ArrowParentheses,
 	AttributePosition,
+	Expand,
 	IndentStyle,
 	LintRules,
 	type PlaygroundState,
@@ -9,6 +10,7 @@ import {
 	Semicolons,
 	SourceType,
 	TrailingCommas,
+	WhitespaceSensitivity,
 } from "@/playground/types";
 import {
 	classnames,
@@ -20,7 +22,11 @@ import {
 	modifyFilename,
 	normalizeFilename,
 } from "@/playground/utils";
-import type { FixFileMode } from "@biomejs/wasm-web";
+import type {
+	FixFileMode,
+	RuleDomain,
+	RuleDomainValue,
+} from "@biomejs/wasm-web";
 import type { Dispatch, SetStateAction } from "react";
 import type React from "react";
 import { useState } from "react";
@@ -50,6 +56,9 @@ export default function SettingsTab({
 			arrowParentheses,
 			bracketSpacing,
 			bracketSameLine,
+			expand,
+			indentScriptAndStyle,
+			whitespaceSensitivity,
 			lintRules,
 			enabledLinting,
 			analyzerFixMode,
@@ -57,6 +66,7 @@ export default function SettingsTab({
 			unsafeParameterDecoratorsEnabled,
 			allowComments,
 			attributePosition,
+			ruleDomains,
 		},
 	},
 }: SettingsTabProps) {
@@ -108,6 +118,20 @@ export default function SettingsTab({
 		setPlaygroundState,
 		"bracketSameLine",
 	);
+	const setExpand = createPlaygroundSettingsSetter(
+		setPlaygroundState,
+		"expand",
+	);
+	const setIndentScriptAndStyle = createPlaygroundSettingsSetter(
+		setPlaygroundState,
+		"indentScriptAndStyle",
+	);
+
+	const setWhitespaceSensitivity = createPlaygroundSettingsSetter(
+		setPlaygroundState,
+		"whitespaceSensitivity",
+	);
+
 	const setLintRules = createPlaygroundSettingsSetter(
 		setPlaygroundState,
 		"lintRules",
@@ -133,6 +157,11 @@ export default function SettingsTab({
 	const setAllowComments = createPlaygroundSettingsSetter(
 		setPlaygroundState,
 		"allowComments",
+	);
+
+	const setRuleDomains = createPlaygroundSettingsSetter(
+		setPlaygroundState,
+		"ruleDomains",
 	);
 
 	function setCurrentFilename(newFilename: string) {
@@ -282,6 +311,12 @@ export default function SettingsTab({
 				setBracketSpacing={setBracketSpacing}
 				bracketSameLine={bracketSameLine}
 				setBracketSameLine={setBracketSameLine}
+				expand={expand}
+				setExpand={setExpand}
+				indentScriptAndStyle={indentScriptAndStyle}
+				setIndentScriptAndStyle={setIndentScriptAndStyle}
+				whitespaceSensitivity={whitespaceSensitivity}
+				setWhitespaceSensitivity={setWhitespaceSensitivity}
 			/>
 			<LinterSettings
 				lintRules={lintRules}
@@ -290,6 +325,8 @@ export default function SettingsTab({
 				setEnabledLinting={setEnabledLinting}
 				analyzerFixMode={analyzerFixMode}
 				setAnalyzerFixMode={setAnalyzerFixMode}
+				ruleDomains={ruleDomains}
+				setRuleDomains={setRuleDomains}
 			/>
 			<AssistSettings
 				enabledAssist={enabledAssist}
@@ -619,6 +656,12 @@ function FormatterSettings({
 	setBracketSpacing,
 	bracketSameLine,
 	setBracketSameLine,
+	expand,
+	setExpand,
+	indentScriptAndStyle,
+	setIndentScriptAndStyle,
+	whitespaceSensitivity,
+	setWhitespaceSensitivity,
 }: {
 	lineWidth: number;
 	setLineWidth: (value: number) => void;
@@ -644,6 +687,12 @@ function FormatterSettings({
 	setBracketSpacing: (value: boolean) => void;
 	bracketSameLine: boolean;
 	setBracketSameLine: (value: boolean) => void;
+	expand: Expand;
+	setExpand: (value: Expand) => void;
+	indentScriptAndStyle: boolean;
+	setIndentScriptAndStyle: (value: boolean) => void;
+	whitespaceSensitivity: WhitespaceSensitivity;
+	setWhitespaceSensitivity: (value: WhitespaceSensitivity) => void;
 }) {
 	return (
 		<>
@@ -797,6 +846,46 @@ function FormatterSettings({
 						onChange={(e) => setBracketSameLine(e.target.checked)}
 					/>
 				</div>
+				<div className="field-row">
+					<label htmlFor="expand">Expand</label>
+					<select
+						id="expand"
+						name="expand"
+						value={expand ?? Expand.Auto}
+						onChange={(e) => setExpand(e.target.value as Expand)}
+					>
+						<option value={Expand.Auto}>Auto</option>
+						<option value={Expand.Always}>Always</option>
+						<option value={Expand.Never}>Never</option>
+					</select>
+				</div>
+
+				<h3>HTML</h3>
+				<div className="field-row">
+					<label htmlFor="indentScriptAndStyle">Indent Script And Style</label>
+					<input
+						id="indentScriptAndStyle"
+						name="indentScriptAndStyle"
+						type="checkbox"
+						checked={indentScriptAndStyle}
+						onChange={(e) => setIndentScriptAndStyle(e.target.checked)}
+					/>
+				</div>
+				<div className="field-row">
+					<label htmlFor="whitespaceSensitivity">Whitespace Sensitivity</label>
+					<select
+						id="whitespaceSensitivity"
+						name="whitespaceSensitivity"
+						value={whitespaceSensitivity}
+						onChange={(e) =>
+							setWhitespaceSensitivity(e.target.value as WhitespaceSensitivity)
+						}
+					>
+						<option value={WhitespaceSensitivity.Css}>CSS</option>
+						<option value={WhitespaceSensitivity.Strict}>Strict</option>
+						<option value={WhitespaceSensitivity.Ignore}>Ignore</option>
+					</select>
+				</div>
 			</section>
 		</>
 	);
@@ -809,6 +898,8 @@ function LinterSettings({
 	setEnabledLinting,
 	analyzerFixMode,
 	setAnalyzerFixMode,
+	ruleDomains,
+	setRuleDomains,
 }: {
 	lintRules: LintRules;
 	setLintRules: (value: LintRules) => void;
@@ -816,7 +907,31 @@ function LinterSettings({
 	setEnabledLinting: (value: boolean) => void;
 	analyzerFixMode: FixFileMode;
 	setAnalyzerFixMode: (value: FixFileMode) => void;
+	ruleDomains: Record<RuleDomain, RuleDomainValue>;
+	setRuleDomains: (value: Record<RuleDomain, RuleDomainValue>) => void;
 }) {
+	const updateDomain = (domain: RuleDomain, value: RuleDomainValue) => {
+		setRuleDomains({
+			...ruleDomains,
+			[domain]: value,
+		});
+	};
+	if (ruleDomains === undefined) {
+		ruleDomains = {};
+	}
+
+	const domainConfigs: Array<{
+		id: RuleDomain;
+		label: string;
+	}> = [
+		{ id: "react", label: "React Rules" },
+		{ id: "test", label: "Test Rules" },
+		{ id: "solid", label: "Solid Rules" },
+		{ id: "next", label: "Next.js Rules" },
+	];
+
+	const domainValues: RuleDomainValue[] = ["all", "recommended", "none"];
+
 	return (
 		<>
 			<h2>Linter options</h2>
@@ -831,6 +946,7 @@ function LinterSettings({
 					/>
 					<label htmlFor="linting-enabled">Linter enabled</label>
 				</div>
+
 				<div className="field-row">
 					<label htmlFor="lint-rules">Lint Rules</label>
 					<select
@@ -860,6 +976,27 @@ function LinterSettings({
 						<option value={"applySuppressions"}>Apply Suppressions</option>
 					</select>
 				</div>
+
+				<h3>Domains</h3>
+				{domainConfigs.map(({ id, label }) => (
+					<div key={id} className="field-row">
+						<label htmlFor={`${id}-domain`}>{label}</label>
+						<select
+							id={`${id}-domain`}
+							value={ruleDomains[id] ?? "none"}
+							onChange={(e) =>
+								updateDomain(id, e.target.value as RuleDomainValue)
+							}
+							disabled={!enabledLinting}
+						>
+							{domainValues.map((value) => (
+								<option key={value} value={value}>
+									{value.charAt(0).toUpperCase() + value.slice(1)}
+								</option>
+							))}
+						</select>
+					</div>
+				))}
 			</section>
 		</>
 	);

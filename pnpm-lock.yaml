@@ -53,6 +53,9 @@ importers:
       '@codemirror/view':
         specifier: 6.36.2
         version: 6.36.2
+      '@expressive-code/plugin-line-numbers':
+        specifier: ^0.40.2
+        version: 0.40.2
       '@lunariajs/core':
         specifier: 0.1.1
         version: 0.1.1
@@ -129,11 +132,11 @@ importers:
         specifier: 11.0.3
         version: 11.0.3(postcss@8.4.49)
       prettier:
-        specifier: 3.4.2
-        version: 3.4.2
+        specifier: 3.5.1
+        version: 3.5.1
       prettier-plugin-svelte:
         specifier: 3.3.2
-        version: 3.3.2(prettier@3.4.2)(svelte@4.2.19)
+        version: 3.3.2(prettier@3.5.1)(svelte@4.2.19)
       react:
         specifier: 18.3.1
         version: 18.3.1
@@ -153,8 +156,8 @@ importers:
         specifier: 0.33.5
         version: 0.33.5
       starlight-blog:
-        specifier: 0.17.2
-        version: 0.17.2(@astrojs/starlight@0.32.2(astro@5.4.2(@netlify/blobs@8.1.1)(@types/node@20.17.17)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)))(astro@5.4.2(@netlify/blobs@8.1.1)(@types/node@20.17.17)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
+        specifier: 0.18.0
+        version: 0.18.0(@astrojs/starlight@0.32.2(astro@5.4.2(@netlify/blobs@8.1.1)(@types/node@20.17.17)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)))(astro@5.4.2(@netlify/blobs@8.1.1)(@types/node@20.17.17)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
       textlint:
         specifier: 14.4.2
         version: 14.4.2
@@ -756,6 +759,9 @@ packages:
 
   '@expressive-code/plugin-frames@0.40.2':
     resolution: {integrity: sha512-aLw5IlDlZWb10Jo/TTDCVsmJhKfZ7FJI83Zo9VDrV0OBlmHAg7klZqw68VDz7FlftIBVAmMby53/MNXPnMjTSQ==}
+
+  '@expressive-code/plugin-line-numbers@0.40.2':
+    resolution: {integrity: sha512-YMLkn68n9a9DI/4fQW/f6QJ33uQUzHmGdV3pDl+f6fVTxv7rvhRja+UtPksm0ZJpft6vrrACV8wS2TaH77SBzw==}
 
   '@expressive-code/plugin-shiki@0.40.2':
     resolution: {integrity: sha512-t2HMR5BO6GdDW1c1ISBTk66xO503e/Z8ecZdNcr6E4NpUfvY+MRje+LtrcvbBqMwWBBO8RpVKcam/Uy+1GxwKQ==}
@@ -3569,8 +3575,8 @@ packages:
       prettier: ^3.0.0
       svelte: ^3.2.0 || ^4.0.0-next.0 || ^5.0.0-next.0
 
-  prettier@3.4.2:
-    resolution: {integrity: sha512-e9MewbtFo+Fevyuxn/4rrcDAaq0IYxPGLvObpQjiZBMAzB9IGmzlnG9RZy3FFas+eBMu2vA0CszMeduow5dIuQ==}
+  prettier@3.5.1:
+    resolution: {integrity: sha512-hPpFQvHwL3Qv5AdRvBFMhnKo4tYxp0ReXiPn2bxkiohEX6mBeBwEpBSQTkD458RaaDKQMYSp4hX4UtfUTA5wDw==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -3920,8 +3926,8 @@ packages:
   sprintf-js@1.0.3:
     resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
 
-  starlight-blog@0.17.2:
-    resolution: {integrity: sha512-X8qfp2JN/vN5G6+VUkRBM2h85Ej1o4L/Vh/Z3WNeK+QBj8/05L80msXl2mZyKW7SW4oDSkC5U7agaf1/L2zcnQ==}
+  starlight-blog@0.18.0:
+    resolution: {integrity: sha512-8PzDqJQ0i0nWdXTYjs2OiCM4AiqSQgW2gEFNvFg5hGyULrHCModOnR+Byy9LShZiFyFzcBtbX2HGZC7SXpsVcw==}
     engines: {node: '>=18.17.1'}
     peerDependencies:
       '@astrojs/starlight': '>=0.32.0'
@@ -5100,6 +5106,10 @@ snapshots:
       unist-util-visit-parents: 6.0.1
 
   '@expressive-code/plugin-frames@0.40.2':
+    dependencies:
+      '@expressive-code/core': 0.40.2
+
+  '@expressive-code/plugin-line-numbers@0.40.2':
     dependencies:
       '@expressive-code/core': 0.40.2
 
@@ -8729,12 +8739,12 @@ snapshots:
 
   prelude-ls@1.2.1: {}
 
-  prettier-plugin-svelte@3.3.2(prettier@3.4.2)(svelte@4.2.19):
+  prettier-plugin-svelte@3.3.2(prettier@3.5.1)(svelte@4.2.19):
     dependencies:
-      prettier: 3.4.2
+      prettier: 3.5.1
       svelte: 4.2.19
 
-  prettier@3.4.2: {}
+  prettier@3.5.1: {}
 
   prh@5.4.4:
     dependencies:
@@ -9265,7 +9275,7 @@ snapshots:
 
   sprintf-js@1.0.3: {}
 
-  starlight-blog@0.17.2(@astrojs/starlight@0.32.2(astro@5.4.2(@netlify/blobs@8.1.1)(@types/node@20.17.17)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)))(astro@5.4.2(@netlify/blobs@8.1.1)(@types/node@20.17.17)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)):
+  starlight-blog@0.18.0(@astrojs/starlight@0.32.2(astro@5.4.2(@netlify/blobs@8.1.1)(@types/node@20.17.17)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)))(astro@5.4.2(@netlify/blobs@8.1.1)(@types/node@20.17.17)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)):
     dependencies:
       '@astrojs/mdx': 4.0.8(astro@5.4.2(@netlify/blobs@8.1.1)(@types/node@20.17.17)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
       '@astrojs/rss': 4.0.11

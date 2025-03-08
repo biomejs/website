@@ -1,4 +1,9 @@
-import type { Diagnostic, FixFileMode } from "@biomejs/wasm-web";
+import type {
+	Diagnostic,
+	FixFileMode,
+	RuleDomain,
+	RuleDomainValue,
+} from "@biomejs/wasm-web";
 import type { parser } from "codemirror-lang-rome-ast";
 import type { Dispatch, SetStateAction } from "react";
 
@@ -62,9 +67,22 @@ export enum ArrowParentheses {
 	Always = "always",
 	AsNeeded = "as-needed",
 }
+
 export enum AttributePosition {
 	Auto = "auto",
 	Multiline = "multiline",
+}
+
+export enum Expand {
+	Auto = "auto",
+	Always = "always",
+	Never = "never",
+}
+
+export enum WhitespaceSensitivity {
+	Css = "css",
+	Strict = "strict",
+	Ignore = "ignore",
 }
 
 export type PrettierOutput =
@@ -129,12 +147,16 @@ export interface PlaygroundSettings {
 	attributePosition: AttributePosition;
 	bracketSpacing: boolean;
 	bracketSameLine: boolean;
+	expand: Expand;
 	lintRules: LintRules;
 	enabledLinting: boolean;
 	analyzerFixMode: FixFileMode;
 	enabledAssist: boolean;
 	unsafeParameterDecoratorsEnabled: boolean;
 	allowComments: boolean;
+	ruleDomains: Record<RuleDomain, RuleDomainValue>;
+	indentScriptAndStyle: boolean;
+	whitespaceSensitivity: WhitespaceSensitivity;
 }
 
 export interface PlaygroundFileState {
@@ -177,12 +199,16 @@ export const defaultPlaygroundState: PlaygroundState = {
 		attributePosition: AttributePosition.Auto,
 		bracketSpacing: true,
 		bracketSameLine: false,
+		expand: Expand.Auto,
 		lintRules: LintRules.Recommended,
 		enabledLinting: true,
 		analyzerFixMode: "safeFixes",
 		enabledAssist: true,
 		unsafeParameterDecoratorsEnabled: true,
 		allowComments: true,
+		ruleDomains: {},
+		indentScriptAndStyle: false,
+		whitespaceSensitivity: WhitespaceSensitivity.Css,
 	},
 };
 
