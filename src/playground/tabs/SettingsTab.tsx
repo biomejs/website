@@ -3,6 +3,7 @@ import {
 	AttributePosition,
 	Expand,
 	IndentStyle,
+	Language,
 	LintRules,
 	type PlaygroundState,
 	QuoteProperties,
@@ -16,9 +17,8 @@ import {
 	classnames,
 	createPlaygroundSettingsSetter,
 	getFileState,
-	isJsxFilename,
+	guessLanguage,
 	isScriptFilename,
-	isTypeScriptFilename,
 	modifyFilename,
 	normalizeFilename,
 } from "@/playground/utils";
@@ -260,6 +260,18 @@ export default function SettingsTab({
 		}));
 	}
 
+	const language = guessLanguage(currentFile);
+
+	function setLanguage(language: Language): void {
+		renameFile(
+			currentFile,
+			modifyFilename(currentFile, {
+				language,
+				script: isScriptFilename(currentFile),
+			}),
+		);
+	}
+
 	return (
 		<div className="settings-tab">
 			<section className="settings-tab-buttons">
@@ -276,7 +288,9 @@ export default function SettingsTab({
 				</button>
 			</section>
 
-			{!singleFileMode && (
+			{singleFileMode ? (
+				<LanguageView language={language} setLanguage={setLanguage} />
+			) : (
 				<FileView
 					currentFile={currentFile}
 					files={Object.keys(files)}
@@ -343,6 +357,38 @@ export default function SettingsTab({
 				setAllowComments={setAllowComments}
 			/>
 		</div>
+	);
+}
+
+function LanguageView({
+	language,
+	setLanguage,
+}: { language: Language; setLanguage: (language: Language) => void }) {
+	return (
+		<section>
+			<div className="field-row">
+				<label htmlFor="language">Language</label>
+				<select
+					id="language"
+					name="language"
+					value={language ?? Language.TSX}
+					onChange={(e) => setLanguage(e.target.value as Language)}
+				>
+					<option value={Language.JS}>JavaScript</option>
+					<option value={Language.JSX}>JSX</option>
+					<option value={Language.TS}>TypeScript</option>
+					<option value={Language.TSX}>TSX</option>
+					<option value={Language.JSON}>JSON</option>
+					<option value={Language.GraphQL}>GraphQL</option>
+					<option value={Language.Grit}>Grit</option>
+					<option value={Language.CSS}>CSS</option>
+					<option value={Language.HTML}>HTML</option>
+					<option value={Language.Vue}>Vue</option>
+					<option value={Language.Svelte}>Svelte</option>
+					<option value={Language.Astro}>Astro</option>
+				</select>
+			</div>
+		</section>
 	);
 }
 
@@ -550,8 +596,7 @@ function SyntaxSettings({
 						onChange={(e) => {
 							setFilename(
 								modifyFilename(filename, {
-									jsx: false,
-									typescript: false,
+									language: guessLanguage(filename),
 									script: e.target.value === SourceType.Script,
 								}),
 							);
@@ -560,46 +605,6 @@ function SyntaxSettings({
 						<option value={SourceType.Module}>Module</option>
 						<option value={SourceType.Script}>Script</option>
 					</select>
-				</div>
-
-				<div className="field-row">
-					<input
-						id="typescript"
-						name="typescript"
-						type="checkbox"
-						checked={isTypeScriptFilename(filename)}
-						onChange={(e) => {
-							setFilename(
-								modifyFilename(filename, {
-									jsx: isJsxFilename(filename),
-									typescript: e.target.checked,
-									script: false,
-								}),
-							);
-						}}
-						disabled={isScript}
-					/>
-					<label htmlFor="typescript">TypeScript</label>
-				</div>
-
-				<div className="field-row">
-					<input
-						id="jsx"
-						name="jsx"
-						type="checkbox"
-						checked={isJsxFilename(filename)}
-						onChange={(e) => {
-							setFilename(
-								modifyFilename(filename, {
-									jsx: e.target.checked,
-									typescript: isTypeScriptFilename(filename),
-									script: false,
-								}),
-							);
-						}}
-						disabled={isScript}
-					/>
-					<label htmlFor="jsx">JSX</label>
 				</div>
 
 				<div className="field-row">
