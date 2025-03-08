@@ -5,6 +5,7 @@ import {
 	type AttributePosition,
 	type Expand,
 	type IndentStyle,
+	Language,
 	type LintRules,
 	LoadingState,
 	type PlaygroundSettings,
@@ -25,9 +26,7 @@ import {
 	getCurrentCode,
 	getExtension,
 	getFileState,
-	isJsxFilename,
-	isScriptFilename,
-	isTypeScriptFilename,
+	guessLanguage,
 	normalizeFilename,
 } from "@/playground/utils";
 import type { FixFileMode } from "@biomejs/wasm-web";
@@ -230,16 +229,9 @@ function buildLocation(state: PlaygroundState): string {
 			queryStringObj.code = encodeCode(code);
 		}
 
-		if (!isTypeScriptFilename(state.currentFile)) {
-			queryStringObj.typescript = "false";
-		}
-
-		if (!isJsxFilename(state.currentFile)) {
-			queryStringObj.jsx = "false";
-		}
-
-		if (isScriptFilename(state.currentFile)) {
-			queryStringObj.script = "true";
+		const language = guessLanguage(state.currentFile);
+		if (language !== Language.TSX) {
+			queryStringObj.language = language;
 		}
 	} else {
 		// Populate files
@@ -271,7 +263,7 @@ function initState(
 	searchParams: URLSearchParams,
 	includeFiles: boolean,
 ): PlaygroundState {
-	let singleFileMode = true;
+	let singleFileMode = defaultPlaygroundState.singleFileMode;
 	let hasFiles = false;
 	let files: PlaygroundState["files"] = {};
 
@@ -294,8 +286,7 @@ function initState(
 		// Single file mode
 		if (searchParams.get("code")) {
 			const ext = getExtension({
-				typescript: searchParams.get("typescript") !== "false",
-				jsx: searchParams.get("jsx") !== "false",
+				language: (searchParams.get("language") as Language) ?? Language.TSX,
 				script: searchParams.get("script") === "true",
 			});
 			files[`main.${ext}`] = {
@@ -330,7 +321,7 @@ function initState(
 			(searchParams.get("tab") as PlaygroundState["tab"]) ??
 			defaultPlaygroundState.tab,
 		singleFileMode,
-		currentFile: Object.keys(files)[0] ?? "main.js",
+		currentFile: Object.keys(files)[0] ?? defaultPlaygroundState.currentFile,
 		files,
 		settings: {
 			lineWidth: Number.parseInt(

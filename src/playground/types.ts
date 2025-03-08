@@ -134,6 +134,21 @@ export const emptyBiomeOutput: BiomeOutput = {
 	},
 };
 
+export enum Language {
+	JS = "js",
+	JSX = "jsx",
+	TS = "ts",
+	TSX = "tsx",
+	JSON = "json",
+	GraphQL = "graphql",
+	Grit = "grit",
+	CSS = "css",
+	HTML = "html",
+	Vue = "vue",
+	Svelte = "svelte",
+	Astro = "astro",
+}
+
 export interface PlaygroundSettings {
 	lineWidth: number;
 	indentStyle: IndentStyle;
@@ -178,7 +193,7 @@ export const defaultPlaygroundState: PlaygroundState = {
 	cursorPosition: 0,
 	tab: PlaygroundTab.Formatter,
 	currentFile: "main.tsx",
-	singleFileMode: false,
+	singleFileMode: true,
 	files: {
 		"main.tsx": {
 			content: "",
