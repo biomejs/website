@@ -62,13 +62,7 @@ impl DocDomains {
 
     fn write_description(self, buffer: &mut Vec<u8>) -> anyhow::Result<()> {
         let mut domains = self.domain_to_rules.into_iter().collect::<Vec<_>>();
-        domains.sort_by(|a, b| {
-            // this is gross
-            // TODO: remove once RuleDomain implements Ord and PartialOrd
-            let a = format!("{:?}", a.0);
-            let b = format!("{:?}", b.0);
-            a.cmp(&b)
-        });
+        domains.sort_by_key(|(domain, _)| *domain);
         for (domain, rules) in &domains {
             let name = Case::Pascal.convert(format!("{domain:?}").as_str());
             match domain {
