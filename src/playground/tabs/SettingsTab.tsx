@@ -1,3 +1,4 @@
+import EnumSelect from "@/playground/components/EnumSelect";
 import {
 	ArrowParentheses,
 	AttributePosition,
@@ -27,9 +28,8 @@ import type {
 	RuleDomain,
 	RuleDomainValue,
 } from "@biomejs/wasm-web";
-import type { Dispatch, SetStateAction } from "react";
 import type React from "react";
-import { useState } from "react";
+import { type Dispatch, type SetStateAction, useState } from "react";
 
 export interface SettingsTabProps {
 	state: PlaygroundState;
@@ -368,25 +368,26 @@ function LanguageView({
 		<section>
 			<div className="field-row">
 				<label htmlFor="language">Language</label>
-				<select
+				<EnumSelect
 					id="language"
 					name="language"
+					options={{
+						[Language.JS]: "JavaScript",
+						[Language.JSX]: "JSX",
+						[Language.TS]: "TypeScript",
+						[Language.TSX]: "TSX",
+						[Language.JSON]: "JSON",
+						[Language.GraphQL]: "GraphQL",
+						[Language.Grit]: "Grit",
+						[Language.CSS]: "CSS",
+						[Language.HTML]: "HTML",
+						[Language.Vue]: "Vue",
+						[Language.Svelte]: "Svelte",
+						[Language.Astro]: "Astro",
+					}}
 					value={language ?? Language.TSX}
-					onChange={(e) => setLanguage(e.target.value as Language)}
-				>
-					<option value={Language.JS}>JavaScript</option>
-					<option value={Language.JSX}>JSX</option>
-					<option value={Language.TS}>TypeScript</option>
-					<option value={Language.TSX}>TSX</option>
-					<option value={Language.JSON}>JSON</option>
-					<option value={Language.GraphQL}>GraphQL</option>
-					<option value={Language.Grit}>Grit</option>
-					<option value={Language.CSS}>CSS</option>
-					<option value={Language.HTML}>HTML</option>
-					<option value={Language.Vue}>Vue</option>
-					<option value={Language.Svelte}>Svelte</option>
-					<option value={Language.Astro}>Astro</option>
-				</select>
+					onChangeValue={setLanguage}
+				/>
 			</div>
 		</section>
 	);
@@ -589,22 +590,23 @@ function SyntaxSettings({
 			<section>
 				<div className="field-row">
 					<label htmlFor="sourceType">Source Type</label>
-					<select
+					<EnumSelect
 						id="sourceType"
 						name="sourceType"
-						value={isScript ? "script" : "module"}
-						onChange={(e) => {
+						options={{
+							[SourceType.Module]: "Module",
+							[SourceType.Script]: "Script",
+						}}
+						value={isScript ? SourceType.Script : SourceType.Module}
+						onChangeValue={(sourceType) => {
 							setFilename(
 								modifyFilename(filename, {
 									language: guessLanguage(filename),
-									script: e.target.value === SourceType.Script,
+									script: sourceType === SourceType.Script,
 								}),
 							);
 						}}
-					>
-						<option value={SourceType.Module}>Module</option>
-						<option value={SourceType.Script}>Script</option>
-					</select>
+					/>
 				</div>
 
 				<div className="field-row">
@@ -707,17 +709,16 @@ function FormatterSettings({
 
 				<div className="field-row">
 					<label htmlFor="indentStyle">Indent Style</label>
-					<select
+					<EnumSelect
 						id="location"
 						name="location"
-						value={indentStyle}
-						onChange={(e) => {
-							setIndentStyle(e.target.value as IndentStyle);
+						options={{
+							[IndentStyle.Tab]: "Tabs",
+							[IndentStyle.Space]: "Spaces",
 						}}
-					>
-						<option value={IndentStyle.Tab}>Tabs</option>
-						<option value={IndentStyle.Space}>Spaces</option>
-					</select>
+						value={indentStyle}
+						onChangeValue={setIndentStyle}
+					/>
 				</div>
 
 				<div className="field-row">
@@ -735,101 +736,100 @@ function FormatterSettings({
 
 				<div className="field-row">
 					<label htmlFor="quoteStyle">Quote Style</label>
-					<select
+					<EnumSelect
 						id="quoteStyle"
 						name="quoteStyle"
-						value={quoteStyle ?? ""}
-						onChange={(e) => setQuoteStyle(e.target.value as QuoteStyle)}
-					>
-						<option value={QuoteStyle.Double}>Double</option>
-						<option value={QuoteStyle.Single}>Single</option>
-					</select>
+						options={{
+							[QuoteStyle.Double]: "Double",
+							[QuoteStyle.Single]: "Single",
+						}}
+						value={quoteStyle ?? QuoteStyle.Double}
+						onChangeValue={setQuoteStyle}
+					/>
 				</div>
 
 				<div className="field-row">
 					<label htmlFor="jsxQuoteStyle">Jsx Quote Style</label>
-					<select
+					<EnumSelect
 						id="jsxQuoteStyle"
 						name="jsxQuoteStyle"
-						value={jsxQuoteStyle ?? ""}
-						onChange={(e) => setJsxQuoteStyle(e.target.value as QuoteStyle)}
-					>
-						<option value={QuoteStyle.Double}>Double</option>
-						<option value={QuoteStyle.Single}>Single</option>
-					</select>
+						options={{
+							[QuoteStyle.Double]: "Double",
+							[QuoteStyle.Single]: "Single",
+						}}
+						value={jsxQuoteStyle ?? QuoteStyle.Double}
+						onChangeValue={setJsxQuoteStyle}
+					/>
 				</div>
 
 				<div className="field-row">
 					<label htmlFor="quoteProperties">Quote Properties</label>
-					<select
+					<EnumSelect
 						id="quoteProperties"
 						name="quoteProperties"
-						value={quoteProperties ?? ""}
-						onChange={(e) =>
-							setQuoteProperties(e.target.value as QuoteProperties)
-						}
-					>
-						<option value={QuoteProperties.AsNeeded}>As needed</option>
-						<option value={QuoteProperties.Preserve}>Preserve</option>
-					</select>
+						options={{
+							[QuoteProperties.AsNeeded]: "As needed",
+							[QuoteProperties.Preserve]: "Preserve",
+						}}
+						value={quoteProperties ?? QuoteProperties.AsNeeded}
+						onChangeValue={setQuoteProperties}
+					/>
 				</div>
 
 				<div className="field-row">
 					<label htmlFor="trailingCommas">Trailing Commas</label>
-					<select
+					<EnumSelect
 						id="trailingCommas"
 						name="trailingCommas"
-						value={trailingCommas ?? "all"}
-						onChange={(e) =>
-							setTrailingCommas(e.target.value as TrailingCommas)
-						}
-					>
-						<option value={TrailingCommas.All}>All</option>
-						<option value={TrailingCommas.Es5}>ES5</option>
-						<option value={TrailingCommas.None}>None</option>
-					</select>
+						options={{
+							[TrailingCommas.All]: "All",
+							[TrailingCommas.Es5]: "ES5",
+							[TrailingCommas.None]: "None",
+						}}
+						value={trailingCommas ?? TrailingCommas.All}
+						onChangeValue={setTrailingCommas}
+					/>
 				</div>
 
 				<div className="field-row">
 					<label htmlFor="semicolons">Semicolons</label>
-					<select
+					<EnumSelect
 						id="semicolons"
 						name="semicolons"
-						value={semicolons ?? "always"}
-						onChange={(e) => setSemicolons(e.target.value as Semicolons)}
-					>
-						<option value={Semicolons.Always}>Always</option>
-						<option value={Semicolons.AsNeeded}>As needed</option>
-					</select>
+						options={{
+							[Semicolons.Always]: "Always",
+							[Semicolons.AsNeeded]: "As needed",
+						}}
+						value={semicolons ?? Semicolons.Always}
+						onChangeValue={setSemicolons}
+					/>
 				</div>
 
 				<div className="field-row">
 					<label htmlFor="arrowParentheses">Arrow Parentheses</label>
-					<select
+					<EnumSelect
 						id="arrowParentheses"
 						name="arrowParentheses"
-						value={arrowParentheses ?? "always"}
-						onChange={(e) =>
-							setArrowParentheses(e.target.value as ArrowParentheses)
-						}
-					>
-						<option value={ArrowParentheses.Always}>Always</option>
-						<option value={ArrowParentheses.AsNeeded}>As needed</option>
-					</select>
+						options={{
+							[ArrowParentheses.Always]: "Always",
+							[ArrowParentheses.AsNeeded]: "As needed",
+						}}
+						value={arrowParentheses ?? ArrowParentheses.Always}
+						onChangeValue={setArrowParentheses}
+					/>
 				</div>
 				<div className="field-row">
 					<label htmlFor="arrowParentheses">Attribute Position</label>
-					<select
+					<EnumSelect
 						id="attributePosition"
 						name="attributePosition"
+						options={{
+							[AttributePosition.Auto]: "Auto",
+							[AttributePosition.Multiline]: "Multiline",
+						}}
 						value={attributePosition ?? AttributePosition.Auto}
-						onChange={(e) =>
-							setAttributePosition(e.target.value as AttributePosition)
-						}
-					>
-						<option value={AttributePosition.Auto}>Auto</option>
-						<option value={AttributePosition.Multiline}>Multiline</option>
-					</select>
+						onChangeValue={setAttributePosition}
+					/>
 				</div>
 				<div className="field-row">
 					<label htmlFor="bracketSpacing">Bracket Spacing</label>
@@ -853,16 +853,17 @@ function FormatterSettings({
 				</div>
 				<div className="field-row">
 					<label htmlFor="expand">Expand</label>
-					<select
+					<EnumSelect
 						id="expand"
 						name="expand"
+						options={{
+							[Expand.Auto]: "Auto",
+							[Expand.Always]: "Always",
+							[Expand.Never]: "Never",
+						}}
 						value={expand ?? Expand.Auto}
-						onChange={(e) => setExpand(e.target.value as Expand)}
-					>
-						<option value={Expand.Auto}>Auto</option>
-						<option value={Expand.Always}>Always</option>
-						<option value={Expand.Never}>Never</option>
-					</select>
+						onChangeValue={setExpand}
+					/>
 				</div>
 
 				<h3>HTML</h3>
