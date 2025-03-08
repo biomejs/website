@@ -73,9 +73,10 @@ export enum AttributePosition {
 	Multiline = "multiline",
 }
 
-export enum ObjectWrap {
-	Preserve = "preserve",
-	Collapse = "collapse",
+export enum Expand {
+	Auto = "auto",
+	Always = "always",
+	Never = "never",
 }
 
 export enum WhitespaceSensitivity {
@@ -146,7 +147,7 @@ export interface PlaygroundSettings {
 	attributePosition: AttributePosition;
 	bracketSpacing: boolean;
 	bracketSameLine: boolean;
-	objectWrap: ObjectWrap;
+	expand: Expand;
 	lintRules: LintRules;
 	enabledLinting: boolean;
 	analyzerFixMode: FixFileMode;
@@ -198,7 +199,7 @@ export const defaultPlaygroundState: PlaygroundState = {
 		attributePosition: AttributePosition.Auto,
 		bracketSpacing: true,
 		bracketSameLine: false,
-		objectWrap: ObjectWrap.Preserve,
+		expand: Expand.Auto,
 		lintRules: LintRules.Recommended,
 		enabledLinting: true,
 		analyzerFixMode: "safeFixes",

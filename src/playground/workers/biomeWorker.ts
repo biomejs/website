@@ -2,10 +2,10 @@ import {
 	ArrowParentheses,
 	AttributePosition,
 	type BiomeOutput,
+	Expand,
 	IndentStyle,
 	LintRules,
 	LoadingState,
-	ObjectWrap,
 	type PlaygroundSettings,
 	QuoteProperties,
 	QuoteStyle,
@@ -89,7 +89,7 @@ self.addEventListener("message", async (e) => {
 				arrowParentheses,
 				bracketSpacing,
 				bracketSameLine,
-				objectWrap,
+				expand,
 				indentScriptAndStyle,
 				whitespaceSensitivity,
 				enabledAssist,
@@ -108,8 +108,12 @@ self.addEventListener("message", async (e) => {
 					indentWidth,
 					attributePosition:
 						attributePosition === AttributePosition.Auto ? "auto" : "multiline",
-					objectWrap:
-						objectWrap === ObjectWrap.Preserve ? "preserve" : "collapse",
+					expand:
+						expand === Expand.Auto
+							? "auto"
+							: expand === Expand.Always
+								? "always"
+								: "never",
 				},
 
 				linter: {

@@ -1,9 +1,9 @@
 import {
 	ArrowParentheses,
 	AttributePosition,
+	Expand,
 	IndentStyle,
 	LintRules,
-	ObjectWrap,
 	type PlaygroundState,
 	QuoteProperties,
 	QuoteStyle,
@@ -56,7 +56,7 @@ export default function SettingsTab({
 			arrowParentheses,
 			bracketSpacing,
 			bracketSameLine,
-			objectWrap,
+			expand,
 			indentScriptAndStyle,
 			whitespaceSensitivity,
 			lintRules,
@@ -118,9 +118,9 @@ export default function SettingsTab({
 		setPlaygroundState,
 		"bracketSameLine",
 	);
-	const setObjectWrap = createPlaygroundSettingsSetter(
+	const setExpand = createPlaygroundSettingsSetter(
 		setPlaygroundState,
-		"objectWrap",
+		"expand",
 	);
 	const setIndentScriptAndStyle = createPlaygroundSettingsSetter(
 		setPlaygroundState,
@@ -311,8 +311,8 @@ export default function SettingsTab({
 				setBracketSpacing={setBracketSpacing}
 				bracketSameLine={bracketSameLine}
 				setBracketSameLine={setBracketSameLine}
-				objectWrap={objectWrap}
-				setObjectWrap={setObjectWrap}
+				expand={expand}
+				setExpand={setExpand}
 				indentScriptAndStyle={indentScriptAndStyle}
 				setIndentScriptAndStyle={setIndentScriptAndStyle}
 				whitespaceSensitivity={whitespaceSensitivity}
@@ -656,8 +656,8 @@ function FormatterSettings({
 	setBracketSpacing,
 	bracketSameLine,
 	setBracketSameLine,
-	objectWrap,
-	setObjectWrap,
+	expand,
+	setExpand,
 	indentScriptAndStyle,
 	setIndentScriptAndStyle,
 	whitespaceSensitivity,
@@ -687,8 +687,8 @@ function FormatterSettings({
 	setBracketSpacing: (value: boolean) => void;
 	bracketSameLine: boolean;
 	setBracketSameLine: (value: boolean) => void;
-	objectWrap: ObjectWrap;
-	setObjectWrap: (value: ObjectWrap) => void;
+	expand: Expand;
+	setExpand: (value: Expand) => void;
 	indentScriptAndStyle: boolean;
 	setIndentScriptAndStyle: (value: boolean) => void;
 	whitespaceSensitivity: WhitespaceSensitivity;
@@ -847,15 +847,16 @@ function FormatterSettings({
 					/>
 				</div>
 				<div className="field-row">
-					<label htmlFor="objectWrap">Object Wrap</label>
+					<label htmlFor="expand">Expand</label>
 					<select
-						id="objectWrap"
-						name="objectWrap"
-						value={objectWrap ?? ObjectWrap.Preserve}
-						onChange={(e) => setObjectWrap(e.target.value as ObjectWrap)}
+						id="expand"
+						name="expand"
+						value={expand ?? Expand.Auto}
+						onChange={(e) => setExpand(e.target.value as Expand)}
 					>
-						<option value={ObjectWrap.Preserve}>Preserve</option>
-						<option value={ObjectWrap.Collapse}>Collapse</option>
+						<option value={Expand.Auto}>Auto</option>
+						<option value={Expand.Always}>Always</option>
+						<option value={Expand.Never}>Never</option>
 					</select>
 				</div>
 

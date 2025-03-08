@@ -3,10 +3,10 @@ import LoadingScreen from "@/playground/components/LoadingScreen";
 import {
 	type ArrowParentheses,
 	type AttributePosition,
+	type Expand,
 	type IndentStyle,
 	type LintRules,
 	LoadingState,
-	type ObjectWrap,
 	type PlaygroundSettings,
 	type PlaygroundState,
 	type QuoteProperties,
@@ -373,9 +373,9 @@ function initState(
 			bracketSameLine:
 				searchParams.get("bracketSameLine") === "true" ||
 				defaultPlaygroundState.settings.bracketSameLine,
-			objectWrap:
-				(searchParams.get("objectWrap") as ObjectWrap) ??
-				defaultPlaygroundState.settings.objectWrap,
+			expand:
+				(searchParams.get("expand") as Expand) ??
+				defaultPlaygroundState.settings.expand,
 			whitespaceSensitivity:
 				(searchParams.get("whitespaceSensitivity") as WhitespaceSensitivity) ??
 				defaultPlaygroundState.settings.whitespaceSensitivity,
