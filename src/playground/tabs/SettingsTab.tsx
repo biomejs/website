@@ -27,6 +27,7 @@ import type {
 	FixFileMode,
 	RuleDomain,
 	RuleDomainValue,
+	RuleDomains,
 } from "@biomejs/wasm-web";
 import type React from "react";
 import { type Dispatch, type SetStateAction, useState } from "react";
@@ -913,8 +914,8 @@ function LinterSettings({
 	setEnabledLinting: (value: boolean) => void;
 	analyzerFixMode: FixFileMode;
 	setAnalyzerFixMode: (value: FixFileMode) => void;
-	ruleDomains: Record<RuleDomain, RuleDomainValue>;
-	setRuleDomains: (value: Record<RuleDomain, RuleDomainValue>) => void;
+	ruleDomains: RuleDomains;
+	setRuleDomains: (value: RuleDomains) => void;
 }) {
 	const updateDomain = (domain: RuleDomain, value: RuleDomainValue) => {
 		setRuleDomains({
