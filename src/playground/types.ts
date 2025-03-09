@@ -1,9 +1,4 @@
-import type {
-	Diagnostic,
-	FixFileMode,
-	RuleDomain,
-	RuleDomainValue,
-} from "@biomejs/wasm-web";
+import type { Diagnostic, FixFileMode, RuleDomains } from "@biomejs/wasm-web";
 import type { parser } from "codemirror-lang-rome-ast";
 import type { Dispatch, SetStateAction } from "react";
 
@@ -169,7 +164,7 @@ export interface PlaygroundSettings {
 	enabledAssist: boolean;
 	unsafeParameterDecoratorsEnabled: boolean;
 	allowComments: boolean;
-	ruleDomains: Record<RuleDomain, RuleDomainValue>;
+	ruleDomains: RuleDomains;
 	indentScriptAndStyle: boolean;
 	whitespaceSensitivity: WhitespaceSensitivity;
 }

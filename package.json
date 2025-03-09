@@ -5,7 +5,7 @@
     "dev": "astro dev",
     "format": "pnpm biome format --write",
     "check": "pnpm biome check --write",
-    "tsc": "tsc --skipLibCheck",
+    "tsc": "astro sync && tsc --skipLibCheck",
     "build": "astro build",
     "build:no-og": "SKIP_OG=true astro build",
     "preview": "astro preview",
