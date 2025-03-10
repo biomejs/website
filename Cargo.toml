@@ -55,7 +55,7 @@
 	biome_service = { git = "https://github.com/biomejs/biome.git", rev = "2fc51b7eb47b61baf95e082ee6b4814b7d07b30a" }
 	biome_string_case = { git = "https://github.com/biomejs/biome.git", rev = "2fc51b7eb47b61baf95e082ee6b4814b7d07b30a" }
 	biome_text_edit = { git = "https://github.com/biomejs/biome.git", rev = "2fc51b7eb47b61baf95e082ee6b4814b7d07b30a" }
-	bpaf = { version = "0.9.17", features = ["docgen"] }
+	bpaf = { version = "0.9.18", features = ["docgen"] }
 	# If you update this library, be aware of the breaking changes
 	camino         = "1.1.9"
 	pulldown-cmark = "0.13.0"
