@@ -10,7 +10,7 @@ import { Steps } from '@astrojs/starlight/components';
 Biome's linter statically analyzes your code to find and fix common errors and to help you write better, modern code.
 It [supports multiple languages](/internals/language-support) and provides a total of **<NumberOfRules/> rules**.
 
-You can quickly try Biome linter via CLI. The following command runs the linter on all files from the root of your project:
+You can quickly try the Biome linter via the CLI. The following command runs the linter on all files from the root of your project:
 
 <PackageManagerBiomeCommand command="lint" />
 
@@ -40,7 +40,7 @@ For more information about all the available options, check the [CLI reference](
 ## Rules
 
 The linter is organized into rules. A rule is meant to enforce or deny a code style, the use of something that could lead to a bug, and more. Generally, a rule shouldn't conflict with another rule, unless told otherwise.
-In Biome, rules have a naming convention, rules that start with `use*` are meant to enforce/suggest something, rules that start with `no*` are meant to deny something. When a rule encounters a *violation* of its concept, it emits a diagnostic.
+Biome rules have a naming convention: Rules that start with `use*` are meant to enforce/suggest something, while rules that start with `no*` are meant to deny something. When a rule encounters a *violation* of its concept, it emits a diagnostic.
 
 For example, the [noDebugger](/linter/rules/no-debugger) denies the use of `debugger` statements in JavaScript code, and it emits a diagnostic when it finds one.
 
@@ -51,15 +51,17 @@ biome lint
 biome check
 ```
 
-Each lint rule ships with a default [severity](/diagnostics#diagnostic-severity), you can lean more about it by reading the documentation of the rule.
+Each lint rule ships with a default [severity](/diagnostics#diagnostic-severity) which you can lean more about by reading the documentation of the rule.
 
 The rules are divided into [groups](#linter-groups). For example, the `noDebugger` rule is part of the [`suspicious` group](#suspicious).
 
-In Biome, rules *can* work across programming languages, that's because some rules might cover broad concepts that are language agnostic. This is a new, different vision on how linting should function. Refer to the documentation of the single rule to learn more about this.
+Biome supports *language-agnostic rules*. Those are rules that work across more than one language, such as `noUselessEscapeInString`, which can report useless escape sequences in both JavaScript and CSS.
 
-Unlike other linters, Biome doesn't provide any rules that check for code formatting, because [Biome formatter](/formatter/) is designed to be in charge of it.
+Unlike other linters, Biome doesn't provide any rules that check for code formatting; the [Biome formatter](/formatter/) is intended to handle all formatting decisions.
 
-Many rules provide a **code fix** that can be automatically applied. However, Biome distinguishes them in [**safe fixes**](#safe-fixes) and [**unsafe fixes**](#unsafe-fixes), which work differently.
+Many rules provide a **code fix** that can be automatically applied.
+
+Biome makes a difference between [**safe fixes**](#safe-fixes) and [**unsafe fixes**](#unsafe-fixes), which work slightly differently: The main difference is that safe fixes can be automatically applied when saving a file, while unsafe fixes can't. Users can override which fixes are considered safe however.
 
 Biome linter comes with a set of recommended rules that are automatically enabled, and vary based on the language.
 
@@ -72,7 +74,7 @@ To apply _safe fixes_ from the CLI, use `--write`:
 
 <PackageManagerBiomeCommand command="lint --write ./src" />
 
-From a LSP-compatible editor, you can apply safe fixes **on save** with code action `source.fixAll.biome`.
+From an LSP-compatible editor, you can apply safe fixes **on save** with the code action `source.fixAll.biome`.
 Refer to the documentation of your extension to learn how to apply it.
 
 ### Unsafe fixes
@@ -84,7 +86,7 @@ To apply both _safe fixes_ and _unsafe fixes_ from the CLI, use `--write --unsaf
 
 <PackageManagerBiomeCommand command="lint --write --unsafe ./src" />
 
-From a LSP-compatible editor, it's not possible to apply all unsafe fixes on save due to their nature. However, you can review the single code fix and choose to apply it.
+From an LSP-compatible editor, it's not possible to apply all unsafe fixes on save. It would be undesirable to change the semantics of your code on save. However, you can review the single code fix and choose to apply it.
 
 ### Rule pillars
 
@@ -158,15 +160,15 @@ If you're happy with this default and you want to avail of it, the configuration
 
 If you aren't happy with the default severity, Biome allows you to change it with `"error"`, `"warn"` and `"info"`
 
-The [`"error"`](/reference/diagnostics#error) severity is useful when you want to block, for example, the CI if there's a violation that belongs to a certain rule.
+Diagnostics with the [`"error"`](/reference/diagnostics#error) always cause the CLI to exit with an error code. This severity can be useful when you want to block the CI if there's a violation that belongs to a certain rule.
 
-The [`warn`](/reference/diagnostics#warning) severity is useful in cases where there's a refactor going on and there's a need to make the CI pass. You can use `--error-on-warnings` to exit with an error code when a rule configured with `warn` is triggered.
+[Warnings](/reference/diagnostics#warning) are similar to errors, but they don't cause the CLI to exit with an error code, unless the `--error-on-warnings` flag is used. A possible use for the `warn` severity is when you want to make the CI pass while there are still diagnostics for a given rule.
 
 The [`info`](/reference/diagnostics#information) severity won't affect the exit status code of the CLI, even when `--error-on-warnings` is passed.
 
 ### Group severity
 
-Additionally, you can control the severity of lint rules **at group level**. Doing so, it's possible to control the diagnostic severity of **all rules** that belong to a group.
+Additionally, you can control the severity of lint rules **at the group level**. This way, it's possible to control the diagnostic severity of **all rules** that belong to a group.
 
 For example, a project doesn't require the use of `a11y` rules because it's code that runs at the backend, so accessibility isn't a concern. The following example turns off all rules that belong to the `a11y` group:
 
@@ -182,10 +184,9 @@ For example, a project doesn't require the use of `a11y` rules because it's code
 
 ### Configure the code fix
 
-As explained before, the rules might emit code fixes that are **safe** or **unsafe**. Biome allows to turn a safe to an unsafe fix and vice-versa, or you can turn off the code fix entirely.
+As explained above, rules might emit code fixes that are **safe** or **unsafe**. Biome allows configuring a safe fix to be treated as unsafe and vice-versa. You can also turn the code fix off entirely.
 
-It's possible to configure the entity of the code fix, using the option `fix`.
-There are three options:
+Code fixes can be configured using the `fix` option. It can have one of three values:
 
 - `none`: the rule won't emit a code fix;
 - `safe`: the rule will emit a [safe fix](#safe-fixes);
@@ -204,11 +205,11 @@ There are three options:
       "style": {
         "useConst": {
           "level": "warn",
-          "fix": "unsafe" // the code fir for useConst is now unsafe
+          "fix": "unsafe" // the code fix for `useConst` is now considered unsafe
         },
         "useTemplate": {
           "level": "warn",
-          "fix": "safe" // the code fix for useTemplate is now safe
+          "fix": "safe" // the code fix for `useTemplate` is now considered safe
         }
       }
     }
@@ -218,7 +219,7 @@ There are three options:
 
 ### Skip a rule or a group
 
-The command `biome lint` accepts an option `--skip` that allows to disable a rule or rules that belong to a group.
+The command `biome lint` accepts an option `--skip` that allows disabling individual rules or groups of rules.
 
 For example, the following command skips all the rules that belong to the `style` group and the `suspicious/noExplicitAny` rule:
 
@@ -228,9 +229,9 @@ biome lint --skip=style --skip=suspicious/noExplicitAny
 
 ### Run a rule or a group
 
-The command `biome lint` accepts an option `--only` that allows you to run a single rule or the rules that belong to a group.
+The command `biome lint` accepts an option `--only` that allows running individual rules or groups of rules.
 
-For example, the following command runs only the rule`style/useNamingConvention`, the rule `style/noInferrableTypes` and the rules that belong to `a11y`. If the rule is disabled in the configuration, then its severity level is set to `error` for a recommended rule or `warn` otherwise.
+For example, the following command runs only the rule `style/useNamingConvention`, the rule `style/noInferrableTypes` and the rules that belong to `a11y`. If the rule is disabled in the configuration, then its severity level is set to `error` for a recommended rule or `warn` otherwise.
 
 ```shell
 biome lint --only=style/useNamingConvention --only=style/noInferrableTypes --only=a11y
@@ -263,14 +264,14 @@ You can set them by shaping the value of the rule differently.
 
 ### Domains
 
-Domains are a Biome feature that allows to have more control over the lint rules. Domains could be seen as "concepts", or another form of category, however they offer different features compared to groups.
+Domains are a Biome feature that allow for grouping rules by technology, or well, _domain_. Examples of domains are `"react"`, `"solid"`, and `"test"`.
 
 A domain:
-- Can enable particular rules when Biome detects certain dependencies in the `package.json` of a project.
-- Can add particular global variables.
-- Can contains a small set of recommended rules.
+- Has its own set of recommended rules.
+- Can be automatically enabled when Biome detects certain dependencies in your `package.json` file.
+- Can define additional global variables.
 
-Biome linter will enable the rules that belong to a domain when it detects certain dependencies in the nearest `package.json`. For example, if the `mocha` dependency is detected, Biome will enable the **recommended rules** of the [`test`](/linter/domains#test) domain.
+Biome's linter will automatically enable the rules that belong to a domain when it detects certain dependencies in the nearest `package.json`. For example, if the `mocha` dependency is detected, Biome will enable the **recommended rules** of the [`test`](/linter/domains#test) domain.
 
 However, if there's no `package.json` or the default configuration doesn't apply, you can enable the domain via configuration:
 
@@ -471,4 +472,4 @@ There are different reasons why the Biome team decides to mark a fix unsafe, but
 - The rule fix can change the semantics of a program, so the fix must be opted in by the user.
 - The rule fix can deteriorate the DX while typing and/or saving. An example is `noUnusedVariables`, which adds `_` to the name of unused variables. This can deteriorate the DX of programmers while typing and saving.
 
-If a code fix doesn't fall under these three guidelines, it's possible that the team forgot to make the rule fix safe. Open an issue or send a PR!
+If a code fix doesn't follow these three guidelines, it's possible that the team forgot to make the rule fix safe. Please open an issue or send a PR!
