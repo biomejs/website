@@ -3,22 +3,25 @@
 # Head to the `biomejs/biome` repository, and modify the source code in there.
 
 title: noNoninteractiveElementInteractions
-description: |
-  Disallow use event handlers on non-interactive elements.
+description: Learn more about noNoninteractiveElementInteractions
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-**Diagnostic Category: `lint/nursery/noNoninteractiveElementInteractions`**
 <Tabs>
 <TabItem label="JSX and TSX" icon="seti:javascript">
-**Since**: `vnext`
+## Summary
+:::danger
+This rule hasn't been released yet. If you want to try it, you can request and try a preview release of Biome
+:::
+- Diagnostic Category: [`lint/nursery/noNoninteractiveElementInteractions`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`jsx-a11y/no-noninteractive-element-interactions`](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/no-noninteractive-element-interactions.md)
+
 :::caution
 This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::
-
-Sources: 
-- Same as: <a href="https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/no-noninteractive-element-interactions.md" target="_blank"><code>jsx-a11y/no-noninteractive-element-interactions</code></a>
-
 ## Description
 Disallow use event handlers on non-interactive elements.
 

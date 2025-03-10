@@ -29,7 +29,7 @@ const obj = {
 
 差分
 
-```js title="exmaple.js" del={4} ins={5}
+```js title="example.js" del={4} ins={5}
 const obj = {
   a: true,
   b: true,
@@ -118,7 +118,7 @@ a.?.b!
 a.?.b!
 (a.?.b)!
 a.?.b!
-(a.?.b)!
+(a.?.b!)
 a.?.b!
 ```
 
@@ -187,13 +187,13 @@ class Read {
 ```ts title="example.ts" del={3, 8, 13, 19} ins={4, 9, 14, 20}
 // 複数のアクセシビリティ修飾子
 class Foo {
-  private a = 1;
   private public a  = 1;
+  private a = 1;
 }
 
 // 処理を持つ関数の宣言
-declare function foo() {};
 declare function foo ( ) {  }
+declare function foo() {};
 
 // abstractの不正な使用
 class Bar {
@@ -203,10 +203,10 @@ class Bar {
 
 // Readonlyの重複
 class Read {
-  readonly x: number;
   readonly readonly   x: number;
+  readonly x: number;
 }
-
+```
 
 ### オプショナルチェーンへの代入
 
@@ -244,14 +244,14 @@ interface L<in const T> {}
 return someVeryLongStringA && someVeryLongStringB && someVeryLongStringC && someVeryLongStringD
 ```
 
-```js title="example.js" del={1, 2, 3, 4, 5, 6} ins={7}
+```js title="example.js" del={2, 3, 4, 5, 6, 7} ins={1}
+return someVeryLongStringA && someVeryLongStringB && someVeryLongStringC && someVeryLongStringD
 return (
   someVeryLongStringA &&
   someVeryLongStringB &&
   someVeryLongStringC &&
   someVeryLongStringD
 );
-return someVeryLongStringA && someVeryLongStringB && someVeryLongStringC && someVeryLongStringD
 ```
 
 ### 誤った self-increment と self-decrement
@@ -262,7 +262,7 @@ return someVeryLongStringA && someVeryLongStringB && someVeryLongStringC && some
 (1)++;
 ```
 
-```js title="example.js" del{1} add={2}
+```js title="example.js" del={1} add={2}
 1++;
 (1)++;
 ```
@@ -280,9 +280,47 @@ class C {
 差分
 
 
-```ts title="example.js" del{2} add={3}
+```ts title="example.js" del={2} add={3}
 class C {
   abstract f(): number;
   abstract f() : number;
 }
 ```
+
+## PrettierはTypeScriptとBabelのパースに一貫性がありません
+
+PrettierはJavaScriptおよびTypeScriptのコードについて数多くのパーサをサポートしており、これらのすべては[`estree` 規格](https://github.com/estree/estree)と互換性があります。多くの場合、PrettierはJavaScriptコードに対するデフォルトのパーサとしてBabelを利用していますが、TypeScriptをパースする際はTypeScript自身のパーサを最初に試し、その後にTypeScriptを有効にしたBabelへフォールバックします。TypeScriptパーサは基本的に`estree`と互換性がありますが、完全に正確ではなく、Prettierの出力に影響する[いくつかの齟齬](https://github.com/prettier/prettier/issues/15785)をもたらします。どのパーサが使われたかに関わらず出力は一定であるべきで、これらは一般にPrettier自身のバグと考えられます。
+
+BiomeはJavaScriptとTypeScriptのすべての形式を扱う独自のパーサを実装しており、これらの間にいかなる齟齬もないことを意味します。しかし、TypeScriptのコードベースをPrettierからBiomeへ移行する際には、Prettierにおけるパーサの不整合によっていくらかのフォーマットの変更を生じることがあります。
+
+これらのケースはBiomeではバグや非互換とは考えません。Prettierにおいて、`typescript`パーサではフォーマットされたコードに違いがあるが`babel`や`babel-ts`では一致する場合、Biomeではその出力は互換性があると考えます。
+
+例として、Biomeと`typescript`パーサを使うPrettier 3.1.0でフォーマットされた以下のケースを考えます：
+
+入力
+
+```ts title="example.js"
+function someFunctionName(
+  someLongBreakingParameterName,
+  anotherLongParameterName,
+) {
+  return isEqual(a?.map(([t, _]) => t?.id), b?.map(([t, _]) => t?.id));
+}
+```
+
+差分
+
+```ts title="example.js" del={5} ins={6,7,8,9}
+function someFunctionName(
+  someLongBreakingParameterName,
+  anotherLongParameterName,
+) {
+  return isEqual(a?.map(([t, _]) => t?.id), b?.map(([t, _]) => t?.id));
+  return isEqual(
+    a?.map(([t, _]) => t?.id),
+    b?.map(([t, _]) => t?.id),
+  );
+}
+```
+
+TypeScriptパーサを使うPrettierは`isEqual`の呼び出しを単一行に出力することを選びますが、Biomeは`babel`および`babel-ts`パーサを使うPrettierと同じ出力をします。このように、これはBiomeの非互換**ではなく**Prettierのバグであると考えられます。

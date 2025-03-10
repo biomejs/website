@@ -3,21 +3,19 @@
 # Head to the `biomejs/biome` repository, and modify the source code in there.
 
 title: useNamingConvention
-description: |
-  Enforce naming conventions for everything across a codebase.
+description: Learn more about useNamingConvention
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-**Diagnostic Category: `lint/style/useNamingConvention`**
 <Tabs>
 <TabItem label="TypeScript and TSX" icon="seti:typescript">
-**Since**: `v1.0.0`
-:::note
-- This rule has a **safe** fix.
-:::
-
-Sources: 
-- Inspired from: <a href="https://typescript-eslint.io/rules/naming-convention" target="_blank"><code>@typescript-eslint/naming-convention</code></a>
+## Summary
+- Rule available since: `v1.0.0`
+- Diagnostic Category: [`lint/style/useNamingConvention`](/reference/diagnostics#diagnostic-category)
+- This rule has a [**safe**](/linter/#safe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Inspired from [`@typescript-eslint/naming-convention`](https://typescript-eslint.io/rules/naming-convention)
 
 ## Description
 Enforce naming conventions for everything across a codebase.
@@ -405,7 +403,7 @@ class HTTPServer {
 }
 ```
 
-code-block.js:1:7 <a href="https://biomejs.dev/linter/rules/use-naming-convention">lint/style/useNamingConvention</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Two consecutive uppercase characters are not allowed in PascalCase because </span><span style="color: lightgreen;"><strong>strictCase</strong></span><span style="color: lightgreen;"> is set to `true`.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>class HTTPServer &#123;<br />   <strong>   │ </strong>      <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>&#125;<br />    <strong>3 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">If you want to use consecutive uppercase characters in PascalCase, then set the </span><span style="color: lightgreen;"><strong>strictCase</strong></span><span style="color: lightgreen;"> option to `false`.<br /></span>    <span style="color: lightgreen;">See the rule </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/rules/use-naming-convention#options">options</a></span><span style="color: lightgreen;"> for more details.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Safe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Rename this symbol in </span><span style="color: lightgreen;"><strong>PascalCase</strong></span><span style="color: lightgreen;">.</span><br />  <br />    <strong>1</strong>  <strong> │ </strong><span style="color: Tomato;">-</span> <span style="color: Tomato;">c</span><span style="color: Tomato;">l</span><span style="color: Tomato;">a</span><span style="color: Tomato;">s</span><span style="color: Tomato;">s</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;"><strong>H</strong></span><span style="color: Tomato;"><strong>T</strong></span><span style="color: Tomato;"><strong>T</strong></span><span style="color: Tomato;"><strong>P</strong></span><span style="color: Tomato;"><strong>S</strong></span><span style="color: Tomato;"><strong>e</strong></span><span style="color: Tomato;"><strong>r</strong></span><span style="color: Tomato;"><strong>v</strong></span><span style="color: Tomato;"><strong>e</strong></span><span style="color: Tomato;"><strong>r</strong></span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">&#123;</span><br />      <strong>1</strong><strong> │ </strong><span style="color: MediumSeaGreen;">+</span> <span style="color: MediumSeaGreen;">c</span><span style="color: MediumSeaGreen;">l</span><span style="color: MediumSeaGreen;">a</span><span style="color: MediumSeaGreen;">s</span><span style="color: MediumSeaGreen;">s</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;"><strong>H</strong></span><span style="color: MediumSeaGreen;"><strong>t</strong></span><span style="color: MediumSeaGreen;"><strong>t</strong></span><span style="color: MediumSeaGreen;"><strong>p</strong></span><span style="color: MediumSeaGreen;"><strong>S</strong></span><span style="color: MediumSeaGreen;"><strong>e</strong></span><span style="color: MediumSeaGreen;"><strong>r</strong></span><span style="color: MediumSeaGreen;"><strong>v</strong></span><span style="color: MediumSeaGreen;"><strong>e</strong></span><span style="color: MediumSeaGreen;"><strong>r</strong></span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">&#123;</span><br />    <strong>2</strong> <strong>2</strong><strong> │ </strong>  &#125;<br />    <strong>3</strong> <strong>3</strong><strong> │ </strong>  <br />  <br />### requireAscii
+### requireAscii
 
 When `true`, names must only consist of ASCII characters only,
 forbidding names like `café` or `안녕하세요` that include non-ASCII characters.
