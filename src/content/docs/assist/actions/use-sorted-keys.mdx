@@ -6,14 +6,16 @@ title: useSortedKeys
 description: Learn more about useSortedKeys
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
+import EditorAction from "@/components/EditorAction.astro";
 
 <Tabs>
 <TabItem label="JSON (and super languages)" icon="seti:json">
 ## Summary
 - Rule available since: `v1.9.0`
 - Diagnostic Category: [`assist/source/useSortedKeys`](/reference/diagnostics#diagnostic-category)
-- Use the code `source.biome.useSortedKeys` in your LSP-ready IDE to apply this action on save.
 - The default severity of this rule is [**information**](/reference/diagnostics#information).
+## How to enable in your editor
+<EditorAction action="source.action.useSortedKeys.biome" />
 ## Description
 Sorts the keys of a JSON object in natural order
 

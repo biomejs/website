@@ -594,6 +594,13 @@ fn generate_rule(
         r#"import {{ Tabs, TabItem }} from '@astrojs/starlight/components';"#
     )?;
 
+    if rule_category == RuleCategory::Action {
+        writeln!(
+            content,
+            "import EditorAction from \"@/components/EditorAction.astro\";"
+        )?;
+    }
+
     writeln!(content)?;
 
     writeln!(content, "<Tabs>")?;
@@ -709,11 +716,6 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
             if is_recommended {
                 writeln!(content, "- This action is **recommended**.")?;
             }
-            writeln!(
-                content,
-                "- Use the code `source.biome.{}` in your LSP-ready IDE to apply this action on save.",
-                rule_name
-            )?;
         }
         RuleCategory::Syntax | RuleCategory::Transformation => {
             unimplemented!("Should be implemented")
@@ -776,6 +778,15 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
             "This rule is part of the [nursery](/{path_prefix}/{middle_path}/#nursery) group."
         )?;
         writeln!(content, ":::")?;
+    }
+
+    if rule_category == RuleCategory::Action {
+        writeln!(content, "## How to enable in your editor")?;
+        writeln!(
+            content,
+            "<EditorAction action=\"source.action.{}.biome\" />",
+            rule_name
+        )?;
     }
 
     write_documentation(group, rule_name, meta.docs, &mut content)?;
