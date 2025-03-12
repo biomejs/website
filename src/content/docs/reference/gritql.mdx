@@ -1,0 +1,120 @@
+---
+title: GritQL
+description: Basic usage of GritQL in Biome
+---
+
+GritQL is a query language for performing structural searches on source code.
+This means that trivia such as whitespace or even the type of quotes used in
+strings will be ignored in your search query. In addition, it offers many
+features that allow you to query syntax structure such as snippets, matching,
+nesting, and variables.
+
+GritQL is [open-source](https://github.com/getgrit/gritql/) and created by [Grit.io](https://grit.io/).
+
+Biome uses GritQL for two purposes:
+
+- Our [Analyzer Plugins](/analyzer/plugins).
+- The [`biome search`](/reference/cli/#biome-search) command, which we hope to
+  extend to our IDE extensions as well.
+
+## Patterns
+
+GritQL queries work through _patterns_. The most common pattern you will see is
+the code snippet, which looks like ordinary source code wrapped in backticks:
+
+```grit
+`console.log('Hello, world!')`
+```
+
+This pattern will match any call to `console.log()` that is passed the string
+`'Hello, world!'`. But because GritQL does _structural_ matching, it doesn't
+care about formatting details. This also matches:
+
+```js
+console.log (
+    'Hello, world!'
+)
+```
+
+And so does this (note the change in quotes):
+
+```js
+console.log("Hello, world!")
+```
+
+:::note
+Most shells interpret backticks as command invocations, which conflicts with
+GritQL's code snippets. So when using the `biome search` command, it's best to
+put _single quotes_ around your Grit queries:
+
+```shell
+biome search '`console.log($message)`' # find all `console.log` invocations
+```
+:::
+
+## Variables
+
+GritQL queries can also have _variables_. The following will match any call to
+`console.log()` regardless of the message passed:
+
+```grit
+`console.log($message)`
+```
+
+This will match any of the methods on the `console` object too:
+
+```grit
+`console.$method($message)`
+```
+
+The same variable name can occur multiple times in a single snippet:
+
+```grit
+`$fn && $fn()`
+```
+
+This will match `foo && foo()`, and even `foo.bar && foo.bar()`, but not
+`foo && bar()`.
+
+## Conditions
+
+You can add conditions to patterns by using the `where` operator. This is
+commonly used together with the _match operator_, `<:`:
+
+```grit
+`console.$method($message)` where {
+    $method <: `log`
+}
+```
+
+This query is identical to the `console.log($message)` pattern we saw earlier,
+but it gets quickly more interesting when add other operators in the mix:
+
+```grit
+`console.$method($message)` where {
+    $method <: or { `log`, `info`, `warn`, `error` }
+}
+```
+
+## Language Documentation
+
+For more information about GritQL and its syntax, see the official
+[GritQL Language Documentation](https://docs.grit.io/language/overview).
+
+Please keep in mind that Biome doesn't support all of Grit's features (yet).
+
+## Integration Status
+
+GritQL support in Biome is actively being worked on. Many things already work,
+but bugs are still expected and some features are still outright missing.
+
+For a detailed overview of which GritQL features are supported and which are
+still in-progress, please see the GitHub issue:
+https://github.com/biomejs/biome/issues/2582.
+
+We also have a detailed RFC which guides the direction for our plugin efforts:
+https://github.com/biomejs/biome/discussions/1762
+
+**tl;dr**: We are working on supporting plugins, which can be either pure GritQL
+plugins or JS/TS plugins that use GritQL to select the code they wish to operate
+on. Stay tuned!

@@ -257,6 +257,12 @@ export default defineConfig({
 										uk: "Сортування імпортів",
 									},
 								},
+								{
+									label: "Plugins",
+									link: "/analyzer/plugins",
+									badge: "beta",
+									translations: {},
+								},
 							],
 							translations: {
 								fr: "Analyseur",
@@ -415,6 +421,10 @@ export default defineConfig({
 								"pt-BR": "Extensão do Zed",
 								uk: "Розширення Zed",
 							},
+						},
+						{
+							label: "GritQL",
+							link: "/reference/gritql",
 						},
 					],
 				},
