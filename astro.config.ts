@@ -424,10 +424,6 @@ export default defineConfig({
 						{
 							label: "GritQL",
 							link: "/reference/gritql",
-<<<<<<< HEAD
-=======
-							badge: "experimental",
->>>>>>> 76bafdd5 (fix: revert GritQL doc removal as it's already available in v1.9.4 (#1861))
 						},
 					],
 				},
