@@ -393,11 +393,15 @@ Whether to enforce collapsing object literals when possible.
 
 ### `formatter.useEditorconfig`
 
-Whether Biome should use the `.editorconfig` file to determine the formatting options. If `true`, the applicable options in the `.editorconfig` file will be used, but any configuration in the `biome.json` file will still take precedence.
+Whether Biome should use the `.editorconfig` file to determine the formatting options. 
 
-When migrating from Prettier with `biome migrate`, this option is set to `true` to match the behavior of Prettier.
+The config files `.editorconfig` and `biome.json` will follow the follwing rules:
 
-> Default: `false`
+- Formatting settings in `biome.json` always take precedence over `.editorconfig` files.
+- `.editorconfig` files that exist higher up in the hierarchy than a `biome.json` file are already ignored. This is to avoid loading formatting settings from someone's home directory into a project with a `biome.json` file.
+- Nested `.editorconfig` files aren't supported currently.
+
+> Default: `true`
 
 ## `organizeImports`
 
