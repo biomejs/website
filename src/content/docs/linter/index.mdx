@@ -416,7 +416,7 @@ f == g;
 
 ## Integration with editors
 
-The first-class integration with LSP-compatible editors, allows you to configure certain aspects of how Biome should behave.
+The first-class integration with LSP-compatible editors allows you to configure certain aspects of how Biome should behave.
 
 When a violation is detected by Biome, a diagnostic is sent to the editor alongside with an arbitrary number of code actions, that are meant to address the diagnostic.
 Those actions are:
@@ -424,7 +424,7 @@ Those actions are:
 - Suppress the diagnostic [with an inline suppression](/linter#inline-suppressions).
 - Suppress the diagnostic [with a top-level suppression](/linter#top-level-suppressions).
 
-Usually, by positioning your cursor in the range of the diagnostic and typing a certain short-cut (it varies by editor), a tooltip will appear with the possible code actions.
+Usually, by positioning your cursor in the range of the diagnostic and typing a certain shortcut (it varies per editor), a tooltip will appear with the possible code actions.
 
 By default, these actions are always displayed by the editor, however it's possible to opt-out from them.
 
@@ -436,7 +436,7 @@ Use `quickfix.biome` to control whether the editor should show the code fix of a
 
 Alternatively, it's also possible turn off the code action for a specific rule. Each rule has a code action associated to it that follow the pattern `quickfix.biome.<GROUP>.<NAME>`.
 
-For example, if you want to turn off the code action of the rule `noUnusedVariables`, you'll use the code `quickfix.biome.correctness.noUnusedVariables`:
+For example, if you want to turn off the code action of the rule `noUnusedVariables`, you'll use `quickfix.biome.correctness.noUnusedVariables`:
 
 ### Editor suppressions
 
