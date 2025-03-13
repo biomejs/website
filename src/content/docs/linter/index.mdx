@@ -6,6 +6,7 @@ description: How to use the Biome linter.
 import NumberOfRules from "@/components/generated/linter/NumberOfRules.astro";
 import PackageManagerBiomeCommand from "@/components/PackageManagerBiomeCommand.astro";
 import { Steps } from '@astrojs/starlight/components';
+import EditorAction from "@/components/EditorAction.astro";
 
 Biome's linter statically analyzes your code to find and fix common errors and to help you write better, modern code.
 It [supports multiple languages](/internals/language-support) and provides a total of **<NumberOfRules/> rules**.
@@ -412,6 +413,44 @@ c == d;
 debugger
 f == g;
 ```
+
+## Integration with editors
+
+The first-class integration with LSP-compatible editors allows you to configure certain aspects of how Biome should behave.
+
+When a violation is detected by Biome, a diagnostic is sent to the editor alongside with an arbitrary number of code actions, that are meant to address the diagnostic.
+Those actions are:
+- A possible code fix. This code fix appears only if the rule **has** a code fix. The code fix appears regardless if it's safe or unsafe.
+- Suppress the diagnostic [with an inline suppression](/linter#inline-suppressions).
+- Suppress the diagnostic [with a top-level suppression](/linter#top-level-suppressions).
+
+Usually, by positioning your cursor in the range of the diagnostic and typing a certain shortcut (it varies per editor), a tooltip will appear with the possible code actions.
+
+By default, these actions are always displayed by the editor, however it's possible to opt-out from them.
+
+### Quickfix
+
+Use `quickfix.biome` to control whether the editor should show the code fix of any rule:
+
+<EditorAction action="quickfix.biome" off={true} />
+
+Alternatively, it's also possible turn off the code action for a specific rule. Each rule has a code action associated to it that follow the pattern `quickfix.biome.<GROUP>.<NAME>`.
+
+For example, if you want to turn off the code action of the rule `noUnusedVariables`, you'll use `quickfix.biome.correctness.noUnusedVariables`:
+
+### Editor suppressions
+
+<EditorAction action="quickfix.biome.correctness.noUnusedVariables" off={true} />
+
+Use `source.suppressRule.inline.biome` to control whether the editor should show the inline suppression code action:
+
+<EditorAction action="source.suppressRule.inline.biome" off={true} />
+
+Use `source.suppressRule.topLevel.biome` to control whether the editor should show the top-level suppression code action:
+
+<EditorAction action="source.suppressRule.topLevel.biome" off={true} />
+
+
 
 ## Migrate from other linters
 

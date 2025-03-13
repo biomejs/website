@@ -1,0 +1,36 @@
+---
+import { Code, TabItem, Tabs } from "@astrojs/starlight/components";
+
+interface Props {
+	action: string;
+	off?: boolean;
+}
+
+const { action, off } = Astro.props;
+const zedCode = `
+{
+  "code_actions_on_format": {
+    "${action}": ${off === true ? "false" : "true"},
+  }
+}
+`;
+const vscodeCode = `
+{
+  "editor.codeActionsOnSave": {
+    "${action}": ${off === true ? '"never"' : '"explicit"'},
+  }
+}
+`;
+---
+
+<Tabs syncKey="action">
+    <TabItem label="Zed">
+        <Code title="~/.config/zed/settings.json" code={zedCode} lang="json" mark={[action]} ins={3}/>
+    </TabItem>
+    <TabItem label="VS Code">
+        <Code title=".vscode/settings.json" code={vscodeCode} lang="json" mark={[action]} ins={3}/>
+    </TabItem>
+    <TabItem label="Other editors">
+        Use the source action code <code>{action}</code>
+    </TabItem>
+</Tabs>
