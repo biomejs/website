@@ -261,7 +261,6 @@ export default defineConfig({
 									label: "Plugins",
 									link: "/analyzer/plugins",
 									badge: "beta",
-									translations: {},
 								},
 							],
 							translations: {
