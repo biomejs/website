@@ -487,7 +487,7 @@ export function GET() {
 							{ type: "null" },
 						],
 					},
-					noMultipleSpacesInRegularExpressionLiterals: {
+					noMultipleSpacesInRegex: {
 						description:
 							"Disallow unclear usage of consecutive space characters in regular expression literals",
 						anyOf: [
@@ -1590,7 +1590,7 @@ export function GET() {
 					},
 					useEditorconfig: {
 						description:
-							"Use any `.editorconfig` files to configure the formatter. Configuration in `biome.json` will override `.editorconfig` configuration.\n\nDefault: `false`.",
+							"Use any `.editorconfig` files to configure the formatter. Configuration in `biome.json` will override `.editorconfig` configuration.\n\nDefault: `true`.",
 						anyOf: [{ $ref: "#/definitions/Bool" }, { type: "null" }],
 					},
 				},
