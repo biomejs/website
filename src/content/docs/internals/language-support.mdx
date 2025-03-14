@@ -9,23 +9,23 @@ Legend:
 - ⌛️: In progress
 - ⚠️: Partially supported (with some caveats)
 
-| Language                                                 | Parsing                                                     | Formatting                                                  | Linting                                                     |
-|----------------------------------------------------------|-------------------------------------------------------------|-------------------------------------------------------------|-------------------------------------------------------------|
-| [JavaScript](#javascript-support)                        | <span aria-label="Supported" role="img">✅</span>            | <span aria-label="Supported" role="img">✅</span>            | <span aria-label="Supported" role="img">✅</span>            |
-| [TypeScript](#typescript-support)                        | <span aria-label="Supported" role="img">✅</span>            | <span aria-label="Supported" role="img">✅</span>            | <span aria-label="Supported" role="img">✅</span>            |
-| JSX                                                      | <span aria-label="Supported" role="img">✅</span>            | <span aria-label="Supported" role="img">✅</span>            | <span aria-label="Supported" role="img">✅</span>            |
-| TSX                                                      | <span aria-label="Supported" role="img">✅</span>            | <span aria-label="Supported" role="img">✅</span>            | <span aria-label="Supported" role="img">✅</span>            |
-| JSON                                                     | <span aria-label="Supported" role="img">✅</span>            | <span aria-label="Supported" role="img">✅</span>            | <span aria-label="Supported" role="img">✅</span>            |
-| JSONC                                                    | <span aria-label="Supported" role="img">✅</span>            | <span aria-label="Supported" role="img">✅</span>            | <span aria-label="Supported" role="img">✅</span>            |
-| HTML                                                     | <span aria-label="In Progress" role="img">⌛️</span>         | <span aria-label="In Progress" role="img">⌛️</span>         | <span aria-label="Not in Progress" role="img">🚫</span>     |
-| [Vue](#html-super-languages-support)                     | <span aria-label="Partially supported" role="img">⚠️</span> | <span aria-label="Partially supported" role="img">⚠️</span> | <span aria-label="Partially supported" role="img">⚠️</span> |
-| [Svelte](#html-super-languages-support)                  | <span aria-label="Partially supported" role="img">⚠️</span> | <span aria-label="Partially supported" role="img">⚠️</span> | <span aria-label="Partially supported" role="img">⚠️</span> |
-| [Astro](#html-super-languages-support)                   | <span aria-label="Partially supported" role="img">⚠️</span> | <span aria-label="Partially supported" role="img">⚠️</span> | <span aria-label="Partially supported" role="img">⚠️</span> |
-| CSS                                                      | <span aria-label="Supported" role="img">✅️</span>           | <span aria-label="Supported" role="img">✅️</span>           | <span aria-label="Supported" role="img">✅️</span>           |
-| [YAML](https://github.com/biomejs/biome/issues/2365)     | <span aria-label="In Progress" role="img">⌛️</span>         | <span aria-label="Not in Progress" role="img">🚫</span>     | <span aria-label="Not in Progress" role="img">🚫</span>     |
-| GraphQL                                                  | <span aria-label="Supported" role="img">✅️</span>           | <span aria-label="Supported" role="img">✅️</span>           | <span aria-label="Supported" role="img">✅️</span>           |
-| [Markdown](https://github.com/biomejs/biome/issues/3718) | <span aria-label="In Progress" role="img">⌛️</span>         | <span aria-label="Not in Progress" role="img">🚫</span>     | <span aria-label="Not in Progress" role="img">🚫</span>     |
-| GritQL                                                   | <span aria-label="Supported" role="img">✅️</span>           | <span aria-label="Supported" role="img">✅️</span>           | <span aria-label="Not in Progress" role="img">🚫</span>     |
+| Language                                                 | Parsing                                                     | Formatting                                                  | Linting                                                     | Plugin Support                                          |
+|----------------------------------------------------------|-------------------------------------------------------------|-------------------------------------------------------------|-------------------------------------------------------------|---------------------------------------------------------|
+| [JavaScript](#javascript-support)                        | <span aria-label="Supported" role="img">✅</span>            | <span aria-label="Supported" role="img">✅</span>          | <span aria-label="Supported" role="img">✅</span>           | <span aria-label="Supported" role="img">✅</span>       |
+| [TypeScript](#typescript-support)                        | <span aria-label="Supported" role="img">✅</span>            | <span aria-label="Supported" role="img">✅</span>          | <span aria-label="Supported" role="img">✅</span>           | <span aria-label="Supported" role="img">✅</span>       |
+| JSX                                                      | <span aria-label="Supported" role="img">✅</span>            | <span aria-label="Supported" role="img">✅</span>          | <span aria-label="Supported" role="img">✅</span>           | <span aria-label="Supported" role="img">✅</span>       |
+| TSX                                                      | <span aria-label="Supported" role="img">✅</span>            | <span aria-label="Supported" role="img">✅</span>          | <span aria-label="Supported" role="img">✅</span>           | <span aria-label="Supported" role="img">✅</span>       |
+| JSON                                                     | <span aria-label="Supported" role="img">✅</span>            | <span aria-label="Supported" role="img">✅</span>          | <span aria-label="Supported" role="img">✅</span>           | <span aria-label="Not in Progress" role="img">🚫</span> |
+| JSONC                                                    | <span aria-label="Supported" role="img">✅</span>            | <span aria-label="Supported" role="img">✅</span>          | <span aria-label="Supported" role="img">✅</span>           | <span aria-label="Not in Progress" role="img">🚫</span> |
+| HTML                                                     | <span aria-label="In Progress" role="img">⌛️</span>         | <span aria-label="In Progress" role="img">⌛️</span>         | <span aria-label="Not in Progress" role="img">🚫</span>     | <span aria-label="Not in Progress" role="img">🚫</span> |
+| [Vue](#html-super-languages-support)                     | <span aria-label="Partially supported" role="img">⚠️</span> | <span aria-label="Partially supported" role="img">⚠️</span> | <span aria-label="Partially supported" role="img">⚠️</span> | <span aria-label="Not in Progress" role="img">🚫</span> |
+| [Svelte](#html-super-languages-support)                  | <span aria-label="Partially supported" role="img">⚠️</span> | <span aria-label="Partially supported" role="img">⚠️</span> | <span aria-label="Partially supported" role="img">⚠️</span> | <span aria-label="Not in Progress" role="img">🚫</span> |
+| [Astro](#html-super-languages-support)                   | <span aria-label="Partially supported" role="img">⚠️</span> | <span aria-label="Partially supported" role="img">⚠️</span> | <span aria-label="Partially supported" role="img">⚠️</span> | <span aria-label="Not in Progress" role="img">🚫</span> |
+| CSS                                                      | <span aria-label="Supported" role="img">✅️</span>           | <span aria-label="Supported" role="img">✅️</span>           | <span aria-label="Supported" role="img">✅️</span>           | <span aria-label="Supported" role="img">✅</span>       |
+| [YAML](https://github.com/biomejs/biome/issues/2365)     | <span aria-label="In Progress" role="img">⌛️</span>         | <span aria-label="Not in Progress" role="img">🚫</span>     | <span aria-label="Not in Progress" role="img">🚫</span>     | <span aria-label="Not in Progress" role="img">🚫</span> |
+| GraphQL                                                  | <span aria-label="Supported" role="img">✅️</span>           | <span aria-label="Supported" role="img">✅️</span>           | <span aria-label="Supported" role="img">✅️</span>           | <span aria-label="Not in Progress" role="img">🚫</span> |
+| [Markdown](https://github.com/biomejs/biome/issues/3718) | <span aria-label="In Progress" role="img">⌛️</span>         | <span aria-label="Not in Progress" role="img">🚫</span>     | <span aria-label="Not in Progress" role="img">🚫</span>     | <span aria-label="Not in Progress" role="img">🚫</span> |
+| GritQL                                                   | <span aria-label="Supported" role="img">✅️</span>           | <span aria-label="Supported" role="img">✅️</span>           | <span aria-label="Not in Progress" role="img">🚫</span>     | <span aria-label="Not in Progress" role="img">🚫</span> |
 
 ## JavaScript support
 
@@ -38,7 +38,7 @@ Biome supports only the official syntax. The team starts development of the new 
 
 Biome supports TypeScript version 5.6.
 
-## JSONC Support
+## JSONC support
 
 JSONC stands for "JSON with Comments." This format is widely used by various tools like [VS Code](https://code.visualstudio.com/docs/languages/json#_json-with-comments), [TypeScript](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html), [Babel](https://babeljs.io/docs/config-files), etc. because it lets users add comments to configuration files. However, since JSONC isn't a strictly defined standard, there's some variation in how different tools handle trailing commas in JSONC files. To accommodate this, Biome doesn't provide a dedicated language configuration for JSONC. Instead, we've enhanced our JSON parsing and formatting capabilities with options like `json.parser.allowComments`, `json.parser.allowTrailingCommas`, and `json.formatter.trailingCommas`. This approach allows Biome to effectively support different variants of JSON files.
 
@@ -67,22 +67,22 @@ As of version `1.6.0`, these languages are **partially** supported. Biome will g
   </script>
   ```
 
-- When **linting** `.svelte`, `.astro` or `.vue` files, it's advised to turn off few additional rules to prevent compiler errors. Use the option `overrides` for that:
+- When **linting** `.svelte`, `.astro` or `.vue` files, it's advised to turn off a few additional rules to prevent compiler errors. Use the option `overrides` for that:
 
   ```json
-    {
-      "overrides": [
-        {
-          "include": ["*.svelte", "*.astro", "*.vue"],
-          "linter": {
-            "rules": {
-              "style": {
-                "useConst": "off",
-                "useImportType": "off"
-              }
+  {
+    "overrides": [
+      {
+        "include": ["*.svelte", "*.astro", "*.vue"],
+        "linter": {
+          "rules": {
+            "style": {
+              "useConst": "off",
+              "useImportType": "off"
             }
           }
         }
-      ]
-    }
-    ```
+      }
+    ]
+  }
+  ```
