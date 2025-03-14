@@ -7,6 +7,7 @@ summary: |
   release can be as smooth as possible.
 authors:
   - arendjr
+  - dyc3
   - team
 date: 2025-03-31
 cover:
@@ -22,7 +23,7 @@ If you would like to try it out, you can update Biome and migrate your configura
 
 ```shell
 npm install --save-dev --save-exact @biomejs/biome@beta
-npx @biomejs/biome migrate
+npx @biomejs/biome@beta migrate
 ```
 
 ## New features
@@ -166,7 +167,7 @@ Several new rules have added since v1.9:
   - `noNewSymbol`
   - `useShorthandArrayType`
   - `useSingleCaseStatement`
-- **BREAKING:** Many deprecated options, including some from the Rome days, have been removed.
+- **BREAKING:** Many deprecated options, including some that still referenced the old Rome name, have been removed.
 - Added a new option `javascript.parser.jsxEverywhere` to control whether Biome should expect JSX syntax in `.js`/`.mjs`/`.cjs` files.
 - Improved monorepo support: The rule [`noUndeclaredDependencies`](https://biomejs.dev/linter/rules/no-undeclared-dependencies/) now works correctly in monorepos by using the nearest `package.json` file, instead of only the root one.
 - We have enabled support for `.editorconfig` files by default.

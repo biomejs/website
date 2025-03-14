@@ -11,7 +11,7 @@ Biome Analyzer supports [GritQL](/reference/gritql/) plugins. Currently, these
 plugins allow you to match specific code patterns and register customized
 diagnostic messages for them.
 
-An example of a plugin is:
+Here is an example of a plugin that reports on all usages of `Object.assign()`:
 
 ```grit
 `$fn($args)` where {
@@ -33,7 +33,47 @@ the following configuration:
 }
 ```
 
-The plugin will now be enabled on all files the analyzer runs on.
+The plugin will now be enabled on all supported files the analyzer runs on. You
+can see its results when running `biome lint` or `biome check`. For example:
+
+```shell
+$ biome lint
+/packages/tailwindcss-config-analyzer/src/introspect.ts:12:17 plugin ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ℹ Prefer object spread instead of `Object.assign()`
+
+    10 │ function createContextFromConfig(config: Partial<Config>) {
+    11 │        return createContext(
+  > 12 │                resolveConfig(Object.assign({}, DEFAULT_CONFIG, config)),
+       │                              ^^^^^^^^^^^^^
+    13 │        );
+    14 │ }
+```
+
+## Target Languages
+
+A GritQL snippet always attempts to match against a given _target language_.
+If no target language is specified, JavaScript or one of its super languages is
+assumed.
+
+If you want to use a different target language, you must specify it explicitly.
+For example, here is a CSS plugin to report any selector that sets a color
+outside the allowed `.color-*` classes:
+
+```grit
+language css;
+
+`$selector { $props }` where {
+    $props <: contains `color: $color` as $rule,
+    not $selector <: r"\.color-.*",
+    register_diagnostic(
+        span = $rule,
+        message = "Don't set explicit colors. Use `.color-*` classes instead."
+    )
+}
+```
+
+We currently do not support other target languages than JavaScript and CSS.
 
 ## Plugin API
 
