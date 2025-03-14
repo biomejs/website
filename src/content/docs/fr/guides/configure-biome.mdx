@@ -3,7 +3,7 @@ title: Configurer Biome
 description: Apprenez comment la configuration de Biome fonctionne.
 ---
 
-import {FileTree} from '@astrojs/starlight/components';
+import { FileTree } from '@astrojs/starlight/components';
 
 Ce guide vous aidera à comprendre comment configurer Biome.
 Il explique la structure d’un fichier de configuration de Biome et la manière dont Biome résoud sa configuration.
@@ -26,14 +26,14 @@ Vous pouvez désactiver un ou plusieurs d’entre eux en utilisant la propriét�
 
 ```json title="biome.json"
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.0.0-beta/schema.json",
   "formatter": {
     "enabled": false
   },
   "linter": {
     "enabled": false
   },
-  "organizeImports": {
+  "assist": {
     "enabled": false
   }
 }

@@ -180,7 +180,7 @@ Prints information for debugging.
 
 Starts the Biome daemon server process.
 
-**Usage**: **`biome`** **`start`** \[**`--config-path`**=_`PATH`_\]
+**Usage**: **`biome`** **`start`** 
 
 **Available options:**
 - **`    --log-prefix-name`**=_`STRING`_ &mdash; 
@@ -193,10 +193,6 @@ Starts the Biome daemon server process.
   Allows to change the folder where logs are stored.
    
   Uses environment variable **`BIOME_LOG_PATH`**
-- **`    --config-path`**=_`PATH`_ &mdash; 
-  Allows to set a custom file path to the configuration file, or a custom directory path to find `biome.json` or `biome.jsonc`
-   
-  Uses environment variable **`BIOME_CONFIG_PATH`**
 - **`-h`**, **`--help`** &mdash; 
   Prints help information
 
@@ -216,7 +212,7 @@ Stops the Biome daemon server process.
 
 Runs formatter, linter and import sorting to the requested files.
 
-**Usage**: **`biome`** **`check`** \[**`--write`**\] \[**`--unsafe`**\] \[**`--assists-enabled`**=_`<true|false>`_\] \[**`--staged`**\] \[**`--changed`**\] \[**`--since`**=_`REF`_\] \[_`PATH`_\]...
+**Usage**: **`biome`** **`check`** \[**`--write`**\] \[**`--unsafe`**\] \[**`--assist-enabled`**=_`<true|false>`_\] \[**`--staged`**\] \[**`--changed`**\] \[**`--since`**=_`REF`_\] \[_`PATH`_\]...
 
 **The configuration that is contained inside the file `biome.json`**
 - **`    --vcs-enabled`**=_`<true|false>`_ &mdash; 
@@ -235,12 +231,8 @@ Runs formatter, linter and import sorting to the requested files.
   The maximum allowed size for source code files in bytes. Files above this limit will be ignored for performance reasons. Defaults to 1 MiB
 - **`    --files-ignore-unknown`**=_`<true|false>`_ &mdash; 
   Tells Biome to not emit diagnostics when handling files that doesn't know
-- **`    --use-editorconfig`**=_`<true|false>`_ &mdash; 
-  Use any `.editorconfig` files to configure the formatter. Configuration in `biome.json` will override `.editorconfig` configuration. Default: false.
 - **`    --indent-style`**=_`<tab|space>`_ &mdash; 
   The indent style.
-- **`    --indent-size`**=_`NUMBER`_ &mdash; 
-  The size of the indentation, 2 by default (deprecated, use `indent-width`)
 - **`    --indent-width`**=_`NUMBER`_ &mdash; 
   The size of the indentation, 2 by default
 - **`    --line-ending`**=_`<lf|crlf|cr>`_ &mdash; 
@@ -248,15 +240,27 @@ Runs formatter, linter and import sorting to the requested files.
 - **`    --line-width`**=_`NUMBER`_ &mdash; 
   What's the max width of a line. Defaults to 80.
 - **`    --attribute-position`**=_`<multiline|auto>`_ &mdash; 
-  The attribute position style in HTMLish languages. By default auto.
+  The attribute position style in HTML-ish languages. Defaults to auto.
+- **`    --bracket-same-line`**=_`<true|false>`_ &mdash; 
+  Put the `>` of a multi-line HTML or JSX element at the end of the last line instead of being alone on the next line (does not apply to self closing elements).
 - **`    --bracket-spacing`**=_`<true|false>`_ &mdash; 
   Whether to insert spaces around brackets in object literals. Defaults to true.
+- **`    --expand`**=_`<auto|always|never>`_ &mdash; 
+  Whether to expand arrays and objects on multiple lines. When set to `auto`, object literals are formatted on multiple lines if the first property has a newline, and array literals are formatted on a single line if it fits in the line. When set to `always`, these literals are formatted on multiple lines, regardless of length of the list. When set to `never`, these literals are formatted on a single line if it fits in the line. When formatting `package.json`, Biome will use `always` unless configured otherwise. Defaults to "auto".
+- **`    --use-editorconfig`**=_`<true|false>`_ &mdash; 
+  Use any `.editorconfig` files to configure the formatter. Configuration in `biome.json` will override `.editorconfig` configuration.
+
+  Default: `false`.
+- **`    --jsx-everywhere`**=_`<true|false>`_ &mdash; 
+  When enabled, files like `.js`/`.mjs`/`.cjs` may contain JSX syntax.
+
+  Defaults to `true`.
+- **`    --javascript-formatter-enabled`**=_`<true|false>`_ &mdash; 
+  Control the formatter for JavaScript (and its super languages) files.
 - **`    --jsx-quote-style`**=_`<double|single>`_ &mdash; 
   The type of quotes used in JSX. Defaults to double.
 - **`    --quote-properties`**=_`<preserve|as-needed>`_ &mdash; 
   When properties in objects are quoted. Defaults to asNeeded.
-- **`    --trailing-comma`**=_`<all|es5|none>`_ &mdash; 
-  Print trailing commas wherever possible in multi-line comma-separated syntactic structures. Defaults to "all".
 - **`    --trailing-commas`**=_`<all|es5|none>`_ &mdash; 
   Print trailing commas wherever possible in multi-line comma-separated syntactic structures. Defaults to "all".
 - **`    --semicolons`**=_`<always|as-needed>`_ &mdash; 
@@ -265,33 +269,31 @@ Runs formatter, linter and import sorting to the requested files.
   Whether to add non-necessary parentheses to arrow functions. Defaults to "always".
 - **`    --bracket-same-line`**=_`<true|false>`_ &mdash; 
   Whether to hug the closing bracket of multiline HTML/JSX tags to the end of the last line, rather than being alone on the following line. Defaults to false.
-- **`    --javascript-formatter-enabled`**=_`<true|false>`_ &mdash; 
-  Control the formatter for JavaScript (and its super languages) files.
 - **`    --javascript-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
   The indent style applied to JavaScript (and its super languages) files.
-- **`    --javascript-formatter-indent-size`**=_`NUMBER`_ &mdash; 
-  The size of the indentation applied to JavaScript (and its super languages) files. Default to 2.
 - **`    --javascript-formatter-indent-width`**=_`NUMBER`_ &mdash; 
   The size of the indentation applied to JavaScript (and its super languages) files. Default to 2.
 - **`    --javascript-formatter-line-ending`**=_`<lf|crlf|cr>`_ &mdash; 
   The type of line ending applied to JavaScript (and its super languages) files.
 - **`    --javascript-formatter-line-width`**=_`NUMBER`_ &mdash; 
   What's the max width of a line applied to JavaScript (and its super languages) files. Defaults to 80.
-- **`    --quote-style`**=_`<double|single>`_ &mdash; 
+- **`    --javascript-formatter-quote-style`**=_`<double|single>`_ &mdash; 
   The type of quotes used in JavaScript code. Defaults to double.
-- **`    --javascript-attribute-position`**=_`<multiline|auto>`_ &mdash; 
-  The attribute position style in jsx elements. Defaults to auto.
+- **`    --javascript-formatter-attribute-position`**=_`<multiline|auto>`_ &mdash; 
+  The attribute position style in JSX elements. Defaults to auto.
+- **`    --javascript-formatter-bracket-spacing`**=_`<true|false>`_ &mdash; 
+  Whether to insert spaces around brackets in object literals. Defaults to true.
+- **`    --javascript-formatter-expand`**=_`<auto|always|never>`_ &mdash; 
+  Whether to expand arrays and objects on multiple lines. When set to `auto`, object literals are formatted on multiple lines if the first property has a newline, and array literals are formatted on a single line if it fits in the line. When set to `always`, these literals are formatted on multiple lines, regardless of length of the list. When set to `never`, these literals are formatted on a single line if it fits in the line. When formatting `package.json`, Biome will use `always` unless configured otherwise. Defaults to "auto".
 - **`    --javascript-linter-enabled`**=_`<true|false>`_ &mdash; 
   Control the linter for JavaScript (and its super languages) files.
-- **`    --javascript-assists-enabled`**=_`<true|false>`_ &mdash; 
-  Control the linter for JavaScript (and its super languages) files.
+- **`    --javascript-assist-enabled`**=_`<true|false>`_ &mdash; 
+  Control the assist for JavaScript (and its super languages) files.
 - **`    --json-formatter-enabled`**=_`<true|false>`_ &mdash; 
   Control the formatter for JSON (and its super languages) files.
 - **`    --json-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
   The indent style applied to JSON (and its super languages) files.
 - **`    --json-formatter-indent-width`**=_`NUMBER`_ &mdash; 
-  The size of the indentation applied to JSON (and its super languages) files. Default to 2.
-- **`    --json-formatter-indent-size`**=_`NUMBER`_ &mdash; 
   The size of the indentation applied to JSON (and its super languages) files. Default to 2.
 - **`    --json-formatter-line-ending`**=_`<lf|crlf|cr>`_ &mdash; 
   The type of line ending applied to JSON (and its super languages) files.
@@ -299,10 +301,14 @@ Runs formatter, linter and import sorting to the requested files.
   What's the max width of a line applied to JSON (and its super languages) files. Defaults to 80.
 - **`    --json-formatter-trailing-commas`**=_`<none|all>`_ &mdash; 
   Print trailing commas wherever possible in multi-line comma-separated syntactic structures. Defaults to "none".
+- **`    --json-formatter-expand`**=_`<auto|always|never>`_ &mdash; 
+  Whether to expand arrays and objects on multiple lines. When set to `auto`, object literals are formatted on multiple lines if the first property has a newline, and array literals are formatted on a single line if it fits in the line. When set to `always`, these literals are formatted on multiple lines, regardless of length of the list. When set to `never`, these literals are formatted on a single line if it fits in the line. When formatting `package.json`, Biome will use `always` unless configured otherwise. Defaults to "auto".
+- **`    --json-formatter-bracket-spacing`**=_`<true|false>`_ &mdash; 
+  Whether to insert spaces around brackets in object literals. Defaults to true.
 - **`    --json-linter-enabled`**=_`<true|false>`_ &mdash; 
   Control the linter for JSON (and its super languages) files.
-- **`    --json-assists-enabled`**=_`<true|false>`_ &mdash; 
-  Control the linter for JSON (and its super languages) files.
+- **`    --json-assist-enabled`**=_`<true|false>`_ &mdash; 
+  Control the assist for JSON (and its super languages) files.
 - **`    --css-formatter-enabled`**=_`<true|false>`_ &mdash; 
   Control the formatter for CSS (and its super languages) files.
 - **`    --css-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
@@ -317,8 +323,8 @@ Runs formatter, linter and import sorting to the requested files.
   The type of quotes used in CSS code. Defaults to double.
 - **`    --css-linter-enabled`**=_`<true|false>`_ &mdash; 
   Control the linter for CSS files.
-- **`    --css-assists-enabled`**=_`<true|false>`_ &mdash; 
-  Control the assists for CSS files.
+- **`    --css-assist-enabled`**=_`<true|false>`_ &mdash; 
+  Control the assist for CSS files.
 - **`    --graphql-formatter-enabled`**=_`<true|false>`_ &mdash; 
   Control the formatter for GraphQL files.
 - **`    --graphql-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
@@ -333,8 +339,42 @@ Runs formatter, linter and import sorting to the requested files.
   The type of quotes used in GraphQL code. Defaults to double.
 - **`    --graphql-linter-enabled`**=_`<true|false>`_ &mdash; 
   Control the formatter for GraphQL files.
-- **`    --assists-enabled`**=_`<true|false>`_ &mdash; 
-  Whether Biome should enable assists via LSP.
+- **`    --graphql-assist-enabled`**=_`<true|false>`_ &mdash; 
+  Control the formatter for GraphQL files.
+- **`    --grit-formatter-enabled`**=_`<true|false>`_ &mdash; 
+  Control the formatter for Grit files.
+- **`    --grit-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
+  The indent style applied to Grit files.
+- **`    --grit-formatter-indent-width`**=_`NUMBER`_ &mdash; 
+  The size of the indentation applied to Grit files. Default to 2.
+- **`    --grit-formatter-line-ending`**=_`<lf|crlf|cr>`_ &mdash; 
+  The type of line ending applied to Grit files.
+- **`    --grit-formatter-line-width`**=_`NUMBER`_ &mdash; 
+  What's the max width of a line applied to Grit files. Defaults to 80.
+- **`    --grit-linter-enabled`**=_`<true|false>`_ &mdash; 
+  Control the linter for Grit files.
+- **`    --grit-assist-enabled`**=_`<true|false>`_ &mdash; 
+  Control the assist functionality for Grit files.
+- **`    --html-formatter-enabled`**=_`<true|false>`_ &mdash; 
+  Control the formatter for HTML (and its super languages) files.
+- **`    --html-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
+  The indent style applied to HTML (and its super languages) files.
+- **`    --html-formatter-indent-width`**=_`NUMBER`_ &mdash; 
+  The size of the indentation applied to HTML (and its super languages) files. Default to 2.
+- **`    --html-formatter-line-ending`**=_`<lf|crlf|cr>`_ &mdash; 
+  The type of line ending applied to HTML (and its super languages) files.
+- **`    --html-formatter-line-width`**=_`NUMBER`_ &mdash; 
+  What's the max width of a line applied to HTML (and its super languages) files. Defaults to 80.
+- **`    --html-formatter-attribute-position`**=_`<multiline|auto>`_ &mdash; 
+  The attribute position style in HTML elements. Defaults to auto.
+- **`    --html-formatter-bracket-same-line`**=_`<true|false>`_ &mdash; 
+  Whether to hug the closing bracket of multiline HTML tags to the end of the last line, rather than being alone on the following line. Defaults to false.
+- **`    --html-formatter-whitespace-sensitivity`**=_`<css|strict|ignore>`_ &mdash; 
+  Whether to account for whitespace sensitivity when formatting HTML (and its super languages). Defaults to "css".
+- **`    --html-formatter-indent-script-and-style`**=_`<true|false>`_ &mdash; 
+  Whether to indent the `<script>` and `<style>` tags for HTML (and its super languages). Defaults to false.
+- **`    --assist-enabled`**=_`<true|false>`_ &mdash; 
+  Whether Biome should enable assist via LSP.
 
 
 
@@ -389,18 +429,12 @@ Runs formatter, linter and import sorting to the requested files.
   Allow to do unsafe fixes, should be used with `--write` or `--fix`
 - **`    --fix`** &mdash; 
   Alias for `--write`, writes safe fixes, formatting and import sorting
-- **`    --apply`** &mdash; 
-  Alias for `--write`, writes safe fixes, formatting and import sorting (deprecated, use `--write`)
-- **`    --apply-unsafe`** &mdash; 
-  Alias for `--write --unsafe`, writes safe and unsafe fixes, formatting and import sorting (deprecated, use `--write --unsafe`)
 - **`    --formatter-enabled`**=_`<true|false>`_ &mdash; 
   Allow to enable or disable the formatter check.
 - **`    --linter-enabled`**=_`<true|false>`_ &mdash; 
   Allow to enable or disable the linter check.
-- **`    --organize-imports-enabled`**=_`<true|false>`_ &mdash; 
-  Allow to enable or disable the organize imports.
-- **`    --assists-enabled`**=_`<true|false>`_ &mdash; 
-  Allow to enable or disable the assists.
+- **`    --assist-enabled`**=_`<true|false>`_ &mdash; 
+  Allow to enable or disable the assist.
 - **`    --stdin-file-path`**=_`PATH`_ &mdash; 
   Use this option when you want to format code piped from `stdin`, and print the output to `stdout`.
 
@@ -510,10 +544,6 @@ Run various checks on a set of files.
   Allow to do unsafe fixes, should be used with `--write` or `--fix`
 - **`    --fix`** &mdash; 
   Alias for `--write`, writes safe fixes
-- **`    --apply`** &mdash; 
-  Alias for `--write`, writes safe fixes (deprecated, use `--write`)
-- **`    --apply-unsafe`** &mdash; 
-  Alias for `--write --unsafe`, writes safe and unsafe fixes (deprecated, use `--write --unsafe`)
 - **`    --suppress`** &mdash; 
   Fixes lint rule violations with a comment a suppression instead of using a rule code action (fix)
 - **`    --reason`**=_`STRING`_ &mdash; 
@@ -549,12 +579,8 @@ Run the formatter on a set of files.
 **Usage**: **`biome`** **`format`** \[**`--write`**\] \[**`--staged`**\] \[**`--changed`**\] \[**`--since`**=_`REF`_\] \[_`PATH`_\]...
 
 **Generic options applied to all files**
-- **`    --use-editorconfig`**=_`<true|false>`_ &mdash; 
-  Use any `.editorconfig` files to configure the formatter. Configuration in `biome.json` will override `.editorconfig` configuration. Default: false.
 - **`    --indent-style`**=_`<tab|space>`_ &mdash; 
   The indent style.
-- **`    --indent-size`**=_`NUMBER`_ &mdash; 
-  The size of the indentation, 2 by default (deprecated, use `indent-width`)
 - **`    --indent-width`**=_`NUMBER`_ &mdash; 
   The size of the indentation, 2 by default
 - **`    --line-ending`**=_`<lf|crlf|cr>`_ &mdash; 
@@ -562,19 +588,27 @@ Run the formatter on a set of files.
 - **`    --line-width`**=_`NUMBER`_ &mdash; 
   What's the max width of a line. Defaults to 80.
 - **`    --attribute-position`**=_`<multiline|auto>`_ &mdash; 
-  The attribute position style in HTMLish languages. By default auto.
+  The attribute position style in HTML-ish languages. Defaults to auto.
+- **`    --bracket-same-line`**=_`<true|false>`_ &mdash; 
+  Put the `>` of a multi-line HTML or JSX element at the end of the last line instead of being alone on the next line (does not apply to self closing elements).
 - **`    --bracket-spacing`**=_`<true|false>`_ &mdash; 
   Whether to insert spaces around brackets in object literals. Defaults to true.
+- **`    --expand`**=_`<auto|always|never>`_ &mdash; 
+  Whether to expand arrays and objects on multiple lines. When set to `auto`, object literals are formatted on multiple lines if the first property has a newline, and array literals are formatted on a single line if it fits in the line. When set to `always`, these literals are formatted on multiple lines, regardless of length of the list. When set to `never`, these literals are formatted on a single line if it fits in the line. When formatting `package.json`, Biome will use `always` unless configured otherwise. Defaults to "auto".
+- **`    --use-editorconfig`**=_`<true|false>`_ &mdash; 
+  Use any `.editorconfig` files to configure the formatter. Configuration in `biome.json` will override `.editorconfig` configuration.
+
+  Default: `false`.
 
 
 
 **Formatting options specific to the JavaScript files**
+- **`    --javascript-formatter-enabled`**=_`<true|false>`_ &mdash; 
+  Control the formatter for JavaScript (and its super languages) files.
 - **`    --jsx-quote-style`**=_`<double|single>`_ &mdash; 
   The type of quotes used in JSX. Defaults to double.
 - **`    --quote-properties`**=_`<preserve|as-needed>`_ &mdash; 
   When properties in objects are quoted. Defaults to asNeeded.
-- **`    --trailing-comma`**=_`<all|es5|none>`_ &mdash; 
-  Print trailing commas wherever possible in multi-line comma-separated syntactic structures. Defaults to "all".
 - **`    --trailing-commas`**=_`<all|es5|none>`_ &mdash; 
   Print trailing commas wherever possible in multi-line comma-separated syntactic structures. Defaults to "all".
 - **`    --semicolons`**=_`<always|as-needed>`_ &mdash; 
@@ -583,24 +617,22 @@ Run the formatter on a set of files.
   Whether to add non-necessary parentheses to arrow functions. Defaults to "always".
 - **`    --bracket-same-line`**=_`<true|false>`_ &mdash; 
   Whether to hug the closing bracket of multiline HTML/JSX tags to the end of the last line, rather than being alone on the following line. Defaults to false.
-- **`    --javascript-formatter-enabled`**=_`<true|false>`_ &mdash; 
-  Control the formatter for JavaScript (and its super languages) files.
 - **`    --javascript-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
   The indent style applied to JavaScript (and its super languages) files.
-- **`    --javascript-formatter-indent-size`**=_`NUMBER`_ &mdash; 
-  The size of the indentation applied to JavaScript (and its super languages) files. Default to 2.
 - **`    --javascript-formatter-indent-width`**=_`NUMBER`_ &mdash; 
   The size of the indentation applied to JavaScript (and its super languages) files. Default to 2.
 - **`    --javascript-formatter-line-ending`**=_`<lf|crlf|cr>`_ &mdash; 
   The type of line ending applied to JavaScript (and its super languages) files.
 - **`    --javascript-formatter-line-width`**=_`NUMBER`_ &mdash; 
   What's the max width of a line applied to JavaScript (and its super languages) files. Defaults to 80.
-- **`    --quote-style`**=_`<double|single>`_ &mdash; 
+- **`    --javascript-formatter-quote-style`**=_`<double|single>`_ &mdash; 
   The type of quotes used in JavaScript code. Defaults to double.
-- **`    --javascript-attribute-position`**=_`<multiline|auto>`_ &mdash; 
-  The attribute position style in jsx elements. Defaults to auto.
-- **`    --bracket-spacing`**=_`<true|false>`_ &mdash; 
+- **`    --javascript-formatter-attribute-position`**=_`<multiline|auto>`_ &mdash; 
+  The attribute position style in JSX elements. Defaults to auto.
+- **`    --javascript-formatter-bracket-spacing`**=_`<true|false>`_ &mdash; 
   Whether to insert spaces around brackets in object literals. Defaults to true.
+- **`    --javascript-formatter-expand`**=_`<auto|always|never>`_ &mdash; 
+  Whether to expand arrays and objects on multiple lines. When set to `auto`, object literals are formatted on multiple lines if the first property has a newline, and array literals are formatted on a single line if it fits in the line. When set to `always`, these literals are formatted on multiple lines, regardless of length of the list. When set to `never`, these literals are formatted on a single line if it fits in the line. When formatting `package.json`, Biome will use `always` unless configured otherwise. Defaults to "auto".
 
 
 
@@ -679,14 +711,16 @@ Run the formatter on a set of files.
   The indent style applied to JSON (and its super languages) files.
 - **`    --json-formatter-indent-width`**=_`NUMBER`_ &mdash; 
   The size of the indentation applied to JSON (and its super languages) files. Default to 2.
-- **`    --json-formatter-indent-size`**=_`NUMBER`_ &mdash; 
-  The size of the indentation applied to JSON (and its super languages) files. Default to 2.
 - **`    --json-formatter-line-ending`**=_`<lf|crlf|cr>`_ &mdash; 
   The type of line ending applied to JSON (and its super languages) files.
 - **`    --json-formatter-line-width`**=_`NUMBER`_ &mdash; 
   What's the max width of a line applied to JSON (and its super languages) files. Defaults to 80.
 - **`    --json-formatter-trailing-commas`**=_`<none|all>`_ &mdash; 
   Print trailing commas wherever possible in multi-line comma-separated syntactic structures. Defaults to "none".
+- **`    --json-formatter-expand`**=_`<auto|always|never>`_ &mdash; 
+  Whether to expand arrays and objects on multiple lines. When set to `auto`, object literals are formatted on multiple lines if the first property has a newline, and array literals are formatted on a single line if it fits in the line. When set to `always`, these literals are formatted on multiple lines, regardless of length of the list. When set to `never`, these literals are formatted on a single line if it fits in the line. When formatting `package.json`, Biome will use `always` unless configured otherwise. Defaults to "auto".
+- **`    --json-formatter-bracket-spacing`**=_`<true|false>`_ &mdash; 
+  Whether to insert spaces around brackets in object literals. Defaults to true.
 - **`    --stdin-file-path`**=_`PATH`_ &mdash; 
   Use this option when you want to format code piped from `stdin`, and print the output to `stdout`.
 
@@ -713,7 +747,7 @@ Command to use in CI environments. Runs formatter, linter and import sorting to 
 
 Files won't be modified, the command is a read-only operation.
 
-**Usage**: **`biome`** **`ci`** \[**`--formatter-enabled`**=_`<true|false>`_\] \[**`--linter-enabled`**=_`<true|false>`_\] \[**`--organize-imports-enabled`**=_`<true|false>`_\] \[**`--assists-enabled`**=_`<true|false>`_\] \[**`--changed`**\] \[**`--since`**=_`REF`_\] \[_`PATH`_\]...
+**Usage**: **`biome`** **`ci`** \[**`--formatter-enabled`**=_`<true|false>`_\] \[**`--linter-enabled`**=_`<true|false>`_\] \[**`--assist-enabled`**=_`<true|false>`_\] \[**`--changed`**\] \[**`--since`**=_`REF`_\] \[_`PATH`_\]...
 
 **The configuration that is contained inside the file `biome.json`**
 - **`    --vcs-enabled`**=_`<true|false>`_ &mdash; 
@@ -732,12 +766,8 @@ Files won't be modified, the command is a read-only operation.
   The maximum allowed size for source code files in bytes. Files above this limit will be ignored for performance reasons. Defaults to 1 MiB
 - **`    --files-ignore-unknown`**=_`<true|false>`_ &mdash; 
   Tells Biome to not emit diagnostics when handling files that doesn't know
-- **`    --use-editorconfig`**=_`<true|false>`_ &mdash; 
-  Use any `.editorconfig` files to configure the formatter. Configuration in `biome.json` will override `.editorconfig` configuration. Default: false.
 - **`    --indent-style`**=_`<tab|space>`_ &mdash; 
   The indent style.
-- **`    --indent-size`**=_`NUMBER`_ &mdash; 
-  The size of the indentation, 2 by default (deprecated, use `indent-width`)
 - **`    --indent-width`**=_`NUMBER`_ &mdash; 
   The size of the indentation, 2 by default
 - **`    --line-ending`**=_`<lf|crlf|cr>`_ &mdash; 
@@ -745,15 +775,27 @@ Files won't be modified, the command is a read-only operation.
 - **`    --line-width`**=_`NUMBER`_ &mdash; 
   What's the max width of a line. Defaults to 80.
 - **`    --attribute-position`**=_`<multiline|auto>`_ &mdash; 
-  The attribute position style in HTMLish languages. By default auto.
+  The attribute position style in HTML-ish languages. Defaults to auto.
+- **`    --bracket-same-line`**=_`<true|false>`_ &mdash; 
+  Put the `>` of a multi-line HTML or JSX element at the end of the last line instead of being alone on the next line (does not apply to self closing elements).
 - **`    --bracket-spacing`**=_`<true|false>`_ &mdash; 
   Whether to insert spaces around brackets in object literals. Defaults to true.
+- **`    --expand`**=_`<auto|always|never>`_ &mdash; 
+  Whether to expand arrays and objects on multiple lines. When set to `auto`, object literals are formatted on multiple lines if the first property has a newline, and array literals are formatted on a single line if it fits in the line. When set to `always`, these literals are formatted on multiple lines, regardless of length of the list. When set to `never`, these literals are formatted on a single line if it fits in the line. When formatting `package.json`, Biome will use `always` unless configured otherwise. Defaults to "auto".
+- **`    --use-editorconfig`**=_`<true|false>`_ &mdash; 
+  Use any `.editorconfig` files to configure the formatter. Configuration in `biome.json` will override `.editorconfig` configuration.
+
+  Default: `false`.
+- **`    --jsx-everywhere`**=_`<true|false>`_ &mdash; 
+  When enabled, files like `.js`/`.mjs`/`.cjs` may contain JSX syntax.
+
+  Defaults to `true`.
+- **`    --javascript-formatter-enabled`**=_`<true|false>`_ &mdash; 
+  Control the formatter for JavaScript (and its super languages) files.
 - **`    --jsx-quote-style`**=_`<double|single>`_ &mdash; 
   The type of quotes used in JSX. Defaults to double.
 - **`    --quote-properties`**=_`<preserve|as-needed>`_ &mdash; 
   When properties in objects are quoted. Defaults to asNeeded.
-- **`    --trailing-comma`**=_`<all|es5|none>`_ &mdash; 
-  Print trailing commas wherever possible in multi-line comma-separated syntactic structures. Defaults to "all".
 - **`    --trailing-commas`**=_`<all|es5|none>`_ &mdash; 
   Print trailing commas wherever possible in multi-line comma-separated syntactic structures. Defaults to "all".
 - **`    --semicolons`**=_`<always|as-needed>`_ &mdash; 
@@ -762,33 +804,31 @@ Files won't be modified, the command is a read-only operation.
   Whether to add non-necessary parentheses to arrow functions. Defaults to "always".
 - **`    --bracket-same-line`**=_`<true|false>`_ &mdash; 
   Whether to hug the closing bracket of multiline HTML/JSX tags to the end of the last line, rather than being alone on the following line. Defaults to false.
-- **`    --javascript-formatter-enabled`**=_`<true|false>`_ &mdash; 
-  Control the formatter for JavaScript (and its super languages) files.
 - **`    --javascript-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
   The indent style applied to JavaScript (and its super languages) files.
-- **`    --javascript-formatter-indent-size`**=_`NUMBER`_ &mdash; 
-  The size of the indentation applied to JavaScript (and its super languages) files. Default to 2.
 - **`    --javascript-formatter-indent-width`**=_`NUMBER`_ &mdash; 
   The size of the indentation applied to JavaScript (and its super languages) files. Default to 2.
 - **`    --javascript-formatter-line-ending`**=_`<lf|crlf|cr>`_ &mdash; 
   The type of line ending applied to JavaScript (and its super languages) files.
 - **`    --javascript-formatter-line-width`**=_`NUMBER`_ &mdash; 
   What's the max width of a line applied to JavaScript (and its super languages) files. Defaults to 80.
-- **`    --quote-style`**=_`<double|single>`_ &mdash; 
+- **`    --javascript-formatter-quote-style`**=_`<double|single>`_ &mdash; 
   The type of quotes used in JavaScript code. Defaults to double.
-- **`    --javascript-attribute-position`**=_`<multiline|auto>`_ &mdash; 
-  The attribute position style in jsx elements. Defaults to auto.
+- **`    --javascript-formatter-attribute-position`**=_`<multiline|auto>`_ &mdash; 
+  The attribute position style in JSX elements. Defaults to auto.
+- **`    --javascript-formatter-bracket-spacing`**=_`<true|false>`_ &mdash; 
+  Whether to insert spaces around brackets in object literals. Defaults to true.
+- **`    --javascript-formatter-expand`**=_`<auto|always|never>`_ &mdash; 
+  Whether to expand arrays and objects on multiple lines. When set to `auto`, object literals are formatted on multiple lines if the first property has a newline, and array literals are formatted on a single line if it fits in the line. When set to `always`, these literals are formatted on multiple lines, regardless of length of the list. When set to `never`, these literals are formatted on a single line if it fits in the line. When formatting `package.json`, Biome will use `always` unless configured otherwise. Defaults to "auto".
 - **`    --javascript-linter-enabled`**=_`<true|false>`_ &mdash; 
   Control the linter for JavaScript (and its super languages) files.
-- **`    --javascript-assists-enabled`**=_`<true|false>`_ &mdash; 
-  Control the linter for JavaScript (and its super languages) files.
+- **`    --javascript-assist-enabled`**=_`<true|false>`_ &mdash; 
+  Control the assist for JavaScript (and its super languages) files.
 - **`    --json-formatter-enabled`**=_`<true|false>`_ &mdash; 
   Control the formatter for JSON (and its super languages) files.
 - **`    --json-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
   The indent style applied to JSON (and its super languages) files.
 - **`    --json-formatter-indent-width`**=_`NUMBER`_ &mdash; 
-  The size of the indentation applied to JSON (and its super languages) files. Default to 2.
-- **`    --json-formatter-indent-size`**=_`NUMBER`_ &mdash; 
   The size of the indentation applied to JSON (and its super languages) files. Default to 2.
 - **`    --json-formatter-line-ending`**=_`<lf|crlf|cr>`_ &mdash; 
   The type of line ending applied to JSON (and its super languages) files.
@@ -796,10 +836,14 @@ Files won't be modified, the command is a read-only operation.
   What's the max width of a line applied to JSON (and its super languages) files. Defaults to 80.
 - **`    --json-formatter-trailing-commas`**=_`<none|all>`_ &mdash; 
   Print trailing commas wherever possible in multi-line comma-separated syntactic structures. Defaults to "none".
+- **`    --json-formatter-expand`**=_`<auto|always|never>`_ &mdash; 
+  Whether to expand arrays and objects on multiple lines. When set to `auto`, object literals are formatted on multiple lines if the first property has a newline, and array literals are formatted on a single line if it fits in the line. When set to `always`, these literals are formatted on multiple lines, regardless of length of the list. When set to `never`, these literals are formatted on a single line if it fits in the line. When formatting `package.json`, Biome will use `always` unless configured otherwise. Defaults to "auto".
+- **`    --json-formatter-bracket-spacing`**=_`<true|false>`_ &mdash; 
+  Whether to insert spaces around brackets in object literals. Defaults to true.
 - **`    --json-linter-enabled`**=_`<true|false>`_ &mdash; 
   Control the linter for JSON (and its super languages) files.
-- **`    --json-assists-enabled`**=_`<true|false>`_ &mdash; 
-  Control the linter for JSON (and its super languages) files.
+- **`    --json-assist-enabled`**=_`<true|false>`_ &mdash; 
+  Control the assist for JSON (and its super languages) files.
 - **`    --css-formatter-enabled`**=_`<true|false>`_ &mdash; 
   Control the formatter for CSS (and its super languages) files.
 - **`    --css-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
@@ -814,8 +858,8 @@ Files won't be modified, the command is a read-only operation.
   The type of quotes used in CSS code. Defaults to double.
 - **`    --css-linter-enabled`**=_`<true|false>`_ &mdash; 
   Control the linter for CSS files.
-- **`    --css-assists-enabled`**=_`<true|false>`_ &mdash; 
-  Control the assists for CSS files.
+- **`    --css-assist-enabled`**=_`<true|false>`_ &mdash; 
+  Control the assist for CSS files.
 - **`    --graphql-formatter-enabled`**=_`<true|false>`_ &mdash; 
   Control the formatter for GraphQL files.
 - **`    --graphql-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
@@ -830,8 +874,42 @@ Files won't be modified, the command is a read-only operation.
   The type of quotes used in GraphQL code. Defaults to double.
 - **`    --graphql-linter-enabled`**=_`<true|false>`_ &mdash; 
   Control the formatter for GraphQL files.
-- **`    --assists-enabled`**=_`<true|false>`_ &mdash; 
-  Whether Biome should enable assists via LSP.
+- **`    --graphql-assist-enabled`**=_`<true|false>`_ &mdash; 
+  Control the formatter for GraphQL files.
+- **`    --grit-formatter-enabled`**=_`<true|false>`_ &mdash; 
+  Control the formatter for Grit files.
+- **`    --grit-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
+  The indent style applied to Grit files.
+- **`    --grit-formatter-indent-width`**=_`NUMBER`_ &mdash; 
+  The size of the indentation applied to Grit files. Default to 2.
+- **`    --grit-formatter-line-ending`**=_`<lf|crlf|cr>`_ &mdash; 
+  The type of line ending applied to Grit files.
+- **`    --grit-formatter-line-width`**=_`NUMBER`_ &mdash; 
+  What's the max width of a line applied to Grit files. Defaults to 80.
+- **`    --grit-linter-enabled`**=_`<true|false>`_ &mdash; 
+  Control the linter for Grit files.
+- **`    --grit-assist-enabled`**=_`<true|false>`_ &mdash; 
+  Control the assist functionality for Grit files.
+- **`    --html-formatter-enabled`**=_`<true|false>`_ &mdash; 
+  Control the formatter for HTML (and its super languages) files.
+- **`    --html-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
+  The indent style applied to HTML (and its super languages) files.
+- **`    --html-formatter-indent-width`**=_`NUMBER`_ &mdash; 
+  The size of the indentation applied to HTML (and its super languages) files. Default to 2.
+- **`    --html-formatter-line-ending`**=_`<lf|crlf|cr>`_ &mdash; 
+  The type of line ending applied to HTML (and its super languages) files.
+- **`    --html-formatter-line-width`**=_`NUMBER`_ &mdash; 
+  What's the max width of a line applied to HTML (and its super languages) files. Defaults to 80.
+- **`    --html-formatter-attribute-position`**=_`<multiline|auto>`_ &mdash; 
+  The attribute position style in HTML elements. Defaults to auto.
+- **`    --html-formatter-bracket-same-line`**=_`<true|false>`_ &mdash; 
+  Whether to hug the closing bracket of multiline HTML tags to the end of the last line, rather than being alone on the following line. Defaults to false.
+- **`    --html-formatter-whitespace-sensitivity`**=_`<css|strict|ignore>`_ &mdash; 
+  Whether to account for whitespace sensitivity when formatting HTML (and its super languages). Defaults to "css".
+- **`    --html-formatter-indent-script-and-style`**=_`<true|false>`_ &mdash; 
+  Whether to indent the `<script>` and `<style>` tags for HTML (and its super languages). Defaults to false.
+- **`    --assist-enabled`**=_`<true|false>`_ &mdash; 
+  Whether Biome should enable assist via LSP.
 
 
 
@@ -884,14 +962,16 @@ Files won't be modified, the command is a read-only operation.
   Allow to enable or disable the formatter check.
 - **`    --linter-enabled`**=_`<true|false>`_ &mdash; 
   Allow to enable or disable the linter check.
-- **`    --organize-imports-enabled`**=_`<true|false>`_ &mdash; 
-  Allow to enable or disable the organize imports.
-- **`    --assists-enabled`**=_`<true|false>`_ &mdash; 
-  Allow to enable or disable the assists.
+- **`    --assist-enabled`**=_`<true|false>`_ &mdash; 
+  Allow to enable or disable the assist.
 - **`    --changed`** &mdash; 
   When set to true, only the files that have been changed compared to your `defaultBranch` configuration will be linted.
 - **`    --since`**=_`REF`_ &mdash; 
   Use this to specify the base branch to compare against when you're using the --changed flag and the `defaultBranch` is not set in your biome.json
+- **`    --threads`**=_`NUMBER`_ &mdash; 
+  The number of threads to use. This is useful when running the CLI in environments with limited resource, for example CI.
+   
+  Uses environment variable **`BIOME_THREADS`**
 - **`-h`**, **`--help`** &mdash; 
   Prints help information
 
@@ -913,7 +993,7 @@ Bootstraps a new biome project. Creates a configuration file with some defaults.
 
 Acts as a server for the Language Server Protocol over stdin/stdout.
 
-**Usage**: **`biome`** **`lsp-proxy`** \[**`--config-path`**=_`PATH`_\]
+**Usage**: **`biome`** **`lsp-proxy`** 
 
 **Available options:**
 - **`    --log-prefix-name`**=_`STRING`_ &mdash; 
@@ -926,10 +1006,6 @@ Acts as a server for the Language Server Protocol over stdin/stdout.
   Allows to change the folder where logs are stored.
    
   Uses environment variable **`BIOME_LOG_PATH`**
-- **`    --config-path`**=_`PATH`_ &mdash; 
-  Allows to set a custom file path to the configuration file, or a custom directory path to find `biome.json` or `biome.jsonc`
-   
-  Uses environment variable **`BIOME_CONFIG_PATH`**
 - **`-h`**, **`--help`** &mdash; 
   Prints help information
 
@@ -1027,11 +1103,14 @@ EXPERIMENTAL: Searches for Grit patterns across a project.
 
 Note: GritQL escapes code snippets using backticks, but most shells interpret backticks as command invocations. To avoid this, it's best to put single quotes around your Grit queries.
 
-**Usage**: **`biome`** **`search`** _`PATTERN`_ \[_`PATH`_\]...
+## Example
 
-```shell
-biome search '`console.log($message)`' # find all `console.log` invocations
-```
+  ```shell
+  biome search '`console.log($message)`' # find all `console.log` invocations
+  ```
+
+
+**Usage**: **`biome`** **`search`** \[**`-l`**=_`ARG`_\] _`PATTERN`_ \[_`PATH`_\]...
 
 **Global options applied to all commands**
 - **`    --colors`**=_`<off|force>`_ &mdash; 
@@ -1112,6 +1191,12 @@ biome search '`console.log($message)`' # find all `console.log` invocations
   The file doesn't need to exist on disk, what matters is the extension of the file. Based on the extension, Biome knows how to parse the code.
 
   Example: `echo 'let a;' | biome search '`let $var`' --stdin-file-path=file.js`
+- **`-l`**, **`--language`**=_`ARG`_ &mdash; 
+  The language to which the pattern applies.
+
+  Grit queries are specific to the grammar of the language they target, so we currently do not support writing queries that apply to multiple languages at once.
+
+  If none given, the default language is JavaScript.
 - **`-h`**, **`--help`** &mdash; 
   Prints help information
 
@@ -1120,15 +1205,19 @@ biome search '`console.log($message)`' # find all `console.log` invocations
 
 Shows documentation of various aspects of the CLI.
 
+## Examples
+
+  ```shell
+  biome explain noDebugger
+  ```
+
+
+  ```shell
+  biome explain daemon-logs
+  ```
+
+
 **Usage**: **`biome`** **`explain`** _`NAME`_
-
-```shell
-# show documentation for lint/suspicious/noDebugger
-biome explain noDebugger 
-
-# obtain the precise path of daemon-logs
-biome explain daemon-logs
-```
 
 **Available positional items:**
 - _`NAME`_ &mdash; 

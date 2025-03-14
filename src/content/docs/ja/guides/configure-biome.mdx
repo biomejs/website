@@ -3,7 +3,7 @@ title: Biomeの設定
 description: Biomeを使用して新しいプロジェクトをセットアップする方法
 ---
 
-import {FileTree} from '@astrojs/starlight/components';
+import { FileTree } from '@astrojs/starlight/components';
 
 このガイドでは、Biomeの設定方法を理解するために役立ちます。
 Biomeの設定ファイルの構成と、Biomeがどのように設定を解決するかを説明します。
@@ -23,14 +23,14 @@ Biomeはツールチェーンであるため、設定は提供されるツール
 
 ```json title="biome.json"
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.0.0-beta/schema.json",
   "formatter": {
     "enabled": false
   },
   "linter": {
     "enabled": false
   },
-  "organizeImports": {
+  "assist": {
     "enabled": false
   }
 }

@@ -3,7 +3,7 @@ title: Configure Biome
 description: Learn how Biome configuration works.
 ---
 
-import {FileTree} from '@astrojs/starlight/components';
+import { FileTree } from '@astrojs/starlight/components';
 
 This guide will help you to understand how to configure Biome.
 It explains the structure of a Biome configuration file and how Biome resolves its configuration.
@@ -20,20 +20,20 @@ A Biome configuration file is named `biome.json` or `biome.jsonc`.
 It is usually placed in your project's root directory, next to your project's `package.json`.
 
 Because Biome is a toolchain, its configuration is organized around the tools it provides.
-At the moment, Biome provides three tools: the formatter, the linter and the import sorter (also called the import organizer).
+At the moment, Biome provides three tools: the formatter, the linter and the assist.
 All of these tools are enabled by default.
 You can disable one or several of them using the `<tool>.enabled` field:
 
 ```json title="biome.json"
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.0.0-beta/schema.json",
   "formatter": {
     "enabled": false
   },
   "linter": {
     "enabled": false
   },
-  "organizeImports": {
+  "assist": {
     "enabled": false
   }
 }
