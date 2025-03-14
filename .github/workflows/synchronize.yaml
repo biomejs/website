@@ -60,7 +60,7 @@ jobs:
         uses: ./.github/actions/run-codegen
         with:
           kinds: metadata, rules
-          version: "0.0.0"
+          version: "1.9.4"
 
       - name: Create pull request
         id: create-pull-request
