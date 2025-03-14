@@ -123,13 +123,29 @@ For more information about suppressions, see: https://next.biomejs.dev/linter/#s
 
 ### HTML formatter
 
-TODO
+After a few months of hard work, we are happy to announce that the HTML formatter is now ready for users to try out and start reporting bugs! This is a huge step towards Biome fully supporting HTML-ish templating languages used in frameworks like Vue and Svelte.
+
+The HTML formatter only touches actual `.html` files for now, so no formatting of html in `.vue` or `.svelte` files yet. It also won't format embedded languages like JavaScript or CSS yet. HTML's options like `attributePosition`, `bracketSameLine`, and `whitespaceSensitivity` have been implemented.
+
+The HTML formatter is still pretty experimental, so it will remain **disabled by default for the full 2.0 release**. At the time of writing, Biome is able to parse the grand majority of Prettier's HTML tests, and format 46/124 of them correctly. Despite not matching Prettier yet, we're pretty confident that it _should_ output documents that are formatted adequately without destroying anything. If you find a case where it doesn't, [please let us know](https://github.com/biomejs/biome/issues)!
+
+You can enable the HTML formatter by adding the following to your config file:
+
+```json
+{
+  "html": {
+    "formatter": {
+      "enabled": true
+    }
+  }
+}
+```
 
 ### New rules
 
 Several new rules have added since v1.9:
 
-- [`noAwaitInLoop`](https://biomejs.dev/linter/rules/no-await-in-loop)  
+- [`noAwaitInLoop`](https://biomejs.dev/linter/rules/no-await-in-loop)
 - [`noBitwiseOperators`](https://biomejs.dev/linter/rules/no-bitwise-operators/)
 - [`noDestructuredProps`](https://biomejs.dev/linter/rules/no-destructured-props/)
 - [`noFloatingPromises`](https://biomejs.dev/linter/rules/no-floating-promises)
