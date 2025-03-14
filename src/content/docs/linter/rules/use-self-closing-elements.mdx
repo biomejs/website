@@ -71,31 +71,6 @@ Prevent extra closing tags for components without children
 <Foo.bar>child</Foo.bar>
 ```
 
-## Options
-
-### `ignoreHtmlElements`
-
-**Since version 2.0.0**.
-
-Default: `false`
-
-This option allows you to specify whether to ignore checking native HTML elements.
-
-In the following example, when the option is set to "true", it will not self close native HTML elements.
-
-```json
-{
-    "//":"...",
-    "options": {
-        "ignoreHtmlElements": true
-    }
-}
-```
-
-```jsx
-<div></div>
-```
-
 ## How to configure
 ```json title="biome.json"
 {

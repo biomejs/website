@@ -1080,7 +1080,6 @@ where
 {
     let path = BiomePath::new(PathBuf::from(&file_path));
     let file_source = &test.document_file_source();
-    let supression_reason = None;
 
     let settings = workspace_settings.get_current_settings();
     let linter = settings.map(|s| &s.linter);
@@ -1096,7 +1095,6 @@ where
         language_settings,
         &path,
         file_source,
-        supression_reason,
     )
 }
 
