@@ -3,7 +3,7 @@ use codegen::env_variables::generate_env_variables;
 use codegen::lintdoc::generate_rule_docs;
 use codegen::metadata::generate_json_metadata;
 use codegen::website::generate_files;
-use codegen::{CodegenCommand, codegen_command};
+use codegen::{codegen_command, CodegenCommand};
 
 fn main() -> anyhow::Result<()> {
     let result = codegen_command().fallback_to_usage().run();

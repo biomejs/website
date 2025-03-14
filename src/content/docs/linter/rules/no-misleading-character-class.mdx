@@ -27,7 +27,7 @@ Unicode includes the characters which are made with multiple code points. e.g. A
 A RegExp character class `/[abc]/` cannot handle characters with multiple code points.
 For example, the character `❇️` consists of two code points: `❇` (U+2747) and `VARIATION SELECTOR-16` (U+FE0F).
 If this character is in a RegExp character class, it will match to either `❇` or `VARIATION SELECTOR-16` rather than `❇️`.
-This rule reports the regular expression literals which include multiple code point characters in character class syntax.
+This rule reports the regular expressions which include multiple code point characters in character class syntax.
 
 ## Examples
 

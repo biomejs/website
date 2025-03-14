@@ -6,10 +6,10 @@ use biome_analyze::{
 use biome_css_syntax::CssLanguage;
 use biome_js_syntax::JsLanguage;
 use biome_json_formatter::context::JsonFormatOptions;
-use biome_json_parser::{JsonParserOptions, parse_json};
+use biome_json_parser::{parse_json, JsonParserOptions};
 use biome_json_syntax::JsonLanguage;
 use biome_string_case::Case;
-use schemars::{JsonSchema, schema_for};
+use schemars::{schema_for, JsonSchema};
 use serde::Serialize;
 use serde_json::to_string;
 use std::collections::BTreeMap;
