@@ -416,11 +416,6 @@ export default defineConfig({
 								uk: "Розширення Zed",
 							},
 						},
-						{
-							label: "GritQL",
-							link: "/reference/gritql",
-							badge: "experimental",
-						},
 					],
 				},
 				{

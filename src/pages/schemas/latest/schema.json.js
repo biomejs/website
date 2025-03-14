@@ -473,7 +473,7 @@ export function GET() {
 					noForEach: {
 						description: "Prefer for...of statement instead of Array.forEach.",
 						anyOf: [
-							{ $ref: "#/definitions/NoForEachConfiguration" },
+							{ $ref: "#/definitions/RuleConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -975,7 +975,7 @@ export function GET() {
 						description:
 							"Disallow the use of dependencies that aren't specified in the package.json.",
 						anyOf: [
-							{ $ref: "#/definitions/NoUndeclaredDependenciesConfiguration" },
+							{ $ref: "#/definitions/RuleConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -983,7 +983,7 @@ export function GET() {
 						description:
 							"Prevents the usage of variables that haven't been declared inside the document.",
 						anyOf: [
-							{ $ref: "#/definitions/UndeclaredVariablesConfiguration" },
+							{ $ref: "#/definitions/RuleConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -1275,41 +1275,6 @@ export function GET() {
 				},
 				additionalProperties: false,
 			},
-			CustomRestrictedImport: {
-				anyOf: [
-					{
-						description: "The message to display when this module is imported.",
-						type: "string",
-					},
-					{
-						description:
-							"Additional options to configure the message and allowed/disallowed import names.",
-						allOf: [{ $ref: "#/definitions/CustomRestrictedImportOptions" }],
-					},
-				],
-			},
-			CustomRestrictedImportOptions: {
-				type: "object",
-				properties: {
-					allowImportNames: {
-						description:
-							"Names of the exported members that allowed to be not be used.",
-						type: "array",
-						items: { type: "string" },
-					},
-					importNames: {
-						description:
-							"Names of the exported members that should not be used.",
-						type: "array",
-						items: { type: "string" },
-					},
-					message: {
-						description: "The message to display when this module is imported.",
-						type: "string",
-					},
-				},
-				additionalProperties: false,
-			},
 			CustomRestrictedType: {
 				anyOf: [
 					{ type: "string" },
@@ -1323,22 +1288,6 @@ export function GET() {
 					use: { default: null, type: ["string", "null"] },
 				},
 				additionalProperties: false,
-			},
-			DependencyAvailability: {
-				oneOf: [
-					{
-						description:
-							"This type of dependency will be always available or unavailable.",
-						type: "boolean",
-					},
-					{
-						description:
-							"This type of dependency will be available only if the linted file matches any of the globs.",
-						type: "array",
-						items: { type: "string" },
-						minItems: 1,
-					},
-				],
 			},
 			DeprecatedHooksConfiguration: {
 				anyOf: [
@@ -1396,10 +1345,6 @@ export function GET() {
 					filenameCases: {
 						description: "Allowed cases for file names.",
 						allOf: [{ $ref: "#/definitions/FilenameCases" }],
-					},
-					match: {
-						description: "Regular expression to enforce",
-						anyOf: [{ $ref: "#/definitions/Regex" }, { type: "null" }],
 					},
 					requireAscii: {
 						description: "If `false`, then non-ASCII characters are allowed.",
@@ -1640,12 +1585,6 @@ export function GET() {
 				},
 				additionalProperties: false,
 			},
-			ImportGroup: {
-				anyOf: [
-					{ $ref: "#/definitions/PredefinedImportGroup" },
-					{ $ref: "#/definitions/Regex" },
-				],
-			},
 			IndentStyle: {
 				oneOf: [
 					{ description: "Tab", type: "string", enum: ["tab"] },
@@ -1831,11 +1770,6 @@ export function GET() {
 				description: "Options that changes how the JavaScript parser behaves",
 				type: "object",
 				properties: {
-					gritMetavariables: {
-						description:
-							"Enables parsing of Grit metavariables. Defaults to `false`.",
-						type: ["boolean", "null"],
-					},
 					unsafeParameterDecoratorsEnabled: {
 						description:
 							"It enables the experimental and unsafe parsing of parameter decorators\n\nThese decorators belong to an old proposal, and they are subject to change.",
@@ -2201,24 +2135,6 @@ export function GET() {
 				},
 				additionalProperties: false,
 			},
-			NoForEachConfiguration: {
-				anyOf: [
-					{ $ref: "#/definitions/RulePlainConfiguration" },
-					{ $ref: "#/definitions/RuleWithNoForEachOptions" },
-				],
-			},
-			NoForEachOptions: {
-				type: "object",
-				properties: {
-					allowedIdentifiers: {
-						description:
-							"A list of variable names allowed for `forEach` calls.",
-						type: "array",
-						items: { type: "string" },
-					},
-				},
-				additionalProperties: false,
-			},
 			NoLabelWithoutControlConfiguration: {
 				anyOf: [
 					{ $ref: "#/definitions/RulePlainConfiguration" },
@@ -2285,37 +2201,6 @@ export function GET() {
 						type: ["integer", "null"],
 						format: "uint16",
 						minimum: 0.0,
-					},
-				},
-				additionalProperties: false,
-			},
-			NoUndeclaredDependenciesConfiguration: {
-				anyOf: [
-					{ $ref: "#/definitions/RulePlainConfiguration" },
-					{ $ref: "#/definitions/RuleWithNoUndeclaredDependenciesOptions" },
-				],
-			},
-			NoUndeclaredDependenciesOptions: {
-				description: "Rule's options",
-				type: "object",
-				properties: {
-					devDependencies: {
-						description:
-							"If set to `false`, then the rule will show an error when `devDependencies` are imported. Defaults to `true`.",
-						default: true,
-						allOf: [{ $ref: "#/definitions/DependencyAvailability" }],
-					},
-					optionalDependencies: {
-						description:
-							"If set to `false`, then the rule will show an error when `optionalDependencies` are imported. Defaults to `true`.",
-						default: true,
-						allOf: [{ $ref: "#/definitions/DependencyAvailability" }],
-					},
-					peerDependencies: {
-						description:
-							"If set to `false`, then the rule will show an error when `peerDependencies` are imported. Defaults to `true`.",
-						default: true,
-						allOf: [{ $ref: "#/definitions/DependencyAvailability" }],
 					},
 				},
 				additionalProperties: false,
@@ -2407,14 +2292,6 @@ export function GET() {
 						description: "Disallow exporting an imported variable.",
 						anyOf: [
 							{ $ref: "#/definitions/RuleConfiguration" },
-							{ type: "null" },
-						],
-					},
-					noGlobalDirnameFilename: {
-						description:
-							"Disallow the use of __dirname and __filename in the global scope.",
-						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -2525,13 +2402,6 @@ export function GET() {
 							{ type: "null" },
 						],
 					},
-					noUnknownAtRule: {
-						description: "Disallow unknown at-rules.",
-						anyOf: [
-							{ $ref: "#/definitions/RuleConfiguration" },
-							{ type: "null" },
-						],
-					},
 					noUnknownPseudoClass: {
 						description: "Disallow unknown pseudo-class selectors.",
 						anyOf: [
@@ -2566,13 +2436,6 @@ export function GET() {
 							"Disallow unnecessary String.raw function in template string literals without any escape sequence.",
 						anyOf: [
 							{ $ref: "#/definitions/RuleConfiguration" },
-							{ type: "null" },
-						],
-					},
-					noUselessUndefined: {
-						description: "Disallow the use of useless undefined.",
-						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -2662,27 +2525,11 @@ export function GET() {
 							{ type: "null" },
 						],
 					},
-					useExportsLast: {
-						description:
-							"Require that all exports are declared after all non-export statements.",
-						anyOf: [
-							{ $ref: "#/definitions/RuleConfiguration" },
-							{ type: "null" },
-						],
-					},
 					useGoogleFontDisplay: {
 						description:
 							"Enforces the use of a recommended display strategy with Google Fonts.",
 						anyOf: [
 							{ $ref: "#/definitions/RuleConfiguration" },
-							{ type: "null" },
-						],
-					},
-					useGoogleFontPreconnect: {
-						description:
-							"Ensure the preconnect attribute is used when using Google Fonts.",
-						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -2695,20 +2542,6 @@ export function GET() {
 					},
 					useImportRestrictions: {
 						description: "Disallows package private imports.",
-						anyOf: [
-							{ $ref: "#/definitions/RuleConfiguration" },
-							{ type: "null" },
-						],
-					},
-					useNamedOperation: {
-						description: "Enforce specifying the name of GraphQL operations.",
-						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration" },
-							{ type: "null" },
-						],
-					},
-					useNamingConvention: {
-						description: "Validates that all enum values are capitalized.",
 						anyOf: [
 							{ $ref: "#/definitions/RuleConfiguration" },
 							{ type: "null" },
@@ -2745,18 +2578,6 @@ export function GET() {
 							{ type: "null" },
 						],
 					},
-				},
-				additionalProperties: false,
-			},
-			Options: {
-				type: "object",
-				properties: {
-					importGroups: {
-						default: [],
-						type: "array",
-						items: { $ref: "#/definitions/ImportGroup" },
-					},
-					legacy: { default: false, type: "boolean" },
 				},
 				additionalProperties: false,
 			},
@@ -2972,10 +2793,6 @@ export function GET() {
 				},
 				additionalProperties: false,
 			},
-			PredefinedImportGroup: {
-				type: "string",
-				enum: [":blank-line:", ":bun:", ":node:", ":types:"],
-			},
 			QuoteProperties: { type: "string", enum: ["asNeeded", "preserve"] },
 			QuoteStyle: { type: "string", enum: ["double", "single"] },
 			Regex: { type: "string" },
@@ -3008,11 +2825,9 @@ export function GET() {
 				type: "object",
 				properties: {
 					paths: {
-						description: "A list of import paths that should trigger the rule.",
+						description: "A list of names that should trigger the rule",
 						type: "object",
-						additionalProperties: {
-							$ref: "#/definitions/CustomRestrictedImport",
-						},
+						additionalProperties: { type: "string" },
 					},
 				},
 				additionalProperties: false,
@@ -3021,46 +2836,7 @@ export function GET() {
 				type: "string",
 				enum: ["abstract", "private", "protected", "readonly", "static"],
 			},
-			RuleAssistConfiguration_for_Null: {
-				anyOf: [
-					{ $ref: "#/definitions/RuleAssistPlainConfiguration" },
-					{ $ref: "#/definitions/RuleAssistWithOptions_for_Null" },
-				],
-			},
-			RuleAssistConfiguration_for_Options: {
-				anyOf: [
-					{ $ref: "#/definitions/RuleAssistPlainConfiguration" },
-					{ $ref: "#/definitions/RuleAssistWithOptions_for_Options" },
-				],
-			},
-			RuleAssistPlainConfiguration: { type: "string", enum: ["on", "off"] },
-			RuleAssistWithOptions_for_Null: {
-				type: "object",
-				required: ["level", "options"],
-				properties: {
-					level: {
-						description: "The severity of the emitted diagnostics by the rule",
-						allOf: [{ $ref: "#/definitions/RuleAssistPlainConfiguration" }],
-					},
-					options: { description: "Rule's options", type: "null" },
-				},
-				additionalProperties: false,
-			},
-			RuleAssistWithOptions_for_Options: {
-				type: "object",
-				required: ["level", "options"],
-				properties: {
-					level: {
-						description: "The severity of the emitted diagnostics by the rule",
-						allOf: [{ $ref: "#/definitions/RuleAssistPlainConfiguration" }],
-					},
-					options: {
-						description: "Rule's options",
-						allOf: [{ $ref: "#/definitions/Options" }],
-					},
-				},
-				additionalProperties: false,
-			},
+			RuleAssistConfiguration: { type: "string", enum: ["on", "off"] },
 			RuleConfiguration: {
 				anyOf: [
 					{ $ref: "#/definitions/RulePlainConfiguration" },
@@ -3249,21 +3025,6 @@ export function GET() {
 				},
 				additionalProperties: false,
 			},
-			RuleWithNoForEachOptions: {
-				type: "object",
-				required: ["level", "options"],
-				properties: {
-					level: {
-						description: "The severity of the emitted diagnostics by the rule",
-						allOf: [{ $ref: "#/definitions/RulePlainConfiguration" }],
-					},
-					options: {
-						description: "Rule's options",
-						allOf: [{ $ref: "#/definitions/NoForEachOptions" }],
-					},
-				},
-				additionalProperties: false,
-			},
 			RuleWithNoLabelWithoutControlOptions: {
 				type: "object",
 				required: ["level", "options"],
@@ -3324,21 +3085,6 @@ export function GET() {
 				},
 				additionalProperties: false,
 			},
-			RuleWithNoUndeclaredDependenciesOptions: {
-				type: "object",
-				required: ["level", "options"],
-				properties: {
-					level: {
-						description: "The severity of the emitted diagnostics by the rule",
-						allOf: [{ $ref: "#/definitions/RulePlainConfiguration" }],
-					},
-					options: {
-						description: "Rule's options",
-						allOf: [{ $ref: "#/definitions/NoUndeclaredDependenciesOptions" }],
-					},
-				},
-				additionalProperties: false,
-			},
 			RuleWithRestrictedGlobalsOptions: {
 				type: "object",
 				required: ["level", "options"],
@@ -3365,21 +3111,6 @@ export function GET() {
 					options: {
 						description: "Rule's options",
 						allOf: [{ $ref: "#/definitions/RestrictedImportsOptions" }],
-					},
-				},
-				additionalProperties: false,
-			},
-			RuleWithUndeclaredVariablesOptions: {
-				type: "object",
-				required: ["level", "options"],
-				properties: {
-					level: {
-						description: "The severity of the emitted diagnostics by the rule",
-						allOf: [{ $ref: "#/definitions/RulePlainConfiguration" }],
-					},
-					options: {
-						description: "Rule's options",
-						allOf: [{ $ref: "#/definitions/UndeclaredVariablesOptions" }],
 					},
 				},
 				additionalProperties: false,
@@ -3431,25 +3162,6 @@ export function GET() {
 					options: {
 						description: "Rule's options",
 						allOf: [{ $ref: "#/definitions/UseImportExtensionsOptions" }],
-					},
-				},
-				additionalProperties: false,
-			},
-			RuleWithUseSelfClosingElementsOptions: {
-				type: "object",
-				required: ["level", "options"],
-				properties: {
-					fix: {
-						description: "The kind of the code actions emitted by the rule",
-						anyOf: [{ $ref: "#/definitions/FixKind" }, { type: "null" }],
-					},
-					level: {
-						description: "The severity of the emitted diagnostics by the rule",
-						allOf: [{ $ref: "#/definitions/RulePlainConfiguration" }],
-					},
-					options: {
-						description: "Rule's options",
-						allOf: [{ $ref: "#/definitions/UseSelfClosingElementsOptions" }],
 					},
 				},
 				additionalProperties: false,
@@ -3608,25 +3320,17 @@ export function GET() {
 				description: "A list of rules that belong to this group",
 				type: "object",
 				properties: {
-					organizeImports: {
-						description:
-							"Provides a whole-source code action to sort the imports in the file using import groups and natural ordering.",
+					sortJsxProps: {
+						description: "Enforce props sorting in JSX elements.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleAssistConfiguration_for_Options" },
-							{ type: "null" },
-						],
-					},
-					useSortedAttributes: {
-						description: "Enforce attribute sorting in JSX elements.",
-						anyOf: [
-							{ $ref: "#/definitions/RuleAssistConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleAssistConfiguration" },
 							{ type: "null" },
 						],
 					},
 					useSortedKeys: {
 						description: "Sorts the keys of a JSON object in natural order",
 						anyOf: [
-							{ $ref: "#/definitions/RuleAssistConfiguration_for_Null" },
+							{ $ref: "#/definitions/RuleAssistConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -3979,7 +3683,7 @@ export function GET() {
 						description:
 							"Prevent extra closing tags for components without children",
 						anyOf: [
-							{ $ref: "#/definitions/UseSelfClosingElementsConfiguration" },
+							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -4419,7 +4123,7 @@ export function GET() {
 					noPrototypeBuiltins: {
 						description: "Disallow direct use of Object.prototype builtins.",
 						anyOf: [
-							{ $ref: "#/definitions/RuleFixConfiguration" },
+							{ $ref: "#/definitions/RuleConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -4573,7 +4277,7 @@ export function GET() {
 					},
 					useValidTypeof: {
 						description:
-							"This rule checks that the result of a `typeof' expression is compared to a valid value.",
+							"This rule verifies the result of typeof $expr unary expressions is being compared to valid values, either string literals containing valid type names or other typeof expressions",
 						anyOf: [
 							{ $ref: "#/definitions/RuleFixConfiguration" },
 							{ type: "null" },
@@ -4618,22 +4322,6 @@ export function GET() {
 						enum: ["all"],
 					},
 				],
-			},
-			UndeclaredVariablesConfiguration: {
-				anyOf: [
-					{ $ref: "#/definitions/RulePlainConfiguration" },
-					{ $ref: "#/definitions/RuleWithUndeclaredVariablesOptions" },
-				],
-			},
-			UndeclaredVariablesOptions: {
-				type: "object",
-				properties: {
-					checkTypes: {
-						description: "Check undeclared types.",
-						default: true,
-						type: "boolean",
-					},
-				},
 			},
 			UseComponentExportOnlyModulesConfiguration: {
 				anyOf: [
@@ -4711,20 +4399,6 @@ export function GET() {
 							$ref: "#/definitions/SuggestedExtensionMapping",
 						},
 					},
-				},
-				additionalProperties: false,
-			},
-			UseSelfClosingElementsConfiguration: {
-				anyOf: [
-					{ $ref: "#/definitions/RulePlainConfiguration" },
-					{ $ref: "#/definitions/RuleWithUseSelfClosingElementsOptions" },
-				],
-			},
-			UseSelfClosingElementsOptions: {
-				description: "Options for the `useSelfClosingElements` rule.",
-				type: "object",
-				properties: {
-					ignoreHtmlElements: { default: false, type: "boolean" },
 				},
 				additionalProperties: false,
 			},

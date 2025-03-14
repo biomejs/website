@@ -20,19 +20,6 @@ Prevents the usage of variables that haven't been declared inside the document.
 
 If you need to allow-list some global bindings, you can use the [`javascript.globals`](/reference/configuration/#javascriptglobals) configuration.
 
-## Options (Since v2.0.0)
-
-The rule provides a `checkTypes` option that make the rule checks undeclared types.
-The option defaults to `true`.
-
-```json
-{
-    "options": {
-        "checkTypes": true
-    }
-}
-```
-
 ## Examples
 
 ### Invalid
@@ -41,14 +28,14 @@ The option defaults to `true`.
 foobar;
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-undeclared-variables">lint/correctness/noUndeclaredVariables</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The </span><span style="color: lightgreen;"><strong>foobar</strong></span><span style="color: lightgreen;"> variable is undeclared.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>foobar;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">By default, Biome recognizes browser and Node.js globals.<br /></span>    <span style="color: lightgreen;">You can ignore more globals using the </span><span style="color: lightgreen;"><a href="https://biomejs.dev/reference/configuration/#javascriptglobals">javascript.globals</a></span><span style="color: lightgreen;"> configuration.</span><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-undeclared-variables">lint/correctness/noUndeclaredVariables</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">The </span><span style="color: Orange;"><strong>foobar</strong></span><span style="color: Orange;"> variable is undeclared.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>foobar;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">By default, Biome recognizes browser and Node.js globals.<br /></span>    <span style="color: lightgreen;">You can ignore more globals using the </span><span style="color: lightgreen;"><a href="https://biomejs.dev/reference/configuration/#javascriptglobals">javascript.globals</a></span><span style="color: lightgreen;"> configuration.</span><br />  <br /></code></pre>
 
 ```js
 // throw diagnostic for JavaScript files
 PromiseLike;
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:2:1 <a href="https://biomejs.dev/linter/rules/no-undeclared-variables">lint/correctness/noUndeclaredVariables</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The </span><span style="color: lightgreen;"><strong>PromiseLike</strong></span><span style="color: lightgreen;"> variable is undeclared.</span><br />  <br />    <strong>1 │ </strong>// throw diagnostic for JavaScript files<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>PromiseLike;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">By default, Biome recognizes browser and Node.js globals.<br /></span>    <span style="color: lightgreen;">You can ignore more globals using the </span><span style="color: lightgreen;"><a href="https://biomejs.dev/reference/configuration/#javascriptglobals">javascript.globals</a></span><span style="color: lightgreen;"> configuration.</span><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:2:1 <a href="https://biomejs.dev/linter/rules/no-undeclared-variables">lint/correctness/noUndeclaredVariables</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">The </span><span style="color: Orange;"><strong>PromiseLike</strong></span><span style="color: Orange;"> variable is undeclared.</span><br />  <br />    <strong>1 │ </strong>// throw diagnostic for JavaScript files<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>PromiseLike;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">By default, Biome recognizes browser and Node.js globals.<br /></span>    <span style="color: lightgreen;">You can ignore more globals using the </span><span style="color: lightgreen;"><a href="https://biomejs.dev/reference/configuration/#javascriptglobals">javascript.globals</a></span><span style="color: lightgreen;"> configuration.</span><br />  <br /></code></pre>
 
 ### Valid
 

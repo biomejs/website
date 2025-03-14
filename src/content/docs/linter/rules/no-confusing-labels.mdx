@@ -80,27 +80,7 @@ $: { /* reactive block */ }
 </script>
 ```
 
-## Options
-
-Use the options to allow specific labels in your code.
-Labels can be used to mark code that should be removed under certain conditions,
-such as in production builds.
-Some bundlers, such as [esbuild](https://esbuild.github.io/api/#drop-labels) and Vite,
-can be configured to remove labeled statements.
-
-```json
-{
-    "options": {
-        "allowedLabels": ["DEV"]
-    }
-}
-```
-
-```js
-DEV: assertSomeCondition();
-```
-
-code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-confusing-labels">lint/suspicious/noConfusingLabels</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unexpected </span><span style="color: Tomato;"><strong>label</strong></span><span style="color: Tomato;">.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>DEV: assertSomeCondition();<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Only loops should be labeled.<br /></span>    <span style="color: lightgreen;">The use of labels for other statements is suspicious and unfamiliar.</span><br />  <br />## How to configure
+## How to configure
 ```json title="biome.json"
 {
 	"linter": {

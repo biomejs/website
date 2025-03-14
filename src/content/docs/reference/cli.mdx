@@ -421,7 +421,7 @@ Runs formatter, linter and import sorting to the requested files.
 
 Run various checks on a set of files.
 
-**Usage**: **`biome`** **`lint`** \[**`--write`**\] \[**`--unsafe`**\] \[**`--suppress`**\] \[**`--reason`**=_`STRING`_\] \[**`--only`**=_`<GROUP|RULE>`_\]... \[**`--skip`**=_`<GROUP|RULE>`_\]... \[**`--staged`**\] \[**`--changed`**\] \[**`--since`**=_`REF`_\] \[_`PATH`_\]...
+**Usage**: **`biome`** **`lint`** \[**`--write`**\] \[**`--unsafe`**\] \[**`--only`**=_`<GROUP|RULE>`_\]... \[**`--skip`**=_`<GROUP|RULE>`_\]... \[**`--staged`**\] \[**`--changed`**\] \[**`--since`**=_`REF`_\] \[_`PATH`_\]...
 
 **Set of properties to integrate Biome with a VCS software.**
 - **`    --vcs-enabled`**=_`<true|false>`_ &mdash; 
@@ -514,10 +514,6 @@ Run various checks on a set of files.
   Alias for `--write`, writes safe fixes (deprecated, use `--write`)
 - **`    --apply-unsafe`** &mdash; 
   Alias for `--write --unsafe`, writes safe and unsafe fixes (deprecated, use `--write --unsafe`)
-- **`    --suppress`** &mdash; 
-  Fixes lint rule violations with a comment a suppression instead of using a rule code action (fix)
-- **`    --reason`**=_`STRING`_ &mdash; 
-  Explanation for suppressing diagnostics with `--suppress`
 - **`    --only`**=_`<GROUP|RULE>`_ &mdash; 
   Run only the given rule or group of rules. If the severity level of a rule is `off`, then the severity level of the rule is set to `error` if it is a recommended rule or `warn` otherwise.
 
@@ -1027,11 +1023,14 @@ EXPERIMENTAL: Searches for Grit patterns across a project.
 
 Note: GritQL escapes code snippets using backticks, but most shells interpret backticks as command invocations. To avoid this, it's best to put single quotes around your Grit queries.
 
-**Usage**: **`biome`** **`search`** _`PATTERN`_ \[_`PATH`_\]...
+## Example
 
-```shell
-biome search '`console.log($message)`' # find all `console.log` invocations
-```
+  ```shell
+  biome search '`console.log($message)`' # find all `console.log` invocations
+  ```
+
+
+**Usage**: **`biome`** **`search`** _`PATTERN`_ \[_`PATH`_\]...
 
 **Global options applied to all commands**
 - **`    --colors`**=_`<off|force>`_ &mdash; 
@@ -1120,15 +1119,19 @@ biome search '`console.log($message)`' # find all `console.log` invocations
 
 Shows documentation of various aspects of the CLI.
 
+## Examples
+
+  ```shell
+  biome explain noDebugger
+  ```
+
+
+  ```shell
+  biome explain daemon-logs
+  ```
+
+
 **Usage**: **`biome`** **`explain`** _`NAME`_
-
-```shell
-# show documentation for lint/suspicious/noDebugger
-biome explain noDebugger 
-
-# obtain the precise path of daemon-logs
-biome explain daemon-logs
-```
 
 **Available positional items:**
 - _`NAME`_ &mdash; 

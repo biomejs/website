@@ -12,9 +12,6 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
 **Since**: `v1.6.0`
-Sources: 
-- Same as: <a href="https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-extraneous-dependencies.md" target="_blank"><code>import/no-extraneous-dependencies</code></a>
-
 ## Description
 Disallow the use of dependencies that aren't specified in the `package.json`.
 
@@ -44,44 +41,6 @@ import { A } from "./local.js";
 
 ```js
 import assert from "node:assert";
-```
-
-## Options
-
-**Since v2.0.0**
-
-This rule supports the following options:
-
-- `devDependencies`: If set to `false`, then the rule will show an error when `devDependencies` are imported. Defaults to `true`.
-- `peerDependencies`: If set to `false`, then the rule will show an error when `peerDependencies` are imported. Defaults to `true`.
-- `optionalDependencies`: If set to `false`, then the rule will show an error when `optionalDependencies` are imported. Defaults to `true`.
-
-You can set the options like this:
-
-```json
-{
-  "options": {
-    "devDependencies": false,
-    "peerDependencies": false,
-    "optionalDependencies": false
-  }
-}
-```
-
-You can also use an array of globs instead of literal booleans.
-When using an array of globs, the setting will be set to `true` (no errors reported)
-if the name of the file being linted (i.e. not the imported file/module) matches a single glob
-in the array, and `false` otherwise.
-
-In the following example, only test files can use dependencies in `devDependencies` section.
-`dependencies`, `peerDependencies`, and `optionalDependencies` are always available.
-
-```json
-{
-  "options": {
-    "devDependencies": ["tests/*.test.js", "tests/*.spec.js"]
-  }
-}
 ```
 
 ## How to configure
