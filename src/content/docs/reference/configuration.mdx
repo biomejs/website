@@ -9,10 +9,9 @@ description: How to customize and configure Biome with biome.json.
 
 Allows to pass a path to a JSON schema file.
 
-We publish a JSON schema file for the `biome.json`.
+We publish a JSON schema file for our `biome.json`/`biome.jsonc` files.
 
-You can specify a relative path to the schema of the `@biomejs/biome` npm package if `@biomejs/biome` is installed in the `node_modules` folder:
-
+You can specify a relative path to the schema inside the `@biomejs/biome` NPM package if it is installed in the `node_modules` folder:
 
 ```json title="biome.json"
 {
@@ -20,13 +19,11 @@ You can specify a relative path to the schema of the `@biomejs/biome` npm packag
 }
 ```
 
-If you have problems with resolving the physical file, you can use the one published in this site:
-
-
+If you have problems with resolving the physical file, you can use the one published on this site:
 
 ```json title="biome.json"
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json"
+  "$schema": "https://biomejs.dev/schemas/2.0.0-beta/schema.json"
 }
 ```
 
