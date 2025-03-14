@@ -71,7 +71,8 @@ lint:
       entrypoint: [""]                    # This is required for the image to work in GitLab CI
     stage: quality                        # Run in the quality stage
     script:
-        - biome ci src --reporter=gitlab --colors=off --log-level=none --diagnostic-level=error > code-quality.json  # Execute Biome on the 'src' directory
+        - biome ci --reporter=gitlab --colors=off > /tmp/code-quality.json 
+        - cp /tmp/code-quality.json code-quality.json
     artifacts:
         paths:
             - code-quality.json    # Collect the code quality report as an artifact
