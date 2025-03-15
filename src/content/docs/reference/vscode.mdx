@@ -6,42 +6,42 @@ import { FileTree } from '@astrojs/starlight/components';
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 import { Badge } from '@astrojs/starlight/components';
 
+Biome comes with an official [VS Code extension] that tightly integrates with
+your code editor, providing formatting, linting, and code refactoring features to your
+development workflow.
 
-**Biome** ships with a first-party **VS Code extension** that provides the following 
-features.
+[VS Code extension]: https://marketplace.visualstudio.com/items?itemName=biomejs.biome
 
-- Format on save
-- Real-time code linting
-- Code refactoring with quick fixes
-
-In this document, we'll go over how to install and configure the extension.
+This reference document provides an overview of the extension's features, how to install 
+it, and how to configure it for your projects.
 
 ## Installing the extension
 
-The extension is available both on the 
-[Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=biomejs.biome) and the 
-[Open VSX registry](https://open-vsx.org/extension/biomejs/biome) and can be installed directly
-by clicking one of the following links:
+The recommended way to install the extension is through the [Visual Studio Code Marketplace]
+for VS Code users, or the [Open VSX registry] for VSCodium and other derivatives such as Cursor.
 
-[![](https://img.shields.io/badge/Install%20Biome-in%20VS%20Code-007ACC?style=flat&logo=biome)](vscode:extension/biomejs.biome)
+[Visual Studio Code Marketplace]: https://marketplace.visualstudio.com/items?itemName=biomejs.biome
+[Open VSX registry]: https://open-vsx.org/extension/biomejs/biome
 
-[![](https://img.shields.io/badge/Install%20Biome-in%20VSCodium-007ACC?style=flat&logo=biome)](vscodium:extension/biomejs.biome)
+- [![](https://img.shields.io/badge/Install%20Biome-in%20VS%20Code-007ACC?style=flat&logo=biome)](vscode:extension/biomejs.biome)
+- [![](https://img.shields.io/badge/Install%20Biome-in%20VSCodium-007ACC?style=flat&logo=biome)](vscodium:extension/biomejs.biome)
+
 
 ## Projects
 
 The Biome extension operates on so-called _projects_. A project is a directory in which the extension will spawn a dedicated
-Biome LSP server. This is useful because it allows you to use different versions of Biome for different projects, and to
-have different configurations for each project.
+Biome LSP server. This is useful because it allows you to use different versions of Biome for different projects, even if they
+are part of the same workspace folder.
 
 ### Defining projects
 
 Projects can be defined in two places:
 
-- At the **workspace** level (`.code-workspace`)
-- At the **workspace folder** level (`.vscode/settings.json`)
+- At the **workspace** level (in a `.code-workspace` file)
+- At the **workspace folder** level (in a `.vscode/settings.json` file)
 
-:::note[Implicit projects]
-The extension automatically creates a project at the root of every workspace folder that does not have explicitly defined projects.
+:::tip[It just works!]
+If you don't explicitly define any projects, the extension will automatically create a project at the root of the workspace folder.
 :::
 
 #### Defining projects in a workspace
@@ -65,11 +65,18 @@ Please refer to the [`biome.projects` config reference](#biomeprojects) for more
 
 ### Enabling and disabling
 
-The extension is always enabled because it needs to keep track of the state of the workspace, however it provides two settings
+The extension is always activated because it needs to keep track of the state of the workspace, however it provides two settings
 to control whether Biome LSP sessions should be created for indidividual projects:
 
 - The [`biome.enabled`](#biomeenabled) setting, which can be set globally and per-project.
 - The [`biome.requireConfigFile`](#biomerequireconfigfile) setting, which can be set globally and per-project.
+
+:::tip[Which one to use?]
+The `biome.enabled` acts as a explicit on/off switch for the extension, while the `biome.requireConfigFile` setting is more of a
+configuration setting that allows you to require the presence of a configuration file for a project to be enabled. Unless you have
+a specific reason not to, we recommend relying on the `biome.requireConfigFile` setting to enable or disable the extension and leave
+the `biome.enabled` setting to `true`.
+:::
 
 #### Using the `biome.enabled` setting
 
@@ -81,9 +88,6 @@ specific workspace folders.
 
 The [`biome.requireConfigFile`](#biomerequireconfigfile) setting can be set globally and per project. When setting it globally, it applies to all workspace folders unless
 they override the setting. This allows you to require the presence of a [Biome configuration file](/guides/configure-biome#configuration-file-structure) for a Biome project to be enabled. 
-
-It is a good idea to enable this setting globally when you know you always use a `biome.json` file, and you want to avoid the extension creating projects
-for workspace folders that don't use Biome. 
 
 ## Common use cases
 
@@ -102,7 +106,7 @@ automatically create a project at the root of the workspace folder. This is the 
 ### Multi-root workspaces
 
 A multi-root workspace is a workspace where there are multiple workspace folders. In this case, the extension will automatically create a project
-at the root of each workspace folder. You can [explicitly define projects](##defining-projects-in-a-workspace) using the [`biome.projects`](#biomeprojects) 
+at the root of each workspace folder. You can also [explicitly define projects](##defining-projects-in-a-workspace) using the [`biome.projects`](#biomeprojects) 
 setting.
 
 <FileTree>
@@ -119,9 +123,9 @@ setting.
 
 ### Monorepos
 
-A monorepo is typically a workspace folder in which multiple Biome projects are defined. In this case, you'll need to
-[explicitly define projects](#defining-projects-in-a-workspace-folder) using the [`biome.projects`](#biomeprojects) 
-setting.
+A monorepo is typically a workspace folder in which multiple projects are defined. Unless you have Biome installed at the root
+of the monorepo. you'll want to [explicitly define projects](#defining-projects-in-a-workspace-folder) using the 
+[`biome.projects`](#biomeprojects) to tell the extension where to look for Biome projects.
 
 <Tabs>
 	<TabItem label="File structure">
@@ -161,7 +165,7 @@ setting.
 
 The Biome extension registers itself as a formatter for [supported file types](/internals/language-support), and supports formatting a whole file, or a selection of code.
 
-Run either of the following commands from the [command palette](https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette):
+Run either one of the following commands from the [command palette](https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette):
 
 - To format a whole file, run the `Format Document` command.
 - To format a selection of code, select the code and run the `Format Selection` command.
@@ -172,7 +176,8 @@ To enable formatting on save, set VS Code's [`editor.formatOnSave`](vscode://set
 
 ### Code fixing
 
-The Biome extension registers itself as a code action provider for [supported file types](/internals/language-support), and provides code fixes for diagnostics.
+The Biome extension registers itself as a code action provider for [supported file types](/internals/language-support), and provides code fixes for diagnostics
+that have safe fixes.
 
 #### Manual quick fixes
 
@@ -180,7 +185,7 @@ To manually apply a quick fix, select the diagnostic and click the `Quick Fix` b
 
 #### Fix on save
 
-To enable fix on save, update VS Code's [`editor.codeActionsOnSave`](vscode://settings/editor.codeActionsOnSave) setting to include the following:
+To enable **Fix on Save**, update VS Code's [`editor.codeActionsOnSave`](vscode://settings/editor.codeActionsOnSave) setting to include the following:
 
 ```diff
 {
@@ -226,6 +231,10 @@ This setting controls whether projects will be created in a workspace or not. Wh
 
 This setting controls whether projects will be created depending on whether a Biome configuration file is present in the project directory. When set globally, it applies to all workspace folders, unless they themselves override the setting.
 
+:::caution
+The `biome.enabled` setting must be set to `true` in the same scope for this setting to take effect.
+:::
+
 ### `biome.projects`
 
 **Default:** `undefined` | **Scopes:** `workspace`, `workspace folder`
@@ -236,15 +245,11 @@ This setting allows you to define projects explicitly. It should be an array of 
 	<TabItem label="workspace folder">
 		- `path` (optional, defaults to `.`): The **path to the project directory**, _relative to the root of the workspace folder_. This is the path where the extension will spawn an independant Biome LSP server, and where you'd typically
 		put your `biome.json` file.
-		- `configFile` (optional): The path to a **custom configuration** file to use for the project. This is useful if you want to rename the `biome.json` file, for example. By default, the LSP server will look for a `biome.{json,jsonc}` file in the
-		root of the project directory.
 	</TabItem>
 	<TabItem label="workspace">
 		- `name` (required when defining at the workspace level): The **name of the workspace folder** that the project is associated with, which must match the `name` property of the workspace folder defined in the `folders` property.
 		- `path` (optional, defaults to `.`): The **path to the project directory**, _relative to the root of the workspace folder_. This is the path where the extension will spawn an independant Biome LSP server, and where you'd typically
 		put your `biome.json` file.
-		- `configFile` (optional): The path to a **custom configuration** file to use for the project. This is useful if you want to rename the `biome.json` file, for example. By default, the LSP server will look for a `biome.{json,jsonc}` file in the
-		root of the project directory.
 	</TabItem>
 </Tabs>
 
@@ -283,12 +288,6 @@ or if you want to use a binary that's not on your `PATH`. In can be either a pat
 
 This setting allows to set the logging level of the Biome LSP trace. The possible values are `off`, `messages`, `verbose`.
 You may want to set this setting to `verbose` when you encounter issues with the extension, and you'd like to share the logs with us.
-
-### `biome.experimental.rename` <Badge text="experimental" variant="caution" size="medium" />
-
-**Default:** `false` | **Scopes:** `global`, `workspace`, `workspace folder`
-
-This **experimental** setting control whether Biome should be used to rename symbols when using the `Rename Symbol` command.
 
 ## Troubleshooting
 
