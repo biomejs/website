@@ -11,7 +11,8 @@ Allows to pass a path to a JSON schema file.
 
 We publish a JSON schema file for our `biome.json`/`biome.jsonc` files.
 
-You can specify a relative path to the schema inside the `@biomejs/biome` NPM package if it is installed in the `node_modules` folder:
+You can specify a relative path to the schema inside the `@biomejs/biome` NPM
+package if it is installed in the `node_modules` folder:
 
 ```json title="biome.json"
 {
@@ -19,7 +20,8 @@ You can specify a relative path to the schema inside the `@biomejs/biome` NPM pa
 }
 ```
 
-If you have problems with resolving the physical file, you can use the one published on this site:
+If you have problems with resolving the physical file, you can use the one
+published on this site:
 
 ```json title="biome.json"
 {
@@ -29,71 +31,74 @@ If you have problems with resolving the physical file, you can use the one publi
 
 ## `extends`
 
-A list of paths to other JSON files. Biome resolves and applies the options of the files contained in the `extends` list, and eventually applies the options contained in the `biome.json` file.
+A list of paths to other Biome configuration files. Biome resolves and applies
+the configuration settings from the files contained in the `extends` list, and
+eventually applies the options contained in this `biome.json`/`biome.jsonc`
+file.
+
+Files are provided in order from least relevant to most relevant, with the
+settings in the current file being leading.
 
 ## `files`
 
-### `files.maxSize`
+### `files.includes`
 
-The maximum allowed size for source code files in bytes. Files above
-this limit will be ignored for performance reasons.
+A list of [glob patterns](#glob-syntax-reference) of files to process.
 
-> Default: `1048576` (1024*1024, 1MB)
+If a folder matches a glob pattern, all files inside that folder will be
+processed.
 
-### `files.ignore`
-
-A list of Unix shell style patterns. Biome ignores files and folders that
-match these patterns.
-
+The following example matches all files with a `.js` extension inside the `src`
+folder:
 
 ```json title="biome.json"
 {
   "files": {
-    "ignore": ["scripts/*.js"]
+    "includes": ["src/**/*.js"]
   }
 }
 ```
 
+`*` is used to match _all files in a folder_, while `**` _recursively_ matches
+all files and subfolders in a folder. For more information on globs, see the
+[glob syntax reference](#glob-syntax-reference)
 
-### `files.include`
+`includes` also supports negated patterns, or exceptions. These are patterns
+that start with `!` and they can be used to instruct Biome to process all files
+_except_ those matching the negated pattern.
 
-A list of Unix shell style patterns. Biome handles only the files and folders that match these patterns.
+Note that exceptions are processed in order, allowing you to specify exceptions
+to exceptions.
 
-
+Consider the following example:
 
 ```json title="biome.json"
 {
   "files": {
-    "include": ["scripts/*.js"]
+    "includes": ["**", "!**/*.test.js", "**/special.test.js", "!test"]
   }
 }
 ```
 
-:::caution
-When both `include` and `ignore` are specified, `ignore` takes **precedence** over `include`
-:::
+This example specifies that:
 
-Given the following example:
+1. All files inside all (sub)folders are processed, thanks to the `**` pattern...
+2. ... _except_ when those files have a `.test.js` extension...
+3. ... but the file `special.test.ts` _is_ still processed...
+4. ... _except_ when it occurs in the folder named `test`, because _no_ files
+   inside that folder are processed.
 
+This means that:
 
-
-```json title="biome.json"
-{
-  "files": {
-    "include": ["scripts/**/*.js", "src/**/*.js"],
-    "ignore": ["scripts/**/*.js"]
-  }
-}
-```
-
-Only the files that match the pattern `src/**/*.js` will be handled, while the files that match the pattern
-`scripts/**/*.js` will be ignored.
+* `src/app.js` **is** processed.
+* `src/app.test.js` **is not** processed.
+* `src/special.test.js` **is* processed.
+* `test/special.test.js` **is not* processed.
 
 ### `files.ignoreUnknown`
 
-Biome won't emit diagnostics if it encounters files that can't handle.
-
-
+If `true`, Biome won't emit diagnostics if it encounters files that it can't
+handle.
 
 ```json title="biome.json"
 {
@@ -104,6 +109,13 @@ Biome won't emit diagnostics if it encounters files that can't handle.
 ```
 
 > Default: `false`
+
+### `files.maxSize`
+
+The maximum allowed size for source code files in bytes. Files above
+this limit will be ignored for performance reasons.
+
+> Default: `1048576` (1024*1024, 1MB)
 
 ## `vcs`
 
@@ -144,59 +156,82 @@ The main branch of the project. Biome will use this branch when evaluating the c
 
 ### `linter.enabled`
 
-Enables Biome's linter
+Enables Biome's linter.
 
 > Default: `true`
 
-### `linter.ignore`
+### `linter.includes`
 
-An array of Unix shell style patterns.
+A list of [glob patterns](#glob-syntax-reference) of files to lint.
 
-
-
-```json title="biome.json"
-{
-  "linter": {
-    "ignore": ["scripts/*.js"]
-  }
-}
-```
-
-
-### `linter.include`
-
-A list of Unix shell style patterns. Biome handles only the files and folders that
-match these patterns.
-
-
+The following example lints all files with a `.js` extension inside the `src`
+folder:
 
 ```json title="biome.json"
 {
   "linter": {
-    "include": ["scripts/*.js"]
+    "includes": ["src/**/*.js"]
   }
 }
 ```
 
-:::caution
-When both `include` and `ignore` are specified, `ignore` takes **precedence** over `include`
+`*` is used to match _all files in a folder_, while `**` _recursively_ matches
+all files and subfolders in a folder. For more information on globs, see the
+[glob syntax reference](#glob-syntax-reference)
+
+`includes` also supports negated patterns, or exceptions. These are patterns
+that start with `!` and they can be used to instruct Biome to process all files
+_except_ those matching the negated pattern.
+
+Note that exceptions are processed in order, allowing you to specify exceptions
+to exceptions.
+
+Consider the following example:
+
+```json title="biome.json"
+{
+  "linter": {
+    "includes": ["**", "!**/*.test.js", "**/special.test.js"]
+  }
+}
+```
+
+This example specifies that:
+
+1. All files inside all (sub)folders are linted, thanks to the `**` pattern...
+2. ... _except_ when those files have a `.test.js` extension...
+3. ... but the file `special.test.ts` _is_ still linted.
+
+This means that:
+
+* `src/app.js` **is** linted.
+* `src/app.test.js` **is not** linted.
+* `src/special.test.js` **is* linted.
+
+Note that `linter.includes` is applied *after* `files.includes`. This means
+that any file that is not matched by `files.includes` can no longer be matched
+`linter.includes`. This means the following example **doesn't work**:
+
+```json5 title="biome.jsonc"
+{
+  "files": {
+    "includes": "src/**"
+  },
+  "linter": {
+    // This matches nothing because there is no overlap with `files.includes`:
+    "includes": "scripts/**"
+  }
+}
+```
+
+If `linter.includes` is not specified, all files matched by
+[`files.includes`](#filesincludes) are linted.
+
+:::note
+Due to a technical limitation, `linter.includes` also cannot match folders
+while `files.includes` can. If you want to match all files inside a folder,
+you should explicitly add `/**` at the end.
 :::
-
-Given the following example:
-
-
-
-```json title="biome.json"
-{
-  "linter": {
-    "include": ["scripts/**/*.js", "src/**/*.js"],
-    "ignore": ["scripts/**/*.js"]
-  }
-}
-```
-
-Only the files that match the patter `src/**/*.js` will be linted, while the files that match the pattern
-`scripts/**/*.js` will be ignored.
 
 ### `linter.rules.recommended`
 
@@ -233,7 +268,7 @@ For example, you can configure the `a11y` group to emit information diagnostics:
 }
 ```
 
-Here's the accepted values:
+Here are the accepted values:
 - `"on"`: each rule that belongs to the group will emit a diagnostic with the default severity of the rule. Refer to the documentation of the rule, or use the `explain` command:
     ```shell showLineNumbers=false
     biome explain noDebugger
@@ -269,58 +304,82 @@ These options apply to all languages. There are additional language-specific for
 
 ### `formatter.enabled`
 
-Enables Biome's formatter
+Enables Biome's formatter.
 
 > Default: `true`
 
-### `formatter.ignore`
+### `formatter.includes`
 
-An array of Unix shell style patterns.
+A list of [glob patterns](#glob-syntax-reference) of files to format.
 
-
-
-```json title="biome.json"
-{
-  "formatter": {
-    "ignore": ["scripts/*.js"]
-  }
-}
-```
-
-### `formatter.include`
-
-A list of Unix shell style patterns. Biome handles only the files and folders that
-match these patterns.
-
-
+The following example formats all files with a `.js` extension inside the `src`
+folder:
 
 ```json title="biome.json"
 {
   "formatter": {
-    "include": ["scripts/*.js"]
+    "includes": ["src/**/*.js"]
   }
 }
 ```
 
-:::caution
-When both `include` and `ignore` are specified, `ignore` takes **precedence** over `include`
+`*` is used to match _all files in a folder_, while `**` _recursively_ matches
+all files and subfolders in a folder. For more information on globs, see the
+[glob syntax reference](#glob-syntax-reference)
+
+`includes` also supports negated patterns, or exceptions. These are patterns
+that start with `!` and they can be used to instruct Biome to process all files
+_except_ those matching the negated pattern.
+
+Note that exceptions are processed in order, allowing you to specify exceptions
+to exceptions.
+
+Consider the following example:
+
+```json title="biome.json"
+{
+  "formatter": {
+    "includes": ["**", "!**/*.test.js", "**/special.test.js"]
+  }
+}
+```
+
+This example specifies that:
+
+1. All files inside all (sub)folders are formatted, thanks to the `**` pattern...
+2. ... _except_ when those files have a `.test.js` extension...
+3. ... but the file `special.test.ts` _is_ still formatted.
+
+This means that:
+
+* `src/app.js` **is** formatted.
+* `src/app.test.js` **is not** formatted.
+* `src/special.test.js` **is* formatted.
+
+Note that `formatter.includes` is applied *after* `files.includes`. This means
+that any file that is not matched by `files.includes` can no longer be matched
+`formatter.includes`. This means the following example **doesn't work**:
+
+```json5 title="biome.jsonc"
+{
+  "files": {
+    "includes": "src/**"
+  },
+  "formatter": {
+    // This matches nothing because there is no overlap with `files.includes`:
+    "includes": "scripts/**"
+  }
+}
+```
+
+If `formatter.includes` is not specified, all files matched by
+[`files.includes`](#filesincludes) are formatted.
+
+:::note
+Due to a technical limitation, `formatter.includes` also cannot match folders
+while `files.includes` can. If you want to match all files inside a folder,
+you should explicitly add `/**` at the end.
 :::
-
-Given the following example:
-
-
-
-```json title="biome.json"
-{
-  "formatter": {
-    "include": ["scripts/**/*.js", "src/**/*.js"],
-    "ignore": ["scripts/**/*.js"]
-  }
-}
-```
-
-Only the files that match the patter `src/**/*.js` will be formatted, while the files that match the pattern
-`scripts/**/*.js` will be ignored.
 
 ### `formatter.formatWithErrors`
 
@@ -399,65 +458,6 @@ The config files `.editorconfig` and `biome.json` will follow the follwing rules
 - Nested `.editorconfig` files aren't supported currently.
 
 > Default: `true`
-
-## `organizeImports`
-
-### `organizeImports.enabled`
-
-Enables Biome's sort imports.
-
-> Default: `true`
-
-### `organizeImports.ignore`
-
-
-A list of Unix shell style patterns. Biome ignores files and folders that match these patterns.
-
-
-
-```json title="biome.json"
-{
-  "organizeImports": {
-    "ignore": ["scripts/*.js"]
-  }
-}
-```
-
-
-### `organizeImports.include`
-
-A list of Unix shell style patterns. Biome handles only the files and folders that
-match these patterns.
-
-
-
-```json title="biome.json"
-{
-  "organizeImports": {
-    "include": ["scripts/*.js"]
-  }
-}
-```
-
-:::caution
-When both `include` and `ignore` are specified, `ignore` takes **precedence** over `include`
-:::
-
-Given the following example:
-
-
-
-```json title="biome.json"
-{
-  "organizeImports": {
-    "include": ["scripts/**/*.js", "src/**/*.js"],
-    "ignore": ["scripts/**/*.js"]
-  }
-}
-```
-
-Only the files that match the patter `src/**/*.js` will have their imports sorted, while the files that match the pattern
-`scripts/**/*.js` will be ignored.
 
 
 ## `javascript`
@@ -1109,30 +1109,16 @@ When a file is matched against an override pattern, the configuration specified 
 
 The order of the patterns matter. If a file *can* match three patterns, only the first one is used.
 
-### `overrides.<ITEM>.ignore`
+### `overrides.<ITEM>.includes`
 
-A list of Unix shell style patterns. Biome will not apply the override to files that match the pattern.
+A list of [glob patterns](https://en.wikipedia.org/wiki/Glob_(programming)) of
+files for which to apply customised settings.
 
-
-
-```json title="biome.json"
+```json title="biome.jsonc"
 {
   "overrides": [{
-    "ignore": ["scripts/*.js"]
-  }]
-}
-```
-
-### `overrides.<ITEM>.include`
-
-A list of Unix shell style patterns. Biome will apply the override only to files that match the pattern.
-
-
-
-```json title="biome.json"
-{
-  "overrides": [{
-    "include": ["scripts/*.js"]
+    "includes": ["scripts/*.js"],
+    // settings that should only apply to the files specified in the includes field.
   }]
 }
 ```
@@ -1145,8 +1131,6 @@ It will include the options of [top level formatter](#formatter) configuration, 
 
 For example, it's possible to modify the formatter `lineWidth`, `indentStyle` for certain files that are included in the glob path `generated/**`:
 
-
-
 ```json title="biome.json"
 {
   "formatter": {
@@ -1154,7 +1138,7 @@ For example, it's possible to modify the formatter `lineWidth`, `indentStyle` fo
   },
   "overrides": [
     {
-      "include": ["generated/**"],
+      "includes": ["generated/**"],
       "formatter": {
         "lineWidth": 160,
         "indentStyle": "space"
@@ -1173,8 +1157,6 @@ It will include the options of [top level linter](#linter) configuration, minus 
 
 You can disable certain rules for certain glob paths, and disable the linter for other glob paths:
 
-
-
 ```json title="biome.json"
 {
   "linter": {
@@ -1185,7 +1167,7 @@ You can disable certain rules for certain glob paths, and disable the linter for
   },
   "overrides": [
     {
-      "include": ["lib/**"],
+      "includes": ["lib/**"],
       "linter": {
         "rules": {
           "suspicious": {
@@ -1195,7 +1177,7 @@ You can disable certain rules for certain glob paths, and disable the linter for
       }
     },
     {
-      "include": ["shims/**"],
+      "includes": ["shims/**"],
       "linter": {
         "enabled": false
       }
@@ -1216,8 +1198,6 @@ It will include the options of [top level javascript](#javascript) configuration
 
 You can change the formatting behaviour of JavaScript files in certain folders:
 
-
-
 ```json title="biome.json"
 {
   "formatter": {
@@ -1230,7 +1210,7 @@ You can change the formatting behaviour of JavaScript files in certain folders:
   },
   "overrides": [
     {
-      "include": ["lib/**"],
+      "includes": ["lib/**"],
       "javascript": {
         "formatter": {
           "quoteStyle": "double"
@@ -1251,8 +1231,6 @@ It will include the options of [top level json](#json) configuration.
 
 You can enable parsing features for certain JSON files:
 
-
-
 ```json title="biome.json"
 {
   "linter": {
@@ -1263,7 +1241,7 @@ You can enable parsing features for certain JSON files:
   },
   "overrides": [
     {
-      "include": [".vscode/**"],
+      "includes": [".vscode/**"],
       "json": {
         "parser": {
           "allowComments": true,
@@ -1274,3 +1252,37 @@ You can enable parsing features for certain JSON files:
   ]
 }
 ```
+
+## Glob syntax reference
+
+Glob patterns are used to match paths of files and folders. Biome supports the
+following syntax in globs:
+
+- `*` matches zero or more characters. It cannot match the path separator `/`.
+- `**` recursively matches directories and files. This sequence must be used as
+  an entire path component, so both `**a` and `b**` are invalid and will result
+  in an error. A sequence of more than two consecutive `*` characters is also
+  invalid.
+- `[...]` matches any character inside the brackets.
+  Ranges of characters can also be specified, as ordered by Unicode, so e.g.
+  `[0-9]` specifies any character between 0 and 9 inclusive.
+- `[!...]` is the negation of `[...]`, i.e. it matches any characters **not** in
+  the brackets.
+- If the entire glob starts with `!`, it is a so-called negated pattern. This
+  glob only matches if the path _doesn't_ match the glob. Negated patterns
+  cannot be used alone, they can only be used as _exception_ to a regular glob.
+
+Some examples:
+
+- `dist/**` matches the `dist/` folder and all files inside it.
+- `**/test/**` matches all files under any folder named `test`, regardless of
+  where they are. E.g. `dist/test`, `src/test`.
+- `**/*.js` matches all files ending with the extension `.js` in all folders.
+
+:::caution
+Glob patterns can be used in a Biome configuration file, but they can also be
+specified from the command line. When you specify a glob on the command line,
+it is interpreted by your shell rather than by Biome. Shells may support
+slightly different syntax for globs. For instance, some shells do not support
+the recursive pattern `**`.
+:::

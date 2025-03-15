@@ -68,7 +68,7 @@ We disabled the formatter for JSON files.
 ```
 
 :::note
-Biome refers as `javascript` all variants of the JavaScript language.
+Biome refers to all variants of the JavaScript language as `javascript`.
 This includes TypeScript, JSX and TSX.
 :::
 
@@ -101,21 +101,12 @@ Here's an example:
 will use the configuration file `app/frontend/biome.json`;
 
 :::caution
-Biome doesn't support nested `biome.json` files, neither in CLI nor in LSP. [Follow and help the support in the related issue](https://github.com/biomejs/biome/issues/2228)
-:::
-
-:::note
-Biome commands support using the `--config-path` option and the `BIOME_CONFIG_PATH` environment variable.
-This allows you to specify a custom configuration file or a directory where Biome can look for a `biome.json` or `biome.jsonc` file.
-When you use `--config-path` or `BIOME_CONFIG_PATH`, the standard configuration file resolution process is **disabled**.
-
-If `--config-path` or `BIOME_CONFIG_PATH` points directly to a file, you can use names other than `biome.json` or `biome.jsonc`.
-Biome will read a `.json` file using a standard JSON parser.
-For files with other extensions, Biome will treat them as `.jsonc` files, using a more flexible JSON parser that allows comments and trailing commas.
+Biome doesn't yet support nested `biome.json` files, neither in CLI nor in LSP.
+[Follow and help the support in the related issue](https://github.com/biomejs/biome/issues/2228)
 :::
 
 
-## Share a configuration file
+## Sharing a configuration file
 
 The `extends` field allows you to split your configuration across multiple files.
 This way, you can share common settings across different projects or folders.
@@ -170,11 +161,11 @@ To avoid a breaking change with how the existing resolution works, paths startin
 For more information about the resolution algorithm, refer to the [Node.js documentation](https://nodejs.org/api/esm.html#resolution-and-loading-algorithm).
 
 
-## Ignore files
+## Specifying files to process
 
-The first way to control which files and directories are processed by Biome is to list them in the CLI.
-In the following command, we format only `file1.js` and all the files in the `src` directory.
-The directories are recursively traversed.
+The first way to control which files and folders are processed by Biome is to
+list them in the CLI. In the following command, we only format `file1.js` and
+all the files in the `src` folder, because folders are recursively traversed.
 
 ```shell
 biome format file1.js src/
@@ -187,33 +178,36 @@ Some shells don't support the recursive glob `**`.
 :::
 
 The Biome configuration file can be used to refine which files are processed.
-You can explicitly list the files to be processed using `include` and the files not to be processed using `ignore`.
-`include` and `ignore` accepts globs patterns such as `src/**/*.js`.
-See the [related section](#glob-syntax-explained) for which glob syntaxes are supported.
-`include` is always applied first before applying `ignore`.
-This allows you to include some files and to ignore some of the file you included.
+You can explicitly list the files to be processed using
+[the `files.includes` field](/reference/configuration). `files.includes` accepts
+[glob patterns](/reference/configuration#glob-syntax-reference) such as
+`src/**/*.js`. Negated patterns starting with `!` can be used to exclude files.
 
-:::note
-`include` and `ignore` have a slightly different semantics.
-`include` doesn't prevent Biome of traversing a folder.
-This means that if you want to prevent Biome from traversing a folder, you have to add the folder to `ignore`.
+Paths and globs inside Biome's configuration file are always resolved relative
+to the folder the configuration file is in.
+
+`files.includes` applies to all of Biome's tools, meaning the files specified
+here are processed by the linter, the formatter and the assist, unless specified
+otherwise. For the individual tools, you can further refine the matching files
+using `<tool>.includes`.
+
+:::important
+The global `files.includes` has slightly different semantics than the more
+specific `<tool>.includes` fields. Any file or folder that doesn't match
+`files.includes` is excluded from use by any of Biome's tools. This means that
+any tool-specific `includes` field can never match a file that doesn't also
+match `files.includes`.
 :::
-
-Biome provides global `files.include` and `files.ignore` fields that apply to all tools.
-You can also include and ignore files at tool level using `<tool>.include` and `<tool>.ignore`.
-Note that they don't override the global `files.include` and `files.ignore`.
-`files.include` and `files.ignore` are applied first before a tool's `include` and `ignore`.
 
 Let's take the following configuration:
 
 ```json title="biome.json"
 {
   "files": {
-    "include": ["src/**/*.js", "test/**/*.js"],
-    "ignore": ["**/*.min.js"],
+    "includes": ["src/**/*.js", "test/**/*.js", "!**/*.min.js"],
   },
   "linter": {
-    "ignore": ["test"]
+    "includes": ["!test/**"]
   }
 }
 ```
@@ -224,67 +218,17 @@ And run the following command:
 biome format test/
 ```
 
-The command will format the files that end with the `.js` extension and doesn't end with the `.min.js` extension from the `test` directory.
-The files in `src` are not formatted because the directory is not listed in the CLI.
+The command will format the files that end with the `.js` extension and don't
+end with the `.min.js` extension from the `test/` folder.
+The files in `src/` are not formatted because the folder is not listed in the
+CLI.
 
-If we run the following command, no files are linted because the `test` directory is explicitly ignored for the linter.
+If we run the following command, no files are linted because files inside the
+`test/` folder are explicitly ignored for the linter.
 
 ```shell
 biome lint test/
 ```
-
-Biome resolves the globs relatively from the working directory.
-The working directory is the directory where you usually run a CLI command.
-This means that you have to place **particular attention** when the configuration file is placed in
-a different directory from where you execute your command.
-In the case of an editor (LSP) the working directory is the root directory of your project.
-
-Let's take a project that contains two directories `backend/` and `frontend/`, and the Biome configuration file that we introduced earlier.
-Inside the `frontend/` directory, a `package.json` specifies a `format` script that runs the Biome formatter.
-
-<FileTree>
-- backend
-  - ...
-- biome.json
-- frontend
-  - package.json
-  - src
-    - ...
-  - test
-    - ...
-</FileTree>
-
-```json title="frontend/package.json"
-{
-  "name": "frontend-project",
-  "scripts": {
-    "format": "biome format --write ./"
-  }
-}
-```
-
-When you run the script `format` from `frontend/package.json`,
-the working directory resolved by that script will be `frontend/`.
-The globs `src/**/*.js` and `test/**/*.js` will have as "base" directory `frontend/`.
-Thus, only the files from `frontend/src/` and `frontend/test/` will be formatted.
-
-```json title="biome.json"
-{
-  "files": {
-    "include": ["src/**/*.js", "src/**/*.ts"],
-    "ignore": ["test"]
-  },
-  "formatter": {
-    "indentStyle": "space"
-  }
-}
-```
-
-:::caution
-`ignore` and `include` inside `overrides` have a **different** semantics:
-- for `ignore`: if a file matches the globs, **_don't_ apply** the configuration inside this override, and keep apply the next overrides;
-- for `include`: if a file matches the globs, **apply** the configuration inside this override, and keep apply the next overrides;
-:::
 
 :::note
 By default, Biome always ignores some files that are said to be **protected files**.
@@ -353,36 +297,3 @@ The following files are parsed as `JSON` files with the options `json.parser.all
 - `tsconfig.json`
 - `typedoc.json`
 - `typescript.json`
-
-
-## Glob syntax explained
-
-A glob pattern specifies a set of filenames.
-Biome supports the following globs:
-
-- `*` matches zero or more characters. It cannot match the path separator `/`.
-- `**` recursively matches directories and files.
-  This sequence **must** form a single path component,
-  so both `**a` and `b**` are invalid and will result in an error.
-  A sequence of more than two consecutive `*` characters is also invalid.
-- `[...]` matches any character inside the brackets.
-  Ranges of characters can also be specified, as ordered by Unicode, so e.g.
-  `[0-9]` specifies any character between 0 and 9 inclusive.
-- `[!...]` is the negation of `[...]`, i.e. it matches any characters **not** in the brackets.
-
-Some examples:
-
-- `dist/**` matches the dist directory and all files in this directory.
-- `**/test/**` matches all files under any directory named `test`, regardless of where they are. E.g. `dist/test`, `src/test`.
-- `**/*.js` matches all files ending with the extension `.js` in all directories.
-
-Biome uses a glob library that treats all globs as having a `**/` prefix.
-This means that `src/**/*.js` and `**/src/**/*.js` are treated as identical.
-They match both `src/file.js` and `test/src/file.js`.
-
-:::caution
-These patterns can be used in a Biome configuration file.
-Glob patterns used on the command line are not interpreted by Biome.
-They are expanded by your shell.
-Some shells don't support the recursive glob `**`
-:::
