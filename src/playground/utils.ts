@@ -1,6 +1,7 @@
 import type { ThemeChanged, ThemeName } from "@/frontend-scripts/util";
 import { getCurrentTheme } from "@/frontend-scripts/util";
 import {
+	Language,
 	type PlaygroundFileState,
 	type PlaygroundSettings,
 	type PlaygroundState,
@@ -265,6 +266,19 @@ export function isAstroFilename(filename: string): boolean {
 	return filename.endsWith(".astro");
 }
 
+export function guessLanguage(filename: string): Language {
+	if (isJsonFilename(filename)) return Language.JSON;
+	if (isGraphqlFilename(filename)) return Language.GraphQL;
+	if (isGritFilename(filename)) return Language.Grit;
+	if (isCssFilename(filename)) return Language.CSS;
+	if (isHtmlFilename(filename)) return Language.HTML;
+	if (isSvelteFilename(filename)) return Language.Svelte;
+	if (isAstroFilename(filename)) return Language.Astro;
+	if (isJsxFilename(filename))
+		return isTypeScriptFilename(filename) ? Language.TSX : Language.JSX;
+	return isTypeScriptFilename(filename) ? Language.TS : Language.JS;
+}
+
 export function modifyFilename(
 	filename: string,
 	opts: ExtensionOptions,
@@ -277,31 +291,41 @@ export function modifyFilename(
 }
 
 type ExtensionOptions = {
-	jsx: boolean;
-	typescript: boolean;
+	language: Language;
 	script: boolean;
 };
 
 export function getExtension(opts: ExtensionOptions): string {
-	let ext = "";
-
-	if (opts.script) {
-		ext = "cjs";
-	} else {
-		ext = "js";
+	switch (opts.language) {
+		case Language.JS:
+			return opts.script ? "cjs" : "js";
+		case Language.JSX:
+			return "jsx";
+		case Language.TS:
+			return "ts";
+		case Language.TSX:
+			return "tsx";
+		case Language.JSON:
+			return "json";
+		case Language.GraphQL:
+			return "graphql";
+		case Language.Grit:
+			return "grit";
+		case Language.CSS:
+			return "css";
+		case Language.HTML:
+			return "html";
+		case Language.Vue:
+			return "vue";
+		case Language.Svelte:
+			return "svelte";
+		case Language.Astro:
+			return "astro";
+		default:
+			throw new Error(
+				`Unsupported language type: ${opts.language satisfies never}`, // must be exhaustive
+			);
 	}
-
-	if (opts.typescript) {
-		if (opts.jsx) {
-			ext = "tsx";
-		} else {
-			ext = "ts";
-		}
-	} else if (opts.jsx) {
-		ext = "jsx";
-	}
-
-	return ext;
 }
 
 export function isValidExtension(filename: string): boolean {

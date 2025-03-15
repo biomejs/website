@@ -3,6 +3,7 @@ title: はじめる
 description: Biomeと共に新しいプロジェクトを立ち上げる方法
 ---
 
+import DefaultConfiguration from "@/components/generated/DefaultConfiguration.mdx";
 import PackageManagerBiomeCommand from "@/components/PackageManagerBiomeCommand.astro";
 import PackageManagerCommand from "@/components/PackageManagerCommand.astro";
 
@@ -23,39 +24,31 @@ Biomeをインストールするには、 `package.json` ファイルが含ま�
   deno="add --dev npm:@biomejs/biome"
 />
 
-:::note[注]
-Biomeをローカルではなくグローバルにインストールすることも可能ですが、推奨されていません。
+:::note
+Biomeの正確なバージョンを固定するように、パッケージマネージャへ指示しています。
+これにより、プロジェクトに関わる全員が全く同じバージョンのBiomeを利用することを保証します。
+パッチリリースであっても、わずかに異なる動作を起こすことがあります。
+詳しくは、[バージョニング ページ](/ja/internals/versioning/)をご覧ください。
 :::
-
-Biomeをインストールする際には、バージョン範囲演算子を使用しないことを**強く推奨**しています。詳しくは、[バージョニング ページ](/ja/internals/versioning/)をご覧ください。
 
 ## 設定
 
-プロジェクトごとに `biome.json`（設定ファイル）を作成することを推奨します。
-これにより、コマンドを実行するたびにCLIのオプションを繰り返し指定する必要がなくなり、エディタ上で同じ設定を適用できるようになります。もしBiomeのデフォルト設定に満足している場合は、新たに設定ファイルを作成する必要はありません。
+プロジェクトごとに `biome.json` または `biome.jsonc`（設定ファイル）を作成することを推奨します。
+これにより、コマンドを実行するたびにCLIのオプションを繰り返し指定する必要がなくなり、エディタ上で同じ設定を適用できるようになります。
+もしBiomeのデフォルト設定に満足している場合は、新たに設定ファイルを作成する必要はありません。
 
-設定を作成するには、プロジェクトのルートディレクトリで `init` コマンドを実行します。
+`biome.json` ファイルを作成するには、プロジェクトのルートディレクトリで `init` コマンドを実行します：
 
 <PackageManagerBiomeCommand command="init"/>
 
-`init` コマンドを実行すると、そのディレクトリに `biome.json` ファイルが新規作成されます。
+`--jsonc` オプションを渡すことで、 `biome.jsonc` ファイルを代わりに生成します。
 
-```json title="biome.json"
-{
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
-  "organizeImports": {
-    "enabled": false
-  },
-  "linter": {
-    "enabled": true,
-    "rules": {
-      "recommended": true
-    }
-  }
-}
-```
+`init` コマンドを実行すると、そのディレクトリに `biome.json` ファイルが新規作成されます：
+
+<DefaultConfiguration/>
 
 `linter.enabled: true` はリンタを有効にし、 `rules.recommended: true` は[推奨ルール](/ja/linter/rules/)を有効にします。
+これはデフォルトの設定と対応しています。
 
 この設定では、`formatter.enabled: false` で明示的にフォーマットを[無効化](/ja/reference/configuration/#formatterenabled)していないため、フォーマットは有効になっています。
 
@@ -89,11 +82,14 @@ Biomeの機能を最大限活用するために、エディタプラグインを
 
 Node.jsを使用している場合、BiomeをCIで実行するには、[お気に入りのパッケージマネージャ](/ja/guides/getting-started#インストール方法)を使用することが推奨されます。
 このようにすることで、CIパイプラインがエディタ上やローカルでCLIコマンドを実行するときと同じバージョンのBiomeを使用することを保証できます。
+代わりに、専用の[CIアクション](/recipes/continuous-integration)を利用することもできます。
 
 ## 次のステップ
 
 成功です！これでBiomeを使う準備が整いました。🥳
 
+- [ESLintとPrettierと移行する](/guides/migrate-eslint-prettier)
+- [Biomeの設定](/guides/configure-biome)について詳しく知る
 - [Formatter](/ja/formatter)の使い方と設定方法について詳しく知る
 - [Linter](/ja/linter)の使い方と設定方法について詳しく知る
 - [CLIオプション](/ja/reference/cli)を使いこなす

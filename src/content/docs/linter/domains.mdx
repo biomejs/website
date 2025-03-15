@@ -1,0 +1,121 @@
+---
+# this file is auto generated, use `pnpm codegen:rules` to update it
+title: Domains
+description: List of available domains
+---
+## Next
+Use this domain inside Next.js projects.
+### Next activation
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"domains": {
+				"next": "on"
+			}
+		}
+	}
+}
+```
+### Next dependencies
+Enabled when the following dependencies are declared:
+- `next`: `>=14.0.0`
+
+### Next rules
+Rules that belong to the domain:
+- [useExhaustiveDependencies](/linter/rules/use-exhaustive-dependencies)
+- [useHookAtTopLevel](/linter/rules/use-hook-at-top-level)
+- [noDocumentImportInPage](/linter/rules/no-document-import-in-page)
+- [noHeadElement](/linter/rules/no-head-element)
+- [noHeadImportInDocument](/linter/rules/no-head-import-in-document)
+- [noImgElement](/linter/rules/no-img-element)
+- [noUnwantedPolyfillio](/linter/rules/no-unwanted-polyfillio)
+- [useGoogleFontDisplay](/linter/rules/use-google-font-display)
+- [useGoogleFontPreconnect](/linter/rules/use-google-font-preconnect)
+## React
+Use this domain inside React projects. It enables a set of rules that can help catching bugs and enforce correct practices. This domain enable rules that might conflict with the Solid domain.
+### React activation
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"domains": {
+				"react": "on"
+			}
+		}
+	}
+}
+```
+### React dependencies
+Enabled when the following dependencies are declared:
+- `react`: `>=16.0.0`
+
+### React rules
+Rules that belong to the domain:
+- [noRenderReturnValue](/linter/rules/no-render-return-value)
+- [useExhaustiveDependencies](/linter/rules/use-exhaustive-dependencies)
+- [useHookAtTopLevel](/linter/rules/use-hook-at-top-level)
+- [useJsxKeyInIterable](/linter/rules/use-jsx-key-in-iterable)
+## Solid
+Use this domain inside Solid projects. This domain enables rules that might conflict with the React domain.
+### Solid activation
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"domains": {
+				"solid": "on"
+			}
+		}
+	}
+}
+```
+### Solid dependencies
+Enabled when the following dependencies are declared:
+- `solid`: `>=1.0.0`
+
+### Solid rules
+Rules that belong to the domain:
+- [noDestructuredProps](/linter/rules/no-destructured-props)
+- [useForComponent](/linter/rules/use-for-component)
+- [noReactSpecificProps](/linter/rules/no-react-specific-props)
+## Test
+Use this domain when linting test files. It enables a set of rules that are library agnostic, and can help to catch possible misuse of the test APIs.
+### Test activation
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"domains": {
+				"test": "on"
+			}
+		}
+	}
+}
+```
+### Test dependencies
+Enabled when the following dependencies are declared:
+- `jest`: `>=26.0.0`
+- `mocha`: `>=8.0.0`
+- `ava`: `>=2.0.0`
+- `vitest`: `>=1.0.0`
+
+### Test globals
+When enabled, the following global bindings are recognised by Biome:
+- `after`
+- `afterAll`
+- `afterEach`
+- `before`
+- `beforeEach`
+- `beforeAll`
+- `describe`
+- `it`
+- `expect`
+- `test`
+
+### Test rules
+Rules that belong to the domain:
+- [noExcessiveNestedTestSuites](/linter/rules/no-excessive-nested-test-suites)
+- [noDuplicateTestHooks](/linter/rules/no-duplicate-test-hooks)
+- [noExportsInTest](/linter/rules/no-exports-in-test)
+- [noFocusedTests](/linter/rules/no-focused-tests)
