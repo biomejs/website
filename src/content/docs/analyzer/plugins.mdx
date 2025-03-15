@@ -40,7 +40,7 @@ can see its results when running `biome lint` or `biome check`. For example:
 $ biome lint
 /packages/tailwindcss-config-analyzer/src/introspect.ts:12:17 plugin ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  ℹ Prefer object spread instead of `Object.assign()`
+  ✖ Prefer object spread instead of `Object.assign()`
 
     10 │ function createContextFromConfig(config: Partial<Config>) {
     11 │        return createContext(
@@ -85,8 +85,10 @@ Biome currently supports one extra function:
 
 Registers a diagnostic to be reported whenever the pattern matches.
 
-Requires two arguments:
+Supports three arguments:
 
-- `span`: The syntax node to attach the diagnostic to. This is typically a
-  variable that you matched within a code snippet.
-- `message`: The message to show with the diagnostic.
+- `span` (required): The syntax node to attach the diagnostic to. This is
+  typically a variable that you matched within a code snippet.
+- `message` (required): The message to show with the diagnostic.
+- `severity`: The severity of the diagnostic. Allowed values are: `hint`,
+  `information`, `warning`, and `error`. By default, `error` is used.
