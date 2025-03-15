@@ -28,6 +28,11 @@ const plugins = [
 				picture: "https://avatars.githubusercontent.com/u/2358560?s=96&v=4",
 				url: "https://bsky.app/profile/conaclos.bsky.social",
 			},
+			dyc3: {
+				name: "Carson McManus",
+				picture: "https://avatars.githubusercontent.com/u/1808807?v=4",
+				url: "https://github.com/dyc3",
+			},
 			ema: {
 				name: "Emanuele Stoppa",
 				picture: "https://avatars.githubusercontent.com/u/602478?v=4",
@@ -257,6 +262,11 @@ export default defineConfig({
 										uk: "Сортування імпортів",
 									},
 								},
+								{
+									label: "Plugins",
+									link: "/analyzer/plugins",
+									badge: "beta",
+								},
 							],
 							translations: {
 								fr: "Analyseur",
@@ -419,7 +429,6 @@ export default defineConfig({
 						{
 							label: "GritQL",
 							link: "/reference/gritql",
-							badge: "experimental",
 						},
 					],
 				},
