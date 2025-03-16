@@ -167,6 +167,7 @@ self.addEventListener("message", async (e) => {
 				},
 				html: {
 					formatter: {
+						enabled: true,
 						indentScriptAndStyle,
 						whitespaceSensitivity,
 					},
