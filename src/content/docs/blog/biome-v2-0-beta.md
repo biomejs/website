@@ -161,7 +161,7 @@ Several new rules have added since v1.9:
 - **BREAKING:** The configuration fields `include` and `ignore` have been replaced with a single `includes` field.
 - **BREAKING:** Reworked some recommended rules recommended to be less pedantic and blocking. This is a breaking change if your project relied on those rules to block the CI in case of violations. If you used the `migrate` command, the behaviour should remain as before.
 - **BREAKING:** The `style` rules aren't recommended anymore. If you used the `migrate` command, the behaviour should remain as before.
-- **BREAKING:** Cleaned up deprecated rules:
+- **BREAKING:** Removed deprecated rules:
   - `noConsoleLog`
   - `noInvalidNewBuiltin`
   - `noNewSymbol`
