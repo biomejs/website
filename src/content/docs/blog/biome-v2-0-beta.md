@@ -26,6 +26,8 @@ npm install --save-dev --save-exact @biomejs/biome@beta
 npx @biomejs/biome@beta migrate
 ```
 
+Also, make sure you use the prereleases of our IDE extensions. The stable versions of our extensions are not yet prepared for Biome 2.0!
+
 ## New features
 
 While the final 2.0 release may still have small changes in its final feature set, here's what you can expect in the beta:
@@ -96,6 +98,8 @@ And finally, domains can add global variables to the `javascript.globals` settin
 Before version 2.0, Biome lint rules could only operate on one file at a time. This brought us far, but many of the more interesting rules require information from other files too.
 
 To accomplish this, we have added a _file scanner_ to Biome that scans all the files in your project and indexes them, similar to what an LSP service might do in your IDE. We're not going to beat around the bush: Scanning projects means that Biome has become slower for many projects. But we do believe the ability to do multi-file analysis is worth it. And without a scanner, multi-file analysis would become _even slower_, as rules would need to perform ad-hoc file system access individually.
+
+That said, this is a beta, and there are certainly more opportunities to improve our scanner and its performance. If you have a repository where you feel our performance became unacceptably slow, please reach out and [file an issue](https://github.com/biomejs/biome/issues/new?template=03_bug.yml).
 
 For now, we have a few interesting rules that can make use of our multi-file analysis:
 
