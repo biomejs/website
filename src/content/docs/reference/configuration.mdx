@@ -36,8 +36,7 @@ the configuration settings from the files contained in the `extends` list, and
 eventually applies the options contained in this `biome.json`/`biome.jsonc`
 file.
 
-Files are provided in order from least relevant to most relevant, with the
-settings in the current file being leading.
+The order of paths to extend goes from least relevant to most relevant.
 
 ## `files`
 
@@ -1114,7 +1113,7 @@ The order of the patterns matter. If a file *can* match three patterns, only the
 A list of [glob patterns](https://en.wikipedia.org/wiki/Glob_(programming)) of
 files for which to apply customised settings.
 
-```json title="biome.jsonc"
+```jsonc title="biome.jsonc"
 {
   "overrides": [{
     "includes": ["scripts/*.js"],

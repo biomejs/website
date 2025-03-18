@@ -191,7 +191,7 @@ here are processed by the linter, the formatter and the assist, unless specified
 otherwise. For the individual tools, you can further refine the matching files
 using `<tool>.includes`.
 
-:::important
+:::caution
 The global `files.includes` has slightly different semantics than the more
 specific `<tool>.includes` fields. Any file or folder that doesn't match
 `files.includes` is excluded from use by any of Biome's tools. This means that
