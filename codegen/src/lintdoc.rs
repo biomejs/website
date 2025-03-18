@@ -778,11 +778,12 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
 
     if rule_category == RuleCategory::Action {
         writeln!(content, "## How to enable in your editor")?;
-        writeln!(
-            content,
-            "<EditorAction action=\"source.action.{}.biome\" />",
-            rule_name
-        )?;
+        let action = if rule_name == "organizeImports" {
+            "source.organizeImports.biome".to_string()
+        } else {
+            format!("source.action.{}.biome", rule_name)
+        };
+        writeln!(content, "<EditorAction action=\"{}\" />", action)?;
     }
 
     write_documentation(group, rule_name, meta.docs, &mut content)?;
