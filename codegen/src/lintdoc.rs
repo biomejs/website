@@ -139,10 +139,6 @@ impl RulesVisitor {
             };
             self.lints.domains_to_document.add_rule(R::METADATA);
         } else {
-            // For now, we exclude it from the docs
-            if R::METADATA.name == "organizeImports" {
-                return;
-            }
             let actions = &mut self.actions;
             actions.number_of_rules.insert(R::METADATA.name);
             let group = actions
@@ -782,15 +778,16 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
 
     if rule_category == RuleCategory::Action {
         writeln!(content, "## How to enable in your editor")?;
-        writeln!(
-            content,
-            "<EditorAction action=\"source.action.{}.biome\" />",
-            rule_name
-        )?;
+        let action = if rule_name == "organizeImports" {
+            "source.organizeImports.biome".to_string()
+        } else {
+            format!("source.action.{}.biome", rule_name)
+        };
+        writeln!(content, "<EditorAction action=\"{}\" />", action)?;
     }
 
     write_documentation(group, rule_name, meta.docs, &mut content)?;
-    write_how_to_configure(group, rule_name, &mut content)?;
+    write_how_to_configure(group, rule_name, &mut content, &rule_category)?;
 
     if rule_category == RuleCategory::Lint {
         writeln!(content, "## Related links")?;
@@ -1015,13 +1012,26 @@ fn write_how_to_configure(
     group: &'static str,
     rule: &'static str,
     content: &mut Vec<u8>,
+    category: &RuleCategory,
 ) -> Result<()> {
     writeln!(content, "## How to configure")?;
-    let json = format!(
-        r#"{{
+    let json = match category {
+        RuleCategory::Lint => {
+            format!(
+                r#"{{
     "linter": {{ "rules": {{ "{group}": {{ "{rule}": "error" }} }} }}
 }}"#
-    );
+            )
+        }
+        RuleCategory::Action => {
+            format!(
+                r#"{{
+    "assist": {{ "actions": {{ "{group}": {{ "{rule}": "on" }} }} }}
+}}"#
+            )
+        }
+        _ => unimplemented!(""),
+    };
 
     let parsed = biome_json_parser::parse_json(&json, JsonParserOptions::default());
     let printed = format_node(
@@ -1280,6 +1290,10 @@ fn write_documentation(
 
             Event::End(TagEnd::BlockQuote(_)) => {
                 writeln!(content)?;
+            }
+
+            Event::InlineHtml(html) => {
+                write!(content, "{}", html)?;
             }
 
             _ => {
