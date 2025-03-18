@@ -1,0 +1,140 @@
+---
+title: Extension pour VSCode
+description: Notes sur l’extension de Biome pour VSCode
+---
+# Extension de Biome pour VS Code
+
+[Biome](https://biomejs.dev/fr/) unifie votre stack de développement en combinant les fonctionnalités d’outils distincts. Il utilise un simple fichier de configuration, a des performances fantastiques et fonctionne avec n’importe quelle stack. Cette extension apporte Biome à votre éditeur de façon à ce que vous puissiez&nbsp;:
+
+- formater des fichiers *à leur enregistrement* ou à l’exécution de la commande *Mettre le document en forme,*
+- voir les lintings pendant que vous tapez et faire appliquer les corrections de code,
+- effectuer des refactorisations.
+
+## Installation
+
+Vous pouvez installer l’extension de code en vous rendant à la [page de l’extension sur la Market Place de Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=biomejs.biome) ou depuis VS Code en effectuant l’une ou l’autre des actions suivantes&nbsp;:
+
+- ouvrir l’onglet *extensions* (_Affichage_ → _Extensions_) et chercher Biome&nbsp;;
+- ouvrir la _modale d’ouverture rapide_ (<kbd>Ctrl</kbd>/<kbd title="Pomme">⌘</kbd>+<kbd>P</kbd> ou _Atteindre -> Atteindre le fichier…_), entrer `ext install biomejs.biome` et appuyer sur Entrée.
+
+## Démarrage
+
+### Outil de formatage par défaut
+
+Configurez Biome comme outil de formatage par défaut pour les fichiers pris en charge pour vous assurer que VS Code utilise Biome plutôt que d’autres outils de formatage que vous avez pu installer. Vous pouvez le faire en ouvrant un fichier JavaScript ou TypeScript, puis&nbsp;:
+
+- en ouvrant la palette de commande (<kbd>Ctrl</kbd>/<kbd title="Pomme">⌘</kbd>+<kbd title="Majuscule">⇧</kbd>+<kbd>P</kbd> ou Affichage → Palette de commandes…),
+- en sélectionnant _Mettre en forme le document avec…,_
+- en sélectionnant _Configurer le formateur par défaut…,_
+- en sélectionnant Biome.
+
+Vous pouvez également activer Biome seulement pour des langages spécifiques&nbsp;:
+
+- [ouvrez le `settings.json`](https://code.visualstudio.com/docs/getstarted/settings#_settingsjson)&nbsp;: ouvrez la _palette de commande_ (<kbd>Ctrl</kbd>/<kbd title="Pomme">⌘</kbd>+<kbd title="Majuscule">⇧</kbd>+<kbd>P</kbd>) et sélectionnez _Préférences: Ouvrir les paramètres utilisateur (JSON),_
+- définissez `editor.defaultFormatter` à `biomejs.biome` pour le langage souhaité&nbsp;:
+
+```json title="settings.json"
+{
+	"editor.defaultFormatter": "<autre outil de formatage>",
+	"[javascript]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	}
+}
+```
+
+Cette configuration définit Biome comme outil de formatage par défaut pour les fichiers JavaScript. Tous les autres fichiers seront formatés en utilisant `<autre outil de formatage>`.
+
+## Résolution de la configuration
+
+L’extension charge automatiquement le fichier `biome.json` du répertoire racine de l’espace de travail.
+
+## Résolution de Biome
+
+L’extension essaie d’utiliser Biome à partir des dépendances locales de votre projet (`node_modules/@biomejs/biome`). Nous recommandons d’ajouter Biome comme dépendance de projet pour s’assurer que les scripts NPM et l’extension utilisent la même version de Biome.
+
+Vous pouvez également spécifier explicitement le binaire de `Biome` que l’extension devrait utiliser, en configurant le paramètre `biome.lspBin` dans les options de votre éditeur.
+
+Si le projet n’a aucune dépendance sur Biome et qu’aucun chemin explicite n’est configuré, l’extension utilise la version de Biome incluse dans son paquet.
+
+## Utilisation
+
+### Formater un document
+
+Pour formater un document entier, ouvrez la _palette de commande_ (<kbd>Ctrl</kbd>/<kbd title="Pomme">⌘</kbd>+<kbd title="Majuscule">⇧</kbd>+<kbd>P</kbd>) et sélectionnez _Mettre en forme le document avec…._
+
+Pour formater un échantillon de texte, sélectionnez le texte que vous voulez formater, ouvrez la _palette de commande_ (<kbd>Ctrl</kbd>/<kbd title="Pomme">⌘</kbd>+<kbd title="Majuscule">⇧</kbd>+<kbd>P</kbd>) et sélectionnez _Mettre la sélection en forme._
+
+### Formater à l’enregistrement
+
+Biome respecte le paramètre _Format on Save_ de VS Code. Pour activer le formatage à l’enregistrement, ouvrez les paramètres (_Fichier_ -> _Réglages_ -> _Paramètres_), cherchez `editor.formatOnSave` et activez l’option.
+
+### Corriger à l’enregistrement
+
+Biome respecte le paramètre _Code Actions On Save_ de VS Code. Pour activer la correction à l’enregistrement, ajoutez
+
+
+```json title="settings.json"
+{
+  "editor.codeActionsOnSave": {
+    "quickfix.biome": "explicit"
+  }
+}
+```
+
+dans `.vscode/settings.json`.
+
+### Tri des imports [Expérimental]
+
+L’extension de Biome pour VS Code prend en charge le tri des imports via l’action de code «&nbsp;Organiser les importations&nbsp;». Par défaut, cette action peut être exécutée en utilisant le raccourci clavier <kbd title="Majuscule">⇧</kbd>+<kbd>Alt</kbd>/<kbd title="Option">⌥</kbd>+<kbd>O</kbd> ou est accessible via la _palette de commande_ (<kbd>Ctrl</kbd>/<kbd title="Pomme">⌘</kbd>+<kbd title="Majuscule">⇧</kbd>+<kbd>P</kbd>) en sélectionnant _Organiser les importations._
+
+Vous pouvez ajouter la configuration suivante à la configuration de votre éditeur si vous voulez que l’action s’exécute automatiquement à l’enregistrement au lieu de l’appeler manuellement&nbsp;:
+
+```json title="settings.json"
+{
+	"editor.codeActionsOnSave":{
+		"source.organizeImports.biome": "explicit"
+	}
+}
+```
+
+## Paramètres de l’extension
+
+### `biome.lspBin`
+
+L’option `biome.lspBin` écrase le binaire de Biome utilisé par l’extension.
+Le dossier de l’espace de travail est utilisé comme chemin de base si le chemin est relatif.
+
+### `biome.rename`
+
+Active Biome pour prendre en charge les renommages dans l’espace de travail (expérimental).
+
+## Versionnage
+
+Nous suivons les spécifications suggérées par [la documentation officielle](https://code.visualstudio.com/api/working-with-extensions/publishing-extension#prerelease-extensions)&nbsp;:
+
+- les versions mineures impaires sont dédiées aux pré-versions&nbsp;: par exemple, `*.5.*`&nbsp;;
+- les versions mineures paires sont dédiées aux versions officielles&nbsp;: par exemple, `*.6.*`.
+
+
+## Problèmes
+
+### J’ai installé `@biomejs/biome`, mais l’extension montre un avertissement disant qu’il n’a pas pu résoudre la librairie
+
+La librairie `@biomejs/biome` spécifie quelques dépendances facultatives qui sont installées en fonction de votre système d’exploitation et de son architecture.
+
+Il est possible, en revanche, que l’extension ne puisse pas résoudre le binaire au chargement de l’extension. Ceci est causé — probablement — par votre gestionnaire de paquets.
+
+**Pour résoudre le problème,** essayez d’installer le binaire manuellement. L'avertissement devrait vous indiquer le binaire correspondant à votre machine.
+
+**Si vous travaillez dans une équipe qui utilise différents OS/architectures,** il est conseillé d’installer tous les binaires&nbsp;:
+
+- `@biomejs/cli-darwin-arm64`,
+- `@biomejs/cli-darwin-x64`,
+- `@biomejs/cli-linux-arm64`,
+- `@biomejs/cli-linux-x64`,
+- `@biomejs/cli-win32-arm64`,
+- `@biomejs/cli-win32-x64`.
+
+### Mon fichier `biome.json` est ignoré dans un espace de travail avec plusieurs racines
+
+À l’heure actuelle, la prise en charge des espaces de travail avec plusieurs racines est limitée, rendant parfois les fichiers `biome.json` placés dans les dossiers racines individuels invisibles pour l’extension. À l’heure actuelle, il se peut que vous ayez besoin d’installer un espace de travail individuel pour chaque dossier qui dépend de Biome. Vous pouvez suivre l’évolution de cette prise en charge sur [ce ticket](https://github.com/biomejs/biome/issues/1573).
