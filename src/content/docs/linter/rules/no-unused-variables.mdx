@@ -32,11 +32,19 @@ This rule won't report unused imports.
 If you want to report unused imports,
 enable [noUnusedImports](https://biomejs.dev/linter/rules/no-unused-imports/).
 
-:::caution
-From `v2.0.0`, the rule won't check unused function parameters any more.
-If you want to report unused function parameters,
-enable [noUnusedFunctionParameters](https://biomejs.dev/linter/rules/no-unused-function-parameters/).
-:::
+## Options
+
+The rule supports the following options:
+
+```json
+{
+  "options": {
+    "ignoreRestSiblings": true
+  }
+}
+```
+
+- `ignoreRestSiblings`: Whether to ignore unused variables from an object destructuring with a spread (i.e.: whether `a` and `b` in `const { a, b, ...rest } = obj` should be ignored by this rule). Defaults to `false`.
 
 ## Examples
 
@@ -85,6 +93,15 @@ export function f<T>() {}
 
 <pre class="language-text"><code class="language-text">code-block.ts:1:19 <a href="https://biomejs.dev/linter/rules/no-unused-variables">lint/correctness/noUnusedVariables</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This type parameter is unused.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>export function f&lt;T&gt;() &#123;&#125;<br />   <strong>   │ </strong>                  <strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unused variables usually are result of incomplete refactoring, typos and other source of bugs.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">If this is intentional, prepend </span><span style="color: lightgreen;"><strong>T</strong></span><span style="color: lightgreen;"> with an underscore.</span><br />  <br />    <strong>1</strong>  <strong> │ </strong><span style="color: Tomato;">-</span> <span style="color: Tomato;">e</span><span style="color: Tomato;">x</span><span style="color: Tomato;">p</span><span style="color: Tomato;">o</span><span style="color: Tomato;">r</span><span style="color: Tomato;">t</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">f</span><span style="color: Tomato;">u</span><span style="color: Tomato;">n</span><span style="color: Tomato;">c</span><span style="color: Tomato;">t</span><span style="color: Tomato;">i</span><span style="color: Tomato;">o</span><span style="color: Tomato;">n</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">f</span><span style="color: Tomato;">&lt;</span><span style="color: Tomato;"><strong>T</strong></span><span style="color: Tomato;">&gt;</span><span style="color: Tomato;">(</span><span style="color: Tomato;">)</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">&#123;</span><span style="color: Tomato;">&#125;</span><br />      <strong>1</strong><strong> │ </strong><span style="color: MediumSeaGreen;">+</span> <span style="color: MediumSeaGreen;">e</span><span style="color: MediumSeaGreen;">x</span><span style="color: MediumSeaGreen;">p</span><span style="color: MediumSeaGreen;">o</span><span style="color: MediumSeaGreen;">r</span><span style="color: MediumSeaGreen;">t</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">f</span><span style="color: MediumSeaGreen;">u</span><span style="color: MediumSeaGreen;">n</span><span style="color: MediumSeaGreen;">c</span><span style="color: MediumSeaGreen;">t</span><span style="color: MediumSeaGreen;">i</span><span style="color: MediumSeaGreen;">o</span><span style="color: MediumSeaGreen;">n</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">f</span><span style="color: MediumSeaGreen;">&lt;</span><span style="color: MediumSeaGreen;"><strong>&#95;</strong></span><span style="color: MediumSeaGreen;"><strong>T</strong></span><span style="color: MediumSeaGreen;">&gt;</span><span style="color: MediumSeaGreen;">(</span><span style="color: MediumSeaGreen;">)</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">&#123;</span><span style="color: MediumSeaGreen;">&#125;</span><br />    <strong>2</strong> <strong>2</strong><strong> │ </strong>  <br />  <br /></code></pre>
 
+```js
+// With `ignoreRestSiblings: false`
+const car = { brand: "Tesla", year: 2019, countryCode: "US" };
+const { brand, ...other } = car;
+console.log(other);
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:3:9 <a href="https://biomejs.dev/linter/rules/no-unused-variables">lint/correctness/noUnusedVariables</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This variable is unused.</span><br />  <br />    <strong>1 │ </strong>// With `ignoreRestSiblings: false`<br />    <strong>2 │ </strong>const car = &#123; brand: &quot;Tesla&quot;, year: 2019, countryCode: &quot;US&quot; &#125;;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>const &#123; brand, ...other &#125; = car;<br />   <strong>   │ </strong>        <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>console.log(other);<br />    <strong>5 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unused variables usually are result of incomplete refactoring, typos and other source of bugs.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">You can use the 'ignoreRestSiblings' option to ignore unused variables in an object destructuring with a spread.</span><br />  <br /></code></pre>
+
 ### Valid
 
 ```js
@@ -105,6 +122,20 @@ function used_overloaded(s?: string) {
     return s;
 }
 used_overloaded();
+```
+
+```js
+// With `ignoreRestSiblings: false`
+const car = { brand: "Tesla", year: 2019, countryCode: "US" };
+const { brand: _brand, ...other } = car;
+console.log(other);
+```
+
+```js
+// With `ignoreRestSiblings: true`
+const car = { brand: "Tesla", year: 2019, countryCode: "US" };
+const { brand, ...other } = car;
+console.log(other);
 ```
 
 ## How to configure
