@@ -57,13 +57,13 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 
 | Rule name | Description | Properties |
 | --- | --- | --- |
+| [noAdjacentSpacesInRegex](/linter/rules/no-adjacent-spaces-in-regex) | Disallow unclear usage of consecutive space characters in regular expression literals | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [noBannedTypes](/linter/rules/no-banned-types) | Disallow primitive type aliases and misleading types. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [noEmptyTypeParameters](/linter/rules/no-empty-type-parameters) | Disallow empty type parameters in type aliases and interfaces. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
 | [noExcessiveCognitiveComplexity](/linter/rules/no-excessive-cognitive-complexity) | Disallow functions that exceed a given Cognitive Complexity score. |  |
 | [noExcessiveNestedTestSuites](/linter/rules/no-excessive-nested-test-suites) | This rule enforces a maximum depth to nested `describe()` in test files. |  |
 | [noExtraBooleanCast](/linter/rules/no-extra-boolean-cast) | Disallow unnecessary boolean casts | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noForEach](/linter/rules/no-for-each) | Prefer `for...of` statement instead of `Array.forEach`. |  |
-| [noMultipleSpacesInRegex](/linter/rules/no-multiple-spaces-in-regex) | Disallow unclear usage of consecutive space characters in regular expression literals | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [noStaticOnlyClass](/linter/rules/no-static-only-class) | This rule reports when a class has no non-static members, such as for a class used exclusively as a static namespace. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
 | [noThisInStatic](/linter/rules/no-this-in-static) | Disallow `this` and `super` in `static` contexts. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noUselessCatch](/linter/rules/no-useless-catch) | Disallow unnecessary `catch` clauses. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
@@ -372,10 +372,10 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 - [useValidAriaRole](/linter/rules/use-valid-aria-role) (Severity: Error)
 - [useValidAriaValues](/linter/rules/use-valid-aria-values) (Severity: Error)
 - [useValidLang](/linter/rules/use-valid-lang) (Severity: Error)
+- [noAdjacentSpacesInRegex](/linter/rules/no-adjacent-spaces-in-regex) (Severity: Error)
 - [noBannedTypes](/linter/rules/no-banned-types) (Severity: Error)
 - [noEmptyTypeParameters](/linter/rules/no-empty-type-parameters) (Severity: Error)
 - [noExtraBooleanCast](/linter/rules/no-extra-boolean-cast) (Severity: Error)
-- [noMultipleSpacesInRegex](/linter/rules/no-multiple-spaces-in-regex) (Severity: Error)
 - [noStaticOnlyClass](/linter/rules/no-static-only-class) (Severity: Error)
 - [noThisInStatic](/linter/rules/no-this-in-static) (Severity: Warning)
 - [noUselessCatch](/linter/rules/no-useless-catch) ((Severity: Information)
