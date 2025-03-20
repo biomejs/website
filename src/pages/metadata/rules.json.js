@@ -1102,15 +1102,6 @@ export function GET() {
             ],
             "docs": " Prevents the usage of variables that haven't been declared inside the document.\n\n If you need to allow-list some global bindings, you can use the [`javascript.globals`](/reference/configuration/#javascriptglobals) configuration.\n\n ## Options (Since v2.0.0)\n\n The rule provides a `checkTypes` option that make the rule checks undeclared types.\n The option defaults to `true`.\n\n ```json,options\n {\n     \"options\": {\n         \"checkTypes\": true\n     }\n }\n ```\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n foobar;\n ```\n\n ```js,expect_diagnostic\n // throw diagnostic for JavaScript files\n PromiseLike;\n ```\n ### Valid\n\n ```ts\n type B<T> = PromiseLike<T>\n ```\n"
           },
-          "noUnnecessaryContinue": {
-            "deprecated": false,
-            "version": "1.0.0",
-            "name": "noUnnecessaryContinue",
-            "link": "https://biomejs.dev/linter/rules/no-unnecessary-continue",
-            "recommended": true,
-            "fixKind": "unsafe",
-            "docs": " Avoid using unnecessary `continue`.\n\n ## Examples\n\n ### Invalid\n ```js,expect_diagnostic\n loop: for (let i = 0; i < 5; i++) {\n   continue loop;\n }\n ```\n ```js,expect_diagnostic\n while (i--) {\n   continue;\n }\n ```\n ```js,expect_diagnostic\n while (1) {\n   continue;\n }\n ```\n ```js,expect_diagnostic\n for (let i = 0; i < 10; i++) {\n   if (i > 5) {\n     console.log(\"foo\");\n     continue;\n   } else if (i >= 5 && i < 8) {\n     console.log(\"test\");\n   } else {\n     console.log(\"test\");\n   }\n }\n ```\n ```js,expect_diagnostic\n for (let i = 0; i < 9; i++) {\n   continue;\n }\n ```\n\n ```js, expect_diagnostic\n test2: do {\n \tcontinue test2;\n } while (true);\n ```\n\n ### Valid\n ```js\n while (i) {\n   if (i > 5) {\n     continue;\n   }\n   console.log(i);\n   i--;\n }\n\n loop: while (1) {\n   forLoop: for (let i = 0; i < 5; i++) {\n     if (someCondition) {\n       continue loop;\n     }\n   }\n }\n ```\n"
-          },
           "noUnreachable": {
             "deprecated": false,
             "version": "1.0.0",
@@ -1237,6 +1228,15 @@ export function GET() {
               }
             ],
             "docs": " Disallow unused variables.\n\n There is an exception to this rule:\n variables that starts with underscore, e.g. `let _something;`.\n\n The pattern of having an underscore as prefix of a name of variable is a very diffuse\n pattern among programmers, and Biome decided to follow it.\n\n This rule won't report unused imports.\n If you want to report unused imports,\n enable [noUnusedImports](https://biomejs.dev/linter/rules/no-unused-imports/).\n\n\n ## Options\n\n The rule supports the following options:\n\n ```json,options\n {\n   \"options\": {\n     \"ignoreRestSiblings\": true\n   }\n }\n ```\n\n - `ignoreRestSiblings`: Whether to ignore unused variables from an object destructuring with a spread (i.e.: whether `a` and `b` in `const { a, b, ...rest } = obj` should be ignored by this rule). Defaults to `false`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n let a = 4;\n a++;\n ```\n\n ```js,expect_diagnostic\n function foo() {}\n ```\n\n ```js,expect_diagnostic\n export function foo(myVar) {\n     console.log('foo');\n }\n ```\n\n ```js,expect_diagnostic\n function foo() {\n     foo();\n }\n ```\n\n ```js,expect_diagnostic\n const foo = () => {\n     foo();\n };\n ```\n\n ```ts,expect_diagnostic\n export function f<T>() {}\n ```\n\n ```js,expect_diagnostic\n // With `ignoreRestSiblings: false`\n const car = { brand: \"Tesla\", year: 2019, countryCode: \"US\" };\n const { brand, ...other } = car;\n console.log(other);\n ```\n\n ### Valid\n\n ```js\n function foo(b) {\n     console.log(b)\n };\n foo();\n ```\n\n ```js\n export function foo(_unused) {}\n ```\n\n ```ts\n function used_overloaded(): number;\n function used_overloaded(s: string): string;\n function used_overloaded(s?: string) {\n     return s;\n }\n used_overloaded();\n ```\n\n ```js\n // With `ignoreRestSiblings: false`\n const car = { brand: \"Tesla\", year: 2019, countryCode: \"US\" };\n const { brand: _brand, ...other } = car;\n console.log(other);\n ```\n\n ```js,use_options\n // With `ignoreRestSiblings: true`\n const car = { brand: \"Tesla\", year: 2019, countryCode: \"US\" };\n const { brand, ...other } = car;\n console.log(other);\n ```\n"
+          },
+          "noUselessContinue": {
+            "deprecated": false,
+            "version": "1.0.0",
+            "name": "noUselessContinue",
+            "link": "https://biomejs.dev/linter/rules/no-useless-continue",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "docs": " Avoid using unnecessary `continue`.\n\n ## Examples\n\n ### Invalid\n ```js,expect_diagnostic\n loop: for (let i = 0; i < 5; i++) {\n   continue loop;\n }\n ```\n ```js,expect_diagnostic\n while (i--) {\n   continue;\n }\n ```\n ```js,expect_diagnostic\n while (1) {\n   continue;\n }\n ```\n ```js,expect_diagnostic\n for (let i = 0; i < 10; i++) {\n   if (i > 5) {\n     console.log(\"foo\");\n     continue;\n   } else if (i >= 5 && i < 8) {\n     console.log(\"test\");\n   } else {\n     console.log(\"test\");\n   }\n }\n ```\n ```js,expect_diagnostic\n for (let i = 0; i < 9; i++) {\n   continue;\n }\n ```\n\n ```js, expect_diagnostic\n test2: do {\n \tcontinue test2;\n } while (true);\n ```\n\n ### Valid\n ```js\n while (i) {\n   if (i > 5) {\n     continue;\n   }\n   console.log(i);\n   i--;\n }\n\n loop: while (1) {\n   forLoop: for (let i = 0; i < 5; i++) {\n     if (someCondition) {\n       continue loop;\n     }\n   }\n }\n ```\n"
           },
           "useArrayLiterals": {
             "deprecated": false,

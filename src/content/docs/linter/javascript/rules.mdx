@@ -120,7 +120,6 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noSwitchDeclarations](/linter/rules/no-switch-declarations) | Disallow lexical declarations in `switch` clauses. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noUndeclaredDependencies](/linter/rules/no-undeclared-dependencies) | Disallow the use of dependencies that aren't specified in the `package.json`. |  |
 | [noUndeclaredVariables](/linter/rules/no-undeclared-variables) | Prevents the usage of variables that haven't been declared inside the document. |  |
-| [noUnnecessaryContinue](/linter/rules/no-unnecessary-continue) | Avoid using unnecessary `continue`. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noUnreachable](/linter/rules/no-unreachable) | Disallow unreachable code | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
 | [noUnreachableSuper](/linter/rules/no-unreachable-super) | Ensures the `super()` constructor is called exactly once on every code  path in a class constructor before `this` is accessed if the class has a superclass | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
 | [noUnsafeFinally](/linter/rules/no-unsafe-finally) | Disallow control flow statements in finally blocks. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
@@ -130,6 +129,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noUnusedLabels](/linter/rules/no-unused-labels) | Disallow unused labels. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [noUnusedPrivateClassMembers](/linter/rules/no-unused-private-class-members) | Disallow unused private class members | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noUnusedVariables](/linter/rules/no-unused-variables) | Disallow unused variables. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [noUselessContinue](/linter/rules/no-useless-continue) | Avoid using unnecessary `continue`. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noVoidElementsWithChildren](/linter/rules/no-void-elements-with-children) | This rules prevents void elements (AKA self-closing elements) from having children. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noVoidTypeReturn](/linter/rules/no-void-type-return) | Disallow returning a value from a function with the return type 'void' | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
 | [useArrayLiterals](/linter/rules/use-array-literals) | Disallow Array constructors. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
@@ -414,12 +414,12 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 - [noSetterReturn](/linter/rules/no-setter-return) (Severity: Error)
 - [noStringCaseMismatch](/linter/rules/no-string-case-mismatch) (Severity: Error)
 - [noSwitchDeclarations](/linter/rules/no-switch-declarations) (Severity: Error)
-- [noUnnecessaryContinue](/linter/rules/no-unnecessary-continue) (Severity: Error)
 - [noUnreachable](/linter/rules/no-unreachable) (Severity: Error)
 - [noUnreachableSuper](/linter/rules/no-unreachable-super) (Severity: Error)
 - [noUnsafeFinally](/linter/rules/no-unsafe-finally) (Severity: Error)
 - [noUnsafeOptionalChaining](/linter/rules/no-unsafe-optional-chaining) (Severity: Error)
 - [noUnusedLabels](/linter/rules/no-unused-labels) (Severity: Warning)
+- [noUselessContinue](/linter/rules/no-useless-continue) (Severity: Error)
 - [noVoidElementsWithChildren](/linter/rules/no-void-elements-with-children) (Severity: Error)
 - [noVoidTypeReturn](/linter/rules/no-void-type-return) (Severity: Error)
 - [useIsNan](/linter/rules/use-is-nan) (Severity: Error)
