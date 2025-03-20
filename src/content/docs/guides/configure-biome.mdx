@@ -16,13 +16,13 @@ Many of the options available in a configuration file are also available in the 
 
 ## Configuration file structure
 
-A Biome configuration file is named `biome.json` or `biome.jsonc`.
-It is usually placed in your project's root directory, next to your project's `package.json`.
+A Biome configuration file is named `biome.json` or `biome.jsonc`. It is usually
+placed in your project's root folder, next to your project's `package.json`.
 
-Because Biome is a toolchain, its configuration is organized around the tools it provides.
-At the moment, Biome provides three tools: the formatter, the linter and the assist.
-All of these tools are enabled by default.
-You can disable one or several of them using the `<tool>.enabled` field:
+Because Biome is a toolchain, its configuration is organized around the tools it
+provides. At the moment, Biome provides three tools: the formatter, the linter
+and the assist. All of these tools are enabled by default. You can disable one
+or several of them using the `<tool>.enabled` field:
 
 ```json title="biome.json"
 {
@@ -68,31 +68,32 @@ We disabled the formatter for JSON files.
 ```
 
 :::note
-Biome refers as `javascript` all variants of the JavaScript language.
+Biome refers to all variants of the JavaScript language as `javascript`.
 This includes TypeScript, JSX and TSX.
 :::
 
 
 ## Configuration file resolution
 
-Biome uses auto discovery to find the nearest configuration file.
-It looks in the working directory and in the parent directories until it finds a `biome.json` or a `biome.jsonc` file.
-If no configuration is found, then it applies Biome's defaults.
-If both `biome.json` and `biome.jsonc` are present in the same folder, the priority will be given to `biome.json`.
+Biome uses auto discovery to find the nearest configuration file. It looks in
+the working directory and its parent folders until it finds a `biome.json` or a
+`biome.jsonc` file. If no configuration is found, Biome's default configuration
+is used. If both `biome.json` and `biome.jsonc` are present in the same folder,
+`biome.json` is used.
 
 Here's an example:
 
 <FileTree>
-- app
-  - backend
+- app/
+  - backend/
     - biome.json
     - package.json
-  - frontend
+  - frontend/
+    - legacy/
+      - package.json
+    - new/
+      - package.json
     - biome.json
-    - legacy
-      - package.json
-    - new
-      - package.json
 </FileTree>
 
 
@@ -101,80 +102,16 @@ Here's an example:
 will use the configuration file `app/frontend/biome.json`;
 
 :::caution
-Biome doesn't support nested `biome.json` files, neither in CLI nor in LSP. [Follow and help the support in the related issue](https://github.com/biomejs/biome/issues/2228)
-:::
-
-:::note
-Biome commands support using the `--config-path` option and the `BIOME_CONFIG_PATH` environment variable.
-This allows you to specify a custom configuration file or a directory where Biome can look for a `biome.json` or `biome.jsonc` file.
-When you use `--config-path` or `BIOME_CONFIG_PATH`, the standard configuration file resolution process is **disabled**.
-
-If `--config-path` or `BIOME_CONFIG_PATH` points directly to a file, you can use names other than `biome.json` or `biome.jsonc`.
-Biome will read a `.json` file using a standard JSON parser.
-For files with other extensions, Biome will treat them as `.jsonc` files, using a more flexible JSON parser that allows comments and trailing commas.
+Biome doesn't yet support nested `biome.json` files, neither in CLI nor in LSP.
+[Follow and help the support in the related issue](https://github.com/biomejs/biome/issues/2228)
 :::
 
 
-## Share a configuration file
+## Specifying files to process
 
-The `extends` field allows you to split your configuration across multiple files.
-This way, you can share common settings across different projects or folders.
-
-Here's an example of how you might set up your configuration to extend a `common.json` configuration file:
-
-```json title="biome.json"
-{
-  "extends": ["./common.json"]
-}
-```
-
-The entries defined in `extends` are resolved from the path where the `biome.json` file is defined.
-They are processed in the order they are listed, with settings in later files overriding earlier ones.
-
-Biome is able to resolve configuration files from the `node_modules/` directory.
-So you can export your configuration file from a package, and import it in multiple projects.
-
-In order to do so, the first thing to do is to set up your "shared" Biome configuration in a certain way.
-Let's suppose that you want to share a configuration from a package called `@org/shared-configs`, using the specifier `@org/shared-configs/biome`.
-You have to create an `exports` entry in the `package.json` of this package:
-
-```json title="package.json" ins={5,3}
-{
-  "name": "@org/shared-configs",
-  "type": "module",
-  "exports": {
-    "./biome": "./biome.json"
-  }
-}
-```
-
-Make sure that `@org/shared-configs` is correctly installed in your project, and update the `biome.json` file to look like the following snippet:
-
-```json title="biome.json"
-{
-  "extends": ["@org/shared-configs/biome"]
-}
-```
-
-Biome will attempt to **resolve** your library `@org/shared-configs/` from your working directory.
-The working directory is:
-
-- when using the CLI, the directory where you execute your scripts from.
-  Usually it matches the location of your `package.json` file;
-- when using the LSP, the root directory of your project.
-
-:::caution
-To avoid a breaking change with how the existing resolution works, paths starting with a dot `.` or ending with `.json` or `.jsonc` **won't** be resolved from `node_modules/`.
-:::
-
-For more information about the resolution algorithm, refer to the [Node.js documentation](https://nodejs.org/api/esm.html#resolution-and-loading-algorithm).
-
-
-## Ignore files
-
-The first way to control which files and directories are processed by Biome is to list them in the CLI.
-In the following command, we format only `file1.js` and all the files in the `src` directory.
-The directories are recursively traversed.
+The first way to control which files and folders are processed by Biome is to
+list them in the CLI. In the following command, we only format `file1.js` and
+all the files in the `src` folder, because folders are recursively traversed.
 
 ```shell
 biome format file1.js src/
@@ -187,33 +124,37 @@ Some shells don't support the recursive glob `**`.
 :::
 
 The Biome configuration file can be used to refine which files are processed.
-You can explicitly list the files to be processed using `include` and the files not to be processed using `ignore`.
-`include` and `ignore` accepts globs patterns such as `src/**/*.js`.
-See the [related section](#glob-syntax-explained) for which glob syntaxes are supported.
-`include` is always applied first before applying `ignore`.
-This allows you to include some files and to ignore some of the file you included.
+You can explicitly list the files to be processed using
+[the `files.includes` field](/reference/configuration). `files.includes` accepts
+[glob patterns](/reference/configuration#glob-syntax-reference) such as
+`src/**/*.js`. Negated patterns starting with `!` can be used to exclude files.
 
-:::note
-`include` and `ignore` have a slightly different semantics.
-`include` doesn't prevent Biome of traversing a folder.
-This means that if you want to prevent Biome from traversing a folder, you have to add the folder to `ignore`.
+Paths and globs inside Biome's configuration file are resolved relative to the
+folder the configuration file is in. An exception to this is when a
+configuration file is [extended](#sharing-a-configuration-file) by another.
+
+`files.includes` applies to all of Biome's tools, meaning the files specified
+here are processed by the linter, the formatter and the assist, unless specified
+otherwise. For the individual tools, you can further refine the matching files
+using `<tool>.includes`.
+
+:::caution
+The global `files.includes` has slightly different semantics than the more
+specific `<tool>.includes` fields. Any file or folder that doesn't match
+`files.includes` is excluded from use by any of Biome's tools. This means that
+any tool-specific `includes` field can never match a file that doesn't also
+match `files.includes`.
 :::
-
-Biome provides global `files.include` and `files.ignore` fields that apply to all tools.
-You can also include and ignore files at tool level using `<tool>.include` and `<tool>.ignore`.
-Note that they don't override the global `files.include` and `files.ignore`.
-`files.include` and `files.ignore` are applied first before a tool's `include` and `ignore`.
 
 Let's take the following configuration:
 
 ```json title="biome.json"
 {
   "files": {
-    "include": ["src/**/*.js", "test/**/*.js"],
-    "ignore": ["**/*.min.js"],
+    "includes": ["src/**/*.js", "test/**/*.js", "!**/*.min.js"],
   },
   "linter": {
-    "ignore": ["test"]
+    "includes": ["!test/**"]
   }
 }
 ```
@@ -224,67 +165,17 @@ And run the following command:
 biome format test/
 ```
 
-The command will format the files that end with the `.js` extension and doesn't end with the `.min.js` extension from the `test` directory.
-The files in `src` are not formatted because the directory is not listed in the CLI.
+The command will format the files that end with the `.js` extension and don't
+end with the `.min.js` extension from the `test/` folder.
+The files in `src/` are not formatted because the folder is not listed in the
+CLI.
 
-If we run the following command, no files are linted because the `test` directory is explicitly ignored for the linter.
+If we run the following command, no files are linted because files inside the
+`test/` folder are explicitly ignored for the linter.
 
 ```shell
 biome lint test/
 ```
-
-Biome resolves the globs relatively from the working directory.
-The working directory is the directory where you usually run a CLI command.
-This means that you have to place **particular attention** when the configuration file is placed in
-a different directory from where you execute your command.
-In the case of an editor (LSP) the working directory is the root directory of your project.
-
-Let's take a project that contains two directories `backend/` and `frontend/`, and the Biome configuration file that we introduced earlier.
-Inside the `frontend/` directory, a `package.json` specifies a `format` script that runs the Biome formatter.
-
-<FileTree>
-- backend
-  - ...
-- biome.json
-- frontend
-  - package.json
-  - src
-    - ...
-  - test
-    - ...
-</FileTree>
-
-```json title="frontend/package.json"
-{
-  "name": "frontend-project",
-  "scripts": {
-    "format": "biome format --write ./"
-  }
-}
-```
-
-When you run the script `format` from `frontend/package.json`,
-the working directory resolved by that script will be `frontend/`.
-The globs `src/**/*.js` and `test/**/*.js` will have as "base" directory `frontend/`.
-Thus, only the files from `frontend/src/` and `frontend/test/` will be formatted.
-
-```json title="biome.json"
-{
-  "files": {
-    "include": ["src/**/*.js", "src/**/*.ts"],
-    "ignore": ["test"]
-  },
-  "formatter": {
-    "indentStyle": "space"
-  }
-}
-```
-
-:::caution
-`ignore` and `include` inside `overrides` have a **different** semantics:
-- for `ignore`: if a file matches the globs, **_don't_ apply** the configuration inside this override, and keep apply the next overrides;
-- for `include`: if a file matches the globs, **apply** the configuration inside this override, and keep apply the next overrides;
-:::
 
 :::note
 By default, Biome always ignores some files that are said to be **protected files**.
@@ -355,34 +246,122 @@ The following files are parsed as `JSON` files with the options `json.parser.all
 - `typescript.json`
 
 
-## Glob syntax explained
+## Sharing a configuration file
 
-A glob pattern specifies a set of filenames.
-Biome supports the following globs:
+The `extends` field allows you to split your configuration across multiple
+files. This way, you can share common settings across different projects or
+folders.
 
-- `*` matches zero or more characters. It cannot match the path separator `/`.
-- `**` recursively matches directories and files.
-  This sequence **must** form a single path component,
-  so both `**a` and `b**` are invalid and will result in an error.
-  A sequence of more than two consecutive `*` characters is also invalid.
-- `[...]` matches any character inside the brackets.
-  Ranges of characters can also be specified, as ordered by Unicode, so e.g.
-  `[0-9]` specifies any character between 0 and 9 inclusive.
-- `[!...]` is the negation of `[...]`, i.e. it matches any characters **not** in the brackets.
+Here's an example of how you might set up your configuration to extend a
+`common.json` configuration file:
 
-Some examples:
+```json title="biome.json"
+{
+  "extends": ["./common.json"]
+}
+```
 
-- `dist/**` matches the dist directory and all files in this directory.
-- `**/test/**` matches all files under any directory named `test`, regardless of where they are. E.g. `dist/test`, `src/test`.
-- `**/*.js` matches all files ending with the extension `.js` in all directories.
+The entries defined in `extends` are resolved from the path where the
+`biome.json` file is defined. They are processed in the order they are listed,
+with settings in later files overriding earlier ones.
 
-Biome uses a glob library that treats all globs as having a `**/` prefix.
-This means that `src/**/*.js` and `**/src/**/*.js` are treated as identical.
-They match both `src/file.js` and `test/src/file.js`.
+Files that you `extend` from cannot `extend` other files in turn.
+
+Note that paths in a configuration file are always resolved from the folder in
+which the `biome.json`/`biome.jsonc` file resides. When using the `extends`
+field, this means that paths in a shared configuration are interpreted from the
+location of the configuration that is extending it, and **not** from the folder
+of the file being extended.
+
+For example, let's assume a project that contains two directories `backend/` and
+`frontend/`, each having their own `biome.json` that both extend a `common.json`
+configuration in the root folder:
+
+<FileTree>
+- backend/
+  - src/
+    - ...
+  - test/
+    - ...
+  - biome.json
+- frontend/
+  - src/
+    - ...
+  - test/
+    - ...
+  - biome.json
+- common.json
+</FileTree>
+
+```json title="common.json"
+{
+  "files": {
+    "includes": ["src/**/*.js", "test/**/*.js"],
+  },
+  "linter": {
+    "includes": ["!test/**"]
+  }
+}
+```
+
+```json title="frontend/biome.json"
+{
+  "extends": ["../common.json"]
+}
+```
+
+* When running Biome from the `frontend/` folder, it will be configured to
+  format and lint all JavaScript files in the `frontend/src/` and
+  `frontend/test/` folders, and only format the files in the `frontend/src/`
+  folder. This works because the paths specified in `common.json` are
+  interpreted from the `frontend/` folder, because that's where the `biome.json`
+  file resides.
+* Assuming `backend/biome.json` looks the same as `frontend/biome.json`, it will
+  have the same behaviour, except the paths will be interpreted from the
+  `backend/` folder.
+
+### Exporting a Biome configuration from an NPM package
+
+Biome is able to resolve configuration files from the `node_modules/` folder.
+So you can export your configuration file from a package, and import it in
+multiple projects.
+
+In order to do so, the first thing to do is to set up your "shared" Biome
+configuration in a certain way. Let's suppose that you want to share a
+configuration from a package called `@org/shared-configs`, using the specifier
+`@org/shared-configs/biome`. You have to create an `exports` entry in the
+`package.json` of this package:
+
+```json title="package.json" ins={5,3}
+{
+  "name": "@org/shared-configs",
+  "type": "module",
+  "exports": {
+    "./biome": "./biome.json"
+  }
+}
+```
+
+Make sure that `@org/shared-configs` is correctly installed in your project, and
+update the `biome.json` file to look like the following snippet:
+
+```json title="biome.json"
+{
+  "extends": ["@org/shared-configs/biome"]
+}
+```
+
+Biome will attempt to **resolve** your library `@org/shared-configs/` from your
+working directory. The working directory is:
+
+- when using the CLI, the folder where you execute your scripts from.
+  Usually it matches the location of your `package.json` file;
+- when using the LSP, the root folder of your project.
 
 :::caution
-These patterns can be used in a Biome configuration file.
-Glob patterns used on the command line are not interpreted by Biome.
-They are expanded by your shell.
-Some shells don't support the recursive glob `**`
+Paths starting with a dot `.` or ending with `.json` or `.jsonc` are always
+treated as relative paths, so they **won't** be resolved from `node_modules/`.
 :::
+
+For more information about the resolution algorithm, refer to the
+[Node.js documentation](https://nodejs.org/api/esm.html#resolution-and-loading-algorithm).
