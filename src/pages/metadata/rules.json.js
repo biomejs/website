@@ -3614,7 +3614,7 @@ export function GET() {
             "name": "useExhaustiveDependencies",
             "link": "https://biomejs.dev/linter/rules/use-exhaustive-dependencies",
             "recommended": true,
-            "fixKind": "none",
+            "fixKind": "unsafe",
             "sources": [
               {
                 "eslintReactHooks": "exhaustive-deps"
