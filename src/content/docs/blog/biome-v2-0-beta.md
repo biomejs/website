@@ -103,8 +103,9 @@ That said, this is a beta, and there are certainly more opportunities to improve
 
 For now, we have a few interesting rules that can make use of our multi-file analysis:
 
-- `noImportCycles` is able to look at import statements and detect cycles between files.
-- `useImportExtensions` has been improved because it can now determine the actual extension that needs to be used for an import, instead of guessing based on hueristics.
+- [`noImportCycles`](https://next.biomejs.dev/linter/rules/no-import-cycles/) is able to look at import statements and detect cycles between them.
+- [`noPrivateImports`](https://next.biomejs.dev/linter/rules/no-private-imports/) is a new rule based on the `useImportRestrictions` nursery rule from Biome 1.x, and inspired by ESLint's [`plugin-import-access`](https://github.com/uhyo/eslint-plugin-import-access). It forbids importing symbols with an `@private` JSDoc tag from other modules, and forbids importing symbols with an `@package` tag if the importing file is not in the same folder or one of its subfolders.
+- [`useImportExtensions`](https://next.biomejs.dev/linter/rules/use-import-extensions/) has been improved because it can now determine the actual extension that needs to be used for an import, instead of guessing based on hueristics.
 
 Finally, we've also designed the multi-file analysis with monorepos in mind. While full monorepo support may not make it in time for the 2.0 release, we expect to be able to deliver more on this front soon.
 
@@ -150,15 +151,16 @@ You can enable the HTML formatter by adding the following to your config file:
 
 Several new rules have added since v1.9:
 
-- [`noAwaitInLoop`](https://biomejs.dev/linter/rules/no-await-in-loop)
-- [`noBitwiseOperators`](https://biomejs.dev/linter/rules/no-bitwise-operators/)
-- [`noDestructuredProps`](https://biomejs.dev/linter/rules/no-destructured-props/)
-- [`noFloatingPromises`](https://biomejs.dev/linter/rules/no-floating-promises)
-- [`noImportCycles`](https://biomejs.dev/linter/rules/no-import-cycles)
-- [`noTsIgnore`](https://biomejs.dev/linter/rules/no-ts-ignore)
-- [`noUnwantedPolyfillio`](https://biomejs.dev/linter/rules/no-unwanted-polyfillio)
-- [`useConsistentObjectDefinition`](https://biomejs.dev/linter/rules/use-consistent-object-definition/)
-- [`useForComponent`](https://biomejs.dev/linter/rules/use-for-component/)
+- [`noAwaitInLoop`](https://next.biomejs.dev/linter/rules/no-await-in-loop)
+- [`noBitwiseOperators`](https://next.biomejs.dev/linter/rules/no-bitwise-operators/)
+- [`noDestructuredProps`](https://next.biomejs.dev/linter/rules/no-destructured-props/)
+- [`noFloatingPromises`](https://next.biomejs.dev/linter/rules/no-floating-promises)
+- [`noImportCycles`](https://next.biomejs.dev/linter/rules/no-import-cycles)
+- [`noPrivateImports`](https://next.biomejs.dev/linter/rules/no-private-imports/)
+- [`noTsIgnore`](https://next.biomejs.dev/linter/rules/no-ts-ignore)
+- [`noUnwantedPolyfillio`](https://next.biomejs.dev/linter/rules/no-unwanted-polyfillio)
+- [`useConsistentObjectDefinition`](https://next.biomejs.dev/linter/rules/use-consistent-object-definition/)
+- [`useForComponent`](https://next.biomejs.dev/linter/rules/use-for-component/)
 
 ### Miscellaneous
 
