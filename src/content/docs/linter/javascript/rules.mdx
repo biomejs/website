@@ -113,6 +113,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noNodejsModules](/linter/rules/no-nodejs-modules) | Forbid the use of Node.js builtin modules. |  |
 | [noNonoctalDecimalEscape](/linter/rules/no-nonoctal-decimal-escape) | Disallow `\8` and `\9` escape sequences in string literals. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noPrecisionLoss](/linter/rules/no-precision-loss) | Disallow literal numbers that lose precision | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [noPrivateImports](/linter/rules/no-private-imports) | Restricts imports of private exports. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="This rule hasn't been released yet"><Icon name="error" label="This rule hasn't been released yet" size="1.2rem" /></span> |
 | [noRenderReturnValue](/linter/rules/no-render-return-value) | Prevent the usage of the return value of `React.render`. |  |
 | [noSelfAssign](/linter/rules/no-self-assign) | Disallow assignments where both sides are exactly the same. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
 | [noSetterReturn](/linter/rules/no-setter-return) | Disallow returning a value from a setter | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
@@ -166,7 +167,6 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noNestedTernary](/linter/rules/no-nested-ternary) | Disallow nested ternary expressions. |  |
 | [noNoninteractiveElementInteractions](/linter/rules/no-noninteractive-element-interactions) | Disallow use event handlers on non-interactive elements. | <span class='inline-icon' title="This rule hasn't been released yet"><Icon name="error" label="This rule hasn't been released yet" size="1.2rem" /></span> |
 | [noOctalEscape](/linter/rules/no-octal-escape) | Disallow octal escape sequences in string literals | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
-| [noPackagePrivateImports](/linter/rules/no-package-private-imports) | Restricts imports of "package private" exports. | <span class='inline-icon' title="This rule hasn't been released yet"><Icon name="error" label="This rule hasn't been released yet" size="1.2rem" /></span> |
 | [noProcessEnv](/linter/rules/no-process-env) | Disallow the use of `process.env`. |  |
 | [noProcessGlobal](/linter/rules/no-process-global) | Disallow the use of `process` global. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span><span class='inline-icon' title="This rule hasn't been released yet"><Icon name="error" label="This rule hasn't been released yet" size="1.2rem" /></span> |
 | [noRestrictedImports](/linter/rules/no-restricted-imports) | Disallow specified modules when loaded by import or require. |  |
@@ -410,6 +410,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 - [noInvalidUseBeforeDeclaration](/linter/rules/no-invalid-use-before-declaration) (Severity: Error)
 - [noNonoctalDecimalEscape](/linter/rules/no-nonoctal-decimal-escape) (Severity: Error)
 - [noPrecisionLoss](/linter/rules/no-precision-loss) (Severity: Error)
+- [noPrivateImports](/linter/rules/no-private-imports) ((Severity: Information)
 - [noSelfAssign](/linter/rules/no-self-assign) (Severity: Error)
 - [noSetterReturn](/linter/rules/no-setter-return) (Severity: Error)
 - [noStringCaseMismatch](/linter/rules/no-string-case-mismatch) (Severity: Error)

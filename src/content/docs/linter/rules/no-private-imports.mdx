@@ -1,0 +1,174 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noPrivateImports
+description: Learn more about noPrivateImports
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+## Summary
+:::danger
+This rule hasn't been released yet. If you want to try it, you can request and try a preview release of Biome
+:::
+- Diagnostic Category: [`lint/correctness/noPrivateImports`](/reference/diagnostics#diagnostic-category)
+- This rule is **recommended**, which means is enabled by default.
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`import-access/eslint-plugin-import-access`](https://github.com/uhyo/eslint-plugin-import-access)
+
+## Description
+Restricts imports of private exports.
+
+In JavaScript and TypeScript, as soon as you `export` a symbol, such as
+a type, function, or anything else that can be exported, it is
+considered public and can be imported from anywhere else. Unfortunately,
+this makes it hard to enforce module boundaries, or to prevent importing
+things that were only exported for test purposes, for instance.
+
+This rule recognizes the JSDoc tags `@public`, `@package`, and
+`@private` so that you are free to set the visibility of exports.
+Exports without tag have a default visibility of **public**, but  this
+can be configured.
+
+The `@access` tag is also supported if it's used with one of the values
+`public`, `package`, or `private`.
+
+## Public visibility
+
+Public visibility is the default and means there are no restrictions for
+importing a given symbol. In other words, without this rule, all
+exported symbols are implicitly public.
+
+## Package visibility
+
+Within the context of this rule, _package visibility_ means that a
+symbol is visible within the same "package", which means that any module
+that resides in the same folder, or one of its subfolders, is allowed to
+import the symbol. Modules that only share a common folder higher up in
+the hierarchy are not allowed to import the symbol.
+
+For a visual explanation, see
+[this illustration](https://github.com/uhyo/eslint-plugin-import-access?tab=readme-ov-file#what).
+
+## Private visibility
+
+Private visibility means that a symbol may not be imported. This may
+sound backwards: Why export a symbol at all if you intend for it to be
+private?
+
+But to understand the usefulness of `@private`, we should consider that
+this rule doesn't treat modules and files as one and the same thing.
+While files are indeed modules, folders are considered modules too, with
+their files and subfolders being submodules. Therefore, symbols exported
+as `@private` from an index file, such as `index.js`, can _still_ be
+imported from other submodules in that same module.
+
+:::note
+For the sake of compatibility with conventions used with Deno, modules
+named `mod.js`/`mod.ts` are considered index files too.
+:::
+
+Another reason why private visibility may still be useful is that it
+allows you to choose specific exceptions. For example, using
+[overrides](https://biomejs.dev/reference/configuration/#overrides), you
+may want to disable this rule in all files with a `.test.js` extension.
+This way, symbols marked private cannot be imported from anywhere except
+test files.
+
+## Known Limitations
+
+- This rule currently only looks at the JSDoc comments that are attached
+to the _`export` statement_ nearest to the symbol's definition. If the
+symbol isn't exported in the same statement as in which it is defined,
+the visibility as specified in `export` statement is used, not that of
+the symbol definition. Re-exports cannot override the visibility from
+the original `export`.
+- This rule only applies to imports for JavaScript and TypeScript
+files. Imports for resources such as images or CSS files are exempted
+regardless of the default visibility setting.
+
+## Examples
+
+### Invalid
+
+**`sub/foo.js`**
+
+```js
+/**
+ * @package
+ */
+export const fooPackageVariable = 1;
+```
+
+**`bar.js`**
+
+```js
+// Attempt to import package private variable from `sub/foo.js` from
+// outside its `sub` module:
+import { fooPackageVariable } from "./sub/foo.js";
+
+/**
+ * @private For test purposes only!
+ */
+export function getTestStuff() {}
+```
+
+**`bar.test.js`**
+// Attempt to import a private export. To allow this, you probably want
+// to configure an `override` to disable this rule in test files.
+// See: https://biomejs.dev/reference/configuration/#overrides
+
+```js
+import { getTestStuff } from "./bar.js";
+```
+
+### Valid
+
+**`sub/index.js`**
+
+```js
+// Package-private exports can be imported from inside the same module.
+import { fooPackageVariable } from "./foo.js";
+
+// Resources (anything other than JS/TS files) are always exempt.
+import { barResource } from "../resources/bar.png";
+
+/** @private */
+export const subPrivateVariable = 2;
+```
+
+**`sub/deep/index.js`**
+
+```js
+// Private exports are accessible within the same module only, but
+// modules can be nested. So the following works because you can always
+// import from the index file of a parent module:
+import { subPrivateVariable } from "../index.js";
+```
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noPrivateImports": "error"
+			}
+		}
+	}
+}
+
+```
+## Related links
+
+- [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
+</Tabs>
+
