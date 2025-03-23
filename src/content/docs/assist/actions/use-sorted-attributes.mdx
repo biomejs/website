@@ -23,7 +23,7 @@ import EditorAction from "@/components/EditorAction.astro";
 Enforce attribute sorting in JSX elements.
 
 This rule checks if the JSX props are sorted in a consistent way.
-Props are sorted alphabetically.
+Props are sorted alphabetically using a [natural sort order](https://en.wikipedia.org/wiki/Natural_sort_order).
 This rule will not consider spread props as sortable.
 Instead, whenever it encounters a spread prop, it will sort all the
 previous non spread props up until the nearest spread prop, if one
