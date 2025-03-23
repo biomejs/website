@@ -118,7 +118,7 @@ Biome has featured some rules from `typescript-eslint` for a while now, but we c
 This is about to change. With Biome 2.0, we're introducing a first version of the [`noFloatingPromises`](https://next.biomejs.dev/linter/rules/no-floating-promises) rule, one of the most-requested rules that relies on type information. In fairness, we should not consider it more than a proof-of-concept right now, because there are some notable limitations to its capabilities:
 
 * It doesn't understand complex types yet.
-* It cannot yet do type inference yet.
+* It cannot do type inference yet.
 * It can currently only analyse types that occur in the same file.
 
 Still, its capabilities are sufficient to catch some of the low-hanging fruit. Consider this small snippet:
