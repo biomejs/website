@@ -109,6 +109,44 @@ For now, we have a few interesting rules that can make use of our multi-file ana
 
 Finally, we've also designed the multi-file analysis with monorepos in mind. While full monorepo support may not make it in time for the 2.0 release, we expect to be able to deliver more on this front soon.
 
+### `noFloatingPromises`
+
+With Biome's linter we have always strived to provide a battery-included approach to linting. This means we're not just aiming to replace ESLint, but also its plugins. One of the hardest plugins to replace is **`typescript-eslint`**.
+
+Biome has featured some rules from `typescript-eslint` for a while now, but we could never replace all rules, because they relied on type information for their analysis. And in order to get type information, `typescript-eslint` relies on `tsc` itself, which is rather slow and also complicates setup.
+
+This is about to change. With Biome 2.0, we're introducing a first version of the [`noFloatingPromises`](https://next.biomejs.dev/linter/rules/no-floating-promises) rule, one of the most-requested rules that relies on type information. In fairness, we should not consider it more than a proof-of-concept right now, because there are some notable limitations to its capabilities:
+
+* It doesn't understand complex types yet.
+* It cannot yet do type inference yet.
+* It can currently only analyse types that occur in the same file.
+
+Still, its capabilities are sufficient to catch some of the low-hanging fruit. Consider this small snippet:
+
+```ts
+async function returnsPromise() { /* ... */ }
+
+returnsPromise().then(() => {});
+```
+
+It will trigger the following diagnostic:
+
+```
+example.ts:3:1 lint/nursery/noFloatingPromises ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ℹ A “floating” Promise was found, meaning it is not properly handled and could lead to ignored errors or unexpected behavior.
+  
+    1 │ async function returnsPromise() { /* ... */ }
+    2 │ 
+  > 3 │ returnsPromise().then(() => {});
+      │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    5 │ 
+  
+  ℹ This happens when a Promise is not awaited, lacks a .catch or .then rejection handler, or is not explicitly ignored using the void operator.
+```
+
+As you can guess, we intend to expand this rule's capabilities over time. And with our new multi-file analysis in place, we expect to be able to make serious strides with this. Stay tuned for more announcements on this front!
+
 ### Assists
 
 Biome Assist is another new feature of the Biome analyzer. The assist is meant to provide **actions**, which differ from lint rules in that they aren't meant to signal errors.
