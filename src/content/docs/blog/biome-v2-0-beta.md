@@ -132,7 +132,7 @@ returnsPromise().then(() => {});
 It will trigger the following diagnostic:
 
 ```
-example.ts:3:1 lint/nursery/noFloatingPromises ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+example.js:3:1 lint/nursery/noFloatingPromises ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   ℹ A “floating” Promise was found, meaning it is not properly handled and could lead to ignored errors or unexpected behavior.
   
