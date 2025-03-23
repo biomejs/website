@@ -123,7 +123,7 @@ This is about to change. With Biome 2.0, we're introducing a first version of th
 
 Still, its capabilities are sufficient to catch some of the low-hanging fruit. Consider this small snippet:
 
-```ts
+```js title="example.js"
 async function returnsPromise() { /* ... */ }
 
 returnsPromise().then(() => {});
