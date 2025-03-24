@@ -28,6 +28,8 @@ npx @biomejs/biome@beta migrate
 
 Also, make sure you use the prereleases of our IDE extensions. The stable versions of our extensions are not yet prepared for Biome 2.0!
 
+Documentation for the upcoming release can be found at https://next.biomejs.dev/.
+
 ## New features
 
 While the final 2.0 release may still have small changes in its final feature set, here's what you can expect in the beta:
@@ -36,7 +38,8 @@ While the final 2.0 release may still have small changes in its final feature se
 - **Domains:** Domains help to group lint rules by technology, framework, or well, domain. Thanks to domains, your default set of recommended lint rules will only include those that are relevant to your project.
 - **Multi-file analysis:** Lint rules can now apply analysis based on information from other files, enabling rules such as `noImportCycles`.
 - **`noFloatingPromises`:** Still a proof-of-concept, but our first type-aware lint rule is making an appearance.
-- **Assists:** Biome Assist can provide actions without diagnostics, such as sorting object keys. Our import organiser has also become an assist.
+- Our **Import Organizer** has seen a major revamp.
+- **Assists:** Biome Assist can provide actions without diagnostics, such as sorting object keys.
 - **Improved suppressions:** Suppress a rule in an entire file using `// biome-ignore-all`, or suppress a range using `// biome-ignore-start` and `// biome-ignore-end`.
 - **HTML formatter:** Still in preview, this is the first time we ship an HTML formatter.
 - Many, **many**, fixes, new lint rules, and other improvements.
@@ -147,13 +150,75 @@ example.js:3:1 lint/nursery/noFloatingPromises ━━━━━━━━━━━
 
 As you can guess, we intend to expand this rule's capabilities over time. And with our new multi-file analysis in place, we expect to be able to make serious strides with this. Stay tuned for more announcements on this front!
 
+### Import Organizer Revamp
+
+In Biome 1.x, our Import Organizer had several limitations:
+
+* Groups of imports or exports would be considered separate _chunks_, meaning they would be sorted independently. This meant the following **didn't work** as expected:
+
+  ```js title="example.js"
+  import { lib2 } from "library2";
+
+  import { util } from "./utils.js";
+  import { lib1 } from "library1";
+  ```
+
+  It would correctly sort `"library1"` to be placed above `"./utils.js"`, but it wouldn't be able to
+  carry it over the newline to the top. What we got was this:
+
+  ```js title="organizer_v1.js"
+  import { lib2 } from "library2";
+
+  import { lib1 } from "library1";
+  import { util } from "./utils.js";
+  ```
+
+  But instead, what we really wanted was this:
+
+  ```js title="organizer_v2.js"
+  import { lib1 } from "library1";
+  import { lib2 } from "library2";
+
+  import { util } from "./utils.js";
+  ```
+
+* Separate imports from the same module wouldn't be merged. Consider the following example:
+
+  ```js title="example.js"
+  import { util1 } from "./utils.js";
+  import { util2 } from "./utils.js";
+  ```
+
+  Nothing would be done to merge these import statements, whereas what we would have wanted was this:
+
+  ```js title="organizer_v2.js"
+  import { util1, util2 } from "./utils.js";
+  ```
+
+* No custom ordering could be configured. Maybe you didn't really like the default approach of ordering by "distance" from the source file that you're importing from. Maybe you wanted to organise like this:
+
+  ```js title="organizer_v2.js"
+  import { open } from "node:fs";
+
+  import { internalLib1 } from "@company/library1";
+  import { internalLib2 } from "@company/library2";
+
+  import { lib1 } from "library1";
+  ```
+
+In Biome 2.0, all these limitations are limited. In fact, if you look at the examples above, all snippets labeled `organizer_v2.js` can be produced just like that by our new import organizer.
+
+Other improvements include support for organizing `export` statements, support for "detached" comments for explicitly separating import chunks if necessary, and import attribute sorting.
+
+You can find the documentation on the new import organizer at https://next.biomejs.dev/assist/actions/organize-imports/.
+
 ### Assists
 
-Biome Assist is another new feature of the Biome analyzer. The assist is meant to provide **actions**, which differ from lint rules in that they aren't meant to signal errors.
+The Import Organizer was always a bit of a special case in Biome. It was neither part of the linter, nor of the formatter. This was because we didn't want it to show diagnostics the way the linter does, while its organizing features went beyond what we expect from the formatter.
 
-An example of a new assist is the `useSortedKeys` action, which can sort the keys in object literals.
+In Biome 2.0, we have generalised such use cases in the form of Biome Assist. The assist is meant to provide **actions**, which are similar to the _fixes_ in lint rules, but without the diagnostics.
 
-Our existing import organizer has also been migrated to become an assist.
+The Import Organizer has become an assist, but we've started using this approach for new assists too: [`useSortedKeys`](https://next.biomejs.dev/assist/actions/use-sorted-keys/) can sort keys in object literals, while [`useSortedAttributes`](https://next.biomejs.dev/assist/actions/use-sorted-attributes/) can sort attributes in JSX.
 
 For more information about assists, see: https://next.biomejs.dev/assist/
 
