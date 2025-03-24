@@ -602,6 +602,10 @@ export default defineConfig({
 								uk: "Журнал змін",
 							},
 						},
+						{
+							label: "Changelog v1",
+							link: "/internals/changelog_v1",
+						},
 					],
 				},
 			],
@@ -649,10 +653,6 @@ export default defineConfig({
 			},
 		},
 	},
-
-	adapter: netlify({
-		imageCDN: false,
-	}),
 
 	vite: {
 		resolve: {
