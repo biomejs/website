@@ -22,6 +22,7 @@
     "lunaria:preview": "lunaria preview"
   },
   "devDependencies": {
+    "@astrojs/mdx": "4.2.1",
     "@astrojs/netlify": "6.2.3",
     "@astrojs/prism": "3.2.0",
     "@astrojs/react": "4.2.1",
@@ -79,5 +80,10 @@
     "vite": "6.1.0",
     "vite-plugin-svgr": "4.3.0"
   },
-  "packageManager": "pnpm@9.15.9"
+  "packageManager": "pnpm@9.15.9",
+  "pnpm": {
+    "overrides": {
+      "shiki": "3.2.1"
+    }
+  }
 }
