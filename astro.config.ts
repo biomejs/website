@@ -251,44 +251,6 @@ export default defineConfig({
 					},
 					items: [
 						{
-							label: "Analyzer",
-							items: [
-								{
-									label: "Introduction",
-									link: "/analyzer",
-									translations: {
-										ja: "イントロダクション",
-										"zh-CN": "介绍",
-										"pt-BR": "Introdução",
-										uk: "Вступ",
-									},
-								},
-								{
-									label: "Import Sorting",
-									link: "/analyzer/import-sorting",
-									translations: {
-										fr: "Tri des imports",
-										ja: "Import文のソート",
-										"zh-CN": "导入排序",
-										"pt-BR": "Ordenação de importações",
-										uk: "Сортування імпортів",
-									},
-								},
-								{
-									label: "Plugins",
-									link: "/analyzer/plugins",
-									badge: "beta",
-								},
-							],
-							translations: {
-								fr: "Analyseur",
-								ja: "Analyzer",
-								"zh-CN": "分析器",
-								"pt-BR": "Analisador",
-								uk: "Аналізатор",
-							},
-						},
-						{
 							label: "Formatter",
 							items: [
 								{
@@ -347,6 +309,11 @@ export default defineConfig({
 								{
 									label: "Domains",
 									link: "/linter/domains",
+								},
+								{
+									label: "Plugins",
+									link: "/linter/plugins",
+									badge: "beta",
 								},
 								{
 									label: "JavaScript Rules",
