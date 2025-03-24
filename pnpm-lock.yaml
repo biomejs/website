@@ -10,7 +10,7 @@ importers:
     devDependencies:
       '@astrojs/netlify':
         specifier: 6.2.3
-        version: 6.2.3(@types/node@20.17.24)(astro@5.5.2(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))
+        version: 6.2.3(@types/node@20.17.24)(astro@5.4.3(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))
       '@astrojs/prism':
         specifier: 3.2.0
         version: 3.2.0
@@ -22,7 +22,7 @@ importers:
         version: 4.0.11
       '@astrojs/starlight':
         specifier: 0.32.3
-        version: 0.32.3(astro@5.5.2(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
+        version: 0.32.3(astro@5.4.3(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
       '@biomejs/biome':
         specifier: 1.9.4
         version: 1.9.4
@@ -54,14 +54,14 @@ importers:
         specifier: 6.36.4
         version: 6.36.4
       '@expressive-code/plugin-line-numbers':
-        specifier: ^0.40.2
+        specifier: 0.40.2
         version: 0.40.2
       '@lunariajs/core':
         specifier: 0.1.1
         version: 0.1.1
       '@lunariajs/starlight':
         specifier: 0.1.1
-        version: 0.1.1(@astrojs/starlight@0.32.3(astro@5.5.2(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)))(astro@5.5.2(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
+        version: 0.1.1(@astrojs/starlight@0.32.3(astro@5.4.3(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)))(astro@5.4.3(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
       '@playwright/test':
         specifier: 1.51.0
         version: 1.51.0
@@ -84,11 +84,11 @@ importers:
         specifier: 4.3.4
         version: 4.3.4(vite@6.1.0(@types/node@20.17.24)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49)))
       astro:
-        specifier: 5.5.2
-        version: 5.5.2(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)
+        specifier: 5.4.3
+        version: 5.4.3(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)
       astro-og-canvas:
         specifier: 0.5.6
-        version: 0.5.6(astro@5.5.2(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
+        version: 0.5.6(astro@5.4.3(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
       autoprefixer:
         specifier: 10.4.21
         version: 10.4.21(postcss@8.4.49)
@@ -157,7 +157,7 @@ importers:
         version: 0.33.5
       starlight-blog:
         specifier: 0.18.0
-        version: 0.18.0(@astrojs/starlight@0.32.3(astro@5.5.2(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)))(astro@5.5.2(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
+        version: 0.18.0(@astrojs/starlight@0.32.3(astro@5.4.3(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)))(astro@5.4.3(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
       textlint:
         specifier: 14.4.2
         version: 14.4.2
@@ -193,14 +193,11 @@ packages:
   '@astrojs/internal-helpers@0.6.1':
     resolution: {integrity: sha512-l5Pqf6uZu31aG+3Lv8nl/3s4DbUzdlxTWDof4pEpto6GUJNhhCbelVi9dEyurOVyqaelwmS9oSyOWOENSfgo9A==}
 
-  '@astrojs/markdown-remark@6.1.0':
-    resolution: {integrity: sha512-emZNNSTPGgPc3V399Cazpp5+snogjaF04ocOSQn9vy3Kw/eIC4vTQjXOrWDEoSEy+AwPDZX9bQ4wd3bxhpmGgQ==}
+  '@astrojs/markdown-remark@6.2.1':
+    resolution: {integrity: sha512-qtQXfZXeG84XSH9bMgG2e/kZfA4J7U19PKjhmFDNsKX47nautSHC0DitvxaWgQFSED66k6hWKDHLq3VKHCy/rg==}
 
-  '@astrojs/markdown-remark@6.3.0':
-    resolution: {integrity: sha512-imInEojAbpeV9D/SRaSQBz3yUzvtg3UQC1euX70QHVf8X0kWAIAArmzBbgXl8LlyxSFe52f/++PXQ4t14V9b+A==}
-
-  '@astrojs/mdx@4.0.8':
-    resolution: {integrity: sha512-/aiLr2yQ55W9AbpyOgfMtFXk7g2t7XoWdC2Avps/NqxAx4aYONDLneX43D79QwgqdjFhin7o3cIPp/vVppMbaA==}
+  '@astrojs/mdx@4.1.1':
+    resolution: {integrity: sha512-zz/x7wL4nQukG4XKZONainVr31uArB/Jnbq0NvhOGw2LCDhVQ6d9yIYxma5hJ8PU5QjLu8bWHz7ZGRD37GBWJw==}
     engines: {node: ^18.17.1 || ^20.3.0 || >=22.0.0}
     peerDependencies:
       astro: ^5.0.0
@@ -1507,8 +1504,8 @@ packages:
     resolution: {integrity: sha512-ufS/aOBXQKAe6hZ5NbiHUsC01o0ZcEwS+nNhd/mr1avLV+NbgYJEbwY8VRorzLs/GH5COOTaxl2795DkGIUTcw==}
     engines: {node: '>=18.14.1'}
 
-  astro@5.5.2:
-    resolution: {integrity: sha512-SOTJxB8mqxe/KEYEJiLIot0YULiCffyfTEclwmdeaASitDJ7eLM/KYrJ9sx3U5hq9GVI17Z4Y0P/1T2aQ0ZN3A==}
+  astro@5.4.3:
+    resolution: {integrity: sha512-GKkOJQCHLx6CrPoghGhj7824WDSvIuuc+HTVjfjMPdB9axp238iJLByREJNDaSdzMeR/lC13xvBiUnKvcYyEIA==}
     engines: {node: ^18.17.1 || ^20.3.0 || >=22.0.0, npm: '>=9.6.5', pnpm: '>=7.1.0'}
     hasBin: true
 
@@ -4236,32 +4233,7 @@ snapshots:
 
   '@astrojs/internal-helpers@0.6.1': {}
 
-  '@astrojs/markdown-remark@6.1.0':
-    dependencies:
-      '@astrojs/prism': 3.2.0
-      github-slugger: 2.0.0
-      hast-util-from-html: 2.0.3
-      hast-util-to-text: 4.0.2
-      import-meta-resolve: 4.1.0
-      js-yaml: 4.1.0
-      mdast-util-definitions: 6.0.0
-      rehype-raw: 7.0.0
-      rehype-stringify: 10.0.1
-      remark-gfm: 4.0.1
-      remark-parse: 11.0.0
-      remark-rehype: 11.1.1
-      remark-smartypants: 3.0.2
-      shiki: 1.29.2
-      smol-toml: 1.3.1
-      unified: 11.0.5
-      unist-util-remove-position: 5.0.0
-      unist-util-visit: 5.0.0
-      unist-util-visit-parents: 6.0.1
-      vfile: 6.0.3
-    transitivePeerDependencies:
-      - supports-color
-
-  '@astrojs/markdown-remark@6.3.0':
+  '@astrojs/markdown-remark@6.2.1':
     dependencies:
       '@astrojs/internal-helpers': 0.6.1
       '@astrojs/prism': 3.2.0
@@ -4287,12 +4259,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/mdx@4.0.8(astro@5.5.2(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))':
+  '@astrojs/mdx@4.1.1(astro@5.4.3(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))':
     dependencies:
-      '@astrojs/markdown-remark': 6.1.0
+      '@astrojs/markdown-remark': 6.2.1
       '@mdx-js/mdx': 3.1.0(acorn@8.14.1)
       acorn: 8.14.1
-      astro: 5.5.2(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)
+      astro: 5.4.3(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)
       es-module-lexer: 1.6.0
       estree-util-visit: 2.0.0
       hast-util-to-html: 9.0.5
@@ -4306,14 +4278,14 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/netlify@6.2.3(@types/node@20.17.24)(astro@5.5.2(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))':
+  '@astrojs/netlify@6.2.3(@types/node@20.17.24)(astro@5.4.3(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))':
     dependencies:
       '@astrojs/internal-helpers': 0.6.1
       '@astrojs/underscore-redirects': 0.6.0
       '@netlify/blobs': 8.1.1
       '@netlify/functions': 3.0.1
       '@vercel/nft': 0.29.2(rollup@4.34.5)
-      astro: 5.5.2(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)
+      astro: 5.4.3(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)
       esbuild: 0.25.0
       tinyglobby: 0.2.12
       vite: 6.2.0(@types/node@20.17.24)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))
@@ -4371,16 +4343,16 @@ snapshots:
       stream-replace-string: 2.0.0
       zod: 3.24.2
 
-  '@astrojs/starlight@0.32.3(astro@5.5.2(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))':
+  '@astrojs/starlight@0.32.3(astro@5.4.3(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))':
     dependencies:
-      '@astrojs/mdx': 4.0.8(astro@5.5.2(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
+      '@astrojs/mdx': 4.1.1(astro@5.4.3(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
       '@astrojs/sitemap': 3.2.1
       '@pagefind/default-ui': 1.3.0
       '@types/hast': 3.0.4
       '@types/js-yaml': 4.0.9
       '@types/mdast': 4.0.4
-      astro: 5.5.2(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)
-      astro-expressive-code: 0.40.2(astro@5.5.2(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
+      astro: 5.4.3(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)
+      astro-expressive-code: 0.40.2(astro@5.4.3(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
       bcp-47: 2.1.0
       hast-util-from-html: 2.0.3
       hast-util-select: 6.0.2
@@ -5038,11 +5010,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@lunariajs/starlight@0.1.1(@astrojs/starlight@0.32.3(astro@5.5.2(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)))(astro@5.5.2(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))':
+  '@lunariajs/starlight@0.1.1(@astrojs/starlight@0.32.3(astro@5.4.3(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)))(astro@5.4.3(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))':
     dependencies:
-      '@astrojs/starlight': 0.32.3(astro@5.5.2(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
+      '@astrojs/starlight': 0.32.3(astro@5.4.3(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
       '@lunariajs/core': 0.1.1
-      astro: 5.5.2(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)
+      astro: 5.4.3(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)
     transitivePeerDependencies:
       - supports-color
 
@@ -5679,14 +5651,14 @@ snapshots:
 
   astring@1.8.6: {}
 
-  astro-expressive-code@0.40.2(astro@5.5.2(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)):
+  astro-expressive-code@0.40.2(astro@5.4.3(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)):
     dependencies:
-      astro: 5.5.2(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)
+      astro: 5.4.3(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)
       rehype-expressive-code: 0.40.2
 
-  astro-og-canvas@0.5.6(astro@5.5.2(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)):
+  astro-og-canvas@0.5.6(astro@5.4.3(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)):
     dependencies:
-      astro: 5.5.2(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)
+      astro: 5.4.3(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)
       canvaskit-wasm: 0.39.1
       deterministic-object-hash: 2.0.2
       entities: 4.5.0
@@ -5699,11 +5671,11 @@ snapshots:
       marked-smartypants: 1.1.9(marked@12.0.2)
       ultrahtml: 1.5.3
 
-  astro@5.5.2(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3):
+  astro@5.4.3(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3):
     dependencies:
       '@astrojs/compiler': 2.11.0
       '@astrojs/internal-helpers': 0.6.1
-      '@astrojs/markdown-remark': 6.3.0
+      '@astrojs/markdown-remark': 6.2.1
       '@astrojs/telemetry': 3.2.0
       '@oslojs/encoding': 1.1.0
       '@rollup/pluginutils': 5.1.4(rollup@4.34.5)
@@ -8685,11 +8657,11 @@ snapshots:
 
   sprintf-js@1.0.3: {}
 
-  starlight-blog@0.18.0(@astrojs/starlight@0.32.3(astro@5.5.2(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)))(astro@5.5.2(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)):
+  starlight-blog@0.18.0(@astrojs/starlight@0.32.3(astro@5.4.3(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)))(astro@5.4.3(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)):
     dependencies:
-      '@astrojs/mdx': 4.0.8(astro@5.5.2(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
+      '@astrojs/mdx': 4.1.1(astro@5.4.3(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
       '@astrojs/rss': 4.0.11
-      '@astrojs/starlight': 0.32.3(astro@5.5.2(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
+      '@astrojs/starlight': 0.32.3(astro@5.4.3(@netlify/blobs@8.1.1)(@types/node@20.17.24)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
       astro-remote: 0.3.3
       github-slugger: 2.0.0
       marked: 15.0.4
