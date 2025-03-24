@@ -9,7 +9,7 @@ authors:
   - arendjr
   - dyc3
   - team
-date: 2025-03-31
+date: 2025-03-24
 cover:
   light: "@/assets/blog/roadmap-2024/banner-light.png"
   dark: "@/assets/blog/roadmap-2024/banner-dark.png"
