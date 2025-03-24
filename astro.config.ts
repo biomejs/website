@@ -32,6 +32,11 @@ const plugins = [
 				picture: "https://avatars.githubusercontent.com/u/2358560?s=96&v=4",
 				url: "https://bsky.app/profile/conaclos.bsky.social",
 			},
+			dyc3: {
+				name: "Carson McManus",
+				picture: "https://avatars.githubusercontent.com/u/1808807?v=4",
+				url: "https://github.com/dyc3",
+			},
 			ema: {
 				name: "Emanuele Stoppa",
 				picture: "https://avatars.githubusercontent.com/u/602478?v=4",
@@ -245,6 +250,44 @@ export default defineConfig({
 						uk: "Інструменти",
 					},
 					items: [
+						{
+							label: "Analyzer",
+							items: [
+								{
+									label: "Introduction",
+									link: "/analyzer",
+									translations: {
+										ja: "イントロダクション",
+										"zh-CN": "介绍",
+										"pt-BR": "Introdução",
+										uk: "Вступ",
+									},
+								},
+								{
+									label: "Import Sorting",
+									link: "/analyzer/import-sorting",
+									translations: {
+										fr: "Tri des imports",
+										ja: "Import文のソート",
+										"zh-CN": "导入排序",
+										"pt-BR": "Ordenação de importações",
+										uk: "Сортування імпортів",
+									},
+								},
+								{
+									label: "Plugins",
+									link: "/analyzer/plugins",
+									badge: "beta",
+								},
+							],
+							translations: {
+								fr: "Analyseur",
+								ja: "Analyzer",
+								"zh-CN": "分析器",
+								"pt-BR": "Analisador",
+								uk: "Аналізатор",
+							},
+						},
 						{
 							label: "Formatter",
 							items: [
@@ -477,7 +520,6 @@ export default defineConfig({
 						{
 							label: "GritQL",
 							link: "/reference/gritql",
-							badge: "experimental",
 						},
 					],
 				},
