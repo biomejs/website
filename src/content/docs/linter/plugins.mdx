@@ -1,13 +1,13 @@
 ---
-title: Analyzer Plugins
-description: An overview of how to use Biome's Analyzer Plugins
+title: Linter Plugins
+description: An overview of how to use Biome's Linter Plugins
 ---
 
 :::note
 Plugins are currently only available in the [2.0 beta release](/blog/biome-v2-0-beta).
 :::
 
-Biome Analyzer supports [GritQL](/reference/gritql/) plugins. Currently, these
+Biome Linter supports [GritQL](/reference/gritql/) plugins. Currently, these
 plugins allow you to match specific code patterns and register customized
 diagnostic messages for them.
 
@@ -33,7 +33,7 @@ the following configuration:
 }
 ```
 
-The plugin will now be enabled on all supported files the analyzer runs on. You
+The plugin will now be enabled on all supported files the linter runs on. You
 can see its results when running `biome lint` or `biome check`. For example:
 
 ```shell

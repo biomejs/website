@@ -262,11 +262,6 @@ export default defineConfig({
 										uk: "Сортування імпортів",
 									},
 								},
-								{
-									label: "Plugins",
-									link: "/analyzer/plugins",
-									badge: "beta",
-								},
 							],
 							translations: {
 								fr: "Analyseur",
@@ -349,6 +344,11 @@ export default defineConfig({
 									translations: {
 										fr: "Sources des règles",
 									},
+								},
+								{
+									label: "Plugins",
+									link: "/linter/plugins",
+									badge: "beta",
 								},
 							],
 							translations: {
