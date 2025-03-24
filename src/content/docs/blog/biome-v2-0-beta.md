@@ -9,7 +9,7 @@ authors:
   - arendjr
   - dyc3
   - team
-date: 2025-03-31
+date: 2025-03-24
 cover:
   light: "@/assets/blog/roadmap-2024/banner-light.png"
   dark: "@/assets/blog/roadmap-2024/banner-dark.png"
@@ -206,7 +206,7 @@ In Biome 1.x, our Import Organizer had several limitations:
   import { lib1 } from "library1";
   ```
 
-In Biome 2.0, all these limitations are limited. In fact, if you look at the examples above, all snippets labeled `organizer_v2.js` can be produced just like that by our new import organizer.
+In Biome 2.0, all these limitations are lifted. In fact, if you look at the examples above, all snippets labeled `organizer_v2.js` can be produced just like that by our new import organizer.
 
 Other improvements include support for organizing `export` statements, support for "detached" comments for explicitly separating import chunks if necessary, and import attribute sorting.
 
