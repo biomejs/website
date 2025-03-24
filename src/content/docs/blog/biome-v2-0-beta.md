@@ -46,7 +46,7 @@ While the final 2.0 release may still have small changes in its final feature se
 
 ### Plugins
 
-Biome 2.0 comes with our first iteration of [Analyzer Plugins](/analyzer/plugins).
+Biome 2.0 comes with our first iteration of [Linter Plugins](/linter/plugins).
 
 These plugins are still limited in scope: They allow for matching code snippets and reporting diagnostics on them.
 
