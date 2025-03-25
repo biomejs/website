@@ -109,7 +109,12 @@ impl DocDomains {
             for rule in rules {
                 let dashed_rule = Case::Kebab.convert(rule.name);
 
-                writeln!(buffer, "- [{}](/linter/rules/{dashed_rule})", rule.name)?;
+                write!(buffer, "- [{}](/linter/rules/{dashed_rule})", rule.name)?;
+
+                if rule.recommended {
+                    write!(buffer, " (recommended)")?;
+                }
+                writeln!(buffer)?;
             }
         }
 
@@ -138,16 +143,37 @@ impl DocDomains {
 
     fn write_activation(name: &str, buffer: &mut Vec<u8>) -> anyhow::Result<()> {
         writeln!(buffer, "### {name} activation")?;
-        let value = make_config_json(Case::Lower.convert(name).as_str());
-
-        let formatted = format_node(
+        let recommended = format_node(
             JsonFormatOptions::default().with_expand(Expand::Always),
-            value.syntax(),
+            make_config_json(Case::Lower.convert(name).as_str(), "recommended").syntax(),
         )?
         .print()?;
 
-        writeln!(buffer, "```json title=\"biome.json\"")?;
-        writeln!(buffer, "{}", formatted.as_code())?;
+        writeln!(buffer, "Enabled the **recommended** rules of the domain:")?;
+        writeln!(buffer, "```json title=\"biome.json\" ins={{3,5}}")?;
+        writeln!(buffer, "{}", recommended.as_code())?;
+        writeln!(buffer, "```")?;
+
+        let all = format_node(
+            JsonFormatOptions::default().with_expand(Expand::Always),
+            make_config_json(Case::Lower.convert(name).as_str(), "all").syntax(),
+        )?
+        .print()?;
+
+        writeln!(buffer, "Enabled the **all** rules of the domain:")?;
+        writeln!(buffer, "```json title=\"biome.json\" ins={{3,5}}")?;
+        writeln!(buffer, "{}", all.as_code())?;
+        writeln!(buffer, "```")?;
+
+        let off = format_node(
+            JsonFormatOptions::default().with_expand(Expand::Always),
+            make_config_json(Case::Lower.convert(name).as_str(), "off").syntax(),
+        )?
+        .print()?;
+
+        writeln!(buffer, "**Disable** all rules of the domain:")?;
+        writeln!(buffer, "```json title=\"biome.json\" ins={{3,5}}")?;
+        writeln!(buffer, "{}", off.as_code())?;
         writeln!(buffer, "```")?;
 
         Ok(())
@@ -172,7 +198,7 @@ impl DocDomains {
     }
 }
 
-fn make_config_json(domain_name: &str) -> JsonObjectValue {
+fn make_config_json(domain_name: &str, value: &str) -> JsonObjectValue {
     json_object_value(
         token(T!['{']),
         json_member_list(
@@ -183,31 +209,16 @@ fn make_config_json(domain_name: &str) -> JsonObjectValue {
                     token(T!['{']),
                     json_member_list(
                         vec![json_member(
-                            json_member_name(json_string_literal("rules")),
+                            json_member_name(json_string_literal("domains")),
                             token(T![:]),
                             AnyJsonValue::JsonObjectValue(json_object_value(
                                 token(T!['{']),
                                 json_member_list(
                                     vec![json_member(
-                                        json_member_name(json_string_literal("domains")),
+                                        json_member_name(json_string_literal(domain_name)),
                                         token(T![:]),
-                                        AnyJsonValue::JsonObjectValue(json_object_value(
-                                            token(T!['{']),
-                                            json_member_list(
-                                                vec![json_member(
-                                                    json_member_name(json_string_literal(
-                                                        domain_name,
-                                                    )),
-                                                    token(T![:]),
-                                                    AnyJsonValue::JsonStringValue(
-                                                        json_string_value(json_string_literal(
-                                                            "on",
-                                                        )),
-                                                    ),
-                                                )],
-                                                vec![],
-                                            ),
-                                            token(T!['}']),
+                                        AnyJsonValue::JsonStringValue(json_string_value(
+                                            json_string_literal(value),
                                         )),
                                     )],
                                     vec![],
