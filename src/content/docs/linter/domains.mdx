@@ -6,13 +6,32 @@ description: List of available domains
 ## Next
 Use this domain inside Next.js projects.
 ### Next activation
-```json title="biome.json"
+Enabled the **recommended** rules of the domain:
+```json title="biome.json" ins={3,5}
 {
 	"linter": {
-		"rules": {
-			"domains": {
-				"next": "on"
-			}
+		"domains": {
+			"next": "on"
+		}
+	}
+}
+```
+Enabled the **all** rules of the domain:
+```json title="biome.json" ins={3,5}
+{
+	"linter": {
+		"domains": {
+			"next": "all"
+		}
+	}
+}
+```
+**Disable** all rules of the domain:
+```json title="biome.json" ins={3,5}
+{
+	"linter": {
+		"domains": {
+			"next": "off"
 		}
 	}
 }
@@ -23,25 +42,44 @@ Enabled when the following dependencies are declared:
 
 ### Next rules
 Rules that belong to the domain:
-- [useExhaustiveDependencies](/linter/rules/use-exhaustive-dependencies)
-- [useHookAtTopLevel](/linter/rules/use-hook-at-top-level)
-- [noDocumentImportInPage](/linter/rules/no-document-import-in-page)
-- [noHeadElement](/linter/rules/no-head-element)
-- [noHeadImportInDocument](/linter/rules/no-head-import-in-document)
-- [noImgElement](/linter/rules/no-img-element)
-- [noUnwantedPolyfillio](/linter/rules/no-unwanted-polyfillio)
-- [useGoogleFontDisplay](/linter/rules/use-google-font-display)
-- [useGoogleFontPreconnect](/linter/rules/use-google-font-preconnect)
+- [useExhaustiveDependencies](/linter/rules/use-exhaustive-dependencies) (recommended)
+- [useHookAtTopLevel](/linter/rules/use-hook-at-top-level) (recommended)
+- [noDocumentImportInPage](/linter/rules/no-document-import-in-page) (recommended)
+- [noHeadElement](/linter/rules/no-head-element) (recommended)
+- [noHeadImportInDocument](/linter/rules/no-head-import-in-document) (recommended)
+- [noImgElement](/linter/rules/no-img-element) (recommended)
+- [noUnwantedPolyfillio](/linter/rules/no-unwanted-polyfillio) (recommended)
+- [useGoogleFontDisplay](/linter/rules/use-google-font-display) (recommended)
+- [useGoogleFontPreconnect](/linter/rules/use-google-font-preconnect) (recommended)
 ## React
 Use this domain inside React projects. It enables a set of rules that can help catching bugs and enforce correct practices. This domain enable rules that might conflict with the Solid domain.
 ### React activation
-```json title="biome.json"
+Enabled the **recommended** rules of the domain:
+```json title="biome.json" ins={3,5}
 {
 	"linter": {
-		"rules": {
-			"domains": {
-				"react": "on"
-			}
+		"domains": {
+			"react": "on"
+		}
+	}
+}
+```
+Enabled the **all** rules of the domain:
+```json title="biome.json" ins={3,5}
+{
+	"linter": {
+		"domains": {
+			"react": "all"
+		}
+	}
+}
+```
+**Disable** all rules of the domain:
+```json title="biome.json" ins={3,5}
+{
+	"linter": {
+		"domains": {
+			"react": "off"
 		}
 	}
 }
@@ -52,20 +90,39 @@ Enabled when the following dependencies are declared:
 
 ### React rules
 Rules that belong to the domain:
-- [noRenderReturnValue](/linter/rules/no-render-return-value)
-- [useExhaustiveDependencies](/linter/rules/use-exhaustive-dependencies)
-- [useHookAtTopLevel](/linter/rules/use-hook-at-top-level)
-- [useJsxKeyInIterable](/linter/rules/use-jsx-key-in-iterable)
+- [noRenderReturnValue](/linter/rules/no-render-return-value) (recommended)
+- [useExhaustiveDependencies](/linter/rules/use-exhaustive-dependencies) (recommended)
+- [useHookAtTopLevel](/linter/rules/use-hook-at-top-level) (recommended)
+- [useJsxKeyInIterable](/linter/rules/use-jsx-key-in-iterable) (recommended)
 ## Solid
 Use this domain inside Solid projects. This domain enables rules that might conflict with the React domain.
 ### Solid activation
-```json title="biome.json"
+Enabled the **recommended** rules of the domain:
+```json title="biome.json" ins={3,5}
 {
 	"linter": {
-		"rules": {
-			"domains": {
-				"solid": "on"
-			}
+		"domains": {
+			"solid": "on"
+		}
+	}
+}
+```
+Enabled the **all** rules of the domain:
+```json title="biome.json" ins={3,5}
+{
+	"linter": {
+		"domains": {
+			"solid": "all"
+		}
+	}
+}
+```
+**Disable** all rules of the domain:
+```json title="biome.json" ins={3,5}
+{
+	"linter": {
+		"domains": {
+			"solid": "off"
 		}
 	}
 }
@@ -82,13 +139,32 @@ Rules that belong to the domain:
 ## Test
 Use this domain when linting test files. It enables a set of rules that are library agnostic, and can help to catch possible misuse of the test APIs.
 ### Test activation
-```json title="biome.json"
+Enabled the **recommended** rules of the domain:
+```json title="biome.json" ins={3,5}
 {
 	"linter": {
-		"rules": {
-			"domains": {
-				"test": "on"
-			}
+		"domains": {
+			"test": "on"
+		}
+	}
+}
+```
+Enabled the **all** rules of the domain:
+```json title="biome.json" ins={3,5}
+{
+	"linter": {
+		"domains": {
+			"test": "all"
+		}
+	}
+}
+```
+**Disable** all rules of the domain:
+```json title="biome.json" ins={3,5}
+{
+	"linter": {
+		"domains": {
+			"test": "off"
 		}
 	}
 }
@@ -115,7 +191,7 @@ When enabled, the following global bindings are recognised by Biome:
 
 ### Test rules
 Rules that belong to the domain:
-- [noExcessiveNestedTestSuites](/linter/rules/no-excessive-nested-test-suites)
-- [noDuplicateTestHooks](/linter/rules/no-duplicate-test-hooks)
-- [noExportsInTest](/linter/rules/no-exports-in-test)
-- [noFocusedTests](/linter/rules/no-focused-tests)
+- [noExcessiveNestedTestSuites](/linter/rules/no-excessive-nested-test-suites) (recommended)
+- [noDuplicateTestHooks](/linter/rules/no-duplicate-test-hooks) (recommended)
+- [noExportsInTest](/linter/rules/no-exports-in-test) (recommended)
+- [noFocusedTests](/linter/rules/no-focused-tests) (recommended)
