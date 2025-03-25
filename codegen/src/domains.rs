@@ -145,7 +145,7 @@ impl DocDomains {
         writeln!(buffer, "### {name} activation")?;
         let recommended = format_node(
             JsonFormatOptions::default().with_expand(Expand::Always),
-            make_config_json(Case::Lower.convert(name).as_str(), "on").syntax(),
+            make_config_json(Case::Lower.convert(name).as_str(), "recommended").syntax(),
         )?
         .print()?;
 
