@@ -349,6 +349,9 @@ export default defineConfig({
 									label: "Plugins",
 									link: "/linter/plugins",
 									badge: "beta",
+									translations: {
+										ja: "プラグイン",
+									},
 								},
 							],
 							translations: {
