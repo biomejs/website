@@ -459,6 +459,9 @@ export default defineConfig({
 						{
 							label: "Git Hooks",
 							link: "/recipes/git-hooks",
+							translations: {
+								fr: "Hooks Git",
+							},
 						},
 						{
 							label: "Renovate",
