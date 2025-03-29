@@ -1,0 +1,71 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noDuplicateFields
+description: Learn more about noDuplicateFields
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="GraphQL" icon="seti:graphql">
+## Summary
+- Rule available since: `v1.9.0`
+- Diagnostic Category: [`lint/nursery/noDuplicateFields`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`graphql/no-duplicate-fields`](https://the-guild.dev/graphql/eslint/rules/no-duplicate-fields)
+
+:::caution
+This rule is part of the [nursery](/linter/rules/#nursery) group.
+:::
+## Description
+No duplicated fields in GraphQL operations.
+
+Checks for duplicate fields in selection set, variables in operation definition, or in arguments set of a field.
+
+## Examples
+
+### Invalid
+
+```graphql
+query test($v: String, $t: String, $v: String) {
+  id
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.graphql:1:36 <a href="https://biomejs.dev/linter/rules/no-duplicate-fields">lint/nursery/noDuplicateFields</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Variable `v` defined multiple times.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>query test($v: String, $t: String, $v: String) &#123;<br />   <strong>   │ </strong>                                   <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>  id<br />    <strong>3 │ </strong>&#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove the duplicated variable.</span><br />  <br /></code></pre>
+
+### Valid
+
+```graphql
+query {
+  user {
+    id
+  }
+}
+```
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noDuplicateFields": "error"
+			}
+		}
+	}
+}
+
+```
+## Related links
+
+- [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
+</Tabs>
+

@@ -3,6 +3,7 @@ use std::env;
 use std::path::{Path, PathBuf};
 
 pub mod diagnostics;
+pub mod domains;
 pub mod env_variables;
 pub mod lintdoc;
 pub mod metadata;

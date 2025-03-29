@@ -3,7 +3,7 @@ name: Checks for Japanese documentation
 on:
   workflow_dispatch:
   pull_request:
-    branches: [main]
+    branches: [main, next]
     paths:
       - "src/content/docs/ja/**"
 
