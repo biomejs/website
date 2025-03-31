@@ -57,6 +57,8 @@
 }
 
 .settings-tab {
+	overflow: auto;
+
 	section {
 		padding: 10px;
 	}
