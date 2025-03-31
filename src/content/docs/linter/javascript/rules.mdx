@@ -23,7 +23,6 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noAriaHiddenOnFocusable](/linter/rules/no-aria-hidden-on-focusable) | Enforce that aria-hidden="true" is not set on focusable elements. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noAriaUnsupportedElements](/linter/rules/no-aria-unsupported-elements) | Enforce that elements that do not support ARIA roles, states, and properties do not have those attributes. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noAutofocus](/linter/rules/no-autofocus) | Enforce that autoFocus prop is not used on elements. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
-| [noBlankTarget](/linter/rules/no-blank-target) | Disallow `target="_blank"` attribute without `rel="noreferrer"` | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [noDistractingElements](/linter/rules/no-distracting-elements) | Enforces that no distracting elements are used. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noHeaderScope](/linter/rules/no-header-scope) | The scope prop should be used only on `<th>` elements. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noInteractiveElementToNoninteractiveRole](/linter/rules/no-interactive-element-to-noninteractive-role) | Enforce that non-interactive ARIA roles are not assigned to interactive HTML elements. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
@@ -216,6 +215,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 
 | Rule name | Description | Properties |
 | --- | --- | --- |
+| [noBlankTarget](/linter/rules/no-blank-target) | Disallow `target="_blank"` attribute without `rel="noopener"`. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [noDangerouslySetInnerHtml](/linter/rules/no-dangerously-set-inner-html) | Prevent the usage of dangerous JSX props | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
 | [noDangerouslySetInnerHtmlWithChildren](/linter/rules/no-dangerously-set-inner-html-with-children) | Report when a DOM element or a component uses both `children` and `dangerouslySetInnerHTML` prop. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
 | [noGlobalEval](/linter/rules/no-global-eval) | Disallow the use of global `eval()`. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
@@ -343,7 +343,6 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 - [noAriaHiddenOnFocusable](/linter/rules/no-aria-hidden-on-focusable) (Severity: Error)
 - [noAriaUnsupportedElements](/linter/rules/no-aria-unsupported-elements) (Severity: Error)
 - [noAutofocus](/linter/rules/no-autofocus) (Severity: Error)
-- [noBlankTarget](/linter/rules/no-blank-target) (Severity: Error)
 - [noDistractingElements](/linter/rules/no-distracting-elements) (Severity: Error)
 - [noHeaderScope](/linter/rules/no-header-scope) (Severity: Error)
 - [noInteractiveElementToNoninteractiveRole](/linter/rules/no-interactive-element-to-noninteractive-role) (Severity: Error)
@@ -427,6 +426,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 - [useValidForDirection](/linter/rules/use-valid-for-direction) (Severity: Error)
 - [useYield](/linter/rules/use-yield) (Severity: Error)
 - [noAccumulatingSpread](/linter/rules/no-accumulating-spread) (Severity: Error)
+- [noBlankTarget](/linter/rules/no-blank-target) (Severity: Error)
 - [noDangerouslySetInnerHtml](/linter/rules/no-dangerously-set-inner-html) (Severity: Error)
 - [noDangerouslySetInnerHtmlWithChildren](/linter/rules/no-dangerously-set-inner-html-with-children) (Severity: Error)
 - [noGlobalEval](/linter/rules/no-global-eval) (Severity: Error)
