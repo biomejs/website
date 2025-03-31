@@ -3152,20 +3152,6 @@ export function GET() {
             ],
             "docs": " Enforce that autoFocus prop is not used on elements.\n\n Autofocusing elements can cause usability issues for sighted and non-sighted users, alike.\n But the autofocus attribute should be added to the element the user is expected to\n interact with immediately upon opening a modal dialog or popover.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <input autoFocus />\n ```\n\n ```jsx,expect_diagnostic\n <input autoFocus=\"true\" />\n ```\n\n ```jsx,expect_diagnostic\n <input autoFocus={\"false\"} />\n ```\n\n ```jsx,expect_diagnostic\n <input autoFocus={undefined} />\n ```\n\n ### Valid\n\n ```jsx\n <input />\n```\n\n ```jsx\n <div />\n```\n\n ```jsx\n <button />\n```\n\n ```jsx\n // `autoFocus` prop in user created component is valid\n <MyComponent autoFocus={true} />\n```\n\n ```jsx\n // `autoFocus` prop in element has `popover` attribute is valid\n <div popover><input autoFocus /></div>\n ```\n\n ```jsx\n // `autoFocus` prop in `dialog` is valid\n <dialog><input autoFocus /></dialog>\n ```\n\n ## Resources\n\n - [WHATWG HTML Standard, The autofocus attribute](https://html.spec.whatwg.org/multipage/interaction.html#attr-fe-autofocus)\n - [The accessibility of HTML 5 autofocus](https://brucelawson.co.uk/2009/the-accessibility-of-html-5-autofocus/)\n - [MDN Web Docs, HTMLElement: autofocus property](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/autofocus)\n\n"
           },
-          "noBlankTarget": {
-            "deprecated": false,
-            "version": "1.0.0",
-            "name": "noBlankTarget",
-            "link": "https://biomejs.dev/linter/rules/no-blank-target",
-            "recommended": true,
-            "fixKind": "safe",
-            "sources": [
-              {
-                "eslintReact": "jsx-no-target-blank"
-              }
-            ],
-            "docs": " Disallow `target=\"_blank\"` attribute without `rel=\"noreferrer\"`\n\n When creating anchor `a` element, there are times when its link has to be opened in a new browser tab\n via `target=\"_blank\"` attribute. This attribute has to paired with `rel=\"noreferrer\"` or you're incur\n in a security issue.\n\n Refer to [the noreferrer documentation](https://html.spec.whatwg.org/multipage/links.html#link-type-noreferrer)\n and the [the noopener documentation](https://html.spec.whatwg.org/multipage/links.html#link-type-noopener)\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <a href='http://external.link' target='_blank'>child</a>\n ```\n\n ```jsx,expect_diagnostic\n <a href='http://external.link' target='_blank' rel='noopener'>child</a>\n ```\n\n ```jsx,expect_diagnostic\n <a {...props} href='http://external.link' target='_blank' rel='noopener'>child</a>\n ```\n\n ### Valid\n\n ```jsx\n <a href='http://external.link' rel='noreferrer' target='_blank'>child</a>\n ```\n\n ```jsx\n <a href='http://external.link' target='_blank' rel='noopener' {...props}>child</a>\n ```\n\n ## Options\n\n The option `allowDomains` allows specific domains to use `target=\"_blank\"` without `rel=\"noreferrer\"`.\n In the following configuration, it's allowed to use the domains `https://example.com` and `example.org`:\n\n ```json,options\n {\n     \"options\": {\n         \"allowDomains\": [\"https://example.com\", \"example.org\"]\n     }\n }\n ```\n\n ```jsx,use_options\n <>\n   <a target='_blank' testme href='https://example.com'></a>\n   <a target='_blank' href='example.org'></a>\n </>\n ```\n\n The diagnostic is applied to all domains not in the allow list:\n\n ```json,options\n {\n     \"options\": {\n         \"allowDomains\": [\"https://example.com\"]\n     }\n }\n ```\n\n ```jsx,expect_diagnostic,use_options\n <>\n   <a target='_blank' testme href='https://example.com'></a>\n   <a target='_blank' href='example.org'></a>\n </>\n ```\n Biome doesn't check if the list contains valid URLs.\n"
-          },
           "noDistractingElements": {
             "deprecated": false,
             "version": "1.0.0",
@@ -3804,6 +3790,21 @@ export function GET() {
           }
         },
         "security": {
+          "noBlankTarget": {
+            "deprecated": false,
+            "version": "1.0.0",
+            "name": "noBlankTarget",
+            "link": "https://biomejs.dev/linter/rules/no-blank-target",
+            "recommended": true,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "eslintReact": "jsx-no-target-blank"
+              }
+            ],
+            "sourceKind": "inspired",
+            "docs": " Disallow `target=\"_blank\"` attribute without `rel=\"noopener\"`.\n\n When creating an anchor `a` element, there are times when its link has\n to be opened in a new browser tab via the `target=\"_blank\"` attribute.\n This attribute has to be paired with `rel=\"noopener\"` or you may run\n into security issues.\n\n See to the [`noopener` documentation](https://html.spec.whatwg.org/multipage/links.html#link-type-noopener).\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <a href='http://external.link' target='_blank'>child</a>\n ```\n\n ```jsx,expect_diagnostic\n <a href='http://external.link' target='_blank' rel='nofollow'>child</a>\n ```\n\n ```jsx,expect_diagnostic\n <a {...props} href='http://external.link' target='_blank' rel='nofollow'>child</a>\n ```\n\n ### Valid\n\n ```jsx\n <a href='http://external.link' rel='noopener' target='_blank'>child</a>\n ```\n\n ```jsx\n <a href='http://external.link' rel='noreferrer' target='_blank'>child</a>\n ```\n\n ```jsx\n // The rule accepts elements with spread props, because the required\n // attribute may be injected dynamically:\n <a href='http://external.link' target='_blank' {...props}>child</a>\n ```\n\n ## Options\n\n ### `allowNoReferrer`\n\n By default, `noBlankTarget` accepts both `rel=\"noopener\"` and\n `rel=\"noreferrer\"` with links that have `target=\"_blank\"`. This is\n because the latter _implies_ the former, so either one is sufficient to\n mitigate the security risk.\n\n However, allowing `rel=\"noreferrer\"` may still be undesirable, because\n it can break tracking, which may be an undesirable side-effect. As such,\n you can set `allowNoReferrer: false` to _only_ accept `rel=\"noopener\"`.\n\n See to the [`noreferrer` documentation](https://html.spec.whatwg.org/multipage/links.html#link-type-noreferrer).\n\n\n ```json,options\n {\n     \"options\": {\n         \"allowNoReferrer\": false\n     }\n }\n ```\n\n ```jsx,use_options,expect_diagnostic\n <a href='http://external.link' rel='noreferrer' target='_blank'>child</a>\n ```\n\n Default: `true`\n\n ### `allowDomains`\n\n The option `allowDomains` allows specific domains to use\n `target=\"_blank\"` without `rel=\"noopener\"`. In the following\n configuration, it's allowed to use the domains `https://example.com` and\n `example.org`:\n\n ```json,options\n {\n     \"options\": {\n         \"allowDomains\": [\"https://example.com\", \"example.org\"]\n     }\n }\n ```\n\n ```jsx,use_options\n <>\n   <a target='_blank' testme href='https://example.com'></a>\n   <a target='_blank' href='example.org'></a>\n </>\n ```\n\n The diagnostic is applied to all domains not in the allow list:\n\n ```json,options\n {\n     \"options\": {\n         \"allowDomains\": [\"https://example.com\"]\n     }\n }\n ```\n\n ```jsx,expect_diagnostic,use_options\n <>\n   <a target='_blank' testme href='https://example.com'></a>\n   <a target='_blank' href='example.org'></a>\n </>\n ```\n Biome doesn't check if the list contains valid URLs.\n"
+          },
           "noDangerouslySetInnerHtml": {
             "deprecated": false,
             "version": "1.0.0",
