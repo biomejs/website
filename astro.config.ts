@@ -517,6 +517,9 @@ export default defineConfig({
 						{
 							label: "Git Hooks",
 							link: "/recipes/git-hooks",
+							translations: {
+								fr: "Hooks Git",
+							},
 						},
 						{
 							label: "Renovate",
@@ -526,6 +529,7 @@ export default defineConfig({
 							label: "Social Badges",
 							link: "/recipes/badges",
 							translations: {
+								fr: "Badges sociaux",
 								ja: "ソーシャルバッジ",
 								uk: "Соціальні значки",
 							},
