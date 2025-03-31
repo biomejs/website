@@ -16,6 +16,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::
 
+## Description
 Disallow accessing namespace imports dynamically.
 
 Accessing namespace imports dynamically can prevent efficient tree shaking and increase bundle size.
@@ -69,6 +70,19 @@ const dynamicKey = "hello"
 knownMessagesMap[dynamicKey]
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noDynamicNamespaceImportAccess": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

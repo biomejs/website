@@ -1,0 +1,248 @@
+---
+title: Outil de linting
+description: Comment utiliser l’outil de linting de Biome.
+---
+
+import NumberOfRules from "@/components/generated/NumberOfRules.astro";
+import PackageManagerBiomeCommand from "@/components/PackageManagerBiomeCommand.astro";
+
+L’outil de linting de Biome analyse de manière statique votre code pour trouver et corriger les erreurs fréquentes et pour vous aider à écrire du code meilleur et moderne.
+Il [prend en charge plusieurs languages](/fr/internals/language-support) et fournit un total de [**<NumberOfRules/> règles**](/fr/linter/rules/).
+
+
+## Règles
+
+L’outil de linting est organisé par règles.
+Une règle déclenche un diagnostic quand elle rencontre du code qui ne remplit pas ses exigences.
+Par exemple, la règle [noDebugger](/fr/linter/rules/no-debugger) rapporte l’utilisation de l’instruction `debugger` dans du code JavaScript.
+
+Une règle déclenche des diagnostics de niveau de sévérité `info`, `warn` ou `error`.
+Les diagnostics de niveau de sévérité `error` font quitter la commande avec un code différent de zéro,
+tandis que les diagnostics de niveau de sévérité `info` ou `warn` ne font pas échouer la commande.
+
+Vous pouvez faire échouer une commande qui déclenche des diagnostics de type `warn` en utilisant l’option `--error-on-warnings`&nbsp;:
+
+```shell
+biome lint --error-on-warnings ./src
+```
+
+Par défaut, l’outil de linting de Biome n’exécute que les [**règles recommandées**](/fr/linter/rules#règles-recommandées).
+Pour désactiver _toutes les règles,_ vous pouvez désactiver les règles recommandées dans votre fichier de configuration de Biome,
+ce qui peut être utile dans les cas où vous ne voulez activer que quelques règles.
+Les règles recommandées déclenchent des diagnostics de niveau de sévérité `error`.
+
+Les règles sont divisées en groupes.
+Par exemple, la règle `noDebugger` fait partie du [groupe `suspicious`](/fr/linter/rules#suspicious).
+Les règles de ce groupe détectent du code qui est probablement incorrect ou inutile.
+La description de chaque groupe peut être trouvée à la [page des règles](/fr/linter/rules/).
+
+Contrairement à d’autres outils de linting, nous ne fournissons pas de règles qui vérifient le formatage du code.
+Ce type de vérification est couvert par notre [outil de formatage de code](/fr/formatter/).
+
+La plupart des règles fournissent une **correction de code** qui peut s’appliquer automatiquement.
+Biome distingue les corrections de code **sûres** des corrections de code **non sûres.**
+
+### Corrections sûres
+
+Les corrections sûres ont la garantie de ne pas modifier la sémantique de votre code.
+Elles peuvent s’appliquer sans revue explicite.
+
+Pour faire appliquer les _corrections sûres,_ utilisez `--write`&nbsp;:
+
+<PackageManagerBiomeCommand command="lint --write ./src" />
+
+### Corrections non sûres
+
+Les corrections non sûres peuvent modifier la sémantique de votre programme.
+Par conséquent, il est conseillé de revoir manuellement les modifications.
+
+Pour faire appliquer à la fois les _corrections sûres_ et les _corrections non sûres,_ utilisez `--write --unsafe`&nbsp;:
+
+<PackageManagerBiomeCommand command="lint --write --unsafe ./src" />
+
+### Piliers des règles
+
+Nous croyons que les règles devraient être instructives et expliquer à l’utilisateur pourquoi une règle est déclenchée et lui dire ce qu’il faudrait faire pour corriger l’erreur.
+Une règle devrait suivre ces **piliers&nbsp;:**
+
+1. expliquer à l’utilisateur l’erreur&nbsp;: généralement, c’est le message du diagnostic&nbsp;;
+2. expliquer à l’utilisateur **pourquoi** l’erreur est déclenchée&nbsp;: généralement, c’est implémenté dans un nœud supplémentaire&nbsp;;
+3. dire à l’utilisateur ce qu’il faudrait faire&nbsp;: généralement, c’est implémenté en utilisant une action sur le code&nbsp;;
+si une action sur le code n’est pas applicable, une note devrait dire à l’utilisateur ce qu’il faudrait faire pour corriger l’erreur.
+
+Si vous pensez qu’une règle ne suit pas ces piliers,
+merci de bien vouloir [ouvrir un ticket](https://github.com/biomejs/biome/issues/new?assignees=&labels=S-To+triage&projects=&template=01_bug.yml&title=%F0%9F%90%9B+%3CTITLE%3E).
+
+## Ligne de commande
+
+La commande suivante exécute l’outil de linting sur tous les fichiers dans le répertoire `src`&nbsp;:
+
+<PackageManagerBiomeCommand command="lint ./src" />
+
+La commande accepte une liste de fichiers et de répertoires.
+
+:::caution
+Si vous passez un glob en paramètre, votre shell l’évaluera.
+Le résultat de l’évaluation dépend de votre shell.
+Par exemple, certains shells ne prennent pas en charge le glob récursif `**` ou l’alternance `{}` dans la commande suivante&nbsp;:
+
+```shell
+biome lint ./src/**/*.test.{js,ts}
+```
+
+L’évaluation du shell a un coût en termes de performances et des limites sur le nombre de fichiers que vous pouvez passer à la commande.
+:::
+
+Pour plus de renseignements sur toutes les options disponibles, consultez la [référence de la ligne de commande](/fr/reference/cli#biome-lint).
+
+### Sauter une règle ou un groupe
+
+Depuis la version **v1.8.0,** la commande `biome lint` accepte une option `--skip` qui permet de désactiver une ou plusieurs règles appartenant à un groupe.
+
+Par exemple, la commande suivante saute toutes les règles appartenant au groupe `style` et la règle `suspicious/noExplicitAny`&nbsp;:
+
+```shell
+biome lint --skip=style --skip=suspicious/noExplicitAny
+```
+
+### Exécuter une règle ou un groupe
+
+Depuis la version **v1.8.0,** la commande `biome lint` accepte une option `--only` qui vous permet d’exécuter une ou plusieurs règles appartenant à un groupe.
+
+Par exemple, la commande suivante n’exécute que la règle `style/useNamingConvention`, la règle `style/noInferrableTypes` et les règles appartenant au groupe `a11y`. Si la règle est désactivée dans la configuration, alors son niveau de sévérité est défini à `error` pour une règle recommandée, à `warn` sinon.
+
+```shell
+biome lint --only=style/useNamingConvention --only=style/noInferrableTypes --only=a11y
+```
+
+## Configuration
+
+Une règle peut être configurée en fonction de vos besoins.
+
+### Désactiver une règle
+
+Une règle est activée, que sa sévérité soit de type `error`, `warn` ou `info`. Vous pouvez désactiver une règle avec `off`.
+
+La configuration suivante désactive la règle recommandée `noDebugger` et active les règles `noShoutyConstants` et `useNamingConvention`.
+
+La sévérité de type `warn` est utile dans les cas où il y a une refactorisation en cours et un besoin de faire passer l’intégration continue. Le message du diagnostic est en jaune. Vous pouvez utiliser `--error-on-warnings` pour quitter avec un code d’erreur quand une règle configurée avec `warn` est déclenchée.
+
+La sévérité de type `info` n’affectera pas le code du statut de sortie de la ligne de commande, même si `--error-on-warnings` est passée. Le message du diagnostic est en bleu.
+
+```json title="biome.json"
+{
+  "linter": {
+    "rules": {
+      "suspicious": {
+        "noDebugger": "off",
+        "noConsoleLog": "info"
+      },
+      "style": {
+        "noShoutyConstants": "warn",
+        "useNamingConvention": "error"
+      }
+    }
+  }
+}
+```
+
+### Configurer la correction des règles
+
+Depuis la version **v1.8.0,** il est possible de configurer l’entité d’une correction, en utilisant l’option `fix`.
+Il y a trois options&nbsp;:
+
+- `none`&nbsp;: la règle ne déclenchera pas de correction de code&nbsp;;
+- `safe`&nbsp;: la règle déclenchera une [correction sûre](#corrections-sûres)&nbsp;;
+- `unsafe`&nbsp;: la règle déclenchera une [correction non sûre](#corrections-non-sûres).
+
+```json title="biome.json"
+{
+  "linter": {
+    "rules": {
+      "correctness": {
+        "noUnusedVariables": {
+          "level": "error",
+          "fix": "none"
+        }
+      },
+      "style": {
+        "useConst": {
+          "level": "warn",
+          "fix": "unsafe"
+        },
+        "useTemplate": {
+          "level": "warn",
+          "fix": "safe"
+        }
+      }
+    }
+  }
+}
+```
+
+### Options des règles
+
+Quelques règles ont des options.
+Vous pouvez les configurer en déterminant la valeur de la règle différemment&nbsp;:
+
+- `level` indiquera le niveau de sévérité du diagnostic,
+- `options` changera en fonction de la règle.
+
+```json title="biome.json"
+{
+  "linter": {
+    "rules": {
+      "style": {
+        "useNamingConvention": {
+          "level": "error",
+          "options": {
+            "strictCase": false
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+
+## Ignorer du code
+
+Il y a des fois où un développeur veut ignorer une règle de linting pour une ligne de code spécifique.
+Vous pouvez y parvenir en ajoutant un commentaire de suppression au-dessus de la ligne qui déclenche le diagnostic du linting.
+
+Les commentaires de suppression ont le format suivant&nbsp;:
+
+```js
+// biome-ignore lint: <explication>
+// biome-ignore lint/suspicious/noDebugger: <explication>
+```
+
+Où&nbsp;:
+
+- `biome-ignore` est le début du commentaire de suppression&nbsp;;
+- `lint` supprime l’application du linting&nbsp;;
+- `/suspicious/noDebugger`&nbsp;: **facultatif,** groupe et nom de la règle que vous voulez supprimer&nbsp;;
+- `<explication>`&nbsp;: explication de la raison pour laquelle la règle est désactivée.
+
+En voici un exemple&nbsp;:
+
+```ts
+// biome-ignore lint: raison
+debugger;
+// biome-ignore lint/suspicious/noDebugger: raison
+debugger;
+```
+
+Biome ne fournit pas de commentaires pour ignorer un fichier entier.
+Cependant, vous pouvez [ignorer un fichier en utilisant le fichier de configuration de Biome](/fr/guides/configure-biome/#ignorer-des-fichiers).
+Notez que vous pouvez également [ignorer les fichiers ignorés par votre VCS](/fr/guides/integrate-in-vcs#utiliser-le-fichier-ignore).
+
+
+## Migrer depuis d’autres outils de linting
+
+La plupart des règles de linting de Biome sont inspirées d’autres outils de linting.
+Si vous voulez migrer depuis d’autres outils de linting comme ESLint ou `typescript-eslint`,
+consultez la [page des sources des règles](/fr/linter/rules-sources).
+Si vous migrez depuis ESLint,
+nous avons un [guide de migration](/fr/guides/migrate-eslint-prettier#migrer-depuis-eslint) dédié.

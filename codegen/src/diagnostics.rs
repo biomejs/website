@@ -3,8 +3,8 @@ use anyhow::Result;
 use biome_console::fmt::{Formatter, HTML};
 use biome_console::markup;
 use biome_diagnostics::{
-    category, Advices, Diagnostic, DiagnosticExt, DiagnosticTags, Location, LogCategory,
-    MessageAndDescription, PrintDiagnostic, Severity, Visit,
+    Advices, Diagnostic, DiagnosticExt, DiagnosticTags, Location, LogCategory,
+    MessageAndDescription, PrintDiagnostic, Severity, Visit, category,
 };
 use biome_rowan::TextRange;
 use biome_text_edit::TextEdit;
@@ -133,7 +133,7 @@ pub fn generate_diagnostics() -> Result<()> {
             let is_not_found = err
                 .source()
                 .and_then(|err| err.downcast_ref::<io::Error>())
-                .map_or(false, |err| matches!(err.kind(), io::ErrorKind::NotFound));
+                .is_some_and(|err| matches!(err.kind(), io::ErrorKind::NotFound));
 
             if !is_not_found {
                 return Err(err.into());

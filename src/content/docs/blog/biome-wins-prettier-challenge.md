@@ -13,8 +13,7 @@ cover:
 socialImage: "@/assets/blog/prettier-challenge.png"
 ---
 
-With the release of Biome **`v1.4.0`
-**, we claim the bounty of the [Prettier challenge](https://console.algora.io/challenges/prettier)!
+With the release of Biome **`v1.4.0`**, we claim the bounty of the [Prettier challenge](https://console.algora.io/challenges/prettier)!
 
 With `v1.4.0`, you'll get a better formatter experience, more formatting options, new VSCode features, new sponsors and more!
 
@@ -28,10 +27,9 @@ yarn upgrade --exact @biomejs/biome@1.4.0
 
 ## Better formatter
 
-Biome formatter has now **over 96% in terms of compatibility
-** against [Prettier](https://prettier.io/)! This score is computed for JavaScript, TypeScript, and JSX formatting.
+Biome formatter has now **over 96% in terms of compatibility** against [Prettier](https://prettier.io/)! This score is computed for JavaScript, TypeScript, and JSX formatting.
 
-Merit of challenge that was launched by [Christopher Chedeau](https://twitter.com/Vjeux/status/1722733472522142022), one of the Prettier's creators.
+Merit of challenge that was launched by [Christopher Chedeau](http://blog.vjeux.com/), one of the Prettier's creators.
 
 The challenge attracted the attention of many people, and some of them decided to contribute to Biome to claim part of the bounty. I did see something amazing: contributors had an amazing coordination, they took ownership of the tasks and delivered the solution in a matter of hours.
 
@@ -121,8 +119,7 @@ We removed the bundled binary from the extension, and you'll be able to download
   <source src="https://github.com/biomejs/biome-vscode/assets/649677/c7c1bf81-10a5-4cd6-bbdf-019d983a2d6a" type="video/mp4">
 </video>
 
-From today, we release a [**nightly
-**](https://marketplace.visualstudio.com/items?itemName=biomejs.biome-nightly) version of the extension. This is a version meant for early adopters and to test things before they are officially released.
+From today, we release a [**nightly**](https://marketplace.visualstudio.com/items?itemName=biomejs.biome-nightly) version of the extension. This is a version meant for early adopters and to test things before they are officially released.
 
 ## Some CLI goodies
 

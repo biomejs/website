@@ -20,6 +20,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://typescript-eslint.io/rules/ban-types" target="_blank"><code>@typescript-eslint/ban-types</code></a>
 
+## Description
 Disallow primitive type aliases and misleading types.
 
 - Enforce consistent names for primitive types
@@ -107,6 +108,19 @@ let foo: string = "bar";
 let tuple: [boolean, string] = [false, "foo"];
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"complexity": {
+				"noBannedTypes": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

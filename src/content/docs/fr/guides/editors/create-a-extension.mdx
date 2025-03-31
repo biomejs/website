@@ -1,0 +1,81 @@
+---
+title: Intégrer Biome à une extension pour un éditeur
+description: Apprenez comment pouvoir intégrer Biome à des éditeurs et IDEs
+---
+
+Biome prend nativement en charge [LSP](https://microsoft.github.io/language-server-protocol/). Si votre éditeur implémente LSP, alors l’intégration de Biome devrait être sans accroc.
+
+## Utiliser le proxy LSP
+
+Biome a une commande appelée `lsp-proxy`. Lors de son exécution, Biome générera deux processus&nbsp;:
+- un [daemon](/fr/internals/architecture#daemon) qui exécute les opérations demandées,
+- un serveur qui fonctionne comme un proxy entre les requêtes du client – l’éditeur – et le serveur – le daemon.
+
+Si votre éditeur est capable d’interagir avec un serveur et d’envoyer des requêtes en [JSON-RPC](https://www.jsonrpc.org/), vous n’avez besoin que de configurer l’éditeur pour qu’il exécute cette commande.
+
+Vous pouvez regarder la manière dont [l’extension `neo-vim biome`](https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/configs/biome.lua) le fait.
+
+## Utiliser `stdin`
+
+Si votre éditeur ne prend pas en charge LSP, vous utilisez directement le binaire `biome` et l’appelez en utilisant [l’entrée standard](https://fr.wikipedia.org/wiki/Flux_standard#Entrée_standard).
+
+Les commandes suivantes peuvent être appelées via l’entrée standard&nbsp;:
+- [`format`](/fr/reference/cli/#biome-format),
+- [`lint`](/fr/reference/cli/#biome-lint),
+- [`check`](/fr/reference/cli/#biome-check).
+
+Biome renverra la nouvelle sortie (ou la sortie d’origine s’il n’y a eu aucune modification) vers [la sortie standard](https://fr.wikipedia.org/wiki/Flux_standard#Sortie_standard) et les diagnostics vers [l’erreur standard](https://fr.wikipedia.org/wiki/Flux_standard#Erreur_standard).
+
+Quand vous utilisez `stdin`, vous devez passer l’option `--stdin-file-path`. Le fichier `path` **n’a pas besoin d’exister** dans votre système de fichiers et peut avoir n’importe quel nom. **L’important** est de fournir la bonne extension de fichier pour que Biome sache **comment traiter** votre fichier.
+
+Il est de la responsabilité de l’éditeur de localiser la résolution du chemin du binaire et de l’appeler ensuite si besoin. Les binaires sont envoyés à npm sur la base des architectures et systèmes d’exploitation que nous prenons en charge&nbsp;:
+
+- `@biomejs/cli-darwin-arm64`,
+- `@biomejs/cli-darwin-x64`,
+- `@biomejs/cli-linux-arm64`,
+- `@biomejs/cli-linux-x64`,
+- `@biomejs/cli-win32-arm64`,
+- `@biomejs/cli-win32-x64`.
+
+Le nom du binaire est `biome` ou `biome.exe` et il peut être trouvé dans le répertoire racine de la librairie&nbsp;; par exemple, `@biomejs/cli-darwin-arm64/biome`, `@biomejs/cli-win32-x64/biome.exe`.
+
+## Utiliser le daemon avec le binaire
+
+L’utilisation du binaire via la ligne de commande est très efficace, bien que vous ne puissiez pas fournir de [logs](#daemon-logs) à vos utilisateurs. L’interface en ligne de commande vous permet de monter un daemon et d’utiliser la ligne de commande par l’intermédiaire du daemon lui-même.
+
+Pour ce faire, vous devez d’abord démarrer un processus daemon avec la commande [`start`](/fr/reference/cli#biome-start)&nbsp;:
+
+```shell
+biome start
+```
+Puis, chaque commande a besoin d’ajouter les options `--use-server`&nbsp;; par exemple&nbsp;:
+
+```shell
+echo "console.log('')" | biome format --use-server --stdin-file-path=dummy.js
+```
+
+:::note
+Si vous décidez d’utiliser le daemon, vous avez également la responsabilité de redémarrer/tuer le processus avec la commande [`stop`](/fr/reference/cli#biome-stop) pour éviter des processus fantômes.
+:::
+
+:::caution
+Les opérations via le daemon sont considérablement plus lentes que la ligne de commande elle-même, il est donc conseillé de n’exécuter les opérations que sur un fichier à la fois.
+:::
+
+## Logs daemon
+
+Le daemon de Biome enregistre les logs dans votre système de fichiers. Les logs sont stockés dans un dossier appelé `biome-logs`. Le chemin vers ce dossier varie selon votre système d’exploitation&nbsp;:
+-  Linux&nbsp;: `~/.cache/biome`,
+-  Windows&nbsp;: `C:\Users\<nom d’utilisateur>\AppData\Local\biomejs\biome\cache`,
+-  macOS&nbsp;: `/Users/<nom d’utilisateur>/Library/Caches/dev.biomejs.biome`.
+
+Pour d’autres systèmes d’exploitation, vous pouvez trouver le dossier dans le répertoire temporaire du système.
+
+Pour obtenir le chemin exact, exécutez la commande suivante&nbsp;:
+```shell
+biome explain daemon-logs
+```
+
+Les fichiers de log sont mis à jour toutes les heures.
+
+

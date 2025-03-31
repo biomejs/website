@@ -20,6 +20,7 @@ import {
 	modifyFilename,
 	normalizeFilename,
 } from "@/playground/utils";
+import type { FixFileMode } from "@biomejs/wasm-web";
 import type { Dispatch, SetStateAction } from "react";
 import type React from "react";
 import { useState } from "react";
@@ -51,7 +52,8 @@ export default function SettingsTab({
 			bracketSameLine,
 			lintRules,
 			enabledLinting,
-			importSortingEnabled,
+			analyzerFixMode,
+			enabledAssist,
 			unsafeParameterDecoratorsEnabled,
 			allowComments,
 			attributePosition,
@@ -114,10 +116,14 @@ export default function SettingsTab({
 		setPlaygroundState,
 		"enabledLinting",
 	);
-
-	const setImportSorting = createPlaygroundSettingsSetter(
+	const setAnalyzerFixMode = createPlaygroundSettingsSetter(
 		setPlaygroundState,
-		"importSortingEnabled",
+		"analyzerFixMode",
+	);
+
+	const setEnabledAssist = createPlaygroundSettingsSetter(
+		setPlaygroundState,
+		"enabledAssist",
 	);
 
 	const setUnsafeParameterDecoratorsEnabled = createPlaygroundSettingsSetter(
@@ -282,10 +288,12 @@ export default function SettingsTab({
 				setLintRules={setLintRules}
 				enabledLinting={enabledLinting}
 				setEnabledLinting={setEnabledLinting}
+				analyzerFixMode={analyzerFixMode}
+				setAnalyzerFixMode={setAnalyzerFixMode}
 			/>
-			<ImportSortingSettings
-				importSortingEnabled={importSortingEnabled}
-				setImportSorting={setImportSorting}
+			<AssistSettings
+				enabledAssist={enabledAssist}
+				setEnabledAssist={setEnabledAssist}
 			/>
 			<SyntaxSettings
 				filename={currentFile}
@@ -799,11 +807,15 @@ function LinterSettings({
 	setLintRules,
 	enabledLinting,
 	setEnabledLinting,
+	analyzerFixMode,
+	setAnalyzerFixMode,
 }: {
 	lintRules: LintRules;
 	setLintRules: (value: LintRules) => void;
 	enabledLinting: boolean;
 	setEnabledLinting: (value: boolean) => void;
+	analyzerFixMode: FixFileMode;
+	setAnalyzerFixMode: (value: FixFileMode) => void;
 }) {
 	return (
 		<>
@@ -833,31 +845,46 @@ function LinterSettings({
 						<option value={LintRules.All}>All</option>
 					</select>
 				</div>
+				<div className="field-row">
+					<label htmlFor="analyzer-fix-mode">Fix Mode</label>
+					<select
+						id="analyzer-fix-mode"
+						aria-describedby="analyzer-fix-mode-description"
+						name="analyzer-fix-mode"
+						disabled={!enabledLinting}
+						value={analyzerFixMode ?? "safeFixes"}
+						onChange={(e) => setAnalyzerFixMode(e.target.value as FixFileMode)}
+					>
+						<option value={"safeFixes"}>Safe Fixes</option>
+						<option value={"safeAndUnsafeFixes"}>Safe and Unsafe Fixes</option>
+						<option value={"applySuppressions"}>Apply Suppressions</option>
+					</select>
+				</div>
 			</section>
 		</>
 	);
 }
 
-export function ImportSortingSettings({
-	importSortingEnabled,
-	setImportSorting,
+export function AssistSettings({
+	enabledAssist,
+	setEnabledAssist,
 }: {
-	importSortingEnabled: boolean;
-	setImportSorting: (value: boolean) => void;
+	enabledAssist: boolean;
+	setEnabledAssist: (value: boolean) => void;
 }) {
 	return (
 		<>
-			<h2>Import sorting options</h2>
+			<h2>Assist options</h2>
 			<section>
 				<div className="field-row">
 					<input
-						id="import-sorting-enabled"
-						name="import-sorting-enabled"
+						id="assist-enabled"
+						name="assist-enabled"
 						type="checkbox"
-						checked={importSortingEnabled}
-						onChange={(e) => setImportSorting(e.target.checked)}
+						checked={enabledAssist}
+						onChange={(e) => setEnabledAssist(e.target.checked)}
 					/>
-					<label htmlFor="import-sorting-enabled">Import sorting enabled</label>
+					<label htmlFor="assist-enabled">Assist enabled</label>
 				</div>
 			</section>
 		</>

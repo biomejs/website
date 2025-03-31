@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://github.com/stylelint/stylelint/blob/main/lib/rules/keyframe-declaration-no-important/README.md" target="_blank"><code>stylelint/keyframe-declaration-no-important</code></a>
 
+## Description
 Disallow invalid `!important` within keyframe declarations
 
 Using `!important` within keyframes declarations is completely ignored in some browsers.
@@ -53,6 +54,19 @@ Using `!important` within keyframes declarations is completely ignored in some b
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noImportantInKeyframe": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

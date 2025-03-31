@@ -20,6 +20,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://typescript-eslint.io/rules/no-inferrable-types" target="_blank"><code>@typescript-eslint/no-inferrable-types</code></a>
 
+## Description
 Disallow type annotations for variables, parameters, and class properties initialized with a literal expression.
 
 TypeScript is able to infer the types of parameters, properties, and variables from their default or initial values.
@@ -109,6 +110,19 @@ class SomeClass {
 function f(param: 1 | 2 = 1): void {}
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"noInferrableTypes": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

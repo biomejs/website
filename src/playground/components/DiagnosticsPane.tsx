@@ -18,7 +18,7 @@ export default function DiagnosticsPane({
 	console,
 	code,
 }: Props) {
-	const [tab, setTab] = useState("diagnostics");
+	const [tab, setTab] = useState<"diagnostics" | "console">("diagnostics");
 
 	return (
 		<Tabs

@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/prefer-tag-over-role.md" target="_blank"><code>jsx-a11y/prefer-tag-over-role</code></a>
 
+## Description
 It detects the use of `role` attributes in JSX elements and suggests using semantic elements instead.
 
 The `role` attribute is used to define the purpose of an element, but it should be used as a last resort.
@@ -32,13 +33,13 @@ Using semantic elements like `<button>`, `<nav>` and others are more accessible 
 <div role="checkbox"></div>
 ```
 
-<pre class="language-text"><code class="language-text">code-block.jsx:1:6 <a href="https://biomejs.dev/linter/rules/use-semantic-elements">lint/a11y/useSemanticElements</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The elements with this role can be changed to the following elements:<br /></span>    <span style="color: Tomato;">&lt;input type=&quot;checkbox&quot;&gt;</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;div role=&quot;checkbox&quot;&gt;&lt;/div&gt;<br />   <strong>   │ </strong>     <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">For examples and more information, see </span><span style="color: lightgreen;"><a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles">WAI-ARIA Roles</a></span><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.jsx:1:6 <a href="https://biomejs.dev/linter/rules/use-semantic-elements">lint/a11y/useSemanticElements</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The elements with the following roles can be changed to the following elements:<br /></span>    <span style="color: Tomato;">&lt;input type=&quot;checkbox&quot;&gt;<br /></span>  <br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;div role=&quot;checkbox&quot;&gt;&lt;/div&gt;<br />   <strong>   │ </strong>     <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">For examples and more information, see </span><span style="color: lightgreen;"><a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles">WAI-ARIA Roles</a></span><br />  <br /></code></pre>
 
 ```jsx
 <div role="separator"></div>
 ```
 
-<pre class="language-text"><code class="language-text">code-block.jsx:1:6 <a href="https://biomejs.dev/linter/rules/use-semantic-elements">lint/a11y/useSemanticElements</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The elements with this role can be changed to the following elements:<br /></span>    <span style="color: Tomato;">&lt;hr&gt;</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;div role=&quot;separator&quot;&gt;&lt;/div&gt;<br />   <strong>   │ </strong>     <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">For examples and more information, see </span><span style="color: lightgreen;"><a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles">WAI-ARIA Roles</a></span><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.jsx:1:6 <a href="https://biomejs.dev/linter/rules/use-semantic-elements">lint/a11y/useSemanticElements</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The elements with the following roles can be changed to the following elements:<br /></span>    <span style="color: Tomato;">&lt;hr&gt;<br /></span>  <br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;div role=&quot;separator&quot;&gt;&lt;/div&gt;<br />   <strong>   │ </strong>     <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">For examples and more information, see </span><span style="color: lightgreen;"><a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles">WAI-ARIA Roles</a></span><br />  <br /></code></pre>
 
 ### Valid
 
@@ -57,6 +58,19 @@ All elements with `role="img"` are ignored:
 </div>
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"a11y": {
+				"useSemanticElements": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

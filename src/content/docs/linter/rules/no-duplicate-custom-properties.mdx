@@ -19,6 +19,7 @@ This rule is part of the [nursery](/linter/rules/#nursery) group.
 Sources: 
 - Same as: <a href="https://github.com/stylelint/stylelint/blob/main/lib/rules/declaration-block-no-duplicate-custom-properties/README.md" target="_blank"><code>stylelint/declaration-block-no-duplicate-custom-properties</code></a>
 
+## Description
 Disallow duplicate custom properties within declaration blocks.
 
 This rule checks the declaration blocks for duplicate custom properties.
@@ -49,6 +50,19 @@ a { --custom-property: pink; }
 a { --custom-property: pink; --cUstOm-prOpErtY: orange; }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noDuplicateCustomProperties": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

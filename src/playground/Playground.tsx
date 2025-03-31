@@ -8,7 +8,6 @@ import DiagnosticsConsoleTab from "@/playground/tabs/DiagnosticsConsoleTab";
 import DiagnosticsListTab from "@/playground/tabs/DiagnosticsListTab";
 import FormatterCodeTab from "@/playground/tabs/FormatterCodeTab";
 import FormatterIrTab from "@/playground/tabs/FormatterIrTab";
-import ImportSortingTab from "@/playground/tabs/ImportSortingTab";
 import SettingsTab from "@/playground/tabs/SettingsTab";
 import SyntaxTab from "@/playground/tabs/SyntaxTab";
 import {
@@ -48,6 +47,7 @@ import {
 	useRef,
 	useState,
 } from "react";
+import AnalyzerFixesTab from "./tabs/AnalyzerFixesTab";
 
 export default function Playground({
 	setPlaygroundState,
@@ -242,6 +242,16 @@ export default function Playground({
 					),
 				},
 				{
+					key: PlaygroundTab.AnalyzerFixes,
+					title: "Analyzer Fixes",
+					children: (
+						<AnalyzerFixesTab
+							code={biomeOutput.analysis.fixed}
+							extensions={codeMirrorExtensions}
+						/>
+					),
+				},
+				{
 					key: PlaygroundTab.Syntax,
 					title: "Syntax",
 					children: (
@@ -257,16 +267,6 @@ export default function Playground({
 					title: "Control Flow Graph",
 					children: (
 						<ControlFlowTab graph={biomeOutput.analysis.controlFlowGraph} />
-					),
-				},
-				{
-					key: PlaygroundTab.ImportSorting,
-					title: "Import Sorting",
-					children: (
-						<ImportSortingTab
-							code={biomeOutput.importSorting.code}
-							extensions={codeMirrorExtensions}
-						/>
 					),
 				},
 				{

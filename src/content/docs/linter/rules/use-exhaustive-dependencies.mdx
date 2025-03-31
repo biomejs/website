@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://github.com/facebook/react/blob/main/packages/eslint-plugin-react-hooks/README.md" target="_blank"><code>react-hooks/exhaustive-deps</code></a>
 
+## Description
 Enforce all dependencies are correctly specified in a React hook.
 
 _This rule should be used only in **React** projects._
@@ -185,6 +186,7 @@ dependencies array to validate against.
 
 ```json
 {
+    "//": "...",
     "options": {
         "hooks": [
             { "name": "useLocation", "closureIndex": 0, "dependenciesIndex": 1},
@@ -224,6 +226,7 @@ hook that would be configured like this is `useState()`.
 
 ```json
 {
+    "//": "...",
     "options": {
         "hooks": [
             { "name": "useDispatch", "stableResult": true }
@@ -245,6 +248,19 @@ const doAction = useCallback(() => dispatch(someAction()), []);
 This rule recognizes rules imported from `preact/compat` and
 `preact/hooks` and applies the same rules as for React hooks.
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"useExhaustiveDependencies": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

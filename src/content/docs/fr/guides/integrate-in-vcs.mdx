@@ -1,0 +1,79 @@
+---
+title: Intégrer Biome à votre VCS
+description: Apprenez comment intégrer Biome au VCS
+---
+
+L’intégration au VCS (Version Control System) est censée tirer parti de fonctionnalités **additionnelles** que seul un VCS peut fournir.
+Actuellement, Biome ne prend en charge que Git.
+L’intégration est *opt-in.*
+Vous devez activer `vcs.enabled` et définir `vcs.clientKind` dans le fichier de configuration de Biome&nbsp;:
+
+```json title="biome.json"
+{
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git"
+  }
+}
+```
+
+Cette configuration ne fait **rien en soi.** Vous devez activer les fonctionnalités que vous voulez utiliser.
+
+## Utiliser le fichier ignore
+
+Activez `vcs.useIgnoreFile` pour permettre à Biome d’ignorer tous les fichiers et répertoires listés dans le fichier ignore de votre VCS.
+À l’heure actuelle, Biome **ne prend en compte que le fichier ignore du répertoire de travail.**
+
+```json title="biome.json" ins={5}
+{
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  }
+}
+```
+
+## Ne traiter que les fichiers modifiés
+
+C’est une fonctionnalité qui n’est disponible qu’en ligne de commande et permet de ne traiter **que** les fichiers qui ont été **modifiés** d’une révision à une autre.
+
+D’abord, vous devez mettre à jour votre fichier de configuration et dire à Biome quelle est la branche par défaut via le champ `vcs.defaultBranch`&nbsp;:
+
+```json title="biome.json" ins={6}
+{
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true,
+    "defaultBranch": "main"
+  }
+}
+```
+
+Puis, ajoutez l’option `--changed` à votre commande pour ne traiter que ces fichiers que votre VCS reconnaît comme étant «&nbsp;modifiés&nbsp;». Biome, avec l’aide du VCS, déterminera les fichiers modifiés en se basant sur la branche `main` et sur votre révision actuelle&nbsp;:
+
+```shell
+biome check --changed
+```
+
+:::caution
+Biome ne vérifie pas ce qui a été modifié, ce qui veut dire que même l’ajout d’espaces ou de retours à la ligne à un fichier marquera ce dernier comme étant «&nbsp;modifié&nbsp;».
+:::
+
+Ou bien vous pouvez utiliser l’option `--since` pour spécifier une branche arbitraire. Cette option **est prioritaire** sur l’option `vcs.defaultBranch`. Par exemple, vous pourriez vouloir vérifier vos modifications par rapport à la branche `next`&nbsp;:
+
+```shell
+biome check --changed --since=next
+```
+
+## Ne traiter que les fichiers indexés
+
+Avant d’effectuer un commit de vos modifications, il se peut que vous vouliez vérifier le formatage et le linting des fichiers qui ont été ajoutés à _l’index,_ également connus sous le nom de _fichiers indexés_.
+Ajoutez l’option `--staged` à votre commande pour ne traiter que ces fichiers-là&nbsp;:
+
+```shell
+biome check --staged
+```
+
+L’option `--staged` n’est pas disponible avec la commande `ci` parce que vous n’êtes pas censé effectuer des commits de modification dans un environnement d’intégration continue.

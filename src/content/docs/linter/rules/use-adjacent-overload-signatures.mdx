@@ -19,6 +19,7 @@ This rule is part of the [nursery](/linter/rules/#nursery) group.
 Sources: 
 - Same as: <a href="https://typescript-eslint.io/rules/adjacent-overload-signatures" target="_blank"><code>@typescript-eslint/adjacent-overload-signatures</code></a>
 
+## Description
 Disallow the use of overload signatures that are not next to each other.
 
 Overload signatures must be adjacent.
@@ -61,7 +62,7 @@ class A {
 }
 ```
 
-<pre class="language-text"><code class="language-text">code-block.ts:5:3 <a href="https://biomejs.dev/linter/rules/use-adjacent-overload-signatures">lint/nursery/useAdjacentOverloadSignatures</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">All fooA signatures must be adjacent.</span><br />  <br />    <strong>3 │ </strong>  fooA(n: number): void;<br />    <strong>4 │ </strong>  barA(): void &#123;&#125;;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>5 │ </strong>  fooA(sn: string | number): void &#123;&#125;;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>6 │ </strong>&#125;<br />    <strong>7 │ </strong><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text"></code></pre>
 
 ### Valid
 
@@ -101,6 +102,19 @@ class A {
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useAdjacentOverloadSignatures": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

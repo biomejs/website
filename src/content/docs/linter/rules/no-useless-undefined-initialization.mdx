@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-undef-init" target="_blank"><code>no-undef-init</code></a>
 
+## Description
 Disallow initializing variables to `undefined`.
 
 A variable that is declared and not initialized to any value automatically gets the value of `undefined`.
@@ -69,6 +70,19 @@ class Foo {
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"complexity": {
+				"noUselessUndefinedInitialization": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

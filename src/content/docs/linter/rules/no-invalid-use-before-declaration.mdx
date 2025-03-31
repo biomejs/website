@@ -20,6 +20,7 @@ Sources:
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-use-before-define" target="_blank"><code>no-use-before-define</code></a>
 - Same as: <a href="https://typescript-eslint.io/rules/no-use-before-define" target="_blank"><code>@typescript-eslint/no-use-before-define</code></a>
 
+## Description
 Disallow the use of variables and function parameters before their declaration
 
 JavaScript doesn't allow the use of block-scoped variables (`let`, `const`) and function parameters before their declaration.
@@ -76,6 +77,19 @@ function f() { return CONSTANT; }
 const CONSTANT = 0;
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noInvalidUseBeforeDeclaration": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

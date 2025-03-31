@@ -2,7 +2,7 @@ use crate::project_root;
 use crate::rules_sources::generate_rule_sources;
 use crate::shared::add_codegen_disclaimer_frontmatter;
 use anyhow::Context;
-use anyhow::{bail, Result};
+use anyhow::{Result, bail};
 use biome_analyze::options::JsxRuntime;
 use biome_analyze::{
     AnalysisFilter, AnalyzerOptions, ControlFlow, FixKind, GroupCategory, Queryable,
@@ -11,19 +11,23 @@ use biome_analyze::{
 use biome_configuration::PartialConfiguration;
 use biome_console::fmt::Termcolor;
 use biome_console::{
+    Markup, MarkupBuf,
     fmt::{Formatter, HTML},
-    markup, Markup, MarkupBuf,
+    markup,
 };
 use biome_css_parser::CssParserOptions;
 use biome_css_syntax::CssLanguage;
 use biome_deserialize::json::deserialize_from_json_ast;
 use biome_diagnostics::termcolor::NoColor;
 use biome_diagnostics::{Diagnostic, DiagnosticExt, PrintDiagnostic};
+use biome_formatter::LineWidth;
 use biome_fs::BiomePath;
 use biome_graphql_syntax::GraphqlLanguage;
 use biome_js_parser::JsParserOptions;
 use biome_js_syntax::{EmbeddingKind, JsFileSource, JsLanguage};
 use biome_json_factory::make;
+use biome_json_formatter::context::JsonFormatOptions;
+use biome_json_formatter::format_node;
 use biome_json_parser::JsonParserOptions;
 use biome_json_syntax::{AnyJsonValue, JsonLanguage, JsonObjectValue};
 use biome_rowan::{AstNode, TextSize};
@@ -161,7 +165,7 @@ pub fn generate_rule_docs() -> Result<()> {
             let is_not_found = err
                 .source()
                 .and_then(|err| err.downcast_ref::<io::Error>())
-                .map_or(false, |err| matches!(err.kind(), io::ErrorKind::NotFound));
+                .is_some_and(|err| matches!(err.kind(), io::ErrorKind::NotFound));
 
             if !is_not_found {
                 return Err(err.into());
@@ -443,7 +447,10 @@ fn generate_rule_content(
 
     if let Some(reason) = &meta.deprecated {
         writeln!(content, ":::caution[Deprecated]")?;
-        writeln!(content, "This rule is deprecated and will be removed in the next major release.\n**Reason**: {reason}")?;
+        writeln!(
+            content,
+            "This rule is deprecated and will be removed in the next major release.\n**Reason**: {reason}"
+        )?;
         writeln!(content, ":::")?;
     }
 
@@ -452,7 +459,10 @@ fn generate_rule_content(
     if is_recommended || !matches!(meta.fix_kind, FixKind::None) {
         writeln!(content, ":::note")?;
         if is_recommended {
-            writeln!(content, "- This rule is recommended by Biome. A diagnostic error will appear when linting your code.")?;
+            writeln!(
+                content,
+                "- This rule is recommended by Biome. A diagnostic error will appear when linting your code."
+            )?;
         }
         match meta.fix_kind {
             FixKind::Safe => {
@@ -499,6 +509,7 @@ fn generate_rule_content(
     }
 
     write_documentation(group, rule_name, meta.docs, &mut content, summary)?;
+    write_how_to_configure(group, rule_name, &mut content)?;
 
     writeln!(content, "## Related links")?;
     writeln!(content)?;
@@ -698,16 +709,46 @@ fn parse_rule_options(
             }
 
             let Some(result) = partial_configuration else {
-                bail!("Failed to deserialize configuration options for '{group}/{rule}' from the following code block due to unknown error.\n\n{code}");
+                bail!(
+                    "Failed to deserialize configuration options for '{group}/{rule}' from the following code block due to unknown error.\n\n{code}"
+                );
             };
 
             Ok(Some(result))
         }
         _ => {
             // Only JSON code blocks can contain configuration options
-            bail!("The following non-JSON code block for '{group}/{rule}' was marked as containing configuration options. Only JSON code blocks can used to provide configuration options.\n\n{code}");
+            bail!(
+                "The following non-JSON code block for '{group}/{rule}' was marked as containing configuration options. Only JSON code blocks can used to provide configuration options.\n\n{code}"
+            );
         }
     }
+}
+
+fn write_how_to_configure(
+    group: &'static str,
+    rule: &'static str,
+    content: &mut Vec<u8>,
+) -> Result<()> {
+    writeln!(content, "## How to configure")?;
+    let json = format!(
+        r#"{{
+    "linter": {{ "rules": {{ "{group}": {{ "{rule}": "error" }} }} }}
+}}"#
+    );
+
+    let parsed = biome_json_parser::parse_json(&json, JsonParserOptions::default());
+    let printed = format_node(
+        JsonFormatOptions::default().with_line_width(LineWidth::try_from(1).unwrap()),
+        &parsed.syntax(),
+    )?
+    .print()?;
+
+    writeln!(content, "```json title=\"biome.json\"")?;
+    writeln!(content, "{}", printed.as_code())?;
+    writeln!(content, "```")?;
+
+    Ok(())
 }
 
 /// Parse the documentation fragment for a lint rule (in markdown) and generates
@@ -721,6 +762,8 @@ fn write_documentation(
     // content, used as a short summary of what the rule does in the rules page
     summary: &mut Vec<Event<'static>>,
 ) -> Result<()> {
+    writeln!(content, "## Description")?;
+
     let parser = Parser::new(docs);
 
     let mut is_summary = false;
@@ -937,11 +980,11 @@ fn write_documentation(
                 write!(content, "~")?;
             }
 
-            Event::Start(Tag::BlockQuote) => {
+            Event::Start(Tag::BlockQuote(_)) => {
                 write!(content, ">")?;
             }
 
-            Event::End(TagEnd::BlockQuote) => {
+            Event::End(TagEnd::BlockQuote(_)) => {
                 writeln!(content)?;
             }
 
@@ -1048,7 +1091,6 @@ where
 {
     let path = BiomePath::new(PathBuf::from(&file_path));
     let file_source = &test.document_file_source();
-    let supression_reason = None;
 
     let settings = workspace_settings.get_current_settings();
     let linter = settings.map(|s| &s.linter);
@@ -1064,7 +1106,6 @@ where
         language_settings,
         &path,
         file_source,
-        supression_reason,
     )
 }
 
@@ -1102,7 +1143,9 @@ fn print_diagnostics(
     // Load settings from the preceding `json,options` block if requested
     if test.use_options {
         let Some(partial_config) = config else {
-            bail!("Code blocks tagged with 'use_options' must be preceded by a valid 'json,options' code block.");
+            bail!(
+                "Code blocks tagged with 'use_options' must be preceded by a valid 'json,options' code block."
+            );
         };
 
         settings
@@ -1146,7 +1189,7 @@ fn print_diagnostics(
                 };
 
                 let options = {
-                    let mut o = create_analyzer_options::<JsLanguage>(&settings, &file_path, &test);
+                    let mut o = create_analyzer_options::<JsLanguage>(&settings, &file_path, test);
                     o.configuration.jsx_runtime = Some(JsxRuntime::default());
                     o
                 };
@@ -1199,7 +1242,7 @@ fn print_diagnostics(
                 };
 
                 let options: AnalyzerOptions =
-                    create_analyzer_options::<JsonLanguage>(&settings, &file_path, &test);
+                    create_analyzer_options::<JsonLanguage>(&settings, &file_path, test);
 
                 biome_json_analyze::analyze(&root, filter, &options, file_source, |signal| {
                     if let Some(mut diag) = signal.diagnostic() {
@@ -1248,7 +1291,7 @@ fn print_diagnostics(
                     ..AnalysisFilter::default()
                 };
 
-                let options = create_analyzer_options::<JsonLanguage>(&settings, &file_path, &test);
+                let options = create_analyzer_options::<JsonLanguage>(&settings, &file_path, test);
 
                 biome_css_analyze::analyze(&root, filter, &options, |signal| {
                     if let Some(mut diag) = signal.diagnostic() {

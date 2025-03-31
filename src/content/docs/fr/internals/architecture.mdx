@@ -1,0 +1,153 @@
+---
+title: Architecture
+description: Comment Biome fonctionne sous le capot.
+---
+
+Ce document couvre certains aspects internes de Biome et la manière dont ils sont utilisés au sein du projet.
+
+## Analyseur et CST
+
+L’architecture de l’analyseur est poussée par un fork interne de [rowan], une librairie
+qui implémente le modèle de conception [Green and Red tree].
+
+Le CST (*Concrete Syntax Tree,* arbre syntaxique concret) est une structure de données très similaire à un AST (*Abstract Syntax Tree,* arbre syntaxique abstrait) qui garde une trace de toutes les informations d’un programme, y compris les banalités.
+
+Les **banalités** sont representées par toutes celles qui sont importantes pour qu’un programme s’exécute&nbsp;:
+- les espaces,
+- les tabulations,
+- les commentaires.
+
+Les banalités sont rattachées à un nœud. Un nœud peut avoir des banalités principales et secondaires. Si vous lisez le code de gauche à droite, les banalités principales apparaissent avant un mot-clé et les secondaires après.
+
+Les banalités principales et secondaires sont catégorisées comme suit&nbsp;:
+- toutes les banalités jusqu’au token/mot-clé inclus seront les **banalités principales,**
+- tout ce qui vient jusqu’à la prochaine fin de ligne (fin de ligne exclue) sera les **banalités secondaires.**
+
+Dans le snippet JavaScript suivant, `// commentaire 1` est la banalité secondaire du token `;` et `// commentaire 2` la banalité principale jusqu’au mot-clé `const`. Ci-dessous une version minimisée du CST représenté par Biome&nbsp;:
+
+```js
+const a = "foo"; // commentaire 1
+// commentaire 2
+const b = "bar";
+```
+
+```
+0: JS_MODULE@0..55
+    ...
+      1: SEMICOLON@15..27 ";" [] [Whitespace(" "), Comments("// commentaire 1")]
+    1: JS_VARIABLE_STATEMENT@27..55
+        ...
+        1: CONST_KW@27..45 "const" [Newline("\n"), Comments("// commentaire 2"), Newline("\n")] [Whitespace(" ")]
+  3: EOF@55..55 "" [] []
+```
+
+Le CST n’est jamais directement accessible intentionnellement&nbsp;; un développeur peut lire ses informations en utilisant le Red tree, grâce à un nombre d’APIs qui sont autogénérées à partir de la grammaire du langage.
+
+
+#### Analyseur résistant et récupérateur
+
+Afin de construire un CST, un analyseur a besoin d’être résistant aux erreurs et récupérable&nbsp;:
+- résistant&nbsp;: un analyseur qui est capable de reprendre l’analyse après avoir rencontré des erreurs de syntaxe qui sont propres au langage&nbsp;;
+- récupérable&nbsp;: un analyseur qui est capable de **comprendre** l’endroit où une erreur s’est produite et de reprendre l’analyse en créant des informations **correctes.**
+
+La partie récupérable de l’analyseur n’est pas une science exacte et aucune règle n’est figée dans le marbre, ce qui veut dire qu’en fonction de ce que l’analyseur analysait et de l’endroit où une erreur s’est produite, l’analyseur pourrait être capable de se récupérer d’une manière attendue.
+
+L’analyseur utilise également les nœuds «&nbsp;Bogus&nbsp;» pour protéger les consommateurs contre la consommation d’une syntaxe incorrecte. Ces nœuds sont utilisés pour décorer le code cassé causé par une erreur de syntaxe.
+
+Dans l’exemple suivant, les parenthèses de `while` sont absentes, bien que l’analyseur puisse se récupérer d’une bonne manière et puisse représenter le code avec un CST présentable. Les parenthèses et la condition de la boucle sont marquées comme absentes et le bloc de code est correctement analysé&nbsp;:
+
+
+```js
+while {}
+```
+
+```
+JsModule {
+  interpreter_token: missing (optional),
+  directives: JsDirectiveList [],
+  items: JsModuleItemList [
+    JsWhileStatement {
+      while_token: WHILE_KW@0..6 "while" [] [Whitespace(" ")],
+      l_paren_token: missing (required),
+      test: missing (required),
+      r_paren_token: missing (required),
+      body: JsBlockStatement {
+        l_curly_token: L_CURLY@6..7 "{" [] [],
+        statements: JsStatementList [],
+        r_curly_token: R_CURLY@7..8 "}" [] [],
+      },
+    },
+  ],
+  eof_token: EOF@8..8 "" [] [],
+}
+```
+
+Voici une erreur émise pendant l’analyse&nbsp;:
+
+```
+main.tsx:1:7 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✖ expected `(` but instead found `{`
+
+  > 1 │ while {}
+      │       ^
+
+  ℹ Remove {
+```
+
+On peut dire la même chose du snippet suivant&nbsp;: l’analyseur ne peut pas comprendre correctement la syntaxe pendant la phase de récupération et a donc besoin de s’appuyer sur les nœuds bogus pour marquer une syntaxe comme erronée. Notez le `JsBogusStatement`&nbsp;:
+
+```js
+function}
+```
+
+```
+JsModule {
+  interpreter_token: missing (optional),
+  directives: JsDirectiveList [],
+  items: JsModuleItemList [
+    TsDeclareFunctionDeclaration {
+      async_token: missing (optional),
+      function_token: FUNCTION_KW@0..8 "function" [] [],
+      id: missing (required),
+      type_parameters: missing (optional),
+      parameters: missing (required),
+      return_type_annotation: missing (optional),
+      semicolon_token: missing (optional),
+    },
+    JsBogusStatement {
+      items: [
+        R_CURLY@8..9 "}" [] [],
+      ],
+    },
+  ],
+  eof_token: EOF@9..9 "" [] [],
+}
+```
+
+Voici l’erreur que nous obtenons de la phase d’analyse&nbsp;:
+
+```
+main.tsx:1:9 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✖ expected a name for the function in a function declaration, but found none
+
+  > 1 │ function}
+      │         ^
+```
+
+## Outil de formatage (en cours)
+
+## Outil de linting (en cours)
+
+## Daemon (en cours)
+
+Biome utilise une architecture client-serveur pour exécuter ses tâches.
+
+Un [daemon] est un serveur de longue durée
+que Biome pond en arrière-plan et utilise pour traiter les requêtes de l’éditeur et de la ligne de commande.
+
+
+[rowan]: https://github.com/rust-analyzer/rowan
+[Green and Red tree]: https://learn.microsoft.com/en-us/archive/blogs/ericlippert/persistence-facades-and-roslyns-red-green-trees
+[daemon]: https://fr.wikipedia.org/wiki/Daemon_(informatique)

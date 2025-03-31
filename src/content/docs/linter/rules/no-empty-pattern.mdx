@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-empty-pattern" target="_blank"><code>no-empty-pattern</code></a>
 
+## Description
 Disallows empty destructuring patterns.
 
 ## Examples
@@ -56,6 +57,19 @@ function foo({a = []}) {}
 var [a] = foo;
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noEmptyPattern": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

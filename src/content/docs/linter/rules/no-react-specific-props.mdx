@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://github.com/solidjs-community/eslint-plugin-solid/blob/main/packages/eslint-plugin-solid/docs/no-react-specific-props.md" target="_blank"><code>solidjs/no-react-specific-props</code></a>
 
+## Description
 Prevents React-specific JSX properties from being used.
 
 This rule is intended for use in JSX-based frameworks (mainly **Solid.js**)
@@ -40,6 +41,19 @@ that do not use React-style prop names.
 <Hello class="Doe" />
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noReactSpecificProps": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

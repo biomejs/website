@@ -19,6 +19,7 @@ This rule is part of the [nursery](/linter/rules/#nursery) group.
 Sources: 
 - Inspired from: <a href="https://github.com/ArnaudBarre/eslint-plugin-react-refresh" target="_blank"><code>react-refresh/only-export-components</code></a>
 
+## Description
 Enforce declaring components only within modules that export React Components exclusively.
 
 This is necessary to enable the [`React Fast Refresh`](https://github.com/facebook/react/tree/main/packages/react-refresh) feature, which improves development efficiency.
@@ -85,6 +86,7 @@ Some tools, such as [Vite](https://vitejs.dev/), allow exporting constants along
 
 ```json
 {
+    "//": "...",
     "options":{
         "allowConstantExport" : true
     }
@@ -99,12 +101,26 @@ Example for [Remix](https://remix.run/docs/en/main/discussion/hot-module-replace
 
 ```json
 {
+    "//": "...",
     "options":{
         "allowExportNames": ["json", "loader", "headers", "meta", "links", "scripts"]
     }
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useComponentExportOnlyModules": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/operator-assignment" target="_blank"><code>operator-assignment</code></a>
 
+## Description
 Require assignment operator shorthand where possible.
 
 JavaScript provides shorthand operators combining a variable assignment and simple mathematical operation.
@@ -59,6 +60,19 @@ a -= 1;
 a *= 1;
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useShorthandAssign": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

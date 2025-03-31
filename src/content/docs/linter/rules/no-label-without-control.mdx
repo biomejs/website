@@ -19,9 +19,10 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/label-has-associated-control.md" target="_blank"><code>jsx-a11y/label-has-associated-control</code></a>
 
+## Description
 Enforce that a label element or component has a text label and an associated input.
 
-An "input" is considered one of the following elements: `input`, `meter`, `output`, `progress`, `select`, `textarea` or `button`.
+An "input" is considered one of the following elements: `input`, `meter`, `output`, `progress`, `select` or `textarea`.
 
 There are two supported ways to associate a label with an input:
 
@@ -97,6 +98,7 @@ Both options `inputComponents` and `labelComponents` don't have support for name
 
 ```json
 {
+    "//": "...",
     "options": {
         "inputComponents": ["CustomInput"],
         "labelAttributes": ["label"],
@@ -105,6 +107,19 @@ Both options `inputComponents` and `labelComponents` don't have support for name
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"a11y": {
+				"noLabelWithoutControl": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

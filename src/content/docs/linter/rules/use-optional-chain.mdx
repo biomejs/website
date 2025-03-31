@@ -20,6 +20,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://typescript-eslint.io/rules/prefer-optional-chain" target="_blank"><code>@typescript-eslint/prefer-optional-chain</code></a>
 
+## Description
 Enforce using concise optional chain instead of chained logical expressions.
 
 TypeScript 3.7 introduced support for the optional chain operator, which was later standardized and included in the ECMAScript specification.
@@ -89,6 +90,19 @@ foo || foo.bar;
 foo["some long"] && foo["some long string"].baz
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"complexity": {
+				"useOptionalChain": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

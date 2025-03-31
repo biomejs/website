@@ -21,6 +21,7 @@ Sources:
 - Inspired from: <a href="https://eslint.org/docs/latest/rules/no-else-return" target="_blank"><code>no-else-return</code></a>
 - Inspired from: <a href="https://rust-lang.github.io/rust-clippy/master/#/redundant_else 	" target="_blank"><code>redundant_else 	</code></a>
 
+## Description
 Disallow `else` block when the `if` block breaks early.
 
 If an `if` block breaks early using a breaking statement (`return`, `break`, `continue`, or `throw`),
@@ -97,6 +98,19 @@ function f(x) {
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"noUselessElse": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)
