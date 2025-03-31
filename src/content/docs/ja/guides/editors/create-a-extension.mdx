@@ -1,0 +1,84 @@
+---
+title: エディタ拡張機能へのBiomeの統合
+description: BiomeをエディタやIDEに統合する方法
+---
+
+Biomeは [LSP](https://microsoft.github.io/language-server-protocol/) を一流のサポートとして提供しています。エディタがLSPを実装している場合、Biomeの統合はシームレスに行われるはずです。
+
+### LSP プロキシを使用する
+
+Biomeには `lsp-proxy` というコマンドがあります。このコマンドを実行すると、Biomeは以下の2つのプロセスを生成します：
+
+- 要求された操作を実行する[デーモン](/internals/architecture#daemon)
+- クライアント（エディタ）からのリクエストとサーバー（デーモン）間のプロキシとして機能するサーバー
+
+エディタがサーバーとやり取りし、[JSON-RPC](https://www.jsonrpc.org/) リクエストを送信できる場合、このコマンドを実行するようにエディタを設定するだけで済みます。
+
+[`neo-vim biome extension`](https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/configs/biome.lua) がどのように実装しているかを確認できます。
+
+### `stdin` を使用する
+
+エディタがLSPをサポートしていない場合でも、バイナリ `biome` を直接使用し、[標準入力](<https://en.wikipedia.org/wiki/Standard_streams#Standard_input_(stdin)>)を介して呼び出すことができます。
+
+以下のコマンドは標準入力を介して呼び出すことができます：
+
+- [`format`](/reference/cli/#biome-format)
+- [`lint`](/reference/cli/#biome-lint)
+- [`check`](/reference/cli/#biome-check)
+
+Biomeは新しい出力（変更がない場合は元の出力）を[標準出力](<https://en.wikipedia.org/wiki/Standard_streams#Standard_output_(stdout)>)に、診断結果を[標準エラー](<https://en.wikipedia.org/wiki/Standard_streams#Standard_error_(stderr)>)に返します。
+
+`stdin` を使用する場合、`--stdin-file-path` オプションを渡す必要があります。このファイルパスは**ファイルシステム上に存在する必要はありません**。任意の名前で構いませんが、**重要なのは**正しいファイル拡張子を指定することです。これにより、Biomeは**ファイルの処理方法**を認識します。
+
+エディタがバイナリのパスを解決し、必要に応じて呼び出す責任を負います。サポートしているアーキテクチャとOSに基づいて、バイナリはnpmに配布されています：
+
+- `@biomejs/cli-darwin-arm64`
+- `@biomejs/cli-darwin-x64`
+- `@biomejs/cli-linux-arm64`
+- `@biomejs/cli-linux-x64`
+- `@biomejs/cli-win32-arm64`
+- `@biomejs/cli-win32-x64`
+
+バイナリ名は `biome` または `biome.exe` で、ライブラリのルートディレクトリに配置されています。例：`@biomejs/cli-darwin-arm64/biome`、`@biomejs/cli-win32-x64/biome.exe`
+
+### バイナリとデーモンを使用する
+
+CLIを介してバイナリを使用するのは非常に効率的ですが、[ログ](#daemon-logs)をユーザーに提供することはできません。CLIを使用するとデーモンを起動し、デーモン経由でCLIコマンドを使用できます。
+
+これを行うには、まず [`start`](/reference/cli#biome-start) コマンドでデーモンプロセスを開始する必要があります：
+
+```shell
+biome start
+```
+
+その後、すべてのコマンドに `--use-server` オプションを追加する必要があります。例：
+
+```shell
+echo "console.log('')" | biome format --use-server --stdin-file-path=dummy.js
+```
+
+:::note
+デーモンを使用する場合、プロセスを再起動または終了する責任もあります。これは [`stop`](/reference/cli#biome-stop) コマンドで行い、ゴーストプロセスを防ぎます。
+:::
+
+:::caution
+デーモン経由の操作はCLIそのものよりも著しく遅いので、単一ファイルでの操作のみに使用することをお勧めします。
+:::
+
+### デーモンログ
+
+Biomeデーモンはログをファイルシステムに保存します。ログは `biome-logs` というフォルダに保存されます。このフォルダのパスはOSによって異なります：
+
+- Linux: `~/.cache/biome`
+- Windows: `C:\Users\<UserName>\AppData\Local\biomejs\biome\cache`
+- macOS: `/Users/<UserName>/Library/Caches/dev.biomejs.biome`
+
+その他のOSでは、システムの一時ディレクトリ内にフォルダがあります。
+
+正確なパスを取得するには、以下のコマンドを実行してください：
+
+```shell
+biome explain daemon-logs
+```
+
+ログファイルは毎時ローテーションされます。

@@ -18,15 +18,25 @@ const plugins = [
 			"zh-CN": "博客",
 		},
 		authors: {
+			arendjr: {
+				name: "Arend van Beelen jr.",
+				picture: "https://avatars.githubusercontent.com/u/533294?v=4",
+				url: "https://arendjr.nl/",
+			},
 			conaclos: {
 				name: "Victorien Elvinger",
 				picture: "https://avatars.githubusercontent.com/u/2358560?s=96&v=4",
-				url: "https://twitter.com/Conaclos",
+				url: "https://bsky.app/profile/conaclos.bsky.social",
+			},
+			dyc3: {
+				name: "Carson McManus",
+				picture: "https://avatars.githubusercontent.com/u/1808807?v=4",
+				url: "https://github.com/dyc3",
 			},
 			ema: {
 				name: "Emanuele Stoppa",
 				picture: "https://avatars.githubusercontent.com/u/602478?v=4",
-				url: "https://twitter.com/ematipico",
+				url: "https://bsky.app/profile/ematipico.xyz",
 			},
 			team: {
 				name: "Biome Core Team, Biome Maintainers",
@@ -44,7 +54,6 @@ if (process.env?.E2E !== "true") {
 	plugins.push(
 		lunaria({
 			route: "i18n-dashboard",
-			sync: true,
 		}),
 	);
 }
@@ -81,6 +90,10 @@ export default defineConfig({
 					label: "Português",
 					lang: "pt-BR",
 				},
+				uk: {
+					label: "Українська",
+					lang: "uk",
+				},
 			},
 			sidebar: [
 				{
@@ -91,11 +104,24 @@ export default defineConfig({
 						ja: "プレイグラウンド",
 						"zh-CN": "演练场",
 						"pt-BR": "Ambiente de testes",
+						uk: "Пісочниця",
+					},
+				},
+				{
+					label: "Enterprise",
+					link: "../enterprise",
+					translations: {
+						uk: "Підтримка",
 					},
 				},
 				{
 					label: "Guides",
-					translations: { ja: "ガイド", "zh-CN": "指南", "pt-BR": "Guias" },
+					translations: {
+						ja: "ガイド",
+						"zh-CN": "指南",
+						"pt-BR": "Guias",
+						uk: "Гайди",
+					},
 					items: [
 						{
 							label: "Getting Started",
@@ -105,6 +131,7 @@ export default defineConfig({
 								ja: "はじめる",
 								"zh-CN": "入门",
 								"pt-BR": "Primeiros passos",
+								uk: "Початок роботи",
 							},
 						},
 						{
@@ -115,6 +142,7 @@ export default defineConfig({
 								ja: "手動インストール",
 								"zh-CN": "手动安装",
 								"pt-BR": "Instalação manual",
+								uk: "Ручна установка",
 							},
 						},
 						{
@@ -123,8 +151,9 @@ export default defineConfig({
 							translations: {
 								fr: "Configurer Biome",
 								ja: "Biome の設定",
-								"zh-CN": "配置生物群落",
+								"zh-CN": "配置 Biome",
 								"pt-BR": "Configurar Bioma",
+								uk: "Налаштування Biome",
 							},
 						},
 						{
@@ -135,6 +164,7 @@ export default defineConfig({
 								ja: "大きなプロジェクトでのBiomeの使用方法",
 								"zh-CN": "大型项目中使用 Biome",
 								"pt-BR": "Usando o Biome em projetos grandes",
+								uk: "Використання Biome в великих проектах",
 							},
 						},
 						{
@@ -144,6 +174,7 @@ export default defineConfig({
 								ja: "Biome をあなたのエディタに導入する",
 								"zh-CN": "编辑器中使用 Biome",
 								"pt-BR": "Biome no seu editor",
+								uk: "Biome в вашому IDE",
 							},
 							items: [
 								{
@@ -151,6 +182,8 @@ export default defineConfig({
 									link: "/guides/editors/first-party-extensions",
 									translations: {
 										fr: "Extensions officielles",
+										ja: "Biome 公式拡張機能",
+										uk: "Офіційні розширення",
 									},
 								},
 								{
@@ -158,6 +191,8 @@ export default defineConfig({
 									link: "/guides/editors/third-party-extensions",
 									translations: {
 										fr: "Extensions tierces",
+										ja: "サードパーティの拡張機能",
+										uk: "Розширення сторонніх розробників",
 									},
 								},
 								{
@@ -165,6 +200,8 @@ export default defineConfig({
 									link: "/guides/editors/create-a-extension",
 									translations: {
 										fr: "Intégrer Biome à une extension pour un éditeur",
+										ja: "エディタ拡張機能への Biome の統合",
+										uk: "Інтеграція Biome в розширення редактора",
 									},
 								},
 							],
@@ -177,6 +214,7 @@ export default defineConfig({
 								ja: "Biome をあなたの VCS と統合する",
 								"zh-CN": "与版本控制系统集成",
 								"pt-BR": "Integrando o Biome com o seu VCS",
+								uk: "Інтеграція Biome з вашою VCS",
 							},
 						},
 						{
@@ -185,6 +223,7 @@ export default defineConfig({
 							translations: {
 								fr: "Migrer depuis ESLint & Prettier",
 								ja: "ESLintとPrettierからの移行",
+								uk: "Міграція з ESLint & Prettier",
 							},
 						},
 					],
@@ -196,6 +235,7 @@ export default defineConfig({
 						ja: "ツール",
 						"zh-CN": "工具",
 						"pt-BR": "Ferramentas",
+						uk: "Інструменти",
 					},
 					items: [
 						{
@@ -208,6 +248,7 @@ export default defineConfig({
 										ja: "イントロダクション",
 										"zh-CN": "介绍",
 										"pt-BR": "Introdução",
+										uk: "Вступ",
 									},
 								},
 								{
@@ -218,6 +259,7 @@ export default defineConfig({
 										ja: "Import文のソート",
 										"zh-CN": "导入排序",
 										"pt-BR": "Ordenação de importações",
+										uk: "Сортування імпортів",
 									},
 								},
 							],
@@ -226,6 +268,7 @@ export default defineConfig({
 								ja: "Analyzer",
 								"zh-CN": "分析器",
 								"pt-BR": "Analisador",
+								uk: "Аналізатор",
 							},
 						},
 						{
@@ -238,6 +281,7 @@ export default defineConfig({
 										ja: "イントロダクション",
 										"zh-CN": "介绍",
 										"pt-BR": "Introdução",
+										uk: "Вступ",
 									},
 								},
 								{
@@ -248,6 +292,7 @@ export default defineConfig({
 										ja: "Prettier との違い",
 										"zh-CN": "与 Prettier 的区别",
 										"pt-BR": "Diferenças em relação ao Prettier",
+										uk: "Відмінності від Prettier",
 									},
 								},
 								{
@@ -258,6 +303,7 @@ export default defineConfig({
 										ja: "Formatterオプションに対する考え方",
 										"zh-CN": "格式化配置理念",
 										"pt-BR": "Princípios de configuração",
+										uk: "Філософія параметрів форматування",
 									},
 								},
 							],
@@ -265,6 +311,7 @@ export default defineConfig({
 								fr: "Outil de formatage",
 								"zh-CN": "格式化程序",
 								"pt-BR": "Formatador",
+								uk: "Форматувальник",
 							},
 						},
 						{
@@ -277,6 +324,7 @@ export default defineConfig({
 										ja: "イントロダクション",
 										"zh-CN": "介绍",
 										"pt-BR": "Introdução",
+										uk: "Вступ",
 									},
 								},
 								{
@@ -287,6 +335,7 @@ export default defineConfig({
 										ja: "ルール",
 										"zh-CN": "规则",
 										"pt-BR": "Regras",
+										uk: "Правила",
 									},
 								},
 								{
@@ -296,9 +345,18 @@ export default defineConfig({
 										fr: "Sources des règles",
 									},
 								},
+								{
+									label: "Plugins",
+									link: "/linter/plugins",
+									badge: "beta",
+									translations: {
+										ja: "プラグイン",
+									},
+								},
 							],
 							translations: {
 								fr: "Outil de linting",
+								uk: "Лінтер",
 							},
 						},
 					],
@@ -310,6 +368,7 @@ export default defineConfig({
 						ja: "リファレンス",
 						"zh-CN": "参考",
 						"pt-BR": "Referências",
+						uk: "Довідка",
 					},
 					items: [
 						{
@@ -326,6 +385,7 @@ export default defineConfig({
 							link: "/reference/environment-variables",
 							translations: {
 								fr: "Variables d’environnement",
+								uk: "Змінні середовища",
 							},
 						},
 						{
@@ -333,6 +393,7 @@ export default defineConfig({
 							link: "/reference/reporters",
 							translations: {
 								fr: "Outils de reporting",
+								uk: "Звіти",
 							},
 						},
 						{
@@ -342,6 +403,7 @@ export default defineConfig({
 								ja: "設定",
 								"zh-CN": "配置",
 								"pt-BR": "Configuração",
+								uk: "Конфігурація",
 							},
 						},
 						{
@@ -352,6 +414,7 @@ export default defineConfig({
 								ja: "VSCode拡張機能",
 								"zh-CN": "VSCode 扩展",
 								"pt-BR": "Extensão do VSCode",
+								uk: "Розширення VSCode",
 							},
 						},
 						{
@@ -363,12 +426,12 @@ export default defineConfig({
 								ja: "Zed拡張機能",
 								"zh-CN": "Zed 扩展",
 								"pt-BR": "Extensão do Zed",
+								uk: "Розширення Zed",
 							},
 						},
 						{
 							label: "GritQL",
 							link: "/reference/gritql",
-							badge: "experimental",
 						},
 					],
 				},
@@ -379,6 +442,7 @@ export default defineConfig({
 						ja: "レシピ",
 						"zh-CN": "实例",
 						"pt-BR": "Receitas",
+						uk: "Рецепти",
 					},
 					items: [
 						{
@@ -389,11 +453,15 @@ export default defineConfig({
 								ja: "継続的インテグレーション",
 								"zh-CN": "持续集成",
 								"pt-BR": "Integração Contínua",
+								uk: "Безперервна інтеграція",
 							},
 						},
 						{
 							label: "Git Hooks",
 							link: "/recipes/git-hooks",
+							translations: {
+								fr: "Hooks Git",
+							},
 						},
 						{
 							label: "Renovate",
@@ -403,7 +471,9 @@ export default defineConfig({
 							label: "Social Badges",
 							link: "/recipes/badges",
 							translations: {
+								fr: "Badges sociaux",
 								ja: "ソーシャルバッジ",
+								uk: "Соціальні значки",
 							},
 						},
 					],
@@ -415,6 +485,7 @@ export default defineConfig({
 						ja: "内部原理",
 						"zh-CN": "内部原理",
 						"pt-BR": "Aspectos Internos",
+						uk: "Внутрішні аспекти",
 					},
 					items: [
 						{
@@ -425,6 +496,7 @@ export default defineConfig({
 								ja: "理念",
 								"zh-CN": "理念",
 								"pt-BR": "Filosofia",
+								uk: "Філософія",
 							},
 						},
 						{
@@ -435,6 +507,7 @@ export default defineConfig({
 								ja: "言語サポート",
 								"zh-CN": "语言支持",
 								"pt-BR": "Suporte de linguagens",
+								uk: "Підтримка мов",
 							},
 						},
 						{
@@ -444,6 +517,7 @@ export default defineConfig({
 								ja: "アーキテクチャ",
 								"zh-CN": "架构",
 								"pt-BR": "Arquitetura",
+								uk: "Архітектура",
 							},
 						},
 						{
@@ -454,6 +528,7 @@ export default defineConfig({
 								ja: "クレジット",
 								"zh-CN": "鸣谢",
 								"pt-BR": "Créditos",
+								uk: "Подяки",
 							},
 						},
 						{
@@ -464,6 +539,7 @@ export default defineConfig({
 								ja: "バージョニング",
 								"zh-CN": "版本控制",
 								"pt-BR": "Versionamento",
+								uk: "Версіонування",
 							},
 						},
 						{
@@ -472,6 +548,7 @@ export default defineConfig({
 							translations: {
 								"zh-CN": "更新日志",
 								"pt-BR": "Alterações",
+								uk: "Журнал змін",
 							},
 						},
 					],
@@ -490,7 +567,6 @@ export default defineConfig({
 			social: {
 				discord: "https://biomejs.dev/chat",
 				github: "https://github.com/biomejs/biome",
-				"x.com": "https://twitter.com/biomejs",
 				mastodon: "https://fosstodon.org/@biomejs",
 				openCollective: "https://opencollective.com/biome",
 				youtube: "https://youtube.com/@Biomejs",
@@ -503,6 +579,7 @@ export default defineConfig({
 				SiteTitle: "./src/components/starlight/SiteTitle.astro",
 				Hero: "./src/components/starlight/Hero.astro",
 				Head: "./src/components/starlight/Head.astro",
+				LanguageSelect: "./src/components/starlight/LanguageSelect.astro",
 			},
 		}),
 	],

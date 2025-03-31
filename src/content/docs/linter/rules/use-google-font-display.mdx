@@ -19,6 +19,7 @@ This rule is part of the [nursery](/linter/rules/#nursery) group.
 Sources: 
 - Same as: <a href="https://nextjs.org/docs/messages/google-font-display" target="_blank"><code>@next/google-font-display</code></a>
 
+## Description
 Enforces the use of a recommended `display` strategy with Google Fonts.
 
 The `display` property controls how a font is displayed while it is loading. When using Google Fonts,
@@ -70,6 +71,19 @@ In cases where swapping to the custom font after it has loaded is important, con
 <link rel="stylesheet" />
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useGoogleFontDisplay": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

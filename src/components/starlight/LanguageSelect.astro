@@ -1,0 +1,43 @@
+---
+import Default from "@astrojs/starlight/components/LanguageSelect.astro";
+import Select from "@astrojs/starlight/components/Select.astro";
+---
+
+<Default><slot /></Default>
+<version-select>
+    <Select
+        icon="biome"
+        label="Version"
+        value="v1"
+        width="fit-content"
+        options={[
+            { label: "v1.x", value: "v1", selected: true },
+            { label: "beta", value: "v2", selected: false },
+        ]}
+    />
+</version-select>
+
+<script>
+    class VersionSelect extends HTMLElement {
+        constructor() {
+            super();
+
+            this.querySelector('select')?.addEventListener('change', (e) => {
+                const value = (e.currentTarget as HTMLSelectElement).value;
+
+                let url: URL;
+                if (value === "v2") {
+                    url = new URL("https://next.biomejs.dev/");
+                } else {
+                    url = new URL("https://biomejs.dev/"); 
+                }
+
+                url.pathname = window.location.pathname;
+
+                window.location.href = url.toString();
+            });
+        }
+    }
+
+    customElements.define('version-select', VersionSelect);
+</script>

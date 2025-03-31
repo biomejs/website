@@ -20,6 +20,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-regex-spaces" target="_blank"><code>no-regex-spaces</code></a>
 
+## Description
 Disallow unclear usage of consecutive space characters in regular expression literals
 
 ## Examples
@@ -64,6 +65,19 @@ Disallow unclear usage of consecutive space characters in regular expression lit
 /foo bar	baz/
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"complexity": {
+				"noMultipleSpacesInRegularExpressionLiterals": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

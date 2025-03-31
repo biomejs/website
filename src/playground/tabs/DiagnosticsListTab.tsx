@@ -90,6 +90,7 @@ function DiagnosticListItem({
 	return (
 		<li onClick={onClick} onKeyDown={onClick}>
 			<DiagnosticIcon severity={diagnostic.severity} />
+			{diagnostic.category ? <span>{diagnostic.category}: </span> : ""}
 			{renderDiagnosticMessage(diagnostic)}
 		</li>
 	);

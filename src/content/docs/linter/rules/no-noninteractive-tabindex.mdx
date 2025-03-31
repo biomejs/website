@@ -20,6 +20,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/no-noninteractive-tabindex.md" target="_blank"><code>jsx-a11y/no-noninteractive-tabindex</code></a>
 
+## Description
 Enforce that `tabIndex` is not assigned to non-interactive HTML elements.
 
 When using the tab key to navigate a webpage, limit it to interactive elements.
@@ -62,6 +63,19 @@ Keep the tab ring small, which is the order of elements when tabbing, for a more
 <article tabIndex="-1" />
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"a11y": {
+				"noNoninteractiveTabindex": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

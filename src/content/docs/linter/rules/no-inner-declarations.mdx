@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-inner-declarations" target="_blank"><code>no-inner-declarations</code></a>
 
+## Description
 Disallow `function` and `var` declarations that are accessible outside their block.
 
 A `var` is accessible in the whole body of the nearest root (function, module, script, static block).
@@ -106,6 +107,19 @@ function f() {
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noInnerDeclarations": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

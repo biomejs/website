@@ -11,7 +11,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 **Diagnostic Category: `lint/correctness/noInvalidDirectionInLinearGradient`**
 <Tabs>
 <TabItem label="CSS" icon="seti:css">
-**Since**: `v1.9.0`
+**Since**: `v1.9.9`
 :::note
 - This rule is recommended by Biome. A diagnostic error will appear when linting your code.
 :::
@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://github.com/stylelint/stylelint/blob/main/lib/rules/function-linear-gradient-no-nonstandard-direction/README.md" target="_blank"><code>stylelint/function-linear-gradient-no-nonstandard-direction</code></a>
 
+## Description
 Disallow non-standard direction values for linear gradient functions.
 
 A valid and standard direction value is one of the following:
@@ -54,6 +55,19 @@ A common mistake (matching outdated non-standard syntax) is to use just a side-o
 .foo { background: linear-gradient(45deg, #fff, #000); }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noInvalidDirectionInLinearGradient": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

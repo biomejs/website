@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://github.com/stylelint/stylelint/blob/main/lib/rules/no-duplicate-at-import-rules/README.md" target="_blank"><code>stylelint/no-duplicate-at-import-rules</code></a>
 
+## Description
 Disallow duplicate `@import` rules.
 
 This rule checks if the file urls of the @import rules are duplicates.
@@ -62,6 +63,19 @@ This rule also checks the imported media queries and alerts of duplicates.
 @import url('a.css') projection;
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noDuplicateAtImportRules": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

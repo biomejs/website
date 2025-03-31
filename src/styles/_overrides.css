@@ -75,6 +75,7 @@
 	);
 	transform: translate(-50%, -50%);
 	transition: width .2s ease, height .2s ease;
+	pointer-events: none;
 }
 
 .card-cnt > .card-grid > .card:hover::before {

@@ -1,0 +1,110 @@
+---
+import { Icon, LinkButton } from "@astrojs/starlight/components";
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+---
+
+<StarlightPage
+  frontmatter={{
+    title: "Enterprise Support",
+    description: "Commercial support for Biome",
+    template: "splash",
+    editUrl: false,
+  }}
+>
+    <p>
+        Biome has an active community and a team of Maintainers, Core
+        Contributors, and Leads, all ready to support our users.
+    </p>
+    <p>
+        Some of our contributors are freelancers, and may offer their (paid)
+        services for organizations that are looking to adopt Biome. If you need
+        commercial help with Biome, please reach out to us!
+    </p>
+    <div class="ctas">
+        <div class="cta">
+            <p>
+                <LinkButton href="https://biomejs.dev/chat" target="_blank">Contact us on Discord</LinkButton>
+            </p>
+            <p>Reach out to us through the <b><code>Community > #funding</code></b>
+                channel for enquiries related to commercial support.</p>
+        </div>
+        <div class="cta">
+            <p>
+                <LinkButton href="https://github.com/biomejs/biome/issues/new/choose" target="_blank">Create an issue on GitHub</LinkButton>
+            </p>
+            <p>Create an issue and choose <b>Commercial Support Request</b> and
+                we'll get back to you.</p>
+        </div>
+    </div>
+    <div class="sponsorship">
+        <Icon class="logo" color="red" name="heart" size="6rem" />
+        <div>
+            <h2>Would you like to support Biome?</h2>
+            <p>
+                Biome is an open-source project and can also use <i>your</i> support. If you
+                hire a contributor to work on Biome for 3 months or more, you automatically
+                apply for sponsorship benefits.
+            </p>
+            <p>
+                More sponsorship options are available through <a href="https://opencollective.com/biome">OpenCollective</a> and <a href="https://github.com/sponsors/biomejs">GitHub Sponsors</a>.
+            </p>
+        </div>
+    </div>
+    <p class="fineprint">
+        Support requests are subject to contributor availability. For terms and
+        conditions, please see our
+        <a href="https://github.com/biomejs/biome/blob/main/GOVERNANCE.md#paid-contracting">Governance document</a>.
+    </p>
+</StarlightPage>
+
+<style>
+    .ctas {
+        width: 100%;
+        padding: 1rem;
+        display: flex;
+        gap: 1rem;
+        vertical-align: start;
+    }
+
+    .cta {
+        margin-top: 0 !important;
+        text-align: center;
+        flex-grow: 1;
+    }
+
+    .sponsorship {
+        position: relative;
+        border: 1px solid var(--sl-color-gray-5);
+        font-size: 80%;
+        overflow: hidden;
+        margin: 7rem 4rem 4rem;
+        padding: 1rem;
+        display: flex;
+        gap: 1rem;
+        background: radial-gradient(
+                hsla(var(--sl-hue-red), 16%, 52%, 68%),
+                transparent 40%
+            )
+            no-repeat -60vw -50vh / 105vw 200vh,
+            radial-gradient(var(--sl-color-blue-low), transparent 40%) no-repeat 30vw
+            -100vh / 105vw 200vh;
+    }
+
+    .fineprint {
+        color: var(--sl-color-gray-3);
+        text-align: center;
+    }
+
+    @media screen and (max-width: 480px) {
+        .ctas {
+            flex-direction: column;
+        }
+
+        .sponsorship {
+            margin: 7rem 2rem 4rem;
+        }
+        .sponsorship>.logo {
+            display: none;
+        }
+    }
+</style>

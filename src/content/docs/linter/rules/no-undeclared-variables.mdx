@@ -15,22 +15,10 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-undef" target="_blank"><code>no-undef</code></a>
 
+## Description
 Prevents the usage of variables that haven't been declared inside the document.
 
 If you need to allow-list some global bindings, you can use the [`javascript.globals`](/reference/configuration/#javascriptglobals) configuration.
-
-## Options (Since v2.0.0)
-
-The rule provides a `checkTypes` option that make the rule checks undeclared types.
-The option defaults to `true`.
-
-```json
-{
-    "options": {
-        "checkTypes": true
-    }
-}
-```
 
 ## Examples
 
@@ -55,6 +43,19 @@ PromiseLike;
 type B<T> = PromiseLike<T>
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noUndeclaredVariables": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

@@ -1,0 +1,88 @@
+---
+title: Linter プラグイン
+description: Biome リンタプラグインの使い方についての概要
+---
+
+:::note
+プラグインは現在 [2.0 ベータリリース](/blog/biome-v2-0-beta) でのみ利用可能です。
+:::
+
+Biomeリンタは [GritQL](/reference/gritql/) プラグインをサポートしています。
+現在、プラグインは特定のコードパターンにマッチし、カスタマイズされた診断メッセージを登録できます。
+
+こちらは `Object.assign()` の利用をすべて報告するプラグインの例です：
+
+```grit
+`$fn($args)` where {
+    $fn <: `Object.assign`,
+    register_diagnostic(
+        span = $fn,
+        message = "Prefer object spread instead of `Object.assign()`"
+    )
+}
+```
+
+GritQLスニペットはプロジェクト内のどこにでも配置できますが、 `.grit` 拡張子を使うようにしてください。
+そして、次の設定を使うことでプラグインとして有効化できます：
+
+```json name="biome.json"
+{
+    "plugins": ["./path-to-plugin.grit"]
+}
+```
+
+プラグインは、リンタが実行されるすべてのサポートされたファイルで有効化されます。
+`biome lint` または `biome check` を実行することで結果を確認できます。例えば：
+
+```shell
+$ biome lint
+/packages/tailwindcss-config-analyzer/src/introspect.ts:12:17 plugin ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✖ Prefer object spread instead of `Object.assign()`
+
+    10 │ function createContextFromConfig(config: Partial<Config>) {
+    11 │        return createContext(
+  > 12 │                resolveConfig(Object.assign({}, DEFAULT_CONFIG, config)),
+       │                              ^^^^^^^^^^^^^
+    13 │        );
+    14 │ }
+```
+
+## ターゲット言語
+
+GritQLスニペットは常に与えられた _ターゲット言語_ についてマッチしようとします。
+ターゲット言語が指定されていない場合は、JavaScriptまたはその拡張言語であると仮定されます。
+
+他のターゲット言語を使用したい場合は、明示的に指定する必要があります。
+例えば，こちらは `.color-*` クラス以外で色を設定するセレクタを報告するCSSプラグインの例です：
+
+```grit
+language css;
+
+`$selector { $props }` where {
+    $props <: contains `color: $color` as $rule,
+    not $selector <: r"\.color-.*",
+    register_diagnostic(
+        span = $rule,
+        message = "Don't set explicit colors. Use `.color-*` classes instead."
+    )
+}
+```
+
+現在、JavaScriptとCSS以外のターゲット言語はサポートしていません。
+
+## プラグイン API
+
+Gritの [ビルトイン関数](https://docs.grit.io/language/functions#built-in-functions) に加えて、
+Biomeは現在、追加の関数を1つサポートしています：
+
+### `register_diagnostic()`
+
+パターンがマッチしたときに、報告される診断を登録します。
+
+3つの引数をサポートしています：
+
+- `span`（必須）: 診断をアタッチするシンタックスノード。これは通常、コードスニペットの中でマッチした変数です。
+- `message`（必須）: 診断とともに表示するメッセージ。
+- `severity`: 診断の重大度。許容される値は `hint`、`information`、`warning`、`error` です。
+  デフォルトでは、 `error` が使われます。

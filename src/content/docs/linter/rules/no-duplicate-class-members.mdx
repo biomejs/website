@@ -20,6 +20,7 @@ Sources:
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-dupe-class-members" target="_blank"><code>no-dupe-class-members</code></a>
 - Same as: <a href="https://typescript-eslint.io/rules/no-dupe-class-members" target="_blank"><code>@typescript-eslint/no-dupe-class-members</code></a>
 
+## Description
 Disallow duplicate class members.
 
 If there are declarations of the same name among class members,
@@ -103,6 +104,19 @@ class Foo {
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noDuplicateClassMembers": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

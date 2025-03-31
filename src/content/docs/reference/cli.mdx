@@ -421,7 +421,7 @@ Runs formatter, linter and import sorting to the requested files.
 
 Run various checks on a set of files.
 
-**Usage**: **`biome`** **`lint`** \[**`--write`**\] \[**`--unsafe`**\] \[**`--suppress`**\] \[**`--reason`**=_`STRING`_\] \[**`--only`**=_`<GROUP|RULE>`_\]... \[**`--skip`**=_`<GROUP|RULE>`_\]... \[**`--staged`**\] \[**`--changed`**\] \[**`--since`**=_`REF`_\] \[_`PATH`_\]...
+**Usage**: **`biome`** **`lint`** \[**`--write`**\] \[**`--unsafe`**\] \[**`--only`**=_`<GROUP|RULE>`_\]... \[**`--skip`**=_`<GROUP|RULE>`_\]... \[**`--staged`**\] \[**`--changed`**\] \[**`--since`**=_`REF`_\] \[_`PATH`_\]...
 
 **Set of properties to integrate Biome with a VCS software.**
 - **`    --vcs-enabled`**=_`<true|false>`_ &mdash; 
@@ -514,10 +514,6 @@ Run various checks on a set of files.
   Alias for `--write`, writes safe fixes (deprecated, use `--write`)
 - **`    --apply-unsafe`** &mdash; 
   Alias for `--write --unsafe`, writes safe and unsafe fixes (deprecated, use `--write --unsafe`)
-- **`    --suppress`** &mdash; 
-  Fixes lint rule violations with a comment a suppression instead of using a rule code action (fix)
-- **`    --reason`**=_`STRING`_ &mdash; 
-  Explanation for suppressing diagnostics with `--suppress`
 - **`    --only`**=_`<GROUP|RULE>`_ &mdash; 
   Run only the given rule or group of rules. If the severity level of a rule is `off`, then the severity level of the rule is set to `error` if it is a recommended rule or `warn` otherwise.
 

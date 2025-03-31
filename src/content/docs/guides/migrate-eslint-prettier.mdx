@@ -28,6 +28,8 @@ To ease the migration, Biome provides the `biome migrate eslint` subcommand.
 This subcommand will read your ESLint configuration and attempt to port its settings to Biome.
 The subcommand is able to handle both the legacy and the flat configuration files.
 It supports the `extends` field of the legacy configuration and loads both shared and plugin configurations.
+For flat configuration files, the subcommand will attempt to search for JavaScript extension only (`js`, `cjs`, `mjs`) to be loaded into Node.js.
+The subcommand needs Node.js to load and resolve all the plugins and `extends` configured in the ESLint configuration file.
 The subcommand also migrates `.eslintignore`.
 
 Given the following ESLint configuration:
@@ -111,7 +113,6 @@ This results in the following Biome configuration:
 }
 ```
 
-The subcommand needs Node.js to load and resolve all the plugins and `extends` configured in the ESLint configuration file.
 For now, `biome migrate eslint` doesn't support configuration written in YAML.
 
 By default, Biome doesn't migrate inspired rules.

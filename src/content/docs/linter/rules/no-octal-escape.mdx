@@ -19,6 +19,7 @@ This rule is part of the [nursery](/linter/rules/#nursery) group.
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-octal-escape" target="_blank"><code>no-octal-escape</code></a>
 
+## Description
 Disallow octal escape sequences in string literals
 
 As of the ECMAScript 5 specification, octal escape sequences in string literals are deprecated and should not be used.
@@ -42,6 +43,19 @@ var foo = "Copyright \u00A9";   // unicode
 var foo = "Copyright \xA9";     // hexadecimal
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noOctalEscape": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

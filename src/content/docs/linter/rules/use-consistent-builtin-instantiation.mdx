@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-new-wrappers" target="_blank"><code>no-new-wrappers</code></a>
 
+## Description
 Enforce the use of `new` for all builtins, except `String`, `Number` and `Boolean`.
 
 `new Builtin()` and `Builtin()` work the same, but `new` should be preferred for consistency with other constructors.
@@ -78,6 +79,19 @@ const text = String(10);
 const now = new Date();
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useConsistentBuiltinInstantiation": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

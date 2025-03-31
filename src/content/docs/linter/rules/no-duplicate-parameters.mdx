@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/no-dupe-args" target="_blank"><code>no-dupe-args</code></a>
 
+## Description
 Disallow duplicate function parameter name.
 
 If more than one parameter has the same name in a function definition,
@@ -51,6 +52,19 @@ function l([, l]) {}
 function foo([[a, b], [c, d]]) {}
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noDuplicateParameters": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

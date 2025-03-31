@@ -20,6 +20,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://eslint.org/docs/latest/rules/use-isnan" target="_blank"><code>use-isnan</code></a>
 
+## Description
 Require calls to `isNaN()` when checking for `NaN`.
 
 In JavaScript, `NaN` is a special value of the `Number` type.
@@ -75,6 +76,19 @@ foo(Number.NaN / 2)
 switch(foo) {}
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"useIsNan": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

@@ -187,8 +187,7 @@ biome lint --reporter=json-pretty .
 
 For now, we support two report formats: `json` and `json-pretty`.
 
-Note that the report format is **experimental
-**, and it might change in the future. Please try this feature and let us know if any information needs to be added to the reports.
+Note that the report format is **experimental**, and it might change in the future. Please try this feature and let us know if any information needs to be added to the reports.
 
 ## Check `git` staged files
 
@@ -270,4 +269,4 @@ _GraphQL_](https://github.com/biomejs/biome/issues/1927) and [YAML](https://gith
 
 If Biome is valuable to you or your company, consider donating monthly to our [Open Collective](https://opencollective.com/biome). You can also [sponsor us on GitHub](https://github.com/sponsors/biomejs). This is important for the sustainability of the project.
 
-Follow us on [our Twitter](https://twitter.com/home) and join [our Discord community](https://biomejs.dev/chat).
+Follow us on [our BlueSky](https://bsky.app/profile/biomejs.dev) and join [our Discord community](https://biomejs.dev/chat).

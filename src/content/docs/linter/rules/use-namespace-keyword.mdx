@@ -20,6 +20,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://typescript-eslint.io/rules/prefer-namespace-keyword" target="_blank"><code>@typescript-eslint/prefer-namespace-keyword</code></a>
 
+## Description
 Require using the `namespace` keyword over the `module` keyword to declare TypeScript namespaces.
 
 TypeScript historically allowed a code organization called _namespace_.
@@ -52,6 +53,19 @@ namespace Example {}
 declare module "foo" {}
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"useNamespaceKeyword": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

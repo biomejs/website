@@ -19,6 +19,7 @@ This rule is part of the [nursery](/linter/rules/#nursery) group.
 Sources: 
 - Same as: <a href="https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/autocomplete-valid.md" target="_blank"><code>jsx-a11y/autocomplete-valid</code></a>
 
+## Description
 Use valid values for the `autocomplete` attribute on `input` elements.
 
 The HTML autocomplete attribute only accepts specific predefined values.
@@ -48,6 +49,7 @@ Using these predefined values, user agents and assistive technologies can presen
 
 ```json
 {
+    "//": "...",
     "options": {
         "inputComponents": ["MyInput"]
     }
@@ -63,6 +65,19 @@ Using these predefined values, user agents and assistive technologies can presen
 - [HTML Living Standard autofill](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofill)
 - [HTML attribute: autocomplete - HTML: HyperText Markup Language | MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useValidAutocomplete": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Same as: <a href="https://github.com/stylelint/stylelint/blob/main/lib/rules/keyframe-block-no-duplicate-selectors/README.md" target="_blank"><code>stylelint/keyframe-block-no-duplicate-selectors</code></a>
 
+## Description
 Disallow duplicate selectors within keyframe blocks.
 
 ## Examples
@@ -53,6 +54,19 @@ Disallow duplicate selectors within keyframe blocks.
 @keyframes foo { from {} to {} }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noDuplicateSelectorsKeyframeBlock": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

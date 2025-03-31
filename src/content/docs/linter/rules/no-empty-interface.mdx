@@ -20,6 +20,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Inspired from: <a href="https://typescript-eslint.io/rules/no-empty-interface" target="_blank"><code>@typescript-eslint/no-empty-interface</code></a>
 
+## Description
 Disallow the declaration of empty interfaces.
 
 An empty interface in TypeScript does very little: any non-nullable value is assignable to `{}`.
@@ -53,6 +54,19 @@ declare module "mod" {
 }
 ```
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noEmptyInterface": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

@@ -32,6 +32,33 @@ Biome is available as a [Homebrew formula](https://formulae.brew.sh/formula/biom
 brew install biome
 ```
 
+## Docker
+
+Biome publishes [official Docker images](https://github.com/biomejs/docker/pkgs/container/biome) that support 
+the **amd64** and **arm64** architectures for all Biome versions starting from `v1.7.0`.
+
+```
+ghcr.io/biomejs/biome:{major}
+ghcr.io/biomejs/biome:{major}.{minor}
+ghcr.io/biomejs/biome:{major}.{minor}.{patch}
+```
+
+Here are a couple examples on how to use the Docker image:
+
+:::note
+The default workdir is `/code` in the Docker image.
+:::
+
+```shell
+# Lint files
+docker run -v $(pwd):/code ghcr.io/biomejs/biome lint
+docker run -v $(pwd):/code ghcr.io/biomejs/biome lint --write
+
+# Format files
+docker run -v $(pwd):/code ghcr.io/biomejs/biome format
+docker run -v $(pwd):/code ghcr.io/biomejs/biome format --write
+```
+
 ## Using a published binary
 
 To install Biome, grab the executable for your platform from the [latest CLI release](https://github.com/biomejs/biome/releases) on GitHub and give it execution permission.

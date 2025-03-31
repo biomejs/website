@@ -19,6 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Sources: 
 - Inspired from: <a href="https://typescript-eslint.io/rules/naming-convention" target="_blank"><code>@typescript-eslint/naming-convention</code></a>
 
+## Description
 Enforce naming conventions for everything across a codebase.
 
 Enforcing [naming conventions](https://en.wikipedia.org/wiki/Naming_convention_(programming)) helps to keep the codebase consistent,
@@ -235,7 +236,7 @@ function id<Val>(value: Val): Val { /* ... */}
 
 ### TypeScript `namespace` names
 
-A _TypeScript_ `namespace` name is in [`camelCase`](https://en.wikipedia.org/wiki/Camel_case) or in [`PascalCase`](https://en.wikipedia.org/wiki/Camel_case).
+A _TypeScript_ `namespace` names are in [`camelCase`](https://en.wikipedia.org/wiki/Camel_case) or in [`PascalCase`](https://en.wikipedia.org/wiki/Camel_case).
 
 ```ts
 namespace mathExtra {
@@ -251,7 +252,7 @@ namespace MathExtra {
 
 Note that some declarations are always ignored.
 You cannot apply a convention to them.
-This is the case for:
+This is the case of:
 
 - Member names that are not identifiers
 
@@ -270,14 +271,14 @@ class C {
  import { an_IMPORT } from "mod"
 ```
 
-- Destructured object properties
+- destructured object properties
 
 ```js
 const { destructed_PROP } = obj;
 ```
 
 
-- Class members marked with `override`:
+- class member marked with `override`
 
 ```ts
 class C extends B {
@@ -286,52 +287,7 @@ class C extends B {
 ```
 
 
-- Declarations inside an external TypeScript module
-
-:::caution
-**Bug:** Declarations inside external TypeScript modules are currently not ignored.
-This is a bug, and is tracked under [#4545](https://github.com/biomejs/biome/issues/4545).
-
-Until the bug is fixed, we recommend one of the following workarounds:
-
-
-  - Move the type declarations for external modules into separate `.d.ts` files,
-and use [overrides](https://biomejs.dev/reference/configuration/#overrides)
-in your [`biome.json`](https://biomejs.dev/reference/configuration/)
-to disable the `useNamingConvention` rule for those files:
-
-```jsonc
-{
-  "linter": {
-    "rules": {
-      "style": {
-        "useNamingConvention": "warn"
-      }
-      // ...
-    }
-  },
-  // ...
-  "overrides": [
-    {
-      "include": ["typings/*.d.ts"],
-      "linter": {
-        "rules": {
-          "style": {
-            "useNamingConvention": "off"
-          }
-        }
-      }
-    }
-  ]
-}
-```
-
-
-  - Use [`// biome-ignore lint/style/useNamingConvention: <explanation>`](https://biomejs.dev/linter/#ignore-code)
-to ignore the problematic lines.
-:::
-
-
+- declarations inside an external TypeScript module
 
 ```ts
 declare module "myExternalModule" {
@@ -347,6 +303,7 @@ The rule provides several options that are detailed in the following subsections
 
 ```json
 {
+    "//": "...",
     "options": {
         "strictCase": false,
         "requireAscii": true,
@@ -354,7 +311,7 @@ The rule provides several options that are detailed in the following subsections
         "conventions": [
             {
                 "selector": {
-                    "kind": "classMember",
+                    "kind": "memberLike",
                     "modifiers": ["private"]
                 },
                 "match": "_(.+)",
@@ -368,52 +325,23 @@ The rule provides several options that are detailed in the following subsections
 ### strictCase
 
 When this option is set to `true`, it forbids consecutive uppercase characters in [`camelCase`](https://en.wikipedia.org/wiki/Camel_case) and [`PascalCase`](https://en.wikipedia.org/wiki/Camel_case).
+For instance,  when the option is set to `true`, `HTTPServer` or `aHTTPServer` will throw an error.
+These names should be renamed to `HttpServer` and `aHttpServer`
 
-**Default:** `true`
+When the option is set to `false`, consecutive uppercase characters are allowed.
+`HTTPServer` and `aHTTPServer` are so valid.
 
-For instance, `HTTPServer` or `aHTTPServer` are not permitted for `strictCase: true`.
-These names should be renamed to `HttpServer` and `aHttpServer`:
-
-```json
-{
-    "options": {
-        "strictCase": true
-    }
-}
-```
-
-```js
-class HTTPServer {
-}
-```
-
-<pre class="language-text"><code class="language-text">code-block.js:1:7 <a href="https://biomejs.dev/linter/rules/use-naming-convention">lint/style/useNamingConvention</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Two consecutive uppercase characters are not allowed in PascalCase because </span><span style="color: Orange;"><strong>strictCase</strong></span><span style="color: Orange;"> is set to `true`.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>class HTTPServer &#123;<br />   <strong>   │ </strong>      <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>&#125;<br />    <strong>3 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">If you want to use consecutive uppercase characters in PascalCase, then set the </span><span style="color: lightgreen;"><strong>strictCase</strong></span><span style="color: lightgreen;"> option to `false`.<br /></span>    <span style="color: lightgreen;">See the rule </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/rules/use-naming-convention#options">options</a></span><span style="color: lightgreen;"> for more details.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Safe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Rename this symbol in </span><span style="color: lightgreen;"><strong>PascalCase</strong></span><span style="color: lightgreen;">.</span><br />  <br />    <strong>1</strong>  <strong> │ </strong><span style="color: Tomato;">-</span> <span style="color: Tomato;">c</span><span style="color: Tomato;">l</span><span style="color: Tomato;">a</span><span style="color: Tomato;">s</span><span style="color: Tomato;">s</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;"><strong>H</strong></span><span style="color: Tomato;"><strong>T</strong></span><span style="color: Tomato;"><strong>T</strong></span><span style="color: Tomato;"><strong>P</strong></span><span style="color: Tomato;"><strong>S</strong></span><span style="color: Tomato;"><strong>e</strong></span><span style="color: Tomato;"><strong>r</strong></span><span style="color: Tomato;"><strong>v</strong></span><span style="color: Tomato;"><strong>e</strong></span><span style="color: Tomato;"><strong>r</strong></span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">&#123;</span><br />      <strong>1</strong><strong> │ </strong><span style="color: MediumSeaGreen;">+</span> <span style="color: MediumSeaGreen;">c</span><span style="color: MediumSeaGreen;">l</span><span style="color: MediumSeaGreen;">a</span><span style="color: MediumSeaGreen;">s</span><span style="color: MediumSeaGreen;">s</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;"><strong>H</strong></span><span style="color: MediumSeaGreen;"><strong>t</strong></span><span style="color: MediumSeaGreen;"><strong>t</strong></span><span style="color: MediumSeaGreen;"><strong>p</strong></span><span style="color: MediumSeaGreen;"><strong>S</strong></span><span style="color: MediumSeaGreen;"><strong>e</strong></span><span style="color: MediumSeaGreen;"><strong>r</strong></span><span style="color: MediumSeaGreen;"><strong>v</strong></span><span style="color: MediumSeaGreen;"><strong>e</strong></span><span style="color: MediumSeaGreen;"><strong>r</strong></span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">&#123;</span><br />    <strong>2</strong> <strong>2</strong><strong> │ </strong>  &#125;<br />    <strong>3</strong> <strong>3</strong><strong> │ </strong>  <br />  <br /></code></pre>
-
-When `strictCase` is set to `false`, consecutive uppercase characters are allowed.
-For example, `HTTPServer` and `aHTTPServer` would be considered valid then:
-
-```json
-{
-    "options": {
-        "strictCase": false
-    }
-}
-```
-
-```js
-class HTTPServer {
-}
-```
+Default: `true`
 
 ### requireAscii
 
-When `true`, names must only consist of ASCII characters only,
-forbidding names like `café` or `안녕하세요` that include non-ASCII characters.
+When this option is set to `true`, it forbids names that include non-ASCII characters.
+For instance,  when the option is set to `true`, `café` or `안녕하세요` will throw an error.
 
-When `requireAscii` is set to `false`, names may include non-ASCII characters.
-For example, `café` and `안녕하세요` would be considered valid then.
+When the option is set to `false`, names may include non-ASCII characters.
+`café` and `안녕하세요` are so valid.
 
-**Default:** `false`
+Default: `false`
 
 **This option will be turned on by default in Biome 2.0.**
 
@@ -425,8 +353,8 @@ an `enum` member is in [`PascalCase`](https://en.wikipedia.org/wiki/Camel_case).
 You can enforce another convention by setting `enumMemberCase` option.
 The supported cases are: [`PascalCase`](https://en.wikipedia.org/wiki/Camel_case), [`CONSTANT_CASE`](https://en.wikipedia.org/wiki/Snake_case), and [`camelCase`](https://en.wikipedia.org/wiki/Camel_case).
 
-**This option will be deprecated in the future.**
-**Use the [`conventions`](#conventions-since-v180) option instead.**
+This option will be deprecated in the future.
+Use the `conventions` option instead.
 
 ### conventions (Since v1.8.0)
 
@@ -438,6 +366,7 @@ For example, you can enforce the use of [`CONSTANT_CASE`](https://en.wikipedia.o
 
 ```json
 {
+    "//": "...",
     "options": {
         "conventions": [
             {
@@ -528,8 +457,9 @@ In the following example, we check the following conventions:
 - A private property starts with `_` and consists of at least two characters
 - The captured name (the name without the leading `_`) is in [`camelCase`](https://en.wikipedia.org/wiki/Camel_case).
 
-```json
+```json5
 {
+    // ...
     "options": {
         "conventions": [
             {
@@ -549,8 +479,9 @@ If `match` is set and `formats` is unset,
 then the part of the name captured by the regular expression is forwarded to the next conventions of the array.
 In the following example, we require that private class members start with `_` and all class members are in ["camelCase"].
 
-```jsonc
+```json5
 {
+    // ...
     "options": {
         "conventions": [
             {
@@ -577,8 +508,9 @@ then the declaration name is verified against the default conventions.
 Because the default conventions already ensure that class members are in ["camelCase"],
 the previous example can be simplified to:
 
-```jsonc
+```json5
 {
+    // ...
     "options": {
         "conventions": [
             {
@@ -601,8 +533,9 @@ In the previous example, the capture is a part of the name because `_` is not in
 
 You can reset all default conventions by adding a convention at the end of the array that accepts anything:
 
-```jsonc
+```json5
 {
+    // ...
     "options": {
         "conventions": [
             // your conventions
@@ -630,8 +563,9 @@ we allow these constants to be enclosed by double underscores or to be named `_S
 and to be in [`PascalCase`](https://en.wikipedia.org/wiki/Camel_case).
 - All other names follow the default conventions
 
-```jsonc
+```json5
 {
+    // ...
     "options": {
         "conventions": [
             {
@@ -686,10 +620,22 @@ The `match` option takes a regular expression that supports the following syntax
 - Alternations `|`
 - Capturing groups `()`
 - Non-capturing groups `(?:)`
-- Case-insensitive groups `(?i:)` and case-sensitive groups `(?-i:)`
 - A limited set of escaped characters including all special characters
 and regular string escape characters `\f`, `\n`, `\r`, `\t`, `\v`
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useNamingConvention": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)

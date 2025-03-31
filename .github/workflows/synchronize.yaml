@@ -7,7 +7,7 @@ on:
         required: true
         type: string
   repository_dispatch:
-    types: [ biome-push-on-main-event ]
+    types: [biome-push-on-main-event]
 
 permissions:
   actions: write
@@ -24,6 +24,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: next
 
       - name: Get commit ID (workflow dispatch, empty)
         if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.commit-id == '' }}
@@ -44,10 +46,12 @@ jobs:
         uses: ./.github/actions/free-disk-space
 
       - name: Install pnpm
-        run: corepack enable
+        run: |
+          npm install -g corepack@latest
+          corepack enable
 
       - name: Setup node
-        uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+        uses: actions/setup-node@1d0ff469b7ec7b3cb9d8673fde0c81c44821de2a # v4.2.0
         with:
           node-version-file: ".node-version"
 
@@ -58,12 +62,13 @@ jobs:
         uses: ./.github/actions/run-codegen
         with:
           kinds: metadata, rules
-          version: "0.0.0"
+          version: "1.9.4"
 
       - name: Create pull request
         id: create-pull-request
         uses: peter-evans/create-pull-request@c5a7806660adbe173f04e3e038b0ccdcd758773c # v6.1.0
         with:
+          base: next
           branch: "chore/synchronize-${{ github.event_name }}"
           author: "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
           title: "chore(ci): synchronize to `${{ env.SHORT_COMMIT_ID }}`"

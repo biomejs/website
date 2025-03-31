@@ -23,6 +23,7 @@ This rule is part of the [nursery](/linter/rules/#nursery) group.
 Sources: 
 - Same as: <a href="https://typescript-eslint.io/rules/no-restricted-types" target="_blank"><code>@typescript-eslint/no-restricted-types</code></a>
 
+## Description
 Disallow user defined types.
 
 This rule allows you to specify type names that you don’t want to use in your application.
@@ -36,6 +37,7 @@ source code.
 
 ```json
 {
+    "//": "...",
     "options": {
         "types": {
            "Foo": {
@@ -50,6 +52,19 @@ source code.
 
 In the example above, the rule will emit a diagnostics if `Foo` or `OldAPI` are used.
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noRestrictedTypes": "error"
+			}
+		}
+	}
+}
+
+```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-lint-rule)
