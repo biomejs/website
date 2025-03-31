@@ -28,7 +28,9 @@ You can also enforce custom conventions with the [rule options](#options).
 
 ## Naming conventions
 
-All names can be prefixed and suffixed by underscores `_` and dollar signs `$`.
+All names can be prefixed and suffixed with underscores `_` and dollar signs `$`.
+Unused variables with a name prefixed with `_` are completely ignored.
+This avoids conflicts with the `noUnusedVariables` rule.
 
 ### Variable and parameter names
 
