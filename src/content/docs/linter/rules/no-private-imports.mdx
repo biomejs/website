@@ -21,7 +21,7 @@ This rule is currently only available in the [2.0 beta release](/blog/biome-v2-0
   - Same as [`import-access/eslint-plugin-import-access`](https://github.com/uhyo/eslint-plugin-import-access)
 
 ## Description
-Restricts imports of private exports.
+Restrict imports of private exports.
 
 In JavaScript and TypeScript, as soon as you `export` a symbol, such as
 a type, function, or anything else that can be exported, it is
@@ -89,6 +89,8 @@ the visibility from the original `export`.
 - This rule only applies to imports from JavaScript and TypeScript
 files. Imports for resources such as images or CSS files are exempted
 regardless of the default visibility setting.
+- This rule does not validate imports through dynamic `import()`
+expressions or CommonJS `require()` calls.
 
 ## Examples
 
