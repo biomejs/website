@@ -183,6 +183,7 @@ export default defineConfig({
 									translations: {
 										fr: "Extensions officielles",
 										ja: "Biome 公式拡張機能",
+										"zh-CN": "官方扩展",
 										uk: "Офіційні розширення",
 									},
 								},
@@ -192,6 +193,7 @@ export default defineConfig({
 									translations: {
 										fr: "Extensions tierces",
 										ja: "サードパーティの拡張機能",
+										"zh-CN": "第三方扩展",
 										uk: "Розширення сторонніх розробників",
 									},
 								},
@@ -201,6 +203,7 @@ export default defineConfig({
 									translations: {
 										fr: "Intégrer Biome à une extension pour un éditeur",
 										ja: "エディタ拡張機能への Biome の統合",
+										"zh-CN": "在编辑器扩展中集成 Biome",
 										uk: "Інтеграція Biome в розширення редактора",
 									},
 								},

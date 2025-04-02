@@ -1,0 +1,65 @@
+---
+title: 第三方扩展
+description: 学习如何设置第三方扩展
+---
+
+这些是由其他社区维护的编辑器扩展，你可以在编辑器中安装它们:
+- [`vim`](https://www.vim.org/): [`ALE`](https://github.com/dense-analysis/ale) 支持 Biome，按照安装说明操作即可
+- [`neovim`](https://neovim.io/): 你需要安装 [`nvim-lspconfig`](https://github.com/neovim/nvim-lspconfig/)，并按照[说明](https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#biome)进行操作。[`ALE`](https://github.com/dense-analysis/ale) 同样支持 Biome。
+- [`helix`](https://helix-editor.com/): 按照[这个手册](#helix)的说明进行操作
+- [`coc-biome`](https://github.com/fannheyward/coc-biome): [`coc.nvim`](https://github.com/neoclide/coc.nvim) 的 Biome 扩展
+- [`sublime text`](https://www.sublimetext.com/): 按照 [`LSP-biome`](https://github.com/sublimelsp/LSP-biome) 的安装说明进行操作
+- [`Emacs`](https://www.gnu.org/software/emacs/): 确保已安装 [`lsp-mode`](https://github.com/emacs-lsp/lsp-mode)，按照 [`lsp-biome`](https://github.com/cxa/lsp-biome) 的安装说明启用 `lsp-mode` 中的 Biome 支持
+
+:::note
+这里没有列出你使用的编辑器的扩展？请提交一个 PR，我们很乐意将其添加到列表中
+:::
+
+### Helix
+
+目前，biome 支持以下文件扩展名：`js`、`jsx`、`ts`、`tsx`、`d.ts`、`json` 和 `jsonc`。
+
+Biome 有一个 `lsp-proxy` 命令，它通过标准输入/输出作为语言服务器协议的服务器。
+
+#### Helix 23.10
+
+Helix 23.10 [支持多个语言服务器](https://github.com/helix-editor/helix/pull/2507)。现在你可以同时使用 biome 和 `typescript-language-server`。
+
+```toml
+[language-server]
+biome = { command = "biome", args = ["lsp-proxy"] }
+
+[[language]]
+name = "javascript"
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
+auto-format = true
+
+[[language]]
+name = "typescript"
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
+auto-format = true
+
+[[language]]
+name = "tsx"
+auto-format = true
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
+
+[[language]]
+name = "jsx"
+auto-format = true
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
+
+[[language]]
+name = "json"
+language-servers = [ { name = "vscode-json-language-server", except-features = [ "format" ] }, "biome" ]
+```
+
+### 视频演示
+
+#### 代码操作
+
+<video src="https://user-images.githubusercontent.com/17974631/190205045-aeb86f87-1915-4d8b-8aad-2c046443ba83.mp4" width="720" controls></video>
+
+#### 格式化
+
+<video src="https://user-images.githubusercontent.com/17974631/190205065-ddfde866-5f7c-4f53-8a62-b6cbb577982f.mp4" width="720" controls></video>
