@@ -6,7 +6,7 @@
     "format": "pnpm biome format --write",
     "check": "pnpm biome check --write",
     "tsc": "astro sync && tsc --skipLibCheck",
-    "build": "astro build",
+    "build": "pnpm codegen all && astro build",
     "build:no-og": "SKIP_OG=true astro build",
     "preview": "astro preview",
     "textlint": "textlint './src/content/docs/ja/**/*.{md,mdx}'",
