@@ -1,0 +1,86 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noUnresolvedImports
+description: Learn more about noUnresolvedImports
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+## Summary
+:::note
+This rule is currently only available in the [2.0 beta release](/blog/biome-v2-0-beta).
+:::
+- Diagnostic Category: [`lint/nursery/noUnresolvedImports`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Inspired from [`import/named`](https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/named.md)
+
+:::caution
+This rule is part of the [nursery](/linter/rules/#nursery) group.
+:::
+## Description
+Warn when importing non-existing exports.
+
+Importing a non-existing export is an error at runtime or build time.
+Biome can detect such incorrect imports and report errors for them.
+
+Note that if you use TypeScript, you probably don't want to use this
+rule, since TypeScript already performs such checks for you.
+
+## Known Limitations
+
+- This rule does not validate imports through dynamic `import()`
+expressions or CommonJS `require()` calls.
+
+## Examples
+
+### Invalid
+
+**`foo.js`**
+
+```js
+export function foo() {};
+```
+
+**`bar.js`**
+
+```js
+// Attempt to import symbol with a typo:
+import { fooo } from "./foo.js";
+```
+
+### Valid
+
+**`bar.js`**
+
+```js
+// Fixed typo:
+import { foo } from "./foo.js";
+```
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noUnresolvedImports": "error"
+			}
+		}
+	}
+}
+
+```
+## Related links
+
+- [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
+</Tabs>
+

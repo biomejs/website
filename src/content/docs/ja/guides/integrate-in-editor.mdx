@@ -3,62 +3,8 @@ title: Biomeをエディタに導入する
 description: エディタやIDEでBiomeを導入する方法
 ---
 
-## 公式プラグイン
-
-これらは、Biomeチームや [Biome organization](https://github.com/biomejs) によってメンテナンスされているプラグインです。
-
-### VS Code
-
-Biomeのプラグインを使うと、以下のことができます：
-
-* ファイルの保存時やコマンドを実行したときに、フォーマットを実行する
-* ファイルの静的解析をし、コードの修正を適用する
-
-
-Visual Studio Codeマーケットプレイスページで、[Biome VS Code extension](https://marketplace.visualstudio.com/items?itemName=biomejs.biome) をインストールしてください。
-
-Biomeをデフォルトのフォーマッタにするには、[サポート対象の言語に関するファイル](/ja/internals/language-support/) を開いて、以下の手順に従ってください：
-
-- **コマンドパレット**を開く（<kbd>Ctrl</kbd>/<kbd title="Cmd">⌘</kbd>+<kbd title="Shift">⇧</kbd>+<kbd>P</kbd> または表示 → コマンドパレット）
-- **ドキュメントのフォーマット...** を選択
-- **デフォルトのフォーマッタの設定...** を選択
-- Biomeを選択
-
-### IntelliJ
-
-Biome IntelliJ向けのプラグインをインストールするには、[プラグインの公式ページ](https://plugins.jetbrains.com/plugin/22761-biome) にアクセスするか、以下の手順に従ってください：
-
-**JetBrains IDEs の場合:**
-
-1. IntelliJ IDEAを開く。
-2. **Settings/Preferences** に移動する。
-3. 左のメニューから **Plugins** を選択する。
-4. **Marketplace** タブをクリックする。
-5. 検索ボックスに "Biome" と入力し、**Install** をクリックする。
-6. IDEを再起動して、プラグインを有効にする。
-
-**ディスクからの場合:**
-
-1. releasesタブからプラグインの .zipをダウンロードする。
-2. `⌘Сmd,` を押してIDEの設定を開き、**Plugins** を選択する。
-3. プラグインページで **Settings** ボタンをクリックし、**Install Plugin from Disk...** をクリックする。
-
-## サードパーティのプラグイン
-
-これらは、各種エディタで使用できる、コミュニティによってメンテナンスされているプラグインです：
-- [`neovim`](https://neovim.io/): [`nvim-lspconfig`](https://github.com/neovim/nvim-lspconfig/) をインストールして、[マニュアルの手順](https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#biome) に従ってください
-- [`helix`](https://helix-editor.com/): [マニュアルの手順](https://github.com/biomejs/biome/blob/main/editors/helix/manual.md) に従ってください
-- [`coc-biome`](https://github.com/fannheyward/coc-biome): [`coc.nvim`](https://github.com/neoclide/coc.nvim) 向けのBiome拡張機能
-- [`sublime text`](https://www.sublimetext.com/): [`LSP-biome`](https://github.com/sublimelsp/LSP-biome) のインストール手順に従ってください
-
-:::note
-ここにのっていないエディタのプラグインがありますか？ぜひPRを送って、ここに追加してください！
-:::
-
-## プラグインを実装する
-
 Biomeは [LSP](https://microsoft.github.io/language-server-protocol/) を優先的にサポートしています。
-エディタがLSPを実装している場合、Biomeの導入はスムーズであるべきです。
+エディタがLSPを実装している場合、Biomeとシームレスに連携できます。
 
 ### LSP プロキシを使う
 
@@ -127,17 +73,25 @@ echo "console.log('')" | biome format --use-server --stdin-file-path=dummy.js
 
 ### デーモンのログ
 
-Biomeのデーモンは、ファイルシステムにログを保存します。ログは 、`biome-logs` というフォルダに保存され、このフォルダはOSの一時ディレクトリに作成されています。
+Biomeのデーモンは、ファイルシステムにログを保存します。
+ログは 、`biome-logs` というフォルダに保存され、
+このフォルダへのパスははOSごとに異なります：
 
-Windowsの場合は、powershellで以下のコマンドを実行すると、一時ディレクトリの場所を確認できます：
-```shell
-$env:TEMP
-```
+-  Linux: `~/.cache/biome`;
+-  Windows: `C:\Users\<UserName>\AppData\Local\biomejs\biome\cache`
+-  macOS: `/Users/<UserName>/Library/Caches/dev.biomejs.biome`
 
-Linux/macOSの場合は、ターミナルで以下のコマンドを実行して確認ができます：
+その他のOSでは、システムの一時ディレクトリでフォルダを見つけられます。
+
+正確なパスを得るには、以下のコマンドを実行します：
+
 ```shell
-echo $TMPDIR
+biome explain daemon-logs
 ```
 
 ログファイルは、1時間ごとにローテーションされます。
+`clean` コマンドを利用してログを削除できます：
 
+```shell
+biome clean
+```
