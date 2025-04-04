@@ -4420,7 +4420,11 @@ export function GET() {
             "recommended": false,
             "fixKind": "none",
             "docs": " Catch a `SyntaxError` when writing calling `super()` on a class that doesn't extends any class\n\n ## Examples\n\n ```js\n class A {\n ```\n"
-          },
+          }
+        }
+      },
+      "ts": {
+        "correctness": {
           "noTypeOnlyImportAttributes": {
             "deprecated": false,
             "version": "1.5.0",
