@@ -4,12 +4,12 @@ import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
 ---
 
 <StarlightPage
-  frontmatter={{
-    title: "Enterprise Support",
-    description: "Commercial support for Biome",
-    template: "splash",
-    editUrl: false,
-  }}
+        frontmatter={{
+            title: "Enterprise Support",
+            description: "Commercial support for Biome",
+            template: "splash",
+            editUrl: false,
+        }}
 >
     <p>
         Biome has an active community and a team of Maintainers, Core
@@ -23,21 +23,25 @@ import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
     <div class="ctas">
         <div class="cta">
             <p>
-                <LinkButton href="https://biomejs.dev/chat" target="_blank">Contact us on Discord</LinkButton>
+                <LinkButton href="https://biomejs.dev/chat" target="_blank" icon="external">Contact us on Discord
+                </LinkButton>
             </p>
             <p>Reach out to us through the <b><code>Community > #funding</code></b>
                 channel for enquiries related to commercial support.</p>
         </div>
         <div class="cta">
             <p>
-                <LinkButton href="https://github.com/biomejs/biome/issues/new/choose" target="_blank">Create an issue on GitHub</LinkButton>
+                <LinkButton href="https://github.com/biomejs/biome/issues/new?template=06_commercial_request.yml"
+                            target="_blank" icon="external">Create an issue on
+                    GitHub
+                </LinkButton>
             </p>
             <p>Create an issue and choose <b>Commercial Support Request</b> and
                 we'll get back to you.</p>
         </div>
     </div>
     <div class="sponsorship">
-        <Icon class="logo" color="red" name="heart" size="6rem" />
+        <Icon class="logo" color="red" name="heart" size="10rem"/>
         <div>
             <h2>Would you like to support Biome?</h2>
             <p>
@@ -46,7 +50,9 @@ import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
                 apply for sponsorship benefits.
             </p>
             <p>
-                More sponsorship options are available through <a href="https://opencollective.com/biome">OpenCollective</a> and <a href="https://github.com/sponsors/biomejs">GitHub Sponsors</a>.
+                More sponsorship options are available through <a
+                    href="https://opencollective.com/biome">OpenCollective</a> and <a
+                    href="https://github.com/sponsors/biomejs">GitHub Sponsors</a>.
             </p>
         </div>
     </div>
@@ -60,7 +66,7 @@ import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
 <style>
     .ctas {
         width: 100%;
-        padding: 1rem;
+        padding: 1rem 0;
         display: flex;
         gap: 1rem;
         vertical-align: start;
@@ -72,22 +78,23 @@ import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
         flex-grow: 1;
     }
 
+    .cta > p > a {
+        border-radius: 0.3rem;
+    }
+
     .sponsorship {
         position: relative;
         border: 1px solid var(--sl-color-gray-5);
-        font-size: 80%;
         overflow: hidden;
-        margin: 7rem 4rem 4rem;
+        margin: 7rem 0 4rem;
         padding: 1rem;
         display: flex;
         gap: 1rem;
         background: radial-gradient(
                 hsla(var(--sl-hue-red), 16%, 52%, 68%),
                 transparent 40%
-            )
-            no-repeat -60vw -50vh / 105vw 200vh,
-            radial-gradient(var(--sl-color-blue-low), transparent 40%) no-repeat 30vw
-            -100vh / 105vw 200vh;
+        ) no-repeat -60vw -50vh / 105vw 200vh,
+        radial-gradient(var(--sl-color-blue-low), transparent 40%) no-repeat 30vw -100vh / 105vw 200vh;
     }
 
     .fineprint {
@@ -101,9 +108,10 @@ import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
         }
 
         .sponsorship {
-            margin: 7rem 2rem 4rem;
+            margin: 7rem 0 4rem;
         }
-        .sponsorship>.logo {
+
+        .sponsorship > .logo {
             display: none;
         }
     }
