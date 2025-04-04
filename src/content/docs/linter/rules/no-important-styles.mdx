@@ -1,0 +1,93 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noImportantStyles
+description: Learn more about noImportantStyles
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="CSS" icon="seti:css">
+## Summary
+:::note
+This rule is currently only available in the [2.0 beta release](/blog/biome-v2-0-beta).
+:::
+- Diagnostic Category: [`lint/nursery/noImportantStyles`](/reference/diagnostics#diagnostic-category)
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- Sources: 
+  - Same as [`stylelint/declaration-no-important`](https://github.com/stylelint/stylelint/blob/main/lib/rules/declaration-no-important/README.md)
+
+:::caution
+This rule is part of the [nursery](/linter/rules/#nursery) group.
+:::
+## Description
+Disallow the use of the `!important` style.
+
+The `!important` CSS style is a declaration used to give a specific rule
+higher precedence over other conflicting rules. When it is applied to a CSS
+property, that property's value is prioritized over any other declarations,
+regardless of specificity or order of appearance in the stylesheet.
+
+### How `!important` Works
+
+- Normally, CSS rules follow a cascade order, where the browser decides
+which rules apply based on specificity, inheritance, and proximity to the
+targeted element.
+- Adding `!important` to a rule overrides this cascade logic, forcing the
+rule to apply even if other rules have higher specificity or are defined later.
+
+### Why `!important` Should Be Avoided
+
+While `!important` can solve specific and immediate styling issues, its effects
+can result in long-term problems within a codebase:
+
+- **Breaks the Cascade Logic**: It overrides the natural flow of cascading rules,
+making it harder to predict which styles will apply.
+- **Increases Complexity**: Once `!important` is used in a stylesheet, other developers
+may respond by using it even more aggressively, creating a cycle of overrides and
+increasing maintenance difficulty.
+- **Reduces Reusability**: Overriding styles often makes components less flexible,
+as future adjustments require more effort.
+- **Hinders Debugging**: Debugging styles becomes more challenging, as developers
+must account for the `!important` rule overriding expected behavior.
+
+## Examples
+
+### Invalid
+
+```css
+.style {
+    color: red !important;
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.css:2:16 <a href="https://biomejs.dev/linter/rules/no-important-styles">lint/nursery/noImportantStyles</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Avoid the use of the </span><span style="color: Orange;"><strong>!important</strong></span><span style="color: Orange;"> style.</span><br />  <br />    <strong>1 │ </strong>.style &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>    color: red !important;<br />   <strong>   │ </strong>               <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This style reverses the cascade logic, and precedence is reversed. This could lead to having styles with higher specificity being overridden by styles with lower specificity.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Remove the style.</span><br />  <br />  <strong>  2 │ </strong><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span>color:<span style="opacity: 0.8;">·</span>red<span style="opacity: 0.8;"><span style="color: Tomato;">·</span></span><span style="color: Tomato;">!</span><span style="color: Tomato;">i</span><span style="color: Tomato;">m</span><span style="color: Tomato;">p</span><span style="color: Tomato;">o</span><span style="color: Tomato;">r</span><span style="color: Tomato;">t</span><span style="color: Tomato;">a</span><span style="color: Tomato;">n</span><span style="color: Tomato;">t</span>;<br />  <strong>    │ </strong>              <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span> <br /></code></pre>
+
+## Useful links
+
+- [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/important)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noImportantStyles": "error"
+			}
+		}
+	}
+}
+
+```
+## Related links
+
+- [Disable a rule](/linter/#disable-a-lint-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
+</Tabs>
+
