@@ -513,7 +513,7 @@ fn generate_rule_content(
 
     writeln!(content, "## Related links")?;
     writeln!(content)?;
-    writeln!(content, "- [Disable a rule](/linter/#disable-a-lint-rule)")?;
+    writeln!(content, "- [Disable a rule](/linter/#disable-a-rule)")?;
     writeln!(
         content,
         "- [Configure the rule fix](/linter#configure-the-rule-fix)"

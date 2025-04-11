@@ -49,7 +49,20 @@ const plugins = [
 			},
 		},
 	}),
-	starlightLinksValidator(),
+	starlightLinksValidator({
+		// TODO: enable once `next` is merged into `main`
+		errorOnInvalidHashes: false,
+		exclude: [
+			"/playground",
+			"/playground**",
+			"/playground/**",
+			"/linter/rules/",
+			"/linter/rules/**/*",
+			"/linter/rule-sources/",
+			"/reference/cli/",
+			"/blog/**/*",
+		],
+	}),
 ];
 
 if (process.env?.E2E !== "true") {
