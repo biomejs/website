@@ -7,14 +7,14 @@ import NumberOfRules from "@/components/generated/NumberOfRules.astro";
 import PackageManagerBiomeCommand from "@/components/PackageManagerBiomeCommand.astro";
 
 L’outil de linting de Biome analyse de manière statique votre code pour trouver et corriger les erreurs fréquentes et pour vous aider à écrire du code meilleur et moderne.
-Il [prend en charge plusieurs languages](/fr/internals/language-support) et fournit un total de [**<NumberOfRules/> règles**](/fr/linter/rules/).
+Il [prend en charge plusieurs languages](/fr/internals/language-support) et fournit un total de [**<NumberOfRules/> règles**](/linter/rules/).
 
 
 ## Règles
 
 L’outil de linting est organisé par règles.
 Une règle déclenche un diagnostic quand elle rencontre du code qui ne remplit pas ses exigences.
-Par exemple, la règle [noDebugger](/fr/linter/rules/no-debugger) rapporte l’utilisation de l’instruction `debugger` dans du code JavaScript.
+Par exemple, la règle [noDebugger](/linter/rules/no-debugger) rapporte l’utilisation de l’instruction `debugger` dans du code JavaScript.
 
 Une règle déclenche des diagnostics de niveau de sévérité `info`, `warn` ou `error`.
 Les diagnostics de niveau de sévérité `error` font quitter la commande avec un code différent de zéro,
@@ -34,7 +34,7 @@ Les règles recommandées déclenchent des diagnostics de niveau de sévérité 
 Les règles sont divisées en groupes.
 Par exemple, la règle `noDebugger` fait partie du [groupe `suspicious`](/fr/linter/rules#suspicious).
 Les règles de ce groupe détectent du code qui est probablement incorrect ou inutile.
-La description de chaque groupe peut être trouvée à la [page des règles](/fr/linter/rules/).
+La description de chaque groupe peut être trouvée à la [page des règles](/linter/rules/).
 
 Contrairement à d’autres outils de linting, nous ne fournissons pas de règles qui vérifient le formatage du code.
 Ce type de vérification est couvert par notre [outil de formatage de code](/fr/formatter/).

@@ -52,11 +52,11 @@ const plugins = [
 	starlightLinksValidator({
 		errorOnInconsistentLocale: true,
 		exclude: [
-			"/playground",
-			"/linter/rules",
+			"/playground/",
+			"/linter/rules/",
 			"/linter/rules/**/*",
-			"/linter/rule-sources",
-			"/reference/cli",
+			"/linter/rule-sources/",
+			"/reference/cli/",
 			"/blog/**/*",
 		],
 	}),
