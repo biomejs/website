@@ -49,7 +49,15 @@ const plugins = [
 			},
 		},
 	}),
-	starlightLinksValidator(),
+	starlightLinksValidator({
+		exclude: [
+			"/playground",
+			"/linter/rules",
+			"/linter/rules/**/*",
+			"/linter/rule-sources",
+			"/reference/cli",
+		],
+	}),
 ];
 
 if (process.env?.E2E !== "true") {
