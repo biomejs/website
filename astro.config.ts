@@ -50,6 +50,8 @@ const plugins = [
 		},
 	}),
 	starlightLinksValidator({
+		// TODO: enable once `next` is merged into `main`
+		errorOnInvalidHashes: false,
 		exclude: [
 			"/playground",
 			"/playground**",
