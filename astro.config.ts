@@ -253,6 +253,7 @@ export default defineConfig({
 				{
 					label: "Tools",
 					translations: {
+						es: "Herramientas",
 						fr: "Outils",
 						ja: "ツール",
 						"zh-CN": "工具",
@@ -267,6 +268,7 @@ export default defineConfig({
 									label: "Introduction",
 									link: "/analyzer",
 									translations: {
+										es: "Introducción",
 										ja: "イントロダクション",
 										"zh-CN": "介绍",
 										"pt-BR": "Introdução",
@@ -277,6 +279,7 @@ export default defineConfig({
 									label: "Import Sorting",
 									link: "/analyzer/import-sorting",
 									translations: {
+										es: "Ordenación de importaciones",
 										fr: "Tri des imports",
 										ja: "Import文のソート",
 										"zh-CN": "导入排序",
@@ -286,6 +289,7 @@ export default defineConfig({
 								},
 							],
 							translations: {
+								es: "Analizador",
 								fr: "Analyseur",
 								ja: "Analyzer",
 								"zh-CN": "分析器",
