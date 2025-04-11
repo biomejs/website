@@ -567,6 +567,7 @@ Contributed by @sepruko
   `--max-diagnostics` is ignored and **the limit is lifted**. Contributed by @ematipico
 
 -
+
 `biome init` now generates a new config file with more options set. This change intends to improve discoverability of the options and to set the more commonly used options to their default values. Contributed by @Conaclos
 
 - The `--verbose` flag now reports the list of files that were evaluated, and the list of files that were fixed. The *
@@ -851,6 +852,7 @@ The following JavaScript rules are promoted:
 #### Deprecated rules
 
 -
+
 `correctness/noInvalidNewBuiltin` is deprecated. Use [correctness/noInvalidBuiltinInstantiation](https://biomejs.dev/linter/rules/no-invalid-builtin-instantiation/) instead.
 -
 `style/useSingleCaseStatement` is deprecated. Use [correctness/noSwitchDeclarations](https://biomejs.dev/linter/rules/no-switch-declarations/) instead.
@@ -1049,9 +1051,11 @@ The following JavaScript rules are promoted:
 - [noControlCharactersInRegex](https://www.biomejs.dev/linter/rules/no-control-characters-in-regex) now reports control characters and escape sequence of control characters in string regexes. Contributed by @Conaclos
 
 -
+
 `noExcessiveNestedTestSuites`: fix an edge case where the rule would alert on heavily nested zod schemas. Contributed by @dyc3
 
 -
+
 `noExtraNonNullAssertion` no longer reports a single non-null assertion enclosed in parentheses ([#3352](https://github.com/biomejs/biome/issues/3352)). Contributed by @Conaclos
 
 - [noMultipleSpacesInRegularExpressionLiterals](https://biomejs.dev/linter/rules/no-multiple-spaces-in-regular-expression-literals/) now correctly provides a code fix when Unicode characters are used. Contributed by @Conaclos
@@ -1967,7 +1971,9 @@ z.object({})
 ```
 
 -
+
 `noEmptyBlockStatements` no longer reports empty constructors using typescript parameter properties. [#3005](https://github.com/biomejs/biome/issues/3005) Contributed by @dyc3
+
 - `noEmptyBlockStatements` no longer reports empty private or protected constructors. Contributed by @dyc3
 
 - [noExportsInTest](https://biomejs.dev/linter/rules/no-exports-in-test/) rule no longer treats files with in-source testing as test files https://github.com/biomejs/biome/issues/2859. Contributed by @ah-yu
@@ -1994,6 +2000,7 @@ z.object({})
 #### Enhancements
 
 -
+
 `lang="tsx"` is now supported in Vue Single File Components. [#2765](https://github.com/biomejs/biome/issues/2765) Contributed by @dyc3
 
 #### Bug fixes
@@ -2045,6 +2052,7 @@ z.object({})
 - Add [nursery/useExplicitLengthCheck](https://biomejs.dev/linter/rules/use-explicit-length-check/). Contributed by @minht11
 
 -
+
 `useExhaustiveDependencies` now recognizes (some) dependencies that change on every render ([#2374](https://github.com/biomejs/biome/issues/2374)). Contributed by @arendjr
 
 #### Bug fixes
@@ -2336,9 +2344,11 @@ z.object({})
 - Now Biome can detect the script language in Svelte and Vue script blocks more reliably ([#2245](https://github.com/biomejs/biome/issues/2245)). Contributed by @Sec-ant
 
 -
+
 `useExhaustiveDependencies` no longer reports recursive calls as missing dependencies ([#2361](https://github.com/biomejs/biome/issues/2361)). Contributed by @arendjr
 
 -
+
 `useExhaustiveDependencies` correctly reports missing dependencies declared using function declarations ([#2362](https://github.com/biomejs/biome/issues/2362)). Contributed by @arendjr
 
 - Biome now can handle `.svelte` and `.vue` files with `CRLF` as the end-of-line sequence. Contributed by @Sec-ant
@@ -2799,7 +2809,7 @@ New rules are incubated in the nursery group. Once stable, we promote them to a 
 
 #### New features
 
-- Add rule [noEvolvingTypes](https://biomejs.dev/linter/rules/no-evolving-any) to disallow variables from evolving into
+- Add rule [noEvolvingTypes](https://biomejs.dev/linter/rules/no-evolving-types) to disallow variables from evolving into
   `any` type through reassignments. Contributed by @fujiyamaorange
 
 #### Enhancements
@@ -4251,14 +4261,16 @@ New rules are incubated in the nursery group. Once stable, we promote them to a 
   ```
 
 -
+
 `<svg>` element is now considered as a non-interactive HTML element ([#1095](https://github.com/biomejs/biome/issues/1095)). Contributed by @chansuke
 
 This affects the following rules:
-  - [noAriaHiddenOnFocusable](https://biomejs.dev/linter/rules/no-aria-hidden-on-focusable)
-  - [noInteractiveElementToNoninteractiveRole](https://biomejs.dev/linter/rules/no-interactive-element-to-noninteractive-role)
-  - [noNoninteractiveElementToInteractiveRole](https://biomejs.dev/linter/rules/no-noninteractive-element-to-interactive-role)
-  - [noNoninteractiveTabindex](https://biomejs.dev/linter/rules/no-noninteractive-tabindex)
-  - [useAriaActivedescendantWithTabindex](https://biomejs.dev/linter/rules/use-aria-activedescendant-with-tabindex)
+
+- [noAriaHiddenOnFocusable](https://biomejs.dev/linter/rules/no-aria-hidden-on-focusable)
+- [noInteractiveElementToNoninteractiveRole](https://biomejs.dev/linter/rules/no-interactive-element-to-noninteractive-role)
+- [noNoninteractiveElementToInteractiveRole](https://biomejs.dev/linter/rules/no-noninteractive-element-to-interactive-role)
+- [noNoninteractiveTabindex](https://biomejs.dev/linter/rules/no-noninteractive-tabindex)
+- [useAriaActivedescendantWithTabindex](https://biomejs.dev/linter/rules/use-aria-activedescendant-with-tabindex)
 
 - [noMultipleSpacesInRegularExpressionLiterals](https://biomejs.dev/linter/rules/no-multiple-spaces-in-regular-expression-literals/)
   has a safe code fix. Contributed by @Conaclos

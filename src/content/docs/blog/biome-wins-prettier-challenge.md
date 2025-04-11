@@ -13,9 +13,11 @@ cover:
 socialImage: "@/assets/blog/prettier-challenge.png"
 ---
 
-With the release of Biome **`v1.4.0`**, we claim the bounty of the [Prettier challenge](https://console.algora.io/challenges/prettier)!
+With the release of Biome **`v1.4.0`
+**, we claim the bounty of the [Prettier challenge](https://console.algora.io/challenges/prettier)!
 
-With `v1.4.0`, you'll get a better formatter experience, more formatting options, new VSCode features, new sponsors and more!
+With
+`v1.4.0`, you'll get a better formatter experience, more formatting options, new VSCode features, new sponsors and more!
 
 You can upgrade Biome by running the following command:
 
@@ -27,7 +29,8 @@ yarn upgrade --exact @biomejs/biome@1.4.0
 
 ## Better formatter
 
-Biome formatter has now **over 96% in terms of compatibility** against [Prettier](https://prettier.io/)! This score is computed for JavaScript, TypeScript, and JSX formatting.
+Biome formatter has now **over 96% in terms of compatibility
+** against [Prettier](https://prettier.io/)! This score is computed for JavaScript, TypeScript, and JSX formatting.
 
 Merit of challenge that was launched by [Christopher Chedeau](http://blog.vjeux.com/), one of the Prettier's creators.
 
@@ -41,13 +44,15 @@ I believe the main factors that made this possible are three:
 
 Before the challenge, Biome had roughly a compatibility rate of 85%, based on our internal metrics (JavaScript, TypeScript and JSX, on options parity). Even though 85% might seem high, the impact of a low number such as 15% on big code bases is huge, and people might feel intimidated by so many changes, causing early adopters to receive frictions when bring Biome to their team. A member of our community shared some insights:
 
-> As a great example of how much even just that last 5% has improved things for large codebases (and specifically with `bracketSpacing` and now `bracketSameLine` implemented) i ran it one project in our monorepo [...].
+> As a great example of how much even just that last 5% has improved things for large codebases (and specifically with
+`bracketSpacing` and now `bracketSameLine` implemented) i ran it one project in our monorepo [...].
 >
-> Just last week, this number `[diagnostics]` was more than 6,000. Even with the bracket options ignored, it was still more than 1000, and now there are only 200 left!
+> Just last week, this number
+`[diagnostics]` was more than 6,000. Even with the bracket options ignored, it was still more than 1000, and now there are only 200 left!
 
 Although the challenge is over, we are committed to improve even more the compatibility score with prettier. Any contribution in this regard is very welcome.
 
-The challenge has also uncovered some cases in Prettier's emitted output that we decided to not follow. We have created a [new section](/formatter/#differences-with-prettier) in our website that explains them. Our hope is to make this section smaller with the time.
+The challenge has also uncovered some cases in Prettier's emitted output that we decided to not follow. We have created a [new section](/formatter/differences-with-prettier) in our website that explains them. Our hope is to make this section smaller with the time.
 
 If there's a divergence that isn't documented in our website, you should consider that a bug and file an issue.
 
@@ -57,9 +62,10 @@ With this challenge, we added new options to the formatter:
 
 - [`lineEnding`](/reference/configuration#formatterlineending)
 
-  Use this option to match the line endings of your OS. We support `lf` (line feed - `\n`), `cr` (carriage return - `\r`) and `crlf` (carriage return line feed - `\r\n`).
+  Use this option to match the line endings of your OS. We support `lf` (line feed - `\n`), `cr` (carriage return -
+  `\r`) and `crlf` (carriage return line feed - `\r\n`).
 
-- [`bracketSameLine`](/reference/configuration#formatterbracketsameline)
+- [`bracketSameLine`](/reference/configuration#fjavascriptormatterbracketsameline)
 
   ```jsx title="example.js"
   // Existing behavior. Now also the default, meaning `bracketSameLine: false`.
@@ -95,7 +101,7 @@ With this challenge, we added new options to the formatter:
   />
   ```
 
-- [`bracketSpacing`](/reference/configuration#formatterbracketspacing)
+- [`bracketSpacing`](/reference/configuration#javascriptformatterbracketspacing)
 
   ```js title="example.js"
   import { sort } from "sort.js";
@@ -119,11 +125,13 @@ We removed the bundled binary from the extension, and you'll be able to download
   <source src="https://github.com/biomejs/biome-vscode/assets/649677/c7c1bf81-10a5-4cd6-bbdf-019d983a2d6a" type="video/mp4">
 </video>
 
-From today, we release a [**nightly**](https://marketplace.visualstudio.com/items?itemName=biomejs.biome-nightly) version of the extension. This is a version meant for early adopters and to test things before they are officially released.
+From today, we release a [**nightly
+**](https://marketplace.visualstudio.com/items?itemName=biomejs.biome-nightly) version of the extension. This is a version meant for early adopters and to test things before they are officially released.
 
 ## Some CLI goodies
 
-People that rely on Biome LSP will be pleased that they can now pass a custom configuration to the command `lsp-proxy`, using the option `--config-path`. The same option is accepted by the command `start`:
+People that rely on Biome LSP will be pleased that they can now pass a custom configuration to the command
+`lsp-proxy`, using the option `--config-path`. The same option is accepted by the command `start`:
 
 ```shell
 biome --config-path=../path/where/config/is lsp-proxy

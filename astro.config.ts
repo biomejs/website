@@ -56,6 +56,7 @@ const plugins = [
 			"/linter/rules/**/*",
 			"/linter/rule-sources",
 			"/reference/cli",
+			"/blog/**/*",
 		],
 	}),
 ];
