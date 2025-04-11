@@ -88,8 +88,8 @@ importers:
         specifier: 5.5.5
         version: 5.5.5(@netlify/blobs@8.1.1)(@types/node@20.17.28)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)
       astro-og-canvas:
-        specifier: 0.5.6
-        version: 0.5.6(astro@5.5.5(@netlify/blobs@8.1.1)(@types/node@20.17.28)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
+        specifier: 0.7.0
+        version: 0.7.0(astro@5.5.5(@netlify/blobs@8.1.1)(@types/node@20.17.28)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
       autoprefixer:
         specifier: 10.4.21
         version: 10.4.21(postcss@8.4.49)
@@ -1363,8 +1363,8 @@ packages:
     peerDependencies:
       astro: ^4.0.0-beta || ^5.0.0-beta || ^3.3.0
 
-  astro-og-canvas@0.5.6:
-    resolution: {integrity: sha512-w75UErZdRxYyoVnTz4IXn6T869PBrwYQEjPecWVaev9faYCHC3Uk7R47KCO3u+MSDkc8tCENz4ghVDrLImx9SA==}
+  astro-og-canvas@0.7.0:
+    resolution: {integrity: sha512-aamARDNDORPxXlPt+VJakzj4WpNUDjQqUZ06eE82pGMad4aTR/KMm8Ho12qvprgJcM8K7fgSOMg5OHa7KcX0pw==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       astro: ^3.0.0 || ^4.0.0 || ^5.0.0
@@ -5430,7 +5430,7 @@ snapshots:
       astro: 5.5.5(@netlify/blobs@8.1.1)(@types/node@20.17.28)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)
       rehype-expressive-code: 0.40.2
 
-  astro-og-canvas@0.5.6(astro@5.5.5(@netlify/blobs@8.1.1)(@types/node@20.17.28)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)):
+  astro-og-canvas@0.7.0(astro@5.5.5(@netlify/blobs@8.1.1)(@types/node@20.17.28)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)):
     dependencies:
       astro: 5.5.5(@netlify/blobs@8.1.1)(@types/node@20.17.28)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)
       canvaskit-wasm: 0.39.1
