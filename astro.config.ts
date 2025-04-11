@@ -50,6 +50,7 @@ const plugins = [
 		},
 	}),
 	starlightLinksValidator({
+		errorOnInconsistentLocale: true,
 		exclude: [
 			"/playground",
 			"/linter/rules",
