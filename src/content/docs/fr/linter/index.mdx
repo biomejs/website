@@ -26,13 +26,13 @@ Vous pouvez faire échouer une commande qui déclenche des diagnostics de type `
 biome lint --error-on-warnings ./src
 ```
 
-Par défaut, l’outil de linting de Biome n’exécute que les [**règles recommandées**](/fr/linter/rules#règles-recommandées).
+Par défaut, l’outil de linting de Biome n’exécute que les **règles recommandées**.
 Pour désactiver _toutes les règles,_ vous pouvez désactiver les règles recommandées dans votre fichier de configuration de Biome,
 ce qui peut être utile dans les cas où vous ne voulez activer que quelques règles.
 Les règles recommandées déclenchent des diagnostics de niveau de sévérité `error`.
 
 Les règles sont divisées en groupes.
-Par exemple, la règle `noDebugger` fait partie du [groupe `suspicious`](/fr/linter/rules#suspicious).
+Par exemple, la règle `noDebugger` fait partie du [groupe `suspicious`](/linter/rules#suspicious).
 Les règles de ce groupe détectent du code qui est probablement incorrect ou inutile.
 La description de chaque groupe peut être trouvée à la [page des règles](/linter/rules/).
 
@@ -93,7 +93,7 @@ biome lint ./src/**/*.test.{js,ts}
 L’évaluation du shell a un coût en termes de performances et des limites sur le nombre de fichiers que vous pouvez passer à la commande.
 :::
 
-Pour plus de renseignements sur toutes les options disponibles, consultez la [référence de la ligne de commande](/fr/reference/cli#biome-lint).
+Pour plus de renseignements sur toutes les options disponibles, consultez la [référence de la ligne de commande](/reference/cli#biome-lint).
 
 ### Sauter une règle ou un groupe
 
@@ -243,6 +243,6 @@ Notez que vous pouvez également [ignorer les fichiers ignorés par votre VCS](/
 
 La plupart des règles de linting de Biome sont inspirées d’autres outils de linting.
 Si vous voulez migrer depuis d’autres outils de linting comme ESLint ou `typescript-eslint`,
-consultez la [page des sources des règles](/fr/linter/rules-sources).
+consultez la [page des sources des règles](/linter/rules-sources).
 Si vous migrez depuis ESLint,
 nous avons un [guide de migration](/fr/guides/migrate-eslint-prettier#migrer-depuis-eslint) dédié.

@@ -11,16 +11,16 @@ Légende&nbsp;:
 
 | Langage | Analyse | Formatage | Linting |
 | ------- | ------- | --------- | ------- |
-| [JavaScript](#javascript-support) | <span aria-label="Pris en charge" role="img">✅</span> | <span aria-label="Pris en charge" role="img">✅</span> | <span aria-label="Pris en charge" role="img">✅</span> |
-| [TypeScript](#typescript-support) | <span aria-label="Pris en charge" role="img">✅</span> | <span aria-label="Pris en charge" role="img">✅</span> | <span aria-label="Pris en charge" role="img">✅</span> |
+| JavaScript | <span aria-label="Pris en charge" role="img">✅</span> | <span aria-label="Pris en charge" role="img">✅</span> | <span aria-label="Pris en charge" role="img">✅</span> |
+| TypeScript | <span aria-label="Pris en charge" role="img">✅</span> | <span aria-label="Pris en charge" role="img">✅</span> | <span aria-label="Pris en charge" role="img">✅</span> |
 | JSX | <span aria-label="Pris en charge" role="img">✅</span> | <span aria-label="Pris en charge" role="img">✅</span> | <span aria-label="Pris en charge" role="img">✅</span> |
 | TSX | <span aria-label="Pris en charge" role="img">✅</span> | <span aria-label="Pris en charge" role="img">✅</span> | <span aria-label="Pris en charge" role="img">✅</span> |
 | JSON | <span aria-label="Pris en charge" role="img">✅</span> | <span aria-label="Pris en charge" role="img">✅</span> | <span aria-label="Pris en charge" role="img">✅</span> |
 | JSONC | <span aria-label="Pris en charge" role="img">✅</span> | <span aria-label="Pris en charge" role="img">✅</span> | <span aria-label="Pris en charge" role="img">✅</span> |
 | HTML | <span aria-label="En cours" role="img">⌛️</span> | <span aria-label="En cours" role="img">⌛️</span> | <span aria-label="Pas en cours" role="img">🚫</span> |
-| [Vue](#html-super-languages-support) | <span aria-label="Partiellement pris en charge" role="img">⚠️</span> | <span aria-label="Partiellement pris en charge" role="img">⚠️</span> | <span aria-label="Partiellement pris en charge" role="img">⚠️</span> |
-| [Svelte](#html-super-languages-support) | <span aria-label="Partiellement pris en charge" role="img">⚠️</span> | <span aria-label="Partiellement pris en charge" role="img">⚠️</span> | <span aria-label="Partiellement pris en charge" role="img">⚠️</span> |
-| [Astro](#html-super-languages-support) | <span aria-label="Partiellement pris en charge" role="img">⚠️</span> | <span aria-label="Partiellement pris en charge" role="img">⚠️</span> | <span aria-label="Partiellement pris en charge" role="img">⚠️</span> |
+| Vue | <span aria-label="Partiellement pris en charge" role="img">⚠️</span> | <span aria-label="Partiellement pris en charge" role="img">⚠️</span> | <span aria-label="Partiellement pris en charge" role="img">⚠️</span> |
+| Svelte | <span aria-label="Partiellement pris en charge" role="img">⚠️</span> | <span aria-label="Partiellement pris en charge" role="img">⚠️</span> | <span aria-label="Partiellement pris en charge" role="img">⚠️</span> |
+| Astro | <span aria-label="Partiellement pris en charge" role="img">⚠️</span> | <span aria-label="Partiellement pris en charge" role="img">⚠️</span> | <span aria-label="Partiellement pris en charge" role="img">⚠️</span> |
 | CSS | <span aria-label="Pris en charge" role="img">✅️</span> | <span aria-label="Pris en charge" role="img">✅️</span> | <span aria-label="Pris en charge" role="img">✅️</span> |
 | [YAML](https://github.com/biomejs/biome/issues/2365) | <span aria-label="En cours" role="img">⌛️</span> | <span aria-label="Pas en cours" role="img">🚫</span> | <span aria-label="Pas en cours" role="img">🚫</span> |
 | GraphQL | <span aria-label="Pris en charge" role="img">✅️</span> | <span aria-label="Pris en charge" role="img">✅️</span> | <span aria-label="Pris en charge" role="img">✅️</span>
@@ -49,7 +49,7 @@ Pour les fichiers dont l’extension est `.jsonc` ou pour ceux identifiés comme
 
 Veuillez noter que certains fichiers bien connus comme `tsconfig.json` et `.babelrc` n’utilisent pas l’extension `.jsonc`, tout en autorisant les commentaires et les virgules de fin, tandis que d’autres, comme `.eslintrc.json`, n’autorisent que les commentaires. Biome est capable d’identifier ces fichiers et ajuste l’option `json.parser.allowTrailingCommas` en conséquence pour s’assurer qu’ils sont correctement analysés.
 
-[Cette section](../../fr/guides/configure-biome#well-known-files) fournit la liste complète des fichiers bien connus que Biome peut reconnaître.
+[Cette section](/fr/guides/configure-biome#fichiers-bien-connus) fournit la liste complète des fichiers bien connus que Biome peut reconnaître.
 
 ## Prise en charge des super-langages en HTML
 

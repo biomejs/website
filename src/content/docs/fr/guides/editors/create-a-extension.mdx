@@ -41,9 +41,9 @@ Le nom du binaire est `biome` ou `biome.exe` et il peut être trouvé dans le r�
 
 ## Utiliser le daemon avec le binaire
 
-L’utilisation du binaire via la ligne de commande est très efficace, bien que vous ne puissiez pas fournir de [logs](#daemon-logs) à vos utilisateurs. L’interface en ligne de commande vous permet de monter un daemon et d’utiliser la ligne de commande par l’intermédiaire du daemon lui-même.
+L’utilisation du binaire via la ligne de commande est très efficace, bien que vous ne puissiez pas fournir de [logs](#logs-daemon) à vos utilisateurs. L’interface en ligne de commande vous permet de monter un daemon et d’utiliser la ligne de commande par l’intermédiaire du daemon lui-même.
 
-Pour ce faire, vous devez d’abord démarrer un processus daemon avec la commande [`start`](/fr/reference/cli#biome-start)&nbsp;:
+Pour ce faire, vous devez d’abord démarrer un processus daemon avec la commande [`start`](/reference/cli#biome-start)&nbsp;:
 
 ```shell
 biome start
@@ -55,7 +55,7 @@ echo "console.log('')" | biome format --use-server --stdin-file-path=dummy.js
 ```
 
 :::note
-Si vous décidez d’utiliser le daemon, vous avez également la responsabilité de redémarrer/tuer le processus avec la commande [`stop`](/fr/reference/cli#biome-stop) pour éviter des processus fantômes.
+Si vous décidez d’utiliser le daemon, vous avez également la responsabilité de redémarrer/tuer le processus avec la commande [`stop`](/reference/cli#biome-stop) pour éviter des processus fantômes.
 :::
 
 :::caution

@@ -51,7 +51,9 @@ const plugins = [
 	}),
 	starlightLinksValidator({
 		exclude: [
-			"/playground/",
+			"/playground",
+			"/playground**",
+			"/playground/**",
 			"/linter/rules/",
 			"/linter/rules/**/*",
 			"/linter/rule-sources/",

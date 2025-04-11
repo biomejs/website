@@ -65,7 +65,7 @@ With this challenge, we added new options to the formatter:
   Use this option to match the line endings of your OS. We support `lf` (line feed - `\n`), `cr` (carriage return -
   `\r`) and `crlf` (carriage return line feed - `\r\n`).
 
-- [`bracketSameLine`](/reference/configuration#fjavascriptormatterbracketsameline)
+- [`bracketSameLine`](/reference/configuration#javascriptormatterbracketsameline)
 
   ```jsx title="example.js"
   // Existing behavior. Now also the default, meaning `bracketSameLine: false`.
