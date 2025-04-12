@@ -17,6 +17,7 @@
     "codegen:metadata": "pnpm codegen metadata",
     "codegen:env": "pnpm codegen env",
     "codegen:diagnostics": "pnpm codegen diagnostics",
+    "codegen:redirects": "pnpm codegen redirects",
     "codegen:all": "pnpm codegen all",
     "lunaria:build": "lunaria build",
     "lunaria:preview": "lunaria preview"
