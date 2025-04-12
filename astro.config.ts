@@ -14,6 +14,7 @@ import { version as prettierVersion } from "./node_modules/prettier/package.json
 	type: "json",
 };
 import { rehypeAutolink } from "./plugins/rehype-autolink";
+import redirects from "./redirects.js";
 
 const plugins = [
 	starlightBlog({
@@ -82,6 +83,7 @@ export default defineConfig({
 	site: "https://biomejs.dev",
 	output: "static",
 	compressHTML: true,
+	redirects,
 	integrations: [
 		react(),
 		starlight({
