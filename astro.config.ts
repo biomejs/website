@@ -5,6 +5,7 @@ import lunaria from "@lunariajs/starlight";
 import { defineConfig } from "astro/config";
 import rehypeSlug from "rehype-slug";
 import starlightBlog from "starlight-blog";
+import starlightLinksValidator from "starlight-links-validator";
 import { searchForWorkspaceRoot } from "vite";
 import { version as biomeVersion } from "./node_modules/@biomejs/wasm-web/package.json" with {
 	type: "json",
@@ -52,6 +53,20 @@ const plugins = [
 			},
 		},
 	}),
+	starlightLinksValidator({
+		// TODO: enable once `next` is merged into `main`
+		errorOnInvalidHashes: false,
+		exclude: [
+			"/playground",
+			"/playground**",
+			"/playground/**",
+			"/linter/rules/",
+			"/linter/rules/**/*",
+			"/linter/rule-sources/",
+			"/reference/cli/",
+			"/blog/**/*",
+		],
+	}),
 ];
 
 if (process.env?.E2E !== "true") {
@@ -85,6 +100,10 @@ export default defineConfig({
 				root: {
 					label: "English",
 					lang: "en",
+				},
+				es: {
+					label: "Español",
+					lang: "es",
 				},
 				fr: {
 					label: "Français",
@@ -246,6 +265,7 @@ export default defineConfig({
 				{
 					label: "Tools",
 					translations: {
+						es: "Herramientas",
 						fr: "Outils",
 						ja: "ツール",
 						"zh-CN": "工具",

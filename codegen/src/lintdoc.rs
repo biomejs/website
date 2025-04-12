@@ -794,7 +794,7 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
         writeln!(content)?;
         writeln!(
             content,
-            "- [Disable a rule](/{path_prefix}/#disable-a-lint-rule)"
+            "- [Disable a rule](/{path_prefix}/#disable-a-rule)"
         )?;
         writeln!(
             content,

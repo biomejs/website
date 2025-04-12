@@ -10,6 +10,10 @@ overrides:
 importers:
 
   .:
+    dependencies:
+      starlight-links-validator:
+        specifier: ^0.15.0
+        version: 0.15.0(@astrojs/starlight@0.32.5(astro@5.5.5(@netlify/blobs@8.1.1)(@types/node@20.17.28)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)))
     devDependencies:
       '@astrojs/mdx':
         specifier: 4.2.1
@@ -88,13 +92,13 @@ importers:
         version: 4.23.10(@babel/runtime@7.24.4)(@codemirror/autocomplete@6.15.0(@codemirror/language@6.10.1)(@codemirror/state@6.5.2)(@codemirror/view@6.36.5)(@lezer/common@1.2.1))(@codemirror/language@6.10.1)(@codemirror/lint@6.8.5)(@codemirror/search@6.5.6)(@codemirror/state@6.5.2)(@codemirror/theme-one-dark@6.1.2)(@codemirror/view@6.36.5)(codemirror@6.0.1(@lezer/common@1.2.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@vitejs/plugin-react':
         specifier: 4.3.4
-        version: 4.3.4(vite@6.2.4(@types/node@20.17.28)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49)))
+        version: 4.3.4(vite@6.2.6(@types/node@20.17.28)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49)))
       astro:
         specifier: 5.5.5
         version: 5.5.5(@netlify/blobs@8.1.1)(@types/node@20.17.28)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)
       astro-og-canvas:
-        specifier: 0.5.6
-        version: 0.5.6(astro@5.5.5(@netlify/blobs@8.1.1)(@types/node@20.17.28)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
+        specifier: 0.7.0
+        version: 0.7.0(astro@5.5.5(@netlify/blobs@8.1.1)(@types/node@20.17.28)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
       autoprefixer:
         specifier: 10.4.21
         version: 10.4.21(postcss@8.4.49)
@@ -177,11 +181,11 @@ importers:
         specifier: 5.7.3
         version: 5.7.3
       vite:
-        specifier: 6.2.4
-        version: 6.2.4(@types/node@20.17.28)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))
+        specifier: 6.2.6
+        version: 6.2.6(@types/node@20.17.28)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))
       vite-plugin-svgr:
         specifier: 4.3.0
-        version: 4.3.0(rollup@4.34.5)(typescript@5.7.3)(vite@6.2.4(@types/node@20.17.28)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49)))
+        version: 4.3.0(rollup@4.34.5)(typescript@5.7.3)(vite@6.2.6(@types/node@20.17.28)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49)))
 
 packages:
 
@@ -1182,6 +1186,9 @@ packages:
   '@types/node@20.17.28':
     resolution: {integrity: sha512-DHlH/fNL6Mho38jTy7/JT7sn2wnXI+wULR6PV4gy4VHLVvnrV/d3pHAMQHhc4gjdLmK2ZiPoMxzp6B3yRajLSQ==}
 
+  '@types/picomatch@3.0.2':
+    resolution: {integrity: sha512-n0i8TD3UDB7paoMMxA3Y65vUncFJXjcUf7lQY7YyKGl6031FNjfsLs6pdLFCy2GNFxItPJG8GvvpbZc2skH7WA==}
+
   '@types/prop-types@15.7.12':
     resolution: {integrity: sha512-5zvhXYtRNRluoE/jAp4GVsSduVUzNWKkOZrCDBWYtE7biZywwdC2AcEzg+cSMLFRfVgeAFqpfNabiPjxFddV1Q==}
 
@@ -1325,8 +1332,8 @@ packages:
     peerDependencies:
       astro: ^4.0.0-beta || ^5.0.0-beta || ^3.3.0
 
-  astro-og-canvas@0.5.6:
-    resolution: {integrity: sha512-w75UErZdRxYyoVnTz4IXn6T869PBrwYQEjPecWVaev9faYCHC3Uk7R47KCO3u+MSDkc8tCENz4ghVDrLImx9SA==}
+  astro-og-canvas@0.7.0:
+    resolution: {integrity: sha512-aamARDNDORPxXlPt+VJakzj4WpNUDjQqUZ06eE82pGMad4aTR/KMm8Ho12qvprgJcM8K7fgSOMg5OHa7KcX0pw==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       astro: ^3.0.0 || ^4.0.0 || ^5.0.0
@@ -2217,6 +2224,10 @@ packages:
   iron-webcrypto@1.2.1:
     resolution: {integrity: sha512-feOM6FaSr6rEABp/eDfVseKyTMDt+KGpeB35SkVn9Tyn0CqvVsY3EwI0v5i8nMHyJnzCIQf7nsy3p41TPkJZhg==}
 
+  is-absolute-url@4.0.1:
+    resolution: {integrity: sha512-/51/TKE88Lmm7Gc4/8btclNXWS+g50wXhYJq8HWIBAGUBnoAdRu1aXeh364t/O7wXDAcTJDP8PNuNKWUDWie+A==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+
   is-alphabetical@1.0.4:
     resolution: {integrity: sha512-DwzsA04LQ10FHTZuL0/grVDk4rFoVH1pjAToYwBrHSxcrBIGQuXrQMtD5U1b0U2XVgKZCTLLP8u2Qxqhy3l2Vg==}
 
@@ -2538,6 +2549,9 @@ packages:
 
   mdast-util-mdx-jsx@3.1.2:
     resolution: {integrity: sha512-eKMQDeywY2wlHc97k5eD8VC+9ASMjN8ItEZQNGwJ6E0XWKiW/Z0V5/H8pvoXUf+y+Mj0VIgeRRbujBmFn4FTyA==}
+
+  mdast-util-mdx-jsx@3.2.0:
+    resolution: {integrity: sha512-lj/z8v0r6ZtsN/cGNNtemmmfoLAFZnjMbNyLzBafjzikOM+glrjNHPlf6lQDOTccj9n5b0PPihEBbhneMyGs1Q==}
 
   mdast-util-mdx@3.0.0:
     resolution: {integrity: sha512-JfbYLAW7XnYTTbUsmpu0kdBUVe+yKVJZBItEjwyYJiDJuZ9w4eeaqks4HQO+R7objWgS2ymV60GYpI14Ug554w==}
@@ -3432,6 +3446,12 @@ packages:
     peerDependencies:
       '@astrojs/starlight': '>=0.32.0'
 
+  starlight-links-validator@0.15.0:
+    resolution: {integrity: sha512-NZeb9WF5Skdz1dQnALFtxU2sQW9mSMqudDUG7B2w3NCe4xDAwKEdBOOSn7hfJtzziFWksZXobvUgEBhR4S5eXA==}
+    engines: {node: '>=18.17.1'}
+    peerDependencies:
+      '@astrojs/starlight': '>=0.32.0'
+
   stream-replace-string@2.0.0:
     resolution: {integrity: sha512-TlnjJ1C0QrmxRNrON00JvaFFlNh5TTG00APw23j74ET7gkQpTASi6/L2fuiav8pzK715HXtUeClpBTw2NPSn6w==}
 
@@ -3764,8 +3784,8 @@ packages:
     peerDependencies:
       vite: '>=2.6.0'
 
-  vite@6.2.4:
-    resolution: {integrity: sha512-veHMSew8CcRzhL5o8ONjy8gkfmFJAd5Ac16oxBUjlwgX3Gq2Wqr+qNC3TjPIpy7TPV/KporLga5GT9HqdrCizw==}
+  vite@6.2.6:
+    resolution: {integrity: sha512-9xpjNl3kR4rVDZgPNdTL0/c6ao4km69a/2ihNQbcANz8RuCOK3hQBmLSJf3bRKVQjVMda+YvizNE8AwvogcPbw==}
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
     hasBin: true
     peerDependencies:
@@ -3969,7 +3989,7 @@ snapshots:
       astro: 5.5.5(@netlify/blobs@8.1.1)(@types/node@20.17.28)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)
       esbuild: 0.25.0
       tinyglobby: 0.2.12
-      vite: 6.2.4(@types/node@20.17.28)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))
+      vite: 6.2.6(@types/node@20.17.28)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))
     transitivePeerDependencies:
       - '@types/node'
       - encoding
@@ -3994,11 +4014,11 @@ snapshots:
     dependencies:
       '@types/react': 18.3.20
       '@types/react-dom': 18.3.5(@types/react@18.3.20)
-      '@vitejs/plugin-react': 4.3.4(vite@6.2.4(@types/node@20.17.28)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49)))
+      '@vitejs/plugin-react': 4.3.4(vite@6.2.6(@types/node@20.17.28)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49)))
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       ultrahtml: 1.5.3
-      vite: 6.2.4(@types/node@20.17.28)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))
+      vite: 6.2.6(@types/node@20.17.28)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))
     transitivePeerDependencies:
       - '@types/node'
       - jiti
@@ -5082,6 +5102,8 @@ snapshots:
     dependencies:
       undici-types: 6.19.6
 
+  '@types/picomatch@3.0.2': {}
+
   '@types/prop-types@15.7.12': {}
 
   '@types/react-dom@18.3.5(@types/react@18.3.20)':
@@ -5151,14 +5173,14 @@ snapshots:
       - rollup
       - supports-color
 
-  '@vitejs/plugin-react@4.3.4(vite@6.2.4(@types/node@20.17.28)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49)))':
+  '@vitejs/plugin-react@4.3.4(vite@6.2.6(@types/node@20.17.28)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49)))':
     dependencies:
       '@babel/core': 7.26.0
       '@babel/plugin-transform-react-jsx-self': 7.25.9(@babel/core@7.26.0)
       '@babel/plugin-transform-react-jsx-source': 7.25.9(@babel/core@7.26.0)
       '@types/babel__core': 7.20.5
       react-refresh: 0.14.2
-      vite: 6.2.4(@types/node@20.17.28)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))
+      vite: 6.2.6(@types/node@20.17.28)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))
     transitivePeerDependencies:
       - supports-color
 
@@ -5227,7 +5249,7 @@ snapshots:
       astro: 5.5.5(@netlify/blobs@8.1.1)(@types/node@20.17.28)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)
       rehype-expressive-code: 0.40.2
 
-  astro-og-canvas@0.5.6(astro@5.5.5(@netlify/blobs@8.1.1)(@types/node@20.17.28)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)):
+  astro-og-canvas@0.7.0(astro@5.5.5(@netlify/blobs@8.1.1)(@types/node@20.17.28)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)):
     dependencies:
       astro: 5.5.5(@netlify/blobs@8.1.1)(@types/node@20.17.28)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)
       canvaskit-wasm: 0.39.1
@@ -5293,8 +5315,8 @@ snapshots:
       unist-util-visit: 5.0.0
       unstorage: 1.15.0(@netlify/blobs@8.1.1)
       vfile: 6.0.3
-      vite: 6.2.4(@types/node@20.17.28)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))
-      vitefu: 1.0.6(vite@6.2.4(@types/node@20.17.28)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49)))
+      vite: 6.2.6(@types/node@20.17.28)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))
+      vitefu: 1.0.6(vite@6.2.6(@types/node@20.17.28)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49)))
       xxhash-wasm: 1.1.0
       yargs-parser: 21.1.1
       yocto-spinner: 0.2.1
@@ -6360,6 +6382,8 @@ snapshots:
 
   iron-webcrypto@1.2.1: {}
 
+  is-absolute-url@4.0.1: {}
+
   is-alphabetical@1.0.4: {}
 
   is-alphabetical@2.0.1: {}
@@ -6787,6 +6811,23 @@ snapshots:
       parse-entities: 4.0.1
       stringify-entities: 4.0.4
       unist-util-remove-position: 5.0.0
+      unist-util-stringify-position: 4.0.0
+      vfile-message: 4.0.2
+    transitivePeerDependencies:
+      - supports-color
+
+  mdast-util-mdx-jsx@3.2.0:
+    dependencies:
+      '@types/estree-jsx': 1.0.5
+      '@types/hast': 3.0.4
+      '@types/mdast': 4.0.4
+      '@types/unist': 3.0.2
+      ccount: 2.0.1
+      devlop: 1.1.0
+      mdast-util-from-markdown: 2.0.0
+      mdast-util-to-markdown: 2.1.0
+      parse-entities: 4.0.1
+      stringify-entities: 4.0.4
       unist-util-stringify-position: 4.0.0
       vfile-message: 4.0.2
     transitivePeerDependencies:
@@ -8182,6 +8223,22 @@ snapshots:
       - astro
       - supports-color
 
+  starlight-links-validator@0.15.0(@astrojs/starlight@0.32.5(astro@5.5.5(@netlify/blobs@8.1.1)(@types/node@20.17.28)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))):
+    dependencies:
+      '@astrojs/starlight': 0.32.5(astro@5.5.5(@netlify/blobs@8.1.1)(@types/node@20.17.28)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
+      '@types/picomatch': 3.0.2
+      github-slugger: 2.0.0
+      hast-util-from-html: 2.0.3
+      hast-util-has-property: 3.0.0
+      is-absolute-url: 4.0.1
+      kleur: 4.1.5
+      mdast-util-mdx-jsx: 3.2.0
+      mdast-util-to-string: 4.0.0
+      picomatch: 4.0.2
+      unist-util-visit: 5.0.0
+    transitivePeerDependencies:
+      - supports-color
+
   stream-replace-string@2.0.0: {}
 
   string-width@4.2.3:
@@ -8551,18 +8608,18 @@ snapshots:
       '@types/unist': 3.0.2
       vfile-message: 4.0.2
 
-  vite-plugin-svgr@4.3.0(rollup@4.34.5)(typescript@5.7.3)(vite@6.2.4(@types/node@20.17.28)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))):
+  vite-plugin-svgr@4.3.0(rollup@4.34.5)(typescript@5.7.3)(vite@6.2.6(@types/node@20.17.28)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))):
     dependencies:
       '@rollup/pluginutils': 5.1.4(rollup@4.34.5)
       '@svgr/core': 8.1.0(typescript@5.7.3)
       '@svgr/plugin-jsx': 8.1.0(@svgr/core@8.1.0(typescript@5.7.3))
-      vite: 6.2.4(@types/node@20.17.28)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))
+      vite: 6.2.6(@types/node@20.17.28)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))
     transitivePeerDependencies:
       - rollup
       - supports-color
       - typescript
 
-  vite@6.2.4(@types/node@20.17.28)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49)):
+  vite@6.2.6(@types/node@20.17.28)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49)):
     dependencies:
       esbuild: 0.25.0
       postcss: 8.5.3
@@ -8574,9 +8631,9 @@ snapshots:
       sass: 1.77.8
       sugarss: 4.0.1(postcss@8.4.49)
 
-  vitefu@1.0.6(vite@6.2.4(@types/node@20.17.28)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))):
+  vitefu@1.0.6(vite@6.2.6(@types/node@20.17.28)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))):
     optionalDependencies:
-      vite: 6.2.4(@types/node@20.17.28)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))
+      vite: 6.2.6(@types/node@20.17.28)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))
 
   vscode-languageserver-types@3.17.5: {}
 
