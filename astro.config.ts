@@ -304,6 +304,7 @@ export default defineConfig({
 									label: "Introduction",
 									link: "/formatter",
 									translations: {
+										es: "Introducción",
 										ja: "イントロダクション",
 										"zh-CN": "介绍",
 										"pt-BR": "Introdução",
@@ -314,6 +315,7 @@ export default defineConfig({
 									label: "Differences with Prettier",
 									link: "/formatter/differences-with-prettier",
 									translations: {
+										es: "Diferencias con Prettier",
 										fr: "Différences par rapport à Prettier",
 										ja: "Prettier との違い",
 										"zh-CN": "与 Prettier 的区别",
@@ -325,6 +327,7 @@ export default defineConfig({
 									label: "Formatter Option Philosophy",
 									link: "/formatter/option-philosophy",
 									translations: {
+										es: "Filosofía de opciones de formato",
 										fr: "Philosophie d’option de formatage",
 										ja: "Formatterオプションに対する考え方",
 										"zh-CN": "格式化配置理念",
@@ -334,6 +337,7 @@ export default defineConfig({
 								},
 							],
 							translations: {
+								es: "Formateador",
 								fr: "Outil de formatage",
 								"zh-CN": "格式化程序",
 								"pt-BR": "Formatador",
