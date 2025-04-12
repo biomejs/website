@@ -594,14 +594,38 @@ export default defineConfig({
 				// Relative path to your custom CSS file
 				"./src/styles/index.css",
 			],
-			social: {
-				discord: "https://biomejs.dev/chat",
-				github: "https://github.com/biomejs/biome",
-				mastodon: "https://fosstodon.org/@biomejs",
-				openCollective: "https://opencollective.com/biome",
-				youtube: "https://youtube.com/@Biomejs",
-				blueSky: "https://bsky.app/profile/biomejs.dev",
-			},
+			social: [
+				{
+					icon: "discord",
+					label: "Discord",
+					href: "https://biomejs.dev/chat",
+				},
+				{
+					icon: "github",
+					label: "GitHub",
+					href: "https://github.com/biomejs/biome",
+				},
+				{
+					icon: "mastodon",
+					label: "Mastodon",
+					href: "https://fosstodon.org/@biomejs",
+				},
+				{
+					icon: "openCollective",
+					label: "Open Collective",
+					href: "https://opencollective.com/biome",
+				},
+				{
+					icon: "youtube",
+					label: "YouTube",
+					href: "https://youtube.com/@Biomejs",
+				},
+				{
+					icon: "blueSky",
+					label: "BlueSky",
+					href: "https://bsky.app/profile/biomejs.dev",
+				},
+			],
 			editLink: {
 				baseUrl: "https://github.com/biomejs/website/edit/main/",
 			},
