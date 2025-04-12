@@ -33,14 +33,14 @@ biome lint ./src/**/*.test.{js,ts}
 シェルの展開にはパフォーマンスのコストがあり、またコマンドに渡せるファイルの数には制限があります。
 :::
 
-利用可能なすべてのオプションについて、詳しくは[CLIリファレンス](/ja/reference/cli#biome-lint)を参照してください。
+利用可能なすべてのオプションについて、詳しくは[CLIリファレンス](/reference/cli#biome-lint)を参照してください。
 
 
 ## ルール
 
 リンタはルールに整理されています。
 ルールはその要求に満たないコードを検知すると診断結果を出力します。
-例えば、[noDebugger](/ja/linter/rules/no-debugger) ルールはJavaScriptコードでの `debugger` 命令の利用を報告します。
+例えば、[noDebugger](/linter/rules/no-debugger) ルールはJavaScriptコードでの `debugger` 命令の利用を報告します。
 
 ルールは診断結果を `info`、`warn`、`error` の重大度で出力します。
 `error` 重大度の診断結果はコマンドを非ゼロのステータスコードで終了させます。
@@ -52,15 +52,15 @@ biome lint ./src/**/*.test.{js,ts}
 biome lint --error-on-warnings ./src
 ```
 
-デフォルトでは、Biomeのリンタは[**推奨されたルール**](/ja/linter/rules#recommended-rules)のみを実行します。
+デフォルトでは、Biomeのリンタは**推奨されたルール**のみを実行します。
 _すべてのルール_を無効化するには、Biomeの設定ファイルで推奨されたルールを無効化します。
 これはいくつかのルールのみを有効化したいときに有用です。
 推奨されたルールは `error` 重大度で診断結果を出力します。
 
 ルールはグループに分割されています。
-例えば、`noDebugger` ルールは [`suspicious` グループ](/ja/linter/rules#suspicious) の一部です。
+例えば、`noDebugger` ルールは [`suspicious` グループ](/ja/linter#suspicious) の一部です。
 このグループのルールは、間違っている可能性があるか不要であるコードを検出します。
-各グループの説明は[ルール](/ja/linter/rules/)ページで確認できます。
+各グループの説明はルールページで確認できます。
 
 他のリンタとは違い、コードのフォーマットをチェックするルールを提供していません。
 こうしたチェックは[コードフォーマッタ](/ja/formatter/)が行います。
@@ -246,5 +246,5 @@ Biomeはファイル全体を無視するためのコメントを提供してい
 ## 他のリンタからの移行
 
 Biomeの多くのリントルールは他のリンタを参考にしています。
-ESLintや `typescript-eslint` などの他のリンタから移行する場合は、[ルールのソース](/ja/linter/rules-sources)ページを確認してください。
+ESLintや `typescript-eslint` などの他のリンタから移行する場合は、ルールのソース ページを確認してください。
 ESLintから移行する場合は、専用の[移行ガイド](/ja/guides/migrate-eslint-prettier#eslintからの移行)があります。

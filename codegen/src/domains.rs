@@ -150,7 +150,7 @@ impl DocDomains {
         .print()?;
 
         writeln!(buffer, "Enabled the **recommended** rules of the domain:")?;
-        writeln!(buffer, "```json title=\"biome.json\" ins={{3,5}}")?;
+        writeln!(buffer, "```json title=\"biome.json\" ins={{3-5}}")?;
         writeln!(buffer, "{}", recommended.as_code())?;
         writeln!(buffer, "```")?;
 
@@ -161,7 +161,7 @@ impl DocDomains {
         .print()?;
 
         writeln!(buffer, "Enabled the **all** rules of the domain:")?;
-        writeln!(buffer, "```json title=\"biome.json\" ins={{3,5}}")?;
+        writeln!(buffer, "```json title=\"biome.json\" ins={{3-5}}")?;
         writeln!(buffer, "{}", all.as_code())?;
         writeln!(buffer, "```")?;
 
@@ -172,7 +172,7 @@ impl DocDomains {
         .print()?;
 
         writeln!(buffer, "**Disable** all rules of the domain:")?;
-        writeln!(buffer, "```json title=\"biome.json\" ins={{3,5}}")?;
+        writeln!(buffer, "```json title=\"biome.json\" ins={{3-5}}")?;
         writeln!(buffer, "{}", off.as_code())?;
         writeln!(buffer, "```")?;
 

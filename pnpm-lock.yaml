@@ -10,10 +10,6 @@ overrides:
 importers:
 
   .:
-    dependencies:
-      starlight-links-validator:
-        specifier: ^0.15.0
-        version: 0.15.0(@astrojs/starlight@0.32.5(astro@5.5.5(@netlify/blobs@8.1.1)(@types/node@20.17.28)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)))
     devDependencies:
       '@astrojs/mdx':
         specifier: 4.2.1
@@ -168,6 +164,9 @@ importers:
       starlight-blog:
         specifier: 0.18.0
         version: 0.18.0(@astrojs/starlight@0.32.5(astro@5.5.5(@netlify/blobs@8.1.1)(@types/node@20.17.28)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)))(astro@5.5.5(@netlify/blobs@8.1.1)(@types/node@20.17.28)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
+      starlight-links-validator:
+        specifier: ^0.15.0
+        version: 0.15.0(@astrojs/starlight@0.32.5(astro@5.5.5(@netlify/blobs@8.1.1)(@types/node@20.17.28)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)))
       textlint:
         specifier: 14.4.2
         version: 14.4.2

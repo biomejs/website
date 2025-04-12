@@ -322,6 +322,10 @@ export default defineConfig({
 								{
 									label: "Introduction",
 									link: "/linter",
+									badge: {
+										text: "updated",
+										variant: "success",
+									},
 									translations: {
 										ja: "イントロダクション",
 										"zh-CN": "介绍",
@@ -332,6 +336,7 @@ export default defineConfig({
 								{
 									label: "Domains",
 									link: "/linter/domains",
+									badge: "new",
 								},
 								{
 									label: "Plugins",
@@ -670,6 +675,10 @@ export default defineConfig({
 		}),
 	],
 
+	adapter: netlify({
+		imageCDN: false,
+	}),
+
 	build: {
 		format: "directory",
 	},
@@ -681,6 +690,8 @@ export default defineConfig({
 			langAlias: {
 				cjs: "javascript",
 				grit: "txt",
+				cts: "javascript",
+				block: "txt",
 			},
 		},
 	},
