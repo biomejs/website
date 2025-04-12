@@ -3742,6 +3742,20 @@ export function GET() {
             ],
             "docs": " Disallow use event handlers on non-interactive elements.\n\n Non-interactive HTML elements indicate _content_ and _containers_ in the user interface.\n Non-interactive elements include `<main>`, `<area>`, `<h1>` (,`<h2>`, etc), `<img>`, `<li>`, `<ul>` and `<ol>`.\n\n A Non-interactive element does not support event handlers(mouse and key handlers).\n\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div onClick={() => {}}>button</div>\n ```\n\n ### Valid\n\n ```jsx\n <button onClick={() => { }}>button</button>\n ```\n\n ```jsx\n // Adding a role to element does not add behavior.\n // If not used semantic HTML elements like `button`, developers need to implement the expected behavior for role(like focusability and key press support)\n // See https://www.w3.org/WAI/ARIA/apg/\n <div role=\"button\" onClick={() => { }}>button</div>\n ```\n\n ```jsx\n // The role=\"presentation\" attribute removes the semantic meaning of an element, indicating that it should be ignored by assistive technologies.\n // Therefore, it's acceptable to add event handlers to elements with role=\"presentation\" for visual effects or other purposes,\n // but users relying on assistive technologies may not be able to interact with these elements.\n <div role=\"presentation\" onClick={() => { }}>button</div>\n ```\n\n ```jsx\n // Hidden from screen reader.\n <div onClick={() => {}} aria-hidden />\n ```\n\n ```jsx\n // Custom component is not checked.\n <SomeComponent onClick={() => {}}>button</SomeComponent>\n ```\n\n ```jsx\n // Spread attributes is not supported.\n <div {...{\"onClick\":() => {}}}>button</div>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 4.1.2](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value)\n\n ### Resources\n\n - [WAI-ARIA roles](https://www.w3.org/TR/wai-aria-1.1/#usage_intro)\n - [WAI-ARIA Authoring Practices Guide - Design Patterns and Widgets](https://www.w3.org/TR/wai-aria-practices-1.1/#aria_ex)\n - [Fundamental Keyboard Navigation Conventions](https://www.w3.org/TR/wai-aria-practices-1.1/#kbd_generalnav)\n - [Mozilla Developer Network - ARIA Techniques](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_button_role#Keyboard_and_focus)\n\n"
           },
+          "noRestrictedElements": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noRestrictedElements",
+            "link": "https://biomejs.dev/linter/rules/no-restricted-elements",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslintReact": "forbid-elements"
+              }
+            ],
+            "docs": " Disallow the use of configured elements.\n\n This rule disallows the use of configured elements. Without elements configured,\n this rule doesn't do anything.\n\n This rule is useful in situations where you want to enforce the use of specific components\n instead of certain HTML or custom elements. For example, in a React project,\n you might want to ensure that developers use a custom `TextField` component\n instead of the native `<input>` element to maintain consistency and apply\n custom styling or behavior.\n\n Here are some scenarios where this rule can be beneficial:\n\n * Consistency: Ensuring that all input fields use a custom component instead of the native\n   element to maintain a consistent look and feel across the application.\n * Accessibility: Enforcing the use of custom components that have built-in\n   accessibility features, ensuring that the application is accessible to all users.\n * Custom Behavior: Requiring the use of components that encapsulate specific business logic\n   or validation, reducing the risk of errors and improving code maintainability.\n * Styling: Ensuring that all elements adhere to the design system by using\n   custom components that apply consistent styling.\n\n By disallowing certain elements and enforcing the use of custom components,\n this rule helps maintain code quality and consistency across the codebase.\n\n ## Options\n\n ```json,options\n {\n     \"options\": {\n         \"elements\": {\n             \"input\": \"input is not allowed, use TextField component instead\",\n             \"CustomComponent\": \"deprecated\"\n         }\n     }\n }\n ```\n\n ## Examples\n\n ### Invalid\n\n Restricting the use of HTML elements:\n\n ```jsx,expect_diagnostic,use_options\n <input />\n ```\n\n Restricting the use of custom components:\n\n ```jsx,expect_diagnostic,use_options\n <CustomComponent />\n ```\n\n ### Valid\n\n ```jsx\n <TextField />\n ```\n"
+          },
           "noUnwantedPolyfillio": {
             "deprecated": false,
             "version": "next",
@@ -4402,7 +4416,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 313
+    "numberOrRules": 314
   },
   "syntax": {
     "languages": {
@@ -4498,7 +4512,7 @@ export function GET() {
             "name": "useSortedKeys",
             "link": "https://biomejs.dev/linter/rules/use-sorted-keys",
             "recommended": false,
-            "fixKind": "none",
+            "fixKind": "safe",
             "docs": " Sorts the keys of a JSON object in natural order\n\n ## Examples\n\n ```json,expect_diff\n {\n     \"vase\": \"fancy\",\n     \"nested\": {\n         \"omega\": \"bar\",\n         \"alpha\": \"foo\"\n     }\n }\n ```\n"
           }
         }
