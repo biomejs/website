@@ -468,6 +468,7 @@ export default defineConfig({
 				{
 					label: "Recipes",
 					translations: {
+						es: "Recetas",
 						fr: "Recettes",
 						ja: "レシピ",
 						"zh-CN": "实例",
@@ -479,6 +480,7 @@ export default defineConfig({
 							label: "Continuous Integration",
 							link: "/recipes/continuous-integration",
 							translations: {
+								es: "Integración continua",
 								fr: "Intégration continue",
 								ja: "継続的インテグレーション",
 								"zh-CN": "持续集成",
@@ -501,6 +503,7 @@ export default defineConfig({
 							label: "Social Badges",
 							link: "/recipes/badges",
 							translations: {
+								es: "Insignias sociales",
 								fr: "Badges sociaux",
 								ja: "ソーシャルバッジ",
 								uk: "Соціальні значки",
