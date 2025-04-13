@@ -8,12 +8,12 @@ use biome_js_syntax::JsLanguage;
 use biome_json_syntax::JsonLanguage;
 use biome_rowan::Language;
 use biome_string_case::Case;
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 use std::fs;
 
 #[derive(Default)]
 struct Redirects {
-    data: HashMap<String, String>,
+    data: BTreeMap<String, String>,
 }
 
 impl Redirects {
