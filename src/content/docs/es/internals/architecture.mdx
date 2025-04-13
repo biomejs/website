@@ -1,0 +1,165 @@
+---
+title: Arquitectura
+description: Cómo funciona Biome.
+---
+
+Este documento cubre algunos de los aspectos internos de Biome y cómo se utilizan dentro del proyecto..
+
+## Parser y CST
+
+La arquitectura del analizador sintáctico se basa en una bifurcación interna de [rowan], una biblioteca
+que implementa el patrón [Green and Red tree].
+
+El CST (Concrete Syntax Tree) es una estructura de datos muy similar a un AST (Abstract Syntax Tree) que guarda toda la información de un programa, trivialidades incluidas.
+
+**Trivia** está representada por toda aquella información que es importante para que un programa funcionen:
+
+- espacios
+- tabs
+- comentarios
+
+El trivial se adjunta a un nodo. Un nodo puede tener una trivialidad inicial y una trivialidad final. Si lee el código de izquierda a derecha, la trivialidad inicial aparece antes de una palabra clave y la trivialidad final aparece después de una palabra clave.
+
+El trivial principal y el trivial secundario se clasifican de la siguiente manera:
+
+- Cada trivial hasta el token/palabra clave (incluidos los saltos de línea) será el **trivial líder**;
+- Todo lo que pase hasta el siguiente salto de línea (pero sin incluirlo) será el **triple trivia**;
+
+Dado el siguiente fragmento de JavaScript, `// comentario 1` es una trivialidad final del token `;`, y `// comentario 2` es una trivialidad que conduce a la palabra clave `const`. A continuación se muestra una versión minimizada del CST representado por Biome:
+
+```js
+const a = "foo"; // comentario 1
+// comentario 2
+const b = "bar";
+```
+
+```
+0: JS_MODULE@0..55
+    ...
+      1: SEMICOLON@15..27 ";" [] [Whitespace(" "), Comments("// comentario 1")]
+    1: JS_VARIABLE_STATEMENT@27..55
+        ...
+        1: CONST_KW@27..45 "const" [Newline("\n"), Comments("// comentario 2"), Newline("\n")] [Whitespace(" ")]
+  3: EOF@55..55 "" [] []
+```
+
+El CST nunca es directamente accesible por diseño; un desarrollador puede leer su información mediante el árbol rojo, utilizando una serie de APIs que se autogeneran a partir de la gramática del lenguaje.
+
+#### Analizador sintáctico resistente y recuperable
+
+Para construir un CST, un analizador sintáctico debe ser resistente a los errores y recuperable:
+
+- resistente: un analizador sintáctico capaz de reanudar el análisis tras encontrar errores de sintaxis propios del lenguaje;
+- recuperable: un analizador sintáctico capaz de **comprender** dónde se ha producido un error y de reanudar el análisis sintáctico creando información **correcta**;
+
+La parte recuperable del analizador sintáctico no es una ciencia, y no hay reglas escritas en piedra. Esto significa que dependiendo de lo que el analizador sintáctico estaba analizando y dónde se produjo un error, el analizador podría ser capaz de recuperarse de una manera esperada.
+
+El analizador sintáctico también utiliza nodos 'falsos' para proteger a los consumidores del consumo de sintaxis erróneos. Estos nodos se utilizan para decorar el código en mal estado causado por un error de sintaxis.
+
+En el siguiente ejemplo, faltan los paréntesis del `while`, aunque el analizador sintáctico se recupera de forma correcta y puede representar el código con un CST decente. El paréntesis y la condición del bucle se marcan como faltantes, y el bloque de código se analiza correctamente:
+
+```js
+while {}
+```
+
+```
+JsModule {
+  interpreter_token: missing (optional),
+  directives: JsDirectiveList [],
+  items: JsModuleItemList [
+    JsWhileStatement {
+      while_token: WHILE_KW@0..6 "while" [] [Whitespace(" ")],
+      l_paren_token: missing (required),
+      test: missing (required),
+      r_paren_token: missing (required),
+      body: JsBlockStatement {
+        l_curly_token: L_CURLY@6..7 "{" [] [],
+        statements: JsStatementList [],
+        r_curly_token: R_CURLY@7..8 "}" [] [],
+      },
+    },
+  ],
+  eof_token: EOF@8..8 "" [] [],
+}
+```
+
+Se trata de un error emitido durante el análisis sintáctico:
+
+```
+main.tsx:1:7 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✖ expected `(` but instead found `{`
+
+  > 1 │ while {}
+      │       ^
+
+  ℹ Remove {
+```
+
+No puede decirse lo mismo del siguiente fragmento. El analizador sintáctico no puede entender correctamente la sintaxis durante la fase de recuperación, por lo que necesita confiar en los nodos falsos para marcar alguna sintaxis como errónea. Fíjate en el `JsBogusStatement`:
+
+```js
+function}
+```
+
+```
+JsModule {
+  interpreter_token: missing (optional),
+  directives: JsDirectiveList [],
+  items: JsModuleItemList [
+    TsDeclareFunctionDeclaration {
+      async_token: missing (optional),
+      function_token: FUNCTION_KW@0..8 "function" [] [],
+      id: missing (required),
+      type_parameters: missing (optional),
+      parameters: missing (required),
+      return_type_annotation: missing (optional),
+      semicolon_token: missing (optional),
+    },
+    JsBogusStatement {
+      items: [
+        R_CURLY@8..9 "}" [] [],
+      ],
+    },
+  ],
+  eof_token: EOF@9..9 "" [] [],
+}
+```
+
+Este es el error que obtenemos de la fase de análisis:
+
+```
+main.tsx:1:9 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✖ expected a name for the function in a function declaration, but found none
+
+  > 1 │ function}
+      │         ^
+```
+
+## Formateador
+
+:::note
+Trabajo en curso
+:::
+
+## Linter
+
+:::note
+Trabajo en curso
+:::
+
+## Daemon
+
+:::note
+Trabajo en curso
+:::
+
+Biome utiliza una arquitectura servidor-cliente para ejecutar sus tareas.
+
+Un [daemon] es un servidor de larga duración
+que Biome genera en segundo plano y utiliza para procesar las peticiones del editor y la CLI.
+
+[rowan]: https://github.com/rust-analyzer/rowan
+[Green and Red tree]: https://learn.microsoft.com/en-us/archive/blogs/ericlippert/persistence-facades-and-roslyns-red-green-trees
+[daemon]: https://en.wikipedia.org/wiki/Daemon_(computing)

@@ -511,6 +511,7 @@ export default defineConfig({
 				{
 					label: "Internals",
 					translations: {
+						es: "Aspectos internos",
 						fr: "Aspects internes",
 						ja: "内部原理",
 						"zh-CN": "内部原理",
@@ -522,6 +523,7 @@ export default defineConfig({
 							label: "Philosophy",
 							link: "/internals/philosophy",
 							translations: {
+								es: "Filosofía",
 								fr: "Philosophie",
 								ja: "理念",
 								"zh-CN": "理念",
@@ -533,6 +535,7 @@ export default defineConfig({
 							label: "Language support",
 							link: "/internals/language-support",
 							translations: {
+								es: "Soporte de lenguas",
 								fr: "Langages pris en charge",
 								ja: "言語サポート",
 								"zh-CN": "语言支持",
@@ -544,6 +547,7 @@ export default defineConfig({
 							label: "Architecture",
 							link: "/internals/architecture",
 							translations: {
+								es: "Arquitectura",
 								ja: "アーキテクチャ",
 								"zh-CN": "架构",
 								"pt-BR": "Arquitetura",
@@ -554,6 +558,7 @@ export default defineConfig({
 							label: "Credits",
 							link: "/internals/credits",
 							translations: {
+								es: "Créditos",
 								fr: "Crédits",
 								ja: "クレジット",
 								"zh-CN": "鸣谢",
@@ -565,6 +570,7 @@ export default defineConfig({
 							label: "Versioning",
 							link: "/internals/versioning",
 							translations: {
+								es: "Versionado",
 								fr: "Versionnage",
 								ja: "バージョニング",
 								"zh-CN": "版本控制",
@@ -576,6 +582,7 @@ export default defineConfig({
 							label: "Changelog",
 							link: "/internals/changelog",
 							translations: {
+								es: "Registro de cambios",
 								"zh-CN": "更新日志",
 								"pt-BR": "Alterações",
 								uk: "Журнал змін",
