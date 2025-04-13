@@ -1,0 +1,75 @@
+---
+title: Extensiones de terceros
+description: Aprende a configurar extensiones de terceros
+---
+
+Se trata de extensiones mantenidas por otras comunidades, que tú instalas en tu editor:
+
+- [`vim`](https://www.vim.org/): [`ALE`](https://github.com/dense-analysis/ale) soporta Biome, sólo tienes que seguir las instrucciones de instalación
+- [`neovim`](https://neovim.io/): tendrás que instalar [`nvim-lspconfig`](https://github.com/neovim/nvim-lspconfig/), y seguir las [instrucciones](https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#biome). [`ALE`](https://github.com/dense-analysis/ale) también es compatible con Biome.
+- [`helix`](https://helix-editor.com/): sigue las instrucciones de [este manual](#helix)
+- [`coc-biome`](https://github.com/fannheyward/coc-biome): Extensión de Biome para [`coc.nvim`](https://github.com/neoclide/coc.nvim)
+- [`sublime text`](https://www.sublimetext.com/): sigue las instrucciones de instalación de [`LSP-biome`](https://github.com/sublimelsp/LSP-biome)
+- [`Emacs`](https://www.gnu.org/software/emacs/): asegúrate de tener instalado [`lsp-mode`](https://github.com/emacs-lsp/lsp-mode), sigue las instrucciones de instalación de [`lsp-biome`](https://github.com/cxa/lsp-biome) para activar el soporte de Biome en `lsp-mode`
+- [`Nova`](https://nova.app): instala la extensión [`Biome`](https://extensions.panic.com/extensions/besya/besya.biome/) y sigue las instrucciones
+
+:::note
+¿Hay alguna extensión para un editor que no aparezca en esta lista? Por favor, envía un PR y estaremos encantados de añadirlo a la lista
+:::
+
+### Helix
+
+Actualmente, biome es compatible con las siguientes extensiones de archivo: `js`, `jsx`, `ts`, `tsx`, `d.ts`, `json` y `jsonc`.
+
+Biome dispone de un comando `lsp-proxy` que actúa como servidor para el Language Server Protocol a través de stdin/stdout.
+
+#### Helix 23.10
+
+Helix 23.10 tiene [soporte para múltiples servidores de idiomas](https://github.com/helix-editor/helix/pull/2507). Ahora puedes usar biome junto con `typescript-language-server`.
+
+```toml
+[language-server]
+biome = { command = "biome", args = ["lsp-proxy"] }
+
+[[language]]
+name = "javascript"
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
+auto-format = true
+
+[[language]]
+name = "typescript"
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
+auto-format = true
+
+[[language]]
+name = "tsx"
+auto-format = true
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
+
+[[language]]
+name = "jsx"
+auto-format = true
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
+
+[[language]]
+name = "json"
+language-servers = [ { name = "vscode-json-language-server", except-features = [ "format" ] }, "biome" ]
+```
+
+### Grabación de vídeo
+
+#### Code Action
+
+<video
+  src="https://user-images.githubusercontent.com/17974631/190205045-aeb86f87-1915-4d8b-8aad-2c046443ba83.mp4"
+  width="720"
+  controls
+></video>
+
+#### Formateo
+
+<video
+  src="https://user-images.githubusercontent.com/17974631/190205065-ddfde866-5f7c-4f53-8a62-b6cbb577982f.mp4"
+  width="720"
+  controls
+></video>

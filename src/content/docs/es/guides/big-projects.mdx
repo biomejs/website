@@ -1,0 +1,117 @@
+---
+title: Utiliza Biome en proyectos grandess
+description: Una pequeña guía sobre cómo configurar Biome en proyectos grandes
+---
+
+import { FileTree } from "@astrojs/starlight/components";
+
+Biome puede proporcionar algunas herramientas que pueden ayudarte a utilizarlo correctamente en proyectos grandes, como monorepo o espacios de trabajo que contienen múltiples proyectos.
+
+## Utiliza varios archivos de configuración
+
+Cuando utilizas las funciones de Biome - ya sea con la CLI o con LSP - la herramienta busca el archivo de configuración más cercano utilizando el directorio de trabajo actual.
+
+Si Biome no encuentra allí el archivo de configuración, **comienza a caminar hacia arriba** por los directorios del sistema de archivos, hasta que encuentra uno.
+
+Puedes aprovechar esta función para aplicar diferentes ajustes en función del proyecto/carpeta.
+
+Supongamos que tenemos un proyecto que contiene una aplicación backend y una nueva aplicación frontend.
+
+<FileTree>
+  - app - backend - biome.json - package.json - frontend - biome.json -
+  legacy-app - package.json - new-app - package.json
+</FileTree>
+
+Esto significa que cuando ejecutes un script desde el archivo `app/backend/package.json`, Biome utilizará el archivo de configuración `app/backend/biome.json`.
+
+Cuando ejecutes un script desde `app/frontend/legacy-app/package.json` o `app/frontend/new-app/package.json`, Biome utilizará el archivo de configuración `app/frontend/biome.json`.
+
+## Compartir la configuración
+
+Es posible utilizar la opción de configuración [`extends`](/es/guides/configure-biome/#compartir-un-archivo-de-configuración) para desglosar opciones entre archivos.
+
+Supongamos que tenemos estos requisitos:
+
+- El proyecto `legacy-app` tiene que formatear utilizando espacios;
+- Los proyectos`backend` y `new-app` tienen que formatear usando tabs;
+- todos los proyectos deben formatear con un ancho de línea de 120;
+- El proyecto`backend` necesita hacer algunas verificaciones adicionales;
+
+Comenzamos creando un nuevo archivo de configuración en `app/biome.json`, y ponemos allí las opciones compartidas:
+
+```json title="app/biome.json"
+{
+  "formatter": {
+    "enabled": true,
+    "lineWidth": 120
+  }
+}
+```
+
+Ahora vamos a **mover** `app/frontend/biome.json` a `app/frontend/legacy-app/`, porque ahí es donde tenemos que utilizar un formato diferente.
+
+```json title="app/frontend/legacy-app/biome.json"
+{
+  "formatter": {
+    "indentStyle": "space"
+  }
+}
+```
+
+A continuación, le decimos a Biome que herede todas las opciones del archivo principal `app/biome.json`, utilizando la propiedad `extends`:
+
+```json title="app/frontend/legacy-app/biome.json" ins={2}
+{
+  "extends": ["../../biome.json"],
+  "formatter": {
+    "indentStyle": "space"
+  }
+}
+```
+
+Vamos a `app/backend/biome.json`, donde tenemos que activar el linting:
+
+```json title="app/backend/biome.json"
+{
+  "extends": ["../biome.json"],
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true
+    }
+  }
+}
+```
+
+## Monorepos
+
+Los monorrepositorios son repositorios particulares en los que se almacenan y mantienen múltiples bibliotecas en un gran repositorio. Cada biblioteca representa un proyecto autónomo, que puede contener diferentes configuraciones.
+
+Biome no soporta monorepos muy bien debido a algunas limitaciones en la resolución de archivos de configuración anidados, puedes [ayudar y seguir la discusión del fallo](https://github.com/biomejs/biome/issues/2228).
+
+Para tener la mejor experiencia de desarrollo a pesar de la limitación actual, se recomienda tener un `biome.json` en la raíz del monorepo, y utilizar la configuración [`overrides`](/reference/configuration/#overrides) para cambiar el comportamiento de Biome en determinados paquetes.
+
+En el siguiente ejemplo desactivamos la regla `suspicious/noConsoleLog` dentro del paquete `packages/logger`.
+
+```json title="biome.jsonc"
+{
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true
+    }
+  },
+  "overrides": [
+    {
+      "include": ["packages/logger/**"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noConsoleLog": "off"
+          }
+        }
+      }
+    }
+  ]
+}
+```
