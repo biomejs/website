@@ -1,0 +1,93 @@
+---
+title: Plugins de linter
+description: Información general sobre el uso de los plugins de linter de Biome
+---
+
+:::note
+Actualmente, los plugins sólo están disponibles en la versión [2.0 beta](/blog/biome-v2-0-beta).
+:::
+
+Biome Linter soporta plugins [GritQL](/reference/gritql/). Actualmente, estos
+plugins permiten ajustar patrones de código específicos y registrar
+mensajes de diagnóstico personalizados para ellos.
+
+Este es un ejemplo de un plugin que informa de todos los usos de `Object.assign()`:
+
+```grit
+`$fn($args)` where {
+    $fn <: `Object.assign`,
+    register_diagnostic(
+        span = $fn,
+        message = "Prefer object spread instead of `Object.assign()`"
+    )
+}
+```
+
+Puedes poner un fragmento GritQL en un archivo en cualquier parte de tu proyecto, pero ten cuidado
+de usar la extensión `.grit`. Luego, puedes simplemente habilitarlo como un plugin con
+la siguiente configuración:
+
+```json name="biome.json"
+{
+  "plugins": ["./ruta-al-plugin.grit"]
+}
+```
+
+El plugin estará ahora habilitado en todos los archivos soportados en los que se ejecute el linter. Puedes
+ver sus resultados al ejecutar `biome lint` o `biome check`. Por ejemplo:
+
+```shell
+$ biome lint
+/packages/tailwindcss-config-analyzer/src/introspect.ts:12:17 plugin ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✖ Prefer object spread instead of `Object.assign()`
+
+    10 │ function createContextFromConfig(config: Partial<Config>) {
+    11 │        return createContext(
+  > 12 │                resolveConfig(Object.assign({}, DEFAULT_CONFIG, config)),
+       │                              ^^^^^^^^^^^^^
+    13 │        );
+    14 │ }
+```
+
+## Lenguas de objetivo
+
+Un fragmento GritQL siempre intenta coincidir con un _idioma de destino determinado_.
+Si no se especifica ningún idioma de destino, se asume JavaScript o uno de sus superlenguajes.
+
+Si deseas utilizar una lengua de destino diferente, debes especificarlo explícitamente.
+Por ejemplo, aquí hay un plugin CSS para informar de cualquier selector que establezca un
+color fuera de las clases permitidas `.color-*`.:
+
+```grit
+language css;
+
+`$selector { $props }` where {
+    $props <: contains `color: $color` as $rule,
+    not $selector <: r"\.color-.*",
+    register_diagnostic(
+        span = $rule,
+        message = "Don't set explicit colors. Use `.color-*` classes instead."
+    )
+}
+```
+
+Actualmente no admitimos más lenguajes de destino que JavaScript y CSS.
+
+## API de plugins
+
+Además de las
+[funciones incorporadas](https://docs.grit.io/language/functions#built-in-functions) de Grit,
+Biome admite actualmente una función adicional:
+
+### `register_diagnostic()`
+
+Registra un diagnóstico que se notificará siempre que el patrón coincida.
+
+Apoya tres argumentos:
+
+- `span` (obligatorio): El nodo sintáctico al que adjuntar el diagnóstico. Se trata
+  normalmente de una variable que se empareja dentro de un fragmento de código.
+- `message` (obligatorio): El mensaje a mostrar con el diagnóstico.
+- `severity`: La gravedad del diagnóstico. Los valores permitidos son: `hint`,
+  `information`, `warning`, y `error`. Por defecto, se utiliza`error`.

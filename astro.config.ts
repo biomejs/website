@@ -351,6 +351,7 @@ export default defineConfig({
 									label: "Introduction",
 									link: "/linter",
 									translations: {
+										es: "Introducción",
 										ja: "イントロダクション",
 										"zh-CN": "介绍",
 										"pt-BR": "Introdução",
@@ -361,6 +362,7 @@ export default defineConfig({
 									label: "Rules",
 									link: "/linter/rules",
 									translations: {
+										es: "Reglas",
 										fr: "Règles",
 										ja: "ルール",
 										"zh-CN": "规则",
@@ -372,6 +374,7 @@ export default defineConfig({
 									label: "Rules sources",
 									link: "/linter/rules-sources",
 									translations: {
+										es: "Fuentes de reglas",
 										fr: "Sources des règles",
 									},
 								},
