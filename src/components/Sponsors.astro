@@ -2,6 +2,8 @@
 import { Image } from "astro:assets";
 import darkVercel from "../assets/sponsors/vercel-logotype-dark.png";
 import lightVercel from "../assets/sponsors/vercel-logotype-light.png";
+import darkDepot from "../assets/sponsors/depot-logo-horizontal-on-dark@3x.png";
+import lightDepot from "../assets/sponsors/depot-logo-horizontal-on-light@3x.png";
 
 const { title } = Astro.props;
 ---
@@ -20,6 +22,24 @@ const { title } = Astro.props;
 			alt="Vercel"
 			src={lightVercel}
 			data-canonical-src={lightVercel.src}
+			width="300"
+			class="light:sl-hidden"
+			loading="eager"
+		/>
+	</a>
+	<a class="sponsors-row" href="https://depot.dev" rel="nofollow" title="Depot" target="_blank">
+		<Image
+			alt="Depot"
+			src={lightDepot}
+			data-canonical-src={lightDepot.src}
+			width="300"
+			class="dark:sl-hidden"
+			loading="eager"
+		/>
+		<Image
+			alt="Depot"
+			src={darkDepot}
+			data-canonical-src={darkDepot.src}
 			width="300"
 			class="light:sl-hidden"
 			loading="eager"
