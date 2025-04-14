@@ -1,0 +1,84 @@
+---
+title: Integrar Biome en una extensión de editor
+description: Aprende a integrar Biome con editores e IDEs
+---
+
+Biome tiene soporte de primera clase [LSP](https://microsoft.github.io/language-server-protocol/). Si tu editor implementa LSP, la integración de Biome debería ser perfecta.
+
+### Utilizar el proxy LSP
+
+Biome tiene un comando llamado `lsp-proxy`. Cuando se ejecuta, Biome generará dos procesos:
+
+- un [daemon](/es/internals/architecture#daemon) que ejecuta las operaciones solicitadas;
+- un servidor que funciona como proxy entre las peticiones del cliente - el editor - y el servidor - el daemon;
+
+Si tu editor es capaz de interactuar con un servidor y enviar peticiones [JSON-RPC](https://www.jsonrpc.org/), sólo tienes que configurar el editor ejecutando ese comando.
+
+Puedes comprobar cómo lo hace la [`neo-vim biome extension`](https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/configs/biome.lua).
+
+### Utiliza `stdin`
+
+Si tu editor no soporta LSP, usa directamente el binario `biome` y llámalo usando [standard input](<https://en.wikipedia.org/wiki/Standard_streams#Standard_input_(stdin)>).
+
+Los siguientes comandos pueden invocarse a través de la entrada estándar:
+
+- [`format`](/reference/cli/#biome-format)
+- [`lint`](/reference/cli/#biome-lint)
+- [`check`](/reference/cli/#biome-check)
+
+Biome devolverá la nueva salida (o la salida original si no se han producido cambios) a [standard output](<https://en.wikipedia.org/wiki/Standard_streams#Standard_output_(stdout)>) y los diagnósticos a [standard error](<https://en.wikipedia.org/wiki/Standard_streams#Standard_error_(stderr)>).
+
+Cuando utilizas `stdin`, debes pasar la opción `--stdin-file-path`. No es necesario que la `ruta` del archivo **exista** en su sistema de archivos, puede tener cualquier nombre. **Lo importante** es proporcionar la extensión de archivo correcta, para que Biome sepa **cómo tratar** tu archivo.
+
+Es responsabilidad del editor localizar y resolver la ruta del binario y llamarlo cuando sea necesario. Los binarios se envían a npm basados en las arquitecturas y OS que soportamos:
+
+- `@biomejs/cli-darwin-arm64`
+- `@biomejs/cli-darwin-x64`
+- `@biomejs/cli-linux-arm64`
+- `@biomejs/cli-linux-x64`
+- `@biomejs/cli-win32-arm64`
+- `@biomejs/cli-win32-x64`
+
+El nombre binario es `biome` o `biome.exe`, y se puede encontrar en el directorio raíz de la biblioteca, por ejemplo: `@biomejs/cli-darwin-arm64/biome`, `@biomejs/cli-win32-x64/biome.exe`.
+
+### Utiliza el daemon con el binario
+
+Usar el binario vía CLI es muy eficiente, aunque no podrás proporcionar [logs](#registros-daemon) a tus usuarios. La CLI le permite arrancar un daemon y luego utilizar los comandos de la CLI a través del propio daemon.
+
+Para ello, primero debes iniciar un proceso daemon con el comando [`start`](/reference/cli#biome-start):
+
+```shell
+biome start
+```
+
+Entonces, cada comando necesita añadir las opciones `--use-server`, por ejemplo:
+
+```shell
+echo "console.log('')" | biome format --use-server --stdin-file-path=dummy.js
+```
+
+:::note
+Si decides utilizar el daemon, también eres responsable de reiniciar/desactivar el proceso con el comando [`stop`](/reference/cli#biome-stop), para evitar tener procesos fantasma.
+:::
+
+:::caution
+Las operaciones a través del daemon son significativamente más lentas que la propia CLI, por lo que se recomienda ejecutar operaciones sólo en archivos individuales.
+:::
+
+### Registros Daemon
+
+El daemon de Biome guarda los registros en su sistema de archivos. Los registros se guardan en una carpeta llamada `biome-logs`. La ruta de esta carpeta cambia en función de su sistema operativo:
+
+- Linux: `~/.cache/biome`;
+- Windows: `C:\Users\<UserName>\AppData\Local\biomejs\biome\cache`
+- macOS: `/Users/<UserName>/Library/Caches/dev.biomejs.biome`
+
+Para otros sistemas operativos, puedes encontrar la carpeta en el directorio temporal del sistema.
+
+Para obtener la ruta exacta, ejecuta el siguiente comando:
+
+```shell
+biome explain daemon-logs
+```
+
+Los archivos de registro se rotan cada hora.

@@ -150,6 +150,7 @@ export default defineConfig({
 				{
 					label: "Guides",
 					translations: {
+						es: "Guías",
 						ja: "ガイド",
 						"zh-CN": "指南",
 						"pt-BR": "Guias",
@@ -160,6 +161,7 @@ export default defineConfig({
 							label: "Getting Started",
 							link: "/guides/getting-started",
 							translations: {
+								es: "Primeros pasos",
 								fr: "Démarrage",
 								ja: "はじめる",
 								"zh-CN": "入门",
@@ -171,6 +173,7 @@ export default defineConfig({
 							label: "Manual installation",
 							link: "/guides/manual-installation",
 							translations: {
+								es: "Instalación manual",
 								fr: "Installation manuelle",
 								ja: "手動インストール",
 								"zh-CN": "手动安装",
@@ -182,6 +185,7 @@ export default defineConfig({
 							label: "Configure Biome",
 							link: "/guides/configure-biome",
 							translations: {
+								es: "Configurar Biome",
 								fr: "Configurer Biome",
 								ja: "Biome の設定",
 								"zh-CN": "配置 Biome",
@@ -193,6 +197,7 @@ export default defineConfig({
 							label: "Use Biome in big projects",
 							link: "/guides/big-projects",
 							translations: {
+								es: "Usar Biome en proyectos grandes",
 								fr: "Utiliser Biome dans de gros projets",
 								ja: "大規模プロジェクトでのBiomeの使用方法",
 								"zh-CN": "大型项目中使用 Biome",
@@ -203,6 +208,7 @@ export default defineConfig({
 						{
 							label: "Biome in your IDE",
 							translations: {
+								es: "Biome en tu IDE",
 								fr: "Biome dans votre IDE",
 								ja: "Biome をあなたのエディタに導入する",
 								"zh-CN": "编辑器中使用 Biome",
@@ -214,6 +220,7 @@ export default defineConfig({
 									label: "First-party extensions",
 									link: "/guides/editors/first-party-extensions",
 									translations: {
+										es: "Extensiones de primera mano",
 										fr: "Extensions officielles",
 										ja: "Biome 公式拡張機能",
 										"zh-CN": "官方扩展",
@@ -224,6 +231,7 @@ export default defineConfig({
 									label: "Third-party extensions",
 									link: "/guides/editors/third-party-extensions",
 									translations: {
+										es: "Extensiones de terceros",
 										fr: "Extensions tierces",
 										ja: "サードパーティの拡張機能",
 										"zh-CN": "第三方扩展",
@@ -234,6 +242,7 @@ export default defineConfig({
 									label: "Integrate Biome in an editor extension",
 									link: "/guides/editors/create-a-extension",
 									translations: {
+										es: "Integrar Biome en una extensión para un editor",
 										fr: "Intégrer Biome à une extension pour un éditeur",
 										ja: "エディタ拡張機能への Biome の統合",
 										"zh-CN": "在编辑器扩展中集成 Biome",
@@ -246,6 +255,7 @@ export default defineConfig({
 							label: "Integrate Biome with your VCS",
 							link: "/guides/integrate-in-vcs",
 							translations: {
+								es: "Integrar Biome con tu VCS",
 								fr: "Intégrer Biome à votre VCS",
 								ja: "Biome をあなたの VCS と統合する",
 								"zh-CN": "与版本控制系统集成",
@@ -257,6 +267,7 @@ export default defineConfig({
 							label: "Migrate from ESLint & Prettier",
 							link: "/guides/migrate-eslint-prettier",
 							translations: {
+								es: "Migrar de ESLint & Prettier",
 								fr: "Migrer depuis ESLint & Prettier",
 								ja: "ESLintとPrettierからの移行",
 								uk: "Міграція з ESLint & Prettier",
