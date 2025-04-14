@@ -1,0 +1,87 @@
+---
+title: Instalación manual
+description: Instalar Biome manualmente
+---
+
+Usar el binario CLI independiente de Biome puede ser una gran opción si aún no estás usando Node.js o `npm` (o cualquier otro gestor de paquetes).
+En otras palabras, Biome no debería ser la única razón para tener un `package.json`.
+
+:::note
+Si ya estás usando `npm` u otro gestor de paquetes, entonces usar el gestor de paquetes es la [forma preferida de instalar](/es/guides/getting-started#instalación) Biome.
+Ya estás familiarizado con las herramientas, y la instalación y actualización son más sencillas.
+:::
+
+## Plataformas compatibles
+
+Tienes que elegir el binario correcto para tu plataforma de trabajo Biome. La siguiente tabla debería ayudarte a hacerlo.
+
+| Arquitectura de CPU | Windows       | macOS                        | Linux         | Linux (musl)       |
+| ------------------- | ------------- | ---------------------------- | ------------- | ------------------ |
+| `arm64`             | `win32-arm64` | `darwin-arm64` (M1 or newer) | `linux-arm64` | `linux-arm64-musl` |
+| `x64`               | `win32-x64`   | `darwin-x64`                 | `linux-x64`   | `linux-x64-musl`   |
+
+:::note
+Utiliza la variante Linux para Windows Subsystem for Linux (WSL).
+:::
+
+## Homebrew
+
+Biome está disponible como [fórmula Homebrew](https://formulae.brew.sh/formula/biome) para usuarios de macOS y Linux.
+
+```shell
+brew install biome
+```
+
+## Docker
+
+Biome publica [imágenes Docker oficiales](https://github.com/biomejs/docker/pkgs/container/biome) compatibles
+con las arquitecturas **amd64** y **arm64** para todas las versiones de Biome a partir de `v1.7.0`.
+
+```
+ghcr.io/biomejs/biome:{major}
+ghcr.io/biomejs/biome:{major}.{minor}
+ghcr.io/biomejs/biome:{major}.{minor}.{patch}
+```
+
+Estos son un par de ejemplos de cómo utilizar la imagen Docker:
+
+:::note
+El directorio de trabajo por defecto es `/code` en la imagen Docker.
+:::
+
+```shell
+# Lint files
+docker run -v $(pwd):/code ghcr.io/biomejs/biome lint
+docker run -v $(pwd):/code ghcr.io/biomejs/biome lint --write
+
+# Formatear archivos
+docker run -v $(pwd):/code ghcr.io/biomejs/biome format
+docker run -v $(pwd):/code ghcr.io/biomejs/biome format --write
+```
+
+## Utilizar un binario publicado
+
+Para instalar Biome, descarga el ejecutable para tu plataforma de la [última versión CLI](https://github.com/biomejs/biome/releases) en GitHub y dale permiso de ejecución.
+
+```shell
+# macOS arm (M1 o posterior)
+curl -L https://github.com/biomejs/biome/releases/download/cli%2Fv<version>/biome-darwin-arm64 -o biome
+chmod +x biome
+
+# Linux (x86_64)
+curl -L https://github.com/biomejs/biome/releases/download/cli%2Fv<version>/biome-linux-x64 -o biome
+chmod +x biome
+
+# Windows (x86_64, Powershell)
+Invoke-WebRequest -Uri "https://github.com/biomejs/biome/releases/download/cli%2Fv<version>/biome-win32-x64.exe" -OutFile "biome.exe"
+```
+
+:::note
+Asegúrate de sustituir `<versión>` por la versión de Biome que quieres instalar.
+:::
+
+Ahora puedes utilizar Biome simplemente ejecutando `./biome`.
+
+## Próximos pasos
+
+Sigue nuestra [Guía de introducción](/es/guides/getting-started/).

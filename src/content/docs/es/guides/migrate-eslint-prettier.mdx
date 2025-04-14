@@ -1,0 +1,202 @@
+---
+title: Migrar de ESLint y Prettier
+description: Descubre cómo facilitar la migración desde ESLint y Prettierr
+---
+
+import PackageManagerBiomeCommand from "@/components/PackageManagerBiomeCommand.astro";
+
+Biome proporciona comandos específicos para facilitar la migración desde ESLint y Prettier.
+
+Si no deseas conocer los detalles, basta con que ejecutes los siguientes comandos:
+
+```shell
+biome migrate eslint --write
+biome migrate prettier --write
+```
+
+## Migrar de ESLint
+
+Muchas reglas de Biome linter están inspiradas o son idénticas a las reglas de ESLint o a las reglas de un plugin de ESLint.
+Manejamos algunos plugins de ESLint como [TypeScript ESLint](https://typescript-eslint.io/), [ESLint JSX A11y](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y), [ESLint React](https://github.com/jsx-eslint/eslint-plugin-react), y [ESLint Unicorn](https://github.com/sindresorhus/eslint-plugin-unicorn).
+Sin embargo, Biome tiene su propia convención de nomenclatura para sus reglas.
+Biome utiliza `camelCaseRuleName` mientras que ESLint utiliza `kebab-case-rule-name`.
+Además, Biome ha optado a menudo por utilizar nombres diferentes para transmitir mejor la intención de sus normas.
+La fuente de una regla se encuentra en la página que la describe.
+También puedes encontrar la regla equivalente de Biome a partir de una regla de ESLint utilizando la [página dedicada](/linter/rules-sources).
+
+Para facilitar la migración, Biome proporciona el subcomando `biome migrate eslint`.
+Este subcomando leerá la configuración de ESLint e intentará portar sus ajustes a Biome.
+El subcomando es capaz de manejar tanto los archivos de configuración heredados como los planos.
+Admite el campo `extends` de la configuración heredada y carga tanto las configuraciones compartidas como las de los plugins.
+Para archivos de configuración planos, el subcomando intentará buscar sólo extensiones JavaScript (`js`, `cjs`, `mjs`) para cargarlas en Node.js.
+El subcomando necesita que Node.js cargue y resuelva todos los plugins y `extends` configurados en el archivo de configuración de ESLint.
+El subcomando también migra `.eslintignore`.
+
+Dada la siguiente configuración de ESLint:
+
+```json title=".eslintrc.json"
+{
+  "extends": ["plugin:unicorn/recommended"],
+  "plugins": ["unicorn"],
+  "ignore_patterns": ["dist/**"],
+  "globals": {
+    "Global1": "readonly"
+  },
+  "rules": {
+    "eqeqeq": "error"
+  },
+  "overrides": [
+    {
+      "files": ["tests/**"],
+      "rules": {
+        "eqeqeq": "off"
+      }
+    }
+  ]
+}
+```
+
+Y la siguiente configuración de Biome:
+
+```json title="biome.json"
+{
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true
+    }
+  }
+}
+```
+
+Ejecuta el siguiente comando para migrar la configuración de ESLint a Biome.
+
+<PackageManagerBiomeCommand command="migrate eslint --write" />
+
+El subcomando sobrescribe tu configuración inicial de Biome.
+Por ejemplo, desactiva `recommended`.
+El resultado es la siguiente configuración de Biome:
+
+```json title="biome.json"
+{
+  "organizeImports": { "enabled": true },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": false,
+      "complexity": {
+        "noForEach": "error",
+        "noStaticOnlyClass": "error",
+        "noUselessSwitchCase": "error",
+        "useFlatMap": "error"
+      },
+      "style": {
+        "noNegationElse": "off",
+        "useForOf": "error",
+        "useNodejsImportProtocol": "error",
+        "useNumberNamespace": "error"
+      },
+      "suspicious": {
+        "noDoubleEquals": "error",
+        "noThenProperty": "error",
+        "useIsArray": "error"
+      }
+    }
+  },
+  "javascript": { "globals": ["Global1"] },
+  "overrides": [
+    {
+      "include": ["tests/**"],
+      "linter": { "rules": { "suspicious": { "noDoubleEquals": "off" } } }
+    }
+  ]
+}
+```
+
+Por ahora, `biome migrate eslint` no soporta configuración escrita en YAML.
+
+Por defecto, Biome no migra las reglas inspiradas.
+Puedes utilizar el indicador CLI `--include-inspired` para migrarlas.
+
+<PackageManagerBiomeCommand command="migrate eslint --write --include-inspired" />
+
+Ten en cuenta que es poco probable que obtengas exactamente el mismo comportamiento que ESLint porque Biome ha optado por no implementar algunas opciones de reglas o por desviarse ligeramente de la implementación original.
+
+Dado que ESLint tiene en cuenta los archivos ignorados de VCS,
+le recomendamos que active la [integración VCS](/es/guides/integrate-in-vcs) de Biome.
+
+:::caution
+Algunos plugins o configuraciones compartidas pueden exportar un objeto con una referencia cíclica.
+Biome puede fallar al cargar dicha configuración.
+:::
+
+## Migrar de Prettierr
+
+Biome intenta ajustarse al máximo al formateador de Prettier.
+Sin embargo, Biome utiliza diferentes valores por defecto para su formateador.
+Por ejemplo, utiliza tabuladores para la sangría en lugar de espacios.
+Puedes migrar fácilmente a Biome ejecutando `biome migrate prettier --write`.
+
+Dada la siguiente configuración de Prettier:
+
+```json title=".prettierrc.json"
+{
+  "useTabs": false,
+  "singleQuote": true,
+  "overrides": [
+    {
+      "files": ["*.json"],
+      "options": { "tabWidth": 2 }
+    }
+  ]
+}
+```
+
+Ejecuta el siguiente comando para migrar tu configuración de Prettier a Biome.
+
+<PackageManagerBiomeCommand command="migrate prettier --write" />
+
+El resultado es la siguiente configuración de Biome:
+
+```json title="biome.json"
+{
+  "formatter": {
+    "enabled": true,
+    "formatWithErrors": false,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineEnding": "lf",
+    "lineWidth": 80,
+    "attributePosition": "auto"
+  },
+  "organizeImports": { "enabled": true },
+  "linter": { "enabled": true, "rules": { "recommended": true } },
+  "javascript": {
+    "formatter": {
+      "jsxQuoteStyle": "double",
+      "quoteProperties": "asNeeded",
+      "trailingCommas": "all",
+      "semicolons": "asNeeded",
+      "arrowParentheses": "always",
+      "bracketSpacing": true,
+      "bracketSameLine": false,
+      "quoteStyle": "single",
+      "attributePosition": "auto"
+    }
+  },
+  "overrides": [
+    {
+      "include": ["*.json"],
+      "formatter": {
+        "indentWidth": 2
+      }
+    }
+  ]
+}
+```
+
+El subcomando necesita Node.js para cargar configuraciones JavaScript como `.prettierrc.js`.
+`biome migrate prettier` no soporta configuración escrita en JSON5, TOML, o YAML.
+
+Dado que Prettier tiene en cuenta los archivos ignorados de VCS,
+te recomendamos que habilites la [integración VCS](/es/guides/integrate-in-vcs) de Biome.
