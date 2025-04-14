@@ -15,7 +15,7 @@ path = "codegen/src/lib.rs"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dependencies]
-anyhow = "1.0.97"
+anyhow = "1.0.98"
 biome_analyze = { git = "https://github.com/biomejs/biome.git", rev = "b5c186ec99e0e500e212984e2d8b26f7115fe284", features = [
     "schema",
 ] }
@@ -52,5 +52,5 @@ bpaf = { version = "0.9.19", features = ["docgen"] }
 # If you update this library, be aware of the breaking changes
 pulldown-cmark = "0.13.0"
 schemars = "0.8.22"
-serde = "1.0.217"
-serde_json = "1.0.139"
+serde = "1.0.219"
+serde_json = "1.0.140"

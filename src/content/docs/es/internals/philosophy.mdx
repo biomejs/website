@@ -1,0 +1,45 @@
+---
+title: Filosofía
+description: Cómo pensamos sobre la construcción de Biome.
+---
+
+Esta lista incluye los valores generales que debe respetar el proyecto.
+La lista no es exhaustiva. Algunos son obvios, pero se indican para completarla.
+
+## Gestión de Proyecto
+
+- **Establecer expectativas claras.** Dar a conocer con antelación la intención y las decisiones del proyecto.
+  Nada debería ser una sorpresa.
+
+- **Mensaje claro de las decisiones.** El equipo podría evaluar opciones y tomar decisiones utilizando el canal privado.
+  El equipo intentará mantener los debates utilizando canales públicos como [GitHub discussions](https://github.com/biomejs/biome/discussions) o [Discord](https://biomejs.dev/chat). Es posible que se realicen frecuentes controles privados.
+  Cuando las decisiones se toman a través de canales privados, el equipo tiene que comprometerse a comunicarlas utilizando los canales públicos.
+
+## Técnico
+
+- **Los errores deben sugerir correcciones y pistas cuando sea posible.** Deben inferirse y filtrarse a partir del uso para reducir la aparición de mensajes irrelevantes y poco útiles.
+
+- **Mensajes de error únicos y específicos.** No hay mensajes de error genéricos.
+  Esto ayuda a los usuarios a entender lo que salió mal y debería proporcionar a los mantenedores un único sitio de llamada y la información necesaria para depurar.
+
+- **Optimizar el API.** Cuestionar la existencia de todas las opciones.
+  ¿Son necesarias? ¿Se pueden combinar? ¿Cómo reducir la ramificación del código?
+
+- **Documentar Codigo.** Esforzarse por documentar el código en la medida de lo posible, especialmente el código "difícil de leer", o para la lógica especial que requiere explicación.
+  Un código bien documentado ayuda a su mantenimiento, especialmente cuando varias personas trabajan en él. El desarrollador que venga después se beneficiará de tus conocimientos, los compartirá.
+
+- **Reducir jerga.** No asumas que los usuarios entenderán una terminología específica..
+  Esfuérzate por ofrecer un significado preciso para expertos y principiantes.
+  Por ejemplo, utilice "character" donde tradicionalmente utilizaría "token" al producir errores de análisis sintáctico.
+
+- **Utilizar la verbosidad al nombrar comandos y opciones.** Sin abreviaturas innecesarias y confusas.
+
+- **Utilizar una terminología inclusiva.** Utiliza pronombres neutros. No utilizar insultos.
+  No se utilizarán términos que puedan considerarse insensibles.
+
+- **Construir para cliente genérico.** No asumas que un terminal sólo consumirá salida utilizando códigos ANSI.
+  Utilizar abstracciones que puedan generalizarse para su visualización en un IDE, un navegador u otros entornos.
+
+- **La salida del terminal debe ser inequívoca.** A la hora de diseñar la salida del terminal, no confíe únicamente en señales de formato como el color.
+  Utiliza siempre una combinación de formato, símbolos y espaciado.
+  Si se eliminan todos los códigos ANSI, todos los resultados deberían seguir siendo comprensibles.

@@ -20,7 +20,7 @@ permissions:
 
 jobs:
   run-codegen:
-    runs-on: ubuntu-latest
+    runs-on: depot-ubuntu-24.04-arm-16
     concurrency:
       group: "run-codegen-${{ github.event_name }}"
       cancel-in-progress: true

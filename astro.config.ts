@@ -282,6 +282,7 @@ export default defineConfig({
 									label: "Introduction",
 									link: "/formatter",
 									translations: {
+										es: "Introducción",
 										ja: "イントロダクション",
 										"zh-CN": "介绍",
 										"pt-BR": "Introdução",
@@ -292,6 +293,7 @@ export default defineConfig({
 									label: "Differences with Prettier",
 									link: "/formatter/differences-with-prettier",
 									translations: {
+										es: "Diferencias con Prettier",
 										fr: "Différences par rapport à Prettier",
 										ja: "Prettier との違い",
 										"zh-CN": "与 Prettier 的区别",
@@ -303,6 +305,7 @@ export default defineConfig({
 									label: "Formatter Option Philosophy",
 									link: "/formatter/option-philosophy",
 									translations: {
+										es: "Filosofía de opciones de formato",
 										fr: "Philosophie d’option de formatage",
 										ja: "Formatterオプションに対する考え方",
 										"zh-CN": "格式化配置理念",
@@ -312,6 +315,7 @@ export default defineConfig({
 								},
 							],
 							translations: {
+								es: "Formateador",
 								fr: "Outil de formatage",
 								"zh-CN": "格式化程序",
 								"pt-BR": "Formatador",
@@ -329,6 +333,7 @@ export default defineConfig({
 										variant: "success",
 									},
 									translations: {
+										es: "Introducción",
 										ja: "イントロダクション",
 										"zh-CN": "介绍",
 										"pt-BR": "Introdução",
@@ -352,6 +357,7 @@ export default defineConfig({
 									label: "JavaScript Rules",
 									link: "/linter/javascript/rules",
 									translations: {
+										es: "Reglas",
 										fr: "Règles",
 										ja: "ルール",
 										"zh-CN": "规则",
@@ -363,6 +369,7 @@ export default defineConfig({
 									label: "JavaScript Rules sources",
 									link: "/linter/javascript/sources",
 									translations: {
+										es: "Fuentes de reglas",
 										fr: "Sources des règles",
 									},
 								},
@@ -526,6 +533,7 @@ export default defineConfig({
 				{
 					label: "Recipes",
 					translations: {
+						es: "Recetas",
 						fr: "Recettes",
 						ja: "レシピ",
 						"zh-CN": "实例",
@@ -537,6 +545,7 @@ export default defineConfig({
 							label: "Continuous Integration",
 							link: "/recipes/continuous-integration",
 							translations: {
+								es: "Integración continua",
 								fr: "Intégration continue",
 								ja: "継続的インテグレーション",
 								"zh-CN": "持续集成",
@@ -559,6 +568,7 @@ export default defineConfig({
 							label: "Social Badges",
 							link: "/recipes/badges",
 							translations: {
+								es: "Insignias sociales",
 								fr: "Badges sociaux",
 								ja: "ソーシャルバッジ",
 								uk: "Соціальні значки",
@@ -569,6 +579,7 @@ export default defineConfig({
 				{
 					label: "Internals",
 					translations: {
+						es: "Aspectos internos",
 						fr: "Aspects internes",
 						ja: "内部原理",
 						"zh-CN": "内部原理",
@@ -580,6 +591,7 @@ export default defineConfig({
 							label: "Philosophy",
 							link: "/internals/philosophy",
 							translations: {
+								es: "Filosofía",
 								fr: "Philosophie",
 								ja: "理念",
 								"zh-CN": "理念",
@@ -591,6 +603,7 @@ export default defineConfig({
 							label: "Language support",
 							link: "/internals/language-support",
 							translations: {
+								es: "Soporte de lenguas",
 								fr: "Langages pris en charge",
 								ja: "言語サポート",
 								"zh-CN": "语言支持",
@@ -602,6 +615,7 @@ export default defineConfig({
 							label: "Architecture",
 							link: "/internals/architecture",
 							translations: {
+								es: "Arquitectura",
 								ja: "アーキテクチャ",
 								"zh-CN": "架构",
 								"pt-BR": "Arquitetura",
@@ -612,6 +626,7 @@ export default defineConfig({
 							label: "Credits",
 							link: "/internals/credits",
 							translations: {
+								es: "Créditos",
 								fr: "Crédits",
 								ja: "クレジット",
 								"zh-CN": "鸣谢",
@@ -623,6 +638,7 @@ export default defineConfig({
 							label: "Versioning",
 							link: "/internals/versioning",
 							translations: {
+								es: "Versionado",
 								fr: "Versionnage",
 								ja: "バージョニング",
 								"zh-CN": "版本控制",
@@ -634,6 +650,7 @@ export default defineConfig({
 							label: "Changelog",
 							link: "/internals/changelog",
 							translations: {
+								es: "Registro de cambios",
 								"zh-CN": "更新日志",
 								"pt-BR": "Alterações",
 								uk: "Журнал змін",
@@ -656,14 +673,38 @@ export default defineConfig({
 				// Relative path to your custom CSS file
 				"./src/styles/index.css",
 			],
-			social: {
-				discord: "https://biomejs.dev/chat",
-				github: "https://github.com/biomejs/biome",
-				mastodon: "https://fosstodon.org/@biomejs",
-				openCollective: "https://opencollective.com/biome",
-				youtube: "https://youtube.com/@Biomejs",
-				blueSky: "https://bsky.app/profile/biomejs.dev",
-			},
+			social: [
+				{
+					icon: "discord",
+					label: "Discord",
+					href: "https://biomejs.dev/chat",
+				},
+				{
+					icon: "github",
+					label: "GitHub",
+					href: "https://github.com/biomejs/biome",
+				},
+				{
+					icon: "mastodon",
+					label: "Mastodon",
+					href: "https://fosstodon.org/@biomejs",
+				},
+				{
+					icon: "openCollective",
+					label: "Open Collective",
+					href: "https://opencollective.com/biome",
+				},
+				{
+					icon: "youtube",
+					label: "YouTube",
+					href: "https://youtube.com/@Biomejs",
+				},
+				{
+					icon: "blueSky",
+					label: "BlueSky",
+					href: "https://bsky.app/profile/biomejs.dev",
+				},
+			],
 			editLink: {
 				baseUrl: "https://github.com/biomejs/website/edit/main/",
 			},

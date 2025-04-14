@@ -1,0 +1,50 @@
+---
+title: Versionado
+description: Cómo versionamos Biome.
+---
+
+Las correcciones de las reglas de lint, los diseños de formato, etc. pueden impedir que sus scripts pasen. Debido a la naturaleza de estos cambios,
+es **muy recomendable** guardar la versión _exacta_ en tu `package.json`, en lugar de utilizar operadores de rango.
+
+Esta metodología asegurará que tu script no falle inesperadamente.
+
+## Versionado Semántico
+
+Biome sigue el [versionado semantico](https://semver.org/). Debido a la naturaleza de Biome como cadena de herramientas, puede no estar claro qué cambios se consideran mayores, menores o parches. Por eso Biome utiliza la siguiente guía de versionado:
+
+### Lanzamiento de Corrección
+
+- Corrigiendo de una regla de lint que generaba errores de lint para código válido (falsos positivos)
+- Corrigiendo sugerencias de código incorrecto
+- Corrigiendo el formateo de una sintaxis que da lugar a un código no válido o cambia la semántica del programa.
+- Mejoras en la documentación
+- Cambios internos que no modifican la funcionalidad de Biome:
+  - Refactores
+  - Mejoras de rendimiento
+  - Aumento o cambio de la cobertura de las pruebas
+- Mejorar la redacción de los diagnósticos o corregir su presentación.
+- Renlanzamiento tras un lanzamiento fallido
+- Cambio de formato de la sintaxis establecida.
+
+### Lanzamiento Menor
+
+- Adición de una nueva regla o promoción de una regla de pelusa existente a un grupo estable no recomendado por defecto.
+- Añadir soporte de linting y formateo para una característica lingüística introducida recientemente, incluso si eso da lugar a más errores de linting notificados.
+- Eliminación de las normas recomendadas
+- Descontinuación de reglas existentes
+- Adición de nuevas opciones de configuración opcionales que no cambian el formato ni informan de más errores de lint.
+- Añadir una nueva regla de lint recomendada o promover una regla de lint existente del grupo de guardería a una regla de lint recomendada en un grupo estable.
+- Supresión de una regla que no sea de _nursery_ o degradación de una regla al grupo de _nursery_.
+
+### Lanzamiento Mayor
+
+- Cambios en la configuración que dan lugar a un formato diferente o a más errores de lint notificados (añadir/eliminar opciones, cambiar el valor por defecto)
+- Cambios en la API pública de Biome
+- Promoción de nuevas funciones o herramientas que requieren cierta atención
+
+## Extensiones de Visual Studio Code
+
+Visual Studio Code [no admite etiquetas de prepublicación](https://code.visualstudio.com/api/working-with-extensions/publishing-extension#prerelease-extensions) para extensiones. Por ello, Biome utiliza el siguiente esquema de versiones para distinguir las estables de las preliminares:
+
+- Las versiones estables utilizan números de versión pares: 10, 12, 14, 16, ...
+- Las previsualizaciones utilizan números de versión impares: 11, 13, 15, 17, ...

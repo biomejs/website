@@ -1,0 +1,245 @@
+---
+title: Linter
+description: Cómo utilizar el linter de Biome.
+---
+
+import NumberOfRules from "@/components/generated/NumberOfRules.astro";
+import PackageManagerBiomeCommand from "@/components/PackageManagerBiomeCommand.astro";
+
+El linter de Biome analiza estáticamente tu código para encontrar y corregir errores comunes y ayudarte a escribir un código mejor y más moderno.
+Es [compatible con varios idiomas](/internals/language-support) y ofrece un total de [**<NumberOfRules/> reglas**](/linter/rules/).
+
+## Reglas
+
+El linter está organizado en reglas.
+Una regla emite un diagnóstico cuando encuentra un código que no cumple sus requisitos.
+Por ejemplo, la regla [noDebugger](/linter/rules/no-debugger) informa del uso de la instrucción `debugger` en código JavaScript.
+
+Una regla emite diagnósticos con una gravedad `info`, `warn` o `error`.
+Los diagnósticos con una gravedad `error` hacen que el comando salga con un código distinto de cero,
+mientras que los diagnósticos con una gravedad `info` o `warn` no hacen que el comando falle.
+
+Puedes hacer que un comando que emita diagnósticos `warn` falle utilizando la opción `--error-on-warnings`:
+
+```shell
+biome lint --error-on-warnings ./src
+```
+
+Por defecto, el linter de Biome sólo ejecuta las [**reglas recomendadas**](/linter/rules#recommended-rules).
+Para desactivar _todas las reglas_, puedes desactivar las reglas recomendadas en tu archivo de configuración de Biome.
+Esto puede ser útil en los casos en que sólo deseas activar unas pocas reglas.
+Las reglas recomendadas emiten diagnósticos con la gravedad `error`.
+
+Las reglas se dividen en grupos.
+Por ejemplo, la regla `noDebugger` forma parte del [grupo `suspicious`](/linter/rules#suspicious).
+Las reglas de este grupo detectan el código que puede ser incorrecto o inútil.
+La descripción de cada grupo se encuentra en la [página de reglas](/linter/rules/).
+
+A diferencia de otros linters, no proporcionamos ninguna regla que compruebe el formato del código.
+Este tipo de comprobación está cubierta por nuestro [formateador de código](/es/formatter/).
+
+Muchas reglas proporcionan una **corrección de código** que puede aplicarse automáticamente.
+Biome distingue entre correcciones de código **seguras** e **inseguras**.
+
+### Correcciones seguras
+
+Se garantiza que las correcciones seguras no cambian la semántica del código.
+Pueden aplicarse sin revisión explícita.
+
+Para aplicar _safe fixes_, utiliza `--write`:
+
+<PackageManagerBiomeCommand command="lint --write ./src" />
+
+### Correcciones inseguras
+
+Las correcciones inseguras pueden cambiar la semántica de tu programa.
+Por lo tanto, se aconseja revisar manualmente los cambios.
+
+Para aplicar tanto _safe fixes_ como _unsafe fixes_, utiliza `--write --unsafe`:
+
+<PackageManagerBiomeCommand command="lint --write --unsafe ./src" />
+
+### Pilares normativos
+
+Creemos que las normas deben ser informativas y explicar al usuario por qué se activa una norma e indicarle lo que debe hacer para corregir el error.
+Una regla debe seguir estos **pilares**:
+
+1. Explicar al usuario el error. Generalmente, este es el mensaje del diagnóstico.
+2. Explicar al usuario **por qué** se produce el error. Generalmente, esto se implementa con un nodo adicional.
+3. Indicar al usuario lo que debe hacer. Generalmente, esto se implementa utilizando una acción de código.
+   Si un código de acción no es aplicable, una nota debe indicar al usuario qué debe hacer para solucionar el error.
+
+Si crees que una norma no sigue estos pilares,
+por favor [abre una incidencia](https://github.com/biomejs/biome/issues/new?assignees=&labels=S-To+triage&projects=&template=01_bug.yml&title=%F0%9F%90%9B+%3CTITLE%3E).
+
+## CLI
+
+El siguiente comando ejecuta el linter en todos los archivos del directorio `src`:
+
+<PackageManagerBiomeCommand command="lint ./src" />
+
+El comando acepta una lista de archivos y directorios.
+
+:::caution
+Si pasas un glob como parámetro, tu shell lo expandirá.
+El resultado de la expansión depende de tu shell.
+Por ejemplo, algunos shells no soportan el glob recursivo `**` o la alternancia `{}` en el siguiente comando:
+
+```shell
+biome lint ./src/**/*.test.{js,ts}
+```
+
+La expansión del shell tiene un coste de rendimiento y un límite en el número de archivos que puedes pasar al comando.
+:::
+
+Para más información sobre todas las opciones disponibles, consulta la [Referencia CLI](/reference/cli#biome-lint).
+
+### Omitir una regla o un grupo
+
+Desde la versión **v1.8.0**, el comando `biome lint` acepta una opción `--skip` que permite desactivar una regla o reglas que pertenezcan a un grupo.
+
+Por ejemplo, el siguiente comando omite todas las reglas que pertenecen al grupo `style` y la regla `suspicious/noExplicitAny`:
+
+```shell
+biome lint --skip=style --skip=suspicious/noExplicitAny
+```
+
+### Ejecuta una regla o un grupo
+
+Desde la versión **v1.8.0**, el comando `biome lint` acepta una opción `--only` que permite ejecutar una única regla o las reglas que pertenecen a un grupo.
+
+Por ejemplo, el siguiente comando ejecuta sólo la regla `style/useNamingConvention`, la regla `style/noInferrableTypes` y las reglas que pertenecen a `a11y`. Si la regla está desactivada en la configuración, su nivel de gravedad será `error` para una regla recomendada o `warn` en caso contrario.
+
+```shell
+biome lint --only=style/useNamingConvention --only=style/noInferrableTypes --only=a11y
+```
+
+## Configuración
+
+Una regla puede configurarse en función de tus necesidades.
+
+### Desactivar una regla
+
+Una regla está activada si su gravedad es `error`, `warn` o `info`. Puedes desactivar una regla con `off`.
+
+La siguiente configuración desactiva la regla recomendada `noDebugger` y activa las reglas `noShoutyConstants` y `useNamingConvention`.
+
+La gravedad `warn` es útil en los casos en los que se está produciendo una refactorización y es necesario hacer pasar la CI. El mensaje de diagnóstico es amarillo. Puedes usar `--error-on-warnings` para salir con un código de error cuando se dispara una regla configurada con `warn`.
+
+La gravedad `info` no afectará al código de estado de salida de la CLI, incluso cuando se pase `--error-on-warnings`. El color del mensaje de diagnóstico es azul.
+
+```json title="biome.json"
+{
+  "linter": {
+    "rules": {
+      "suspicious": {
+        "noDebugger": "off",
+        "noConsoleLog": "info"
+      },
+      "style": {
+        "noShoutyConstants": "warn",
+        "useNamingConvention": "error"
+      }
+    }
+  }
+}
+```
+
+### Configura la corrección de reglas
+
+Desde la versión **v1.8.0**, es posible configurar la entidad de un fix, utilizando la opción `fix`.
+Hay tres opciones:
+
+- `none`: la regla no emitirá una corrección de código;
+- `safe`: la regla emitirá un [safe fix](#safe-fixes);
+- `unsafe`: la regla emitirá un [unsafe fix](#unsafe-fixes);
+
+```json title="biome.json"
+{
+  "linter": {
+    "rules": {
+      "correctness": {
+        "noUnusedVariables": {
+          "level": "error",
+          "fix": "none"
+        }
+      },
+      "style": {
+        "useConst": {
+          "level": "warn",
+          "fix": "unsafe"
+        },
+        "useTemplate": {
+          "level": "warn",
+          "fix": "safe"
+        }
+      }
+    }
+  }
+}
+```
+
+### Opciones de reglas
+
+Algunas reglas tienen opciones.
+Puedes establecerlos configurando el valor de la regla de forma diferente.
+
+- `level` indicará la gravedad del diagnóstico;
+- `options` cambiará en función de la regla.
+
+```json title="biome.json"
+{
+  "linter": {
+    "rules": {
+      "style": {
+        "useNamingConvention": {
+          "level": "error",
+          "options": {
+            "strictCase": false
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+## Ignorar código
+
+Hay ocasiones en las que un desarrollador quiere ignorar una regla lint para una línea específica del código.
+Puedes conseguirlo añadiendo un comentario de supresión sobre la línea que emite el diagnóstico de lint.
+
+Los comentarios de supresión tienen el siguiente formato:
+
+```js
+// biome-ignore lint: <explicación>
+// biome-ignore lint/suspicious/noDebugger: <explicación>
+```
+
+Dónde
+
+- `biome-ignore` es el inicio de un comentario de supresión;
+- `lint` suprime el linter;
+- `/suspicious/noDebugger`: **opcional**, grupo y nombre de la regla que quieres suprimir;
+- `<explicación>` explicación de por qué la regla está desactivada
+
+Aquí tienes un ejemplo:
+
+```ts
+// biome-ignore lint: razón
+debugger;
+// biome-ignore lint/suspicious/noDebugger: razón
+debugger;
+```
+
+Biome no proporciona comentarios de ignorar que ignoran un archivo entero.
+Sin embargo, puedes [ignorar un archivo utilizando el archivo de configuración de Biome](/guides/configure-biome/#ignore-files).
+Ten en cuenta que también puedes [ignorar los archivos ignorados por tu VCS](/guides/integrate-in-vcs#use-the-ignore-file).
+
+## Migrar de otros linters
+
+Muchas de las reglas de Biome Lint se inspiran en otros linterss.
+Si deseas migrar de otros linters como ESLint o `typescript-eslintt`,
+consulta la [página de fuentes de las reglas](/linter/rules-sources)
+Si está migrando de ESLint,
+tenemos una [guía de migración](/guides/migrate-eslint-prettier#migrate-from-eslint) dedicada.
