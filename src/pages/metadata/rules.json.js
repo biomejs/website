@@ -2729,7 +2729,7 @@ export function GET() {
               }
             ],
             "sourceKind": "inspired",
-            "docs": " Disallow focused tests.\n\n Disabled test are useful when developing and debugging, because it forces the test suite to run only certain tests.\n\n However, in pull/merge request, you usually want to run all the test suite.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n describe.only(\"foo\", () => {});\n ```\n\n ```js,expect_diagnostic\n test.only(\"foo\", () => {});\n ```\n\n ### Valid\n ```js\n test(\"foo\", () => {});\n ```\n"
+            "docs": " Disallow focused tests.\n\n Disabled test are useful when developing and debugging, because it forces the test suite to run only certain tests.\n\n However, in pull/merge request, you usually want to run all the test suite.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n describe.only(\"foo\", () => {});\n ```\n\n ```js,expect_diagnostic\n test.only(\"foo\", () => {});\n ```\n\n ```js,expect_diagnostic\n test.only.each([[\"a\"]])(\"%s\", (a) => {});\n ```\n\n ### Valid\n ```js\n test(\"foo\", () => {});\n ```\n\n ```js\n test.each([[\"a\"]])(\"%s\", (a) => {});\n ```\n"
           },
           "noFunctionAssign": {
             "deprecated": false,
