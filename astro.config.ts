@@ -426,7 +426,7 @@ export default defineConfig({
 							badge: "new",
 							translations: {
 								es: "Diagnósticos",
-							}
+							},
 						},
 						{
 							label: "Environment variables",
