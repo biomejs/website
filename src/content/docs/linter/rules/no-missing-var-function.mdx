@@ -3,28 +3,29 @@
 # Head to the `biomejs/biome` repository, and modify the source code in there.
 
 title: noMissingVarFunction
-description: |
-  Disallow missing var function for css variables.
+description: Learn more about noMissingVarFunction
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-**Diagnostic Category: `lint/nursery/noMissingVarFunction`**
 <Tabs>
 <TabItem label="CSS" icon="seti:css">
-**Since**: `v1.9.2`
+## Summary
+- Rule available since: `v1.9.2`
+- Diagnostic Category: [`lint/nursery/noMissingVarFunction`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Same as [`stylelint/custom-property-no-missing-var-function`](https://github.com/stylelint/stylelint/blob/main/lib/rules/custom-property-no-missing-var-function/README.md)
+
 :::caution
 This rule is part of the [nursery](/linter/rules/#nursery) group.
 :::
-
-Sources: 
-- Same as: <a href="https://github.com/stylelint/stylelint/blob/main/lib/rules/custom-property-no-missing-var-function/README.md" target="_blank"><code>stylelint/custom-property-no-missing-var-function</code></a>
-
 ## Description
 Disallow missing var function for css variables.
 
 This rule has the following limitations:
 
-- It only reports custom properties that are defined and accesible within the same source.
+- It only reports custom properties that are defined and accessible within the same source.
 - It does not check properties that can contain author-defined identifiers.
 - It ignores the following properties:
   - `animation`

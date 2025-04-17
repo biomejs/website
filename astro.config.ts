@@ -7,9 +7,14 @@ import rehypeSlug from "rehype-slug";
 import starlightBlog from "starlight-blog";
 import starlightLinksValidator from "starlight-links-validator";
 import { searchForWorkspaceRoot } from "vite";
-import { version as biomeVersion } from "./node_modules/@biomejs/wasm-web/package.json";
-import { version as prettierVersion } from "./node_modules/prettier/package.json";
+import { version as biomeVersion } from "./node_modules/@biomejs/wasm-web/package.json" with {
+	type: "json",
+};
+import { version as prettierVersion } from "./node_modules/prettier/package.json" with {
+	type: "json",
+};
 import { rehypeAutolink } from "./plugins/rehype-autolink";
+import redirects from "./redirects.js";
 
 const plugins = [
 	starlightBlog({
@@ -78,12 +83,21 @@ export default defineConfig({
 	site: "https://biomejs.dev",
 	output: "static",
 	compressHTML: true,
+	redirects,
 	integrations: [
 		react(),
 		starlight({
 			title: "Biome",
 			defaultLocale: "root",
 			plugins,
+			expressiveCode: {
+				shiki: {
+					langAlias: {
+						cjs: "javascript",
+						grit: "txt",
+					},
+				},
+			},
 			locales: {
 				root: {
 					label: "English",
@@ -185,7 +199,7 @@ export default defineConfig({
 							translations: {
 								es: "Usar Biome en proyectos grandes",
 								fr: "Utiliser Biome dans de gros projets",
-								ja: "大きなプロジェクトでのBiomeの使用方法",
+								ja: "大規模プロジェクトでのBiomeの使用方法",
 								"zh-CN": "大型项目中使用 Biome",
 								"pt-BR": "Usando o Biome em projetos grandes",
 								uk: "Використання Biome в великих проектах",
@@ -273,42 +287,6 @@ export default defineConfig({
 					},
 					items: [
 						{
-							label: "Analyzer",
-							items: [
-								{
-									label: "Introduction",
-									link: "/analyzer",
-									translations: {
-										es: "Introducción",
-										ja: "イントロダクション",
-										"zh-CN": "介绍",
-										"pt-BR": "Introdução",
-										uk: "Вступ",
-									},
-								},
-								{
-									label: "Import Sorting",
-									link: "/analyzer/import-sorting",
-									translations: {
-										es: "Ordenación de importaciones",
-										fr: "Tri des imports",
-										ja: "Import文のソート",
-										"zh-CN": "导入排序",
-										"pt-BR": "Ordenação de importações",
-										uk: "Сортування імпортів",
-									},
-								},
-							],
-							translations: {
-								es: "Analizador",
-								fr: "Analyseur",
-								ja: "Analyzer",
-								"zh-CN": "分析器",
-								"pt-BR": "Analisador",
-								uk: "Аналізатор",
-							},
-						},
-						{
 							label: "Formatter",
 							items: [
 								{
@@ -361,6 +339,10 @@ export default defineConfig({
 								{
 									label: "Introduction",
 									link: "/linter",
+									badge: {
+										text: "updated",
+										variant: "success",
+									},
 									translations: {
 										es: "Introducción",
 										ja: "イントロダクション",
@@ -370,8 +352,21 @@ export default defineConfig({
 									},
 								},
 								{
-									label: "Rules",
-									link: "/linter/rules",
+									label: "Domains",
+									link: "/linter/domains",
+									badge: "new",
+								},
+								{
+									label: "Plugins",
+									link: "/linter/plugins",
+									badge: "beta",
+									translations: {
+										ja: "プラグイン",
+									},
+								},
+								{
+									label: "JavaScript Rules",
+									link: "/linter/javascript/rules",
 									translations: {
 										es: "Reglas",
 										fr: "Règles",
@@ -382,26 +377,90 @@ export default defineConfig({
 									},
 								},
 								{
-									label: "Rules sources",
-									link: "/linter/rules-sources",
+									label: "JavaScript Rules sources",
+									link: "/linter/javascript/sources",
 									translations: {
 										es: "Fuentes de reglas",
 										fr: "Sources des règles",
 									},
 								},
 								{
-									label: "Plugins",
-									link: "/linter/plugins",
-									badge: "beta",
-									translations: {
-										ja: "プラグイン",
-									},
+									label: "CSS Rules",
+									link: "/linter/css/rules",
+								},
+								{
+									label: "CSS Rules sources",
+									link: "/linter/css/sources",
+								},
+								{
+									label: "JSON Rules",
+									link: "/linter/json/rules",
+								},
+								{
+									label: "JSON Rules sources",
+									link: "/linter/json/sources",
+								},
+								{
+									label: "GraphQL Rules",
+									link: "/linter/graphql/rules",
+								},
+								{
+									label: "GraphQL Rules sources",
+									link: "/linter/graphql/sources",
 								},
 							],
 							translations: {
 								fr: "Outil de linting",
 								uk: "Лінтер",
 							},
+						},
+						{
+							label: "Assist",
+							badge: "new",
+							items: [
+								{
+									label: "Introduction",
+									link: "/assist",
+									translations: {
+										ja: "イントロダクション",
+										"zh-CN": "介绍",
+										"pt-BR": "Introdução",
+										uk: "Вступ",
+									},
+								},
+								{
+									label: "JavaScript Actions",
+									link: "/assist/javascript/actions",
+								},
+								{
+									label: "JavaScript Actions sources",
+									link: "/assist/javascript/sources",
+								},
+								{
+									label: "CSS Actions",
+									link: "/assist/css/actions",
+								},
+								{
+									label: "CSS Actions sources",
+									link: "/assist/css/sources",
+								},
+								{
+									label: "JSON Actions",
+									link: "/assist/json/actions",
+								},
+								{
+									label: "JSON Actions sources",
+									link: "/assist/json/sources",
+								},
+								{
+									label: "GraphQL Actions",
+									link: "/assist/graphql/actions",
+								},
+								{
+									label: "GraphQL Actions sources",
+									link: "/assist/graphql/sources",
+								},
+							],
 						},
 					],
 				},
@@ -422,7 +481,9 @@ export default defineConfig({
 						{
 							label: "Diagnostics",
 							link: "/reference/diagnostics",
-							badge: "new",
+							translations: {
+								ja: "診断",
+							},
 						},
 						{
 							label: "Environment variables",
@@ -430,6 +491,7 @@ export default defineConfig({
 							translations: {
 								fr: "Variables d’environnement",
 								uk: "Змінні середовища",
+								ja: "環境変数",
 							},
 						},
 						{
@@ -438,6 +500,7 @@ export default defineConfig({
 							translations: {
 								fr: "Outils de reporting",
 								uk: "Звіти",
+								ja: "リポータ",
 							},
 						},
 						{
@@ -451,7 +514,7 @@ export default defineConfig({
 							},
 						},
 						{
-							label: "VSCode extension",
+							label: "VS Code extension",
 							link: "/reference/vscode",
 							translations: {
 								fr: "Extension pour VSCode",
@@ -464,7 +527,6 @@ export default defineConfig({
 						{
 							label: "Zed extension",
 							link: "/reference/zed",
-							badge: "new",
 							translations: {
 								fr: "Extension pour Zed",
 								ja: "Zed拡張機能",
@@ -605,6 +667,10 @@ export default defineConfig({
 								uk: "Журнал змін",
 							},
 						},
+						{
+							label: "Changelog v1",
+							link: "/internals/changelog_v1",
+						},
 					],
 				},
 			],
@@ -663,6 +729,10 @@ export default defineConfig({
 		}),
 	],
 
+	adapter: netlify({
+		imageCDN: false,
+	}),
+
 	build: {
 		format: "directory",
 	},
@@ -674,13 +744,11 @@ export default defineConfig({
 			langAlias: {
 				cjs: "javascript",
 				grit: "txt",
+				cts: "javascript",
+				block: "txt",
 			},
 		},
 	},
-
-	adapter: netlify({
-		imageCDN: false,
-	}),
 
 	vite: {
 		resolve: {
