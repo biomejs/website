@@ -1,0 +1,972 @@
+---
+title: Configuración
+description: Cómo personalizar y configurar Biome con biome.json.
+---
+
+import LintGroups from "@/components/generated/Groups.astro";
+
+{/* * Make sure to update the redirect in `static/_redirects` when changing the configuration title --> * */}
+
+## `$schema`
+
+Permite pasar una ruta a un archivo de esquema JSON.
+
+Publicamos un archivo de esquema JSON para el `biome.json`.
+
+Puedes especificar una ruta relativa al esquema del paquete npm `@biomejs/biome` si `@biomejs/biome` está instalado en la carpeta `node_modules`:
+
+```json title="biome.json"
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json"
+}
+```
+
+Si tiene problemas para resolver el archivo físico, puede utilizar el publicado en este sitio:
+
+```json title="biome.json"
+{
+  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json"
+}
+```
+
+## `extends`
+
+Una lista de rutas a otros archivos JSON. Biome resuelve y aplica las opciones de los archivos contenidos en la lista `extends`, y finalmente aplica las opciones contenidas en el archivo `biome.json`.
+
+## `files`
+
+### `files.maxSize`
+
+El tamaño máximo permitido para los archivos de código fuente en bytes. Los archivos que superen
+este límite serán ignorados por razones de rendimiento.
+
+> Por defecto: `1048576` (1024\*1024, 1MB)
+
+### `files.ignore`
+
+Una lista de patrones de estilo shell de Unix. Biome ignora los archivos y carpetas que
+coinciden con estos patrones.
+
+```json title="biome.json"
+{
+  "files": {
+    "ignore": ["scripts/*.js"]
+  }
+}
+```
+
+### `files.include`
+
+Una lista de patrones de estilo shell de Unix. Biome sólo gestiona los archivos y carpetas que coinciden con estos patrones.
+
+```json title="biome.json"
+{
+  "files": {
+    "include": ["scripts/*.js"]
+  }
+}
+```
+
+:::caution
+Cuando se especifican tanto `include` como `ignore`, `ignore` tiene **precedencia** sobre `include`
+:::
+
+Dado el siguiente ejemplo:
+
+```json title="biome.json"
+{
+  "files": {
+    "include": ["scripts/**/*.js", "src/**/*.js"],
+    "ignore": ["scripts/**/*.js"]
+  }
+}
+```
+
+Sólo se tratarán los archivos que coincidan con el patrón `src/**/*.js`, mientras que se ignorarán los archivos que coincidan con el patrón
+`scripts/**/*.js`.
+
+### `files.ignoreUnknown`
+
+Biome no emitirá diagnósticos si encuentra archivos que no puede manejar.
+
+```json title="biome.json"
+{
+  "files": {
+    "ignoreUnknown": true
+  }
+}
+```
+
+> Por defecto: `false`
+
+## `vcs`
+
+Conjunto de propiedades para integrar Biome con un VCS (Version Control Software).
+
+### `vcs.enabled`
+
+Si Biome debe integrarse con el cliente VCS
+
+> Por defecto: `false`
+
+### `vcs.clientKind`
+
+El tipo de cliente.
+
+Valores:
+
+- `"git"`
+
+### `vcs.useIgnoreFile`
+
+Si Biome debe utilizar el archivo de ignorar VCS. Si es `true`, Biome ignorará los archivos
+especificados en el archivo de ignorar.
+
+### `vcs.root`
+
+La carpeta en la que Biome debe buscar los archivos VCS. Por defecto, Biome utilizará la misma carpeta
+en la que se encontró `biome.json`.
+
+Si Biome no puede encontrar la configuración, intentará utilizar el directorio de trabajo actual.
+Si no se encuentra el directorio de trabajo actual, Biome no utilizará la
+integración VCS y se emitirá un mensaje de diagnóstico
+
+### `vcs.defaultBranch`
+
+La rama principal del proyecto. Biome utilizará esta rama al evaluar los archivos modificados.
+
+## `linter`
+
+### `linter.enabled`
+
+Activa el linter de Biome
+
+> Por defecto: `true`
+
+### `linter.ignore`
+
+Un conjunto de patrones de estilo shell Unix.
+
+```json title="biome.json"
+{
+  "linter": {
+    "ignore": ["scripts/*.js"]
+  }
+}
+```
+
+### `linter.include`
+
+Una lista de patrones de estilo shell de Unix. Biome sólo gestiona los archivos y carpetas que
+coinciden con estos patrones.
+
+```json title="biome.json"
+{
+  "linter": {
+    "include": ["scripts/*.js"]
+  }
+}
+```
+
+:::caution
+Cuando se especifican tanto `include` como `ignore`, `ignore` tiene **precedencia** sobre `include`
+:::
+
+Dado el siguiente ejemplo:
+
+```json title="biome.json"
+{
+  "linter": {
+    "include": ["scripts/**/*.js", "src/**/*.js"],
+    "ignore": ["scripts/**/*.js"]
+  }
+}
+```
+
+Sólo los archivos que coincidan con el patrón `src/**/*.js` serán lintados, mientras que los archivos que coincidan con el patrón
+`scripts/**/*.js` serán ignorados.
+
+### `linter.rules.recommended`
+
+Activa las [reglas recomendadas](/linter/rules) para todos los grupos.
+
+> Por defecto: `true`
+
+### `linter.rules.all`
+
+Activar o desactivar todas las [reglas](/linter/rules) para todos los grupos.
+
+Si `recommended` y `all` son ambos `true`, Biome emitirá un diagnóstico y volverá a sus valores por defecto.
+
+```json title="biome.json"
+{
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "all": true
+    }
+  }
+}
+```
+
+También es posible combinar esta bandera para activar/desactivar diferentes grupos de reglas:
+
+```json title="biome.json"
+{
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "all": true,
+      "style": {
+        "all": false
+      },
+      "complexity": {
+        "all": false
+      }
+    }
+  }
+}
+```
+
+En el ejemplo anterior, Biome activará todas las reglas, excepto las que pertenezcan a los grupos `style` y `complexity`.
+
+### `linter.rules.[group]`
+
+Opciones que influyen en las reglas de un solo grupo. Biome admite los siguientes grupos:
+
+<LintGroups />
+
+### `linter.rules.[group].recommended`
+
+Activa las reglas recomendadas para un solo grupo.
+
+Ejemplo:
+
+```json title="biome.json"
+{
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "nursery": {
+        "recommended": true
+      }
+    }
+  }
+}
+```
+
+### `linter.rules.[group].all`
+
+Activa todas las reglas de un mismo grupo.
+
+Ejemplo:
+
+```json title="biome.json"
+{
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "nursery": {
+        "all": true
+      }
+    }
+  }
+}
+```
+
+## `formatter`
+
+Estas opciones se aplican a todos los idiomas. A continuación encontrarás otras opciones de formato específicas para cada idioma.
+
+### `formatter.enabled`
+
+Activa el formateador de Biome
+
+> Por defecto: `true`
+
+### `formatter.ignore`
+
+Un conjunto de patrones de estilo shell Unix.
+
+```json title="biome.json"
+{
+  "formatter": {
+    "ignore": ["scripts/*.js"]
+  }
+}
+```
+
+### `formatter.include`
+
+Una lista de patrones de estilo shell de Unix. Biome sólo gestiona los archivos y carpetas que
+coinciden con estos patrones.
+
+```json title="biome.json"
+{
+  "formatter": {
+    "include": ["scripts/*.js"]
+  }
+}
+```
+
+:::caution
+Cuando se especifican tanto `include` como `ignore`, `ignore` tiene **precedencia** sobre `include`
+:::
+
+Dado el siguiente ejemplo:
+
+```json title="biome.json"
+{
+  "formatter": {
+    "include": ["scripts/**/*.js", "src/**/*.js"],
+    "ignore": ["scripts/**/*.js"]
+  }
+}
+```
+
+Sólo se formatearán los archivos que coincidan con el patrón `src/**/*.js`, mientras que se ignorarán los archivos que coincidan con el patrón
+`scripts/**/*.js`.
+
+### `formatter.formatWithErrors`
+
+Permite dar formato a un documento que tiene errores de sintaxis.
+
+```json title="biome.json"
+{
+  "formatter": {
+    "formatWithErrors": true
+  }
+}
+```
+
+> Por defecto: `false`
+
+### `formatter.indentStyle`
+
+El estilo de la sangría. Puede ser `"tab"` o `"space"`.
+
+> Por defecto: `"tab"`
+
+### `formatter.indentSize`
+
+Esta opción está obsoleta, utiliza [`formatter.indentWidth`](#formatterindentwidth) en su lugar.
+
+<details>
+<summary>Obsoleto</summary>
+
+El tamaño de la sangría.
+
+> Por defecto: `2`
+
+</details>
+
+### `formatter.indentWidth`
+
+El tamaño de la sangría.
+
+> Por defecto: `2`
+
+### `formatter.lineEnding`
+
+El tipo de final de línea.
+
+- `"lf"`, Line Feed only (`\n`), común en Linux y macOS así como dentro de repositorios git;
+- `"crlf"`, Caracteres de retorno de carro + salto de línea (`\r\n`), comunes en Windows;
+- `"cr"`, Carácter de retorno de carro solamente (`\r`), utilizado muy raramente.
+
+> Por defecto: `"lf"`
+
+### `formatter.lineWidth`
+
+Cuántos caracteres pueden escribirse en una sola línea.
+
+> Por defecto: `80`
+
+### `formatter.attributePosition`
+
+El estilo de posición de atributos en lenguajes HTMLish.
+
+- `"auto"`, los atributos se formatean automáticamente, y se contraerán en varias líneas sólo cuando cumplan determinados criterios;
+- `"multiline"`, los atributos se contraerán en varias líneas si se utiliza más de 1 atributo.
+
+> Por defecto: `"auto"`
+
+### `formatter.useEditorconfig`
+
+Si Biome debe utilizar el archivo `.editorconfig` para determinar las opciones de formato. Si es `true`, se utilizarán las opciones aplicables del archivo `.editorconfig`, pero cualquier configuración del archivo `biome.json` seguirá teniendo prioridad.
+
+Al migrar desde Prettier con `biome migrate`, esta opción se establece en `true` para que coincida con el comportamiento de Prettier.
+
+> Por defecto: `false`
+
+## `organizeImports`
+
+### `organizeImports.enabled`
+
+Activa las importaciones de ordenación de Biome.
+
+> Por defecto: `true`
+
+### `organizeImports.ignore`
+
+Una lista de patrones de estilo shell de Unix. Biome ignora los archivos y carpetas que coinciden con estos patrones.
+
+```json title="biome.json"
+{
+  "organizeImports": {
+    "ignore": ["scripts/*.js"]
+  }
+}
+```
+
+### `organizeImports.include`
+
+Una lista de patrones de estilo shell de Unix. Biome sólo gestiona los archivos y carpetas que
+coinciden con estos patrones.
+
+```json title="biome.json"
+{
+  "organizeImports": {
+    "include": ["scripts/*.js"]
+  }
+}
+```
+
+:::caution
+Cuando se especifican tanto `include` como `ignore`, `ignore` tiene **precedencia** sobre `include`
+:::
+
+Dado el siguiente ejemplo:
+
+```json title="biome.json"
+{
+  "organizeImports": {
+    "include": ["scripts/**/*.js", "src/**/*.js"],
+    "ignore": ["scripts/**/*.js"]
+  }
+}
+```
+
+Sólo los archivos que coincidan con el patrón `src/**/*.js` tendrán sus importaciones ordenadas, mientras que los archivos que coincidan con el patrón
+`scripts/**/*.js` serán ignorados.
+
+## `javascript`
+
+Estas opciones sólo se aplican a los archivos JavaScript (y TypeScript).
+
+### `javascript.parser.unsafeParameterDecoratorsEnabled`
+
+Permite soportar los decoradores de parámetros inseguros/experimentales.
+
+```json title="biome.json"
+{
+  "javascript": {
+    "parser": {
+      "unsafeParameterDecoratorsEnabled": true
+    }
+  }
+}
+```
+
+> Por defecto: `false`
+
+### `javascript.formatter.quoteStyle`
+
+El tipo de comilla utilizado al representar literales de cadena. Puede ser `"single"` o `"double"`.
+
+> Por defecto: `"double"`
+
+### `javascript.formatter.jsxQuoteStyle`
+
+El tipo de comilla utilizado cuando se representan literales de cadena jsx. Puede ser `"single"` o `"double"`.
+
+> Por defecto: `"double"`
+
+### `javascript.formatter.quoteProperties`
+
+Cuando las propiedades dentro de los objetos deben ser entrecomilladas. Puede ser `"asNeeded"` o `"preserve"`.
+
+> Por defecto: `"asNeeded"`
+
+### `javascript.formatter.trailingComma`
+
+Esta opción está obsoleta, utilice [`javascript.formatter.trailingCommas`](#javascriptformattertrailingcommas) en su lugar.
+
+<details>
+<summary>Obsoleto</summary>
+
+Imprime comas finales siempre que sea posible en estructuras sintácticas de varias líneas separadas por comas. Valores posibles:
+
+- `"all"`, siempre se añade la coma final;
+- `"es5"`, la coma final sólo se añade en los lugares en los que es compatible con versiones anteriores de JavaScript;
+- `"none"`, nunca se añaden comas finales.
+
+> Por defecto: `"all"`
+
+</details>
+
+### `javascript.formatter.trailingCommas`
+
+Imprime comas finales siempre que sea posible en estructuras sintácticas de varias líneas separadas por comas. Valores posibles:
+
+- `"all"`, siempre se añade la coma final;
+- `"es5"`, la coma final sólo se añade en los lugares en los que es compatible con versiones anteriores de JavaScript;
+- `"none"`, nunca se añaden comas finales.
+
+> Por defecto: `"all"`
+
+### `javascript.formatter.semicolons`
+
+Configura dónde imprime el formateador el punto y coma:
+
+- `"always"`, el punto y coma se añade siempre al final de cada declaración;
+- `"asNeeded"`, el punto y coma se añade sólo en los lugares donde es necesario, para proteger de [ASI](https://en.wikibooks.org/wiki/JavaScript/Automatic_semicolon_insertion).
+
+> Por defecto: `"always"`
+
+Ejemplo:
+
+```json title="biome.json"
+{
+  "javascript": {
+    "formatter": {
+      "semicolons": "asNeeded"
+    }
+  }
+}
+```
+
+### `javascript.formatter.arrowParentheses`
+
+Si se añaden paréntesis no necesarios a las funciones de flecha:
+
+- `"always"`, siempre se añaden los paréntesis;
+- `"asNeeded"`, los paréntesis se añaden sólo cuando son necesarios.
+
+> Por defecto: `"always"`
+
+### `javascript.formatter.enabled`
+
+Activa el formateador de Biome para archivos JavaScript (y sus super lenguajes).
+
+> Por defecto: `true`
+
+### `javascript.formatter.indentStyle`
+
+El estilo de la sangría para archivos JavaScript (y sus super lenguajes). Puede ser `"tab"` o `"space"`.
+
+> Por defecto: `"tab"`
+
+### `javascript.formatter.indentSize`
+
+Esta opción está obsoleta, utiliza [`javascript.formatter.indentWidth`](#javascriptformatterindentwidth) en su lugar.
+
+<details>
+<summary>Obsoleto</summary>
+
+Qué tamaño debe tener la sangría para los archivos JavaScript (y sus super lenguajes).
+
+> Por defecto: `2`
+
+</details>
+
+### `javascript.formatter.indentWidth`
+
+Qué tamaño debe tener la sangría para los archivos JavaScript (y sus super lenguajes).
+
+> Por defecto: `2`
+
+### `javascript.formatter.lineEnding`
+
+El tipo de final de línea para archivos JavaScript (y sus super lenguajes).
+
+- `"lf"`, Line Feed only (`\n`), común en Linux y macOS así como dentro de repositorios git;
+- `"crlf"`, Caracteres de retorno de carro + salto de línea (`\r\n`), comunes en Windows;
+- `"cr"`, Carácter de retorno de carro solamente (`\r`), utilizado muy raramente.
+
+> Por defecto: `"lf"`
+
+### `javascript.formatter.lineWidth`
+
+Cuántos caracteres pueden escribirse en una sola línea en los archivos JavaScript (y sus superlenguajes).
+
+> Por defecto: `80`
+
+### `javascript.formatter.bracketSameLine`
+
+Elija si el final `>` de un elemento JSX multilínea debe estar en la última línea de atributos o no
+
+> Por defecto: `false`
+
+### `javascript.formatter.bracketSpacing`
+
+Elige si se deben añadir espacios entre paréntesis y valores interiores
+
+> Por defecto: `true`
+
+### `javascript.formatter.attributePosition`
+
+El atributo estilo de posición en elementos jsx.
+
+- `"auto"`, no imponen un único atributo por línea.
+- `"multiline"`, aplicar un único atributo por línea.
+
+> Por defecto: `"auto"`
+
+### `javascript.globals`
+
+Una lista de nombres globales que Biome debe ignorar (analizador, linter, etc.)
+
+```json title="biome.json"
+{
+  "javascript": {
+    "globals": ["$", "_", "externalVariable"]
+  }
+}
+```
+
+### `javascript.jsxRuntime`
+
+Indica el tipo de tiempo de ejecución o transformación utilizado para interpretar JSX.
+
+- `"transparent"` &mdash; Indica un entorno JSX moderno o nativo, que
+  no requiere un manejo especial por parte de Biome.
+- `"reactClassic"` &mdash; Indica un entorno React clásico que requiere
+  la importación `React`. Corresponde al valor `react` de la opción `jsx` de
+  en [`tsconfig.json`] de TypeScript (https://www.typescriptlang.org/tsconfig#jsx).
+
+```json title="biome.json"
+{
+  "javascript": {
+    "jsxRuntime": "reactClassic"
+  }
+}
+```
+
+Para obtener más información sobre el antiguo y el nuevo tiempo de ejecución de JSX, consulta:
+https://legacy.reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html
+
+> Por defecto: `"transparent"`
+
+### `javascript.linter.enabled`
+
+Activa el formateador de Biome para archivos JavaScript (y sus super lenguajes).
+
+> Por defecto: `true`
+
+## `json`
+
+Opciones aplicadas a los archivos JSON.
+
+### `json.parser.allowComments`
+
+Activa el análisis sintáctico de comentarios en archivos JSON.
+
+```json title="biome.json"
+{
+  "json": {
+    "parser": {
+      "allowComments": true
+    }
+  }
+}
+```
+
+### `json.parser.allowTrailingCommas`
+
+Activa el análisis sintáctico de las comas finales en los archivos JSON.
+
+```json title="biome.json"
+{
+  "json": {
+    "parser": {
+      "allowTrailingCommas": true
+    }
+  }
+}
+```
+
+### `json.formatter.enabled`
+
+Activa el formateador de Biome para archivos JSON (y sus super lenguajes).
+
+> Por defecto: `true`
+
+### `json.formatter.indentStyle`
+
+El estilo de la sangría para archivos JSON (y sus super lenguajes). Puede ser `"tab"` o `"space"`.
+
+> Por defecto: `"tab"`
+
+### `json.formatter.indentSize`
+
+Esta opción está obsoleta, utiliza [`json.formatter.indentWidth`](#jsonformatterindentwidth) en su lugar.
+
+<details>
+<summary>Obsoleto</summary>
+
+Cómo de grande debe ser la sangría para archivos JSON (y sus super lenguajes).
+
+> Por defecto: `2`
+
+</details>
+
+### `json.formatter.indentWidth`
+
+Cómo de grande debe ser la sangría para archivos JSON (y sus super lenguajes).
+
+> Por defecto: `2`
+
+### `json.formatter.lineEnding`
+
+El tipo de final de línea para archivos JSON (y sus super lenguajes).
+
+- `"lf"`, Line Feed only (`\n`), común en Linux y macOS así como dentro de repositorios git;
+- `"crlf"`, Caracteres de retorno de carro + salto de línea (`\r\n`), comunes en Windows;
+- `"cr"`, Carácter de retorno de carro solamente (`\r`), utilizado muy raramente.
+
+> Por defecto: `"lf"`
+
+### `json.formatter.lineWidth`
+
+Cuántos caracteres pueden escribirse en una sola línea en los archivos JSON (y sus superlenguajes).
+
+> Por defecto: `80`
+
+### `json.formatter.trailingCommas`
+
+Imprima comas finales siempre que sea posible en estructuras sintácticas de varias líneas separadas por comas.
+
+Valores permitidos:
+
+- `"none"`: se elimina la coma final;
+- `"all"`: la coma final se mantiene **y** se prefiere.
+
+> Por defecto: `"none"`
+
+### `json.linter.enabled`
+
+Activa el formateador de Biome para archivos JSON (y sus superlenguajes).
+
+> Por defecto: `true`
+
+## `css`
+
+Opciones aplicadas a los archivos CSS.
+
+### `css.parser.cssModules`
+
+Habilita el análisis sintáctico de [módulos CSS](https://github.com/css-modules/css-modules)
+
+> Por defecto: `false`
+
+### `css.formatter.enabled`
+
+Activa el formateador de Biome para archivos CSS (y sus super lenguajes).
+
+> Por defecto: `false`
+
+### `css.formatter.indentStyle`
+
+El estilo de la sangría para los archivos CSS (y sus super lenguajes). Puede ser `"tab"` o `"space"`.
+
+> Por defecto: `"tab"`
+
+### `css.formatter.indentWidth`
+
+Cómo de grande debe ser la sangría para los archivos CSS (y sus super lenguajes).
+
+> Por defecto: `2`
+
+### `css.formatter.lineEnding`
+
+El tipo de final de línea para los archivos CSS (y sus super lenguajes).
+
+- `"lf"`, Line Feed only (`\n`), común en Linux y macOS así como dentro de repositorios git;
+- `"crlf"`, Caracteres de retorno de carro + salto de línea (`\r\n`), comunes en Windows;
+- `"cr"`, Carácter de retorno de carro solamente (`\r`), utilizado muy raramente.
+
+> Por defecto: `"lf"`
+
+### `css.formatter.lineWidth`
+
+Cuántos caracteres pueden escribirse en una sola línea en los archivos JSON (y sus superlenguajes).
+
+> Por defecto: `80`
+
+### `css.formatter.quoteStyle`
+
+El tipo de comilla utilizado al representar literales de cadena. Puede ser `"single"` o `"double"`.
+
+> Por defecto: `"double"`
+
+### `css.linter.enabled`
+
+Activa el linter de Biome para archivos CSS (y sus super lenguajes).
+
+> Por defecto: `false`
+
+## `overrides`
+
+Una lista de patrones.
+
+Utiliza esta configuración para cambiar el comportamiento de las herramientas para determinados archivos.
+
+Cuando se compara un archivo con un patrón de anulación, la configuración especificada en ese patrón anula la configuración de nivel superior.
+
+El orden de los patrones es importante. Si un archivo _puede_ coincidir con tres patrones, sólo se utiliza el primero.
+
+### `overrides.<ITEM>.ignore`
+
+Una lista de patrones de estilo de shell Unix. Biome no aplicará la anulación a los archivos que coincidan con el patrón.
+
+```json title="biome.json"
+{
+  "overrides": [
+    {
+      "ignore": ["scripts/*.js"]
+    }
+  ]
+}
+```
+
+### `overrides.<ITEM>.include`
+
+Una lista de patrones de estilo de shell Unix. Biome aplicará la anulación sólo a los archivos que coincidan con el patrón.
+
+```json title="biome.json"
+{
+  "overrides": [
+    {
+      "include": ["scripts/*.js"]
+    }
+  ]
+}
+```
+
+### `overrides.<ITEM>.formatter`
+
+Incluirá las opciones de configuración de [top level formatter](#formatter), menos `ignore` e `include`.
+
+#### Ejemplos
+
+Por ejemplo, es posible modificar el formateador `lineWidth`, `indentStyle` para ciertos ficheros que están incluidos en la ruta glob `generated/**`:
+
+```json title="biome.json"
+{
+  "formatter": {
+    "lineWidth": 100
+  },
+  "overrides": [
+    {
+      "include": ["generated/**"],
+      "formatter": {
+        "lineWidth": 160,
+        "indentStyle": "space"
+      }
+    }
+  ]
+}
+```
+
+### `overrides.<ITEM>.linter`
+
+Incluirá las opciones de configuración de [linter de nivel superior](#linter), menos `ignore` e `include`.
+
+#### Ejemplos
+
+Puede desactivar ciertas reglas para determinadas rutas glob, y desactivar el linter para otras rutas glob:
+
+```json title="biome.json"
+{
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true
+    }
+  },
+  "overrides": [
+    {
+      "include": ["lib/**"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noDebugger": "off"
+          }
+        }
+      }
+    },
+    {
+      "include": ["shims/**"],
+      "linter": {
+        "enabled": false
+      }
+    }
+  ]
+}
+```
+
+### `overrides.<ITEM>.organizeImports`
+
+Incluirá las opciones de [top level organize imports](#organizeimports), menos `ignore` e `include`.
+
+### `overrides.<ITEM>.javascript`
+
+Incluirá las opciones de configuración [top level javascript](#javascript).
+
+#### Ejemplos
+
+Puede cambiar el comportamiento de formato de los archivos JavaScript en determinadas carpetas:
+
+```json title="biome.json"
+{
+  "formatter": {
+    "lineWidth": 120
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single"
+    }
+  },
+  "overrides": [
+    {
+      "include": ["lib/**"],
+      "javascript": {
+        "formatter": {
+          "quoteStyle": "double"
+        }
+      }
+    }
+  ]
+}
+```
+
+### `overrides.<ITEM>.json`
+
+Incluirá las opciones de configuración [top level json](#json).
+
+#### Ejemplos
+
+Puede activar las funciones de análisis sintáctico para determinados archivos JSON:
+
+```json title="biome.json"
+{
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true
+    }
+  },
+  "overrides": [
+    {
+      "include": [".vscode/**"],
+      "json": {
+        "parser": {
+          "allowComments": true,
+          "allowTrailingCommas": true
+        }
+      }
+    }
+  ]
+}
+```

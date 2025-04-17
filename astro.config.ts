@@ -408,6 +408,7 @@ export default defineConfig({
 				{
 					label: "Reference",
 					translations: {
+						es: "Referencia",
 						fr: "Références",
 						ja: "リファレンス",
 						"zh-CN": "参考",
@@ -423,11 +424,15 @@ export default defineConfig({
 							label: "Diagnostics",
 							link: "/reference/diagnostics",
 							badge: "new",
+							translations: {
+								es: "Diagnósticos",
+							},
 						},
 						{
 							label: "Environment variables",
 							link: "/reference/environment-variables",
 							translations: {
+								es: "Variables de entorno",
 								fr: "Variables d’environnement",
 								uk: "Змінні середовища",
 							},
@@ -436,6 +441,7 @@ export default defineConfig({
 							label: "Reporters",
 							link: "/reference/reporters",
 							translations: {
+								es: "Generador de informes",
 								fr: "Outils de reporting",
 								uk: "Звіти",
 							},
@@ -444,6 +450,7 @@ export default defineConfig({
 							label: "Configuration",
 							link: "/reference/configuration",
 							translations: {
+								es: "Configuración",
 								ja: "設定",
 								"zh-CN": "配置",
 								"pt-BR": "Configuração",
@@ -454,6 +461,7 @@ export default defineConfig({
 							label: "VSCode extension",
 							link: "/reference/vscode",
 							translations: {
+								es: "Extensión para VSCode",
 								fr: "Extension pour VSCode",
 								ja: "VSCode拡張機能",
 								"zh-CN": "VSCode 扩展",
@@ -466,6 +474,7 @@ export default defineConfig({
 							link: "/reference/zed",
 							badge: "new",
 							translations: {
+								es: "Extensión para Zed",
 								fr: "Extension pour Zed",
 								ja: "Zed拡張機能",
 								"zh-CN": "Zed 扩展",
