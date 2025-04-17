@@ -1641,7 +1641,7 @@ export function GET() {
             "fixKind": "safe",
             "sources": [
               {
-                "eslint": "ban-ts-comment"
+                "eslintTypeScript": "ban-ts-comment"
               }
             ],
             "sourceKind": "inspired",
