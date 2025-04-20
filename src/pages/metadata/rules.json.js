@@ -1774,7 +1774,7 @@ export function GET() {
             "name": "useConsistentObjectDefinition",
             "link": "https://biomejs.dev/linter/rules/use-consistent-object-definition",
             "recommended": false,
-            "fixKind": "none",
+            "fixKind": "safe",
             "sources": [
               {
                 "eslint": "object-shorthand"
@@ -1825,6 +1825,24 @@ export function GET() {
               }
             ],
             "docs": " Require `for-in` loops to include an `if` statement.\n\n Looping over objects with a `for-in` loop will include properties inherited through the prototype chain.\n This behavior can lead to unexpected items in your for loop.\n\n For codebases that do not support ES2022, `Object.prototype.hasOwnProperty.call(foo, key)` can be used as a check that the property is not inherited.\n\n For codebases that do support ES2022, `Object.hasOwn(foo, key)` can be used as a shorter and more reliable alternative.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n for (key in foo) {\n   doSomething(key);\n }\n ```\n\n ### Valid\n\n ```js\n for (key in foo) {\n   if (Object.hasOwn(foo, key)) {\n    doSomething(key);\n   }\n }\n ```\n\n ```js\n for (key in foo) {\n   if (Object.prototype.hasOwnProperty.call(foo, key)) {\n     doSomething(key);\n   }\n }\n ```\n\n ```js\n for (key in foo) {\n   if ({}.hasOwnProperty.call(foo, key)) {\n     doSomething(key);\n   }\n }\n ```\n\n"
+          },
+          "useNumericSeparators": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useNumericSeparators",
+            "link": "https://biomejs.dev/linter/rules/use-numeric-separators",
+            "recommended": false,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "eslintUnicorn": "numeric-separators-style"
+              },
+              {
+                "clippy": "unreadable_literal"
+              }
+            ],
+            "sourceKind": "sameLogic",
+            "docs": " Enforce the use of numeric separators in numeric literals.\n\n Enforces a convention of grouping digits using [numeric separators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#Numeric_separators).\n Long numbers can become difficult to read, so separating groups of digits with an underscore (`_`) improves code clarity. This rule also enforces proper usage of the numeric separator, by checking if the groups of digits are of the correct size.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n var a = 1234567890;\n ```\n\n ```js,expect_diagnostic\n var a = -999_99;\n ```\n\n ```js,expect_diagnostic\n var a = 0.1234567;\n ```\n\n ```js,expect_diagnostic\n var a = 0b11001100;\n ```\n\n ### Valid\n\n ```js\n var a = 1_234_567_890;\n ```\n\n ```js\n var a = -99_999;\n ```\n\n ```js\n var a = 0.123_456_7;\n ```\n\n ```js\n var a = 0b1100_1100;\n ```\n\n"
           },
           "useParseIntRadix": {
             "deprecated": false,
@@ -4416,7 +4434,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 314
+    "numberOrRules": 315
   },
   "syntax": {
     "languages": {
