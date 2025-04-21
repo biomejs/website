@@ -1,0 +1,136 @@
+---
+title: Diagnósticos
+description: Conoce las diferentes partes de los diagnósticos de Biome
+---
+
+import DiagnosticFatal from "@/components/generated/diagnostics/DiagnosticFatal.md";
+import DiagnosticError from "@/components/generated/diagnostics/DiagnosticError.md";
+import DiagnosticWarning from "@/components/generated/diagnostics/DiagnosticWarning.md";
+import DiagnosticInformation from "@/components/generated/diagnostics/DiagnosticInformation.md";
+import DiagnosticVerbose from "@/components/generated/diagnostics/DiagnosticVerbose.md";
+import DiagnosticInternal from "@/components/generated/diagnostics/DiagnosticInternal.md";
+import DiagnosticFixable from "@/components/generated/diagnostics/DiagnosticFixable.md";
+import DiagnosticDeprecated from "@/components/generated/diagnostics/DiagnosticDeprecated.md";
+import DiagnosticCategorySimple from "@/components/generated/diagnostics/DiagnosticCategorySimple.md";
+import DiagnosticCategoryLink from "@/components/generated/diagnostics/DiagnosticCategoryLink.md";
+import DiagnosticLocFile from "@/components/generated/diagnostics/DiagnosticLocFile.md";
+import DiagnosticLocFrame from "@/components/generated/diagnostics/DiagnosticLocFrame.md";
+import DiagnosticLocAll from "@/components/generated/diagnostics/DiagnosticLocAll.md";
+import DiagnosticLocMultiline from "@/components/generated/diagnostics/DiagnosticLocMultiline.md";
+import DiagnosticWithAdvice from "@/components/generated/diagnostics/DiagnosticWithAdvice.md";
+
+Los diagnósticos de Biome están llenos de información, y normalmente proporcionan toda la información que necesita para entender los errores, y solucionarlos.
+
+Los diagnósticos no sólo sirven para detectar errores, sino también para proporcionar información estructurada, advertencias y consejos.
+
+Esta página ofrece un desglose de toda la información que puede contener un diagnóstico. Aprender todas las partes de un diagnóstico puede ayudarle a identificar las partes importantes y algunos "secretos" que se esconden tras ellas.
+
+## Gravedad del diagnóstico
+
+La gravedad del diagnóstico puede afectar a la CLI. Por ejemplo, los diagnósticos de error obligarán a la CLI a salir con un código de error.
+
+### Fatal
+
+Los diagnósticos de error tienen texto en rojo. Los diagnósticos fatales suelen emitirse cuando se produce un error inesperado dentro de Biome. En comparación con los errores, tienen la [etiqueta fatal](#etiquetas-de-diagnóstico).
+
+<DiagnosticFatal />
+
+### Error
+
+Los diagnósticos de error tienen texto en rojo. Por lo general, deben ser abordados porque emitirán un código de error cuando se encuentran por la CLI.
+
+<DiagnosticError />
+
+### Advertencia
+
+Los diagnósticos de advertencia tienen texto amarillo. Por lo general, deben ser atendidos. Las advertencias no son bloqueos y no impedirán que la CLI funcione.
+
+<DiagnosticWarning />
+
+### Información
+
+Los diagnósticos de información tienen texto verde. Proporcionan información útil y no están destinados a bloquear la CLI.
+
+<DiagnosticInformation />
+
+## Etiquetas de diagnóstico
+
+Las etiquetas pueden verse como metadatos adjuntos a un diagnóstico, y pueden afectar a los clientes de diferentes maneras.
+
+### Verbose
+
+Los diagnósticos detallados suelen estar ocultos. A través de la CLI, puede mostrar estos diagnósticos utilizando la opción `--verbose`.
+
+<DiagnosticVerbose />
+
+### Interno
+
+Los diagnósticos internos se emiten cuando se produce un error interno. Normalmente se anima a los usuarios a presentar un error cuando ven uno.
+
+<DiagnosticInternal />
+
+### Reparable
+
+Los diagnósticos reparables se emiten para aquellas situaciones particulares que pueden ser reparadas por el usuario. Suelen utilizarse para diagnósticos de pelusa que tienen una acción de código.
+
+<DiagnosticFixable />
+
+### Obsoleto
+
+Diagnósticos que contienen código obsoleto
+
+<DiagnosticDeprecated />
+
+## Categoría de diagnóstico
+
+La categoría sirve para el diagnóstico del grupo. Opcionalmente, una categoría puede tener un enlace, por ejemplo para categorías que pertenecen a reglas de lint, como en el ejemplo siguiente.
+
+### Categoría simple
+
+Este diagnóstico pertenece a la categoría "`check`", lo que significa que se emite al ejecutar el comando `check`:
+
+<DiagnosticCategorySimple />
+
+### Categoría con enlace
+
+Este diagnóstico pertenece a la categoría "`lint/a11y/noAccessKey`". El enlace lleva al usuario a la página web de la regla lint `noAccessKey`.
+
+<DiagnosticCategoryLink />
+
+## Localización del diagnóstico
+
+Los diagnósticos pueden tener una "localización". Una ubicación se compone de tres partes opcionales:
+
+- un recurso, que es el origen que emitió el diagnóstico;
+- código fuente del archivo;
+- un span (o rango de texto), normalmente la **línea** y la **columna** dentro del archivo.
+
+### Ruta del archivo de diagnóstico
+
+La ruta del archivo suele ser la primera información que aparece, en la parte superior izquierda del diagnóstico.
+
+<DiagnosticLocFile />
+
+### Código fuente de diagnóstico
+
+Esto muestra cómo se muestra el código fuente asociado a un archivo. Observa que la línea y las columnas no se muestran.
+
+<DiagnosticLocFrame />
+
+### Línea y columna de diagnóstico
+
+**Line** y **column** suele imprimirse junto a la ruta del archivo, y sólo se muestra cuando hay algún código fuente asociado.
+
+<DiagnosticLocAll />
+
+Cuando los diagnósticos se imprimen dentro de la terminal de un IDE, puede hacer clic en `ruta/al/archivo.js:2:2`, y el IDE abrirá el archivo relativo, y colocará el cursor al principio del tramo.
+
+<DiagnosticLocMultiline />
+
+## Consejos de diagnóstico
+
+Además, nuestros diagnósticos pueden almacenar avisos. Los avisos son mensajes adicionales que pueden añadirse al mensaje original.
+
+Estos consejos son de diferentes tipos y formas. Normalmente, los consejos siempre se imprimen, a menos que sean _consejos verbales_.
+
+<DiagnosticWithAdvice />
