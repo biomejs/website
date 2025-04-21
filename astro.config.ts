@@ -482,9 +482,9 @@ export default defineConfig({
 						{
 							label: "Diagnostics",
 							link: "/reference/diagnostics",
-              badge: "new",
+							badge: "new",
 							translations: {
-                es: "Diagnósticos",
+								es: "Diagnósticos",
 								ja: "診断",
 							},
 						},

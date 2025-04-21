@@ -3,11 +3,11 @@ title: Linter
 description: Cómo utilizar el linter de Biome.
 ---
 
-import NumberOfRules from "@/components/linter/generated/NumberOfRules.astro";
+import NumberOfRules from "@/components/generated/linter/NumberOfRules.astro";
 import PackageManagerBiomeCommand from "@/components/PackageManagerBiomeCommand.astro";
 
 El linter de Biome analiza estáticamente tu código para encontrar y corregir errores comunes y ayudarte a escribir un código mejor y más moderno.
-Es [compatible con varios idiomas](/internals/language-support) y ofrece un total de [**<NumberOfRules/> reglas**](/linter/rules/).
+Es [compatible con varios idiomas](/internals/language-support) y ofrece un total de **<NumberOfRules/> reglas**.
 
 ## Reglas
 
@@ -25,15 +25,15 @@ Puedes hacer que un comando que emita diagnósticos `warn` falle utilizando la o
 biome lint --error-on-warnings ./src
 ```
 
-Por defecto, el linter de Biome sólo ejecuta las [**reglas recomendadas**](/linter/rules#recommended-rules).
+Por defecto, el linter de Biome sólo ejecuta las **reglas recomendadas**.
 Para desactivar _todas las reglas_, puedes desactivar las reglas recomendadas en tu archivo de configuración de Biome.
 Esto puede ser útil en los casos en que sólo deseas activar unas pocas reglas.
 Las reglas recomendadas emiten diagnósticos con la gravedad `error`.
 
 Las reglas se dividen en grupos.
-Por ejemplo, la regla `noDebugger` forma parte del [grupo `suspicious`](/linter/rules#suspicious).
+Por ejemplo, la regla `noDebugger` forma parte del [grupo `suspicious`](/linter#suspicious).
 Las reglas de este grupo detectan el código que puede ser incorrecto o inútil.
-La descripción de cada grupo se encuentra en la [página de reglas](/linter/rules/).
+La descripción de cada grupo se encuentra en la página de reglas.
 
 A diferencia de otros linters, no proporcionamos ninguna regla que compruebe el formato del código.
 Este tipo de comprobación está cubierta por nuestro [formateador de código](/es/formatter/).
