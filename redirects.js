@@ -292,6 +292,7 @@ export default {
   '/linter/rules/useNumberNamespace': '/linter/rules/use-number-namespace',
   '/linter/rules/useNumberToFixedDigitsArgument': '/linter/rules/use-number-to-fixed-digits-argument',
   '/linter/rules/useNumericLiterals': '/linter/rules/use-numeric-literals',
+  '/linter/rules/useNumericSeparators': '/linter/rules/use-numeric-separators',
   '/linter/rules/useOptionalChain': '/linter/rules/use-optional-chain',
   '/linter/rules/useParseIntRadix': '/linter/rules/use-parse-int-radix',
   '/linter/rules/useRegexLiterals': '/linter/rules/use-regex-literals',

@@ -51,6 +51,46 @@ Rules that belong to the domain:
 - [noUnwantedPolyfillio](/linter/rules/no-unwanted-polyfillio) (recommended)
 - [useGoogleFontDisplay](/linter/rules/use-google-font-display) (recommended)
 - [useGoogleFontPreconnect](/linter/rules/use-google-font-preconnect) (recommended)
+## Project
+This domain contains rules that perform project-level analysis. This includes our module graph for dependency resolution, as well as type information. When enabling rules that belong to this domain, Biome will scan the entire project. The scanning phase will have a performance impact on the linting process.
+### Project activation
+Enabled the **recommended** rules of the domain:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"project": "recommended"
+		}
+	}
+}
+```
+Enabled the **all** rules of the domain:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"project": "all"
+		}
+	}
+}
+```
+**Disable** all rules of the domain:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"project": "off"
+		}
+	}
+}
+```
+### Project rules
+Rules that belong to the domain:
+- [noPrivateImports](/linter/rules/no-private-imports) (recommended)
+- [useImportExtensions](/linter/rules/use-import-extensions)
+- [noFloatingPromises](/linter/rules/no-floating-promises) (recommended)
+- [noImportCycles](/linter/rules/no-import-cycles)
+- [noUnresolvedImports](/linter/rules/no-unresolved-imports)
 ## React
 Use this domain inside React projects. It enables a set of rules that can help catching bugs and enforce correct practices. This domain enable rules that might conflict with the Solid domain.
 ### React activation

@@ -1641,7 +1641,7 @@ export function GET() {
             "fixKind": "safe",
             "sources": [
               {
-                "eslint": "ban-ts-comment"
+                "eslintTypeScript": "ban-ts-comment"
               }
             ],
             "sourceKind": "inspired",
@@ -1774,7 +1774,7 @@ export function GET() {
             "name": "useConsistentObjectDefinition",
             "link": "https://biomejs.dev/linter/rules/use-consistent-object-definition",
             "recommended": false,
-            "fixKind": "none",
+            "fixKind": "safe",
             "sources": [
               {
                 "eslint": "object-shorthand"
@@ -1825,6 +1825,24 @@ export function GET() {
               }
             ],
             "docs": " Require `for-in` loops to include an `if` statement.\n\n Looping over objects with a `for-in` loop will include properties inherited through the prototype chain.\n This behavior can lead to unexpected items in your for loop.\n\n For codebases that do not support ES2022, `Object.prototype.hasOwnProperty.call(foo, key)` can be used as a check that the property is not inherited.\n\n For codebases that do support ES2022, `Object.hasOwn(foo, key)` can be used as a shorter and more reliable alternative.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n for (key in foo) {\n   doSomething(key);\n }\n ```\n\n ### Valid\n\n ```js\n for (key in foo) {\n   if (Object.hasOwn(foo, key)) {\n    doSomething(key);\n   }\n }\n ```\n\n ```js\n for (key in foo) {\n   if (Object.prototype.hasOwnProperty.call(foo, key)) {\n     doSomething(key);\n   }\n }\n ```\n\n ```js\n for (key in foo) {\n   if ({}.hasOwnProperty.call(foo, key)) {\n     doSomething(key);\n   }\n }\n ```\n\n"
+          },
+          "useNumericSeparators": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useNumericSeparators",
+            "link": "https://biomejs.dev/linter/rules/use-numeric-separators",
+            "recommended": false,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "eslintUnicorn": "numeric-separators-style"
+              },
+              {
+                "clippy": "unreadable_literal"
+              }
+            ],
+            "sourceKind": "sameLogic",
+            "docs": " Enforce the use of numeric separators in numeric literals.\n\n Enforces a convention of grouping digits using [numeric separators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#Numeric_separators).\n Long numbers can become difficult to read, so separating groups of digits with an underscore (`_`) improves code clarity. This rule also enforces proper usage of the numeric separator, by checking if the groups of digits are of the correct size.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n var a = 1234567890;\n ```\n\n ```js,expect_diagnostic\n var a = -999_99;\n ```\n\n ```js,expect_diagnostic\n var a = 0.1234567;\n ```\n\n ```js,expect_diagnostic\n var a = 0b11001100;\n ```\n\n ### Valid\n\n ```js\n var a = 1_234_567_890;\n ```\n\n ```js\n var a = -99_999;\n ```\n\n ```js\n var a = 0.123_456_7;\n ```\n\n ```js\n var a = 0b1100_1100;\n ```\n\n"
           },
           "useParseIntRadix": {
             "deprecated": false,
@@ -4049,7 +4067,7 @@ export function GET() {
                 "eslintTypeScript": "no-floating-promises"
               }
             ],
-            "docs": " Require Promise-like statements to be handled appropriately.\n\n A \"floating\" `Promise` is one that is created without any code set up to handle any errors it might throw.\n Floating Promises can lead to several issues, including improperly sequenced operations, unhandled Promise rejections, and other unintended consequences.\n\n This rule will report Promise-valued statements that are not treated in one of the following ways:\n - Calling its `.then()` method with two arguments\n - Calling its `.catch()` method with one argument\n - `await`ing it\n - `return`ing it\n - `void`ing it\n\n :::caution\n ## Important notes\n\n This rule is a work in progress, and is only partially implemented.\n Progress is being tracked in the following GitHub issue: https://github.com/biomejs/biome/issues/3187\n :::\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n async function returnsPromise(): Promise<string> {\n   return 'value';\n }\n returnsPromise().then(() => {});\n ```\n\n ```ts,expect_diagnostic\n const returnsPromise = async (): Promise<string> => {\n   return 'value';\n }\n async function returnsPromiseInAsyncFunction() {\n   returnsPromise().then(() => {});\n }\n ```\n\n ```ts,expect_diagnostic\n const promise = new Promise((resolve) => resolve('value'));\n promise.then(() => { }).finally(() => { });\n ```\n\n ```ts,expect_diagnostic\n Promise.all([p1, p2, p3])\n ```\n\n ```ts,expect_diagnostic\n class Api {\n   async returnsPromise(): Promise<string> {\n     return 'value';\n   }\n   async someMethod() {\n     this.returnsPromise();\n   }\n }\n ```\n\n ```ts,expect_diagnostic\n class Parent {\n   async returnsPromise(): Promise<string> {\n     return 'value';\n   }\n }\n\n class Child extends Parent {\n   async someMethod() {\n     this.returnsPromise();\n   }\n }\n ```\n\n ```ts,expect_diagnostic\n class Api {\n   async returnsPromise(): Promise<string> {\n     return 'value';\n   }\n }\n const api = new Api();\n api.returnsPromise().then(() => {}).finally(() => {});\n ```\n\n ```ts,expect_diagnostic\n const obj = {\n   async returnsPromise(): Promise<string> {\n     return 'value';\n   },\n };\n\n obj.returnsPromise();\n ```\n\n ```ts,expect_diagnostic\n type Props = {\n   returnsPromise: () => Promise<void>;\n };\n\n async function testCallingReturnsPromise(props: Props) {\n   props.returnsPromise();\n }\n ```\n ### Valid\n\n ```ts\n async function returnsPromise(): Promise<string> {\n   return 'value';\n }\n\n await returnsPromise();\n\n void returnsPromise();\n\n // Calling .then() with two arguments\n returnsPromise().then(\n   () => {},\n   () => {},\n );\n\n // Calling .catch() with one argument\n returnsPromise().catch(() => {});\n\n await Promise.all([p1, p2, p3])\n\n class Api {\n   async returnsPromise(): Promise<string> {\n     return 'value';\n   }\n   async someMethod() {\n     await this.returnsPromise();\n   }\n }\n ```\n\n ```ts\n type Props = {\n   returnsPromise: () => Promise<void>;\n };\n\n async function testCallingReturnsPromise(props: Props) {\n   return props.returnsPromise();\n }\n ```\n\n"
+            "docs": " Require Promise-like statements to be handled appropriately.\n\n A \"floating\" `Promise` is one that is created without any code set up to handle any errors it might throw.\n Floating Promises can lead to several issues, including improperly sequenced operations, unhandled Promise rejections, and other unintended consequences.\n\n This rule will report Promise-valued statements that are not treated in one of the following ways:\n - Calling its `.then()` method with two arguments\n - Calling its `.catch()` method with one argument\n - `await`ing it\n - `return`ing it\n - `void`ing it\n\n :::caution\n ## Important notes\n\n This rule is a work in progress, and is only partially implemented.\n Progress is being tracked in the following GitHub issue: https://github.com/biomejs/biome/issues/3187\n :::\n\n ## Examples\n\n ### Invalid\n\n ```ts\n async function returnsPromise(): Promise<string> {\n   return 'value';\n }\n returnsPromise().then(() => {});\n ```\n\n ```ts\n const returnsPromise = async (): Promise<string> => {\n   return 'value';\n }\n async function returnsPromiseInAsyncFunction() {\n   returnsPromise().then(() => {});\n }\n ```\n\n ```ts\n const promise = new Promise((resolve) => resolve('value'));\n promise.then(() => { }).finally(() => { });\n ```\n\n ```ts\n Promise.all([p1, p2, p3])\n ```\n\n ```ts\n class Api {\n   async returnsPromise(): Promise<string> {\n     return 'value';\n   }\n   async someMethod() {\n     this.returnsPromise();\n   }\n }\n ```\n\n ```ts\n class Parent {\n   async returnsPromise(): Promise<string> {\n     return 'value';\n   }\n }\n\n class Child extends Parent {\n   async someMethod() {\n     this.returnsPromise();\n   }\n }\n ```\n\n ```ts\n class Api {\n   async returnsPromise(): Promise<string> {\n     return 'value';\n   }\n }\n const api = new Api();\n api.returnsPromise().then(() => {}).finally(() => {});\n ```\n\n ```ts\n const obj = {\n   async returnsPromise(): Promise<string> {\n     return 'value';\n   },\n };\n\n obj.returnsPromise();\n ```\n\n ```ts\n type Props = {\n   returnsPromise: () => Promise<void>;\n };\n\n async function testCallingReturnsPromise(props: Props) {\n   props.returnsPromise();\n }\n ```\n ### Valid\n\n ```ts\n async function returnsPromise(): Promise<string> {\n   return 'value';\n }\n\n await returnsPromise();\n\n void returnsPromise();\n\n // Calling .then() with two arguments\n returnsPromise().then(\n   () => {},\n   () => {},\n );\n\n // Calling .catch() with one argument\n returnsPromise().catch(() => {});\n\n await Promise.all([p1, p2, p3])\n\n class Api {\n   async returnsPromise(): Promise<string> {\n     return 'value';\n   }\n   async someMethod() {\n     await this.returnsPromise();\n   }\n }\n ```\n\n ```ts\n type Props = {\n   returnsPromise: () => Promise<void>;\n };\n\n async function testCallingReturnsPromise(props: Props) {\n   return props.returnsPromise();\n }\n ```\n\n"
           },
           "noRestrictedTypes": {
             "deprecated": false,
@@ -4416,7 +4434,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 314
+    "numberOrRules": 315
   },
   "syntax": {
     "languages": {
