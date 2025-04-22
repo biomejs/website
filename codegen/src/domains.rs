@@ -91,6 +91,13 @@ impl DocDomains {
                     writeln!(buffer, "## {name}")?;
                     writeln!(buffer, "Use this domain inside Next.js projects.")?;
                 }
+                RuleDomain::Project => {
+                    writeln!(buffer, "## {name}")?;
+                    writeln!(
+                        buffer,
+                        "This domain contains rules that perform project-level analysis. This includes our module graph for dependency resolution, as well as type information. When enabling rules that belong to this domain, Biome will scan the entire project. The scanning phase will have a performance impact on the linting process."
+                    )?;
+                }
             }
             Self::write_activation(name.as_str(), buffer)?;
             Self::write_dependencies(domain, name.as_str(), buffer)?;
