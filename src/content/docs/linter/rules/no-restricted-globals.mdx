@@ -52,7 +52,10 @@ source code.
 ```json
 {
     "options": {
-        "deniedGlobals": ["$", "MooTools"]
+        "deniedGlobals": {
+            "$": "jQuery is not allowed. Use native DOM manipulation instead.",
+            "MooTools": "Do not use MooTools, use MeowTools instead."
+        }
     }
 }
 ```
