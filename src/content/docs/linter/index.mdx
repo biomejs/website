@@ -391,16 +391,11 @@ c == d;
 f == g;
 ```
 
-The range suppression comments use a [FILO](https://en.wikipedia.org/wiki/FIFO_(computing_and_electronics)) queue (First in, Last out), which means that the first range suppression encountered by Biome will be the last one to be disabled.
+:::note
+Range suppressions must have a matching `biome-ignore-end` suppression. 
+:::
 
-The following example goes more in detail:
-- The `debugger` statement at line 1 will raise a diagnostic because there's no suppression comment that disables it.
-- The comment `// biome-ignore-start lint/suspicious/noDebugger: reason` at line 2 starts disabling `noDebugger` from line 3 onwards.
-- The comment `// biome-ignore-start lint/suspicious/noDoubleEquals: reason` at line 3 starts disabling `noDoubleEquals` from line 4 onwards.
-- The comment `// biome-ignore-end lint/suspicious/noDoubleEquals: reason` at line 7 terminates the suppression of `noDoubleEquals` that was started by the suppression comment at line 3.
-- The `debugger` statement at line 8 **doesn't** raise diagnostics due to the suppression comment at line 3.
-- The `f == g` statement raises a diagnostic because the rule `noDoubleEquals` isn't suppressed anymore.
-- The rule `noDebugger` is disabled for the rest of the file because there isn't a suppression comment `biome-ignore-end` that "closes" the suppression comment at line 2.
+Range suppressions can also overlap.  Consider the following example:
 
 ```js name="file.js"
 debugger;
@@ -412,7 +407,20 @@ c == d;
 // biome-ignore-end lint/suspicious/noDoubleEquals: reason
 debugger
 f == g;
+// biome-ignore-end lint/suspicious/noDebugger: reason
 ```
+
+In the above code:
+
+- The `debugger` statement at line 1 will raise a diagnostic because there's no suppression comment that disables it.
+- The comment `// biome-ignore-start lint/suspicious/noDebugger: reason` at line 2 starts disabling `noDebugger` from line 3 onwards.
+- The comment `// biome-ignore-start lint/suspicious/noDoubleEquals: reason` at line 4 starts disabling `noDoubleEquals` from line 5 onwards.
+- The comment `// biome-ignore-end lint/suspicious/noDoubleEquals: reason` at line 7 terminates the suppression of `noDoubleEquals` that was started by the suppression comment at line 4.
+- The `debugger` statement at line 8 **doesn't** raise diagnostics due to the suppression comment at line 2.
+- The `f == g` statement raises a diagnostic because the rule `noDoubleEquals` isn't suppressed anymore.
+- The comment `// biome-ignore-end lint/suspicious/noDebugger: reason` at line 7 terminates the suppression of `noDebugger` that was started by the suppression comment at line 2.
+
+
 
 ## Integration with editors
 
