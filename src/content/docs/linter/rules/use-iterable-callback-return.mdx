@@ -1,0 +1,106 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: useIterableCallbackReturn
+description: Learn more about useIterableCallbackReturn
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+## Summary
+:::note
+This rule is currently only available in the [2.0 beta release](/blog/biome-v2-0-beta).
+:::
+- Diagnostic Category: [`lint/nursery/useIterableCallbackReturn`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Same as [`array-callback-return`](https://eslint.org/docs/latest/rules/array-callback-return)
+
+:::caution
+This rule is part of the [nursery](/linter/rules/#nursery) group.
+:::
+## Description
+Enforce consistent return values in iterable callbacks.
+
+This rule ensures that callbacks passed to certain iterable methods either always return a value or never return a value, depending on the method's requirements.
+
+## Methods and Their Requirements
+
+The following methods require a return in their callback:
+
+- `every`
+- `filter`
+- `find`
+- `findIndex`
+- `findLast`
+- `findLastIndex`
+- `flatMap`
+- `map`
+- `reduce`
+- `reduceRight`
+- `some`
+- `sort`
+- `toSorted`
+— `from` (when called on `Array`)
+
+A return value is disallowed in the  method `forEach`.
+
+## Examples
+
+### Invalid
+
+```js
+[].map(() => {
+    // Missing return value
+});
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:4 <a href="https://biomejs.dev/linter/rules/use-iterable-callback-return">lint/nursery/useIterableCallbackReturn</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This </span><span style="color: Tomato;"><strong>callback</strong></span><span style="color: Tomato;"> passed to </span><span style="color: Tomato;"><strong>map() iterable method</strong></span><span style="color: Tomato;"> should always </span><span style="color: Tomato;"><strong>return</strong></span><span style="color: Tomato;"> a value.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>[].map(() =&gt; &#123;<br />   <strong>   │ </strong>   <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>    // Missing return value<br />    <strong>3 │ </strong>&#125;);<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Add a </span><span style="color: lightgreen;"><strong>return</strong></span><span style="color: lightgreen;"> with a value to this callback.</span><br />  <br /></code></pre>
+
+```js
+[].forEach(() => {
+    return 1; // Should not return a value
+});
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:4 <a href="https://biomejs.dev/linter/rules/use-iterable-callback-return">lint/nursery/useIterableCallbackReturn</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This </span><span style="color: Tomato;"><strong>callback</strong></span><span style="color: Tomato;"> passed to </span><span style="color: Tomato;"><strong>forEach() iterable method</strong></span><span style="color: Tomato;"> should not </span><span style="color: Tomato;"><strong>return</strong></span><span style="color: Tomato;"> a value.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>[].forEach(() =&gt; &#123;<br />   <strong>   │ </strong>   <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>    return 1; // Should not return a value<br />    <strong>3 │ </strong>&#125;);<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Either remove this </span><span style="color: lightgreen;"><strong>return</strong></span><span style="color: lightgreen;"> or remove the returned value.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>[].forEach(() =&gt; &#123;<br />   <strong>   │ </strong>                  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>    return 1; // Should not return a value<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>&#125;);<br />    <strong>4 │ </strong><br />  <br /></code></pre>
+
+### Valid
+
+```js
+[].map(() => {
+    return 1; // Correctly returns a value
+});
+```
+
+```js
+[].forEach(() => {
+    // No return value, which is correct
+});
+```
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useIterableCallbackReturn": "error"
+			}
+		}
+	}
+}
+
+```
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
+</Tabs>
+

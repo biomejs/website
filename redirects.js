@@ -278,6 +278,7 @@ export default {
   '/linter/rules/useImportType': '/linter/rules/use-import-type',
   '/linter/rules/useIsArray': '/linter/rules/use-is-array',
   '/linter/rules/useIsNan': '/linter/rules/use-is-nan',
+  '/linter/rules/useIterableCallbackReturn': '/linter/rules/use-iterable-callback-return',
   '/linter/rules/useJsxKeyInIterable': '/linter/rules/use-jsx-key-in-iterable',
   '/linter/rules/useKeyWithClickEvents': '/linter/rules/use-key-with-click-events',
   '/linter/rules/useKeyWithMouseEvents': '/linter/rules/use-key-with-mouse-events',
