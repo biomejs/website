@@ -10,23 +10,23 @@ importers:
     dependencies:
       starlight-links-validator:
         specifier: ^0.15.0
-        version: 0.15.0(@astrojs/starlight@0.33.1(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.30)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)))
+        version: 0.15.0(@astrojs/starlight@0.33.1(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.31)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)))
     devDependencies:
       '@astrojs/netlify':
         specifier: 6.2.5
-        version: 6.2.5(@types/node@20.17.30)(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.30)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))
+        version: 6.2.5(@types/node@20.17.31)(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.31)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))
       '@astrojs/prism':
         specifier: 3.2.0
         version: 3.2.0
       '@astrojs/react':
         specifier: 4.2.3
-        version: 4.2.3(@types/node@20.17.30)(@types/react-dom@18.3.6(@types/react@18.3.20))(@types/react@18.3.20)(jiti@1.21.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))
+        version: 4.2.3(@types/node@20.17.31)(@types/react-dom@18.3.6(@types/react@18.3.20))(@types/react@18.3.20)(jiti@1.21.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))
       '@astrojs/rss':
         specifier: 4.0.11
         version: 4.0.11
       '@astrojs/starlight':
         specifier: 0.33.1
-        version: 0.33.1(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.30)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
+        version: 0.33.1(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.31)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
       '@biomejs/biome':
         specifier: 1.9.4
         version: 1.9.4
@@ -62,7 +62,7 @@ importers:
         version: 0.1.1
       '@lunariajs/starlight':
         specifier: 0.1.1
-        version: 0.1.1(@astrojs/starlight@0.33.1(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.30)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)))(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.30)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
+        version: 0.1.1(@astrojs/starlight@0.33.1(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.31)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)))(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.31)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
       '@playwright/test':
         specifier: 1.52.0
         version: 1.52.0
@@ -70,8 +70,8 @@ importers:
         specifier: 6.0.0
         version: 6.0.0(@codemirror/autocomplete@6.15.0(@codemirror/language@6.10.1)(@codemirror/state@6.5.2)(@codemirror/view@6.36.5)(@lezer/common@1.2.1))(@codemirror/lang-css@6.3.1(@codemirror/view@6.36.5))(@codemirror/lang-html@6.4.9)(@codemirror/lang-javascript@6.2.3)(@codemirror/language@6.10.1)(@codemirror/state@6.5.2)(@codemirror/view@6.36.5)(@lezer/common@1.2.1)(@lezer/highlight@1.2.0)(@lezer/javascript@1.4.14)(@lezer/lr@1.4.0)
       '@types/node':
-        specifier: 20.17.30
-        version: 20.17.30
+        specifier: 20.17.31
+        version: 20.17.31
       '@types/react':
         specifier: 18.3.20
         version: 18.3.20
@@ -83,13 +83,13 @@ importers:
         version: 4.23.10(@babel/runtime@7.24.4)(@codemirror/autocomplete@6.15.0(@codemirror/language@6.10.1)(@codemirror/state@6.5.2)(@codemirror/view@6.36.5)(@lezer/common@1.2.1))(@codemirror/language@6.10.1)(@codemirror/lint@6.8.5)(@codemirror/search@6.5.6)(@codemirror/state@6.5.2)(@codemirror/theme-one-dark@6.1.2)(@codemirror/view@6.36.5)(codemirror@6.0.1(@lezer/common@1.2.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@vitejs/plugin-react':
         specifier: 4.3.4
-        version: 4.3.4(vite@6.2.6(@types/node@20.17.30)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49)))
+        version: 4.3.4(vite@6.2.6(@types/node@20.17.31)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49)))
       astro:
         specifier: 5.6.1
-        version: 5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.30)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)
+        version: 5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.31)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)
       astro-og-canvas:
         specifier: 0.7.0
-        version: 0.7.0(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.30)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
+        version: 0.7.0(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.31)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
       autoprefixer:
         specifier: 10.4.21
         version: 10.4.21(postcss@8.4.49)
@@ -158,7 +158,7 @@ importers:
         version: 0.33.5
       starlight-blog:
         specifier: 0.20.0
-        version: 0.20.0(@astrojs/starlight@0.33.1(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.30)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)))(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.30)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
+        version: 0.20.0(@astrojs/starlight@0.33.1(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.31)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)))(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.31)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
       textlint:
         specifier: 14.4.2
         version: 14.4.2
@@ -173,10 +173,10 @@ importers:
         version: 5.7.3
       vite:
         specifier: 6.2.6
-        version: 6.2.6(@types/node@20.17.30)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))
+        version: 6.2.6(@types/node@20.17.31)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))
       vite-plugin-svgr:
         specifier: 4.3.0
-        version: 4.3.0(rollup@4.34.5)(typescript@5.7.3)(vite@6.2.6(@types/node@20.17.30)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49)))
+        version: 4.3.0(rollup@4.34.5)(typescript@5.7.3)(vite@6.2.6(@types/node@20.17.31)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49)))
 
 packages:
 
@@ -1214,8 +1214,8 @@ packages:
   '@types/node@17.0.45':
     resolution: {integrity: sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==}
 
-  '@types/node@20.17.30':
-    resolution: {integrity: sha512-7zf4YyHA+jvBNfVrk2Gtvs6x7E8V+YDW05bNfG2XkWDJfYRXrTiP/DsB2zSYTaHX0bGIujTBQdMVAhb+j7mwpg==}
+  '@types/node@20.17.31':
+    resolution: {integrity: sha512-quODOCNXQAbNf1Q7V+fI8WyErOCh0D5Yd31vHnKu4GkSztGQ7rlltAaqXhHhLl33tlVyUXs2386MkANSwgDn6A==}
 
   '@types/picomatch@3.0.2':
     resolution: {integrity: sha512-n0i8TD3UDB7paoMMxA3Y65vUncFJXjcUf7lQY7YyKGl6031FNjfsLs6pdLFCy2GNFxItPJG8GvvpbZc2skH7WA==}
@@ -4095,12 +4095,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/mdx@4.0.8(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.30)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))':
+  '@astrojs/mdx@4.0.8(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.31)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))':
     dependencies:
       '@astrojs/markdown-remark': 6.1.0
       '@mdx-js/mdx': 3.1.0(acorn@8.14.1)
       acorn: 8.14.1
-      astro: 5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.30)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)
+      astro: 5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.31)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)
       es-module-lexer: 1.6.0
       estree-util-visit: 2.0.0
       hast-util-to-html: 9.0.5
@@ -4114,17 +4114,17 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/netlify@6.2.5(@types/node@20.17.30)(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.30)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))':
+  '@astrojs/netlify@6.2.5(@types/node@20.17.31)(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.31)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))':
     dependencies:
       '@astrojs/internal-helpers': 0.6.1
       '@astrojs/underscore-redirects': 0.6.0
       '@netlify/blobs': 8.1.1
       '@netlify/functions': 3.0.1
       '@vercel/nft': 0.29.2(rollup@4.34.5)
-      astro: 5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.30)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)
+      astro: 5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.31)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)
       esbuild: 0.25.0
       tinyglobby: 0.2.12
-      vite: 6.2.6(@types/node@20.17.30)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))
+      vite: 6.2.6(@types/node@20.17.31)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))
     transitivePeerDependencies:
       - '@types/node'
       - encoding
@@ -4145,15 +4145,15 @@ snapshots:
     dependencies:
       prismjs: 1.29.0
 
-  '@astrojs/react@4.2.3(@types/node@20.17.30)(@types/react-dom@18.3.6(@types/react@18.3.20))(@types/react@18.3.20)(jiti@1.21.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))':
+  '@astrojs/react@4.2.3(@types/node@20.17.31)(@types/react-dom@18.3.6(@types/react@18.3.20))(@types/react@18.3.20)(jiti@1.21.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))':
     dependencies:
       '@types/react': 18.3.20
       '@types/react-dom': 18.3.6(@types/react@18.3.20)
-      '@vitejs/plugin-react': 4.3.4(vite@6.2.6(@types/node@20.17.30)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49)))
+      '@vitejs/plugin-react': 4.3.4(vite@6.2.6(@types/node@20.17.31)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49)))
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       ultrahtml: 1.5.3
-      vite: 6.2.6(@types/node@20.17.30)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))
+      vite: 6.2.6(@types/node@20.17.31)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))
     transitivePeerDependencies:
       - '@types/node'
       - jiti
@@ -4179,16 +4179,16 @@ snapshots:
       stream-replace-string: 2.0.0
       zod: 3.24.2
 
-  '@astrojs/starlight@0.33.1(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.30)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))':
+  '@astrojs/starlight@0.33.1(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.31)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))':
     dependencies:
-      '@astrojs/mdx': 4.0.8(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.30)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
+      '@astrojs/mdx': 4.0.8(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.31)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
       '@astrojs/sitemap': 3.2.1
       '@pagefind/default-ui': 1.3.0
       '@types/hast': 3.0.4
       '@types/js-yaml': 4.0.9
       '@types/mdast': 4.0.4
-      astro: 5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.30)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)
-      astro-expressive-code: 0.40.2(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.30)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
+      astro: 5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.31)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)
+      astro-expressive-code: 0.40.2(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.31)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
       bcp-47: 2.1.0
       hast-util-from-html: 2.0.3
       hast-util-select: 6.0.2
@@ -4767,11 +4767,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@lunariajs/starlight@0.1.1(@astrojs/starlight@0.33.1(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.30)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)))(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.30)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))':
+  '@lunariajs/starlight@0.1.1(@astrojs/starlight@0.33.1(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.31)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)))(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.31)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))':
     dependencies:
-      '@astrojs/starlight': 0.33.1(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.30)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
+      '@astrojs/starlight': 0.33.1(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.31)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
       '@lunariajs/core': 0.1.1
-      astro: 5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.30)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)
+      astro: 5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.31)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)
     transitivePeerDependencies:
       - supports-color
 
@@ -5282,7 +5282,7 @@ snapshots:
 
   '@types/node@17.0.45': {}
 
-  '@types/node@20.17.30':
+  '@types/node@20.17.31':
     dependencies:
       undici-types: 6.19.6
 
@@ -5301,7 +5301,7 @@ snapshots:
 
   '@types/sax@1.2.7':
     dependencies:
-      '@types/node': 20.17.30
+      '@types/node': 20.17.31
 
   '@types/ungap__structured-clone@0.3.3': {}
 
@@ -5357,14 +5357,14 @@ snapshots:
       - rollup
       - supports-color
 
-  '@vitejs/plugin-react@4.3.4(vite@6.2.6(@types/node@20.17.30)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49)))':
+  '@vitejs/plugin-react@4.3.4(vite@6.2.6(@types/node@20.17.31)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49)))':
     dependencies:
       '@babel/core': 7.26.0
       '@babel/plugin-transform-react-jsx-self': 7.25.9(@babel/core@7.26.0)
       '@babel/plugin-transform-react-jsx-source': 7.25.9(@babel/core@7.26.0)
       '@types/babel__core': 7.20.5
       react-refresh: 0.14.2
-      vite: 6.2.6(@types/node@20.17.30)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))
+      vite: 6.2.6(@types/node@20.17.31)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))
     transitivePeerDependencies:
       - supports-color
 
@@ -5428,14 +5428,14 @@ snapshots:
 
   astring@1.8.6: {}
 
-  astro-expressive-code@0.40.2(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.30)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)):
+  astro-expressive-code@0.40.2(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.31)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)):
     dependencies:
-      astro: 5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.30)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)
+      astro: 5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.31)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)
       rehype-expressive-code: 0.40.2
 
-  astro-og-canvas@0.7.0(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.30)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)):
+  astro-og-canvas@0.7.0(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.31)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)):
     dependencies:
-      astro: 5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.30)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)
+      astro: 5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.31)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)
       canvaskit-wasm: 0.39.1
       deterministic-object-hash: 2.0.2
       entities: 4.5.0
@@ -5448,7 +5448,7 @@ snapshots:
       marked-smartypants: 1.1.9(marked@12.0.2)
       ultrahtml: 1.5.3
 
-  astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.30)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3):
+  astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.31)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3):
     dependencies:
       '@astrojs/compiler': 2.11.0
       '@astrojs/internal-helpers': 0.6.1
@@ -5499,8 +5499,8 @@ snapshots:
       unist-util-visit: 5.0.0
       unstorage: 1.15.0(@netlify/blobs@8.1.1)
       vfile: 6.0.3
-      vite: 6.2.6(@types/node@20.17.30)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))
-      vitefu: 1.0.6(vite@6.2.6(@types/node@20.17.30)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49)))
+      vite: 6.2.6(@types/node@20.17.31)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))
+      vitefu: 1.0.6(vite@6.2.6(@types/node@20.17.31)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49)))
       xxhash-wasm: 1.1.0
       yargs-parser: 21.1.1
       yocto-spinner: 0.2.1
@@ -8446,11 +8446,11 @@ snapshots:
 
   sprintf-js@1.0.3: {}
 
-  starlight-blog@0.20.0(@astrojs/starlight@0.33.1(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.30)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)))(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.30)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)):
+  starlight-blog@0.20.0(@astrojs/starlight@0.33.1(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.31)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)))(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.31)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3)):
     dependencies:
-      '@astrojs/mdx': 4.0.8(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.30)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
+      '@astrojs/mdx': 4.0.8(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.31)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
       '@astrojs/rss': 4.0.11
-      '@astrojs/starlight': 0.33.1(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.30)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
+      '@astrojs/starlight': 0.33.1(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.31)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
       astro-remote: 0.3.3
       github-slugger: 2.0.0
       marked: 15.0.4
@@ -8460,9 +8460,9 @@ snapshots:
       - astro
       - supports-color
 
-  starlight-links-validator@0.15.0(@astrojs/starlight@0.33.1(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.30)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))):
+  starlight-links-validator@0.15.0(@astrojs/starlight@0.33.1(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.31)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))):
     dependencies:
-      '@astrojs/starlight': 0.33.1(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.30)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
+      '@astrojs/starlight': 0.33.1(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.31)(jiti@1.21.7)(rollup@4.34.5)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))(typescript@5.7.3))
       '@types/picomatch': 3.0.2
       github-slugger: 2.0.0
       hast-util-from-html: 2.0.3
@@ -8874,32 +8874,32 @@ snapshots:
       '@types/unist': 3.0.2
       vfile-message: 4.0.2
 
-  vite-plugin-svgr@4.3.0(rollup@4.34.5)(typescript@5.7.3)(vite@6.2.6(@types/node@20.17.30)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))):
+  vite-plugin-svgr@4.3.0(rollup@4.34.5)(typescript@5.7.3)(vite@6.2.6(@types/node@20.17.31)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))):
     dependencies:
       '@rollup/pluginutils': 5.1.3(rollup@4.34.5)
       '@svgr/core': 8.1.0(typescript@5.7.3)
       '@svgr/plugin-jsx': 8.1.0(@svgr/core@8.1.0(typescript@5.7.3))
-      vite: 6.2.6(@types/node@20.17.30)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))
+      vite: 6.2.6(@types/node@20.17.31)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))
     transitivePeerDependencies:
       - rollup
       - supports-color
       - typescript
 
-  vite@6.2.6(@types/node@20.17.30)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49)):
+  vite@6.2.6(@types/node@20.17.31)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49)):
     dependencies:
       esbuild: 0.25.0
       postcss: 8.5.3
       rollup: 4.34.5
     optionalDependencies:
-      '@types/node': 20.17.30
+      '@types/node': 20.17.31
       fsevents: 2.3.3
       jiti: 1.21.7
       sass: 1.77.8
       sugarss: 4.0.1(postcss@8.4.49)
 
-  vitefu@1.0.6(vite@6.2.6(@types/node@20.17.30)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))):
+  vitefu@1.0.6(vite@6.2.6(@types/node@20.17.31)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))):
     optionalDependencies:
-      vite: 6.2.6(@types/node@20.17.30)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))
+      vite: 6.2.6(@types/node@20.17.31)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.4.49))
 
   vscode-languageserver-types@3.17.5: {}
 
