@@ -91,7 +91,7 @@ Shows the Biome version information and quit.
   Cap the amount of diagnostics displayed. When `none` is provided, the limit is lifted.
    
   [default: 20]
-- **`    --skip-errors`** &mdash; 
+- **`    --skip-parse-errors`** &mdash; 
   Skip over files containing syntax errors instead of emitting an error diagnostic.
 - **`    --no-errors-on-unmatched`** &mdash; 
   Silence errors that would be emitted in case no files were processed during the execution of the command.
@@ -140,7 +140,7 @@ Prints information for debugging.
   Cap the amount of diagnostics displayed. When `none` is provided, the limit is lifted.
    
   [default: 20]
-- **`    --skip-errors`** &mdash; 
+- **`    --skip-parse-errors`** &mdash; 
   Skip over files containing syntax errors instead of emitting an error diagnostic.
 - **`    --no-errors-on-unmatched`** &mdash; 
   Silence errors that would be emitted in case no files were processed during the execution of the command.
@@ -212,7 +212,7 @@ Stops the Biome daemon server process.
 
 Runs formatter, linter and import sorting to the requested files.
 
-**Usage**: **`biome`** **`check`** \[**`--write`**\] \[**`--unsafe`**\] \[**`--assist-enabled`**=_`<true|false>`_\] \[**`--staged`**\] \[**`--changed`**\] \[**`--since`**=_`REF`_\] \[_`PATH`_\]...
+**Usage**: **`biome`** **`check`** \[**`--write`**\] \[**`--unsafe`**\] \[**`--assist-enabled`**=_`<true|false>`_\] \[**`--enforce-assist`**=_`<true|false>`_\] \[**`--staged`**\] \[**`--changed`**\] \[**`--since`**=_`REF`_\] \[_`PATH`_\]...
 
 **The configuration that is contained inside the file `biome.json`**
 - **`    --vcs-enabled`**=_`<true|false>`_ &mdash; 
@@ -373,8 +373,10 @@ Runs formatter, linter and import sorting to the requested files.
   Whether to account for whitespace sensitivity when formatting HTML (and its super languages). Defaults to "css".
 - **`    --html-formatter-indent-script-and-style`**=_`<true|false>`_ &mdash; 
   Whether to indent the `<script>` and `<style>` tags for HTML (and its super languages). Defaults to false.
+- **`    --html-formatter-self-close-void-elements`**=_`<always|never>`_ &mdash; 
+  Whether void elements should be self-closed. Defaults to never.
 - **`    --assist-enabled`**=_`<true|false>`_ &mdash; 
-  Whether Biome should enable assist via LSP.
+  Whether Biome should enable assist via LSP and CLI.
 
 
 
@@ -391,7 +393,7 @@ Runs formatter, linter and import sorting to the requested files.
   Cap the amount of diagnostics displayed. When `none` is provided, the limit is lifted.
    
   [default: 20]
-- **`    --skip-errors`** &mdash; 
+- **`    --skip-parse-errors`** &mdash; 
   Skip over files containing syntax errors instead of emitting an error diagnostic.
 - **`    --no-errors-on-unmatched`** &mdash; 
   Silence errors that would be emitted in case no files were processed during the execution of the command.
@@ -435,6 +437,8 @@ Runs formatter, linter and import sorting to the requested files.
   Allow to enable or disable the linter check.
 - **`    --assist-enabled`**=_`<true|false>`_ &mdash; 
   Allow to enable or disable the assist.
+- **`    --enforce-assist`**=_`<true|false>`_ &mdash; 
+  Allows to enforce assist, and make the CLI fail if some actions aren't applied. Defaults to `true`.
 - **`    --stdin-file-path`**=_`PATH`_ &mdash; 
   Use this option when you want to format code piped from `stdin`, and print the output to `stdout`.
 
@@ -506,7 +510,7 @@ Run various checks on a set of files.
   Cap the amount of diagnostics displayed. When `none` is provided, the limit is lifted.
    
   [default: 20]
-- **`    --skip-errors`** &mdash; 
+- **`    --skip-parse-errors`** &mdash; 
   Skip over files containing syntax errors instead of emitting an error diagnostic.
 - **`    --no-errors-on-unmatched`** &mdash; 
   Silence errors that would be emitted in case no files were processed during the execution of the command.
@@ -673,7 +677,7 @@ Run the formatter on a set of files.
   Cap the amount of diagnostics displayed. When `none` is provided, the limit is lifted.
    
   [default: 20]
-- **`    --skip-errors`** &mdash; 
+- **`    --skip-parse-errors`** &mdash; 
   Skip over files containing syntax errors instead of emitting an error diagnostic.
 - **`    --no-errors-on-unmatched`** &mdash; 
   Silence errors that would be emitted in case no files were processed during the execution of the command.
@@ -747,7 +751,7 @@ Command to use in CI environments. Runs formatter, linter and import sorting to 
 
 Files won't be modified, the command is a read-only operation.
 
-**Usage**: **`biome`** **`ci`** \[**`--formatter-enabled`**=_`<true|false>`_\] \[**`--linter-enabled`**=_`<true|false>`_\] \[**`--assist-enabled`**=_`<true|false>`_\] \[**`--changed`**\] \[**`--since`**=_`REF`_\] \[_`PATH`_\]...
+**Usage**: **`biome`** **`ci`** \[**`--formatter-enabled`**=_`<true|false>`_\] \[**`--linter-enabled`**=_`<true|false>`_\] \[**`--assist-enabled`**=_`<true|false>`_\] \[**`--enforce-assist`**\] \[**`--changed`**\] \[**`--since`**=_`REF`_\] \[_`PATH`_\]...
 
 **The configuration that is contained inside the file `biome.json`**
 - **`    --vcs-enabled`**=_`<true|false>`_ &mdash; 
@@ -908,8 +912,10 @@ Files won't be modified, the command is a read-only operation.
   Whether to account for whitespace sensitivity when formatting HTML (and its super languages). Defaults to "css".
 - **`    --html-formatter-indent-script-and-style`**=_`<true|false>`_ &mdash; 
   Whether to indent the `<script>` and `<style>` tags for HTML (and its super languages). Defaults to false.
+- **`    --html-formatter-self-close-void-elements`**=_`<always|never>`_ &mdash; 
+  Whether void elements should be self-closed. Defaults to never.
 - **`    --assist-enabled`**=_`<true|false>`_ &mdash; 
-  Whether Biome should enable assist via LSP.
+  Whether Biome should enable assist via LSP and CLI.
 
 
 
@@ -926,7 +932,7 @@ Files won't be modified, the command is a read-only operation.
   Cap the amount of diagnostics displayed. When `none` is provided, the limit is lifted.
    
   [default: 20]
-- **`    --skip-errors`** &mdash; 
+- **`    --skip-parse-errors`** &mdash; 
   Skip over files containing syntax errors instead of emitting an error diagnostic.
 - **`    --no-errors-on-unmatched`** &mdash; 
   Silence errors that would be emitted in case no files were processed during the execution of the command.
@@ -964,6 +970,8 @@ Files won't be modified, the command is a read-only operation.
   Allow to enable or disable the linter check.
 - **`    --assist-enabled`**=_`<true|false>`_ &mdash; 
   Allow to enable or disable the assist.
+- **`    --enforce-assist`** &mdash; 
+  Allows to enforce assist, and make the CLI fail if some actions aren't applied. Defaults to `true`.
 - **`    --changed`** &mdash; 
   When set to true, only the files that have been changed compared to your `defaultBranch` configuration will be linted.
 - **`    --since`**=_`REF`_ &mdash; 
@@ -1029,7 +1037,7 @@ Updates the configuration when there are breaking changes.
   Cap the amount of diagnostics displayed. When `none` is provided, the limit is lifted.
    
   [default: 20]
-- **`    --skip-errors`** &mdash; 
+- **`    --skip-parse-errors`** &mdash; 
   Skip over files containing syntax errors instead of emitting an error diagnostic.
 - **`    --no-errors-on-unmatched`** &mdash; 
   Silence errors that would be emitted in case no files were processed during the execution of the command.
@@ -1125,7 +1133,7 @@ Note: GritQL escapes code snippets using backticks, but most shells interpret ba
   Cap the amount of diagnostics displayed. When `none` is provided, the limit is lifted.
    
   [default: 20]
-- **`    --skip-errors`** &mdash; 
+- **`    --skip-parse-errors`** &mdash; 
   Skip over files containing syntax errors instead of emitting an error diagnostic.
 - **`    --no-errors-on-unmatched`** &mdash; 
   Silence errors that would be emitted in case no files were processed during the execution of the command.
