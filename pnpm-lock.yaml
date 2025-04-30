@@ -94,8 +94,8 @@ importers:
         specifier: 10.4.21
         version: 10.4.21(postcss@8.5.3)
       canvaskit-wasm:
-        specifier: 0.39.1
-        version: 0.39.1
+        specifier: 0.40.0
+        version: 0.40.0
       cm6-graphql:
         specifier: 0.2.0
         version: 0.2.0(@codemirror/autocomplete@6.15.0(@codemirror/language@6.10.1)(@codemirror/state@6.5.2)(@codemirror/view@6.36.6)(@lezer/common@1.2.1))(@codemirror/language@6.10.1)(@codemirror/lint@6.8.5)(@codemirror/state@6.5.2)(@codemirror/view@6.36.6)(@lezer/highlight@1.2.0)(graphql@16.8.2)
@@ -1526,6 +1526,9 @@ packages:
 
   canvaskit-wasm@0.39.1:
     resolution: {integrity: sha512-Gy3lCmhUdKq+8bvDrs9t8+qf7RvcjuQn+we7vTVVyqgOVO1UVfHpsnBxkTZw+R4ApEJ3D5fKySl9TU11hmjl/A==}
+
+  canvaskit-wasm@0.40.0:
+    resolution: {integrity: sha512-Od2o+ZmoEw9PBdN/yCGvzfu0WVqlufBPEWNG452wY7E9aT8RBE+ChpZF526doOlg7zumO4iCS+RAeht4P0Gbpw==}
 
   ccount@1.1.0:
     resolution: {integrity: sha512-vlNK021QdI7PNeiUh/lKkC/mNHHfV0m/Ad5JoI0TYtlBnJAslM/JIkm/tGC88bkLIwO6OQ5uV6ztS6kVAtCDlg==}
@@ -5782,6 +5785,10 @@ snapshots:
   caniuse-lite@1.0.30001703: {}
 
   canvaskit-wasm@0.39.1:
+    dependencies:
+      '@webgpu/types': 0.1.21
+
+  canvaskit-wasm@0.40.0:
     dependencies:
       '@webgpu/types': 0.1.21
 
