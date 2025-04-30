@@ -3,14 +3,14 @@ name: Checks for Japanese documentation
 on:
   workflow_dispatch:
   pull_request:
-    branches: [main]
+    branches: [ main ]
     paths:
       - "src/content/docs/ja/**"
 
 jobs:
   ja-docs-check:
     name: Checks on JA docs
-    runs-on: ubuntu-latest
+    runs-on: depot-ubuntu-24.04-arm-16
     steps:
       - name: Checkout PR branch
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2

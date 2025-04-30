@@ -6,4 +6,9 @@
 	.sponsors-row {
 		margin: 0 auto;
 	}
+	@mixin small-screen-only {
+		.sponsors-row {
+			margin: 1rem auto;
+		}
+	}
 }
