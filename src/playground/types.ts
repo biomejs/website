@@ -14,6 +14,7 @@ export enum PlaygroundTab {
 	AnalyzerFixes = "analyzer-fixes",
 	TypesIr = "types-ir",
 	TypesRegistered = "types-registered",
+	SemanticModel = "semantic-model",
 }
 
 export type { Options as PrettierOptions } from "prettier";
@@ -114,6 +115,7 @@ export interface BiomeOutput {
 	};
 	analysis: {
 		controlFlowGraph: string;
+		semanticModel: string;
 		/** The snippet with lint fixes applied. */
 		fixed: string;
 	};
@@ -138,6 +140,7 @@ export const emptyBiomeOutput: BiomeOutput = {
 	},
 	analysis: {
 		controlFlowGraph: "",
+		semanticModel: "",
 		fixed: "",
 	},
 	types: {

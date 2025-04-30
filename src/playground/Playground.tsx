@@ -49,6 +49,7 @@ import {
 	useState,
 } from "react";
 import AnalyzerFixesTab from "./tabs/AnalyzerFixesTab";
+import SemanticModelTab from "./tabs/SemanticModelTab";
 
 export default function Playground({
 	setPlaygroundState,
@@ -289,6 +290,16 @@ export default function Playground({
 					children: (
 						<TyeInfoTab
 							code={biomeOutput.types.registered}
+							extensions={codeMirrorExtensions}
+						/>
+					),
+				},
+				{
+					key: PlaygroundTab.SemanticModel,
+					title: "Semantic Model",
+					children: (
+						<SemanticModelTab
+							code={biomeOutput.analysis.semanticModel}
 							extensions={codeMirrorExtensions}
 						/>
 					),

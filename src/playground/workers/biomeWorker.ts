@@ -283,6 +283,20 @@ self.addEventListener("message", async (e) => {
 				controlFlowGraph = "";
 			}
 
+			let semanticModel = "";
+			try {
+				semanticModel =
+					fileFeatures.featuresSupported.get("debug") === "supported"
+						? workspace.getSemanticModel({
+								projectKey,
+								path,
+							})
+						: "";
+			} catch (e) {
+				console.warn("Failed to get semantic model:", e);
+				semanticModel = "";
+			}
+
 			let typesIr = "";
 			try {
 				typesIr =
@@ -407,6 +421,7 @@ self.addEventListener("message", async (e) => {
 				},
 				analysis: {
 					controlFlowGraph,
+					semanticModel,
 					fixed: fixed.code,
 				},
 				types: {
