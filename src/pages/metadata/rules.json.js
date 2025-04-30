@@ -1590,6 +1590,20 @@ export function GET() {
             "sourceKind": "inspired",
             "docs": " Disallow usage of sensitive data such as API keys and tokens.\n\n This rule checks for high-entropy strings and matches common patterns\n for secrets, including AWS keys, Slack tokens, and private keys.\n It aims to help users identify immediate potential secret leaks in their codebase,\n especially for those who may not be aware of the risks associated with\n sensitive data exposure.\n\n ## Detected Secrets\n\n The following list contains the patterns we detect:\n\n - **JSON Web Token (JWT)**: Tokens in the format of `ey...`\n - **Base64-encoded JWT**: Base64-encoded JWT tokens with various parameters (alg, aud, iss, etc.)\n - **Slack Token**: Tokens such as `xox[baprs]-...`\n - **Slack Webhook URL**: URLs like `https://hooks.slack.com/services/...`\n - **GitHub Token**: GitHub tokens with lengths between 35-40 characters\n - **Twitter OAuth Token**: Twitter OAuth tokens with lengths between 35-44 characters\n - **Facebook OAuth Token**: Facebook OAuth tokens with possible lengths up to 42 characters\n - **Google OAuth Token**: Google OAuth tokens in the format `ya29...`\n - **AWS API Key**: Keys that begin with `AKIA` followed by 16 alphanumeric characters\n - **Passwords in URLs**: Passwords included in URL credentials (`protocol://user:pass@...`)\n - **Google Service Account**: JSON structure with the service-account identifier\n - **Twilio API Key**: API keys starting with `SK...` followed by 32 characters\n - **RSA Private Key**: Key blocks that start with `-----BEGIN RSA PRIVATE KEY-----`\n - **OpenSSH Private Key**: Key blocks that start with `-----BEGIN OPENSSH PRIVATE KEY-----`\n - **DSA Private Key**: Key blocks that start with `-----BEGIN DSA PRIVATE KEY-----`\n - **EC Private Key**: Key blocks that start with `-----BEGIN EC PRIVATE KEY-----`\n - **PGP Private Key Block**: Key blocks that start with `-----BEGIN PGP PRIVATE KEY BLOCK-----`\n\n ## Entropy Check\n\n In addition to detecting the above patterns, we also employ a **string entropy checker** to catch potential secrets based on their entropy (randomness). The entropy checker is configurable through the `Options`, allowing customization of thresholds for string entropy to fine-tune detection and minimize false positives.\n\n ## Disclaimer\n\n While this rule helps with most common cases, it is not intended to handle all of them.\n Therefore, always review your code carefully and consider implementing additional security\n measures, such as automated secret scanning in your CI/CD and git pipeline.\n\n ## Recommendations\n\n Some recommended tools for more comprehensive secret detection include:\n - [SonarQube](https://www.sonarsource.com/products/sonarqube/downloads/): Clean Code scanning solution with a secret scanner (Community version).\n - [Gitleaks](https://github.com/gitleaks/gitleaks/): A mature secret scanning tool.\n - [Trufflehog](https://github.com/trufflesecurity/trufflehog): A tool for finding secrets in git history.\n - [Sensleak](https://github.com/crates-pro/sensleak-rs): A Rust-based solution for secret detection.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const secret = \"AKIA1234567890EXAMPLE\";\n ```\n\n ### Valid\n\n ```js\n const nonSecret = \"hello world\";\n ```\n"
           },
+          "noShadow": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noShadow",
+            "link": "https://biomejs.dev/linter/rules/no-shadow",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslint": "no-shadow"
+              }
+            ],
+            "docs": " Disallow variable declarations from shadowing variables declared in the outer scope.\n\n Shadowing is the process by which a local variable shares the same name as a variable in its containing scope. This can cause confusion while reading the code and make it impossible to access the global variable.\n\n See also: [`noShadowRestrictedNames`](http://biome.dev/linter/rules/no-shadow-restricted-names)\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const foo = \"bar\";\n if (true) {\n    const foo = \"baz\";\n }\n ```\n\n Variable declarations in functions can shadow variables in the outer scope:\n\n ```js,expect_diagnostic\n const foo = \"bar\";\n const bar = function () {\n     const foo = 10;\n }\n ```\n\n Function argument names can shadow variables in the outer scope:\n\n ```js,expect_diagnostic\n const foo = \"bar\";\n function bar(foo) {\n     foo = 10;\n }\n ```\n\n ### Valid\n\n ```js\n const foo = \"bar\";\n if (true) {\n    const qux = \"baz\";\n }\n ```\n\n"
+          },
           "noStaticElementInteractions": {
             "deprecated": false,
             "version": "1.9.0",
@@ -2966,7 +2980,7 @@ export function GET() {
                 "eslint": "no-shadow-restricted-names"
               }
             ],
-            "docs": " Disallow identifiers from shadowing restricted names.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function NaN() {}\n ```\n\n ```js,expect_diagnostic\n let Set;\n ```\n\n ```js,expect_diagnostic\n try {\t} catch(Object) {}\n ```\n\n ```js,expect_diagnostic\n function Array() {}\n ```\n\n ```js,expect_diagnostic\n function test(JSON) {console.log(JSON)}\n ```\n"
+            "docs": " Disallow identifiers from shadowing restricted names.\n\n See also: [`noShadow`](http://biome.dev/linter/rules/no-shadow)\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function NaN() {}\n ```\n\n ```js,expect_diagnostic\n let Set;\n ```\n\n ```js,expect_diagnostic\n try {\t} catch(Object) {}\n ```\n\n ```js,expect_diagnostic\n function Array() {}\n ```\n\n ```js,expect_diagnostic\n function test(JSON) {console.log(JSON)}\n ```\n"
           },
           "noSkippedTests": {
             "deprecated": false,
@@ -4452,7 +4466,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 316
+    "numberOrRules": 317
   },
   "syntax": {
     "languages": {

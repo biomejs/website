@@ -155,6 +155,7 @@ export default {
   '/linter/rules/noSelfAssign': '/linter/rules/no-self-assign',
   '/linter/rules/noSelfCompare': '/linter/rules/no-self-compare',
   '/linter/rules/noSetterReturn': '/linter/rules/no-setter-return',
+  '/linter/rules/noShadow': '/linter/rules/no-shadow',
   '/linter/rules/noShadowRestrictedNames': '/linter/rules/no-shadow-restricted-names',
   '/linter/rules/noShorthandPropertyOverrides': '/linter/rules/no-shorthand-property-overrides',
   '/linter/rules/noShoutyConstants': '/linter/rules/no-shouty-constants',
