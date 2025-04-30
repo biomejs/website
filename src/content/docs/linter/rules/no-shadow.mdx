@@ -1,0 +1,97 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noShadow
+description: Learn more about noShadow
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+## Summary
+:::note
+This rule is currently only available in the [2.0 beta release](/blog/biome-v2-0-beta).
+:::
+- Diagnostic Category: [`lint/nursery/noShadow`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`no-shadow`](https://eslint.org/docs/latest/rules/no-shadow)
+
+:::caution
+This rule is part of the [nursery](/linter/rules/#nursery) group.
+:::
+## Description
+Disallow variable declarations from shadowing variables declared in the outer scope.
+
+Shadowing is the process by which a local variable shares the same name as a variable in its containing scope. This can cause confusion while reading the code and make it impossible to access the global variable.
+
+See also: [`noShadowRestrictedNames`](http://biome.dev/linter/rules/no-shadow-restricted-names)
+
+## Examples
+
+### Invalid
+
+```js
+const foo = "bar";
+if (true) {
+   const foo = "baz";
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:3:10 <a href="https://biomejs.dev/linter/rules/no-shadow">lint/nursery/noShadow</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This variable shadows another variable with the same name in the outer scope.</span><br />  <br />    <strong>1 │ </strong>const foo = &quot;bar&quot;;<br />    <strong>2 │ </strong>if (true) &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>   const foo = &quot;baz&quot;;<br />   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>&#125;<br />    <strong>5 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This is the shadowed variable, which is now inaccessible in the inner scope.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>const foo = &quot;bar&quot;;<br />   <strong>   │ </strong>      <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>if (true) &#123;<br />    <strong>3 │ </strong>   const foo = &quot;baz&quot;;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Consider renaming this variable. It's easy to confuse the origin of variables if they share the same name.</span><br />  <br /></code></pre>
+
+Variable declarations in functions can shadow variables in the outer scope:
+
+```js
+const foo = "bar";
+const bar = function () {
+    const foo = 10;
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:3:11 <a href="https://biomejs.dev/linter/rules/no-shadow">lint/nursery/noShadow</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This variable shadows another variable with the same name in the outer scope.</span><br />  <br />    <strong>1 │ </strong>const foo = &quot;bar&quot;;<br />    <strong>2 │ </strong>const bar = function () &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>    const foo = 10;<br />   <strong>   │ </strong>          <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>&#125;<br />    <strong>5 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This is the shadowed variable, which is now inaccessible in the inner scope.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>const foo = &quot;bar&quot;;<br />   <strong>   │ </strong>      <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>const bar = function () &#123;<br />    <strong>3 │ </strong>    const foo = 10;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Consider renaming this variable. It's easy to confuse the origin of variables if they share the same name.</span><br />  <br /></code></pre>
+
+Function argument names can shadow variables in the outer scope:
+
+```js
+const foo = "bar";
+function bar(foo) {
+    foo = 10;
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:2:14 <a href="https://biomejs.dev/linter/rules/no-shadow">lint/nursery/noShadow</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This variable shadows another variable with the same name in the outer scope.</span><br />  <br />    <strong>1 │ </strong>const foo = &quot;bar&quot;;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>function bar(foo) &#123;<br />   <strong>   │ </strong>             <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>    foo = 10;<br />    <strong>4 │ </strong>&#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This is the shadowed variable, which is now inaccessible in the inner scope.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>const foo = &quot;bar&quot;;<br />   <strong>   │ </strong>      <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>function bar(foo) &#123;<br />    <strong>3 │ </strong>    foo = 10;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Consider renaming this variable. It's easy to confuse the origin of variables if they share the same name.</span><br />  <br /></code></pre>
+
+### Valid
+
+```js
+const foo = "bar";
+if (true) {
+   const qux = "baz";
+}
+```
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noShadow": "error"
+			}
+		}
+	}
+}
+
+```
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
+</Tabs>
+
