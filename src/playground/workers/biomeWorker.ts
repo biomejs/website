@@ -176,7 +176,7 @@ self.addEventListener("message", async (e) => {
 
 			switch (lintRules) {
 				case LintRules.Recommended: {
-					configuration.linter!.rules = {
+					configuration!.linter!.rules = {
 						nursery: {
 							recommended: false,
 						},
@@ -185,7 +185,7 @@ self.addEventListener("message", async (e) => {
 				}
 				case LintRules.All: {
 					// TODO: not entirely sure what to do here now that we have rule domains, and no longer have a single "all" option
-					configuration.linter!.rules = {
+					configuration!.linter!.rules = {
 						a11y: "on",
 						nursery: "on",
 						complexity: "on",
@@ -283,6 +283,34 @@ self.addEventListener("message", async (e) => {
 				controlFlowGraph = "";
 			}
 
+			let typesIr = "";
+			try {
+				typesIr =
+					fileFeatures.featuresSupported.get("debug") === "supported"
+						? workspace.getTypeInfo({
+								projectKey,
+								path,
+							})
+						: "";
+			} catch (e) {
+				console.warn("Failed to get control flow graph:", e);
+				typesIr = "";
+			}
+
+			let typesRegistered = "";
+			try {
+				typesRegistered =
+					fileFeatures.featuresSupported.get("debug") === "supported"
+						? workspace.getRegisteredTypes({
+								projectKey,
+								path,
+							})
+						: "";
+			} catch (e) {
+				console.warn("Failed to get control flow graph:", e);
+				typesRegistered = "";
+			}
+
 			let formatterIr = "";
 			try {
 				formatterIr =
@@ -311,9 +339,9 @@ self.addEventListener("message", async (e) => {
 				projectKey,
 				path,
 				categories,
-				maxDiagnostics: Number.MAX_SAFE_INTEGER,
 				only: [],
 				skip: [],
+				pullCodeActions: true,
 			});
 
 			const printer = new DiagnosticPrinter(path, code);
@@ -380,6 +408,10 @@ self.addEventListener("message", async (e) => {
 				analysis: {
 					controlFlowGraph,
 					fixed: fixed.code,
+				},
+				types: {
+					ir: typesIr,
+					registered: typesRegistered,
 				},
 			};
 
