@@ -78,7 +78,7 @@
     "vite": "6.2.6",
     "vite-plugin-svgr": "4.3.0"
   },
-  "packageManager": "pnpm@9.15.9",
+  "packageManager": "pnpm@10.10.0",
   "dependencies": {
     "starlight-links-validator": "^0.15.0"
   }
