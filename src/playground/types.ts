@@ -12,6 +12,8 @@ export enum PlaygroundTab {
 	Console = "console",
 	Settings = "settings",
 	AnalyzerFixes = "analyzer-fixes",
+	TypesIr = "types-ir",
+	TypesRegistered = "types-registered",
 }
 
 export type { Options as PrettierOptions } from "prettier";
@@ -81,8 +83,15 @@ export enum WhitespaceSensitivity {
 }
 
 export type PrettierOutput =
-	| { type: "SUCCESS"; code: string; ir: string }
-	| { type: "ERROR"; stack: string };
+	| {
+			type: "SUCCESS";
+			code: string;
+			ir: string;
+	  }
+	| {
+			type: "ERROR";
+			stack: string;
+	  };
 
 export const emptyPrettierOutput: PrettierOutput = {
 	type: "SUCCESS",
@@ -108,6 +117,10 @@ export interface BiomeOutput {
 		/** The snippet with lint fixes applied. */
 		fixed: string;
 	};
+	types: {
+		ir: string;
+		registered: string;
+	};
 }
 
 export const emptyBiomeOutput: BiomeOutput = {
@@ -126,6 +139,10 @@ export const emptyBiomeOutput: BiomeOutput = {
 	analysis: {
 		controlFlowGraph: "",
 		fixed: "",
+	},
+	types: {
+		ir: "",
+		registered: "",
 	},
 };
 
