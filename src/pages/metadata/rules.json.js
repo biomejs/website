@@ -1676,6 +1676,23 @@ export function GET() {
             "sourceKind": "inspired",
             "docs": " Warn when importing non-existing exports.\n\n Importing a non-existing export is an error at runtime or build time.\n Biome can detect such incorrect imports and report errors for them.\n\n Note that if you use TypeScript, you probably don't want to use this\n rule, since TypeScript already performs such checks for you.\n\n ## Known Limitations\n\n * This rule does not validate imports through dynamic `import()`\n   expressions or CommonJS `require()` calls.\n\n ## Examples\n\n ### Invalid\n\n **`foo.js`**\n ```js\n export function foo() {};\n ```\n\n **`bar.js`**\n ```js\n // Attempt to import symbol with a typo:\n import { fooo } from \"./foo.js\";\n ```\n\n ### Valid\n\n **`bar.js`**\n ```js\n // Fixed typo:\n import { foo } from \"./foo.js\";\n ```\n"
           },
+          "noUselessBackrefInRegex": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noUselessBackrefInRegex",
+            "link": "https://biomejs.dev/linter/rules/no-useless-backref-in-regex",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslint": "no-useless-backreference"
+              },
+              {
+                "eslintRegexp": "no-useless-backreference"
+              }
+            ],
+            "docs": " Disallow useless backreferences in regular expression literals that always match an empty string.\n\n A backreference refers to the submatch of a previous capturing group and matches the same text as that group.\n JavaScript regular expression support two syntaxes:\n\n - `\\N` where `N` is a 1-based integer that refers to the N-th declared capturing group.\n - `\\k<name>` that refers to the capturing group named `name`.\n   This syntax is only available in Unicode-aware regular expressions,\n   i.e. regular expressions using the `u` or `v` flag.\n\n A backreference always matches an empty string when it refers to:\n\n - A group that belongs to another alternate branch.\n   In `/(a)|b\\1b/`, the group `(a)` and its backreference `\\1` are in distinct alternate branches.\n   `/(a)|b\\1/` is equivalent to `(a)|b/`.\n\n - A group that appears after the backreference.\n   In `/\\1(a)/`, the group `(a)` is declared after its backreference `\\1`.\n   `/\\1(a)/` is equivalent to `(a)/`.\n\n - A group in which the backreference is declared.\n   In `/(\\1)/`, the backrefernce is nested in the group it refers to.\n   `/(\\1)/` is equivalent to `/()/`.\n\n - A group that is inside a negative lookaround assertion without the backreference.\n   In `/a(?!(b)).\\1/`, the backrefernce is in a negative assertion while its backreference is outside.\n   `/a(?!(b)).\\1/` is equivalent to `/a(?!(b))./`.\n\n - A group that is declared before the backreference inside a lookbehind assertion.\n   In `/(?<=(a)\\1)b/`, the backreference appears after the group while they are in a lookbehind assertion.\n   `/(?<=(a)\\1)b/` is equivalent to `/(?<=(a))b/`.\n\n A backreference that always matches an empty string is always successfully matched and is therefore useless.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n /(a)|b\\1/;\n ```\n\n ```js,expect_diagnostic\n /\\1(a)/;\n ```\n\n ```js,expect_diagnostic\n /(\\1)/;\n ```\n\n ```js,expect_diagnostic\n /a(?!(b)).\\1/;\n ```\n\n ```js,expect_diagnostic\n /(?<=(a)\\1)b/;\n ```\n\n ### Valid\n\n ```js\n /(a)\\1/;\n ```\n\n ```js\n /(?<foo>a)\\k<foo>/u;\n ```\n\n ```js\n /a(?!(b|c)\\1)./;\n ```\n\n"
+          },
           "noUselessEscapeInRegex": {
             "deprecated": false,
             "version": "1.9.0",
@@ -4466,7 +4483,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 317
+    "numberOrRules": 318
   },
   "syntax": {
     "languages": {
