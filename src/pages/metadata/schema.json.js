@@ -250,6 +250,13 @@ export function GET() {
 					"additionalProperties": false
 				},
 				{
+					"description": "Rules from [Eslint Plugin Regexp](https://github.com/ota-meshi/eslint-plugin-regexp)",
+					"type": "object",
+					"required": ["eslintRegexp"],
+					"properties": { "eslintRegexp": { "type": "string" } },
+					"additionalProperties": false
+				},
+				{
 					"description": "Rules from [deno lint](https://github.com/denoland/deno_lint)",
 					"type": "object",
 					"required": ["denoLint"],

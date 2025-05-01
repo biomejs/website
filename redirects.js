@@ -199,6 +199,7 @@ export default {
   '/linter/rules/noUnusedTemplateLiteral': '/linter/rules/no-unused-template-literal',
   '/linter/rules/noUnusedVariables': '/linter/rules/no-unused-variables',
   '/linter/rules/noUnwantedPolyfillio': '/linter/rules/no-unwanted-polyfillio',
+  '/linter/rules/noUselessBackrefInRegex': '/linter/rules/no-useless-backref-in-regex',
   '/linter/rules/noUselessCatch': '/linter/rules/no-useless-catch',
   '/linter/rules/noUselessConstructor': '/linter/rules/no-useless-constructor',
   '/linter/rules/noUselessContinue': '/linter/rules/no-useless-continue',
