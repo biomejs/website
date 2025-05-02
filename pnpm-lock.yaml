@@ -79,8 +79,8 @@ importers:
         specifier: 18.3.6
         version: 18.3.6(@types/react@18.3.20)
       '@uiw/react-codemirror':
-        specifier: 4.23.10
-        version: 4.23.10(@babel/runtime@7.24.4)(@codemirror/autocomplete@6.15.0(@codemirror/language@6.10.1)(@codemirror/state@6.5.2)(@codemirror/view@6.36.6)(@lezer/common@1.2.1))(@codemirror/language@6.10.1)(@codemirror/lint@6.8.5)(@codemirror/search@6.5.6)(@codemirror/state@6.5.2)(@codemirror/theme-one-dark@6.1.2)(@codemirror/view@6.36.6)(codemirror@6.0.1(@lezer/common@1.2.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 4.23.12
+        version: 4.23.12(@babel/runtime@7.24.4)(@codemirror/autocomplete@6.15.0(@codemirror/language@6.10.1)(@codemirror/state@6.5.2)(@codemirror/view@6.36.6)(@lezer/common@1.2.1))(@codemirror/language@6.10.1)(@codemirror/lint@6.8.5)(@codemirror/search@6.5.6)(@codemirror/state@6.5.2)(@codemirror/theme-one-dark@6.1.2)(@codemirror/view@6.36.6)(codemirror@6.0.1(@lezer/common@1.2.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@vitejs/plugin-react':
         specifier: 4.4.1
         version: 4.4.1(vite@6.3.4(@types/node@20.17.31)(jiti@1.21.7)(sass@1.77.8)(sugarss@4.0.1(postcss@8.5.3)))
@@ -1288,8 +1288,8 @@ packages:
   '@types/unist@3.0.2':
     resolution: {integrity: sha512-dqId9J8K/vGi5Zr7oo212BGii5m3q5Hxlkwy3WpYuKPklmBEvsbMYYyLxAQpSffdLl/gdW0XUpKWFvYmyoWCoQ==}
 
-  '@uiw/codemirror-extensions-basic-setup@4.23.10':
-    resolution: {integrity: sha512-zpbmSeNs3OU/f/Eyd6brFnjsBUYwv2mFjWxlAsIRSwTlW+skIT60rQHFBSfsj/5UVSxSLWVeUYczN7AyXvgTGQ==}
+  '@uiw/codemirror-extensions-basic-setup@4.23.12':
+    resolution: {integrity: sha512-l9vuiXOTFDBetYrRLDmz3jDxQHDsrVAZ2Y6dVfmrqi2AsulsDu+y7csW0JsvaMqo79rYkaIZg8yeqmDgMb7VyQ==}
     peerDependencies:
       '@codemirror/autocomplete': '>=6.0.0'
       '@codemirror/commands': '>=6.0.0'
@@ -1299,8 +1299,8 @@ packages:
       '@codemirror/state': '>=6.0.0'
       '@codemirror/view': '>=6.0.0'
 
-  '@uiw/react-codemirror@4.23.10':
-    resolution: {integrity: sha512-AbN4eVHOL4ckRuIXpZxkzEqL/1ChVA+BSdEnAKjIB68pLQvKsVoYbiFP8zkXkYc4+Fcgq5KbAjvYqdo4ewemKw==}
+  '@uiw/react-codemirror@4.23.12':
+    resolution: {integrity: sha512-yseqWdzoAAGAW7i/NiU8YrfSLVOEBjQvSx1KpDTFVV/nn0AlAZoDVTIPEBgdXrPlVUQoCrwgpEaj3uZCklk9QA==}
     peerDependencies:
       '@babel/runtime': '>=7.11.0'
       '@codemirror/state': '>=6.0.0'
@@ -5444,7 +5444,7 @@ snapshots:
 
   '@types/unist@3.0.2': {}
 
-  '@uiw/codemirror-extensions-basic-setup@4.23.10(@codemirror/autocomplete@6.15.0(@codemirror/language@6.10.1)(@codemirror/state@6.5.2)(@codemirror/view@6.36.6)(@lezer/common@1.2.1))(@codemirror/commands@6.3.3)(@codemirror/language@6.10.1)(@codemirror/lint@6.8.5)(@codemirror/search@6.5.6)(@codemirror/state@6.5.2)(@codemirror/view@6.36.6)':
+  '@uiw/codemirror-extensions-basic-setup@4.23.12(@codemirror/autocomplete@6.15.0(@codemirror/language@6.10.1)(@codemirror/state@6.5.2)(@codemirror/view@6.36.6)(@lezer/common@1.2.1))(@codemirror/commands@6.3.3)(@codemirror/language@6.10.1)(@codemirror/lint@6.8.5)(@codemirror/search@6.5.6)(@codemirror/state@6.5.2)(@codemirror/view@6.36.6)':
     dependencies:
       '@codemirror/autocomplete': 6.15.0(@codemirror/language@6.10.1)(@codemirror/state@6.5.2)(@codemirror/view@6.36.6)(@lezer/common@1.2.1)
       '@codemirror/commands': 6.3.3
@@ -5454,14 +5454,14 @@ snapshots:
       '@codemirror/state': 6.5.2
       '@codemirror/view': 6.36.6
 
-  '@uiw/react-codemirror@4.23.10(@babel/runtime@7.24.4)(@codemirror/autocomplete@6.15.0(@codemirror/language@6.10.1)(@codemirror/state@6.5.2)(@codemirror/view@6.36.6)(@lezer/common@1.2.1))(@codemirror/language@6.10.1)(@codemirror/lint@6.8.5)(@codemirror/search@6.5.6)(@codemirror/state@6.5.2)(@codemirror/theme-one-dark@6.1.2)(@codemirror/view@6.36.6)(codemirror@6.0.1(@lezer/common@1.2.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@uiw/react-codemirror@4.23.12(@babel/runtime@7.24.4)(@codemirror/autocomplete@6.15.0(@codemirror/language@6.10.1)(@codemirror/state@6.5.2)(@codemirror/view@6.36.6)(@lezer/common@1.2.1))(@codemirror/language@6.10.1)(@codemirror/lint@6.8.5)(@codemirror/search@6.5.6)(@codemirror/state@6.5.2)(@codemirror/theme-one-dark@6.1.2)(@codemirror/view@6.36.6)(codemirror@6.0.1(@lezer/common@1.2.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@babel/runtime': 7.24.4
       '@codemirror/commands': 6.3.3
       '@codemirror/state': 6.5.2
       '@codemirror/theme-one-dark': 6.1.2
       '@codemirror/view': 6.36.6
-      '@uiw/codemirror-extensions-basic-setup': 4.23.10(@codemirror/autocomplete@6.15.0(@codemirror/language@6.10.1)(@codemirror/state@6.5.2)(@codemirror/view@6.36.6)(@lezer/common@1.2.1))(@codemirror/commands@6.3.3)(@codemirror/language@6.10.1)(@codemirror/lint@6.8.5)(@codemirror/search@6.5.6)(@codemirror/state@6.5.2)(@codemirror/view@6.36.6)
+      '@uiw/codemirror-extensions-basic-setup': 4.23.12(@codemirror/autocomplete@6.15.0(@codemirror/language@6.10.1)(@codemirror/state@6.5.2)(@codemirror/view@6.36.6)(@lezer/common@1.2.1))(@codemirror/commands@6.3.3)(@codemirror/language@6.10.1)(@codemirror/lint@6.8.5)(@codemirror/search@6.5.6)(@codemirror/state@6.5.2)(@codemirror/view@6.36.6)
       codemirror: 6.0.1(@lezer/common@1.2.1)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
@@ -5858,7 +5858,7 @@ snapshots:
   code-red@1.0.4:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.0
-      '@types/estree': 1.0.6
+      '@types/estree': 1.0.7
       acorn: 8.14.1
       estree-walker: 3.0.3
       periscopic: 3.1.0
@@ -6793,7 +6793,7 @@ snapshots:
 
   is-reference@3.0.2:
     dependencies:
-      '@types/estree': 1.0.6
+      '@types/estree': 1.0.7
 
   is-utf8@0.2.1: {}
 
@@ -7984,7 +7984,7 @@ snapshots:
 
   periscopic@3.1.0:
     dependencies:
-      '@types/estree': 1.0.6
+      '@types/estree': 1.0.7
       estree-walker: 3.0.3
       is-reference: 3.0.2
 
@@ -8684,7 +8684,7 @@ snapshots:
       '@ampproject/remapping': 2.3.0
       '@jridgewell/sourcemap-codec': 1.5.0
       '@jridgewell/trace-mapping': 0.3.25
-      '@types/estree': 1.0.6
+      '@types/estree': 1.0.7
       acorn: 8.14.1
       aria-query: 5.3.2
       axobject-query: 4.1.0
