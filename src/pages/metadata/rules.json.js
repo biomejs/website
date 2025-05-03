@@ -420,6 +420,9 @@ export function GET() {
             "sources": [
               {
                 "eslintJest": "max-nested-describe"
+              },
+              {
+                "eslintVitest": "max-nested-describe"
               }
             ],
             "sourceKind": "sameLogic",
@@ -2092,6 +2095,9 @@ export function GET() {
             "sources": [
               {
                 "eslintJest": "no-done-callback"
+              },
+              {
+                "eslintVitest": "no-done-callback"
               }
             ],
             "docs": " Disallow using a callback in asynchronous tests and hooks.\n\n This rule checks the function parameter of hooks and tests for use of the `done` argument, suggesting you return a promise instead.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n beforeEach((done) => {\n     // ...\n });\n ```\n\n ```js,expect_diagnostic\n test('tets-name', (done) => {\n     // ...\n });\n ```\n\n ### Valid\n\n ```js\n beforeEach(async () => {\n     // ...\n });\n ```\n\n ```js\n test('test-name', () => {\n     expect(myFunction()).toBeTruthy();\n });\n ```\n\n"
@@ -2722,6 +2728,9 @@ export function GET() {
             "sources": [
               {
                 "eslintJest": "no-duplicate-hooks"
+              },
+              {
+                "eslintVitest": "no-duplicate-hooks"
               }
             ],
             "sourceKind": "inspired",
@@ -2789,6 +2798,9 @@ export function GET() {
             "sources": [
               {
                 "eslintJest": "no-focused-tests"
+              },
+              {
+                "eslintVitest": "no-focused-tests"
               }
             ],
             "sourceKind": "inspired",
@@ -2892,6 +2904,9 @@ export function GET() {
             "sources": [
               {
                 "eslintJest": "no-standalone-expect"
+              },
+              {
+                "eslintVitest": "no-standalone-expect"
               }
             ],
             "sourceKind": "inspired",
@@ -3009,6 +3024,9 @@ export function GET() {
             "sources": [
               {
                 "eslintJest": "no-disabled-tests"
+              },
+              {
+                "eslintVitest": "no-disabled-tests"
               }
             ],
             "sourceKind": "inspired",

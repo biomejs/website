@@ -262,6 +262,13 @@ export function GET() {
 					"required": ["denoLint"],
 					"properties": { "denoLint": { "type": "string" } },
 					"additionalProperties": false
+				},
+				{
+					"description": "Rules from [Eslint Plugin Vitest](https://github.com/vitest-dev/eslint-plugin-vitest)",
+					"type": "object",
+					"required": ["eslintVitest"],
+					"properties": { "eslintVitest": { "type": "string" } },
+					"additionalProperties": false
 				}
 			]
 		},
