@@ -6,43 +6,43 @@
 title: Rules sources
 description: A page that maps lint rules from other sources to Biome
 ---
-    
+
 ## Biome exclusive rules
-- [noAccumulatingSpread](/linter/rules/no-accumulating-spread) 
-- [noConsoleLog](/linter/rules/no-console-log) 
-- [noConstEnum](/linter/rules/no-const-enum) 
-- [noDelete](/linter/rules/no-delete) 
-- [noDuplicateObjectKeys](/linter/rules/no-duplicate-object-keys) 
-- [noDynamicNamespaceImportAccess](/linter/rules/no-dynamic-namespace-import-access) 
-- [noEmptyTypeParameters](/linter/rules/no-empty-type-parameters) 
-- [noEnum](/linter/rules/no-enum) 
-- [noEvolvingTypes](/linter/rules/no-evolving-types) 
-- [noExportedImports](/linter/rules/no-exported-imports) 
-- [noGlobalIsFinite](/linter/rules/no-global-is-finite) 
-- [noGlobalIsNan](/linter/rules/no-global-is-nan) 
-- [noImplicitAnyLet](/linter/rules/no-implicit-any-let) 
-- [noInvalidNewBuiltin](/linter/rules/no-invalid-new-builtin) 
-- [noRedundantUseStrict](/linter/rules/no-redundant-use-strict) 
-- [noRenderReturnValue](/linter/rules/no-render-return-value) 
-- [noShoutyConstants](/linter/rules/no-shouty-constants) 
-- [noSuspiciousSemicolonInJsx](/linter/rules/no-suspicious-semicolon-in-jsx) 
-- [noSvgWithoutTitle](/linter/rules/no-svg-without-title) 
-- [noUndeclaredDependencies](/linter/rules/no-undeclared-dependencies) 
-- [noUnnecessaryContinue](/linter/rules/no-unnecessary-continue) 
-- [noUnusedFunctionParameters](/linter/rules/no-unused-function-parameters) 
-- [noUnusedTemplateLiteral](/linter/rules/no-unused-template-literal) 
-- [noUselessStringRaw](/linter/rules/no-useless-string-raw) 
-- [noValueAtRule](/linter/rules/no-value-at-rule) 
-- [noVoidTypeReturn](/linter/rules/no-void-type-return) 
-- [useImportExtensions](/linter/rules/use-import-extensions) 
-- [useNodeAssertStrict](/linter/rules/use-node-assert-strict) 
-- [useShorthandArrayType](/linter/rules/use-shorthand-array-type) 
-- [useSimpleNumberKeys](/linter/rules/use-simple-number-keys) 
-- [useSimplifiedLogicExpression](/linter/rules/use-simplified-logic-expression) 
-- [useSingleCaseStatement](/linter/rules/use-single-case-statement) 
-- [useSortedClasses](/linter/rules/use-sorted-classes) 
-- [useStrictMode](/linter/rules/use-strict-mode) 
-- [useTopLevelRegex](/linter/rules/use-top-level-regex) 
+- [noAccumulatingSpread](/linter/rules/no-accumulating-spread)
+- [noConsoleLog](/linter/rules/no-console-log)
+- [noConstEnum](/linter/rules/no-const-enum)
+- [noDelete](/linter/rules/no-delete)
+- [noDuplicateObjectKeys](/linter/rules/no-duplicate-object-keys)
+- [noDynamicNamespaceImportAccess](/linter/rules/no-dynamic-namespace-import-access)
+- [noEmptyTypeParameters](/linter/rules/no-empty-type-parameters)
+- [noEnum](/linter/rules/no-enum)
+- [noEvolvingTypes](/linter/rules/no-evolving-types)
+- [noExportedImports](/linter/rules/no-exported-imports)
+- [noGlobalIsFinite](/linter/rules/no-global-is-finite)
+- [noGlobalIsNan](/linter/rules/no-global-is-nan)
+- [noImplicitAnyLet](/linter/rules/no-implicit-any-let)
+- [noInvalidNewBuiltin](/linter/rules/no-invalid-new-builtin)
+- [noRedundantUseStrict](/linter/rules/no-redundant-use-strict)
+- [noRenderReturnValue](/linter/rules/no-render-return-value)
+- [noShoutyConstants](/linter/rules/no-shouty-constants)
+- [noSuspiciousSemicolonInJsx](/linter/rules/no-suspicious-semicolon-in-jsx)
+- [noSvgWithoutTitle](/linter/rules/no-svg-without-title)
+- [noUndeclaredDependencies](/linter/rules/no-undeclared-dependencies)
+- [noUnnecessaryContinue](/linter/rules/no-unnecessary-continue)
+- [noUnusedFunctionParameters](/linter/rules/no-unused-function-parameters)
+- [noUnusedTemplateLiteral](/linter/rules/no-unused-template-literal)
+- [noUselessStringRaw](/linter/rules/no-useless-string-raw)
+- [noValueAtRule](/linter/rules/no-value-at-rule)
+- [noVoidTypeReturn](/linter/rules/no-void-type-return)
+- [useImportExtensions](/linter/rules/use-import-extensions)
+- [useNodeAssertStrict](/linter/rules/use-node-assert-strict)
+- [useShorthandArrayType](/linter/rules/use-shorthand-array-type)
+- [useSimpleNumberKeys](/linter/rules/use-simple-number-keys)
+- [useSimplifiedLogicExpression](/linter/rules/use-simplified-logic-expression)
+- [useSingleCaseStatement](/linter/rules/use-single-case-statement)
+- [useSortedClasses](/linter/rules/use-sorted-classes)
+- [useStrictMode](/linter/rules/use-strict-mode)
+- [useTopLevelRegex](/linter/rules/use-top-level-regex)
 ## Rules from other sources
 :::note
 Some **Biome** rules might **not** have options, compared to the original rule.
@@ -59,6 +59,15 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-head-element](https://nextjs.org/docs/messages/no-head-element) |[noHeadElement](/linter/rules/no-head-element) |
 | [no-head-import-in-document](https://nextjs.org/docs/messages/no-head-import-in-document) |[noHeadImportInDocument](/linter/rules/no-head-import-in-document) |
 | [no-img-element](https://nextjs.org/docs/messages/no-img-element) |[noImgElement](/linter/rules/no-img-element) |
+### @vitest/eslint-plugin
+| @vitest/eslint-plugin rule name | Biome rule name |
+| ---- | ---- |
+| [max-nested-describe](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/max-nested-describe.md) |[noExcessiveNestedTestSuites](/linter/rules/no-excessive-nested-test-suites) |
+| [no-disabled-tests](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/no-disabled-tests.md) |[noSkippedTests](/linter/rules/no-skipped-tests) (inspired) |
+| [no-done-callback](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/no-done-callback.md) |[noDoneCallback](/linter/rules/no-done-callback) (inspired) |
+| [no-duplicate-hooks](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/no-duplicate-hooks.md) |[noDuplicateTestHooks](/linter/rules/no-duplicate-test-hooks) (inspired) |
+| [no-focused-tests](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/no-focused-tests.md) |[noFocusedTests](/linter/rules/no-focused-tests) (inspired) |
+| [no-standalone-expect](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/no-standalone-expect.md) |[noMisplacedAssertion](/linter/rules/no-misplaced-assertion) (inspired) |
 ### Clippy
 | Clippy rule name | Biome rule name |
 | ---- | ---- |
