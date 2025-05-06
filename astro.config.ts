@@ -206,6 +206,11 @@ export default defineConfig({
 							},
 						},
 						{
+							label: "Upgrade to Biome v2",
+							link: "/guides/upgrade-to-biome-v2",
+							badge: "new",
+						},
+						{
 							label: "Biome in your IDE",
 							translations: {
 								es: "Biome en tu IDE",

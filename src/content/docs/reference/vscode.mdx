@@ -310,5 +310,9 @@ and re-running the action that caused the issue. The trace will be made availabl
 
 ### Migrating from the `2.x` extension
 
-If you are migrating from the `2.x` extension, we recommend you to completely restart your editor to ensure all previous LSP
-sessions are terminated.
+If you are migrating from the `2.x` extension, we recommend the following steps, in this exact order:
+1. Close the editor completely.
+2. Open your task manager, and make sure to kill all processes named `biome`.
+3. Open your editor.
+
+This will remove possible old connections that are still connected to the editor, but can't be shutdown gracefully by the extension.
