@@ -84,9 +84,26 @@ Now Biome has more than 300 rules, and some of those rules *conflict with each o
 
 We decided to **take a step back**, remove the option, and introduce it in the future in some other form, maybe with different semantics and configuration. We are aware that this breaking change can cause some inconvenience.
 
-The maintainers of the project are already discussing the topic on Discord and GitHub. You are encouraged to take part in the conversation and help us finding a good solution.
+The maintainers of the project are already discussing the topic on Discord and GitHub. You are encouraged to take part in the conversation and help us find a good solution.
 
-As *limited* workaround, you can enable the recommended rules, and enable all the linter domains. However, you can't disable single rules.
+As *limited* workaround, you can enable the recommended rules, and enable all the linter domains. However, you can't disable single rules, and the domains `react` and `solid` enable rules that go in conflict with each other:
+
+```json title="biome.json"
+{
+  "linter": {
+    "domains": {
+      "next": "all",
+      "react": "all",
+      "test": "all",
+      "solid": "all",
+      "project": "all"
+    },
+    "rules": {
+      "recommended": true
+    }
+  }
+}
+```
 
 ### Syntax `assert` no longer supported
 
@@ -181,7 +198,7 @@ If you relied on recommended rules to always emit an error, the `biome migrate` 
 
 We received a lot of great feedback in the past months regarding our recommended rules. We realized that it's challenging to balance a "recommended" set of rules for our users. While some really our defaults, some others thought that they were too noisy.
 
-From v2, all rules that belong to the `style` group won't emit an error unless configured otherwise.
+From v2, all rules that belong to the `style` group won't emit an error unless configured otherwise. The `biome migrate` command will update the configuration so they still emit errors. Make sure that the configuration conforms your standards.
 
 ### Different default formatting of `package.json`
 
