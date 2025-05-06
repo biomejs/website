@@ -145,6 +145,13 @@ export function GET() {
 					"additionalProperties": false
 				},
 				{
+					"description": "Rules from [Eslint Plugin JSDOc](https://github.com/gajus/eslint-plugin-jsdoc)",
+					"type": "object",
+					"required": ["eslintJsDoc"],
+					"properties": { "eslintJsDoc": { "type": "string" } },
+					"additionalProperties": false
+				},
+				{
 					"description": "Rules from [Eslint Plugin React](https://github.com/jsx-eslint/eslint-plugin-react)",
 					"type": "object",
 					"required": ["eslintReact"],
