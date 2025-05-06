@@ -307,6 +307,7 @@ export default {
   '/linter/rules/useSimpleNumberKeys': '/linter/rules/use-simple-number-keys',
   '/linter/rules/useSimplifiedLogicExpression': '/linter/rules/use-simplified-logic-expression',
   '/linter/rules/useSingleCaseStatement': '/linter/rules/use-single-case-statement',
+  '/linter/rules/useSingleJsDocAsterisk': '/linter/rules/use-single-js-doc-asterisk',
   '/linter/rules/useSingleVarDeclarator': '/linter/rules/use-single-var-declarator',
   '/linter/rules/useSortedClasses': '/linter/rules/use-sorted-classes',
   '/linter/rules/useStrictMode': '/linter/rules/use-strict-mode',
