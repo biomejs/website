@@ -16,9 +16,9 @@ function pathsMatch(pathA: string, pathB: string): boolean {
 <div>
   <AstrolightSiteTitle {...Astro.props} />
 
-  <div class="sl-hidden separator"></div>
+  <div class="hidden separator"></div>
 
-  <div class="sl-hidden menu-items">
+  <div class="hidden menu-items">
     {
       menuItems.map((menuItem) => (
         <a
@@ -45,6 +45,12 @@ function pathsMatch(pathA: string, pathB: string): boolean {
     content: "";
     height: 2rem;
     border-inline-end: 1px solid var(--sl-color-gray-5);
+  }
+
+  div.separator.hidden {
+    display: none;
+  }
+  div.menu-items.hidden {
     display: none;
   }
 
