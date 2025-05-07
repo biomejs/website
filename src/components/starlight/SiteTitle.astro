@@ -16,9 +16,9 @@ function pathsMatch(pathA: string, pathB: string): boolean {
 <div>
   <AstrolightSiteTitle {...Astro.props} />
 
-  <div class="sl-hidden separator"></div>
+  <div class="separator"></div>
 
-  <div class="sl-hidden menu-items">
+  <div class="menu-items">
     {
       menuItems.map((menuItem) => (
         <a
@@ -63,13 +63,19 @@ function pathsMatch(pathA: string, pathB: string): boolean {
   [aria-current="page"]:focus {
     color: var(--sl-color-text-accent);
   }
-
-	@media (min-width: 50rem) {
-		.menu-items {
-			display: flex;
-		}
-		.separator {
-			display: block;
-		}
-	}
+  
+  .separator {
+    display: none;
+  }
+  .menu-items {
+    display: none;
+  }
+  @media (min-width: 30em) {
+    div.separator {
+      display: block;
+    }
+    div.menu-items {
+      display: flex;
+    }
+  }
 </style>

@@ -9,7 +9,6 @@ import starlightLinksValidator from "starlight-links-validator";
 import { searchForWorkspaceRoot } from "vite";
 import { version as biomeVersion } from "./node_modules/@biomejs/wasm-web/package.json";
 import { version as prettierVersion } from "./node_modules/prettier/package.json";
-import { rehypeAutolink } from "./plugins/rehype-autolink";
 
 const plugins = [
 	starlightBlog({
@@ -84,6 +83,7 @@ export default defineConfig({
 			title: "Biome",
 			defaultLocale: "root",
 			plugins,
+			routeMiddleware: "./src/routeData.ts",
 			locales: {
 				root: {
 					label: "English",
@@ -115,24 +115,6 @@ export default defineConfig({
 				},
 			},
 			sidebar: [
-				{
-					label: "Playground",
-					link: "../playground",
-					translations: {
-						fr: "Bac à sable",
-						ja: "プレイグラウンド",
-						"zh-CN": "演练场",
-						"pt-BR": "Ambiente de testes",
-						uk: "Пісочниця",
-					},
-				},
-				{
-					label: "Enterprise",
-					link: "../enterprise",
-					translations: {
-						uk: "Підтримка",
-					},
-				},
 				{
 					label: "Guides",
 					translations: {
@@ -665,7 +647,6 @@ export default defineConfig({
 			components: {
 				SiteTitle: "./src/components/starlight/SiteTitle.astro",
 				Hero: "./src/components/starlight/Hero.astro",
-				Head: "./src/components/starlight/Head.astro",
 				LanguageSelect: "./src/components/starlight/LanguageSelect.astro",
 				Footer: "./src/components/starlight/Footer.astro",
 			},
@@ -678,7 +659,7 @@ export default defineConfig({
 
 	markdown: {
 		syntaxHighlight: "shiki",
-		rehypePlugins: [rehypeSlug, ...rehypeAutolink()],
+		rehypePlugins: [rehypeSlug],
 		shikiConfig: {
 			langAlias: {
 				cjs: "javascript",
