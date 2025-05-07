@@ -23,7 +23,7 @@ import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
     <div class="ctas">
         <div class="cta">
             <p>
-                <LinkButton href="https://biomejs.dev/chat" target="_blank" icon="external">Contact us on Discord
+                <LinkButton class="full-width" href="https://biomejs.dev/chat" target="_blank" icon="external">Contact us on Discord
                 </LinkButton>
             </p>
             <p>Reach out to us through the <b><code>Community > #funding</code></b>
@@ -31,7 +31,7 @@ import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
         </div>
         <div class="cta">
             <p>
-                <LinkButton href="https://github.com/biomejs/biome/issues/new?template=06_commercial_request.yml"
+                <LinkButton class="full-width" href="https://github.com/biomejs/biome/issues/new?template=06_commercial_request.yml"
                             target="_blank" icon="external">Create an issue on
                     GitHub
                 </LinkButton>
@@ -61,6 +61,7 @@ import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
         conditions, please see our
         <a href="https://github.com/biomejs/biome/blob/main/GOVERNANCE.md#paid-contracting">Governance document</a>.
     </p>
+
 </StarlightPage>
 
 <style>
@@ -80,6 +81,16 @@ import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
 
     .cta > p > a {
         border-radius: 0.3rem;
+    }
+
+    .sl-link-button.full-width {
+        width: 100%;
+        justify-content: center;
+    }
+    @media (min-width: 30em) {
+        .sl-link-button.full-width {
+            width: unset;
+        }
     }
 
     .sponsorship {
