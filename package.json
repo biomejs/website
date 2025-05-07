@@ -69,7 +69,7 @@
     "rehype-autolink-headings": "7.1.0",
     "rehype-slug": "6.0.0",
     "remark-toc": "9.0.0",
-    "sharp": "0.33.5",
+    "sharp": "0.34.1",
     "starlight-blog": "0.20.0",
     "textlint": "14.4.2",
     "textlint-rule-preset-jtf-style": "2.3.14",
