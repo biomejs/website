@@ -27,4 +27,4 @@ jobs:
         run: npm install -g pnpm && pnpm install
 
       - name: Run tsc
-        run: pnpm run tsc
+        run: pnpm tsc

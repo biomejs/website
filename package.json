@@ -5,7 +5,7 @@
     "dev": "astro dev",
     "format": "pnpm biome format --write",
     "check": "pnpm biome check --write",
-    "tsc": "astro sync && tsc --skipLibCheck",
+    "tsc": "astro sync && astro check",
     "build": "astro build",
     "build:no-og": "SKIP_OG=true astro build",
     "preview": "astro preview",
@@ -82,5 +82,8 @@
     "overrides": {
       "shiki": "3.2.1"
     }
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.4"
   }
 }
