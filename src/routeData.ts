@@ -1,6 +1,6 @@
-import { defineRouteMiddleware } from "@astrojs/starlight/route-data";
-import { getCollection } from "astro:content";
 import { site } from "astro:config/server";
+import { getCollection } from "astro:content";
+import { defineRouteMiddleware } from "@astrojs/starlight/route-data";
 // @ts-ignore
 import type { SidebarEntry } from "@astrojs/starlight/utils/routing/types.ts";
 
