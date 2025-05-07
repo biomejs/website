@@ -76,47 +76,6 @@ As you can see, the glob `**/src/**` is **too** eager, and it matches paths that
 
 From v2, Biome **won't prepend `**/`** to globs anymore.
 
-### The option `all` is removed from the linter
-
-In the very early versions of Biome, we introduced `all` as a mean to enable all rules of the linter, or enable all rules that belong to a group. At that time, Biome had few rules, and their maintenance cost was very low to the maintainers and the end-users. We didn't think twice, and we just added it.
-
-Now Biome has more than 300 rules, and some of those rules *conflict with each other*, causing situations where a project can't fix the violations of the rules, because one fix triggers another rule, and vice versa.
-
-We decided to **take a step back**, remove the option, and introduce it in the future in some other form, maybe with different semantics and configuration. We are aware that this breaking change can cause some inconvenience.
-
-The maintainers of the project are already discussing the topic on Discord and GitHub. You are encouraged to take part in the conversation and help us find a good solution.
-
-As *limited* workaround, you can enable the recommended rules, and enable all the linter domains. However, you can't disable single rules, and the domains `react` and `solid` enable rules that go in conflict with each other:
-
-```json title="biome.json"
-{
-  "linter": {
-    "domains": {
-      "next": "all",
-      "react": "all",
-      "test": "all",
-      "solid": "all",
-      "project": "all"
-    },
-    "rules": {
-      "recommended": true
-    }
-  }
-}
-```
-
-### Syntax `assert` no longer supported
-
-The `assert` syntax, which reached Stage 3, is no longer supported, and it was replaced by the `with` syntax.
-
-All LTS versions of Node.js support the new syntax, as well as all browser engines and serverless runtimes.
-
-```diff mark="with" mark="assert"
--import {test} from "foo.json" assert { for: "for" }
--export * from "mod" assert { type: "json" }
-+import {test} from "foo.json" with { for: "for" }
-+export * from "mod" with { type: "json" }
-```
 
 ### Globs are now relative to the configuration file
 
@@ -125,14 +84,14 @@ In v1, globs and files declared in the configuration file were relative to the w
 In the following example, the configuration file is at root of the project, the `check` command is run from a subdirectory and configured to analyze only files inside the `src/` folder.
 
 <FileTree>
- - biome.json
- - src
+    - biome.json
+    - src
     - deploy.js
- - ui
-   - package.json
-   - src
-     - main.tsx
-     - utils.ts
+    - ui
+    - package.json
+    - src
+    - main.tsx
+    - utils.ts
 </FileTree>
 
 ```json title="ui/package.json"
@@ -177,6 +136,48 @@ To match the previous behavior, the glob must be updated to `ui/src/**`:
     "includes": ["ui/src/**"]
   }
 }
+```
+
+### The option `all` is removed from the linter
+
+In the very early versions of Biome, we introduced `all` as a mean to enable all rules of the linter, or enable all rules that belong to a group. At that time, Biome had few rules, and their maintenance cost was very low to the maintainers and the end-users. We didn't think twice, and we just added it.
+
+Now Biome has more than 300 rules, and some of those rules *conflict with each other*, causing situations where a project can't fix the violations of the rules, because one fix triggers another rule, and vice versa.
+
+We decided to **take a step back**, remove the option, and introduce it in the future in some other form, maybe with different semantics and configuration. We are aware that this breaking change can cause some inconvenience.
+
+The maintainers of the project are already discussing the topic on Discord and GitHub. You are encouraged to take part in the conversation and help us find a good solution.
+
+As *limited* workaround, you can enable the recommended rules, and enable all the linter domains. However, you can't disable single rules, and the domains `react` and `solid` enable rules that go in conflict with each other:
+
+```json title="biome.json"
+{
+  "linter": {
+    "domains": {
+      "next": "all",
+      "react": "all",
+      "test": "all",
+      "solid": "all",
+      "project": "all"
+    },
+    "rules": {
+      "recommended": true
+    }
+  }
+}
+```
+
+### Syntax `assert` no longer supported
+
+The `assert` syntax, which reached Stage 3, is no longer supported, and it was replaced by the `with` syntax.
+
+All LTS versions of Node.js support the new syntax, as well as all browser engines and serverless runtimes.
+
+```diff mark="with" mark="assert"
+-import {test} from "foo.json" assert { for: "for" }
+-export * from "mod" assert { type: "json" }
++import {test} from "foo.json" with { for: "for" }
++export * from "mod" with { type: "json" }
 ```
 
 ### The linter works differently
