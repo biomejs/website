@@ -157,8 +157,8 @@ importers:
         specifier: 0.34.1
         version: 0.34.1
       starlight-blog:
-        specifier: 0.20.0
-        version: 0.20.0(@astrojs/starlight@0.33.1(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.32)(jiti@1.21.7)(rollup@4.40.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.5.3))(typescript@5.7.3)))(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.32)(jiti@1.21.7)(rollup@4.40.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.5.3))(typescript@5.7.3))
+        specifier: 0.21.0
+        version: 0.21.0(@astrojs/starlight@0.33.1(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.32)(jiti@1.21.7)(rollup@4.40.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.5.3))(typescript@5.7.3)))(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.32)(jiti@1.21.7)(rollup@4.40.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.5.3))(typescript@5.7.3))
       textlint:
         specifier: 14.4.2
         version: 14.4.2
@@ -3692,8 +3692,8 @@ packages:
   sprintf-js@1.0.3:
     resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
 
-  starlight-blog@0.20.0:
-    resolution: {integrity: sha512-+bhu1RBNsV9UQGieJRPKgV6rol5Jg92yuCRaMAevrprHZDejTGYm+2/MzV/guQM4/0QbYMfF50FdheiIZwbT4g==}
+  starlight-blog@0.21.0:
+    resolution: {integrity: sha512-ZA6y+LTbEr2aH8IOsQ3yIFRcqDNEDJjFG/OVTYbWgDuWuO3DWPGYjovsG4oSarbpxkP1k5OLPtL8Zmhy6DxiNQ==}
     engines: {node: '>=18.17.1'}
     peerDependencies:
       '@astrojs/starlight': '>=0.33.0'
@@ -5781,7 +5781,7 @@ snapshots:
       marked: 12.0.2
       marked-footnote: 1.2.4(marked@12.0.2)
       marked-smartypants: 1.1.9(marked@12.0.2)
-      ultrahtml: 1.5.3
+      ultrahtml: 1.6.0
 
   astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.32)(jiti@1.21.7)(rollup@4.40.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.5.3))(typescript@5.7.3):
     dependencies:
@@ -8811,7 +8811,7 @@ snapshots:
 
   sprintf-js@1.0.3: {}
 
-  starlight-blog@0.20.0(@astrojs/starlight@0.33.1(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.32)(jiti@1.21.7)(rollup@4.40.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.5.3))(typescript@5.7.3)))(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.32)(jiti@1.21.7)(rollup@4.40.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.5.3))(typescript@5.7.3)):
+  starlight-blog@0.21.0(@astrojs/starlight@0.33.1(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.32)(jiti@1.21.7)(rollup@4.40.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.5.3))(typescript@5.7.3)))(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.32)(jiti@1.21.7)(rollup@4.40.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.5.3))(typescript@5.7.3)):
     dependencies:
       '@astrojs/mdx': 4.0.8(astro@5.6.1(@netlify/blobs@8.1.1)(@types/node@20.17.32)(jiti@1.21.7)(rollup@4.40.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.5.3))(typescript@5.7.3))
       '@astrojs/rss': 4.0.11
@@ -8820,7 +8820,7 @@ snapshots:
       github-slugger: 2.0.0
       marked: 15.0.4
       marked-plaintify: 1.1.1(marked@15.0.4)
-      ultrahtml: 1.5.3
+      ultrahtml: 1.6.0
     transitivePeerDependencies:
       - astro
       - supports-color
