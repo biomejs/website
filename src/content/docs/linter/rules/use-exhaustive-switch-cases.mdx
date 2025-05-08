@@ -1,0 +1,123 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: useExhaustiveSwitchCases
+description: Learn more about useExhaustiveSwitchCases
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+## Summary
+:::note
+This rule is currently only available in the [2.0 beta release](/blog/biome-v2-0-beta).
+:::
+- Diagnostic Category: [`lint/nursery/useExhaustiveSwitchCases`](/reference/diagnostics#diagnostic-category)
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`project`](/linter/domains#project)
+- Sources: 
+  - Same as [`@typescript-eslint/switch-exhaustiveness-check`](https://typescript-eslint.io/rules/switch-exhaustiveness-check)
+
+:::caution
+This rule is part of the [nursery](/linter/rules/#nursery) group.
+:::
+## Description
+Require switch-case statements to be exhaustive.
+
+When working with union types in TypeScript, it's common to want to write a switch statement
+intended to contain a case for each possible variant.
+However, if the union type changes, it's easy to forget to modify the cases to account for
+any new types.
+
+This rule reports when a switch statement over a value typed as a union of literals lacks
+a case for any of those literal types and does not have a default clause.
+
+## Examples
+
+### Invalid
+
+```ts
+type Day =
+  | 'Monday'
+  | 'Tuesday'
+  | 'Wednesday'
+  | 'Thursday'
+  | 'Friday'
+  | 'Saturday'
+  | 'Sunday';
+
+declare const day: Day;
+let result = 0;
+
+switch (day) {
+  case 'Monday':
+    result = 1;
+    break;
+}
+```
+
+### Valid
+
+```ts
+type Day =
+  | 'Monday'
+  | 'Tuesday'
+  | 'Wednesday'
+  | 'Thursday'
+  | 'Friday'
+  | 'Saturday'
+  | 'Sunday';
+
+declare const day: Day;
+let result = 0;
+
+switch (day) {
+  case 'Monday':
+    result = 1;
+    break;
+  case 'Tuesday':
+    result = 2;
+    break;
+  case 'Wednesday':
+    result = 3;
+    break;
+  case 'Thursday':
+    result = 4;
+    break;
+  case 'Friday':
+    result = 5;
+    break;
+  case 'Saturday':
+    result = 6;
+    break;
+  case 'Sunday':
+    result = 7;
+    break;
+}
+```
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useExhaustiveSwitchCases": "error"
+			}
+		}
+	}
+}
+
+```
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
+</Tabs>
+

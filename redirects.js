@@ -256,6 +256,7 @@ export default {
   '/linter/rules/useEnumInitializers': '/linter/rules/use-enum-initializers',
   '/linter/rules/useErrorMessage': '/linter/rules/use-error-message',
   '/linter/rules/useExhaustiveDependencies': '/linter/rules/use-exhaustive-dependencies',
+  '/linter/rules/useExhaustiveSwitchCases': '/linter/rules/use-exhaustive-switch-cases',
   '/linter/rules/useExplicitLengthCheck': '/linter/rules/use-explicit-length-check',
   '/linter/rules/useExplicitType': '/linter/rules/use-explicit-type',
   '/linter/rules/useExponentiationOperator': '/linter/rules/use-exponentiation-operator',
