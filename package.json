@@ -1,6 +1,7 @@
 {
   "name": "@biomejs/website",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "astro dev",
     "format": "pnpm biome format --write",
