@@ -1817,6 +1817,20 @@ export function GET() {
             "sourceKind": "inspired",
             "docs": " Require the consistent declaration of object literals. Defaults to explicit definitions.\n\n ECMAScript 6 provides two ways to define an object literal: `{foo: foo}` and `{foo}`.\n The two styles are functionally equivalent.\n Using the same style consistently across your codebase makes it easier to quickly read and understand object definitions.\n\n ## Example\n\n ### Invalid\n\n ```json,options\n {\n     \"options\": {\n         \"syntax\": \"explicit\"\n     }\n }\n ```\n\n ```js,expect_diagnostic,use_options\n let foo = 1;\n let invalid = {\n     foo\n };\n ```\n\n ```js,expect_diagnostic,use_options\n let invalid = {\n     bar() { return \"bar\"; },\n };\n ```\n\n ### Valid\n\n ```js,use_options\n let foo = 1;\n let valid = {\n     foo: foo,\n     bar: function() { return \"bar\"; },\n };\n ```\n\n ### Invalid\n\n ```json,options\n {\n     \"options\": {\n         \"syntax\": \"shorthand\"\n     }\n }\n ```\n\n ```js,expect_diagnostic,use_options\n let foo = 1;\n let invalid = {\n     foo: foo\n };\n ```\n\n ```js,expect_diagnostic,use_options\n let invalid = {\n     bar: function() { return \"bar\"; },\n };\n ```\n\n ### Valid\n\n ```js,use_options\n let foo = 1;\n let valid = {\n     foo,\n     bar() { return \"bar\"; },\n };\n ```\n\n ## Options\n\n Use the options to specify the syntax of object literals to enforce.\n\n ```json,options\n {\n     \"options\": {\n         \"syntax\": \"explicit\"\n     }\n }\n ```\n\n ### syntax\n\n The syntax to use:\n - `explicit`: enforces the use of explicit object property syntax in every case.\n - `shorthand`: enforces the use of shorthand object property syntax when possible.\n\n **Default:** `explicit`\n\n"
           },
+          "useExhaustiveSwitchCases": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useExhaustiveSwitchCases",
+            "link": "https://biomejs.dev/linter/rules/use-exhaustive-switch-cases",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "eslintTypeScript": "switch-exhaustiveness-check"
+              }
+            ],
+            "docs": " Require switch-case statements to be exhaustive.\n\n When working with union types in TypeScript, it's common to want to write a switch statement\n intended to contain a case for each possible variant.\n However, if the union type changes, it's easy to forget to modify the cases to account for\n any new types.\n\n This rule reports when a switch statement over a value typed as a union of literals lacks\n a case for any of those literal types and does not have a default clause.\n\n ## Examples\n\n ### Invalid\n\n ```ts\n type Day =\n   | 'Monday'\n   | 'Tuesday'\n   | 'Wednesday'\n   | 'Thursday'\n   | 'Friday'\n   | 'Saturday'\n   | 'Sunday';\n\n declare const day: Day;\n let result = 0;\n\n switch (day) {\n   case 'Monday':\n     result = 1;\n     break;\n }\n ```\n\n ### Valid\n\n ```ts\n type Day =\n   | 'Monday'\n   | 'Tuesday'\n   | 'Wednesday'\n   | 'Thursday'\n   | 'Friday'\n   | 'Saturday'\n   | 'Sunday';\n\n declare const day: Day;\n let result = 0;\n\n switch (day) {\n   case 'Monday':\n     result = 1;\n     break;\n   case 'Tuesday':\n     result = 2;\n     break;\n   case 'Wednesday':\n     result = 3;\n     break;\n   case 'Thursday':\n     result = 4;\n     break;\n   case 'Friday':\n     result = 5;\n     break;\n   case 'Saturday':\n     result = 6;\n     break;\n   case 'Sunday':\n     result = 7;\n     break;\n }\n ```\n\n"
+          },
           "useExportsLast": {
             "deprecated": false,
             "version": "next",
@@ -4515,7 +4529,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 319
+    "numberOrRules": 320
   },
   "syntax": {
     "languages": {
