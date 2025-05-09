@@ -14,13 +14,13 @@ const biomeBin = "biome";
 		<Code code={`npx ${biomePackage} ${command}`} lang="bash"  />
 	</TabItem>
 	<TabItem label="yarn" icon="seti:yarn">
-		<Code code={`yarn ${biomeBin} ${command}`} lang="bash"  />
+		<Code code={`yarn exec ${biomeBin} ${command}`} lang="bash"  />
 	</TabItem>
 	<TabItem label="pnpm" icon="pnpm">
-		<Code code={`pnpm ${biomeBin} ${command}`} lang="bash"  />
+		<Code code={`pnpm exec ${biomeBin} ${command}`} lang="bash"  />
 	</TabItem>
 	<TabItem label="bun" icon="bun">
-		<Code code={`bunx ${biomeBin} ${command}`} lang="bash"  />
+		<Code code={`bunx --bun ${biomeBin} ${command}`} lang="bash"  />
 	</TabItem>
 	<TabItem label="deno" icon="deno">
 		<Code code={`deno run -A npm:${biomePackage} ${command}`} lang="bash"  />
