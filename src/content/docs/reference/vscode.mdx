@@ -310,5 +310,11 @@ and re-running the action that caused the issue. The trace will be made availabl
 
 ### Migrating from the `2.x` extension
 
-If you are migrating from the `2.x` extension, we recommend you to completely restart your editor to ensure all previous LSP
-sessions are terminated.
+If you are migrating from the `2.x` extension, we recommend the following steps, in this exact order:
+1. Update the extension
+2. Close the editor completely.
+3. Open your task manager, and make sure to kill all processes named `biome`.
+4. Open your editor.
+
+This will destroy possible old Daemon connections that are still connected to the editor, but can't be shutdown gracefully by the extension, which caused
+some incorrect formatting when a file was saved.
