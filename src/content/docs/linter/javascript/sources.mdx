@@ -19,7 +19,6 @@ description: A page that maps rules from other sources to Biome
 - [noGlobalIsFinite](/linter/rules/no-global-is-finite) 
 - [noGlobalIsNan](/linter/rules/no-global-is-nan) 
 - [noImplicitAnyLet](/linter/rules/no-implicit-any-let) 
-- [noInvalidNewBuiltin](/linter/rules/no-invalid-new-builtin) 
 - [noRedundantUseStrict](/linter/rules/no-redundant-use-strict) 
 - [noRenderReturnValue](/linter/rules/no-render-return-value) 
 - [noShoutyConstants](/linter/rules/no-shouty-constants) 
@@ -32,10 +31,8 @@ description: A page that maps rules from other sources to Biome
 - [noVoidTypeReturn](/linter/rules/no-void-type-return) 
 - [useImportExtensions](/linter/rules/use-import-extensions) 
 - [useNodeAssertStrict](/linter/rules/use-node-assert-strict) 
-- [useShorthandArrayType](/linter/rules/use-shorthand-array-type) 
 - [useSimpleNumberKeys](/linter/rules/use-simple-number-keys) 
 - [useSimplifiedLogicExpression](/linter/rules/use-simplified-logic-expression) 
-- [useSingleCaseStatement](/linter/rules/use-single-case-statement) 
 - [useSortedClasses](/linter/rules/use-sorted-classes) 
 - [useStrictMode](/linter/rules/use-strict-mode) 
 - [useTopLevelRegex](/linter/rules/use-top-level-regex) 
@@ -79,7 +76,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [min_max](https://rust-lang.github.io/rust-clippy/master/#min_max) |[noConstantMathMinMaxClamp](/linter/rules/no-constant-math-min-max-clamp) |
 | [misrefactored_assign_op](https://rust-lang.github.io/rust-clippy/master/#misrefactored_assign_op) |[noMisrefactoredShorthandAssign](/linter/rules/no-misrefactored-shorthand-assign) |
 | [needless_for_each](https://rust-lang.github.io/rust-clippy/master/#needless_for_each) |[noForEach](/linter/rules/no-for-each) |
-| [redundant_else 	](https://rust-lang.github.io/rust-clippy/master/#redundant_else 	) |[noUselessElse](/linter/rules/no-useless-else) (inspired) |
+| [redundant_else](https://rust-lang.github.io/rust-clippy/master/#redundant_else) |[noUselessElse](/linter/rules/no-useless-else) (inspired) |
 | [self_assignment](https://rust-lang.github.io/rust-clippy/master/#self_assignment) |[noSelfAssign](/linter/rules/no-self-assign) |
 ### ESLint
 | ESLint Rules name | Biome Rules name |
@@ -136,7 +133,6 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-negated-condition](https://eslint.org/docs/latest/rules/no-negated-condition) |[noNegationElse](/linter/rules/no-negation-else) |
 | [no-nested-ternary](https://eslint.org/docs/latest/rules/no-nested-ternary) |[noNestedTernary](/linter/rules/no-nested-ternary) |
 | [no-new-native-nonconstructor](https://eslint.org/docs/latest/rules/no-new-native-nonconstructor) |[noInvalidBuiltinInstantiation](/linter/rules/no-invalid-builtin-instantiation) |
-| [no-new-symbol](https://eslint.org/docs/latest/rules/no-new-symbol) |[noNewSymbol](/linter/rules/no-new-symbol) |
 | [no-new-wrappers](https://eslint.org/docs/latest/rules/no-new-wrappers) |[useConsistentBuiltinInstantiation](/linter/rules/use-consistent-builtin-instantiation) |
 | [no-nonoctal-decimal-escape](https://eslint.org/docs/latest/rules/no-nonoctal-decimal-escape) |[noNonoctalDecimalEscape](/linter/rules/no-nonoctal-decimal-escape) |
 | [no-obj-calls](https://eslint.org/docs/latest/rules/no-obj-calls) |[noGlobalObjectCalls](/linter/rules/no-global-object-calls) |

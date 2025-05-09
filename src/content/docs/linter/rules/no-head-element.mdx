@@ -11,17 +11,14 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 <TabItem label="JSX and TSX" icon="seti:javascript">
 ## Summary
 - Rule available since: `v1.9.4`
-- Diagnostic Category: [`lint/nursery/noHeadElement`](/reference/diagnostics#diagnostic-category)
+- Diagnostic Category: [`lint/style/noHeadElement`](/reference/diagnostics#diagnostic-category)
 - This rule doesn't have a fix.
-- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
 - This rule belongs to the following domains:
   - [`next`](/linter/domains#next)
 - Sources: 
   - Same as [`@next/no-head-element`](https://nextjs.org/docs/messages/no-head-element)
 
-:::caution
-This rule is part of the [nursery](/linter/rules/#nursery) group.
-:::
 ## Description
 Prevent usage of `<head>` element in a Next.js project.
 
@@ -46,7 +43,7 @@ function Index() {
 }
 ```
 
-<pre class="language-text"><code class="language-text">code-block.jsx:2:11 <a href="https://biomejs.dev/linter/rules/no-head-element">lint/nursery/noHeadElement</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Don't use </span><span style="color: lightgreen;"><strong>&lt;head&gt;</strong></span><span style="color: lightgreen;"> element.</span><br />  <br />    <strong>1 │ </strong>function Index() &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  return (<br />   <strong>   │ </strong>          <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>    &lt;head&gt;<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>      &lt;title&gt;Invalid&lt;/title&gt;<br />    <strong>5 │ </strong>    &lt;/head&gt;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Using the </span><span style="color: lightgreen;"><strong>&lt;head&gt;</strong></span><span style="color: lightgreen;"> element can cause unexpected behavior in a Next.js application. Use </span><span style="color: lightgreen;"><strong>&lt;Head /&gt;</strong></span><span style="color: lightgreen;"> from </span><span style="color: lightgreen;"><strong>next/head</strong></span><span style="color: lightgreen;"> instead.</span><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.jsx:2:11 <a href="https://biomejs.dev/linter/rules/no-head-element">lint/style/noHeadElement</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Don't use </span><span style="color: Orange;"><strong>&lt;head&gt;</strong></span><span style="color: Orange;"> element.</span><br />  <br />    <strong>1 │ </strong>function Index() &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  return (<br />   <strong>   │ </strong>          <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>    &lt;head&gt;<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>      &lt;title&gt;Invalid&lt;/title&gt;<br />    <strong>5 │ </strong>    &lt;/head&gt;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Using the </span><span style="color: lightgreen;"><strong>&lt;head&gt;</strong></span><span style="color: lightgreen;"> element can cause unexpected behavior in a Next.js application. Use </span><span style="color: lightgreen;"><strong>&lt;Head /&gt;</strong></span><span style="color: lightgreen;"> from </span><span style="color: lightgreen;"><strong>next/head</strong></span><span style="color: lightgreen;"> instead.</span><br />  <br /></code></pre>
 
 ### Valid
 
@@ -67,7 +64,7 @@ function Index() {
 {
 	"linter": {
 		"rules": {
-			"nursery": {
+			"style": {
 				"noHeadElement": "error"
 			}
 		}

@@ -14,7 +14,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Diagnostic Category: [`lint/complexity/noEmptyTypeParameters`](/reference/diagnostics#diagnostic-category)
 - This rule is **recommended**, which means is enabled by default.
 - This rule doesn't have a fix.
-- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
 ## Description
 Disallow empty type parameters in type aliases and interfaces.
 
@@ -30,13 +30,13 @@ This rule disallows empty type parameter lists in type alias and interface decla
 interface Foo<> {}
 ```
 
-<pre class="language-text"><code class="language-text">code-block.ts:1:14 <a href="https://biomejs.dev/linter/rules/no-empty-type-parameters">lint/complexity/noEmptyTypeParameters</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Using an </span><span style="color: Tomato;"><strong>empty type parameter list</strong></span><span style="color: Tomato;"> is confusing.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>interface Foo&lt;&gt; &#123;&#125;<br />   <strong>   │ </strong>             <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove the empty type parameter list or add a type parameter.</span><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.ts:1:14 <a href="https://biomejs.dev/linter/rules/no-empty-type-parameters">lint/complexity/noEmptyTypeParameters</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Using an </span><span style="color: Orange;"><strong>empty type parameter list</strong></span><span style="color: Orange;"> is confusing.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>interface Foo&lt;&gt; &#123;&#125;<br />   <strong>   │ </strong>             <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove the empty type parameter list or add a type parameter.</span><br />  <br /></code></pre>
 
 ```ts
 type Bar<> = {};
 ```
 
-<pre class="language-text"><code class="language-text">code-block.ts:1:9 <a href="https://biomejs.dev/linter/rules/no-empty-type-parameters">lint/complexity/noEmptyTypeParameters</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Using an </span><span style="color: Tomato;"><strong>empty type parameter list</strong></span><span style="color: Tomato;"> is confusing.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>type Bar&lt;&gt; = &#123;&#125;;<br />   <strong>   │ </strong>        <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove the empty type parameter list or add a type parameter.</span><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.ts:1:9 <a href="https://biomejs.dev/linter/rules/no-empty-type-parameters">lint/complexity/noEmptyTypeParameters</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Using an </span><span style="color: Orange;"><strong>empty type parameter list</strong></span><span style="color: Orange;"> is confusing.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>type Bar&lt;&gt; = &#123;&#125;;<br />   <strong>   │ </strong>        <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove the empty type parameter list or add a type parameter.</span><br />  <br /></code></pre>
 
 ### Valid
 

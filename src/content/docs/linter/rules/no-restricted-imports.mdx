@@ -11,16 +11,13 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
 ## Summary
 - Rule available since: `v1.6.0`
-- Diagnostic Category: [`lint/nursery/noRestrictedImports`](/reference/diagnostics#diagnostic-category)
+- Diagnostic Category: [`lint/style/noRestrictedImports`](/reference/diagnostics#diagnostic-category)
 - This rule doesn't have a fix.
-- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
 - Sources: 
   - Same as [`no-restricted-imports`](https://eslint.org/docs/latest/rules/no-restricted-imports)
   - Same as [`@typescript-eslint/no-restricted-imports`](https://typescript-eslint.io/rules/no-restricted-imports)
 
-:::caution
-This rule is part of the [nursery](/linter/rules/#nursery) group.
-:::
 ## Description
 Disallow specified modules when loaded by import or require.
 
@@ -338,7 +335,7 @@ import { Bar } from 'import-bar';
 {
 	"linter": {
 		"rules": {
-			"nursery": {
+			"style": {
 				"noRestrictedImports": "error"
 			}
 		}
