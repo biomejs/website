@@ -11,12 +11,9 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 <TabItem label="CSS" icon="seti:css">
 ## Summary
 - Rule available since: `v1.8.0`
-- Diagnostic Category: [`lint/nursery/noValueAtRule`](/reference/diagnostics#diagnostic-category)
+- Diagnostic Category: [`lint/style/noValueAtRule`](/reference/diagnostics#diagnostic-category)
 - This rule doesn't have a fix.
 - The default severity of this rule is [**information**](/reference/diagnostics#information).
-:::caution
-This rule is part of the [nursery](/linter/rules/#nursery) group.
-:::
 ## Description
 Disallow use of `@value` rule in css modules.
 
@@ -49,7 +46,7 @@ p {
 {
 	"linter": {
 		"rules": {
-			"nursery": {
+			"style": {
 				"noValueAtRule": "error"
 			}
 		}

@@ -44,13 +44,12 @@ Enabled when the following dependencies are declared:
 Rules that belong to the domain:
 - [useExhaustiveDependencies](/linter/rules/use-exhaustive-dependencies) (recommended)
 - [useHookAtTopLevel](/linter/rules/use-hook-at-top-level) (recommended)
-- [noDocumentImportInPage](/linter/rules/no-document-import-in-page) (recommended)
-- [noHeadElement](/linter/rules/no-head-element) (recommended)
-- [noHeadImportInDocument](/linter/rules/no-head-import-in-document) (recommended)
-- [noImgElement](/linter/rules/no-img-element) (recommended)
 - [noUnwantedPolyfillio](/linter/rules/no-unwanted-polyfillio) (recommended)
-- [useGoogleFontDisplay](/linter/rules/use-google-font-display) (recommended)
 - [useGoogleFontPreconnect](/linter/rules/use-google-font-preconnect) (recommended)
+- [noImgElement](/linter/rules/no-img-element) (recommended)
+- [noHeadElement](/linter/rules/no-head-element) (recommended)
+- [noDocumentImportInPage](/linter/rules/no-document-import-in-page) (recommended)
+- [noHeadImportInDocument](/linter/rules/no-head-import-in-document) (recommended)
 ## Project
 This domain contains rules that perform project-level analysis. This includes our module graph for dependency resolution, as well as type information. When enabling rules that belong to this domain, Biome will scan the entire project. The scanning phase will have a performance impact on the linting process.
 ### Project activation
@@ -177,7 +176,7 @@ Enabled when the following dependencies are declared:
 Rules that belong to the domain:
 - [noDestructuredProps](/linter/rules/no-destructured-props)
 - [useForComponent](/linter/rules/use-for-component)
-- [noReactSpecificProps](/linter/rules/no-react-specific-props)
+- [noReactSpecificProps](/linter/rules/no-react-specific-props) (recommended)
 ## Test
 Use this domain when linting test files. It enables a set of rules that are library agnostic, and can help to catch possible misuse of the test APIs.
 ### Test activation
@@ -233,7 +232,7 @@ When enabled, the following global bindings are recognised by Biome:
 
 ### Test rules
 Rules that belong to the domain:
-- [noExcessiveNestedTestSuites](/linter/rules/no-excessive-nested-test-suites) (recommended)
+- [noExcessiveNestedTestSuites](/linter/rules/no-excessive-nested-test-suites)
 - [noDuplicateTestHooks](/linter/rules/no-duplicate-test-hooks) (recommended)
 - [noExportsInTest](/linter/rules/no-exports-in-test) (recommended)
 - [noFocusedTests](/linter/rules/no-focused-tests) (recommended)

@@ -11,15 +11,13 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 <TabItem label="CSS" icon="seti:css">
 ## Summary
 - Rule available since: `v1.9.4`
-- Diagnostic Category: [`lint/nursery/noDuplicateProperties`](/reference/diagnostics#diagnostic-category)
+- Diagnostic Category: [`lint/suspicious/noDuplicateProperties`](/reference/diagnostics#diagnostic-category)
+- This rule is **recommended**, which means is enabled by default.
 - This rule doesn't have a fix.
 - The default severity of this rule is [**error**](/reference/diagnostics#error).
 - Sources: 
   - Same as [`stylelint/declaration-block-no-duplicate-properties`](https://github.com/stylelint/stylelint/blob/main/lib/rules/declaration-block-no-duplicate-properties/README.md)
 
-:::caution
-This rule is part of the [nursery](/linter/rules/#nursery) group.
-:::
 ## Description
 Disallow duplicate properties within declaration blocks.
 
@@ -36,7 +34,7 @@ a {
 }
 ```
 
-<pre class="language-text"><code class="language-text">code-block.css:3:3 <a href="https://biomejs.dev/linter/rules/no-duplicate-properties">lint/nursery/noDuplicateProperties</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Duplicate properties can lead to unexpected behavior and may override previous declarations unintentionally.</span><br />  <br />    <strong>1 │ </strong>a &#123;<br />    <strong>2 │ </strong>  color: pink;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>  color: orange;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>&#125;<br />    <strong>5 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;"><strong>color</strong></span><span style="color: lightgreen;"> is already defined here.</span><br />  <br />    <strong>1 │ </strong>a &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  color: pink;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>  color: orange;<br />    <strong>4 │ </strong>&#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove or rename the duplicate property to ensure consistent styling.</span><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.css:3:3 <a href="https://biomejs.dev/linter/rules/no-duplicate-properties">lint/suspicious/noDuplicateProperties</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Duplicate properties can lead to unexpected behavior and may override previous declarations unintentionally.</span><br />  <br />    <strong>1 │ </strong>a &#123;<br />    <strong>2 │ </strong>  color: pink;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>  color: orange;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>&#125;<br />    <strong>5 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;"><strong>color</strong></span><span style="color: lightgreen;"> is already defined here.</span><br />  <br />    <strong>1 │ </strong>a &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  color: pink;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>  color: orange;<br />    <strong>4 │ </strong>&#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove or rename the duplicate property to ensure consistent styling.</span><br />  <br /></code></pre>
 
 ### Valid
 
@@ -52,7 +50,7 @@ a {
 {
 	"linter": {
 		"rules": {
-			"nursery": {
+			"suspicious": {
 				"noDuplicateProperties": "error"
 			}
 		}

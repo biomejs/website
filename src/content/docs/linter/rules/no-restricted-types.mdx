@@ -11,15 +11,12 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 <TabItem label="TypeScript and TSX" icon="seti:typescript">
 ## Summary
 - Rule available since: `v1.9.0`
-- Diagnostic Category: [`lint/nursery/noRestrictedTypes`](/reference/diagnostics#diagnostic-category)
+- Diagnostic Category: [`lint/style/noRestrictedTypes`](/reference/diagnostics#diagnostic-category)
 - This rule has a [**safe**](/linter/#safe-fixes) fix.
-- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
 - Sources: 
   - Same as [`@typescript-eslint/no-restricted-types`](https://typescript-eslint.io/rules/no-restricted-types)
 
-:::caution
-This rule is part of the [nursery](/linter/rules/#nursery) group.
-:::
 ## Description
 Disallow user defined types.
 
@@ -53,7 +50,7 @@ In the example above, the rule will emit a diagnostics if `Foo` or `OldAPI` are 
 {
 	"linter": {
 		"rules": {
-			"nursery": {
+			"style": {
 				"noRestrictedTypes": "error"
 			}
 		}
