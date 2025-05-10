@@ -1,0 +1,99 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: useSingleJsDocAsterisk
+description: Learn more about useSingleJsDocAsterisk
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+## Summary
+:::note
+This rule is currently only available in the [2.0 beta release](/blog/biome-v2-0-beta).
+:::
+- Diagnostic Category: [`lint/nursery/useSingleJsDocAsterisk`](/reference/diagnostics#diagnostic-category)
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`jsdoc/no-multi-asterisks`](https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/no-multi-asterisks.md)
+
+:::caution
+This rule is part of the [nursery](/linter/rules/#nursery) group.
+:::
+## Description
+Enforce JSDoc comment lines to start with a single asterisk, except for the first one.
+
+This rule ensures that every line in a JSDoc block, except the opening one, starts with exactly one asterisk (`*`).
+Extra asterisks are unnecessary in JSDoc comments and are often introduced by mistake.
+
+Double asterisks (`**`) are still allowed, because they mark the start of bold text.
+
+## Examples
+
+### Invalid
+
+```js
+/**
+** Description
+*/
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:2:1 <a href="https://biomejs.dev/linter/rules/use-single-js-doc-asterisk">lint/nursery/useSingleJsDocAsterisk</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">JSDoc comment line should start with a single asterisk.</span><br />  <br />    <strong>1 │ </strong>/&#42;&#42;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>&#42;&#42; Description<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>&#42;/<br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">In JSDoc comments, extra asterisks beyond the first are unnecessary and are often added by mistake.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Remove additional asterisks.</span><br />  <br />  <strong>  2 │ </strong>&#42;<span style="color: Tomato;">&#42;</span><span style="opacity: 0.8;">·</span>Description<br />  <strong>    │ </strong> <span style="color: Tomato;">-</span>            <br /></code></pre>
+
+```js
+/**
+* Description
+* */
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:3:1 <a href="https://biomejs.dev/linter/rules/use-single-js-doc-asterisk">lint/nursery/useSingleJsDocAsterisk</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">JSDoc comment line should end with a single asterisk.</span><br />  <br />    <strong>1 │ </strong>/&#42;&#42;<br />    <strong>2 │ </strong>&#42; Description<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>&#42; &#42;/<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">In JSDoc comments, extra asterisks beyond the first are unnecessary and are often added by mistake.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Remove additional asterisks.</span><br />  <br />  <strong>  3 │ </strong>&#42;<span style="opacity: 0.8;"><span style="color: Tomato;">·</span></span><span style="color: Tomato;">&#42;</span>/<br />  <strong>    │ </strong> <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span> <br /></code></pre>
+
+```js
+/** @ts-ignore **/
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/use-single-js-doc-asterisk">lint/nursery/useSingleJsDocAsterisk</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">JSDoc comment line should end with a single asterisk.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>/&#42;&#42; @ts-ignore &#42;&#42;/<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">In JSDoc comments, extra asterisks beyond the first are unnecessary and are often added by mistake.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Remove additional asterisks.</span><br />  <br />  <strong>  1 │ </strong>/&#42;&#42;<span style="opacity: 0.8;">·</span>@ts-ignore<span style="opacity: 0.8;">·</span>&#42;<span style="color: Tomato;">&#42;</span>/<br />  <strong>    │ </strong>                <span style="color: Tomato;">-</span> <br /></code></pre>
+
+### Valid
+
+```js
+/**
+ * Description
+ * @public
+ */
+```
+
+```js
+/** @ts-ignore */
+```
+
+```js
+/**
+ * **Bold** text
+ */
+```
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useSingleJsDocAsterisk": "error"
+			}
+		}
+	}
+}
+
+```
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
+</Tabs>
+
