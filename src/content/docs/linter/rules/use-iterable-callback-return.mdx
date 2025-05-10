@@ -25,7 +25,11 @@ This rule is part of the [nursery](/linter/rules/#nursery) group.
 ## Description
 Enforce consistent return values in iterable callbacks.
 
-This rule ensures that callbacks passed to certain iterable methods either always return a value or never return a value, depending on the method's requirements.
+This rule ensures that callbacks passed to certain iterable methods either always return a
+value or never return a value, depending on the method's requirements.
+
+Note that async and generator callbacks are ignored as they always return `Promise` or
+`Generator` respectively.
 
 ## Methods and Their Requirements
 
@@ -46,7 +50,7 @@ The following methods require a return in their callback:
 - `toSorted`
 — `from` (when called on `Array`)
 
-A return value is disallowed in the  method `forEach`.
+A return value is disallowed in the method `forEach`.
 
 ## Examples
 
