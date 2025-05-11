@@ -406,7 +406,19 @@ Runs formatter, linter and import sorting to the requested files.
 
   The file doesn't need to exist on disk, what matters is the extension of the file. Based on the extension, Biome knows how to check the code.
 
+  To apply changes to the output, include the `--write` option.
+
   Example: `echo 'let a;' | biome check --stdin-file-path=file.js`
+
+  Example:
+  ```bash
+  echo 'import { access } from "node:fs";
+  import { pbkdf2Sync } from "node:crypto";
+  export function foo() {
+    console.log(access);
+    console.log(pbkdf2Sync);
+  }' | pnpm biome check --stdin-file-path="foo.ts" --write
+  ```
 - **`    --staged`** &mdash; 
   When set to true, only the files that have been staged (the ones prepared to be committed) will be linted. This option should be used when working locally.
 - **`    --changed`** &mdash; 
