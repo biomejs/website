@@ -95,7 +95,7 @@ impl DocDomains {
                     writeln!(buffer, "## {name}")?;
                     writeln!(
                         buffer,
-                        "This domain contains rules that perform project-level analysis. This includes our module graph for dependency resolution, as well as type information. When enabling rules that belong to this domain, Biome will scan the entire project. The scanning phase will have a performance impact on the linting process."
+                        "This domain contains rules that perform project-level analysis. This includes our module graph for dependency resolution, as well as type information. When enabling rules that belong to this domain, Biome will scan the entire project. The scanning phase will have a performance impact on the linting process. See the reference for the [`files.includes`](/reference/configuration/#note-on-biomes-scanner) configuration on how you can influence the scanner behaviour with regards to generated code."
                     )?;
                 }
             }
