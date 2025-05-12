@@ -68,7 +68,7 @@
     "starlight-blog": "0.21.0",
     "textlint": "14.7.1",
     "textlint-rule-preset-jtf-style": "2.3.14",
-    "textlint-rule-prh": "6.0.0",
+    "textlint-rule-prh": "6.1.0",
     "typescript": "5.7.3",
     "vite": "6.3.5",
     "vite-plugin-svgr": "4.3.0"
