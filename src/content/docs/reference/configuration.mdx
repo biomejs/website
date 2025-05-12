@@ -94,6 +94,28 @@ This means that:
 * `src/special.test.js` **is* processed.
 * `test/special.test.js` **is not* processed.
 
+#### Note on Biome's scanner
+
+Biome has a scanner that is responsible for discovering `.gitignore` files as
+well as indexing projects if any of the rules from the project domain are
+enabled.
+
+The scanner respects `files.includes`, with two exceptions:
+
+* If the project domain or one of its rules is enabled, dependencies in
+  `node_modules` are still read, even if they're ignored in `files.includes`.
+  This is because they may be a valuable source of type information.
+* The scanner will not ignore individual files if they are in a non-ignored
+  directory. This is because files that are co-located with regular
+  (non-ignored) files are likely to be a valuable source of type information,
+  and they are also more likely to form import cycles with other files.
+
+This means that if you use `files.includes` to ignore folders with generated
+code, type information from such folders is inaccessible to the scanner. If you
+do wish to have such type information available, we advise to _not_ ignore these
+folders through `files.includes` and instead ignore them using tool-specific 
+settings such as `linter.includes` and `formatter.includes` only.
+
 ### `files.ignoreUnknown`
 
 If `true`, Biome won't emit diagnostics if it encounters files that it can't
