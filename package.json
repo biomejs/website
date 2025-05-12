@@ -75,6 +75,6 @@
   },
   "packageManager": "pnpm@10.10.0",
   "dependencies": {
-    "starlight-links-validator": "^0.15.0"
+    "starlight-links-validator": "^0.16.0"
   }
 }

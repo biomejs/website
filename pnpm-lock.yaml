@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       starlight-links-validator:
-        specifier: ^0.15.0
-        version: 0.15.0(@astrojs/starlight@0.34.3(astro@5.7.12(@netlify/blobs@8.1.1)(@types/node@20.17.46)(jiti@1.21.7)(rollup@4.40.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.5.3))(typescript@5.8.3)))
+        specifier: ^0.16.0
+        version: 0.16.0(@astrojs/starlight@0.34.3(astro@5.7.12(@netlify/blobs@8.1.1)(@types/node@20.17.46)(jiti@1.21.7)(rollup@4.40.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.5.3))(typescript@5.8.3)))
     devDependencies:
       '@astrojs/netlify':
         specifier: 6.3.2
@@ -3673,8 +3673,8 @@ packages:
     peerDependencies:
       '@astrojs/starlight': '>=0.33.0'
 
-  starlight-links-validator@0.15.0:
-    resolution: {integrity: sha512-NZeb9WF5Skdz1dQnALFtxU2sQW9mSMqudDUG7B2w3NCe4xDAwKEdBOOSn7hfJtzziFWksZXobvUgEBhR4S5eXA==}
+  starlight-links-validator@0.16.0:
+    resolution: {integrity: sha512-wInToor19C7UxhesPuxTBIhB1LH1wzNQHD4HaumfcB+yFhg5u80yQEnkZDrABHrUEEEwFm//NoZbWhnUj1m2ug==}
     engines: {node: '>=18.17.1'}
     peerDependencies:
       '@astrojs/starlight': '>=0.32.0'
@@ -8755,7 +8755,7 @@ snapshots:
       - astro
       - supports-color
 
-  starlight-links-validator@0.15.0(@astrojs/starlight@0.34.3(astro@5.7.12(@netlify/blobs@8.1.1)(@types/node@20.17.46)(jiti@1.21.7)(rollup@4.40.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.5.3))(typescript@5.8.3))):
+  starlight-links-validator@0.16.0(@astrojs/starlight@0.34.3(astro@5.7.12(@netlify/blobs@8.1.1)(@types/node@20.17.46)(jiti@1.21.7)(rollup@4.40.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.5.3))(typescript@5.8.3))):
     dependencies:
       '@astrojs/starlight': 0.34.3(astro@5.7.12(@netlify/blobs@8.1.1)(@types/node@20.17.46)(jiti@1.21.7)(rollup@4.40.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.5.3))(typescript@5.8.3))
       '@types/picomatch': 3.0.2
