@@ -36,8 +36,8 @@ importers:
         specifier: 1.9.4
         version: 1.9.4
       '@biomejs/wasm-web':
-        specifier: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@161985b
-        version: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@161985b
+        specifier: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@ccbb1af
+        version: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@ccbb1af
       '@codemirror/lang-css':
         specifier: 6.3.1
         version: 6.3.1(@codemirror/view@6.36.7)
@@ -446,9 +446,9 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@biomejs/wasm-web@https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@161985b':
-    resolution: {tarball: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@161985b}
-    version: 0.0.0-rev.161985bcb432cb32559e895861f7899458ae190c
+  '@biomejs/wasm-web@https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@ccbb1af':
+    resolution: {tarball: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@ccbb1af}
+    version: 0.0.0-rev.ccbb1aff86a6aca4e377a0e897781afafa4edfa6
 
   '@braintree/sanitize-url@6.0.4':
     resolution: {integrity: sha512-s3jaWicZd0pkP0jf5ysyHUI/RE7MHos6qlToFcGWXVp+ykHOy77OUMrfbgJ9it2C5bow7OIQwYYaHjk9XlBQ2A==}
@@ -4904,7 +4904,7 @@ snapshots:
   '@biomejs/cli-win32-x64@1.9.4':
     optional: true
 
-  '@biomejs/wasm-web@https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@161985b': {}
+  '@biomejs/wasm-web@https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@ccbb1af': {}
 
   '@braintree/sanitize-url@6.0.4': {}
 
