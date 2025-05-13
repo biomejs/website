@@ -82,6 +82,18 @@ If you're using Node.js, the recommended way to run Biome in CI is to use [your 
 This ensures that your CI pipeline uses the same version of Biome as you do inside the editor or when running local CLI commands.
 Alternatively, you can use a dedicated [CI Action](/recipes/continuous-integration).
 
+### `biome check` VS `biome ci`
+
+Biome offers two CLI commands to run all checks: `biome check` and `biome ci`, however the latter should be used in CI (Continuous Integration) environments.
+
+Compared to the `check` command, the `ci` command:
+- Doesn't provide any `--write`/`--fix` option.
+- Integrates better with specific runners. For example, when run on GitHub, the diagnostics are printed using the GitHub annotations.
+- Allows controlling the number of threads.
+- When VCS integration is enabled, it uses the `--changed` flag instead of `--staged`, because a remote repository doesn't have the concept of "staged files".
+
+With time, the `ci` command will receive more and more features.
+
 ## Next Steps
 
 Success! You're now ready to use Biome. 🥳
