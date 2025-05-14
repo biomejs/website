@@ -1,0 +1,111 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noRestrictedElements
+description: Learn more about noRestrictedElements
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JSX and TSX" icon="seti:javascript">
+## Summary
+:::note
+This rule is currently only available in the [2.0 beta release](/blog/biome-v2-0-beta).
+:::
+- Diagnostic Category: [`lint/nursery/noRestrictedElements`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`react/forbid-elements`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/forbid-elements.md)
+
+:::caution
+This rule is part of the [nursery](/linter/rules/#nursery) group.
+:::
+## Description
+Disallow the use of configured elements.
+
+This rule disallows the use of configured elements. Without elements configured,
+this rule doesn't do anything.
+
+This rule is useful in situations where you want to enforce the use of specific components
+instead of certain HTML or custom elements. For example, in a React project,
+you might want to ensure that developers use a custom `TextField` component
+instead of the native `<input>` element to maintain consistency and apply
+custom styling or behavior.
+
+Here are some scenarios where this rule can be beneficial:
+
+- Consistency: Ensuring that all input fields use a custom component instead of the native
+element to maintain a consistent look and feel across the application.
+- Accessibility: Enforcing the use of custom components that have built-in
+accessibility features, ensuring that the application is accessible to all users.
+- Custom Behavior: Requiring the use of components that encapsulate specific business logic
+or validation, reducing the risk of errors and improving code maintainability.
+- Styling: Ensuring that all elements adhere to the design system by using
+custom components that apply consistent styling.
+
+By disallowing certain elements and enforcing the use of custom components,
+this rule helps maintain code quality and consistency across the codebase.
+
+## Options
+
+```json
+{
+    "options": {
+        "elements": {
+            "input": "input is not allowed, use TextField component instead",
+            "CustomComponent": "deprecated"
+        }
+    }
+}
+```
+
+## Examples
+
+### Invalid
+
+Restricting the use of HTML elements:
+
+```jsx
+<input />
+```
+
+<pre class="language-text"><code class="language-text"></code></pre>
+
+Restricting the use of custom components:
+
+```jsx
+<CustomComponent />
+```
+
+<pre class="language-text"><code class="language-text"></code></pre>
+
+### Valid
+
+```jsx
+<TextField />
+```
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noRestrictedElements": "error"
+			}
+		}
+	}
+}
+
+```
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
+</Tabs>
+

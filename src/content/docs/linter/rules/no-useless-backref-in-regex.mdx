@@ -1,0 +1,136 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noUselessBackrefInRegex
+description: Learn more about noUselessBackrefInRegex
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+## Summary
+:::note
+This rule is currently only available in the [2.0 beta release](/blog/biome-v2-0-beta).
+:::
+- Diagnostic Category: [`lint/nursery/noUselessBackrefInRegex`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- Sources: 
+  - Same as [`no-useless-backreference`](https://eslint.org/docs/latest/rules/no-useless-backreference)
+  - Same as [`regexp/no-useless-backreference`](https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-useless-backreference.html)
+
+:::caution
+This rule is part of the [nursery](/linter/rules/#nursery) group.
+:::
+## Description
+Disallow useless backreferences in regular expression literals that always match an empty string.
+
+A backreference refers to the submatch of a previous capturing group and matches the same text as that group.
+JavaScript regular expression support two syntaxes:
+
+- `\N` where `N` is a 1-based integer that refers to the N-th declared capturing group.
+- `\k<name>` that refers to the capturing group named `name`.
+This syntax is only available in Unicode-aware regular expressions,
+i.e. regular expressions using the `u` or `v` flag.
+
+A backreference always matches an empty string when it refers to:
+
+- A group that belongs to another alternate branch.
+In `/(a)|b\1b/`, the group `(a)` and its backreference `\1` are in distinct alternate branches.
+`/(a)|b\1/` is equivalent to `(a)|b/`.
+
+
+- A group that appears after the backreference.
+In `/\1(a)/`, the group `(a)` is declared after its backreference `\1`.
+`/\1(a)/` is equivalent to `(a)/`.
+
+
+- A group in which the backreference is declared.
+In `/(\1)/`, the backrefernce is nested in the group it refers to.
+`/(\1)/` is equivalent to `/()/`.
+
+
+- A group that is inside a negative lookaround assertion without the backreference.
+In `/a(?!(b)).\1/`, the backrefernce is in a negative assertion while its backreference is outside.
+`/a(?!(b)).\1/` is equivalent to `/a(?!(b))./`.
+
+
+- A group that is declared before the backreference inside a lookbehind assertion.
+In `/(?<=(a)\1)b/`, the backreference appears after the group while they are in a lookbehind assertion.
+`/(?<=(a)\1)b/` is equivalent to `/(?<=(a))b/`.
+
+
+
+A backreference that always matches an empty string is always successfully matched and is therefore useless.
+
+## Examples
+
+### Invalid
+
+```js
+/(a)|b\1/;
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:7 <a href="https://biomejs.dev/linter/rules/no-useless-backref-in-regex">lint/nursery/noUselessBackrefInRegex</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">This backreference refers to a group placed in another alternate branch, making it always match an empty string.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>/(a)|b&#92;1/;<br />   <strong>   │ </strong>      <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The backreference refers to this group.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>/(a)|b&#92;1/;<br />   <strong>   │ </strong> <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The alternate separator is here.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>/(a)|b&#92;1/;<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove the backreference or place it in the same alternate branch as the group.</span><br />  <br /></code></pre>
+
+```js
+/\1(a)/;
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:2 <a href="https://biomejs.dev/linter/rules/no-useless-backref-in-regex">lint/nursery/noUselessBackrefInRegex</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">This backreference refers to a group that appears after it, making it always match an empty string.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>/&#92;1(a)/;<br />   <strong>   │ </strong> <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">A backreference must refer to a group defined before its occurrence.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove the backreference.</span><br />  <br /></code></pre>
+
+```js
+/(\1)/;
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:3 <a href="https://biomejs.dev/linter/rules/no-useless-backref-in-regex">lint/nursery/noUselessBackrefInRegex</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">This backreference is nested within the group to which it refers, making it always match an empty string.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>/(&#92;1)/;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The group starts here.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>/(&#92;1)/;<br />   <strong>   │ </strong> <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove the backreference or place it outside the group to which it refers.</span><br />  <br /></code></pre>
+
+```js
+/a(?!(b)).\1/;
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:11 <a href="https://biomejs.dev/linter/rules/no-useless-backref-in-regex">lint/nursery/noUselessBackrefInRegex</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">This backreference refers to a group within a negated assertion, making it always match an empty string.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>/a(?!(b)).&#92;1/;<br />   <strong>   │ </strong>          <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The backreference refers to this group.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>/a(?!(b)).&#92;1/;<br />   <strong>   │ </strong>     <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The negated assertion is here.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>/a(?!(b)).&#92;1/;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove the backreference or place it in the negated assertion.</span><br />  <br /></code></pre>
+
+```js
+/(?<=(a)\1)b/;
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:9 <a href="https://biomejs.dev/linter/rules/no-useless-backref-in-regex">lint/nursery/noUselessBackrefInRegex</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">This backreference refers to a group that appears before itself in a lookbehind assertion, making it always match an empty string.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>/(?&lt;=(a)&#92;1)b/;<br />   <strong>   │ </strong>        <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The backreference refers to this group.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>/(?&lt;=(a)&#92;1)b/;<br />   <strong>   │ </strong>     <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The lookbehind assertion is here.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>/(?&lt;=(a)&#92;1)b/;<br />   <strong>   │ </strong> <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove the backreference or place it after the group it refers to.</span><br />  <br /></code></pre>
+
+### Valid
+
+```js
+/(a)\1/;
+```
+
+```js
+/(?<foo>a)\k<foo>/u;
+```
+
+```js
+/a(?!(b|c)\1)./;
+```
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noUselessBackrefInRegex": "error"
+			}
+		}
+	}
+}
+
+```
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
+</Tabs>
+
