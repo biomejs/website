@@ -426,25 +426,25 @@ Runs formatter, linter and import sorting to the requested files.
 
 **Available options:**
 - **`    --write`** &mdash; 
-  Writes safe fixes, formatting and import sorting
+  Apply safe fixes, formatting and import sorting
 - **`    --unsafe`** &mdash; 
-  Allow to do unsafe fixes, should be used with `--write` or `--fix`
+  Apply unsafe fixes. Should be used with `--write` or `--fix`
 - **`    --fix`** &mdash; 
   Alias for `--write`, writes safe fixes, formatting and import sorting
 - **`    --formatter-enabled`**=_`<true|false>`_ &mdash; 
-  Allow to enable or disable the formatter check.
+  Allow enabling or disabling the formatter check.
 - **`    --linter-enabled`**=_`<true|false>`_ &mdash; 
-  Allow to enable or disable the linter check.
+  Allow enabling or disabling the linter check.
 - **`    --assist-enabled`**=_`<true|false>`_ &mdash; 
-  Allow to enable or disable the assist.
+  Allow enabling or disabling the assist.
 - **`    --enforce-assist`**=_`<true|false>`_ &mdash; 
-  Allows to enforce assist, and make the CLI fail if some actions aren't applied. Defaults to `true`.
+  Allows enforcing assist, and make the CLI fail if some actions aren't applied. Defaults to `true`.
 - **`    --stdin-file-path`**=_`PATH`_ &mdash; 
   Use this option when you want to format code piped from `stdin`, and print the output to `stdout`.
 
   The file doesn't need to exist on disk, what matters is the extension of the file. Based on the extension, Biome knows how to check the code.
 
-  Example: `echo 'let a;' | biome check --stdin-file-path=file.js`
+  Example: ```shell echo 'let a;' | biome check --stdin-file-path=file.js --write ```
 - **`    --staged`** &mdash; 
   When set to true, only the files that have been staged (the ones prepared to be committed) will be linted. This option should be used when working locally.
 - **`    --changed`** &mdash; 
@@ -545,11 +545,11 @@ Run various checks on a set of files.
 - **`    --write`** &mdash; 
   Writes safe fixes
 - **`    --unsafe`** &mdash; 
-  Allow to do unsafe fixes, should be used with `--write` or `--fix`
+  Apply unsafe fixes. Should be used with `--write` or `--fix`
 - **`    --fix`** &mdash; 
   Alias for `--write`, writes safe fixes
 - **`    --suppress`** &mdash; 
-  Fixes lint rule violations with a comment a suppression instead of using a rule code action (fix)
+  Fixes lint rule violations with comment suppressions instead of using a rule code action (fix)
 - **`    --reason`**=_`STRING`_ &mdash; 
   Explanation for suppressing diagnostics with `--suppress`
 - **`    --only`**=_`<GROUP|RULE>`_ &mdash; 
@@ -565,7 +565,7 @@ Run various checks on a set of files.
 
   The file doesn't need to exist on disk, what matters is the extension of the file. Based on the extension, Biome knows how to lint the code.
 
-  Example: `echo 'let a;' | biome lint --stdin-file-path=file.js`
+  Example: ```shell echo 'let a;' | biome lint --stdin-file-path=file.js --write ```
 - **`    --staged`** &mdash; 
   When set to true, only the files that have been staged (the ones prepared to be committed) will be linted.
 - **`    --changed`** &mdash; 
@@ -730,17 +730,17 @@ Run the formatter on a set of files.
 
   The file doesn't need to exist on disk, what matters is the extension of the file. Based on the extension, Biome knows how to format the code.
 
-  Example: `echo 'let a;' | biome format --stdin-file-path=file.js`
+  Example: ```shell echo 'let a;' | biome format --stdin-file-path=file.js --write ```
 - **`    --write`** &mdash; 
-  Writes formatted files to file system.
+  Writes formatted files to a file system.
 - **`    --fix`** &mdash; 
-  Alias of `--write`, writes formatted files to file system.
+  Alias of `--write`, writes formatted files to a file system.
 - **`    --staged`** &mdash; 
   When set to true, only the files that have been staged (the ones prepared to be committed) will be linted.
 - **`    --changed`** &mdash; 
   When set to true, only the files that have been changed compared to your `defaultBranch` configuration will be linted.
 - **`    --since`**=_`REF`_ &mdash; 
-  Use this to specify the base branch to compare against when you're using the --changed flag and the `defaultBranch` is not set in your biome.json
+  Use this to specify the base branch to compare against when you're using the --changed flag, and the `defaultBranch` is not set in your biome.json
 - **`-h`**, **`--help`** &mdash; 
   Prints help information
 
@@ -751,7 +751,7 @@ Command to use in CI environments. Runs formatter, linter and import sorting to 
 
 Files won't be modified, the command is a read-only operation.
 
-**Usage**: **`biome`** **`ci`** \[**`--formatter-enabled`**=_`<true|false>`_\] \[**`--linter-enabled`**=_`<true|false>`_\] \[**`--assist-enabled`**=_`<true|false>`_\] \[**`--enforce-assist`**\] \[**`--changed`**\] \[**`--since`**=_`REF`_\] \[_`PATH`_\]...
+**Usage**: **`biome`** **`ci`** \[**`--formatter-enabled`**=_`<true|false>`_\] \[**`--linter-enabled`**=_`<true|false>`_\] \[**`--assist-enabled`**=_`<true|false>`_\] \[**`--enforce-assist`**=_`<true|false>`_\] \[**`--changed`**\] \[**`--since`**=_`REF`_\] \[_`PATH`_\]...
 
 **The configuration that is contained inside the file `biome.json`**
 - **`    --vcs-enabled`**=_`<true|false>`_ &mdash; 
@@ -965,13 +965,13 @@ Files won't be modified, the command is a read-only operation.
 
 **Available options:**
 - **`    --formatter-enabled`**=_`<true|false>`_ &mdash; 
-  Allow to enable or disable the formatter check.
+  Allow enabling or disabling the formatter check.
 - **`    --linter-enabled`**=_`<true|false>`_ &mdash; 
-  Allow to enable or disable the linter check.
+  Allow enabling or disable the linter check.
 - **`    --assist-enabled`**=_`<true|false>`_ &mdash; 
-  Allow to enable or disable the assist.
-- **`    --enforce-assist`** &mdash; 
-  Allows to enforce assist, and make the CLI fail if some actions aren't applied. Defaults to `true`.
+  Allow enabling or disabling the assist.
+- **`    --enforce-assist`**=_`<true|false>`_ &mdash; 
+  Allows enforcing assist, and make the CLI fail if some actions aren't applied. Defaults to `true`.
 - **`    --changed`** &mdash; 
   When set to true, only the files that have been changed compared to your `defaultBranch` configuration will be linted.
 - **`    --since`**=_`REF`_ &mdash; 
@@ -1198,13 +1198,13 @@ Note: GritQL escapes code snippets using backticks, but most shells interpret ba
 
   The file doesn't need to exist on disk, what matters is the extension of the file. Based on the extension, Biome knows how to parse the code.
 
-  Example: `echo 'let a;' | biome search '`let $var`' --stdin-file-path=file.js`
+  Example: ```shell echo 'let a;' | biome search '`let $var`' --stdin-file-path=file.js ```
 - **`-l`**, **`--language`**=_`ARG`_ &mdash; 
   The language to which the pattern applies.
 
   Grit queries are specific to the grammar of the language they target, so we currently do not support writing queries that apply to multiple languages at once.
 
-  If none given, the default language is JavaScript.
+  When none, the default language is JavaScript.
 - **`-h`**, **`--help`** &mdash; 
   Prints help information
 
