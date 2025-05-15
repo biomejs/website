@@ -1454,7 +1454,7 @@ fn write_action<L: ServiceLanguage>(
     file_path: &str,
     action: AnalyzerAction<L>,
 ) -> Result<()> {
-    let (_, text_edit) = action.mutation.as_text_range_and_edit().unwrap_or_default();
+    let (_, text_edit) = action.mutation.to_text_range_and_edit().unwrap_or_default();
     let action = CodeAction(text_edit)
         .with_file_source_code(source)
         .with_file_path(file_path);
