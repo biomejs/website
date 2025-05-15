@@ -1,7 +1,6 @@
 ---
 title: Biome v1.5
-description: 97% compatibility rate with Prettier, over 190 lint rules
-summary: |
+excerpt: |
   This version has few features around the CLI and many fixes in our formatter.
   The TypeScript, JSX and JavaScript formatter has surpassed the 97% compatibility rate with Prettier.
   Biome now provides over 190 lint rules.
