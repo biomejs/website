@@ -192,7 +192,7 @@ export function GET() {
         "nursery": {
           "noImportantStyles": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.0.0",
             "name": "noImportantStyles",
             "link": "https://biomejs.dev/linter/rules/no-important-styles",
             "recommended": true,
@@ -206,7 +206,7 @@ export function GET() {
           },
           "noUnknownAtRule": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.0.0",
             "name": "noUnknownAtRule",
             "link": "https://biomejs.dev/linter/rules/no-unknown-at-rule",
             "recommended": true,
@@ -220,7 +220,7 @@ export function GET() {
           },
           "noUselessEscapeInString": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.0.0",
             "name": "noUselessEscapeInString",
             "link": "https://biomejs.dev/linter/rules/no-useless-escape-in-string",
             "recommended": true,
@@ -1080,7 +1080,7 @@ export function GET() {
           },
           "noPrivateImports": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.0.0",
             "name": "noPrivateImports",
             "link": "https://biomejs.dev/linter/rules/no-private-imports",
             "recommended": true,
@@ -1387,7 +1387,7 @@ export function GET() {
         "nursery": {
           "noAwaitInLoop": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.0.0",
             "name": "noAwaitInLoop",
             "link": "https://biomejs.dev/linter/rules/no-await-in-loop",
             "recommended": false,
@@ -1402,7 +1402,7 @@ export function GET() {
           },
           "noBitwiseOperators": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.0.0",
             "name": "noBitwiseOperators",
             "link": "https://biomejs.dev/linter/rules/no-bitwise-operators",
             "recommended": false,
@@ -1416,7 +1416,7 @@ export function GET() {
           },
           "noConstantBinaryExpression": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.0.0",
             "name": "noConstantBinaryExpression",
             "link": "https://biomejs.dev/linter/rules/no-constant-binary-expression",
             "recommended": false,
@@ -1431,7 +1431,7 @@ export function GET() {
           },
           "noDestructuredProps": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.0.0",
             "name": "noDestructuredProps",
             "link": "https://biomejs.dev/linter/rules/no-destructured-props",
             "recommended": false,
@@ -1446,7 +1446,7 @@ export function GET() {
           },
           "noGlobalDirnameFilename": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.0.0",
             "name": "noGlobalDirnameFilename",
             "link": "https://biomejs.dev/linter/rules/no-global-dirname-filename",
             "recommended": false,
@@ -1461,7 +1461,7 @@ export function GET() {
           },
           "noImportCycles": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.0.0",
             "name": "noImportCycles",
             "link": "https://biomejs.dev/linter/rules/no-import-cycles",
             "recommended": false,
@@ -1475,7 +1475,7 @@ export function GET() {
           },
           "noProcessGlobal": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.0.0",
             "name": "noProcessGlobal",
             "link": "https://biomejs.dev/linter/rules/no-process-global",
             "recommended": false,
@@ -1504,7 +1504,7 @@ export function GET() {
           },
           "noShadow": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.0.0",
             "name": "noShadow",
             "link": "https://biomejs.dev/linter/rules/no-shadow",
             "recommended": false,
@@ -1518,7 +1518,7 @@ export function GET() {
           },
           "noTsIgnore": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.0.0",
             "name": "noTsIgnore",
             "link": "https://biomejs.dev/linter/rules/no-ts-ignore",
             "recommended": true,
@@ -1533,7 +1533,7 @@ export function GET() {
           },
           "noUnresolvedImports": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.0.0",
             "name": "noUnresolvedImports",
             "link": "https://biomejs.dev/linter/rules/no-unresolved-imports",
             "recommended": false,
@@ -1548,7 +1548,7 @@ export function GET() {
           },
           "noUselessBackrefInRegex": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.0.0",
             "name": "noUselessBackrefInRegex",
             "link": "https://biomejs.dev/linter/rules/no-useless-backref-in-regex",
             "recommended": true,
@@ -1565,7 +1565,7 @@ export function GET() {
           },
           "noUselessEscapeInString": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.0.0",
             "name": "noUselessEscapeInString",
             "link": "https://biomejs.dev/linter/rules/no-useless-escape-in-string",
             "recommended": true,
@@ -1574,7 +1574,7 @@ export function GET() {
           },
           "noUselessUndefined": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.0.0",
             "name": "noUselessUndefined",
             "link": "https://biomejs.dev/linter/rules/no-useless-undefined",
             "recommended": false,
@@ -1588,7 +1588,7 @@ export function GET() {
           },
           "useConsistentObjectDefinition": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.0.0",
             "name": "useConsistentObjectDefinition",
             "link": "https://biomejs.dev/linter/rules/use-consistent-object-definition",
             "recommended": false,
@@ -1603,7 +1603,7 @@ export function GET() {
           },
           "useExhaustiveSwitchCases": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.0.0",
             "name": "useExhaustiveSwitchCases",
             "link": "https://biomejs.dev/linter/rules/use-exhaustive-switch-cases",
             "recommended": true,
@@ -1617,7 +1617,7 @@ export function GET() {
           },
           "useExportsLast": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.0.0",
             "name": "useExportsLast",
             "link": "https://biomejs.dev/linter/rules/use-exports-last",
             "recommended": false,
@@ -1631,7 +1631,7 @@ export function GET() {
           },
           "useForComponent": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.0.0",
             "name": "useForComponent",
             "link": "https://biomejs.dev/linter/rules/use-for-component",
             "recommended": false,
@@ -1646,7 +1646,7 @@ export function GET() {
           },
           "useIterableCallbackReturn": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.0.0",
             "name": "useIterableCallbackReturn",
             "link": "https://biomejs.dev/linter/rules/use-iterable-callback-return",
             "recommended": true,
@@ -1660,7 +1660,7 @@ export function GET() {
           },
           "useNumericSeparators": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.0.0",
             "name": "useNumericSeparators",
             "link": "https://biomejs.dev/linter/rules/use-numeric-separators",
             "recommended": false,
@@ -1678,7 +1678,7 @@ export function GET() {
           },
           "useParseIntRadix": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.0.0",
             "name": "useParseIntRadix",
             "link": "https://biomejs.dev/linter/rules/use-parse-int-radix",
             "recommended": true,
@@ -1692,7 +1692,7 @@ export function GET() {
           },
           "useSingleJsDocAsterisk": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.0.0",
             "name": "useSingleJsDocAsterisk",
             "link": "https://biomejs.dev/linter/rules/use-single-js-doc-asterisk",
             "recommended": false,
@@ -1715,7 +1715,7 @@ export function GET() {
           },
           "useSymbolDescription": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.0.0",
             "name": "useSymbolDescription",
             "link": "https://biomejs.dev/linter/rules/use-symbol-description",
             "recommended": false,
@@ -3751,7 +3751,7 @@ export function GET() {
         "nursery": {
           "noNoninteractiveElementInteractions": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.0.0",
             "name": "noNoninteractiveElementInteractions",
             "link": "https://biomejs.dev/linter/rules/no-noninteractive-element-interactions",
             "recommended": false,
@@ -3765,7 +3765,7 @@ export function GET() {
           },
           "noRestrictedElements": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.0.0",
             "name": "noRestrictedElements",
             "link": "https://biomejs.dev/linter/rules/no-restricted-elements",
             "recommended": false,
@@ -3779,7 +3779,7 @@ export function GET() {
           },
           "noUnwantedPolyfillio": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.0.0",
             "name": "noUnwantedPolyfillio",
             "link": "https://biomejs.dev/linter/rules/no-unwanted-polyfillio",
             "recommended": true,
@@ -3794,7 +3794,7 @@ export function GET() {
           },
           "useGoogleFontPreconnect": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.0.0",
             "name": "useGoogleFontPreconnect",
             "link": "https://biomejs.dev/linter/rules/use-google-font-preconnect",
             "recommended": true,
@@ -4113,7 +4113,7 @@ export function GET() {
         "nursery": {
           "noFloatingPromises": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.0.0",
             "name": "noFloatingPromises",
             "link": "https://biomejs.dev/linter/rules/no-floating-promises",
             "recommended": true,
@@ -4551,7 +4551,7 @@ export function GET() {
         "source": {
           "useSortedProperties": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.0.0",
             "name": "useSortedProperties",
             "link": "https://biomejs.dev/linter/rules/use-sorted-properties",
             "recommended": false,
@@ -4573,7 +4573,7 @@ export function GET() {
           },
           "useSortedKeys": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.0.0",
             "name": "useSortedKeys",
             "link": "https://biomejs.dev/linter/rules/use-sorted-keys",
             "recommended": false,
