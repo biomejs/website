@@ -512,7 +512,7 @@ Rules that detect code that is likely to be incorrect or useless.
 
 ## Frequently Asked Questions (FAQ)
 
-> Why does rule X has an *unsafe* fix? It seems safe to me.
+### Why does rule X have an *unsafe* fix? It seems safe to me.
 
 There are different reasons why the Biome team decides to mark a fix unsafe, but mostly it boils down to the following:
 - The lint rule is still under heavy development, as well as the fix.
@@ -520,3 +520,22 @@ There are different reasons why the Biome team decides to mark a fix unsafe, but
 - The rule fix can deteriorate the DX while typing and/or saving. An example is `noUnusedVariables`, which adds `_` to the name of unused variables. This can deteriorate the DX of programmers while typing and saving.
 
 If a code fix doesn't follow these three guidelines, it's possible that the team forgot to make the rule fix safe. Please open an issue or send a PR!
+
+### Why is Biome linter so slow compared to v2?
+
+Since Biome v2, we've extended its architecture with a tool called Scanner. The Scanner is responsible for crawling your project files and creating important information
+such as the module graph and the inferred types.
+
+Such information **is needed** for some rules as `noFloatingPromises`, `noUnresolvedImports` or `noImportCycles`, which can't function otherwise.
+
+The Scanner is **opt-in**, and it's triggered only when a rule that belongs to the [project domain](/linter/domains#project-rules) is enabled.
+
+Based on our tests, we noticed roughly these numbers:
+|           | Without Scanner | With Scanner |
+|-----------|-----------------|--------------|
+| ~2k files | ~800ms          | ~2s          |
+| ~5k files | ~1000ms         | ~8s          |
+
+It's also worth mentioning that **we're aware** of this impact on performance, and the team is pledged to improve the performance in this part of the software.
+
+If you notice some abnormal numbers in terms of memory or time, please file an issue with a link to the repository, so we can help.
