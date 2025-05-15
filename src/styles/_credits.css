@@ -32,23 +32,6 @@ ul.credits-people-list {
 	justify-content: center;
 	flex-wrap: wrap;
 
-	&.contributors {
-		li {
-			width: 130px;
-			margin: 0;
-			margin: calc(var(--unit) / 4);
-
-			img {
-				width: 128px;
-				height: 128px;
-			}
-
-			span {
-				margin: calc(var(--unit) / 2) 0;
-			}
-		}
-	}
-
 	li {
 		margin: 0 var(--unit) var(--unit);
 		width: 220px;
@@ -58,6 +41,53 @@ ul.credits-people-list {
 		text-decoration: none;
 		border-radius: 12px;
 		overflow: hidden;
+	}
+	&.contributors {
+		li {
+			width: 82px;
+			margin: calc(var(--unit) / 4);
+
+			img {
+				width: 82px;
+				height: 82px;
+			}
+
+			span {
+				margin: calc(var(--unit) / 2) 0;
+			}
+		}
+	}
+
+	&.core-contributors {
+		li {
+			width: 200px;
+			margin: calc(var(--unit) / 4);
+
+			img {
+				width: 200px;
+				height: 200px;
+			}
+
+			span {
+				margin: calc(var(--unit) / 2) 0;
+			}
+		}
+	}
+
+	&.maintainers {
+		li {
+			width: 120px;
+			margin: calc(var(--unit) / 4);
+
+			img {
+				width: 120px;
+				height: 120px;
+			}
+
+			span {
+				margin: calc(var(--unit) / 2) 0;
+			}
+		}
 	}
 
 	a {
