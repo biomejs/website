@@ -44,12 +44,12 @@ ul.credits-people-list {
 	}
 	&.contributors {
 		li {
-			width: 82px;
+			width: 57px;
 			margin: calc(var(--unit) / 4);
 
 			img {
-				width: 82px;
-				height: 82px;
+				width: 57px;
+				height: 57px;
 			}
 
 			span {
