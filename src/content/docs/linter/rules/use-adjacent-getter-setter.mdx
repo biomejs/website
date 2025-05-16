@@ -1,0 +1,94 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: useAdjacentGetterSetter
+description: Learn more about useAdjacentGetterSetter
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+## Summary
+:::note
+This rule is currently only available in the [2.0 beta release](/blog/biome-v2-0-beta).
+:::
+- Diagnostic Category: [`lint/nursery/useAdjacentGetterSetter`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`grouped-accessor-pairs`](https://eslint.org/docs/latest/rules/grouped-accessor-pairs)
+
+:::caution
+This rule is part of the [nursery](/linter/rules/#nursery) group.
+:::
+## Description
+Enforce that getters and setters for the same property are adjacent in class and object definitions.
+
+When defining a property in a class or object, it's common to have both a getter and a setter.
+This rule enforces that getter is defined right before the setter,
+making the code more maintainable and easier to read.
+
+## Examples
+
+### Invalid
+
+Name getter and setter are not adjacent:
+
+```js
+class User {
+  get name() { return this._name; }
+  constructor() {}
+  set name(value) { this._name = value; }
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:2:7 <a href="https://biomejs.dev/linter/rules/use-adjacent-getter-setter">lint/nursery/useAdjacentGetterSetter</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Getter should be defined right before the setter.</span><br />  <br />    <strong>1 │ </strong>class User &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  get name() &#123; return this.&#95;name; &#125;<br />   <strong>   │ </strong>      <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>  constructor() &#123;&#125;<br />    <strong>4 │ </strong>  set name(value) &#123; this.&#95;name = value; &#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Move this setter after the getter.</span><br />  <br />    <strong>2 │ </strong>  get name() &#123; return this.&#95;name; &#125;<br />    <strong>3 │ </strong>  constructor() &#123;&#125;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>  set name(value) &#123; this.&#95;name = value; &#125;<br />   <strong>   │ </strong>      <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>5 │ </strong>&#125;<br />    <strong>6 │ </strong><br />  <br /></code></pre>
+
+Getter should go before the setter.
+
+```js
+const user = {
+  set name(value) { this._name = value; },
+  get name() { return this._name; }
+};
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:3:7 <a href="https://biomejs.dev/linter/rules/use-adjacent-getter-setter">lint/nursery/useAdjacentGetterSetter</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Getter should be defined right before the setter.</span><br />  <br />    <strong>1 │ </strong>const user = &#123;<br />    <strong>2 │ </strong>  set name(value) &#123; this.&#95;name = value; &#125;,<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>  get name() &#123; return this.&#95;name; &#125;<br />   <strong>   │ </strong>      <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>&#125;;<br />    <strong>5 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Move this setter after the getter.</span><br />  <br />    <strong>1 │ </strong>const user = &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  set name(value) &#123; this.&#95;name = value; &#125;,<br />   <strong>   │ </strong>      <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>  get name() &#123; return this.&#95;name; &#125;<br />    <strong>4 │ </strong>&#125;;<br />  <br /></code></pre>
+
+### Valid
+
+```js
+class User {
+  get name() { return this._name; }
+  set name(value) { this._name = value; }
+  get age() { return this._age; }
+  set age(age) { this._age = age; }
+}
+```
+
+This rule does not enforce the existence of both getter and setter for a property.
+Single getters without setters and setters without getters are ignored.
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useAdjacentGetterSetter": "error"
+			}
+		}
+	}
+}
+
+```
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
+</Tabs>
+

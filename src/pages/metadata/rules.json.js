@@ -1586,6 +1586,20 @@ export function GET() {
             ],
             "docs": " Disallow the use of useless `undefined`.\n\n `undefined` is the default value for new variables, parameters, return statements, etc., so specifying it doesn't make any difference.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n let foo = undefined;\n ```\n\n ```js,expect_diagnostic\n const {foo = undefined} = bar;\n ```\n\n ```js,expect_diagnostic\n const noop = () => undefined;\n ```\n\n ```js,expect_diagnostic\n function foo() {\n    return undefined;\n }\n ```\n\n ```js,expect_diagnostic\n function* foo() {\n   yield undefined;\n }\n ```\n\n ```js,expect_diagnostic\n function foo(bar = undefined) {}\n ```\n\n ```js,expect_diagnostic\n function foo({bar = undefined}) {}\n ```\n\n ### Valid\n\n ```js\n let foo;\n const {foo} = bar;\n function foo() {\n   return;\n }\n function* foo() {\n   yield;\n }\n function foo(bar) {}\n function foo({bar}) {}\n foo();\n ```\n\n"
           },
+          "useAdjacentGetterSetter": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useAdjacentGetterSetter",
+            "link": "https://biomejs.dev/linter/rules/use-adjacent-getter-setter",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslint": "grouped-accessor-pairs"
+              }
+            ],
+            "docs": " Enforce that getters and setters for the same property are adjacent in class and object definitions.\n\n When defining a property in a class or object, it's common to have both a getter and a setter.\n This rule enforces that getter is defined right before the setter,\n making the code more maintainable and easier to read.\n\n ## Examples\n\n ### Invalid\n\n Name getter and setter are not adjacent:\n\n ```js,expect_diagnostic\n class User {\n   get name() { return this._name; }\n   constructor() {}\n   set name(value) { this._name = value; }\n }\n ```\n\n Getter should go before the setter.\n\n ```js,expect_diagnostic\n const user = {\n   set name(value) { this._name = value; },\n   get name() { return this._name; }\n };\n ```\n\n ### Valid\n\n ```js\n class User {\n   get name() { return this._name; }\n   set name(value) { this._name = value; }\n   get age() { return this._age; }\n   set age(age) { this._age = age; }\n }\n ```\n\n This rule does not enforce the existence of both getter and setter for a property.\n Single getters without setters and setters without getters are ignored.\n\n"
+          },
           "useConsistentObjectDefinition": {
             "deprecated": false,
             "version": "2.0.0",
@@ -4494,7 +4508,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 316
+    "numberOrRules": 317
   },
   "syntax": {
     "languages": {

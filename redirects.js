@@ -224,6 +224,7 @@ export default {
   '/linter/rules/noVoidTypeReturn': '/linter/rules/no-void-type-return',
   '/linter/rules/noWith': '/linter/rules/no-with',
   '/linter/rules/noYodaExpression': '/linter/rules/no-yoda-expression',
+  '/linter/rules/useAdjacentGetterSetter': '/linter/rules/use-adjacent-getter-setter',
   '/linter/rules/useAdjacentOverloadSignatures': '/linter/rules/use-adjacent-overload-signatures',
   '/linter/rules/useAltText': '/linter/rules/use-alt-text',
   '/linter/rules/useAnchorContent': '/linter/rules/use-anchor-content',
