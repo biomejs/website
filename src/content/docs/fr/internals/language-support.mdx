@@ -69,19 +69,23 @@ Veuillez noter que certains fichiers bien connus comme `tsconfig.json` et `.babe
 - lors du **linting** des fichiers `.svelte`, `.astro` ou `.vue`, il est conseillé de désactiver certaines règles additionnelles pour empêcher des erreurs du compilateur. Pour cela, utilisez l’option `overrides`&nbsp;:
 
   ```json
-    {
-      "overrides": [
-        {
-          "include": ["*.svelte", "*.astro", "*.vue"],
-          "linter": {
-            "rules": {
-              "style": {
-                "useConst": "off",
-                "useImportType": "off"
-              }
+  {
+    "overrides": [
+      {
+        "includes": ["**/*.svelte", "**/*.astro", "**/*.vue"],
+        "linter": {
+          "rules": {
+            "style": {
+              "useConst": "off",
+              "useImportType": "off"
+            },
+            "correctness": {
+              "noUnusedVariables": "off",
+              "noUnusedImports": "off"
             }
           }
         }
-      ]
-    }
-    ```
+      }
+    ]
+  }
+  ```

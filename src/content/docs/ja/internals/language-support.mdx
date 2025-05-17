@@ -67,19 +67,23 @@ JSONCは「コメント付きJSON」の略です。この形式は、[VS Code](h
 - `.svelte` 、`.astro` 、 `.vue` ファイルを**静的解析**する際、コンパイラエラーを防ぐためにいくつかのルールをオフにすることをお勧めします。オプション `overrides` を使用します：
 
   ```json
-    {
-      "overrides": [
-        {
-          "include": ["*.svelte", "*.astro", "*.vue"],
-          "linter": {
-            "rules": {
-              "style": {
-                "useConst": "off",
-                "useImportType": "off"
-              }
+  {
+    "overrides": [
+      {
+        "includes": ["**/*.svelte", "**/*.astro", "**/*.vue"],
+        "linter": {
+          "rules": {
+            "style": {
+              "useConst": "off",
+              "useImportType": "off"
+            },
+            "correctness": {
+              "noUnusedVariables": "off",
+              "noUnusedImports": "off"
             }
           }
         }
-      ]
-    }
-    ```
+      }
+    ]
+  }
+  ```
