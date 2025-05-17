@@ -1,5 +1,5 @@
-import { classnames } from "@/playground/utils";
 import type React from "react";
+import { classnames } from "@/playground/utils";
 import type { PlaygroundTab } from "../types";
 
 interface Tab<K> {

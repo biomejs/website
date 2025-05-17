@@ -1,5 +1,5 @@
-import biomeIcon from "@/assets/svg/logomark.svg";
 import { type MouseEvent, useCallback } from "react";
+import biomeIcon from "@/assets/svg/logomark.svg";
 
 const longCommitHash = BIOME_VERSION.slice(10);
 const shortCommitHash = longCommitHash.slice(0, 7);

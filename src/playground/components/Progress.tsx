@@ -60,7 +60,9 @@ const ProgressBar = ({
 
 const ProgressBarContainer = ({
 	data,
-}: { data: Array<{ duration: number; label: string; color: string }> }) => {
+}: {
+	data: Array<{ duration: number; label: string; color: string }>;
+}) => {
 	const maxDuration = data.reduce(
 		(max, { duration }) => Math.max(max, duration),
 		0,

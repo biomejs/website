@@ -74,7 +74,9 @@
 		transparent 40%
 	);
 	transform: translate(-50%, -50%);
-	transition: width .2s ease, height .2s ease;
+	transition:
+		width 0.2s ease,
+		height 0.2s ease;
 	pointer-events: none;
 }
 

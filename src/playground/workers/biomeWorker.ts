@@ -1,3 +1,11 @@
+import init, {
+	type BiomePath,
+	type Configuration,
+	DiagnosticPrinter,
+	type ProjectKey,
+	type RuleCategories,
+	Workspace,
+} from "@biomejs/wasm-web";
 import {
 	ArrowParentheses,
 	AttributePosition,
@@ -11,14 +19,6 @@ import {
 	QuoteStyle,
 	Semicolons,
 } from "@/playground/types";
-import init, {
-	DiagnosticPrinter,
-	type Configuration,
-	type BiomePath,
-	type ProjectKey,
-	type RuleCategories,
-	Workspace,
-} from "@biomejs/wasm-web";
 
 let workspace: Workspace | null = null;
 let projectKey: ProjectKey | null = null;

@@ -1,3 +1,6 @@
+import type { Diagnostic } from "@biomejs/wasm-web";
+import { EditorSelection } from "@codemirror/state";
+import type { ReactCodeMirrorRef } from "@uiw/react-codemirror";
 import errorIcon from "@/assets/svg/error.svg";
 import errorDarkIcon from "@/assets/svg/error_dark.svg";
 import infoIcon from "@/assets/svg/info.svg";
@@ -5,9 +8,6 @@ import infoDarkIcon from "@/assets/svg/info_dark.svg";
 import warningIcon from "@/assets/svg/warning.svg";
 import warningDarkIcon from "@/assets/svg/warning_dark.svg";
 import { spanInBytesToSpanInCodeUnits } from "@/playground/utils";
-import type { Diagnostic } from "@biomejs/wasm-web";
-import { EditorSelection } from "@codemirror/state";
-import type { ReactCodeMirrorRef } from "@uiw/react-codemirror";
 
 interface Props {
 	editorRef: React.RefObject<ReactCodeMirrorRef>;
