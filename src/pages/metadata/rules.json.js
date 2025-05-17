@@ -1588,7 +1588,7 @@ export function GET() {
           },
           "useAdjacentGetterSetter": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.0.0",
             "name": "useAdjacentGetterSetter",
             "link": "https://biomejs.dev/linter/rules/use-adjacent-getter-setter",
             "recommended": false,
