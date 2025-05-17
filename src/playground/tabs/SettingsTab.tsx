@@ -1,3 +1,11 @@
+import type {
+	FixFileMode,
+	RuleDomain,
+	RuleDomains,
+	RuleDomainValue,
+} from "@biomejs/wasm-web";
+import type React from "react";
+import { type Dispatch, type SetStateAction, useState } from "react";
 import EnumSelect from "@/playground/components/EnumSelect";
 import {
 	ArrowParentheses,
@@ -23,14 +31,6 @@ import {
 	modifyFilename,
 	normalizeFilename,
 } from "@/playground/utils";
-import type {
-	FixFileMode,
-	RuleDomain,
-	RuleDomainValue,
-	RuleDomains,
-} from "@biomejs/wasm-web";
-import type React from "react";
-import { type Dispatch, type SetStateAction, useState } from "react";
 
 export interface SettingsTabProps {
 	state: PlaygroundState;
@@ -364,7 +364,10 @@ export default function SettingsTab({
 function LanguageView({
 	language,
 	setLanguage,
-}: { language: Language; setLanguage: (language: Language) => void }) {
+}: {
+	language: Language;
+	setLanguage: (language: Language) => void;
+}) {
 	return (
 		<section>
 			<div className="field-row">

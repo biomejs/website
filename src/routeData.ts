@@ -1,8 +1,8 @@
 import { site } from "astro:config/server";
 import { getCollection } from "astro:content";
 import {
-	type StarlightRouteData,
 	defineRouteMiddleware,
+	type StarlightRouteData,
 } from "@astrojs/starlight/route-data";
 
 type SidebarEntry = StarlightRouteData["sidebar"][number];

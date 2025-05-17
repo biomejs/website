@@ -1,5 +1,5 @@
-import prettierIcon from "@/assets/svg/prettier-icon-dark.svg";
 import { type MouseEvent, useCallback } from "react";
+import prettierIcon from "@/assets/svg/prettier-icon-dark.svg";
 
 function PrettierVersion() {
 	const link = `https://github.com/prettier/prettier/tree/${PRETTIER_VERSION}`;

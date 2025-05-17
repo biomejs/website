@@ -1,34 +1,3 @@
-import Playground from "@/playground/Playground";
-import LoadingScreen from "@/playground/components/LoadingScreen";
-import {
-	type ArrowParentheses,
-	type AttributePosition,
-	type Expand,
-	type IndentStyle,
-	Language,
-	type LintRules,
-	LoadingState,
-	type PlaygroundSettings,
-	type PlaygroundState,
-	type QuoteProperties,
-	type QuoteStyle,
-	type Semicolons,
-	type TrailingCommas,
-	type WhitespaceSensitivity,
-	defaultPlaygroundState,
-	emptyBiomeOutput,
-	emptyPrettierOutput,
-} from "@/playground/types";
-import {
-	createLocalStorage,
-	decodeCode,
-	encodeCode,
-	getCurrentCode,
-	getExtension,
-	getFileState,
-	guessLanguage,
-	normalizeFilename,
-} from "@/playground/utils";
 import type {
 	FixFileMode,
 	RuleDomain,
@@ -41,6 +10,37 @@ import {
 	useRef,
 	useState,
 } from "react";
+import LoadingScreen from "@/playground/components/LoadingScreen";
+import Playground from "@/playground/Playground";
+import {
+	type ArrowParentheses,
+	type AttributePosition,
+	defaultPlaygroundState,
+	type Expand,
+	emptyBiomeOutput,
+	emptyPrettierOutput,
+	type IndentStyle,
+	Language,
+	type LintRules,
+	LoadingState,
+	type PlaygroundSettings,
+	type PlaygroundState,
+	type QuoteProperties,
+	type QuoteStyle,
+	type Semicolons,
+	type TrailingCommas,
+	type WhitespaceSensitivity,
+} from "@/playground/types";
+import {
+	createLocalStorage,
+	decodeCode,
+	encodeCode,
+	getCurrentCode,
+	getExtension,
+	getFileState,
+	guessLanguage,
+	normalizeFilename,
+} from "@/playground/utils";
 
 function throttle(callback: () => void): () => void {
 	const timeout = setTimeout(callback, 100);

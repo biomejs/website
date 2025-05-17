@@ -1,5 +1,5 @@
-import { getStaticPaths } from "@/pages/og/[...path]";
 import type { GetStaticPathsOptions, GetStaticPathsResult } from "astro";
+import { getStaticPaths } from "@/pages/og/[...path]";
 
 const routes = (await getStaticPaths(
 	{} as GetStaticPathsOptions,

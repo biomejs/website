@@ -11,10 +11,8 @@
 	width: 68rem;
 	display: flex;
 	gap: 2.5rem;
-	background: radial-gradient(
-			hsla(var(--sl-hue-red), 68%, 52%, 16%),
-			transparent 40%
-		)
+	background:
+		radial-gradient(hsla(var(--sl-hue-red), 68%, 52%, 16%), transparent 40%)
 		no-repeat -60vw -50vh / 105vw 200vh,
 		radial-gradient(var(--sl-color-blue-low), transparent 40%) no-repeat 30vw
 		-100vh / 105vw 200vh;

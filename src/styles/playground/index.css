@@ -56,7 +56,9 @@ h2 {
 	line-height: 18px;
 	font-size: 14px;
 	font-weight: 500;
-	box-shadow: inset 0 1px 0 var(--sl-border), inset 0 -1px 0 var(--sl-border);
+	box-shadow:
+		inset 0 1px 0 var(--sl-border),
+		inset 0 -1px 0 var(--sl-border);
 	background-color: var(--sl-color-gray-6);
 
 	@mixin dark-mode {

@@ -1,3 +1,22 @@
+import { css } from "@codemirror/lang-css";
+import { html } from "@codemirror/lang-html";
+import { javascript } from "@codemirror/lang-javascript";
+import { json } from "@codemirror/lang-json";
+import { vue } from "@codemirror/lang-vue";
+import { EditorSelection } from "@codemirror/state";
+import type { ViewUpdate } from "@codemirror/view";
+import { svelte } from "@replit/codemirror-lang-svelte";
+import type { ReactCodeMirrorRef } from "@uiw/react-codemirror";
+import { graphql } from "cm6-graphql";
+import * as codeMirrorLangBiomeAst from "codemirror-lang-rome-ast";
+import {
+	createRef,
+	useCallback,
+	useEffect,
+	useMemo,
+	useRef,
+	useState,
+} from "react";
 import CodeMirror from "@/playground/CodeMirror";
 import DiagnosticsPane from "@/playground/components/DiagnosticsPane";
 import Resizable from "@/playground/components/Resizable";
@@ -29,25 +48,6 @@ import {
 	isVueFilename,
 	useWindowSize,
 } from "@/playground/utils";
-import { css } from "@codemirror/lang-css";
-import { html } from "@codemirror/lang-html";
-import { javascript } from "@codemirror/lang-javascript";
-import { json } from "@codemirror/lang-json";
-import { vue } from "@codemirror/lang-vue";
-import { EditorSelection } from "@codemirror/state";
-import type { ViewUpdate } from "@codemirror/view";
-import { svelte } from "@replit/codemirror-lang-svelte";
-import type { ReactCodeMirrorRef } from "@uiw/react-codemirror";
-import { graphql } from "cm6-graphql";
-import * as codeMirrorLangBiomeAst from "codemirror-lang-rome-ast";
-import {
-	createRef,
-	useCallback,
-	useEffect,
-	useMemo,
-	useRef,
-	useState,
-} from "react";
 import AnalyzerFixesTab from "./tabs/AnalyzerFixesTab";
 import SemanticModelTab from "./tabs/SemanticModelTab";
 

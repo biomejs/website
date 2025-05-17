@@ -35,7 +35,7 @@ async function getContributors(
 	let link = "https://api.github.com/repos/biomejs/biome/contributors";
 	while (link) {
 		let retryLeft = retryTimes;
-		let resp = undefined;
+		let resp;
 		while (retryLeft--) {
 			resp = await fetch(link, {
 				headers: {
