@@ -794,6 +794,20 @@ export function GET() {
             ],
             "docs": " Enforce the usage of a literal access to properties over computed property access.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n a.b[\"c\"];\n ```\n\n ```js,expect_diagnostic\n a.c[`d`]\n ```\n\n ```js,expect_diagnostic\n a.c[`d`] = \"something\"\n ```\n\n ```js,expect_diagnostic\n a = {\n \t['b']: d\n }\n ```\n\n ### Valid\n\n ```js\n a[\"c\" + \"d\"];\n a[d.c];\n ```\n\n"
           },
+          "useNumericLiterals": {
+            "deprecated": false,
+            "version": "1.0.0",
+            "name": "useNumericLiterals",
+            "link": "https://biomejs.dev/linter/rules/use-numeric-literals",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "eslint": "prefer-numeric-literals"
+              }
+            ],
+            "docs": " Disallow `parseInt()` and `Number.parseInt()` in favor of binary, octal, and hexadecimal literals\n\n _JavaScript_ provides literal forms for binary, octal, and hexadecimal numbers.\n For example: `0b11`, `0o77`, and `0xff`.\n Using the literal forms enable static code analysis and avoid unnecessary computations.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n parseInt(\"111110111\", 2);\n ```\n\n ```js,expect_diagnostic\n Number.parseInt(\"767\", 8);\n ```\n\n ```js,expect_diagnostic\n Number.parseInt(\"-1f7\", 16);\n ```\n\n ### Valid\n\n ```js\n parseInt(1);\n parseInt(1, 3);\n Number.parseInt(1);\n Number.parseInt(1, 3);\n\n 0b111110111 === 503;\n 0o767 === 503;\n 0x1F7 === 503;\n\n a[parseInt](1,2);\n\n parseInt(foo);\n parseInt(foo, 2);\n Number.parseInt(foo);\n Number.parseInt(foo, 2);\n ```\n"
+          },
           "useOptionalChain": {
             "deprecated": false,
             "version": "1.0.0",
@@ -1338,6 +1352,20 @@ export function GET() {
             ],
             "docs": " Enforce \"for\" loop update clause moving the counter in the right direction.\n\n A for loop with a stop condition that can never be reached,\n such as one with a counter that moves in the wrong direction, will run infinitely.\n While there are occasions when an infinite loop is intended, the convention is to construct such loops as while loops.\n More typically, an infinite for loop is a bug.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n for (var i = 0; i < 10; i--) {\n }\n ```\n\n ```js,expect_diagnostic\n for (var i = 10; i >= 0; i++) {\n }\n ```\n\n ```js,expect_diagnostic\n for (var i = 0; i > 10; i++) {\n }\n ```\n\n ### Valid\n\n ```js\n for (var i = 0; i < 10; i++) {\n }\n ```\n"
           },
+          "useValidTypeof": {
+            "deprecated": false,
+            "version": "1.0.0",
+            "name": "useValidTypeof",
+            "link": "https://biomejs.dev/linter/rules/use-valid-typeof",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "eslint": "valid-typeof"
+              }
+            ],
+            "docs": " This rule checks that the result of a `typeof` expression is compared to a valid value.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n typeof foo === \"strnig\";\n ```\n\n ```js,expect_diagnostic\n typeof foo == \"undefimed\";\n ```\n\n ```js,expect_diagnostic\n typeof bar != \"nunber\";\n ```\n\n ```js,expect_diagnostic\n typeof foo === undefined;\n ```\n\n ```js,expect_diagnostic\n typeof foo == 0;\n ```\n\n ### Valid\n\n ```js\n typeof foo === \"string\";\n ```\n\n ```js\n typeof bar == \"undefined\";\n ```\n\n ```js\n typeof bar === typeof qux;\n ```\n\n ```js\n typeof foo === bar\n ```\n"
+          },
           "useYield": {
             "deprecated": false,
             "version": "1.0.0",
@@ -1754,6 +1782,21 @@ export function GET() {
             "fixKind": "none",
             "docs": " Disallow accessing namespace imports dynamically.\n\n Accessing namespace imports dynamically can prevent efficient tree shaking and increase bundle size.\n This happens because the bundler cannot determine which parts of the namespace are used at compile time,\n so it must include the entire namespace in the bundle.\n\n Instead, consider using named imports or if that is not possible\n access the namespaced import properties statically.\n\n If you want to completely disallow namespace imports, consider using the [noNamespaceImport](https://biomejs.dev/linter/rules/no-namespace-import/) rule.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import * as foo from \"foo\"\n foo[\"bar\"]\n ```\n\n ```js,expect_diagnostic\n import * as foo from \"foo\"\n const key = \"bar\"\n foo[key]\n ```\n\n ### Valid\n\n ```js\n import * as foo from \"foo\"\n foo.bar\n ```\n\n ```js\n import { bar } from \"foo\"\n bar\n ```\n\n ```js\n import messages from \"i18n\"\n const knownMessagesMap = {\n  hello: messages.hello,\n  goodbye: messages.goodbye\n }\n\n const dynamicKey = \"hello\"\n knownMessagesMap[dynamicKey]\n ```\n\n"
           },
+          "noNamespaceImport": {
+            "deprecated": false,
+            "version": "1.6.0",
+            "name": "noNamespaceImport",
+            "link": "https://biomejs.dev/linter/rules/no-namespace-import",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslintBarrelFiles": "avoid-namespace-import"
+              }
+            ],
+            "sourceKind": "sameLogic",
+            "docs": " Disallow the use of namespace imports.\n\n Namespace imports might impact the efficiency of tree shaking, a process that removes unused code from bundles.\n The effectiveness of tree shaking largely depends on the bundler (e.g., Webpack, Rollup) and its configuration.\n Modern bundlers are generally capable of handling namespace imports effectively, but using named imports is recommended for optimal tree shaking and minimizing bundle size.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import * as foo from \"foo\";\n ```\n\n ### Valid\n\n ```ts\n import { foo } from \"foo\"\n import type { bar } from \"bar\"\n import type * as baz from \"baz\"\n ```\n\n"
+          },
           "noReExportAll": {
             "deprecated": false,
             "version": "1.6.0",
@@ -1880,21 +1923,6 @@ export function GET() {
             "recommended": false,
             "fixKind": "none",
             "docs": " Disallow exporting an imported variable.\n\n In JavaScript, you can re-export a variable either by using `export from` or\n by first importing the variable and then exporting it with a regular `export`.\n\n You may prefer to use the first approach, as it clearly communicates the intention\n to re-export an import, and can make static analysis easier.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import { A } from \"mod\";\n export { A };\n ```\n\n ```js,expect_diagnostic\n import * as ns from \"mod\";\n export { ns };\n ```\n\n ```js,expect_diagnostic\n import D from \"mod\";\n export { D };\n ```\n\n ### Valid\n\n ```js\n export { A } from \"mod\";\n export * as ns from \"mod\";\n export { default as D } from \"mod\";\n ```\n\n"
-          },
-          "noNamespaceImport": {
-            "deprecated": false,
-            "version": "1.6.0",
-            "name": "noNamespaceImport",
-            "link": "https://biomejs.dev/linter/rules/no-namespace-import",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "eslintBarrelFiles": "avoid-namespace-import"
-              }
-            ],
-            "sourceKind": "sameLogic",
-            "docs": " Disallow the use of namespace imports.\n\n Namespace imports might impact the efficiency of tree shaking, a process that removes unused code from bundles.\n The effectiveness of tree shaking largely depends on the bundler (e.g., Webpack, Rollup) and its configuration.\n Modern bundlers are generally capable of handling namespace imports effectively, but using named imports is recommended for optimal tree shaking and minimizing bundle size.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import * as foo from \"foo\";\n ```\n\n ### Valid\n\n ```ts\n import { foo } from \"foo\"\n import type { bar } from \"bar\"\n import type * as baz from \"baz\"\n ```\n\n"
           },
           "noNegationElse": {
             "deprecated": false,
@@ -2276,20 +2304,6 @@ export function GET() {
               }
             ],
             "docs": " Use the `Number` properties instead of global ones.\n\n _ES2015_ moved some globals into the `Number` properties for consistency.\n\n The rule doesn't report the globals `isFinite` and `isNaN` because they have a slightly different behavior to their corresponding `Number`'s properties `Number.isFinite` and `Number.isNaN`.\n You can use the dedicated rules [noGlobalIsFinite](https://biomejs.dev/linter/rules/no-global-is-finite/) and  [noGlobalIsNan](https://biomejs.dev/linter/rules/no-global-is-nan/) to enforce the use of `Number.isFinite` and `Number.isNaN`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n parseInt(\"1\"); // true\n ```\n\n ```js,expect_diagnostic\n parseFloat(\"1.1\"); // true\n ```\n\n ```js,expect_diagnostic\n NaN; // true\n ```\n\n ```js,expect_diagnostic\n Infinity; // true\n ```\n\n ```js,expect_diagnostic\n -Infinity; // true\n ```\n\n ### Valid\n\n ```js\n Number.parseInt(\"1\"); // false\n ```\n\n ```js\n Number.parseFloat(\"1.1\"); // false\n ```\n\n ```js\n Number.NaN; // false\n ```\n\n ```js\n Number.POSITIVE_INFINITY; // false\n ```\n\n ```js\n Number.NEGATIVE_INFINITY; // false\n ```\n\n"
-          },
-          "useNumericLiterals": {
-            "deprecated": false,
-            "version": "1.0.0",
-            "name": "useNumericLiterals",
-            "link": "https://biomejs.dev/linter/rules/use-numeric-literals",
-            "recommended": true,
-            "fixKind": "unsafe",
-            "sources": [
-              {
-                "eslint": "prefer-numeric-literals"
-              }
-            ],
-            "docs": " Disallow `parseInt()` and `Number.parseInt()` in favor of binary, octal, and hexadecimal literals\n\n _JavaScript_ provides literal forms for binary, octal, and hexadecimal numbers.\n For example: `0b11`, `0o77`, and `0xff`.\n Using the literal forms enable static code analysis and avoid unnecessary computations.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n parseInt(\"111110111\", 2);\n ```\n\n ```js,expect_diagnostic\n Number.parseInt(\"767\", 8);\n ```\n\n ```js,expect_diagnostic\n Number.parseInt(\"-1f7\", 16);\n ```\n\n ### Valid\n\n ```js\n parseInt(1);\n parseInt(1, 3);\n Number.parseInt(1);\n Number.parseInt(1, 3);\n\n 0b111110111 === 503;\n 0o767 === 503;\n 0x1F7 === 503;\n\n a[parseInt](1,2);\n\n parseInt(foo);\n parseInt(foo, 2);\n Number.parseInt(foo);\n Number.parseInt(foo, 2);\n ```\n"
           },
           "useSelfClosingElements": {
             "deprecated": false,
@@ -3188,20 +3202,6 @@ export function GET() {
             "recommended": false,
             "fixKind": "safe",
             "docs": " Enforce the use of the directive `\"use strict\"` in script files.\n\n The JavaScript [strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode) prohibits some obsolete JavaScript syntaxes and makes some slight semantic changes to allow more optimizations by JavaScript engines.\n EcmaScript modules are always in strict mode, while JavaScript scripts are by default in non-strict mode, also known as _sloppy mode_.\n A developer can add the `\"use strict\"` directive at the start of a script file to enable the strict mode in that file.\n\n Biome considers a CommonJS (`.cjs`) file as a script file.\n By default, Biome recognizes a JavaScript file (`.js`) as a module file, except if `\"type\": \"commonjs\"` is specified in `package.json`.\n\n ## Examples\n\n ### Invalid\n\n ```cjs,expect_diagnostic\n var a = 1;\n ```\n\n ### Valid\n\n ```cjs\n \"use strict\";\n\n var a = 1;\n ```\n\n"
-          },
-          "useValidTypeof": {
-            "deprecated": false,
-            "version": "1.0.0",
-            "name": "useValidTypeof",
-            "link": "https://biomejs.dev/linter/rules/use-valid-typeof",
-            "recommended": true,
-            "fixKind": "unsafe",
-            "sources": [
-              {
-                "eslint": "valid-typeof"
-              }
-            ],
-            "docs": " This rule checks that the result of a `typeof` expression is compared to a valid value.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n typeof foo === \"strnig\";\n ```\n\n ```js,expect_diagnostic\n typeof foo == \"undefimed\";\n ```\n\n ```js,expect_diagnostic\n typeof bar != \"nunber\";\n ```\n\n ```js,expect_diagnostic\n typeof foo === undefined;\n ```\n\n ```js,expect_diagnostic\n typeof foo == 0;\n ```\n\n ### Valid\n\n ```js\n typeof foo === \"string\";\n ```\n\n ```js\n typeof bar == \"undefined\";\n ```\n\n ```js\n typeof bar === typeof qux;\n ```\n\n ```js\n typeof foo === bar\n ```\n"
           }
         }
       },
