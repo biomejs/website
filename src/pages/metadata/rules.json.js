@@ -480,7 +480,7 @@ export function GET() {
             "name": "noExtraBooleanCast",
             "link": "https://biomejs.dev/linter/rules/no-extra-boolean-cast",
             "recommended": true,
-            "fixKind": "unsafe",
+            "fixKind": "safe",
             "sources": [
               {
                 "eslint": "no-extra-boolean-cast"
@@ -542,7 +542,7 @@ export function GET() {
             "name": "noThisInStatic",
             "link": "https://biomejs.dev/linter/rules/no-this-in-static",
             "recommended": true,
-            "fixKind": "unsafe",
+            "fixKind": "safe",
             "sources": [
               {
                 "eslintMysticatea": "no-this-in-static"
@@ -643,7 +643,7 @@ export function GET() {
             "name": "noUselessStringConcat",
             "link": "https://biomejs.dev/linter/rules/no-useless-string-concat",
             "recommended": false,
-            "fixKind": "unsafe",
+            "fixKind": "safe",
             "sources": [
               {
                 "eslint": "no-useless-concat"
@@ -800,7 +800,7 @@ export function GET() {
             "name": "useNumericLiterals",
             "link": "https://biomejs.dev/linter/rules/use-numeric-literals",
             "recommended": true,
-            "fixKind": "unsafe",
+            "fixKind": "safe",
             "sources": [
               {
                 "eslint": "prefer-numeric-literals"
@@ -851,7 +851,7 @@ export function GET() {
             "name": "useSimplifiedLogicExpression",
             "link": "https://biomejs.dev/linter/rules/use-simplified-logic-expression",
             "recommended": false,
-            "fixKind": "unsafe",
+            "fixKind": "safe",
             "docs": " Discard redundant terms from logical expressions.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const boolExp = true;\n const r = true && boolExp;\n ```\n\n ```js,expect_diagnostic\n const boolExp2 = true;\n const r2 = boolExp || true;\n ```\n\n ```js,expect_diagnostic\n const nonNullExp = 123;\n const r3 = null ?? nonNullExp;\n ```\n\n ```js,expect_diagnostic\n const boolExpr1 = true;\n const boolExpr2 = false;\n const r4 = !boolExpr1 || !boolExpr2;\n ```\n\n ### Valid\n ```js\n const boolExpr3 = true;\n const boolExpr4 = false;\n const r5 = !(boolExpr1 && boolExpr2);\n const boolExpr5 = true;\n const boolExpr6 = false;\n ```\n\n"
           },
           "useWhile": {
@@ -1050,7 +1050,7 @@ export function GET() {
             "name": "noNonoctalDecimalEscape",
             "link": "https://biomejs.dev/linter/rules/no-nonoctal-decimal-escape",
             "recommended": true,
-            "fixKind": "unsafe",
+            "fixKind": "safe",
             "sources": [
               {
                 "eslint": "no-nonoctal-decimal-escape"
@@ -1143,7 +1143,7 @@ export function GET() {
             "name": "noSwitchDeclarations",
             "link": "https://biomejs.dev/linter/rules/no-switch-declarations",
             "recommended": true,
-            "fixKind": "unsafe",
+            "fixKind": "safe",
             "sources": [
               {
                 "eslint": "no-case-declarations"
@@ -1312,7 +1312,7 @@ export function GET() {
             "name": "noUselessContinue",
             "link": "https://biomejs.dev/linter/rules/no-useless-continue",
             "recommended": true,
-            "fixKind": "unsafe",
+            "fixKind": "safe",
             "docs": " Avoid using unnecessary `continue`.\n\n ## Examples\n\n ### Invalid\n ```js,expect_diagnostic\n loop: for (let i = 0; i < 5; i++) {\n   continue loop;\n }\n ```\n ```js,expect_diagnostic\n while (i--) {\n   continue;\n }\n ```\n ```js,expect_diagnostic\n while (1) {\n   continue;\n }\n ```\n ```js,expect_diagnostic\n for (let i = 0; i < 10; i++) {\n   if (i > 5) {\n     console.log(\"foo\");\n     continue;\n   } else if (i >= 5 && i < 8) {\n     console.log(\"test\");\n   } else {\n     console.log(\"test\");\n   }\n }\n ```\n ```js,expect_diagnostic\n for (let i = 0; i < 9; i++) {\n   continue;\n }\n ```\n\n ```js, expect_diagnostic\n test2: do {\n \tcontinue test2;\n } while (true);\n ```\n\n ### Valid\n ```js\n while (i) {\n   if (i > 5) {\n     continue;\n   }\n   console.log(i);\n   i--;\n }\n\n loop: while (1) {\n   forLoop: for (let i = 0; i < 5; i++) {\n     if (someCondition) {\n       continue loop;\n     }\n   }\n }\n ```\n"
           },
           "useImportExtensions": {
@@ -2043,7 +2043,7 @@ export function GET() {
             "name": "noUselessElse",
             "link": "https://biomejs.dev/linter/rules/no-useless-else",
             "recommended": false,
-            "fixKind": "unsafe",
+            "fixKind": "safe",
             "sources": [
               {
                 "eslint": "no-else-return"
@@ -2075,7 +2075,7 @@ export function GET() {
             "name": "useArrayLiterals",
             "link": "https://biomejs.dev/linter/rules/use-array-literals",
             "recommended": true,
-            "fixKind": "unsafe",
+            "fixKind": "safe",
             "sources": [
               {
                 "eslint": "no-array-constructor"
@@ -2228,7 +2228,7 @@ export function GET() {
             "name": "useExponentiationOperator",
             "link": "https://biomejs.dev/linter/rules/use-exponentiation-operator",
             "recommended": true,
-            "fixKind": "unsafe",
+            "fixKind": "safe",
             "sources": [
               {
                 "eslint": "prefer-exponentiation-operator"
@@ -3186,7 +3186,7 @@ export function GET() {
             "name": "useNumberToFixedDigitsArgument",
             "link": "https://biomejs.dev/linter/rules/use-number-to-fixed-digits-argument",
             "recommended": false,
-            "fixKind": "unsafe",
+            "fixKind": "safe",
             "sources": [
               {
                 "eslintUnicorn": "require-number-to-fixed-digits-argument"
@@ -4245,7 +4245,7 @@ export function GET() {
             "name": "noUnusedTemplateLiteral",
             "link": "https://biomejs.dev/linter/rules/no-unused-template-literal",
             "recommended": false,
-            "fixKind": "unsafe",
+            "fixKind": "safe",
             "docs": " Disallow template literals if interpolation and special-character handling are not needed\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const foo = `bar`\n ```\n\n ```js,expect_diagnostic\n const foo = `bar `\n ```\n\n ### Valid\n\n ```js\n const foo = `bar\n has newline`;\n ```\n\n ```js\n const foo = `\"bar\"`\n ```\n\n ```js\n const foo = `'bar'`\n ```\n"
           },
           "useAsConstAssertion": {
