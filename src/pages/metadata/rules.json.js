@@ -2168,7 +2168,7 @@ export function GET() {
             "version": "1.0.0",
             "name": "useConst",
             "link": "https://biomejs.dev/linter/rules/use-const",
-            "recommended": false,
+            "recommended": true,
             "fixKind": "safe",
             "sources": [
               {
