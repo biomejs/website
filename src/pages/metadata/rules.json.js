@@ -488,6 +488,20 @@ export function GET() {
             ],
             "docs": " Disallow unnecessary boolean casts\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n if (!Boolean(foo)) {\n }\n ```\n\n ```js,expect_diagnostic\n while (!!foo) {}\n ```\n\n ```js,expect_diagnostic\n let x = 1;\n do {\n 1 + 1;\n } while (Boolean(x));\n ```\n\n ```js,expect_diagnostic\n for (; !!foo; ) {}\n ```\n\n ```js,expect_diagnostic\n new Boolean(!!x);\n ```\n\n ### Valid\n ```js\n Boolean(!x);\n !x;\n !!x;\n ```\n"
           },
+          "noFlatMapIdentity": {
+            "deprecated": false,
+            "version": "1.7.0",
+            "name": "noFlatMapIdentity",
+            "link": "https://biomejs.dev/linter/rules/no-flat-map-identity",
+            "recommended": true,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "clippy": "flat_map_identity"
+              }
+            ],
+            "docs": " Disallow to use unnecessary callback on `flatMap`.\n\n To achieve the same result (flattening an array) more concisely and efficiently, you should use `flat` instead.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n array.flatMap((arr) => arr);\n ```\n\n ```js,expect_diagnostic\n array.flatMap((arr) => {return arr});\n ```\n\n ### Valid\n\n ```js\n array.flatMap((arr) => arr * 2);\n ```\n\n"
+          },
           "noForEach": {
             "deprecated": false,
             "version": "1.0.0",
@@ -717,20 +731,6 @@ export function GET() {
             ],
             "docs": " Disallow the use of `void` operators, which is not a familiar operator.\n\n > The `void` operator is often used merely to obtain the undefined primitive value,\n > usually using `void(0)` (which is equivalent to `void 0`). In these cases, the global variable `undefined` can be used.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n void 0;\n ```\n\n"
           },
-          "noWith": {
-            "deprecated": false,
-            "version": "1.0.0",
-            "name": "noWith",
-            "link": "https://biomejs.dev/linter/rules/no-with",
-            "recommended": true,
-            "fixKind": "none",
-            "sources": [
-              {
-                "eslint": "no-with"
-              }
-            ],
-            "docs": " Disallow `with` statements in non-strict contexts.\n\n The `with` statement is potentially problematic because it adds members of an object to the current\n scope, making it impossible to tell what a variable inside the block actually refers to.\n\n ## Examples\n\n ### Invalid\n\n ```cjs,expect_diagnostic\n function f() {\n   with (point) {\n     r = Math.sqrt(x * x + y * y); // is r a member of point?\n   }\n }\n ```\n"
-          },
           "useArrowFunction": {
             "deprecated": false,
             "version": "1.0.0",
@@ -939,20 +939,6 @@ export function GET() {
               }
             ],
             "docs": " Disallows empty destructuring patterns.\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n var {} = foo;\n ```\n\n ```js,expect_diagnostic\n var {a: {}} = foo;\n ```\n\n ```js,expect_diagnostic\n function foo({}) {}\n ```\n\n ### Valid\n The following cases are valid because they create new bindings.\n\n ```js\n var {a = {}} = foo;\n var {a, b = {}} = foo;\n var {a = []} = foo;\n function foo({a = {}}) {}\n function foo({a = []}) {}\n var [a] = foo;\n ```\n"
-          },
-          "noFlatMapIdentity": {
-            "deprecated": false,
-            "version": "1.7.0",
-            "name": "noFlatMapIdentity",
-            "link": "https://biomejs.dev/linter/rules/no-flat-map-identity",
-            "recommended": true,
-            "fixKind": "safe",
-            "sources": [
-              {
-                "clippy": "flat_map_identity"
-              }
-            ],
-            "docs": " Disallow to use unnecessary callback on `flatMap`.\n\n To achieve the same result (flattening an array) more concisely and efficiently, you should use `flat` instead.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n array.flatMap((arr) => arr);\n ```\n\n ```js,expect_diagnostic\n array.flatMap((arr) => {return arr});\n ```\n\n ### Valid\n\n ```js\n array.flatMap((arr) => arr * 2);\n ```\n\n"
           },
           "noGlobalObjectCalls": {
             "deprecated": false,
@@ -1314,23 +1300,6 @@ export function GET() {
             "recommended": true,
             "fixKind": "unsafe",
             "docs": " Avoid using unnecessary `continue`.\n\n ## Examples\n\n ### Invalid\n ```js,expect_diagnostic\n loop: for (let i = 0; i < 5; i++) {\n   continue loop;\n }\n ```\n ```js,expect_diagnostic\n while (i--) {\n   continue;\n }\n ```\n ```js,expect_diagnostic\n while (1) {\n   continue;\n }\n ```\n ```js,expect_diagnostic\n for (let i = 0; i < 10; i++) {\n   if (i > 5) {\n     console.log(\"foo\");\n     continue;\n   } else if (i >= 5 && i < 8) {\n     console.log(\"test\");\n   } else {\n     console.log(\"test\");\n   }\n }\n ```\n ```js,expect_diagnostic\n for (let i = 0; i < 9; i++) {\n   continue;\n }\n ```\n\n ```js, expect_diagnostic\n test2: do {\n \tcontinue test2;\n } while (true);\n ```\n\n ### Valid\n ```js\n while (i) {\n   if (i > 5) {\n     continue;\n   }\n   console.log(i);\n   i--;\n }\n\n loop: while (1) {\n   forLoop: for (let i = 0; i < 5; i++) {\n     if (someCondition) {\n       continue loop;\n     }\n   }\n }\n ```\n"
-          },
-          "useArrayLiterals": {
-            "deprecated": false,
-            "version": "1.7.2",
-            "name": "useArrayLiterals",
-            "link": "https://biomejs.dev/linter/rules/use-array-literals",
-            "recommended": true,
-            "fixKind": "unsafe",
-            "sources": [
-              {
-                "eslint": "no-array-constructor"
-              },
-              {
-                "eslintTypeScript": "no-array-constructor"
-              }
-            ],
-            "docs": " Disallow Array constructors.\n\n Use of the Array constructor to construct a new array is generally discouraged in favor of array literal notation because of the single-argument pitfall and because the Array global may be redefined.\n The exception is when the Array constructor intentionally creates sparse arrays of a specified size by giving the constructor a single numeric argument.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const xs = Array();\n ```\n\n ```js,expect_diagnostic\n const xs = Array(0, 1, 2);\n ```\n\n ```js,expect_diagnostic\n const xs = new Array(0, 1, 2);\n ```\n\n ```js,expect_diagnostic\n const xs = Array(...args);\n ```\n\n ### Valid\n\n ```js\n const xs = Array(65000);\n ```\n\n ```js\n const xs = [0, 1, 2];\n ```\n\n"
           },
           "useImportExtensions": {
             "deprecated": false,
@@ -2071,6 +2040,23 @@ export function GET() {
               }
             ],
             "docs": " Disallow the use of yoda expressions.\n\n A Yoda expression is a programming style where, given a binary operation, the \"static\" part of the binary operation is placed on the left-hand side.\n This rule **forbids** the use of Yoda expressions and enforces the placing of the \"static\" part of the binary operations on the right-hand side.\n\n ## Exceptions\n\n Range expressions like `0 < value && value < 1` or `value <= 0 || 1 < value` are allowed.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n if (\"red\" == value) {}\n ```\n\n ```js,expect_diagnostic\n if (true === value) {}\n ```\n\n ```js,expect_diagnostic\n if (5 != value) {}\n ```\n\n ### Valid\n\n ```js\n if (value === \"red\") {}\n ```\n\n ```js\n if (value === value) {}\n ```\n\n ```js\n if (value != 5) {}\n ```\n\n ```js\n if (0 < value && value < 1) {}\n ```\n\n ## Resources\n - [Wikipedia definition](https://en.wikipedia.org/wiki/Yoda_conditions)\n\n"
+          },
+          "useArrayLiterals": {
+            "deprecated": false,
+            "version": "1.7.2",
+            "name": "useArrayLiterals",
+            "link": "https://biomejs.dev/linter/rules/use-array-literals",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "eslint": "no-array-constructor"
+              },
+              {
+                "eslintTypeScript": "no-array-constructor"
+              }
+            ],
+            "docs": " Disallow Array constructors.\n\n Use of the Array constructor to construct a new array is generally discouraged in favor of array literal notation because of the single-argument pitfall and because the Array global may be redefined.\n The exception is when the Array constructor intentionally creates sparse arrays of a specified size by giving the constructor a single numeric argument.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const xs = Array();\n ```\n\n ```js,expect_diagnostic\n const xs = Array(0, 1, 2);\n ```\n\n ```js,expect_diagnostic\n const xs = new Array(0, 1, 2);\n ```\n\n ```js,expect_diagnostic\n const xs = Array(...args);\n ```\n\n ### Valid\n\n ```js\n const xs = Array(65000);\n ```\n\n ```js\n const xs = [0, 1, 2];\n ```\n\n"
           },
           "useAtIndex": {
             "deprecated": false,
@@ -3064,6 +3050,20 @@ export function GET() {
               }
             ],
             "docs": " Disallow the use of `var`\n\n ECMAScript 6 allows programmers to create variables with block scope instead of function scope using the let and const keywords.\n\n Block scope is common in many other programming languages and helps programmers avoid mistakes.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n var foo = 1;\n ```\n\n ### Valid\n\n ```js\n const foo = 1;\n let bar = 1;\n```\n"
+          },
+          "noWith": {
+            "deprecated": false,
+            "version": "1.0.0",
+            "name": "noWith",
+            "link": "https://biomejs.dev/linter/rules/no-with",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslint": "no-with"
+              }
+            ],
+            "docs": " Disallow `with` statements in non-strict contexts.\n\n The `with` statement is potentially problematic because it adds members of an object to the current\n scope, making it impossible to tell what a variable inside the block actually refers to.\n\n ## Examples\n\n ### Invalid\n\n ```cjs,expect_diagnostic\n function f() {\n   with (point) {\n     r = Math.sqrt(x * x + y * y); // is r a member of point?\n   }\n }\n ```\n"
           },
           "useAdjacentOverloadSignatures": {
             "deprecated": false,

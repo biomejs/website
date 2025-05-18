@@ -11,7 +11,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
 ## Summary
 - Rule available since: `v1.0.0`
-- Diagnostic Category: [`lint/complexity/noWith`](/reference/diagnostics#diagnostic-category)
+- Diagnostic Category: [`lint/suspicious/noWith`](/reference/diagnostics#diagnostic-category)
 - This rule is **recommended**, which means is enabled by default.
 - This rule doesn't have a fix.
 - The default severity of this rule is [**error**](/reference/diagnostics#error).
@@ -36,14 +36,14 @@ function f() {
 }
 ```
 
-<pre class="language-text"><code class="language-text">code-block.cjs:2:3 <a href="https://biomejs.dev/linter/rules/no-with">lint/complexity/noWith</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unexpected use of </span><span style="color: Tomato;"><strong>with</strong></span><span style="color: Tomato;"> statement.</span><br />  <br />    <strong>1 │ </strong>function f() &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  with (point) &#123;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>    r = Math.sqrt(x &#42; x + y &#42; y); // is r a member of point?<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>  &#125;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><br />    <strong>5 │ </strong>&#125;<br />    <strong>6 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The with statement is potentially problematic because it adds members of an object to the current<br /></span>    <span style="color: lightgreen;">scope, making it impossible to tell what a variable inside the block actually refers to.</span><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.cjs:2:3 <a href="https://biomejs.dev/linter/rules/no-with">lint/suspicious/noWith</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unexpected use of </span><span style="color: Tomato;"><strong>with</strong></span><span style="color: Tomato;"> statement.</span><br />  <br />    <strong>1 │ </strong>function f() &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  with (point) &#123;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>    r = Math.sqrt(x &#42; x + y &#42; y); // is r a member of point?<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>  &#125;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><br />    <strong>5 │ </strong>&#125;<br />    <strong>6 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The with statement is potentially problematic because it adds members of an object to the current<br /></span>    <span style="color: lightgreen;">scope, making it impossible to tell what a variable inside the block actually refers to.</span><br />  <br /></code></pre>
 
 ## How to configure
 ```json title="biome.json"
 {
 	"linter": {
 		"rules": {
-			"complexity": {
+			"suspicious": {
 				"noWith": "error"
 			}
 		}
