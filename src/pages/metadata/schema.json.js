@@ -173,6 +173,13 @@ export function GET() {
 					"additionalProperties": false
 				},
 				{
+					"description": "Rules from [eslint-react.xyz](https://eslint-react.xyz/)",
+					"type": "object",
+					"required": ["eslintReactXyz"],
+					"properties": { "eslintReactXyz": { "type": "string" } },
+					"additionalProperties": false
+				},
+				{
 					"description": "Rules from [Eslint Plugin Solid](https://github.com/solidjs-community/eslint-plugin-solid)",
 					"type": "object",
 					"required": ["eslintSolid"],

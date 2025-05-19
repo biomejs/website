@@ -1,0 +1,139 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noNestedComponentDefinitions
+description: Learn more about noNestedComponentDefinitions
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JSX and TSX" icon="seti:javascript">
+## Summary
+- Rule available since: `v2.0.0`
+- Diagnostic Category: [`lint/nursery/noNestedComponentDefinitions`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`react`](/linter/domains#react)
+- Sources: 
+  - Same as [`@eslint-react/no-nested-components`](https://eslint-react.xyz/docs/rules/no-nested-components)
+
+:::caution
+This rule is part of the [nursery](/linter/rules/#nursery) group.
+:::
+## Description
+Disallows defining React components inside other components.
+
+Component definitions inside other components cause them to be recreated on every render,
+which can lead to performance issues and unexpected behavior.
+
+When a component is defined inside another component:
+
+- It gets recreated on every render of the parent component
+- It loses its internal state when the parent rerenders
+- It defeats props memoization and optimization techniques
+- It creates new function references on every render
+
+## Examples
+
+### Invalid
+
+A new component is created every time ParentComponent renders:
+
+```jsx
+function ParentComponent() {
+  function ChildComponent() {
+    return <div>Hello</div>;
+  }
+
+  return <ChildComponent />;
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.jsx:2:12 <a href="https://biomejs.dev/linter/rules/no-nested-component-definitions">lint/nursery/noNestedComponentDefinitions</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Components should not be defined inside other components.</span><br />  <br />    <strong>1 │ </strong>function ParentComponent() &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  function ChildComponent() &#123;<br />   <strong>   │ </strong>           <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>    return &lt;div&gt;Hello&lt;/div&gt;;<br />    <strong>4 │ </strong>  &#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Move it outside of the parent component or pass it as a prop.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>function ParentComponent() &#123;<br />   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>  function ChildComponent() &#123;<br />    <strong>3 │ </strong>    return &lt;div&gt;Hello&lt;/div&gt;;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Component definitions inside other components cause them to be recreated on every render, which can lead to performance issues and unexpected behavior.</span><br />  <br /></code></pre>
+
+Even with memo, a new component is still created on each render:
+
+```jsx
+function ParentComponent() {
+  const MemoizedChild = memo(() => {
+    return <div>Hello</div>;
+  });
+
+  return <MemoizedChild />;
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.jsx:2:9 <a href="https://biomejs.dev/linter/rules/no-nested-component-definitions">lint/nursery/noNestedComponentDefinitions</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Components should not be defined inside other components.</span><br />  <br />    <strong>1 │ </strong>function ParentComponent() &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  const MemoizedChild = memo(() =&gt; &#123;<br />   <strong>   │ </strong>        <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>    return &lt;div&gt;Hello&lt;/div&gt;;<br />    <strong>4 │ </strong>  &#125;);<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Move it outside of the parent component or pass it as a prop.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>function ParentComponent() &#123;<br />   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>  const MemoizedChild = memo(() =&gt; &#123;<br />    <strong>3 │ </strong>    return &lt;div&gt;Hello&lt;/div&gt;;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Component definitions inside other components cause them to be recreated on every render, which can lead to performance issues and unexpected behavior.</span><br />  <br /></code></pre>
+
+### Valid
+
+Component is defined outside other components:
+
+```jsx
+function ChildComponent() {
+  return <div>Hello</div>;
+}
+
+function ParentComponent() {
+  return <ChildComponent />;
+}
+```
+
+## Correct approaches
+
+1. Move the component definition outside:
+
+```jsx
+function ChildComponent() {
+  return <div>Hello</div>;
+}
+
+function ParentComponent() {
+  return <ChildComponent />;
+}
+```
+
+
+2. Pass components as props:
+
+```jsx
+function ParentComponent({ CustomComponent }) {
+  return <CustomComponent />;
+}
+```
+
+
+3. Use React's Children API:
+
+```jsx
+function ParentComponent({ children }) {
+  return <div>{children}</div>;
+}
+```
+
+
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noNestedComponentDefinitions": "error"
+			}
+		}
+	}
+}
+
+```
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
+</Tabs>
+
