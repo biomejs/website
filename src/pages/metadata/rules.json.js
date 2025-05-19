@@ -581,6 +581,15 @@ export function GET() {
             ],
             "docs": " Disallow unnecessary constructors.\n\n _ES2015_ provides a default class constructor if one is not specified.\n As such, providing an empty constructor or one that delegates into its parent is unnecessary.\n\n The rule ignores:\n\n - decorated classes;\n - constructors with at least one [parameter property](https://www.typescriptlang.org/docs/handbook/2/classes.html#parameter-properties);\n - `private` and `protected` constructors.\n\n ## Caveat\n\n This rule reports on constructors whose sole purpose is to make a parent constructor public.\n See the last invalid example.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n class A {\n     constructor (a) {}\n }\n ```\n\n ```ts,expect_diagnostic\n class B extends A {\n     constructor (a) {\n         super(a);\n     }\n }\n ```\n\n ```js,expect_diagnostic\n class C {\n     /**\n      * Documented constructor.\n      */\n     constructor () {}\n }\n ```\n\n ```js,expect_diagnostic\n class A {\n     protected constructor() {\n         this.prop = 1;\n     }\n }\n\n class B extends A {\n     // Make the parent constructor public.\n     constructor () {\n         super();\n     }\n }\n ```\n\n ### Valid\n\n ```js\n class A {\n     constructor (prop) {\n         this.prop = prop;\n     }\n }\n ```\n\n ```js\n class B extends A {\n     constructor () {\n         super(5);\n     }\n }\n ```\n\n ```ts\n class C {\n     // Empty constructor with parameter properties are allowed.\n     constructor (private prop: number) {}\n }\n ```\n\n ```ts\n class D {\n   constructor(public arg: number){}\n }\n\n class F extends D {\n   // constructor with default parameters are allowed.\n   constructor(arg = 4) {\n     super(arg)\n   }\n }\n ```\n\n ```ts\n @Decorator\n class C {\n     constructor (prop: number) {}\n }\n ```\n"
           },
+          "noUselessContinue": {
+            "deprecated": false,
+            "version": "1.0.0",
+            "name": "noUselessContinue",
+            "link": "https://biomejs.dev/linter/rules/no-useless-continue",
+            "recommended": true,
+            "fixKind": "safe",
+            "docs": " Avoid using unnecessary `continue`.\n\n ## Examples\n\n ### Invalid\n ```js,expect_diagnostic\n loop: for (let i = 0; i < 5; i++) {\n   continue loop;\n }\n ```\n ```js,expect_diagnostic\n while (i--) {\n   continue;\n }\n ```\n ```js,expect_diagnostic\n while (1) {\n   continue;\n }\n ```\n ```js,expect_diagnostic\n for (let i = 0; i < 10; i++) {\n   if (i > 5) {\n     console.log(\"foo\");\n     continue;\n   } else if (i >= 5 && i < 8) {\n     console.log(\"test\");\n   } else {\n     console.log(\"test\");\n   }\n }\n ```\n ```js,expect_diagnostic\n for (let i = 0; i < 9; i++) {\n   continue;\n }\n ```\n\n ```js, expect_diagnostic\n test2: do {\n \tcontinue test2;\n } while (true);\n ```\n\n ### Valid\n ```js\n while (i) {\n   if (i > 5) {\n     continue;\n   }\n   console.log(i);\n   i--;\n }\n\n loop: while (1) {\n   forLoop: for (let i = 0; i < 5; i++) {\n     if (someCondition) {\n       continue loop;\n     }\n   }\n }\n ```\n"
+          },
           "noUselessEscapeInRegex": {
             "deprecated": false,
             "version": "1.9.0",
@@ -1305,15 +1314,6 @@ export function GET() {
               }
             ],
             "docs": " Disallow unused variables.\n\n There is an exception to this rule:\n variables that starts with underscore, e.g. `let _something;`.\n\n The pattern of having an underscore as prefix of a name of variable is a very diffuse\n pattern among programmers, and Biome decided to follow it.\n\n This rule won't report unused imports.\n If you want to report unused imports,\n enable [noUnusedImports](https://biomejs.dev/linter/rules/no-unused-imports/).\n\n\n ## Options\n\n The rule supports the following options:\n\n ```json,options\n {\n   \"options\": {\n     \"ignoreRestSiblings\": true\n   }\n }\n ```\n\n - `ignoreRestSiblings`: Whether to ignore unused variables from an object destructuring with a spread (i.e.: whether `a` and `b` in `const { a, b, ...rest } = obj` should be ignored by this rule). Defaults to `false`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n let a = 4;\n a++;\n ```\n\n ```js,expect_diagnostic\n function foo() {}\n ```\n\n ```js,expect_diagnostic\n function foo() {\n     foo();\n }\n ```\n\n ```js,expect_diagnostic\n const foo = () => {\n     foo();\n };\n ```\n\n ```ts,expect_diagnostic\n export function f<T>() {}\n ```\n\n ```js,expect_diagnostic\n // With `ignoreRestSiblings: false`\n const car = { brand: \"Tesla\", year: 2019, countryCode: \"US\" };\n const { brand, ...other } = car;\n console.log(other);\n ```\n\n ### Valid\n\n ```js\n function foo(b) {\n     console.log(b)\n };\n foo();\n ```\n\n ```js\n export function foo(_unused) {}\n ```\n\n ```ts\n function used_overloaded(): number;\n function used_overloaded(s: string): string;\n function used_overloaded(s?: string) {\n     return s;\n }\n used_overloaded();\n ```\n\n ```js\n // With `ignoreRestSiblings: false`\n const car = { brand: \"Tesla\", year: 2019, countryCode: \"US\" };\n const { brand: _brand, ...other } = car;\n console.log(other);\n ```\n\n ```js,use_options\n // With `ignoreRestSiblings: true`\n const car = { brand: \"Tesla\", year: 2019, countryCode: \"US\" };\n const { brand, ...other } = car;\n console.log(other);\n ```\n"
-          },
-          "noUselessContinue": {
-            "deprecated": false,
-            "version": "1.0.0",
-            "name": "noUselessContinue",
-            "link": "https://biomejs.dev/linter/rules/no-useless-continue",
-            "recommended": true,
-            "fixKind": "safe",
-            "docs": " Avoid using unnecessary `continue`.\n\n ## Examples\n\n ### Invalid\n ```js,expect_diagnostic\n loop: for (let i = 0; i < 5; i++) {\n   continue loop;\n }\n ```\n ```js,expect_diagnostic\n while (i--) {\n   continue;\n }\n ```\n ```js,expect_diagnostic\n while (1) {\n   continue;\n }\n ```\n ```js,expect_diagnostic\n for (let i = 0; i < 10; i++) {\n   if (i > 5) {\n     console.log(\"foo\");\n     continue;\n   } else if (i >= 5 && i < 8) {\n     console.log(\"test\");\n   } else {\n     console.log(\"test\");\n   }\n }\n ```\n ```js,expect_diagnostic\n for (let i = 0; i < 9; i++) {\n   continue;\n }\n ```\n\n ```js, expect_diagnostic\n test2: do {\n \tcontinue test2;\n } while (true);\n ```\n\n ### Valid\n ```js\n while (i) {\n   if (i > 5) {\n     continue;\n   }\n   console.log(i);\n   i--;\n }\n\n loop: while (1) {\n   forLoop: for (let i = 0; i < 5; i++) {\n     if (someCondition) {\n       continue loop;\n     }\n   }\n }\n ```\n"
           },
           "useImportExtensions": {
             "deprecated": false,
@@ -3763,6 +3763,20 @@ export function GET() {
           }
         },
         "nursery": {
+          "noNestedComponentDefinitions": {
+            "deprecated": false,
+            "version": "2.0.0",
+            "name": "noNestedComponentDefinitions",
+            "link": "https://biomejs.dev/linter/rules/no-nested-component-definitions",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslintReactXyz": "no-nested-components"
+              }
+            ],
+            "docs": " Disallows defining React components inside other components.\n\n Component definitions inside other components cause them to be recreated on every render,\n which can lead to performance issues and unexpected behavior.\n\n When a component is defined inside another component:\n - It gets recreated on every render of the parent component\n - It loses its internal state when the parent rerenders\n - It defeats props memoization and optimization techniques\n - It creates new function references on every render\n\n ## Examples\n\n ### Invalid\n\n A new component is created every time ParentComponent renders:\n ```jsx,expect_diagnostic\n function ParentComponent() {\n   function ChildComponent() {\n     return <div>Hello</div>;\n   }\n\n   return <ChildComponent />;\n }\n ```\n\n Even with memo, a new component is still created on each render:\n ```jsx,expect_diagnostic\n function ParentComponent() {\n   const MemoizedChild = memo(() => {\n     return <div>Hello</div>;\n   });\n\n   return <MemoizedChild />;\n }\n ```\n\n ### Valid\n\n Component is defined outside other components:\n ```jsx\n function ChildComponent() {\n   return <div>Hello</div>;\n }\n\n function ParentComponent() {\n   return <ChildComponent />;\n }\n ```\n\n ## Correct approaches\n\n 1. Move the component definition outside:\n    ```jsx\n    function ChildComponent() {\n      return <div>Hello</div>;\n    }\n\n    function ParentComponent() {\n      return <ChildComponent />;\n    }\n    ```\n\n 2. Pass components as props:\n    ```jsx\n    function ParentComponent({ CustomComponent }) {\n      return <CustomComponent />;\n    }\n    ```\n\n 3. Use React's Children API:\n    ```jsx\n    function ParentComponent({ children }) {\n      return <div>{children}</div>;\n    }\n    ```\n"
+          },
           "noNoninteractiveElementInteractions": {
             "deprecated": false,
             "version": "2.0.0",
@@ -4508,7 +4522,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 317
+    "numberOrRules": 318
   },
   "syntax": {
     "languages": {

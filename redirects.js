@@ -122,6 +122,7 @@ export default {
   '/linter/rules/noNamespace': '/linter/rules/no-namespace',
   '/linter/rules/noNamespaceImport': '/linter/rules/no-namespace-import',
   '/linter/rules/noNegationElse': '/linter/rules/no-negation-else',
+  '/linter/rules/noNestedComponentDefinitions': '/linter/rules/no-nested-component-definitions',
   '/linter/rules/noNestedTernary': '/linter/rules/no-nested-ternary',
   '/linter/rules/noNodejsModules': '/linter/rules/no-nodejs-modules',
   '/linter/rules/noNonNullAssertion': '/linter/rules/no-non-null-assertion',
