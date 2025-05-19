@@ -27,7 +27,7 @@ The Biome extension now supports [multi-root workspaces], so you can work on mul
 
 :::caution[heads up for pre-release users]
 If you've been using the pre-release version over the past few months, please
-note that support for the `biome.project` setting has been **removed** in the 
+note that support for the `biome.projects` setting has been **removed** in the 
 final release. We now recommend using **multiple workspace folders** instead 
 to manage multiple projects.
 :::
