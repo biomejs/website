@@ -783,7 +783,11 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
         } else {
             format!("source.action.{}.biome", rule_name)
         };
-        writeln!(content, "<EditorAction action=\"{}\" />", action)?;
+        writeln!(
+            content,
+            "<EditorAction includeFixAll action=\"{}\" />",
+            action
+        )?;
     }
 
     write_documentation(group, rule_name, meta.docs, &mut content)?;
@@ -798,7 +802,7 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
         )?;
         writeln!(
             content,
-            "- [Configure the rule fix](/{path_prefix}#configure-the-rule-fix)"
+            "- [Configure the code fix](/{path_prefix}#configure-the-code-fix)"
         )?;
         writeln!(content, "- [Rule options](/{path_prefix}/#rule-options)")?;
     }

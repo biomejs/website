@@ -9,8 +9,8 @@ import EditorAction from "@/components/EditorAction.astro";
 
 Biome Assist offers a series of actions meant to improve code quality and DX of the users.
 
-Contrary to linter rules, assist actions **must not** change the semantics of a program, they might not provide a diagnostic, and they always provide a code fix.
-Their usage fits more editors and IDEs, and they might include sorting of properties or fields, simplification of binary expressions, refactor opportunities and more.
+Contrary to linter rules, assist actions **always** offer a code fix that is safe to apply. A broken code fix is considered a bug. Actions aren't meant to catch language bugs or tech imposes some coding style.
+Their usage fits more editors and IDEs, and they might include sorting of properties or fields, simplification of binary expressions, refactor opportunities, and more.
 However, it's possible to enforce the use of assist actions even with the CLI. The assist has **<NumberOfRules /> actions**.
 
 Assist actions are very close to [LSP code actions](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#codeActionKind) in semantics, and they are divided in [groups](#groups).
@@ -30,6 +30,18 @@ Biome assist is enabled by default. In the following example, you can enable the
 }
 ```
 
+## Use assist actions in your IDE
+
+If you have an LSP-compatible IDE, then you can configure Biome to execute particular actions on save. Each assist action has a particular code called "code action". While the majority of names follow the same pattern, there might be few exceptions (e.g. `organizeImports`), so refer to the documentation page of each action to learn to associated code.
+
+First, you need to setup your editor for apply all fixes on save. The configuration changes based on your editor. The code action name is `source.fixAll.biome`:
+
+<EditorAction action="source.fixAll.biome" />
+
+Then, you can add the code of each action. For example, the action [`useSortedKeys`](/assist/actions/use-sorted-keys) has a code action called `source.action.useSortedKeys.biome`. If you use VSCode, you can copy this code and place it in the `editor.codeActionsOnSave` section, and Biome will apply it when you save a document:
+
+<EditorAction includeFixAll action="source.action.useSortedKeys.biome" />
+
 ## Enforce assist actions via CLI
 
 Assist actions can be enforced via CLI via `check` command:
@@ -40,16 +52,10 @@ However, the `check` is meant for running multiple tools at once, so if you want
 
 <PackageManagerBiomeCommand command="check --formatter-enabled=false --linter-enabled=false" />
 
-## Use assist actions in your IDE
 
-If you have an LSP-compatible IDE, then you can configure Biome to execute particular actions on save. Each assist action has a particular code called "code action". While the majority of names follow the same pattern, there might be few exceptions (e.g. `organizeImports`), so refer to the documentation page of each action to learn to associated code.
-
-For example, the action [`useSortedKeys`](/assist/actions/use-sorted-keys) has a code action called `source.action.useSortedKeys.biome`. If you use VSCode, you can copy this code and place it in the `editor.codeActionsOnSave` section, and Biome will apply it when you save a document:
-
-<EditorAction action="source.action.useSortedKeys.biome" />
 
 ## Groups
 
 ### Source
 
-This group represents those actions that can be safely applied to a document upon saving. They don't change the semantics of a program.
+This group represents those actions that can be safely applied to a document upon saving. These actions are all safe, they don't change the functionality of the program.

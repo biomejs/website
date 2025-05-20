@@ -4,31 +4,32 @@ import { Code, TabItem, Tabs } from "@astrojs/starlight/components";
 interface Props {
 	action: string;
 	off?: boolean;
+	includeFixAll: string;
 }
 
-const { action, off } = Astro.props;
+const { action, off, includeFixAll } = Astro.props;
 const zedCode = `
 {
   "code_actions_on_format": {
-    "${action}": ${off === true ? "false" : "true"},
+    "${action}": ${off === true ? "false" : "true"}, ${includeFixAll ? '\n    "source.fixAll.biome": true' : ""}
   }
 }
 `;
 const vscodeCode = `
 {
   "editor.codeActionsOnSave": {
-    "${action}": ${off === true ? '"never"' : '"explicit"'},
+    "${action}": ${off === true ? '"never"' : '"explicit"'}, ${includeFixAll ? '\n    "source.fixAll.biome": "explicit"' : ""}
   }
 }
 `;
 ---
 
 <Tabs syncKey="action">
-    <TabItem label="Zed" icon="zed">
-        <Code title=".zed/settings.json" code={zedCode} lang="json" mark={[action]} ins={3}/>
-    </TabItem>
     <TabItem label="VS Code" icon="vscode">
         <Code title=".vscode/settings.json" code={vscodeCode} lang="json" mark={[action]} ins={3}/>
+    </TabItem>
+    <TabItem label="Zed" icon="zed">
+        <Code title=".zed/settings.json" code={zedCode} lang="json" mark={[action]} ins={3}/>
     </TabItem>
     <TabItem label="Other editors">
         Use the source action code <code>{action}</code>
