@@ -1,0 +1,266 @@
+---
+title: Biome v2 - Type-aware linter
+excerpt: |
+  Biome 2.0 is officially out, as the first JavaScript linter that provides type-aware linting rules
+  that don't rely on the TypeScript compiler. With this release, Biome also ships plugin support, multi-file analysis,
+  revamped import sorting, experimental HTML formatting, better suppressions, better LSP support, and more!
+authors:
+  - ema
+  - team
+date: 2025-06-02
+cover:
+    light: "@/assets/blog/roadmap-2024/banner-light.png"
+    dark: "@/assets/blog/roadmap-2024/banner-dark.png"
+    alt: The brand of the project. It says "Biome, toolchain of the web"
+socialImage: "@/assets/social-logo.png"
+featured: true
+---
+
+import { Image } from "astro:assets"
+import darkVercel from "../../../assets/sponsors/vercel-logotype-dark.png";
+import lightVercel from "../../../assets/sponsors/vercel-logotype-light.png";
+import darkDepot from "../../../assets/sponsors/depot-logo-horizontal-on-dark@3x.png";
+import lightDepot from "../../../assets/sponsors/depot-logo-horizontal-on-light@3x.png";
+import Avatar from "@/components/Avatar.astro";
+
+I am happy to announce that Biome v2 is officially out! 🍾 Biome v2 is the _first_ JavaScript and TypeScript linter that provides
+**type-aware linting rules that doesn't rely on the TypeScript compiler**! This means that you can lint your project
+without necessarily installing the `typescript` package.
+
+With this release, the [Core Contributors of the project](/internals/credits#core-contributors) wants to show
+to the whole community and web ecosystem that Biome is here to stay, and it deserves to earn its place as the next-generation toolchain for the web.
+No other tools could achieve this great milestone in such a small amount of time ([two 2 years](/blog/annoucing-biome)) and resources. This has been possible
+thanks to the companies and people that believed the project.
+
+
+## Installation and migration
+
+Install or update the `@biomejs/biome` package. If you upgrade the package, run the `migrate` command.
+
+```shell
+npm install --save-dev --save-exact @biomejs/biome
+npx @biomejs/biome migrate --write
+```
+
+The `migrate` command will take care of all the breaking changes of the configuration, so you don't have to. However, there are
+some other changes that we couldn't automate. We created a [migration guide](/guides/upgrade-to-biome-v2) that explains them,
+together with manual migration paths, if applicable. Please get accustomed to the changes, because some of them fundamentally
+change some of the core functionalities (for the better!).
+
+## Relevant features
+
+Biome is packed with new features, some are big, some others are small. We will focus on the ones that we believe are worth
+mentioning. For a complete list of the new features, refer to the [web version of the changelog](/internals/changelog).
+
+### Multi-file analysis and type inference
+
+Both features are strictly related. You can't create a type inference engine without the possibility to query types imported from
+other modules.
+
+Before version 2.0, Biome lint rules could only operate on one file at a time. This brought us far, but many of the more interesting rules require information from other files too.
+
+To accomplish this, we have added a _file scanner_ to Biome that scans all the files in your project and indexes them, similar to what an LSP service might do in your IDE.
+
+A file scanner comes with its baggage: slowness. We acknowledge that many uses have chosen to use Biome due to its speed, and during the beta period users raised some concerns of how this could affect their workflow.
+
+As for this release, the file scanner has the following characteristics:
+- It's **completely opt-in**; this means that migrating to v2 from v1 won't affect _much_ the performance in your projects.
+- It's been designed to discover nested `.gitignore` files, if the VCS integration is enabled.
+- The **full scan** (project files and `node_modules` files) are discovered *only* when [project rules](/linter/domains#project) are enabled.
+- User can control the scanned files (exception for `node_modules`) via `files.includes`.
+- Lint rules that need to collect types or query the module graph **will never be recommended**. We put speed and performance first, and users can control the rules.
+
+Finally, we've also designed the multi-file analysis with monorepos in mind. While full monorepo support may not make it in time for the 2.0 release, we expect to be able to deliver more on this front soon.
+
+### Plugins
+
+Biome 2.0 comes with our first iteration of [Linter Plugins](/linter/plugins).
+
+These plugins are still limited in scope: They allow for matching code snippets and reporting diagnostics on them.
+
+Here is an example of a plugin that reports on all usages of `Object.assign()`:
+
+```grit
+`$fn($args)` where {
+    $fn <: `Object.assign`,
+    register_diagnostic(
+        span = $fn,
+        message = "Prefer object spread instead of `Object.assign()`"
+    )
+}
+```
+
+It's a first step, but we have plenty of ideas for making them more powerful, and we'll eagerly hear from our users on what they would like to see prioritised.
+
+
+### Import Organizer Revamp
+
+In Biome 1.x, our Import Organizer had several limitations:
+
+* Groups of imports or exports would be considered separate _chunks_, meaning they would be sorted independently. This meant the following **didn't work** as expected:
+
+  ```js title="example.js"
+  import { lib2 } from "library2";
+
+  import { util } from "./utils.js";
+  import { lib1 } from "library1";
+  ```
+
+  It would correctly sort `"library1"` to be placed above `"./utils.js"`, but it wouldn't be able to
+  carry it over the newline to the top. What we got was this:
+
+  ```js title="organizer_v1.js"
+  import { lib2 } from "library2";
+
+  import { lib1 } from "library1";
+  import { util } from "./utils.js";
+  ```
+
+  But instead, what we really wanted was this:
+
+  ```js title="organizer_v2.js"
+  import { lib1 } from "library1";
+  import { lib2 } from "library2";
+
+  import { util } from "./utils.js";
+  ```
+
+* Separate imports from the same module wouldn't be merged. Consider the following example:
+
+  ```js title="example.js"
+  import { util1 } from "./utils.js";
+  import { util2 } from "./utils.js";
+  ```
+
+  Nothing would be done to merge these import statements, whereas what we would have wanted was this:
+
+  ```js title="organizer_v2.js"
+  import { util1, util2 } from "./utils.js";
+  ```
+
+* No custom ordering could be configured. Maybe you didn't really like the default approach of ordering by "distance" from the source file that you're importing from. Maybe you wanted to organise like this:
+
+  ```js title="organizer_v2.js"
+  import { open } from "node:fs";
+
+  import { internalLib1 } from "@company/library1";
+  import { internalLib2 } from "@company/library2";
+
+  import { lib1 } from "library1";
+  ```
+
+In Biome 2.0, all these limitations are lifted. In fact, if you look at the examples above, all snippets labeled `organizer_v2.js` can be produced just like that by our new import organizer.
+
+Other improvements include support for organizing `export` statements, support for "detached" comments for explicitly separating import chunks if necessary, and import attribute sorting.
+
+You can find more in the [documentation of the action](/assist/actions/organize-imports).
+
+
+### Assists
+
+The Import Organizer was always a bit of a special case in Biome. It was neither part of the linter, nor of the formatter. This was because we didn't want it to show diagnostics the way the linter does, while its organizing features went beyond what we expect from the formatter.
+
+In Biome 2.0, we have generalised such use cases in the form of Biome Assist. The assist is meant to provide **actions**, which are similar to the _fixes_ in lint rules, but without the diagnostics.
+
+The Import Organizer has become an assist, but we've started using this approach for new assists too: [`useSortedKeys`](https://next.biomejs.dev/assist/actions/use-sorted-keys/) can sort keys in object literals, while [`useSortedAttributes`](https://next.biomejs.dev/assist/actions/use-sorted-attributes/) can sort attributes in JSX.
+
+For more information about assists, see: https://next.biomejs.dev/assist/
+
+### Improved suppressions
+
+In addition to the `// biome-ignore` comments we already supported, we now support `// biome-ignore-all` for suppressing a lint rule or the formatter in an entire file.
+
+We also added support for suppression ranges using `// biome-ignore-start` and `// biome-ignore-end`. Note that `// biome-ignore-end` is optional in case you want to let a range run until the end of the file.
+
+For more information about suppressions, see: https://next.biomejs.dev/linter/#suppress-lint-rules
+
+### HTML formatter
+
+After a few months of hard work, we are happy to announce that the HTML formatter is now ready for users to try out and start reporting bugs! This is a huge step towards Biome fully supporting HTML-ish templating languages used in frameworks like Vue and Svelte.
+
+The HTML formatter only touches actual `.html` files for now, so no formatting of HTML in `.vue` or `.svelte` files yet. It also won't format embedded languages like JavaScript or CSS yet. HTML's options like `attributePosition`, `bracketSameLine`, and `whitespaceSensitivity` have been implemented.
+
+The HTML formatter is still pretty experimental, so it will remain **disabled by default for the full 2.0 release**. At the time of writing, Biome is able to parse the grand majority of Prettier's HTML tests, and format 46/124 of them correctly. Despite not matching Prettier yet, we're pretty confident that it _should_ output documents that are formatted adequately without destroying anything. If you find a case where it doesn't, [please let us know](https://github.com/biomejs/biome/issues)!
+
+You can enable the HTML formatter by adding the following to your config file:
+
+```json
+{
+  "html": {
+    "formatter": {
+      "enabled": true
+    }
+  }
+}
+```
+
+## Shout-outs
+
+And now, let's give credits where are due!
+
+<div style={{ display: "flex", justifyContent: "center"}}>
+  <Image
+    src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExdjQ2b3d6MjYzMTdsazdzcm41NmM1ZTMzaGcyM2xyeHo2N2k5NmxscyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/QW5nKIoebG8y4/giphy.gif"
+    width="400"
+    alt="it's"
+    height="300"
+  />
+</div>
+
+Special thanks to Vercel, our platinum sponsor, [for sponsoring the type inference work](/blog/vercel-partners-biome-type-inference), led by <Avatar handle="arendjr" />.
+<div style={{ display: "flex", justifyContent: "center"}}>
+  <a href="https://vercel.com" rel="nofollow" title="Vercel" target="_blank">
+    <Image
+      alt="Vercel"
+      src={darkVercel}
+      data-canonical-src={darkVercel.src}
+      width="500"
+      class="dark:sl-hidden"
+      loading="eager"
+    />
+    <Image
+      alt="Vercel"
+      src={lightVercel}
+      data-canonical-src={lightVercel.src}
+      width="500"
+      class="light:sl-hidden"
+      loading="eager"
+    />
+  </a>
+</div>
+
+Special thanks to Depot, our gold sponsor, for providing the project with powerful and fast CI runners. A huge **time saver** and **reliability** booster!
+<div style={{ display: "flex", justifyContent: "center"}}>
+  <a href="https://depot.dev" rel="nofollow" title="Depot" target="_blank">
+    <Image
+      alt="Depot"
+      src={lightDepot}
+      data-canonical-src={lightDepot.src}
+      width="500"
+      class="dark:sl-hidden"
+      loading="eager"
+    />
+    <Image
+      alt="Depot"
+      src={darkDepot}
+      data-canonical-src={darkDepot.src}
+      width="500"
+      class="light:sl-hidden"
+      loading="eager"
+    />
+  </a>
+</div>
+
+Congratulations to <Avatar handle="siketyan" />, which recently became Core Contributor of the project! Thanks to their contributions,
+the [JetBrains extension](https://plugins.jetbrains.com/plugin/22761-biome/edit) is now stable and support multiple workspaces.
+
+Thanks to <Avatar handle="conaclos" /> for their massive work in implementing many features such as the import sorting revamping,
+the new glob engine, many new linting rules.
+
+Thanks to <Avatar handle="arendjr" />, author of the multi-file engine (scanner and file watcher), the continuous work of the type inference (duh!), complex internal refactors to make Biome more maintainable.
+
+Props to <Avatar handle="nhedger" /> for authoring the [GitHub Action](https://github.come/biomejs/setup-biome), and [shipping](// todo link to blog post) the new version of the [VSCode extension](https://marketplace.visualstudio.com/items?itemName=biomejs.biome).
+
+Thanks to <Avatar handle="dyc3" /> for leading the works for the HTML parser and formatter. Both are very complex pieces of software, especially the matching the same formatting experience as Prettier.
+
+Last but not least, a great thanks to all our [sponsors](https://github.com/biomejs/biome#sponsors) and [contributors](/internals/credits#contributors)!
