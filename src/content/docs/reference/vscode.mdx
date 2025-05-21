@@ -15,6 +15,10 @@ development workflow.
 This reference document provides an overview of the extension's features, how to install 
 it, and how to configure it for your projects.
 
+:::tip
+If you're updrading from the `2.x` version of the extension, checkout the [migration instructions](#migrating-from-the-2x-extension) at the end of this document.
+:::
+
 ## Installing the extension
 
 The recommended way to install the extension is through the [Visual Studio Code Marketplace]
@@ -27,74 +31,11 @@ for VS Code users, or the [Open VSX registry] for VSCodium and other derivatives
 - [![](https://img.shields.io/badge/Install%20Biome-in%20VSCodium-007ACC?style=flat&logo=biome)](vscodium:extension/biomejs.biome)
 
 
-## Projects
-
-The Biome extension operates on so-called _projects_. A project is a directory in which the extension will spawn a dedicated
-Biome LSP server. This is useful because it allows you to use different versions of Biome for different projects, even if they
-are part of the same workspace folder.
-
-### Defining projects
-
-Projects can be defined in two places:
-
-- At the **workspace** level (in a `.code-workspace` file)
-- At the **workspace folder** level (in a `.vscode/settings.json` file)
-
-:::tip[It just works!]
-If you don't explicitly define any projects, the extension will automatically create a project at the root of the workspace folder.
-:::
-
-#### Defining projects in a workspace
-
-To define projects in a **workspace**, add a `settings.biome.projects` property to the `.code-workspace` file. This setting accepts an
-array of project definitions, each of which must specify the following properties:
-
-- `name`: The **name of the workspace folder** that the project is associated with
-- `path` : The **path to the project directory**, _relative to the root of the workspace folder_.
-
-Please refer to the [`biome.projects` config reference](#biomeprojects) for more details.
-
-#### Defining projects in a workspace folder
-
-To define projects in a **workspace folder**, add a `biome.projects` property to the `.vscode/settings.json` file. This setting accepts an
-array of project definitions, each of which must specify the following property:
-
-- `path`: The **path to the project directory**, _relative to the root of the workspace folder_.
-
-Please refer to the [`biome.projects` config reference](#biomeprojects) for more details.
-
-### Enabling and disabling
-
-The extension is always activated because it needs to keep track of the state of the workspace, however it provides two settings
-to control whether Biome LSP sessions should be created for indidividual projects:
-
-- The [`biome.enabled`](#biomeenabled) setting, which can be set globally and per-project.
-- The [`biome.requireConfigFile`](#biomerequireconfigfile) setting, which can be set globally and per-project.
-
-:::tip[Which one to use?]
-The `biome.enabled` acts as a explicit on/off switch for the extension, while the `biome.requireConfigFile` setting is more of a
-configuration setting that allows you to require the presence of a configuration file for a project to be enabled. Unless you have
-a specific reason not to, we recommend relying on the `biome.requireConfigFile` setting to enable or disable the extension and leave
-the `biome.enabled` setting to `true`.
-:::
-
-#### Using the `biome.enabled` setting
-
-As mentioned above, the [`biome.enabled`](#biomeenabled) setting can be set globally and per-project. When setting it globally, it applies to all workspace folders unless
-they override the setting. This allows you to enable or disable the extension for all workspace folders or selectively enable or disable it for
-specific workspace folders. 
-
-#### Using the `biome.requireConfigFile` setting
-
-The [`biome.requireConfigFile`](#biomerequireconfigfile) setting can be set globally and per project. When setting it globally, it applies to all workspace folders unless
-they override the setting. This allows you to require the presence of a [Biome configuration file](/guides/configure-biome#configuration-file-structure) for a Biome project to be enabled. 
-
 ## Common use cases
 
 ### Single-root workspaces
 
-A single-root workspace is your typical VS Code workspace, where there is only one workspace folder. Unless told otherwise, the extension will
-automatically create a project at the root of the workspace folder. This is the most common use case.
+A single-root workspace is your typical VS Code workspace, where there is only one workspace folder.
 
 <FileTree>
 - src/
@@ -105,9 +46,8 @@ automatically create a project at the root of the workspace folder. This is the 
 
 ### Multi-root workspaces
 
-A multi-root workspace is a workspace where there are multiple workspace folders. In this case, the extension will automatically create a project
-at the root of each workspace folder. You can also [explicitly define projects](##defining-projects-in-a-workspace) using the [`biome.projects`](#biomeprojects) 
-setting.
+A multi-root workspace is a workspace where there are multiple workspace folders. In this case, the extension will automatically create
+a Biome instance per workspace folder.
 
 <FileTree>
 - api/ (workspace folder)
@@ -120,44 +60,6 @@ setting.
 		- main.ts
 - my.code-workspace
 </FileTree>
-
-### Monorepos
-
-A monorepo is typically a workspace folder in which multiple projects are defined. Unless you have Biome installed at the root
-of the monorepo. you'll want to [explicitly define projects](#defining-projects-in-a-workspace-folder) using the 
-[`biome.projects`](#biomeprojects) to tell the extension where to look for Biome projects.
-
-<Tabs>
-	<TabItem label="File structure">
-		<FileTree>
-		- .vscode/
-			- settings.json  &larr; projects defined in here
-		- packages/
-		- foo/
-			- src/
-			- main.ts
-			- biome.json
-		- bar/
-			- src/
-			- main.ts
-			- biome.json
-		</FileTree>
-	</TabItem>
-	<TabItem label=".vscode/settings.json">
-		```json
-		{
-			"biome.projects": [
-				{
-					"path": "packages/foo"
-				},
-				{
-					"path": "packages/bar"
-				}
-			]
-		}
-		```
-	</TabItem>
-</Tabs>
 
 ## Features
 
@@ -223,35 +125,20 @@ workspace folders.
 
 **Default:** `true` | **Scopes:** `global`, `workspace`, `workspace folder`
 
-This setting controls whether projects will be created in a workspace or not. When set globally, it applies to all workspace folders, unless they themselves override the setting.
+This setting controls whether the extension will create LSP session for a workspace folder. When set globally, it applies to all workspace folders, unless they themselves override the setting.
 
-### `biome.requireConfigFile`
+### `biome.requireConfiguration`
 
 **Default:** `false` | **Scopes:** `global`, `workspace`, `workspace folder`
 
-This setting controls whether projects will be created depending on whether a Biome configuration file is present in the project directory. When set globally, it applies to all workspace folders, unless they themselves override the setting.
+This setting controls whether Biome will register itself as a formatter and diagnostics provider.
+
+When set to `true`, the extension will only register itself as a formatter and diagnostics provider if a `biome.json` file is present in the workspace folder.
 
 :::caution
-The `biome.enabled` setting must be set to `true` in the same scope for this setting to take effect.
+The `biome.enabled` setting must be set to `true` (default) in the same scope for this setting to take effect.
 :::
 
-### `biome.projects`
-
-**Default:** `undefined` | **Scopes:** `workspace`, `workspace folder`
-
-This setting allows you to define projects explicitly. It should be an array of project definitions, whose shape depends on the scope of the setting:
-
-<Tabs>
-	<TabItem label="workspace folder">
-		- `path` (optional, defaults to `.`): The **path to the project directory**, _relative to the root of the workspace folder_. This is the path where the extension will spawn an independant Biome LSP server, and where you'd typically
-		put your `biome.json` file.
-	</TabItem>
-	<TabItem label="workspace">
-		- `name` (required when defining at the workspace level): The **name of the workspace folder** that the project is associated with, which must match the `name` property of the workspace folder defined in the `folders` property.
-		- `path` (optional, defaults to `.`): The **path to the project directory**, _relative to the root of the workspace folder_. This is the path where the extension will spawn an independant Biome LSP server, and where you'd typically
-		put your `biome.json` file.
-	</TabItem>
-</Tabs>
 
 ### `biome.lsp.bin`
 
@@ -294,21 +181,12 @@ You may want to set this setting to `verbose` when you encounter issues with the
 There may be times when you encounter unexpected issues with the extension. Here a a couple tip to help you troubleshoot 
 the most common issues, and reset the extension's state.
 
-### Resetting the extension
-
-The extension uses VS Code's [global state](https://code.visualstudio.com/api/references/vscode-api#ExtensionContext.globalState) to keep track of its state between VS Code restarts. 
-It also uses VS Code's [global storage](https://code.visualstudio.com/api/references/vscode-api#ExtensionContext.globalStorageUri) to
-keep temporary copies of the biome binaries that it uses.
-
-Both can be cleared and reset by running the `Biome: Troubleshoot - Reset` command from the [command palette](https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette) 
-, which will stop all active sessions, clear the global state and restart the extension.
-
 ### Accessing the LSP trace
 
 If you encounter issues with the extension, we may ask you to share the LSP trace with us. You can do so by setting the [`biome.lsp.trace.server`](#biomelsptrace_server) setting to `verbose`,
 and re-running the action that caused the issue. The trace will be made available the [output](vscode://workbrench/panel) panel, under the `Biome LSP trace (xxx)` select option.
 
-### Migrating from the `2.x` extension
+## Migrating from the `2.x` extension
 
 If you are migrating from the `2.x` extension, we recommend the following steps, in this exact order:
 1. Update the extension
@@ -318,3 +196,8 @@ If you are migrating from the `2.x` extension, we recommend the following steps,
 
 This will destroy possible old Daemon connections that are still connected to the editor, but can't be shutdown gracefully by the extension, which caused
 some incorrect formatting when a file was saved.
+
+### Changes
+
+- The `biome.lspBin` setting has been deprecated in favor of `biome.lsp.bin`. It will still work for now, but we recommend updating your settings to use the new name.
+- The `biome.requireConfigFile` has been renamed to `biome.requireConfiguration`. You should migrate the setting now as **the old is no longer supported**.
