@@ -460,6 +460,18 @@ Choose whether spaces should be added between brackets and inner values.
 
 > Default: `true`
 
+### `formatter.expand`
+
+Whether to expand arrays and objects on multiple lines.
+- `"auto"`, object literals are formatted on multiple lines if the first property has a newline,
+  and array literals are formatted on a single line if it fits in the line.
+- `"always"`, these literals are formatted on multiple lines, regardless of length of the list.
+- `"never"`, these literals are formatted on a single line if it fits in the line.
+
+When formatting `package.json`, Biome will use `always` unless configured otherwise.
+
+> Default: `"auto"`
+
 ### `formatter.useEditorconfig`
 
 Whether Biome should use the `.editorconfig` file to determine the formatting options. 
@@ -642,13 +654,15 @@ The attribute position style in jsx elements.
 
 > Default: `"auto"`
 
-### `javascript.formatter.objectWrap`
+### `javascript.formatter.expand`
 
-Whether to enforce collapsing object literals when possible.
-- `"preserve"`, object literals are expanded if the first property has a leading newline.
-- `"collapse"`, enforce object literals to collapse if possible (shorter than the max line width).
+Whether to expand arrays and objects on multiple lines.
+- `"auto"`, object literals are formatted on multiple lines if the first property has a newline,
+  and array literals are formatted on a single line if it fits in the line.
+- `"always"`, these literals are formatted on multiple lines, regardless of length of the list.
+- `"never"`, these literals are formatted on a single line if it fits in the line.
 
-> Default: `"preserve"`
+> Default: `"auto"`
 
 ### `javascript.globals`
 
@@ -816,23 +830,17 @@ Choose whether spaces should be added between brackets and inner values.
 
 > Default: `true`
 
-### `json.formatter.objectWrap`
-
-Whether to enforce collapsing object literals when possible.
-- `"preserve"`, object literals are expanded if the first property has a leading newline.
-- `"collapse"`, enforce object literals to collapse if possible (shorter than the max line width).
-
-> Default: `"preserve"`
-
 ### `json.formatter.expand`
 
-Whether to expand arrays and objects literals on multiple lines.
-- `"followSource"`: arrays and objects literals are formatted on multiple lines if they already were on multiple lines, or if they don't fit on a single line.
-- `"always"`: arrays and objects literals are formatted on multiple lines, regardless of length of the list.
+Whether to expand arrays and objects on multiple lines.
+- `"auto"`, object literals are formatted on multiple lines if the first property has a newline,
+  and array literals are formatted on a single line if it fits in the line.
+- `"always"`, these literals are formatted on multiple lines, regardless of length of the list.
+- `"never"`, these literals are formatted on a single line if it fits in the line.
 
 When formatting `package.json`, Biome will use `always` unless configured otherwise.
 
-> Default: `"followSource"`
+> Default: `"auto"`
 
 ### `json.linter.enabled`
 
