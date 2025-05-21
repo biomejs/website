@@ -14,7 +14,7 @@ use biome_string_case::Case;
 use schemars::{JsonSchema, schema_for};
 use serde::Serialize;
 use serde_json::to_string;
-use std::collections::{BTreeMap, HashSet};
+use std::collections::{BTreeMap, BTreeSet, HashSet};
 use std::fs;
 
 #[derive(Default, Debug, Serialize, JsonSchema)]
@@ -288,7 +288,7 @@ pub fn generate_json_metadata() -> anyhow::Result<()> {
 
 #[derive(Default, Debug)]
 struct RuleNames {
-    names: HashSet<String>,
+    names: BTreeSet<String>,
 }
 
 impl RuleNames {
