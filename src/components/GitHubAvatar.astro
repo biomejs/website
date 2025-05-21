@@ -1,14 +1,20 @@
 ---
 import { Image } from "astro:assets";
+import { getEntry } from "astro:content";
 
 interface Props {
 	handle: string;
 }
 
 const { handle } = Astro.props;
+const member = await getEntry("team", handle);
 
-const url = `https://github.com/${handle}`;
-const image = `https://github.com/${handle}.png?size=200`;
+if (!member) {
+	throw new Error(`The member ${handle} doesn't exist`);
+}
+
+const url = `https://github.com/${member.data.id}`;
+const image = `https://github.com/${member.data.id}.png?size=200`;
 const alt = `User ${handle}`;
 ---
 
@@ -19,5 +25,5 @@ const alt = `User ${handle}`;
             width="200"
             height="200"
     />
-    <span>@{handle}</span>
+    <span>@{member.data.id}</span>
 </a>
