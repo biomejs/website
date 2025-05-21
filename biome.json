@@ -1,7 +1,12 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "files": {
-    "ignore": ["rules.json.js", "schema.json.js", "redirects.js"]
+    "ignore": [
+      "rules.json.js",
+      "schema.json.js",
+      "redirects.js",
+      "src/playground/generated/**"
+    ]
   },
   "organizeImports": {
     "enabled": true

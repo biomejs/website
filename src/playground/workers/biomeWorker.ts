@@ -1,10 +1,10 @@
+import { LINT_RULES } from "@/playground/generated/lintRules.ts";
 import {
 	ArrowParentheses,
 	AttributePosition,
 	type BiomeOutput,
 	Expand,
 	IndentStyle,
-	LintRules,
 	LoadingState,
 	type PlaygroundSettings,
 	QuoteProperties,
@@ -18,6 +18,7 @@ import init, {
 	type ProjectKey,
 	type RuleCategories,
 	Workspace,
+	type RuleCode,
 } from "@biomejs/wasm-web";
 
 let workspace: Workspace | null = null;
@@ -35,6 +36,7 @@ const files: Map<string, File> = new Map();
 
 let configuration: undefined | Configuration;
 let fullSettings: undefined | PlaygroundSettings;
+let only: RuleCode[] = [];
 
 function getPathForFile(file: File): BiomePath {
 	return file.filename;
@@ -175,7 +177,7 @@ self.addEventListener("message", async (e) => {
 			};
 
 			switch (lintRules) {
-				case LintRules.Recommended: {
+				case LINT_RULES.recommended: {
 					configuration!.linter!.rules = {
 						nursery: {
 							recommended: false,
@@ -183,7 +185,7 @@ self.addEventListener("message", async (e) => {
 					};
 					break;
 				}
-				case LintRules.All: {
+				case LINT_RULES.all: {
 					// TODO: not entirely sure what to do here now that we have rule domains, and no longer have a single "all" option
 					configuration!.linter!.rules = {
 						a11y: "on",
@@ -196,6 +198,12 @@ self.addEventListener("message", async (e) => {
 						suspicious: "on",
 					};
 					break;
+				}
+				default: {
+					configuration!.linter!.rules = {
+						recommended: false,
+					};
+					only = [lintRules];
 				}
 			}
 
@@ -353,10 +361,11 @@ self.addEventListener("message", async (e) => {
 				projectKey,
 				path,
 				categories,
-				only: [],
+				only,
 				skip: [],
 				pullCodeActions: true,
 			});
+			console.log(diagnosticsResult);
 
 			const printer = new DiagnosticPrinter(path, code);
 			for (const diag of diagnosticsResult.diagnostics) {

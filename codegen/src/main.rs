@@ -1,7 +1,7 @@
 use codegen::diagnostics::generate_diagnostics;
 use codegen::env_variables::generate_env_variables;
 use codegen::lintdoc::generate_rule_docs;
-use codegen::metadata::generate_json_metadata;
+use codegen::metadata::{generate_json_metadata, generate_playground_rules};
 use codegen::redirects::generate_redirects;
 use codegen::website::generate_files;
 use codegen::{CodegenCommand, codegen_command};
@@ -16,6 +16,7 @@ fn main() -> anyhow::Result<()> {
         CodegenCommand::Rules => {
             generate_rule_docs()?;
             generate_redirects()?;
+            generate_playground_rules()?;
         }
         CodegenCommand::ReleaseFiles => {
             generate_files()?;
