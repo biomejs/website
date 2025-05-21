@@ -1,3 +1,4 @@
+import { LINT_RULES } from "@/playground/generated/lintRules.ts";
 import type { Diagnostic, FixFileMode, RuleDomains } from "@biomejs/wasm-web";
 import type { parser } from "codemirror-lang-rome-ast";
 import type { Dispatch, SetStateAction } from "react";
@@ -32,11 +33,6 @@ export enum SourceType {
 export enum QuoteStyle {
 	Double = "double",
 	Single = "single",
-}
-
-export enum LintRules {
-	Recommended = "recommended",
-	All = "all",
 }
 
 export enum QuoteProperties {
@@ -178,7 +174,7 @@ export interface PlaygroundSettings {
 	bracketSpacing: boolean;
 	bracketSameLine: boolean;
 	expand: Expand;
-	lintRules: LintRules;
+	lintRules: keyof typeof LINT_RULES;
 	enabledLinting: boolean;
 	analyzerFixMode: FixFileMode;
 	enabledAssist: boolean;
@@ -230,7 +226,7 @@ export const defaultPlaygroundState: PlaygroundState = {
 		bracketSpacing: true,
 		bracketSameLine: false,
 		expand: Expand.Auto,
-		lintRules: LintRules.Recommended,
+		lintRules: LINT_RULES.recommended,
 		enabledLinting: true,
 		analyzerFixMode: "safeFixes",
 		enabledAssist: true,

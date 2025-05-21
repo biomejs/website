@@ -1,11 +1,11 @@
 import EnumSelect from "@/playground/components/EnumSelect";
+import { LINT_RULES } from "@/playground/generated/lintRules.ts";
 import {
 	ArrowParentheses,
 	AttributePosition,
 	Expand,
 	IndentStyle,
 	Language,
-	LintRules,
 	type PlaygroundState,
 	QuoteProperties,
 	QuoteStyle,
@@ -908,8 +908,8 @@ function LinterSettings({
 	ruleDomains,
 	setRuleDomains,
 }: {
-	lintRules: LintRules;
-	setLintRules: (value: LintRules) => void;
+	lintRules: keyof typeof LINT_RULES;
+	setLintRules: (value: keyof typeof LINT_RULES) => void;
 	enabledLinting: boolean;
 	setEnabledLinting: (value: boolean) => void;
 	analyzerFixMode: FixFileMode;
@@ -961,11 +961,18 @@ function LinterSettings({
 						aria-describedby="lint-rules-description"
 						name="lint-rules"
 						disabled={!enabledLinting}
-						value={lintRules ?? LintRules.Recommended}
-						onChange={(e) => setLintRules(e.target.value as LintRules)}
+						value={lintRules}
+						onChange={(e) =>
+							setLintRules(e.target.value as keyof typeof LINT_RULES)
+						}
 					>
-						<option value={LintRules.Recommended}>Recommended</option>
-						<option value={LintRules.All}>All</option>
+						{Object.values(LINT_RULES).map((value) => {
+							return (
+								<option value={value} key={value}>
+									{value}
+								</option>
+							);
+						})}
 					</select>
 				</div>
 				<div className="field-row">

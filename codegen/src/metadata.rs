@@ -4,15 +4,17 @@ use biome_analyze::{
     RuleMetadata, RuleSource, RuleSourceKind,
 };
 use biome_css_syntax::CssLanguage;
+use biome_graphql_syntax::GraphqlLanguage;
 use biome_js_syntax::JsLanguage;
 use biome_json_formatter::context::JsonFormatOptions;
 use biome_json_parser::{JsonParserOptions, parse_json};
 use biome_json_syntax::JsonLanguage;
+use biome_rowan::Language;
 use biome_string_case::Case;
 use schemars::{JsonSchema, schema_for};
 use serde::Serialize;
 use serde_json::to_string;
-use std::collections::BTreeMap;
+use std::collections::{BTreeMap, HashSet};
 use std::fs;
 
 #[derive(Default, Debug, Serialize, JsonSchema)]
@@ -110,20 +112,11 @@ impl From<RuleMetadata> for JsonMetadata {
     }
 }
 
-impl RegistryVisitor<JsLanguage> for Metadata {
-    fn record_category<C: GroupCategory<Language = JsLanguage>>(&mut self) {
-        self.current_category = Some(C::CATEGORY);
-        C::record_groups(self);
-    }
-
-    fn record_group<G: RuleGroup<Language = JsLanguage>>(&mut self) {
-        self.current_group = Some(G::NAME.to_string());
-        G::record_rules(self);
-    }
-
-    fn record_rule<R>(&mut self)
+impl Metadata {
+    fn register_rule<R, L>(&mut self)
     where
-        R: Rule<Query: Queryable<Language = JsLanguage, Output: Clone>> + 'static,
+        L: Language,
+        R: Rule<Query: Queryable<Language = L, Output: Clone>> + 'static,
     {
         match self.current_category.expect("Category to exists.") {
             RuleCategory::Syntax => {
@@ -161,6 +154,25 @@ impl RegistryVisitor<JsLanguage> for Metadata {
             }
             RuleCategory::Transformation => {}
         }
+    }
+}
+
+impl RegistryVisitor<JsLanguage> for Metadata {
+    fn record_category<C: GroupCategory<Language = JsLanguage>>(&mut self) {
+        self.current_category = Some(C::CATEGORY);
+        C::record_groups(self);
+    }
+
+    fn record_group<G: RuleGroup<Language = JsLanguage>>(&mut self) {
+        self.current_group = Some(G::NAME.to_string());
+        G::record_rules(self);
+    }
+
+    fn record_rule<R>(&mut self)
+    where
+        R: Rule<Query: Queryable<Language = JsLanguage, Output: Clone>> + 'static,
+    {
+        self.register_rule::<R, JsLanguage>();
     }
 }
 
@@ -179,42 +191,7 @@ impl RegistryVisitor<JsonLanguage> for Metadata {
     where
         R: Rule<Query: Queryable<Language = JsonLanguage, Output: Clone>> + 'static,
     {
-        match self.current_category.expect("Category to exists.") {
-            RuleCategory::Syntax => {
-                self.syntax.number_or_rules += 1;
-                let languages = self
-                    .syntax
-                    .languages
-                    .entry(R::METADATA.language.into())
-                    .or_default();
-                let group = languages.entry(R::Group::NAME.into()).or_default();
-
-                group.insert(R::METADATA.name.into(), JsonMetadata::from(R::METADATA));
-            }
-            RuleCategory::Lint => {
-                self.lints.number_or_rules += 1;
-                let languages = self
-                    .lints
-                    .languages
-                    .entry(R::METADATA.language.into())
-                    .or_default();
-                let group = languages.entry(R::Group::NAME.into()).or_default();
-
-                group.insert(R::METADATA.name.into(), JsonMetadata::from(R::METADATA));
-            }
-            RuleCategory::Action => {
-                self.assist.number_or_rules += 1;
-                let languages = self
-                    .assist
-                    .languages
-                    .entry(R::METADATA.language.into())
-                    .or_default();
-                let group = languages.entry(R::Group::NAME.into()).or_default();
-
-                group.insert(R::METADATA.name.into(), JsonMetadata::from(R::METADATA));
-            }
-            RuleCategory::Transformation => {}
-        }
+        self.register_rule::<R, JsonLanguage>();
     }
 }
 
@@ -233,42 +210,24 @@ impl RegistryVisitor<CssLanguage> for Metadata {
     where
         R: Rule<Query: Queryable<Language = CssLanguage, Output: Clone>> + 'static,
     {
-        match self.current_category.expect("Category to exists.") {
-            RuleCategory::Syntax => {
-                self.syntax.number_or_rules += 1;
-                let languages = self
-                    .syntax
-                    .languages
-                    .entry(R::METADATA.language.into())
-                    .or_default();
-                let group = languages.entry(R::Group::NAME.into()).or_default();
+        self.register_rule::<R, CssLanguage>();
+    }
+}
 
-                group.insert(R::METADATA.name.into(), JsonMetadata::from(R::METADATA));
-            }
-            RuleCategory::Lint => {
-                self.lints.number_or_rules += 1;
-                let languages = self
-                    .lints
-                    .languages
-                    .entry(R::METADATA.language.into())
-                    .or_default();
-                let group = languages.entry(R::Group::NAME.into()).or_default();
-
-                group.insert(R::METADATA.name.into(), JsonMetadata::from(R::METADATA));
-            }
-            RuleCategory::Action => {
-                self.assist.number_or_rules += 1;
-                let languages = self
-                    .assist
-                    .languages
-                    .entry(R::METADATA.language.into())
-                    .or_default();
-                let group = languages.entry(R::Group::NAME.into()).or_default();
-
-                group.insert(R::METADATA.name.into(), JsonMetadata::from(R::METADATA));
-            }
-            RuleCategory::Transformation => {}
-        }
+impl RegistryVisitor<GraphqlLanguage> for Metadata {
+    fn record_category<C: GroupCategory<Language = GraphqlLanguage>>(&mut self) {
+        self.current_category = Some(C::CATEGORY);
+        C::record_groups(self);
+    }
+    fn record_group<G: RuleGroup<Language = GraphqlLanguage>>(&mut self) {
+        self.current_group = Some(G::NAME.to_string());
+        G::record_rules(self);
+    }
+    fn record_rule<R>(&mut self)
+    where
+        R: Rule<Query: Queryable<Language = GraphqlLanguage, Output: Clone>> + 'static,
+    {
+        self.register_rule::<R, GraphqlLanguage>();
     }
 }
 
@@ -285,6 +244,7 @@ pub fn generate_json_metadata() -> anyhow::Result<()> {
     biome_js_analyze::visit_registry(&mut visitor);
     biome_json_analyze::visit_registry(&mut visitor);
     biome_css_analyze::visit_registry(&mut visitor);
+    biome_graphql_analyze::visit_registry(&mut visitor);
 
     let content = serde_json::to_string_pretty(&visitor)?;
 
@@ -322,6 +282,90 @@ pub fn generate_json_metadata() -> anyhow::Result<()> {
         formatted.as_code()
     );
     fs::write(schema_file, content)?;
+
+    Ok(())
+}
+
+#[derive(Default, Debug)]
+struct RuleNames {
+    names: HashSet<String>,
+}
+
+impl RuleNames {
+    fn register_rule<R, L>(&mut self)
+    where
+        L: Language,
+        R: Rule<Query: Queryable<Language = L, Output: Clone>> + 'static,
+    {
+        self.names.insert(R::METADATA.name.to_string());
+    }
+}
+
+impl RegistryVisitor<JsLanguage> for RuleNames {
+    fn record_rule<R>(&mut self)
+    where
+        R: Rule<Query: Queryable<Language = JsLanguage, Output: Clone>> + 'static,
+    {
+        self.register_rule::<R, JsLanguage>();
+    }
+}
+
+impl RegistryVisitor<JsonLanguage> for RuleNames {
+    fn record_rule<R>(&mut self)
+    where
+        R: Rule<Query: Queryable<Language = JsonLanguage, Output: Clone>> + 'static,
+    {
+        self.register_rule::<R, JsonLanguage>();
+    }
+}
+
+impl RegistryVisitor<CssLanguage> for RuleNames {
+    fn record_rule<R>(&mut self)
+    where
+        R: Rule<Query: Queryable<Language = CssLanguage, Output: Clone>> + 'static,
+    {
+        self.register_rule::<R, CssLanguage>();
+    }
+}
+
+impl RegistryVisitor<GraphqlLanguage> for RuleNames {
+    fn record_rule<R>(&mut self)
+    where
+        R: Rule<Query: Queryable<Language = GraphqlLanguage, Output: Clone>> + 'static,
+    {
+        self.register_rule::<R, GraphqlLanguage>();
+    }
+}
+
+pub fn generate_playground_rules() -> anyhow::Result<()> {
+    let rules_file = project_root().join("src/playground/generated/lintRules.ts");
+
+    if rules_file.exists() {
+        fs::remove_file(&rules_file)?;
+    }
+
+    let mut visitor = RuleNames::default();
+    biome_js_analyze::visit_registry(&mut visitor);
+    biome_json_analyze::visit_registry(&mut visitor);
+    biome_css_analyze::visit_registry(&mut visitor);
+    biome_graphql_analyze::visit_registry(&mut visitor);
+
+    let content = format!(
+        r#"// This file is generated by codegen/src/metadata.rs
+export const LINT_RULES = {{
+  recommended: "recommended",
+  all: "all",
+ {}
+}} as const;"#,
+        visitor
+            .names
+            .iter()
+            .map(|name| format!("{name}: \"{name}\""))
+            .collect::<Vec<_>>()
+            .join(",\n  ")
+    );
+
+    fs::write(rules_file, content)?;
 
     Ok(())
 }
