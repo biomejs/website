@@ -82,7 +82,10 @@ export default defineConfig({
 	site: "https://biomejs.dev",
 	output: "static",
 	compressHTML: true,
-	redirects,
+	redirects: {
+		...redirects,
+		"/blog/annoucing-biome": "/blog/announcing-biome",
+	},
 	integrations: [
 		react(),
 		starlight({
