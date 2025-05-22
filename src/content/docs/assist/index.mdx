@@ -7,15 +7,15 @@ import NumberOfRules from "@/components/generated/assist/NumberOfRules.astro";
 import PackageManagerBiomeCommand from "@/components/PackageManagerBiomeCommand.astro";
 import EditorAction from "@/components/EditorAction.astro";
 
-Biome Assist offers a series of actions meant to improve code quality and DX of the users.
+Biome Assist offers a series of actions meant to improve code quality and developer experience.
 
-Contrary to linter rules, assist actions **always** offer a code fix that is safe to apply. A broken code fix is considered a bug. Actions aren't meant to catch language bugs or tech imposes some coding style.
-Their usage fits more editors and IDEs, and they might include sorting of properties or fields, simplification of binary expressions, refactor opportunities, and more.
-However, it's possible to enforce the use of assist actions even with the CLI. The assist has **<NumberOfRules /> actions**.
+Contrary to linter rules, assist actions always offer a code fix. They might sort properties or fields, simplify binary expressions, perform refactorings, and more. Assist actions are not meant to catch bugs or impose a particular coding style. There are currently **<NumberOfRules /> assist actions available**.
 
-Assist actions are very close to [LSP code actions](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#codeActionKind) in semantics, and they are divided in [groups](#groups).
+Assist code fixes are generally safe to apply. If an assist fix breaks your code, we would consider this a bug and appreciate bug reports.
 
-Biome assist is enabled by default. In the following example, you can enable the assist and enable the action `useSortedKeys`:
+Assist works best in editors and IDEs. However, it's possible to enforce the use of assist actions even with the CLI. Assist actions are very close to [LSP code actions](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#codeActionKind) in semantics, and they are divided in [groups](#groups).
+
+Biome assist is enabled by default, and some rules are in the recommended rule set. The following example shows how to enable the `useSortedKeys` action:
 
 ```json title="biome.json"
 {
@@ -52,10 +52,8 @@ However, the `check` is meant for running multiple tools at once, so if you want
 
 <PackageManagerBiomeCommand command="check --formatter-enabled=false --linter-enabled=false" />
 
-
-
 ## Groups
 
 ### Source
 
-This group represents those actions that can be safely applied to a document upon saving. These actions are all safe, they don't change the functionality of the program.
+This group represents those actions that can be safely applied to a document upon saving. These actions are all generally safe, they typically don't change the functionality of the program.
