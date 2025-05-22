@@ -32,6 +32,9 @@ to the whole community and web ecosystem that Biome is here to stay and deserves
 No other tools have achieved this great milestone in such a short amount of time ([two years](/blog/annoucing-biome)) and resources. This has been possible
 thanks to the companies and people who believed in the project.
 
+Preliminary testing shows that our [`noFloatingPromises` rule](/linter/rules/no-floating-promises/), which is based on our new type inference work, can detect floating promises in about 60% of the cases that would be detected by using `typescript-eslint`, at a fraction of the performance impact. And needless to say, we have plenty of ideas on how to improve this metric even further.
+
+Keep in mind that your mileage may vary, as these early numbers are based on a limited set of use cases. Nevertheless, we look forward to people trying it out and reporting their experiences so that we can quickly reach a level of confidence that would be sufficient for most projects.
 
 ## Installation and migration
 
@@ -252,7 +255,7 @@ Special thanks to Depot, our gold sponsor, for providing the project with powerf
 </div>
 
 Congratulations to <Avatar handle="siketyan" />, who recently became a Core Contributor of the project! Thanks to their contributions,
-the [JetBrains extension](https://plugins.jetbrains.com/plugin/22761-biome/edit) is now stable and supports multiple workspaces.
+the [JetBrains extension](https://plugins.jetbrains.com/plugin/22761-biome) is now stable and supports multiple workspaces.
 
 Thanks to <Avatar handle="conaclos" /> for their massive work in implementing many features such as the Import Organizer revamping,
 the new glob engine, many new linting rules.
