@@ -38,6 +38,11 @@ const plugins = [
 				picture: "https://avatars.githubusercontent.com/u/602478?v=4",
 				url: "https://bsky.app/profile/ematipico.xyz",
 			},
+			nhedger: {
+				name: "Nicolas Hedger",
+				picture: "https://github.com/nhedger.png",
+				url: "https://bsky.app/profile/hedger.ch",
+			},
 			team: {
 				name: "Biome Core Team, Biome Maintainers",
 				picture: "/img/logo-avatar.png",
