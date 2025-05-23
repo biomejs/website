@@ -14,7 +14,7 @@ use biome_string_case::Case;
 use schemars::{JsonSchema, schema_for};
 use serde::Serialize;
 use serde_json::to_string;
-use std::collections::{BTreeMap, BTreeSet, HashSet};
+use std::collections::{BTreeMap, BTreeSet};
 use std::fs;
 
 #[derive(Default, Debug, Serialize, JsonSchema)]

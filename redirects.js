@@ -316,6 +316,7 @@ export default {
   '/linter/rules/useThrowOnlyError': '/linter/rules/use-throw-only-error',
   '/linter/rules/useTopLevelRegex': '/linter/rules/use-top-level-regex',
   '/linter/rules/useTrimStartEnd': '/linter/rules/use-trim-start-end',
+  '/linter/rules/useUniqueElementIds': '/linter/rules/use-unique-element-ids',
   '/linter/rules/useValidAnchor': '/linter/rules/use-valid-anchor',
   '/linter/rules/useValidAriaProps': '/linter/rules/use-valid-aria-props',
   '/linter/rules/useValidAriaRole': '/linter/rules/use-valid-aria-role',

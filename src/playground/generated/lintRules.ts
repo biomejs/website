@@ -318,6 +318,7 @@ export const LINT_RULES = {
   useThrowOnlyError: "useThrowOnlyError",
   useTopLevelRegex: "useTopLevelRegex",
   useTrimStartEnd: "useTrimStartEnd",
+  useUniqueElementIds: "useUniqueElementIds",
   useValidAnchor: "useValidAnchor",
   useValidAriaProps: "useValidAriaProps",
   useValidAriaRole: "useValidAriaRole",

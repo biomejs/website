@@ -60,7 +60,9 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | Rule name | Description | Properties |
 | --- | --- | --- |
 | [noAdjacentSpacesInRegex](/linter/rules/no-adjacent-spaces-in-regex) | Disallow unclear usage of consecutive space characters in regular expression literals | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
+| [noArguments](/linter/rules/no-arguments) | Disallow the use of `arguments`. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
 | [noBannedTypes](/linter/rules/no-banned-types) | Disallow primitive type aliases and misleading types. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
+| [noCommaOperator](/linter/rules/no-comma-operator) | Disallow comma operator. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
 | [noEmptyTypeParameters](/linter/rules/no-empty-type-parameters) | Disallow empty type parameters in type aliases and interfaces. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
 | [noExcessiveCognitiveComplexity](/linter/rules/no-excessive-cognitive-complexity) | Disallow functions that exceed a given Cognitive Complexity score. |  |
 | [noExcessiveNestedTestSuites](/linter/rules/no-excessive-nested-test-suites) | This rule enforces a maximum depth to nested `describe()` in test files. |  |
@@ -180,6 +182,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [useSingleJsDocAsterisk](/linter/rules/use-single-js-doc-asterisk) | Enforce JSDoc comment lines to start with a single asterisk, except for the first one. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useSortedClasses](/linter/rules/use-sorted-classes) | Enforce the sorting of CSS utility classes. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useSymbolDescription](/linter/rules/use-symbol-description) | Require a description parameter for the `Symbol()`. |  |
+| [useUniqueElementIds](/linter/rules/use-unique-element-ids) | Prevent the usage of static string literal `id` attribute on elements. |  |
 
 ## `performance`
 
@@ -207,8 +210,6 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 
 | Rule name | Description | Properties |
 | --- | --- | --- |
-| [noArguments](/linter/rules/no-arguments) | Disallow the use of `arguments`. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
-| [noCommaOperator](/linter/rules/no-comma-operator) | Disallow comma operator. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
 | [noCommonJs](/linter/rules/no-common-js) | Disallow use of CommonJs module system in favor of ESM style imports. |  |
 | [noDefaultExport](/linter/rules/no-default-export) | Disallow default exports. |  |
 | [noDoneCallback](/linter/rules/no-done-callback) | Disallow using a callback in asynchronous tests and hooks. |  |
@@ -381,7 +382,9 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 - [useValidAutocomplete](/linter/rules/use-valid-autocomplete) (Severity: Error)
 - [useValidLang](/linter/rules/use-valid-lang) (Severity: Error)
 - [noAdjacentSpacesInRegex](/linter/rules/no-adjacent-spaces-in-regex) (Severity: Warning)
+- [noArguments](/linter/rules/no-arguments) (Severity: Warning)
 - [noBannedTypes](/linter/rules/no-banned-types) (Severity: Warning)
+- [noCommaOperator](/linter/rules/no-comma-operator) (Severity: Warning)
 - [noEmptyTypeParameters](/linter/rules/no-empty-type-parameters) (Severity: Warning)
 - [noExtraBooleanCast](/linter/rules/no-extra-boolean-cast) ((Severity: Information)
 - [noFlatMapIdentity](/linter/rules/no-flat-map-identity) ((Severity: Information)
@@ -449,8 +452,6 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 - [noDangerouslySetInnerHtml](/linter/rules/no-dangerously-set-inner-html) (Severity: Error)
 - [noDangerouslySetInnerHtmlWithChildren](/linter/rules/no-dangerously-set-inner-html-with-children) (Severity: Error)
 - [noGlobalEval](/linter/rules/no-global-eval) (Severity: Error)
-- [noArguments](/linter/rules/no-arguments) (Severity: Warning)
-- [noCommaOperator](/linter/rules/no-comma-operator) (Severity: Warning)
 - [noNonNullAssertion](/linter/rules/no-non-null-assertion) (Severity: Warning)
 - [useArrayLiterals](/linter/rules/use-array-literals) ((Severity: Information)
 - [useConst](/linter/rules/use-const) (Severity: Warning)
