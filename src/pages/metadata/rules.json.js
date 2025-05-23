@@ -382,6 +382,74 @@ export function GET() {
           }
         }
       },
+      "graphql": {
+        "nursery": {
+          "useNamedOperation": {
+            "deprecated": false,
+            "version": "2.0.0",
+            "name": "useNamedOperation",
+            "link": "https://biomejs.dev/linter/rules/use-named-operation",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "eslintGraphql": "no-anonymous-operations"
+              }
+            ],
+            "sourceKind": "sameLogic",
+            "docs": " Enforce specifying the name of GraphQL operations.\n\n This is useful because most GraphQL client libraries use the operation name for caching purposes.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query {}\n ```\n\n ### Valid\n\n ```graphql\n query Human {\n   name\n }\n ```\n\n"
+          },
+          "useNamingConvention": {
+            "deprecated": false,
+            "version": "2.0.0",
+            "name": "useNamingConvention",
+            "link": "https://biomejs.dev/linter/rules/use-naming-convention",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslintGraphqlSchemaLinter": "enum-values-all-caps"
+              }
+            ],
+            "sourceKind": "inspired",
+            "docs": " Validates that all enum values are capitalized.\n\n By convention in GraphQL, enum values are all caps.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n enum MyEnum {\n  value\n }\n ```\n\n ### Valid\n\n ```graphql\n enum MyEnum {\n  VALUE\n }\n ```\n\n"
+          }
+        },
+        "style": {
+          "useDeprecatedReason": {
+            "deprecated": false,
+            "version": "1.9.0",
+            "name": "useDeprecatedReason",
+            "link": "https://biomejs.dev/linter/rules/use-deprecated-reason",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslintGraphql": "require-deprecation-reason"
+              }
+            ],
+            "sourceKind": "sameLogic",
+            "docs": " Require specifying the reason argument when using `@deprecated` directive\n\n This rule checks the parameter of `@deprecated` directive for the use of reason argument,\n suggesting user to add it in case the argument is missing.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query {\n   member @deprecated\n }\n ```\n\n ### Valid\n\n ```graphql\n query {\n   member @deprecated(reason: \"Why?\")\n }\n ```\n"
+          }
+        },
+        "suspicious": {
+          "noDuplicateFields": {
+            "deprecated": false,
+            "version": "1.9.0",
+            "name": "noDuplicateFields",
+            "link": "https://biomejs.dev/linter/rules/no-duplicate-fields",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslintGraphql": "no-duplicate-fields"
+              }
+            ],
+            "sourceKind": "sameLogic",
+            "docs": " No duplicated fields in GraphQL operations.\n\n Checks for duplicate fields in selection set, variables in operation definition, or in arguments set of a field.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query test($v: String, $t: String, $v: String) {\n   id\n }\n ```\n\n ### Valid\n\n ```graphql\n query {\n   user {\n     id\n   }\n }\n ```\n\n"
+          }
+        }
+      },
       "js": {
         "a11y": {
           "noStaticElementInteractions": {
@@ -441,6 +509,34 @@ export function GET() {
               }
             ],
             "docs": " Disallow unclear usage of consecutive space characters in regular expression literals\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n /   /\n ```\n\n ```js,expect_diagnostic\n /foo  */\n ```\n\n ```js,expect_diagnostic\n /foo  {2,}bar   {3,5}baz/\n ```\n\n ```js,expect_diagnostic\n /foo [ba]r  b(a|z)/\n ```\n\n ### Valid\n\n ```js\n /foo {2}bar/\n```\n\n ```js\n / foo bar baz /\n```\n\n ```js\n /foo bar\tbaz/\n```\n"
+          },
+          "noArguments": {
+            "deprecated": false,
+            "version": "1.0.0",
+            "name": "noArguments",
+            "link": "https://biomejs.dev/linter/rules/no-arguments",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslint": "prefer-rest-params"
+              }
+            ],
+            "docs": " Disallow the use of `arguments`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function f() {\n    console.log(arguments);\n }\n ```\n\n ### Valid\n\n ```cjs\n function f() {\n     let arguments = 1;\n     console.log(arguments);\n }\n ```\n"
+          },
+          "noCommaOperator": {
+            "deprecated": false,
+            "version": "1.0.0",
+            "name": "noCommaOperator",
+            "link": "https://biomejs.dev/linter/rules/no-comma-operator",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslint": "no-sequences"
+              }
+            ],
+            "docs": " Disallow comma operator.\n\n The comma operator includes multiple expressions where only one is expected.\n It evaluates every operand from left to right and returns the value of the last operand.\n It frequently obscures side effects, and its use is often an accident.\n\n The use of the comma operator in the initialization and update parts of a `for` is still allowed.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const foo = (doSomething(), 0);\n ```\n\n ```js,expect_diagnostic\n for (; doSomething(), !!test; ) {}\n ```\n\n ```js,expect_diagnostic\n // Use a semicolon instead.\n let a, b;\n a = 1, b = 2;\n ```\n\n ### Valid\n\n ```js\n for(a = 0, b = 0; (a + b) < 10; a++, b += 2) {}\n ```\n\n"
           },
           "noExcessiveCognitiveComplexity": {
             "deprecated": false,
@@ -796,6 +892,9 @@ export function GET() {
             "sources": [
               {
                 "eslint": "dot-notation"
+              },
+              {
+                "eslint": "no-useless-computed-key"
               },
               {
                 "eslintTypeScript": "dot-notation"
@@ -1839,34 +1938,6 @@ export function GET() {
           }
         },
         "style": {
-          "noArguments": {
-            "deprecated": false,
-            "version": "1.0.0",
-            "name": "noArguments",
-            "link": "https://biomejs.dev/linter/rules/no-arguments",
-            "recommended": true,
-            "fixKind": "none",
-            "sources": [
-              {
-                "eslint": "prefer-rest-params"
-              }
-            ],
-            "docs": " Disallow the use of `arguments`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function f() {\n    console.log(arguments);\n }\n ```\n\n ### Valid\n\n ```cjs\n function f() {\n     let arguments = 1;\n     console.log(arguments);\n }\n ```\n"
-          },
-          "noCommaOperator": {
-            "deprecated": false,
-            "version": "1.0.0",
-            "name": "noCommaOperator",
-            "link": "https://biomejs.dev/linter/rules/no-comma-operator",
-            "recommended": true,
-            "fixKind": "none",
-            "sources": [
-              {
-                "eslint": "no-sequences"
-              }
-            ],
-            "docs": " Disallow comma operator.\n\n The comma operator includes multiple expressions where only one is expected.\n It evaluates every operand from left to right and returns the value of the last operand.\n It frequently obscures side effects, and its use is often an accident.\n\n The use of the comma operator in the initialization and update parts of a `for` is still allowed.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const foo = (doSomething(), 0);\n ```\n\n ```js,expect_diagnostic\n for (; doSomething(), !!test; ) {}\n ```\n\n ```js,expect_diagnostic\n // Use a semicolon instead.\n let a, b;\n a = 1, b = 2;\n ```\n\n ### Valid\n\n ```js\n for(a = 0, b = 0; (a + b) < 10; a++, b += 2) {}\n ```\n\n"
-          },
           "noCommonJs": {
             "deprecated": false,
             "version": "1.9.0",
@@ -3834,6 +3905,15 @@ export function GET() {
             ],
             "sourceKind": "sameLogic",
             "docs": " Ensure the `preconnect` attribute is used when using Google Fonts.\n\n When using Google Fonts, adding the `rel=\"preconnect\"` attribute to the `<link>` tag\n that points to `https://fonts.gstatic.com` is recommended to initiate an early\n connection to the font's origin. This improves page load performance by reducing latency.\n\n Failing to use `preconnect` may result in slower font loading times, affecting user experience.\n\n Note: Next.js automatically adds this preconnect link starting from version 12.0.1, but in cases\n where it's manually added, this rule ensures the `preconnect` attribute is properly used.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <link href=\"https://fonts.gstatic.com\"/>\n ```\n\n ```jsx,expect_diagnostic\n <link rel=\"preload\" href=\"https://fonts.gstatic.com\"/>\n ```\n\n ### Valid\n\n ```jsx\n <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\"/>\n ```\n\n ```jsx\n <link href=\"/logo.svg\" rel=\"icon\" />\n ```\n\n"
+          },
+          "useUniqueElementIds": {
+            "deprecated": false,
+            "version": "2.0.0",
+            "name": "useUniqueElementIds",
+            "link": "https://biomejs.dev/linter/rules/use-unique-element-ids",
+            "recommended": false,
+            "fixKind": "none",
+            "docs": " Prevent the usage of static string literal `id` attribute on elements.\n\n In React, hardcoding IDs is discouraged because IDs have to be unique in the DOM.\n You should use [`useId`](https://react.dev/reference/react/useId) to generate unique IDs for accessibility purposes.\n\n Please keep in mind this rule doesn't check whether ids are actually unique or not, and does check whether static literal id isn't passed to the elements or not. So you're encouraged to check by yourself if the ids are actually unique.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div id=\"foo\">bar</div>;\n ```\n\n ```jsx,expect_diagnostic\n React.createElement(\"div\", { id: \"foo\" });\n ```\n\n ### Valid\n\n ```jsx\n const id = useId();\n <div id={id}>bar</div>;\n ```\n\n ```jsx\n const id = useId();\n React.createElement(\"div\", { id });\n ```\n\n"
           }
         },
         "performance": {
@@ -4522,7 +4602,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 318
+    "numberOrRules": 323
   },
   "syntax": {
     "languages": {
@@ -4553,7 +4633,7 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/no-super-without-extends",
             "recommended": false,
             "fixKind": "none",
-            "docs": " Catch a `SyntaxError` when writing calling `super()` on a class that doesn't extends any class\n\n ## Examples\n\n ```js\n class A {\n ```\n"
+            "docs": " Catch a `SyntaxError` when writing calling `super()` on a class that doesn't extends any class\n\n ## Examples\n\n ```js\n class A {\n     constructor() {\n         super()\n     }\n }\n ```\n"
           }
         }
       },
