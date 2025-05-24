@@ -58,7 +58,7 @@ self.addEventListener("message", async (e) => {
 				projectKey = workspace.openProject({
 					openUninitialized: true,
 					path: "/",
-				});
+				}).projectKey;
 
 				self.postMessage({ type: "init", loadingState: LoadingState.Success });
 			} catch (err) {
