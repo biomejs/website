@@ -1711,6 +1711,15 @@ export function GET() {
             "sourceKind": "inspired",
             "docs": " Require the consistent declaration of object literals. Defaults to explicit definitions.\n\n ECMAScript 6 provides two ways to define an object literal: `{foo: foo}` and `{foo}`.\n The two styles are functionally equivalent.\n Using the same style consistently across your codebase makes it easier to quickly read and understand object definitions.\n\n ## Example\n\n ### Invalid\n\n ```json,options\n {\n     \"options\": {\n         \"syntax\": \"explicit\"\n     }\n }\n ```\n\n ```js,expect_diagnostic,use_options\n let foo = 1;\n let invalid = {\n     foo\n };\n ```\n\n ```js,expect_diagnostic,use_options\n let invalid = {\n     bar() { return \"bar\"; },\n };\n ```\n\n ### Valid\n\n ```js,use_options\n let foo = 1;\n let valid = {\n     foo: foo,\n     bar: function() { return \"bar\"; },\n };\n ```\n\n ### Invalid\n\n ```json,options\n {\n     \"options\": {\n         \"syntax\": \"shorthand\"\n     }\n }\n ```\n\n ```js,expect_diagnostic,use_options\n let foo = 1;\n let invalid = {\n     foo: foo\n };\n ```\n\n ```js,expect_diagnostic,use_options\n let invalid = {\n     bar: function() { return \"bar\"; },\n };\n ```\n\n ### Valid\n\n ```js,use_options\n let foo = 1;\n let valid = {\n     foo,\n     bar() { return \"bar\"; },\n };\n ```\n\n ## Options\n\n Use the options to specify the syntax of object literals to enforce.\n\n ```json,options\n {\n     \"options\": {\n         \"syntax\": \"explicit\"\n     }\n }\n ```\n\n ### syntax\n\n The syntax to use:\n - `explicit`: enforces the use of explicit object property syntax in every case.\n - `shorthand`: enforces the use of shorthand object property syntax when possible.\n\n **Default:** `explicit`\n\n"
           },
+          "useConsistentResponse": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useConsistentResponse",
+            "link": "https://biomejs.dev/linter/rules/use-consistent-response",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "docs": " Use static `Response` methods instead of `new Response()` constructor when possible.\n\n `new Response(JSON.stringify({ value: 1 }))` can be simplified to [Response.json()](https://developer.mozilla.org/en-US/docs/Web/API/Response/json).\n `new Response(null, { status: 301, headers: { location: 'https://example.com' } })` can be simplified to [Response.redirect()](https://developer.mozilla.org/en-US/docs/Web/API/Response/redirect_static).\n\n These methods are more concise and emphasize the intent of the code better,\n however they are not a direct replacement when additional options such as extra headers are needed.\n\n In case of `Response.redirect()`, the `location` header must also be a full URL, because server runtimes (Node, Deno, etc.) will throw an error for relative URLs.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n new Response(JSON.stringify({ value: 1 }));\n ```\n\n ```js,expect_diagnostic\n new Response(JSON.stringify({ value: 0 }), {\n     headers: {\n         'Content-Type': 'application/json',\n     }\n })\n ```\n\n ```js,expect_diagnostic\n new Response(null, {\n    headers: {\n        location: 'https://example.com',\n    },\n    status: 302,\n })\n ```\n\n ### Valid\n\n ```js\n // JSON.stringify() with a replacer function\n new Response(JSON.stringify({ value: 0 }, () => {}))\n ```\n\n ```js\n new Response(null, {\n    headers: {\n        location: 'https://example.com',\n        'x-foo': 'extra-header',\n    },\n    status: 302,\n })\n ```\n\n ```js\n new Response(null, {\n    headers: {\n        location: '/relative-url',\n    },\n    status: 302,\n })\n ```\n\n"
+          },
           "useExhaustiveSwitchCases": {
             "deprecated": false,
             "version": "2.0.0",
@@ -4602,7 +4611,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 323
+    "numberOrRules": 324
   },
   "syntax": {
     "languages": {

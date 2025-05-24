@@ -246,6 +246,7 @@ export const LINT_RULES = {
   useConsistentCurlyBraces: "useConsistentCurlyBraces",
   useConsistentMemberAccessibility: "useConsistentMemberAccessibility",
   useConsistentObjectDefinition: "useConsistentObjectDefinition",
+  useConsistentResponse: "useConsistentResponse",
   useConst: "useConst",
   useDateNow: "useDateNow",
   useDefaultParameterLast: "useDefaultParameterLast",
