@@ -22,7 +22,7 @@ If you would like to try it out, you can update Biome and migrate your configura
 
 ```shell
 npm install --save-dev --save-exact @biomejs/biome@beta
-npx @biomejs/biome@beta migrate
+npx @biomejs/biome@beta migrate --write
 ```
 
 Also, make sure you use the prereleases of our IDE extensions. The stable versions of our extensions are not yet prepared for Biome 2.0!
@@ -133,7 +133,7 @@ returnsPromise().then(() => {});
 
 It will trigger the following diagnostic:
 
-```
+```text showLineNumbers=false
 example.js:3:1 lint/nursery/noFloatingPromises ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   ℹ A “floating” Promise was found, meaning it is not properly handled and could lead to ignored errors or unexpected behavior.
