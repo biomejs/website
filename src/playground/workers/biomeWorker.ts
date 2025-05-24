@@ -1,9 +1,10 @@
+import { LINT_RULES } from "@/playground/generated/lintRules.ts";
 import {
 	ArrowParentheses,
 	AttributePosition,
 	type BiomeOutput,
+	Expand,
 	IndentStyle,
-	LintRules,
 	LoadingState,
 	type PlaygroundSettings,
 	QuoteProperties,
@@ -14,12 +15,14 @@ import init, {
 	DiagnosticPrinter,
 	type Configuration,
 	type BiomePath,
+	type ProjectKey,
 	type RuleCategories,
 	Workspace,
+	type RuleCode,
 } from "@biomejs/wasm-web";
 
 let workspace: Workspace | null = null;
-let projectKey: number | null = null;
+let projectKey: ProjectKey | null = null;
 let fileCounter = 0;
 
 type File = {
@@ -33,6 +36,7 @@ const files: Map<string, File> = new Map();
 
 let configuration: undefined | Configuration;
 let fullSettings: undefined | PlaygroundSettings;
+let only: RuleCode[] = [];
 
 function getPathForFile(file: File): BiomePath {
 	return file.filename;
@@ -52,9 +56,9 @@ self.addEventListener("message", async (e) => {
 
 				workspace = new Workspace();
 				projectKey = workspace.openProject({
-					path: "",
 					openUninitialized: true,
-				});
+					path: "/",
+				}).projectKey;
 
 				self.postMessage({ type: "init", loadingState: LoadingState.Success });
 			} catch (err) {
@@ -87,10 +91,14 @@ self.addEventListener("message", async (e) => {
 				arrowParentheses,
 				bracketSpacing,
 				bracketSameLine,
+				expand,
+				indentScriptAndStyle,
+				whitespaceSensitivity,
 				enabledAssist,
 				unsafeParameterDecoratorsEnabled,
 				allowComments,
 				attributePosition,
+				ruleDomains,
 			} = e.data.settings as PlaygroundSettings;
 
 			configuration = {
@@ -102,10 +110,17 @@ self.addEventListener("message", async (e) => {
 					indentWidth,
 					attributePosition:
 						attributePosition === AttributePosition.Auto ? "auto" : "multiline",
+					expand:
+						expand === Expand.Auto
+							? "auto"
+							: expand === Expand.Always
+								? "always"
+								: "never",
 				},
 
 				linter: {
 					enabled: enabledLinting,
+					domains: ruleDomains,
 				},
 
 				assist: {
@@ -152,29 +167,43 @@ self.addEventListener("message", async (e) => {
 						allowComments,
 					},
 				},
+				html: {
+					formatter: {
+						enabled: true,
+						indentScriptAndStyle,
+						whitespaceSensitivity,
+					},
+				},
 			};
 
 			switch (lintRules) {
-				case LintRules.Recommended: {
-					configuration.linter!.rules = {
+				case LINT_RULES.recommended: {
+					configuration!.linter!.rules = {
 						nursery: {
 							recommended: false,
 						},
 					};
 					break;
 				}
-				case LintRules.All: {
-					configuration.linter!.rules = {
+				case LINT_RULES.all: {
+					// TODO: not entirely sure what to do here now that we have rule domains, and no longer have a single "all" option
+					configuration!.linter!.rules = {
 						a11y: "on",
+						nursery: "on",
 						complexity: "on",
 						correctness: "on",
-						nursery: "on",
 						performance: "on",
 						security: "on",
 						style: "on",
 						suspicious: "on",
 					};
 					break;
+				}
+				default: {
+					configuration!.linter!.rules = {
+						recommended: false,
+					};
+					only = [lintRules];
 				}
 			}
 
@@ -210,6 +239,7 @@ self.addEventListener("message", async (e) => {
 						content: code,
 						version: 0,
 					},
+					persistNodeCache: true,
 				});
 			} else {
 				file = {
@@ -227,6 +257,7 @@ self.addEventListener("message", async (e) => {
 						content: code,
 						version: file.version,
 					},
+					persistNodeCache: true,
 				});
 			}
 			files.set(filename, file);
@@ -260,6 +291,48 @@ self.addEventListener("message", async (e) => {
 				controlFlowGraph = "";
 			}
 
+			let semanticModel = "";
+			try {
+				semanticModel =
+					fileFeatures.featuresSupported.get("debug") === "supported"
+						? workspace.getSemanticModel({
+								projectKey,
+								path,
+							})
+						: "";
+			} catch (e) {
+				console.warn("Failed to get semantic model:", e);
+				semanticModel = "";
+			}
+
+			let typesIr = "";
+			try {
+				typesIr =
+					fileFeatures.featuresSupported.get("debug") === "supported"
+						? workspace.getTypeInfo({
+								projectKey,
+								path,
+							})
+						: "";
+			} catch (e) {
+				console.warn("Failed to get control flow graph:", e);
+				typesIr = "";
+			}
+
+			let typesRegistered = "";
+			try {
+				typesRegistered =
+					fileFeatures.featuresSupported.get("debug") === "supported"
+						? workspace.getRegisteredTypes({
+								projectKey,
+								path,
+							})
+						: "";
+			} catch (e) {
+				console.warn("Failed to get control flow graph:", e);
+				typesRegistered = "";
+			}
+
 			let formatterIr = "";
 			try {
 				formatterIr =
@@ -274,8 +347,6 @@ self.addEventListener("message", async (e) => {
 				formatterIr = "Can't format";
 			}
 
-			// TODO: Run assists
-
 			const categories: RuleCategories = [];
 			if (configuration?.formatter?.enabled) {
 				categories.push("syntax");
@@ -283,14 +354,18 @@ self.addEventListener("message", async (e) => {
 			if (configuration?.linter?.enabled) {
 				categories.push("lint");
 			}
+			if (configuration?.assist?.enabled) {
+				categories.push("action");
+			}
 			const diagnosticsResult = workspace.pullDiagnostics({
 				projectKey,
 				path,
-				categories: categories,
-				maxDiagnostics: Number.MAX_SAFE_INTEGER,
-				only: [],
+				categories,
+				only,
 				skip: [],
+				pullCodeActions: true,
 			});
+			console.log(diagnosticsResult);
 
 			const printer = new DiagnosticPrinter(path, code);
 			for (const diag of diagnosticsResult.diagnostics) {
@@ -326,7 +401,7 @@ self.addEventListener("message", async (e) => {
 								path,
 								only: [],
 								skip: [],
-								ruleCategories: ["lint"],
+								ruleCategories: categories,
 								shouldFormat: false,
 								fixFileMode: fullSettings?.analyzerFixMode ?? "safeFixes",
 							})
@@ -355,7 +430,12 @@ self.addEventListener("message", async (e) => {
 				},
 				analysis: {
 					controlFlowGraph,
+					semanticModel,
 					fixed: fixed.code,
+				},
+				types: {
+					ir: typesIr,
+					registered: typesRegistered,
 				},
 			};
 

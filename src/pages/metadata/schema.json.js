@@ -110,6 +110,13 @@ export function GET() {
 					"additionalProperties": false
 				},
 				{
+					"description": "Rules from [graphql-schema-linter](https://github.com/cjoudrey/graphql-schema-linter)",
+					"type": "object",
+					"required": ["eslintGraphqlSchemaLinter"],
+					"properties": { "eslintGraphqlSchemaLinter": { "type": "string" } },
+					"additionalProperties": false
+				},
+				{
 					"description": "Rules from [Eslint Plugin Import](https://github.com/import-js/eslint-plugin-import)",
 					"type": "object",
 					"required": ["eslintImport"],
@@ -138,6 +145,13 @@ export function GET() {
 					"additionalProperties": false
 				},
 				{
+					"description": "Rules from [Eslint Plugin JSDOc](https://github.com/gajus/eslint-plugin-jsdoc)",
+					"type": "object",
+					"required": ["eslintJsDoc"],
+					"properties": { "eslintJsDoc": { "type": "string" } },
+					"additionalProperties": false
+				},
+				{
 					"description": "Rules from [Eslint Plugin React](https://github.com/jsx-eslint/eslint-plugin-react)",
 					"type": "object",
 					"required": ["eslintReact"],
@@ -156,6 +170,13 @@ export function GET() {
 					"type": "object",
 					"required": ["eslintReactRefresh"],
 					"properties": { "eslintReactRefresh": { "type": "string" } },
+					"additionalProperties": false
+				},
+				{
+					"description": "Rules from [eslint-react.xyz](https://eslint-react.xyz/)",
+					"type": "object",
+					"required": ["eslintReactXyz"],
+					"properties": { "eslintReactXyz": { "type": "string" } },
 					"additionalProperties": false
 				},
 				{
@@ -240,6 +261,27 @@ export function GET() {
 					"type": "object",
 					"required": ["eslintNoSecrets"],
 					"properties": { "eslintNoSecrets": { "type": "string" } },
+					"additionalProperties": false
+				},
+				{
+					"description": "Rules from [Eslint Plugin Regexp](https://github.com/ota-meshi/eslint-plugin-regexp)",
+					"type": "object",
+					"required": ["eslintRegexp"],
+					"properties": { "eslintRegexp": { "type": "string" } },
+					"additionalProperties": false
+				},
+				{
+					"description": "Rules from [deno lint](https://github.com/denoland/deno_lint)",
+					"type": "object",
+					"required": ["denoLint"],
+					"properties": { "denoLint": { "type": "string" } },
+					"additionalProperties": false
+				},
+				{
+					"description": "Rules from [Eslint Plugin Vitest](https://github.com/vitest-dev/eslint-plugin-vitest)",
+					"type": "object",
+					"required": ["eslintVitest"],
+					"properties": { "eslintVitest": { "type": "string" } },
 					"additionalProperties": false
 				}
 			]

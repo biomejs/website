@@ -1,4 +1,5 @@
-import type { Diagnostic, FixFileMode } from "@biomejs/wasm-web";
+import { LINT_RULES } from "@/playground/generated/lintRules.ts";
+import type { Diagnostic, FixFileMode, RuleDomains } from "@biomejs/wasm-web";
 import type { parser } from "codemirror-lang-rome-ast";
 import type { Dispatch, SetStateAction } from "react";
 
@@ -12,6 +13,9 @@ export enum PlaygroundTab {
 	Console = "console",
 	Settings = "settings",
 	AnalyzerFixes = "analyzer-fixes",
+	TypesIr = "types-ir",
+	TypesRegistered = "types-registered",
+	SemanticModel = "semantic-model",
 }
 
 export type { Options as PrettierOptions } from "prettier";
@@ -29,11 +33,6 @@ export enum SourceType {
 export enum QuoteStyle {
 	Double = "double",
 	Single = "single",
-}
-
-export enum LintRules {
-	Recommended = "recommended",
-	All = "all",
 }
 
 export enum QuoteProperties {
@@ -62,14 +61,34 @@ export enum ArrowParentheses {
 	Always = "always",
 	AsNeeded = "as-needed",
 }
+
 export enum AttributePosition {
 	Auto = "auto",
 	Multiline = "multiline",
 }
 
+export enum Expand {
+	Auto = "auto",
+	Always = "always",
+	Never = "never",
+}
+
+export enum WhitespaceSensitivity {
+	Css = "css",
+	Strict = "strict",
+	Ignore = "ignore",
+}
+
 export type PrettierOutput =
-	| { type: "SUCCESS"; code: string; ir: string }
-	| { type: "ERROR"; stack: string };
+	| {
+			type: "SUCCESS";
+			code: string;
+			ir: string;
+	  }
+	| {
+			type: "ERROR";
+			stack: string;
+	  };
 
 export const emptyPrettierOutput: PrettierOutput = {
 	type: "SUCCESS",
@@ -92,8 +111,13 @@ export interface BiomeOutput {
 	};
 	analysis: {
 		controlFlowGraph: string;
+		semanticModel: string;
 		/** The snippet with lint fixes applied. */
 		fixed: string;
+	};
+	types: {
+		ir: string;
+		registered: string;
 	};
 }
 
@@ -112,9 +136,29 @@ export const emptyBiomeOutput: BiomeOutput = {
 	},
 	analysis: {
 		controlFlowGraph: "",
+		semanticModel: "",
 		fixed: "",
 	},
+	types: {
+		ir: "",
+		registered: "",
+	},
 };
+
+export enum Language {
+	JS = "js",
+	JSX = "jsx",
+	TS = "ts",
+	TSX = "tsx",
+	JSON = "json",
+	GraphQL = "graphql",
+	Grit = "grit",
+	CSS = "css",
+	HTML = "html",
+	Vue = "vue",
+	Svelte = "svelte",
+	Astro = "astro",
+}
 
 export interface PlaygroundSettings {
 	lineWidth: number;
@@ -129,12 +173,16 @@ export interface PlaygroundSettings {
 	attributePosition: AttributePosition;
 	bracketSpacing: boolean;
 	bracketSameLine: boolean;
-	lintRules: LintRules;
+	expand: Expand;
+	lintRules: keyof typeof LINT_RULES;
 	enabledLinting: boolean;
 	analyzerFixMode: FixFileMode;
 	enabledAssist: boolean;
 	unsafeParameterDecoratorsEnabled: boolean;
 	allowComments: boolean;
+	ruleDomains: RuleDomains;
+	indentScriptAndStyle: boolean;
+	whitespaceSensitivity: WhitespaceSensitivity;
 }
 
 export interface PlaygroundFileState {
@@ -156,7 +204,7 @@ export const defaultPlaygroundState: PlaygroundState = {
 	cursorPosition: 0,
 	tab: PlaygroundTab.Formatter,
 	currentFile: "main.tsx",
-	singleFileMode: false,
+	singleFileMode: true,
 	files: {
 		"main.tsx": {
 			content: "",
@@ -177,12 +225,16 @@ export const defaultPlaygroundState: PlaygroundState = {
 		attributePosition: AttributePosition.Auto,
 		bracketSpacing: true,
 		bracketSameLine: false,
-		lintRules: LintRules.Recommended,
+		expand: Expand.Auto,
+		lintRules: LINT_RULES.recommended,
 		enabledLinting: true,
 		analyzerFixMode: "safeFixes",
 		enabledAssist: true,
 		unsafeParameterDecoratorsEnabled: true,
 		allowComments: true,
+		ruleDomains: {},
+		indentScriptAndStyle: false,
+		whitespaceSensitivity: WhitespaceSensitivity.Css,
 	},
 };
 

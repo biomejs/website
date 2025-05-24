@@ -10,6 +10,7 @@ import FormatterCodeTab from "@/playground/tabs/FormatterCodeTab";
 import FormatterIrTab from "@/playground/tabs/FormatterIrTab";
 import SettingsTab from "@/playground/tabs/SettingsTab";
 import SyntaxTab from "@/playground/tabs/SyntaxTab";
+import TyeInfoTab from "@/playground/tabs/TypeInfoTab";
 import {
 	type BiomeAstSyntacticData,
 	type PlaygroundProps,
@@ -48,6 +49,7 @@ import {
 	useState,
 } from "react";
 import AnalyzerFixesTab from "./tabs/AnalyzerFixesTab";
+import SemanticModelTab from "./tabs/SemanticModelTab";
 
 export default function Playground({
 	setPlaygroundState,
@@ -199,7 +201,10 @@ export default function Playground({
 			data-testid="results-tabs"
 			selectedTab={playgroundState.tab}
 			onSelect={(tab) =>
-				setPlaygroundState((state) => ({ ...state, tab: tab as PlaygroundTab }))
+				setPlaygroundState((state) => ({
+					...state,
+					tab: tab as PlaygroundTab,
+				}))
 			}
 			tabs={[
 				{
@@ -267,6 +272,36 @@ export default function Playground({
 					title: "Control Flow Graph",
 					children: (
 						<ControlFlowTab graph={biomeOutput.analysis.controlFlowGraph} />
+					),
+				},
+				{
+					key: PlaygroundTab.TypesIr,
+					title: "Types IR",
+					children: (
+						<TyeInfoTab
+							code={biomeOutput.types.ir}
+							extensions={codeMirrorExtensions}
+						/>
+					),
+				},
+				{
+					key: PlaygroundTab.TypesRegistered,
+					title: "Types Registered",
+					children: (
+						<TyeInfoTab
+							code={biomeOutput.types.registered}
+							extensions={codeMirrorExtensions}
+						/>
+					),
+				},
+				{
+					key: PlaygroundTab.SemanticModel,
+					title: "Semantic Model",
+					children: (
+						<SemanticModelTab
+							code={biomeOutput.analysis.semanticModel}
+							extensions={codeMirrorExtensions}
+						/>
 					),
 				},
 				{

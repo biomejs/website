@@ -1,0 +1,43 @@
+---
+import { Code, TabItem, Tabs } from "@astrojs/starlight/components";
+
+interface Props {
+	zed: {
+		value: string;
+		name: string;
+	};
+	vsCode: {
+		value: string;
+		name: string;
+	};
+}
+
+const { zed, vsCode } = Astro.props;
+const zedCode = `
+{
+  "lsp": {
+    "biome": {
+      "settings": {
+         "${zed.name}": ${zed.value}
+      }    
+    }
+  }
+}
+`;
+const vscodeCode = `
+{
+  "biome.lsp": {
+    "${vsCode.name}": ${vsCode.value} 
+  }
+}
+`;
+---
+
+<Tabs syncKey="action">
+    <TabItem label="Zed" icon="zed">
+        <Code title=".zed/settings.json" code={zedCode} lang="json" />
+    </TabItem>
+    <TabItem label="VS Code" icon="vscode">
+        <Code title=".vscode/settings.json" code={vscodeCode} lang="json" />
+    </TabItem>
+</Tabs>

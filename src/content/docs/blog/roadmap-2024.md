@@ -1,7 +1,6 @@
 ---
 title: Roadmap 2024
-description: Roadmap 2024 and new logo
-summary: Roadmap 2024, new logo and homepage
+excerpt: Roadmap 2024, new logo and homepage
 authors:
   - ema
   - team

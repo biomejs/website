@@ -3,8 +3,6 @@ title: 設定
 description: biome.jsonを使用してBiomeをカスタマイズおよび設定する方法
 ---
 
-import LintGroups from "@/components/generated/Groups.astro";
-
 {/** 設定のタイトルを変更する際は、static/_redirects内のリダイレクトも忘れずに更新してください。 --> **/}
 
 ## `$schema`
@@ -28,7 +26,7 @@ JSONスキーマファイルへのパスを指定できます。
 
 ```json title="biome.json"
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json"
+  "$schema": "https://biomejs.dev/schemas/2.0.0-beta/schema.json"
 }
 ```
 
@@ -203,68 +201,55 @@ Unixシェル形式のパターンのリストで指定します。
 
 ### `linter.rules.recommended`
 
-すべてのグループに対して [推奨ルール](/linter/rules) を有効にします。
+すべてのグループに対して推奨ルールを有効にします。
 
 > デフォルト: `true`
-
-
-### `linter.rules.all`
-
-すべてのグループに対して、すべての [ルール](/linter/rules) を有効または無効にします。
-
-`recommended` と `all` が両方 `true` の場合、Biomeは診断情報を出力し、デフォルトにフォールバックします。
-
-
-
-```json title="biome.json"
-{
-  "linter": {
-    "enabled": true,
-    "rules": {
-      "all": true
-    }
-  }
-}
-```
-
-このフラグを組み合わせて、異なるルールグループを有効または無効にすることもできます。
-
-
-
-```json title="biome.json"
-{
-  "linter": {
-    "enabled": true,
-    "rules": {
-      "all": true,
-      "style": {
-        "all": false
-      },
-      "complexity": {
-        "all": false
-      }
-    }
-  }
-}
-```
-
-前述の例では、Biomeはすべてのルールを有効にしますが、 `style` および `complexity` グループに属するルールは除外されます。
 
 
 ### `linter.rules.[group]`
 
 単一のグループのルールに影響を与えるオプションです。Biomeは次のグループをサポートしています。
 
-<LintGroups/>
+- accessibility: アクセシビリティの問題を防ぐためのルール。
+- complexity: より簡潔に記述できる可能性のある複雑なコードを見つけるためのルール。
+- correctness: 間違っているか、不要なコードを検出するルール。
+- nursery: まだ開発中の新しいルール。バグやパフォーマンスの問題が残っている可能性があるため、安定バージョンにおいては設定で明示的に有効化する必要があります。nightlyビルドではデフォルトで有効ですが、これらは不安定であるため、安定化する際に推奨ルールとなるかに応じて診断の重大度がエラーまたは警告に設定されることがあります。これらのルールは安定化して他のグループへ昇格されるか、削除されます。このグループに属するルールはセマンティックバージョンの対象ではありません。
+- performance: より速く、または効率的に実行できる可能性のあるコードを見つけるルール。
+- security: 潜在的なセキュリティ上の欠陥を検出するルール。
+- style: 一貫性があり、慣用的なコードスタイルを強制するルール。
+- suspicious: 間違っているか、不要な可能性のあるコードを検出するルール。
+
+それぞれのグループは値として、重大度を表す文字列か、設定可能な各ルールのオブジェクトを受け入れます。
+
+重大度を渡すときは、グループに属するすべてのルールに対して重大度を設定できます。
+例えば、`a11y` グループは情報の診断を出力するように設定できます：
+
+```json title="biome.json"
+{
+  "linter": {
+    "rules": {
+      "a11y": "info"
+    }
+  }
+}
+```
+
+以下が許容される値です：
+- `"on"`: グループに属する各ルールは、デフォルトの重大度で診断を出力します。ルールのドキュメントを参照するか、`explain` コマンドを利用してください：
+  ```shell showLineNumbers=false
+  biome explain noDebugger
+  ```
+- `"off"`: グループに属するすべてのルールは診断を出力しません。
+- `"info"`: グループに属するすべてのルールは [重大度が情報の診断](/reference/diagnostics#information) を出力します。
+- `"warn"`: グループに属するすべてのルールは [重大度が警告の診断](/reference/diagnostics#warning) を出力します。
+- `"error"`: グループに属するすべてのルールは [重大度がエラーの診断](/reference/diagnostics#error) を出力します。
+
 
 ### `linter.rules.[group].recommended`
-
 
 特定のグループに対して推奨されるルールを有効にします。
 
 例：
-
-
 
 ```json title="biome.json"
 {
@@ -273,28 +258,6 @@ Unixシェル形式のパターンのリストで指定します。
     "rules": {
       "nursery": {
         "recommended": true
-      }
-    }
-  }
-}
-```
-
-
-### `linter.rules.[group].all`
-
-特定のグループのすべてのルールを有効にします。
-
-例：
-
-
-
-```json title="biome.json"
-{
-  "linter": {
-    "enabled": true,
-    "rules": {
-      "nursery": {
-        "all": true
       }
     }
   }
@@ -387,11 +350,11 @@ Unixシェル形式のパターンのリストで指定します。
 このオプションは廃止されました。代わりに [`formatter.indentWidth`](#formatterindentwidth) を使用してください。
 
 <details>
-<summary>廃止されました</summary>
+    <summary>廃止されました</summary>
 
-インデントのサイズを指定します。
+    インデントのサイズを指定します。
 
-> デフォルト: `2`
+    > デフォルト: `2`
 
 </details>
 
@@ -424,6 +387,32 @@ HTML言語（あるいはHTMLベースの言語）における属性の位置ス
 - `"multiline"`: 属性は常に複数行でフォーマットされます。
 
 > デフォルト: `"auto"`
+
+### `formatter.bracketSpacing`
+
+括弧と内部の値の間にスペースを追加するかどうかを指定します。
+
+> デフォルト: `true`
+
+### `formatter.expand`
+
+配列とオブジェクトのリテラルを複数行に展開するかどうかを指定します。
+- `"auto"`: オブジェクトリテラルは最初のプロパティに改行があれば複数行にフォーマットされ、配列リテラルは行に収まる場合は単一行にフォーマットされます。
+- `"always"`: これらのリテラルは長さを問わず複数行にフォーマットされます。
+- `"never"`: これらの利他れるは行に収まる場合は単一行にフォーマットされます。
+
+`package.json` をフォーマットする場合、別途設定されない限りBiomeは `always` を使います。
+
+> デフォルト: `"auto"`
+
+### `formatter.useEditorconfig`
+
+フォーマットのオプションを導出するために `.editorconfig` ファイルを利用するかを指定します。
+`true` の場合、`.editorconfig` ファイルの中の適用可能なオプションが利用されますが、`biome.json` ファイルの設定が優先されます。
+
+`biome migrate` でPrettierから移行する場合、このオプションはPrettierの動作と一致させるため `true` に設定されます。
+
+> デフォルト: `false`
 
 ## `organizeImports`
 
@@ -504,6 +493,23 @@ Unixシェル形式のパターンのリストで指定します。
 
 > デフォルト: `false`
 
+### `javascript.parser.jsxEverywhere`
+
+`true` に設定すると、`.js` ファイルの中でJSX文法をパースすることを許可します。
+`false` に設定すると、`.js` ファイルの中でJSX文法に遭遇したときにBiomeは診断を出力します。
+
+> デフォルト: `true`
+
+```json title="biome.json"
+{
+  "javascript": {
+    "parser": {
+      "jsxEverywhere": false
+    }
+  }
+}
+```
+
 ### `javascript.formatter.quoteStyle`
 
 文字列リテラルを表現する際に使用する引用符の種類です。 `"single"` または `"double"` のいずれかを指定できます。
@@ -516,27 +522,31 @@ JSXの文字列リテラルを表現する際に使用する引用符の種類�
 
 > デフォルト: `"double"`
 
+```json title="biome.json"
+{
+  "javascript": {
+    "formatter": {
+      "jsxQuoteStyle": "single"
+    }
+  }
+}
+```
+
 ### `javascript.formatter.quoteProperties`
 
 オブジェクト内のプロパティをいつ引用符で囲むかを指定します、。 `"asNeeded"` または `"preserve"` のいずれかを選択できます。
 
 > デフォルト: `"asNeeded"`
 
-### `javascript.formatter.trailingComma`
-
-このオプションは廃止されました。代わりに [`javascript.formatter.trailingCommas`](#javascriptformattertrailingcommas) を使用してください。
-
-<details>
-<summary>廃止されました</summary>
-
-複数行のカンマ区切りの構文構造で、可能な限り末尾カンマを追加します。可能な値は次の通りです。
-- `"all"`: 末尾カンマが常に追加されます。
-- `"es5"`: 末尾カンマが、古いバージョンのJavaScriptでサポートされている場所にのみ追加されます。
-- `"none"`: 末尾カンマは決して追加されません。
-
-> デフォルト: `"all"`
-
-</details>
+```json title="biome.json"
+{
+  "javascript": {
+    "formatter": {
+      "quoteProperties": "preserve"
+    }
+  }
+}
+```
 
 ### `javascript.formatter.trailingCommas`
 
@@ -588,19 +598,6 @@ JavaScript（およびその拡張言語）ファイルのインデントスタ�
 
 > デフォルト: `"tab"`
 
-### `javascript.formatter.indentSize`
-
-このオプションは廃止されました。代わりに [`javascript.formatter.indentWidth`](#javascriptformatterindentwidth) を使用してください。
-
-<details>
-<summary>廃止されました</summary>
-
-JavaScript（およびその拡張言語）ファイルのインデントサイズを指定します。
-
-> デフォルト: `2`
-
-</details>
-
 ### `javascript.formatter.indentWidth`
 
 JavaScript（およびその拡張言語）ファイルのインデントサイズを指定します。
@@ -642,6 +639,15 @@ JSX要素における属性の位置スタイルを指定します。
 
 > デフォルト: `"auto"`
 
+### `javascript.formatter.expand`
+
+配列とオブジェクトのリテラルを複数行に展開するかどうかを指定します。
+- `"auto"`: オブジェクトリテラルは最初のプロパティに改行があれば複数行にフォーマットされ、配列リテラルは行に収まる場合は単一行にフォーマットされます。
+- `"always"`: これらのリテラルは長さを問わず複数行にフォーマットされます。
+- `"never"`: これらの利他れるは行に収まる場合は単一行にフォーマットされます。
+
+> デフォルト: `"auto"`
+
 ### `javascript.globals`
 
 Biomeが無視すべきグローバル名前のリストです。
@@ -675,9 +681,35 @@ https://legacy.reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.htm
 
 ### `javascript.linter.enabled`
 
-JavaScript（およびその拡張言語）ファイル用のBiomeフォーマッタを有効にします。
+JavaScript（およびその拡張言語）ファイル用のBiomeリンタを有効にします。
 
 > デフォルト: `true`
+
+```json title="biome.json"
+{
+  "javascript": {
+    "linter": {
+      "enabled": false
+    }
+  }
+}
+```
+
+### `javascript.assist.enabled`
+
+JavaScript（およびその拡張言語）ファイル用のBiomeアシストを有効にします。
+
+> デフォルト: `true`
+
+```json title="biome.json"
+{
+  "javascript": {
+    "assist": {
+      "enabled": false
+    }
+  }
+}
+```
 
 ## `json`
 
@@ -721,25 +753,21 @@ JSON（およびその拡張言語）ファイル用のBiomeフォーマッタ�
 
 > デフォルト: `true`
 
+```json title="biome.json"
+{
+  "json": {
+    "formatter": {
+      "enabled": false
+    }
+  }
+}
+```
+
 ### `json.formatter.indentStyle`
 
 JSON（およびその拡張言語）ファイルのインデントスタイルです。 `"tab"` または `"space"` のいずれかを指定できます。
 
 > デフォルト: `"tab"`
-
-
-### `json.formatter.indentSize`
-
-このオプションは廃止されました。代わりに [`json.formatter.indentWidth`](#jsonformatterindentwidth) を使用してください。
-
-<details>
-<summary>廃止されました</summary>
-
-JSON（およびその拡張言語）ファイルのインデントサイズを指定します。
-
-> デフォルト: `2`
-
-</details>
 
 ### `json.formatter.indentWidth`
 
@@ -772,12 +800,54 @@ JSON（およびその拡張言語）ファイルの行の文字数を指定し�
 
 > デフォルト: `"none"`
 
+### `json.formatter.bracketSpacing`
+
+括弧と内部の値の間にスペースを追加するかどうかを指定します。
+
+> デフォルト: `true`
+
+### `json.formatter.expand`
+
+配列とオブジェクトのリテラルを複数行に展開するかどうかを指定します。
+- `"auto"`: オブジェクトリテラルは最初のプロパティに改行があれば複数行にフォーマットされ、配列リテラルは行に収まる場合は単一行にフォーマットされます。
+- `"always"`: これらのリテラルは長さを問わず複数行にフォーマットされます。
+- `"never"`: これらの利他れるは行に収まる場合は単一行にフォーマットされます。
+
+`package.json` をフォーマットする場合、別途設定されない限りBiomeは `always` を使います。
+
+> デフォルト: `"auto"`
+
 ### `json.linter.enabled`
 
 JSON（およびその拡張言語）ファイル用のBiomeのリンタを有効にします。
 
 > デフォルト: `true`
 
+```json title="biome.json"
+{
+  "json": {
+    "linter": {
+      "enabled": false
+    }
+  }
+}
+```
+
+### `json.assist.enabled`
+
+JSON（およびその拡張言語）ファイル用のBiomeのアシストを有効にします。
+
+> デフォルト: `true`
+
+```json title="biome.json"
+{
+  "json": {
+    "assist": {
+      "enabled": false
+    }
+  }
+}
+```
 
 ## `css`
 
@@ -791,26 +861,36 @@ CSSファイルに適用されるオプションです。
 
 ### `css.formatter.enabled`
 
-CSS（およびその拡張言語）ファイル用のBiomeのフォーマッタを有効にします。
+CSSファイル用のBiomeのフォーマッタを有効にします。
 
 > デフォルト: `false`
 
+```json title="biome.json"
+{
+  "css": {
+    "formatter": {
+      "enabled": false
+    }
+  }
+}
+```
+
 ### `css.formatter.indentStyle`
 
-CSS（およびその拡張言語）ファイルのインデントスタイルです。 `"tab"` または `"space"` のいずれかを指定できます。
+CSSファイルのインデントスタイルです。 `"tab"` または `"space"` のいずれかを指定できます。
 
 > デフォルト: `"tab"`
 
 
 ### `css.formatter.indentWidth`
 
-CSS（およびその拡張言語）ファイルのインデントサイズを指定します。
+CSSファイルのインデントサイズを指定します。
 
 > デフォルト: `2`
 
 ### `css.formatter.lineEnding`
 
-CSS（およびその拡張言語）ファイルの改行コードの種類を指定します。
+CSSファイルの改行コードの種類を指定します。
 - `"lf"`: Line Feedのみ (`\n`)、LinuxやmacOS、またはgitリポジトリ内で一般的です。
 - `"crlf"`: Carriage Return + Line Feed文字 (`\r\n`)、Windowsで一般的です。
 - `"cr"`: Carriage Return文字のみ (`\r`)、非常にまれに使用されます。
@@ -819,7 +899,7 @@ CSS（およびその拡張言語）ファイルの改行コードの種類を�
 
 ### `css.formatter.lineWidth`
 
-CSS（およびその拡張言語）ファイルの行の文字数を指定します。
+CSSファイルの行の文字数を指定します。
 
 > デフォルト: `80`
 
@@ -831,7 +911,143 @@ CSS（およびその拡張言語）ファイルの行の文字数を指定し�
 
 ### `css.linter.enabled`
 
-CSS（およびその拡張言語）ファイル用のBiomeのリンタを有効にします。
+CSSファイル用のBiomeのリンタを有効にします。
+
+> デフォルト: `false`
+
+```json title="biome.json"
+{
+  "css": {
+    "linter": {
+      "enabled": false
+    }
+  }
+}
+```
+
+### `css.assist.enabled`
+
+CSSファイル用のBiomeのアシストを有効にします。
+
+> デフォルト: `false`
+
+```json title="biome.json"
+{
+  "css": {
+    "assist": {
+      "enabled": false
+    }
+  }
+}
+```
+
+## `graphql`
+
+GraphQLファイルに適用されるオプションです。
+
+### `graphql.formatter.enabled`
+
+GraphQLファイル用のBiomeのフォーマッタを有効にします。
+
+> デフォルト: `false`
+
+### `graphql.formatter.indentStyle`
+
+GraphQLファイルのインデントスタイルです。 `"tab"` または `"space"` のいずれかを指定できます。
+
+> デフォルト: `"tab"`
+
+### `graphql.formatter.indentWidth`
+
+GraphQLファイルのインデントサイズを指定します。
+
+> デフォルト: `2`
+
+### `graphql.formatter.lineEnding`
+
+GraphQLファイルの改行コードの種類を指定します。
+- `"lf"`: Line Feedのみ (`\n`)、LinuxやmacOS、またはgitリポジトリ内で一般的です。
+- `"crlf"`: Carriage Return + Line Feed文字 (`\r\n`)、Windowsで一般的です。
+- `"cr"`: Carriage Return文字のみ (`\r`)、非常にまれに使用されます。
+
+> デフォルト: `"lf"`
+
+### `graphql.formatter.lineWidth`
+
+GraphQLファイルの行の文字数を指定します。
+
+> デフォルト: `80`
+
+### `graphql.formatter.quoteStyle`
+
+文字列リテラルを表現する際に使用する引用符の種類です。 `"single"` または `"double"` のいずれかを指定できます。
+
+> デフォルト: `"double"`
+
+### `graphql.linter.enabled`
+
+GraphQLファイル用のBiomeのリンタを有効にします。
+
+> デフォルト: `false`
+
+### `graphql.assist.enabled`
+
+GraphQLファイル用のBiomeのアシストを有効にします。
+
+> デフォルト: `false`
+
+## `grit`
+
+Gritファイルに適用されるオプションです。
+
+### `grit.formatter.enabled`
+
+Gritファイル用のBiomeのフォーマッタを有効にします。
+
+> デフォルト: `false`
+
+### `grit.formatter.indentStyle`
+
+Gritファイルのインデントスタイルです。 `"tab"` または `"space"` のいずれかを指定できます。
+
+> デフォルト: `"tab"`
+
+### `grit.formatter.indentWidth`
+
+Gritファイルのインデントサイズを指定します。
+
+> デフォルト: `2`
+
+### `grit.formatter.lineEnding`
+
+Gritファイルの改行コードの種類を指定します。
+- `"lf"`: Line Feedのみ (`\n`)、LinuxやmacOS、またはgitリポジトリ内で一般的です。
+- `"crlf"`: Carriage Return + Line Feed文字 (`\r\n`)、Windowsで一般的です。
+- `"cr"`: Carriage Return文字のみ (`\r`)、非常にまれに使用されます。
+
+> デフォルト: `"lf"`
+
+### `grit.formatter.lineWidth`
+
+Gritファイルの行の文字数を指定します。
+
+> デフォルト: `80`
+
+### `grit.formatter.quoteStyle`
+
+文字列リテラルを表現する際に使用する引用符の種類です。 `"single"` または `"double"` のいずれかを指定できます。
+
+> デフォルト: `"double"`
+
+### `grit.linter.enabled`
+
+Gritファイル用のBiomeのリンタを有効にします。
+
+> デフォルト: `false`
+
+### `grit.assist.enabled`
+
+Gritファイル用のBiomeのアシストを有効にします。
 
 > デフォルト: `false`
 

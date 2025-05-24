@@ -3,19 +3,17 @@
 # Head to the `biomejs/biome` repository, and modify the source code in there.
 
 title: useNodeAssertStrict
-description: |
-  Promotes the usage of `node:assert/strict` over `node:assert`.
+description: Learn more about useNodeAssertStrict
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-**Diagnostic Category: `lint/style/useNodeAssertStrict`**
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-**Since**: `v1.6.0`
-:::note
-- This rule has a **safe** fix.
-:::
-
+## Summary
+- Rule available since: `v1.6.0`
+- Diagnostic Category: [`lint/style/useNodeAssertStrict`](/reference/diagnostics#diagnostic-category)
+- This rule has a [**safe**](/linter/#safe-fixes) fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
 ## Description
 Promotes the usage of `node:assert/strict` over `node:assert`.
 
@@ -53,7 +51,7 @@ import * as assert from "node:assert/strict"
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)
-- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Configure the code fix](/linter#configure-the-code-fix)
 - [Rule options](/linter/#rule-options)
 
 </TabItem>

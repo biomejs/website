@@ -1,10 +1,12 @@
 import Playground from "@/playground/Playground";
 import LoadingScreen from "@/playground/components/LoadingScreen";
+import type { LINT_RULES } from "@/playground/generated/lintRules.ts";
 import {
 	type ArrowParentheses,
 	type AttributePosition,
+	type Expand,
 	type IndentStyle,
-	type LintRules,
+	Language,
 	LoadingState,
 	type PlaygroundSettings,
 	type PlaygroundState,
@@ -12,6 +14,7 @@ import {
 	type QuoteStyle,
 	type Semicolons,
 	type TrailingCommas,
+	type WhitespaceSensitivity,
 	defaultPlaygroundState,
 	emptyBiomeOutput,
 	emptyPrettierOutput,
@@ -23,12 +26,14 @@ import {
 	getCurrentCode,
 	getExtension,
 	getFileState,
-	isJsxFilename,
-	isScriptFilename,
-	isTypeScriptFilename,
+	guessLanguage,
 	normalizeFilename,
 } from "@/playground/utils";
-import type { FixFileMode } from "@biomejs/wasm-web";
+import type {
+	FixFileMode,
+	RuleDomain,
+	RuleDomainValue,
+} from "@biomejs/wasm-web";
 import {
 	type Dispatch,
 	type SetStateAction,
@@ -228,22 +233,23 @@ function buildLocation(state: PlaygroundState): string {
 			queryStringObj.code = encodeCode(code);
 		}
 
-		if (!isTypeScriptFilename(state.currentFile)) {
-			queryStringObj.typescript = "false";
-		}
-
-		if (!isJsxFilename(state.currentFile)) {
-			queryStringObj.jsx = "false";
-		}
-
-		if (isScriptFilename(state.currentFile)) {
-			queryStringObj.script = "true";
+		const language = guessLanguage(state.currentFile);
+		if (language !== Language.TSX) {
+			queryStringObj.language = language;
 		}
 	} else {
 		// Populate files
 		for (const filename in state.files) {
 			const content = state.files[filename]?.content ?? "";
 			queryStringObj[`files.${filename}`] = encodeCode(content);
+		}
+	}
+
+	// handle rule domains
+	for (const key in state.settings.ruleDomains) {
+		const value = state.settings.ruleDomains[key as RuleDomain];
+		if (value !== undefined && value !== "none") {
+			queryStringObj[`ruleDomains.${key}`] = value;
 		}
 	}
 
@@ -261,7 +267,7 @@ function initState(
 	searchParams: URLSearchParams,
 	includeFiles: boolean,
 ): PlaygroundState {
-	let singleFileMode = true;
+	let singleFileMode = defaultPlaygroundState.singleFileMode;
 	let hasFiles = false;
 	let files: PlaygroundState["files"] = {};
 
@@ -284,8 +290,7 @@ function initState(
 		// Single file mode
 		if (searchParams.get("code")) {
 			const ext = getExtension({
-				typescript: searchParams.get("typescript") !== "false",
-				jsx: searchParams.get("jsx") !== "false",
+				language: (searchParams.get("language") as Language) ?? Language.TSX,
 				script: searchParams.get("script") === "true",
 			});
 			files[`main.${ext}`] = {
@@ -301,13 +306,26 @@ function initState(
 		files = defaultPlaygroundState.files;
 	}
 
+	// handle rule domains
+	const ruleDomains = defaultPlaygroundState.settings.ruleDomains;
+	const prefixLength = "ruleDomains.".length;
+	for (const key of searchParams.keys()) {
+		if (key.startsWith("ruleDomains.")) {
+			const domain = key.slice(prefixLength) as RuleDomain;
+			const value = searchParams.get(key) as RuleDomainValue;
+			if (value) {
+				ruleDomains[domain] = value;
+			}
+		}
+	}
+
 	return {
 		cursorPosition: 0,
 		tab:
 			(searchParams.get("tab") as PlaygroundState["tab"]) ??
 			defaultPlaygroundState.tab,
 		singleFileMode,
-		currentFile: Object.keys(files)[0] ?? "main.js",
+		currentFile: Object.keys(files)[0] ?? defaultPlaygroundState.currentFile,
 		files,
 		settings: {
 			lineWidth: Number.parseInt(
@@ -350,8 +368,17 @@ function initState(
 			bracketSameLine:
 				searchParams.get("bracketSameLine") === "true" ||
 				defaultPlaygroundState.settings.bracketSameLine,
+			expand:
+				(searchParams.get("expand") as Expand) ??
+				defaultPlaygroundState.settings.expand,
+			whitespaceSensitivity:
+				(searchParams.get("whitespaceSensitivity") as WhitespaceSensitivity) ??
+				defaultPlaygroundState.settings.whitespaceSensitivity,
+			indentScriptAndStyle:
+				searchParams.get("indentScriptAndStyle") === "true" ||
+				defaultPlaygroundState.settings.indentScriptAndStyle,
 			lintRules:
-				(searchParams.get("lintRules") as LintRules) ??
+				(searchParams.get("lintRules") as keyof typeof LINT_RULES) ??
 				defaultPlaygroundState.settings.lintRules,
 			enabledLinting:
 				searchParams.get("enabledLinting") === "true" ||
@@ -368,6 +395,7 @@ function initState(
 			allowComments:
 				searchParams.get("allowComments") === "true" ||
 				defaultPlaygroundState.settings.allowComments,
+			ruleDomains,
 		},
 	};
 }

@@ -1,7 +1,6 @@
 ---
 title: Biome partners with Vercel to improve type inference
-description: Biome partners with Vercel to futher our type inference efforts
-summary: Vercel has become a Platinum Sponsor of Biome to further our type inference efforts
+excerpt: Vercel has become a Platinum Sponsor of Biome to further our type inference efforts
 authors:
   - arendjr
 date: 2025-04-02
@@ -10,6 +9,7 @@ cover:
   dark: "@/assets/blog/roadmap-2024/banner-dark.png"
   alt: The brand of the project. It says "Biome, toolchain of the web"
 socialImage: "@/assets/social-logo.png"
+featured: true
 ---
 
 Back at the start of 2024, Biome added an ambitious goal to its

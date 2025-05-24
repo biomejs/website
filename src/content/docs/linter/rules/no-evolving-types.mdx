@@ -3,15 +3,17 @@
 # Head to the `biomejs/biome` repository, and modify the source code in there.
 
 title: noEvolvingTypes
-description: |
-  Disallow variables from evolving into `any` type through reassignments.
+description: Learn more about noEvolvingTypes
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-**Diagnostic Category: `lint/suspicious/noEvolvingTypes`**
 <Tabs>
 <TabItem label="TypeScript and TSX" icon="seti:typescript">
-**Since**: `v1.6.3`
+## Summary
+- Rule available since: `v1.6.3`
+- Diagnostic Category: [`lint/suspicious/noEvolvingTypes`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
 ## Description
 Disallow variables from evolving into `any` type through reassignments.
 
@@ -77,7 +79,7 @@ let workspace: Workspace | null = null;
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)
-- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Configure the code fix](/linter#configure-the-code-fix)
 - [Rule options](/linter/#rule-options)
 
 </TabItem>
