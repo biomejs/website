@@ -247,6 +247,7 @@ export default {
   '/linter/rules/useConsistentCurlyBraces': '/linter/rules/use-consistent-curly-braces',
   '/linter/rules/useConsistentMemberAccessibility': '/linter/rules/use-consistent-member-accessibility',
   '/linter/rules/useConsistentObjectDefinition': '/linter/rules/use-consistent-object-definition',
+  '/linter/rules/useConsistentResponse': '/linter/rules/use-consistent-response',
   '/linter/rules/useConst': '/linter/rules/use-const',
   '/linter/rules/useDateNow': '/linter/rules/use-date-now',
   '/linter/rules/useDefaultParameterLast': '/linter/rules/use-default-parameter-last',
