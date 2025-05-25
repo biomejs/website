@@ -1,41 +1,63 @@
 ---
 title: Manual installation
-description: Install the Biome manually
+description: Install Biome manually
 ---
 
-Using Biome's standalone CLI binary can be a great choice if you aren't already using Node.js or `npm` (or any other package manager).
-Or in other words, Biome shouldn't be the only reason for you to have a `package.json`.
+Learn how to install Biome manually on all major platforms.
 
-:::note
-If you're already using `npm` or another package manager, then using the package manager is the [preferred way to install](/guides/getting-started#installation) Biome.
-You're already familiar with the tooling, and installing and updating are simpler.
-:::
+## macOS
 
-## Supported platforms
+Biome is available for macOS (Intel and Apple Silicon) as a standalone binary.
 
-You have to pick the correct binary for your platform for Biome work. The following table should help you do so.
+### Installation script
 
-| CPU Architecture | Windows       | macOS                        | Linux         | Linux (musl)       |
-| ---------------- | ------------- | ---------------------------- | ------------- | ------------------ |
-| `arm64`          | `win32-arm64` | `darwin-arm64` (M1 or newer) | `linux-arm64` | `linux-arm64-musl` |
-| `x64`            | `win32-x64`   | `darwin-x64`                 | `linux-x64`   | `linux-x64-musl`   |
+Run the following command in your terminal to install the latest stable version.
+
+```shell frame=none lines=false showLineNumbers=false
+curl -fsSL https://biomejs.dev/install | sh
+```
+
+### Homebrew
+
+Biome is available as a [Homebrew formula](https://formulae.brew.sh/formula/biome) for macOS users.
+
+```shell frame=none lines=false showLineNumbers=false
+brew install biome
+```
+
+## Linux
+
+Biome is available for Linux (Intel and ARM) as a standalone binary.
+
+### Installation script
+
+Run the following command in your terminal to install the latest stable version.
+
+```shell frame=none lines=false showLineNumbers=false
+curl -fsSL https://biomejs.dev/install | sh
+```
+
+## Windows
+
+Biome is available for Windows (Intel and ARM) as a standalone binary.
 
 :::note
 Use the Linux variant for Windows Subsystem for Linux (WSL).
 :::
 
-## Homebrew
+### Installation script
 
-Biome is available as a [Homebrew formula](https://formulae.brew.sh/formula/biome) for macOS and Linux users.
+Run the following command in your PowerShell to install the latest stable version.
 
-```shell
-brew install biome
+```powershell frame=none lines=false showLineNumbers=false
+powershell -c "irm biomejs.dev/install.ps1 | iex"
 ```
 
 ## Docker
 
-Biome publishes [official Docker images](https://github.com/biomejs/docker/pkgs/container/biome) that support 
-the **amd64** and **arm64** architectures for all Biome versions starting from `v1.7.0`.
+Biome is available as a [Docker image] starting from version `v1.7.0`.
+
+[Docker image]: https://github.com/biomejs/docker/pkgs/container/biome
 
 ```
 ghcr.io/biomejs/biome:{major}
@@ -59,28 +81,6 @@ docker run -v $(pwd):/code ghcr.io/biomejs/biome format
 docker run -v $(pwd):/code ghcr.io/biomejs/biome format --write
 ```
 
-## Using a published binary
-
-To install Biome, grab the executable for your platform from the [latest CLI release](https://github.com/biomejs/biome/releases) on GitHub and give it execution permission.
-
-```shell
-# macOS arm (M1 or newer)
-curl -L https://github.com/biomejs/biome/releases/download/cli%2Fv<version>/biome-darwin-arm64 -o biome
-chmod +x biome
-
-# Linux (x86_64)
-curl -L https://github.com/biomejs/biome/releases/download/cli%2Fv<version>/biome-linux-x64 -o biome
-chmod +x biome
-
-# Windows (x86_64, Powershell)
-Invoke-WebRequest -Uri "https://github.com/biomejs/biome/releases/download/cli%2Fv<version>/biome-win32-x64.exe" -OutFile "biome.exe"
-```
-
-:::note
-Make sure to replace `<version>` with the Biome version you want to install.
-:::
-
-Now you can use Biome by simply running `./biome`.
 
 ## Next Steps
 
