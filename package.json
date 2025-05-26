@@ -42,7 +42,7 @@
     "@playwright/test": "1.52.0",
     "@replit/codemirror-lang-svelte": "6.0.0",
     "@types/node": "20.17.50",
-    "@types/react": "18.3.21",
+    "@types/react": "18.3.22",
     "@types/react-dom": "18.3.7",
     "@uiw/react-codemirror": "4.23.12",
     "@vitejs/plugin-react": "4.4.1",
