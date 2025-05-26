@@ -22,9 +22,9 @@
     "lunaria:preview": "lunaria preview"
   },
   "devDependencies": {
-    "@astrojs/netlify": "6.3.3",
-    "@astrojs/prism": "3.2.0",
-    "@astrojs/react": "4.2.7",
+    "@astrojs/netlify": "6.3.4",
+    "@astrojs/prism": "3.3.0",
+    "@astrojs/react": "4.3.0",
     "@astrojs/rss": "4.0.11",
     "@astrojs/starlight": "0.34.3",
     "@biomejs/biome": "1.9.4",
@@ -46,7 +46,7 @@
     "@types/react-dom": "18.3.7",
     "@uiw/react-codemirror": "4.23.12",
     "@vitejs/plugin-react": "4.4.1",
-    "astro": "5.7.13",
+    "astro": "5.8.0",
     "astro-og-canvas": "0.7.0",
     "autoprefixer": "10.4.21",
     "canvaskit-wasm": "0.40.0",
