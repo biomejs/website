@@ -590,7 +590,7 @@ export function GET() {
             "name": "noFlatMapIdentity",
             "link": "https://biomejs.dev/linter/rules/no-flat-map-identity",
             "recommended": true,
-            "fixKind": "safe",
+            "fixKind": "unsafe",
             "sources": [
               {
                 "clippy": "flat_map_identity"
