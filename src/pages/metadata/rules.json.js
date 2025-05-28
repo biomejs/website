@@ -1763,6 +1763,20 @@ export function GET() {
             "sourceKind": "inspired",
             "docs": " Enforce using Solid's `<For />` component for mapping an array to JSX elements.\n\n In Solid, `<For />` component for efficiently rendering lists. Array#map causes DOM elements to be recreated.\n\n For details on `<For />` Component, see the [Solid docs about Components](https://docs.solidjs.com/reference/components/for).\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n let Component = (props) => <ol>{props.data.map(d => <li>{d.text}</li>)}</ol>;\n ```\n\n ```jsx,expect_diagnostic\n let Component = (props) => <>{props.data.map(d => <li>{d.text}</li>)}</>;\n ```\n\n ```jsx,expect_diagnostic\n let Component = (props) => (\n   <ol>\n     {props.data.map((d) => (\n       <li key={d.id}>{d.text}</li>\n     ))}\n   </ol>\n );\n ```\n\n ### Valid\n\n ```jsx\n let Component = (props) => <ol><For each={props.data}>{d => <li>{d.text}</li>}</For></ol>;\n ```\n\n ```jsx\n let abc = x.map(y => y + z);\n ```\n\n ```jsx\n let Component = (props) => {\n  let abc = x.map(y => y + z);\n  return <div>Hello, world!</div>;\n }\n ```\n\n"
           },
+          "useIndexOf": {
+            "deprecated": false,
+            "version": "2.0.0",
+            "name": "useIndexOf",
+            "link": "https://biomejs.dev/linter/rules/use-index-of",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "eslintUnicorn": "prefer-array-index-of"
+              }
+            ],
+            "docs": " Prefer `Array#{indexOf,lastIndexOf}()` over `Array#{findIndex,findLastIndex}()` when looking for the index of an item.\n\n `Array#findIndex()` and `Array#findLastIndex()` are intended for more complex needs.\n If you are just looking for the index where the given item is present, then the code can be simplified to use Array#indexOf() or Array#lastIndexOf().\n This applies to any search with a literal, a variable, or any expression that doesn't have any explicit side effects.\n However, if the expression you are looking for relies on an item related to the function (its arguments, the function self, etc.), the case is still valid.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const index = foo.findIndex(x => x === 'foo');\n ```\n\n ```js,expect_diagnostic\n const index = foo.findIndex(x => 'foo' === x);\n ```\n\n ```js,expect_diagnostic\n const index = foo.findIndex(x => {\n      return x === 'foo';\n });\n ```\n\n ```js,expect_diagnostic\n const index = foo.findLastIndex(x => 'foo' === x);\n ```\n\n ```js,expect_diagnostic\n const index = foo.findLastIndex(x => {\n      return x === 'bar';\n });\n ```\n\n ```js,expect_diagnostic\n const index = foo.findLastIndex(function(x) {\n      return x === 'foo';\n });\n ```\n\n ### Valid\n\n ```js\n const index = foo.indexOf('foo');\n ```\n\n ```js\n const index = foo.findIndex(x => x !== 'foo');\n ```\n\n ```js\n const index = foo.findIndex((x, index) => x === index);\n ```\n\n ```js\n const index = foo.findIndex(x => (x === 'foo') && isValid());\n ```\n\n ```js\n const index = foo.findIndex(x => y === 'foo');\n ```\n\n ```js\n const index = foo.findIndex(x => y.x === 'foo');\n ```\n\n ```js\n const index = foo.findIndex(x => {\n     const bar = getBar();\n     return x === bar;\n });\n ```\n\n ```js\n const index = foo.findIndex(function(x) {\n     const bar = getBar();\n     return x === bar;\n });\n ```\n\n ```js\n const index = foo.lastIndexOf('foo');\n ```\n\n ```js\n const index = foo.findLastIndex(x => x !== 'foo');\n ```\n\n ```js\n const index = foo.findLastIndex((x, index) => x === index);\n ```\n\n ```js\n const index = foo.findLastIndex(x => (x === 'foo') && isValid());\n ```\n\n ```js\n const index = foo.findLastIndex(x => y === 'foo');\n ```\n\n ```js\n const index = foo.findLastIndex(x => y.x === 'foo');\n ```\n\n"
+          },
           "useIterableCallbackReturn": {
             "deprecated": false,
             "version": "2.0.0",
@@ -4611,7 +4625,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 324
+    "numberOrRules": 325
   },
   "syntax": {
     "languages": {

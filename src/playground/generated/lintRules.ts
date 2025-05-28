@@ -279,6 +279,7 @@ export const LINT_RULES = {
   useIframeTitle: "useIframeTitle",
   useImportExtensions: "useImportExtensions",
   useImportType: "useImportType",
+  useIndexOf: "useIndexOf",
   useIsArray: "useIsArray",
   useIsNan: "useIsNan",
   useIterableCallbackReturn: "useIterableCallbackReturn",

@@ -280,6 +280,7 @@ export default {
   '/linter/rules/useIframeTitle': '/linter/rules/use-iframe-title',
   '/linter/rules/useImportExtensions': '/linter/rules/use-import-extensions',
   '/linter/rules/useImportType': '/linter/rules/use-import-type',
+  '/linter/rules/useIndexOf': '/linter/rules/use-index-of',
   '/linter/rules/useIsArray': '/linter/rules/use-is-array',
   '/linter/rules/useIsNan': '/linter/rules/use-is-nan',
   '/linter/rules/useIterableCallbackReturn': '/linter/rules/use-iterable-callback-return',
