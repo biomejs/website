@@ -421,7 +421,7 @@ If a code fix doesn't follow these three guidelines, it's possible that the team
 Since Biome v2, we've extended its architecture with a tool called Scanner. The Scanner is responsible for crawling your project files and creating important information
 such as the module graph and the inferred types.
 
-Such information **is needed** for some rules as `noFloatingPromises`, `noUnresolvedImports` or `noImportCycles`, which can't function otherwise.
+Such information **is needed** for some rules as `noFloatingPromises`, `noUnresolvedImports` or `noImportCycles`, which can't function otherwise. Generally, for rules that belong to the [project domain](/linter/domains/#project)
 
 The Scanner is **opt-in**, and it's triggered only when a rule that belongs to the [project domain](/linter/domains#project-rules) is enabled.
 
@@ -434,3 +434,24 @@ Based on our tests, we noticed roughly these numbers:
 It's also worth mentioning that **we're aware** of this impact on performance, and the team is pledged to improve the performance in this part of the software.
 
 If you notice some abnormal numbers in terms of memory or time, please file an issue with a link to the repository, so we can help.
+
+### Why is Biome using so much memory?
+
+If you use an editor extension that uses Biome, you might notice that one of its processes could use a lot of memory.
+
+This usually happens if you enable one of the rules that belong to the [project domain](/linter/domains/#project).
+
+Since Biome v2, the toolchain is now able to use TypeScript to infer types and provide more powerful rules. To achieve this, Biome
+scans all the `.d.ts` files inside the `node_modules` folder, even those that come from indirect dependencies.
+
+
+While this might seem a silly mistake, this is intentional due to how the language works. Libraries
+**can export types from its dependencies**, which end-users might not depend on from.
+
+For example, you might depend on from a library `@org/foo` that exports the type `Validator`,
+however this `Validator` comes from the library `@other-org/validator`, which is a *dependency of `@org/foo`*. However,
+the library `@other-org/validator` isn't a dependency of the project.
+
+To support such cases, Biome needs to inspect and compile all the possible definition files, in case your project ends up using them.
+
+The **team is aware** of the constraint and will work towards optimizing the infrastructure with time and resources.
