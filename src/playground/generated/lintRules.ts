@@ -298,6 +298,7 @@ export const LINT_RULES = {
   useNumberToFixedDigitsArgument: "useNumberToFixedDigitsArgument",
   useNumericLiterals: "useNumericLiterals",
   useNumericSeparators: "useNumericSeparators",
+  useObjectSpread: "useObjectSpread",
   useOptionalChain: "useOptionalChain",
   useParseIntRadix: "useParseIntRadix",
   useRegexLiterals: "useRegexLiterals",

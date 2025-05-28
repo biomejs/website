@@ -1809,6 +1809,20 @@ export function GET() {
             "sourceKind": "sameLogic",
             "docs": " Enforce the use of numeric separators in numeric literals.\n\n Enforces a convention of grouping digits using [numeric separators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#Numeric_separators).\n Long numbers can become difficult to read, so separating groups of digits with an underscore (`_`) improves code clarity. This rule also enforces proper usage of the numeric separator, by checking if the groups of digits are of the correct size.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n var a = 1234567890;\n ```\n\n ```js,expect_diagnostic\n var a = -999_99;\n ```\n\n ```js,expect_diagnostic\n var a = 0.1234567;\n ```\n\n ```js,expect_diagnostic\n var a = 0b11001100;\n ```\n\n ### Valid\n\n ```js\n var a = 1_234_567_890;\n ```\n\n ```js\n var a = -99_999;\n ```\n\n ```js\n var a = 0.123_456_7;\n ```\n\n ```js\n var a = 0b1100_1100;\n ```\n\n"
           },
+          "useObjectSpread": {
+            "deprecated": false,
+            "version": "2.0.0",
+            "name": "useObjectSpread",
+            "link": "https://biomejs.dev/linter/rules/use-object-spread",
+            "recommended": false,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "eslint": "prefer-object-spread"
+              }
+            ],
+            "docs": " Prefer object spread over `Object.assign()` when constructing new objects.\n\n Object spread syntax is more concise, more readable, and performs better\n than `Object.assign()` when creating a new object from existing objects.\n It also has better TypeScript integration.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n Object.assign({}, foo);\n ```\n\n ```js,expect_diagnostic\n Object.assign({}, { foo: 'bar' });\n ```\n\n ```js,expect_diagnostic\n Object.assign({ foo: 'bar' }, baz);\n ```\n\n ```js,expect_diagnostic\n Object.assign({}, baz, { foo: 'bar' });\n ```\n\n ### Valid\n\n ```js\n ({ ...foo });\n ```\n\n ```js\n ({ ...baz, foo: 'bar' });\n ```\n\n Modifying an existing object is allowed:\n ```js\n Object.assign(foo, { bar: baz });\n ```\n\n"
+          },
           "useParseIntRadix": {
             "deprecated": false,
             "version": "2.0.0",
@@ -4625,7 +4639,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 325
+    "numberOrRules": 326
   },
   "syntax": {
     "languages": {
