@@ -127,6 +127,16 @@ workspace folders.
 
 This setting controls whether the extension will create LSP session for a workspace folder. When set globally, it applies to all workspace folders, unless they themselves override the setting.
 
+### `biome.configurationPath`
+
+:::caution[Biome v2 only]
+This setting will only take effect when using Biome `v2`. If you are using Biome `v1`, this setting will be ignored.
+:::
+
+**Default:** `null` | **Scopes:** `global`, `workspace`, `workspace folder`
+
+This setting allows you to specifiy the path to a custom configuration file. If left unspecified, the default configuration file will be used.
+
 ### `biome.requireConfiguration`
 
 **Default:** `false` | **Scopes:** `global`, `workspace`, `workspace folder`
@@ -168,6 +178,23 @@ or if you want to use a binary that's not on your `PATH`. In can be either a pat
 		```
 	</TabItem>
 </Tabs>
+
+### `biome.runFromTemporaryLocation`
+
+**Default:** `true (windows), false (others)` | **Scopes:** `global`, `workspace`, `workspace folder`
+
+Whether to copy the Biome binary and run it from a temporary location.
+
+On Windows, disabling this setting will prevent you from updating Biome in your node modules while an active
+LSP session is running, because the OS locks the binary while it's running. You'll need to close VS Code before updating Biome.
+
+### `biome.suggestInstallingGlobally`
+
+**Default:** `true` | **Scopes:** `global`, `workspace`, `workspace folder`
+
+When a global installation of Biome is required but not found in the `PATH`, the extension will suggest installing it.
+
+This setting controls whether that suggestion popup is shown.
 
 ### `biome.lsp.trace.server`
 
