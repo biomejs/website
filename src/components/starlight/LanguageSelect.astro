@@ -12,7 +12,8 @@ import Select from "@astrojs/starlight/components/Select.astro";
         width="fit-content"
         options={[
             { label: "v1.x", value: "v1", selected: false },
-            { label: "beta", value: "v2", selected: true },
+            { label: "v2", value: "v2", selected: true },
+            { label: "next", value: "next", selected: true },
         ]}
     />
 </version-select>
@@ -27,9 +28,11 @@ import Select from "@astrojs/starlight/components/Select.astro";
 
                 let url: URL;
                 if (value === "v2") {
+                    url = new URL("https://biomejs.dev/");
+                } else if (value == "next") {
                     url = new URL("https://next.biomejs.dev/");
                 } else {
-                    url = new URL("https://biomejs.dev/"); 
+                    url = new URL("https://v1.biomejs.dev/");
                 }
 
                 url.pathname = window.location.pathname;
