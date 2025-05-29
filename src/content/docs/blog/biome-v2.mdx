@@ -1,5 +1,5 @@
 ---
-title: Biome v2 - Type-aware linter
+title: 'Biome v2—codename: Biotype'
 excerpt: |
   Biome 2.0 is officially out, as the first JavaScript linter that provides type-aware linting rules
   that don't rely on the TypeScript compiler. With this release, Biome also ships plugin support, multi-file analysis,
@@ -23,7 +23,7 @@ import darkDepot from "../../../assets/sponsors/depot-logo-horizontal-on-dark@3x
 import lightDepot from "../../../assets/sponsors/depot-logo-horizontal-on-light@3x.png";
 import Avatar from "@/components/Avatar.astro";
 
-We are happy to announce that Biome v2 is officially out! 🍾 Biome v2 is the _first_ JavaScript and TypeScript linter that provides
+We are happy to announce that Biome v2 is officially out! 🍾 Biome v2—codename: Biotype, the _first_ JavaScript and TypeScript linter that provides
 **type-aware linting rules that doesn't rely on the TypeScript compiler**! This means that you can lint your project
 without necessarily installing the `typescript` package.
 
@@ -196,6 +196,20 @@ You can enable the HTML formatter by adding the following to your config file:
   }
 }
 ```
+
+### Monorepo support
+
+Biome is now able to support nested configuration files out of the box—CLI and editors, whether they are inside a monorepo, or in another different setting.
+
+Until now nested configuration files were *somewhat* supported in the CLI; however, the developer experience inside editors was essentially none.
+
+Nested configuration files must have a new configuration field `"root"` set to **`false`**. If your project already uses nested configuration files,
+you should run the command `biome migrate` **from the root of the project**, and all your configuration files will be updated accordingly.
+
+With monorepo support, you have a new tool at your disposal, which is new microsyntax `"extends": "//"`, only available to nested configuration files.
+This syntax means "`extends` from the root configuration". Say goodbye to wonky relative paths such as `"extends": ["../../biome.json"]` 👋
+
+We prepared a [small guide](/guides/big-projects#monorepo) that should help you set everything up.
 
 ## Shout-outs
 
