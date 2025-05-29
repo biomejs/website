@@ -3,7 +3,7 @@ title: Use Biome in big projects
 description: A small guide how to set Biome in big projects
 ---
 
-import {FileTree} from '@astrojs/starlight/components';
+import {FileTree, Steps} from '@astrojs/starlight/components';
 
 Biome can provide some tools that can help you to use it properly in big projects, such as monorepo or workspaces that contain multiple projects.
 
@@ -95,34 +95,89 @@ Let's jump to `app/backend/biome.json`, where we need to enable the linting:
 }
 ```
 
-## Monorepos
+## Monorepo
 
-Monorepos are particular repositories where multiple libraries are stored and maintained in one big repository. Each library represents a self-contained project, which can contain different configurations.
+Monorepos are particular repositories where multiple libraries are stored and maintained in one big repository. Each library represents a self-contained package, which can contain different configurations.
 
-Biome doesn't support monorepos very well due to some limitations in resolving nested configuration files, you [help and follow the relative issue](https://github.com/biomejs/biome/issues/2228).
+Since v2, Biome supports monorepos out of the box, and you'll need to set up the project in the following way.
 
-In order to have the best developer experience despite the current limitation, it's advised to have a `biome.json` at the root of the monorepo, and use the [`overrides`](/reference/configuration/#overrides) configuration to change the behaviour of Biome in certain packages.
+<Steps>
+1. Create a `biome.json` file at the root of the monorepo. We will use the recommended rules, and customise the formatter
+    options.:
 
-In the following example we disable the rule `suspicious/noConsoleLog` inside the package `packages/logger`.
-
-```json title="biome.jsonc"
-
-{
-  "linter": {
-    "enabled": true,
-    "rules": {
-      "recommended": true
-    }
-  },
-  "overrides": [{
-      "includes": ["packages/logger/**"],
-      "linter": {
-        "rules": {
-          "suspicious": {
-            "noConsoleLog": "off"
-          }
+    ```json title="biome.json"
+    {
+        "linter": {
+            "enabled": true,
+            "rules": {
+                "recommended": true
+            }
+        },
+        "formatter": {
+            "lineWidth": 120,
+            "indentStyle": "space",
+            "indentWidth": 6,
         }
-      }
-  }]
-}
-```
+    }
+    ```
+    This file is called **root configuration** and it sets the base options inside the project. However, nested
+    configurations can decide to adhere to these options or not. Let's see how.
+
+2. Create nested configuration files, one in each package, where is needed. These nested configuration files must have the
+    field `"root"` set to `false`. Failing to do so will result into an error. Also, we want these packages the follow
+    the formatting standards set up in the root configuration. In order to so, we will use a **new microsyntax**
+    available in Biome v2, which is `"extends": "//"`. This syntax tells Biome to extends from the **root configuration**,
+    regardless of where the nested configuration is.
+
+    Let's create two configuration files,
+    one inside `packages/logger` and one inside `packages/generate`. In the former we will disable `noConsole`, and in
+    `packages/generate` we will disable the formatter because those are files that are code-generated:
+
+    ```json title="packages/logger/biome.json"
+    {
+        "root": false,
+        "extends": "//",
+        "linter": {
+            "rules": {
+                "suspicious": {
+                    "noConsole": "off"
+                }
+            }
+        }
+    }
+    ```
+
+    ```json title="packages/generate/biome.json"
+    {
+        "root": false,
+        "extends": "//",
+        "formatter": {
+            "enabled": false
+        }
+    }
+    ```
+    However, when you use the microsyntax `extends: "//"`, you can **omit `"root": true`, because it implies that this configuration isn't a
+    a root configuration, and it wants extends from the root configuration:
+
+    ```diff title="packages/generate/biome.json"
+    {
+    -    "root": false,
+        "extends": "//",
+        "formatter": {
+        "enabled": false
+    }
+    ```
+3. Now, let's suppose we have a new package in `packages/analytics`, maintained by another team that has different different coding standards.
+    To change these options, you just need to omit `"extends": "//"` from the configuration file, and change the formatting options:
+    ```json title="packages/analytics/biome.json"
+    {
+        "root": false,
+        "formatter": {
+            "lineWidth": 100,
+        }
+    }
+
+    ```
+4. Now that everything is set up, you have few options. You can run `biome` commands from the root of the project, or from the single packages.
+    Biome will respect all settings!
+</Steps>

@@ -181,6 +181,7 @@ export default defineConfig({
 						{
 							label: "Use Biome in big projects",
 							link: "/guides/big-projects",
+							badge: "updated",
 							translations: {
 								es: "Usar Biome en proyectos grandes",
 								fr: "Utiliser Biome dans de gros projets",
