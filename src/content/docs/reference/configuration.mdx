@@ -38,6 +38,19 @@ file.
 
 The order of paths to extend goes from least relevant to most relevant.
 
+Since v2, this option accepts a string that must match the value `"//"`, which can be used
+when setting up [monorepos](/guides/big-projects#monorepo)
+
+## `root`
+
+Whether this configuration should be treated as a root. By default, any configuration file is considered a root by default.
+When a configuration file is a "nested configuration", it must set `"root": false`, otherwise an error is thrown.
+
+This is required so Biome can orchestrate multiple files in CLI and editors at the same time.
+
+> Default: `true`
+
+
 ## `files`
 
 ### `files.includes`
