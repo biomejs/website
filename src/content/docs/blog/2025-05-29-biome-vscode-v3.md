@@ -1,7 +1,6 @@
 ---
 title: VS Code extension V3
-description: Biome releases v3 of the VS Code extension
-summary: Biome releases v3 of the VS Code extension
+excerpt: Biome releases v3 of the VS Code extension
 authors:
   - nhedger
 date: 2025-04-29
