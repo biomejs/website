@@ -85,7 +85,8 @@ if ! echo "$PATH" | tr ':' '\n' | grep -Fxq "$install_dir"; then
     echo "${install_dir} is NOT in PATH"
     
     # Ask if we should add it to the PATH for the user
-    read -p "Do you want to add $install_dir to your PATH? (Y/n): " answer
+    echo -n "Do you want to add $install_dir to your PATH? (Y/n): "
+    read answer
 
     # Switch to get the name of the shell configuration file
     shell=$(basename "$SHELL")
