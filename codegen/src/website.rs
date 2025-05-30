@@ -2,6 +2,7 @@ use crate::project_root;
 use biome_cli::biome_command;
 use biome_configuration::Configuration;
 use biome_configuration::VERSION;
+use biome_formatter::Expand;
 use biome_js_formatter::context::JsFormatOptions;
 use biome_js_parser::{JsParserOptions, parse_module};
 use biome_js_syntax::JsFileSource;
@@ -11,7 +12,6 @@ use biome_rowan::AstNode;
 use schemars::schema::{RootSchema, Schema, SchemaObject};
 use schemars::schema_for;
 use serde_json::to_string;
-use std::convert::TryInto;
 use std::fs;
 
 /// Generates the following files:
@@ -42,8 +42,7 @@ pub(crate) fn generate_default_configuration() -> anyhow::Result<()> {
         project_root().join("src/components/generated/DefaultConfiguration.mdx");
 
     let default_configuration_printed = biome_json_formatter::format_node(
-        JsonFormatOptions::default()
-            .with_line_width(60.try_into().expect("Line width must be within range.")),
+        JsonFormatOptions::default().with_expand(Expand::Always),
         parse_json(
             &serde_json::to_string(&Configuration::init())?,
             JsonParserOptions::default(),
@@ -153,7 +152,7 @@ export function GET() {"#,
     );
 
     let schema_js_printed = biome_js_formatter::format_node(
-        JsFormatOptions::new(JsFileSource::js_module()),
+        JsFormatOptions::new(JsFileSource::js_module()).with_expand(Expand::Always),
         parse_module(&schema_js_content, JsParserOptions::default())
             .tree()
             .syntax(),
@@ -172,11 +171,13 @@ pub(crate) fn get_configuration_schema_content() -> anyhow::Result<String> {
 
     let json_schema = to_string(&schema)?;
     let parsed = parse_json(&json_schema, JsonParserOptions::default());
-    let formatted =
-        biome_json_formatter::format_node(JsonFormatOptions::default(), &parsed.syntax())
-            .unwrap()
-            .print()
-            .unwrap();
+    let formatted = biome_json_formatter::format_node(
+        JsonFormatOptions::default().with_expand(Expand::Auto),
+        &parsed.syntax(),
+    )
+    .unwrap()
+    .print()
+    .unwrap();
 
     Ok(formatted.into_code())
 }

@@ -4,6 +4,7 @@ use biome_analyze::{
     RuleMetadata, RuleSource, RuleSourceKind,
 };
 use biome_css_syntax::CssLanguage;
+use biome_formatter::Expand;
 use biome_graphql_syntax::GraphqlLanguage;
 use biome_js_syntax::JsLanguage;
 use biome_json_formatter::context::JsonFormatOptions;
@@ -263,9 +264,11 @@ pub fn generate_json_metadata() -> anyhow::Result<()> {
     let schema = schema_for!(Metadata);
     let json_schema = to_string(&schema)?;
     let parsed = parse_json(&json_schema, JsonParserOptions::default());
-    let formatted =
-        biome_json_formatter::format_node(JsonFormatOptions::default(), &parsed.syntax())?
-            .print()?;
+    let formatted = biome_json_formatter::format_node(
+        JsonFormatOptions::default().with_expand(Expand::Auto),
+        &parsed.syntax(),
+    )?
+    .print()?;
 
     fs::write(metadata_file, content)?;
     let content = format!(

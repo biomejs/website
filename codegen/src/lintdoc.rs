@@ -22,7 +22,7 @@ use biome_css_syntax::CssLanguage;
 use biome_deserialize::json::deserialize_from_json_ast;
 use biome_diagnostics::termcolor::NoColor;
 use biome_diagnostics::{Diagnostic, DiagnosticExt, PrintDiagnostic, Severity, Visit};
-use biome_formatter::LineWidth;
+use biome_formatter::Expand;
 use biome_fs::BiomePath;
 use biome_graphql_syntax::GraphqlLanguage;
 use biome_js_parser::JsParserOptions;
@@ -1039,7 +1039,7 @@ fn write_how_to_configure(
 
     let parsed = biome_json_parser::parse_json(&json, JsonParserOptions::default());
     let printed = format_node(
-        JsonFormatOptions::default().with_line_width(LineWidth::try_from(1).unwrap()),
+        JsonFormatOptions::default().with_expand(Expand::Always),
         &parsed.syntax(),
     )?
     .print()?;
