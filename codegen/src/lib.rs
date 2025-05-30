@@ -3,9 +3,11 @@ use std::env;
 use std::path::{Path, PathBuf};
 
 pub mod diagnostics;
+pub mod domains;
 pub mod env_variables;
 pub mod lintdoc;
 pub mod metadata;
+pub mod redirects;
 pub mod rules_sources;
 mod shared;
 pub mod website;
@@ -42,6 +44,10 @@ pub enum CodegenCommand {
     /// Updates the files of a release
     #[bpaf(command)]
     Env,
+
+    /// Generate redirects
+    #[bpaf(command)]
+    Redirects,
 
     /// Updates the documentation of the rule pages and the files of a release  
     #[bpaf(command)]

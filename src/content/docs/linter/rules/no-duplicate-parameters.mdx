@@ -3,21 +3,20 @@
 # Head to the `biomejs/biome` repository, and modify the source code in there.
 
 title: noDuplicateParameters
-description: |
-  Disallow duplicate function parameter name.
+description: Learn more about noDuplicateParameters
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-**Diagnostic Category: `lint/suspicious/noDuplicateParameters`**
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-**Since**: `v1.0.0`
-:::note
-- This rule is recommended by Biome. A diagnostic error will appear when linting your code.
-:::
-
-Sources: 
-- Same as: <a href="https://eslint.org/docs/latest/rules/no-dupe-args" target="_blank"><code>no-dupe-args</code></a>
+## Summary
+- Rule available since: `v1.0.0`
+- Diagnostic Category: [`lint/suspicious/noDuplicateParameters`](/reference/diagnostics#diagnostic-category)
+- This rule is **recommended**, which means is enabled by default.
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Same as [`no-dupe-args`](https://eslint.org/docs/latest/rules/no-dupe-args)
 
 ## Description
 Disallow duplicate function parameter name.
@@ -68,7 +67,7 @@ function foo([[a, b], [c, d]]) {}
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)
-- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Configure the code fix](/linter#configure-the-code-fix)
 - [Rule options](/linter/#rule-options)
 
 </TabItem>

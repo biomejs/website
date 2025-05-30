@@ -1,7 +1,6 @@
 ---
 title: Biome v1.9 Anniversary Release
-description: First anniversary of Biome and release of Biome 1.9 that enables CSS and GraphQL formatting and linting by default, a new search command
-summary: |
+excerpt: |
   Let's celebrate the first anniversary of Biome and the release of Biome v1.9.
   This new version enables CSS and GraphQL formatting and linting by default.
   It also brings .editorconfig support and introduces a new search command.

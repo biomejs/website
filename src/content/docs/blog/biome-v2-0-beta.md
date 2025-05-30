@@ -1,7 +1,6 @@
 ---
 title: Biome v2.0 beta
-description: A major milestone in the making
-summary: |
+excerpt: |
   Biome 2.0 will be packed with major features and many smaller fixes, rules, and other improvements.
   There's a lot to unpack, and we request the community's help testing this beta, so the final
   release can be as smooth as possible.

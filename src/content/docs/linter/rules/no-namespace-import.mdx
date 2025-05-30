@@ -3,17 +3,19 @@
 # Head to the `biomejs/biome` repository, and modify the source code in there.
 
 title: noNamespaceImport
-description: |
-  Disallow the use of namespace imports.
+description: Learn more about noNamespaceImport
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-**Diagnostic Category: `lint/style/noNamespaceImport`**
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-**Since**: `v1.6.0`
-Sources: 
-- Same as: <a href="https://github.com/thepassle/eslint-plugin-barrel-files/blob/main/docs/rules/avoid-namespace-import.md" target="_blank"><code>barrel-files/avoid-namespace-import</code></a>
+## Summary
+- Rule available since: `v1.6.0`
+- Diagnostic Category: [`lint/performance/noNamespaceImport`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- Sources: 
+  - Same as [`barrel-files/avoid-namespace-import`](https://github.com/thepassle/eslint-plugin-barrel-files/blob/main/docs/rules/avoid-namespace-import.md)
 
 ## Description
 Disallow the use of namespace imports.
@@ -30,7 +32,7 @@ Modern bundlers are generally capable of handling namespace imports effectively,
 import * as foo from "foo";
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:1:8 <a href="https://biomejs.dev/linter/rules/no-namespace-import">lint/style/noNamespaceImport</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Avoid namespace imports, it can prevent efficient tree shaking and increase bundle size.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>import &#42; as foo from &quot;foo&quot;;<br />   <strong>   │ </strong>       <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Use named imports instead.</span><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:1:8 <a href="https://biomejs.dev/linter/rules/no-namespace-import">lint/performance/noNamespaceImport</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Avoid namespace imports, it can prevent efficient tree shaking and increase bundle size.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>import &#42; as foo from &quot;foo&quot;;<br />   <strong>   │ </strong>       <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Use named imports instead.</span><br />  <br /></code></pre>
 
 ### Valid
 
@@ -45,7 +47,7 @@ import type * as baz from "baz"
 {
 	"linter": {
 		"rules": {
-			"style": {
+			"performance": {
 				"noNamespaceImport": "error"
 			}
 		}
@@ -56,7 +58,7 @@ import type * as baz from "baz"
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)
-- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Configure the code fix](/linter#configure-the-code-fix)
 - [Rule options](/linter/#rule-options)
 
 </TabItem>

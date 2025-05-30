@@ -3,20 +3,24 @@
 # Head to the `biomejs/biome` repository, and modify the source code in there.
 
 title: noRestrictedGlobals
-description: |
-  This rule allows you to specify global variable names that you don’t want to use in your application.
+description: Learn more about noRestrictedGlobals
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-**Diagnostic Category: `lint/style/noRestrictedGlobals`**
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-**Since**: `v1.0.0`
-Sources: 
-- Same as: <a href="https://eslint.org/docs/latest/rules/no-restricted-globals" target="_blank"><code>no-restricted-globals</code></a>
+## Summary
+- Rule available since: `v1.0.0`
+- Diagnostic Category: [`lint/style/noRestrictedGlobals`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- Sources: 
+  - Same as [`no-restricted-globals`](https://eslint.org/docs/latest/rules/no-restricted-globals)
 
 ## Description
 This rule allows you to specify global variable names that you don’t want to use in your application.
+
+References to the global identifiers `error` and `event` are always disallowed by this rule.
 
 >Disallowing usage of specific global variables can be useful if you want to allow a set of
 global variables by enabling an environment, but still want to disallow some of those.
@@ -47,9 +51,11 @@ source code.
 
 ```json
 {
-    "//": "...",
     "options": {
-        "deniedGlobals": ["$", "MooTools"]
+        "deniedGlobals": {
+            "$": "jQuery is not allowed. Use native DOM manipulation instead.",
+            "MooTools": "Do not use MooTools, use MeowTools instead."
+        }
     }
 }
 ```
@@ -73,7 +79,7 @@ creating a local variable.
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)
-- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Configure the code fix](/linter#configure-the-code-fix)
 - [Rule options](/linter/#rule-options)
 
 </TabItem>

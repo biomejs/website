@@ -3,21 +3,21 @@
 # Head to the `biomejs/biome` repository, and modify the source code in there.
 
 title: noExportsInTest
-description: |
-  Disallow using `export` or `module.exports` in files containing tests
+description: Learn more about noExportsInTest
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-**Diagnostic Category: `lint/suspicious/noExportsInTest`**
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-**Since**: `v1.6.0`
-:::note
-- This rule is recommended by Biome. A diagnostic error will appear when linting your code.
-:::
-
-Sources: 
-- Inspired from: <a href="https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-export.md" target="_blank"><code>jest/no-export</code></a>
+## Summary
+- Rule available since: `v1.6.0`
+- Diagnostic Category: [`lint/suspicious/noExportsInTest`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`test`](/linter/domains#test)
+- Sources: 
+  - Inspired from [`jest/no-export`](https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-export.md)
 
 ## Description
 Disallow using `export` or `module.exports` in files containing tests
@@ -64,7 +64,7 @@ describe('a test', () => {
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)
-- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Configure the code fix](/linter#configure-the-code-fix)
 - [Rule options](/linter/#rule-options)
 
 </TabItem>

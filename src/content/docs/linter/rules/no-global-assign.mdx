@@ -3,21 +3,20 @@
 # Head to the `biomejs/biome` repository, and modify the source code in there.
 
 title: noGlobalAssign
-description: |
-  Disallow assignments to native objects and read-only global variables.
+description: Learn more about noGlobalAssign
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-**Diagnostic Category: `lint/suspicious/noGlobalAssign`**
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-**Since**: `v1.5.0`
-:::note
-- This rule is recommended by Biome. A diagnostic error will appear when linting your code.
-:::
-
-Sources: 
-- Same as: <a href="https://eslint.org/docs/latest/rules/no-global-assign" target="_blank"><code>no-global-assign</code></a>
+## Summary
+- Rule available since: `v1.5.0`
+- Diagnostic Category: [`lint/suspicious/noGlobalAssign`](/reference/diagnostics#diagnostic-category)
+- This rule is **recommended**, which means is enabled by default.
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Same as [`no-global-assign`](https://eslint.org/docs/latest/rules/no-global-assign)
 
 ## Description
 Disallow assignments to native objects and read-only global variables.
@@ -74,7 +73,7 @@ window = {};
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)
-- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Configure the code fix](/linter#configure-the-code-fix)
 - [Rule options](/linter/#rule-options)
 
 </TabItem>

@@ -1,7 +1,6 @@
 ---
 title: Biome v1.7
-description: Migrate from Prettier and ESLint with one command!
-summary: |
+excerpt: |
   This new version provides an easy path to migrate from ESLint and Prettier.
   It also introduces machine-readable reports for the formatter and the linter, new linter rules, and many fixes.
 authors:

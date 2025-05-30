@@ -1,7 +1,6 @@
 ---
 title: Biome formatter wins the Prettier challenge
-description: Biome formatter now 95% compatible with Prettier
-summary: Biome formatter now 95% compatible with Prettier
+excerpt: Biome formatter now 95% compatible with Prettier
 authors:
   - ema
   - team
