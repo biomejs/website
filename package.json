@@ -75,6 +75,7 @@
   },
   "packageManager": "pnpm@10.10.0",
   "dependencies": {
+    "@biomejs/version-utils": "^0.4.0",
     "starlight-links-validator": "^0.16.0"
   }
 }
