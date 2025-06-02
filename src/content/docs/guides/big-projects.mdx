@@ -99,8 +99,6 @@ Let's jump to `app/backend/biome.json`, where we need to enable the linting:
 
 Monorepos are particular repositories where multiple libraries are stored and maintained in one big repository. Each library represents a self-contained project, which can contain different configurations.
 
-Biome doesn't support monorepos very well due to some limitations in resolving nested configuration files, you [help and follow the relative issue](https://github.com/biomejs/biome/issues/2228).
-
 In order to have the best developer experience despite the current limitation, it's advised to have a `biome.json` at the root of the monorepo, and use the [`overrides`](/reference/configuration/#overrides) configuration to change the behaviour of Biome in certain packages.
 
 In the following example we disable the rule `suspicious/noConsoleLog` inside the package `packages/logger`.
