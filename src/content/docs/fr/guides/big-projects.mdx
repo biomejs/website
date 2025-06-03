@@ -99,8 +99,6 @@ Passons à `app/backend/biome.json`, où nous avons besoin d’activer le lintin
 
 Les monorepos sont des dépôts particuliers où plusieurs libraries sont stockées et maintenues dans un seul gros dépôt. Chaque librairie représente un projet indépendant, qui peut contenir différentes configurations.
 
-Biome ne prend pas très bien en charge les monorepos en raison de certaines limites dans la résolution des fichiers de configuration imbriqués. Vous pouvez [aider en suivant le ticket correspondant](https://github.com/biomejs/biome/issues/2228).
-
 Pour une meilleure expérience développeur malgré les limites actuelles, il est conseillé d’avoir un `biome.json` à la racine du monorepo et d’utiliser la configuration [`overrides`](/fr/reference/configuration/#overrides) pour changer le comportement de Biome dans certains paquets.
 
 Dans l’exemple suivant, nous désactivons la règle `suspicious/noConsoleLog` dans le paquet `packages/logger`.
