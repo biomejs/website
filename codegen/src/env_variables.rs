@@ -34,8 +34,8 @@ pub fn generate_env_variables() -> Result<()> {
     writeln!(
         content,
         "### `{}`\n\n {}\n",
-        env.biome_log_prefix.name(),
-        env.biome_log_prefix.description()
+        env.biome_log_prefix_name.name(),
+        env.biome_log_prefix_name.description()
     )?;
     writeln!(
         content,

@@ -31,6 +31,10 @@ However, explicit return types do make it visually clearer what type is returned
 They can also speed up TypeScript type-checking performance in large codebases with many large functions.
 Explicit return types also reduce the chance of bugs by asserting the return type, and it avoids surprising "action at a distance," where changing the body of one function may cause failures inside another function.
 
+Annotating module-level variables serves a similar purpose. This rule only allows assignment of literals and some objects to untyped variables.
+Objects that are allowed must not contain spread syntax and values that aren't literals.
+Additionally, `let` and `var` variables with `null` or `undefined` as value require explicit annotation.
+
 This rule enforces that functions do have an explicit return type annotation.
 
 ## Examples
@@ -88,6 +92,33 @@ var func = (value: number) => ({ type: 'X', value }) as any;
 ```
 
 <pre class="language-text"><code class="language-text">code-block.ts:2:12 <a href="https://biomejs.dev/linter/rules/use-explicit-type">lint/nursery/useExplicitType</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Missing return type on function.</span><br />  <br />    <strong>1 │ </strong>// Should use const assertions<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>var func = (value: number) =&gt; (&#123; type: 'X', value &#125;) as any;<br />   <strong>   │ </strong>           <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Declaring the type makes the code self-documented and can speed up TypeScript type checking.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Add a return type to the function.</span><br />  <br /></code></pre>
+
+```ts
+// Unspecified variable type
+function fn(): string {
+    return "Not inline";
+}
+const direct = fn();
+```
+
+<pre class="language-text"><code class="language-text">code-block.ts:5:7 <a href="https://biomejs.dev/linter/rules/use-explicit-type">lint/nursery/useExplicitType</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The variable doesn't have a type defined.</span><br />  <br />    <strong>3 │ </strong>    return &quot;Not inline&quot;;<br />    <strong>4 │ </strong>&#125;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>5 │ </strong>const direct = fn();<br />   <strong>   │ </strong>      <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>6 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Declaring the type makes the code self-documented and can speed up TypeScript type checking.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Add a type to the variable.</span><br />  <br /></code></pre>
+
+```ts
+// Unspecified object member type
+function fn(): string {
+    return "Not inline";
+}
+const nested = { result: fn() };
+```
+
+<pre class="language-text"><code class="language-text">code-block.ts:5:7 <a href="https://biomejs.dev/linter/rules/use-explicit-type">lint/nursery/useExplicitType</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The variable doesn't have a type defined.</span><br />  <br />    <strong>3 │ </strong>    return &quot;Not inline&quot;;<br />    <strong>4 │ </strong>&#125;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>5 │ </strong>const nested = &#123; result: fn() &#125;;<br />   <strong>   │ </strong>      <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>6 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Declaring the type makes the code self-documented and can speed up TypeScript type checking.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Add a type to the variable.</span><br />  <br /></code></pre>
+
+```ts
+// let bindings of null and undefined are usually overwritten by other code
+let foo = null;
+```
+
+<pre class="language-text"><code class="language-text">code-block.ts:2:5 <a href="https://biomejs.dev/linter/rules/use-explicit-type">lint/nursery/useExplicitType</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The variable doesn't have a type defined.</span><br />  <br />    <strong>1 │ </strong>// let bindings of null and undefined are usually overwritten by other code<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>let foo = null;<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Declaring the type makes the code self-documented and can speed up TypeScript type checking.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Add a type to the variable.</span><br />  <br /></code></pre>
 
 The following example is considered incorrect for a higher-order function, as the returned function does not specify a return type:
 
@@ -201,14 +232,6 @@ declare module "foo" {
 
 <pre class="language-text"><code class="language-text">code-block.ts:2:18 <a href="https://biomejs.dev/linter/rules/use-explicit-type">lint/nursery/useExplicitType</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Missing return type on function declaration.</span><br />  <br />    <strong>1 │ </strong>declare module &quot;foo&quot; &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  export default function bar();<br />   <strong>   │ </strong>                 <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Declaring the type makes the code self-documented and can speed up TypeScript type checking.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Add a return type to the function declaration.</span><br />  <br /></code></pre>
 
-The following example is considered incorrect because `resolve` doesn't have a type annotation.
-
-```ts
-new Promise((resolve) => resolve(1));
-```
-
-<pre class="language-text"><code class="language-text">code-block.ts:1:14 <a href="https://biomejs.dev/linter/rules/use-explicit-type">lint/nursery/useExplicitType</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The parameter doesn't have a type defined.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>new Promise((resolve) =&gt; resolve(1));<br />   <strong>   │ </strong>             <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Declaring the type makes the code self-documented and can speed up TypeScript type checking.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Add a type to the parameter.</span><br />  <br /></code></pre>
-
 The following example is considered incorrect because `arg` has `any` type.
 
 ```ts
@@ -239,6 +262,19 @@ var arrowFn = (): string => 'test';
 ```
 
 ```ts
+// A literal value
+const PREFIX = "/prefix";
+```
+
+```ts
+// Explicit variable annotation
+function func(): string {
+    return "";
+}
+let something: string = func();
+```
+
+```ts
 class Test {
   // No return value should be expected (void)
   method(): void {
@@ -247,10 +283,20 @@ class Test {
 }
 ```
 
-The following examples are considered correct code for a function immediately returning a value with `as const`:
+The following example is considered correct code for a function immediately returning a value with `as const`:
 
 ```ts
 var func = (value: number) => ({ foo: 'bar', value }) as const;
+```
+
+The following example is considered correct code for a value assigned using type assertion:
+
+```ts
+function fn(): string {
+    return "Not inline";
+}
+const direct = fn() as string;
+const nested = { result: fn() as string };
 ```
 
 The following examples are considered correct code for a function allowed within specific expression contexts, such as an IIFE, a function passed as an argument, or a function inside an array:
@@ -261,13 +307,13 @@ setTimeout(function() { console.log("Hello!"); }, 1000);
 ```
 
 ```ts
-// IIFE
-(() => {})();
+// Callbacks without argument types (immediately nested in a function call)
+new Promise((resolve) => resolve(1));
 ```
 
 ```ts
-// a function inside an array
-[function () {}, () => {}];
+// IIFE
+(() => {})();
 ```
 
 The following example is considered correct code for a higher-order function, where the returned function explicitly specifies a return type and the function body contains only one statement:
