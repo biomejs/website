@@ -30,7 +30,7 @@ things that were only exported for test purposes, for instance.
 
 This rule recognizes the JSDoc tags `@public`, `@package`, and
 `@private` so that you are free to set the visibility of exports.
-Exports without tag have a default visibility of **public**, but  this
+Exports without tag have a default visibility of **public**, but this
 can be configured.
 
 The `@access` tag is also supported if it's used with one of the values
@@ -58,11 +58,11 @@ For a visual explanation, see
 Private visibility means that a symbol may not be imported from other
 modules.
 
-The key thing to understanding the usefulness of `@private` is that
-this rule doesn't treat modules and files as one and the same thing.
-While files are indeed modules, folders are considered modules too, with
-their files and subfolders being submodules. Therefore, symbols exported
-as `@private` from an index file, such as `index.js`, can _still_ be
+The key thing to understanding the usefulness of `@private` is that this
+rule doesn't treat modules and files as one and the same thing. While
+files are indeed modules, folders are considered modules too, with their
+files and subfolders being submodules. Therefore, symbols exported as
+`@private` from an index file, such as `index.js`, can _still_ be
 imported from other submodules in that same module.
 
 :::note
@@ -84,6 +84,8 @@ files. Imports for resources such as images or CSS files are exempted
 regardless of the default visibility setting.
 - This rule does not validate imports through dynamic `import()`
 expressions or CommonJS `require()` calls.
+- Imports from dependencies under `node_modules` are considered out of
+scope.
 
 ## Examples
 
@@ -111,10 +113,10 @@ import { fooPackageVariable } from "./sub/foo.js";
 export function getTestStuff() {}
 ```
 
-**`bar.test.js`**
-// Attempt to import a private export. To allow this, you probably want
-// to configure an `override` to disable this rule in test files.
-// See: https://biomejs.dev/reference/configuration/#overrides
+**`bar.test.js`** // Attempt to import a private export. To allow this,
+you probably want // to configure an `override` to disable this rule in
+test files. // See:
+https://biomejs.dev/reference/configuration/#overrides
 
 ```js
 import { getTestStuff } from "./bar.js";
