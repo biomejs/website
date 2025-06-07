@@ -230,6 +230,87 @@ If you liked the previous formatting style, you'll have to add an override to th
 }
 ```
 
+### The import organizer sorts differently the imports
+
+Biome v2 comes with a new import organizer with many new features:
+
+- It supports customizing the sorting.
+- It organizes `export` statements.
+- It ignores blank lines between `import` statements.
+- It merges `import`/`export`.
+- Its default sorting is more consistent than before**.**
+
+All these change can lead to different sorting of the imports and exports of your project.
+The configuration has also been moved from a dedicated `organizeImports` field to an [assist action](/assist/).
+`biome migrate` takes care of moving the configuration as follows:
+
+```diff title="biome.json"
+  {
+-    "organizeImports": { "enabled": true }
++    "assist": { "actions": { "source": { "organizeImports": "on" } } }
+  }
+```
+
+One significant difference between the old and new default sorters is that Node.js without the `node:` protocol are no longer placed before other imports.
+For example, the following imports were sorted in Biome 1.x:
+
+```js
+import fs from "node:fs";
+import path from "path";
+import pkg from "@a/package";
+```
+
+In Biome 2.0, they are sorted as follows:
+
+```js
+import fs from "node:fs";
+import pkg from "@a/package";
+import path from "path";
+```
+
+To restore the old behavior, use a custom order as follows:
+
+```json5 title="biome.jsonc"
+{
+    "assist": {
+        "actions": {
+            "source": {
+                "organizeImports": {
+                    "level": "on",
+                    "options": {
+                        "groups": [
+                            // Bun modules
+                            ":BUN:",
+                            // Node.js modules
+                            ":NODE:",
+                            // Modules imported with the `npm:` protocol
+                            ["npm:*", "npm:*/**"],
+                            // Modules imported with another protocol. e.g. `jsr:`
+                            ":PACKAGE_WITH_PROTOCOL:",
+                            // URLs
+                            ":URL:",
+                            // Libraries
+                            ":PACKAGE:",
+                            // Absolute paths
+                            ["/**"],
+                            // Sharp aliases
+                            ["#*", "#*/**"],
+                            // All other paths
+                            ":PATH:"
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+Please note that it is not possible to achieve exactly the same behavior as Biome v1.x.
+We recommend using the new default, which is much more consistent and simpler.
+
+Read [the documentation of the import organizer](/assist/actions/organize-imports/) for more details.
+
 ### Zed extension `v0.2.0` isn't compatible with v1
 
 The new version of the Zed extension isn't compatible with Biome v1, because `--config-path` isn't supported anymore. The team
