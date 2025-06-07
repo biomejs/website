@@ -234,3 +234,13 @@ If you liked the previous formatting style, you'll have to add an override to th
 
 The new version of the Zed extension isn't compatible with Biome v1, because `--config-path` isn't supported anymore. The team
 tried to maintain backwards compatibility, but unfortunately Zed has very limited debugging capabilities for extension authors.
+
+### VS Code extension v3 needs complete restart
+
+While this isn't directly related to Biome v2, the new version of the VS Code extension uses a different method to connect to the
+Biome Daemon. If you upgrade the extension, it's possible you might experience **incorrect code** upon save if you use `"source.fixAll.biome": "explicit"`.
+To fix this, you need to:
+1. upgrade the extension;
+1. close the editor;
+1. kill possible dangling `biome` processes;
+1. restart the editor;
