@@ -469,11 +469,8 @@ fn generate_group(
     };
     writeln!(content, "\n## `{group}`")?;
     writeln!(content)?;
-    writeln!(
-        content,
-        "| Rule name | Description | Domains | Properties |"
-    )?;
-    writeln!(content, "| --- | --- | --- | --- |")?;
+    writeln!(content, "| Rule name | Description | Properties |")?;
+    writeln!(content, "| --- | --- | --- |")?;
 
     for (rule_name, rule_to_document) in rules {
         for meta in rule_to_document.clone().language_to_metadata.values() {
@@ -512,23 +509,29 @@ fn generate_group(
                 properties.push_str("<span class='inline-icon' title=\"This rule is only available in beta\"><Icon name=\"moon\" label=\"This rule is only available in beta\" size=\"1.2rem\" /></span>");
             }
 
-            let domains = if meta.domains.is_empty() {
-                "—".to_owned()
-            } else {
-                meta.domains
-                    .iter()
-                    .map(|domain| {
-                        let domain_str = markup_to_string(&markup!({ domain }).to_owned());
-                        format!("[`{domain_str}`](/linter/domains#{domain_str})")
-                    })
-                    .collect::<Vec<_>>()
-                    .join(", ")
-            };
+            let mut summary_html = extract_summary_from_rule(meta.docs);
+            if !meta.domains.is_empty() {
+                summary_html.push_str(" Domain");
+                if meta.domains.len() > 1 {
+                    summary_html.push_str("s");
+                }
+                summary_html.push_str(": ");
+                summary_html.push_str(
+                    &*meta
+                        .domains
+                        .iter()
+                        .map(|domain| {
+                            let domain_str = markup_to_string(&markup!({ domain }).to_owned());
+                            format!("[`{domain_str}`](/linter/domains#{domain_str})")
+                        })
+                        .collect::<Vec<_>>()
+                        .join(", "),
+                )
+            }
 
-            let summary_html = extract_summary_from_rule(meta.docs);
             write!(
                 content,
-                "| [{rule_name}](/{path_prefix}/{middle_path}/{dashed_rule})  | {summary_html} | {domains} | {properties} |"
+                "| [{rule_name}](/{path_prefix}/{middle_path}/{dashed_rule}) | {summary_html} | {properties} |"
             )?;
 
             writeln!(content)?;
