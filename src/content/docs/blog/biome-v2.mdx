@@ -182,7 +182,7 @@ For more information about suppressions, see: https://next.biomejs.dev/linter/#s
 
 After several months of hard work, we are pleased to announce that the HTML formatter is now ready for users to try out and report bugs! This is a huge step towards Biome fully supporting HTML-ish templating languages used in frameworks such as Vue and Svelte.
 
-TFor now, he HTML formatter only touches actual `.html` files, so it doesn't format HTML in `.vue` or `.svelte` files yet. It also won't format embedded languages like JavaScript or CSS yet. HTML's options like `attributePosition`, `bracketSameLine`, and `whitespaceSensitivity` have been implemented.
+For now, the HTML formatter only touches actual `.html` files, so it doesn't format HTML in `.vue` or `.svelte` files yet. It also won't format embedded languages like JavaScript or CSS yet. HTML's options like `attributePosition`, `bracketSameLine`, and `whitespaceSensitivity` have been implemented.
 
 The HTML formatter is still in the experimental stage, so it will remain **disabled by default for the full 2.0 release**. At the time of writing, Biome can parse most of the Prettier's HTML test suite, and format 46/124 of them correctly. Despite not matching Prettier yet, we're pretty confident that it _should_ output adequately formatted documents without destroying anything. If you find a case where it doesn't, [please let us know](https://github.com/biomejs/biome/issues)!
 
