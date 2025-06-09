@@ -337,9 +337,16 @@ Use `quickfix.biome` to control whether the editor should show the code fix of a
 
 <EditorAction action="quickfix.biome" off={true} />
 
-Alternatively, it's also possible turn off the code action for a specific rule. Each rule has a code action associated to it that follow the pattern `quickfix.biome.<GROUP>.<NAME>`.
+Alternatively, it's also possible to turn off the code action for a specific rule. Each rule has a code action associated to it that follow the pattern `quickfix.biome.<GROUP>.<NAME>`.
 
 For example, if you want to turn off the code action of the rule `noUnusedVariables`, you'll use `quickfix.biome.correctness.noUnusedVariables`:
+
+### Apply actions on save
+
+Use the `source.fixAll.biome` code action to instruct Biome to apply all **safe fixes** on save.
+
+<EditorAction action="source.fixAll.biome" />
+
 
 ### Editor suppressions
 
