@@ -41,7 +41,7 @@
     "@lunariajs/starlight": "0.1.1",
     "@playwright/test": "1.52.0",
     "@replit/codemirror-lang-svelte": "6.0.0",
-    "@types/node": "20.17.50",
+    "@types/node": "20.19.0",
     "@types/react": "18.3.23",
     "@types/react-dom": "18.3.7",
     "@uiw/react-codemirror": "4.23.12",
