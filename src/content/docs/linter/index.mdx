@@ -412,7 +412,7 @@ Rules that detect code that is likely to be incorrect or useless.
 There are different reasons why the Biome team decides to mark a fix unsafe, but mostly it boils down to the following:
 - The lint rule is still under heavy development, as well as the fix.
 - The rule fix can change the semantics of a program, so the fix must be opted in by the user.
-- The rule fix can deteriorate the DX while typing and/or saving. An example is `noUnusedVariables`, which adds `_` to the name of unused variables. This can deteriorate the DX of programmers while typing and saving.
+- The rule fix can deteriorate the DX while typing and/or saving. An example is `noUnusedVariables`, which adds `_` to the name of unused variables. This can deteriorate the DX of programmers while typing and saving. You can change this behavior via [configuration](/linter/#configure-the-code-fix).
 
 If a code fix doesn't follow these three guidelines, it's possible that the team forgot to make the rule fix safe. Please open an issue or send a PR!
 
