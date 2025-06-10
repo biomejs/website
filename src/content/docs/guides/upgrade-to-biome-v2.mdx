@@ -238,9 +238,9 @@ Biome v2 comes with a new import organizer with many new features:
 - It organizes `export` statements.
 - It ignores blank lines between `import` statements.
 - It merges `import`/`export`.
-- Its default sorting is more consistent than before**.**
+- Its default sorting is more consistent than before.
 
-All these change can lead to different sorting of the imports and exports of your project.
+All these changes can lead to different sorting of the imports and exports of your project.
 The configuration has also been moved from a dedicated `organizeImports` field to an [assist action](/assist/).
 `biome migrate` takes care of moving the configuration as follows:
 
@@ -251,7 +251,7 @@ The configuration has also been moved from a dedicated `organizeImports` field t
   }
 ```
 
-One significant difference between the old and new default sorters is that Node.js without the `node:` protocol are no longer placed before other imports.
+One significant difference between the old and new default sorters is that Node.js modules without the `node:` protocol are no longer placed before other imports.
 For example, the following imports were sorted in Biome 1.x:
 
 ```js
