@@ -76,6 +76,9 @@ As you can see, the glob `**/src/**` is **too** eager, and it matches paths that
 
 From v2, Biome **won't prepend `**/`** to globs anymore.
 
+In the previous glob engine the pattern `*` matched against any sequence of characters, including the path separator `/`.
+Which means that the glob `**/src/*.js` was always converted to `**/src/**/*.js`.
+From v2, Biome `*` **won't match the path separator `/`**.
 
 ### Paths and globs are now relative to the configuration file
 
