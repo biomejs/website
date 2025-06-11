@@ -35,13 +35,20 @@ To use the language server as a formatter, specify biome as your formatter in th
 ```jsonc
 // settings.json
 {
-  "formatter": {
-    "language_server": {
-      "name": "biome"
-    }
+  "languages": {
+    "JavaScript": { "formatter": { "language_server": { "name": "biome" } } },
+    "TypeScript": { "formatter": { "language_server": { "name": "biome" } } },
+    "JSX": { "formatter": { "language_server": { "name": "biome" } } },
+    "TSX": { "formatter": { "language_server": { "name": "biome" } } },
+    "JSON": { "formatter": { "language_server": { "name": "biome" } } },
+    "JSONC": { "formatter": { "language_server": { "name": "biome" } } },
+    "CSS": { "formatter": { "language_server": { "name": "biome" } } },
+    "GraphQL": { "formatter": { "language_server": { "name": "biome" } } },
   }
 }
 ```
+
+See [Language Support](/internals/language-support) for more information.
 
 ### Enable biome only when biome.json is present
 
@@ -58,38 +65,64 @@ To use the language server as a formatter, specify biome as your formatter in th
 }
 ```
 
-### Project based configuration
-
-If you'd like to exclude biome from running in every project,
-
-1. Disable the biome language server in user settings:
-
-```jsonc
-// settings.json
-{
-  "language_servers": [ "!biome", "..." ]
-}
-```
-
-2. And enable it in the project's local settings:
-
-```jsonc
-// <workspace>/.zed/settings.json
-{
-  "language_servers": [ "biome", "..." ]
-}
-```
-
-The same can be configured on a per-language basis with the [`languages`](https://zed.dev/docs/configuring-zed#languages) key.
-
 ### Run code actions on format:
 
 ```jsonc
 // settings.json
 {
-  "code_actions_on_format": {
-    "source.fixAll.biome": true,
-    "source.organizeImports.biome": true
+  "languages": {
+    "JavaScript": {
+      "formatter": { "language_server": { "name": "biome" } },
+      "code_actions_on_format": {
+        "source.fixAll.biome": true,
+        "source.organizeImports.biome": true
+      }
+    },
+    "TypeScript": {
+      "formatter": { "language_server": { "name": "biome" } },
+      "code_actions_on_format": {
+        "source.fixAll.biome": true,
+        "source.organizeImports.biome": true
+      }
+    },
+    "JSX": {
+      "formatter": { "language_server": { "name": "biome" } },
+      "code_actions_on_format": {
+        "source.fixAll.biome": true,
+        "source.organizeImports.biome": true
+      }
+    },
+    "TSX": {
+      "formatter": { "language_server": { "name": "biome" } },
+      "code_actions_on_format": {
+        "source.fixAll.biome": true,
+        "source.organizeImports.biome": true
+      }
+    }
+}
+```
+
+### Project based configuration
+
+You can include these settings in Zed Project Settings (`.zed/settings.json`) at the root of your project folder or as Zed User Settings (`~/.config/zed/settings.json`) which will apply to all projects by default.
+
+#### Disable biome for a particular project
+
+You can exclude biome for a given language (e.g. GraphQL) on project with:
+
+```jsonc
+// settings.json
+{
+  "languages": {
+    "GraphQL": {
+      "language_servers": [ "!biome", "..." ]
+    }
   }
 }
 ```
+
+### Global Settings
+
+It is not recommended to add `biome` to top-level `language_servers`, `formatter` or `code_actions_on_format` keys in your Zed setting.json. Specifying biome as `language_server` or `formatter` globally may break functionality for languages that biome does not support (Rust, Python, etc).  See [language support](/internals/language-support) for a complete list of supported languages.
+
+This documentation previously recommended global settings; please switch your Zed settings to explicitly configure biome on a per language basis.
