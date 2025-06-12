@@ -70,6 +70,7 @@ const plugins = [
 			"/linter/rule-sources/",
 			"/reference/cli/",
 			"/blog/**/*",
+			"/enterprise",
 		],
 	}),
 ];
