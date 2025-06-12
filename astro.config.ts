@@ -2,17 +2,17 @@ import netlify from "@astrojs/netlify";
 import react from "@astrojs/react";
 import starlight from "@astrojs/starlight";
 import lunaria from "@lunariajs/starlight";
-import {defineConfig} from "astro/config";
+import { defineConfig } from "astro/config";
 import rehypeSlug from "rehype-slug";
 import starlightBlog from "starlight-blog";
 import starlightLinksValidator from "starlight-links-validator";
-import {searchForWorkspaceRoot} from "vite";
-import {version as biomeVersion} from "./node_modules/@biomejs/wasm-web/package.json" with {
-		type: "json",
-		};
-import {version as prettierVersion} from "./node_modules/prettier/package.json" with {
-		type: "json",
-		};
+import { searchForWorkspaceRoot } from "vite";
+import { version as biomeVersion } from "./node_modules/@biomejs/wasm-web/package.json" with {
+	type: "json",
+};
+import { version as prettierVersion } from "./node_modules/prettier/package.json" with {
+	type: "json",
+};
 import redirects from "./redirects.js";
 
 const plugins = [
