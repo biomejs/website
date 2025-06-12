@@ -75,6 +75,36 @@ As for this release, the file scanner has the following characteristics:
 
 Finally, we designed the multi-file analysis with monorepos in mind. Although full monorepo support did not make it in time for the 2.0 release, we expect to deliver more on this front soon.
 
+### Monorepo Support
+
+We've significantly improved our support for monorepos. This means that lint rules that rely on information from `package.json` files will now use the `package.json` from the right package. But perhaps more importantly: **We now support nested configuration files.**
+
+Every project should still have a single `biome.json` or `biome.jsonc` at its root, similar to Biome v1. But projects are allowed to have any number of nested `biome.json`/`biome.jsonc` files in subdirectories. Nested configuration files must be explicitly marked as such, in one of two ways.
+
+The first looks like this:
+
+```json title="biome.jsonc"
+{
+    "root": false,
+    // ...
+}
+```
+
+By setting the `root` field to `false`, you tell Biome this is a nested file. This is important, because if you run Biome inside the nested folder, it will know that the configuration is part of a bigger project and continue looking for the root configuration as well.
+
+It is important to stress that the settings within the nested folder **do not** inherit from the root settings by default. Rather, we still want you to use the [`extends` field](https://biomejs.dev/guides/big-projects/#share-the-configuration) that already existed in Biome v1 if you want to extend from another configuration.
+
+Which brings us to the second way a nested configuration can be defined:
+
+```json title="biome.jsonc"
+{
+    "extends": "//",
+    // ...
+}
+```
+
+This is a convenient micro-syntax that sets both the `root` field to `false`, and will tell Biome that this nested configuration extends from the root configuration.
+
 ### Plugins
 
 Biome 2.0 comes with our first iteration of [Linter Plugins](/linter/plugins).
