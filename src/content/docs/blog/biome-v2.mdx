@@ -282,3 +282,42 @@ Props to <Avatar handle="nhedger" /> for authoring the [GitHub Action](https://g
 Thanks to <Avatar handle="dyc3" /> for leading the work on the HTML parser and formatter. They are both very complex pieces of software, especially when it comes to matching Prettier's formatting experience.
 
 Last but not least, a great thanks to all our other [sponsors](https://github.com/biomejs/biome#sponsors) and [contributors](/internals/credits#contributors) as well!
+
+## What's next
+
+No software is exempt from bugs, so we will make sure to squish them and release patches.
+
+The [Core Contributors](/internals/people-and-credits#core-contributors) will focus on moving forward the [Roadmap for 2025](/blog/roadmap-2025#-2025-roadmap), and focus on the following features:
+- Make HTML support stable.
+- Expand HTML to support other frameworks such as Vue, Svelte, and Astro.
+- Work on Markdown support, starting from the parser.
+- Continue working on the inference infrastructure, so we can cover more cases and add new rules.
+- and more!
+
+### I like where this is going, how can I help?
+
+I want to remind you that Biome is a project lead by volunteers that like programming, open-source, and embrace of the Biome philosophy, so any help is welcome 😁
+
+#### Translations
+
+If you know Biome and you want to help the outreach of the tool, you can help us by translating the website to your native language. In this [dashboard](https://biomejs.dev/i18n-dashboard/) you can check the supported languages and if they are up to date.
+
+#### Chat with us
+
+Join our [Discord server](https://biomejs.dev/chat), and engage with the community. We believe that chatting with the community and being part of the community as a form of contribution.
+
+#### Code contributions
+
+If you like the technical aspects project, and you want to make your way into Rust language, or practice more your knowledge around parsers, compilers, analyzers, etc., Biome is the project that does for you!
+
+There are a lot of aspects that you can explore; I assure you that you won't get bored. Here are a small list of the things you can start with:
+- Create new lint rules! We have some many rules that we haven't implemented yet (ESLint, ESLint plugins, Next.js, Solid, etc.). We have a very [extensive technical guide](https://github.com/biomejs/biome/blob/main/crates/biome_analyze/CONTRIBUTING.md).
+- [Help](https://github.com/biomejs/biome/blob/main/crates/biome_parser/CONTRIBUTING.md) [building](https://github.com/biomejs/biome/tree/main/crates/biome_yaml_parser) [Biome](https://github.com/biomejs/biome/tree/main/crates/biome_html_parser) [parsers](https://github.com/biomejs/biome/tree/main/crates/biome_markdown_parser)!
+  One interesting fact about Biome parsers is that they are recoverable parsers [error resilient](/internals/architecture/#parser-and-cst) which emits a [CST](https://en.wikipedia.org/wiki/Parse_tree) instead of a classic AST.
+- Implement new capabilities in our [LSP (Language Server Protocol)](https://github.com/biomejs/biome/tree/main/crates/biome_lsp), or add new features in one of our editor extensions: [VS Code](https://github.com/biomejs/biome-vscode), [Zed](https://github.com/biomejs/biome-zed) and [JetBrains IntelliJ](https://github.com/biomejs/biome-intellij).
+
+#### Financial help
+
+If you believe in the future of the project, you can also help with a financial contribution, via [Open Collective](https://opencollective.come/biome) or [GitHub Sponsors](https://github.com/sponsors/biomejs).
+
+Additionally, the project provides an [enterprise support program ](/enterprise) where a company you can employ one of the core contributors to work a specific aspect of the Biome toolchain.
