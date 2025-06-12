@@ -64,7 +64,7 @@ Before version 2.0, Biome lint rules could only operate on one file at a time. T
 
 To accomplish this, we have added a _file scanner_ to Biome that scans all the files in your project and indexes them, similar to what an LSP service might do in your IDE.
 
-A file scanner comes with its baggage: slowness. We acknowledge that many users chose Biome for its speed. During the beta period, users raised some concerns about how this could affect their workflow.
+A file scanner comes with its baggage: slowness. We acknowledge that many users choose Biome for its speed. During the beta period, users raised some concerns about how this could affect their workflow.
 
 As for this release, the file scanner has the following characteristics:
 - It's **opt-in**; which means migrating from v1 to v2 won't significantly affect the performance of formatting and linting your projects.
