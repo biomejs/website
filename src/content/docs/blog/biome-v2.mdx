@@ -67,13 +67,11 @@ To accomplish this, we have added a _file scanner_ to Biome that scans all the f
 A file scanner comes with its baggage: slowness. We acknowledge that many users chose Biome for its speed. During the beta period, users raised some concerns about how this could affect their workflow.
 
 As for this release, the file scanner has the following characteristics:
-- It's **completely opt-in**; which means migrating from v1 to v2 won't significantly affect the performance of formatting and linting your projects.
-- If the VCS integration is enabled, the scanner is used to discover nested `.gitignore` files.
+- It's **opt-in**; which means migrating from v1 to v2 won't significantly affect the performance of formatting and linting your projects.
+- By default, the scanner is only used for discovering nested configuration files. This should be very fast, although a slight increase compared to v1 may be experienced.
 - A **full scan** (which scans all your project files **and** `node_modules`) is performed *only* when [project rules](/linter/domains#project) are enabled.
 - Users can control the scanned files using `files.includes`, with the exception of `node_modules`.
 - Lint rules that need to collect types or query the module graph **will never be recommended** outside the [`project` domain](/linter/domains/#project). We put speed and performance first, and users have control over the rules.
-
-Finally, we designed the multi-file analysis with monorepos in mind. Although full monorepo support did not make it in time for the 2.0 release, we expect to deliver more on this front soon.
 
 ### Monorepo Support
 
