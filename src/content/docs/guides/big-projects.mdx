@@ -156,7 +156,7 @@ Since v2, Biome supports monorepos out of the box, and you'll need to set up the
         }
     }
     ```
-    However, when you use the microsyntax `extends: "//"`, you can **omit `"root": true`, because it implies that this configuration isn't a
+    However, when you use the microsyntax `extends: "//"`, you can **omit**  `"root": false`, because it implies that this configuration isn't a
     a root configuration, and it wants extends from the root configuration:
 
     ```diff title="packages/generate/biome.json"
