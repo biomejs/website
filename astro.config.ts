@@ -450,7 +450,7 @@ export default defineConfig({
 							translations: {
 								es: "Extensión para VSCode",
 								fr: "Extension pour VSCode",
-								ja: "VSCode拡張機能",
+								ja: "VS Code拡張機能",
 								"zh-CN": "VSCode 扩展",
 								"pt-BR": "Extensão do VSCode",
 								uk: "Розширення VSCode",
