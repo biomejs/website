@@ -22,6 +22,9 @@ const plugins = [
 			ja: "ブログ",
 			"zh-CN": "博客",
 		},
+		metrics: {
+			readingTime: true,
+		},
 		authors: {
 			arendjr: {
 				name: "Arend van Beelen jr.",
