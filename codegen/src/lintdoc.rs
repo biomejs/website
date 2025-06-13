@@ -443,7 +443,11 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
         )?;
     }
 
-    let recommended_rules_buffer = format!("## Recommended rules \n{recommended_rules}");
+    let recommended_rules_buffer = match rule_category {
+        RuleCategory::Lint => format!("## Recommended rules \n{recommended_rules}"),
+        RuleCategory::Action => format!("## Recommended actions \n{recommended_rules}"),
+        _ => unimplemented!(""),
+    };
 
     writeln!(index, "{recommended_rules_buffer}")?;
 
@@ -477,9 +481,13 @@ fn generate_group(
             let is_recommended = !is_nursery && meta.recommended && meta.domains.is_empty();
             let dashed_rule = Case::Kebab.convert(rule_name);
             let severity = match meta.severity {
-                Severity::Information => "(Severity: Information".to_string(),
-                Severity::Warning => "Severity: Warning".to_string(),
-                Severity::Error => "Severity: Error".to_string(),
+                Severity::Information => {
+                    "Severity: [information](/reference/diagnostics#information)".to_string()
+                }
+                Severity::Warning => {
+                    "Severity: [warning](/reference/diagnostics#warning)".to_string()
+                }
+                Severity::Error => "Severity: [error](/reference/diagnostics#error)".to_string(),
                 Severity::Hint | Severity::Fatal => {
                     unreachable!("A rule doesn't have this severity.")
                 }
