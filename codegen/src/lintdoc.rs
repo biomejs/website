@@ -517,7 +517,26 @@ fn generate_group(
                 properties.push_str("<span class='inline-icon' title=\"This rule is only available in beta\"><Icon name=\"moon\" label=\"This rule is only available in beta\" size=\"1.2rem\" /></span>");
             }
 
-            let summary_html = extract_summary_from_rule(meta.docs);
+            let mut summary_html = extract_summary_from_rule(meta.docs);
+            if !meta.domains.is_empty() {
+                summary_html.push_str(" Domain");
+                if meta.domains.len() > 1 {
+                    summary_html.push_str("s");
+                }
+                summary_html.push_str(": ");
+                summary_html.push_str(
+                    &*meta
+                        .domains
+                        .iter()
+                        .map(|domain| {
+                            let domain_str = markup_to_string(&markup!({ domain }).to_owned());
+                            format!("[`{domain_str}`](/linter/domains#{domain_str})")
+                        })
+                        .collect::<Vec<_>>()
+                        .join(", "),
+                )
+            }
+
             write!(
                 content,
                 "| [{rule_name}](/{path_prefix}/{middle_path}/{dashed_rule}) | {summary_html} | {properties} |"
