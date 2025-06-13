@@ -65,6 +65,9 @@ impl DocDomains {
         domains.sort_by_key(|(domain, _)| *domain);
         for (domain, rules) in &domains {
             let name = Case::Pascal.convert(format!("{domain:?}").as_str());
+            if rules.is_empty() {
+                continue;
+            }
             match domain {
                 RuleDomain::React => {
                     writeln!(buffer, "## {name}")?;
@@ -97,6 +100,11 @@ impl DocDomains {
                         buffer,
                         "This domain contains rules that perform project-level analysis. This includes our module graph for dependency resolution, as well as type information. When enabling rules that belong to this domain, Biome will scan the entire project. The scanning phase will have a performance impact on the linting process. See the reference for the [`files.includes`](/reference/configuration/#note-on-biomes-scanner) configuration on how you can influence the scanner behaviour with regards to generated code."
                     )?;
+                }
+                #[allow(unreachable_patterns)]
+                domain => {
+                    // This only gets hit if a new domain gets added and has any rules. Domains that don't have any rules are not documented.
+                    anyhow::bail!("Undocumented domain: {:?}", domain);
                 }
             }
             Self::write_activation(name.as_str(), buffer)?;
