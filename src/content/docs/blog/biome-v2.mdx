@@ -103,6 +103,11 @@ Which brings us to the second way a nested configuration can be defined:
 
 This is a convenient micro-syntax that sets both the `root` field to `false`, and will tell Biome that this nested configuration extends from the root configuration.
 
+Say goodbye to wonky relative paths such as `"extends": ["../../biome.json"]` 👋
+
+We prepared a [small guide](/guides/big-projects#monorepo) that should help you set everything up.
+
+
 ### Plugins
 
 Biome 2.0 comes with our first iteration of [Linter Plugins](/linter/plugins).
@@ -225,20 +230,6 @@ You can enable the HTML formatter by adding the following to your config file:
   }
 }
 ```
-
-### Monorepo support
-
-Biome is now able to support nested configuration files out of the box—CLI and editors, whether they are inside a monorepo, or in another different setting.
-
-Until now nested configuration files were *somewhat* supported in the CLI; however, the developer experience inside editors was essentially none.
-
-Nested configuration files must have a new configuration field `"root"` set to **`false`**. If your project already uses nested configuration files,
-you should run the command `biome migrate` **from the root of the project**, and all your configuration files will be updated accordingly.
-
-With monorepo support, you have a new tool at your disposal, which is new microsyntax `"extends": "//"`, only available to nested configuration files.
-This syntax means "`extends` from the root configuration". Say goodbye to wonky relative paths such as `"extends": ["../../biome.json"]` 👋
-
-We prepared a [small guide](/guides/big-projects#monorepo) that should help you set everything up.
 
 ## Shout-outs
 
