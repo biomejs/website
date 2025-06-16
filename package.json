@@ -32,7 +32,7 @@
     "@astrojs/rss": "4.0.11",
     "@astrojs/starlight": "0.34.3",
     "@biomejs/biome": "1.9.4",
-    "@biomejs/wasm-web": "https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@c782dc7",
+    "@biomejs/wasm-web": "https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@f0cc7e2",
     "@codemirror/lang-css": "6.3.1",
     "@codemirror/lang-html": "6.4.9",
     "@codemirror/lang-javascript": "6.2.4",
@@ -82,7 +82,7 @@
   "packageManager": "pnpm@10.12.1",
   "pnpm": {
     "overrides": {
-    "@biomejs/version-utils": "^0.4.0",
+      "@biomejs/version-utils": "^0.4.0",
       "shiki": "3.2.1"
     }
   }
