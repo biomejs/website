@@ -935,6 +935,7 @@ function LinterSettings({
 		{ id: "test", label: "Test Rules" },
 		{ id: "solid", label: "Solid Rules" },
 		{ id: "next", label: "Next.js Rules" },
+		{ id: "project", label: "Project Rules" },
 	];
 
 	const domainValues: RuleDomainValue[] = ["all", "recommended", "none"];
