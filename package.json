@@ -39,7 +39,7 @@
     "@codemirror/view": "6.36.8",
     "@lunariajs/core": "0.1.1",
     "@lunariajs/starlight": "0.1.1",
-    "@playwright/test": "1.52.0",
+    "@playwright/test": "1.53.0",
     "@replit/codemirror-lang-svelte": "6.0.0",
     "@types/node": "20.19.0",
     "@types/react": "18.3.23",
