@@ -139,7 +139,7 @@ You can disable the recommended rules with a simple configuration. This may be u
 }
 ```
 
-### Rule severity
+### Change rule severity
 
 Biome lint rules are shipped with their own default severity. If you want to avail of rule default severity, you can use the `"on"` configuration.
 
@@ -167,7 +167,7 @@ Diagnostics with the [`"error"`](/reference/diagnostics#error) always cause the 
 
 The [`info`](/reference/diagnostics#information) severity won't affect the exit status code of the CLI, even when `--error-on-warnings` is passed.
 
-### Group severity
+### Change group severity
 
 Additionally, you can control the severity of lint rules **at the group level**. This way, it's possible to control the diagnostic severity of **all rules** that belong to a group.
 
@@ -228,7 +228,7 @@ For example, the following command skips all the rules that belong to the `style
 biome lint --skip=style --skip=suspicious/noExplicitAny
 ```
 
-### Run a rule or a group
+### Run only a rule or a group
 
 The command `biome lint` accepts an option `--only` that allows running individual rules or groups of rules.
 
