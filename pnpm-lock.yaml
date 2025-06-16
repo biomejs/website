@@ -145,8 +145,8 @@ importers:
         specifier: 0.34.2
         version: 0.34.2
       starlight-blog:
-        specifier: 0.21.0
-        version: 0.21.0(@astrojs/starlight@0.34.3(astro@5.8.0(@netlify/blobs@8.2.0)(@types/node@20.19.0)(jiti@1.21.7)(rollup@4.40.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.5.5))(typescript@5.8.3)(yaml@2.8.0)))(astro@5.8.0(@netlify/blobs@8.2.0)(@types/node@20.19.0)(jiti@1.21.7)(rollup@4.40.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.5.5))(typescript@5.8.3)(yaml@2.8.0))
+        specifier: 0.24.0
+        version: 0.24.0(@astrojs/starlight@0.34.3(astro@5.8.0(@netlify/blobs@8.2.0)(@types/node@20.19.0)(jiti@1.21.7)(rollup@4.40.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.5.5))(typescript@5.8.3)(yaml@2.8.0)))(astro@5.8.0(@netlify/blobs@8.2.0)(@types/node@20.19.0)(jiti@1.21.7)(rollup@4.40.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.5.5))(typescript@5.8.3)(yaml@2.8.0))
       textlint:
         specifier: 14.8.4
         version: 14.8.4
@@ -3635,6 +3635,9 @@ packages:
   mdast-util-mdx-expression@2.0.0:
     resolution: {integrity: sha512-fGCu8eWdKUKNu5mohVGkhBXCXGnOTLuFqOvGMvdikr+J1w7lDJgxThOKpwRWzzbyXAU2hhSwsmssOY4yTokluw==}
 
+  mdast-util-mdx-expression@2.0.1:
+    resolution: {integrity: sha512-J6f+9hUp+ldTZqKRSg7Vw5V6MqjATc+3E4gf3CFNcuZNWD8XdyI6zQ8GqH7f8169MM6P7hMBRDVGnn7oHB9kXQ==}
+
   mdast-util-mdx-jsx@3.2.0:
     resolution: {integrity: sha512-lj/z8v0r6ZtsN/cGNNtemmmfoLAFZnjMbNyLzBafjzikOM+glrjNHPlf6lQDOTccj9n5b0PPihEBbhneMyGs1Q==}
 
@@ -4871,8 +4874,8 @@ packages:
   stack-trace@0.0.10:
     resolution: {integrity: sha512-KGzahc7puUKkzyMt+IqAep+TVNbKP+k2Lmwhub39m1AsTSkaDutx56aDCo+HLDzf/D26BIHTJWNiTG1KAJiQCg==}
 
-  starlight-blog@0.21.0:
-    resolution: {integrity: sha512-ZA6y+LTbEr2aH8IOsQ3yIFRcqDNEDJjFG/OVTYbWgDuWuO3DWPGYjovsG4oSarbpxkP1k5OLPtL8Zmhy6DxiNQ==}
+  starlight-blog@0.24.0:
+    resolution: {integrity: sha512-judPLTD+hyeKyiX//0x6adcOs4QR3EqmNxzFJNP+2sauUDA/ux1CS+wNzwMkHAadxdCir13rj9YsA3l8X0h9fQ==}
     engines: {node: '>=18.17.1'}
     peerDependencies:
       '@astrojs/starlight': '>=0.33.0'
@@ -9677,6 +9680,17 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  mdast-util-mdx-expression@2.0.1:
+    dependencies:
+      '@types/estree-jsx': 1.0.5
+      '@types/hast': 3.0.4
+      '@types/mdast': 4.0.4
+      devlop: 1.1.0
+      mdast-util-from-markdown: 2.0.0
+      mdast-util-to-markdown: 2.1.0
+    transitivePeerDependencies:
+      - supports-color
+
   mdast-util-mdx-jsx@3.2.0:
     dependencies:
       '@types/estree-jsx': 1.0.5
@@ -11461,8 +11475,9 @@ snapshots:
 
   stack-trace@0.0.10: {}
 
-  starlight-blog@0.21.0(@astrojs/starlight@0.34.3(astro@5.8.0(@netlify/blobs@8.2.0)(@types/node@20.19.0)(jiti@1.21.7)(rollup@4.40.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.5.5))(typescript@5.8.3)(yaml@2.8.0)))(astro@5.8.0(@netlify/blobs@8.2.0)(@types/node@20.19.0)(jiti@1.21.7)(rollup@4.40.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.5.5))(typescript@5.8.3)(yaml@2.8.0)):
+  starlight-blog@0.24.0(@astrojs/starlight@0.34.3(astro@5.8.0(@netlify/blobs@8.2.0)(@types/node@20.19.0)(jiti@1.21.7)(rollup@4.40.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.5.5))(typescript@5.8.3)(yaml@2.8.0)))(astro@5.8.0(@netlify/blobs@8.2.0)(@types/node@20.19.0)(jiti@1.21.7)(rollup@4.40.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.5.5))(typescript@5.8.3)(yaml@2.8.0)):
     dependencies:
+      '@astrojs/markdown-remark': 6.3.2
       '@astrojs/mdx': 4.2.4(astro@5.8.0(@netlify/blobs@8.2.0)(@types/node@20.19.0)(jiti@1.21.7)(rollup@4.40.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.5.5))(typescript@5.8.3)(yaml@2.8.0))
       '@astrojs/rss': 4.0.11
       '@astrojs/starlight': 0.34.3(astro@5.8.0(@netlify/blobs@8.2.0)(@types/node@20.19.0)(jiti@1.21.7)(rollup@4.40.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.5.5))(typescript@5.8.3)(yaml@2.8.0))
@@ -11470,7 +11485,9 @@ snapshots:
       github-slugger: 2.0.0
       marked: 15.0.4
       marked-plaintify: 1.1.1(marked@15.0.4)
+      mdast-util-mdx-expression: 2.0.1
       ultrahtml: 1.6.0
+      unist-util-visit: 5.0.0
     transitivePeerDependencies:
       - astro
       - supports-color
