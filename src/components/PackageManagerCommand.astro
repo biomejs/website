@@ -5,19 +5,19 @@ import { TabItem, Tabs } from "@astrojs/starlight/components";
 
 <Tabs syncKey="command">
   <TabItem label="npm" icon="seti:npm">
-    <Code code={`${Astro.props.npx ? "npx" : "npm"} ${Astro.props.npx ?? Astro.props.npm ?? Astro.props.command}`} lang="bash"  />
-  </TabItem>
-  <TabItem label="yarn" icon="seti:yarn">
-    <Code code={`yarn ${Astro.props.yarn ?? Astro.props.command}`} lang="bash"  />
+    <Code frame="none" showLineNumbers={false} code={`${Astro.props.npx ? "npx" : "npm"} ${Astro.props.npx ?? Astro.props.npm ?? Astro.props.command}`} lang="bash"  />
   </TabItem>
   <TabItem label="pnpm" icon="pnpm">
-    <Code code={`pnpm ${Astro.props.pnpm ?? Astro.props.command}`} lang="bash"  />
+    <Code frame="none" showLineNumbers={false} code={`pnpm ${Astro.props.pnpm ?? Astro.props.command}`} lang="bash"  />
   </TabItem>
   <TabItem label="bun" icon="bun">
-    <Code code={`bun${Astro.props.bun ? "" : "x"} ${Astro.props.bunx ?? Astro.props.bun ?? Astro.props.command}`} lang="bash"  />
+    <Code frame="none" showLineNumbers={false} code={`bun${Astro.props.bun ? "" : "x"} ${Astro.props.bunx ?? Astro.props.bun ?? Astro.props.command}`} lang="bash"  />
   </TabItem>
   <TabItem label="deno" icon="deno">
-    <Code code={`deno ${Astro.props.deno ?? Astro.props.command}`} lang="bash"  />
+    <Code frame="none" showLineNumbers={false} code={`deno ${Astro.props.deno ?? Astro.props.command}`} lang="bash"  />
+  </TabItem>
+  <TabItem label="yarn" icon="seti:yarn">
+    <Code frame="none" showLineNumbers={false} code={`yarn ${Astro.props.yarn ?? Astro.props.command}`} lang="bash"  />
   </TabItem>
 </Tabs>
 

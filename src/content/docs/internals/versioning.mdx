@@ -47,3 +47,7 @@ Visual Studio Code [doesn't support pre-release tags](https://code.visualstudio.
 * Stable releases use even version numbers: 10, 12, 14, 16, ...
 * Previews use odd version numbers: 11, 13, 15, 17, ...
 
+## Why pinning the version is important
+
+Pinning the version of Biome in your `package.json` is important to ensure that every team member and CI environments
+use the same version of Biome. Even patch releases can result in slightly different formatting or linting results.

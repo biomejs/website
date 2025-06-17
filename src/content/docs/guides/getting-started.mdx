@@ -1,98 +1,138 @@
+
 ---
 title: Getting Started
 description: Learn how to set up a new project with Biome.
 ---
 
+import { Code, TabItem, Tabs } from "@astrojs/starlight/components";
 import DefaultConfiguration from "@/components/generated/DefaultConfiguration.mdx";
 import PackageManagerBiomeCommand from "@/components/PackageManagerBiomeCommand.astro";
 import PackageManagerCommand from "@/components/PackageManagerCommand.astro";
 
-## Installation
+Biome is best installed as a development dependency of your projects, but it is
+also available as a [standalone executable] that doesn't require Node.js.
 
-The fastest way to download Biome is to use a package manager such as `npm`.
-This requires Node.js v14.18 or newer.
-The CLI is also available as a [standalone executable](/guides/manual-installation) if you want to use Biome without installing Node.js.
-
-To install Biome, run the following commands in a directory containing a `package.json` file.
+[standalone executable]: /guides/manual-installation
 
 <PackageManagerCommand
-  npm="install --save-dev --save-exact @biomejs/biome"
-  pnpm="add --save-dev --save-exact @biomejs/biome"
-  yarn="add --dev --exact @biomejs/biome"
-  bun="add --dev --exact @biomejs/biome"
-  deno="add --dev npm:@biomejs/biome"
+  npm="i -D -E @biomejs/biome"
+  pnpm="add -D -E @biomejs/biome"
+  yarn="add -D -E @biomejs/biome"
+  bun="add -D -E @biomejs/biome"
+  deno="add -D npm:@biomejs/biome"
 />
 
-:::note
-We instruct the package manager to pin an exact version of Biome.
-This ensures that everyone within a project has exactly the same version of Biome.
-Even a patch release can result in slightly different behavior.
-See the [versioning page](/internals/versioning/) for more information.
+:::note[Version pinning]
+`-E` ensures that the package manager pins the version of Biome. See the
+[versioning page](/internals/versioning) 
+for more information about [why pinning the version is important].
 :::
+
+[why pinning the version is important]: /internals/versioning#why-pinning-the-version-is-important
 
 ## Configuration
 
-We recommend that you create a `biome.json` or a `biome.jsonc` configuration file for each project.
-This eliminates the need to repeat the CLI options each time you run a command,
-and ensures that Biome uses the same configuration in your editor.
-Some options are also only available from a configuration file.
-If you are happy with Biome's defaults, you don't need to create a configuration file.
-To create the `biome.json` file, run the `init` command in the root folder of your project:
+Although Biome can run with zero configuration, you'll likely want to tweak some
+settings to suit your project's needs, in which case you can run the following
+command to generate a `biome.json` configuration file.
 
 <PackageManagerBiomeCommand command="init"/>
 
-Pass the `--jsonc` option to emit a `biome.jsonc` file instead.
-
-After running the `init` command, you'll have a new `biome.json` file in your directory:
-
-<DefaultConfiguration/>
-
-The `linter.enabled: true` enables the linter and `rules.recommended: true` enables the [recommended rules](/linter/rules/).
-This corresponds to the default settings.
-
-Formatting is enabled **by default**, but you can [disable](/reference/configuration/#formatterenabled) it by explicitly using `formatter.enabled: false`.
-
 ## Usage
 
-The Biome CLI comes with many commands and options, so you can use only what you need.
+Lets get a quick overview of how to use Biome in your project.
 
-You can format files and directories using the [`format`](/reference/cli#biome-format) command with the `--write` option:
+### Command-line interface
 
-<PackageManagerBiomeCommand command="format --write <files>"/>
+Biome provides a [command-line interface] to format, lint, and check your code.
 
-You can lint and apply [safe fixes](/linter#safe-fixes) to files and directories using the [`lint`](/reference/cli#biome-lint) command with the `--write` option:
+[command-line interface]: /reference/cli
 
-<PackageManagerBiomeCommand command="lint --write <files>"/>
+<Tabs syncKey="command">
+	<TabItem label="npm" icon="seti:npm">
+		<Code frame="none" showLineNumbers={false} code={`
+# Format files
+npx @biomejs/biome format --write <files>
 
-You can run **both** of them by leveraging the [`check`](/reference/cli#biome-check) command:
+# Lint files and apply safe fixes
+npx @biomejs/biome lint --write <files>
 
-<PackageManagerBiomeCommand command="check --write <files>"/>
+# Format, lint, and organize imports
+npx @biomejs/biome check --write <files>
+    `} lang="bash"  />
+	</TabItem>
+	<TabItem label="pnpm" icon="pnpm">
+		<Code frame="none" showLineNumbers={false} code={`
+# Format files
+pnpm exec biome format --write <files>
 
-The `check` command runs multiple tools at once.
-It formats, lints, and organizes imports.
+# Lint files and apply safe fixes
+pnpm exec biome lint --write <files>
 
-## Install an editor plugin
+# Format, lint, and organize imports
+pnpm exec biome check --write <files>
+    `} lang="bash"  />
+	</TabItem>
+	<TabItem label="bun" icon="bun">
+		<Code frame="none" showLineNumbers={false} code={`
+# Format files
+bunx --bun biome format --write <files>
 
-We recommend installing an editor plugin to get the most out of Biome.
-Check out the [first-party extensions](/guides/editors/first-party-extensions), maintained by the team, or check the [community extensions](/guides/editors/third-party-extensions).
+# Lint files and apply safe fixes
+bunx --bun biome lint --write <files>
 
-## CI Setup
+# Format, lint, and organize imports
+bunx --bun biome check --write <files>
+    `} lang="bash"  />
+	</TabItem>
+	<TabItem label="deno" icon="deno">
+		<Code frame="none" showLineNumbers={false} code={`
+# Format files
+deno run -A npm:@biomejs/biome format --write <files>
 
-If you're using Node.js, the recommended way to run Biome in CI is to use [your preferred package manager](/guides/getting-started#installation).
-This ensures that your CI pipeline uses the same version of Biome as you do inside the editor or when running local CLI commands.
-Alternatively, you can use a dedicated [CI Action](/recipes/continuous-integration).
+# Lint files and apply safe fixes
+deno run -A npm:@biomejs/biome lint --write <files>
 
-### `biome check` VS `biome ci`
+# Format, lint, and organize imports
+deno run -A npm:@biomejs/biome check --write <files>
+    `} lang="bash"  />
+	</TabItem>
+	<TabItem label="yarn" icon="seti:yarn">
+		<Code frame="none" showLineNumbers={false} code={`
+# Format files
+yarn exec biome format --write <files>
 
-Biome offers two CLI commands to run all checks: `biome check` and `biome ci`, however the latter should be used in CI (Continuous Integration) environments.
+# Lint files and apply safe fixes
+yarn exec biome lint --write <files>
 
-Compared to the `check` command, the `ci` command:
-- Doesn't provide any `--write`/`--fix` option.
-- Integrates better with specific runners. For example, when run on GitHub, the diagnostics are printed using the GitHub annotations.
-- Allows controlling the number of threads.
-- When VCS integration is enabled, it uses the `--changed` flag instead of `--staged`, because a remote repository doesn't have the concept of "staged files".
+# Format, lint, and organize imports
+yarn exec biome check --write <files>
+    `} lang="bash"  />
+	</TabItem>
+</Tabs>
 
-With time, the `ci` command will receive more and more features.
+### Editor integrations
+
+Biome is available as a first-party extension in your favorite editors.
+
+- [VS Code](/guides/editors/first-party-extensions#vs-code)
+- [IntelliJ](/guides/editors/first-party-extensions#intellij)
+- [Zed](/guides/editors/first-party-extensions#zed)
+
+There are also [community extensions](/guides/editors/third-party-extensions) 
+for other editors, such as **Vim**, **Neovim**, and **Sublime Text**, to name 
+a few.
+
+### Continuous Integration
+
+Run `biome ci` as part of your CI pipeline to enforce code quality and consistency 
+across your team. It works just like the `biome check` command, but is optimized for
+CI environments.
+
+- [GitHub Actions](/recipes/continuous-integration#github-actions)
+- [GitLab CI](/recipes/continuous-integration#gitlab-ci)
+
+See the [Continuous Integration](/recipes/continuous-integration) recipes for more examples.
 
 ## Next Steps
 
