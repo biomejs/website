@@ -1,0 +1,95 @@
+---
+title: Primeros pasos
+description: Aprende a crear un nuevo proyecto con Biome.
+---
+
+import DefaultConfiguration from "@/components/generated/DefaultConfiguration.mdx";
+import PackageManagerBiomeCommand from "@/components/PackageManagerBiomeCommand.astro";
+import PackageManagerCommand from "@/components/PackageManagerCommand.astro";
+
+## Instalación
+
+La forma más rápida de descargar Biome es utilizar un gestor de paquetes como `npm`.
+Esto requiere Node.js v14.18 o posterior.
+El CLI también está disponible como [ejecutable independiente](/es/guides/manual-installation) si quieres usar Biome sin instalar Node.js.
+
+Para instalar Biome, ejecute los siguientes comandos en un directorio que contenga un archivo `package.json`.
+
+<PackageManagerCommand
+  npm="install --save-dev --save-exact @biomejs/biome"
+  pnpm="add --save-dev --save-exact @biomejs/biome"
+  yarn="add --dev --exact @biomejs/biome"
+  bun="add --dev --exact @biomejs/biome"
+  deno="add --dev npm:@biomejs/biome"
+/>
+
+:::note
+Instruimos al gestor de paquetes para que fije una versión exacta de Biome.
+Esto garantiza que todos los miembros de un proyecto tengan exactamente la misma versión de Biome.
+Incluso un parche puede dar lugar a un comportamiento ligeramente diferente.
+Visita la página [versionado](/es/internals/versioning/) para obtener más información.
+:::
+
+## Configuración
+
+Te recomendamos que generes un archivo de configuración `biome.json` o `biome.jsonc` para cada proyecto.
+Esto elimina la necesidad de repetir las opciones de la CLI cada vez que ejecute un comando,
+y asegura que Biome utilice la misma configuración en tu editor.
+Algunas opciones sólo están disponibles en un archivo de configuración.
+Si estás satisfecho con los ajustes por defecto de Biome, no necesitas crear un archivo de configuración.
+Para crear el archivo `biome.json`, ejecute el comando `init` en la carpeta raíz de tu proyecto:
+
+<PackageManagerBiomeCommand command="init" />
+
+Pasa la opción `--jsonc` para emitir un archivo `biome.jsonc` en su lugar.
+
+Después de ejecutar el comando `init`, tendrás un nuevo archivo `biome.json` en tu directorio:
+
+<DefaultConfiguration />
+
+El `linter.enabled: true` activa el linter y `rules.recommended: true` activa las [reglas recomendadas](/linter/rules/).
+Esto corresponde a los ajustes por defecto.
+
+El formateo está activado **por defecto**, pero puedes [desactivarlo](/reference/configuration/#formatterenabled) utilizando explícitamente `formatter.enabled: false`.
+
+## Utilización
+
+El Biome CLI viene con muchos comandos y opciones, para que pueda utilizar sólo lo que necesita.
+
+Puedes formatear archivos y directorios utilizando el comando [`format`](/reference/cli#biome-format) con la opción `--write`:
+
+<PackageManagerBiomeCommand command="format --write <files>" />
+
+Puedes analizar y aplicar [safe fixes](/linter#safe-fixes) a archivos y directorios utilizando el comando [`lint`](/reference/cli#biome-lint) con la opción `--write`:
+
+<PackageManagerBiomeCommand command="lint --write <files>" />
+
+Puedes ejecutar **ambos** aprovechando el comando [`check`](/reference/cli#biome-check):
+
+<PackageManagerBiomeCommand command="check --write <files>" />
+
+El comando `check` ejecuta varias herramientas a la vez.
+Formatea, verifica errores y organiza las importaciones.
+
+## Instalar un plugin del editor
+
+Recomendamos instalar un plugin de editor para sacar el máximo partido a Biome.
+Consulta la [página del editor](/es/guides/editors/first-party-extensions) para saber qué editores son compatibles con Biome.
+
+## Configuración CI
+
+Si utilizas Node.js, la forma recomendada de ejecutar Biome en CI es utilizar [tu gestor de paquetes preferido](/es/guides/getting-started#instalación).
+Esto asegura que tu CI pipeline use la misma versión de Biome que la que usas dentro del editor o cuando ejecutas comandos CLI locales.
+Como alternativa, puedes utilizar una [Acción CI](/es/recipes/continuous-integration) específica.
+
+## Próximos pasos
+
+¡Felicidades! Ya puedes utilizar Biome. 🥳
+
+- [Migrar de ESLint y Prettier](/es/guides/migrate-eslint-prettier)
+- Más información sobre cómo [configurar Biome](/es/guides/configure-biome)
+- Obtén más información sobre cómo utilizar y configurar el [formateador](/es/formatter)
+- Más información sobre cómo utilizar y configurar el [linter](/linter)
+- Familiarízate con las [opciones de la CLI](/reference/cli)
+- Familiarízate con las [opciones de configuración](/reference/configuration)
+- Únete a nuestra [comunidad en Discord](https://biomejs.dev/chat)

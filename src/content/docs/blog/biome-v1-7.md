@@ -28,18 +28,26 @@ npx @biomejs/biome migrate
 
 ## Migrate from ESLint with a single command
 
-This release introduces a new subcommand `biome migrate eslint`. This command will read your ESLint configuration and attempt to port their settings to Biome.
+This release introduces a new subcommand
+`biome migrate eslint`. This command will read your ESLint configuration and attempt to port their settings to Biome.
 
-The subcommand is able to handle both the legacy and the flat configuration files. It supports the `extends` field of the legacy configuration and loads both shared and plugin configurations!
+The subcommand is able to handle both the legacy and the flat configuration files. It supports the
+`extends` field of the legacy configuration and loads both shared and plugin configurations!
 The subcommand also migrates `.eslintignore`.
 
 Given the following ESLint configuration:
 
 ```json title=".eslintrc.json"
 {
-  "extends": ["plugin:unicorn/recommended"],
-  "plugins": ["unicorn"],
-  "ignore_patterns": ["dist/**"],
+  "extends": [
+    "plugin:unicorn/recommended"
+  ],
+  "plugins": [
+    "unicorn"
+  ],
+  "ignore_patterns": [
+    "dist/**"
+  ],
   "globals": {
     "Global1": "readonly"
   },
@@ -48,7 +56,9 @@ Given the following ESLint configuration:
   },
   "overrides": [
     {
-      "files": ["tests/**"],
+      "files": [
+        "tests/**"
+      ],
       "rules": {
         "eqeqeq": "off"
       }
@@ -61,114 +71,150 @@ And the following Biome configuration:
 
 ```json title="biome.json"
 {
-	"linter": {
-		"enabled": true,
-		"rules": {
-			"recommended": true
-		}
-	}
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true
+    }
+  }
 }
 ```
 
-Run `biome migrate eslint --write` to migrate your ESLint configuration to Biome. The command overwrites your initial Biome configuration. For example, it disables `recommended`. This results in the following Biome configuration:
+Run
+`biome migrate eslint --write` to migrate your ESLint configuration to Biome. The command overwrites your initial Biome configuration. For example, it disables
+`recommended`. This results in the following Biome configuration:
 
 ```json title="biome.json"
 {
-	"organizeImports": { "enabled": true },
-	"linter": {
-		"enabled": true,
-		"rules": {
-			"recommended": false,
-			"complexity": {
-				"noForEach": "error",
-				"noStaticOnlyClass": "error",
-				"noUselessSwitchCase": "error",
-				"useFlatMap": "error"
-			},
-			"style": {
-				"noNegationElse": "off",
-				"useForOf": "error",
-				"useNodejsImportProtocol": "error",
-				"useNumberNamespace": "error"
-			},
-			"suspicious": {
-				"noDoubleEquals": "error",
-				"noThenProperty": "error",
-				"useIsArray": "error"
-			}
-		}
-	},
-	"javascript": { "globals": ["Global1"] },
-	"overrides": [
-		{
-			"include": ["tests/**"],
-			"linter": { "rules": { "suspicious": { "noDoubleEquals": "off" } } }
-		}
-	]
+  "organizeImports": {
+    "enabled": true
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": false,
+      "complexity": {
+        "noForEach": "error",
+        "noStaticOnlyClass": "error",
+        "noUselessSwitchCase": "error",
+        "useFlatMap": "error"
+      },
+      "style": {
+        "noNegationElse": "off",
+        "useForOf": "error",
+        "useNodejsImportProtocol": "error",
+        "useNumberNamespace": "error"
+      },
+      "suspicious": {
+        "noDoubleEquals": "error",
+        "noThenProperty": "error",
+        "useIsArray": "error"
+      }
+    }
+  },
+  "javascript": {
+    "globals": [
+      "Global1"
+    ]
+  },
+  "overrides": [
+    {
+      "include": [
+        "tests/**"
+      ],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noDoubleEquals": "off"
+          }
+        }
+      }
+    }
+  ]
 }
 ```
 
-The subcommand needs Node.js to load and resolve all the plugins and `extends` configured in the ESLint configuration file. For now, `biome migrate eslint` doesn't support configuration written in YAML.
+The subcommand needs Node.js to load and resolve all the plugins and
+`extends` configured in the ESLint configuration file. For now,
+`biome migrate eslint` doesn't support configuration written in YAML.
 
-We have a [dedicated page](/linter/rules-sources/) that lists the equivalent Biome rule of a given ESLint rule. We handle some ESLint plugins such as [TypeScript ESLint](https://typescript-eslint.io/), [ESLint JSX A11y](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y), [ESLint React](https://github.com/jsx-eslint/eslint-plugin-react), and [ESLint Unicorn](https://github.com/sindresorhus/eslint-plugin-unicorn). Some rules are equivalent to their ESLint counterparts, while others are inspired. By default, Biome doesn't migrate inspired rules. You can use the CLI flag `--include-inspired` to migrate them.
+We have a [dedicated page](/linter/rules-sources/) that lists the equivalent Biome rule of a given ESLint rule. We handle some ESLint plugins such as [TypeScript ESLint](https://typescript-eslint.io/), [ESLint JSX A11y](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y), [ESLint React](https://github.com/jsx-eslint/eslint-plugin-react), and [ESLint Unicorn](https://github.com/sindresorhus/eslint-plugin-unicorn). Some rules are equivalent to their ESLint counterparts, while others are inspired. By default, Biome doesn't migrate inspired rules. You can use the CLI flag
+`--include-inspired` to migrate them.
 
 ## Migrate from Prettier with a single command
 
 [Biome v1.6 introduced the subcommand `biome migrate prettier`](/blog/biome-v1-6/#easier-migration-from-prettier).
 
-In Biome v1.7, we add support of [Prettier's `overrides`](https://prettier.io/docs/en/configuration.html#configuration-overrides) and attempts to convert `.prettierignore` glob patterns to globs supported by Biome.
+In Biome v1.7, we add support of [Prettier's
+`overrides`](https://prettier.io/docs/en/configuration.html#configuration-overrides) and attempts to convert
+`.prettierignore` glob patterns to globs supported by Biome.
 
-During the migration, Prettier's `overrides` is translated to [Biome's `overrides`](/reference/configuration/#overrides). Given the following `.prettierrc.json`
+During the migration, Prettier's `overrides` is translated to [Biome's
+`overrides`](/reference/configuration/#overrides). Given the following `.prettierrc.json`
 
 ```json title=".prettierrc.json"
 {
-	"useTabs": false,
-	"singleQuote": true,
-	"overrides": [
-		{
-      		"files": ["*.json"],
-      		"options": { "tabWidth": 2 }
-    	}
-	]
+  "useTabs": false,
+  "singleQuote": true,
+  "overrides": [
+    {
+      "files": [
+        "*.json"
+      ],
+      "options": {
+        "tabWidth": 2
+      }
+    }
+  ]
 }
 ```
 
-Run `biome migrate prettier --write` to migrate your Prettier configuration to Biome. This results in the following Biome configuration:
+Run
+`biome migrate prettier --write` to migrate your Prettier configuration to Biome. This results in the following Biome configuration:
 
 ```json title="biome.json"
 {
-	"formatter": {
-		"enabled": true,
-		"formatWithErrors": false,
-		"indentStyle": "space",
-		"indentWidth": 2,
-		"lineEnding": "lf",
-		"lineWidth": 80,
-		"attributePosition": "auto"
-	},
-	"organizeImports": { "enabled": true },
-	"linter": { "enabled": true, "rules": { "recommended": true } },
-	"javascript": {
-		"formatter": {
-			"jsxQuoteStyle": "double",
-			"quoteProperties": "asNeeded",
-			"trailingComma": "all",
-			"semicolons": "asNeeded",
-			"arrowParentheses": "always",
-			"bracketSpacing": true,
-			"bracketSameLine": false,
-			"quoteStyle": "single",
-			"attributePosition": "auto"
-		}
-	},
-	"overrides": [
-		{
-			"include": ["*.json"],
-			"formatter": {
-				"indentWidth": 2
-			}
-		}
-	]
+  "formatter": {
+    "enabled": true,
+    "formatWithErrors": false,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineEnding": "lf",
+    "lineWidth": 80,
+    "attributePosition": "auto"
+  },
+  "organizeImports": {
+    "enabled": true
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "jsxQuoteStyle": "double",
+      "quoteProperties": "asNeeded",
+      "trailingComma": "all",
+      "semicolons": "asNeeded",
+      "arrowParentheses": "always",
+      "bracketSpacing": true,
+      "bracketSameLine": false,
+      "quoteStyle": "single",
+      "attributePosition": "auto"
+    }
+  },
+  "overrides": [
+    {
+      "include": [
+        "*.json"
+      ],
+      "formatter": {
+        "indentWidth": 2
+      }
+    }
+  ]
 }
 ```
 
@@ -187,7 +233,8 @@ biome lint --reporter=json-pretty .
 
 For now, we support two report formats: `json` and `json-pretty`.
 
-Note that the report format is **experimental**, and it might change in the future. Please try this feature and let us know if any information needs to be added to the reports.
+Note that the report format is **experimental
+**, and it might change in the future. Please try this feature and let us know if any information needs to be added to the reports.
 
 ## Check `git` staged files
 
@@ -217,7 +264,7 @@ The new rules are:
 - [nursery/noConstantMathMinMaxClamp](/linter/rules/no-constant-math-min-max-clamp/)
 - [nursery/noDoneCallback](/linter/rules/no-done-callback/)
 - [nursery/noDuplicateElseIf](/linter/rules/no-duplicate-else-if/)
-- [nursery/noEvolvingAny](/linter/rules/no-evolving-any/)
+- [nursery/noEvolvingTypes](/linter/rules/no-evolving-types/)
 - [nursery/noFlatMapIdentity](/linter/rules/no-flat-map-identity/)
 - [nursery/noMisplacedAssertion](/linter/rules/no-misplaced-assertion/)
 
@@ -240,7 +287,10 @@ Once stable, a nursery rule is promoted to a stable group. The following rules a
 
 ## Miscellaneous
 
-- By default, Biome searches a configuration file in the working directory and parent directories if it doesn't exist. Biome provides a CLI option `--config-path` and an environment variable `BIOME_CONFIG_PATH` that allows which can be used to override this behavior. Previously, they required a directory containing a Biome configuration file. For example, the following command uses the Biome configuration file in `./config/`.
+- By default, Biome searches a configuration file in the working directory and parent directories if it doesn't exist. Biome provides a CLI option
+  `--config-path` and an environment variable
+  `BIOME_CONFIG_PATH` that allows which can be used to override this behavior. Previously, they required a directory containing a Biome configuration file. For example, the following command uses the Biome configuration file in
+  `./config/`.
 
   ```shell
   biome format --config-path=./config/ ./src
@@ -252,11 +302,14 @@ Once stable, a nursery rule is promoted to a stable group. The following rules a
   biome format --config-path=./config/biome.json ./src
   ```
 
-- You can now ignore `React` imports in the rules [noUnusedImports](/linter/rules/no-unused-imports/#options) and [useImportType](/linter/rules/use-import-type/#options) by setting [`javascript.jsxRuntime`](/reference/configuration/#javascriptjsxruntime) to `reactClassic`.
+- You can now ignore
+  `React` imports in the rules [noUnusedImports](/linter/rules/no-unused-imports/#options) and [useImportType](/linter/rules/use-import-type/#options) by setting [
+  `javascript.jsxRuntime`](/reference/configuration/#javascriptjsxruntime) to `reactClassic`.
 
 - Biome applies specific settings to [well-known files](/guides/configure-biome/#well-known-files). It now recognizes more files and distinguishes between JSON files that only allow comments and JSON files that allow both comments and trailing commas.
 
-- In the React ecosystem, files ending in `.js` are allowed to contain JSX syntax. The Biome extension is now able to parse JSX syntax in files that are associated with the JavaScript language identifier.
+- In the React ecosystem, files ending in
+  `.js` are allowed to contain JSX syntax. The Biome extension is now able to parse JSX syntax in files that are associated with the JavaScript language identifier.
 
 - [useExhaustiveDependencies](/linter/rules/use-exhaustive-dependencies/) now supports Preact.
 

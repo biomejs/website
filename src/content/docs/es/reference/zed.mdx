@@ -1,0 +1,95 @@
+---
+title: Extensión Zed
+description: Notas sobre la extensión Zed de Biome
+---
+
+## Instalación
+
+Requiere Zed >= **v0.131.0**.
+
+Esta extensión está disponible en la vista de extensiones dentro del editor Zed. Abre `zed: extensions` y busca _Biome_.
+
+## Configuración
+
+Por defecto, el archivo biome.json debe estar en la **raíz del espacio de trabajo**.
+
+En caso contrario, puede configurarse a través de los ajustes lsp:
+
+```jsonc
+// settings.json
+{
+  "lsp": {
+    "biome": {
+      "settings": {
+        "config_path": "<path>/biome.json",
+      },
+    },
+  },
+}
+```
+
+### Formateo
+
+Para utilizar el servidor de idiomas como formateador, especifique biome como formateador en la configuración:
+
+```jsonc
+// settings.json
+{
+  "formatter": {
+    "language_server": {
+      "name": "biome",
+    },
+  },
+}
+```
+
+### Habilitar biome sólo cuando biome.json está presente
+
+```jsonc
+// settings.json
+{
+  "lsp": {
+    "biome": {
+      "settings": {
+        "require_config_file": true,
+      },
+    },
+  },
+}
+```
+
+### Configuración basada en proyectos
+
+Si deseas excluir la ejecución de biome en todos los proyectos,
+
+1. Desactiva el servidor de idiomas biome en la configuración de usuario:
+
+```jsonc
+// settings.json
+{
+  "language_servers": ["!biome", "..."],
+}
+```
+
+2. Y habilítalo en la configuración local del proyecto:
+
+```jsonc
+// <workspace>/.zed/settings.json
+{
+  "language_servers": ["biome", "..."],
+}
+```
+
+Lo mismo puede configurarse por idioma con la tecla [`languages`](https://zed.dev/docs/configuring-zed#languages).
+
+### Ejecutar acciones de código en formato:
+
+```jsonc
+// settings.json
+{
+  "code_actions_on_format": {
+    "source.fixAll.biome": true,
+    "source.organizeImports.biome": true,
+  },
+}
+```

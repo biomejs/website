@@ -27,6 +27,7 @@ ul.diagnostics-list {
 	line-height: 30px;
 	font-size: 14px;
 	height: 100%;
+	padding: 0;
 	overflow: auto;
 
 	@mixin dark-mode {
@@ -39,10 +40,17 @@ ul.diagnostics-list {
 		display: flex;
 		white-space: pre;
 
-		img {
+		picture {
 			margin: 7px 10px;
-			width: 16px;
-			height: 16px;
+			display: flex;
+
+			&.icon-info {
+				fill: var(--sl-color-accent);
+			}
+
+			&.icon-error {
+				fill: var(--sl-color-red);
+			}
 		}
 
 		.linecol {

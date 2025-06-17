@@ -1,0 +1,86 @@
+---
+title: Integración Continua
+description: Usando Biome en un entorno de IC
+---
+
+Ejecutar Biome en un entorno CI es fácil. Echa un vistazo a los siguientes ejemplos para inspiración.
+
+## GitHub Actions
+
+Ofrecemos un [GitHub Action](https://github.com/marketplace/actions/setup-biome) para configurar Biome en tu ambiente de ejecución.
+Aqui está como podría ser un flujo de trabajo sencillo:
+
+```yaml title="pull_request.yml"
+name: Code quality
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Biome
+        uses: biomejs/setup-biome@v2
+        with:
+          version: latest
+      - name: Run Biome
+        run: biome ci .
+```
+
+### Acciones de terceros
+
+Estas son las acciones mantenidas por otras comunidades, que tú utilizas en tu corredor:
+
+- [reviewdog-action-biome](https://github.com/marketplace/actions/run-biome-with-reviewdog): ejecuta Biome con reviewdog y haz comentarios y sugerencias sobre el pull request.
+
+```yaml title="pull_request.yml"
+name: reviewdog
+on: [pull_request]
+jobs:
+  biome:
+    name: runner / Biome
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: mongolyy/reviewdog-action-biome@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
+```
+
+## GitLab CI
+
+A continuación se muestra un ejemplo de configuración:
+
+```yaml title=".gitlab-ci.yml"
+# Define las etapas del proceso
+stages:
+  - quality
+
+# Configuración del trabajo de Lint: comprueba la calidad del código con Biome
+lint:
+  image:
+    name: ghcr.io/biomejs/biome:latest # Utiliza la última imagen Docker de Biome
+    entrypoint: [""] # Esto es necesario para que la imagen funcione en  GitLab CI
+  stage: quality # Ejecuta en la fase de calidad
+  script:
+    - biome ci --reporter=gitlab --colors=off > /tmp/code-quality.json
+    - cp /tmp/code-quality.json code-quality.json
+  artifacts:
+    paths:
+      - code-quality.json # Recoge el informe de calidad del código como un artefac
+  rules:
+    - if: $CI_COMMIT_BRANCH # Ejecuta el trabajo para commits en branches
+    - if: $CI_MERGE_REQUEST_ID # Ejecuta trabajo para solicitudes de fusión
+```
+
+:::note
+Si el código fuente de tu proyecto se encuentra en otro directorio, sustituye `src` por la ruta de ese directorio en el comando.
+:::

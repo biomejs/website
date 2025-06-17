@@ -3,7 +3,6 @@
   "repository": {
     "name": "biomejs/website",
     "branch": "main",
-    "rootDir": "src/content/docs",
     "hosting": "github"
   },
   "dashboard": {
@@ -37,6 +36,10 @@
     "lang": "en"
   },
   "locales": [
+    {
+      "label": "Español",
+      "lang": "es"
+    },
     {
       "label": "Français",
       "lang": "fr"

@@ -5,10 +5,10 @@ import lunaria from "@lunariajs/starlight";
 import { defineConfig } from "astro/config";
 import rehypeSlug from "rehype-slug";
 import starlightBlog from "starlight-blog";
+import starlightLinksValidator from "starlight-links-validator";
 import { searchForWorkspaceRoot } from "vite";
 import { version as biomeVersion } from "./node_modules/@biomejs/wasm-web/package.json";
 import { version as prettierVersion } from "./node_modules/prettier/package.json";
-import { rehypeAutolink } from "./plugins/rehype-autolink";
 
 const plugins = [
 	starlightBlog({
@@ -38,6 +38,11 @@ const plugins = [
 				picture: "https://avatars.githubusercontent.com/u/602478?v=4",
 				url: "https://bsky.app/profile/ematipico.xyz",
 			},
+			nhedger: {
+				name: "Nicolas Hedger",
+				picture: "https://github.com/nhedger.png",
+				url: "https://bsky.app/profile/hedger.ch",
+			},
 			team: {
 				name: "Biome Core Team, Biome Maintainers",
 				picture: "/img/logo-avatar.png",
@@ -47,6 +52,20 @@ const plugins = [
 				picture: "/img/logo-avatar.png",
 			},
 		},
+	}),
+	starlightLinksValidator({
+		// TODO: enable once `next` is merged into `main`
+		errorOnInvalidHashes: false,
+		exclude: [
+			"/playground",
+			"/playground**",
+			"/playground/**",
+			"/linter/rules/",
+			"/linter/rules/**/*",
+			"/linter/rule-sources/",
+			"/reference/cli/",
+			"/blog/**/*",
+		],
 	}),
 ];
 
@@ -69,10 +88,15 @@ export default defineConfig({
 			title: "Biome",
 			defaultLocale: "root",
 			plugins,
+			routeMiddleware: "./src/routeData.ts",
 			locales: {
 				root: {
 					label: "English",
 					lang: "en",
+				},
+				es: {
+					label: "Español",
+					lang: "es",
 				},
 				fr: {
 					label: "Français",
@@ -97,26 +121,9 @@ export default defineConfig({
 			},
 			sidebar: [
 				{
-					label: "Playground",
-					link: "../playground",
-					translations: {
-						fr: "Bac à sable",
-						ja: "プレイグラウンド",
-						"zh-CN": "演练场",
-						"pt-BR": "Ambiente de testes",
-						uk: "Пісочниця",
-					},
-				},
-				{
-					label: "Enterprise",
-					link: "../enterprise",
-					translations: {
-						uk: "Підтримка",
-					},
-				},
-				{
 					label: "Guides",
 					translations: {
+						es: "Guías",
 						ja: "ガイド",
 						"zh-CN": "指南",
 						"pt-BR": "Guias",
@@ -127,6 +134,7 @@ export default defineConfig({
 							label: "Getting Started",
 							link: "/guides/getting-started",
 							translations: {
+								es: "Primeros pasos",
 								fr: "Démarrage",
 								ja: "はじめる",
 								"zh-CN": "入门",
@@ -138,6 +146,7 @@ export default defineConfig({
 							label: "Manual installation",
 							link: "/guides/manual-installation",
 							translations: {
+								es: "Instalación manual",
 								fr: "Installation manuelle",
 								ja: "手動インストール",
 								"zh-CN": "手动安装",
@@ -149,6 +158,7 @@ export default defineConfig({
 							label: "Configure Biome",
 							link: "/guides/configure-biome",
 							translations: {
+								es: "Configurar Biome",
 								fr: "Configurer Biome",
 								ja: "Biome の設定",
 								"zh-CN": "配置 Biome",
@@ -160,6 +170,7 @@ export default defineConfig({
 							label: "Use Biome in big projects",
 							link: "/guides/big-projects",
 							translations: {
+								es: "Usar Biome en proyectos grandes",
 								fr: "Utiliser Biome dans de gros projets",
 								ja: "大きなプロジェクトでのBiomeの使用方法",
 								"zh-CN": "大型项目中使用 Biome",
@@ -170,6 +181,7 @@ export default defineConfig({
 						{
 							label: "Biome in your IDE",
 							translations: {
+								es: "Biome en tu IDE",
 								fr: "Biome dans votre IDE",
 								ja: "Biome をあなたのエディタに導入する",
 								"zh-CN": "编辑器中使用 Biome",
@@ -181,6 +193,7 @@ export default defineConfig({
 									label: "First-party extensions",
 									link: "/guides/editors/first-party-extensions",
 									translations: {
+										es: "Extensiones de primera mano",
 										fr: "Extensions officielles",
 										ja: "Biome 公式拡張機能",
 										"zh-CN": "官方扩展",
@@ -191,6 +204,7 @@ export default defineConfig({
 									label: "Third-party extensions",
 									link: "/guides/editors/third-party-extensions",
 									translations: {
+										es: "Extensiones de terceros",
 										fr: "Extensions tierces",
 										ja: "サードパーティの拡張機能",
 										"zh-CN": "第三方扩展",
@@ -201,6 +215,7 @@ export default defineConfig({
 									label: "Integrate Biome in an editor extension",
 									link: "/guides/editors/create-a-extension",
 									translations: {
+										es: "Integrar Biome en una extensión para un editor",
 										fr: "Intégrer Biome à une extension pour un éditeur",
 										ja: "エディタ拡張機能への Biome の統合",
 										"zh-CN": "在编辑器扩展中集成 Biome",
@@ -213,6 +228,7 @@ export default defineConfig({
 							label: "Integrate Biome with your VCS",
 							link: "/guides/integrate-in-vcs",
 							translations: {
+								es: "Integrar Biome con tu VCS",
 								fr: "Intégrer Biome à votre VCS",
 								ja: "Biome をあなたの VCS と統合する",
 								"zh-CN": "与版本控制系统集成",
@@ -224,6 +240,7 @@ export default defineConfig({
 							label: "Migrate from ESLint & Prettier",
 							link: "/guides/migrate-eslint-prettier",
 							translations: {
+								es: "Migrar de ESLint & Prettier",
 								fr: "Migrer depuis ESLint & Prettier",
 								ja: "ESLintとPrettierからの移行",
 								uk: "Міграція з ESLint & Prettier",
@@ -234,6 +251,7 @@ export default defineConfig({
 				{
 					label: "Tools",
 					translations: {
+						es: "Herramientas",
 						fr: "Outils",
 						ja: "ツール",
 						"zh-CN": "工具",
@@ -248,6 +266,7 @@ export default defineConfig({
 									label: "Introduction",
 									link: "/analyzer",
 									translations: {
+										es: "Introducción",
 										ja: "イントロダクション",
 										"zh-CN": "介绍",
 										"pt-BR": "Introdução",
@@ -258,6 +277,7 @@ export default defineConfig({
 									label: "Import Sorting",
 									link: "/analyzer/import-sorting",
 									translations: {
+										es: "Ordenación de importaciones",
 										fr: "Tri des imports",
 										ja: "Import文のソート",
 										"zh-CN": "导入排序",
@@ -267,6 +287,7 @@ export default defineConfig({
 								},
 							],
 							translations: {
+								es: "Analizador",
 								fr: "Analyseur",
 								ja: "Analyzer",
 								"zh-CN": "分析器",
@@ -281,6 +302,7 @@ export default defineConfig({
 									label: "Introduction",
 									link: "/formatter",
 									translations: {
+										es: "Introducción",
 										ja: "イントロダクション",
 										"zh-CN": "介绍",
 										"pt-BR": "Introdução",
@@ -291,6 +313,7 @@ export default defineConfig({
 									label: "Differences with Prettier",
 									link: "/formatter/differences-with-prettier",
 									translations: {
+										es: "Diferencias con Prettier",
 										fr: "Différences par rapport à Prettier",
 										ja: "Prettier との違い",
 										"zh-CN": "与 Prettier 的区别",
@@ -302,6 +325,7 @@ export default defineConfig({
 									label: "Formatter Option Philosophy",
 									link: "/formatter/option-philosophy",
 									translations: {
+										es: "Filosofía de opciones de formato",
 										fr: "Philosophie d’option de formatage",
 										ja: "Formatterオプションに対する考え方",
 										"zh-CN": "格式化配置理念",
@@ -311,6 +335,7 @@ export default defineConfig({
 								},
 							],
 							translations: {
+								es: "Formateador",
 								fr: "Outil de formatage",
 								"zh-CN": "格式化程序",
 								"pt-BR": "Formatador",
@@ -324,6 +349,7 @@ export default defineConfig({
 									label: "Introduction",
 									link: "/linter",
 									translations: {
+										es: "Introducción",
 										ja: "イントロダクション",
 										"zh-CN": "介绍",
 										"pt-BR": "Introdução",
@@ -334,6 +360,7 @@ export default defineConfig({
 									label: "Rules",
 									link: "/linter/rules",
 									translations: {
+										es: "Reglas",
 										fr: "Règles",
 										ja: "ルール",
 										"zh-CN": "规则",
@@ -345,6 +372,7 @@ export default defineConfig({
 									label: "Rules sources",
 									link: "/linter/rules-sources",
 									translations: {
+										es: "Fuentes de reglas",
 										fr: "Sources des règles",
 									},
 								},
@@ -367,6 +395,7 @@ export default defineConfig({
 				{
 					label: "Reference",
 					translations: {
+						es: "Referencia",
 						fr: "Références",
 						ja: "リファレンス",
 						"zh-CN": "参考",
@@ -382,11 +411,15 @@ export default defineConfig({
 							label: "Diagnostics",
 							link: "/reference/diagnostics",
 							badge: "new",
+							translations: {
+								es: "Diagnósticos",
+							},
 						},
 						{
 							label: "Environment variables",
 							link: "/reference/environment-variables",
 							translations: {
+								es: "Variables de entorno",
 								fr: "Variables d’environnement",
 								uk: "Змінні середовища",
 							},
@@ -395,6 +428,7 @@ export default defineConfig({
 							label: "Reporters",
 							link: "/reference/reporters",
 							translations: {
+								es: "Generador de informes",
 								fr: "Outils de reporting",
 								uk: "Звіти",
 							},
@@ -403,6 +437,7 @@ export default defineConfig({
 							label: "Configuration",
 							link: "/reference/configuration",
 							translations: {
+								es: "Configuración",
 								ja: "設定",
 								"zh-CN": "配置",
 								"pt-BR": "Configuração",
@@ -413,8 +448,9 @@ export default defineConfig({
 							label: "VSCode extension",
 							link: "/reference/vscode",
 							translations: {
+								es: "Extensión para VSCode",
 								fr: "Extension pour VSCode",
-								ja: "VSCode拡張機能",
+								ja: "VS Code拡張機能",
 								"zh-CN": "VSCode 扩展",
 								"pt-BR": "Extensão do VSCode",
 								uk: "Розширення VSCode",
@@ -425,6 +461,7 @@ export default defineConfig({
 							link: "/reference/zed",
 							badge: "new",
 							translations: {
+								es: "Extensión para Zed",
 								fr: "Extension pour Zed",
 								ja: "Zed拡張機能",
 								"zh-CN": "Zed 扩展",
@@ -441,6 +478,7 @@ export default defineConfig({
 				{
 					label: "Recipes",
 					translations: {
+						es: "Recetas",
 						fr: "Recettes",
 						ja: "レシピ",
 						"zh-CN": "实例",
@@ -452,6 +490,7 @@ export default defineConfig({
 							label: "Continuous Integration",
 							link: "/recipes/continuous-integration",
 							translations: {
+								es: "Integración continua",
 								fr: "Intégration continue",
 								ja: "継続的インテグレーション",
 								"zh-CN": "持续集成",
@@ -474,6 +513,7 @@ export default defineConfig({
 							label: "Social Badges",
 							link: "/recipes/badges",
 							translations: {
+								es: "Insignias sociales",
 								fr: "Badges sociaux",
 								ja: "ソーシャルバッジ",
 								uk: "Соціальні значки",
@@ -484,6 +524,7 @@ export default defineConfig({
 				{
 					label: "Internals",
 					translations: {
+						es: "Aspectos internos",
 						fr: "Aspects internes",
 						ja: "内部原理",
 						"zh-CN": "内部原理",
@@ -495,6 +536,7 @@ export default defineConfig({
 							label: "Philosophy",
 							link: "/internals/philosophy",
 							translations: {
+								es: "Filosofía",
 								fr: "Philosophie",
 								ja: "理念",
 								"zh-CN": "理念",
@@ -506,6 +548,7 @@ export default defineConfig({
 							label: "Language support",
 							link: "/internals/language-support",
 							translations: {
+								es: "Soporte de lenguas",
 								fr: "Langages pris en charge",
 								ja: "言語サポート",
 								"zh-CN": "语言支持",
@@ -517,6 +560,7 @@ export default defineConfig({
 							label: "Architecture",
 							link: "/internals/architecture",
 							translations: {
+								es: "Arquitectura",
 								ja: "アーキテクチャ",
 								"zh-CN": "架构",
 								"pt-BR": "Arquitetura",
@@ -527,6 +571,7 @@ export default defineConfig({
 							label: "Credits",
 							link: "/internals/credits",
 							translations: {
+								es: "Créditos",
 								fr: "Crédits",
 								ja: "クレジット",
 								"zh-CN": "鸣谢",
@@ -538,6 +583,7 @@ export default defineConfig({
 							label: "Versioning",
 							link: "/internals/versioning",
 							translations: {
+								es: "Versionado",
 								fr: "Versionnage",
 								ja: "バージョニング",
 								"zh-CN": "版本控制",
@@ -549,6 +595,7 @@ export default defineConfig({
 							label: "Changelog",
 							link: "/internals/changelog",
 							translations: {
+								es: "Registro de cambios",
 								"zh-CN": "更新日志",
 								"pt-BR": "Alterações",
 								uk: "Журнал змін",
@@ -567,21 +614,44 @@ export default defineConfig({
 				// Relative path to your custom CSS file
 				"./src/styles/index.css",
 			],
-			social: {
-				discord: "https://biomejs.dev/chat",
-				github: "https://github.com/biomejs/biome",
-				mastodon: "https://fosstodon.org/@biomejs",
-				openCollective: "https://opencollective.com/biome",
-				youtube: "https://youtube.com/@Biomejs",
-				blueSky: "https://bsky.app/profile/biomejs.dev",
-			},
+			social: [
+				{
+					icon: "discord",
+					label: "Discord",
+					href: "https://biomejs.dev/chat",
+				},
+				{
+					icon: "github",
+					label: "GitHub",
+					href: "https://github.com/biomejs/biome",
+				},
+				{
+					icon: "mastodon",
+					label: "Mastodon",
+					href: "https://fosstodon.org/@biomejs",
+				},
+				{
+					icon: "openCollective",
+					label: "Open Collective",
+					href: "https://opencollective.com/biome",
+				},
+				{
+					icon: "youtube",
+					label: "YouTube",
+					href: "https://youtube.com/@Biomejs",
+				},
+				{
+					icon: "blueSky",
+					label: "BlueSky",
+					href: "https://bsky.app/profile/biomejs.dev",
+				},
+			],
 			editLink: {
 				baseUrl: "https://github.com/biomejs/website/edit/main/",
 			},
 			components: {
 				SiteTitle: "./src/components/starlight/SiteTitle.astro",
 				Hero: "./src/components/starlight/Hero.astro",
-				Head: "./src/components/starlight/Head.astro",
 				LanguageSelect: "./src/components/starlight/LanguageSelect.astro",
 				Footer: "./src/components/starlight/Footer.astro",
 			},
@@ -594,7 +664,7 @@ export default defineConfig({
 
 	markdown: {
 		syntaxHighlight: "shiki",
-		rehypePlugins: [rehypeSlug, ...rehypeAutolink()],
+		rehypePlugins: [rehypeSlug],
 		shikiConfig: {
 			langAlias: {
 				cjs: "javascript",

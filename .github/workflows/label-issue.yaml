@@ -2,7 +2,7 @@ name: Label issues
 
 on:
   issues:
-    types: [opened, reopened, edited]
+    types: [ opened, reopened, edited ]
 
 permissions:
   issues: write
@@ -11,7 +11,7 @@ permissions:
 jobs:
   label-issues:
     name: Label issue
-    runs-on: ubuntu-latest
+    runs-on: depot-ubuntu-24.04-arm-16
     steps:
       - name: Label documentation issues
         uses: github/issue-labeler@411dd122ee7386163194b2a61132422e54ec0d99

@@ -1,0 +1,79 @@
+---
+title: Integrar Biome con tu VCS
+description: Descubre cómo integrar Biome con VCS
+---
+
+La integración del VCS (Sistema de Control de Versiones) está pensada para aprovechar las **características adicionales** que sólo un VCS puede proporcionar.
+Por el momento, Biome sólo soporta Git.
+La integración es **opt-in**.
+Tienes que activar `vcs.enabled` y establecer `vcs.clientKind` en el archivo de configuración de Biome:
+
+```json title="biome.json"
+{
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git"
+  }
+}
+```
+
+Esta configuración no hace **nada en sí**. Es necesario optar por las características que deseas.
+
+### Utiliza el archivo de ignorar
+
+Activa `vcs.useIgnoreFile`, para permitir que Biome ignore todos los archivos y directorios listados en tu archivo de ignorar VCS.
+Por ahora, Biome sólo **tiene en cuenta el archivo ignore del directorio de trabajo**.
+
+```json title="biome.json" ins={5}
+{
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  }
+}
+```
+
+### Procesa sólo el archivo modificado
+
+Esta función sólo está disponible a través de la CLI, y permite procesar **sólo** los archivos que han **cambiado** de una revisión a otra.
+
+En primer lugar, tienes que actualizar tu archivo de configuración y decirle a Biome cuál es la rama por defecto a través del campo `vcs.defaultBranch`:
+
+```json title="biome.json" ins={6}
+{
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true,
+    "defaultBranch": "main"
+  }
+}
+```
+
+A continuación, añade la opción `--changed` a tu comando, para procesar sólo aquellos archivos que tu VCS reconozca como "cambiados". Biome, con la ayuda del VCS, determinará el archivo cambiado a partir de la rama `main` y su revisión actual:
+
+```shell
+biome check --changed
+```
+
+:::caution
+Biome no comprueba lo que ha cambiado, esto significa que incluso añadiendo espacios o nuevas líneas a un archivo, marcará este archivo como "cambiado"
+:::
+
+Alternativamente, puede utilizar la opción `--since` para especificar una rama arbitraria. Esta opción **tiene precedencia** sobre la opción `vcs.defaultBranch`. Por ejemplo, puedes querer comprobar tus cambios en la rama `next`:
+
+```shell
+biome check --changed --since=next
+```
+
+### Procesa sólo el archivo por etapas
+
+Antes de confirmar los cambios, puedes comprobar los archivos de formato y lints que se han añadido al _index_, también conocidos como _staged files_.
+Añade la opción `--staged` a tu comando, para procesar sólo aquellos archivos:
+
+```shell
+biome check --staged
+```
+
+La opción `--staged` no está disponible en el comando `ci` porque no se espera que se confirmen los cambios en un entorno CI.

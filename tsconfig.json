@@ -9,5 +9,5 @@
     }
   },
   "extends": "astro/tsconfigs/strictest",
-  "include": ["./src"]
+  "include": ["./src", "./astro.config.ts"]
 }

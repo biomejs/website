@@ -46,6 +46,8 @@
 	overflow-y: hidden;
 	font-size: 14px;
 	background-color: var(--sl-color-bg-nav);
+	padding: 0;
+	list-style: none;
 
 	li {
 		padding: 0 10px;

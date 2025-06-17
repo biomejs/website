@@ -1,0 +1,119 @@
+---
+title: GritQL
+description: Uso básico de GritQL en Biome
+---
+
+GritQL es un lenguaje de consulta para realizar búsquedas estructurales en el código fuente.
+Esto significa que las trivialidades como los espacios en blanco o incluso el tipo de comillas utilizadas en las cadena de caracteres
+se ignorarán en la búsqueda. Además, ofrece muchas
+funciones que te permiten consultar la estructura sintáctica como fragmentos, concordancia,
+anidamiento y variables.
+
+GritQL es [código abierto](https://github.com/getgrit/gritql/) y creado por [Grit.io](https://grit.io/).
+
+Biome utiliza GritQL con dos fines:
+
+- Los [Plugins del Analizador](/linter/plugins).
+- El [`biome search`](/reference/cli/#biome-search) comando, que esperamos extender
+  a nuestras extensiones IDE.
+
+## Patrones
+
+Las consultas GritQL funcionan a través de _patrones_. El patrón más común que verás es
+el fragmento de código, que parece un código fuente normal envuelto en barras invertidas:
+
+```grit
+`console.log('Hello, world!')`
+```
+
+Este patrón coincidirá con cualquier llamada a `console.log()` a la que se le pase la cadena de caracteres
+`'Hello, world!'`. Pero como GritQL hace coincidencias _estructurales_, no
+se preocupa por los detalles de formato. Esto también coincide:
+
+```js
+console.log("Hello, world!");
+```
+
+Y esto también ( nota el cambio en las comillas):
+
+```js
+console.log("Hello, world!");
+```
+
+:::note
+La mayoría de los shells interpretan los backticks como invocaciones de comandos, lo que entra en conflicto con
+fragmentos de código de GritQL's. Por eso, cuando se utiliza el comando `biome search`, es mejor
+poner _comillas simples_ alrededor de las consultas Grit:
+
+```shell
+biome search '`console.log($message)`' # encuentra todas las invocaciones `console.log`
+```
+
+:::
+
+## Variables
+
+Las consultas GritQL también pueden tener _variables_. Lo siguiente coincidirá con cualquier llamada a
+`console.log()` independientemente del mensaje pasado:
+
+```grit
+`console.log($message)`
+```
+
+Esto también coincidirá con cualquiera de los métodos del objeto `console`:
+
+```grit
+`console.$method($message)`
+```
+
+El mismo nombre de variable puede aparecer varias veces en un mismo fragmento:
+
+```grit
+`$fn && $fn()`
+```
+
+Esto coincidirá con `foo && foo()`, e incluso con `foo.bar && foo.bar()`, pero no con
+`foo && bar()`.
+
+## Condiciones
+
+Puedes añadir condiciones a los patrones utilizando el operador `where`. Este operador es
+comúnmente utilizado junto con el operador _match_, `<:`:
+
+```grit
+`console.$method($message)` where {
+    $method <: `log`
+}
+```
+
+Esta consulta es idéntica al patrón `console.log($mensaje)` que vimos anteriormente,
+pero se vuelve rápidamente más interesante cuando añadimos otros operadores a la mezcla:
+
+```grit
+`console.$method($message)` where {
+    $method <: or { `log`, `info`, `warn`, `error` }
+}
+```
+
+## Documentación de lenguaje
+
+Para más información sobre GritQL y su sintaxis, consulta la página oficial de
+[Documentación del lenguaje GritQL](https://docs.grit.io/language/overview).
+
+Ten en cuenta que Biome no es compatible con todas las funciones de Grit (todavía).
+
+## Estado de la integración
+
+Se está trabajando activamente en el soporte de GritQL en Biome. Muchas cosas ya funcionan,
+pero aún se esperan errores y faltan algunas características.
+
+Para obtener una descripción detallada de las funciones de GritQL que son compatibles y
+las que aún están en curso, consulta el tema de GitHub: GitHub issue:
+https://github.com/biomejs/biome/issues/2582.
+
+También disponemos de una RFC detallada que orienta nuestros esfuerzos en materia de plugins:
+https://github.com/biomejs/biome/discussions/1762
+
+**tl;dr**: Estamos trabajando en el soporte de plugins, que pueden ser tanto puros GritQL
+o plugins JS/TS que usan GritQL para seleccionar el código sobre el que desean operar.
+operar. Permanece atento.

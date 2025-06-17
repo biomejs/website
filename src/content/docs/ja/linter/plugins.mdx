@@ -27,7 +27,7 @@ GritQLスニペットはプロジェクト内のどこにでも配置できま�
 
 ```json name="biome.json"
 {
-    "plugins": ["./path-to-plugin.grit"]
+  "plugins": ["./path-to-plugin.grit"]
 }
 ```
 
@@ -84,5 +84,5 @@ Biomeは現在、追加の関数を1つサポートしています：
 
 - `span`（必須）: 診断をアタッチするシンタックスノード。これは通常、コードスニペットの中でマッチした変数です。
 - `message`（必須）: 診断とともに表示するメッセージ。
-- `severity`: 診断の重大度。許容される値は `hint`、`information`、`warning`、`error` です。
+- `severity`: 診断の重大度。許容される値は `hint`、`info`、`warn`、`error` です。
   デフォルトでは、 `error` が使われます。
