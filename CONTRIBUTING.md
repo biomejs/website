@@ -29,6 +29,13 @@ Run the following command to prompt with the list of commands available:
 pnpm codegen
 ```
 
+The easiest is to run all codegen, don't forget to set the `BIOME_VERSION`
+environment variable:
+
+```shell
+BIOME_VERSION=2.0.0 pnpm codegen all
+```
+
 ## Internationalisation
 
 We welcome any kind contribution that could help translating Biome documentation, and reach out more developers!
