@@ -1713,7 +1713,7 @@ export function GET() {
           },
           "useConsistentResponse": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.0.0",
             "name": "useConsistentResponse",
             "link": "https://biomejs.dev/linter/rules/use-consistent-response",
             "recommended": false,
