@@ -85,6 +85,7 @@ tableOfContents:
     let changelog_source_content = fs::read_to_string(changelog_source_path)?;
     let changelog_target_content = format!("{CHANGELOG_FRONTMATTER}{changelog_source_content}");
 
+    println!("Generated changelog {}", changelog_target_path.display());
     fs::write(changelog_target_path, changelog_target_content)?;
 
     Ok(())
