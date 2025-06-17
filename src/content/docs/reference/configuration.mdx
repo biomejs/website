@@ -77,7 +77,9 @@ all files and subfolders in a folder. For more information on globs, see the
 
 `includes` also supports negated patterns, or exceptions. These are patterns
 that start with `!` and they can be used to instruct Biome to process all files
-_except_ those matching the negated pattern.
+_except_ those matching the negated pattern. When using a negated pattern, you
+should always specify `**` first to match all files and folders, otherwise
+the negated pattern will not match any files.
 
 Note that exceptions are processed in order, allowing you to specify exceptions
 to exceptions.
