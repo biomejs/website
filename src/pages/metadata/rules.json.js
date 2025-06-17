@@ -1610,7 +1610,7 @@ export function GET() {
                 "eslint": "no-shadow"
               }
             ],
-            "docs": " Disallow variable declarations from shadowing variables declared in the outer scope.\n\n Shadowing is the process by which a local variable shares the same name as a variable in its containing scope. This can cause confusion while reading the code and make it impossible to access the global variable.\n\n See also: [`noShadowRestrictedNames`](http://biome.dev/linter/rules/no-shadow-restricted-names)\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const foo = \"bar\";\n if (true) {\n    const foo = \"baz\";\n }\n ```\n\n Variable declarations in functions can shadow variables in the outer scope:\n\n ```js,expect_diagnostic\n const foo = \"bar\";\n const bar = function () {\n     const foo = 10;\n }\n ```\n\n Function argument names can shadow variables in the outer scope:\n\n ```js,expect_diagnostic\n const foo = \"bar\";\n function bar(foo) {\n     foo = 10;\n }\n ```\n\n ### Valid\n\n ```js\n const foo = \"bar\";\n if (true) {\n    const qux = \"baz\";\n }\n ```\n\n"
+            "docs": " Disallow variable declarations from shadowing variables declared in the outer scope.\n\n Shadowing is the process by which a local variable shares the same name as a variable in its containing scope. This can cause confusion while reading the code and make it impossible to access the global variable.\n\n See also: [`noShadowRestrictedNames`](http://biomejs.dev/linter/rules/no-shadow-restricted-names)\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const foo = \"bar\";\n if (true) {\n    const foo = \"baz\";\n }\n ```\n\n Variable declarations in functions can shadow variables in the outer scope:\n\n ```js,expect_diagnostic\n const foo = \"bar\";\n const bar = function () {\n     const foo = 10;\n }\n ```\n\n Function argument names can shadow variables in the outer scope:\n\n ```js,expect_diagnostic\n const foo = \"bar\";\n function bar(foo) {\n     foo = 10;\n }\n ```\n\n ### Valid\n\n ```js\n const foo = \"bar\";\n if (true) {\n    const qux = \"baz\";\n }\n ```\n\n"
           },
           "noTsIgnore": {
             "deprecated": false,
@@ -3092,7 +3092,7 @@ export function GET() {
                 "eslint": "no-shadow-restricted-names"
               }
             ],
-            "docs": " Disallow identifiers from shadowing restricted names.\n\n See also: [`noShadow`](http://biome.dev/linter/rules/no-shadow)\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function NaN() {}\n ```\n\n ```js,expect_diagnostic\n let Set;\n ```\n\n ```js,expect_diagnostic\n try {\t} catch(Object) {}\n ```\n\n ```js,expect_diagnostic\n function Array() {}\n ```\n\n ```js,expect_diagnostic\n function test(JSON) {console.log(JSON)}\n ```\n"
+            "docs": " Disallow identifiers from shadowing restricted names.\n\n See also: [`noShadow`](http://biomejs.dev/linter/rules/no-shadow)\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function NaN() {}\n ```\n\n ```js,expect_diagnostic\n let Set;\n ```\n\n ```js,expect_diagnostic\n try {\t} catch(Object) {}\n ```\n\n ```js,expect_diagnostic\n function Array() {}\n ```\n\n ```js,expect_diagnostic\n function test(JSON) {console.log(JSON)}\n ```\n"
           },
           "noSkippedTests": {
             "deprecated": false,
