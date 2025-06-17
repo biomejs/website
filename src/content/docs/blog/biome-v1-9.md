@@ -230,10 +230,10 @@ We added the following new rules:
 
 - [nursery/noCommonJs](https://biomejs.dev/linter/rules/no-common-js/)
 - [nursery/noDuplicateCustomProperties](https://biomejs.dev/linter/rules/no-duplicate-custom-properties/)
-- [nursery/noDynamicNamespaceImportAccess](https://biomejs.dev/linter/no-dynamic-namespace-import-access/)
+- [nursery/noDynamicNamespaceImportAccess](https://biomejs.dev/linter/rules/no-dynamic-namespace-import-access/)
 - [nursery/noEnum](https://biomejs.dev/linter/rules/no-enum/)
 - [nursery/noIrregularWhitespace](https://biomejs.dev/linter/rules/no-irregular-whitespace)
-- [nursery/noRestrictedTypes](https://biomejs.dev/linter/no-restricted-types/)
+- [nursery/noRestrictedTypes](https://biomejs.dev/linter/rules/no-restricted-types/)
 - [nursery/noSecrets](https://biomejs.dev/linter/rules/no-secrets/)
 - [nursery/noUselessEscapeInRegex](https://biomejs.dev/linter/rules/no-useless-escape-in-regex/)
 - [nursery/useConsistentMemberAccessibility](https://biomejs.dev/linter/rules/use-consistent-member-accessibility/)
