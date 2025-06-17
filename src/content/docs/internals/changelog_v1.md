@@ -901,11 +901,11 @@ The following JavaScript rules are promoted:
 
 - Add [nursery/noEnum](https://biomejs.dev/linter/rules/no-enum/). Contributed by @nickfla1
 
-- Add [nursery/noDynamicNamespaceImportAccess](https://biomejs.dev/linter/no-dynamic-namespace-import-access/). Contributed by @minht11
+- Add [nursery/noDynamicNamespaceImportAccess](https://biomejs.dev/linter/rules/no-dynamic-namespace-import-access/). Contributed by @minht11
 
 - Add [nursery/noIrregularWhitespace](https://biomejs.dev/linter/rules/no-irregular-whitespace). Contributed by @michellocana
 
-- Add [nursery/noRestrictedTypes](https://biomejs.dev/linter/no-restricted-types/). Contributed by @minht11
+- Add [nursery/noRestrictedTypes](https://biomejs.dev/linter/rules/no-restricted-types/). Contributed by @minht11
 
 - Add [nursery/noSecrets](https://biomejs.dev/linter/rules/no-secrets/). Contributed by @SaadBazaz
 
@@ -2204,7 +2204,7 @@ z.object({})
 
 #### Bug fixes
 
-- [noDuplicateJsonKeys](https://biomejs.dev/linter/rules/no-duplicate-json-keys/) no longer crashes when a JSON file contains an unterminated string ([#2357](https://github.com/biomejs/biome/issues/2357)). Contributed by @Conaclos
+- [noDuplicateJsonKeys](https://biomejs.dev/linter/rules/no-duplicate-object-keys/) no longer crashes when a JSON file contains an unterminated string ([#2357](https://github.com/biomejs/biome/issues/2357)). Contributed by @Conaclos
 
 - [noRedeclare](https://biomejs.dev/linter/rules/no-redeclare/) now reports redeclarations of parameters in a functions body ([#2394](https://github.com/biomejs/biome/issues/2394)).
 
@@ -3893,7 +3893,7 @@ now captures array index value inside template literals and with string concatin
 
 #### Enhancements
 
-- Add an unsafe code fix for [noConsoleLog](https://biomejs.dev/linter/rules/no-console-log/). Contributed by @vasucp1207
+- Add an unsafe code fix for `noConsoleLog`. Contributed by @vasucp1207
 
 - [useArrowFunction](https://biomejs.dev/linter/rules/use-arrow-function) no longer reports function in `extends`
   clauses or in a `new` expression. Contributed by @Conaclos
@@ -5776,7 +5776,7 @@ New rules are incubated in the nursery group. Once stable, we promote them to a 
   This rule proposes turning function expressions into arrow functions. Function expressions that use
   `this` are ignored.
 
-- Add [noDuplicateJsonKeys](https://biomejs.dev/linter/rules/no-duplicate-json-keys/)
+- Add [noDuplicateJsonKeys](https://biomejs.dev/linter/rules/no-duplicate-object-keys/)
 
   This rule disallow duplicate keys in a JSON object.
 
@@ -5815,7 +5815,7 @@ New rules are promoted, please check [#4750](https://github.com/rome/tools/discu
 - [complexity/useLiteralKeys](https://biomejs.dev/linter/rules/use-literal-keys/)
 - [complexity/useSimpleNumberKeys](https://biomejs.dev/linter/rules/use-simple-number-keys/)
 - [correctness/useIsNan](https://biomejs.dev/linter/rules/use-is-nan/)
-- [suspicious/noConsoleLog](https://biomejs.dev/linter/rules/no-console-log/)
+- [suspicious/noConsoleLog](https://biomejs.dev/linter/rules/no-console/)
 - [suspicious/noDuplicateJsxProps](https://biomejs.dev/linter/rules/no-duplicate-jsx-props/)
 
 The following rules are now recommended:
@@ -5834,7 +5834,7 @@ The following rules are now recommended:
 
 -
 
-Improve [noConsoleLog](https://biomejs.dev/linter/rules/no-console-log/), [noGlobalObjectCalls](https://biomejs.dev/linter/rules/no-global-object-calls/), [useIsNan](https://biomejs.dev/linter/rules/use-is-nan/), and [useNumericLiterals](https://biomejs.dev/linter/rules/use-numeric-literals/) by handling
+Improve [noConsoleLog](https://biomejs.dev/linter/rules/no-console/), [noGlobalObjectCalls](https://biomejs.dev/linter/rules/no-global-object-calls/), [useIsNan](https://biomejs.dev/linter/rules/use-is-nan/), and [useNumericLiterals](https://biomejs.dev/linter/rules/use-numeric-literals/) by handling
 `globalThis` and `window`
 namespaces.
 
