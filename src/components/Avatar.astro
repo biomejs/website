@@ -1,0 +1,49 @@
+---
+import { Image } from "astro:assets";
+import { getEntry } from "astro:content";
+
+interface Props {
+	handle: string;
+}
+
+const { handle } = Astro.props;
+const member = await getEntry("team", handle);
+if (!member) {
+	throw new Error(`The member ${handle} doesn't exist`);
+}
+
+const prefix = member.data.type === "core" ? "Core Contributor" : "Maintainer";
+const url = `https://github.com/${member.data.id}`;
+const imageUrl = `${url}.png?size=25`;
+const alt = `Member @${member.data.id}`;
+---
+
+<span class="avatar">
+	<span>{prefix}</span>
+	<a href={url} title={alt}>
+		<Image src={imageUrl} alt={alt} width="25" height="25" />
+		<span>@{member.data.id}</span>
+	</a>
+</span>
+
+
+<style>
+	.avatar {
+		a {
+			text-decoration: underline;
+			color: inherit;
+			font-weight: bold;
+			line-height: 30px;
+			height: 30px;
+			padding: 0 5px;
+		}
+		img {
+			display: inline-block;
+			border-radius: 50%;
+			margin-right: 5px;
+			vertical-align: middle;
+			width: 25px;
+			height: 25px;
+		}
+	}
+</style>

@@ -1,0 +1,17 @@
+[
+  { "id": "ematipico", "type": "core" },
+  { "id": "arendjr", "type": "core" },
+  { "id": "conaclos", "type": "core" },
+  { "id": "dyc3", "type": "core" },
+  { "id": "siketyan", "type": "core" },
+  { "id": "unvalley", "type": "core" },
+  { "id": "denbezrukov", "type": "core" },
+  { "id": "nhedger", "type": "core" },
+  { "id": "DaniGuardiola", "type": "maintainer" },
+  { "id": "minht11", "type": "maintainer" },
+  { "id": "SuperchupuDev", "type": "maintainer" },
+  { "id": "vohoanglong0107", "type": "maintainer" },
+  { "id": "togami2864", "type": "maintainer" },
+  { "id": "chansuke", "type": "maintainer" },
+  { "id": "fireairforce", "type": "maintainer" }
+]

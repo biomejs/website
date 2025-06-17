@@ -44,14 +44,13 @@ Then, you can add the code of each action. For example, the action [`useSortedKe
 
 ## Enforce assist actions via CLI
 
-By default, the assist actions are enforced when running the `check` or `ci` commands:
+Assist actions can be enforced via CLI via `check` command:
 
 <PackageManagerBiomeCommand command="check" />
 
-In case you don't want to enforce the assist actions, you can use the `--enforce-assist=false` option:
+However, the `check` is meant for running multiple tools at once, so if you want to check only the assist actions, you should run:
 
-<PackageManagerBiomeCommand command="check --enforce-assist=false" />
-
+<PackageManagerBiomeCommand command="check --formatter-enabled=false --linter-enabled=false" />
 
 ## Suppression assist actions
 

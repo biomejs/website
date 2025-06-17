@@ -22,25 +22,28 @@ const plugins = [
 			ja: "ブログ",
 			"zh-CN": "博客",
 		},
+		metrics: {
+			readingTime: true,
+		},
 		authors: {
 			arendjr: {
 				name: "Arend van Beelen jr.",
-				picture: "https://avatars.githubusercontent.com/u/533294?v=4",
+				picture: "https://github.com/arendjr.png",
 				url: "https://arendjr.nl/",
 			},
 			conaclos: {
 				name: "Victorien Elvinger",
-				picture: "https://avatars.githubusercontent.com/u/2358560?s=96&v=4",
+				picture: "https://github.com/conaclos.png",
 				url: "https://bsky.app/profile/conaclos.bsky.social",
 			},
 			dyc3: {
 				name: "Carson McManus",
-				picture: "https://avatars.githubusercontent.com/u/1808807?v=4",
+				picture: "https://github.com/dyc3.png",
 				url: "https://github.com/dyc3",
 			},
 			ema: {
 				name: "Emanuele Stoppa",
-				picture: "https://avatars.githubusercontent.com/u/602478?v=4",
+				picture: "https://github.com/ematipico.png",
 				url: "https://bsky.app/profile/ematipico.xyz",
 			},
 			nhedger: {
@@ -70,6 +73,7 @@ const plugins = [
 			"/linter/rule-sources/",
 			"/reference/cli/",
 			"/blog/**/*",
+			"/enterprise",
 		],
 	}),
 ];
@@ -90,6 +94,7 @@ export default defineConfig({
 	redirects: {
 		...redirects,
 		"/blog/annoucing-biome": "/blog/announcing-biome",
+		"/internals/credits": "/internals/people-and-credits",
 	},
 	integrations: [
 		react(),
@@ -650,8 +655,8 @@ export default defineConfig({
 							},
 						},
 						{
-							label: "Credits",
-							link: "/internals/credits",
+							label: "People and Credits",
+							link: "/internals/people-and-credits",
 							translations: {
 								es: "Créditos",
 								fr: "Crédits",
