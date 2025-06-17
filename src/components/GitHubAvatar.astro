@@ -1,0 +1,23 @@
+---
+import { Image } from "astro:assets";
+
+interface Props {
+	handle: string;
+}
+
+const { handle } = Astro.props;
+
+const url = `https://github.com/${handle}`;
+const image = `https://github.com/${handle}.png?size=200`;
+const alt = `User ${handle}`;
+---
+
+<a href={url}>
+    <Image
+            src={image}
+            alt={alt}
+            width="200"
+            height="200"
+    />
+    <span>@{handle}</span>
+</a>

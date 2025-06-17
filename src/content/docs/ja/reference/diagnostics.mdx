@@ -1,0 +1,135 @@
+---
+title: 診断
+description: Biomeの診断のさまざまな箇所について知る
+---
+import DiagnosticFatal from "@/components/generated/diagnostics/DiagnosticFatal.md";
+import DiagnosticError from "@/components/generated/diagnostics/DiagnosticError.md";
+import DiagnosticWarning from "@/components/generated/diagnostics/DiagnosticWarning.md";
+import DiagnosticInformation from "@/components/generated/diagnostics/DiagnosticInformation.md";
+import DiagnosticVerbose from "@/components/generated/diagnostics/DiagnosticVerbose.md";
+import DiagnosticInternal from "@/components/generated/diagnostics/DiagnosticInternal.md";
+import DiagnosticFixable from "@/components/generated/diagnostics/DiagnosticFixable.md";
+import DiagnosticDeprecated from "@/components/generated/diagnostics/DiagnosticDeprecated.md";
+import DiagnosticCategorySimple from "@/components/generated/diagnostics/DiagnosticCategorySimple.md";
+import DiagnosticCategoryLink from "@/components/generated/diagnostics/DiagnosticCategoryLink.md";
+import DiagnosticLocFile from "@/components/generated/diagnostics/DiagnosticLocFile.md";
+import DiagnosticLocFrame from "@/components/generated/diagnostics/DiagnosticLocFrame.md";
+import DiagnosticLocAll from "@/components/generated/diagnostics/DiagnosticLocAll.md";
+import DiagnosticLocMultiline from "@/components/generated/diagnostics/DiagnosticLocMultiline.md";
+import DiagnosticWithAdvice from "@/components/generated/diagnostics/DiagnosticWithAdvice.md";
+
+Biomeの診断結果には多くの情報が含まれており、通常エラーを理解して修正するために必要なすべての情報を提供します。
+
+診断はエラーだけでなく、構造的な情報、警告、ヒントも提供します。
+
+このページでは診断が含むすべての情報について詳しく説明します。
+診断のさまざまな箇所について知ることで、重要な部分や "秘密" を見つけることに役立ちます。
+
+## 診断の重要度
+
+診断の重要度はCLIに影響します。例えば、エラーの診断はCLIをエラーコードで終了させます。
+
+### 深刻（Fatal）
+
+エラーの診断は赤色のテキストです。深刻な診断は通常、Biomeの内部で予期しないエラーが起きた場合に出力されます。エラーと違って、[fatalタグ](#診断タグ)を持ちます。
+
+<DiagnosticFatal />
+
+### エラー（Error）
+
+エラーの診断は赤色のテキストです。通常、CLIが検知した場合エラーコードを出力するため、エラーを解決するべきです。
+
+<DiagnosticError />
+
+### 警告（Warning）
+
+警告の診断は黄色のテキストです。通常、これらは解決されるべきです。警告はブロッカではなく、CLIの動作を停止させません。
+
+<DiagnosticWarning />
+
+### 情報（Information）
+
+情報の診断は緑色のテキストです。これらは通常有用な情報を提供し、CLIをブロックしません。
+
+<DiagnosticInformation />
+
+## 診断タグ
+
+Tags can be seen as metadata attached to a diagnostic, and they can affect the clients in different ways.
+
+### 詳細（Verbose）
+
+詳細な診断は通常表示されません。CLIでは、`--verbose` オプションでこうした診断を表示できます。
+
+<DiagnosticVerbose />
+
+### 内部（Internal）
+
+内部の診断は内部的なエラーが発生したときに出力されます。これに遭遇した場合は、バグを報告することが推奨されます。
+
+<DiagnosticInternal />
+
+### 修正可能（Fixable）
+
+修正可能な診断は、ユーザによって修正可能な状況について出力されます。これらは通常コードアクションを持つリントの診断に使われます。
+
+<DiagnosticFixable />
+
+### 非推奨（Deprecated）
+
+非推奨なコードを含む場合の診断です。
+
+<DiagnosticDeprecated />
+
+## 診断カテゴリ
+
+カテゴリは診断をグループ化します。以下の例のように、リントのルールが属するカテゴリによってはリンクが付く場合があります。
+
+### シンプルなカテゴリ
+
+この診断は "`check`" カテゴリに属し、`check` コマンドを実行したときに出力されます：
+
+<DiagnosticCategorySimple />
+
+### リンク付きのカテゴリ
+
+この診断は "`lint/a11y/noAccessKey`" カテゴリに属します。リンクはユーザを `noAccessKey` のWebページへ誘導します。
+
+<DiagnosticCategoryLink />
+
+## 診断の場所
+
+診断は "場所" を持つことがあります。場所は3つの任意な部分からなります：
+- 診断が出力された元のリソース
+- ファイルのソースコード
+- スパン（またはテキストの範囲）。通常、ファイル内の**行**と**列**です。
+
+### 診断のファイルパス
+
+ファイルパスは通常、最初に目に入る情報で、診断の左上にあります。
+
+<DiagnosticLocFile />
+
+### 診断のソースコード
+
+これはソースコードがどのようにファイルに紐づけられるかを示します。行と列は表示されません。
+
+<DiagnosticLocFrame />
+
+### 診断の行と列
+
+**行**と**列**は通常、ソースコードが紐づいている場合にファイルパスと一緒に表示されます。
+
+<DiagnosticLocAll />
+
+診断がIDEのターミナルの中で表示される場合、`path/to/file.js:2:2` をクリックするとIDEが関連するファイルを開き、カーソルをスパンの始点に移動します。
+
+<DiagnosticLocMultiline />
+
+## 診断のアドバイス
+
+加えて、診断はアドバイスを持つこともあります。アドバイスは元のメッセージの後に付加される追加のメッセージです。
+
+アドバイスにはさまざまな種類と形式があります。通常、アドバイスは _詳細なアドバイス_ でない限りは常に表示されます。
+
+<DiagnosticWithAdvice />

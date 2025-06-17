@@ -1,11 +1,12 @@
 {
   "name": "@biomejs/website",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "astro dev",
     "format": "pnpm biome format --write",
     "check": "pnpm biome check --write",
-    "tsc": "tsc --skipLibCheck",
+    "tsc": "astro sync && astro check",
     "build": "astro build",
     "build:no-og": "SKIP_OG=true astro build",
     "preview": "astro preview",
@@ -17,18 +18,21 @@
     "codegen:metadata": "pnpm codegen metadata",
     "codegen:env": "pnpm codegen env",
     "codegen:diagnostics": "pnpm codegen diagnostics",
+    "codegen:redirects": "pnpm codegen redirects",
     "codegen:all": "pnpm codegen all",
     "lunaria:build": "lunaria build",
     "lunaria:preview": "lunaria preview"
   },
   "devDependencies": {
+    "@astrojs/check": "0.9.4",
+    "@astrojs/mdx": "4.2.1",
     "@astrojs/netlify": "6.3.4",
     "@astrojs/prism": "3.3.0",
     "@astrojs/react": "4.3.0",
     "@astrojs/rss": "4.0.11",
     "@astrojs/starlight": "0.34.4",
     "@biomejs/biome": "1.9.4",
-    "@biomejs/wasm-web": "https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@07775c7",
+    "@biomejs/wasm-web": "https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@2b81d3f",
     "@codemirror/lang-css": "6.3.1",
     "@codemirror/lang-html": "6.4.9",
     "@codemirror/lang-javascript": "6.2.4",
@@ -37,6 +41,7 @@
     "@codemirror/lint": "6.8.5",
     "@codemirror/state": "6.5.2",
     "@codemirror/view": "6.37.2",
+    "@expressive-code/plugin-line-numbers": "0.41.2",
     "@lunariajs/core": "0.1.1",
     "@lunariajs/starlight": "0.1.1",
     "@playwright/test": "1.53.0",
@@ -66,6 +71,7 @@
     "remark-toc": "9.0.0",
     "sharp": "0.34.2",
     "starlight-blog": "0.21.0",
+    "starlight-links-validator": "^0.16.0",
     "textlint": "14.8.4",
     "textlint-rule-preset-jtf-style": "2.3.14",
     "textlint-rule-prh": "6.1.0",
@@ -74,8 +80,13 @@
     "vite-plugin-svgr": "4.3.0"
   },
   "packageManager": "pnpm@10.12.1",
+  "pnpm": {
+    "overrides": {
+      "@biomejs/version-utils": "^0.4.0",
+      "shiki": "3.2.1"
+    }
+  },
   "dependencies": {
-    "@biomejs/version-utils": "^0.4.0",
-    "starlight-links-validator": "^0.16.0"
+    "@biomejs/version-utils": "^0.4.0"
   }
 }

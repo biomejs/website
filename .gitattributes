@@ -1,6 +1,11 @@
 pnpm-lock.yaml linguist-generated=true text=auto eol=lf
 # pages and components that are auto generated
-src/pages/lint/rules/**/*.md linguist-generated=true text=auto eol=lf
+src/pages/lint/rules/use-*.mdx linguist-generated=true text=auto eol=lf
+src/pages/lint/rules/no-*.mdx linguist-generated=true text=auto eol=lf
+src/pages/lint/rules/javascript/*.mdx linguist-generated=true text=auto eol=lf
+src/pages/lint/rules/css/*.mdx linguist-generated=true text=auto eol=lf
+src/pages/lint/rules/graphql/*.mdx linguist-generated=true text=auto eol=lf
+src/pages/lint/rules/json/*.mdx linguist-generated=true text=auto eol=lf
 src/components/generated/**/*.astro linguist-generated=true text=auto eol=lf
 src/pages/metadata/**/*.js linguist-generated=true text=auto eol=lf
 src/pages/schemas/**/*.js linguist-generated=true text=auto eol=lf

@@ -1,6 +1,7 @@
 use crate::lintdoc::RuleToDocument;
 use crate::shared::add_codegen_disclaimer_frontmatter;
 use anyhow::Result;
+use biome_analyze::RuleCategory;
 use biome_string_case::Case;
 use std::cmp::Ordering;
 use std::collections::{BTreeMap, BTreeSet};
@@ -29,16 +30,29 @@ impl PartialOrd for SourceSet {
 
 pub(crate) fn generate_rule_sources(
     rules: BTreeMap<&str, BTreeMap<&'static str, RuleToDocument>>,
+    rule_category: RuleCategory,
 ) -> Result<Vec<u8>> {
     let mut buffer = vec![];
+
+    let name = match rule_category {
+        RuleCategory::Lint => "Rules",
+        RuleCategory::Action => "Actions",
+        _ => unreachable!(""),
+    };
+
+    let name_lower_case = match rule_category {
+        RuleCategory::Lint => "rules",
+        RuleCategory::Action => "actions",
+        _ => unreachable!(""),
+    };
 
     writeln!(buffer, "---")?;
     add_codegen_disclaimer_frontmatter(&mut buffer)?;
     writeln!(
         buffer,
         r#"
-title: Rules sources
-description: A page that maps lint rules from other sources to Biome
+title: {name} sources
+description: A page that maps {name_lower_case} from other sources to Biome
 ---
     "#
     )?;
@@ -50,6 +64,11 @@ description: A page that maps lint rules from other sources to Biome
 
     let mut rules_by_source = BTreeMap::<String, BTreeSet<SourceSet>>::new();
     let mut exclusive_biome_rules = BTreeSet::<(String, String)>::new();
+    let prefix_path = match rule_category {
+        RuleCategory::Lint => "linter/rules",
+        RuleCategory::Action => "assist/actions",
+        _ => unreachable!(""),
+    };
 
     for (rule_name, rule_to_document) in rules {
         for (_, metadata) in rule_to_document.language_to_metadata {
@@ -60,7 +79,7 @@ description: A page that maps lint rules from other sources to Biome
             if metadata.sources.is_empty() {
                 exclusive_biome_rules.insert((
                     rule_name.to_string(),
-                    format!("/linter/rules/{kebab_rule_name}"),
+                    format!("/{prefix_path}/{kebab_rule_name}"),
                 ));
             } else {
                 for source in metadata.sources {
@@ -68,7 +87,7 @@ description: A page that maps lint rules from other sources to Biome
                     if let Some(set) = set {
                         set.insert(SourceSet {
                             biome_rule_name: rule_name.to_string(),
-                            biome_link: format!("/linter/rules/{kebab_rule_name}"),
+                            biome_link: format!("/{prefix_path}/{kebab_rule_name}"),
                             source_link: source.to_rule_url(),
                             source_rule_name: source.as_rule_name().to_string(),
                             inspired: metadata.source_kind.is_some_and(|kind| kind.is_inspired()),
@@ -77,7 +96,7 @@ description: A page that maps lint rules from other sources to Biome
                         let mut set = BTreeSet::new();
                         set.insert(SourceSet {
                             biome_rule_name: rule_name.to_string(),
-                            biome_link: format!("/linter/rules/{kebab_rule_name}"),
+                            biome_link: format!("/{prefix_path}/{kebab_rule_name}"),
                             source_link: source.to_rule_url(),
                             source_rule_name: source.as_rule_name().to_string(),
                             inspired: metadata.source_kind.is_none_or(|kind| kind.is_inspired()),
@@ -89,12 +108,12 @@ description: A page that maps lint rules from other sources to Biome
         }
     }
 
-    writeln!(buffer, "## Biome exclusive rules",)?;
+    writeln!(buffer, "## Biome exclusive {name_lower_case}",)?;
     for (rule, link) in exclusive_biome_rules {
         writeln!(buffer, "- [{rule}]({link}) ")?;
     }
 
-    writeln!(buffer, "## Rules from other sources",)?;
+    writeln!(buffer, "## {name} from other sources",)?;
     writeln!(
         buffer,
         r#":::note
@@ -104,7 +123,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 
     for (source, rules) in rules_by_source {
         writeln!(buffer, "### {source}")?;
-        writeln!(buffer, r#"| {source} rule name | Biome rule name |"#)?;
+        writeln!(buffer, r#"| {source} {name} name | Biome {name} name |"#)?;
         writeln!(buffer, r#"| ---- | ---- |"#)?;
 
         push_to_table(rules, &mut buffer)?;

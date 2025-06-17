@@ -1,6 +1,6 @@
 ---
 title: Roadmap 2025 and Biome 2.0
-summary: "A look at what 2025 will bring for us: Biome 2.0, enterprise support, and our roadmap"
+excerpt: "A look at what 2025 will bring for us: Biome 2.0, enterprise support, and our roadmap"
 authors:
   - arendjr
   - team
@@ -10,6 +10,7 @@ cover:
   dark: "@/assets/blog/roadmap-2024/banner-dark.png"
   alt: "Biome - Toolchain of the web"
 socialImage: "@/assets/social-logo.png"
+featured: true
 ---
 
 Today we're happy to share our plans for Biome 2.0 as well as the rest of our roadmap for 2025. But before we dive into what's coming, let's do a quick recap of the major developments in 2024.

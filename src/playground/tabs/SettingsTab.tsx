@@ -1,29 +1,36 @@
+import EnumSelect from "@/playground/components/EnumSelect";
+import { LINT_RULES } from "@/playground/generated/lintRules.ts";
 import {
 	ArrowParentheses,
 	AttributePosition,
+	Expand,
 	IndentStyle,
-	LintRules,
+	Language,
 	type PlaygroundState,
 	QuoteProperties,
 	QuoteStyle,
 	Semicolons,
 	SourceType,
 	TrailingCommas,
+	WhitespaceSensitivity,
 } from "@/playground/types";
 import {
 	classnames,
 	createPlaygroundSettingsSetter,
 	getFileState,
-	isJsxFilename,
+	guessLanguage,
 	isScriptFilename,
-	isTypeScriptFilename,
 	modifyFilename,
 	normalizeFilename,
 } from "@/playground/utils";
-import type { FixFileMode } from "@biomejs/wasm-web";
-import type { Dispatch, SetStateAction } from "react";
+import type {
+	FixFileMode,
+	RuleDomain,
+	RuleDomainValue,
+	RuleDomains,
+} from "@biomejs/wasm-web";
 import type React from "react";
-import { useState } from "react";
+import { type Dispatch, type SetStateAction, useState } from "react";
 
 export interface SettingsTabProps {
 	state: PlaygroundState;
@@ -50,6 +57,9 @@ export default function SettingsTab({
 			arrowParentheses,
 			bracketSpacing,
 			bracketSameLine,
+			expand,
+			indentScriptAndStyle,
+			whitespaceSensitivity,
 			lintRules,
 			enabledLinting,
 			analyzerFixMode,
@@ -57,6 +67,7 @@ export default function SettingsTab({
 			unsafeParameterDecoratorsEnabled,
 			allowComments,
 			attributePosition,
+			ruleDomains,
 		},
 	},
 }: SettingsTabProps) {
@@ -108,6 +119,20 @@ export default function SettingsTab({
 		setPlaygroundState,
 		"bracketSameLine",
 	);
+	const setExpand = createPlaygroundSettingsSetter(
+		setPlaygroundState,
+		"expand",
+	);
+	const setIndentScriptAndStyle = createPlaygroundSettingsSetter(
+		setPlaygroundState,
+		"indentScriptAndStyle",
+	);
+
+	const setWhitespaceSensitivity = createPlaygroundSettingsSetter(
+		setPlaygroundState,
+		"whitespaceSensitivity",
+	);
+
 	const setLintRules = createPlaygroundSettingsSetter(
 		setPlaygroundState,
 		"lintRules",
@@ -133,6 +158,11 @@ export default function SettingsTab({
 	const setAllowComments = createPlaygroundSettingsSetter(
 		setPlaygroundState,
 		"allowComments",
+	);
+
+	const setRuleDomains = createPlaygroundSettingsSetter(
+		setPlaygroundState,
+		"ruleDomains",
 	);
 
 	function setCurrentFilename(newFilename: string) {
@@ -231,6 +261,18 @@ export default function SettingsTab({
 		}));
 	}
 
+	const language = guessLanguage(currentFile);
+
+	function setLanguage(language: Language): void {
+		renameFile(
+			currentFile,
+			modifyFilename(currentFile, {
+				language,
+				script: isScriptFilename(currentFile),
+			}),
+		);
+	}
+
 	return (
 		<div className="settings-tab">
 			<section className="settings-tab-buttons">
@@ -247,7 +289,9 @@ export default function SettingsTab({
 				</button>
 			</section>
 
-			{!singleFileMode && (
+			{singleFileMode ? (
+				<LanguageView language={language} setLanguage={setLanguage} />
+			) : (
 				<FileView
 					currentFile={currentFile}
 					files={Object.keys(files)}
@@ -282,6 +326,12 @@ export default function SettingsTab({
 				setBracketSpacing={setBracketSpacing}
 				bracketSameLine={bracketSameLine}
 				setBracketSameLine={setBracketSameLine}
+				expand={expand}
+				setExpand={setExpand}
+				indentScriptAndStyle={indentScriptAndStyle}
+				setIndentScriptAndStyle={setIndentScriptAndStyle}
+				whitespaceSensitivity={whitespaceSensitivity}
+				setWhitespaceSensitivity={setWhitespaceSensitivity}
 			/>
 			<LinterSettings
 				lintRules={lintRules}
@@ -290,6 +340,8 @@ export default function SettingsTab({
 				setEnabledLinting={setEnabledLinting}
 				analyzerFixMode={analyzerFixMode}
 				setAnalyzerFixMode={setAnalyzerFixMode}
+				ruleDomains={ruleDomains}
+				setRuleDomains={setRuleDomains}
 			/>
 			<AssistSettings
 				enabledAssist={enabledAssist}
@@ -306,6 +358,39 @@ export default function SettingsTab({
 				setAllowComments={setAllowComments}
 			/>
 		</div>
+	);
+}
+
+function LanguageView({
+	language,
+	setLanguage,
+}: { language: Language; setLanguage: (language: Language) => void }) {
+	return (
+		<section>
+			<div className="field-row">
+				<label htmlFor="language">Language</label>
+				<EnumSelect
+					id="language"
+					name="language"
+					options={{
+						[Language.JS]: "JavaScript",
+						[Language.JSX]: "JSX",
+						[Language.TS]: "TypeScript",
+						[Language.TSX]: "TSX",
+						[Language.JSON]: "JSON",
+						[Language.GraphQL]: "GraphQL",
+						[Language.Grit]: "Grit",
+						[Language.CSS]: "CSS",
+						[Language.HTML]: "HTML",
+						[Language.Vue]: "Vue",
+						[Language.Svelte]: "Svelte",
+						[Language.Astro]: "Astro",
+					}}
+					value={language ?? Language.TSX}
+					onChangeValue={setLanguage}
+				/>
+			</div>
+		</section>
 	);
 }
 
@@ -506,63 +591,23 @@ function SyntaxSettings({
 			<section>
 				<div className="field-row">
 					<label htmlFor="sourceType">Source Type</label>
-					<select
+					<EnumSelect
 						id="sourceType"
 						name="sourceType"
-						value={isScript ? "script" : "module"}
-						onChange={(e) => {
+						options={{
+							[SourceType.Module]: "Module",
+							[SourceType.Script]: "Script",
+						}}
+						value={isScript ? SourceType.Script : SourceType.Module}
+						onChangeValue={(sourceType) => {
 							setFilename(
 								modifyFilename(filename, {
-									jsx: false,
-									typescript: false,
-									script: e.target.value === SourceType.Script,
+									language: guessLanguage(filename),
+									script: sourceType === SourceType.Script,
 								}),
 							);
 						}}
-					>
-						<option value={SourceType.Module}>Module</option>
-						<option value={SourceType.Script}>Script</option>
-					</select>
-				</div>
-
-				<div className="field-row">
-					<input
-						id="typescript"
-						name="typescript"
-						type="checkbox"
-						checked={isTypeScriptFilename(filename)}
-						onChange={(e) => {
-							setFilename(
-								modifyFilename(filename, {
-									jsx: isJsxFilename(filename),
-									typescript: e.target.checked,
-									script: false,
-								}),
-							);
-						}}
-						disabled={isScript}
 					/>
-					<label htmlFor="typescript">TypeScript</label>
-				</div>
-
-				<div className="field-row">
-					<input
-						id="jsx"
-						name="jsx"
-						type="checkbox"
-						checked={isJsxFilename(filename)}
-						onChange={(e) => {
-							setFilename(
-								modifyFilename(filename, {
-									jsx: e.target.checked,
-									typescript: isTypeScriptFilename(filename),
-									script: false,
-								}),
-							);
-						}}
-						disabled={isScript}
-					/>
-					<label htmlFor="jsx">JSX</label>
 				</div>
 
 				<div className="field-row">
@@ -619,6 +664,12 @@ function FormatterSettings({
 	setBracketSpacing,
 	bracketSameLine,
 	setBracketSameLine,
+	expand,
+	setExpand,
+	indentScriptAndStyle,
+	setIndentScriptAndStyle,
+	whitespaceSensitivity,
+	setWhitespaceSensitivity,
 }: {
 	lineWidth: number;
 	setLineWidth: (value: number) => void;
@@ -644,6 +695,12 @@ function FormatterSettings({
 	setBracketSpacing: (value: boolean) => void;
 	bracketSameLine: boolean;
 	setBracketSameLine: (value: boolean) => void;
+	expand: Expand;
+	setExpand: (value: Expand) => void;
+	indentScriptAndStyle: boolean;
+	setIndentScriptAndStyle: (value: boolean) => void;
+	whitespaceSensitivity: WhitespaceSensitivity;
+	setWhitespaceSensitivity: (value: WhitespaceSensitivity) => void;
 }) {
 	return (
 		<>
@@ -653,17 +710,16 @@ function FormatterSettings({
 
 				<div className="field-row">
 					<label htmlFor="indentStyle">Indent Style</label>
-					<select
+					<EnumSelect
 						id="location"
 						name="location"
-						value={indentStyle}
-						onChange={(e) => {
-							setIndentStyle(e.target.value as IndentStyle);
+						options={{
+							[IndentStyle.Tab]: "Tabs",
+							[IndentStyle.Space]: "Spaces",
 						}}
-					>
-						<option value={IndentStyle.Tab}>Tabs</option>
-						<option value={IndentStyle.Space}>Spaces</option>
-					</select>
+						value={indentStyle}
+						onChangeValue={setIndentStyle}
+					/>
 				</div>
 
 				<div className="field-row">
@@ -681,101 +737,100 @@ function FormatterSettings({
 
 				<div className="field-row">
 					<label htmlFor="quoteStyle">Quote Style</label>
-					<select
+					<EnumSelect
 						id="quoteStyle"
 						name="quoteStyle"
-						value={quoteStyle ?? ""}
-						onChange={(e) => setQuoteStyle(e.target.value as QuoteStyle)}
-					>
-						<option value={QuoteStyle.Double}>Double</option>
-						<option value={QuoteStyle.Single}>Single</option>
-					</select>
+						options={{
+							[QuoteStyle.Double]: "Double",
+							[QuoteStyle.Single]: "Single",
+						}}
+						value={quoteStyle ?? QuoteStyle.Double}
+						onChangeValue={setQuoteStyle}
+					/>
 				</div>
 
 				<div className="field-row">
 					<label htmlFor="jsxQuoteStyle">Jsx Quote Style</label>
-					<select
+					<EnumSelect
 						id="jsxQuoteStyle"
 						name="jsxQuoteStyle"
-						value={jsxQuoteStyle ?? ""}
-						onChange={(e) => setJsxQuoteStyle(e.target.value as QuoteStyle)}
-					>
-						<option value={QuoteStyle.Double}>Double</option>
-						<option value={QuoteStyle.Single}>Single</option>
-					</select>
+						options={{
+							[QuoteStyle.Double]: "Double",
+							[QuoteStyle.Single]: "Single",
+						}}
+						value={jsxQuoteStyle ?? QuoteStyle.Double}
+						onChangeValue={setJsxQuoteStyle}
+					/>
 				</div>
 
 				<div className="field-row">
 					<label htmlFor="quoteProperties">Quote Properties</label>
-					<select
+					<EnumSelect
 						id="quoteProperties"
 						name="quoteProperties"
-						value={quoteProperties ?? ""}
-						onChange={(e) =>
-							setQuoteProperties(e.target.value as QuoteProperties)
-						}
-					>
-						<option value={QuoteProperties.AsNeeded}>As needed</option>
-						<option value={QuoteProperties.Preserve}>Preserve</option>
-					</select>
+						options={{
+							[QuoteProperties.AsNeeded]: "As needed",
+							[QuoteProperties.Preserve]: "Preserve",
+						}}
+						value={quoteProperties ?? QuoteProperties.AsNeeded}
+						onChangeValue={setQuoteProperties}
+					/>
 				</div>
 
 				<div className="field-row">
 					<label htmlFor="trailingCommas">Trailing Commas</label>
-					<select
+					<EnumSelect
 						id="trailingCommas"
 						name="trailingCommas"
-						value={trailingCommas ?? "all"}
-						onChange={(e) =>
-							setTrailingCommas(e.target.value as TrailingCommas)
-						}
-					>
-						<option value={TrailingCommas.All}>All</option>
-						<option value={TrailingCommas.Es5}>ES5</option>
-						<option value={TrailingCommas.None}>None</option>
-					</select>
+						options={{
+							[TrailingCommas.All]: "All",
+							[TrailingCommas.Es5]: "ES5",
+							[TrailingCommas.None]: "None",
+						}}
+						value={trailingCommas ?? TrailingCommas.All}
+						onChangeValue={setTrailingCommas}
+					/>
 				</div>
 
 				<div className="field-row">
 					<label htmlFor="semicolons">Semicolons</label>
-					<select
+					<EnumSelect
 						id="semicolons"
 						name="semicolons"
-						value={semicolons ?? "always"}
-						onChange={(e) => setSemicolons(e.target.value as Semicolons)}
-					>
-						<option value={Semicolons.Always}>Always</option>
-						<option value={Semicolons.AsNeeded}>As needed</option>
-					</select>
+						options={{
+							[Semicolons.Always]: "Always",
+							[Semicolons.AsNeeded]: "As needed",
+						}}
+						value={semicolons ?? Semicolons.Always}
+						onChangeValue={setSemicolons}
+					/>
 				</div>
 
 				<div className="field-row">
 					<label htmlFor="arrowParentheses">Arrow Parentheses</label>
-					<select
+					<EnumSelect
 						id="arrowParentheses"
 						name="arrowParentheses"
-						value={arrowParentheses ?? "always"}
-						onChange={(e) =>
-							setArrowParentheses(e.target.value as ArrowParentheses)
-						}
-					>
-						<option value={ArrowParentheses.Always}>Always</option>
-						<option value={ArrowParentheses.AsNeeded}>As needed</option>
-					</select>
+						options={{
+							[ArrowParentheses.Always]: "Always",
+							[ArrowParentheses.AsNeeded]: "As needed",
+						}}
+						value={arrowParentheses ?? ArrowParentheses.Always}
+						onChangeValue={setArrowParentheses}
+					/>
 				</div>
 				<div className="field-row">
 					<label htmlFor="arrowParentheses">Attribute Position</label>
-					<select
+					<EnumSelect
 						id="attributePosition"
 						name="attributePosition"
+						options={{
+							[AttributePosition.Auto]: "Auto",
+							[AttributePosition.Multiline]: "Multiline",
+						}}
 						value={attributePosition ?? AttributePosition.Auto}
-						onChange={(e) =>
-							setAttributePosition(e.target.value as AttributePosition)
-						}
-					>
-						<option value={AttributePosition.Auto}>Auto</option>
-						<option value={AttributePosition.Multiline}>Multiline</option>
-					</select>
+						onChangeValue={setAttributePosition}
+					/>
 				</div>
 				<div className="field-row">
 					<label htmlFor="bracketSpacing">Bracket Spacing</label>
@@ -797,6 +852,47 @@ function FormatterSettings({
 						onChange={(e) => setBracketSameLine(e.target.checked)}
 					/>
 				</div>
+				<div className="field-row">
+					<label htmlFor="expand">Expand</label>
+					<EnumSelect
+						id="expand"
+						name="expand"
+						options={{
+							[Expand.Auto]: "Auto",
+							[Expand.Always]: "Always",
+							[Expand.Never]: "Never",
+						}}
+						value={expand ?? Expand.Auto}
+						onChangeValue={setExpand}
+					/>
+				</div>
+
+				<h3>HTML</h3>
+				<div className="field-row">
+					<label htmlFor="indentScriptAndStyle">Indent Script And Style</label>
+					<input
+						id="indentScriptAndStyle"
+						name="indentScriptAndStyle"
+						type="checkbox"
+						checked={indentScriptAndStyle}
+						onChange={(e) => setIndentScriptAndStyle(e.target.checked)}
+					/>
+				</div>
+				<div className="field-row">
+					<label htmlFor="whitespaceSensitivity">Whitespace Sensitivity</label>
+					<select
+						id="whitespaceSensitivity"
+						name="whitespaceSensitivity"
+						value={whitespaceSensitivity}
+						onChange={(e) =>
+							setWhitespaceSensitivity(e.target.value as WhitespaceSensitivity)
+						}
+					>
+						<option value={WhitespaceSensitivity.Css}>CSS</option>
+						<option value={WhitespaceSensitivity.Strict}>Strict</option>
+						<option value={WhitespaceSensitivity.Ignore}>Ignore</option>
+					</select>
+				</div>
 			</section>
 		</>
 	);
@@ -809,14 +905,41 @@ function LinterSettings({
 	setEnabledLinting,
 	analyzerFixMode,
 	setAnalyzerFixMode,
+	ruleDomains,
+	setRuleDomains,
 }: {
-	lintRules: LintRules;
-	setLintRules: (value: LintRules) => void;
+	lintRules: keyof typeof LINT_RULES;
+	setLintRules: (value: keyof typeof LINT_RULES) => void;
 	enabledLinting: boolean;
 	setEnabledLinting: (value: boolean) => void;
 	analyzerFixMode: FixFileMode;
 	setAnalyzerFixMode: (value: FixFileMode) => void;
+	ruleDomains: RuleDomains;
+	setRuleDomains: (value: RuleDomains) => void;
 }) {
+	const updateDomain = (domain: RuleDomain, value: RuleDomainValue) => {
+		setRuleDomains({
+			...ruleDomains,
+			[domain]: value,
+		});
+	};
+	if (ruleDomains === undefined) {
+		ruleDomains = {};
+	}
+
+	const domainConfigs: Array<{
+		id: RuleDomain;
+		label: string;
+	}> = [
+		{ id: "react", label: "React Rules" },
+		{ id: "test", label: "Test Rules" },
+		{ id: "solid", label: "Solid Rules" },
+		{ id: "next", label: "Next.js Rules" },
+		{ id: "project", label: "Project Rules" },
+	];
+
+	const domainValues: RuleDomainValue[] = ["all", "recommended", "none"];
+
 	return (
 		<>
 			<h2>Linter options</h2>
@@ -831,6 +954,7 @@ function LinterSettings({
 					/>
 					<label htmlFor="linting-enabled">Linter enabled</label>
 				</div>
+
 				<div className="field-row">
 					<label htmlFor="lint-rules">Lint Rules</label>
 					<select
@@ -838,11 +962,18 @@ function LinterSettings({
 						aria-describedby="lint-rules-description"
 						name="lint-rules"
 						disabled={!enabledLinting}
-						value={lintRules ?? LintRules.Recommended}
-						onChange={(e) => setLintRules(e.target.value as LintRules)}
+						value={lintRules}
+						onChange={(e) =>
+							setLintRules(e.target.value as keyof typeof LINT_RULES)
+						}
 					>
-						<option value={LintRules.Recommended}>Recommended</option>
-						<option value={LintRules.All}>All</option>
+						{Object.values(LINT_RULES).map((value) => {
+							return (
+								<option value={value} key={value}>
+									{value}
+								</option>
+							);
+						})}
 					</select>
 				</div>
 				<div className="field-row">
@@ -860,6 +991,27 @@ function LinterSettings({
 						<option value={"applySuppressions"}>Apply Suppressions</option>
 					</select>
 				</div>
+
+				<h3>Domains</h3>
+				{domainConfigs.map(({ id, label }) => (
+					<div key={id} className="field-row">
+						<label htmlFor={`${id}-domain`}>{label}</label>
+						<select
+							id={`${id}-domain`}
+							value={ruleDomains[id] ?? "none"}
+							onChange={(e) =>
+								updateDomain(id, e.target.value as RuleDomainValue)
+							}
+							disabled={!enabledLinting}
+						>
+							{domainValues.map((value) => (
+								<option key={value} value={value}>
+									{value.charAt(0).toUpperCase() + value.slice(1)}
+								</option>
+							))}
+						</select>
+					</div>
+				))}
 			</section>
 		</>
 	);

@@ -5,7 +5,7 @@ export interface Props {
 
 const { src } = Astro.props as Props;
 
-const files = await import.meta.glob<string>("/src/assets/svg/**/*.svg", {
+const files = import.meta.glob<string>("/src/assets/svg/**/*.svg", {
 	query: "?raw",
 	import: "default",
 });

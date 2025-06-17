@@ -3,15 +3,17 @@
 # Head to the `biomejs/biome` repository, and modify the source code in there.
 
 title: useTopLevelRegex
-description: |
-  Require regex literals to be declared at the top level.
+description: Learn more about useTopLevelRegex
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-**Diagnostic Category: `lint/performance/useTopLevelRegex`**
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-**Since**: `v1.8.0`
+## Summary
+- Rule available since: `v1.8.0`
+- Diagnostic Category: [`lint/performance/useTopLevelRegex`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
 ## Description
 Require regex literals to be declared at the top level.
 
@@ -66,7 +68,7 @@ function foo(str) {
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)
-- [Configure the rule fix](/linter#configure-the-rule-fix)
+- [Configure the code fix](/linter#configure-the-code-fix)
 - [Rule options](/linter/#rule-options)
 
 </TabItem>

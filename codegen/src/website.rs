@@ -1,6 +1,6 @@
 use crate::project_root;
 use biome_cli::biome_command;
-use biome_configuration::PartialConfiguration;
+use biome_configuration::Configuration;
 use biome_configuration::VERSION;
 use biome_js_formatter::context::JsFormatOptions;
 use biome_js_parser::{JsParserOptions, parse_module};
@@ -45,7 +45,7 @@ pub(crate) fn generate_default_configuration() -> anyhow::Result<()> {
         JsonFormatOptions::default()
             .with_line_width(60.try_into().expect("Line width must be within range.")),
         parse_json(
-            &serde_json::to_string(&PartialConfiguration::init())?,
+            &serde_json::to_string(&Configuration::init())?,
             JsonParserOptions::default(),
         )
         .tree()
@@ -70,7 +70,8 @@ pub(crate) fn generate_default_configuration() -> anyhow::Result<()> {
 
 /// Generates the changelog file: `src/content/docs/internals/changelog.md`
 pub(crate) fn generate_changelog() -> anyhow::Result<()> {
-    let changelog_source_path = project_root().join("../biome/CHANGELOG.md");
+    let changelog_source_path =
+        project_root().join("../biome/packages/@biomejs/biome/CHANGELOG.md");
     let changelog_target_path = project_root().join("src/content/docs/internals/changelog.md");
 
     const CHANGELOG_FRONTMATTER: &str = r#"---
@@ -168,7 +169,7 @@ export function GET() {"#,
 
 /// Get the content (stringified JSON) of the configuration schema
 pub(crate) fn get_configuration_schema_content() -> anyhow::Result<String> {
-    let schema = rename_partial_references_in_schema(schema_for!(PartialConfiguration));
+    let schema = rename_partial_references_in_schema(schema_for!(Configuration));
 
     let json_schema = to_string(&schema)?;
     let parsed = parse_json(&json_schema, JsonParserOptions::default());
