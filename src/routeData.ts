@@ -25,7 +25,7 @@ function addSidebarEntries(
 }
 
 export const onRequest = defineRouteMiddleware(async (context) => {
-	const { head, isFallback, sidebar } = context.locals.starlightRoute;
+	const { head, isFallback, sidebar, entry } = context.locals.starlightRoute;
 
 	const ogImageUrl = await getOgImageUrl(context.url.pathname, !!isFallback);
 	const imageSrc = ogImageUrl ?? "/img/og.png?v=2";
@@ -54,6 +54,13 @@ export const onRequest = defineRouteMiddleware(async (context) => {
 		tag: "meta",
 		attrs: { property: "twitter:image", content: canonicalImageSrc.href },
 	});
+
+	if (!entry.data.banner) {
+		entry.data.banner = {
+			content:
+				'You are currently reading docs for v1.x. Go to the <a href="https://biomejs.dev/">latest docs</a> if you are using newer version.',
+		};
+	}
 });
 
 const docs = await getCollection("docs");
