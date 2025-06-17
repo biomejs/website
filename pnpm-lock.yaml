@@ -41,8 +41,8 @@ importers:
         specifier: 1.9.4
         version: 1.9.4
       '@biomejs/wasm-web':
-        specifier: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@9a91f05
-        version: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@9a91f05
+        specifier: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@2b81d3f
+        version: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@2b81d3f
       '@codemirror/lang-css':
         specifier: 6.3.1
         version: 6.3.1(@codemirror/view@6.37.2)
@@ -510,9 +510,9 @@ packages:
   '@biomejs/version-utils@0.4.0':
     resolution: {integrity: sha512-jboDhjZY8/bAPl2kgvjrbbyXyM6uimPsasY3TvFhSpPaNorij0UZROi/NjDQqQeZFSaIK3ieiRZXWwoBZh6rQQ==}
 
-  '@biomejs/wasm-web@https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@9a91f05':
-    resolution: {tarball: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@9a91f05}
-    version: 0.0.0-rev.9a91f0504f665107153465aca184f7d4cb32d515
+  '@biomejs/wasm-web@https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@2b81d3f':
+    resolution: {tarball: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@2b81d3f}
+    version: 0.0.0-rev.2b81d3ff891a3567ba25831f8652c0e9e7991d29
 
   '@braintree/sanitize-url@7.1.1':
     resolution: {integrity: sha512-i1L7noDNxtFyL5DmZafWy1wRVhGehQmzZaz1HiN5e7iylJMSZR7ekOV7NsIqa5qBldlLrsKv4HbgFUVlQrz8Mw==}
@@ -3826,11 +3826,6 @@ packages:
     engines: {node: '>= 18'}
     hasBin: true
 
-  marked@15.0.4:
-    resolution: {integrity: sha512-TCHvDqmb3ZJ4PWG7VEGVgtefA5/euFmsIhxtD0XsBxI39gUSKL81mIRFdt0AiNQozUahd4ke98ZdirExd/vSEw==}
-    engines: {node: '>= 18'}
-    hasBin: true
-
   match-index@1.0.3:
     resolution: {integrity: sha512-1XjyBWqCvEFFUDW/MPv0RwbITRD4xQXOvKoPYtLDq8IdZTfdF/cQSo5Yn4qvhfSSZgjgkTFsqJD2wOUG4ovV8Q==}
 
@@ -6086,7 +6081,7 @@ snapshots:
     dependencies:
       sitemap: 8.0.0
       stream-replace-string: 2.0.0
-      zod: 3.24.2
+      zod: 3.25.64
 
   '@astrojs/starlight@0.34.4(astro@5.8.0(@netlify/blobs@8.2.0)(@types/node@20.19.0)(jiti@1.21.7)(rollup@4.40.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.5.5))(typescript@5.8.3)(yaml@2.7.1))':
     dependencies:
@@ -6437,7 +6432,7 @@ snapshots:
       undici: 6.21.3
       yaml: 2.7.1
 
-  '@biomejs/wasm-web@https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@9a91f05': {}
+  '@biomejs/wasm-web@https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@2b81d3f': {}
 
   '@braintree/sanitize-url@7.1.1': {}
 
@@ -10168,9 +10163,9 @@ snapshots:
     dependencies:
       marked: 12.0.2
 
-  marked-plaintify@1.1.1(marked@15.0.4):
+  marked-plaintify@1.1.1(marked@15.0.12):
     dependencies:
-      marked: 15.0.4
+      marked: 15.0.12
 
   marked-smartypants@1.1.9(marked@12.0.2):
     dependencies:
@@ -10180,8 +10175,6 @@ snapshots:
   marked@12.0.2: {}
 
   marked@15.0.12: {}
-
-  marked@15.0.4: {}
 
   match-index@1.0.3:
     dependencies:
@@ -12074,8 +12067,8 @@ snapshots:
       '@astrojs/starlight': 0.34.4(astro@5.8.0(@netlify/blobs@8.2.0)(@types/node@20.19.0)(jiti@1.21.7)(rollup@4.40.1)(sass@1.77.8)(sugarss@4.0.1(postcss@8.5.5))(typescript@5.8.3)(yaml@2.7.1))
       astro-remote: 0.3.3
       github-slugger: 2.0.0
-      marked: 15.0.4
-      marked-plaintify: 1.1.1(marked@15.0.4)
+      marked: 15.0.12
+      marked-plaintify: 1.1.1(marked@15.0.12)
       mdast-util-mdx-expression: 2.0.1
       ultrahtml: 1.6.0
       unist-util-visit: 5.0.0

@@ -109,6 +109,21 @@ Biome doesn't yet support nested `biome.json` files, neither in CLI nor in LSP.
 
 ## Specifying files to process
 
+You can control the files/folders to process using different strategies, either CLI, configuration and VCS.
+
+:::note
+By default, Biome always ignores some files that are said to be **protected files**.
+This means that no diagnostics will be ever emitted by Biome for those files.
+At the moment, the following files are protected:
+
+- `composer.lock`
+- `npm-shrinkwrap.json`
+- `package-lock.json`
+- `yarn.lock`
+:::
+
+### Include files via CLI
+
 The first way to control which files and folders are processed by Biome is to
 list them in the CLI. In the following command, we only format `file1.js` and
 all the files in the `src` folder, because folders are recursively traversed.
@@ -122,6 +137,8 @@ Glob patterns used on the command line are not interpreted by Biome.
 They are expanded by your shell.
 Some shells don't support the recursive glob `**`.
 :::
+
+### Control files via configuration
 
 The Biome configuration file can be used to refine which files are processed.
 You can explicitly list the files to be processed using
@@ -138,20 +155,16 @@ here are processed by the linter, the formatter and the assist, unless specified
 otherwise. For the individual tools, you can further refine the matching files
 using `<tool>.includes`.
 
-:::caution
-The global `files.includes` has slightly different semantics than the more
-specific `<tool>.includes` fields. Any file or folder that doesn't match
-`files.includes` is excluded from use by any of Biome's tools. This means that
-any tool-specific `includes` field can never match a file that doesn't also
-match `files.includes`.
-:::
 
-Let's take the following configuration:
+#### Include files via configuration
+
+Let's take the following configuration, where we want to include only JavaScript files (`.js`) that are inside
+the `src/` folder, the `test/` folder, and ignore files that have `.min.js` in their name:
 
 ```json title="biome.json"
 {
   "files": {
-    "includes": ["src/**/*.js", "test/**/*.js", "!**/*.min.js"],
+    "includes": ["src/**/*.js", "test/**/*.js", "!**/*.min.js"]
   },
   "linter": {
     "includes": ["!test/**"]
@@ -167,6 +180,7 @@ biome format test/
 
 The command will format the files that end with the `.js` extension and don't
 end with the `.min.js` extension from the `test/` folder.
+
 The files in `src/` are not formatted because the folder is not listed in the
 CLI.
 
@@ -177,20 +191,39 @@ If we run the following command, no files are linted because files inside the
 biome lint test/
 ```
 
-:::note
-By default, Biome always ignores some files that are said to be **protected files**.
-This means that no diagnostics will be ever emitted by Biome for those files.
-At the moment, the following files are protected:
-
-- `composer.lock`
-- `npm-shrinkwrap.json`
-- `package-lock.json`
-- `yarn.lock`
+:::caution
+The global `files.includes` has slightly different semantics than the more
+specific `<tool>.includes` fields. Any file or folder that doesn't match
+`files.includes` is excluded from use by any of Biome's tools. This means that
+any tool-specific `includes` field can never match a file that doesn't also
+match `files.includes`.
 :::
 
-:::note
-You can also [ignore files ignored by your VCS](/guides/integrate-in-vcs#use-the-ignore-file).
-:::
+#### Exclude files via configuration
+
+If you want to exclude files and folders from being processed by Biome, you can use the `files.includes` configuration
+and use the negated patterns, using the leading `!`.
+
+Before listing the negated globs, **they must be preceded by the `**` pattern**.
+
+In the following example, we tell Biome to include files, excluded the `dist` directory, and all files that have `.generated.js` in their name
+
+```json title="biome.json"
+{
+  "files": {
+    "includes": [
+      "**",
+      "!**/dist/**",
+      "!**/*.generated.js"
+    ]
+  }
+}
+```
+
+
+### Control files via VCS
+
+You can [ignore files ignored by your VCS](/guides/integrate-in-vcs#use-the-ignore-file).
 
 
 ## Well-known files
@@ -270,7 +303,7 @@ Files that you `extend` from cannot `extend` other files in turn.
 Note that paths in a configuration file are always resolved from the folder in
 which the `biome.json`/`biome.jsonc` file resides. When using the `extends`
 field, this means that paths in a shared configuration are interpreted from the
-location of the configuration that is extending it, and **not** from the folder
+location of the configuration that is extending it, and not from the folder
 of the file being extended.
 
 For example, let's assume a project that contains two directories `backend/` and
@@ -351,7 +384,7 @@ update the `biome.json` file to look like the following snippet:
 }
 ```
 
-Biome will attempt to **resolve** your library `@org/shared-configs/` from your
+Biome will attempt to resolve your library `@org/shared-configs/` from your
 working directory. The working directory is:
 
 - when using the CLI, the folder where you execute your scripts from.
@@ -360,7 +393,7 @@ working directory. The working directory is:
 
 :::caution
 Paths starting with a dot `.` or ending with `.json` or `.jsonc` are always
-treated as relative paths, so they **won't** be resolved from `node_modules/`.
+treated as relative paths, so they won't be resolved from `node_modules/`.
 :::
 
 For more information about the resolution algorithm, refer to the
