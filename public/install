@@ -1,0 +1,113 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Detect the platform
+platform=$(uname -ms)
+
+
+# Detects whether the system is using Musl
+is_musl() {
+  ldd --version 2>&1 | grep -qi musl && echo true || echo false
+}
+
+# Retrieves the latest stable version of Biome
+get_latest_stable_version() {
+    # Fetch the latest stable version from the NPM registry
+    version=$(curl -s https://registry.npmjs.org/@biomejs%2Fbiome | grep '"latest"' | head -n 1 | sed -E 's/.*"latest": ?"([^"]+)".*/\1/')
+
+    if [[ -z "$version" ]]; then
+        echo ""
+    else
+        echo "$version"
+    fi
+}
+
+# Get the user-provided version of retrieve the latest stable version
+if [[ $# -eq 1 ]]; then
+    version="$1"
+else
+    # Get the latest stable version if no version is provided
+    version=$(get_latest_stable_version)
+    if [[ -z "$version" ]]; then
+        echo "Failed to retrieve the latest stable version."
+        exit 1
+    fi
+fi
+
+# Determine the target based on the platform
+case $platform in
+# MacOS Intel
+'Darwin x86_64')
+    target=darwin-x64
+    ;;
+# MacOS Apple Silicon
+'Darwin arm64')
+    target=darwin-arm64
+    ;;
+# Linux arm64
+'Linux aarch64' | 'Linux arm64')
+    target=linux-arm64
+    ;;
+# Linux x64
+'Linux x86_64' | *)
+    target=linux-x64
+    ;;
+esac
+
+# If the target starts with "linux", check if using Musl
+if [[ $target == linux-* ]] && [[ $(is_musl) == true ]]; then
+    target="${target}-musl"
+fi
+
+# Depending on the version starting with 1 or 2, the tag format changes
+if [[ $version == 1.* ]]; then
+    tag="cli%2Fv${version}"
+else
+    tag="@biomejs/biome@${version}"
+fi
+
+# Installation directory
+install_dir="${HOME}/.local/bin"
+
+# Ensure the installation directory exists
+mkdir -p "$install_dir"
+
+# Download the Biome binary from GitHub releases
+curl -sSL "https://github.com/biomejs/biome/releases/download/${tag}/biome-${target}" \
+     -o "${install_dir}/biome"
+
+# Make the binary executable
+chmod +x "${install_dir}/biome"
+
+echo "Biome installed successfully to ${install_dir}/biome"
+
+if ! echo "$PATH" | tr ':' '\n' | grep -Fxq "$install_dir"; then
+    echo "${install_dir} is NOT in PATH"
+    
+    # Ask if we should add it to the PATH for the user
+    echo -n "Do you want to add $install_dir to your PATH? (Y/n): "
+    read answer
+
+    # Switch to get the name of the shell configuration file
+    shell=$(basename "$SHELL")
+    case "$shell" in
+        bash)
+            config_file="${HOME}/.bashrc"
+            ;;
+        zsh)
+            config_file="${HOME}/.zshrc"
+            ;;
+        *)
+            echo "Please add $install_dir to your PATH manually."
+            exit 1
+            ;;
+    esac
+
+    if [[ "$answer" == "Y" || "$answer" == "y" || -z "$answer" ]]; then
+        echo "Adding $install_dir to your PATH in $config_file"
+        echo 'export PATH="$HOME/.local/bin:$PATH"' >> "$config_file"
+        echo "Please restart your terminal or run 'source $config_file' to apply the changes."
+    else
+        echo "Please add $install_dir to your PATH manually."
+    fi
+fi
