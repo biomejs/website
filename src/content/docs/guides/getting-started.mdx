@@ -63,49 +63,85 @@ npx @biomejs/biome check --write <files>
 	</TabItem>
 	<TabItem label="pnpm" icon="pnpm">
 		<Code frame="none" showLineNumbers={false} code={`
-# Format files
+# Format all files
+pnpm exec biome format --write
+
+# Format specific files
 pnpm exec biome format --write <files>
 
-# Lint files and apply safe fixes
+# Lint and apply safe fixes to all files
+pnpm exec biome lint --write
+
+# Lint files and apply safe fixes to specific files
 pnpm exec biome lint --write <files>
 
-# Format, lint, and organize imports
+# Format, lint, and organize imports of all files
+pnpm exec biome check --write
+
+# Format, lint, and organize imports of specific files
 pnpm exec biome check --write <files>
     `} lang="bash"  />
 	</TabItem>
 	<TabItem label="bun" icon="bun">
 		<Code frame="none" showLineNumbers={false} code={`
-# Format files
+# Format all files
+bunx --bun biome format --write
+
+# Format specific files
 bunx --bun biome format --write <files>
 
-# Lint files and apply safe fixes
+# Lint and apply safe fixes to all files
+bunx --bun biome lint --write
+
+# Lint files and apply safe fixes to specific files
 bunx --bun biome lint --write <files>
 
-# Format, lint, and organize imports
+# Format, lint, and organize imports of all files
+bunx --bun biome check --write
+
+# Format, lint, and organize imports of specific files
 bunx --bun biome check --write <files>
     `} lang="bash"  />
 	</TabItem>
 	<TabItem label="deno" icon="deno">
 		<Code frame="none" showLineNumbers={false} code={`
-# Format files
+# Format specific files
 deno run -A npm:@biomejs/biome format --write <files>
 
-# Lint files and apply safe fixes
+# Format all files
+deno run -A npm:@biomejs/biome format --write
+
+# Lint files and apply safe fixes to all files
+deno run -A npm:@biomejs/biome lint --write
+
+# Lint files and apply safe fixes to specific files
 deno run -A npm:@biomejs/biome lint --write <files>
 
-# Format, lint, and organize imports
+# Format, lint, and organize imports of all files
+deno run -A npm:@biomejs/biome check --write
+
+# Format, lint, and organize imports of specific files
 deno run -A npm:@biomejs/biome check --write <files>
     `} lang="bash"  />
 	</TabItem>
 	<TabItem label="yarn" icon="seti:yarn">
 		<Code frame="none" showLineNumbers={false} code={`
-# Format files
+# Format all files
+yarn exec biome format --write
+
+# Format specific files
 yarn exec biome format --write <files>
 
-# Lint files and apply safe fixes
+# Lint files and apply safe fixes to all files
+yarn exec biome lint --write
+
+# Lint files and apply safe fixes to specific files
 yarn exec biome lint --write <files>
 
-# Format, lint, and organize imports
+# Format, lint, and organize imports of all files
+yarn exec biome check --write <files>
+
+# Format, lint, and organize imports of specific files
 yarn exec biome check --write <files>
     `} lang="bash"  />
 	</TabItem>
