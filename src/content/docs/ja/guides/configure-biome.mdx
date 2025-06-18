@@ -80,16 +80,16 @@ Biomeは最も近い設定ファイルを見つけるために自動探索を利
 以下は例です：
 
 <FileTree>
-- app
-  - backend
+- app/
+  - backend/
     - biome.json
     - package.json
-  - frontend
+  - frontend/
+    - legacy/
+      - package.json
+    - new/
+      - package.json
     - biome.json
-    - legacy
-      - package.json
-    - new
-      - package.json
 </FileTree>
 
 
@@ -97,75 +97,26 @@ Biomeは最も近い設定ファイルを見つけるために自動探索を利
 - `app/frontend/legacy/package.json` または `app/frontend/new/package.json` で実行されたBiomeのコマンドは
   `app/frontend/biome.json` の設定ファイルを使います
 
-:::caution
-BiomeはCLIとLSPのいずれにおいてもネストされた `biome.json` ファイルをサポートしていません。[関連するIssueをフォローして手伝ってください](https://github.com/biomejs/biome/issues/2228)．
+:::note
+モノレポのプロジェクトでBiomeを使用する場合は、[モノレポ](/ja/guides/big-projects#モノレポ)を参照してください。
 :::
+
+# 処理するファイルを指定する
+
+CLI、設定、またはVCSを使用して、処理するファイルおよびフォルダを制御できます。
 
 :::note
-Biomeのコマンドは `--config-path` オプションと `BIOME_CONFIG_PATH` 環境変数の利用をサポートしています。
-カスタムの設定ファイル、もしくは `biome.json` や `biome.jsonc` ファイルを見つけるためのディレクトリを指定できます。
-`--config-path` または `BIOME_CONFIG_PATH` を使う場合、標準的な設定ファイルの解決は**無効になります**。
+デフォルトでは、Biomeは**保護されたファイル**と呼ばれるファイルを常に無視します。
+つまり、これらのファイルに対してはBiomeが診断結果を出力することはありません。
+現時点では、以下のファイルが保護されています：
 
-`--config-path` または `BIOME_CONFIG_PATH` がファイルを直接参照する場合、`biome.json` と `biome.jsonc` 以外の名前を使えます。
-Biomeは `.json` ファイルを標準的なJSONパーサで読み込みます。
-他の拡張子を持つファイルについては、Biomeは `.jsonc` ファイルとして扱い、コメントや末尾のカンマを許容するより柔軟なJSONパーサを使います。
+- `composer.lock`
+- `npm-shrinkwrap.json`
+- `package-lock.json`
+- `yarn.lock`
 :::
 
-
-## 設定ファイルの共有
-
-`extends` フィールドは設定を複数のファイルに分割することを可能にします。
-この方法により、異なるプロジェクトやフォルダとの間で共通の設定を共有できます。
-
-以下は `common.json` 設定ファイルを継承した設定を行う方法を示した例です：
-
-```json title="biome.json"
-{
-  "extends": ["./common.json"]
-}
-```
-
-`extends` に定義されたエントリは `biome.json` ファイルの定義されたパスから解決されます。
-記載された順に処理され、後に記載されたファイルの設定がその前の設定を上書きします。
-
-Biomeは `node_modules/` ディレクトリから設定ファイルを解決できます。
-従って、パッケージから設定ファイルをエクスポートして、複数のプロジェクトでそれをインポートできます。
-
-そのようにするためには、まず "共有された" Biomeの設定を作成する必要があります。
-パッケージ `@org/shared-configs` から設定ファイルを指定子 `@org/shared-configs/biome` で共有することを考えましょう。
-このパッケージの `package.json` に `exports` エントリを作成する必要があります：
-
-```json title="package.json" ins={5,3}
-{
-  "name": "@org/shared-configs",
-  "type": "module",
-  "exports": {
-    "./biome": "./biome.json"
-  }
-}
-```
-`@org/shared-configs` がプロジェクトに正しくインストールされていることを確認し、`biome.json` を以下の例のように更新します：
-
-```json title="biome.json"
-{
-  "extends": ["@org/shared-configs/biome"]
-}
-```
-Biomeは `@org/shared-configs/` を作業ディレクトリから **解決** しようとします。
-作業ディレクトリは：
-
-- CLIを利用している場合、スクリプトを実行するディレクトリです。
-  一般的にこれは `package.json` ファイルの場所と同じです
-- LSPを利用している場合、プロジェクトのルートディレクトリです
-
-:::caution
-どのように解決されるかの破壊的な変更を防ぐために、ドット `.` で始まるパスと `.json` または `.jsonc` で終わるパスは `node_modules/` から解決**されません**。
-:::
-
-解決アルゴリズムの詳細な情報については、[Node.jsのドキュメント](https://nodejs.org/api/esm.html#resolution-and-loading-algorithm)を参照してください。
-
-
-## ファイルを無視する
+## CLIでファイルを含める
 
 Biomeが処理するファイルまたはディレクトリを制御する最初の方法は、それらをCLIで列挙することです。
 以下のコマンドでは、 `file1.js` および `src` ディレクトリ内のすべてのファイルのみをフォーマットします。
@@ -180,34 +131,30 @@ biome format file1.js src/
 いくつかのシェルは再帰的なglob `**` をサポートしていません。
 :::
 
+### 設定でファイルを制御する
+
 Biomeの設定ファイルはどのファイルが処理されるかを調整するのに利用できます。
-`include` で処理するファイルを明示的に列挙し、`ignore` を使用して処理しないファイルを列挙できます。
-`include` と `ignore` は `src/**/*.js` などのglobパターンを受け入れます。
-どのglob文法がサポートされているかについては[関連するセクション](#glob文法の説明)を参照してください。
-`include` は常に `ignore` よりも先に適用されます。
-これにより、一部のファイルを含めたり、含めたファイルの一部を無視したりできます。
+[`files.includes` フィールド](/ja/reference/configuration)を使用して、処理するファイルを明示的に指定できます。
+`files.includes` は `src/**/*.js` のような[globパターン](/ja/reference/configuration#glob文法の説明)を受け入れます。 `!` で始まる否定パターンはファイルを除外するのに使用できます。
 
-:::note
-`include` と `ignore` は少し違うセマンティクスを持ちます。
-`include` はBiomeがフォルダを探索するのを妨げません。
-従って、Biomeがフォルダを探索するのを防ぎたい場合は、フォルダを `ignore` に追加する必要があります。
-:::
+Biome設定ファイル内のパスとglobは設定ファイルのあるフォルダから相対的に解決されます。
+ただし、設定ファイルが他の設定に[継承](#設定でファイルを制御する)されている場合は例外です。
 
-Biomeは、すべてのツールに適用されるグローバルな `files.include` および `files.ignore` フィールドを提供します。
-`<tool>.include` および `<tool>.ignore` によって、ツールレベルでファイルを含めたり無視したりすることもできます。
-これらはグローバルな `files.include` および `files.ignore` を上書きしないことに注意してください。
-`files.include` および `files.ignore` は、ツールの `include` および `ignore` よりも先に適用されます。
+`files.includes` はすべてのBiomeツールに適用され、他に指定のない限り、ここで指定されたファイルはリンタ、フォーマッタ、アシストによって処理されます。
+個別のツールについては、 `<tool>.includes` を使用して一致するファイルを調整できます。
 
-次のような設定を考えます：
+
+#### 設定でファイルを含める
+
+`src/` フォルダと `test/` フォルダの中にあるJavaScriptファイル (`.js`) のみを含め、名前に `.min.js` を含むファイルを無視するには、以下の設定を使用します:
 
 ```json title="biome.json"
 {
   "files": {
-    "include": ["src/**/*.js", "test/**/*.js"],
-    "ignore": ["**/*.min.js"]
+    "includes": ["src/**/*.js", "test/**/*.js", "!**/*.min.js"]
   },
   "linter": {
-    "ignore": ["test"]
+    "includes": ["!test/**"]
   }
 }
 ```
@@ -219,6 +166,7 @@ biome format test/
 ```
 
 このコマンドは、`test` ディレクトリにおいて `.js` 拡張子で終わり `.min.js` 拡張子で終わらないファイルをフォーマットします。
+
 ディレクトリがCLIで列挙されていないため、`src` 内のファイルはフォーマットされません。
 
 次のコマンドを実行すると、`test` ディレクトリはリンタに対して明示的に無視されているため、ファイルはリントされません。
@@ -227,71 +175,36 @@ biome format test/
 biome lint test/
 ```
 
-Biomeは、作業ディレクトリから相対的にglobを解決します。
-作業ディレクトリは通常、CLIコマンドを実行するディレクトリです。
-つまり、設定ファイルがコマンドを実行するのとは別のディレクトリに配置されている場合は、**特に注意**する必要があります。
-エディタ（LSP）の場合、作業ディレクトリはプロジェクトのルートディレクトリです。
+:::caution
+グローバルな `files.includes` は、より詳細な `<tool>.includes` フィールドとは少し違ったセマンティクスを持ちます。
+`files.includes` に一致しないファイルとフォルダは、いずれのBiomeツールからも除外されます。
+`files.includes` に一致しないファイルは、ツール固有の `includes` フィールドにも一致しません。
+:::
 
-2つのディレクトリ `backend/` と `frontend/` と、先ほど紹介したBiomeの設定ファイルを含むプロジェクトを考えてみましょう。
-`frontend/` ディレクトリ内では、`package.json` がBiomeのフォーマッタを実行する `format` スクリプトを指定します。
+#### 設定でファイルを除外する
 
-<FileTree>
-- backend
-  - ...
-- biome.json
-- frontend
-  - package.json
-  - src
-    - ...
-  - test
-    - ...
-</FileTree>
+Biomeによって処理されるファイルやフォルダを除外したい場合は、 `files.includes` の設定と `!` で始まる否定パターンを使用できます。
 
-```json title="frontend/package.json"
-{
-  "name": "frontend-project",
-  "scripts": {
-    "format": "biome format --write ./"
-  }
-}
-```
+否定されたglobを列挙するよりも前に、 **`**` パターンを置く必要があります**。
 
-`frontend/package.json` からスクリプト `format` を実行すると、そのスクリプトにおける作業ディレクトリは `frontend/` になります。
-`src/**/*.js` と `test/**/*.js` のglobは、`frontend/` を "ベース" ディレクトリとします。
-従って、`frontend/src/` と `frontend/test/` のファイルのみがフォーマットされます。
+次の例では、ファイルを含め、 `dist` ディレクトリと `.generated.js` を名前に含むすべてのファイルを除外するようBiomeに指示します:
 
 ```json title="biome.json"
 {
   "files": {
-    "include": ["src/**/*.js", "src/**/*.ts"],
-    "ignore": ["test"]
-  },
-  "formatter": {
-    "indentStyle": "space"
+    "includes": [
+      "**",
+      "!**/dist/**",
+      "!**/*.generated.js"
+    ]
   }
 }
 ```
 
-:::caution
-`overrides` 内の `ignore` と `include` は**異なる**セマンティクスを持ちます：
-- `ignore` の場合： ファイルがglobにマッチする場合、このオーバライド内の設定を**_適用しない_**で、次のオーバライドを適用します。
-- `include` の場合： ファイルがglobにマッチする場合、このオーバライド内の設定を**適用**し、次のオーバライドを適用します。
-:::
 
-:::note
-デフォルトでは、Biomeは**保護されたファイル**と呼ばれるファイルを常に無視します。
-つまり、これらのファイルに対してはBiomeが診断結果を出力することはありません。
-現時点では、以下のファイルが保護されています：
+### VCSでファイルを制御する
 
-- `composer.lock`
-- `npm-shrinkwrap.json`
-- `package-lock.json`
-- `yarn.lock`
-:::
-
-:::note
 [VCSで無視されたファイルを無視する](/guides/integrate-in-vcs#use-the-ignore-file)こともできます。
-:::
 
 
 ## 既知のファイル
@@ -349,33 +262,111 @@ Biomeは、作業ディレクトリから相対的にglobを解決します。
 - `typescript.json`
 
 
-## Glob文法の説明
+## 設定ファイルの共有
 
-globパターンはファイル名の集合を指定します。
-Biomeは次のglobをサポートしています：
+`extends` フィールドは設定を複数のファイルに分割することを可能にします。
+この方法により、異なるプロジェクトやフォルダとの間で共通の設定を共有できます。
 
-- `*` は0個以上の文字にマッチします。パス区切り文字 `/` にはマッチしません。
-- `**` はディレクトリとファイルに対して再帰的にマッチします。
-  このシーケンスは単一のパスコンポーネント**でなければなりません**。
-  したがって、`**a` と `b**` はどちらも無効であり、エラーになります。
-  連続する `*` 文字が2つ以上続くシーケンスも無効です。
-- `[...]` は括弧内の任意の文字にマッチします。
-  Unicodeの順序による文字の範囲も指定できます。
-  例えば、`[0-9]` は0から9までの任意の文字を指定します。
-- `[!...]` は `[...]` の否定です。つまり、括弧内に**含まれない**任意の文字に一致します。
+以下は `common.json` 設定ファイルを継承した設定を行う方法を示した例です：
 
-いくつかの例です：
+```json title="biome.json"
+{
+  "extends": ["./common.json"]
+}
+```
 
-- `dist/**` は、distディレクトリと、その中のすべてのファイルにマッチします。
-- `**/test/**` は、場所に関係なく、`test` という名前のディレクトリの下にあるすべてのファイルにマッチします。例： `dist/test`、`src/test`。
-- `**/*.js` は、すべてのディレクトリ内の拡張子 `.js` で終わるすべてのファイルにマッチします。
+`extends` に定義されたエントリは `biome.json` ファイルの定義されたパスから解決されます。
+記載された順に処理され、後に記載されたファイルの設定がその前の設定を上書きします。
 
-Biomeが利用するglobライブラリは、すべてのglobが `**/` 接頭辞を持つものとして扱います。
-つまり、`src/**/*.js` と `**/src/**/*.js` は同一として扱われます。
-これらは `src/file.js` と `test/src/file.js` の両方にマッチします。
+Files that you `extend` from cannot `extend` other files in turn.
+
+Note that paths in a configuration file are always resolved from the folder in
+which the `biome.json`/`biome.jsonc` file resides. When using the `extends`
+field, this means that paths in a shared configuration are interpreted from the
+location of the configuration that is extending it, and not from the folder
+of the file being extended.
+
+For example, let's assume a project that contains two directories `backend/` and
+`frontend/`, each having their own `biome.json` that both extend a `common.json`
+configuration in the root folder:
+
+<FileTree>
+- backend/
+  - src/
+    - ...
+  - test/
+    - ...
+  - biome.json
+- frontend/
+  - src/
+    - ...
+  - test/
+    - ...
+  - biome.json
+- common.json
+</FileTree>
+
+```json title="common.json"
+{
+  "files": {
+    "includes": ["src/**/*.js", "test/**/*.js"],
+  },
+  "linter": {
+    "includes": ["!test/**"]
+  }
+}
+```
+
+```json title="frontend/biome.json"
+{
+  "extends": ["../common.json"]
+}
+```
+
+* When running Biome from the `frontend/` folder, it will be configured to
+  format and lint all JavaScript files in the `frontend/src/` and
+  `frontend/test/` folders, and only format the files in the `frontend/src/`
+  folder. This works because the paths specified in `common.json` are
+  interpreted from the `frontend/` folder, because that's where the `biome.json`
+  file resides.
+* Assuming `backend/biome.json` looks the same as `frontend/biome.json`, it will
+  have the same behaviour, except the paths will be interpreted from the
+  `backend/` folder.
+
+### NPMパッケージからBiomeの設定をエクスポートする
+
+Biomeは `node_modules/` ディレクトリから設定ファイルを解決できます。
+従って、パッケージから設定ファイルをエクスポートして、複数のプロジェクトでそれをインポートできます。
+
+そのようにするためには、まず "共有された" Biomeの設定を作成する必要があります。
+パッケージ `@org/shared-configs` から設定ファイルを指定子 `@org/shared-configs/biome` で共有することを考えましょう。
+このパッケージの `package.json` に `exports` エントリを作成する必要があります：
+
+```json title="package.json" ins={5,3}
+{
+  "name": "@org/shared-configs",
+  "type": "module",
+  "exports": {
+    "./biome": "./biome.json"
+  }
+}
+```
+`@org/shared-configs` がプロジェクトに正しくインストールされていることを確認し、`biome.json` を以下の例のように更新します：
+
+```json title="biome.json"
+{
+  "extends": ["@org/shared-configs/biome"]
+}
+```
+Biomeは `@org/shared-configs/` を作業ディレクトリから **解決** しようとします。
+作業ディレクトリは：
+
+- CLIを利用している場合、スクリプトを実行するディレクトリです。
+  一般的にこれは `package.json` ファイルの場所と同じです
+- LSPを利用している場合、プロジェクトのルートディレクトリです
 
 :::caution
-これらのパターンはBiome設定ファイルで利用できます。
-コマンドラインで利用されるglobパターンはBiomeでは解釈されず、シェルによって展開されます。
-一部のシェルは再帰的なglob `**` をサポートしていません。
+どのように解決されるかの破壊的な変更を防ぐために、ドット `.` で始まるパスと `.json` または `.jsonc` で終わるパスは `node_modules/` から解決**されません**。
 :::
+
+解決アルゴリズムの詳細な情報については、[Node.jsのドキュメント](https://nodejs.org/api/esm.html#resolution-and-loading-algorithm)を参照してください。

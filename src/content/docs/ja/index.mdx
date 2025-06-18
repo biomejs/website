@@ -8,6 +8,10 @@ description: フォーマット、リントなどが一瞬で完了します！
 editUrl: false
 next: false
 
+banner:
+  content: |
+    <strong>Biome v2—Biotype</strong> が<a href="/blog/biome-v2/">リリースされました</a> 🚀
+
 hero:
   title: Web開発のためのたった1つのツールチェーン
   tagline: フォーマット、リントなどが一瞬で完了します！
@@ -40,6 +44,7 @@ import "@/styles/_community.css";
 import Netlify from "@/components/Netlify.astro";
 import Sponsors from "@/components/Sponsors.astro";
 import LinterExample from "@/components/linter/example.md";
+import NumberOfRules from "@/components/generated/linter/NumberOfRules.astro";
 import AwardBanner from "@/components/AwardBanner.astro"
 
 <div class="gradient"></div>
@@ -48,7 +53,7 @@ import AwardBanner from "@/components/AwardBanner.astro"
 <div class="hero-code">
     <h2 class="head">Prettierのようにコードをフォーマット、しかも高速</h2>
 
-    **Biomeは _JavaScript_、_TypeScript_、_JSX_、_JSON_、_CSS_ そして _GraphQL_ のための[高速なフォーマッタ](https://github.com/biomejs/biome/tree/main/benchmark#formatting)** であり、[**_Prettier_ と97%の互換性**](https://console.algora.io/challenges/prettier)を持ち、**CIと開発者の時間を節約します**。
+    **Biomeは _JavaScript_、_TypeScript_、_JSX_、_JSON_、_HTML_、_CSS_ そして _GraphQL_ のための[高速なフォーマッタ](https://github.com/biomejs/biome/tree/main/benchmark#formatting)** であり、[**_Prettier_ と97%の互換性**](https://console.algora.io/challenges/prettier)を持ち、**CIと開発者の時間を節約します**。
 
     Biomeは、[お気に入りのエディタ](/ja/guides/editors/first-party-extensions/)でコードを書く際に、**不正な形式のコード**さえもフォーマットできます。
 
@@ -97,7 +102,7 @@ import AwardBanner from "@/components/AwardBanner.astro"
 <div class="hero-code">
     <h2 class="head">問題を修正し、ベストプラクティスを学ぶ</h2>
 
-    **Biomeは _JavaScript_、_TypeScript_、_JSX_、_CSS_ そして _GraphQL_ のための[高性能なリンタ](https://github.com/biomejs/biome/tree/main/benchmark#linting)** であり、ESLint、typescript-eslint、[その他のソース](https://github.com/biomejs/biome/discussions/3)に由来する **[200以上のルール](/linter/rules/)** を備えています。
+    **Biomeは _JavaScript_、_TypeScript_、_JSX_、_HTML_、_CSS_ そして _GraphQL_ のための[高性能なリンタ](https://github.com/biomejs/biome/tree/main/benchmark#linting)** であり、ESLint、typescript-eslint、[その他のソース](https://github.com/biomejs/biome/discussions/3)に由来する **[<NumberOfRules />個のルール](/linter/rules/)** を備えています。
 
     **Biomeは、文脈を考慮した詳細な診断を出力**してくれるため、あなたがコードを改善してより優れたプログラマーになるのに役立ちます！
 
@@ -152,6 +157,9 @@ import AwardBanner from "@/components/AwardBanner.astro"
     <Card title="すぐに使える" icon="add-document">
       フロントエンド開発で利用される言語に対して、優れたサポートを提供します。特にTypeScriptおよびJSXへのサポートを第一にしています。
     </Card>
+    <Card title="エンタープライズサポート" icon="phone">
+      貢献者のコミュニティによる<a href="/enterprise/">有償サポート</a>を必要とする組織に提供しています。
+    </Card>
   </CardGrid>
 </div>
 <div class="installation-body">
@@ -195,11 +203,11 @@ import AwardBanner from "@/components/AwardBanner.astro"
       </a>
       <a href="https://github.com/biomejs/biome" class="github">
         <Icon name="github" />
-        <p>Github</p>
+        <p>GitHub</p>
       </a>
       <a href="https://bsky.app/profile/biomejs.dev" class="blueSky">
           <Icon name="blueSky" />
-          <p>BlueSky</p>
+          <p>Bluesky</p>
       </a>
       <a href="https://fosstodon.org/@biomejs" class="mastodon">
         <Icon name="mastodon" />

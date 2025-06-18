@@ -128,7 +128,7 @@ The scanner respects `files.includes`, with two exceptions:
 This means that if you use `files.includes` to ignore folders with generated
 code, type information from such folders is inaccessible to the scanner. If you
 do wish to have such type information available, we advise to _not_ ignore these
-folders through `files.includes` and instead ignore them using tool-specific 
+folders through `files.includes` and instead ignore them using tool-specific
 settings such as `linter.includes` and `formatter.includes` only.
 
 ### `files.ignoreUnknown`
@@ -489,9 +489,9 @@ When formatting `package.json`, Biome will use `always` unless configured otherw
 
 ### `formatter.useEditorconfig`
 
-Whether Biome should use the `.editorconfig` file to determine the formatting options. 
+Whether Biome should use the `.editorconfig` file to determine the formatting options.
 
-The config files `.editorconfig` and `biome.json` will follow the follwing rules:
+The config files `.editorconfig` and `biome.json` will follow the following rules:
 
 - Formatting settings in `biome.json` always take precedence over `.editorconfig` files.
 - `.editorconfig` files that exist higher up in the hierarchy than a `biome.json` file are already ignored. This is to avoid loading formatting settings from someone's home directory into a project with a `biome.json` file.
@@ -520,7 +520,6 @@ Allows to support the unsafe/experimental parameter decorators.
 
 > Default: `false`
 
-
 ### `javascript.parser.jsxEverywhere`
 
 When set to `true`, allows to parse JSX syntax inside `.js` files. When set to `false`, Biome will raise diagnostics when it encounters JSX syntax inside `.js` files.
@@ -540,8 +539,6 @@ When set to `true`, allows to parse JSX syntax inside `.js` files. When set to `
 ### `javascript.formatter.quoteStyle`
 
 The type of quote used when representing string literals. It can be `"single"` or `"double"`.
-
-
 
 > Default: `"double"`
 
@@ -596,7 +593,6 @@ It configures where the formatter prints semicolons:
 
 Example:
 
-
 ```json title="biome.json"
 {
   "javascript": {
@@ -626,7 +622,6 @@ Enables Biome's formatter for JavaScript (and its super languages) files.
 The style of the indentation for JavaScript (and its super languages) files. It can be `"tab"` or `"space"`.
 
 > Default: `"tab"`
-
 
 ### `javascript.formatter.indentWidth`
 
@@ -731,7 +726,6 @@ Enables Biome's linter for JavaScript (and its super languages) files.
 }
 ```
 
-
 ### `javascript.assist.enabled`
 
 Enables Biome's assist for JavaScript (and its super languages) files.
@@ -802,11 +796,9 @@ Enables Biome's formatter for JSON (and its super languages) files.
 
 ### `json.formatter.indentStyle`
 
-
 The style of the indentation for JSON (and its super languages) files. It can be `"tab"` or `"space"`.
 
 > Default: `"tab"`
-
 
 ### `json.formatter.indentWidth`
 
@@ -918,7 +910,6 @@ Enables Biome's formatter for CSS files.
 
 ### `css.formatter.indentStyle`
 
-
 The style of the indentation for CSS files. It can be `"tab"` or `"space"`.
 
 > Default: `"tab"`
@@ -949,8 +940,6 @@ The type of line ending for CSS  files.
 - `"cr"`, Carriage Return character only (`\r`), used very rarely.
 
 > Default: `"lf"`
-
-
 
 ### `css.formatter.lineWidth`
 
@@ -1000,7 +989,6 @@ Enables Biome's assist for CSS files.
 
 Options applied to the GraphQL files.
 
-
 ### `graphql.formatter.enabled`
 
 Enables Biome's formatter for GraphQL files.
@@ -1009,11 +997,9 @@ Enables Biome's formatter for GraphQL files.
 
 ### `graphql.formatter.indentStyle`
 
-
 The style of the indentation for GraphQL files. It can be `"tab"` or `"space"`.
 
 > Default: `"tab"`
-
 
 ### `graphql.formatter.indentWidth`
 
@@ -1054,12 +1040,9 @@ Enables Biome's assist for GraphQL files.
 
 > Default: `true`
 
-
-
 ## `grit`
 
 Options applied to the Grit files.
-
 
 ### `grit.formatter.enabled`
 
@@ -1069,11 +1052,9 @@ Enables Biome's formatter for Grit files.
 
 ### `grit.formatter.indentStyle`
 
-
 The style of the indentation for Grit files. It can be `"tab"` or `"space"`.
 
 > Default: `"tab"`
-
 
 ### `grit.formatter.indentWidth`
 
@@ -1161,7 +1142,7 @@ files for which to apply customised settings.
 
 ### `overrides.<ITEM>.formatter`
 
-It will include the options of [top level formatter](#formatter) configuration, minus `ignore` and `include`.
+It will include the options of [top level formatter](#formatter) configuration, minus `includes`.
 
 #### Examples
 
@@ -1186,7 +1167,7 @@ For example, it's possible to modify the formatter `lineWidth`, `indentStyle` fo
 
 ### `overrides.<ITEM>.linter`
 
-It will include the options of [top level linter](#linter) configuration, minus `ignore` and `include`.
+It will include the options of [top level linter](#linter) configuration, minus `includes`.
 
 
 #### Examples
@@ -1222,9 +1203,9 @@ You can disable certain rules for certain glob paths, and disable the linter for
 }
 ```
 
-### `overrides.<ITEM>.organizeImports`
+### `overrides.<ITEM>.assist`
 
-It will include the options of [top level organize imports](#organizeimports), minus `ignore` and `include`.
+It will include the options of [top level assist](#assist), minus `includes`.
 
 ### `overrides.<ITEM>.javascript`
 
