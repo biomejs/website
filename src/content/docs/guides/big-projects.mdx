@@ -161,7 +161,7 @@ Since v2, Biome supports monorepos out of the box, and you'll need to set up the
 
     ```diff title="packages/generate/biome.json"
     {
-    -    "root": false,
+    -   "root": false,
         "extends": "//",
         "formatter": {
         "enabled": false
@@ -181,3 +181,12 @@ Since v2, Biome supports monorepos out of the box, and you'll need to set up the
 4. Now that everything is set up, you have few options. You can run `biome` commands from the root of the project, or from the single packages.
     Biome will respect all settings!
 </Steps>
+
+### Limitations and constraints
+
+To keep Biome as fast as possible, the nested configurations are discovered and loaded when at least one of these conditions is met:
+- the VCS integration is enabled
+- the CLI is run from the same folder where a root configuration file is present
+- when running the command `biome search`, or the command `biome migrate`
+- at least one project rule is enabled
+- you open a project in the IDE (using our LSP integration)
