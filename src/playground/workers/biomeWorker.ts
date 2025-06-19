@@ -1,7 +1,7 @@
 import init, {
-	type BiomePath,
 	type Configuration,
 	DiagnosticPrinter,
+	MemoryFileSystem,
 	type ProjectKey,
 	type RuleCategories,
 	type RuleCode,
@@ -21,28 +21,17 @@ import {
 	Semicolons,
 } from "@/playground/types";
 
+const encoder = new TextEncoder();
+
+let filesystem: MemoryFileSystem | null = null;
 let workspace: Workspace | null = null;
 let projectKey: ProjectKey | null = null;
-let fileCounter = 0;
-
-type File = {
-	filename: string;
-	id: number;
-	content: string;
-	version: number;
-};
-
-const files: Map<string, File> = new Map();
 
 let configuration: undefined | Configuration;
 let fullSettings: undefined | PlaygroundSettings;
 let only: RuleCode[] = [];
 // Configuration that comes from a virtual file. It takes precedence over the settings
 let fileConfiguration: undefined | Configuration;
-
-function getPathForFile(file: File): BiomePath {
-	return file.filename;
-}
 
 self.addEventListener("message", async (e) => {
 	switch (e.data.type) {
@@ -56,7 +45,8 @@ self.addEventListener("message", async (e) => {
 					await init();
 				}
 
-				workspace = new Workspace();
+				filesystem = new MemoryFileSystem();
+				workspace = Workspace.withFileSystem(filesystem);
 				projectKey = workspace.openProject({
 					openUninitialized: true,
 					path: "/",
@@ -104,6 +94,8 @@ self.addEventListener("message", async (e) => {
 			} = e.data.settings as PlaygroundSettings;
 
 			configuration = {
+				...configuration,
+
 				formatter: {
 					enabled: true,
 					formatWithErrors: true,
@@ -223,52 +215,71 @@ self.addEventListener("message", async (e) => {
 			break;
 		}
 
-		case "update": {
+		case "updatePlugins": {
 			if (!workspace || !projectKey) {
 				console.error("Workspace was not initialized");
 				break;
 			}
 
-			const { filename, code, cursorPosition } = e.data;
+			const { plugins } = e.data;
 
-			let file = files.get(filename);
-			if (file === undefined) {
-				file = {
-					filename,
-					version: 0,
-					content: code,
-					id: fileCounter++,
-				};
+			workspace.updateSettings({
+				projectKey,
+				configuration: {
+					...configuration,
+					plugins,
+				},
+			});
 
-				workspace.openFile({
-					projectKey,
-					path: getPathForFile(file),
-					content: {
-						type: "fromClient",
-						content: code,
-						version: 0,
-					},
-					persistNodeCache: true,
-				});
-			} else {
-				file = {
-					filename,
-					id: file.id,
-					version: file.version + 1,
-					content: code,
-				};
+			break;
+		}
 
-				workspace.openFile({
-					projectKey,
-					path: getPathForFile(file),
-					content: {
-						type: "fromClient",
-						content: code,
-						version: file.version,
-					},
-					persistNodeCache: true,
-				});
+		case "insertFile": {
+			if (!filesystem || !workspace || !projectKey) {
+				console.error("Workspace was not initialized");
+				break;
 			}
+
+			const { filename, code } = e.data;
+
+			filesystem.insert(filename, encoder.encode(code));
+
+			break;
+		}
+
+		case "removeFile": {
+			if (!filesystem) {
+				console.error("Workspace was not initialized");
+				break;
+			}
+
+			const { filename } = e.data;
+
+			filesystem.remove(filename);
+
+			break;
+		}
+
+		case "update": {
+			if (!filesystem || !workspace || !projectKey) {
+				console.error("Workspace was not initialized");
+				break;
+			}
+
+			const { filename, code, cursorPosition } = e.data;
+			const path = filename;
+
+			filesystem.insert(path, encoder.encode(code));
+
+			workspace.openFile({
+				projectKey,
+				path,
+				content: {
+					type: "fromServer",
+				},
+				persistNodeCache: true,
+			});
+
 			if (filename === "biome.json") {
 				try {
 					fileConfiguration = JSON.parse(code) as Configuration;
@@ -286,8 +297,7 @@ self.addEventListener("message", async (e) => {
 					);
 				}
 			}
-			files.set(filename, file);
-			const path = getPathForFile(file);
+
 			const fileFeatures = workspace.fileFeatures({
 				projectKey,
 				path,
@@ -384,7 +394,8 @@ self.addEventListener("message", async (e) => {
 			if (currentConfiguration?.assist?.enabled) {
 				categories.push("action");
 			}
-			const diagnosticsResult = workspace.pullDiagnostics({
+
+			const { diagnostics } = workspace.pullDiagnostics({
 				projectKey,
 				path,
 				categories,
@@ -394,7 +405,7 @@ self.addEventListener("message", async (e) => {
 			});
 
 			const printer = new DiagnosticPrinter(path, code);
-			for (const diag of diagnosticsResult.diagnostics) {
+			for (const diag of diagnostics) {
 				printer.print_verbose(diag);
 			}
 
@@ -448,7 +459,7 @@ self.addEventListener("message", async (e) => {
 				},
 				diagnostics: {
 					console: printer.finish(),
-					list: diagnosticsResult.diagnostics,
+					list: diagnostics,
 				},
 				formatter: {
 					code: printed.code,

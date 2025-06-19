@@ -32,11 +32,11 @@ function renderDiagnosticMessage(diagnostic: Diagnostic) {
 
 		for (const elem of part.elements) {
 			if (elem === "Emphasis") {
-				content = <strong>{content}</strong>;
+				content = <strong key={i}>{content}</strong>;
 			} else if (elem === "Underline") {
-				content = <u>{content}</u>;
+				content = <u key={i}>{content}</u>;
 			} else if (elem === "Italic") {
-				content = <i>{content}</i>;
+				content = <i key={i}>{content}</i>;
 			}
 		}
 

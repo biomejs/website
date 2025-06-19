@@ -56,6 +56,7 @@ function PlaygroundLoader() {
 		usePlaygroundState();
 	const workerRef = useRef<Worker | null>(null);
 	const prettierWorkerRef = useRef<Worker | null>(null);
+	const filesRef = useRef(new Set<string>());
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: dependencies mismatch
 	useEffect(() => {
@@ -161,6 +162,53 @@ function PlaygroundLoader() {
 		});
 	}, [loadingState, state.settings]);
 
+	// Dispatch updated files
+	useEffect(() => {
+		if (loadingState !== LoadingState.Success) {
+			return;
+		}
+
+		// Do nothing hwn the file count hasn't changed
+		if (Object.keys(state.files).length === filesRef.current.size) {
+			return;
+		}
+
+		return throttle(() => {
+			const files = new Set<string>();
+
+			// Insert files that not yet exists
+			for (const [filename, file] of Object.entries(state.files)) {
+				files.add(filename);
+
+				if (!filesRef.current.has(filename)) {
+					workerRef.current?.postMessage({
+						type: "insertFile",
+						filename,
+						code: file?.content,
+					});
+				}
+			}
+
+			// Remove files that no longer exists
+			for (const filename of filesRef.current) {
+				if (!files.has(filename)) {
+					workerRef.current?.postMessage({
+						type: "removeFile",
+						filename,
+					});
+				}
+			}
+
+			// Update plugins
+			workerRef.current?.postMessage({
+				type: "updatePlugins",
+				plugins: [...files].filter((filename) => filename.endsWith(".grit")),
+			});
+
+			filesRef.current = files;
+		});
+	}, [loadingState, state.files]);
+
 	// Dispatch updated code to Prettier
 	// biome-ignore lint/correctness/useExhaustiveDependencies: dependencies mismatch
 	useEffect(() => {
@@ -181,6 +229,16 @@ function PlaygroundLoader() {
 				filename: state.currentFile,
 				code: getCurrentCode(state),
 			});
+
+			// Update plugins on edited
+			if (state.currentFile.endsWith(".grit")) {
+				workerRef.current?.postMessage({
+					type: "updatePlugins",
+					plugins: [...filesRef.current].filter((filename) =>
+						filename.endsWith(".grit"),
+					),
+				});
+			}
 		});
 	}, [
 		loadingState,
