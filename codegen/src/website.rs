@@ -78,7 +78,7 @@ pub(crate) fn generate_changelog() -> anyhow::Result<()> {
 title: Changelog
 description: The changelog of Biome
 tableOfContents:
-    maxHeadingLevel: 2
+    maxHeadingLevel: 3
 ---
 "#;
 
