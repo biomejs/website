@@ -304,6 +304,7 @@ export default {
   '/linter/rules/useObjectSpread': '/linter/rules/use-object-spread',
   '/linter/rules/useOptionalChain': '/linter/rules/use-optional-chain',
   '/linter/rules/useParseIntRadix': '/linter/rules/use-parse-int-radix',
+  '/linter/rules/useReadonlyClassProperties': '/linter/rules/use-readonly-class-properties',
   '/linter/rules/useRegexLiterals': '/linter/rules/use-regex-literals',
   '/linter/rules/useSelfClosingElements': '/linter/rules/use-self-closing-elements',
   '/linter/rules/useSemanticElements': '/linter/rules/use-semantic-elements',
