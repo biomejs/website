@@ -303,6 +303,7 @@ export const LINT_RULES = {
   useObjectSpread: "useObjectSpread",
   useOptionalChain: "useOptionalChain",
   useParseIntRadix: "useParseIntRadix",
+  useReadonlyClassProperties: "useReadonlyClassProperties",
   useRegexLiterals: "useRegexLiterals",
   useSelfClosingElements: "useSelfClosingElements",
   useSemanticElements: "useSemanticElements",
