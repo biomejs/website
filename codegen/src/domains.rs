@@ -180,15 +180,15 @@ impl DocDomains {
         writeln!(buffer, "{}", all.as_code())?;
         writeln!(buffer, "```")?;
 
-        let off = format_node(
+        let none = format_node(
             JsonFormatOptions::default().with_expand(Expand::Always),
-            make_config_json(Case::Lower.convert(name).as_str(), "off").syntax(),
+            make_config_json(Case::Lower.convert(name).as_str(), "none").syntax(),
         )?
         .print()?;
 
         writeln!(buffer, "**Disable** all rules of the domain:")?;
         writeln!(buffer, "```json title=\"biome.json\" ins={{3-5}}")?;
-        writeln!(buffer, "{}", off.as_code())?;
+        writeln!(buffer, "{}", none.as_code())?;
         writeln!(buffer, "```")?;
 
         Ok(())
