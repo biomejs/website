@@ -175,6 +175,7 @@ export default {
   '/linter/rules/noThisInStatic': '/linter/rules/no-this-in-static',
   '/linter/rules/noTsIgnore': '/linter/rules/no-ts-ignore',
   '/linter/rules/noTypeOnlyImportAttributes': '/linter/rules/no-type-only-import-attributes',
+  '/linter/rules/noUnassignedVariables': '/linter/rules/no-unassigned-variables',
   '/linter/rules/noUndeclaredDependencies': '/linter/rules/no-undeclared-dependencies',
   '/linter/rules/noUndeclaredVariables': '/linter/rules/no-undeclared-variables',
   '/linter/rules/noUnknownAtRule': '/linter/rules/no-unknown-at-rule',
