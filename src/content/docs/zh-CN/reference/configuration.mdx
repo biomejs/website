@@ -25,7 +25,7 @@ description: 如何使用biome.json自定义和配置Biome。
 
 ```json title="biome.json"
 {
-  "$schema": "https://biomejs.dev/schemas/2.0.0-beta/schema.json"
+  "$schema": "https://biomejs.dev/schemas/2.0.5/schema.json"
 }
 ```
 
@@ -35,14 +35,14 @@ description: 如何使用biome.json自定义和配置Biome。
 
 ```json title="biome.json"
 {
-  "$schema": "https://biomejs.dev/schemas/2.0.0-beta/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.0.5/schema.json",
   "extends": ["./formatter.json", "./linter.json"]
 }
 ```
 
 ```json title="formatter.json"
 {
-  "$schema": "https://biomejs.dev/schemas/2.0.0-beta/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.0.5/schema.json",
   "formatter": {
     "indentWidth": 2
   },
@@ -56,7 +56,7 @@ description: 如何使用biome.json自定义和配置Biome。
 
 ```json title="linter.json"
 {
-  "$schema": "https://biomejs.dev/schemas/2.0.0-beta/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.0.5/schema.json",
   "linter": {
     "rules": {
       "complexity": {
