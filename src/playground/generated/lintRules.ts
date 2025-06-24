@@ -71,6 +71,7 @@ export const LINT_RULES = {
   noEnum: "noEnum",
   noEvolvingTypes: "noEvolvingTypes",
   noExcessiveCognitiveComplexity: "noExcessiveCognitiveComplexity",
+  noExcessiveLinesPerFunction: "noExcessiveLinesPerFunction",
   noExcessiveNestedTestSuites: "noExcessiveNestedTestSuites",
   noExplicitAny: "noExplicitAny",
   noExportedImports: "noExportedImports",

@@ -1540,6 +1540,21 @@ export function GET() {
             "sourceKind": "inspired",
             "docs": " Disallow destructuring props inside JSX components in Solid projects.\n\n In Solid, props must be used with property accesses (props.foo) to preserve reactivity.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n let Component = ({}) => <div />;\n ```\n\n ```jsx,expect_diagnostic\n let Component = ({ a: A }) => <div a={A} />;\n ```\n\n ```tsx,expect_diagnostic\n let Component = ({ prop1 }: Props) => <div p1={prop1} />;\n ```\n\n ### Valid\n\n ```jsx\n let Component = (props) => <div />;\n ```\n\n ```jsx\n let Component = (props) => <div a={props.a} />;\n ```\n\n"
           },
+          "noExcessiveLinesPerFunction": {
+            "deprecated": false,
+            "version": "2.0.0",
+            "name": "noExcessiveLinesPerFunction",
+            "link": "https://biomejs.dev/linter/rules/no-excessive-lines-per-function",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslint": "max-lines-per-function"
+              }
+            ],
+            "sourceKind": "inspired",
+            "docs": " Restrict the number of lines of code in a function.\n\n This rule checks the number of lines in a function body and reports a diagnostic if it exceeds a specified limit. Remember that this rule only counts the lines of code in the function body, not the entire function declaration.\n Some people consider large functions a code smell. Large functions tend to do a lot of things and can make it hard following what’s going on. Many coding style guides dictate a limit of the number of lines that a function can comprise of. This rule can help enforce that style.\n\n ## Examples\n\n ### Invalid\n\n The following example will show diagnostic when you set the maxLines limit to 3, however the default value is 50.\n\n ```js\n function foo () {\n   const x = 0;\n   const y = 1;\n   const z = 2;\n   return x + y + z;\n };\n ```\n\n ### Valid\n\n ```js\n  function foo () {\n     const x = 0;\n     const y = 1;\n };\n ```\n\n ## Options\n\n The rule supports the following options:\n\n ```json\n {\n     \"options\": {\n        \"maxLines\": 50,\n        \"skipBlankLines\": false,\n        \"skipIifes\": false\n     }\n }\n ```\n\n ### maxLines\n\n This option sets the maximum number of lines allowed in a function body.\n If the function body exceeds this limit, a diagnostic will be reported.\n\n Default: `50`\n\n When `maxLines: 2`, the following function will be considered invalid:\n ```json,options\n {\n     \"options\": {\n        \"maxLines\": 2\n     }\n }\n ```\n ```js,expect_diagnostic,use_options\n function example() {\n  const a = 1; // 1\n  const b = 2; // 2\n  const c = 3; // 3\n };\n ```\n\n ### skipBlankLines\n\n When this options is set to `true`, blank lines in the function body are not counted towards the maximum line limit.\n This means that only lines with actual code or comments will be counted.\n\n Default: `false`\n\n When `maxLines: 2` and `skipBlankLines: true`, the following function will be considered valid:\n ```json,options\n {\n     \"options\": {\n        \"maxLines\": 2,\n        \"skipBlankLines\": true\n     }\n }\n ```\n ```js,use_options\n function example() {\n  const a = 1; // 1\n  // not counted\n  const b = 2; // 2\n  // not counted\n };\n ```\n\n ### skipIifes\n\n When this option is set to `true`, Immediately Invoked Function Expressions (IIFEs) are not checked for the maximum line limit.\n\n Default: `false`\n\n When `maxLines: 2` and `skipIifes: true`, the following IIFE will be considered valid even though its body has 3 lines:\n ```json,options\n {\n     \"options\": {\n        \"maxLines\": 2,\n        \"skipIifes\": true\n     }\n }\n ```\n ```js,use_options\n (() => {\n  const a = 1; // 1\n  const b = 2; // 2\n  const c = 3; // 3\n })();\n ```\n\n"
+          },
           "noGlobalDirnameFilename": {
             "deprecated": false,
             "version": "2.0.0",
@@ -4676,7 +4691,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 329
+    "numberOrRules": 330
   },
   "syntax": {
     "languages": {
