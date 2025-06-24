@@ -173,6 +173,7 @@ export const LINT_RULES = {
   noThisInStatic: "noThisInStatic",
   noTsIgnore: "noTsIgnore",
   noTypeOnlyImportAttributes: "noTypeOnlyImportAttributes",
+  noUnassignedVariables: "noUnassignedVariables",
   noUndeclaredDependencies: "noUndeclaredDependencies",
   noUndeclaredVariables: "noUndeclaredVariables",
   noUnknownAtRule: "noUnknownAtRule",
