@@ -5,6 +5,7 @@ export const LINT_RULES = {
  noAccessKey: "noAccessKey",
   noAccumulatingSpread: "noAccumulatingSpread",
   noAdjacentSpacesInRegex: "noAdjacentSpacesInRegex",
+  noAlert: "noAlert",
   noApproximativeNumericConstant: "noApproximativeNumericConstant",
   noArguments: "noArguments",
   noAriaHiddenOnFocusable: "noAriaHiddenOnFocusable",
