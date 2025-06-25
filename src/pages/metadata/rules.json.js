@@ -2555,6 +2555,20 @@ export function GET() {
           }
         },
         "suspicious": {
+          "noAlert": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noAlert",
+            "link": "https://biomejs.dev/linter/rules/no-alert",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "eslint": "no-alert"
+              }
+            ],
+            "docs": " Disallow the use of `alert`, `confirm`, and `prompt`.\n\n JavaScript's `alert`, `confirm`, and `prompt` functions are widely considered to be obtrusive\n as UI elements and should be replaced by a more appropriate custom UI implementation.\n Furthermore, `alert` is often used while debugging code, which should be removed before\n deployment to production.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n alert(\"here!\");\n ```\n\n ```js,expect_diagnostic\n confirm(\"Are you sure?\");\n ```\n\n ```js,expect_diagnostic\n prompt(\"What's your name?\", \"John Doe\");\n ```\n\n ### Valid\n\n ```js\n customAlert(\"Something happened!\");\n ```\n\n ```js\n customConfirm(\"Are you sure?\");\n ```\n\n ```js\n customPrompt(\"Who are you?\");\n ```\n\n ```js\n function foo() {\n     const alert = myCustomLib.customAlert;\n     alert();\n }\n ```\n"
+          },
           "noApproximativeNumericConstant": {
             "deprecated": false,
             "version": "1.3.0",
@@ -4719,7 +4733,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 332
+    "numberOrRules": 333
   },
   "syntax": {
     "languages": {
