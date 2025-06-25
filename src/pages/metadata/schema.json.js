@@ -152,6 +152,13 @@ export function GET() {
 					"additionalProperties": false
 				},
 				{
+					"description": "Rules from [Eslint Plugin Perfectionist](https://perfectionist.dev/)",
+					"type": "object",
+					"required": ["eslintPerfectionist"],
+					"properties": { "eslintPerfectionist": { "type": "string" } },
+					"additionalProperties": false
+				},
+				{
 					"description": "Rules from [Eslint Plugin React](https://github.com/jsx-eslint/eslint-plugin-react)",
 					"type": "object",
 					"required": ["eslintReact"],
