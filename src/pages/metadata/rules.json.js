@@ -4353,6 +4353,20 @@ export function GET() {
               }
             ],
             "docs": " Enforce marking members as `readonly` if they are never modified outside the constructor.\n\n This rule ensures that class properties, especially private ones, are marked as `readonly` if their values\n remain constant after being initialized. This helps improve code readability, maintainability, and ensures\n immutability where applicable.\n\n It can be configured to check only private members or all class properties.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n class Container {\n     private onlyModifiedInConstructor = 1;\n     constructor(\n         member1: number,\n     ) {\n         this.onlyModifiedInConstructor = onlyModifiedInConstructor;\n     }\n }\n ```\n\n ```ts,expect_diagnostic\n class Container {\n     constructor(\n        private constructorParameter: number,\n     ) {\n     }\n }\n ```\n\n ```ts,expect_diagnostic\n class Container {\n     private neverModifiedMember = true;\n }\n ```\n\n ```ts,expect_diagnostic\n class Container {\n     #neverModifiedPrivateField = 3;\n }\n ```\n\n ### Valid\n\n ```ts\n class Container {\n     private readonly neverModifiedMember = true;\n     private readonly onlyModifiedInConstructor: number;\n     readonly #neverModifiedPrivateField = 3;\n\n     public constructor(\n         onlyModifiedInConstructor: number,\n         private readonly neverModifiedParameter: string,\n     ) {\n         this.onlyModifiedInConstructor = onlyModifiedInConstructor;\n     }\n }\n ```\n\n ## Options\n\n ### `checkAllProperties`\n\n Checks whether all class properties (including public and protected) should be analyzed.\n By default, `checkAllProperties` is set to `false`.\n\n ```json,options\n {\n     \"options\": {\n         \"checkAllProperties\": true\n     }\n }\n ```\n\n ```ts,use_options,expect_diagnostic\n class Example {\n     public constantValue = 42;\n\n     constructor(value: number) {\n         this.constantValue = value;\n     }\n }\n ```\n\n ```ts,use_options,expect_diagnostic\n class Example {\n     constructor(protected constructorParameter: string) {\n     }\n }\n ```\n\n"
+          },
+          "useUnifiedTypeSignature": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useUnifiedTypeSignature",
+            "link": "https://biomejs.dev/linter/rules/use-unified-type-signature",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "eslintTypeScript": "unified-signatures"
+              }
+            ],
+            "docs": " Disallow overload signatures that can be unified into a single signature.\n\n Overload signatures that can be merged into a single signature are redundant and should be avoided.\n This rule helps simplify function signatures by combining overloads by making parameters optional\n and/or using type unions.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n function f(a: number): void;\n function f(a: string): void;\n ```\n\n ```ts,expect_diagnostic\n interface I {\n     a(): void;\n     a(x: number): void;\n }\n ```\n\n ### Valid\n\n ```ts\n function f(a: number | string): void {}\n ```\n\n ```ts\n interface I {\n     a(x?: number): void;\n }\n ```\n\n Different return types cannot be merged:\n ```ts\n interface I {\n     f(): void;\n     f(x: number): number;\n }\n ```\n\n Different type parameters cannot be merged:\n ```ts\n function f<T extends number>(x: T): void;\n function f<T extends string>(x: T): void;\n function f(x: unknown): void {}\n ```\n\n"
           }
         },
         "style": {
@@ -4705,7 +4719,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 331
+    "numberOrRules": 332
   },
   "syntax": {
     "languages": {
