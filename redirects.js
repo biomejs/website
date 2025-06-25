@@ -99,6 +99,7 @@ export default {
   '/linter/rules/noImgElement': '/linter/rules/no-img-element',
   '/linter/rules/noImplicitAnyLet': '/linter/rules/no-implicit-any-let',
   '/linter/rules/noImplicitBoolean': '/linter/rules/no-implicit-boolean',
+  '/linter/rules/noImplicitCoercion': '/linter/rules/no-implicit-coercion',
   '/linter/rules/noImportAssign': '/linter/rules/no-import-assign',
   '/linter/rules/noImportCycles': '/linter/rules/no-import-cycles',
   '/linter/rules/noImportantInKeyframe': '/linter/rules/no-important-in-keyframe',
