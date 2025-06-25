@@ -4831,7 +4831,13 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/use-sorted-keys",
             "recommended": false,
             "fixKind": "safe",
-            "docs": " Enforce ordering of a JS object properties.\n\n This rule checks if keys of the object are sorted in a consistent way.\n Keys are sorted in a [natural sort order](https://en.wikipedia.org/wiki/Natural_sort_order).\n This rule will consider spread/calculated keys e.g [k]: 1 as non-sortable.\n Instead, whenever it encounters a non-sortable key, it will sort all the\n previous sortable keys up until the nearest non-sortable key, if one\n exist.\n This prevents breaking the override of certain keys using spread\n keys.\n\n Source: https://perfectionist.dev/rules/sort-objects\n\n ## Examples\n\n ```js,expect_diff\n {\n   x: 1,\n   a: 2,\n };\n ```\n\n ```js,expect_diff\n {\n   x: 1,\n   ...f,\n   y: 4,\n   a: 2,\n   [calculated()]: true,\n   b: 3,\n   a: 1,\n };\n ```\n\n ```js,expect_diff\n {\n   get aab() {\n     return this._aab;\n   },\n   set aac(v) {\n     this._aac = v;\n   },\n   w: 1,\n   x: 1,\n   ...g,\n   get aaa() {\n     return \"\";\n   },\n   u: 1,\n   v: 1,\n   [getProp()]: 2,\n   o: 1,\n   p: 1,\n   q: 1,\n }\n ```\n"
+            "sources": [
+              {
+                "eslintPerfectionist": "sort-objects"
+              }
+            ],
+            "sourceKind": "inspired",
+            "docs": " Enforce ordering of a JS object properties.\n\n This rule checks if keys of the object are sorted in a consistent way.\n Keys are sorted in a [natural sort order](https://en.wikipedia.org/wiki/Natural_sort_order).\n This rule will consider spread/calculated keys e.g [k]: 1 as non-sortable.\n Instead, whenever it encounters a non-sortable key, it will sort all the\n previous sortable keys up until the nearest non-sortable key, if one\n exist.\n This prevents breaking the override of certain keys using spread\n keys.\n\n ## Examples\n\n ```js,expect_diff\n {\n   x: 1,\n   a: 2,\n };\n ```\n\n ```js,expect_diff\n {\n   x: 1,\n   ...f,\n   y: 4,\n   a: 2,\n   [calculated()]: true,\n   b: 3,\n   a: 1,\n };\n ```\n\n ```js,expect_diff\n {\n   get aab() {\n     return this._aab;\n   },\n   set aac(v) {\n     this._aac = v;\n   },\n   w: 1,\n   x: 1,\n   ...g,\n   get aaa() {\n     return \"\";\n   },\n   u: 1,\n   v: 1,\n   [getProp()]: 2,\n   o: 1,\n   p: 1,\n   q: 1,\n }\n ```\n"
           }
         }
       },
