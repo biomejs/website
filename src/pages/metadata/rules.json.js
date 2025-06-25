@@ -1570,6 +1570,20 @@ export function GET() {
             "sourceKind": "inspired",
             "docs": " Disallow the use of `__dirname` and `__filename` in the global scope.\n\n They are [not available in ES modules](https://nodejs.org/api/esm.html#esm_no_filename_or_dirname).\n Starting with Node.js 20.11, `import.meta.dirname` and `import.meta.filename` have been introduced in ES modules, providing identical functionality to `__dirname` and `__filename` in CommonJS (CJS).\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const dirname = __dirname;\n ```\n\n ```js,expect_diagnostic\n const filename = __filename;\n ```\n\n ``` js,expect_diagnostic\n const foo = { __filename }\n ```\n\n ```js,expect_diagnostic\n if (__dirname.startsWith(\"/project/src/\")) {}\n ```\n\n ### Valid\n\n ```js\n const dirname = import.meta.dirname\n const filename = import.meta.filename\n const foo = {__filename: import.meta.filename };\n if (import.meta.dirname.startsWith(\"/project/src/\")) {}\n ```\n\n"
           },
+          "noImplicitCoercion": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noImplicitCoercion",
+            "link": "https://biomejs.dev/linter/rules/no-implicit-coercion",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "eslint": "no-implicit-coercion"
+              }
+            ],
+            "docs": " Disallow shorthand type conversions.\n\n JavaScript allows shorthand type conversions by using operators like `!!`, `+`, `~`, etc.\n These shortcuts can make the code harder to read and understand, especially for developers\n who are not familiar with these patterns. Using explicit type conversion functions like\n `Boolean()`, `Number()`, and `String()` makes the intent clearer and more readable.\n\n This rule reports when values are converted to:\n - Boolean using double negation `!!value`\n - Number using unary plus `+value`, subtraction from zero `value - 0`, multiplication by one `value * 1`, division by one `value / 1`, or double negation with minus `-(-value)`\n - String using concatenation with empty string `value + \"\"` or empty template literal `` value + `` ``\n - Check index using bitwise NOT with indexOf `~value.indexOf(item)` instead of comparing with -1\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n !!foo;\n ```\n\n ```js,expect_diagnostic\n +foo;\n ```\n\n ```js,expect_diagnostic\n -(-foo);\n ```\n\n ```js,expect_diagnostic\n foo - 0;\n ```\n\n ```js,expect_diagnostic\n foo * 1;\n ```\n\n ```js,expect_diagnostic\n foo / 1;\n ```\n\n ```js,expect_diagnostic\n \"\" + foo;\n ```\n\n ```js,expect_diagnostic\n foo + \"\";\n ```\n\n ```js,expect_diagnostic\n `` + foo;\n ```\n\n ```js,expect_diagnostic\n foo += \"\";\n ```\n\n ```js,expect_diagnostic\n ~foo.indexOf(1);\n ```\n\n ### Valid\n\n ```js\n Boolean(foo);\n ```\n\n ```js\n Number(foo);\n ```\n\n ```js\n String(foo);\n ```\n\n ```js\n foo.indexOf(1) !== -1;\n ```\n\n These are not flagged because they don't perform type coercion:\n ```js\n !foo;\n ~foo;\n -foo;\n +1234;\n 2 * foo;\n foo + 'bar';\n ```\n\n"
+          },
           "noImportCycles": {
             "deprecated": false,
             "version": "2.0.0",
@@ -4733,7 +4747,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 333
+    "numberOrRules": 334
   },
   "syntax": {
     "languages": {

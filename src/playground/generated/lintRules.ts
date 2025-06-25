@@ -97,6 +97,7 @@ export const LINT_RULES = {
   noImgElement: "noImgElement",
   noImplicitAnyLet: "noImplicitAnyLet",
   noImplicitBoolean: "noImplicitBoolean",
+  noImplicitCoercion: "noImplicitCoercion",
   noImportAssign: "noImportAssign",
   noImportCycles: "noImportCycles",
   noImportantInKeyframe: "noImportantInKeyframe",
