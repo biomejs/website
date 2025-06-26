@@ -1,7 +1,7 @@
 use crate::project_root;
 use biome_analyze::{
     FixKind, GroupCategory, Queryable, RegistryVisitor, Rule, RuleCategory, RuleGroup,
-    RuleMetadata, RuleSource, RuleSourceKind,
+    RuleMetadata, RuleSource, RuleSourceKind, RuleSourceWithKind,
 };
 use biome_css_syntax::CssLanguage;
 use biome_graphql_syntax::GraphqlLanguage;
@@ -85,10 +85,7 @@ struct JsonMetadata {
     pub fix_kind: FixKind,
     /// The source metadata of the rule
     #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub sources: Vec<RuleSource>,
-    /// The source kind of the rule
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub source_kind: Option<RuleSourceKind>,
+    pub sources: Vec<RuleSourceWithKind>,
 
     pub docs: String,
 }
@@ -98,7 +95,6 @@ impl From<RuleMetadata> for JsonMetadata {
         Self {
             deprecated: value.deprecated.is_some(),
             version: value.version.to_string(),
-            source_kind: value.source_kind,
             name: value.name.to_string(),
             sources: value.sources.to_vec(),
             link: format!(
