@@ -67,17 +67,10 @@ export function GET() {
 					"default": false,
 					"type": "boolean"
 				},
-				"sourceKind": {
-					"description": "The source kind of the rule",
-					"anyOf": [
-						{ "$ref": "#/definitions/RuleSourceKind" },
-						{ "type": "null" }
-					]
-				},
 				"sources": {
 					"description": "The source metadata of the rule",
 					"type": "array",
-					"items": { "$ref": "#/definitions/RuleSource" }
+					"items": { "$ref": "#/definitions/RuleSourceWithKind" }
 				},
 				"version": {
 					"description": "The version when the rule was implemented",
@@ -306,6 +299,14 @@ export function GET() {
 					"enum": ["inspired"]
 				}
 			]
+		},
+		"RuleSourceWithKind": {
+			"type": "object",
+			"required": ["kind", "source"],
+			"properties": {
+				"kind": { "$ref": "#/definitions/RuleSourceKind" },
+				"source": { "$ref": "#/definitions/RuleSource" }
+			}
 		},
 		"Rules": {
 			"type": "object",
