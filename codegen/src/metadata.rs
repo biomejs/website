@@ -1,7 +1,7 @@
 use crate::project_root;
 use biome_analyze::{
     FixKind, GroupCategory, Queryable, RegistryVisitor, Rule, RuleCategory, RuleGroup,
-    RuleMetadata, RuleSource, RuleSourceKind, RuleSourceWithKind,
+    RuleMetadata, RuleSourceWithKind,
 };
 use biome_css_syntax::CssLanguage;
 use biome_graphql_syntax::GraphqlLanguage;
