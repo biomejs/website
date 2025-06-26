@@ -82,7 +82,8 @@ description: A page that maps {name_lower_case} from other sources to Biome
                     format!("/{prefix_path}/{kebab_rule_name}"),
                 ));
             } else {
-                for source in metadata.sources {
+                for source_with_kind in metadata.sources {
+                    let source = source_with_kind.source;
                     let set = rules_by_source.get_mut(&format!("{source}"));
                     if let Some(set) = set {
                         set.insert(SourceSet {
