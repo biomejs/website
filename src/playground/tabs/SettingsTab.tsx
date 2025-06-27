@@ -1,3 +1,11 @@
+import type {
+	FixFileMode,
+	RuleDomain,
+	RuleDomains,
+	RuleDomainValue,
+} from "@biomejs/wasm-web";
+import type React from "react";
+import { type Dispatch, type SetStateAction, useState } from "react";
 import EnumSelect from "@/playground/components/EnumSelect";
 import { LINT_RULES } from "@/playground/generated/lintRules.ts";
 import {
@@ -23,14 +31,6 @@ import {
 	modifyFilename,
 	normalizeFilename,
 } from "@/playground/utils";
-import type {
-	FixFileMode,
-	RuleDomain,
-	RuleDomainValue,
-	RuleDomains,
-} from "@biomejs/wasm-web";
-import type React from "react";
-import { type Dispatch, type SetStateAction, useState } from "react";
 
 export interface SettingsTabProps {
 	state: PlaygroundState;
@@ -364,7 +364,10 @@ export default function SettingsTab({
 function LanguageView({
 	language,
 	setLanguage,
-}: { language: Language; setLanguage: (language: Language) => void }) {
+}: {
+	language: Language;
+	setLanguage: (language: Language) => void;
+}) {
 	return (
 		<section>
 			<div className="field-row">
@@ -1055,68 +1058,66 @@ function LineWidthInput({
 	);
 
 	return (
-		<>
-			<div className="field-row">
-				<label htmlFor="lineWidth">Line Width</label>
+		<div className="field-row">
+			<label htmlFor="lineWidth">Line Width</label>
 
-				<div className="input-container">
-					<div className="button-group">
-						<button
-							type="button"
-							aria-label="Set line width to 80 characters"
-							onClick={() => {
-								setLineWidth(80);
-								setShowCustom(false);
-							}}
-							onKeyDown={() => {
-								setLineWidth(80);
-								setShowCustom(false);
-							}}
-							disabled={!showCustom && lineWidth === 80}
-						>
-							80
-						</button>
+			<div className="input-container">
+				<div className="button-group">
+					<button
+						type="button"
+						aria-label="Set line width to 80 characters"
+						onClick={() => {
+							setLineWidth(80);
+							setShowCustom(false);
+						}}
+						onKeyDown={() => {
+							setLineWidth(80);
+							setShowCustom(false);
+						}}
+						disabled={!showCustom && lineWidth === 80}
+					>
+						80
+					</button>
 
-						<button
-							type="button"
-							aria-label="Set line width to 120 characters"
-							onClick={() => {
-								setLineWidth(120);
-								setShowCustom(false);
-							}}
-							onKeyDown={() => {
-								setLineWidth(120);
-								setShowCustom(false);
-							}}
-							disabled={!showCustom && lineWidth === 120}
-						>
-							120
-						</button>
+					<button
+						type="button"
+						aria-label="Set line width to 120 characters"
+						onClick={() => {
+							setLineWidth(120);
+							setShowCustom(false);
+						}}
+						onKeyDown={() => {
+							setLineWidth(120);
+							setShowCustom(false);
+						}}
+						disabled={!showCustom && lineWidth === 120}
+					>
+						120
+					</button>
 
-						<button
-							type="button"
-							aria-label="Set a custom line width"
-							onClick={() => setShowCustom(!showCustom)}
-							onKeyDown={() => setShowCustom(!showCustom)}
-							disabled={showCustom}
-						>
-							Custom
-						</button>
-					</div>
-
-					{showCustom && (
-						<input
-							type="number"
-							name="lineWidth"
-							id="lineWidth"
-							value={lineWidth}
-							onChange={(e) => {
-								setLineWidth(Number.parseInt(e.target.value));
-							}}
-						/>
-					)}
+					<button
+						type="button"
+						aria-label="Set a custom line width"
+						onClick={() => setShowCustom(!showCustom)}
+						onKeyDown={() => setShowCustom(!showCustom)}
+						disabled={showCustom}
+					>
+						Custom
+					</button>
 				</div>
+
+				{showCustom && (
+					<input
+						type="number"
+						name="lineWidth"
+						id="lineWidth"
+						value={lineWidth}
+						onChange={(e) => {
+							setLineWidth(Number.parseInt(e.target.value));
+						}}
+					/>
+				)}
 			</div>
-		</>
+		</div>
 	);
 }

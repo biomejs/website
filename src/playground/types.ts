@@ -1,7 +1,7 @@
-import { LINT_RULES } from "@/playground/generated/lintRules.ts";
 import type { Diagnostic, FixFileMode, RuleDomains } from "@biomejs/wasm-web";
 import type { parser } from "codemirror-lang-rome-ast";
 import type { Dispatch, SetStateAction } from "react";
+import { LINT_RULES } from "@/playground/generated/lintRules.ts";
 
 export enum PlaygroundTab {
 	Code = "code",

@@ -22,7 +22,7 @@
 			width: 9.3rem;
 		}
 
-		@mixin small-screen-only {
+		@media only screen and (max-width: 1200px) {
 			&.discord {
 				background-color: var(--sl-discord);
 				color: var(--sl-community-link);
@@ -34,7 +34,7 @@
 			color: var(--sl-community-link);
 		}
 
-		@mixin small-screen-only {
+		@media only screen and (max-width: 1200px) {
 			&.x,
 			&.github {
 				background-color: black;
@@ -47,7 +47,7 @@
 			color: var(--sl-community-link);
 		}
 
-		@mixin small-screen-only {
+		@media only screen and (max-width: 1200px) {
 			&.mastodon {
 				background-color: var(--sl-mastodon);
 				color: var(--sl-community-link);
@@ -58,7 +58,7 @@
 			color: var(--sl-community-link);
 		}
 
-		@mixin small-screen-only {
+		@media only screen and (max-width: 1200px) {
 			&.blueSky {
 				background-color: var(--sl-blueSky);
 				color: var(--sl-community-link);
@@ -85,11 +85,9 @@
 		position: absolute;
 		content: "";
 		inset: 0;
-		background-image: linear-gradient(
-				to right,
-				var(--sl-color-gray-6) 1px,
-				transparent 1px
-			), linear-gradient(to bottom, var(--sl-color-gray-6) 1px, transparent 1px);
+		background-image:
+			linear-gradient(to right, var(--sl-color-gray-6) 1px, transparent 1px),
+			linear-gradient(to bottom, var(--sl-color-gray-6) 1px, transparent 1px);
 		background-position: top center;
 		background-size: 20px 20px;
 		-webkit-mask-image: radial-gradient(circle at 100%, white, transparent 80%);
@@ -130,7 +128,7 @@
 	}
 }
 
-@mixin small-screen-only {
+@media only screen and (max-width: 1200px) {
 	.community {
 		height: 60rem;
 	}

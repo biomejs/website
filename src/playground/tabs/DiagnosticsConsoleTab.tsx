@@ -8,13 +8,11 @@ export default function DiagnosticsConsoleTab({ console }: Props) {
 	}
 
 	return (
-		<>
-			<pre className="language-shellsession diagnostics-console">
-				<code
-					// biome-ignore lint/security/noDangerouslySetInnerHtml: the HTML is sanitized by our diagnostic printer
-					dangerouslySetInnerHTML={{ __html: console }}
-				/>
-			</pre>
-		</>
+		<pre className="language-shellsession diagnostics-console">
+			<code
+				// biome-ignore lint/security/noDangerouslySetInnerHtml: the HTML is sanitized by our diagnostic printer
+				dangerouslySetInnerHTML={{ __html: console }}
+			/>
+		</pre>
 	);
 }

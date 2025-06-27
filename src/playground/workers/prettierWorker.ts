@@ -1,30 +1,5 @@
-import {
-	ArrowParentheses,
-	AttributePosition,
-	Expand,
-	IndentStyle,
-	type PlaygroundSettings,
-	type PrettierOptions,
-	type PrettierOutput,
-	type QuoteProperties,
-	QuoteStyle,
-	Semicolons,
-	type TrailingCommas,
-	defaultPlaygroundState,
-} from "@/playground/types";
-import {
-	isCssFilename,
-	isGraphqlFilename,
-	isHtmlFilename,
-	isJsonFilename,
-	isSvelteFilename,
-	isTypeScriptFilename,
-	isVueFilename,
-} from "@/playground/utils";
 import type { WhitespaceSensitivity } from "@biomejs/wasm-web";
 import * as prettier from "prettier";
-// @ts-expect-error
-import * as pluginSvelte from "prettier-plugin-svelte/browser";
 // @ts-expect-error
 import parserBabel from "prettier/esm/parser-babel.mjs";
 // @ts-expect-error
@@ -35,6 +10,31 @@ import pluginGraphql from "prettier/plugins/graphql.mjs";
 import pluginHtml from "prettier/plugins/html.mjs";
 // @ts-expect-error
 import pluginCss from "prettier/plugins/postcss.mjs";
+// @ts-expect-error
+import * as pluginSvelte from "prettier-plugin-svelte/browser";
+import {
+	ArrowParentheses,
+	AttributePosition,
+	defaultPlaygroundState,
+	Expand,
+	IndentStyle,
+	type PlaygroundSettings,
+	type PrettierOptions,
+	type PrettierOutput,
+	type QuoteProperties,
+	QuoteStyle,
+	Semicolons,
+	type TrailingCommas,
+} from "@/playground/types";
+import {
+	isCssFilename,
+	isGraphqlFilename,
+	isHtmlFilename,
+	isJsonFilename,
+	isSvelteFilename,
+	isTypeScriptFilename,
+	isVueFilename,
+} from "@/playground/utils";
 
 let settings = defaultPlaygroundState.settings;
 

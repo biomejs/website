@@ -4,10 +4,18 @@
 .diagnostics-pane {
 	height: 200px;
 	border-top: 1px solid var(--sl-border);
-
-	@mixin dark-mode {
+	:root[data-theme="dark"] & {
 		.empty-panel {
 			background-color: #282c34;
+		}
+	}
+
+	@media (prefers-color-scheme: dark) {
+		/* biome-ignore lint/style/noDescendingSpecificity: it should not have specificity */
+		:root[data-theme="auto"] & {
+			.empty-panel {
+				background-color: #282c34;
+			}
 		}
 	}
 }
@@ -30,8 +38,15 @@ ul.diagnostics-list {
 	padding: 0;
 	overflow: auto;
 
-	@mixin dark-mode {
+	:root[data-theme="dark"] & {
 		background-color: #282c34;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		/* biome-ignore lint/style/noDescendingSpecificity: it should not have specificity */
+		:root[data-theme="auto"] & {
+			background-color: #282c34;
+		}
 	}
 
 	li {

@@ -1,5 +1,5 @@
-import { classnames } from "@/playground/utils";
 import type React from "react";
+import { classnames } from "@/playground/utils";
 import type { PlaygroundTab } from "../types";
 
 interface Tab<K> {
@@ -24,6 +24,7 @@ export default function Tabs<K extends string = PlaygroundTab>({
 }: Props<K>) {
 	return (
 		<div className={className}>
+			{/** biome-ignore lint/a11y/noNoninteractiveElementToInteractiveRole: need to review this */}
 			<ul className="react-tabs__tab-list" role="tablist">
 				{tabs.map((tab) => {
 					if (tab.visible === false) {
