@@ -115,6 +115,7 @@ export const LINT_RULES = {
   noIrregularWhitespace: "noIrregularWhitespace",
   noLabelVar: "noLabelVar",
   noLabelWithoutControl: "noLabelWithoutControl",
+  noMagicNumbers: "noMagicNumbers",
   noMisleadingCharacterClass: "noMisleadingCharacterClass",
   noMisleadingInstantiator: "noMisleadingInstantiator",
   noMisplacedAssertion: "noMisplacedAssertion",
