@@ -5247,6 +5247,23 @@ export function GET() {
             ],
             "docs": " Require Promise-like statements to be handled appropriately.\n\n A \"floating\" `Promise` is one that is created without any code set up to\n handle any errors it might throw. Floating Promises can lead to several\n issues, including improperly sequenced operations, unhandled Promise\n rejections, and other unintended consequences.\n\n This rule will report Promise-valued statements that are not treated in\n one of the following ways:\n - Calling its `.then()` method with two arguments\n - Calling its `.catch()` method with one argument\n - `await`-ing it\n - `return`-ing it\n - `void`-ing it\n\n ## Examples\n\n ### Invalid\n\n ```ts\n async function returnsPromise(): Promise<string> {\n   return 'value';\n }\n returnsPromise().then(() => {});\n ```\n\n ```ts\n const returnsPromise = async (): Promise<string> => {\n   return 'value';\n }\n async function returnsPromiseInAsyncFunction() {\n   returnsPromise().then(() => {});\n }\n ```\n\n ```ts\n const promise = new Promise((resolve) => resolve('value'));\n promise.then(() => { }).finally(() => { });\n ```\n\n ```ts\n Promise.all([p1, p2, p3])\n ```\n\n ```ts\n class Api {\n   async returnsPromise(): Promise<string> {\n     return 'value';\n   }\n   async someMethod() {\n     this.returnsPromise();\n   }\n }\n ```\n\n ```ts\n class Parent {\n   async returnsPromise(): Promise<string> {\n     return 'value';\n   }\n }\n\n class Child extends Parent {\n   async someMethod() {\n     this.returnsPromise();\n   }\n }\n ```\n\n ```ts\n class Api {\n   async returnsPromise(): Promise<string> {\n     return 'value';\n   }\n }\n const api = new Api();\n api.returnsPromise().then(() => {}).finally(() => {});\n ```\n\n ```ts\n const obj = {\n   async returnsPromise(): Promise<string> {\n     return 'value';\n   },\n };\n\n obj.returnsPromise();\n ```\n\n ```ts\n type Props = {\n   returnsPromise: () => Promise<void>;\n };\n\n async function testCallingReturnsPromise(props: Props) {\n   props.returnsPromise();\n }\n ```\n\n ### Valid\n\n ```ts\n async function returnsPromise(): Promise<string> {\n   return 'value';\n }\n\n await returnsPromise();\n\n void returnsPromise();\n\n // Calling .then() with two arguments\n returnsPromise().then(\n   () => {},\n   () => {},\n );\n\n // Calling .catch() with one argument\n returnsPromise().catch(() => {});\n\n await Promise.all([p1, p2, p3])\n\n class Api {\n   async returnsPromise(): Promise<string> {\n     return 'value';\n   }\n   async someMethod() {\n     await this.returnsPromise();\n   }\n }\n ```\n\n ```ts\n type Props = {\n   returnsPromise: () => Promise<void>;\n };\n\n async function testCallingReturnsPromise(props: Props) {\n   return props.returnsPromise();\n }\n ```\n\n"
           },
+          "noMagicNumbers": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noMagicNumbers",
+            "link": "https://biomejs.dev/linter/rules/no-magic-numbers",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintTypeScript": "no-magic-numbers"
+                }
+              }
+            ],
+            "docs": " Reports usage of \"magic numbers\" — numbers used directly instead of being assigned to named constants.\n\n Its goal is to improve code maintainability and readability by encouraging developers to extract such numbers into named constants, making their purpose explicit.\n\n It ignores:\n - non-magic values (like 0, 1, 2, 10, 24, 60, and their negative or bigint forms) found anywhere, including arithmetic expressions, fn calls etc.\n - Array indices\n - Enum values\n - Initial values in variable or class property declarations\n - Default values in function parameters or destructuring patterns\n - Arguments to JSON.stringify and parseInt (e.g., JSON.stringify(22), parseInt(\"123\", 8))\n - Operands in bitwise operations (e.g., a & 7, a | 7)\n - Values in JSX expressions (e.g., <div>{1}</div>)\n - Object property values (e.g., { tax: 0.25 })\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n let total = price * 1.23; // Magic number for tax rate\n ```\n\n ### Valid\n\n ```js\n const TAX_RATE = 1.23;\n let total = price * TAX_RATE;\n ```\n"
+          },
           "useExplicitType": {
             "deprecated": false,
             "version": "1.9.3",
@@ -5713,7 +5730,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 334
+    "numberOrRules": 335
   },
   "syntax": {
     "languages": {

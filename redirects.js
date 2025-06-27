@@ -117,6 +117,7 @@ export default {
   '/linter/rules/noIrregularWhitespace': '/linter/rules/no-irregular-whitespace',
   '/linter/rules/noLabelVar': '/linter/rules/no-label-var',
   '/linter/rules/noLabelWithoutControl': '/linter/rules/no-label-without-control',
+  '/linter/rules/noMagicNumbers': '/linter/rules/no-magic-numbers',
   '/linter/rules/noMisleadingCharacterClass': '/linter/rules/no-misleading-character-class',
   '/linter/rules/noMisleadingInstantiator': '/linter/rules/no-misleading-instantiator',
   '/linter/rules/noMisplacedAssertion': '/linter/rules/no-misplaced-assertion',
