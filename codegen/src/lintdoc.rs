@@ -759,10 +759,10 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
     if !meta.sources.is_empty() {
         writeln!(content, "- Sources: ")?;
 
-        for source in meta.sources {
-            let rule_name = source.to_namespaced_rule_name();
-            let source_rule_url = source.to_rule_url();
-            match meta.source_kind.as_ref().copied().unwrap_or_default() {
+        for source_with_kind in meta.sources {
+            let rule_name = source_with_kind.source.to_namespaced_rule_name();
+            let source_rule_url = source_with_kind.source.to_rule_url();
+            match source_with_kind.kind {
                 RuleSourceKind::Inspired => {
                     write!(content, "{:2}- Inspired from ", " ")?;
                 }

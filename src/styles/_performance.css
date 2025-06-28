@@ -154,7 +154,8 @@
 	position: absolute;
 	content: "";
 	inset: 0;
-	background-image: linear-gradient(
+	background-image:
+		linear-gradient(
 			to right,
 			var(--sl-color-gray-6) 0.06rem,
 			transparent 0.06rem
@@ -176,8 +177,9 @@
 	left: 0;
 	z-index: -1;
 	width: 100vw;
-	background: radial-gradient(var(--sl-color-accent-low), transparent 50%)
-		no-repeat -60vw -50vh / 105vw 200vh,
+	background:
+		radial-gradient(var(--sl-color-accent-low), transparent 50%) no-repeat -60vw
+		-50vh / 105vw 200vh,
 		radial-gradient(var(--sl-color-accent-low), transparent 50%) no-repeat 30vw
 		-100vh / 105vw 200vh;
 }

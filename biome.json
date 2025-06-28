@@ -1,22 +1,37 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "files": {
-    "ignore": [
-      "rules.json.js",
-      "schema.json.js",
-      "redirects.js",
-      "src/playground/generated/**"
+    "includes": [
+      "**",
+      "!**/rules.json.js",
+      "!**/schema.json.js",
+      "!**/redirects.js",
+      "!**/src/playground/generated/**"
     ]
   },
-  "organizeImports": {
-    "enabled": true
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
   },
   "linter": {
     "enabled": true,
     "rules": {
       "recommended": true,
       "style": {
-        "noNonNullAssertion": "off"
+        "noNonNullAssertion": "off",
+        "noParameterAssign": "error",
+        "useAsConstAssertion": "error",
+        "useDefaultParameterLast": "error",
+        "useEnumInitializers": "error",
+        "useSelfClosingElements": "error",
+        "useSingleVarDeclarator": "error",
+        "noUnusedTemplateLiteral": "error",
+        "useNumberNamespace": "error",
+        "noInferrableTypes": "error",
+        "noUselessElse": "error"
       }
     }
   },
@@ -29,5 +44,22 @@
     "enabled": true,
     "clientKind": "git",
     "useIgnoreFile": true
-  }
+  },
+  "overrides": [
+    {
+      "includes": ["**/*.svelte", "**/*.astro", "**/*.vue"],
+      "linter": {
+        "rules": {
+          "style": {
+            "useConst": "off",
+            "useImportType": "off"
+          },
+          "correctness": {
+            "noUnusedVariables": "off",
+            "noUnusedImports": "off"
+          }
+        }
+      }
+    }
+  ]
 }

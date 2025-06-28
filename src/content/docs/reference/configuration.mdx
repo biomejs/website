@@ -25,7 +25,7 @@ published on this site:
 
 ```json title="biome.json"
 {
-  "$schema": "https://biomejs.dev/schemas/2.0.0-beta/schema.json"
+  "$schema": "https://biomejs.dev/schemas/2.0.5/schema.json"
 }
 ```
 
@@ -128,7 +128,7 @@ The scanner respects `files.includes`, with two exceptions:
 This means that if you use `files.includes` to ignore folders with generated
 code, type information from such folders is inaccessible to the scanner. If you
 do wish to have such type information available, we advise to _not_ ignore these
-folders through `files.includes` and instead ignore them using tool-specific 
+folders through `files.includes` and instead ignore them using tool-specific
 settings such as `linter.includes` and `formatter.includes` only.
 
 ### `files.ignoreUnknown`
@@ -152,6 +152,32 @@ The maximum allowed size for source code files in bytes. Files above
 this limit will be ignored for performance reasons.
 
 > Default: `1048576` (1024*1024, 1MB)
+
+### `files.experimentalScannerIgnores`
+
+An array of literal paths that the scanner should ignore during the crawling. The ignored files
+won't be indexed, which means that Biome won't be part of the module graph, and types won't be inferred.
+
+In the following example, the folders `node_modules/lodash` and `dist` and the file `RedisCommander.d.ts` will be ignored:
+
+```json title="biome.json"
+{
+  "files" : {
+    "experimentalScannerIgnores": [
+      "node_modules/lodash",
+      "dist",
+      "RedisCommander.d.ts"
+    ]
+  }
+}
+```
+
+You should use this option only as a last resort in cases Biome takes a lot of time to lint/check your project. Glob paths
+aren't supported.
+
+:::caution
+As an experimental option, its usage is subject to change. The goal is to make Biome as fast as possible and eventually remove the option.
+:::
 
 ## `vcs`
 
@@ -489,7 +515,7 @@ When formatting `package.json`, Biome will use `always` unless configured otherw
 
 ### `formatter.useEditorconfig`
 
-Whether Biome should use the `.editorconfig` file to determine the formatting options. 
+Whether Biome should use the `.editorconfig` file to determine the formatting options.
 
 The config files `.editorconfig` and `biome.json` will follow the follwing rules:
 

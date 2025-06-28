@@ -1,3 +1,12 @@
+import init, {
+	type BiomePath,
+	type Configuration,
+	DiagnosticPrinter,
+	type ProjectKey,
+	type RuleCategories,
+	type RuleCode,
+	Workspace,
+} from "@biomejs/wasm-web";
 import { LINT_RULES } from "@/playground/generated/lintRules.ts";
 import {
 	ArrowParentheses,
@@ -11,15 +20,6 @@ import {
 	QuoteStyle,
 	Semicolons,
 } from "@/playground/types";
-import init, {
-	DiagnosticPrinter,
-	type Configuration,
-	type BiomePath,
-	type ProjectKey,
-	type RuleCategories,
-	Workspace,
-	type RuleCode,
-} from "@biomejs/wasm-web";
 
 let workspace: Workspace | null = null;
 let projectKey: ProjectKey | null = null;

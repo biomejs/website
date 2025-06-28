@@ -1,0 +1,102 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: useUnifiedTypeSignature
+description: Learn more about useUnifiedTypeSignature
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="TypeScript and TSX" icon="seti:typescript">
+## Summary
+:::note
+This rule is currently only available in the [2.0 beta release](/blog/biome-v2-0-beta).
+:::
+- Diagnostic Category: [`lint/nursery/useUnifiedTypeSignature`](/reference/diagnostics#diagnostic-category)
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`@typescript-eslint/unified-signatures`](https://typescript-eslint.io/rules/unified-signatures)
+
+:::caution
+This rule is part of the [nursery](/linter/rules/#nursery) group.
+:::
+## Description
+Disallow overload signatures that can be unified into a single signature.
+
+Overload signatures that can be merged into a single signature are redundant and should be avoided.
+This rule helps simplify function signatures by combining overloads by making parameters optional
+and/or using type unions.
+
+## Examples
+
+### Invalid
+
+```ts
+function f(a: number): void;
+function f(a: string): void;
+```
+
+<pre class="language-text"><code class="language-text">code-block.ts:1:1 <a href="https://biomejs.dev/linter/rules/use-unified-type-signature">lint/nursery/useUnifiedTypeSignature</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Overload signatures are hard to read and maintain.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>function f(a: number): void;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>function f(a: string): void;<br />    <strong>3 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Combine overloads using a type union.</span><br />  <br />    <strong>1</strong>  <strong> │ </strong><span style="color: Tomato;">-</span> <span style="color: Tomato;"><strong>f</strong></span><span style="color: Tomato;"><strong>u</strong></span><span style="color: Tomato;"><strong>n</strong></span><span style="color: Tomato;"><strong>c</strong></span><span style="color: Tomato;"><strong>t</strong></span><span style="color: Tomato;"><strong>i</strong></span><span style="color: Tomato;"><strong>o</strong></span><span style="color: Tomato;"><strong>n</strong></span><span style="color: Tomato;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: Tomato;"><strong>f</strong></span><span style="color: Tomato;"><strong>(</strong></span><span style="color: Tomato;"><strong>a</strong></span><span style="color: Tomato;"><strong>:</strong></span><span style="color: Tomato;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: Tomato;"><strong>n</strong></span><span style="color: Tomato;"><strong>u</strong></span><span style="color: Tomato;"><strong>m</strong></span><span style="color: Tomato;"><strong>b</strong></span><span style="color: Tomato;"><strong>e</strong></span><span style="color: Tomato;"><strong>r</strong></span><span style="color: Tomato;"><strong>)</strong></span><span style="color: Tomato;"><strong>:</strong></span><span style="color: Tomato;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: Tomato;"><strong>v</strong></span><span style="color: Tomato;"><strong>o</strong></span><span style="color: Tomato;"><strong>i</strong></span><span style="color: Tomato;"><strong>d</strong></span><span style="color: Tomato;"><strong>;</strong></span><br />    <strong>2</strong>  <strong> │ </strong><span style="color: Tomato;">-</span> <span style="color: Tomato;">f</span><span style="color: Tomato;">u</span><span style="color: Tomato;">n</span><span style="color: Tomato;">c</span><span style="color: Tomato;">t</span><span style="color: Tomato;">i</span><span style="color: Tomato;">o</span><span style="color: Tomato;">n</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">f</span><span style="color: Tomato;">(</span><span style="color: Tomato;">a</span><span style="color: Tomato;">:</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">s</span><span style="color: Tomato;">t</span><span style="color: Tomato;">r</span><span style="color: Tomato;">i</span><span style="color: Tomato;">n</span><span style="color: Tomato;">g</span><span style="color: Tomato;">)</span><span style="color: Tomato;">:</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">v</span><span style="color: Tomato;">o</span><span style="color: Tomato;">i</span><span style="color: Tomato;">d</span><span style="color: Tomato;">;</span><br />      <strong>1</strong><strong> │ </strong><span style="color: MediumSeaGreen;">+</span> <br />      <strong>2</strong><strong> │ </strong><span style="color: MediumSeaGreen;">+</span> <span style="color: MediumSeaGreen;">f</span><span style="color: MediumSeaGreen;">u</span><span style="color: MediumSeaGreen;">n</span><span style="color: MediumSeaGreen;">c</span><span style="color: MediumSeaGreen;">t</span><span style="color: MediumSeaGreen;">i</span><span style="color: MediumSeaGreen;">o</span><span style="color: MediumSeaGreen;">n</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">f</span><span style="color: MediumSeaGreen;">(</span><span style="color: MediumSeaGreen;">a</span><span style="color: MediumSeaGreen;">:</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">s</span><span style="color: MediumSeaGreen;">t</span><span style="color: MediumSeaGreen;">r</span><span style="color: MediumSeaGreen;">i</span><span style="color: MediumSeaGreen;">n</span><span style="color: MediumSeaGreen;">g</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: MediumSeaGreen;"><strong>|</strong></span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: MediumSeaGreen;"><strong>n</strong></span><span style="color: MediumSeaGreen;"><strong>u</strong></span><span style="color: MediumSeaGreen;"><strong>m</strong></span><span style="color: MediumSeaGreen;"><strong>b</strong></span><span style="color: MediumSeaGreen;"><strong>e</strong></span><span style="color: MediumSeaGreen;"><strong>r</strong></span><span style="color: MediumSeaGreen;">)</span><span style="color: MediumSeaGreen;">:</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">v</span><span style="color: MediumSeaGreen;">o</span><span style="color: MediumSeaGreen;">i</span><span style="color: MediumSeaGreen;">d</span><span style="color: MediumSeaGreen;">;</span><br />    <strong>3</strong> <strong>3</strong><strong> │ </strong>  <br />  <br /></code></pre>
+
+```ts
+interface I {
+    a(): void;
+    a(x: number): void;
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.ts:2:5 <a href="https://biomejs.dev/linter/rules/use-unified-type-signature">lint/nursery/useUnifiedTypeSignature</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Overload signatures are hard to read and maintain.</span><br />  <br />    <strong>1 │ </strong>interface I &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>    a(): void;<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>    a(x: number): void;<br />    <strong>4 │ </strong>&#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Combine overloads by making parameters optional.</span><br />  <br />    <strong>1</strong> <strong>1</strong><strong> │ </strong>  interface I &#123;<br />    <strong>2</strong>  <strong> │ </strong><span style="color: Tomato;">-</span> <span style="color: Tomato;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: Tomato;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: Tomato;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: Tomato;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: Tomato;"><strong>a</strong></span><span style="color: Tomato;"><strong>(</strong></span><span style="color: Tomato;"><strong>)</strong></span><span style="color: Tomato;"><strong>:</strong></span><span style="color: Tomato;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: Tomato;"><strong>v</strong></span><span style="color: Tomato;"><strong>o</strong></span><span style="color: Tomato;"><strong>i</strong></span><span style="color: Tomato;"><strong>d</strong></span><span style="color: Tomato;"><strong>;</strong></span><br />    <strong>3</strong>  <strong> │ </strong><span style="color: Tomato;">-</span> <span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">a</span><span style="color: Tomato;">(</span><span style="color: Tomato;">x</span><span style="color: Tomato;">:</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">n</span><span style="color: Tomato;">u</span><span style="color: Tomato;">m</span><span style="color: Tomato;">b</span><span style="color: Tomato;">e</span><span style="color: Tomato;">r</span><span style="color: Tomato;">)</span><span style="color: Tomato;">:</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">v</span><span style="color: Tomato;">o</span><span style="color: Tomato;">i</span><span style="color: Tomato;">d</span><span style="color: Tomato;">;</span><br />      <strong>2</strong><strong> │ </strong><span style="color: MediumSeaGreen;">+</span> <span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">a</span><span style="color: MediumSeaGreen;">(</span><span style="color: MediumSeaGreen;">x</span><span style="color: MediumSeaGreen;"><strong>?</strong></span><span style="color: MediumSeaGreen;">:</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">n</span><span style="color: MediumSeaGreen;">u</span><span style="color: MediumSeaGreen;">m</span><span style="color: MediumSeaGreen;">b</span><span style="color: MediumSeaGreen;">e</span><span style="color: MediumSeaGreen;">r</span><span style="color: MediumSeaGreen;">)</span><span style="color: MediumSeaGreen;">:</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">v</span><span style="color: MediumSeaGreen;">o</span><span style="color: MediumSeaGreen;">i</span><span style="color: MediumSeaGreen;">d</span><span style="color: MediumSeaGreen;">;</span><br />    <strong>4</strong> <strong>3</strong><strong> │ </strong>  &#125;<br />    <strong>5</strong> <strong>4</strong><strong> │ </strong>  <br />  <br /></code></pre>
+
+### Valid
+
+```ts
+function f(a: number | string): void {}
+```
+
+```ts
+interface I {
+    a(x?: number): void;
+}
+```
+
+Different return types cannot be merged:
+
+```ts
+interface I {
+    f(): void;
+    f(x: number): number;
+}
+```
+
+Different type parameters cannot be merged:
+
+```ts
+function f<T extends number>(x: T): void;
+function f<T extends string>(x: T): void;
+function f(x: unknown): void {}
+```
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useUnifiedTypeSignature": "error"
+			}
+		}
+	}
+}
+
+```
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
+</Tabs>
+

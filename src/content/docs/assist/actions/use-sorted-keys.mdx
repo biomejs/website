@@ -53,6 +53,9 @@ Sorts the keys of a JSON object in natural order
 - Rule available since: `v2.0.0`
 - Diagnostic Category: [`assist/source/useSortedKeys`](/reference/diagnostics#diagnostic-category)
 - The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Inspired from [`perfectionist/sort-objects`](https://perfectionist.dev/rules/sort-objects.md)
+
 ## How to enable in your editor
 <EditorAction includeFixAll action="source.action.useSortedKeys.biome" />
 ## Description
@@ -66,8 +69,6 @@ previous sortable keys up until the nearest non-sortable key, if one
 exist.
 This prevents breaking the override of certain keys using spread
 keys.
-
-Source: https://perfectionist.dev/rules/sort-objects
 
 ## Examples
 
