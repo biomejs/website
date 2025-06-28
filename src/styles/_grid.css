@@ -10,7 +10,7 @@
 		flex: 1;
 	}
 
-	@mixin mobile-only {
+	@media only screen and (max-width: var(--mobile-breakpoint)) {
 		display: block;
 	}
 }

@@ -12,7 +12,7 @@ ul.package-manager-selector {
 	border-bottom: none;
 	line-height: 45px;
 
-	@mixin mobile-only {
+	@media only screen and (max-width: var(--mobile-breakpoint)) {
 		border-radius: 0;
 		margin: 0 -20px;
 		padding: 0 10px;
@@ -40,8 +40,15 @@ ul.package-manager-selector {
 			font-weight: bold;
 			border-bottom: 2px solid black;
 
-			@mixin dark-mode {
+			:root[data-theme="dark"] & {
 				border-color: white;
+			}
+
+			@media (prefers-color-scheme: dark) {
+				/* biome-ignore lint/style/noDescendingSpecificity: it should not have specificity */
+				:root[data-theme="auto"] & {
+					border-color: white;
+				}
 			}
 		}
 	}

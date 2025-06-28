@@ -32,29 +32,18 @@ ul.credits-people-list {
 	justify-content: center;
 	flex-wrap: wrap;
 
-	li {
-		margin: 0 var(--unit) var(--unit);
-		width: 220px;
-		list-style: none;
-		border: 1px solid var(--sl-border);
-		background-color: var(--sl-color-black);
-		text-decoration: none;
-		border-radius: 12px;
-		overflow: hidden;
-	}
 	&.contributors {
 		li {
 			width: 57px;
 			margin: calc(var(--unit) / 4);
+		}
+		img {
+			width: 57px;
+			height: 57px;
+		}
 
-			img {
-				width: 57px;
-				height: 57px;
-			}
-
-			span {
-				margin: calc(var(--unit) / 2) 0;
-			}
+		span {
+			margin: calc(var(--unit) / 2) 0;
 		}
 	}
 
@@ -62,15 +51,14 @@ ul.credits-people-list {
 		li {
 			width: 200px;
 			margin: calc(var(--unit) / 4);
+		}
+		img {
+			width: 200px;
+			height: 200px;
+		}
 
-			img {
-				width: 200px;
-				height: 200px;
-			}
-
-			span {
-				margin: calc(var(--unit) / 2) 0;
-			}
+		span {
+			margin: calc(var(--unit) / 2) 0;
 		}
 	}
 
@@ -78,15 +66,14 @@ ul.credits-people-list {
 		li {
 			width: 120px;
 			margin: calc(var(--unit) / 4);
+		}
+		img {
+			width: 120px;
+			height: 120px;
+		}
 
-			img {
-				width: 120px;
-				height: 120px;
-			}
-
-			span {
-				margin: calc(var(--unit) / 2) 0;
-			}
+		span {
+			margin: calc(var(--unit) / 2) 0;
 		}
 	}
 
@@ -97,6 +84,17 @@ ul.credits-people-list {
 		&:hover {
 			text-decoration: underline;
 		}
+	}
+
+	li {
+		margin: 0 var(--unit) var(--unit);
+		width: 220px;
+		list-style: none;
+		border: 1px solid var(--sl-border);
+		background-color: var(--sl-color-black);
+		text-decoration: none;
+		border-radius: 12px;
+		overflow: hidden;
 	}
 
 	img {

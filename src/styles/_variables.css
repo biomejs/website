@@ -16,8 +16,8 @@
 	--gray-7: #dadadc;
 	--gray-8: #f4f4f5;
 
-	--code-font: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-		monospace;
+	--code-font:
+		source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 	--body-line-height: 1.5em;
 
 	--unit: 16px;

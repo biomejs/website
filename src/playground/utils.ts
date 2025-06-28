@@ -1,14 +1,14 @@
+import { type Dispatch, type SetStateAction, useEffect, useState } from "react";
 import type { ThemeChanged, ThemeName } from "@/frontend-scripts/util";
 import { getCurrentTheme } from "@/frontend-scripts/util";
 import {
+	emptyBiomeOutput,
+	emptyPrettierOutput,
 	Language,
 	type PlaygroundFileState,
 	type PlaygroundSettings,
 	type PlaygroundState,
-	emptyBiomeOutput,
-	emptyPrettierOutput,
 } from "@/playground/types";
-import { type Dispatch, type SetStateAction, useEffect, useState } from "react";
 
 export function classNames(
 	...classes: (string | undefined | boolean)[]

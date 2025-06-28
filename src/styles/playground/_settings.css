@@ -14,41 +14,6 @@
 		height: 100%;
 		overflow: auto;
 	}
-
-	.collapser {
-		width: 5px;
-		height: 100%;
-		background-color: var(--sl-border);
-		flex-shrink: 0;
-		opacity: 0.5;
-		cursor: w-resize;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		flex-direction: column;
-		gap: 5px;
-
-		.dot {
-			width: 3px;
-			height: 3px;
-			background-color: rgba(0, 0, 0, 0.5);
-			border-radius: 50%;
-		}
-
-		&.collapsed {
-			width: 10px;
-			cursor: e-resize;
-
-			.dot {
-				width: 5px;
-				height: 5px;
-			}
-		}
-
-		&:hover {
-			opacity: 1;
-		}
-	}
 }
 
 .settings-tab-buttons {
@@ -91,9 +56,17 @@
 		border: 1px solid var(--sl-color-gray-5);
 		padding: 0 10px;
 
-		@mixin dark-mode {
+		:root[data-theme="dark"] & {
 			color: inherit;
 			background-color: transparent;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			/* biome-ignore lint/style/noDescendingSpecificity: it should not have specificity */
+			:root[data-theme="auto"] & {
+				color: inherit;
+				background-color: transparent;
+			}
 		}
 	}
 
@@ -104,18 +77,28 @@
 		color: inherit;
 		border: 1px solid var(--sl-color-gray-5);
 
-		@mixin dark-mode {
+		:root[data-theme="dark"] & {
 			border: 1px solid var(--sl-color-gray-4);
 
 			& option {
 				background-color: var(--sl-color-gray-6);
 			}
 		}
+
+		@media (prefers-color-scheme: dark) {
+			/* biome-ignore lint/style/noDescendingSpecificity: it should not have specificity */
+			:root[data-theme="auto"] & {
+				border: 1px solid var(--sl-color-gray-4);
+
+				& option {
+					background-color: var(--sl-color-gray-6);
+				}
+			}
+		}
 	}
 
 	button {
 		@mixin button;
-		border-radius: 0;
 		border: 1px solid var(--sl-color-gray-5);
 		padding: 2px 6px;
 		color: inherit;
@@ -162,6 +145,7 @@
 		&.disabled {
 			opacity: 0.4;
 
+			/* biome-ignore lint/style/noDescendingSpecificity: false positive */
 			&,
 			* {
 				cursor: not-allowed;
@@ -206,31 +190,31 @@
 			line-height: 30px;
 			height: 30px;
 
-			&:hover {
-				background: rgba(0, 0, 0, 0.05);
-
-				button {
-					display: block;
-					opacity: 0.8;
-				}
-			}
-
 			&.active {
 				font-weight: bold;
-
 				background-color: var(--sl-color-gray-6);
 
-				@mixin dark-mode {
+				:root[data-theme="dark"] & {
 					background-color: var(--sl-color-gray-5);
+				}
+
+				@media (prefers-color-scheme: dark) {
+					/* biome-ignore lint/style/noDescendingSpecificity: should not have specificity */
+					:root[data-theme="auto"] & {
+						background-color: var(--sl-color-gray-5);
+					}
 				}
 			}
 
+			/* biome-ignore lint/style/noDescendingSpecificity: false positive */
 			button {
 				display: none;
 				margin-left: auto;
 
 				&:hover {
-					opacity: 1;
+					display: block;
+					opacity: 0.8;
+					background: rgba(0, 0, 0, 0.05);
 				}
 			}
 		}
