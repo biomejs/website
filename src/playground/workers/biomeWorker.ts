@@ -37,6 +37,8 @@ const files: Map<string, File> = new Map();
 let configuration: undefined | Configuration;
 let fullSettings: undefined | PlaygroundSettings;
 let only: RuleCode[] = [];
+// Configuration that comes from a virtual file. It takes precedence over the settings
+let fileConfiguration: undefined | Configuration;
 
 function getPathForFile(file: File): BiomePath {
 	return file.filename;
@@ -207,10 +209,17 @@ self.addEventListener("message", async (e) => {
 				}
 			}
 
-			workspace.updateSettings({
-				configuration,
-				projectKey,
-			});
+			if (fileConfiguration) {
+				workspace.updateSettings({
+					configuration: fileConfiguration,
+					projectKey,
+				});
+			} else {
+				workspace.updateSettings({
+					configuration,
+					projectKey,
+				});
+			}
 			break;
 		}
 
@@ -259,6 +268,23 @@ self.addEventListener("message", async (e) => {
 					},
 					persistNodeCache: true,
 				});
+			}
+			if (filename === "biome.json") {
+				try {
+					fileConfiguration = JSON.parse(code) as Configuration;
+					workspace.updateSettings({
+						projectKey,
+						configuration: fileConfiguration,
+					});
+					console.info("Correct set custom configuration");
+					// biome-ignore lint/suspicious/noExplicitAny: It's an error message
+				} catch (e: any) {
+					// Let's use debug, because it could be noisy while typing
+					console.debug(
+						"The Biome configuration isn't a valid JSON.\n",
+						e.message,
+					);
+				}
 			}
 			files.set(filename, file);
 			const path = getPathForFile(file);
@@ -348,13 +374,14 @@ self.addEventListener("message", async (e) => {
 			}
 
 			const categories: RuleCategories = [];
-			if (configuration?.formatter?.enabled) {
+			const currentConfiguration = getCurrentConfiguration();
+			if (currentConfiguration?.formatter?.enabled) {
 				categories.push("syntax");
 			}
-			if (configuration?.linter?.enabled) {
+			if (currentConfiguration?.linter?.enabled) {
 				categories.push("lint");
 			}
-			if (configuration?.assist?.enabled) {
+			if (currentConfiguration?.assist?.enabled) {
 				categories.push("action");
 			}
 			const diagnosticsResult = workspace.pullDiagnostics({
@@ -365,7 +392,6 @@ self.addEventListener("message", async (e) => {
 				skip: [],
 				pullCodeActions: true,
 			});
-			console.log(diagnosticsResult);
 
 			const printer = new DiagnosticPrinter(path, code);
 			for (const diag of diagnosticsResult.diagnostics) {
@@ -451,3 +477,13 @@ self.addEventListener("message", async (e) => {
 			console.error(`Unknown message '${e.data.type}'.`);
 	}
 });
+
+/**
+ * Returns the file configuration if it exists. Returns the playground settings otherwise
+ */
+function getCurrentConfiguration(): Configuration | undefined {
+	if (fileConfiguration) {
+		return fileConfiguration;
+	}
+	return configuration;
+}
