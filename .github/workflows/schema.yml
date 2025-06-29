@@ -86,13 +86,6 @@ jobs:
           body: "Synchronize to [`${{ env.BIOME_VERSION }}`](https://github.com/biomejs/biome/commit/${{ env.COMMIT_ID }})."
           labels: CI-Synchronize
 
-      - name: Create PR for testing
-        if: |
-          ${{ steps.create-pull-request.outputs.pull-request-operation != 'closed' && steps.create-pull-request.outputs.pull-request-number != '' && env.COMMIT_ID == '_test' }}
-        run: gh pr merge --squash
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Create PR and auto merge
         if: ${{ steps.create-pull-request.outputs.pull-request-operation != 'closed' && steps.create-pull-request.outputs.pull-request-number != '' && env.COMMIT_ID != '_test' }}
         run: gh pr merge --squash --auto --delete-branch ${{ steps.create-pull-request.outputs.pull-request-number }}
