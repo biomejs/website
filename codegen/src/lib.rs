@@ -53,7 +53,7 @@ pub enum CodegenCommand {
     #[bpaf(command)]
     All {
         /// When `false`, it generates the changelog the file system. When `true` it reads it from github.com
-        #[bpaf(long("online"), switch, fallback(true))]
+        #[bpaf(long, flag(true, true))]
         online: bool,
     },
 }

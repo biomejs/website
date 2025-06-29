@@ -81,11 +81,13 @@ tableOfContents:
 "#;
 
     let changelog_source_content = if online {
+        println!("Downloading changelog from GitHub...");
         let request = ureq::get(
             "https://raw.githubusercontent.com/biomejs/biome/refs/heads/main/packages/%40biomejs/biome/CHANGELOG.md",
         );
         request.call()?.body_mut().read_to_string()?
     } else {
+        println!("Generating changelog from local files...");
         let changelog_source_path =
             project_root().join("../biome/packages/@biomejs/biome/CHANGELOG.md");
         fs::read_to_string(changelog_source_path)?
