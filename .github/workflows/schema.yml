@@ -40,7 +40,7 @@ jobs:
 
       - name: Get commit ID
         if: ${{ github.event_name == 'workflow_dispatch' }}
-        run: echo "COMMENT_ID=${{ github.event.inputs.sha }}" >> "$GITHUB_ENV"
+        run: echo "COMMIT_ID=${{ github.event.inputs.sha }}" >> "$GITHUB_ENV"
 
       # As for now, we don't use it, but it may be used in the future
       - name: Get tag
