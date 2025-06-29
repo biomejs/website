@@ -24,9 +24,9 @@ use std::fs;
 /// To generate the CLI doc and the schema of the current version,
 /// pass the environment variable `BIOME_VERSION`
 ///
-pub fn generate_files() -> anyhow::Result<()> {
+pub fn generate_files(online: bool) -> anyhow::Result<()> {
     generate_default_configuration()?;
-    generate_changelog()?;
+    generate_changelog(online)?;
 
     if VERSION != "0.0.0" {
         generate_cli_doc()?;
@@ -69,9 +69,7 @@ pub(crate) fn generate_default_configuration() -> anyhow::Result<()> {
 }
 
 /// Generates the changelog file: `src/content/docs/internals/changelog.md`
-pub(crate) fn generate_changelog() -> anyhow::Result<()> {
-    let changelog_source_path =
-        project_root().join("../biome/packages/@biomejs/biome/CHANGELOG.md");
+pub(crate) fn generate_changelog(online: bool) -> anyhow::Result<()> {
     let changelog_target_path = project_root().join("src/content/docs/internals/changelog.md");
 
     const CHANGELOG_FRONTMATTER: &str = r#"---
@@ -82,7 +80,16 @@ tableOfContents:
 ---
 "#;
 
-    let changelog_source_content = fs::read_to_string(changelog_source_path)?;
+    let changelog_source_content = if online {
+        let request = ureq::get(
+            "https://raw.githubusercontent.com/biomejs/biome/refs/heads/main/packages/%40biomejs/biome/CHANGELOG.md",
+        );
+        request.call()?.body_mut().read_to_string()?
+    } else {
+        let changelog_source_path =
+            project_root().join("../biome/packages/@biomejs/biome/CHANGELOG.md");
+        fs::read_to_string(changelog_source_path)?
+    };
     let changelog_target_content = format!("{CHANGELOG_FRONTMATTER}{changelog_source_content}");
 
     println!("Generated changelog {}", changelog_target_path.display());

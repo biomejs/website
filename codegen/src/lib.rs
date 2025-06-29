@@ -49,7 +49,11 @@ pub enum CodegenCommand {
     #[bpaf(command)]
     Redirects,
 
-    /// Updates the documentation of the rule pages and the files of a release  
+    /// Updates the documentation of the rule pages and the files of a release
     #[bpaf(command)]
-    All,
+    All {
+        /// When `false`, it generates the changelog the file system. When `true` it reads it from github.com
+        #[bpaf(long("online"), switch, fallback(true))]
+        online: bool,
+    },
 }

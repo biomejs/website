@@ -68,7 +68,7 @@ jobs:
       - name: Update revision
         if: ${{ env.COMMIT_ID != '_test' }}
         run: ./scripts/update-revision.sh '${{ env.COMMIT_ID }}'
-
+        
       - name: Run codegen
         uses: ./.github/actions/run-codegen
         with:
