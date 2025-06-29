@@ -12,10 +12,12 @@ on:
         description: The tag e.g. @biomejs/biome@2.0.0
         required: true
         type: string
+        default: "@biomejs/biome@0.0.0"
       version:
         description: The version e.g. 2.0.0
         required: true
         type: string
+        default: "0.0.0"
 
   repository_dispatch:
     types: [ biome-release-cli-event ]
@@ -40,6 +42,7 @@ jobs:
         if: ${{ github.event_name == 'workflow_dispatch' }}
         run: echo "COMMENT_ID=${{ github.event.inputs.sha }}" >> "$GITHUB_ENV"
 
+      # As for now, we don't use it, but it may be used in the future
       - name: Get tag
         if: ${{ github.event_name == 'workflow_dispatch' }}
         run: echo "TAG=${{ github.event.inputs.tag }}" >> $GITHUB_ENV
@@ -83,14 +86,14 @@ jobs:
           body: "Synchronize to [`${{ env.BIOME_VERSION }}`](https://github.com/biomejs/biome/commit/${{ env.COMMIT_ID }})."
           labels: CI-Synchronize
 
-      - name: Dry run PR for testing
+      - name: Create PR for testing
         if: |
           ${{ steps.create-pull-request.outputs.pull-request-operation != 'closed' && steps.create-pull-request.outputs.pull-request-number != '' && env.COMMIT_ID == '_test' }}
-        run: gh pr merge --squash --auto --delete-branch ${{ steps.create-pull-request.outputs.pull-request-number }} --dry-run
+        run: gh pr merge --squash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Auto merge
+      - name: Create PR and auto merge
         if: ${{ steps.create-pull-request.outputs.pull-request-operation != 'closed' && steps.create-pull-request.outputs.pull-request-number != '' && env.COMMIT_ID != '_test' }}
         run: gh pr merge --squash --auto --delete-branch ${{ steps.create-pull-request.outputs.pull-request-number }}
         env:
