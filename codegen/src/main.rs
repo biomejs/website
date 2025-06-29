@@ -23,8 +23,9 @@ fn main() -> anyhow::Result<()> {
         }
         CodegenCommand::All => {
             generate_rule_docs()?;
+            generate_redirects()?;
+            generate_playground_rules()?;
             generate_files()?;
-            generate_json_metadata()?;
             generate_env_variables()?;
             generate_json_metadata()?;
         }

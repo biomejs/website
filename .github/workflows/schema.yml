@@ -1,0 +1,101 @@
+# This workflow is triggered when a release is published. It then creates a PR which creates the new schema
+name: Schema
+on:
+  workflow_dispatch:
+    inputs:
+      sha:
+        description: Commit ID of biomejs/biome
+        required: false
+        type: string
+        default: "_test"
+      tag:
+        description: The tag e.g. @biomejs/biome@2.0.0
+        required: true
+        type: string
+        default: "@biomejs/biome@0.0.0"
+      version:
+        description: The version e.g. 2.0.0
+        required: true
+        type: string
+        default: "0.0.0"
+
+  repository_dispatch:
+    types: [ biome-release-cli-event ]
+
+permissions:
+  actions: write
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  synchronize:
+    runs-on: depot-ubuntu-24.04-arm-16
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Get commit ID
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        run: echo "COMMENT_ID=${{ github.event.inputs.sha }}" >> "$GITHUB_ENV"
+
+      # As for now, we don't use it, but it may be used in the future
+      - name: Get tag
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        run: echo "TAG=${{ github.event.inputs.tag }}" >> $GITHUB_ENV
+
+      - name: Get version
+        if: ${{ github.event_name == 'repository_dispatch'}}
+        run: echo "BIOME_VERSION=${{ github.event.inputs.version }}" >> "$GITHUB_ENV"
+
+
+      - name: Free Disk Space
+        uses: ./.github/actions/free-disk-space
+
+      - name: Install pnpm
+        run: |
+          npm install -g corepack@latest
+          corepack enable
+
+      - name: Setup node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version-file: ".node-version"
+
+      - name: Update revision
+        if: ${{ env.COMMIT_ID != '_test' }}
+        run: ./scripts/update-revision.sh '${{ env.COMMIT_ID }}'
+
+      - name: Run codegen
+        uses: ./.github/actions/run-codegen
+        with:
+          kinds: all
+          version: ${{ env.BIOME_VERSION }}
+
+      - name: Create pull request
+        id: create-pull-request
+        uses: peter-evans/create-pull-request@c5a7806660adbe173f04e3e038b0ccdcd758773c # v6.1.0
+        with:
+          branch: "chore/synchronize-${{ github.event_name }}"
+          author: "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
+          title: "release: synchronize to `${{ env.BIOME_VERSION }}`"
+          commit-message: "release: synchronize to `${{ env.BIOME_VERSION }}`"
+          body: "Synchronize to [`${{ env.BIOME_VERSION }}`](https://github.com/biomejs/biome/commit/${{ env.COMMIT_ID }})."
+          labels: CI-Synchronize
+
+      - name: Create PR for testing
+        if: |
+          ${{ steps.create-pull-request.outputs.pull-request-operation != 'closed' && steps.create-pull-request.outputs.pull-request-number != '' && env.COMMIT_ID == '_test' }}
+        run: gh pr merge --squash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create PR and auto merge
+        if: ${{ steps.create-pull-request.outputs.pull-request-operation != 'closed' && steps.create-pull-request.outputs.pull-request-number != '' && env.COMMIT_ID != '_test' }}
+        run: gh pr merge --squash --auto --delete-branch ${{ steps.create-pull-request.outputs.pull-request-number }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
