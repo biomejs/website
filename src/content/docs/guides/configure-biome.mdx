@@ -166,7 +166,7 @@ the `src/` folder, the `test/` folder, and ignore files that have `.min.js` in t
     "includes": ["src/**/*.js", "test/**/*.js", "!**/*.min.js"]
   },
   "linter": {
-    "includes": ["!test/**"]
+    "includes": ["**", "!test/**"]
   }
 }
 ```
@@ -331,7 +331,7 @@ configuration in the root folder:
     "includes": ["src/**/*.js", "test/**/*.js"],
   },
   "linter": {
-    "includes": ["!test/**"]
+    "includes": ["**", "!test/**"]
   }
 }
 ```
