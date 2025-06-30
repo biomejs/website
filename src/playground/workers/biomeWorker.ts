@@ -22,6 +22,7 @@ import {
 } from "@/playground/types";
 
 const encoder = new TextEncoder();
+const knownFiles = new Set<string>();
 
 let filesystem: MemoryFileSystem | null = null;
 let workspace: Workspace | null = null;
@@ -215,13 +216,33 @@ self.addEventListener("message", async (e) => {
 			break;
 		}
 
-		case "updatePlugins": {
-			if (!workspace || !projectKey) {
+		case "updateFiles": {
+			if (!filesystem || !workspace || !projectKey) {
 				console.error("Workspace was not initialized");
 				break;
 			}
 
-			const { plugins } = e.data;
+			const { files } = e.data as {
+				files: { filename: string; code: string }[];
+			};
+
+			// Remove files that no longer exists
+			const filenames = new Set<string>(...files.map((file) => file.filename));
+			for (const filename of knownFiles) {
+				if (!filenames.has(filename)) {
+					filesystem.remove(filename);
+				}
+			}
+
+			// Insert new or existing files
+			for (const { filename, code } of files) {
+				filesystem.insert(filename, encoder.encode(code));
+			}
+
+			// Update plugins
+			const plugins = files
+				.map((file) => file.filename)
+				.filter((filename) => filename.endsWith(".grit"));
 
 			workspace.updateSettings({
 				projectKey,
@@ -230,32 +251,6 @@ self.addEventListener("message", async (e) => {
 					plugins,
 				},
 			});
-
-			break;
-		}
-
-		case "insertFile": {
-			if (!filesystem || !workspace || !projectKey) {
-				console.error("Workspace was not initialized");
-				break;
-			}
-
-			const { filename, code } = e.data;
-
-			filesystem.insert(filename, encoder.encode(code));
-
-			break;
-		}
-
-		case "removeFile": {
-			if (!filesystem) {
-				console.error("Workspace was not initialized");
-				break;
-			}
-
-			const { filename } = e.data;
-
-			filesystem.remove(filename);
 
 			break;
 		}
@@ -270,6 +265,14 @@ self.addEventListener("message", async (e) => {
 			const path = filename;
 
 			filesystem.insert(path, encoder.encode(code));
+
+			// Reload plugins if changed
+			if (filename.endsWith(".grit")) {
+				workspace.updateSettings({
+					projectKey,
+					configuration: { ...configuration },
+				});
+			}
 
 			workspace.openFile({
 				projectKey,
