@@ -79,7 +79,7 @@
     "vite": "6.3.5",
     "vite-plugin-svgr": "4.3.0"
   },
-  "packageManager": "pnpm@10.12.3",
+  "packageManager": "pnpm@10.12.4",
   "pnpm": {
     "overrides": {
       "@biomejs/version-utils": "^0.4.0",
