@@ -161,6 +161,24 @@ function PlaygroundLoader() {
 		});
 	}, [loadingState, state.settings]);
 
+	// Dispatch updated files
+	// biome-ignore lint/correctness/useExhaustiveDependencies: dependencies mismatch
+	useEffect(() => {
+		if (loadingState !== LoadingState.Success) {
+			return;
+		}
+
+		return throttle(() => {
+			workerRef.current?.postMessage({
+				type: "updateFiles",
+				files: Object.entries(state.files).map(([filename, file]) => ({
+					filename,
+					code: file?.content,
+				})),
+			});
+		});
+	}, [loadingState, Object.keys(state.files).length]);
+
 	// Dispatch updated code to Prettier
 	// biome-ignore lint/correctness/useExhaustiveDependencies: dependencies mismatch
 	useEffect(() => {
