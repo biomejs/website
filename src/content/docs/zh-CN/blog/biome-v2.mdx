@@ -1,0 +1,270 @@
+---
+title: 'Biome v2——代号：Biotype'
+excerpt: |
+  Biome 2.0 正式发布，成为首个无需依赖 TypeScript 编译器即可实现类型感知规则的 JavaScript Linter。
+  本次发布还带来了插件支持、多文件分析、全新导入排序、实验性 HTML 格式化、更好的抑制、更强的 LSP 支持等众多新特性！
+authors:
+  - ema
+  - team
+date: 2025-06-17
+cover:
+    light: "@/assets/blog/roadmap-2024/banner-light.png"
+    dark: "@/assets/blog/roadmap-2024/banner-dark.png"
+    alt: 项目品牌图，内容为"Biome, toolchain of the web"
+socialImage: "@/assets/social-logo.png"
+featured: true
+---
+
+import { Image } from "astro:assets"
+import darkVercel from "../../../../assets/sponsors/vercel-logotype-dark.png";
+import lightVercel from "../../../../assets/sponsors/vercel-logotype-light.png";
+import darkDepot from "../../../../assets/sponsors/depot-logo-horizontal-on-dark@3x.png";
+import lightDepot from "../../../../assets/sponsors/depot-logo-horizontal-on-light@3x.png";
+import Avatar from "@/components/Avatar.astro";
+
+我们很高兴地宣布，Biome v2 正式发布！🍾 Biome v2——代号：Biotype，是首个**无需依赖 TypeScript 编译器即可实现类型感知规则**的 JavaScript 和 TypeScript Linter！这意味着你可以在不安装 `typescript` 包的情况下，对项目进行类型感知的代码检查。
+
+本次发布，项目的核心贡献者们希望向整个社区和 Web 生态展示，Biome 将持续发展，并有资格成为下一代 Web 工具链。在短短两年时间内，没有其他工具能取得如此成就。这一切都要感谢相信本项目的公司和个人，特别感谢 [Vercel](https://vercel.com/) 对类型推断工作的赞助。
+
+初步测试显示，我们基于新类型推断实现的 [`noFloatingPromises` 规则](/linter/rules/no-floating-promises/)，能够检测到约 75% `typescript-eslint` 能检测到的悬空 Promise，且性能影响极小。当然，我们还有很多想法来进一步提升这一指标。
+
+请注意，这些数据基于有限的用例，实际效果可能因项目而异。我们期待大家积极试用并反馈体验，以便我们快速提升规则的覆盖率。
+
+## 安装与迁移
+
+安装或升级 `@biomejs/biome` 包。如果是升级，请运行 `migrate` 命令：
+
+```shell
+npm install --save-dev --save-exact @biomejs/biome
+npx @biomejs/biome migrate --write
+```
+
+`migrate` 命令会自动处理配置的所有重大变更，无需手动干预。但仍有部分变更无法自动迁移。我们准备了[迁移指南](/guides/upgrade-to-biome-v2)，详细说明了这些变更及手动迁移方法。请务必熟悉这些变更，因为它们会从根本上优化 Biome 的核心功能。
+
+## 主要特性
+
+Biome 2.0 带来了众多新特性，以下是我们认为最值得关注的部分。完整特性列表请参见[在线变更日志](/internals/changelog)。
+
+### 多文件分析与类型推断
+
+这两项特性密切相关。没有跨文件类型查询能力，就无法实现类型推断引擎。
+
+在 2.0 之前，Biome 的 Lint 规则只能单文件工作，许多高级规则因此无法实现。为此，我们为 Biome 增加了**文件扫描器**，会扫描并索引项目中的所有文件，类似于 IDE 的 LSP 服务。
+
+文件扫描器不可避免会带来一定的性能开销。我们理解许多用户选择 Biome 就是看重其速度。在 Beta 阶段，用户也提出了相关担忧。
+
+本次发布的文件扫描器具备以下特点：
+- **可选启用**，从 v1 升级到 v2 不会显著影响格式化和 Lint 的性能。
+- 默认仅用于发现嵌套配置文件，速度极快，性能影响极小。
+- 仅当启用 [project 规则](/linter/domains#project) 时，才会进行**全量扫描**（包括 `node_modules`）。
+- 用户可通过 `files.includes` 控制扫描范围（`node_modules` 除外）。
+- 需要类型收集或模块图查询的规则**只会在 project 域推荐**，我们始终将速度和性能放在首位，用户拥有完全控制权。
+
+### Monorepo 支持
+
+我们大幅提升了对 Monorepo 的支持。依赖 `package.json` 的规则现在会自动使用正确的包配置。更重要的是：**现已支持嵌套配置文件。**
+
+每个项目依然需要在根目录有一个 `biome.json` 或 `biome.jsonc`，但现在允许在子目录中有任意数量的嵌套配置文件。嵌套配置需显式标记，有两种方式：
+
+第一种：
+```json title="biome.jsonc"
+{
+    "root": false,
+    // ...
+}
+```
+
+将 `root` 字段设为 `false`，表示这是嵌套配置。这样即使在子目录运行 Biome，也能识别项目根配置。
+
+需要注意，嵌套配置**默认不会继承**根配置。如需继承，请使用 v1 就有的 `extends` 字段：
+
+第二种：
+```json title="biome.jsonc"
+{
+    "extends": "//",
+    // ...
+}
+```
+
+这是一种简写语法，等价于 `root: false` 并自动继承根配置。
+
+再见了，繁琐的相对路径（如 `"extends": ["../../biome.json"]`）👋
+
+我们还准备了[详细指南](/guides/big-projects#monorepo)帮助你配置。
+
+### 插件（Plugins）
+
+Biome 2.0 首次引入了 [Linter 插件](/linter/plugins)。
+
+目前插件功能有限，仅支持匹配代码片段并报告诊断。
+
+例如，以下插件会报告所有 `Object.assign()` 的用法：
+
+```grit
+`$fn($args)` where {
+    $fn <: `Object.assign`,
+    register_diagnostic(
+        span = $fn,
+        message = "建议使用对象展开运算符替代 Object.assign()"
+    )
+}
+```
+
+这是第一步，未来我们会持续增强插件能力，欢迎大家[参与讨论](https://github.com/biomejs/biome/discussions/6265)并提出建议。
+
+### Import Organizer 重构
+
+Biome 1.x 的 `import organizer` 有如下局限：
+
+* 空行分隔的导入被视为独立分组，排序时无法跨分组移动。
+* 同一模块的多条导入不会合并。
+* 不支持自定义排序规则。
+
+Biome 2.0 彻底解决了这些问题。所有示例中的 `organizer_v2.js` 代码片段都可直接由新组织器生成。
+
+此外，还支持组织 `export` 语句、通过注释显式分组、导入属性排序等。
+
+详细用法见[官方文档](/assist/actions/organize-imports)。
+
+### Assists（辅助操作）
+
+`Import Organizer` 一直是 Biome 的特殊功能，既不属于 Linter，也不属于 Formatter。Biome 2.0 将其归入全新的 Assist 体系。Assist 提供**操作（actions）**，类似于 Lint 规则的修复，但不产生诊断。
+
+`Import Organizer` 被纳入 Assist，同时我们还新增了如 [`useSortedKeys`](https://biomejs.dev/assist/actions/use-sorted-keys/)（对象字面量键排序）、[`useSortedAttributes`](/assist/actions/use-sorted-attributes/)（JSX 属性排序）等操作。
+
+更多信息见[相关页面](/assist/)。
+
+### 抑制注释（Suppressions）增强
+
+在原有 `// biome-ignore` 基础上，新增了 `// biome-ignore-all`，可在整个文件范围内抑制某条规则或格式化。
+
+还支持通过 `// biome-ignore-start` 和 `// biome-ignore-end` 标记抑制区间（`// biome-ignore-end` 可省略，表示直到文件结尾）。
+
+详细用法见[相关页面](/linter/#suppress-lint-rules)。
+
+### HTML Formatter
+
+经过数月努力，HTML Formatter 现已可用，欢迎大家试用并反馈问题！这标志着 Biome 向全面支持 Vue、Svelte 等 HTML 模板语言迈出了重要一步。
+
+目前仅支持 `.html` 文件，不会格式化 `.vue`、`.svelte` 文件中的 HTML，也不支持嵌入的 JS/CSS。已实现 `attributePosition`、`bracketSameLine`、`whitespaceSensitivity` 等选项。
+
+HTML 格式化器仍处于实验阶段，**2.0 正式版默认关闭**。目前已能解析大部分 Prettier 的 HTML 测试用例，并正确格式化其中 46/124 个。虽然尚未完全对齐 Prettier，但我们有信心输出的格式不会破坏文档。如遇异常，欢迎[反馈问题](https://github.com/biomejs/biome/issues)！
+
+可在配置文件中启用 HTML 格式化：
+
+```json
+{
+  "html": {
+    "formatter": {
+      "enabled": true
+    }
+  }
+}
+```
+
+## 鸣谢
+
+现在，让我们向所有支持者致以诚挚感谢！
+
+<div style={{ display: "flex", justifyContent: "center"}}>
+  <Image
+    src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExdjQ2b3d6MjYzMTdsazdzcm41NmM1ZTMzaGcyM2xyeHo2N2k5NmxscyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/QW5nKIoebG8y4/giphy.gif"
+    width="400"
+    alt="it's"
+    height="300"
+  />
+</div>
+
+特别感谢我们的白金赞助商 Vercel，[赞助了类型推断工作](/blog/vercel-partners-biome-type-inference)，由 <Avatar handle="arendjr" /> 负责。
+<div style={{ display: "flex", justifyContent: "center"}}>
+  <a href="https://vercel.com" rel="nofollow" title="Vercel" target="_blank">
+    <Image
+      alt="Vercel"
+      src={darkVercel}
+      data-canonical-src={darkVercel.src}
+      width="500"
+      class="dark:sl-hidden"
+      loading="eager"
+    />
+    <Image
+      alt="Vercel"
+      src={lightVercel}
+      data-canonical-src={lightVercel.src}
+      width="500"
+      class="light:sl-hidden"
+      loading="eager"
+    />
+  </a>
+</div>
+
+特别感谢金牌赞助商 Depot，为项目提供了高效强大的 CI Runner，大大提升了开发效率和可靠性！
+<div style={{ display: "flex", justifyContent: "center"}}>
+  <a href="https://depot.dev" rel="nofollow" title="Depot" target="_blank">
+    <Image
+      alt="Depot"
+      src={lightDepot}
+      data-canonical-src={lightDepot.src}
+      width="500"
+      class="dark:sl-hidden"
+      loading="eager"
+    />
+    <Image
+      alt="Depot"
+      src={darkDepot}
+      data-canonical-src={darkDepot.src}
+      width="500"
+      class="light:sl-hidden"
+      loading="eager"
+    />
+  </a>
+</div>
+
+恭喜 <Avatar handle="siketyan" /> 成为项目核心贡献者！得益于他的贡献，[JetBrains 插件](https://plugins.jetbrains.com/plugin/22761-biome) 现已稳定并支持多工作区。
+
+感谢 <Avatar handle="conaclos" /> 在 `Import Organizer` 重构、新 glob 引擎、众多新规则等方面的巨大贡献。
+
+感谢 <Avatar handle="arendjr" /> 构建多文件架构、持续完善类型推断、插件及其他改进。
+
+感谢 <Avatar handle="nhedger" /> 编写 [GitHub Action](https://github.com/biomejs/setup-biome)，并[发布](https://biomejs.dev/blog/2025-05-29-biome-vscode-v3/)新版 [VS Code 扩展](https://marketplace.visualstudio.com/items?itemName=biomejs.biome)。
+
+感谢 <Avatar handle="dyc3" /> 领导 HTML Parser 和 Formatter 开发，这两者都极其复杂，尤其是在对齐 Prettier 体验方面。
+
+最后，感谢所有[赞助者](https://github.com/biomejs/biome#sponsors)和[贡献者](/internals/people-and-credits#contributors)！
+
+## 接下来
+
+没有软件是没有 bug 的，我们会持续修复并发布补丁。
+
+[核心贡献者](/internals/people-and-credits#core-contributors)将继续推进[2025 路线图](/blog/roadmap-2025#-2025-roadmap)，重点关注以下方向：
+- 让 HTML 支持更加稳定
+- 扩展 HTML 支持到 Vue、Svelte、Astro 等框架
+- 推进 Markdown 支持，从解析器开始
+- 持续完善类型推断基础设施，覆盖更多场景，新增规则
+- 以及更多！
+
+### 我很喜欢 Biome，如何参与？
+
+Biome 是由热爱编程、热爱开源、认同 Biome 理念的志愿者驱动的项目，欢迎任何形式的贡献 😁
+
+#### 翻译
+
+如果你熟悉 Biome，欢迎帮助我们将网站翻译成你的母语。在[翻译进度面板](https://biomejs.dev/i18n-dashboard/)可查看支持的语言及进度。
+
+#### 加入社区
+
+欢迎加入我们的 [Discord 服务器](https://biomejs.dev/chat)，与社区成员交流互动。
+
+#### 代码贡献
+
+如果你喜欢技术挑战，想学习 Rust，或提升解析器、编译器、分析器等相关知识，Biome 是你的不二之选！
+
+可参与的方向包括但不限于：
+- 实现新 lint 规则（ESLint、Next.js、Solid 等还有很多未实现的规则），我们有[详细技术指南](https://github.com/biomejs/biome/blob/main/crates/biome_analyze/CONTRIBUTING.md)
+- [参与开发](https://github.com/biomejs/biome/blob/main/crates/biome_parser/CONTRIBUTING.md) [Biome 解析器](https://github.com/biomejs/biome/tree/main/crates/biome_yaml_parser)！Biome 解析器具备错误恢复能力，能输出 [CST](https://en.wikipedia.org/wiki/Parse_tree) 而非传统 AST。
+- 为我们的 [LSP](https://github.com/biomejs/biome/tree/main/crates/biome_lsp) 或编辑器扩展（[VS Code](https://github.com/biomejs/biome-vscode)、[Zed](https://github.com/biomejs/biome-zed)、[JetBrains IntelliJ](https://github.com/biomejs/biome-intellij)）实现新功能。
+
+#### 资金支持
+
+如果你认可 Biome 的未来，也可以通过 [Open Collective](https://opencollective.com/biome) 或 [GitHub Sponsors](https://github.com/sponsors/biomejs) 提供资金支持。
+
+此外，项目还提供[企业支持计划](/enterprise)，企业可雇佣核心贡献者为 Biome 工具链的特定方向提供支持。
