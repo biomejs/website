@@ -112,9 +112,9 @@ Biome 2.0 首次引入了 [Linter 插件](/linter/plugins)。
 
 这是第一步，未来我们会持续增强插件能力，欢迎大家[参与讨论](https://github.com/biomejs/biome/discussions/6265)并提出建议。
 
-### 导入组织器重构
+### Import Organizer 重构
 
-Biome 1.x 的导入组织器有如下局限：
+Biome 1.x 的 `import organizer` 有如下局限：
 
 * 空行分隔的导入被视为独立分组，排序时无法跨分组移动。
 * 同一模块的多条导入不会合并。
@@ -134,7 +134,7 @@ Biome 2.0 彻底解决了这些问题。所有示例中的 `organizer_v2.js` 代
 
 更多信息见[相关页面](/assist/)。
 
-### 抑制（Suppressions）增强
+### 抑制注释（Suppressions）增强
 
 在原有 `// biome-ignore` 基础上，新增了 `// biome-ignore-all`，可在整个文件范围内抑制某条规则或格式化。
 
@@ -142,9 +142,9 @@ Biome 2.0 彻底解决了这些问题。所有示例中的 `organizer_v2.js` 代
 
 详细用法见[相关页面](/linter/#suppress-lint-rules)。
 
-### HTML 格式化器
+### HTML Formatter
 
-经过数月努力，HTML 格式化器现已可用，欢迎大家试用并反馈问题！这标志着 Biome 向全面支持 Vue、Svelte 等 HTML 模板语言迈出了重要一步。
+经过数月努力，HTML Formatter 现已可用，欢迎大家试用并反馈问题！这标志着 Biome 向全面支持 Vue、Svelte 等 HTML 模板语言迈出了重要一步。
 
 目前仅支持 `.html` 文件，不会格式化 `.vue`、`.svelte` 文件中的 HTML，也不支持嵌入的 JS/CSS。已实现 `attributePosition`、`bracketSameLine`、`whitespaceSensitivity` 等选项。
 
@@ -227,7 +227,7 @@ HTML 格式化器仍处于实验阶段，**2.0 正式版默认关闭**。目前�
 
 感谢 <Avatar handle="nhedger" /> 编写 [GitHub Action](https://github.com/biomejs/setup-biome)，并[发布](https://biomejs.dev/blog/2025-05-29-biome-vscode-v3/)新版 [VS Code 扩展](https://marketplace.visualstudio.com/items?itemName=biomejs.biome)。
 
-感谢 <Avatar handle="dyc3" /> 领导 HTML 解析器和格式化器开发，这两者都极其复杂，尤其是在对齐 Prettier 格式体验方面。
+感谢 <Avatar handle="dyc3" /> 领导 HTML Parser 和 Formatter 开发，这两者都极其复杂，尤其是在对齐 Prettier 体验方面。
 
 最后，感谢所有[赞助者](https://github.com/biomejs/biome#sponsors)和[贡献者](/internals/people-and-credits#contributors)！
 
