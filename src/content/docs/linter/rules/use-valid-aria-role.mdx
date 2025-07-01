@@ -61,13 +61,36 @@ Elements with ARIA roles must use a valid, non-abstract ARIA role.
 
 ## Options
 
+### `allowInvalidRoles`
+
+It allows specifying a list of roles that might be invalid otherwise
+
 ```json
 {
     "options": {
-        "allowInvalidRoles": ["invalid-role", "text"],
+        "allowInvalidRoles": ["datepicker"]
+    }
+}
+```
+
+```jsx
+<div role="datepicker"></div>
+```
+
+### `ignoreNonDom`
+
+Use this option to ignore non-DOM elements, such as components
+
+```json
+{
+    "options": {
         "ignoreNonDom": true
     }
 }
+```
+
+```jsx
+<Datepicker role="foo"></Datepicker>
 ```
 
 ## Accessibility guidelines
