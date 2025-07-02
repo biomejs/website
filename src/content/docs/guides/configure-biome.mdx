@@ -141,14 +141,14 @@ Some shells don't support the recursive glob `**`.
 
 The Biome configuration file can be used to refine which files are processed.
 You can explicitly list the files to be processed using
-[the `files.includes` field](/reference/configuration#filesincludes).
+[the `files.includes` field](/reference/configuration/#filesincludes).
 `files.includes` accepts
-[glob patterns](/reference/configuration#glob-syntax-reference) such as
+[glob patterns](/reference/configuration/#glob-syntax-reference) such as
 `src/**/*.js`. Negated patterns starting with `!` can be used to exclude files.
 
 Paths and globs inside Biome's configuration file are resolved relative to the
 folder the configuration file is in. An exception to this is when a
-configuration file is [extended](/reference/configuration#extends) by another.
+configuration file is [extended](/reference/configuration/#extends) by another.
 
 `files.includes` applies to all of Biome's tools, meaning the files specified
 here are processed by the linter, the formatter and the assist, unless specified
