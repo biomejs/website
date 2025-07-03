@@ -5264,6 +5264,23 @@ export function GET() {
             ],
             "docs": " Reports usage of \"magic numbers\" — numbers used directly instead of being assigned to named constants.\n\n Its goal is to improve code maintainability and readability by encouraging developers to extract such numbers into named constants, making their purpose explicit.\n\n It ignores:\n - non-magic values (like 0, 1, 2, 10, 24, 60, and their negative or bigint forms) found anywhere, including arithmetic expressions, fn calls etc.\n - Array indices\n - Enum values\n - Initial values in variable or class property declarations\n - Default values in function parameters or destructuring patterns\n - Arguments to JSON.stringify and parseInt (e.g., `JSON.stringify(22)`, `parseInt(\"123\", 8)`)\n - Operands in bitwise operations (e.g., `a & 7`, `a | 7`)\n - Values in JSX expressions (e.g., `<div>{1}</div>`)\n - Object property values (e.g., `{ tax: 0.25 }`)\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n let total = price * 1.23; // Magic number for tax rate\n ```\n\n ### Valid\n\n ```js\n const TAX_RATE = 1.23;\n let total = price * TAX_RATE;\n ```\n"
           },
+          "noMisusedPromises": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noMisusedPromises",
+            "link": "https://biomejs.dev/linter/rules/no-misused-promises",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintTypeScript": "no-misused-promises"
+                }
+              }
+            ],
+            "docs": " Disallow Promises to be used in places where they are almost certainly a\n mistake.\n\n In most cases, if you assign a `Promise` somewhere a `Promise` is not\n allowed, the TypeScript compiler will be able to catch such a mistake.\n But there are a few places where TypeScript allows them -- they're not\n _necessarily_ a mistake -- even though they could be considered almost\n certainly to be one.\n\n This rule disallows using Promises in such places.\n\n ## Examples\n\n ### Invalid\n\n ```js\n const promise = Promise.resolve('value');\n if (promise) { /* This branch will always execute */ }\n ```\n\n ```js\n const promise = Promise.resolve('value');\n const val = promise ? 123 : 456; // Always evaluates to `123`.\n ```\n\n ```js\n // The following filter has no effect:\n const promise = Promise.resolve('value');\n [1, 2, 3].filter(() => promise);\n ```\n\n ```js\n const promise = Promise.resolve('value');\n while (promise) { /* This is an endless loop */ }\n ```\n\n ```js\n // Using a `Promise` as an iterable expands to nothing:\n const getData = () => fetch('/');\n console.log({ foo: 42, ...getData() });\n ```\n\n ```js\n // These `fetch`-es are not `await`-ed in order:\n [1, 2, 3].forEach(async value => {\n     await fetch(`/${value}`);\n });\n ```\n\n ### Valid\n\n ```js\n const promise = Promise.resolve('value');\n if (await promise) { /* Do something */ }\n\n const val = (await promise) ? 123 : 456;\n\n while (await promise) { /* Do something */ }\n\n const getData = () => fetch('/');\n console.log({ foo: 42, ...(await getData()) });\n\n // for-of puts `await` in outer context:\n for (const value of [1, 2, 3]) {\n     await doSomething(value);\n }\n ```\n\n"
+          },
           "useExplicitType": {
             "deprecated": false,
             "version": "1.9.3",
@@ -5730,7 +5747,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 335
+    "numberOrRules": 336
   },
   "syntax": {
     "languages": {
