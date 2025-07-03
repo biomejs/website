@@ -3,6 +3,10 @@ title: Instalación manual
 description: Instalar Biome manualmente
 ---
 
+import { Code } from '@astrojs/starlight/components';
+import { getLatestVersion } from "@biomejs/version-utils";
+export const version = await getLatestVersion("stable");
+
 Usar el binario CLI independiente de Biome puede ser una gran opción si aún no estás usando Node.js o `npm` (o cualquier otro gestor de paquetes).
 En otras palabras, Biome no debería ser la única razón para tener un `package.json`.
 
@@ -63,22 +67,18 @@ docker run -v $(pwd):/code ghcr.io/biomejs/biome format --write
 
 Para instalar Biome, descarga el ejecutable para tu plataforma de la [última versión CLI](https://github.com/biomejs/biome/releases) en GitHub y dale permiso de ejecución.
 
-```shell
+<Code lang="shell" code={`
 # macOS arm (M1 o posterior)
-curl -L https://github.com/biomejs/biome/releases/download/@biomejs/biome@<version>/biome-darwin-arm64 -o biome
+curl -L https://github.com/biomejs/biome/releases/download/@biomejs/biome@${version}/biome-darwin-arm64 -o biome
 chmod +x biome
 
 # Linux (x86_64)
-curl -L https://github.com/biomejs/biome/releases/download/@biomejs/biome@<version>/biome-linux-x64 -o biome
+curl -L https://github.com/biomejs/biome/releases/download/@biomejs/biome@${version}/biome-linux-x64 -o biome
 chmod +x biome
 
 # Windows (x86_64, Powershell)
-Invoke-WebRequest -Uri "https://github.com/biomejs/biome/releases/download/@biomejs/biome@<version>/biome-win32-x64.exe" -OutFile "biome.exe"
-```
-
-:::note
-Asegúrate de sustituir `<versión>` por la versión de Biome que quieres instalar.
-:::
+Invoke-WebRequest -Uri "https://github.com/biomejs/biome/releases/download/@biomejs/biome@${version}/biome-win32-x64.exe" -OutFile "biome.exe"
+`} />
 
 Ahora puedes utilizar Biome simplemente ejecutando `./biome`.
 
