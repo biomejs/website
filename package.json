@@ -87,6 +87,7 @@
     }
   },
   "dependencies": {
-    "@biomejs/version-utils": "^0.4.0"
+    "@biomejs/version-utils": "^0.4.0",
+    "textlint-filter-rule-comments": "^1.2.2"
   }
 }

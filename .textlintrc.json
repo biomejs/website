@@ -4,6 +4,9 @@
       "extensions": [".mdx", ".md"]
     }
   },
+  "filters": {
+    "comments": true
+  },
   "rules": {
     "preset-jtf-style": {
       "1.1.3.箇条書き": false,

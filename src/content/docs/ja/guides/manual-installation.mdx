@@ -3,6 +3,10 @@ title: 手動インストール
 description: Biomeを手動でインストールする
 ---
 
+import { Code } from '@astrojs/starlight/components';
+import { getLatestVersion } from "@biomejs/version-utils";
+export const version = await getLatestVersion("stable");
+
 もしあなたがNode.jsやnpm（あるいは他のパッケージマネージャー）を使用してない場合、代わりにBiomeのスタンドアロンなCLIバイナリを使用できます。
 言い換えれば、`package.json` を持たずにBiomeを利用できます。
 
@@ -63,22 +67,20 @@ docker run -v $(pwd):/code ghcr.io/biomejs/biome format --write
 
 Biomeをインストールするには、GitHub上の[最新のCLIリリース](https://github.com/biomejs/biome/releases) からプラットフォームに合った実行可能ファイルを取得し、実行権限を与えてください。
 
-```shell
+{/* <!-- textlint-disable --> */}
+<Code lang="shell" code={`
 # macOS arm (M1以降)
-curl -L https://github.com/biomejs/biome/releases/download/@biomejs/biome@<version>/biome-darwin-arm64 -o biome
+curl -L https://github.com/biomejs/biome/releases/download/@biomejs/biome@${version}/biome-darwin-arm64 -o biome
 chmod +x biome
 
 # Linux (x86_64)
-curl -L https://github.com/biomejs/biome/releases/download/@biomejs/biome@<version>/biome-linux-x64 -o biome
+curl -L https://github.com/biomejs/biome/releases/download/@biomejs/biome@${version}/biome-linux-x64 -o biome
 chmod +x biome
 
 # Windows (x86_64, Powershell)
-Invoke-WebRequest -Uri "https://github.com/biomejs/biome/releases/download/@biomejs/biome@<version>/biome-win32-x64.exe" -OutFile "biome.exe"
-```
-
-:::note
-`<version>` の項目を、インストールしたいBiomeのバージョンに置き換えて下さい。
-:::
+Invoke-WebRequest -Uri "https://github.com/biomejs/biome/releases/download/@biomejs/biome@${version}/biome-win32-x64.exe" -OutFile "biome.exe"
+`} />
+{/* <!-- textlint-enable --> */}
 
 これで、 `./biome` を実行することでBiomeを使用できます。
 

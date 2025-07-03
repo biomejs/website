@@ -15,6 +15,9 @@ importers:
       '@biomejs/version-utils':
         specifier: ^0.4.0
         version: 0.4.0
+      textlint-filter-rule-comments:
+        specifier: ^1.2.2
+        version: 1.2.2(textlint@14.8.4)
     devDependencies:
       '@astrojs/check':
         specifier: 0.9.4
@@ -5168,6 +5171,11 @@ packages:
 
   text-table@0.2.0:
     resolution: {integrity: sha512-N+8UisAXDGk8PFXP4HAzVR9nbfmVJ3zYLAWiTIoqC5v5isinhr+r5uaO8+7r3BMfuNIufIsA7RdpVgacC2cSpw==}
+
+  textlint-filter-rule-comments@1.2.2:
+    resolution: {integrity: sha512-AtyxreCPb3Hq/bd6Qd6szY1OGgnW34LOjQXAHzE8NoXbTUudQqALPdRe+hvRsf81rnmGLxBiCUXZbnbpIseFyw==}
+    peerDependencies:
+      textlint: '>=6.8.0'
 
   textlint-rule-helper@2.3.1:
     resolution: {integrity: sha512-b1bijvyiUmKinfFE5hkQMSXs3Ky8jyZ3Y6SOoTRJKV9HLL2LWUVFAUezO7z4FpAkVvYruDYWCwA5qWV8GmvyUw==}
@@ -12051,6 +12059,10 @@ snapshots:
   text-hex@1.0.0: {}
 
   text-table@0.2.0: {}
+
+  textlint-filter-rule-comments@1.2.2(textlint@14.8.4):
+    dependencies:
+      textlint: 14.8.4
 
   textlint-rule-helper@2.3.1:
     dependencies:
