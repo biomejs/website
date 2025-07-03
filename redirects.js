@@ -123,6 +123,7 @@ export default {
   '/linter/rules/noMisplacedAssertion': '/linter/rules/no-misplaced-assertion',
   '/linter/rules/noMisrefactoredShorthandAssign': '/linter/rules/no-misrefactored-shorthand-assign',
   '/linter/rules/noMissingVarFunction': '/linter/rules/no-missing-var-function',
+  '/linter/rules/noMisusedPromises': '/linter/rules/no-misused-promises',
   '/linter/rules/noNamespace': '/linter/rules/no-namespace',
   '/linter/rules/noNamespaceImport': '/linter/rules/no-namespace-import',
   '/linter/rules/noNegationElse': '/linter/rules/no-negation-else',

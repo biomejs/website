@@ -121,6 +121,7 @@ export const LINT_RULES = {
   noMisplacedAssertion: "noMisplacedAssertion",
   noMisrefactoredShorthandAssign: "noMisrefactoredShorthandAssign",
   noMissingVarFunction: "noMissingVarFunction",
+  noMisusedPromises: "noMisusedPromises",
   noNamespace: "noNamespace",
   noNamespaceImport: "noNamespaceImport",
   noNegationElse: "noNegationElse",
