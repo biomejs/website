@@ -67,7 +67,7 @@ docker run -v $(pwd):/code ghcr.io/biomejs/biome format --write
 
 Biomeをインストールするには、GitHub上の[最新のCLIリリース](https://github.com/biomejs/biome/releases) からプラットフォームに合った実行可能ファイルを取得し、実行権限を与えてください。
 
-{/* textlint-disable */}
+{/* <!-- textlint-disable --> */}
 <Code lang="shell" code={`
 # macOS arm (M1以降)
 curl -L https://github.com/biomejs/biome/releases/download/@biomejs/biome@${version}/biome-darwin-arm64 -o biome
@@ -80,7 +80,7 @@ chmod +x biome
 # Windows (x86_64, Powershell)
 Invoke-WebRequest -Uri "https://github.com/biomejs/biome/releases/download/@biomejs/biome@${version}/biome-win32-x64.exe" -OutFile "biome.exe"
 `} />
-{/* textlint-enable */}
+{/* <!-- textlint-enable --> */}
 
 これで、 `./biome` を実行することでBiomeを使用できます。
 
