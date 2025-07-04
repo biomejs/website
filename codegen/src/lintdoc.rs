@@ -1419,11 +1419,11 @@ where
     let supression_reason = None;
 
     let language_settings = L::lookup_settings(&settings.languages);
-    let environment = L::resolve_environment(Some(settings));
+    let environment = L::resolve_environment(settings);
 
     L::resolve_analyzer_options(
-        Some(settings),
-        Some(&language_settings.linter),
+        settings,
+        &language_settings.linter,
         environment,
         &path,
         file_source,
