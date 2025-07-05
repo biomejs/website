@@ -2,141 +2,221 @@
 title: VS Code拡張機能
 description: BiomeのVS Code拡張機能
 ---
-# Biome VS Code 拡張機能
+import { FileTree } from '@astrojs/starlight/components';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Badge } from '@astrojs/starlight/components';
 
-Biomeは、開発スタックを統合し、複数のツールの機能を1つにまとめます。単一の設定ファイルを使用し、素晴らしいパフォーマンスで、あらゆる環境で動作します。この拡張機能はエディタ上で、以下のことを可能にします：
+Biome には、コード エディターと緊密に統合され、開発ワークフローにフォーマット、リンティング、コード リファクタリング機能を提供する公式の[VS Code拡張機能](https://marketplace.visualstudio.com/items?itemName=biomejs.biome)が付属しています。
 
-- ファイルを*保存時*にフォーマット、*ドキュメントのフォーマット*コマンドの使用
-- タイプ中に静的解析の結果を確認し、コード修正を適用
-- リファクタリングの実行
+このリファレンスドキュメントでは、拡張機能の機能の概要、インストール方法、プロジェクト用に設定する方法について説明します。
+
+:::tip
+`2.x` バージョンの拡張機能からアップグレードする場合は、このドキュメントの最後にある[移行手順](#拡張機能2xからの移行)を確認してください。
+:::
 
 ## インストール方法
 
-VS Codeの拡張機能をインストールするには、[Visual Studio Code マーケットプレイスページ](https://marketplace.visualstudio.com/items?itemName=biomejs.biome)にアクセスするか、VS Code内で以下の方法でインストールできます：
+拡張機能をインストールする推奨方法は、VS Codeユーザーの場合は[Visual Studio Code マーケットプレイス](https://marketplace.visualstudio.com/items?itemName=biomejs.biome)、VSCodiumやCursorなどのその他の派生製品の場合は[Open VSX レジストリ](https://open-vsx.org/extension/biomejs/biome)を使用することです。
 
-- *拡張機能* タブ（_表示_ → _拡張機能_）を開き、Biomeを検索する。
-- _コマンドパレット_（<kbd>Ctrl</kbd>/<kbd title="Cmd">⌘</kbd>+<kbd>P</kbd>または _移動_ → _ファイルに移動_）で `ext install biomejs.biome` と入力し、Enterキーを押す。
-
-## はじめに
-
-### デフォルトのフォーマッタに設定する
-
-Biomeを、サポートされているファイルのデフォルトフォーマッタとして設定し、VS Codeが他にインストールされているフォーマッタではなくBiomeを使用するようにします。これを行うには、JavaScriptまたはTypeScript形式のファイルを開いて次の操作を行います：
-
-- コマンドパレットを開く（<kbd>Ctrl</kbd>/<kbd title="Cmd">⌘</kbd>+<kbd title="Shift">⇧</kbd>+<kbd>P</kbd> または表示 → コマンドパレット）
-- _ドキュメントのフォーマット..._ を選択
-- _デフォルトのフォーマッターの設定..._ を選択
-- Biomeを選択
-
-また、特定の言語のみにBiomeを有効にすることもできます：
-
-- [`settings.json`を開く](https://code.visualstudio.com/docs/getstarted/settings#_settingsjson): _コマンドパレット_（<kbd>Ctrl</kbd>/<kbd title="Cmd">⌘</kbd>+<kbd title="Shift">⇧</kbd>+<kbd>P</kbd>）を開き、_設定: ユーザー設定（JSON）を開く_ を選択
-- Biomeを有効にしたい言語の`editor.defaultFormatter`に`biomejs.biome`を設定する
-
-```json title="settings.json"
-{
-	"editor.defaultFormatter": "<other formatter>",
-	"[javascript]": {
-		"editor.defaultFormatter": "biomejs.biome"
-	}
-}
-```
-
-この設定の場合、BiomeをJavaScriptファイルのデフォルトフォーマッタとして設定します。その他のファイルは`<other formatter>`を使ってフォーマットされます。
-
-## 設定の読み込み
-
-拡張機能は、ワークスペースのルートディレクトリから`biome.json`ファイルを自動的に読み込みます。
-
-## Biomeの読み込み
-
-拡張機能は、プロジェクトのローカル依存関係（`node_modules/@biomejs/biome`）からBiomeを使用しようとします。npmスクリプトと拡張機能が同じバージョンを使用することを確実にするために、Biomeをプロジェクトの依存関係に追加することをおすすめします。
-
-また、エディタのオプションで`biome.lspBin`設定を構成することにより、拡張機能が使用すべきBiomeバイナリを明示的に指定することもできます。
-
-プロジェクトがBiomeに依存しておらず、明示的なパスも設定されていない場合、拡張機能はバンドルされたBiomeのバージョンを使用します。
-
-## 使用方法
-
-### ドキュメントのフォーマット
-
-ドキュメント全体をフォーマットするには、_コマンドパレット_（<kbd>Ctrl</kbd>/<kbd title="Cmd">⌘</kbd>+<kbd title="Shift">⇧</kbd>+<kbd>P</kbd>）を開き、_ドキュメントのフォーマット_ を選択します。
-
-ドキュメントの一部をフォーマットするには、フォーマットしたいテキストを選択し、_コマンドパレット_（<kbd>Ctrl</kbd>/<kbd title="Cmd">⌘</kbd>+<kbd title="Shift">⇧</kbd>+<kbd>P</kbd>）を開き、_選択範囲のフォーマット_ を選択します。
-
-### 保存時のフォーマット
-
-Biomeは、VS Codeの _保存時のフォーマット_ 設定を尊重します。保存時のフォーマットを有効にするには、設定を開き（_ファイル_ -> _設定_ -> _設定_）、`editor.formatOnSave`を検索し、オプションを有効にします。
-
-### 保存時の修正
-
-Biomeは、VS Codeの _保存時のコードアクション_ 設定を尊重します。保存時の修正を有効にするには、以下を追加してください。
+- [![](https://img.shields.io/badge/Install%20Biome-in%20VS%20Code-007ACC?style=flat&logo=biome)](vscode:extension/biomejs.biome)
+- [![](https://img.shields.io/badge/Install%20Biome-in%20VSCodium-007ACC?style=flat&logo=biome)](vscodium:extension/biomejs.biome)
 
 
-```json title="settings.json"
+## 一般的な使用例
+
+### シングルルートワークスペース
+
+シングルルートワークスペースは、通常のVS Codeワークスペースで、ワークスペースフォルダが1つだけ存在するものです。
+
+<FileTree>
+- src/
+  - main.ts
+- biome.json
+- package.json
+</FileTree>
+
+### マルチルートワークスペース
+
+マルチルートワークスペースは、複数のワークスペースフォルダが存在するワークスペースです。この場合、拡張機能はワークスペースフォルダごとにBiomeインスタンスを自動的に作成します。
+
+<FileTree>
+- api/ (ワークスペースフォルダ)
+  - biome.json
+  - src/
+    - main.ts
+- app/ (ワークスペースフォルダ)
+  - biome.json
+  - src/
+    - main.ts
+- my.code-workspace
+</FileTree>
+
+
+## 機能
+
+### フォーマット
+
+Biome拡張機能は、[サポートされているファイルタイプ](/ja/internals/language-support)のフォーマッタとして登録され、ファイル全体またはコードの選択のフォーマットをサポートします。
+
+[コマンドパレット](https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette)から、次のいずれかのコマンドを実行します。
+
+- ファイル全体をフォーマットするには、`Format Document`コマンドを実行します。
+- 選択したコードをフォーマットするには、コードを選択して`Format Selection`コマンドを実行します。
+
+#### 保存時のフォーマット
+
+保存時にフォーマットを有効にするには、VS Codeの[`editor.formatOnSave`](vscode://settings/editor.formatOnSave)設定を`true`に設定します。
+
+### コードの修正
+
+Biome拡張機能は、[サポートされているファイルタイプ](/ja/internals/language-support)に対するコードアクションプロバイダーとして自身を登録し、安全な修正がある診断に対してコード修正を提供します。
+
+#### 手動クイックフィックス
+
+クイックフィックスを手動で適用するには、診断を選択して`Quick Fix`ボタンをクリックします。
+
+#### 保存時に修正
+
+**保存時に修正**を有効にするには、VS Codeの[`editor.codeActionsOnSave`](vscode://settings/editor.codeActionsOnSave)設定を以下のように更新します。
+
+```diff
 {
   "editor.codeActionsOnSave": {
-    "source.fixAll.biome": "explicit"
++    "source.fixAll.biome": "explicit"
   }
 }
 ```
 
-これは、VS Codeの`settings.json`で行います。
+### インポートの並び替え
 
-### インポートの並び替え [実験的機能]
+この拡張機能は、[サポートされているファイルタイプ](/ja/internals/language-support)の保存時にインポートを並べ替えることができます。
+有効にするには、VS Codeの[`editor.codeActionsOnSave`](vscode://settings/editor.codeActionsOnSave)設定を以下のように更新します。
 
-BiomeのVS Code拡張機能は、Organize Importsコードアクションを通じてインポートの並び替えをサポートしています。デフォルトでは、このアクションは<kbd title="Shift">⇧</kbd>+<kbd>Alt</kbd>+<kbd>O</kbd>のキーボードショートカットを使用して実行することができます。または、_コマンドパレット_ (<kbd>Ctrl</kbd>/<kbd title="Cmd">⌘</kbd>+<kbd title="Shift">⇧</kbd>+<kbd>P</kbd>) を開き、Organize Importsを選択してアクセスすることもできます。
-
-保存時に自動的にこのアクションを実行したい場合は、エディタの設定に以下を追加してください：
-
-```json title="settings.json"
+```diff title="settings.json"
 {
-	"editor.codeActionsOnSave":{
-		"source.organizeImports.biome": "explicit"
-	}
+  "editor.codeActionsOnSave": {
++    "source.organizeImports.biome": "explicit"
+  }
 }
 ```
 
-## 拡張機能の設定
 
-### `biome.lspBin`
+## 設定リファレンス
 
-`biome.lspBin`オプションは、拡張機能が使用するBiomeのバイナリを上書きします。
-相対パスを指定した場合は、ワークスペースフォルダが基準パスとして使用されます。
+拡張機能では以下の設定が可能です。
 
-### `biome.rename`
+:::note[設定の優先順位]
+すべての設定は、VS Codeの[設定の優先順位](https://code.visualstudio.com/docs/getstarted/settings#_settings-precedence)ルールに従って解決されます。
+つまり、最も具体的なレベルの設定値が使用されます。これにより、グローバル設定を設定し、特定のワークスペースフォルダに対してそれを上書きすることが可能になります。
+:::
 
-Biomeがワークスペース内の名前変更を処理することを有効にします（実験的機能）。
+### `biome.enabled`
 
-## バージョン管理
+**デフォルト:** `true` | **スコープ:** `global`, `workspace`, `workspace folder`
 
-[公式ドキュメント](https://code.visualstudio.com/api/working-with-extensions/publishing-extension#prerelease-extensions)で提案された仕様に従っています：
+この設定は、拡張機能がワークスペースフォルダに対してLSPセッションを作成するかどうかを制御します。
+グローバルに設定すると、ワークスペースフォルダ自体が設定を上書きしない限り、すべてのワークスペースフォルダに適用されます。
 
-奇数のマイナーバージョンはプレリリース専用として割り振られています。例：`*.5.*`
-偶数のマイナーバージョンは正式リリース専用として割り振られています。例：`*.6.*`
+### `biome.configurationPath`
+
+:::caution[Biome v2のみ]
+この設定は Biome `v2`を使用している場合にのみ有効になります。Biome `v1`を使用している場合は、この設定は無視されます。
+:::
+
+**デフォルト:** `null` | **スコープ:** `global`, `workspace`, `workspace folder`
+
+この設定では、カスタム設定ファイルへのパスを指定できます。指定しない場合は、デフォルトの設定ファイルが使用されます。
+
+### `biome.requireConfiguration`
+
+**デフォルト:** `false` | **スコープ:** `global`, `workspace`, `workspace folder`
+
+この設定は、Biomeがフォーマッタおよび診断プロバイダーとして登録されるかどうかを制御します。
+
+`true`に設定すると、ワークスペースフォルダーに`biome.json`ファイルが存在する場合にのみ、拡張機能はフォーマッタおよび診断プロバイダーとして登録されます。
+
+:::caution
+この設定を有効にするには、`biome.enabled`設定を同じスコープで`true`（デフォルト）に設定する必要があります。
+:::
+
+### `biome.lsp.bin`
+
+**デフォルト:** `undefined` | **スコープ:** `global`, `workspace`, `workspace folder`
+
+この設定でBiomeのバイナリへのパスを上書きできます。これは、Biomeの別のバージョンを使用したい場合や、`PATH`に存在しないバイナリを使用したい場合に便利です。
+バイナリへのパス、またはプラットフォームをパスにマッピングするオブジェクトのいずれかを指定できます。
+
+<Tabs>
+	<TabItem label="文字列">
+		```json
+		{
+			"biome.lsp.bin": "/path/to/biome"
+		}
+		```
+	</TabItem>
+	<TabItem label="オブジェクト">
+
+		オブジェクトを使用する場合、キーは`<process.os>-<process.arch>`値から構築されたプラットフォーム識別子であり、値はバイナリへのパスです。
+		```json
+		{
+			"biome.lsp.bin": {
+				"darwin-arm64": "/path/to/biome",
+				"win32-x64": "/path/to/biome.exe"
+			}
+		}
+		```
+	</TabItem>
+</Tabs>
+
+### `biome.runFromTemporaryLocation`
+
+**デフォルト:** `true (windows), false (その他)` | **スコープ:** `global`, `workspace`, `workspace folder`
+
+Biomeバイナリをコピーして一時的な場所から実行するかどうか。
+
+Windowsでは、この設定を無効にすると、アクティブなLSPセッションの実行中にノードモジュール内のBiomeを更新できなくなります。
+これは、実行中にOSがバイナリをロックするためです。Biomeを更新する前に、VS Codeを閉じる必要があります。
+
+### `biome.suggestInstallingGlobally`
+
+**デフォルト:** `true` | **スコープ:** `global`, `workspace`, `workspace folder`
+
+Biomeのグローバルインストールが必要であるが、`PATH`に見つからない場合、拡張機能はインストールを提案します。
+
+この設定は、提案ポップアップを表示するかどうかを制御します。
+
+### `biome.lsp.trace.server`
+
+**デフォルト:** `off` | **スコープ:** `global`
+
+この設定では、Biome LSPトレースのログレベルを設定できます。利用可能な値は`off`、`messages`、`verbose`です。
+拡張機能で問題が発生し、ログを共有したい場合は`verbose`にすることをおすすめします。
 
 
 ## トラブルシューティング
 
-### `@biomejs/biome`をインストールしましたが、拡張機能で「ライブラリを解決できませんでした」という警告が表示される
+拡張機能で予期せぬ問題が発生する場合があります。ここでは、最も一般的な問題のトラブルシューティングと拡張機能の状態のリセットに役立つヒントをいくつかご紹介します。
 
-ライブラリ`@biomejs/biome`は、OSやアーキテクチャに基づいてインストールされるいくつかのオプションの依存関係を指定しています。
+### LSPトレースへのアクセス
 
-しかし、拡張機能の読み込み時にバイナリを解決できない場合があります。これはおそらくあなたのパッケージマネージャーによるものです。
+拡張機能で問題が発生した場合は、LSPトレースの共有をお願いすることがあります。
+[`biome.lsp.trace.server`](#biomelsptrace_server)設定に`verbose`を設定し、問題の原因となったアクションを再実行することで、LSPトレースの共有をお願いできます。
+トレースは[出力](vscode://workbrench/panel)パネルの選択オプション`Biome LSP trace (xxx)`で確認できます。
 
-**問題を解決するには**、バイナリを手動でインストールしてみてください。警告には、あなたのマシンに適したバイナリが表示されるはずです。
 
-**異なるOSやアーキテクチャを使用するチームで作業する場合は**、すべてのバイナリをインストールすることをお勧めします：
+## 拡張機能`2.x`からの移行
 
-- `@biomejs/cli-darwin-arm64`
-- `@biomejs/cli-darwin-x64`
-- `@biomejs/cli-linux-arm64`
-- `@biomejs/cli-linux-x64`
-- `@biomejs/cli-win32-arm64`
-- `@biomejs/cli-win32-x64`
+拡張機能`2.x`から移行する場合は、次の手順を正確にこの順序で実行することをお勧めします。
 
-### マルチルートのワークスペースで `biome.json` ファイルが無視される
+1. 拡張機能を更新します
+2. エディターを終了して閉じます
+3. タスクマネージャーを開き、`biome`という名前のプロセスをすべて終了していることを確認します
+4. エディターを開きます
 
-マルチルートのワークスペースのサポートは現在限られており、各ルートフォルダに配置された `biome.json` が拡張に無視されることがあります。
-現時点では、Biomeに依存する各フォルダについて個別のワークスペースを作成する必要があります。
-対応状況は[このIssue](https://github.com/biomejs/biome/issues/1573)で追跡できます。
+エディタにまだ接続されていて、拡張機能によって正常にシャットダウンできない古いデーモン接続を破棄します。
+これは、ファイルを保存した際に不正なフォーマットが発生する原因となっていたためです。
+
+### 変更点
+
+- `biome.lspBin`は廃止され、`biome.lsp.bin`が推奨されます。現時点では引き続き機能しますが、設定を更新して新しい名前を使用することをお勧めします。
+- `biome.requireConfigFile`は`biome.requireConfiguration`にリネームされました。**旧設定はサポートされなくなったため、今すぐ新しい設定へ移行してください。**
