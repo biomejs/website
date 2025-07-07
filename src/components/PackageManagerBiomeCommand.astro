@@ -12,18 +12,22 @@ const biomeBin = "biome";
 
 <Tabs syncKey="command">
 	<TabItem label="npm" icon="seti:npm">
-		<Code frame="none" showLineNumbers={false} code={`npx ${biomePackage} ${command}`} lang="bash"  />
+		<Code frame="none" code={`npx ${biomePackage} ${command}`} lang="bash" />
 	</TabItem>
 	<TabItem label="pnpm" icon="pnpm">
-		<Code frame="none" showLineNumbers={false} code={`pnpm exec ${biomeBin} ${command}`} lang="bash"  />
+		<Code frame="none" code={`pnpm exec ${biomeBin} ${command}`} lang="bash" />
 	</TabItem>
 	<TabItem label="bun" icon="bun">
-		<Code frame="none" showLineNumbers={false} code={`bunx --bun ${biomeBin} ${command}`} lang="bash"  />
+		<Code frame="none" code={`bunx --bun ${biomeBin} ${command}`} lang="bash" />
 	</TabItem>
 	<TabItem label="deno" icon="deno">
-		<Code frame="none" showLineNumbers={false} code={`deno run -A npm:${biomePackage} ${command}`} lang="bash"  />
+		<Code
+			frame="none"
+			code={`deno run -A npm:${biomePackage} ${command}`}
+			lang="bash"
+		/>
 	</TabItem>
 	<TabItem label="yarn" icon="seti:yarn">
-		<Code frame="none" showLineNumbers={false} code={`yarn exec ${biomeBin} ${command}`} lang="bash"  />
+		<Code frame="none" code={`yarn exec ${biomeBin} ${command}`} lang="bash" />
 	</TabItem>
 </Tabs>
