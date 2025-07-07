@@ -86,6 +86,12 @@ function f(arg: B): A {
 }
 ```
 
+One notable exception is when the import is intended to be used for type augmentation.
+
+```ts
+import type {} from '@mui/lab/themeAugmentation';
+```
+
 ## How to configure
 ```json title="biome.json"
 {
