@@ -33,7 +33,7 @@ function biomeDiagnosticsToCodeMirror(
 
 	for (const diag of biome) {
 		const span = diag.location?.span;
-		if (span === undefined) {
+		if (!span) {
 			continue;
 		}
 
