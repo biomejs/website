@@ -1905,7 +1905,7 @@ export function GET() {
           },
           "noImplicitCoercion": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.1.0",
             "name": "noImplicitCoercion",
             "link": "https://biomejs.dev/linter/rules/no-implicit-coercion",
             "recommended": false,
@@ -2007,7 +2007,7 @@ export function GET() {
           },
           "noUnassignedVariables": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.1.0",
             "name": "noUnassignedVariables",
             "link": "https://biomejs.dev/linter/rules/no-unassigned-variables",
             "recommended": false,
@@ -3110,7 +3110,7 @@ export function GET() {
         "suspicious": {
           "noAlert": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.1.0",
             "name": "noAlert",
             "link": "https://biomejs.dev/linter/rules/no-alert",
             "recommended": false,
@@ -5249,7 +5249,7 @@ export function GET() {
           },
           "noMagicNumbers": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.1.0",
             "name": "noMagicNumbers",
             "link": "https://biomejs.dev/linter/rules/no-magic-numbers",
             "recommended": false,
@@ -5266,7 +5266,7 @@ export function GET() {
           },
           "noMisusedPromises": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.1.0",
             "name": "noMisusedPromises",
             "link": "https://biomejs.dev/linter/rules/no-misused-promises",
             "recommended": true,
@@ -5306,7 +5306,7 @@ export function GET() {
           },
           "useReadonlyClassProperties": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.1.0",
             "name": "useReadonlyClassProperties",
             "link": "https://biomejs.dev/linter/rules/use-readonly-class-properties",
             "recommended": false,
@@ -5323,7 +5323,7 @@ export function GET() {
           },
           "useUnifiedTypeSignature": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.1.0",
             "name": "useUnifiedTypeSignature",
             "link": "https://biomejs.dev/linter/rules/use-unified-type-signature",
             "recommended": false,
