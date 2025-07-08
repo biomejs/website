@@ -308,17 +308,14 @@ self.addEventListener("message", async (e) => {
 			});
 
 			const syntaxTree =
-				fileFeatures.featuresSupported.get("debug") === "supported"
-					? workspace.getSyntaxTree({
-							projectKey,
-							path,
-						})
+				fileFeatures.featuresSupported.debug === "supported"
+					? workspace.getSyntaxTree({ projectKey, path })
 					: { ast: "Not supported", cst: "Not supported" };
 
 			let controlFlowGraph = "";
 			try {
 				controlFlowGraph =
-					fileFeatures.featuresSupported.get("debug") === "supported"
+					fileFeatures.featuresSupported.debug === "supported"
 						? workspace.getControlFlowGraph({
 								projectKey,
 								path,
@@ -333,11 +330,8 @@ self.addEventListener("message", async (e) => {
 			let semanticModel = "";
 			try {
 				semanticModel =
-					fileFeatures.featuresSupported.get("debug") === "supported"
-						? workspace.getSemanticModel({
-								projectKey,
-								path,
-							})
+					fileFeatures.featuresSupported.debug === "supported"
+						? workspace.getSemanticModel({ projectKey, path })
 						: "";
 			} catch (e) {
 				console.warn("Failed to get semantic model:", e);
@@ -347,11 +341,8 @@ self.addEventListener("message", async (e) => {
 			let typesIr = "";
 			try {
 				typesIr =
-					fileFeatures.featuresSupported.get("debug") === "supported"
-						? workspace.getTypeInfo({
-								projectKey,
-								path,
-							})
+					fileFeatures.featuresSupported.debug === "supported"
+						? workspace.getTypeInfo({ projectKey, path })
 						: "";
 			} catch (e) {
 				console.warn("Failed to get control flow graph:", e);
@@ -361,11 +352,8 @@ self.addEventListener("message", async (e) => {
 			let typesRegistered = "";
 			try {
 				typesRegistered =
-					fileFeatures.featuresSupported.get("debug") === "supported"
-						? workspace.getRegisteredTypes({
-								projectKey,
-								path,
-							})
+					fileFeatures.featuresSupported.debug === "supported"
+						? workspace.getRegisteredTypes({ projectKey, path })
 						: "";
 			} catch (e) {
 				console.warn("Failed to get control flow graph:", e);
@@ -375,11 +363,8 @@ self.addEventListener("message", async (e) => {
 			let formatterIr = "";
 			try {
 				formatterIr =
-					fileFeatures.featuresSupported.get("debug") === "supported"
-						? workspace.getFormatterIr({
-								projectKey,
-								path,
-							})
+					fileFeatures.featuresSupported.debug === "supported"
+						? workspace.getFormatterIr({ projectKey, path })
 						: "Not supported";
 			} catch (e) {
 				console.error(e);
@@ -417,11 +402,8 @@ self.addEventListener("message", async (e) => {
 			};
 			try {
 				printed =
-					fileFeatures.featuresSupported.get("format") === "supported"
-						? workspace.formatFile({
-								projectKey,
-								path,
-							})
+					fileFeatures.featuresSupported.format === "supported"
+						? workspace.formatFile({ projectKey, path })
 						: { code: "Not supported" };
 			} catch (e) {
 				console.error(e);
@@ -435,7 +417,7 @@ self.addEventListener("message", async (e) => {
 			};
 			try {
 				fixed =
-					fileFeatures.featuresSupported.get("lint") === "supported"
+					fileFeatures.featuresSupported.lint === "supported"
 						? workspace.fixFile({
 								projectKey,
 								path,
