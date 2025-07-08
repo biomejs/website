@@ -115,21 +115,9 @@ Biome has a scanner that is responsible for discovering `.gitignore` files as
 well as indexing projects if any of the rules from the project domain are
 enabled.
 
-The scanner respects `files.includes`, with two exceptions:
-
-* If the project domain or one of its rules is enabled, dependencies in
-  `node_modules` are still read, even if they're ignored in `files.includes`.
-  This is because they may be a valuable source of type information.
-* The scanner will not ignore individual files if they are in a non-ignored
-  directory. This is because files that are co-located with regular
-  (non-ignored) files are likely to be a valuable source of type information,
-  and they are also more likely to form import cycles with other files.
-
-This means that if you use `files.includes` to ignore folders with generated
-code, type information from such folders is inaccessible to the scanner. If you
-do wish to have such type information available, we advise to _not_ ignore these
-folders through `files.includes` and instead ignore them using tool-specific
-settings such as `linter.includes` and `formatter.includes` only.
+The scanner mostly respects the `files.includes` setting, but there are some
+exceptions. See the [scanner documentation](/internals/architecture/#scanner)
+for more information.
 
 ### `files.ignoreUnknown`
 
@@ -155,16 +143,15 @@ this limit will be ignored for performance reasons.
 
 ### `files.experimentalScannerIgnores`
 
-An array of literal paths that the scanner should ignore during the crawling. The ignored files
-won't be indexed, which means that Biome won't be part of the module graph, and types won't be inferred.
+An array of literal paths that the scanner should ignore during the crawling. The ignored files won't be indexed, which means that these files won't be part of the module graph, and types won't be inferred from them.
 
-In the following example, the folders `node_modules/lodash` and `dist` and the file `RedisCommander.d.ts` will be ignored:
+In the following example, the folders `lodash` and `dist` and the file `RedisCommander.d.ts` will be ignored:
 
 ```json title="biome.json"
 {
   "files" : {
     "experimentalScannerIgnores": [
-      "node_modules/lodash",
+      "lodash",
       "dist",
       "RedisCommander.d.ts"
     ]
@@ -172,8 +159,9 @@ In the following example, the folders `node_modules/lodash` and `dist` and the f
 }
 ```
 
-You should use this option only as a last resort in cases Biome takes a lot of time to lint/check your project. Glob paths
-aren't supported.
+You should use this option only as a last resort in cases Biome takes a lot of time to lint/check your project. (Glob) paths aren't supported, and only basenames are matched.
+
+See the [scanner documentation](/internals/architecture/#scanner) for more information.
 
 :::caution
 As an experimental option, its usage is subject to change. The goal is to make Biome as fast as possible and eventually remove the option.

@@ -5,6 +5,69 @@ description: How Biome works under the hood.
 
 This document covers some of the internals of Biome, and how they are used inside the project.
 
+## Scanner
+
+Biome has a scanner that is responsible for crawling the file system to extract
+important metadata about projects. Specifically, there are three ways in which
+the scanner is used:
+
+- To discover nested `biome.json`/`biome.jsonc` files in monorepos.
+- To discover `.gitignore` files if the
+  [`vcs.useIgnoreFile`](/reference/configuration/#vcsuseignorefile) setting is
+  enabled.
+- To index all JavaScript/TypeScript files in a project if any rules from the
+  [project domain](/linter/domains/#project) are enabled.
+
+### Scanner targeting
+
+If project rules are not enabled, the scanner automatically targets only the
+folders that are relevant for a given session.
+
+This means that if you have a large monorepo, and you run `biome check` from
+inside the `packages/foo/` folder, that folder will be "targeted". This means
+the following folders get scanned for configuration files and/or `.gitignore`:
+
+- The root folder of the repository.
+- The `packages/` folder.
+- The `packages/foo/` folder.
+- Any folders that exist under `packages/foo/`, except `node_modules/` or
+  those that are excluded by your configuration (see
+  [below](#configuringthescanner)).
+
+Other folders that may be adjacent to either `packages/` or `packages/foo/` will
+be automatically skipped.
+
+Similarly, if you run `biome format packages/bar/src/index.ts` from the root
+of the repository, the scanner will target the `packages/bar/src/` folder.
+
+If project rules are enabled, these optimisations don't apply.
+
+### Configuring the scanner
+
+The scanner mostly respects the
+[`files.includes`](/reference/configuration/#filesincludes) setting, but there
+are some exceptions to be aware of:
+
+* If the project domain or one of its rules is enabled, `.d.ts` files and
+  `package.json` manifests inside `node_modules` are still read, even if they're
+  ignored in `files.includes`. This is because they may be a valuable source of
+  type information.
+* The scanner will not ignore individual files if they are in a non-ignored
+  directory. This is because files that are co-located with regular
+  (non-ignored) files are likely to be a valuable source of type information,
+  and they are also more likely to form import cycles with other files.
+
+This means that if you use `files.includes` to ignore folders with generated
+code, type information from such folders is inaccessible to the scanner. If you
+do wish to have such type information available, we advise to _not_ ignore these
+folders through `files.includes` and instead ignore them using tool-specific
+settings such as `linter.includes` and `formatter.includes` only.
+
+Finally, if you really insist on preventing the scanner from accessing a given
+file or folder, you can use the
+[`files.experimentalScannerIgnores`](`/reference/configuration/#filesexperimentalscannerignores`)
+setting for that.
+
 ## Parser and CST
 
 The architecture of the parser is bumped by an internal fork of [rowan], a library
