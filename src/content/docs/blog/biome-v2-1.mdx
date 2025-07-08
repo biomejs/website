@@ -1,0 +1,195 @@
+---
+title: 'Biome v2.1'
+excerpt: |
+  Biome 2.1 has been released with many bugfixes, a faster scanner, and improved type inference.
+authors:
+  - arendjr
+  - team
+date: 2025-07-08
+cover:
+    light: "@/assets/blog/roadmap-2024/banner-light.png"
+    dark: "@/assets/blog/roadmap-2024/banner-dark.png"
+    alt: The brand of the project. It says "Biome, toolchain of the web"
+socialImage: "@/assets/social-logo.png"
+featured: true
+---
+
+Biome 2.0 was released less than a month ago, and since then we have seen an
+amazing uptake! Our Discord is buzzing, our downloads are spiking, and bugs are
+rolling in :)
+
+## Faster scanner
+
+Probably the main point of contention is that Biome 2.0 introduced a new
+scanner, which we use for discovering nested configuration files as well as for
+populating our module graph, if project rules are enabled. The reason for this
+contention is that having a scanner makes things slower, while people want Biome
+to be fast.
+
+To mitigate the impact, we already made the project rules opt-in for 2.0, so
+that users can choose between features and speed for themselves. But ideally,
+we'd have both. And unfortunately, even without project rules, the scanner still
+caused _some_ noticeable overhead.
+
+For Biome 2.1 we're changing the logic for how the "light scanner" (the one
+where project rules are disabled) works. Previously, it would always scan the
+entire project from its root, whereas now it will use the files and folders that
+you ask Biome to operate on as a hint for which parts of the project should be
+scanned.
+
+This means if you run Biome without any arguments from the project root, you are
+not going to notice a difference. But if you specify specific files to check, or
+if you run Biome inside a nested folder, the scanner will know which parts of
+the project you are interested in, and only scan those.
+
+Note that if you have enabled project rules, these improvements don't apply.
+This is because project rules often need to pull information from other files,
+_including ones you didn't specify_, so we still scan the entire project for
+now.
+
+## Improved type inference
+
+When we released Biome 2.0, we mentioned that our type inference was able to
+detect ~75% of cases that our
+[`noFloatingPromises` rule](https://biomejs.dev/linter/rules/no-floating-promises/)
+should ideally detect. Since then, we've been able to improve this to ~85%, and
+cases such as these can now be successfully inferred:
+
+```ts
+// We know that this evaluates to a `Promise`:
+true && Promise.reject("logical operator bypass");
+
+// But this doesn't:
+false && Promise.reject("logical operator bypass");
+
+// Similarly, we now detect that this may return a `Promise`:
+const condition = Math.random() > -1; // Always true, but dynamic to linter
+condition ? Promise.reject("ternary bypass") : null;
+
+// On the other hand, we know the following is never a `Promise`:
+const alwaysFalsy = 0;
+alwaysFalsy ? Promise.reject("ternary bypass") : null;
+
+// This will now get flagged because the `Promise`s are not handled:
+[1, 2, 3].map(async (x) => x + 1);
+```
+
+Additionally, we have added support for getters, call signatures, comma
+operators, and more. Our goal is for you to not have to worry about which parts
+of TypeScript are supported, and the vast majority of cases to "just work". It's
+still a work in progress, but we're happy with the progress we are seeing.
+
+And finally we have also added the related rule 
+[`noMisusedPromises`](https://biomejs.dev/linter/rules/no-misused-promises/).
+
+## Rule updates
+
+The following new rules have been added in 2.1.0:
+
+* [`noAlert`](https://biomejs.dev/linter/rules/no-alert/)
+* [`noImplicitCoercion`](https://biomejs.dev/linter/rules/no-implicit-coercion/)
+* [`noMagicNumbers`](https://biomejs.dev/linter/rules/no-magic-numbers/)
+* [`noMisusedPromises`](https://biomejs.dev/linter/rules/no-misused-promises/)
+* [`noUnassignedVariables`](https://biomejs.dev/linter/rules/no-unassigned-variables/)
+* [`useReadonlyClassProperties`](https://biomejs.dev/linter/rules/use-readonly-class-properties/)
+* [`useUnifiedTypeSignature`](https://biomejs.dev/linter/rules/use-unified-type-signature/)
+
+Other notable change:
+
+* The rule
+  [`noUnusedFunctionParameters`](https://biomejs.dev/linter/rules/no-unused-function-parameters/)
+  has been enhanced with an `ignoreRestSiblings` option.
+
+## Notable bug fixes
+
+* If you ignore a nested configuration file from your root configuration, it
+  will now be properly ignored.
+* When extending a configuration from another, we now correctly ignore the
+  `root` of the other configuration. This one led to some confusion in several
+  use cases.
+
+## What's next
+
+It's still early days in our 2.x journey. Both the scanner are type inference 
+are likely to see further improvements. Additionally, our
+[Core Contributors](/internals/people-and-credits#core-contributors) will focus
+on moving forward the [Roadmap for 2025](/blog/roadmap-2025#-2025-roadmap), and
+focus on the following features:
+- Make HTML support stable.
+- Expand HTML to support other frameworks such as Vue, Svelte, Astro and,
+  hopefully, Angular too.
+- Work on Markdown support, starting from the parser.
+- and more!
+
+## Installation and migration
+
+Install or update the `@biomejs/biome` package. If you upgrade the package, run
+the `migrate` command.
+
+```shell
+npm install --save-dev --save-exact @biomejs/biome
+npx @biomejs/biome migrate --write
+```
+
+The `migrate` command takes care of breaking changes of the configuration, so
+you don't have to.
+
+:::note
+If you are upgrading from Biome 1.x, please follow the
+[migration guide](/guides/upgrade-to-biome-v2) and upgrade to Biome 2.0 first,
+before upgrading to Biome 2.1.
+:::
+
+## I like where this is going, how can I help?
+
+Biome is a project led by volunteers who like programming, open-source, and
+embrace the Biome philosophy, so any help is welcome 😁
+
+### Translations
+
+If you are familiar with Biome and would like to contribute to its outreach, you
+can assist us by translating the website into your native language. In this
+[dashboard](https://biomejs.dev/i18n-dashboard/), you can check the supported
+languages and if they are up to date.
+
+### Chat with us
+
+Join our [Discord server](https://biomejs.dev/chat), and engage with the
+community. Chatting with the community and being part of the community is a form
+of contribution.
+
+### Code contributions
+
+If you like the technical aspects of the project, and you want to make your way
+into the Rust language, or practice your knowledge around parsers, compilers,
+analysers, etc., Biome is the project that does for you!
+
+There are numerous aspects to explore; I assure you that you won't get bored.
+Here is a small list of the things you can start with:
+- Create new lint rules! We have so many rules that we haven't implemented yet
+  (ESLint, ESLint plugins, Next.js, Solid, etc.). We have an [extensive
+  technical
+  guide](https://github.com/biomejs/biome/blob/main/crates/biome_analyze/CONTRIBUTING.md).
+- [Help](https://github.com/biomejs/biome/blob/main/crates/biome_parser/CONTRIBUTING.md)
+  [building](https://github.com/biomejs/biome/tree/main/crates/biome_yaml_parser)
+  [Biome](https://github.com/biomejs/biome/tree/main/crates/biome_html_parser)
+  [parsers](https://github.com/biomejs/biome/tree/main/crates/biome_markdown_parser)!
+  One interesting fact about Biome parsers is that they are recoverable parsers
+  [error resilient](/internals/architecture/#parser-and-cst) which emit a
+  [CST](https://en.wikipedia.org/wiki/Parse_tree) instead of a classic AST.
+- Implement new capabilities in our [LSP (Language Server
+  Protocol)](https://github.com/biomejs/biome/tree/main/crates/biome_lsp), or
+  add new features in one of our editor extensions: [VS
+  Code](https://github.com/biomejs/biome-vscode),
+  [Zed](https://github.com/biomejs/biome-zed) and [JetBrains
+  IntelliJ](https://github.com/biomejs/biome-intellij).
+
+### Financial help
+
+If you believe in the future of the project, you can also help with a financial
+contribution, via [Open Collective](https://opencollective.com/biome) or [GitHub
+Sponsors](https://github.com/sponsors/biomejs).
+
+Additionally, the project provides an [enterprise support program ](/enterprise)
+where as a company you can contract one of the core contributors to work on a
+specific aspect of the Biome toolchain.
