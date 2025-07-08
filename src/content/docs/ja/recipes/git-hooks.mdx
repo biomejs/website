@@ -152,10 +152,10 @@ Biomeは [biomejs/pre-commit](https://github.com/biomejs/pre-commit) リポジ�
 ```yaml title=".pre-commit-config.yaml"
 repos:
 -   repo: https://github.com/biomejs/pre-commit
-    rev: "v0.1.0"  # タグやハッシュ値を指定してください
+    rev: "v2.0.6"  # タグやハッシュ値を指定してください
     hooks:
     -   id: biome-check
-        additional_dependencies: ["@biomejs/biome@1.4.1"]
+        additional_dependencies: ["@biomejs/biome@2.1.1"]
 ```
 
 これで`git commit`を実行したときに `biome check --write` が実行されるようになりました。

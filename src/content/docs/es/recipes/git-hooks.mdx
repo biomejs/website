@@ -148,10 +148,10 @@ si deseas utilizar el hook `biome-check`, añade la siguiente configuración pre
 ```yaml title=".pre-commit-config.yaml"
 repos:
   - repo: https://github.com/biomejs/pre-commit
-    rev: "v0.1.0" # Utiliza el sha / tag al que quieras apuntar
+    rev: "v2.0.6" # Utiliza el sha / tag al que quieras apuntar
     hooks:
       - id: biome-check
-        additional_dependencies: ["@biomejs/biome@1.4.1"]
+        additional_dependencies: ["@biomejs/biome@2.1.1"]
 ```
 
 Esto ejecutará `biome check --write` cuando ejecutes `git commit`.
