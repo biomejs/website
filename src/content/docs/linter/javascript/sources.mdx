@@ -105,6 +105,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [grouped-accessor-pairs](https://eslint.org/docs/latest/rules/grouped-accessor-pairs) |[useAdjacentGetterSetter](/linter/rules/use-adjacent-getter-setter) |
 | [guard-for-in](https://eslint.org/docs/latest/rules/guard-for-in) |[useGuardForIn](/linter/rules/use-guard-for-in) |
 | [max-lines-per-function](https://eslint.org/docs/latest/rules/max-lines-per-function) |[noExcessiveLinesPerFunction](/linter/rules/no-excessive-lines-per-function) (inspired) |
+| [no-alert](https://eslint.org/docs/latest/rules/no-alert) |[noAlert](/linter/rules/no-alert) |
 | [no-array-constructor](https://eslint.org/docs/latest/rules/no-array-constructor) |[useArrayLiterals](/linter/rules/use-array-literals) |
 | [no-async-promise-executor](https://eslint.org/docs/latest/rules/no-async-promise-executor) |[noAsyncPromiseExecutor](/linter/rules/no-async-promise-executor) |
 | [no-await-in-loop](https://eslint.org/docs/latest/rules/no-await-in-loop) |[noAwaitInLoop](/linter/rules/no-await-in-loop) |
@@ -138,6 +139,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-fallthrough](https://eslint.org/docs/latest/rules/no-fallthrough) |[noFallthroughSwitchClause](/linter/rules/no-fallthrough-switch-clause) |
 | [no-func-assign](https://eslint.org/docs/latest/rules/no-func-assign) |[noFunctionAssign](/linter/rules/no-function-assign) |
 | [no-global-assign](https://eslint.org/docs/latest/rules/no-global-assign) |[noGlobalAssign](/linter/rules/no-global-assign) |
+| [no-implicit-coercion](https://eslint.org/docs/latest/rules/no-implicit-coercion) |[noImplicitCoercion](/linter/rules/no-implicit-coercion) |
 | [no-import-assign](https://eslint.org/docs/latest/rules/no-import-assign) |[noImportAssign](/linter/rules/no-import-assign) |
 | [no-inner-declarations](https://eslint.org/docs/latest/rules/no-inner-declarations) |[noInnerDeclarations](/linter/rules/no-inner-declarations) |
 | [no-irregular-whitespace](https://eslint.org/docs/latest/rules/no-irregular-whitespace) |[noIrregularWhitespace](/linter/rules/no-irregular-whitespace) |
@@ -170,6 +172,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-template-curly-in-string](https://eslint.org/docs/latest/rules/no-template-curly-in-string) |[noTemplateCurlyInString](/linter/rules/no-template-curly-in-string) |
 | [no-this-before-super](https://eslint.org/docs/latest/rules/no-this-before-super) |[noUnreachableSuper](/linter/rules/no-unreachable-super) |
 | [no-throw-literal](https://eslint.org/docs/latest/rules/no-throw-literal) |[useThrowOnlyError](/linter/rules/use-throw-only-error) (inspired) |
+| [no-unassigned-vars](https://eslint.org/docs/latest/rules/no-unassigned-vars) |[noUnassignedVariables](/linter/rules/no-unassigned-variables) |
 | [no-undef](https://eslint.org/docs/latest/rules/no-undef) |[noUndeclaredVariables](/linter/rules/no-undeclared-variables) |
 | [no-undef-init](https://eslint.org/docs/latest/rules/no-undef-init) |[noUselessUndefinedInitialization](/linter/rules/no-useless-undefined-initialization) |
 | [no-unneeded-ternary](https://eslint.org/docs/latest/rules/no-unneeded-ternary) |[noUselessTernary](/linter/rules/no-useless-ternary) |
@@ -399,7 +402,9 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-inferrable-types](https://typescript-eslint.io/rules/no-inferrable-types) |[noInferrableTypes](/linter/rules/no-inferrable-types) |
 | [no-invalid-void-type](https://typescript-eslint.io/rules/no-invalid-void-type) |[noConfusingVoidType](/linter/rules/no-confusing-void-type) |
 | [no-loss-of-precision](https://typescript-eslint.io/rules/no-loss-of-precision) |[noPrecisionLoss](/linter/rules/no-precision-loss) |
+| [no-magic-numbers](https://typescript-eslint.io/rules/no-magic-numbers) |[noMagicNumbers](/linter/rules/no-magic-numbers) |
 | [no-misused-new](https://typescript-eslint.io/rules/no-misused-new) |[noMisleadingInstantiator](/linter/rules/no-misleading-instantiator) |
+| [no-misused-promises](https://typescript-eslint.io/rules/no-misused-promises) |[noMisusedPromises](/linter/rules/no-misused-promises) |
 | [no-namespace](https://typescript-eslint.io/rules/no-namespace) |[noNamespace](/linter/rules/no-namespace) |
 | [no-non-null-assertion](https://typescript-eslint.io/rules/no-non-null-assertion) |[noNonNullAssertion](/linter/rules/no-non-null-assertion) |
 | [no-redeclare](https://typescript-eslint.io/rules/no-redeclare) |[noRedeclare](/linter/rules/no-redeclare) |
@@ -422,5 +427,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [prefer-literal-enum-member](https://typescript-eslint.io/rules/prefer-literal-enum-member) |[useLiteralEnumMembers](/linter/rules/use-literal-enum-members) |
 | [prefer-namespace-keyword](https://typescript-eslint.io/rules/prefer-namespace-keyword) |[useNamespaceKeyword](/linter/rules/use-namespace-keyword) |
 | [prefer-optional-chain](https://typescript-eslint.io/rules/prefer-optional-chain) |[useOptionalChain](/linter/rules/use-optional-chain) |
+| [prefer-readonly](https://typescript-eslint.io/rules/prefer-readonly) |[useReadonlyClassProperties](/linter/rules/use-readonly-class-properties) |
 | [require-await](https://typescript-eslint.io/rules/require-await) |[useAwait](/linter/rules/use-await) |
 | [switch-exhaustiveness-check](https://typescript-eslint.io/rules/switch-exhaustiveness-check) |[useExhaustiveSwitchCases](/linter/rules/use-exhaustive-switch-cases) |
+| [unified-signatures](https://typescript-eslint.io/rules/unified-signatures) |[useUnifiedTypeSignature](/linter/rules/use-unified-type-signature) |
