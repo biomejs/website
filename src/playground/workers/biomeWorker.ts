@@ -307,21 +307,23 @@ self.addEventListener("message", async (e) => {
 				features: ["debug", "format", "lint", "assist"],
 			});
 
-			const syntaxTree =
-				fileFeatures.featuresSupported.debug === "supported"
-					? workspace.getSyntaxTree({ projectKey, path })
-					: { ast: "Not supported", cst: "Not supported" };
+			const isDebugSupported =
+				// @ts-expect-error TODO(siketyan): Fix type definition
+				fileFeatures.featuresSupported.get("debug") === "supported";
+
+			const syntaxTree = isDebugSupported
+				? workspace.getSyntaxTree({ projectKey, path })
+				: { ast: "Not supported", cst: "Not supported" };
 
 			let controlFlowGraph = "";
 			try {
-				controlFlowGraph =
-					fileFeatures.featuresSupported.debug === "supported"
-						? workspace.getControlFlowGraph({
-								projectKey,
-								path,
-								cursor: cursorPosition,
-							})
-						: "";
+				controlFlowGraph = isDebugSupported
+					? workspace.getControlFlowGraph({
+							projectKey,
+							path,
+							cursor: cursorPosition,
+						})
+					: "";
 			} catch (e) {
 				console.warn("Failed to get control flow graph:", e);
 				controlFlowGraph = "";
@@ -329,10 +331,9 @@ self.addEventListener("message", async (e) => {
 
 			let semanticModel = "";
 			try {
-				semanticModel =
-					fileFeatures.featuresSupported.debug === "supported"
-						? workspace.getSemanticModel({ projectKey, path })
-						: "";
+				semanticModel = isDebugSupported
+					? workspace.getSemanticModel({ projectKey, path })
+					: "";
 			} catch (e) {
 				console.warn("Failed to get semantic model:", e);
 				semanticModel = "";
@@ -340,10 +341,9 @@ self.addEventListener("message", async (e) => {
 
 			let typesIr = "";
 			try {
-				typesIr =
-					fileFeatures.featuresSupported.debug === "supported"
-						? workspace.getTypeInfo({ projectKey, path })
-						: "";
+				typesIr = isDebugSupported
+					? workspace.getTypeInfo({ projectKey, path })
+					: "";
 			} catch (e) {
 				console.warn("Failed to get control flow graph:", e);
 				typesIr = "";
@@ -351,10 +351,9 @@ self.addEventListener("message", async (e) => {
 
 			let typesRegistered = "";
 			try {
-				typesRegistered =
-					fileFeatures.featuresSupported.debug === "supported"
-						? workspace.getRegisteredTypes({ projectKey, path })
-						: "";
+				typesRegistered = isDebugSupported
+					? workspace.getRegisteredTypes({ projectKey, path })
+					: "";
 			} catch (e) {
 				console.warn("Failed to get control flow graph:", e);
 				typesRegistered = "";
@@ -362,10 +361,9 @@ self.addEventListener("message", async (e) => {
 
 			let formatterIr = "";
 			try {
-				formatterIr =
-					fileFeatures.featuresSupported.debug === "supported"
-						? workspace.getFormatterIr({ projectKey, path })
-						: "Not supported";
+				formatterIr = isDebugSupported
+					? workspace.getFormatterIr({ projectKey, path })
+					: "Not supported";
 			} catch (e) {
 				console.error(e);
 				formatterIr = "Can't format";
@@ -402,7 +400,8 @@ self.addEventListener("message", async (e) => {
 			};
 			try {
 				printed =
-					fileFeatures.featuresSupported.format === "supported"
+					// @ts-expect-error TODO(siketyan): Fix type definition
+					fileFeatures.featuresSupported.get("format") === "supported"
 						? workspace.formatFile({ projectKey, path })
 						: { code: "Not supported" };
 			} catch (e) {
@@ -417,7 +416,8 @@ self.addEventListener("message", async (e) => {
 			};
 			try {
 				fixed =
-					fileFeatures.featuresSupported.lint === "supported"
+					// @ts-expect-error TODO(siketyan): Fix type definition
+					fileFeatures.featuresSupported.get("lint") === "supported"
 						? workspace.fixFile({
 								projectKey,
 								path,
