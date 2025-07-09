@@ -6,6 +6,21 @@ tableOfContents:
 ---
 # @biomejs/biome
 
+## 2.1.1
+
+### Patch Changes
+
+- [#6781](https://github.com/biomejs/biome/pull/6781) [`9bbd34f`](https://github.com/biomejs/biome/commit/9bbd34f8d4be3dd4ba4c63746a5b2915e578e339) Thanks [@siketyan](https://github.com/siketyan)! - Fixed the `FileFeaturesResult` interface in the WASM API was defined as a mapped object but the actual value was a `Map` object.
+
+- [#6761](https://github.com/biomejs/biome/pull/6761) [`cf3c2ce`](https://github.com/biomejs/biome/commit/cf3c2ce3ac28a36eee948ad689794783b0ba23ef) Thanks [@dyc3](https://github.com/dyc3)! - Fixed [#6759](https://github.com/biomejs/biome/issues/6759), a false positive for `noFocusedTests` that was triggered by calling any function with the name `fit` on any object.
+
+  The following code will now pass the `noFocusedTests` rule:
+
+  ```js
+  import foo from "foo";
+  foo.fit();
+  ```
+
 ## 2.1.0
 
 ### Minor Changes
@@ -188,7 +203,7 @@ tableOfContents:
   import type {} from "@mui/lab/themeAugmentation";
   ```
 
-- [#6643](https://github.com/biomejs/biome/pull/6643) [`df15ad6`](https://github.com/biomejs/biome/commit/df15ad6e9a99ec3dba17cc4e6e4081736c93b3a7) Thanks [@skewb1k](https://github.com/skewb1k)! - Fixed [#4994](https://github.com/biomejs/biome/discussions/4994): LSP server registered some capabilities even when the client did not support dynamic registration.
+- [#6643](https://github.com/biomejs/biome/pull/6643) [`df15ad6`](https://github.com/biomejs/biome/commit/df15ad6e9a99ec3dba17cc4e6e4081736c93b3a7) Thanks [@skewb1k](https://github.com/skewb1k)! - Fixed [#4994]([https://github.com/biomejs/biome/discussions/4994): LSP server registered some capabilities even when the client did not support dynamic registration.
 
 - [#6599](https://github.com/biomejs/biome/pull/6599) [`5e611fa`](https://github.com/biomejs/biome/commit/5e611fae93c794cdbd290f88cc1676bc6aea090d) Thanks [@vladimir-ivanov](https://github.com/vladimir-ivanov)! - Fixed [#6380](https://github.com/biomejs/biome/issues/6380): The `noFocusedTests` rule now correctly displays the function name in the diagnostic message when a test is focused.
 
