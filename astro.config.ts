@@ -271,6 +271,7 @@ export default defineConfig({
 								es: "Migrar de ESLint & Prettier",
 								fr: "Migrer depuis ESLint & Prettier",
 								ja: "ESLintとPrettierからの移行",
+								"zh-CN": "从 ESLint 和 Prettier 迁移",
 								uk: "Міграція з ESLint & Prettier",
 							},
 						},
