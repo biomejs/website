@@ -10,6 +10,35 @@ a `dist/` or a `build/` folder. Whichever the cause, it can be rough to find out
 what is causing this slowness, so this guide is intended to help you figure it
 out.
 
+## First things first
+
+Before giving too deep, we can perform a few steps to see if our issue is caused
+by one of the following:
+
+* If you have a `dist/` or `build/` folder with output files, or other such
+  folders with minified files, please verify if ignoring those using both
+  [`files.experimentalScannerIgnores`](https://biomejs.dev/reference/configuration/#filesexperimentalscannerignores)
+  as well as
+  [`files.includes`](https://biomejs.dev/reference/configuration/#filesincludes)
+  makes a difference.
+* Do you have [project rules](/linter/domains/#project) enabled? They are known
+  to cause performance overhead, in return for more advanced analysis. Also see
+  our [FAQ entry](/linter/#why-is-biome-linter-so-slow-compared-to-v1) on this
+  topic. See if disabling them makes a difference.
+  * If disabling them does help, but you want to find out what specifically made
+    it so slow, a first step can be to add `node_modules` to 
+    [`files.experimentalScannerIgnores`](https://biomejs.dev/reference/configuration/#filesexperimentalscannerignores).
+    Did that help? Great! But you probably don't want to keep it like this,
+    because type information from dependencies won't be available anymore. You
+    can tweak `files.experimentalScannerIgnores` further to ignore a specific
+    dependency instead of the entire `node_modules` folder, but you will
+    probably want to read on to figure out which dependency to ignore...
+
+If none of the above helped, or if they did help, but you want to dig deeper, we
+can use tracing to see if there is a specific file that might be the culprit...
+
+## Tracing
+
 Since version 2.0, Biome has improved tracing capabilities to help with this
 investigation. Specifically, we'll combine the following command-line arguments:
 
