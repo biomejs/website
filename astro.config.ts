@@ -274,6 +274,11 @@ export default defineConfig({
 								uk: "Міграція з ESLint & Prettier",
 							},
 						},
+						{
+							label: "Investigate slowness",
+							link: "/guides/investigate-slowness",
+							translations: {},
+						},
 					],
 				},
 				{
