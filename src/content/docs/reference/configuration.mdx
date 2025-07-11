@@ -111,7 +111,7 @@ This means that:
 
 #### Note on Biome's scanner
 
-Biome has a scanner that is responsible for discovering `.gitignore` files as
+Biome has a scanner that is responsible for discovering nested `.gitignore` files as
 well as indexing projects if any of the rules from the project domain are
 enabled.
 
@@ -186,8 +186,12 @@ Values:
 
 ### `vcs.useIgnoreFile`
 
-Whether Biome should use the project's VCS ignore file. When `true`, Biome will ignore the files
-specified in the VCS ignore file as well as those specified in a `.ignore` file.
+Whether Biome should use the project's VCS ignore files. When `true`, Biome will ignore the files
+specified in the VCS ignore files as well as those specified in `.ignore` files.
+
+This feature supports nested ignore files too.
+
+The root ignore file yields the same semantics of the root [`files.includes`](/refernce/configuration#filesincludes).
 
 ### `vcs.root`
 
