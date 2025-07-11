@@ -101,6 +101,13 @@ impl DocDomains {
                         "This domain contains rules that perform project-level analysis. This includes our module graph for dependency resolution, as well as type information. When enabling rules that belong to this domain, Biome will scan the entire project. The scanning phase will have a performance impact on the linting process. See the documentation on our [scanner](/internals/architecture/#scanner) to learn more about how you can influence the scanner behaviour."
                     )?;
                 }
+                RuleDomain::Vue => {
+                    writeln!(buffer, "## {name}")?;
+                    writeln!(
+                        buffer,
+                        "Use this domain inside Vue projects. This domain enables rules that are specific to Vue projects."
+                    )?;
+                }
                 #[allow(unreachable_patterns)]
                 domain => {
                     // This only gets hit if a new domain gets added and has any rules. Domains that don't have any rules are not documented.
