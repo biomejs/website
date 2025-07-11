@@ -2088,6 +2088,23 @@ export function GET() {
             ],
             "docs": " Disallow the use of useless `undefined`.\n\n `undefined` is the default value for new variables, parameters, return statements, etc., so specifying it doesn't make any difference.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n let foo = undefined;\n ```\n\n ```js,expect_diagnostic\n const {foo = undefined} = bar;\n ```\n\n ```js,expect_diagnostic\n const noop = () => undefined;\n ```\n\n ```js,expect_diagnostic\n function foo() {\n    return undefined;\n }\n ```\n\n ```js,expect_diagnostic\n function* foo() {\n   yield undefined;\n }\n ```\n\n ```js,expect_diagnostic\n function foo(bar = undefined) {}\n ```\n\n ```js,expect_diagnostic\n function foo({bar = undefined}) {}\n ```\n\n ### Valid\n\n ```js\n let foo;\n const {foo} = bar;\n function foo() {\n   return;\n }\n function* foo() {\n   yield;\n }\n function foo(bar) {}\n function foo({bar}) {}\n foo();\n ```\n\n"
           },
+          "noVueReservedProps": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noVueReservedProps",
+            "link": "https://biomejs.dev/linter/rules/no-vue-reserved-props",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "no-reserved-props"
+                }
+              }
+            ],
+            "docs": " Disallow reserved names to be used as props.\n\n Vue reserves certain prop names for its internal use. Using these reserved names\n as prop names can cause conflicts and unexpected behavior in your Vue components.\n\n This rule prevents the use of the following reserved prop names:\n - `key` - Used by Vue for list rendering and component identification\n - `ref` - Used by Vue for template refs\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script setup>\n defineProps({\n     ref: String,\n });\n </script>\n ```\n\n ```js,expect_diagnostic\n import {defineComponent} from 'vue';\n\n export default defineComponent({\n     props: [\n         'key',\n     ]\n });\n ```\n\n ```vue,expect_diagnostic\n <script setup lang=\"ts\">\n defineProps<{\n     ref: string,\n }>();\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script>\n export default {\n     props: {\n         key: String,\n     }\n };\n </script>\n ```\n\n ### Valid\n\n ```js\n import {defineComponent} from 'vue';\n\n export default defineComponent({\n     props: ['foo']\n });\n ```\n\n ```vue\n <script setup>\n defineProps({ foo: String });\n </script>\n ```\n\n ```vue\n <script setup lang=\"ts\">\n defineProps<{\n     foo: string,\n     bar: string,\n }>();\n </script>\n ```\n\n ```vue\n <script>\n export default {\n     props: {\n         foo: String,\n         bar: String,\n     }\n };\n </script>\n ```\n\n"
+          },
           "useAdjacentGetterSetter": {
             "deprecated": false,
             "version": "2.0.0",
@@ -5747,7 +5764,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 336
+    "numberOrRules": 337
   },
   "syntax": {
     "languages": {

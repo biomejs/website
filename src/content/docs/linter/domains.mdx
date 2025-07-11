@@ -240,3 +240,43 @@ Rules that belong to the domain:
 - [noDuplicateTestHooks](/linter/rules/no-duplicate-test-hooks) (recommended)
 - [noExportsInTest](/linter/rules/no-exports-in-test) (recommended)
 - [noFocusedTests](/linter/rules/no-focused-tests) (recommended)
+## Vue
+Use this domain inside Vue projects. This domain enables rules that are specific to Vue projects.
+### Vue activation
+Enabled the **recommended** rules of the domain:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"vue": "recommended"
+		}
+	}
+}
+```
+Enabled the **all** rules of the domain:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"vue": "all"
+		}
+	}
+}
+```
+**Disable** all rules of the domain:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"vue": "none"
+		}
+	}
+}
+```
+### Vue dependencies
+Enabled when the following dependencies are declared:
+- `vue`: `>=3.0.0`
+
+### Vue rules
+Rules that belong to the domain:
+- [noVueReservedProps](/linter/rules/no-vue-reserved-props) (recommended)
