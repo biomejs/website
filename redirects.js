@@ -230,6 +230,7 @@ export default {
   '/linter/rules/noVoid': '/linter/rules/no-void',
   '/linter/rules/noVoidElementsWithChildren': '/linter/rules/no-void-elements-with-children',
   '/linter/rules/noVoidTypeReturn': '/linter/rules/no-void-type-return',
+  '/linter/rules/noVueReservedProps': '/linter/rules/no-vue-reserved-props',
   '/linter/rules/noWith': '/linter/rules/no-with',
   '/linter/rules/noYodaExpression': '/linter/rules/no-yoda-expression',
   '/linter/rules/useAdjacentGetterSetter': '/linter/rules/use-adjacent-getter-setter',

@@ -283,6 +283,13 @@ export function GET() {
 					"required": ["eslintVitest"],
 					"properties": { "eslintVitest": { "type": "string" } },
 					"additionalProperties": false
+				},
+				{
+					"description": "Rules from [Eslint Plugin Vue.js](https://eslint.vuejs.org/)",
+					"type": "object",
+					"required": ["eslintVueJs"],
+					"properties": { "eslintVueJs": { "type": "string" } },
+					"additionalProperties": false
 				}
 			]
 		},

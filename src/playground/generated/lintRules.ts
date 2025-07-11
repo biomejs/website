@@ -228,6 +228,7 @@ export const LINT_RULES = {
   noVoid: "noVoid",
   noVoidElementsWithChildren: "noVoidElementsWithChildren",
   noVoidTypeReturn: "noVoidTypeReturn",
+  noVueReservedProps: "noVueReservedProps",
   noWith: "noWith",
   noYodaExpression: "noYodaExpression",
   organizeImports: "organizeImports",
