@@ -1,0 +1,180 @@
+---
+title: 从 ESLint 和 Prettier 迁移
+description: 了解如何轻松地从 ESLint 和 Prettier 迁移。
+---
+
+import PackageManagerBiomeCommand from "@/components/PackageManagerBiomeCommand.astro";
+
+Biome 提供了专门的命令来简化从 ESLint 和 Prettier 的迁移过程。
+
+如果你不想了解细节，只需运行以下命令：
+
+```shell
+biome migrate eslint --write
+biome migrate prettier --write
+```
+
+## 从 ESLint 迁移
+
+许多 Biome linter 规则的灵感来源于 ESLint 规则或 ESLint 插件的规则，或者与它们完全相同。我们支持一些 ESLint 插件，例如 [TypeScript ESLint](https://typescript-eslint.io/)、[ESLint JSX A11y](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y)、[ESLint React](https://github.com/jsx-eslint/eslint-plugin-react) 和 [ESLint Unicorn](https://github.com/sindresorhus/eslint-plugin-unicorn)。然而，Biome 对其规则有自己的命名约定。Biome 使用 `camelCaseRuleName`，而 ESLint 使用 `kebab-case-rule-name`。此外，Biome 通常会选择使用不同的名称，以更好地传达其规则的意图。规则的来源可以在描述该规则的页面上找到。你也可以使用[专门的页面](/linter/rules-sources)从 ESLint 规则找到等效的 Biome 规则。
+
+为了简化迁移，Biome 提供了 `biome migrate eslint` 子命令。该子命令将读取你的 ESLint 配置并尝试将其设置移植到 Biome。该子命令能够处理旧版和扁平化（flat）配置文件。它支持旧版配置的 `extends` 字段，并加载共享配置和插件配置。对于扁平化配置文件，该子命令将尝试仅搜索 JavaScript 扩展名（`js`、`cjs`、`mjs`）以加载到 Node.js 中。该子命令需要 Node.js 来加载和解析 ESLint 配置文件中配置的所有插件和 `extends`。该子命令还会迁移 `.eslintignore`。
+
+假设有以下 ESLint 配置：
+
+```json title=".eslintrc.json"
+{
+  "extends": ["plugin:unicorn/recommended"],
+  "plugins": ["unicorn"],
+  "ignore_patterns": ["dist/**"],
+  "globals": {
+    "Global1": "readonly"
+  },
+  "rules": {
+    "eqeqeq": "error"
+  },
+  "overrides": [
+    {
+      "files": ["tests/**"],
+      "rules": {
+        "eqeqeq": "off"
+      }
+    }
+  ]
+}
+```
+
+以及以下 Biome 配置：
+
+```json title="biome.json"
+{
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": true
+		}
+	}
+}
+```
+
+运行以下命令将你的 ESLint 配置迁移到 Biome。
+
+<PackageManagerBiomeCommand command="migrate eslint --write"/>
+
+该子命令会覆盖你初始的 Biome 配置。例如，它会禁用 `recommended`。这将生成以下 Biome 配置：
+
+```json title="biome.json"
+{
+	"organizeImports": { "enabled": true },
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": false,
+			"complexity": {
+				"noForEach": "error",
+				"noStaticOnlyClass": "error",
+				"noUselessSwitchCase": "error",
+				"useFlatMap": "error"
+			},
+			"style": {
+				"noNegationElse": "off",
+				"useForOf": "error",
+				"useNodejsImportProtocol": "error",
+				"useNumberNamespace": "error"
+			},
+			"suspicious": {
+				"noDoubleEquals": "error",
+				"noThenProperty": "error",
+				"useIsArray": "error"
+			}
+		}
+	},
+	"javascript": { "globals": ["Global1"] },
+	"overrides": [
+		{
+			"include": ["tests/**"],
+			"linter": { "rules": { "suspicious": { "noDoubleEquals": "off" } } }
+		}
+	]
+}
+```
+
+目前，`biome migrate eslint` 不支持以 YAML 格式编写的配置。
+
+默认情况下，Biome 不会迁移受启发的规则。你可以使用 `--include-inspired` CLI 标志来迁移它们。
+
+<PackageManagerBiomeCommand command="migrate eslint --write --include-inspired"/>
+
+请注意，你不太可能获得与 ESLint 完全相同的行为，因为 Biome 选择不实现某些规则选项或略微偏离原始实现。
+
+由于 ESLint 会考虑 VCS 忽略文件，我们建议你启用 Biome 的 [VCS 集成](/zh-cn/guides/integrate-in-vcs)。
+
+:::caution
+某些插件或共享配置可能会导出一个带有循环引用的对象。Biome 可能无法加载此类配置。
+:::
+
+## 从 Prettier 迁移
+
+Biome 试图尽可能地与 Prettier 格式化程序保持一致。然而，Biome 对其格式化程序使用不同的默认值。例如，它使用制表符（tabs）进行缩进，而不是空格（spaces）。你可以通过运行 `biome migrate prettier --write` 轻松迁移到 Biome。
+
+假设有以下 Prettier 配置：
+
+```json title=".prettierrc.json"
+{
+	"useTabs": false,
+	"singleQuote": true,
+	"overrides": [
+		{
+      		"files": ["*.json"],
+      		"options": { "tabWidth": 2 }
+    	}
+	]
+}
+```
+
+运行以下命令将你的 Prettier 配置迁移到 Biome。
+
+<PackageManagerBiomeCommand command="migrate prettier --write"/>
+
+这将生成以下 Biome 配置：
+
+```json title="biome.json"
+{
+	"formatter": {
+		"enabled": true,
+		"formatWithErrors": false,
+		"indentStyle": "space",
+		"indentWidth": 2,
+		"lineEnding": "lf",
+		"lineWidth": 80,
+		"attributePosition": "auto"
+	},
+	"organizeImports": { "enabled": true },
+	"linter": { "enabled": true, "rules": { "recommended": true } },
+	"javascript": {
+		"formatter": {
+			"jsxQuoteStyle": "double",
+			"quoteProperties": "asNeeded",
+			"trailingCommas": "all",
+			"semicolons": "asNeeded",
+			"arrowParentheses": "always",
+			"bracketSpacing": true,
+			"bracketSameLine": false,
+			"quoteStyle": "single",
+			"attributePosition": "auto"
+		}
+	},
+	"overrides": [
+		{
+			"include": ["*.json"],
+			"formatter": {
+				"indentWidth": 2
+			}
+		}
+	]
+}
+```
+
+该子命令需要 Node.js 来加载 JavaScript 配置，例如 `.prettierrc.js`。`biome migrate prettier` 不支持以 JSON5、TOML 或 YAML 格式编写的配置。
+
+由于 Prettier 会考虑 VCS 忽略文件，我们建议你启用 Biome 的 [VCS 集成](/zh-cn/guides/integrate-in-vcs)。
