@@ -9,24 +9,6 @@ const { title } = Astro.props;
 ---
 <h2 class="head">{title}</h2>
 <div class="sponsors">
-	<a class="sponsors-row" href="https://vercel.com" rel="nofollow" title="Vercel" target="_blank">
-		<Image
-			alt="Vercel"
-			src={darkVercel}
-			data-canonical-src={darkVercel.src}
-			width="300"
-			class="dark:sl-hidden"
-			loading="eager"
-		/>
-		<Image
-			alt="Vercel"
-			src={lightVercel}
-			data-canonical-src={lightVercel.src}
-			width="300"
-			class="light:sl-hidden"
-			loading="eager"
-		/>
-	</a>
 	<a class="sponsors-row" href="https://depot.dev" rel="nofollow" title="Depot" target="_blank">
 		<Image
 			alt="Depot"
