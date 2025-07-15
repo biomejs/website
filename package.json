@@ -72,7 +72,7 @@
     "sharp": "0.34.2",
     "starlight-blog": "0.24.0",
     "starlight-links-validator": "0.17.0",
-    "textlint": "14.8.4",
+    "textlint": "15.2.0",
     "textlint-rule-preset-jtf-style": "3.0.2",
     "textlint-rule-prh": "6.1.0",
     "typescript": "5.8.3",
