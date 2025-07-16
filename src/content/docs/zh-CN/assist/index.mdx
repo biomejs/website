@@ -13,7 +13,7 @@ Biome Assist 提供了一系列旨在提升代码质量并改善开发者体验�
 
 辅助代码修复通常是安全的。如果某个辅助修复导致代码异常，我们会视其为缺陷，并欢迎你提交问题反馈。
 
-辅助操作最适合在编辑器和 IDE 中使用。不过，也可以通过 CLI 强制执行这些操作。从语义上来看，辅助操作非常接近 [LSP 代码操作](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#codeActionKind) ，并且它们被划分为 [分组](#分组说明)。
+辅助操作最适合在编辑器和 IDE 中使用。不过，也可以通过 CLI 强制执行这些操作。从语义上来看，辅助操作非常接近 [LSP 代码操作](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#codeActionKind) ，并且它们被划分为 [多个分组](#分组说明)。
 
 Biome 的辅助功能默认启用，并且部分规则已包含在推荐规则集中。以下是一个启用 `useSortedKeys` 操作的示例配置：
 
@@ -58,6 +58,6 @@ Biome 的辅助功能默认启用，并且部分规则已包含在推荐规则�
 
 ## 分组说明
 
-### 源
+### Sources
 
-“源”分组中的操作通常都是安全的，可以在保存文件时自动执行。这些操作一般不会影响程序的功能。
+“Sources”分组中的操作通常都是安全的，可以在保存文件时自动执行。这些操作一般不会影响程序的功能。
