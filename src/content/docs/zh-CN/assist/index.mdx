@@ -1,21 +1,21 @@
 ---
 title: 辅助操作
-description: 学习 Biome 辅助操作
+description: 学习 Biome 的辅助操作功能
 ---
 
 import NumberOfRules from "@/components/generated/assist/NumberOfRules.astro";
 import PackageManagerBiomeCommand from "@/components/PackageManagerBiomeCommand.astro";
 import EditorAction from "@/components/EditorAction.astro";
 
-Biome Assist 提供了一系列旨在提高代码质量和开发人员体验的操作.
+Biome Assist 提供了一系列旨在提升代码质量并改善开发者体验的操作。
 
-与 linter 规则相反, 辅助操作总是提供代码修复. 它们可以对属性或字段进行排序、简化二进制表达式、执行重构等. 辅助操作不是为了捕捉错误或强加特定的编码风格. 目前有 **<NumberOfRules />** 辅助操作可用.
+与 Linter 规则不同，辅助操作始终附带代码修复功能。它们可用于对属性或字段进行排序、简化二元表达式、执行重构等操作。辅助操作的目的不是捕捉错误或强制某种编码风格。目前共有 **<NumberOfRules /> 个辅助操作** 可用。
 
-辅助代码修复通常可以安全地应用, 如果辅助代码修复会破坏您的代码， 我们会将其视为错误, 并感谢您的提供的错误报告.
+辅助代码修复通常是安全的。如果某个辅助修复导致代码异常，我们会视其为缺陷，并欢迎你提交问题反馈。
 
-辅助功能在 IDE 中使用最佳. 不过, 即使在 CLI 中也可以强制使用辅助操作. 辅助操作在语义上与[LSP 代码操作](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#codeActionKind)非常接近，它们被分为[一组](#分组)。
+辅助操作最适合在编辑器和 IDE 中使用。不过，也可以通过 CLI 强制执行这些操作。从语义上来看，辅助操作非常接近 LSP 代码操作，并且它们被划分为多个分组。
 
-Biome 辅助操作默认启用, 并且某些规则已列入推荐规则集. 下面是一个如何启用 `useSortedKeys` 操作的例子:
+Biome 的辅助功能默认启用，并且部分规则已包含在推荐规则集中。以下是一个启用 `useSortedKeys` 操作的示例配置：
 
 ```json title="biome.json"
 {
@@ -32,32 +32,32 @@ Biome 辅助操作默认启用, 并且某些规则已列入推荐规则集. 下�
 
 ## 在你的 IDE 中使用辅助操作
 
-如果你使用一个与 LSP 兼容的 IDE, 这样就可以设置 Biome 在保存时执行的特定操作. 每个辅助操作都有称为 "辅助操作" 功能的实际代码. 虽然大多数名称都遵循相同的模式, 但也可能有少数例外, 如 `organizeImports` (组织导入), 因此请参阅每个操作的文档页面, 了解相关代码
+如果你使用的是一款兼容 LSP 的 IDE，你可以配置 Biome 在保存文件时自动执行特定的辅助操作。每个辅助操作都有一个对应的“代码操作”名称。大多数操作遵循相同的命名模式，但也有例外情况（例如 `organizeImports`）。有关具体名称，请查阅每项操作的文档页面。
 
-首先, 你需要设置你的编辑器以在保存时接受所有更改, 配置会根据编辑器的不同而更改. 代码操作名称为 "source.fixAll.biome":
+首先，你需要配置编辑器，在保存时自动应用所有修复。不同的编辑器配置方式略有不同。Biome 使用的通用代码操作名为 `source.fixAll.biome`：
 
 <EditorAction action="source.fixAll.biome" />
 
-接下来, 您可以添加每个辅助操作的代码. 举个例子, 操作 [`useSortedKeys`](/assist/actions/use-sorted-keys) 有一个名为 `source.action.useSortedKeys.biome` 的辅助操作。如果使用 VSCode, 可以复制这段代码并将其放在 `editor.codeActionsOnSave` 部分, 这样 Biome 就会在保存文档时应用这段代码:
+接着，你还可以添加特定操作的代码操作。以 `useSortedKeys` 操作为例，它对应的代码操作名为 `source.action.useSortedKeys.biome`。如果你使用的是 VSCode，可以将该代码操作添加到 `editor.codeActionsOnSave` 配置中，这样 Biome 就会在你保存文件时自动应用该修复：
 
 <EditorAction includeFixAll action="source.action.useSortedKeys.biome" />
 
 ## 通过 CLI 执行辅助操作
 
-辅助操作可通过 CLI 的 `check` 命令执行:
+你也可以通过 CLI 使用 `check` 命令来触发辅助操作：
 
 <PackageManagerBiomeCommand command="check" />
 
-但是, `check` 用于同时运行多个工具, 因此如果只想检查辅助操作, 则应运行该工具:
+不过，`check` 命令主要用于同时运行多个工具。如果你只想运行辅助操作，建议禁用格式化器和 Linter：
 
 <PackageManagerBiomeCommand command="check --formatter-enabled=false --linter-enabled=false" />
 
-## 阻止辅助操作
+## 禁用辅助操作
 
-您可以参阅 [禁用规则](/analyzer/suppressions)
+如需临时禁用某些辅助操作，请参考 规则禁用指南。
 
-## 分组
+## 分组说明
 
 ### 源
 
-该组表示在保存文档时可安全应用于文档的操作. 这些操作一般都是安全的, 通常不会改变程序的功能.
+“源”分组中的操作通常都是安全的，可以在保存文件时自动执行。这些操作一般不会影响程序的功能。
