@@ -331,16 +331,6 @@ Usually, by positioning your cursor in the range of the diagnostic and typing a 
 
 By default, these actions are always displayed by the editor, however it's possible to opt-out from them.
 
-### Quickfix
-
-Use `quickfix.biome` to control whether the editor should show the code fix of any rule:
-
-<EditorAction action="quickfix.biome" off={true} />
-
-Alternatively, it's also possible to turn off the code action for a specific rule. Each rule has a code action associated to it that follow the pattern `quickfix.biome.<GROUP>.<NAME>`.
-
-For example, if you want to turn off the code action of the rule `noUnusedVariables`, you'll use `quickfix.biome.correctness.noUnusedVariables`:
-
 ### Apply actions on save
 
 Use the `source.fixAll.biome` code action to instruct Biome to apply all **safe fixes** on save.
@@ -349,8 +339,6 @@ Use the `source.fixAll.biome` code action to instruct Biome to apply all **safe 
 
 
 ### Editor suppressions
-
-<EditorAction action="quickfix.biome.correctness.noUnusedVariables" off={true} />
 
 Use `source.suppressRule.inline.biome` to control whether the editor should show the inline suppression code action:
 
