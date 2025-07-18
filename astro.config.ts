@@ -100,7 +100,7 @@ export default defineConfig({
 		react(),
 		starlight({
 			title: "Biome",
-			defaultLocale: "root",
+			defaultLocale: "en",
 			plugins,
 			expressiveCode: {
 				shiki: {
@@ -112,7 +112,7 @@ export default defineConfig({
 			},
 			routeMiddleware: "./src/routeData.ts",
 			locales: {
-				root: {
+				en: {
 					label: "English",
 					lang: "en",
 				},
