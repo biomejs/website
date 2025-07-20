@@ -54,6 +54,11 @@ const TAX_RATE = 1.23;
 let total = price * TAX_RATE;
 ```
 
+```ts
+const TAX_RATE = 1.23 as const;
+let total = price * TAX_RATE;
+```
+
 ## How to configure
 ```json title="biome.json"
 {
