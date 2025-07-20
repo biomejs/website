@@ -2193,7 +2193,7 @@ export function GET() {
               {
                 "kind": "inspired",
                 "source": {
-                  "eslintSolid": "perfer-for"
+                  "eslintSolid": "prefer-for"
                 }
               }
             ],
