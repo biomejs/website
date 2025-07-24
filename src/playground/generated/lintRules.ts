@@ -142,6 +142,7 @@ export const LINT_RULES = {
   noProcessEnv: "noProcessEnv",
   noProcessGlobal: "noProcessGlobal",
   noPrototypeBuiltins: "noPrototypeBuiltins",
+  noQuickfixBiome: "noQuickfixBiome",
   noReExportAll: "noReExportAll",
   noReactPropAssign: "noReactPropAssign",
   noReactSpecificProps: "noReactSpecificProps",

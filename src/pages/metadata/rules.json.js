@@ -4120,6 +4120,17 @@ export function GET() {
         }
       },
       "json": {
+        "nursery": {
+          "noQuickfixBiome": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noQuickfixBiome",
+            "link": "https://biomejs.dev/linter/rules/no-quickfix-biome",
+            "recommended": true,
+            "fixKind": "safe",
+            "docs": " Disallow the use if `quickfix.biome` inside editor settings file.\n\n The code action `quickfix.biome` can be harmful because it instructs the editors\n to apply the code fix of lint rules and code actions atomically. If multiple rules or\n actions apply a code fix to the same code span, the editor will emit invalid code.\n\n The rule targets specifically VSCode settings and Zed settings. Specifically, paths that end with:\n - `.vscode/settings.json`\n - `Code/User/settings.json`\n - `.zed/settings.json`\n - `zed/settings.json`\n\n ## Examples\n\n ### Invalid\n\n ```json,ignore\n {\n     \"quickfix.biome\": \"explicit\"\n }\n ```\n\n ### Valid\n\n ```json,ignore\n {\n     \"source.fixAll.biome\": \"explicit\"\n }\n ```\n\n ## Options\n\n The following options are available\n\n ### `additionalPaths`\n\n It's possible to specify a list of JSON paths, if your editor uses a JSON file setting that isn't supported natively by the rule.\n\n If your editor uses, for example, a file called `.myEditor/file.json`, you can add `\".myEditor/file.json\"` to the list.\n **The rule checks if the file ends with the given paths**.\n\n ```json,options\n {\n     \"options\": {\n         \"additionalPaths\": [\".myEditor/file.json\"]\n     }\n }\n ```\n\n"
+          }
+        },
         "suspicious": {
           "noDuplicateObjectKeys": {
             "deprecated": false,
@@ -5770,7 +5781,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 337
+    "numberOrRules": 338
   },
   "syntax": {
     "languages": {
