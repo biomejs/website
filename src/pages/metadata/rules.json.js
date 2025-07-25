@@ -2193,7 +2193,7 @@ export function GET() {
               {
                 "kind": "inspired",
                 "source": {
-                  "eslintSolid": "perfer-for"
+                  "eslintSolid": "prefer-for"
                 }
               }
             ],
@@ -4120,6 +4120,17 @@ export function GET() {
         }
       },
       "json": {
+        "nursery": {
+          "noQuickfixBiome": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noQuickfixBiome",
+            "link": "https://biomejs.dev/linter/rules/no-quickfix-biome",
+            "recommended": true,
+            "fixKind": "safe",
+            "docs": " Disallow the use if `quickfix.biome` inside editor settings file.\n\n The code action `quickfix.biome` can be harmful because it instructs the editors\n to apply the code fix of lint rules and code actions atomically. If multiple rules or\n actions apply a code fix to the same code span, the editor will emit invalid code.\n\n The rule targets specifically VSCode settings and Zed settings. Specifically, paths that end with:\n - `.vscode/settings.json`\n - `Code/User/settings.json`\n - `.zed/settings.json`\n - `zed/settings.json`\n\n ## Examples\n\n ### Invalid\n\n ```json,ignore\n {\n     \"quickfix.biome\": \"explicit\"\n }\n ```\n\n ### Valid\n\n ```json,ignore\n {\n     \"source.fixAll.biome\": \"explicit\"\n }\n ```\n\n ## Options\n\n The following options are available\n\n ### `additionalPaths`\n\n It's possible to specify a list of JSON paths, if your editor uses a JSON file setting that isn't supported natively by the rule.\n\n If your editor uses, for example, a file called `.myEditor/file.json`, you can add `\".myEditor/file.json\"` to the list.\n **The rule checks if the file ends with the given paths**.\n\n ```json,options\n {\n     \"options\": {\n         \"additionalPaths\": [\".myEditor/file.json\"]\n     }\n }\n ```\n\n"
+          }
+        },
         "suspicious": {
           "noDuplicateObjectKeys": {
             "deprecated": false,
@@ -4800,6 +4811,12 @@ export function GET() {
                 "source": {
                   "eslintReactXyz": "no-nested-components"
                 }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReactXyz": "no-nested-component-definitions"
+                }
               }
             ],
             "docs": " Disallows defining React components inside other components.\n\n Component definitions inside other components cause them to be recreated on every render,\n which can lead to performance issues and unexpected behavior.\n\n When a component is defined inside another component:\n - It gets recreated on every render of the parent component\n - It loses its internal state when the parent rerenders\n - It defeats props memoization and optimization techniques\n - It creates new function references on every render\n\n ## Examples\n\n ### Invalid\n\n A new component is created every time ParentComponent renders:\n ```jsx,expect_diagnostic\n function ParentComponent() {\n   function ChildComponent() {\n     return <div>Hello</div>;\n   }\n\n   return <ChildComponent />;\n }\n ```\n\n Even with memo, a new component is still created on each render:\n ```jsx,expect_diagnostic\n function ParentComponent() {\n   const MemoizedChild = memo(() => {\n     return <div>Hello</div>;\n   });\n\n   return <MemoizedChild />;\n }\n ```\n\n ### Valid\n\n Component is defined outside other components:\n ```jsx\n function ChildComponent() {\n   return <div>Hello</div>;\n }\n\n function ParentComponent() {\n   return <ChildComponent />;\n }\n ```\n\n ## Correct approaches\n\n 1. Move the component definition outside:\n    ```jsx\n    function ChildComponent() {\n      return <div>Hello</div>;\n    }\n\n    function ParentComponent() {\n      return <ChildComponent />;\n    }\n    ```\n\n 2. Pass components as props:\n    ```jsx\n    function ParentComponent({ CustomComponent }) {\n      return <CustomComponent />;\n    }\n    ```\n\n 3. Use React's Children API:\n    ```jsx\n    function ParentComponent({ children }) {\n      return <div>{children}</div>;\n    }\n    ```\n"
@@ -4896,7 +4913,7 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/use-unique-element-ids",
             "recommended": false,
             "fixKind": "none",
-            "docs": " Prevent the usage of static string literal `id` attribute on elements.\n\n In React, hardcoding IDs is discouraged because IDs have to be unique in the DOM.\n You should use [`useId`](https://react.dev/reference/react/useId) to generate unique IDs for accessibility purposes.\n\n Please keep in mind this rule doesn't check whether ids are actually unique or not, and does check whether static literal id isn't passed to the elements or not. So you're encouraged to check by yourself if the ids are actually unique.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div id=\"foo\">bar</div>;\n ```\n\n ```jsx,expect_diagnostic\n React.createElement(\"div\", { id: \"foo\" });\n ```\n\n ### Valid\n\n ```jsx\n const id = useId();\n <div id={id}>bar</div>;\n ```\n\n ```jsx\n const id = useId();\n React.createElement(\"div\", { id });\n ```\n\n"
+            "docs": " Prevent the usage of static string literal `id` attribute on elements.\n\n In React, hardcoding IDs is discouraged because IDs have to be unique in the DOM.\n You should use [`useId`](https://react.dev/reference/react/useId) to generate unique IDs for accessibility purposes.\n\n Please keep in mind this rule doesn't check whether ids are actually unique or not, and does check whether static literal id isn't passed to the elements or not. So you're encouraged to check by yourself if the ids are actually unique.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div id=\"foo\">bar</div>;\n ```\n\n ```jsx,expect_diagnostic\n React.createElement(\"div\", { id: \"foo\" });\n ```\n\n ### Valid\n\n ```jsx\n const id = useId();\n <div id={id}>bar</div>;\n ```\n\n ```jsx\n const id = useId();\n React.createElement(\"div\", { id });\n ```\n\n ## Options\n\n The following option is available\n\n ### `excludedComponents`\n\n List of unqualified component names to ignore.\n Use it to list components expecting an `id` attribute that does not represent\n a DOM element ID.\n\n **Default**: empty list.\n\n ```json,options\n {\n     \"options\": {\n         \"excludedComponents\": [\n             \"FormattedMessage\"\n         ]\n     }\n }\n ```\n\n ```jsx,use_options\n <FormattedMessage id=\"static\" />\n ```\n\n ```jsx,use_options\n <Library.FormattedMessage id=\"static\" />\n ```\n\n\n"
           }
         },
         "performance": {
@@ -5279,7 +5296,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Reports usage of \"magic numbers\" — numbers used directly instead of being assigned to named constants.\n\n Its goal is to improve code maintainability and readability by encouraging developers to extract such numbers into named constants, making their purpose explicit.\n\n It ignores:\n - non-magic values (like 0, 1, 2, 10, 24, 60, and their negative or bigint forms) found anywhere, including arithmetic expressions, fn calls etc.\n - Array indices\n - Enum values\n - Initial values in variable or class property declarations\n - Default values in function parameters or destructuring patterns\n - Arguments to JSON.stringify and parseInt (e.g., `JSON.stringify(22)`, `parseInt(\"123\", 8)`)\n - Operands in bitwise operations (e.g., `a & 7`, `a | 7`)\n - Values in JSX expressions (e.g., `<div>{1}</div>`)\n - Object property values (e.g., `{ tax: 0.25 }`)\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n let total = price * 1.23; // Magic number for tax rate\n ```\n\n ### Valid\n\n ```js\n const TAX_RATE = 1.23;\n let total = price * TAX_RATE;\n ```\n"
+            "docs": " Reports usage of \"magic numbers\" — numbers used directly instead of being assigned to named constants.\n\n Its goal is to improve code maintainability and readability by encouraging developers to extract such numbers into named constants, making their purpose explicit.\n\n It ignores:\n - non-magic values (like 0, 1, 2, 10, 24, 60, and their negative or bigint forms) found anywhere, including arithmetic expressions, fn calls etc.\n - Array indices\n - Enum values\n - Initial values in variable or class property declarations\n - Default values in function parameters or destructuring patterns\n - Arguments to JSON.stringify and parseInt (e.g., `JSON.stringify(22)`, `parseInt(\"123\", 8)`)\n - Operands in bitwise operations (e.g., `a & 7`, `a | 7`)\n - Values in JSX expressions (e.g., `<div>{1}</div>`)\n - Object property values (e.g., `{ tax: 0.25 }`)\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n let total = price * 1.23; // Magic number for tax rate\n ```\n\n ### Valid\n\n ```js\n const TAX_RATE = 1.23;\n let total = price * TAX_RATE;\n ```\n\n ```ts\n const TAX_RATE = 1.23 as const;\n let total = price * TAX_RATE;\n ```\n"
           },
           "noMisusedPromises": {
             "deprecated": false,
@@ -5764,7 +5781,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 337
+    "numberOrRules": 338
   },
   "syntax": {
     "languages": {

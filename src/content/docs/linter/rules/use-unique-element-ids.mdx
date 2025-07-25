@@ -55,6 +55,36 @@ const id = useId();
 React.createElement("div", { id });
 ```
 
+## Options
+
+The following option is available
+
+### `excludedComponents`
+
+List of unqualified component names to ignore.
+Use it to list components expecting an `id` attribute that does not represent
+a DOM element ID.
+
+**Default**: empty list.
+
+```json
+{
+    "options": {
+        "excludedComponents": [
+            "FormattedMessage"
+        ]
+    }
+}
+```
+
+```jsx
+<FormattedMessage id="static" />
+```
+
+```jsx
+<Library.FormattedMessage id="static" />
+```
+
 ## How to configure
 ```json title="biome.json"
 {
