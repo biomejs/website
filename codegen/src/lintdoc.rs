@@ -921,16 +921,42 @@ fn parse_rule_options(
                     //         }
                     //     }
                     // }
-                    let synthetic_tree = make_json_object_with_single_member(
-                        "linter",
+                    //
+                    // Or, for assist actions:
+                    //
+                    // {
+                    //     "assist": {
+                    //         "actions": {
+                    //             "<group>": {
+                    //                 "<rule>": {<options>}
+                    //             }
+                    //         }
+                    //     }
+                    // }
+                    let is_assist = group == "source";
+                    let synthetic_tree = if is_assist {
                         make_json_object_with_single_member(
-                            "rules",
+                            "assist",
                             make_json_object_with_single_member(
-                                group,
-                                make_json_object_with_single_member(rule, parsed_options),
+                                "actions",
+                                make_json_object_with_single_member(
+                                    group,
+                                    make_json_object_with_single_member(rule, parsed_options),
+                                ),
                             ),
-                        ),
-                    );
+                        )
+                    } else {
+                        make_json_object_with_single_member(
+                            "linter",
+                            make_json_object_with_single_member(
+                                "rules",
+                                make_json_object_with_single_member(
+                                    group,
+                                    make_json_object_with_single_member(rule, parsed_options),
+                                ),
+                            ),
+                        )
+                    };
 
                     // Create a new JsonRoot from the synthetic AST
                     let eof_token = parsed_root.eof_token()?;
@@ -944,14 +970,25 @@ fn parse_rule_options(
                     // so that errors are reported at the correct source code locations:
                     let original_offset =
                         parsed_root.value().ok().map(|v| AstNode::range(&v).start());
-                    let wrapped_offset = synthetic_root
-                        .value()
-                        .ok()
-                        .and_then(|v| get_first_member(v, "linter"))
-                        .and_then(|v| get_first_member(v, "rules"))
-                        .and_then(|v| get_first_member(v, group))
-                        .and_then(|v| get_first_member(v, rule))
-                        .map(|v| AstNode::range(&v).start());
+                    let wrapped_offset = if is_assist {
+                        synthetic_root
+                            .value()
+                            .ok()
+                            .and_then(|v| get_first_member(v, "assist"))
+                            .and_then(|v| get_first_member(v, "actions"))
+                            .and_then(|v| get_first_member(v, group))
+                            .and_then(|v| get_first_member(v, rule))
+                            .map(|v| AstNode::range(&v).start())
+                    } else {
+                        synthetic_root
+                            .value()
+                            .ok()
+                            .and_then(|v| get_first_member(v, "linter"))
+                            .and_then(|v| get_first_member(v, "rules"))
+                            .and_then(|v| get_first_member(v, group))
+                            .and_then(|v| get_first_member(v, rule))
+                            .map(|v| AstNode::range(&v).start())
+                    };
                     let subtract_offset = wrapped_offset
                         .zip(original_offset)
                         .and_then(|(wrapped, original)| wrapped.checked_sub(original))
