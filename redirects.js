@@ -144,7 +144,6 @@ export default {
   '/linter/rules/noProcessEnv': '/linter/rules/no-process-env',
   '/linter/rules/noProcessGlobal': '/linter/rules/no-process-global',
   '/linter/rules/noPrototypeBuiltins': '/linter/rules/no-prototype-builtins',
-  '/linter/rules/noQuickfixBiome': '/linter/rules/no-quickfix-biome',
   '/linter/rules/noReExportAll': '/linter/rules/no-re-export-all',
   '/linter/rules/noReactPropAssign': '/linter/rules/no-react-prop-assign',
   '/linter/rules/noReactSpecificProps': '/linter/rules/no-react-specific-props',
