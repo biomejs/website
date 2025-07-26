@@ -1,5 +1,5 @@
 [build]
-	command = "rm -rf node_modules && pnpm i --frozen-lockfile && pnpm build"
+	command = "rm -rf node_modules && pnpm i --frozen-lockfile && pnpm build:netlify"
 	publish = "dist/"
 
 [[headers]]
