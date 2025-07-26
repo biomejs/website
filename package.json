@@ -30,7 +30,7 @@
     "@astrojs/prism": "3.3.0",
     "@astrojs/react": "4.3.0",
     "@astrojs/rss": "4.0.12",
-    "@astrojs/starlight": "0.34.4",
+    "@astrojs/starlight": "0.35.1",
     "@biomejs/biome": "2.1.2",
     "@biomejs/wasm-web": "https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@476cd55",
     "@codemirror/lang-css": "6.3.1",
