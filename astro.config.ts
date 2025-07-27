@@ -206,8 +206,8 @@ export default defineConfig({
 							link: "/guides/upgrade-to-biome-v2",
 							badge: "new",
 							translations: {
-								"zh-CN": "升级到 Biome v2"
-							}
+								"zh-CN": "升级到 Biome v2",
+							},
 						},
 						{
 							label: "Biome in your IDE",
@@ -282,7 +282,7 @@ export default defineConfig({
 							label: "Investigate slowness",
 							link: "/guides/investigate-slowness",
 							translations: {
-								"zh-CN": "调查 Biome 中的性能问题"
+								"zh-CN": "调查 Biome 中的性能问题",
 							},
 						},
 					],
@@ -389,7 +389,7 @@ export default defineConfig({
 									badge: "beta",
 									translations: {
 										ja: "プラグイン",
-										"zh-CN": "插件"
+										"zh-CN": "插件",
 									},
 								},
 								{
@@ -439,7 +439,7 @@ export default defineConfig({
 									link: "/linter/json/sources",
 									translations: {
 										"zh-CN": "JSON 规则来源",
-									}
+									},
 								},
 								{
 									label: "GraphQL Rules",
@@ -453,7 +453,7 @@ export default defineConfig({
 									link: "/linter/graphql/sources",
 									translations: {
 										"zh-CN": "GraphQL 规则来源",
-									}
+									},
 								},
 							],
 							translations: {
@@ -480,60 +480,60 @@ export default defineConfig({
 									link: "/assist/javascript/actions",
 									translations: {
 										"zh-CN": "JavaScript 操作",
-									}
+									},
 								},
 								{
 									label: "JavaScript Actions sources",
 									link: "/assist/javascript/sources",
 									translations: {
 										"zh-CN": "JavaScript 操作来源",
-									}
+									},
 								},
 								{
 									label: "CSS Actions",
 									link: "/assist/css/actions",
 									translations: {
 										"zh-CN": "CSS 操作",
-									}
+									},
 								},
 								{
 									label: "CSS Actions sources",
 									link: "/assist/css/sources",
 									translations: {
 										"zh-CN": "CSS 操作来源",
-									}
+									},
 								},
 								{
 									label: "JSON Actions",
 									link: "/assist/json/actions",
 									translations: {
 										"zh-CN": "JSON 操作",
-									}
+									},
 								},
 								{
 									label: "JSON Actions sources",
 									link: "/assist/json/sources",
 									translations: {
 										"zh-CN": "JSON 操作来源",
-									}
+									},
 								},
 								{
 									label: "GraphQL Actions",
 									link: "/assist/graphql/actions",
 									translations: {
 										"zh-CN": "GraphQL 操作",
-									}
+									},
 								},
 								{
 									label: "GraphQL Actions sources",
 									link: "/assist/graphql/sources",
 									translations: {
 										"zh-CN": "GraphQL 操作来源",
-									}
+									},
 								},
 							],
 							translations: {
-								"zh-CN": "辅助操作"
+								"zh-CN": "辅助操作",
 							},
 						},
 					],
@@ -668,7 +668,7 @@ export default defineConfig({
 								fr: "Badges sociaux",
 								ja: "ソーシャルバッジ",
 								uk: "Соціальні значки",
-								"zh-cn": "Biome 徽章"
+								"zh-cn": "Biome 徽章",
 							},
 						},
 					],
