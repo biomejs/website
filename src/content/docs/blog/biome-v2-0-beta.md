@@ -107,7 +107,7 @@ For now, we have a few interesting rules that can make use of our multi-file ana
 
 - [`noImportCycles`](https://next.biomejs.dev/linter/rules/no-import-cycles/) is able to look at import statements and detect cycles between them.
 - [`noPrivateImports`](https://next.biomejs.dev/linter/rules/no-private-imports/) is a new rule based on the `useImportRestrictions` nursery rule from Biome 1.x, and inspired by ESLint's [`plugin-import-access`](https://github.com/uhyo/eslint-plugin-import-access). It forbids importing symbols with an `@private` JSDoc tag from other modules, and forbids importing symbols with an `@package` tag if the importing file is not in the same folder or one of its subfolders.
-- [`useImportExtensions`](https://next.biomejs.dev/linter/rules/use-import-extensions/) has been improved because it can now determine the actual extension that needs to be used for an import, instead of guessing based on hueristics.
+- [`useImportExtensions`](https://next.biomejs.dev/linter/rules/use-import-extensions/) has been improved because it can now determine the actual extension that needs to be used for an import, instead of guessing based on heuristics.
 
 Finally, we've also designed the multi-file analysis with monorepos in mind. While full monorepo support may not make it in time for the 2.0 release, we expect to be able to deliver more on this front soon.
 
