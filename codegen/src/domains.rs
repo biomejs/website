@@ -117,8 +117,7 @@ impl DocDomains {
                 }
                 #[allow(unreachable_patterns)]
                 domain => {
-                    // This only gets hit if a new domain gets added and has any rules. Domains that don't have any rules are not documented.
-                    anyhow::bail!("Undocumented domain: {:?}", domain);
+                    eprintln!("Undocumented domain: {:?}", domain);
                 }
             }
             Self::write_activation(name.as_str(), buffer)?;

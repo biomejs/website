@@ -1,4 +1,5 @@
 ---
+# Checked, no updates appeared
 title: 升级到 Biome v2
 description: 学习如何升级到 Biome v2
 ---
@@ -29,7 +30,7 @@ import {FileTree, Steps} from '@astrojs/starlight/components';
             <PackageManagerBiomeCommand command="migrate --write" />
         </li>
         <li>
-            一切就绪! `migrate` 命令应该已经更新了配置，以 *缓解* 可能的 [破坏性更改](#破坏性更改)。请检查该命令的输出结果，在某些情况下，你可能需要手动执行一些命令。如果这样，`migrate` 命令会向你指出这些。
+            一切就绪！ `migrate` 命令应该已经更新了配置，以 *缓解* 可能的 [破坏性更改](#破坏性更改)。请检查该命令的输出结果，在某些情况下，你可能需要手动执行一些命令。如果这样，`migrate` 命令会向你指出这些。
         </li>
     </ol>
 </Steps>
@@ -38,7 +39,7 @@ import {FileTree, Steps} from '@astrojs/starlight/components';
 
 ## 破坏性更改
 
-虽然我们的团队致力于减少破坏性更改的数量，但 v2 仍有一些破坏性更改。本节将介绍最相关的破坏性更改，解释这些破坏性更改的原因，并提供适用的解决方案。
+虽然我们的团队致力于减少破坏性更改的数量，但 v2 仍有一些不得不做出的破坏性更改。本节将介绍最需要解释的破坏性更改，解释这些破坏性更改的原因，并提供适用的解决方案。
 
 ### 不再支持与 Rome 相关的功能
 
@@ -61,7 +62,7 @@ CLI 选项 `--config-path` 被 `biome lsp-proxy` 和 `biome start` 移除。
 
 如果你是一个插件的开发者，请更新您的插件以使用 `workspace/configuration` 响应，而不是使用 `--config-path` 参数。Biome 的 LSP 会自动解析工作区中的配置，因此建议将其保持为空，除非使用自定义配置路径。
 
-### 移除选项 `ignore` 和 `include`，重命名为 `includes`
+### 将 `ignore` 和 `include` 合并为为 `includes`
 
 如果你已经运行了 `migrate` 命令，应该不会出现回归。之所以将这两个字段合并为一个新字段，是因为 Biome 旧 glob 引擎的实现存在缺陷，导致一些边缘情况，除非我们更改引擎，否则无法修复。不幸的是，我们无法在不进行破坏性修改的情况下做到这一点。
 
@@ -69,8 +70,8 @@ CLI 选项 `--config-path` 被 `biome lsp-proxy` 和 `biome start` 移除。
 
 |             | `/projectA/src/file.js`     | `src/file.js`     | `/projectB/frontend/src/file.js` |
 |-------------|-----------------------------|-------------------|----------------------------------|
-| `src/**`    | Glob *不会* 匹配             | Glob *会* 匹配     | Glob *不会* 匹配                   |
-| `**/src/**` | Glob *会* 匹配               | Glob *会* 匹配     | Glob *会* 匹配                    |
+| `src/**`    | **不会** 匹配             | **会** 匹配     | **不会** 匹配                   |
+| `**/src/**` | **会** 匹配               | **会** 匹配     | **会** 匹配                    |
 
 正如你所见，glob `**/src/**` 太 **急于** 匹配了，它匹配了不应该有的路径，例如 `/Users/www/projectB/frontend/src/file.js`。
 
@@ -303,7 +304,7 @@ import path from "path";
 ```
 请注意，不可能实现与 Biome v1.x 完全相同的行为。我们建议使用新的默认操作，因为这样更一致、更简单。
 
-阅读 [组织导入文档](/assist/actions/organize-imports/) 获取更多信息。
+阅读 [组织导入](/assist/actions/organize-imports/) 文档获取更多信息。
 
 ### Zed 扩展 `v0.2.0` 与 Biome v1 不兼容
 
