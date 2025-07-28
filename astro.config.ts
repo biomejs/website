@@ -205,6 +205,9 @@ export default defineConfig({
 							label: "Upgrade to Biome v2",
 							link: "/guides/upgrade-to-biome-v2",
 							badge: "new",
+							translations: {
+								"zh-CN": "升级到 Biome v2",
+							},
 						},
 						{
 							label: "Biome in your IDE",
@@ -278,7 +281,9 @@ export default defineConfig({
 						{
 							label: "Investigate slowness",
 							link: "/guides/investigate-slowness",
-							translations: {},
+							translations: {
+								"zh-CN": "调查 Biome 中的性能问题",
+							},
 						},
 					],
 				},
@@ -347,7 +352,7 @@ export default defineConfig({
 								es: "Supresiones",
 								fr: "Suppressions",
 								ja: "抑制",
-								"zh-CN": "抑制",
+								"zh-CN": "禁用检查",
 								"pt-BR": "Supressões",
 								uk: "Придушення",
 							},
@@ -374,6 +379,9 @@ export default defineConfig({
 									label: "Domains",
 									link: "/linter/domains",
 									badge: "new",
+									translations: {
+										"zh-CN": "域",
+									},
 								},
 								{
 									label: "Plugins",
@@ -381,6 +389,7 @@ export default defineConfig({
 									badge: "beta",
 									translations: {
 										ja: "プラグイン",
+										"zh-CN": "插件",
 									},
 								},
 								{
@@ -390,7 +399,7 @@ export default defineConfig({
 										es: "Reglas",
 										fr: "Règles",
 										ja: "ルール",
-										"zh-CN": "规则",
+										"zh-CN": "JavaScript 规则",
 										"pt-BR": "Regras",
 										uk: "Правила",
 									},
@@ -399,6 +408,7 @@ export default defineConfig({
 									label: "JavaScript Rules sources",
 									link: "/linter/javascript/sources",
 									translations: {
+										"zh-CN": "JavaScript 规则来源",
 										es: "Fuentes de reglas",
 										fr: "Sources des règles",
 									},
@@ -406,26 +416,44 @@ export default defineConfig({
 								{
 									label: "CSS Rules",
 									link: "/linter/css/rules",
+									translations: {
+										"zh-CN": "CSS 规则",
+									},
 								},
 								{
 									label: "CSS Rules sources",
 									link: "/linter/css/sources",
+									translations: {
+										"zh-CN": "CSS 规则来源",
+									},
 								},
 								{
 									label: "JSON Rules",
 									link: "/linter/json/rules",
+									translations: {
+										"zh-CN": "JSON 规则",
+									},
 								},
 								{
 									label: "JSON Rules sources",
 									link: "/linter/json/sources",
+									translations: {
+										"zh-CN": "JSON 规则来源",
+									},
 								},
 								{
 									label: "GraphQL Rules",
 									link: "/linter/graphql/rules",
+									translations: {
+										"zh-CN": "GraphQL 规则",
+									},
 								},
 								{
 									label: "GraphQL Rules sources",
 									link: "/linter/graphql/sources",
+									translations: {
+										"zh-CN": "GraphQL 规则来源",
+									},
 								},
 							],
 							translations: {
@@ -450,36 +478,63 @@ export default defineConfig({
 								{
 									label: "JavaScript Actions",
 									link: "/assist/javascript/actions",
+									translations: {
+										"zh-CN": "JavaScript 操作",
+									},
 								},
 								{
 									label: "JavaScript Actions sources",
 									link: "/assist/javascript/sources",
+									translations: {
+										"zh-CN": "JavaScript 操作来源",
+									},
 								},
 								{
 									label: "CSS Actions",
 									link: "/assist/css/actions",
+									translations: {
+										"zh-CN": "CSS 操作",
+									},
 								},
 								{
 									label: "CSS Actions sources",
 									link: "/assist/css/sources",
+									translations: {
+										"zh-CN": "CSS 操作来源",
+									},
 								},
 								{
 									label: "JSON Actions",
 									link: "/assist/json/actions",
+									translations: {
+										"zh-CN": "JSON 操作",
+									},
 								},
 								{
 									label: "JSON Actions sources",
 									link: "/assist/json/sources",
+									translations: {
+										"zh-CN": "JSON 操作来源",
+									},
 								},
 								{
 									label: "GraphQL Actions",
 									link: "/assist/graphql/actions",
+									translations: {
+										"zh-CN": "GraphQL 操作",
+									},
 								},
 								{
 									label: "GraphQL Actions sources",
 									link: "/assist/graphql/sources",
+									translations: {
+										"zh-CN": "GraphQL 操作来源",
+									},
 								},
 							],
+							translations: {
+								"zh-CN": "辅助操作",
+							},
 						},
 					],
 				},
@@ -505,6 +560,7 @@ export default defineConfig({
 							translations: {
 								es: "Diagnósticos",
 								ja: "診断",
+								"zh-CN": "诊断",
 							},
 						},
 						{
@@ -515,6 +571,7 @@ export default defineConfig({
 								fr: "Variables d’environnement",
 								uk: "Змінні середовища",
 								ja: "環境変数",
+								"zh-CN": "环境变量",
 							},
 						},
 						{
@@ -525,6 +582,7 @@ export default defineConfig({
 								fr: "Outils de reporting",
 								uk: "Звіти",
 								ja: "リポータ",
+								"zh-CN": "报告器",
 							},
 						},
 						{
@@ -610,6 +668,7 @@ export default defineConfig({
 								fr: "Badges sociaux",
 								ja: "ソーシャルバッジ",
 								uk: "Соціальні значки",
+								"zh-cn": "Biome 徽章",
 							},
 						},
 					],
@@ -697,6 +756,9 @@ export default defineConfig({
 						{
 							label: "Changelog v1",
 							link: "/internals/changelog_v1",
+							translations: {
+								"zh-CN": "更新日志 v1",
+							},
 						},
 					],
 				},
