@@ -62,7 +62,7 @@ CLI 选项 `--config-path` 被 `biome lsp-proxy` 和 `biome start` 移除。
 
 如果你是一个插件的开发者，请更新您的插件以使用 `workspace/configuration` 响应，而不是使用 `--config-path` 参数。Biome 的 LSP 会自动解析工作区中的配置，因此建议将其保持为空，除非使用自定义配置路径。
 
-### 将 `ignore` 和 `include`，合并为为 `includes`
+### 将 `ignore` 和 `include` 合并为为 `includes`
 
 如果你已经运行了 `migrate` 命令，应该不会出现回归。之所以将这两个字段合并为一个新字段，是因为 Biome 旧 glob 引擎的实现存在缺陷，导致一些边缘情况，除非我们更改引擎，否则无法修复。不幸的是，我们无法在不进行破坏性修改的情况下做到这一点。
 
