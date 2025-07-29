@@ -632,7 +632,7 @@ export default defineConfig({
 						es: "Recetas",
 						fr: "Recettes",
 						ja: "レシピ",
-						"zh-CN": "实例",
+						"zh-CN": "与其他工具集成",
 						"pt-BR": "Receitas",
 						uk: "Рецепти",
 					},
@@ -644,7 +644,7 @@ export default defineConfig({
 								es: "Integración continua",
 								fr: "Intégration continue",
 								ja: "継続的インテグレーション",
-								"zh-CN": "持续集成",
+								"zh-CN": "CI 环境集成",
 								"pt-BR": "Integração Contínua",
 								uk: "Безперервна інтеграція",
 							},
@@ -654,11 +654,15 @@ export default defineConfig({
 							link: "/recipes/git-hooks",
 							translations: {
 								fr: "Hooks Git",
+								"zh-CN": "Git 钩子",
 							},
 						},
 						{
 							label: "Renovate",
 							link: "/recipes/renovate",
+							translations: {
+								"zh-CN": "Renovate Bot",
+							},
 						},
 						{
 							label: "Social Badges",
