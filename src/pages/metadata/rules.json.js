@@ -2088,6 +2088,23 @@ export function GET() {
             ],
             "docs": " Disallow the use of useless `undefined`.\n\n `undefined` is the default value for new variables, parameters, return statements, etc., so specifying it doesn't make any difference.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n let foo = undefined;\n ```\n\n ```js,expect_diagnostic\n const {foo = undefined} = bar;\n ```\n\n ```js,expect_diagnostic\n const noop = () => undefined;\n ```\n\n ```js,expect_diagnostic\n function foo() {\n    return undefined;\n }\n ```\n\n ```js,expect_diagnostic\n function* foo() {\n   yield undefined;\n }\n ```\n\n ```js,expect_diagnostic\n function foo(bar = undefined) {}\n ```\n\n ```js,expect_diagnostic\n function foo({bar = undefined}) {}\n ```\n\n ### Valid\n\n ```js\n let foo;\n const {foo} = bar;\n function foo() {\n   return;\n }\n function* foo() {\n   yield;\n }\n function foo(bar) {}\n function foo({bar}) {}\n foo();\n ```\n\n"
           },
+          "noVueReservedKeys": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noVueReservedKeys",
+            "link": "https://biomejs.dev/linter/rules/no-vue-reserved-keys",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "no-reserved-keys"
+                }
+              }
+            ],
+            "docs": " Disallow reserved keys in Vue component data and computed properties.\n\n Vue reserves certain keys for its internal use. Using these reserved keys\n in data properties, computed properties, methods, or other component options\n can cause conflicts and unpredictable behavior in your Vue components.\n\n This rule prevents the use of Vue reserved keys such as:\n - Keys starting with `$` (e.g., `$el`, `$data`, `$props`, `$refs`, etc.)\n - Keys starting with `_` in data properties (reserved for Vue internals)\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script>\n export default {\n     data: {\n         $el: '',\n     },\n };\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script>\n export default {\n     data() {\n         return {\n             _foo: 'bar',\n         };\n     },\n };\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script>\n export default {\n     computed: {\n         $data() {\n             return this.someData;\n         },\n     },\n };\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script>\n export default {\n     methods: {\n         $emit() {\n             // This conflicts with Vue's built-in $emit\n         },\n     },\n };\n </script>\n ```\n\n ### Valid\n\n ```vue\n <script>\n export default {\n     data() {\n         return {\n             message: 'Hello Vue!',\n             count: 0,\n         };\n     },\n };\n </script>\n ```\n\n ```vue\n <script>\n export default {\n     computed: {\n         displayMessage() {\n             return this.message;\n         },\n     },\n };\n </script>\n ```\n\n"
+          },
           "noVueReservedProps": {
             "deprecated": false,
             "version": "next",
@@ -4906,6 +4923,23 @@ export function GET() {
             ],
             "docs": " Ensure the `preconnect` attribute is used when using Google Fonts.\n\n When using Google Fonts, adding the `rel=\"preconnect\"` attribute to the `<link>` tag\n that points to `https://fonts.gstatic.com` is recommended to initiate an early\n connection to the font's origin. This improves page load performance by reducing latency.\n\n Failing to use `preconnect` may result in slower font loading times, affecting user experience.\n\n Note: Next.js automatically adds this preconnect link starting from version 12.0.1, but in cases\n where it's manually added, this rule ensures the `preconnect` attribute is properly used.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <link href=\"https://fonts.gstatic.com\"/>\n ```\n\n ```jsx,expect_diagnostic\n <link rel=\"preload\" href=\"https://fonts.gstatic.com\"/>\n ```\n\n ### Valid\n\n ```jsx\n <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\"/>\n ```\n\n ```jsx\n <link href=\"/logo.svg\" rel=\"icon\" />\n ```\n\n"
           },
+          "useReactFunctionComponents": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useReactFunctionComponents",
+            "link": "https://biomejs.dev/linter/rules/use-react-function-components",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "reactPreferFunctionComponent": "react-prefer-function-component"
+                }
+              }
+            ],
+            "docs": " Enforce that components are defined as functions and never as classes.\n\n React in particular allows users to create components using functions or classes.\n However, using functions is generally preferred. This rule enforces the use of function components.\n\n This rule makes an exception for class components that implement `componentDidCatch` because there is\n currently no hook alternative for React. This function is typically used for defining error boundaries.\n It's recommended to define your error boundary once and then reuse it across your application.\n\n If you are using Preact, it has a [`useErrorBoundary`](https://preactjs.com/guide/v10/hooks/#useerrorboundary) hook.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n class Foo extends React.Component {\n   render() {\n     return (\n       <div>This is a class component.</div>\n     );\n   }\n }\n ```\n\n ### Valid\n\n ```jsx\n function Foo() {\n   return <div>This is a function component.</div>;\n }\n ```\n\n"
+          },
           "useUniqueElementIds": {
             "deprecated": false,
             "version": "2.0.0",
@@ -5781,7 +5815,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 338
+    "numberOrRules": 340
   },
   "syntax": {
     "languages": {
