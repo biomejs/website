@@ -1,35 +1,103 @@
 ---
 title: 语言支持
-description: Biome支持的语言和特性。
+description: Biome 的语言支持。
 ---
 
-| 语言 | 解析 | 格式化 | 检查 |
-| --- | ---- | ----- | --- |
-| JavaScript | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> |
-| TypeScript | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> |
-| JSX | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> |
-| TSX | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> |
-| JSON | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> |
-| JSONC | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> |
-| HTML | <span aria-label="正在进行中" role="img">⌛️</span> | <span aria-label="不在进行中" role="img">🚫</span> | <span aria-label="不在进行中" role="img">🚫</span> |
-| Vue | <span aria-label="不在进行中" role="img">🚫</span> | <span aria-label="不在进行中" role="img">🚫</span> | <span aria-label="不在进行中" role="img">🚫</span> |
-| Svelte | <span aria-label="不在进行中" role="img">🚫</span> | <span aria-label="不在进行中" role="img">🚫</span> | <span aria-label="不在进行中" role="img">🚫</span> |
-| Astro | <span aria-label="不在进行中" role="img">🚫</span> | <span aria-label="不在进行中" role="img">🚫</span> | <span aria-label="不在进行中" role="img">🚫</span> |
-| CSS | <span aria-label="支持" role="img">✅️</span> | <span aria-label="支持" role="img">✅️</span> | <span aria-label="支持" role="img">✅️</span> |
-| [YAML](https://github.com/biomejs/biome/issues/2365) | <span aria-label="正在进行中" role="img">⌛️</span> | <span aria-label="不在进行中" role="img">🚫</span> | <span aria-label="不在进行中" role="img">🚫</span> |
-| GraphQL | <span aria-label="支持" role="img">✅️</span> | <span aria-label="支持" role="img">✅️</span> | <span aria-label="支持" role="img">✅️</span> |
-| [Markdown](https://github.com/biomejs/biome/issues/3718) | <span aria-label="正在进行中" role="img">⌛️</span> | <span aria-label="不在进行中" role="img">🚫</span> | <span aria-label="不在进行中" role="img">🚫</span> |
+标记：
+- ✅：支持
+- 🚫：未在开发中
+- ⌛️：开发中
+- ⚠️：部分支持（可能带有警告）
 
-## JavaScript支持
+| 语言 | 解析 | 格式化 | 检查 | 插件支持 |
+|-|-|-|-|-|
+| [JavaScript](#JavaScript-支持) | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> |
+| [TypeScript](#TypeScript-支持) | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> |
+| JSX | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> |
+| TSX | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> |
+| JSON | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> | <span aria-label="未在开发中" role="img">🚫</span> |
+| JSONC | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> | <span aria-label="未在开发中" role="img">🚫</span> |
+| HTML | <span aria-label="开发中" role="img">⌛️</span> | <span aria-label="开发中" role="img">⌛️</span> | <span aria-label="未在开发中" role="img">🚫</span> | <span aria-label="未在开发中" role="img">🚫</span> |
+| [Vue](#HTML-超级支持) | <span aria-label="部分支持" role="img">⚠️</span> | <span aria-label="部分支持" role="img">⚠️</span> | <span aria-label="部分支持" role="img">⚠️</span> | <span aria-label="未在开发中" role="img">🚫</span> |
+| [Svelte](#HTML-超级支持) | <span aria-label="部分支持" role="img">⚠️</span> | <span aria-label="部分支持" role="img">⚠️</span> | <span aria-label="部分支持" role="img">⚠️</span> | <span aria-label="未在开发中" role="img">🚫</span> |
+| [Astro](#HTML-超级支持) | <span aria-label="部分支持" role="img">⚠️</span> | <span aria-label="部分支持" role="img">⚠️</span> | <span aria-label="部分支持" role="img">⚠️</span> | <span aria-label="未在开发中" role="img">🚫</span> |
+| CSS | <span aria-label="支持" role="img">✅️</span> | <span aria-label="支持" role="img">✅️</span> | <span aria-label="支持" role="img">✅️</span> | <span aria-label="Supported" role="img">✅</span> |
+| [YAML](https://github.com/biomejs/biome/issues/2365) | <span aria-label="开发中" role="img">⌛️</span> | <span aria-label="未在开发中" role="img">🚫</span> | <span aria-label="未在开发中" role="img">🚫</span> | <span aria-label="未在开发中" role="img">🚫</span> |
+| GraphQL | <span aria-label="支持" role="img">✅️</span> | <span aria-label="支持" role="img">✅️</span> | <span aria-label="支持" role="img">✅️</span> | <span aria-label="未在开发中" role="img">🚫</span> |
+| [Markdown](https://github.com/biomejs/biome/issues/3718) | <span aria-label="开发中" role="img">⌛️</span> | <span aria-label="未在开发中" role="img">🚫</span> | <span aria-label="未在开发中" role="img">🚫</span> | <span aria-label="未在开发中" role="img">🚫</span> |
+| GritQL | <span aria-label="支持" role="img">✅️</span> | <span aria-label="支持" role="img">✅️</span> | <span aria-label="未在开发中" role="img">🚫</span> | <span aria-label="未在开发中" role="img">🚫</span> |
 
-Biome支持ES2023版本的语言。
+## JavaScript 支持
 
-Biome只支持官方语法。当提案达到[第3阶段](https://github.com/tc39/proposals#stage-3)时，团队开始开发新语法。
+Biome 支持 ES2024 标准并且仅支持官方语法。
 
-## TypeScript（类型脚本）支持
+我们的团队将在新语法到达 [第三阶段](https://github.com/tc39/proposals#stage-3) 时进行开发。
 
-Biome支持TypeScript版本5.6。
+## TypeScript 支持
 
-## HTML超级语言支持
+Biome 支持 TypeScript 5.6。
 
-这些语言需要CSS，HTML和JavaScript解析才能得到适当的支持。一旦这些解析器可用，就可以开始围绕这些超级语言的工作。
+## JSONC 支持
+
+JSONC 代表 “带有注释的JSON”。
+
+这种格式因为其允许用户在配置文件中添加注释而被各种工具广泛使用，如 [VS Code](https://code.visualstudio.com/docs/languages/json#_json-with-comments)，[TypeScript](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html)，[Babel](https://babeljs.io/docs/config-files) 等。
+
+但是，由于 JSONC 不是一种严格定义的标准，因此不同工具在处理 JSONC 文件中的尾随逗号的方式存在一些差异。
+为了适应这一点，Biome 没有为 JSONC 提供专门的语言配置。
+相反，我们使用了 `json.parser.allowComments`、`json.parser.allowTrailingCommas` 和 `json.formatter.trailingCommas` 选项增强了 JSON 解析和格式化功能。
+这种方法使 Biome 能够有效地支持 JSON 文件的不同变体。
+
+对于扩展名为 `.jsonc` 或那些根据 [语言标识符](https://code.visualstudio.com/docs/languages/identifiers) 被确定为 `jsonc` 的文件，Biome 会自动应用以下默认设置进行解析和格式化:
+
+- `json.parser.allowComments`: `true`
+- `json.parser.allowTrailingCommas`: `true`
+- `json.formatter.trailingCommas`: `none`
+
+请注意，一些知名文件如 `tsconfig.json` 和 `.babelrc` 不使用 `.jsonc` 扩展名，但仍允许注释和尾随逗号。
+但一些其他的文件如 `.eslintrc.json` 只允许注释。Biome 能够识别这些文件并相应地调整 `json.parser.allowTrailingCommas` 选项以确保它们被正确解析。
+
+文档 [忽略或解析为其他格式的文件](/zh-cn/guides/configure-biome#已知文件) 会给出 Biome 可以识别的知名文件的完整列表。
+
+## HTML 超级支持
+
+在版本 1.6.0 时，这些语言是 **部分** 支持的。
+
+随着时间的推移，Biome 会变得更好，并且它将提供更多选项来调整您的项目。
+至于今天，仍有一些限制需要考虑：
+
+- 对于后缀为 `.astro` 的文件, **仅会格式化** 文件支持的一部分。
+- 对于后缀为 `.vue` 或 `.svelte` 的文件, **只有文件的 \<script\> 标签部分** 支持。
+- 将 **只显示** 属于上述代码片段的诊断。
+- 当 **格式化** `.vue` 和 `.svelte` 文件，JavaScript 或 TypeScript 代码片段的缩进将从头开始（也就是从 0 格缩进开始）。
+
+  ```vue title="file.vue" del={2} ins={3}
+  <script>
+    import Component from "./Component.vue";
+  import Component from "./Component.vue";
+  </script>
+  ```
+
+- 当 **检查** 后缀为 `.svelte`、`.astro` 或 `.vue` 的文件时建议关闭一些规则，以防止因为我们的部分支持而误报错误。请使用 `overrides` 选项覆盖一些规则，如下：
+
+  ```json
+  {
+    "overrides": [
+      {
+        "includes": ["**/*.svelte", "**/*.astro", "**/*.vue"],
+        "linter": {
+          "rules": {
+            "style": {
+              "useConst": "off",
+              "useImportType": "off"
+            },
+            "correctness": {
+              "noUnusedVariables": "off",
+              "noUnusedImports": "off"
+            }
+          }
+        }
+      }
+    ]
+  }
+  ```
