@@ -180,6 +180,15 @@ export function GET() {
 					"additionalProperties": false
 				},
 				{
+					"description": "Rules from [Eslint Plugin React Prefer Function Component](https://github.com/tatethurston/eslint-plugin-react-prefer-function-component)",
+					"type": "object",
+					"required": ["reactPreferFunctionComponent"],
+					"properties": {
+						"reactPreferFunctionComponent": { "type": "string" }
+					},
+					"additionalProperties": false
+				},
+				{
 					"description": "Rules from [Eslint Plugin Solid](https://github.com/solidjs-community/eslint-plugin-solid)",
 					"type": "object",
 					"required": ["eslintSolid"],
