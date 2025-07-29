@@ -668,7 +668,7 @@ export default defineConfig({
 								fr: "Badges sociaux",
 								ja: "ソーシャルバッジ",
 								uk: "Соціальні значки",
-								"zh-cn": "Biome 徽章",
+								"zh-CN": "Biome 徽章",
 							},
 						},
 					],
