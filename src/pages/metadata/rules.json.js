@@ -4855,6 +4855,23 @@ export function GET() {
             ],
             "docs": " Disallow use event handlers on non-interactive elements.\n\n Non-interactive HTML elements indicate _content_ and _containers_ in the user interface.\n Non-interactive elements include `<main>`, `<area>`, `<h1>` (,`<h2>`, etc), `<img>`, `<li>`, `<ul>` and `<ol>`.\n\n A Non-interactive element does not support event handlers(mouse and key handlers).\n\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div onClick={() => {}}>button</div>\n ```\n\n ### Valid\n\n ```jsx\n <button onClick={() => { }}>button</button>\n ```\n\n ```jsx\n // Adding a role to element does not add behavior.\n // If not used semantic HTML elements like `button`, developers need to implement the expected behavior for role(like focusability and key press support)\n // See https://www.w3.org/WAI/ARIA/apg/\n <div role=\"button\" onClick={() => { }}>button</div>\n ```\n\n ```jsx\n // The role=\"presentation\" attribute removes the semantic meaning of an element, indicating that it should be ignored by assistive technologies.\n // Therefore, it's acceptable to add event handlers to elements with role=\"presentation\" for visual effects or other purposes,\n // but users relying on assistive technologies may not be able to interact with these elements.\n <div role=\"presentation\" onClick={() => { }}>button</div>\n ```\n\n ```jsx\n // Hidden from screen reader.\n <div onClick={() => {}} aria-hidden />\n ```\n\n ```jsx\n // Custom component is not checked.\n <SomeComponent onClick={() => {}}>button</SomeComponent>\n ```\n\n ```jsx\n // Spread attributes is not supported.\n <div {...{\"onClick\":() => {}}}>button</div>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 4.1.2](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value)\n\n ### Resources\n\n - [WAI-ARIA roles](https://www.w3.org/TR/wai-aria-1.1/#usage_intro)\n - [WAI-ARIA Authoring Practices Guide - Design Patterns and Widgets](https://www.w3.org/TR/wai-aria-practices-1.1/#aria_ex)\n - [Fundamental Keyboard Navigation Conventions](https://www.w3.org/TR/wai-aria-practices-1.1/#kbd_generalnav)\n - [Mozilla Developer Network - ARIA Techniques](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_button_role#Keyboard_and_focus)\n\n"
           },
+          "noQwikUseVisibleTask": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noQwikUseVisibleTask",
+            "link": "https://biomejs.dev/linter/rules/no-qwik-use-visible-task",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintQwik": "no-use-visible-task"
+                }
+              }
+            ],
+            "docs": " Disallow `useVisibleTask$()` functions in Qwik components.\n\n Prevents hydration-blocking operations that hurt Qwik's resumability.\n See [Qwik Tasks Documentation](https://qwik.dev/docs/components/tasks/) for proper alternatives.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n useVisibleTask$(() => {\n   console.log('Component is visible');\n });\n ```\n\n ### Valid\n\n ```js\n useTask$(() => {\n   console.log('Task executed');\n });\n ```\n\n"
+          },
           "noReactPropAssign": {
             "deprecated": false,
             "version": "2.0.0",
@@ -4906,6 +4923,23 @@ export function GET() {
             ],
             "docs": " Prevent duplicate polyfills from Polyfill.io.\n\n You are using polyfills from Polyfill.io and including polyfills already shipped with Next.js.\n This unnecessarily increases page weight which can affect loading performance.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <script src='https://polyfill.io/v3/polyfill.min.js?features=AbortController,Object.fromEntries'></script>\n ```\n\n ```jsx,expect_diagnostic\n import NextScript from 'next/script';\n\n export function MyApp({ Component, pageProps }) {\n   return <NextScript src='https://polyfill.io/v3/polyfill.min.js?features=Array.prototype.copyWithin' />\n }\n ```\n\n ### Valid\n\n ```jsx\n <>\n   <script src='https://polyfill.io/v3/polyfill.min.js?features=AbortController'></script>\n   <script src='https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver'></script>\n   <Script src='https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver' />\n   <Script src='https://polyfill-fastly.io/v3/polyfill.min.js?features=IntersectionObserver' />\n </>\n ```\n\n"
           },
+          "useAnchorHref": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useAnchorHref",
+            "link": "https://biomejs.dev/linter/rules/use-anchor-href",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintQwik": "jsx-a"
+                }
+              }
+            ],
+            "docs": " Enforces `href` attribute for `<a>` elements.\n\n Ensures `<a>` tags are either valid links (with href) or replaced with buttons for actions.\n See [WCAG 4.1.2](https://www.w3.org/WAI/WCAG22/Understanding/name-role-value) for accessibility requirements.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <a>Link</a>\n ```\n\n ```jsx,expect_diagnostic\n <a target=\"_blank\">External</a>\n ```\n\n ### Valid\n\n ```jsx\n <a href=\"/home\">Home</a>\n ```\n\n ```jsx\n <a href=\"https://example.com\" target=\"_blank\">External</a>\n ```\n"
+          },
           "useGoogleFontPreconnect": {
             "deprecated": false,
             "version": "2.0.0",
@@ -4922,6 +4956,40 @@ export function GET() {
               }
             ],
             "docs": " Ensure the `preconnect` attribute is used when using Google Fonts.\n\n When using Google Fonts, adding the `rel=\"preconnect\"` attribute to the `<link>` tag\n that points to `https://fonts.gstatic.com` is recommended to initiate an early\n connection to the font's origin. This improves page load performance by reducing latency.\n\n Failing to use `preconnect` may result in slower font loading times, affecting user experience.\n\n Note: Next.js automatically adds this preconnect link starting from version 12.0.1, but in cases\n where it's manually added, this rule ensures the `preconnect` attribute is properly used.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <link href=\"https://fonts.gstatic.com\"/>\n ```\n\n ```jsx,expect_diagnostic\n <link rel=\"preload\" href=\"https://fonts.gstatic.com\"/>\n ```\n\n ### Valid\n\n ```jsx\n <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\"/>\n ```\n\n ```jsx\n <link href=\"/logo.svg\" rel=\"icon\" />\n ```\n\n"
+          },
+          "useImageSize": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useImageSize",
+            "link": "https://biomejs.dev/linter/rules/use-image-size",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintQwik": "jsx-img"
+                }
+              }
+            ],
+            "docs": " Enforces that `<img>` elements have both width and height attributes.\n\n This rule ensures that `<img>` elements have `width` and `height` attributes\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <img src=\"/image.png\"/>\n ```\n\n ```jsx,expect_diagnostic\n <img src=\"/static/images/portrait-01.webp\"/>\n ```\n\n ```jsx,expect_diagnostic\n <img src=\"/image.png\" width=\"200\"/>\n ```\n\n ```jsx,expect_diagnostic\n <img src=\"/image.png\" height=\"200\"/>\n ```\n\n ### Valid\n\n ```jsx\n <img width=\"200\" height=\"600\" src=\"/static/images/portrait-01.webp\" />\n ```\n\n ```jsx\n <img width=\"100\" height=\"100\" src=\"https://example.com/image.png\" />\n ```\n"
+          },
+          "useQwikClasslist": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useQwikClasslist",
+            "link": "https://biomejs.dev/linter/rules/use-qwik-classlist",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintQwik": "prefer-classlist"
+                }
+              }
+            ],
+            "docs": " Prefer using the `class` prop as a classlist over the `classnames` helper.\n\n This rule encourages the use of `class` prop which natively supports strings, objects, and arrays, enabling fine-grained reactivity and optimal performance. Using utilities like `classnames` can interfere with Qwik's reactivity model and prevent the framework from optimizing component updates. Prefer using the built-in `class` prop for best results.\n\n For more information, see: [Qwik documentation on class bindings](https://qwik.dev/docs/components/rendering/#class-and-style-bindings)\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div class={classnames({ active: true, disabled: false })} />\n ```\n\n ### Valid\n\n ```jsx\n <div class={{ active: true, disabled: false }} />\n ```\n"
           },
           "useReactFunctionComponents": {
             "deprecated": false,
@@ -5815,7 +5883,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 340
+    "numberOrRules": 344
   },
   "syntax": {
     "languages": {

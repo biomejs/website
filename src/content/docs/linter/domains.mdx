@@ -94,6 +94,48 @@ Rules that belong to the domain:
 - [noUnresolvedImports](/linter/rules/no-unresolved-imports)
 - [useExhaustiveSwitchCases](/linter/rules/use-exhaustive-switch-cases) (recommended)
 - [useJsonImportAttribute](/linter/rules/use-json-import-attribute)
+### Qwik activation
+Enabled the **recommended** rules of the domain:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"qwik": "recommended"
+		}
+	}
+}
+```
+Enabled the **all** rules of the domain:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"qwik": "all"
+		}
+	}
+}
+```
+**Disable** all rules of the domain:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"qwik": "none"
+		}
+	}
+}
+```
+### Qwik dependencies
+Enabled when the following dependencies are declared:
+- `@builder.io/qwik`: `>=1.0.0`
+- `@qwik.dev/core`: `>=2.0.0`
+
+### Qwik rules
+Rules that belong to the domain:
+- [noQwikUseVisibleTask](/linter/rules/no-qwik-use-visible-task) (recommended)
+- [useAnchorHref](/linter/rules/use-anchor-href) (recommended)
+- [useImageSize](/linter/rules/use-image-size) (recommended)
+- [useQwikClasslist](/linter/rules/use-qwik-classlist) (recommended)
 ## React
 Use this domain inside React projects. It enables a set of rules that can help catching bugs and enforce correct practices. This domain enable rules that might conflict with the Solid domain.
 ### React activation
