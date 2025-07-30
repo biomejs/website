@@ -259,6 +259,13 @@ export function GET() {
 					"additionalProperties": false
 				},
 				{
+					"description": "Rules from [Eslint Plugin Qwik](https://github.com/BuilderIO/eslint-plugin-qwik)",
+					"type": "object",
+					"required": ["eslintQwik"],
+					"properties": { "eslintQwik": { "type": "string" } },
+					"additionalProperties": false
+				},
+				{
 					"description": "Rules from [Stylelint](https://github.com/stylelint/stylelint)",
 					"type": "object",
 					"required": ["stylelint"],
