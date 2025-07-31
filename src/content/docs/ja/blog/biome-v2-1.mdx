@@ -1,7 +1,7 @@
 ---
 title: 'Biome v2.1'
 excerpt: |
-  Biome 2.1がリリースされました。多くのバグ修正、より高速なスキャナー、改善された型推論を搭載しています。
+  Biome 2.1をリリースしました！バグ修正に加え、スキャナーの高速化や型推論の改善が含まれています。
 authors:
   - arendjr
   - team
@@ -9,18 +9,18 @@ date: 2025-07-08
 cover:
     light: "@/assets/blog/roadmap-2024/banner-light.png"
     dark: "@/assets/blog/roadmap-2024/banner-dark.png"
-    alt: プロジェクトのブランド。"Biome, toolchain of the web"と表示されています
+    alt: プロジェクトのブランド："Biome, toolchain of the web"
 socialImage: "@/assets/social-logo.png"
 featured: true
 ---
 
-Biome 2.0がリリースされてからまだ1か月も経っていませんが、その間に驚くべき反響がありました！Discordは賑わい、ダウンロード数は急増し、バグレポートも続々と寄せられています :)
+Biome 2.0のリリースから、まだ1か月も経っていません。しかし、この短期間で驚くほど多くの反響をいただきました！Discordは賑わい、ダウンロード数は急増し、バグレポートも続々と寄せられています :)
 
 ## より高速なスキャナー
 
-おそらく主な論点は、Biome 2.0が新しいスキャナーを導入したことです。これは、ネストされた設定ファイルの検出や、プロジェクトルールが有効な場合のモジュールグラフの構築に使用されます。この論点の理由は、スキャナーがあると動作が遅くなる一方で、人々はBiomeに高速であることを求めているからです。
+おそらく一番の議論の的は、Biome 2.0で導入された新しいスキャナーでしょう。これは、ネストされた設定ファイルの検出や、プロジェクトルールが有効な場合のモジュールグラフの構築に使われます。この機能が議論を呼んでいる理由は明確で、スキャナーによって処理が遅くなる一方、ユーザーはBiomeに高速性を求めているからです。
 
-影響を軽減するために、2.0ではプロジェクトルールをオプトインにしており、ユーザーは機能と速度のどちらを優先するか自分で選択できます。しかし理想的には、両方を実現したいところです。そして残念ながら、プロジェクトルールがなくても、スキャナーは*ある程度*の目に見えるオーバーヘッドを引き起こしていました。
+速度低下を軽減するために、2.0ではプロジェクトルールをオプトインにしており、ユーザーは機能と速度のどちらを優先するか自分で選択できます。しかし理想的には、両方を実現したいところです。そして残念ながら、プロジェクトルールがなくても、スキャナーは*ある程度*の目に見えるオーバーヘッドを引き起こしていました。
 
 Biome 2.1では、「軽量スキャナー」（プロジェクトルールが無効な場合）の動作ロジックを変更しています。以前は、常にプロジェクトのルートから全体をスキャンしていましたが、現在はBiomeに操作を要求するファイルとフォルダーを、プロジェクトのどの部分をスキャンすべきかのヒントとして使用します。
 
@@ -34,24 +34,24 @@ Biome 2.0をリリースしたとき、型推論が[`noFloatingPromises`ルー�
 
 ```ts
 // これがPromiseに評価されることがわかります：
-true && Promise.reject("論理演算子バイパス");
+true && Promise.reject("logical operator bypass");
 
 // しかし、これはPromiseではありません：
-false && Promise.reject("論理演算子バイパス");
+false && Promise.reject("logical operator bypass");
 
 // 同様に、これがPromiseを返す可能性があることを検出するようになりました：
 const condition = Math.random() > -1; // 常にtrueですが、リンターには動的
-condition ? Promise.reject("三項演算子バイパス") : null;
+condition ? Promise.reject("ternary bypass") : null;
 
 // 一方、以下は決してPromiseではないことがわかります：
 const alwaysFalsy = 0;
-alwaysFalsy ? Promise.reject("三項演算子バイパス") : null;
+alwaysFalsy ? Promise.reject("ternary bypass") : null;
 
 // Promiseが処理されていないため、これにフラグが立てられるようになりました：
 [1, 2, 3].map(async (x) => x + 1);
 ```
 
-さらに、ゲッター、コールシグネチャ、カンマ演算子などのサポートを追加しました。私たちの目標は、TypeScriptのどの部分がサポートされているかを心配する必要がなく、大部分のケースが「ただ動く」ようにすることです。まだ作業中ですが、進歩に満足しています。
+さらに、getters、call signatures、カンマ演算子などのサポートを追加しました。私たちの目標は、TypeScriptのどの部分がサポートされているかを心配する必要がなく、大部分のケースが「ただ動く」ようにすることです。まだ作業中ですが、進捗に満足しています。
 
 そして最後に、関連するルール[`noMisusedPromises`](https://biomejs.dev/linter/rules/no-misused-promises/)も追加しました。
 
@@ -69,7 +69,7 @@ alwaysFalsy ? Promise.reject("三項演算子バイパス") : null;
 
 その他の注目すべき変更：
 
-* ルール[`noUnusedFunctionParameters`](https://biomejs.dev/linter/rules/no-unused-function-parameters/)に`ignoreRestSiblings`オプションが追加されました。
+* ルール[`noUnusedFunctionParameters`](https://biomejs.dev/linter/rules/no-unused-function-parameters/)に、`ignoreRestSiblings`オプションが追加されました。
 
 ## 注目すべきバグ修正
 
@@ -79,9 +79,9 @@ alwaysFalsy ? Promise.reject("三項演算子バイパス") : null;
 ## 次は何か
 
 2.xの旅はまだ始まったばかりです。スキャナーも型推論もさらなる改善が見込まれます。さらに、[コアコントリビューター](/internals/people-and-credits#core-contributors)は[2025年のロードマップ](/blog/roadmap-2025#-2025-roadmap)を進め、次の機能に焦点を当てます：
-- HTMLサポートを安定させる。
-- Vue、Svelte、Astro、そしてうまくいけばAngularもサポートするようにHTMLを拡張する。
-- パーサーから始めて、Markdownサポートに取り組む。
+- HTMLサポートを安定させる
+- Vue、Svelte、Astro、そしてうまくいけばAngularもサポートするようにHTMLを拡張する
+- Markdownサポートをパーサー実装から開始する
 - その他多数！
 
 ## インストールと移行
@@ -96,16 +96,16 @@ npx @biomejs/biome migrate --write
 `migrate`コマンドは設定の破壊的変更を処理するので、手動で行う必要はありません。
 
 :::note
-Biome 1.xからアップグレードする場合は、[移行ガイド](/guides/upgrade-to-biome-v2)に従ってまずBiome 2.0にアップグレードしてから、Biome 2.1にアップグレードしてください。
+Biome 1.xからアップグレードする場合は、[移行ガイド](/guides/upgrade-to-biome-v2)に従い、まずBiome 2.0にアップグレードしてから、Biome 2.1にアップグレードしてください。
 :::
 
 ## この方向性が気に入っています、どうすれば手伝えますか？
 
-Biomeは、プログラミング、オープンソース、Biomeの哲学を愛するボランティアによって主導されているプロジェクトです。どんな助けも歓迎します 😁
+Biomeは、プログラミング、オープンソース、Biomeの哲学を愛するボランティアによって主導されているプロジェクトです。どんな助けも歓迎します😁
 
 ### 翻訳
 
-Biomeに精通していて、その普及に貢献したい場合は、ウェブサイトを母国語に翻訳することで私たちを支援できます。この[ダッシュボード](https://biomejs.dev/i18n-dashboard/)で、サポートされている言語と最新かどうかを確認できます。
+Biomeに精通していて、その普及に貢献したい場合は、ウェブサイトを母国語に翻訳して私たちを支援できます。この[ダッシュボード](https://biomejs.dev/i18n-dashboard/)で、サポートされている言語と、ドキュメントが最新かどうかを確認できます。
 
 ### 私たちとチャット
 
@@ -118,7 +118,7 @@ Biomeに精通していて、その普及に貢献したい場合は、ウェブ
 探求すべき多くの側面があります。退屈することはないと保証します。以下は、始められるものの小さなリストです：
 - 新しいリントルールを作成する！まだ実装していないルールがたくさんあります（ESLint、ESLintプラグイン、Next.js、Solidなど）。[詳細な技術ガイド](https://github.com/biomejs/biome/blob/main/crates/biome_analyze/CONTRIBUTING.md)があります。
 - [Biome](https://github.com/biomejs/biome/tree/main/crates/biome_yaml_parser)[パーサー](https://github.com/biomejs/biome/tree/main/crates/biome_html_parser)の[構築](https://github.com/biomejs/biome/blob/main/crates/biome_parser/CONTRIBUTING.md)を[手伝う](https://github.com/biomejs/biome/tree/main/crates/biome_markdown_parser)！
-  Biomeパーサーについての興味深い事実は、[エラー耐性](/internals/architecture/#parser-and-cst)のある回復可能なパーサーであり、従来のASTではなく[CST](https://en.wikipedia.org/wiki/Parse_tree)を出力することです。
+  Biomeパーサーの面白い点は、[エラー耐性](/internals/architecture/#parser-and-cst)のある回復可能なパーサーであり、従来のASTではなく[CST](https://en.wikipedia.org/wiki/Parse_tree)を出力することです。
 - [LSP（Language Server Protocol）](https://github.com/biomejs/biome/tree/main/crates/biome_lsp)に新しい機能を実装するか、エディター拡張機能のいずれかに新しい機能を追加する：[VS Code](https://github.com/biomejs/biome-vscode)、[Zed](https://github.com/biomejs/biome-zed)、[JetBrains IntelliJ](https://github.com/biomejs/biome-intellij)。
 
 ### 財政的支援
