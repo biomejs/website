@@ -1,0 +1,129 @@
+---
+title: Zed 扩展
+description: 关于 Biome 的 Zed 扩展注意事项
+---
+
+## 安装
+
+需要 Zed >= **v0.131.0**.
+
+此扩展在 Zed 编辑器的扩展视图中可用。打开 `zed: extensions` 并搜索 *Biome*。
+
+## 配置
+
+默认情况下，biome.json 文件需要在 **工作区根目录下**。
+
+或者，它也可以通过 LSP 设置进行配置：
+
+```jsonc
+// settings.json
+{
+  "lsp": {
+    "biome": {
+      "settings": {
+        "config_path": "<path>/biome.json"
+      }
+    }
+  }
+}
+```
+
+### 格式化
+
+如果想要使用语言服务器作为格式化器，需要在设置中指定 Biome 作为您的格式化器：
+
+```jsonc
+// settings.json
+{
+  "languages": {
+    "JavaScript": { "formatter": { "language_server": { "name": "biome" } } },
+    "TypeScript": { "formatter": { "language_server": { "name": "biome" } } },
+    "JSX": { "formatter": { "language_server": { "name": "biome" } } },
+    "TSX": { "formatter": { "language_server": { "name": "biome" } } },
+    "JSON": { "formatter": { "language_server": { "name": "biome" } } },
+    "JSONC": { "formatter": { "language_server": { "name": "biome" } } },
+    "CSS": { "formatter": { "language_server": { "name": "biome" } } },
+    "GraphQL": { "formatter": { "language_server": { "name": "biome" } } },
+  }
+}
+```
+
+查看 [语言支持](/internals/language-support) 获取更多信息。
+
+### 仅当存在 biome.json 时才启用 Biome
+
+```jsonc
+// settings.json
+{
+  "lsp": {
+    "biome": {
+      "settings": {
+        "require_config_file": true
+      }
+    }
+  }
+}
+```
+
+### 在格式化时运行代码操作
+
+```jsonc
+// settings.json
+{
+  "languages": {
+    "JavaScript": {
+      "formatter": { "language_server": { "name": "biome" } },
+      "code_actions_on_format": {
+        "source.fixAll.biome": true,
+        "source.organizeImports.biome": true
+      }
+    },
+    "TypeScript": {
+      "formatter": { "language_server": { "name": "biome" } },
+      "code_actions_on_format": {
+        "source.fixAll.biome": true,
+        "source.organizeImports.biome": true
+      }
+    },
+    "JSX": {
+      "formatter": { "language_server": { "name": "biome" } },
+      "code_actions_on_format": {
+        "source.fixAll.biome": true,
+        "source.organizeImports.biome": true
+      }
+    },
+    "TSX": {
+      "formatter": { "language_server": { "name": "biome" } },
+      "code_actions_on_format": {
+        "source.fixAll.biome": true,
+        "source.organizeImports.biome": true
+      }
+    }
+  }
+}
+```
+
+### 基于项目的配置
+
+您可以将这些设置包含在项目文件夹根目录的 Zed 项目设置 （`.zed/settings.json`） 中，或作为 Zed 用户设置 （`~/.config/zed/settings.json`），默认情况这种配置适用于所有项目。
+
+#### 在特定项目中禁用 Biome
+
+您可以使用以下方式在项目中排除给定的语言（例如 GraphQL）的 Biome 支持：
+
+```jsonc
+// settings.json
+{
+  "languages": {
+    "GraphQL": {
+      "language_servers": [ "!biome", "..." ]
+    }
+  }
+}
+```
+
+### 全局设置
+
+不建议将 `biome` 添加到 Zed setting.json 中的顶级 `language_servers`、`formatter` 或 `code_actions_on_format` 键中。全局将 Biome 指定为 `language_server` 或 `formatter` 可能会破坏 Biome 不支持的语言（Rust、Python 等）的功能。查看 [语言支持](/internals/language-support) 文档获取一份完整的语言支持列表。
+
+本文档之前推荐了全局设置；请切换您的 Zed 设置以根据每种语言显式配置 biome。

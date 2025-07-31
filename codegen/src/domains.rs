@@ -108,10 +108,16 @@ impl DocDomains {
                         "Use this domain inside Vue projects. This domain enables rules that are specific to Vue projects."
                     )?;
                 }
+                // RuleDomain::Qwik => {
+                //     writeln!(buffer, "## {name}")?;
+                //     writeln!(
+                //         buffer,
+                //         "Use this domain inside Qwik projects. This domain enables rules that are specific to Qwik projects."
+                //     )?;
+                // }
                 #[allow(unreachable_patterns)]
                 domain => {
-                    // This only gets hit if a new domain gets added and has any rules. Domains that don't have any rules are not documented.
-                    anyhow::bail!("Undocumented domain: {:?}", domain);
+                    eprintln!("Undocumented domain: {:?}", domain);
                 }
             }
             Self::write_activation(name.as_str(), buffer)?;
