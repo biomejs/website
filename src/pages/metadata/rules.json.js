@@ -2090,7 +2090,7 @@ export function GET() {
           },
           "noVueReservedKeys": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.1.3",
             "name": "noVueReservedKeys",
             "link": "https://biomejs.dev/linter/rules/no-vue-reserved-keys",
             "recommended": true,
@@ -2107,7 +2107,7 @@ export function GET() {
           },
           "noVueReservedProps": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.1.2",
             "name": "noVueReservedProps",
             "link": "https://biomejs.dev/linter/rules/no-vue-reserved-props",
             "recommended": true,
@@ -4140,7 +4140,7 @@ export function GET() {
         "nursery": {
           "noQuickfixBiome": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.1.3",
             "name": "noQuickfixBiome",
             "link": "https://biomejs.dev/linter/rules/no-quickfix-biome",
             "recommended": true,
@@ -4993,7 +4993,7 @@ export function GET() {
           },
           "useReactFunctionComponents": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.1.3",
             "name": "useReactFunctionComponents",
             "link": "https://biomejs.dev/linter/rules/use-react-function-components",
             "recommended": false,
