@@ -542,7 +542,7 @@ struct GenRule<'a> {
 fn generate_rule(
     payload: GenRule,
     path_prefix: &str,
-    middle_path: &str,
+    _middle_path: &str,
     rule_category: RuleCategory,
 ) -> Result<()> {
     let mut content = Vec::new();
@@ -779,7 +779,7 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
         writeln!(content, ":::caution")?;
         writeln!(
             content,
-            "This rule is part of the [nursery](/{path_prefix}/{middle_path}/#nursery) group."
+            "This rule is part of the [nursery](/{path_prefix}/#nursery) group. This means that it is experimental and the behavior can change at any time."
         )?;
         writeln!(content, ":::")?;
     }

@@ -10,9 +10,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 <Tabs>
 <TabItem label="JSX and TSX" icon="seti:javascript">
 ## Summary
-:::note
-This rule is currently only available in the [2.0 beta release](/blog/biome-v2-0-beta).
-:::
+- Rule available since: `v2.1.3`
 - Diagnostic Category: [`lint/nursery/useReactFunctionComponents`](/reference/diagnostics#diagnostic-category)
 - This rule doesn't have a fix.
 - The default severity of this rule is [**information**](/reference/diagnostics#information).
@@ -22,7 +20,7 @@ This rule is currently only available in the [2.0 beta release](/blog/biome-v2-0
   - Same as [`react-prefer-function-component/react-prefer-function-component`](https://github.com/tatethurston/eslint-plugin-react-prefer-function-component)
 
 :::caution
-This rule is part of the [nursery](/linter/rules/#nursery) group.
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
 :::
 ## Description
 Enforce that components are defined as functions and never as classes.

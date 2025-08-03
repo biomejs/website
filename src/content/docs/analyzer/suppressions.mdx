@@ -32,8 +32,7 @@ Let's break it down:
 - `biome-ignore`, `biome-ignore-all`, `biome-ignore-start` and `biome-ignore-end` are the start of a suppression comment.
 - After the space follows the **category** of the suppression comment. It can be `lint`, `assist`, or `syntax`.
 - The category is followed by an optional group, or group and name, separated by slashes. For example, `/suspicious` or `/suspicious/noDebugger`. The more you specify, the more specific (i.e. targeted) your suppression is.
-- Some rules even allow you to specify values during suppression. These can be specified between parentheses, for example: `(foo)`. Refer to the rule documentation to learn more about these.
-of the single rule to learn if they are used.
+- Some rules even allow you to specify values during suppression. These can be specified between parentheses, for example: `(foo)`. Refer to the rule documentation to see whether a rule supports suppression with values.
 - `<explanation>` explanation why the rule is disabled.
 
 If you're unsure of the exact category of a rule/action, you can refer to their documentation page and use their *diagnostic category*.
