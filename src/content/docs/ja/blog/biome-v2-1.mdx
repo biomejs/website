@@ -51,7 +51,7 @@ alwaysFalsy ? Promise.reject("ternary bypass") : null;
 [1, 2, 3].map(async (x) => x + 1);
 ```
 
-さらに、getters、call signatures、カンマ演算子などのサポートを追加しました。私たちの目標は、TypeScriptのどの部分がサポートされているかを心配する必要がなく、大部分のケースが「ただ動く」ようにすることです。まだ作業中ですが、進捗に満足しています。
+さらに、ゲッター、call signatures、カンマ演算子などのサポートを追加しました。私たちの目標は、TypeScriptのどの部分がサポートされているかを心配する必要がなく、大部分のケースが「ただ動く」ようにすることです。まだ作業中ですが、進捗に満足しています。
 
 そして最後に、関連するルール[`noMisusedPromises`](https://biomejs.dev/linter/rules/no-misused-promises/)も追加しました。
 
