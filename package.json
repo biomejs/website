@@ -50,7 +50,7 @@
     "@types/node": "22.16.5",
     "@types/react": "18.3.23",
     "@types/react-dom": "18.3.7",
-    "@uiw/react-codemirror": "4.24.1",
+    "@uiw/react-codemirror": "4.24.2",
     "@vitejs/plugin-react": "4.7.0",
     "astro": "5.12.3",
     "astro-og-canvas": "0.7.0",
