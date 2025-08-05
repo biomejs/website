@@ -192,6 +192,7 @@ export const LINT_RULES = {
   noUnknownTypeSelector: "noUnknownTypeSelector",
   noUnknownUnit: "noUnknownUnit",
   noUnmatchableAnbSelector: "noUnmatchableAnbSelector",
+  noUnnecessaryConditions: "noUnnecessaryConditions",
   noUnreachable: "noUnreachable",
   noUnreachableSuper: "noUnreachableSuper",
   noUnresolvedImports: "noUnresolvedImports",

@@ -194,6 +194,7 @@ export default {
   '/linter/rules/noUnknownTypeSelector': '/linter/rules/no-unknown-type-selector',
   '/linter/rules/noUnknownUnit': '/linter/rules/no-unknown-unit',
   '/linter/rules/noUnmatchableAnbSelector': '/linter/rules/no-unmatchable-anb-selector',
+  '/linter/rules/noUnnecessaryConditions': '/linter/rules/no-unnecessary-conditions',
   '/linter/rules/noUnreachable': '/linter/rules/no-unreachable',
   '/linter/rules/noUnreachableSuper': '/linter/rules/no-unreachable-super',
   '/linter/rules/noUnresolvedImports': '/linter/rules/no-unresolved-imports',
