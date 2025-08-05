@@ -26,7 +26,7 @@ export const collections = {
 				"title.docs": z.string().optional(),
 				"title.enterprise": z.string().optional(),
 				"title.playground": z.string().optional(),
-			})
+			}),
 		}),
-	})
+	}),
 };
