@@ -260,6 +260,7 @@ export default {
   '/linter/rules/useConsistentMemberAccessibility': '/linter/rules/use-consistent-member-accessibility',
   '/linter/rules/useConsistentObjectDefinition': '/linter/rules/use-consistent-object-definition',
   '/linter/rules/useConsistentResponse': '/linter/rules/use-consistent-response',
+  '/linter/rules/useConsistentTypeDefinitions': '/linter/rules/use-consistent-type-definitions',
   '/linter/rules/useConst': '/linter/rules/use-const',
   '/linter/rules/useDateNow': '/linter/rules/use-date-now',
   '/linter/rules/useDefaultParameterLast': '/linter/rules/use-default-parameter-last',
