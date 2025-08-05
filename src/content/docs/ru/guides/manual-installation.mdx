@@ -1,0 +1,92 @@
+---
+title: Ручная установка
+description: Установить Biome вручную
+---
+
+import { Code } from '@astrojs/starlight/components';
+import { getLatestVersion } from "@biomejs/version-utils";
+export const version = await getLatestVersion("stable");
+
+Использование автономного бинарного файла CLI Biome может быть хорошим выбором,
+если вы ещё не используете Node.js и `npm` (или любой другой пакетный менеджер).
+Говоря другими словами, Biome не должен быть единственной причиной для существования `package.json`.
+
+:::note
+Если вы уже используете `npm` или другой пакетный менеджер, тогда он — 
+[предпочтительной способ для установки](/ru/guides/getting-started#installation) Biome.
+Вы уже знакомы с этим инструментарием, что упрощает установку и обновление.
+:::
+
+## Поддерживаемые платформы
+
+Вам нужно выбрать правильный бинарный файл для вашей платформы, чтобы Biome работал. Данная таблица должна помочь вам с этим.
+
+| Архитектура процессора  | Windows       | macOS                         | Linux         | Linux (musl)       |
+| ----------------------- | ------------- | ----------------------------- | ------------- | ------------------ |
+| `arm64`                 | `win32-arm64` | `darwin-arm64` (M1 или новее) | `linux-arm64` | `linux-arm64-musl` |
+| `x64`                   | `win32-x64`   | `darwin-x64`                  | `linux-x64`   | `linux-x64-musl`   |
+
+:::note
+Используйте вариант для Linux на Windows Subsystem for Linux (WSL).
+:::
+
+## Homebrew
+
+Biome доступен в качестве [формулы Homebrew](https://formulae.brew.sh/formula/biome) для пользователей macOS и Linux.
+
+```shell
+brew install biome
+```
+
+## Docker
+
+Biome предоставляет [официальные Docker-образы](https://github.com/biomejs/docker/pkgs/container/biome),
+которые поддерживают архитектуры **amd64** и **arm64** для всех версий Biome, начиная с `v1.7.0`.
+
+```
+ghcr.io/biomejs/biome:{major}
+ghcr.io/biomejs/biome:{major}.{minor}
+ghcr.io/biomejs/biome:{major}.{minor}.{patch}
+```
+
+Вот несколько примеров использования Docker-образа:
+
+:::note
+Рабочий каталог Docker-образа по умолчанию — `/code`.
+:::
+
+```shell
+# Выполнить линтинг файлов
+docker run -v $(pwd):/code ghcr.io/biomejs/biome lint
+docker run -v $(pwd):/code ghcr.io/biomejs/biome lint --write
+
+# Отформатировать файлы
+docker run -v $(pwd):/code ghcr.io/biomejs/biome format
+docker run -v $(pwd):/code ghcr.io/biomejs/biome format --write
+```
+
+
+
+## Использование готового бинарного файла
+
+Чтобы установить Biome, получите исполняемый файл для вашей платформы из
+[последнего выпуска CLI](https://github.com/biomejs/biome/releases) на GitHub и выдайте ему разрешение на выполнение.
+
+<Code lang="shell" code={`
+# macOS arm (M1 или новее)
+curl -L https://github.com/biomejs/biome/releases/download/@biomejs/biome@${version}/biome-darwin-arm64 -o biome
+chmod +x biome
+
+# Linux (x86_64)
+curl -L https://github.com/biomejs/biome/releases/download/@biomejs/biome@${version}/biome-linux-x64 -o biome
+chmod +x biome
+
+# Windows (x86_64, Powershell)
+Invoke-WebRequest -Uri "https://github.com/biomejs/biome/releases/download/@biomejs/biome@${version}/biome-win32-x64.exe" -OutFile "biome.exe"
+`} />
+
+Теперь вы можете использовать Biome, просто выполнив `./biome`.
+
+## Дальнейшие шаги
+
+Следуйте нашему [гайду о Начале работы](/ru/guides/getting-started/).
