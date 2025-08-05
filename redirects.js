@@ -130,6 +130,7 @@ export default {
   '/linter/rules/noNestedComponentDefinitions': '/linter/rules/no-nested-component-definitions',
   '/linter/rules/noNestedTernary': '/linter/rules/no-nested-ternary',
   '/linter/rules/noNodejsModules': '/linter/rules/no-nodejs-modules',
+  '/linter/rules/noNonNullAssertedOptionalChain': '/linter/rules/no-non-null-asserted-optional-chain',
   '/linter/rules/noNonNullAssertion': '/linter/rules/no-non-null-assertion',
   '/linter/rules/noNoninteractiveElementInteractions': '/linter/rules/no-noninteractive-element-interactions',
   '/linter/rules/noNoninteractiveElementToInteractiveRole': '/linter/rules/no-noninteractive-element-to-interactive-role',

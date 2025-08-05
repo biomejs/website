@@ -1937,6 +1937,23 @@ export function GET() {
             ],
             "docs": " Prevent import cycles.\n\n This rule warns when a file imports another file that, either directly\n or indirectly, imports the original file again.\n\n Cycles can lead to symbols that are unexpectedly `undefined` and are\n generally considered poor code hygiene.\n\n If a cycle is detected, it is advised to move code such that imports\n only go in a single direction, i.e. they don't point \"back\" to the\n importing file.\n\n :::note\n This rule is computationally expensive. If you are particularly\n pressed for lint time, or don't think you have an issue with dependency\n cycles, you may not want this rule enabled.\n :::\n\n ## Examples\n\n ### Invalid\n\n **`foobar.js`**\n ```js\n import { baz } from \"./baz.js\";\n\n export function foo() {\n     baz();\n }\n\n export function bar() {\n     console.log(\"foobar\");\n }\n ```\n\n **`baz.js`**\n ```js\n import { bar } from \"./foobar.js\";\n\n export function baz() {\n     bar();\n }\n ```\n\n ### Valid\n\n **`foo.js`**\n ```js\n import { baz } from \"./baz.js\";\n\n export function foo() {\n     baz();\n }\n ```\n\n **`bar.js`**\n ```js\n export function bar() {\n     console.log(\"foobar\");\n }\n ```\n\n **`baz.js`**\n ```js\n import { bar } from \"./bar.js\";\n\n export function baz() {\n     bar();\n }\n ```\n\n"
           },
+          "noNonNullAssertedOptionalChain": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noNonNullAssertedOptionalChain",
+            "link": "https://biomejs.dev/linter/rules/no-non-null-asserted-optional-chain",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintTypeScript": "no-non-null-asserted-optional-chain"
+                }
+              }
+            ],
+            "docs": " Disallow non-null assertions after optional chaining expressions.\n\n Optional chaining (`?.`) is designed to return `undefined` if the object is `null` or `undefined`.\n Using a non-null assertion (`!`) immediately after optional chaining defeats the purpose\n of optional chaining and can lead to runtime errors.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n obj?.prop!;\n ```\n\n ```ts,expect_diagnostic\n obj?.method()!.prop;\n ```\n\n ```ts,expect_diagnostic\n obj?.[key]!.method();\n ```\n\n ### Valid\n\n ```ts\n obj?.prop;\n ```\n\n ```ts\n obj!.prop?.method();\n ```\n\n ```ts\n obj?.prop ?? defaultValue;\n ```\n\n"
+          },
           "noProcessGlobal": {
             "deprecated": false,
             "version": "2.0.0",
@@ -5900,7 +5917,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 345
+    "numberOrRules": 346
   },
   "syntax": {
     "languages": {

@@ -128,6 +128,7 @@ export const LINT_RULES = {
   noNestedComponentDefinitions: "noNestedComponentDefinitions",
   noNestedTernary: "noNestedTernary",
   noNodejsModules: "noNodejsModules",
+  noNonNullAssertedOptionalChain: "noNonNullAssertedOptionalChain",
   noNonNullAssertion: "noNonNullAssertion",
   noNoninteractiveElementInteractions: "noNoninteractiveElementInteractions",
   noNoninteractiveElementToInteractiveRole: "noNoninteractiveElementToInteractiveRole",
