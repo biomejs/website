@@ -259,6 +259,7 @@ export const LINT_RULES = {
   useConsistentMemberAccessibility: "useConsistentMemberAccessibility",
   useConsistentObjectDefinition: "useConsistentObjectDefinition",
   useConsistentResponse: "useConsistentResponse",
+  useConsistentTypeDefinitions: "useConsistentTypeDefinitions",
   useConst: "useConst",
   useDateNow: "useDateNow",
   useDefaultParameterLast: "useDefaultParameterLast",

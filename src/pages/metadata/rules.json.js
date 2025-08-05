@@ -5417,6 +5417,23 @@ export function GET() {
             ],
             "docs": " Disallow Promises to be used in places where they are almost certainly a\n mistake.\n\n In most cases, if you assign a `Promise` somewhere a `Promise` is not\n allowed, the TypeScript compiler will be able to catch such a mistake.\n But there are a few places where TypeScript allows them -- they're not\n _necessarily_ a mistake -- even though they could be considered almost\n certainly to be one.\n\n This rule disallows using Promises in such places.\n\n ## Examples\n\n ### Invalid\n\n ```js\n const promise = Promise.resolve('value');\n if (promise) { /* This branch will always execute */ }\n ```\n\n ```js\n const promise = Promise.resolve('value');\n const val = promise ? 123 : 456; // Always evaluates to `123`.\n ```\n\n ```js\n // The following filter has no effect:\n const promise = Promise.resolve('value');\n [1, 2, 3].filter(() => promise);\n ```\n\n ```js\n const promise = Promise.resolve('value');\n while (promise) { /* This is an endless loop */ }\n ```\n\n ```js\n // Using a `Promise` as an iterable expands to nothing:\n const getData = () => fetch('/');\n console.log({ foo: 42, ...getData() });\n ```\n\n ```js\n // These `fetch`-es are not `await`-ed in order:\n [1, 2, 3].forEach(async value => {\n     await fetch(`/${value}`);\n });\n ```\n\n ### Valid\n\n ```js\n const promise = Promise.resolve('value');\n if (await promise) { /* Do something */ }\n\n const val = (await promise) ? 123 : 456;\n\n while (await promise) { /* Do something */ }\n\n const getData = () => fetch('/');\n console.log({ foo: 42, ...(await getData()) });\n\n // for-of puts `await` in outer context:\n for (const value of [1, 2, 3]) {\n     await doSomething(value);\n }\n ```\n\n"
           },
+          "useConsistentTypeDefinitions": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useConsistentTypeDefinitions",
+            "link": "https://biomejs.dev/linter/rules/use-consistent-type-definitions",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintTypeScript": "consistent-type-definitions"
+                }
+              }
+            ],
+            "docs": " Enforce type definitions to consistently use either `interface` or `type`.\n\n _TypeScript_ provides two different ways to define an object type: `interface` and `type`.\n\n This rule enforces consistent usage of either `interface` or `type` for object type definitions.\n Consistent type definition styles, aside from improving code readability, help minimize cognitive load when developers\n switch between different codebases or within a large codebase.\n\n ## Example\n\n ### Invalid\n\n ```ts,expect_diagnostic\n type Point = { x: number; y: number; };\n ```\n\n ### Valid\n\n ```ts\n interface Point {\n   x: number;\n   y: number;\n }\n ```\n\n ## Options\n\n The following options are available\n\n ### `style`\n\n This option will determine which style to use for type definitions.\n\n Default: `interface`\n\n ```json,options\n {\n     \"options\": {\n         \"style\": \"type\"\n     }\n }\n ```\n\n ```ts,use_options,expect_diagnostic\n interface Point {\n   x: number;\n   y: number;\n }\n ```\n\n"
+          },
           "useExplicitType": {
             "deprecated": false,
             "version": "1.9.3",
@@ -5883,7 +5900,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 344
+    "numberOrRules": 345
   },
   "syntax": {
     "languages": {
