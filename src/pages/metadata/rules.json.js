@@ -2039,6 +2039,23 @@ export function GET() {
             ],
             "docs": " Disallow `let` or `var` variables that are read but never assigned.\n\n This rule flags let or var declarations that are never assigned a value but are still read or used in the code.\n Since these variables will always be undefined, their usage is likely a programming mistake.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n let status;\n if (status === 'ready') {\n     console.log('Status is ready');\n }\n ```\n\n ```ts,expect_diagnostic\n let value: number | undefined;\n console.log(value);\n ```\n\n ### Valid\n\n ```js\n let message = \"hello\";\n console.log(message);\n\n let user;\n user = getUser();\n console.log(user.name);\n\n let count;\n count = 0;\n count++;\n ```\n\n ```ts\n declare let value: number | undefined;\n console.log(value);\n\n declare module \"my-module\" {\n     let value: string;\n     export = value;\n }\n ```\n\n"
           },
+          "noUnnecessaryConditions": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noUnnecessaryConditions",
+            "link": "https://biomejs.dev/linter/rules/no-unnecessary-conditions",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintTypeScript": "no-unnecessary-condition"
+                }
+              }
+            ],
+            "docs": " Disallow unnecessary type-based conditions that can be statically determined as redundant.\n\n This rule detects if expressions inside conditions are statically inferrable and yield\n falsy or truthy values that don't change during the life cycle of the program.\n\n ## Examples\n\n ### Invalid\n\n ```ts\n function head<T>(items: T[]) {\n   if (items) {  // This check is unnecessary\n     return items[0].toUpperCase();\n   }\n }\n ```\n\n ```ts\n function foo(arg: 'bar' | 'baz') {\n   if (arg) {  // This check is unnecessary\n   }\n }\n ```\n\n ```ts\n function bar(arg: string) {\n   return arg?.length;  // ?. is unnecessary\n }\n ```\n\n ### Valid\n\n ```ts\n function head<T>(items: T[] | null) {\n   if (items) {  // This check is necessary\n     return items[0].toUpperCase();\n   }\n }\n ```\n\n ```ts\n function foo(arg: 'bar' | 'baz' | null) {\n   if (arg) {  // This check is necessary\n   }\n }\n ```\n\n ```ts\n function bar(arg: string | undefined) {\n   return arg?.length;  // ?. is necessary\n }\n ```\n\n"
+          },
           "noUnresolvedImports": {
             "deprecated": false,
             "version": "2.0.0",
@@ -5917,7 +5934,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 346
+    "numberOrRules": 347
   },
   "syntax": {
     "languages": {
