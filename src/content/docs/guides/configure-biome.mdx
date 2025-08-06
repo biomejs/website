@@ -206,7 +206,8 @@ and use the negated patterns, using the leading `!`.
 
 Before listing the negated globs, **they must be preceded by the `**` pattern**.
 
-In the following example, we tell Biome to include files, excluded the `dist` directory, and all files that have `.generated.js` in their name
+In the following example, we tell Biome to include all files, except those in
+any `dist/` folder, as well as those that end with `.generated.js`:
 
 ```json title="biome.json"
 {
