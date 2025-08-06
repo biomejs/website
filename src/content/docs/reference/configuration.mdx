@@ -111,13 +111,13 @@ This means that:
 
 #### Note on Biome's scanner
 
-Biome has a scanner that is responsible for discovering nested `.gitignore` files as
-well as indexing projects if any of the rules from the project domain are
-enabled.
+Biome has a scanner that is responsible for discovering nested `.gitignore`
+files as well as indexing projects if any of the rules from the project domain
+are enabled.
 
-The scanner mostly respects the `files.includes` setting, but there are some
-exceptions. See the [scanner documentation](/internals/architecture/#scanner)
-for more information.
+The scanner respects the `files.includes` setting, but there is some fineprint.
+See the [scanner documentation](/internals/architecture/#scanner) for more
+information.
 
 ### `files.ignoreUnknown`
 
