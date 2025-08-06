@@ -1325,10 +1325,18 @@ following syntax in globs:
 - If the entire glob starts with `!`, it is a so-called negated pattern. This
   glob only matches if the path _doesn't_ match the glob. Negated patterns
   cannot be used alone, they can only be used as _exception_ to a regular glob.
+- When determining whether a file is included or not, Biome considers the parent
+  folders too. This means that if you want to _include_ all files in a folder,
+  you need to use the `/**` suffix to match those files. But if you want to
+  _ignore_ all files in a folder, you may do so without the `/**` suffix. We
+  recommend ignoring folders without the trailing `/**`, to avoid needlessly
+  traversing it, as well as to avoid the risk of Biome loading a `biome.json` or
+  a `.gitignore` file from an ignored folder.
 
 Some examples:
 
 - `dist/**` matches the `dist/` folder and all files inside it.
+- `!dist` ignores the `dist/` folder and all files inside it.
 - `**/test/**` matches all files under any folder named `test`, regardless of
   where they are. E.g. `dist/test`, `src/test`.
 - `**/*.js` matches all files ending with the extension `.js` in all folders.
