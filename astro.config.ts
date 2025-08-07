@@ -215,6 +215,7 @@ export default defineConfig({
 							link: "/guides/upgrade-to-biome-v2",
 							badge: "new",
 							translations: {
+								ja: "Biome v2 へのアップグレード",
 								"zh-CN": "升级到 Biome v2",
 								ru: "Обновление до Biome v2",
 							},
@@ -298,6 +299,7 @@ export default defineConfig({
 							label: "Investigate slowness",
 							link: "/guides/investigate-slowness",
 							translations: {
+								ja: "パフォーマンスの問題を調査する",
 								"zh-CN": "调查 Biome 中的性能问题",
 								ru: "Расследование медленной работы",
 							},
@@ -349,6 +351,7 @@ export default defineConfig({
 					translations: {
 						es: "Formateador",
 						fr: "Outil de formatage",
+						ja: "フォーマッター",
 						"zh-CN": "格式化程序",
 						"pt-BR": "Formatador",
 						uk: "Форматувальник",
@@ -404,6 +407,7 @@ export default defineConfig({
 									link: "/linter/domains",
 									badge: "new",
 									translations: {
+										ja: "ドメイン",
 										"zh-CN": "域",
 										ru: "Домены",
 									},
@@ -424,7 +428,7 @@ export default defineConfig({
 									translations: {
 										es: "Reglas",
 										fr: "Règles",
-										ja: "ルール",
+										ja: "JavaScript ルール",
 										"zh-CN": "JavaScript 规则",
 										"pt-BR": "Regras",
 										uk: "Правила",
@@ -435,8 +439,9 @@ export default defineConfig({
 									label: "JavaScript Rules sources",
 									link: "/linter/javascript/sources",
 									translations: {
-										"zh-CN": "JavaScript 规则来源",
 										es: "Fuentes de reglas",
+										ja: "JavaScript ルールのソース",
+										"zh-CN": "JavaScript 规则来源",
 										fr: "Sources des règles",
 										ru: "Источники правил JavaScript",
 									},
@@ -445,6 +450,7 @@ export default defineConfig({
 									label: "CSS Rules",
 									link: "/linter/css/rules",
 									translations: {
+										ja: "CSS ルール",
 										"zh-CN": "CSS 规则",
 										ru: "Правила CSS",
 									},
@@ -453,6 +459,7 @@ export default defineConfig({
 									label: "CSS Rules sources",
 									link: "/linter/css/sources",
 									translations: {
+										ja: "JavaScript ルールのソース",
 										"zh-CN": "CSS 规则来源",
 										ru: "Источники правил CSS",
 									},
@@ -461,6 +468,7 @@ export default defineConfig({
 									label: "JSON Rules",
 									link: "/linter/json/rules",
 									translations: {
+										ja: "JSON ルール",
 										"zh-CN": "JSON 规则",
 										ru: "Правила JSON",
 									},
@@ -469,6 +477,7 @@ export default defineConfig({
 									label: "JSON Rules sources",
 									link: "/linter/json/sources",
 									translations: {
+										ja: "JavaScript ルールのソース",
 										"zh-CN": "JSON 规则来源",
 										ru: "Источники правил JSON",
 									},
@@ -477,6 +486,7 @@ export default defineConfig({
 									label: "GraphQL Rules",
 									link: "/linter/graphql/rules",
 									translations: {
+										ja: "GraphQL ルール",
 										"zh-CN": "GraphQL 规则",
 										ru: "Правила GraphQL",
 									},
@@ -485,6 +495,7 @@ export default defineConfig({
 									label: "GraphQL Rules sources",
 									link: "/linter/graphql/sources",
 									translations: {
+										ja: "GraphQL ルールのソース",
 										"zh-CN": "GraphQL 规则来源",
 										ru: "Источники правил GraphQL",
 									},
@@ -492,6 +503,7 @@ export default defineConfig({
 							],
 							translations: {
 								fr: "Outil de linting",
+								ja: "リンター",
 								uk: "Лінтер",
 								ru: "Линтер",
 							},
@@ -515,6 +527,7 @@ export default defineConfig({
 									label: "JavaScript Actions",
 									link: "/assist/javascript/actions",
 									translations: {
+										ja: "JavaScript アクション",
 										"zh-CN": "JavaScript 操作",
 										ru: "Действия JavaScript",
 									},
@@ -523,6 +536,7 @@ export default defineConfig({
 									label: "JavaScript Actions sources",
 									link: "/assist/javascript/sources",
 									translations: {
+										ja: "JavaScript アクションのソース",
 										"zh-CN": "JavaScript 操作来源",
 										ru: "Источники действий JavaScript",
 									},
@@ -531,6 +545,7 @@ export default defineConfig({
 									label: "CSS Actions",
 									link: "/assist/css/actions",
 									translations: {
+										ja: "CSS アクション",
 										"zh-CN": "CSS 操作",
 										ru: "Действия CSS",
 									},
@@ -539,6 +554,7 @@ export default defineConfig({
 									label: "CSS Actions sources",
 									link: "/assist/css/sources",
 									translations: {
+										ja: "CSS アクションのソース",
 										"zh-CN": "CSS 操作来源",
 										ru: "Источники действий CSS",
 									},
@@ -547,6 +563,7 @@ export default defineConfig({
 									label: "JSON Actions",
 									link: "/assist/json/actions",
 									translations: {
+										ja: "JSON アクション",
 										"zh-CN": "JSON 操作",
 										ru: "Действия JSON",
 									},
@@ -555,6 +572,7 @@ export default defineConfig({
 									label: "JSON Actions sources",
 									link: "/assist/json/sources",
 									translations: {
+										ja: "JSON アクションのソース",
 										"zh-CN": "JSON 操作来源",
 										ru: "Источники действий JSON",
 									},
@@ -563,6 +581,7 @@ export default defineConfig({
 									label: "GraphQL Actions",
 									link: "/assist/graphql/actions",
 									translations: {
+										ja: "GraphQL アクション",
 										"zh-CN": "GraphQL 操作",
 										ru: "Действия GraphQL",
 									},
@@ -571,12 +590,14 @@ export default defineConfig({
 									label: "GraphQL Actions sources",
 									link: "/assist/graphql/sources",
 									translations: {
+										ja: "GraphQL アクションのソース",
 										"zh-CN": "GraphQL 操作来源",
 										ru: "Источники действий GraphQL",
 									},
 								},
 							],
 							translations: {
+								ja: "アシスト",
 								"zh-CN": "辅助操作",
 								ru: "Действия",
 							},
@@ -814,6 +835,7 @@ export default defineConfig({
 							link: "/internals/changelog",
 							translations: {
 								es: "Registro de cambios",
+								ja: "変更履歴",
 								"zh-CN": "更新日志",
 								"pt-BR": "Alterações",
 								uk: "Журнал змін",
@@ -824,6 +846,7 @@ export default defineConfig({
 							label: "Changelog v1",
 							link: "/internals/changelog_v1",
 							translations: {
+								ja: "変更履歴 (v1)",
 								"zh-CN": "更新日志 v1",
 								ru: "Журнал изменений v1",
 							},
