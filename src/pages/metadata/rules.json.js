@@ -1935,7 +1935,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Prevent import cycles.\n\n This rule warns when a file imports another file that, either directly\n or indirectly, imports the original file again.\n\n Cycles can lead to symbols that are unexpectedly `undefined` and are\n generally considered poor code hygiene.\n\n If a cycle is detected, it is advised to move code such that imports\n only go in a single direction, i.e. they don't point \"back\" to the\n importing file.\n\n :::note\n This rule is computationally expensive. If you are particularly\n pressed for lint time, or don't think you have an issue with dependency\n cycles, you may not want this rule enabled.\n :::\n\n ## Examples\n\n ### Invalid\n\n **`foobar.js`**\n ```js\n import { baz } from \"./baz.js\";\n\n export function foo() {\n     baz();\n }\n\n export function bar() {\n     console.log(\"foobar\");\n }\n ```\n\n **`baz.js`**\n ```js\n import { bar } from \"./foobar.js\";\n\n export function baz() {\n     bar();\n }\n ```\n\n ### Valid\n\n **`foo.js`**\n ```js\n import { baz } from \"./baz.js\";\n\n export function foo() {\n     baz();\n }\n ```\n\n **`bar.js`**\n ```js\n export function bar() {\n     console.log(\"foobar\");\n }\n ```\n\n **`baz.js`**\n ```js\n import { bar } from \"./bar.js\";\n\n export function baz() {\n     bar();\n }\n ```\n\n"
+            "docs": " Prevent import cycles.\n\n This rule warns when a file imports another file that, either directly\n or indirectly, imports the original file again.\n\n Cycles can lead to symbols that are unexpectedly `undefined` and are\n generally considered poor code hygiene.\n\n If a cycle is detected, it is advised to move code such that imports\n only go in a single direction, i.e. they don't point \"back\" to the\n importing file.\n\n :::note\n This rule is computationally expensive. If you are particularly\n pressed for lint time, or don't think you have an issue with dependency\n cycles, you may not want this rule enabled.\n :::\n\n ## Examples\n\n ### Invalid\n\n **`foobar.js`**\n ```js\n import { baz } from \"./baz.js\";\n\n export function foo() {\n     baz();\n }\n\n export function bar() {\n     console.log(\"foobar\");\n }\n ```\n\n **`baz.js`**\n ```js\n import { bar } from \"./foobar.js\";\n\n export function baz() {\n     bar();\n }\n ```\n\n ### Valid\n\n **`foo.js`**\n ```js\n import { baz } from \"./baz.js\";\n\n export function foo() {\n     baz();\n }\n ```\n\n **`bar.js`**\n ```js\n export function bar() {\n     console.log(\"foobar\");\n }\n ```\n\n **`baz.js`**\n ```js\n import { bar } from \"./bar.js\";\n\n export function baz() {\n     bar();\n }\n ```\n\n **`types.ts`**\n ```ts\n import type { bar } from \"./qux.ts\";\n\n export type Foo = {\n   bar: typeof bar;\n };\n ```\n\n **`qux.ts`**\n ```ts\n import type { Foo } from \"./types.ts\";\n\n export function bar(foo: Foo) {\n     console.log(foo);\n }\n ```\n\n ## Options\n\n The rule provides the options described below.\n\n ### `ignoreTypes`\n\n Ignores type-only imports when finding an import cycle. A type-only import (`import type`)\n will be removed by the compiler, so it cuts an import cycle at runtime. Note that named type\n imports (`import { type Foo }`) aren't considered as type-only because it's not removed by\n the compiler if the `verbatimModuleSyntax` option is enabled. Enabled by default.\n\n ```json,options\n {\n   \"options\": {\n     \"ignoreTypes\": false\n   }\n }\n ```\n\n #### Invalid\n\n **`types.ts`**\n ```ts\n import type { bar } from \"./qux.ts\";\n\n export type Foo = {\n   bar: typeof bar;\n };\n ```\n\n **`qux.ts`**\n ```ts,use_options\n import type { Foo } from \"./types.ts\";\n\n export function bar(foo: Foo) {\n     console.log(foo);\n }\n ```\n"
           },
           "noNonNullAssertedOptionalChain": {
             "deprecated": false,
@@ -2121,6 +2121,29 @@ export function GET() {
               }
             ],
             "docs": " Disallow the use of useless `undefined`.\n\n `undefined` is the default value for new variables, parameters, return statements, etc., so specifying it doesn't make any difference.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n let foo = undefined;\n ```\n\n ```js,expect_diagnostic\n const {foo = undefined} = bar;\n ```\n\n ```js,expect_diagnostic\n const noop = () => undefined;\n ```\n\n ```js,expect_diagnostic\n function foo() {\n    return undefined;\n }\n ```\n\n ```js,expect_diagnostic\n function* foo() {\n   yield undefined;\n }\n ```\n\n ```js,expect_diagnostic\n function foo(bar = undefined) {}\n ```\n\n ```js,expect_diagnostic\n function foo({bar = undefined}) {}\n ```\n\n ### Valid\n\n ```js\n let foo;\n const {foo} = bar;\n function foo() {\n   return;\n }\n function* foo() {\n   yield;\n }\n function foo(bar) {}\n function foo({bar}) {}\n foo();\n ```\n\n"
+          },
+          "noVueDataObjectDeclaration": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noVueDataObjectDeclaration",
+            "link": "https://biomejs.dev/linter/rules/no-vue-data-object-declaration",
+            "recommended": true,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintVueJs": "no-deprecated-data-object-declaration"
+                }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintVueJs": "no-shared-component-data"
+                }
+              }
+            ],
+            "docs": " Enforce that Vue component `data` options are declared as functions.\n\n In Vue 3+, defining `data` as an object is deprecated because it leads to shared mutable state across component instances.\n This rule flags usages of `data: { … }` and offers an automatic fix to convert it into a function returning that object.\n\n See also:\n – Vue Migration Guide – Data Option: https://v3-migration.vuejs.org/breaking-changes/data-option.html :contentReference[oaicite:0]{index=0}\n – ESLint Plugin Vue: `no-deprecated-data-object-declaration`: https://eslint.vuejs.org/rules/no-deprecated-data-object-declaration :contentReference[oaicite:1]{index=1}\n\n ## Examples\n\n ### Invalid\n\n ```js\n // component-local data via function\n export default {\n   /* ✗ BAD */\n   data: { foo: null },\n };\n ```\n\n ```js\n // Composition API helper also deprecated\n defineComponent({\n   /* ✗ BAD */\n   data: { message: 'hi' }\n });\n ```\n\n ```js\n // Vue 3 entrypoint via createApp\n createApp({\n   /* ✗ BAD */\n   data: { active: true }\n }).mount('#app');\n ```\n\n ### Valid\n\n ```js\n // component-local data via function\n export default {\n   /* ✓ GOOD */\n   data() {\n     return { foo: null };\n   }\n };\n ```\n\n ```js\n // global registration with function syntax\n Vue.component('my-comp', {\n   /* ✓ GOOD */\n   data: function () {\n     return { count: 0 };\n   }\n });\n ```\n\n ```js\n // Composition API and createApp entrypoints\n defineComponent({\n   /* ✓ GOOD */\n   data() {\n     return { message: 'hi' };\n   }\n });\n\n createApp({\n   /* ✓ GOOD */\n   data: function() {\n     return { active: true };\n   }\n }).mount('#app');\n ```\n\n"
           },
           "noVueReservedKeys": {
             "deprecated": false,
@@ -5934,7 +5957,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 347
+    "numberOrRules": 348
   },
   "syntax": {
     "languages": {
