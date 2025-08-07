@@ -234,6 +234,7 @@ export default {
   '/linter/rules/noVoid': '/linter/rules/no-void',
   '/linter/rules/noVoidElementsWithChildren': '/linter/rules/no-void-elements-with-children',
   '/linter/rules/noVoidTypeReturn': '/linter/rules/no-void-type-return',
+  '/linter/rules/noVueDataObjectDeclaration': '/linter/rules/no-vue-data-object-declaration',
   '/linter/rules/noVueReservedKeys': '/linter/rules/no-vue-reserved-keys',
   '/linter/rules/noVueReservedProps': '/linter/rules/no-vue-reserved-props',
   '/linter/rules/noWith': '/linter/rules/no-with',

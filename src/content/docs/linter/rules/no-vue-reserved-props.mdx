@@ -9,6 +9,9 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
 ## Summary
 - Rule available since: `v2.1.2`
 - Diagnostic Category: [`lint/nursery/noVueReservedProps`](/reference/diagnostics#diagnostic-category)
@@ -19,9 +22,6 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`vue/no-reserved-props`](https://eslint.vuejs.org/rules/no-reserved-props)
 
-:::caution
-This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
-:::
 ## Description
 Disallow reserved names to be used as props.
 
