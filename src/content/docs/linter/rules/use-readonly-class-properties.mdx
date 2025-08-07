@@ -9,6 +9,9 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="TypeScript and TSX" icon="seti:typescript">
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
 ## Summary
 - Rule available since: `v2.1.0`
 - Diagnostic Category: [`lint/nursery/useReadonlyClassProperties`](/reference/diagnostics#diagnostic-category)
@@ -17,9 +20,6 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`@typescript-eslint/prefer-readonly`](https://typescript-eslint.io/rules/prefer-readonly)
 
-:::caution
-This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
-:::
 ## Description
 Enforce marking members as `readonly` if they are never modified outside the constructor.
 
