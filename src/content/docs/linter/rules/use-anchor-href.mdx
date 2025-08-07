@@ -1,0 +1,80 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: useAnchorHref
+description: Learn more about useAnchorHref
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JSX and TSX" icon="seti:javascript">
+## Summary
+:::note
+This rule is currently only available in the [2.0 beta release](/blog/biome-v2-0-beta).
+:::
+- Diagnostic Category: [`lint/nursery/useAnchorHref`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`qwik`](/linter/domains#qwik)
+- Sources: 
+  - Same as [`qwik/jsx-a`](https://github.com/BuilderIO/eslint-plugin-qwik/blob/main/docs/rules/jsx-a.md)
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Description
+Enforces `href` attribute for `<a>` elements.
+
+Ensures `<a>` tags are either valid links (with href) or replaced with buttons for actions.
+See [WCAG 4.1.2](https://www.w3.org/WAI/WCAG22/Understanding/name-role-value) for accessibility requirements.
+
+## Examples
+
+### Invalid
+
+```jsx
+<a>Link</a>
+```
+
+<pre class="language-text"><code class="language-text">code-block.jsx:1:1 <a href="https://biomejs.dev/linter/rules/use-anchor-href">lint/nursery/useAnchorHref</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Missing required </span><span style="color: Tomato;"><strong>href</strong></span><span style="color: Tomato;"> attribute on </span><span style="color: Tomato;"><strong>a</strong></span><span style="color: Tomato;"> element</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;a&gt;Link&lt;/a&gt;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Anchor tags without href attributes are inaccessible to keyboard navigation and screen readers, violating WCAG 2.2 Success Criterion 4.1.2 (Name, Role, Value).</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Use </span><span style="color: lightgreen;"><strong>href</strong></span><span style="color: lightgreen;"> for navigation or </span><span style="color: lightgreen;"><strong>&lt;button&gt;</strong></span><span style="color: lightgreen;"> for actions. Reference: </span><span style="color: lightgreen;"><a href="https://www.w3.org/WAI/WCAG22/Understanding/name-role-value">WCAG 4.1.2</a></span><br />  <br /></code></pre>
+
+```jsx
+<a target="_blank">External</a>
+```
+
+<pre class="language-text"><code class="language-text">code-block.jsx:1:1 <a href="https://biomejs.dev/linter/rules/use-anchor-href">lint/nursery/useAnchorHref</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Missing required </span><span style="color: Tomato;"><strong>href</strong></span><span style="color: Tomato;"> attribute on </span><span style="color: Tomato;"><strong>a</strong></span><span style="color: Tomato;"> element</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;a target=&quot;&#95;blank&quot;&gt;External&lt;/a&gt;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Anchor tags without href attributes are inaccessible to keyboard navigation and screen readers, violating WCAG 2.2 Success Criterion 4.1.2 (Name, Role, Value).</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Use </span><span style="color: lightgreen;"><strong>href</strong></span><span style="color: lightgreen;"> for navigation or </span><span style="color: lightgreen;"><strong>&lt;button&gt;</strong></span><span style="color: lightgreen;"> for actions. Reference: </span><span style="color: lightgreen;"><a href="https://www.w3.org/WAI/WCAG22/Understanding/name-role-value">WCAG 4.1.2</a></span><br />  <br /></code></pre>
+
+### Valid
+
+```jsx
+<a href="/home">Home</a>
+```
+
+```jsx
+<a href="https://example.com" target="_blank">External</a>
+```
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useAnchorHref": "error"
+			}
+		}
+	}
+}
+
+```
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
+</Tabs>
+

@@ -2,9 +2,9 @@
 import AstrolightSiteTitle from "@astrojs/starlight/components/SiteTitle.astro";
 
 const menuItems = [
-	{ name: "Docs", href: "/guides/getting-started" },
-	{ name: "Enterprise", href: "/enterprise" },
-	{ name: "Playground", href: "/playground" },
+	{ name: Astro.locals.t("title.docs"), href: "/guides/getting-started" },
+	{ name: Astro.locals.t("title.enterprise"), href: "/enterprise" },
+	{ name: Astro.locals.t("title.playground"), href: "/playground" },
 ];
 
 function pathsMatch(pathA: string, pathB: string): boolean {

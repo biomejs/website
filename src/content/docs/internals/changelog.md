@@ -6,11 +6,164 @@ tableOfContents:
 ---
 # @biomejs/biome
 
+## 2.1.3
+
+### Patch Changes
+
+- [#7057](https://github.com/biomejs/biome/pull/7057) [`634a667`](https://github.com/biomejs/biome/commit/634a667ac8e9f74a4633895eab4bd4695ffffa1d) Thanks [@mdevils](https://github.com/mdevils)! - Added the rule [`noVueReservedKeys`](https://biomejs.dev/linter/rules/no-vue-reserved-keys/), which prevents the use of reserved Vue keys.
+
+  It prevents the use of Vue reserved keys such as those starting with like `$el`, `$data`, `$props`) and keys starting with `\_` in data properties, which can cause conflicts and unexpected behavior in Vue components.
+
+  ##### Invalid example
+
+  ```vue
+  <script>
+  export default {
+    data: {
+      $el: "",
+      _foo: "bar",
+    },
+  };
+  </script>
+  ```
+
+  ```vue
+  <script>
+  export default {
+    computed: {
+      $data() {
+        return this.someData;
+      },
+    },
+  };
+  </script>
+  ```
+
+  ##### Valid examples
+
+  ```vue
+  <script>
+  export default {
+    data() {
+      return {
+        message: "Hello Vue!",
+        count: 0,
+      };
+    },
+  };
+  </script>
+  ```
+
+  ```vue
+  <script>
+  export default {
+    computed: {
+      displayMessage() {
+        return this.message;
+      },
+    },
+  };
+  </script>
+  ```
+
+- [#6941](https://github.com/biomejs/biome/pull/6941) [`734d708`](https://github.com/biomejs/biome/commit/734d708bd84f32d72e5972cc27c194d5da46a3c0) Thanks [@JamBalaya56562](https://github.com/JamBalaya56562)! - Added `@eslint-react/no-nested-component-definitions` as a rule source for `noNestedComponentDefinitions`. Now it will get picked up by `biome migrate --eslint`.
+
+- [#6463](https://github.com/biomejs/biome/pull/6463) [`0a16d54`](https://github.com/biomejs/biome/commit/0a16d54c2cffbf13c5144b53021923734f1c234e) Thanks [@JamBalaya56562](https://github.com/JamBalaya56562)! - Fixed a website link for the `useComponentExportOnlyModules` linter rule to point to the correct URL.
+
+- [#6944](https://github.com/biomejs/biome/pull/6944) [`e53f2fe`](https://github.com/biomejs/biome/commit/e53f2fe03827a8dcad2184178ecfaee0e35af992) Thanks [@sterliakov](https://github.com/sterliakov)! - Fixed [#6910](https://github.com/biomejs/biome/issues/6910): Biome now ignores type casts and assertions when evaluating numbers for `noMagicNumbers` rule.
+
+- [#6991](https://github.com/biomejs/biome/pull/6991) [`476cd55`](https://github.com/biomejs/biome/commit/476cd55e4e5b1b03335e14c65ad01b2bbb4b8d42) Thanks [@denbezrukov](https://github.com/denbezrukov)! - Fixed [#6973](https://github.com/biomejs/biome/issues/6973): Add support for parsing the :active-view-transition-type() pseudo-class
+
+  ```css
+  :active-view-transition-type(first second) {
+  }
+  ```
+
+- [#6992](https://github.com/biomejs/biome/pull/6992) [`0b1e194`](https://github.com/biomejs/biome/commit/0b1e19474e323c7354fccff0c5654d47024c7b91) Thanks [@ematipico](https://github.com/ematipico)! - Added a new JSON rule called `noQuickfixBiome`, which disallow the use of code action `quickfix.biome` inside code editor settings.
+
+- [#6943](https://github.com/biomejs/biome/pull/6943) [`249306d`](https://github.com/biomejs/biome/commit/249306db32b6a912f39d2c88a1b0d702b8b97a9b) Thanks [@JamBalaya56562](https://github.com/JamBalaya56562)! - Fixed `@vitest/eslint-plugin` source url.
+
+- [#6947](https://github.com/biomejs/biome/pull/6947) [`4c7ed0f`](https://github.com/biomejs/biome/commit/4c7ed0fda858424a21fb1766270aaa74838a46a1) Thanks [@JamBalaya56562](https://github.com/JamBalaya56562)! - Fixed ESLint migration for the rule `prefer-for` from `eslint-plugin-solid` to Biome's `useForComponent`.
+
+- [#6976](https://github.com/biomejs/biome/pull/6976) [`72ebadc`](https://github.com/biomejs/biome/commit/72ebadce0e192932d237d9a31c45cb230c8bbd91) Thanks [@siketyan](https://github.com/siketyan)! - Fixed [#6692](https://github.com/biomejs/biome/issues/6692): The rules `noUnusedVariables` and `noUnusedFunctionParameters` no longer cause an infinite loop when the suggested name is not applicable (e.g. the suggested name is already declared in the scope).
+
+- [#6990](https://github.com/biomejs/biome/pull/6990) [`333f5d0`](https://github.com/biomejs/biome/commit/333f5d0a11dc1b2c029c657905bc73d3daf72477) Thanks [@rvanlaarhoven](https://github.com/rvanlaarhoven)! - Fixed the documentation URL for `lint/correctness/noUnknownPseudoClass`
+
+- [#7000](https://github.com/biomejs/biome/pull/7000) [`4021165`](https://github.com/biomejs/biome/commit/402116575ef570da02ccbce521645a3975b3e8ce) Thanks [@harxki](https://github.com/harxki)! - Fixed [#6795](https://github.com/biomejs/biome/issues/6795): `noUnassignedVariables` now correctly recognizes variables used in JSX `ref` attributes.
+
+- [#7044](https://github.com/biomejs/biome/pull/7044) [`b091ddf`](https://github.com/biomejs/biome/commit/b091ddf73d323a6929b9601f05ede7e91e4d4cbb) Thanks [@ematipico](https://github.com/ematipico)! - Fixed [#6622](https://github.com/biomejs/biome/issues/6622), now the rule `useSemanticElements` works for JSX self-closing elements too.
+
+- [#7014](https://github.com/biomejs/biome/pull/7014) [`c4864e8`](https://github.com/biomejs/biome/commit/c4864e85ebbb1bbfbb8274c59bb6af9413d8f157) Thanks [@siketyan](https://github.com/siketyan)! - Fixed [#6516](https://github.com/biomejs/biome/issues/6516): The `biome migrate` command no longer break the member list with trailing comments.
+
+- [#6979](https://github.com/biomejs/biome/pull/6979) [`29cb6da`](https://github.com/biomejs/biome/commit/29cb6da9a1e8f20af59f5e681b9d2aa1a23e8b27) Thanks [@unvalley](https://github.com/unvalley)! - Fixed [#6767](https://github.com/biomejs/biome/issues/6767): `useSortedClasses` now correctly removes leading and trailing whitespace in className.
+
+  Previously, trailing spaces in className were not fully removed.
+
+  ```jsx
+  // Think we have this code:
+  <div className="text-sm font-bold            " />
+
+  // Before: applied fix, but a trailing space was preserved
+  <div className="font-bold text-sm " />
+
+  // After: applied fix, trailing spaces removed
+  <div className="font-bold text-sm" />
+  ```
+
+- [#7055](https://github.com/biomejs/biome/pull/7055) [`ee4828d`](https://github.com/biomejs/biome/commit/ee4828da9be5898c67b7feabfaaa296ad172109f) Thanks [@dyc3](https://github.com/dyc3)! - Added the nursery rule [`useReactFunctionComponents`](https://biomejs.dev/linter/rules/use-react-function-components/). This rule enforces the preference to use function components instead of class components.
+
+  Valid:
+
+  ```jsx
+  function Foo() {
+    return <div>Hello, world!</div>;
+  }
+  ```
+
+  Invalid:
+
+  ```jsx
+  class Foo extends React.Component {
+    render() {
+      return <div>Hello, world!</div>;
+    }
+  }
+  ```
+
+- [#6924](https://github.com/biomejs/biome/pull/6924) [`2d21be9`](https://github.com/biomejs/biome/commit/2d21be9437fd77a1c534a1ea156d9a9421c17d30) Thanks [@ematipico](https://github.com/ematipico)! - Fixed [#113](https://github.com/biomejs/biome-zed/issues/113), where the Biome Language Server didn't correctly update the diagnostics when the configuration file is modified in the editor. Now the diagnostics are correctly updated every time the configuration file is modified and saved.
+
+- [#6931](https://github.com/biomejs/biome/pull/6931) [`e6b2380`](https://github.com/biomejs/biome/commit/e6b238063f92bc95d951e3a78dac42408d0814c0) Thanks [@arendjr](https://github.com/arendjr)! - Fixed [#6915](https://github.com/biomejs/biome/issues/6915): `useHookAtTopLevel` no longer hangs when rules call themselves recursively.
+
+- [#7012](https://github.com/biomejs/biome/pull/7012) [`01c0ab4`](https://github.com/biomejs/biome/commit/01c0ab43ad7785e093e5069dda1d5e6969958bf8) Thanks [@siketyan](https://github.com/siketyan)! - Fixed [#5837](https://github.com/biomejs/biome/issues/5837): Invalid suppression comments such as `biome-ignore-all-start` or `biome-ignore-all-end` no longer causes a panic.
+
+- [#6949](https://github.com/biomejs/biome/pull/6949) [`48462f8`](https://github.com/biomejs/biome/commit/48462f81ba4e98a95236365a5f9759fc41c045d7) Thanks [@fireairforce](https://github.com/fireairforce)! - Support parse `import defer`(which is a [stage3 proposal](https://github.com/tc39/proposal-defer-import-eval)). The syntax look like this:
+
+  ```ts
+  import defer * as foo from "<specifier>";
+  ```
+
+- [#6938](https://github.com/biomejs/biome/pull/6938) [`5feb5a6`](https://github.com/biomejs/biome/commit/5feb5a675adb246b04b1540cba16ff1c5fd49cb1) Thanks [@vladimir-ivanov](https://github.com/vladimir-ivanov)! - Fixed [#6919](https://github.com/biomejs/biome/issues/6919) and [#6920](https://github.com/biomejs/biome/issues/6920):
+  `useReadonlyClassProperties` now does checks for mutations in async class methods.
+
+  Example:
+
+  ```typescript
+  class Counter3 {
+    private counter: number;
+    async count() {
+      this.counter = 1;
+      const counterString = `${this.counter++}`;
+    }
+  }
+  ```
+
+- [#6942](https://github.com/biomejs/biome/pull/6942) [`cfda528`](https://github.com/biomejs/biome/commit/cfda528169dcceb8422a0488b39a3b1b27a24645) Thanks [@sterliakov](https://github.com/sterliakov)! - Fixed [#6939](https://github.com/biomejs/biome/issues/6939). Biome now understands `this` binding in classes outside of methods.
+
 ## 2.1.2
 
 ### Patch Changes
 
-- [#6908](https://github.com/biomejs/biome/pull/6908) [`d77eaff`](https://github.com/biomejs/biome/commit/d77eaffb35f17fe17803a48f370922ae43191d36) Thanks [@ematipico](https://github.com/ematipico)! - Fix [#6485](https://github.com/biomejs/biome/issues/6485): Handle multiple semicolons correctly in blocks (#6485)
+- [#6865](https://github.com/biomejs/biome/pull/6865) [`b35bf64`](https://github.com/biomejs/biome/commit/b35bf6448fb1950c922e627254588e96748e287f) Thanks [@denbezrukov](https://github.com/denbezrukov)! - Fix [#6485](https://github.com/biomejs/biome/issues/6485): Handle multiple semicolons correctly in blocks (#6485)
 
   ```css
   div {
@@ -19,9 +172,11 @@ tableOfContents:
   }
   ```
 
-- [#6908](https://github.com/biomejs/biome/pull/6908) [`d77eaff`](https://github.com/biomejs/biome/commit/d77eaffb35f17fe17803a48f370922ae43191d36) Thanks [@ematipico](https://github.com/ematipico)! - Fixed [#6762](https://github.com/biomejs/biome/issues/6762), Biome now knows that `~/.config/zed/settings.json` and `~/.config/Code/User/settings.json` allows comments by default.
+- [#6798](https://github.com/biomejs/biome/pull/6798) [`3579ffa`](https://github.com/biomejs/biome/commit/3579ffaae4e86835b001fee4ab7dd8aabb03ae54) Thanks [@dyc3](https://github.com/dyc3)! - Fixed [#6762](https://github.com/biomejs/biome/issues/6762), Biome now knows that `~/.config/zed/settings.json` and `~/.config/Code/User/settings.json` allows comments by default.
 
-- [#6908](https://github.com/biomejs/biome/pull/6908) [`d77eaff`](https://github.com/biomejs/biome/commit/d77eaffb35f17fe17803a48f370922ae43191d36) Thanks [@ematipico](https://github.com/ematipico)! - Refactor: remove one level of indirection for CSS declarations with semicolon
+- [#6839](https://github.com/biomejs/biome/pull/6839) [`4cd62d8`](https://github.com/biomejs/biome/commit/4cd62d8ae2e5cb24d6f308e05b38003486294548) Thanks [@ematipico](https://github.com/ematipico)! - Fixed [#6838](https://github.com/biomejs/biome/issues/6838), where the Biome File Watcher incorrectly watched and stored ignored files, causing possible memory leaks when those files were dynamically created (e.g. built files).
+
+- [#6879](https://github.com/biomejs/biome/pull/6879) [`0059cd9`](https://github.com/biomejs/biome/commit/0059cd9b5e6ba33cabb5e153bd03e2041effb0cd) Thanks [@denbezrukov](https://github.com/denbezrukov)! - Refactor: remove one level of indirection for CSS declarations with semicolon
   Previously, accessing a declaration from a list required an extra step:
 
   ```rust
@@ -36,21 +191,21 @@ tableOfContents:
   item.as_css_declaration_with_semicolon()
   ```
 
-- [#6908](https://github.com/biomejs/biome/pull/6908) [`d77eaff`](https://github.com/biomejs/biome/commit/d77eaffb35f17fe17803a48f370922ae43191d36) Thanks [@ematipico](https://github.com/ematipico)! - Fixed a bug where the Biome Language Server didn't correctly ignore specific files when `vcs.useIgnoreFile` is set to `true`.
+- [#6839](https://github.com/biomejs/biome/pull/6839) [`4cd62d8`](https://github.com/biomejs/biome/commit/4cd62d8ae2e5cb24d6f308e05b38003486294548) Thanks [@ematipico](https://github.com/ematipico)! - Fixed a bug where the Biome Language Server didn't correctly ignore specific files when `vcs.useIgnoreFile` is set to `true`.
 
-- [#6908](https://github.com/biomejs/biome/pull/6908) [`d77eaff`](https://github.com/biomejs/biome/commit/d77eaffb35f17fe17803a48f370922ae43191d36) Thanks [@ematipico](https://github.com/ematipico)! - Improved the performance of `noImportCycles` by ~30%.
+- [#6884](https://github.com/biomejs/biome/pull/6884) [`5ff50f8`](https://github.com/biomejs/biome/commit/5ff50f8291ca6f8f59fccfc326c8f0bdc3127842) Thanks [@arendjr](https://github.com/arendjr)! - Improved the performance of `noImportCycles` by ~30%.
 
-- [#6908](https://github.com/biomejs/biome/pull/6908) [`d77eaff`](https://github.com/biomejs/biome/commit/d77eaffb35f17fe17803a48f370922ae43191d36) Thanks [@ematipico](https://github.com/ematipico)! - Fixed [#6829](https://github.com/biomejs/biome/issues/6829): Fixed a false positive reported by `useImportExtensions` when importing a `.js` file that had a matching `.d.ts` file in the same folder.
+- [#6903](https://github.com/biomejs/biome/pull/6903) [`241dd9e`](https://github.com/biomejs/biome/commit/241dd9e487226fc58b4ceceaf3164e36d8e22d3b) Thanks [@arendjr](https://github.com/arendjr)! - Fixed [#6829](https://github.com/biomejs/biome/issues/6829): Fixed a false positive reported by `useImportExtensions` when importing a `.js` file that had a matching `.d.ts` file in the same folder.
 
-- [#6908](https://github.com/biomejs/biome/pull/6908) [`d77eaff`](https://github.com/biomejs/biome/commit/d77eaffb35f17fe17803a48f370922ae43191d36) Thanks [@ematipico](https://github.com/ematipico)! - Fixed an issue where biome was using the wrong string quotes when the classes string has quotes, resulting in invalid code after applying the fix.
+- [#6846](https://github.com/biomejs/biome/pull/6846) [`446112e`](https://github.com/biomejs/biome/commit/446112e79d695c50ca9cc9f2d25c91cf03115f50) Thanks [@darricheng](https://github.com/darricheng)! - Fixed an issue where biome was using the wrong string quotes when the classes string has quotes, resulting in invalid code after applying the fix.
 
-- [#6908](https://github.com/biomejs/biome/pull/6908) [`d77eaff`](https://github.com/biomejs/biome/commit/d77eaffb35f17fe17803a48f370922ae43191d36) Thanks [@ematipico](https://github.com/ematipico)! - Improved [#6172](https://github.com/biomejs/biome/issues/6172): Optimised the way function arguments are stored in Biome's type inference. This led to about 10% performance improvement in `RedisCommander.d.ts` and about 2% on `@next/font` type definitions.
+- [#6823](https://github.com/biomejs/biome/pull/6823) [`eebc48e`](https://github.com/biomejs/biome/commit/eebc48e0120958a39186f510278e1e5eacad3f1c) Thanks [@arendjr](https://github.com/arendjr)! - Improved [#6172](https://github.com/biomejs/biome/issues/6172): Optimised the way function arguments are stored in Biome's type inference. This led to about 10% performance improvement in `RedisCommander.d.ts` and about 2% on `@next/font` type definitions.
 
-- [#6908](https://github.com/biomejs/biome/pull/6908) [`d77eaff`](https://github.com/biomejs/biome/commit/d77eaffb35f17fe17803a48f370922ae43191d36) Thanks [@ematipico](https://github.com/ematipico)! - Fixed a bug where the Biome Language Server would apply an unsafe fix when using the code action `quickfix.biome`.
+- [#6878](https://github.com/biomejs/biome/pull/6878) [`3402976`](https://github.com/biomejs/biome/commit/340297602c1162928735d1c073d7a409c22e90bd) Thanks [@ematipico](https://github.com/ematipico)! - Fixed a bug where the Biome Language Server would apply an unsafe fix when using the code action `quickfix.biome`.
 
   Now Biome no longer applies an unsafe code fix when using the code action `quickfix.biome`.
 
-- [#6908](https://github.com/biomejs/biome/pull/6908) [`d77eaff`](https://github.com/biomejs/biome/commit/d77eaffb35f17fe17803a48f370922ae43191d36) Thanks [@ematipico](https://github.com/ematipico)! - Fixed [#6719](https://github.com/biomejs/biome/issues/6719): The `noInvalidUseBeforeDeclaration` rule covers additional use cases.
+- [#6794](https://github.com/biomejs/biome/pull/6794) [`4d5fc0e`](https://github.com/biomejs/biome/commit/4d5fc0ef38f8c4ad820e297749efc83e983b5a91) Thanks [@vladimir-ivanov](https://github.com/vladimir-ivanov)! - Fixed [#6719](https://github.com/biomejs/biome/issues/6719): The `noInvalidUseBeforeDeclaration` rule covers additional use cases.
 
   Examples:
 
@@ -69,17 +224,17 @@ tableOfContents:
   }
   ```
 
-- [#6908](https://github.com/biomejs/biome/pull/6908) [`d77eaff`](https://github.com/biomejs/biome/commit/d77eaffb35f17fe17803a48f370922ae43191d36) Thanks [@ematipico](https://github.com/ematipico)! - Biome now considers whether the linter is enabled when figuring out how the project should be scanned. Resolves [#6815](https://github.com/biomejs/biome/issues/6815).
+- [#6863](https://github.com/biomejs/biome/pull/6863) [`531e97e`](https://github.com/biomejs/biome/commit/531e97e3f691e3ff34d2382fab414072ecb68e8b) Thanks [@dyc3](https://github.com/dyc3)! - Biome now considers whether the linter is enabled when figuring out how the project should be scanned. Resolves [#6815](https://github.com/biomejs/biome/issues/6815).
 
-- [#6908](https://github.com/biomejs/biome/pull/6908) [`d77eaff`](https://github.com/biomejs/biome/commit/d77eaffb35f17fe17803a48f370922ae43191d36) Thanks [@ematipico](https://github.com/ematipico)! - Fixed [#6165](https://github.com/biomejs/biome/issues/6165): Fixed false negative in [`noUnusedPrivateClassMembers`](https://biomejs.dev/linter/rules/no-unused-private-class-members/) rule when checking member usage in classes
+- [#6832](https://github.com/biomejs/biome/pull/6832) [`bdbc2b1`](https://github.com/biomejs/biome/commit/bdbc2b10ac21dcb35b41e93b17e712ba80f421ca) Thanks [@togami2864](https://github.com/togami2864)! - Fixed [#6165](https://github.com/biomejs/biome/issues/6165): Fixed false negative in [`noUnusedPrivateClassMembers`](https://biomejs.dev/linter/rules/no-unused-private-class-members/) rule when checking member usage in classes
 
-- [#6908](https://github.com/biomejs/biome/pull/6908) [`d77eaff`](https://github.com/biomejs/biome/commit/d77eaffb35f17fe17803a48f370922ae43191d36) Thanks [@ematipico](https://github.com/ematipico)! - Fixed a bug where the root ignore file wasn't correctly loaded during the scanning phase, causing false positives and incorrect expectations among users.
+- [#6839](https://github.com/biomejs/biome/pull/6839) [`4cd62d8`](https://github.com/biomejs/biome/commit/4cd62d8ae2e5cb24d6f308e05b38003486294548) Thanks [@ematipico](https://github.com/ematipico)! - Fixed a bug where the root ignore file wasn't correctly loaded during the scanning phase, causing false positives and incorrect expectations among users.
 
   Now, when using `vcs.useIgnoreFile`, the **the globs specified in the ignore file from the project root** will have the same semantics as the `files.includes` setting of the root configuration.
 
   Refer to the [relative web page](https://biomejs.dev/internals/architecture/#configuring-the-scanner) to understand how they work.
 
-- [#6908](https://github.com/biomejs/biome/pull/6908) [`d77eaff`](https://github.com/biomejs/biome/commit/d77eaffb35f17fe17803a48f370922ae43191d36) Thanks [@ematipico](https://github.com/ematipico)! - Fixed [#6891](https://github.com/biomejs/biome/issues/6891): Improved type inference for array indices.
+- [#6898](https://github.com/biomejs/biome/pull/6898) [`5beb024`](https://github.com/biomejs/biome/commit/5beb024d8e9af8733bc115ba4b07d20036fe336e) Thanks [@arendjr](https://github.com/arendjr)! - Fixed [#6891](https://github.com/biomejs/biome/issues/6891): Improved type inference for array indices.
 
   **Example:**
 
@@ -88,7 +243,7 @@ tableOfContents:
   numbers[42]; // This now infers to `number | undefined`.
   ```
 
-- [#6908](https://github.com/biomejs/biome/pull/6908) [`d77eaff`](https://github.com/biomejs/biome/commit/d77eaffb35f17fe17803a48f370922ae43191d36) Thanks [@ematipico](https://github.com/ematipico)! - Fixed [#6796](https://github.com/biomejs/biome/issues/6796): Fixed a false positive that happened in `noFloatingPromises` when calling functions that were declared as part of `for ... of` syntax inside `async` functions.
+- [#6809](https://github.com/biomejs/biome/pull/6809) [`8192451`](https://github.com/biomejs/biome/commit/819245188e587d0a5ede53aa07899a2cb9fcce4f) Thanks [@arendjr](https://github.com/arendjr)! - Fixed [#6796](https://github.com/biomejs/biome/issues/6796): Fixed a false positive that happened in `noFloatingPromises` when calling functions that were declared as part of `for ... of` syntax inside `async` functions.
 
   Instead, the variables declared inside `for ... of` loops are now correctly
   inferred if the expression being iterated evaluates to an `Array` (support for other iterables will follow later).
@@ -121,7 +276,7 @@ tableOfContents:
   }
   ```
 
-- [#6908](https://github.com/biomejs/biome/pull/6908) [`d77eaff`](https://github.com/biomejs/biome/commit/d77eaffb35f17fe17803a48f370922ae43191d36) Thanks [@ematipico](https://github.com/ematipico)! - Added the rule [`noVueReservedProps`](https://biomejs.dev/linter/rules/no-vue-reserved-props/), resolves [#6309](https://github.com/biomejs/biome/issues/6309).
+- [#6757](https://github.com/biomejs/biome/pull/6757) [`13a0818`](https://github.com/biomejs/biome/commit/13a0818be8cc08efd303829252cbc3e64bcbca3a) Thanks [@mdevils](https://github.com/mdevils)! - Added the rule [`noVueReservedProps`](https://biomejs.dev/linter/rules/no-vue-reserved-props/), resolves [#6309](https://github.com/biomejs/biome/issues/6309).
 
   It prevents the use of reserved Vue prop names such as `key` and `ref` which can cause conflicts and unexpected behavior in Vue components.
 
@@ -161,28 +316,26 @@ tableOfContents:
   </script>
   ```
 
-- [#6912](https://github.com/biomejs/biome/pull/6912) [`af7c6c0`](https://github.com/biomejs/biome/commit/af7c6c03e93984a7757e4d891b72393ffb105bfa) Thanks [@ematipico](https://github.com/ematipico)! - Fixed [#6904](https://github.com/biomejs/biome/issues/6904). Now Biome correctly applies the argument `--assist-enabled=false` when running the command `ci` and the command `check`.
-
-- [#6908](https://github.com/biomejs/biome/pull/6908) [`d77eaff`](https://github.com/biomejs/biome/commit/d77eaffb35f17fe17803a48f370922ae43191d36) Thanks [@ematipico](https://github.com/ematipico)! - Allow multiple identifiers in ::part() pseudo-element selector.
+- [#6840](https://github.com/biomejs/biome/pull/6840) [`1a57b51`](https://github.com/biomejs/biome/commit/1a57b51097c7bf4faeb0dcc5330d49e17f86789b) Thanks [@denbezrukov](https://github.com/denbezrukov)! - Allow multiple identifiers in ::part() pseudo-element selector.
 
   ```css
   ::part(first second) {
   }
   ```
 
-- [#6908](https://github.com/biomejs/biome/pull/6908) [`d77eaff`](https://github.com/biomejs/biome/commit/d77eaffb35f17fe17803a48f370922ae43191d36) Thanks [@ematipico](https://github.com/ematipico)! - Fixed [#6510](https://github.com/biomejs/biome/issues/6510): The scanner no longer shows diagnostics on inaccessible files unless `--verbose` is used.
+- [#6845](https://github.com/biomejs/biome/pull/6845) [`4fd44ec`](https://github.com/biomejs/biome/commit/4fd44ec17a3ac6a5486ac94f01e85e62310b8061) Thanks [@arendjr](https://github.com/arendjr)! - Fixed [#6510](https://github.com/biomejs/biome/issues/6510): The scanner no longer shows diagnostics on inaccessible files unless `--verbose` is used.
 
-- [#6908](https://github.com/biomejs/biome/pull/6908) [`d77eaff`](https://github.com/biomejs/biome/commit/d77eaffb35f17fe17803a48f370922ae43191d36) Thanks [@ematipico](https://github.com/ematipico)! - Fixed [#6837](https://github.com/biomejs/biome/issues/6837): Fixed regression with multiple consecutive line suppression comments using instances (like `// biome-ignore lint/correctness/useExhaustiveDependencies(depName): reason`).
+- [#6844](https://github.com/biomejs/biome/pull/6844) [`b7e2d4d`](https://github.com/biomejs/biome/commit/b7e2d4d3a8b2654278596eaecdccc30405457fc8) Thanks [@sterliakov](https://github.com/sterliakov)! - Fixed [#6837](https://github.com/biomejs/biome/issues/6837): Fixed regression with multiple consecutive line suppression comments using instances (like `// biome-ignore lint/correctness/useExhaustiveDependencies(depName): reason`).
 
-- [#6908](https://github.com/biomejs/biome/pull/6908) [`d77eaff`](https://github.com/biomejs/biome/commit/d77eaffb35f17fe17803a48f370922ae43191d36) Thanks [@ematipico](https://github.com/ematipico)! - Fixed an issue where `textDocument/codeAction` in the LSP could respond with outdated text edits after the workspace watcher observed outdated changes to the file.
+- [#6818](https://github.com/biomejs/biome/pull/6818) [`5f3f5a6`](https://github.com/biomejs/biome/commit/5f3f5a6e8c12b56dc36bcfb4f8d5077eb33ccf08) Thanks [@siketyan](https://github.com/siketyan)! - Fixed an issue where `textDocument/codeAction` in the LSP could respond with outdated text edits after the workspace watcher observed outdated changes to the file.
 
-- [#6908](https://github.com/biomejs/biome/pull/6908) [`d77eaff`](https://github.com/biomejs/biome/commit/d77eaffb35f17fe17803a48f370922ae43191d36) Thanks [@ematipico](https://github.com/ematipico)! - `noFloatingPromises` will no longer suggest to add `await` keyword inside synchronous callbacks nested inside `async` functions.
+- [#6804](https://github.com/biomejs/biome/pull/6804) [`3e6ab16`](https://github.com/biomejs/biome/commit/3e6ab1663ab15f9f00ae069ee790e5fd90327082) Thanks [@arendjr](https://github.com/arendjr)! - `noFloatingPromises` will no longer suggest to add `await` keyword inside synchronous callbacks nested inside `async` functions.
 
-- [#6908](https://github.com/biomejs/biome/pull/6908) [`d77eaff`](https://github.com/biomejs/biome/commit/d77eaffb35f17fe17803a48f370922ae43191d36) Thanks [@ematipico](https://github.com/ematipico)! - Fixed [#6777](https://github.com/biomejs/biome/issues/6777): Fixed type inference handling of `this` to avoid infinite recursion.
+- [#6901](https://github.com/biomejs/biome/pull/6901) [`c9e969a`](https://github.com/biomejs/biome/commit/c9e969a84158b29d175cd04ea8b921c737b7ed8f) Thanks [@arendjr](https://github.com/arendjr)! - Fixed [#6777](https://github.com/biomejs/biome/issues/6777): Fixed type inference handling of `this` to avoid infinite recursion.
 
   Thanks to @sterliakov for the thorough investigation!
 
-- [#6908](https://github.com/biomejs/biome/pull/6908) [`d77eaff`](https://github.com/biomejs/biome/commit/d77eaffb35f17fe17803a48f370922ae43191d36) Thanks [@ematipico](https://github.com/ematipico)! - Fixed [#6775](https://github.com/biomejs/biome/issues/6775): `useReadonlyClassProperties` now also captures mutations inside function arguments.
+- [#6855](https://github.com/biomejs/biome/pull/6855) [`d1581c7`](https://github.com/biomejs/biome/commit/d1581c7c874b2917132a864d1c65df041ad9181b) Thanks [@vladimir-ivanov](https://github.com/vladimir-ivanov)! - Fixed [#6775](https://github.com/biomejs/biome/issues/6775): `useReadonlyClassProperties` now also captures mutations inside function arguments.
 
   Example:
 
@@ -196,9 +349,7 @@ tableOfContents:
   }
   ```
 
-- [#6723](https://github.com/biomejs/biome/pull/6723) [`c434f01`](https://github.com/biomejs/biome/commit/c434f010a78c38f9a4c223545fb424ad478bd82f) Thanks [@sterliakov](https://github.com/sterliakov)! - `useUniqueElementIds` now has an `excludedComponents` option to support elements using `id` prop for reasons not related to DOM element id. Fixed [#6722](https://github.com/biomejs/biome/issues/6722).
-
-- [#6908](https://github.com/biomejs/biome/pull/6908) [`d77eaff`](https://github.com/biomejs/biome/commit/d77eaffb35f17fe17803a48f370922ae43191d36) Thanks [@ematipico](https://github.com/ematipico)! - Fixed a bug where Biome didn't throw any error when `vcs.useIgnoreFile` is set to `true`, and there wasn't any ignore file read. Now Biome correctly throws an error if no ignore files are found.
+- [#6839](https://github.com/biomejs/biome/pull/6839) [`4cd62d8`](https://github.com/biomejs/biome/commit/4cd62d8ae2e5cb24d6f308e05b38003486294548) Thanks [@ematipico](https://github.com/ematipico)! - Fixed a bug where Biome didn't throw any error when `vcs.useIgnoreFile` is set to `true`, and there wasn't any ignore file read. Now Biome correctly throws an error if no ignore files are found.
 
 - [#6911](https://github.com/biomejs/biome/pull/6911) [`6d68074`](https://github.com/biomejs/biome/commit/6d68074bf2a2ca4bc514398a180524394690fafe) Thanks [@arendjr](https://github.com/arendjr)! - Fixed [#6838](https://github.com/biomejs/biome/issues/6838): Reduce resource consumption in the Biome Language Server by using non-recursive filesystem watchers instead of recursive ones.
 

@@ -140,6 +140,10 @@ export default defineConfig({
 					label: "Українська",
 					lang: "uk",
 				},
+				ru: {
+					label: "Русский",
+					lang: "ru",
+				},
 			},
 			sidebar: [
 				{
@@ -149,6 +153,7 @@ export default defineConfig({
 						ja: "ガイド",
 						"zh-CN": "指南",
 						"pt-BR": "Guias",
+						ru: "Гайды",
 						uk: "Гайди",
 					},
 					items: [
@@ -162,6 +167,7 @@ export default defineConfig({
 								"zh-CN": "入门",
 								"pt-BR": "Primeiros passos",
 								uk: "Початок роботи",
+								ru: "Начало работы",
 							},
 						},
 						{
@@ -174,6 +180,7 @@ export default defineConfig({
 								"zh-CN": "手动安装",
 								"pt-BR": "Instalação manual",
 								uk: "Ручна установка",
+								ru: "Ручная установка",
 							},
 						},
 						{
@@ -186,6 +193,7 @@ export default defineConfig({
 								"zh-CN": "配置 Biome",
 								"pt-BR": "Configurar Bioma",
 								uk: "Налаштування Biome",
+								ru: "Настройка Biome",
 							},
 						},
 						{
@@ -199,12 +207,17 @@ export default defineConfig({
 								"zh-CN": "大型项目中使用 Biome",
 								"pt-BR": "Usando o Biome em projetos grandes",
 								uk: "Використання Biome в великих проектах",
+								ru: "Применение Biome в крупных проектах",
 							},
 						},
 						{
 							label: "Upgrade to Biome v2",
 							link: "/guides/upgrade-to-biome-v2",
 							badge: "new",
+							translations: {
+								"zh-CN": "升级到 Biome v2",
+								ru: "Обновление до Biome v2",
+							},
 						},
 						{
 							label: "Biome in your IDE",
@@ -215,6 +228,7 @@ export default defineConfig({
 								"zh-CN": "编辑器中使用 Biome",
 								"pt-BR": "Biome no seu editor",
 								uk: "Biome в вашому IDE",
+								ru: "Biome в вашей IDE",
 							},
 							items: [
 								{
@@ -226,6 +240,7 @@ export default defineConfig({
 										ja: "Biome 公式拡張機能",
 										"zh-CN": "官方扩展",
 										uk: "Офіційні розширення",
+										ru: "Официальные расширения",
 									},
 								},
 								{
@@ -237,6 +252,7 @@ export default defineConfig({
 										ja: "サードパーティの拡張機能",
 										"zh-CN": "第三方扩展",
 										uk: "Розширення сторонніх розробників",
+										ru: "Сторонние расширения",
 									},
 								},
 								{
@@ -248,6 +264,7 @@ export default defineConfig({
 										ja: "エディタ拡張機能への Biome の統合",
 										"zh-CN": "在编辑器扩展中集成 Biome",
 										uk: "Інтеграція Biome в розширення редактора",
+										ru: "Интеграция Biome в расширение редактора",
 									},
 								},
 							],
@@ -262,6 +279,7 @@ export default defineConfig({
 								"zh-CN": "与版本控制系统集成",
 								"pt-BR": "Integrando o Biome com o seu VCS",
 								uk: "Інтеграція Biome з вашою VCS",
+								ru: "Интеграция Biome с вашей VCS",
 							},
 						},
 						{
@@ -273,12 +291,16 @@ export default defineConfig({
 								ja: "ESLintとPrettierからの移行",
 								"zh-CN": "从 ESLint 和 Prettier 迁移",
 								uk: "Міграція з ESLint & Prettier",
+								ru: "Миграция с ESLint & Prettier",
 							},
 						},
 						{
 							label: "Investigate slowness",
 							link: "/guides/investigate-slowness",
-							translations: {},
+							translations: {
+								"zh-CN": "调查 Biome 中的性能问题",
+								ru: "Расследование медленной работы",
+							},
 						},
 					],
 				},
@@ -294,6 +316,7 @@ export default defineConfig({
 								"zh-CN": "介绍",
 								"pt-BR": "Introdução",
 								uk: "Вступ",
+								ru: "Вступление",
 							},
 						},
 						{
@@ -306,6 +329,7 @@ export default defineConfig({
 								"zh-CN": "与 Prettier 的区别",
 								"pt-BR": "Diferenças em relação ao Prettier",
 								uk: "Відмінності від Prettier",
+								ru: "Отличия от Prettier",
 							},
 						},
 						{
@@ -318,6 +342,7 @@ export default defineConfig({
 								"zh-CN": "格式化配置理念",
 								"pt-BR": "Princípios de configuração",
 								uk: "Філософія параметрів форматування",
+								ru: "Философия параметров форматирования",
 							},
 						},
 					],
@@ -327,6 +352,7 @@ export default defineConfig({
 						"zh-CN": "格式化程序",
 						"pt-BR": "Formatador",
 						uk: "Форматувальник",
+						ru: "Форматтер",
 					},
 				},
 				{
@@ -338,6 +364,7 @@ export default defineConfig({
 						"zh-CN": "分析器",
 						"pt-BR": "Analisador",
 						uk: "Аналізатор",
+						ru: "Анализатор",
 					},
 					items: [
 						{
@@ -347,9 +374,10 @@ export default defineConfig({
 								es: "Supresiones",
 								fr: "Suppressions",
 								ja: "抑制",
-								"zh-CN": "抑制",
+								"zh-CN": "禁用检查",
 								"pt-BR": "Supressões",
 								uk: "Придушення",
+								ru: "Подавления",
 							},
 						},
 						{
@@ -368,12 +396,17 @@ export default defineConfig({
 										"zh-CN": "介绍",
 										"pt-BR": "Introdução",
 										uk: "Вступ",
+										ru: "Вступление",
 									},
 								},
 								{
 									label: "Domains",
 									link: "/linter/domains",
 									badge: "new",
+									translations: {
+										"zh-CN": "域",
+										ru: "Домены",
+									},
 								},
 								{
 									label: "Plugins",
@@ -381,6 +414,8 @@ export default defineConfig({
 									badge: "beta",
 									translations: {
 										ja: "プラグイン",
+										"zh-CN": "插件",
+										ru: "Плагины",
 									},
 								},
 								{
@@ -390,47 +425,75 @@ export default defineConfig({
 										es: "Reglas",
 										fr: "Règles",
 										ja: "ルール",
-										"zh-CN": "规则",
+										"zh-CN": "JavaScript 规则",
 										"pt-BR": "Regras",
 										uk: "Правила",
+										ru: "Правила JavaScript",
 									},
 								},
 								{
 									label: "JavaScript Rules sources",
 									link: "/linter/javascript/sources",
 									translations: {
+										"zh-CN": "JavaScript 规则来源",
 										es: "Fuentes de reglas",
 										fr: "Sources des règles",
+										ru: "Источники правил JavaScript",
 									},
 								},
 								{
 									label: "CSS Rules",
 									link: "/linter/css/rules",
+									translations: {
+										"zh-CN": "CSS 规则",
+										ru: "Правила CSS",
+									},
 								},
 								{
 									label: "CSS Rules sources",
 									link: "/linter/css/sources",
+									translations: {
+										"zh-CN": "CSS 规则来源",
+										ru: "Источники правил CSS",
+									},
 								},
 								{
 									label: "JSON Rules",
 									link: "/linter/json/rules",
+									translations: {
+										"zh-CN": "JSON 规则",
+										ru: "Правила JSON",
+									},
 								},
 								{
 									label: "JSON Rules sources",
 									link: "/linter/json/sources",
+									translations: {
+										"zh-CN": "JSON 规则来源",
+										ru: "Источники правил JSON",
+									},
 								},
 								{
 									label: "GraphQL Rules",
 									link: "/linter/graphql/rules",
+									translations: {
+										"zh-CN": "GraphQL 规则",
+										ru: "Правила GraphQL",
+									},
 								},
 								{
 									label: "GraphQL Rules sources",
 									link: "/linter/graphql/sources",
+									translations: {
+										"zh-CN": "GraphQL 规则来源",
+										ru: "Источники правил GraphQL",
+									},
 								},
 							],
 							translations: {
 								fr: "Outil de linting",
 								uk: "Лінтер",
+								ru: "Линтер",
 							},
 						},
 						{
@@ -445,41 +508,78 @@ export default defineConfig({
 										"zh-CN": "介绍",
 										"pt-BR": "Introdução",
 										uk: "Вступ",
+										ru: "Вступление",
 									},
 								},
 								{
 									label: "JavaScript Actions",
 									link: "/assist/javascript/actions",
+									translations: {
+										"zh-CN": "JavaScript 操作",
+										ru: "Действия JavaScript",
+									},
 								},
 								{
 									label: "JavaScript Actions sources",
 									link: "/assist/javascript/sources",
+									translations: {
+										"zh-CN": "JavaScript 操作来源",
+										ru: "Источники действий JavaScript",
+									},
 								},
 								{
 									label: "CSS Actions",
 									link: "/assist/css/actions",
+									translations: {
+										"zh-CN": "CSS 操作",
+										ru: "Действия CSS",
+									},
 								},
 								{
 									label: "CSS Actions sources",
 									link: "/assist/css/sources",
+									translations: {
+										"zh-CN": "CSS 操作来源",
+										ru: "Источники действий CSS",
+									},
 								},
 								{
 									label: "JSON Actions",
 									link: "/assist/json/actions",
+									translations: {
+										"zh-CN": "JSON 操作",
+										ru: "Действия JSON",
+									},
 								},
 								{
 									label: "JSON Actions sources",
 									link: "/assist/json/sources",
+									translations: {
+										"zh-CN": "JSON 操作来源",
+										ru: "Источники действий JSON",
+									},
 								},
 								{
 									label: "GraphQL Actions",
 									link: "/assist/graphql/actions",
+									translations: {
+										"zh-CN": "GraphQL 操作",
+										ru: "Действия GraphQL",
+									},
 								},
 								{
 									label: "GraphQL Actions sources",
 									link: "/assist/graphql/sources",
+									translations: {
+										"zh-CN": "GraphQL 操作来源",
+										ru: "Источники действий GraphQL",
+									},
 								},
 							],
+							translations: {
+								"zh-CN": "辅助操作",
+								ru: "Действия",
+							},
 						},
 					],
 				},
@@ -492,6 +592,7 @@ export default defineConfig({
 						"zh-CN": "参考",
 						"pt-BR": "Referências",
 						uk: "Довідка",
+						ru: "Справка",
 					},
 					items: [
 						{
@@ -505,6 +606,8 @@ export default defineConfig({
 							translations: {
 								es: "Diagnósticos",
 								ja: "診断",
+								"zh-CN": "诊断",
+								ru: "Диагностика",
 							},
 						},
 						{
@@ -515,6 +618,8 @@ export default defineConfig({
 								fr: "Variables d’environnement",
 								uk: "Змінні середовища",
 								ja: "環境変数",
+								"zh-CN": "环境变量",
+								ru: "Переменные окружения",
 							},
 						},
 						{
@@ -525,6 +630,8 @@ export default defineConfig({
 								fr: "Outils de reporting",
 								uk: "Звіти",
 								ja: "リポータ",
+								"zh-CN": "报告器",
+								ru: "Создание отчётов",
 							},
 						},
 						{
@@ -536,6 +643,7 @@ export default defineConfig({
 								"zh-CN": "配置",
 								"pt-BR": "Configuração",
 								uk: "Конфігурація",
+								ru: "Параметры",
 							},
 						},
 						{
@@ -548,6 +656,7 @@ export default defineConfig({
 								"zh-CN": "VSCode 扩展",
 								"pt-BR": "Extensão do VSCode",
 								uk: "Розширення VSCode",
+								ru: "Расширение для VSCode",
 							},
 						},
 						{
@@ -560,6 +669,7 @@ export default defineConfig({
 								"zh-CN": "Zed 扩展",
 								"pt-BR": "Extensão do Zed",
 								uk: "Розширення Zed",
+								ru: "Расширение для Zed",
 							},
 						},
 						{
@@ -574,9 +684,10 @@ export default defineConfig({
 						es: "Recetas",
 						fr: "Recettes",
 						ja: "レシピ",
-						"zh-CN": "实例",
+						"zh-CN": "与其他工具集成",
 						"pt-BR": "Receitas",
 						uk: "Рецепти",
+						ru: "Рецепты",
 					},
 					items: [
 						{
@@ -586,9 +697,10 @@ export default defineConfig({
 								es: "Integración continua",
 								fr: "Intégration continue",
 								ja: "継続的インテグレーション",
-								"zh-CN": "持续集成",
+								"zh-CN": "CI 环境集成",
 								"pt-BR": "Integração Contínua",
 								uk: "Безперервна інтеграція",
+								ru: "Непрерывная интеграция",
 							},
 						},
 						{
@@ -596,11 +708,16 @@ export default defineConfig({
 							link: "/recipes/git-hooks",
 							translations: {
 								fr: "Hooks Git",
+								"zh-CN": "Git 钩子",
+								ru: "Хуки Git",
 							},
 						},
 						{
 							label: "Renovate",
 							link: "/recipes/renovate",
+							translations: {
+								"zh-CN": "Renovate Bot",
+							},
 						},
 						{
 							label: "Social Badges",
@@ -610,6 +727,8 @@ export default defineConfig({
 								fr: "Badges sociaux",
 								ja: "ソーシャルバッジ",
 								uk: "Соціальні значки",
+								"zh-CN": "Biome 徽章",
+								ru: "Социальные значки",
 							},
 						},
 					],
@@ -623,6 +742,7 @@ export default defineConfig({
 						"zh-CN": "内部原理",
 						"pt-BR": "Aspectos Internos",
 						uk: "Внутрішні аспекти",
+						ru: "Внутренние аспекты",
 					},
 					items: [
 						{
@@ -635,6 +755,7 @@ export default defineConfig({
 								"zh-CN": "理念",
 								"pt-BR": "Filosofia",
 								uk: "Філософія",
+								ru: "Философия",
 							},
 						},
 						{
@@ -647,6 +768,7 @@ export default defineConfig({
 								"zh-CN": "语言支持",
 								"pt-BR": "Suporte de linguagens",
 								uk: "Підтримка мов",
+								ru: "Поддержка языков",
 							},
 						},
 						{
@@ -658,6 +780,7 @@ export default defineConfig({
 								"zh-CN": "架构",
 								"pt-BR": "Arquitetura",
 								uk: "Архітектура",
+								ru: "Архитектура",
 							},
 						},
 						{
@@ -670,6 +793,7 @@ export default defineConfig({
 								"zh-CN": "鸣谢",
 								"pt-BR": "Créditos",
 								uk: "Подяки",
+								ru: "Участники",
 							},
 						},
 						{
@@ -682,6 +806,7 @@ export default defineConfig({
 								"zh-CN": "版本控制",
 								"pt-BR": "Versionamento",
 								uk: "Версіонування",
+								ru: "Версионирование",
 							},
 						},
 						{
@@ -692,11 +817,16 @@ export default defineConfig({
 								"zh-CN": "更新日志",
 								"pt-BR": "Alterações",
 								uk: "Журнал змін",
+								ru: "Журнал изменений",
 							},
 						},
 						{
 							label: "Changelog v1",
 							link: "/internals/changelog_v1",
+							translations: {
+								"zh-CN": "更新日志 v1",
+								ru: "Журнал изменений v1",
+							},
 						},
 					],
 				},

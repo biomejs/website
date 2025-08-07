@@ -1,0 +1,327 @@
+---
+title: 'Biome v2—コードネーム：Biotype'
+excerpt: |
+  Biome 2.0が正式リリースされました。TypeScriptコンパイラに依存せず型認識リンティングルールを提供する初のJavaScriptリンターです。
+  本リリースでは、プラグインサポート、マルチファイル分析、改良されたインポートソート、実験的なHTMLフォーマッタ、改善された抑制機能、強化されたLSPサポートなど、多数の新機能が含まれています。
+authors:
+  - ema
+  - team
+date: 2025-06-17
+cover:
+    light: "@/assets/blog/roadmap-2024/banner-light.png"
+    dark: "@/assets/blog/roadmap-2024/banner-dark.png"
+    alt: プロジェクトのブランド："Biome, toolchain of the web"
+socialImage: "@/assets/social-logo.png"
+featured: true
+---
+
+import { Image } from "astro:assets"
+import darkVercel from "../../../../assets/sponsors/vercel-logotype-dark.png";
+import lightVercel from "../../../../assets/sponsors/vercel-logotype-light.png";
+import darkDepot from "../../../../assets/sponsors/depot-logo-horizontal-on-dark@3x.png";
+import lightDepot from "../../../../assets/sponsors/depot-logo-horizontal-on-light@3x.png";
+import Avatar from "@/components/Avatar.astro";
+
+Biome v2が正式にリリースされました！🍾 Biome v2—コードネーム：Biotypeは、**TypeScriptコンパイラに依存せず型認識リンティングルールを提供する**初のJavaScriptおよびTypeScriptリンターです！つまり、`typescript`パッケージをインストールせずにプロジェクトをリントできます。
+
+このリリースにより、[プロジェクトのコアコントリビューター](/internals/people-and-credits#core-contributors)は、Biomeが次世代のWebツールチェーンとしての地位を確立する価値があることを、コミュニティとWebエコシステム全体に示したいと考えています。
+この短期間（[2年間](/blog/announcing-biome)）と限られたリソースで、ここまでの成果を上げたツールは他にありません。プロジェクトを信じて支えてくれた企業や皆さんのおかげです。特に、型推論の作業をスポンサーしてくれた[Vercel](https://vercel.com/)に感謝します。
+
+事前テストでは、新しい型推論に基づく[`noFloatingPromises`ルール](/linter/rules/no-floating-promises/)が、`typescript-eslint`で検出されるFloating Promiseのケースの約75%を、パフォーマンスへの影響をほんのわずかに抑えて検出できることが示されています。言うまでもなく、この指標をさらに改善するアイデアも豊富にあります。
+
+これらの初期の数値は限られた使用例に基づいているため、実際の結果は異なる場合があります。ぜひ実際に試して、フィードバックを聞かせてください。そのフィードバックは、ほとんどのプロジェクトに十分な信頼性のレベルに迅速に到達することに寄与します。
+
+## インストールと移行
+
+`@biomejs/biome`パッケージをインストールまたは更新します。パッケージをアップグレードする場合は、`migrate`コマンドを実行してください。
+
+```shell
+npm install --save-dev --save-exact @biomejs/biome
+npx @biomejs/biome migrate --write
+```
+
+`migrate`コマンドは、設定のすべての破壊的変更を処理するので、手動で行う必要はありません。ただし、自動化できなかった変更がいくつかあります。[移行ガイド](/guides/upgrade-to-biome-v2)を作成し、該当する場合は手動の移行パスとともに説明しています。一部の変更はBiomeの核となる機能を大きく改善しています。最初は戸惑うかもしれませんが、ぜひ少しずつ慣れてみてください。
+
+## 関連機能
+
+Biomeには、大小さまざまな新機能が満載です。ここでは、特に言及する価値があると思われるものに焦点を当てます。新機能の完全なリストについては、[changelog](/internals/changelog)を参照してください。
+
+### マルチファイル分析と型推論
+
+これら2つの機能は密接に関連しています。他のモジュールからインポートされた型をクエリする機能なしに、型推論エンジンを作成することはできません。
+
+バージョン2.0以前、Biomeのリントルールは一度に1つのファイルでしか動作できませんでした。これでも十分多くのことが可能でしたが、より興味深い多くのルールでは他ファイルからの情報が必要です。
+
+これを実現するために、IDEのLSPサービスと同様に、プロジェクト内のすべてのファイルをスキャンしてインデックス化する _ファイルスキャナー_ をBiomeに追加しました。
+
+ファイルスキャナーには避けられない問題があります：速度の低下です。多くのユーザーが速度を理由にBiomeを選んでいることを認識しています。ベータ期間中、ユーザーはこれがワークフローにどのような影響を与えるかについて懸念を示しました。
+
+このリリースにおけるファイルスキャナーには次の特性があります：
+- **オプトイン**です。つまり、v1からv2への移行がプロジェクトのフォーマットとリントのパフォーマンスに大きな影響を与えることはありません。
+- デフォルトでは、スキャナーはネストされた設定ファイルの検出にのみ使用されます。これは非常に高速ですが、v1と比較してわずかな増加が見られる場合があります。
+- **フルスキャン**（プロジェクトファイル**および**`node_modules`をすべてスキャン）は、[プロジェクトルール](/linter/domains#project)が有効になっている場合*のみ*実行されます。
+- ユーザーは`files.includes`を使用してスキャンされるファイルを制御できます（`node_modules`を除く）。
+- 型を収集したりモジュールグラフをクエリしたりする必要があるリントルールは、[`project`ドメイン](/linter/domains/#project)以外では**決して推奨されません**。速度とパフォーマンスを最優先し、ユーザーがルールを制御できるようにします。
+
+### モノレポサポート
+
+モノレポのサポートを大幅に改善しました。これは、`package.json`ファイルからの情報に依存するリントルールが、適切なパッケージの`package.json`を使用するようになったことを意味します。しかし、おそらくより重要なのは：**ネストされた設定ファイルをサポートするようになりました。**
+
+各プロジェクトは、Biome v1と同様に、ルートに単一の`biome.json`または`biome.jsonc`を持つ必要があります。しかし、プロジェクトはサブディレクトリに任意の数のネストされた`biome.json`/`biome.jsonc`ファイルを持つことができます。ネストされた設定ファイルは、2つの方法のいずれかで明示的に示す必要があります。
+
+最初の方法：
+
+```json title="biome.jsonc"
+{
+    "root": false,
+    // ...
+}
+```
+
+`root`フィールドを`false`に設定することで、これがネストされたファイルであることをBiomeに伝えます。これは重要です。なぜなら、ネストされたフォルダー内でBiomeを実行した場合、設定がより大きなプロジェクトの一部であることを認識し、ルート設定も探し続けるからです。
+
+ネストされたフォルダー内の設定は、デフォルトではルート設定から**継承されない**ことを強調しておきます。別の設定から拡張したい場合は、Biome v1で既に存在していた[`extends`フィールド](https://biomejs.dev/guides/big-projects/#share-the-configuration)を使用する必要があります。
+
+これにより、ネストされた設定を定義する2番目の方法に移ります：
+
+```json title="biome.jsonc"
+{
+    "extends": "//",
+    // ...
+}
+```
+
+これは便利なマイクロ構文で、`root`フィールドを`false`に設定し、このネストされた設定がルート設定から拡張することをBiomeに伝えます。
+
+`"extends": ["../../biome.json"]`のような不格好な相対パスにさよなら 👋
+
+セットアップの参考になる[小さなガイド](/guides/big-projects#monorepo)を用意しました。
+
+### プラグイン
+
+Biome 2.0には、[リンタープラグイン](/linter/plugins)の最初のイテレーションが搭載されています。
+
+これらのプラグインはまだスコープが限定されています：コードスニペットをマッチさせ、それらに対して診断を報告することしかできません。
+
+以下は、`Object.assign()`の使用を報告するプラグインの例です：
+
+```grit
+`$fn($args)` where {
+    $fn <: `Object.assign`,
+    register_diagnostic(
+        span = $fn,
+        message = "Prefer object spread instead of `Object.assign()`"
+    )
+}
+```
+
+これは最初のステップですが、プラグインをより強力にするためのアイデアがたくさんあり、ユーザーから何を優先してほしいかを聞くことを楽しみにしています。
+
+現時点では、さまざまな理由から、プラグインの配布方法を意図的に除外しました。しかし、皆さんからの意見をお聞きしたいです。[ディスカッション](https://github.com/biomejs/biome/discussions/6265)に参加して、アイデアを共有してください。
+
+### Import Organizerの刷新
+
+Biome 1.xでは、Import Organizerにはいくつかの制限がありました：
+
+* 空行で区切られたインポートのグループは別々の _チャンク_ と見なされ、独立してソートされていました。これは、次の例が**期待どおりに動作しない**ことを意味していました：
+
+  ```js title="example.js"
+  import { lib2 } from "library2";
+
+  import { util } from "./utils.js";
+  import { lib1 } from "library1";
+  ```
+
+  `"library1"`を`"./utils.js"`の上に配置するように正しくソートしますが、空行を越えて一番上に運ぶことはできませんでした。得られた結果は次のとおりです：
+
+  ```js title="organizer_v1.js"
+  import { lib2 } from "library2";
+
+  import { lib1 } from "library1";
+  import { util } from "./utils.js";
+  ```
+
+  しかし、本当に欲しかったのはこれです：
+
+  ```js title="organizer_v2.js"
+  import { lib1 } from "library1";
+  import { lib2 } from "library2";
+
+  import { util } from "./utils.js";
+  ```
+
+* 同じモジュールからのインポートはマージされませんでした。次の例を考えてみてください：
+
+  ```js title="example.js"
+  import { util1 } from "./utils.js";
+  import { util2 } from "./utils.js";
+  ```
+
+  欲しかったのはこれです：
+
+  ```js title="organizer_v2.js"
+  import { util1, util2 } from "./utils.js";
+  ```
+
+* カスタムの並べ替えを設定できませんでした。おそらく、インポート元からの「距離」で並べ替えるデフォルトのアプローチがあまり好きではなかったでしょう。次のようにインポートを整理したかったでしょう：
+
+  ```js title="organizer_v2.js"
+  import { open } from "node:fs";
+
+  import { internalLib1 } from "@company/library1";
+  import { internalLib2 } from "@company/library2";
+
+  import { lib1 } from "library1";
+  ```
+
+Biome 2.0では、これらすべての制限が解除されています。実際、上記の例を見ると、`organizer_v2.js`とラベル付けされたすべてのスニペットは、新しいImport Organizerによってそのまま生成できます。
+
+その他の改善点には、`export`文の整理のサポート、必要に応じてインポートチャンクを明示的に分離するための「分離された」コメントのサポート、インポート属性のソートなどがあります。
+
+詳細は[アクションのドキュメント](/assist/actions/organize-imports)をご覧ください。
+
+### アシスト
+
+Import Organizerは、Biomeではいつも少し特殊なケースでした。リンターにもフォーマッターにも属していませんでした。これは、リンターのように診断を表示したくなかったことと、その整理機能がフォーマッターに期待するものを超えていたためです。
+
+Biome 2.0では、このような使用例をBiomeアシストの形で一般化しました。アシストは**アクション**を提供します。これはリントルールの _修正_ に似ていますが、診断はありません。
+
+Import Organizerはアシストになりましたが、新しいアシストにもこのアプローチを使い始めました：[`useSortedKeys`](https://biomejs.dev/assist/actions/use-sorted-keys/)はオブジェクトリテラルのキーをソートでき、[`useSortedAttributes`](/assist/actions/use-sorted-attributes/)はJSXの属性をソートできます。
+
+アシストの詳細については、[関連ページ](/assist/)を参照してください。
+
+### 改善された抑制
+
+既にサポートしていた `// biome-ignore` コメントに加えて、ファイル全体でリントルールまたはフォーマッターを抑制するための `// biome-ignore-all` をサポートするようになりました。
+
+また、`// biome-ignore-start` と `// biome-ignore-end` を使用した抑制範囲のサポートも追加しました。ファイルの終わりまで範囲を実行したい場合は、`// biome-ignore-end` はオプションです。
+
+抑制の詳細については、[関連ページ](/linter/#suppress-lint-rules)を参照してください。
+
+### HTMLフォーマッター
+
+数ヶ月の努力の末、HTMLフォーマッターをユーザーが試してバグを報告できる準備が整ったことを発表できることを嬉しく思います！これは、BiomeがVueやSvelteなどのフレームワークで使用されるHTML系のテンプレート言語を完全にサポートするための大きな一歩です。
+
+現時点では、HTMLフォーマッターは実際の`.html`ファイルのみに触れるため、`.vue`や`.svelte`ファイル内のHTMLはまだフォーマットしません。また、JavaScriptやCSSなどの埋め込み言語もまだフォーマットしません。`attributePosition`、`bracketSameLine`、`whitespaceSensitivity`などのHTMLのオプションが実装されています。
+
+HTMLフォーマッターはまだ実験段階にあるため、2.0の完全リリースでは**デフォルトで無効**のままです。執筆時点で、BiomeはPrettierのHTMLテストスイートの大部分を解析でき、124個のうち46個を正しくフォーマットできます。まだPrettierと一致していませんが、何も破壊することなく適切にフォーマットされたドキュメントを出力*すべき*であることにかなり自信があります。そうでないケースを見つけた場合は、[お知らせください](https://github.com/biomejs/biome/issues)！
+
+設定ファイルに以下を追加することで、HTMLフォーマッターを有効にできます：
+
+```json
+{
+  "html": {
+    "formatter": {
+      "enabled": true
+    }
+  }
+}
+```
+
+## 謝辞
+
+そして今、功績があるところに功績を与えましょう！
+
+<div style={{ display: "flex", justifyContent: "center"}}>
+  <Image
+    src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExdjQ2b3d6MjYzMTdsazdzcm41NmM1ZTMzaGcyM2xyeHo2N2k5NmxscyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/QW5nKIoebG8y4/giphy.gif"
+    width="400"
+    alt="it's"
+    height="300"
+  />
+</div>
+
+プラチナスポンサーのVercelに特別な感謝を捧げます。<Avatar handle="arendjr" />が率いる[型推論プロジェクトをスポンサーしていただきました](/blog/vercel-partners-biome-type-inference)。
+<div style={{ display: "flex", justifyContent: "center"}}>
+  <a href="https://vercel.com" rel="nofollow" title="Vercel" target="_blank">
+    <Image
+      alt="Vercel"
+      src={darkVercel}
+      data-canonical-src={darkVercel.src}
+      width="500"
+      class="dark:sl-hidden"
+      loading="eager"
+    />
+    <Image
+      alt="Vercel"
+      src={lightVercel}
+      data-canonical-src={lightVercel.src}
+      width="500"
+      class="light:sl-hidden"
+      loading="eager"
+    />
+  </a>
+</div>
+
+ゴールドスポンサーのDepotに特別な感謝を捧げます。プロジェクトに強力で高速なCIランナーを提供していただきました。大幅な**時間の節約**と**信頼性の向上**をもたらしました！
+<div style={{ display: "flex", justifyContent: "center"}}>
+  <a href="https://depot.dev" rel="nofollow" title="Depot" target="_blank">
+    <Image
+      alt="Depot"
+      src={lightDepot}
+      data-canonical-src={lightDepot.src}
+      width="500"
+      class="dark:sl-hidden"
+      loading="eager"
+    />
+    <Image
+      alt="Depot"
+      src={darkDepot}
+      data-canonical-src={darkDepot.src}
+      width="500"
+      class="light:sl-hidden"
+      loading="eager"
+    />
+  </a>
+</div>
+
+最近プロジェクトのコアコントリビューターになった<Avatar handle="siketyan" />に祝福を！彼らの貢献のおかげで、[JetBrains拡張機能](https://plugins.jetbrains.com/plugin/22761-biome)は安定し、複数のワークスペースをサポートするようになりました。
+
+Import Organizerの刷新、新しいglobエンジン、多くの新しいリントルールの実装など、大規模な作業を行った<Avatar handle="conaclos" />に感謝します。
+
+マルチファイルアーキテクチャの作成、型推論、プラグイン、その他の改善に関する継続的な作業を行った<Avatar handle="arendjr" />に感謝します。
+
+[GitHub Action](https://github.com/biomejs/setup-biome)を作成し、[VS Code拡張機能](https://marketplace.visualstudio.com/items?itemName=biomejs.biome)の新バージョンを[リリース](https://biomejs.dev/blog/2025-05-29-biome-vscode-v3/)した<Avatar handle="nhedger" />に敬意を表します。
+
+HTMLパーサーとフォーマッターの作業を主導した<Avatar handle="dyc3" />に感謝します。これらは両方とも非常に複雑なソフトウェアであり、特にPrettierのフォーマット体験に合わせることに関してはそうです。
+
+最後になりましたが、他のすべての[スポンサー](https://github.com/biomejs/biome#sponsors)と[コントリビューター](/internals/people-and-credits#contributors)にも大きな感謝を！
+
+## 次は何か
+
+どんなソフトウェアにもバグはつきものです。私たちはそれらを確実に潰し、パッチをリリースしていきます。
+
+[コアコントリビューター](/internals/people-and-credits#core-contributors)は、[2025年のロードマップ](/blog/roadmap-2025#-2025-roadmap)を進め、次の機能に焦点を当てます：
+- HTMLサポートの安定化
+- Vue、Svelte、Astroなどの他のフレームワークをサポートするようにHTMLを拡張する。
+- パーサーから始めて、Markdownサポートに取り組む。
+- より多くのケースをカバーし、新しいルールを追加できるように、推論インフラストラクチャの作業を続ける。
+- その他多数！
+
+### この方向性が気に入っています、どうすれば手伝えますか？
+
+Biomeは、プログラミング、オープンソース、Biomeの哲学を愛するボランティアによって主導されているプロジェクトであることを思い出してください。どんな助けも歓迎します 😁
+
+#### 翻訳
+
+Biomeに精通していて、その普及に貢献したい場合は、ウェブサイトを母国語に翻訳することで私たちを支援できます。この[ダッシュボード](https://biomejs.dev/i18n-dashboard/)で、サポートされている言語と最新かどうかを確認できます。
+
+#### コミュニティ
+
+[Discordサーバー](https://biomejs.dev/chat)に参加して、コミュニティと交流しましょう。コミュニティとチャットし、コミュニティの一員であることは、貢献の一形態です。
+
+#### コード貢献
+
+プロジェクトの技術的側面が好きで、Rust言語への道を歩みたい、またはパーサー、コンパイラー、アナライザーなどに関する知識を実践したい場合、Biomeはあなたのためのプロジェクトです！
+
+探求すべき多くの側面があります。退屈することはないと保証します。以下は、始められるものの小さなリストです：
+- 新しいリントルールを作成する！まだ実装していないルールがたくさんあります（ESLint、ESLintプラグイン、Next.js、Solidなど）。非常に[詳細な技術ガイド](https://github.com/biomejs/biome/blob/main/crates/biome_analyze/CONTRIBUTING.md)があります。
+- [Biome](https://github.com/biomejs/biome/tree/main/crates/biome_yaml_parser)[パーサー](https://github.com/biomejs/biome/tree/main/crates/biome_html_parser)の[構築](https://github.com/biomejs/biome/blob/main/crates/biome_parser/CONTRIBUTING.md)を[手伝う](https://github.com/biomejs/biome/tree/main/crates/biome_markdown_parser)！
+  Biomeパーサーの面白い点は、[エラー耐性](/internals/architecture/#parser-and-cst)のある回復可能なパーサーであり、従来のASTではなく[CST](https://en.wikipedia.org/wiki/Parse_tree)を出力することです。
+- [LSP（Language Server Protocol）](https://github.com/biomejs/biome/tree/main/crates/biome_lsp)に新しい機能を実装するか、エディター拡張機能のいずれかに新しい機能を追加する：[VS Code](https://github.com/biomejs/biome-vscode)、[Zed](https://github.com/biomejs/biome-zed)、[JetBrains IntelliJ](https://github.com/biomejs/biome-intellij)。
+
+#### 財政的支援
+
+プロジェクトの将来を信じている場合は、[Open Collective](https://opencollective.com/biome)または[GitHub Sponsors](https://github.com/sponsors/biomejs)を通じて財政的な貢献で支援することもできます。
+
+さらに、プロジェクトは[エンタープライズサポートプログラム](/enterprise)を提供しており、企業はコアコントリビューターの1人を雇ってBiomeツールチェーンの特定の側面に取り組むことができます。

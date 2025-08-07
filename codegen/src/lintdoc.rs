@@ -348,7 +348,6 @@ fn generate_rule_pages() -> Result<()> {
                     rule_to_document,
                 },
                 "linter",
-                "rules",
                 RuleCategory::Lint,
             )?;
         }
@@ -366,7 +365,6 @@ fn generate_rule_pages() -> Result<()> {
                     rule_to_document,
                 },
                 "assist",
-                "action",
                 RuleCategory::Action,
             )?;
         }
@@ -542,7 +540,6 @@ struct GenRule<'a> {
 fn generate_rule(
     payload: GenRule,
     path_prefix: &str,
-    middle_path: &str,
     rule_category: RuleCategory,
 ) -> Result<()> {
     let mut content = Vec::new();
@@ -561,7 +558,6 @@ fn generate_rule(
                 is_nursery: payload.is_nursery,
                 meta,
                 path_prefix,
-                middle_path,
                 rule_category,
             });
 
@@ -634,7 +630,6 @@ struct RuleContent<'a> {
     is_nursery: bool,
     meta: &'a RuleMetadata,
     path_prefix: &'a str,
-    middle_path: &'a str,
     rule_category: RuleCategory,
 }
 
@@ -647,7 +642,6 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
         is_nursery,
         meta,
         path_prefix,
-        middle_path,
         rule_category,
     } = rule_content;
     let is_recommended = !is_nursery && meta.recommended && meta.domains.is_empty();
@@ -779,7 +773,7 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
         writeln!(content, ":::caution")?;
         writeln!(
             content,
-            "This rule is part of the [nursery](/{path_prefix}/{middle_path}/#nursery) group."
+            "This rule is part of the [nursery](/{path_prefix}/#nursery) group. This means that it is experimental and the behavior can change at any time."
         )?;
         writeln!(content, ":::")?;
     }
