@@ -422,7 +422,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 - The icon <span class='inline-icon' title="This rule is recommended"><Icon name="approve-check-circle"x label="This rule is recommended" /></span> indicates that the rule is part of the recommended rules.
 - The icon <span class='inline-icon' title="This rule has a safe fix"><Icon name="seti:config" label="The rule has a safe fix" /></span> indicates that the rule provides a code action (fix) that is **safe** to apply.
 - The icon <span class='inline-icon' title="This rule has an unsafe fix"><Icon name="warning" label="The rule has an unsafe fix" /></span> indicates that the rule provides a code action (fix) that is **unsafe** to apply.
-- The icon <span class='inline-icon' title="This rule is only available in beta"><Icon name="moon" label="This rule is only available in beta" /></span> indicates that the rule is currently only available in the [2.0 beta release](/blog/biome-v2-0-beta).
+- The icon <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" /></span> indicates that the rule has been implemented and scheduled for the next release.
 "#
     )?;
 
@@ -512,7 +512,7 @@ fn generate_group(
             }
 
             if meta.version == "next" {
-                properties.push_str("<span class='inline-icon' title=\"This rule is only available in beta\"><Icon name=\"moon\" label=\"This rule is only available in beta\" size=\"1.2rem\" /></span>");
+                properties.push_str("<span class='inline-icon' title=\"This rule is not released yet\"><Icon name=\"moon\" label=\"This rule is not released yet\" size=\"1.2rem\" /></span>");
             }
 
             let summary_html = extract_summary_from_rule(meta.docs);
@@ -537,11 +537,7 @@ struct GenRule<'a> {
 }
 
 /// Generates the documentation page for a single lint rule
-fn generate_rule(
-    payload: GenRule,
-    path_prefix: &str,
-    rule_category: RuleCategory,
-) -> Result<()> {
+fn generate_rule(payload: GenRule, path_prefix: &str, rule_category: RuleCategory) -> Result<()> {
     let mut content = Vec::new();
 
     let mut errors = Vec::new();
@@ -655,16 +651,28 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
         )?;
         writeln!(content, ":::")?;
     }
-    writeln!(content, "## Summary")?;
 
     if meta.version == "next" {
         writeln!(content, ":::note")?;
         writeln!(
             content,
-            "This rule is currently only available in the [2.0 beta release](/blog/biome-v2-0-beta)."
+            "This rule has been implemented but not released yet. It will be available in the next release."
         )?;
         writeln!(content, ":::")?;
-    } else {
+    }
+
+    if group == "nursery" {
+        writeln!(content, ":::caution")?;
+        writeln!(
+            content,
+            "This rule is part of the [nursery](/{path_prefix}/#nursery) group. This means that it is experimental and the behavior can change at any time."
+        )?;
+        writeln!(content, ":::")?;
+    }
+
+    writeln!(content, "## Summary")?;
+
+    if meta.version != "next" {
         writeln!(content, "- Rule available since: `v{}`", meta.version)?;
     }
 
@@ -767,15 +775,6 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
             writeln!(content, "[`{rule_name}`]({source_rule_url})")?;
         }
         writeln!(content)?;
-    }
-
-    if group == "nursery" {
-        writeln!(content, ":::caution")?;
-        writeln!(
-            content,
-            "This rule is part of the [nursery](/{path_prefix}/#nursery) group. This means that it is experimental and the behavior can change at any time."
-        )?;
-        writeln!(content, ":::")?;
     }
 
     if rule_category == RuleCategory::Action {

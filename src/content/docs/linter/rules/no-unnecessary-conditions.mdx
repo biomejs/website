@@ -9,10 +9,13 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-## Summary
 :::note
-This rule is currently only available in the [2.0 beta release](/blog/biome-v2-0-beta).
+This rule has been implemented but not released yet. It will be available in the next release.
 :::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
 - Diagnostic Category: [`lint/nursery/noUnnecessaryConditions`](/reference/diagnostics#diagnostic-category)
 - This rule doesn't have a fix.
 - The default severity of this rule is [**warning**](/reference/diagnostics#warning).
@@ -21,9 +24,6 @@ This rule is currently only available in the [2.0 beta release](/blog/biome-v2-0
 - Sources: 
   - Same as [`@typescript-eslint/no-unnecessary-condition`](https://typescript-eslint.io/rules/no-unnecessary-condition)
 
-:::caution
-This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
-:::
 ## Description
 Disallow unnecessary type-based conditions that can be statically determined as redundant.
 

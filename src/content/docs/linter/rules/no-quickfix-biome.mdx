@@ -9,14 +9,14 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JSON (and super languages)" icon="seti:json">
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
 ## Summary
 - Rule available since: `v2.1.3`
 - Diagnostic Category: [`lint/nursery/noQuickfixBiome`](/reference/diagnostics#diagnostic-category)
 - This rule has a [**safe**](/linter/#safe-fixes) fix.
 - The default severity of this rule is [**information**](/reference/diagnostics#information).
-:::caution
-This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
-:::
 ## Description
 Disallow the use if `quickfix.biome` inside editor settings file.
 
