@@ -297,6 +297,13 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | eslint-plugin-no-secrets Rules name | Biome Rules name |
 | ---- | ---- |
 | [no-secrets](https://github.com/nickdeis/eslint-plugin-no-secrets/blob/master/README.md) |[noSecrets](/linter/rules/no-secrets) (inspired) |
+### eslint-plugin-qwik
+| eslint-plugin-qwik Rules name | Biome Rules name |
+| ---- | ---- |
+| [jsx-a](https://github.com/BuilderIO/eslint-plugin-qwik/blob/main/docs/rules/jsx-a.md) |[useAnchorHref](/linter/rules/use-anchor-href) |
+| [jsx-img](https://github.com/BuilderIO/eslint-plugin-qwik/blob/main/docs/rules/jsx-img.md) |[useImageSize](/linter/rules/use-image-size) |
+| [no-use-visible-task](https://github.com/BuilderIO/eslint-plugin-qwik/blob/main/docs/rules/no-use-visible-task.md) |[noQwikUseVisibleTask](/linter/rules/no-qwik-use-visible-task) |
+| [prefer-classlist](https://github.com/BuilderIO/eslint-plugin-qwik/blob/main/docs/rules/prefer-classlist.md) |[useQwikClasslist](/linter/rules/use-qwik-classlist) |
 ### eslint-plugin-react
 | eslint-plugin-react Rules name | Biome Rules name |
 | ---- | ---- |
@@ -384,8 +391,10 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 ### eslint-plugin-vue
 | eslint-plugin-vue Rules name | Biome Rules name |
 | ---- | ---- |
+| [no-deprecated-data-object-declaration](https://eslint.vuejs.org/rules/no-deprecated-data-object-declaration) |[noVueDataObjectDeclaration](/linter/rules/no-vue-data-object-declaration) (inspired) |
 | [no-reserved-keys](https://eslint.vuejs.org/rules/no-reserved-keys) |[noVueReservedKeys](/linter/rules/no-vue-reserved-keys) |
 | [no-reserved-props](https://eslint.vuejs.org/rules/no-reserved-props) |[noVueReservedProps](/linter/rules/no-vue-reserved-props) |
+| [no-shared-component-data](https://eslint.vuejs.org/rules/no-shared-component-data) |[noVueDataObjectDeclaration](/linter/rules/no-vue-data-object-declaration) (inspired) |
 ### typescript-eslint
 | typescript-eslint Rules name | Biome Rules name |
 | ---- | ---- |
@@ -393,6 +402,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [array-type](https://typescript-eslint.io/rules/array-type) |[useConsistentArrayType](/linter/rules/use-consistent-array-type) |
 | [ban-ts-comment](https://typescript-eslint.io/rules/ban-ts-comment) |[noTsIgnore](/linter/rules/no-ts-ignore) (inspired) |
 | [ban-types](https://typescript-eslint.io/rules/ban-types) |[noBannedTypes](/linter/rules/no-banned-types) |
+| [consistent-type-definitions](https://typescript-eslint.io/rules/consistent-type-definitions) |[useConsistentTypeDefinitions](/linter/rules/use-consistent-type-definitions) |
 | [consistent-type-exports](https://typescript-eslint.io/rules/consistent-type-exports) |[useExportType](/linter/rules/use-export-type) (inspired) |
 | [consistent-type-imports](https://typescript-eslint.io/rules/consistent-type-imports) |[useImportType](/linter/rules/use-import-type) (inspired) |
 | [default-param-last](https://typescript-eslint.io/rules/default-param-last) |[useDefaultParameterLast](/linter/rules/use-default-parameter-last) |
@@ -416,12 +426,14 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-misused-new](https://typescript-eslint.io/rules/no-misused-new) |[noMisleadingInstantiator](/linter/rules/no-misleading-instantiator) |
 | [no-misused-promises](https://typescript-eslint.io/rules/no-misused-promises) |[noMisusedPromises](/linter/rules/no-misused-promises) |
 | [no-namespace](https://typescript-eslint.io/rules/no-namespace) |[noNamespace](/linter/rules/no-namespace) |
+| [no-non-null-asserted-optional-chain](https://typescript-eslint.io/rules/no-non-null-asserted-optional-chain) |[noNonNullAssertedOptionalChain](/linter/rules/no-non-null-asserted-optional-chain) |
 | [no-non-null-assertion](https://typescript-eslint.io/rules/no-non-null-assertion) |[noNonNullAssertion](/linter/rules/no-non-null-assertion) |
 | [no-redeclare](https://typescript-eslint.io/rules/no-redeclare) |[noRedeclare](/linter/rules/no-redeclare) |
 | [no-require-imports](https://typescript-eslint.io/rules/no-require-imports) |[noCommonJs](/linter/rules/no-common-js) |
 | [no-restricted-imports](https://typescript-eslint.io/rules/no-restricted-imports) |[noRestrictedImports](/linter/rules/no-restricted-imports) |
 | [no-restricted-types](https://typescript-eslint.io/rules/no-restricted-types) |[noRestrictedTypes](/linter/rules/no-restricted-types) |
 | [no-this-alias](https://typescript-eslint.io/rules/no-this-alias) |[noUselessThisAlias](/linter/rules/no-useless-this-alias) (inspired) |
+| [no-unnecessary-condition](https://typescript-eslint.io/rules/no-unnecessary-condition) |[noUnnecessaryConditions](/linter/rules/no-unnecessary-conditions) |
 | [no-unnecessary-type-constraint](https://typescript-eslint.io/rules/no-unnecessary-type-constraint) |[noUselessTypeConstraint](/linter/rules/no-useless-type-constraint) |
 | [no-unsafe-declaration-merging](https://typescript-eslint.io/rules/no-unsafe-declaration-merging) |[noUnsafeDeclarationMerging](/linter/rules/no-unsafe-declaration-merging) |
 | [no-unused-vars](https://typescript-eslint.io/rules/no-unused-vars) |[noUnusedVariables](/linter/rules/no-unused-variables) |
