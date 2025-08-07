@@ -16,6 +16,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - The default severity of this rule is [**error**](/reference/diagnostics#error).
 - This rule belongs to the following domains:
   - [`react`](/linter/domains#react)
+  - [`qwik`](/linter/domains#qwik)
 - Sources: 
   - Same as [`react/jsx-key`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-key.md)
 
@@ -24,6 +25,8 @@ Disallow missing key props in iterators/collection literals.
 
 Warn if an element that likely requires a key prop--namely, one present in an array literal or an arrow function expression.
 Check out React documentation for [explanation on the why does React need keys.](https://react.dev/learn/rendering-lists#why-does-react-need-keys)
+
+This rule is intended for use in both React and Qwik applications to prevent missing key props in JSX elements inside iterators.
 
 ## Examples
 
@@ -36,16 +39,16 @@ Check out React documentation for [explanation on the why does React need keys.]
 <pre class="language-text"><code class="language-text">code-block.jsx:1:2 <a href="https://biomejs.dev/linter/rules/use-jsx-key-in-iterable">lint/correctness/useJsxKeyInIterable</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Missing </span><span style="color: Tomato;"><strong>key</strong></span><span style="color: Tomato;"> property for this element in iterable.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>[&lt;Hello /&gt;];<br />   <strong>   │ </strong> <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The order of the items may change, and having a key can help React identify which item was moved.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Check the </span><span style="color: lightgreen;"><a href="https://react.dev/learn/rendering-lists#why-does-react-need-keys">React documentation</a></span><span style="color: lightgreen;">. </span><br />  <br /></code></pre>
 
 ```jsx
-data.map((x) => <Hello>{x}</Hello>);
+{items.map(item => <li>{item}</li>)}
 ```
 
-<pre class="language-text"><code class="language-text">code-block.jsx:1:17 <a href="https://biomejs.dev/linter/rules/use-jsx-key-in-iterable">lint/correctness/useJsxKeyInIterable</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Missing </span><span style="color: Tomato;"><strong>key</strong></span><span style="color: Tomato;"> property for this element in iterable.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>data.map((x) =&gt; &lt;Hello&gt;&#123;x&#125;&lt;/Hello&gt;);<br />   <strong>   │ </strong>                <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The order of the items may change, and having a key can help React identify which item was moved.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Check the </span><span style="color: lightgreen;"><a href="https://react.dev/learn/rendering-lists#why-does-react-need-keys">React documentation</a></span><span style="color: lightgreen;">. </span><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.jsx:1:20 <a href="https://biomejs.dev/linter/rules/use-jsx-key-in-iterable">lint/correctness/useJsxKeyInIterable</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Missing </span><span style="color: Tomato;"><strong>key</strong></span><span style="color: Tomato;"> property for this element in iterable.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&#123;items.map(item =&gt; &lt;li&gt;&#123;item&#125;&lt;/li&gt;)&#125;<br />   <strong>   │ </strong>                   <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The order of the items may change, and having a key can help React identify which item was moved.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Check the </span><span style="color: lightgreen;"><a href="https://react.dev/learn/rendering-lists#why-does-react-need-keys">React documentation</a></span><span style="color: lightgreen;">. </span><br />  <br /></code></pre>
 
 ### Valid
 
 ```jsx
 [<Hello key="first" />, <Hello key="second" />, <Hello key="third" />];
-data.map((x) => <Hello key={x.id}>{x}</Hello>);
+{items.map(item => <li key={item.id}>{item}</li>)}
 ```
 
 ## Options

@@ -439,16 +439,13 @@ If you use an editor extension that uses Biome, you might notice that one of its
 This usually happens if you enable one of the rules that belong to the [project domain](/linter/domains/#project).
 
 Since Biome v2, the toolchain is now able to use TypeScript to infer types and provide more powerful rules. To achieve this, Biome
-scans all the `.d.ts` files inside the `node_modules` folder, even those that come from indirect dependencies.
-
+scans `.d.ts` files inside the `node_modules` folder, including those of transitive dependencies.
 
 While this might seem a silly mistake, this is intentional due to how the language works. Libraries
 **can export types from its dependencies**, which end-users might not depend on from.
 
 For example, you might depend on from a library `@org/foo` that exports the type `Validator`,
 however this `Validator` comes from the library `@other-org/validator`, which is a *dependency of `@org/foo`*. However,
-the library `@other-org/validator` isn't a dependency of the project.
-
-To support such cases, Biome needs to inspect and compile all the possible definition files, in case your project ends up using them.
+the library `@other-org/validator` isn't a direct dependency of the project.
 
 The **team is aware** of the constraint and will work towards optimizing the infrastructure with time and resources.
