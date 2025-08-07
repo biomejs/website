@@ -1939,7 +1939,7 @@ export function GET() {
           },
           "noNonNullAssertedOptionalChain": {
             "deprecated": false,
-            "version": "next",
+            "version": "v2.1.4",
             "name": "noNonNullAssertedOptionalChain",
             "link": "https://biomejs.dev/linter/rules/no-non-null-asserted-optional-chain",
             "recommended": true,
@@ -2041,7 +2041,7 @@ export function GET() {
           },
           "noUnnecessaryConditions": {
             "deprecated": false,
-            "version": "next",
+            "version": "v2.1.4",
             "name": "noUnnecessaryConditions",
             "link": "https://biomejs.dev/linter/rules/no-unnecessary-conditions",
             "recommended": false,
@@ -2124,7 +2124,7 @@ export function GET() {
           },
           "noVueDataObjectDeclaration": {
             "deprecated": false,
-            "version": "next",
+            "version": "v2.1.4",
             "name": "noVueDataObjectDeclaration",
             "link": "https://biomejs.dev/linter/rules/no-vue-data-object-declaration",
             "recommended": true,
@@ -4914,7 +4914,7 @@ export function GET() {
           },
           "noQwikUseVisibleTask": {
             "deprecated": false,
-            "version": "next",
+            "version": "v2.1.4",
             "name": "noQwikUseVisibleTask",
             "link": "https://biomejs.dev/linter/rules/no-qwik-use-visible-task",
             "recommended": true,
@@ -4982,7 +4982,7 @@ export function GET() {
           },
           "useAnchorHref": {
             "deprecated": false,
-            "version": "next",
+            "version": "v2.1.4",
             "name": "useAnchorHref",
             "link": "https://biomejs.dev/linter/rules/use-anchor-href",
             "recommended": true,
@@ -5016,7 +5016,7 @@ export function GET() {
           },
           "useImageSize": {
             "deprecated": false,
-            "version": "next",
+            "version": "v2.1.4",
             "name": "useImageSize",
             "link": "https://biomejs.dev/linter/rules/use-image-size",
             "recommended": true,
@@ -5033,7 +5033,7 @@ export function GET() {
           },
           "useQwikClasslist": {
             "deprecated": false,
-            "version": "next",
+            "version": "v2.1.4",
             "name": "useQwikClasslist",
             "link": "https://biomejs.dev/linter/rules/use-qwik-classlist",
             "recommended": true,
@@ -5476,7 +5476,7 @@ export function GET() {
           },
           "useConsistentTypeDefinitions": {
             "deprecated": false,
-            "version": "next",
+            "version": "v2.1.4",
             "name": "useConsistentTypeDefinitions",
             "link": "https://biomejs.dev/linter/rules/use-consistent-type-definitions",
             "recommended": false,
