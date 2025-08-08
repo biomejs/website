@@ -1937,6 +1937,23 @@ export function GET() {
             ],
             "docs": " Prevent import cycles.\n\n This rule warns when a file imports another file that, either directly\n or indirectly, imports the original file again.\n\n Cycles can lead to symbols that are unexpectedly `undefined` and are\n generally considered poor code hygiene.\n\n If a cycle is detected, it is advised to move code such that imports\n only go in a single direction, i.e. they don't point \"back\" to the\n importing file.\n\n :::note\n This rule is computationally expensive. If you are particularly\n pressed for lint time, or don't think you have an issue with dependency\n cycles, you may not want this rule enabled.\n :::\n\n ## Examples\n\n ### Invalid\n\n **`foobar.js`**\n ```js\n import { baz } from \"./baz.js\";\n\n export function foo() {\n     baz();\n }\n\n export function bar() {\n     console.log(\"foobar\");\n }\n ```\n\n **`baz.js`**\n ```js\n import { bar } from \"./foobar.js\";\n\n export function baz() {\n     bar();\n }\n ```\n\n ### Valid\n\n **`foo.js`**\n ```js\n import { baz } from \"./baz.js\";\n\n export function foo() {\n     baz();\n }\n ```\n\n **`bar.js`**\n ```js\n export function bar() {\n     console.log(\"foobar\");\n }\n ```\n\n **`baz.js`**\n ```js\n import { bar } from \"./bar.js\";\n\n export function baz() {\n     bar();\n }\n ```\n\n **`types.ts`**\n ```ts\n import type { bar } from \"./qux.ts\";\n\n export type Foo = {\n   bar: typeof bar;\n };\n ```\n\n **`qux.ts`**\n ```ts\n import type { Foo } from \"./types.ts\";\n\n export function bar(foo: Foo) {\n     console.log(foo);\n }\n ```\n\n ## Options\n\n The rule provides the options described below.\n\n ### `ignoreTypes`\n\n Ignores type-only imports when finding an import cycle. A type-only import (`import type`)\n will be removed by the compiler, so it cuts an import cycle at runtime. Note that named type\n imports (`import { type Foo }`) aren't considered as type-only because it's not removed by\n the compiler if the `verbatimModuleSyntax` option is enabled. Enabled by default.\n\n ```json,options\n {\n   \"options\": {\n     \"ignoreTypes\": false\n   }\n }\n ```\n\n #### Invalid\n\n **`types.ts`**\n ```ts\n import type { bar } from \"./qux.ts\";\n\n export type Foo = {\n   bar: typeof bar;\n };\n ```\n\n **`qux.ts`**\n ```ts,use_options\n import type { Foo } from \"./types.ts\";\n\n export function bar(foo: Foo) {\n     console.log(foo);\n }\n ```\n"
           },
+          "noNextAsyncClientComponent": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noNextAsyncClientComponent",
+            "link": "https://biomejs.dev/linter/rules/no-next-async-client-component",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintNext": "no-async-client-component"
+                }
+              }
+            ],
+            "docs": " Prevent client components from being async functions.\n\n This rule prevents the use of async functions for client components in Next.js applications.\n Client components marked with \"use client\" directive should not be async as this can cause\n hydration mismatches, break component rendering lifecycle, and lead to unexpected behavior\n with React's concurrent features.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n \"use client\";\n\n export default async function MyComponent() {\n   return <div>Hello</div>;\n }\n ```\n\n ### Valid\n\n ```jsx\n \"use client\";\n\n export default function MyComponent() {\n   return <div>Hello</div>;\n }\n ```\n\n ```jsx\n // No \"use client\" directive - server component can be async\n export default async function ServerComponent() {\n   const data = await fetch('/api/data');\n   return <div>{data}</div>;\n }\n ```\n\n"
+          },
           "noNonNullAssertedOptionalChain": {
             "deprecated": false,
             "version": "2.1.4",
@@ -5980,7 +5997,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 349
+    "numberOrRules": 350
   },
   "syntax": {
     "languages": {
