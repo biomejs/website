@@ -307,6 +307,7 @@ export default {
   '/linter/rules/useKeyWithMouseEvents': '/linter/rules/use-key-with-mouse-events',
   '/linter/rules/useLiteralEnumMembers': '/linter/rules/use-literal-enum-members',
   '/linter/rules/useLiteralKeys': '/linter/rules/use-literal-keys',
+  '/linter/rules/useMaxParams': '/linter/rules/use-max-params',
   '/linter/rules/useMediaCaption': '/linter/rules/use-media-caption',
   '/linter/rules/useNamedOperation': '/linter/rules/use-named-operation',
   '/linter/rules/useNamespaceKeyword': '/linter/rules/use-namespace-keyword',
