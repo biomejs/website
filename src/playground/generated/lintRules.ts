@@ -127,6 +127,7 @@ export const LINT_RULES = {
   noNegationElse: "noNegationElse",
   noNestedComponentDefinitions: "noNestedComponentDefinitions",
   noNestedTernary: "noNestedTernary",
+  noNextAsyncClientComponent: "noNextAsyncClientComponent",
   noNodejsModules: "noNodejsModules",
   noNonNullAssertedOptionalChain: "noNonNullAssertedOptionalChain",
   noNonNullAssertion: "noNonNullAssertion",
