@@ -2316,6 +2316,29 @@ export function GET() {
             "fixKind": "safe",
             "docs": " Enforces the use of `with { type: \"json\" }` for JSON module imports.\n\n ECMAScript modules can import JSON modules. However, the specific import assertion `with { type: \"json\" }`\n is required to inform the JavaScript runtime that the imported file should be parsed as JSON.\n Omitting this assertion can lead to runtime errors or misinterpretation of the imported module.\n\n This rule ensures that all imports of `.json` files include this assertion.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import jsonData from './data.json';\n ```\n\n ```js,expect_diagnostic\n import jsonData from './data.json' with { someOtherAttribute: \"value\" };\n ```\n\n ### Valid\n\n ```js\n import jsonData from './data.json' with { type: \"json\" };\n\n import jsonData from './data.json' with { type: \"json\", other: \"value\" };\n\n import code from './script.js'; // Not a JSON import\n ```\n\n"
           },
+          "useMaxParams": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useMaxParams",
+            "link": "https://biomejs.dev/linter/rules/use-max-params",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "max-params"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "clippy": "too_many_arguments"
+                }
+              }
+            ],
+            "docs": " Enforce a maximum number of parameters in function definitions.\n\n Functions that take numerous parameters can be difficult to read and write\n because it requires the memorization of what each parameter is, its type,\n and the order they should appear in.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function foo(a, b, c, d, e, f, g, h) {\n     // too many parameters\n }\n ```\n\n ```js,expect_diagnostic\n const bar = (a, b, c, d, e, f, g, h) => {\n     // too many parameters\n }\n ```\n\n ```js,expect_diagnostic\n class Baz {\n     method(a, b, c, d, e, f, g, h) {\n         // too many parameters\n     }\n }\n ```\n\n ### Valid\n\n ```js\n function foo(a, b, c) {\n     // within limit\n }\n ```\n\n ```js\n const bar = (a, b, c) => {\n     // within limit\n }\n ```\n\n ```js\n class Baz {\n     method(a, b, c) {\n         // within limit\n     }\n }\n ```\n\n ## Options\n\n ### max\n\n The maximum number of parameters allowed (default: 4).\n\n"
+          },
           "useNumericSeparators": {
             "deprecated": false,
             "version": "2.0.0",
@@ -5957,7 +5980,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 348
+    "numberOrRules": 349
   },
   "syntax": {
     "languages": {

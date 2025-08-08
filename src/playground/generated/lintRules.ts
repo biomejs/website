@@ -306,6 +306,7 @@ export const LINT_RULES = {
   useKeyWithMouseEvents: "useKeyWithMouseEvents",
   useLiteralEnumMembers: "useLiteralEnumMembers",
   useLiteralKeys: "useLiteralKeys",
+  useMaxParams: "useMaxParams",
   useMediaCaption: "useMediaCaption",
   useNamedOperation: "useNamedOperation",
   useNamespaceKeyword: "useNamespaceKeyword",
