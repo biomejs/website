@@ -1937,9 +1937,26 @@ export function GET() {
             ],
             "docs": " Prevent import cycles.\n\n This rule warns when a file imports another file that, either directly\n or indirectly, imports the original file again.\n\n Cycles can lead to symbols that are unexpectedly `undefined` and are\n generally considered poor code hygiene.\n\n If a cycle is detected, it is advised to move code such that imports\n only go in a single direction, i.e. they don't point \"back\" to the\n importing file.\n\n :::note\n This rule is computationally expensive. If you are particularly\n pressed for lint time, or don't think you have an issue with dependency\n cycles, you may not want this rule enabled.\n :::\n\n ## Examples\n\n ### Invalid\n\n **`foobar.js`**\n ```js\n import { baz } from \"./baz.js\";\n\n export function foo() {\n     baz();\n }\n\n export function bar() {\n     console.log(\"foobar\");\n }\n ```\n\n **`baz.js`**\n ```js\n import { bar } from \"./foobar.js\";\n\n export function baz() {\n     bar();\n }\n ```\n\n ### Valid\n\n **`foo.js`**\n ```js\n import { baz } from \"./baz.js\";\n\n export function foo() {\n     baz();\n }\n ```\n\n **`bar.js`**\n ```js\n export function bar() {\n     console.log(\"foobar\");\n }\n ```\n\n **`baz.js`**\n ```js\n import { bar } from \"./bar.js\";\n\n export function baz() {\n     bar();\n }\n ```\n\n **`types.ts`**\n ```ts\n import type { bar } from \"./qux.ts\";\n\n export type Foo = {\n   bar: typeof bar;\n };\n ```\n\n **`qux.ts`**\n ```ts\n import type { Foo } from \"./types.ts\";\n\n export function bar(foo: Foo) {\n     console.log(foo);\n }\n ```\n\n ## Options\n\n The rule provides the options described below.\n\n ### `ignoreTypes`\n\n Ignores type-only imports when finding an import cycle. A type-only import (`import type`)\n will be removed by the compiler, so it cuts an import cycle at runtime. Note that named type\n imports (`import { type Foo }`) aren't considered as type-only because it's not removed by\n the compiler if the `verbatimModuleSyntax` option is enabled. Enabled by default.\n\n ```json,options\n {\n   \"options\": {\n     \"ignoreTypes\": false\n   }\n }\n ```\n\n #### Invalid\n\n **`types.ts`**\n ```ts\n import type { bar } from \"./qux.ts\";\n\n export type Foo = {\n   bar: typeof bar;\n };\n ```\n\n **`qux.ts`**\n ```ts,use_options\n import type { Foo } from \"./types.ts\";\n\n export function bar(foo: Foo) {\n     console.log(foo);\n }\n ```\n"
           },
+          "noNextAsyncClientComponent": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noNextAsyncClientComponent",
+            "link": "https://biomejs.dev/linter/rules/no-next-async-client-component",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintNext": "no-async-client-component"
+                }
+              }
+            ],
+            "docs": " Prevent client components from being async functions.\n\n This rule prevents the use of async functions for client components in Next.js applications.\n Client components marked with \"use client\" directive should not be async as this can cause\n hydration mismatches, break component rendering lifecycle, and lead to unexpected behavior\n with React's concurrent features.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n \"use client\";\n\n export default async function MyComponent() {\n   return <div>Hello</div>;\n }\n ```\n\n ### Valid\n\n ```jsx\n \"use client\";\n\n export default function MyComponent() {\n   return <div>Hello</div>;\n }\n ```\n\n ```jsx\n // No \"use client\" directive - server component can be async\n export default async function ServerComponent() {\n   const data = await fetch('/api/data');\n   return <div>{data}</div>;\n }\n ```\n\n"
+          },
           "noNonNullAssertedOptionalChain": {
             "deprecated": false,
-            "version": "v2.1.4",
+            "version": "2.1.4",
             "name": "noNonNullAssertedOptionalChain",
             "link": "https://biomejs.dev/linter/rules/no-non-null-asserted-optional-chain",
             "recommended": true,
@@ -2041,7 +2058,7 @@ export function GET() {
           },
           "noUnnecessaryConditions": {
             "deprecated": false,
-            "version": "v2.1.4",
+            "version": "2.1.4",
             "name": "noUnnecessaryConditions",
             "link": "https://biomejs.dev/linter/rules/no-unnecessary-conditions",
             "recommended": false,
@@ -2124,7 +2141,7 @@ export function GET() {
           },
           "noVueDataObjectDeclaration": {
             "deprecated": false,
-            "version": "v2.1.4",
+            "version": "2.1.4",
             "name": "noVueDataObjectDeclaration",
             "link": "https://biomejs.dev/linter/rules/no-vue-data-object-declaration",
             "recommended": true,
@@ -2315,6 +2332,29 @@ export function GET() {
             "recommended": false,
             "fixKind": "safe",
             "docs": " Enforces the use of `with { type: \"json\" }` for JSON module imports.\n\n ECMAScript modules can import JSON modules. However, the specific import assertion `with { type: \"json\" }`\n is required to inform the JavaScript runtime that the imported file should be parsed as JSON.\n Omitting this assertion can lead to runtime errors or misinterpretation of the imported module.\n\n This rule ensures that all imports of `.json` files include this assertion.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import jsonData from './data.json';\n ```\n\n ```js,expect_diagnostic\n import jsonData from './data.json' with { someOtherAttribute: \"value\" };\n ```\n\n ### Valid\n\n ```js\n import jsonData from './data.json' with { type: \"json\" };\n\n import jsonData from './data.json' with { type: \"json\", other: \"value\" };\n\n import code from './script.js'; // Not a JSON import\n ```\n\n"
+          },
+          "useMaxParams": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useMaxParams",
+            "link": "https://biomejs.dev/linter/rules/use-max-params",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "max-params"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "clippy": "too_many_arguments"
+                }
+              }
+            ],
+            "docs": " Enforce a maximum number of parameters in function definitions.\n\n Functions that take numerous parameters can be difficult to read and write\n because it requires the memorization of what each parameter is, its type,\n and the order they should appear in.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function foo(a, b, c, d, e, f, g, h) {\n     // too many parameters\n }\n ```\n\n ```js,expect_diagnostic\n const bar = (a, b, c, d, e, f, g, h) => {\n     // too many parameters\n }\n ```\n\n ```js,expect_diagnostic\n class Baz {\n     method(a, b, c, d, e, f, g, h) {\n         // too many parameters\n     }\n }\n ```\n\n ### Valid\n\n ```js\n function foo(a, b, c) {\n     // within limit\n }\n ```\n\n ```js\n const bar = (a, b, c) => {\n     // within limit\n }\n ```\n\n ```js\n class Baz {\n     method(a, b, c) {\n         // within limit\n     }\n }\n ```\n\n ## Options\n\n ### max\n\n The maximum number of parameters allowed (default: 4).\n\n"
           },
           "useNumericSeparators": {
             "deprecated": false,
@@ -4914,7 +4954,7 @@ export function GET() {
           },
           "noQwikUseVisibleTask": {
             "deprecated": false,
-            "version": "v2.1.4",
+            "version": "2.1.4",
             "name": "noQwikUseVisibleTask",
             "link": "https://biomejs.dev/linter/rules/no-qwik-use-visible-task",
             "recommended": true,
@@ -4982,7 +5022,7 @@ export function GET() {
           },
           "useAnchorHref": {
             "deprecated": false,
-            "version": "v2.1.4",
+            "version": "2.1.4",
             "name": "useAnchorHref",
             "link": "https://biomejs.dev/linter/rules/use-anchor-href",
             "recommended": true,
@@ -5016,7 +5056,7 @@ export function GET() {
           },
           "useImageSize": {
             "deprecated": false,
-            "version": "v2.1.4",
+            "version": "2.1.4",
             "name": "useImageSize",
             "link": "https://biomejs.dev/linter/rules/use-image-size",
             "recommended": true,
@@ -5033,7 +5073,7 @@ export function GET() {
           },
           "useQwikClasslist": {
             "deprecated": false,
-            "version": "v2.1.4",
+            "version": "2.1.4",
             "name": "useQwikClasslist",
             "link": "https://biomejs.dev/linter/rules/use-qwik-classlist",
             "recommended": true,
@@ -5476,7 +5516,7 @@ export function GET() {
           },
           "useConsistentTypeDefinitions": {
             "deprecated": false,
-            "version": "v2.1.4",
+            "version": "2.1.4",
             "name": "useConsistentTypeDefinitions",
             "link": "https://biomejs.dev/linter/rules/use-consistent-type-definitions",
             "recommended": false,
@@ -5957,7 +5997,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 348
+    "numberOrRules": 350
   },
   "syntax": {
     "languages": {
