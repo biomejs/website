@@ -9,12 +9,9 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="TypeScript and TSX" icon="seti:typescript">
-:::caution
-This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
-:::
 ## Summary
 - Rule available since: `v2.1.0`
-- Diagnostic Category: [`lint/nursery/noMagicNumbers`](/reference/diagnostics#diagnostic-category)
+- Diagnostic Category: [`lint/style/noMagicNumbers`](/reference/diagnostics#diagnostic-category)
 - This rule doesn't have a fix.
 - The default severity of this rule is [**information**](/reference/diagnostics#information).
 - Sources: 
@@ -45,7 +42,7 @@ It ignores:
 let total = price * 1.23; // Magic number for tax rate
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:1:21 <a href="https://biomejs.dev/linter/rules/no-magic-numbers">lint/nursery/noMagicNumbers</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Magic number detected. Extract it to a constant with a meaningful name.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>let total = price &#42; 1.23; // Magic number for tax rate<br />   <strong>   │ </strong>                    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Code is more readable and refactoring easier when special numbers are declared as constants as it makes their meaning explicit.</span><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:1:21 <a href="https://biomejs.dev/linter/rules/no-magic-numbers">lint/style/noMagicNumbers</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Magic number detected. Extract it to a constant with a meaningful name.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>let total = price &#42; 1.23; // Magic number for tax rate<br />   <strong>   │ </strong>                    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Code is more readable and refactoring easier when special numbers are declared as constants as it makes their meaning explicit.</span><br />  <br /></code></pre>
 
 ### Valid
 
@@ -64,7 +61,7 @@ let total = price * TAX_RATE;
 {
 	"linter": {
 		"rules": {
-			"nursery": {
+			"style": {
 				"noMagicNumbers": "error"
 			}
 		}
