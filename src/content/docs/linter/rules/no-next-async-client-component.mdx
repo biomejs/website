@@ -1,0 +1,88 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noNextAsyncClientComponent
+description: Learn more about noNextAsyncClientComponent
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noNextAsyncClientComponent`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- This rule belongs to the following domains:
+  - [`next`](/linter/domains#next)
+- Sources: 
+  - Same as [`@next/no-async-client-component`](https://nextjs.org/docs/messages/no-async-client-component)
+
+## Description
+Prevent client components from being async functions.
+
+This rule prevents the use of async functions for client components in Next.js applications.
+Client components marked with "use client" directive should not be async as this can cause
+hydration mismatches, break component rendering lifecycle, and lead to unexpected behavior
+with React's concurrent features.
+
+## Examples
+
+### Invalid
+
+```jsx
+"use client";
+
+export default async function MyComponent() {
+  return <div>Hello</div>;
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.jsx:3:16 <a href="https://biomejs.dev/linter/rules/no-next-async-client-component">lint/nursery/noNextAsyncClientComponent</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">The component </span><span style="color: Orange;"><strong>MyComponent</strong></span><span style="color: Orange;"> is an async client component, which is not allowed.</span><br />  <br />    <strong>1 │ </strong>&quot;use client&quot;;<br />    <strong>2 │ </strong><br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>export default async function MyComponent() &#123;<br />   <strong>   │ </strong>               <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>  return &lt;div&gt;Hello&lt;/div&gt;;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>5 │ </strong>&#125;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>6 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Client components with &quot;use client&quot; directive should not be async functions as this can cause hydration mismatches and break React's rendering lifecycle.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Consider using useEffect for async operations inside the component, or remove the &quot;use client&quot; directive if this should be a server component.</span><br />  <br /></code></pre>
+
+### Valid
+
+```jsx
+"use client";
+
+export default function MyComponent() {
+  return <div>Hello</div>;
+}
+```
+
+```jsx
+// No "use client" directive - server component can be async
+export default async function ServerComponent() {
+  const data = await fetch('/api/data');
+  return <div>{data}</div>;
+}
+```
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noNextAsyncClientComponent": "error"
+			}
+		}
+	}
+}
+
+```
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
+</Tabs>
+
