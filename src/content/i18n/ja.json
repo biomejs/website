@@ -1,5 +1,6 @@
 {
   "title.docs": "ドキュメント",
   "title.enterprise": "エンタープライズ",
-  "title.playground": "プレイグラウンド"
+  "title.playground": "プレイグラウンド",
+  "starlightBlog.post.date": "{{date, datetime(dateStyle: long)}}"
 }
