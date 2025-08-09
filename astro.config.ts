@@ -215,7 +215,7 @@ export default defineConfig({
 							link: "/guides/upgrade-to-biome-v2",
 							badge: "new",
 							translations: {
-								ja: "Biome v2 へのアップグレード",
+								ja: "Biome v2へのアップグレード",
 								"zh-CN": "升级到 Biome v2",
 								ru: "Обновление до Biome v2",
 							},
@@ -428,7 +428,7 @@ export default defineConfig({
 									translations: {
 										es: "Reglas",
 										fr: "Règles",
-										ja: "JavaScript ルール",
+										ja: "JavaScriptルール",
 										"zh-CN": "JavaScript 规则",
 										"pt-BR": "Regras",
 										uk: "Правила",
@@ -440,7 +440,7 @@ export default defineConfig({
 									link: "/linter/javascript/sources",
 									translations: {
 										es: "Fuentes de reglas",
-										ja: "JavaScript ルールのソース",
+										ja: "JavaScriptルールのソース",
 										"zh-CN": "JavaScript 规则来源",
 										fr: "Sources des règles",
 										ru: "Источники правил JavaScript",
@@ -450,7 +450,7 @@ export default defineConfig({
 									label: "CSS Rules",
 									link: "/linter/css/rules",
 									translations: {
-										ja: "CSS ルール",
+										ja: "CSSルール",
 										"zh-CN": "CSS 规则",
 										ru: "Правила CSS",
 									},
@@ -459,7 +459,7 @@ export default defineConfig({
 									label: "CSS Rules sources",
 									link: "/linter/css/sources",
 									translations: {
-										ja: "JavaScript ルールのソース",
+										ja: "JavaScriptルールのソース",
 										"zh-CN": "CSS 规则来源",
 										ru: "Источники правил CSS",
 									},
@@ -468,7 +468,7 @@ export default defineConfig({
 									label: "JSON Rules",
 									link: "/linter/json/rules",
 									translations: {
-										ja: "JSON ルール",
+										ja: "JSONルール",
 										"zh-CN": "JSON 规则",
 										ru: "Правила JSON",
 									},
@@ -477,7 +477,7 @@ export default defineConfig({
 									label: "JSON Rules sources",
 									link: "/linter/json/sources",
 									translations: {
-										ja: "JavaScript ルールのソース",
+										ja: "JavaScriptルールのソース",
 										"zh-CN": "JSON 规则来源",
 										ru: "Источники правил JSON",
 									},
@@ -486,7 +486,7 @@ export default defineConfig({
 									label: "GraphQL Rules",
 									link: "/linter/graphql/rules",
 									translations: {
-										ja: "GraphQL ルール",
+										ja: "GraphQLルール",
 										"zh-CN": "GraphQL 规则",
 										ru: "Правила GraphQL",
 									},
@@ -495,7 +495,7 @@ export default defineConfig({
 									label: "GraphQL Rules sources",
 									link: "/linter/graphql/sources",
 									translations: {
-										ja: "GraphQL ルールのソース",
+										ja: "GraphQLルールのソース",
 										"zh-CN": "GraphQL 规则来源",
 										ru: "Источники правил GraphQL",
 									},
@@ -527,7 +527,7 @@ export default defineConfig({
 									label: "JavaScript Actions",
 									link: "/assist/javascript/actions",
 									translations: {
-										ja: "JavaScript アクション",
+										ja: "JavaScriptアクション",
 										"zh-CN": "JavaScript 操作",
 										ru: "Действия JavaScript",
 									},
@@ -536,7 +536,7 @@ export default defineConfig({
 									label: "JavaScript Actions sources",
 									link: "/assist/javascript/sources",
 									translations: {
-										ja: "JavaScript アクションのソース",
+										ja: "JavaScriptアクションのソース",
 										"zh-CN": "JavaScript 操作来源",
 										ru: "Источники действий JavaScript",
 									},
@@ -545,7 +545,7 @@ export default defineConfig({
 									label: "CSS Actions",
 									link: "/assist/css/actions",
 									translations: {
-										ja: "CSS アクション",
+										ja: "CSSアクション",
 										"zh-CN": "CSS 操作",
 										ru: "Действия CSS",
 									},
@@ -554,7 +554,7 @@ export default defineConfig({
 									label: "CSS Actions sources",
 									link: "/assist/css/sources",
 									translations: {
-										ja: "CSS アクションのソース",
+										ja: "CSSアクションのソース",
 										"zh-CN": "CSS 操作来源",
 										ru: "Источники действий CSS",
 									},
@@ -563,7 +563,7 @@ export default defineConfig({
 									label: "JSON Actions",
 									link: "/assist/json/actions",
 									translations: {
-										ja: "JSON アクション",
+										ja: "JSONアクション",
 										"zh-CN": "JSON 操作",
 										ru: "Действия JSON",
 									},
@@ -572,7 +572,7 @@ export default defineConfig({
 									label: "JSON Actions sources",
 									link: "/assist/json/sources",
 									translations: {
-										ja: "JSON アクションのソース",
+										ja: "JSONアクションのソース",
 										"zh-CN": "JSON 操作来源",
 										ru: "Источники действий JSON",
 									},
@@ -581,7 +581,7 @@ export default defineConfig({
 									label: "GraphQL Actions",
 									link: "/assist/graphql/actions",
 									translations: {
-										ja: "GraphQL アクション",
+										ja: "GraphQLアクション",
 										"zh-CN": "GraphQL 操作",
 										ru: "Действия GraphQL",
 									},
@@ -590,7 +590,7 @@ export default defineConfig({
 									label: "GraphQL Actions sources",
 									link: "/assist/graphql/sources",
 									translations: {
-										ja: "GraphQL アクションのソース",
+										ja: "GraphQLアクションのソース",
 										"zh-CN": "GraphQL 操作来源",
 										ru: "Источники действий GraphQL",
 									},
@@ -846,7 +846,7 @@ export default defineConfig({
 							label: "Changelog v1",
 							link: "/internals/changelog_v1",
 							translations: {
-								ja: "変更履歴 (v1)",
+								ja: "変更履歴（v1）",
 								"zh-CN": "更新日志 v1",
 								ru: "Журнал изменений v1",
 							},
