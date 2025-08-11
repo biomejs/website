@@ -325,7 +325,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow duplicate names within font families.\n\n This rule checks the `font` and `font-family` properties for duplicate font names.\n\n This rule ignores var(--custom-property) variable syntaxes now.\n\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a { font-family: \"Lucida Grande\", 'Arial', sans-serif, sans-serif; }\n ```\n\n ```css,expect_diagnostic\n a { font-family: 'Arial', \"Lucida Grande\", Arial, sans-serif; }\n ```\n\n ```css,expect_diagnostic\n a { FONT: italic 300 16px/30px Arial, \" Arial\", serif; }\n ```\n\n ### Valid\n\n ```css\n a { font-family: \"Lucida Grande\", \"Arial\", sans-serif; }\n ```\n\n ```css\n b { font: normal 14px/32px -apple-system, BlinkMacSystemFont, sans-serif; }\n ```\n"
+            "docs": " Disallow duplicate names within font families.\n\n This rule checks the `font` and `font-family` properties for duplicate font names.\n\n This rule ignores var(--custom-property) variable syntaxes now.\n\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a { font-family: \"Lucida Grande\", 'Arial', sans-serif, sans-serif; }\n ```\n\n ```css,expect_diagnostic\n a { font-family: 'Arial', \"Lucida Grande\", Arial, sans-serif; }\n ```\n\n ```css,expect_diagnostic\n a { FONT: italic 300 16px/30px Arial, \" Arial\", serif; }\n ```\n\n ### Valid\n\n ```css\n a { font-family: \"Lucida Grande\", \"Arial\", sans-serif; }\n b { font: normal 14px/32px -apple-system, BlinkMacSystemFont, sans-serif; }\n c { font-family: SF Mono, Liberation Mono, sans-serif; }\n d { font: 1em SF Mono, Liberation Mono, sans-serif; }\n ```\n"
           },
           "noDuplicateProperties": {
             "deprecated": false,
