@@ -4235,6 +4235,15 @@ export function GET() {
       },
       "json": {
         "suspicious": {
+          "noBiomeFirstException": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noBiomeFirstException",
+            "link": "https://biomejs.dev/linter/rules/no-biome-first-exception",
+            "recommended": true,
+            "fixKind": "safe",
+            "docs": " Prevents the use of the `!` pattern in the first position of `files.includes` in the configuration file.\n\n If the first pattern of `files.includes` starts with the leading `!`, Biome won't have any file to crawl. Generally,\n it is a good practice to declare the files/folders to include first, and then the files/folder to ignore.\n\n Check the [official documentation](https://biomejs.dev/guides/configure-biome/#exclude-files-via-configuration) for more examples.\n\n ## Examples\n\n ### Invalid\n\n ```json,ignore\n {\n     \"files\": {\n         \"includes\": [\"!dist\"]\n     }\n }\n ```\n\n ### Valid\n\n ```json,ignore\n {\n     \"files\": {\n         \"includes\": [\"src/**\", \"!dist\"]\n     }\n }\n ```\n\n"
+          },
           "noDuplicateObjectKeys": {
             "deprecated": false,
             "version": "1.0.0",
@@ -4252,6 +4261,15 @@ export function GET() {
             "recommended": true,
             "fixKind": "safe",
             "docs": " Disallow the use if `quickfix.biome` inside editor settings file.\n\n The code action `quickfix.biome` can be harmful because it instructs the editors\n to apply the code fix of lint rules and code actions atomically. If multiple rules or\n actions apply a code fix to the same code span, the editor will emit invalid code.\n\n The rule targets specifically VSCode settings and Zed settings. Specifically, paths that end with:\n - `.vscode/settings.json`\n - `Code/User/settings.json`\n - `.zed/settings.json`\n - `zed/settings.json`\n\n ## Examples\n\n ### Invalid\n\n ```json,ignore\n {\n     \"quickfix.biome\": \"explicit\"\n }\n ```\n\n ### Valid\n\n ```json,ignore\n {\n     \"source.fixAll.biome\": \"explicit\"\n }\n ```\n\n ## Options\n\n The following options are available\n\n ### `additionalPaths`\n\n It's possible to specify a list of JSON paths, if your editor uses a JSON file setting that isn't supported natively by the rule.\n\n If your editor uses, for example, a file called `.myEditor/file.json`, you can add `\".myEditor/file.json\"` to the list.\n **The rule checks if the file ends with the given paths**.\n\n ```json,options\n {\n     \"options\": {\n         \"additionalPaths\": [\".myEditor/file.json\"]\n     }\n }\n ```\n\n"
+          },
+          "useBiomeIgnoreFolder": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useBiomeIgnoreFolder",
+            "link": "https://biomejs.dev/linter/rules/use-biome-ignore-folder",
+            "recommended": true,
+            "fixKind": "safe",
+            "docs": " Promotes the correct usage for ignoring folders in the configuration file.\n\n Starting Biome v2.2, ignoring folders doesn't require the use of the trailing `/**`.\n When using the pattern `/**`, you tell Biome to ignore **all files** inside a folder, but the folder is still crawled. This pattern\n can lead to poor performance, especially if the folder contains many files.\n\n If the intention is to ignore specific files inside a folder, the trailing pattern `/**` shouldn't be used.\n\n ## Examples\n\n ### Invalid\n\n ```json,ignore\n {\n     \"files\": {\n         \"includes\": [\"**\", \"!dist/**\", \"!**/dist/**\"]\n     }\n }\n ```\n\n ### Valid\n\n ```json,ignore\n {\n     \"files\": {\n         \"includes\": [\"**\", \"!dist\", \"!**/dist\"]\n     }\n }\n ```\n\n"
           }
         }
       },
@@ -5995,7 +6013,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 350
+    "numberOrRules": 352
   },
   "syntax": {
     "languages": {
