@@ -324,8 +324,8 @@ The first-class integration with LSP-compatible editors allows you to configure 
 When a violation is detected by Biome, a diagnostic is sent to the editor alongside with an arbitrary number of code actions, that are meant to address the diagnostic.
 Those actions are:
 - A possible code fix. This code fix appears only if the rule **has** a code fix. The code fix appears regardless if it's safe or unsafe.
-- Suppress the diagnostic [with an inline suppression](/linter#inline-suppressions).
-- Suppress the diagnostic [with a top-level suppression](/linter#top-level-suppressions).
+- Suppress the diagnostic [with an inline suppression](/analyzer/suppressions#inline-suppressions).
+- Suppress the diagnostic [with a top-level suppression](/analyzer/suppressions#top-level-suppressions).
 
 Usually, by positioning your cursor in the range of the diagnostic and typing a certain shortcut (it varies per editor), a tooltip will appear with the possible code actions.
 
