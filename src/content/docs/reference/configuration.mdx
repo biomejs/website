@@ -1178,6 +1178,107 @@ Enables Biome's assist for Grit files.
 }
 ```
 
+## `html`
+
+:::caution
+The HTML parser and formatter are still considered experimental, which means that breaking changes
+can happen in patch and minor versions.
+:::
+
+### `html.parser.interpolation`
+
+Enables the parsing of double text expressions such as `{{ expression }}` inside `.html` files.
+
+> Default: `false`
+
+### `html.formatter.enabled`
+
+Enables Biome's formatter for HTML files.
+
+> Default: `false`
+
+### `html.formatter.enabled`
+
+Whether this formatting option should be enabled.
+
+> Default: `true`
+
+### `html.formatter.indentStyle`
+
+The style of the indentation for HTML files. It can be `"tab"` or `"space"`.
+
+> Default: `"tab"`
+
+### `html.formatter.indentWidth`
+
+How big the indentation should be for HTML files.
+
+> Default: `2`
+
+### `html.formatter.lineEnding`
+
+The type of line ending for HTML files.
+- `"lf"`, Line Feed only (`\n`), common on Linux and macOS as well as inside git repos;
+- `"crlf"`, Carriage Return + Line Feed characters (`\r\n`), common on Windows;
+- `"cr"`, Carriage Return character only (`\r`), used very rarely.
+
+> Default: `"lf"`
+
+### `html.formatter.lineWidth`
+
+The amount of characters that can be written on a single line in HTML files.
+
+> Default: `80`
+
+### `html.formatter.attributePosition`
+
+The attribute position style in HTML elements.
+- `"auto"`, the attributes are automatically formatted, and they will collapse in multiple lines only when they hit certain criteria;
+- `"multiline"`, the attributes will collapse in multiple lines if more than 1 attribute is used.
+
+> Default: `"auto"`
+
+### `html.formatter.bracketSameLine`
+
+Whether to hug the closing bracket of multiline HTML tags to the end of the last line, rather than being alone on the following line.
+
+> Default: `false`
+
+### `html.formatter.whitespacesSensitivity`
+
+Whether to account for whitespace sensitivity when formatting HTML (and its super languages).
+
+> Default: "css"
+
+
+- `"css"`: The formatter considers whitespace significant for elements that have an "inline" display style by default in browser's user agent style sheets.
+- `"strict"`: Leading and trailing whitespace in content is considered significant for all elements.
+
+  The formatter should leave at least one whitespace character if whitespace is present.
+  Otherwise, if there is no whitespace, it should not add any after `>` or before `<`. In other words, if there's no whitespace, the text content should hug the tags.
+
+  Example of text hugging the tags:
+  ```html
+  <b
+     >content</b
+  >
+  ```
+- `"ignore"`: whitespace is considered insignificant. The formatter is free to remove or add whitespace as it sees fit.
+
+### `html.formatter.indentScriptAndStyle`
+
+Whether to indent the `<script>` and `<style>` tags for HTML (and its super languages).
+
+> Default: `true`
+
+### `html.formatter.selfCloseVoidElements`
+
+Whether void elements should be self-closed. Defaults to never.
+
+> Default: `"never"`
+
+- `"never"`: The slash `/` inside void elements is removed by the formatter.
+- `"always"`: The slash `/` inside void elements is always added.
 
 ## `overrides`
 
