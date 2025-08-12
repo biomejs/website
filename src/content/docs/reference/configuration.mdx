@@ -697,6 +697,32 @@ Whether to expand arrays and objects on multiple lines.
 
 > Default: `"auto"`
 
+
+### `javascript.formatter.operatorLinebreak`
+
+When breaking binary expressions into multiple lines, whether to break them before or after the binary operator.
+
+> Default: `"after"`.
+
+- `"after`: the operator is placed after the expression:
+  ```js title="file.js"
+  if (
+    expressionOne &&
+    expressionTwo &&
+    expressionThree &&
+    expressionFour
+  ) {}
+  ```
+- `"before`: the operator is placed before the expression:
+  ```js title="file.js"
+  if (
+    expressionOne
+    && expressionTwo
+    && expressionThree
+    && expressionFour
+  ) {}
+  ```
+
 ### `javascript.globals`
 
 A list of global names that Biome should ignore (analyzer, linter, etc.)
