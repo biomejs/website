@@ -253,7 +253,7 @@ self.addEventListener("message", async (e) => {
 			});
 
 			// TODO: Handle diagnostics
-			workspace.scanProjectFolder({
+			workspace.scanProject({
 				projectKey,
 				scanKind: "project",
 				force: true,
