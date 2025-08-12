@@ -1,8 +1,16 @@
 ---
 import AstrolightSiteTitle from "@astrojs/starlight/components/SiteTitle.astro";
 
+const { locale } = Astro.locals.starlightRoute;
+function localizedPath(path: string): string {
+	return locale ? `/${locale}/${path.replace(/^\//, "")}` : path;
+}
+
 const menuItems = [
-	{ name: Astro.locals.t("title.docs"), href: "/guides/getting-started" },
+	{
+		name: Astro.locals.t("title.docs"),
+		href: localizedPath("/guides/getting-started"),
+	},
 	{ name: Astro.locals.t("title.enterprise"), href: "/enterprise" },
 	{ name: Astro.locals.t("title.playground"), href: "/playground" },
 ];
@@ -62,7 +70,7 @@ function pathsMatch(pathA: string, pathB: string): boolean {
   [aria-current="page"]:focus {
     color: var(--sl-color-text-accent);
   }
-  
+
   .separator {
     display: none;
   }
