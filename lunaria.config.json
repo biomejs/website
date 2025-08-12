@@ -24,8 +24,8 @@
       "ignore": [
         "node_modules",
         "dist",
-        "src/content/docs/linter/rules/*.{mdx,md}",
-        "src/content/docs/assist/actions/*.{mdx,md}",
+        "src/content/docs/linter/**/rules/*.{mdx,md}",
+        "src/content/docs/assist/**/actions/*.{mdx,md}",
         "src/content/docs/blog/*.{md,mdx}",
         "src/content/docs/blog/internals/changelog.{md,mdx}",
         "src/content/docs/blog/internals/changelog_v1.{md,mdx}"
