@@ -30,13 +30,13 @@ description: A page that maps rules from other sources to Biome
 - [noUselessEscapeInString](/linter/rules/no-useless-escape-in-string) 
 - [noUselessStringRaw](/linter/rules/no-useless-string-raw) 
 - [noVoidTypeReturn](/linter/rules/no-void-type-return) 
-- [useConsistentResponse](/linter/rules/use-consistent-response) 
 - [useImportExtensions](/linter/rules/use-import-extensions) 
-- [useJsonImportAttribute](/linter/rules/use-json-import-attribute) 
+- [useJsonImportAttributes](/linter/rules/use-json-import-attributes) 
 - [useNodeAssertStrict](/linter/rules/use-node-assert-strict) 
 - [useSimpleNumberKeys](/linter/rules/use-simple-number-keys) 
 - [useSimplifiedLogicExpression](/linter/rules/use-simplified-logic-expression) 
 - [useSortedClasses](/linter/rules/use-sorted-classes) 
+- [useStaticResponseMethods](/linter/rules/use-static-response-methods) 
 - [useStrictMode](/linter/rules/use-strict-mode) 
 - [useTopLevelRegex](/linter/rules/use-top-level-regex) 
 - [useUniqueElementIds](/linter/rules/use-unique-element-ids) 
@@ -58,6 +58,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | ---- | ---- |
 | [google-font-display](https://nextjs.org/docs/messages/google-font-display) |[useGoogleFontDisplay](/linter/rules/use-google-font-display) |
 | [google-font-preconnect](https://nextjs.org/docs/messages/google-font-preconnect) |[useGoogleFontPreconnect](/linter/rules/use-google-font-preconnect) |
+| [no-async-client-component](https://nextjs.org/docs/messages/no-async-client-component) |[noNextAsyncClientComponent](/linter/rules/no-next-async-client-component) |
 | [no-document-import-in-page](https://nextjs.org/docs/messages/no-document-import-in-page) |[noDocumentImportInPage](/linter/rules/no-document-import-in-page) |
 | [no-head-element](https://nextjs.org/docs/messages/no-head-element) |[noHeadElement](/linter/rules/no-head-element) |
 | [no-head-import-in-document](https://nextjs.org/docs/messages/no-head-import-in-document) |[noHeadImportInDocument](/linter/rules/no-head-import-in-document) |
@@ -89,6 +90,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [needless_for_each](https://rust-lang.github.io/rust-clippy/master/#needless_for_each) |[noForEach](/linter/rules/no-for-each) |
 | [redundant_else](https://rust-lang.github.io/rust-clippy/master/#redundant_else) |[noUselessElse](/linter/rules/no-useless-else) (inspired) |
 | [self_assignment](https://rust-lang.github.io/rust-clippy/master/#self_assignment) |[noSelfAssign](/linter/rules/no-self-assign) |
+| [too_many_arguments](https://rust-lang.github.io/rust-clippy/master/#too_many_arguments) |[useMaxParams](/linter/rules/use-max-params) |
 | [unreadable_literal](https://rust-lang.github.io/rust-clippy/master/#unreadable_literal) |[useNumericSeparators](/linter/rules/use-numeric-separators) |
 ### ESLint
 | ESLint Rules name | Biome Rules name |
@@ -103,13 +105,14 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [eqeqeq](https://eslint.org/docs/latest/rules/eqeqeq) |[noDoubleEquals](/linter/rules/no-double-equals) |
 | [for-direction](https://eslint.org/docs/latest/rules/for-direction) |[useValidForDirection](/linter/rules/use-valid-for-direction) |
 | [getter-return](https://eslint.org/docs/latest/rules/getter-return) |[useGetterReturn](/linter/rules/use-getter-return) |
-| [grouped-accessor-pairs](https://eslint.org/docs/latest/rules/grouped-accessor-pairs) |[useAdjacentGetterSetter](/linter/rules/use-adjacent-getter-setter) |
+| [grouped-accessor-pairs](https://eslint.org/docs/latest/rules/grouped-accessor-pairs) |[useGroupedAccessorPairs](/linter/rules/use-grouped-accessor-pairs) |
 | [guard-for-in](https://eslint.org/docs/latest/rules/guard-for-in) |[useGuardForIn](/linter/rules/use-guard-for-in) |
 | [max-lines-per-function](https://eslint.org/docs/latest/rules/max-lines-per-function) |[noExcessiveLinesPerFunction](/linter/rules/no-excessive-lines-per-function) (inspired) |
+| [max-params](https://eslint.org/docs/latest/rules/max-params) |[useMaxParams](/linter/rules/use-max-params) |
 | [no-alert](https://eslint.org/docs/latest/rules/no-alert) |[noAlert](/linter/rules/no-alert) |
 | [no-array-constructor](https://eslint.org/docs/latest/rules/no-array-constructor) |[useArrayLiterals](/linter/rules/use-array-literals) |
 | [no-async-promise-executor](https://eslint.org/docs/latest/rules/no-async-promise-executor) |[noAsyncPromiseExecutor](/linter/rules/no-async-promise-executor) |
-| [no-await-in-loop](https://eslint.org/docs/latest/rules/no-await-in-loop) |[noAwaitInLoop](/linter/rules/no-await-in-loop) |
+| [no-await-in-loop](https://eslint.org/docs/latest/rules/no-await-in-loop) |[noAwaitInLoops](/linter/rules/no-await-in-loops) |
 | [no-bitwise](https://eslint.org/docs/latest/rules/no-bitwise) |[noBitwiseOperators](/linter/rules/no-bitwise-operators) |
 | [no-case-declarations](https://eslint.org/docs/latest/rules/no-case-declarations) |[noSwitchDeclarations](/linter/rules/no-switch-declarations) |
 | [no-class-assign](https://eslint.org/docs/latest/rules/no-class-assign) |[noClassAssign](/linter/rules/no-class-assign) |
@@ -117,7 +120,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-cond-assign](https://eslint.org/docs/latest/rules/no-cond-assign) |[noAssignInExpressions](/linter/rules/no-assign-in-expressions) (inspired) |
 | [no-console](https://eslint.org/docs/latest/rules/no-console) |[noConsole](/linter/rules/no-console) |
 | [no-const-assign](https://eslint.org/docs/latest/rules/no-const-assign) |[noConstAssign](/linter/rules/no-const-assign) |
-| [no-constant-binary-expression](https://eslint.org/docs/latest/rules/no-constant-binary-expression) |[noConstantBinaryExpression](/linter/rules/no-constant-binary-expression) |
+| [no-constant-binary-expression](https://eslint.org/docs/latest/rules/no-constant-binary-expression) |[noConstantBinaryExpressions](/linter/rules/no-constant-binary-expressions) |
 | [no-constant-condition](https://eslint.org/docs/latest/rules/no-constant-condition) |[noConstantCondition](/linter/rules/no-constant-condition) |
 | [no-constructor-return](https://eslint.org/docs/latest/rules/no-constructor-return) |[noConstructorReturn](/linter/rules/no-constructor-return) |
 | [no-control-regex](https://eslint.org/docs/latest/rules/no-control-regex) |[noControlCharactersInRegex](/linter/rules/no-control-characters-in-regex) |
@@ -140,7 +143,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-fallthrough](https://eslint.org/docs/latest/rules/no-fallthrough) |[noFallthroughSwitchClause](/linter/rules/no-fallthrough-switch-clause) |
 | [no-func-assign](https://eslint.org/docs/latest/rules/no-func-assign) |[noFunctionAssign](/linter/rules/no-function-assign) |
 | [no-global-assign](https://eslint.org/docs/latest/rules/no-global-assign) |[noGlobalAssign](/linter/rules/no-global-assign) |
-| [no-implicit-coercion](https://eslint.org/docs/latest/rules/no-implicit-coercion) |[noImplicitCoercion](/linter/rules/no-implicit-coercion) |
+| [no-implicit-coercion](https://eslint.org/docs/latest/rules/no-implicit-coercion) |[noImplicitCoercions](/linter/rules/no-implicit-coercions) |
 | [no-import-assign](https://eslint.org/docs/latest/rules/no-import-assign) |[noImportAssign](/linter/rules/no-import-assign) |
 | [no-inner-declarations](https://eslint.org/docs/latest/rules/no-inner-declarations) |[noInnerDeclarations](/linter/rules/no-inner-declarations) |
 | [no-irregular-whitespace](https://eslint.org/docs/latest/rules/no-irregular-whitespace) |[noIrregularWhitespace](/linter/rules/no-irregular-whitespace) |
@@ -185,7 +188,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-unused-private-class-members](https://eslint.org/docs/latest/rules/no-unused-private-class-members) |[noUnusedPrivateClassMembers](/linter/rules/no-unused-private-class-members) |
 | [no-unused-vars](https://eslint.org/docs/latest/rules/no-unused-vars) |[noUnusedVariables](/linter/rules/no-unused-variables) |
 | [no-use-before-define](https://eslint.org/docs/latest/rules/no-use-before-define) |[noInvalidUseBeforeDeclaration](/linter/rules/no-invalid-use-before-declaration) |
-| [no-useless-backreference](https://eslint.org/docs/latest/rules/no-useless-backreference) |[noUselessBackrefInRegex](/linter/rules/no-useless-backref-in-regex) |
+| [no-useless-backreference](https://eslint.org/docs/latest/rules/no-useless-backreference) |[noUselessRegexBackrefs](/linter/rules/no-useless-regex-backrefs) |
 | [no-useless-catch](https://eslint.org/docs/latest/rules/no-useless-catch) |[noUselessCatch](/linter/rules/no-useless-catch) |
 | [no-useless-computed-key](https://eslint.org/docs/latest/rules/no-useless-computed-key) |[useLiteralKeys](/linter/rules/use-literal-keys) |
 | [no-useless-concat](https://eslint.org/docs/latest/rules/no-useless-concat) |[noUselessStringConcat](/linter/rules/no-useless-string-concat) |
@@ -195,7 +198,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-var](https://eslint.org/docs/latest/rules/no-var) |[noVar](/linter/rules/no-var) |
 | [no-void](https://eslint.org/docs/latest/rules/no-void) |[noVoid](/linter/rules/no-void) |
 | [no-with](https://eslint.org/docs/latest/rules/no-with) |[noWith](/linter/rules/no-with) |
-| [object-shorthand](https://eslint.org/docs/latest/rules/object-shorthand) |[useConsistentObjectDefinition](/linter/rules/use-consistent-object-definition) (inspired) |
+| [object-shorthand](https://eslint.org/docs/latest/rules/object-shorthand) |[useConsistentObjectDefinitions](/linter/rules/use-consistent-object-definitions) (inspired) |
 | [one-var](https://eslint.org/docs/latest/rules/one-var) |[useSingleVarDeclarator](/linter/rules/use-single-var-declarator) |
 | [operator-assignment](https://eslint.org/docs/latest/rules/operator-assignment) |[useShorthandAssign](/linter/rules/use-shorthand-assign) |
 | [prefer-arrow-callback](https://eslint.org/docs/latest/rules/prefer-arrow-callback) |[useArrowFunction](/linter/rules/use-arrow-function) (inspired) |
@@ -326,7 +329,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | eslint-plugin-react-hooks Rules name | Biome Rules name |
 | ---- | ---- |
 | [exhaustive-deps](https://github.com/facebook/react/blob/main/packages/eslint-plugin-react-hooks/README.md) |[useExhaustiveDependencies](/linter/rules/use-exhaustive-dependencies) |
-| [react-compiler](https://github.com/facebook/react/blob/main/packages/eslint-plugin-react-hooks/README.md) |[noReactPropAssign](/linter/rules/no-react-prop-assign) |
+| [react-compiler](https://github.com/facebook/react/blob/main/packages/eslint-plugin-react-hooks/README.md) |[noReactPropAssignments](/linter/rules/no-react-prop-assignments) |
 | [rules-of-hooks](https://github.com/facebook/react/blob/main/packages/eslint-plugin-react-hooks/README.md) |[useHookAtTopLevel](/linter/rules/use-hook-at-top-level) |
 ### eslint-plugin-react-prefer-function-component
 | eslint-plugin-react-prefer-function-component Rules name | Biome Rules name |
@@ -339,13 +342,13 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 ### eslint-plugin-regexp
 | eslint-plugin-regexp Rules name | Biome Rules name |
 | ---- | ---- |
-| [no-useless-backreference](https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-useless-backreference.html) |[noUselessBackrefInRegex](/linter/rules/no-useless-backref-in-regex) |
+| [no-useless-backreference](https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-useless-backreference.html) |[noUselessRegexBackrefs](/linter/rules/no-useless-regex-backrefs) |
 ### eslint-plugin-solid
 | eslint-plugin-solid Rules name | Biome Rules name |
 | ---- | ---- |
-| [no-destructure](https://github.com/solidjs-community/eslint-plugin-solid/blob/main/packages/eslint-plugin-solid/docs/no-destructure.md) |[noDestructuredProps](/linter/rules/no-destructured-props) (inspired) |
+| [no-destructure](https://github.com/solidjs-community/eslint-plugin-solid/blob/main/packages/eslint-plugin-solid/docs/no-destructure.md) |[noSolidDestructuredProps](/linter/rules/no-solid-destructured-props) (inspired) |
 | [no-react-specific-props](https://github.com/solidjs-community/eslint-plugin-solid/blob/main/packages/eslint-plugin-solid/docs/no-react-specific-props.md) |[noReactSpecificProps](/linter/rules/no-react-specific-props) |
-| [prefer-for](https://github.com/solidjs-community/eslint-plugin-solid/blob/main/packages/eslint-plugin-solid/docs/prefer-for.md) |[useForComponent](/linter/rules/use-for-component) (inspired) |
+| [prefer-for](https://github.com/solidjs-community/eslint-plugin-solid/blob/main/packages/eslint-plugin-solid/docs/prefer-for.md) |[useSolidForComponent](/linter/rules/use-solid-for-component) (inspired) |
 ### eslint-plugin-sonarjs
 | eslint-plugin-sonarjs Rules name | Biome Rules name |
 | ---- | ---- |
@@ -452,4 +455,4 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [prefer-readonly](https://typescript-eslint.io/rules/prefer-readonly) |[useReadonlyClassProperties](/linter/rules/use-readonly-class-properties) |
 | [require-await](https://typescript-eslint.io/rules/require-await) |[useAwait](/linter/rules/use-await) |
 | [switch-exhaustiveness-check](https://typescript-eslint.io/rules/switch-exhaustiveness-check) |[useExhaustiveSwitchCases](/linter/rules/use-exhaustive-switch-cases) |
-| [unified-signatures](https://typescript-eslint.io/rules/unified-signatures) |[useUnifiedTypeSignature](/linter/rules/use-unified-type-signature) |
+| [unified-signatures](https://typescript-eslint.io/rules/unified-signatures) |[useUnifiedTypeSignatures](/linter/rules/use-unified-type-signatures) |

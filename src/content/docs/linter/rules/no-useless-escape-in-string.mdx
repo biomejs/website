@@ -9,12 +9,10 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="CSS" icon="seti:css">
-:::caution
-This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
-:::
 ## Summary
 - Rule available since: `v2.0.0`
-- Diagnostic Category: [`lint/nursery/noUselessEscapeInString`](/reference/diagnostics#diagnostic-category)
+- Diagnostic Category: [`lint/suspicious/noUselessEscapeInString`](/reference/diagnostics#diagnostic-category)
+- This rule is **recommended**, which means is enabled by default.
 - This rule has a [**safe**](/linter/#safe-fixes) fix.
 - The default severity of this rule is [**warning**](/reference/diagnostics#warning).
 ## Description
@@ -33,7 +31,7 @@ a::after {
 }
 ```
 
-<pre class="language-text"><code class="language-text">code-block.css:2:14 <a href="https://biomejs.dev/linter/rules/no-useless-escape-in-string">lint/nursery/noUselessEscapeInString</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">The character doesn't need to be escaped.</span><br />  <br />    <strong>1 │ </strong>a::after &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  content: &quot;&#92;a&quot;<br />   <strong>   │ </strong>             <strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Only quotes that enclose the string and special characters need to be escaped.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Safe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Unescape the character.</span><br />  <br />  <strong>  2 │ </strong><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span>content:<span style="opacity: 0.8;">·</span>&quot;<span style="color: Tomato;">&#92;</span>a&quot;<br />  <strong>    │ </strong>            <span style="color: Tomato;">-</span>  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.css:2:14 <a href="https://biomejs.dev/linter/rules/no-useless-escape-in-string">lint/suspicious/noUselessEscapeInString</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">The character doesn't need to be escaped.</span><br />  <br />    <strong>1 │ </strong>a::after &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  content: &quot;&#92;a&quot;<br />   <strong>   │ </strong>             <strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Only quotes that enclose the string and special characters need to be escaped.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Safe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Unescape the character.</span><br />  <br />  <strong>  2 │ </strong><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span>content:<span style="opacity: 0.8;">·</span>&quot;<span style="color: Tomato;">&#92;</span>a&quot;<br />  <strong>    │ </strong>            <span style="color: Tomato;">-</span>  <br /></code></pre>
 
 ```css
 a::after {
@@ -41,7 +39,7 @@ a::after {
 }
 ```
 
-<pre class="language-text"><code class="language-text">code-block.css:2:14 <a href="https://biomejs.dev/linter/rules/no-useless-escape-in-string">lint/nursery/noUselessEscapeInString</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">The character doesn't need to be escaped.</span><br />  <br />    <strong>1 │ </strong>a::after &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  content: &quot;&#92;'&quot;<br />   <strong>   │ </strong>             <strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Only quotes that enclose the string and special characters need to be escaped.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Safe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Unescape the character.</span><br />  <br />  <strong>  2 │ </strong><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span>content:<span style="opacity: 0.8;">·</span>&quot;<span style="color: Tomato;">&#92;</span>'&quot;<br />  <strong>    │ </strong>            <span style="color: Tomato;">-</span>  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.css:2:14 <a href="https://biomejs.dev/linter/rules/no-useless-escape-in-string">lint/suspicious/noUselessEscapeInString</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">The character doesn't need to be escaped.</span><br />  <br />    <strong>1 │ </strong>a::after &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  content: &quot;&#92;'&quot;<br />   <strong>   │ </strong>             <strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Only quotes that enclose the string and special characters need to be escaped.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Safe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Unescape the character.</span><br />  <br />  <strong>  2 │ </strong><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span>content:<span style="opacity: 0.8;">·</span>&quot;<span style="color: Tomato;">&#92;</span>'&quot;<br />  <strong>    │ </strong>            <span style="color: Tomato;">-</span>  <br /></code></pre>
 
 ### Valid
 
@@ -62,7 +60,7 @@ a::after {
 {
 	"linter": {
 		"rules": {
-			"nursery": {
+			"suspicious": {
 				"noUselessEscapeInString": "error"
 			}
 		}
@@ -78,12 +76,10 @@ a::after {
 
 </TabItem>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-:::caution
-This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
-:::
 ## Summary
 - Rule available since: `v2.0.0`
-- Diagnostic Category: [`lint/nursery/noUselessEscapeInString`](/reference/diagnostics#diagnostic-category)
+- Diagnostic Category: [`lint/suspicious/noUselessEscapeInString`](/reference/diagnostics#diagnostic-category)
+- This rule is **recommended**, which means is enabled by default.
 - This rule has a [**safe**](/linter/#safe-fixes) fix.
 - The default severity of this rule is [**warning**](/reference/diagnostics#warning).
 ## Description
@@ -100,7 +96,7 @@ Hence, they may confuse a reader.
 const s = "\a";
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:1:13 <a href="https://biomejs.dev/linter/rules/no-useless-escape-in-string">lint/nursery/noUselessEscapeInString</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">The character doesn't need to be escaped.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>const s = &quot;&#92;a&quot;;<br />   <strong>   │ </strong>            <strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Only quotes that enclose the string and special characters need to be escaped.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Safe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Unescape the character.</span><br />  <br />  <strong>  1 │ </strong>const<span style="opacity: 0.8;">·</span>s<span style="opacity: 0.8;">·</span>=<span style="opacity: 0.8;">·</span>&quot;<span style="color: Tomato;">&#92;</span>a&quot;;<br />  <strong>    │ </strong>           <span style="color: Tomato;">-</span>   <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:1:13 <a href="https://biomejs.dev/linter/rules/no-useless-escape-in-string">lint/suspicious/noUselessEscapeInString</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">The character doesn't need to be escaped.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>const s = &quot;&#92;a&quot;;<br />   <strong>   │ </strong>            <strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Only quotes that enclose the string and special characters need to be escaped.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Safe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Unescape the character.</span><br />  <br />  <strong>  1 │ </strong>const<span style="opacity: 0.8;">·</span>s<span style="opacity: 0.8;">·</span>=<span style="opacity: 0.8;">·</span>&quot;<span style="color: Tomato;">&#92;</span>a&quot;;<br />  <strong>    │ </strong>           <span style="color: Tomato;">-</span>   <br /></code></pre>
 
 ```js
 const o = {
@@ -108,13 +104,13 @@ const o = {
 };
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:2:7 <a href="https://biomejs.dev/linter/rules/no-useless-escape-in-string">lint/nursery/noUselessEscapeInString</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">The character doesn't need to be escaped.</span><br />  <br />    <strong>1 │ </strong>const o = &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>    &quot;&#92;a&quot;: 0,<br />   <strong>   │ </strong>      <strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>&#125;;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Only quotes that enclose the string and special characters need to be escaped.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Safe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Unescape the character.</span><br />  <br />  <strong>  2 │ </strong><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span>&quot;<span style="color: Tomato;">&#92;</span>a&quot;:<span style="opacity: 0.8;">·</span>0,<br />  <strong>    │ </strong>     <span style="color: Tomato;">-</span>      <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:2:7 <a href="https://biomejs.dev/linter/rules/no-useless-escape-in-string">lint/suspicious/noUselessEscapeInString</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">The character doesn't need to be escaped.</span><br />  <br />    <strong>1 │ </strong>const o = &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>    &quot;&#92;a&quot;: 0,<br />   <strong>   │ </strong>      <strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>&#125;;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Only quotes that enclose the string and special characters need to be escaped.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Safe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Unescape the character.</span><br />  <br />  <strong>  2 │ </strong><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span>&quot;<span style="color: Tomato;">&#92;</span>a&quot;:<span style="opacity: 0.8;">·</span>0,<br />  <strong>    │ </strong>     <span style="color: Tomato;">-</span>      <br /></code></pre>
 
 ```js
 const s = `${0}\a`;
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:1:17 <a href="https://biomejs.dev/linter/rules/no-useless-escape-in-string">lint/nursery/noUselessEscapeInString</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">The character doesn't need to be escaped.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>const s = `$&#123;0&#125;&#92;a`;<br />   <strong>   │ </strong>                <strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Only quotes that enclose the string and special characters need to be escaped.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Safe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Unescape the character.</span><br />  <br />  <strong>  1 │ </strong>const<span style="opacity: 0.8;">·</span>s<span style="opacity: 0.8;">·</span>=<span style="opacity: 0.8;">·</span>`$&#123;0&#125;<span style="color: Tomato;">&#92;</span>a`;<br />  <strong>    │ </strong>               <span style="color: Tomato;">-</span>   <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:1:17 <a href="https://biomejs.dev/linter/rules/no-useless-escape-in-string">lint/suspicious/noUselessEscapeInString</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">The character doesn't need to be escaped.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>const s = `$&#123;0&#125;&#92;a`;<br />   <strong>   │ </strong>                <strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Only quotes that enclose the string and special characters need to be escaped.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Safe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Unescape the character.</span><br />  <br />  <strong>  1 │ </strong>const<span style="opacity: 0.8;">·</span>s<span style="opacity: 0.8;">·</span>=<span style="opacity: 0.8;">·</span>`$&#123;0&#125;<span style="color: Tomato;">&#92;</span>a`;<br />  <strong>    │ </strong>               <span style="color: Tomato;">-</span>   <br /></code></pre>
 
 ### Valid
 
@@ -139,7 +135,7 @@ JSX strings are ignored:
 {
 	"linter": {
 		"rules": {
-			"nursery": {
+			"suspicious": {
 				"noUselessEscapeInString": "error"
 			}
 		}

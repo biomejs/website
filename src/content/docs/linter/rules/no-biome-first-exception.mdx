@@ -1,0 +1,71 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noBiomeFirstException
+description: Learn more about noBiomeFirstException
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JSON (and super languages)" icon="seti:json">
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+## Summary
+- Diagnostic Category: [`lint/suspicious/noBiomeFirstException`](/reference/diagnostics#diagnostic-category)
+- This rule is **recommended**, which means is enabled by default.
+- This rule has a [**safe**](/linter/#safe-fixes) fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+## Description
+Prevents the use of the `!` pattern in the first position of `files.includes` in the configuration file.
+
+If the first pattern of `files.includes` starts with the leading `!`, Biome won't have any file to crawl. Generally,
+it is a good practice to declare the files/folders to include first, and then the files/folder to ignore.
+
+Check the [official documentation](https://biomejs.dev/guides/configure-biome/#exclude-files-via-configuration) for more examples.
+
+## Examples
+
+### Invalid
+
+```json
+{
+    "files": {
+        "includes": ["!dist"]
+    }
+}
+```
+
+### Valid
+
+```json
+{
+    "files": {
+        "includes": ["src/**", "!dist"]
+    }
+}
+```
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noBiomeFirstException": "error"
+			}
+		}
+	}
+}
+
+```
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+
+</TabItem>
+</Tabs>
+
