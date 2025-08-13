@@ -15,17 +15,17 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 - The icon <span class='inline-icon' title="This rule has an unsafe fix"><Icon name="warning" label="The rule has an unsafe fix" /></span> indicates that the rule provides a code action (fix) that is **unsafe** to apply.
 - The icon <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" /></span> indicates that the rule has been implemented and scheduled for the next release.
 
-## `nursery`
-
-| Rule name | Description | Properties |
-| --- | --- | --- |
-| [noQuickfixBiome](/linter/rules/no-quickfix-biome) | Disallow the use if `quickfix.biome` inside editor settings file. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
-
 ## `suspicious`
 
 | Rule name | Description | Properties |
 | --- | --- | --- |
+| [noBiomeFirstException](/linter/rules/no-biome-first-exception) | Prevents the use of the `!` pattern in the first position of `files.includes` in the configuration file. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span><span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
 | [noDuplicateObjectKeys](/linter/rules/no-duplicate-object-keys) | Disallow two keys with the same name inside objects. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [noQuickfixBiome](/linter/rules/no-quickfix-biome) | Disallow the use if `quickfix.biome` inside editor settings file. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
+| [useBiomeIgnoreFolder](/linter/rules/use-biome-ignore-folder) | Promotes the correct usage for ignoring folders in the configuration file. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span><span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
 ## Recommended rules 
+- [noBiomeFirstException](/linter/rules/no-biome-first-exception) (Severity: [error](/reference/diagnostics#error))
 - [noDuplicateObjectKeys](/linter/rules/no-duplicate-object-keys) (Severity: [error](/reference/diagnostics#error))
+- [noQuickfixBiome](/linter/rules/no-quickfix-biome) (Severity: [information](/reference/diagnostics#information))
+- [useBiomeIgnoreFolder](/linter/rules/use-biome-ignore-folder) (Severity: [warning](/reference/diagnostics#warning))
 

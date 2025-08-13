@@ -45,9 +45,9 @@ Rules that belong to the domain:
 - [useExhaustiveDependencies](/linter/rules/use-exhaustive-dependencies) (recommended)
 - [useHookAtTopLevel](/linter/rules/use-hook-at-top-level) (recommended)
 - [noNextAsyncClientComponent](/linter/rules/no-next-async-client-component)
+- [noImgElement](/linter/rules/no-img-element) (recommended)
 - [noUnwantedPolyfillio](/linter/rules/no-unwanted-polyfillio) (recommended)
 - [useGoogleFontPreconnect](/linter/rules/use-google-font-preconnect) (recommended)
-- [noImgElement](/linter/rules/no-img-element) (recommended)
 - [noHeadElement](/linter/rules/no-head-element) (recommended)
 - [noDocumentImportInPage](/linter/rules/no-document-import-in-page) (recommended)
 - [noHeadImportInDocument](/linter/rules/no-head-import-in-document) (recommended)
@@ -89,13 +89,13 @@ Rules that belong to the domain:
 - [noPrivateImports](/linter/rules/no-private-imports) (recommended)
 - [noUndeclaredDependencies](/linter/rules/no-undeclared-dependencies)
 - [useImportExtensions](/linter/rules/use-import-extensions)
+- [useJsonImportAttributes](/linter/rules/use-json-import-attributes)
 - [noFloatingPromises](/linter/rules/no-floating-promises) (recommended)
 - [noImportCycles](/linter/rules/no-import-cycles)
 - [noMisusedPromises](/linter/rules/no-misused-promises) (recommended)
 - [noUnnecessaryConditions](/linter/rules/no-unnecessary-conditions)
 - [noUnresolvedImports](/linter/rules/no-unresolved-imports)
 - [useExhaustiveSwitchCases](/linter/rules/use-exhaustive-switch-cases) (recommended)
-- [useJsonImportAttribute](/linter/rules/use-json-import-attribute)
 ## Qwik
 Use this domain inside Qwik projects. This domain enables rules that are specific to Qwik projects.
 ### Qwik activation
@@ -136,10 +136,12 @@ Enabled when the following dependencies are declared:
 
 ### Qwik rules
 Rules that belong to the domain:
+- [useJsxKeyInIterable](/linter/rules/use-jsx-key-in-iterable) (recommended)
 - [noQwikUseVisibleTask](/linter/rules/no-qwik-use-visible-task) (recommended)
 - [useAnchorHref](/linter/rules/use-anchor-href) (recommended)
 - [useImageSize](/linter/rules/use-image-size) (recommended)
 - [useQwikClasslist](/linter/rules/use-qwik-classlist) (recommended)
+- [noReactSpecificProps](/linter/rules/no-react-specific-props) (recommended)
 ## React
 Use this domain inside React projects. It enables a set of rules that can help catching bugs and enforce correct practices. This domain enable rules that might conflict with the Solid domain.
 ### React activation
@@ -179,13 +181,13 @@ Enabled when the following dependencies are declared:
 
 ### React rules
 Rules that belong to the domain:
+- [noNestedComponentDefinitions](/linter/rules/no-nested-component-definitions)
 - [noRenderReturnValue](/linter/rules/no-render-return-value) (recommended)
 - [useExhaustiveDependencies](/linter/rules/use-exhaustive-dependencies) (recommended)
 - [useHookAtTopLevel](/linter/rules/use-hook-at-top-level) (recommended)
 - [useJsxKeyInIterable](/linter/rules/use-jsx-key-in-iterable) (recommended)
-- [noNestedComponentDefinitions](/linter/rules/no-nested-component-definitions)
-- [useReactFunctionComponents](/linter/rules/use-react-function-components)
 - [useUniqueElementIds](/linter/rules/use-unique-element-ids)
+- [useReactFunctionComponents](/linter/rules/use-react-function-components)
 ## Solid
 Use this domain inside Solid projects. This domain enables rules that might conflict with the React domain.
 ### Solid activation
@@ -225,8 +227,8 @@ Enabled when the following dependencies are declared:
 
 ### Solid rules
 Rules that belong to the domain:
-- [noDestructuredProps](/linter/rules/no-destructured-props)
-- [useForComponent](/linter/rules/use-for-component)
+- [noSolidDestructuredProps](/linter/rules/no-solid-destructured-props)
+- [useSolidForComponent](/linter/rules/use-solid-for-component)
 - [noReactSpecificProps](/linter/rules/no-react-specific-props) (recommended)
 ## Test
 Use this domain when linting test files. It enables a set of rules that are library agnostic, and can help to catch possible misuse of the test APIs.

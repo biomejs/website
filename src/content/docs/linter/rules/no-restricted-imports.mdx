@@ -44,7 +44,10 @@ Disallow specified modules when loaded by import or require.
             "underscore": "",
             "import-foo": { "importNames": ["Bar"] },
             "import-bar": { "allowImportNames": ["Bar"] }
-        }
+        },
+        "patterns": [{
+            "group": ["import-foo/*", "!import-foo/bar"]
+        }]
     }
 }
 ```
@@ -53,7 +56,18 @@ Disallow specified modules when loaded by import or require.
 
 ```js
 import "lodash";
-import "allowed-import";
+```
+
+<pre class="language-text"><code class="language-text"></code></pre>
+
+```js
+import "underscore";
+```
+
+<pre class="language-text"><code class="language-text"></code></pre>
+
+```js
+import { Bar } from "import-foo";
 ```
 
 <pre class="language-text"><code class="language-text"></code></pre>
@@ -70,12 +84,23 @@ const lodash = require("lodash");
 
 <pre class="language-text"><code class="language-text"></code></pre>
 
+```js
+import foo from 'import-foo/foo';
+```
+
+<pre class="language-text"><code class="language-text"></code></pre>
+
 ### Valid
 
 ```js
 import "allowed-import";
 const myImport = await import("allowed-import");
 const myImport = require("allowed-import");
+```
+
+```js
+import foo from 'import-foo';
+import bar from 'import-foo/bar';
 ```
 
 ## Supported Import Syntaxes
@@ -176,7 +201,7 @@ const defaultExport = require('default-import');
 }
 ```
 
-Use the options to specify the import paths and/or specific import names within them that you want to restrict in your source code.
+Use the options to specify import paths and/or patterns, including specific import names, that you want to restrict in your source code.
 
 ```json
 {
@@ -193,6 +218,16 @@ Use the options to specify the import paths and/or specific import names within 
               "message": "Please use only Bar from import-bar."
             }
         }
+    }
+}
+```
+
+```json
+{
+    "options": {
+        "patterns": [{
+            "group": ["import-foo/*", "!import-foo/bar"]
+        }]
     }
 }
 ```
@@ -328,6 +363,105 @@ import { Baz } from 'import-bar';
 
 ```js
 import { Bar } from 'import-bar';
+```
+
+### `patterns`
+
+**Since `v2.2.0`**
+
+This option allows you to specify multiple modules to restrict using gitignore-style patterns.
+
+### `group`
+
+The patterns array can also include objects. The group property is used to specify the gitignore-style patterns for restricting modules and the message property is used to specify a custom message.
+
+```json
+{
+    "options": {
+        "patterns": [{
+            "group": ["import-foo/*", "!import-foo/bar"],
+            "message": "import-foo is deprecated, except the modules in import-foo/bar."
+        }]
+    }
+}
+```
+
+#### Invalid
+
+```js
+import foo from 'import-foo/foo';
+```
+
+<pre class="language-text"><code class="language-text"></code></pre>
+
+#### Valid
+
+```js
+import foo from 'import-foo';
+import bar from 'import-foo/bar';
+```
+
+### `importNamePattern`
+
+**Since `v2.2.0`**
+
+This option allows you to use regex patterns to restrict import names.
+
+```json
+{
+    "options": {
+       "patterns": [{
+            "group": ["import-foo/*"],
+            "importNamePattern": "[xyz]"
+        }]
+    }
+}
+```
+
+#### Invalid
+
+```js
+import { x } from 'import-foo/foo';
+```
+
+<pre class="language-text"><code class="language-text"></code></pre>
+
+#### Valid
+
+```js
+import { foo } from 'import-foo/foo';
+```
+
+### `invertImportNamePattern`
+
+**Since `v2.2.0`**
+
+If true, the matched patterns in the importNamePattern will be allowed
+
+```json
+{
+    "options": {
+       "patterns": [{
+            "group": ["import-foo/*"],
+            "importNamePattern": "[xyz]",
+            "invertImportNamePattern": true
+        }]
+    }
+}
+```
+
+#### Invalid
+
+```js
+import { foo } from 'import-foo/foo';
+```
+
+<pre class="language-text"><code class="language-text"></code></pre>
+
+#### Valid
+
+```js
+import { x } from 'import-foo/foo';
 ```
 
 ## How to configure
