@@ -43,57 +43,46 @@ JSONスキーマファイルへのパスを指定できます。
 
 ## `files`
 
-### `files.maxSize`
+### `files.includes`
 
-ソースコードファイルの最大許容サイズをバイト単位で指定します。この制限を超えるファイルは、パフォーマンス上の理由で無視されます。
-
-> デフォルト: `1048576` (1024*1024, 1MB)
-
-### `files.ignore`
-
-Biomeは、パターンに一致するファイルやフォルダを無視します。
-Unixシェル形式のパターンのリストで指定します。
-
-
-```json title="biome.json"
-{
-  "files": {
-    "ignore": ["scripts/*.js"]
-  }
-}
-```
-
-
-### `files.include`
-
+処理の対象とするファイルを指定する glob パターンのリストです。
 Biomeは、これらのパターンに一致するファイルやフォルダのみを処理します。
-Unixシェル形式のパターンのリストで指定します。
 
-
-```json title="biome.json"
-{
-  "files": {
-    "include": ["scripts/*.js"]
-  }
-}
-```
-
-:::caution
-`include` と `ignore` の両方が指定されている場合、`ignore` が `include` よりも**優先**されます。
-:::
-
-例えば、下記のような指定を考えます。
+次の例は、 `src` フォルダ内の拡張子が `.js` のすべてのファイルに一致します。
 
 ```json title="biome.json"
 {
   "files": {
-    "include": ["scripts/**/*.js", "src/**/*.js"],
-    "ignore": ["scripts/**/*.js"]
+    "includes": ["src/**/*.js"]
   }
 }
 ```
 
-パターン `src/**/*.js` に一致するファイルのみが処理され、パターン `scripts/**/*.js` に一致するファイルは無視されます。
+`includes` では否定パターンもサポートしています。
+
+```json title="biome.json"
+{
+  "files": {
+    "includes": ["**", "!**/*.test.js", "**/special.test.js", "!test"]
+  }
+}
+```
+
+1. `**` により、すべてのフォルダ内のすべてのファイルを処理対象にする。
+2. ただし、拡張子が `.test.js` のファイルは除外する。
+3. しかし、 `special.test.js` は処理対象に戻す。
+4. ただし、`test` という名前のフォルダ内にある場合は処理しない。
+
+つまり、結果は以下の通りです。
+* `src/app.js` は処理対象
+* `src/app.test.js` は処理対象**外**
+* `src/special.test.js` は処理対象
+* `test/special.test.js` は処理対象**外**
+
+#### Biome のスキャナーについて
+
+Biome にはスキャナーがあり、ネストされた `.gitignore` ファイルを検出したり、プロジェクトドメインのルールが有効な場合はプロジェクトをインデックス化します。
+スキャナーは `files.includes` の設定を尊重しますが、いくつか注意点があります。詳細は [スキャナーのドキュメント](/internals/architecture/#scanner) を参照してください。
 
 ### `files.ignoreUnknown`
 
