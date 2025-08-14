@@ -336,6 +336,34 @@ fn generate_rule_pages() -> Result<()> {
     let linter_root = project_root().join("src/content/docs/linter/rules");
     let actions_root = project_root().join("src/content/docs/assist/actions");
 
+    if linter_root.exists() {
+        if let Err(err) = fs::remove_dir_all(&linter_root) {
+            let is_not_found = err
+                .source()
+                .and_then(|err| err.downcast_ref::<io::Error>())
+                .is_some_and(|err| matches!(err.kind(), io::ErrorKind::NotFound));
+
+            if !is_not_found {
+                return Err(err.into());
+            }
+        }
+    }
+    fs::create_dir_all(&linter_root)?;
+
+    if actions_root.exists() {
+        if let Err(err) = fs::remove_dir_all(&actions_root) {
+            let is_not_found = err
+                .source()
+                .and_then(|err| err.downcast_ref::<io::Error>())
+                .is_some_and(|err| matches!(err.kind(), io::ErrorKind::NotFound));
+
+            if !is_not_found {
+                return Err(err.into());
+            }
+        }
+    }
+    fs::create_dir_all(&actions_root)?;
+
     for (group, rules) in &lints.groups {
         let is_nursery = *group == "nursery";
         for (rule_name, rule_to_document) in rules {
