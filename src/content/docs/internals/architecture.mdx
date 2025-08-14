@@ -42,27 +42,19 @@ If project rules are enabled, these optimisations don't apply.
 
 ### Configuring the scanner
 
-The scanner mostly respects the
-[`files.includes`](/reference/configuration/#filesincludes) setting and the root ignore file, but there
-are some exceptions to be aware of:
+The scanner respects the
+[`files.includes`](/reference/configuration/#filesincludes) setting as well as
+any `.gitignore` files, but there is one major exception to be aware of:
 
-* If the project domain or one of its rules is enabled, `.d.ts` files and
-  `package.json` manifests inside `node_modules` are still read, even if they're
-  ignored in `files.includes` or the root ignore file.
-  This is because they may be a valuable source of type information.
-* The scanner will not ignore individual files if they are in a non-ignored
-  directory. This is because files that are co-located with regular
-  (non-ignored) files are likely to be a valuable source of type information,
-  and they are also more likely to form import cycles with other files.
+If the project domain or one of its rules is enabled, **dependencies of your
+included files are scanned as well**. This means that `.d.ts` files and
+`package.json` manifests inside `node_modules` may still get indexed, provided
+there is a source file that references them. Similarly, generated files that are
+normally ignored, may still be indexed if you import them. This is done in order
+to extract type information from such files.
 
-This means that if you use `files.includes`/the root ignore file to ignore folders with generated
-code, type information from such folders is inaccessible to the scanner. If you
-do wish to have such type information available, we advise to _not_ ignore these
-folders through `files.includes`/the root ignore file and instead ignore them using tool-specific
-settings such as `linter.includes`, `formatter.includes` and `assist.includes` only.
-
-Finally, if you really insist on preventing the scanner from accessing a given
-file or folder, you can use the
+For the time being, if you really insist on preventing the scanner from
+accessing a given file or folder, you can use the
 [`files.experimentalScannerIgnores`](/reference/configuration/#filesexperimentalscannerignores)
 setting for that.
 

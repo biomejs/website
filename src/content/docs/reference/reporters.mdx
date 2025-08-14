@@ -3,7 +3,7 @@ title: Reporters
 description: Control Biome's output with reporters
 ---
 
-Since version **v1.8.0**, Biome's CLI accepts a `--reporter` argument that allows to change how diagnostics and summary are printed to terminal.
+Biome's CLI accepts a `--reporter` argument that allows to change how diagnostics and summary are printed to terminal.
 
 ## Summary
 
@@ -12,24 +12,29 @@ biome check --reporter=summary
 ```
 
 ```
-Formatter ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-The following files needs to be formatted:
-main.ts
-index.ts
+reporter/parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  i The following files have parsing errors.
 
-Organize Imports ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-The following files needs to have their imports sorted:
-main.ts
-index.ts
+  - index.css
 
-Analyzer ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Some analyzer rules were triggered
+reporter/format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  i The following files needs to be formatted.
 
-Rule Name                                               Diagnostics
-lint/suspicious/noImplicitAnyLet                        12 (12 error(s), 0 warning(s), 0 info(s))
-lint/suspicious/noDoubleEquals                          8 (8 error(s), 0 warning(s), 0 info(s))
-lint/suspicious/noRedeclare                             12 (12 error(s), 0 warning(s), 0 info(s))
-lint/suspicious/noDebugger                              20 (20 error(s), 0 warning(s), 0 info(s))
+  - index.css
+  - index.ts
+  - main.ts
+
+reporter/violations ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  i Some lint rules or assist actions reported some violations.
+
+  Rule Name                                        Diagnostics
+
+  lint/correctness/noUnknownFunction               14 (2 error(s), 12 warning(s), 0 info(s))
+  lint/suspicious/noImplicitAnyLet                 16 (12 error(s), 4 warning(s), 0 info(s))
+  lint/suspicious/noDoubleEquals                   8 (8 error(s), 0 warning(s), 0 info(s))
+  assist/source/organizeImports                    2 (2 error(s), 0 warning(s), 0 info(s))
+  lint/suspicious/noRedeclare                      12 (12 error(s), 0 warning(s), 0 info(s))
+  lint/suspicious/noDebugger                       8 (8 error(s), 0 warning(s), 0 info(s))
 ```
 
 ## JSON

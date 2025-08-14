@@ -236,7 +236,7 @@ self.addEventListener("message", async (e) => {
 
 			// Insert new or existing files
 			for (const { filename, code } of files) {
-				filesystem.insert(filename, encoder.encode(code));
+				filesystem.insert(`/${filename}`, encoder.encode(code));
 			}
 
 			// Update plugins
@@ -252,6 +252,15 @@ self.addEventListener("message", async (e) => {
 				},
 			});
 
+			// TODO: Handle diagnostics
+			workspace.scanProject({
+				projectKey,
+				scanKind: "project",
+				force: true,
+				watch: false,
+				verbose: false,
+			});
+
 			break;
 		}
 
@@ -262,7 +271,7 @@ self.addEventListener("message", async (e) => {
 			}
 
 			const { filename, code, cursorPosition } = e.data;
-			const path = filename;
+			const path = `/${filename}`;
 
 			filesystem.insert(path, encoder.encode(code));
 
