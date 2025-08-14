@@ -352,6 +352,117 @@ Example:
 }
 ```
 
+## `assist`
+
+### `assist.enabled`
+
+Enables Biome's assist.
+
+> Default: `true`
+
+
+### `assist.includes`
+
+A list of [glob patterns](#glob-syntax-reference) of files to lint.
+
+The following example analyzes all files with a `.js` extension inside the `src`
+folder:
+
+```json title="biome.json"
+{
+  "assist": {
+    "includes": ["src/**/*.js"]
+  }
+}
+```
+
+`*` is used to match _all files in a folder_, while `**` _recursively_ matches
+all files and subfolders in a folder. For more information on globs, see the
+[glob syntax reference](#glob-syntax-reference)
+
+`includes` also supports negated patterns, or exceptions. These are patterns
+that start with `!` and they can be used to instruct Biome to process all files
+_except_ those matching the negated pattern.
+
+Note that exceptions are processed in order, allowing you to specify exceptions
+to exceptions.
+
+Consider the following example:
+
+```json title="biome.json"
+{
+  "assist": {
+    "includes": ["**", "!**/*.test.js", "**/special.test.js"]
+  }
+}
+```
+
+This example specifies that:
+
+1. All files inside all (sub)folders are analyzed, thanks to the `**` pattern...
+2. ... _except_ when those files have a `.test.js` extension...
+3. ... but the file `special.test.ts` _is_ still analyzed.
+
+This means that:
+
+* `src/app.js` **is** analysed.
+* `src/app.test.js` **is not** analyzed.
+* `src/special.test.js` **is* analyzed.
+
+Note that `assist.includes` is applied *after* `files.includes`. This means
+that any file that is not matched by `files.includes` can no longer be matched
+`assist.includes`. This means the following example **doesn't work**:
+
+```json5 title="biome.jsonc"
+{
+  "files": {
+    "includes": "src/**"
+  },
+  "assist": {
+    // This matches nothing because there is no overlap with `files.includes`:
+    "includes": "scripts/**"
+  }
+}
+```
+
+If `assist.includes` is not specified, all files matched by
+[`files.includes`](#filesincludes) are linted.
+
+:::note
+Due to a technical limitation, `assist.includes` also cannot match folders
+while `files.includes` can. If you want to match all files inside a folder,
+you should explicitly add `/**` at the end.
+:::
+
+### `assist.actions.recommended`
+
+Enables the recommended actions for all groups.
+
+### `assist.actions.[group]`
+
+Options that influence the rules of a single group. Biome supports the following groups:
+
+- source: This group represents those actions that can be safely applied to a document upon saving. These actions are all generally safe, they typically don’t change the functionality of the program.
+
+### `assist.actions.[group].recommended`
+
+Enables the recommended rules for a single group.
+
+Example:
+
+```json title="biome.json"
+{
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "recommended": true
+      }
+    }
+  }
+}
+```
+
 ## `formatter`
 
 These options apply to all languages. There are additional language-specific formatting options below.
