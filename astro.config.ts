@@ -94,6 +94,7 @@ export default defineConfig({
 	redirects: {
 		...redirects,
 		"/blog/annoucing-biome": "/blog/announcing-biome",
+		"/guides/editors/create-a-extension": "/guides/editors/create-an-extension",
 		"/internals/credits": "/internals/people-and-credits",
 	},
 	integrations: [
@@ -258,7 +259,7 @@ export default defineConfig({
 								},
 								{
 									label: "Integrate Biome in an editor extension",
-									link: "/guides/editors/create-a-extension",
+									link: "/guides/editors/create-an-extension",
 									translations: {
 										es: "Integrar Biome en una extensión para un editor",
 										fr: "Intégrer Biome à une extension pour un éditeur",
