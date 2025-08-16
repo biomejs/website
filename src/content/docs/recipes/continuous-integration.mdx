@@ -20,9 +20,13 @@ on:
 jobs:
   quality:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
+        with:
+          persist-credentials: false
       - name: Setup Biome
         uses: biomejs/setup-biome@v2
         with:
@@ -37,7 +41,7 @@ If your Biome configuration has external dependencies (e.g., extends a config fr
 - name: Setup Node.js
   uses: actions/setup-node@v4
   with:
-    node-version: 20 # or your preferred version
+    node-version: 22 # or your preferred version
     cache: "npm" # or 'yarn', 'pnpm'
 - name: Install dependencies
   run: npm ci # or yarn install --frozen-lockfile, pnpm install --frozen-lockfile
@@ -60,7 +64,7 @@ jobs:
       contents: read
       pull-requests: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: mongolyy/reviewdog-action-biome@v1
         with:
           github_token: ${{ secrets.github_token }}
@@ -78,12 +82,12 @@ stages:
 
 # Lint job configuration: runs code quality checks using Biome
 lint:
-    image: 
+    image:
       name: ghcr.io/biomejs/biome:latest  # Use the latest Biome Docker image
       entrypoint: [""]                    # This is required for the image to work in GitLab CI
     stage: quality                        # Run in the quality stage
     script:
-        - biome ci --reporter=gitlab --colors=off > /tmp/code-quality.json 
+        - biome ci --reporter=gitlab --colors=off > /tmp/code-quality.json
         - cp /tmp/code-quality.json code-quality.json
     artifacts:
         paths:
