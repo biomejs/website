@@ -10,7 +10,7 @@ CI環境でBiomeを動作させることは簡単です。以下の例を参考�
 Biomeをランナーにセットアップするためのファーストパーティ[GitHub Action](https://github.com/marketplace/actions/setup-biome)を提供します。
 シンプルなワークフローだと、以下のようになります：
 
-```yaml
+```yaml title="pull_request.yml"
 name: Code quality
 
 on:
@@ -20,9 +20,13 @@ on:
 jobs:
   quality:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
+        with:
+          persist-credentials: false
       - name: Setup Biome
         uses: biomejs/setup-biome@v2
         with:
@@ -48,7 +52,7 @@ jobs:
       contents: read
       pull-requests: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: mongolyy/reviewdog-action-biome@v1
         with:
           github_token: ${{ secrets.github_token }}
