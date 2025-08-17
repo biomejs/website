@@ -821,7 +821,25 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
 
     write_documentation(group, rule_name, meta.docs, &mut content)?;
     write_how_to_configure(group, rule_name, &mut content, &rule_category)?;
+    let crate_link = match meta.language {
+        "js" | "jsx" | "ts" | "tsx" => "biome_js_analyze",
+        "css" => "biome_css_analyze",
+        "html" => "biome_html_analyze",
+        "json" | "jsonc" => "biome_json_analyze",
+        "graphql" => "biome_graphql_analyze",
+        _ => unimplemented!("Language not implemented {}", meta.language),
+    };
 
+    let source_code_link = match rule_category {
+        RuleCategory::Lint => "lint",
+        RuleCategory::Action => "assist",
+        RuleCategory::Syntax | RuleCategory::Transformation => {
+            unimplemented!("Should be implemented")
+        }
+    };
+    let file_name = format!("{}.rs", Case::Snake.convert(rule_name));
+    let source_code_file_path = format!("{crate_link}/src/{source_code_link}/{group}/{file_name}");
+    let test_cases_file_path = format!("{crate_link}/tests/specs/{group}/{rule_name}");
     if rule_category == RuleCategory::Lint {
         writeln!(content, "## Related links")?;
         writeln!(content)?;
@@ -834,6 +852,14 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
             "- [Configure the code fix](/{path_prefix}#configure-the-code-fix)"
         )?;
         writeln!(content, "- [Rule options](/{path_prefix}/#rule-options)")?;
+        writeln!(
+            content,
+            "- [Source Code](https://github.com/biomejs/biome/blob/main/crates/{source_code_file_path})"
+        )?;
+        writeln!(
+            content,
+            "- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/{test_cases_file_path})"
+        )?;
     }
 
     Ok((
