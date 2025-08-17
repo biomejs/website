@@ -208,7 +208,6 @@
 
 			/* biome-ignore lint/style/noDescendingSpecificity: false positive */
 			button {
-				display: none;
 				margin-left: auto;
 
 				&:hover {
