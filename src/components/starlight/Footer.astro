@@ -1,20 +1,29 @@
 ---
+import Default from "@astrojs/starlight/components/Footer.astro";
 ---
 
-<footer>
-  <p>Copyright (c) 2023-present Biome Developers and Contributors.</p>
-</footer>
+<Default {...Astro.props}>
+	<slot />
+</Default>
+
+<div class="copyright">
+	<p>Copyright (c) 2023-present Biome Developers and Contributors.</p>
+</div>
 
 <style>
-  footer {
+  .copyright {
+		display: flex;
     padding: 2rem;
-    text-align: center;
+    align-items: center;
+		justify-content: center;
+    flex-direction: column;
     border-top: 1px solid var(--sl-color-gray-5);
   }
-  footer p {
+	.copyright p {
+		text-align: center;
     margin-top: 1rem;
   }
-  footer picture {
+	.copyright picture {
     vertical-align: top;
   }
 </style>
