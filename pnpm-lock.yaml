@@ -161,8 +161,8 @@ importers:
         specifier: 0.24.1
         version: 0.24.1(@astrojs/starlight@0.35.2(astro@5.13.2(@netlify/blobs@10.0.8)(@types/node@22.17.2)(jiti@2.4.2)(rollup@4.40.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(typescript@5.9.2)(yaml@2.8.0)))(astro@5.13.2(@netlify/blobs@10.0.8)(@types/node@22.17.2)(jiti@2.4.2)(rollup@4.40.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(typescript@5.9.2)(yaml@2.8.0))
       starlight-links-validator:
-        specifier: 0.17.0
-        version: 0.17.0(@astrojs/starlight@0.35.2(astro@5.13.2(@netlify/blobs@10.0.8)(@types/node@22.17.2)(jiti@2.4.2)(rollup@4.40.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(typescript@5.9.2)(yaml@2.8.0)))
+        specifier: 0.17.1
+        version: 0.17.1(@astrojs/starlight@0.35.2(astro@5.13.2(@netlify/blobs@10.0.8)(@types/node@22.17.2)(jiti@2.4.2)(rollup@4.40.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(typescript@5.9.2)(yaml@2.8.0)))
       textlint:
         specifier: 15.2.1
         version: 15.2.1
@@ -4954,8 +4954,8 @@ packages:
     peerDependencies:
       '@astrojs/starlight': '>=0.33.0'
 
-  starlight-links-validator@0.17.0:
-    resolution: {integrity: sha512-D+j0W7Z6CVSxPlt8jskBcApqaAU16JmuxE4c483Xj2sWJteiz0wW2xvk0cG3o/cW1q9x44Ezc668OnUi3a5LAA==}
+  starlight-links-validator@0.17.1:
+    resolution: {integrity: sha512-d2QoBO3mQPWYq/TO4I0kT/3Z9hFulnMzMPaG2dW0H14hPq4N7ZwiBl2FMrLK8I4UE34sztcBatvWCZc62S0BMQ==}
     engines: {node: '>=18.17.1'}
     peerDependencies:
       '@astrojs/starlight': '>=0.32.0'
@@ -11873,7 +11873,7 @@ snapshots:
       - astro
       - supports-color
 
-  starlight-links-validator@0.17.0(@astrojs/starlight@0.35.2(astro@5.13.2(@netlify/blobs@10.0.8)(@types/node@22.17.2)(jiti@2.4.2)(rollup@4.40.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(typescript@5.9.2)(yaml@2.8.0))):
+  starlight-links-validator@0.17.1(@astrojs/starlight@0.35.2(astro@5.13.2(@netlify/blobs@10.0.8)(@types/node@22.17.2)(jiti@2.4.2)(rollup@4.40.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(typescript@5.9.2)(yaml@2.8.0))):
     dependencies:
       '@astrojs/starlight': 0.35.2(astro@5.13.2(@netlify/blobs@10.0.8)(@types/node@22.17.2)(jiti@2.4.2)(rollup@4.40.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(typescript@5.9.2)(yaml@2.8.0))
       '@types/picomatch': 3.0.2
