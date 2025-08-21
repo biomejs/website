@@ -90,13 +90,10 @@ lint:
         - biome ci --reporter=gitlab --colors=off > /tmp/code-quality.json
         - cp /tmp/code-quality.json code-quality.json
     artifacts:
-        paths:
-            - code-quality.json    # Collect the code quality report as an artifact
+      reports:
+        codequality:
+          - code-quality.json    # Collect the code quality report artifact
     rules:
         - if: $CI_COMMIT_BRANCH    # Run job for commits on branches
         - if: $CI_MERGE_REQUEST_ID # Run job for merge requests
 ```
-
-:::note
-If your project's source code is located in another directory, replace `src` with that directory's path in the command.
-:::
