@@ -102,7 +102,7 @@ This example specifies that:
 4. ... _except_ when it occurs in the folder named `test`, because _no_ files
    inside that folder are processed.
 
-:::caution
+:::note
 Using `!test` to completely exclude a directory is only supported in `files.includes`. In other places where `includes` is used (`linter.includes`, `formatter.includes`, etc.), you need to use `!/test/**` to exclude the directory.
 :::
 
