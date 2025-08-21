@@ -12,7 +12,7 @@ development workflow.
 
 [VS Code extension]: https://marketplace.visualstudio.com/items?itemName=biomejs.biome
 
-This reference document provides an overview of the extension's features, how to install 
+This reference document provides an overview of the extension's features, how to install
 it, and how to configure it for your projects.
 
 :::tip
@@ -81,13 +81,9 @@ To enable formatting on save, set VS Code's [`editor.formatOnSave`](vscode://set
 The Biome extension registers itself as a code action provider for [supported file types](/internals/language-support), and provides code fixes for diagnostics
 that have safe fixes.
 
-#### Manual quick fixes
-
-To manually apply a quick fix, select the diagnostic and click the `Quick Fix` button.
-
 #### Fix on save
 
-To enable **Fix on Save**, update VS Code's [`editor.codeActionsOnSave`](vscode://settings/editor.codeActionsOnSave) setting to include the following:
+To enable **Fix on Save**, update VS Code's [`editor.codeActionsOnSave`](vscode://settings/editor.codeActionsOnSave) setting to include the following. This will apply only [the safe fixes](/linter/#safe-fixes):
 
 ```diff
 {
@@ -96,6 +92,12 @@ To enable **Fix on Save**, update VS Code's [`editor.codeActionsOnSave`](vscode:
   }
 }
 ```
+
+If you want to apply [unsafe fixes](/linter/#unsafe-fixes) on save, you must make the [code fix of the rule safe](/linter/#configure-the-code-fix).
+
+#### Manual quick fixes
+
+To manually apply a quick fix, select the diagnostic and click the `Quick Fix` button.
 
 ### Import sorting
 
@@ -154,7 +156,7 @@ The `biome.enabled` setting must be set to `true` (default) in the same scope fo
 
 **Default:** `undefined` | **Scopes:** `global`, `workspace`, `workspace folder`
 
-This setting allows you to override the path to the `biome` binary. This is useful if you want to use a different version of Biome, 
+This setting allows you to override the path to the `biome` binary. This is useful if you want to use a different version of Biome,
 or if you want to use a binary that's not on your `PATH`. In can be either a path to a binary, or an object that maps a platform to a path.
 
 <Tabs>
@@ -205,7 +207,7 @@ You may want to set this setting to `verbose` when you encounter issues with the
 
 ## Troubleshooting
 
-There may be times when you encounter unexpected issues with the extension. Here a a couple tip to help you troubleshoot 
+There may be times when you encounter unexpected issues with the extension. Here a a couple tip to help you troubleshoot
 the most common issues, and reset the extension's state.
 
 ### Accessing the LSP trace
