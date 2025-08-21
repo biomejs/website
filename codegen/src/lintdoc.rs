@@ -1,7 +1,7 @@
 use crate::domains::{DocDomains, generate_domains};
 use crate::project_root;
 use crate::rules_sources::generate_rule_sources;
-use crate::shared::add_codegen_disclaimer_frontmatter;
+use crate::shared::{add_codegen_disclaimer_frontmatter, add_codegen_rule_suggestion};
 use anyhow::Context;
 use anyhow::{Result, bail};
 use biome_analyze::options::JsxRuntime;
@@ -475,7 +475,9 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
         _ => unimplemented!(""),
     };
 
-    writeln!(index, "{recommended_rules_buffer}")?;
+    write!(index, "{recommended_rules_buffer}")?;
+
+    add_codegen_rule_suggestion(&mut index)?;
 
     fs::write(index_page, index)?;
 
