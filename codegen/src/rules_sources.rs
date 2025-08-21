@@ -1,5 +1,5 @@
 use crate::lintdoc::RuleToDocument;
-use crate::shared::add_codegen_disclaimer_frontmatter;
+use crate::shared::{add_codegen_disclaimer_frontmatter, add_codegen_rule_suggestion};
 use anyhow::Result;
 use biome_analyze::RuleCategory;
 use biome_string_case::Case;
@@ -129,6 +129,8 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 
         push_to_table(rules, &mut buffer)?;
     }
+
+    add_codegen_rule_suggestion(&mut buffer)?;
 
     Ok(buffer)
 }
