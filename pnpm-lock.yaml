@@ -33,7 +33,7 @@ importers:
         version: 3.3.0
       '@astrojs/react':
         specifier: 4.3.0
-        version: 4.3.0(@types/node@22.17.2)(@types/react-dom@18.3.7(@types/react@18.3.23))(@types/react@18.3.23)(jiti@2.4.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0)
+        version: 4.3.0(@types/node@22.17.2)(@types/react-dom@18.3.7(@types/react@18.3.24))(@types/react@18.3.24)(jiti@2.4.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0)
       '@astrojs/rss':
         specifier: 4.0.12
         version: 4.0.12
@@ -89,11 +89,11 @@ importers:
         specifier: 22.17.2
         version: 22.17.2
       '@types/react':
-        specifier: 18.3.23
-        version: 18.3.23
+        specifier: 18.3.24
+        version: 18.3.24
       '@types/react-dom':
         specifier: 18.3.7
-        version: 18.3.7(@types/react@18.3.23)
+        version: 18.3.7(@types/react@18.3.24)
       '@uiw/react-codemirror':
         specifier: 4.24.2
         version: 4.24.2(@babel/runtime@7.24.4)(@codemirror/autocomplete@6.15.0(@codemirror/language@6.10.1)(@codemirror/state@6.5.2)(@codemirror/view@6.38.1)(@lezer/common@1.2.1))(@codemirror/language@6.10.1)(@codemirror/lint@6.8.5)(@codemirror/search@6.5.6)(@codemirror/state@6.5.2)(@codemirror/theme-one-dark@6.1.2)(@codemirror/view@6.38.1)(codemirror@6.0.1(@lezer/common@1.2.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1712,8 +1712,8 @@ packages:
     peerDependencies:
       '@types/react': ^18.0.0
 
-  '@types/react@18.3.23':
-    resolution: {integrity: sha512-/LDXMQh55EzZQ0uVAZmKKhfENivEvWz6E+EYzh+/MCjMhNsotd+ZHhBGIjFDTi6+fz0OhQQQLbTgdQIxxCsC0w==}
+  '@types/react@18.3.24':
+    resolution: {integrity: sha512-0dLEBsA1kI3OezMBF8nSsb7Nk19ZnsyE1LLhB8r27KbgU5H4pvuqZLdtE+aUkJVoXgTVuA+iLIwmZ0TuK4tx6A==}
 
   '@types/retry@0.12.2':
     resolution: {integrity: sha512-XISRgDJ2Tc5q4TRqvgJtzsRkFYNJzZrhTdtMoGVBttwzzQJkPnS3WWTFc7kuDRoPtPakl+T+OfdEUjYJj7Jbow==}
@@ -5879,10 +5879,10 @@ snapshots:
     dependencies:
       prismjs: 1.30.0
 
-  '@astrojs/react@4.3.0(@types/node@22.17.2)(@types/react-dom@18.3.7(@types/react@18.3.23))(@types/react@18.3.23)(jiti@2.4.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0)':
+  '@astrojs/react@4.3.0(@types/node@22.17.2)(@types/react-dom@18.3.7(@types/react@18.3.24))(@types/react@18.3.24)(jiti@2.4.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0)':
     dependencies:
-      '@types/react': 18.3.23
-      '@types/react-dom': 18.3.7(@types/react@18.3.23)
+      '@types/react': 18.3.24
+      '@types/react-dom': 18.3.7(@types/react@18.3.24)
       '@vitejs/plugin-react': 4.7.0(vite@6.3.5(@types/node@22.17.2)(jiti@2.4.2)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0))
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
@@ -7666,11 +7666,11 @@ snapshots:
 
   '@types/prop-types@15.7.12': {}
 
-  '@types/react-dom@18.3.7(@types/react@18.3.23)':
+  '@types/react-dom@18.3.7(@types/react@18.3.24)':
     dependencies:
-      '@types/react': 18.3.23
+      '@types/react': 18.3.24
 
-  '@types/react@18.3.23':
+  '@types/react@18.3.24':
     dependencies:
       '@types/prop-types': 15.7.12
       csstype: 3.1.3
