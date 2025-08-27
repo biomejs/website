@@ -19,6 +19,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Inspired from [`solidjs/prefer-for`](https://github.com/solidjs-community/eslint-plugin-solid/blob/main/packages/eslint-plugin-solid/docs/prefer-for.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"performance": {
+				"useSolidForComponent": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Enforce using Solid's `<For />` component for mapping an array to JSX elements.
 
@@ -32,15 +45,15 @@ For details on `<For />` Component, see the [Solid docs about Components](https:
 
 ```jsx
 let Component = (props) => <ol>{props.data.map(d => <li>{d.text}</li>)}</ol>;
-```
-
 <pre class="language-text"><code class="language-text">code-block.jsx:1:33 <a href="https://biomejs.dev/linter/rules/use-solid-for-component">lint/performance/useSolidForComponent</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Array.prototype.map will cause DOM elements to be recreated, it is not recommended to use it in Solid here.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>let Component = (props) =&gt; &lt;ol&gt;&#123;props.data.map(d =&gt; &lt;li&gt;&#123;d.text&#125;&lt;/li&gt;)&#125;&lt;/ol&gt;;<br />   <strong>   │ </strong>                                <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Use Solid's &lt;Emphasis&gt;&lt;/Emphasis&gt; component for efficiently rendering lists. See </span><span style="color: lightgreen;"><a href="https://docs.solidjs.com/reference/components/for">Solid docs</a></span><span style="color: lightgreen;"> for more details.</span><br />  <br /></code></pre>
+
+```
 
 ```jsx
 let Component = (props) => <>{props.data.map(d => <li>{d.text}</li>)}</>;
-```
-
 <pre class="language-text"><code class="language-text">code-block.jsx:1:31 <a href="https://biomejs.dev/linter/rules/use-solid-for-component">lint/performance/useSolidForComponent</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Array.prototype.map will cause DOM elements to be recreated, it is not recommended to use it in Solid here.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>let Component = (props) =&gt; &lt;&gt;&#123;props.data.map(d =&gt; &lt;li&gt;&#123;d.text&#125;&lt;/li&gt;)&#125;&lt;/&gt;;<br />   <strong>   │ </strong>                              <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Use Solid's &lt;Emphasis&gt;&lt;/Emphasis&gt; component for efficiently rendering lists. See </span><span style="color: lightgreen;"><a href="https://docs.solidjs.com/reference/components/for">Solid docs</a></span><span style="color: lightgreen;"> for more details.</span><br />  <br /></code></pre>
+
+```
 
 ```jsx
 let Component = (props) => (
@@ -50,9 +63,9 @@ let Component = (props) => (
     ))}
   </ol>
 );
-```
-
 <pre class="language-text"><code class="language-text">code-block.jsx:3:6 <a href="https://biomejs.dev/linter/rules/use-solid-for-component">lint/performance/useSolidForComponent</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Array.prototype.map will cause DOM elements to be recreated, it is not recommended to use it in Solid here.</span><br />  <br />    <strong>1 │ </strong>let Component = (props) =&gt; (<br />    <strong>2 │ </strong>  &lt;ol&gt;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>    &#123;props.data.map((d) =&gt; (<br />   <strong>   │ </strong>     <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>      &lt;li key=&#123;d.id&#125;&gt;&#123;d.text&#125;&lt;/li&gt;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>5 │ </strong>    ))&#125;<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>6 │ </strong>  &lt;/ol&gt;<br />    <strong>7 │ </strong>);<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Use Solid's &lt;Emphasis&gt;&lt;/Emphasis&gt; component for efficiently rendering lists. See </span><span style="color: lightgreen;"><a href="https://docs.solidjs.com/reference/components/for">Solid docs</a></span><span style="color: lightgreen;"> for more details.</span><br />  <br /></code></pre>
+
+```
 
 ### Valid
 
@@ -71,19 +84,6 @@ let Component = (props) => {
 }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"performance": {
-				"useSolidForComponent": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

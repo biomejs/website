@@ -17,34 +17,6 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`@typescript-eslint/no-restricted-types`](https://typescript-eslint.io/rules/no-restricted-types)
 
-## Description
-Disallow user defined types.
-
-This rule allows you to specify type names that you don’t want to use in your application.
-
-To prevent use of commonly misleading types, you can refer to [noBannedTypes](https://biomejs.dev/linter/rules/no-banned-types/)
-
-## Options
-
-Use the options to specify additional types that you want to restrict in your
-source code.
-
-```json
-{
-    "options": {
-        "types": {
-           "Foo": {
-              "message": "Only bar is allowed",
-              "use": "bar"
-            },
-            "OldAPI": "Use NewAPI instead"
-        }
-    }
-}
-```
-
-In the example above, the rule will emit a diagnostics if `Foo` or `OldAPI` are used.
-
 ## How to configure
 ```json title="biome.json"
 {
@@ -58,6 +30,42 @@ In the example above, the rule will emit a diagnostics if `Foo` or `OldAPI` are 
 }
 
 ```
+## Description
+Disallow user defined types.
+
+This rule allows you to specify type names that you don’t want to use in your application.
+
+To prevent use of commonly misleading types, you can refer to [noBannedTypes](https://biomejs.dev/linter/rules/no-banned-types/)
+
+## Options
+
+Use the options to specify additional types that you want to restrict in your
+source code.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"noRestrictedTypes": {
+					"options": {
+						"types": {
+							"Foo": {
+								"message": "Only bar is allowed",
+								"use": "bar"
+							},
+							"OldAPI": "Use NewAPI instead"
+						}
+					}
+				}
+			}
+		}
+	}
+}
+```
+
+In the example above, the rule will emit a diagnostics if `Foo` or `OldAPI` are used.
+
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

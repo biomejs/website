@@ -17,6 +17,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`sonarjs/cognitive-complexity`](https://github.com/SonarSource/eslint-plugin-sonarjs/blob/HEAD/docs/rules/cognitive-complexity.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"complexity": {
+				"noExcessiveCognitiveComplexity": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow functions that exceed a given Cognitive Complexity score.
 
@@ -51,37 +64,32 @@ function tooComplex() {
         }
     }
 }
-```
-
 <pre class="language-text"><code class="language-text">code-block.js:1:10 <a href="https://biomejs.dev/linter/rules/no-excessive-cognitive-complexity">lint/complexity/noExcessiveCognitiveComplexity</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Excessive complexity of 21 detected (max: 15).</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>function tooComplex() &#123;<br />   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>    for (let x = 0; x &lt; 10; x++) &#123;<br />    <strong>3 │ </strong>        for (let y = 0; y &lt; 10; y++) &#123;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Please refactor this function to reduce its complexity score from 21 to the max allowed complexity 15.</span><br />  <br /></code></pre>
+
+```
 
 ## Options
 
 Allows specifying the maximum allowed complexity.
 
-```json
+```json title='biome.json'
 {
-    "options": {
-        "maxAllowedComplexity": 15
-    }
+	"linter": {
+		"rules": {
+			"complexity": {
+				"noExcessiveCognitiveComplexity": {
+					"options": {
+						"maxAllowedComplexity": 15
+					}
+				}
+			}
+		}
+	}
 }
 ```
 
 The allowed values range from 1 through 254. The default is 15.
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"complexity": {
-				"noExcessiveCognitiveComplexity": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

@@ -7,8 +7,8 @@ use anyhow::{Result, bail};
 use biome_analyze::options::JsxRuntime;
 use biome_analyze::{
     AnalysisFilter, AnalyzerAction, AnalyzerConfiguration, AnalyzerOptions, ControlFlow, FixKind,
-    GroupCategory, Queryable, RegistryVisitor, Rule, RuleCategory, RuleFilter, RuleGroup,
-    RuleMetadata, RuleSourceKind,
+    GroupCategory, Queryable, RegistryVisitor, Rule, RuleCategory, RuleDomain, RuleFilter,
+    RuleGroup, RuleMetadata, RuleSourceKind,
 };
 use biome_configuration::Configuration;
 use biome_console::fmt::Termcolor;
@@ -22,7 +22,7 @@ use biome_css_syntax::CssLanguage;
 use biome_deserialize::json::deserialize_from_json_ast;
 use biome_diagnostics::termcolor::NoColor;
 use biome_diagnostics::{Diagnostic, DiagnosticExt, PrintDiagnostic, Severity, Visit};
-use biome_formatter::LineWidth;
+use biome_formatter::{Expand, LineWidth};
 use biome_fs::BiomePath;
 use biome_graphql_syntax::GraphqlLanguage;
 use biome_js_parser::JsParserOptions;
@@ -137,7 +137,9 @@ impl RulesVisitor {
                     .insert(R::METADATA.language, R::METADATA);
                 group.insert(R::METADATA.name, rule_to_document);
             };
-            self.lints.domains_to_document.add_rule(R::METADATA);
+            self.lints
+                .domains_to_document
+                .add_rule(<R::Group as RuleGroup>::NAME, R::METADATA);
         } else {
             let actions = &mut self.actions;
             actions.number_of_rules.insert(R::METADATA.name);
@@ -700,6 +702,17 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
         writeln!(content, ":::")?;
     }
 
+    let is_project_domain = meta.domains.iter().find(|d| **d == RuleDomain::Project);
+
+    if is_project_domain.is_some() {
+        writeln!(content, ":::note")?;
+        writeln!(
+            content,
+            "This rule belongs to the project domain. This means that its activation will activate the Biome Scanner, which might affect the performance. Read more about it in the [documentation page](/linter/domains#project)"
+        )?;
+        writeln!(content, ":::")?;
+    }
+
     writeln!(content, "## Summary")?;
 
     if meta.version != "next" {
@@ -716,8 +729,7 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
         RuleCategory::Lint => {
             writeln!(
                 content,
-                "- Diagnostic Category: [`{category}/{}/{}`](/reference/diagnostics#diagnostic-category)",
-                group, rule_name
+                "- Diagnostic Category: [`{category}/{group}/{rule_name}`](/reference/diagnostics#diagnostic-category)",
             )?;
             if is_recommended {
                 writeln!(
@@ -746,8 +758,7 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
         RuleCategory::Action => {
             writeln!(
                 content,
-                "- Diagnostic Category: [`{category}/{}/{}`](/reference/diagnostics#diagnostic-category)",
-                group, rule_name
+                "- Diagnostic Category: [`{category}/{group}/{rule_name}`](/reference/diagnostics#diagnostic-category)",
             )?;
             if is_recommended {
                 writeln!(content, "- This action is **recommended**.")?;
@@ -812,17 +823,16 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
         let action = if rule_name == "organizeImports" {
             "source.organizeImports.biome".to_string()
         } else {
-            format!("source.action.{}.biome", rule_name)
+            format!("source.action.{rule_name}.biome",)
         };
         writeln!(
             content,
-            "<EditorAction includeFixAll action=\"{}\" />",
-            action
+            "<EditorAction includeFixAll action=\"{action}\" />",
         )?;
     }
 
-    write_documentation(group, rule_name, meta.docs, &mut content)?;
     write_how_to_configure(group, rule_name, &mut content, &rule_category)?;
+    write_documentation(group, rule_name, meta.docs, &mut content)?;
     let crate_link = match meta.language {
         "js" | "jsx" | "ts" | "tsx" => "biome_js_analyze",
         "css" => "biome_css_analyze",
@@ -914,7 +924,7 @@ fn parse_rule_options(
     test: &CodeBlockTest,
     code: &str,
     content: &mut Vec<u8>,
-) -> anyhow::Result<Option<Configuration>> {
+) -> anyhow::Result<(Option<Configuration>, String)> {
     let file_path = format!("code-block.{}", test.tag);
 
     let mut write = HTML::new(content).with_mdx();
@@ -936,7 +946,7 @@ fn parse_rule_options(
                     write_diagnostic(code, error)?;
                 }
                 // Parsing failed, but test.expect_diagnostic is true
-                return Ok(None);
+                return Ok((None, String::new()));
             }
 
             let parsed_root = parse.tree();
@@ -1067,6 +1077,14 @@ fn parse_rule_options(
             // Deserialize the configuration from the partially-synthetic AST,
             // and report any errors encountered during deserialization.
             let deserialized = deserialize_from_json_ast::<Configuration>(&root, "");
+            let formatted = format_node(
+                JsonFormatOptions::default().with_expand(Expand::Always),
+                root.syntax(),
+            )?
+            .print()?
+            .as_code()
+            .to_string();
+
             let (partial_configuration, deserialize_diagnostics) = deserialized.consume();
 
             if !deserialize_diagnostics.is_empty() {
@@ -1086,7 +1104,7 @@ fn parse_rule_options(
                     write_diagnostic(code, error)?;
                 }
                 // Deserialization failed, but test.expect_diagnostic is true
-                return Ok(None);
+                return Ok((None, formatted));
             }
 
             let Some(result) = partial_configuration else {
@@ -1095,7 +1113,7 @@ fn parse_rule_options(
                 );
             };
 
-            Ok(Some(result))
+            Ok((Some(result), formatted))
         }
         _ => {
             // Only JSON code blocks can contain configuration options
@@ -1179,15 +1197,15 @@ fn write_documentation(
                 // Erase the lintdoc-specific attributes in the output by
                 // re-generating the language ID from the source type
                 write!(content, "```{}", &test.tag)?;
+                if test.options != OptionsParsingMode::NoOptions {
+                    write!(content, " title='biome.json'")?;
+                }
                 writeln!(content)?;
 
                 language = Some((test, String::new()));
             }
 
             Event::End(TagEnd::CodeBlock) => {
-                writeln!(content, "```")?;
-                writeln!(content)?;
-
                 if let Some((test, block)) = language.take() {
                     if test.expect_diagnostic {
                         write!(
@@ -1203,8 +1221,11 @@ fn write_documentation(
 
                     let mut buffer = HTML::new(&mut *content).with_mdx();
                     if test.options != OptionsParsingMode::NoOptions {
-                        last_options = parse_rule_options(group, rule, &test, &block, content)
-                            .context("snapshot test failed")?;
+                        let (options, formatted) =
+                            parse_rule_options(group, rule, &test, &block, content)
+                                .context("snapshot test failed")?;
+                        last_options = options;
+                        write!(content, "{formatted}")?;
                     } else if test.expect_diagnostic {
                         print_diagnostics_or_actions(
                             group,
@@ -1234,12 +1255,20 @@ fn write_documentation(
                         writeln!(content)?;
                     }
                 }
+                writeln!(content, "```")?;
+                writeln!(content)?;
             }
 
             Event::Text(text) => {
                 let mut hide_line = false;
 
                 if let Some((test, block)) = &mut language {
+                    if test.options == OptionsParsingMode::RuleOptionsOnly {
+                        let mut options_code_block =
+                            test.options_code_block.take().unwrap_or_default();
+                        options_code_block.push_str(&text);
+                        hide_line = true;
+                    }
                     if let Some(inner_text) = text.strip_prefix("# ") {
                         // Lines prefixed with "# " are hidden from the public documentation
                         write!(block, "{inner_text}")?;
@@ -1391,7 +1420,7 @@ fn write_documentation(
             }
 
             Event::InlineHtml(html) => {
-                write!(content, "{}", html)?;
+                write!(content, "{html}")?;
             }
 
             _ => {
@@ -1421,6 +1450,9 @@ struct CodeBlockTest {
     /// of a valid/invalid code example, and if yes, how that
     /// block of configuration options should be parsed:
     options: OptionsParsingMode,
+
+    /// The content of the options block
+    options_code_block: Option<String>,
 
     /// Whether to use the last code block that was marked with
     /// `options` as the configuration settings for this code block.
@@ -1472,6 +1504,7 @@ impl FromStr for CodeBlockTest {
             use_options: false,
             line_count: 0,
             hidden_lines: vec![],
+            options_code_block: None,
         };
 
         for token in tokens {

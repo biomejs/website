@@ -17,6 +17,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Inspired from [`unicorn/filename-case`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/filename-case.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useFilenamingConvention": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Enforce naming conventions for JavaScript and TypeScript filenames.
 
@@ -72,14 +85,25 @@ If you want to ignore all files in the `test` directory, then you can disable th
 
 The rule provides several options that are detailed in the following subsections.
 
-```jsonc
+```jsonc title='biome.json'
 {
-    "options": {
-        "strictCase": false,
-        "requireAscii": true,
-        "match": "%?(.+?)[.](.+)", // Since v2.0.0
-        "filenameCases": ["camelCase", "export"]
-    }
+	"linter": {
+		"rules": {
+			"style": {
+				"useFilenamingConvention": {
+					"options": {
+						"strictCase": false,
+						"requireAscii": true,
+						"match": "%?(.+?)[.](.+)", // Since v2.0.0
+						"filenameCases": [
+							"camelCase",
+							"export"
+						]
+					}
+				}
+			}
+		}
+	}
 }
 ```
 
@@ -141,19 +165,6 @@ You can enforce a stricter convention by setting `filenameCases` option.
 This option also applies to the file extensions.
 Extensions in lowercase are always allowed regardless of how `filenameCases` is set.
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"style": {
-				"useFilenamingConvention": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

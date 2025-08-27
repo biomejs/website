@@ -17,6 +17,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`no-bitwise`](https://eslint.org/docs/latest/rules/no-bitwise)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noBitwiseOperators": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow bitwise operators.
 
@@ -29,15 +42,15 @@ which will lead to unexpected behavior.
 
 ```js
 let x = y | z;
-```
-
 <pre class="language-text"><code class="language-text">code-block.js:1:9 <a href="https://biomejs.dev/linter/rules/no-bitwise-operators">lint/suspicious/noBitwiseOperators</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unexpected use of '</span><span style="color: lightgreen;"><strong>|</strong></span><span style="color: lightgreen;">'.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>let x = y | z;<br />   <strong>   │ </strong>        <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Did you mean || instead? If you want to use the bitwise operator, consider suppressing this diagnostic.</span><br />  <br /></code></pre>
+
+```
 
 ```js
 x |= y;
-```
-
 <pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-bitwise-operators">lint/suspicious/noBitwiseOperators</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unexpected use of '</span><span style="color: lightgreen;"><strong>|=</strong></span><span style="color: lightgreen;">'.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>x |= y;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Bitwise operators are prohibited because their use can be confusing or unintended. If you did want to use the bitwise operator, consider suppressing this diagnostic.</span><br />  <br /></code></pre>
+
+```
 
 ### Valid
 
@@ -57,27 +70,30 @@ The rule provides the options described below.
 
 Allows a list of bitwise operators to be used as exceptions.
 
-```json
-{
-    "options": {
-        "allow": ["&", "|", "^", "~", "<<", ">>", ">>>"]
-    }
-}
-```
-
-## How to configure
-```json title="biome.json"
+```json title='biome.json'
 {
 	"linter": {
 		"rules": {
 			"suspicious": {
-				"noBitwiseOperators": "error"
+				"noBitwiseOperators": {
+					"options": {
+						"allow": [
+							"&",
+							"|",
+							"^",
+							"~",
+							"<<",
+							">>",
+							">>>"
+						]
+					}
+				}
 			}
 		}
 	}
 }
-
 ```
+
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

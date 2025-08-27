@@ -17,6 +17,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`no-param-reassign`](https://eslint.org/docs/latest/rules/no-param-reassign)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"noParameterAssign": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow reassigning `function` parameters.
 
@@ -35,25 +48,25 @@ assignments to a property of a parameter.
 function f(param) {
     param = 13;
 }
-```
-
 <pre class="language-text"><code class="language-text">code-block.js:2:5 <a href="https://biomejs.dev/linter/rules/no-parameter-assign">lint/style/noParameterAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Assigning a </span><span style="color: Orange;"><strong>function parameter</strong></span><span style="color: Orange;"> is confusing.</span><br />  <br />    <strong>1 │ </strong>function f(param) &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>    param = 13;<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The </span><span style="color: lightgreen;"><strong>parameter</strong></span><span style="color: lightgreen;"> is declared here:</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>function f(param) &#123;<br />   <strong>   │ </strong>           <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>    param = 13;<br />    <strong>3 │ </strong>&#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Developers usually expect function parameters to be readonly. To align with this expectation, use a local variable instead.</span><br />  <br /></code></pre>
+
+```
 
 ```js
 function f(param) {
     param++;
 }
-```
-
 <pre class="language-text"><code class="language-text">code-block.js:2:5 <a href="https://biomejs.dev/linter/rules/no-parameter-assign">lint/style/noParameterAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Assigning a </span><span style="color: Orange;"><strong>function parameter</strong></span><span style="color: Orange;"> is confusing.</span><br />  <br />    <strong>1 │ </strong>function f(param) &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>    param++;<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The </span><span style="color: lightgreen;"><strong>parameter</strong></span><span style="color: lightgreen;"> is declared here:</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>function f(param) &#123;<br />   <strong>   │ </strong>           <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>    param++;<br />    <strong>3 │ </strong>&#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Developers usually expect function parameters to be readonly. To align with this expectation, use a local variable instead.</span><br />  <br /></code></pre>
+
+```
 
 ```js
 function f(param) {
     for (param of arr) {}
 }
-```
-
 <pre class="language-text"><code class="language-text">code-block.js:2:10 <a href="https://biomejs.dev/linter/rules/no-parameter-assign">lint/style/noParameterAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Assigning a </span><span style="color: Orange;"><strong>function parameter</strong></span><span style="color: Orange;"> is confusing.</span><br />  <br />    <strong>1 │ </strong>function f(param) &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>    for (param of arr) &#123;&#125;<br />   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The </span><span style="color: lightgreen;"><strong>parameter</strong></span><span style="color: lightgreen;"> is declared here:</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>function f(param) &#123;<br />   <strong>   │ </strong>           <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>    for (param of arr) &#123;&#125;<br />    <strong>3 │ </strong>&#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Developers usually expect function parameters to be readonly. To align with this expectation, use a local variable instead.</span><br />  <br /></code></pre>
+
+```
 
 ```ts
 class C {
@@ -61,9 +74,9 @@ class C {
         prop++;
     }
 }
-```
-
 <pre class="language-text"><code class="language-text">code-block.ts:3:9 <a href="https://biomejs.dev/linter/rules/no-parameter-assign">lint/style/noParameterAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Assigning a </span><span style="color: Orange;"><strong>function parameter</strong></span><span style="color: Orange;"> is confusing.</span><br />  <br />    <strong>1 │ </strong>class C &#123;<br />    <strong>2 │ </strong>    constructor(readonly prop: number) &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>        prop++;<br />   <strong>   │ </strong>        <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>    &#125;<br />    <strong>5 │ </strong>&#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The </span><span style="color: lightgreen;"><strong>parameter</strong></span><span style="color: lightgreen;"> is declared here:</span><br />  <br />    <strong>1 │ </strong>class C &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>    constructor(readonly prop: number) &#123;<br />   <strong>   │ </strong>                         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>        prop++;<br />    <strong>4 │ </strong>    &#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Developers usually expect function parameters to be readonly. To align with this expectation, use a local variable instead.</span><br />  <br /></code></pre>
+
+```
 
 ### Valid
 
@@ -92,11 +105,19 @@ The `noParameterAssign` rule can be configured using the `propertyAssignment` op
 
 
 
-```json
+```json title='biome.json'
 {
-    "options": {
-        "propertyAssignment": "allow"
-    }
+	"linter": {
+		"rules": {
+			"style": {
+				"noParameterAssign": {
+					"options": {
+						"propertyAssignment": "allow"
+					}
+				}
+			}
+		}
+	}
 }
 ```
 
@@ -111,11 +132,19 @@ function update(obj) {
 
 
 
-```json
+```json title='biome.json'
 {
-    "options": {
-        "propertyAssignment": "deny"
-    }
+	"linter": {
+		"rules": {
+			"style": {
+				"noParameterAssign": {
+					"options": {
+						"propertyAssignment": "deny"
+					}
+				}
+			}
+		}
+	}
 }
 ```
 
@@ -123,23 +152,10 @@ function update(obj) {
 function update(obj) {
     obj.key = "value"; // Diagnostic: Assignment to a property of function parameter is not allowed.
 }
-```
-
 <pre class="language-text"><code class="language-text"></code></pre>
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"style": {
-				"noParameterAssign": "error"
-			}
-		}
-	}
-}
-
 ```
+
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)
