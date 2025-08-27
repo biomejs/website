@@ -1,103 +1,185 @@
 ---
-title: Primeiros passos
-description: Aprenda a criar um novo projeto com Biome.
+title: Primeiros Passos
+description: Aprenda como configurar um novo projeto com Biome.
 ---
 
+import { Code, TabItem, Tabs } from "@astrojs/starlight/components";
+import DefaultConfiguration from "@/components/generated/DefaultConfiguration.mdx";
 import PackageManagerBiomeCommand from "@/components/PackageManagerBiomeCommand.astro";
 import PackageManagerCommand from "@/components/PackageManagerCommand.astro";
 
-## Instalação
+O Biome é melhor instalado como uma dependência de desenvolvimento dos seus projetos, mas também está disponível como um [executável standalone] que não requer Node.js.
 
-A forma mais rápida de baixar o Biome é usando `npm` ou o seu package manager favorito.
-Isso requer o Node.js v14.18 ou mais recente.
-
-O CLI também está disponível como um [executável independente](/guides/manual-installation) caso você queira usar Biome sem instalar o Node.js.
-
-Para instalar o Biome, execute o seguinte comando em um diretório que possua o arquivo `package.json`.
+[executável standalone]: /guides/manual-installation
 
 <PackageManagerCommand
-  npm="install --save-dev --save-exact @biomejs/biome"
-  pnpm="add --save-dev --save-exact @biomejs/biome"
-  yarn="add --dev --exact @biomejs/biome"
-  bun="add --dev --exact @biomejs/biome"
-  deno="add --dev npm:@biomejs/biome"
+  npm="i -D -E @biomejs/biome"
+  pnpm="add -D -E @biomejs/biome"
+  yarn="add -D -E @biomejs/biome"
+  bun="add -D -E @biomejs/biome"
+  deno="add -D npm:@biomejs/biome"
 />
 
-:::note
-É possível instalar o Biome de forma global em vez de local.
-Mas isso não é recomendado.
+:::note[Fixação de versão]
+`-E` garante que o gerenciador de pacotes fixe a versão do Biome. Consulte a
+[página de versionamento](/internals/versioning)
+para mais informações sobre [por que fixar a versão é importante].
 :::
 
-É **altamente recomendado** não utilizar "range operators" ao instalar o Biome.
-Dê uma olhada na [página de versionamento](/pt-br/internals/versioning/) para mais informações.
+[por que fixar a versão é importante]: /internals/versioning#why-pinning-the-version-is-important
 
 ## Configuração
 
-Recomendamos criar um arquivo de configuração `biome.json` para cada projeto.
-Isso elimina a necessidade de repetir as opções do CLI toda vez que você executar um comando e garante que o Biome aplique as mesmas configurações em seu editor. Se você está contente com a configuração padrão, você não precisa fazer isso.
-
-Para criar o arquivo de configuração, use o comando de `init` dentro da pasta raíz do seu projeto:
+Embora o Biome possa executar sem configuração alguma, você provavelmente vai querer ajustar algumas configurações para atender às necessidades do seu projeto, e nesse caso você pode executar o seguinte comando para gerar um arquivo de configuração `biome.json`.
 
 <PackageManagerBiomeCommand command="init"/>
 
-Após utilizar o comando, você terá um novo arquivo `biome.json` no seu diretório:
+## Uso
 
-```json title="biome.json"
-{
-  "$schema": "https://biomejs.dev/schemas/2.0.5/schema.json",
-  "organizeImports": {
-    "enabled": false
-  },
-  "linter": {
-    "enabled": true,
-    "rules": {
-      "recommended": true
-    }
-  }
-}
-```
+Vamos ter uma visão geral rápida de como usar o Biome no seu projeto.
 
-O `linter.enabled: true` habilita o linter e o `rules.recommended: true` habilita as [regras recomendadas](/linter/).
+### Interface de linha de comando
 
-A formatação está ativada porque a configuração não [desabilita](/reference/configuration/#formatterenabled) explicitamente a formatação com `formatter.enabled: false`.
+O Biome fornece uma [interface de linha de comando] para formatar, fazer lint e verificar seu código.
 
-## Como usar
+[interface de linha de comando]: /reference/cli
 
-O CLI do Biome vem com vários comandos e opções, então você utiliza só o que precisar.
+<Tabs syncKey="command">
+	<TabItem label="npm" icon="seti:npm">
+		<Code frame="none" code={`
+# Formatar todos os arquivos
+npx @biomejs/biome format --write
 
-Você pode formatar arquivos e diretórios usando o comando [`format`](/reference/cli#biome-format) com o parâmetro `--write`:
+# Formatar arquivos específicos
+npx @biomejs/biome format --write <files>
 
-<PackageManagerBiomeCommand command="format --write <files>"/>
+# Fazer lint nos arquivos e aplicar correções seguras a todos os arquivos
+npx @biomejs/biome lint --write
 
-Você pode analisar e aplicar [correções seguras](/pt-br/linter#correções-seguras) em arquivos e diretórios utilizando o comando [`lint`](/reference/cli#biome-lint) com o parâmetro `--write`:
+# Fazer lint nos arquivos e aplicar correções seguras a arquivos específicos
+npx @biomejs/biome lint --write <files>
 
-<PackageManagerBiomeCommand command="lint --write <files>"/>
+# Formatar, fazer lint e organizar importações de todos os arquivos
+npx @biomejs/biome check --write
 
-Você pode aplicar **ambos** com o comando [`check`](/reference/cli#biome-check)
+# Formatar, fazer lint e organizar importações de arquivos específicos
+npx @biomejs/biome check --write <files>
+    `} lang="bash"  />
+	</TabItem>
+	<TabItem label="pnpm" icon="pnpm">
+		<Code frame="none" code={`
+# Formatar todos os arquivos
+pnpm exec biome format --write
 
-<PackageManagerBiomeCommand command="check --write <files>"/>
+# Formatar arquivos específicos
+pnpm exec biome format --write <files>
 
-O comando `check` executa múltiplas ferramentas de uma vez. Até o momento, ele:
+# Fazer lint e aplicar correções seguras a todos os arquivos
+pnpm exec biome lint --write
 
-- formata arquivos
-- analisa arquivos
-- organiza as importações
+# Fazer lint nos arquivos e aplicar correções seguras a arquivos específicos
+pnpm exec biome lint --write <files>
 
-## Instale um plugin de editor
+# Formatar, fazer lint e organizar importações de todos os arquivos
+pnpm exec biome check --write
 
-Recomendamos instalar um plugin de editor para aproveitar ao máximo o Biome. Dê uma olhada na [página de editores](/guides/editors/first-party-extensions) para saber qual oferece suporte ao Biome.
+# Formatar, fazer lint e organizar importações de arquivos específicos
+pnpm exec biome check --write <files>
+    `} lang="bash"  />
+	</TabItem>
+	<TabItem label="bun" icon="bun">
+		<Code frame="none" code={`
+# Formatar todos os arquivos
+bunx biome format --write
 
-## Configuração para integração contínua (CI)
+# Formatar arquivos específicos
+bunx biome format --write <files>
 
-Se você está usando Node.js, a forma recomendada de executar o Biome em CI é utilizando o seu [package manager favorito](/pt-br/guides/getting-started#instalação).
-Isso garante que sua pipeline de integração contínua (CI) utilize a mesma versão do Biome que você usa dentro do editor ou ao executar comandos locais pelo CLI.
+# Fazer lint e aplicar correções seguras a todos os arquivos
+bunx biome lint --write
 
-## Próximos passos
+# Fazer lint nos arquivos e aplicar correções seguras a arquivos específicos
+bunx biome lint --write <files>
 
-Parabéns! Agora você está pronto para utilizar o Biome. 🥳
+# Formatar, fazer lint e organizar importações de todos os arquivos
+bunx biome check --write
 
-- Saiba mais sobre como usar e configurar o [formatter](/formatter)
-- Saiba mais sobre como usar e configurar o [linter](/pt-br/linter)
-- Familiarize-se com as [opções do CLI](/reference/cli)
+# Formatar, fazer lint e organizar importações de arquivos específicos
+bunx biome check --write <files>
+    `} lang="bash"  />
+	</TabItem>
+	<TabItem label="deno" icon="deno">
+		<Code frame="none" code={`
+# Formatar arquivos específicos
+deno run -A npm:@biomejs/biome format --write <files>
+
+# Formatar todos os arquivos
+deno run -A npm:@biomejs/biome format --write
+
+# Fazer lint nos arquivos e aplicar correções seguras a todos os arquivos
+deno run -A npm:@biomejs/biome lint --write
+
+# Fazer lint nos arquivos e aplicar correções seguras a arquivos específicos
+deno run -A npm:@biomejs/biome lint --write <files>
+
+# Formatar, fazer lint e organizar importações de todos os arquivos
+deno run -A npm:@biomejs/biome check --write
+
+# Formatar, fazer lint e organizar importações de arquivos específicos
+deno run -A npm:@biomejs/biome check --write <files>
+    `} lang="bash"  />
+	</TabItem>
+	<TabItem label="yarn" icon="seti:yarn">
+		<Code frame="none" code={`
+# Formatar todos os arquivos
+yarn exec biome format --write
+
+# Formatar arquivos específicos
+yarn exec biome format --write <files>
+
+# Fazer lint nos arquivos e aplicar correções seguras a todos os arquivos
+yarn exec biome lint --write
+
+# Fazer lint nos arquivos e aplicar correções seguras a arquivos específicos
+yarn exec biome lint --write <files>
+
+# Formatar, fazer lint e organizar importações de todos os arquivos
+yarn exec biome check --write
+
+# Formatar, fazer lint e organizar importações de arquivos específicos
+yarn exec biome check --write <files>
+    `} lang="bash"  />
+	</TabItem>
+</Tabs>
+
+### Integrações com editores
+
+O Biome está disponível como uma extensão oficial nos seus editores favoritos.
+
+- [VS Code](/guides/editors/first-party-extensions#vs-code)
+- [IntelliJ](/guides/editors/first-party-extensions#intellij)
+- [Zed](/guides/editors/first-party-extensions#zed)
+
+Também existem [extensões da comunidade](/guides/editors/third-party-extensions)
+para outros editores, como **Vim**, **Neovim** e **Sublime Text**, para citar alguns.
+
+### Integração Contínua
+
+Execute `biome ci` como parte do seu pipeline de CI para garantir qualidade e consistência do código em toda a sua equipe. Funciona exatamente como o comando `biome check`, mas é otimizado para ambientes de CI.
+
+- [GitHub Actions](/recipes/continuous-integration#github-actions)
+- [GitLab CI](/recipes/continuous-integration#gitlab-ci)
+
+Consulte as receitas de [Integração Contínua](/recipes/continuous-integration) para mais exemplos.
+
+## Próximos Passos
+
+Pronto! Agora você está pronto para usar o Biome. 🥳
+
+- [Migrar do ESLint e Prettier](/guides/migrate-eslint-prettier)
+- Aprenda mais sobre como [configurar o Biome](/guides/configure-biome)
+- Aprenda mais sobre como usar e configurar o [formatador](/formatter)
+- Aprenda mais sobre como usar e configurar o [linter](/linter)
+- Familiarize-se com os [comandos e opções da CLI](/reference/cli)
 - Familiarize-se com as [opções de configuração](/reference/configuration)
-- Entre na nossa [comunidade do Discord](https://biomejs.dev/chat)
+- Junte-se à nossa [comunidade no Discord](https://biomejs.dev/chat)
