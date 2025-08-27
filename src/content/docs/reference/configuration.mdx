@@ -1378,9 +1378,20 @@ Whether to account for whitespace sensitivity when formatting HTML (and its supe
 
 ### `html.formatter.indentScriptAndStyle`
 
-Whether to indent the `<script>` and `<style>` tags for HTML (and its super languages).
+*Since 2.3: Only affects `.vue` and `.svelte` files*
 
-> Default: `true`
+Whether to indent the content of `<script>` and `<style>` tags for HTML-ish templating languages (Vue, Svelte). Currently, this does not apply to plain HTML files.
+
+> Default: `false`
+
+When true, the content of `<script>` and `<style>` tags will be indented by one level relative to the tags.
+
+```vue title="foo.vue" del={2} ins={3}
+<script>
+import Bar from "./Bar.vue";
+  import Bar from "./Bar.vue";
+</script>
+```
 
 ### `html.formatter.selfCloseVoidElements`
 
