@@ -46,16 +46,16 @@ pub fn generate_domains() -> anyhow::Result<()> {
 #[derive(Default, Debug, Clone)]
 pub struct DocDomains {
     /// A list where we associate a rule domain with the rules that belong to it
-    domain_to_rules: HashMap<RuleDomain, Vec<RuleMetadata>>,
+    domain_to_rules: HashMap<RuleDomain, Vec<(String, RuleMetadata)>>,
 }
 
 impl DocDomains {
-    pub(crate) fn add_rule(&mut self, rule: RuleMetadata) {
+    pub(crate) fn add_rule(&mut self, group: &str, rule: RuleMetadata) {
         if !rule.domains.is_empty() {
             for domain in rule.domains {
                 let domain_to_update = self.domain_to_rules.entry(*domain).or_default();
 
-                domain_to_update.push(rule.clone());
+                domain_to_update.push((group.to_string(), rule.clone()));
             }
         }
     }
@@ -117,7 +117,7 @@ impl DocDomains {
                 }
                 #[allow(unreachable_patterns)]
                 domain => {
-                    eprintln!("Undocumented domain: {:?}", domain);
+                    eprintln!("Undocumented domain: {domain:?}");
                 }
             }
             Self::write_activation(name.as_str(), buffer)?;
@@ -129,18 +129,25 @@ impl DocDomains {
         Ok(())
     }
 
-    fn write_rules(rules: &[RuleMetadata], name: &str, buffer: &mut Vec<u8>) -> anyhow::Result<()> {
+    fn write_rules(
+        rules: &[(String, RuleMetadata)],
+        name: &str,
+        buffer: &mut Vec<u8>,
+    ) -> anyhow::Result<()> {
         if !rules.is_empty() {
             writeln!(buffer, "### {name} rules")?;
             writeln!(buffer, "Rules that belong to the domain:")?;
 
-            for rule in rules {
+            for (group, rule) in rules {
                 let dashed_rule = Case::Kebab.convert(rule.name);
 
                 write!(buffer, "- [{}](/linter/rules/{dashed_rule})", rule.name)?;
 
                 if rule.recommended {
                     write!(buffer, " (recommended)")?;
+                }
+                if group == "nursery" {
+                    write!(buffer, " [(nursery)](/linter/#nursery)")?;
                 }
                 writeln!(buffer)?;
             }
@@ -164,6 +171,7 @@ impl DocDomains {
             for (name, version) in domain.manifest_dependencies() {
                 writeln!(buffer, "- `{name}`: `{version}`")?;
             }
+
             writeln!(buffer)?;
         }
         Ok(())

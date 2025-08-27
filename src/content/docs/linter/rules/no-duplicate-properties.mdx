@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`stylelint/declaration-block-no-duplicate-properties`](https://github.com/stylelint/stylelint/blob/main/lib/rules/declaration-block-no-duplicate-properties/README.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noDuplicateProperties": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow duplicate properties within declaration blocks.
 
@@ -32,9 +45,9 @@ a {
   color: pink;
   color: orange;
 }
-```
-
 <pre class="language-text"><code class="language-text">code-block.css:3:3 <a href="https://biomejs.dev/linter/rules/no-duplicate-properties">lint/suspicious/noDuplicateProperties</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Duplicate properties can lead to unexpected behavior and may override previous declarations unintentionally.</span><br />  <br />    <strong>1 │ </strong>a &#123;<br />    <strong>2 │ </strong>  color: pink;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>  color: orange;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>&#125;<br />    <strong>5 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;"><strong>color</strong></span><span style="color: lightgreen;"> is already defined here.</span><br />  <br />    <strong>1 │ </strong>a &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  color: pink;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>  color: orange;<br />    <strong>4 │ </strong>&#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove or rename the duplicate property to ensure consistent styling.</span><br />  <br /></code></pre>
+
+```
 
 ### Valid
 
@@ -45,19 +58,6 @@ a {
 }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"suspicious": {
-				"noDuplicateProperties": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

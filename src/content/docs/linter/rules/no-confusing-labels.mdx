@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Inspired from [`no-labels`](https://eslint.org/docs/latest/rules/no-labels)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noConfusingLabels": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow labeled statements that are not loops.
 
@@ -32,36 +45,36 @@ The rule ignores reactive Svelte statements in Svelte components.
 
 ```js
 label: f();
-```
-
 <pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-confusing-labels">lint/suspicious/noConfusingLabels</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Unexpected </span><span style="color: Orange;"><strong>label</strong></span><span style="color: Orange;">.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>label: f();<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Only loops should be labeled.<br /></span>    <span style="color: lightgreen;">The use of labels for other statements is suspicious and unfamiliar.</span><br />  <br /></code></pre>
+
+```
 
 ```js
 label: {
     f();
     break label;
 }
-```
-
 <pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-confusing-labels">lint/suspicious/noConfusingLabels</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Unexpected </span><span style="color: Orange;"><strong>label</strong></span><span style="color: Orange;">.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>label: &#123;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>    f();<br />    <strong>3 │ </strong>    break label;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Only loops should be labeled.<br /></span>    <span style="color: lightgreen;">The use of labels for other statements is suspicious and unfamiliar.</span><br />  <br /></code></pre>
+
+```
 
 ```js
 label: if (a) {
     f()
     break label;
 }
-```
-
 <pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-confusing-labels">lint/suspicious/noConfusingLabels</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Unexpected </span><span style="color: Orange;"><strong>label</strong></span><span style="color: Orange;">.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>label: if (a) &#123;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>    f()<br />    <strong>3 │ </strong>    break label;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Only loops should be labeled.<br /></span>    <span style="color: lightgreen;">The use of labels for other statements is suspicious and unfamiliar.</span><br />  <br /></code></pre>
+
+```
 
 ```js
 label: switch (a) {
     case 0:
         break label;
 }
-```
-
 <pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-confusing-labels">lint/suspicious/noConfusingLabels</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Unexpected </span><span style="color: Orange;"><strong>label</strong></span><span style="color: Orange;">.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>label: switch (a) &#123;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>    case 0:<br />    <strong>3 │ </strong>        break label;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Only loops should be labeled.<br /></span>    <span style="color: lightgreen;">The use of labels for other statements is suspicious and unfamiliar.</span><br />  <br /></code></pre>
+
+```
 
 ### Valid
 
@@ -87,11 +100,21 @@ such as in production builds.
 Some bundlers, such as [esbuild](https://esbuild.github.io/api/#drop-labels) and Vite,
 can be configured to remove labeled statements.
 
-```json
+```json title='biome.json'
 {
-    "options": {
-        "allowedLabels": ["DEV"]
-    }
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noConfusingLabels": {
+					"options": {
+						"allowedLabels": [
+							"DEV"
+						]
+					}
+				}
+			}
+		}
+	}
 }
 ```
 
@@ -99,19 +122,6 @@ can be configured to remove labeled statements.
 DEV: assertSomeCondition();
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"suspicious": {
-				"noConfusingLabels": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

@@ -14,6 +14,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Diagnostic Category: [`lint/performance/useTopLevelRegex`](/reference/diagnostics#diagnostic-category)
 - This rule doesn't have a fix.
 - The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"performance": {
+				"useTopLevelRegex": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Require regex literals to be declared at the top level.
 
@@ -32,9 +45,9 @@ Additionally, this rule ignores regular expressions with the `g` and/or `y` flag
 function foo(someString) {
     return /[a-Z]*/.test(someString)
 }
-```
-
 <pre class="language-text"><code class="language-text">code-block.js:2:12 <a href="https://biomejs.dev/linter/rules/use-top-level-regex">lint/performance/useTopLevelRegex</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">This regex literal is not defined in the top level scope. This can lead to performance issues if this function is called frequently.</span><br />  <br />    <strong>1 │ </strong>function foo(someString) &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>    return /[a-Z]&#42;/.test(someString)<br />   <strong>   │ </strong>           <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Move the regex literal outside of this scope, and place it at the top level of this module, as a constant.</span><br />  <br /></code></pre>
+
+```
 
 ### Valid
 
@@ -52,19 +65,6 @@ function foo(str) {
 }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"performance": {
-				"useTopLevelRegex": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

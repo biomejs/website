@@ -18,33 +18,6 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`no-extra-label`](https://eslint.org/docs/latest/rules/no-extra-label)
 
-## Description
-Disallow unnecessary labels.
-
-If a loop contains no nested loops or switches, labeling the loop is unnecessary.
-
-## Examples
-
-### Invalid
-
-```js
-loop: while(a) {
-    break loop;
-}
-```
-
-<pre class="language-text"><code class="language-text">code-block.js:2:11 <a href="https://biomejs.dev/linter/rules/no-useless-label">lint/complexity/noUselessLabel</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unnecessary </span><span style="color: lightgreen;"><strong>label</strong></span><span style="color: lightgreen;">.</span><br />  <br />    <strong>1 │ </strong>loop: while(a) &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>    break loop;<br />   <strong>   │ </strong>          <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Safe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Remove the unnecessary </span><span style="color: lightgreen;"><strong>label</strong></span><span style="color: lightgreen;">.<br /></span>    <span style="color: lightgreen;">You can achieve the same result without the label.</span><br />  <br />  <strong>  2 │ </strong><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span>break<span style="opacity: 0.8;"><span style="color: Tomato;">·</span></span><span style="color: Tomato;">l</span><span style="color: Tomato;">o</span><span style="color: Tomato;">o</span><span style="color: Tomato;">p</span>;<br />  <strong>    │ </strong>         <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span> <br /></code></pre>
-
-### Valid
-
-```js
-outer: while(a) {
-    while(b) {
-        break outer;
-    }
-}
-```
-
 ## How to configure
 ```json title="biome.json"
 {
@@ -58,6 +31,33 @@ outer: while(a) {
 }
 
 ```
+## Description
+Disallow unnecessary labels.
+
+If a loop contains no nested loops or switches, labeling the loop is unnecessary.
+
+## Examples
+
+### Invalid
+
+```js
+loop: while(a) {
+    break loop;
+}
+<pre class="language-text"><code class="language-text">code-block.js:2:11 <a href="https://biomejs.dev/linter/rules/no-useless-label">lint/complexity/noUselessLabel</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unnecessary </span><span style="color: lightgreen;"><strong>label</strong></span><span style="color: lightgreen;">.</span><br />  <br />    <strong>1 │ </strong>loop: while(a) &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>    break loop;<br />   <strong>   │ </strong>          <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Safe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Remove the unnecessary </span><span style="color: lightgreen;"><strong>label</strong></span><span style="color: lightgreen;">.<br /></span>    <span style="color: lightgreen;">You can achieve the same result without the label.</span><br />  <br />  <strong>  2 │ </strong><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span>break<span style="opacity: 0.8;"><span style="color: Tomato;">·</span></span><span style="color: Tomato;">l</span><span style="color: Tomato;">o</span><span style="color: Tomato;">o</span><span style="color: Tomato;">p</span>;<br />  <strong>    │ </strong>         <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span> <br /></code></pre>
+
+```
+
+### Valid
+
+```js
+outer: while(a) {
+    while(b) {
+        break outer;
+    }
+}
+```
+
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

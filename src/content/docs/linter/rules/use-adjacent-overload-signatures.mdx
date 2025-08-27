@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`@typescript-eslint/adjacent-overload-signatures`](https://typescript-eslint.io/rules/adjacent-overload-signatures)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"useAdjacentOverloadSignatures": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow the use of overload signatures that are not next to each other.
 
@@ -37,9 +50,9 @@ type Foo = {
   bar_type(): void;
   foo_type(sn: string | number): void;
 };
-```
-
 <pre class="language-text"><code class="language-text">code-block.ts:5:3 <a href="https://biomejs.dev/linter/rules/use-adjacent-overload-signatures">lint/suspicious/useAdjacentOverloadSignatures</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">All foo&#95;type signatures must be adjacent.</span><br />  <br />    <strong>3 │ </strong>  foo&#95;type(n: number): void;<br />    <strong>4 │ </strong>  bar&#95;type(): void;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>5 │ </strong>  foo&#95;type(sn: string | number): void;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>6 │ </strong>&#125;;<br />    <strong>7 │ </strong><br />  <br /></code></pre>
+
+```
 
 ```ts
 interface Foo {
@@ -48,9 +61,9 @@ interface Foo {
   bar_interface(): void;
   foo_interface(sn: string | number): void;
 }
-```
-
 <pre class="language-text"><code class="language-text">code-block.ts:5:3 <a href="https://biomejs.dev/linter/rules/use-adjacent-overload-signatures">lint/suspicious/useAdjacentOverloadSignatures</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">All foo&#95;interface signatures must be adjacent.</span><br />  <br />    <strong>3 │ </strong>  foo&#95;interface(n: number): void;<br />    <strong>4 │ </strong>  bar&#95;interface(): void;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>5 │ </strong>  foo&#95;interface(sn: string | number): void;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>6 │ </strong>&#125;<br />    <strong>7 │ </strong><br />  <br /></code></pre>
+
+```
 
 ```ts
 class A {
@@ -59,9 +72,9 @@ class A {
   barA(): void {};
   fooA(sn: string | number): void {};
 }
-```
-
 <pre class="language-text"><code class="language-text">code-block.ts:5:3 <a href="https://biomejs.dev/linter/rules/use-adjacent-overload-signatures">lint/suspicious/useAdjacentOverloadSignatures</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">All fooA signatures must be adjacent.</span><br />  <br />    <strong>3 │ </strong>  fooA(n: number): void;<br />    <strong>4 │ </strong>  barA(): void &#123;&#125;;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>5 │ </strong>  fooA(sn: string | number): void &#123;&#125;;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>6 │ </strong>&#125;<br />    <strong>7 │ </strong><br />  <br /></code></pre>
+
+```
 
 ### Valid
 
@@ -101,19 +114,6 @@ class A {
 }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"suspicious": {
-				"useAdjacentOverloadSignatures": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

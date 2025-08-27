@@ -17,6 +17,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Inspired from [`react-refresh/only-export-components`](https://github.com/ArnaudBarre/eslint-plugin-react-refresh)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useComponentExportOnlyModules": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Enforce declaring components only within modules that export React Components exclusively.
 
@@ -32,23 +45,23 @@ If the framework already has established conventions, consider optionally specif
 ```jsx
 export const foo = () => {};
 export const Bar = () => <></>;
-```
-
 <pre class="language-text"><code class="language-text">code-block.jsx:1:14 <a href="https://biomejs.dev/linter/rules/use-component-export-only-modules">lint/style/useComponentExportOnlyModules</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Exporting a non-component with components is not allowed.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>export const foo = () =&gt; &#123;&#125;;<br />   <strong>   │ </strong>             <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>export const Bar = () =&gt; &lt;&gt;&lt;/&gt;;<br />    <strong>3 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;"><a href="https://github.com/facebook/react/tree/main/packages/react-refresh">Fast Refresh</a></span><span style="color: lightgreen;"> only works when a file only exports components.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Consider separating non-component exports into a new file.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">If it is a component, it may not be following the variable naming conventions.</span><br />  <br /></code></pre>
+
+```
 
 ```jsx
 const Tab = () => {};
 export const tabs = [<Tab />, <Tab />];
-```
-
 <pre class="language-text"><code class="language-text">code-block.jsx:1:7 <a href="https://biomejs.dev/linter/rules/use-component-export-only-modules">lint/style/useComponentExportOnlyModules</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Components should be exported.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>const Tab = () =&gt; &#123;&#125;;<br />   <strong>   │ </strong>      <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>export const tabs = [&lt;Tab /&gt;, &lt;Tab /&gt;];<br />    <strong>3 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;"><a href="https://github.com/facebook/react/tree/main/packages/react-refresh">Fast Refresh</a></span><span style="color: lightgreen;"> only works when a file only exports components.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Consider separating component exports into a new file.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">If it is not a component, it may not be following the variable naming conventions.</span><br />  <br /></code></pre>
+
+```
 
 ```jsx
 const App = () => {}
 createRoot(document.getElementById("root")).render(<App />);
-```
-
 <pre class="language-text"><code class="language-text">code-block.jsx:1:7 <a href="https://biomejs.dev/linter/rules/use-component-export-only-modules">lint/style/useComponentExportOnlyModules</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Unexported components are not allowed.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>const App = () =&gt; &#123;&#125;<br />   <strong>   │ </strong>      <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>createRoot(document.getElementById(&quot;root&quot;)).render(&lt;App /&gt;);<br />    <strong>3 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;"><a href="https://github.com/facebook/react/tree/main/packages/react-refresh">Fast Refresh</a></span><span style="color: lightgreen;"> only works when a file only exports components.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Consider separating component exports into a new file.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">If it is not a component, it may not be following the variable naming conventions.</span><br />  <br /></code></pre>
+
+```
 
 ### Valid
 
@@ -82,11 +95,19 @@ export default memo(Component);
 
 Some tools, such as [Vite](https://vitejs.dev/), allow exporting constants along with components. By enabling the following, the rule will support the pattern.
 
-```json
+```json title='biome.json'
 {
-    "options":{
-        "allowConstantExport" : true
-    }
+	"linter": {
+		"rules": {
+			"style": {
+				"useComponentExportOnlyModules": {
+					"options": {
+						"allowConstantExport": true
+					}
+				}
+			}
+		}
+	}
 }
 ```
 
@@ -96,27 +117,29 @@ If you use a framework that handles [Hot Module Replacement(HMR)](https://remix.
 
 Example for [Remix](https://remix.run/docs/en/main/discussion/hot-module-replacement#supported-exports):
 
-```json
-{
-    "options":{
-        "allowExportNames": ["json", "loader", "headers", "meta", "links", "scripts"]
-    }
-}
-```
-
-## How to configure
-```json title="biome.json"
+```json title='biome.json'
 {
 	"linter": {
 		"rules": {
 			"style": {
-				"useComponentExportOnlyModules": "error"
+				"useComponentExportOnlyModules": {
+					"options": {
+						"allowExportNames": [
+							"json",
+							"loader",
+							"headers",
+							"meta",
+							"links",
+							"scripts"
+						]
+					}
+				}
 			}
 		}
 	}
 }
-
 ```
+
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

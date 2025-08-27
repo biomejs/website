@@ -17,6 +17,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Inspired from [`max-lines-per-function`](https://eslint.org/docs/latest/rules/max-lines-per-function)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"complexity": {
+				"noExcessiveLinesPerFunction": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Restrict the number of lines of code in a function.
 
@@ -70,11 +83,19 @@ Default: `50`
 
 When `maxLines: 2`, the following function will be considered invalid:
 
-```json
+```json title='biome.json'
 {
-    "options": {
-       "maxLines": 2
-    }
+	"linter": {
+		"rules": {
+			"complexity": {
+				"noExcessiveLinesPerFunction": {
+					"options": {
+						"maxLines": 2
+					}
+				}
+			}
+		}
+	}
 }
 ```
 
@@ -84,9 +105,9 @@ function example() {
  const b = 2; // 2
  const c = 3; // 3
 };
-```
-
 <pre class="language-text"><code class="language-text"></code></pre>
+
+```
 
 ### skipBlankLines
 
@@ -97,12 +118,20 @@ Default: `false`
 
 When `maxLines: 2` and `skipBlankLines: true`, the following function will be considered valid:
 
-```json
+```json title='biome.json'
 {
-    "options": {
-       "maxLines": 2,
-       "skipBlankLines": true
-    }
+	"linter": {
+		"rules": {
+			"complexity": {
+				"noExcessiveLinesPerFunction": {
+					"options": {
+						"maxLines": 2,
+						"skipBlankLines": true
+					}
+				}
+			}
+		}
+	}
 }
 ```
 
@@ -123,12 +152,20 @@ Default: `false`
 
 When `maxLines: 2` and `skipIifes: true`, the following IIFE will be considered valid even though its body has 3 lines:
 
-```json
+```json title='biome.json'
 {
-    "options": {
-       "maxLines": 2,
-       "skipIifes": true
-    }
+	"linter": {
+		"rules": {
+			"complexity": {
+				"noExcessiveLinesPerFunction": {
+					"options": {
+						"maxLines": 2,
+						"skipIifes": true
+					}
+				}
+			}
+		}
+	}
 }
 ```
 
@@ -140,19 +177,6 @@ When `maxLines: 2` and `skipIifes: true`, the following IIFE will be considered 
 })();
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"complexity": {
-				"noExcessiveLinesPerFunction": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

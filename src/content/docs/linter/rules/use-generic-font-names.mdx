@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`stylelint/font-family-no-missing-generic-family-keyword`](https://github.com/stylelint/stylelint/blob/main/lib/rules/font-family-no-missing-generic-family-keyword/README.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"a11y": {
+				"useGenericFontNames": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow a missing generic family keyword within font families.
 
@@ -39,15 +52,15 @@ The following special situations are ignored:
 
 ```css
 a { font-family: Arial; }
-```
-
 <pre class="language-text"><code class="language-text">code-block.css:1:18 <a href="https://biomejs.dev/linter/rules/use-generic-font-names">lint/a11y/useGenericFontNames</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Generic font family missing.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>a &#123; font-family: Arial; &#125;<br />   <strong>   │ </strong>                 <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Consider adding a generic font family as a fallback.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">For examples and more information, see</span><span style="color: lightgreen;"><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/generic-family"> the MDN Web Docs</a></span><br />  <br />  - serif<br />  - sans-serif<br />  - monospace<br />  - etc.<br />  <br /></code></pre>
+
+```
 
 ```css
 a { font: normal 14px/32px -apple-system, BlinkMacSystemFont; }
-```
-
 <pre class="language-text"><code class="language-text">code-block.css:1:43 <a href="https://biomejs.dev/linter/rules/use-generic-font-names">lint/a11y/useGenericFontNames</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Generic font family missing.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>a &#123; font: normal 14px/32px -apple-system, BlinkMacSystemFont; &#125;<br />   <strong>   │ </strong>                                          <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Consider adding a generic font family as a fallback.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">For examples and more information, see</span><span style="color: lightgreen;"><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/generic-family"> the MDN Web Docs</a></span><br />  <br />  - serif<br />  - sans-serif<br />  - monospace<br />  - etc.<br />  <br /></code></pre>
+
+```
 
 ### Valid
 
@@ -71,19 +84,6 @@ a { font-family: var(--font); }
 @font-face { font-family: Gentium; }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"a11y": {
-				"useGenericFontNames": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

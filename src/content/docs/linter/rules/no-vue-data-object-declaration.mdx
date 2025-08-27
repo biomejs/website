@@ -23,6 +23,19 @@ This rule is part of the [nursery](/linter/#nursery) group. This means that it i
   - Inspired from [`vue/no-deprecated-data-object-declaration`](https://eslint.vuejs.org/rules/no-deprecated-data-object-declaration)
   - Inspired from [`vue/no-shared-component-data`](https://eslint.vuejs.org/rules/no-shared-component-data)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueDataObjectDeclaration": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Enforce that Vue component `data` options are declared as functions.
 
@@ -100,19 +113,6 @@ createApp({
 }).mount('#app');
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"nursery": {
-				"noVueDataObjectDeclaration": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

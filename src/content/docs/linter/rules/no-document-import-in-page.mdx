@@ -19,6 +19,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`@next/no-document-import-in-page`](https://nextjs.org/docs/messages/no-document-import-in-page)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noDocumentImportInPage": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Prevents importing `next/document` outside of `pages/_document.jsx` in Next.js projects.
 
@@ -43,19 +56,6 @@ export default class MyDocument extends Document {
 }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"suspicious": {
-				"noDocumentImportInPage": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`no-misleading-character-class`](https://eslint.org/docs/latest/rules/no-misleading-character-class)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noMisleadingCharacterClass": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow characters made with multiple code points in character class syntax.
 
@@ -33,39 +46,39 @@ This rule reports the regular expression literals which include multiple code po
 
 ```js
 /^[Á]$/u;
-```
-
 <pre class="language-text"><code class="language-text">code-block.js:1:4 <a href="https://biomejs.dev/linter/rules/no-misleading-character-class">lint/suspicious/noMisleadingCharacterClass</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">A character class cannot match a character and a combining character.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>/^[Á]$/u;<br />   <strong>   │ </strong>   <strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">A character and a combining character forms a new character. Replace the character class with an alternation.</span><br />  <br /></code></pre>
+
+```
 
 ```js
 /^[❇️]$/u;
-```
-
 <pre class="language-text"><code class="language-text">code-block.js:1:4 <a href="https://biomejs.dev/linter/rules/no-misleading-character-class">lint/suspicious/noMisleadingCharacterClass</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">A character class cannot match a character and a combining character.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>/^[❇️]$/u;<br />   <strong>   │ </strong>   <strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">A character and a combining character forms a new character. Replace the character class with an alternation.</span><br />  <br /></code></pre>
+
+```
 
 ```js
 /^[👶🏻]$/u;
-```
-
 <pre class="language-text"><code class="language-text">code-block.js:1:4 <a href="https://biomejs.dev/linter/rules/no-misleading-character-class">lint/suspicious/noMisleadingCharacterClass</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">A character class cannot match an emoji with a skin tone modifier.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>/^[👶🏻]$/u;<br />   <strong>   │ </strong>   <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Replace the character class with an alternation.</span><br />  <br /></code></pre>
+
+```
 
 ```js
 /^[🇯🇵]$/u;
-```
-
 <pre class="language-text"><code class="language-text">code-block.js:1:4 <a href="https://biomejs.dev/linter/rules/no-misleading-character-class">lint/suspicious/noMisleadingCharacterClass</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">A character class cannot match a pair of regional indicator symbols.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>/^[🇯🇵]$/u;<br />   <strong>   │ </strong>   <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">A pair of regional indicator symbols encodes a country code. Replace the character class with an alternation.</span><br />  <br /></code></pre>
+
+```
 
 ```js
 /^[👨‍👩‍👦]$/u;
-```
-
 <pre class="language-text"><code class="language-text">code-block.js:1:4 <a href="https://biomejs.dev/linter/rules/no-misleading-character-class">lint/suspicious/noMisleadingCharacterClass</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">A character class cannot match a joined character sequence.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>/^[👨‍👩‍👦]$/u;<br />   <strong>   │ </strong>   <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">A zero width joiner composes several emojis into a new one. Replace the character class with an alternation.</span><br />  <br /></code></pre>
+
+```
 
 ```js
 /^[👍]$/; // surrogate pair without u flag
-```
-
 <pre class="language-text"><code class="language-text">code-block.js:1:4 <a href="https://biomejs.dev/linter/rules/no-misleading-character-class">lint/suspicious/noMisleadingCharacterClass</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">A character class cannot match a surrogate pair. Add the 'u' unicode flag to match against them.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>/^[👍]$/; // surrogate pair without u flag<br />   <strong>   │ </strong>   <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">A surrogate pair forms a single codepoint, but is encoded as a pair of two characters. Without the unicode flag, the regex matches a single surrogate character.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Safe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Add unicode </span><span style="color: lightgreen;"><strong>u</strong></span><span style="color: lightgreen;"> flag to regex</span><br />  <br />  <strong>  1 │ </strong>/^[👍]$/<span style="color: MediumSeaGreen;">u</span>;<span style="opacity: 0.8;">·</span>//<span style="opacity: 0.8;">·</span>surrogate<span style="opacity: 0.8;">·</span>pair<span style="opacity: 0.8;">·</span>without<span style="opacity: 0.8;">·</span>u<span style="opacity: 0.8;">·</span>flag<br />  <strong>    │ </strong>        <span style="color: MediumSeaGreen;">+</span>                                  <br /></code></pre>
+
+```
 
 ### Valid
 
@@ -75,19 +88,6 @@ This rule reports the regular expression literals which include multiple code po
 /^[\q{👶🏻}]$/v;
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"suspicious": {
-				"noMisleadingCharacterClass": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

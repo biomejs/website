@@ -17,6 +17,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`react-hooks/react-compiler`](https://github.com/facebook/react/blob/main/packages/eslint-plugin-react-hooks/README.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noReactPropAssignments": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow assigning to React component props.
 
@@ -34,9 +47,9 @@ function Foo(props) {
 
 	return <div>{props.bar}</div>
 }
-```
-
 <pre class="language-text"><code class="language-text">code-block.jsx:2:2 <a href="https://biomejs.dev/linter/rules/no-react-prop-assignments">lint/correctness/noReactPropAssignments</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Mutating component props is not allowed.</span><br />  <br />    <strong>1 │ </strong>function Foo(props) &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>	props.bar = &quot;Hello &quot; + props.bar;<br />   <strong>   │ </strong>	<strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong><br />    <strong>4 │ </strong>	return &lt;div&gt;&#123;props.bar&#125;&lt;/div&gt;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Consider using a local variable instead.</span><br />  <br /></code></pre>
+
+```
 
 ### Valid
 
@@ -47,19 +60,6 @@ const Foo = function({bar}) {
  }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"correctness": {
-				"noReactPropAssignments": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

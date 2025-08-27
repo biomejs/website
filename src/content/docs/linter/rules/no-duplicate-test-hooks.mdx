@@ -20,6 +20,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
   - Inspired from [`jest/no-duplicate-hooks`](https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-duplicate-hooks.md)
   - Inspired from [`vitest/no-duplicate-hooks`](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/no-duplicate-hooks.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noDuplicateTestHooks": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 A `describe` block should not contain duplicate hooks.
 
@@ -39,9 +52,9 @@ describe('foo', () => {
    // some test
   });
 });
-```
-
 <pre class="language-text"><code class="language-text">code-block.js:5:3 <a href="https://biomejs.dev/linter/rules/no-duplicate-test-hooks">lint/suspicious/noDuplicateTestHooks</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Disallow duplicate setup and teardown hooks.</span><br />  <br />    <strong>3 │ </strong>    // some setup<br />    <strong>4 │ </strong>  &#125;);<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>5 │ </strong>  beforeEach(() =&gt; &#123;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>6 │ </strong>    // some setup<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>7 │ </strong>  &#125;);<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>8 │ </strong>  test('foo&#95;test', () =&gt; &#123;<br />    <strong>9 │ </strong>   // some test<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Disallow </span><span style="color: lightgreen;"><strong>beforeEach</strong></span><span style="color: lightgreen;"> duplicacy inside the describe function.</span><br />  <br /></code></pre>
+
+```
 
 ```js
 describe('foo', () => {
@@ -57,9 +70,9 @@ describe('foo', () => {
    });
   });
 });
-```
-
 <pre class="language-text"><code class="language-text">code-block.js:9:4 <a href="https://biomejs.dev/linter/rules/no-duplicate-test-hooks">lint/suspicious/noDuplicateTestHooks</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Disallow duplicate setup and teardown hooks.</span><br />  <br />     <strong>7 │ </strong>      // some teardown<br />     <strong>8 │ </strong>    &#125;);<br />   <strong><span style="color: Tomato;">&gt;</span></strong> <strong>9 │ </strong>   afterAll(() =&gt; &#123;<br />    <strong>   │ </strong>   <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>10 │ </strong>     // some teardown<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>11 │ </strong>   &#125;);<br />    <strong>   │ </strong>   <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>12 │ </strong>  &#125;);<br />    <strong>13 │ </strong>&#125;);<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Disallow </span><span style="color: lightgreen;"><strong>afterAll</strong></span><span style="color: lightgreen;"> duplicacy inside the describe function.</span><br />  <br /></code></pre>
+
+```
 
 ### Valid
 
@@ -74,19 +87,6 @@ describe('foo', () => {
 });
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"suspicious": {
-				"noDuplicateTestHooks": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

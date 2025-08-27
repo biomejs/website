@@ -19,6 +19,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`@next/no-head-import-in-document`](https://nextjs.org/docs/messages/no-head-import-in-document)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noHeadImportInDocument": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Prevent using the `next/head` module in `pages/_document.js` on Next.js projects.
 
@@ -55,19 +68,6 @@ class MyDocument extends Document {
 export default MyDocument;
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"suspicious": {
-				"noHeadImportInDocument": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

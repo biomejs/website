@@ -22,6 +22,19 @@ This rule is part of the [nursery](/linter/#nursery) group. This means that it i
 - Sources: 
   - Same as [`@next/no-async-client-component`](https://nextjs.org/docs/messages/no-async-client-component)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noNextAsyncClientComponent": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Prevent client components from being async functions.
 
@@ -40,9 +53,9 @@ with React's concurrent features.
 export default async function MyComponent() {
   return <div>Hello</div>;
 }
-```
-
 <pre class="language-text"><code class="language-text">code-block.jsx:3:16 <a href="https://biomejs.dev/linter/rules/no-next-async-client-component">lint/nursery/noNextAsyncClientComponent</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">The component </span><span style="color: Orange;"><strong>MyComponent</strong></span><span style="color: Orange;"> is an async client component, which is not allowed.</span><br />  <br />    <strong>1 │ </strong>&quot;use client&quot;;<br />    <strong>2 │ </strong><br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>export default async function MyComponent() &#123;<br />   <strong>   │ </strong>               <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>  return &lt;div&gt;Hello&lt;/div&gt;;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>5 │ </strong>&#125;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>6 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Client components with &quot;use client&quot; directive should not be async functions as this can cause hydration mismatches and break React's rendering lifecycle.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Consider using useEffect for async operations inside the component, or remove the &quot;use client&quot; directive if this should be a server component.</span><br />  <br /></code></pre>
+
+```
 
 ### Valid
 
@@ -62,19 +75,6 @@ export default async function ServerComponent() {
 }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"nursery": {
-				"noNextAsyncClientComponent": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

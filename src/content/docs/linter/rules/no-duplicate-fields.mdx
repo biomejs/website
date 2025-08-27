@@ -18,33 +18,6 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`graphql/no-duplicate-fields`](https://the-guild.dev/graphql/eslint/rules/no-duplicate-fields)
 
-## Description
-No duplicated fields in GraphQL operations.
-
-Checks for duplicate fields in selection set, variables in operation definition, or in arguments set of a field.
-
-## Examples
-
-### Invalid
-
-```graphql
-query test($v: String, $t: String, $v: String) {
-  id
-}
-```
-
-<pre class="language-text"><code class="language-text">code-block.graphql:1:36 <a href="https://biomejs.dev/linter/rules/no-duplicate-fields">lint/suspicious/noDuplicateFields</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Variable `v` defined multiple times.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>query test($v: String, $t: String, $v: String) &#123;<br />   <strong>   │ </strong>                                   <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>  id<br />    <strong>3 │ </strong>&#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove the duplicated variable.</span><br />  <br /></code></pre>
-
-### Valid
-
-```graphql
-query {
-  user {
-    id
-  }
-}
-```
-
 ## How to configure
 ```json title="biome.json"
 {
@@ -58,6 +31,33 @@ query {
 }
 
 ```
+## Description
+No duplicated fields in GraphQL operations.
+
+Checks for duplicate fields in selection set, variables in operation definition, or in arguments set of a field.
+
+## Examples
+
+### Invalid
+
+```graphql
+query test($v: String, $t: String, $v: String) {
+  id
+}
+<pre class="language-text"><code class="language-text">code-block.graphql:1:36 <a href="https://biomejs.dev/linter/rules/no-duplicate-fields">lint/suspicious/noDuplicateFields</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Variable `v` defined multiple times.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>query test($v: String, $t: String, $v: String) &#123;<br />   <strong>   │ </strong>                                   <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>  id<br />    <strong>3 │ </strong>&#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove the duplicated variable.</span><br />  <br /></code></pre>
+
+```
+
+### Valid
+
+```graphql
+query {
+  user {
+    id
+  }
+}
+```
+
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

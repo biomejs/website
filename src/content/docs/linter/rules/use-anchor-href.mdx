@@ -22,38 +22,6 @@ This rule is part of the [nursery](/linter/#nursery) group. This means that it i
 - Sources: 
   - Same as [`qwik/jsx-a`](https://github.com/BuilderIO/eslint-plugin-qwik/blob/main/docs/rules/jsx-a.md)
 
-## Description
-Enforces `href` attribute for `<a>` elements.
-
-Ensures `<a>` tags are either valid links (with href) or replaced with buttons for actions.
-See [WCAG 4.1.2](https://www.w3.org/WAI/WCAG22/Understanding/name-role-value) for accessibility requirements.
-
-## Examples
-
-### Invalid
-
-```jsx
-<a>Link</a>
-```
-
-<pre class="language-text"><code class="language-text">code-block.jsx:1:1 <a href="https://biomejs.dev/linter/rules/use-anchor-href">lint/nursery/useAnchorHref</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Missing required </span><span style="color: Tomato;"><strong>href</strong></span><span style="color: Tomato;"> attribute on </span><span style="color: Tomato;"><strong>a</strong></span><span style="color: Tomato;"> element</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;a&gt;Link&lt;/a&gt;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Anchor tags without href attributes are inaccessible to keyboard navigation and screen readers, violating WCAG 2.2 Success Criterion 4.1.2 (Name, Role, Value).</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Use </span><span style="color: lightgreen;"><strong>href</strong></span><span style="color: lightgreen;"> for navigation or </span><span style="color: lightgreen;"><strong>&lt;button&gt;</strong></span><span style="color: lightgreen;"> for actions. Reference: </span><span style="color: lightgreen;"><a href="https://www.w3.org/WAI/WCAG22/Understanding/name-role-value">WCAG 4.1.2</a></span><br />  <br /></code></pre>
-
-```jsx
-<a target="_blank">External</a>
-```
-
-<pre class="language-text"><code class="language-text">code-block.jsx:1:1 <a href="https://biomejs.dev/linter/rules/use-anchor-href">lint/nursery/useAnchorHref</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Missing required </span><span style="color: Tomato;"><strong>href</strong></span><span style="color: Tomato;"> attribute on </span><span style="color: Tomato;"><strong>a</strong></span><span style="color: Tomato;"> element</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;a target=&quot;&#95;blank&quot;&gt;External&lt;/a&gt;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Anchor tags without href attributes are inaccessible to keyboard navigation and screen readers, violating WCAG 2.2 Success Criterion 4.1.2 (Name, Role, Value).</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Use </span><span style="color: lightgreen;"><strong>href</strong></span><span style="color: lightgreen;"> for navigation or </span><span style="color: lightgreen;"><strong>&lt;button&gt;</strong></span><span style="color: lightgreen;"> for actions. Reference: </span><span style="color: lightgreen;"><a href="https://www.w3.org/WAI/WCAG22/Understanding/name-role-value">WCAG 4.1.2</a></span><br />  <br /></code></pre>
-
-### Valid
-
-```jsx
-<a href="/home">Home</a>
-```
-
-```jsx
-<a href="https://example.com" target="_blank">External</a>
-```
-
 ## How to configure
 ```json title="biome.json"
 {
@@ -67,6 +35,38 @@ See [WCAG 4.1.2](https://www.w3.org/WAI/WCAG22/Understanding/name-role-value) fo
 }
 
 ```
+## Description
+Enforces `href` attribute for `<a>` elements.
+
+Ensures `<a>` tags are either valid links (with href) or replaced with buttons for actions.
+See [WCAG 4.1.2](https://www.w3.org/WAI/WCAG22/Understanding/name-role-value) for accessibility requirements.
+
+## Examples
+
+### Invalid
+
+```jsx
+<a>Link</a>
+<pre class="language-text"><code class="language-text">code-block.jsx:1:1 <a href="https://biomejs.dev/linter/rules/use-anchor-href">lint/nursery/useAnchorHref</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Missing required </span><span style="color: Tomato;"><strong>href</strong></span><span style="color: Tomato;"> attribute on </span><span style="color: Tomato;"><strong>a</strong></span><span style="color: Tomato;"> element</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;a&gt;Link&lt;/a&gt;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Anchor tags without href attributes are inaccessible to keyboard navigation and screen readers, violating WCAG 2.2 Success Criterion 4.1.2 (Name, Role, Value).</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Use </span><span style="color: lightgreen;"><strong>href</strong></span><span style="color: lightgreen;"> for navigation or </span><span style="color: lightgreen;"><strong>&lt;button&gt;</strong></span><span style="color: lightgreen;"> for actions. Reference: </span><span style="color: lightgreen;"><a href="https://www.w3.org/WAI/WCAG22/Understanding/name-role-value">WCAG 4.1.2</a></span><br />  <br /></code></pre>
+
+```
+
+```jsx
+<a target="_blank">External</a>
+<pre class="language-text"><code class="language-text">code-block.jsx:1:1 <a href="https://biomejs.dev/linter/rules/use-anchor-href">lint/nursery/useAnchorHref</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Missing required </span><span style="color: Tomato;"><strong>href</strong></span><span style="color: Tomato;"> attribute on </span><span style="color: Tomato;"><strong>a</strong></span><span style="color: Tomato;"> element</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;a target=&quot;&#95;blank&quot;&gt;External&lt;/a&gt;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Anchor tags without href attributes are inaccessible to keyboard navigation and screen readers, violating WCAG 2.2 Success Criterion 4.1.2 (Name, Role, Value).</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Use </span><span style="color: lightgreen;"><strong>href</strong></span><span style="color: lightgreen;"> for navigation or </span><span style="color: lightgreen;"><strong>&lt;button&gt;</strong></span><span style="color: lightgreen;"> for actions. Reference: </span><span style="color: lightgreen;"><a href="https://www.w3.org/WAI/WCAG22/Understanding/name-role-value">WCAG 4.1.2</a></span><br />  <br /></code></pre>
+
+```
+
+### Valid
+
+```jsx
+<a href="/home">Home</a>
+```
+
+```jsx
+<a href="https://example.com" target="_blank">External</a>
+```
+
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

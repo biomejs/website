@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`stylelint/function-no-unknown`](https://github.com/stylelint/stylelint/blob/main/lib/rules/function-no-unknown/README.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noUnknownFunction": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow unknown CSS value functions.
 
@@ -35,9 +48,9 @@ Data sources of known CSS value functions are:
 
 ```css
 a { transform: unknown(1); }
-```
-
 <pre class="language-text"><code class="language-text">code-block.css:1:16 <a href="https://biomejs.dev/linter/rules/no-unknown-function">lint/correctness/noUnknownFunction</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Unexpected unknown function: </span><span style="color: Tomato;"><strong>unknown</strong></span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>a &#123; transform: unknown(1); &#125;<br />   <strong>   │ </strong>               <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Use a known function instead.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">See </span><span style="color: lightgreen;"><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Functions">MDN web docs</a></span><span style="color: lightgreen;"> for more details.</span><br />  <br /></code></pre>
+
+```
 
 ### Valid
 
@@ -45,19 +58,6 @@ a { transform: unknown(1); }
 a { transform: scale(1); }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"correctness": {
-				"noUnknownFunction": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

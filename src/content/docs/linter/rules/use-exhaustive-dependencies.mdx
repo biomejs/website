@@ -20,6 +20,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`react-hooks/exhaustive-deps`](https://github.com/facebook/react/blob/main/packages/eslint-plugin-react-hooks/README.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"useExhaustiveDependencies": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Enforce all dependencies are correctly specified in a React hook.
 
@@ -59,9 +72,9 @@ function component() {
         console.log(a);
     }, []);
 }
-```
-
 <pre class="language-text"><code class="language-text">code-block.js:5:5 <a href="https://biomejs.dev/linter/rules/use-exhaustive-dependencies">lint/correctness/useExhaustiveDependencies</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This hook does not specify its dependency on </span><span style="color: Tomato;"><strong>a</strong></span><span style="color: Tomato;">.</span><br />  <br />    <strong>3 │ </strong>function component() &#123;<br />    <strong>4 │ </strong>    let a = 1;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>5 │ </strong>    useEffect(() =&gt; &#123;<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>6 │ </strong>        console.log(a);<br />    <strong>7 │ </strong>    &#125;, []);<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This dependency is being used here, but is not specified in the hook dependency list.</span><br />  <br />    <strong>4 │ </strong>    let a = 1;<br />    <strong>5 │ </strong>    useEffect(() =&gt; &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>6 │ </strong>        console.log(a);<br />   <strong>   │ </strong>                    <strong><span style="color: Tomato;">^</span></strong><br />    <strong>7 │ </strong>    &#125;, []);<br />    <strong>8 │ </strong>&#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Either include it or remove the dependency array.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Add the missing dependency to the list.</span><br />  <br />  <strong>  7 │ </strong><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span>&#125;,<span style="opacity: 0.8;">·</span>[<span style="color: MediumSeaGreen;">a</span>]);<br />  <strong>    │ </strong>        <span style="color: MediumSeaGreen;">+</span>   <br /></code></pre>
+
+```
 
 ```js
 import { useEffect } from "react";
@@ -71,9 +84,9 @@ function component() {
     useEffect(() => {
     }, [b]);
 }
-```
-
 <pre class="language-text"><code class="language-text">code-block.js:5:5 <a href="https://biomejs.dev/linter/rules/use-exhaustive-dependencies">lint/correctness/useExhaustiveDependencies</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This hook specifies more dependencies than necessary: b</span><br />  <br />    <strong>3 │ </strong>function component() &#123;<br />    <strong>4 │ </strong>    let b = 1;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>5 │ </strong>    useEffect(() =&gt; &#123;<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>6 │ </strong>    &#125;, [b]);<br />    <strong>7 │ </strong>&#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This dependency can be removed from the list.</span><br />  <br />    <strong>4 │ </strong>    let b = 1;<br />    <strong>5 │ </strong>    useEffect(() =&gt; &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>6 │ </strong>    &#125;, [b]);<br />   <strong>   │ </strong>        <strong><span style="color: Tomato;">^</span></strong><br />    <strong>7 │ </strong>&#125;<br />    <strong>8 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Remove the extra dependencies from the list.</span><br />  <br />  <strong>  6 │ </strong><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span>&#125;,<span style="opacity: 0.8;">·</span>[<span style="color: Tomato;">b</span>]);<br />  <strong>    │ </strong>        <span style="color: Tomato;">-</span>   <br /></code></pre>
+
+```
 
 ```js
 import { useEffect, useState } from "react";
@@ -85,9 +98,9 @@ function component() {
         setName("");
     }, [name, setName]);
 }
-```
-
 <pre class="language-text"><code class="language-text">code-block.js:5:5 <a href="https://biomejs.dev/linter/rules/use-exhaustive-dependencies">lint/correctness/useExhaustiveDependencies</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This hook specifies more dependencies than necessary: setName</span><br />  <br />    <strong>3 │ </strong>function component() &#123;<br />    <strong>4 │ </strong>    const [name, setName] = useState();<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>5 │ </strong>    useEffect(() =&gt; &#123;<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>6 │ </strong>        console.log(name);<br />    <strong>7 │ </strong>        setName(&quot;&quot;);<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This dependency can be removed from the list.</span><br />  <br />     <strong>6 │ </strong>        console.log(name);<br />     <strong>7 │ </strong>        setName(&quot;&quot;);<br />   <strong><span style="color: Tomato;">&gt;</span></strong> <strong>8 │ </strong>    &#125;, [name, setName]);<br />    <strong>   │ </strong>              <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />     <strong>9 │ </strong>&#125;<br />    <strong>10 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Remove the extra dependencies from the list.</span><br />  <br />  <strong>  8 │ </strong><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span>&#125;,<span style="opacity: 0.8;">·</span>[name<span style="color: Tomato;">,</span><span style="opacity: 0.8;"><span style="color: Tomato;">·</span></span><span style="color: Tomato;">s</span><span style="color: Tomato;">e</span><span style="color: Tomato;">t</span><span style="color: Tomato;">N</span><span style="color: Tomato;">a</span><span style="color: Tomato;">m</span><span style="color: Tomato;">e</span>]);<br />  <strong>    │ </strong>            <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span>   <br /></code></pre>
+
+```
 
 ```js
 import { useEffect } from "react";
@@ -99,9 +112,9 @@ function component() {
         console.log(b);
     }, []);
 }
-```
-
 <pre class="language-text"><code class="language-text">code-block.js:6:5 <a href="https://biomejs.dev/linter/rules/use-exhaustive-dependencies">lint/correctness/useExhaustiveDependencies</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This hook does not specify its dependency on </span><span style="color: Tomato;"><strong>b</strong></span><span style="color: Tomato;">.</span><br />  <br />    <strong>4 │ </strong>    let a = 1;<br />    <strong>5 │ </strong>    const b = a + 1;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>6 │ </strong>    useEffect(() =&gt; &#123;<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>7 │ </strong>        console.log(b);<br />    <strong>8 │ </strong>    &#125;, []);<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This dependency is being used here, but is not specified in the hook dependency list.</span><br />  <br />    <strong>5 │ </strong>    const b = a + 1;<br />    <strong>6 │ </strong>    useEffect(() =&gt; &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>7 │ </strong>        console.log(b);<br />   <strong>   │ </strong>                    <strong><span style="color: Tomato;">^</span></strong><br />    <strong>8 │ </strong>    &#125;, []);<br />    <strong>9 │ </strong>&#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Either include it or remove the dependency array.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Add the missing dependency to the list.</span><br />  <br />  <strong>  8 │ </strong><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span>&#125;,<span style="opacity: 0.8;">·</span>[<span style="color: MediumSeaGreen;">b</span>]);<br />  <strong>    │ </strong>        <span style="color: MediumSeaGreen;">+</span>   <br /></code></pre>
+
+```
 
 ### Valid
 
@@ -199,14 +212,30 @@ dependencies array to validate against.
 
 #### Example
 
-```json
+```json title='biome.json'
 {
-    "options": {
-        "hooks": [
-            { "name": "useLocation", "closureIndex": 0, "dependenciesIndex": 1},
-            { "name": "useQuery", "closureIndex": 1, "dependenciesIndex": 0}
-        ]
-    }
+	"linter": {
+		"rules": {
+			"correctness": {
+				"useExhaustiveDependencies": {
+					"options": {
+						"hooks": [
+							{
+								"name": "useLocation",
+								"closureIndex": 0,
+								"dependenciesIndex": 1
+							},
+							{
+								"name": "useQuery",
+								"closureIndex": 1,
+								"dependenciesIndex": 0
+							}
+						]
+					}
+				}
+			}
+		}
+	}
 }
 ```
 
@@ -263,19 +292,6 @@ const doAction = useCallback(() => dispatch(someAction()), []);
 This rule recognizes rules imported from `preact/compat` and
 `preact/hooks` and applies the same rules as for React hooks.
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"correctness": {
-				"useExhaustiveDependencies": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

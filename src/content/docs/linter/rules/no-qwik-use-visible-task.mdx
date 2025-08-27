@@ -22,6 +22,19 @@ This rule is part of the [nursery](/linter/#nursery) group. This means that it i
 - Sources: 
   - Same as [`qwik/no-use-visible-task`](https://github.com/BuilderIO/eslint-plugin-qwik/blob/main/docs/rules/no-use-visible-task.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noQwikUseVisibleTask": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow `useVisibleTask$()` functions in Qwik components.
 
@@ -36,9 +49,9 @@ See [Qwik Tasks Documentation](https://qwik.dev/docs/components/tasks/) for prop
 useVisibleTask$(() => {
   console.log('Component is visible');
 });
-```
-
 <pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-qwik-use-visible-task">lint/nursery/noQwikUseVisibleTask</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Avoid </span><span style="color: Orange;"><strong>useVisibleTask$</strong></span><span style="color: Orange;"> for non-interactive initialization</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>useVisibleTask$(() =&gt; &#123;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>  console.log('Component is visible');<br />    <strong>3 │ </strong>&#125;);<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This hook executes immediately on component mount without user interaction, potentially:<br /></span>    <span style="color: lightgreen;">- Hurting performance (blocking hydration)<br /></span>    <span style="color: lightgreen;">- Causing layout shifts (CLS)<br /></span>    <span style="color: lightgreen;">- Breaking SSR compatibility</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Check the </span><span style="color: lightgreen;"><a href="https://qwik.dev/docs/components/tasks/">Qwik documentation</a></span><span style="color: lightgreen;"> for suitable alternatives.</span><br />  <br /></code></pre>
+
+```
 
 ### Valid
 
@@ -48,19 +61,6 @@ useTask$(() => {
 });
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"nursery": {
-				"noQwikUseVisibleTask": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

@@ -17,6 +17,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`unicorn/require-number-to-fixed-digits-argument`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/require-number-to-fixed-digits-argument.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"useNumberToFixedDigitsArgument": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Enforce using the digits argument with `Number#toFixed()`.
 
@@ -29,9 +42,9 @@ to avoid unexpected results, rather than relying on its default value of 0.
 
 ```js
 const string = number.toFixed();
-```
-
 <pre class="language-text"><code class="language-text">code-block.js:1:30 <a href="https://biomejs.dev/linter/rules/use-number-to-fixed-digits-argument">lint/suspicious/useNumberToFixedDigitsArgument</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Specify the number of digits you want to appear after the decimal point.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>const string = number.toFixed();<br />   <strong>   │ </strong>                             <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Add explicit digits argument to </span><span style="color: lightgreen;"><strong>toFixed</strong></span><span style="color: lightgreen;"> method.</span><br />  <br />  <strong>  1 │ </strong>const<span style="opacity: 0.8;">·</span>string<span style="opacity: 0.8;">·</span>=<span style="opacity: 0.8;">·</span>number.toFixed(<span style="color: MediumSeaGreen;">0</span>);<br />  <strong>    │ </strong>                              <span style="color: MediumSeaGreen;">+</span>  <br /></code></pre>
+
+```
 
 ### Valid
 
@@ -48,19 +61,6 @@ const string = foo.toFixed(2);
 This rule always assumes that `toFixed` is called on a number.
 It does not check the type of the callee.
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"suspicious": {
-				"useNumberToFixedDigitsArgument": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

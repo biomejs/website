@@ -12,6 +12,9 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 :::caution
 This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
 :::
+:::note
+This rule belongs to the project domain. This means that its activation will activate the Biome Scanner, which might affect the performance. Read more about it in the [documentation page](/linter/domains#project)
+:::
 ## Summary
 - Rule available since: `v2.0.0`
 - Diagnostic Category: [`lint/nursery/noImportCycles`](/reference/diagnostics#diagnostic-category)
@@ -22,6 +25,19 @@ This rule is part of the [nursery](/linter/#nursery) group. This means that it i
 - Sources: 
   - Same as [`import/no-cycle`](https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-cycle.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noImportCycles": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Prevent import cycles.
 
@@ -130,11 +146,19 @@ will be removed by the compiler, so it cuts an import cycle at runtime. Note tha
 imports (`import { type Foo }`) aren't considered as type-only because it's not removed by
 the compiler if the `verbatimModuleSyntax` option is enabled. Enabled by default.
 
-```json
+```json title='biome.json'
 {
-  "options": {
-    "ignoreTypes": false
-  }
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noImportCycles": {
+					"options": {
+						"ignoreTypes": false
+					}
+				}
+			}
+		}
+	}
 }
 ```
 
@@ -160,19 +184,6 @@ export function bar(foo: Foo) {
 }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"nursery": {
-				"noImportCycles": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)
