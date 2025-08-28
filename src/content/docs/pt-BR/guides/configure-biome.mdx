@@ -1,93 +1,280 @@
 ---
-title: Como o Biome funciona
-description: Aprenda como configurar um novo projeto com Biome.
+title: Configurar o Biome
+description: Aprenda como a configuração do Biome funciona.
 ---
 
-import DefaultConfiguration from "@/components/generated/DefaultConfiguration.mdx";
+import { FileTree } from '@astrojs/starlight/components';
 
-## Configuração
+Este guia irá ajudá-lo a entender como configurar o Biome.
+Ele explica a estrutura de um arquivo de configuração do Biome e como o Biome resolve sua configuração.
+Se você já está familiarizado com a configuração, pode querer dar uma olhada na [referência de configuração](/reference/configuration/), que detalha todas as opções disponíveis.
 
-O arquivo de configuração é considerado **opcional**, o Biome já inclui configurações padrões robustas.
-Use o arquivo de configuração para alterar essas configurações predefinidas.
+O Biome permite que você personalize seu comportamento usando opções da CLI ou um arquivo de configuração chamado `biome.json` ou `biome.jsonc`.
+Recomendamos que você crie um arquivo de configuração para cada projeto.
+Isso garante que cada membro da equipe tenha a mesma configuração na CLI e em qualquer editor que permita a integração com o Biome.
+Muitas das opções disponíveis em um arquivo de configuração também estão disponíveis na CLI.
 
-O arquivo de configuração do Biome é chamado `biome.json` e deve ser colocado no diretório raíz do projeto. Geralmente,
-o diretório raíz é o diretório onde fica o `package.json` do projeto.
+## Estrutura do arquivo de configuração
 
-Esse arquivo de configuração habilita o [formatador](/pt-br/formatter) e define o estilo de indentação e seu tamanho, além de desabilitar o [linter](/pt-br/linter):
+Um arquivo de configuração do Biome é chamado `biome.json` ou `biome.jsonc`. Geralmente, ele é
+colocado na pasta raiz do seu projeto, ao lado do `package.json` do seu projeto.
+
+Como o Biome é uma toolchain (conjunto de ferramentas), sua configuração é organizada em torno das ferramentas que ele
+fornece. No momento, o Biome fornece três ferramentas: o formatador (formatter), o linter e o assistente (assist). Todas essas ferramentas são habilitadas por padrão. Você pode desabilitar uma
+ou várias delas usando o campo `<ferramenta>.enabled`:
 
 ```json title="biome.json"
 {
+  "$schema": "https://biomejs.dev/schemas/2.0.5/schema.json",
   "formatter": {
-    "enabled": true,
-    "indentStyle": "tab",
-    "lineWidth": 120
+    "enabled": false
   },
   "linter": {
+    "enabled": false
+  },
+  "assist": {
     "enabled": false
   }
 }
 ```
 
-### Configuração padrão
+Opções que se aplicam a mais de uma linguagem são colocadas no campo da ferramenta correspondente.
+Opções específicas de uma linguagem para uma ferramenta são colocadas sob um campo `<linguagem>.<ferramenta>`.
+Isso também permite sobrescrever opções gerais para uma determinada linguagem.
+Você também pode habilitar ou desabilitar uma ferramenta com base na linguagem.
+No exemplo a seguir, configuramos as opções gerais `formatter.indentStyle` e `formatter.lineWidth` para todas as linguagens.
+Além disso, definimos a opção específica de JavaScript `quoteStyle` em `javascript.formatter` e sobrescrevemos `formatter.lineWidth`.
+Desabilitamos o formatador para arquivos JSON.
 
-Quando você executa o comando `biome init`, ele gera o seguinte arquivo de configuração:
+```json5 title="biome.jsonc"
+{
+  "formatter": {
+    "indentStyle": "space", // o padrão é `tab`
+    "lineWidth": 100 // o padrão é `80`
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single", // o padrão é `double`
+      "lineWidth": 120 // sobrescreve `formatter.lineWidth`
+    }
+  },
+  "json": {
+    "formatter": {
+      "enabled": false
+    }
+  }
+}
+```
 
-<DefaultConfiguration />
+:::note
+O Biome se refere a todas as variantes da linguagem JavaScript como `javascript`.
+Isso inclui TypeScript, JSX e TSX.
+:::
 
-### Resolução do arquivo de configuração
 
-O Biome busca de forma automática o arquivo `biome.json` mais próximo. Ele começa procurando o `biome.json` no diretório de trabalho atual,
-e, em seguida, continua procurando nos diretórios pai até:
+## Resolução do arquivo de configuração
 
-- Ele achar um arquivo `biome.json`;
-- Ele aplicar a configuração padrão do Biome **caso não encontre o arquivo `biome.json`**;
+O Biome usa descoberta automática para encontrar o arquivo de configuração mais próximo. Ele procura no
+diretório de trabalho e em suas pastas pai até encontrar um arquivo `biome.json` ou
+`biome.jsonc`. Se nenhuma configuração for encontrada, a configuração padrão do Biome
+é usada. Se ambos `biome.json` e `biome.jsonc` estiverem presentes na mesma pasta,
+`biome.json` é usado.
 
 Aqui está um exemplo:
 
-```
-└── app
-    ├── backend
-    │   ├── package.json
-    │   └── biome.json
-    └── frontend
-        ├── legacy
-        │   └── package.json
-        ├── new
-        │   └── package.json
-        └── biome.json
+<FileTree>
+- app/
+  - backend/
+    - biome.json
+    - package.json
+  - frontend/
+    - legacy/
+      - package.json
+    - new/
+      - package.json
+    - biome.json
+</FileTree>
 
-```
 
-- Comandos do Biome executados no `app/backend/package.json` utilizarão o arquivo de configuração `app/backend/biome.json`;
-- Comandos do Biome executados no `app/frontend/legacy/package.json` e `app/frontend/new/package.json` utilizarão o arquivo de configuração `app/frontend/biome.json`;
+- Comandos do Biome executados em `app/backend/package.json` usarão o arquivo de configuração `app/backend/biome.json`;
+- Comandos do Biome executados em `app/frontend/legacy/package.json` e `app/frontend/new/package.json`
+usarão o arquivo de configuração `app/frontend/biome.json`;
 
-## Arquivos ignorados
+:::note
+O Biome (desde a v2.0.0) suporta arquivos `biome.json` aninhados. Para mais informações, leia [Use o Biome em grandes projetos](/guides/big-projects#use-multiple-configuration-files).
+:::
 
-Os seguintes arquivos são ignorados pelo Biome. Isso significa que nenhum diagnóstico será emitido pelo Biome nesses arquivos.
 
-- `package.json`
-- `package-lock.json`
-- `npm-shrinkwrap.json`
-- `yarn.lock`
-- `composer.json`
+## Especificando arquivos a serem processados
+
+Você pode controlar os arquivos/pastas a serem processados usando diferentes estratégias, seja via CLI, configuração ou VCS.
+
+:::note
+Por padrão, o Biome sempre ignora alguns arquivos que são considerados **arquivos protegidos**.
+Isso significa que nenhum diagnóstico será emitido pelo Biome para esses arquivos.
+No momento, os seguintes arquivos são protegidos:
+
 - `composer.lock`
-- `typescript.json`
-- `tsconfig.json`
-- `jsconfig.json`
-- `deno.json`
-- `deno.jsonc`
+- `npm-shrinkwrap.json`
+- `package-lock.json`
+- `yarn.lock`
+:::
 
-Os seguintes arquivos são analisados como **arquivos `JSON`** com as opções `json.parser.allowComments` e `json.parser.allowTrailingCommas` definidas como `true`. Isso ocorre porque editores, como o VSCode, os tratam dessa maneira.
+### Incluir arquivos via CLI
 
-- `tslint.json`
-- `babel.config.json`
-- `.babelrc.json`
+A primeira maneira de controlar quais arquivos e pastas são processados pelo Biome é
+listá-los na CLI. No comando a seguir, formatamos apenas `file1.js` e
+todos os arquivos na pasta `src`, porque as pastas são percorridas recursivamente.
+
+```shell
+biome format file1.js src/
+```
+
+:::caution
+Padrões glob usados na linha de comando não são interpretados pelo Biome.
+Eles são expandidos pelo seu shell.
+Alguns shells não suportam o glob recursivo `**`.
+:::
+
+### Controlar arquivos via configuração
+
+O arquivo de configuração do Biome pode ser usado para refinar quais arquivos são processados.
+Você pode listar explicitamente os arquivos a serem processados usando
+[o campo `files.includes`](/reference/configuration/#filesincludes).
+`files.includes` aceita
+[padrões glob](/reference/configuration/#glob-syntax-reference) como
+`src/**/*.js`. Padrões negados começando com `!` podem ser usados para excluir arquivos.
+
+Caminhos e globs dentro do arquivo de configuração do Biome são resolvidos em relação à
+pasta em que o arquivo de configuração está. Uma exceção a isso é quando um
+arquivo de configuração é [estendido](/reference/configuration/#extends) por outro.
+
+`files.includes` se aplica a todas as ferramentas do Biome, o que significa que os arquivos especificados
+aqui são processados pelo linter, pelo formatador e pelo assistente, a menos que especificado
+de outra forma. Para as ferramentas individuais, você pode refinar ainda mais os arquivos correspondentes
+usando `<ferramenta>.includes`.
+
+
+#### Incluir arquivos via configuração
+
+Vamos pegar a seguinte configuração, onde queremos incluir apenas arquivos JavaScript (`.js`) que estão dentro
+da pasta `src/`, da pasta `test/`, e ignorar arquivos que têm `.min.js` em seu nome:
+
+```json title="biome.json"
+{
+  "files": {
+    "includes": ["src/**/*.js", "test/**/*.js", "!**/*.min.js"]
+  },
+  "linter": {
+    "includes": ["**", "!test/**"]
+  }
+}
+```
+
+E execute o seguinte comando:
+
+```shell
+biome format test/
+```
+
+O comando formatará os arquivos que terminam com a extensão `.js` e não
+terminam com a extensão `.min.js` da pasta `test/`.
+
+Os arquivos em `src/` não são formatados porque a pasta não está listada na
+CLI.
+
+Se executarmos o seguinte comando, nenhum arquivo será analisado (linted) porque os arquivos dentro da
+pasta `test/` são explicitamente ignorados para o linter.
+
+```shell
+biome lint test/
+```
+
+:::caution
+O `files.includes` global tem uma semântica ligeiramente diferente dos campos
+mais específicos `<ferramenta>.includes`. Qualquer arquivo ou pasta que não corresponda a
+`files.includes` é excluído do uso por qualquer uma das ferramentas do Biome. Isso significa que
+qualquer campo `includes` específico da ferramenta nunca pode corresponder a um arquivo que também não
+corresponda a `files.includes`.
+:::
+
+#### Excluir arquivos via configuração
+
+Se você deseja excluir arquivos e pastas de serem processados pelo Biome, você pode usar a configuração `files.includes`
+e usar os padrões negados, usando o `!` no início.
+
+Antes de listar os globs negados, **eles devem ser precedidos pelo padrão `**`**.
+
+No exemplo a seguir, dizemos ao Biome para incluir todos os arquivos, exceto aqueles em
+qualquer pasta `dist/`, bem como aqueles que terminam com `.generated.js`:
+
+```json title="biome.json"
+{
+  "files": {
+    "includes": [
+      "**",
+      "!**/dist",
+      "!**/*.generated.js"
+    ]
+  }
+}
+```
+
+
+### Controlar arquivos via VCS
+
+Você pode [ignorar arquivos ignorados pelo seu VCS](/guides/integrate-in-vcs#use-the-ignore-file).
+
+## Arquivos conhecidos
+
+Aqui estão alguns arquivos conhecidos que tratamos especificamente com base em seus nomes de arquivo, em vez de suas extensões.
+Atualmente, os arquivos conhecidos são apenas arquivos do tipo JSON, mas podemos ampliar a lista para incluir outros tipos quando suportarmos novos parsers.
+
+Os seguintes arquivos são analisados como arquivos `JSON` com ambas as opções `json.parser.allowComments` e `json.parser.allowTrailingCommas` definidas como `false`.
+
+- `.all-contributorsrc`
+- `.arcconfig`
+- `.auto-changelog`
+- `.bowerrc`
+- `.c8rc`
+- `.htmlhintrc`
+- `.imgbotconfig`
+- `.jslintrc`
+- `.nycrc`
+- `.tern-config`
+- `.tern-project`
+- `.vuerc`
+- `.watchmanconfig`
+- `mcmod.info`
+
+Os seguintes arquivos são analisados como arquivos `JSON` com a opção `json.parser.allowComments` definida como `true`, mas `json.parser.allowTrailingCommas` como `false`. Isso ocorre porque as ferramentas que consomem esses arquivos só conseguem remover comentários.
+
 - `.ember-cli`
-- `typedoc.json`
-- `.eslintrc`
 - `.eslintrc.json`
-- `.jsfmtrc`
+- `.jscsrc`
 - `.jshintrc`
-- `.swcrc`
-- `.hintrc`
+- `tslint.json`
+- `turbo.json`
+
+Os seguintes arquivos são analisados como arquivos `JSON` com as opções `json.parser.allowComments` e `json.parser.allowTrailingCommas` definidas como `true`. Isso ocorre porque as ferramentas que consomem esses arquivos são projetadas para acomodar tais configurações.
+
 - `.babelrc`
+- `.babelrc.json`
+- `.devcontainer.json`
+- `.hintrc`
+- `.hintrc.json`
+- `.swcrc`
+- `api-documenter.json`
+- `api-extractor.json`
+- `babel.config.json`
+- `deno.json`
+- `devcontainer.json`
+- `dprint.json`
+- `jsconfig.json`
+- `jsr.json`
+- `language-configuration.json`
+- `nx.json`
+- `project.json`
+- `tsconfig.json`
+- `typedoc.json`
+- `typescript.json`
