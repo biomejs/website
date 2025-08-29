@@ -68,7 +68,8 @@ const plugins = [
 		// TODO: enable once `next` is merged into `main`
 		errorOnInvalidHashes: false,
 		exclude: [
-			"/playground**",
+			"/playground",
+			"/playground/",
 			"/playground/**/*",
 			"/linter/rules/",
 			"/linter/rules/**/*",
@@ -76,8 +77,9 @@ const plugins = [
 			"/reference/cli/",
 			"/blog/**/*",
 			"/enterprise",
+			"/internals/changelog",
+			"/internals/changelog/",
 			"/internals/changelog/**/*",
-			"/internals/changelog**/*",
 		],
 	}),
 	starlightChangelogs(),

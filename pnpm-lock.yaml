@@ -164,8 +164,8 @@ importers:
         specifier: 0.24.1
         version: 0.24.1(@astrojs/starlight@0.35.2(astro@5.13.3(@netlify/blobs@10.0.8)(@types/node@22.17.2)(jiti@2.4.2)(rollup@4.40.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(typescript@5.9.2)(yaml@2.8.0)))(astro@5.13.3(@netlify/blobs@10.0.8)(@types/node@22.17.2)(jiti@2.4.2)(rollup@4.40.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(typescript@5.9.2)(yaml@2.8.0))
       starlight-links-validator:
-        specifier: 0.17.1
-        version: 0.17.1(@astrojs/starlight@0.35.2(astro@5.13.3(@netlify/blobs@10.0.8)(@types/node@22.17.2)(jiti@2.4.2)(rollup@4.40.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(typescript@5.9.2)(yaml@2.8.0)))
+        specifier: 0.17.2
+        version: 0.17.2(@astrojs/starlight@0.35.2(astro@5.13.3(@netlify/blobs@10.0.8)(@types/node@22.17.2)(jiti@2.4.2)(rollup@4.40.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(typescript@5.9.2)(yaml@2.8.0)))
       textlint:
         specifier: 15.2.2
         version: 15.2.2
@@ -4970,8 +4970,8 @@ packages:
     peerDependencies:
       '@astrojs/starlight': '>=0.35.0'
 
-  starlight-links-validator@0.17.1:
-    resolution: {integrity: sha512-d2QoBO3mQPWYq/TO4I0kT/3Z9hFulnMzMPaG2dW0H14hPq4N7ZwiBl2FMrLK8I4UE34sztcBatvWCZc62S0BMQ==}
+  starlight-links-validator@0.17.2:
+    resolution: {integrity: sha512-d2SRWu04HPiUzrzntuv/uzuXnIu4reJwzX1c+7uvcnqOCuzgpv+tmlUC+dp3VYpmfxQy8RX+xcWtfcEkx905VA==}
     engines: {node: '>=18.17.1'}
     peerDependencies:
       '@astrojs/starlight': '>=0.32.0'
@@ -10301,8 +10301,8 @@ snapshots:
       '@types/unist': 3.0.2
       ccount: 2.0.1
       devlop: 1.1.0
-      mdast-util-from-markdown: 2.0.0
-      mdast-util-to-markdown: 2.1.0
+      mdast-util-from-markdown: 2.0.2
+      mdast-util-to-markdown: 2.1.2
       parse-entities: 4.0.1
       stringify-entities: 4.0.4
       unist-util-stringify-position: 4.0.0
@@ -11926,7 +11926,7 @@ snapshots:
       - astro
       - supports-color
 
-  starlight-links-validator@0.17.1(@astrojs/starlight@0.35.2(astro@5.13.3(@netlify/blobs@10.0.8)(@types/node@22.17.2)(jiti@2.4.2)(rollup@4.40.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(typescript@5.9.2)(yaml@2.8.0))):
+  starlight-links-validator@0.17.2(@astrojs/starlight@0.35.2(astro@5.13.3(@netlify/blobs@10.0.8)(@types/node@22.17.2)(jiti@2.4.2)(rollup@4.40.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(typescript@5.9.2)(yaml@2.8.0))):
     dependencies:
       '@astrojs/starlight': 0.35.2(astro@5.13.3(@netlify/blobs@10.0.8)(@types/node@22.17.2)(jiti@2.4.2)(rollup@4.40.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(typescript@5.9.2)(yaml@2.8.0))
       '@types/picomatch': 3.0.2
