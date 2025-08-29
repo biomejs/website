@@ -192,7 +192,7 @@ export default defineConfig({
 								fr: "Configurer Biome",
 								ja: "Biome の設定",
 								"zh-CN": "配置 Biome",
-								"pt-BR": "Configurar Bioma",
+								"pt-BR": "Configurar o Biome",
 								uk: "Налаштування Biome",
 								ru: "Настройка Biome",
 							},
