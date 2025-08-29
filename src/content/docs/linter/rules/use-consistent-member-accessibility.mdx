@@ -62,6 +62,7 @@ Use the following configuration to disallow all explicit `public` modifiers:
 		}
 	}
 }
+
 ```
 
 The following patterns are considered incorrect code with `noPublic`:
@@ -72,9 +73,9 @@ class Animal {
     // ...
   }
 }
-<pre class="language-text"><code class="language-text">code-block.ts:2:3 <a href="https://biomejs.dev/linter/rules/use-consistent-member-accessibility">lint/style/useConsistentMemberAccessibility</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The </span><span style="color: lightgreen;"><strong>public</strong></span><span style="color: lightgreen;"> modifier is disallowed.</span><br />  <br />    <strong>1 │ </strong>class Animal &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  public constructor(breed, name) &#123;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>    // ...<br />    <strong>4 │ </strong>  &#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove the accessibility modifier.</span><br />  <br /></code></pre>
-
 ```
+
+<pre class="language-text"><code class="language-text">code-block.ts:2:3 <a href="https://biomejs.dev/linter/rules/use-consistent-member-accessibility">lint/style/useConsistentMemberAccessibility</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The </span><span style="color: lightgreen;"><strong>public</strong></span><span style="color: lightgreen;"> modifier is disallowed.</span><br />  <br />    <strong>1 │ </strong>class Animal &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  public constructor(breed, name) &#123;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>    // ...<br />    <strong>4 │ </strong>  &#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove the accessibility modifier.</span><br />  <br /></code></pre>
 
 ```ts
 class Animal {
@@ -85,17 +86,17 @@ class Animal {
     // ...
   }
 }
-<pre class="language-text"><code class="language-text">code-block.ts:3:5 <a href="https://biomejs.dev/linter/rules/use-consistent-member-accessibility">lint/style/useConsistentMemberAccessibility</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The </span><span style="color: lightgreen;"><strong>public</strong></span><span style="color: lightgreen;"> modifier is disallowed.</span><br />  <br />    <strong>1 │ </strong>class Animal &#123;<br />    <strong>2 │ </strong>  constructor(<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>    public breed,<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>    name,<br />    <strong>5 │ </strong>  ) &#123;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove the accessibility modifier.</span><br />  <br /></code></pre>
-
 ```
+
+<pre class="language-text"><code class="language-text">code-block.ts:3:5 <a href="https://biomejs.dev/linter/rules/use-consistent-member-accessibility">lint/style/useConsistentMemberAccessibility</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The </span><span style="color: lightgreen;"><strong>public</strong></span><span style="color: lightgreen;"> modifier is disallowed.</span><br />  <br />    <strong>1 │ </strong>class Animal &#123;<br />    <strong>2 │ </strong>  constructor(<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>    public breed,<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>    name,<br />    <strong>5 │ </strong>  ) &#123;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove the accessibility modifier.</span><br />  <br /></code></pre>
 
 ```ts
 class Animal {
   public animalName: string;
 }
-<pre class="language-text"><code class="language-text">code-block.ts:2:3 <a href="https://biomejs.dev/linter/rules/use-consistent-member-accessibility">lint/style/useConsistentMemberAccessibility</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The </span><span style="color: lightgreen;"><strong>public</strong></span><span style="color: lightgreen;"> modifier is disallowed.</span><br />  <br />    <strong>1 │ </strong>class Animal &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  public animalName: string;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove the accessibility modifier.</span><br />  <br /></code></pre>
-
 ```
+
+<pre class="language-text"><code class="language-text">code-block.ts:2:3 <a href="https://biomejs.dev/linter/rules/use-consistent-member-accessibility">lint/style/useConsistentMemberAccessibility</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The </span><span style="color: lightgreen;"><strong>public</strong></span><span style="color: lightgreen;"> modifier is disallowed.</span><br />  <br />    <strong>1 │ </strong>class Animal &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  public animalName: string;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove the accessibility modifier.</span><br />  <br /></code></pre>
 
 ```ts
 class Pet {
@@ -103,9 +104,9 @@ class Pet {
     return this.animalName;
   }
 }
-<pre class="language-text"><code class="language-text">code-block.ts:2:3 <a href="https://biomejs.dev/linter/rules/use-consistent-member-accessibility">lint/style/useConsistentMemberAccessibility</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The </span><span style="color: lightgreen;"><strong>public</strong></span><span style="color: lightgreen;"> modifier is disallowed.</span><br />  <br />    <strong>1 │ </strong>class Pet &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  public get name(): string &#123;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>    return this.animalName;<br />    <strong>4 │ </strong>  &#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove the accessibility modifier.</span><br />  <br /></code></pre>
-
 ```
+
+<pre class="language-text"><code class="language-text">code-block.ts:2:3 <a href="https://biomejs.dev/linter/rules/use-consistent-member-accessibility">lint/style/useConsistentMemberAccessibility</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The </span><span style="color: lightgreen;"><strong>public</strong></span><span style="color: lightgreen;"> modifier is disallowed.</span><br />  <br />    <strong>1 │ </strong>class Pet &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  public get name(): string &#123;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>    return this.animalName;<br />    <strong>4 │ </strong>  &#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove the accessibility modifier.</span><br />  <br /></code></pre>
 
 ```ts
 class Pet {
@@ -113,9 +114,9 @@ class Pet {
     this.animalName = value;
   }
 }
-<pre class="language-text"><code class="language-text">code-block.ts:2:3 <a href="https://biomejs.dev/linter/rules/use-consistent-member-accessibility">lint/style/useConsistentMemberAccessibility</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The </span><span style="color: lightgreen;"><strong>public</strong></span><span style="color: lightgreen;"> modifier is disallowed.</span><br />  <br />    <strong>1 │ </strong>class Pet &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  public set name(value: string) &#123;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>    this.animalName = value;<br />    <strong>4 │ </strong>  &#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove the accessibility modifier.</span><br />  <br /></code></pre>
-
 ```
+
+<pre class="language-text"><code class="language-text">code-block.ts:2:3 <a href="https://biomejs.dev/linter/rules/use-consistent-member-accessibility">lint/style/useConsistentMemberAccessibility</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The </span><span style="color: lightgreen;"><strong>public</strong></span><span style="color: lightgreen;"> modifier is disallowed.</span><br />  <br />    <strong>1 │ </strong>class Pet &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  public set name(value: string) &#123;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>    this.animalName = value;<br />    <strong>4 │ </strong>  &#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove the accessibility modifier.</span><br />  <br /></code></pre>
 
 ```ts
 class Dog {
@@ -123,9 +124,9 @@ class Dog {
     // ...
   }
 }
-<pre class="language-text"><code class="language-text">code-block.ts:2:3 <a href="https://biomejs.dev/linter/rules/use-consistent-member-accessibility">lint/style/useConsistentMemberAccessibility</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The </span><span style="color: lightgreen;"><strong>public</strong></span><span style="color: lightgreen;"> modifier is disallowed.</span><br />  <br />    <strong>1 │ </strong>class Dog &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  public walk() &#123;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>    // ...<br />    <strong>4 │ </strong>  &#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove the accessibility modifier.</span><br />  <br /></code></pre>
-
 ```
+
+<pre class="language-text"><code class="language-text">code-block.ts:2:3 <a href="https://biomejs.dev/linter/rules/use-consistent-member-accessibility">lint/style/useConsistentMemberAccessibility</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The </span><span style="color: lightgreen;"><strong>public</strong></span><span style="color: lightgreen;"> modifier is disallowed.</span><br />  <br />    <strong>1 │ </strong>class Dog &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  public walk() &#123;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>    // ...<br />    <strong>4 │ </strong>  &#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove the accessibility modifier.</span><br />  <br /></code></pre>
 
 #### `"accessibility": "explicit"`
 
@@ -145,6 +146,7 @@ Use the following configuration to enforce the presence of explicit modifiers wh
 		}
 	}
 }
+
 ```
 
 The following patterns are considered incorrect code with `accessibility` set to `explicit`:
@@ -168,9 +170,9 @@ class Animal {
     // ...
   }
 }
-<pre class="language-text"><code class="language-text">code-block.ts:3:5 <a href="https://biomejs.dev/linter/rules/use-consistent-member-accessibility">lint/style/useConsistentMemberAccessibility</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The </span><span style="color: lightgreen;"><strong>public</strong></span><span style="color: lightgreen;"> modifier is disallowed.</span><br />  <br />    <strong>1 │ </strong>class Animal &#123;<br />    <strong>2 │ </strong>  constructor( // Invalid: Missing accessibility modifier<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>    public breed,<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>    name,<br />    <strong>5 │ </strong>  ) &#123;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove the accessibility modifier.</span><br />  <br />code-block.ts:9:3 <a href="https://biomejs.dev/linter/rules/use-consistent-member-accessibility">lint/style/useConsistentMemberAccessibility</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The </span><span style="color: lightgreen;"><strong>public</strong></span><span style="color: lightgreen;"> modifier is disallowed.</span><br />  <br />     <strong>7 │ </strong>  &#125;<br />     <strong>8 │ </strong>  private animalName: string; // OK: Modifier must be present<br />   <strong><span style="color: Tomato;">&gt;</span></strong> <strong>9 │ </strong>  public get name(): string &#123; // OK: Modifier must be present<br />    <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>10 │ </strong>    return this.animalName;<br />    <strong>11 │ </strong>  &#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove the accessibility modifier.</span><br />  <br />code-block.ts:12:3 <a href="https://biomejs.dev/linter/rules/use-consistent-member-accessibility">lint/style/useConsistentMemberAccessibility</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The </span><span style="color: lightgreen;"><strong>public</strong></span><span style="color: lightgreen;"> modifier is disallowed.</span><br />  <br />    <strong>10 │ </strong>    return this.animalName;<br />    <strong>11 │ </strong>  &#125;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>12 │ </strong>  public set name(value: string) &#123; // OK: Modifier must be present<br />    <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>13 │ </strong>    this.animalName = value;<br />    <strong>14 │ </strong>  &#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove the accessibility modifier.</span><br />  <br /></code></pre>
-
 ```
+
+<pre class="language-text"><code class="language-text">code-block.ts:3:5 <a href="https://biomejs.dev/linter/rules/use-consistent-member-accessibility">lint/style/useConsistentMemberAccessibility</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The </span><span style="color: lightgreen;"><strong>public</strong></span><span style="color: lightgreen;"> modifier is disallowed.</span><br />  <br />    <strong>1 │ </strong>class Animal &#123;<br />    <strong>2 │ </strong>  constructor( // Invalid: Missing accessibility modifier<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>    public breed,<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>    name,<br />    <strong>5 │ </strong>  ) &#123;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove the accessibility modifier.</span><br />  <br />code-block.ts:9:3 <a href="https://biomejs.dev/linter/rules/use-consistent-member-accessibility">lint/style/useConsistentMemberAccessibility</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The </span><span style="color: lightgreen;"><strong>public</strong></span><span style="color: lightgreen;"> modifier is disallowed.</span><br />  <br />     <strong>7 │ </strong>  &#125;<br />     <strong>8 │ </strong>  private animalName: string; // OK: Modifier must be present<br />   <strong><span style="color: Tomato;">&gt;</span></strong> <strong>9 │ </strong>  public get name(): string &#123; // OK: Modifier must be present<br />    <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>10 │ </strong>    return this.animalName;<br />    <strong>11 │ </strong>  &#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove the accessibility modifier.</span><br />  <br />code-block.ts:12:3 <a href="https://biomejs.dev/linter/rules/use-consistent-member-accessibility">lint/style/useConsistentMemberAccessibility</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The </span><span style="color: lightgreen;"><strong>public</strong></span><span style="color: lightgreen;"> modifier is disallowed.</span><br />  <br />    <strong>10 │ </strong>    return this.animalName;<br />    <strong>11 │ </strong>  &#125;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>12 │ </strong>  public set name(value: string) &#123; // OK: Modifier must be present<br />    <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>13 │ </strong>    this.animalName = value;<br />    <strong>14 │ </strong>  &#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove the accessibility modifier.</span><br />  <br /></code></pre>
 
 #### `"accessibility": "none"`
 
@@ -190,6 +192,7 @@ Use the following configuration to disallow all explicit visibility modifiers:
 		}
 	}
 }
+
 ```
 
 The following patterns are considered incorrect code with `accessibility` set to `none`:
@@ -200,9 +203,9 @@ class Animal {
     // ...
   }
 }
-<pre class="language-text"><code class="language-text"></code></pre>
-
 ```
+
+<pre class="language-text"><code class="language-text"></code></pre>
 
 ```ts
 class Animal {
@@ -213,17 +216,17 @@ class Animal {
     // ...
   }
 }
-<pre class="language-text"><code class="language-text"></code></pre>
-
 ```
+
+<pre class="language-text"><code class="language-text"></code></pre>
 
 ```ts
 class Animal {
   private animalName: string;
 }
-<pre class="language-text"><code class="language-text"></code></pre>
-
 ```
+
+<pre class="language-text"><code class="language-text"></code></pre>
 
 ```ts
 class Animal {
@@ -231,9 +234,9 @@ class Animal {
     return this.animalName;
   }
 }
-<pre class="language-text"><code class="language-text"></code></pre>
-
 ```
+
+<pre class="language-text"><code class="language-text"></code></pre>
 
 ```ts
 class Pet {
@@ -241,9 +244,9 @@ class Pet {
     this.animalName = value;
   }
 }
-<pre class="language-text"><code class="language-text"></code></pre>
-
 ```
+
+<pre class="language-text"><code class="language-text"></code></pre>
 
 ```ts
 class Dog {
@@ -251,9 +254,9 @@ class Dog {
     // ...
   }
 }
-<pre class="language-text"><code class="language-text">code-block.ts:2:3 <a href="https://biomejs.dev/linter/rules/use-consistent-member-accessibility">lint/style/useConsistentMemberAccessibility</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The </span><span style="color: lightgreen;"><strong>public</strong></span><span style="color: lightgreen;"> modifier is disallowed.</span><br />  <br />    <strong>1 │ </strong>class Dog &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  public walk() &#123;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>    // ...<br />    <strong>4 │ </strong>  &#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove the accessibility modifier.</span><br />  <br /></code></pre>
-
 ```
+
+<pre class="language-text"><code class="language-text">code-block.ts:2:3 <a href="https://biomejs.dev/linter/rules/use-consistent-member-accessibility">lint/style/useConsistentMemberAccessibility</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The </span><span style="color: lightgreen;"><strong>public</strong></span><span style="color: lightgreen;"> modifier is disallowed.</span><br />  <br />    <strong>1 │ </strong>class Dog &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  public walk() &#123;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>    // ...<br />    <strong>4 │ </strong>  &#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove the accessibility modifier.</span><br />  <br /></code></pre>
 
 ### Valid
 
@@ -273,6 +276,7 @@ The following patterns are considered correct code with the default options `noP
 		}
 	}
 }
+
 ```
 
 ```ts
@@ -314,6 +318,7 @@ The following patterns are considered correct code with the accessibility set to
 		}
 	}
 }
+
 ```
 
 ```ts
@@ -356,6 +361,7 @@ The following patterns are considered correct code with the accessibility set to
 		}
 	}
 }
+
 ```
 
 ```ts
@@ -400,6 +406,7 @@ The rule supports the following options:
 		}
 	}
 }
+
 ```
 
 ### `accessibility`

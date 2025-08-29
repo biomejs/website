@@ -56,9 +56,9 @@ defineProps({
     ref: String,
 });
 </script>
-<pre class="language-text"><code class="language-text">code-block.vue:2:5 <a href="https://biomejs.dev/linter/rules/no-vue-reserved-props">lint/nursery/noVueReservedProps</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>ref</strong></span><span style="color: Tomato;"> is a reserved attribute and cannot be used as props.</span><br />  <br />    <strong>1 │ </strong>defineProps(&#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>    ref: String,<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>&#125;);<br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Rename the prop to avoid possible conflicts.</span><br />  <br /></code></pre>
-
 ```
+
+<pre class="language-text"><code class="language-text">code-block.vue:2:5 <a href="https://biomejs.dev/linter/rules/no-vue-reserved-props">lint/nursery/noVueReservedProps</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>ref</strong></span><span style="color: Tomato;"> is a reserved attribute and cannot be used as props.</span><br />  <br />    <strong>1 │ </strong>defineProps(&#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>    ref: String,<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>&#125;);<br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Rename the prop to avoid possible conflicts.</span><br />  <br /></code></pre>
 
 ```js
 import {defineComponent} from 'vue';
@@ -68,9 +68,9 @@ export default defineComponent({
         'key',
     ]
 });
-<pre class="language-text"><code class="language-text">code-block.js:5:9 <a href="https://biomejs.dev/linter/rules/no-vue-reserved-props">lint/nursery/noVueReservedProps</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>key</strong></span><span style="color: Tomato;"> is a reserved attribute and cannot be used as props.</span><br />  <br />    <strong>3 │ </strong>export default defineComponent(&#123;<br />    <strong>4 │ </strong>    props: [<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>5 │ </strong>        'key',<br />   <strong>   │ </strong>        <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>6 │ </strong>    ]<br />    <strong>7 │ </strong>&#125;);<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Rename the prop to avoid possible conflicts.</span><br />  <br /></code></pre>
-
 ```
+
+<pre class="language-text"><code class="language-text">code-block.js:5:9 <a href="https://biomejs.dev/linter/rules/no-vue-reserved-props">lint/nursery/noVueReservedProps</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>key</strong></span><span style="color: Tomato;"> is a reserved attribute and cannot be used as props.</span><br />  <br />    <strong>3 │ </strong>export default defineComponent(&#123;<br />    <strong>4 │ </strong>    props: [<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>5 │ </strong>        'key',<br />   <strong>   │ </strong>        <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>6 │ </strong>    ]<br />    <strong>7 │ </strong>&#125;);<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Rename the prop to avoid possible conflicts.</span><br />  <br /></code></pre>
 
 ```vue
 <script setup lang="ts">
@@ -78,9 +78,9 @@ defineProps<{
     ref: string,
 }>();
 </script>
-<pre class="language-text"><code class="language-text">code-block.vue:2:5 <a href="https://biomejs.dev/linter/rules/no-vue-reserved-props">lint/nursery/noVueReservedProps</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>ref</strong></span><span style="color: Tomato;"> is a reserved attribute and cannot be used as props.</span><br />  <br />    <strong>1 │ </strong>defineProps&lt;&#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>    ref: string,<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>&#125;&gt;();<br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Rename the prop to avoid possible conflicts.</span><br />  <br /></code></pre>
-
 ```
+
+<pre class="language-text"><code class="language-text">code-block.vue:2:5 <a href="https://biomejs.dev/linter/rules/no-vue-reserved-props">lint/nursery/noVueReservedProps</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>ref</strong></span><span style="color: Tomato;"> is a reserved attribute and cannot be used as props.</span><br />  <br />    <strong>1 │ </strong>defineProps&lt;&#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>    ref: string,<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>&#125;&gt;();<br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Rename the prop to avoid possible conflicts.</span><br />  <br /></code></pre>
 
 ```vue
 <script>
@@ -90,9 +90,9 @@ export default {
     }
 };
 </script>
-<pre class="language-text"><code class="language-text">code-block.vue:3:9 <a href="https://biomejs.dev/linter/rules/no-vue-reserved-props">lint/nursery/noVueReservedProps</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>key</strong></span><span style="color: Tomato;"> is a reserved attribute and cannot be used as props.</span><br />  <br />    <strong>1 │ </strong>export default &#123;<br />    <strong>2 │ </strong>    props: &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>        key: String,<br />   <strong>   │ </strong>        <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>    &#125;<br />    <strong>5 │ </strong>&#125;;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Rename the prop to avoid possible conflicts.</span><br />  <br /></code></pre>
-
 ```
+
+<pre class="language-text"><code class="language-text">code-block.vue:3:9 <a href="https://biomejs.dev/linter/rules/no-vue-reserved-props">lint/nursery/noVueReservedProps</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>key</strong></span><span style="color: Tomato;"> is a reserved attribute and cannot be used as props.</span><br />  <br />    <strong>1 │ </strong>export default &#123;<br />    <strong>2 │ </strong>    props: &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>        key: String,<br />   <strong>   │ </strong>        <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>    &#125;<br />    <strong>5 │ </strong>&#125;;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Rename the prop to avoid possible conflicts.</span><br />  <br /></code></pre>
 
 ### Valid
 

@@ -1207,26 +1207,24 @@ fn write_documentation(
 
             Event::End(TagEnd::CodeBlock) => {
                 if let Some((test, block)) = language.take() {
-                    if test.expect_diagnostic {
-                        write!(
-                            content,
-                            "<pre class=\"language-text\"><code class=\"language-text\">"
-                        )?;
-                    } else if test.expect_diff {
-                        write!(
-                            content,
-                            "<pre class=\"language-diff\"><code class=\"language-diff\">"
-                        )?;
-                    }
-
-                    let mut buffer = HTML::new(&mut *content).with_mdx();
                     if test.options != OptionsParsingMode::NoOptions {
                         let (options, formatted) =
                             parse_rule_options(group, rule, &test, &block, content)
                                 .context("snapshot test failed")?;
                         last_options = options;
                         write!(content, "{formatted}")?;
+                        writeln!(content)?;
+                        writeln!(content, "```")?;
+                        writeln!(content)?;
                     } else if test.expect_diagnostic {
+                        writeln!(content, "```")?;
+                        writeln!(content)?;
+                        write!(
+                            content,
+                            "<pre class=\"language-text\"><code class=\"language-text\">"
+                        )?;
+                        let mut buffer = HTML::new(&mut *content).with_mdx();
+
                         print_diagnostics_or_actions(
                             group,
                             rule,
@@ -1238,6 +1236,14 @@ fn write_documentation(
                         )
                         .context("snapshot test failed")?;
                     } else if test.expect_diff {
+                        writeln!(content, "```")?;
+                        writeln!(content)?;
+                        write!(
+                            content,
+                            "<pre class=\"language-diff\"><code class=\"language-diff\">"
+                        )?;
+                        let mut buffer = HTML::new(&mut *content).with_mdx();
+
                         print_diagnostics_or_actions(
                             group,
                             rule,
@@ -1248,15 +1254,19 @@ fn write_documentation(
                             ToPrintKind::Actions,
                         )
                         .context("snapshot test failed")?;
+                    } else {
+                        writeln!(content, "```")?;
+                        writeln!(content)?;
                     }
 
                     if test.expect_diagnostic || test.expect_diff {
                         writeln!(content, "</code></pre>")?;
                         writeln!(content)?;
                     }
+                } else {
+                    writeln!(content, "```")?;
+                    writeln!(content)?;
                 }
-                writeln!(content, "```")?;
-                writeln!(content)?;
             }
 
             Event::Text(text) => {

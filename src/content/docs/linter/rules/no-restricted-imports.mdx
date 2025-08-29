@@ -84,45 +84,46 @@ Disallow specified modules when loaded by import or require.
 		}
 	}
 }
+
 ```
 
 ### Invalid
 
 ```js
 import "lodash";
-<pre class="language-text"><code class="language-text"></code></pre>
-
 ```
+
+<pre class="language-text"><code class="language-text"></code></pre>
 
 ```js
 import "underscore";
-<pre class="language-text"><code class="language-text"></code></pre>
-
 ```
+
+<pre class="language-text"><code class="language-text"></code></pre>
 
 ```js
 import { Bar } from "import-foo";
-<pre class="language-text"><code class="language-text"></code></pre>
-
 ```
+
+<pre class="language-text"><code class="language-text"></code></pre>
 
 ```js
 const underscore = await import("underscore");
-<pre class="language-text"><code class="language-text"></code></pre>
-
 ```
+
+<pre class="language-text"><code class="language-text"></code></pre>
 
 ```js
 const lodash = require("lodash");
-<pre class="language-text"><code class="language-text"></code></pre>
-
 ```
+
+<pre class="language-text"><code class="language-text"></code></pre>
 
 ```js
 import foo from 'import-foo/foo';
-<pre class="language-text"><code class="language-text"></code></pre>
-
 ```
+
+<pre class="language-text"><code class="language-text"></code></pre>
 
 ### Valid
 
@@ -266,6 +267,7 @@ Use the options to specify import paths and/or patterns, including specific impo
 		}
 	}
 }
+
 ```
 
 ```json title='biome.json'
@@ -289,6 +291,7 @@ Use the options to specify import paths and/or patterns, including specific impo
 		}
 	}
 }
+
 ```
 
 ### `paths`
@@ -323,19 +326,20 @@ Importing `constants` will emit the message `This file will be deleted soon.`:
 		}
 	}
 }
+
 ```
 
 ```js
 import * as namespaceAlias from 'services-deprecated';
-<pre class="language-text"><code class="language-text"></code></pre>
-
 ```
+
+<pre class="language-text"><code class="language-text"></code></pre>
 
 ```js
 import { export1 } from 'constants';
-<pre class="language-text"><code class="language-text"></code></pre>
-
 ```
+
+<pre class="language-text"><code class="language-text"></code></pre>
 
 ### `paths.<import>.message`
 
@@ -359,13 +363,14 @@ A default message will be generated if `message` is empty or not specified:
 		}
 	}
 }
+
 ```
 
 ```js
 import { export1 } 'import-foo';
-<pre class="language-text"><code class="language-text">code-block.js:1:20 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">expected `from` but instead found `'import-foo'`</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>import &#123; export1 &#125; 'import-foo';<br />   <strong>   │ </strong>                   <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove 'import-foo'</span><br />  <br /></code></pre>
-
 ```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:20 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">expected `from` but instead found `'import-foo'`</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>import &#123; export1 &#125; 'import-foo';<br />   <strong>   │ </strong>                   <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove 'import-foo'</span><br />  <br /></code></pre>
 
 ### `paths.<import>.importNames`
 
@@ -400,15 +405,16 @@ The following import name specifiers are supported:
 		}
 	}
 }
+
 ```
 
 #### Invalid
 
 ```js
 import { Bar } from 'import-foo';
-<pre class="language-text"><code class="language-text"></code></pre>
-
 ```
+
+<pre class="language-text"><code class="language-text"></code></pre>
 
 #### Valid
 
@@ -444,15 +450,16 @@ See `importNames` for the set of supported import name specifiers.
 		}
 	}
 }
+
 ```
 
 #### Invalid
 
 ```js
 import { Baz } from 'import-bar';
-<pre class="language-text"><code class="language-text"></code></pre>
-
 ```
+
+<pre class="language-text"><code class="language-text"></code></pre>
 
 #### Valid
 
@@ -492,15 +499,16 @@ The patterns array can also include objects. The group property is used to speci
 		}
 	}
 }
+
 ```
 
 #### Invalid
 
 ```js
 import foo from 'import-foo/foo';
-<pre class="language-text"><code class="language-text"></code></pre>
-
 ```
+
+<pre class="language-text"><code class="language-text"></code></pre>
 
 #### Valid
 
@@ -536,15 +544,16 @@ This option allows you to use regex patterns to restrict import names.
 		}
 	}
 }
+
 ```
 
 #### Invalid
 
 ```js
 import { x } from 'import-foo/foo';
-<pre class="language-text"><code class="language-text"></code></pre>
-
 ```
+
+<pre class="language-text"><code class="language-text"></code></pre>
 
 #### Valid
 
@@ -580,15 +589,16 @@ If true, the matched patterns in the importNamePattern will be allowed
 		}
 	}
 }
+
 ```
 
 #### Invalid
 
 ```js
 import { foo } from 'import-foo/foo';
-<pre class="language-text"><code class="language-text"></code></pre>
-
 ```
+
+<pre class="language-text"><code class="language-text"></code></pre>
 
 #### Valid
 
