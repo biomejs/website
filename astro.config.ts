@@ -5,6 +5,9 @@ import lunaria from "@lunariajs/starlight";
 import { defineConfig } from "astro/config";
 import rehypeSlug from "rehype-slug";
 import starlightBlog from "starlight-blog";
+import starlightChangelogs, {
+	makeChangelogsSidebarLinks,
+} from "starlight-changelogs";
 import starlightLinksValidator from "starlight-links-validator";
 import { searchForWorkspaceRoot } from "vite";
 import { version as biomeVersion } from "./node_modules/@biomejs/wasm-web/package.json" with {
@@ -66,16 +69,20 @@ const plugins = [
 		errorOnInvalidHashes: false,
 		exclude: [
 			"/playground",
-			"/playground**",
-			"/playground/**",
+			"/playground/",
+			"/playground/**/*",
 			"/linter/rules/",
 			"/linter/rules/**/*",
 			"/linter/rule-sources/",
 			"/reference/cli/",
 			"/blog/**/*",
 			"/enterprise",
+			"/internals/changelog",
+			"/internals/changelog/",
+			"/internals/changelog/**/*",
 		],
 	}),
+	starlightChangelogs(),
 ];
 
 if (process.env?.E2E !== "true") {
@@ -831,18 +838,9 @@ export default defineConfig({
 								ru: "Версионирование",
 							},
 						},
-						{
-							label: "Changelog",
-							link: "/internals/changelog",
-							translations: {
-								es: "Registro de cambios",
-								ja: "変更履歴",
-								"zh-CN": "更新日志",
-								"pt-BR": "Alterações",
-								uk: "Журнал змін",
-								ru: "Журнал изменений",
-							},
-						},
+						...makeChangelogsSidebarLinks([
+							{ type: "all", base: "internals/changelog", label: "Changelog" },
+						]),
 						{
 							label: "Changelog v1",
 							link: "/internals/changelog_v1",
