@@ -13,8 +13,8 @@ the scanner is used:
 
 - To discover nested `biome.json`/`biome.jsonc` files in monorepos.
 - To discover nested `.gitignore` files if the [`vcs.useIgnoreFile`](/reference/configuration/#vcsuseignorefile) setting is enabled.
-- To index all JavaScript/TypeScript files in a project if any rules from the
-  [project domain](/linter/domains/#project) are enabled.
+- To index `package.json` manifests as well as source files in a project if any
+  rules from the [project domain](/linter/domains/#project) are enabled.
 
 ### Scanner targeting
 
@@ -29,8 +29,7 @@ the following folders get scanned for nested configuration files and/or nested i
 - The `packages/` folder.
 - The `packages/foo/` folder.
 - Any folders that exist under `packages/foo/`, except `node_modules/` or
-  those that are excluded by your configuration (see
-  [below](#configuringthescanner)).
+  those that are excluded by your configuration.
 
 Other folders that may be adjacent to either `packages/` or `packages/foo/` will
 be automatically skipped.
@@ -42,21 +41,8 @@ If project rules are enabled, these optimisations don't apply.
 
 ### Configuring the scanner
 
-The scanner respects the
-[`files.includes`](/reference/configuration/#filesincludes) setting as well as
-any `.gitignore` files, but there is one major exception to be aware of:
-
-If the project domain or one of its rules is enabled, **dependencies of your
-included files are scanned as well**. This means that `.d.ts` files and
-`package.json` manifests inside `node_modules` may still get indexed, provided
-there is a source file that references them. Similarly, generated files that are
-normally ignored, may still be indexed if you import them. This is done in order
-to extract type information from such files.
-
-For the time being, if you really insist on preventing the scanner from
-accessing a given file or folder, you can use the
-[`files.experimentalScannerIgnores`](/reference/configuration/#filesexperimentalscannerignores)
-setting for that.
+The scanner can be configured through the
+[`files.includes`](/reference/configuration/#interactionwiththescanner) setting.
 
 ## Parser and CST
 
