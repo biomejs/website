@@ -212,6 +212,7 @@ export default {
   '/linter/rules/noUnusedVariables': '/linter/rules/no-unused-variables',
   '/linter/rules/noUnwantedPolyfillio': '/linter/rules/no-unwanted-polyfillio',
   '/linter/rules/noUselessCatch': '/linter/rules/no-useless-catch',
+  '/linter/rules/noUselessCatchBinding': '/linter/rules/no-useless-catch-binding',
   '/linter/rules/noUselessConstructor': '/linter/rules/no-useless-constructor',
   '/linter/rules/noUselessContinue': '/linter/rules/no-useless-continue',
   '/linter/rules/noUselessElse': '/linter/rules/no-useless-else',
