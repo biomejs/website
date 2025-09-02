@@ -2065,6 +2065,15 @@ export function GET() {
             ],
             "docs": " Warn when importing non-existing exports.\n\n Importing a non-existing export is an error at runtime or build time.\n Biome can detect such incorrect imports and report errors for them.\n\n Note that if you use TypeScript, you probably don't want to use this\n rule, since TypeScript already performs such checks for you.\n\n ## Known Limitations\n\n * This rule does not validate imports through dynamic `import()`\n   expressions or CommonJS `require()` calls.\n\n ## Examples\n\n ### Invalid\n\n **`foo.js`**\n ```js\n export function foo() {};\n ```\n\n **`bar.js`**\n ```js\n // Attempt to import symbol with a typo:\n import { fooo } from \"./foo.js\";\n ```\n\n ### Valid\n\n **`bar.js`**\n ```js\n // Fixed typo:\n import { foo } from \"./foo.js\";\n ```\n"
           },
+          "noUselessCatchBinding": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noUselessCatchBinding",
+            "link": "https://biomejs.dev/linter/rules/no-useless-catch-binding",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "docs": " Disallow unused catch bindings.\n\n This rule disallows unnecessary catch bindings in accordance with ECMAScript 2019.\n See also: the ECMAScript 2019 “optional catch binding” feature in the language specification.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n try {\n     // Do something\n } catch (unused) {}\n ```\n\n ```js,expect_diagnostic\n try {\n     // Do something\n } catch ({ unused }) {}\n ```\n\n ```js,expect_diagnostic\n try {\n     // Do something\n } catch ({ unused1, unused2 }) {}\n ```\n\n ### Valid\n\n ```js\n try {\n     // Do something\n } catch (used) {\n     console.error(used);\n }\n ```\n\n ```js\n try {\n     // Do something\n } catch ({ used }) {\n     console.error(used);\n }\n ```\n\n ```js\n try {\n     // Do something\n } catch ({ used, unused }) {\n     console.error(used);\n }\n ```\n\n ```js\n try {\n     // Do something\n } catch {}\n ```\n\n"
+          },
           "noUselessUndefined": {
             "deprecated": false,
             "version": "2.0.0",
@@ -6013,7 +6022,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 352
+    "numberOrRules": 353
   },
   "syntax": {
     "languages": {

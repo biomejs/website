@@ -1,0 +1,111 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noUselessCatchBinding
+description: Learn more about noUselessCatchBinding
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noUselessCatchBinding`](/reference/diagnostics#diagnostic-category)
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noUselessCatchBinding": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow unused catch bindings.
+
+This rule disallows unnecessary catch bindings in accordance with ECMAScript 2019.
+See also: the ECMAScript 2019 “optional catch binding” feature in the language specification.
+
+## Examples
+
+### Invalid
+
+```js
+try {
+    // Do something
+} catch (unused) {}
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:3:9 <a href="https://biomejs.dev/linter/rules/no-useless-catch-binding">lint/nursery/noUselessCatchBinding</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This </span><span style="color: lightgreen;"><strong>catch binding</strong></span><span style="color: lightgreen;"> is unused.</span><br />  <br />    <strong>1 │ </strong>try &#123;<br />    <strong>2 │ </strong>    // Do something<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>&#125; catch (unused) &#123;&#125;<br />   <strong>   │ </strong>        <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Since ECMAScript 2019, catch bindings are optional; you can omit the catch binding if you don't need it.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Remove the catch binding.</span><br />  <br />  <strong>  3 │ </strong>&#125;<span style="opacity: 0.8;">·</span>catch<span style="opacity: 0.8;">·</span><span style="color: Tomato;">(</span><span style="color: Tomato;">u</span><span style="color: Tomato;">n</span><span style="color: Tomato;">u</span><span style="color: Tomato;">s</span><span style="color: Tomato;">e</span><span style="color: Tomato;">d</span><span style="color: Tomato;">)</span><span style="opacity: 0.8;"><span style="color: Tomato;">·</span></span>&#123;&#125;<br />  <strong>    │ </strong>        <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span>  <br /></code></pre>
+
+```js
+try {
+    // Do something
+} catch ({ unused }) {}
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:3:9 <a href="https://biomejs.dev/linter/rules/no-useless-catch-binding">lint/nursery/noUselessCatchBinding</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This </span><span style="color: lightgreen;"><strong>catch binding</strong></span><span style="color: lightgreen;"> is unused.</span><br />  <br />    <strong>1 │ </strong>try &#123;<br />    <strong>2 │ </strong>    // Do something<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>&#125; catch (&#123; unused &#125;) &#123;&#125;<br />   <strong>   │ </strong>        <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Since ECMAScript 2019, catch bindings are optional; you can omit the catch binding if you don't need it.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Remove the catch binding.</span><br />  <br />  <strong>  3 │ </strong>&#125;<span style="opacity: 0.8;">·</span>catch<span style="opacity: 0.8;">·</span><span style="color: Tomato;">(</span><span style="color: Tomato;">&#123;</span><span style="opacity: 0.8;"><span style="color: Tomato;">·</span></span><span style="color: Tomato;">u</span><span style="color: Tomato;">n</span><span style="color: Tomato;">u</span><span style="color: Tomato;">s</span><span style="color: Tomato;">e</span><span style="color: Tomato;">d</span><span style="opacity: 0.8;"><span style="color: Tomato;">·</span></span><span style="color: Tomato;">&#125;</span><span style="color: Tomato;">)</span><span style="opacity: 0.8;"><span style="color: Tomato;">·</span></span>&#123;&#125;<br />  <strong>    │ </strong>        <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span>  <br /></code></pre>
+
+```js
+try {
+    // Do something
+} catch ({ unused1, unused2 }) {}
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:3:9 <a href="https://biomejs.dev/linter/rules/no-useless-catch-binding">lint/nursery/noUselessCatchBinding</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This </span><span style="color: lightgreen;"><strong>catch binding</strong></span><span style="color: lightgreen;"> is unused.</span><br />  <br />    <strong>1 │ </strong>try &#123;<br />    <strong>2 │ </strong>    // Do something<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>&#125; catch (&#123; unused1, unused2 &#125;) &#123;&#125;<br />   <strong>   │ </strong>        <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Since ECMAScript 2019, catch bindings are optional; you can omit the catch binding if you don't need it.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Remove the catch binding.</span><br />  <br />  <strong>  3 │ </strong>&#125;<span style="opacity: 0.8;">·</span>catch<span style="opacity: 0.8;">·</span><span style="color: Tomato;">(</span><span style="color: Tomato;">&#123;</span><span style="opacity: 0.8;"><span style="color: Tomato;">·</span></span><span style="color: Tomato;">u</span><span style="color: Tomato;">n</span><span style="color: Tomato;">u</span><span style="color: Tomato;">s</span><span style="color: Tomato;">e</span><span style="color: Tomato;">d</span><span style="color: Tomato;">1</span><span style="color: Tomato;">,</span><span style="opacity: 0.8;"><span style="color: Tomato;">·</span></span><span style="color: Tomato;">u</span><span style="color: Tomato;">n</span><span style="color: Tomato;">u</span><span style="color: Tomato;">s</span><span style="color: Tomato;">e</span><span style="color: Tomato;">d</span><span style="color: Tomato;">2</span><span style="opacity: 0.8;"><span style="color: Tomato;">·</span></span><span style="color: Tomato;">&#125;</span><span style="color: Tomato;">)</span><span style="opacity: 0.8;"><span style="color: Tomato;">·</span></span>&#123;&#125;<br />  <strong>    │ </strong>        <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span>  <br /></code></pre>
+
+### Valid
+
+```js
+try {
+    // Do something
+} catch (used) {
+    console.error(used);
+}
+```
+
+```js
+try {
+    // Do something
+} catch ({ used }) {
+    console.error(used);
+}
+```
+
+```js
+try {
+    // Do something
+} catch ({ used, unused }) {
+    console.error(used);
+}
+```
+
+```js
+try {
+    // Do something
+} catch {}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_useless_catch_binding.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noUselessCatchBinding)
+
+</TabItem>
+</Tabs>
+

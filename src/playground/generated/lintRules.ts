@@ -210,6 +210,7 @@ export const LINT_RULES = {
   noUnusedVariables: "noUnusedVariables",
   noUnwantedPolyfillio: "noUnwantedPolyfillio",
   noUselessCatch: "noUselessCatch",
+  noUselessCatchBinding: "noUselessCatchBinding",
   noUselessConstructor: "noUselessConstructor",
   noUselessContinue: "noUselessContinue",
   noUselessElse: "noUselessElse",
