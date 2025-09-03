@@ -1,13 +1,12 @@
 ---
-title: Integrando o Biome com o seu VCS
-description: Aprenda como o Biome funciona, incluindo suposições, configuração e mais.
+title: Integre o Biome com seu VCS
+description: Aprenda como você pode integrar o Biome com o VCS
 ---
 
-
-A integração com o VCS (Sistema de controle de versão) é projetada para aproveitar recursos **adicionais** que somente um VCS pode fornecer, permitindo customizar
-sua experiência ainda mais.
-
-Essa integração é **opcional** e possui dois campos obrigatórios. O campo `vcs.enabled` e o campo `vcs.clientKind`, ambos no arquivo de configuração:
+A integração com VCS (Version Control System) destina-se a aproveitar recursos **adicionais** que apenas um VCS pode fornecer.
+No momento, o Biome suporta apenas Git.
+A integração é **opcional**.
+Você precisa habilitar `vcs.enabled` e definir `vcs.clientKind` no arquivo de configuração do Biome:
 
 ```json title="biome.json"
 {
@@ -18,11 +17,11 @@ Essa integração é **opcional** e possui dois campos obrigatórios. O campo `v
 }
 ```
 
-Essa configuração não faz **nada por si só**. Você precisa adicionar novos recursos.
+Essa configuração não faz **nada por si só**. Você precisa optar pelos recursos que deseja.
 
-### Ignorando arquivos
+### Use o arquivo de ignore
 
-Esse é um recurso que permite que o Biome leia os arquivos ignorados do VCS e ignora todos os arquivos e pastas especificados nele. Esse é um recurso opcional, e você precisa ativar o campo `vcs.useIgnoreFile`:
+Habilite `vcs.useIgnoreFile` para permitir que o Biome ignore todos os arquivos e diretórios listados no arquivo de ignorados do VCS do projeto, bem como um arquivo `.ignore`.
 
 ```json title="biome.json" ins={5}
 {
@@ -34,11 +33,11 @@ Esse é um recurso que permite que o Biome leia os arquivos ignorados do VCS e i
 }
 ```
 
-### Processando apenas arquivos modificados
+### Processe apenas arquivos alterados
 
-Esse é um recurso que só está disponível via CLI e permite processar **apenas** os arquivos que foram **alterados** de uma revisão para outra.
+Este é um recurso que está disponível apenas via CLI e permite processar **apenas** os arquivos que foram **alterados** de uma revisão para outra.
 
-Primeiro, você tem que atualizar seu arquivo de configuração e dizer para o Biome qual é a branch padrão com o campo `vcs.defaultBranch`:
+Primeiro, você precisa atualizar seu arquivo de configuração e dizer ao Biome qual é o branch padrão através do campo `vcs.defaultBranch`:
 
 ```json title="biome.json" ins={6}
 {
@@ -51,18 +50,29 @@ Primeiro, você tem que atualizar seu arquivo de configuração e dizer para o B
 }
 ```
 
-Em seguida, adicione a opção `--changed` no seu comando para processar apenas os arquivos que o seu VCS marcar como "modificado". O Biome, com ajuda do VCS, vai determinar o arquivo alterado da branch `main` e sua revisão atual:
+Em seguida, adicione a opção `--changed` ao seu comando, para processar apenas os arquivos que seu VCS reconheceu como "alterados". O Biome, com a ajuda do VCS, determinará os arquivos alterados a partir do branch `main` e da sua revisão atual:
 
 ```shell
-biome format --changed
+biome check --changed
 ```
 
 :::caution
-O Biome não verifica o que foi alterado, isso significa que adicionar espaços e novas linhas em um arquivo vai marcar-lo como "modificado"
+O Biome não verifica o que foi alterado, isso significa que até mesmo adicionar espaços ou novas linhas a um arquivo marcará este arquivo como "alterado".
 :::
 
-Alternativamente, você pode usar a opção `--since` para especificar uma branch. Essa opção **tem precedência** sobre a opção `vcs.defaultBranch`. Por exemplo, você pode querer verificar suas alterações em relação a branch `next`:
+Alternativamente, você pode usar a opção `--since` para especificar um branch arbitrário. Esta opção **tem precedência** sobre a opção `vcs.defaultBranch`. Por exemplo, você pode querer verificar suas alterações em relação ao branch `next`:
 
 ```shell
-biome format --changed --since=next
+biome check --changed --since=next
 ```
+
+### Processe apenas arquivos em staging
+
+Antes de commitar suas alterações, você pode querer verificar a formatação e os lints dos arquivos que foram adicionados ao _index_, também conhecidos como _staged files_.
+Adicione a opção `--staged` ao seu comando, para processar apenas esses arquivos:
+
+```shell
+biome check --staged
+```
+
+A opção `--staged` não está disponível no comando `ci` porque não se espera que você commite alterações em um ambiente de CI.

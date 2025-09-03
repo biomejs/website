@@ -286,7 +286,7 @@ export default defineConfig({
 								fr: "Intégrer Biome à votre VCS",
 								ja: "Biome をあなたの VCS と統合する",
 								"zh-CN": "与版本控制系统集成",
-								"pt-BR": "Integrando o Biome com o seu VCS",
+								"pt-BR": "Integre o Biome com seu VCS",
 								uk: "Інтеграція Biome з вашою VCS",
 								ru: "Интеграция Biome с вашей VCS",
 							},
