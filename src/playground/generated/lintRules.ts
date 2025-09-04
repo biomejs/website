@@ -260,6 +260,7 @@ export const LINT_RULES = {
   useCollapsedIf: "useCollapsedIf",
   useComponentExportOnlyModules: "useComponentExportOnlyModules",
   useConsistentArrayType: "useConsistentArrayType",
+  useConsistentArrowReturn: "useConsistentArrowReturn",
   useConsistentBuiltinInstantiation: "useConsistentBuiltinInstantiation",
   useConsistentCurlyBraces: "useConsistentCurlyBraces",
   useConsistentMemberAccessibility: "useConsistentMemberAccessibility",
