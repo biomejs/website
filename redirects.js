@@ -261,6 +261,7 @@ export default {
   '/linter/rules/useCollapsedIf': '/linter/rules/use-collapsed-if',
   '/linter/rules/useComponentExportOnlyModules': '/linter/rules/use-component-export-only-modules',
   '/linter/rules/useConsistentArrayType': '/linter/rules/use-consistent-array-type',
+  '/linter/rules/useConsistentArrowReturn': '/linter/rules/use-consistent-arrow-return',
   '/linter/rules/useConsistentBuiltinInstantiation': '/linter/rules/use-consistent-builtin-instantiation',
   '/linter/rules/useConsistentCurlyBraces': '/linter/rules/use-consistent-curly-braces',
   '/linter/rules/useConsistentMemberAccessibility': '/linter/rules/use-consistent-member-accessibility',

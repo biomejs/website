@@ -2148,6 +2148,23 @@ export function GET() {
             ],
             "docs": " Disallow reserved names to be used as props.\n\n Vue reserves certain prop names for its internal use. Using these reserved names\n as prop names can cause conflicts and unexpected behavior in your Vue components.\n\n This rule prevents the use of the following reserved prop names:\n - `key` - Used by Vue for list rendering and component identification\n - `ref` - Used by Vue for template refs\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script setup>\n defineProps({\n     ref: String,\n });\n </script>\n ```\n\n ```js,expect_diagnostic\n import {defineComponent} from 'vue';\n\n export default defineComponent({\n     props: [\n         'key',\n     ]\n });\n ```\n\n ```vue,expect_diagnostic\n <script setup lang=\"ts\">\n defineProps<{\n     ref: string,\n }>();\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script>\n export default {\n     props: {\n         key: String,\n     }\n };\n </script>\n ```\n\n ### Valid\n\n ```js\n import {defineComponent} from 'vue';\n\n export default defineComponent({\n     props: ['foo']\n });\n ```\n\n ```vue\n <script setup>\n defineProps({ foo: String });\n </script>\n ```\n\n ```vue\n <script setup lang=\"ts\">\n defineProps<{\n     foo: string,\n     bar: string,\n }>();\n </script>\n ```\n\n ```vue\n <script>\n export default {\n     props: {\n         foo: String,\n         bar: String,\n     }\n };\n </script>\n ```\n\n"
           },
+          "useConsistentArrowReturn": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useConsistentArrowReturn",
+            "link": "https://biomejs.dev/linter/rules/use-consistent-arrow-return",
+            "recommended": false,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "arrow-body-style"
+                }
+              }
+            ],
+            "docs": " Enforce consistent arrow function bodies.\n\n This rule enforces the use of arrow functions with no body block when the function body consists of a single return statement.\n This rule does not report when:\n - the function body contains directives (e.g. `\"use strict\"`), or\n - the body (or its descendants) contain comments, or\n - the single `return` has no argument (`return;`).\n\n The fix wraps expressions in parentheses when required for correctness (e.g. object literals and sequence expressions).\n\n ## Examples\n\n ### Invalid\n\n```js,expect_diagnostic\n const bar = () => {\n     return {\n         bar: {\n             foo: 1,\n             bar: 2,\n         }\n     };\n };\n ```\n\n ### Valid\n\n ```js\n const foo = () => 0;\n const bar = () => { \"use strict\"; return 1 }\n const baz = () => { /* intentional */ return x }\n const qux = () => ({ a: 1 })   // already concise with parens\n ```\n\n"
+          },
           "useExhaustiveSwitchCases": {
             "deprecated": false,
             "version": "2.0.0",
@@ -6039,7 +6056,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 354
+    "numberOrRules": 355
   },
   "syntax": {
     "languages": {
