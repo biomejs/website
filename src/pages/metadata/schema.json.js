@@ -306,6 +306,22 @@ export function GET() {
 					"required": ["eslintVueJs"],
 					"properties": { "eslintVueJs": { "type": "string" } },
 					"additionalProperties": false
+				},
+				{
+					"description": "Rules from [Eslint Plugin Package.json](https://github.com/JoshuaKGoldberg/eslint-plugin-package-json)",
+					"type": "object",
+					"required": ["eslintPackageJson"],
+					"properties": { "eslintPackageJson": { "type": "string" } },
+					"additionalProperties": false
+				},
+				{
+					"description": "Rules from [Eslint Plugin Package.json Dependencies](https://github.com/idan-at/eslint-plugin-package-json-dependencies)",
+					"type": "object",
+					"required": ["eslintPackageJsonDependencies"],
+					"properties": {
+						"eslintPackageJsonDependencies": { "type": "string" }
+					},
+					"additionalProperties": false
 				}
 			]
 		},

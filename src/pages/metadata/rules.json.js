@@ -4277,6 +4277,31 @@ export function GET() {
         }
       },
       "json": {
+        "nursery": {
+          "noDuplicateDependencies": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noDuplicateDependencies",
+            "link": "https://biomejs.dev/linter/rules/no-duplicate-dependencies",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintPackageJson": "unique-dependencies"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintPackageJsonDependencies": "duplicate-dependencies"
+                }
+              }
+            ],
+            "docs": " Disallow any dependency from being specified more than once (e.g. in `dependencies` and `devDependencies`)\n\n ## Examples\n\n ### Invalid\n\n ```json\n {\n     \"dependencies\": {\n         \"foo\": \"1.0.0\"\n     },\n     \"devDependencies\": {\n         \"foo\": \"1.0.0\"\n     }\n }\n ```\n\n ### Valid\n\n ```json\n {\n     \"dependencies\": {\n         \"foo\": \"1.0.0\"\n     }\n }\n ```\n\n"
+          }
+        },
         "suspicious": {
           "noBiomeFirstException": {
             "deprecated": false,
@@ -6056,7 +6081,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 355
+    "numberOrRules": 356
   },
   "syntax": {
     "languages": {

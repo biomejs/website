@@ -52,6 +52,7 @@ export const LINT_RULES = {
   noDuplicateCase: "noDuplicateCase",
   noDuplicateClassMembers: "noDuplicateClassMembers",
   noDuplicateCustomProperties: "noDuplicateCustomProperties",
+  noDuplicateDependencies: "noDuplicateDependencies",
   noDuplicateElseIf: "noDuplicateElseIf",
   noDuplicateFields: "noDuplicateFields",
   noDuplicateFontNames: "noDuplicateFontNames",
