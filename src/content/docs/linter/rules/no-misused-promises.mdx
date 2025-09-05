@@ -54,55 +54,43 @@ This rule disallows using Promises in such places.
 
 ### Invalid
 
-```file=promise-in-condition.js
+```js
 const promise = Promise.resolve('value');
 if (promise) { /* This branch will always execute */ }
 ```
 
-<pre class="language-text"><code class="language-text"></code></pre>
-
-```file=promise-in-ternary-condition.js
+```js
 const promise = Promise.resolve('value');
 const val = promise ? 123 : 456; // Always evaluates to `123`.
 ```
 
-<pre class="language-text"><code class="language-text"></code></pre>
-
-```file=promise-in-filter.js
+```js
 // The following filter has no effect:
 const promise = Promise.resolve('value');
 [1, 2, 3].filter(() => promise);
 ```
 
-<pre class="language-text"><code class="language-text"></code></pre>
-
-```file=promise-while-condition.js
+```js
 const promise = Promise.resolve('value');
 while (promise) { /* This is an endless loop */ }
 ```
 
-<pre class="language-text"><code class="language-text"></code></pre>
-
-```file=spread-promise.js
+```js
 // Using a `Promise` as an iterable expands to nothing:
 const getData = () => fetch('/');
 console.log({ foo: 42, ...getData() });
 ```
 
-<pre class="language-text"><code class="language-text"></code></pre>
-
-```file=promise-in-forEach.js
+```js
 // These `fetch`-es are not `await`-ed in order:
 [1, 2, 3].forEach(async value => {
     await fetch(`/${value}`);
 });
 ```
 
-<pre class="language-text"><code class="language-text"></code></pre>
-
 ### Valid
 
-```file=valid-promises.js
+```js
 const promise = Promise.resolve('value');
 if (await promise) { /* Do something */ }
 

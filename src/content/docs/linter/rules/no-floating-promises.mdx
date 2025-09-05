@@ -59,16 +59,14 @@ one of the following ways:
 
 ### Invalid
 
-```file=async-fn.ts
+```ts
 async function returnsPromise(): Promise<string> {
   return 'value';
 }
 returnsPromise().then(() => {});
 ```
 
-<pre class="language-text"><code class="language-text"></code></pre>
-
-```file=async-fn2.ts
+```ts
 const returnsPromise = async (): Promise<string> => {
   return 'value';
 }
@@ -77,22 +75,16 @@ async function returnsPromiseInAsyncFunction() {
 }
 ```
 
-<pre class="language-text"><code class="language-text"></code></pre>
-
-```file=new-promise.js
+```ts
 const promise = new Promise((resolve) => resolve('value'));
 promise.then(() => { }).finally(() => { });
 ```
 
-<pre class="language-text"><code class="language-text"></code></pre>
-
-```file=promise-all.js
+```ts
 Promise.all([p1, p2, p3])
 ```
 
-<pre class="language-text"><code class="language-text"></code></pre>
-
-```file=async-method.ts
+```ts
 class Api {
   async returnsPromise(): Promise<string> {
     return 'value';
@@ -103,9 +95,7 @@ class Api {
 }
 ```
 
-<pre class="language-text"><code class="language-text"></code></pre>
-
-```file=async-super-method.ts
+```ts
 class Parent {
   async returnsPromise(): Promise<string> {
     return 'value';
@@ -119,9 +109,7 @@ class Child extends Parent {
 }
 ```
 
-<pre class="language-text"><code class="language-text"></code></pre>
-
-```file=async-method2.ts
+```ts
 class Api {
   async returnsPromise(): Promise<string> {
     return 'value';
@@ -131,9 +119,7 @@ const api = new Api();
 api.returnsPromise().then(() => {}).finally(() => {});
 ```
 
-<pre class="language-text"><code class="language-text"></code></pre>
-
-```file=async-object-method.ts
+```ts
 const obj = {
   async returnsPromise(): Promise<string> {
     return 'value';
@@ -143,9 +129,7 @@ const obj = {
 obj.returnsPromise();
 ```
 
-<pre class="language-text"><code class="language-text"></code></pre>
-
-```file=async-prop.ts
+```ts
 type Props = {
   returnsPromise: () => Promise<void>;
 };
@@ -155,11 +139,9 @@ async function testCallingReturnsPromise(props: Props) {
 }
 ```
 
-<pre class="language-text"><code class="language-text"></code></pre>
-
 ### Valid
 
-```file=valid-examples.ts
+```ts
 async function returnsPromise(): Promise<string> {
   return 'value';
 }
@@ -187,7 +169,9 @@ class Api {
     await this.returnsPromise();
   }
 }
+```
 
+```ts
 type Props = {
   returnsPromise: () => Promise<void>;
 };

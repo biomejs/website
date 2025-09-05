@@ -55,35 +55,24 @@ you may set [`javascript.preferences.importModuleSpecifier` and `typescript.pref
 
 ### Invalid
 
-```file=package.json
-{
-  "dependencies": {}
-}
-```
-
-```file=index.js
+```js
 import "vite";
 ```
 
-<pre class="language-text"><code class="language-text"></code></pre>
-
 ### Valid
 
-```file=package.json
-{
-  "dependencies": {
-    "vite": "*"
-  }
-}
+```js
+import { A } from "./local.js";
 ```
 
-```file=index.js
-import "vite"; // package is correctly declared
+```js
+import assert from "node:assert";
+```
 
-import assert from "node:assert"; // Node imports don't need declaration
+If you have declared `type-fest` in the `devDependencies` section:
 
-import { A } from "./local.js"; // relative imports don't trigger the rule
-import { B } from "#alias"; // same goes for aliases
+```js
+import type { SetRequired } from "type-fest";
 ```
 
 ## Options
@@ -120,56 +109,15 @@ When using an array of globs, the setting will be set to `true` (no errors repor
 if the name of the file being linted (i.e. not the imported file/module) matches a single glob
 in the array, and `false` otherwise.
 
-### Example using the `devDependencies` option
+In the following example, only test files can use dependencies in `devDependencies` section.
+`dependencies`, `peerDependencies`, and `optionalDependencies` are always available.
 
-In this example, only test files can use dependencies in the
-`devDependencies` section. `dependencies`, `peerDependencies`, and
-`optionalDependencies` are always available.
-
-```json title='biome.json'
+```json
 {
-	"linter": {
-		"rules": {
-			"correctness": {
-				"noUndeclaredDependencies": {
-					"options": {
-						"devDependencies": [
-							"**/tests/*.test.js",
-							"**/tests/*.spec.js"
-						]
-					}
-				}
-			}
-		}
-	}
-}
-
-```
-
-**`package.json`**
-
-```file=package.json
-{
-  "devDependencies": {
-    "vite": "*"
+  "options": {
+    "devDependencies": ["tests/*.test.js", "tests/*.spec.js"]
   }
 }
-```
-
-**`src/index.js`**
-
-```file=src/index.js
-// cannot import from a non-test file
-import "vite";
-```
-
-<pre class="language-text"><code class="language-text"></code></pre>
-
-**`tests/foo.test.js`**
-
-```file=tests/foo.test.js
-// this works, because the file matches a glob from the options
-import "vite";
 ```
 
 ## Related links
