@@ -301,6 +301,7 @@ export default defineConfig({
 								"zh-CN": "从 ESLint 和 Prettier 迁移",
 								uk: "Міграція з ESLint & Prettier",
 								ru: "Миграция с ESLint & Prettier",
+								"pt-BR": "Migre do ESLint e Prettier",
 							},
 						},
 						{
