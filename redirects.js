@@ -54,6 +54,7 @@ export default {
   '/linter/rules/noDuplicateCase': '/linter/rules/no-duplicate-case',
   '/linter/rules/noDuplicateClassMembers': '/linter/rules/no-duplicate-class-members',
   '/linter/rules/noDuplicateCustomProperties': '/linter/rules/no-duplicate-custom-properties',
+  '/linter/rules/noDuplicateDependencies': '/linter/rules/no-duplicate-dependencies',
   '/linter/rules/noDuplicateElseIf': '/linter/rules/no-duplicate-else-if',
   '/linter/rules/noDuplicateFields': '/linter/rules/no-duplicate-fields',
   '/linter/rules/noDuplicateFontNames': '/linter/rules/no-duplicate-font-names',
