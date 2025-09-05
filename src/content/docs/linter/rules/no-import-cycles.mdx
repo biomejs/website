@@ -63,7 +63,7 @@ cycles, you may not want this rule enabled.
 
 **`foobar.js`**
 
-```file=foobar.js
+```js title='foobar.js'
  import { baz } from "./baz.js";
 
 export function foo() {
@@ -75,11 +75,11 @@ export function bar() {
 }
 ```
 
-<pre class="language-text"><code class="language-text"></code></pre>
+<pre class="language-text"><code class="language-text"><a href="file:///foobar.js">/foobar.js</a>:1:22 <a href="https://biomejs.dev/linter/rules/no-import-cycles">lint/nursery/noImportCycles</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">This import is part of a cycle.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong> import &#123; baz &#125; from &quot;./baz.js&quot;;<br />   <strong>   │ </strong>                     <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />    <strong>3 │ </strong>export function foo() &#123;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This import resolves to </span><span style="color: lightgreen;"><span style="color: lightgreen;">/baz.js</span></span><span style="color: lightgreen;"><br /></span>    <span style="color: lightgreen;">    ... which imports </span><span style="color: lightgreen;"><span style="color: lightgreen;">/foobar.js</span></span><span style="color: lightgreen;"><br /></span>    <span style="color: lightgreen;">    ... which is the file we're importing from.</span><br />  <br /></code></pre>
 
 **`baz.js`**
 
-```file=baz.js
+```js title='baz.js'
 import { bar } from "./foobar.js";
 
 export function baz() {
@@ -87,13 +87,13 @@ export function baz() {
 }
 ```
 
-<pre class="language-text"><code class="language-text"></code></pre>
+<pre class="language-text"><code class="language-text"><a href="file:///baz.js">/baz.js</a>:1:21 <a href="https://biomejs.dev/linter/rules/no-import-cycles">lint/nursery/noImportCycles</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">This import is part of a cycle.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>import &#123; bar &#125; from &quot;./foobar.js&quot;;<br />   <strong>   │ </strong>                    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />    <strong>3 │ </strong>export function baz() &#123;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This import resolves to </span><span style="color: lightgreen;"><span style="color: lightgreen;">/foobar.js</span></span><span style="color: lightgreen;"><br /></span>    <span style="color: lightgreen;">    ... which imports </span><span style="color: lightgreen;"><span style="color: lightgreen;">/baz.js</span></span><span style="color: lightgreen;"><br /></span>    <span style="color: lightgreen;">    ... which is the file we're importing from.</span><br />  <br /></code></pre>
 
 ### Valid
 
 **`foo.js`**
 
-```file=foo.js
+```js title='foo.js'
 import { baz } from "./baz.js";
 
 export function foo() {
@@ -103,7 +103,7 @@ export function foo() {
 
 **`bar.js`**
 
-```file=bar.js
+```js title='bar.js'
 export function bar() {
     console.log("foobar");
 }
@@ -111,7 +111,7 @@ export function bar() {
 
 **`baz.js`**
 
-```file=baz.js
+```js title='baz.js'
 import { bar } from "./bar.js";
 
 export function baz() {
@@ -121,7 +121,7 @@ export function baz() {
 
 **`types.ts`**
 
-```file=types.ts
+```ts title='types.ts'
 import type { bar } from "./qux.ts";
 
 export type Foo = {
@@ -131,7 +131,7 @@ export type Foo = {
 
 **`qux.ts`**
 
-```file=qux.ts
+```ts title='qux.ts'
 import type { Foo } from "./types.ts";
 
 export function bar(foo: Foo) {
