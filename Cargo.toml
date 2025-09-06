@@ -39,6 +39,8 @@ biome_js_analyze = { git = "https://github.com/biomejs/biome.git", rev = "53ff5a
 biome_js_formatter = { git = "https://github.com/biomejs/biome.git", rev = "53ff5ae34428f042bb5b80c19862c9cf69fc6359" }
 biome_js_parser = { git = "https://github.com/biomejs/biome.git", rev = "53ff5ae34428f042bb5b80c19862c9cf69fc6359" }
 biome_js_syntax = { git = "https://github.com/biomejs/biome.git", rev = "53ff5ae34428f042bb5b80c19862c9cf69fc6359" }
+biome_module_graph = { git = "https://github.com/biomejs/biome.git", rev = "53ff5ae34428f042bb5b80c19862c9cf69fc6359" }
+biome_project_layout = { git = "https://github.com/biomejs/biome.git", rev = "53ff5ae34428f042bb5b80c19862c9cf69fc6359" }
 biome_json_analyze = { git = "https://github.com/biomejs/biome.git", rev = "53ff5ae34428f042bb5b80c19862c9cf69fc6359" }
 biome_json_factory = { git = "https://github.com/biomejs/biome.git", rev = "53ff5ae34428f042bb5b80c19862c9cf69fc6359" }
 biome_json_formatter = { git = "https://github.com/biomejs/biome.git", rev = "53ff5ae34428f042bb5b80c19862c9cf69fc6359" }
@@ -47,6 +49,7 @@ biome_json_syntax = { git = "https://github.com/biomejs/biome.git", rev = "53ff5
 biome_rowan = { git = "https://github.com/biomejs/biome.git", rev = "53ff5ae34428f042bb5b80c19862c9cf69fc6359" }
 biome_service = { git = "https://github.com/biomejs/biome.git", rev = "53ff5ae34428f042bb5b80c19862c9cf69fc6359" }
 biome_string_case = { git = "https://github.com/biomejs/biome.git", rev = "53ff5ae34428f042bb5b80c19862c9cf69fc6359" }
+biome_test_utils = { git = "https://github.com/biomejs/biome.git", rev = "53ff5ae34428f042bb5b80c19862c9cf69fc6359" }
 biome_text_edit = { git = "https://github.com/biomejs/biome.git", rev = "53ff5ae34428f042bb5b80c19862c9cf69fc6359" }
 bpaf = { version = "0.9.20", features = ["docgen"] }
 # Needed to fix some weird dependency
