@@ -1211,8 +1211,8 @@ fn write_documentation(
                 } else if let Some(file_path) = &test.file_path {
                     write!(content, " title='{file_path}'")?;
 
-                    // lazy parse the file system if we encounter a file= attribute
-                    // so that we only did a second parse pass on files that actually use it
+                    // Lazy parse the in-memory file system only when we encounter
+                    // a file=<path> attribute to avoid unnecessary work for single-file tests
                     if file_system.is_empty() {
                         file_system = parse_file_system(docs)?;
                     }
@@ -1250,8 +1250,8 @@ fn write_documentation(
                             &block,
                             &last_options,
                             &mut buffer,
-                            ToPrintKind::Diagnostics,
                             file_system.get(&section).unwrap_or(&HashMap::new()),
+                            ToPrintKind::Diagnostics,
                         )
                         .context("snapshot test failed")?;
                     } else if test.expect_diff {
@@ -1270,8 +1270,8 @@ fn write_documentation(
                             &block,
                             &last_options,
                             &mut buffer,
-                            ToPrintKind::Actions,
                             file_system.get(&section).unwrap_or(&HashMap::new()),
+                            ToPrintKind::Actions,
                         )
                         .context("snapshot test failed")?;
                     } else {
@@ -1644,6 +1644,7 @@ fn write_action<L: ServiceLanguage>(
 /// Parse and analyze the provided code block, and asserts that it emits
 /// exactly zero or one diagnostic depending on the value of `expect_diagnostic`.
 /// That diagnostic is then emitted as text into the `content` buffer
+#[allow(clippy::too_many_arguments)]
 fn print_diagnostics_or_actions(
     group: &'static str,
     rule: &'static str,
@@ -1651,16 +1652,12 @@ fn print_diagnostics_or_actions(
     code: &str,
     config: &Option<Configuration>,
     buffer: &mut HTML<&mut Vec<u8>>,
-    to_print_kind: ToPrintKind,
     file_system: &HashMap<String, String>,
+    to_print_kind: ToPrintKind,
 ) -> Result<()> {
     let file_path = {
         if let Some(file_path) = &test.file_path {
-            let path = file_path
-                .trim_start_matches("./")
-                .trim_start_matches("../")
-                .trim();
-            format!("/{path}")
+            normalize_file_path(file_path)
         } else {
             format!("code-block.{}", test.tag)
         }
@@ -2026,16 +2023,22 @@ fn extract_summary_from_rule(content: &str) -> String {
     events_to_text(events)
 }
 
+/// Parses markdown documentation to extract file systems scoped by section.
+///
+/// This function performs a single pass through the markdown, collecting
+/// code blocks with `file=<path>` attributes and organizing them by
+/// their containing section (delineated by main headings).
+///
+/// To match the way we do rule checking in the Biome repo, we scope each
+/// file system to a markdown section. This allows lint rules to access
+/// multiple related files within the same documentation section while
+/// keeping different examples isolated.
 fn parse_file_system(docs: &'static str) -> Result<HashMap<usize, HashMap<String, String>>> {
     let parser = Parser::new(docs);
 
-    // To match the way we do the rule checking in the Biome repo we
-    // scope each file system to a markdown section delineated by headings.
-    // We parse all the sections in one single pass so that we don't have
-    // to do a parse for each section.
+    // HashMap to store files organized by their containing markdown section
     let mut files: HashMap<usize, HashMap<String, String>> = HashMap::new();
-    // This section counter is used to sync the correct file system with the
-    // the code test in the render pass.
+    // Section counter synchronized with the main rendering pass
     let mut section = 0;
 
     let mut current_file = None;
@@ -2051,7 +2054,7 @@ fn parse_file_system(docs: &'static str) -> Result<HashMap<usize, HashMap<String
                 for token in tokens {
                     if let Some(file) = token.strip_prefix("file=") {
                         if file.is_empty() {
-                            bail!("The 'file' attribute must be followed by a file path");
+                            bail!("The 'file' attribute must be followed by a non-empty file path");
                         }
 
                         current_file = Some((file.to_string(), String::new()));
@@ -2069,6 +2072,8 @@ fn parse_file_system(docs: &'static str) -> Result<HashMap<usize, HashMap<String
                 }
             }
             Event::Start(Tag::Heading { level, .. }) => {
+                // Increment section counter when we encounter main headings
+                // This keeps file systems scoped to their documentation sections
                 if is_main_heading(level) {
                     section += 1;
                 }
@@ -2103,17 +2108,15 @@ fn get_test_services(
     let mut added_paths = Vec::with_capacity(files.len());
 
     for (path, src) in files.iter() {
-        let path = path
-            .trim_start_matches("./")
-            .trim_start_matches("../")
-            .trim();
-        let path = format!("/{path}");
+        let path = normalize_file_path(path);
 
         let path_buf = Utf8PathBuf::from(path);
         let biome_path = BiomePath::new(&path_buf);
+
         if biome_path.is_manifest() {
             match biome_path.file_name() {
                 Some("package.json") => {
+                    // Parse package.json and register it with the project layout
                     let parsed = parse_json(src, JsonParserOptions::default());
                     layout.insert_serialized_node_manifest(
                         path_buf.parent().unwrap().into(),
@@ -2121,6 +2124,7 @@ fn get_test_services(
                     );
                 }
                 Some("tsconfig.json") => {
+                    // Parse tsconfig.json with comment/trailing comma support
                     let parsed = parse_json(
                         src,
                         JsonParserOptions::default()
@@ -2145,7 +2149,14 @@ fn get_test_services(
     let added_paths = get_added_paths(&fs, &added_paths);
     module_graph.update_graph_for_js_paths(&fs, &layout, &added_paths, &[]);
 
-    dbg!(&module_graph);
-
     JsAnalyzerServices::from((Arc::new(module_graph), Arc::new(layout), file_source))
+}
+
+/// Normalize a file path to an absolute path for easier module graph path resolution.
+fn normalize_file_path(path: &str) -> String {
+    let path = path
+        .trim_start_matches("./")
+        .trim_start_matches("../")
+        .trim();
+    format!("/{path}")
 }
