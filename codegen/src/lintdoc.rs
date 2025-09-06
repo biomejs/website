@@ -1498,6 +1498,9 @@ struct CodeBlockTest {
     // The indices of lines that should be hidden from the public documentation.
     hidden_lines: Vec<u32>,
 
+    /// If a file path is provided using the `file=<path>` attribute, it will be used
+    /// as the code block's title. It will also be used in generating an in-memory
+    /// file system for multi-file lint evaluation when rendering diagnostics.
     file_path: Option<String>,
 }
 
