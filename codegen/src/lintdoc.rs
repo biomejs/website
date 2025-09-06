@@ -2023,12 +2023,7 @@ fn extract_summary_from_rule(content: &str) -> String {
     events_to_text(events)
 }
 
-/// Parses markdown documentation to extract file systems scoped by section.
-///
-/// This function performs a single pass through the markdown, collecting
-/// code blocks with `file=<path>` attributes and organizing them by
-/// their containing section (delineated by main headings).
-///
+/// Parses markdown documentation to extract in-memory file systems scoped by section.
 /// To match the way we do rule checking in the Biome repo, we scope each
 /// file system to a markdown section. This allows lint rules to access
 /// multiple related files within the same documentation section while
@@ -2072,8 +2067,6 @@ fn parse_file_system(docs: &'static str) -> Result<HashMap<usize, HashMap<String
                 }
             }
             Event::Start(Tag::Heading { level, .. }) => {
-                // Increment section counter when we encounter main headings
-                // This keeps file systems scoped to their documentation sections
                 if is_main_heading(level) {
                     section += 1;
                 }
@@ -2154,9 +2147,6 @@ fn get_test_services(
 
 /// Normalize a file path to an absolute path for easier module graph path resolution.
 fn normalize_file_path(path: &str) -> String {
-    let path = path
-        .trim_start_matches("./")
-        .trim_start_matches("../")
-        .trim();
+    let path = path.trim_start_matches("./").trim_start_matches("../");
     format!("/{path}")
 }
