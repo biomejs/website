@@ -81,6 +81,21 @@ class UsedMember {
 }
 ```
 
+## Caveats
+
+The rule currently considers that all TypeScript private members are used if it encounters a computed access.
+In the following example `member` is not reported. It is considered as used.
+
+```ts
+ class TsBioo {
+   private member: number;
+
+   set_with_name(name: string, value: number) {
+     this[name] = value;
+   }
+ }
+```
+
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)
