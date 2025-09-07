@@ -2067,7 +2067,7 @@ export function GET() {
           },
           "noUselessCatchBinding": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.2.3",
             "name": "noUselessCatchBinding",
             "link": "https://biomejs.dev/linter/rules/no-useless-catch-binding",
             "recommended": false,
@@ -2150,7 +2150,7 @@ export function GET() {
           },
           "useConsistentArrowReturn": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.2.3",
             "name": "useConsistentArrowReturn",
             "link": "https://biomejs.dev/linter/rules/use-consistent-arrow-return",
             "recommended": false,
@@ -2216,7 +2216,7 @@ export function GET() {
           },
           "useVueMultiWordComponentNames": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.2.3",
             "name": "useVueMultiWordComponentNames",
             "link": "https://biomejs.dev/linter/rules/use-vue-multi-word-component-names",
             "recommended": true,
@@ -4305,7 +4305,7 @@ export function GET() {
         "suspicious": {
           "noBiomeFirstException": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.2.0",
             "name": "noBiomeFirstException",
             "link": "https://biomejs.dev/linter/rules/no-biome-first-exception",
             "recommended": true,
@@ -4332,7 +4332,7 @@ export function GET() {
           },
           "useBiomeIgnoreFolder": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.2.0",
             "name": "useBiomeIgnoreFolder",
             "link": "https://biomejs.dev/linter/rules/use-biome-ignore-folder",
             "recommended": true,
