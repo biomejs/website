@@ -116,6 +116,7 @@ export default {
   '/linter/rules/noInvalidPositionAtImportRule': '/linter/rules/no-invalid-position-at-import-rule',
   '/linter/rules/noInvalidUseBeforeDeclaration': '/linter/rules/no-invalid-use-before-declaration',
   '/linter/rules/noIrregularWhitespace': '/linter/rules/no-irregular-whitespace',
+  '/linter/rules/noJsxLiterals': '/linter/rules/no-jsx-literals',
   '/linter/rules/noLabelVar': '/linter/rules/no-label-var',
   '/linter/rules/noLabelWithoutControl': '/linter/rules/no-label-without-control',
   '/linter/rules/noMagicNumbers': '/linter/rules/no-magic-numbers',

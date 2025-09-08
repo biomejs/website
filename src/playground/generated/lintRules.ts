@@ -114,6 +114,7 @@ export const LINT_RULES = {
   noInvalidPositionAtImportRule: "noInvalidPositionAtImportRule",
   noInvalidUseBeforeDeclaration: "noInvalidUseBeforeDeclaration",
   noIrregularWhitespace: "noIrregularWhitespace",
+  noJsxLiterals: "noJsxLiterals",
   noLabelVar: "noLabelVar",
   noLabelWithoutControl: "noLabelWithoutControl",
   noMagicNumbers: "noMagicNumbers",
