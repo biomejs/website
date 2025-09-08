@@ -120,13 +120,15 @@ also index source files if one or more rules from the
 [project domain](/linter/domains/#project) are enabled.
 
 The scanner respects both `files.includes` and the ignored patterns from
-`.gitignore` files, but there is one exception to be aware of: If any rule from
-the project domain is enabled, the scanner will index source files _including
-their dependencies_. This means that files that are ignored as part of
-`files.includes` may still get indexed by the scanner, as long as there is
-another included file that that imports those files. And this also means that
-`.d.ts` files and `package.json` manifests inside `node_modules/` may still get
-indexed too.
+`.gitignore` files, but there are two exceptions to be aware of:
+* Special files such as `biome.json` and `.gitignore` take priority over any
+  ignored patterns in `files.includes`.
+* If any rule from the project domain is enabled, the scanner will index source
+  files _including their dependencies_. This means that files that are ignored
+  as part of `files.includes` may still get indexed by the scanner, as long as
+  there is another included file that imports those files. And this also
+  means that `.d.ts` files and `package.json` manifests inside `node_modules/`
+  may still get indexed too.
 
 If you want to explicitly force some files to be ignored by the scanner, you can
 do so using a so-called _force-ignore pattern_. A force-ignore pattern looks
@@ -149,6 +151,9 @@ files, such as `build/` and `dist/`. For such folders, it is highly unlikely
 that indexing has any useful benefits. For folders containing generated files,
 we advise using regular ignore patterns so that type information can still be
 extracted from the files.
+
+For nested `biome.json` files as well as `.gitignore` files that you wish to
+explicitly ignore, the force-ignore syntax must also be used.
 
 ### `files.ignoreUnknown`
 
