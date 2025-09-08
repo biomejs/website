@@ -2026,19 +2026,23 @@ fn extract_summary_from_rule(content: &str) -> String {
     events_to_text(events)
 }
 
-/// Parses markdown documentation to extract in-memory file systems scoped by section.
-/// To match the way we do rule checking in the Biome repo, we scope each
-/// file system to a markdown section. This allows lint rules to access
-/// multiple related files within the same documentation section while
-/// keeping different examples isolated.
+/// Parses markdown documentation and searches for code blocks with the `file` attribute. Found
+/// code blocks are then used to generate an  in-memory file system to be used by lint rules the
+/// evaluate multi-file scenarios (for example [detecting circular imports](https://biomejs.dev/linter/rules/no-import-cycles)).
+/// Each file system is organized and scoped by content sections in the Markdown documentation, delineated
+/// by headings.
+/// The reason we collect all the sections in one pass is to prevent having
+/// to run multiple parsing passes on the same markdown document.
 fn parse_file_system(docs: &'static str) -> Result<HashMap<usize, HashMap<String, String>>> {
     let parser = Parser::new(docs);
 
     // HashMap to store files organized by their containing markdown section
     let mut files: HashMap<usize, HashMap<String, String>> = HashMap::new();
     // Section counter synchronized with the main rendering pass
-    let mut section = 0;
+    let mut content_section = 0;
 
+    // If any code block is found with the `file` attribute, it will be stored here to be added
+    // to the current content section's file system
     let mut current_file = None;
 
     for event in parser {
@@ -2050,6 +2054,8 @@ fn parse_file_system(docs: &'static str) -> Result<HashMap<usize, HashMap<String
                     .filter(|token| !token.is_empty());
 
                 for token in tokens {
+                    // If we detect a file attribute set a current file so that we can extract
+                    // its content to be added to the current content section's file system
                     if let Some(file) = token.strip_prefix("file=") {
                         if file.is_empty() {
                             bail!("The 'file' attribute must be followed by a non-empty file path");
@@ -2061,8 +2067,13 @@ fn parse_file_system(docs: &'static str) -> Result<HashMap<usize, HashMap<String
             }
             Event::End(TagEnd::CodeBlock) => {
                 if let Some((path, content)) = current_file.take() {
-                    files.entry(section).or_default().insert(path, content);
+                    files
+                        .entry(content_section)
+                        .or_default()
+                        .insert(path, content);
                 }
+
+                current_file = None;
             }
             Event::Text(text) => {
                 if let Some((_, content)) = &mut current_file {
@@ -2070,8 +2081,10 @@ fn parse_file_system(docs: &'static str) -> Result<HashMap<usize, HashMap<String
                 }
             }
             Event::Start(Tag::Heading { level, .. }) => {
+                // When we encounter a heading we start a new content section to scope any file
+                // system to that section
                 if is_main_heading(level) {
-                    section += 1;
+                    content_section += 1;
                 }
             }
             _ => {}
