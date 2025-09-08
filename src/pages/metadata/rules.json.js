@@ -5079,6 +5079,23 @@ export function GET() {
           }
         },
         "nursery": {
+          "noJsxLiterals": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noJsxLiterals",
+            "link": "https://biomejs.dev/linter/rules/no-jsx-literals",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReact": "jsx-no-literals"
+                }
+              }
+            ],
+            "docs": " Disallow string literals inside JSX elements.\n\n This rule discourages the use of\n string literals directly within JSX elements. String literals in JSX can make code harder\n to maintain, especially in applications that require internationalization or dynamic content.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div>Hello World</div>\n ```\n\n ```jsx,expect_diagnostic\n <>Welcome to our site</>\n ```\n\n ```jsx,expect_diagnostic\n <span>\n   Please enter your name\n </span>\n ```\n\n ### Valid\n\n ```jsx\n <div>{'Hello World'}</div>\n ```\n\n ```jsx\n <>{'Welcome to our site'}</>\n ```\n\n ```jsx\n <span>\n   {'Please enter your name'}\n </span>\n ```\n\n ```jsx\n <div>{`Hello ${name}`}</div>\n ```\n\n ## Options\n\n ### `noStrings`\n\n When enabled, the rule will also flag string literals inside JSX expressions and attributes.\n\n > **Default:** `false`\n\n ```json,options\n {\n   \"options\": {\n     \"noStrings\": true\n   }\n }\n ```\n\n ```jsx,expect_diagnostic,use_options\n <span>\n   {'Please enter your name'}\n </span>\n ```\n ```jsx,expect_diagnostic,use_options\n <Component title=\"Hello!\" />\n ```\n\n\n\n ### `allowedStrings`\n\n An array of strings that are allowed as literals. This can be useful for common words\n or characters that don't need to be wrapped in expressions.\n\n ```json,options\n {\n   \"options\": {\n     \"allowedStrings\": [\"Hello\", \"&nbsp;\", \"·\"]\n   }\n }\n ```\n\n ```jsx,use_options\n <>\n   <div>Hello</div>\n   <div>&nbsp;</div>\n   <div>·</div>\n </>\n ```\n\n ### `ignoreProps`\n\n When enabled, the rule will ignore string literals used as prop values.\n\n > **Default:** `false`\n\n ```json,options\n {\n   \"options\": {\n     \"ignoreProps\": true\n   }\n }\n ```\n\n ```jsx,use_options\n <>\n   <Component title=\"Welcome\" />\n   <input placeholder=\"Enter name\" />\n </>\n ```\n\n"
+          },
           "noQwikUseVisibleTask": {
             "deprecated": false,
             "version": "2.1.4",
@@ -6081,7 +6098,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 356
+    "numberOrRules": 357
   },
   "syntax": {
     "languages": {

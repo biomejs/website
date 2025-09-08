@@ -1,0 +1,204 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noJsxLiterals
+description: Learn more about noJsxLiterals
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JSX and TSX" icon="seti:javascript">
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noJsxLiterals`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`react/jsx-no-literals`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-no-literals.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noJsxLiterals": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow string literals inside JSX elements.
+
+This rule discourages the use of
+string literals directly within JSX elements. String literals in JSX can make code harder
+to maintain, especially in applications that require internationalization or dynamic content.
+
+## Examples
+
+### Invalid
+
+```jsx
+<div>Hello World</div>
+```
+
+<pre class="language-text"><code class="language-text">code-block.jsx:1:6 <a href="https://biomejs.dev/linter/rules/no-jsx-literals">lint/nursery/noJsxLiterals</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Incorrect use of string literal detected.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;div&gt;Hello World&lt;/div&gt;<br />   <strong>   │ </strong>     <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">String literals in JSX can make code harder to maintain and internationalize.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Consider avoiding hardcoded strings entirely.</span><br />  <br /></code></pre>
+
+```jsx
+<>Welcome to our site</>
+```
+
+<pre class="language-text"><code class="language-text">code-block.jsx:1:3 <a href="https://biomejs.dev/linter/rules/no-jsx-literals">lint/nursery/noJsxLiterals</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Incorrect use of string literal detected.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;&gt;Welcome to our site&lt;/&gt;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">String literals in JSX can make code harder to maintain and internationalize.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Consider avoiding hardcoded strings entirely.</span><br />  <br /></code></pre>
+
+```jsx
+<span>
+  Please enter your name
+</span>
+```
+
+<pre class="language-text"><code class="language-text">code-block.jsx:1:7 <a href="https://biomejs.dev/linter/rules/no-jsx-literals">lint/nursery/noJsxLiterals</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Incorrect use of string literal detected.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;span&gt;<br />   <strong>   │ </strong>      <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  Please enter your name<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>&lt;/span&gt;<br />   <strong>   │ </strong><br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">String literals in JSX can make code harder to maintain and internationalize.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Consider avoiding hardcoded strings entirely.</span><br />  <br /></code></pre>
+
+### Valid
+
+```jsx
+<div>{'Hello World'}</div>
+```
+
+```jsx
+<>{'Welcome to our site'}</>
+```
+
+```jsx
+<span>
+  {'Please enter your name'}
+</span>
+```
+
+```jsx
+<div>{`Hello ${name}`}</div>
+```
+
+## Options
+
+### `noStrings`
+
+When enabled, the rule will also flag string literals inside JSX expressions and attributes.
+
+>**Default:** `false`
+
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noJsxLiterals": {
+					"options": {
+						"noStrings": true
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```jsx
+<span>
+  {'Please enter your name'}
+</span>
+```
+
+<pre class="language-text"><code class="language-text"></code></pre>
+
+```jsx
+<Component title="Hello!" />
+```
+
+<pre class="language-text"><code class="language-text"></code></pre>
+
+### `allowedStrings`
+
+An array of strings that are allowed as literals. This can be useful for common words
+or characters that don't need to be wrapped in expressions.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noJsxLiterals": {
+					"options": {
+						"allowedStrings": [
+							"Hello",
+							"&nbsp;",
+							"·"
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```jsx
+<>
+  <div>Hello</div>
+  <div>&nbsp;</div>
+  <div>·</div>
+</>
+```
+
+### `ignoreProps`
+
+When enabled, the rule will ignore string literals used as prop values.
+
+>**Default:** `false`
+
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noJsxLiterals": {
+					"options": {
+						"ignoreProps": true
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```jsx
+<>
+  <Component title="Welcome" />
+  <input placeholder="Enter name" />
+</>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_jsx_literals.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noJsxLiterals)
+
+</TabItem>
+</Tabs>
+
