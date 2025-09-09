@@ -4280,7 +4280,7 @@ export function GET() {
         "nursery": {
           "noDuplicateDependencies": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.2.4",
             "name": "noDuplicateDependencies",
             "link": "https://biomejs.dev/linter/rules/no-duplicate-dependencies",
             "recommended": false,
@@ -5081,7 +5081,7 @@ export function GET() {
         "nursery": {
           "noJsxLiterals": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.2.4",
             "name": "noJsxLiterals",
             "link": "https://biomejs.dev/linter/rules/no-jsx-literals",
             "recommended": false,
