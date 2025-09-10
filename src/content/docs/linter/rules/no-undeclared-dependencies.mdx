@@ -146,8 +146,6 @@ In this example, only test files can use dependencies in the
 
 ```
 
-**`package.json`**
-
 ```json title='package.json'
 {
   "devDependencies": {
@@ -156,16 +154,12 @@ In this example, only test files can use dependencies in the
 }
 ```
 
-**`src/index.js`**
-
 ```js title='src/index.js'
 // cannot import from a non-test file
 import "vite";
 ```
 
 <pre class="language-text"><code class="language-text"></code></pre>
-
-**`tests/foo.test.js`**
 
 ```js title='tests/foo.test.js'
 // this works, because the file matches a glob from the options

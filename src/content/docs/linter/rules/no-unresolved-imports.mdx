@@ -56,24 +56,24 @@ expressions or CommonJS `require()` calls.
 
 ### Invalid
 
-**`foo.js`**
-
-```js
+```js title='foo.js'
 export function foo() {};
 ```
 
-**`bar.js`**
-
-```js
+```js title='bar.js'
 // Attempt to import symbol with a typo:
 import { fooo } from "./foo.js";
 ```
 
+<pre class="language-text"><code class="language-text"><a href="file:///bar.js">/bar.js</a>:2:10 <a href="https://biomejs.dev/linter/rules/no-unresolved-imports">lint/nursery/noUnresolvedImports</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The path </span><span style="color: lightgreen;"><strong>./foo.js</strong></span><span style="color: lightgreen;"> has no export named </span><span style="color: lightgreen;"><strong>fooo</strong></span><span style="color: lightgreen;">.</span><br />  <br />    <strong>1 │ </strong>// Attempt to import symbol with a typo:<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>import &#123; fooo &#125; from &quot;./foo.js&quot;;<br />   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Make sure that the path is correct and that you're importing the right symbol.</span><br />  <br /></code></pre>
+
 ### Valid
 
-**`bar.js`**
+```js title='foo.js'
+export function foo() {};
+```
 
-```js
+```js title='bar.js'
 // Fixed typo:
 import { foo } from "./foo.js";
 ```
