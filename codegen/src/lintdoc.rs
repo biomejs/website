@@ -23,24 +23,30 @@ use biome_deserialize::json::deserialize_from_json_ast;
 use biome_diagnostics::termcolor::NoColor;
 use biome_diagnostics::{Diagnostic, DiagnosticExt, PrintDiagnostic, Severity, Visit};
 use biome_formatter::{Expand, LineWidth};
-use biome_fs::BiomePath;
+use biome_fs::{BiomePath, MemoryFileSystem};
 use biome_graphql_syntax::GraphqlLanguage;
+use biome_js_analyze::JsAnalyzerServices;
 use biome_js_parser::JsParserOptions;
 use biome_js_syntax::{EmbeddingKind, JsFileSource, JsLanguage};
 use biome_json_factory::make;
 use biome_json_formatter::context::JsonFormatOptions;
 use biome_json_formatter::format_node;
-use biome_json_parser::JsonParserOptions;
+use biome_json_parser::{JsonParserOptions, parse_json};
 use biome_json_syntax::{AnyJsonValue, JsonLanguage, JsonObjectValue};
+use biome_module_graph::ModuleGraph;
+use biome_project_layout::ProjectLayout;
 use biome_rowan::{AstNode, TextSize};
 use biome_service::settings::{ServiceLanguage, Settings};
 use biome_service::workspace::DocumentFileSource;
 use biome_string_case::Case;
+use biome_test_utils::get_added_paths;
 use biome_text_edit::TextEdit;
-use pulldown_cmark::{CodeBlockKind, Event, LinkType, Parser, Tag, TagEnd};
+use camino::Utf8PathBuf;
+use pulldown_cmark::{CodeBlockKind, Event, HeadingLevel, LinkType, Parser, Tag, TagEnd};
 use std::collections::{BTreeSet, HashMap, HashSet};
 use std::error::Error;
 use std::path::PathBuf;
+use std::sync::Arc;
 use std::{
     collections::BTreeMap,
     fmt::Write as _,
@@ -1175,6 +1181,9 @@ fn write_documentation(
 
     let parser = Parser::new(docs);
 
+    let mut file_system = HashMap::new();
+    let mut section = 0;
+
     // Track the last configuration options block that was encountered
     let mut last_options: Option<Configuration> = None;
 
@@ -1199,7 +1208,16 @@ fn write_documentation(
                 write!(content, "```{}", &test.tag)?;
                 if test.options != OptionsParsingMode::NoOptions {
                     write!(content, " title='biome.json'")?;
+                } else if let Some(file_path) = &test.file_path {
+                    write!(content, " title='{file_path}'")?;
+
+                    // Lazy parse the in-memory file system only when we encounter
+                    // a file=<path> attribute to avoid unnecessary work for single-file tests
+                    if file_system.is_empty() {
+                        file_system = parse_file_system(docs)?;
+                    }
                 }
+
                 writeln!(content)?;
 
                 language = Some((test, String::new()));
@@ -1232,6 +1250,7 @@ fn write_documentation(
                             &block,
                             &last_options,
                             &mut buffer,
+                            file_system.get(&section).unwrap_or(&HashMap::new()),
                             ToPrintKind::Diagnostics,
                         )
                         .context("snapshot test failed")?;
@@ -1251,6 +1270,7 @@ fn write_documentation(
                             &block,
                             &last_options,
                             &mut buffer,
+                            file_system.get(&section).unwrap_or(&HashMap::new()),
                             ToPrintKind::Actions,
                         )
                         .context("snapshot test failed")?;
@@ -1301,6 +1321,10 @@ fn write_documentation(
 
             // Other markdown events are emitted as-is
             Event::Start(Tag::Heading { level, .. }) => {
+                if is_main_heading(level) {
+                    section += 1;
+                }
+
                 write!(content, "{} ", "#".repeat(level as usize))?;
             }
             Event::End(TagEnd::Heading { .. }) => {
@@ -1473,6 +1497,11 @@ struct CodeBlockTest {
 
     // The indices of lines that should be hidden from the public documentation.
     hidden_lines: Vec<u32>,
+
+    /// If a file path is provided using the `file=<path>` attribute, it will be used
+    /// as the code block's title. It will also be used in generating an in-memory
+    /// file system for multi-file lint evaluation when rendering diagnostics.
+    file_path: Option<String>,
 }
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -1515,9 +1544,19 @@ impl FromStr for CodeBlockTest {
             line_count: 0,
             hidden_lines: vec![],
             options_code_block: None,
+            file_path: None,
         };
 
         for token in tokens {
+            if let Some(file) = token.strip_prefix("file=") {
+                if file.is_empty() {
+                    bail!("The 'file' attribute must be followed by a file path");
+                }
+
+                test.file_path = Some(file.to_string());
+                continue;
+            }
+
             match token {
                 // Other attributes
                 "expect_diagnostic" => test.expect_diagnostic = true,
@@ -1608,6 +1647,7 @@ fn write_action<L: ServiceLanguage>(
 /// Parse and analyze the provided code block, and asserts that it emits
 /// exactly zero or one diagnostic depending on the value of `expect_diagnostic`.
 /// That diagnostic is then emitted as text into the `content` buffer
+#[allow(clippy::too_many_arguments)]
 fn print_diagnostics_or_actions(
     group: &'static str,
     rule: &'static str,
@@ -1615,9 +1655,16 @@ fn print_diagnostics_or_actions(
     code: &str,
     config: &Option<Configuration>,
     buffer: &mut HTML<&mut Vec<u8>>,
+    file_system: &HashMap<String, String>,
     to_print_kind: ToPrintKind,
 ) -> Result<()> {
-    let file_path = format!("code-block.{}", test.tag);
+    let file_path = {
+        if let Some(file_path) = &test.file_path {
+            normalize_file_path(file_path)
+        } else {
+            format!("code-block.{}", test.tag)
+        }
+    };
 
     if test.ignore {
         return Ok(());
@@ -1681,8 +1728,7 @@ fn print_diagnostics_or_actions(
                     );
 
                 // TODO: JsAnalyzerServices doesn't have a builder API yet, so we can't just do `.with_file_source(file_source)`
-                let analyzer_services =
-                    (Default::default(), Default::default(), file_source).into();
+                let analyzer_services = get_test_services(file_source, file_system);
 
                 biome_js_analyze::analyze(
                     &root,
@@ -1978,4 +2024,145 @@ fn extract_summary_from_rule(content: &str) -> String {
     let events: Vec<_> = parser.collect();
 
     events_to_text(events)
+}
+
+/// Parses markdown documentation and searches for code blocks with the `file` attribute. Found
+/// code blocks are then used to generate an  in-memory file system to be used by lint rules the
+/// evaluate multi-file scenarios (for example [detecting circular imports](https://biomejs.dev/linter/rules/no-import-cycles)).
+/// Each file system is organized and scoped by content sections in the Markdown documentation, delineated
+/// by headings.
+/// The reason we collect all the sections in one pass is to prevent having
+/// to run multiple parsing passes on the same markdown document.
+fn parse_file_system(docs: &'static str) -> Result<HashMap<usize, HashMap<String, String>>> {
+    let parser = Parser::new(docs);
+
+    // HashMap to store files organized by their containing markdown section
+    let mut files: HashMap<usize, HashMap<String, String>> = HashMap::new();
+    // Section counter synchronized with the main rendering pass
+    let mut content_section = 0;
+
+    // If any code block is found with the `file` attribute, it will be stored here to be added
+    // to the current content section's file system
+    let mut current_file = None;
+
+    for event in parser {
+        match event {
+            Event::Start(Tag::CodeBlock(CodeBlockKind::Fenced(meta))) => {
+                let tokens = meta
+                    .split([',', ' ', '\t'])
+                    .map(str::trim)
+                    .filter(|token| !token.is_empty());
+
+                for token in tokens {
+                    // If we detect a file attribute set a current file so that we can extract
+                    // its content to be added to the current content section's file system
+                    if let Some(file) = token.strip_prefix("file=") {
+                        if file.is_empty() {
+                            bail!("The 'file' attribute must be followed by a non-empty file path");
+                        }
+
+                        current_file = Some((file.to_string(), String::new()));
+                    }
+                }
+            }
+            Event::End(TagEnd::CodeBlock) => {
+                if let Some((path, content)) = current_file.take() {
+                    files
+                        .entry(content_section)
+                        .or_default()
+                        .insert(path, content);
+                }
+
+                current_file = None;
+            }
+            Event::Text(text) => {
+                if let Some((_, content)) = &mut current_file {
+                    content.push_str(&text);
+                }
+            }
+            Event::Start(Tag::Heading { level, .. }) => {
+                // When we encounter a heading we start a new content section to scope any file
+                // system to that section
+                if is_main_heading(level) {
+                    content_section += 1;
+                }
+            }
+            _ => {}
+        }
+    }
+
+    Ok(files)
+}
+
+fn is_main_heading(heading: HeadingLevel) -> bool {
+    matches!(
+        heading,
+        HeadingLevel::H1 | HeadingLevel::H2 | HeadingLevel::H3 | HeadingLevel::H4
+    )
+}
+
+/// Creates an in-memory module graph for the given files.
+/// Returns an empty module graph if no files are provided.
+fn get_test_services(
+    file_source: JsFileSource,
+    files: &HashMap<String, String>,
+) -> JsAnalyzerServices {
+    if files.is_empty() {
+        return JsAnalyzerServices::from((Default::default(), Default::default(), file_source));
+    }
+
+    let fs = MemoryFileSystem::default();
+    let layout = ProjectLayout::default();
+
+    let mut added_paths = Vec::with_capacity(files.len());
+
+    for (path, src) in files.iter() {
+        let path = normalize_file_path(path);
+
+        let path_buf = Utf8PathBuf::from(path);
+        let biome_path = BiomePath::new(&path_buf);
+
+        if biome_path.is_manifest() {
+            match biome_path.file_name() {
+                Some("package.json") => {
+                    // Parse package.json and register it with the project layout
+                    let parsed = parse_json(src, JsonParserOptions::default());
+                    layout.insert_serialized_node_manifest(
+                        path_buf.parent().unwrap().into(),
+                        &parsed.syntax().as_send().unwrap(),
+                    );
+                }
+                Some("tsconfig.json") => {
+                    // Parse tsconfig.json with comment/trailing comma support
+                    let parsed = parse_json(
+                        src,
+                        JsonParserOptions::default()
+                            .with_allow_comments()
+                            .with_allow_trailing_commas(),
+                    );
+                    layout.insert_serialized_tsconfig(
+                        path_buf.parent().unwrap().into(),
+                        &parsed.syntax().as_send().unwrap(),
+                    );
+                }
+                _ => unimplemented!("Unhandled manifest: {biome_path}"),
+            }
+        } else {
+            added_paths.push(biome_path);
+        }
+
+        fs.insert(path_buf, src.as_bytes().to_vec());
+    }
+
+    let module_graph = ModuleGraph::default();
+    let added_paths = get_added_paths(&fs, &added_paths);
+    module_graph.update_graph_for_js_paths(&fs, &layout, &added_paths, &[]);
+
+    JsAnalyzerServices::from((Arc::new(module_graph), Arc::new(layout), file_source))
+}
+
+/// Normalize a file path to an absolute path for easier module graph path resolution.
+fn normalize_file_path(path: &str) -> String {
+    let path = path.trim_start_matches("./").trim_start_matches("../");
+    format!("/{path}")
 }
