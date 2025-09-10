@@ -102,7 +102,7 @@ importers:
         version: 4.25.1(@babel/runtime@7.24.4)(@codemirror/autocomplete@6.15.0(@codemirror/language@6.10.1)(@codemirror/state@6.5.2)(@codemirror/view@6.38.2)(@lezer/common@1.2.1))(@codemirror/language@6.10.1)(@codemirror/lint@6.8.5)(@codemirror/search@6.5.6)(@codemirror/state@6.5.2)(@codemirror/theme-one-dark@6.1.2)(@codemirror/view@6.38.2)(codemirror@6.0.1(@lezer/common@1.2.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@vitejs/plugin-react':
         specifier: 4.7.0
-        version: 4.7.0(vite@6.3.5(@types/node@22.18.1)(jiti@2.4.2)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0))
+        version: 4.7.0(vite@6.3.6(@types/node@22.18.1)(jiti@2.4.2)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0))
       astro:
         specifier: 5.13.5
         version: 5.13.5(@netlify/blobs@10.0.8)(@types/node@22.18.1)(jiti@2.4.2)(rollup@4.40.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(typescript@5.9.2)(yaml@2.8.0)
@@ -179,11 +179,11 @@ importers:
         specifier: 5.9.2
         version: 5.9.2
       vite:
-        specifier: 6.3.5
-        version: 6.3.5(@types/node@22.18.1)(jiti@2.4.2)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0)
+        specifier: 6.3.6
+        version: 6.3.6(@types/node@22.18.1)(jiti@2.4.2)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0)
       vite-plugin-svgr:
         specifier: 4.3.0
-        version: 4.3.0(rollup@4.40.1)(typescript@5.9.2)(vite@6.3.5(@types/node@22.18.1)(jiti@2.4.2)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0))
+        version: 4.3.0(rollup@4.40.1)(typescript@5.9.2)(vite@6.3.6(@types/node@22.18.1)(jiti@2.4.2)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0))
 
 packages:
 
@@ -5415,8 +5415,8 @@ packages:
     peerDependencies:
       vite: '>=2.6.0'
 
-  vite@6.3.5:
-    resolution: {integrity: sha512-cZn6NDFE7wdTpINgs++ZJ4N49W2vRp8LCKrn3Ob1kYNtOo21vfDoaV5GzBfLU4MovSAB8uNRm4jgzVQZ+mBzPQ==}
+  vite@6.3.6:
+    resolution: {integrity: sha512-0msEVHJEScQbhkbVTb/4iHZdJ6SXp/AvxL2sjwYQFfBqleHtnCqv1J3sa9zbWz/6kW1m9Tfzn92vW+kZ1WV6QA==}
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
     hasBin: true
     peerDependencies:
@@ -5848,12 +5848,12 @@ snapshots:
       '@astrojs/underscore-redirects': 1.0.0
       '@netlify/blobs': 10.0.8
       '@netlify/functions': 4.2.1(rollup@4.40.1)
-      '@netlify/vite-plugin': 2.5.4(rollup@4.40.1)(vite@6.3.5(@types/node@22.18.1)(jiti@2.4.2)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0))
+      '@netlify/vite-plugin': 2.5.4(rollup@4.40.1)(vite@6.3.6(@types/node@22.18.1)(jiti@2.4.2)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0))
       '@vercel/nft': 0.29.4(rollup@4.40.1)
       astro: 5.13.5(@netlify/blobs@10.0.8)(@types/node@22.18.1)(jiti@2.4.2)(rollup@4.40.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(typescript@5.9.2)(yaml@2.8.0)
       esbuild: 0.25.6
       tinyglobby: 0.2.14
-      vite: 6.3.5(@types/node@22.18.1)(jiti@2.4.2)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0)
+      vite: 6.3.6(@types/node@22.18.1)(jiti@2.4.2)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -5895,11 +5895,11 @@ snapshots:
     dependencies:
       '@types/react': 18.3.24
       '@types/react-dom': 18.3.7(@types/react@18.3.24)
-      '@vitejs/plugin-react': 4.7.0(vite@6.3.5(@types/node@22.18.1)(jiti@2.4.2)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0))
+      '@vitejs/plugin-react': 4.7.0(vite@6.3.6(@types/node@22.18.1)(jiti@2.4.2)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0))
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       ultrahtml: 1.6.0
-      vite: 6.3.5(@types/node@22.18.1)(jiti@2.4.2)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0)
+      vite: 6.3.6(@types/node@22.18.1)(jiti@2.4.2)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0)
     transitivePeerDependencies:
       - '@types/node'
       - jiti
@@ -6998,11 +6998,11 @@ snapshots:
 
   '@netlify/types@2.0.2': {}
 
-  '@netlify/vite-plugin@2.5.4(rollup@4.40.1)(vite@6.3.5(@types/node@22.18.1)(jiti@2.4.2)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0))':
+  '@netlify/vite-plugin@2.5.4(rollup@4.40.1)(vite@6.3.6(@types/node@22.18.1)(jiti@2.4.2)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0))':
     dependencies:
       '@netlify/dev': 4.5.4(rollup@4.40.1)
       '@netlify/dev-utils': 4.1.1
-      vite: 6.3.5(@types/node@22.18.1)(jiti@2.4.2)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0)
+      vite: 6.3.6(@types/node@22.18.1)(jiti@2.4.2)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -7791,7 +7791,7 @@ snapshots:
       - rollup
       - supports-color
 
-  '@vitejs/plugin-react@4.7.0(vite@6.3.5(@types/node@22.18.1)(jiti@2.4.2)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0))':
+  '@vitejs/plugin-react@4.7.0(vite@6.3.6(@types/node@22.18.1)(jiti@2.4.2)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0))':
     dependencies:
       '@babel/core': 7.28.0
       '@babel/plugin-transform-react-jsx-self': 7.27.1(@babel/core@7.28.0)
@@ -7799,7 +7799,7 @@ snapshots:
       '@rolldown/pluginutils': 1.0.0-beta.27
       '@types/babel__core': 7.20.5
       react-refresh: 0.17.0
-      vite: 6.3.5(@types/node@22.18.1)(jiti@2.4.2)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0)
+      vite: 6.3.6(@types/node@22.18.1)(jiti@2.4.2)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -8094,8 +8094,8 @@ snapshots:
       unist-util-visit: 5.0.0
       unstorage: 1.16.1(@netlify/blobs@10.0.8)
       vfile: 6.0.3
-      vite: 6.3.5(@types/node@22.18.1)(jiti@2.4.2)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0)
-      vitefu: 1.0.6(vite@6.3.5(@types/node@22.18.1)(jiti@2.4.2)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0))
+      vite: 6.3.6(@types/node@22.18.1)(jiti@2.4.2)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0)
+      vitefu: 1.0.6(vite@6.3.6(@types/node@22.18.1)(jiti@2.4.2)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0))
       xxhash-wasm: 1.1.0
       yargs-parser: 21.1.1
       yocto-spinner: 0.2.1
@@ -12401,18 +12401,18 @@ snapshots:
       '@types/unist': 3.0.2
       vfile-message: 4.0.2
 
-  vite-plugin-svgr@4.3.0(rollup@4.40.1)(typescript@5.9.2)(vite@6.3.5(@types/node@22.18.1)(jiti@2.4.2)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0)):
+  vite-plugin-svgr@4.3.0(rollup@4.40.1)(typescript@5.9.2)(vite@6.3.6(@types/node@22.18.1)(jiti@2.4.2)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0)):
     dependencies:
       '@rollup/pluginutils': 5.1.4(rollup@4.40.1)
       '@svgr/core': 8.1.0(typescript@5.9.2)
       '@svgr/plugin-jsx': 8.1.0(@svgr/core@8.1.0(typescript@5.9.2))
-      vite: 6.3.5(@types/node@22.18.1)(jiti@2.4.2)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0)
+      vite: 6.3.6(@types/node@22.18.1)(jiti@2.4.2)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0)
     transitivePeerDependencies:
       - rollup
       - supports-color
       - typescript
 
-  vite@6.3.5(@types/node@22.18.1)(jiti@2.4.2)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0):
+  vite@6.3.6(@types/node@22.18.1)(jiti@2.4.2)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0):
     dependencies:
       esbuild: 0.25.6
       fdir: 6.4.4(picomatch@4.0.2)
@@ -12428,9 +12428,9 @@ snapshots:
       sugarss: 5.0.0(postcss@8.5.6)
       yaml: 2.8.0
 
-  vitefu@1.0.6(vite@6.3.5(@types/node@22.18.1)(jiti@2.4.2)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0)):
+  vitefu@1.0.6(vite@6.3.6(@types/node@22.18.1)(jiti@2.4.2)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0)):
     optionalDependencies:
-      vite: 6.3.5(@types/node@22.18.1)(jiti@2.4.2)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0)
+      vite: 6.3.6(@types/node@22.18.1)(jiti@2.4.2)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0)
 
   volar-service-css@0.0.62(@volar/language-service@2.4.13):
     dependencies:
