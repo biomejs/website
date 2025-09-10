@@ -61,8 +61,6 @@ cycles, you may not want this rule enabled.
 
 ### Invalid
 
-**`foobar.js`**
-
 ```file=foobar.js
  import { baz } from "./baz.js";
 
@@ -77,8 +75,6 @@ export function bar() {
 
 <pre class="language-text"><code class="language-text"></code></pre>
 
-**`baz.js`**
-
 ```file=baz.js
 import { bar } from "./foobar.js";
 
@@ -91,8 +87,6 @@ export function baz() {
 
 ### Valid
 
-**`foo.js`**
-
 ```file=foo.js
 import { baz } from "./baz.js";
 
@@ -101,15 +95,11 @@ export function foo() {
 }
 ```
 
-**`bar.js`**
-
 ```file=bar.js
 export function bar() {
     console.log("foobar");
 }
 ```
-
-**`baz.js`**
 
 ```file=baz.js
 import { bar } from "./bar.js";
@@ -119,8 +109,6 @@ export function baz() {
 }
 ```
 
-**`types.ts`**
-
 ```file=types.ts
 import type { bar } from "./qux.ts";
 
@@ -128,8 +116,6 @@ export type Foo = {
   bar: typeof bar;
 };
 ```
-
-**`qux.ts`**
 
 ```file=qux.ts
 import type { Foo } from "./types.ts";
@@ -169,9 +155,7 @@ the compiler if the `verbatimModuleSyntax` option is enabled. Enabled by default
 
 #### Invalid
 
-**`types.ts`**
-
-```ts
+```file=types.ts
 import type { bar } from "./qux.ts";
 
 export type Foo = {
@@ -179,15 +163,15 @@ export type Foo = {
 };
 ```
 
-**`qux.ts`**
-
-```ts
+```file=qux.ts
 import type { Foo } from "./types.ts";
 
 export function bar(foo: Foo) {
     console.log(foo);
 }
 ```
+
+<pre class="language-text"><code class="language-text"></code></pre>
 
 ## Related links
 
