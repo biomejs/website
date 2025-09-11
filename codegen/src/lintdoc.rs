@@ -39,7 +39,7 @@ use biome_rowan::{AstNode, TextSize};
 use biome_service::settings::{ServiceLanguage, Settings};
 use biome_service::workspace::DocumentFileSource;
 use biome_string_case::Case;
-use biome_test_utils::get_added_paths;
+use biome_test_utils::{get_added_paths, get_test_services};
 use biome_text_edit::TextEdit;
 use camino::Utf8PathBuf;
 use pulldown_cmark::{CodeBlockKind, Event, HeadingLevel, LinkType, Parser, Tag, TagEnd};
@@ -2061,7 +2061,7 @@ fn parse_file_system(docs: &'static str) -> Result<HashMap<usize, HashMap<String
                             bail!("The 'file' attribute must be followed by a non-empty file path");
                         }
 
-                        current_file = Some((file.to_string(), String::new()));
+                        current_file = Some((normalize_file_path(file), String::new()));
                     }
                 }
             }
@@ -2099,66 +2099,6 @@ fn is_main_heading(heading: HeadingLevel) -> bool {
         heading,
         HeadingLevel::H1 | HeadingLevel::H2 | HeadingLevel::H3 | HeadingLevel::H4
     )
-}
-
-/// Creates an in-memory module graph for the given files.
-/// Returns an empty module graph if no files are provided.
-fn get_test_services(
-    file_source: JsFileSource,
-    files: &HashMap<String, String>,
-) -> JsAnalyzerServices {
-    if files.is_empty() {
-        return JsAnalyzerServices::from((Default::default(), Default::default(), file_source));
-    }
-
-    let fs = MemoryFileSystem::default();
-    let layout = ProjectLayout::default();
-
-    let mut added_paths = Vec::with_capacity(files.len());
-
-    for (path, src) in files.iter() {
-        let path = normalize_file_path(path);
-
-        let path_buf = Utf8PathBuf::from(path);
-        let biome_path = BiomePath::new(&path_buf);
-
-        if biome_path.is_manifest() {
-            match biome_path.file_name() {
-                Some("package.json") => {
-                    // Parse package.json and register it with the project layout
-                    let parsed = parse_json(src, JsonParserOptions::default());
-                    layout.insert_serialized_node_manifest(
-                        path_buf.parent().unwrap().into(),
-                        &parsed.syntax().as_send().unwrap(),
-                    );
-                }
-                Some("tsconfig.json") => {
-                    // Parse tsconfig.json with comment/trailing comma support
-                    let parsed = parse_json(
-                        src,
-                        JsonParserOptions::default()
-                            .with_allow_comments()
-                            .with_allow_trailing_commas(),
-                    );
-                    layout.insert_serialized_tsconfig(
-                        path_buf.parent().unwrap().into(),
-                        &parsed.syntax().as_send().unwrap(),
-                    );
-                }
-                _ => unimplemented!("Unhandled manifest: {biome_path}"),
-            }
-        } else {
-            added_paths.push(biome_path);
-        }
-
-        fs.insert(path_buf, src.as_bytes().to_vec());
-    }
-
-    let module_graph = ModuleGraph::default();
-    let added_paths = get_added_paths(&fs, &added_paths);
-    module_graph.update_graph_for_js_paths(&fs, &layout, &added_paths, &[]);
-
-    JsAnalyzerServices::from((Arc::new(module_graph), Arc::new(layout), file_source))
 }
 
 /// Normalize a file path to an absolute path for easier module graph path resolution.
