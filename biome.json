@@ -6,7 +6,7 @@
       "!**/rules.json.js",
       "!**/schema.json.js",
       "!**/redirects.js",
-      "!**/src/playground/generated/**"
+      "!**/src/playground/generated"
     ]
   },
   "assist": {
@@ -20,6 +20,9 @@
     "enabled": true,
     "rules": {
       "recommended": true,
+      "suspicious": {
+        "noUnknownAtRules": "info"
+      },
       "style": {
         "noNonNullAssertion": "off",
         "noParameterAssign": "error",

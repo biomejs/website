@@ -50,26 +50,6 @@
 		width: auto;
 	}
 
-	input[type="text"],
-	input[type="number"] {
-		border-radius: 6px;
-		border: 1px solid var(--sl-color-gray-5);
-		padding: 0 10px;
-
-		:root[data-theme="dark"] & {
-			color: inherit;
-			background-color: transparent;
-		}
-
-		@media (prefers-color-scheme: dark) {
-			/* biome-ignore lint/style/noDescendingSpecificity: it should not have specificity */
-			:root[data-theme="auto"] & {
-				color: inherit;
-				background-color: transparent;
-			}
-		}
-	}
-
 	select {
 		@mixin button;
 		border-radius: 6px;
@@ -86,13 +66,31 @@
 		}
 
 		@media (prefers-color-scheme: dark) {
-			/* biome-ignore lint/style/noDescendingSpecificity: it should not have specificity */
 			:root[data-theme="auto"] & {
 				border: 1px solid var(--sl-color-gray-4);
 
 				& option {
 					background-color: var(--sl-color-gray-6);
 				}
+			}
+		}
+	}
+
+	input[type="text"],
+	input[type="number"] {
+		border-radius: 6px;
+		border: 1px solid var(--sl-color-gray-5);
+		padding: 0 10px;
+
+		:root[data-theme="dark"] & {
+			color: inherit;
+			background-color: transparent;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			:root[data-theme="auto"] & {
+				color: inherit;
+				background-color: transparent;
 			}
 		}
 	}
@@ -199,14 +197,12 @@
 				}
 
 				@media (prefers-color-scheme: dark) {
-					/* biome-ignore lint/style/noDescendingSpecificity: should not have specificity */
 					:root[data-theme="auto"] & {
 						background-color: var(--sl-color-gray-5);
 					}
 				}
 			}
 
-			/* biome-ignore lint/style/noDescendingSpecificity: false positive */
 			button {
 				margin-left: auto;
 

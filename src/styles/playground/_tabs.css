@@ -16,7 +16,6 @@
 		}
 
 		@media (prefers-color-scheme: dark) {
-			/* biome-ignore lint/style/noDescendingSpecificity: it should not have specificity */
 			:root[data-theme="auto"] & {
 				background-color: #282c34 !important;
 			}
@@ -40,7 +39,14 @@
 	justify-content: center;
 	align-items: center;
 }
-
+.formatter-version {
+	font-family: var(--code-font);
+	text-decoration: unset;
+	color: unset;
+	&:hover {
+		text-decoration: underline;
+	}
+}
 .react-tabs__tab-list {
 	display: flex;
 	flex-direction: row;
@@ -75,13 +81,4 @@
 
 .react-tabs__tab-panel--selected {
 	display: flex;
-}
-
-.formatter-version {
-	font-family: var(--code-font);
-	text-decoration: unset;
-	color: unset;
-	&:hover {
-		text-decoration: underline;
-	}
 }

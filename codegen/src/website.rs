@@ -23,7 +23,7 @@ use std::fs;
 /// To generate the CLI doc and the schema of the current version,
 /// pass the environment variable `BIOME_VERSION`
 ///
-pub fn generate_files(online: bool) -> anyhow::Result<()> {
+pub fn generate_files() -> anyhow::Result<()> {
     generate_default_configuration()?;
 
     if VERSION != "0.0.0" {

@@ -5,7 +5,7 @@ import type {
 	RuleDomainValue,
 } from "@biomejs/wasm-web";
 import type React from "react";
-import { type Dispatch, type SetStateAction, useState } from "react";
+import { type Dispatch, type SetStateAction, useId, useState } from "react";
 import EnumSelect from "@/playground/components/EnumSelect";
 import { LINT_RULES } from "@/playground/generated/lintRules.ts";
 import {
@@ -368,12 +368,13 @@ function LanguageView({
 	language: Language;
 	setLanguage: (language: Language) => void;
 }) {
+	const languageId = useId();
 	return (
 		<section>
 			<div className="field-row">
-				<label htmlFor="language">Language</label>
+				<label htmlFor={languageId}>Language</label>
 				<EnumSelect
-					id="language"
+					id={languageId}
 					name="language"
 					options={{
 						[Language.JS]: "JavaScript",
@@ -587,15 +588,17 @@ function SyntaxSettings({
 	setAllowComments: (value: boolean) => void;
 }) {
 	const isScript = isScriptFilename(filename);
-
+	const enumSelectId = useId();
+	const allowCommentsId = useId();
+	const decoratorsId = useId();
 	return (
 		<>
 			<h2>Syntax options</h2>
 			<section>
 				<div className="field-row">
-					<label htmlFor="sourceType">Source Type</label>
+					<label htmlFor={enumSelectId}>Source Type</label>
 					<EnumSelect
-						id="sourceType"
+						id={enumSelectId}
 						name="sourceType"
 						options={{
 							[SourceType.Module]: "Module",
@@ -615,7 +618,7 @@ function SyntaxSettings({
 
 				<div className="field-row">
 					<input
-						id="parameter-decorators"
+						id={decoratorsId}
 						name="parameter-decorators"
 						type="checkbox"
 						checked={unsafeParameterDecoratorsEnabled}
@@ -623,19 +626,17 @@ function SyntaxSettings({
 							setUnsafeParameterDecoratorsEnabled(e.target.checked)
 						}
 					/>
-					<label htmlFor="parameter-decorators">
-						Parameter decorators enabled
-					</label>
+					<label htmlFor={decoratorsId}>Parameter decorators enabled</label>
 				</div>
 				<div className="field-row">
 					<input
-						id="allow-comments"
+						id={allowCommentsId}
 						name="allow-comments"
 						type="checkbox"
 						checked={allowComments}
 						onChange={(e) => setAllowComments(e.target.checked)}
 					/>
-					<label htmlFor="allow-comments">Allow comments in JSON files</label>
+					<label htmlFor={allowCommentsId}>Allow comments in JSON files</label>
 				</div>
 			</section>
 		</>
@@ -705,6 +706,20 @@ function FormatterSettings({
 	whitespaceSensitivity: WhitespaceSensitivity;
 	setWhitespaceSensitivity: (value: WhitespaceSensitivity) => void;
 }) {
+	const indentStyleId = useId();
+	const indentWidthId = useId();
+	const quoteStyleId = useId();
+	const jsxQuoteStyleId = useId();
+	const quotePropertiesId = useId();
+	const trailingCommasId = useId();
+	const semicolonsId = useId();
+	const arrowParenthesesId = useId();
+	const attributePositionId = useId();
+	const bracketSpacingId = useId();
+	const bracketSameLineId = useId();
+	const expandId = useId();
+	const indentScriptAndStyleId = useId();
+	const whitespaceSensitivityId = useId();
 	return (
 		<>
 			<h2>Formatter options</h2>
@@ -712,9 +727,9 @@ function FormatterSettings({
 				<LineWidthInput lineWidth={lineWidth} setLineWidth={setLineWidth} />
 
 				<div className="field-row">
-					<label htmlFor="indentStyle">Indent Style</label>
+					<label htmlFor={indentStyleId}>Indent Style</label>
 					<EnumSelect
-						id="location"
+						id={indentStyleId}
 						name="location"
 						options={{
 							[IndentStyle.Tab]: "Tabs",
@@ -726,11 +741,11 @@ function FormatterSettings({
 				</div>
 
 				<div className="field-row">
-					<label htmlFor="indentWidth">Indent Width</label>
+					<label htmlFor={indentWidthId}>Indent Width</label>
 					<input
 						type="number"
 						name="indentWidth"
-						id="indentWidth"
+						id={indentWidthId}
 						value={indentWidth}
 						onChange={(e) => {
 							setIndentWidth(Number.parseInt(e.target.value));
@@ -739,9 +754,9 @@ function FormatterSettings({
 				</div>
 
 				<div className="field-row">
-					<label htmlFor="quoteStyle">Quote Style</label>
+					<label htmlFor={quoteStyleId}>Quote Style</label>
 					<EnumSelect
-						id="quoteStyle"
+						id={quoteStyleId}
 						name="quoteStyle"
 						options={{
 							[QuoteStyle.Double]: "Double",
@@ -753,9 +768,9 @@ function FormatterSettings({
 				</div>
 
 				<div className="field-row">
-					<label htmlFor="jsxQuoteStyle">Jsx Quote Style</label>
+					<label htmlFor={jsxQuoteStyleId}>Jsx Quote Style</label>
 					<EnumSelect
-						id="jsxQuoteStyle"
+						id={jsxQuoteStyleId}
 						name="jsxQuoteStyle"
 						options={{
 							[QuoteStyle.Double]: "Double",
@@ -767,9 +782,9 @@ function FormatterSettings({
 				</div>
 
 				<div className="field-row">
-					<label htmlFor="quoteProperties">Quote Properties</label>
+					<label htmlFor={quotePropertiesId}>Quote Properties</label>
 					<EnumSelect
-						id="quoteProperties"
+						id={quotePropertiesId}
 						name="quoteProperties"
 						options={{
 							[QuoteProperties.AsNeeded]: "As needed",
@@ -781,9 +796,9 @@ function FormatterSettings({
 				</div>
 
 				<div className="field-row">
-					<label htmlFor="trailingCommas">Trailing Commas</label>
+					<label htmlFor={trailingCommasId}>Trailing Commas</label>
 					<EnumSelect
-						id="trailingCommas"
+						id={trailingCommasId}
 						name="trailingCommas"
 						options={{
 							[TrailingCommas.All]: "All",
@@ -796,9 +811,9 @@ function FormatterSettings({
 				</div>
 
 				<div className="field-row">
-					<label htmlFor="semicolons">Semicolons</label>
+					<label htmlFor={semicolonsId}>Semicolons</label>
 					<EnumSelect
-						id="semicolons"
+						id={semicolonsId}
 						name="semicolons"
 						options={{
 							[Semicolons.Always]: "Always",
@@ -810,9 +825,9 @@ function FormatterSettings({
 				</div>
 
 				<div className="field-row">
-					<label htmlFor="arrowParentheses">Arrow Parentheses</label>
+					<label htmlFor={arrowParenthesesId}>Arrow Parentheses</label>
 					<EnumSelect
-						id="arrowParentheses"
+						id={arrowParenthesesId}
 						name="arrowParentheses"
 						options={{
 							[ArrowParentheses.Always]: "Always",
@@ -823,9 +838,9 @@ function FormatterSettings({
 					/>
 				</div>
 				<div className="field-row">
-					<label htmlFor="arrowParentheses">Attribute Position</label>
+					<label htmlFor={attributePositionId}>Attribute Position</label>
 					<EnumSelect
-						id="attributePosition"
+						id={attributePositionId}
 						name="attributePosition"
 						options={{
 							[AttributePosition.Auto]: "Auto",
@@ -836,9 +851,9 @@ function FormatterSettings({
 					/>
 				</div>
 				<div className="field-row">
-					<label htmlFor="bracketSpacing">Bracket Spacing</label>
+					<label htmlFor={bracketSpacingId}>Bracket Spacing</label>
 					<input
-						id="bracketSpacing"
+						id={bracketSpacingId}
 						name="bracketSpacing"
 						type="checkbox"
 						checked={bracketSpacing}
@@ -846,9 +861,9 @@ function FormatterSettings({
 					/>
 				</div>
 				<div className="field-row">
-					<label htmlFor="bracketSameLine">Bracket Same Line</label>
+					<label htmlFor={bracketSameLineId}>Bracket Same Line</label>
 					<input
-						id="bracketSameLine"
+						id={bracketSameLineId}
 						name="bracketSameLine"
 						type="checkbox"
 						checked={bracketSameLine}
@@ -856,9 +871,9 @@ function FormatterSettings({
 					/>
 				</div>
 				<div className="field-row">
-					<label htmlFor="expand">Expand</label>
+					<label htmlFor={expandId}>Expand</label>
 					<EnumSelect
-						id="expand"
+						id={expandId}
 						name="expand"
 						options={{
 							[Expand.Auto]: "Auto",
@@ -872,9 +887,11 @@ function FormatterSettings({
 
 				<h3>HTML</h3>
 				<div className="field-row">
-					<label htmlFor="indentScriptAndStyle">Indent Script And Style</label>
+					<label htmlFor={indentScriptAndStyleId}>
+						Indent Script And Style
+					</label>
 					<input
-						id="indentScriptAndStyle"
+						id={indentScriptAndStyleId}
 						name="indentScriptAndStyle"
 						type="checkbox"
 						checked={indentScriptAndStyle}
@@ -882,9 +899,11 @@ function FormatterSettings({
 					/>
 				</div>
 				<div className="field-row">
-					<label htmlFor="whitespaceSensitivity">Whitespace Sensitivity</label>
+					<label htmlFor={whitespaceSensitivityId}>
+						Whitespace Sensitivity
+					</label>
 					<select
-						id="whitespaceSensitivity"
+						id={whitespaceSensitivityId}
 						name="whitespaceSensitivity"
 						value={whitespaceSensitivity}
 						onChange={(e) =>
@@ -942,26 +961,28 @@ function LinterSettings({
 	];
 
 	const domainValues: RuleDomainValue[] = ["all", "recommended", "none"];
-
+	const lintingEnabled = useId();
+	const lintRulesId = useId();
+	const analyzerFixModeId = useId();
 	return (
 		<>
 			<h2>Linter options</h2>
 			<section>
 				<div className="field-row">
 					<input
-						id="linting-enabled"
+						id={lintingEnabled}
 						name="linting-enabled"
 						type="checkbox"
 						checked={enabledLinting}
 						onChange={(e) => setEnabledLinting(e.target.checked)}
 					/>
-					<label htmlFor="linting-enabled">Linter enabled</label>
+					<label htmlFor={lintingEnabled}>Linter enabled</label>
 				</div>
 
 				<div className="field-row">
-					<label htmlFor="lint-rules">Lint Rules</label>
+					<label htmlFor={lintRulesId}>Lint Rules</label>
 					<select
-						id="lint-rules"
+						id={lintRulesId}
 						aria-describedby="lint-rules-description"
 						name="lint-rules"
 						disabled={!enabledLinting}
@@ -980,9 +1001,9 @@ function LinterSettings({
 					</select>
 				</div>
 				<div className="field-row">
-					<label htmlFor="analyzer-fix-mode">Fix Mode</label>
+					<label htmlFor={analyzerFixModeId}>Fix Mode</label>
 					<select
-						id="analyzer-fix-mode"
+						id={analyzerFixModeId}
 						aria-describedby="analyzer-fix-mode-description"
 						name="analyzer-fix-mode"
 						disabled={!enabledLinting}
@@ -1027,19 +1048,20 @@ export function AssistSettings({
 	enabledAssist: boolean;
 	setEnabledAssist: (value: boolean) => void;
 }) {
+	const assistEnabledId = useId();
 	return (
 		<>
 			<h2>Assist options</h2>
 			<section>
 				<div className="field-row">
 					<input
-						id="assist-enabled"
+						id={assistEnabledId}
 						name="assist-enabled"
 						type="checkbox"
 						checked={enabledAssist}
 						onChange={(e) => setEnabledAssist(e.target.checked)}
 					/>
-					<label htmlFor="assist-enabled">Assist enabled</label>
+					<label htmlFor={assistEnabledId}>Assist enabled</label>
 				</div>
 			</section>
 		</>
@@ -1056,10 +1078,11 @@ function LineWidthInput({
 	const [showCustom, setShowCustom] = useState(
 		lineWidth !== 80 && lineWidth !== 120,
 	);
+	const lineWidthId = useId();
 
 	return (
 		<div className="field-row">
-			<label htmlFor="lineWidth">Line Width</label>
+			<label htmlFor={lineWidthId}>Line Width</label>
 
 			<div className="input-container">
 				<div className="button-group">
@@ -1110,7 +1133,7 @@ function LineWidthInput({
 					<input
 						type="number"
 						name="lineWidth"
-						id="lineWidth"
+						id={lineWidthId}
 						value={lineWidth}
 						onChange={(e) => {
 							setLineWidth(Number.parseInt(e.target.value));

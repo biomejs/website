@@ -181,6 +181,37 @@ or if you want to use a binary that's not on your `PATH`. In can be either a pat
 	</TabItem>
 </Tabs>
 
+
+
+You should be aware of that `@biomejs/biome` doesn't ship any binaries. The fine `@biomejs/biome/bin` is just a tiny
+wrapper that delegates the the real binary. The binary installed on your machine depends on the architecture of your OS and architecture.
+
+The binaries are packages that start with `@biomejs/cli-*`, and can be found in [this list](https://www.npmjs.com/search?q=%40biomejs%2Fcli-*).
+So, if you're pointing to the binary installed via `npm`, the configuration will look like this:
+
+
+<Tabs>
+	<TabItem label="string">
+		```json
+		{
+			"biome.lsp.bin": "./node_modules/@biomejs/cli-linux-x64/bin"
+		}
+		```
+	</TabItem>
+	<TabItem label="object">
+
+		When using an object, the key is the platform identifier, constructed from the `<process.os>-<process.arch>` value, and the value is the path to the binary.
+		```json
+		{
+			"biome.lsp.bin": {
+				"darwin-arm64": "./node_modules/@biomejs/cli-darwin-arm64/bin",
+				"win32-x64": "./node_modules/@biomejs/cli-win32-x64/bin"
+			}
+		}
+		```
+	</TabItem>
+</Tabs>
+
 ### `biome.runFromTemporaryLocation`
 
 **Default:** `true (windows), false (others)` | **Scopes:** `global`, `workspace`, `workspace folder`
