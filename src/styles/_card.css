@@ -36,7 +36,6 @@
 	}
 
 	@media (prefers-color-scheme: dark) {
-		/* biome-ignore lint/style/noDescendingSpecificity: it should not have specificity */
 		:root[data-theme="auto"] & {
 			background: #1d2026;
 			border-color: #222;
@@ -63,7 +62,6 @@
 		}
 
 		@media (prefers-color-scheme: dark) {
-			/* biome-ignore lint/style/noDescendingSpecificity: it should not have specificity */
 			:root[data-theme="auto"] & {
 				border-color: var(--sl-border);
 			}
@@ -73,13 +71,11 @@
 	code {
 		color: #666;
 
-		/* biome-ignore lint/style/noDescendingSpecificity: it should not have specificity */
 		:root[data-theme="dark"] & {
 			color: rgb(171, 178, 191);
 		}
 
 		@media (prefers-color-scheme: dark) {
-			/* biome-ignore lint/style/noDescendingSpecificity: it should not have specificity */
 			:root[data-theme="auto"] & {
 				color: rgb(171, 178, 191);
 			}

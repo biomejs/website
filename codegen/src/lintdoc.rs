@@ -23,30 +23,25 @@ use biome_deserialize::json::deserialize_from_json_ast;
 use biome_diagnostics::termcolor::NoColor;
 use biome_diagnostics::{Diagnostic, DiagnosticExt, PrintDiagnostic, Severity, Visit};
 use biome_formatter::{Expand, LineWidth};
-use biome_fs::{BiomePath, MemoryFileSystem};
+use biome_fs::BiomePath;
 use biome_graphql_syntax::GraphqlLanguage;
-use biome_js_analyze::JsAnalyzerServices;
 use biome_js_parser::JsParserOptions;
 use biome_js_syntax::{EmbeddingKind, JsFileSource, JsLanguage};
 use biome_json_factory::make;
 use biome_json_formatter::context::JsonFormatOptions;
 use biome_json_formatter::format_node;
-use biome_json_parser::{JsonParserOptions, parse_json};
+use biome_json_parser::JsonParserOptions;
 use biome_json_syntax::{AnyJsonValue, JsonLanguage, JsonObjectValue};
-use biome_module_graph::ModuleGraph;
-use biome_project_layout::ProjectLayout;
 use biome_rowan::{AstNode, TextSize};
 use biome_service::settings::{ServiceLanguage, Settings};
 use biome_service::workspace::DocumentFileSource;
 use biome_string_case::Case;
-use biome_test_utils::{get_added_paths, get_test_services};
+use biome_test_utils::get_test_services;
 use biome_text_edit::TextEdit;
-use camino::Utf8PathBuf;
 use pulldown_cmark::{CodeBlockKind, Event, HeadingLevel, LinkType, Parser, Tag, TagEnd};
 use std::collections::{BTreeSet, HashMap, HashSet};
 use std::error::Error;
 use std::path::PathBuf;
-use std::sync::Arc;
 use std::{
     collections::BTreeMap,
     fmt::Write as _,

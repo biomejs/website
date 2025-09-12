@@ -19,6 +19,21 @@ ul.package-manager-selector {
 	}
 }
 
+pre.package-manager-command {
+	display: none;
+	position: relative;
+
+	padding: 0;
+	background-color: transparent;
+	border: none;
+
+	&.active {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+}
+
 ul.package-manager-selector {
 	li {
 		padding: 0 10px;
@@ -45,26 +60,10 @@ ul.package-manager-selector {
 			}
 
 			@media (prefers-color-scheme: dark) {
-				/* biome-ignore lint/style/noDescendingSpecificity: it should not have specificity */
 				:root[data-theme="auto"] & {
 					border-color: white;
 				}
 			}
 		}
-	}
-}
-
-pre.package-manager-command {
-	display: none;
-	position: relative;
-
-	padding: 0;
-	background-color: transparent;
-	border: none;
-
-	&.active {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
 	}
 }

@@ -19,13 +19,13 @@ fn main() -> anyhow::Result<()> {
             generate_playground_rules()?;
         }
         CodegenCommand::ReleaseFiles => {
-            generate_files(false)?;
+            generate_files()?;
         }
-        CodegenCommand::All { online } => {
+        CodegenCommand::All => {
             generate_rule_docs()?;
             generate_redirects()?;
             generate_playground_rules()?;
-            generate_files(online)?;
+            generate_files()?;
             generate_env_variables()?;
             generate_json_metadata()?;
         }

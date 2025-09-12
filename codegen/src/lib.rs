@@ -51,9 +51,5 @@ pub enum CodegenCommand {
 
     /// Updates the documentation of the rule pages and the files of a release
     #[bpaf(command)]
-    All {
-        /// When `false`, it generates the changelog the file system. When `true` it reads it from github.com
-        #[bpaf(long, flag(true, true))]
-        online: bool,
-    },
+    All,
 }
