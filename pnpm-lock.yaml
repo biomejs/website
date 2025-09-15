@@ -53,8 +53,8 @@ importers:
         specifier: 6.3.1
         version: 6.3.1(@codemirror/view@6.38.2)
       '@codemirror/lang-html':
-        specifier: 6.4.9
-        version: 6.4.9
+        specifier: 6.4.10
+        version: 6.4.10
       '@codemirror/lang-javascript':
         specifier: 6.2.4
         version: 6.2.4
@@ -87,7 +87,7 @@ importers:
         version: 1.55.0
       '@replit/codemirror-lang-svelte':
         specifier: 6.0.0
-        version: 6.0.0(@codemirror/autocomplete@6.15.0(@codemirror/language@6.10.1)(@codemirror/state@6.5.2)(@codemirror/view@6.38.2)(@lezer/common@1.2.1))(@codemirror/lang-css@6.3.1(@codemirror/view@6.38.2))(@codemirror/lang-html@6.4.9)(@codemirror/lang-javascript@6.2.4)(@codemirror/language@6.10.1)(@codemirror/state@6.5.2)(@codemirror/view@6.38.2)(@lezer/common@1.2.1)(@lezer/highlight@1.2.0)(@lezer/javascript@1.4.14)(@lezer/lr@1.4.0)
+        version: 6.0.0(@codemirror/autocomplete@6.15.0(@codemirror/language@6.10.1)(@codemirror/state@6.5.2)(@codemirror/view@6.38.2)(@lezer/common@1.2.1))(@codemirror/lang-css@6.3.1(@codemirror/view@6.38.2))(@codemirror/lang-html@6.4.10)(@codemirror/lang-javascript@6.2.4)(@codemirror/language@6.10.1)(@codemirror/state@6.5.2)(@codemirror/view@6.38.2)(@lezer/common@1.2.1)(@lezer/highlight@1.2.0)(@lezer/javascript@1.4.14)(@lezer/lr@1.4.0)
       '@types/node':
         specifier: 22.18.1
         version: 22.18.1
@@ -471,8 +471,8 @@ packages:
   '@codemirror/lang-css@6.3.1':
     resolution: {integrity: sha512-kr5fwBGiGtmz6l0LSJIbno9QrifNMUusivHbnA1H6Dmqy4HZFte3UAICix1VuKo0lMPKQr2rqB+0BkKi/S3Ejg==}
 
-  '@codemirror/lang-html@6.4.9':
-    resolution: {integrity: sha512-aQv37pIMSlueybId/2PVSP6NPnmurFDVmZwzc7jszd2KAF8qd4VBbvNYPXWQq90WIARjsdVkPbw29pszmHws3Q==}
+  '@codemirror/lang-html@6.4.10':
+    resolution: {integrity: sha512-h/SceTVsN5r+WE+TVP2g3KDvNoSzbSrtZXCKo4vkKdbfT5t4otuVgngGdFukOO/rwRD2++pCxoh6xD4TEVMkQA==}
 
   '@codemirror/lang-javascript@6.2.4':
     resolution: {integrity: sha512-0WVmhp1QOqZ4Rt6GlVGwKJN3KW7Xh4H2q8ZZNGZaP6lRdxXJzmjm4FqvmOojVj6khWJHIb9sp7U/72W7xQgqAA==}
@@ -6197,7 +6197,7 @@ snapshots:
     transitivePeerDependencies:
       - '@codemirror/view'
 
-  '@codemirror/lang-html@6.4.9':
+  '@codemirror/lang-html@6.4.10':
     dependencies:
       '@codemirror/autocomplete': 6.15.0(@codemirror/language@6.10.1)(@codemirror/state@6.5.2)(@codemirror/view@6.38.2)(@lezer/common@1.2.1)
       '@codemirror/lang-css': 6.3.1(@codemirror/view@6.38.2)
@@ -6226,7 +6226,7 @@ snapshots:
 
   '@codemirror/lang-vue@0.1.3':
     dependencies:
-      '@codemirror/lang-html': 6.4.9
+      '@codemirror/lang-html': 6.4.10
       '@codemirror/lang-javascript': 6.2.4
       '@codemirror/language': 6.10.1
       '@lezer/common': 1.2.1
@@ -7168,11 +7168,11 @@ snapshots:
     dependencies:
       playwright: 1.55.0
 
-  '@replit/codemirror-lang-svelte@6.0.0(@codemirror/autocomplete@6.15.0(@codemirror/language@6.10.1)(@codemirror/state@6.5.2)(@codemirror/view@6.38.2)(@lezer/common@1.2.1))(@codemirror/lang-css@6.3.1(@codemirror/view@6.38.2))(@codemirror/lang-html@6.4.9)(@codemirror/lang-javascript@6.2.4)(@codemirror/language@6.10.1)(@codemirror/state@6.5.2)(@codemirror/view@6.38.2)(@lezer/common@1.2.1)(@lezer/highlight@1.2.0)(@lezer/javascript@1.4.14)(@lezer/lr@1.4.0)':
+  '@replit/codemirror-lang-svelte@6.0.0(@codemirror/autocomplete@6.15.0(@codemirror/language@6.10.1)(@codemirror/state@6.5.2)(@codemirror/view@6.38.2)(@lezer/common@1.2.1))(@codemirror/lang-css@6.3.1(@codemirror/view@6.38.2))(@codemirror/lang-html@6.4.10)(@codemirror/lang-javascript@6.2.4)(@codemirror/language@6.10.1)(@codemirror/state@6.5.2)(@codemirror/view@6.38.2)(@lezer/common@1.2.1)(@lezer/highlight@1.2.0)(@lezer/javascript@1.4.14)(@lezer/lr@1.4.0)':
     dependencies:
       '@codemirror/autocomplete': 6.15.0(@codemirror/language@6.10.1)(@codemirror/state@6.5.2)(@codemirror/view@6.38.2)(@lezer/common@1.2.1)
       '@codemirror/lang-css': 6.3.1(@codemirror/view@6.38.2)
-      '@codemirror/lang-html': 6.4.9
+      '@codemirror/lang-html': 6.4.10
       '@codemirror/lang-javascript': 6.2.4
       '@codemirror/language': 6.10.1
       '@codemirror/state': 6.5.2
