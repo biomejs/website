@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`no-duplicate-case`](https://eslint.org/docs/latest/rules/no-duplicate-case)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noDuplicateCase": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow duplicate case labels.
 
@@ -101,19 +114,6 @@ switch (a) {
 }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"suspicious": {
-				"noDuplicateCase": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

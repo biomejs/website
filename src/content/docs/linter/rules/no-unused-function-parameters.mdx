@@ -15,6 +15,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - This rule is **recommended**, which means is enabled by default.
 - This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
 - The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noUnusedFunctionParameters": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow unused function parameters.
 
@@ -75,12 +88,21 @@ Example: `a` and `b` in `function({ a, b, ...rest }) { return rest;}` should be 
 
 Defaults to `true`.
 
-```json
+```json title='biome.json'
 {
-  "options": {
-    "ignoreRestSiblings": false
-  }
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noUnusedFunctionParameters": {
+					"options": {
+						"ignoreRestSiblings": false
+					}
+				}
+			}
+		}
+	}
 }
+
 ```
 
 ```js
@@ -91,19 +113,6 @@ function withObjectSpread({ b, ...rest }) {
 
 <pre class="language-text"><code class="language-text"></code></pre>
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"correctness": {
-				"noUnusedFunctionParameters": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

@@ -20,6 +20,19 @@ This rule is part of the [nursery](/linter/#nursery) group. This means that it i
 - Sources: 
   - Same as [`unicorn/no-useless-undefined`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-useless-undefined.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noUselessUndefined": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow the use of useless `undefined`.
 
@@ -91,19 +104,6 @@ function foo({bar}) {}
 foo();
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"nursery": {
-				"noUselessUndefined": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

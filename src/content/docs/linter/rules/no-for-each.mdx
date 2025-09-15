@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
   - Same as [`unicorn/no-array-for-each`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-array-for-each.md)
   - Same as [`needless_for_each`](https://rust-lang.github.io/rust-clippy/master/#needless_for_each)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"complexity": {
+				"noForEach": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Prefer `for...of` statement instead of `Array.forEach`.
 
@@ -88,12 +101,24 @@ for (const el of els) {
 The rule provides a `validIdentifiers` option that allows specific variable names to call `forEach`.
 In the following configuration, it's allowed to call `forEach` with expressions that match `Effect` or `_`:
 
-```json
+```json title='biome.json'
 {
-    "options": {
-        "allowedIdentifiers": ["Effect", "_"]
-    }
+	"linter": {
+		"rules": {
+			"complexity": {
+				"noForEach": {
+					"options": {
+						"allowedIdentifiers": [
+							"Effect",
+							"_"
+						]
+					}
+				}
+			}
+		}
+	}
 }
+
 ```
 
 ```js
@@ -107,19 +132,6 @@ _.forEach((el) => {
 
 Values with dots (e.g., "lib.\_") will not be accepted.
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"complexity": {
-				"noForEach": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`jsx-a11y/lang`](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/lang.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"a11y": {
+				"useValidLang": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Ensure that the attribute passed to the `lang` attribute is a correct ISO language and/or country.
 
@@ -49,19 +62,6 @@ Ensure that the attribute passed to the `lang` attribute is a correct ISO langua
 <Html lang="en-babab" />
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"a11y": {
-				"useValidLang": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

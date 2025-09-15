@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`jsx-a11y/autocomplete-valid`](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/autocomplete-valid.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"a11y": {
+				"useValidAutocomplete": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Use valid values for the `autocomplete` attribute on `input` elements.
 
@@ -46,12 +59,23 @@ Using these predefined values, user agents and assistive technologies can presen
 
 ## Options
 
-```json
+```json title='biome.json'
 {
-    "options": {
-        "inputComponents": ["MyInput"]
-    }
+	"linter": {
+		"rules": {
+			"a11y": {
+				"useValidAutocomplete": {
+					"options": {
+						"inputComponents": [
+							"MyInput"
+						]
+					}
+				}
+			}
+		}
+	}
 }
+
 ```
 
 ## Accessibility guidelines
@@ -63,19 +87,6 @@ Using these predefined values, user agents and assistive technologies can presen
 - [HTML Living Standard autofill](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofill)
 - [HTML attribute: autocomplete - HTML: HyperText Markup Language | MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete)
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"a11y": {
-				"useValidAutocomplete": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

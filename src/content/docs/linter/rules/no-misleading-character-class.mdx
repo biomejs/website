@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`no-misleading-character-class`](https://eslint.org/docs/latest/rules/no-misleading-character-class)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noMisleadingCharacterClass": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow characters made with multiple code points in character class syntax.
 
@@ -75,19 +88,6 @@ This rule reports the regular expression literals which include multiple code po
 /^[\q{👶🏻}]$/v;
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"suspicious": {
-				"noMisleadingCharacterClass": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

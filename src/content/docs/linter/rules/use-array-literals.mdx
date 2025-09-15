@@ -19,6 +19,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
   - Same as [`no-array-constructor`](https://eslint.org/docs/latest/rules/no-array-constructor)
   - Same as [`@typescript-eslint/no-array-constructor`](https://typescript-eslint.io/rules/no-array-constructor)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useArrayLiterals": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow Array constructors.
 
@@ -69,19 +82,6 @@ const xs = Array(65000);
 const xs = [0, 1, 2];
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"style": {
-				"useArrayLiterals": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

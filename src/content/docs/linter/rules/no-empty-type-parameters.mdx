@@ -15,6 +15,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - This rule is **recommended**, which means is enabled by default.
 - This rule doesn't have a fix.
 - The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"complexity": {
+				"noEmptyTypeParameters": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow empty type parameters in type aliases and interfaces.
 
@@ -50,19 +63,6 @@ type Foo<T> = {
 }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"complexity": {
-				"noEmptyTypeParameters": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

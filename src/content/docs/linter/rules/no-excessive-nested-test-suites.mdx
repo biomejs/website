@@ -20,6 +20,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
   - Same as [`jest/max-nested-describe`](https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/max-nested-describe.md)
   - Same as [`vitest/max-nested-describe`](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/max-nested-describe.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"complexity": {
+				"noExcessiveNestedTestSuites": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 This rule enforces a maximum depth to nested `describe()` in test files.
 
@@ -66,19 +79,6 @@ describe('foo', () => {
 });
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"complexity": {
-				"noExcessiveNestedTestSuites": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

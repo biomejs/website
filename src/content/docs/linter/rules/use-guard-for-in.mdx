@@ -17,6 +17,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`guard-for-in`](https://eslint.org/docs/latest/rules/guard-for-in)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"useGuardForIn": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Require `for-in` loops to include an `if` statement.
 
@@ -65,19 +78,6 @@ for (key in foo) {
 }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"suspicious": {
-				"useGuardForIn": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

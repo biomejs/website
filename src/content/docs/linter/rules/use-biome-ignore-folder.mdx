@@ -9,14 +9,25 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JSON (and super languages)" icon="seti:json">
-:::note
-This rule has been implemented but not released yet. It will be available in the next release.
-:::
 ## Summary
+- Rule available since: `v2.2.0`
 - Diagnostic Category: [`lint/suspicious/useBiomeIgnoreFolder`](/reference/diagnostics#diagnostic-category)
 - This rule is **recommended**, which means is enabled by default.
 - This rule has a [**safe**](/linter/#safe-fixes) fix.
 - The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"useBiomeIgnoreFolder": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Promotes the correct usage for ignoring folders in the configuration file.
 
@@ -48,19 +59,6 @@ If the intention is to ignore specific files inside a folder, the trailing patte
 }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"suspicious": {
-				"useBiomeIgnoreFolder": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

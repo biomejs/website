@@ -14,6 +14,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Diagnostic Category: [`lint/style/noEnum`](/reference/diagnostics#diagnostic-category)
 - This rule doesn't have a fix.
 - The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"noEnum": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow TypeScript enum.
 
@@ -56,19 +69,6 @@ const enum Foo {
 }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"style": {
-				"noEnum": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

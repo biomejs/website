@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`prefer-rest-params`](https://eslint.org/docs/latest/rules/prefer-rest-params)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"complexity": {
+				"noArguments": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow the use of `arguments`.
 
@@ -42,19 +55,6 @@ function f() {
 }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"complexity": {
-				"noArguments": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

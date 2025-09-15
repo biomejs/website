@@ -17,6 +17,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`operator-assignment`](https://eslint.org/docs/latest/rules/operator-assignment)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useShorthandAssign": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Require assignment operator shorthand where possible.
 
@@ -58,19 +71,6 @@ a -= 1;
 a *= 1;
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"style": {
-				"useShorthandAssign": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

@@ -17,6 +17,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`@typescript-eslint/no-inferrable-types`](https://typescript-eslint.io/rules/no-inferrable-types)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"noInferrableTypes": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow type annotations for variables, parameters, and class properties initialized with a literal expression.
 
@@ -107,19 +120,6 @@ class SomeClass {
 function f(param: 1 | 2 = 1): void {}
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"style": {
-				"noInferrableTypes": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

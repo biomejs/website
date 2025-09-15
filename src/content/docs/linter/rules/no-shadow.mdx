@@ -20,6 +20,19 @@ This rule is part of the [nursery](/linter/#nursery) group. This means that it i
 - Sources: 
   - Same as [`no-shadow`](https://eslint.org/docs/latest/rules/no-shadow)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noShadow": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow variable declarations from shadowing variables declared in the outer scope.
 
@@ -71,19 +84,6 @@ if (true) {
 }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"nursery": {
-				"noShadow": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

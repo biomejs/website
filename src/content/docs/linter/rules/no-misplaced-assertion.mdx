@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
   - Inspired from [`jest/no-standalone-expect`](https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-standalone-expect.md)
   - Inspired from [`vitest/no-standalone-expect`](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/no-standalone-expect.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noMisplacedAssertion": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Checks that the assertion function, for example `expect`, is placed inside an `it()` function call.
 
@@ -124,19 +137,6 @@ await waitFor(() => {
 });
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"suspicious": {
-				"noMisplacedAssertion": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

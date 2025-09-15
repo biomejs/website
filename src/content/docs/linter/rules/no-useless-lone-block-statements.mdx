@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`no-lone-blocks`](https://eslint.org/docs/latest/rules/no-lone-blocks)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"complexity": {
+				"noUselessLoneBlockStatements": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow unnecessary nested block statements.
 
@@ -54,19 +67,6 @@ while (foo) {
 }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"complexity": {
-				"noUselessLoneBlockStatements": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

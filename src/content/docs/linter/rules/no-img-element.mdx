@@ -19,6 +19,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`@next/no-img-element`](https://nextjs.org/docs/messages/no-img-element)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"performance": {
+				"noImgElement": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Prevent usage of `<img>` element in a Next.js project.
 
@@ -67,19 +80,6 @@ hosting providers, be aware of potential additional costs or usage.
 </picture>
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"performance": {
-				"noImgElement": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

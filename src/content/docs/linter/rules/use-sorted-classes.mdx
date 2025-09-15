@@ -17,6 +17,19 @@ This rule is part of the [nursery](/linter/#nursery) group. This means that it i
 - Diagnostic Category: [`lint/nursery/useSortedClasses`](/reference/diagnostics#diagnostic-category)
 - This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
 - The default severity of this rule is [**information**](/reference/diagnostics#information).
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useSortedClasses": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Enforce the sorting of CSS utility classes.
 
@@ -66,13 +79,29 @@ Please don't report issues about these features.
 
 ### Code-related
 
-```json
+```json title='biome.json'
 {
-    "options": {
-        "attributes": ["classList"],
-        "functions": ["clsx", "cva", "tw", "tw.*"]
-    }
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useSortedClasses": {
+					"options": {
+						"attributes": [
+							"classList"
+						],
+						"functions": [
+							"clsx",
+							"cva",
+							"tw",
+							"tw.*"
+						]
+					}
+				}
+			}
+		}
+	}
 }
+
 ```
 
 #### attributes
@@ -160,19 +189,6 @@ The Tailwind CSS Prettier plugin preserves all original whitespace. This rule, h
 
 This is a deliberate decision. We're unsure about this behavior, and would appreciate feedback on it. If this is a problem for you, please share a detailed explanation of your use case in [the GitHub issue](https://github.com/biomejs/biome/issues/1274).
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"nursery": {
-				"useSortedClasses": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

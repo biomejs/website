@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
   - Same as [`no-negated-condition`](https://eslint.org/docs/latest/rules/no-negated-condition)
   - Same as [`if_not_else`](https://rust-lang.github.io/rust-clippy/master/#if_not_else)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"noNegationElse": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow negation in the condition of an `if` statement if it has an `else` clause.
 
@@ -55,19 +68,6 @@ if (!cond) { f(); }
 if (!!val) { f(); } else { g(); }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"style": {
-				"noNegationElse": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

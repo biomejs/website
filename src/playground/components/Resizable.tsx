@@ -63,7 +63,7 @@ export default function Resizable({
 	const size =
 		rawSize === undefined ? undefined : Math.max(MINIMUM_SIZE, rawSize);
 
-	const ref: React.RefObject<HTMLDivElement> = createRef();
+	const ref: React.RefObject<HTMLDivElement | null> = createRef();
 
 	const handler = handlers[direction];
 

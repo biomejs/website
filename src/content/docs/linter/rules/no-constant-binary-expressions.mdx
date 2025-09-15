@@ -17,6 +17,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`no-constant-binary-expression`](https://eslint.org/docs/latest/rules/no-constant-binary-expression)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noConstantBinaryExpressions": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow expressions where the operation doesn't affect the value
 
@@ -108,19 +121,6 @@ const objIsEmpty = Object.keys(someObj).length === 0;
 const arrIsEmpty = someArr.length === 0;
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"suspicious": {
-				"noConstantBinaryExpressions": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

@@ -17,6 +17,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Inspired from [`graphql/enum-values-all-caps`](https://github.com/cjoudrey/graphql-schema-linter?tab=readme-ov-file#enum-values-all-caps)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useGraphqlNamingConvention": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Validates that all enum values are capitalized.
 
@@ -42,19 +55,6 @@ enum MyEnum {
 }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"style": {
-				"useGraphqlNamingConvention": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

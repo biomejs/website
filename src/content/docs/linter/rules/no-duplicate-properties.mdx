@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`stylelint/declaration-block-no-duplicate-properties`](https://github.com/stylelint/stylelint/blob/main/lib/rules/declaration-block-no-duplicate-properties/README.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noDuplicateProperties": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow duplicate properties within declaration blocks.
 
@@ -45,19 +58,6 @@ a {
 }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"suspicious": {
-				"noDuplicateProperties": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

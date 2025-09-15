@@ -22,6 +22,19 @@ This rule is part of the [nursery](/linter/#nursery) group. This means that it i
 - Sources: 
   - Same as [`react-prefer-function-component/react-prefer-function-component`](https://github.com/tatethurston/eslint-plugin-react-prefer-function-component)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useReactFunctionComponents": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Enforce that components are defined as functions and never as classes.
 
@@ -58,19 +71,6 @@ function Foo() {
 }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"nursery": {
-				"useReactFunctionComponents": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

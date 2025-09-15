@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`graphql/no-anonymous-operations`](https://the-guild.dev/graphql/eslint/rules/no-anonymous-operations)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"useGraphqlNamedOperations": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Enforce specifying the name of GraphQL operations.
 
@@ -41,19 +54,6 @@ query Human {
 }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"correctness": {
-				"useGraphqlNamedOperations": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

@@ -166,6 +166,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | --- | --- | --- |
 | [noFloatingPromises](/linter/rules/no-floating-promises) | Require Promise-like statements to be handled appropriately. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noImportCycles](/linter/rules/no-import-cycles) | Prevent import cycles. |  |
+| [noJsxLiterals](/linter/rules/no-jsx-literals) | Disallow string literals inside JSX elements. |  |
 | [noMisusedPromises](/linter/rules/no-misused-promises) | Disallow Promises to be used in places where they are almost certainly a | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noNextAsyncClientComponent](/linter/rules/no-next-async-client-component) | Prevent client components from being async functions. |  |
 | [noNonNullAssertedOptionalChain](/linter/rules/no-non-null-asserted-optional-chain) | Disallow non-null assertions after optional chaining expressions. |  |
@@ -174,11 +175,13 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noShadow](/linter/rules/no-shadow) | Disallow variable declarations from shadowing variables declared in the outer scope. |  |
 | [noUnnecessaryConditions](/linter/rules/no-unnecessary-conditions) | Disallow unnecessary type-based conditions that can be statically determined as redundant. |  |
 | [noUnresolvedImports](/linter/rules/no-unresolved-imports) | Warn when importing non-existing exports. |  |
+| [noUselessCatchBinding](/linter/rules/no-useless-catch-binding) | Disallow unused catch bindings. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noUselessUndefined](/linter/rules/no-useless-undefined) | Disallow the use of useless `undefined`. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [noVueDataObjectDeclaration](/linter/rules/no-vue-data-object-declaration) | Enforce that Vue component `data` options are declared as functions. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [noVueReservedKeys](/linter/rules/no-vue-reserved-keys) | Disallow reserved keys in Vue component data and computed properties. |  |
 | [noVueReservedProps](/linter/rules/no-vue-reserved-props) | Disallow reserved names to be used as props. |  |
 | [useAnchorHref](/linter/rules/use-anchor-href) | Enforces `href` attribute for `<a>` elements. |  |
+| [useConsistentArrowReturn](/linter/rules/use-consistent-arrow-return) | Enforce consistent arrow function bodies. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [useConsistentTypeDefinitions](/linter/rules/use-consistent-type-definitions) | Enforce type definitions to consistently use either `interface` or `type`. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useExhaustiveSwitchCases](/linter/rules/use-exhaustive-switch-cases) | Require switch-case statements to be exhaustive. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useExplicitType](/linter/rules/use-explicit-type) | Enforce types in functions, methods, variables, and parameters. |  |
@@ -187,6 +190,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [useQwikClasslist](/linter/rules/use-qwik-classlist) | Prefer using the `class` prop as a classlist over the `classnames` helper. |  |
 | [useReactFunctionComponents](/linter/rules/use-react-function-components) | Enforce that components are defined as functions and never as classes. |  |
 | [useSortedClasses](/linter/rules/use-sorted-classes) | Enforce the sorting of CSS utility classes. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [useVueMultiWordComponentNames](/linter/rules/use-vue-multi-word-component-names) | Enforce multi-word component names in Vue components. |  |
 
 ## `performance`
 
@@ -550,3 +554,4 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 - [useIterableCallbackReturn](/linter/rules/use-iterable-callback-return) (Severity: [error](/reference/diagnostics#error))
 - [useNamespaceKeyword](/linter/rules/use-namespace-keyword) (Severity: [error](/reference/diagnostics#error))
 
+Missing a rule? Help us by [contributing](https://github.com/biomejs/biome/blob/main/CONTRIBUTING.md) to the [analyzer](https://github.com/biomejs/biome/blob/main/crates/biome_analyze/CONTRIBUTING.md) or create a rule suggestion [here](https://github.com/biomejs/biome/discussions/categories/rule-suggestion).

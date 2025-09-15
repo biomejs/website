@@ -9,6 +9,9 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+:::note
+This rule belongs to the project domain. This means that its activation will activate the Biome Scanner, which might affect the performance. Read more about it in the [documentation page](/linter/domains#project)
+:::
 ## Summary
 - Rule available since: `v2.0.0`
 - Diagnostic Category: [`lint/correctness/useJsonImportAttributes`](/reference/diagnostics#diagnostic-category)
@@ -16,6 +19,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - The default severity of this rule is [**information**](/reference/diagnostics#information).
 - This rule belongs to the following domains:
   - [`project`](/linter/domains#project)
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"useJsonImportAttributes": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Enforces the use of `with { type: "json" }` for JSON module imports.
 
@@ -51,19 +67,6 @@ import jsonData from './data.json' with { type: "json", other: "value" };
 import code from './script.js'; // Not a JSON import
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"correctness": {
-				"useJsonImportAttributes": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

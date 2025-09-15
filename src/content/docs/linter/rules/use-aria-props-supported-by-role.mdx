@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`jsx-a11y/role-supports-aria-props`](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/role-supports-aria-props.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"a11y": {
+				"useAriaPropsSupportedByRole": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Enforce that ARIA properties are valid for the roles that are supported by the element.
 
@@ -49,19 +62,6 @@ Invalid ARIA properties can make it difficult for users of assistive technologie
 </>
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"a11y": {
-				"useAriaPropsSupportedByRole": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

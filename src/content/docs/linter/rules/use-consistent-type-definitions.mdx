@@ -20,6 +20,19 @@ This rule is part of the [nursery](/linter/#nursery) group. This means that it i
 - Sources: 
   - Same as [`@typescript-eslint/consistent-type-definitions`](https://typescript-eslint.io/rules/consistent-type-definitions)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useConsistentTypeDefinitions": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Enforce type definitions to consistently use either `interface` or `type`.
 
@@ -58,12 +71,21 @@ This option will determine which style to use for type definitions.
 
 Default: `interface`
 
-```json
+```json title='biome.json'
 {
-    "options": {
-        "style": "type"
-    }
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useConsistentTypeDefinitions": {
+					"options": {
+						"style": "type"
+					}
+				}
+			}
+		}
+	}
 }
+
 ```
 
 ```ts
@@ -75,19 +97,6 @@ interface Point {
 
 <pre class="language-text"><code class="language-text"></code></pre>
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"nursery": {
-				"useConsistentTypeDefinitions": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

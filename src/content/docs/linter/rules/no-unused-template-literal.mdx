@@ -14,6 +14,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Diagnostic Category: [`lint/style/noUnusedTemplateLiteral`](/reference/diagnostics#diagnostic-category)
 - This rule has a [**safe**](/linter/#safe-fixes) fix.
 - The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"noUnusedTemplateLiteral": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow template literals if interpolation and special-character handling are not needed
 
@@ -48,19 +61,6 @@ const foo = `"bar"`
 const foo = `'bar'`
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"style": {
-				"noUnusedTemplateLiteral": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

@@ -17,6 +17,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`unicorn/error-message`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/error-message.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"useErrorMessage": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Enforce passing a message value when creating a built-in error.
 
@@ -65,19 +78,6 @@ throw new TypeError('Array expected.');
 const error = new AggregateError(errors, 'Promises rejected.');
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"suspicious": {
-				"useErrorMessage": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

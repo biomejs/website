@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`no-irregular-whitespace`](https://eslint.org/docs/latest/rules/no-irregular-whitespace)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noIrregularWhitespace": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallows the use of irregular whitespace characters.
 
@@ -49,19 +62,6 @@ const count = 1;
 const foo = '';
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"suspicious": {
-				"noIrregularWhitespace": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)
@@ -81,6 +81,19 @@ const foo = '';
 - Sources: 
   - Same as [`stylelint/no-irregular-whitespace`](https://github.com/stylelint/stylelint/blob/main/lib/rules/no-irregular-whitespace/README.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noIrregularWhitespace": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallows the use of irregular whitespace characters.
 
@@ -114,19 +127,6 @@ Using irregular whitespace would lead to the failure of selecting the correct ta
 }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"suspicious": {
-				"noIrregularWhitespace": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

@@ -21,6 +21,19 @@ This rule is part of the [nursery](/linter/#nursery) group. This means that it i
   - Same as [`max-params`](https://eslint.org/docs/latest/rules/max-params)
   - Same as [`too_many_arguments`](https://rust-lang.github.io/rust-clippy/master/#too_many_arguments)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useMaxParams": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Enforce a maximum number of parameters in function definitions.
 
@@ -86,19 +99,6 @@ class Baz {
 
 The maximum number of parameters allowed (default: 4).
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"nursery": {
-				"useMaxParams": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

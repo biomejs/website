@@ -22,6 +22,19 @@ This rule is part of the [nursery](/linter/#nursery) group. This means that it i
 - Sources: 
   - Same as [`qwik/jsx-img`](https://github.com/BuilderIO/eslint-plugin-qwik/blob/main/docs/rules/jsx-img.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useImageSize": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Enforces that `<img>` elements have both width and height attributes.
 
@@ -65,19 +78,6 @@ This rule ensures that `<img>` elements have `width` and `height` attributes
 <img width="100" height="100" src="https://example.com/image.png" />
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"nursery": {
-				"useImageSize": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

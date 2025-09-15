@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`@typescript-eslint/no-misused-new`](https://typescript-eslint.io/rules/no-misused-new)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noMisleadingInstantiator": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Enforce proper usage of `new` and `constructor`.
 
@@ -63,19 +76,6 @@ interface I {
 }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"suspicious": {
-				"noMisleadingInstantiator": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

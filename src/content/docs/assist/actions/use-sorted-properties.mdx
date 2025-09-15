@@ -16,6 +16,19 @@ import EditorAction from "@/components/EditorAction.astro";
 - The default severity of this rule is [**information**](/reference/diagnostics#information).
 ## How to enable in your editor
 <EditorAction includeFixAll action="source.action.useSortedProperties.biome" />
+## How to configure
+```json title="biome.json"
+{
+	"assist": {
+		"actions": {
+			"source": {
+				"useSortedProperties": "on"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Enforce ordering of CSS properties and nested rules.
 
@@ -83,19 +96,6 @@ p {
 }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"assist": {
-		"actions": {
-			"source": {
-				"useSortedProperties": "on"
-			}
-		}
-	}
-}
-
-```
 
 </TabItem>
 </Tabs>

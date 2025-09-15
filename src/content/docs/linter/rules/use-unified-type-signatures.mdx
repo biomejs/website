@@ -17,6 +17,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`@typescript-eslint/unified-signatures`](https://typescript-eslint.io/rules/unified-signatures)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useUnifiedTypeSignatures": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow overload signatures that can be unified into a single signature.
 
@@ -73,19 +86,6 @@ function f<T extends string>(x: T): void;
 function f(x: unknown): void {}
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"style": {
-				"useUnifiedTypeSignatures": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

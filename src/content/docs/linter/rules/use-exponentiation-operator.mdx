@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`prefer-exponentiation-operator`](https://eslint.org/docs/latest/rules/prefer-exponentiation-operator)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useExponentiationOperator": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow the use of `Math.pow` in favor of the `**` operator.
 
@@ -64,19 +77,6 @@ let baz = (a + b) ** (c + d);
 let quux = (-1) ** n;
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"style": {
-				"useExponentiationOperator": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

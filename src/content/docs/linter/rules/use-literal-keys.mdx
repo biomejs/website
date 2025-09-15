@@ -20,6 +20,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
   - Same as [`no-useless-computed-key`](https://eslint.org/docs/latest/rules/no-useless-computed-key)
   - Same as [`@typescript-eslint/dot-notation`](https://typescript-eslint.io/rules/dot-notation)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"complexity": {
+				"useLiteralKeys": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Enforce the usage of a literal access to properties over computed property access.
 
@@ -60,19 +73,6 @@ a["c" + "d"];
 a[d.c];
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"complexity": {
-				"useLiteralKeys": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

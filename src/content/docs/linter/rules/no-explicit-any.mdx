@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`@typescript-eslint/no-explicit-any`](https://typescript-eslint.io/rules/no-explicit-any)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noExplicitAny": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow the `any` type usage.
 
@@ -71,19 +84,6 @@ class SomeClass<T extends any> {
 function fn(param: Array<Array<unknown>>): Array<unknown> {}
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"suspicious": {
-				"noExplicitAny": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

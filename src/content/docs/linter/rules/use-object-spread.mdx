@@ -17,6 +17,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`prefer-object-spread`](https://eslint.org/docs/latest/rules/prefer-object-spread)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useObjectSpread": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Prefer object spread over `Object.assign()` when constructing new objects.
 
@@ -68,19 +81,6 @@ Modifying an existing object is allowed:
 Object.assign(foo, { bar: baz });
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"style": {
-				"useObjectSpread": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

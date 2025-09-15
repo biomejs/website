@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
   - Same as [`jest/no-done-callback`](https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-done-callback.md)
   - Same as [`vitest/no-done-callback`](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/no-done-callback.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"noDoneCallback": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow using a callback in asynchronous tests and hooks.
 
@@ -57,19 +70,6 @@ test('test-name', () => {
 });
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"style": {
-				"noDoneCallback": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`@typescript-eslint/prefer-optional-chain`](https://typescript-eslint.io/rules/prefer-optional-chain)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"complexity": {
+				"useOptionalChain": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Enforce using concise optional chain instead of chained logical expressions.
 
@@ -88,19 +101,6 @@ foo || foo.bar;
 foo["some long"] && foo["some long string"].baz
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"complexity": {
-				"useOptionalChain": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

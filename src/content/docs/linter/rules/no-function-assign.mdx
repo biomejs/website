@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`no-func-assign`](https://eslint.org/docs/latest/rules/no-func-assign)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noFunctionAssign": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow reassigning function declarations.
 
@@ -122,19 +135,6 @@ function foo() {
 }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"suspicious": {
-				"noFunctionAssign": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

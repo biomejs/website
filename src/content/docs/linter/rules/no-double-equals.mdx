@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`eqeqeq`](https://eslint.org/docs/latest/rules/eqeqeq)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noDoubleEquals": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Require the use of `===` and `!==`.
 
@@ -81,19 +94,6 @@ exceptions.
 
 Default: `true`
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"suspicious": {
-				"noDoubleEquals": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

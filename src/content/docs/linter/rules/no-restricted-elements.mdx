@@ -17,6 +17,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`react/forbid-elements`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/forbid-elements.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noRestrictedElements": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow the use of configured elements.
 
@@ -45,15 +58,24 @@ this rule helps maintain code quality and consistency across the codebase.
 
 ## Options
 
-```json
+```json title='biome.json'
 {
-    "options": {
-        "elements": {
-            "input": "input is not allowed, use TextField component instead",
-            "CustomComponent": "deprecated"
-        }
-    }
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noRestrictedElements": {
+					"options": {
+						"elements": {
+							"input": "input is not allowed, use TextField component instead",
+							"CustomComponent": "deprecated"
+						}
+					}
+				}
+			}
+		}
+	}
 }
+
 ```
 
 ## Examples
@@ -82,19 +104,6 @@ Restricting the use of custom components:
 <TextField />
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"correctness": {
-				"noRestrictedElements": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

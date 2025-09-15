@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`@typescript-eslint/no-non-null-assertion`](https://typescript-eslint.io/rules/no-non-null-assertion)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"noNonNullAssertion": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow non-null assertions using the `!` postfix operator.
 
@@ -57,19 +70,6 @@ declare const foo: Example;
 const includesBaz = foo.property?.includes('baz') ?? false;
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"style": {
-				"noNonNullAssertion": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

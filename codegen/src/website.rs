@@ -17,16 +17,14 @@ use std::fs;
 /// Generates the following files:
 ///
 /// - Default configuration file: `src/components/generated/DefaultConfiguration.mdx`
-/// - Changelog file: `src/content/docs/internals/changelog.md`
 /// - CLI doc file: `src/content/docs/reference/cli.mdx`
 /// - Schema js file: `src/pages/schemas/<version>/schema.json.js`
 ///
 /// To generate the CLI doc and the schema of the current version,
 /// pass the environment variable `BIOME_VERSION`
 ///
-pub fn generate_files(online: bool) -> anyhow::Result<()> {
+pub fn generate_files() -> anyhow::Result<()> {
     generate_default_configuration()?;
-    generate_changelog(online)?;
 
     if VERSION != "0.0.0" {
         generate_cli_doc()?;
@@ -64,38 +62,6 @@ pub(crate) fn generate_default_configuration() -> anyhow::Result<()> {
             default_configuration_printed.as_code(),
         ),
     )?;
-
-    Ok(())
-}
-
-/// Generates the changelog file: `src/content/docs/internals/changelog.md`
-pub(crate) fn generate_changelog(online: bool) -> anyhow::Result<()> {
-    let changelog_target_path = project_root().join("src/content/docs/internals/changelog.md");
-
-    const CHANGELOG_FRONTMATTER: &str = r#"---
-title: Changelog
-description: The changelog of Biome
-tableOfContents:
-    maxHeadingLevel: 3
----
-"#;
-
-    let changelog_source_content = if online {
-        println!("Downloading changelog from GitHub...");
-        let request = ureq::get(
-            "https://raw.githubusercontent.com/biomejs/biome/refs/heads/main/packages/%40biomejs/biome/CHANGELOG.md",
-        );
-        request.call()?.body_mut().read_to_string()?
-    } else {
-        println!("Generating changelog from local files...");
-        let changelog_source_path =
-            project_root().join("../biome/packages/@biomejs/biome/CHANGELOG.md");
-        fs::read_to_string(changelog_source_path)?
-    };
-    let changelog_target_content = format!("{CHANGELOG_FRONTMATTER}{changelog_source_content}");
-
-    println!("Generated changelog {}", changelog_target_path.display());
-    fs::write(changelog_target_path, changelog_target_content)?;
 
     Ok(())
 }

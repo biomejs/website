@@ -17,6 +17,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Inspired from [`react-refresh/only-export-components`](https://github.com/ArnaudBarre/eslint-plugin-react-refresh)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useComponentExportOnlyModules": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Enforce declaring components only within modules that export React Components exclusively.
 
@@ -82,12 +95,21 @@ export default memo(Component);
 
 Some tools, such as [Vite](https://vitejs.dev/), allow exporting constants along with components. By enabling the following, the rule will support the pattern.
 
-```json
+```json title='biome.json'
 {
-    "options":{
-        "allowConstantExport" : true
-    }
+	"linter": {
+		"rules": {
+			"style": {
+				"useComponentExportOnlyModules": {
+					"options": {
+						"allowConstantExport": true
+					}
+				}
+			}
+		}
+	}
 }
+
 ```
 
 ### `allowExportNames`
@@ -96,27 +118,30 @@ If you use a framework that handles [Hot Module Replacement(HMR)](https://remix.
 
 Example for [Remix](https://remix.run/docs/en/main/discussion/hot-module-replacement#supported-exports):
 
-```json
-{
-    "options":{
-        "allowExportNames": ["json", "loader", "headers", "meta", "links", "scripts"]
-    }
-}
-```
-
-## How to configure
-```json title="biome.json"
+```json title='biome.json'
 {
 	"linter": {
 		"rules": {
 			"style": {
-				"useComponentExportOnlyModules": "error"
+				"useComponentExportOnlyModules": {
+					"options": {
+						"allowExportNames": [
+							"json",
+							"loader",
+							"headers",
+							"meta",
+							"links",
+							"scripts"
+						]
+					}
+				}
 			}
 		}
 	}
 }
 
 ```
+
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

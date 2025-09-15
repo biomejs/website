@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`no-class-assign`](https://eslint.org/docs/latest/rules/no-class-assign)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noClassAssign": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow reassigning class members.
 
@@ -85,19 +98,6 @@ class A {
 }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"suspicious": {
-				"noClassAssign": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

@@ -17,6 +17,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`@typescript-eslint/no-magic-numbers`](https://typescript-eslint.io/rules/no-magic-numbers)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"noMagicNumbers": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Reports usage of "magic numbers" — numbers used directly instead of being assigned to named constants.
 
@@ -56,19 +69,6 @@ const TAX_RATE = 1.23 as const;
 let total = price * TAX_RATE;
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"style": {
-				"noMagicNumbers": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

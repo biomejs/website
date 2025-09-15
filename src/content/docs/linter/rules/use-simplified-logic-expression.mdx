@@ -14,6 +14,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Diagnostic Category: [`lint/complexity/useSimplifiedLogicExpression`](/reference/diagnostics#diagnostic-category)
 - This rule has a [**safe**](/linter/#safe-fixes) fix.
 - The default severity of this rule is [**information**](/reference/diagnostics#information).
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"complexity": {
+				"useSimplifiedLogicExpression": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Discard redundant terms from logical expressions.
 
@@ -60,19 +73,6 @@ const boolExpr5 = true;
 const boolExpr6 = false;
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"complexity": {
-				"useSimplifiedLogicExpression": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

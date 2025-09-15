@@ -20,6 +20,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
   - Inspired from [`jest/no-duplicate-hooks`](https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-duplicate-hooks.md)
   - Inspired from [`vitest/no-duplicate-hooks`](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/no-duplicate-hooks.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noDuplicateTestHooks": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 A `describe` block should not contain duplicate hooks.
 
@@ -74,19 +87,6 @@ describe('foo', () => {
 });
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"suspicious": {
-				"noDuplicateTestHooks": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

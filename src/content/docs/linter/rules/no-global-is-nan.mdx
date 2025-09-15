@@ -15,6 +15,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - This rule is **recommended**, which means is enabled by default.
 - This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
 - The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noGlobalIsNan": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Use `Number.isNaN` instead of global `isNaN`.
 
@@ -39,19 +52,6 @@ isNaN({}); // true
 Number.isNaN({}); // false
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"suspicious": {
-				"noGlobalIsNan": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

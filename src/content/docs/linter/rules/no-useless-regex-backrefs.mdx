@@ -19,6 +19,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
   - Same as [`no-useless-backreference`](https://eslint.org/docs/latest/rules/no-useless-backreference)
   - Same as [`regexp/no-useless-backreference`](https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-useless-backreference.html)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noUselessRegexBackrefs": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow useless backreferences in regular expression literals that always match an empty string.
 
@@ -108,19 +121,6 @@ A backreference that always matches an empty string is always successfully match
 /a(?!(b|c)\1)./;
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"suspicious": {
-				"noUselessRegexBackrefs": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

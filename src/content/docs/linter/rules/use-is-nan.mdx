@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`use-isnan`](https://eslint.org/docs/latest/rules/use-isnan)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"useIsNan": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Require calls to `isNaN()` when checking for `NaN`.
 
@@ -74,19 +87,6 @@ foo(Number.NaN / 2)
 switch(foo) {}
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"correctness": {
-				"useIsNan": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

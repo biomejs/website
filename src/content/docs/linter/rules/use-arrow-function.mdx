@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Inspired from [`prefer-arrow-callback`](https://eslint.org/docs/latest/rules/prefer-arrow-callback)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"complexity": {
+				"useArrowFunction": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Use arrow functions over function expressions.
 
@@ -71,19 +84,6 @@ const z = function(this: A): number {
 }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"complexity": {
-				"useArrowFunction": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

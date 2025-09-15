@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`no-unsafe-optional-chaining`](https://eslint.org/docs/latest/rules/no-unsafe-optional-chaining)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noUnsafeOptionalChaining": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow the use of optional chaining in contexts where the undefined value is not allowed.
 
@@ -82,19 +95,6 @@ obj.foo?.bar;
 foo?.()?.bar;
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"correctness": {
-				"noUnsafeOptionalChaining": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

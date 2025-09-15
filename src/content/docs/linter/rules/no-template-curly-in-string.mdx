@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`no-template-curly-in-string`](https://eslint.org/docs/latest/rules/no-template-curly-in-string)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noTemplateCurlyInString": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow template literal placeholder syntax in regular strings.
 
@@ -57,19 +70,6 @@ const a = `Time: ${12 * 60 * 60 * 1000}`;
 const a = templateFunction`Hello ${name}`;
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"suspicious": {
-				"noTemplateCurlyInString": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

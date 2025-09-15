@@ -9,14 +9,25 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JSON (and super languages)" icon="seti:json">
-:::note
-This rule has been implemented but not released yet. It will be available in the next release.
-:::
 ## Summary
+- Rule available since: `v2.2.0`
 - Diagnostic Category: [`lint/suspicious/noBiomeFirstException`](/reference/diagnostics#diagnostic-category)
 - This rule is **recommended**, which means is enabled by default.
 - This rule has a [**safe**](/linter/#safe-fixes) fix.
 - The default severity of this rule is [**error**](/reference/diagnostics#error).
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noBiomeFirstException": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Prevents the use of the `!` pattern in the first position of `files.includes` in the configuration file.
 
@@ -47,19 +58,6 @@ Check the [official documentation](https://biomejs.dev/guides/configure-biome/#e
 }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"suspicious": {
-				"noBiomeFirstException": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

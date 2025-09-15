@@ -17,6 +17,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`no-param-reassign`](https://eslint.org/docs/latest/rules/no-param-reassign)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"noParameterAssign": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow reassigning `function` parameters.
 
@@ -92,12 +105,21 @@ The `noParameterAssign` rule can be configured using the `propertyAssignment` op
 
 
 
-```json
+```json title='biome.json'
 {
-    "options": {
-        "propertyAssignment": "allow"
-    }
+	"linter": {
+		"rules": {
+			"style": {
+				"noParameterAssign": {
+					"options": {
+						"propertyAssignment": "allow"
+					}
+				}
+			}
+		}
+	}
 }
+
 ```
 
 ```js
@@ -111,12 +133,21 @@ function update(obj) {
 
 
 
-```json
+```json title='biome.json'
 {
-    "options": {
-        "propertyAssignment": "deny"
-    }
+	"linter": {
+		"rules": {
+			"style": {
+				"noParameterAssign": {
+					"options": {
+						"propertyAssignment": "deny"
+					}
+				}
+			}
+		}
+	}
 }
+
 ```
 
 ```js
@@ -127,19 +158,6 @@ function update(obj) {
 
 <pre class="language-text"><code class="language-text"></code></pre>
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"style": {
-				"noParameterAssign": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

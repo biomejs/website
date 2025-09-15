@@ -24,8 +24,6 @@ Vous pouvez spécifier un chemin relatif vers le schéma du paquet npm `@biomejs
 
 Si vous avez des problèmes avec la résolution du fichier sur disque, vous pouvez utiliser celui que nous publions sur notre site&nbsp;:
 
-
-
 ```json title="biome.json"
 {
   "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json"
@@ -34,65 +32,97 @@ Si vous avez des problèmes avec la résolution du fichier sur disque, vous pouv
 
 ## `extends`
 
-Une liste de chemins vers d’autres fichiers JSON. Biome résoud et applique les options des fichiers contenus dans la liste `extends`, puis applique celles contenues dans le fichier `biome.json`.
+Une liste de chemins vers d'autres fichiers de configuration Biome.
+Biome résout et applique les paramètres de configuration contenus dans les fichiers listés dans `extends`,
+puis applique les options définies dans ce fichier `biome.json` ou `biome.jsonc`.
+
+L’ordre des chemins dans la liste va du moins pertinent au plus pertinent.
+
+Depuis la version 2, cette option accepte une chaîne de caractères correspondant à `"//"`,
+qui peut être utilisée lors de la configuration de [monorepos](/guides/big-projects#monorepo).
+
+## `root`
+
+Indique si cette configuration doit être considérée comme une racine.
+Par défaut, tout fichier de configuration est considéré comme une racine.
+
+Lorsqu’un fichier de configuration est imbriqué (nested configuration),
+il doit définir `"root": false`, sinon une erreur est générée.
+
+Cela est nécessaire pour que Biome puisse orchestrer plusieurs fichiers en ligne de commande et
+dans les éditeurs simultanément.
+
+> Valeur par défaut&nbsp;: `true`
 
 ## `files`
 
-### `files.maxSize`
+### `files.includes`
 
-La taille maximale autorisée pour les fichiers de code source, en octets. Les fichiers dépassant
-cette limite seront ignorés pour des questions de performance.
+Une liste de [motifs glob](#glob-syntax-reference) représentant les fichiers à traiter.
 
-> Valeur par défaut&nbsp;: `1048576` (1024*1024, 1&nbsp;Mo)
+Si un dossier correspond à un motif glob, tous les fichiers à l’intérieur de ce dossier seront traités.
 
-### `files.ignore`
-
-Une liste de modèles de style de shell Unix. Biome ignore les fichiers et les dossiers qui
-correspondent à ces modèles.
-
+L’exemple suivant correspond à tous les fichiers avec une extension `.js` dans le dossier `src` :
 
 ```json title="biome.json"
 {
   "files": {
-    "ignore": ["scripts/*.js"]
+    "includes": ["src/**/*.js"]
   }
 }
 ```
 
+`*` est utilisé pour correspondre à _tous les fichiers dans un dossier_, tandis
+que `**` correspond récursivement à tous les fichiers et sous-dossiers dans un
+dossier. Pour plus d’informations sur les globs, consulte la [référence de la
+syntaxe glob](#glob-syntax-reference).
 
-### `files.include`
+`includes` prend également en charge les motifs négatifs, ou exceptions.
+Ce sont des motifs qui commencent par `!` et peuvent être utilisés pour
+indiquer à Biome de traiter tous les fichiers sauf ceux qui correspondent
+au motif négatif. Lors de l’utilisation d’un motif négatif, il est
+recommandé de spécifier d’abord `**` pour inclure tous les fichiers et
+dossiers, sinon le motif négatif ne correspondra à aucun fichier.
 
-Une liste de modèles de style de shell Unix. Biome ne prend en charge que les fichiers et les dossiers qui correspondent à ces modèles.
+Note que les exceptions sont traitées dans l’ordre, ce qui permet de définir des exceptions aux exceptions.
 
-
+Considère l’exemple suivant :
 
 ```json title="biome.json"
 {
   "files": {
-    "include": ["scripts/*.js"]
+    "includes": ["**", "!**/*.test.js", "**/special.test.js", "!test"]
   }
 }
 ```
 
-:::caution
-Quand `include` et `ignore` sont specifiés en même temps, `ignore` est **prioritaire** sur `include`.
+Cet exemple indique que :
+
+1. Tous les fichiers dans tous les dossiers (et sous-dossiers) sont traités, grâce au motif `**` ...
+2. ... sauf ceux ayant une extension `.test.js` ...
+3. ... mais le fichier `special.test.ts` est tout de même traité ...
+4. ... sauf s’il se trouve dans le dossier nommé `test`, car aucun fichier dans ce dossier n’est traité.
+
+:::note
+L’utilisation de `!test` pour exclure complètement un dossier n’est prise en charge que dans `files.includes`.
+Dans les autres contextes où `includes` est utilisé (`linter.includes`, `formatter.includes`, etc.),
+il faut utiliser `!/test/**` pour exclure le dossier.
 :::
 
-Soit l’exemple suivant&nbsp;:
+Ce qui donne :
 
+* `src/app.js` **est** traité.
+* `src/app.test.js` **n'est pas** traité.
+* `src/special.test.js` **est** traité.
+* `test/special.test.js` **n'est pas** traité.
 
+#### Remarque sur le scanner de Biome
 
-```json title="biome.json"
-{
-  "files": {
-    "include": ["scripts/**/*.js", "src/**/*.js"],
-    "ignore": ["scripts/**/*.js"]
-  }
-}
-```
+Biome dispose d’un scanner chargé de détecter les fichiers `.gitignore`
+imbriqués ainsi que d’indexer les projets si certaines règles du domaine projet sont activées.
 
-Seuls les fichiers correspondant au modèle `src/**/*.js` seront pris en charge, tandis que ceux correspondant au modèle
-`scripts/**/*.js` seront ignorés.
+Le scanner respecte le paramètre `files.includes`, mais il y a quelques subtilités.
+Consulte la [documentation du scanner](/internals/architecture/#scanner) pour plus d’informations.
 
 ### `files.ignoreUnknown`
 
@@ -109,6 +139,44 @@ Biome n’engendrera pas de diagnostics s’il rencontre des fichiers qu’il ne
 ```
 
 > Valeur par défaut&nbsp;: `false`
+
+### `files.maxSize`
+
+La taille maximale autorisée pour les fichiers de code source, en octets. Les fichiers dépassant
+cette limite seront ignorés pour des questions de performance.
+
+> Valeur par défaut&nbsp;: `1048576` (1024*1024, 1&nbsp;Mo)
+
+### `files.experimentalScannerIgnores`
+
+Un tableau de chemins que le scanner doit ignorer lors de l’exploration.
+Les fichiers ignorés ne seront pas indexés, ce qui signifie qu’ils ne feront
+pas partie du graphe de modules, et que leurs types ne seront pas inférés.
+
+Dans l’exemple suivant, les dossiers `lodash` et `dist`, ainsi que le fichier `RedisCommander.d.ts`, seront ignorés :
+
+```json title="biome.json"
+{
+  "files" : {
+    "experimentalScannerIgnores": [
+      "lodash",
+      "dist",
+      "RedisCommander.d.ts"
+    ]
+  }
+}
+```
+il ne faut utiliser cette option qu’en dernier recours,
+dans les cas où Biome met beaucoup de temps à analyser ou vérifier le projet.
+Les chemins de type glob ne sont pas pris en charge, seuls les noms de base sont comparés.
+
+Voir la [documentation du scanner](/internals/architecture/#scanner) pour plus d’informations.
+
+
+:::caution
+Étant une option expérimentale, son utilisation est susceptible d’évoluer.
+L’objectif est d’optimiser les performances de Biome au maximum et, à terme, de supprimer cette option.
+:::
 
 ## `vcs`
 
@@ -153,55 +221,80 @@ Active l’outil de linting de Biome.
 
 > Valeur par défaut&nbsp;: `true`
 
-### `linter.ignore`
+### `linter.includes`
 
-Un tableau de modèles de style de shell Unix.
+Une liste de [motifs glob](#glob-syntax-reference) représentant les fichiers à analyser avec le linter.
 
-
-
-```json title="biome.json"
-{
-  "linter": {
-    "ignore": ["scripts/*.js"]
-  }
-}
-```
-
-
-### `linter.include`
-
-Une liste de modèles de style de shell Unix. Biome ne prend en charge que les fichiers et les dossiers qui
-correspondent à ces modèles.
-
-
+L’exemple suivant analyse tous les fichiers avec une extension `.js` dans le dossier `src` :
 
 ```json title="biome.json"
 {
   "linter": {
-    "include": ["scripts/*.js"]
+    "includes": ["src/**/*.js"]
   }
 }
 ```
 
-:::caution
-Quand `include` et `ignore` sont specifiés en même temps, `ignore` est **prioritaire** sur `include`.
+`*` est utilisé pour correspondre à _tous les fichiers dans un dossier_, tandis
+que `**` correspond récursivement à tous les fichiers et sous-dossiers dans un
+dossier. Pour plus d’informations sur les globs, consulte la [référence de la
+syntaxe glob](#glob-syntax-reference).
+
+`includes` prend également en charge les motifs négatifs, ou exceptions.
+Ce sont des motifs qui commencent par `!` et peuvent être utilisés pour
+indiquer à Biome de traiter tous les fichiers sauf ceux qui correspondent
+au motif négatif.
+
+Note que les exceptions sont traitées dans l’ordre, ce qui permet de définir des exceptions aux exceptions.
+
+Considère l’exemple suivant :
+
+```json title="biome.json"
+{
+  "linter": {
+    "includes": ["**", "!**/*.test.js", "**/special.test.js"]
+  }
+}
+```
+
+Cet exemple indique que :
+
+1. Tous les fichiers dans tous les dossiers (et sous-dossiers) sont traités, grâce au motif `**` ...
+2. ... sauf ceux ayant une extension `.test.js` ...
+3. ... mais le fichier `special.test.ts` est tout de même traité ...
+
+Ce qui donne :
+
+* `src/app.js` **est** traité.
+* `src/app.test.js` **n'est pas** traité.
+* `src/special.test.js` **est** traité.
+
+À noter : `linter.includes` est appliqué *après* `files.includes`.
+Cela signifie que tout fichier non inclus par `files.includes`
+ne pourra pas être analysé par `linter.includes`.
+
+L’exemple suivant **ne fonctionne pas** :
+
+```json5 title="biome.jsonc"
+{
+  "files": {
+    "includes": "src/**"
+  },
+  "linter": {
+    // Cela ne correspond à rien car il n’y a pas de chevauchement avec `files.includes` :
+    "includes": "scripts/**"
+  }
+}
+```
+
+Si `linter.includes` n’est pas spécifié, tous les fichiers
+correspondants à [`files.includes`](#filesincludes) seront analysés.
+
+:::note
+En raison d’une limitation technique, `linter.includes` ne peut pas correspondre
+à des dossiers, contrairement à `files.includes`. Si tu veux inclure tous les
+fichiers dans un dossier, tu dois explicitement ajouter `/**` à la fin.
 :::
-
-Soit l’exemple suivant&nbsp;:
-
-
-
-```json title="biome.json"
-{
-  "linter": {
-    "include": ["scripts/**/*.js", "src/**/*.js"],
-    "ignore": ["scripts/**/*.js"]
-  }
-}
-```
-
-Seuls les fichiers correspondant au modèle `src/**/*.js` seront analysés, tandis que ceux correspondant au modèle
-`scripts/**/*.js` seront ignorés.
 
 ### `linter.rules.recommended`
 
@@ -209,63 +302,50 @@ Active les règles recommandées pour tous les groupes.
 
 > Valeur par défaut&nbsp;: `true`
 
-
-### `linter.rules.all`
-
-Active ou désactive toutes les règles pour tous les groupes.
-
-Si `recommended` et `all` sont en même temps à `true`, Biome engendrera un diagnostic et se repliera sur ses réglages par défaut.
-
-
-
-```json title="biome.json"
-{
-  "linter": {
-    "enabled": true,
-    "rules": {
-      "all": true
-    }
-  }
-}
-```
-
-Il est également possible de combiner ce drapeau pour activer/désactiver différents groupes de règles&nbsp;:
-
-
-
-```json title="biome.json"
-{
-  "linter": {
-    "enabled": true,
-    "rules": {
-      "all": true,
-      "style": {
-        "all": false
-      },
-      "complexity": {
-        "all": false
-      }
-    }
-  }
-}
-```
-
-Dans l’exemple précédent, Biome activera toutes les règles, à l’exception de celles appartenant aux groupes `style` et `complexity`.
-
-
 ### `linter.rules.[groupe]`
 
 Options qui influencent les règles d’un seul groupe. Biome prend en charge les groupes suivants&nbsp;:
 
-<LintGroups/>
+- accessibility: Règles visant à prévenir les problèmes d’accessibilité.
+- complexity: Règles qui inspectent du code complexe pouvant être simplifié.
+- correctness: Règles qui détectent du code garanti comme incorrect ou inutile.
+- nursery: Nouvelles règles encore en développement. Ces règles nécessitent une activation explicite dans la configuration des versions stables, car elles peuvent contenir des bugs ou des problèmes de performance. Elles sont activées par défaut dans les versions nightly, mais leur sévérité peut être définie comme erreur ou avertissement selon leur niveau de recommandation futur. Les règles de ce groupe peuvent être promues vers d’autres groupes une fois stabilisées, ou supprimées. Elles ne sont pas soumises au versionnement sémantique.
+- performance: Règles qui identifient des moyens d’écrire du code plus rapide ou plus efficace.
+- security: Règles qui détectent des failles potentielles de sécurité.
+- style: Règles qui imposent une manière cohérente et idiomatique d’écrire du code.
+- suspicious: Règles qui détectent du code probablement incorrect ou inutile.
+
+Chaque groupe peut être configuré avec une **valeur de sévérité** ou un **objet** où chaque règle est définie individuellement.
+
+Quand la sévérité est passée, elle s’appliquera à toutes les règles du groupe.
+Par exemple, pour configurer le groupe `a11y` afin qu’il émette des diagnostics de type “info” :
+
+```json title="biome.json"
+{
+  "linter": {
+    "rules": {
+      "a11y": "info"
+    }
+  }
+}
+```
+
+Valeurs acceptées :
+- `"on"`: Chaque règle du groupe émettra un diagnostic avec sa sévérité par défaut. Tu peux consulter la documentation de la règle ou utiliser la commande `biome explain` :
+    ```shell showLineNumbers=false
+    biome explain noDebugger
+    ```
+- `"off"`: Aucune règle du groupe n’émettra de diagnostic.
+- `"info"`: Toutes les règles du groupe émettront des diagnostics de type [information](/reference/diagnostics#information).
+- `"warn"`: Toutes les règles du groupe émettront des diagnostics de type [avertissement](/reference/diagnostics#warning).
+- `"error"`: Toutes les règles du groupe émettront des diagnostics de type [erreur](/reference/diagnostics#error).
+
 
 ### `linter.rules.[groupe].recommended`
 
 Active les règles recommandées pour un seul groupe.
 
 Exemple&nbsp;:
-
-
 
 ```json title="biome.json"
 {
@@ -280,22 +360,112 @@ Exemple&nbsp;:
 }
 ```
 
+## `assist`
 
-### `linter.rules.[groupe].all`
+### `assist.enabled`
 
-Active toutes les règles pour un seul groupe.
+Active l'assistant de Biome.
 
-Exemple&nbsp;:
+> Default: `true`
 
+### `assist.includes`
 
+Une liste de [motifs glob](#glob-syntax-reference) représentant les fichiers à analyser avec l'assistant.
+
+L’exemple suivant analyse tous les fichiers avec une extension `.js` dans le dossier `src` :
 
 ```json title="biome.json"
 {
-  "linter": {
+  "assist": {
+    "includes": ["src/**/*.js"]
+  }
+}
+```
+
+`*` est utilisé pour correspondre à _tous les fichiers dans un dossier_, tandis
+que `**` correspond récursivement à tous les fichiers et sous-dossiers dans un
+dossier. Pour plus d’informations sur les globs, consulte la [référence de la
+syntaxe glob](#glob-syntax-reference).
+
+`includes` prend également en charge les motifs négatifs, ou exceptions.
+Ce sont des motifs qui commencent par `!` et peuvent être utilisés pour
+indiquer à Biome de traiter tous les fichiers sauf ceux qui correspondent
+au motif négatif.
+
+Note que les exceptions sont traitées dans l’ordre, ce qui permet de définir des exceptions aux exceptions.
+
+Considère l’exemple suivant :
+
+```json title="biome.json"
+{
+  "assist": {
+    "includes": ["**", "!**/*.test.js", "**/special.test.js"]
+  }
+}
+```
+
+Cet exemple indique que :
+
+1. Tous les fichiers dans tous les dossiers (et sous-dossiers) sont traités, grâce au motif `**` ...
+2. ... sauf ceux ayant une extension `.test.js` ...
+3. ... mais le fichier `special.test.ts` est tout de même traité ...
+
+Ce qui donne :
+
+* `src/app.js` **est** traité.
+* `src/app.test.js` **n'est pas** traité.
+* `src/special.test.js` **est** traité.
+
+À noter : `assist.includes` est appliqué *après* `files.includes`.
+Cela signifie que tout fichier non inclus par `files.includes`
+ne pourra pas être analysé par `assist.includes`.
+
+L’exemple suivant **ne fonctionne pas** :
+
+```json5 title="biome.jsonc"
+{
+  "files": {
+    "includes": "src/**"
+  },
+  "assist": {
+    // Cela ne correspond à rien car il n’y a pas de chevauchement avec `files.includes` :
+    "includes": "scripts/**"
+  }
+}
+```
+
+Si `assist.includes` n’est pas spécifié, tous les fichiers
+correspondants à [`files.includes`](#filesincludes) seront analysés.
+
+:::note
+En raison d’une limitation technique, `assist.includes` ne peut pas correspondre
+à des dossiers, contrairement à `files.includes`. Si tu veux inclure tous les
+fichiers dans un dossier, tu dois explicitement ajouter `/**` à la fin.
+:::
+
+### `assist.actions.recommended`
+
+Active les actions recommandées pour tous les groupes.
+
+### `assist.actions.[group]`
+
+Options qui influencent les règles d’un groupe spécifique. Biome prend en charge les groupes suivants :
+
+- source: Ce groupe représente les actions qui peuvent être appliquées en toute sécurité à un document lors de l’enregistrement. Ces actions sont généralement sûres : elles ne modifient pas le fonctionnement du programme.
+
+### `assist.actions.[group].recommended`
+
+Active les règles recommandées pour un groupe spécifique.
+
+Exemple:
+
+```json title="biome.json"
+{
+  "assist": {
     "enabled": true,
-    "rules": {
-      "nursery": {
-        "all": true
+    "actions": {
+      "source": {
+        "recommended": true
       }
     }
   }
@@ -312,60 +482,84 @@ Active l’outil de formatage de Biome.
 
 > Valeur par défaut&nbsp;: `true`
 
-### `formatter.ignore`
+### `formatter.includes`
 
-Un tableau de modèles de style de shell Unix.
+Une liste de [motifs glob](#glob-syntax-reference) représentant les fichiers à formatter.
 
-
-
-```json title="biome.json"
-{
-  "formatter": {
-    "ignore": ["scripts/*.js"]
-  }
-}
-```
-
-### `formatter.include`
-
-Une liste de modèles de style de shell Unix. Biome ne prend en charge que les fichiers et les dossiers qui
-correspondent à ces modèles.
-
-
+L’exemple suivant analyse tous les fichiers avec une extension `.js` dans le dossier `src` :
 
 ```json title="biome.json"
 {
   "formatter": {
-    "include": ["scripts/*.js"]
+    "includes": ["src/**/*.js"]
   }
 }
 ```
 
-:::caution
-Quand `include` et `ignore` sont specifiés en même temps, `ignore` est **prioritaire** sur `include`.
+`*` est utilisé pour correspondre à _tous les fichiers dans un dossier_, tandis
+que `**` correspond récursivement à tous les fichiers et sous-dossiers dans un
+dossier. Pour plus d’informations sur les globs, consulte la [référence de la
+syntaxe glob](#glob-syntax-reference).
+
+`includes` prend également en charge les motifs négatifs, ou exceptions.
+Ce sont des motifs qui commencent par `!` et peuvent être utilisés pour
+indiquer à Biome de traiter tous les fichiers sauf ceux qui correspondent
+au motif négatif.
+
+Note que les exceptions sont traitées dans l’ordre, ce qui permet de définir des exceptions aux exceptions.
+
+Considère l’exemple suivant :
+
+```json title="biome.json"
+{
+  "formatter": {
+    "includes": ["**", "!**/*.test.js", "**/special.test.js"]
+  }
+}
+```
+
+Cet exemple indique que :
+
+1. Tous les fichiers dans tous les dossiers (et sous-dossiers) sont traités, grâce au motif `**` ...
+2. ... sauf ceux ayant une extension `.test.js` ...
+3. ... mais le fichier `special.test.ts` est tout de même traité ...
+
+Ce qui donne :
+
+* `src/app.js` **est** traité.
+* `src/app.test.js` **n'est pas** traité.
+* `src/special.test.js` **est** traité.
+
+À noter : `formatter.includes` est appliqué *après* `files.includes`.
+Cela signifie que tout fichier non inclus par `files.includes`
+ne pourra pas être analysé par `formatter.includes`.
+
+L’exemple suivant **ne fonctionne pas** :
+
+```json5 title="biome.jsonc"
+{
+  "files": {
+    "includes": "src/**"
+  },
+  "formatter": {
+    // Cela ne correspond à rien car il n’y a pas de chevauchement avec `files.includes` :
+    "includes": "scripts/**"
+  }
+}
+```
+
+Si `formatter.includes` n’est pas spécifié, tous les fichiers
+correspondants à [`files.includes`](#filesincludes) seront analysés.
+
+:::note
+En raison d’une limitation technique, `formatter.includes` ne peut pas correspondre
+à des dossiers, contrairement à `files.includes`. Si tu veux inclure tous les
+fichiers dans un dossier, tu dois explicitement ajouter `/**` à la fin.
 :::
-
-Soit l’exemple suivant&nbsp;:
-
-
-
-```json title="biome.json"
-{
-  "formatter": {
-    "include": ["scripts/**/*.js", "src/**/*.js"],
-    "ignore": ["scripts/**/*.js"]
-  }
-}
-```
-
-Seuls les fichiers correspondant au modèle `src/**/*.js` seront formatés, tandis que ceux correspondant au modèle
-`scripts/**/*.js` seront ignorés.
 
 ### `formatter.formatWithErrors`
 
 Permet de formater un document comportant des erreurs de syntaxe.
-
-
 
 ```json title="biome.json"
 {
@@ -382,19 +576,6 @@ Permet de formater un document comportant des erreurs de syntaxe.
 Le style d’indentation. La valeur peut être `"tab"` ou `"space"`.
 
 > Valeur par défaut&nbsp;: `"tab"`
-
-### `formatter.indentSize`
-
-Cette option est obsolète, veuillez utiliser [`formatter.indentWidth`](#formatterindentwidth) à la place.
-
-<details>
-<summary>Obsolète</summary>
-
-Quelle devrait être la largeur de l’indentation.
-
-> Valeur par défaut&nbsp;: `2`
-
-</details>
 
 ### `formatter.indentWidth`
 
@@ -425,6 +606,23 @@ Le style de positionnement d’un attribut dans les langages HTML et assimilés&
 
 > Valeur par défaut&nbsp;: `"auto"`
 
+### `formatter.bracketSpacing`
+
+Détermine si des espaces doivent être ajoutés entre les crochets et les valeurs internes.
+
+> Valeur par défaut&nbsp;: `true`
+
+### `formatter.expand`
+
+Indique si les tableaux et objets doivent être formatés sur plusieurs lignes.
+- `"auto"` : les objets sont mis sur plusieurs lignes si la première propriété contient un saut de ligne ; les tableaux restent sur une seule ligne s’ils tiennent dans la largeur.
+- `"always"` : les objets et tableaux sont toujours formatés sur plusieurs lignes, peu importe leur taille.
+- `"never"` : les objets et tableaux sont toujours formatés sur une seule ligne s’ils tiennent dans la largeur.
+
+Lors du formatage du fichier `package.json`, Biome utilisera `always` par défaut, sauf si une autre option est spécifiée.
+
+> Valeur par défaut&nbsp;: `"auto"`
+
 ### `formatter.useEditorconfig`
 
 Si Biome devrait utiliser le fichier `.editorconfig` pour déterminer les options de formatage ou non. Si `true`, les options applicables dans le fichier `.editorconfig` seront utilisées&nbsp;; mais, toute configuration dans le fichier `biome.json` sera toujours prioritaire.
@@ -432,66 +630,6 @@ Si Biome devrait utiliser le fichier `.editorconfig` pour déterminer les option
 En migrant depuis Prettier avec `biome migrate`, cette option est définie à `true` pour se conformer au comportement de Prettier.
 
 > Valeur par défaut&nbsp;: `false`
-
-## `organizeImports`
-
-### `organizeImports.enabled`
-
-Active le tri des imports par Biome.
-
-> Valeur par défaut&nbsp;: `true`
-
-### `organizeImports.ignore`
-
-
-Une liste de modèles de style de shell Unix. Biome ignore les fichiers et les dossiers qui correspondent à ces modèles.
-
-
-
-```json title="biome.json"
-{
-  "organizeImports": {
-    "ignore": ["scripts/*.js"]
-  }
-}
-```
-
-
-### `organizeImports.include`
-
-Une liste de modèles de style de shell Unix. Biome ne prend en charge que les fichiers et les dossiers qui
-correspondent à ces modèles.
-
-
-
-```json title="biome.json"
-{
-  "organizeImports": {
-    "include": ["scripts/*.js"]
-  }
-}
-```
-
-:::caution
-Quand `include` et `ignore` sont specifiés en même temps, `ignore` est **prioritaire** sur `include`.
-:::
-
-Soit l’exemple suivant&nbsp;:
-
-
-
-```json title="biome.json"
-{
-  "organizeImports": {
-    "include": ["scripts/**/*.js", "src/**/*.js"],
-    "ignore": ["scripts/**/*.js"]
-  }
-}
-```
-
-Seuls les fichiers correspondant au modèle `src/**/*.js` verront leurs imports triés, tandis que ceux correspondant au modèle
-`scripts/**/*.js` seront ignorés.
-
 
 ## `javascript`
 
@@ -515,6 +653,22 @@ Permet la prise en charge des décorateurs de paramètre non sûrs/expérimentau
 
 > Valeur par défaut&nbsp;: `false`
 
+### `javascript.parser.jsxEverywhere`
+
+Lorsqu’elle est définie sur `true`, cette option permet d’analyser la syntaxe JSX dans les fichiers `.js`.
+
+> Valeur par défaut&nbsp;: `true`
+
+```json title="biome.json"
+{
+  "javascript": {
+    "parser": {
+      "jsxEverywhere": false
+    }
+  }
+}
+```
+
 ### `javascript.formatter.quoteStyle`
 
 Le type de guillemets utilisé pour représenter les littéraux de chaîne. La valeur peut être `"single"` ou `"double"`.
@@ -527,11 +681,31 @@ Le type de guillemets utilisé pour représenter les littéraux de chaîne JSX. 
 
 > Valeur par défaut&nbsp;: `"double"`
 
+```json title="biome.json"
+{
+  "javascript": {
+    "formatter": {
+      "jsxQuoteStyle": "single"
+    }
+  }
+}
+```
+
 ### `javascript.formatter.quoteProperties`
 
 Quand les propriétés d’objet devraient être entourées de guillemets. La valeur peut être `"asNeeded"` ou `"preserve"`.
 
 > Valeur par défaut&nbsp;: `"asNeeded"`
+
+```json title="biome.json"
+{
+  "javascript": {
+    "formatter": {
+      "quoteProperties": "preserve"
+    }
+  }
+}
+```
 
 ### `javascript.formatter.trailingComma`
 
@@ -568,8 +742,6 @@ Configure l’endroit où l’outil de formatage insère les points-virgules&nbs
 
 Exemple&nbsp;:
 
-
-
 ```json title="biome.json"
 {
   "javascript": {
@@ -599,19 +771,6 @@ Active l’outil de formatage de Biome pour les fichiers JavaScript (et ses supe
 Le style d’indentation pour les fichiers JavaScript (et ses super-langages). La valeur peut être `"tab"` ou `"space"`.
 
 > Valeur par défaut&nbsp;: `"tab"`
-
-### `javascript.formatter.indentSize`
-
-Cette option est obsolète, veuillez utiliser [`javascript.formatter.indentWidth`](#javascriptformatterindentwidth) à la place.
-
-<details>
-<summary>Obsolète</summary>
-
-Quelle devrait être la largeur de l’indentation pour les fichiers JavaScript (et ses super-langages).
-
-> Valeur par défaut&nbsp;: `2`
-
-</details>
 
 ### `javascript.formatter.indentWidth`
 
@@ -654,6 +813,40 @@ Le style de positionnement d’un attribut dans les éléments JSX.
 
 > Valeur par défaut&nbsp;: `"auto"`
 
+### `javascript.formatter.expand`
+
+Détermine si les tableaux et objets doivent être formatés sur plusieurs lignes.
+- `"auto"` : les objets littéraux sont formatés sur plusieurs lignes si la première propriété contient un saut de ligne. Les tableaux sont formatés sur une seule ligne s’ils tiennent dans la largeur.
+- `"always"` : les objets et tableaux sont toujours formatés sur plusieurs lignes, quelle que soit leur longueur.
+- `"never"` : les objets et tableaux sont formatés sur une seule ligne s’ils tiennent dans la largeur.
+
+> Valeur par défaut&nbsp;: `"after"`.
+
+### `javascript.formatter.operatorLinebreak`
+
+Définit si, lors du retour à la ligne dans une expression binaire, l’opérateur doit être placé **avant** ou **après** la ligne.
+
+> Valeur par défaut&nbsp;: `"after"`.
+
+- `"after"` : l’opérateur est placé après l’expression :
+  ```js title="file.js"
+  if (
+    expressionOne &&
+    expressionTwo &&
+    expressionThree &&
+    expressionFour
+  ) {}
+  ```
+- `"before"` : l’opérateur est placé avant l’expression :
+  ```js title="file.js"
+  if (
+    expressionOne
+    && expressionTwo
+    && expressionThree
+    && expressionFour
+  ) {}
+  ```
+
 ### `javascript.globals`
 
 Une liste de noms globaux que Biome devrait ignorer (analyzer, linter, etc.).
@@ -695,6 +888,32 @@ Active l’outil de linting de Biome pour les fichiers JavaScript (et ses super-
 
 > Valeur par défaut&nbsp;: `true`
 
+```json title="biome.json"
+{
+  "javascript": {
+    "linter": {
+      "enabled": false
+    }
+  }
+}
+```
+
+### `javascript.assist.enabled`
+
+Active l’assistance de Biome pour les fichiers JavaScript (et ses super-langages).
+
+> Valeur par défaut&nbsp;: `true`
+
+```json title="biome.json"
+{
+  "javascript": {
+    "assist": {
+      "enabled": false
+    }
+  }
+}
+```
+
 ## `json`
 
 Options appliquées aux fichiers JSON.
@@ -702,8 +921,6 @@ Options appliquées aux fichiers JSON.
 ### `json.parser.allowComments`
 
 Active l’analyse des commentaires dans les fichiers JSON.
-
-
 
 ```json title="biome.json"
 {
@@ -718,8 +935,6 @@ Active l’analyse des commentaires dans les fichiers JSON.
 ### `json.parser.allowTrailingCommas`
 
 Active l’analyse des virgules de fin dans les fichiers JSON.
-
-
 
 ```json title="biome.json"
 {
@@ -737,26 +952,21 @@ Active l’outil de formatage de Biome pour les fichiers JSON (et ses super-lang
 
 > Valeur par défaut&nbsp;: `true`
 
-### `json.formatter.indentStyle`
+```json title="biome.json"
+{
+  "json": {
+    "formatter": {
+      "enabled": false
+    }
+  }
+}
+```
 
+### `json.formatter.indentStyle`
 
 Le style d’indentation pour les fichiers JSON (et ses super-langages). La valeur peut être `"tab"` ou `"space"`.
 
 > Valeur par défaut&nbsp;: `"tab"`
-
-
-### `json.formatter.indentSize`
-
-Cette option est obsolète, veuillez utiliser [`json.formatter.indentWidth`](#jsonformatterindentwidth) à la place.
-
-<details>
-<summary>Obsolète</summary>
-
-Quelle devrait être la largeur de l’indentation pour les fichiers JSON (et ses super-langages).
-
-> Valeur par défaut&nbsp;: `2`
-
-</details>
 
 ### `json.formatter.indentWidth`
 
@@ -789,12 +999,54 @@ Valeurs possibles&nbsp;:
 
 > Valeur par défaut&nbsp;: `"none"`
 
+### `json.formatter.bracketSpacing`
+
+Détermine si des espaces doivent être ajoutés entre les crochets et les valeurs internes.
+
+> Valeur par défaut&nbsp;: `true`
+
+### `json.formatter.expand`
+
+Détermine si les tableaux et objets doivent être formatés sur plusieurs lignes.
+- `"auto"` : les objets sont formatés sur plusieurs lignes si la première propriété contient un saut de ligne. Les tableaux sont formatés sur une seule ligne s’ils tiennent dans la largeur.
+- `"always"` : les objets et tableaux sont toujours formatés sur plusieurs lignes, quelle que soit leur longueur.
+- `"never"` : les objets et tableaux sont formatés sur une seule ligne s’ils tiennent dans la largeur.
+
+Lors du formatage du fichier `package.json`, Biome utilisera `always` par défaut, sauf si une autre option est spécifiée.
+
+> Valeur par défaut&nbsp;: `auto`
+
 ### `json.linter.enabled`
 
 Active l’outil de linting de Biome pour les fichiers JSON (et ses super-langages).
 
 > Valeur par défaut&nbsp;: `true`
 
+```json title="biome.json"
+{
+  "json": {
+    "linter": {
+      "enabled": false
+    }
+  }
+}
+```
+
+### `json.assist.enabled`
+
+Active l’assistance de Biome pour les fichiers JSON (et ses super-langages).
+
+> Valeur par défaut&nbsp;: `true`
+
+```json title="biome.json"
+{
+  "json": {
+    "assist": {
+      "enabled": false
+    }
+  }
+}
+```
 
 ## `css`
 
@@ -812,19 +1064,37 @@ Active l’outil de formatage de Biome pour les fichiers CSS (et ses super-langa
 
 > Valeur par défaut&nbsp;: `false`
 
-### `css.formatter.indentStyle`
+```json title="biome.json"
+{
+  "css": {
+    "formatter": {
+      "enabled": false
+    }
+  }
+}
+```
 
+### `css.formatter.indentStyle`
 
 Le style d’indentation pour les fichiers CSS (et ses super-langages). La valeur peut être `"tab"` ou `"space"`.
 
 > Valeur par défaut&nbsp;: `"tab"`
-
 
 ### `css.formatter.indentWidth`
 
 Quelle devrait être la largeur de l’indentation pour les fichiers CSS (et ses super-langages).
 
 > Valeur par défaut&nbsp;: `2`
+
+```json title="biome.json"
+{
+  "css": {
+    "formatter": {
+      "indentWidth": 2
+    }
+  }
+}
+```
 
 ### `css.formatter.lineEnding`
 
@@ -850,7 +1120,259 @@ Le type de guillemets utilisé pour représenter les littéraux de chaîne. La v
 
 Active l’outil de linting de Biome pour les fichiers CSS (et ses super-langages).
 
+> Valeur par défaut&nbsp;: `true`
+
+```json title="biome.json"
+{
+  "css": {
+    "linter": {
+      "enabled": false
+    }
+  }
+}
+```
+
+### `css.assist.enabled`
+
+Active l’assistance de Biome pour les fichiers CSS.
+
+> Valeur par défaut&nbsp;: `true`
+
+```json title="biome.json"
+{
+  "css": {
+    "assist": {
+      "enabled": false
+    }
+  }
+}
+```
+
+## `graphql`
+
+Options appliquées aux fichiers GraphQL.
+
+### `graphql.formatter.enabled`
+
+Active le formateur de Biome pour les fichiers GraphQL.
+
 > Valeur par défaut&nbsp;: `false`
+
+### `graphql.formatter.indentStyle`
+
+Définit le style d’indentation pour les fichiers GraphQL. Peut être `"tab"` (tabulation) ou `"space"` (espaces).
+
+> Valeur par défaut&nbsp;: `"tab"`
+
+### `graphql.formatter.indentWidth`
+
+Définit la largeur de l’indentation dans les fichiers GraphQL.
+
+> Valeur par défaut&nbsp;: `2`
+
+### `graphql.formatter.lineEnding`
+
+Définit le type de saut de ligne utilisé dans les fichiers GraphQL :
+- `"lf"` : Line Feed uniquement (`\n`), courant sur Linux, macOS et dans les dépôts Git ;
+- `"crlf"` : Carriage Return + Line Feed (`\r\n`), courant sur Windows ;
+- `"cr"` : Carriage Return uniquement (`\r`), très rarement utilisé.
+
+> Valeur par défaut&nbsp;: `"lf"`
+
+### `graphql.formatter.lineWidth`
+
+Nombre maximal de caractères autorisés sur une seule ligne dans les fichiers GraphQL.
+
+> Valeur par défaut&nbsp;: `80`
+
+### `graphql.formatter.quoteStyle`
+
+Définit le type de guillemets utilisés pour les littéraux de chaîne. Peut être `"single"` (guillemets simples) ou `"double"` (guillemets doubles).
+
+> Valeur par défaut&nbsp;: `"double"`
+
+### `graphql.linter.enabled`
+
+Active le linter de Biome pour les fichiers GraphQL.
+
+> Valeur par défaut&nbsp;: `true`
+
+### `graphql.assist.enabled`
+
+Active l’assistance de Biome pour les fichiers GraphQL.
+
+> Valeur par défaut&nbsp;: `true`
+
+## `grit`
+
+Options appliquées aux fichiers Grit.
+
+### `grit.formatter.enabled`
+
+Active le formateur de Biome pour les fichiers Grit.
+
+> Valeur par défaut&nbsp;: `false`
+
+### `grit.formatter.indentStyle`
+
+Définit le style d’indentation pour les fichiers Grit. Peut être `"tab"` (tabulation) ou `"space"` (espaces).
+
+> Valeur par défaut&nbsp;: `"tab"`
+
+### `grit.formatter.indentWidth`
+
+Définit la largeur de l’indentation dans les fichiers Grit.
+
+> Valeur par défaut&nbsp;: `2`
+
+### `grit.formatter.lineEnding`
+
+Définit le type de saut de ligne utilisé dans les fichiers Grit :
+- `"lf"` : Line Feed uniquement (`\n`), courant sur Linux, macOS et dans les dépôts Git ;
+- `"crlf"` : Carriage Return + Line Feed (`\r\n`), courant sur Windows ;
+- `"cr"` : Carriage Return uniquement (`\r`), très rarement utilisé.
+
+> Valeur par défaut&nbsp;: `"lf"`
+
+### `grit.formatter.lineWidth`
+
+Nombre maximal de caractères autorisés sur une seule ligne dans les fichiers Grit.
+
+> Valeur par défaut&nbsp;: `80`
+
+### `grit.formatter.quoteStyle`
+
+Définit le type de guillemets utilisés pour les littéraux de chaîne. Peut être `"single"` (guillemets simples) ou `"double"` (guillemets doubles).
+
+> Valeur par défaut&nbsp;: `"double"`
+
+### `grit.linter.enabled`
+
+Active le linter de Biome pour les fichiers Grit.
+
+> Valeur par défaut&nbsp;: `true`
+
+```json title="biome.json"
+{
+  "grit": {
+    "linter": {
+      "enabled": false
+    }
+  }
+}
+```
+
+### `grit.assist.enabled`
+
+Active l’assistance de Biome pour les fichiers Grit.
+
+> Valeur par défaut&nbsp;: `true`
+
+```json title="biome.json"
+{
+  "grit": {
+    "assist": {
+      "enabled": false
+    }
+  }
+}
+```
+
+## `html`
+
+:::caution
+Le parseur et le formateur HTML sont encore considérés comme expérimentaux,
+ce qui signifie que des changements majeurs peuvent survenir même dans les
+versions correctives ou mineures.
+:::
+
+### `html.parser.interpolation`
+
+Active l’analyse des expressions entre doubles accolades comme `{{ expression }}` dans les fichiers `.html`.
+
+> Valeur par défaut&nbsp;: `false`
+
+### `html.formatter.enabled`
+
+Active le formateur de Biome pour les fichiers HTML.
+
+> Valeur par défaut&nbsp;: `false`
+
+### `html.formatter.indentStyle`
+
+Définit le style d’indentation pour les fichiers HTML. Peut être `"tab"` (tabulation) ou `"space"` (espaces).
+
+> Valeur par défaut&nbsp;: `"tab"`
+
+### `html.formatter.indentWidth`
+
+Définit la largeur de l’indentation dans les fichiers HTML.
+
+> Valeur par défaut&nbsp;: `2`
+
+### `html.formatter.lineEnding`
+
+Définit le type de saut de ligne utilisé dans les fichiers HTML :
+- `"lf"` : Line Feed uniquement (`\n`), courant sur Linux, macOS et dans les dépôts Git ;
+- `"crlf"` : Carriage Return + Line Feed (`\r\n`), courant sur Windows ;
+- `"cr"` : Carriage Return uniquement (`\r`), très rarement utilisé.
+
+> Valeur par défaut&nbsp;: `"lf"`
+
+### `html.formatter.lineWidth`
+
+Nombre maximal de caractères autorisés sur une seule ligne dans les fichiers HTML.
+
+> Valeur par défaut&nbsp;: `80`
+
+### `html.formatter.attributePosition`
+
+Définit le style de positionnement des attributs dans les éléments HTML :
+- `"auto"` : les attributs sont formatés automatiquement et ne passent à la ligne que si certaines conditions sont remplies ;
+- `"multiline"` : les attributs passent à la ligne si plus d’un attribut est utilisé.
+
+> Valeur par défaut&nbsp;: `"auto"`
+
+### `html.formatter.bracketSameLine`
+
+Indique si la balise fermante d’un élément HTML multilignes doit être collée à la dernière ligne plutôt que seule sur une nouvelle ligne.
+
+> Valeur par défaut&nbsp;: `false`
+
+### `html.formatter.whitespacesSensitivity`
+
+Définit la sensibilité aux espaces lors du formatage HTML (et ses super-langages).
+
+> Valeur par défaut&nbsp;: `"css"`
+
+- `"css"` : les espaces sont considérés comme significatifs pour les éléments ayant un style d’affichage "inline" par défaut dans les feuilles de style des navigateurs.
+- `"strict"` : les espaces en début et fin de contenu sont considérés comme significatifs pour tous les éléments.
+
+  Le formateur doit conserver au moins un espace s’il est présent.
+  Sinon, aucun espace ne doit être ajouté après `>` ou avant `<`.
+
+  Exemple de contenu collé aux balises :
+  ```html
+  <b
+     >content</b
+  >
+  ```
+- `"ignore"` : les espaces sont considérés comme non significatifs. Le formateur peut les ajouter ou les supprimer librement.
+
+### `html.formatter.indentScriptAndStyle`
+
+Indique si les balises `<script>` et `<style>` doivent être indentées dans les fichiers HTML (et ses super-langages).
+
+> Valeur par défaut&nbsp;: `true`
+
+### `html.formatter.selfCloseVoidElements`
+
+Indique si les éléments vides doivent être auto-fermés.
+
+> Valeur par défaut&nbsp;: `"never"`
+
+- `"never"` : le slash / dans les éléments vides est supprimé par le formateur.
+- `"always"` : le slash / est toujours ajouté dans les éléments vides.
 
 ## `overrides`
 
@@ -862,30 +1384,16 @@ Quand un fichier correspond à un modèle d’écrasement, la configuration spé
 
 L’ordre des modèles a son importance. Si un fichier *peut* correspondre à trois modèles, seul le premier est utilisé.
 
-### `overrides.<ITEM>.ignore`
+### `overrides.<ITEM>.includes`
 
-Une liste de modèles de style de shell Unix. Biome ne fera pas appliquer l’écrasement aux fichiers correspondant au modèle.
+Une liste de [motifs glob](https://en.wikipedia.org/wiki/Glob_(programming)) représentant
+les fichiers auxquels appliquer des paramètres personnalisés.
 
-
-
-```json title="biome.json"
+```jsonc title="biome.jsonc"
 {
   "overrides": [{
-    "ignore": ["scripts/*.js"]
-  }]
-}
-```
-
-### `overrides.<ITEM>.include`
-
-Une liste de modèles de style de shell Unix. Biome ne fera appliquer l’écrasement qu’aux fichiers correspondant au modèle.
-
-
-
-```json title="biome.json"
-{
-  "overrides": [{
-    "include": ["scripts/*.js"]
+    "includes": ["scripts/*.js"],
+    // paramètres qui ne s’appliqueront qu’aux fichiers spécifiés dans le champ includes.
   }]
 }
 ```
@@ -897,8 +1405,6 @@ Inclura les options de configuration de [formatage du premier niveau](#formatter
 #### Exemples
 
 Par exemple, il est possible de modifier le formatage de `lineWidth`&nbsp;: `indentStyle` pour certains fichiers qui sont inclus dans le glob `generated/**`&nbsp;:
-
-
 
 ```json title="biome.json"
 {
@@ -921,12 +1427,9 @@ Par exemple, il est possible de modifier le formatage de `lineWidth`&nbsp;: `ind
 
 Inclura les options de configuration de [linting de premier niveau](#linter), moins `ignore` et `include`.
 
-
 #### Exemples
 
 Vous pouvez désactiver certaines règles pour certains globs et désactiver le linting pour d’autres globs&nbsp;:
-
-
 
 ```json title="biome.json"
 {
@@ -969,8 +1472,6 @@ Inclura les options de configuration de [JavaScript de premier niveau](#javascri
 
 Vous pouvez modifier le comportement du formatage des fichiers JavaScript dans certains dossiers&nbsp;:
 
-
-
 ```json title="biome.json"
 {
   "formatter": {
@@ -994,17 +1495,13 @@ Vous pouvez modifier le comportement du formatage des fichiers JavaScript dans c
 }
 ```
 
-
 ### `overrides.<ITEM>.json`
 
 Inclura les options de configuration de [JSON de premier niveau](#json).
 
-
 #### Exemples
 
 Vous pouvez activer les fonctionnalités d’analyse pour certains fichiers JSON&nbsp;:
-
-
 
 ```json title="biome.json"
 {
@@ -1027,3 +1524,42 @@ Vous pouvez activer les fonctionnalités d’analyse pour certains fichiers JSON
   ]
 }
 ```
+
+## Glob syntax reference
+
+Les motifs glob sont utilisés pour faire correspondre des chemins de
+fichiers et de dossiers. Biome prend en charge la syntaxe suivante :
+
+- `*` correspond à zéro ou plusieurs caractères. Il ne peut pas correspondre au séparateur de chemin /.
+- `**` correspond récursivement aux dossiers et fichiers. Cette séquence doit être utilisée comme un
+  composant entier du chemin, donc `**a` et `b**` sont invalides et entraîneront une erreur.
+  Une séquence de plus de deux caractères `*` consécutifs est également invalide.
+- `[...]` correspond à tout caractère situé entre les crochets.
+  Il est aussi possible de spécifier des plages de caractères, selon l’ordre Unicode.
+  Par exemple, `[0-9]` correspond à tout caractère entre 0 et 9 inclus.
+- `[!...]` est la négation de `[...]`, c’est-à-dire qu’il correspond à tout caractère non présent dans les crochets.
+- Si le motif glob commence par `!`, il s’agit d’un motif dit négatif.
+  Ce motif ne correspond que si le chemin **ne correspond pas au motif**.
+  Les motifs négatifs ne peuvent pas être utilisés seuls, ils ne peuvent servir que d’**exception** à un motif glob classique.
+- Lorsqu’il détermine si un fichier est inclus ou non, Biome prend également en compte les dossiers parents.
+  Cela signifie que si vous souhaitez **inclure** tous les fichiers d’un dossier,
+  vous devez utiliser le suffixe `/**` pour les faire correspondre. En revanche,
+  si vous souhaitez **ignorer** tous les fichiers d’un dossier, vous pouvez le faire sans le suffixe `/**`.
+  Il est recommandé d’ignorer les dossiers sans le suffixe final `/**`, afin d’éviter de les parcourir inutilement,
+  ainsi que le risque que Biome charge un fichier `biome.json` ou `.gitignore` depuis un dossier ignoré.
+
+Quelques exemples :
+
+- `dist/**` correspond au dossier `dist/` et à tous les fichiers qu’il contient.
+- `!dist` ignore le dossier `dist/` et tous les fichiers qu’il contient.
+- `**/test/**` correspond à tous les fichiers situés dans un dossier nommé `test`, peu importe son emplacement.
+  Par exemple : `dist/test`, `src/test`.
+- `**/*.js` correspond à tous les fichiers se terminant par l’extension `.js`, dans tous les dossiers.
+
+:::caution
+Les motifs glob peuvent être utilisés dans un fichier de configuration Biome,
+mais ils peuvent aussi être spécifiés en ligne de commande.
+Lorsque vous spécifiez un motif glob en ligne de commande, il est interprété par votre shell, et non par Biome.
+Les shells peuvent prendre en charge une syntaxe légèrement différente pour les motifs glob.
+Par exemple, certains ne prennent pas en charge le motif récursif `**`.
+:::

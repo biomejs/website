@@ -3,88 +3,209 @@ title: Usando o Biome em projetos grandes
 description: Um pequeno guia sobre como configurar o Biome em projetos grandes
 ---
 
-O Biome disponibiliza algumas ferramentas que podem ajudar você a utilizá-lo em projetos grandes, como ambientes de trabalho com múltiplos projetos ou em projetos monorepos.
+import {FileTree, Steps} from '@astrojs/starlight/components';
 
-## Usando múltiplos arquivos de configuração
+O Biome pode fornecer algumas ferramentas que podem ajudá-lo a usá-lo corretamente em projetos grandes, como monorepos ou workspaces que contêm múltiplos projetos.
 
-Quando você utiliza o Biome - seja com a CLI ou com o LSP - ele busca o arquivo de configuração mais próximo usando o diretório de trabalho atual.
+## Use múltiplos arquivos de configuração
 
-Se o Biome não encontrar o arquivo de configuração no diretório, ele começa a procurar nos **diretórios pai** até encontrar um arquivo de configuração.
+Quando você usa os recursos do Biome - seja com a CLI ou o LSP - a ferramenta procura pelo arquivo de configuração mais próximo usando o diretório de trabalho atual.
 
-Você pode aproveitar essa funcionalidade para aplicar diferentes configuração baseado no projeto/pasta.
+Se o Biome não encontrar o arquivo de configuração lá, ele **começa a percorrer para cima** os diretórios do sistema de arquivos, até encontrar um.
 
-Vamos supor que nós temos um projeto que contém um aplicativo backend e um novo aplicativo frontend.
+Você pode aproveitar esse recurso para aplicar diferentes configurações com base no projeto/pasta.
 
-```
-app
-├── backend
-│   ├── biome.json
-│   └── package.json
-└── frontend
-    ├── biome.json
-    ├── legacy-app
-    │   └── package.json
-    └── new-app
-        └── package.json
-```
+Vamos supor que temos um projeto que contém uma aplicação de backend e uma aplicação de frontend.
 
-Isso signifca que quando você executa um script do arquivo `app/backend/package.json`, o Biome vai usar o arquivo de configuração `app/backend/biome.json`.
+<FileTree>
+  - app
+    - backend
+      - biome.json
+      - package.json
+    - frontend
+      - biome.json
+      - legacy-app
+        - package.json
+      - new-app
+        - package.json
+</FileTree>
 
-Quando você executa um script do arquivo `app/frontend/legacy-app/package.json` ou `app/frontend/new-app/package.json`, o Biome vai usar o arquivo de configuração `app/frontend/biome.json`.
+Isso significa que quando você executa o Biome dentro de `app/backend`, o Biome usará o arquivo de configuração `app/backend/biome.json`. E quando você executa de `app/frontend/legacy-app` ou `app/frontend/new-app`, o Biome usará o arquivo de configuração `app/frontend/biome.json`.
 
-## Compartilhando o arquivo de configuração
+## Monorepo
 
-É possível usar a opção de configuração [`extends`](/reference/configuration#extends) para dividir opções entre vários arquivos.
+Monorepos são repositórios particulares onde múltiplos pacotes são armazenados e mantidos em um grande repositório. Cada pacote pode conter sua própria configuração.
 
-Vamos supor que temos esses requisitos:
+Desde a v2, o Biome suporta monorepos nativamente, e você precisará configurar o projeto da seguinte maneira.
 
-- O projeto `legacy-app` deve ser formatado usando espaços;
-- Os projetos `backend` e `new-app` devem ser formatados usando tabulações;
-- Todos os projetos devem ser formatados com uma largura de linha de 120 caracteres;
-- O projeto `backend` precisa de algumas verficações adicionais;
+<Steps>
+1. Crie um arquivo `biome.json` na raiz do monorepo. Usaremos as regras recomendadas e personalizaremos as opções do formatador:
 
-Começamos criando um novo arquivo de configuração em `app/biome.json`, e colocamos nele as opções compartilhadas:
-
-```json title="app/biome.json"
-{
-  "formatter": {
-    "enabled": true,
-    "lineWidth": 120
-  }
-}
-```
-
-Agora, vamos **mover** `app/frontend/biome.json` para `app/frontend/legacy-app/`, pois é lá que precisamos usar uma formatação diferente.
-
-```json title="app/frontend/legacy-app/biome.json"
-{
-  "formatter": {
-    "indentStyle": "space"
-  }
-}
-```
-
-Em seguida, falamos para o Biome herdar todas as opções do arquivo principal `app/biome.json`, utilizando a propriedade `extends`:
-
-```json title="app/frontend/legacy-app/biome.json" ins={2}
-{
-  "extends": ["../../biome.json"],
-  "formatter": {
-    "indentStyle": "space"
-  }
-}
-```
-
-Vamos para o arquivo `app/backend/biome.json`, onde precisamos habilitar o [linting](/pt-br/linter):
-
-```json title="app/backend/biome.json"
-{
-  "extends": ["../biome.json"],
-  "linter": {
-    "enabled": true,
-    "rules": {
-      "recommended": true
+    ```json title="biome.json"
+    {
+        "linter": {
+            "enabled": true,
+            "rules": {
+                "recommended": true
+            }
+        },
+        "formatter": {
+            "lineWidth": 120,
+            "indentStyle": "space",
+            "indentWidth": 6
+        }
     }
+    ```
+    Este arquivo é chamado de **configuração raiz** e define as opções base dentro do projeto. No entanto, configurações aninhadas podem decidir aderir a essas opções ou não. Vamos ver como.
+
+2. Crie arquivos de configuração aninhados, um em cada pacote onde for necessário.
+    Esses arquivos de configuração aninhados devem ter o campo `"root"` definido como `false`. Além disso, queremos que esses pacotes sigam os padrões de formatação definidos na configuração raiz. Para isso, usaremos uma **nova microssintaxe** disponível no Biome v2, que é `"extends": "//"`. Essa sintaxe diz ao Biome para estender da **configuração raiz**, independentemente de onde a configuração aninhada esteja.
+
+    Vamos criar dois arquivos de configuração, um dentro de `packages/logger` e outro dentro de `packages/generate`. No primeiro, desativaremos `noConsole`, e em `packages/generate` desativaremos o formatador porque esses são arquivos gerados por código:
+
+    ```json title="packages/logger/biome.json"
+    {
+        "root": false,
+        "extends": "//",
+        "linter": {
+            "rules": {
+                "suspicious": {
+                    "noConsole": "off"
+                }
+            }
+        }
+    }
+    ```
+
+    ```json title="packages/generate/biome.json"
+    {
+        "root": false,
+        "extends": "//",
+        "formatter": {
+            "enabled": false
+        }
+    }
+    ```
+    Por conveniência, quando você usa a microssintaxe `extends: "//"`, você pode **omitir** `"root": false`, porque já está implícito que esta configuração não é uma configuração raiz:
+
+    ```diff title="packages/generate/biome.json"
+    {
+    -   "root": false,
+        "extends": "//",
+        "formatter": {
+        "enabled": false
+    }
+    ```
+3. Agora, vamos supor que temos um novo pacote em `packages/analytics` que é mantido por uma equipe diferente. Essa equipe segue padrões de codificação totalmente diferentes, então eles _não_ querem herdar opções da configuração raiz. Para eles, basta omitir `"extends": "//"` do arquivo de configuração e alterar as opções de formatação:
+    ```json title="packages/analytics/biome.json"
+    {
+        "root": false,
+        "formatter": {
+            "lineWidth": 100,
+        }
+    }
+
+    ```
+4. Agora que tudo está configurado, você tem algumas opções. Você pode executar os comandos `biome` da raiz do projeto ou dos pacotes individuais. O Biome respeitará todas as configurações!
+</Steps>
+
+:::tip
+Às vezes, o Biome pode encontrar um arquivo de configuração aninhado que não tem uma configuração `"root": false` correta. Isso pode acontecer se você tiver outro projeto que usa o Biome em uma pasta de terceiros ou submódulo Git, por exemplo. Nesse caso, sugerimos ignorar o projeto aninhado inteiramente usando [o campo `files.includes`](/reference/configuration/#filesincludes).
+:::
+
+## Outras maneiras de compartilhar um arquivo de configuração
+
+Como vimos acima, o campo `extends` permite que você divida sua configuração em vários arquivos. Dessa forma, você pode compartilhar configurações comuns entre diferentes projetos ou pastas. A sintaxe `"extends": "//"` é um atalho conveniente quando você deseja que as configurações aninhadas se estendam da configuração raiz, mas às vezes você pode querer usar uma configuração ainda mais personalizada.
+
+Além de `"//"`, a configuração `extends` também aceita valores de array. Nesse caso, cada valor no array deve ser um caminho para outra configuração a ser estendida.
+
+Por exemplo, veja como você pode configurar sua configuração para estender um arquivo de configuração `common.json`:
+
+```json title="biome.json"
+{
+  "extends": ["./common.json"]
+}
+```
+
+As entradas definidas em `extends` são resolvidas a partir do caminho onde o arquivo `biome.json` está definido. Elas são processadas na ordem em que são listadas, com as configurações em arquivos posteriores substituindo as anteriores.
+
+Arquivos dos quais você `extend` não podem `extend` outros arquivos por sua vez.
+
+Note que os caminhos em um arquivo de configuração são sempre resolvidos a partir da pasta em que o arquivo `biome.json`/`biome.jsonc` reside. Ao usar o campo `extends`, isso significa que os caminhos em uma configuração compartilhada são interpretados a partir da localização da configuração que a está estendendo, e não da pasta do arquivo que está sendo estendido.
+
+Por exemplo, vamos supor um projeto que contém dois diretórios `backend/` e `frontend/`, cada um com seu próprio `biome.json` que ambos estendem uma configuração `common.json` na pasta raiz:
+
+<FileTree>
+- backend/
+  - src/
+    - ...
+  - test/
+    - ...
+  - biome.json
+- frontend/
+  - src/
+    - ...
+  - test/
+    - ...
+  - biome.json
+- common.json
+</FileTree>
+
+```json title="common.json"
+{
+  "files": {
+    "includes": ["src/**/*.js", "test/**/*.js"],
+  },
+  "linter": {
+    "includes": ["**", "!test"]
   }
 }
 ```
+
+```json title="frontend/biome.json"
+{
+  "extends": ["../common.json"]
+}
+```
+
+* Ao executar o Biome a partir da pasta `frontend/`, ele será configurado para formatar e analisar todos os arquivos JavaScript nas pastas `frontend/src/` e `frontend/test/`, e apenas formatar os arquivos na pasta `frontend/src/`. Isso funciona porque os caminhos especificados em `common.json` são interpretados a partir da pasta `frontend/`, pois é onde o arquivo `biome.json` reside.
+* Supondo que `backend/biome.json` seja igual a `frontend/biome.json`, ele terá o mesmo comportamento, exceto que os caminhos serão interpretados a partir da pasta `backend/`.
+
+Note que nesta configuração, tanto `frontend/biome.json` quanto `backend/biome.json` são considerados configurações raiz. Você não poderá executar o Biome da raiz do repositório, a menos que use a opção de CLI `--config-path` e aponte para uma das configurações.
+
+### Exportando uma configuração do Biome de um pacote NPM
+
+O Biome também é capaz de resolver arquivos de configuração da pasta `node_modules/`. Assim, você pode exportar seu arquivo de configuração de um pacote e importá-lo em vários projetos.
+
+Para fazer isso, a primeira coisa a fazer é configurar sua configuração "compartilhada" do Biome de uma certa maneira. Vamos supor que você queira compartilhar uma configuração de um pacote chamado `@org/shared-configs`, usando o especificador `@org/shared-configs/biome`. Você precisa criar uma entrada `exports` no `package.json` deste pacote:
+
+```json title="package.json" ins={5,3}
+{
+  "name": "@org/shared-configs",
+  "type": "module",
+  "exports": {
+    "./biome": "./biome.json"
+  }
+}
+```
+
+Certifique-se de que `@org/shared-configs` está corretamente instalado em seu projeto e atualize o arquivo `biome.json` para se parecer com o seguinte trecho:
+
+```json title="biome.json"
+{
+  "extends": ["@org/shared-configs/biome"]
+}
+```
+
+O Biome tentará resolver sua biblioteca `@org/shared-configs/` a partir do seu diretório de trabalho. O diretório de trabalho é:
+
+- ao usar a CLI, a pasta de onde você executa seus scripts.
+  Geralmente, corresponde à localização do seu arquivo `package.json`;
+- ao usar o LSP, a pasta raiz do seu projeto.
+
+:::caution
+Caminhos que começam com um ponto `.` ou terminam com `.json` ou `.jsonc` são sempre tratados como caminhos relativos, então eles não serão resolvidos a partir de `node_modules/`.
+:::
+
+Para mais informações sobre o algoritmo de resolução, consulte a
+[documentação do Node.js](https://nodejs.org/api/esm.html#resolution-and-loading-algorithm).

@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`jsx-a11y/anchor-is-valid`](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/anchor-is-valid.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"a11y": {
+				"useValidAnchor": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Enforce that all anchors are valid, and they are navigable elements.
 
@@ -100,19 +113,6 @@ For a detailed explanation, check out https://marcysutton.com/links-vs-buttons-i
 
 - [WCAG 2.1.1](https://www.w3.org/WAI/WCAG21/Understanding/keyboard)
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"a11y": {
-				"useValidAnchor": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

@@ -21,6 +21,19 @@ This rule is part of the [nursery](/linter/#nursery) group. This means that it i
   - Inspired from [`@typescript-eslint/explicit-function-return-type`](https://typescript-eslint.io/rules/explicit-function-return-type)
   - Inspired from [`@typescript-eslint/explicit-module-boundary-types`](https://typescript-eslint.io/rules/explicit-module-boundary-types)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useExplicitType": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Enforce types in functions, methods, variables, and parameters.
 
@@ -362,19 +375,6 @@ class App {
 }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"nursery": {
-				"useExplicitType": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

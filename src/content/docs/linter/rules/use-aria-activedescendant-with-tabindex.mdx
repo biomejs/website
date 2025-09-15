@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`jsx-a11y/aria-activedescendant-has-tabindex`](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/aria-activedescendant-has-tabindex.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"a11y": {
+				"useAriaActivedescendantWithTabindex": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Enforce that `tabIndex` is assigned to non-interactive HTML elements with `aria-activedescendant`.
 
@@ -54,19 +67,6 @@ it must either have an inherent tabIndex of zero or declare a tabIndex attribute
 <input aria-activedescendant={someID} />
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"a11y": {
-				"useAriaActivedescendantWithTabindex": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

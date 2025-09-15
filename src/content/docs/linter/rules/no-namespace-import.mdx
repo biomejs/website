@@ -17,6 +17,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`barrel-files/avoid-namespace-import`](https://github.com/thepassle/eslint-plugin-barrel-files/blob/main/docs/rules/avoid-namespace-import.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"performance": {
+				"noNamespaceImport": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow the use of namespace imports.
 
@@ -42,19 +55,6 @@ import type { bar } from "bar"
 import type * as baz from "baz"
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"performance": {
-				"noNamespaceImport": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

@@ -31,7 +31,16 @@ ul.credits-people-list {
 	align-items: flex-start;
 	justify-content: center;
 	flex-wrap: wrap;
-
+	li {
+		margin: 0 var(--unit) var(--unit);
+		width: 220px;
+		list-style: none;
+		border: 1px solid var(--sl-border);
+		background-color: var(--sl-color-black);
+		text-decoration: none;
+		border-radius: 12px;
+		overflow: hidden;
+	}
 	&.contributors {
 		li {
 			width: 57px;
@@ -84,17 +93,6 @@ ul.credits-people-list {
 		&:hover {
 			text-decoration: underline;
 		}
-	}
-
-	li {
-		margin: 0 var(--unit) var(--unit);
-		width: 220px;
-		list-style: none;
-		border: 1px solid var(--sl-border);
-		background-color: var(--sl-color-black);
-		text-decoration: none;
-		border-radius: 12px;
-		overflow: hidden;
 	}
 
 	img {

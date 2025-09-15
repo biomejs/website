@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`stylelint/selector-pseudo-class-no-unknown`](https://github.com/stylelint/stylelint/blob/main/lib/rules/selector-pseudo-class-no-unknown/README.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noUnknownPseudoClass": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow unknown pseudo-class selectors.
 
@@ -65,19 +78,6 @@ a:focus {}
 input:-moz-placeholder {}
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"correctness": {
-				"noUnknownPseudoClass": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

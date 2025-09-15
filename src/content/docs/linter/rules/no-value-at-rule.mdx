@@ -14,6 +14,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Diagnostic Category: [`lint/style/noValueAtRule`](/reference/diagnostics#diagnostic-category)
 - This rule doesn't have a fix.
 - The default severity of this rule is [**information**](/reference/diagnostics#information).
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"noValueAtRule": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow use of `@value` rule in css modules.
 
@@ -41,19 +54,6 @@ p {
 }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"style": {
-				"noValueAtRule": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

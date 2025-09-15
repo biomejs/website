@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`@mysticatea/no-this-in-static`](https://github.com/mysticatea/eslint-plugin/blob/master/docs/rules/no-this-in-static.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"complexity": {
+				"noThisInStatic": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow `this` and `super` in `static` contexts.
 
@@ -87,19 +100,6 @@ class A {
 }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"complexity": {
-				"noThisInStatic": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

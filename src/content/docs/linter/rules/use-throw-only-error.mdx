@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
   - Inspired from [`no-throw-literal`](https://eslint.org/docs/latest/rules/no-throw-literal)
   - Inspired from [`@typescript-eslint/only-throw-error`](https://typescript-eslint.io/rules/only-throw-error)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useThrowOnlyError": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow throwing non-`Error` values.
 
@@ -69,19 +82,6 @@ This rule only covers cases where throwing the value can be known statically.
 Complex cases such as object and function access aren't checked.
 This will be improved in the future once Biome supports type inference.
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"style": {
-				"useThrowOnlyError": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

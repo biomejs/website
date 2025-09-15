@@ -19,6 +19,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
   - Same as [`@typescript-eslint/no-extraneous-class`](https://typescript-eslint.io/rules/no-extraneous-class)
   - Same as [`unicorn/no-static-only-class`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-static-only-class.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"complexity": {
+				"noStaticOnlyClass": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 This rule reports when a class has no non-static members, such as for a class used exclusively as a static namespace.
 
@@ -114,19 +127,6 @@ export function incrementCount() {
 }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"complexity": {
-				"noStaticOnlyClass": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

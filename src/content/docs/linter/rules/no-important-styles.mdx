@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`stylelint/declaration-no-important`](https://github.com/stylelint/stylelint/blob/main/lib/rules/declaration-no-important/README.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"complexity": {
+				"noImportantStyles": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow the use of the `!important` style.
 
@@ -65,19 +78,6 @@ must account for the `!important` rule overriding expected behavior.
 
 - [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/important)
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"complexity": {
-				"noImportantStyles": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

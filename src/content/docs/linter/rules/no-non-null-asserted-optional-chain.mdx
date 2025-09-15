@@ -20,6 +20,19 @@ This rule is part of the [nursery](/linter/#nursery) group. This means that it i
 - Sources: 
   - Same as [`@typescript-eslint/no-non-null-asserted-optional-chain`](https://typescript-eslint.io/rules/no-non-null-asserted-optional-chain)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noNonNullAssertedOptionalChain": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow non-null assertions after optional chaining expressions.
 
@@ -63,19 +76,6 @@ obj!.prop?.method();
 obj?.prop ?? defaultValue;
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"nursery": {
-				"noNonNullAssertedOptionalChain": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

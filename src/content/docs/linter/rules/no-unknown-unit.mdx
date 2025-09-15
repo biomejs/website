@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`stylelint/unit-no-unknown`](https://github.com/stylelint/stylelint/blob/main/lib/rules/unit-no-unknown/README.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noUnknownUnit": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow unknown CSS units.
 
@@ -69,19 +82,6 @@ a {
 }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"correctness": {
-				"noUnknownUnit": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`approx_constant`](https://rust-lang.github.io/rust-clippy/master/#approx_constant)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noApproximativeNumericConstant": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Use standard constants instead of approximated literals.
 
@@ -51,19 +64,6 @@ let y = 3.14;
 let x = Math.LN10;
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"suspicious": {
-				"noApproximativeNumericConstant": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

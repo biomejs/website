@@ -20,6 +20,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
   - Same as [`@typescript-eslint/no-loss-of-precision`](https://typescript-eslint.io/rules/no-loss-of-precision)
   - Same as [`lossy_float_literal`](https://rust-lang.github.io/rust-clippy/master/#lossy_float_literal)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noPrecisionLoss": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow literal numbers that lose precision
 
@@ -63,19 +76,6 @@ const x = 9007199254740991
 const x = 9007_1992547409_91
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"correctness": {
-				"noPrecisionLoss": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

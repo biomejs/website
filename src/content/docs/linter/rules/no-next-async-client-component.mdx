@@ -22,6 +22,19 @@ This rule is part of the [nursery](/linter/#nursery) group. This means that it i
 - Sources: 
   - Same as [`@next/no-async-client-component`](https://nextjs.org/docs/messages/no-async-client-component)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noNextAsyncClientComponent": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Prevent client components from being async functions.
 
@@ -62,19 +75,6 @@ export default async function ServerComponent() {
 }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"nursery": {
-				"noNextAsyncClientComponent": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

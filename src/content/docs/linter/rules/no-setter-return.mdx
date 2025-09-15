@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`no-setter-return`](https://eslint.org/docs/latest/rules/no-setter-return)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noSetterReturn": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow returning a value from a setter
 
@@ -83,19 +96,6 @@ class B {
 }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"correctness": {
-				"noSetterReturn": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

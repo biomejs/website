@@ -19,6 +19,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
   - Same as [`no-redeclare`](https://eslint.org/docs/latest/rules/no-redeclare)
   - Same as [`@typescript-eslint/no-redeclare`](https://typescript-eslint.io/rules/no-redeclare)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noRedeclare": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow variable, function, class, and type redeclarations in the same scope.
 
@@ -80,19 +93,6 @@ class Foo {
 }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"suspicious": {
-				"noRedeclare": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

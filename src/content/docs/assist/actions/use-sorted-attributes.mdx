@@ -19,6 +19,19 @@ import EditorAction from "@/components/EditorAction.astro";
 
 ## How to enable in your editor
 <EditorAction includeFixAll action="source.action.useSortedAttributes.biome" />
+## How to configure
+```json title="biome.json"
+{
+	"assist": {
+		"actions": {
+			"source": {
+				"useSortedAttributes": "on"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Enforce attribute sorting in JSX elements.
 
@@ -55,12 +68,21 @@ This options supports `natural` and `lexicographic` values. Where as `natural` i
 
 Following will apply the natural sort order.
 
-```json
+```json title='biome.json'
 {
-    "options": {
-        "sortOrder": "natural"
-    }
+	"assist": {
+		"actions": {
+			"source": {
+				"useSortedAttributes": {
+					"options": {
+						"sortOrder": "natural"
+					}
+				}
+			}
+		}
+	}
 }
+
 ```
 
 ```jsx
@@ -71,12 +93,21 @@ Following will apply the natural sort order.
 
 Following will apply the lexicographic sort order.
 
-```json
+```json title='biome.json'
 {
-    "options": {
-        "sortOrder": "lexicographic"
-    }
+	"assist": {
+		"actions": {
+			"source": {
+				"useSortedAttributes": {
+					"options": {
+						"sortOrder": "lexicographic"
+					}
+				}
+			}
+		}
+	}
 }
+
 ```
 
 ```jsx
@@ -85,19 +116,6 @@ Following will apply the lexicographic sort order.
 
 <pre class="language-text"><code class="language-text">code-block.jsx:1:1 <a href="https://biomejs.dev/assist/actions/use-sorted-attributes">assist/source/useSortedAttributes</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The attributes are not sorted. </span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;Hello tel=&#123;5555555&#125; &#123;...this.props&#125; opt1=&quot;John&quot; opt2=&quot;&quot; opt12=&quot;&quot; opt11=&quot;&quot; /&gt;;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Safe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Sort the JSX props.</span><br />  <br />    <strong>1</strong>  <strong> │ </strong><span style="color: Tomato;">-</span> <span style="color: Tomato;">&lt;</span><span style="color: Tomato;">H</span><span style="color: Tomato;">e</span><span style="color: Tomato;">l</span><span style="color: Tomato;">l</span><span style="color: Tomato;">o</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">t</span><span style="color: Tomato;">e</span><span style="color: Tomato;">l</span><span style="color: Tomato;">=</span><span style="color: Tomato;">&#123;</span><span style="color: Tomato;">5</span><span style="color: Tomato;">5</span><span style="color: Tomato;">5</span><span style="color: Tomato;">5</span><span style="color: Tomato;">5</span><span style="color: Tomato;">5</span><span style="color: Tomato;">5</span><span style="color: Tomato;">&#125;</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">&#123;</span><span style="color: Tomato;">.</span><span style="color: Tomato;">.</span><span style="color: Tomato;">.</span><span style="color: Tomato;">t</span><span style="color: Tomato;">h</span><span style="color: Tomato;">i</span><span style="color: Tomato;">s</span><span style="color: Tomato;">.</span><span style="color: Tomato;">p</span><span style="color: Tomato;">r</span><span style="color: Tomato;">o</span><span style="color: Tomato;">p</span><span style="color: Tomato;">s</span><span style="color: Tomato;">&#125;</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">o</span><span style="color: Tomato;">p</span><span style="color: Tomato;">t</span><span style="color: Tomato;">1</span><span style="color: Tomato;">=</span><span style="color: Tomato;">&quot;</span><span style="color: Tomato;">J</span><span style="color: Tomato;">o</span><span style="color: Tomato;">h</span><span style="color: Tomato;">n</span><span style="color: Tomato;">&quot;</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">o</span><span style="color: Tomato;">p</span><span style="color: Tomato;">t</span><span style="color: Tomato;">2</span><span style="color: Tomato;">=</span><span style="color: Tomato;">&quot;</span><span style="color: Tomato;">&quot;</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;"><strong>o</strong></span><span style="color: Tomato;"><strong>p</strong></span><span style="color: Tomato;"><strong>t</strong></span><span style="color: Tomato;"><strong>1</strong></span><span style="color: Tomato;"><strong>2</strong></span><span style="color: Tomato;">=</span><span style="color: Tomato;">&quot;</span><span style="color: Tomato;">&quot;</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;"><strong>o</strong></span><span style="color: Tomato;"><strong>p</strong></span><span style="color: Tomato;"><strong>t</strong></span><span style="color: Tomato;"><strong>1</strong></span><span style="color: Tomato;"><strong>1</strong></span><span style="color: Tomato;">=</span><span style="color: Tomato;">&quot;</span><span style="color: Tomato;">&quot;</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">/</span><span style="color: Tomato;">&gt;</span><span style="color: Tomato;">;</span><br />      <strong>1</strong><strong> │ </strong><span style="color: MediumSeaGreen;">+</span> <span style="color: MediumSeaGreen;">&lt;</span><span style="color: MediumSeaGreen;">H</span><span style="color: MediumSeaGreen;">e</span><span style="color: MediumSeaGreen;">l</span><span style="color: MediumSeaGreen;">l</span><span style="color: MediumSeaGreen;">o</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">t</span><span style="color: MediumSeaGreen;">e</span><span style="color: MediumSeaGreen;">l</span><span style="color: MediumSeaGreen;">=</span><span style="color: MediumSeaGreen;">&#123;</span><span style="color: MediumSeaGreen;">5</span><span style="color: MediumSeaGreen;">5</span><span style="color: MediumSeaGreen;">5</span><span style="color: MediumSeaGreen;">5</span><span style="color: MediumSeaGreen;">5</span><span style="color: MediumSeaGreen;">5</span><span style="color: MediumSeaGreen;">5</span><span style="color: MediumSeaGreen;">&#125;</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">&#123;</span><span style="color: MediumSeaGreen;">.</span><span style="color: MediumSeaGreen;">.</span><span style="color: MediumSeaGreen;">.</span><span style="color: MediumSeaGreen;">t</span><span style="color: MediumSeaGreen;">h</span><span style="color: MediumSeaGreen;">i</span><span style="color: MediumSeaGreen;">s</span><span style="color: MediumSeaGreen;">.</span><span style="color: MediumSeaGreen;">p</span><span style="color: MediumSeaGreen;">r</span><span style="color: MediumSeaGreen;">o</span><span style="color: MediumSeaGreen;">p</span><span style="color: MediumSeaGreen;">s</span><span style="color: MediumSeaGreen;">&#125;</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">o</span><span style="color: MediumSeaGreen;">p</span><span style="color: MediumSeaGreen;">t</span><span style="color: MediumSeaGreen;">1</span><span style="color: MediumSeaGreen;">=</span><span style="color: MediumSeaGreen;">&quot;</span><span style="color: MediumSeaGreen;">J</span><span style="color: MediumSeaGreen;">o</span><span style="color: MediumSeaGreen;">h</span><span style="color: MediumSeaGreen;">n</span><span style="color: MediumSeaGreen;">&quot;</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">o</span><span style="color: MediumSeaGreen;">p</span><span style="color: MediumSeaGreen;">t</span><span style="color: MediumSeaGreen;">2</span><span style="color: MediumSeaGreen;">=</span><span style="color: MediumSeaGreen;">&quot;</span><span style="color: MediumSeaGreen;">&quot;</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;"><strong>o</strong></span><span style="color: MediumSeaGreen;"><strong>p</strong></span><span style="color: MediumSeaGreen;"><strong>t</strong></span><span style="color: MediumSeaGreen;"><strong>1</strong></span><span style="color: MediumSeaGreen;"><strong>1</strong></span><span style="color: MediumSeaGreen;">=</span><span style="color: MediumSeaGreen;">&quot;</span><span style="color: MediumSeaGreen;">&quot;</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;"><strong>o</strong></span><span style="color: MediumSeaGreen;"><strong>p</strong></span><span style="color: MediumSeaGreen;"><strong>t</strong></span><span style="color: MediumSeaGreen;"><strong>1</strong></span><span style="color: MediumSeaGreen;"><strong>2</strong></span><span style="color: MediumSeaGreen;">=</span><span style="color: MediumSeaGreen;">&quot;</span><span style="color: MediumSeaGreen;">&quot;</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">/</span><span style="color: MediumSeaGreen;">&gt;</span><span style="color: MediumSeaGreen;">;</span><br />    <strong>2</strong> <strong>2</strong><strong> │ </strong>  <br />  <br /></code></pre>
 
-## How to configure
-```json title="biome.json"
-{
-	"assist": {
-		"actions": {
-			"source": {
-				"useSortedAttributes": "on"
-			}
-		}
-	}
-}
-
-```
 
 </TabItem>
 </Tabs>

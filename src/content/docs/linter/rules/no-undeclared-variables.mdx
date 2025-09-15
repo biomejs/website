@@ -17,6 +17,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`no-undef`](https://eslint.org/docs/latest/rules/no-undef)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noUndeclaredVariables": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Prevents the usage of variables that haven't been declared inside the document.
 
@@ -52,12 +65,21 @@ type B<T> = PromiseLike<T>
 When set to `true`, it checks for undeclared types too.
 The option defaults to `false`.
 
-```json
+```json title='biome.json'
 {
-    "options": {
-        "checkTypes": true
-    }
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noUndeclaredVariables": {
+					"options": {
+						"checkTypes": true
+					}
+				}
+			}
+		}
+	}
 }
+
 ```
 
 ```ts
@@ -66,19 +88,6 @@ type A = number extends infer T ? never : T;
 
 <pre class="language-text"><code class="language-text"></code></pre>
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"correctness": {
-				"noUndeclaredVariables": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

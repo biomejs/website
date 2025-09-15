@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Inspired from [`no-labels`](https://eslint.org/docs/latest/rules/no-labels)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noConfusingLabels": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow labeled statements that are not loops.
 
@@ -87,31 +100,29 @@ such as in production builds.
 Some bundlers, such as [esbuild](https://esbuild.github.io/api/#drop-labels) and Vite,
 can be configured to remove labeled statements.
 
-```json
-{
-    "options": {
-        "allowedLabels": ["DEV"]
-    }
-}
-```
-
-```js
-DEV: assertSomeCondition();
-```
-
-## How to configure
-```json title="biome.json"
+```json title='biome.json'
 {
 	"linter": {
 		"rules": {
 			"suspicious": {
-				"noConfusingLabels": "error"
+				"noConfusingLabels": {
+					"options": {
+						"allowedLabels": [
+							"DEV"
+						]
+					}
+				}
 			}
 		}
 	}
 }
 
 ```
+
+```js
+DEV: assertSomeCondition();
+```
+
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

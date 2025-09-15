@@ -19,6 +19,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`@next/google-font-preconnect`](https://nextjs.org/docs/messages/google-font-preconnect)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"performance": {
+				"useGoogleFontPreconnect": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Ensure the `preconnect` attribute is used when using Google Fonts.
 
@@ -57,19 +70,6 @@ where it's manually added, this rule ensures the `preconnect` attribute is prope
 <link href="/logo.svg" rel="icon" />
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"performance": {
-				"useGoogleFontPreconnect": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

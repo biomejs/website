@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`jsx-a11y/label-has-associated-control`](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/label-has-associated-control.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"a11y": {
+				"noLabelWithoutControl": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Enforce that a label element or component has a text label and an associated input.
 
@@ -95,29 +108,31 @@ The rule supports the following options:
 
 Both options `inputComponents` and `labelComponents` don't have support for namespace components (e.g. `<Control.Input>`).
 
-```json
-{
-    "options": {
-        "inputComponents": ["CustomInput"],
-        "labelAttributes": ["label"],
-        "labelComponents": ["CustomLabel"]
-    }
-}
-```
-
-## How to configure
-```json title="biome.json"
+```json title='biome.json'
 {
 	"linter": {
 		"rules": {
 			"a11y": {
-				"noLabelWithoutControl": "error"
+				"noLabelWithoutControl": {
+					"options": {
+						"inputComponents": [
+							"CustomInput"
+						],
+						"labelAttributes": [
+							"label"
+						],
+						"labelComponents": [
+							"CustomLabel"
+						]
+					}
+				}
 			}
 		}
 	}
 }
 
 ```
+
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

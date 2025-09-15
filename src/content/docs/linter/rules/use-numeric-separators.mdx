@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
   - Same as [`unicorn/numeric-separators-style`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/numeric-separators-style.md)
   - Same as [`unreadable_literal`](https://rust-lang.github.io/rust-clippy/master/#unreadable_literal)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useNumericSeparators": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Enforce the use of numeric separators in numeric literals.
 
@@ -70,19 +83,6 @@ var a = 0.123_456_7;
 var a = 0b1100_1100;
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"style": {
-				"useNumericSeparators": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

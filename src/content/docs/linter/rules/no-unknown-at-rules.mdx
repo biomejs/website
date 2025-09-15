@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`stylelint/at-rule-no-unknown`](https://github.com/stylelint/stylelint/blob/main/lib/rules/at-rule-no-unknown/README.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noUnknownAtRules": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow unknown at-rules.
 
@@ -55,19 +68,6 @@ For details on known at-rules, see the [MDN web docs](https://developer.mozilla.
 }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"suspicious": {
-				"noUnknownAtRules": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

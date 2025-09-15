@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`@next/google-font-display`](https://nextjs.org/docs/messages/google-font-display)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"useGoogleFontDisplay": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Enforces the use of a recommended `display` strategy with Google Fonts.
 
@@ -70,19 +83,6 @@ In cases where swapping to the custom font after it has loaded is important, con
 <link rel="stylesheet" />
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"suspicious": {
-				"useGoogleFontDisplay": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

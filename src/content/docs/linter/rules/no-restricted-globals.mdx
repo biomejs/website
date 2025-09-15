@@ -17,6 +17,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`no-restricted-globals`](https://eslint.org/docs/latest/rules/no-restricted-globals)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"noRestrictedGlobals": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 This rule allows you to specify global variable names that you don’t want to use in your application.
 
@@ -49,33 +62,29 @@ function f(event) {
 Use the options to specify additional globals that you want to restrict in your
 source code.
 
-```json
-{
-    "options": {
-        "deniedGlobals": {
-            "$": "jQuery is not allowed. Use native DOM manipulation instead.",
-            "MooTools": "Do not use MooTools, use MeowTools instead."
-        }
-    }
-}
-```
-
-In the example above, the rule will emit a diagnostics if tried to use `$` or `MooTools` without
-creating a local variable.
-
-## How to configure
-```json title="biome.json"
+```json title='biome.json'
 {
 	"linter": {
 		"rules": {
 			"style": {
-				"noRestrictedGlobals": "error"
+				"noRestrictedGlobals": {
+					"options": {
+						"deniedGlobals": {
+							"$": "jQuery is not allowed. Use native DOM manipulation instead.",
+							"MooTools": "Do not use MooTools, use MeowTools instead."
+						}
+					}
+				}
 			}
 		}
 	}
 }
 
 ```
+
+In the example above, the rule will emit a diagnostics if tried to use `$` or `MooTools` without
+creating a local variable.
+
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

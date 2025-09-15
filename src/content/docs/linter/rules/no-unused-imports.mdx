@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`unused-imports/no-unused-imports`](https://github.com/sweepline/eslint-plugin-unused-imports/blob/master/docs/rules/no-unused-imports.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noUnusedImports": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow unused imports.
 
@@ -92,19 +105,6 @@ One notable exception is when the import is intended to be used for type augment
 import type {} from '@mui/lab/themeAugmentation';
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"correctness": {
-				"noUnusedImports": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

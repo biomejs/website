@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Inspired from [`react/jsx-no-target-blank`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-no-target-blank.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"security": {
+				"noBlankTarget": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow `target="_blank"` attribute without `rel="noopener"`.
 
@@ -81,12 +94,21 @@ you can set `allowNoReferrer: false` to _only_ accept `rel="noopener"`.
 
 See to the [`noreferrer` documentation](https://html.spec.whatwg.org/multipage/links.html#link-type-noreferrer).
 
-```json
+```json title='biome.json'
 {
-    "options": {
-        "allowNoReferrer": false
-    }
+	"linter": {
+		"rules": {
+			"security": {
+				"noBlankTarget": {
+					"options": {
+						"allowNoReferrer": false
+					}
+				}
+			}
+		}
+	}
 }
+
 ```
 
 ```jsx
@@ -104,12 +126,24 @@ The option `allowDomains` allows specific domains to use
 configuration, it's allowed to use the domains `https://example.com` and
 `example.org`:
 
-```json
+```json title='biome.json'
 {
-    "options": {
-        "allowDomains": ["https://example.com", "example.org"]
-    }
+	"linter": {
+		"rules": {
+			"security": {
+				"noBlankTarget": {
+					"options": {
+						"allowDomains": [
+							"https://example.com",
+							"example.org"
+						]
+					}
+				}
+			}
+		}
+	}
 }
+
 ```
 
 ```jsx
@@ -121,12 +155,23 @@ configuration, it's allowed to use the domains `https://example.com` and
 
 The diagnostic is applied to all domains not in the allow list:
 
-```json
+```json title='biome.json'
 {
-    "options": {
-        "allowDomains": ["https://example.com"]
-    }
+	"linter": {
+		"rules": {
+			"security": {
+				"noBlankTarget": {
+					"options": {
+						"allowDomains": [
+							"https://example.com"
+						]
+					}
+				}
+			}
+		}
+	}
 }
+
 ```
 
 ```jsx
@@ -140,19 +185,6 @@ The diagnostic is applied to all domains not in the allow list:
 
 Biome doesn't check if the list contains valid URLs.
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"security": {
-				"noBlankTarget": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

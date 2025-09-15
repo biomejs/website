@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`radix`](https://eslint.org/docs/latest/rules/radix)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"useParseIntRadix": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Enforce the consistent use of the radix argument when using `parseInt()`.
 
@@ -67,19 +80,6 @@ parseInt("071", 8);
 parseFloat(someValue);
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"correctness": {
-				"useParseIntRadix": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

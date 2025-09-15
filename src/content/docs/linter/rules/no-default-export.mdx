@@ -17,6 +17,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`import/no-default-export`](https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-default-export.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"noDefaultExport": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow default exports.
 
@@ -78,19 +91,6 @@ export { default as X } from "mod";
 module.exports = class {};
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"style": {
-				"noDefaultExport": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

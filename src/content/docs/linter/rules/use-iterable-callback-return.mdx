@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`array-callback-return`](https://eslint.org/docs/latest/rules/array-callback-return)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"useIterableCallbackReturn": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Enforce consistent return values in iterable callbacks.
 
@@ -82,19 +95,6 @@ A return value is disallowed in the method `forEach`.
 });
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"suspicious": {
-				"useIterableCallbackReturn": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

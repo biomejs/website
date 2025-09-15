@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`valid-typeof`](https://eslint.org/docs/latest/rules/valid-typeof)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"useValidTypeof": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 This rule checks that the result of a `typeof` expression is compared to a valid value.
 
@@ -73,19 +86,6 @@ typeof bar === typeof qux;
 typeof foo === bar
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"correctness": {
-				"useValidTypeof": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

@@ -1,6 +1,7 @@
 import type { Diagnostic } from "@biomejs/wasm-web";
 import { EditorSelection } from "@codemirror/state";
 import type { ReactCodeMirrorRef } from "@uiw/react-codemirror";
+import type { JSX, RefObject } from "react";
 import errorIcon from "@/assets/svg/error.svg";
 import errorDarkIcon from "@/assets/svg/error_dark.svg";
 import infoIcon from "@/assets/svg/info.svg";
@@ -10,7 +11,7 @@ import warningDarkIcon from "@/assets/svg/warning_dark.svg";
 import { spanInBytesToSpanInCodeUnits } from "@/playground/utils";
 
 interface Props {
-	editorRef: React.RefObject<ReactCodeMirrorRef>;
+	editorRef: RefObject<ReactCodeMirrorRef | null>;
 	diagnostics: Diagnostic[];
 	code: string;
 }
@@ -89,7 +90,7 @@ function DiagnosticListItem({
 	code,
 }: {
 	diagnostic: Diagnostic;
-	editorRef: React.RefObject<ReactCodeMirrorRef>;
+	editorRef: RefObject<ReactCodeMirrorRef | null>;
 	code: string;
 }) {
 	function onClick() {

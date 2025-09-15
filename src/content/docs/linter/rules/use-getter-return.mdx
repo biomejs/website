@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`getter-return`](https://eslint.org/docs/latest/rules/getter-return)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"useGetterReturn": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Enforce `get` methods to always return a value.
 
@@ -75,19 +88,6 @@ const obj = {
 }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"suspicious": {
-				"useGetterReturn": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

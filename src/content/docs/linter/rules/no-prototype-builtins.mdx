@@ -19,6 +19,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
   - Same as [`no-prototype-builtins`](https://eslint.org/docs/latest/rules/no-prototype-builtins)
   - Same as [`prefer-object-has-own`](https://eslint.org/docs/latest/rules/prefer-object-has-own)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noPrototypeBuiltins": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow direct use of `Object.prototype` builtins.
 
@@ -67,19 +80,6 @@ var valid = Object.prototype.isPrototypeOf.call(foo, bar);
 var valid = {}.propertyIsEnumerable.call(foo, "bar");
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"suspicious": {
-				"noPrototypeBuiltins": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

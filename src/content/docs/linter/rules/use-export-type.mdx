@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Inspired from [`@typescript-eslint/consistent-type-exports`](https://typescript-eslint.io/rules/consistent-type-exports)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useExportType": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Promotes the use of `export type` for types.
 
@@ -73,19 +86,6 @@ It doesn't warn against a type exported as a value in a re-export clause such as
 export { TypeA } from "./mod.ts"
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"style": {
-				"useExportType": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

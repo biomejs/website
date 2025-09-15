@@ -1,0 +1,121 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noDuplicateDependencies
+description: Learn more about noDuplicateDependencies
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JSON (and super languages)" icon="seti:json">
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.2.4`
+- Diagnostic Category: [`lint/nursery/noDuplicateDependencies`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`package-json/unique-dependencies`](https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/main/docs/rules/unique-dependencies.md)
+  - Same as [`package-json-dependencies/duplicate-dependencies`](https://github.com/idan-at/eslint-plugin-package-json-dependencies/blob/master/docs/rules/duplicate-dependencies.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noDuplicateDependencies": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Prevent the listing of duplicate dependencies.
+The rule supports the following dependency groups: "bundledDependencies", "bundleDependencies", "dependencies", "devDependencies", "overrides", "optionalDependencies", and "peerDependencies".
+
+Dependencies are not allowed to be listed twice under the same dependency group.
+
+## Examples
+
+### Invalid
+
+```json
+{
+    "dependencies": {
+        "foo": "1.0.0",
+        "foo": "2.0.0"
+    }
+}
+```
+
+```json
+{
+    "bundleDependencies": ["foo", "foo"]
+}
+```
+
+### Valid
+
+```json
+{
+    "dependencies": {
+        "foo": "2.0.0"
+    }
+}
+```
+
+```json
+{
+    "bundleDependencies": ["foo"]
+}
+```
+
+Some dependency group dependencies are checked against other dependency groups;
+
+- Dependencies listed in "dependencies" cannot be listed under "devDependencies", "optionalDependencies" or "peerDependencies".
+- Dependencies listed in "optionalDependencies" cannot be listed under "peerDependencies" (and vice versa).
+
+Dependencies listed in "devDependencies" are allowed to be listed in "optionalDependencies" or "peerDependencies".
+And dependencies listed in "overrides" & "bundleDependencies" are not checked against other dependency groups.
+
+## Examples
+
+### Invalid
+
+```json
+{
+    "dependencies": {
+        "foo": "1.0.0"
+    },
+    "devDependencies": {
+        "foo": "1.0.0"
+    }
+}
+```
+
+### Valid
+
+```json
+{
+    "dependencies": {
+        "foo": "1.0.0"
+    }
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_json_analyze/src/lint/nursery/no_duplicate_dependencies.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_json_analyze/tests/specs/nursery/noDuplicateDependencies)
+
+</TabItem>
+</Tabs>
+

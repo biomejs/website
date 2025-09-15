@@ -20,6 +20,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
   - Same as [`@typescript-eslint/no-unused-vars`](https://typescript-eslint.io/rules/no-unused-vars)
   - Same as [`unused-imports/no-unused-vars`](https://github.com/sweepline/eslint-plugin-unused-imports/blob/master/docs/rules/no-unused-vars.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noUnusedVariables": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow unused variables.
 
@@ -115,12 +128,21 @@ Whether to ignore unused variables from an object destructuring with a spread (i
 
 Defaults to `true`.
 
-```json
+```json title='biome.json'
 {
-  "options": {
-    "ignoreRestSiblings": false
-  }
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noUnusedVariables": {
+					"options": {
+						"ignoreRestSiblings": false
+					}
+				}
+			}
+		}
+	}
 }
+
 ```
 
 ```js
@@ -130,19 +152,6 @@ console.log(brand);
 
 <pre class="language-text"><code class="language-text">code-block.js:1:19 <a href="https://biomejs.dev/linter/rules/no-unused-variables">lint/correctness/noUnusedVariables</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">This variable </span><span style="color: Orange;"><strong>other</strong></span><span style="color: Orange;"> is unused.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>const &#123; brand, ...other &#125; = car;<br />   <strong>   │ </strong>                  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>console.log(brand);<br />    <strong>3 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unused variables are often the result of an incomplete refactoring, typos, or other sources of bugs.</span><br />  <br /></code></pre>
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"correctness": {
-				"noUnusedVariables": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

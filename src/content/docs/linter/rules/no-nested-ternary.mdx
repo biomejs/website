@@ -17,6 +17,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`no-nested-ternary`](https://eslint.org/docs/latest/rules/no-nested-ternary)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"noNestedTernary": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow nested ternary expressions.
 
@@ -56,19 +69,6 @@ if (foo) {
 }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"style": {
-				"noNestedTernary": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

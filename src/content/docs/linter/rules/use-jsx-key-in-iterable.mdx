@@ -20,6 +20,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`react/jsx-key`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-key.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"useJsxKeyInIterable": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow missing key props in iterators/collection literals.
 
@@ -58,12 +71,21 @@ This rule is intended for use in both React and Qwik applications to prevent mis
 React fragments can not only be created with `<React.Fragment>`, but also with shorthand
 fragments (`<></>`). To also check if those require a key, pass `true` to this option.
 
-```json
+```json title='biome.json'
 {
-    "options": {
-        "checkShorthandFragments": true
-    }
+	"linter": {
+		"rules": {
+			"correctness": {
+				"useJsxKeyInIterable": {
+					"options": {
+						"checkShorthandFragments": true
+					}
+				}
+			}
+		}
+	}
 }
+
 ```
 
 ```jsx
@@ -72,19 +94,6 @@ data.map((x) => <>{x}</>);
 
 <pre class="language-text"><code class="language-text"></code></pre>
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"correctness": {
-				"useJsxKeyInIterable": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

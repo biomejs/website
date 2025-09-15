@@ -14,6 +14,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Diagnostic Category: [`lint/suspicious/noEvolvingTypes`](/reference/diagnostics#diagnostic-category)
 - This rule doesn't have a fix.
 - The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noEvolvingTypes": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow variables from evolving into `any` type through reassignments.
 
@@ -63,19 +76,6 @@ const h = [1];
 let workspace: Workspace | null = null;
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"suspicious": {
-				"noEvolvingTypes": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

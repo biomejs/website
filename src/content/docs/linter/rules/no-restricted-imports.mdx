@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
   - Same as [`no-restricted-imports`](https://eslint.org/docs/latest/rules/no-restricted-imports)
   - Same as [`@typescript-eslint/no-restricted-imports`](https://typescript-eslint.io/rules/no-restricted-imports)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"noRestrictedImports": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow specified modules when loaded by import or require.
 
@@ -36,20 +49,42 @@ Disallow specified modules when loaded by import or require.
 }
 ```
 
-```json
+```json title='biome.json'
 {
-    "options": {
-        "paths": {
-            "lodash": "Using lodash is not encouraged.",
-            "underscore": "",
-            "import-foo": { "importNames": ["Bar"] },
-            "import-bar": { "allowImportNames": ["Bar"] }
-        },
-        "patterns": [{
-            "group": ["import-foo/*", "!import-foo/bar"]
-        }]
-    }
+	"linter": {
+		"rules": {
+			"style": {
+				"noRestrictedImports": {
+					"options": {
+						"paths": {
+							"lodash": "Using lodash is not encouraged.",
+							"underscore": "",
+							"import-foo": {
+								"importNames": [
+									"Bar"
+								]
+							},
+							"import-bar": {
+								"allowImportNames": [
+									"Bar"
+								]
+							}
+						},
+						"patterns": [
+							{
+								"group": [
+									"import-foo/*",
+									"!import-foo/bar"
+								]
+							}
+						]
+					}
+				}
+			}
+		}
+	}
 }
+
 ```
 
 ### Invalid
@@ -203,33 +238,60 @@ const defaultExport = require('default-import');
 
 Use the options to specify import paths and/or patterns, including specific import names, that you want to restrict in your source code.
 
-```json
+```json title='biome.json'
 {
-    "options": {
-        "paths": {
-            "lodash": "Using lodash is not encouraged",
-            "underscore": "Using underscore is not encouraged",
-            "import-foo": {
-                "importNames": ["Bar"],
-                "message": "Please use Bar from /import-bar/baz/ instead."
-            },
-            "import-bar": {
-              "allowImportNames": ["Bar"],
-              "message": "Please use only Bar from import-bar."
-            }
-        }
-    }
+	"linter": {
+		"rules": {
+			"style": {
+				"noRestrictedImports": {
+					"options": {
+						"paths": {
+							"lodash": "Using lodash is not encouraged",
+							"underscore": "Using underscore is not encouraged",
+							"import-foo": {
+								"importNames": [
+									"Bar"
+								],
+								"message": "Please use Bar from /import-bar/baz/ instead."
+							},
+							"import-bar": {
+								"allowImportNames": [
+									"Bar"
+								],
+								"message": "Please use only Bar from import-bar."
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }
+
 ```
 
-```json
+```json title='biome.json'
 {
-    "options": {
-        "patterns": [{
-            "group": ["import-foo/*", "!import-foo/bar"]
-        }]
-    }
+	"linter": {
+		"rules": {
+			"style": {
+				"noRestrictedImports": {
+					"options": {
+						"patterns": [
+							{
+								"group": [
+									"import-foo/*",
+									"!import-foo/bar"
+								]
+							}
+						]
+					}
+				}
+			}
+		}
+	}
 }
+
 ```
 
 ### `paths`
@@ -245,17 +307,26 @@ In the example below, we restrict the two paths `services-deprecated` and `const
 Importing `services-deprecated` will emit the message `Use services instead.`.
 Importing `constants` will emit the message `This file will be deleted soon.`:
 
-```json
+```json title='biome.json'
 {
-    "options": {
-        "paths": {
-            "services-deprecated": {
-                "message": "Use services instead."
-            },
-               "constants": "This file will be deleted soon."
-        }
-    }
+	"linter": {
+		"rules": {
+			"style": {
+				"noRestrictedImports": {
+					"options": {
+						"paths": {
+							"services-deprecated": {
+								"message": "Use services instead."
+							},
+							"constants": "This file will be deleted soon."
+						}
+					}
+				}
+			}
+		}
+	}
 }
+
 ```
 
 ```js
@@ -276,14 +347,23 @@ Specifies the message to be shown when the restricted import is used.
 
 A default message will be generated if `message` is empty or not specified:
 
-```json
+```json title='biome.json'
 {
-    "options": {
-        "paths": {
-            "import-foo": { }
-        }
-    }
+	"linter": {
+		"rules": {
+			"style": {
+				"noRestrictedImports": {
+					"options": {
+						"paths": {
+							"import-foo": {}
+						}
+					}
+				}
+			}
+		}
+	}
 }
+
 ```
 
 ```js
@@ -304,17 +384,28 @@ The following import name specifiers are supported:
 
 **Only one of `importNames` and `allowImportNames` must be specified.**
 
-```json
+```json title='biome.json'
 {
-    "options": {
-        "paths": {
-            "import-foo": {
-                "importNames": ["Bar"],
-                "message": "Please use Bar from /import-bar/baz/ instead."
-            }
-        }
-    }
+	"linter": {
+		"rules": {
+			"style": {
+				"noRestrictedImports": {
+					"options": {
+						"paths": {
+							"import-foo": {
+								"importNames": [
+									"Bar"
+								],
+								"message": "Please use Bar from /import-bar/baz/ instead."
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }
+
 ```
 
 #### Invalid
@@ -338,17 +429,28 @@ See `importNames` for the set of supported import name specifiers.
 
 **Only one of `importNames` and `allowImportNames` must be specified.**
 
-```json
+```json title='biome.json'
 {
-    "options": {
-        "paths": {
-            "import-bar": {
-              "allowImportNames": ["Bar"]
-            },
-            "restrictPackagePrivate": "all"
-        }
-    }
+	"linter": {
+		"rules": {
+			"style": {
+				"noRestrictedImports": {
+					"options": {
+						"paths": {
+							"import-bar": {
+								"allowImportNames": [
+									"Bar"
+								]
+							},
+							"restrictPackagePrivate": "all"
+						}
+					}
+				}
+			}
+		}
+	}
 }
+
 ```
 
 #### Invalid
@@ -375,15 +477,29 @@ This option allows you to specify multiple modules to restrict using gitignore-s
 
 The patterns array can also include objects. The group property is used to specify the gitignore-style patterns for restricting modules and the message property is used to specify a custom message.
 
-```json
+```json title='biome.json'
 {
-    "options": {
-        "patterns": [{
-            "group": ["import-foo/*", "!import-foo/bar"],
-            "message": "import-foo is deprecated, except the modules in import-foo/bar."
-        }]
-    }
+	"linter": {
+		"rules": {
+			"style": {
+				"noRestrictedImports": {
+					"options": {
+						"patterns": [
+							{
+								"group": [
+									"import-foo/*",
+									"!import-foo/bar"
+								],
+								"message": "import-foo is deprecated, except the modules in import-foo/bar."
+							}
+						]
+					}
+				}
+			}
+		}
+	}
 }
+
 ```
 
 #### Invalid
@@ -407,15 +523,28 @@ import bar from 'import-foo/bar';
 
 This option allows you to use regex patterns to restrict import names.
 
-```json
+```json title='biome.json'
 {
-    "options": {
-       "patterns": [{
-            "group": ["import-foo/*"],
-            "importNamePattern": "[xyz]"
-        }]
-    }
+	"linter": {
+		"rules": {
+			"style": {
+				"noRestrictedImports": {
+					"options": {
+						"patterns": [
+							{
+								"group": [
+									"import-foo/*"
+								],
+								"importNamePattern": "[xyz]"
+							}
+						]
+					}
+				}
+			}
+		}
+	}
 }
+
 ```
 
 #### Invalid
@@ -438,16 +567,29 @@ import { foo } from 'import-foo/foo';
 
 If true, the matched patterns in the importNamePattern will be allowed
 
-```json
+```json title='biome.json'
 {
-    "options": {
-       "patterns": [{
-            "group": ["import-foo/*"],
-            "importNamePattern": "[xyz]",
-            "invertImportNamePattern": true
-        }]
-    }
+	"linter": {
+		"rules": {
+			"style": {
+				"noRestrictedImports": {
+					"options": {
+						"patterns": [
+							{
+								"group": [
+									"import-foo/*"
+								],
+								"importNamePattern": "[xyz]",
+								"invertImportNamePattern": true
+							}
+						]
+					}
+				}
+			}
+		}
+	}
 }
+
 ```
 
 #### Invalid
@@ -464,19 +606,6 @@ import { foo } from 'import-foo/foo';
 import { x } from 'import-foo/foo';
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"style": {
-				"noRestrictedImports": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

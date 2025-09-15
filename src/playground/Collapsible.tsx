@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { type JSX, useState } from "react";
 import { classnames } from "@/playground/utils";
 
 interface Props {

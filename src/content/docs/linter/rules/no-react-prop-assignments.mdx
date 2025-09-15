@@ -17,6 +17,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`react-hooks/react-compiler`](https://github.com/facebook/react/blob/main/packages/eslint-plugin-react-hooks/README.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noReactPropAssignments": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow assigning to React component props.
 
@@ -47,19 +60,6 @@ const Foo = function({bar}) {
  }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"correctness": {
-				"noReactPropAssignments": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

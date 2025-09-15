@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`jsx-a11y/aria-role`](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/aria-role.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"a11y": {
+				"useValidAriaRole": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Elements with ARIA roles must use a valid, non-abstract ARIA role.
 
@@ -65,12 +78,23 @@ Elements with ARIA roles must use a valid, non-abstract ARIA role.
 
 It allows specifying a list of roles that might be invalid otherwise
 
-```json
+```json title='biome.json'
 {
-    "options": {
-        "allowInvalidRoles": ["datepicker"]
-    }
+	"linter": {
+		"rules": {
+			"a11y": {
+				"useValidAriaRole": {
+					"options": {
+						"allowInvalidRoles": [
+							"datepicker"
+						]
+					}
+				}
+			}
+		}
+	}
 }
+
 ```
 
 ```jsx
@@ -81,12 +105,21 @@ It allows specifying a list of roles that might be invalid otherwise
 
 Use this option to ignore non-DOM elements, such as components
 
-```json
+```json title='biome.json'
 {
-    "options": {
-        "ignoreNonDom": true
-    }
+	"linter": {
+		"rules": {
+			"a11y": {
+				"useValidAriaRole": {
+					"options": {
+						"ignoreNonDom": true
+					}
+				}
+			}
+		}
+	}
 }
+
 ```
 
 ```jsx
@@ -103,19 +136,6 @@ Use this option to ignore non-DOM elements, such as components
 - [DPUB-ARIA roles](https://www.w3.org/TR/dpub-aria-1.0/)
 - [MDN: Using ARIA: Roles, states, and properties](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques)
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"a11y": {
-				"useValidAriaRole": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

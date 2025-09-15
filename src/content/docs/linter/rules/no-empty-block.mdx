@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`stylelint/block-no-empty`](https://github.com/stylelint/stylelint/blob/main/lib/rules/block-no-empty/README.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noEmptyBlock": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow CSS empty blocks.
 
@@ -61,19 +74,6 @@ p { /* foo */ }
 @media print { a { color: pink; } }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"suspicious": {
-				"noEmptyBlock": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

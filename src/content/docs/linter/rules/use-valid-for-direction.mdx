@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`for-direction`](https://eslint.org/docs/latest/rules/for-direction)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"useValidForDirection": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Enforce "for" loop update clause moving the counter in the right direction.
 
@@ -58,19 +71,6 @@ for (var i = 0; i < 10; i++) {
 }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"correctness": {
-				"useValidForDirection": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

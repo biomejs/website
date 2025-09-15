@@ -5,6 +5,9 @@ import lunaria from "@lunariajs/starlight";
 import { defineConfig } from "astro/config";
 import rehypeSlug from "rehype-slug";
 import starlightBlog from "starlight-blog";
+import starlightChangelogs, {
+	makeChangelogsSidebarLinks,
+} from "starlight-changelogs";
 import starlightLinksValidator from "starlight-links-validator";
 import { searchForWorkspaceRoot } from "vite";
 import { version as biomeVersion } from "./node_modules/@biomejs/wasm-web/package.json" with {
@@ -66,16 +69,20 @@ const plugins = [
 		errorOnInvalidHashes: false,
 		exclude: [
 			"/playground",
-			"/playground**",
-			"/playground/**",
+			"/playground/",
+			"/playground/**/*",
 			"/linter/rules/",
 			"/linter/rules/**/*",
 			"/linter/rule-sources/",
 			"/reference/cli/",
 			"/blog/**/*",
 			"/enterprise",
+			"/internals/changelog",
+			"/internals/changelog/",
+			"/internals/changelog/**/*",
 		],
 	}),
+	starlightChangelogs(),
 ];
 
 if (process.env?.E2E !== "true") {
@@ -94,6 +101,7 @@ export default defineConfig({
 	redirects: {
 		...redirects,
 		"/blog/annoucing-biome": "/blog/announcing-biome",
+		"/guides/editors/create-a-extension": "/guides/editors/create-an-extension",
 		"/internals/credits": "/internals/people-and-credits",
 	},
 	integrations: [
@@ -191,7 +199,7 @@ export default defineConfig({
 								fr: "Configurer Biome",
 								ja: "Biome の設定",
 								"zh-CN": "配置 Biome",
-								"pt-BR": "Configurar Bioma",
+								"pt-BR": "Configurar o Biome",
 								uk: "Налаштування Biome",
 								ru: "Настройка Biome",
 							},
@@ -258,7 +266,7 @@ export default defineConfig({
 								},
 								{
 									label: "Integrate Biome in an editor extension",
-									link: "/guides/editors/create-a-extension",
+									link: "/guides/editors/create-an-extension",
 									translations: {
 										es: "Integrar Biome en una extensión para un editor",
 										fr: "Intégrer Biome à une extension pour un éditeur",
@@ -278,7 +286,7 @@ export default defineConfig({
 								fr: "Intégrer Biome à votre VCS",
 								ja: "Biome をあなたの VCS と統合する",
 								"zh-CN": "与版本控制系统集成",
-								"pt-BR": "Integrando o Biome com o seu VCS",
+								"pt-BR": "Integre o Biome com seu VCS",
 								uk: "Інтеграція Biome з вашою VCS",
 								ru: "Интеграция Biome с вашей VCS",
 							},
@@ -293,6 +301,7 @@ export default defineConfig({
 								"zh-CN": "从 ESLint 和 Prettier 迁移",
 								uk: "Міграція з ESLint & Prettier",
 								ru: "Миграция с ESLint & Prettier",
+								"pt-BR": "Migre do ESLint e Prettier",
 							},
 						},
 						{
@@ -830,18 +839,9 @@ export default defineConfig({
 								ru: "Версионирование",
 							},
 						},
-						{
-							label: "Changelog",
-							link: "/internals/changelog",
-							translations: {
-								es: "Registro de cambios",
-								ja: "変更履歴",
-								"zh-CN": "更新日志",
-								"pt-BR": "Alterações",
-								uk: "Журнал змін",
-								ru: "Журнал изменений",
-							},
-						},
+						...makeChangelogsSidebarLinks([
+							{ type: "all", base: "internals/changelog", label: "Changelog" },
+						]),
 						{
 							label: "Changelog v1",
 							link: "/internals/changelog_v1",

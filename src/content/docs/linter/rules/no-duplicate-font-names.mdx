@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`stylelint/font-family-no-duplicate-names`](https://github.com/stylelint/stylelint/blob/main/lib/rules/font-family-no-duplicate-names/README.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noDuplicateFontNames": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow duplicate names within font families.
 
@@ -56,19 +69,6 @@ c { font-family: SF Mono, Liberation Mono, sans-serif; }
 d { font: 1em SF Mono, Liberation Mono, sans-serif; }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"suspicious": {
-				"noDuplicateFontNames": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

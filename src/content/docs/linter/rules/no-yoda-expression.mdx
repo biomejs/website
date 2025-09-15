@@ -17,6 +17,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`yoda`](https://eslint.org/docs/latest/rules/yoda)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"noYodaExpression": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow the use of yoda expressions.
 
@@ -71,19 +84,6 @@ if (0 < value && value < 1) {}
 
 - [Wikipedia definition](https://en.wikipedia.org/wiki/Yoda_conditions)
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"style": {
-				"noYodaExpression": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

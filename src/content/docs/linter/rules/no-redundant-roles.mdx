@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`jsx-a11y/no-redundant-roles`](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/no-redundant-roles.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"a11y": {
+				"noRedundantRoles": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Enforce explicit `role` property is not the same as implicit/default role property on an element.
 
@@ -57,19 +70,6 @@ Enforce explicit `role` property is not the same as implicit/default role proper
 <span></span>
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"a11y": {
-				"noRedundantRoles": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

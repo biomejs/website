@@ -19,6 +19,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
   - Same as [`no-useless-constructor`](https://eslint.org/docs/latest/rules/no-useless-constructor)
   - Same as [`@typescript-eslint/no-useless-constructor`](https://typescript-eslint.io/rules/no-useless-constructor)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"complexity": {
+				"noUselessConstructor": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow unnecessary constructors.
 
@@ -131,19 +144,6 @@ class C {
 }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"complexity": {
-				"noUselessConstructor": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

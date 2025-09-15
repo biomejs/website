@@ -19,6 +19,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`@next/no-unwanted-polyfillio`](https://nextjs.org/docs/messages/no-unwanted-polyfillio)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"performance": {
+				"noUnwantedPolyfillio": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Prevent duplicate polyfills from Polyfill.io.
 
@@ -56,19 +69,6 @@ export function MyApp({ Component, pageProps }) {
 </>
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"performance": {
-				"noUnwantedPolyfillio": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

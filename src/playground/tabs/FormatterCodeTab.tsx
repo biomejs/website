@@ -1,4 +1,5 @@
 import fastDiff from "fast-diff";
+import type { JSX } from "react";
 import CodeMirror, { type BiomeExtension } from "@/playground/CodeMirror";
 import Collapsible from "@/playground/Collapsible";
 import BiomeHeader from "@/playground/components/BiomeHeader";

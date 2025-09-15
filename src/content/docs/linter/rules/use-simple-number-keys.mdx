@@ -15,6 +15,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - This rule is **recommended**, which means is enabled by default.
 - This rule has a [**safe**](/linter/#safe-fixes) fix.
 - The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"complexity": {
+				"useSimpleNumberKeys": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow number literal object member names which are not base 10 or use underscore as separator.
 
@@ -61,19 +74,6 @@ Disallow number literal object member names which are not base 10 or use undersc
 ({ 3.1e12: "floating point with e" });
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"complexity": {
-				"useSimpleNumberKeys": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

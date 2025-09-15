@@ -19,6 +19,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
   - Same as [`no-use-before-define`](https://eslint.org/docs/latest/rules/no-use-before-define)
   - Same as [`@typescript-eslint/no-use-before-define`](https://typescript-eslint.io/rules/no-use-before-define)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noInvalidUseBeforeDeclaration": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow the use of variables and function parameters before their declaration
 
@@ -76,19 +89,6 @@ function f() { return CONSTANT; }
 const CONSTANT = 0;
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"correctness": {
-				"noInvalidUseBeforeDeclaration": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

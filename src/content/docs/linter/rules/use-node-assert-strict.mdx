@@ -14,6 +14,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Diagnostic Category: [`lint/style/useNodeAssertStrict`](/reference/diagnostics#diagnostic-category)
 - This rule has a [**safe**](/linter/#safe-fixes) fix.
 - The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useNodeAssertStrict": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Promotes the usage of `node:assert/strict` over `node:assert`.
 
@@ -35,19 +48,6 @@ import * as assert from "node:assert"
 import * as assert from "node:assert/strict"
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"style": {
-				"useNodeAssertStrict": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

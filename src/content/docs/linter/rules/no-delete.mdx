@@ -14,6 +14,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Diagnostic Category: [`lint/performance/noDelete`](/reference/diagnostics#diagnostic-category)
 - This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
 - The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"performance": {
+				"noDelete": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow the use of the `delete` operator.
 
@@ -64,19 +77,6 @@ let x = 5;
 delete f(); // uncovered by this rule.
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"performance": {
-				"noDelete": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

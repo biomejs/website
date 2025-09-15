@@ -26,6 +26,7 @@ export default function Tabs<K extends string = PlaygroundTab>({
 		<div className={className}>
 			{/** biome-ignore lint/a11y/noNoninteractiveElementToInteractiveRole: need to review this */}
 			<ul className="react-tabs__tab-list" role="tablist">
+				{/** biome-ignore lint/suspicious/useIterableCallbackReturn: this is a bug */}
 				{tabs.map((tab) => {
 					if (tab.visible === false) {
 						return;
@@ -62,6 +63,7 @@ export default function Tabs<K extends string = PlaygroundTab>({
 				})}
 			</ul>
 
+			{/** biome-ignore lint/suspicious/useIterableCallbackReturn: this is a bug */}
 			{tabs.map((tab) => {
 				if (tab.visible === false) {
 					return;

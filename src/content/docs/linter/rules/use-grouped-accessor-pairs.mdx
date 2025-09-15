@@ -17,6 +17,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`grouped-accessor-pairs`](https://eslint.org/docs/latest/rules/grouped-accessor-pairs)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useGroupedAccessorPairs": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Enforce that getters and setters for the same property are adjacent in class and object definitions.
 
@@ -65,19 +78,6 @@ class User {
 This rule does not enforce the existence of both getter and setter for a property.
 Single getters without setters and setters without getters are ignored.
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"style": {
-				"useGroupedAccessorPairs": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

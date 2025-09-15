@@ -17,6 +17,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`sonarjs/cognitive-complexity`](https://github.com/SonarSource/eslint-plugin-sonarjs/blob/HEAD/docs/rules/cognitive-complexity.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"complexity": {
+				"noExcessiveCognitiveComplexity": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow functions that exceed a given Cognitive Complexity score.
 
@@ -59,29 +72,25 @@ function tooComplex() {
 
 Allows specifying the maximum allowed complexity.
 
-```json
-{
-    "options": {
-        "maxAllowedComplexity": 15
-    }
-}
-```
-
-The allowed values range from 1 through 254. The default is 15.
-
-## How to configure
-```json title="biome.json"
+```json title='biome.json'
 {
 	"linter": {
 		"rules": {
 			"complexity": {
-				"noExcessiveCognitiveComplexity": "error"
+				"noExcessiveCognitiveComplexity": {
+					"options": {
+						"maxAllowedComplexity": 15
+					}
+				}
 			}
 		}
 	}
 }
 
 ```
+
+The allowed values range from 1 through 254. The default is 15.
+
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

@@ -102,6 +102,10 @@ This example specifies that:
 4. ... _except_ when it occurs in the folder named `test`, because _no_ files
    inside that folder are processed.
 
+:::note
+Using `!test` to completely exclude a directory is only supported in `files.includes`. In other places where `includes` is used (`linter.includes`, `formatter.includes`, etc.), you need to use `!/test/**` to exclude the directory.
+:::
+
 This means that:
 
 * `src/app.js` **is** processed.
@@ -1337,12 +1341,6 @@ Enables Biome's formatter for HTML files.
 
 > Default: `false`
 
-### `html.formatter.enabled`
-
-Whether this formatting option should be enabled.
-
-> Default: `true`
-
 ### `html.formatter.indentStyle`
 
 The style of the indentation for HTML files. It can be `"tab"` or `"space"`.
@@ -1457,7 +1455,7 @@ files for which to apply customised settings.
 
 ### `overrides.<ITEM>.formatter`
 
-It will include the options of [top level formatter](#formatter) configuration, minus `ignore` and `include`.
+Includes the options of the [top level formatter](#formatter) configuration, minus `ignore` and `include`.
 
 #### Examples
 
@@ -1482,7 +1480,7 @@ For example, it's possible to modify the formatter `lineWidth`, `indentStyle` fo
 
 ### `overrides.<ITEM>.linter`
 
-It will include the options of [top level linter](#linter) configuration, minus `ignore` and `include`.
+Includes the options of the [top level linter](#linter) configuration, minus `ignore` and `include`.
 
 
 #### Examples
@@ -1518,13 +1516,9 @@ You can disable certain rules for certain glob paths, and disable the linter for
 }
 ```
 
-### `overrides.<ITEM>.organizeImports`
-
-It will include the options of [top level organize imports](#organizeimports), minus `ignore` and `include`.
-
 ### `overrides.<ITEM>.javascript`
 
-It will include the options of [top level javascript](#javascript) configuration.
+Includes the options of the [top level javascript](#javascript) configuration. Lets you override JavaScript-specific settings for certain files.
 
 #### Examples
 
@@ -1556,7 +1550,7 @@ You can change the formatting behaviour of JavaScript files in certain folders:
 
 ### `overrides.<ITEM>.json`
 
-It will include the options of [top level json](#json) configuration.
+Includes the options of the [top level json](#json) configuration. Lets you override JSON-specific settings for certain files.
 
 
 #### Examples
@@ -1584,6 +1578,10 @@ You can enable parsing features for certain JSON files:
   ]
 }
 ```
+
+### `overrides.<ITEM>.[language]`
+
+Includes the options of the top level language configuration. Lets you override language-specific settings for certain files.
 
 ## Glob syntax reference
 

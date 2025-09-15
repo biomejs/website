@@ -17,6 +17,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`@stylistic/jsx-self-closing-comp`](https://eslint.style/rules/default/jsx-self-closing-comp)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useSelfClosingElements": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Prevent extra closing tags for components without children.
 
@@ -93,19 +106,6 @@ In the following example, when the option is set to "true", it will not self clo
 <div></div>
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"style": {
-				"useSelfClosingElements": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

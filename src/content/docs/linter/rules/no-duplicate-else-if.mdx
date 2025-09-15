@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`no-dupe-else-if`](https://eslint.org/docs/latest/rules/no-dupe-else-if)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noDuplicateElseIf": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow duplicate conditions in if-else-if chains
 
@@ -59,19 +72,6 @@ if (a) {
 }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"suspicious": {
-				"noDuplicateElseIf": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

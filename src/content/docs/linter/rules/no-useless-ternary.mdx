@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`no-unneeded-ternary`](https://eslint.org/docs/latest/rules/no-unneeded-ternary)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"complexity": {
+				"noUselessTernary": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow ternary operators when simpler alternatives exist.
 
@@ -66,19 +79,6 @@ var a = x === 2 ? 'Yes' : false;
 
 Logical NOT: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_NOT
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"complexity": {
-				"noUselessTernary": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

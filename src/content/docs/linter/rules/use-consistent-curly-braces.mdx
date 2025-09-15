@@ -17,6 +17,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Inspired from [`react/jsx-curly-brace-presence`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-curly-brace-presence.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useConsistentCurlyBraces": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 This rule enforces consistent use of curly braces inside JSX attributes and JSX children.
 
@@ -57,19 +70,6 @@ This rule will check for and warn about unnecessary curly braces in both JSX pro
 </>
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"style": {
-				"useConsistentCurlyBraces": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

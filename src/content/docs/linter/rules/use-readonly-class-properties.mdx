@@ -17,6 +17,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`@typescript-eslint/prefer-readonly`](https://typescript-eslint.io/rules/prefer-readonly)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useReadonlyClassProperties": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Enforce marking members as `readonly` if they are never modified outside the constructor.
 
@@ -94,12 +107,21 @@ class Container {
 Checks whether all class properties (including public and protected) should be analyzed.
 By default, `checkAllProperties` is set to `false`.
 
-```json
+```json title='biome.json'
 {
-    "options": {
-        "checkAllProperties": true
-    }
+	"linter": {
+		"rules": {
+			"style": {
+				"useReadonlyClassProperties": {
+					"options": {
+						"checkAllProperties": true
+					}
+				}
+			}
+		}
+	}
 }
+
 ```
 
 ```ts
@@ -123,19 +145,6 @@ class Example {
 
 <pre class="language-text"><code class="language-text"></code></pre>
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"style": {
-				"useReadonlyClassProperties": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

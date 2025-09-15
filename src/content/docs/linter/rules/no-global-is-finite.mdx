@@ -15,6 +15,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - This rule is **recommended**, which means is enabled by default.
 - This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
 - The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noGlobalIsFinite": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Use `Number.isFinite` instead of global `isFinite`.
 
@@ -39,19 +52,6 @@ isFinite(false); // true
 Number.isFinite(false); // false
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"suspicious": {
-				"noGlobalIsFinite": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

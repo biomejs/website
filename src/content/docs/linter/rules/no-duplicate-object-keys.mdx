@@ -15,6 +15,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - This rule is **recommended**, which means is enabled by default.
 - This rule doesn't have a fix.
 - The default severity of this rule is [**error**](/reference/diagnostics#error).
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noDuplicateObjectKeys": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow two keys with the same name inside objects.
 
@@ -40,19 +53,6 @@ Disallow two keys with the same name inside objects.
 }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"suspicious": {
-				"noDuplicateObjectKeys": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)
@@ -72,6 +72,19 @@ Disallow two keys with the same name inside objects.
 - Sources: 
   - Same as [`no-dupe-keys`](https://eslint.org/docs/latest/rules/no-dupe-keys)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noDuplicateObjectKeys": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow two keys with the same name inside objects.
 
@@ -115,19 +128,6 @@ const obj = {
 }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"suspicious": {
-				"noDuplicateObjectKeys": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

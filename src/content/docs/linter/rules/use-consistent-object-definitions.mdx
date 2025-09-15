@@ -17,6 +17,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Inspired from [`object-shorthand`](https://eslint.org/docs/latest/rules/object-shorthand)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useConsistentObjectDefinitions": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Require the consistent declaration of object literals. Defaults to explicit definitions.
 
@@ -28,12 +41,21 @@ Using the same style consistently across your codebase makes it easier to quickl
 
 ### Invalid
 
-```json
+```json title='biome.json'
 {
-    "options": {
-        "syntax": "shorthand"
-    }
+	"linter": {
+		"rules": {
+			"style": {
+				"useConsistentObjectDefinitions": {
+					"options": {
+						"syntax": "shorthand"
+					}
+				}
+			}
+		}
+	}
 }
+
 ```
 
 ```js
@@ -65,12 +87,21 @@ let valid = {
 
 ### Invalid
 
-```json
+```json title='biome.json'
 {
-    "options": {
-        "syntax": "explicit"
-    }
+	"linter": {
+		"rules": {
+			"style": {
+				"useConsistentObjectDefinitions": {
+					"options": {
+						"syntax": "explicit"
+					}
+				}
+			}
+		}
+	}
 }
+
 ```
 
 ```js
@@ -104,12 +135,21 @@ let valid = {
 
 Use the options to specify the syntax of object literals to enforce.
 
-```json
+```json title='biome.json'
 {
-    "options": {
-        "syntax": "explicit"
-    }
+	"linter": {
+		"rules": {
+			"style": {
+				"useConsistentObjectDefinitions": {
+					"options": {
+						"syntax": "explicit"
+					}
+				}
+			}
+		}
+	}
 }
+
 ```
 
 ### syntax
@@ -121,19 +161,6 @@ The syntax to use:
 
 **Default:** `shorthand`
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"style": {
-				"useConsistentObjectDefinitions": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

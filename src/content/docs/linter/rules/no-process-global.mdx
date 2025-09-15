@@ -17,6 +17,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`deno-lint/no-process-global`](https://lint.deno.land/rules/no-process-global)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noProcessGlobal": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow the use of `process` global.
 
@@ -48,19 +61,6 @@ const foo = globalThis;
 const bar = foo.process;
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"correctness": {
-				"noProcessGlobal": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

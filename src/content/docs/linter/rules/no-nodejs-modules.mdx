@@ -17,6 +17,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`import/no-nodejs-modules`](https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-nodejs-modules.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noNodejsModules": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Forbid the use of Node.js builtin modules.
 
@@ -53,19 +66,6 @@ import fs from "fs-custom";
 import type path from "node:path";
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"correctness": {
-				"noNodejsModules": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

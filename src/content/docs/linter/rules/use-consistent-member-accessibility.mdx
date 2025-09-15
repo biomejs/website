@@ -17,6 +17,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`@typescript-eslint/explicit-member-accessibility`](https://typescript-eslint.io/rules/explicit-member-accessibility)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useConsistentMemberAccessibility": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Require consistent accessibility modifiers on class properties and methods.
 
@@ -35,12 +48,21 @@ Some developers also find it preferable for code readability to keep member publ
 
 Use the following configuration to disallow all explicit `public` modifiers:
 
-```json
+```json title='biome.json'
 {
-    "options": {
-        "accessibility": "noPublic"
-    }
+	"linter": {
+		"rules": {
+			"style": {
+				"useConsistentMemberAccessibility": {
+					"options": {
+						"accessibility": "noPublic"
+					}
+				}
+			}
+		}
+	}
 }
+
 ```
 
 The following patterns are considered incorrect code with `noPublic`:
@@ -110,12 +132,21 @@ class Dog {
 
 Use the following configuration to enforce the presence of explicit modifiers wherever possible:
 
-```json
+```json title='biome.json'
 {
-    "options": {
-        "accessibility": "explicit"
-    }
+	"linter": {
+		"rules": {
+			"style": {
+				"useConsistentMemberAccessibility": {
+					"options": {
+						"accessibility": "explicit"
+					}
+				}
+			}
+		}
+	}
 }
+
 ```
 
 The following patterns are considered incorrect code with `accessibility` set to `explicit`:
@@ -147,12 +178,21 @@ class Animal {
 
 Use the following configuration to disallow all explicit visibility modifiers:
 
-```json
+```json title='biome.json'
 {
-    "options": {
-        "accessibility": "none"
-    }
+	"linter": {
+		"rules": {
+			"style": {
+				"useConsistentMemberAccessibility": {
+					"options": {
+						"accessibility": "none"
+					}
+				}
+			}
+		}
+	}
 }
+
 ```
 
 The following patterns are considered incorrect code with `accessibility` set to `none`:
@@ -222,12 +262,21 @@ class Dog {
 
 The following patterns are considered correct code with the default options `noPublic`:
 
-```json
+```json title='biome.json'
 {
-    "options": {
-        "accessibility": "noPublic"
-    }
+	"linter": {
+		"rules": {
+			"style": {
+				"useConsistentMemberAccessibility": {
+					"options": {
+						"accessibility": "noPublic"
+					}
+				}
+			}
+		}
+	}
 }
+
 ```
 
 ```ts
@@ -255,12 +304,21 @@ class Animal {
 
 The following patterns are considered correct code with the accessibility set to `explicit`:
 
-```json
+```json title='biome.json'
 {
-    "options": {
-        "accessibility": "explicit"
-    }
+	"linter": {
+		"rules": {
+			"style": {
+				"useConsistentMemberAccessibility": {
+					"options": {
+						"accessibility": "explicit"
+					}
+				}
+			}
+		}
+	}
 }
+
 ```
 
 ```ts
@@ -289,12 +347,21 @@ class Animal {
 
 The following patterns are considered correct code with the accessibility set to `none`:
 
-```json
+```json title='biome.json'
 {
-    "options": {
-        "accessibility": "none"
-    }
+	"linter": {
+		"rules": {
+			"style": {
+				"useConsistentMemberAccessibility": {
+					"options": {
+						"accessibility": "none"
+					}
+				}
+			}
+		}
+	}
 }
+
 ```
 
 ```ts
@@ -325,12 +392,21 @@ class Animal {
 
 The rule supports the following options:
 
-```json
+```json title='biome.json'
 {
-    "options": {
-        "accessibility": "explicit"
-    }
+	"linter": {
+		"rules": {
+			"style": {
+				"useConsistentMemberAccessibility": {
+					"options": {
+						"accessibility": "explicit"
+					}
+				}
+			}
+		}
+	}
 }
+
 ```
 
 ### `accessibility`
@@ -344,19 +420,6 @@ It can be set to one of the following values:
 
 **Default: `noPublic`**
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"style": {
-				"useConsistentMemberAccessibility": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

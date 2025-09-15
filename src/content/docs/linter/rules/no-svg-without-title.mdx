@@ -15,6 +15,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - This rule is **recommended**, which means is enabled by default.
 - This rule doesn't have a fix.
 - The default severity of this rule is [**error**](/reference/diagnostics#error).
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"a11y": {
+				"noSvgWithoutTitle": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Enforces the usage of the `title` element for the `svg` element.
 
@@ -116,19 +129,6 @@ To make svg accessible, the following methods are available:
 [Contextually Marking up accessible images and SVGs | scottohara.me](https://www.scottohara.me/blog/2019/05/22/contextual-images-svgs-and-a11y.html)
 [Accessible SVGs](https://www.unimelb.edu.au/accessibility/techniques/accessible-svgs)
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"a11y": {
-				"noSvgWithoutTitle": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

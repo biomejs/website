@@ -1,14 +1,14 @@
 use crate::domains::{DocDomains, generate_domains};
 use crate::project_root;
 use crate::rules_sources::generate_rule_sources;
-use crate::shared::add_codegen_disclaimer_frontmatter;
+use crate::shared::{add_codegen_disclaimer_frontmatter, add_codegen_rule_suggestion};
 use anyhow::Context;
 use anyhow::{Result, bail};
 use biome_analyze::options::JsxRuntime;
 use biome_analyze::{
     AnalysisFilter, AnalyzerAction, AnalyzerConfiguration, AnalyzerOptions, ControlFlow, FixKind,
-    GroupCategory, Queryable, RegistryVisitor, Rule, RuleCategory, RuleFilter, RuleGroup,
-    RuleMetadata, RuleSourceKind,
+    GroupCategory, Queryable, RegistryVisitor, Rule, RuleCategory, RuleDomain, RuleFilter,
+    RuleGroup, RuleMetadata, RuleSourceKind,
 };
 use biome_configuration::Configuration;
 use biome_console::fmt::Termcolor;
@@ -22,7 +22,7 @@ use biome_css_syntax::CssLanguage;
 use biome_deserialize::json::deserialize_from_json_ast;
 use biome_diagnostics::termcolor::NoColor;
 use biome_diagnostics::{Diagnostic, DiagnosticExt, PrintDiagnostic, Severity, Visit};
-use biome_formatter::LineWidth;
+use biome_formatter::{Expand, LineWidth};
 use biome_fs::BiomePath;
 use biome_graphql_syntax::GraphqlLanguage;
 use biome_js_parser::JsParserOptions;
@@ -36,8 +36,9 @@ use biome_rowan::{AstNode, TextSize};
 use biome_service::settings::{ServiceLanguage, Settings};
 use biome_service::workspace::DocumentFileSource;
 use biome_string_case::Case;
+use biome_test_utils::get_test_services;
 use biome_text_edit::TextEdit;
-use pulldown_cmark::{CodeBlockKind, Event, LinkType, Parser, Tag, TagEnd};
+use pulldown_cmark::{CodeBlockKind, Event, HeadingLevel, LinkType, Parser, Tag, TagEnd};
 use std::collections::{BTreeSet, HashMap, HashSet};
 use std::error::Error;
 use std::path::PathBuf;
@@ -137,7 +138,9 @@ impl RulesVisitor {
                     .insert(R::METADATA.language, R::METADATA);
                 group.insert(R::METADATA.name, rule_to_document);
             };
-            self.lints.domains_to_document.add_rule(R::METADATA);
+            self.lints
+                .domains_to_document
+                .add_rule(<R::Group as RuleGroup>::NAME, R::METADATA);
         } else {
             let actions = &mut self.actions;
             actions.number_of_rules.insert(R::METADATA.name);
@@ -475,7 +478,9 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
         _ => unimplemented!(""),
     };
 
-    writeln!(index, "{recommended_rules_buffer}")?;
+    write!(index, "{recommended_rules_buffer}")?;
+
+    add_codegen_rule_suggestion(&mut index)?;
 
     fs::write(index_page, index)?;
 
@@ -698,6 +703,17 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
         writeln!(content, ":::")?;
     }
 
+    let is_project_domain = meta.domains.iter().find(|d| **d == RuleDomain::Project);
+
+    if is_project_domain.is_some() {
+        writeln!(content, ":::note")?;
+        writeln!(
+            content,
+            "This rule belongs to the project domain. This means that its activation will activate the Biome Scanner, which might affect the performance. Read more about it in the [documentation page](/linter/domains#project)"
+        )?;
+        writeln!(content, ":::")?;
+    }
+
     writeln!(content, "## Summary")?;
 
     if meta.version != "next" {
@@ -714,8 +730,7 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
         RuleCategory::Lint => {
             writeln!(
                 content,
-                "- Diagnostic Category: [`{category}/{}/{}`](/reference/diagnostics#diagnostic-category)",
-                group, rule_name
+                "- Diagnostic Category: [`{category}/{group}/{rule_name}`](/reference/diagnostics#diagnostic-category)",
             )?;
             if is_recommended {
                 writeln!(
@@ -744,8 +759,7 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
         RuleCategory::Action => {
             writeln!(
                 content,
-                "- Diagnostic Category: [`{category}/{}/{}`](/reference/diagnostics#diagnostic-category)",
-                group, rule_name
+                "- Diagnostic Category: [`{category}/{group}/{rule_name}`](/reference/diagnostics#diagnostic-category)",
             )?;
             if is_recommended {
                 writeln!(content, "- This action is **recommended**.")?;
@@ -810,17 +824,16 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
         let action = if rule_name == "organizeImports" {
             "source.organizeImports.biome".to_string()
         } else {
-            format!("source.action.{}.biome", rule_name)
+            format!("source.action.{rule_name}.biome",)
         };
         writeln!(
             content,
-            "<EditorAction includeFixAll action=\"{}\" />",
-            action
+            "<EditorAction includeFixAll action=\"{action}\" />",
         )?;
     }
 
-    write_documentation(group, rule_name, meta.docs, &mut content)?;
     write_how_to_configure(group, rule_name, &mut content, &rule_category)?;
+    write_documentation(group, rule_name, meta.docs, &mut content)?;
     let crate_link = match meta.language {
         "js" | "jsx" | "ts" | "tsx" => "biome_js_analyze",
         "css" => "biome_css_analyze",
@@ -912,7 +925,7 @@ fn parse_rule_options(
     test: &CodeBlockTest,
     code: &str,
     content: &mut Vec<u8>,
-) -> anyhow::Result<Option<Configuration>> {
+) -> anyhow::Result<(Option<Configuration>, String)> {
     let file_path = format!("code-block.{}", test.tag);
 
     let mut write = HTML::new(content).with_mdx();
@@ -934,7 +947,7 @@ fn parse_rule_options(
                     write_diagnostic(code, error)?;
                 }
                 // Parsing failed, but test.expect_diagnostic is true
-                return Ok(None);
+                return Ok((None, String::new()));
             }
 
             let parsed_root = parse.tree();
@@ -1065,6 +1078,14 @@ fn parse_rule_options(
             // Deserialize the configuration from the partially-synthetic AST,
             // and report any errors encountered during deserialization.
             let deserialized = deserialize_from_json_ast::<Configuration>(&root, "");
+            let formatted = format_node(
+                JsonFormatOptions::default().with_expand(Expand::Always),
+                root.syntax(),
+            )?
+            .print()?
+            .as_code()
+            .to_string();
+
             let (partial_configuration, deserialize_diagnostics) = deserialized.consume();
 
             if !deserialize_diagnostics.is_empty() {
@@ -1084,7 +1105,7 @@ fn parse_rule_options(
                     write_diagnostic(code, error)?;
                 }
                 // Deserialization failed, but test.expect_diagnostic is true
-                return Ok(None);
+                return Ok((None, formatted));
             }
 
             let Some(result) = partial_configuration else {
@@ -1093,7 +1114,7 @@ fn parse_rule_options(
                 );
             };
 
-            Ok(Some(result))
+            Ok((Some(result), formatted))
         }
         _ => {
             // Only JSON code blocks can contain configuration options
@@ -1155,6 +1176,9 @@ fn write_documentation(
 
     let parser = Parser::new(docs);
 
+    let mut file_system = HashMap::new();
+    let mut section = 0;
+
     // Track the last configuration options block that was encountered
     let mut last_options: Option<Configuration> = None;
 
@@ -1177,33 +1201,43 @@ fn write_documentation(
                 // Erase the lintdoc-specific attributes in the output by
                 // re-generating the language ID from the source type
                 write!(content, "```{}", &test.tag)?;
+                if test.options != OptionsParsingMode::NoOptions {
+                    write!(content, " title='biome.json'")?;
+                } else if let Some(file_path) = &test.file_path {
+                    write!(content, " title='{file_path}'")?;
+
+                    // Lazy parse the in-memory file system only when we encounter
+                    // a file=<path> attribute to avoid unnecessary work for single-file tests
+                    if file_system.is_empty() {
+                        file_system = parse_file_system(docs)?;
+                    }
+                }
+
                 writeln!(content)?;
 
                 language = Some((test, String::new()));
             }
 
             Event::End(TagEnd::CodeBlock) => {
-                writeln!(content, "```")?;
-                writeln!(content)?;
-
                 if let Some((test, block)) = language.take() {
-                    if test.expect_diagnostic {
+                    if test.options != OptionsParsingMode::NoOptions {
+                        let (options, formatted) =
+                            parse_rule_options(group, rule, &test, &block, content)
+                                .context("snapshot test failed")?;
+                        last_options = options;
+                        write!(content, "{formatted}")?;
+                        writeln!(content)?;
+                        writeln!(content, "```")?;
+                        writeln!(content)?;
+                    } else if test.expect_diagnostic {
+                        writeln!(content, "```")?;
+                        writeln!(content)?;
                         write!(
                             content,
                             "<pre class=\"language-text\"><code class=\"language-text\">"
                         )?;
-                    } else if test.expect_diff {
-                        write!(
-                            content,
-                            "<pre class=\"language-diff\"><code class=\"language-diff\">"
-                        )?;
-                    }
+                        let mut buffer = HTML::new(&mut *content).with_mdx();
 
-                    let mut buffer = HTML::new(&mut *content).with_mdx();
-                    if test.options != OptionsParsingMode::NoOptions {
-                        last_options = parse_rule_options(group, rule, &test, &block, content)
-                            .context("snapshot test failed")?;
-                    } else if test.expect_diagnostic {
                         print_diagnostics_or_actions(
                             group,
                             rule,
@@ -1211,10 +1245,19 @@ fn write_documentation(
                             &block,
                             &last_options,
                             &mut buffer,
+                            file_system.get(&section).unwrap_or(&HashMap::new()),
                             ToPrintKind::Diagnostics,
                         )
                         .context("snapshot test failed")?;
                     } else if test.expect_diff {
+                        writeln!(content, "```")?;
+                        writeln!(content)?;
+                        write!(
+                            content,
+                            "<pre class=\"language-diff\"><code class=\"language-diff\">"
+                        )?;
+                        let mut buffer = HTML::new(&mut *content).with_mdx();
+
                         print_diagnostics_or_actions(
                             group,
                             rule,
@@ -1222,15 +1265,22 @@ fn write_documentation(
                             &block,
                             &last_options,
                             &mut buffer,
+                            file_system.get(&section).unwrap_or(&HashMap::new()),
                             ToPrintKind::Actions,
                         )
                         .context("snapshot test failed")?;
+                    } else {
+                        writeln!(content, "```")?;
+                        writeln!(content)?;
                     }
 
                     if test.expect_diagnostic || test.expect_diff {
                         writeln!(content, "</code></pre>")?;
                         writeln!(content)?;
                     }
+                } else {
+                    writeln!(content, "```")?;
+                    writeln!(content)?;
                 }
             }
 
@@ -1238,6 +1288,12 @@ fn write_documentation(
                 let mut hide_line = false;
 
                 if let Some((test, block)) = &mut language {
+                    if test.options == OptionsParsingMode::RuleOptionsOnly {
+                        let mut options_code_block =
+                            test.options_code_block.take().unwrap_or_default();
+                        options_code_block.push_str(&text);
+                        hide_line = true;
+                    }
                     if let Some(inner_text) = text.strip_prefix("# ") {
                         // Lines prefixed with "# " are hidden from the public documentation
                         write!(block, "{inner_text}")?;
@@ -1260,6 +1316,10 @@ fn write_documentation(
 
             // Other markdown events are emitted as-is
             Event::Start(Tag::Heading { level, .. }) => {
+                if is_main_heading(level) {
+                    section += 1;
+                }
+
                 write!(content, "{} ", "#".repeat(level as usize))?;
             }
             Event::End(TagEnd::Heading { .. }) => {
@@ -1389,7 +1449,7 @@ fn write_documentation(
             }
 
             Event::InlineHtml(html) => {
-                write!(content, "{}", html)?;
+                write!(content, "{html}")?;
             }
 
             _ => {
@@ -1420,6 +1480,9 @@ struct CodeBlockTest {
     /// block of configuration options should be parsed:
     options: OptionsParsingMode,
 
+    /// The content of the options block
+    options_code_block: Option<String>,
+
     /// Whether to use the last code block that was marked with
     /// `options` as the configuration settings for this code block.
     use_options: bool,
@@ -1429,6 +1492,11 @@ struct CodeBlockTest {
 
     // The indices of lines that should be hidden from the public documentation.
     hidden_lines: Vec<u32>,
+
+    /// If a file path is provided using the `file=<path>` attribute, it will be used
+    /// as the code block's title. It will also be used in generating an in-memory
+    /// file system for multi-file lint evaluation when rendering diagnostics.
+    file_path: Option<String>,
 }
 
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
@@ -1470,9 +1538,20 @@ impl FromStr for CodeBlockTest {
             use_options: false,
             line_count: 0,
             hidden_lines: vec![],
+            options_code_block: None,
+            file_path: None,
         };
 
         for token in tokens {
+            if let Some(file) = token.strip_prefix("file=") {
+                if file.is_empty() {
+                    bail!("The 'file' attribute must be followed by a file path");
+                }
+
+                test.file_path = Some(file.to_string());
+                continue;
+            }
+
             match token {
                 // Other attributes
                 "expect_diagnostic" => test.expect_diagnostic = true,
@@ -1563,6 +1642,7 @@ fn write_action<L: ServiceLanguage>(
 /// Parse and analyze the provided code block, and asserts that it emits
 /// exactly zero or one diagnostic depending on the value of `expect_diagnostic`.
 /// That diagnostic is then emitted as text into the `content` buffer
+#[allow(clippy::too_many_arguments)]
 fn print_diagnostics_or_actions(
     group: &'static str,
     rule: &'static str,
@@ -1570,9 +1650,16 @@ fn print_diagnostics_or_actions(
     code: &str,
     config: &Option<Configuration>,
     buffer: &mut HTML<&mut Vec<u8>>,
+    file_system: &HashMap<String, String>,
     to_print_kind: ToPrintKind,
 ) -> Result<()> {
-    let file_path = format!("code-block.{}", test.tag);
+    let file_path = {
+        if let Some(file_path) = &test.file_path {
+            normalize_file_path(file_path)
+        } else {
+            format!("code-block.{}", test.tag)
+        }
+    };
 
     if test.ignore {
         return Ok(());
@@ -1636,8 +1723,7 @@ fn print_diagnostics_or_actions(
                     );
 
                 // TODO: JsAnalyzerServices doesn't have a builder API yet, so we can't just do `.with_file_source(file_source)`
-                let analyzer_services =
-                    (Default::default(), Default::default(), file_source).into();
+                let analyzer_services = get_test_services(file_source, file_system);
 
                 biome_js_analyze::analyze(
                     &root,
@@ -1933,4 +2019,85 @@ fn extract_summary_from_rule(content: &str) -> String {
     let events: Vec<_> = parser.collect();
 
     events_to_text(events)
+}
+
+/// Parses markdown documentation and searches for code blocks with the `file` attribute. Found
+/// code blocks are then used to generate an  in-memory file system to be used by lint rules the
+/// evaluate multi-file scenarios (for example [detecting circular imports](https://biomejs.dev/linter/rules/no-import-cycles)).
+/// Each file system is organized and scoped by content sections in the Markdown documentation, delineated
+/// by headings.
+/// The reason we collect all the sections in one pass is to prevent having
+/// to run multiple parsing passes on the same markdown document.
+fn parse_file_system(docs: &'static str) -> Result<HashMap<usize, HashMap<String, String>>> {
+    let parser = Parser::new(docs);
+
+    // HashMap to store files organized by their containing markdown section
+    let mut files: HashMap<usize, HashMap<String, String>> = HashMap::new();
+    // Section counter synchronized with the main rendering pass
+    let mut content_section = 0;
+
+    // If any code block is found with the `file` attribute, it will be stored here to be added
+    // to the current content section's file system
+    let mut current_file = None;
+
+    for event in parser {
+        match event {
+            Event::Start(Tag::CodeBlock(CodeBlockKind::Fenced(meta))) => {
+                let tokens = meta
+                    .split([',', ' ', '\t'])
+                    .map(str::trim)
+                    .filter(|token| !token.is_empty());
+
+                for token in tokens {
+                    // If we detect a file attribute set a current file so that we can extract
+                    // its content to be added to the current content section's file system
+                    if let Some(file) = token.strip_prefix("file=") {
+                        if file.is_empty() {
+                            bail!("The 'file' attribute must be followed by a non-empty file path");
+                        }
+
+                        current_file = Some((normalize_file_path(file), String::new()));
+                    }
+                }
+            }
+            Event::End(TagEnd::CodeBlock) => {
+                if let Some((path, content)) = current_file.take() {
+                    files
+                        .entry(content_section)
+                        .or_default()
+                        .insert(path, content);
+                }
+
+                current_file = None;
+            }
+            Event::Text(text) => {
+                if let Some((_, content)) = &mut current_file {
+                    content.push_str(&text);
+                }
+            }
+            Event::Start(Tag::Heading { level, .. }) => {
+                // When we encounter a heading we start a new content section to scope any file
+                // system to that section
+                if is_main_heading(level) {
+                    content_section += 1;
+                }
+            }
+            _ => {}
+        }
+    }
+
+    Ok(files)
+}
+
+fn is_main_heading(heading: HeadingLevel) -> bool {
+    matches!(
+        heading,
+        HeadingLevel::H1 | HeadingLevel::H2 | HeadingLevel::H3 | HeadingLevel::H4
+    )
+}
+
+/// Normalize a file path to an absolute path for easier module graph path resolution.
+fn normalize_file_path(path: &str) -> String {
+    let path = path.trim_start_matches("./").trim_start_matches("../");
+    format!("/{path}")
 }

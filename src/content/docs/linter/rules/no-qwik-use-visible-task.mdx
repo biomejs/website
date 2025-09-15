@@ -22,6 +22,19 @@ This rule is part of the [nursery](/linter/#nursery) group. This means that it i
 - Sources: 
   - Same as [`qwik/no-use-visible-task`](https://github.com/BuilderIO/eslint-plugin-qwik/blob/main/docs/rules/no-use-visible-task.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noQwikUseVisibleTask": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow `useVisibleTask$()` functions in Qwik components.
 
@@ -48,19 +61,6 @@ useTask$(() => {
 });
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"nursery": {
-				"noQwikUseVisibleTask": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

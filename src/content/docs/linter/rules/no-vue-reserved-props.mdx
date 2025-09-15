@@ -22,6 +22,19 @@ This rule is part of the [nursery](/linter/#nursery) group. This means that it i
 - Sources: 
   - Same as [`vue/no-reserved-props`](https://eslint.vuejs.org/rules/no-reserved-props)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueReservedProps": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Disallow reserved names to be used as props.
 
@@ -117,19 +130,6 @@ export default {
 </script>
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"nursery": {
-				"noVueReservedProps": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

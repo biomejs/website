@@ -22,6 +22,19 @@ This rule is part of the [nursery](/linter/#nursery) group. This means that it i
 - Sources: 
   - Same as [`qwik/jsx-a`](https://github.com/BuilderIO/eslint-plugin-qwik/blob/main/docs/rules/jsx-a.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useAnchorHref": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Enforces `href` attribute for `<a>` elements.
 
@@ -54,19 +67,6 @@ See [WCAG 4.1.2](https://www.w3.org/WAI/WCAG22/Understanding/name-role-value) fo
 <a href="https://example.com" target="_blank">External</a>
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"nursery": {
-				"useAnchorHref": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

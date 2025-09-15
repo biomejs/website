@@ -22,6 +22,19 @@ This rule is part of the [nursery](/linter/#nursery) group. This means that it i
 - Sources: 
   - Same as [`qwik/prefer-classlist`](https://github.com/BuilderIO/eslint-plugin-qwik/blob/main/docs/rules/prefer-classlist.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useQwikClasslist": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Prefer using the `class` prop as a classlist over the `classnames` helper.
 
@@ -45,19 +58,6 @@ For more information, see: [Qwik documentation on class bindings](https://qwik.d
 <div class={{ active: true, disabled: false }} />
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"nursery": {
-				"useQwikClasslist": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

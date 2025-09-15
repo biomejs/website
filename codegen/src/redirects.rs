@@ -27,13 +27,13 @@ impl Redirects {
 
         if <R::Group as RuleGroup>::Category::CATEGORY == RuleCategory::Action {
             self.data.insert(
-                format!("/assist/actions/{}", rule_name),
-                format!("/assist/actions/{}", dashed_rule),
+                format!("/assist/actions/{rule_name}"),
+                format!("/assist/actions/{dashed_rule}"),
             );
         } else {
             self.data.insert(
-                format!("/linter/rules/{}", rule_name),
-                format!("/linter/rules/{}", dashed_rule),
+                format!("/linter/rules/{rule_name}"),
+                format!("/linter/rules/{dashed_rule}"),
             );
         }
     }
@@ -90,7 +90,7 @@ pub fn generate_redirects() -> Result<()> {
     biome_graphql_analyze::visit_registry(&mut redirects);
 
     for (from, to) in redirects.data {
-        content.push_str(&format!("  '{}': '{}',\n", from, to));
+        content.push_str(&format!("  '{from}': '{to}',\n"));
     }
 
     content.push_str("};\n");

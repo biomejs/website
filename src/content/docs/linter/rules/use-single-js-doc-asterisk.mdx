@@ -17,6 +17,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`jsdoc/no-multi-asterisks`](https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/no-multi-asterisks.md)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"useSingleJsDocAsterisk": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Enforce JSDoc comment lines to start with a single asterisk, except for the first one.
 
@@ -70,19 +83,6 @@ Double asterisks (`**`) are still allowed, because they mark the start of bold t
  */
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"correctness": {
-				"useSingleJsDocAsterisk": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

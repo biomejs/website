@@ -18,6 +18,19 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - Sources: 
   - Same as [`require-yield`](https://eslint.org/docs/latest/rules/require-yield)
 
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"useYield": "error"
+			}
+		}
+	}
+}
+
+```
 ## Description
 Require generator functions to contain `yield`.
 
@@ -51,19 +64,6 @@ function foo() {
 function* foo() { }
 ```
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"correctness": {
-				"useYield": "error"
-			}
-		}
-	}
-}
-
-```
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)
