@@ -2065,6 +2065,23 @@ export function GET() {
             ],
             "docs": " Warn when importing non-existing exports.\n\n Importing a non-existing export is an error at runtime or build time.\n Biome can detect such incorrect imports and report errors for them.\n\n Note that if you use TypeScript, you probably don't want to use this\n rule, since TypeScript already performs such checks for you.\n\n ## Known Limitations\n\n * This rule does not validate imports through dynamic `import()`\n   expressions or CommonJS `require()` calls.\n\n ## Examples\n\n ### Invalid\n\n ```js,file=foo.js\n export function foo() {};\n ```\n\n ```js,expect_diagnostic,file=bar.js\n // Attempt to import symbol with a typo:\n import { fooo } from \"./foo.js\";\n ```\n\n ### Valid\n\n ```js,file=foo.js\n export function foo() {};\n ```\n\n ```js,file=bar.js\n // Fixed typo:\n import { foo } from \"./foo.js\";\n ```\n"
           },
+          "noUnusedExpressions": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noUnusedExpressions",
+            "link": "https://biomejs.dev/linter/rules/no-unused-expressions",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "no-unused-expressions"
+                }
+              }
+            ],
+            "docs": " Disallow expression statements that are neither a function call nor an\n assignment.\n\n When an expression is used as a statement, it should be explicitly clear\n what the intention behind the expression is. This is clear for function\n calls and assignments, because the call or the assignment itself is the\n primary intention behind the statement. For other expression kinds, the\n intention is much more ambiguous; it could be the expression contains\n side-effects that are not very explicit, but it could also be that it is\n an error where the author forgot to use the result of the expression,\n such as a forgotten `return` keyword, or it could point to a function\n that the author forgot to call.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n 0\n ```\n\n ```js,expect_diagnostic\n if(0) 0\n ```\n\n ```js,expect_diagnostic\n {0}\n ```\n\n ```js,expect_diagnostic\n f(0), {}\n ```\n\n ```js,expect_diagnostic\n a && b()\n ```\n\n ```js,expect_diagnostic\n a, b()\n ```\n\n ```js,expect_diagnostic\n c = a, b\n ```\n\n ```js,expect_diagnostic\n a() && function namedFunctionInExpressionContext () {f();}\n ```\n\n ```js,expect_diagnostic\n (function anIncompleteIIFE () {});\n ```\n\n ```js,expect_diagnostic\n injectGlobal`body{ color: red; }`\n ```\n\n ```ts,expect_diagnostic\n Set<number>\n ```\n\n ```ts,expect_diagnostic\n 1 as number\n ```\n\n ```ts,expect_diagnostic\n window!\n ```\n\n JSX expressions are considered invalid when used as a statement too:\n\n ```jsx,expect_diagnostic\n <MyComponent />\n ```\n\n ```jsx,expect_diagnostic\n <></>\n ```\n\n ### Valid\n\n ```js\n {} // In this context, this is a block statement, not an object literal\n\n { myLabel: foo() } // In this context, this is a block statement with a label and expression, not an object literal\n\n function namedFunctionDeclaration () {}\n\n (function aGenuineIIFE () {}());\n\n f()\n\n a = 0\n\n new C\n\n delete a.b\n\n void a\n ```\n\n ### Handling of Directives\n\n Any stand-alone string at the start of a script, module, or function is\n considered a directive and is therefore allowed.\n\n ```js\n \"use strict\";\n \"use asm\"\n \"use stricter\";\n \"use babel\"\n \"any other strings like this in the directive prologue\";\n \"this is still the directive prologue\";\n\n function foo() {\n     \"bar\";\n }\n\n class Foo {\n     someMethod() {\n         \"use strict\";\n     }\n }\n ```\n\n The following are **not** considered valid directives:\n\n ```js,expect_diagnostic\n doSomething();\n \"use strict\"; // this isn't in a directive prologue, because there is a non-directive statement before it\n ```\n\n ```js,expect_diagnostic\n function foo() {\n     \"bar\" + 1;\n }\n ```\n\n ```js,expect_diagnostic\n class Foo {\n     static {\n         \"use strict\"; // class static blocks do not have directive prologues\n     }\n }\n ```\n"
+          },
           "noUselessCatchBinding": {
             "deprecated": false,
             "version": "2.2.3",
@@ -6098,7 +6115,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 357
+    "numberOrRules": 358
   },
   "syntax": {
     "languages": {
