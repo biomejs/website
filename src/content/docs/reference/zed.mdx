@@ -10,13 +10,15 @@ Requires Zed >= **v0.131.0**.
 This extension is available in the extensions view inside the Zed editor. Open `zed: extensions` and search for _Biome_. It runs the biome binary under the hood and checks for biome installations in the following order:
 
 1. Path specified in Zed's configuration, for example like this:
-  ```
-  "biome": {
-   "binary": {
-      "path": "/var/biome-2.2.3/bin/biome",
-      "arguments": [
-        "lsp-proxy"
-     ]
+  ```json
+  {
+    "biome": {
+     "binary": {
+        "path": "/var/biome-2.2.3/bin/biome",
+        "arguments": [
+          "lsp-proxy"
+       ]
+      }
     }
   }
   ```
