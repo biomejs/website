@@ -156,7 +156,7 @@ function update(obj) {
 }
 ```
 
-<pre class="language-text"><code class="language-text"></code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:2:5 <a href="https://biomejs.dev/linter/rules/no-parameter-assign">lint/style/noParameterAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Assigning to a </span><span style="color: Orange;"><strong>property of a function parameter</strong></span><span style="color: Orange;"> is confusing.</span><br />  <br />    <strong>1 │ </strong>function update(obj) &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>    obj.key = &quot;value&quot;; // Diagnostic: Assignment to a property of function parameter is not allowed.<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Function callers usually don't expect the parameters they pass in to be modified. To avoid mutation, create a new instance and return it to the caller.</span><br />  <br /></code></pre>
 
 ## Related links
 

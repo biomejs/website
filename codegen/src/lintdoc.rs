@@ -4,11 +4,10 @@ use crate::rules_sources::generate_rule_sources;
 use crate::shared::{add_codegen_disclaimer_frontmatter, add_codegen_rule_suggestion};
 use anyhow::Context;
 use anyhow::{Result, bail};
-use biome_analyze::options::JsxRuntime;
 use biome_analyze::{
-    AnalysisFilter, AnalyzerAction, AnalyzerConfiguration, AnalyzerOptions, ControlFlow, FixKind,
-    GroupCategory, Queryable, RegistryVisitor, Rule, RuleCategory, RuleDomain, RuleFilter,
-    RuleGroup, RuleMetadata, RuleSourceKind,
+    AnalysisFilter, AnalyzerAction, AnalyzerOptions, ControlFlow, FixKind, GroupCategory,
+    Queryable, RegistryVisitor, Rule, RuleCategory, RuleDomain, RuleFilter, RuleGroup,
+    RuleMetadata, RuleSourceKind,
 };
 use biome_configuration::Configuration;
 use biome_console::fmt::Termcolor;
@@ -33,11 +32,13 @@ use biome_json_formatter::format_node;
 use biome_json_parser::JsonParserOptions;
 use biome_json_syntax::{AnyJsonValue, JsonLanguage, JsonObjectValue};
 use biome_rowan::{AstNode, TextSize};
-use biome_service::settings::{ServiceLanguage, Settings};
+use biome_service::projects::{ProjectKey, Projects};
+use biome_service::settings::ServiceLanguage;
 use biome_service::workspace::DocumentFileSource;
 use biome_string_case::Case;
 use biome_test_utils::get_test_services;
 use biome_text_edit::TextEdit;
+use camino::Utf8PathBuf;
 use pulldown_cmark::{CodeBlockKind, Event, HeadingLevel, LinkType, Parser, Tag, TagEnd};
 use std::collections::{BTreeSet, HashMap, HashSet};
 use std::error::Error;
@@ -926,7 +927,11 @@ fn parse_rule_options(
     code: &str,
     content: &mut Vec<u8>,
 ) -> anyhow::Result<(Option<Configuration>, String)> {
-    let file_path = format!("code-block.{}", test.tag);
+    let file_path = if let Some(file_path) = &test.file_path {
+        normalize_file_path(file_path)
+    } else {
+        format!("code-block.{}", test.tag)
+    };
 
     let mut write = HTML::new(content).with_mdx();
 
@@ -1176,7 +1181,7 @@ fn write_documentation(
 
     let parser = Parser::new(docs);
 
-    let mut file_system = HashMap::new();
+    let mut file_systems = HashMap::new(); // indexed by section number
     let mut section = 0;
 
     // Track the last configuration options block that was encountered
@@ -1208,8 +1213,8 @@ fn write_documentation(
 
                     // Lazy parse the in-memory file system only when we encounter
                     // a file=<path> attribute to avoid unnecessary work for single-file tests
-                    if file_system.is_empty() {
-                        file_system = parse_file_system(docs)?;
+                    if file_systems.is_empty() {
+                        file_systems = parse_file_systems(docs)?;
                     }
                 }
 
@@ -1245,7 +1250,7 @@ fn write_documentation(
                             &block,
                             &last_options,
                             &mut buffer,
-                            file_system.get(&section).unwrap_or(&HashMap::new()),
+                            file_systems.get(&section).unwrap_or(&HashMap::new()),
                             ToPrintKind::Diagnostics,
                         )
                         .context("snapshot test failed")?;
@@ -1265,7 +1270,7 @@ fn write_documentation(
                             &block,
                             &last_options,
                             &mut buffer,
-                            file_system.get(&section).unwrap_or(&HashMap::new()),
+                            file_systems.get(&section).unwrap_or(&HashMap::new()),
                             ToPrintKind::Actions,
                         )
                         .context("snapshot test failed")?;
@@ -1289,20 +1294,15 @@ fn write_documentation(
 
                 if let Some((test, block)) = &mut language {
                     if test.options == OptionsParsingMode::RuleOptionsOnly {
-                        let mut options_code_block =
-                            test.options_code_block.take().unwrap_or_default();
-                        options_code_block.push_str(&text);
                         hide_line = true;
                     }
                     if let Some(inner_text) = text.strip_prefix("# ") {
                         // Lines prefixed with "# " are hidden from the public documentation
                         write!(block, "{inner_text}")?;
                         hide_line = true;
-                        test.hidden_lines.push(test.line_count);
                     } else {
                         write!(block, "{text}")?;
                     }
-                    test.line_count += 1;
                 }
 
                 if hide_line {
@@ -1462,6 +1462,7 @@ fn write_documentation(
     Ok(())
 }
 
+#[derive(Default)]
 struct CodeBlockTest {
     /// The language tag of this code block.
     tag: String,
@@ -1480,18 +1481,9 @@ struct CodeBlockTest {
     /// block of configuration options should be parsed:
     options: OptionsParsingMode,
 
-    /// The content of the options block
-    options_code_block: Option<String>,
-
     /// Whether to use the last code block that was marked with
     /// `options` as the configuration settings for this code block.
     use_options: bool,
-
-    /// The number of lines in this code block.
-    line_count: u32,
-
-    // The indices of lines that should be hidden from the public documentation.
-    hidden_lines: Vec<u32>,
 
     /// If a file path is provided using the `file=<path>` attribute, it will be used
     /// as the code block's title. It will also be used in generating an in-memory
@@ -1529,39 +1521,28 @@ impl FromStr for CodeBlockTest {
             .map(str::trim)
             .filter(|token| !token.is_empty());
 
-        let mut test = CodeBlockTest {
-            tag: String::new(),
-            expect_diagnostic: false,
-            expect_diff: false,
-            ignore: false,
-            options: OptionsParsingMode::NoOptions,
-            use_options: false,
-            line_count: 0,
-            hidden_lines: vec![],
-            options_code_block: None,
-            file_path: None,
-        };
+        let mut test = Self::default();
 
         for token in tokens {
-            if let Some(file) = token.strip_prefix("file=") {
-                if file.is_empty() {
-                    bail!("The 'file' attribute must be followed by a file path");
-                }
-
-                test.file_path = Some(file.to_string());
-                continue;
-            }
-
             match token {
-                // Other attributes
                 "expect_diagnostic" => test.expect_diagnostic = true,
                 "expect_diff" => test.expect_diff = true,
                 "ignore" => test.ignore = true,
                 "options" => test.options = OptionsParsingMode::RuleOptionsOnly,
                 "full_options" => test.options = OptionsParsingMode::FullConfiguration,
                 "use_options" => test.use_options = true,
-                // Regard as language tags, last one wins
-                _ => test.tag = token.to_string(),
+                _ => {
+                    if let Some(file) = token.strip_prefix("file=") {
+                        if file.is_empty() {
+                            bail!("The 'file' attribute must be followed by a file path");
+                        }
+
+                        test.file_path = Some(file.to_string());
+                    } else {
+                        // Regard as language tags, last one wins
+                        test.tag = token.to_string()
+                    }
+                }
             }
         }
 
@@ -1570,27 +1551,32 @@ impl FromStr for CodeBlockTest {
 }
 
 fn create_analyzer_options<L>(
-    settings: &Settings,
+    workspace_settings: &Projects,
+    project_key: ProjectKey,
     file_path: &String,
     test: &CodeBlockTest,
 ) -> AnalyzerOptions
 where
     L: ServiceLanguage,
 {
-    let path = BiomePath::new(file_path);
+    let path = BiomePath::new(Utf8PathBuf::from(&file_path));
     let file_source = &test.document_file_source();
-    let supression_reason = None;
+    let suppression_reason = None;
 
-    let language_settings = L::lookup_settings(&settings.languages);
-    let environment = L::resolve_environment(settings);
+    let Some(settings) = workspace_settings.get_root_settings(project_key) else {
+        return AnalyzerOptions::default();
+    };
+    let language_settings = &L::lookup_settings(&settings.languages).linter;
+
+    let environment = L::resolve_environment(&settings);
 
     L::resolve_analyzer_options(
-        settings,
-        &language_settings.linter,
+        &settings,
+        language_settings,
         environment,
         &path,
         file_source,
-        supression_reason,
+        suppression_reason,
     )
 }
 
@@ -1653,12 +1639,10 @@ fn print_diagnostics_or_actions(
     file_system: &HashMap<String, String>,
     to_print_kind: ToPrintKind,
 ) -> Result<()> {
-    let file_path = {
-        if let Some(file_path) = &test.file_path {
-            normalize_file_path(file_path)
-        } else {
-            format!("code-block.{}", test.tag)
-        }
+    let file_path = if let Some(file_path) = &test.file_path {
+        normalize_file_path(file_path)
+    } else {
+        format!("code-block.{}", test.tag)
     };
 
     if test.ignore {
@@ -1667,9 +1651,8 @@ fn print_diagnostics_or_actions(
     let mut rule_has_code_action = false;
 
     // Create a synthetic workspace configuration
-    let mut settings = Settings::default();
-    // let key = settings.insert_project(PathBuf::new());
-    // settings.register_current_project(key);
+    let workspace_settings = Projects::default();
+    let project_key = workspace_settings.insert_project(Utf8PathBuf::new());
 
     // Load settings from the preceding `json,options` block if requested
     if test.use_options {
@@ -1679,7 +1662,10 @@ fn print_diagnostics_or_actions(
             );
         };
 
-        settings.merge_with_configuration(partial_config.clone(), None)?;
+        if let Some(mut settings) = workspace_settings.get_root_settings(project_key) {
+            settings.merge_with_configuration(partial_config.clone(), None)?;
+            workspace_settings.set_root_settings(project_key, settings);
+        }
     }
 
     match test.document_file_source() {
@@ -1717,12 +1703,13 @@ fn print_diagnostics_or_actions(
                     ..AnalysisFilter::default()
                 };
 
-                let options = create_analyzer_options::<JsLanguage>(&settings, &file_path, test)
-                    .with_configuration(
-                        AnalyzerConfiguration::default().with_jsx_runtime(JsxRuntime::default()),
-                    );
+                let options = create_analyzer_options::<JsLanguage>(
+                    &workspace_settings,
+                    project_key,
+                    &file_path,
+                    test,
+                );
 
-                // TODO: JsAnalyzerServices doesn't have a builder API yet, so we can't just do `.with_file_source(file_source)`
                 let analyzer_services = get_test_services(file_source, file_system);
 
                 biome_js_analyze::analyze(
@@ -1788,8 +1775,12 @@ fn print_diagnostics_or_actions(
                     ..AnalysisFilter::default()
                 };
 
-                let options: AnalyzerOptions =
-                    create_analyzer_options::<JsonLanguage>(&settings, &file_path, test);
+                let options = create_analyzer_options::<JsonLanguage>(
+                    &workspace_settings,
+                    project_key,
+                    &file_path,
+                    test,
+                );
 
                 biome_json_analyze::analyze(&root, filter, &options, file_source, |signal| {
                     match to_print_kind {
@@ -1847,7 +1838,12 @@ fn print_diagnostics_or_actions(
                     ..AnalysisFilter::default()
                 };
 
-                let options = create_analyzer_options::<JsonLanguage>(&settings, &file_path, test);
+                let options = create_analyzer_options::<CssLanguage>(
+                    &workspace_settings,
+                    project_key,
+                    &file_path,
+                    test,
+                );
 
                 biome_css_analyze::analyze(&root, filter, &options, &[], |signal| {
                     match to_print_kind {
@@ -2028,7 +2024,7 @@ fn extract_summary_from_rule(content: &str) -> String {
 /// by headings.
 /// The reason we collect all the sections in one pass is to prevent having
 /// to run multiple parsing passes on the same markdown document.
-fn parse_file_system(docs: &'static str) -> Result<HashMap<usize, HashMap<String, String>>> {
+fn parse_file_systems(docs: &'static str) -> Result<HashMap<usize, HashMap<String, String>>> {
     let parser = Parser::new(docs);
 
     // HashMap to store files organized by their containing markdown section
@@ -2067,8 +2063,6 @@ fn parse_file_system(docs: &'static str) -> Result<HashMap<usize, HashMap<String
                         .or_default()
                         .insert(path, content);
                 }
-
-                current_file = None;
             }
             Event::Text(text) => {
                 if let Some((_, content)) = &mut current_file {
