@@ -1526,8 +1526,6 @@ fn print_diagnostics_or_actions(
         return Ok(());
     }
 
-    let mut rule_has_code_action = false;
-
     match test.document_file_source() {
         DocumentFileSource::Js(file_source) => {
             // Temporary support for astro, svelte and vue code blocks
@@ -1575,7 +1573,6 @@ fn print_diagnostics_or_actions(
                             if let Some(mut diag) = signal.diagnostic() {
                                 for action in signal.actions() {
                                     if !action.is_suppression() {
-                                        rule_has_code_action = true;
                                         diag = diag.add_code_suggestion(action.into());
                                     }
                                 }
@@ -1635,7 +1632,6 @@ fn print_diagnostics_or_actions(
                             if let Some(mut diag) = signal.diagnostic() {
                                 for action in signal.actions() {
                                     if !action.is_suppression() {
-                                        rule_has_code_action = true;
                                         diag = diag.add_code_suggestion(action.into());
                                     }
                                 }
@@ -1669,7 +1665,10 @@ fn print_diagnostics_or_actions(
             }
         }
         DocumentFileSource::Css(..) => {
-            let parse = biome_css_parser::parse_css(code, CssParserOptions::default());
+            let parse_options = CssParserOptions::default()
+                .allow_css_modules()
+                .allow_tailwind_directives();
+            let parse = biome_css_parser::parse_css(code, parse_options);
 
             if parse.has_errors() {
                 for diag in parse.into_diagnostics() {
@@ -1695,7 +1694,6 @@ fn print_diagnostics_or_actions(
                             if let Some(mut diag) = signal.diagnostic() {
                                 for action in signal.actions() {
                                     if !action.is_suppression() {
-                                        rule_has_code_action = true;
                                         diag = diag.add_code_suggestion(action.into());
                                     }
                                 }
@@ -1755,7 +1753,6 @@ fn print_diagnostics_or_actions(
                             if let Some(mut diag) = signal.diagnostic() {
                                 for action in signal.actions() {
                                     if !action.is_suppression() {
-                                        rule_has_code_action = true;
                                         diag = diag.add_code_suggestion(action.into());
                                     }
                                 }
