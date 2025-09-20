@@ -39,6 +39,7 @@ use biome_text_edit::TextEdit;
 use pulldown_cmark::{CodeBlockKind, Event, HeadingLevel, LinkType, Parser, Tag, TagEnd};
 use std::collections::{BTreeSet, HashMap, HashSet};
 use std::error::Error;
+use std::hash::RandomState;
 use std::path::PathBuf;
 use std::{
     collections::BTreeMap,
@@ -1174,7 +1175,10 @@ fn write_documentation(
 
     let parser = Parser::new(docs);
 
-    let mut file_systems = HashMap::new(); // indexed by section number
+    let default_service_builder =
+        AnalyzerServicesBuilder::from_files::<RandomState>(Default::default());
+
+    let mut service_builders = HashMap::new(); // indexed by section number
     let mut section = 0;
 
     // Track the last configuration options block that was encountered
@@ -1206,8 +1210,8 @@ fn write_documentation(
 
                     // Lazy parse the in-memory file system only when we encounter
                     // a file=<path> attribute to avoid unnecessary work for single-file tests
-                    if file_systems.is_empty() {
-                        file_systems = parse_file_systems(docs)?;
+                    if service_builders.is_empty() {
+                        service_builders = create_service_builders(docs)?;
                     }
                 }
 
@@ -1236,10 +1240,6 @@ fn write_documentation(
                         )?;
                         let mut buffer = HTML::new(&mut *content).with_mdx();
 
-                        let services_builder = AnalyzerServicesBuilder::from_files(
-                            file_systems.get(&section).cloned().unwrap_or_default(),
-                        );
-
                         print_diagnostics_or_actions(
                             group,
                             rule,
@@ -1247,7 +1247,9 @@ fn write_documentation(
                             &block,
                             last_options.clone(),
                             &mut buffer,
-                            &services_builder,
+                            service_builders
+                                .get(&section)
+                                .unwrap_or(&default_service_builder),
                             ToPrintKind::Diagnostics,
                         )
                         .context("snapshot test failed")?;
@@ -1260,10 +1262,6 @@ fn write_documentation(
                         )?;
                         let mut buffer = HTML::new(&mut *content).with_mdx();
 
-                        let services_builder = AnalyzerServicesBuilder::from_files(
-                            file_systems.get(&section).cloned().unwrap_or_default(),
-                        );
-
                         print_diagnostics_or_actions(
                             group,
                             rule,
@@ -1271,7 +1269,9 @@ fn write_documentation(
                             &block,
                             last_options.clone(),
                             &mut buffer,
-                            &services_builder,
+                            service_builders
+                                .get(&section)
+                                .unwrap_or(&default_service_builder),
                             ToPrintKind::Actions,
                         )
                         .context("snapshot test failed")?;
@@ -1863,14 +1863,22 @@ fn extract_summary_from_rule(content: &str) -> String {
     events_to_text(events)
 }
 
-/// Parses markdown documentation and searches for code blocks with the `file` attribute. Found
-/// code blocks are then used to generate an  in-memory file system to be used by lint rules the
-/// evaluate multi-file scenarios (for example [detecting circular imports](https://biomejs.dev/linter/rules/no-import-cycles)).
-/// Each file system is organized and scoped by content sections in the Markdown documentation, delineated
-/// by headings.
-/// The reason we collect all the sections in one pass is to prevent having
-/// to run multiple parsing passes on the same markdown document.
-fn parse_file_systems(docs: &'static str) -> Result<HashMap<usize, HashMap<String, String>>> {
+/// Creates service builders for analysing code blocks.
+///
+/// - Parses markdown documentation and searches for code blocks with the
+///   `file=<path>` attribute.
+/// - Found code blocks are then used to generate an in-memory file system to be
+///   used by lint rules that evaluate multi-file scenarios (for example,
+///   [detecting circular imports](https://biomejs.dev/linter/rules/no-import-cycles)).
+/// - Each file system is organised and scoped by content sections in the
+///   Markdown documentation, delineated by headings.
+/// - The file systems are indexed into the project layout and module graph
+///   inside [`AnalyzerServicesBuilder::from_files()`].
+/// - We return the builders hashed by Markdown section number.
+///
+/// The reason we create all builders for all sections in one pass is to prevent
+/// having to run multiple parsing passes on the same markdown document.
+fn create_service_builders(docs: &'static str) -> Result<HashMap<usize, AnalyzerServicesBuilder>> {
     let parser = Parser::new(docs);
 
     // HashMap to store files organized by their containing markdown section
@@ -1926,7 +1934,10 @@ fn parse_file_systems(docs: &'static str) -> Result<HashMap<usize, HashMap<Strin
         }
     }
 
-    Ok(files)
+    Ok(files
+        .into_iter()
+        .map(|(section, files)| (section, AnalyzerServicesBuilder::from_files(files)))
+        .collect())
 }
 
 fn is_main_heading(heading: HeadingLevel) -> bool {
