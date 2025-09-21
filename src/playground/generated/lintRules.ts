@@ -204,6 +204,7 @@ export const LINT_RULES = {
   noUnsafeFinally: "noUnsafeFinally",
   noUnsafeNegation: "noUnsafeNegation",
   noUnsafeOptionalChaining: "noUnsafeOptionalChaining",
+  noUnusedExpressions: "noUnusedExpressions",
   noUnusedFunctionParameters: "noUnusedFunctionParameters",
   noUnusedImports: "noUnusedImports",
   noUnusedLabels: "noUnusedLabels",
