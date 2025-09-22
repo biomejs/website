@@ -70,7 +70,7 @@
     "rehype-autolink-headings": "7.1.0",
     "rehype-slug": "6.0.0",
     "remark-toc": "9.0.0",
-    "sharp": "0.34.3",
+    "sharp": "0.34.4",
     "starlight-blog": "0.24.1",
     "starlight-links-validator": "0.17.2",
     "textlint": "15.2.2",
