@@ -4118,7 +4118,7 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/no-useless-escape-in-string",
             "recommended": true,
             "fixKind": "safe",
-            "docs": " Disallow unnecessary escapes in string literals.\n\n Escaping non-special characters in string literals doesn't have any effect.\n Hence, they may confuse a reader.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const s = \"\\a\";\n ```\n\n ```js,expect_diagnostic\n const o = {\n     \"\\a\": 0,\n };\n ```\n\n ```js,expect_diagnostic\n const s = `${0}\\a`;\n ```\n\n ### Valid\n\n ```js\n const s = \"\\n\";\n ```\n\n Tagged string template are ignored:\n\n ```js\n const s = tagged`\\a`;\n ```\n\n JSX strings are ignored:\n\n ```jsx\n <div attr=\"str\\a\"/>;\n ```\n\n"
+            "docs": " Disallow unnecessary escapes in string literals.\n\n Escaping non-special characters in string literals doesn't have any effect.\n Hence, they may confuse a reader.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const s = \"\\a\";\n ```\n\n ```js,expect_diagnostic\n const o = {\n     \"\\a\": 0,\n };\n ```\n\n ```js,expect_diagnostic\n const s = `${0}\\a`;\n ```\n\n ### Valid\n\n ```js\n const s = \"\\n\";\n ```\n\n In template literals, `\\${` and `$\\{` are valid escapes:\n ```js\n const s = `\\${0}`;\n ```\n\n Tagged string templates are ignored:\n\n ```js\n const s = tagged`\\a`;\n ```\n\n JSX strings are ignored:\n\n ```jsx\n <div attr=\"str\\a\"/>;\n ```\n\n"
           },
           "noUselessRegexBackrefs": {
             "deprecated": false,

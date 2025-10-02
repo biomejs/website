@@ -133,7 +133,13 @@ const s = `${0}\a`;
 const s = "\n";
 ```
 
-Tagged string template are ignored:
+In template literals, `\${` and `$\{` are valid escapes:
+
+```js
+const s = `\${0}`;
+```
+
+Tagged string templates are ignored:
 
 ```js
 const s = tagged`\a`;
