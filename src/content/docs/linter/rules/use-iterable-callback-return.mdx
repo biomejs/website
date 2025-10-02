@@ -95,6 +95,10 @@ A return value is disallowed in the method `forEach`.
 });
 ```
 
+```js
+[].forEach(() => void null); // Void return value, which doesn't trigger the rule
+```
+
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)
