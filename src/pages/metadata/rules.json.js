@@ -5262,6 +5262,40 @@ export function GET() {
             ],
             "docs": " Prefer using the `class` prop as a classlist over the `classnames` helper.\n\n This rule encourages the use of `class` prop which natively supports strings, objects, and arrays, enabling fine-grained reactivity and optimal performance. Using utilities like `classnames` can interfere with Qwik's reactivity model and prevent the framework from optimizing component updates. Prefer using the built-in `class` prop for best results.\n\n For more information, see: [Qwik documentation on class bindings](https://qwik.dev/docs/components/rendering/#class-and-style-bindings)\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div class={classnames({ active: true, disabled: false })} />\n ```\n\n ### Valid\n\n ```jsx\n <div class={{ active: true, disabled: false }} />\n ```\n"
           },
+          "useQwikMethodUsage": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useQwikMethodUsage",
+            "link": "https://biomejs.dev/linter/rules/use-qwik-method-usage",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintQwik": "use-method-usage"
+                }
+              }
+            ],
+            "docs": " Disallow `use*` hooks outside of `component$` or other `use*` hooks in Qwik applications.\n\n Ensures Qwik's lifecycle hooks are only used in valid reactive contexts.\n See [Qwik Component Lifecycle](https://qwik.dev/docs/components/lifecycle/) for proper hook usage.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import { useSignal } from \"@builder.io/qwik\";\n\n export const Counter = () => {\n   const count = useSignal(0);\n };\n ```\n\n ### Valid\n\n ```js\n import { component$, useSignal } from \"@builder.io/qwik\";\n\n export const Counter = component$(() => {\n   const count = useSignal(0);\n });\n\n export const useCounter = () => {\n   const count = useSignal(0);\n   return count;\n };\n ```\n"
+          },
+          "useQwikValidLexicalScope": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useQwikValidLexicalScope",
+            "link": "https://biomejs.dev/linter/rules/use-qwik-valid-lexical-scope",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintQwik": "valid-lexical-scope"
+                }
+              }
+            ],
+            "docs": " Disallow unserializable expressions in Qwik dollar ($) scopes.\n\n Ensures all captured values in Qwik components can be properly serialized for resumability.\n See [Qwik Optimizer: Lexical Scope](https://qwik.dev/docs/advanced/optimizer/#lexical-scope) for proper usage patterns.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n // Arrow function assigned without wrapping it in $(...)\n const handleClick = () => {\n   console.log(\"clicked\");\n };\n ```\n\n ### Valid\n\n ```js\n const handleClick = $(() => {\n   // Valid: only using serializable variables or props\n   console.log(\"clicked\");\n });\n ```\n\n"
+          },
           "useReactFunctionComponents": {
             "deprecated": false,
             "version": "2.1.3",
@@ -6196,7 +6230,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 361
+    "numberOrRules": 363
   },
   "syntax": {
     "languages": {

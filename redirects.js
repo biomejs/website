@@ -332,6 +332,8 @@ export default {
   '/linter/rules/useOptionalChain': '/linter/rules/use-optional-chain',
   '/linter/rules/useParseIntRadix': '/linter/rules/use-parse-int-radix',
   '/linter/rules/useQwikClasslist': '/linter/rules/use-qwik-classlist',
+  '/linter/rules/useQwikMethodUsage': '/linter/rules/use-qwik-method-usage',
+  '/linter/rules/useQwikValidLexicalScope': '/linter/rules/use-qwik-valid-lexical-scope',
   '/linter/rules/useReactFunctionComponents': '/linter/rules/use-react-function-components',
   '/linter/rules/useReadonlyClassProperties': '/linter/rules/use-readonly-class-properties',
   '/linter/rules/useRegexLiterals': '/linter/rules/use-regex-literals',
