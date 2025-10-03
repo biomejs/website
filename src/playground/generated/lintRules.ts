@@ -331,6 +331,8 @@ export const LINT_RULES = {
   useOptionalChain: "useOptionalChain",
   useParseIntRadix: "useParseIntRadix",
   useQwikClasslist: "useQwikClasslist",
+  useQwikMethodUsage: "useQwikMethodUsage",
+  useQwikValidLexicalScope: "useQwikValidLexicalScope",
   useReactFunctionComponents: "useReactFunctionComponents",
   useReadonlyClassProperties: "useReadonlyClassProperties",
   useRegexLiterals: "useRegexLiterals",
