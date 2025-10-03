@@ -96,7 +96,7 @@ export function GET() {
 					"additionalProperties": false
 				},
 				{
-					"description": "Rules from [GraphQL-ESLint](https://github.com/dimaMachina/graphql-eslint)",
+					"description": "Rules from [GraphQL-ESLint](https://github.com/graphql-hive/graphql-eslint)",
 					"type": "object",
 					"required": ["eslintGraphql"],
 					"properties": { "eslintGraphql": { "type": "string" } },
@@ -105,8 +105,8 @@ export function GET() {
 				{
 					"description": "Rules from [graphql-schema-linter](https://github.com/cjoudrey/graphql-schema-linter)",
 					"type": "object",
-					"required": ["eslintGraphqlSchemaLinter"],
-					"properties": { "eslintGraphqlSchemaLinter": { "type": "string" } },
+					"required": ["graphqlSchemaLinter"],
+					"properties": { "graphqlSchemaLinter": { "type": "string" } },
 					"additionalProperties": false
 				},
 				{
@@ -170,6 +170,13 @@ export function GET() {
 					"type": "object",
 					"required": ["eslintReactRefresh"],
 					"properties": { "eslintReactRefresh": { "type": "string" } },
+					"additionalProperties": false
+				},
+				{
+					"description": "Rules from [eslint-react.xyz](https://eslint-react.xyz/)",
+					"type": "object",
+					"required": ["eslintReactX"],
+					"properties": { "eslintReactX": { "type": "string" } },
 					"additionalProperties": false
 				},
 				{

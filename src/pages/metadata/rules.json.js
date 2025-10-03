@@ -506,7 +506,7 @@ export function GET() {
               {
                 "kind": "inspired",
                 "source": {
-                  "eslintGraphqlSchemaLinter": "enum-values-all-caps"
+                  "graphqlSchemaLinter": "enum-values-all-caps"
                 }
               }
             ],
@@ -1946,6 +1946,29 @@ export function GET() {
           }
         },
         "nursery": {
+          "noDeprecatedImports": {
+            "deprecated": false,
+            "version": "2.2.5",
+            "name": "noDeprecatedImports",
+            "link": "https://biomejs.dev/linter/rules/no-deprecated-imports",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintTypeScript": "no-deprecated"
+                }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintImport": "no-deprecated"
+                }
+              }
+            ],
+            "docs": " Restrict imports of deprecated exports.\n\n This rule flags any imports for symbols (such as types, functions, or\n anything else that can be imported), that are documented with a JSDoc\n comment that contains an \"@deprecated\" annotation.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic,file=foo.js\n import { oldUtility } from \"./utils.js\";\n ```\n\n ```js,file=utils.js\n /**\n  * @deprecated\n  */\n export function oldUtility() {}\n ```\n\n ### Valid\n\n ```js,file=foo.js\n import { newUtility, oldUtility } from \"./utils.js\";\n ```\n\n ```js,file=utils.js\n export function newUtility() {}\n\n // @deprecated (this is not a JSDoc comment)\n export function oldUtility() {}\n ```\n\n"
+          },
           "noImportCycles": {
             "deprecated": false,
             "version": "2.0.0",
@@ -1996,6 +2019,29 @@ export function GET() {
               }
             ],
             "docs": " Disallow non-null assertions after optional chaining expressions.\n\n Optional chaining (`?.`) is designed to return `undefined` if the object is `null` or `undefined`.\n Using a non-null assertion (`!`) immediately after optional chaining defeats the purpose\n of optional chaining and can lead to runtime errors.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n obj?.prop!;\n ```\n\n ```ts,expect_diagnostic\n obj?.method()!.prop;\n ```\n\n ```ts,expect_diagnostic\n obj?.[key]!.method();\n ```\n\n ### Valid\n\n ```ts\n obj?.prop;\n ```\n\n ```ts\n obj!.prop?.method();\n ```\n\n ```ts\n obj?.prop ?? defaultValue;\n ```\n\n"
+          },
+          "noReactForwardRef": {
+            "deprecated": false,
+            "version": "2.2.5",
+            "name": "noReactForwardRef",
+            "link": "https://biomejs.dev/linter/rules/no-react-forward-ref",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReactX": "no-forward-ref"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReactXyz": "no-forward-ref"
+                }
+              }
+            ],
+            "docs": " Replaces usages of `forwardRef` with passing `ref` as a prop.\n\n In React 19, `forwardRef` is no longer necessary. Pass `ref` as a prop instead.\n This rule detects the usage of the `forwardRef` API, and it suggests using the prop `ref`\n instead.\n See [the official blog post](https://react.dev/blog/2024/12/05/react-19#ref-as-a-prop) for details.\n\n This rule should be disabled if you are working with React 18 or earlier.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n import { forwardRef } from \"react\";\n\n const MyInput = forwardRef(function MyInput(props, ref) {\n   return <input ref={ref} {...props} />;\n });\n ```\n\n ```jsx,expect_diagnostic\n import { forwardRef } from \"react\";\n\n const MyInput = forwardRef((props, ref) => {\n   return <input ref={ref} {...props} />;\n });\n ```\n\n ### Valid\n\n ```jsx\n function MyInput({ ref, ...props }) {\n   return <input ref={ref} {...props} />;\n }\n ```\n\n ```jsx\n const MyInput = ({ ref, ...props }) => {\n   return <input ref={ref} {...props} />;\n }\n ```\n\n"
           },
           "noSecrets": {
             "deprecated": false,
@@ -2065,6 +2111,23 @@ export function GET() {
             ],
             "docs": " Warn when importing non-existing exports.\n\n Importing a non-existing export is an error at runtime or build time.\n Biome can detect such incorrect imports and report errors for them.\n\n Note that if you use TypeScript, you probably don't want to use this\n rule, since TypeScript already performs such checks for you.\n\n ## Known Limitations\n\n * This rule does not validate imports through dynamic `import()`\n   expressions or CommonJS `require()` calls.\n\n ## Examples\n\n ### Invalid\n\n ```js,file=foo.js\n export function foo() {};\n ```\n\n ```js,expect_diagnostic,file=bar.js\n // Attempt to import symbol with a typo:\n import { fooo } from \"./foo.js\";\n ```\n\n ### Valid\n\n ```js,file=foo.js\n export function foo() {};\n ```\n\n ```js,file=bar.js\n // Fixed typo:\n import { foo } from \"./foo.js\";\n ```\n"
           },
+          "noUnusedExpressions": {
+            "deprecated": false,
+            "version": "2.2.5",
+            "name": "noUnusedExpressions",
+            "link": "https://biomejs.dev/linter/rules/no-unused-expressions",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "no-unused-expressions"
+                }
+              }
+            ],
+            "docs": " Disallow expression statements that are neither a function call nor an\n assignment.\n\n When an expression is used as a statement, it should be explicitly clear\n what the intention behind the expression is. This is clear for function\n calls and assignments, because the call or the assignment itself is the\n primary intention behind the statement. For other expression kinds, the\n intention is much more ambiguous; it could be the expression contains\n side-effects that are not very explicit, but it could also be that it is\n an error where the author forgot to use the result of the expression,\n such as a forgotten `return` keyword, or it could point to a function\n that the author forgot to call.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n 0\n ```\n\n ```js,expect_diagnostic\n if(0) 0\n ```\n\n ```js,expect_diagnostic\n {0}\n ```\n\n ```js,expect_diagnostic\n f(0), {}\n ```\n\n ```js,expect_diagnostic\n a && b()\n ```\n\n ```js,expect_diagnostic\n a, b()\n ```\n\n ```js,expect_diagnostic\n c = a, b\n ```\n\n ```js,expect_diagnostic\n a() && function namedFunctionInExpressionContext () {f();}\n ```\n\n ```js,expect_diagnostic\n (function anIncompleteIIFE () {});\n ```\n\n ```js,expect_diagnostic\n injectGlobal`body{ color: red; }`\n ```\n\n ```ts,expect_diagnostic\n Set<number>\n ```\n\n ```ts,expect_diagnostic\n 1 as number\n ```\n\n ```ts,expect_diagnostic\n window!\n ```\n\n JSX expressions are considered invalid when used as a statement too:\n\n ```jsx,expect_diagnostic\n <MyComponent />\n ```\n\n ```jsx,expect_diagnostic\n <></>\n ```\n\n ### Valid\n\n ```js\n {} // In this context, this is a block statement, not an object literal\n\n { myLabel: foo() } // In this context, this is a block statement with a label and expression, not an object literal\n\n function namedFunctionDeclaration () {}\n\n (function aGenuineIIFE () {}());\n\n f()\n\n a = 0\n\n new C\n\n delete a.b\n\n void a\n ```\n\n ### Handling of Directives\n\n Any stand-alone string at the start of a script, module, or function is\n considered a directive and is therefore allowed.\n\n ```js\n \"use strict\";\n \"use asm\"\n \"use stricter\";\n \"use babel\"\n \"any other strings like this in the directive prologue\";\n \"this is still the directive prologue\";\n\n function foo() {\n     \"bar\";\n }\n\n class Foo {\n     someMethod() {\n         \"use strict\";\n     }\n }\n ```\n\n The following are **not** considered valid directives:\n\n ```js,expect_diagnostic\n doSomething();\n \"use strict\"; // this isn't in a directive prologue, because there is a non-directive statement before it\n ```\n\n ```js,expect_diagnostic\n function foo() {\n     \"bar\" + 1;\n }\n ```\n\n ```js,expect_diagnostic\n class Foo {\n     static {\n         \"use strict\"; // class static blocks do not have directive prologues\n     }\n }\n ```\n"
+          },
           "noUselessCatchBinding": {
             "deprecated": false,
             "version": "2.2.3",
@@ -2113,6 +2176,23 @@ export function GET() {
               }
             ],
             "docs": " Enforce that Vue component `data` options are declared as functions.\n\n In Vue 3+, defining `data` as an object is deprecated because it leads to shared mutable state across component instances.\n This rule flags usages of `data: { … }` and offers an automatic fix to convert it into a function returning that object.\n\n See also:\n – Vue Migration Guide – Data Option: https://v3-migration.vuejs.org/breaking-changes/data-option.html :contentReference[oaicite:0]{index=0}\n – ESLint Plugin Vue: `no-deprecated-data-object-declaration`: https://eslint.vuejs.org/rules/no-deprecated-data-object-declaration :contentReference[oaicite:1]{index=1}\n\n ## Examples\n\n ### Invalid\n\n ```js\n // component-local data via function\n export default {\n   /* ✗ BAD */\n   data: { foo: null },\n };\n ```\n\n ```js\n // Composition API helper also deprecated\n defineComponent({\n   /* ✗ BAD */\n   data: { message: 'hi' }\n });\n ```\n\n ```js\n // Vue 3 entrypoint via createApp\n createApp({\n   /* ✗ BAD */\n   data: { active: true }\n }).mount('#app');\n ```\n\n ### Valid\n\n ```js\n // component-local data via function\n export default {\n   /* ✓ GOOD */\n   data() {\n     return { foo: null };\n   }\n };\n ```\n\n ```js\n // global registration with function syntax\n Vue.component('my-comp', {\n   /* ✓ GOOD */\n   data: function () {\n     return { count: 0 };\n   }\n });\n ```\n\n ```js\n // Composition API and createApp entrypoints\n defineComponent({\n   /* ✓ GOOD */\n   data() {\n     return { message: 'hi' };\n   }\n });\n\n createApp({\n   /* ✓ GOOD */\n   data: function() {\n     return { active: true };\n   }\n }).mount('#app');\n ```\n\n"
+          },
+          "noVueDuplicateKeys": {
+            "deprecated": false,
+            "version": "2.2.5",
+            "name": "noVueDuplicateKeys",
+            "link": "https://biomejs.dev/linter/rules/no-vue-duplicate-keys",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "no-dupe-keys"
+                }
+              }
+            ],
+            "docs": " Disallow duplicate keys in Vue component data, methods, computed properties, and other options.\n\n This rule prevents the use of duplicate keys across different Vue component options\n such as `props`, `data`, `computed`, `methods`, and `setup`. Even if keys don't conflict\n in the script tag, they may cause issues in the template since Vue allows direct\n access to these keys.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script>\n export default {\n     props: ['foo'],\n     data() {\n         return {\n             foo: 'bar'\n         };\n     }\n };\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script>\n export default {\n     data() {\n         return {\n             message: 'hello'\n         };\n     },\n     methods: {\n         message() {\n             console.log('duplicate key');\n         }\n     }\n };\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script>\n export default {\n     computed: {\n         count() {\n             return this.value * 2;\n         }\n     },\n     methods: {\n         count() {\n             this.value++;\n         }\n     }\n };\n </script>\n ```\n\n ### Valid\n\n ```vue\n <script>\n export default {\n     props: ['foo'],\n     data() {\n         return {\n             bar: 'baz'\n         };\n     },\n     methods: {\n         handleClick() {\n             console.log('unique key');\n         }\n     }\n };\n </script>\n ```\n\n ```vue\n <script>\n export default {\n     computed: {\n         displayMessage() {\n             return this.message.toUpperCase();\n         }\n     },\n     methods: {\n         clearMessage() {\n             this.message = '';\n         }\n     }\n };\n </script>\n ```\n\n"
           },
           "noVueReservedKeys": {
             "deprecated": false,
@@ -4038,7 +4118,7 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/no-useless-escape-in-string",
             "recommended": true,
             "fixKind": "safe",
-            "docs": " Disallow unnecessary escapes in string literals.\n\n Escaping non-special characters in string literals doesn't have any effect.\n Hence, they may confuse a reader.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const s = \"\\a\";\n ```\n\n ```js,expect_diagnostic\n const o = {\n     \"\\a\": 0,\n };\n ```\n\n ```js,expect_diagnostic\n const s = `${0}\\a`;\n ```\n\n ### Valid\n\n ```js\n const s = \"\\n\";\n ```\n\n Tagged string template are ignored:\n\n ```js\n const s = tagged`\\a`;\n ```\n\n JSX strings are ignored:\n\n ```jsx\n <div attr=\"str\\a\"/>;\n ```\n\n"
+            "docs": " Disallow unnecessary escapes in string literals.\n\n Escaping non-special characters in string literals doesn't have any effect.\n Hence, they may confuse a reader.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const s = \"\\a\";\n ```\n\n ```js,expect_diagnostic\n const o = {\n     \"\\a\": 0,\n };\n ```\n\n ```js,expect_diagnostic\n const s = `${0}\\a`;\n ```\n\n ### Valid\n\n ```js\n const s = \"\\n\";\n ```\n\n In template literals, `\\${` and `$\\{` are valid escapes:\n ```js\n const s = `\\${0}`;\n ```\n\n Tagged string templates are ignored:\n\n ```js\n const s = tagged`\\a`;\n ```\n\n JSX strings are ignored:\n\n ```jsx\n <div attr=\"str\\a\"/>;\n ```\n\n"
           },
           "noUselessRegexBackrefs": {
             "deprecated": false,
@@ -4237,7 +4317,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Enforce consistent return values in iterable callbacks.\n\n This rule ensures that callbacks passed to certain iterable methods either always return a\n value or never return a value, depending on the method's requirements.\n\n Note that async and generator callbacks are ignored as they always return `Promise` or\n `Generator` respectively.\n\n ## Methods and Their Requirements\n\n The following methods require a return in their callback:\n\n - `every`\n - `filter`\n - `find`\n - `findIndex`\n - `findLast`\n - `findLastIndex`\n - `flatMap`\n - `map`\n - `reduce`\n - `reduceRight`\n - `some`\n - `sort`\n - `toSorted`\n — `from` (when called on `Array`)\n\n A return value is disallowed in the method `forEach`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n [].map(() => {\n     // Missing return value\n });\n ```\n\n ```js,expect_diagnostic\n [].forEach(() => {\n     return 1; // Should not return a value\n });\n ```\n\n ### Valid\n\n ```js\n [].map(() => {\n     return 1; // Correctly returns a value\n });\n ```\n\n ```js\n [].forEach(() => {\n     // No return value, which is correct\n });\n ```\n"
+            "docs": " Enforce consistent return values in iterable callbacks.\n\n This rule ensures that callbacks passed to certain iterable methods either always return a\n value or never return a value, depending on the method's requirements.\n\n Note that async and generator callbacks are ignored as they always return `Promise` or\n `Generator` respectively.\n\n ## Methods and Their Requirements\n\n The following methods require a return in their callback:\n\n - `every`\n - `filter`\n - `find`\n - `findIndex`\n - `findLast`\n - `findLastIndex`\n - `flatMap`\n - `map`\n - `reduce`\n - `reduceRight`\n - `some`\n - `sort`\n - `toSorted`\n — `from` (when called on `Array`)\n\n A return value is disallowed in the method `forEach`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n [].map(() => {\n     // Missing return value\n });\n ```\n\n ```js,expect_diagnostic\n [].forEach(() => {\n     return 1; // Should not return a value\n });\n ```\n\n ### Valid\n\n ```js\n [].map(() => {\n     return 1; // Correctly returns a value\n });\n ```\n\n ```js\n [].forEach(() => {\n     // No return value, which is correct\n });\n ```\n\n ```js\n [].forEach(() => void null); // Void return value, which doesn't trigger the rule\n ```\n"
           },
           "useNumberToFixedDigitsArgument": {
             "deprecated": false,
@@ -4911,9 +4991,21 @@ export function GET() {
                 "source": {
                   "eslintReact": "jsx-no-useless-fragment"
                 }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReactX": "no-useless-fragment"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReactXyz": "no-useless-fragment"
+                }
               }
             ],
-            "docs": " Disallow unnecessary fragments\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <>\n foo\n </>\n ```\n\n ```jsx,expect_diagnostic\n <React.Fragment>\n foo\n </React.Fragment>\n ```\n\n ```jsx,expect_diagnostic\n <>\n     <>foo</>\n     <SomeComponent />\n </>\n ```\n\n ```jsx,expect_diagnostic\n <></>\n ```\n\n ### Valid\n\n ```jsx\n <>\n     <Foo />\n     <Bar />\n </>\n ```\n\n ```jsx\n <>foo {bar}</>\n ```\n\n"
+            "docs": " Disallow unnecessary fragments\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <>\n     <>foo</>\n     <SomeComponent />\n </>\n ```\n\n ```jsx,expect_diagnostic\n <></>\n ```\n\n ### Valid\n\n ```jsx\n <>\n foo\n </>\n ```\n\n ```jsx\n <React.Fragment>\n foo\n </React.Fragment>\n ```\n\n ```jsx\n <>\n     <Foo />\n     <Bar />\n </>\n ```\n\n ```jsx\n <>foo {bar}</>\n ```\n\n"
           }
         },
         "correctness": {
@@ -4942,6 +5034,12 @@ export function GET() {
             "recommended": false,
             "fixKind": "none",
             "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReactX": "no-nested-components"
+                }
+              },
               {
                 "kind": "sameLogic",
                 "source": {
@@ -6098,7 +6196,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 357
+    "numberOrRules": 361
   },
   "syntax": {
     "languages": {
