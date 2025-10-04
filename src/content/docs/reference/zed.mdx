@@ -12,12 +12,14 @@ This extension is available in the extensions view inside the Zed editor. Open `
 1. Path specified in Zed's configuration, for example like this:
   ```json title='.zed/settings.json'
   {
-    "biome": {
-     "binary": {
-        "path": "/var/biome-2.2.3/bin/biome",
-        "arguments": [
-          "lsp-proxy"
-       ]
+    "lsp": {
+      "biome": {
+       "binary": {
+          "path": "/var/biome-2.2.3/bin/biome",
+          "arguments": [
+            "lsp-proxy"
+         ]
+        }
       }
     }
   }
