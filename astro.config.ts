@@ -860,6 +860,16 @@ export default defineConfig({
 				replacesTitle: true,
 			},
 			favicon: "/img/favicon.svg",
+			head: [
+				{
+					tag: "link",
+					attrs: {
+						rel: "icon",
+						type: "image/x-icon",
+						href: "/img/favicon.ico",
+					},
+				},
+			],
 			customCss: [
 				// Relative path to your custom CSS file
 				"./src/styles/index.css",
