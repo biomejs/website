@@ -1432,6 +1432,7 @@ dependencies = [
  "biome_ruledoc_utils",
  "biome_service",
  "biome_string_case",
+ "biome_test_utils",
  "biome_text_edit",
  "bpaf",
  "camino",
