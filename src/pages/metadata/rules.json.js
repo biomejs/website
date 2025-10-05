@@ -477,6 +477,25 @@ export function GET() {
             "docs": " Enforce specifying the name of GraphQL operations.\n\n This is useful because most GraphQL client libraries use the operation name for caching purposes.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query {}\n ```\n\n ### Valid\n\n ```graphql\n query Human {\n   name\n }\n ```\n\n"
           }
         },
+        "nursery": {
+          "useDeprecatedDate": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useDeprecatedDate",
+            "link": "https://biomejs.dev/linter/rules/use-deprecated-date",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintGraphql": "require-deprecation-date"
+                }
+              }
+            ],
+            "docs": " Require the `@deprecated` directive to specify a deletion date.\n\n Suggests removing deprecated code when the due date has been passed.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query {\n   member @deprecated(reason: \"Use `members` instead\") {\n     id\n   }\n }\n ```\n\n ### Valid\n\n ```graphql\n query {\n   member @deprecated(reason: \"Use `members` instead\", deletionDate: \"2099-12-25\") {\n     id\n   }\n }\n ```\n\n"
+          }
+        },
         "style": {
           "useDeprecatedReason": {
             "deprecated": false,
@@ -6230,7 +6249,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 363
+    "numberOrRules": 364
   },
   "syntax": {
     "languages": {
