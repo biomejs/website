@@ -278,6 +278,7 @@ export default {
   '/linter/rules/useDefaultParameterLast': '/linter/rules/use-default-parameter-last',
   '/linter/rules/useDefaultSwitchClause': '/linter/rules/use-default-switch-clause',
   '/linter/rules/useDefaultSwitchClauseLast': '/linter/rules/use-default-switch-clause-last',
+  '/linter/rules/useDeprecatedDate': '/linter/rules/use-deprecated-date',
   '/linter/rules/useDeprecatedReason': '/linter/rules/use-deprecated-reason',
   '/linter/rules/useEnumInitializers': '/linter/rules/use-enum-initializers',
   '/linter/rules/useErrorMessage': '/linter/rules/use-error-message',
