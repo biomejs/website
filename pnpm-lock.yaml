@@ -16,8 +16,8 @@ importers:
         specifier: ^0.4.0
         version: 0.4.0
       starlight-changelogs:
-        specifier: ^0.2.0
-        version: 0.2.0(@astrojs/starlight@0.35.3(astro@5.14.1(@netlify/blobs@10.0.10)(@types/node@22.18.6)(jiti@2.4.2)(rollup@4.40.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(typescript@5.9.2)(yaml@2.8.0)))(astro@5.14.1(@netlify/blobs@10.0.10)(@types/node@22.18.6)(jiti@2.4.2)(rollup@4.40.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(typescript@5.9.2)(yaml@2.8.0))
+        specifier: ^0.2.1
+        version: 0.2.1(@astrojs/starlight@0.35.3(astro@5.14.1(@netlify/blobs@10.0.10)(@types/node@22.18.6)(jiti@2.4.2)(rollup@4.40.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(typescript@5.9.2)(yaml@2.8.0)))(astro@5.14.1(@netlify/blobs@10.0.10)(@types/node@22.18.6)(jiti@2.4.2)(rollup@4.40.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(typescript@5.9.2)(yaml@2.8.0))
       textlint-filter-rule-comments:
         specifier: ^1.2.2
         version: 1.2.2(textlint@15.2.2)
@@ -5075,8 +5075,8 @@ packages:
     peerDependencies:
       '@astrojs/starlight': '>=0.33.0'
 
-  starlight-changelogs@0.2.0:
-    resolution: {integrity: sha512-aMqPaGbFLQz+iTKLqwdHrLqrvvyf/yzffUSUb4+IxAaYFCFwS463h90gBoWpKP6e3fCyF6uLBw5NX71OstS62Q==}
+  starlight-changelogs@0.2.1:
+    resolution: {integrity: sha512-fy76e1bDicxHO/AkcqVqkkHnIMuXlWNvUops0ypF6gGErIZaHR0QHDrYrETJbUFIQCF5M6l6OD7NUl3VRGJBEw==}
     engines: {node: '>=18.17.1'}
     peerDependencies:
       '@astrojs/starlight': '>=0.35.0'
@@ -12156,7 +12156,7 @@ snapshots:
       - astro
       - supports-color
 
-  starlight-changelogs@0.2.0(@astrojs/starlight@0.35.3(astro@5.14.1(@netlify/blobs@10.0.10)(@types/node@22.18.6)(jiti@2.4.2)(rollup@4.40.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(typescript@5.9.2)(yaml@2.8.0)))(astro@5.14.1(@netlify/blobs@10.0.10)(@types/node@22.18.6)(jiti@2.4.2)(rollup@4.40.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(typescript@5.9.2)(yaml@2.8.0)):
+  starlight-changelogs@0.2.1(@astrojs/starlight@0.35.3(astro@5.14.1(@netlify/blobs@10.0.10)(@types/node@22.18.6)(jiti@2.4.2)(rollup@4.40.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(typescript@5.9.2)(yaml@2.8.0)))(astro@5.14.1(@netlify/blobs@10.0.10)(@types/node@22.18.6)(jiti@2.4.2)(rollup@4.40.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(typescript@5.9.2)(yaml@2.8.0)):
     dependencies:
       '@ascorbic/loader-utils': 1.0.2(astro@5.14.1(@netlify/blobs@10.0.10)(@types/node@22.18.6)(jiti@2.4.2)(rollup@4.40.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(typescript@5.9.2)(yaml@2.8.0))
       '@astrojs/starlight': 0.35.3(astro@5.14.1(@netlify/blobs@10.0.10)(@types/node@22.18.6)(jiti@2.4.2)(rollup@4.40.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(typescript@5.9.2)(yaml@2.8.0))
