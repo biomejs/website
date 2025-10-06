@@ -45,7 +45,7 @@
     "@expressive-code/plugin-line-numbers": "0.41.3",
     "@lunariajs/core": "0.1.1",
     "@lunariajs/starlight": "0.1.1",
-    "@playwright/test": "1.55.0",
+    "@playwright/test": "1.55.1",
     "@replit/codemirror-lang-svelte": "6.0.0",
     "@types/node": "22.18.6",
     "@types/react": "19.1.13",
