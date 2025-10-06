@@ -74,7 +74,7 @@
     "starlight-blog": "0.24.1",
     "starlight-links-validator": "0.17.2",
     "textlint": "15.2.2",
-    "textlint-rule-preset-jtf-style": "3.0.2",
+    "textlint-rule-preset-jtf-style": "3.0.3",
     "textlint-rule-prh": "6.1.0",
     "typescript": "5.9.2",
     "vite": "6.3.6",
