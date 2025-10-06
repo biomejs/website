@@ -25,7 +25,7 @@ biome_configuration = { git = "https://github.com/biomejs/biome.git", rev = "0dd
 ] }
 biome_console = { git = "https://github.com/biomejs/biome.git", rev = "0dddb8fb062b7c82038fbaad28e44edc48b9683c" }
 biome_css_analyze = { git = "https://github.com/biomejs/biome.git", rev = "0dddb8fb062b7c82038fbaad28e44edc48b9683c" }
-biome_css_parser = { git = "https://github.com/biomejs/biome.git", rev = "0dddb8fb062b7c82038fbaad28e44edc48b9683c" }
+biome_css_parser = { git = "https://github.com/biomejs/biome.git", rev = "0954dc9b82212f8e417251ffcf069226b6dcb87a" }
 biome_css_syntax = { git = "https://github.com/biomejs/biome.git", rev = "0dddb8fb062b7c82038fbaad28e44edc48b9683c" }
 biome_deserialize = { git = "https://github.com/biomejs/biome.git", rev = "0dddb8fb062b7c82038fbaad28e44edc48b9683c" }
 biome_diagnostics = { git = "https://github.com/biomejs/biome.git", rev = "0dddb8fb062b7c82038fbaad28e44edc48b9683c" }
