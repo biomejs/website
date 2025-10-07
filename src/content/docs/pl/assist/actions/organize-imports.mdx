@@ -1,0 +1,689 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: organizeImports
+description: Dowiedz się więcej o organizeImports
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import EditorAction from "@/components/EditorAction.astro";
+
+<Tabs>
+<TabItem label="JavaScript (i języki nadrzędne)" icon="seti:javascript">
+## Podsumowanie
+- Reguła dostępna od: `v1.0.0`
+- Kategoria diagnostyczna: [`assist/source/organizeImports`](/reference/diagnostics#diagnostic-category)
+- Ta akcja jest **zalecana**.
+- Domyślna ważność tej reguły to [**information**](/reference/diagnostics#information).
+## Jak włączyć w edytorze
+<EditorAction includeFixAll action="source.organizeImports.biome" />
+## Jak skonfigurować
+```json title="biome.json"
+{
+	"assist": {
+		"actions": {
+			"source": {
+				"organizeImports": "on"
+			}
+		}
+	}
+}
+
+```
+## Opis
+Dostarcza akcję kodu do sortowania importów i eksportów w pliku przy użyciu wbudowanego lub niestandardowego porządku.
+
+Importy i eksporty są najpierw rozdzielane na fragmenty, a następnie sortowane.
+Importy lub eksporty fragmentu są następnie grupowane zgodnie z grupami zdefiniowanymi przez użytkownika.
+W obrębie grupy importy są sortowane przy użyciu wbudowanego porządku, który zależy od rodzaju importu/eksportu, czy import/eksport ma atrybuty i źródła, z którego jest importowany.
+**source** jest również często nazywany **specifier** w ekosystemie JavaScript.
+
+```js
+import A from "@my/lib" with { "attribute1": "value" };
+^^^^^^^^       ^^^^^^^         ^^^^^^^^^^^^^^^^^^^^^
+  kind         source                attributes
+
+export * from "@my/lib" with { "attribute1": "value" };
+^^^^^^^^       ^^^^^^^         ^^^^^^^^^^^^^^^^^^^^^
+  kind         source                attributes
+```
+
+## Fragment importów i fragment eksportów
+
+**Fragment** to sekwencja sąsiadujących importów lub eksportów.
+Fragment zawiera tylko importy lub eksporty, nie oba jednocześnie.
+Poniższy przykład zawiera dwa fragmenty.
+Pierwszy fragment składa się z trzech importów, a drugi fragment składa się z trzech eksportów.
+
+```js
+// fragment 1
+import A from "a";
+import * as B from "b";
+import { C } from "c";
+// fragment 2
+export * from "d";
+export * as F from "e";
+export { F } from "f";
+```
+
+Fragmenty kończą się również zaraz po napotkaniu instrukcji lub **importu efektu ubocznego** (zwanego również _bare import_).
+Każdy import efektu ubocznego tworzy niezależny fragment.
+Poniższy przykład zawiera sześć fragmentów:
+
+```js
+// fragment 1
+import A from "a";
+import * as B from "b";
+// fragment 2
+import "x";
+// fragment 3
+import "y";
+// fragment 4
+import { C } from "c";
+// fragment 5
+export * from "d";
+function f() {}
+// fragment 6
+export * as E from "e";
+export { F } from "f";
+```
+
+1. Pierwszy fragment zawiera dwa pierwsze `import` i kończy się pojawieniem się pierwszego importu efektu ubocznego `import "x"`.
+2. Drugi fragment zawiera tylko import efektu ubocznego `import "x"`.
+3. Trzeci fragment zawiera tylko import efektu ubocznego `import "y"`.
+4. Czwarty fragment zawiera pojedynczy `import`; Pierwszy `export` go kończy.
+5. Piąty fragment zawiera pierwszy `export`; Deklaracja funkcji go kończy.
+6. Szósty fragment zawiera ostatnie dwa `export`.
+
+Fragmenty są również ograniczone przez odłączone komentarze.
+**Odłączony komentarz** to komentarz po którym następuje pusta linia.
+Komentarze nie poprzedzone pustą linią to **dołączone komentarze**.
+Należy zauważyć, że same puste linie nie są brane pod uwagę przy dzieleniu importów i eksportów na fragmenty.
+Poniższy przykład zawiera odłączony komentarz, który dzieli importy na dwa fragmenty:
+
+```js
+// Dołączony komentarz 1
+import A from "a";
+
+// Dołączony komentarz 2
+import * as B from "b";
+// Odłączony komentarz
+
+import { C } from "c";
+```
+
+Linia `import { C } from "c"` tworzy drugi fragment.
+Pusta linia między pierwszymi dwoma importami jest ignorowana, więc tworzą one pojedynczy fragment.
+
+Sortownik zapewnia, że fragmenty są oddzielone od siebie pustymi liniami.
+Tylko importy efektu ubocznego sąsiadujące z fragmentem importów nie są oddzielone pustą linią.
+Poniższy kod...
+
+```js
+import A from "a";
+import * as B from "b";
+import "x";
+import { C } from "c";
+export * from "d";
+// Odłączony komentarz
+
+export * as F from "e";
+// Dołączony komentarz
+export { F } from "f";
+```
+
+jest sortowany jako:
+
+```js
+import A from "a";
+import * as B from "b";
+import "x";
+import { C } from "c";
+
+export * from "d";
+
+// Odłączony komentarz
+
+export * as F from "e";
+// Dołączony komentarz
+export { F } from "f";
+```
+
+Należy również zauważyć, że puste linie wewnątrz fragmentu są ignorowane i zachowywane.
+Mogą być usunięte przez jawne zdefiniowanie grup, jak pokazano w następnej sekcji.
+
+## Sortowanie importów i eksportów
+
+Po utworzeniu fragmentów, importy i eksporty każdego fragmentu są sortowane.
+Importy i eksporty są sortowane według ich źródła.
+Źródła są uporządkowane według "odległości".
+Źródła "dalsze" od bieżącego modułu są umieszczane na górze, źródła "bliższe" użytkownikowi są umieszczane na dole.
+Prowadzi to do następującego porządku:
+
+1. URL-e takie jak `https://example.org`.
+2. Pakiety z protokołem takim jak `node:path`, `bun:test`, `jsr:@my?lib`, lub `npm:lib`.
+3. Pakiety takie jak `mylib` lub `@my/lib`.
+4. Aliasy: źródła zaczynające się od `@/`, `#`, `~`, `$`, lub `%`.
+Zwykle są to [Node.js subpath imports](https://nodejs.org/api/packages.html#subpath-imports) lub [TypeScript path aliases](https://www.typescriptlang.org/tsconfig/#paths).
+5. Ścieżki bezwzględne i względne.
+
+Dwa importy/eksporty z tą samą kategorią źródła są sortowane przy użyciu [natural sort order](https://en.wikipedia.org/wiki/Natural_sort_order) dostosowanego do URL-i, pakietów i ścieżek.
+W szczególności, porządek zapewnia, że `A < a < B < b`.
+Porządek uwzględnia również liczby, np. `a9 < a10`.
+
+Na przykład, następujący kod...
+
+```js
+import sibling from "./file.js";
+import internal from "#alias";
+import fs from "fs";
+import { test } from "node:test";
+import path from "node:path";m
+```js
+import data from "https://example.org";
+import scopedLibUsingJsr from "jsr:@scoped/lib";
+import path from "node:path";
+import { test } from "node:test";
+import scopedLib from "@scoped/lib";
+import fs from "fs";
+import lib from "lib";
+import internal from "#alias";
+import parent from "../parent.js";
+import sibling from "./file.js";
+```
+
+Jeśli dwa importy lub eksporty mają to samo źródło i są w tym samym fragmencie, są one uporządkowane według ich rodzaju następująco:
+
+1. Import/eksport typu namespace
+2. Import typu default
+3. Import/eksport typu named
+4. Import/eksport namespace
+5. Kombinowany import default i namespace
+6. Import default
+7. Kombinowany import default i named
+8. Import/eksport named
+
+Importy i eksporty z atrybutami są zawsze umieszczane na początku.
+Na przykład, następujący kod...
+
+```ts
+import * as namespaceImport from "same-source";
+import type * as namespaceTypeImport from "same-source";
+import type { namedTypeImport } from "same-source";
+import defaultNamespaceCombined, * as namespaceCombined from "same-source";
+import defaultNamedCombined, { namedCombined } from "same-source";
+import defaultImport from "same-source";
+import type defaultTypeImport from "same-source";
+import { importWithAttribute } from "same-source" with { "attribute": "value" } ;
+```
+
+jest sortowany następująco:
+
+```ts
+import { importWithAttribute } from "same-source" with { "attribute": "value" } ;
+import type * as namespaceTypeImport from "same-source";
+import type defaultTypeImport from "same-source";
+import type { namedTypeImport } from "same-source";
+import * as namespaceImport from "same-source";
+import defaultNamespaceCombined, * as namespaceCombined from "same-source";
+import defaultImport from "same-source";
+import defaultNamedCombined, { namedCombined } from "same-source";
+```
+
+Ten domyślny porządek nie może być zmieniony.
+Jednak użytkownicy mogą nadal dostosować sposób sortowania importów i eksportów używając koncepcji grup, jak wyjaśniono w następnej sekcji.
+
+## Grupy importów i eksportów
+
+Importy lub eksporty fragmentu są dzielone na grupy przed sortowaniem przy użyciu wbudowanego porządku opisanego w poprzedniej sekcji.
+Domyślnie każdy fragment składa się z pojedynczej grupy.
+Te domyślne grupy i ich porządek mogą nie odpowiadać Twoim preferencjom.
+Sortownik dostarcza opcję `groups`, która pozwala dostosować sposób dzielenia fragmentów na grupy.
+Opcja `groups` to lista dopasowań grup.
+Dopasowanie grupy to:
+
+- Wstępnie zdefiniowane dopasowanie grupy, lub
+- Wzorzec glob, lub
+- Dopasowanie obiektu, lub
+- Lista wzorców glob, wstępnie zdefiniowanych dopasowań grup i dopasowań obiektów.
+
+Wstępnie zdefiniowane dopasowania grup to ciągi znaków w `CONSTANT_CASE` poprzedzone i zakończone przez `:`.
+Sortownik dostarcza kilka wstępnie zdefiniowanych dopasowań grup:
+
+- `:ALIAS:`: źródła zaczynające się od `#`, `@/`, `~`, `$`, lub `%`.
+- `:BUN:`: źródła zaczynające się od protokołu `bun:` lub odpowiadające wbudowanemu modułowi Bun takiemu jak `bun`.
+- `:NODE:`: źródła zaczynające się od protokołu `node:` lub odpowiadające wbudowanemu modułowi Node.js takiemu jak `fs` lub `path`.
+- `:PACKAGE:`: pakiety scoped i bare.
+- `:PACKAGE_WITH_PROTOCOL:`: pakiety scoped i bare z protokołem.
+- `:PATH:`: ścieżki bezwzględne i względne.
+- `:URL:`: źródła zaczynające się od `https://` i `http://`.
+
+Weźmy przykład.
+W domyślnej konfiguracji, moduły Node.js bez protokołu `node:` są oddzielone od tych z protokołem.
+Aby pogrupować je razem, możesz użyć wstępnie zdefiniowanej grupy `:NODE:`.
+Przy danej konfiguracji...
+
+```json title='biome.json'
+{
+    "assist": {
+        "actions": {
+            "source": {
+                "organizeImports": {
+                    "level": "on",
+                    "options": {
+                        "groups": [
+                            ":URL:",
+                            ":NODE:"
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}
+{
+	"assist": {
+		"actions": {
+			"source": {
+				"organizeImports": {
+					"level": "on",
+					"options": {
+						"groups": [
+							":URL:",
+							":NODE:"
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+...i następujący kod...
+
+```js
+import sibling from "./file.js";
+import internal from "#alias";
+import fs from "fs";
+import { test } from "node:test";
+import path from "node:path";
+import parent from "../parent.js";
+import scopedLibUsingJsr from "jsr:@scoped/lib";
+import data from "https://example.org";
+import lib from "lib";
+import scopedLib from "@scoped/lib";
+```
+
+...kończymy z następującym posortowanym wynikiem, gdzie importy `node:path` i modułu Node.js `fs` są pogrupowane razem:
+
+```js
+import data from "https://example.org";
+import fs from "fs";
+import path from "node:path";
+import { test } from "node:test";
+import scopedLibUsingJsr from "jsr:@scoped/lib";
+import scopedLib from "@scoped/lib";
+import lib from "lib";
+import internal from "#alias";
+import parent from "../parent.js";
+import sibling from "./file.js";
+```
+
+Należy zauważyć, że wszystkie importy, które nie pasują do dopasowania grupy, są zawsze umieszczane na końcu.
+
+Dopasowania grup mogą być również wzorcami glob i listami wzorców glob.
+Wzorce glob wybierają importy i eksporty ze źródłem, które pasuje do wzorca.
+W następnym przykładzie tworzymy dwie grupy: jedną, która zbiera importy/eksporty ze źródłem zaczynającym się od `@my/lib` z wyjątkiem `@my/lib/special` i drugą, która zbiera importy/eksporty zaczynające się od `@/`.
+
+```json
+{
+    "options": {
+        "groups": [
+            ["@my/lib", "@my/lib/**", "!@my/lib/special", "!@my/lib/special/**"],
+            "@/**"
+        ]
+    }
+}
+```
+
+Stosując tę konfigurację do następującego kodu...
+
+```js
+import lib from "@my/lib";
+import aliased from "@/alias";
+import path from "@my/lib/special";
+import test from "@my/lib/path";
+```
+
+...otrzymujemy następujący posortowany wynik.
+Importy ze źródłami `@my/lib` i `@my/lib/path` tworzą pierwszą grupę.
+Pasują odpowiednio do wzorców glob `@my/lib` i `@my/lib/**`.
+Import ze źródłem `@my/lib/special` nie jest umieszczany w tej pierwszej grupie, ponieważ jest odrzucany przez wyjątek `!@my/lib/special`.
+Import ze źródłem `@/alias` jest umieszczany w drugiej grupie, ponieważ pasuje do wzorca glob `@/**`.
+W końcu, inne importy są umieszczane na końcu.
+
+```js
+import lib from "@my/lib";
+import test from "@my/lib/path";
+import aliased from "@/alias";
+import path from "@my/lib/special";
+```
+
+Należy zauważyć, że `@my/lib` pasuje do `@my/lib`, ale nie do `@my/lib/**`.
+Odwrotnie, `@my/lib/subpath` pasuje do `@my/lib/**`, ale nie do `@my/lib`.
+Więc musisz określić oba wzorce glob, jeśli chcesz zaakceptować wszystkie importy/eksporty, które zaczynają się od `@my/lib`.
+Prefiks `!` wskazuje wyjątek.
+Możesz tworzyć wyjątki wyjątków, następując po wyjątku zwykłym wzorcem glob.
+Na przykład `["@my/lib", "@my/lib/**", "!@my/lib/special", "!@my/lib/special/**", "@my/lib/special/*/accepted/**"]` pozwala zaakceptować wszystkie źródła pasujące do `@my/lib/special/*/accepted/**`.
+Należy zauważyć, że wstępnie zdefiniowane grupy mogą być również negowane. `!:NODE:` pasuje do wszystkich źródeł, które nie pasują do `:NODE:`.
+Aby uzyskać więcej szczegółów na temat obsługiwanych wzorców glob, zobacz dedykowaną sekcję.
+
+W końcu, dopasowania grup mogą być dopasowaniami obiektów.
+Dopasowanie obiektu pozwala dopasować importy i eksporty tylko typu.
+
+Przy danej konfiguracji:
+
+```json
+{
+    "options": {
+        "groups": [
+            { "type": false, "source": ["@my/lib", "@my/lib/**"] },
+            ["@my/lib", "@my/lib/**"]
+        ]
+    }
+}
+```
+
+Następujący kod:
+
+```ts
+import type { T } from "@my/lib";
+import { V } from "@my/lib";
+```
+
+is sorted as follows:
+
+```ts
+import { V } from "@my/lib";
+import type { T } from "@my/lib";
+```
+
+Dopasowanie obiektu `{ "type": false, "source": ["@my/lib", "@my/lib/**"] }` pasuje do importów i eksportów bez słowa kluczowego `type` ze źródłem, które pasuje do jednego ze wzorców glob z listy `["@my/lib", "@my/lib/**"]`.
+
+Sortownik pozwala na oddzielenie dwóch grup pustą linią przy użyciu wstępnie zdefiniowanego ciągu `:BLANK_LINE:`.
+Przy danej konfiguracji...
+
+```json
+{
+    "options": {
+        "groups": [
+            [":BUN:", ":NODE:"],
+            ":BLANK_LINE:",
+            ["@my/lib", "@my/lib/**", "!@my/lib/special", "!@my/lib/special/**"],
+            "@/**"
+        ]
+    }
+}
+```
+
+...następujący kod...
+
+```js
+import test from "bun:test";
+import path from "node:path";
+import lib from "@my/lib";
+import libPath from "@my/lib/path";
+import libSpecial from "@my/lib/special";
+import aliased from "@/alias";
+```
+
+...jest sortowany jako:
+
+```js
+import path from "node:path";
+
+import lib from "@my/lib";
+import test from "@my/lib/path";
+import aliased from "@/alias";
+import path from "@my/lib/special";
+```
+
+Grupy są dopasowywane w kolejności.
+Oznacza to, że jedno dopasowanie grupy może zasłaniać następujące grupy.
+Na przykład, w następnej konfiguracji, dopasowanie grupy `:URL:` nigdy nie jest dopasowywane, ponieważ wszystkie importy i eksporty pasują do pierwszego dopasowania `**`.
+
+```json
+{
+    "options": {
+        "groups": [
+            "**",
+            ":URL:"
+        ]
+    }
+}
+```
+
+## Obsługa komentarzy
+
+Podczas sortowania importów i eksportów, dołączone komentarze są przenoszone z ich importem lub eksportem,
+a odłączone komentarze (komentarze po których następuje pusta linia) pozostają na swoim miejscu.
+
+Jednak jest wyjątek od tej reguły.
+Jeśli komentarz pojawia się na górze pliku, jest uważany za odłączony, nawet jeśli nie następuje po nim pusta linia.
+To zapewnia, że noty copyright i komentarze nagłówka pliku pozostają na górze pliku.
+
+Na przykład, następujący kod...
+
+```js
+// Nota copyright i komentarz nagłówka pliku
+import F from "f";
+// Dołączony komentarz dla `e`
+import E from "e";
+// Dołączony komentarz dla `d`
+import D from "d";
+// Odłączony komentarz (nowy fragment)
+
+// Dołączony komentarz dla `b`
+import B from "b";
+// Dołączony komentarz dla `a`
+import A from "a";
+```
+
+...jest sortowany następująco.
+Pusta linia jest automatycznie dodawana po komentarzu nagłówka, aby zapewnić, że dołączony komentarz nie łączy się z komentarzem nagłówka.
+
+```js
+// Nota copyright i komentarz nagłówka pliku
+
+// Dołączony komentarz dla `d`
+import D from "d";
+// Dołączony komentarz dla `e`
+import E from "e";
+import F from "f";
+
+// Odłączony komentarz (nowy fragment)
+
+// Dołączony komentarz dla `a`
+import A from "a";
+// Dołączony komentarz dla `b`
+import B from "b";
+```
+
+## Łączenie importów i eksportów
+
+Organizator również łączy importy i eksporty, które mogą być połączone.
+
+Na przykład, następujący kod:
+
+```ts
+import type { T1 } from "package";
+import type { T2 } from "package";
+import * as ns from "package";
+import D1 from "package";
+import D2 from "package";
+import { A } from "package";
+import { B } from "package";
+```
+
+jest łączony następująco:
+
+```ts
+import type { T1, T2 } from "package";
+import D1, * as ns from "package";
+import D2, { A, B } from "package";
+```
+
+## Sortowanie named importów, named eksportów i atrybutów
+
+Sortownik również sortuje named importy, named eksporty, a także atrybuty.
+Używa naturalnego porządku sortowania do porównywania liczb.
+
+Następujący kod...
+
+```js
+import { a, b, A, B, c10, c9 } from "a";
+
+export { a, b, A, B, c10, c9 } from "a";
+
+import special from  "special" with { "type": "ty", "metadata": "data" };
+```
+
+...is sorted as follows:
+
+```js
+import { A, a, B, b, c9, c10 } from "a";
+
+export { A, a, B, b, c9, c10 } from "a";
+
+import special from  "special" with { "metadata": "data", "type": "ty" };
+```
+
+## Obsługiwane wzorce glob
+
+Musisz zrozumieć strukturę źródła, aby zrozumieć, które źródło pasuje do wzorca glob.
+Źródło jest podzielone na segmenty źródła.
+Każdy segment źródła jest ograniczony separatorem `/` lub początkiem/końcem źródła.
+Na przykład `src/file.js` składa się z dwóch segmentów źródła: `src` i `file.js`.
+
+- gwiazdka `*` która pasuje do zera lub więcej znaków wewnątrz segmentu źródła
+
+`file.js` pasuje do `*.js`.
+Odwrotnie, `src/file.js` nie pasuje do `*.js`
+
+
+- globstar `**` która pasuje do zera lub więcej segmentów źródła
+`**` musi być ograniczona separatorami `/` lub początkiem/końcem wzorca glob.
+Na przykład, `**a` nie jest prawidłowym wzorcem glob.
+Również, `**` nie może być następowana przez kolejny globstar.
+Na przykład, `**/**` nie jest prawidłowym wzorcem glob.
+
+`file.js` i `src/file.js` pasują do `**` i `**/*.js`
+Odwrotnie, `README.txt` nie pasuje do `**/*.js` ponieważ źródło kończy się na `.txt`.
+
+
+- Użyj `\*` aby wyescapować `*`
+
+`\*` pasuje do dosłownego znaku `*` w źródle.
+
+
+- `?`, `[`, `]`, `{`, i `}` muszą być wyescapowane używając `\`.
+Te znaki są zarezerwowane do możliwego przyszłego użycia.
+
+
+- Użyj `!` jako pierwszego znaku aby zanegować wzorzec glob
+
+`file.js` pasuje do `!*.test.js`.
+`src/file.js` pasuje do `!*.js` ponieważ źródło zawiera kilka segmentów.
+
+
+
+## Typowe konfiguracje
+
+Ta sekcja dostarcza kilka przykładów typowych konfiguracji.
+
+### Umieszczanie `import type` i `export type` na początku fragmentów
+
+```json
+{
+    "options": {
+        "groups": [
+            { "type": true }
+        ]
+    }
+}
+```
+
+Należy zauważyć, że możesz chcieć użyć reguły lint [`useImportType`](https://next.biomejs.dev/linter/rules/use-import-type/) i jej [`style`](https://next.biomejs.dev/linter/rules/use-import-type/#style) aby wymusić użycie `import type` zamiast `import { type }`.
+
+### Umieszczanie `import type` i `export type` na końcu fragmentów
+
+```json
+{
+    "options": {
+        "groups": [
+            { "type": false }
+        ]
+    }
+}
+```
+
+## Zmiana sortowania identyfikatorów importów na sortowanie leksykograficzne
+
+To dotyczy tylko named importów/eksportów, a nie samego źródła.
+
+```json title='biome.json'
+{
+	"assist": {
+		"actions": {
+			"source": {
+				"organizeImports": {
+					"options": {
+						"identifierOrder": "lexicographic"
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```js
+import { var1, var2, var21, var11, var12, var22 } from 'my-package'
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/assist/actions/organize-imports">assist/source/organizeImports</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The imports and exports are not sorted.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>import &#123; var1, var2, var21, var11, var12, var22 &#125; from 'my-package'<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Safe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Organize Imports (Biome)</span><br />  <br />    <strong>1</strong>  <strong> │ </strong><span style="color: Tomato;">-</span> <span style="color: Tomato;">i</span><span style="color: Tomato;">m</span><span style="color: Tomato;">p</span><span style="color: Tomato;">o</span><span style="color: Tomato;">r</span><span style="color: Tomato;">t</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">&#123;</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">v</span><span style="color: Tomato;">a</span><span style="color: Tomato;">r</span><span style="color: Tomato;">1</span><span style="color: Tomato;">,</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">v</span><span style="color: Tomato;">a</span><span style="color: Tomato;">r</span><span style="color: Tomato;">2</span><span style="color: Tomato;">,</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;"><strong>v</strong></span><span style="color: Tomato;"><strong>a</strong></span><span style="color: Tomato;"><strong>r</strong></span><span style="color: Tomato;"><strong>2</strong></span><span style="color: Tomato;"><strong>1</strong></span><span style="color: Tomato;">,</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;"><strong>v</strong></span><span style="color: Tomato;"><strong>a</strong></span><span style="color: Tomato;"><strong>r</strong></span><span style="color: Tomato;"><strong>1</strong></span><span style="color: Tomato;"><strong>1</strong></span><span style="color: Tomato;">,</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;"><strong>v</strong></span><span style="color: Tomato;"><strong>a</strong></span><span style="color: Tomato;"><strong>r</strong></span><span style="color: Tomato;"><strong>1</strong></span><span style="color: Tomato;"><strong>2</strong></span><span style="color: Tomato;">,</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">v</span><span style="color: Tomato;">a</span><span style="color: Tomato;">r</span><span style="color: Tomato;">2</span><span style="color: Tomato;">2</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">&#125;</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">f</span><span style="color: Tomato;">r</span><span style="color: Tomato;">o</span><span style="color: Tomato;">m</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">'</span><span style="color: Tomato;">m</span><span style="color: Tomato;">y</span><span style="color: Tomato;">-</span><span style="color: Tomato;">p</span><span style="color: Tomato;">a</span><span style="color: Tomato;">c</span><span style="color: Tomato;">k</span><span style="color: Tomato;">a</span><span style="color: Tomato;">g</span><span style="color: Tomato;">e</span><span style="color: Tomato;">'</span><br />      <strong>1</strong><strong> │ </strong><span style="color: MediumSeaGreen;">+</span> <span style="color: MediumSeaGreen;">i</span><span style="color: MediumSeaGreen;">m</span><span style="color: MediumSeaGreen;">p</span><span style="color: MediumSeaGreen;">o</span><span style="color: MediumSeaGreen;">r</span><span style="color: MediumSeaGreen;">t</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">&#123;</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">v</span><span style="color: MediumSeaGreen;">a</span><span style="color: MediumSeaGreen;">r</span><span style="color: MediumSeaGreen;">1</span><span style="color: MediumSeaGreen;">,</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">v</span><span style="color: MediumSeaGreen;">a</span><span style="color: MediumSeaGreen;">r</span><span style="color: MediumSeaGreen;">2</span><span style="color: MediumSeaGreen;">,</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;"><strong>v</strong></span><span style="color: MediumSeaGreen;"><strong>a</strong></span><span style="color: MediumSeaGreen;"><strong>r</strong></span><span style="color: MediumSeaGreen;"><strong>1</strong></span><span style="color: MediumSeaGreen;"><strong>1</strong></span><span style="color: MediumSeaGreen;">,</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;"><strong>v</strong></span><span style="color: MediumSeaGreen;"><strong>a</strong></span><span style="color: MediumSeaGreen;"><strong>r</strong></span><span style="color: MediumSeaGreen;"><strong>1</strong></span><span style="color: MediumSeaGreen;"><strong>2</strong></span><span style="color: MediumSeaGreen;">,</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;"><strong>v</strong></span><span style="color: MediumSeaGreen;"><strong>a</strong></span><span style="color: MediumSeaGreen;"><strong>r</strong></span><span style="color: MediumSeaGreen;"><strong>2</strong></span><span style="color: MediumSeaGreen;"><strong>1</strong></span><span style="color: MediumSeaGreen;">,</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">v</span><span style="color: MediumSeaGreen;">a</span><span style="color: MediumSeaGreen;">r</span><span style="color: MediumSeaGreen;">2</span><span style="color: MediumSeaGreen;">2</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">&#125;</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">f</span><span style="color: MediumSeaGreen;">r</span><span style="color: MediumSeaGreen;">o</span><span style="color: MediumSeaGreen;">m</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">'</span><span style="color: MediumSeaGreen;">m</span><span style="color: MediumSeaGreen;">y</span><span style="color: MediumSeaGreen;">-</span><span style="color: MediumSeaGreen;">p</span><span style="color: MediumSeaGreen;">a</span><span style="color: MediumSeaGreen;">c</span><span style="color: MediumSeaGreen;">k</span><span style="color: MediumSeaGreen;">a</span><span style="color: MediumSeaGreen;">g</span><span style="color: MediumSeaGreen;">e</span><span style="color: MediumSeaGreen;">'</span><br />    <strong>2</strong> <strong>2</strong><strong> │ </strong>  <br />  <br /></code></pre>
+
+## Zmiana sortowania identyfikatorów importów na sortowanie logiczne
+
+To jest domyślne zachowanie w przypadku, gdy nie nadpiszesz. To dotyczy tylko named importów/eksportów, a nie samego źródła.
+
+```json title='biome.json'
+{
+	"assist": {
+		"actions": {
+			"source": {
+				"organizeImports": {
+					"options": {
+						"identifierOrder": "natural"
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```js
+import { var1, var2, var21, var11, var12, var22 } from 'my-package'
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/assist/actions/organize-imports">assist/source/organizeImports</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The imports and exports are not sorted.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>import &#123; var1, var2, var21, var11, var12, var22 &#125; from 'my-package'<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Safe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Organize Imports (Biome)</span><br />  <br />    <strong>1</strong>  <strong> │ </strong><span style="color: Tomato;">-</span> <span style="color: Tomato;">i</span><span style="color: Tomato;">m</span><span style="color: Tomato;">p</span><span style="color: Tomato;">o</span><span style="color: Tomato;">r</span><span style="color: Tomato;">t</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">&#123;</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">v</span><span style="color: Tomato;">a</span><span style="color: Tomato;">r</span><span style="color: Tomato;">1</span><span style="color: Tomato;">,</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">v</span><span style="color: Tomato;">a</span><span style="color: Tomato;">r</span><span style="color: Tomato;">2</span><span style="color: Tomato;">,</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;"><strong>v</strong></span><span style="color: Tomato;"><strong>a</strong></span><span style="color: Tomato;"><strong>r</strong></span><span style="color: Tomato;"><strong>2</strong></span><span style="color: Tomato;"><strong>1</strong></span><span style="color: Tomato;">,</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;"><strong>v</strong></span><span style="color: Tomato;"><strong>a</strong></span><span style="color: Tomato;"><strong>r</strong></span><span style="color: Tomato;"><strong>1</strong></span><span style="color: Tomato;"><strong>1</strong></span><span style="color: Tomato;">,</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;"><strong>v</strong></span><span style="color: Tomato;"><strong>a</strong></span><span style="color: Tomato;"><strong>r</strong></span><span style="color: Tomato;"><strong>1</strong></span><span style="color: Tomato;"><strong>2</strong></span><span style="color: Tomato;">,</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">v</span><span style="color: Tomato;">a</span><span style="color: Tomato;">r</span><span style="color: Tomato;">2</span><span style="color: Tomato;">2</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">&#125;</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">f</span><span style="color: Tomato;">r</span><span style="color: Tomato;">o</span><span style="color: Tomato;">m</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">'</span><span style="color: Tomato;">m</span><span style="color: Tomato;">y</span><span style="color: Tomato;">-</span><span style="color: Tomato;">p</span><span style="color: Tomato;">a</span><span style="color: Tomato;">c</span><span style="color: Tomato;">k</span><span style="color: Tomato;">a</span><span style="color: Tomato;">g</span><span style="color: Tomato;">e</span><span style="color: Tomato;">'</span><br />      <strong>1</strong><strong> │ </strong><span style="color: MediumSeaGreen;">+</span> <span style="color: MediumSeaGreen;">i</span><span style="color: MediumSeaGreen;">m</span><span style="color: MediumSeaGreen;">p</span><span style="color: MediumSeaGreen;">o</span><span style="color: MediumSeaGreen;">r</span><span style="color: MediumSeaGreen;">t</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">&#123;</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">v</span><span style="color: MediumSeaGreen;">a</span><span style="color: MediumSeaGreen;">r</span><span style="color: MediumSeaGreen;">1</span><span style="color: MediumSeaGreen;">,</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">v</span><span style="color: MediumSeaGreen;">a</span><span style="color: MediumSeaGreen;">r</span><span style="color: MediumSeaGreen;">2</span><span style="color: MediumSeaGreen;">,</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;"><strong>v</strong></span><span style="color: MediumSeaGreen;"><strong>a</strong></span><span style="color: MediumSeaGreen;"><strong>r</strong></span><span style="color: MediumSeaGreen;"><strong>1</strong></span><span style="color: MediumSeaGreen;"><strong>1</strong></span><span style="color: MediumSeaGreen;">,</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;"><strong>v</strong></span><span style="color: MediumSeaGreen;"><strong>a</strong></span><span style="color: MediumSeaGreen;"><strong>r</strong></span><span style="color: MediumSeaGreen;"><strong>1</strong></span><span style="color: MediumSeaGreen;"><strong>2</strong></span><span style="color: MediumSeaGreen;">,</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;"><strong>v</strong></span><span style="color: MediumSeaGreen;"><strong>a</strong></span><span style="color: MediumSeaGreen;"><strong>r</strong></span><span style="color: MediumSeaGreen;"><strong>2</strong></span><span style="color: MediumSeaGreen;"><strong>1</strong></span><span style="color: MediumSeaGreen;">,</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">v</span><span style="color: MediumSeaGreen;">a</span><span style="color: MediumSeaGreen;">r</span><span style="color: MediumSeaGreen;">2</span><span style="color: MediumSeaGreen;">2</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">&#125;</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">f</span><span style="color: MediumSeaGreen;">r</span><span style="color: MediumSeaGreen;">o</span><span style="color: MediumSeaGreen;">m</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">'</span><span style="color: MediumSeaGreen;">m</span><span style="color: MediumSeaGreen;">y</span><span style="color: MediumSeaGreen;">-</span><span style="color: MediumSeaGreen;">p</span><span style="color: MediumSeaGreen;">a</span><span style="color: MediumSeaGreen;">c</span><span style="color: MediumSeaGreen;">k</span><span style="color: MediumSeaGreen;">a</span><span style="color: MediumSeaGreen;">g</span><span style="color: MediumSeaGreen;">e</span><span style="color: MediumSeaGreen;">'</span><br />    <strong>2</strong> <strong>2</strong><strong> │ </strong>  <br />  <br /></code></pre>
+
+
+</TabItem>
+</Tabs>
+
