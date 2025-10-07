@@ -216,7 +216,6 @@ export default defineConfig({
 						{
 							label: "Use Biome in big projects",
 							link: "/guides/big-projects",
-							badge: "updated",
 							translations: {
 								es: "Usar Biome en proyectos grandes",
 								fr: "Utiliser Biome dans de gros projets",
@@ -231,7 +230,6 @@ export default defineConfig({
 						{
 							label: "Upgrade to Biome v2",
 							link: "/guides/upgrade-to-biome-v2",
-							badge: "new",
 							translations: {
 								ja: "Biome v2へのアップグレード",
 								"zh-CN": "升级到 Biome v2",
@@ -422,10 +420,6 @@ export default defineConfig({
 								{
 									label: "Introduction",
 									link: "/linter",
-									badge: {
-										text: "updated",
-										variant: "success",
-									},
 									translations: {
 										es: "Introducción",
 										ja: "イントロダクション",
@@ -439,7 +433,6 @@ export default defineConfig({
 								{
 									label: "Domains",
 									link: "/linter/domains",
-									badge: "new",
 									translations: {
 										ja: "ドメイン",
 										"zh-CN": "域",
@@ -450,7 +443,6 @@ export default defineConfig({
 								{
 									label: "Plugins",
 									link: "/linter/plugins",
-									badge: "beta",
 									translations: {
 										ja: "プラグイン",
 										"zh-CN": "插件",
@@ -555,7 +547,6 @@ export default defineConfig({
 						},
 						{
 							label: "Assist",
-							badge: "new",
 							items: [
 								{
 									label: "Introduction",
@@ -679,7 +670,6 @@ export default defineConfig({
 						{
 							label: "Diagnostics",
 							link: "/reference/diagnostics",
-							badge: "new",
 							translations: {
 								es: "Diagnósticos",
 								ja: "診断",
@@ -851,6 +841,10 @@ export default defineConfig({
 						{
 							label: "Language support",
 							link: "/internals/language-support",
+							badge: {
+								text: "updated",
+								variant: "note",
+							},
 							translations: {
 								es: "Soporte de lenguas",
 								fr: "Langages pris en charge",
