@@ -1,0 +1,63 @@
+---
+title: Asysta
+description: Dowiedz się więcej o Biome Assist
+---
+
+import NumberOfRules from "@/components/generated/assist/NumberOfRules.astro";
+import PackageManagerBiomeCommand from "@/components/PackageManagerBiomeCommand.astro";
+import EditorAction from "@/components/EditorAction.astro";
+
+Biome Assist oferuje zestaw akcji mających na celu poprawę jakości kodu i doświadczenia programisty.
+
+W przeciwieństwie do reguł lintera, akcje asysty **zawsze** oferują automatyczną poprawkę kodu. Mogą one sortować właściwości lub pola, upraszczać wyrażenia binarne, wykonywać refaktoryzacje i nie tylko. Akcje asysty nie są przeznaczone do wykrywania błędów ani wymuszania określonego stylu kodowania. Obecnie dostępnych jest **<NumberOfRules /> akcji asysty**.
+
+Poprawki kodu wykonywane przez asystę są zazwyczaj bezpieczne do zastosowania. Jeśli poprawka asysty spowoduje błąd w Twoim kodzie, uznajemy to za błąd i zachęcamy do zgłoszenia go.
+
+Asysta działa najlepiej w edytorach i IDE. Jednak możliwe jest również wymuszanie użycia akcji asysty z poziomu CLI. Akcje asysty są bardzo zbliżone semantycznie do [akcji kodu LSP](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#codeActionKind) i są podzielone na [grupy](#groups).
+
+Biome Assist jest domyślnie włączona, a niektóre reguły znajdują się w zestawie reguł rekomendowanych. Poniższy przykład pokazuje, jak włączyć akcję `useSortedKeys`:
+
+```json title="biome.json"
+{
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "useSortedKeys": "on"
+      }
+    }
+  }
+}
+```
+
+## Używanie akcji asysty w IDE
+
+Jeśli korzystasz z IDE zgodnego z LSP, możesz skonfigurować Biome tak, aby wykonywał określone akcje przy zapisywaniu pliku. Każda akcja asysty ma własny kod zwany „code action”. Choć większość nazw podąża za tym samym schematem, mogą zdarzyć się wyjątki (np. `organizeImports`), dlatego zajrzyj na stronę dokumentacji danej akcji, aby poznać jej powiązany kod.
+
+Najpierw musisz skonfigurować edytor, aby stosował wszystkie poprawki przy zapisie. Konfiguracja różni się w zależności od edytora. Nazwa akcji kodu to `source.fixAll.biome`:
+
+<EditorAction action="source.fixAll.biome" />
+
+Następnie możesz dodać kod konkretnej akcji. Na przykład akcja [`useSortedKeys`](/assist/actions/use-sorted-keys) ma kod akcji `source.action.useSortedKeys.biome`. Jeśli korzystasz z VSCode, możesz skopiować ten kod i dodać go do sekcji `editor.codeActionsOnSave`, a Biome zastosuje go przy zapisie pliku:
+
+<EditorAction includeFixAll action="source.action.useSortedKeys.biome" />
+
+## Wymuszanie akcji asysty przez CLI
+
+Akcje asysty mogą być wymuszane z poziomu CLI za pomocą polecenia `check`:
+
+<PackageManagerBiomeCommand command="check" />
+
+Jednak `check` jest przeznaczone do uruchamiania wielu narzędzi jednocześnie, więc jeśli chcesz sprawdzić tylko akcje asysty, powinieneś uruchomić:
+
+<PackageManagerBiomeCommand command="check --formatter-enabled=false --linter-enabled=false" />
+
+## Wyłączanie akcji asysty
+
+Możesz odnieść się do [strony o wyłączeniach](/analyzer/suppressions).
+
+## Grupy
+
+### Source
+
+Ta grupa reprezentuje akcje, które można bezpiecznie zastosować do dokumentu przy zapisie. Są one ogólnie bezpieczne i zazwyczaj nie zmieniają funkcjonalności programu.
