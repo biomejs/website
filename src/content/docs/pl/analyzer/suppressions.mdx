@@ -1,0 +1,119 @@
+---
+title: Wyłączenia
+description: Jak używać wyłączeń.
+---
+
+Analizator Biome jest podstawą działania narzędzi [linter](/linter) i [asystent](/assist); w rzeczywistości oba te narzędzia mają ze sobą wiele wspólnego.
+
+Między innymi współdzielą ten sam silnik wyłączeń, co oznacza, że możesz wyłączyć regułę lintera w taki sam sposób, w jaki wyłączasz akcję asysty.
+
+Dzięki wyłączeniom można wyłączyć regułę lintera (lub akcję) dla konkretnej linii kodu, zakresu lub całego pliku.
+
+Wyłączenia osiąga się za pomocą **komentarzy wyłączających**.
+
+## Składnia wyłączeń
+
+Komentarze wyłączające mają następujący format:
+
+```js
+// biome-ignore lint: <wyjaśnienie>
+// biome-ignore assist: <wyjaśnienie>
+// biome-ignore syntax: <wyjaśnienie>
+// biome-ignore lint/suspicious: <wyjaśnienie>
+// biome-ignore lint/suspicious/noDebugger: <wyjaśnienie>
+// biome-ignore lint/suspicious/noDebugger(foo): <wyjaśnienie>
+// biome-ignore-all lint: <wyjaśnienie>
+// biome-ignore-start lint: <wyjaśnienie>
+// biome-ignore-end lint: <wyjaśnienie>
+```
+
+Rozbijmy to:
+
+- `biome-ignore`, `biome-ignore-all`, `biome-ignore-start` i `biome-ignore-end` to początek komentarza wyłączającego.
+- Po spacji następuje **kategoria** komentarza wyłączającego. Może to być `lint`, `assist` lub `syntax`.
+- Po kategorii może pojawić się opcjonalna grupa lub grupa i nazwa, oddzielone ukośnikami. Na przykład: `/suspicious` lub `/suspicious/noDebugger`. Im więcej określisz, tym bardziej szczegółowe (czyli precyzyjne) będzie wyłączenie.
+- Niektóre reguły pozwalają nawet na określenie wartości podczas wyłączania. Można je podać w nawiasach, na przykład: `(foo)`. Sprawdź dokumentację reguły, aby zobaczyć, czy obsługuje wyłączenia z wartościami.
+- `<wyjaśnienie>` to opis, dlaczego reguła została wyłączona.
+
+Jeśli nie jesteś pewien dokładnej kategorii reguły lub akcji, możesz zajrzeć na jej stronę dokumentacji i sprawdzić jej *kategorię diagnostyczną*.
+
+:::note
+Od tego miejsca w przykładach używany jest JavaScript oraz kategoria `lint`.
+:::
+
+### Wyłączenia liniowe
+
+Wyłączają regułę lintera dla **następnej linii** kodu.
+
+W poniższym przykładzie komentarz wyłączający `biome-ignore lint/suspicious/noDebugger: powód` wyłączy instrukcję `debugger;` w linii 2, ale `debugger` w linii 3 nadal wywoła diagnostykę:
+
+```js title="file.js" ins={1}
+// biome-ignore lint/suspicious/noDebugger: powód
+debugger;
+debugger;
+```
+
+### Wyłączenia dla całego pliku
+
+Wyłączają regułę lintera dla **całego pliku**. Muszą znajdować się **na początku pliku** i zaczynać się od `biome-ignore-all`.
+
+Komentarze tego typu są bardzo przydatne, gdy chcesz wyłączyć konkretną regułę *dla danego pliku* i nie chcesz tego robić za pomocą konfiguracji.
+
+W poniższym przykładzie komentarz `biome-ignore-all lint/suspicious/noDebugger: powód` wyłączy regułę lintera dla wszystkich linii w pliku `generated.js`:
+
+```js title="generated.js" ins={1}
+// biome-ignore-all lint/suspicious/noDebugger: powód
+
+debugger
+debugger
+
+```
+
+Jeśli komentarz `biome-ignore-all` nie znajduje się na początku pliku, jest uznawany za *nieużywany*, a Biome zgłosi diagnostykę o kategorii `suppression/unused`.
+
+### Wyłączenia zakresowe
+
+Wyłączają regułę lintera dla określonego **zakresu** w pliku — począwszy od linii z komentarzem początkowym, aż do linii z komentarzem końcowym.
+
+Aby oznaczyć początek wyłączenia zakresowego, komentarz musi zaczynać się od `// biome-ignore-start`.  
+Aby oznaczyć jego koniec — od `// biome-ignore-end`.
+
+Poniższy przykład wyłączy regułę `lint/suspicious/noDoubleEquals` dla linii 2 i 3, ale linia 5 nadal wywoła diagnostykę:
+
+```js name="file.js" ins={1} ins={4}
+// biome-ignore-start lint/suspicious/noDoubleEquals: powód
+a == b;
+c == d;
+// biome-ignore-end lint/suspicious/noDoubleEquals: powód
+f == g;
+```
+
+:::note
+Wyłączenia zakresowe muszą mieć odpowiadający im komentarz `biome-ignore-end`.
+:::
+
+Wyłączenia zakresowe mogą również **nakładać się**.  
+Rozważ poniższy przykład:
+
+```js name="file.js"
+debugger;
+// biome-ignore-start lint/suspicious/noDebugger: powód
+debugger
+// biome-ignore-start lint/suspicious/noDoubleEquals: powód
+a == b;
+c == d;
+// biome-ignore-end lint/suspicious/noDoubleEquals: powód
+debugger
+f == g;
+// biome-ignore-end lint/suspicious/noDebugger: powód
+```
+
+W powyższym kodzie:
+
+- Instrukcja `debugger` w linii 1 wywoła diagnostykę, ponieważ nie ma komentarza wyłączającego.
+- Komentarz `// biome-ignore-start lint/suspicious/noDebugger: powód` w linii 2 zaczyna wyłączać regułę `noDebugger` od linii 3.
+- Komentarz `// biome-ignore-start lint/suspicious/noDoubleEquals: powód` w linii 4 zaczyna wyłączać regułę `noDoubleEquals` od linii 5.
+- Komentarz `// biome-ignore-end lint/suspicious/noDoubleEquals: powód` w linii 7 kończy wyłączenie rozpoczęte w linii 4.
+- Instrukcja `debugger` w linii 8 **nie** wywoła diagnostyki dzięki komentarzowi z linii 2.
+- Instrukcja `f == g` wywoła diagnostykę, ponieważ reguła `noDoubleEquals` nie jest już wyłączona.
+- Komentarz `// biome-ignore-end lint/suspicious/noDebugger: powód` w linii 7 kończy wyłączenie reguły `noDebugger` rozpoczęte w linii 2.
