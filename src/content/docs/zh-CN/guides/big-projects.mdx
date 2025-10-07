@@ -42,84 +42,84 @@ Monorepo 是一个包含多个包的大型代码仓库。每个包都可以拥�
 <Steps>
 1. 在 Monorepo 根目录创建 `biome.json` 文件。我们将启用推荐规则并配置格式化选项：
 
-  ```json title="biome.json"
-  {
-    "linter": {
-      "enabled": true,
-      "rules": {
-        "recommended": true
-      }
-    },
-    "formatter": {
-      "lineWidth": 120,
-      "indentStyle": "space",
-      "indentWidth": 6
-    }
-  }
-  ```
+   ```json title="biome.json"
+   {
+     "linter": {
+       "enabled": true,
+       "rules": {
+         "recommended": true
+       }
+     },
+     "formatter": {
+       "lineWidth": 120,
+       "indentStyle": "space",
+       "indentWidth": 6
+     }
+   }
+   ```
   
-  此文件为 **根配置**，用于设定项目的通用选项。嵌套配置可以选择是否继承这些选项。
+   此文件为 **根配置**，用于设定项目的通用选项。嵌套配置可以选择是否继承这些选项。
 
 2. 为各个包创建嵌套配置文件（可根据需要创建）。
-  这些嵌套配置文件必须包含 `"root"` 字段并设置为 `false`。
-  此外，若要确保各包遵循根配置中的格式化规范，
-  我们可以使用 Biome 的 **新语法** `"extends": "//"`。
-  该语法指示 Biome 从 **根配置** 继承设置，无论嵌套配置位于何处。
+   这些嵌套配置文件必须包含 `"root"` 字段并设置为 `false`。
+   此外，若要确保各包遵循根配置中的格式化规范，
+   我们可以使用 Biome 的 **新语法** `"extends": "//"`。
+   该语法指示 Biome 从 **根配置** 继承设置，无论嵌套配置位于何处。
   
-  我们来创建两个配置文件，分别位于 `packages/logger` 和 `packages/generate` 目录下。
-  在前者的配置中，我们将禁用 `noConsole` 规则，
-  在后者的配置中，我们将禁用格式化功能，因为这些是自动生成的源代码文件：
+   我们来创建两个配置文件，分别位于 `packages/logger` 和 `packages/generate` 目录下。
+   在前者的配置中，我们将禁用 `noConsole` 规则，
+   在后者的配置中，我们将禁用格式化功能，因为这些是自动生成的源代码文件：
 
-  ```json title="packages/logger/biome.json"
-  {
-    "root": false,
-    "extends": "//",
-    "linter": {
-      "rules": {
-        "suspicious": {
-          "noConsole": "off"
-        }
-      }
-    }
-  }
-  ```
+   ```json title="packages/logger/biome.json"
+   {
+     "root": false,
+     "extends": "//",
+     "linter": {
+       "rules": {
+         "suspicious": {
+           "noConsole": "off"
+         }
+       }
+     }
+   }
+   ```
 
-  ```json title="packages/generate/biome.json"
-  {
-    "root": false,
-    "extends": "//",
-    "formatter": {
-      "enabled": false
-    }
-  }
-  ```
+   ```json title="packages/generate/biome.json"
+   {
+     "root": false,
+     "extends": "//",
+     "formatter": {
+       "enabled": false
+     }
+   }
+   ```
 
-  为便于使用，我们 **可以** 省略 `"root": false`，因为当存在 [extends](/zh-cn/reference/configuration/#extends) 字段时，该值已被隐式设定：
+   为便于使用，我们 **可以** 省略 `"root": false`，因为当存在 [extends](/zh-cn/reference/configuration/#extends) 字段时，该值已被隐式设定：
 
-  ```diff title="packages/generate/biome.json"
-  {
-  - "root": false,
-    "extends": "//",
-    "formatter": {
-    enabled: false
-  }
-  ```
+   ```diff title="packages/generate/biome.json"
+   {
+   - "root": false,
+     "extends": "//",
+     "formatter": {
+     enabled: false
+   }
+   ```
 
 3. 现在，假设新增一个包位于 `packages/analytics`，并由另一团队维护。
-  若该团队采用不同的编码规范，不希望继承根配置，
-  则只需省略 `"extends": "//"` 并自定义格式化选项：
+   若该团队采用不同的编码规范，不希望继承根配置，
+   则只需省略 `"extends": "//"` 并自定义格式化选项：
 
-  ```json title="packages/analytics/biome.json"
-  {
-    "root": false,
-    "formatter": {
-      "lineWidth": 100
-    }
-  }
-  ```
+   ```json title="packages/analytics/biome.json"
+   {
+     "root": false,
+     "formatter": {
+       "lineWidth": 100
+     }
+   }
+   ```
 
 4. 配置完成后，您可以从根目录运行 `biome` 命令，也可以在单个包目录中运行。
-  Biome 将自动遵循相应的配置设置！
+   Biome 将自动遵循相应的配置设置！
 </Steps>
 
 :::tip
