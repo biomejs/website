@@ -1,0 +1,232 @@
+---
+title: Biome
+head:
+  - tag: title
+    content: Biome, toolchain of the web
+template: splash
+description: Formatuj, lintuj i więcej w ułamku sekundy.
+editUrl: false
+next: false
+
+banner:
+    content: |
+      <strong>Biome v2—Biotype</strong> jest już <a href="/blog/biome-v2/">dostępny</a> 🚀.
+
+hero:
+  title: Jeden toolchain dla Twojego projektu webowego
+  tagline: Formatuj, lintuj i więcej w ułamku sekundy.
+  image:
+    alt: Biome, Toolchain of the web
+    dark: "@/assets/svg/slogan-dark-transparent.svg"
+    light: "@/assets/svg/slogan-light-transparent.svg"
+  actions:
+    - text: Zacznij
+      link: /guides/getting-started/
+      icon: right-arrow
+      variant: primary
+    - text: Zobacz na GitHub
+      link: https://github.com/biomejs/biome
+      icon: external
+      variant: secondary
+---
+
+import { Card, CardGrid } from "@astrojs/starlight/components";
+import Inputf from "@/components/formatter/input.md";
+import Outputf from "@/components/formatter/output.md";
+import ProgressBarContainer from "@/playground/components/Progress.tsx";
+import Community from "@/components/generated/Community.astro";
+import { Icon } from "@astrojs/starlight/components";
+import arrow from "@/assets/svg/arrow-right.svg";
+import { Image } from "astro:assets";
+import "@/styles/_performance.css";
+import "@/styles/_installation.css";
+import "@/styles/_community.css";
+import Netlify from "@/components/Netlify.astro";
+import Sponsors from "@/components/Sponsors.astro";
+import LinterExample from "@/components/linter/example.md";
+import NumberOfRules from "@/components/generated/linter/NumberOfRules.astro";
+import AwardBanner from "@/components/AwardBanner.astro"
+
+<div class="gradient"></div>
+
+<div class="hero-code">
+    <h2 class="head">Formatuj kod jak Prettier, oszczędzaj czas</h2>
+
+    **Biome to [szybki formatter](https://github.com/biomejs/biome/tree/main/benchmark#formatting)** dla _JavaScript_,
+    _TypeScript_, _JSX_, _TSX_, _JSON_, _HTML_, _CSS_ i _GraphQL_, który osiąga **[97% kompatybilności z
+    _Prettier_](https://console.algora.io/challenges/prettier)**, **oszczędzając czas CI i deweloperów**.
+
+    Biome może nawet **formatować niepoprawny kod** podczas pisania w [Twoim ulubionym edytorze](/guides/editors/first-party-extensions/).
+
+    <div class="linter format">
+        <div class="inp">
+            <span>KOD</span>
+            <Inputf/>
+        </div>
+        <div class="out">
+            <span>WYNIK</span>
+            <Outputf/>
+        </div>
+        <div class="perf-out">
+            <span>WYDAJNOŚĆ</span>
+            <div class="bench-comp">
+                <div class="bench">
+                    <div>
+                        <ProgressBarContainer
+                            client:visible
+                            data={[
+                                {duration: 0.41, label: "Biome", color: "MediumSeaGreen"},
+                                {duration: 14.35, label: "Prettier", color: "IndianRed"}
+                            ]}
+                        />
+                    </div>
+                </div>
+                <div class="perf-comp">
+                    <div class="comp">~35x</div>
+                    <div class="comp-des">
+                        Szybszy niż Prettier przy formatowaniu 171,127 linii kodu w 2,104 plikach z procesorem Intel Core i7
+                        1270P.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    Wypróbuj formatter Biome na [playground](/playground/) lub bezpośrednio w swoim projekcie:
+
+    ```shell
+    npm i -D --save-exact @biomejs/biome
+    npx @biomejs/biome format --write ./src
+    ```
+</div>
+
+
+<div class="hero-code">
+    <h2 class="head">Naprawiaj problemy, ucz się najlepszych praktyk</h2>
+
+    **Biome to [wydajny linter](https://github.com/biomejs/biome/tree/main/benchmark#linting)** dla _JavaScript_,
+    _TypeScript_, _JSX_, _CSS_ i _GraphQL_, który zawiera **[<NumberOfRules/> reguł](/linter/)** z ESLint,
+    TypeScript ESLint i [innych źródeł](/linter/rules-sources/).
+
+    **Biome generuje szczegółowe i skontekstualizowane diagnostyki**, które pomagają Ci poprawić kod i zostać lepszym
+    programistą!
+
+    <LinterExample/>
+
+    Wypróbuj linter Biome na [playground](/playground/) lub bezpośrednio w swoim projekcie:
+
+    ```shell
+    npm i -D --save-exact @biomejs/biome
+    npx @biomejs/biome lint --write ./src
+    ```
+
+</div>
+
+
+<div class="hero-code">
+    <h2 class="head">Wszystko naraz</h2>
+
+    Nie tylko możesz formatować i lintować kod osobno, możesz to zrobić **wszystko naraz jednym poleceniem**!
+
+    Każde narzędzie integruje się bezproblemowo z innymi, tworząc **spójny toolchain** dla projektów webowych.
+
+    Uruchom wszystkie narzędzia poleceniem `check`:
+
+    ```shell
+    npm i -D --save-exact @biomejs/biome
+    npx @biomejs/biome check --write ./src
+    ```
+
+</div>
+
+
+
+<div class="card-cnt">
+
+    <CardGrid>
+        <Card title="Szybki" icon="rocket">
+            Zbudowany w Rust z innowacyjną architekturą inspirowaną rust-analyzer.
+        </Card>
+        <Card title="Prosty" icon="pencil">
+            Zero konfiguracji potrzebnej do rozpoczęcia. Rozbudowane opcje dostępne gdy
+            ich potrzebujesz.
+        </Card>
+        <Card title="Skalowalny" icon="random">
+            Zaprojektowany do obsługi codebase'ów dowolnej wielkości. Skup się na rozwoju produktu zamiast
+            na narzędziach.
+        </Card>
+        <Card title="Praktyczny i informatywny" icon="information">
+            Unikaj niejasnych komunikatów o błędach, gdy mówimy Ci, że coś jest nie tak, mówimy
+            dokładnie gdzie jest problem i jak go naprawić.
+        </Card>
+        <Card title="Wszystko w jednym" icon="add-document">
+            Od razu obsługa wszystkich funkcji językowych, których używasz dzisiaj. Pierwszorzędna
+            obsługa TypeScript i JSX.
+        </Card>
+        <Card title="Wsparcie Organizacji" icon="phone">
+            Oferujemy <a href="/enterprise/">wsparcie komercyjne</a> organizacjom, które
+            go potrzebują przez naszą społeczność współtwórców.
+        </Card>
+    </CardGrid>
+</div>
+<div class="installation-body">
+    <div class="installation">
+        <div class="installation-left">
+            <h2 class="head">Wypróbuj Biome</h2>
+            <div class="installation-description">
+                Zainstaluj Biome używając preferowanego menedżera pakietów I zintegruj go w swoim edytorze.
+            </div>
+            <a class="installation-biome" href="/guides/getting-started/#installation">
+                Zainstaluj z menedżerem pakietów
+                <Image src={arrow} alt="arrow"/>
+            </a>
+            <a
+                href="/guides/editors/first-party-extensions/"
+                class="installation-extension"
+            >
+                Zintegruj Biome w swoim edytorze
+                <Image src={arrow} alt="arrow"/>
+            </a>
+        </div>
+
+        <div class="extension-img"></div>
+
+    </div>
+</div>
+
+<AwardBanner/>
+
+<div class="community">
+    <div class="community-grid"></div>
+    <h2 class="head">Społeczność</h2>
+    <div class="community-connect">
+        <div class="community-description">
+            Napędzane przez naszych współtwórców open-source
+        </div>
+        <div class="community-links">
+            <a href="https://biomejs.dev/chat" class="discord">
+                <Icon name="discord"/>
+                <p>Discord</p>
+            </a>
+            <a href="https://github.com/biomejs/biome" class="github">
+                <Icon name="github"/>
+                <p>GitHub</p>
+            </a>
+            <a href="https://bsky.app/profile/biomejs.dev" class="blueSky">
+                <Icon name="blueSky" />
+                <p>BlueSky</p>
+            </a>
+            <a href="https://fosstodon.org/@biomejs" class="mastodon">
+                <Icon name="mastodon"/>
+                <p>Mastodon</p>
+            </a>
+        </div>
+    </div>
+    <div class="connect">
+        <Community/>
+    </div>
+</div>
+
+<Sponsors title="Sponsors"/>
+
+<Netlify/>
