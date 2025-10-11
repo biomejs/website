@@ -1,0 +1,133 @@
+---
+title: GritQL
+description: Biome 中 GritQL 的基本用法
+---
+
+GritQL 是一种用于对源代码执行结构化搜索的查询语言。
+这意味着像空格甚至字符串中使用的引号类型这样的小事都会在您的搜索查询中被忽略。此外，它还提供了许多功能，允许您查询语法结构，如代码片段、匹配、嵌套和变量。
+
+GritQL 是 [开源](https://github.com/getgrit/gritql/) 的，由 [Grit.io](https://grit.io/) 创建。
+
+Biome 将 GritQL 用于两个目的：
+
+- [分析器插件](/linter/plugins)。
+- [`biome search`](/reference/cli/#biome-search) 命令，我们希望将其扩展到我们的 IDE 扩展中。
+
+## 模式
+
+GritQL 查询通过 _模式_ 工作。您将看到的最常见的模式是代码片段，它看起来像用反引号包裹的普通源代码：
+
+```grit
+`console.log('你好，世界!')`
+```
+
+此模式将匹配传递了字符串 `'你好，世界!'` 的任何 `console.log()` 调用。但是因为 GritQL 进行的是 _结构化_ 匹配，所以它不关心格式化细节。这也匹配：
+
+```js
+console.log (
+    '你好，世界!'
+)
+```
+
+这个也一样（注意引号的变化）：
+
+```js
+console.log("你好，世界!")
+```
+
+:::note
+大多数 shell 将反引号解释为命令调用，这与 GritQL 的代码片段冲突。因此，在使用 `biome search` 命令时，最好将您的 Grit 查询用 _单引号_ 括起来：
+
+```shell
+biome search '`console.log($message)`' # 查找所有 `console.log` 调用
+```
+:::
+
+## 变量
+
+GritQL 查询也可以有 _变量_。以下将匹配任何对 `console.log()` 的调用，而不管传递的消息是什么：
+
+```grit
+`console.log($message)`
+```
+
+这也将匹配 `console` 对象上的任何方法：
+
+```grit
+`console.$method($message)`
+```
+
+同一个变量名可以在单个代码片段中出现多次：
+
+```grit
+`$fn && $fn()`
+```
+
+这将匹配 `foo && foo()`，甚至 `foo.bar && foo.bar()`，但不匹配 `foo && bar()`。
+
+## 条件
+
+您可以使用 `where` 运算符向模式添加条件。这通常与 _匹配运算符_ `<:` 一起使用：
+
+```grit
+`console.$method($message)` where {
+    $method <: `log`
+}
+```
+
+此查询与我们之前看到的 `console.log($message)` 模式相同，但是当我们添加其他运算符时，它会变得更有趣：
+
+```grit
+`console.$method($message)` where {
+    $method <: or { `log`, `info`, `warn`, `error` }
+}
+```
+
+## 原生 AST 节点匹配
+
+Biome 的 GritQL 引擎是建立在它自己的解析器之上的。这使您可以编写直接与 Biome 的原生抽象语法树 (AST) 节点匹配的模式，为通用的、与 TreeSitter 兼容的模式提供更精确的替代方案。
+
+Biome 原生 AST 节点由其 `PascalCase` 名称标识（例如 `JsIfStatement`），以区别于与 TreeSitter 兼容的 `snake_case` 模式（例如 `if_statement`）。
+
+例如，您可以使用任一模式来匹配 JavaScript `if` 语句：
+
+```grit
+engine biome(1.0)
+language js(typescript,jsx)
+
+or {
+  // 与 TreeSitter 兼容的模式
+  if_statement(),
+
+  // Biome 原生 AST 节点模式
+  JsIfStatement()
+} as $stmt where {
+  register_diagnostic(
+    span=$stmt,
+    message="发现一个 if 语句"
+  )
+}
+```
+
+当您需要编写特定且高性能的查询时，使用原生 AST 节点非常强大。例如，Biome 识别的某些语言功能可能在通用的 `snake_case` 模式中没有直接的等效项。直接在 AST 节点上匹配可确保您针对的是您想要的确切结构。
+
+您可以通过浏览 Biome 存储库中 [`xtask/codegen`](https://github.com/biomejs/biome/tree/main/xtask/codegen) 目录下的 `.ungram` 文件，找到每种语言可用的 AST 节点的完整列表。
+
+## 语言文档
+
+有关 GritQL 及其语法的更多信息，请参阅官方
+[GritQL 语言文档](https://docs.grit.io/language/overview)。
+
+请记住，Biome（目前）尚不支持 Grit 的所有功能。
+
+## 集成状态
+
+Biome 中的 GritQL 支持正在积极开发中。许多功能已经可以使用，但仍可能存在错误，并且某些功能仍然完全缺失。
+
+有关支持哪些 GritQL 功能以及哪些仍在进行中的详细概述，请参阅 GitHub 上的问题：
+https://github.com/biomejs/biome/issues/2582。
+
+我们还有一个详细的 RFC，指导我们插件工作的方向：
+https://github.com/biomejs/biome/discussions/1762
+
+**简而言之**：我们正在努力支持插件，这些插件可以是纯 GritQL 插件，也可以是使用 GritQL 选择它们希望操作的代码的 JS/TS 插件。敬请期待！

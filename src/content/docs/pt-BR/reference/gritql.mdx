@@ -1,0 +1,150 @@
+---
+title: GritQL
+description: Uso básico do GritQL no Biome
+---
+
+GritQL é uma linguagem de consulta para realizar buscas estruturais em código-fonte.
+Isso significa que detalhes como espaços em branco ou até mesmo o tipo de aspas usadas em
+strings serão ignorados em sua consulta de busca. Além disso, oferece muitos
+recursos que permitem consultar a estrutura da sintaxe, como snippets, correspondências,
+aninhamento e variáveis.
+
+GritQL é [de código aberto](https://github.com/getgrit/gritql/) e criado pela [Grit.io](https://grit.io/).
+
+O Biome usa o GritQL para dois fins:
+
+- Os [Plugins do Analisador](/linter/plugins).
+- O comando [`biome search`](/reference/cli/#biome-search), que esperamos estender
+  às nossas extensões de IDE também.
+
+## Padrões
+
+As consultas GritQL funcionam por meio de _padrões_. O padrão mais comum que você verá é
+o trecho de código, que se parece com código-fonte comum envolto em crases:
+
+```grit
+`console.log('Hello, world!')`
+```
+
+Este padrão corresponderá a qualquer chamada para `console.log()` que receba a string
+`'Hello, world!'`. Mas como o GritQL faz correspondência _estrutural_, ele não se
+importa com detalhes de formatação. Isso também corresponde:
+
+```js
+console.log (
+    'Hello, world!'
+)
+```
+
+E isso também (note a mudança nas aspas):
+
+```js
+console.log("Hello, world!")
+```
+
+:::note
+A maioria dos shells interpreta crases como invocações de comando, o que conflita com
+os trechos de código do GritQL. Portanto, ao usar o comando `biome search`, é melhor
+colocar _aspas simples_ em torno de suas consultas Grit:
+
+```shell
+biome search '`console.log($message)`' # encontra todas as invocações de `console.log`
+```
+:::
+
+## Variáveis
+
+As consultas GritQL também podem ter _variáveis_. O seguinte corresponderá a qualquer chamada para
+`console.log()` independentemente da mensagem passada:
+
+```grit
+`console.log($message)`
+```
+
+Isso também corresponderá a qualquer um dos métodos no objeto `console`:
+
+```grit
+`console.$method($message)`
+```
+
+O mesmo nome de variável pode ocorrer várias vezes em um único trecho:
+
+```grit
+`$fn && $fn()`
+```
+
+Isso corresponderá a `foo && foo()`, e até mesmo `foo.bar && foo.bar()`, mas não a
+`foo && bar()`.
+
+## Condições
+
+Você pode adicionar condições aos padrões usando o operador `where`. Isso é
+comumente usado em conjunto com o _operador de correspondência_, `<:`:
+
+```grit
+`console.$method($message)` where {
+    $method <: `log`
+}
+```
+
+Esta consulta é idêntica ao padrão `console.log($message)` que vimos anteriormente,
+mas fica rapidamente mais interessante quando adicionamos outros operadores à mistura:
+
+```grit
+`console.$method($message)` where {
+    $method <: or { `log`, `info`, `warn`, `error` }
+}
+```
+
+## Correspondência de Nós AST Nativos
+
+O motor GritQL do Biome é construído sobre seus próprios analisadores. Isso permite que você escreva padrões que correspondem diretamente aos nós da Árvore de Sintaxe Abstrata (AST) nativa do Biome, oferecendo uma alternativa mais precisa aos padrões genéricos compatíveis com o TreeSitter.
+
+Os nós AST nativos do Biome são identificados por seus nomes em `PascalCase` (por exemplo, `JsIfStatement`), distinguindo-os dos padrões `snake_case` compatíveis com o TreeSitter (por exemplo, `if_statement`).
+
+Por exemplo, você pode corresponder a uma instrução `if` do JavaScript usando qualquer um dos padrões:
+
+```grit
+engine biome(1.0)
+language js(typescript,jsx)
+
+or {
+  // Padrão compatível com TreeSitter
+  if_statement(),
+
+  // Padrão de nó AST nativo do Biome
+  JsIfStatement()
+} as $stmt where {
+  register_diagnostic(
+    span=$stmt,
+    message="Encontrada uma instrução if"
+  )
+}
+```
+
+O uso de nós AST nativos é poderoso quando você precisa de consultas específicas e de alto desempenho. Por exemplo, alguns recursos de linguagem reconhecidos pelo Biome podem não ter um equivalente direto nos padrões genéricos `snake_case`. A correspondência direta no nó AST garante que você está visando a estrutura exata que pretende.
+
+Você pode encontrar uma lista completa de nós AST disponíveis para cada idioma explorando os arquivos `.ungram` no diretório [`xtask/codegen`](https://github.com/biomejs/biome/tree/main/xtask/codegen) do repositório do Biome.
+
+## Documentação da Linguagem
+
+Para mais informações sobre o GritQL e sua sintaxe, consulte a
+[Documentação da Linguagem GritQL](https://docs.grit.io/language/overview) oficial.
+
+Tenha em mente que o Biome não suporta todos os recursos do Grit (ainda).
+
+## Status da Integração
+
+O suporte ao GritQL no Biome está sendo desenvolvido ativamente. Muitas coisas já funcionam,
+mas ainda são esperados bugs e alguns recursos ainda estão completamente ausentes.
+
+Para uma visão detalhada de quais recursos do GritQL são suportados e quais ainda estão
+em andamento, consulte a issue no GitHub:
+https://github.com/biomejs/biome/issues/2582.
+
+Também temos um RFC detalhado que orienta a direção de nossos esforços de plugin:
+https://github.com/biomejs/biome/discussions/1762
+
+**tl;dr**: Estamos trabalhando no suporte a plugins, que podem ser plugins GritQL puros
+ou plugins JS/TS que usam o GritQL para selecionar o código em que desejam operar.
+Fique ligado!

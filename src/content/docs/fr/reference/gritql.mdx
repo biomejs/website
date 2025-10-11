@@ -96,6 +96,36 @@ mais devient vite plus intéressant avec l’ajout d’autres opérateurs&nbsp;:
 }
 ```
 
+## Correspondance de Nœuds AST Natifs
+
+Le moteur GritQL de Biome est construit sur ses propres analyseurs. Cela vous permet d'écrire des motifs qui correspondent directement aux nœuds de l'Arbre Syntaxique Abstrait (AST) natif de Biome, offrant une alternative plus précise aux motifs génériques compatibles avec TreeSitter.
+
+Les nœuds AST natifs de Biome sont identifiés par leurs noms en `PascalCase` (par exemple, `JsIfStatement`), ce qui les distingue des motifs `snake_case` compatibles avec TreeSitter (par exemple, `if_statement`).
+
+Par exemple, vous pouvez faire correspondre une instruction `if` en JavaScript en utilisant l'un ou l'autre des motifs :
+
+```grit
+engine biome(1.0)
+language js(typescript,jsx)
+
+or {
+  // Modèle compatible avec TreeSitter
+  if_statement(),
+
+  // Modèle de nœud AST natif de Biome
+  JsIfStatement()
+} as $stmt where {
+  register_diagnostic(
+    span=$stmt,
+    message="Une instruction if a été trouvée"
+  )
+}
+```
+
+L'utilisation de nœuds AST natifs est puissante lorsque vous avez besoin de requêtes spécifiques et performantes. Par exemple, certaines fonctionnalités du langage reconnues par Biome peuvent ne pas avoir d'équivalent direct dans les motifs génériques `snake_case`. La correspondance directe sur le nœud AST garantit que vous ciblez la structure exacte que vous visez.
+
+Vous pouvez trouver une liste complète des nœuds AST disponibles pour chaque langue en explorant les fichiers `.ungram` dans le répertoire [`xtask/codegen`](https://github.com/biomejs/biome/tree/main/xtask/codegen) du dépôt Biome.
+
 ## Documentation du langage
 
 Pour plus de renseignements sur GritQL et sa syntaxe, voir la

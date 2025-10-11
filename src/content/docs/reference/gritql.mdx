@@ -96,6 +96,36 @@ but it gets quickly more interesting when add other operators in the mix:
 }
 ```
 
+## Native AST Node Matching
+
+Biome's GritQL engine is built on top of its own parsers. This allows you to write patterns that match against Biome's native Abstract Syntax Tree (AST) nodes directly, offering a more precise alternative to generic, TreeSitter-compatible patterns.
+
+Native Biome AST nodes are identified by their `PascalCase` names (e.g., `JsIfStatement`), distinguishing them from the TreeSitter-compatible `snake_case` patterns (e.g., `if_statement`).
+
+For example, you can match a JavaScript `if` statement using either pattern:
+
+```grit
+engine biome(1.0)
+language js(typescript,jsx)
+
+or {
+  // TreeSitter-compatible pattern
+  if_statement(),
+
+  // Native Biome AST node pattern
+  JsIfStatement()
+} as $stmt where {
+  register_diagnostic(
+    span=$stmt,
+    message="Found an if statement"
+  )
+}
+```
+
+Using native AST nodes is powerful when you need to specific and performant queries. For example, some language features recognized by Biome might not have a direct equivalent in the generic `snake_case` patterns. Matching directly on the AST node ensures you are targeting the exact structure you intend.
+
+You can find a complete list of available AST nodes for each language by exploring the `.ungram` files in the [`xtask/codegen`](https://github.com/biomejs/biome/tree/main/xtask/codegen) directory of the Biome repository.
+
 ## Language Documentation
 
 For more information about GritQL and its syntax, see the official

@@ -90,6 +90,36 @@ GritQLクエリでは変数も使用できます。
 }
 ```
 
+## ネイティブASTノードのマッチング
+
+BiomeのGritQLエンジンは、独自のパーサーの上に構築されています。これにより、Biomeのネイティブな抽象構文木（AST）ノードに直接マッチするパターンを書くことができ、一般的なTreeSitter互換のパターンよりも正確な代替手段を提供します。
+
+BiomeのネイティブASTノードは、`PascalCase`の名前（例: `JsIfStatement`）で識別され、TreeSitter互換の`snake_case`パターン（例: `if_statement`）と区別されます。
+
+例えば、JavaScriptの `if` 文にマッチさせるには、どちらのパターンも使用できます：
+
+```grit
+engine biome(1.0)
+language js(typescript,jsx)
+
+or {
+  // TreeSitter互換のパターン
+  if_statement(),
+
+  // BiomeネイティブのASTノードパターン
+  JsIfStatement()
+} as $stmt where {
+  register_diagnostic(
+    span=$stmt,
+    message="if文が見つかりました"
+  )
+}
+```
+
+ネイティブASTノードを使用すると、具体的で高性能なクエリが必要な場合に強力です。例えば、Biomeが認識する一部の言語機能は、一般的な `snake_case` パターンに直接の相当物がない場合があります。ASTノードに直接マッチさせることで、意図した通りの構造を正確にターゲットにすることができます。
+
+各言語で利用可能なASTノードの完全なリストは、Biomeリポジトリの[`xtask/codegen`](https://github.com/biomejs/biome/tree/main/xtask/codegen)ディレクトリにある`.ungram`ファイルを調べることで見つけることができます。
+
 ## 言語ドキュメント
 
 GritQLとその構文については、公式の [GritQL 言語ドキュメント](https://docs.grit.io/language/overview)を参照してください。

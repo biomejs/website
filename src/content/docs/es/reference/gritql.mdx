@@ -95,6 +95,36 @@ pero se vuelve rápidamente más interesante cuando añadimos otros operadores a
 }
 ```
 
+## Coincidencia de Nodos AST Nativos
+
+El motor GritQL de Biome está construido sobre sus propios analizadores sintácticos (parsers). Esto te permite escribir patrones que coinciden directamente con los nodos del Árbol de Sintaxis Abstracta (AST) nativo de Biome, ofreciendo una alternativa más precisa a los patrones genéricos compatibles con TreeSitter.
+
+Los nodos AST nativos de Biome se identifican por sus nombres en `PascalCase` (por ejemplo, `JsIfStatement`), lo que los distingue de los patrones `snake_case` compatibles con TreeSitter (por ejemplo, `if_statement`).
+
+Por ejemplo, puedes hacer coincidir una declaración `if` de JavaScript usando cualquiera de los dos patrones:
+
+```grit
+engine biome(1.0)
+language js(typescript,jsx)
+
+or {
+  // Patrón compatible con TreeSitter
+  if_statement(),
+
+  // Patrón de nodo AST nativo de Biome
+  JsIfStatement()
+} as $stmt where {
+  register_diagnostic(
+    span=$stmt,
+    message="Se encontró una declaración if"
+  )
+}
+```
+
+Usar nodos AST nativos es muy útil cuando necesitas escribir consultas específicas y de alto rendimiento. Por ejemplo, algunas características del lenguaje reconocidas por Biome podrían no tener un equivalente directo en los patrones genéricos en `snake_case`. Hacer coincidir directamente el nodo AST te asegura que estás apuntando a la estructura exacta que deseas.
+
+Puedes encontrar una lista completa de los nodos AST disponibles para cada lenguaje explorando los archivos `.ungram` en el directorio [`xtask/codegen`](https://github.com/biomejs/biome/tree/main/xtask/codegen) del repositorio de Biome.
+
 ## Documentación de lenguaje
 
 Para más información sobre GritQL y su sintaxis, consulta la página oficial de
