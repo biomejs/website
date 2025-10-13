@@ -1,122 +1,115 @@
 ---
 title: 禁用检查
-description: 如何禁用检查。
+description: 如何使用禁用检查。
 ---
 
-Biome 分析器是 [linter](/linter) 和 [assist](/assist) 的基础；事实上，这两个工具中拥有大量相似之处。
+Biome 分析器是 [linter](/linter) 和 [assist](/assist) 的基础；事实上，这两个工具有很多相似之处。
 
-它们之中分享者同样的禁用检查的引擎，这意味着你可以像禁用一条 lint 规则一样禁用 assist 操作。
+其中，它们共享同一个禁用检查引擎，这意味着你可以用同样的方式禁用 lint 规则和 assist 操作。
 
-通过禁用检查，您可以关闭特定代码行、范围或整个文件的 lint 规则（或操作）。
+通过禁用检查，可以为特定代码行、代码范围或整个文件关闭检查或操作。
 
-禁用检查可以通过 **禁用检查注释** 实现。
+禁用检查可以通过 **禁用检查注释** 来实现。
 
 ## 禁用检查语法
 
-禁用检查注释拥有以下格式：
+禁用检查注释具有以下格式：
 
 ```js
-// biome-ignore lint: <解释>
-// biome-ignore assist: <解释>
-// biome-ignore syntax: <解释>
-// biome-ignore lint/suspicious: <解释>
-// biome-ignore lint/suspicious/noDebugger: <解释>
-// biome-ignore lint/suspicious/noDebugger(foo): <解释>
-// biome-ignore-all lint: <解释>
-// biome-ignore-start lint: <解释>
-// biome-ignore-end lint: <解释>
+// biome-ignore lint: <说明>
+// biome-ignore assist: <说明>
+// biome-ignore syntax: <说明>
+// biome-ignore lint/suspicious: <说明>
+// biome-ignore lint/suspicious/noDebugger: <说明>
+// biome-ignore lint/suspicious/noDebugger(foo): <说明>
+// biome-ignore-all lint: <说明>
+// biome-ignore-start lint: <说明>
+// biome-ignore-end lint: <说明>
 ```
 
-让我们分析一下：
+让我们分解一下：
 
-- `biome-ignore`、`biome-ignore-all`、`biome-ignore-start` 和 `biome-ignore-end` 是禁用检查注释的开始。
-- 空格后跟随着禁用检查的 **类别**。类别可以是 `lint`、`assist` 或 `syntax`。
-- 类别后跟一个可选的组或名称，用斜杠分隔。例如，`/suspicious` 或 `/suspicious/noDebugger`。您指定的详细，您的禁用检查就越具有针对性。
-- 有些规则甚至允许您在禁用检查期间指定值。这些可以在括号之间指定，例如 `(foo)`。请参阅规则文档以了解有关这些内容的更多信息来了解它们是否被使用。
-- `<解释>` 解释了为什么会禁用检查。
+- `biome-ignore`、`biome-ignore-all`、`biome-ignore-start` 和 `biome-ignore-end` 都是禁用检查注释的起始部分。
+- 空格后面是禁用检查注释的 **类别**。可以是 `lint`、`assist` 或 `syntax`。
+- 类别后面可以跟可选的组，或组和名称，用斜杠分隔。例如，`/suspicious` 或 `/suspicious/noDebugger`。指定得越详细，你的禁用检查就越具体（即有针对性）。
+- 有些规则甚至允许你在禁用检查时指定值。这些值可以在括号中指定，例如：`(foo)`。请参考规则文档以查看规则是否支持带值的禁用检查。
+- `<说明>` 说明禁用该规则的原因。
 
-如果您不确定规则或操作的确切类别，可以参考他们的文档页面并使用他们的 *诊断类别*。
+如果你不确定规则/操作的确切类别，可以参考它们的文档页面并使用它们的 _诊断类别_。
 
 :::note
-从这里开始，我们将使用 JavaScript 用于解释如何使用禁用检查注释，并使用 `lint` 类别。
+从这里开始，将使用 JavaScript 来解释禁用检查注释，并使用 `lint` 类别。
 :::
-
 
 ### 行内禁用检查
 
-它会禁用代码 **下一行** 的某个规则检查。
+它们为代码的 **下一行** 禁用 lint 规则。
 
-在以下示例中，禁用检查注释 `biome-ignore lint/suspicious/noDebugger: reason` 将禁用检查第 2 行的 `debugger;` 语句，但第 3 行的 `debugger;` 仍会触发检查：
+在下面的示例中，禁用检查注释 `biome-ignore lint/suspicious/noDebugger: <说明>` 将禁用第 2 行的 `debugger;` 语句，但第 3 行的 `debugger` 仍会触发诊断：
 
 ```js title="file.js" ins={1}
-// biome-ignore lint/suspicious/noDebugger: reason
+// biome-ignore lint/suspicious/noDebugger: <说明>
 debugger;
 debugger;
 ```
 
 ### 顶层禁用检查
 
-它会禁用检查整个文件的某个规则。它必须被放置在 **文件的最顶端**，并且它必须起始于 `biome-ignore-all`。
+它们为整个文件禁用 lint 规则。它们必须放在 **文件顶部**，并且必须以 `biome-ignore-all` 开头。
 
-这些禁用检查注释在你想要 *对于特定文件* 禁用某些规则检查来说非常有用，并且您不必再重复某个单一简单的配置了。
+当你想要为 _特定文件_ 禁用某些 lint 规则，而又不想依赖单一的配置覆盖来实现时，这些禁用检查注释非常有用。
 
-在以下示例中，禁用检查注释 `biome-ignore-all lint/suspicious/noDebugger: reason` 将会禁用 `generated.js` 的 `lint/suspicious/noDebugger` lint 规则：
+在下面的示例中，禁用检查注释 `biome-ignore-all lint/suspicious/noDebugger: <说明>` 将为 `generated.js` 中的所有行禁用 lint 规则：
 
 ```js title="generated.js" ins={1}
-// biome-ignore-all lint/suspicious/noDebugger: reason
-
-debugger
-debugger
-
+// biome-ignore-all lint/suspicious/noDebugger: <说明>
+debugger;
+debugger;
 ```
 
-当一个顶层禁用检查注释不在一个文件的最顶端，它会标记为 *未使用* 并且 Biome 将会标记一个 `suppression/unused` 诊断。
+当顶层禁用检查注释不在文件顶部时，它被视为 _未使用_，Biome 将发出类别为 `suppression/unused` 的诊断。
 
 ### 范围禁用检查
 
-它将会文件的在特定范围内禁用一条检查规则，从一行开始禁用检查注释开始，并在一行结束禁用检查注释结束。
+它们在文件的特定 _范围内_ 禁用 lint 规则，从开始注释所在的行开始，直到结束注释所在的行结束。
 
-要标记范围禁用检查的开始，禁用检查注释必须以 `// biome-ignore-start` 开头。
+要标记范围禁用检查的开始，禁用检查注释必须以 `// biome-ignore-start` 开头。要标记结束，禁用检查注释必须以 `// biome-ignore-end` 开头。
 
-要标记它的结尾，禁用检查注释必须以 `// biome-ignore-end` 开头。
-
-在以下示例中，将会从禁用从第 2 行到第 3 行的 `lint/suspicious/noDoubleEquals` 检查规则，但是第五行还是会发出一个诊断
+下面的示例将为第 2 行和第 3 行禁用规则 `lint/suspicious/noDoubleEquals`，但第 5 行将触发诊断：
 
 ```js name="file.js" ins={1} ins={4}
-// biome-ignore-start lint/suspicious/noDoubleEquals: reason
+// biome-ignore-start lint/suspicious/noDoubleEquals: <说明>
 a == b;
 c == d;
-// biome-ignore-end lint/suspicious/noDoubleEquals: reason
+// biome-ignore-end lint/suspicious/noDoubleEquals: <说明>
 f == g;
 ```
 
 :::note
-范围禁用检查必须有一个匹配的 `biome-ignore-end` 禁用检查注释作为结尾。
+范围禁用检查必须有匹配的 `biome-ignore-end` 注释。
 :::
 
-范围引用检查可以重叠，参考以下的例子：
+范围禁用检查也可以重叠。请看下面的示例：
 
 ```js name="file.js"
 debugger;
-// biome-ignore-start lint/suspicious/noDebugger: reason
-debugger
-// biome-ignore-start lint/suspicious/noDoubleEquals: reason
+// biome-ignore-start lint/suspicious/noDebugger: <说明>
+debugger;
+// biome-ignore-start lint/suspicious/noDoubleEquals: <说明>
 a == b;
 c == d;
-// biome-ignore-end lint/suspicious/noDoubleEquals: reason
-debugger
+// biome-ignore-end lint/suspicious/noDoubleEquals: <说明>
+debugger;
 f == g;
-// biome-ignore-end lint/suspicious/noDebugger: reason
+// biome-ignore-end lint/suspicious/noDebugger: <说明>
 ```
 
-在以上的代码中：
+在以上代码中：
 
-- 第 1 行的 `debugger` 语句将会发出诊断因为没有禁用检查注释禁用它的检查。
-- 第 2 行的禁用检查注释 `// biome-ignore-start lint/suspicious/noDebugger: reason` 将会从第 3 行开始禁用 `noDebugger` 规则的检查。
-- 第 4 行的禁用检查注释 `// biome-ignore-start lint/suspicious/noDoubleEquals: reason` 将会从第 5 行开始禁用 `noDebugger` 规则的检查。
-- 第 7 行的禁用检查注释 `// biome-ignore-end lint/suspicious/noDoubleEquals: reason` 结束了从第 4 行开始的禁用 `noDoubleEquals` 规则的检查
-- 第 8 行的 `debugger` 语句 **不会** 发出诊断因为第二行的禁用检查注释阻止了它。
-- 第 9 行的 `f == g` 表达式将会发出诊断因为 `noDoubleEquals` 规则没有被禁用检查。
-- 第 10 行的 `// biome-ignore-end lint/suspicious/noDebugger: reason` 结束了从第 2 行开始的禁用 `noDebugger`。
-
-
+- 第 1 行的 `debugger` 语句将触发诊断，因为没有禁用检查注释禁用它。
+- 第 2 行的 `// biome-ignore-start lint/suspicious/noDebugger: <说明>` 从第 3 行开始禁用 `noDebugger`。
+- 第 4 行的 `// biome-ignore-start lint/suspicious/noDoubleEquals: <说明>` 从第 5 行开始禁用 `noDoubleEquals`。
+- 第 7 行的 `// biome-ignore-end lint/suspicious/noDoubleEquals: <说明>` 终止了第 4 行注释开始的 `noDoubleEquals` 禁用。
+- 第 8 行的 `debugger` 语句由于第 2 行的禁用检查注释 **不会** 触发诊断。
+- 第 9 行的 `f == g` 语句触发诊断，因为 `noDoubleEquals` 规则不再被禁用。
+- 第 10 行的 `// biome-ignore-end lint/suspicious/noDebugger: <说明>` 终止了第 2 行注释开始的 `noDebugger` 禁用。

@@ -277,6 +277,7 @@ export const LINT_RULES = {
   useDefaultParameterLast: "useDefaultParameterLast",
   useDefaultSwitchClause: "useDefaultSwitchClause",
   useDefaultSwitchClauseLast: "useDefaultSwitchClauseLast",
+  useDeprecatedDate: "useDeprecatedDate",
   useDeprecatedReason: "useDeprecatedReason",
   useEnumInitializers: "useEnumInitializers",
   useErrorMessage: "useErrorMessage",

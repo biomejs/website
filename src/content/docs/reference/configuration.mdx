@@ -697,9 +697,17 @@ When set to `true`, allows to parse JSX syntax inside `.js` files. When set to `
 
 The type of quote used when representing string literals. It can be `"single"` or `"double"`.
 
-
-
 > Default: `"double"`
+
+```json title="biome.json"
+{
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single"
+    }
+  }
+}
+```
 
 ### `javascript.formatter.jsxQuoteStyle`
 

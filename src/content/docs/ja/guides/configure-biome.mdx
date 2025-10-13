@@ -1,6 +1,6 @@
 ---
 title: Biomeの設定
-description: Biomeを使用して新しいプロジェクトをセットアップする方法
+description: Biomeの設定がどのように機能するかを学びます。
 ---
 
 import { FileTree } from '@astrojs/starlight/components';
@@ -14,10 +14,12 @@ Biomeでは、CLIのオプションか `biome.json` または `biome.jsonc` の�
 これにより、CLIおよびBiomeと連携したエディタにおいてチームのメンバが同じ設定を使うことを保証できます。
 設定ファイルで利用可能なオプションの多くはCLIでも利用できます。
 
-## 設定ファイル
+## 設定ファイルの構成
+
+Biomeの設定ファイルは `biome.json` または `biome.jsonc` という名前です。通常、プロジェクトの `package.json` の隣、プロジェクトのルートフォルダに配置されます。
 
 Biomeはツールチェーンであるため、設定は提供されるツールごとに整理されています。
-現時点では、Biomeはフォーマッタ、リンタ、import文のソート（import文の整理とも呼ばれます）の3つのツールを提供しています。
+現時点では、Biomeはフォーマッタ、リンタ、アシストの3つのツールを提供しています。
 これらのツールはデフォルトですべて有効になっています。
 `<tool>.enabled` フィールドによっていくつかを無効にできます：
 
@@ -39,7 +41,7 @@ Biomeはツールチェーンであるため、設定は提供されるツール
 2つ以上の言語に適用されるオプションは対応するツールのフィールドの中に配置されています。
 言語に固有のツールのオプションは `<language>.<tool>` の下に配置されています。
 特定の言語について一般のオプションを上書きすることもできます。
-また、言語によってツールを有効または有効にすることもできます。
+また、言語によってツールを有効または無効にすることもできます。
 以下の例では、一般のオプション `formatter.indentStyle` と `formatter.lineWidth` をすべての言語に設定しています。
 加えて、`javascript.formatter` の中ではJavaScript固有のオプション `quoteStyle` を設定し、`formatter.lineWidth` を上書きしています。
 JSONファイルについてはフォーマッタを無効にしました。
@@ -80,16 +82,16 @@ Biomeは最も近い設定ファイルを見つけるために自動探索を利
 以下は例です：
 
 <FileTree>
-- app
-  - backend
+- app/
+  - backend/
     - biome.json
     - package.json
-  - frontend
+  - frontend/
+    - legacy/
+      - package.json
+    - new/
+      - package.json
     - biome.json
-    - legacy
-      - package.json
-    - new
-      - package.json
 </FileTree>
 
 
@@ -97,117 +99,66 @@ Biomeは最も近い設定ファイルを見つけるために自動探索を利
 - `app/frontend/legacy/package.json` または `app/frontend/new/package.json` で実行されたBiomeのコマンドは
   `app/frontend/biome.json` の設定ファイルを使います
 
-:::caution
-BiomeはCLIとLSPのいずれにおいてもネストされた `biome.json` ファイルをサポートしていません。[関連するIssueをフォローして手伝ってください](https://github.com/biomejs/biome/issues/2228)．
+:::note
+Biome（v2.0.0以降）はネストされた `biome.json` ファイルをサポートしています。詳細については、[大規模プロジェクトでのBiomeの使用](/guides/big-projects#use-multiple-configuration-files)を参照してください。
 :::
+
+
+## 処理するファイルの指定
+
+CLI、設定ファイル、VCSなど、さまざまな方法を使用して処理するファイルやフォルダを制御できます。
 
 :::note
-Biomeのコマンドは `--config-path` オプションと `BIOME_CONFIG_PATH` 環境変数の利用をサポートしています。
-カスタムの設定ファイル、もしくは `biome.json` や `biome.jsonc` ファイルを見つけるためのディレクトリを指定できます。
-`--config-path` または `BIOME_CONFIG_PATH` を使う場合、標準的な設定ファイルの解決は**無効になります**。
+デフォルトでは、Biomeは常に**保護されたファイル**と呼ばれるファイルを無視します。
+つまり、これらのファイルに対してBiomeが診断を出力することはありません。
+現時点では、以下のファイルが保護されています：
 
-`--config-path` または `BIOME_CONFIG_PATH` がファイルを直接参照する場合、`biome.json` と `biome.jsonc` 以外の名前を使えます。
-Biomeは `.json` ファイルを標準的なJSONパーサで読み込みます。
-他の拡張子を持つファイルについては、Biomeは `.jsonc` ファイルとして扱い、コメントや末尾のカンマを許容するより柔軟なJSONパーサを使います。
+- `composer.lock`
+- `npm-shrinkwrap.json`
+- `package-lock.json`
+- `yarn.lock`
 :::
 
+### CLIでファイルを指定する
 
-## 設定ファイルの共有
-
-`extends` フィールドは設定を複数のファイルに分割することを可能にします。
-この方法により、異なるプロジェクトやフォルダとの間で共通の設定を共有できます。
-
-以下は `common.json` 設定ファイルを継承した設定を行う方法を示した例です：
-
-```json title="biome.json"
-{
-  "extends": ["./common.json"]
-}
-```
-
-`extends` に定義されたエントリは `biome.json` ファイルの定義されたパスから解決されます。
-記載された順に処理され、後に記載されたファイルの設定がその前の設定を上書きします。
-
-Biomeは `node_modules/` ディレクトリから設定ファイルを解決できます。
-従って、パッケージから設定ファイルをエクスポートして、複数のプロジェクトでそれをインポートできます。
-
-そのようにするためには、まず "共有された" Biomeの設定を作成する必要があります。
-パッケージ `@org/shared-configs` から設定ファイルを指定子 `@org/shared-configs/biome` で共有することを考えましょう。
-このパッケージの `package.json` に `exports` エントリを作成する必要があります：
-
-```json title="package.json" ins={5,3}
-{
-  "name": "@org/shared-configs",
-  "type": "module",
-  "exports": {
-    "./biome": "./biome.json"
-  }
-}
-```
-`@org/shared-configs` がプロジェクトに正しくインストールされていることを確認し、`biome.json` を以下の例のように更新します：
-
-```json title="biome.json"
-{
-  "extends": ["@org/shared-configs/biome"]
-}
-```
-Biomeは `@org/shared-configs/` を作業ディレクトリから **解決** しようとします。
-作業ディレクトリは：
-
-- CLIを利用している場合、スクリプトを実行するディレクトリです。
-  一般的にこれは `package.json` ファイルの場所と同じです
-- LSPを利用している場合、プロジェクトのルートディレクトリです
-
-:::caution
-どのように解決されるかの破壊的な変更を防ぐために、ドット `.` で始まるパスと `.json` または `.jsonc` で終わるパスは `node_modules/` から解決**されません**。
-:::
-
-解決アルゴリズムの詳細な情報については、[Node.jsのドキュメント](https://nodejs.org/api/esm.html#resolution-and-loading-algorithm)を参照してください。
-
-
-## ファイルを無視する
-
-Biomeが処理するファイルまたはディレクトリを制御する最初の方法は、それらをCLIで列挙することです。
-以下のコマンドでは、 `file1.js` および `src` ディレクトリ内のすべてのファイルのみをフォーマットします。
-ディレクトリは再帰的に探索されます。
+Biomeが処理するファイルやフォルダを制御する最初の方法は、CLIでそれらを列挙することです。
+以下のコマンドでは、`file1.js` と `src` フォルダ内のすべてのファイルのみをフォーマットします。フォルダは再帰的に走査されます。
 
 ```shell
 biome format file1.js src/
 ```
 
 :::caution
-コマンドラインで利用されるglobパターンはBiomeによって解釈されず、シェルによって展開されます。
-いくつかのシェルは再帰的なglob `**` をサポートしていません。
+コマンドラインで使用されるglobパターンはBiomeによって解釈されません。
+これらはシェルによって展開されます。
+一部のシェルは再帰的なglob `**` をサポートしていません。
 :::
 
-Biomeの設定ファイルはどのファイルが処理されるかを調整するのに利用できます。
-`include` で処理するファイルを明示的に列挙し、`ignore` を使用して処理しないファイルを列挙できます。
-`include` と `ignore` は `src/**/*.js` などのglobパターンを受け入れます。
-どのglob文法がサポートされているかについては[関連するセクション](#glob文法の説明)を参照してください。
-`include` は常に `ignore` よりも先に適用されます。
-これにより、一部のファイルを含めたり、含めたファイルの一部を無視したりできます。
+### 設定ファイルでファイルを制御する
 
-:::note
-`include` と `ignore` は少し違うセマンティクスを持ちます。
-`include` はBiomeがフォルダを探索するのを妨げません。
-従って、Biomeがフォルダを探索するのを防ぎたい場合は、フォルダを `ignore` に追加する必要があります。
-:::
+Biomeの設定ファイルを使用して、処理するファイルを絞り込むことができます。
+[`files.includes` フィールド](/reference/configuration/#filesincludes)を使用して、処理するファイルを明示的に列挙できます。
+`files.includes` は `src/**/*.js` などの[globパターン](/reference/configuration/#glob-syntax-reference)を受け入れます。
+`!` で始まるnegatedパターンを使用してファイルを除外できます。
 
-Biomeは、すべてのツールに適用されるグローバルな `files.include` および `files.ignore` フィールドを提供します。
-`<tool>.include` および `<tool>.ignore` によって、ツールレベルでファイルを含めたり無視したりすることもできます。
-これらはグローバルな `files.include` および `files.ignore` を上書きしないことに注意してください。
-`files.include` および `files.ignore` は、ツールの `include` および `ignore` よりも先に適用されます。
+Biomeの設定ファイル内のパスとglobは、設定ファイルがあるフォルダを基準に解決されます。
+例外は、設定ファイルが別の設定ファイルによって[継承](/reference/configuration/#extends)されている場合です。
 
-次のような設定を考えます：
+`files.includes` はBiomeのすべてのツールに適用されます。つまり、ここで指定されたファイルは、特に指定しない限り、リンタ、フォーマッタ、アシストによって処理されます。
+個々のツールについては、`<tool>.includes` を使用してマッチするファイルをさらに絞り込むことができます。
+
+
+#### 設定ファイルでファイルを含める
+
+次のような設定を考えてみましょう。`src/` フォルダと `test/` フォルダ内のJavaScriptファイル（`.js`）のみを含め、名前に `.min.js` が含まれるファイルを無視したい場合：
 
 ```json title="biome.json"
 {
   "files": {
-    "include": ["src/**/*.js", "test/**/*.js"],
-    "ignore": ["**/*.min.js"]
+    "includes": ["src/**/*.js", "test/**/*.js", "!**/*.min.js"]
   },
   "linter": {
-    "ignore": ["test"]
+    "includes": ["**", "!test/**"]
   }
 }
 ```
@@ -218,80 +169,46 @@ Biomeは、すべてのツールに適用されるグローバルな `files.incl
 biome format test/
 ```
 
-このコマンドは、`test` ディレクトリにおいて `.js` 拡張子で終わり `.min.js` 拡張子で終わらないファイルをフォーマットします。
-ディレクトリがCLIで列挙されていないため、`src` 内のファイルはフォーマットされません。
+このコマンドは、`test/` フォルダから `.js` 拡張子で終わり、`.min.js` 拡張子で終わらないファイルをフォーマットします。
 
-次のコマンドを実行すると、`test` ディレクトリはリンタに対して明示的に無視されているため、ファイルはリントされません。
+フォルダがCLIに列挙されていないため、`src/` 内のファイルはフォーマットされません。
+
+次のコマンドを実行すると、`test/` フォルダ内のファイルはリンタで明示的に無視されているため、ファイルはリントされません。
 
 ```shell
 biome lint test/
 ```
 
-Biomeは、作業ディレクトリから相対的にglobを解決します。
-作業ディレクトリは通常、CLIコマンドを実行するディレクトリです。
-つまり、設定ファイルがコマンドを実行するのとは別のディレクトリに配置されている場合は、**特に注意**する必要があります。
-エディタ（LSP）の場合、作業ディレクトリはプロジェクトのルートディレクトリです。
+:::caution
+グローバルな `files.includes` は、より具体的な `<tool>.includes` フィールドとは若干異なるセマンティクスを持ちます。
+`files.includes` にマッチしないファイルやフォルダは、Biomeのすべてのツールから除外されます。
+つまり、ツール固有の `includes` フィールドは、`files.includes` にもマッチしないファイルとは決してマッチできません。
+:::
 
-2つのディレクトリ `backend/` と `frontend/` と、先ほど紹介したBiomeの設定ファイルを含むプロジェクトを考えてみましょう。
-`frontend/` ディレクトリ内では、`package.json` がBiomeのフォーマッタを実行する `format` スクリプトを指定します。
+#### 設定ファイルでファイルを除外する
 
-<FileTree>
-- backend
-  - ...
-- biome.json
-- frontend
-  - package.json
-  - src
-    - ...
-  - test
-    - ...
-</FileTree>
+Biomeによって処理されないファイルやフォルダを除外したい場合は、`files.includes` 設定を使用し、先頭に `!` を付けたnegatedパターンを使用できます。
 
-```json title="frontend/package.json"
-{
-  "name": "frontend-project",
-  "scripts": {
-    "format": "biome format --write ./"
-  }
-}
-```
+negatedされたglobを列挙する前に、**それらの前に `**` パターンを付ける必要があります**。
 
-`frontend/package.json` からスクリプト `format` を実行すると、そのスクリプトにおける作業ディレクトリは `frontend/` になります。
-`src/**/*.js` と `test/**/*.js` のglobは、`frontend/` を "ベース" ディレクトリとします。
-従って、`frontend/src/` と `frontend/test/` のファイルのみがフォーマットされます。
+次の例では、すべてのファイルを含めるようBiomeに指示しますが、任意の `dist/` フォルダ内のファイルと、`.generated.js` で終わるファイルは除外します：
 
 ```json title="biome.json"
 {
   "files": {
-    "include": ["src/**/*.js", "src/**/*.ts"],
-    "ignore": ["test"]
-  },
-  "formatter": {
-    "indentStyle": "space"
+    "includes": [
+      "**",
+      "!**/dist",
+      "!**/*.generated.js"
+    ]
   }
 }
 ```
 
-:::caution
-`overrides` 内の `ignore` と `include` は**異なる**セマンティクスを持ちます：
-- `ignore` の場合： ファイルがglobにマッチする場合、このオーバライド内の設定を**_適用しない_**で、次のオーバライドを適用します。
-- `include` の場合： ファイルがglobにマッチする場合、このオーバライド内の設定を**適用**し、次のオーバライドを適用します。
-:::
 
-:::note
-デフォルトでは、Biomeは**保護されたファイル**と呼ばれるファイルを常に無視します。
-つまり、これらのファイルに対してはBiomeが診断結果を出力することはありません。
-現時点では、以下のファイルが保護されています：
+### VCSでファイルを制御する
 
-- `composer.lock`
-- `npm-shrinkwrap.json`
-- `package-lock.json`
-- `yarn.lock`
-:::
-
-:::note
 [VCSで無視されたファイルを無視する](/guides/integrate-in-vcs#use-the-ignore-file)こともできます。
-:::
 
 
 ## 既知のファイル
@@ -345,38 +262,8 @@ Biomeは、作業ディレクトリから相対的にglobを解決します。
 - `jsconfig.json`
 - `jsr.json`
 - `language-configuration.json`
+- `nx.json`
+- `project.json`
 - `tsconfig.json`
 - `typedoc.json`
 - `typescript.json`
-
-
-## Glob文法の説明
-
-globパターンはファイル名の集合を指定します。
-Biomeは次のglobをサポートしています：
-
-- `*` は0個以上の文字にマッチします。パス区切り文字 `/` にはマッチしません。
-- `**` はディレクトリとファイルに対して再帰的にマッチします。
-  このシーケンスは単一のパスコンポーネント**でなければなりません**。
-  したがって、`**a` と `b**` はどちらも無効であり、エラーになります。
-  連続する `*` 文字が2つ以上続くシーケンスも無効です。
-- `[...]` は括弧内の任意の文字にマッチします。
-  Unicodeの順序による文字の範囲も指定できます。
-  例えば、`[0-9]` は0から9までの任意の文字を指定します。
-- `[!...]` は `[...]` の否定です。つまり、括弧内に**含まれない**任意の文字に一致します。
-
-いくつかの例です：
-
-- `dist/**` は、distディレクトリと、その中のすべてのファイルにマッチします。
-- `**/test/**` は、場所に関係なく、`test` という名前のディレクトリの下にあるすべてのファイルにマッチします。例： `dist/test`、`src/test`。
-- `**/*.js` は、すべてのディレクトリ内の拡張子 `.js` で終わるすべてのファイルにマッチします。
-
-Biomeが利用するglobライブラリは、すべてのglobが `**/` 接頭辞を持つものとして扱います。
-つまり、`src/**/*.js` と `**/src/**/*.js` は同一として扱われます。
-これらは `src/file.js` と `test/src/file.js` の両方にマッチします。
-
-:::caution
-これらのパターンはBiome設定ファイルで利用できます。
-コマンドラインで利用されるglobパターンはBiomeでは解釈されず、シェルによって展開されます。
-一部のシェルは再帰的なglob `**` をサポートしていません。
-:::

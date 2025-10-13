@@ -1,90 +1,233 @@
 ---
-title: 在大型项目中使用Biome
-description: 一份关于如何在大型项目中设置Biome的小指南
+title: 在大型项目中使用 Biome
+description: 一份在大型项目中配置 Biome 的指南
 ---
 
-Biome可以提供一些工具，帮助您在大型项目中正确使用它，例如包含多个项目的单体库或工作区。
+import { FileTree, Steps } from "@astrojs/starlight/components";
 
-## 使用多个配置文件
+Biome 提供了一系列功能，有助于在大型项目中使用，例如 monorepo 或包含多个项目的 workspace。
 
-当您使用Biome的功能-无论是使用CLI还是LSP时-工具会使用当前工作目录查找最近的配置文件。
+## 使用多份配置文件
 
-如果Biome在那里找不到配置文件，它会**向上遍历**文件系统的目录，直到找到一个配置文件。
+当使用 Biome 功能时（无论是通过 CLI 还是 LSP），工具会查找距离当前工作目录最近的配置文件。
 
-您可以利用此功能基于项目/文件夹应用不同的设置。
+如果 Biome 没有找到配置文件，它会 **向上遍历** 文件系统，直到找到一个配置文件为止。
 
-假设我们有一个包含后端应用和新前端应用的项目。
+您可以利用此功能为不同的项目/文件夹应用不同的配置。
 
-```
-app
-├── backend
-│   ├── biome.json
-│   └── package.json
-└── frontend
-    ├── biome.json
-    ├── legacy-app
-    │   └── package.json
-    └── new-app
-        └── package.json
-```
+假设我们有一个大型项目，其中包含一个前端项目和一个后端项目。
 
-这意味着当您从文件`app/backend/package.json`运行脚本时，Biome将使用配置文件`app/backend/biome.json`。
+<FileTree>
+- app
+  - backend
+    - biome.json
+    - package.json
+  - frontend
+    - biome.json
+    - legacy-app
+      - package.json
+    - new-app
+      - package.json
+</FileTree>
 
-当您从`app/frontend/legacy-app/package.json`或`app/frontend/new-app/package.json`运行脚本时，Biome将使用配置文件`app/frontend/biome.json`。
+此示例说明了当您在 `app/backend` 目录中运行 Biome 时，Biome 将使用 `app/backend/biome.json` 配置文件。
+而当您在 `app/frontend/legacy-app` 或 `app/frontend/new-app` 目录中运行时，Biome 则会使用 `app/frontend/biome.json` 配置文件。
 
-## 共享配置
+## Monorepo
 
-可以使用[`extends`](/reference/configuration#extends)配置选项将选项分解到不同的文件中。
+Monorepo 是一个包含多个包的大型代码仓库。每个包都可以拥有其独立的配置。
 
-假设我们有以下要求：
+自 v2 版本起，Biome 原生支持 monorepo，您需要按以下步骤进行配置：
 
-- `legacy-app`必须使用空格进行格式化；
-- `backend`和`new-app`必须使用制表符进行格式化；
-- 所有应用程序都必须使用行宽为120；
-- `backend`应用程序需要一些额外的代码检查；
+<Steps>
+1. 在 Monorepo 根目录创建 `biome.json` 文件。我们将启用推荐规则并配置格式化选项：
 
-我们首先在`app/biome.json`中创建一个新的配置文件，并将共享选项放在那里：
+   ```json title="biome.json"
+   {
+     "linter": {
+       "enabled": true,
+       "rules": {
+         "recommended": true
+       }
+     },
+     "formatter": {
+       "lineWidth": 120,
+       "indentStyle": "space",
+       "indentWidth": 6
+     }
+   }
+   ```
+  
+   此文件为 **根配置**，用于设定项目的通用选项。嵌套配置可以选择是否继承这些选项。
 
-```json title="app/biome.json"
+2. 为各个包创建嵌套配置文件（可根据需要创建）。
+   这些嵌套配置文件必须包含 `"root"` 字段并设置为 `false`。
+   此外，若要确保各包遵循根配置中的格式化规范，
+   我们可以使用 Biome 的 **新语法** `"extends": "//"`。
+   该语法指示 Biome 从 **根配置** 继承设置，无论嵌套配置位于何处。
+  
+   我们来创建两个配置文件，分别位于 `packages/logger` 和 `packages/generate` 目录下。
+   在前者的配置中，我们将禁用 `noConsole` 规则，
+   在后者的配置中，我们将禁用格式化功能，因为这些是自动生成的源代码文件：
+
+   ```json title="packages/logger/biome.json"
+   {
+     "root": false,
+     "extends": "//",
+     "linter": {
+       "rules": {
+         "suspicious": {
+           "noConsole": "off"
+         }
+       }
+     }
+   }
+   ```
+
+   ```json title="packages/generate/biome.json"
+   {
+     "root": false,
+     "extends": "//",
+     "formatter": {
+       "enabled": false
+     }
+   }
+   ```
+
+   为便于使用，我们 **可以** 省略 `"root": false`，因为当存在 [extends](/zh-cn/reference/configuration/#extends) 字段时，该值已被隐式设定：
+
+   ```diff title="packages/generate/biome.json"
+   {
+   - "root": false,
+     "extends": "//",
+     "formatter": {
+     enabled: false
+   }
+   ```
+
+3. 现在，假设新增一个包位于 `packages/analytics`，并由另一团队维护。
+   若该团队采用不同的编码规范，不希望继承根配置，
+   则只需省略 `"extends": "//"` 并自定义格式化选项：
+
+   ```json title="packages/analytics/biome.json"
+   {
+     "root": false,
+     "formatter": {
+       "lineWidth": 100
+     }
+   }
+   ```
+
+4. 配置完成后，您可以从根目录运行 `biome` 命令，也可以在单个包目录中运行。
+   Biome 将自动遵循相应的配置设置！
+</Steps>
+
+:::tip
+有时，Biome 可能会发现某个嵌套配置文件未正确设置 `"root": false`。
+这种情况常见于在已发布的目录或 Git 子模块中使用 Biome。
+在此场景下，我们建议通过 [`files.includes` 字段](/zh-cn/reference/configuration/#filesincludes) 忽略嵌套项目。
+:::
+
+## 其他配置共享方式
+
+如前所述，[extends](/zh-cn/reference/configuration/#extends) 字段支持将配置拆分为多个文件。
+借助此机制，可在多个包或不同目录间共享通用配置。
+虽然 `"extends": "//"` 语法是在嵌套配置中继承根配置的便捷方式，
+但在某些情况下您可能需要更灵活的配置方案。
+
+除 `"//"` 外，`extends` 设置还接受数组形式的值。此时，数组中的每项都应指向另一个配置文件的路径。
+
+例如，可通过如下方式配置以扩展 `common.json` 配置文件：
+
+```json title="biome.json"
 {
-  "formatter": {
-    "enabled": true,
-    "lineWidth": 120
-  }
+  "extends": ["./common.json"]
 }
 ```
 
-现在让我们**移动**`app/frontend/biome.json`到`app/frontend/legacy-app/`，因为我们需要在那里使用不同的格式化方式。
+在 [`extends`](/zh-cn/reference/configuration/#extends) 中定义的条目相对于 `biome.json` 文件所在路径进行解析。各项按列表顺序处理，靠后的文件配置将覆盖先前的设置。
 
-```json title="app/frontend/legacy-app/biome.json"
+被 `extend` 的文件不能进一步 `extend` 其他文件。
+
+请注意，配置文件中的路径始终相对于 `biome.json`/`biome.jsonc` 文件所在目录进行解析。使用 [`extends`](/zh-cn/reference/configuration/#extends) 字段时，这意味着共享配置中的路径是相对于引用它的配置文件位置解析的，而非被引用文件所在目录。
+
+例如，假设项目包含 `backend/` 和 `frontend/` 两个目录，各自拥有 `biome.json` 文件，均扩展根目录下的 `common.json` 配置：
+
+<FileTree>
+- backend/
+  - src/
+    - ...
+  - test/
+    - ...
+  - biome.json
+- frontend/
+  - src/
+    - ...
+  - test/
+    - ...
+  - biome.json
+- common.json
+</FileTree>
+
+```json title="common.json"
 {
-  "formatter": {
-    "indentStyle": "space"
-  }
-}
-```
-
-然后，我们告诉Biome从主要的`app/biome.json`文件继承所有选项，使用`extends`属性：
-
-```json title="app/frontend/legacy-app/biome.json" ins={2}
-{
-  "extends": ["../../biome.json"],
-  "formatter": {
-    "indentStyle": "space"
-  }
-}
-```
-
-让我们跳到`app/backend/biome.json`，在那里我们需要启用代码检查：
-
-```json title="app/backend/biome.json"
-{
-  "extends": ["../biome.json"],
+  "files": {
+    "includes": ["src/**/*.js", "test/**/*.js"]
+  },
   "linter": {
-    "enabled": true,
-    "rules": {
-      "recommended": true
-    }
+    "includes": ["**", "!test"]
   }
 }
 ```
+
+```json title="frontend/biome.json"
+{
+  "extends": ["../common.json"]
+}
+```
+
+- 当从 `frontend/` 目录运行 Biome 时，将配置为格式化和检查 `frontend/src/` 和 `frontend/test/` 目录中的所有 JavaScript 文件，
+  但仅格式化 `frontend/src/` 目录中的文件。这是因为 `common.json` 中指定的路径相对于 `frontend/` 目录解析，因为 `biome.json` 文件位于该目录中。
+- 假设 `backend/biome.json` 与 `frontend/biome.json` 配置相同，则行为一致，只是路径将相对于 `backend/` 目录解析。
+
+请注意，在这种配置下，`frontend/biome.json` 和 `backend/biome.json` 均视为根配置。除非使用 `--config-path` CLI 选项并指向特定配置，
+否则无法从仓库根目录运行 Biome。
+
+### 将 Biome 配置导出到 NPM 包
+
+Biome 支持解析 `node_modules/` 目录中的配置文件。
+因此可将 Biome 配置打包为 NPM 包，在多个项目间共享使用。
+
+实现此目的的第一步是建立"共享" Biome 配置。
+假设您拥有名为 `@org/shared-configs` 的包，并使用 `@org/shared-configs/biome` 作为配置标识符。
+您需要在 `package.json` 中添加 exports 字段：
+
+```json title="package.json" ins={5,3}
+{
+  "name": "@org/shared-configs",
+  "type": "module",
+  "exports": {
+    "./biome": "./biome.json"
+  }
+}
+```
+
+确保 `@org/shared-configs` 包已在您的项目中正确安装，并按如下方式更新 `biome.json` 配置文件：
+
+```json title="biome.json"
+{
+  "extends": ["@org/shared-configs/biome"]
+}
+```
+
+Biome 将尝试从您的工作目录解析 `@org/shared-configs/` 库。工作目录是指：
+
+- 使用 CLI 时为您执行命令的目录，通常与 `package.json` 文件位置一致；
+- 使用 LSP 时为项目的根目录。
+
+:::caution
+以 `.` 开头或以 `.json`、`.jsonc` 结尾的路径将被解析为相对路径，
+因此不会从 `node_modules/` 中解析。
+:::
+
+有关解析算法的更多信息，请参阅 [Node.js 文档](https://nodejs.org/api/esm.html#resolution-and-loading-algorithm)。
