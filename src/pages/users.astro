@@ -1,0 +1,46 @@
+---
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+import "@/styles/_users.css";
+
+export const allUsers = await getCollection("users");
+const title = Astro.locals.t("users.title");
+const description = Astro.locals.t("users.description");
+---
+
+<StarlightPage frontmatter={{
+	title,
+	description,
+	template: "splash",
+	editUrl: false,
+	hero: {
+		tagline: description,
+		title
+	}
+}}>
+	<div class="users-page">
+		<section class="users-section">
+			<div class="users-grid">
+				{allUsers.map((user) => (
+					<div class="user-card">
+						<div class="user-logo">
+							<Image
+								src={user.data.logo}
+								alt={`${user.data.id} logo`}
+								width={64}
+								height={64}
+								loading="lazy"
+							/>
+						</div>
+						<div class="user-info">
+							<h3 class="user-name">{user.data.id}</h3>
+						</div>
+					</div>
+				))}
+			</div>
+		</section>
+	</div>
+
+
+</StarlightPage>
