@@ -444,7 +444,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow unknown at-rules.\n\n For details on known at-rules, see the [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule).\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n @uNkNoWn {}\n ```\n\n ```css,expect_diagnostic\n @unknown-at-rule {\n   font-size: 14px;\n }\n ```\n\n ### Valid\n\n ```css\n @charset 'UTF-8';\n ```\n\n ```css\n @media (max-width: 960px) {\n   body {\n     font-size: 13px;\n   }\n }\n ```\n"
+            "docs": " Disallow unknown at-rules.\n\n For details on known at-rules, see the [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule).\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n @uNkNoWn {}\n ```\n\n ```css,expect_diagnostic\n @unknown-at-rule {\n   font-size: 14px;\n }\n ```\n\n ### Valid\n\n ```css\n @charset 'UTF-8';\n ```\n\n ```css\n @media (max-width: 960px) {\n   body {\n     font-size: 13px;\n   }\n }\n ```\n\n ## Options\n\n ### `ignore`\n\n A list of unknown at-rule names to ignore (case-insensitive).\n\n ```json,options\n {\n   \"options\": {\n     \"ignore\": [\n       \"custom-at-rule\",\n       \"my-custom-rule\"\n     ]\n   }\n }\n ```\n\n #### Valid\n\n ```css,use_options\n @custom-at-rule {}\n @my-custom-rule {\n   color: red;\n }\n ```\n"
           },
           "noUselessEscapeInString": {
             "deprecated": false,
@@ -475,25 +475,6 @@ export function GET() {
               }
             ],
             "docs": " Enforce specifying the name of GraphQL operations.\n\n This is useful because most GraphQL client libraries use the operation name for caching purposes.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query {}\n ```\n\n ### Valid\n\n ```graphql\n query Human {\n   name\n }\n ```\n\n"
-          }
-        },
-        "nursery": {
-          "useDeprecatedDate": {
-            "deprecated": false,
-            "version": "2.2.6",
-            "name": "useDeprecatedDate",
-            "link": "https://biomejs.dev/linter/rules/use-deprecated-date",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintGraphql": "require-deprecation-date"
-                }
-              }
-            ],
-            "docs": " Require the `@deprecated` directive to specify a deletion date.\n\n Suggests removing deprecated code when the due date has been passed.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query {\n   member @deprecated(reason: \"Use `members` instead\") {\n     id\n   }\n }\n ```\n\n ### Valid\n\n ```graphql\n query {\n   member @deprecated(reason: \"Use `members` instead\", deletionDate: \"2099-12-25\") {\n     id\n   }\n }\n ```\n\n"
           }
         },
         "style": {
@@ -5283,7 +5264,7 @@ export function GET() {
           },
           "useQwikMethodUsage": {
             "deprecated": false,
-            "version": "2.2.6",
+            "version": "next",
             "name": "useQwikMethodUsage",
             "link": "https://biomejs.dev/linter/rules/use-qwik-method-usage",
             "recommended": true,
@@ -5300,7 +5281,7 @@ export function GET() {
           },
           "useQwikValidLexicalScope": {
             "deprecated": false,
-            "version": "2.2.6",
+            "version": "next",
             "name": "useQwikValidLexicalScope",
             "link": "https://biomejs.dev/linter/rules/use-qwik-valid-lexical-scope",
             "recommended": true,
@@ -6249,7 +6230,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 364
+    "numberOrRules": 363
   },
   "syntax": {
     "languages": {

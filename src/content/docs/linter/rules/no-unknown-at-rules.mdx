@@ -68,6 +68,41 @@ For details on known at-rules, see the [MDN web docs](https://developer.mozilla.
 }
 ```
 
+## Options
+
+### `ignore`
+
+A list of unknown at-rule names to ignore (case-insensitive).
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noUnknownAtRules": {
+					"options": {
+						"ignore": [
+							"custom-at-rule",
+							"my-custom-rule"
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Valid
+
+```css
+@custom-at-rule {}
+@my-custom-rule {
+  color: red;
+}
+```
+
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)
