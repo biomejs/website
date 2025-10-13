@@ -480,7 +480,7 @@ export function GET() {
         "nursery": {
           "useDeprecatedDate": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.2.6",
             "name": "useDeprecatedDate",
             "link": "https://biomejs.dev/linter/rules/use-deprecated-date",
             "recommended": false,
@@ -5283,7 +5283,7 @@ export function GET() {
           },
           "useQwikMethodUsage": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.2.6",
             "name": "useQwikMethodUsage",
             "link": "https://biomejs.dev/linter/rules/use-qwik-method-usage",
             "recommended": true,
@@ -5300,7 +5300,7 @@ export function GET() {
           },
           "useQwikValidLexicalScope": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.2.6",
             "name": "useQwikValidLexicalScope",
             "link": "https://biomejs.dev/linter/rules/use-qwik-valid-lexical-scope",
             "recommended": true,
