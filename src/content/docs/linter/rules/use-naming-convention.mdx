@@ -567,7 +567,7 @@ class C {
 }
 ```
 
-<pre class="language-text"><code class="language-text"></code></pre>
+<pre class="language-text"><code class="language-text">code-block.ts:2:21 <a href="https://biomejs.dev/linter/rules/use-naming-convention">lint/style/useNamingConvention</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This </span><span style="color: lightgreen;"><strong>readonly static class property</strong></span><span style="color: lightgreen;"> name should be in </span><span style="color: lightgreen;"><strong>CONSTANT&#95;CASE</strong></span><span style="color: lightgreen;">.</span><br />  <br />    <strong>1 │ </strong>class C &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>    static readonly prop = 0;<br />   <strong>   │ </strong>                    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br /></code></pre>
 
 A convention can make another one useless.
 In the following configuration, the second convention is useless because the first one always applies to class members, including class properties.
