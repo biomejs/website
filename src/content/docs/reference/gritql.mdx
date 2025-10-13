@@ -96,6 +96,30 @@ but it gets quickly more interesting when add other operators in the mix:
 }
 ```
 
+## Matching Biome Syntax Nodes
+
+For more precise queries, you can match against Biome's internal syntax nodes directly. Each node is identified by a unique `PascalCase` name.
+
+For example, to find all JavaScript `if` statements, you can match the `JsIfStatement` node:
+
+```grit
+engine biome(1.0)
+language js(typescript,jsx)
+
+JsIfStatement() as $stmt where {
+  register_diagnostic(
+    span=$stmt,
+    message="Found an if statement"
+  )
+}
+```
+
+You can discover node names for your code by exploring the syntax tree in the [Biome Playground](https://biomejs.dev/playground/). A complete list of all available nodes is also available in the `.ungram` files in the [`xtask/codegen`](https://github.com/biomejs/biome/tree/main/xtask/codegen) directory of the Biome repository.
+
+:::caution
+Biome's grammar can change between versions, especially for new languages. This may cause node names to change, which could break your patterns. Be prepared to update your queries when upgrading Biome.
+:::
+
 ## Language Documentation
 
 For more information about GritQL and its syntax, see the official
