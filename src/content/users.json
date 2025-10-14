@@ -1,0 +1,158 @@
+[
+  {
+    "id": "Ant Design",
+    "logo": "@/assets/users/ant-design.png",
+    "url": "https://github.com/ant-design",
+    "featured": false
+  },
+  {
+    "id": "AWS",
+    "logo": "@/assets/users/aws.png",
+    "url": "https://github.com/aws",
+    "featured": true
+  },
+  {
+    "id": "beta.gouv.fr",
+    "logo": "@/assets/users/betagouv.png",
+    "url": "https://github.com/betagouv",
+    "featured": false
+  },
+  {
+    "id": "Cloudflare",
+    "logo": "@/assets/users/cloudflare.png",
+    "url": "https://github.com/cloudflare",
+    "featured": true
+  },
+  {
+    "id": "Software Engineering Institute - Carnegie Mellon University",
+    "logo": "@/assets/users/cmu-sei.png",
+    "url": "https://github.com/cmu-sei",
+    "featured": false
+  },
+  {
+    "id": "Coinbase",
+    "logo": "@/assets/users/coinbase.png",
+    "url": "https://github.com/coinbase",
+    "featured": true
+  },
+  {
+    "id": "Digital Agency of Japan",
+    "logo": "@/assets/users/digital-go-jp.png",
+    "url": "https://github.com/digital-go-jp",
+    "featured": false
+  },
+  {
+    "id": "Digital Democracy 2030",
+    "logo": "@/assets/users/digitaldemocracy2030.png",
+    "url": "https://github.com/digitaldemocracy2030",
+    "featured": false
+  },
+  {
+    "id": "Discord",
+    "logo": "@/assets/users/discord.png",
+    "url": "https://github.com/discord",
+    "featured": true
+  },
+  {
+    "id": "Discord.js",
+    "logo": "@/assets/users/discordjs.png",
+    "url": "https://github.com/discordjs",
+    "featured": false
+  },
+  {
+    "id": "Sentry",
+    "logo": "@/assets/users/getsentry.png",
+    "url": "https://github.com/getsentry",
+    "featured": false
+  },
+  {
+    "id": "Google",
+    "logo": "@/assets/users/google.png",
+    "url": "https://github.com/google",
+    "featured": true
+  },
+  {
+    "id": "Harvard Medical School - Department of Biomedical Informatics",
+    "logo": "@/assets/users/hms-dbmi.png",
+    "url": "https://github.com/hms-dbmi",
+    "featured": false
+  },
+  {
+    "id": "MetaMask",
+    "logo": "@/assets/users/metamask.png",
+    "url": "https://github.com/MetaMask",
+    "featured": false
+  },
+  {
+    "id": "Microsoft",
+    "logo": "@/assets/users/microsoft.png",
+    "url": "https://github.com/microsoft",
+    "featured": true
+  },
+  {
+    "id": "Norwegian Labour and Welfare Directorate",
+    "logo": "@/assets/users/navikt.png",
+    "url": "https://github.com/navikt",
+    "featured": false
+  },
+  {
+    "id": "Preact",
+    "logo": "@/assets/users/preactjs.png",
+    "url": "https://github.com/preactjs",
+    "featured": false
+  },
+  {
+    "id": "Slack",
+    "logo": "@/assets/users/slackapi.png",
+    "url": "https://github.com/slackapi",
+    "featured": true
+  },
+  {
+    "id": "TC39",
+    "logo": "@/assets/users/tc39.png",
+    "url": "https://github.com/tc39",
+    "featured": false
+  },
+  {
+    "id": "TUM Developers - Technical University of Munich",
+    "logo": "@/assets/users/tum-dev.png",
+    "url": "https://github.com/TUM-Dev",
+    "featured": false
+  },
+  {
+    "id": "Uniswap",
+    "logo": "@/assets/users/uniswap.png",
+    "url": "https://github.com/Uniswap",
+    "featured": true
+  },
+  {
+    "id": "U.S. Environmental Protection Agency",
+    "logo": "@/assets/users/usepa.png",
+    "url": "https://github.com/USEPA",
+    "featured": false
+  },
+  {
+    "id": "Vercel",
+    "logo": "@/assets/users/vercel.png",
+    "url": "https://github.com/vercel",
+    "featured": true
+  },
+  {
+    "id": "ByteDance Web Infra",
+    "logo": "@/assets/users/web-infra-dev.png",
+    "url": "https://github.com/web-infra-dev",
+    "featured": false
+  },
+  {
+    "id": "Wevm",
+    "logo": "@/assets/users/wevm.png",
+    "url": "https://github.com/wevm",
+    "featured": false
+  },
+  {
+    "id": "Astro",
+    "logo": "@/assets/users/withastro.png",
+    "url": "https://github.com/withastro",
+    "featured": true
+  }
+]

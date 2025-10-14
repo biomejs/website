@@ -1,5 +1,9 @@
 {
   "title.docs": "Docs",
   "title.enterprise": "Enterprise",
-  "title.playground": "Playground"
+  "title.playground": "Playground",
+  "users.featured.title": "Trusted by leading organizations",
+  "users.featured.description": "Join thousands of developers and companies using Biome in production",
+  "users.title": "Who uses Biome",
+  "users.description": "Biome is used by thousands of organizations around the world"
 }
