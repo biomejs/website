@@ -70,6 +70,7 @@ export const LINT_RULES = {
   noEmptyCharacterClassInRegex: "noEmptyCharacterClassInRegex",
   noEmptyInterface: "noEmptyInterface",
   noEmptyPattern: "noEmptyPattern",
+  noEmptySource: "noEmptySource",
   noEmptyTypeParameters: "noEmptyTypeParameters",
   noEnum: "noEnum",
   noEvolvingTypes: "noEvolvingTypes",
