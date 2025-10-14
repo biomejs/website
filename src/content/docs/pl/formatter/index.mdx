@@ -1,0 +1,129 @@
+---
+title: Formatter
+description: Jak używać formatera Biome.
+---
+
+import PackageManagerBiomeCommand from "@/components/PackageManagerBiomeCommand.astro";
+
+Biome to formater z określoną opinią, który [wspiera wiele języków](/internals/language-support).
+Podąża za podobną [filozofią do Prettier](https://prettier.io/docs/en/option-philosophy.html),
+wspierając tylko kilka opcji, aby uniknąć debat nad stylami, które przekształcają się w debaty nad opcjami Biome.
+Celowo [opiera się pokusie dodawania nowych opcji](https://github.com/prettier/prettier/issues/40), aby zapobiec [dyskusjom o trywialnych sprawach](https://en.wikipedia.org/wiki/Law_of_triviality) w zespołach, dzięki czemu mogą skupić się na tym, co naprawdę się liczy.
+
+
+## CLI
+
+Następujące polecenie sprawdza formatowanie plików w katalogu `src`.
+Wyświetla różnice tekstowe, jeśli znajdzie kod, który nie jest sformatowany.
+
+<PackageManagerBiomeCommand command="format ./src" />
+
+Jeśli chcesz **zastosować** nowe formatowanie, przekaż opcję `--write`:
+
+<PackageManagerBiomeCommand command="format --write ./src" />
+
+Polecenie akceptuje listę plików i katalogów.
+
+:::caution
+Jeśli przekażesz glob jako parametr, Twoja powłoka go rozszerzy.
+Wynik rozszerzenia zależy od Twojej powłoki.
+Na przykład niektóre powłoki nie wspierają rekurencyjnego globa `**` lub alternacji `{}` w następującym poleceniu:
+
+```shell
+biome format ./src/**/*.test.{js,ts}
+```
+
+Rozszerzenie powłoki ma koszt wydajności i limit liczby plików, które możesz przekazać do polecenia.
+:::
+
+Aby uzyskać więcej informacji o wszystkich dostępnych opcjach, sprawdź [odniesienie CLI](/reference/cli#biome-format).
+
+
+## Opcje
+
+Biome zapewnia kilka opcji do dostrojenia zachowania swojego formatera.
+W przeciwieństwie do innych narzędzi, Biome oddziela opcje niezależne od języka od opcji specyficznych dla języka.
+
+Opcje formatera mogą być ustawione w [CLI](/reference/cli/#biome-format) lub poprzez [plik konfiguracyjny Biome](/guides/configure-biome).
+Od wersji v1.9 Biome wspiera ładowanie plików `.editorconfig`.
+
+Zaleca się używanie [pliku konfiguracyjnego Biome](/guides/configure-biome), aby zapewnić, że zarówno Biome CLI, jak i Biome LSP stosują te same opcje.
+Stosowane są następujące wartości domyślne:
+
+```json title="biome.json"
+{
+  "formatter": {
+    "enabled": true,
+    "formatWithErrors": false,
+    "ignore": [],
+    "attributePosition": "auto",
+    "indentStyle": "tab",
+    "indentWidth": 2,
+    "lineWidth": 80,
+    "lineEnding": "lf"
+  },
+  "javascript": {
+    "formatter": {
+      "arrowParentheses":"always",
+      "bracketSameLine": false,
+      "bracketSpacing": true,
+      "jsxQuoteStyle": "double",
+      "quoteProperties": "asNeeded",
+      "semicolons": "always",
+      "trailingCommas": "all"
+    }
+  },
+  "json": {
+    "formatter": {
+      "trailingCommas": "none"
+    }
+  }
+}
+```
+
+Główne opcje niezależne od języka wspierane przez formater Biome to:
+
+- styl wcięcia (domyślnie: `tab`): Użyj spacji lub tabulatorów do wcięć;
+- szerokość wcięcia (domyślnie: `2`): Liczba spacji na poziom wcięcia.
+- szerokość linii (domyślnie: `80`): Szerokość kolumny, przy której Biome zawija kod;
+
+Zobacz [odniesienie do konfiguracji](/reference/configuration#formatter), aby uzyskać więcej szczegółów.
+
+
+## Ignorowanie kodu
+
+Zdarzają się sytuacje, gdy sformatowany kod nie jest idealny.
+
+W takich przypadkach możesz użyć komentarza pomijającego formatowanie:
+
+```js title="example.js"
+// biome-ignore format: <wyjaśnienie>
+```
+
+Przykład:
+
+```js title="example.js"
+const expr =
+  // biome-ignore format: tablica nie powinna być formatowana
+  [
+    (2 * n) / (r - l),
+    0,
+    (r + l) / (r - l),
+    0,
+    0,
+    (2 * n) / (t - b),
+    (t + b) / (t - b),
+    0,
+    0,
+    0,
+    -(f + n) / (f - n),
+    -(2 * f * n) / (f - n),
+    0,
+    0,
+    -1,
+    0,
+  ];
+```
+
+Biome nie udostępnia komentarzy ignorujących, które ignorują cały plik.
+Jednak możesz [zignorować plik używając pliku konfiguracyjnego Biome](/guides/configure-biome/#ignore-files).
