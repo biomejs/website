@@ -247,6 +247,25 @@ export function GET() {
             "docs": " Disallow unmatchable An+B selectors.\n\n Selectors that always evaluate to 0 will not match any elements.\n For more details about the An+B syntax, see:\n https://www.w3.org/TR/css-syntax-3/#anb-microsyntax\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a:nth-child(0) {}\n ```\n\n ```css,expect_diagnostic\n a:nth-last-child(0n) {}\n ```\n\n ```css,expect_diagnostic\n a:nth-of-type(0n+0) {}\n ```\n\n ```css,expect_diagnostic\n a:nth-last-of-type(0 of a) {}\n ```\n\n ### Valid\n\n ```css\n a:nth-child(1) {}\n ```\n\n ```css\n a:nth-last-child(1n) {}\n ```\n\n ```css\n a:nth-of-type(1n+0) {}\n ```\n\n ```css\n a:nth-last-of-type(1 of a) {}\n ```\n\n"
           }
         },
+        "nursery": {
+          "noEmptySource": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noEmptySource",
+            "link": "https://biomejs.dev/linter/rules/no-empty-source",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "stylelint": "no-empty-source"
+                }
+              }
+            ],
+            "docs": " Disallow empty sources.\n\n A source containing only the following is considered empty:\n   - Whitespace (spaces, tabs or newlines)\n   - Comments\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n\n ```\n\n ```css,expect_diagnostic\n /* Only comments */\n ```\n\n ### Valid\n\n ```css\n a { }\n ```\n\n ## Options\n\n ### `allowComments`\n\n Whether the comments should be marked as meaningful.\n When this option has been set to `true`, a file with only comments is considered valid.\n\n Default `false`\n\n ```json,options\n {\n   \"options\": {\n     \"allowComments\": true\n   }\n }\n ```\n\n #### Invalid\n\n ```css,expect_diagnostic,use_options\n\n ```\n\n #### Valid\n\n ```css,use_options\n /* Only comments */\n ```\n\n"
+          }
+        },
         "style": {
           "noDescendingSpecificity": {
             "deprecated": false,
@@ -478,6 +497,15 @@ export function GET() {
           }
         },
         "nursery": {
+          "noEmptySource": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noEmptySource",
+            "link": "https://biomejs.dev/linter/rules/no-empty-source",
+            "recommended": false,
+            "fixKind": "none",
+            "docs": " Disallow empty sources.\n\n A source containing only the following is considered empty:\n   - Whitespace (spaces, tabs or newlines)\n   - Comments\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n\n ```\n\n ```graphql,expect_diagnostic\n # Only comments\n ```\n\n ### Valid\n\n ```graphql\n query Member {}\n ```\n\n ```graphql\n fragment StrippedMember on Member {}\n ```\n\n ## Options\n\n ### `allowComments`\n\n Whether the comments should be marked as meaningful.\n When this option has been set to `true`, a file with only comments is considered valid.\n\n Default `false`\n\n\n ```json,options\n {\n   \"options\": {\n     \"allowComments\": true\n   }\n }\n ```\n\n #### Invalid\n\n ```graphql,expect_diagnostic,use_options\n\n ```\n\n #### Valid\n\n ```graphql,expect_diagnostic,use_options\n # Only comments\n ```\n\n"
+          },
           "useDeprecatedDate": {
             "deprecated": false,
             "version": "2.2.6",
@@ -1987,6 +2015,23 @@ export function GET() {
               }
             ],
             "docs": " Restrict imports of deprecated exports.\n\n This rule flags any imports for symbols (such as types, functions, or\n anything else that can be imported), that are documented with a JSDoc\n comment that contains an \"@deprecated\" annotation.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic,file=foo.js\n import { oldUtility } from \"./utils.js\";\n ```\n\n ```js,file=utils.js\n /**\n  * @deprecated\n  */\n export function oldUtility() {}\n ```\n\n ### Valid\n\n ```js,file=foo.js\n import { newUtility, oldUtility } from \"./utils.js\";\n ```\n\n ```js,file=utils.js\n export function newUtility() {}\n\n // @deprecated (this is not a JSDoc comment)\n export function oldUtility() {}\n ```\n\n"
+          },
+          "noEmptySource": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noEmptySource",
+            "link": "https://biomejs.dev/linter/rules/no-empty-source",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintUnicorn": "no-empty-file"
+                }
+              }
+            ],
+            "docs": " Disallow empty sources.\n\n A source containing only the following is considered empty:\n   - Whitespace (spaces, tabs or newlines)\n   - Comments\n   - Directives\n   - Empty statements\n   - Empty block statements\n   - Hashbang\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n\n ```\n\n ```js,expect_diagnostic\n // Only comments\n ```\n\n ```js,expect_diagnostic\n /* Only comments */\n ```\n\n ```js,expect_diagnostic\n 'use strict';\n ```\n\n ```js,expect_diagnostic\n ;\n ```\n\n ```js,expect_diagnostic\n {\n }\n ```\n\n ```js,expect_diagnostic\n #!/usr/bin/env node\n ```\n\n ### Valid\n\n ```js\n const x = 0;\n ```\n\n ```js\n 'use strict';\n const x = 0;\n ```\n\n ```js\n ;;\n const x = 0;\n ```\n\n ```js\n {\n   const x = 0;\n }\n ```\n\n ## Options\n\n ### `allowComments`\n\n Whether the comments should be marked as meaningful.\n When this option has been set to `true`, a file with only comments is considered valid.\n\n Default `false`\n\n ```json,options\n {\n   \"options\": {\n     \"allowComments\": true\n   }\n }\n ```\n\n #### Invalid\n\n ```js,expect_diagnostic,use_options\n\n ```\n\n #### Valid\n\n ```js,use_options\n /* Only comments */\n ```\n\n"
           },
           "noImportCycles": {
             "deprecated": false,
@@ -4399,6 +4444,15 @@ export function GET() {
               }
             ],
             "docs": " Prevent the listing of duplicate dependencies.\n The rule supports the following dependency groups: \"bundledDependencies\", \"bundleDependencies\", \"dependencies\", \"devDependencies\", \"overrides\", \"optionalDependencies\", and \"peerDependencies\".\n\n Dependencies are not allowed to be listed twice under the same dependency group.\n\n ## Examples\n\n ### Invalid\n\n ```json\n {\n     \"dependencies\": {\n         \"foo\": \"1.0.0\",\n         \"foo\": \"2.0.0\"\n     }\n }\n ```\n\n ```json\n {\n     \"bundleDependencies\": [\"foo\", \"foo\"]\n }\n ```\n\n ### Valid\n\n ```json\n {\n     \"dependencies\": {\n         \"foo\": \"2.0.0\"\n     }\n }\n ```\n\n ```json\n {\n     \"bundleDependencies\": [\"foo\"]\n }\n ```\n\n Some dependency group dependencies are checked against other dependency groups;\n  - Dependencies listed in \"dependencies\" cannot be listed under \"devDependencies\", \"optionalDependencies\" or \"peerDependencies\".\n  - Dependencies listed in \"optionalDependencies\" cannot be listed under \"peerDependencies\" (and vice versa).\n\n Dependencies listed in \"devDependencies\" are allowed to be listed in \"optionalDependencies\" or \"peerDependencies\".\n And dependencies listed in \"overrides\" & \"bundleDependencies\" are not checked against other dependency groups.\n\n ## Examples\n\n ### Invalid\n\n ```json\n {\n     \"dependencies\": {\n         \"foo\": \"1.0.0\"\n     },\n     \"devDependencies\": {\n         \"foo\": \"1.0.0\"\n     }\n }\n ```\n\n ### Valid\n\n ```json\n {\n     \"dependencies\": {\n         \"foo\": \"1.0.0\"\n     }\n }\n ```\n\n"
+          },
+          "noEmptySource": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noEmptySource",
+            "link": "https://biomejs.dev/linter/rules/no-empty-source",
+            "recommended": false,
+            "fixKind": "none",
+            "docs": " Disallow empty sources.\n\n A source containing only the following is considered empty:\n   - Whitespace (spaces, tabs or newlines)\n   - Comments\n\n ## Examples\n\n ### Invalid\n\n ```json,expect_diagnostic\n\n ```\n\n ```jsonc,expect_diagnostic\n // Only comments\n ```\n\n ### Valid\n\n ```json\n { }\n ```\n\n ## Options\n\n ### `allowComments`\n\n Whether the comments should be marked as meaningful.\n When this option has been set to `true`, a file with only comments is considered valid.\n\n Default `false`\n\n ```json,options\n {\n   \"options\": {\n     \"allowComments\": true\n   }\n }\n ```\n\n #### Invalid\n\n ```jsonc,expect_diagnostic,use_options\n\n ```\n\n #### Valid\n\n ```jsonc,expect_diagnostic,use_options\n // Only comments\n ```\n\n"
           }
         },
         "suspicious": {
@@ -6249,7 +6303,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 364
+    "numberOrRules": 368
   },
   "syntax": {
     "languages": {

@@ -72,6 +72,7 @@ export default {
   '/linter/rules/noEmptyCharacterClassInRegex': '/linter/rules/no-empty-character-class-in-regex',
   '/linter/rules/noEmptyInterface': '/linter/rules/no-empty-interface',
   '/linter/rules/noEmptyPattern': '/linter/rules/no-empty-pattern',
+  '/linter/rules/noEmptySource': '/linter/rules/no-empty-source',
   '/linter/rules/noEmptyTypeParameters': '/linter/rules/no-empty-type-parameters',
   '/linter/rules/noEnum': '/linter/rules/no-enum',
   '/linter/rules/noEvolvingTypes': '/linter/rules/no-evolving-types',
