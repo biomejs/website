@@ -18,6 +18,12 @@
     "featured": false
   },
   {
+    "id": "Canonical",
+    "logo": "@/assets/users/canonical.png",
+    "url": "https://github.com/canonical",
+    "featured": true
+  },
+  {
     "id": "Cloudflare",
     "logo": "@/assets/users/cloudflare.png",
     "url": "https://github.com/cloudflare",
@@ -33,6 +39,12 @@
     "id": "Coinbase",
     "logo": "@/assets/users/coinbase.png",
     "url": "https://github.com/coinbase",
+    "featured": true
+  },
+  {
+    "id": "Comcast",
+    "logo": "@/assets/users/comcast.png",
+    "url": "https://github.com/Comcast",
     "featured": true
   },
   {
@@ -57,6 +69,12 @@
     "id": "Discord.js",
     "logo": "@/assets/users/discordjs.png",
     "url": "https://github.com/discordjs",
+    "featured": false
+  },
+  {
+    "id": "Express",
+    "logo": "@/assets/users/expressjs.png",
+    "url": "https://github.com/expressjs",
     "featured": false
   },
   {
@@ -90,9 +108,21 @@
     "featured": true
   },
   {
+    "id": "n8n",
+    "logo": "@/assets/users/n8n-io.png",
+    "url": "https://github.com/n8n-io",
+    "featured": true
+  },
+  {
     "id": "Norwegian Labour and Welfare Directorate",
     "logo": "@/assets/users/navikt.png",
     "url": "https://github.com/navikt",
+    "featured": false
+  },
+  {
+    "id": "Polar",
+    "logo": "@/assets/users/polarsource.png",
+    "url": "https://github.com/polarsource",
     "featured": false
   },
   {
@@ -106,6 +136,18 @@
     "logo": "@/assets/users/slackapi.png",
     "url": "https://github.com/slackapi",
     "featured": true
+  },
+  {
+    "id": "Socket",
+    "logo": "@/assets/users/socketdev.png",
+    "url": "https://github.com/SocketDev",
+    "featured": true
+  },
+  {
+    "id": "Storybook",
+    "logo": "@/assets/users/storybookjs.png",
+    "url": "https://github.com/storybookjs",
+    "featured": false
   },
   {
     "id": "TC39",
