@@ -62,6 +62,8 @@ In particular, as for `v2.5.0`, Biome doesn't do any particular parsing for lang
 
 Lint rules that work across embedded languages aren't supported yet.
 
+### Linting HTML-ish languages
+
 When **linting** `.svelte`, `.astro` or `.vue` files, it's advised to turn off a few additional rules to prevent false positive linting errors caused by our partial support. Use the option `overrides` for that:
 
 ```json
@@ -85,6 +87,31 @@ When **linting** `.svelte`, `.astro` or `.vue` files, it's advised to turn off a
   ]
 }
 ```
+
+### Formatting with different settings
+
+With Biome, you can control the formatting of different languages. Now that Biome can process multiple languages in the same file,
+the chances of inconsistencies can grow based on your configuration.
+
+For example, you could risk having a file mixed with tabs and spaces when formatting a HTML-ish file that contains JavaScript and CSS code, like in the following example (we assume full support is enabled):
+
+```json
+{
+  "javascript": {
+    "format": {
+      "indentStyle": "tab"
+    }
+  },
+  "css": {
+    "format": {
+      "indentStyle": "space",
+      "indentWidth": 4
+    }
+  }
+}
+```
+
+We created a [GitHub discussion](https://github.com/biomejs/biome/discussions/7754) to address the issue, join the discussion and let us know what you think.
 
 :::note
 This last section might become outdated, so it's advised to use the [playground](https://biomejs.dev/playground), and check if your feature has been implemented.

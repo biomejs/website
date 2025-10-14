@@ -93,6 +93,8 @@ self.addEventListener("message", async (e) => {
 				allowComments,
 				attributePosition,
 				ruleDomains,
+				experimentalFullSupportEnabled,
+				cssModules,
 			} = e.data.settings as PlaygroundSettings;
 
 			configuration = {
@@ -156,6 +158,7 @@ self.addEventListener("message", async (e) => {
 					},
 					parser: {
 						allowWrongLineComments: true,
+						cssModules,
 					},
 				},
 				json: {
@@ -169,6 +172,7 @@ self.addEventListener("message", async (e) => {
 						indentScriptAndStyle,
 						whitespaceSensitivity,
 					},
+					experimentalFullSupportEnabled,
 				},
 			};
 
