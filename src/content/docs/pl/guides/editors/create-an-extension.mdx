@@ -1,0 +1,81 @@
+---
+title: Integracja Biome w rozszerzeniu edytora
+description: Dowiedz się, jak zintegrować Biome z edytorami i IDE
+---
+
+Biome ma pierwszorzędne wsparcie dla [LSP](https://microsoft.github.io/language-server-protocol/). Jeśli Twój edytor implementuje LSP, to integracja Biome powinna być bezproblemowa.
+
+### Użyj proxy LSP
+
+Biome ma polecenie zwane `lsp-proxy`. Po wykonaniu Biome uruchomi dwa procesy:
+- [daemon](/internals/architecture#daemon), który wykonuje żądane operacje;
+- serwer, który działa jako proxy między żądaniami klienta - edytora - a serwerem - daemonem;
+
+Jeśli Twój edytor jest w stanie wchodzić w interakcję z serwerem i wysyłać żądania [JSON-RPC](https://www.jsonrpc.org/), wystarczy tylko skonfigurować edytor, aby uruchomił to polecenie.
+
+Możesz sprawdzić, jak robi to [`rozszerzenie biome dla neo-vim`](https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/configs/biome.lua).
+
+### Użyj `stdin`
+
+Jeśli Twój edytor nie wspiera LSP, możesz użyć bezpośrednio pliku binarnego `biome` i wywołać go używając [standardowego wejścia](https://en.wikipedia.org/wiki/Standard_streams#Standard_input_(stdin)).
+
+Następujące polecenia mogą być wywoływane przez standardowe wejście:
+- [`format`](/reference/cli/#biome-format)
+- [`lint`](/reference/cli/#biome-lint)
+- [`check`](/reference/cli/#biome-check)
+
+Biome zwróci nowe wyjście (lub oryginalne wyjście, jeśli nie nastąpiły zmiany) do [standardowego wyjścia](https://en.wikipedia.org/wiki/Standard_streams#Standard_output_(stdout)), a diagnostykę do [standardowego błędu](https://en.wikipedia.org/wiki/Standard_streams#Standard_error_(stderr)).
+
+Gdy używasz `stdin`, musisz przekazać opcję `--stdin-file-path`. Ścieżka pliku **nie musi istnieć** w Twoim systemie plików, może to być dowolna nazwa. **Ważne jest**, aby podać prawidłowe rozszerzenie pliku, aby Biome wiedział, **jak traktować** Twój plik.
+
+To obowiązek edytora zlokalizować i rozwiązać ścieżkę pliku binarnego, a następnie wywołać go, gdy jest to potrzebne. Pliki binarne są dostarczane do npm w oparciu o architektury i systemy operacyjne, które wspieramy:
+
+- `@biomejs/cli-darwin-arm64`
+- `@biomejs/cli-darwin-x64`
+- `@biomejs/cli-linux-arm64`
+- `@biomejs/cli-linux-x64`
+- `@biomejs/cli-win32-arm64`
+- `@biomejs/cli-win32-x64`
+
+Nazwa pliku binarnego to `biome` lub `biome.exe` i można go znaleźć w katalogu głównym biblioteki, np.: `@biomejs/cli-darwin-arm64/biome`, `@biomejs/cli-win32-x64/biome.exe`.
+
+### Użyj daemona z plikiem binarnym
+
+Używanie pliku binarnego przez CLI jest bardzo wydajne, chociaż nie będziesz w stanie dostarczyć [logów](#daemon-logs) swoim użytkownikom. CLI pozwala uruchomić daemon, a następnie używać poleceń CLI przez sam daemon.
+
+Aby to zrobić, najpierw musisz uruchomić proces daemona za pomocą polecenia [`start`](/reference/cli#biome-start):
+
+```shell
+biome start
+```
+Następnie każde polecenie musi dodać opcję `--use-server`, np.:
+
+```shell
+echo "console.log('')" | biome format --use-server --stdin-file-path=dummy.js
+```
+
+:::note
+Jeśli zdecydujesz się użyć daemona, jesteś również odpowiedzialny za ponowne uruchomienie/zabicie procesu za pomocą polecenia [`stop`](/reference/cli#biome-stop), aby uniknąć posiadania procesów-widm.
+:::
+
+:::caution
+Operacje przez daemon są znacznie wolniejsze niż samo CLI, dlatego zaleca się uruchamianie operacji tylko na pojedynczych plikach.
+:::
+
+### Logi daemona
+
+Daemon Biome zapisuje logi w Twoim systemie plików. Logi są przechowywane w folderze o nazwie `biome-logs`. Ścieżka tego folderu zmienia się w zależności od Twojego systemu operacyjnego:
+-  Linux: `~/.cache/biome`;
+-  Windows: `C:\Users\<UserName>\AppData\Local\biomejs\biome\cache`
+-  macOS: `/Users/<UserName>/Library/Caches/dev.biomejs.biome`
+
+Dla innych systemów operacyjnych możesz znaleźć folder w katalogu tymczasowym systemu.
+
+Aby uzyskać dokładną ścieżkę, wykonaj następujące polecenie:
+```shell
+biome explain daemon-logs
+```
+
+Pliki logów są rotowane co godzinę.
+
+
