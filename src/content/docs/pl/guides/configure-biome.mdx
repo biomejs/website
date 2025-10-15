@@ -1,0 +1,281 @@
+---
+title: Konfiguracja Biome
+description: Dowiedz się, jak działa konfiguracja Biome.
+---
+
+import { FileTree } from '@astrojs/starlight/components';
+
+Ten przewodnik pomoże Ci zrozumieć, jak skonfigurować Biome.
+Wyjaśnia strukturę pliku konfiguracyjnego Biome i jak Biome rozwiązuje swoją konfigurację.
+Jeśli już znasz konfigurację, możesz zajrzeć do [odniesienia do konfiguracji](/reference/configuration/), które szczegółowo opisuje wszystkie dostępne opcje.
+
+Biome pozwala dostosować swoje zachowanie za pomocą opcji CLI lub pliku konfiguracyjnego o nazwie `biome.json` lub `biome.jsonc`.
+Zalecamy utworzenie pliku konfiguracyjnego dla każdego projektu.
+Zapewnia to, że każdy członek zespołu ma tę samą konfigurację w CLI i w każdym edytorze, który umożliwia integrację Biome.
+Wiele opcji dostępnych w pliku konfiguracyjnym jest również dostępnych w CLI.
+
+## Struktura pliku konfiguracyjnego
+
+Plik konfiguracyjny Biome nazywa się `biome.json` lub `biome.jsonc`. Zazwyczaj jest
+umieszczany w katalogu głównym projektu, obok pliku `package.json` projektu.
+
+Ponieważ Biome jest zestawem narzędzi, jego konfiguracja jest zorganizowana wokół narzędzi, które
+dostarcza. W tej chwili Biome dostarcza trzy narzędzia: formater, linter
+i assist. Wszystkie te narzędzia są domyślnie włączone. Możesz wyłączyć jedno
+lub kilka z nich używając pola `<tool>.enabled`:
+
+```json title="biome.json"
+{
+  "$schema": "https://biomejs.dev/schemas/2.0.5/schema.json",
+  "formatter": {
+    "enabled": false
+  },
+  "linter": {
+    "enabled": false
+  },
+  "assist": {
+    "enabled": false
+  }
+}
+```
+
+Opcje, które dotyczą więcej niż jednego języka, są umieszczane w odpowiednim polu narzędzia.
+Opcje specyficzne dla języka narzędzia są umieszczane pod polem `<language>.<tool>`.
+Pozwala to również na nadpisywanie ogólnych opcji dla danego języka.
+Możesz również włączać lub wyłączać narzędzie w zależności od języka.
+W poniższym przykładzie konfigurujemy ogólne opcje `formatter.indentStyle` i `formatter.lineWidth` dla wszystkich języków.
+Ponadto ustawiamy opcję specyficzną dla JavaScript `quoteStyle` w `javascript.formatter` i nadpisujemy `formatter.lineWidth`.
+Wyłączyliśmy formater dla plików JSON.
+
+```json5 title="biome.jsonc"
+{
+  "formatter": {
+    "indentStyle": "space", // default is `tab`
+    "lineWidth": 100 // default is `80`
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single", // default is `double`
+      "lineWidth": 120 // override `formatter.lineWidth`
+    }
+  },
+  "json": {
+    "formatter": {
+      "enabled": false
+    }
+  }
+}
+```
+
+:::note
+Biome odnosi się do wszystkich wariantów języka JavaScript jako `javascript`.
+Obejmuje to TypeScript, JSX i TSX.
+:::
+
+
+## Rozwiązywanie pliku konfiguracyjnego
+
+Biome używa automatycznego wykrywania, aby znaleźć najbliższy plik konfiguracyjny. Szuka w
+katalogu roboczym i jego folderach nadrzędnych, aż znajdzie plik `biome.json` lub
+`biome.jsonc`. Jeśli nie znajdzie konfiguracji, używana jest domyślna konfiguracja
+Biome. Jeśli zarówno `biome.json`, jak i `biome.jsonc` są obecne w tym samym folderze,
+używany jest `biome.json`.
+
+Oto przykład:
+
+<FileTree>
+- app/
+  - backend/
+    - biome.json
+    - package.json
+  - frontend/
+    - legacy/
+      - package.json
+    - new/
+      - package.json
+    - biome.json
+</FileTree>
+
+
+- Polecenia Biome uruchamiane w `app/backend/package.json` będą używać pliku konfiguracyjnego `app/backend/biome.json`;
+- Polecenia Biome uruchamiane w `app/frontend/legacy/package.json` i `app/frontend/new/package.json`
+będą używać pliku konfiguracyjnego `app/frontend/biome.json`;
+
+:::note
+Biome (od wersji v2.0.0) wspiera zagnieżdżone pliki `biome.json`. Aby uzyskać więcej informacji, przeczytaj [Używanie Biome w dużych projektach](/guides/big-projects#use-multiple-configuration-files).
+:::
+
+
+## Określanie plików do przetworzenia
+
+Możesz kontrolować pliki/foldery do przetworzenia przy użyciu różnych strategii, czy to CLI, konfiguracji czy VCS.
+
+:::note
+Domyślnie Biome zawsze ignoruje niektóre pliki, które są nazywane **plikami chronionymi**.
+Oznacza to, że żadna diagnostyka nie będzie nigdy emitowana przez Biome dla tych plików.
+W tej chwili następujące pliki są chronione:
+
+- `composer.lock`
+- `npm-shrinkwrap.json`
+- `package-lock.json`
+- `yarn.lock`
+:::
+
+### Dołącz pliki przez CLI
+
+Pierwszym sposobem kontrolowania, które pliki i foldery są przetwarzane przez Biome, jest
+wymienienie ich w CLI. W poniższym poleceniu formatujemy tylko `file1.js` i
+wszystkie pliki w folderze `src`, ponieważ foldery są przeszukiwane rekurencyjnie.
+
+```shell
+biome format file1.js src/
+```
+
+:::caution
+Wzorce glob używane w wierszu poleceń nie są interpretowane przez Biome.
+Są rozwijane przez Twoją powłokę.
+Niektóre powłoki nie wspierają rekurencyjnego globa `**`.
+:::
+
+### Kontroluj pliki przez konfigurację
+
+Plik konfiguracyjny Biome może być używany do doprecyzowania, które pliki są przetwarzane.
+Możesz jawnie wymienić pliki do przetworzenia używając
+[pola `files.includes`](/reference/configuration/#filesincludes).
+`files.includes` akceptuje
+[wzorce glob](/reference/configuration/#glob-syntax-reference) takie jak
+`src/**/*.js`. Negowane wzorce zaczynające się od `!` mogą być używane do wykluczenia plików.
+
+Ścieżki i globs wewnątrz pliku konfiguracyjnego Biome są rozwiązywane względem
+folderu, w którym znajduje się plik konfiguracyjny. Wyjątkiem jest sytuacja, gdy
+plik konfiguracyjny jest [rozszerzany](/reference/configuration/#extends) przez inny.
+
+`files.includes` dotyczy wszystkich narzędzi Biome, co oznacza, że pliki określone
+tutaj są przetwarzane przez linter, formater i assist, chyba że określono
+inaczej. Dla poszczególnych narzędzi możesz dalej precyzować pasujące pliki
+używając `<tool>.includes`.
+
+
+#### Dołącz pliki przez konfigurację
+
+Weźmy następującą konfigurację, w której chcemy dołączyć tylko pliki JavaScript (`.js`), które są w
+folderze `src/`, folderze `test/` i ignorować pliki, które mają `.min.js` w swojej nazwie:
+
+```json title="biome.json"
+{
+  "files": {
+    "includes": ["src/**/*.js", "test/**/*.js", "!**/*.min.js"]
+  },
+  "linter": {
+    "includes": ["**", "!test/**"]
+  }
+}
+```
+
+I uruchom następujące polecenie:
+
+```shell
+biome format test/
+```
+
+Polecenie sformatuje pliki, które kończą się rozszerzeniem `.js` i nie
+kończą się rozszerzeniem `.min.js` z folderu `test/`.
+
+Pliki w `src/` nie są formatowane, ponieważ folder nie jest wymieniony w
+CLI.
+
+Jeśli uruchomimy następujące polecenie, żadne pliki nie są lintowane, ponieważ pliki w
+folderze `test/` są jawnie ignorowane dla lintera.
+
+```shell
+biome lint test/
+```
+
+:::caution
+Globalne `files.includes` ma nieco inną semantykę niż bardziej
+specyficzne pola `<tool>.includes`. Każdy plik lub folder, który nie pasuje do
+`files.includes`, jest wykluczony z użycia przez którekolwiek z narzędzi Biome. Oznacza to, że
+żadne pole `includes` specyficzne dla narzędzia nie może nigdy pasować do pliku, który również nie
+pasuje do `files.includes`.
+:::
+
+#### Wyklucz pliki przez konfigurację
+
+Jeśli chcesz wykluczyć pliki i foldery z przetwarzania przez Biome, możesz użyć konfiguracji `files.includes`
+i użyć negowanych wzorców, używając wiodącego `!`.
+
+Przed wymienieniem negowanych globów, **muszą być poprzedzone wzorcem `**`**.
+
+W poniższym przykładzie mówimy Biome, aby dołączyć wszystkie pliki, z wyjątkiem tych w
+dowolnym folderze `dist/`, a także tych, które kończą się na `.generated.js`:
+
+```json title="biome.json"
+{
+  "files": {
+    "includes": [
+      "**",
+      "!**/dist",
+      "!**/*.generated.js"
+    ]
+  }
+}
+```
+
+
+### Kontroluj pliki przez VCS
+
+Możesz [ignorować pliki ignorowane przez Twój VCS](/guides/integrate-in-vcs#use-the-ignore-file).
+
+## Dobrze znane pliki
+
+Oto niektóre dobrze znane pliki, które specjalnie traktujemy na podstawie ich nazw plików, a nie ich rozszerzeń.
+Obecnie dobrze znane pliki to tylko pliki podobne do JSON, ale możemy poszerzyć listę o inne typy, gdy będziemy wspierać nowe parsery.
+
+Następujące pliki są parsowane jako pliki `JSON` z obiema opcjami `json.parser.allowComments` i `json.parser.allowTrailingCommas` ustawionymi na `false`.
+
+- `.all-contributorsrc`
+- `.arcconfig`
+- `.auto-changelog`
+- `.bowerrc`
+- `.c8rc`
+- `.htmlhintrc`
+- `.imgbotconfig`
+- `.jslintrc`
+- `.nycrc`
+- `.tern-config`
+- `.tern-project`
+- `.vuerc`
+- `.watchmanconfig`
+- `mcmod.info`
+
+Następujące pliki są parsowane jako pliki `JSON` z opcją `json.parser.allowComments` ustawioną na `true`, ale `json.parser.allowTrailingCommas` ustawioną na `false`. Dzieje się tak, ponieważ narzędzia konsumujące te pliki mogą tylko usuwać komentarze.
+
+- `.ember-cli`
+- `.eslintrc.json`
+- `.jscsrc`
+- `.jshintrc`
+- `tslint.json`
+- `turbo.json`
+
+Następujące pliki są parsowane jako pliki `JSON` z opcjami `json.parser.allowComments` i `json.parser.allowTrailingCommas` ustawionymi na `true`. Dzieje się tak, ponieważ narzędzia konsumujące te pliki są zaprojektowane tak, aby uwzględniać takie ustawienia.
+
+- `.babelrc`
+- `.babelrc.json`
+- `.devcontainer.json`
+- `.hintrc`
+- `.hintrc.json`
+- `.swcrc`
+- `api-documenter.json`
+- `api-extractor.json`
+- `babel.config.json`
+- `deno.json`
+- `devcontainer.json`
+- `dprint.json`
+- `jsconfig.json`
+- `jsr.json`
+- `language-configuration.json`
+- `nx.json`
+- `project.json`
+- `tsconfig.json`
+- `typedoc.json`
+- `typescript.json`
