@@ -68,6 +68,8 @@ export default function SettingsTab({
 			allowComments,
 			attributePosition,
 			ruleDomains,
+			experimentalFullSupportEnabled,
+			cssModules,
 		},
 	},
 }: SettingsTabProps) {
@@ -163,6 +165,16 @@ export default function SettingsTab({
 	const setRuleDomains = createPlaygroundSettingsSetter(
 		setPlaygroundState,
 		"ruleDomains",
+	);
+
+	const setExperimentalFullSupportEnabled = createPlaygroundSettingsSetter(
+		setPlaygroundState,
+		"experimentalFullSupportEnabled",
+	);
+
+	const setCssModules = createPlaygroundSettingsSetter(
+		setPlaygroundState,
+		"cssModules",
 	);
 
 	function setCurrentFilename(newFilename: string) {
@@ -356,6 +368,10 @@ export default function SettingsTab({
 					setUnsafeParameterDecoratorsEnabled
 				}
 				setAllowComments={setAllowComments}
+				experimentalFullSupportEnabled={experimentalFullSupportEnabled}
+				setExperimentalFullSupportEnabled={setExperimentalFullSupportEnabled}
+				cssModules={cssModules}
+				setCssModules={setCssModules}
 			/>
 		</div>
 	);
@@ -579,6 +595,10 @@ function SyntaxSettings({
 	setUnsafeParameterDecoratorsEnabled,
 	setAllowComments,
 	allowComments,
+	experimentalFullSupportEnabled,
+	setExperimentalFullSupportEnabled,
+	cssModules,
+	setCssModules,
 }: {
 	filename: string;
 	setFilename: (filename: string) => void;
@@ -586,11 +606,17 @@ function SyntaxSettings({
 	allowComments: boolean;
 	setUnsafeParameterDecoratorsEnabled: (value: boolean) => void;
 	setAllowComments: (value: boolean) => void;
+	experimentalFullSupportEnabled: boolean;
+	setExperimentalFullSupportEnabled: (value: boolean) => void;
+	cssModules: boolean;
+	setCssModules: (value: boolean) => void;
 }) {
 	const isScript = isScriptFilename(filename);
 	const enumSelectId = useId();
 	const allowCommentsId = useId();
 	const decoratorsId = useId();
+	const experimentalFullSupportId = useId();
+	const cssModulesId = useId();
 	return (
 		<>
 			<h2>Syntax options</h2>
@@ -637,6 +663,31 @@ function SyntaxSettings({
 						onChange={(e) => setAllowComments(e.target.checked)}
 					/>
 					<label htmlFor={allowCommentsId}>Allow comments in JSON files</label>
+				</div>
+				<div className="field-row">
+					<input
+						id={experimentalFullSupportId}
+						name="allow-comments"
+						type="checkbox"
+						checked={experimentalFullSupportEnabled}
+						onChange={(e) =>
+							setExperimentalFullSupportEnabled(e.target.checked)
+						}
+					/>
+					<label htmlFor={experimentalFullSupportId}>
+						Experimental HTML-ish full support
+					</label>
+				</div>
+
+				<div className="field-row">
+					<input
+						id={cssModulesId}
+						name="allow-comments"
+						type="checkbox"
+						checked={cssModules}
+						onChange={(e) => setCssModules(e.target.checked)}
+					/>
+					<label htmlFor={cssModulesId}>CSS Modules</label>
 				</div>
 			</section>
 		</>

@@ -183,6 +183,8 @@ export interface PlaygroundSettings {
 	ruleDomains: RuleDomains;
 	indentScriptAndStyle: boolean;
 	whitespaceSensitivity: WhitespaceSensitivity;
+	experimentalFullSupportEnabled: boolean;
+	cssModules: boolean;
 }
 
 export interface PlaygroundFileState {
@@ -235,6 +237,8 @@ export const defaultPlaygroundState: PlaygroundState = {
 		ruleDomains: {},
 		indentScriptAndStyle: false,
 		whitespaceSensitivity: WhitespaceSensitivity.Css,
+		experimentalFullSupportEnabled: true,
+		cssModules: false,
 	},
 };
 

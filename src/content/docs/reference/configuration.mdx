@@ -1333,8 +1333,9 @@ Enables Biome's assist for Grit files.
 ## `html`
 
 :::caution
-The HTML parser and formatter are still considered experimental, which means that breaking changes
-can happen in patch and minor versions.
+While HTML parser, formatter and linter are enabled by default, they are still considered experimental.
+Breaking changes will be reduced to a minimum, however the introduction of fixes and features might change
+the behavior of the tools.
 :::
 
 ### `html.parser.interpolation`
@@ -1441,13 +1442,13 @@ Whether void elements should be self-closed. Defaults to never.
 
 Enables Biome's linter for HTML files.
 
-> Default: `false`
+> Default: `true`
 
 ### `html.linter.assist`
 
 Enables Biome's assist for HTML files.
 
-> Default: `false`
+> Default: `true`
 
 
 ## `overrides`

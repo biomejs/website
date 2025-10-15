@@ -1,10 +1,10 @@
 import init, {
+	type AnalyzerSelector,
 	type Configuration,
 	DiagnosticPrinter,
 	MemoryFileSystem,
 	type ProjectKey,
 	type RuleCategories,
-	type RuleCode,
 	Workspace,
 } from "@biomejs/wasm-web";
 import { LINT_RULES } from "@/playground/generated/lintRules.ts";
@@ -30,7 +30,7 @@ let projectKey: ProjectKey | null = null;
 
 let configuration: undefined | Configuration;
 let fullSettings: undefined | PlaygroundSettings;
-let only: RuleCode[] = [];
+let only: AnalyzerSelector[] = [];
 // Configuration that comes from a virtual file. It takes precedence over the settings
 let fileConfiguration: undefined | Configuration;
 
@@ -93,6 +93,8 @@ self.addEventListener("message", async (e) => {
 				allowComments,
 				attributePosition,
 				ruleDomains,
+				experimentalFullSupportEnabled,
+				cssModules,
 			} = e.data.settings as PlaygroundSettings;
 
 			configuration = {
@@ -156,6 +158,7 @@ self.addEventListener("message", async (e) => {
 					},
 					parser: {
 						allowWrongLineComments: true,
+						cssModules,
 					},
 				},
 				json: {
@@ -169,6 +172,7 @@ self.addEventListener("message", async (e) => {
 						indentScriptAndStyle,
 						whitespaceSensitivity,
 					},
+					experimentalFullSupportEnabled,
 				},
 			};
 
