@@ -2,6 +2,7 @@
 title: Zed extension
 description: Notes about the Biome's Zed extension
 ---
+import { Badge } from '@astrojs/starlight/components';
 
 ## Installation
 
@@ -84,33 +85,35 @@ See [Language Support](/internals/language-support) for more information.
 }
 ```
 
+<Badge text="Updated for Zed v0.208.4" size="small" />
+
 ### Run code actions on format:
 
 ```jsonc
 // settings.json
 {
   "languages": {
-    "JavaScript": {
-      "formatter": { "language_server": { "name": "biome" } },
-      "code_actions_on_format": {
-        "source.fixAll.biome": true,
-        "source.organizeImports.biome": true
-      }
-    },
-    "TypeScript": {
-      "formatter": { "language_server": { "name": "biome" } },
-      "code_actions_on_format": {
-        "source.fixAll.biome": true,
-        "source.organizeImports.biome": true
-      }
-    },
-    "TSX": {
-      "formatter": { "language_server": { "name": "biome" } },
-      "code_actions_on_format": {
-        "source.fixAll.biome": true,
-        "source.organizeImports.biome": true
-      }
-    }
+		"JavaScript": {
+			"formatter": [
+				{ "language_server": { "name": "biome" } },
+				{ "code_action": "source.organizeImports.biome" },
+				{ "code_action": "source.fixAll.biome" }
+			]
+		},
+		"TypeScript": {
+			"formatter": [
+				{ "language_server": { "name": "biome" } },
+				{ "code_action": "source.organizeImports.biome" },
+				{ "code_action": "source.fixAll.biome" }
+			]
+		},
+		"TSX": {
+			"formatter": [
+				{ "language_server": { "name": "biome" } },
+				{ "code_action": "source.organizeImports.biome" },
+				{ "code_action": "source.fixAll.biome" }
+			]
+		}
   }
 }
 ```
@@ -138,6 +141,6 @@ You can exclude biome for a given language (e.g. GraphQL) on project with:
 
 ### Global Settings
 
-It is not recommended to add `biome` to top-level `language_servers`, `formatter` or `code_actions_on_format` keys in your Zed setting.json. Specifying biome as `language_server` or `formatter` globally may break functionality for languages that biome does not support (Rust, Python, etc).  See [language support](/internals/language-support) for a complete list of supported languages.
+It is not recommended to add `biome` to top-level `language_servers`, `formatter` or `code_actions` keys in your Zed setting.json. Specifying biome as `language_server` or `formatter` globally may break functionality for languages that biome does not support (Rust, Python, etc).  See [language support](/internals/language-support) for a complete list of supported languages.
 
 This documentation previously recommended global settings; please switch your Zed settings to explicitly configure biome on a per language basis.
