@@ -15,6 +15,7 @@ const IMPORT_IMAGE = 'import { Image } from "astro:assets";';
  */
 
 /**
+ * @param {string} repository - The repository in format "owner/repo"
  * @param {string} [token]
  * @param {number} [pageInterval=300]
  * @param {number} [retryTimes=5]
@@ -22,6 +23,7 @@ const IMPORT_IMAGE = 'import { Image } from "astro:assets";';
  * @returns {Promise<Contributor[]>}
  */
 async function getContributors(
+	repository,
 	token,
 	pageInterval = 300,
 	retryTimes = 5,
@@ -32,7 +34,7 @@ async function getContributors(
 	 */
 	const contributors = [];
 	const nextPageUrlRegEx = /<([^<>]+)>; rel="next"/;
-	let link = "https://api.github.com/repos/biomejs/biome/contributors";
+	let link = `https://api.github.com/repos/${repository}/contributors`;
 	while (link) {
 		let retryLeft = retryTimes;
 		let resp;
@@ -67,12 +69,77 @@ async function getContributors(
 			});
 		}
 	}
+	return contributors;
+}
+
+/**
+ * @param {Contributor[]} contributors
+ * @returns {Contributor[]}
+ */
+function sortContributors(contributors) {
 	return contributors
 		.filter((contributor) => !contributor.login.endsWith("[bot]"))
 		.sort(
 			({ contributions: c1, id: id1 }, { contributions: c2, id: id2 }) =>
 				c2 - c1 || id1 - id2,
 		);
+}
+
+/**
+ * Merges contributors from multiple repositories by summing contributions for the same user ID
+ * @param {Contributor[][]} contributorsArrays - Array of contributor arrays from different repositories
+ * @returns {Contributor[]}
+ */
+function mergeContributors(contributorsArrays) {
+	/**
+	 * @type {Map<number, Contributor>}
+	 */
+	const contributorsMap = new Map();
+
+	for (const contributors of contributorsArrays) {
+		for (const contributor of contributors) {
+			const existing = contributorsMap.get(contributor.id);
+			if (existing) {
+				existing.contributions += contributor.contributions;
+			} else {
+				contributorsMap.set(contributor.id, { ...contributor });
+			}
+		}
+	}
+
+	return Array.from(contributorsMap.values());
+}
+
+/**
+ * Fetches and merges contributors from all biomejs repositories
+ * @param {string} [token]
+ * @param {number} [pageInterval=300]
+ * @param {number} [retryTimes=5]
+ * @param {number} [retryInterval=1000]
+ * @returns {Promise<Contributor[]>}
+ */
+async function getAllContributors(
+	token,
+	pageInterval = 300,
+	retryTimes = 5,
+	retryInterval = 1000,
+) {
+	const repositories = [
+		"biomejs/biome",
+		"biomejs/website",
+		"biomejs/biome-vscode",
+		"biomejs/biome-zed",
+		"biomejs/biome-intellij",
+	];
+
+	const contributorsArrays = await Promise.all(
+		repositories.map((repo) =>
+			getContributors(repo, token, pageInterval, retryTimes, retryInterval),
+		),
+	);
+
+	const mergedContributors = mergeContributors(contributorsArrays);
+	return sortContributors(mergedContributors);
 }
 
 /**
@@ -167,7 +234,7 @@ async function main() {
 	});
 
 	const token = parsedResult.values.token;
-	const contributors = await getContributors(
+	const contributors = await getAllContributors(
 		typeof token === "string" ? token : undefined,
 	);
 	await Promise.all([
