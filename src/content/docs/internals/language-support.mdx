@@ -54,11 +54,11 @@ Please note, some well-known files like `tsconfig.json` and `.babelrc` don't use
 
 ## HTML super languages support
 
-Since version `v2.5.0`, Biome supports Vue, Svelte and Astro file out of the box. This means that Biome is able to format and lint the HTML, CSS and JavaScript parts of the files.
+Since version `v2.3.0`, Biome supports Vue, Svelte and Astro file out of the box. This means that Biome is able to format and lint the HTML, CSS and JavaScript parts of the files.
 
-However, this **support must be considered experimental** and subject to changes and improvements. In `v2.5.0`, we landed the architecture that enables this feature, however some formatting and linting rules must be adjusted.
+However, this **support must be considered experimental** and subject to changes and improvements. In `v2.3.0`, we landed the architecture that enables this feature, however some formatting and linting rules must be adjusted.
 
-In particular, as for `v2.5.0`, Biome doesn't do any particular parsing for language specific syntax, for example the control-flow syntax of Svelte e.g. `{#if } {/if}`. This means that formatting might not match the desired expectations, and lint rules might not detect some cases.
+In particular, as for `v2.3.0`, Biome doesn't do any particular parsing for language specific syntax, for example the control-flow syntax of Svelte e.g. `{#if } {/if}`. This means that formatting might not match the desired expectations, and lint rules might not detect some cases.
 
 Lint rules that work across embedded languages aren't supported yet.
 
