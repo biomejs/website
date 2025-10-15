@@ -414,6 +414,12 @@ function initState(
 				searchParams.get("allowComments") === "true" ||
 				defaultPlaygroundState.settings.allowComments,
 			ruleDomains,
+			cssModules:
+				searchParams.get("cssModules") === "true" ||
+				defaultPlaygroundState.settings.cssModules,
+			experimentalFullSupportEnabled:
+				searchParams.get("experimentalFullSupportEnabled") === "true" ||
+				defaultPlaygroundState.settings.experimentalFullSupportEnabled,
 		},
 	};
 }
