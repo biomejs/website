@@ -984,6 +984,14 @@ export default defineConfig({
 	build: {
 		format: "directory",
 	},
+	image: {
+		domains: [
+			"github.com",
+			"raw.githubusercontent.com",
+			"img.shields.io",
+			"img.shields.io",
+		],
+	},
 
 	markdown: {
 		syntaxHighlight: "shiki",
