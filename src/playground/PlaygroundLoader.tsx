@@ -21,7 +21,7 @@ import {
 	emptyBiomeOutput,
 	emptyPrettierOutput,
 	type IndentStyle,
-	Language,
+	LANGUAGE,
 	LoadingState,
 	type PlaygroundSettings,
 	type PlaygroundState,
@@ -30,6 +30,7 @@ import {
 	type Semicolons,
 	type TrailingCommas,
 	type WhitespaceSensitivity,
+	type Language,
 } from "@/playground/types";
 import {
 	createLocalStorage,
@@ -252,7 +253,7 @@ function buildLocation(state: PlaygroundState): string {
 		}
 
 		const language = guessLanguage(state.currentFile);
-		if (language !== Language.TSX) {
+		if (language !== LANGUAGE.TSX) {
 			queryStringObj.language = language;
 		}
 	} else {
@@ -308,7 +309,7 @@ function initState(
 		// Single file mode
 		if (searchParams.get("code")) {
 			const ext = getExtension({
-				language: (searchParams.get("language") as Language) ?? Language.TSX,
+				language: (searchParams.get("language") as Language) ?? LANGUAGE.TSX,
 				script: searchParams.get("script") === "true",
 			});
 			files[`main.${ext}`] = {
@@ -420,6 +421,9 @@ function initState(
 			experimentalFullSupportEnabled:
 				searchParams.get("experimentalFullSupportEnabled") === "true" ||
 				defaultPlaygroundState.settings.experimentalFullSupportEnabled,
+			tailwindDirectives:
+				searchParams.get("tailwindDirectives") === "true" ||
+				defaultPlaygroundState.settings.tailwindDirectives,
 		},
 	};
 }

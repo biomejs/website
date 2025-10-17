@@ -13,7 +13,8 @@ import {
 	AttributePosition,
 	Expand,
 	IndentStyle,
-	Language,
+	LANGUAGE,
+	type Language,
 	type PlaygroundState,
 	QuoteProperties,
 	QuoteStyle,
@@ -401,20 +402,20 @@ function LanguageView({
 					id={languageId}
 					name="language"
 					options={{
-						[Language.JS]: "JavaScript",
-						[Language.JSX]: "JSX",
-						[Language.TS]: "TypeScript",
-						[Language.TSX]: "TSX",
-						[Language.JSON]: "JSON",
-						[Language.GraphQL]: "GraphQL",
-						[Language.Grit]: "Grit",
-						[Language.CSS]: "CSS",
-						[Language.HTML]: "HTML",
-						[Language.Vue]: "Vue",
-						[Language.Svelte]: "Svelte",
-						[Language.Astro]: "Astro",
+						[LANGUAGE.JS]: "JavaScript",
+						[LANGUAGE.JSX]: "JSX",
+						[LANGUAGE.TS]: "TypeScript",
+						[LANGUAGE.TSX]: "TSX",
+						[LANGUAGE.JSON]: "JSON",
+						[LANGUAGE.GraphQL]: "GraphQL",
+						[LANGUAGE.Grit]: "Grit",
+						[LANGUAGE.CSS]: "CSS",
+						[LANGUAGE.HTML]: "HTML",
+						[LANGUAGE.Vue]: "Vue",
+						[LANGUAGE.Svelte]: "Svelte",
+						[LANGUAGE.Astro]: "Astro",
 					}}
-					value={language ?? Language.TSX}
+					value={language ?? LANGUAGE.TSX}
 					onChangeValue={setLanguage}
 				/>
 			</div>
