@@ -23,6 +23,9 @@
       "suspicious": {
         "noUnknownAtRules": "info"
       },
+      "complexity": {
+        "noImportantStyles": "off"
+      },
       "style": {
         "noNonNullAssertion": "off",
         "noParameterAssign": "error",

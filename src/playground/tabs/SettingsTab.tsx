@@ -13,7 +13,8 @@ import {
 	AttributePosition,
 	Expand,
 	IndentStyle,
-	Language,
+	LANGUAGE,
+	type Language,
 	type PlaygroundState,
 	QuoteProperties,
 	QuoteStyle,
@@ -70,6 +71,7 @@ export default function SettingsTab({
 			ruleDomains,
 			experimentalFullSupportEnabled,
 			cssModules,
+			tailwindDirectives,
 		},
 	},
 }: SettingsTabProps) {
@@ -175,6 +177,11 @@ export default function SettingsTab({
 	const setCssModules = createPlaygroundSettingsSetter(
 		setPlaygroundState,
 		"cssModules",
+	);
+
+	const setTailwindDirectives = createPlaygroundSettingsSetter(
+		setPlaygroundState,
+		"tailwindDirectives",
 	);
 
 	function setCurrentFilename(newFilename: string) {
@@ -372,6 +379,8 @@ export default function SettingsTab({
 				setExperimentalFullSupportEnabled={setExperimentalFullSupportEnabled}
 				cssModules={cssModules}
 				setCssModules={setCssModules}
+				tailwindDirectives={tailwindDirectives}
+				setTailwindDirectives={setTailwindDirectives}
 			/>
 		</div>
 	);
@@ -393,20 +402,20 @@ function LanguageView({
 					id={languageId}
 					name="language"
 					options={{
-						[Language.JS]: "JavaScript",
-						[Language.JSX]: "JSX",
-						[Language.TS]: "TypeScript",
-						[Language.TSX]: "TSX",
-						[Language.JSON]: "JSON",
-						[Language.GraphQL]: "GraphQL",
-						[Language.Grit]: "Grit",
-						[Language.CSS]: "CSS",
-						[Language.HTML]: "HTML",
-						[Language.Vue]: "Vue",
-						[Language.Svelte]: "Svelte",
-						[Language.Astro]: "Astro",
+						[LANGUAGE.JS]: "JavaScript",
+						[LANGUAGE.JSX]: "JSX",
+						[LANGUAGE.TS]: "TypeScript",
+						[LANGUAGE.TSX]: "TSX",
+						[LANGUAGE.JSON]: "JSON",
+						[LANGUAGE.GraphQL]: "GraphQL",
+						[LANGUAGE.Grit]: "Grit",
+						[LANGUAGE.CSS]: "CSS",
+						[LANGUAGE.HTML]: "HTML",
+						[LANGUAGE.Vue]: "Vue",
+						[LANGUAGE.Svelte]: "Svelte",
+						[LANGUAGE.Astro]: "Astro",
 					}}
-					value={language ?? Language.TSX}
+					value={language ?? LANGUAGE.TSX}
 					onChangeValue={setLanguage}
 				/>
 			</div>
@@ -599,6 +608,8 @@ function SyntaxSettings({
 	setExperimentalFullSupportEnabled,
 	cssModules,
 	setCssModules,
+	tailwindDirectives,
+	setTailwindDirectives,
 }: {
 	filename: string;
 	setFilename: (filename: string) => void;
@@ -610,6 +621,8 @@ function SyntaxSettings({
 	setExperimentalFullSupportEnabled: (value: boolean) => void;
 	cssModules: boolean;
 	setCssModules: (value: boolean) => void;
+	tailwindDirectives: boolean;
+	setTailwindDirectives: (value: boolean) => void;
 }) {
 	const isScript = isScriptFilename(filename);
 	const enumSelectId = useId();
@@ -617,6 +630,7 @@ function SyntaxSettings({
 	const decoratorsId = useId();
 	const experimentalFullSupportId = useId();
 	const cssModulesId = useId();
+	const tailwindDirectivesId = useId();
 	return (
 		<>
 			<h2>Syntax options</h2>
@@ -688,6 +702,16 @@ function SyntaxSettings({
 						onChange={(e) => setCssModules(e.target.checked)}
 					/>
 					<label htmlFor={cssModulesId}>CSS Modules</label>
+				</div>
+				<div className="field-row">
+					<input
+						id={tailwindDirectivesId}
+						name="allow-comments"
+						type="checkbox"
+						checked={tailwindDirectives}
+						onChange={(e) => setTailwindDirectives(e.target.checked)}
+					/>
+					<label htmlFor={tailwindDirectivesId}>Tailwind v4</label>
 				</div>
 			</section>
 		</>
