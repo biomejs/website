@@ -4,8 +4,8 @@ import { getCurrentTheme } from "@/frontend-scripts/util";
 import {
 	emptyBiomeOutput,
 	emptyPrettierOutput,
-	type Language,
 	LANGUAGE,
+	type Language,
 	type PlaygroundFileState,
 	type PlaygroundSettings,
 	type PlaygroundState,

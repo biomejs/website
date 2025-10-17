@@ -22,6 +22,7 @@ import {
 	emptyPrettierOutput,
 	type IndentStyle,
 	LANGUAGE,
+	type Language,
 	LoadingState,
 	type PlaygroundSettings,
 	type PlaygroundState,
@@ -30,7 +31,6 @@ import {
 	type Semicolons,
 	type TrailingCommas,
 	type WhitespaceSensitivity,
-	type Language,
 } from "@/playground/types";
 import {
 	createLocalStorage,
