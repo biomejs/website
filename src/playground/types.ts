@@ -185,6 +185,7 @@ export interface PlaygroundSettings {
 	whitespaceSensitivity: WhitespaceSensitivity;
 	experimentalFullSupportEnabled: boolean;
 	cssModules: boolean;
+	tailwindDirectives: boolean;
 }
 
 export interface PlaygroundFileState {

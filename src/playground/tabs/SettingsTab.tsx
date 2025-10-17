@@ -70,6 +70,7 @@ export default function SettingsTab({
 			ruleDomains,
 			experimentalFullSupportEnabled,
 			cssModules,
+			tailwindDirectives,
 		},
 	},
 }: SettingsTabProps) {
@@ -175,6 +176,11 @@ export default function SettingsTab({
 	const setCssModules = createPlaygroundSettingsSetter(
 		setPlaygroundState,
 		"cssModules",
+	);
+
+	const setTailwindDirectives = createPlaygroundSettingsSetter(
+		setPlaygroundState,
+		"tailwindDirectives",
 	);
 
 	function setCurrentFilename(newFilename: string) {
@@ -372,6 +378,8 @@ export default function SettingsTab({
 				setExperimentalFullSupportEnabled={setExperimentalFullSupportEnabled}
 				cssModules={cssModules}
 				setCssModules={setCssModules}
+				tailwindDirectives={tailwindDirectives}
+				setTailwindDirectives={setTailwindDirectives}
 			/>
 		</div>
 	);
@@ -599,6 +607,8 @@ function SyntaxSettings({
 	setExperimentalFullSupportEnabled,
 	cssModules,
 	setCssModules,
+	tailwindDirectives,
+	setTailwindDirectives,
 }: {
 	filename: string;
 	setFilename: (filename: string) => void;
@@ -610,6 +620,8 @@ function SyntaxSettings({
 	setExperimentalFullSupportEnabled: (value: boolean) => void;
 	cssModules: boolean;
 	setCssModules: (value: boolean) => void;
+	tailwindDirectives: boolean;
+	setTailwindDirectives: (value: boolean) => void;
 }) {
 	const isScript = isScriptFilename(filename);
 	const enumSelectId = useId();
@@ -617,6 +629,7 @@ function SyntaxSettings({
 	const decoratorsId = useId();
 	const experimentalFullSupportId = useId();
 	const cssModulesId = useId();
+	const tailwindDirectivesId = useId();
 	return (
 		<>
 			<h2>Syntax options</h2>
@@ -688,6 +701,16 @@ function SyntaxSettings({
 						onChange={(e) => setCssModules(e.target.checked)}
 					/>
 					<label htmlFor={cssModulesId}>CSS Modules</label>
+				</div>
+				<div className="field-row">
+					<input
+						id={tailwindDirectivesId}
+						name="allow-comments"
+						type="checkbox"
+						checked={tailwindDirectives}
+						onChange={(e) => setTailwindDirectives(e.target.checked)}
+					/>
+					<label htmlFor={tailwindDirectivesId}>Tailwind v4</label>
 				</div>
 			</section>
 		</>

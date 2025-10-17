@@ -95,6 +95,7 @@ self.addEventListener("message", async (e) => {
 				ruleDomains,
 				experimentalFullSupportEnabled,
 				cssModules,
+				tailwindDirectives,
 			} = e.data.settings as PlaygroundSettings;
 
 			configuration = {
@@ -159,6 +160,7 @@ self.addEventListener("message", async (e) => {
 					parser: {
 						allowWrongLineComments: true,
 						cssModules,
+						tailwindDirectives,
 					},
 				},
 				json: {
