@@ -120,6 +120,12 @@
     "featured": false
   },
   {
+    "id": "Node.js",
+    "logo": "@/assets/users/nodejs.png",
+    "url": "https://github.com/nodejs",
+    "featured": true
+  },
+  {
     "id": "Polar",
     "logo": "@/assets/users/polarsource.png",
     "url": "https://github.com/polarsource",
