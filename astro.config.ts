@@ -989,12 +989,7 @@ export default defineConfig({
 		format: "directory",
 	},
 	image: {
-		domains: [
-			"github.com",
-			"raw.githubusercontent.com",
-			"img.shields.io",
-			"img.shields.io",
-		],
+		domains: ["github.com", "raw.githubusercontent.com", "img.shields.io"],
 	},
 
 	markdown: {
