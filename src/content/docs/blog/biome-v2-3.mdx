@@ -30,7 +30,7 @@ Biome 2.3 introduces full support for Vue, Svelte, and Astro files. This means y
 
 This achievement wouldn't have been possible without the great efforts of <Avatar handle="ematipico" /> and <Avatar handle="dyc3" />.
 
-This is a feature that many developers have been asking for, and we're thrilled to finally deliver it. Achieving this has had its challenges, and it required extensive trials to get the architecture right based on the constraints of the toolchain. If you're curious about the technical implications, read the [deep-dive](/blog/multilanguage-support).
+This is a feature that many developers have been asking for, and we're thrilled to finally deliver it. Achieving this has had its challenges, and it required extensive trials to get the architecture right based on the constraints of the toolchain.
 
 However, this feature is marked as **experimental** for several important reasons. First, these frameworks have their own specific syntaxes and idioms that extend beyond standard HTML, CSS, and JavaScript. While we've done extensive work to handle many patterns, there are cases and framework-specific syntaxes that may not yet be fully supported (for example Svelte control-flow syntax, or Astro JSX-like syntax). We encourage you to avail of this new feature, and fine-tune it based on your needs and possible limitations found.
 
@@ -185,6 +185,17 @@ This is a opt-in feature of the CSS parser, and you can enable it using the new 
 ## Lint rules
 
 ### Promoted rules
+
+- Promoted `noNonNullAssertedOptionalChain` to the suspicious group
+- Promoted `useReactFunctionComponents` to the `style` group
+- Promoted `useImageSize` to the `correctness` group
+- Promoted `useConsistentTypeDefinitions` to the `style` group
+- Promoted `useQwikClasslist` to the `correctness` group
+- Promoted `noSecrets` to the `security` group
+
+### Removed rules
+
+Removed nursery lint rule `useAnchorHref`, because its use case is covered by `useValidAnchor`.
 
 ### Updated the `react` domain
 
