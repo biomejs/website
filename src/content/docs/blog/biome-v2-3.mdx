@@ -49,6 +49,8 @@ To enable the feature, you'll have to opt in the new `html.experimentalFullSuppo
 We plan to fade out this option and make it the default. The option will be removed once the HTML parser becomes stable supports more language-specific features.
 :::
 
+### Script and style indentation
+
 Additionally, you can configure specific formatting options for HTML content, such as whether to indent the content of `<script>` and `<style>` tags:
 
 ```json title="biome.json" ins={4} ins="indentScriptAndStyle"
@@ -83,6 +85,34 @@ const foo = "bar";
 ```
 
 By default, `indentScriptAndStyle` is set to `false` to match Prettier's behavior.
+
+### Possible inconsistencies
+
+With this release, we step into something new that needs to be addressed and discussed. In Biome you can configure each language as you see fit, which means that a project *might end up with different formatting (as example)*.
+
+In the following configuration file, JavaScript files are formatted using double quotes, while CSS files are formatted using single quotes.
+
+```json
+{
+	"html": {
+		"format": { "enabled": true },
+		"experimentalFullSupportEnabled": true
+	},
+  "javascript" : {
+    "formatter": {
+      "quoteStyle": "double"
+    }
+  },
+  "css": {
+    "formatter": {
+      "quoteStyle": "single"
+    }
+  }
+}
+```
+
+Why would someone want that? That's not for us to answer, however with a configuration like this you would end with **different quotes inside your HTML-ish files**.
+This could cause inconsistencies inside the same. We created a [GitHub discussion](https://github.com/biomejs/biome/discussions/7754) to understand if this is a problem, and if so, how Biome should solve it. Please let us know what do you think.
 
 ## New ignore syntax
 
@@ -181,6 +211,22 @@ In the following example, the `lint` command runs all the rules that you configu
 
 ```shell
 biome lint --skip=test
+```
+
+## Enhanced `init` command
+
+The `init` command now checks if the project contains ignore files and `dist/` folders. If supported ignore files are found, Biome will
+enable the [VCS integration](/guides/integrate-in-vcs), and if `dist/` folder is found, it will exclude it using the new ignore syntax. This should help reducing
+the friction when starting with Biome:
+
+```json
+{
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  }
+}
 ```
 
 ## New reporters

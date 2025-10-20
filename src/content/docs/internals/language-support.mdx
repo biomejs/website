@@ -64,6 +64,18 @@ Lint rules that work across embedded languages aren't supported yet.
 
 ### Linting HTML-ish languages
 
+Some lint rules don't work across boundaries just yet. For example, the following `.vue` file, the rule `noUnusedVariables` will flag a false positive for `greeting`:
+
+```vue title=app.vue ins="greeting"
+<script setup lang="ts">
+    const greeting = "hello world"
+</script>
+
+<template>
+    <h1>{{ greeting }}</h1>
+</template>
+```
+
 When **linting** `.svelte`, `.astro` or `.vue` files, it's advised to turn off a few additional rules to prevent false positive linting errors caused by our partial support. Use the option `overrides` for that:
 
 ```json

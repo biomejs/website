@@ -202,6 +202,10 @@ export default defineConfig({
 						{
 							label: "Configure Biome",
 							link: "/guides/configure-biome",
+							badge: {
+								text: "updated",
+								variant: "note",
+							},
 							translations: {
 								es: "Configurar Biome",
 								fr: "Configurer Biome",
