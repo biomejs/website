@@ -64,7 +64,7 @@ For example, if you want to figure out which paths take the longest when
 building the module graph, you can use the following command:
 
 ```sh
-cat tracing.json | jq '. | select(.span.name == "update_module_graph") | { path: .span.path, time_busy: .["time.busy"], time_idle: .["time.idle"] }' > filtered.json
+cat tracing.json | jq 'select(.span.name == "update_module_graph_internal") | { path: .span.path, time_busy: .["time.busy"], time_idle: .["time.idle"] }' > filtered.json
 ```
 
 Now you will have a file called `filtered.json` with all the relevant timings,
