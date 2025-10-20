@@ -1,0 +1,78 @@
+---
+title: Integracja Biome z VCS
+description: Dowiedz się, jak zintegrować Biome z VCS
+---
+
+Integracja VCS (System Kontroli Wersji) ma na celu wykorzystanie **dodatkowych** funkcji, które może zapewnić tylko VCS.
+W tej chwili Biome obsługuje tylko Git.
+Integracja jest **opcjonalna**.
+Musisz włączyć `vcs.enabled` i ustawić `vcs.clientKind` w pliku konfiguracyjnym Biome:
+
+```json title="biome.json"
+{
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git"
+  }
+}
+```
+
+Ta konfiguracja **sama w sobie nic nie robi**. Musisz włączyć funkcje, których chcesz używać.
+
+### Użyj pliku ignore
+
+Włącz `vcs.useIgnoreFile`, aby pozwolić Biome ignorować wszystkie pliki i katalogi wymienione w pliku ignore VCS projektu, a także plik `.ignore`.
+
+```json title="biome.json" ins={5}
+{
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  }
+}
+```
+
+### Przetwarzaj tylko zmienione pliki
+
+To jest funkcja dostępna tylko przez CLI i pozwala przetwarzać **tylko** te pliki, które **zmieniły się** z jednej rewizji na drugą.
+
+Najpierw musisz zaktualizować plik konfiguracyjny i powiedzieć Biome, jaka jest domyślna gałąź przez pole `vcs.defaultBranch`:
+
+```json title="biome.json" ins={6}
+{
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true,
+    "defaultBranch": "main"
+  }
+}
+```
+
+Następnie dodaj opcję `--changed` do swojej komendy, aby przetwarzać tylko te pliki, które Twój VCS rozpoznał jako "zmienione". Biome, z pomocą VCS, określi zmienione pliki z gałęzi `main` i Twojej bieżącej rewizji:
+
+```shell
+biome check --changed
+```
+
+:::caution
+Biome nie sprawdza, co się zmieniło, co oznacza, że nawet dodanie spacji lub nowych linii do pliku oznaczy ten plik jako "zmieniony"
+:::
+
+Alternatywnie możesz użyć opcji `--since`, aby określić dowolną gałąź. Ta opcja **ma pierwszeństwo** nad opcją `vcs.defaultBranch`. Na przykład, możesz chcieć sprawdzić swoje zmiany względem gałęzi `next`:
+
+```shell
+biome check --changed --since=next
+```
+
+### Przetwarzaj tylko pliki staged
+
+Przed zatwierdzeniem zmian możesz chcieć sprawdzić formatowanie i lintować pliki, które zostały dodane do _indeksu_, znane również jako _pliki staged_.
+Dodaj opcję `--staged` do swojej komendy, aby przetwarzać tylko te pliki:
+
+```shell
+biome check --staged
+```
+
+Opcja `--staged` nie jest dostępna w poleceniu `ci`, ponieważ nie oczekuje się, że będziesz zatwierdzać zmiany w środowisku CI.

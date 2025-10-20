@@ -1,0 +1,276 @@
+---
+title: Używanie Biome w dużych projektach
+description: Mały przewodnik jak skonfigurować Biome w dużych projektach
+---
+
+import {FileTree, Steps} from '@astrojs/starlight/components';
+
+Biome może dostarczyć narzędzia, które pomogą Ci używać go prawidłowo w dużych
+projektach, takich jak monorepo lub przestrzenie robocze zawierające wiele projektów.
+
+## Użyj wielu plików konfiguracyjnych
+
+Gdy korzystasz z funkcji Biome - czy to przez CLI, czy LSP - narzędzie szuka
+najbliższego pliku konfiguracyjnego używając bieżącego katalogu roboczego.
+
+Jeśli Biome nie znajdzie tam pliku konfiguracyjnego, **zaczyna przechodzić
+w górę** katalogi systemu plików, aż go znajdzie.
+
+Możesz wykorzystać tę funkcję, aby zastosować różne ustawienia w zależności od
+projektu/folderu.
+
+Załóżmy, że mamy projekt, który zawiera aplikację backendową i aplikację
+frontendową.
+
+<FileTree>
+  - app
+    - backend
+      - biome.json
+      - package.json
+    - frontend
+      - biome.json
+      - legacy-app
+        - package.json
+      - new-app
+        - package.json
+</FileTree>
+
+Oznacza to, że gdy uruchomisz Biome wewnątrz `app/backend`, Biome użyje
+pliku konfiguracyjnego `app/backend/biome.json`. A gdy uruchomisz z
+`app/frontend/legacy-app` lub `app/frontend/new-app`, Biome użyje
+pliku konfiguracyjnego `app/frontend/biome.json`.
+
+## Monorepo
+
+Monorepo to szczególne repozytoria, w których wiele pakietów jest przechowywanych i
+utrzymywanych w jednym dużym repozytorium. Każdy pakiet może zawierać własną
+konfigurację.
+
+Od wersji v2 Biome wspiera monorepo od razu, i będziesz musiał skonfigurować
+projekt w następujący sposób.
+
+<Steps>
+1. Utwórz plik `biome.json` w katalogu głównym monorepo. Użyjemy
+    zalecanych reguł i dostosujemy opcje formatera:
+
+    ```json title="biome.json"
+    {
+        "linter": {
+            "enabled": true,
+            "rules": {
+                "recommended": true
+            }
+        },
+        "formatter": {
+            "lineWidth": 120,
+            "indentStyle": "space",
+            "indentWidth": 6
+        }
+    }
+    ```
+    Ten plik nazywa się **konfiguracją główną** i ustawia podstawowe opcje
+    wewnątrz projektu. Jednak zagnieżdżone konfiguracje mogą zdecydować, czy
+    przestrzegać tych opcji, czy nie. Zobaczmy jak.
+
+2. Utwórz zagnieżdżone pliki konfiguracyjne, po jednym w każdym pakiecie, gdzie jest to potrzebne.
+    Te zagnieżdżone pliki konfiguracyjne muszą mieć pole `"root"` ustawione na
+    `false`. Ponadto chcemy, aby te pakiety przestrzegały standardów formatowania
+    ustawionych w konfiguracji głównej. W tym celu użyjemy **nowej
+    mikroskladni** dostępnej w Biome v2, którą jest `"extends": "//"`. Ta składnia
+    mówi Biome, aby rozszerzał z **konfiguracji głównej**, niezależnie od tego, gdzie
+    znajduje się zagnieżdżona konfiguracja.
+
+    Utwórzmy dwa pliki konfiguracyjne, jeden w `packages/logger` i jeden
+    w `packages/generate`. W pierwszym wyłączymy `noConsole`, a
+    w `packages/generate` wyłączymy formater, ponieważ są to pliki
+    generowane automatycznie:
+
+    ```json title="packages/logger/biome.json"
+    {
+        "root": false,
+        "extends": "//",
+        "linter": {
+            "rules": {
+                "suspicious": {
+                    "noConsole": "off"
+                }
+            }
+        }
+    }
+    ```
+
+    ```json title="packages/generate/biome.json"
+    {
+        "root": false,
+        "extends": "//",
+        "formatter": {
+            "enabled": false
+        }
+    }
+    ```
+    Dla wygody, gdy używasz mikroskladni `extends: "//"`, możesz
+    **pominąć** `"root": false`, ponieważ jest już dorozumiane, że ta
+    konfiguracja nie jest konfiguracją główną:
+
+    ```diff title="packages/generate/biome.json"
+    {
+    -   "root": false,
+        "extends": "//",
+        "formatter": {
+        "enabled": false
+    }
+    ```
+3. Teraz załóżmy, że mamy nowy pakiet w `packages/analytics`, który jest
+    utrzymywany przez inny zespół. Ten zespół stosuje zupełnie inne standardy
+    kodowania, więc _nie_ chcą dziedziczyć opcji z konfiguracji głównej. Dla nich
+    wystarczy pominąć `"extends": "//"` z pliku konfiguracyjnego i zmienić opcje formatowania:
+    ```json title="packages/analytics/biome.json"
+    {
+        "root": false,
+        "formatter": {
+            "lineWidth": 100,
+        }
+    }
+
+    ```
+4. Teraz, gdy wszystko jest skonfigurowane, masz kilka opcji. Możesz uruchamiać polecenia
+    `biome` z katalogu głównego projektu lub z pojedynczych pakietów. Biome
+    będzie przestrzegał wszystkich ustawień!
+</Steps>
+
+:::tip
+Czasami Biome może znaleźć zagnieżdżony plik konfiguracyjny, który nie ma
+prawidłowego ustawienia `"root": false`. Może się to zdarzyć, jeśli masz inny projekt
+używający Biome w folderze vendored lub podmodule Git, na przykład. W takim
+przypadku sugerujemy całkowite zignorowanie zagnieżdżonego projektu używając
+[pola `files.includes`](/reference/configuration/#filesincludes).
+:::
+
+## Inne sposoby udostępniania pliku konfiguracyjnego
+
+Jak widzieliśmy powyżej, pole `extends` pozwala na podzielenie konfiguracji
+na wiele plików. W ten sposób możesz udostępniać wspólne ustawienia w różnych
+projektach lub folderach. Składnia `"extends": "//"` jest wygodnym skrótem, gdy
+chcesz, aby zagnieżdżone konfiguracje rozszerzały konfigurację główną, ale
+czasami możesz chcieć użyć jeszcze bardziej dostosowanej konfiguracji.
+
+Oprócz `"//"`, ustawienie `extends` akceptuje również wartości tablicowe. W tym
+przypadku każda wartość w tablicy musi być ścieżką do innej konfiguracji do rozszerzenia.
+
+Na przykład, oto jak możesz skonfigurować swoją konfigurację, aby rozszerzała
+plik konfiguracyjny `common.json`:
+
+```json title="biome.json"
+{
+  "extends": ["./common.json"]
+}
+```
+
+Wpisy zdefiniowane w `extends` są rozwiązywane ze ścieżki, w której
+zdefiniowany jest plik `biome.json`. Są przetwarzane w kolejności, w jakiej są wymienione,
+przy czym ustawienia w późniejszych plikach nadpisują wcześniejsze.
+
+Pliki, z których `rozszerzasz`, nie mogą z kolei `rozszerzać` innych plików.
+
+Zauważ, że ścieżki w pliku konfiguracyjnym są zawsze rozwiązywane z folderu, w
+którym znajduje się plik `biome.json`/`biome.jsonc`. Podczas używania pola `extends`
+oznacza to, że ścieżki w współdzielonej konfiguracji są interpretowane z
+lokalizacji konfiguracji, która ją rozszerza, a nie z folderu
+rozszerzanego pliku.
+
+Na przykład, załóżmy projekt, który zawiera dwa katalogi `backend/` i
+`frontend/`, z których każdy ma własny `biome.json`, oba rozszerzające konfigurację
+`common.json` w folderze głównym:
+
+<FileTree>
+- backend/
+  - src/
+    - ...
+  - test/
+    - ...
+  - biome.json
+- frontend/
+  - src/
+    - ...
+  - test/
+    - ...
+  - biome.json
+- common.json
+</FileTree>
+
+```json title="common.json"
+{
+  "files": {
+    "includes": ["src/**/*.js", "test/**/*.js"],
+  },
+  "linter": {
+    "includes": ["**", "!test"]
+  }
+}
+```
+
+```json title="frontend/biome.json"
+{
+  "extends": ["../common.json"]
+}
+```
+
+* Gdy uruchamiasz Biome z folderu `frontend/`, będzie skonfigurowany do
+  formatowania i lintowania wszystkich plików JavaScript w folderach `frontend/src/` i
+  `frontend/test/`, oraz formatowania tylko plików w folderze `frontend/src/`.
+  Działa to, ponieważ ścieżki określone w `common.json` są
+  interpretowane z folderu `frontend/`, ponieważ tam znajduje się plik `biome.json`.
+* Zakładając, że `backend/biome.json` wygląda tak samo jak `frontend/biome.json`, będzie
+  miał takie samo zachowanie, z tym że ścieżki będą interpretowane z
+  folderu `backend/`.
+
+Zauważ, że w tej konfiguracji zarówno `frontend/biome.json`, jak i `backend/biome.json` są
+uważane za konfiguracje główne. Nie będziesz mógł uruchomić Biome z katalogu głównego
+repozytorium, chyba że użyjesz opcji CLI `--config-path` i wskażesz
+jedną z konfiguracji.
+
+### Eksportowanie konfiguracji Biome z pakietu NPM
+
+Biome jest również w stanie rozwiązywać pliki konfiguracyjne z folderu `node_modules/`.
+Możesz więc wyeksportować swój plik konfiguracyjny z pakietu i zaimportować go
+w wielu projektach.
+
+Aby to zrobić, pierwszą rzeczą do zrobienia jest skonfigurowanie "współdzielonej" konfiguracji
+Biome w określony sposób. Załóżmy, że chcesz udostępnić
+konfigurację z pakietu o nazwie `@org/shared-configs`, używając specyfikatora
+`@org/shared-configs/biome`. Musisz utworzyć wpis `exports` w pliku
+`package.json` tego pakietu:
+
+```json title="package.json" ins={5,3}
+{
+  "name": "@org/shared-configs",
+  "type": "module",
+  "exports": {
+    "./biome": "./biome.json"
+  }
+}
+```
+
+Upewnij się, że `@org/shared-configs` jest poprawnie zainstalowany w Twoim projekcie i
+zaktualizuj plik `biome.json`, aby wyglądał jak poniższy fragment:
+
+```json title="biome.json"
+{
+  "extends": ["@org/shared-configs/biome"]
+}
+```
+
+Biome spróbuje rozwiązać Twoją bibliotekę `@org/shared-configs/` z Twojego
+katalogu roboczego. Katalog roboczy to:
+
+- podczas używania CLI, folder, z którego wykonujesz swoje skrypty.
+  Zazwyczaj odpowiada lokalizacji Twojego pliku `package.json`;
+- podczas używania LSP, folder główny Twojego projektu.
+
+:::caution
+Ścieżki zaczynające się od kropki `.` lub kończące się na `.json` lub `.jsonc` są zawsze
+traktowane jako ścieżki względne, więc nie będą rozwiązywane z `node_modules/`.
+:::
+
+Aby uzyskać więcej informacji na temat algorytmu rozwiązywania, zapoznaj się z
+[dokumentacją Node.js](https://nodejs.org/api/esm.html#resolution-and-loading-algorithm).
