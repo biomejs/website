@@ -52,7 +52,7 @@ biome lint
 biome check
 ```
 
-Each lint rule ships with a default [severity](/reference/diagnostics#diagnostic-severity) which you can lean more about by reading the documentation of the rule.
+Each lint rule ships with a default [severity](/reference/diagnostics#diagnostic-severity) which you can learn more about by reading the documentation of the rule.
 
 The rules are divided into [groups](#linter-groups). For example, the `noDebugger` rule is part of the [`suspicious` group](#suspicious).
 
@@ -95,7 +95,7 @@ In Biome, rules should be informative and explain to the user why a rule is trig
 A rule should follow these **pillars**:
 
 1. Explain to the user the error. Generally, this is the message of the diagnostic.
-2. Explain to the user **why** the error is triggered. Generally, this is implemented with an additional node.
+2. Explain to the user **why** the error is triggered. Generally, this is implemented with an additional note.
 3. Tell the user what they should do. Generally, this is implemented using a code action.
 If a code action is not applicable a note should tell the user what they should do to fix the error.
 
@@ -141,11 +141,11 @@ You can disable the recommended rules with a simple configuration. This may be u
 
 ### Change rule severity
 
-Biome lint rules are shipped with their own default severity. If you want to avail of rule default severity, you can use the `"on"` configuration.
+Biome lint rules are shipped with their own default severity. If you want to apply the default severity, you can use the `"on"` configuration.
 
-For example the `noShoutyConstants` isn't recommended by default, and when it's triggered in emits a diagnostic with information severity.
+For example the `noShoutyConstants` isn't recommended by default, and when it's triggered it emits a diagnostic with information severity.
 
-If you're happy with this default and you want to avail of it, the configuration will look like this:
+If you're happy with this default and you want to use it, the configuration will look like this:
 
 ```json title="biome.json" ins="\"on\""
 {
@@ -159,7 +159,7 @@ If you're happy with this default and you want to avail of it, the configuration
 }
 ```
 
-If you aren't happy with the default severity, Biome allows you to change it with `"error"`, `"warn"` and `"info"`
+If you aren't happy with the default severity, Biome allows you to change it with `"error"`, `"warn"` and `"info"`.
 
 Diagnostics with the [`"error"`](/reference/diagnostics#error) always cause the CLI to exit with an error code. This severity can be useful when you want to block the CI if there's a violation that belongs to a certain rule.
 
