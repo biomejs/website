@@ -202,6 +202,10 @@ export default defineConfig({
 						{
 							label: "Configure Biome",
 							link: "/guides/configure-biome",
+							badge: {
+								text: "updated",
+								variant: "note",
+							},
 							translations: {
 								es: "Configurar Biome",
 								fr: "Configurer Biome",
@@ -983,6 +987,9 @@ export default defineConfig({
 
 	build: {
 		format: "directory",
+	},
+	image: {
+		domains: ["github.com", "raw.githubusercontent.com", "img.shields.io"],
 	},
 
 	markdown: {
