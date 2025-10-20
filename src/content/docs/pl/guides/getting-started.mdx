@@ -1,0 +1,192 @@
+
+---
+title: Rozpoczęcie pracy
+description: Dowiedz się, jak skonfigurować nowy projekt z Biome.
+---
+
+import { Code, TabItem, Tabs } from "@astrojs/starlight/components";
+import DefaultConfiguration from "@/components/generated/DefaultConfiguration.mdx";
+import PackageManagerBiomeCommand from "@/components/PackageManagerBiomeCommand.astro";
+import PackageManagerCommand from "@/components/PackageManagerCommand.astro";
+
+Biome najlepiej zainstalować jako zależność deweloperską w swoich projektach, ale jest
+również dostępny jako [samodzielny plik wykonywalny], który nie wymaga Node.js.
+
+[samodzielny plik wykonywalny]: /guides/manual-installation
+
+<PackageManagerCommand
+  npm="i -D -E @biomejs/biome"
+  pnpm="add -D -E @biomejs/biome"
+  yarn="add -D -E @biomejs/biome"
+  bun="add -D -E @biomejs/biome"
+  deno="add -D npm:@biomejs/biome"
+/>
+
+:::note[Przypinanie wersji]
+`-E` zapewnia, że menedżer pakietów przypnie wersję Biome. Zobacz
+[stronę o wersjonowaniu](/internals/versioning) 
+aby uzyskać więcej informacji o tym, [dlaczego przypinanie wersji jest ważne].
+:::
+
+[dlaczego przypinanie wersji jest ważne]: /internals/versioning#why-pinning-the-version-is-important
+
+## Konfiguracja
+
+Chociaż Biome może działać bez konfiguracji, prawdopodobnie będziesz chciał dostosować niektóre
+ustawienia do potrzeb swojego projektu, w takim przypadku możesz uruchomić następującą
+komendę, aby wygenerować plik konfiguracyjny `biome.json`.
+
+<PackageManagerBiomeCommand command="init"/>
+
+## Użycie
+
+Przyjrzyjmy się szybkiemu przeglądowi, jak używać Biome w swoim projekcie.
+
+### Interfejs wiersza poleceń
+
+Biome zapewnia [interfejs wiersza poleceń] do formatowania, lintowania i sprawdzania kodu.
+
+[interfejs wiersza poleceń]: /reference/cli
+
+<Tabs syncKey="command">
+	<TabItem label="npm" icon="seti:npm">
+		<Code frame="none" code={`
+# Formatuj wszystkie pliki
+npx @biomejs/biome format --write
+
+# Formatuj określone pliki
+npx @biomejs/biome format --write <files>
+
+# Lintuj pliki i zastosuj bezpieczne poprawki do wszystkich plików
+npx @biomejs/biome lint --write
+
+# Lintuj pliki i zastosuj bezpieczne poprawki do określonych plików
+npx @biomejs/biome lint --write <files>
+
+# Formatuj, lintuj i organizuj importy wszystkich plików
+npx @biomejs/biome check --write
+
+# Formatuj, lintuj i organizuj importy określonych plików
+npx @biomejs/biome check --write <files>
+    `} lang="bash"  />
+	</TabItem>
+	<TabItem label="pnpm" icon="pnpm">
+		<Code frame="none" code={`
+# Formatuj wszystkie pliki
+pnpm exec biome format --write
+
+# Formatuj określone pliki
+pnpm exec biome format --write <files>
+
+# Lintuj i zastosuj bezpieczne poprawki do wszystkich plików
+pnpm exec biome lint --write
+
+# Lintuj pliki i zastosuj bezpieczne poprawki do określonych plików
+pnpm exec biome lint --write <files>
+
+# Formatuj, lintuj i organizuj importy wszystkich plików
+pnpm exec biome check --write
+
+# Formatuj, lintuj i organizuj importy określonych plików
+pnpm exec biome check --write <files>
+    `} lang="bash"  />
+	</TabItem>
+	<TabItem label="bun" icon="bun">
+		<Code frame="none" code={`
+# Formatuj wszystkie pliki
+bunx biome format --write
+
+# Formatuj określone pliki
+bunx biome format --write <files>
+
+# Lintuj i zastosuj bezpieczne poprawki do wszystkich plików
+bunx biome lint --write
+
+# Lintuj pliki i zastosuj bezpieczne poprawki do określonych plików
+bunx biome lint --write <files>
+
+# Formatuj, lintuj i organizuj importy wszystkich plików
+bunx biome check --write
+
+# Formatuj, lintuj i organizuj importy określonych plików
+bunx biome check --write <files>
+    `} lang="bash"  />
+	</TabItem>
+	<TabItem label="deno" icon="deno">
+		<Code frame="none" code={`
+# Formatuj określone pliki
+deno run -A npm:@biomejs/biome format --write <files>
+
+# Formatuj wszystkie pliki
+deno run -A npm:@biomejs/biome format --write
+
+# Lintuj pliki i zastosuj bezpieczne poprawki do wszystkich plików
+deno run -A npm:@biomejs/biome lint --write
+
+# Lintuj pliki i zastosuj bezpieczne poprawki do określonych plików
+deno run -A npm:@biomejs/biome lint --write <files>
+
+# Formatuj, lintuj i organizuj importy wszystkich plików
+deno run -A npm:@biomejs/biome check --write
+
+# Formatuj, lintuj i organizuj importy określonych plików
+deno run -A npm:@biomejs/biome check --write <files>
+    `} lang="bash"  />
+	</TabItem>
+	<TabItem label="yarn" icon="seti:yarn">
+		<Code frame="none" code={`
+# Formatuj wszystkie pliki
+yarn exec biome format --write
+
+# Formatuj określone pliki
+yarn exec biome format --write <files>
+
+# Lintuj pliki i zastosuj bezpieczne poprawki do wszystkich plików
+yarn exec biome lint --write
+
+# Lintuj pliki i zastosuj bezpieczne poprawki do określonych plików
+yarn exec biome lint --write <files>
+
+# Formatuj, lintuj i organizuj importy wszystkich plików
+yarn exec biome check --write
+
+# Formatuj, lintuj i organizuj importy określonych plików
+yarn exec biome check --write <files>
+    `} lang="bash"  />
+	</TabItem>
+</Tabs>
+
+### Integracje z edytorami
+
+Biome jest dostępny jako oficjalne rozszerzenie w Twoich ulubionych edytorach.
+
+- [VS Code](/guides/editors/first-party-extensions#vs-code)
+- [IntelliJ](/guides/editors/first-party-extensions#intellij)
+- [Zed](/guides/editors/first-party-extensions#zed)
+
+Dostępne są również [rozszerzenia społeczności](/guides/editors/third-party-extensions) 
+dla innych edytorów, takich jak **Vim**, **Neovim** i **Sublime Text**, żeby wymienić 
+tylko kilka.
+
+### Ciągła integracja
+
+Uruchom `biome ci` jako część swojego pipeline CI, aby wymuszać jakość kodu i spójność 
+w całym zespole. Działa tak samo jak polecenie `biome check`, ale jest zoptymalizowane dla
+środowisk CI.
+
+- [GitHub Actions](/recipes/continuous-integration#github-actions)
+- [GitLab CI](/recipes/continuous-integration#gitlab-ci)
+
+Zobacz przepisy [Ciągła integracja](/recipes/continuous-integration) po więcej przykładów.
+
+## Następne kroki
+
+Sukces! Jesteś teraz gotowy do używania Biome. 🥳
+
+- [Migruj z ESLint i Prettier](/guides/migrate-eslint-prettier)
+- Dowiedz się więcej o tym, jak [skonfigurować Biome](/guides/configure-biome)
+- Dowiedz się więcej o tym, jak używać i konfigurować [formater](/formatter)
+- Dowiedz się więcej o tym, jak używać i konfigurować [linter](/linter)
+- Zapoznaj się z [poleceniami i opcjami CLI](/reference/cli)
+- Zapoznaj się z [opcjami konfiguracji](/reference/configuration)
+- Dołącz do naszej [społeczności na Discordzie](https://biomejs.dev/chat)
