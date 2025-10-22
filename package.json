@@ -31,7 +31,7 @@
     "@astrojs/prism": "3.3.0",
     "@astrojs/react": "4.4.0",
     "@astrojs/rss": "4.0.12",
-    "@astrojs/starlight": "0.36.0",
+    "@astrojs/starlight": "0.36.1",
     "@biomejs/biome": "2.2.6",
     "@biomejs/version-utils": "^0.4.0",
     "@biomejs/wasm-web": "https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@6bf88fe",
@@ -80,7 +80,7 @@
     "textlint-rule-preset-jtf-style": "3.0.3",
     "textlint-rule-prh": "6.1.0",
     "typescript": "5.9.3",
-    "vite": "6.3.6",
+    "vite": "6.4.1",
     "vite-plugin-svgr": "4.3.0"
   },
   "packageManager": "pnpm@10.14.0",
