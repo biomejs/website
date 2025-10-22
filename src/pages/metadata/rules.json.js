@@ -504,7 +504,7 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/no-empty-source",
             "recommended": false,
             "fixKind": "none",
-            "docs": " Disallow empty sources.\n\n A source containing only the following is considered empty:\n   - Whitespace (spaces, tabs or newlines)\n   - Comments\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n\n ```\n\n ```graphql,expect_diagnostic\n # Only comments\n ```\n\n ### Valid\n\n ```graphql\n query Member {}\n ```\n\n ```graphql\n fragment StrippedMember on Member {}\n ```\n\n ## Options\n\n ### `allowComments`\n\n Whether the comments should be marked as meaningful.\n When this option has been set to `true`, a file with only comments is considered valid.\n\n Default `false`\n\n\n ```json,options\n {\n   \"options\": {\n     \"allowComments\": true\n   }\n }\n ```\n\n #### Invalid\n\n ```graphql,expect_diagnostic,use_options\n\n ```\n\n #### Valid\n\n ```graphql,ignore,use_options\n # Only comments\n ```\n\n"
+            "docs": " Disallow empty sources.\n\n A source containing only the following is considered empty:\n   - Whitespace (spaces, tabs or newlines)\n   - Comments\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n\n ```\n\n ```graphql,ignore\n # Invalid comment\n ```\n\n ### Valid\n\n ```graphql\n query Member {}\n ```\n\n ```graphql\n fragment StrippedMember on Member {}\n ```\n\n ## Options\n\n ### `allowComments`\n\n Whether the comments should be marked as meaningful.\n When this option has been set to `true`, a file with only comments is considered valid.\n\n Default `false`\n\n\n ```json,options\n {\n   \"options\": {\n     \"allowComments\": true\n   }\n }\n ```\n\n #### Invalid\n\n ```graphql,expect_diagnostic,use_options\n\n ```\n\n #### Valid\n\n ```graphql,ignore\n # Valid comment\n ```\n\n"
           },
           "useDeprecatedDate": {
             "deprecated": false,
@@ -2067,23 +2067,6 @@ export function GET() {
             ],
             "docs": " Prevent client components from being async functions.\n\n This rule prevents the use of async functions for client components in Next.js applications.\n Client components marked with \"use client\" directive should not be async as this can cause\n hydration mismatches, break component rendering lifecycle, and lead to unexpected behavior\n with React's concurrent features.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n \"use client\";\n\n export default async function MyComponent() {\n   return <div>Hello</div>;\n }\n ```\n\n ### Valid\n\n ```jsx\n \"use client\";\n\n export default function MyComponent() {\n   return <div>Hello</div>;\n }\n ```\n\n ```jsx\n // No \"use client\" directive - server component can be async\n export default async function ServerComponent() {\n   const data = await fetch('/api/data');\n   return <div>{data}</div>;\n }\n ```\n\n"
           },
-          "noNonNullAssertedOptionalChain": {
-            "deprecated": false,
-            "version": "2.1.4",
-            "name": "noNonNullAssertedOptionalChain",
-            "link": "https://biomejs.dev/linter/rules/no-non-null-asserted-optional-chain",
-            "recommended": true,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintTypeScript": "no-non-null-asserted-optional-chain"
-                }
-              }
-            ],
-            "docs": " Disallow non-null assertions after optional chaining expressions.\n\n Optional chaining (`?.`) is designed to return `undefined` if the object is `null` or `undefined`.\n Using a non-null assertion (`!`) immediately after optional chaining defeats the purpose\n of optional chaining and can lead to runtime errors.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n obj?.prop!;\n ```\n\n ```ts,expect_diagnostic\n obj?.method()!.prop;\n ```\n\n ```ts,expect_diagnostic\n obj?.[key]!.method();\n ```\n\n ### Valid\n\n ```ts\n obj?.prop;\n ```\n\n ```ts\n obj!.prop?.method();\n ```\n\n ```ts\n obj?.prop ?? defaultValue;\n ```\n\n"
-          },
           "noReactForwardRef": {
             "deprecated": false,
             "version": "2.2.5",
@@ -2106,23 +2089,6 @@ export function GET() {
               }
             ],
             "docs": " Replaces usages of `forwardRef` with passing `ref` as a prop.\n\n In React 19, `forwardRef` is no longer necessary. Pass `ref` as a prop instead.\n This rule detects the usage of the `forwardRef` API, and it suggests using the prop `ref`\n instead.\n See [the official blog post](https://react.dev/blog/2024/12/05/react-19#ref-as-a-prop) for details.\n\n This rule should be disabled if you are working with React 18 or earlier.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n import { forwardRef } from \"react\";\n\n const MyInput = forwardRef(function MyInput(props, ref) {\n   return <input ref={ref} {...props} />;\n });\n ```\n\n ```jsx,expect_diagnostic\n import { forwardRef } from \"react\";\n\n const MyInput = forwardRef((props, ref) => {\n   return <input ref={ref} {...props} />;\n });\n ```\n\n ### Valid\n\n ```jsx\n function MyInput({ ref, ...props }) {\n   return <input ref={ref} {...props} />;\n }\n ```\n\n ```jsx\n const MyInput = ({ ref, ...props }) => {\n   return <input ref={ref} {...props} />;\n }\n ```\n\n"
-          },
-          "noSecrets": {
-            "deprecated": false,
-            "version": "1.9.0",
-            "name": "noSecrets",
-            "link": "https://biomejs.dev/linter/rules/no-secrets",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "inspired",
-                "source": {
-                  "eslintNoSecrets": "no-secrets"
-                }
-              }
-            ],
-            "docs": " Disallow usage of sensitive data such as API keys and tokens.\n\n This rule checks for high-entropy strings and matches common patterns\n for secrets, including AWS keys, Slack tokens, and private keys.\n It aims to help users identify immediate potential secret leaks in their codebase,\n especially for those who may not be aware of the risks associated with\n sensitive data exposure.\n\n ## Detected Secrets\n\n The following list contains the patterns we detect:\n\n - **JSON Web Token (JWT)**: Tokens in the format of `ey...`\n - **Base64-encoded JWT**: Base64-encoded JWT tokens with various parameters (alg, aud, iss, etc.)\n - **Slack Token**: Tokens such as `xox[baprs]-...`\n - **Slack Webhook URL**: URLs like `https://hooks.slack.com/services/...`\n - **GitHub Token**: GitHub tokens with lengths between 35-40 characters\n - **Twitter OAuth Token**: Twitter OAuth tokens with lengths between 35-44 characters\n - **Facebook OAuth Token**: Facebook OAuth tokens with possible lengths up to 42 characters\n - **Google OAuth Token**: Google OAuth tokens in the format `ya29...`\n - **AWS API Key**: Keys that begin with `AKIA` followed by 16 alphanumeric characters\n - **Passwords in URLs**: Passwords included in URL credentials (`protocol://user:pass@...`)\n - **Google Service Account**: JSON structure with the service-account identifier\n - **Twilio API Key**: API keys starting with `SK...` followed by 32 characters\n - **RSA Private Key**: Key blocks that start with `-----BEGIN RSA PRIVATE KEY-----`\n - **OpenSSH Private Key**: Key blocks that start with `-----BEGIN OPENSSH PRIVATE KEY-----`\n - **DSA Private Key**: Key blocks that start with `-----BEGIN DSA PRIVATE KEY-----`\n - **EC Private Key**: Key blocks that start with `-----BEGIN EC PRIVATE KEY-----`\n - **PGP Private Key Block**: Key blocks that start with `-----BEGIN PGP PRIVATE KEY BLOCK-----`\n\n ## Entropy Check\n\n In addition to detecting the above patterns, we also employ a **string entropy checker** to catch potential secrets based on their entropy (randomness). The entropy checker is configurable through the `Options`, allowing customization of thresholds for string entropy to fine-tune detection and minimize false positives.\n\n ## Disclaimer\n\n While this rule helps with most common cases, it is not intended to handle all of them.\n Therefore, always review your code carefully and consider implementing additional security\n measures, such as automated secret scanning in your CI/CD and git pipeline.\n\n ## Recommendations\n\n Some recommended tools for more comprehensive secret detection include:\n - [SonarQube](https://www.sonarsource.com/products/sonarqube/downloads/): Clean Code scanning solution with a secret scanner (Community version).\n - [Gitleaks](https://github.com/gitleaks/gitleaks/): A mature secret scanning tool.\n - [Trufflehog](https://github.com/trufflesecurity/trufflehog): A tool for finding secrets in git history.\n - [Sensleak](https://github.com/crates-pro/sensleak-rs): A Rust-based solution for secret detection.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const secret = \"AKIA1234567890EXAMPLE\";\n ```\n\n ### Valid\n\n ```js\n const nonSecret = \"hello world\";\n ```\n"
           },
           "noShadow": {
             "deprecated": false,
@@ -2516,6 +2482,23 @@ export function GET() {
               }
             ],
             "docs": " Disallow the use of global `eval()`.\n\n The `eval()` function evaluates the passed string as a _JavaScript_ code.\n The executed code can access and mutate variables in the scope where the function is called.\n\n The use of `eval()` exposes to [security risks and performance issues](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval#never_use_eval!).\n If the executed code is somehow affected by a malicious party,\n then you may end up executing malicious code with the privileges of the caller.\n Moreover, changing variables in the caller's scope is expensive in modern _JavaScript_ interpreters.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n eval(\"var a = 0\");\n ```\n\n ```js,expect_diagnostic\n (0, globalThis.eval)(\"var a = 0\")\n ```\n\n ```js,expect_diagnostic\n f(eval);\n ```\n\n ```js,expect_diagnostic\n const aliasedEval = eval;\n ```\n\n ### Valid\n\n ```cjs\n function f(eval) {\n     eval(\"let a = 0;\");\n }\n ```\n\n The rule is not able to detect cases where the global object is aliased:\n\n ```js\n let foo = globalThis;\n foo.eval(\"let a = 0;\");\n ```\n"
+          },
+          "noSecrets": {
+            "deprecated": false,
+            "version": "1.9.0",
+            "name": "noSecrets",
+            "link": "https://biomejs.dev/linter/rules/no-secrets",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintNoSecrets": "no-secrets"
+                }
+              }
+            ],
+            "docs": " Disallow usage of sensitive data such as API keys and tokens.\n\n This rule checks for high-entropy strings and matches common patterns\n for secrets, including AWS keys, Slack tokens, and private keys.\n It aims to help users identify immediate potential secret leaks in their codebase,\n especially for those who may not be aware of the risks associated with\n sensitive data exposure.\n\n ## Detected Secrets\n\n The following list contains the patterns we detect:\n\n - **JSON Web Token (JWT)**: Tokens in the format of `ey...`\n - **Base64-encoded JWT**: Base64-encoded JWT tokens with various parameters (alg, aud, iss, etc.)\n - **Slack Token**: Tokens such as `xox[baprs]-...`\n - **Slack Webhook URL**: URLs like `https://hooks.slack.com/services/...`\n - **GitHub Token**: GitHub tokens with lengths between 35-40 characters\n - **Twitter OAuth Token**: Twitter OAuth tokens with lengths between 35-44 characters\n - **Facebook OAuth Token**: Facebook OAuth tokens with possible lengths up to 42 characters\n - **Google OAuth Token**: Google OAuth tokens in the format `ya29...`\n - **AWS API Key**: Keys that begin with `AKIA` followed by 16 alphanumeric characters\n - **Passwords in URLs**: Passwords included in URL credentials (`protocol://user:pass@...`)\n - **Google Service Account**: JSON structure with the service-account identifier\n - **Twilio API Key**: API keys starting with `SK...` followed by 32 characters\n - **RSA Private Key**: Key blocks that start with `-----BEGIN RSA PRIVATE KEY-----`\n - **OpenSSH Private Key**: Key blocks that start with `-----BEGIN OPENSSH PRIVATE KEY-----`\n - **DSA Private Key**: Key blocks that start with `-----BEGIN DSA PRIVATE KEY-----`\n - **EC Private Key**: Key blocks that start with `-----BEGIN EC PRIVATE KEY-----`\n - **PGP Private Key Block**: Key blocks that start with `-----BEGIN PGP PRIVATE KEY BLOCK-----`\n\n ## Entropy Check\n\n In addition to detecting the above patterns, we also employ a **string entropy checker** to catch potential secrets based on their entropy (randomness). The entropy checker is configurable through the `Options`, allowing customization of thresholds for string entropy to fine-tune detection and minimize false positives.\n\n ## Disclaimer\n\n While this rule helps with most common cases, it is not intended to handle all of them.\n Therefore, always review your code carefully and consider implementing additional security\n measures, such as automated secret scanning in your CI/CD and git pipeline.\n\n ## Recommendations\n\n Some recommended tools for more comprehensive secret detection include:\n - [SonarQube](https://www.sonarsource.com/products/sonarqube/downloads/): Clean Code scanning solution with a secret scanner (Community version).\n - [Gitleaks](https://github.com/gitleaks/gitleaks/): A mature secret scanning tool.\n - [Trufflehog](https://github.com/trufflesecurity/trufflehog): A tool for finding secrets in git history.\n - [Sensleak](https://github.com/crates-pro/sensleak-rs): A Rust-based solution for secret detection.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const secret = \"AKIA1234567890EXAMPLE\";\n ```\n\n ### Valid\n\n ```js\n const nonSecret = \"hello world\";\n ```\n"
           }
         },
         "style": {
@@ -3921,6 +3904,23 @@ export function GET() {
             ],
             "docs": " Disallow shorthand assign when variable appears on both sides.\n\n This rule helps to avoid potential bugs related to incorrect assignments or unintended\n side effects that may occur during refactoring.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n a += a + b\n ```\n\n ```js,expect_diagnostic\n a -= a - b\n ```\n\n ```js,expect_diagnostic\n a *= a * b\n ```\n\n ### Valid\n\n ```js\n a += b\n ```\n\n ```js\n a = a + b\n ```\n\n ```js\n a = a - b\n ```\n"
           },
+          "noNonNullAssertedOptionalChain": {
+            "deprecated": false,
+            "version": "2.1.4",
+            "name": "noNonNullAssertedOptionalChain",
+            "link": "https://biomejs.dev/linter/rules/no-non-null-asserted-optional-chain",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintTypeScript": "no-non-null-asserted-optional-chain"
+                }
+              }
+            ],
+            "docs": " Disallow non-null assertions after optional chaining expressions.\n\n Optional chaining (`?.`) is designed to return `undefined` if the object is `null` or `undefined`.\n Using a non-null assertion (`!`) immediately after optional chaining defeats the purpose\n of optional chaining and can lead to runtime errors.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n obj?.prop!;\n ```\n\n ```ts,expect_diagnostic\n obj?.method()!.prop;\n ```\n\n ```ts,expect_diagnostic\n obj?.[key]!.method();\n ```\n\n ### Valid\n\n ```ts\n obj?.prop;\n ```\n\n ```ts\n obj!.prop?.method();\n ```\n\n ```ts\n obj?.prop ?? defaultValue;\n ```\n\n"
+          },
           "noOctalEscape": {
             "deprecated": false,
             "version": "1.9.3",
@@ -4444,15 +4444,6 @@ export function GET() {
               }
             ],
             "docs": " Prevent the listing of duplicate dependencies.\n The rule supports the following dependency groups: \"bundledDependencies\", \"bundleDependencies\", \"dependencies\", \"devDependencies\", \"overrides\", \"optionalDependencies\", and \"peerDependencies\".\n\n Dependencies are not allowed to be listed twice under the same dependency group.\n\n ## Examples\n\n ### Invalid\n\n ```json\n {\n     \"dependencies\": {\n         \"foo\": \"1.0.0\",\n         \"foo\": \"2.0.0\"\n     }\n }\n ```\n\n ```json\n {\n     \"bundleDependencies\": [\"foo\", \"foo\"]\n }\n ```\n\n ### Valid\n\n ```json\n {\n     \"dependencies\": {\n         \"foo\": \"2.0.0\"\n     }\n }\n ```\n\n ```json\n {\n     \"bundleDependencies\": [\"foo\"]\n }\n ```\n\n Some dependency group dependencies are checked against other dependency groups;\n  - Dependencies listed in \"dependencies\" cannot be listed under \"devDependencies\", \"optionalDependencies\" or \"peerDependencies\".\n  - Dependencies listed in \"optionalDependencies\" cannot be listed under \"peerDependencies\" (and vice versa).\n\n Dependencies listed in \"devDependencies\" are allowed to be listed in \"optionalDependencies\" or \"peerDependencies\".\n And dependencies listed in \"overrides\" & \"bundleDependencies\" are not checked against other dependency groups.\n\n ## Examples\n\n ### Invalid\n\n ```json\n {\n     \"dependencies\": {\n         \"foo\": \"1.0.0\"\n     },\n     \"devDependencies\": {\n         \"foo\": \"1.0.0\"\n     }\n }\n ```\n\n ### Valid\n\n ```json\n {\n     \"dependencies\": {\n         \"foo\": \"1.0.0\"\n     }\n }\n ```\n\n"
-          },
-          "noEmptySource": {
-            "deprecated": false,
-            "version": "next",
-            "name": "noEmptySource",
-            "link": "https://biomejs.dev/linter/rules/no-empty-source",
-            "recommended": false,
-            "fixKind": "none",
-            "docs": " Disallow empty sources.\n\n A source containing only the following is considered empty:\n   - Whitespace (spaces, tabs or newlines)\n   - Comments\n\n ## Examples\n\n ### Invalid\n\n ```json,expect_diagnostic\n\n ```\n\n ```jsonc,expect_diagnostic\n // Only comments\n ```\n\n ### Valid\n\n ```json\n { }\n ```\n\n ## Options\n\n ### `allowComments`\n\n Whether the comments should be marked as meaningful.\n When this option has been set to `true`, a file with only comments is considered valid.\n\n Default `false`\n\n ```json,options\n {\n   \"options\": {\n     \"allowComments\": true\n   }\n }\n ```\n\n #### Invalid\n\n ```jsonc,expect_diagnostic,use_options\n\n ```\n\n #### Valid\n\n ```jsonc,ignore,use_options\n // Only comments\n ```\n\n"
           }
         },
         "suspicious": {
@@ -4977,6 +4968,12 @@ export function GET() {
                 "source": {
                   "eslintJsxA11y": "anchor-is-valid"
                 }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintQwik": "jsx-a"
+                }
               }
             ],
             "docs": " Enforce that all anchors are valid, and they are navigable elements.\n\n The anchor element (`<a></a>`) - also called **hyperlink** - is an important element\n that allows users to navigate pages, in the same page, same website or on another website.\n\n While before it was possible to attach logic to an anchor element, with the advent of JSX libraries,\n it's now  easier to attach logic to any HTML element, anchors included.\n\n This rule is designed to prevent users from attaching logic at the click of anchors when the `href`\n provided to the anchor element is not valid. Avoid using `#` symbol inside the `href` when you are\n attaching the logic to the anchor element. If the anchor has logic attached to it with an incorrect `href`\n the rules suggests to turn it to a `button`, because that's likely what the user wants.\n\n Anchor `<a></a>` elements should be used for navigation, while `<button></button>` should be\n used for user interaction.\n\n There are **many reasons** why an anchor should not have a logic with an incorrect `href` attribute:\n - it can disrupt the correct flow of the user navigation e.g. a user that wants to open the link\n in another tab, but the default \"click\" behavior is prevented\n - it can source of invalid links, and crawlers can't navigate the website, risking to penalize\n SEO ranking\n\n\n For a detailed explanation, check out https://marcysutton.com/links-vs-buttons-in-modern-web-applications\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <a href={null}>navigate here</a>\n ```\n ```jsx,expect_diagnostic\n <a href={undefined}>navigate here</a>\n ```\n ```jsx,expect_diagnostic\n <a href>navigate here</a>\n ```\n ```jsx,expect_diagnostic\n <a href=\"javascript:void(0)\">navigate here</a>\n ```\n ```jsx,expect_diagnostic\n <a onClick={something}>navigate here</a>\n ```\n ### Valid\n\n ```jsx\n <a href=\"https://example.com\" onClick={something}>navigate here</a>\n ```\n\n ```jsx\n <a href={`https://www.javascript.com`}>navigate here</a>\n ```\n\n ```jsx\n <a href={somewhere}>navigate here</a>\n ```\n\n ```jsx\n <a {...spread}>navigate here</a>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 2.1.1](https://www.w3.org/WAI/WCAG21/Understanding/keyboard)\n\n"
@@ -5128,6 +5125,23 @@ export function GET() {
             ],
             "docs": " Disallows defining React components inside other components.\n\n Component definitions inside other components cause them to be recreated on every render,\n which can lead to performance issues and unexpected behavior.\n\n When a component is defined inside another component:\n - It gets recreated on every render of the parent component\n - It loses its internal state when the parent rerenders\n - It defeats props memoization and optimization techniques\n - It creates new function references on every render\n\n ## Examples\n\n ### Invalid\n\n A new component is created every time ParentComponent renders:\n ```jsx,expect_diagnostic\n function ParentComponent() {\n   function ChildComponent() {\n     return <div>Hello</div>;\n   }\n\n   return <ChildComponent />;\n }\n ```\n\n Even with memo, a new component is still created on each render:\n ```jsx,expect_diagnostic\n function ParentComponent() {\n   const MemoizedChild = memo(() => {\n     return <div>Hello</div>;\n   });\n\n   return <MemoizedChild />;\n }\n ```\n\n ### Valid\n\n Component is defined outside other components:\n ```jsx\n function ChildComponent() {\n   return <div>Hello</div>;\n }\n\n function ParentComponent() {\n   return <ChildComponent />;\n }\n ```\n\n ## Correct approaches\n\n 1. Move the component definition outside:\n    ```jsx\n    function ChildComponent() {\n      return <div>Hello</div>;\n    }\n\n    function ParentComponent() {\n      return <ChildComponent />;\n    }\n    ```\n\n 2. Pass components as props:\n    ```jsx\n    function ParentComponent({ CustomComponent }) {\n      return <CustomComponent />;\n    }\n    ```\n\n 3. Use React's Children API:\n    ```jsx\n    function ParentComponent({ children }) {\n      return <div>{children}</div>;\n    }\n    ```\n"
           },
+          "noQwikUseVisibleTask": {
+            "deprecated": false,
+            "version": "2.1.4",
+            "name": "noQwikUseVisibleTask",
+            "link": "https://biomejs.dev/linter/rules/no-qwik-use-visible-task",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintQwik": "no-use-visible-task"
+                }
+              }
+            ],
+            "docs": " Disallow `useVisibleTask$()` functions in Qwik components.\n\n Prevents hydration-blocking operations that hurt Qwik's resumability.\n See [Qwik Tasks Documentation](https://qwik.dev/docs/components/tasks/) for proper alternatives.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n useVisibleTask$(() => {\n   console.log('Component is visible');\n });\n ```\n\n ### Valid\n\n ```js\n useTask$(() => {\n   console.log('Task executed');\n });\n ```\n\n"
+          },
           "noReactPropAssignments": {
             "deprecated": false,
             "version": "2.0.0",
@@ -5222,6 +5236,23 @@ export function GET() {
             ],
             "docs": " Enforce that all React hooks are being called from the Top Level component functions.\n\n _This rule should be used only in **React** projects._\n\n To understand why this required see https://reactjs.org/docs/hooks-rules.html#only-call-hooks-at-the-top-level\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function Component1({ a }) {\n     if (a == 1) {\n         useEffect();\n     }\n }\n ```\n\n ```js,expect_diagnostic\n function Component1({ a }) {\n     if (a != 1) {\n         return;\n     }\n\n     useEffect();\n }\n ```\n\n ### Valid\n\n ```js\n function Component1() {\n     useEffect();\n }\n ```\n\n"
           },
+          "useImageSize": {
+            "deprecated": false,
+            "version": "2.1.4",
+            "name": "useImageSize",
+            "link": "https://biomejs.dev/linter/rules/use-image-size",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintQwik": "jsx-img"
+                }
+              }
+            ],
+            "docs": " Enforces that `<img>` elements have both width and height attributes.\n\n This rule ensures that `<img>` elements have `width` and `height` attributes.\n\n Images without specified width and height can cause layout shifts as the browser does not know how much space to reserve for them, leading to a poor user experience.\n It's recommended to always include these attributes to prevent such issues.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <img src=\"/image.png\"/>\n ```\n\n ```jsx,expect_diagnostic\n <img src=\"/static/images/portrait-01.webp\"/>\n ```\n\n ```jsx,expect_diagnostic\n <img src=\"/image.png\" width=\"200\"/>\n ```\n\n ```jsx,expect_diagnostic\n <img src=\"/image.png\" height=\"200\"/>\n ```\n\n ### Valid\n\n ```jsx\n <img width=\"200\" height=\"600\" src=\"/static/images/portrait-01.webp\" />\n ```\n\n ```jsx\n <img width=\"100\" height=\"100\" src=\"https://example.com/image.png\" />\n ```\n"
+          },
           "useJsxKeyInIterable": {
             "deprecated": false,
             "version": "1.6.0",
@@ -5238,6 +5269,23 @@ export function GET() {
               }
             ],
             "docs": " Disallow missing key props in iterators/collection literals.\n\n Warn if an element that likely requires a key prop--namely, one present in an array literal or an arrow function expression.\n Check out React documentation for [explanation on the why does React need keys.](https://react.dev/learn/rendering-lists#why-does-react-need-keys)\n\n This rule is intended for use in both React and Qwik applications to prevent missing key props in JSX elements inside iterators.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n [<Hello />];\n ```\n ```jsx,expect_diagnostic\n {items.map(item => <li>{item}</li>)}\n ```\n\n ### Valid\n\n ```jsx\n [<Hello key=\"first\" />, <Hello key=\"second\" />, <Hello key=\"third\" />];\n {items.map(item => <li key={item.id}>{item}</li>)}\n ```\n\n ## Options\n\n ### checkShorthandFragments\n\n React fragments can not only be created with `<React.Fragment>`, but also with shorthand\n fragments (`<></>`). To also check if those require a key, pass `true` to this option.\n\n ```json,options\n {\n     \"options\": {\n         \"checkShorthandFragments\": true\n     }\n }\n ```\n ```jsx,expect_diagnostic,use_options\n data.map((x) => <>{x}</>);\n ```\n\n"
+          },
+          "useQwikClasslist": {
+            "deprecated": false,
+            "version": "2.1.4",
+            "name": "useQwikClasslist",
+            "link": "https://biomejs.dev/linter/rules/use-qwik-classlist",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintQwik": "prefer-classlist"
+                }
+              }
+            ],
+            "docs": " Prefer using the `class` prop as a classlist over the `classnames` helper.\n\n This rule encourages the use of `class` prop which natively supports strings, objects, and arrays, enabling fine-grained reactivity and optimal performance. Using utilities like `classnames` can interfere with Qwik's reactivity model and prevent the framework from optimizing component updates. Prefer using the built-in `class` prop for best results.\n\n For more information, see: [Qwik documentation on class bindings](https://qwik.dev/docs/components/rendering/#class-and-style-bindings)\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div class={classnames({ active: true, disabled: false })} />\n ```\n\n ### Valid\n\n ```jsx\n <div class={{ active: true, disabled: false }} />\n ```\n"
           },
           "useUniqueElementIds": {
             "deprecated": false,
@@ -5266,74 +5314,6 @@ export function GET() {
               }
             ],
             "docs": " Disallow string literals inside JSX elements.\n\n This rule discourages the use of\n string literals directly within JSX elements. String literals in JSX can make code harder\n to maintain, especially in applications that require internationalization or dynamic content.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div>Hello World</div>\n ```\n\n ```jsx,expect_diagnostic\n <>Welcome to our site</>\n ```\n\n ```jsx,expect_diagnostic\n <span>\n   Please enter your name\n </span>\n ```\n\n ### Valid\n\n ```jsx\n <div>{'Hello World'}</div>\n ```\n\n ```jsx\n <>{'Welcome to our site'}</>\n ```\n\n ```jsx\n <span>\n   {'Please enter your name'}\n </span>\n ```\n\n ```jsx\n <div>{`Hello ${name}`}</div>\n ```\n\n ## Options\n\n ### `noStrings`\n\n When enabled, the rule will also flag string literals inside JSX expressions and attributes.\n\n > **Default:** `false`\n\n ```json,options\n {\n   \"options\": {\n     \"noStrings\": true\n   }\n }\n ```\n\n ```jsx,expect_diagnostic,use_options\n <span>\n   {'Please enter your name'}\n </span>\n ```\n ```jsx,expect_diagnostic,use_options\n <Component title=\"Hello!\" />\n ```\n\n\n\n ### `allowedStrings`\n\n An array of strings that are allowed as literals. This can be useful for common words\n or characters that don't need to be wrapped in expressions.\n\n ```json,options\n {\n   \"options\": {\n     \"allowedStrings\": [\"Hello\", \"&nbsp;\", \"·\"]\n   }\n }\n ```\n\n ```jsx,use_options\n <>\n   <div>Hello</div>\n   <div>&nbsp;</div>\n   <div>·</div>\n </>\n ```\n\n ### `ignoreProps`\n\n When enabled, the rule will ignore string literals used as prop values.\n\n > **Default:** `false`\n\n ```json,options\n {\n   \"options\": {\n     \"ignoreProps\": true\n   }\n }\n ```\n\n ```jsx,use_options\n <>\n   <Component title=\"Welcome\" />\n   <input placeholder=\"Enter name\" />\n </>\n ```\n\n"
-          },
-          "noQwikUseVisibleTask": {
-            "deprecated": false,
-            "version": "2.1.4",
-            "name": "noQwikUseVisibleTask",
-            "link": "https://biomejs.dev/linter/rules/no-qwik-use-visible-task",
-            "recommended": true,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintQwik": "no-use-visible-task"
-                }
-              }
-            ],
-            "docs": " Disallow `useVisibleTask$()` functions in Qwik components.\n\n Prevents hydration-blocking operations that hurt Qwik's resumability.\n See [Qwik Tasks Documentation](https://qwik.dev/docs/components/tasks/) for proper alternatives.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n useVisibleTask$(() => {\n   console.log('Component is visible');\n });\n ```\n\n ### Valid\n\n ```js\n useTask$(() => {\n   console.log('Task executed');\n });\n ```\n\n"
-          },
-          "useAnchorHref": {
-            "deprecated": false,
-            "version": "2.1.4",
-            "name": "useAnchorHref",
-            "link": "https://biomejs.dev/linter/rules/use-anchor-href",
-            "recommended": true,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintQwik": "jsx-a"
-                }
-              }
-            ],
-            "docs": " Enforces `href` attribute for `<a>` elements.\n\n Ensures `<a>` tags are either valid links (with href) or replaced with buttons for actions.\n See [WCAG 4.1.2](https://www.w3.org/WAI/WCAG22/Understanding/name-role-value) for accessibility requirements.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <a>Link</a>\n ```\n\n ```jsx,expect_diagnostic\n <a target=\"_blank\">External</a>\n ```\n\n ### Valid\n\n ```jsx\n <a href=\"/home\">Home</a>\n ```\n\n ```jsx\n <a href=\"https://example.com\" target=\"_blank\">External</a>\n ```\n"
-          },
-          "useImageSize": {
-            "deprecated": false,
-            "version": "2.1.4",
-            "name": "useImageSize",
-            "link": "https://biomejs.dev/linter/rules/use-image-size",
-            "recommended": true,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintQwik": "jsx-img"
-                }
-              }
-            ],
-            "docs": " Enforces that `<img>` elements have both width and height attributes.\n\n This rule ensures that `<img>` elements have `width` and `height` attributes\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <img src=\"/image.png\"/>\n ```\n\n ```jsx,expect_diagnostic\n <img src=\"/static/images/portrait-01.webp\"/>\n ```\n\n ```jsx,expect_diagnostic\n <img src=\"/image.png\" width=\"200\"/>\n ```\n\n ```jsx,expect_diagnostic\n <img src=\"/image.png\" height=\"200\"/>\n ```\n\n ### Valid\n\n ```jsx\n <img width=\"200\" height=\"600\" src=\"/static/images/portrait-01.webp\" />\n ```\n\n ```jsx\n <img width=\"100\" height=\"100\" src=\"https://example.com/image.png\" />\n ```\n"
-          },
-          "useQwikClasslist": {
-            "deprecated": false,
-            "version": "2.1.4",
-            "name": "useQwikClasslist",
-            "link": "https://biomejs.dev/linter/rules/use-qwik-classlist",
-            "recommended": true,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintQwik": "prefer-classlist"
-                }
-              }
-            ],
-            "docs": " Prefer using the `class` prop as a classlist over the `classnames` helper.\n\n This rule encourages the use of `class` prop which natively supports strings, objects, and arrays, enabling fine-grained reactivity and optimal performance. Using utilities like `classnames` can interfere with Qwik's reactivity model and prevent the framework from optimizing component updates. Prefer using the built-in `class` prop for best results.\n\n For more information, see: [Qwik documentation on class bindings](https://qwik.dev/docs/components/rendering/#class-and-style-bindings)\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div class={classnames({ active: true, disabled: false })} />\n ```\n\n ### Valid\n\n ```jsx\n <div class={{ active: true, disabled: false }} />\n ```\n"
           },
           "useQwikMethodUsage": {
             "deprecated": false,
@@ -5368,23 +5348,6 @@ export function GET() {
               }
             ],
             "docs": " Disallow unserializable expressions in Qwik dollar ($) scopes.\n\n Ensures all captured values in Qwik components can be properly serialized for resumability.\n See [Qwik Optimizer: Lexical Scope](https://qwik.dev/docs/advanced/optimizer/#lexical-scope) for proper usage patterns.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n // Arrow function assigned without wrapping it in $(...)\n const handleClick = () => {\n   console.log(\"clicked\");\n };\n ```\n\n ### Valid\n\n ```js\n const handleClick = $(() => {\n   // Valid: only using serializable variables or props\n   console.log(\"clicked\");\n });\n ```\n\n"
-          },
-          "useReactFunctionComponents": {
-            "deprecated": false,
-            "version": "2.1.3",
-            "name": "useReactFunctionComponents",
-            "link": "https://biomejs.dev/linter/rules/use-react-function-components",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "reactPreferFunctionComponent": "react-prefer-function-component"
-                }
-              }
-            ],
-            "docs": " Enforce that components are defined as functions and never as classes.\n\n React in particular allows users to create components using functions or classes.\n However, using functions is generally preferred. This rule enforces the use of function components.\n\n This rule makes an exception for class components that implement `componentDidCatch` because there is\n currently no hook alternative for React. This function is typically used for defining error boundaries.\n It's recommended to define your error boundary once and then reuse it across your application.\n\n If you are using Preact, it has a [`useErrorBoundary`](https://preactjs.com/guide/v10/hooks/#useerrorboundary) hook.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n class Foo extends React.Component {\n   render() {\n     return (\n       <div>This is a class component.</div>\n     );\n   }\n }\n ```\n\n ### Valid\n\n ```jsx\n function Foo() {\n   return <div>This is a function component.</div>;\n }\n ```\n\n"
           }
         },
         "performance": {
@@ -5578,6 +5541,23 @@ export function GET() {
               }
             ],
             "docs": " This rule enforces the use of `<>...</>` over `<Fragment>...</Fragment>`.\n\n The shorthand fragment syntax saves keystrokes and is only inapplicable when keys are required.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <Fragment>child</Fragment>\n ```\n\n ```jsx,expect_diagnostic\n <React.Fragment>child</React.Fragment>\n ```\n"
+          },
+          "useReactFunctionComponents": {
+            "deprecated": false,
+            "version": "2.1.3",
+            "name": "useReactFunctionComponents",
+            "link": "https://biomejs.dev/linter/rules/use-react-function-components",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "reactPreferFunctionComponent": "react-prefer-function-component"
+                }
+              }
+            ],
+            "docs": " Enforce that components are defined as functions and never as classes.\n\n React in particular allows users to create components using functions or classes.\n However, using functions is generally preferred. This rule enforces the use of function components.\n\n This rule makes an exception for class components that implement `componentDidCatch` because there is\n currently no hook alternative for React. This function is typically used for defining error boundaries.\n It's recommended to define your error boundary once and then reuse it across your application.\n\n If you are using Preact, it has a [`useErrorBoundary`](https://preactjs.com/guide/v10/hooks/#useerrorboundary) hook.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n class Foo extends React.Component {\n   render() {\n     return (\n       <div>This is a class component.</div>\n     );\n   }\n }\n ```\n\n ### Valid\n\n ```jsx\n function Foo() {\n   return <div>This is a function component.</div>;\n }\n ```\n\n"
           }
         },
         "suspicious": {
@@ -5803,23 +5783,6 @@ export function GET() {
             ],
             "docs": " Disallow Promises to be used in places where they are almost certainly a\n mistake.\n\n In most cases, if you assign a `Promise` somewhere a `Promise` is not\n allowed, the TypeScript compiler will be able to catch such a mistake.\n But there are a few places where TypeScript allows them -- they're not\n _necessarily_ a mistake -- even though they could be considered almost\n certainly to be one.\n\n This rule disallows using Promises in such places.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic,file=promise-in-condition.js\n const promise = Promise.resolve('value');\n if (promise) { /* This branch will always execute */ }\n ```\n\n ```js,expect_diagnostic,file=promise-in-ternary-condition.js\n const promise = Promise.resolve('value');\n const val = promise ? 123 : 456; // Always evaluates to `123`.\n ```\n\n ```js,expect_diagnostic,file=promise-in-filter.js\n // The following filter has no effect:\n const promise = Promise.resolve('value');\n [1, 2, 3].filter(() => promise);\n ```\n\n ```js,expect_diagnostic,file=promise-while-condition.js\n const promise = Promise.resolve('value');\n while (promise) { /* This is an endless loop */ }\n ```\n\n ```js,expect_diagnostic,file=spread-promise.js\n // Using a `Promise` as an iterable expands to nothing:\n const getData = () => fetch('/');\n console.log({ foo: 42, ...getData() });\n ```\n\n ```js,expect_diagnostic,file=promise-in-forEach.js\n // These `fetch`-es are not `await`-ed in order:\n [1, 2, 3].forEach(async value => {\n     await fetch(`/${value}`);\n });\n ```\n\n ### Valid\n\n ```js,file=valid-promises.js\n const promise = Promise.resolve('value');\n if (await promise) { /* Do something */ }\n\n const val = (await promise) ? 123 : 456;\n\n while (await promise) { /* Do something */ }\n\n const getData = () => fetch('/');\n console.log({ foo: 42, ...(await getData()) });\n\n // for-of puts `await` in outer context:\n for (const value of [1, 2, 3]) {\n     await doSomething(value);\n }\n ```\n\n"
           },
-          "useConsistentTypeDefinitions": {
-            "deprecated": false,
-            "version": "2.1.4",
-            "name": "useConsistentTypeDefinitions",
-            "link": "https://biomejs.dev/linter/rules/use-consistent-type-definitions",
-            "recommended": false,
-            "fixKind": "unsafe",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintTypeScript": "consistent-type-definitions"
-                }
-              }
-            ],
-            "docs": " Enforce type definitions to consistently use either `interface` or `type`.\n\n _TypeScript_ provides two different ways to define an object type: `interface` and `type`.\n\n This rule enforces consistent usage of either `interface` or `type` for object type definitions.\n Consistent type definition styles, aside from improving code readability, help minimize cognitive load when developers\n switch between different codebases or within a large codebase.\n\n ## Example\n\n ### Invalid\n\n ```ts,expect_diagnostic\n type Point = { x: number; y: number; };\n ```\n\n ### Valid\n\n ```ts\n interface Point {\n   x: number;\n   y: number;\n }\n ```\n\n ## Options\n\n The following options are available\n\n ### `style`\n\n This option will determine which style to use for type definitions.\n\n Default: `interface`\n\n ```json,options\n {\n     \"options\": {\n         \"style\": \"type\"\n     }\n }\n ```\n\n ```ts,use_options,expect_diagnostic\n interface Point {\n   x: number;\n   y: number;\n }\n ```\n\n"
-          },
           "useExplicitType": {
             "deprecated": false,
             "version": "1.9.3",
@@ -6015,6 +5978,23 @@ export function GET() {
               }
             ],
             "docs": " Require consistent accessibility modifiers on class properties and methods.\n\n TypeScript allows placing explicit `public`, `protected`, and `private` accessibility modifiers in front of class members.\n The modifiers exist solely in the type system and just serve to describe who is allowed to access those members.\n Leaving off accessibility modifiers makes for less code to read and write. Members are public by default.\n\n However, adding in consistent accessibility modifiers can be helpful in codebases with many classes for enforcing proper privacy of members.\n Some developers also find it preferable for code readability to keep member publicity explicit.\n\n ## Examples\n\n ### Invalid\n\n #### `\"accessibility\": \"noPublic\"` (default value)\n\n Use the following configuration to disallow all explicit `public` modifiers:\n\n ```json,options\n {\n     \"options\": {\n         \"accessibility\": \"noPublic\"\n     }\n }\n ```\n\n The following patterns are considered incorrect code with `noPublic`:\n\n ```ts,expect_diagnostic,use_options\n class Animal {\n   public constructor(breed, name) {\n     // ...\n   }\n }\n ```\n\n ```ts,expect_diagnostic,use_options\n class Animal {\n   constructor(\n     public breed,\n     name,\n   ) {\n     // ...\n   }\n }\n ```\n\n ```ts,expect_diagnostic,use_options\n class Animal {\n   public animalName: string;\n }\n ```\n\n ```ts,expect_diagnostic,use_options\n class Pet {\n   public get name(): string {\n     return this.animalName;\n   }\n }\n ```\n\n ```ts,expect_diagnostic,use_options\n class Pet {\n   public set name(value: string) {\n     this.animalName = value;\n   }\n }\n ```\n\n ```ts,expect_diagnostic,use_options\n class Dog {\n   public walk() {\n     // ...\n   }\n }\n ```\n\n #### `\"accessibility\": \"explicit\"`\n\n Use the following configuration to enforce the presence of explicit modifiers wherever possible:\n\n ```json,options\n {\n     \"options\": {\n         \"accessibility\": \"explicit\"\n     }\n }\n ```\n\n The following patterns are considered incorrect code with `accessibility` set to `explicit`:\n\n ```ts,expect_diagnostic,use_options\n class Animal {\n   constructor( // Invalid: Missing accessibility modifier\n     public breed,\n     name,\n   ) {\n     this.animalName = name;\n   }\n   private animalName: string; // OK: Modifier must be present\n   public get name(): string { // OK: Modifier must be present\n     return this.animalName;\n   }\n   public set name(value: string) { // OK: Modifier must be present\n     this.animalName = value;\n   }\n   protected walk() { // OK: Modifier must be present\n     // ...\n   }\n }\n ```\n\n #### `\"accessibility\": \"none\"`\n\n Use the following configuration to disallow all explicit visibility modifiers:\n\n ```json,options\n {\n     \"options\": {\n         \"accessibility\": \"none\"\n     }\n }\n ```\n\n The following patterns are considered incorrect code with `accessibility` set to `none`:\n\n ```ts,expect_diagnostic,use_options\n class Animal {\n   protected constructor(breed, name) {\n     // ...\n   }\n }\n ```\n\n ```ts,expect_diagnostic,use_options\n class Animal {\n   constructor(\n     protected breed,\n     name,\n   ) {\n     // ...\n   }\n }\n ```\n\n ```ts,expect_diagnostic,use_options\n class Animal {\n   private animalName: string;\n }\n ```\n\n ```ts,expect_diagnostic,use_options\n class Animal {\n   protected get name(): string {\n     return this.animalName;\n   }\n }\n ```\n\n ```ts,expect_diagnostic,use_options\n class Pet {\n   private set name(value: string) {\n     this.animalName = value;\n   }\n }\n ```\n\n ```ts,expect_diagnostic,use_options\n class Dog {\n   public walk() {\n     // ...\n   }\n }\n ```\n\n ### Valid\n\n The following patterns are considered correct code with the default options `noPublic`:\n\n ```json,options\n {\n     \"options\": {\n         \"accessibility\": \"noPublic\"\n     }\n }\n ```\n\n ```ts,use_options\n class Animal {\n   constructor(\n     private breed,\n     name,\n   ) {\n     this.animalName = name;\n   }\n   private animalName: string; // Property\n   get name(): string {\n     // get accessor\n     return this.animalName;\n   }\n   set name(value: string) {\n     // set accessor\n     this.animalName = value;\n   }\n   protected walk() {\n     // method\n   }\n }\n ```\n\n The following patterns are considered correct code with the accessibility set to `explicit`:\n\n ```json,options\n {\n     \"options\": {\n         \"accessibility\": \"explicit\"\n     }\n }\n ```\n\n ```ts,use_options\n class Animal {\n   public constructor(\n     public breed,\n     name,\n   ) {\n     // Parameter property and constructor\n     this.animalName = name;\n   }\n   private animalName: string; // Property\n   public get name(): string {\n     // get accessor\n     return this.animalName;\n   }\n   public set name(value: string) {\n     // set accessor\n     this.animalName = value;\n   }\n   protected walk() {\n     // method\n   }\n }\n ```\n\n The following patterns are considered correct code with the accessibility set to `none`:\n\n ```json,options\n {\n     \"options\": {\n         \"accessibility\": \"none\"\n     }\n }\n ```\n\n ```ts,use_options\n class Animal {\n   constructor(\n     breed,\n     name,\n   ) {\n     // Parameter property and constructor\n     this.name = name;\n   }\n   animalName: string; // Property\n   get name(): string {\n     // get accessor\n     return this.animalName;\n   }\n   set name(value: string) {\n     // set accessor\n     this.animalName = value;\n   }\n   walk() {\n     // method\n   }\n }\n ```\n\n ## Options\n\n The rule supports the following options:\n\n ```json,options\n {\n     \"options\": {\n         \"accessibility\": \"explicit\"\n     }\n }\n ```\n\n ### `accessibility`\n\n This option determines the required accessibility modifiers on class properties and methods.\n It can be set to one of the following values:\n\n - `noPublic` - forbid the use of the `public` modifier.\n - `explicit` - requires an accessibility modifier for every member where it is permitted.\n - `none` - forbid all accessibility modifiers (public, protected, private).\n\n **Default: `noPublic`**\n\n"
+          },
+          "useConsistentTypeDefinitions": {
+            "deprecated": false,
+            "version": "2.1.4",
+            "name": "useConsistentTypeDefinitions",
+            "link": "https://biomejs.dev/linter/rules/use-consistent-type-definitions",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintTypeScript": "consistent-type-definitions"
+                }
+              }
+            ],
+            "docs": " Enforce type definitions to consistently use either `interface` or `type`.\n\n _TypeScript_ provides two different ways to define an object type: `interface` and `type`.\n\n This rule enforces consistent usage of either `interface` or `type` for object type definitions.\n Consistent type definition styles, aside from improving code readability, help minimize cognitive load when developers\n switch between different codebases or within a large codebase.\n\n ## Example\n\n ### Invalid\n\n ```ts,expect_diagnostic\n type Point = { x: number; y: number; };\n ```\n\n ### Valid\n\n ```ts\n interface Point {\n   x: number;\n   y: number;\n }\n ```\n\n ## Options\n\n The following options are available\n\n ### `style`\n\n This option will determine which style to use for type definitions.\n\n Default: `interface`\n\n ```json,options\n {\n     \"options\": {\n         \"style\": \"type\"\n     }\n }\n ```\n\n ```ts,use_options,expect_diagnostic\n interface Point {\n   x: number;\n   y: number;\n }\n ```\n\n"
           },
           "useEnumInitializers": {
             "deprecated": false,
@@ -6303,7 +6283,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 368
+    "numberOrRules": 366
   },
   "syntax": {
     "languages": {

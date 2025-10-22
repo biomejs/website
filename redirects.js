@@ -252,7 +252,6 @@ export default {
   '/linter/rules/useAdjacentOverloadSignatures': '/linter/rules/use-adjacent-overload-signatures',
   '/linter/rules/useAltText': '/linter/rules/use-alt-text',
   '/linter/rules/useAnchorContent': '/linter/rules/use-anchor-content',
-  '/linter/rules/useAnchorHref': '/linter/rules/use-anchor-href',
   '/linter/rules/useAriaActivedescendantWithTabindex': '/linter/rules/use-aria-activedescendant-with-tabindex',
   '/linter/rules/useAriaPropsForRole': '/linter/rules/use-aria-props-for-role',
   '/linter/rules/useAriaPropsSupportedByRole': '/linter/rules/use-aria-props-supported-by-role',

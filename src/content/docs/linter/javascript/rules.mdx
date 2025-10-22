@@ -126,6 +126,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noPrecisionLoss](/linter/rules/no-precision-loss) | Disallow literal numbers that lose precision | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
 | [noPrivateImports](/linter/rules/no-private-imports) | Restrict imports of private exports. |  |
 | [noProcessGlobal](/linter/rules/no-process-global) | Disallow the use of `process` global. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
+| [noQwikUseVisibleTask](/linter/rules/no-qwik-use-visible-task) | Disallow `useVisibleTask$()` functions in Qwik components. |  |
 | [noReactPropAssignments](/linter/rules/no-react-prop-assignments) | Disallow assigning to React component props. |  |
 | [noRenderReturnValue](/linter/rules/no-render-return-value) | Prevent the usage of the return value of `React.render`. |  |
 | [noRestrictedElements](/linter/rules/no-restricted-elements) | Disallow the use of configured elements. |  |
@@ -149,11 +150,13 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noVoidTypeReturn](/linter/rules/no-void-type-return) | Disallow returning a value from a function with the return type 'void' | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
 | [useExhaustiveDependencies](/linter/rules/use-exhaustive-dependencies) | Enforce all dependencies are correctly specified in a React hook. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useHookAtTopLevel](/linter/rules/use-hook-at-top-level) | Enforce that all React hooks are being called from the Top Level component functions. |  |
+| [useImageSize](/linter/rules/use-image-size) | Enforces that `<img>` elements have both width and height attributes. |  |
 | [useImportExtensions](/linter/rules/use-import-extensions) | Enforce file extensions for relative imports. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [useIsNan](/linter/rules/use-is-nan) | Require calls to `isNaN()` when checking for `NaN`. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useJsonImportAttributes](/linter/rules/use-json-import-attributes) | Enforces the use of `with { type: "json" }` for JSON module imports. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [useJsxKeyInIterable](/linter/rules/use-jsx-key-in-iterable) | Disallow missing key props in iterators/collection literals. |  |
 | [useParseIntRadix](/linter/rules/use-parse-int-radix) | Enforce the consistent use of the radix argument when using `parseInt()`. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [useQwikClasslist](/linter/rules/use-qwik-classlist) | Prefer using the `class` prop as a classlist over the `classnames` helper. |  |
 | [useSingleJsDocAsterisk](/linter/rules/use-single-js-doc-asterisk) | Enforce JSDoc comment lines to start with a single asterisk, except for the first one. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useUniqueElementIds](/linter/rules/use-unique-element-ids) | Prevent the usage of static string literal `id` attribute on elements. |  |
 | [useValidForDirection](/linter/rules/use-valid-for-direction) | Enforce "for" loop update clause moving the counter in the right direction. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
@@ -171,10 +174,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noJsxLiterals](/linter/rules/no-jsx-literals) | Disallow string literals inside JSX elements. |  |
 | [noMisusedPromises](/linter/rules/no-misused-promises) | Disallow Promises to be used in places where they are almost certainly a | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noNextAsyncClientComponent](/linter/rules/no-next-async-client-component) | Prevent client components from being async functions. |  |
-| [noNonNullAssertedOptionalChain](/linter/rules/no-non-null-asserted-optional-chain) | Disallow non-null assertions after optional chaining expressions. |  |
-| [noQwikUseVisibleTask](/linter/rules/no-qwik-use-visible-task) | Disallow `useVisibleTask$()` functions in Qwik components. |  |
 | [noReactForwardRef](/linter/rules/no-react-forward-ref) | Replaces usages of `forwardRef` with passing `ref` as a prop. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
-| [noSecrets](/linter/rules/no-secrets) | Disallow usage of sensitive data such as API keys and tokens. |  |
 | [noShadow](/linter/rules/no-shadow) | Disallow variable declarations from shadowing variables declared in the outer scope. |  |
 | [noUnnecessaryConditions](/linter/rules/no-unnecessary-conditions) | Disallow unnecessary type-based conditions that can be statically determined as redundant. |  |
 | [noUnresolvedImports](/linter/rules/no-unresolved-imports) | Warn when importing non-existing exports. |  |
@@ -185,17 +185,12 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noVueDuplicateKeys](/linter/rules/no-vue-duplicate-keys) | Disallow duplicate keys in Vue component data, methods, computed properties, and other options. |  |
 | [noVueReservedKeys](/linter/rules/no-vue-reserved-keys) | Disallow reserved keys in Vue component data and computed properties. |  |
 | [noVueReservedProps](/linter/rules/no-vue-reserved-props) | Disallow reserved names to be used as props. |  |
-| [useAnchorHref](/linter/rules/use-anchor-href) | Enforces `href` attribute for `<a>` elements. |  |
 | [useConsistentArrowReturn](/linter/rules/use-consistent-arrow-return) | Enforce consistent arrow function bodies. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
-| [useConsistentTypeDefinitions](/linter/rules/use-consistent-type-definitions) | Enforce type definitions to consistently use either `interface` or `type`. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useExhaustiveSwitchCases](/linter/rules/use-exhaustive-switch-cases) | Require switch-case statements to be exhaustive. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useExplicitType](/linter/rules/use-explicit-type) | Enforce types in functions, methods, variables, and parameters. |  |
-| [useImageSize](/linter/rules/use-image-size) | Enforces that `<img>` elements have both width and height attributes. |  |
 | [useMaxParams](/linter/rules/use-max-params) | Enforce a maximum number of parameters in function definitions. |  |
-| [useQwikClasslist](/linter/rules/use-qwik-classlist) | Prefer using the `class` prop as a classlist over the `classnames` helper. |  |
 | [useQwikMethodUsage](/linter/rules/use-qwik-method-usage) | Disallow `use*` hooks outside of `component$` or other `use*` hooks in Qwik applications. |  |
 | [useQwikValidLexicalScope](/linter/rules/use-qwik-valid-lexical-scope) | Disallow unserializable expressions in Qwik dollar ($) scopes. |  |
-| [useReactFunctionComponents](/linter/rules/use-react-function-components) | Enforce that components are defined as functions and never as classes. |  |
 | [useSortedClasses](/linter/rules/use-sorted-classes) | Enforce the sorting of CSS utility classes. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useVueMultiWordComponentNames](/linter/rules/use-vue-multi-word-component-names) | Enforce multi-word component names in Vue components. |  |
 
@@ -224,6 +219,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noDangerouslySetInnerHtml](/linter/rules/no-dangerously-set-inner-html) | Prevent the usage of dangerous JSX props |  |
 | [noDangerouslySetInnerHtmlWithChildren](/linter/rules/no-dangerously-set-inner-html-with-children) | Report when a DOM element or a component uses both `children` and `dangerouslySetInnerHTML` prop. |  |
 | [noGlobalEval](/linter/rules/no-global-eval) | Disallow the use of global `eval()`. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [noSecrets](/linter/rules/no-secrets) | Disallow usage of sensitive data such as API keys and tokens. |  |
 
 ## `style`
 
@@ -265,6 +261,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [useConsistentCurlyBraces](/linter/rules/use-consistent-curly-braces) | This rule enforces consistent use of curly braces inside JSX attributes and JSX children. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useConsistentMemberAccessibility](/linter/rules/use-consistent-member-accessibility) | Require consistent accessibility modifiers on class properties and methods. |  |
 | [useConsistentObjectDefinitions](/linter/rules/use-consistent-object-definitions) | Require the consistent declaration of object literals. Defaults to explicit definitions. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
+| [useConsistentTypeDefinitions](/linter/rules/use-consistent-type-definitions) | Enforce type definitions to consistently use either `interface` or `type`. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useConst](/linter/rules/use-const) | Require `const` declarations for variables that are only assigned once. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [useDefaultParameterLast](/linter/rules/use-default-parameter-last) | Enforce default function parameters and optional function parameters to be last. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useDefaultSwitchClause](/linter/rules/use-default-switch-clause) | Require the default clause in switch statements. |  |
@@ -285,6 +282,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [useNumberNamespace](/linter/rules/use-number-namespace) | Use the `Number` properties instead of global ones. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [useNumericSeparators](/linter/rules/use-numeric-separators) | Enforce the use of numeric separators in numeric literals. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [useObjectSpread](/linter/rules/use-object-spread) | Prefer object spread over `Object.assign()` when constructing new objects. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
+| [useReactFunctionComponents](/linter/rules/use-react-function-components) | Enforce that components are defined as functions and never as classes. |  |
 | [useReadonlyClassProperties](/linter/rules/use-readonly-class-properties) | Enforce marking members as `readonly` if they are never modified outside the constructor. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useSelfClosingElements](/linter/rules/use-self-closing-elements) | Prevent extra closing tags for components without children. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [useShorthandAssign](/linter/rules/use-shorthand-assign) | Require assignment operator shorthand where possible. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
@@ -349,6 +347,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noMisleadingInstantiator](/linter/rules/no-misleading-instantiator) | Enforce proper usage of `new` and `constructor`. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
 | [noMisplacedAssertion](/linter/rules/no-misplaced-assertion) | Checks that the assertion function, for example `expect`, is placed inside an `it()` function call. |  |
 | [noMisrefactoredShorthandAssign](/linter/rules/no-misrefactored-shorthand-assign) | Disallow shorthand assign when variable appears on both sides. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [noNonNullAssertedOptionalChain](/linter/rules/no-non-null-asserted-optional-chain) | Disallow non-null assertions after optional chaining expressions. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
 | [noOctalEscape](/linter/rules/no-octal-escape) | Disallow octal escape sequences in string literals | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [noPrototypeBuiltins](/linter/rules/no-prototype-builtins) | Disallow direct use of `Object.prototype` builtins. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [noReactSpecificProps](/linter/rules/no-react-specific-props) | Prevents React-specific JSX properties from being used. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
@@ -533,6 +532,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 - [noMisleadingCharacterClass](/linter/rules/no-misleading-character-class) (Severity: [error](/reference/diagnostics#error))
 - [noMisleadingInstantiator](/linter/rules/no-misleading-instantiator) (Severity: [error](/reference/diagnostics#error))
 - [noMisrefactoredShorthandAssign](/linter/rules/no-misrefactored-shorthand-assign) (Severity: [error](/reference/diagnostics#error))
+- [noNonNullAssertedOptionalChain](/linter/rules/no-non-null-asserted-optional-chain) (Severity: [error](/reference/diagnostics#error))
 - [noOctalEscape](/linter/rules/no-octal-escape) (Severity: [warning](/reference/diagnostics#warning))
 - [noPrototypeBuiltins](/linter/rules/no-prototype-builtins) (Severity: [warning](/reference/diagnostics#warning))
 - [noRedeclare](/linter/rules/no-redeclare) (Severity: [error](/reference/diagnostics#error))
