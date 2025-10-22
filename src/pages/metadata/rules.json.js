@@ -250,7 +250,7 @@ export function GET() {
         "nursery": {
           "noEmptySource": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.2.7",
             "name": "noEmptySource",
             "link": "https://biomejs.dev/linter/rules/no-empty-source",
             "recommended": false,
@@ -499,7 +499,7 @@ export function GET() {
         "nursery": {
           "noEmptySource": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.2.7",
             "name": "noEmptySource",
             "link": "https://biomejs.dev/linter/rules/no-empty-source",
             "recommended": false,
@@ -2018,7 +2018,7 @@ export function GET() {
           },
           "noEmptySource": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.2.7",
             "name": "noEmptySource",
             "link": "https://biomejs.dev/linter/rules/no-empty-source",
             "recommended": false,
