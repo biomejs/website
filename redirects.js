@@ -366,6 +366,7 @@ export default {
   '/linter/rules/useValidForDirection': '/linter/rules/use-valid-for-direction',
   '/linter/rules/useValidLang': '/linter/rules/use-valid-lang',
   '/linter/rules/useValidTypeof': '/linter/rules/use-valid-typeof',
+  '/linter/rules/useVueDefineMacrosOrder': '/linter/rules/use-vue-define-macros-order',
   '/linter/rules/useVueMultiWordComponentNames': '/linter/rules/use-vue-multi-word-component-names',
   '/linter/rules/useWhile': '/linter/rules/use-while',
   '/linter/rules/useYield': '/linter/rules/use-yield',
