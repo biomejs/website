@@ -368,6 +368,7 @@ export const LINT_RULES = {
   useValidForDirection: "useValidForDirection",
   useValidLang: "useValidLang",
   useValidTypeof: "useValidTypeof",
+  useVueDefineMacrosOrder: "useVueDefineMacrosOrder",
   useVueMultiWordComponentNames: "useVueMultiWordComponentNames",
   useWhile: "useWhile",
   useYield: "useYield"
