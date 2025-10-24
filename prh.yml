@@ -8,7 +8,16 @@ rules:
       - /\blinter\b(?!\s*\/)/
   - expected: フォーマット
     patterns:
-      - /\bformat\b(?!\s*\/)/
+      - /(?:(?<!git-)\bformat\b|\bformat\b(?!-staged))(?!\s*\/)/i # accept git-format-staged
+    specs:
+      - from: format
+        to: フォーマット
+      - from: git-format-staged
+        to: git-format-staged
+      - from: format-staged
+        to: フォーマット-staged
+      - from: git-format
+        to: git-フォーマット
   - expected: フォーマッタ
     patterns:
       - /\bformatter\b(?!\s*\/)/
