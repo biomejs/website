@@ -1,0 +1,86 @@
+---
+title: Badanie spowolnień w Biome
+description: Przewodnik po znajdowaniu plików, które spowalniają Biome
+---
+
+Biome ma być szybki. _Bardzo szybki._ A jednak czasami zdarza się, że nie
+udaje nam się dotrzymać tej obietnicy. Najczęściej przyczyną jest konkretny plik
+lub zależność, która powoduje problemy. Czasami też przypadkowo zapomnisz zignorować
+folder `dist/` lub `build/`. Bez względu na przyczynę, może być trudno znaleźć
+co powoduje to spowolnienie, więc ten przewodnik ma pomóc ci to rozgryźć.
+
+## Najpierw podstawy
+
+Zanim zagłębimy się zbyt daleko, możemy wykonać kilka kroków, aby sprawdzić, czy
+nasz problem jest spowodowany jednym z następujących:
+
+* Jeśli masz folder `dist/` lub `build/` z plikami wyjściowymi lub inne takie
+  foldery z plikami zminifikowanymi, sprawdź, czy ignorowanie ich za pomocą
+  [`files.experimentalScannerIgnores`](https://biomejs.dev/reference/configuration/#filesexperimentalscannerignores)
+  oraz
+  [`files.includes`](https://biomejs.dev/reference/configuration/#filesincludes)
+  robi różnicę.
+* Czy masz włączone [reguły projektu](/linter/domains/#project)? Wiadomo, że
+  powodują one narzut wydajnościowy, w zamian za bardziej zaawansowaną analizę.
+  Zobacz też nasz [wpis FAQ](/linter/#why-is-biome-linter-so-slow-compared-to-v1)
+  na ten temat. Sprawdź, czy wyłączenie ich robi różnicę.
+  * Jeśli wyłączenie ich pomaga, ale chcesz dowiedzieć się, co konkretnie
+    spowodowało spowolnienie, pierwszym krokiem może być dodanie `node_modules` do
+    [`files.experimentalScannerIgnores`](https://biomejs.dev/reference/configuration/#filesexperimentalscannerignores).
+    Czy to pomogło? Świetnie! Ale prawdopodobnie nie chcesz tego tak zostawić,
+    ponieważ informacje o typach z zależności nie będą już dostępne. Możesz
+    dalej dostosować `files.experimentalScannerIgnores`, aby ignorować konkretną
+    zależność zamiast całego folderu `node_modules`, ale prawdopodobnie będziesz
+    chciał czytać dalej, aby dowiedzieć się, którą zależność ignorować...
+
+Jeśli żadne z powyższych nie pomogło, lub jeśli pomogły, ale chcesz zagłębić się
+dalej, możemy użyć śledzenia, aby zobaczyć, czy jest konkretny plik, który może
+być winowajcą...
+
+## Śledzenie
+
+Od wersji 2.0, Biome ma ulepszone możliwości śledzenia, aby pomóc w tym
+śledztwie. Konkretnie, połączymy następujące argumenty wiersza poleceń:
+
+* Każde polecenie CLI Biome może otrzymać argument `--log-file=<ścieżka>`, który
+  zapisze wszystkie komunikaty logów dla tego wywołania do podanej ścieżki zamiast
+  do stdout.
+* Parametr `--log-level=<poziom>` przyjmuje wartość `tracing`. Gdy
+  `--log-level=tracing` jest używany, Biome również wypisuje informacje o czasie
+  z zakresów śledzenia do logu.
+* Używając `--log-kind=json` możemy poprosić Biome o zapisanie logów w formacie JSON.
+
+Jeśli połączymy te trzy argumenty, możemy utworzyć plik logu z wiadomościami JSON
+zawierającymi wszystkie istotne informacje o czasie dla Biome. Na przykład:
+
+```sh
+biome lint --log-level=tracing --log-kind=json --log-file=tracing.json
+```
+
+To zapisuje plik `tracing.json`, ale może zawierać _dużo_ danych. Więc użyjemy
+[`jq`](https://github.com/jqlang/jq) do filtrowania tych informacji.
+
+Na przykład, jeśli chcesz dowiedzieć się, które ścieżki zajmują najdłużej podczas
+budowania grafu modułów, możesz użyć następującego polecenia:
+
+```sh
+cat tracing.json | jq 'select(.span.name == "update_module_graph_internal") | { path: .span.path, time_busy: .["time.busy"], time_idle: .["time.idle"] }' > filtered.json
+```
+
+Teraz będziesz mieć plik o nazwie `filtered.json` ze wszystkimi istotnymi czasami,
+razem ze ścieżkami używanymi podczas wywołań.
+
+Podobnie, jeśli chcesz dowiedzieć się, które pliki były najwolniejsze do analizy,
+możesz użyć następującego polecenia:
+
+```sh
+cat tracing.json | jq '. | select(.span.name == "pull_diagnostics") | { path: .span.path, time_busy: .["time.busy"], time_idle: .["time.idle"] }' > filtered.json
+```
+
+Inne nazwy zakresów, które mogą być interesujące do wyciągnięcia informacji:
+
+* `format_file` mówi ci, jak długo pliki zajmują formatowanie.
+* `open_file_internal` mówi ci, jak długo pliki zajmują otwieranie, w tym parsowanie.
+  Ma pole `reason`, które również może powiedzieć ci _dlaczego_ plik jest otwierany:
+  przez skaner, zaktualizowany przez obserwator, lub żądanie klienta, które jest
+  zwykle do lintowania lub formatowania. _(od Biome 2.1.2)_
