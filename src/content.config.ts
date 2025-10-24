@@ -12,6 +12,17 @@ export const collections = {
 			extend: (context) => blogSchema(context),
 		}),
 	}),
+	users: defineCollection({
+		loader: file("src/content/users.json"),
+		schema: ({ image }) => {
+			return z.object({
+				id: z.string(),
+				logo: image(),
+				url: z.string().url(),
+				featured: z.boolean(),
+			});
+		},
+	}),
 	team: defineCollection({
 		schema: () =>
 			z.object({
@@ -46,6 +57,10 @@ export const collections = {
 				"title.docs": z.string().optional(),
 				"title.enterprise": z.string().optional(),
 				"title.playground": z.string().optional(),
+				"users.featured.title": z.string().optional(),
+				"users.featured.description": z.string().optional(),
+				"users.title": z.string().optional(),
+				"users.description": z.string().optional(),
 			}),
 		}),
 	}),

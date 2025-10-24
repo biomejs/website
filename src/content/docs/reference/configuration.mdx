@@ -113,15 +113,51 @@ This means that:
 * `src/special.test.js` **is** processed.
 * `test/special.test.js` **is not** processed.
 
-#### Note on Biome's scanner
+Note that files inside `node_modules/` are ignored regardless of the
+`files.includes` setting.
 
-Biome has a scanner that is responsible for discovering nested `.gitignore`
-files as well as indexing projects if any of the rules from the project domain
-are enabled.
+#### Interaction with the scanner
 
-The scanner respects the `files.includes` setting, but there is some fineprint.
-See the [scanner documentation](/internals/architecture/#scanner) for more
-information.
+Biome has a [scanner](/internals/architecture/#scanner) that is responsible for
+discovering nested configuration files as well as `.gitignore` files. It can
+also index source files if one or more rules from the
+[project domain](/linter/domains/#project) are enabled.
+
+The scanner respects both `files.includes` and the ignored patterns from
+`.gitignore` files, but there are two exceptions to be aware of:
+* Special files such as `biome.json` and `.gitignore` take priority over any
+  ignored patterns in `files.includes`.
+* If any rule from the project domain is enabled, the scanner will index source
+  files _including their dependencies_. This means that files that are ignored
+  as part of `files.includes` may still get indexed by the scanner, as long as
+  there is another included file that imports those files. And this also
+  means that `.d.ts` files and `package.json` manifests inside `node_modules/`
+  may still get indexed too.
+
+If you want to explicitly force some files to be ignored by the scanner, you can
+do so using a so-called _force-ignore pattern_. A force-ignore pattern looks
+like a regular negated pattern, but starts with a double exclamation mark
+(`!!`).
+
+For example, you can tell Biome to never look inside any `dist/` folder using
+the following configuration:
+
+```json title="biome.json"
+{
+  "files": {
+    "includes": ["**", "!!**/dist"]
+  }
+}
+```
+
+We recommend using the force-ignore syntax for any folders that contain _output_
+files, such as `build/` and `dist/`. For such folders, it is highly unlikely
+that indexing has any useful benefits. For folders containing generated files,
+we advise using regular ignore patterns so that type information can still be
+extracted from the files.
+
+For nested `biome.json` files as well as `.gitignore` files that you wish to
+explicitly ignore, the force-ignore syntax must also be used.
 
 ### `files.ignoreUnknown`
 
@@ -147,29 +183,16 @@ this limit will be ignored for performance reasons.
 
 ### `files.experimentalScannerIgnores`
 
-An array of literal paths that the scanner should ignore during the crawling. The ignored files won't be indexed, which means that these files won't be part of the module graph, and types won't be inferred from them.
-
-In the following example, the folders `lodash` and `dist` and the file `RedisCommander.d.ts` will be ignored:
-
-```json title="biome.json"
-{
-  "files" : {
-    "experimentalScannerIgnores": [
-      "lodash",
-      "dist",
-      "RedisCommander.d.ts"
-    ]
-  }
-}
-```
-
-You should use this option only as a last resort in cases Biome takes a lot of time to lint/check your project. (Glob) paths aren't supported, and only basenames are matched.
-
-See the [scanner documentation](/internals/architecture/#scanner) for more information.
-
 :::caution
-As an experimental option, its usage is subject to change. The goal is to make Biome as fast as possible and eventually remove the option.
+This option has been **deprecated** and may be removed in a future release.
+Please use the
+[_force-ignore syntax_](/reference/configuration/#interaction-with-the-scanner)
+with `files.includes` instead.
 :::
+
+An array of literal path segments that the scanner should ignore during the
+crawling. The ignored files won't be indexed, which means that these files won't
+be part of the module graph, and types won't be inferred from them.
 
 ## `vcs`
 
@@ -1067,6 +1090,12 @@ Enables parsing of [CSS modules](https://github.com/css-modules/css-modules)
 
 > Default: `false`
 
+### `css.parser.tailwindDirectives`
+
+Enables parsing of [Tailwind](https://tailwindcss.com) specific syntax, like `@theme`, `@utility` and `@apply`.
+
+> Default: `false`
+
 ### `css.formatter.enabled`
 
 Enables Biome's formatter for CSS files.
@@ -1304,8 +1333,9 @@ Enables Biome's assist for Grit files.
 ## `html`
 
 :::caution
-The HTML parser and formatter are still considered experimental, which means that breaking changes
-can happen in patch and minor versions.
+While HTML parser, formatter and linter are enabled by default, they are still considered experimental.
+Breaking changes will be reduced to a minimum, however the introduction of fixes and features might change
+the behavior of the tools.
 :::
 
 ### `html.parser.interpolation`
@@ -1384,9 +1414,20 @@ Whether to account for whitespace sensitivity when formatting HTML (and its supe
 
 ### `html.formatter.indentScriptAndStyle`
 
-Whether to indent the `<script>` and `<style>` tags for HTML (and its super languages).
+*Since 2.3: Only affects `.vue` and `.svelte` files*
 
-> Default: `true`
+Whether to indent the content of `<script>` and `<style>` tags for Vue and Svelte files. Currently, this does not apply to plain HTML files.
+
+> Default: `false`
+
+When true, the content of `<script>` and `<style>` tags will be indented by one level relative to the tags.
+
+```vue title="foo.vue" del={2} ins={3}
+<script>
+import Bar from "./Bar.vue";
+  import Bar from "./Bar.vue";
+</script>
+```
 
 ### `html.formatter.selfCloseVoidElements`
 
@@ -1396,6 +1437,19 @@ Whether void elements should be self-closed. Defaults to never.
 
 - `"never"`: The slash `/` inside void elements is removed by the formatter.
 - `"always"`: The slash `/` inside void elements is always added.
+
+### `html.linter.enabled`
+
+Enables Biome's linter for HTML files.
+
+> Default: `true`
+
+### `html.linter.assist`
+
+Enables Biome's assist for HTML files.
+
+> Default: `true`
+
 
 ## `overrides`
 

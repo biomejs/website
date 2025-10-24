@@ -99,7 +99,7 @@ Shows the Biome version information and quit.
   Silence errors that would be emitted in case no files were processed during the execution of the command.
 - **`    --error-on-warnings`** &mdash; 
   Tell Biome to exit with an error code if some diagnostics emit warnings.
-- **`    --reporter`**=_`<json|json-pretty|github|junit|summary|gitlab>`_ &mdash; 
+- **`    --reporter`**=_`<json|json-pretty|github|junit|summary|gitlab|checkstyle|rdjson>`_ &mdash; 
   Allows to change how diagnostics and summary are reported.
 - **`    --log-file`**=_`ARG`_ &mdash; 
   Optional path to redirect log messages to.
@@ -154,7 +154,7 @@ Prints information for debugging.
   Silence errors that would be emitted in case no files were processed during the execution of the command.
 - **`    --error-on-warnings`** &mdash; 
   Tell Biome to exit with an error code if some diagnostics emit warnings.
-- **`    --reporter`**=_`<json|json-pretty|github|junit|summary|gitlab>`_ &mdash; 
+- **`    --reporter`**=_`<json|json-pretty|github|junit|summary|gitlab|checkstyle|rdjson>`_ &mdash; 
   Allows to change how diagnostics and summary are reported.
 - **`    --log-file`**=_`ARG`_ &mdash; 
   Optional path to redirect log messages to.
@@ -224,7 +224,15 @@ Stops the Biome daemon server process.
 
 Runs formatter, linter and import sorting to the requested files.
 
-**Usage**: **`biome`** **`check`** \[**`--write`**\] \[**`--unsafe`**\] \[**`--assist-enabled`**=_`<true|false>`_\] \[**`--enforce-assist`**=_`<true|false>`_\] \[**`--staged`**\] \[**`--changed`**\] \[**`--since`**=_`REF`_\] \[_`PATH`_\]...
+**Usage**: **`biome`** **`check`** \[**`--write`**\] \[**`--unsafe`**\] \[**`--assist-enabled`**=_`<true|false>`_\] \[**`--enforce-assist`**=_`<true|false>`_\] \[**`--format-with-errors`**=_`<true|false>`_\] \[**`--staged`**\] \[**`--changed`**\] \[**`--since`**=_`REF`_\] \[_`PATH`_\]...
+
+**Options that changes how the JSON parser behaves**
+- **`    --json-parse-allow-comments`**=_`<true|false>`_ &mdash; 
+  Allow parsing comments in `.json` files
+- **`    --json-parse-allow-trailing-commas`**=_`<true|false>`_ &mdash; 
+  Allow parsing trailing commas in `.json` files
+
+
 
 **The configuration that is contained inside the file `biome.json`**
 - **`    --vcs-enabled`**=_`<true|false>`_ &mdash; 
@@ -242,12 +250,14 @@ Runs formatter, linter and import sorting to the requested files.
 - **`    --files-max-size`**=_`NUMBER`_ &mdash; 
   The maximum allowed size for source code files in bytes. Files above this limit will be ignored for performance reasons. Defaults to 1 MiB
 - **`    --files-ignore-unknown`**=_`<true|false>`_ &mdash; 
-  Tells Biome to not emit diagnostics when handling files that doesn't know
+  Tells Biome to not emit diagnostics when handling files that it doesn't know
+- **`    --format-with-errors`**=_`<true|false>`_ &mdash; 
+  Whether formatting should be allowed to proceed if a given file has syntax errors
 - **`    --indent-style`**=_`<tab|space>`_ &mdash; 
   The indent style.
 - **`    --indent-width`**=_`NUMBER`_ &mdash; 
   The size of the indentation, 2 by default
-- **`    --line-ending`**=_`<lf|crlf|cr>`_ &mdash; 
+- **`    --line-ending`**=_`<lf|crlf|cr|auto>`_ &mdash; 
   The type of line ending.
 - **`    --line-width`**=_`NUMBER`_ &mdash; 
   What's the max width of a line. Defaults to 80.
@@ -285,8 +295,8 @@ Runs formatter, linter and import sorting to the requested files.
   The indent style applied to JavaScript (and its super languages) files.
 - **`    --javascript-formatter-indent-width`**=_`NUMBER`_ &mdash; 
   The size of the indentation applied to JavaScript (and its super languages) files. Default to 2.
-- **`    --javascript-formatter-line-ending`**=_`<lf|crlf|cr>`_ &mdash; 
-  The type of line ending applied to JavaScript (and its super languages) files.
+- **`    --javascript-formatter-line-ending`**=_`<lf|crlf|cr|auto>`_ &mdash; 
+  The type of line ending applied to JavaScript (and its super languages) files. `auto` uses CRLF on Windows and LF on other platforms.
 - **`    --javascript-formatter-line-width`**=_`NUMBER`_ &mdash; 
   What's the max width of a line applied to JavaScript (and its super languages) files. Defaults to 80.
 - **`    --javascript-formatter-quote-style`**=_`<double|single>`_ &mdash; 
@@ -303,14 +313,18 @@ Runs formatter, linter and import sorting to the requested files.
   Control the linter for JavaScript (and its super languages) files.
 - **`    --javascript-assist-enabled`**=_`<true|false>`_ &mdash; 
   Control the assist for JavaScript (and its super languages) files.
+- **`    --json-parse-allow-comments`**=_`<true|false>`_ &mdash; 
+  Allow parsing comments in `.json` files
+- **`    --json-parse-allow-trailing-commas`**=_`<true|false>`_ &mdash; 
+  Allow parsing trailing commas in `.json` files
 - **`    --json-formatter-enabled`**=_`<true|false>`_ &mdash; 
   Control the formatter for JSON (and its super languages) files.
 - **`    --json-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
   The indent style applied to JSON (and its super languages) files.
 - **`    --json-formatter-indent-width`**=_`NUMBER`_ &mdash; 
   The size of the indentation applied to JSON (and its super languages) files. Default to 2.
-- **`    --json-formatter-line-ending`**=_`<lf|crlf|cr>`_ &mdash; 
-  The type of line ending applied to JSON (and its super languages) files.
+- **`    --json-formatter-line-ending`**=_`<lf|crlf|cr|auto>`_ &mdash; 
+  The type of line ending applied to JSON (and its super languages) files. `auto` uses CRLF on Windows and LF on other platforms.
 - **`    --json-formatter-line-width`**=_`NUMBER`_ &mdash; 
   What's the max width of a line applied to JSON (and its super languages) files. Defaults to 80.
 - **`    --json-formatter-trailing-commas`**=_`<none|all>`_ &mdash; 
@@ -323,14 +337,18 @@ Runs formatter, linter and import sorting to the requested files.
   Control the linter for JSON (and its super languages) files.
 - **`    --json-assist-enabled`**=_`<true|false>`_ &mdash; 
   Control the assist for JSON (and its super languages) files.
+- **`    --css-parse-css-modules`**=_`<true|false>`_ &mdash; 
+  Enables parsing of CSS Modules specific features.
+- **`    --css-parse-tailwind-directives`**=_`<true|false>`_ &mdash; 
+  Enables parsing of Tailwind CSS 4.0 directives and functions.
 - **`    --css-formatter-enabled`**=_`<true|false>`_ &mdash; 
   Control the formatter for CSS (and its super languages) files.
 - **`    --css-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
   The indent style applied to CSS (and its super languages) files.
 - **`    --css-formatter-indent-width`**=_`NUMBER`_ &mdash; 
   The size of the indentation applied to CSS (and its super languages) files. Default to 2.
-- **`    --css-formatter-line-ending`**=_`<lf|crlf|cr>`_ &mdash; 
-  The type of line ending applied to CSS (and its super languages) files.
+- **`    --css-formatter-line-ending`**=_`<lf|crlf|cr|auto>`_ &mdash; 
+  The type of line ending applied to CSS (and its super languages) files. `auto` uses CRLF on Windows and LF on other platforms.
 - **`    --css-formatter-line-width`**=_`NUMBER`_ &mdash; 
   What's the max width of a line applied to CSS (and its super languages) files. Defaults to 80.
 - **`    --css-formatter-quote-style`**=_`<double|single>`_ &mdash; 
@@ -345,8 +363,8 @@ Runs formatter, linter and import sorting to the requested files.
   The indent style applied to GraphQL files.
 - **`    --graphql-formatter-indent-width`**=_`NUMBER`_ &mdash; 
   The size of the indentation applied to GraphQL files. Default to 2.
-- **`    --graphql-formatter-line-ending`**=_`<lf|crlf|cr>`_ &mdash; 
-  The type of line ending applied to GraphQL files.
+- **`    --graphql-formatter-line-ending`**=_`<lf|crlf|cr|auto>`_ &mdash; 
+  The type of line ending applied to GraphQL files. `auto` uses CRLF on Windows and LF on other platforms.
 - **`    --graphql-formatter-line-width`**=_`NUMBER`_ &mdash; 
   What's the max width of a line applied to GraphQL files. Defaults to 80.
 - **`    --graphql-formatter-quote-style`**=_`<double|single>`_ &mdash; 
@@ -375,8 +393,8 @@ Runs formatter, linter and import sorting to the requested files.
   The indent style applied to HTML (and its super languages) files.
 - **`    --html-formatter-indent-width`**=_`NUMBER`_ &mdash; 
   The size of the indentation applied to HTML (and its super languages) files. Default to 2.
-- **`    --html-formatter-line-ending`**=_`<lf|crlf|cr>`_ &mdash; 
-  The type of line ending applied to HTML (and its super languages) files.
+- **`    --html-formatter-line-ending`**=_`<lf|crlf|cr|auto>`_ &mdash; 
+  The type of line ending applied to HTML (and its super languages) files. `auto` uses CRLF on Windows and LF on other platforms.
 - **`    --html-formatter-line-width`**=_`NUMBER`_ &mdash; 
   What's the max width of a line applied to HTML (and its super languages) files. Defaults to 80.
 - **`    --html-formatter-attribute-position`**=_`<multiline|auto>`_ &mdash; 
@@ -389,6 +407,10 @@ Runs formatter, linter and import sorting to the requested files.
   Whether to indent the `<script>` and `<style>` tags for HTML (and its super languages). Defaults to false.
 - **`    --html-formatter-self-close-void-elements`**=_`<always|never>`_ &mdash; 
   Whether void elements should be self-closed. Defaults to never.
+- **`    --html-linter-enabled`**=_`<true|false>`_ &mdash; 
+  Control the linter for HTML (and its super languages) files.
+- **`    --html-assist-enabled`**=_`<true|false>`_ &mdash; 
+  Control the assist for HTML (and its super languages) files.
 - **`    --assist-enabled`**=_`<true|false>`_ &mdash; 
   Whether Biome should enable assist via LSP and CLI.
 
@@ -415,7 +437,7 @@ Runs formatter, linter and import sorting to the requested files.
   Silence errors that would be emitted in case no files were processed during the execution of the command.
 - **`    --error-on-warnings`** &mdash; 
   Tell Biome to exit with an error code if some diagnostics emit warnings.
-- **`    --reporter`**=_`<json|json-pretty|github|junit|summary|gitlab>`_ &mdash; 
+- **`    --reporter`**=_`<json|json-pretty|github|junit|summary|gitlab|checkstyle|rdjson>`_ &mdash; 
   Allows to change how diagnostics and summary are reported.
 - **`    --log-file`**=_`ARG`_ &mdash; 
   Optional path to redirect log messages to.
@@ -459,6 +481,8 @@ Runs formatter, linter and import sorting to the requested files.
   Allow enabling or disabling the assist.
 - **`    --enforce-assist`**=_`<true|false>`_ &mdash; 
   Allows enforcing assist, and make the CLI fail if some actions aren't applied. Defaults to `true`.
+- **`    --format-with-errors`**=_`<true|false>`_ &mdash; 
+  Whether formatting should be allowed to proceed if a given file has syntax errors
 - **`    --stdin-file-path`**=_`PATH`_ &mdash; 
   Use this option when you want to format code piped from `stdin`, and print the output to `stdout`.
 
@@ -481,7 +505,15 @@ Runs formatter, linter and import sorting to the requested files.
 
 Run various checks on a set of files.
 
-**Usage**: **`biome`** **`lint`** \[**`--write`**\] \[**`--unsafe`**\] \[**`--suppress`**\] \[**`--reason`**=_`STRING`_\] \[**`--only`**=_`<GROUP|RULE>`_\]... \[**`--skip`**=_`<GROUP|RULE>`_\]... \[**`--staged`**\] \[**`--changed`**\] \[**`--since`**=_`REF`_\] \[_`PATH`_\]...
+**Usage**: **`biome`** **`lint`** \[**`--write`**\] \[**`--unsafe`**\] \[**`--suppress`**\] \[**`--reason`**=_`STRING`_\] \[**`--only`**=_`<GROUP|RULE|DOMAIN>`_\]... \[**`--skip`**=_`<GROUP|RULE|DOMAIN>`_\]... \[**`--staged`**\] \[**`--changed`**\] \[**`--since`**=_`REF`_\] \[_`PATH`_\]...
+
+**Options that changes how the JSON parser behaves**
+- **`    --json-parse-allow-comments`**=_`<true|false>`_ &mdash; 
+  Allow parsing comments in `.json` files
+- **`    --json-parse-allow-trailing-commas`**=_`<true|false>`_ &mdash; 
+  Allow parsing trailing commas in `.json` files
+
+
 
 **Set of properties to integrate Biome with a VCS software.**
 - **`    --vcs-enabled`**=_`<true|false>`_ &mdash; 
@@ -503,7 +535,7 @@ Run various checks on a set of files.
 - **`    --files-max-size`**=_`NUMBER`_ &mdash; 
   The maximum allowed size for source code files in bytes. Files above this limit will be ignored for performance reasons. Defaults to 1 MiB
 - **`    --files-ignore-unknown`**=_`<true|false>`_ &mdash; 
-  Tells Biome to not emit diagnostics when handling files that doesn't know
+  Tells Biome to not emit diagnostics when handling files that it doesn't know
 
 
 
@@ -540,7 +572,7 @@ Run various checks on a set of files.
   Silence errors that would be emitted in case no files were processed during the execution of the command.
 - **`    --error-on-warnings`** &mdash; 
   Tell Biome to exit with an error code if some diagnostics emit warnings.
-- **`    --reporter`**=_`<json|json-pretty|github|junit|summary|gitlab>`_ &mdash; 
+- **`    --reporter`**=_`<json|json-pretty|github|junit|summary|gitlab|checkstyle|rdjson>`_ &mdash; 
   Allows to change how diagnostics and summary are reported.
 - **`    --log-file`**=_`ARG`_ &mdash; 
   Optional path to redirect log messages to.
@@ -580,14 +612,26 @@ Run various checks on a set of files.
   Fixes lint rule violations with comment suppressions instead of using a rule code action (fix)
 - **`    --reason`**=_`STRING`_ &mdash; 
   Explanation for suppressing diagnostics with `--suppress`
-- **`    --only`**=_`<GROUP|RULE>`_ &mdash; 
-  Run only the given rule or group of rules. If the severity level of a rule is `off`, then the severity level of the rule is set to `error` if it is a recommended rule or `warn` otherwise.
+- **`    --only`**=_`<GROUP|RULE|DOMAIN>`_ &mdash; 
+  Run only the given rule, group of rules or domain. If the severity level of a rule is `off`, then the severity level of the rule is set to `error` if it is a recommended rule or `warn` otherwise.
 
-  Example: `biome lint --only=correctness/noUnusedVariables --only=suspicious`
-- **`    --skip`**=_`<GROUP|RULE>`_ &mdash; 
-  Skip the given rule or group of rules by setting the severity level of the rules to `off`. This option takes precedence over `--only`.
+  Example:
 
-  Example: `biome lint --skip=correctness/noUnusedVariables --skip=suspicious`
+  
+  ```shell
+  biome lint --only=correctness/noUnusedVariables --only=suspicious --only=test
+  ```
+
+- **`    --skip`**=_`<GROUP|RULE|DOMAIN>`_ &mdash; 
+  Skip the given rule, group of rules or domain by setting the severity level of the rules to `off`. This option takes precedence over `--only`.
+
+  Example:
+
+  
+  ```shell
+  biome lint --skip=correctness/noUnusedVariables --skip=suspicious --skip=project
+  ```
+
 - **`    --stdin-file-path`**=_`PATH`_ &mdash; 
   Use this option when you want to format code piped from `stdin`, and print the output to `stdout`.
 
@@ -611,11 +655,13 @@ Run the formatter on a set of files.
 **Usage**: **`biome`** **`format`** \[**`--write`**\] \[**`--staged`**\] \[**`--changed`**\] \[**`--since`**=_`REF`_\] \[_`PATH`_\]...
 
 **Generic options applied to all files**
+- **`    --format-with-errors`**=_`<true|false>`_ &mdash; 
+  Whether formatting should be allowed to proceed if a given file has syntax errors
 - **`    --indent-style`**=_`<tab|space>`_ &mdash; 
   The indent style.
 - **`    --indent-width`**=_`NUMBER`_ &mdash; 
   The size of the indentation, 2 by default
-- **`    --line-ending`**=_`<lf|crlf|cr>`_ &mdash; 
+- **`    --line-ending`**=_`<lf|crlf|cr|auto>`_ &mdash; 
   The type of line ending.
 - **`    --line-width`**=_`NUMBER`_ &mdash; 
   What's the max width of a line. Defaults to 80.
@@ -653,8 +699,8 @@ Run the formatter on a set of files.
   The indent style applied to JavaScript (and its super languages) files.
 - **`    --javascript-formatter-indent-width`**=_`NUMBER`_ &mdash; 
   The size of the indentation applied to JavaScript (and its super languages) files. Default to 2.
-- **`    --javascript-formatter-line-ending`**=_`<lf|crlf|cr>`_ &mdash; 
-  The type of line ending applied to JavaScript (and its super languages) files.
+- **`    --javascript-formatter-line-ending`**=_`<lf|crlf|cr|auto>`_ &mdash; 
+  The type of line ending applied to JavaScript (and its super languages) files. `auto` uses CRLF on Windows and LF on other platforms.
 - **`    --javascript-formatter-line-width`**=_`NUMBER`_ &mdash; 
   What's the max width of a line applied to JavaScript (and its super languages) files. Defaults to 80.
 - **`    --javascript-formatter-quote-style`**=_`<double|single>`_ &mdash; 
@@ -667,6 +713,14 @@ Run the formatter on a set of files.
   Whether to expand arrays and objects on multiple lines. When set to `auto`, object literals are formatted on multiple lines if the first property has a newline, and array literals are formatted on a single line if it fits in the line. When set to `always`, these literals are formatted on multiple lines, regardless of length of the list. When set to `never`, these literals are formatted on a single line if it fits in the line. When formatting `package.json`, Biome will use `always` unless configured otherwise. Defaults to "auto".
 - **`    --javascript-formatter-operator-linebreak`**=_`<before|after>`_ &mdash; 
   When breaking binary expressions into multiple lines, whether to break them before or after the binary operator. Defaults to "after".
+
+
+
+**Options that changes how the JSON parser behaves**
+- **`    --json-parse-allow-comments`**=_`<true|false>`_ &mdash; 
+  Allow parsing comments in `.json` files
+- **`    --json-parse-allow-trailing-commas`**=_`<true|false>`_ &mdash; 
+  Allow parsing trailing commas in `.json` files
 
 
 
@@ -690,7 +744,7 @@ Run the formatter on a set of files.
 - **`    --files-max-size`**=_`NUMBER`_ &mdash; 
   The maximum allowed size for source code files in bytes. Files above this limit will be ignored for performance reasons. Defaults to 1 MiB
 - **`    --files-ignore-unknown`**=_`<true|false>`_ &mdash; 
-  Tells Biome to not emit diagnostics when handling files that doesn't know
+  Tells Biome to not emit diagnostics when handling files that it doesn't know
 
 
 
@@ -715,7 +769,7 @@ Run the formatter on a set of files.
   Silence errors that would be emitted in case no files were processed during the execution of the command.
 - **`    --error-on-warnings`** &mdash; 
   Tell Biome to exit with an error code if some diagnostics emit warnings.
-- **`    --reporter`**=_`<json|json-pretty|github|junit|summary|gitlab>`_ &mdash; 
+- **`    --reporter`**=_`<json|json-pretty|github|junit|summary|gitlab|checkstyle|rdjson>`_ &mdash; 
   Allows to change how diagnostics and summary are reported.
 - **`    --log-file`**=_`ARG`_ &mdash; 
   Optional path to redirect log messages to.
@@ -751,8 +805,8 @@ Run the formatter on a set of files.
   The indent style applied to JSON (and its super languages) files.
 - **`    --json-formatter-indent-width`**=_`NUMBER`_ &mdash; 
   The size of the indentation applied to JSON (and its super languages) files. Default to 2.
-- **`    --json-formatter-line-ending`**=_`<lf|crlf|cr>`_ &mdash; 
-  The type of line ending applied to JSON (and its super languages) files.
+- **`    --json-formatter-line-ending`**=_`<lf|crlf|cr|auto>`_ &mdash; 
+  The type of line ending applied to JSON (and its super languages) files. `auto` uses CRLF on Windows and LF on other platforms.
 - **`    --json-formatter-line-width`**=_`NUMBER`_ &mdash; 
   What's the max width of a line applied to JSON (and its super languages) files. Defaults to 80.
 - **`    --json-formatter-trailing-commas`**=_`<none|all>`_ &mdash; 
@@ -787,7 +841,15 @@ Command to use in CI environments. Runs formatter, linter and import sorting to 
 
 Files won't be modified, the command is a read-only operation.
 
-**Usage**: **`biome`** **`ci`** \[**`--formatter-enabled`**=_`<true|false>`_\] \[**`--linter-enabled`**=_`<true|false>`_\] \[**`--assist-enabled`**=_`<true|false>`_\] \[**`--enforce-assist`**=_`<true|false>`_\] \[**`--changed`**\] \[**`--since`**=_`REF`_\] \[_`PATH`_\]...
+**Usage**: **`biome`** **`ci`** \[**`--formatter-enabled`**=_`<true|false>`_\] \[**`--linter-enabled`**=_`<true|false>`_\] \[**`--assist-enabled`**=_`<true|false>`_\] \[**`--format-with-errors`**=_`<true|false>`_\] \[**`--enforce-assist`**=_`<true|false>`_\] \[**`--changed`**\] \[**`--since`**=_`REF`_\] \[_`PATH`_\]...
+
+**Options that changes how the JSON parser behaves**
+- **`    --json-parse-allow-comments`**=_`<true|false>`_ &mdash; 
+  Allow parsing comments in `.json` files
+- **`    --json-parse-allow-trailing-commas`**=_`<true|false>`_ &mdash; 
+  Allow parsing trailing commas in `.json` files
+
+
 
 **The configuration that is contained inside the file `biome.json`**
 - **`    --vcs-enabled`**=_`<true|false>`_ &mdash; 
@@ -805,12 +867,14 @@ Files won't be modified, the command is a read-only operation.
 - **`    --files-max-size`**=_`NUMBER`_ &mdash; 
   The maximum allowed size for source code files in bytes. Files above this limit will be ignored for performance reasons. Defaults to 1 MiB
 - **`    --files-ignore-unknown`**=_`<true|false>`_ &mdash; 
-  Tells Biome to not emit diagnostics when handling files that doesn't know
+  Tells Biome to not emit diagnostics when handling files that it doesn't know
+- **`    --format-with-errors`**=_`<true|false>`_ &mdash; 
+  Whether formatting should be allowed to proceed if a given file has syntax errors
 - **`    --indent-style`**=_`<tab|space>`_ &mdash; 
   The indent style.
 - **`    --indent-width`**=_`NUMBER`_ &mdash; 
   The size of the indentation, 2 by default
-- **`    --line-ending`**=_`<lf|crlf|cr>`_ &mdash; 
+- **`    --line-ending`**=_`<lf|crlf|cr|auto>`_ &mdash; 
   The type of line ending.
 - **`    --line-width`**=_`NUMBER`_ &mdash; 
   What's the max width of a line. Defaults to 80.
@@ -848,8 +912,8 @@ Files won't be modified, the command is a read-only operation.
   The indent style applied to JavaScript (and its super languages) files.
 - **`    --javascript-formatter-indent-width`**=_`NUMBER`_ &mdash; 
   The size of the indentation applied to JavaScript (and its super languages) files. Default to 2.
-- **`    --javascript-formatter-line-ending`**=_`<lf|crlf|cr>`_ &mdash; 
-  The type of line ending applied to JavaScript (and its super languages) files.
+- **`    --javascript-formatter-line-ending`**=_`<lf|crlf|cr|auto>`_ &mdash; 
+  The type of line ending applied to JavaScript (and its super languages) files. `auto` uses CRLF on Windows and LF on other platforms.
 - **`    --javascript-formatter-line-width`**=_`NUMBER`_ &mdash; 
   What's the max width of a line applied to JavaScript (and its super languages) files. Defaults to 80.
 - **`    --javascript-formatter-quote-style`**=_`<double|single>`_ &mdash; 
@@ -866,14 +930,18 @@ Files won't be modified, the command is a read-only operation.
   Control the linter for JavaScript (and its super languages) files.
 - **`    --javascript-assist-enabled`**=_`<true|false>`_ &mdash; 
   Control the assist for JavaScript (and its super languages) files.
+- **`    --json-parse-allow-comments`**=_`<true|false>`_ &mdash; 
+  Allow parsing comments in `.json` files
+- **`    --json-parse-allow-trailing-commas`**=_`<true|false>`_ &mdash; 
+  Allow parsing trailing commas in `.json` files
 - **`    --json-formatter-enabled`**=_`<true|false>`_ &mdash; 
   Control the formatter for JSON (and its super languages) files.
 - **`    --json-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
   The indent style applied to JSON (and its super languages) files.
 - **`    --json-formatter-indent-width`**=_`NUMBER`_ &mdash; 
   The size of the indentation applied to JSON (and its super languages) files. Default to 2.
-- **`    --json-formatter-line-ending`**=_`<lf|crlf|cr>`_ &mdash; 
-  The type of line ending applied to JSON (and its super languages) files.
+- **`    --json-formatter-line-ending`**=_`<lf|crlf|cr|auto>`_ &mdash; 
+  The type of line ending applied to JSON (and its super languages) files. `auto` uses CRLF on Windows and LF on other platforms.
 - **`    --json-formatter-line-width`**=_`NUMBER`_ &mdash; 
   What's the max width of a line applied to JSON (and its super languages) files. Defaults to 80.
 - **`    --json-formatter-trailing-commas`**=_`<none|all>`_ &mdash; 
@@ -886,14 +954,18 @@ Files won't be modified, the command is a read-only operation.
   Control the linter for JSON (and its super languages) files.
 - **`    --json-assist-enabled`**=_`<true|false>`_ &mdash; 
   Control the assist for JSON (and its super languages) files.
+- **`    --css-parse-css-modules`**=_`<true|false>`_ &mdash; 
+  Enables parsing of CSS Modules specific features.
+- **`    --css-parse-tailwind-directives`**=_`<true|false>`_ &mdash; 
+  Enables parsing of Tailwind CSS 4.0 directives and functions.
 - **`    --css-formatter-enabled`**=_`<true|false>`_ &mdash; 
   Control the formatter for CSS (and its super languages) files.
 - **`    --css-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
   The indent style applied to CSS (and its super languages) files.
 - **`    --css-formatter-indent-width`**=_`NUMBER`_ &mdash; 
   The size of the indentation applied to CSS (and its super languages) files. Default to 2.
-- **`    --css-formatter-line-ending`**=_`<lf|crlf|cr>`_ &mdash; 
-  The type of line ending applied to CSS (and its super languages) files.
+- **`    --css-formatter-line-ending`**=_`<lf|crlf|cr|auto>`_ &mdash; 
+  The type of line ending applied to CSS (and its super languages) files. `auto` uses CRLF on Windows and LF on other platforms.
 - **`    --css-formatter-line-width`**=_`NUMBER`_ &mdash; 
   What's the max width of a line applied to CSS (and its super languages) files. Defaults to 80.
 - **`    --css-formatter-quote-style`**=_`<double|single>`_ &mdash; 
@@ -908,8 +980,8 @@ Files won't be modified, the command is a read-only operation.
   The indent style applied to GraphQL files.
 - **`    --graphql-formatter-indent-width`**=_`NUMBER`_ &mdash; 
   The size of the indentation applied to GraphQL files. Default to 2.
-- **`    --graphql-formatter-line-ending`**=_`<lf|crlf|cr>`_ &mdash; 
-  The type of line ending applied to GraphQL files.
+- **`    --graphql-formatter-line-ending`**=_`<lf|crlf|cr|auto>`_ &mdash; 
+  The type of line ending applied to GraphQL files. `auto` uses CRLF on Windows and LF on other platforms.
 - **`    --graphql-formatter-line-width`**=_`NUMBER`_ &mdash; 
   What's the max width of a line applied to GraphQL files. Defaults to 80.
 - **`    --graphql-formatter-quote-style`**=_`<double|single>`_ &mdash; 
@@ -938,8 +1010,8 @@ Files won't be modified, the command is a read-only operation.
   The indent style applied to HTML (and its super languages) files.
 - **`    --html-formatter-indent-width`**=_`NUMBER`_ &mdash; 
   The size of the indentation applied to HTML (and its super languages) files. Default to 2.
-- **`    --html-formatter-line-ending`**=_`<lf|crlf|cr>`_ &mdash; 
-  The type of line ending applied to HTML (and its super languages) files.
+- **`    --html-formatter-line-ending`**=_`<lf|crlf|cr|auto>`_ &mdash; 
+  The type of line ending applied to HTML (and its super languages) files. `auto` uses CRLF on Windows and LF on other platforms.
 - **`    --html-formatter-line-width`**=_`NUMBER`_ &mdash; 
   What's the max width of a line applied to HTML (and its super languages) files. Defaults to 80.
 - **`    --html-formatter-attribute-position`**=_`<multiline|auto>`_ &mdash; 
@@ -952,6 +1024,10 @@ Files won't be modified, the command is a read-only operation.
   Whether to indent the `<script>` and `<style>` tags for HTML (and its super languages). Defaults to false.
 - **`    --html-formatter-self-close-void-elements`**=_`<always|never>`_ &mdash; 
   Whether void elements should be self-closed. Defaults to never.
+- **`    --html-linter-enabled`**=_`<true|false>`_ &mdash; 
+  Control the linter for HTML (and its super languages) files.
+- **`    --html-assist-enabled`**=_`<true|false>`_ &mdash; 
+  Control the assist for HTML (and its super languages) files.
 - **`    --assist-enabled`**=_`<true|false>`_ &mdash; 
   Whether Biome should enable assist via LSP and CLI.
 
@@ -978,7 +1054,7 @@ Files won't be modified, the command is a read-only operation.
   Silence errors that would be emitted in case no files were processed during the execution of the command.
 - **`    --error-on-warnings`** &mdash; 
   Tell Biome to exit with an error code if some diagnostics emit warnings.
-- **`    --reporter`**=_`<json|json-pretty|github|junit|summary|gitlab>`_ &mdash; 
+- **`    --reporter`**=_`<json|json-pretty|github|junit|summary|gitlab|checkstyle|rdjson>`_ &mdash; 
   Allows to change how diagnostics and summary are reported.
 - **`    --log-file`**=_`ARG`_ &mdash; 
   Optional path to redirect log messages to.
@@ -1014,6 +1090,8 @@ Files won't be modified, the command is a read-only operation.
   Allow enabling or disable the linter check.
 - **`    --assist-enabled`**=_`<true|false>`_ &mdash; 
   Allow enabling or disabling the assist.
+- **`    --format-with-errors`**=_`<true|false>`_ &mdash; 
+  Whether formatting should be allowed to proceed if a given file has syntax errors
 - **`    --enforce-assist`**=_`<true|false>`_ &mdash; 
   Allows enforcing assist, and make the CLI fail if some actions aren't applied. Defaults to `true`.
 - **`    --changed`** &mdash; 
@@ -1089,7 +1167,7 @@ Updates the configuration when there are breaking changes.
   Silence errors that would be emitted in case no files were processed during the execution of the command.
 - **`    --error-on-warnings`** &mdash; 
   Tell Biome to exit with an error code if some diagnostics emit warnings.
-- **`    --reporter`**=_`<json|json-pretty|github|junit|summary|gitlab>`_ &mdash; 
+- **`    --reporter`**=_`<json|json-pretty|github|junit|summary|gitlab|checkstyle|rdjson>`_ &mdash; 
   Allows to change how diagnostics and summary are reported.
 - **`    --log-file`**=_`ARG`_ &mdash; 
   Optional path to redirect log messages to.
@@ -1191,7 +1269,7 @@ Note: GritQL escapes code snippets using backticks, but most shells interpret ba
   Silence errors that would be emitted in case no files were processed during the execution of the command.
 - **`    --error-on-warnings`** &mdash; 
   Tell Biome to exit with an error code if some diagnostics emit warnings.
-- **`    --reporter`**=_`<json|json-pretty|github|junit|summary|gitlab>`_ &mdash; 
+- **`    --reporter`**=_`<json|json-pretty|github|junit|summary|gitlab|checkstyle|rdjson>`_ &mdash; 
   Allows to change how diagnostics and summary are reported.
 - **`    --log-file`**=_`ARG`_ &mdash; 
   Optional path to redirect log messages to.
@@ -1218,7 +1296,7 @@ Note: GritQL escapes code snippets using backticks, but most shells interpret ba
 - **`    --files-max-size`**=_`NUMBER`_ &mdash; 
   The maximum allowed size for source code files in bytes. Files above this limit will be ignored for performance reasons. Defaults to 1 MiB
 - **`    --files-ignore-unknown`**=_`<true|false>`_ &mdash; 
-  Tells Biome to not emit diagnostics when handling files that doesn't know
+  Tells Biome to not emit diagnostics when handling files that it doesn't know
 
 
 

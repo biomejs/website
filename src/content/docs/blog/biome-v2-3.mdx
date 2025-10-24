@@ -1,0 +1,311 @@
+---
+title: "Biome v2.3—Let's bring the ecosystem closer"
+excerpt: |
+  Biome 2.3 brings full support (experimental) for Vue, Svelte and Astro, new syntax to ignore paths, new CLI flags, new formatting options, new reporters and more.
+authors:
+  - ema
+  - team
+date: 2025-10-07
+cover:
+    light: "@/assets/blog/biome-v2-3/hero-light.png"
+    dark: "@/assets/blog/biome-v2-3/hero-dark.png"
+    alt: The image, on the right, shows the mascot of the Biome project named Cookie, which is the Biome logo with eyes. On the left, the Vue, Svelte and Astro logos. The mascot has hearts on her, which shows that is in love with the three frameworks.
+socialImage: "@/assets/social-logo.png"
+featured: true
+---
+
+import Avatar from "@/components/Avatar.astro";
+
+We're excited to announce the release of Biome 2.3, bringing several features that have been highly requested by the community. This release marks a significant milestone in our journey to support the broader web ecosystem.
+
+Once you have upgraded to Biome v2.3.0, migrate your Biome configuration to the new version by running the `migrate` command:
+
+```shell
+biome migrate --write
+```
+
+## Full support for Vue, Svelte, and Astro
+
+Biome 2.3 introduces full support for Vue, Svelte, and Astro files. This means you can now format and lint the JavaScript and TypeScript code inside `<script>` tags, as well as the CSS inside `<style>` tags in these frameworks. The HTML/template portions of these files are also parsed and formatted according to Biome's HTML formatting rules.
+
+This achievement wouldn't have been possible without the great efforts of <Avatar handle="ematipico" /> and <Avatar handle="dyc3" />.
+
+This is a feature that many developers have been asking for, and we're thrilled to finally deliver it. Achieving this has had its challenges, and it required extensive trials to get the architecture right based on the constraints of the toolchain.
+
+However, this feature is marked as **experimental** for several important reasons. First, these frameworks have their own specific syntaxes and idioms that extend beyond standard HTML, CSS, and JavaScript. While we've done extensive work to handle many patterns, there are cases and framework-specific syntaxes that may not yet be fully supported (for example Svelte control-flow syntax, or Astro JSX-like syntax). We encourage you to avail of this new feature, and fine-tune it based on your needs and possible limitations found.
+
+Please open a discussion if you find something that hasn't been implemented, or an issue if there's a parsing error that should be handled correctly.
+
+To enable the feature, you'll have to opt in the new `html.experimentalFullSupportEnabled` option:
+
+```json title=biome.json ins={3} ins="experimentalFullSupportEnabled"
+{
+  "html": {
+    "experimentalFullSupportEnabled": true
+  }
+}
+```
+:::note
+We plan to fade out this option and make it the default. The option will be removed once the HTML parser becomes stable supports more language-specific features.
+:::
+
+### Script and style indentation
+
+Additionally, you can configure specific formatting options for HTML content, such as whether to indent the content of `<script>` and `<style>` tags:
+
+```json title="biome.json" ins={4} ins="indentScriptAndStyle"
+{
+  "html": {
+    "formatter": {
+      "indentScriptAndStyle": true
+    }
+  }
+}
+```
+
+```vue title=file.vue ins={3} del={2}
+<script setup lang="ts">
+const foo = "bar";
+    const foo = "bar";
+</script>
+```
+
+```svelte title=file.svelte ins={3} del={2}
+<script lang="ts">
+const foo = "bar";
+    const foo = "bar";
+</script>
+```
+
+```astro title=file.astro ins={3} del={2}
+---
+const foo = "bar";
+    const foo = "bar";
+---
+```
+
+By default, `indentScriptAndStyle` is set to `false` to match Prettier's behavior.
+
+### Possible inconsistencies
+
+With this release, we step into something new that needs to be addressed and discussed. In Biome you can configure each language as you see fit, which means that a project *might end up with different formatting (as example)*.
+
+In the following configuration file, JavaScript files are formatted using double quotes, while CSS files are formatted using single quotes.
+
+```json
+{
+	"html": {
+		"format": { "enabled": true },
+		"experimentalFullSupportEnabled": true
+	},
+  "javascript" : {
+    "formatter": {
+      "quoteStyle": "double"
+    }
+  },
+  "css": {
+    "formatter": {
+      "quoteStyle": "single"
+    }
+  }
+}
+```
+
+Why would someone want that? That's not for us to answer, however with a configuration like this you would end with **different quotes inside your HTML-ish files**.
+This could cause inconsistencies inside the same. We created a [GitHub discussion](https://github.com/biomejs/biome/discussions/7754) to understand if this is a problem, and if so, how Biome should solve it. Please let us know what do you think.
+
+## New ignore syntax
+
+Biome 2.3 introduces a refined syntax for ignoring paths in your project, addressing important problems that arose since the introduction of multi file analysis and TypeScript inference.
+
+When Biome 2.0 came out, we internally introduced the concept of "paths being indexed". When a path is indexed, Biome parses it and updates the module graph and the type inference, if enabled.
+
+However, we slowly came to the realization that multi-file analysis and type inference are very complex problems that can get out of hand easily.
+
+For example, type inference can enter a very nasty loop where tons of types are recursively indexed, consuming a lot of memory.
+
+As for multi-file analysis, the `node_modules/` folder can be a rabbit hole, full of symbolic links with high depths and path names that exceed the maximum allowed characters.
+
+Solving these complex problems takes time, a lot of testing and patience from us and the community. With this new syntax, users have now more control over what Biome can and can't do.
+
+With this release, two syntaxes are now available:
+
+- `!` (single exclamation mark): Ignores the path from linting and formatting, but still allows it to be indexed by the type system. This is useful for generated files or third-party code that you don't want to format or lint, but still need for type inference and imports.
+- `!!` (double exclamation mark): Completely ignores the path from all Biome operations, including type indexing. This is useful for files that should be entirely excluded from Biome's analysis, such as `dist/` folders.
+
+This distinction is particularly important when working with TypeScript projects that rely on type inference from dependencies or generated code. By using `!`, you can exclude these files from formatting and linting while still maintaining correct type information across your project.
+
+Here's an example configuration:
+
+```json title="biome.json" ins={5} ins="!!"
+{
+  "files": {
+    "ignore": [
+      "!**/generated",
+      "!!**/dist"
+    ]
+  }
+}
+```
+
+In this configuration, files in the `generated/` directory are ignored for formatting and linting but remain indexed for types and module graph, while files in `dist/` directory are completely excluded from all Biome operations.
+
+This is an important tool **at your disposal** that allows you to control Biome, and [avoid](https://github.com/biomejs/biome/issues/7173) [possible](https://github.com/biomejs/biome/issues/7240) [slowness](https://github.com/biomejs/biome/issues/7007) and [memory](https://github.com/biomejs/biome/issues/6797) [leaks](https://github.com/biomejs/biome/issues/7020).
+
+As result, the option `files.experimentalScannerIgnores` has been **deprecated**. We plan to remove this option in the next releases. Run the `biome migrate` command update your configuration file.
+
+Great shoutout to <Avatar handle="arendjr" /> for implementing this new feature.
+
+## Tailwind v4 support
+
+<Avatar handle="dyc3" /> worked really hard, and he shipped for us **native support** of tailwind files!
+
+This is a opt-in feature of the CSS parser, and you can enable it using the new `css.parser.tailwindDirectives` option:
+
+```json title=biome.json ins={4}
+{
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
+    }
+  }
+}
+```
+
+```css title=tailwind.css
+@utility container {
+    margin-inline: auto;
+    padding-inline: 2rem;
+}
+@theme {
+    --color-*: intial;
+}
+```
+
+## Lint rules
+
+### Promoted rules
+
+- Promoted `noNonNullAssertedOptionalChain` to the suspicious group
+- Promoted `useReactFunctionComponents` to the `style` group
+- Promoted `useImageSize` to the `correctness` group
+- Promoted `useConsistentTypeDefinitions` to the `style` group
+- Promoted `useQwikClasslist` to the `correctness` group
+- Promoted `noSecrets` to the `security` group
+
+### Removed rules
+
+Removed nursery lint rule `useAnchorHref`, because its use case is covered by `useValidAnchor`.
+
+### Updated the `react` domain
+
+The following rules are now a part of the `react` domain, and they won't be enabled automatically unless you enabled the domain, or Biome detects `react` as a dependency of your closest `package.json`:
+
+- [`lint/correctness/noChildrenProp`](https://biomejs.dev/linter/rules/no-children-prop/) (recommended)
+- [`lint/correctness/noReactPropAssignments`](https://biomejs.dev/linter/rules/no-react-prop-assignments/)
+- [`lint/security/noDangerouslySetInnerHtml`](https://biomejs.dev/linter/rules/no-dangerously-set-inner-html/) (recommended)
+- [`lint/security/noDangerouslySetInnerHtmlWithChildren`](https://biomejs.dev/linter/rules/no-dangerously-set-inner-html-with-children/) (recommended)
+- [`lint/style/useComponentExportOnlyModules`](https://biomejs.dev/linter/rules/use-component-export-only-modules/)
+- [`lint/suspicious/noArrayIndexKey`](https://biomejs.dev/linter/rules/no-array-index-key/) (recommended)
+
+## Improved `--skip` and `--only` flags
+
+The flags `--skip` and `--only` have been enhanced, and they can accept [lint domains](/linter/domains) too.
+
+In the following example, the `lint` command runs only the rules that belong to the `project` domain:
+
+```shell
+biome lint --only=project
+```
+
+In the following example, the `lint` command runs all the rules that you configured, expect for the rules that belong to the `test` domain:
+
+```shell
+biome lint --skip=test
+```
+
+## Enhanced `init` command
+
+The `init` command now checks if the project contains ignore files and `dist/` folders. If supported ignore files are found, Biome will
+enable the [VCS integration](/guides/integrate-in-vcs), and if `dist/` folder is found, it will exclude it using the new ignore syntax. This should help reducing
+the friction when starting with Biome:
+
+```json
+{
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  }
+}
+```
+
+## New reporters
+
+Two new CLI reporters have been added:
+- [checkstyle reporter](https://checkstyle.org/) via the new option `--reporter=checkstyle`
+- [RDJSON reporter](https://reviewdog.github.io/rdjson-viewer/?rdjson=eJztmU1z2jAQhu%2F5FRpfcgm4pA1NmMmhnzOZ6altcun0IKw1qCNLVJJJSIb%2F3pVtCKQYDAPBYHOyZe1afh%2FvrhY%2FnRDiGRXrALwOecIzPJc0cmfeR67w4CwdjLVwY31rB6bj%2B1137Y9pMhh6OGHsZnmM055UxvLA4NxfiWHqEy8Gij3fY4VLX3BpQfs6FmB8qRqxjA2wBo8GSluTrSlxMqQiTlbrTPxAaQ2BlWCc2W1idZMZZTbjibEnVEAtV3J%2BVQNq%2B84flwwemvM301T25h8CB0GyF0PJ04o4cp5b52fzV3CdzkVrZnQ8O8Uzlmq7xONlAYcnL4%2BenzpCbWjyFN7PPjck1ZTgUSpyMxUqM6g8vtZitc83xtd6U8BjMX4%2FYAiaCqJCYvtgIGNpCNWwe5pDqjnt4th6PO%2BmZvsh2l4s%2F%2BXGQC8KOFwjHieykvBVYvJAKeYkwauNKb4v4LC8FF8zs0aUy7ouVpxeXRbLklC3A7SuikcAsapFkRrDjfVp4AQ2vtI9KvkjLM2rmU3a%2B05N9ttsnOdk1c1rYhGHRQHO5FHJCDw851SpLDF4tpuQZCrGd6YBf2MqlsSjic2AB1zFzuhzYvMlNdkPzJwE%2BG5jlm8LOCzG8tZw2SPX1ySiI9J1NdHQEPGGZKTihKgGMXJzlCR2NAASKNCordwJX%2BjGvR7oomgn0%2FeD9Woxhfa2Q7S9PtZ02%2BrCE4lifGJ1AkYwyWY7ITJRmuCaLEQg7S54YpYQSMs2qBw1BNiCXG8ysw9y9A2N9kP3YLZBE5HFiPSpSeii3Emw1kznERzMruiVmWpgEAjM9gVhfp%2FO3w%2FHcvecfRULJk8tmcpKTh9Pm%2BQT7kg5w5xrFeZfDB3kbInSOM99Z8GT5lQXz7j0bJJdrDf5gOJ%2Bcyotki5HvGXyLd4NvpAwV8RlMuZ6zgVl4cHdwkPFXAFjEKI9I33Q0PH%2BA%2FC7joUS57SFkRCWKRLaea%2Fr5fzrunYgXBR0vDoOwm3GwfQ9DpWO6IIyPEPvazIFY4PcO4xYiIZABtqFC0sqUqiEUPeuNwgUDkrbOYYGfjv%2Fv9T9exn69%2B2wrNv3crXv26Fad%2B%2Bl7PQq9g2jCs17xb5oHGvvXoXPxXXrvtpzLqjqtO5Hn9Hqzn2l49VhcICd%2B4lb0Pgf0iY3Ww%3D%3D) via the new option `--reporter=rdjson`
+
+## New CLI flags
+
+We added the new CLI flags to better control Biome without relying on the configuration file. Here's the list:
+
+- `--format-with-errors`: CLI flag that allows to format code that contains parse errors.
+- `--css-parse-css-modules`: CLI flag to control whether CSS Modules syntax is enabled.
+- `--css-parse-tailwind-directives`: CLI flag to control whether Tailwind CSS 4.0 directives and functions are enabled.
+- `--json-parse-allow-comments`: CLI flag to control whether comments are allowed in JSON files.
+- `--json-parse-allow-trailing-commas`: CLI flag to control whether trailing commas are allowed in JSON files.
+
+## `lineEnding` format option
+
+The option `lineEnding` now has a variant called `auto` to match the operating system's expected
+line-ending style: on Windows, this will be CRLF (`\r\n`), and on macOS / Linux, this will
+be LF (`\n`).
+
+This allows for cross-platform projects that use Biome not to have to
+force one option or the other, which aligns better with Git's default behavior
+on these platforms.
+
+```json title=biome.json ins={3} ins="\"auto\""
+{
+  "formatter": {
+    "lineEnding": "auto"
+  }
+}
+```
+
+```bash
+biome format --line-ending auto
+```
+
+## And more!
+
+More features and fixes have been shipped, like React v19 support, `baseUrl` support inside `tsconfig.json`, and moore. Refer to the changelog page for a [detailed breakdown of the features](/internals/changelog/version/2-3-0/).
+
+## I like where this is going, how can I help?
+
+I want to remind you that Biome is a project led by volunteers who like programming, open-source, and embrace the Biome philosophy, so any help is welcome 😁
+
+#### Translations
+
+If you are familiar with Biome and would like to contribute to its outreach, you can assist us by translating the website into your native language. In this [dashboard](https://biomejs.dev/i18n-dashboard/), you can check the supported languages and if they are up to date.
+
+#### Chat with us
+
+Join our [Discord server](https://biomejs.dev/chat), and engage with the community. Chatting with the community and being part of the community is a form of contribution.
+
+#### Code contributions
+
+If you like the technical aspects of the project, and you want to make your way into the Rust language, or practice your knowledge around parsers, compilers, analysers, etc., Biome is the project that does for you!
+
+There are numerous aspects to explore; I assure you that you won't get bored. Here is a small list of the things you can start with:
+- Create new lint rules! We have so many rules that we haven't implemented yet (ESLint, ESLint plugins, Next.js, Solid, etc.). We have a very [extensive technical guide](https://github.com/biomejs/biome/blob/main/crates/biome_analyze/CONTRIBUTING.md).
+- [Help](https://github.com/biomejs/biome/blob/main/crates/biome_parser/CONTRIBUTING.md) [building](https://github.com/biomejs/biome/tree/main/crates/biome_yaml_parser) [Biome](https://github.com/biomejs/biome/tree/main/crates/biome_html_parser) [parsers](https://github.com/biomejs/biome/tree/main/crates/biome_markdown_parser)!
+  One interesting fact about Biome parsers is that they are recoverable parsers [error resilient](/internals/architecture/#parser-and-cst) which emit a [CST](https://en.wikipedia.org/wiki/Parse_tree) instead of a classic AST.
+- Implement new capabilities in our [LSP (Language Server Protocol)](https://github.com/biomejs/biome/tree/main/crates/biome_lsp), or add new features in one of our editor extensions: [VS Code](https://github.com/biomejs/biome-vscode), [Zed](https://github.com/biomejs/biome-zed) and [JetBrains IntelliJ](https://github.com/biomejs/biome-intellij).
+
+#### Financial help
+
+If you believe in the future of the project, you can also help with a financial contribution, via [Open Collective](https://opencollective.com/biome) or [GitHub Sponsors](https://github.com/sponsors/biomejs).
+
+Additionally, the project provides an [enterprise support program ](/enterprise) where a company you can employ one of the core contributors to work a specific aspect of the Biome toolchain.

@@ -251,7 +251,6 @@ export const LINT_RULES = {
   useAdjacentOverloadSignatures: "useAdjacentOverloadSignatures",
   useAltText: "useAltText",
   useAnchorContent: "useAnchorContent",
-  useAnchorHref: "useAnchorHref",
   useAriaActivedescendantWithTabindex: "useAriaActivedescendantWithTabindex",
   useAriaPropsForRole: "useAriaPropsForRole",
   useAriaPropsSupportedByRole: "useAriaPropsSupportedByRole",
