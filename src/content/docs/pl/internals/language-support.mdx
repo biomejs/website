@@ -1,0 +1,130 @@
+---
+title: Wsparcie języków
+description: Języki i funkcje obsługiwane przez Biome.
+---
+
+Legenda:
+- ✅: Obsługiwane
+- 🚫: Nie w trakcie realizacji
+- ⌛️: W trakcie realizacji
+- 🟡: Eksperymentalne
+
+| Język                                                    | Parsowanie                                           | Formatowanie                                            | Lintowanie                                              | Wsparcie wtyczek                                        |
+|----------------------------------------------------------|------------------------------------------------------|---------------------------------------------------------|---------------------------------------------------------|---------------------------------------------------------|
+| [JavaScript](#javascript-support)                        | <span aria-label="Supported" role="img">✅</span>     | <span aria-label="Supported" role="img">✅</span>        | <span aria-label="Supported" role="img">✅</span>        | <span aria-label="Supported" role="img">✅</span>        |
+| [TypeScript](#typescript-support)                        | <span aria-label="Supported" role="img">✅</span>     | <span aria-label="Supported" role="img">✅</span>        | <span aria-label="Supported" role="img">✅</span>        | <span aria-label="Supported" role="img">✅</span>        |
+| JSX                                                      | <span aria-label="Supported" role="img">✅</span>     | <span aria-label="Supported" role="img">✅</span>        | <span aria-label="Supported" role="img">✅</span>        | <span aria-label="Supported" role="img">✅</span>        |
+| TSX                                                      | <span aria-label="Supported" role="img">✅</span>     | <span aria-label="Supported" role="img">✅</span>        | <span aria-label="Supported" role="img">✅</span>        | <span aria-label="Supported" role="img">✅</span>        |
+| JSON                                                     | <span aria-label="Supported" role="img">✅</span>     | <span aria-label="Supported" role="img">✅</span>        | <span aria-label="Supported" role="img">✅</span>        | <span aria-label="Not in Progress" role="img">🚫</span> |
+| JSONC                                                    | <span aria-label="Supported" role="img">✅</span>     | <span aria-label="Supported" role="img">✅</span>        | <span aria-label="Supported" role="img">✅</span>        | <span aria-label="Not in Progress" role="img">🚫</span> |
+| HTML                                                     | <span aria-label="Supported" role="img">✅</span>     | <span aria-label="Supported" role="img">✅</span>        | <span aria-label="Supported" role="img">✅</span>        | <span aria-label="Supported" role="img">✅</span>        |
+| [Vue](#html-super-languages-support)                     | <span aria-label="Experimental" role="img">🟡</span> | <span aria-label="Experimental" role="img">🟡</span>    | <span aria-label="Experimental" role="img">🟡</span>    | <span aria-label="Experimental" role="img">🟡</span>    |
+| [Svelte](#html-super-languages-support)                  | <span aria-label="Experimental" role="img">🟡</span> | <span aria-label="Experimental" role="img">🟡</span>    | <span aria-label="Experimental" role="img">🟡</span>    | <span aria-label="Experimental" role="img">🟡</span>    |
+| [Astro](#html-super-languages-support)                   | <span aria-label="Experimental" role="img">🟡</span> | <span aria-label="Experimental" role="img">🟡</span>    | <span aria-label="Experimental" role="img">🟡</span>    | <span aria-label="Experimental" role="img">🟡</span>    |
+| CSS                                                      | <span aria-label="Supported" role="img">✅️</span>    | <span aria-label="Supported" role="img">✅️</span>       | <span aria-label="Supported" role="img">✅️</span>       | <span aria-label="Supported" role="img">✅</span>        |
+| [YAML](https://github.com/biomejs/biome/issues/2365)     | <span aria-label="In Progress" role="img">⌛️</span>  | <span aria-label="Not in Progress" role="img">🚫</span> | <span aria-label="Not in Progress" role="img">🚫</span> | <span aria-label="Not in Progress" role="img">🚫</span> |
+| GraphQL                                                  | <span aria-label="Supported" role="img">✅️</span>    | <span aria-label="Supported" role="img">✅️</span>       | <span aria-label="Supported" role="img">✅️</span>       | <span aria-label="Not in Progress" role="img">🚫</span> |
+| [Markdown](https://github.com/biomejs/biome/issues/3718) | <span aria-label="In Progress" role="img">⌛️</span>  | <span aria-label="Not in Progress" role="img">🚫</span> | <span aria-label="Not in Progress" role="img">🚫</span> | <span aria-label="Not in Progress" role="img">🚫</span> |
+| GritQL                                                   | <span aria-label="Supported" role="img">✅️</span>    | <span aria-label="Supported" role="img">✅️</span>       | <span aria-label="Not in Progress" role="img">🚫</span> | <span aria-label="Not in Progress" role="img">🚫</span> |
+
+## Wsparcie JavaScript
+
+Biome obsługuje wersję ES2024 języka.
+
+Biome obsługuje tylko oficjalną składnię. Zespół rozpoczyna rozwój nowej składni, gdy propozycja osiągnie
+[Stage 3](https://github.com/tc39/proposals#stage-3).
+
+## Wsparcie TypeScript
+
+Biome obsługuje TypeScript w wersji 5.6.
+
+## Wsparcie JSONC
+
+JSONC oznacza "JSON z komentarzami" (JSON with Comments). Ten format jest szeroko używany przez różne narzędzia, takie jak [VS Code](https://code.visualstudio.com/docs/languages/json#_json-with-comments), [TypeScript](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html), [Babel](https://babeljs.io/docs/config-files) itp., ponieważ pozwala użytkownikom dodawać komentarze do plików konfiguracyjnych. Jednakże, ponieważ JSONC nie jest ściśle zdefiniowanym standardem, istnieją pewne różnice w sposobie, w jaki różne narzędzia obsługują końcowe przecinki w plikach JSONC. Aby to uwzględnić, Biome nie udostępnia dedykowanej konfiguracji języka dla JSONC. Zamiast tego rozszerzyliśmy nasze możliwości parsowania i formatowania JSON o opcje takie jak `json.parser.allowComments`, `json.parser.allowTrailingCommas` i `json.formatter.trailingCommas`. To podejście pozwala Biome skutecznie obsługiwać różne warianty plików JSON.
+
+Dla plików z rozszerzeniem `.jsonc` lub tych zidentyfikowanych jako `jsonc` zgodnie z [identyfikatorem języka](https://code.visualstudio.com/docs/languages/identifiers), Biome automatycznie stosuje następujące domyślne ustawienia do parsowania i formatowania:
+
+- `json.parser.allowComments`: `true`
+- `json.parser.allowTrailingCommas`: `true`
+- `json.formatter.trailingCommas`: `none`
+
+Należy pamiętać, że niektóre znane pliki, takie jak `tsconfig.json` i `.babelrc`, nie używają rozszerzenia `.jsonc`, ale nadal zezwalają na komentarze i końcowe przecinki. Podczas gdy inne, takie jak `.eslintrc.json`, zezwalają tylko na komentarze. Biome jest w stanie zidentyfikować te pliki i odpowiednio dostosować opcję `json.parser.allowTrailingCommas`, aby zapewnić ich prawidłowe parsowanie.
+
+[Ta sekcja](/guides/configure-biome#well-known-files) zawiera pełną listę znanych plików, które Biome może rozpoznać.
+
+## Wsparcie super języków HTML
+
+Od wersji `v2.3.0` Biome obsługuje pliki Vue, Svelte i Astro od razu po instalacji. Oznacza to, że Biome jest w stanie formatować i lintować części HTML, CSS i JavaScript plików.
+
+Jednakże, to **wsparcie należy uznać za eksperymentalne** i podlega zmianom i ulepszeniom. W wersji `v2.3.0` wprowadziliśmy architekturę umożliwiającą tę funkcję, jednak niektóre reguły formatowania i lintowania muszą zostać dostosowane.
+
+W szczególności, na dzień `v2.3.0`, Biome nie wykonuje żadnego specjalnego parsowania dla składni specyficznej dla języka, na przykład składni sterowania przepływem Svelte np. `{#if } {/if}`. Oznacza to, że formatowanie może nie spełniać oczekiwań, a reguły lintowania mogą nie wykrywać niektórych przypadków.
+
+Reguły lintowania działające w ramach języków osadzonych nie są jeszcze obsługiwane.
+
+### Lintowanie języków podobnych do HTML
+
+Niektóre reguły lintowania nie działają jeszcze poza granicami języków. Na przykład w następującym pliku `.vue` reguła `noUnusedVariables` oznaczy fałszywie pozytywnie `greeting`:
+
+```vue title=app.vue ins="greeting"
+<script setup lang="ts">
+    const greeting = "hello world"
+</script>
+
+<template>
+    <h1>{{ greeting }}</h1>
+</template>
+```
+
+Podczas **lintowania** plików `.svelte`, `.astro` lub `.vue` zaleca się wyłączenie kilku dodatkowych reguł, aby zapobiec fałszywie pozytywnym błędom lintowania spowodowanym naszym częściowym wsparciem. Użyj do tego opcji `overrides`:
+
+```json
+{
+  "overrides": [
+    {
+      "includes": ["**/*.svelte", "**/*.astro", "**/*.vue"],
+      "linter": {
+        "rules": {
+          "style": {
+            "useConst": "off",
+            "useImportType": "off"
+          },
+          "correctness": {
+            "noUnusedVariables": "off",
+            "noUnusedImports": "off"
+          }
+        }
+      }
+    }
+  ]
+}
+```
+
+### Formatowanie z różnymi ustawieniami
+
+W Biome możesz kontrolować formatowanie różnych języków. Teraz, gdy Biome może przetwarzać wiele języków w tym samym pliku,
+szanse na niespójności mogą wzrosnąć w zależności od konfiguracji.
+
+Na przykład możesz zaryzykować, że plik będzie zawierał mieszankę tabulatorów i spacji podczas formatowania pliku podobnego do HTML, który zawiera kod JavaScript i CSS, jak w poniższym przykładzie (zakładamy, że pełne wsparcie jest włączone):
+
+```json
+{
+  "javascript": {
+    "format": {
+      "indentStyle": "tab"
+    }
+  },
+  "css": {
+    "format": {
+      "indentStyle": "space",
+      "indentWidth": 4
+    }
+  }
+}
+```
+
+Utworzyliśmy [dyskusję na GitHubie](https://github.com/biomejs/biome/discussions/7754), aby rozwiązać ten problem, dołącz do dyskusji i daj nam znać, co o tym myślisz.
+
+:::note
+Ta ostatnia sekcja może stać się nieaktualna, dlatego zaleca się korzystanie z [placu zabaw](https://biomejs.dev/playground) i sprawdzenie, czy Twoja funkcja została zaimplementowana.
+:::
