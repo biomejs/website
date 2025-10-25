@@ -1,0 +1,203 @@
+---
+title: Architektura
+description: Jak Biome działa pod maską.
+---
+
+Ten dokument opisuje niektóre wewnętrzne aspekty Biome i sposób ich wykorzystania w projekcie.
+
+## Skaner
+
+Biome posiada skaner odpowiedzialny za przeszukiwanie systemu plików w celu wydobycia
+ważnych metadanych o projektach. Skaner jest używany na trzy sposoby:
+
+- Do odkrywania zagnieżdżonych plików `biome.json`/`biome.jsonc` w monorepozytoriach.
+- Do odkrywania zagnieżdżonych plików `.gitignore`, jeśli ustawienie [`vcs.useIgnoreFile`](/reference/configuration/#vcsuseignorefile) jest włączone.
+- Do indeksowania manifestów `package.json` oraz plików źródłowych w projekcie, jeśli jakiekolwiek
+  reguły z [domeny projektu](/linter/domains/#project) są włączone.
+
+### Targetowanie skanera
+
+Jeśli reguły projektowe nie są włączone, skaner automatycznie celuje tylko w
+foldery, które są istotne dla danej sesji.
+
+Oznacza to, że jeśli masz duże monopozytorium i uruchamiasz `biome check` z
+wewnątrz folderu `packages/foo/`, ten folder będzie "celowany". Oznacza to, że
+następujące foldery zostaną przeskanowane w poszukiwaniu zagnieżdżonych plików konfiguracyjnych i/lub plików ignorowania:
+
+- Folder główny repozytorium.
+- Folder `packages/`.
+- Folder `packages/foo/`.
+- Wszystkie foldery istniejące w `packages/foo/`, z wyjątkiem `node_modules/` lub
+  tych, które są wykluczone przez konfigurację (zobacz
+  [poniżej](#configuring-the-scanner)).
+
+Inne foldery, które mogą sąsiadować z `packages/` lub `packages/foo/`, będą
+automatycznie pomijane.
+
+Podobnie, jeśli uruchomisz `biome format packages/bar/src/index.ts` z głównego
+katalogu repozytorium, skaner będzie celował w folder `packages/bar/src/`.
+
+Jeśli reguły projektowe są włączone, te optymalizacje nie mają zastosowania.
+
+### Konfigurowanie skanera
+
+Skaner można skonfigurować za pomocą ustawienia
+[`files.includes`](/reference/configuration/#interactionwiththescanner).
+
+## Parser i CST
+
+Architektura parsera opiera się na wewnętrznym forku [rowan], biblioteki
+implementującej wzorzec [Green and Red tree].
+
+CST (Concrete Syntax Tree, konkretne drzewo składniowe) to struktura danych bardzo podobna do AST (Abstract Syntax Tree, abstrakcyjne drzewo składniowe), która śledzi wszystkie informacje o programie, włącznie z trivią.
+
+**Trivia** reprezentuje wszystkie informacje, które są ważne dla działania programu:
+- spacje
+- tabulatory
+- komentarze
+
+Trivia jest dołączona do węzła. Węzeł może mieć trivię wiodącą (leading trivia) i trivię końcową (trailing trivia). Jeśli czytasz kod od lewej do prawej, trivia wiodąca pojawia się przed słowem kluczowym, a trivia końcowa pojawia się po słowie kluczowym.
+
+Trivia wiodąca i końcowa są kategoryzowane w następujący sposób:
+- Każda trivia aż do tokenu/słowa kluczowego (włącznie z przełamaniami linii) będzie **trivią wiodącą**;
+- Wszystko aż do następnego przełamania linii (ale go nie włączając) będzie **trivią końcową**;
+
+Biorąc poniższy fragment JavaScript, `// comment 1` jest trivią końcową tokenu `;`, a `// comment 2` jest trivią wiodącą słowa kluczowego `const`. Poniżej znajduje się zminimalizowana wersja CST reprezentowana przez Biome:
+
+```js
+const a = "foo"; // comment 1
+// comment 2
+const b = "bar";
+```
+
+```
+0: JS_MODULE@0..55
+    ...
+      1: SEMICOLON@15..27 ";" [] [Whitespace(" "), Comments("// comment 1")]
+    1: JS_VARIABLE_STATEMENT@27..55
+        ...
+        1: CONST_KW@27..45 "const" [Newline("\n"), Comments("// comment 2"), Newline("\n")] [Whitespace(" ")]
+  3: EOF@55..55 "" [] []
+```
+
+CST nigdy nie jest bezpośrednio dostępne z założenia; programista może odczytać jego informacje za pomocą drzewa Red, używając szeregu API, które są automatycznie generowane z gramatyki języka.
+
+
+#### Parser odporny i naprawialny
+
+Aby skonstruować CST, parser musi być odporny na błędy i naprawialny:
+- odporny: parser, który jest w stanie wznowić parsowanie po napotkaniu błędów składniowych należących do języka;
+- naprawialny: parser, który jest w stanie **zrozumieć**, gdzie wystąpił błąd i jest w stanie wznowić parsowanie, tworząc **poprawne** informacje;
+
+Naprawa parsera nie jest nauką, a żadne zasady nie są wyryte w kamieniu. Oznacza to, że w zależności od tego, co parser parsował i gdzie wystąpił błąd, parser może być w stanie naprawić się w oczekiwany sposób.
+
+Parser używa również węzłów 'Bogus', aby chronić konsumentów przed konsumowaniem nieprawidłowej składni. Te węzły są używane do ozdobienia uszkodzonego kodu spowodowanego błędem składniowym.
+
+W poniższym przykładzie brakuje nawiasów w `while`, chociaż parser może naprawić się w dobry sposób i może reprezentować kod za pomocą przyzwoitego CST. Nawiasy i warunek pętli są oznaczone jako brakujące, a blok kodu jest poprawnie sparsowany:
+
+
+```js
+while {}
+```
+
+```
+JsModule {
+  interpreter_token: missing (optional),
+  directives: JsDirectiveList [],
+  items: JsModuleItemList [
+    JsWhileStatement {
+      while_token: WHILE_KW@0..6 "while" [] [Whitespace(" ")],
+      l_paren_token: missing (required),
+      test: missing (required),
+      r_paren_token: missing (required),
+      body: JsBlockStatement {
+        l_curly_token: L_CURLY@6..7 "{" [] [],
+        statements: JsStatementList [],
+        r_curly_token: R_CURLY@7..8 "}" [] [],
+      },
+    },
+  ],
+  eof_token: EOF@8..8 "" [] [],
+}
+```
+
+To jest błąd emitowany podczas parsowania:
+
+```
+main.tsx:1:7 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✖ expected `(` but instead found `{`
+
+  > 1 │ while {}
+      │       ^
+
+  ℹ Remove {
+```
+
+Tego samego nie można powiedzieć o poniższym fragmencie. Parser nie może prawidłowo zrozumieć składni podczas fazy naprawy, więc musi polegać na węzłach bogus, aby oznaczyć część składni jako błędną. Zwróć uwagę na `JsBogusStatement`:
+
+```js
+function}
+```
+
+```
+JsModule {
+  interpreter_token: missing (optional),
+  directives: JsDirectiveList [],
+  items: JsModuleItemList [
+    TsDeclareFunctionDeclaration {
+      async_token: missing (optional),
+      function_token: FUNCTION_KW@0..8 "function" [] [],
+      id: missing (required),
+      type_parameters: missing (optional),
+      parameters: missing (required),
+      return_type_annotation: missing (optional),
+      semicolon_token: missing (optional),
+    },
+    JsBogusStatement {
+      items: [
+        R_CURLY@8..9 "}" [] [],
+      ],
+    },
+  ],
+  eof_token: EOF@9..9 "" [] [],
+}
+```
+
+To jest błąd, który otrzymujemy z fazy parsowania:
+
+```
+main.tsx:1:9 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✖ expected a name for the function in a function declaration, but found none
+
+  > 1 │ function}
+      │         ^
+```
+
+## Formatter
+
+:::note
+Praca w toku
+:::
+
+## Linter
+
+:::note
+Praca w toku
+:::
+## Demon
+
+:::note
+Praca w toku
+:::
+
+Biome używa architektury klient-serwer do uruchamiania swoich zadań.
+
+[Demon][daemon] to długo działający serwer,
+który Biome uruchamia w tle i używa do przetwarzania żądań z edytora i CLI.
+
+
+[rowan]: https://github.com/rust-analyzer/rowan
+[Green and Red tree]: https://learn.microsoft.com/en-us/archive/blogs/ericlippert/persistence-facades-and-roslyns-red-green-trees
+[daemon]: https://en.wikipedia.org/wiki/Daemon_(computing)
