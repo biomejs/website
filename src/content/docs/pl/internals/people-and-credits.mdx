@@ -1,0 +1,74 @@
+---
+title: Ludzie i podziękowania
+description: Współtwórcy i podziękowania dla projektów, które nas inspirują.
+---
+
+import Contributors from "@/components/generated/Contributors.astro";
+import CoreContributors from "@/components/CoreContributors.astro";
+import Maintainers from "@/components/Maintainers.astro";
+import {Image} from "astro:assets"
+
+## Główni współtwórcy
+
+<CoreContributors />
+
+## Opiekunowie
+
+<Maintainers />
+
+## Twórca logo
+
+
+<div class="logo-creator">
+    <a href="https://github.com/ugudango"><Image width="250" height="250" src="https://avatars.githubusercontent.com/u/33418415?v=4" alt="Alexandru-Ștefan Gârleanu" /><span>Alexandru-Ștefan Gârleanu</span></a>
+</div>
+
+<Contributors />
+
+## Podziękowania
+
+Biome zawiera kod, który jest w dużej mierze inspirowany innymi projektami. Został zaadaptowany do
+języka/infrastruktury Biome.
+
+- [Prettier](https://github.com/prettier/prettier/)
+  - [LICENSE](https://github.com/biomejs/biome/blob/main/crates/biome_js_formatter/LICENSE)
+
+## Forki
+
+Biome jest społecznościowym forkiem [Rome Tools](https://github.com/biomejs/biome/).
+_Rome Tools_ i _Biome_ są licencjonowane na licencji MIT.
+
+Biome zawiera kod sforkowany z innych projektów.
+Został on w pewien sposób przekształcony, czasami znacząco przepisany.
+
+- [`crates/biome_diagnostics`](https://github.com/biomejs/biome/tree/main/crates/biome_diagnostics)
+  - **Oryginał**: [`rslint/rslint_errors`](https://github.com/rslint/rslint/tree/master/crates/rslint_errors)
+  - **Licencja**: MIT
+
+- [`crates/biome_console/src/codespan`](https://github.com/biomejs/biome/tree/main/crates/biome_console)
+  - **Oryginał**: [`brendanzab/codespan`](https://github.com/brendanzab/codespan)
+  - **Licencja**: Apache License, Version 2.0
+
+- [`crates/biome_js_parser`](https://github.com/biomejs/biome/tree/main/crates/biome_js_parser)
+  - **Oryginał**: [`rslint/rslint_parser`](https://github.com/rslint/rslint/tree/master/crates/rslint_parser)
+  - **Licencja**: MIT
+
+- [`crates/biome_js_parser/lexer`](https://github.com/biomejs/biome/tree/main/crates/biome_js_parser/src/lexer)
+  - **Oryginał**:  [`rslint/rslint_lexer`](https://github.com/rslint/rslint/tree/master/crates/rslint_lexer)
+  - **Licencja**: MIT
+
+- [`crates/biome_js_syntax`](https://github.com/biomejs/biome/tree/main/crates/biome_js_syntax)
+	- **Oryginał**: [`rslint/rslint_syntax`](https://github.com/rslint/rslint/tree/master/crates/rslint_syntax)
+	- **Licencja**: MIT
+
+- [`crates/biome_text_edit`](https://github.com/biomejs/biome/tree/main/crates/biome_text_edit)
+	- **Oryginał**: [`rslint/rslint_text_edit`](https://github.com/rslint/rslint/tree/master/crates/rslint_text_edit)
+	- **Licencja**: MIT
+
+- [`crates/biome_rowan`](https://github.com/biomejs/biome/tree/main/crates/biome_rowan)
+	- **Oryginał**: [`rust-analyzer/rowan`](https://github.com/rust-analyzer/rowan)
+	- **Licencja**: Apache License, Version 2.0
+
+- [`crates/biome_text_size`](https://github.com/biomejs/biome/tree/main/crates/biome_text_size)
+  - **Oryginał**: [`rust-analyzer/text-size`](https://github.com/rust-analyzer/text-size)
+  - **Licencja**: Apache License, Version 2.0 or MIT
