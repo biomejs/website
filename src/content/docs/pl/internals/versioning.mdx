@@ -1,0 +1,53 @@
+---
+title: Wersjonowanie
+description: Jak wersjonujemy Biome.
+---
+
+Poprawki do reguł lintowania, układów formatowania itp. mogą uniemożliwić pomyślne przejście twoich skryptów. Ze względu na charakter tych zmian,
+**zdecydowanie zaleca się** zapisywanie _dokładnej_ wersji w `package.json`, zamiast używania operatorów zakresów.
+
+Ta metodologia zapewni, że twój skrypt nie zakończy się niepowodzeniem niespodziewanie.
+
+## Wersjonowanie semantyczne
+
+Biome stosuje się do [wersjonowania semantycznego](https://semver.org/). Ze względu na charakter Biome jako zestawu narzędzi, może być niejasne, jakie zmiany są uznawane za duże (major), mniejsze (minor) lub poprawki (patch). Dlatego Biome używa następującego przewodnika wersjonowania:
+
+### Wydanie poprawkowe (Patch Release)
+
+* Naprawianie reguły lintowania, która zgłasza błędy lintowania dla prawidłowego kodu (fałszywe pozytywy)
+* Naprawianie nieprawidłowych sugestii kodu
+* Naprawianie formatowania składni, które skutkuje nieprawidłowym kodem lub zmienia semantykę programu.
+* Ulepszenia dokumentacji
+* Wewnętrzne zmiany, które nie zmieniają funkcjonalności Biome:
+  * Refaktoryzacje
+  * Ulepszenia wydajności
+  * Zwiększenie lub zmiana pokrycia testami
+* Poprawa sformułowania diagnostyki lub naprawianie renderowania diagnostyki.
+* Ponowne wydania po nieudanym wydaniu
+* Zmiana formatowania ustalonej składni.
+
+### Wydanie mniejsze (Minor Release)
+
+* Dodawanie nowej reguły lub promowanie istniejącej reguły lintowania do stabilnej grupy, która nie jest domyślnie zalecana.
+* Dodawanie wsparcia lintowania i formatowania dla niedawno wprowadzonej funkcji języka, nawet jeśli skutkuje to większą liczbą zgłaszanych błędów lintowania.
+* Usunięcie zalecanych reguł
+* Wycofanie istniejących reguł
+* Dodawanie nowych opcjonalnych opcji konfiguracyjnych, które nie zmieniają formatowania ani nie zgłaszają więcej błędów lintowania.
+* Dodawanie nowej zalecanej reguły lintowania lub promowanie istniejącej reguły lintowania z grupy nursery do zalecanej reguły lintowania w stabilnej grupie.
+* Usunięcie reguły spoza grupy *nursery* lub degradacja reguły do grupy *nursery*.
+
+### Wydanie duże (Major Release)
+* Zmiany w konfiguracji, które skutkują innym formatowaniem lub większą liczbą zgłaszanych błędów lintowania (dodawanie/usuwanie opcji, zmiana wartości domyślnej)
+* Zmiany w publicznym API Biome
+* Promocja nowych funkcji lub narzędzi, które wymagają szczególnej uwagi
+
+## Rozszerzenie Visual Studio Code
+
+Visual Studio Code [nie obsługuje tagów wersji wstępnych](https://code.visualstudio.com/api/working-with-extensions/publishing-extension#prerelease-extensions) dla rozszerzeń. Dlatego Biome używa następującego schematu wersji, aby rozróżnić stabilne i podglądy:
+* Stabilne wydania używają parzystych numerów wersji: 10, 12, 14, 16, ...
+* Podglądy używają nieparzystych numerów wersji: 11, 13, 15, 17, ...
+
+## Dlaczego przypięcie wersji jest ważne
+
+Przypięcie wersji Biome w `package.json` jest ważne, aby zapewnić, że każdy członek zespołu i środowiska CI
+używają tej samej wersji Biome. Nawet wydania poprawkowe mogą skutkować nieco innymi wynikami formatowania lub lintowania.
