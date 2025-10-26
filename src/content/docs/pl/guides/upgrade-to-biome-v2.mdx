@@ -1,0 +1,329 @@
+---
+title: Aktualizacja do Biome v2
+description: Dowiedz się, jak zaktualizować do Biome v2
+---
+import PackageManagerCommand from "@/components/PackageManagerCommand.astro";
+import PackageManagerBiomeCommand from "@/components/PackageManagerBiomeCommand.astro";
+import EditorSettings from "@/components/EditorSettings.astro";
+import {FileTree, Steps} from '@astrojs/starlight/components';
+
+
+Jeśli masz projekt korzystający z Biome v1 i chcesz zaktualizować go do v2, ten przewodnik dostarczy wszystkich potrzebnych informacji.
+
+## Aktualizacja przez CLI
+
+<Steps>
+    <ol>
+        <li>
+
+            Użyj swojego menedżera pakietów, aby zainstalować wersję `2.0.6` Biome:
+            <PackageManagerCommand
+                npm="install --save-dev --save-exact @biomejs/biome@2.0.6"
+                pnpm="add --save-dev --save-exact @biomejs/biome@2.0.6"
+                yarn="add --dev --exact @biomejs/biome@2.0.6"
+                bun="add --dev --exact @biomejs/biome@2.0.6"
+                deno="add --dev npm:@biomejs/biome@2.0.6" />
+        </li>
+        <li>
+            Uruchom polecenie `migrate`, aby zaktualizować konfigurację:
+            <PackageManagerBiomeCommand command="migrate --write" />
+        </li>
+        <li>
+            Gotowe! Polecenie `migrate` powinno zaktualizować Twoją konfigurację, aby *złagodzić* możliwe [zmiany wprowadzające niekompatybilność](#breaking-changes). Sprawdź jednak wyniki polecenia; w niektórych przypadkach może być konieczne wykonanie kilku ręcznych kroków. Jeśli tak, polecenie migrate wskaże Ci je.
+        </li>
+    </ol>
+</Steps>
+
+
+
+## Zmiany wprowadzające niekompatybilność
+
+Chociaż projekt i zespół są zobowiązani do zmniejszenia liczby zmian wprowadzających niekompatybilność, v2 zawiera pewne zmiany, które warto wyjaśnić. Ta sekcja omówi najistotniejsze z nich i wyjaśni przyczyny zmian oraz przedstawi rozwiązanie, jeśli ma to zastosowanie.
+
+### Funkcje związane z Rome nie są już obsługiwane
+
+Wszystkie funkcje związane ze starym projektem Rome nie są już obsługiwane. Jeśli nadal polegałeś na tych funkcjach, musisz zaktualizować swój projekt:
+- zmień nazwę `rome.json` na `biome.json`.
+- zmień nazwę `// rome-ignore` na `// biome-ignore`.
+- zmień nazwę `ROME_BINARY` na `BIOME_BINARY`.
+- format komentarza pomijającego `// biome-ignore lint(<GROUP_NAME>/<RULE_NAME>): <explanation>` nie jest już obsługiwany. Użyj zamiast tego `// biome-ignore lint/<GROUP_NAME>/<RULE_NAME>: <explanation>`.
+
+### Opcja `--config-path` została usunięta
+
+Opcja CLI `--config-path` została usunięta z poleceń `biome lsp-proxy` i `biome start`.
+
+Opcja ta nadpisywała ścieżkę konfiguracji dla wszystkich przestrzeni roboczych otwartych w demonie Biome, co prowadziło do problemów z niedopasowaniem konfiguracji, gdy wiele projektów było otwartych w niektórych edytorach lub IDE.
+
+Jeśli używasz edytora zgodnego z LSP, możesz użyć jego ustawień do zdefiniowania ścieżki konfiguracji projektu.
+
+<EditorSettings zed={{ name: "configuration_path", value: "\"./frontend/biome.json\""}} vsCode={{ name: "configurationPath", value: "\"./frontend/biome.json\"" }}></EditorSettings>
+
+Jeśli jesteś programistą wtyczki, zaktualizuj swoją wtyczkę, aby używała odpowiedzi `workspace/configuration` zamiast argumentu `--config-path`. LSP Biome rozwiąże konfigurację w przestrzeni roboczej automatycznie, dlatego zaleca się pozostawienie jej pustej, chyba że używasz niestandardowej ścieżki konfiguracji.
+
+### Opcje `ignore` i `include` zostały usunięte i zastąpione przez `includes`
+
+Jeśli uruchomiłeś już polecenie `migrate`, nie powinieneś mieć regresji. Powodem, dla którego te dwa pola zostały połączone w jedno nowe, była wadliwa implementacja starego silnika glob w Biome, powodująca niektóre przypadki brzegowe, których nie mogliśmy naprawić bez zmiany naszego silnika. Niestety, nie mogliśmy tego zrobić bez zmian wprowadzających niekompatybilność.
+
+Poprzedni silnik glob dodawał na początku dopasowanie `**/` do każdego globa dostarczonego przez użytkownika. Oznacza to, że glob `src/**` był zawsze konwertowany na `**/src/**`, powodując niespodziewane zachowanie w niektórych przypadkach:
+
+|             | `/projectA/src/file.js`     | `src/file.js`     | `/projectB/frontend/src/file.js` |
+|-------------|-----------------------------|-------------------|----------------------------------|
+| `src/**`    | Glob *nie* pasuje do ścieżki | Glob pasuje do ścieżki | Glob *nie* pasuje do ścieżki      |
+| `**/src/**` | Glob pasuje do ścieżki           | Glob pasuje do ścieżki | Glob pasuje                     |
+
+Jak widać, glob `**/src/**` jest **zbyt** zachłanny i pasuje do ścieżek, do których nie powinien, na przykład `/Users/www/projectB/frontend/src/file.js`.
+
+Od v2, Biome **nie będzie już dodawać `**/`** na początku globów.
+
+W poprzednim silniku glob wzorzec `*` pasował do dowolnej sekwencji znaków, w tym separatora ścieżki `/`.
+Oznacza to, że glob `**/src/*.js` był zawsze konwertowany na `**/src/**/*.js`.
+Od v2, `*` w Biome **nie będzie już pasować do separatora ścieżki `/`**.
+
+### Ścieżki i globy są teraz względne do pliku konfiguracyjnego
+
+W v1 globy i pliki zadeklarowane w pliku konfiguracyjnym były względne do katalogu roboczego. To zachowanie mogło powodować nieoczekiwane zachowanie, szczególnie w przypadku przejścia z innych narzędzi.
+
+W poniższym przykładzie plik konfiguracyjny znajduje się w katalogu głównym projektu, polecenie `check` jest uruchamiane z podkatalogu i skonfigurowane do analizy tylko plików w folderze `src/`.
+
+<FileTree>
+    - biome.json
+    - src/
+        - deploy.js
+    - ui/
+        - package.json
+        - src/
+            - main.tsx
+            - utils.ts
+</FileTree>
+
+```json title="ui/package.json"
+{
+  "name": "@org/ui",
+  "publish": false,
+  "scripts": {
+    "check": "biome check"
+  }
+}
+```
+
+```json title="biome.json"
+{
+  "files": {
+    "includes": ["src/**"]
+  }
+}
+```
+
+W **v1**, kiedy uruchamiasz `npm run check`, dzieje się następujące:
+- Biome szuka `biome.json` wewnątrz `ui/`
+- Nie znaleziono pliku konfiguracyjnego, Biome zaczyna sprawdzać foldery nadrzędne
+- Biome znajduje `biome.json` **w folderze nadrzędnym**
+- *Katalog roboczy* to `ui/`, ponieważ tam zostało uruchomione polecenie CLI
+- Biome dodaje `ui/` na początku do `src/**`
+- Glob `ui/src/**` pasuje do `ui/src/main.tsx` i `ui/src/utils.ts`, ale nie pasuje do `src/deploy.js`
+- Analizowane są dwa pliki
+
+W **v2**, kiedy uruchamiasz `npm run check`, dzieje się następujące:
+- Biome szuka `biome.json` wewnątrz `ui/`
+- Nie znaleziono pliku konfiguracyjnego, Biome zaczyna sprawdzać foldery nadrzędne
+- Biome znajduje `biome.json` **w folderze nadrzędnym**
+- Glob `src/**` nie pasuje do `ui/src/main.tsx` i `ui/src/utils.ts`, ale pasuje do `src/deploy.js`
+- Analizowany jest jeden plik
+
+Aby dopasować poprzednie zachowanie, glob musi zostać zaktualizowany do `ui/src/**`:
+
+```json title="biome.json" mark="ui/src/**" ins={3}
+{
+  "files": {
+    "includes": ["ui/src/**"]
+  }
+}
+```
+
+### Opcja `all` została usunięta z lintera
+
+We wczesnych wersjach Biome wprowadziliśmy `all` jako sposób na włączenie wszystkich reguł lintera lub włączenie wszystkich reguł należących do grupy. W tamtym czasie Biome miało niewiele reguł, a ich koszt utrzymania był bardzo niski dla opiekunów i użytkowników końcowych. Nie zastanawialiśmy się dwa razy i po prostu to dodaliśmy.
+
+Teraz Biome ma ponad 300 reguł, a niektóre z tych reguł *konfliktują ze sobą*, powodując sytuacje, w których projekt nie może naprawić naruszeń reguł, ponieważ jedna naprawa uruchamia inną regułę i odwrotnie.
+
+Zdecydowaliśmy się **cofnąć o krok**, usunąć tę opcję i wprowadzić ją w przyszłości w innej formie, może z inną semantyką i konfiguracją. Jesteśmy świadomi, że ta zmiana wprowadzająca niekompatybilność może spowodować pewne niedogodności.
+
+Opiekunowie projektu już dyskutują na ten temat na Discordzie i [GitHubie](https://github.com/biomejs/biome/issues/5764). Zachęcamy do wzięcia udziału w rozmowie i pomocy w znalezieniu dobrego rozwiązania.
+
+Jako *ograniczone* obejście możesz włączyć zalecane reguły i włączyć wszystkie domeny lintera. Nie możesz jednak wyłączyć pojedynczych reguł, a domeny `react` i `solid` włączają reguły, które konfliktują ze sobą:
+
+```json title="biome.json"
+{
+  "linter": {
+    "domains": {
+      "next": "all",
+      "react": "all",
+      "test": "all",
+      "solid": "all",
+      "project": "all"
+    },
+    "rules": {
+      "recommended": true
+    }
+  }
+}
+```
+
+### Składnia `assert` nie jest już obsługiwana
+
+Składnia `assert`, która osiągnęła Stage 3, nie jest już obsługiwana i została zastąpiona składnią `with`.
+
+Wszystkie wersje LTS Node.js obsługują nową składnię, podobnie jak wszystkie silniki przeglądarek i środowiska uruchomieniowe serverless.
+
+```diff mark="with" mark="assert"
+-import {test} from "foo.json" assert { for: "for" }
+-export * from "mod" assert { type: "json" }
++import {test} from "foo.json" with { for: "for" }
++export * from "mod" with { type: "json" }
+```
+
+### Linter działa inaczej
+
+W v1 linter działał w następujący sposób:
+- Zalecane reguły domyślnie emitują tylko diagnostykę z błędem.
+- Niezalecane reguły musiały być ręcznie włączone, a użytkownik musiał zdecydować o ich ważności.
+
+Ten sposób działania był nieco inny niż w innych linterach (ESLint, clippy, golint itp.) i był bardzo ograniczony.
+
+W v2 linter działa jak inne lintery, co oznacza następujące:
+- Każda reguła jest powiązana z domyślnym poziomem ważności sugerowanym przez Biome.
+- Zalecane reguły mogą emitować diagnostykę o różnej ważności.
+- Użytkownicy mogą teraz korzystać z domyślnej ważności reguły lub wybrać ją samodzielnie.
+
+Jeśli polegałeś na zalecanych regułach, aby zawsze emitować błąd, polecenie `biome migrate` ustawi ważność tych reguł na `"error"`.
+
+### Reguły `style` nie emitują już błędów
+
+Otrzymaliśmy wiele wspaniałych opinii w ciągu ostatnich miesięcy dotyczących naszych zalecanych reguł. Zdaliśmy sobie sprawę, że zrównoważenie "zalecanego" zestawu reguł dla naszych użytkowników jest wyzwaniem. Podczas gdy niektórzy naprawdę lubili nasze ustawienia domyślne, inni uważali, że są zbyt głośne.
+
+Od v2 wszystkie reguły należące do grupy `style` nie będą emitować błędu, chyba że skonfigurowano inaczej. Polecenie `biome migrate` zaktualizuje konfigurację, aby nadal emitowały błędy, jeśli były włączone. Upewnij się, że konfiguracja odpowiada Twoim standardom.
+
+### Inne domyślne formatowanie `package.json`
+
+Biome teraz formatuje `package.json` z innymi domyślnymi ustawieniami. Teraz obiekty i tablice są zawsze formatowane na wielu liniach, niezależnie od ich szerokości:
+
+``` diff title="package.json"
+-{ "name": "project", "dependencies": { "foo": "^1.0.0" } }
++{
++ "name": "project",
++ "dependencies": {
++   "foo": "^1.0.0"
++ }
++}
+```
+
+Jeśli podobał Ci się poprzedni styl formatowania, będziesz musiał dodać nadpisanie do konfiguracji i użyć `"auto"` jako wartości opcji `expand`:
+
+```json title="biome.json" ins={6}
+{
+  "overrides": [{
+    "includes": ["package.json"],
+    "json": {
+      "formatter": {
+        "expand": "auto"
+      }
+    }
+  }]
+}
+```
+
+### Organizator importów sortuje importy inaczej
+
+Biome v2 zawiera nowy organizator importów z wieloma nowymi funkcjami:
+
+- Obsługuje dostosowywanie sortowania.
+- Organizuje instrukcje `export`.
+- Ignoruje puste linie między instrukcjami `import`.
+- Łączy `import`/`export`.
+- Jego domyślne sortowanie jest bardziej spójne niż wcześniej.
+
+Wszystkie te zmiany mogą prowadzić do innego sortowania importów i eksportów w Twoim projekcie.
+Konfiguracja została również przeniesiona z dedykowanego pola `organizeImports` do [akcji asysty](/assist/).
+`biome migrate` zajmuje się przenoszeniem konfiguracji w następujący sposób:
+
+```diff title="biome.json"
+  {
+-    "organizeImports": { "enabled": true }
++    "assist": { "actions": { "source": { "organizeImports": "on" } } }
+  }
+```
+
+Jedna znacząca różnica między starym a nowym domyślnym sortowaniem polega na tym, że moduły Node.js bez protokołu `node:` nie są już umieszczane przed innymi importami.
+Na przykład następujące importy były posortowane w Biome 1.x:
+
+```js
+import fs from "node:fs";
+import path from "path";
+import pkg from "@a/package";
+```
+
+W Biome 2.0 są sortowane w następujący sposób:
+
+```js
+import fs from "node:fs";
+import pkg from "@a/package";
+import path from "path";
+```
+
+Aby przywrócić stare zachowanie, użyj niestandardowej kolejności w następujący sposób:
+
+```json5 title="biome.jsonc"
+{
+    "assist": {
+        "actions": {
+            "source": {
+                "organizeImports": {
+                    "level": "on",
+                    "options": {
+                        "groups": [
+                            // Bun modules
+                            ":BUN:",
+                            // Node.js modules
+                            ":NODE:",
+                            // Modules imported with the `npm:` protocol
+                            ["npm:*", "npm:*/**"],
+                            // Modules imported with another protocol. e.g. `jsr:`
+                            ":PACKAGE_WITH_PROTOCOL:",
+                            // URLs
+                            ":URL:",
+                            // Libraries
+                            ":PACKAGE:",
+                            // Absolute paths
+                            ["/**"],
+                            // Sharp aliases
+                            ["#*", "#*/**"],
+                            // All other paths
+                            ":PATH:"
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+Należy pamiętać, że nie jest możliwe osiągnięcie dokładnie takiego samego zachowania jak w Biome v1.x.
+Zalecamy użycie nowego domyślnego sortowania, które jest znacznie bardziej spójne i prostsze.
+
+Przeczytaj [dokumentację organizatora importów](/assist/actions/organize-imports/), aby uzyskać więcej szczegółów.
+
+### Rozszerzenie Zed `v0.2.0` nie jest kompatybilne z v1
+
+Nowa wersja rozszerzenia Zed nie jest kompatybilna z Biome v1, ponieważ `--config-path` nie jest już obsługiwane. Zespół
+próbował zachować kompatybilność wsteczną, ale niestety Zed ma bardzo ograniczone możliwości debugowania dla autorów rozszerzeń.
+
+### Rozszerzenie VS Code v3 wymaga pełnego ponownego uruchomienia
+
+Chociaż nie jest to bezpośrednio związane z Biome v2, nowa wersja rozszerzenia VS Code używa innej metody połączenia z
+Demonem Biome. Jeśli zaktualizujesz rozszerzenie, możesz doświadczyć **nieprawidłowego kodu** podczas zapisywania, jeśli używasz `"source.fixAll.biome": "explicit"`.
+Aby to naprawić, musisz:
+1. zaktualizować rozszerzenie;
+1. zamknąć edytor;
+1. zabić ewentualne wiszące procesy `biome`;
+1. ponownie uruchomić edytor;

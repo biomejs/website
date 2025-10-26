@@ -4,7 +4,8 @@ import { getCurrentTheme } from "@/frontend-scripts/util";
 import {
 	emptyBiomeOutput,
 	emptyPrettierOutput,
-	Language,
+	LANGUAGE,
+	type Language,
 	type PlaygroundFileState,
 	type PlaygroundSettings,
 	type PlaygroundState,
@@ -267,16 +268,17 @@ export function isAstroFilename(filename: string): boolean {
 }
 
 export function guessLanguage(filename: string): Language {
-	if (isJsonFilename(filename)) return Language.JSON;
-	if (isGraphqlFilename(filename)) return Language.GraphQL;
-	if (isGritFilename(filename)) return Language.Grit;
-	if (isCssFilename(filename)) return Language.CSS;
-	if (isHtmlFilename(filename)) return Language.HTML;
-	if (isSvelteFilename(filename)) return Language.Svelte;
-	if (isAstroFilename(filename)) return Language.Astro;
+	if (isJsonFilename(filename)) return LANGUAGE.JSON;
+	if (isGraphqlFilename(filename)) return LANGUAGE.GraphQL;
+	if (isGritFilename(filename)) return LANGUAGE.Grit;
+	if (isCssFilename(filename)) return LANGUAGE.CSS;
+	if (isHtmlFilename(filename)) return LANGUAGE.HTML;
+	if (isVueFilename(filename)) return LANGUAGE.Vue;
+	if (isSvelteFilename(filename)) return LANGUAGE.Svelte;
+	if (isAstroFilename(filename)) return LANGUAGE.Astro;
 	if (isJsxFilename(filename))
-		return isTypeScriptFilename(filename) ? Language.TSX : Language.JSX;
-	return isTypeScriptFilename(filename) ? Language.TS : Language.JS;
+		return isTypeScriptFilename(filename) ? LANGUAGE.TSX : LANGUAGE.JSX;
+	return isTypeScriptFilename(filename) ? LANGUAGE.TS : LANGUAGE.JS;
 }
 
 export function modifyFilename(
@@ -297,29 +299,29 @@ type ExtensionOptions = {
 
 export function getExtension(opts: ExtensionOptions): string {
 	switch (opts.language) {
-		case Language.JS:
+		case LANGUAGE.JS:
 			return opts.script ? "cjs" : "js";
-		case Language.JSX:
+		case LANGUAGE.JSX:
 			return "jsx";
-		case Language.TS:
+		case LANGUAGE.TS:
 			return "ts";
-		case Language.TSX:
+		case LANGUAGE.TSX:
 			return "tsx";
-		case Language.JSON:
+		case LANGUAGE.JSON:
 			return "json";
-		case Language.GraphQL:
+		case LANGUAGE.GraphQL:
 			return "graphql";
-		case Language.Grit:
+		case LANGUAGE.Grit:
 			return "grit";
-		case Language.CSS:
+		case LANGUAGE.CSS:
 			return "css";
-		case Language.HTML:
+		case LANGUAGE.HTML:
 			return "html";
-		case Language.Vue:
+		case LANGUAGE.Vue:
 			return "vue";
-		case Language.Svelte:
+		case LANGUAGE.Svelte:
 			return "svelte";
-		case Language.Astro:
+		case LANGUAGE.Astro:
 			return "astro";
 		default:
 			throw new Error(

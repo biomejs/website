@@ -1,0 +1,45 @@
+---
+title: Filozofia
+description: Jak myślimy o budowaniu Biome.
+---
+
+Ta lista zawiera ogólny etos, którym projekt powinien się kierować.
+Lista nie jest wyczerpująca. Niektóre z tych punktów są oczywiste, ale zostały wymienione dla kompletności.
+
+## Zarządzanie projektem
+
+- **Ustalaj jasne oczekiwania.** Informuj o intencjach i decyzjach projektu z wyprzedzeniem.
+  Nic nie powinno być zaskoczeniem.
+
+- **Jasna komunikacja decyzji.** Zespół może oceniać opcje i podejmować decyzje za pomocą prywatnych kanałów.
+  Zespół będzie starał się prowadzić dyskusje na publicznych kanałach, takich jak [dyskusje GitHub](https://github.com/biomejs/biome/discussions) lub [Discord](https://biomejs.dev/chat). Mogą się zdarzać częste prywatne konsultacje.
+  Gdy decyzje podejmowane są przez prywatne kanały, zespół zobowiązuje się do komunikowania tych decyzji na publicznych kanałach.
+
+## Aspekty techniczne
+
+- **Błędy powinny sugerować poprawki i wskazówki, gdzie to możliwe.** Powinny być wnioskowane i filtrowane z użycia, aby zmniejszyć pokazywanie nieistotnych i nieprzydatnych komunikatów.
+
+- **Unikalne i szczegółowe komunikaty błędów.** Żadnych ogólnych komunikatów błędów.
+  Pomaga to użytkownikom zrozumieć, co poszło nie tak, i powinno dostarczyć opiekunom unikalnego miejsca wywołania oraz niezbędnych informacji do debugowania.
+
+- **Optymalizuj API.** Kwestionuj istnienie wszystkich opcji i flag.
+  Czy są konieczne? Czy można je połączyć? Jak możemy zmniejszyć rozgałęzianie kodu?
+
+- **Dokumentuj kod.** Staraj się dokumentować kod tak bardzo, jak to możliwe, szczególnie kod "trudny do odczytania" lub specjalną logikę wymagającą wyjaśnienia.
+  Dobrze udokumentowany kod pomaga w jego utrzymaniu, szczególnie gdy pracuje nad nim wiele osób. Programista po tobie skorzysta z twojej wiedzy, podziel się nią.
+
+- **Ogranicz żargon.** Nie zakładaj, że użytkownicy zrozumieją specjalistyczną terminologię.
+  Staraj się zapewnić precyzyjne znaczenie zarówno dla ekspertów, jak i początkujących.
+  Na przykład używaj "znak" tam, gdzie tradycyjnie używałbyś "token" podczas generowania błędów parsera.
+
+- **Wykorzystuj rozwlekłość przy nazywaniu poleceń i flag.** Żadnych niepotrzebnych i mylących skrótów.
+
+- **Używaj inkluzywnej terminologii.** Używaj zaimków neutralnych płciowo. Żadnych obraźliwych określeń.
+  Unikaj użycia terminów, które mogłyby być uznane za nieczułe.
+
+- **Buduj dla ogólnych klientów.** Nie zakładaj, że terminal będzie konsumował dane wyjściowe tylko przy użyciu kodów ANSI.
+  Używaj abstrakcji, które mogą być uogólnione do przeglądania w IDE, przeglądarce lub innych środowiskach.
+
+- **Dane wyjściowe terminala powinny być jednoznaczne.** Podczas projektowania danych wyjściowych terminala nie polegaj wyłącznie na wskazówkach formatowania, takich jak kolor.
+  Zawsze używaj kombinacji formatowania, symboli i odstępów.
+  Jeśli wszystkie kody ANSI zostaną usunięte, wszystkie dane wyjściowe nadal powinny być zrozumiałe.

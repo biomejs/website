@@ -8,3 +8,4 @@ target/
 .pnpm-store
 /blob-report/
 /playwright/.cache/
+.claude/settings.local.json

@@ -145,20 +145,22 @@ export const emptyBiomeOutput: BiomeOutput = {
 	},
 };
 
-export enum Language {
-	JS = "js",
-	JSX = "jsx",
-	TS = "ts",
-	TSX = "tsx",
-	JSON = "json",
-	GraphQL = "graphql",
-	Grit = "grit",
-	CSS = "css",
-	HTML = "html",
-	Vue = "vue",
-	Svelte = "svelte",
-	Astro = "astro",
-}
+export const LANGUAGE = {
+	JS: "js",
+	JSX: "jsx",
+	TS: "ts",
+	TSX: "tsx",
+	JSON: "json",
+	GraphQL: "graphql",
+	Grit: "grit",
+	CSS: "css",
+	HTML: "html",
+	Vue: "vue",
+	Svelte: "svelte",
+	Astro: "astro",
+} as const;
+
+export type Language = (typeof LANGUAGE)[keyof typeof LANGUAGE];
 
 export interface PlaygroundSettings {
 	lineWidth: number;
@@ -183,6 +185,9 @@ export interface PlaygroundSettings {
 	ruleDomains: RuleDomains;
 	indentScriptAndStyle: boolean;
 	whitespaceSensitivity: WhitespaceSensitivity;
+	experimentalFullSupportEnabled: boolean;
+	cssModules: boolean;
+	tailwindDirectives: boolean;
 }
 
 export interface PlaygroundFileState {
@@ -235,6 +240,9 @@ export const defaultPlaygroundState: PlaygroundState = {
 		ruleDomains: {},
 		indentScriptAndStyle: false,
 		whitespaceSensitivity: WhitespaceSensitivity.Css,
+		experimentalFullSupportEnabled: true,
+		cssModules: false,
+		tailwindDirectives: true,
 	},
 };
 

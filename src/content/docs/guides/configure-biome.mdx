@@ -1,6 +1,9 @@
 ---
 title: Configure Biome
 description: Learn how Biome configuration works.
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 4
 ---
 
 import { FileTree } from '@astrojs/starlight/components';
@@ -202,24 +205,35 @@ match `files.includes`.
 #### Exclude files via configuration
 
 If you want to exclude files and folders from being processed by Biome, you can use the `files.includes` configuration
-and use the negated patterns, using the leading `!`.
+and use the negated patterns:
+- use of the leading `!` to ignore files from being linted/formatted
+- use of the double leading `!!` to ignore files from any project-related operation
+
+Project-related operations are:
+- Construction of the internal module graph, so that [some project rules](/linter/domains/#project) can resolve information from imports and exports.
+- Inference of types, so that type-aware lint rules can correct infer types.
+
+A file that is considered for project-related operations is **indexed**.
 
 Before listing the negated globs, **they must be preceded by the `**` pattern**.
 
-In the following example, we tell Biome to include all files, except those in
-any `dist/` folder, as well as those that end with `.generated.js`:
+In the following example, we tell Biome to include all files, except:
+- `dist/` folder, which will be ignored from any project-related operation, hence they aren't indexed.
+- Any file that ends `.generated.js`, which are ignored from formatting and linting, by are still indexed.
 
 ```json title="biome.json"
 {
   "files": {
     "includes": [
       "**",
-      "!**/dist",
-      "!**/*.generated.js"
+      "!**/*.generated.js",
+      "!!**/dist"
     ]
   }
 }
 ```
+
+For more information on how interact with scanner and how it indexes your files, check the [relative reference page](/reference/configuration#interaction-with-the-scanner)
 
 
 ### Control files via VCS
@@ -264,6 +278,7 @@ The following files are parsed as `JSON` files with the options `json.parser.all
 - `.devcontainer.json`
 - `.hintrc`
 - `.hintrc.json`
+- `.oxlintrc.json`
 - `.swcrc`
 - `api-documenter.json`
 - `api-extractor.json`

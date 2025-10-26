@@ -266,7 +266,7 @@ export function GET() {
 					"additionalProperties": false
 				},
 				{
-					"description": "Rules from [Eslint Plugin Qwik](https://github.com/BuilderIO/eslint-plugin-qwik)",
+					"description": "Rules from [Eslint Plugin Qwik](https://github.com/QwikDev/qwik)",
 					"type": "object",
 					"required": ["eslintQwik"],
 					"properties": { "eslintQwik": { "type": "string" } },

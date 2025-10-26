@@ -52,7 +52,7 @@ Rules that belong to the domain:
 - [noDocumentImportInPage](/linter/rules/no-document-import-in-page) (recommended)
 - [noHeadImportInDocument](/linter/rules/no-head-import-in-document) (recommended)
 ## Project
-This domain contains rules that perform project-level analysis. This includes our module graph for dependency resolution, as well as type information. When enabling rules that belong to this domain, Biome will scan the entire project. The scanning phase will have a performance impact on the linting process. See the documentation on our [scanner](/internals/architecture/#scanner) to learn more about how you can influence the scanner behaviour.
+This domain contains rules that perform project-level analysis. This includes our module graph for dependency resolution, as well as type information. When enabling rules that belong to this domain, Biome will scan the entire project. The scanning phase will have a performance impact on the linting process. See the documentation on our [scanner](/internals/architecture/#scanner) to learn more about the scanner.
 ### Project activation
 Enabled the **recommended** rules of the domain:
 ```json title="biome.json" ins={3-5}
@@ -137,11 +137,10 @@ Enabled when the following dependencies are declared:
 
 ### Qwik rules
 Rules that belong to the domain:
+- [noQwikUseVisibleTask](/linter/rules/no-qwik-use-visible-task) (recommended)
+- [useImageSize](/linter/rules/use-image-size) (recommended)
 - [useJsxKeyInIterable](/linter/rules/use-jsx-key-in-iterable) (recommended)
-- [noQwikUseVisibleTask](/linter/rules/no-qwik-use-visible-task) (recommended) [(nursery)](/linter/#nursery)
-- [useAnchorHref](/linter/rules/use-anchor-href) (recommended) [(nursery)](/linter/#nursery)
-- [useImageSize](/linter/rules/use-image-size) (recommended) [(nursery)](/linter/#nursery)
-- [useQwikClasslist](/linter/rules/use-qwik-classlist) (recommended) [(nursery)](/linter/#nursery)
+- [useQwikClasslist](/linter/rules/use-qwik-classlist) (recommended)
 - [useQwikMethodUsage](/linter/rules/use-qwik-method-usage) (recommended) [(nursery)](/linter/#nursery)
 - [useQwikValidLexicalScope](/linter/rules/use-qwik-valid-lexical-scope) (recommended) [(nursery)](/linter/#nursery)
 - [noReactSpecificProps](/linter/rules/no-react-specific-props) (recommended)
@@ -184,14 +183,20 @@ Enabled when the following dependencies are declared:
 
 ### React rules
 Rules that belong to the domain:
+- [noChildrenProp](/linter/rules/no-children-prop) (recommended)
 - [noNestedComponentDefinitions](/linter/rules/no-nested-component-definitions)
+- [noReactPropAssignments](/linter/rules/no-react-prop-assignments)
 - [noRenderReturnValue](/linter/rules/no-render-return-value) (recommended)
 - [useExhaustiveDependencies](/linter/rules/use-exhaustive-dependencies) (recommended)
 - [useHookAtTopLevel](/linter/rules/use-hook-at-top-level) (recommended)
 - [useJsxKeyInIterable](/linter/rules/use-jsx-key-in-iterable) (recommended)
 - [useUniqueElementIds](/linter/rules/use-unique-element-ids)
 - [noReactForwardRef](/linter/rules/no-react-forward-ref) [(nursery)](/linter/#nursery)
-- [useReactFunctionComponents](/linter/rules/use-react-function-components) [(nursery)](/linter/#nursery)
+- [noDangerouslySetInnerHtml](/linter/rules/no-dangerously-set-inner-html) (recommended)
+- [noDangerouslySetInnerHtmlWithChildren](/linter/rules/no-dangerously-set-inner-html-with-children) (recommended)
+- [useComponentExportOnlyModules](/linter/rules/use-component-export-only-modules)
+- [useReactFunctionComponents](/linter/rules/use-react-function-components)
+- [noArrayIndexKey](/linter/rules/no-array-index-key) (recommended)
 ## Solid
 Use this domain inside Solid projects. This domain enables rules that might conflict with the React domain.
 ### Solid activation
@@ -336,4 +341,5 @@ Rules that belong to the domain:
 - [noVueDuplicateKeys](/linter/rules/no-vue-duplicate-keys) (recommended) [(nursery)](/linter/#nursery)
 - [noVueReservedKeys](/linter/rules/no-vue-reserved-keys) (recommended) [(nursery)](/linter/#nursery)
 - [noVueReservedProps](/linter/rules/no-vue-reserved-props) (recommended) [(nursery)](/linter/#nursery)
+- [useVueDefineMacrosOrder](/linter/rules/use-vue-define-macros-order) [(nursery)](/linter/#nursery)
 - [useVueMultiWordComponentNames](/linter/rules/use-vue-multi-word-component-names) (recommended) [(nursery)](/linter/#nursery)
