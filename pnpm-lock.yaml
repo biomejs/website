@@ -157,7 +157,7 @@ importers:
         specifier: 0.24.2
         version: 0.24.2(@astrojs/starlight@0.36.1(astro@5.14.7(@netlify/blobs@10.1.0)(@types/node@22.18.11)(jiti@2.4.2)(rollup@4.40.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(typescript@5.9.3)(yaml@2.8.0)))(astro@5.14.7(@netlify/blobs@10.1.0)(@types/node@22.18.11)(jiti@2.4.2)(rollup@4.40.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(typescript@5.9.3)(yaml@2.8.0))
       starlight-changelogs:
-        specifier: ^0.2.1
+        specifier: 0.2.1
         version: 0.2.1(@astrojs/starlight@0.36.1(astro@5.14.7(@netlify/blobs@10.1.0)(@types/node@22.18.11)(jiti@2.4.2)(rollup@4.40.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(typescript@5.9.3)(yaml@2.8.0)))(astro@5.14.7(@netlify/blobs@10.1.0)(@types/node@22.18.11)(jiti@2.4.2)(rollup@4.40.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(typescript@5.9.3)(yaml@2.8.0))
       starlight-links-validator:
         specifier: 0.18.0
@@ -166,7 +166,7 @@ importers:
         specifier: 15.2.2
         version: 15.2.2
       textlint-filter-rule-comments:
-        specifier: ^1.2.2
+        specifier: 1.2.2
         version: 1.2.2(textlint@15.2.2)
       textlint-rule-preset-jtf-style:
         specifier: 3.0.3
