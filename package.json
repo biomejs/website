@@ -72,7 +72,7 @@
     "rehype-slug": "6.0.0",
     "remark-toc": "9.0.0",
     "sharp": "0.34.4",
-    "starlight-blog": "0.24.2",
+    "starlight-blog": "0.24.3",
     "starlight-changelogs": "0.2.3",
     "starlight-links-validator": "0.18.0",
     "textlint": "15.2.3",
