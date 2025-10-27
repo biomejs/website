@@ -25,7 +25,7 @@
     "lunaria:preview": "lunaria preview"
   },
   "devDependencies": {
-    "@astrojs/check": "0.9.4",
+    "@astrojs/check": "0.9.5",
     "@astrojs/mdx": "4.3.7",
     "@astrojs/netlify": "6.5.13",
     "@astrojs/prism": "3.3.0",

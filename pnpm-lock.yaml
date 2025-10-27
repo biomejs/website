@@ -13,8 +13,8 @@ importers:
   .:
     devDependencies:
       '@astrojs/check':
-        specifier: 0.9.4
-        version: 0.9.4(prettier@3.6.2)(typescript@5.9.3)
+        specifier: 0.9.5
+        version: 0.9.5(prettier@3.6.2)(typescript@5.9.3)
       '@astrojs/mdx':
         specifier: 4.3.7
         version: 4.3.7(astro@5.14.7(@netlify/blobs@10.1.0)(@types/node@22.18.11)(jiti@2.4.2)(rollup@4.40.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(typescript@5.9.3)(yaml@2.8.0))
@@ -201,8 +201,8 @@ packages:
     peerDependencies:
       astro: ^4.14.0 || ^5.0.0-beta.0
 
-  '@astrojs/check@0.9.4':
-    resolution: {integrity: sha512-IOheHwCtpUfvogHHsvu0AbeRZEnjJg3MopdLddkJE70mULItS/Vh37BHcI00mcOJcH1vhD3odbpvWokpxam7xA==}
+  '@astrojs/check@0.9.5':
+    resolution: {integrity: sha512-88vc8n2eJ1Oua74yXSGo/8ABMeypfQPGEzuoAx2awL9Ju8cE6tZ2Rz9jVx5hIExHK5gKVhpxfZj4WXm7e32g1w==}
     hasBin: true
     peerDependencies:
       typescript: ^5.0.0
@@ -911,9 +911,6 @@ packages:
   '@jridgewell/resolve-uri@3.1.2':
     resolution: {integrity: sha512-bRISgCIjP20/tbWSPWMEi54QVPRZExkuD9lJL+UIxUKtwVJA8wW1Trb1jMs1RFXo1CBTNZ/5hpC9QvmKWdopKw==}
     engines: {node: '>=6.0.0'}
-
-  '@jridgewell/sourcemap-codec@1.5.0':
-    resolution: {integrity: sha512-gv3ZRaISU3fjPAgNsriBRqGWQL6quFx04YMPW/zD8XMLsU32mhCCbfbO6KZFLjvYpCZ8zyDEgqsgf+PwPaM7GQ==}
 
   '@jridgewell/sourcemap-codec@1.5.5':
     resolution: {integrity: sha512-cYQ9310grqxueWbl+WuIUIaiUaDcj7WOq5fVhEljNVgRfOUhY9fy2zTvfoqWsnebh8Sl70VScFbICvJnLKB0Og==}
@@ -5723,7 +5720,7 @@ snapshots:
     dependencies:
       astro: 5.14.7(@netlify/blobs@10.1.0)(@types/node@22.18.11)(jiti@2.4.2)(rollup@4.40.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(typescript@5.9.3)(yaml@2.8.0)
 
-  '@astrojs/check@0.9.4(prettier@3.6.2)(typescript@5.9.3)':
+  '@astrojs/check@0.9.5(prettier@3.6.2)(typescript@5.9.3)':
     dependencies:
       '@astrojs/language-server': 2.15.4(prettier@3.6.2)(typescript@5.9.3)
       chokidar: 4.0.3
@@ -5744,7 +5741,7 @@ snapshots:
     dependencies:
       '@astrojs/compiler': 2.12.2
       '@astrojs/yaml2ts': 0.2.2
-      '@jridgewell/sourcemap-codec': 1.5.0
+      '@jridgewell/sourcemap-codec': 1.5.5
       '@volar/kit': 2.4.13(typescript@5.9.3)
       '@volar/language-core': 2.4.13
       '@volar/language-server': 2.4.13
@@ -6610,7 +6607,7 @@ snapshots:
 
   '@jridgewell/gen-mapping@0.3.12':
     dependencies:
-      '@jridgewell/sourcemap-codec': 1.5.0
+      '@jridgewell/sourcemap-codec': 1.5.5
       '@jridgewell/trace-mapping': 0.3.29
 
   '@jridgewell/remapping@2.3.5':
@@ -6620,14 +6617,12 @@ snapshots:
 
   '@jridgewell/resolve-uri@3.1.2': {}
 
-  '@jridgewell/sourcemap-codec@1.5.0': {}
-
   '@jridgewell/sourcemap-codec@1.5.5': {}
 
   '@jridgewell/trace-mapping@0.3.29':
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
-      '@jridgewell/sourcemap-codec': 1.5.0
+      '@jridgewell/sourcemap-codec': 1.5.5
 
   '@keyv/serialize@1.1.0': {}
 
