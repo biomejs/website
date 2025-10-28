@@ -107,6 +107,7 @@ export default {
   '/linter/rules/noImportCycles': '/linter/rules/no-import-cycles',
   '/linter/rules/noImportantInKeyframe': '/linter/rules/no-important-in-keyframe',
   '/linter/rules/noImportantStyles': '/linter/rules/no-important-styles',
+  '/linter/rules/noIncrementDecrement': '/linter/rules/no-increment-decrement',
   '/linter/rules/noInferrableTypes': '/linter/rules/no-inferrable-types',
   '/linter/rules/noInitializerWithDefinite': '/linter/rules/no-initializer-with-definite',
   '/linter/rules/noInnerDeclarations': '/linter/rules/no-inner-declarations',

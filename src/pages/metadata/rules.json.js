@@ -2050,6 +2050,23 @@ export function GET() {
             ],
             "docs": " Prevent import cycles.\n\n This rule warns when a file imports another file that, either directly\n or indirectly, imports the original file again.\n\n Cycles can lead to symbols that are unexpectedly `undefined` and are\n generally considered poor code hygiene.\n\n If a cycle is detected, it is advised to move code such that imports\n only go in a single direction, i.e. they don't point \"back\" to the\n importing file.\n\n :::note\n This rule is computationally expensive. If you are particularly\n pressed for lint time, or don't think you have an issue with dependency\n cycles, you may not want this rule enabled.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic,file=foobar.js\n import { baz } from \"./baz.js\";\n\n export function foo() {\n     baz();\n }\n\n export function bar() {\n     console.log(\"foobar\");\n }\n ```\n\n ```js,expect_diagnostic,file=baz.js\n import { bar } from \"./foobar.js\";\n\n export function baz() {\n     bar();\n }\n ```\n\n ### Valid\n\n ```js,file=foo.js\n import { baz } from \"./baz.js\";\n\n export function foo() {\n     baz();\n }\n ```\n\n ```js,file=bar.js\n export function bar() {\n     console.log(\"foobar\");\n }\n ```\n\n ```js,file=baz.js\n import { bar } from \"./bar.js\";\n\n export function baz() {\n     bar();\n }\n ```\n\n ```ts,file=types.ts\n import type { bar } from \"./qux.ts\";\n\n export type Foo = {\n   bar: typeof bar;\n };\n ```\n\n ```ts,file=qux.ts\n import type { Foo } from \"./types.ts\";\n\n export function bar(foo: Foo) {\n     console.log(foo);\n }\n ```\n\n ## Options\n\n The rule provides the options described below.\n\n ### `ignoreTypes`\n\n Ignores type-only imports when finding an import cycle. A type-only import (`import type`)\n will be removed by the compiler, so it cuts an import cycle at runtime. Note that named type\n imports (`import { type Foo }`) aren't considered as type-only because it's not removed by\n the compiler if the `verbatimModuleSyntax` option is enabled. Enabled by default.\n\n ```json,options\n {\n   \"options\": {\n     \"ignoreTypes\": false\n   }\n }\n ```\n\n #### Invalid\n\n ```ts,file=types.ts\n import type { bar } from \"./qux.ts\";\n\n export type Foo = {\n   bar: typeof bar;\n };\n ```\n\n ```ts,use_options,expect_diagnostic,file=qux.ts\n import type { Foo } from \"./types.ts\";\n\n export function bar(foo: Foo) {\n     console.log(foo);\n }\n ```\n"
           },
+          "noIncrementDecrement": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noIncrementDecrement",
+            "link": "https://biomejs.dev/linter/rules/no-increment-decrement",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "no-plusplus"
+                }
+              }
+            ],
+            "docs": " Disallows the usage of the unary operators ++ and --.\n\n Because the unary ++ and -- operators are subject to automatic semicolon insertion, differences in whitespace can change semantics of source code.\n\n ```js,expect_diagnostic\n let i = 10;\n let j = 20;\n\n i ++\n j\n // i = 11, j = 20\n ```\n\n ```js,expect_diagnostic\n let i = 10;\n let j = 20;\n\n i\n ++\n j\n // i = 10, j = 21\n ```\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n let foo = 0;\n foo++;\n ```\n\n ```js,expect_diagnostic\n let bar = 42;\n bar--;\n ```\n\n ```js,expect_diagnostic\n for (let i = 0; i < 10; i++) {\n     doSomething(i);\n }\n ```\n\n ```js,expect_diagnostic\n for (let i = 0; i < 10;) {\n     doSomething(i);\n     i++;\n }\n ```\n\n ### Valid\n\n ```js\n let foo = 0;\n foo += 1;\n ```\n\n ```js\n let bar = 42;\n bar -= 1;\n ```\n\n ```js\n for (let i = 0; i < 10; i += 1) {\n     doSomething(i);\n }\n ```\n\n ```js\n for (let i = 0; i < 10;) {\n     doSomething(i);\n     i += 1;\n }\n ```\n\n ## Options\n\n ### `allowForLoopAfterthoughts`\n\n Allows unary operators ++ and -- in the afterthought (final expression) of a for loop.\n\n Default `false`\n\n ```json,options\n {\n   \"options\": {\n     \"allowForLoopAfterthoughts\": true\n   }\n }\n ```\n\n #### Invalid\n\n ```js,expect_diagnostic,use_options\n for (let i = 0; i < j; j = i++) {\n     doSomething(i, j);\n }\n ```\n\n ```js,expect_diagnostic,use_options\n for (let i = 10; i--;) {\n     doSomething(i);\n }\n ```\n\n ```js,expect_diagnostic,use_options\n for (let i = 0; i < 10;) i++;\n ```\n\n #### Valid\n\n ```js,use_options\n for (let i = 0; i < 10; i++) {\n     doSomething(i);\n }\n ```\n\n ```js,use_options\n for (let i = 0, j = l; i < l; i++, j--) {\n     doSomething(i, j);\n }\n ```\n\n"
+          },
           "noNextAsyncClientComponent": {
             "deprecated": false,
             "version": "2.2.0",
@@ -6300,7 +6317,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 367
+    "numberOrRules": 368
   },
   "syntax": {
     "languages": {

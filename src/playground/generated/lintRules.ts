@@ -105,6 +105,7 @@ export const LINT_RULES = {
   noImportCycles: "noImportCycles",
   noImportantInKeyframe: "noImportantInKeyframe",
   noImportantStyles: "noImportantStyles",
+  noIncrementDecrement: "noIncrementDecrement",
   noInferrableTypes: "noInferrableTypes",
   noInitializerWithDefinite: "noInitializerWithDefinite",
   noInnerDeclarations: "noInnerDeclarations",
