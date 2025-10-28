@@ -2052,7 +2052,7 @@ export function GET() {
           },
           "noIncrementDecrement": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.2",
             "name": "noIncrementDecrement",
             "link": "https://biomejs.dev/linter/rules/no-increment-decrement",
             "recommended": false,
