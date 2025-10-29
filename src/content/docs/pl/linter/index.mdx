@@ -1,0 +1,451 @@
+---
+title: Linter
+description: Jak używać lintera Biome.
+---
+
+import NumberOfRules from "@/components/generated/linter/NumberOfRules.astro";
+import PackageManagerBiomeCommand from "@/components/PackageManagerBiomeCommand.astro";
+import { Steps } from '@astrojs/starlight/components';
+import EditorAction from "@/components/EditorAction.astro";
+
+Linter Biome statycznie analizuje twój kod, aby znaleźć i naprawić typowe błędy oraz pomóc ci pisać lepszy, nowoczesny kod.
+[Obsługuje wiele języków](/internals/language-support) i zapewnia łącznie **<NumberOfRules/> reguł**.
+
+Możesz szybko wypróbować linter Biome przez CLI. Następujące polecenie uruchamia linter na wszystkich plikach z głównego katalogu projektu:
+
+<PackageManagerBiomeCommand command="lint" />
+
+Lub możesz określić jeden lub wiele folderów, na przykład `./src` i `./public`
+
+<PackageManagerBiomeCommand command="lint ./src ./public" />
+
+Polecenie akceptuje listę plików i katalogów.
+
+:::caution
+Jeśli przekażesz glob jako parametr, twoja powłoka go rozszerzy. **Biome nie obsługuje globów**.
+Wynik rozszerzenia zależy od twojej powłoki.
+Na przykład niektóre powłoki nie obsługują rekurencyjnego globa `**` lub alternacji `{}` w następującym poleceniu:
+
+```shell
+biome lint ./src/**/*.test.{js,ts}
+```
+
+Rozszerzanie powłoki ma koszt wydajnościowy i limit liczby plików, które możesz przekazać do polecenia.
+
+Użycie globów jest **odradzane**, zamiast tego użyj konfiguracji `includes`.
+:::
+
+Aby uzyskać więcej informacji o wszystkich dostępnych opcjach, sprawdź [referencję CLI](/reference/cli#biome-lint).
+
+
+## Reguły
+
+Linter jest zorganizowany w reguły. Reguła ma na celu wymuszenie lub odrzucenie stylu kodu, użycia czegoś, co może prowadzić do błędu i więcej. Ogólnie reguła nie powinna kolidować z inną regułą, chyba że zostanie to wyraźnie określone.
+Reguły Biome mają konwencję nazewnictwa: Reguły zaczynające się od `use*` mają wymuszać/sugerować coś, podczas gdy reguły zaczynające się od `no*` mają odrzucać coś. Gdy reguła napotka *naruszenie* swojej koncepcji, emituje diagnostykę.
+
+Na przykład [noDebugger](/linter/rules/no-debugger) odrzuca użycie instrukcji `debugger` w kodzie JavaScript i emituje diagnostykę, gdy ją znajdzie.
+
+Linter Biome jest dostarczany z zestawem zalecanych reguł, które różnią się w zależności od języka i są domyślnie włączone, gdy korzystasz z domyślnej konfiguracji Biome (lub braku konfiguracji) podczas uruchamiania polecenia `lint` lub `check`:
+
+```shell
+biome lint
+biome check
+```
+
+Każda reguła lintowania jest dostarczana z domyślną [ważnością](/reference/diagnostics#diagnostic-severity), o której możesz dowiedzieć się więcej, czytając dokumentację reguły.
+
+Reguły są podzielone na [grupy](#linter-groups). Na przykład reguła `noDebugger` jest częścią [grupy `suspicious`](#suspicious).
+
+Biome obsługuje *reguły niezależne od języka*. Są to reguły, które działają w więcej niż jednym języku, takie jak `noUselessEscapeInString`, które mogą zgłaszać bezużyteczne sekwencje ucieczki zarówno w JavaScript, jak i CSS.
+
+W przeciwieństwie do innych linterów, Biome nie udostępnia żadnych reguł sprawdzających formatowanie kodu; [formatter Biome](/formatter/) ma obsługiwać wszystkie decyzje dotyczące formatowania.
+
+Wiele reguł zapewnia **poprawkę kodu**, która może być automatycznie zastosowana.
+
+Biome rozróżnia [**bezpieczne poprawki**](#safe-fixes) i [**niebezpieczne poprawki**](#unsafe-fixes), które działają nieco inaczej: Główna różnica polega na tym, że bezpieczne poprawki mogą być automatycznie stosowane podczas zapisywania pliku, podczas gdy niebezpieczne poprawki nie mogą. Użytkownicy mogą jednak przesłonić, które poprawki są uważane za bezpieczne.
+
+Linter Biome jest dostarczany z zestawem zalecanych reguł, które są automatycznie włączone i różnią się w zależności od języka.
+
+### Bezpieczne poprawki
+
+Bezpieczne poprawki są gwarantowane, że nie zmienią semantyki twojego kodu.
+Mogą być zastosowane bez wyraźnego przeglądu.
+
+Aby zastosować _bezpieczne poprawki_ z CLI, użyj `--write`:
+
+<PackageManagerBiomeCommand command="lint --write ./src" />
+
+Z edytora zgodnego z LSP możesz zastosować bezpieczne poprawki **podczas zapisywania** za pomocą akcji kodu `source.fixAll.biome`.
+Zapoznaj się z dokumentacją twojego rozszerzenia, aby dowiedzieć się, jak ją zastosować.
+
+### Niebezpieczne poprawki
+
+Niebezpieczne poprawki mogą zmienić semantykę twojego programu.
+Dlatego zaleca się ręczny przegląd zmian.
+
+Aby zastosować zarówno _bezpieczne poprawki_, jak i _niebezpieczne poprawki_ z CLI, użyj `--write --unsafe`:
+
+<PackageManagerBiomeCommand command="lint --write --unsafe ./src" />
+
+Z edytora zgodnego z LSP nie jest możliwe zastosowanie wszystkich niebezpiecznych poprawek podczas zapisywania. Byłoby to niepożądane, aby zmieniać semantykę kodu podczas zapisywania. Możesz jednak przejrzeć pojedynczą poprawkę kodu i wybrać jej zastosowanie.
+
+### Filary reguł
+
+W Biome reguły powinny być informacyjne i wyjaśniać użytkownikowi, dlaczego reguła została uruchomiona i co powinni zrobić, aby naprawić błąd.
+Reguła powinna przestrzegać tych **filarów**:
+
+1. Wyjaśnij użytkownikowi błąd. Ogólnie jest to komunikat diagnostyki.
+2. Wyjaśnij użytkownikowi **dlaczego** błąd jest uruchamiany. Ogólnie jest to zaimplementowane za pomocą dodatkowej notatki.
+3. Powiedz użytkownikowi, co powinien zrobić. Ogólnie jest to zaimplementowane za pomocą akcji kodu.
+Jeśli akcja kodu nie ma zastosowania, notatka powinna powiedzieć użytkownikowi, co powinien zrobić, aby naprawić błąd.
+
+Jeśli uważasz, że reguła nie przestrzega tych filarów, proszę [otwórz zgłoszenie](https://github.com/biomejs/biome/issues/new?assignees=&labels=S-To+triage&projects=&template=01_bug.yml&title=%F0%9F%90%9B+%3CTITLE%3E).
+
+## Konfiguracja lintera
+
+W wielu przypadkach chcesz zmienić linter w zależności od swoich osobistych potrzeb lub potrzeb swojej organizacji/projektu.
+Biome pozwala dostosować linter, a w tej sekcji dowiesz się, jak to zrobić.
+
+
+### Wyłączenie reguły
+
+Możesz wyłączyć regułę za pomocą `off`.
+
+Następująca konfiguracja wyłącza zalecaną regułę `noDebugger`:
+
+```json title="biome.json" ins="\"off\""
+{
+  "linter": {
+    "rules": {
+      "suspicious": {
+        "noDebugger": "off"
+      }
+    }
+  }
+}
+```
+
+### Wyłączenie zalecanych reguł
+
+Możesz wyłączyć zalecane reguły za pomocą prostej konfiguracji. Może to być przydatne w przypadkach, gdy chcesz włączyć tylko kilka reguł.
+
+```json name="biome.json" ins={4}
+{
+  "linter": {
+    "rules": {
+      "recommended": false
+    }
+  }
+}
+```
+
+### Zmiana ważności reguły
+
+Reguły lintowania Biome są dostarczane z własną domyślną ważnością. Jeśli chcesz zastosować domyślną ważność, możesz użyć konfiguracji `"on"`.
+
+Na przykład `noShoutyConstants` nie jest domyślnie zalecana, a gdy jest uruchamiana, emituje diagnostykę z ważnością informacyjną.
+
+Jeśli jesteś zadowolony z tego ustawienia domyślnego i chcesz go użyć, konfiguracja będzie wyglądać tak:
+
+```json title="biome.json" ins="\"on\""
+{
+  "linter": {
+    "rules": {
+      "style": {
+        "noShoutyConstants": "on"
+      }
+    }
+  }
+}
+```
+
+Jeśli nie jesteś zadowolony z domyślnej ważności, Biome pozwala ją zmienić za pomocą `"error"`, `"warn"` i `"info"`.
+
+Diagnostyki z [`"error"`](/reference/diagnostics#error) zawsze powodują, że CLI kończy działanie z kodem błędu. Ta ważność może być przydatna, gdy chcesz zablokować CI, jeśli wystąpi naruszenie należące do określonej reguły.
+
+[Ostrzeżenia](/reference/diagnostics#warning) są podobne do błędów, ale nie powodują zakończenia CLI z kodem błędu, chyba że użyta jest flaga `--error-on-warnings`. Możliwym zastosowaniem ważności `warn` jest sytuacja, gdy chcesz, aby CI przechodziło, podczas gdy nadal istnieją diagnostyki dla danej reguły.
+
+Ważność [`info`](/reference/diagnostics#information) nie wpłynie na kod statusu wyjścia CLI, nawet gdy przekazano `--error-on-warnings`.
+
+### Zmiana ważności grupy
+
+Dodatkowo możesz kontrolować ważność reguł lintowania **na poziomie grupy**. W ten sposób możliwe jest kontrolowanie ważności diagnostyki **wszystkich reguł** należących do grupy.
+
+Na przykład projekt nie wymaga używania reguł `a11y`, ponieważ jest to kod, który działa na backendzie, więc dostępność nie jest problemem. Poniższy przykład wyłącza wszystkie reguły należące do grupy `a11y`:
+
+```json name="biome.json" ins={4}
+{
+  "linter": {
+    "rules": {
+      "a11y": "off"
+    }
+  }
+}
+```
+
+### Konfiguracja poprawki kodu
+
+Jak wyjaśniono powyżej, reguły mogą emitować poprawki kodu, które są **bezpieczne** lub **niebezpieczne**. Biome pozwala skonfigurować bezpieczną poprawkę tak, aby była traktowana jako niebezpieczna i odwrotnie. Możesz również całkowicie wyłączyć poprawkę kodu.
+
+Poprawki kodu można skonfigurować za pomocą opcji `fix`. Może ona mieć jedną z trzech wartości:
+
+- `none`: reguła nie będzie emitować poprawki kodu;
+- `safe`: reguła będzie emitować [bezpieczną poprawkę](#safe-fixes);
+- `unsafe`: reguła będzie emitować [niebezpieczną poprawkę](#unsafe-fixes);
+
+```json title="biome.jsonc" ins={7,13,17}
+{
+  "linter": {
+    "rules": {
+      "correctness": {
+        "noUnusedVariables": {
+          "level": "error",
+          "fix": "none" // brak sugerowanej poprawki kodu dla noUnusedVariables
+        }
+      },
+      "style": {
+        "useConst": {
+          "level": "warn",
+          "fix": "unsafe" // poprawka kodu dla `useConst` jest teraz uznawana za niebezpieczną
+        },
+        "useTemplate": {
+          "level": "warn",
+          "fix": "safe" // poprawka kodu dla `useTemplate` jest teraz uznawana za bezpieczną
+        }
+      }
+    }
+  }
+}
+```
+
+### Pominięcie reguły lub grupy
+
+Polecenie `biome lint` akceptuje opcję `--skip`, która pozwala wyłączyć pojedyncze reguły lub grupy reguł.
+
+Na przykład następujące polecenie pomija wszystkie reguły należące do grupy `style` i regułę `suspicious/noExplicitAny`:
+
+```shell
+biome lint --skip=style --skip=suspicious/noExplicitAny
+```
+
+### Uruchomienie tylko reguły lub grupy
+
+Polecenie `biome lint` akceptuje opcję `--only`, która pozwala uruchamiać pojedyncze reguły lub grupy reguł.
+
+Na przykład następujące polecenie uruchamia tylko regułę `style/useNamingConvention`, regułę `style/noInferrableTypes` i reguły należące do `a11y`. Jeśli reguła jest wyłączona w konfiguracji, jej poziom ważności jest ustawiony na `error` dla zalecanej reguły lub `warn` w przeciwnym razie.
+
+```shell
+biome lint --only=style/useNamingConvention --only=style/noInferrableTypes --only=a11y
+```
+
+### Opcje reguł
+
+Kilka reguł ma opcje.
+Możesz je ustawić, kształtując wartość reguły w inny sposób.
+
+- `level` będzie wskazywać ważność diagnostyki;
+- `options` będzie się zmieniać w zależności od reguły.
+
+```json title="biome.json"
+{
+  "linter": {
+    "rules": {
+      "style": {
+        "useNamingConvention": {
+          "level": "error",
+          "options": {
+            "strictCase": false
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+### Domeny
+
+Domeny to funkcja Biome, która pozwala na grupowanie reguł według technologii, lub po prostu _domeny_. Przykładami domen są `"react"`, `"solid"` i `"test"`.
+
+Domena:
+- Ma własny zestaw zalecanych reguł.
+- Może być automatycznie włączona, gdy Biome wykryje określone zależności w pliku `package.json`.
+- Może definiować dodatkowe zmienne globalne.
+
+Linter Biome automatycznie włączy reguły należące do domeny, gdy wykryje określone zależności w najbliższym pliku `package.json`. Na przykład, jeśli zostanie wykryta zależność `mocha`, Biome włączy **zalecane reguły** domeny [`test`](/linter/domains#test).
+
+Jednak jeśli nie ma pliku `package.json` lub domyślna konfiguracja nie ma zastosowania, możesz włączyć domenę przez konfigurację:
+
+```json title="biome.json" ins={4}
+{
+  "linter": {
+    "domains": {
+      "test": "recommended"
+    }
+  }
+}
+```
+
+Dodatkowo możesz włączyć **wszystkie** reguły należące do domeny, używając wartości `"all"`:
+
+
+```json title="biome.json" ins={4} mark="all"
+{
+  "linter": {
+    "domains": {
+      "test": "all"
+    }
+  }
+}
+```
+
+Podobnie jak reguły i grupy, możesz również wyłączyć reguły należące do domeny wartością `"off"`:
+
+```json title="biome.json" ins={4} mark="off"
+{
+  "linter": {
+    "domains": {
+      "test": "off"
+    }
+  }
+}
+```
+
+Aby dowiedzieć się więcej o każdej domenie, zapoznaj się z [odpowiednią stroną](/linter/domains).
+
+## Tłumienie reguł lintowania
+
+Możesz odwołać się do [strony o tłumieniu](/analyzer/suppressions).
+
+## Integracja z edytorami
+
+Pierwszorzędna integracja z edytorami zgodnymi z LSP pozwala skonfigurować pewne aspekty zachowania Biome.
+
+Gdy Biome wykryje naruszenie, diagnostyka jest wysyłana do edytora wraz z dowolną liczbą akcji kodu, które mają za zadanie rozwiązać diagnostykę.
+Te akcje to:
+- Możliwa poprawka kodu. Ta poprawka kodu pojawia się tylko wtedy, gdy reguła **ma** poprawkę kodu. Poprawka kodu pojawia się niezależnie od tego, czy jest bezpieczna, czy niebezpieczna.
+- Tłumienie diagnostyki [za pomocą tłumienia wbudowanego](/analyzer/suppressions#inline-suppressions).
+- Tłumienie diagnostyki [za pomocą tłumienia na najwyższym poziomie](/analyzer/suppressions#top-level-suppressions).
+
+Zwykle, umieszczając kursor w zakresie diagnostyki i wpisując określony skrót (różni się w zależności od edytora), pojawi się podpowiedź z możliwymi akcjami kodu.
+
+Domyślnie te akcje są zawsze wyświetlane przez edytor, jednak możliwe jest ich wyłączenie.
+
+### Zastosowanie akcji podczas zapisywania
+
+Użyj akcji kodu `source.fixAll.biome`, aby poinstruować Biome, aby zastosowało wszystkie **bezpieczne poprawki** podczas zapisywania.
+
+<EditorAction action="source.fixAll.biome" />
+
+
+### Tłumienie w edytorze
+
+Użyj `source.suppressRule.inline.biome`, aby kontrolować, czy edytor powinien pokazywać akcję kodu tłumienia wbudowanego:
+
+<EditorAction action="source.suppressRule.inline.biome" off={true} />
+
+Użyj `source.suppressRule.topLevel.biome`, aby kontrolować, czy edytor powinien pokazywać akcję kodu tłumienia na najwyższym poziomie:
+
+<EditorAction action="source.suppressRule.topLevel.biome" off={true} />
+
+
+
+## Migracja z innych linterów
+
+Wiele reguł lintowania Biome jest inspirowanych innymi linterami.
+Jeśli chcesz migrować z innych linterów, takich jak ESLint lub `typescript-eslint`, sprawdź [stronę źródeł reguł](/linter/rules-sources).
+Jeśli migrujesz z ESLint, istnieje dedykowany [przewodnik migracji](/guides/migrate-eslint-prettier#migrate-from-eslint).
+
+<Steps>
+
+1. Użyj polecenia `biome migrate eslint`, aby przenieść reguły zdefiniowane w pliku konfiguracyjnym `eslint` do `biome.json`:
+    ```shell
+    biome migrate eslint
+    ```
+2. Zlintuj projekt, tłumiąc możliwe nowe reguły, które są wychwytywane przez Biome, używając następującego polecenia:
+    ```shell
+    biome lint --write --unsafe --suppress="suppressed due to migration"
+    ```
+   Polecenie stłumi wszystkie naruszenia lintowania, które Biome znajdzie, używając powodu `"suppressed due to migration"`. Teraz linter nie powinien już zgłaszać błędów i możliwe jest usunięcie komentarzy tłumienia na późniejszym etapie.
+</Steps>
+
+
+## Linter Groups
+
+The linter divides rules under _groups_. Groups are meant to offer some sort of category which rules falls under. This information becomes useful, for users, when choosing a rule to enable/disable, or for developers when creating new lint rules.
+
+### Accessibility
+
+Rules focused on preventing accessibility problems.
+
+### Complexity
+Rules that focus on inspecting complex code that could be simplified.
+
+### Correctness
+Rules that detect code that is guaranteed to be incorrect or useless.
+
+### Nursery
+New rules that are still under development.  Nursery rules require explicit opt-in via configuration on stable versions because they may still have bugs or performance problems. They are enabled by default on nightly builds, but as they are unstable their diagnostic severity may be set to either error or warning, depending on whether we intend for the rule to be recommended or not when it eventually gets stabilized. Nursery rules get promoted to other groups once they become stable or may be removed.  Rules that belong to this group are not subject to semantic version.
+
+### Performance
+Rules catching ways your code could be written to run faster, or generally be more efficient.
+
+### Security
+Rules that detect potential security flaws.
+
+### Style
+Rules enforcing a consistent and idiomatic way of writing your code. By default, these rules will only generate warnings instead of errors.
+
+### Suspicious
+Rules that detect code that is likely to be incorrect or useless.
+
+
+## Frequently Asked Questions (FAQ)
+
+### Why does rule X have an *unsafe* fix? It seems safe to me.
+
+There are different reasons why the Biome team decides to mark a fix unsafe, but mostly it boils down to the following:
+- The lint rule is still under heavy development, as well as the fix.
+- The rule fix can change the semantics of a program, so the fix must be opted in by the user.
+- The rule fix can deteriorate the DX while typing and/or saving. An example is `noUnusedVariables`, which adds `_` to the name of unused variables. This can deteriorate the DX of programmers while typing and saving. You can change this behavior via [configuration](/linter/#configure-the-code-fix).
+
+If a code fix doesn't follow these three guidelines, it's possible that the team forgot to make the rule fix safe. Please open an issue or send a PR!
+
+### Why is Biome linter so slow compared to v1?
+
+Since Biome v2, we've extended its architecture with a tool called Scanner. The Scanner is responsible for crawling your project files and creating important information
+such as the module graph and the inferred types.
+
+Such information **is needed** for some rules as `noFloatingPromises`, `noUnresolvedImports` or `noImportCycles`, which can't function otherwise. Generally, for rules that belong to the [project domain](/linter/domains/#project)
+
+The Scanner is **opt-in**, and it's triggered only when a rule that belongs to the [project domain](/linter/domains#project-rules) is enabled.
+
+Based on our tests, we noticed roughly these numbers:
+|           | Without Scanner | With Scanner |
+|-----------|-----------------|--------------|
+| ~2k files | ~800ms          | ~2s          |
+| ~5k files | ~1000ms         | ~8s          |
+
+It's also worth mentioning that **we're aware** of this impact on performance, and the team is pledged to improve the performance in this part of the software.
+
+See the [Investigate slowness guide](/guides/investigate-slowness) for advice on investigating and mitigating slow-downs.
+
+If you notice some abnormal numbers in terms of memory or time, please file an issue with a link to the repository, so we can help.
+
+### Why is Biome using so much memory?
+
+If you use an editor extension that uses Biome, you might notice that one of its processes could use a lot of memory.
+
+This usually happens if you enable one of the rules that belong to the [project domain](/linter/domains/#project).
+
+Since Biome v2, the toolchain is now able to use TypeScript to infer types and provide more powerful rules. To achieve this, Biome
+scans `.d.ts` files inside the `node_modules` folder, including those of transitive dependencies.
+
+While this might seem a silly mistake, this is intentional due to how the language works. Libraries
+**can export types from its dependencies**, which end-users might not depend on from.
+
+For example, you might depend on from a library `@org/foo` that exports the type `Validator`,
+however this `Validator` comes from the library `@other-org/validator`, which is a *dependency of `@org/foo`*. However,
+the library `@other-org/validator` isn't a direct dependency of the project.
+
+The **team is aware** of the constraint and will work towards optimizing the infrastructure with time and resources.
