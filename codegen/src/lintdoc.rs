@@ -852,7 +852,7 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
     let file_name = format!("{}.rs", Case::Snake.convert(rule_name));
     let source_code_file_path = format!("{crate_link}/src/{source_code_link}/{group}/{file_name}");
     let test_cases_file_path = format!("{crate_link}/tests/specs/{group}/{rule_name}");
-    if rule_category == RuleCategory::Lint {
+    if matches!(rule_category, RuleCategory::Lint | RuleCategory::Action) {
         writeln!(content, "## Related links")?;
         writeln!(content)?;
         writeln!(
