@@ -2084,6 +2084,23 @@ export function GET() {
             ],
             "docs": " Prevent client components from being async functions.\n\n This rule prevents the use of async functions for client components in Next.js applications.\n Client components marked with \"use client\" directive should not be async as this can cause\n hydration mismatches, break component rendering lifecycle, and lead to unexpected behavior\n with React's concurrent features.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n \"use client\";\n\n export default async function MyComponent() {\n   return <div>Hello</div>;\n }\n ```\n\n ### Valid\n\n ```jsx\n \"use client\";\n\n export default function MyComponent() {\n   return <div>Hello</div>;\n }\n ```\n\n ```jsx\n // No \"use client\" directive - server component can be async\n export default async function ServerComponent() {\n   const data = await fetch('/api/data');\n   return <div>{data}</div>;\n }\n ```\n\n"
           },
+          "noParametersOnlyUsedInRecursion": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noParametersOnlyUsedInRecursion",
+            "link": "https://biomejs.dev/linter/rules/no-parameters-only-used-in-recursion",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "clippy": "only_used_in_recursion"
+                }
+              }
+            ],
+            "docs": " Disallow function parameters that are only used in recursive calls.\n\n A parameter that is only passed to recursive calls is effectively unused\n and can be removed or replaced with a constant, simplifying the function.\n\n This rule is inspired by Rust Clippy's `only_used_in_recursion` lint.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function factorial(n, acc) {\n     if (n === 0) return 1;\n     return factorial(n - 1, acc);\n }\n ```\n\n ```js,expect_diagnostic\n function countdown(n, step) {\n     if (n === 0) return 0;\n     return countdown(n - step, step);\n }\n ```\n\n ```js,expect_diagnostic\n class Counter {\n     count(n, acc) {\n         if (n === 0) return 0;\n         return this.count(n - 1, acc);\n     }\n }\n ```\n\n ```js,expect_diagnostic\n function fn(n, acc) {\n     if (n === 0) return 0;\n     return fn(n - 1, acc || 0);\n }\n ```\n\n ```js,expect_diagnostic\n class Counter {\n     count(n, acc) {\n         if (n === 0) return 0;\n         return this?.count(n - 1, acc);\n     }\n }\n ```\n\n ### Valid\n\n ```js\n function factorial(n, acc) {\n     if (n === 0) return acc;\n     return factorial(n - 1, acc * n);\n }\n ```\n\n ```js\n function countdown(n, step) {\n     console.log(step);\n     if (n === 0) return 0;\n     return countdown(n - step, step);\n }\n ```\n\n ```js\n function fn(n, threshold) {\n     if (n > threshold) return n;\n     return fn(n + 1, threshold);\n }\n ```\n"
+          },
           "noReactForwardRef": {
             "deprecated": false,
             "version": "2.2.5",
@@ -6317,7 +6334,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 368
+    "numberOrRules": 369
   },
   "syntax": {
     "languages": {

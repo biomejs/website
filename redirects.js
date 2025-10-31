@@ -145,6 +145,7 @@ export default {
   '/linter/rules/noOctalEscape': '/linter/rules/no-octal-escape',
   '/linter/rules/noParameterAssign': '/linter/rules/no-parameter-assign',
   '/linter/rules/noParameterProperties': '/linter/rules/no-parameter-properties',
+  '/linter/rules/noParametersOnlyUsedInRecursion': '/linter/rules/no-parameters-only-used-in-recursion',
   '/linter/rules/noPositiveTabindex': '/linter/rules/no-positive-tabindex',
   '/linter/rules/noPrecisionLoss': '/linter/rules/no-precision-loss',
   '/linter/rules/noPrivateImports': '/linter/rules/no-private-imports',

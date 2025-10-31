@@ -143,6 +143,7 @@ export const LINT_RULES = {
   noOctalEscape: "noOctalEscape",
   noParameterAssign: "noParameterAssign",
   noParameterProperties: "noParameterProperties",
+  noParametersOnlyUsedInRecursion: "noParametersOnlyUsedInRecursion",
   noPositiveTabindex: "noPositiveTabindex",
   noPrecisionLoss: "noPrecisionLoss",
   noPrivateImports: "noPrivateImports",
