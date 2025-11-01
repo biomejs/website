@@ -1,0 +1,134 @@
+---
+title: Диагностика
+description: Узнайте о различных частях диагностики Biome
+---
+import DiagnosticFatal from "@/components/generated/diagnostics/DiagnosticFatal.md";
+import DiagnosticError from "@/components/generated/diagnostics/DiagnosticError.md";
+import DiagnosticWarning from "@/components/generated/diagnostics/DiagnosticWarning.md";
+import DiagnosticInformation from "@/components/generated/diagnostics/DiagnosticInformation.md";
+import DiagnosticVerbose from "@/components/generated/diagnostics/DiagnosticVerbose.md";
+import DiagnosticInternal from "@/components/generated/diagnostics/DiagnosticInternal.md";
+import DiagnosticFixable from "@/components/generated/diagnostics/DiagnosticFixable.md";
+import DiagnosticDeprecated from "@/components/generated/diagnostics/DiagnosticDeprecated.md";
+import DiagnosticCategorySimple from "@/components/generated/diagnostics/DiagnosticCategorySimple.md";
+import DiagnosticCategoryLink from "@/components/generated/diagnostics/DiagnosticCategoryLink.md";
+import DiagnosticLocFile from "@/components/generated/diagnostics/DiagnosticLocFile.md";
+import DiagnosticLocFrame from "@/components/generated/diagnostics/DiagnosticLocFrame.md";
+import DiagnosticLocAll from "@/components/generated/diagnostics/DiagnosticLocAll.md";
+import DiagnosticLocMultiline from "@/components/generated/diagnostics/DiagnosticLocMultiline.md";
+import DiagnosticWithAdvice from "@/components/generated/diagnostics/DiagnosticWithAdvice.md";
+
+Диагностика Biome полна информации и обычно предоставляет всю необходимую информацию для понимания ошибок и их исправления.
+
+Диагностика используется не только для ошибок, но также для предоставления структурированной информации, предупреждений и подсказок.
+
+Эта страница предоставляет разбор всей информации, которую может содержать диагностика. Изучение всех различных частей диагностики может помочь вам определить важные части и некоторые "секреты" за ними.
+
+## Уровень серьезности диагностики
+
+Уровень серьезности диагностики может влиять на CLI. Например, диагностика с ошибками заставит CLI завершиться с кодом ошибки.
+
+### Fatal
+
+Диагностика ошибок имеет красный текст. Фатальная диагностика обычно выдается, когда внутри Biome произошла неожиданная ошибка. По сравнению с ошибками, они имеют [тег fatal](#diagnostic-tags).
+
+<DiagnosticFatal />
+
+### Error
+
+Диагностика ошибок имеет красный текст. Обычно они должны быть устранены, потому что они будут выдавать код ошибки при обнаружении CLI.
+
+<DiagnosticError />
+
+### Warning
+
+Диагностика предупреждений имеет желтый текст. Обычно они должны быть устранены. Предупреждения не являются блокирующими и не остановят работу CLI.
+
+<DiagnosticWarning />
+
+### Information
+
+Информационная диагностика имеет зеленый текст. Она предоставляет полезную информацию и не предназначена для блокировки CLI.
+
+<DiagnosticInformation />
+
+## Теги диагностики
+
+Теги можно рассматривать как метаданные, прикрепленные к диагностике, и они могут по-разному влиять на клиентов.
+
+### Verbose
+
+Подробная диагностика обычно скрыта. Через CLI вы можете показать эту диагностику, используя опцию `--verbose`.
+
+<DiagnosticVerbose />
+
+### Internal
+
+Внутренняя диагностика выдается, когда произошла внутренняя ошибка. Пользователям обычно рекомендуется сообщить об ошибке, когда они видят такую диагностику.
+
+<DiagnosticInternal />
+
+### Fixable
+
+Исправимая диагностика выдается для тех конкретных ситуаций, которые могут быть исправлены пользователем. Обычно они используются для диагностики линтера, которая имеет действие кода.
+
+<DiagnosticFixable />
+
+### Deprecated
+
+Диагностика, содержащая устаревший код
+
+<DiagnosticDeprecated />
+
+## Категория диагностики
+
+Категория служит для группировки диагностики. Опционально, категория может иметь ссылку, например, для категорий, относящихся к правилам линтера, как в примере ниже.
+
+### Простая категория
+
+Эта диагностика принадлежит к категории "`check`", что означает, что она выдается при выполнении команды `check`:
+
+<DiagnosticCategorySimple />
+
+### Категория со ссылкой
+
+Эта диагностика принадлежит к категории `"lint/a11y/noAccessKey"`. Ссылка ведет пользователя на веб-страницу правила линтера `noAccessKey`.
+
+<DiagnosticCategoryLink />
+
+## Расположение диагностики
+
+Диагностика может иметь "расположение". Расположение состоит из трех необязательных частей:
+- ресурс, который является источником, выдавшим диагностику;
+- исходный код файла;
+- диапазон (или текстовый диапазон), обычно **строка** и **столбец** внутри файла.
+
+### Путь к файлу диагностики
+
+Путь к файлу обычно является первой информацией, которую вы видите, в верхнем левом углу диагностики.
+
+<DiagnosticLocFile />
+
+### Исходный код диагностики
+
+Это показывает, как отображается исходный код, связанный с файлом. Обратите внимание, что строка и столбцы не отображаются.
+
+<DiagnosticLocFrame />
+
+### Строка и столбец диагностики
+
+**Строка** и **столбец** обычно выводятся рядом с путем к файлу и отображаются только при наличии связанного исходного кода.
+
+<DiagnosticLocAll />
+
+Когда диагностика выводится в терминале IDE, вы можете нажать `path/to/file.js:2:2`, и IDE откроет соответствующий файл и поместит курсор в начало диапазона.
+
+<DiagnosticLocMultiline />
+
+## Советы диагностики
+
+Кроме того, наша диагностика может хранить советы. Советы — это дополнительные сообщения, которые могут быть добавлены после исходного сообщения.
+
+Эти советы бывают разных видов и форм. Обычно советы всегда выводятся, если они не являются _подробными советами_.
+
+<DiagnosticWithAdvice />

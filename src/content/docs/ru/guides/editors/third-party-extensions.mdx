@@ -1,0 +1,66 @@
+---
+title: Сторонние расширения
+description: Узнайте, как настроить сторонние расширения
+---
+
+Это расширения, поддерживаемые другими сообществами, которые вы можете установить в свой редактор:
+- [`vim`](https://www.vim.org/): [`ALE`](https://github.com/dense-analysis/ale) поддерживает Biome, просто следуйте инструкциям по установке
+- [`neovim`](https://neovim.io/): вам нужно будет установить [`nvim-lspconfig`](https://github.com/neovim/nvim-lspconfig/) и следовать [инструкциям](https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#biome). [`ALE`](https://github.com/dense-analysis/ale) также поддерживает Biome.
+- [`helix`](https://helix-editor.com/): следуйте инструкциям из [этого руководства](#helix)
+- [`coc-biome`](https://github.com/fannheyward/coc-biome): расширение Biome для [`coc.nvim`](https://github.com/neoclide/coc.nvim)
+- [`sublime text`](https://www.sublimetext.com/): следуйте инструкциям по установке [`LSP-biome`](https://github.com/sublimelsp/LSP-biome)
+- [`Emacs`](https://www.gnu.org/software/emacs/): убедитесь, что у вас установлен [`lsp-mode`](https://github.com/emacs-lsp/lsp-mode), следуйте инструкциям по установке [`lsp-biome`](https://github.com/cxa/lsp-biome), чтобы включить поддержку Biome в `lsp-mode`
+- [`Nova`](https://nova.app): установите расширение [`Biome`](https://extensions.panic.com/extensions/besya/besya.biome/) и следуйте инструкциям
+
+:::note
+Есть расширение для редактора, которого нет в этом списке? Пожалуйста, создайте PR, и мы будем рады добавить его в список
+:::
+
+### Helix
+
+В настоящее время biome поддерживает следующие расширения файлов: `js`, `jsx`, `ts`, `tsx`, `d.ts`, `json` и `jsonc`.
+
+Biome имеет команду `lsp-proxy`, которая действует как сервер для Language Server Protocol через stdin/stdout.
+
+#### Helix 23.10
+
+Helix 23.10 имеет [поддержку нескольких языковых серверов](https://github.com/helix-editor/helix/pull/2507). Теперь вы можете использовать biome вместе с `typescript-language-server`.
+
+```toml
+[language-server]
+biome = { command = "biome", args = ["lsp-proxy"] }
+
+[[language]]
+name = "javascript"
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
+auto-format = true
+
+[[language]]
+name = "typescript"
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
+auto-format = true
+
+[[language]]
+name = "tsx"
+auto-format = true
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
+
+[[language]]
+name = "jsx"
+auto-format = true
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
+
+[[language]]
+name = "json"
+language-servers = [ { name = "vscode-json-language-server", except-features = [ "format" ] }, "biome" ]
+```
+
+### Видеозаписи
+
+#### Code Action
+
+<video src="https://user-images.githubusercontent.com/17974631/190205045-aeb86f87-1915-4d8b-8aad-2c046443ba83.mp4" width="720" controls></video>
+
+#### Formatting
+
+<video src="https://user-images.githubusercontent.com/17974631/190205065-ddfde866-5f7c-4f53-8a62-b6cbb577982f.mp4" width="720" controls></video>

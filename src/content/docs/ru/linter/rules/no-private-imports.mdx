@@ -1,0 +1,169 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noPrivateImports
+description: Learn more about noPrivateImports
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+:::note
+This rule belongs to the project domain. This means that its activation will activate the Biome Scanner, which might affect the performance. Read more about it in the [documentation page](/linter/domains#project)
+:::
+## Summary
+- Rule available since: `v2.0.0`
+- Diagnostic Category: [`lint/correctness/noPrivateImports`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- This rule belongs to the following domains:
+  - [`project`](/linter/domains#project)
+- Sources: 
+  - Same as [`import-access/eslint-plugin-import-access`](https://github.com/uhyo/eslint-plugin-import-access)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noPrivateImports": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Restrict imports of private exports.
+
+In JavaScript and TypeScript, as soon as you `export` a symbol, such as
+a type, function, or anything else that can be exported, it is
+considered public and can be imported from anywhere else. Unfortunately,
+this makes it hard to enforce module boundaries, or to prevent importing
+things that were only exported for test purposes, for instance.
+
+This rule recognizes the JSDoc tags `@public`, `@package`, and
+`@private` so that you are free to set the visibility of exports.
+Exports without tag have a default visibility of **public**, but this
+can be configured.
+
+The `@access` tag is also supported if it's used with one of the values
+`public`, `package`, or `private`.
+
+## Public visibility
+
+Public visibility is the default and means there are no restrictions for
+importing a given symbol. In other words, without this rule, all
+exported symbols are implicitly public.
+
+## Package visibility
+
+Within the context of this rule, _package visibility_ means that a
+symbol is visible within the same "package", which means that any module
+that resides in the same folder, or one of its subfolders, is allowed to
+import the symbol. Modules that only share a common folder higher up in
+the hierarchy are not allowed to import the symbol.
+
+For a visual explanation, see
+[this illustration](https://github.com/uhyo/eslint-plugin-import-access?tab=readme-ov-file#what).
+
+## Private visibility
+
+Private visibility means that a symbol may not be imported from other
+modules.
+
+The key thing to understanding the usefulness of `@private` is that this
+rule doesn't treat modules and files as one and the same thing. While
+files are indeed modules, folders are considered modules too, with their
+files and subfolders being submodules. Therefore, symbols exported as
+`@private` from an index file, such as `index.js`, can _still_ be
+imported from other submodules in that same module.
+
+:::note
+For the sake of compatibility with conventions used with Deno, modules
+named `mod.js`/`mod.ts` are considered index files too.
+:::
+
+Another reason why private visibility may still be useful is that it
+allows you to choose specific exceptions. For example, using
+[overrides](https://biomejs.dev/reference/configuration/#overrides), you
+may want to disable this rule in all files with a `.test.js` extension.
+This way, symbols marked private cannot be imported from outside
+modules, with the exception of test files.
+
+## Known Limitations
+
+- This rule only applies to imports from JavaScript and TypeScript
+files. Imports for resources such as images or CSS files are exempted
+regardless of the default visibility setting.
+- This rule does not validate imports through dynamic `import()`
+expressions or CommonJS `require()` calls.
+- Imports from dependencies under `node_modules` are considered out of
+scope.
+
+## Examples
+
+### Invalid
+
+```js title='sub/foo.js'
+/**
+ * @package
+ */
+export const fooPackageVariable = 1;
+```
+
+```js title='bar.js'
+// Attempt to import package private variable from `sub/foo.js` from
+// outside its `sub` module:
+import { fooPackageVariable } from "./sub/foo.js";
+
+/**
+ * @private For test purposes only!
+ */
+export function getTestStuff() {}
+```
+
+<pre class="language-text"><code class="language-text"><a href="file:///bar.js">/bar.js</a>:3:10 <a href="https://biomejs.dev/linter/rules/no-private-imports">lint/correctness/noPrivateImports</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">You may not import a symbol with </span><span style="color: Orange;"><strong>package</strong></span><span style="color: Orange;"> visibility from here.</span><br />  <br />    <strong>1 │ </strong>// Attempt to import package private variable from &#96;sub/foo.js&#96; from<br />    <strong>2 │ </strong>// outside its &#96;sub&#96; module:<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>import &#123; fooPackageVariable &#125; from &quot;./sub/foo.js&quot;;<br />   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong><br />    <strong>5 │ </strong>/&#42;&#42;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">You may need to import an alternative symbol, or relax the visibility of this symbol.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This symbol was imported from </span><span style="color: lightgreen;"><strong>/sub/foo.js</strong></span><span style="color: lightgreen;">.</span><br />  <br /></code></pre>
+
+```js title='bar.test.js'
+// Attempt to import a private export. To allow this, you probably want
+// to configure an `override` to disable this rule in test files.
+// See: https://biomejs.dev/reference/configuration/#overrides
+import { getTestStuff } from "./bar.js";
+```
+
+<pre class="language-text"><code class="language-text"><a href="file:///bar.test.js">/bar.test.js</a>:4:10 <a href="https://biomejs.dev/linter/rules/no-private-imports">lint/correctness/noPrivateImports</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">You may not import a symbol with </span><span style="color: Orange;"><strong>private</strong></span><span style="color: Orange;"> visibility from here.</span><br />  <br />    <strong>2 │ </strong>// to configure an &#96;override&#96; to disable this rule in test files.<br />    <strong>3 │ </strong>// See: https://biomejs.dev/reference/configuration/#overrides<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>import &#123; getTestStuff &#125; from &quot;./bar.js&quot;;<br />   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>5 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">You may need to import an alternative symbol, or relax the visibility of this symbol.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This symbol was imported from </span><span style="color: lightgreen;"><strong>/bar.js</strong></span><span style="color: lightgreen;">.</span><br />  <br /></code></pre>
+
+### Valid
+
+```js title='sub/index.js'
+// Package-private exports can be imported from inside the same module.
+import { fooPackageVariable } from "./foo.js";
+
+// Resources (anything other than JS/TS files) are always exempt.
+import { barResource } from "../resources/bar.png";
+
+/** @private */
+export const subPrivateVariable = 2;
+```
+
+```js title='sub/deep/index.js'
+// Private exports are accessible within the same module only, but
+// modules can be nested. So the following works because you can always
+// import from the index file of a parent module:
+import { subPrivateVariable } from "../index.js";
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/no_private_imports.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/noPrivateImports)
+
+</TabItem>
+</Tabs>
+

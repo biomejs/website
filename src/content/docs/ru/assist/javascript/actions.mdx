@@ -1,0 +1,28 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: JavaScript Действия
+description: Список доступных действий линтера для JavaScript
+---
+
+
+import { Icon } from "@astrojs/starlight/components";
+
+Ниже представлен список правил, поддерживаемых Biome, разделенных по группам. Вот легенда иконок:
+- Иконка <span class='inline-icon' title="Это правило рекомендовано"><Icon name="approve-check-circle"x label="Это правило рекомендовано" /></span> указывает, что правило является частью рекомендованных правил.
+- Иконка <span class='inline-icon' title="У этого правила есть безопасное исправление"><Icon name="seti:config" label="У правила есть безопасное исправление" /></span> указывает, что правило предоставляет действие кода (исправление), которое безопасно применять.
+- Иконка <span class='inline-icon' title="У этого правила есть небезопасное исправление"><Icon name="warning" label="У правила есть небезопасное исправление" /></span> указывает, что правило предоставляет действие кода (исправление), которое небезопасно применять.
+- Иконка <span class='inline-icon' title="Это правило еще не выпущено"><Icon name="moon" label="Это правило еще не выпущено" /></span> указывает, что правило было реализовано и запланировано для следующего релиза.
+
+## `source`
+
+| Название правила | Описание | Свойства |
+| --- | --- | --- |
+| [organizeImports](/assist/actions/organize-imports) | Предоставляет действие кода для сортировки импортов и экспортов в файле с использованием встроенного или пользовательского порядка. | <span class='inline-icon' title="Это правило рекомендовано" ><Icon name="approve-check-circle" size="1.2rem" label="Это правило рекомендовано" /></span><span class='inline-icon' title='У правила есть безопасное исправление.'><Icon name="seti:config" label="У правила есть безопасное исправление" size="1.2rem"  /></span> |
+| [useSortedAttributes](/assist/actions/use-sorted-attributes) | Обеспечивает сортировку атрибутов в JSX-элементах. | <span class='inline-icon' title='У правила есть безопасное исправление.'><Icon name="seti:config" label="У правила есть безопасное исправление" size="1.2rem"  /></span> |
+| [useSortedKeys](/assist/actions/use-sorted-keys) | Сортирует свойства JS-объекта в естественном порядке. | <span class='inline-icon' title='У правила есть безопасное исправление.'><Icon name="seti:config" label="У правила есть безопасное исправление" size="1.2rem"  /></span> |
+## Рекомендованные действия
+- [organizeImports](/assist/actions/organize-imports) (Серьезность: [information](/reference/diagnostics#information))
+
+Не хватает правила? Помогите нам, [внеся вклад](https://github.com/biomejs/biome/blob/main/CONTRIBUTING.md) в [анализатор](https://github.com/biomejs/biome/blob/main/crates/biome_analyze/CONTRIBUTING.md) или создайте предложение по правилу [здесь](https://github.com/biomejs/biome/discussions/categories/rule-suggestion).

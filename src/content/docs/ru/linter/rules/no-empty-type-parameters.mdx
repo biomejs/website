@@ -1,0 +1,76 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noEmptyTypeParameters
+description: Learn more about noEmptyTypeParameters
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="TypeScript and TSX" icon="seti:typescript">
+## Краткая справка
+- Правило доступно с версии: `v1.5.0`
+- Категория диагностики: [`lint/complexity/noEmptyTypeParameters`](/reference/diagnostics#diagnostic-category)
+- Это правило **рекомендовано**, что означает, что оно включено по умолчанию.
+- Это правило не имеет автоматического исправления.
+- Серьезность по умолчанию для этого правила: [**warning**](/reference/diagnostics#warning).
+## Как настроить
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"complexity": {
+				"noEmptyTypeParameters": "error"
+			}
+		}
+	}
+}
+
+```
+## Описание
+Запрещает пустые списки параметров типа в псевдонимах типов и интерфейсах.
+
+TypeScript разрешает использование пустых списков параметров типа в объявлениях псевдонимов типов и интерфейсов; однако эта практика обычно не рекомендуется.
+Разрешение пустых списков параметров типа может привести к неясному или неоднозначному коду, где намерение обобщенного типа не является самоочевидным.
+Это правило запрещает пустые списки параметров типа в объявлениях псевдонимов типов и интерфейсов.
+
+## Примеры
+
+### Неправильно
+
+```ts
+interface Foo<> {}
+```
+
+<pre class="language-text"><code class="language-text">code-block.ts:1:14 <a href="https://biomejs.dev/linter/rules/no-empty-type-parameters">lint/complexity/noEmptyTypeParameters</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Использование </span><span style="color: Orange;"><strong>пустого списка параметров типа</strong></span><span style="color: Orange;"> вызывает путаницу.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>interface Foo&lt;&gt; &#123;&#125;<br />   <strong>   │ </strong>             <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Удалите пустой список параметров типа или добавьте параметр типа.</span><br />  <br /></code></pre>
+
+```ts
+type Bar<> = {};
+```
+
+<pre class="language-text"><code class="language-text">code-block.ts:1:9 <a href="https://biomejs.dev/linter/rules/no-empty-type-parameters">lint/complexity/noEmptyTypeParameters</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Использование </span><span style="color: Orange;"><strong>пустого списка параметров типа</strong></span><span style="color: Orange;"> вызывает путаницу.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>type Bar&lt;&gt; = &#123;&#125;;<br />   <strong>   │ </strong>        <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Удалите пустой список параметров типа или добавьте параметр типа.</span><br />  <br /></code></pre>
+
+### Правильно
+
+```ts
+interface Foo {}
+```
+
+```ts
+type Foo<T> = {
+ bar: T;
+}
+```
+
+## Связанные ссылки
+
+- [Отключить правило](/linter/#disable-a-rule)
+- [Настроить автоматическое исправление кода](/linter#configure-the-code-fix)
+- [Опции правила](/linter/#rule-options)
+- [Исходный код](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/complexity/no_empty_type_parameters.rs)
+- [Тестовые случаи](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/complexity/noEmptyTypeParameters)
+
+</TabItem>
+</Tabs>
+

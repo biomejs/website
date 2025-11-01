@@ -1,0 +1,81 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noEmptyCharacterClassInRegex
+description: Learn more about noEmptyCharacterClassInRegex
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+## Краткая справка
+- Правило доступно с версии: `v1.3.0`
+- Категория диагностики: [`lint/correctness/noEmptyCharacterClassInRegex`](/reference/diagnostics#diagnostic-category)
+- Это правило **рекомендовано**, что означает, что оно включено по умолчанию.
+- Это правило не имеет автоматического исправления.
+- Серьезность по умолчанию для этого правила: [**error**](/reference/diagnostics#error).
+- Источники:
+  - Same as [`no-empty-character-class`](https://eslint.org/docs/latest/rules/no-empty-character-class)
+
+## Как настроить
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noEmptyCharacterClassInRegex": "error"
+			}
+		}
+	}
+}
+
+```
+## Описание
+Запрещает пустые классы символов в литералах регулярных выражений.
+
+Пустые классы символов не соответствуют ничему.
+Напротив, отрицаемые пустые классы соответствуют любому символу.
+Они часто являются результатом опечатки.
+
+## Примеры
+
+### Неправильно
+
+```js
+/^a[]/.test("a"); // false
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:4 <a href="https://biomejs.dev/linter/rules/no-empty-character-class-in-regex">lint/correctness/noEmptyCharacterClassInRegex</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Регулярное выражение включает этот </span><span style="color: Tomato;"><strong>пустой класс символов</strong></span><span style="color: Tomato;">.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>/^a[]/.test(&quot;a&quot;); // false<br />   <strong>   │ </strong>   <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Пустые классы символов не соответствуют ничему.<br /></span>    <span style="color: lightgreen;">Если вы хотите сопоставить символ </span><span style="color: lightgreen;"><strong>[</strong></span><span style="color: lightgreen;">, экранируйте его </span><span style="color: lightgreen;"><strong>&#92;[</strong></span><span style="color: lightgreen;">.<br /></span>    <span style="color: lightgreen;">В противном случае удалите класс символов или заполните его.</span><br />  <br /></code></pre>
+
+```js
+/^a[^]/.test("ax"); // true
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:4 <a href="https://biomejs.dev/linter/rules/no-empty-character-class-in-regex">lint/correctness/noEmptyCharacterClassInRegex</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Регулярное выражение включает этот </span><span style="color: Tomato;"><strong>отрицаемый пустой класс символов</strong></span><span style="color: Tomato;">.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>/^a[^]/.test(&quot;ax&quot;); // true<br />   <strong>   │ </strong>   <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Отрицаемые пустые классы символов соответствуют чему угодно.<br /></span>    <span style="color: lightgreen;">Если вы хотите сопоставить символ </span><span style="color: lightgreen;"><strong>[</strong></span><span style="color: lightgreen;">, экранируйте его </span><span style="color: lightgreen;"><strong>&#92;[</strong></span><span style="color: lightgreen;">.<br /></span>    <span style="color: lightgreen;">В противном случае удалите класс символов или заполните его.</span><br />  <br /></code></pre>
+
+### Правильно
+
+```js
+/^a[xy]/.test("ay"); // true
+```
+
+```js
+/^a[^xy]/.test("ab"); // true
+```
+
+```js
+/^a\[]/.test("a[]"); // true
+```
+
+## Связанные ссылки
+
+- [Отключить правило](/linter/#disable-a-rule)
+- [Настроить автоматическое исправление кода](/linter#configure-the-code-fix)
+- [Опции правила](/linter/#rule-options)
+- [Исходный код](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/no_empty_character_class_in_regex.rs)
+- [Тестовые случаи](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/noEmptyCharacterClassInRegex)
+
+</TabItem>
+</Tabs>
+

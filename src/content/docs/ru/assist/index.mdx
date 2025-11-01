@@ -1,0 +1,63 @@
+---
+title: Assist
+description: Узнайте о Biome assist
+---
+
+import NumberOfRules from "@/components/generated/assist/NumberOfRules.astro";
+import PackageManagerBiomeCommand from "@/components/PackageManagerBiomeCommand.astro";
+import EditorAction from "@/components/EditorAction.astro";
+
+Biome Assist предлагает серию действий, предназначенных для улучшения качества кода и опыта разработчиков.
+
+В отличие от правил линтера, действия assist всегда предлагают исправление кода. Они могут сортировать свойства или поля, упрощать бинарные выражения, выполнять рефакторинг и многое другое. Действия assist не предназначены для обнаружения ошибок или навязывания определенного стиля кодирования. В настоящее время доступно **<NumberOfRules /> действий assist**.
+
+Исправления assist обычно безопасны для применения. Если исправление assist нарушает ваш код, мы будем рассматривать это как ошибку и будем благодарны за отчеты об ошибках.
+
+Assist лучше всего работает в редакторах и IDE. Однако можно принудительно использовать действия assist даже с помощью CLI. Действия assist очень близки к [LSP code actions](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#codeActionKind) по семантике и разделены на [группы](#groups).
+
+Biome assist включен по умолчанию, и некоторые правила входят в рекомендуемый набор правил. Следующий пример показывает, как включить действие `useSortedKeys`:
+
+```json title="biome.json"
+{
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "useSortedKeys": "on"
+      }
+    }
+  }
+}
+```
+
+## Использование действий assist в вашей IDE
+
+Если у вас есть совместимая с LSP IDE, вы можете настроить Biome на выполнение определенных действий при сохранении. Каждое действие assist имеет определенный код, называемый "code action". Хотя большинство имен следуют одному и тому же шаблону, могут быть некоторые исключения (например, `organizeImports`), поэтому обратитесь к документации каждого действия, чтобы узнать связанный код.
+
+Сначала вам нужно настроить редактор для применения всех исправлений при сохранении. Конфигурация зависит от вашего редактора. Имя code action: `source.fixAll.biome`:
+
+<EditorAction action="source.fixAll.biome" />
+
+Затем вы можете добавить код каждого действия. Например, действие [`useSortedKeys`](/assist/actions/use-sorted-keys) имеет code action под названием `source.action.useSortedKeys.biome`. Если вы используете VSCode, вы можете скопировать этот код и поместить его в раздел `editor.codeActionsOnSave`, и Biome применит его при сохранении документа:
+
+<EditorAction includeFixAll action="source.action.useSortedKeys.biome" />
+
+## Применение действий assist через CLI
+
+Действия assist могут быть применены через CLI с помощью команды `check`:
+
+<PackageManagerBiomeCommand command="check" />
+
+Однако команда `check` предназначена для одновременного запуска нескольких инструментов, поэтому если вы хотите проверить только действия assist, вам следует выполнить:
+
+<PackageManagerBiomeCommand command="check --formatter-enabled=false --linter-enabled=false" />
+
+## Подавление действий assist
+
+Вы можете обратиться к [странице подавления](/analyzer/suppressions).
+
+## Группы
+
+### Source
+
+Эта группа представляет те действия, которые могут быть безопасно применены к документу при сохранении. Эти действия в целом безопасны, они обычно не изменяют функциональность программы.

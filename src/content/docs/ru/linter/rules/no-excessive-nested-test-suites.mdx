@@ -1,0 +1,92 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noExcessiveNestedTestSuites
+description: Learn more about noExcessiveNestedTestSuites
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+## Summary
+- Rule available since: `v1.6.0`
+- Diagnostic Category: [`lint/complexity/noExcessiveNestedTestSuites`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`test`](/linter/domains#test)
+- Sources: 
+  - Same as [`jest/max-nested-describe`](https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/max-nested-describe.md)
+  - Same as [`vitest/max-nested-describe`](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/max-nested-describe.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"complexity": {
+				"noExcessiveNestedTestSuites": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+This rule enforces a maximum depth to nested `describe()` in test files.
+
+To improve code clarity in your tests, the rule limits nested `describe` to 5.
+
+## Examples
+
+### Invalid
+
+```js
+describe('foo', () => {
+  describe('bar', () => {
+    describe('baz', () => {
+      describe('qux', () => {
+        describe('quxx', () => {
+          describe('too many', () => {
+            it('should get something', () => {
+              expect(getSomething()).toBe('Something');
+            });
+          });
+        });
+      });
+    });
+  });
+});
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:6:11 <a href="https://biomejs.dev/linter/rules/no-excessive-nested-test-suites">lint/complexity/noExcessiveNestedTestSuites</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Excessive &#96;describe()&#96; nesting detected.</span><br />  <br />     <strong>4 │ </strong>      describe('qux', () =&gt; &#123;<br />     <strong>5 │ </strong>        describe('quxx', () =&gt; &#123;<br />   <strong><span style="color: Tomato;">&gt;</span></strong> <strong>6 │ </strong>          describe('too many', () =&gt; &#123;<br />    <strong>   │ </strong>          <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />   <strong><span style="color: Tomato;">&gt;</span></strong> <strong>7 │ </strong>            it('should get something', () =&gt; &#123;<br />   <strong><span style="color: Tomato;">&gt;</span></strong> <strong>8 │ </strong>              expect(getSomething()).toBe('Something');<br />   <strong><span style="color: Tomato;">&gt;</span></strong> <strong>9 │ </strong>            &#125;);<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>10 │ </strong>          &#125;);<br />    <strong>   │ </strong>          <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>11 │ </strong>        &#125;);<br />    <strong>12 │ </strong>      &#125;);<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Excessive nesting of </span><span style="color: lightgreen;"><strong>describe()</strong></span><span style="color: lightgreen;"> calls can hinder test readability.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Consider refactoring and </span><span style="color: lightgreen;"><strong>reduce the level of nested describe</strong></span><span style="color: lightgreen;"> to improve code clarity.</span><br />  <br /></code></pre>
+
+### Valid
+
+```js
+describe('foo', () => {
+  describe('bar', () => {
+    it('should get something', () => {
+      expect(getSomething()).toBe('Something');
+    });
+  });
+  describe('qux', () => {
+    it('should get something', () => {
+      expect(getSomething()).toBe('Something');
+    });
+  });
+});
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/complexity/no_excessive_nested_test_suites.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/complexity/noExcessiveNestedTestSuites)
+
+</TabItem>
+</Tabs>
+

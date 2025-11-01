@@ -1,0 +1,145 @@
+---
+title: Расширение для Zed
+description: Заметки о расширении Biome для Zed
+---
+
+## Установка
+
+Требуется Zed >= **v0.131.0**.
+
+Это расширение доступно в представлении расширений внутри редактора Zed. Откройте `zed: extensions` и найдите _Biome_. Оно запускает бинарный файл Biome под капотом и проверяет установки Biome в следующем порядке:
+
+1. Путь, указанный в конфигурации Zed, например так:
+  ```json title='.zed/settings.json'
+  {
+    "lsp": {
+      "biome": {
+       "binary": {
+          "path": "/var/biome-2.2.3/bin/biome",
+          "arguments": [
+            "lsp-proxy"
+         ]
+        }
+      }
+    }
+  }
+  ```
+2. Локально установленный Biome через `package.json`
+3. Системный Biome в `PATH`
+
+Если ни один из них не существует, оно попросит Zed установить Biome с помощью `npm` и использовать его.
+
+## Конфигурация
+
+По умолчанию файл biome.json должен находиться в **корне рабочего пространства**.
+
+В противном случае его можно настроить через настройки lsp:
+
+```jsonc
+// settings.json
+{
+  "lsp": {
+    "biome": {
+      "settings": {
+        "config_path": "<path>/biome.json"
+      }
+    }
+  }
+}
+```
+
+### Форматирование
+
+Чтобы использовать языковой сервер в качестве форматтера, укажите biome в качестве вашего форматтера в настройках:
+
+```jsonc
+// settings.json
+{
+  "languages": {
+    "JavaScript": { "formatter": { "language_server": { "name": "biome" } } },
+    "TypeScript": { "formatter": { "language_server": { "name": "biome" } } },
+    "TSX": { "formatter": { "language_server": { "name": "biome" } } },
+    "JSON": { "formatter": { "language_server": { "name": "biome" } } },
+    "JSONC": { "formatter": { "language_server": { "name": "biome" } } },
+    "CSS": { "formatter": { "language_server": { "name": "biome" } } },
+    "GraphQL": { "formatter": { "language_server": { "name": "biome" } } },
+  }
+}
+```
+
+См. [поддержка языков](/internals/language-support) для получения дополнительной информации.
+
+### Включить biome только при наличии biome.json
+
+```jsonc
+// settings.json
+{
+  "lsp": {
+    "biome": {
+      "settings": {
+        "require_config_file": true
+      }
+    }
+  }
+}
+```
+
+### Запускать code actions при форматировании:
+
+```jsonc
+// settings.json
+{
+  "languages": {
+    "JavaScript": {
+      "formatter": { "language_server": { "name": "biome" } },
+      "code_actions_on_format": {
+        "source.fixAll.biome": true,
+        "source.organizeImports.biome": true
+      }
+    },
+    "TypeScript": {
+      "formatter": { "language_server": { "name": "biome" } },
+      "code_actions_on_format": {
+        "source.fixAll.biome": true,
+        "source.organizeImports.biome": true
+      }
+    },
+    "TSX": {
+      "formatter": { "language_server": { "name": "biome" } },
+      "code_actions_on_format": {
+         "source.fixAll.biome": true,
+
+
+        "source.organizeImports.biome": true
+      }
+    }
+  }
+}
+```
+
+Если вы хотите применять [небезопасные исправления](/linter/#unsafe-fixes) при сохранении, вы должны сделать [исправление кода правила безопасным](/linter/#configure-the-code-fix).
+
+### Конфигурация на основе проекта
+
+Вы можете включить эти настройки в настройки проекта Zed (`.zed/settings.json`) в корне папки вашего проекта или как настройки пользователя Zed (`~/.config/zed/settings.json`), которые будут применяться ко всем проектам по умолчанию.
+
+#### Отключить biome для конкретного проекта
+
+Вы можете исключить biome для определенного языка (например, GraphQL) в проекте с помощью:
+
+```jsonc
+// settings.json
+{
+  "languages": {
+    "GraphQL": {
+      "language_servers": [ "!biome", "..." ]
+    }
+  }
+}
+```
+
+### Глобальные настройки
+
+Не рекомендуется добавлять `biome` в ключи верхнего уровня `language_servers`, `formatter` или `code_actions_on_format` в вашем settings.json Zed. Указание biome как `language_server` или `formatter` глобально может нарушить функциональность для языков, которые biome не поддерживает (Rust, Python и т.д.). См. [поддержка языков](/internals/language-support) для полного списка поддерживаемых языков.
+
+В этой документации ранее рекомендовались глобальные настройки; пожалуйста, переключите настройки Zed на явную настройку biome для каждого языка отдельно.

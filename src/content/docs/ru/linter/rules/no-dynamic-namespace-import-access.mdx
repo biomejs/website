@@ -1,0 +1,95 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noDynamicNamespaceImportAccess
+description: Learn more about noDynamicNamespaceImportAccess
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+## Краткая справка
+- Правило доступно с версии: `v1.9.0`
+- Категория диагностики: [`lint/performance/noDynamicNamespaceImportAccess`](/reference/diagnostics#diagnostic-category)
+- Это правило **рекомендовано**, что означает, что оно включено по умолчанию.
+- Это правило не имеет автоматического исправления.
+- Серьезность по умолчанию для этого правила: [**warning**](/reference/diagnostics#warning).
+## Как настроить
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"performance": {
+				"noDynamicNamespaceImportAccess": "error"
+			}
+		}
+	}
+}
+
+```
+## Описание
+Запрещает динамический доступ к импортам пространства имен.
+
+Динамический доступ к импортам пространства имен может препятствовать эффективному tree shaking и увеличивать размер бандла.
+Это происходит потому, что бандлер не может определить, какие части пространства имен используются во время компиляции,
+поэтому он должен включить всё пространство имен в бандл.
+
+Вместо этого рассмотрите возможность использования именованных импортов или, если это невозможно,
+обращайтесь к свойствам импортированного пространства имен статически.
+
+Если вы хотите полностью запретить импорты пространства имен, рассмотрите использование правила [noNamespaceImport](https://biomejs.dev/linter/rules/no-namespace-import/).
+
+## Примеры
+
+### Неправильно
+
+```js
+import * as foo from "foo"
+foo["bar"]
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:2:1 <a href="https://biomejs.dev/linter/rules/no-dynamic-namespace-import-access">lint/performance/noDynamicNamespaceImportAccess</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Избегайте динамического доступа к импортам пространства имен, это может препятствовать эффективному tree shaking и увеличивать размер бандла.</span><br />  <br />    <strong>1 │ </strong>import &#42; as foo from &quot;foo&quot;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>foo[&quot;bar&quot;]<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Предпочтите статический доступ к свойству или используйте именованные импорты вместо этого.</span><br />  <br /></code></pre>
+
+```js
+import * as foo from "foo"
+const key = "bar"
+foo[key]
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:3:1 <a href="https://biomejs.dev/linter/rules/no-dynamic-namespace-import-access">lint/performance/noDynamicNamespaceImportAccess</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Избегайте динамического доступа к импортам пространства имен, это может препятствовать эффективному tree shaking и увеличивать размер бандла.</span><br />  <br />    <strong>1 │ </strong>import &#42; as foo from &quot;foo&quot;<br />    <strong>2 │ </strong>const key = &quot;bar&quot;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>foo[key]<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Предпочтите статический доступ к свойству или используйте именованные импорты вместо этого.</span><br />  <br /></code></pre>
+
+### Правильно
+
+```js
+import * as foo from "foo"
+foo.bar
+```
+
+```js
+import { bar } from "foo"
+bar
+```
+
+```js
+import messages from "i18n"
+const knownMessagesMap = {
+ hello: messages.hello,
+ goodbye: messages.goodbye
+}
+
+const dynamicKey = "hello"
+knownMessagesMap[dynamicKey]
+```
+
+## Связанные ссылки
+
+- [Отключить правило](/linter/#disable-a-rule)
+- [Настроить автоматическое исправление кода](/linter#configure-the-code-fix)
+- [Опции правила](/linter/#rule-options)
+- [Исходный код](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/performance/no_dynamic_namespace_import_access.rs)
+- [Тестовые случаи](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/performance/noDynamicNamespaceImportAccess)
+
+</TabItem>
+</Tabs>
+

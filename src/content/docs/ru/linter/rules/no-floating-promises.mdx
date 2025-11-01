@@ -1,0 +1,210 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noFloatingPromises
+description: Learn more about noFloatingPromises
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="TypeScript and TSX" icon="seti:typescript">
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+:::note
+This rule belongs to the project domain. This means that its activation will activate the Biome Scanner, which might affect the performance. Read more about it in the [documentation page](/linter/domains#project)
+:::
+## Summary
+- Rule available since: `v2.0.0`
+- Diagnostic Category: [`lint/nursery/noFloatingPromises`](/reference/diagnostics#diagnostic-category)
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`project`](/linter/domains#project)
+- Sources: 
+  - Same as [`@typescript-eslint/no-floating-promises`](https://typescript-eslint.io/rules/no-floating-promises)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noFloatingPromises": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Require Promise-like statements to be handled appropriately.
+
+A "floating" `Promise` is one that is created without any code set up to
+handle any errors it might throw. Floating Promises can lead to several
+issues, including improperly sequenced operations, unhandled Promise
+rejections, and other unintended consequences.
+
+This rule will report Promise-valued statements that are not treated in
+one of the following ways:
+
+- Calling its `.then()` method with two arguments
+- Calling its `.catch()` method with one argument
+- `await`-ing it
+- `return`-ing it
+- `void`-ing it
+
+## Examples
+
+### Invalid
+
+```ts title='async-fn.ts'
+async function returnsPromise(): Promise<string> {
+  return 'value';
+}
+returnsPromise().then(() => {});
+```
+
+<pre class="language-text"><code class="language-text"><a href="file:///async-fn.ts">/async-fn.ts</a>:4:1 <a href="https://biomejs.dev/linter/rules/no-floating-promises">lint/nursery/noFloatingPromises</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">A &quot;floating&quot; Promise was found, meaning it is not properly handled and could lead to ignored errors or unexpected behavior.</span><br />  <br />    <strong>2 │ </strong>  return 'value';<br />    <strong>3 │ </strong>&#125;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>returnsPromise().then(() =&gt; &#123;&#125;);<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>5 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This happens when a Promise is not awaited, lacks a &#96;.catch&#96; or &#96;.then&#96; rejection handler, or is not explicitly ignored using the &#96;void&#96; operator.</span><br />  <br /></code></pre>
+
+```ts title='async-fn2.ts'
+const returnsPromise = async (): Promise<string> => {
+  return 'value';
+}
+async function returnsPromiseInAsyncFunction() {
+  returnsPromise().then(() => {});
+}
+```
+
+<pre class="language-text"><code class="language-text"><a href="file:///async-fn2.ts">/async-fn2.ts</a>:5:3 <a href="https://biomejs.dev/linter/rules/no-floating-promises">lint/nursery/noFloatingPromises</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">A &quot;floating&quot; Promise was found, meaning it is not properly handled and could lead to ignored errors or unexpected behavior.</span><br />  <br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong>async function returnsPromiseInAsyncFunction() &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>5 │ </strong>  returnsPromise().then(() =&gt; &#123;&#125;);<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>6 │ </strong>&#125;<br />    <strong>7 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This happens when a Promise is not awaited, lacks a &#96;.catch&#96; or &#96;.then&#96; rejection handler, or is not explicitly ignored using the &#96;void&#96; operator.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Add await operator.</span><br />  <br />  <strong>  5 │ </strong><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span><span style="color: MediumSeaGreen;">a</span><span style="color: MediumSeaGreen;">w</span><span style="color: MediumSeaGreen;">a</span><span style="color: MediumSeaGreen;">i</span><span style="color: MediumSeaGreen;">t</span><span style="opacity: 0.8;"><span style="color: MediumSeaGreen;">·</span></span>returnsPromise().then(()<span style="opacity: 0.8;">·</span>=&gt;<span style="opacity: 0.8;">·</span>&#123;&#125;);<br />  <strong>    │ </strong>  <span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span>                                <br /></code></pre>
+
+```js title='new-promise.js'
+const promise = new Promise((resolve) => resolve('value'));
+promise.then(() => { }).finally(() => { });
+```
+
+<pre class="language-text"><code class="language-text"><a href="file:///new-promise.js">/new-promise.js</a>:2:1 <a href="https://biomejs.dev/linter/rules/no-floating-promises">lint/nursery/noFloatingPromises</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">A &quot;floating&quot; Promise was found, meaning it is not properly handled and could lead to ignored errors or unexpected behavior.</span><br />  <br />    <strong>1 │ </strong>const promise = new Promise((resolve) =&gt; resolve('value'));<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>promise.then(() =&gt; &#123; &#125;).finally(() =&gt; &#123; &#125;);<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This happens when a Promise is not awaited, lacks a &#96;.catch&#96; or &#96;.then&#96; rejection handler, or is not explicitly ignored using the &#96;void&#96; operator.</span><br />  <br /></code></pre>
+
+```js title='promise-all.js'
+Promise.all([p1, p2, p3])
+```
+
+<pre class="language-text"><code class="language-text"><a href="file:///promise-all.js">/promise-all.js</a>:1:1 <a href="https://biomejs.dev/linter/rules/no-floating-promises">lint/nursery/noFloatingPromises</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">A &quot;floating&quot; Promise was found, meaning it is not properly handled and could lead to ignored errors or unexpected behavior.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>Promise.all([p1, p2, p3])<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This happens when a Promise is not awaited, lacks a &#96;.catch&#96; or &#96;.then&#96; rejection handler, or is not explicitly ignored using the &#96;void&#96; operator.</span><br />  <br /></code></pre>
+
+```ts title='async-method.ts'
+class Api {
+  async returnsPromise(): Promise<string> {
+    return 'value';
+  }
+  async someMethod() {
+    this.returnsPromise();
+  }
+}
+```
+
+<pre class="language-text"><code class="language-text"><a href="file:///async-method.ts">/async-method.ts</a>:6:5 <a href="https://biomejs.dev/linter/rules/no-floating-promises">lint/nursery/noFloatingPromises</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">A &quot;floating&quot; Promise was found, meaning it is not properly handled and could lead to ignored errors or unexpected behavior.</span><br />  <br />    <strong>4 │ </strong>  &#125;<br />    <strong>5 │ </strong>  async someMethod() &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>6 │ </strong>    this.returnsPromise();<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>7 │ </strong>  &#125;<br />    <strong>8 │ </strong>&#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This happens when a Promise is not awaited, lacks a &#96;.catch&#96; or &#96;.then&#96; rejection handler, or is not explicitly ignored using the &#96;void&#96; operator.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Add await operator.</span><br />  <br />  <strong>  6 │ </strong><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span><span style="color: MediumSeaGreen;">a</span><span style="color: MediumSeaGreen;">w</span><span style="color: MediumSeaGreen;">a</span><span style="color: MediumSeaGreen;">i</span><span style="color: MediumSeaGreen;">t</span><span style="opacity: 0.8;"><span style="color: MediumSeaGreen;">·</span></span>this.returnsPromise();<br />  <strong>    │ </strong>    <span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span>                      <br /></code></pre>
+
+```ts title='async-super-method.ts'
+class Parent {
+  async returnsPromise(): Promise<string> {
+    return 'value';
+  }
+}
+
+class Child extends Parent {
+  async someMethod() {
+    this.returnsPromise();
+  }
+}
+```
+
+<pre class="language-text"><code class="language-text"><a href="file:///async-super-method.ts">/async-super-method.ts</a>:9:5 <a href="https://biomejs.dev/linter/rules/no-floating-promises">lint/nursery/noFloatingPromises</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">A &quot;floating&quot; Promise was found, meaning it is not properly handled and could lead to ignored errors or unexpected behavior.</span><br />  <br />     <strong>7 │ </strong>class Child extends Parent &#123;<br />     <strong>8 │ </strong>  async someMethod() &#123;<br />   <strong><span style="color: Tomato;">&gt;</span></strong> <strong>9 │ </strong>    this.returnsPromise();<br />    <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>10 │ </strong>  &#125;<br />    <strong>11 │ </strong>&#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This happens when a Promise is not awaited, lacks a &#96;.catch&#96; or &#96;.then&#96; rejection handler, or is not explicitly ignored using the &#96;void&#96; operator.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Add await operator.</span><br />  <br />  <strong>  9 │ </strong><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span><span style="color: MediumSeaGreen;">a</span><span style="color: MediumSeaGreen;">w</span><span style="color: MediumSeaGreen;">a</span><span style="color: MediumSeaGreen;">i</span><span style="color: MediumSeaGreen;">t</span><span style="opacity: 0.8;"><span style="color: MediumSeaGreen;">·</span></span>this.returnsPromise();<br />  <strong>    │ </strong>    <span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span>                      <br /></code></pre>
+
+```ts title='async-method2.ts'
+class Api {
+  async returnsPromise(): Promise<string> {
+    return 'value';
+  }
+}
+const api = new Api();
+api.returnsPromise().then(() => {}).finally(() => {});
+```
+
+<pre class="language-text"><code class="language-text"><a href="file:///async-method2.ts">/async-method2.ts</a>:7:1 <a href="https://biomejs.dev/linter/rules/no-floating-promises">lint/nursery/noFloatingPromises</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">A &quot;floating&quot; Promise was found, meaning it is not properly handled and could lead to ignored errors or unexpected behavior.</span><br />  <br />    <strong>5 │ </strong>&#125;<br />    <strong>6 │ </strong>const api = new Api();<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>7 │ </strong>api.returnsPromise().then(() =&gt; &#123;&#125;).finally(() =&gt; &#123;&#125;);<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>8 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This happens when a Promise is not awaited, lacks a &#96;.catch&#96; or &#96;.then&#96; rejection handler, or is not explicitly ignored using the &#96;void&#96; operator.</span><br />  <br /></code></pre>
+
+```ts title='async-object-method.ts'
+const obj = {
+  async returnsPromise(): Promise<string> {
+    return 'value';
+  },
+};
+
+obj.returnsPromise();
+```
+
+<pre class="language-text"><code class="language-text"><a href="file:///async-object-method.ts">/async-object-method.ts</a>:7:1 <a href="https://biomejs.dev/linter/rules/no-floating-promises">lint/nursery/noFloatingPromises</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">A &quot;floating&quot; Promise was found, meaning it is not properly handled and could lead to ignored errors or unexpected behavior.</span><br />  <br />    <strong>5 │ </strong>&#125;;<br />    <strong>6 │ </strong><br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>7 │ </strong>obj.returnsPromise();<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>8 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This happens when a Promise is not awaited, lacks a &#96;.catch&#96; or &#96;.then&#96; rejection handler, or is not explicitly ignored using the &#96;void&#96; operator.</span><br />  <br /></code></pre>
+
+```ts title='async-prop.ts'
+type Props = {
+  returnsPromise: () => Promise<void>;
+};
+
+async function testCallingReturnsPromise(props: Props) {
+  props.returnsPromise();
+}
+```
+
+<pre class="language-text"><code class="language-text"><a href="file:///async-prop.ts">/async-prop.ts</a>:6:3 <a href="https://biomejs.dev/linter/rules/no-floating-promises">lint/nursery/noFloatingPromises</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">A &quot;floating&quot; Promise was found, meaning it is not properly handled and could lead to ignored errors or unexpected behavior.</span><br />  <br />    <strong>5 │ </strong>async function testCallingReturnsPromise(props: Props) &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>6 │ </strong>  props.returnsPromise();<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>7 │ </strong>&#125;<br />    <strong>8 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This happens when a Promise is not awaited, lacks a &#96;.catch&#96; or &#96;.then&#96; rejection handler, or is not explicitly ignored using the &#96;void&#96; operator.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Add await operator.</span><br />  <br />  <strong>  6 │ </strong><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span><span style="color: MediumSeaGreen;">a</span><span style="color: MediumSeaGreen;">w</span><span style="color: MediumSeaGreen;">a</span><span style="color: MediumSeaGreen;">i</span><span style="color: MediumSeaGreen;">t</span><span style="opacity: 0.8;"><span style="color: MediumSeaGreen;">·</span></span>props.returnsPromise();<br />  <strong>    │ </strong>  <span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span>                       <br /></code></pre>
+
+### Valid
+
+```ts title='valid-examples.ts'
+async function returnsPromise(): Promise<string> {
+  return 'value';
+}
+
+await returnsPromise();
+
+void returnsPromise();
+
+// Calling .then() with two arguments
+returnsPromise().then(
+  () => {},
+  () => {},
+);
+
+// Calling .catch() with one argument
+returnsPromise().catch(() => {});
+
+await Promise.all([p1, p2, p3])
+
+class Api {
+  async returnsPromise(): Promise<string> {
+    return 'value';
+  }
+  async someMethod() {
+    await this.returnsPromise();
+  }
+}
+
+type Props = {
+  returnsPromise: () => Promise<void>;
+};
+
+async function testCallingReturnsPromise(props: Props) {
+  return props.returnsPromise();
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_floating_promises.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noFloatingPromises)
+
+</TabItem>
+</Tabs>
+

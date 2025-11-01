@@ -1,0 +1,98 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noEmptyBlockStatements
+description: Learn more about noEmptyBlockStatements
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+## Краткая справка
+- Правило доступно с версии: `v1.3.0`
+- Категория диагностики: [`lint/suspicious/noEmptyBlockStatements`](/reference/diagnostics#diagnostic-category)
+- Это правило не имеет автоматического исправления.
+- Серьезность по умолчанию для этого правила: [**warning**](/reference/diagnostics#warning).
+- Источники:
+  - Same as [`no-empty`](https://eslint.org/docs/latest/rules/no-empty)
+  - Same as [`no-empty-static-block`](https://eslint.org/docs/latest/rules/no-empty-static-block)
+  - Same as [`no-empty-function`](https://eslint.org/docs/latest/rules/no-empty-function)
+  - Same as [`@typescript-eslint/no-empty-function`](https://typescript-eslint.io/rules/no-empty-function)
+
+## Как настроить
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noEmptyBlockStatements": "error"
+			}
+		}
+	}
+}
+
+```
+## Описание
+Запрещает пустые блоки инструкций и статические блоки.
+
+Пустые статические блоки и блоки инструкций, хотя технически не являются ошибками, обычно возникают из-за незавершенного рефакторинга. Они могут вызывать путаницу при чтении кода.
+
+Это правило запрещает пустые блоки инструкций и статические блоки.
+Это правило игнорирует блоки инструкций или статические блоки, которые содержат комментарий (например, в пустом блоке catch или finally оператора try, чтобы указать, что выполнение должно продолжаться независимо от ошибок).
+
+## Примеры
+
+### Неправильно
+
+```js
+function emptyFunctionBody () {}
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:31 <a href="https://biomejs.dev/linter/rules/no-empty-block-statements">lint/suspicious/noEmptyBlockStatements</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Неожиданный пустой блок.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>function emptyFunctionBody () &#123;&#125;<br />   <strong>   │ </strong>                              <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Пустые блоки обычно являются результатом незавершенного рефакторинга. Удалите пустой блок или добавьте в него комментарий, если это сделано намеренно.</span><br />  <br /></code></pre>
+
+```js
+try {
+    doSomething();
+} catch(ex) {
+
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:3:13 <a href="https://biomejs.dev/linter/rules/no-empty-block-statements">lint/suspicious/noEmptyBlockStatements</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Неожиданный пустой блок.</span><br />  <br />    <strong>1 │ </strong>try &#123;<br />    <strong>2 │ </strong>    doSomething();<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>&#125; catch(ex) &#123;<br />   <strong>   │ </strong>            <strong><span style="color: Tomato;">^</span></strong><br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong><br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>5 │ </strong>&#125;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>6 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Пустые блоки обычно являются результатом незавершенного рефакторинга. Удалите пустой блок или добавьте в него комментарий, если это сделано намеренно.</span><br />  <br /></code></pre>
+
+```js
+class Foo {
+  static {}
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:2:3 <a href="https://biomejs.dev/linter/rules/no-empty-block-statements">lint/suspicious/noEmptyBlockStatements</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Неожиданный пустой блок.</span><br />  <br />    <strong>1 │ </strong>class Foo &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  static &#123;&#125;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Пустые блоки обычно являются результатом незавершенного рефакторинга. Удалите пустой блок или добавьте в него комментарий, если это сделано намеренно.</span><br />  <br /></code></pre>
+
+### Правильно
+
+```js
+function foo () {
+    doSomething();
+}
+```
+
+```js
+try {
+  doSomething();
+} catch (ex) {
+  // continue regardless of error
+}
+```
+
+## Связанные ссылки
+
+- [Отключить правило](/linter/#disable-a-rule)
+- [Настроить автоматическое исправление кода](/linter#configure-the-code-fix)
+- [Опции правила](/linter/#rule-options)
+- [Исходный код](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_empty_block_statements.rs)
+- [Тестовые случаи](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noEmptyBlockStatements)
+
+</TabItem>
+</Tabs>
+

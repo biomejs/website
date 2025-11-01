@@ -1,0 +1,48 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: Правила GraphQL
+description: Список доступных правил линтера для GraphQL
+---
+
+
+import { Icon } from "@astrojs/starlight/components";
+
+Ниже приведен список правил, поддерживаемых Biome, разделенных по группам. Легенда иконок:
+- Иконка <span class='inline-icon' title="Это правило рекомендуется"><Icon name="approve-check-circle"x label="Это правило рекомендуется" /></span> указывает, что правило является частью рекомендуемых правил.
+- Иконка <span class='inline-icon' title="Это правило имеет безопасное исправление"><Icon name="seti:config" label="Правило имеет безопасное исправление" /></span> указывает, что правило предоставляет действие кода (исправление), которое **безопасно** применять.
+- Иконка <span class='inline-icon' title="Это правило имеет небезопасное исправление"><Icon name="warning" label="Правило имеет небезопасное исправление" /></span> указывает, что правило предоставляет действие кода (исправление), которое **небезопасно** применять.
+- Иконка <span class='inline-icon' title="Это правило еще не выпущено"><Icon name="moon" label="Это правило еще не выпущено" /></span> указывает, что правило было реализовано и запланировано к следующему выпуску.
+
+## `correctness`
+
+| Название правила | Описание | Свойства |
+| --- | --- | --- |
+| [useGraphqlNamedOperations](/linter/rules/use-graphql-named-operations) | Требует указания имени операций GraphQL. | <span class='inline-icon' title="Это правило рекомендуется" ><Icon name="approve-check-circle" size="1.2rem" label="Это правило рекомендуется" /></span><span class='inline-icon' title="Правило имеет небезопасное исправление" ><Icon name="warning" label="Правило имеет небезопасное исправление" size="1.2rem" /></span> |
+
+## `nursery`
+
+| Название правила | Описание | Свойства |
+| --- | --- | --- |
+| [noEmptySource](/linter/rules/no-empty-source) | Запрещает пустые источники. |  |
+| [useDeprecatedDate](/linter/rules/use-deprecated-date) | Требует, чтобы директива `@deprecated` указывала дату удаления. |  |
+
+## `style`
+
+| Название правила | Описание | Свойства |
+| --- | --- | --- |
+| [useDeprecatedReason](/linter/rules/use-deprecated-reason) | Требует указания аргумента reason при использовании директивы `@deprecated` | <span class='inline-icon' title="Это правило рекомендуется" ><Icon name="approve-check-circle" size="1.2rem" label="Это правило рекомендуется" /></span> |
+| [useGraphqlNamingConvention](/linter/rules/use-graphql-naming-convention) | Проверяет, что все значения enum написаны заглавными буквами. |  |
+
+## `suspicious`
+
+| Название правила | Описание | Свойства |
+| --- | --- | --- |
+| [noDuplicateFields](/linter/rules/no-duplicate-fields) | Запрещает дублирование полей в операциях GraphQL. | <span class='inline-icon' title="Это правило рекомендуется" ><Icon name="approve-check-circle" size="1.2rem" label="Это правило рекомендуется" /></span> |
+## Рекомендуемые правила
+- [useGraphqlNamedOperations](/linter/rules/use-graphql-named-operations) (Серьезность: [error](/reference/diagnostics#error))
+- [useDeprecatedReason](/linter/rules/use-deprecated-reason) (Серьезность: [warning](/reference/diagnostics#warning))
+- [noDuplicateFields](/linter/rules/no-duplicate-fields) (Серьезность: [information](/reference/diagnostics#information))
+
+Не хватает правила? Помогите нам, [внеся вклад](https://github.com/biomejs/biome/blob/main/CONTRIBUTING.md) в [анализатор](https://github.com/biomejs/biome/blob/main/crates/biome_analyze/CONTRIBUTING.md) или создайте предложение правила [здесь](https://github.com/biomejs/biome/discussions/categories/rule-suggestion).

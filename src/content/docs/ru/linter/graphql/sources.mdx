@@ -1,0 +1,28 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+
+title: Источники правил
+description: Страница, которая сопоставляет правила из других источников с Biome
+---
+
+## Эксклюзивные правила Biome
+- [noEmptySource](/linter/rules/no-empty-source)
+## Правила из других источников
+:::note
+Некоторые правила **Biome** могут **не** иметь опций по сравнению с оригинальным правилом.
+:::
+### GraphQL-ESLint
+| Название правила GraphQL-ESLint | Название правила Biome |
+| ---- | ---- |
+| [no-anonymous-operations](https://the-guild.dev/graphql/eslint/rules/no-anonymous-operations) |[useGraphqlNamedOperations](/linter/rules/use-graphql-named-operations) |
+| [no-duplicate-fields](https://the-guild.dev/graphql/eslint/rules/no-duplicate-fields) |[noDuplicateFields](/linter/rules/no-duplicate-fields) |
+| [require-deprecation-date](https://the-guild.dev/graphql/eslint/rules/require-deprecation-date) |[useDeprecatedDate](/linter/rules/use-deprecated-date) |
+| [require-deprecation-reason](https://the-guild.dev/graphql/eslint/rules/require-deprecation-reason) |[useDeprecatedReason](/linter/rules/use-deprecated-reason) |
+### graphql-schema-linter
+| Название правила graphql-schema-linter | Название правила Biome |
+| ---- | ---- |
+| [enum-values-all-caps](https://github.com/cjoudrey/graphql-schema-linter?tab=readme-ov-file#enum-values-all-caps) |[useGraphqlNamingConvention](/linter/rules/use-graphql-naming-convention) (вдохновлено) |
+
+Не хватает правила? Помогите нам, [внеся вклад](https://github.com/biomejs/biome/blob/main/CONTRIBUTING.md) в [анализатор](https://github.com/biomejs/biome/blob/main/crates/biome_analyze/CONTRIBUTING.md) или создайте предложение правила [здесь](https://github.com/biomejs/biome/discussions/categories/rule-suggestion).

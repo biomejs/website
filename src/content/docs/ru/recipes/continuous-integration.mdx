@@ -1,0 +1,111 @@
+---
+title: Непрерывная интеграция
+description: Использование Biome в CI окружении
+---
+
+Запуск Biome в CI окружении прост. Посмотрите следующие примеры для вдохновения.
+
+### `biome check` VS `biome ci`
+
+Biome предлагает две CLI команды для запуска всех проверок: `biome check` и `biome ci`, однако последняя должна использоваться в CI (Continuous Integration) окружениях.
+
+По сравнению с командой `check`, команда `ci`:
+- не предоставляет опции `--write`/`--fix`;
+- лучше интегрируется с определенными раннерами. Например, при запуске на GitHub, диагностика выводится с использованием аннотаций GitHub;
+- позволяет контролировать количество потоков;
+- когда включена интеграция с VCS, она использует флаг `--changed` вместо `--staged`, потому что удаленный репозиторий не имеет концепции "staged файлов".
+
+Со временем команда `ci` получит все больше и больше возможностей.
+
+## GitHub Actions
+
+Мы предоставляем официальный [GitHub Action](https://github.com/marketplace/actions/setup-biome) для настройки Biome в вашем раннере.
+Вот как может выглядеть простой workflow:
+
+```yaml title="pull_request.yml"
+name: Code quality
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - name: Setup Biome
+        uses: biomejs/setup-biome@v2
+        with:
+          version: latest
+      - name: Run Biome
+        run: biome ci .
+```
+
+Если ваша конфигурация Biome имеет внешние зависимости (например, расширяет конфигурацию из пакета), вам нужно будет настроить Node.js и установить зависимости, используя ваш предпочитаемый менеджер пакетов, перед запуском Biome:
+
+```yaml
+- name: Setup Node.js
+  uses: actions/setup-node@v4
+  with:
+    node-version: 22 # или ваша предпочитаемая версия
+    cache: "npm" # или 'yarn', 'pnpm'
+- name: Install dependencies
+  run: npm ci # или yarn install --frozen-lockfile, pnpm install --frozen-lockfile
+```
+
+### Сторонние actions
+
+Это actions, поддерживаемые другими сообществами, которые вы можете использовать в вашем раннере:
+
+- [reviewdog-action-biome](https://github.com/marketplace/actions/run-biome-with-reviewdog): запуск Biome с reviewdog и создание комментариев и предложений коммитов в pull request.
+
+```yaml title="pull_request.yml"
+name: reviewdog
+on: [pull_request]
+jobs:
+  biome:
+    name: runner / Biome
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v5
+      - uses: mongolyy/reviewdog-action-biome@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
+```
+
+## GitLab CI
+
+Ниже приведен пример конфигурации:
+
+```yaml title=".gitlab-ci.yml"
+# Определение стадий пайплайна
+stages:
+  - quality
+
+# Конфигурация задачи линтинга: запуск проверок качества кода с использованием Biome
+lint:
+    image:
+      name: ghcr.io/biomejs/biome:latest  # Использование последнего Docker образа Biome
+      entrypoint: [""]                    # Это необходимо для работы образа в GitLab CI
+    stage: quality                        # Запуск на стадии quality
+    script:
+        - biome ci --reporter=gitlab --colors=off > /tmp/code-quality.json
+        - cp /tmp/code-quality.json code-quality.json
+    artifacts:
+      reports:
+        codequality:
+          - code-quality.json    # Сбор артефакта отчета о качестве кода
+    rules:
+        - if: $CI_COMMIT_BRANCH    # Запуск задачи для коммитов в ветках
+        - if: $CI_MERGE_REQUEST_ID # Запуск задачи для merge request'ов
+```

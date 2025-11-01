@@ -1,0 +1,88 @@
+---
+title: Плагины линтера
+description: Обзор того, как использовать плагины линтера Biome
+---
+
+Линтер Biome поддерживает плагины [GritQL](/reference/gritql/). В настоящее время эти
+плагины позволяют вам сопоставлять определенные паттерны кода и регистрировать для них настраиваемые
+диагностические сообщения.
+
+Вот пример плагина, который сообщает обо всех использованиях `Object.assign()`:
+
+```grit
+`$fn($args)` where {
+    $fn <: `Object.assign`,
+    register_diagnostic(
+        span = $fn,
+        message = "Prefer object spread instead of `Object.assign()`"
+    )
+}
+```
+
+Вы можете поместить фрагмент GritQL в файл в любом месте вашего проекта, но имейте в виду,
+что нужно использовать расширение `.grit`. Затем вы можете просто включить его как плагин с
+помощью следующей конфигурации:
+
+```json name="biome.json"
+{
+    "plugins": ["./path-to-plugin.grit"]
+}
+```
+
+Плагин теперь будет включен для всех поддерживаемых файлов, на которых работает линтер. Вы
+можете увидеть его результаты при запуске `biome lint` или `biome check`. Например:
+
+```shell
+$ biome lint
+/packages/tailwindcss-config-analyzer/src/introspect.ts:12:17 plugin ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✖ Prefer object spread instead of `Object.assign()`
+
+    10 │ function createContextFromConfig(config: Partial<Config>) {
+    11 │        return createContext(
+  > 12 │                resolveConfig(Object.assign({}, DEFAULT_CONFIG, config)),
+       │                              ^^^^^^^^^^^^^
+    13 │        );
+    14 │ }
+```
+
+## Целевые языки
+
+Фрагмент GritQL всегда пытается сопоставиться с определенным _целевым языком_.
+Если целевой язык не указан, предполагается JavaScript или один из его супер-языков.
+
+Если вы хотите использовать другой целевой язык, вы должны указать его явно.
+Например, вот CSS-плагин для сообщения о любом селекторе, который устанавливает цвет
+вне разрешенных классов `.color-*`:
+
+```grit
+language css;
+
+`$selector { $props }` where {
+    $props <: contains `color: $color` as $rule,
+    not $selector <: r"\.color-.*",
+    register_diagnostic(
+        span = $rule,
+        message = "Don't set explicit colors. Use `.color-*` classes instead."
+    )
+}
+```
+
+В настоящее время мы не поддерживаем другие целевые языки, кроме JavaScript и CSS.
+
+## API плагинов
+
+В дополнение к [встроенным функциям](https://docs.grit.io/language/functions#built-in-functions) Grit,
+Biome в настоящее время поддерживает одну дополнительную функцию:
+
+### `register_diagnostic()`
+
+Регистрирует диагностику, которая будет сообщена при каждом совпадении паттерна.
+
+Поддерживает три аргумента:
+
+- `span` (обязательный): синтаксический узел, к которому нужно прикрепить диагностику. Обычно это
+  переменная, которую вы сопоставили в фрагменте кода.
+- `message` (обязательный): сообщение, которое нужно показать с диагностикой.
+- `severity`: серьезность диагностики. Разрешенные значения: `hint`,
+  `info`, `warn` и `error`. По умолчанию используется `error`.

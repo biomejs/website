@@ -1,0 +1,346 @@
+---
+# этот файл генерируется автоматически, используйте `pnpm codegen:rules` для его обновления
+title: Домены
+description: Список доступных доменов
+---
+## Next
+Используйте этот домен внутри проектов Next.js.
+### Активация Next
+Включить **рекомендованные** правила домена:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"next": "recommended"
+		}
+	}
+}
+```
+Включить **все** правила домена:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"next": "all"
+		}
+	}
+}
+```
+**Отключить** все правила домена:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"next": "none"
+		}
+	}
+}
+```
+### Зависимости Next
+Включается при объявлении следующих зависимостей:
+- `next`: `>=14.0.0`
+
+### Правила Next
+Правила, принадлежащие домену:
+- [useExhaustiveDependencies](/linter/rules/use-exhaustive-dependencies) (рекомендовано)
+- [useHookAtTopLevel](/linter/rules/use-hook-at-top-level) (рекомендовано)
+- [noNextAsyncClientComponent](/linter/rules/no-next-async-client-component) [(nursery)](/linter/#nursery)
+- [noImgElement](/linter/rules/no-img-element) (рекомендовано)
+- [noUnwantedPolyfillio](/linter/rules/no-unwanted-polyfillio) (рекомендовано)
+- [useGoogleFontPreconnect](/linter/rules/use-google-font-preconnect) (рекомендовано)
+- [noHeadElement](/linter/rules/no-head-element) (рекомендовано)
+- [noDocumentImportInPage](/linter/rules/no-document-import-in-page) (рекомендовано)
+- [noHeadImportInDocument](/linter/rules/no-head-import-in-document) (рекомендовано)
+## Project
+Этот домен содержит правила, выполняющие анализ на уровне проекта. Это включает граф модулей для разрешения зависимостей, а также информацию о типах. При включении правил, принадлежащих этому домену, Biome просканирует весь проект. Фаза сканирования окажет влияние на производительность процесса линтинга. См. документацию по нашему [сканеру](/internals/architecture/#scanner), чтобы узнать больше о сканере.
+### Активация Project
+Включить **рекомендованные** правила домена:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"project": "recommended"
+		}
+	}
+}
+```
+Включить **все** правила домена:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"project": "all"
+		}
+	}
+}
+```
+**Отключить** все правила домена:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"project": "none"
+		}
+	}
+}
+```
+### Правила Project
+Правила, принадлежащие домену:
+- [noPrivateImports](/linter/rules/no-private-imports) (рекомендовано)
+- [noUndeclaredDependencies](/linter/rules/no-undeclared-dependencies)
+- [useImportExtensions](/linter/rules/use-import-extensions)
+- [useJsonImportAttributes](/linter/rules/use-json-import-attributes)
+- [noDeprecatedImports](/linter/rules/no-deprecated-imports) [(nursery)](/linter/#nursery)
+- [noFloatingPromises](/linter/rules/no-floating-promises) (рекомендовано) [(nursery)](/linter/#nursery)
+- [noImportCycles](/linter/rules/no-import-cycles) [(nursery)](/linter/#nursery)
+- [noMisusedPromises](/linter/rules/no-misused-promises) (рекомендовано) [(nursery)](/linter/#nursery)
+- [noUnnecessaryConditions](/linter/rules/no-unnecessary-conditions) [(nursery)](/linter/#nursery)
+- [noUnresolvedImports](/linter/rules/no-unresolved-imports) [(nursery)](/linter/#nursery)
+- [useExhaustiveSwitchCases](/linter/rules/use-exhaustive-switch-cases) (рекомендовано) [(nursery)](/linter/#nursery)
+## Qwik
+Используйте этот домен внутри проектов Qwik. Этот домен включает правила, специфичные для проектов Qwik.
+### Активация Qwik
+Включить **рекомендованные** правила домена:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"qwik": "recommended"
+		}
+	}
+}
+```
+Включить **все** правила домена:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"qwik": "all"
+		}
+	}
+}
+```
+**Отключить** все правила домена:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"qwik": "none"
+		}
+	}
+}
+```
+### Зависимости Qwik
+Включается при объявлении следующих зависимостей:
+- `@builder.io/qwik`: `>=1.0.0`
+- `@qwik.dev/core`: `>=2.0.0`
+
+### Правила Qwik
+Правила, принадлежащие домену:
+- [noQwikUseVisibleTask](/linter/rules/no-qwik-use-visible-task) (рекомендовано)
+- [useImageSize](/linter/rules/use-image-size) (рекомендовано)
+- [useJsxKeyInIterable](/linter/rules/use-jsx-key-in-iterable) (рекомендовано)
+- [useQwikClasslist](/linter/rules/use-qwik-classlist) (рекомендовано)
+- [useQwikMethodUsage](/linter/rules/use-qwik-method-usage) (рекомендовано) [(nursery)](/linter/#nursery)
+- [useQwikValidLexicalScope](/linter/rules/use-qwik-valid-lexical-scope) (рекомендовано) [(nursery)](/linter/#nursery)
+- [noReactSpecificProps](/linter/rules/no-react-specific-props) (рекомендовано)
+## React
+Используйте этот домен внутри проектов React. Он включает набор правил, которые помогают отлавливать ошибки и обеспечивать правильные практики. Этот домен включает правила, которые могут конфликтовать с доменом Solid.
+### Активация React
+Включить **рекомендованные** правила домена:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"react": "recommended"
+		}
+	}
+}
+```
+Включить **все** правила домена:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"react": "all"
+		}
+	}
+}
+```
+**Отключить** все правила домена:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"react": "none"
+		}
+	}
+}
+```
+### Зависимости React
+Включается при объявлении следующих зависимостей:
+- `react`: `>=16.0.0`
+
+### Правила React
+Правила, принадлежащие домену:
+- [noChildrenProp](/linter/rules/no-children-prop) (рекомендовано)
+- [noNestedComponentDefinitions](/linter/rules/no-nested-component-definitions)
+- [noReactPropAssignments](/linter/rules/no-react-prop-assignments)
+- [noRenderReturnValue](/linter/rules/no-render-return-value) (рекомендовано)
+- [useExhaustiveDependencies](/linter/rules/use-exhaustive-dependencies) (рекомендовано)
+- [useHookAtTopLevel](/linter/rules/use-hook-at-top-level) (рекомендовано)
+- [useJsxKeyInIterable](/linter/rules/use-jsx-key-in-iterable) (рекомендовано)
+- [useUniqueElementIds](/linter/rules/use-unique-element-ids)
+- [noReactForwardRef](/linter/rules/no-react-forward-ref) [(nursery)](/linter/#nursery)
+- [noUnknownAttribute](/linter/rules/no-unknown-attribute) [(nursery)](/linter/#nursery)
+- [noDangerouslySetInnerHtml](/linter/rules/no-dangerously-set-inner-html) (рекомендовано)
+- [noDangerouslySetInnerHtmlWithChildren](/linter/rules/no-dangerously-set-inner-html-with-children) (рекомендовано)
+- [useComponentExportOnlyModules](/linter/rules/use-component-export-only-modules)
+- [useReactFunctionComponents](/linter/rules/use-react-function-components)
+- [noArrayIndexKey](/linter/rules/no-array-index-key) (рекомендовано)
+## Solid
+Используйте этот домен внутри проектов Solid. Этот домен включает правила, которые могут конфликтовать с доменом React.
+### Активация Solid
+Включить **рекомендованные** правила домена:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"solid": "recommended"
+		}
+	}
+}
+```
+Включить **все** правила домена:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"solid": "all"
+		}
+	}
+}
+```
+**Отключить** все правила домена:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"solid": "none"
+		}
+	}
+}
+```
+### Зависимости Solid
+Включается при объявлении следующих зависимостей:
+- `solid`: `>=1.0.0`
+
+### Правила Solid
+Правила, принадлежащие домену:
+- [noSolidDestructuredProps](/linter/rules/no-solid-destructured-props)
+- [useSolidForComponent](/linter/rules/use-solid-for-component)
+- [noReactSpecificProps](/linter/rules/no-react-specific-props) (рекомендовано)
+## Test
+Используйте этот домен при линтинге тестовых файлов. Он включает набор библиотечно-агностичных правил, которые помогают отлавливать возможное неправильное использование тестовых API.
+### Активация Test
+Включить **рекомендованные** правила домена:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"test": "recommended"
+		}
+	}
+}
+```
+Включить **все** правила домена:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"test": "all"
+		}
+	}
+}
+```
+**Отключить** все правила домена:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"test": "none"
+		}
+	}
+}
+```
+### Зависимости Test
+Включается при объявлении следующих зависимостей:
+- `jest`: `>=26.0.0`
+- `mocha`: `>=8.0.0`
+- `ava`: `>=2.0.0`
+- `vitest`: `>=1.0.0`
+
+### Глобальные переменные Test
+При включении Biome распознает следующие глобальные переменные:
+- `after`
+- `afterAll`
+- `afterEach`
+- `before`
+- `beforeEach`
+- `beforeAll`
+- `describe`
+- `it`
+- `expect`
+- `test`
+
+### Правила Test
+Правила, принадлежащие домену:
+- [noExcessiveNestedTestSuites](/linter/rules/no-excessive-nested-test-suites)
+- [noDuplicateTestHooks](/linter/rules/no-duplicate-test-hooks) (рекомендовано)
+- [noExportsInTest](/linter/rules/no-exports-in-test) (рекомендовано)
+- [noFocusedTests](/linter/rules/no-focused-tests) (рекомендовано)
+## Vue
+Используйте этот домен внутри проектов Vue. Этот домен включает правила, специфичные для проектов Vue.
+### Активация Vue
+Включить **рекомендованные** правила домена:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"vue": "recommended"
+		}
+	}
+}
+```
+Включить **все** правила домена:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"vue": "all"
+		}
+	}
+}
+```
+**Отключить** все правила домена:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"vue": "none"
+		}
+	}
+}
+```
+### Зависимости Vue
+Включается при объявлении следующих зависимостей:
+- `vue`: `>=3.0.0`
+
+### Правила Vue
+Правила, принадлежащие домену:
+- [noVueDataObjectDeclaration](/linter/rules/no-vue-data-object-declaration) (рекомендовано) [(nursery)](/linter/#nursery)
+- [noVueDuplicateKeys](/linter/rules/no-vue-duplicate-keys) (рекомендовано) [(nursery)](/linter/#nursery)
+- [noVueReservedKeys](/linter/rules/no-vue-reserved-keys) (рекомендовано) [(nursery)](/linter/#nursery)
+- [noVueReservedProps](/linter/rules/no-vue-reserved-props) (рекомендовано) [(nursery)](/linter/#nursery)
+- [useVueDefineMacrosOrder](/linter/rules/use-vue-define-macros-order) [(nursery)](/linter/#nursery)
+- [useVueMultiWordComponentNames](/linter/rules/use-vue-multi-word-component-names) (рекомендовано) [(nursery)](/linter/#nursery)

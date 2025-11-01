@@ -1,0 +1,82 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noEnum
+description: Learn more about noEnum
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="TypeScript and TSX" icon="seti:typescript">
+## Краткая справка
+- Правило доступно с версии: `v1.9.0`
+- Категория диагностики: [`lint/style/noEnum`](/reference/diagnostics#diagnostic-category)
+- Это правило не имеет автоматического исправления.
+- Серьезность по умолчанию для этого правила: [**warning**](/reference/diagnostics#warning).
+## Как настроить
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"noEnum": "error"
+			}
+		}
+	}
+}
+
+```
+## Описание
+Запрещает TypeScript enum.
+
+TypeScript enum не являются расширением JavaScript на уровне типов, как аннотации типов или определения.
+Пользователи могут захотеть отключить расширения, не относящиеся к уровню типов, чтобы использовать бандлеры или компиляторы, которые только удаляют типы.
+
+Const enum не покрываются этим правилом, так как `noConstEnum` уже обрабатывает их.
+Enum в амбиентном контексте, включая файлы объявлений, также игнорируются.
+
+## Примеры
+
+### Неправильно
+
+```ts
+enum Foo {
+    BAR = 'bar',
+    BAZ = 'baz',
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.ts:1:1 <a href="https://biomejs.dev/linter/rules/no-enum">lint/style/noEnum</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Не используйте </span><span style="color: Orange;"><strong>enum</strong></span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>enum Foo &#123;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>    BAR = 'bar',<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>    BAZ = 'baz',<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>&#125;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>5 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">TypeScript enum не являются расширением JavaScript на уровне типов, как аннотации типов или определения. Пользователи могут захотеть отключить расширения, не относящиеся к уровню типов, чтобы использовать бандлеры или компиляторы, которые только удаляют типы.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Используйте вместо этого объекты JavaScript или объединения TypeScript.</span><br />  <br /></code></pre>
+
+### Правильно
+
+```ts
+const Foo = {
+    BAR: 'bar',
+    BAZ: 'baz',
+} as const
+```
+
+```ts
+type Foo = 'bar' | 'baz'
+```
+
+```ts
+const enum Foo {
+    BAR = 'bar',
+    BAZ = 'baz',
+}
+```
+
+## Связанные ссылки
+
+- [Отключить правило](/linter/#disable-a-rule)
+- [Настроить автоматическое исправление кода](/linter#configure-the-code-fix)
+- [Опции правила](/linter/#rule-options)
+- [Исходный код](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/no_enum.rs)
+- [Тестовые случаи](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/noEnum)
+
+</TabItem>
+</Tabs>
+

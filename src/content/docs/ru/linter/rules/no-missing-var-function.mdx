@@ -1,0 +1,162 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noMissingVarFunction
+description: Learn more about noMissingVarFunction
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="CSS" icon="seti:css">
+## Summary
+- Правило доступно с версии: `v1.9.2`
+- Категория диагностики: [`lint/correctness/noMissingVarFunction`](/reference/diagnostics#diagnostic-category)
+- Это правило **рекомендуется**, что означает, что оно включено по умолчанию.
+- Это правило не имеет исправления.
+- Уровень важности правила по умолчанию [**error**](/reference/diagnostics#error).
+- Источники:
+  - Same as [`stylelint/custom-property-no-missing-var-function`](https://github.com/stylelint/stylelint/blob/main/lib/rules/custom-property-no-missing-var-function/README.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noMissingVarFunction": "error"
+			}
+		}
+	}
+}
+
+```
+## Описание
+Запрещает отсутствие функции var для css переменных.
+
+Это правило имеет следующие ограничения:
+
+- Оно сообщает только о пользовательских свойствах, которые определены и доступны в том же источнике.
+- Оно не проверяет свойства, которые могут содержать идентификаторы, определенные автором.
+- Оно игнорирует следующие свойства:
+  - `animation`
+  - `animation-name`
+  - `counter-increment`
+  - `counter-reset`
+  - `counter-set`
+  - `grid-column`
+  - `grid-column-end`
+  - `grid-column-start`
+  - `grid-row`
+  - `grid-row-end`
+  - `grid-row-start`
+  - `list-style`
+  - `list-style-type`
+  - `transition`
+  - `transition-property`
+  - `view-transition-name`
+  - `will-change`
+
+
+
+## Примеры
+
+### Неправильно
+
+```css
+a {
+  --foo: red;
+  color: --foo;
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.css:3:10 <a href="https://biomejs.dev/linter/rules/no-missing-var-function">lint/correctness/noMissingVarFunction</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">CSS переменная '</span><span style="color: Tomato;"><strong>--foo</strong></span><span style="color: Tomato;">' используется без функции 'var()'</span><br />  <br />    <strong>1 │ </strong>a &#123;<br />    <strong>2 │ </strong>  --foo: red;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>  color: --foo;<br />   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>&#125;<br />    <strong>5 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">CSS переменные должны использоваться с функцией 'var()' для обеспечения правильного резервного поведения и совместимости с браузером.</span><br />  <br /></code></pre>
+
+```css
+.parent {
+  --foo: red;
+  .child {
+    color: --foo;
+  }
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.css:4:12 <a href="https://biomejs.dev/linter/rules/no-missing-var-function">lint/correctness/noMissingVarFunction</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">CSS переменная '</span><span style="color: Tomato;"><strong>--foo</strong></span><span style="color: Tomato;">' используется без функции 'var()'</span><br />  <br />    <strong>2 │ </strong>  --foo: red;<br />    <strong>3 │ </strong>  .child &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>    color: --foo;<br />   <strong>   │ </strong>           <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>5 │ </strong>  &#125;<br />    <strong>6 │ </strong>&#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">CSS переменные должны использоваться с функцией 'var()' для обеспечения правильного резервного поведения и совместимости с браузером.</span><br />  <br /></code></pre>
+
+```css
+@property --bar {}
+
+a {
+  color: --bar;
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.css:4:10 <a href="https://biomejs.dev/linter/rules/no-missing-var-function">lint/correctness/noMissingVarFunction</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">CSS переменная '</span><span style="color: Tomato;"><strong>--bar</strong></span><span style="color: Tomato;">' используется без функции 'var()'</span><br />  <br />    <strong>3 │ </strong>a &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>  color: --bar;<br />   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>5 │ </strong>&#125;<br />    <strong>6 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">CSS переменные должны использоваться с функцией 'var()' для обеспечения правильного резервного поведения и совместимости с браузером.</span><br />  <br /></code></pre>
+
+```css
+:root {
+  --baz: 0;
+}
+
+a {
+  --foo: --baz;
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.css:6:10 <a href="https://biomejs.dev/linter/rules/no-missing-var-function">lint/correctness/noMissingVarFunction</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">CSS переменная '</span><span style="color: Tomato;"><strong>--baz</strong></span><span style="color: Tomato;">' используется без функции 'var()'</span><br />  <br />    <strong>5 │ </strong>a &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>6 │ </strong>  --foo: --baz;<br />   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>7 │ </strong>&#125;<br />    <strong>8 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">CSS переменные должны использоваться с функцией 'var()' для обеспечения правильного резервного поведения и совместимости с браузером.</span><br />  <br /></code></pre>
+
+### Правильно
+
+```css
+p {
+  color: var(--foo);
+}
+```
+
+```css
+p {
+  --foo: red;
+  color: var(--foo);
+}
+```
+
+```css
+p {
+  color: --foo;
+}
+```
+
+```css
+*:root {
+--global: red;
+}
+
+a {
+    color: var(--global);
+}
+```
+
+```css
+@property --global-value {}
+a {
+  color: var(--global-value);
+}
+```
+
+```css
+a {
+  view-transition-name: --bbb;
+}
+```
+
+## Связанные ссылки
+
+- [Отключить правило](/linter/#disable-a-rule)
+- [Настроить исправление кода](/linter#configure-the-code-fix)
+- [Опции правила](/linter/#rule-options)
+- [Исходный код](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/correctness/no_missing_var_function.rs)
+- [Тестовые случаи](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/correctness/noMissingVarFunction)
+
+</TabItem>
+</Tabs>
+

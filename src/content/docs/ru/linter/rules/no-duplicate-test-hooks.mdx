@@ -1,0 +1,100 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noDuplicateTestHooks
+description: Learn more about noDuplicateTestHooks
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+## Краткая справка
+- Правило доступно с версии: `v1.6.0`
+- Категория диагностики: [`lint/suspicious/noDuplicateTestHooks`](/reference/diagnostics#diagnostic-category)
+- Это правило не имеет автоматического исправления.
+- Серьезность по умолчанию для этого правила: [**error**](/reference/diagnostics#error).
+- Это правило относится к следующим доменам:
+  - [`test`](/linter/domains#test)
+- Источники:
+  - Inspired from [`jest/no-duplicate-hooks`](https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-duplicate-hooks.md)
+  - Inspired from [`vitest/no-duplicate-hooks`](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/no-duplicate-hooks.md)
+
+## Как настроить
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noDuplicateTestHooks": "error"
+			}
+		}
+	}
+}
+
+```
+## Описание
+Блок `describe` не должен содержать дублирующиеся хуки.
+
+## Примеры
+
+### Неправильно
+
+```js
+describe('foo', () => {
+  beforeEach(() => {
+    // some setup
+  });
+  beforeEach(() => {
+    // some setup
+  });
+  test('foo_test', () => {
+   // some test
+  });
+});
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:5:3 <a href="https://biomejs.dev/linter/rules/no-duplicate-test-hooks">lint/suspicious/noDuplicateTestHooks</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Тестовый хук </span><span style="color: Tomato;"><strong>beforeEach</strong></span><span style="color: Tomato;"> используется несколько раз в одном и том же тестовом блоке.</span><br />  <br />    <strong>3 │ </strong>    // some setup<br />    <strong>4 │ </strong>  &#125;);<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>5 │ </strong>  beforeEach(() =&gt; &#123;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>6 │ </strong>    // some setup<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>7 │ </strong>  &#125;);<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>8 │ </strong>  test('foo&#95;test', () =&gt; &#123;<br />    <strong>9 │ </strong>   // some test<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Наличие одного и того же хука более одного раза в одном и том же тестовом блоке может создавать неожиданные ошибки внутри тестов. Удалите один из них.</span><br />  <br /></code></pre>
+
+```js
+describe('foo', () => {
+  beforeEach(() => {
+    // some setup
+  });
+  test('foo_test', () => {
+    afterAll(() => {
+      // some teardown
+    });
+   afterAll(() => {
+     // some teardown
+   });
+  });
+});
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:9:4 <a href="https://biomejs.dev/linter/rules/no-duplicate-test-hooks">lint/suspicious/noDuplicateTestHooks</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Тестовый хук </span><span style="color: Tomato;"><strong>afterAll</strong></span><span style="color: Tomato;"> используется несколько раз в одном и том же тестовом блоке.</span><br />  <br />     <strong>7 │ </strong>      // some teardown<br />     <strong>8 │ </strong>    &#125;);<br />   <strong><span style="color: Tomato;">&gt;</span></strong> <strong>9 │ </strong>   afterAll(() =&gt; &#123;<br />    <strong>   │ </strong>   <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>10 │ </strong>     // some teardown<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>11 │ </strong>   &#125;);<br />    <strong>   │ </strong>   <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>12 │ </strong>  &#125;);<br />    <strong>13 │ </strong>&#125;);<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Наличие одного и того же хука более одного раза в одном и том же тестовом блоке может создавать неожиданные ошибки внутри тестов. Удалите один из них.</span><br />  <br /></code></pre>
+
+### Правильно
+
+```js
+describe('foo', () => {
+  beforeEach(() => {
+    // some setup
+  });
+  test('foo_test', () => {
+    // some test
+  });
+});
+```
+
+## Связанные ссылки
+
+- [Отключить правило](/linter/#disable-a-rule)
+- [Настроить автоматическое исправление кода](/linter#configure-the-code-fix)
+- [Опции правила](/linter/#rule-options)
+- [Исходный код](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_duplicate_test_hooks.rs)
+- [Тестовые случаи](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noDuplicateTestHooks)
+
+</TabItem>
+</Tabs>
+

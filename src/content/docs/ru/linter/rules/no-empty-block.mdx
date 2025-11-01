@@ -1,0 +1,87 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noEmptyBlock
+description: Learn more about noEmptyBlock
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="CSS" icon="seti:css">
+## Краткая справка
+- Правило доступно с версии: `v1.8.0`
+- Категория диагностики: [`lint/suspicious/noEmptyBlock`](/reference/diagnostics#diagnostic-category)
+- Это правило **рекомендовано**, что означает, что оно включено по умолчанию.
+- Это правило не имеет автоматического исправления.
+- Серьезность по умолчанию для этого правила: [**warning**](/reference/diagnostics#warning).
+- Источники:
+  - Same as [`stylelint/block-no-empty`](https://github.com/stylelint/stylelint/blob/main/lib/rules/block-no-empty/README.md)
+
+## Как настроить
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noEmptyBlock": "error"
+			}
+		}
+	}
+}
+
+```
+## Описание
+Запрещает пустые блоки CSS.
+
+По умолчанию правило разрешает пустые блоки с комментариями внутри.
+
+## Примеры
+
+### Неправильно
+
+```css
+p {}
+```
+
+<pre class="language-text"><code class="language-text">code-block.css:1:3 <a href="https://biomejs.dev/linter/rules/no-empty-block">lint/suspicious/noEmptyBlock</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Пустой блок не допускается.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>p &#123;&#125;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Рассмотрите возможность удаления пустого блока или добавления стилей внутри него.</span><br />  <br /></code></pre>
+
+```css
+.b {}
+```
+
+<pre class="language-text"><code class="language-text">code-block.css:1:4 <a href="https://biomejs.dev/linter/rules/no-empty-block">lint/suspicious/noEmptyBlock</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Пустой блок не допускается.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>.b &#123;&#125;<br />   <strong>   │ </strong>   <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Рассмотрите возможность удаления пустого блока или добавления стилей внутри него.</span><br />  <br /></code></pre>
+
+```css
+@media print { a {} }
+```
+
+<pre class="language-text"><code class="language-text">code-block.css:1:18 <a href="https://biomejs.dev/linter/rules/no-empty-block">lint/suspicious/noEmptyBlock</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Пустой блок не допускается.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>@media print &#123; a &#123;&#125; &#125;<br />   <strong>   │ </strong>                 <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Рассмотрите возможность удаления пустого блока или добавления стилей внутри него.</span><br />  <br /></code></pre>
+
+### Правильно
+
+```css
+p {
+  color: red;
+}
+```
+
+```css
+p { /* foo */ }
+```
+
+```css
+@media print { a { color: pink; } }
+```
+
+## Связанные ссылки
+
+- [Отключить правило](/linter/#disable-a-rule)
+- [Настроить автоматическое исправление кода](/linter#configure-the-code-fix)
+- [Опции правила](/linter/#rule-options)
+- [Исходный код](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/suspicious/no_empty_block.rs)
+- [Тестовые случаи](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/suspicious/noEmptyBlock)
+
+</TabItem>
+</Tabs>
+

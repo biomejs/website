@@ -1,0 +1,78 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noImplicitBoolean
+description: Learn more about noImplicitBoolean
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JSX and TSX" icon="seti:javascript">
+## Summary
+- Rule available since: `v1.0.0`
+- Diagnostic Category: [`lint/style/noImplicitBoolean`](/reference/diagnostics#diagnostic-category)
+- This rule has a [**safe**](/linter/#safe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Inspired from [`react/jsx-boolean-value`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-boolean-value.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"noImplicitBoolean": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow implicit `true` values on JSX boolean attributes
+
+## Examples
+
+### Invalid
+
+```jsx
+<input disabled />
+```
+
+<pre class="language-text"><code class="language-text">code-block.jsx:1:8 <a href="https://biomejs.dev/linter/rules/no-implicit-boolean">lint/style/noImplicitBoolean</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Use explicit boolean values for boolean JSX props.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;input disabled /&gt;<br />   <strong>   │ </strong>       <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Safe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Add explicit &#96;true&#96; literal for this attribute</span><br />  <br />  <strong>  1 │ </strong>&lt;input<span style="opacity: 0.8;">·</span>disabled<span style="color: MediumSeaGreen;">=</span><span style="color: MediumSeaGreen;">&#123;</span><span style="color: MediumSeaGreen;">t</span><span style="color: MediumSeaGreen;">r</span><span style="color: MediumSeaGreen;">u</span><span style="color: MediumSeaGreen;">e</span><span style="color: MediumSeaGreen;">&#125;</span><span style="opacity: 0.8;">·</span>/&gt;<br />  <strong>    │ </strong>               <span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span>   <br /></code></pre>
+
+### Valid
+
+```jsx
+<input disabled={false} />
+```
+
+```jsx
+<input disabled={''} />
+```
+
+```jsx
+<input disabled={0} />
+```
+
+```jsx
+<input disabled={undefined} />
+```
+
+```jsx
+<input disabled='false' />
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/no_implicit_boolean.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/noImplicitBoolean)
+
+</TabItem>
+</Tabs>
+

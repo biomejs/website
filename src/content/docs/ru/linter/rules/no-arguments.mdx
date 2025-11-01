@@ -1,0 +1,68 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noArguments
+description: Запрещает использование arguments
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+## Summary
+- Rule available since: `v1.0.0`
+- Diagnostic Category: [`lint/complexity/noArguments`](/reference/diagnostics#diagnostic-category)
+- This rule is **recommended**, which means is enabled by default.
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- Sources:
+  - Same as [`prefer-rest-params`](https://eslint.org/docs/latest/rules/prefer-rest-params)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"complexity": {
+				"noArguments": "error"
+			}
+		}
+	}
+}
+
+```
+## Описание
+Запрещает использование `arguments`.
+
+## Примеры
+
+### Неправильно
+
+```js
+function f() {
+   console.log(arguments);
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:2:16 <a href="https://biomejs.dev/linter/rules/no-arguments">lint/complexity/noArguments</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Use the </span><span style="color: Orange;"><strong>rest parameters</strong></span><span style="color: Orange;"> instead of </span><span style="color: Orange;"><strong>arguments</strong></span><span style="color: Orange;">.</span><br />  <br />    <strong>1 │ </strong>function f() &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>   console.log(arguments);<br />   <strong>   │ </strong>               <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;"><strong>arguments</strong></span><span style="color: lightgreen;"> does not have </span><span style="color: lightgreen;"><strong>Array.prototype</strong></span><span style="color: lightgreen;"> methods and can be inconvenient to use.</span><br />  <br /></code></pre>
+
+### Правильно
+
+```cjs
+function f() {
+    let arguments = 1;
+    console.log(arguments);
+}
+```
+
+## Связанные ссылки
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/complexity/no_arguments.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/complexity/noArguments)
+
+</TabItem>
+</Tabs>
+

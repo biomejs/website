@@ -1,0 +1,28 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+
+title: Источники правил
+description: Страница, которая сопоставляет правила из других источников с Biome
+---
+
+## Эксклюзивные правила Biome
+- [noBiomeFirstException](/linter/rules/no-biome-first-exception)
+- [noDuplicateObjectKeys](/linter/rules/no-duplicate-object-keys)
+- [noQuickfixBiome](/linter/rules/no-quickfix-biome)
+- [useBiomeIgnoreFolder](/linter/rules/use-biome-ignore-folder)
+## Правила из других источников
+:::note
+Некоторые правила **Biome** могут **не** иметь опций по сравнению с оригинальным правилом.
+:::
+### eslint-plugin-package-json
+| Название правила eslint-plugin-package-json | Название правила Biome |
+| ---- | ---- |
+| [unique-dependencies](https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/main/docs/rules/unique-dependencies.md) |[noDuplicateDependencies](/linter/rules/no-duplicate-dependencies) |
+### eslint-plugin-package-json-dependencies
+| Название правила eslint-plugin-package-json-dependencies | Название правила Biome |
+| ---- | ---- |
+| [duplicate-dependencies](https://github.com/idan-at/eslint-plugin-package-json-dependencies/blob/master/docs/rules/duplicate-dependencies.md) |[noDuplicateDependencies](/linter/rules/no-duplicate-dependencies) |
+
+Не хватает правила? Помогите нам, [внеся вклад](https://github.com/biomejs/biome/blob/main/CONTRIBUTING.md) в [анализатор](https://github.com/biomejs/biome/blob/main/crates/biome_analyze/CONTRIBUTING.md) или создайте предложение правила [здесь](https://github.com/biomejs/biome/discussions/categories/rule-suggestion).

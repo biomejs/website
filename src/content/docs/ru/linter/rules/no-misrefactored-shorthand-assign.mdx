@@ -1,0 +1,86 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noMisrefactoredShorthandAssign
+description: Learn more about noMisrefactoredShorthandAssign
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+## Summary
+- Правило доступно с версии: `v1.3.0`
+- Категория диагностики: [`lint/suspicious/noMisrefactoredShorthandAssign`](/reference/diagnostics#diagnostic-category)
+- Это правило **рекомендуется**, что означает, что оно включено по умолчанию.
+- Это правило имеет [**небезопасное**](/linter/#unsafe-fixes) исправление.
+- Уровень важности правила по умолчанию [**error**](/reference/diagnostics#error).
+- Источники:
+  - Same as [`misrefactored_assign_op`](https://rust-lang.github.io/rust-clippy/master/#misrefactored_assign_op)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noMisrefactoredShorthandAssign": "error"
+			}
+		}
+	}
+}
+
+```
+## Описание
+Запрещает сокращенное присваивание, когда переменная появляется с обеих сторон.
+
+Это правило помогает избежать потенциальных ошибок, связанных с неправильными присваиваниями или непреднамеренными
+побочными эффектами, которые могут возникнуть во время рефакторинга.
+
+## Примеры
+
+### Неправильно
+
+```js
+a += a + b
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-misrefactored-shorthand-assign">lint/suspicious/noMisrefactoredShorthandAssign</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Переменная появляется с обеих сторон операции присваивания.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>a += a + b<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Это присваивание может быть результатом неправильного рефакторинга.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Небезопасное исправление</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Используйте </span><span style="color: lightgreen;"><strong>a += b</strong></span><span style="color: lightgreen;"> вместо этого.</span><br />  <br />  <strong>  1 │ </strong>a<span style="opacity: 0.8;">·</span>+=<span style="opacity: 0.8;">·</span><span style="color: Tomato;">a</span><span style="opacity: 0.8;"><span style="color: Tomato;">·</span></span><span style="color: Tomato;">+</span><span style="opacity: 0.8;"><span style="color: Tomato;">·</span></span>b<br />  <strong>    │ </strong>     <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span> <br /></code></pre>
+
+```js
+a -= a - b
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-misrefactored-shorthand-assign">lint/suspicious/noMisrefactoredShorthandAssign</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Переменная появляется с обеих сторон операции присваивания.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>a -= a - b<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Это присваивание может быть результатом неправильного рефакторинга.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Небезопасное исправление</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Используйте </span><span style="color: lightgreen;"><strong>a -= b</strong></span><span style="color: lightgreen;"> вместо этого.</span><br />  <br />  <strong>  1 │ </strong>a<span style="opacity: 0.8;">·</span>-=<span style="opacity: 0.8;">·</span><span style="color: Tomato;">a</span><span style="opacity: 0.8;"><span style="color: Tomato;">·</span></span><span style="color: Tomato;">-</span><span style="opacity: 0.8;"><span style="color: Tomato;">·</span></span>b<br />  <strong>    │ </strong>     <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span> <br /></code></pre>
+
+```js
+a *= a * b
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-misrefactored-shorthand-assign">lint/suspicious/noMisrefactoredShorthandAssign</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Переменная появляется с обеих сторон операции присваивания.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>a &#42;= a &#42; b<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Это присваивание может быть результатом неправильного рефакторинга.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Небезопасное исправление</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Используйте </span><span style="color: lightgreen;"><strong>a &#42;= b</strong></span><span style="color: lightgreen;"> вместо этого.</span><br />  <br />  <strong>  1 │ </strong>a<span style="opacity: 0.8;">·</span>&#42;=<span style="opacity: 0.8;">·</span><span style="color: Tomato;">a</span><span style="opacity: 0.8;"><span style="color: Tomato;">·</span></span><span style="color: Tomato;">&#42;</span><span style="opacity: 0.8;"><span style="color: Tomato;">·</span></span>b<br />  <strong>    │ </strong>     <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span> <br /></code></pre>
+
+### Правильно
+
+```js
+a += b
+```
+
+```js
+a = a + b
+```
+
+```js
+a = a - b
+```
+
+## Связанные ссылки
+
+- [Отключить правило](/linter/#disable-a-rule)
+- [Настроить исправление кода](/linter#configure-the-code-fix)
+- [Опции правила](/linter/#rule-options)
+- [Исходный код](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_misrefactored_shorthand_assign.rs)
+- [Тестовые случаи](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noMisrefactoredShorthandAssign)
+
+</TabItem>
+</Tabs>
+
