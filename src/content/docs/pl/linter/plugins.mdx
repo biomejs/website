@@ -1,0 +1,88 @@
+---
+title: Wtyczki lintera
+description: Przegląd sposobu używania wtyczek lintera Biome
+---
+
+Linter Biome obsługuje wtyczki [GritQL](/reference/gritql/). Obecnie te
+wtyczki pozwalają dopasowywać określone wzorce kodu i rejestrować dostosowane
+komunikaty diagnostyczne dla nich.
+
+Oto przykład wtyczki, która raportuje wszystkie użycia `Object.assign()`:
+
+```grit
+`$fn($args)` where {
+    $fn <: `Object.assign`,
+    register_diagnostic(
+        span = $fn,
+        message = "Prefer object spread instead of `Object.assign()`"
+    )
+}
+```
+
+Możesz umieścić fragment GritQL w pliku w dowolnym miejscu w swoim projekcie, ale pamiętaj,
+aby użyć rozszerzenia `.grit`. Następnie możesz po prostu włączyć go jako wtyczkę za pomocą
+następującej konfiguracji:
+
+```json name="biome.json"
+{
+    "plugins": ["./path-to-plugin.grit"]
+}
+```
+
+Wtyczka będzie teraz włączona dla wszystkich obsługiwanych plików, na których działa linter. Możesz
+zobaczyć jej wyniki podczas uruchamiania `biome lint` lub `biome check`. Na przykład:
+
+```shell
+$ biome lint
+/packages/tailwindcss-config-analyzer/src/introspect.ts:12:17 plugin ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✖ Prefer object spread instead of `Object.assign()`
+
+    10 │ function createContextFromConfig(config: Partial<Config>) {
+    11 │        return createContext(
+  > 12 │                resolveConfig(Object.assign({}, DEFAULT_CONFIG, config)),
+       │                              ^^^^^^^^^^^^^
+    13 │        );
+    14 │ }
+```
+
+## Języki docelowe
+
+Fragment GritQL zawsze próbuje dopasować się do określonego _języka docelowego_.
+Jeśli nie określono języka docelowego, zakłada się JavaScript lub jeden z jego super języków.
+
+Jeśli chcesz użyć innego języka docelowego, musisz określić go jawnie.
+Na przykład, oto wtyczka CSS do raportowania każdego selektora, który ustawia kolor
+poza dozwolonymi klasami `.color-*`:
+
+```grit
+language css;
+
+`$selector { $props }` where {
+    $props <: contains `color: $color` as $rule,
+    not $selector <: r"\.color-.*",
+    register_diagnostic(
+        span = $rule,
+        message = "Don't set explicit colors. Use `.color-*` classes instead."
+    )
+}
+```
+
+Obecnie nie obsługujemy innych języków docelowych niż JavaScript i CSS.
+
+## API wtyczek
+
+Oprócz [wbudowanych funkcji](https://docs.grit.io/language/functions#built-in-functions) Grit,
+Biome obecnie obsługuje jedną dodatkową funkcję:
+
+### `register_diagnostic()`
+
+Rejestruje diagnostykę, która ma być raportowana za każdym razem, gdy wzorzec pasuje.
+
+Obsługuje trzy argumenty:
+
+- `span` (wymagany): Węzeł składniowy, do którego ma być dołączona diagnostyka. Jest to
+  zazwyczaj zmienna, którą dopasowałeś w fragmencie kodu.
+- `message` (wymagany): Komunikat do wyświetlenia z diagnostyką.
+- `severity`: Poziom ważności diagnostyki. Dozwolone wartości to: `hint`,
+  `info`, `warn` i `error`. Domyślnie używany jest `error`.
