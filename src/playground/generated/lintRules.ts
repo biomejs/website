@@ -193,6 +193,7 @@ export const LINT_RULES = {
   noUndeclaredDependencies: "noUndeclaredDependencies",
   noUndeclaredVariables: "noUndeclaredVariables",
   noUnknownAtRules: "noUnknownAtRules",
+  noUnknownAttribute: "noUnknownAttribute",
   noUnknownFunction: "noUnknownFunction",
   noUnknownMediaFeatureName: "noUnknownMediaFeatureName",
   noUnknownProperty: "noUnknownProperty",
