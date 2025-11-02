@@ -1,0 +1,111 @@
+---
+title: Ciągła integracja
+description: Używanie Biome w środowisku CI
+---
+
+Uruchamianie Biome w środowisku CI jest proste. Sprawdź poniższe przykłady dla inspiracji.
+
+### `biome check` VS `biome ci`
+
+Biome oferuje dwa polecenia CLI do uruchamiania wszystkich sprawdzeń: `biome check` i `biome ci`, jednak to drugie powinno być używane w środowiskach CI (Continuous Integration).
+
+W porównaniu do polecenia `check`, polecenie `ci`:
+- Nie udostępnia opcji `--write`/`--fix`.
+- Lepiej integruje się z określonymi runnerami. Na przykład, gdy jest uruchamiane na GitHubie, diagnostyka jest drukowana przy użyciu adnotacji GitHub.
+- Pozwala kontrolować liczbę wątków.
+- Gdy integracja VCS jest włączona, używa flagi `--changed` zamiast `--staged`, ponieważ zdalne repozytorium nie ma koncepcji "plików przygotowanych do zatwierdzenia".
+
+Z czasem polecenie `ci` otrzyma coraz więcej funkcji.
+
+## GitHub Actions
+
+Udostępniamy oficjalną [akcję GitHub](https://github.com/marketplace/actions/setup-biome) do konfiguracji Biome w twoim runnerze.
+Oto jak może wyglądać prosty workflow:
+
+```yaml title="pull_request.yml"
+name: Code quality
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - name: Setup Biome
+        uses: biomejs/setup-biome@v2
+        with:
+          version: latest
+      - name: Run Biome
+        run: biome ci .
+```
+
+Jeśli twoja konfiguracja Biome ma zewnętrzne zależności (np. rozszerza konfigurację z pakietu), musisz skonfigurować Node.js i zainstalować zależności za pomocą preferowanego menedżera pakietów przed uruchomieniem Biome:
+
+```yaml
+- name: Setup Node.js
+  uses: actions/setup-node@v4
+  with:
+    node-version: 22 # lub twoja preferowana wersja
+    cache: "npm" # lub 'yarn', 'pnpm'
+- name: Install dependencies
+  run: npm ci # lub yarn install --frozen-lockfile, pnpm install --frozen-lockfile
+```
+
+### Akcje zewnętrzne
+
+To są akcje utrzymywane przez inne społeczności, których możesz używać w swoim runnerze:
+
+- [reviewdog-action-biome](https://github.com/marketplace/actions/run-biome-with-reviewdog): uruchom Biome z reviewdog i dodawaj komentarze oraz sugestie commitów do pull requesta.
+
+```yaml title="pull_request.yml"
+name: reviewdog
+on: [pull_request]
+jobs:
+  biome:
+    name: runner / Biome
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v5
+      - uses: mongolyy/reviewdog-action-biome@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
+```
+
+## GitLab CI
+
+Poniżej znajduje się przykładowa konfiguracja:
+
+```yaml title=".gitlab-ci.yml"
+# Definiowanie etapów pipeline
+stages:
+  - quality
+
+# Konfiguracja zadania lint: uruchamia sprawdzenia jakości kodu przy użyciu Biome
+lint:
+    image:
+      name: ghcr.io/biomejs/biome:latest  # Użyj najnowszego obrazu Docker Biome
+      entrypoint: [""]                    # Jest to wymagane, aby obraz działał w GitLab CI
+    stage: quality                        # Uruchom w etapie quality
+    script:
+        - biome ci --reporter=gitlab --colors=off > /tmp/code-quality.json
+        - cp /tmp/code-quality.json code-quality.json
+    artifacts:
+      reports:
+        codequality:
+          - code-quality.json    # Zbierz artefakt raportu jakości kodu
+    rules:
+        - if: $CI_COMMIT_BRANCH    # Uruchom zadanie dla commitów na branchach
+        - if: $CI_MERGE_REQUEST_ID # Uruchom zadanie dla merge requestów
+```
