@@ -195,6 +195,7 @@ export default {
   '/linter/rules/noUndeclaredDependencies': '/linter/rules/no-undeclared-dependencies',
   '/linter/rules/noUndeclaredVariables': '/linter/rules/no-undeclared-variables',
   '/linter/rules/noUnknownAtRules': '/linter/rules/no-unknown-at-rules',
+  '/linter/rules/noUnknownAttribute': '/linter/rules/no-unknown-attribute',
   '/linter/rules/noUnknownFunction': '/linter/rules/no-unknown-function',
   '/linter/rules/noUnknownMediaFeatureName': '/linter/rules/no-unknown-media-feature-name',
   '/linter/rules/noUnknownProperty': '/linter/rules/no-unknown-property',
