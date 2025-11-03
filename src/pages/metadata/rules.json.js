@@ -2086,7 +2086,7 @@ export function GET() {
           },
           "noParametersOnlyUsedInRecursion": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.3",
             "name": "noParametersOnlyUsedInRecursion",
             "link": "https://biomejs.dev/linter/rules/no-parameters-only-used-in-recursion",
             "recommended": false,
@@ -5368,7 +5368,7 @@ export function GET() {
           },
           "noUnknownAttribute": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.3",
             "name": "noUnknownAttribute",
             "link": "https://biomejs.dev/linter/rules/no-unknown-attribute",
             "recommended": false,
