@@ -1294,7 +1294,7 @@ fn write_documentation(
                 let mut hide_line = false;
 
                 if let Some((test, block)) = &mut language {
-                    if test.options == OptionsParsingMode::RuleOptionsOnly {
+                    if test.options != OptionsParsingMode::NoOptions {
                         hide_line = true;
                     }
                     if let Some(inner_text) = text.strip_prefix("# ") {
