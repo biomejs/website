@@ -15,6 +15,7 @@ import {
 	IndentStyle,
 	LANGUAGE,
 	type Language,
+	type LintRule,
 	type PlaygroundState,
 	QuoteProperties,
 	QuoteStyle,
@@ -1005,8 +1006,8 @@ function LinterSettings({
 	ruleDomains,
 	setRuleDomains,
 }: {
-	lintRules: keyof typeof LINT_RULES;
-	setLintRules: (value: keyof typeof LINT_RULES) => void;
+	lintRules: LintRule;
+	setLintRules: (value: LintRule) => void;
 	enabledLinting: boolean;
 	setEnabledLinting: (value: boolean) => void;
 	analyzerFixMode: FixFileMode;
@@ -1062,17 +1063,23 @@ function LinterSettings({
 						name="lint-rules"
 						disabled={!enabledLinting}
 						value={lintRules}
-						onChange={(e) =>
-							setLintRules(e.target.value as keyof typeof LINT_RULES)
-						}
+						onChange={(e) => setLintRules(e.target.value as LintRule)}
 					>
-						{Object.values(LINT_RULES).map((value) => {
-							return (
+						{Object.entries(LINT_RULES).map(([name, value]) =>
+							typeof value === "object" ? (
+								<optgroup key={name} label={name}>
+									{Object.values(value).map((value) => (
+										<option value={value} key={value}>
+											{value}
+										</option>
+									))}
+								</optgroup>
+							) : (
 								<option value={value} key={value}>
 									{value}
 								</option>
-							);
-						})}
+							),
+						)}
 					</select>
 				</div>
 				<div className="field-row">

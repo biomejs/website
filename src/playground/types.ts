@@ -162,6 +162,10 @@ export const LANGUAGE = {
 
 export type Language = (typeof LANGUAGE)[keyof typeof LANGUAGE];
 
+export type LintRule =
+	| keyof typeof LINT_RULES
+	| keyof (typeof LINT_RULES)[keyof typeof LINT_RULES];
+
 export interface PlaygroundSettings {
 	lineWidth: number;
 	indentStyle: IndentStyle;
@@ -176,7 +180,7 @@ export interface PlaygroundSettings {
 	bracketSpacing: boolean;
 	bracketSameLine: boolean;
 	expand: Expand;
-	lintRules: keyof typeof LINT_RULES;
+	lintRules: LintRule;
 	enabledLinting: boolean;
 	analyzerFixMode: FixFileMode;
 	enabledAssist: boolean;

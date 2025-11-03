@@ -11,7 +11,6 @@ import {
 	useState,
 } from "react";
 import LoadingScreen from "@/playground/components/LoadingScreen";
-import type { LINT_RULES } from "@/playground/generated/lintRules.ts";
 import Playground from "@/playground/Playground";
 import {
 	type ArrowParentheses,
@@ -23,6 +22,7 @@ import {
 	type IndentStyle,
 	LANGUAGE,
 	type Language,
+	type LintRule,
 	LoadingState,
 	type PlaygroundSettings,
 	type PlaygroundState,
@@ -397,7 +397,7 @@ function initState(
 				searchParams.get("indentScriptAndStyle") === "true" ||
 				defaultPlaygroundState.settings.indentScriptAndStyle,
 			lintRules:
-				(searchParams.get("lintRules") as keyof typeof LINT_RULES) ??
+				(searchParams.get("lintRules") as LintRule) ??
 				defaultPlaygroundState.settings.lintRules,
 			enabledLinting:
 				searchParams.get("enabledLinting") === "true" ||
