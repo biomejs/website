@@ -1993,6 +1993,23 @@ export function GET() {
           }
         },
         "nursery": {
+          "noContinue": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noContinue",
+            "link": "https://biomejs.dev/linter/rules/no-continue",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "no-continue"
+                }
+              }
+            ],
+            "docs": " Disallow continue statements.\n\n The continue statement terminates execution of the statements in the current iteration of the current or labeled loop, and continues execution of the loop with the next iteration.\n When used incorrectly it makes code less testable, less readable and less maintainable.\n Structured control flow statements such as if should be used instead.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n let sum = 0,\n     i;\n\n for(i = 0; i < 10; i++) {\n     if(i >= 5) {\n         continue;\n     }\n\n     sum += i;\n }\n ```\n\n ### Valid\n\n ```js\n let sum = 0,\n     i;\n\n for(i = 0; i < 10; i++) {\n     if(i < 5) {\n         sum += i;\n     }\n }\n ```\n\n"
+          },
           "noDeprecatedImports": {
             "deprecated": false,
             "version": "2.2.5",
@@ -6351,7 +6368,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 370
+    "numberOrRules": 371
   },
   "syntax": {
     "languages": {

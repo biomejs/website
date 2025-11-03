@@ -161,6 +161,7 @@ export const LINT_RULES = {
     useYield: "useYield",
   } as const,
   nursery: {
+    noContinue: "noContinue",
     noDeprecatedImports: "noDeprecatedImports",
     noDuplicateDependencies: "noDuplicateDependencies",
     noEmptySource: "noEmptySource",
