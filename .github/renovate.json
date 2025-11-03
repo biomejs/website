@@ -12,5 +12,12 @@
     "enabled": false
   },
   "assignees": ["@biomejs/maintainers", "@biomejs/core-contributors"],
-  "cloneSubmodules": true
+  "cloneSubmodules": true,
+  "packageRules": [
+    {
+      "matchManagers": ["cargo"],
+      "matchPackageNames": ["biome_*"],
+      "enabled": false
+    }
+  ]
 }
