@@ -38,6 +38,7 @@ export default {
   '/linter/rules/noConstantCondition': '/linter/rules/no-constant-condition',
   '/linter/rules/noConstantMathMinMaxClamp': '/linter/rules/no-constant-math-min-max-clamp',
   '/linter/rules/noConstructorReturn': '/linter/rules/no-constructor-return',
+  '/linter/rules/noContinue': '/linter/rules/no-continue',
   '/linter/rules/noControlCharactersInRegex': '/linter/rules/no-control-characters-in-regex',
   '/linter/rules/noDangerouslySetInnerHtml': '/linter/rules/no-dangerously-set-inner-html',
   '/linter/rules/noDangerouslySetInnerHtmlWithChildren': '/linter/rules/no-dangerously-set-inner-html-with-children',
