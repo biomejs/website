@@ -284,7 +284,7 @@ pub fn generate_json_metadata() -> anyhow::Result<()> {
 
 #[derive(Default, Debug)]
 struct RuleNames {
-    names: BTreeSet<String>,
+    names: BTreeMap<&'static str, BTreeSet<&'static str>>,
 }
 
 impl RuleNames {
@@ -293,7 +293,10 @@ impl RuleNames {
         L: Language,
         R: Rule<Query: Queryable<Language = L, Output: Clone>> + 'static,
     {
-        self.names.insert(R::METADATA.name.to_string());
+        self.names
+            .entry(R::Group::NAME)
+            .or_default()
+            .insert(R::METADATA.name);
     }
 }
 
@@ -351,14 +354,23 @@ pub fn generate_playground_rules() -> anyhow::Result<()> {
 export const LINT_RULES = {{
   recommended: "recommended",
   all: "all",
- {}
+{}
 }} as const;"#,
         visitor
             .names
-            .iter()
-            .map(|name| format!("{name}: \"{name}\""))
+            .into_iter()
+            .map(|(group, names)| format!(
+                r#"  {group}: {{
+{}
+  }} as const,"#,
+                names
+                    .into_iter()
+                    .map(|name| format!("    {name}: \"{name}\","))
+                    .collect::<Vec<_>>()
+                    .join("\n")
+            ))
             .collect::<Vec<_>>()
-            .join(",\n  ")
+            .join("\n")
     );
 
     fs::write(rules_file, content)?;
