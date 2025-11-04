@@ -5905,7 +5905,7 @@ export function GET() {
 			RuleAssistPlainConfiguration: { type: "string", enum: ["off", "on"] },
 			RuleAssistWithOptions_for_OrganizeImportsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -5920,7 +5920,7 @@ export function GET() {
 			},
 			RuleAssistWithOptions_for_UseSortedAttributesOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -5935,7 +5935,7 @@ export function GET() {
 			},
 			RuleAssistWithOptions_for_UseSortedKeysOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -5950,7 +5950,7 @@ export function GET() {
 			},
 			RuleAssistWithOptions_for_UseSortedPropertiesOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -6060,7 +6060,7 @@ export function GET() {
 			},
 			RuleWithNoAccessKeyOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -6079,7 +6079,7 @@ export function GET() {
 			},
 			RuleWithNoAccumulatingSpreadOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -6094,7 +6094,7 @@ export function GET() {
 			},
 			RuleWithNoAdjacentSpacesInRegexOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -6113,7 +6113,7 @@ export function GET() {
 			},
 			RuleWithNoAlertOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -6128,7 +6128,7 @@ export function GET() {
 			},
 			RuleWithNoApproximativeNumericConstantOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -6149,7 +6149,7 @@ export function GET() {
 			},
 			RuleWithNoArgumentsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -6164,7 +6164,7 @@ export function GET() {
 			},
 			RuleWithNoAriaHiddenOnFocusableOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -6183,7 +6183,7 @@ export function GET() {
 			},
 			RuleWithNoAriaUnsupportedElementsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -6202,7 +6202,7 @@ export function GET() {
 			},
 			RuleWithNoArrayIndexKeyOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -6217,7 +6217,7 @@ export function GET() {
 			},
 			RuleWithNoAssignInExpressionsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -6232,7 +6232,7 @@ export function GET() {
 			},
 			RuleWithNoAsyncPromiseExecutorOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -6247,7 +6247,7 @@ export function GET() {
 			},
 			RuleWithNoAutofocusOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -6266,7 +6266,7 @@ export function GET() {
 			},
 			RuleWithNoAwaitInLoopsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -6281,7 +6281,7 @@ export function GET() {
 			},
 			RuleWithNoBannedTypesOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -6300,7 +6300,7 @@ export function GET() {
 			},
 			RuleWithNoBarrelFileOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -6315,7 +6315,7 @@ export function GET() {
 			},
 			RuleWithNoBiomeFirstExceptionOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -6334,7 +6334,7 @@ export function GET() {
 			},
 			RuleWithNoBitwiseOperatorsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -6349,7 +6349,7 @@ export function GET() {
 			},
 			RuleWithNoBlankTargetOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -6368,7 +6368,7 @@ export function GET() {
 			},
 			RuleWithNoCatchAssignOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -6383,7 +6383,7 @@ export function GET() {
 			},
 			RuleWithNoChildrenPropOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -6398,7 +6398,7 @@ export function GET() {
 			},
 			RuleWithNoClassAssignOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -6413,7 +6413,7 @@ export function GET() {
 			},
 			RuleWithNoCommaOperatorOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -6428,7 +6428,7 @@ export function GET() {
 			},
 			RuleWithNoCommentTextOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -6447,7 +6447,7 @@ export function GET() {
 			},
 			RuleWithNoCommonJsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -6462,7 +6462,7 @@ export function GET() {
 			},
 			RuleWithNoCompareNegZeroOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -6481,7 +6481,7 @@ export function GET() {
 			},
 			RuleWithNoConfusingLabelsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -6496,7 +6496,7 @@ export function GET() {
 			},
 			RuleWithNoConfusingVoidTypeOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -6515,7 +6515,7 @@ export function GET() {
 			},
 			RuleWithNoConsoleOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -6534,7 +6534,7 @@ export function GET() {
 			},
 			RuleWithNoConstAssignOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -6553,7 +6553,7 @@ export function GET() {
 			},
 			RuleWithNoConstEnumOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -6572,7 +6572,7 @@ export function GET() {
 			},
 			RuleWithNoConstantBinaryExpressionsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -6589,7 +6589,7 @@ export function GET() {
 			},
 			RuleWithNoConstantConditionOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -6604,7 +6604,7 @@ export function GET() {
 			},
 			RuleWithNoConstantMathMinMaxClampOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -6623,7 +6623,7 @@ export function GET() {
 			},
 			RuleWithNoConstructorReturnOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -6638,7 +6638,7 @@ export function GET() {
 			},
 			RuleWithNoControlCharactersInRegexOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -6655,7 +6655,7 @@ export function GET() {
 			},
 			RuleWithNoDangerouslySetInnerHtmlOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -6670,7 +6670,7 @@ export function GET() {
 			},
 			RuleWithNoDangerouslySetInnerHtmlWithChildrenOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -6689,7 +6689,7 @@ export function GET() {
 			},
 			RuleWithNoDebuggerOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -6708,7 +6708,7 @@ export function GET() {
 			},
 			RuleWithNoDefaultExportOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -6723,7 +6723,7 @@ export function GET() {
 			},
 			RuleWithNoDeleteOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -6742,7 +6742,7 @@ export function GET() {
 			},
 			RuleWithNoDeprecatedImportsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -6757,7 +6757,7 @@ export function GET() {
 			},
 			RuleWithNoDescendingSpecificityOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -6772,7 +6772,7 @@ export function GET() {
 			},
 			RuleWithNoDistractingElementsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -6791,7 +6791,7 @@ export function GET() {
 			},
 			RuleWithNoDocumentCookieOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -6806,7 +6806,7 @@ export function GET() {
 			},
 			RuleWithNoDocumentImportInPageOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -6821,7 +6821,7 @@ export function GET() {
 			},
 			RuleWithNoDoneCallbackOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -6836,7 +6836,7 @@ export function GET() {
 			},
 			RuleWithNoDoubleEqualsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -6855,7 +6855,7 @@ export function GET() {
 			},
 			RuleWithNoDuplicateAtImportRulesOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -6870,7 +6870,7 @@ export function GET() {
 			},
 			RuleWithNoDuplicateCaseOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -6885,7 +6885,7 @@ export function GET() {
 			},
 			RuleWithNoDuplicateClassMembersOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -6900,7 +6900,7 @@ export function GET() {
 			},
 			RuleWithNoDuplicateCustomPropertiesOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -6917,7 +6917,7 @@ export function GET() {
 			},
 			RuleWithNoDuplicateDependenciesOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -6932,7 +6932,7 @@ export function GET() {
 			},
 			RuleWithNoDuplicateElseIfOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -6947,7 +6947,7 @@ export function GET() {
 			},
 			RuleWithNoDuplicateFieldsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -6962,7 +6962,7 @@ export function GET() {
 			},
 			RuleWithNoDuplicateFontNamesOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -6977,7 +6977,7 @@ export function GET() {
 			},
 			RuleWithNoDuplicateJsxPropsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -6992,7 +6992,7 @@ export function GET() {
 			},
 			RuleWithNoDuplicateObjectKeysOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -7007,7 +7007,7 @@ export function GET() {
 			},
 			RuleWithNoDuplicateParametersOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -7022,7 +7022,7 @@ export function GET() {
 			},
 			RuleWithNoDuplicatePropertiesOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -7037,7 +7037,7 @@ export function GET() {
 			},
 			RuleWithNoDuplicateSelectorsKeyframeBlockOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -7056,7 +7056,7 @@ export function GET() {
 			},
 			RuleWithNoDuplicateTestHooksOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -7071,7 +7071,7 @@ export function GET() {
 			},
 			RuleWithNoDynamicNamespaceImportAccessOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -7088,7 +7088,7 @@ export function GET() {
 			},
 			RuleWithNoEmptyBlockOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -7103,7 +7103,7 @@ export function GET() {
 			},
 			RuleWithNoEmptyBlockStatementsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -7118,7 +7118,7 @@ export function GET() {
 			},
 			RuleWithNoEmptyCharacterClassInRegexOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -7135,7 +7135,7 @@ export function GET() {
 			},
 			RuleWithNoEmptyInterfaceOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -7154,7 +7154,7 @@ export function GET() {
 			},
 			RuleWithNoEmptyPatternOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -7169,7 +7169,7 @@ export function GET() {
 			},
 			RuleWithNoEmptyTypeParametersOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -7184,7 +7184,7 @@ export function GET() {
 			},
 			RuleWithNoEnumOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -7199,7 +7199,7 @@ export function GET() {
 			},
 			RuleWithNoEvolvingTypesOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -7214,7 +7214,7 @@ export function GET() {
 			},
 			RuleWithNoExcessiveCognitiveComplexityOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -7231,7 +7231,7 @@ export function GET() {
 			},
 			RuleWithNoExcessiveLinesPerFunctionOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -7248,7 +7248,7 @@ export function GET() {
 			},
 			RuleWithNoExcessiveNestedTestSuitesOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -7265,7 +7265,7 @@ export function GET() {
 			},
 			RuleWithNoExplicitAnyOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -7280,7 +7280,7 @@ export function GET() {
 			},
 			RuleWithNoExportedImportsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -7295,7 +7295,7 @@ export function GET() {
 			},
 			RuleWithNoExportsInTestOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -7310,7 +7310,7 @@ export function GET() {
 			},
 			RuleWithNoExtraBooleanCastOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -7329,7 +7329,7 @@ export function GET() {
 			},
 			RuleWithNoExtraNonNullAssertionOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -7348,7 +7348,7 @@ export function GET() {
 			},
 			RuleWithNoFallthroughSwitchClauseOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -7363,7 +7363,7 @@ export function GET() {
 			},
 			RuleWithNoFlatMapIdentityOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -7382,7 +7382,7 @@ export function GET() {
 			},
 			RuleWithNoFloatingPromisesOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -7401,7 +7401,7 @@ export function GET() {
 			},
 			RuleWithNoFocusedTestsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -7420,7 +7420,7 @@ export function GET() {
 			},
 			RuleWithNoForEachOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -7435,7 +7435,7 @@ export function GET() {
 			},
 			RuleWithNoFunctionAssignOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -7450,7 +7450,7 @@ export function GET() {
 			},
 			RuleWithNoGlobalAssignOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -7465,7 +7465,7 @@ export function GET() {
 			},
 			RuleWithNoGlobalDirnameFilenameOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -7484,7 +7484,7 @@ export function GET() {
 			},
 			RuleWithNoGlobalEvalOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -7499,7 +7499,7 @@ export function GET() {
 			},
 			RuleWithNoGlobalIsFiniteOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -7518,7 +7518,7 @@ export function GET() {
 			},
 			RuleWithNoGlobalIsNanOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -7537,7 +7537,7 @@ export function GET() {
 			},
 			RuleWithNoGlobalObjectCallsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -7552,7 +7552,7 @@ export function GET() {
 			},
 			RuleWithNoHeadElementOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -7567,7 +7567,7 @@ export function GET() {
 			},
 			RuleWithNoHeadImportInDocumentOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -7582,7 +7582,7 @@ export function GET() {
 			},
 			RuleWithNoHeaderScopeOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -7601,7 +7601,7 @@ export function GET() {
 			},
 			RuleWithNoImgElementOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -7616,7 +7616,7 @@ export function GET() {
 			},
 			RuleWithNoImplicitAnyLetOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -7631,7 +7631,7 @@ export function GET() {
 			},
 			RuleWithNoImplicitBooleanOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -7650,7 +7650,7 @@ export function GET() {
 			},
 			RuleWithNoImplicitCoercionsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -7669,7 +7669,7 @@ export function GET() {
 			},
 			RuleWithNoImportAssignOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -7684,7 +7684,7 @@ export function GET() {
 			},
 			RuleWithNoImportCyclesOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -7699,7 +7699,7 @@ export function GET() {
 			},
 			RuleWithNoImportantInKeyframeOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -7714,7 +7714,7 @@ export function GET() {
 			},
 			RuleWithNoImportantStylesOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -7733,7 +7733,7 @@ export function GET() {
 			},
 			RuleWithNoInferrableTypesOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -7752,7 +7752,7 @@ export function GET() {
 			},
 			RuleWithNoInnerDeclarationsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -7767,7 +7767,7 @@ export function GET() {
 			},
 			RuleWithNoInteractiveElementToNoninteractiveRoleOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -7790,7 +7790,7 @@ export function GET() {
 			},
 			RuleWithNoInvalidBuiltinInstantiationOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -7811,7 +7811,7 @@ export function GET() {
 			},
 			RuleWithNoInvalidConstructorSuperOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -7826,7 +7826,7 @@ export function GET() {
 			},
 			RuleWithNoInvalidDirectionInLinearGradientOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -7845,7 +7845,7 @@ export function GET() {
 			},
 			RuleWithNoInvalidGridAreasOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -7860,7 +7860,7 @@ export function GET() {
 			},
 			RuleWithNoInvalidPositionAtImportRuleOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -7877,7 +7877,7 @@ export function GET() {
 			},
 			RuleWithNoInvalidUseBeforeDeclarationOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -7894,7 +7894,7 @@ export function GET() {
 			},
 			RuleWithNoIrregularWhitespaceOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -7909,7 +7909,7 @@ export function GET() {
 			},
 			RuleWithNoJsxLiteralsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -7924,7 +7924,7 @@ export function GET() {
 			},
 			RuleWithNoLabelVarOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -7939,7 +7939,7 @@ export function GET() {
 			},
 			RuleWithNoLabelWithoutControlOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -7954,7 +7954,7 @@ export function GET() {
 			},
 			RuleWithNoMagicNumbersOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -7969,7 +7969,7 @@ export function GET() {
 			},
 			RuleWithNoMisleadingCharacterClassOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -7990,7 +7990,7 @@ export function GET() {
 			},
 			RuleWithNoMisleadingInstantiatorOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -8005,7 +8005,7 @@ export function GET() {
 			},
 			RuleWithNoMisplacedAssertionOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -8020,7 +8020,7 @@ export function GET() {
 			},
 			RuleWithNoMisrefactoredShorthandAssignOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -8041,7 +8041,7 @@ export function GET() {
 			},
 			RuleWithNoMissingVarFunctionOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -8056,7 +8056,7 @@ export function GET() {
 			},
 			RuleWithNoMisusedPromisesOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -8075,7 +8075,7 @@ export function GET() {
 			},
 			RuleWithNoNamespaceImportOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -8090,7 +8090,7 @@ export function GET() {
 			},
 			RuleWithNoNamespaceOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -8105,7 +8105,7 @@ export function GET() {
 			},
 			RuleWithNoNegationElseOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -8124,7 +8124,7 @@ export function GET() {
 			},
 			RuleWithNoNestedComponentDefinitionsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -8141,7 +8141,7 @@ export function GET() {
 			},
 			RuleWithNoNestedTernaryOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -8156,7 +8156,7 @@ export function GET() {
 			},
 			RuleWithNoNextAsyncClientComponentOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -8173,7 +8173,7 @@ export function GET() {
 			},
 			RuleWithNoNodejsModulesOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -8188,7 +8188,7 @@ export function GET() {
 			},
 			RuleWithNoNonNullAssertedOptionalChainOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -8205,7 +8205,7 @@ export function GET() {
 			},
 			RuleWithNoNonNullAssertionOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -8224,7 +8224,7 @@ export function GET() {
 			},
 			RuleWithNoNoninteractiveElementInteractionsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -8243,7 +8243,7 @@ export function GET() {
 			},
 			RuleWithNoNoninteractiveElementToInteractiveRoleOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -8266,7 +8266,7 @@ export function GET() {
 			},
 			RuleWithNoNoninteractiveTabindexOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -8285,7 +8285,7 @@ export function GET() {
 			},
 			RuleWithNoNonoctalDecimalEscapeOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -8304,7 +8304,7 @@ export function GET() {
 			},
 			RuleWithNoOctalEscapeOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -8323,7 +8323,7 @@ export function GET() {
 			},
 			RuleWithNoParameterAssignOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -8338,7 +8338,7 @@ export function GET() {
 			},
 			RuleWithNoParameterPropertiesOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -8353,7 +8353,7 @@ export function GET() {
 			},
 			RuleWithNoPositiveTabindexOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -8372,7 +8372,7 @@ export function GET() {
 			},
 			RuleWithNoPrecisionLossOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -8387,7 +8387,7 @@ export function GET() {
 			},
 			RuleWithNoPrivateImportsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -8402,7 +8402,7 @@ export function GET() {
 			},
 			RuleWithNoProcessEnvOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -8417,7 +8417,7 @@ export function GET() {
 			},
 			RuleWithNoProcessGlobalOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -8436,7 +8436,7 @@ export function GET() {
 			},
 			RuleWithNoPrototypeBuiltinsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -8455,7 +8455,7 @@ export function GET() {
 			},
 			RuleWithNoQuickfixBiomeOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -8474,7 +8474,7 @@ export function GET() {
 			},
 			RuleWithNoQwikUseVisibleTaskOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -8489,7 +8489,7 @@ export function GET() {
 			},
 			RuleWithNoReExportAllOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -8504,7 +8504,7 @@ export function GET() {
 			},
 			RuleWithNoReactForwardRefOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -8523,7 +8523,7 @@ export function GET() {
 			},
 			RuleWithNoReactPropAssignmentsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -8538,7 +8538,7 @@ export function GET() {
 			},
 			RuleWithNoReactSpecificPropsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -8557,7 +8557,7 @@ export function GET() {
 			},
 			RuleWithNoRedeclareOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -8572,7 +8572,7 @@ export function GET() {
 			},
 			RuleWithNoRedundantAltOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -8587,7 +8587,7 @@ export function GET() {
 			},
 			RuleWithNoRedundantRolesOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -8606,7 +8606,7 @@ export function GET() {
 			},
 			RuleWithNoRedundantUseStrictOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -8625,7 +8625,7 @@ export function GET() {
 			},
 			RuleWithNoRenderReturnValueOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -8640,7 +8640,7 @@ export function GET() {
 			},
 			RuleWithNoRestrictedElementsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -8655,7 +8655,7 @@ export function GET() {
 			},
 			RuleWithNoRestrictedGlobalsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -8670,7 +8670,7 @@ export function GET() {
 			},
 			RuleWithNoRestrictedImportsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -8685,7 +8685,7 @@ export function GET() {
 			},
 			RuleWithNoRestrictedTypesOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -8704,7 +8704,7 @@ export function GET() {
 			},
 			RuleWithNoSecretsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -8719,7 +8719,7 @@ export function GET() {
 			},
 			RuleWithNoSelfAssignOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -8734,7 +8734,7 @@ export function GET() {
 			},
 			RuleWithNoSelfCompareOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -8749,7 +8749,7 @@ export function GET() {
 			},
 			RuleWithNoSetterReturnOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -8764,7 +8764,7 @@ export function GET() {
 			},
 			RuleWithNoShadowOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -8779,7 +8779,7 @@ export function GET() {
 			},
 			RuleWithNoShadowRestrictedNamesOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -8794,7 +8794,7 @@ export function GET() {
 			},
 			RuleWithNoShorthandPropertyOverridesOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -8811,7 +8811,7 @@ export function GET() {
 			},
 			RuleWithNoShoutyConstantsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -8830,7 +8830,7 @@ export function GET() {
 			},
 			RuleWithNoSkippedTestsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -8849,7 +8849,7 @@ export function GET() {
 			},
 			RuleWithNoSolidDestructuredPropsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -8864,7 +8864,7 @@ export function GET() {
 			},
 			RuleWithNoSparseArrayOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -8883,7 +8883,7 @@ export function GET() {
 			},
 			RuleWithNoStaticElementInteractionsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -8900,7 +8900,7 @@ export function GET() {
 			},
 			RuleWithNoStaticOnlyClassOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -8915,7 +8915,7 @@ export function GET() {
 			},
 			RuleWithNoStringCaseMismatchOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -8934,7 +8934,7 @@ export function GET() {
 			},
 			RuleWithNoSubstrOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -8953,7 +8953,7 @@ export function GET() {
 			},
 			RuleWithNoSuspiciousSemicolonInJsxOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -8970,7 +8970,7 @@ export function GET() {
 			},
 			RuleWithNoSvgWithoutTitleOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -8985,7 +8985,7 @@ export function GET() {
 			},
 			RuleWithNoSwitchDeclarationsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -9004,7 +9004,7 @@ export function GET() {
 			},
 			RuleWithNoTemplateCurlyInStringOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -9019,7 +9019,7 @@ export function GET() {
 			},
 			RuleWithNoThenPropertyOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -9034,7 +9034,7 @@ export function GET() {
 			},
 			RuleWithNoThisInStaticOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -9053,7 +9053,7 @@ export function GET() {
 			},
 			RuleWithNoTsIgnoreOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -9072,7 +9072,7 @@ export function GET() {
 			},
 			RuleWithNoUnassignedVariablesOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -9087,7 +9087,7 @@ export function GET() {
 			},
 			RuleWithNoUndeclaredDependenciesOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -9102,7 +9102,7 @@ export function GET() {
 			},
 			RuleWithNoUndeclaredVariablesOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -9117,7 +9117,7 @@ export function GET() {
 			},
 			RuleWithNoUnknownAtRulesOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -9132,7 +9132,7 @@ export function GET() {
 			},
 			RuleWithNoUnknownFunctionOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -9147,7 +9147,7 @@ export function GET() {
 			},
 			RuleWithNoUnknownMediaFeatureNameOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -9162,7 +9162,7 @@ export function GET() {
 			},
 			RuleWithNoUnknownPropertyOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -9177,7 +9177,7 @@ export function GET() {
 			},
 			RuleWithNoUnknownPseudoClassOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -9192,7 +9192,7 @@ export function GET() {
 			},
 			RuleWithNoUnknownPseudoElementOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -9207,7 +9207,7 @@ export function GET() {
 			},
 			RuleWithNoUnknownTypeSelectorOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -9222,7 +9222,7 @@ export function GET() {
 			},
 			RuleWithNoUnknownUnitOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -9237,7 +9237,7 @@ export function GET() {
 			},
 			RuleWithNoUnmatchableAnbSelectorOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -9252,7 +9252,7 @@ export function GET() {
 			},
 			RuleWithNoUnnecessaryConditionsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -9267,7 +9267,7 @@ export function GET() {
 			},
 			RuleWithNoUnreachableOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -9282,7 +9282,7 @@ export function GET() {
 			},
 			RuleWithNoUnreachableSuperOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -9297,7 +9297,7 @@ export function GET() {
 			},
 			RuleWithNoUnresolvedImportsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -9312,7 +9312,7 @@ export function GET() {
 			},
 			RuleWithNoUnsafeDeclarationMergingOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -9329,7 +9329,7 @@ export function GET() {
 			},
 			RuleWithNoUnsafeFinallyOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -9344,7 +9344,7 @@ export function GET() {
 			},
 			RuleWithNoUnsafeNegationOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -9363,7 +9363,7 @@ export function GET() {
 			},
 			RuleWithNoUnsafeOptionalChainingOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -9378,7 +9378,7 @@ export function GET() {
 			},
 			RuleWithNoUnusedExpressionsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -9393,7 +9393,7 @@ export function GET() {
 			},
 			RuleWithNoUnusedFunctionParametersOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -9414,7 +9414,7 @@ export function GET() {
 			},
 			RuleWithNoUnusedImportsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -9433,7 +9433,7 @@ export function GET() {
 			},
 			RuleWithNoUnusedLabelsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -9452,7 +9452,7 @@ export function GET() {
 			},
 			RuleWithNoUnusedPrivateClassMembersOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -9473,7 +9473,7 @@ export function GET() {
 			},
 			RuleWithNoUnusedTemplateLiteralOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -9492,7 +9492,7 @@ export function GET() {
 			},
 			RuleWithNoUnusedVariablesOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -9511,7 +9511,7 @@ export function GET() {
 			},
 			RuleWithNoUnwantedPolyfillioOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -9526,7 +9526,7 @@ export function GET() {
 			},
 			RuleWithNoUselessCatchBindingOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -9545,7 +9545,7 @@ export function GET() {
 			},
 			RuleWithNoUselessCatchOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -9564,7 +9564,7 @@ export function GET() {
 			},
 			RuleWithNoUselessConstructorOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -9583,7 +9583,7 @@ export function GET() {
 			},
 			RuleWithNoUselessContinueOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -9602,7 +9602,7 @@ export function GET() {
 			},
 			RuleWithNoUselessElseOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -9621,7 +9621,7 @@ export function GET() {
 			},
 			RuleWithNoUselessEmptyExportOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -9640,7 +9640,7 @@ export function GET() {
 			},
 			RuleWithNoUselessEscapeInRegexOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -9659,7 +9659,7 @@ export function GET() {
 			},
 			RuleWithNoUselessEscapeInStringOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -9678,7 +9678,7 @@ export function GET() {
 			},
 			RuleWithNoUselessFragmentsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -9697,7 +9697,7 @@ export function GET() {
 			},
 			RuleWithNoUselessLabelOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -9716,7 +9716,7 @@ export function GET() {
 			},
 			RuleWithNoUselessLoneBlockStatementsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -9737,7 +9737,7 @@ export function GET() {
 			},
 			RuleWithNoUselessRegexBackrefsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -9752,7 +9752,7 @@ export function GET() {
 			},
 			RuleWithNoUselessRenameOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -9771,7 +9771,7 @@ export function GET() {
 			},
 			RuleWithNoUselessStringConcatOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -9790,7 +9790,7 @@ export function GET() {
 			},
 			RuleWithNoUselessStringRawOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -9805,7 +9805,7 @@ export function GET() {
 			},
 			RuleWithNoUselessSwitchCaseOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -9824,7 +9824,7 @@ export function GET() {
 			},
 			RuleWithNoUselessTernaryOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -9843,7 +9843,7 @@ export function GET() {
 			},
 			RuleWithNoUselessThisAliasOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -9862,7 +9862,7 @@ export function GET() {
 			},
 			RuleWithNoUselessTypeConstraintOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -9881,7 +9881,7 @@ export function GET() {
 			},
 			RuleWithNoUselessUndefinedInitializationOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -9902,7 +9902,7 @@ export function GET() {
 			},
 			RuleWithNoUselessUndefinedOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -9921,7 +9921,7 @@ export function GET() {
 			},
 			RuleWithNoValueAtRuleOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -9936,7 +9936,7 @@ export function GET() {
 			},
 			RuleWithNoVarOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -9955,7 +9955,7 @@ export function GET() {
 			},
 			RuleWithNoVoidElementsWithChildrenOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -9976,7 +9976,7 @@ export function GET() {
 			},
 			RuleWithNoVoidOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -9991,7 +9991,7 @@ export function GET() {
 			},
 			RuleWithNoVoidTypeReturnOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -10006,7 +10006,7 @@ export function GET() {
 			},
 			RuleWithNoVueDataObjectDeclarationOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -10027,7 +10027,7 @@ export function GET() {
 			},
 			RuleWithNoVueDuplicateKeysOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -10042,7 +10042,7 @@ export function GET() {
 			},
 			RuleWithNoVueReservedKeysOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -10057,7 +10057,7 @@ export function GET() {
 			},
 			RuleWithNoVueReservedPropsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -10072,7 +10072,7 @@ export function GET() {
 			},
 			RuleWithNoWithOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -10087,7 +10087,7 @@ export function GET() {
 			},
 			RuleWithNoYodaExpressionOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -10106,7 +10106,7 @@ export function GET() {
 			},
 			RuleWithUseAdjacentOverloadSignaturesOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -10123,7 +10123,7 @@ export function GET() {
 			},
 			RuleWithUseAltTextOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -10138,7 +10138,7 @@ export function GET() {
 			},
 			RuleWithUseAnchorContentOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -10157,7 +10157,7 @@ export function GET() {
 			},
 			RuleWithUseAnchorHrefOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -10172,7 +10172,7 @@ export function GET() {
 			},
 			RuleWithUseAriaActivedescendantWithTabindexOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -10195,7 +10195,7 @@ export function GET() {
 			},
 			RuleWithUseAriaPropsForRoleOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -10210,7 +10210,7 @@ export function GET() {
 			},
 			RuleWithUseAriaPropsSupportedByRoleOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -10227,7 +10227,7 @@ export function GET() {
 			},
 			RuleWithUseArrayLiteralsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -10246,7 +10246,7 @@ export function GET() {
 			},
 			RuleWithUseArrowFunctionOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -10265,7 +10265,7 @@ export function GET() {
 			},
 			RuleWithUseAsConstAssertionOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -10284,7 +10284,7 @@ export function GET() {
 			},
 			RuleWithUseAtIndexOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -10303,7 +10303,7 @@ export function GET() {
 			},
 			RuleWithUseAwaitOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -10318,7 +10318,7 @@ export function GET() {
 			},
 			RuleWithUseBiomeIgnoreFolderOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -10337,7 +10337,7 @@ export function GET() {
 			},
 			RuleWithUseBlockStatementsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -10356,7 +10356,7 @@ export function GET() {
 			},
 			RuleWithUseButtonTypeOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -10371,7 +10371,7 @@ export function GET() {
 			},
 			RuleWithUseCollapsedElseIfOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -10390,7 +10390,7 @@ export function GET() {
 			},
 			RuleWithUseCollapsedIfOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -10409,7 +10409,7 @@ export function GET() {
 			},
 			RuleWithUseComponentExportOnlyModulesOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -10426,7 +10426,7 @@ export function GET() {
 			},
 			RuleWithUseConsistentArrayTypeOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -10445,7 +10445,7 @@ export function GET() {
 			},
 			RuleWithUseConsistentArrowReturnOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -10464,7 +10464,7 @@ export function GET() {
 			},
 			RuleWithUseConsistentBuiltinInstantiationOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -10487,7 +10487,7 @@ export function GET() {
 			},
 			RuleWithUseConsistentCurlyBracesOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -10506,7 +10506,7 @@ export function GET() {
 			},
 			RuleWithUseConsistentMemberAccessibilityOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -10523,7 +10523,7 @@ export function GET() {
 			},
 			RuleWithUseConsistentObjectDefinitionsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -10544,7 +10544,7 @@ export function GET() {
 			},
 			RuleWithUseConsistentTypeDefinitionsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -10565,7 +10565,7 @@ export function GET() {
 			},
 			RuleWithUseConstOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -10584,7 +10584,7 @@ export function GET() {
 			},
 			RuleWithUseDateNowOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -10603,7 +10603,7 @@ export function GET() {
 			},
 			RuleWithUseDefaultParameterLastOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -10622,7 +10622,7 @@ export function GET() {
 			},
 			RuleWithUseDefaultSwitchClauseLastOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -10639,7 +10639,7 @@ export function GET() {
 			},
 			RuleWithUseDefaultSwitchClauseOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -10654,7 +10654,7 @@ export function GET() {
 			},
 			RuleWithUseDeprecatedReasonOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -10669,7 +10669,7 @@ export function GET() {
 			},
 			RuleWithUseEnumInitializersOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -10688,7 +10688,7 @@ export function GET() {
 			},
 			RuleWithUseErrorMessageOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -10703,7 +10703,7 @@ export function GET() {
 			},
 			RuleWithUseExhaustiveDependenciesOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -10722,7 +10722,7 @@ export function GET() {
 			},
 			RuleWithUseExhaustiveSwitchCasesOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -10741,7 +10741,7 @@ export function GET() {
 			},
 			RuleWithUseExplicitLengthCheckOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -10760,7 +10760,7 @@ export function GET() {
 			},
 			RuleWithUseExplicitTypeOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -10775,7 +10775,7 @@ export function GET() {
 			},
 			RuleWithUseExponentiationOperatorOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -10794,7 +10794,7 @@ export function GET() {
 			},
 			RuleWithUseExportTypeOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -10813,7 +10813,7 @@ export function GET() {
 			},
 			RuleWithUseExportsLastOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -10828,7 +10828,7 @@ export function GET() {
 			},
 			RuleWithUseFilenamingConventionOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -10843,7 +10843,7 @@ export function GET() {
 			},
 			RuleWithUseFlatMapOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -10862,7 +10862,7 @@ export function GET() {
 			},
 			RuleWithUseFocusableInteractiveOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -10877,7 +10877,7 @@ export function GET() {
 			},
 			RuleWithUseForOfOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -10892,7 +10892,7 @@ export function GET() {
 			},
 			RuleWithUseFragmentSyntaxOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -10911,7 +10911,7 @@ export function GET() {
 			},
 			RuleWithUseGenericFontNamesOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -10926,7 +10926,7 @@ export function GET() {
 			},
 			RuleWithUseGetterReturnOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -10941,7 +10941,7 @@ export function GET() {
 			},
 			RuleWithUseGoogleFontDisplayOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -10956,7 +10956,7 @@ export function GET() {
 			},
 			RuleWithUseGoogleFontPreconnectOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -10975,7 +10975,7 @@ export function GET() {
 			},
 			RuleWithUseGraphqlNamedOperationsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -10994,7 +10994,7 @@ export function GET() {
 			},
 			RuleWithUseGraphqlNamingConventionOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -11011,7 +11011,7 @@ export function GET() {
 			},
 			RuleWithUseGroupedAccessorPairsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -11026,7 +11026,7 @@ export function GET() {
 			},
 			RuleWithUseGuardForInOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -11041,7 +11041,7 @@ export function GET() {
 			},
 			RuleWithUseHeadingContentOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -11056,7 +11056,7 @@ export function GET() {
 			},
 			RuleWithUseHookAtTopLevelOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -11071,7 +11071,7 @@ export function GET() {
 			},
 			RuleWithUseHtmlLangOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -11086,7 +11086,7 @@ export function GET() {
 			},
 			RuleWithUseIframeTitleOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -11101,7 +11101,7 @@ export function GET() {
 			},
 			RuleWithUseImageSizeOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -11116,7 +11116,7 @@ export function GET() {
 			},
 			RuleWithUseImportExtensionsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -11135,7 +11135,7 @@ export function GET() {
 			},
 			RuleWithUseImportTypeOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -11154,7 +11154,7 @@ export function GET() {
 			},
 			RuleWithUseIndexOfOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -11173,7 +11173,7 @@ export function GET() {
 			},
 			RuleWithUseIsArrayOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -11192,7 +11192,7 @@ export function GET() {
 			},
 			RuleWithUseIsNanOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -11211,7 +11211,7 @@ export function GET() {
 			},
 			RuleWithUseIterableCallbackReturnOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -11226,7 +11226,7 @@ export function GET() {
 			},
 			RuleWithUseJsonImportAttributesOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -11245,7 +11245,7 @@ export function GET() {
 			},
 			RuleWithUseJsxKeyInIterableOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -11260,7 +11260,7 @@ export function GET() {
 			},
 			RuleWithUseKeyWithClickEventsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -11275,7 +11275,7 @@ export function GET() {
 			},
 			RuleWithUseKeyWithMouseEventsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -11290,7 +11290,7 @@ export function GET() {
 			},
 			RuleWithUseLiteralEnumMembersOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -11305,7 +11305,7 @@ export function GET() {
 			},
 			RuleWithUseLiteralKeysOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -11324,7 +11324,7 @@ export function GET() {
 			},
 			RuleWithUseMaxParamsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -11339,7 +11339,7 @@ export function GET() {
 			},
 			RuleWithUseMediaCaptionOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -11354,7 +11354,7 @@ export function GET() {
 			},
 			RuleWithUseNamespaceKeywordOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -11373,7 +11373,7 @@ export function GET() {
 			},
 			RuleWithUseNamingConventionOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -11392,7 +11392,7 @@ export function GET() {
 			},
 			RuleWithUseNodeAssertStrictOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -11411,7 +11411,7 @@ export function GET() {
 			},
 			RuleWithUseNodejsImportProtocolOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -11430,7 +11430,7 @@ export function GET() {
 			},
 			RuleWithUseNumberNamespaceOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -11449,7 +11449,7 @@ export function GET() {
 			},
 			RuleWithUseNumberToFixedDigitsArgumentOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -11470,7 +11470,7 @@ export function GET() {
 			},
 			RuleWithUseNumericLiteralsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -11489,7 +11489,7 @@ export function GET() {
 			},
 			RuleWithUseNumericSeparatorsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -11508,7 +11508,7 @@ export function GET() {
 			},
 			RuleWithUseObjectSpreadOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -11527,7 +11527,7 @@ export function GET() {
 			},
 			RuleWithUseOptionalChainOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -11546,7 +11546,7 @@ export function GET() {
 			},
 			RuleWithUseParseIntRadixOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -11565,7 +11565,7 @@ export function GET() {
 			},
 			RuleWithUseQwikClasslistOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -11580,7 +11580,7 @@ export function GET() {
 			},
 			RuleWithUseReactFunctionComponentsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -11597,7 +11597,7 @@ export function GET() {
 			},
 			RuleWithUseReadonlyClassPropertiesOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -11618,7 +11618,7 @@ export function GET() {
 			},
 			RuleWithUseRegexLiteralsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -11637,7 +11637,7 @@ export function GET() {
 			},
 			RuleWithUseSelfClosingElementsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -11656,7 +11656,7 @@ export function GET() {
 			},
 			RuleWithUseSemanticElementsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -11671,7 +11671,7 @@ export function GET() {
 			},
 			RuleWithUseShorthandAssignOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -11690,7 +11690,7 @@ export function GET() {
 			},
 			RuleWithUseShorthandFunctionTypeOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -11709,7 +11709,7 @@ export function GET() {
 			},
 			RuleWithUseSimpleNumberKeysOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -11728,7 +11728,7 @@ export function GET() {
 			},
 			RuleWithUseSimplifiedLogicExpressionOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -11749,7 +11749,7 @@ export function GET() {
 			},
 			RuleWithUseSingleJsDocAsteriskOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -11768,7 +11768,7 @@ export function GET() {
 			},
 			RuleWithUseSingleVarDeclaratorOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -11787,7 +11787,7 @@ export function GET() {
 			},
 			RuleWithUseSolidForComponentOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -11802,7 +11802,7 @@ export function GET() {
 			},
 			RuleWithUseSortedClassesOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -11821,7 +11821,7 @@ export function GET() {
 			},
 			RuleWithUseStaticResponseMethodsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -11840,7 +11840,7 @@ export function GET() {
 			},
 			RuleWithUseStrictModeOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -11859,7 +11859,7 @@ export function GET() {
 			},
 			RuleWithUseSymbolDescriptionOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -11874,7 +11874,7 @@ export function GET() {
 			},
 			RuleWithUseTemplateOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -11893,7 +11893,7 @@ export function GET() {
 			},
 			RuleWithUseThrowNewErrorOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -11912,7 +11912,7 @@ export function GET() {
 			},
 			RuleWithUseThrowOnlyErrorOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -11927,7 +11927,7 @@ export function GET() {
 			},
 			RuleWithUseTopLevelRegexOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -11942,7 +11942,7 @@ export function GET() {
 			},
 			RuleWithUseTrimStartEndOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -11961,7 +11961,7 @@ export function GET() {
 			},
 			RuleWithUseUnifiedTypeSignaturesOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -11980,7 +11980,7 @@ export function GET() {
 			},
 			RuleWithUseUniqueElementIdsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -11995,7 +11995,7 @@ export function GET() {
 			},
 			RuleWithUseValidAnchorOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -12010,7 +12010,7 @@ export function GET() {
 			},
 			RuleWithUseValidAriaPropsOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -12029,7 +12029,7 @@ export function GET() {
 			},
 			RuleWithUseValidAriaRoleOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -12048,7 +12048,7 @@ export function GET() {
 			},
 			RuleWithUseValidAriaValuesOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -12063,7 +12063,7 @@ export function GET() {
 			},
 			RuleWithUseValidAutocompleteOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -12078,7 +12078,7 @@ export function GET() {
 			},
 			RuleWithUseValidForDirectionOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -12093,7 +12093,7 @@ export function GET() {
 			},
 			RuleWithUseValidLangOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -12108,7 +12108,7 @@ export function GET() {
 			},
 			RuleWithUseValidTypeofOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -12127,7 +12127,7 @@ export function GET() {
 			},
 			RuleWithUseVueMultiWordComponentNamesOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",
@@ -12144,7 +12144,7 @@ export function GET() {
 			},
 			RuleWithUseWhileOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					fix: {
 						description: "The kind of the code actions emitted by the rule",
@@ -12163,7 +12163,7 @@ export function GET() {
 			},
 			RuleWithUseYieldOptions: {
 				type: "object",
-				required: ["level", "options"],
+				required: ["level"],
 				properties: {
 					level: {
 						description: "The severity of the emitted diagnostics by the rule",

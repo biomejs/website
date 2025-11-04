@@ -1,17 +1,17 @@
 [package]
-description = "Crate used to generate pages from the Rust source code of Biome"
-edition = "2024"
-name = "codegen"
-publish = false
-version = "0.1.0"
+	description = "Crate used to generate pages from the Rust source code of Biome"
+	edition     = "2024"
+	name        = "codegen"
+	publish     = false
+	version     = "0.1.0"
 
 [[bin]]
-name = "codegen"
-path = "codegen/src/main.rs"
+	name = "codegen"
+	path = "codegen/src/main.rs"
 
 [lib]
-name = "codegen"
-path = "codegen/src/lib.rs"
+	name = "codegen"
+	path = "codegen/src/lib.rs"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dependencies]

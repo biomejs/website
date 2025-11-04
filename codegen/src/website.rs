@@ -199,19 +199,17 @@ fn rename_partial_references_in_schema(mut schema: RootSchema) -> RootSchema {
         .definitions
         .into_iter()
         .map(|(mut key, mut schema)| {
-            if let Some(stripped) = key.strip_prefix("Partial") {
-                key = stripped.to_string();
-            } else if key == "RuleWithOptions_for_Null" || key == "RuleWithFixOptions_for_Null" {
+            if key == "RuleWithOptions_for_Null" || key == "RuleWithFixOptions_for_Null" {
                 key = if key == "RuleWithOptions_for_Null" {
                     "RuleWithNoOptions".to_string()
                 } else {
                     "RuleWithFixNoOptions".to_string()
                 };
-                if let Schema::Object(schema_object) = &mut schema {
-                    if let Some(object) = &mut schema_object.object {
-                        object.required.remove("options");
-                        object.properties.remove("options");
-                    }
+                if let Schema::Object(schema_object) = &mut schema
+                    && let Some(object) = &mut schema_object.object
+                {
+                    object.required.remove("options");
+                    object.properties.remove("options");
                 }
             } else if key == "RuleConfiguration_for_Null" {
                 key = "RuleConfiguration".to_string();
@@ -219,8 +217,18 @@ fn rename_partial_references_in_schema(mut schema: RootSchema) -> RootSchema {
                 key = "RuleFixConfiguration".to_string();
             } else if let Some(stripped) = key.strip_prefix("RuleWithOptions_for_") {
                 key = format!("RuleWith{stripped}");
+                if let Schema::Object(schema_object) = &mut schema
+                    && let Some(object) = &mut schema_object.object
+                {
+                    object.required.remove("options");
+                }
             } else if let Some(stripped) = key.strip_prefix("RuleWithFixOptions_for_") {
                 key = format!("RuleWith{stripped}");
+                if let Schema::Object(schema_object) = &mut schema
+                    && let Some(object) = &mut schema_object.object
+                {
+                    object.required.remove("options");
+                }
             } else if let Some(stripped) = key
                 .strip_prefix("RuleConfiguration_for_")
                 .map(|x| x.strip_suffix("Options").unwrap_or(x))
