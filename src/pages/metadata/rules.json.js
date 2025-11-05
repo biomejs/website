@@ -1995,7 +1995,7 @@ export function GET() {
         "nursery": {
           "noContinue": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.4",
             "name": "noContinue",
             "link": "https://biomejs.dev/linter/rules/no-continue",
             "recommended": false,
