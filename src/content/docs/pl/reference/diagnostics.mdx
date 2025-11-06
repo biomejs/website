@@ -1,0 +1,134 @@
+---
+title: Diagnostyki
+description: Poznaj różne części diagnostyk Biome
+---
+import DiagnosticFatal from "@/components/generated/diagnostics/DiagnosticFatal.md";
+import DiagnosticError from "@/components/generated/diagnostics/DiagnosticError.md";
+import DiagnosticWarning from "@/components/generated/diagnostics/DiagnosticWarning.md";
+import DiagnosticInformation from "@/components/generated/diagnostics/DiagnosticInformation.md";
+import DiagnosticVerbose from "@/components/generated/diagnostics/DiagnosticVerbose.md";
+import DiagnosticInternal from "@/components/generated/diagnostics/DiagnosticInternal.md";
+import DiagnosticFixable from "@/components/generated/diagnostics/DiagnosticFixable.md";
+import DiagnosticDeprecated from "@/components/generated/diagnostics/DiagnosticDeprecated.md";
+import DiagnosticCategorySimple from "@/components/generated/diagnostics/DiagnosticCategorySimple.md";
+import DiagnosticCategoryLink from "@/components/generated/diagnostics/DiagnosticCategoryLink.md";
+import DiagnosticLocFile from "@/components/generated/diagnostics/DiagnosticLocFile.md";
+import DiagnosticLocFrame from "@/components/generated/diagnostics/DiagnosticLocFrame.md";
+import DiagnosticLocAll from "@/components/generated/diagnostics/DiagnosticLocAll.md";
+import DiagnosticLocMultiline from "@/components/generated/diagnostics/DiagnosticLocMultiline.md";
+import DiagnosticWithAdvice from "@/components/generated/diagnostics/DiagnosticWithAdvice.md";
+
+Diagnostyki Biome są pełne informacji i zazwyczaj dostarczają wszystkich informacji potrzebnych do zrozumienia błędów i ich naprawy.
+
+Diagnostyki nie są używane tylko do błędów, ale również do dostarczania ustrukturyzowanych informacji, ostrzeżeń i wskazówek.
+
+Ta strona zawiera podział wszystkich informacji, które diagnostyka może zawierać. Poznanie wszystkich różnych części diagnostyki może pomóc ci zidentyfikować ważne części i niektóre "sekrety" za nimi.
+
+## Ważność diagnostyki
+
+Ważność diagnostyki może wpływać na CLI. Na przykład diagnostyki błędów zmuszą CLI do zakończenia z kodem błędu.
+
+### Fatal
+
+Diagnostyki błędów mają czerwony tekst. Diagnostyki fatalne są zazwyczaj emitowane, gdy wystąpił nieoczekiwany błąd wewnątrz Biome. W porównaniu do błędów, mają [tag fatal](#diagnostic-tags).
+
+<DiagnosticFatal />
+
+### Błąd
+
+Diagnostyki błędów mają czerwony tekst. Zazwyczaj powinny być rozwiązane, ponieważ będą emitować kod błędu, gdy napotkane przez CLI.
+
+<DiagnosticError />
+
+### Ostrzeżenie
+
+Diagnostyki ostrzeżeń mają żółty tekst. Zazwyczaj powinny być rozwiązane. Ostrzeżenia nie są blokerami i nie zatrzymają działania CLI.
+
+<DiagnosticWarning />
+
+### Informacja
+
+Diagnostyki informacyjne mają zielony tekst. Dostarczają użytecznych informacji i nie są przeznaczone do blokowania CLI.
+
+<DiagnosticInformation />
+
+## Tagi diagnostyki
+
+Tagi można postrzegać jako metadane dołączone do diagnostyki i mogą wpływać na klientów w różny sposób.
+
+### Verbose
+
+Diagnostyki verbose są zazwyczaj ukryte. Przez CLI możesz pokazać te diagnostyki używając opcji `--verbose`.
+
+<DiagnosticVerbose />
+
+### Internal
+
+Diagnostyki wewnętrzne są emitowane, gdy wystąpił błąd wewnętrzny. Użytkownicy są zazwyczaj zachęcani do zgłoszenia błędu, gdy je zobaczą.
+
+<DiagnosticInternal />
+
+### Fixable
+
+Diagnostyki naprawialne są emitowane dla tych szczególnych sytuacji, które mogą być naprawione przez użytkownika. Są zazwyczaj używane dla diagnostyk lint, które mają akcję kodu.
+
+<DiagnosticFixable />
+
+### Deprecated
+
+Diagnostyki, które zawierają kod, który jest przestarzały
+
+<DiagnosticDeprecated />
+
+## Kategoria diagnostyki
+
+Kategoria służy do grupowania diagnostyk. Opcjonalnie, kategoria może mieć link, na przykład dla kategorii należących do reguł lint, jak w przykładzie poniżej.
+
+### Prosta kategoria
+
+Ta diagnostyka należy do kategorii "`check`", co oznacza, że jest emitowana podczas wykonywania polecenia `check`:
+
+<DiagnosticCategorySimple />
+
+### Kategoria z linkiem
+
+Ta diagnostyka należy do kategorii `"lint/a11y/noAccessKey"`. Link przenosi użytkownika na stronę internetową reguły lint `noAccessKey`.
+
+<DiagnosticCategoryLink />
+
+## Lokalizacja diagnostyki
+
+Diagnostyki mogą mieć "lokalizację". Lokalizacja składa się z trzech, opcjonalnych, części:
+- zasób, który jest źródłem, które wyemitowało diagnostykę;
+- kod źródłowy pliku;
+- zakres (lub zakres tekstu), zazwyczaj **linia** i **kolumna** wewnątrz pliku.
+
+### Ścieżka pliku diagnostyki
+
+Ścieżka pliku jest zazwyczaj pierwszą informacją, którą widzisz, w lewym górnym rogu diagnostyki.
+
+<DiagnosticLocFile />
+
+### Kod źródłowy diagnostyki
+
+To pokazuje, jak kod źródłowy powiązany z plikiem jest wyświetlany. Zauważ, że linia i kolumny nie są pokazane.
+
+<DiagnosticLocFrame />
+
+### Linia i kolumna diagnostyki
+
+**Linia** i **kolumna** są zazwyczaj drukowane obok ścieżki pliku i są pokazywane tylko wtedy, gdy jest jakiś kod źródłowy powiązany z nią.
+
+<DiagnosticLocAll />
+
+Gdy diagnostyki są drukowane wewnątrz terminala IDE, możesz kliknąć `path/to/file.js:2:2`, a IDE otworzy odpowiedni plik i umieści kursor na początku zakresu.
+
+<DiagnosticLocMultiline />
+
+## Porady diagnostyki
+
+Dodatkowo, nasze diagnostyki mogą przechowywać porady. Porady są dodatkowymi wiadomościami, które mogą być dołączone po oryginalnej wiadomości.
+
+Te porady przychodzą w różnych rodzajach i kształtach. Zazwyczaj porady są zawsze drukowane, chyba że są to _porady verbose_.
+
+<DiagnosticWithAdvice />
