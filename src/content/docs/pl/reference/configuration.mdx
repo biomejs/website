@@ -1,0 +1,1651 @@
+---
+title: Konfiguracja
+description: Jak dostosować i skonfigurować Biome za pomocą biome.json.
+---
+
+{/** Make sure to update the redirect in `static/_redirects` when changing the configuration title --> **/}
+
+## `$schema`
+
+Pozwala przekazać ścieżkę do pliku schematu JSON.
+
+Publikujemy plik schematu JSON dla naszych plików `biome.json`/`biome.jsonc`.
+
+Możesz określić względną ścieżkę do schematu wewnątrz pakietu NPM `@biomejs/biome`,
+jeśli jest zainstalowany w folderze `node_modules`:
+
+```json title="biome.json"
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json"
+}
+```
+
+Jeśli masz problemy z rozpoznaniem fizycznego pliku, możesz użyć tego
+opublikowanego na tej stronie:
+
+```json title="biome.json"
+{
+  "$schema": "https://biomejs.dev/schemas/2.0.5/schema.json"
+}
+```
+
+## `extends`
+
+Lista ścieżek do innych plików konfiguracyjnych Biome. Biome rozwiązuje i stosuje
+ustawienia konfiguracyjne z plików zawartych w liście `extends`, a następnie
+stosuje opcje zawarte w tym pliku `biome.json`/`biome.jsonc`.
+
+Kolejność ścieżek do rozszerzenia idzie od najmniej istotnych do najbardziej istotnych.
+
+Od wersji 2, ta opcja akceptuje ciąg znaków, który musi pasować do wartości `"//"`, który może być używany
+podczas konfigurowania [monorepos](/guides/big-projects#monorepo)
+
+## `root`
+
+Czy ta konfiguracja powinna być traktowana jako główna. Domyślnie każdy plik konfiguracyjny jest uznawany za główny.
+Gdy plik konfiguracyjny jest "zagnieżdżoną konfiguracją", musi ustawić `"root": false`, w przeciwnym razie zostanie zgłoszony błąd.
+
+Jest to wymagane, aby Biome mógł orkiestrować wiele plików w CLI i edytorach jednocześnie.
+
+> Domyślnie: `true`
+
+
+## `files`
+
+### `files.includes`
+
+Lista [wzorców glob](#glob-syntax-reference) plików do przetworzenia.
+
+Jeśli folder pasuje do wzorca glob, wszystkie pliki wewnątrz tego folderu będą
+przetworzone.
+
+Poniższy przykład pasuje do wszystkich plików z rozszerzeniem `.js` wewnątrz folderu `src`:
+
+```json title="biome.json"
+{
+  "files": {
+    "includes": ["src/**/*.js"]
+  }
+}
+```
+
+`*` jest używane do dopasowania _wszystkich plików w folderze_, podczas gdy `**` _rekurencyjnie_ dopasowuje
+wszystkie pliki i podfoldery w folderze. Aby uzyskać więcej informacji o globach, zobacz
+[referencja składni glob](#glob-syntax-reference)
+
+`includes` obsługuje również wzorce zanegowane lub wyjątki. Są to wzorce
+zaczynające się od `!` i mogą być używane do instruowania Biome, aby przetwarzał wszystkie pliki
+_z wyjątkiem_ tych pasujących do wzorca zanegowanego. Podczas używania wzorca zanegowanego,
+zawsze powinieneś najpierw określić `**`, aby dopasować wszystkie pliki i foldery, w przeciwnym razie
+wzorzec zanegowany nie dopasuje żadnych plików.
+
+Zauważ, że wyjątki są przetwarzane w kolejności, co pozwala na określenie wyjątków
+od wyjątków.
+
+Rozważ następujący przykład:
+
+```json title="biome.json"
+{
+  "files": {
+    "includes": ["**", "!**/*.test.js", "**/special.test.js", "!test"]
+  }
+}
+```
+
+Ten przykład określa, że:
+
+1. Wszystkie pliki wewnątrz wszystkich (pod)folderów są przetwarzane, dzięki wzorcowi `**`...
+2. ... _z wyjątkiem_ gdy te pliki mają rozszerzenie `.test.js`...
+3. ... ale plik `special.test.ts` _jest_ nadal przetwarzany...
+4. ... _z wyjątkiem_ gdy występuje w folderze o nazwie `test`, ponieważ _żadne_ pliki
+   wewnątrz tego folderu nie są przetwarzane.
+
+:::note
+Używanie `!test` do całkowitego wykluczenia katalogu jest obsługiwane tylko w `files.includes`. W innych miejscach, gdzie używane jest `includes` (`linter.includes`, `formatter.includes`, itp.), musisz użyć `!/test/**`, aby wykluczyć katalog.
+:::
+
+Oznacza to, że:
+
+* `src/app.js` **jest** przetwarzany.
+* `src/app.test.js` **nie jest** przetwarzany.
+* `src/special.test.js` **jest** przetwarzany.
+* `test/special.test.js` **nie jest** przetwarzany.
+
+Zauważ, że pliki wewnątrz `node_modules/` są ignorowane niezależnie od
+ustawienia `files.includes`.
+
+#### Interakcja ze skanerem
+
+Biome ma [skaner](/internals/architecture/#scanner), który jest odpowiedzialny za
+odkrywanie zagnieżdżonych plików konfiguracyjnych oraz plików `.gitignore`. Może
+również indeksować pliki źródłowe, jeśli jedna lub więcej reguł z
+[domeny projektu](/linter/domains/#project) jest włączona.
+
+Skaner respektuje zarówno `files.includes`, jak i wzorce ignorowane z
+plików `.gitignore`, ale są dwa wyjątki, o których należy wiedzieć:
+* Specjalne pliki, takie jak `biome.json` i `.gitignore`, mają priorytet nad wszystkimi
+  wzorcami ignorowanymi w `files.includes`.
+* Jeśli jakakolwiek reguła z domeny projektu jest włączona, skaner będzie indeksował pliki źródłowe
+  _włącznie z ich zależnościami_. Oznacza to, że pliki, które są ignorowane
+  jako część `files.includes`, mogą nadal być indeksowane przez skaner, o ile
+  istnieje inny dołączony plik, który importuje te pliki. A to również
+  oznacza, że pliki `.d.ts` i manifesty `package.json` wewnątrz `node_modules/`
+  mogą również być indeksowane.
+
+Jeśli chcesz wyraźnie wymusić ignorowanie niektórych plików przez skaner, możesz
+to zrobić używając tak zwanego _wzorca force-ignore_. Wzorzec force-ignore wygląda
+jak zwykły wzorzec zanegowany, ale zaczyna się od podwójnego wykrzyknika
+(`!!`).
+
+Na przykład, możesz powiedzieć Biome, aby nigdy nie zaglądał do żadnego folderu `dist/` używając
+następującej konfiguracji:
+
+```json title="biome.json"
+{
+  "files": {
+    "includes": ["**", "!!**/dist"]
+  }
+}
+```
+
+Zalecamy używanie składni force-ignore dla wszystkich folderów, które zawierają pliki _wyjściowe_,
+takie jak `build/` i `dist/`. Dla takich folderów jest bardzo mało prawdopodobne,
+że indeksowanie ma jakiekolwiek użyteczne korzyści. Dla folderów zawierających wygenerowane pliki,
+radzimy używać zwykłych wzorców ignorowania, aby informacje o typach mogły nadal być
+wyciągane z plików.
+
+Dla zagnieżdżonych plików `biome.json` oraz plików `.gitignore`, które chcesz
+wyraźnie zignorować, składnia force-ignore musi również być użyta.
+
+### `files.ignoreUnknown`
+
+Jeśli `true`, Biome nie będzie emitował diagnostyki, jeśli napotka pliki, których nie może
+obsłużyć.
+
+```json title="biome.json"
+{
+  "files": {
+    "ignoreUnknown": true
+  }
+}
+```
+
+> Domyślnie: `false`
+
+### `files.maxSize`
+
+Maksymalny dozwolony rozmiar plików kodu źródłowego w bajtach. Pliki powyżej
+tego limitu będą ignorowane ze względów wydajnościowych.
+
+> Domyślnie: `1048576` (1024*1024, 1MB)
+
+### `files.experimentalScannerIgnores`
+
+:::caution
+Ta opcja została **przestarzała** i może zostać usunięta w przyszłej wersji.
+Proszę użyć
+[_składni force-ignore_](/reference/configuration/#interaction-with-the-scanner)
+z `files.includes` zamiast tego.
+:::
+
+Tablica segmentów ścieżek dosłownych, które skaner powinien ignorować podczas
+przeszukiwania. Zignorowane pliki nie będą indeksowane, co oznacza, że te pliki nie będą
+częścią grafu modułów, a typy nie będą z nich wywnioskowane.
+
+## `vcs`
+
+Zestaw właściwości do integracji Biome z VCS (oprogramowaniem kontroli wersji).
+
+### `vcs.enabled`
+
+Czy Biome powinien integrować się z klientem VCS
+
+> Domyślnie: `false`
+
+### `vcs.clientKind`
+
+Rodzaj klienta.
+
+Wartości:
+- `"git"`
+
+### `vcs.useIgnoreFile`
+
+Czy Biome powinien używać plików ignorowania VCS projektu. Gdy `true`, Biome będzie ignorować pliki
+określone w plikach ignorowania VCS oraz te określone w plikach `.ignore`.
+
+Ta funkcja obsługuje również zagnieżdżone pliki ignorowania.
+
+Główny plik ignorowania daje te same semantyki co główny [`files.includes`](/reference/configuration#filesincludes).
+
+### `vcs.root`
+
+Folder, w którym Biome powinien sprawdzać pliki VCS. Domyślnie Biome użyje tego samego
+folderu, w którym znaleziono `biome.json`.
+
+Jeśli Biome nie może znaleźć konfiguracji, spróbuje użyć bieżącego katalogu roboczego.
+Jeśli nie można znaleźć bieżącego katalogu roboczego, Biome nie będzie używać integracji VCS i zostanie wyemitowana
+diagnostyka
+
+### `vcs.defaultBranch`
+
+Główna gałąź projektu. Biome użyje tej gałęzi podczas oceniania zmienionych plików.
+
+## `linter`
+
+### `linter.enabled`
+
+Włącza linter Biome.
+
+> Domyślnie: `true`
+
+### `linter.includes`
+
+Lista [wzorców glob](#glob-syntax-reference) plików do lintowania.
+
+Poniższy przykład lintuje wszystkie pliki z rozszerzeniem `.js` wewnątrz folderu `src`:
+
+```json title="biome.json"
+{
+  "linter": {
+    "includes": ["src/**/*.js"]
+  }
+}
+```
+
+`*` jest używane do dopasowania _wszystkich plików w folderze_, podczas gdy `**` _rekurencyjnie_ dopasowuje
+wszystkie pliki i podfoldery w folderze. Aby uzyskać więcej informacji o globach, zobacz
+[referencja składni glob](#glob-syntax-reference)
+
+`includes` obsługuje również wzorce zanegowane lub wyjątki. Są to wzorce
+zaczynające się od `!` i mogą być używane do instruowania Biome, aby przetwarzał wszystkie pliki
+_z wyjątkiem_ tych pasujących do wzorca zanegowanego.
+
+Zauważ, że wyjątki są przetwarzane w kolejności, co pozwala na określenie wyjątków
+od wyjątków.
+
+Rozważ następujący przykład:
+
+```json title="biome.json"
+{
+  "linter": {
+    "includes": ["**", "!**/*.test.js", "**/special.test.js"]
+  }
+}
+```
+
+Ten przykład określa, że:
+
+1. Wszystkie pliki wewnątrz wszystkich (pod)folderów są lintowane, dzięki wzorcowi `**`...
+2. ... _z wyjątkiem_ gdy te pliki mają rozszerzenie `.test.js`...
+3. ... ale plik `special.test.ts` _jest_ nadal lintowany.
+
+Oznacza to, że:
+
+* `src/app.js` **jest** lintowany.
+* `src/app.test.js` **nie jest** lintowany.
+* `src/special.test.js` **jest** lintowany.
+
+Zauważ, że `linter.includes` jest stosowane *po* `files.includes`. Oznacza to,
+że każdy plik, który nie jest dopasowany przez `files.includes`, nie może już być dopasowany
+przez `linter.includes`. Oznacza to, że następujący przykład **nie działa**:
+
+```json5 title="biome.jsonc"
+{
+  "files": {
+    "includes": "src/**"
+  },
+  "linter": {
+    // To nie dopasowuje niczego, ponieważ nie ma nakładania się z `files.includes`:
+    "includes": "scripts/**"
+  }
+}
+```
+
+Jeśli `linter.includes` nie jest określone, wszystkie pliki dopasowane przez
+[`files.includes`](#filesincludes) są lintowane.
+
+:::note
+Ze względu na ograniczenie techniczne, `linter.includes` również nie może dopasować folderów,
+podczas gdy `files.includes` może. Jeśli chcesz dopasować wszystkie pliki wewnątrz folderu,
+powinieneś wyraźnie dodać `/**` na końcu.
+:::
+
+### `linter.rules.recommended`
+
+Włącza zalecane reguły dla wszystkich grup.
+
+> Domyślnie: `true`
+
+
+### `linter.rules.[group]`
+
+Opcje wpływające na reguły pojedynczej grupy. Biome obsługuje następujące grupy:
+
+- accessibility: Reguły skupione na zapobieganiu problemom z dostępnością.
+- complexity: Reguły skupione na sprawdzaniu złożonego kodu, który mógłby być uproszczony.
+- correctness: Reguły wykrywające kod, który jest gwarantowanie niepoprawny lub bezużyteczny.
+- nursery: Nowe reguły, które są nadal w rozwoju. Reguły nursery wymagają wyraźnego włączenia przez konfigurację w stabilnych wersjach, ponieważ mogą nadal mieć błędy lub problemy z wydajnością. Są domyślnie włączone w wersjach nightly, ale ponieważ są niestabilne, ich ważność diagnostyczna może być ustawiona na błąd lub ostrzeżenie, w zależności od tego, czy zamierzamy, aby reguła była zalecana, czy nie, gdy ostatecznie zostanie ustabilizowana. Reguły nursery są promowane do innych grup, gdy stają się stabilne lub mogą zostać usunięte. Reguły należące do tej grupy nie podlegają wersjonowaniu semantycznemu.
+- performance: Reguły wykrywające sposoby, w jakie twój kod mógłby być napisany, aby działał szybciej lub był ogólnie bardziej wydajny.
+- security: Reguły wykrywające potencjalne luki bezpieczeństwa.
+- style: Reguły wymuszające spójny i idiomatyczny sposób pisania kodu.
+- suspicious: Reguły wykrywające kod, który prawdopodobnie jest niepoprawny lub bezużyteczny.
+
+Każda grupa może przyjąć, jako wartość, ciąg znaków reprezentujący ważność lub obiekt, w którym każda reguła może być skonfigurowana.
+
+Podczas przekazywania ważności możesz kontrolować ważność emitowaną przez wszystkie reguły należące do grupy.
+Na przykład możesz skonfigurować grupę `a11y`, aby emitowała diagnostyki informacyjne:
+
+```json title="biome.json"
+{
+  "linter": {
+    "rules": {
+      "a11y": "info"
+    }
+  }
+}
+```
+
+Oto akceptowane wartości:
+- `"on"`: każda reguła należąca do grupy będzie emitować diagnostykę z domyślną ważnością reguły. Zobacz dokumentację reguły lub użyj polecenia `explain`:
+    ```shell showLineNumbers=false
+    biome explain noDebugger
+    ```
+- `"off"`: żadna z reguł należących do grupy nie będzie emitować żadnych diagnostyk.
+- `"info"`: wszystkie reguły należące do grupy będą emitować [diagnostykę z ważnością informacyjną](/reference/diagnostics#information).
+- `"warn"`: wszystkie reguły należące do grupy będą emitować [diagnostykę z ważnością ostrzeżenia](/reference/diagnostics#warning).
+- `"error"`: wszystkie reguły należące do grupy będą emitować [diagnostykę z ważnością błędu](/reference/diagnostics#error).
+
+
+### `linter.rules.[group].recommended`
+
+Włącza zalecane reguły dla pojedynczej grupy.
+
+Przykład:
+
+```json title="biome.json"
+{
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "nursery": {
+        "recommended": true
+      }
+    }
+  }
+}
+```
+
+## `assist`
+
+### `assist.enabled`
+
+Włącza asystenta Biome.
+
+> Domyślnie: `true`
+
+
+### `assist.includes`
+
+Lista [wzorców glob](#glob-syntax-reference) plików do analizy.
+
+Poniższy przykład analizuje wszystkie pliki z rozszerzeniem `.js` wewnątrz folderu `src`:
+
+```json title="biome.json"
+{
+  "assist": {
+    "includes": ["src/**/*.js"]
+  }
+}
+```
+
+`*` jest używane do dopasowania _wszystkich plików w folderze_, podczas gdy `**` _rekurencyjnie_ dopasowuje
+wszystkie pliki i podfoldery w folderze. Aby uzyskać więcej informacji o globach, zobacz
+[referencja składni glob](#glob-syntax-reference)
+
+`includes` obsługuje również wzorce zanegowane lub wyjątki. Są to wzorce
+zaczynające się od `!` i mogą być używane do instruowania Biome, aby przetwarzał wszystkie pliki
+_z wyjątkiem_ tych pasujących do wzorca zanegowanego.
+
+Zauważ, że wyjątki są przetwarzane w kolejności, co pozwala na określenie wyjątków
+od wyjątków.
+
+Rozważ następujący przykład:
+
+```json title="biome.json"
+{
+  "assist": {
+    "includes": ["**", "!**/*.test.js", "**/special.test.js"]
+  }
+}
+```
+
+Ten przykład określa, że:
+
+1. Wszystkie pliki wewnątrz wszystkich (pod)folderów są analizowane, dzięki wzorcowi `**`...
+2. ... _z wyjątkiem_ gdy te pliki mają rozszerzenie `.test.js`...
+3. ... ale plik `special.test.ts` _jest_ nadal analizowany.
+
+Oznacza to, że:
+
+* `src/app.js` **jest** analizowany.
+* `src/app.test.js` **nie jest** analizowany.
+* `src/special.test.js` **jest** analizowany.
+
+Zauważ, że `assist.includes` jest stosowane *po* `files.includes`. Oznacza to,
+że każdy plik, który nie jest dopasowany przez `files.includes`, nie może już być dopasowany
+przez `assist.includes`. Oznacza to, że następujący przykład **nie działa**:
+
+```json5 title="biome.jsonc"
+{
+  "files": {
+    "includes": "src/**"
+  },
+  "assist": {
+    // To nie dopasowuje niczego, ponieważ nie ma nakładania się z `files.includes`:
+    "includes": "scripts/**"
+  }
+}
+```
+
+Jeśli `assist.includes` nie jest określone, wszystkie pliki dopasowane przez
+[`files.includes`](#filesincludes) są analizowane.
+
+:::note
+Ze względu na ograniczenie techniczne, `assist.includes` również nie może dopasować folderów,
+podczas gdy `files.includes` może. Jeśli chcesz dopasować wszystkie pliki wewnątrz folderu,
+powinieneś wyraźnie dodać `/**` na końcu.
+:::
+
+### `assist.actions.recommended`
+
+Włącza zalecane akcje dla wszystkich grup.
+
+### `assist.actions.[group]`
+
+Opcje wpływające na reguły pojedynczej grupy. Biome obsługuje następujące grupy:
+
+- source: Ta grupa reprezentuje te akcje, które mogą być bezpiecznie zastosowane do dokumentu przy zapisywaniu. Te akcje są ogólnie bezpieczne, zazwyczaj nie zmieniają funkcjonalności programu.
+
+### `assist.actions.[group].recommended`
+
+Włącza zalecane reguły dla pojedynczej grupy.
+
+Przykład:
+
+```json title="biome.json"
+{
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "recommended": true
+      }
+    }
+  }
+}
+```
+
+## `formatter`
+
+Te opcje dotyczą wszystkich języków. Poniżej znajdują się dodatkowe opcje formatowania specyficzne dla języka.
+
+### `formatter.enabled`
+
+Włącza formatowanie Biome.
+
+> Domyślnie: `true`
+
+### `formatter.includes`
+
+Lista [wzorców glob](#glob-syntax-reference) plików do sformatowania.
+
+Poniższy przykład formatuje wszystkie pliki z rozszerzeniem `.js` wewnątrz folderu `src`:
+
+```json title="biome.json"
+{
+  "formatter": {
+    "includes": ["src/**/*.js"]
+  }
+}
+```
+
+`*` jest używane do dopasowania _wszystkich plików w folderze_, podczas gdy `**` _rekurencyjnie_ dopasowuje
+wszystkie pliki i podfoldery w folderze. Aby uzyskać więcej informacji o globach, zobacz
+[referencja składni glob](#glob-syntax-reference)
+
+`includes` obsługuje również wzorce zanegowane lub wyjątki. Są to wzorce
+zaczynające się od `!` i mogą być używane do instruowania Biome, aby przetwarzał wszystkie pliki
+_z wyjątkiem_ tych pasujących do wzorca zanegowanego.
+
+Zauważ, że wyjątki są przetwarzane w kolejności, co pozwala na określenie wyjątków
+od wyjątków.
+
+Rozważ następujący przykład:
+
+```json title="biome.json"
+{
+  "formatter": {
+    "includes": ["**", "!**/*.test.js", "**/special.test.js"]
+  }
+}
+```
+
+Ten przykład określa, że:
+
+1. Wszystkie pliki wewnątrz wszystkich (pod)folderów są formatowane, dzięki wzorcowi `**`...
+2. ... _z wyjątkiem_ gdy te pliki mają rozszerzenie `.test.js`...
+3. ... ale plik `special.test.ts` _jest_ nadal formatowany.
+
+Oznacza to, że:
+
+* `src/app.js` **jest** formatowany.
+* `src/app.test.js` **nie jest** formatowany.
+* `src/special.test.js` **jest** formatowany.
+
+Zauważ, że `formatter.includes` jest stosowane *po* `files.includes`. Oznacza to,
+że każdy plik, który nie jest dopasowany przez `files.includes`, nie może już być dopasowany
+przez `formatter.includes`. Oznacza to, że następujący przykład **nie działa**:
+
+```json5 title="biome.jsonc"
+{
+  "files": {
+    "includes": "src/**"
+  },
+  "formatter": {
+    // To nie dopasowuje niczego, ponieważ nie ma nakładania się z `files.includes`:
+    "includes": "scripts/**"
+  }
+}
+```
+
+Jeśli `formatter.includes` nie jest określone, wszystkie pliki dopasowane przez
+[`files.includes`](#filesincludes) są formatowane.
+
+:::note
+Ze względu na ograniczenie techniczne, `formatter.includes` również nie może dopasować folderów,
+podczas gdy `files.includes` może. Jeśli chcesz dopasować wszystkie pliki wewnątrz folderu,
+powinieneś wyraźnie dodać `/**` na końcu.
+:::
+
+### `formatter.formatWithErrors`
+
+Pozwala sformatować dokument, który ma błędy składniowe.
+
+
+
+```json title="biome.json"
+{
+  "formatter": {
+    "formatWithErrors": true
+  }
+}
+```
+
+> Domyślnie: `false`
+
+### `formatter.indentStyle`
+
+Styl wcięcia. Może być `"tab"` lub `"space"`.
+
+> Domyślnie: `"tab"`
+
+
+### `formatter.indentWidth`
+
+Jak duże powinno być wcięcie.
+
+> Domyślnie: `2`
+
+### `formatter.lineEnding`
+
+Typ zakończenia linii.
+- `"lf"`, tylko Line Feed (`\n`), powszechne na Linux i macOS oraz wewnątrz repozytoriów git;
+- `"crlf"`, znaki Carriage Return + Line Feed (`\r\n`), powszechne na Windows;
+- `"cr"`, tylko znak Carriage Return (`\r`), używane bardzo rzadko.
+
+> Domyślnie: `"lf"`
+
+### `formatter.lineWidth`
+
+Liczba znaków, które mogą być zapisane w jednej linii.
+
+> Domyślnie: `80`
+
+### `formatter.attributePosition`
+
+Styl pozycji atrybutów w językach HTMLowych.
+- `"auto"`, atrybuty są automatycznie formatowane i będą zwijane w wiele linii tylko wtedy, gdy spełnią określone kryteria;
+- `"multiline"`, atrybuty będą zwijane w wiele linii, jeśli używany jest więcej niż 1 atrybut.
+
+> Domyślnie: `"auto"`
+
+### `formatter.bracketSpacing`
+
+Wybierz, czy spacje powinny być dodawane między nawiasami a wartościami wewnętrznymi.
+
+> Domyślnie: `true`
+
+### `formatter.expand`
+
+Czy rozszerzać tablice i obiekty na wiele linii.
+- `"auto"`, literały obiektów są formatowane na wiele linii, jeśli pierwsza właściwość ma nową linię,
+  a literały tablic są formatowane w jednej linii, jeśli pasują do linii.
+- `"always"`, te literały są formatowane na wiele linii, niezależnie od długości listy.
+- `"never"`, te literały są formatowane w jednej linii, jeśli pasują do linii.
+
+Podczas formatowania `package.json`, Biome użyje `always`, chyba że skonfigurowano inaczej.
+
+> Domyślnie: `"auto"`
+
+### `formatter.useEditorconfig`
+
+Czy Biome powinien używać pliku `.editorconfig` do określenia opcji formatowania.
+
+Pliki konfiguracyjne `.editorconfig` i `biome.json` będą przestrzegać następujących reguł:
+
+- Ustawienia formatowania w `biome.json` zawsze mają pierwszeństwo przed plikami `.editorconfig`.
+- Pliki `.editorconfig`, które istnieją wyżej w hierarchii niż plik `biome.json`, są już ignorowane. Ma to na celu uniknięcie ładowania ustawień formatowania z czyjegoś katalogu domowego do projektu z plikiem `biome.json`.
+- Zagnieżdżone pliki `.editorconfig` nie są obecnie obsługiwane.
+
+> Domyślnie: `false`
+
+
+## `javascript`
+
+Te opcje dotyczą tylko plików JavaScript (i TypeScript).
+
+### `javascript.parser.unsafeParameterDecoratorsEnabled`
+
+Pozwala obsługiwać niebezpieczne/eksperymentalne dekoratory parametrów.
+
+```json title="biome.json"
+{
+  "javascript": {
+    "parser": {
+	    "unsafeParameterDecoratorsEnabled": true
+    }
+  }
+}
+```
+
+> Domyślnie: `false`
+
+
+### `javascript.parser.jsxEverywhere`
+
+Gdy ustawione na `true`, pozwala parsować składnię JSX wewnątrz plików `.js`. Gdy ustawione na `false`, Biome będzie zgłaszać diagnostyki, gdy napotka składnię JSX wewnątrz plików `.js`.
+
+> Domyślnie: `true`
+
+```json title="biome.json"
+{
+  "javascript": {
+    "parser": {
+      "jsxEverywhere": false
+    }
+  }
+}
+```
+
+### `javascript.formatter.quoteStyle`
+
+Typ cudzysłowu używany przy reprezentowaniu literałów ciągów. Może być `"single"` lub `"double"`.
+
+> Domyślnie: `"double"`
+
+```json title="biome.json"
+{
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single"
+    }
+  }
+}
+```
+
+### `javascript.formatter.jsxQuoteStyle`
+
+Typ cudzysłowu używany przy reprezentowaniu literałów ciągów JSX. Może być `"single"` lub `"double"`.
+
+> Domyślnie: `"double"`
+
+```json title="biome.json"
+{
+  "javascript": {
+    "formatter": {
+      "jsxQuoteStyle": "single"
+    }
+  }
+}
+```
+
+### `javascript.formatter.quoteProperties`
+
+Kiedy właściwości wewnątrz obiektów powinny być w cudzysłowach. Może być `"asNeeded"` lub `"preserve"`.
+
+> Domyślnie: `"asNeeded"`
+
+```json title="biome.json"
+{
+  "javascript": {
+    "formatter": {
+      "quoteProperties": "preserve"
+    }
+  }
+}
+```
+
+### `javascript.formatter.trailingCommas`
+
+Drukuj końcowe przecinki wszędzie tam, gdzie jest to możliwe w wieloliniowych strukturach składniowych oddzielonych przecinkami. Możliwe wartości:
+- `"all"`, końcowy przecinek jest zawsze dodawany;
+- `"es5"`, końcowy przecinek jest dodawany tylko w miejscach, gdzie jest obsługiwany przez starszą wersję JavaScript;
+- `"none"`, końcowe przecinki nigdy nie są dodawane.
+
+> Domyślnie: `"all"`
+
+### `javascript.formatter.semicolons`
+
+Konfiguruje, gdzie formatowanie drukuje średniki:
+- `"always"`, średnik jest zawsze dodawany na końcu każdego wyrażenia;
+- `"asNeeded"`, średniki są dodawane tylko w miejscach, gdzie są potrzebne, aby chronić przed [ASI](https://en.wikibooks.org/wiki/JavaScript/Automatic_semicolon_insertion).
+
+> Domyślnie: `"always"`
+
+Przykład:
+
+
+```json title="biome.json"
+{
+  "javascript": {
+    "formatter": {
+      "semicolons": "asNeeded"
+    }
+  }
+}
+```
+
+### `javascript.formatter.arrowParentheses`
+
+Czy dodawać niepotrzebne nawiasy do funkcji strzałkowych:
+- `"always"`, nawiasy są zawsze dodawane;
+- `"asNeeded"`, nawiasy są dodawane tylko wtedy, gdy są potrzebne.
+
+> Domyślnie: `"always"`
+
+### `javascript.formatter.enabled`
+
+Włącza formatowanie Biome dla plików JavaScript (i jego nadjęzyków).
+
+> Domyślnie: `true`
+
+### `javascript.formatter.indentStyle`
+
+Styl wcięcia dla plików JavaScript (i jego nadjęzyków). Może być `"tab"` lub `"space"`.
+
+> Domyślnie: `"tab"`
+
+
+### `javascript.formatter.indentWidth`
+
+Jak duże powinno być wcięcie dla plików JavaScript (i jego nadjęzyków).
+
+> Domyślnie: `2`
+
+### `javascript.formatter.lineEnding`
+
+Typ zakończenia linii dla plików JavaScript (i jego nadjęzyków).
+- `"lf"`, tylko Line Feed (`\n`), powszechne na Linux i macOS oraz wewnątrz repozytoriów git;
+- `"crlf"`, znaki Carriage Return + Line Feed (`\r\n`), powszechne na Windows;
+- `"cr"`, tylko znak Carriage Return (`\r`), używane bardzo rzadko.
+
+> Domyślnie: `"lf"`
+
+### `javascript.formatter.lineWidth`
+
+Liczba znaków, które mogą być zapisane w jednej linii w plikach JavaScript (i jego nadjęzykach).
+
+> Domyślnie: `80`
+
+### `javascript.formatter.bracketSameLine`
+
+Wybierz, czy końcowy `>` wieloliniowego elementu JSX powinien być w ostatniej linii atrybutu, czy nie
+
+> Domyślnie: `false`
+
+### `javascript.formatter.bracketSpacing`
+
+Wybierz, czy spacje powinny być dodawane między nawiasami a wartościami wewnętrznymi.
+
+> Domyślnie: `true`
+
+### `javascript.formatter.attributePosition`
+
+Styl pozycji atrybutów w elementach JSX.
+- `"auto"`, nie wymuszaj pojedynczego atrybutu na linię.
+- `"multiline"`, wymuszaj pojedynczy atrybut na linię.
+
+> Domyślnie: `"auto"`
+
+### `javascript.formatter.expand`
+
+Czy rozszerzać tablice i obiekty na wiele linii.
+- `"auto"`, literały obiektów są formatowane na wiele linii, jeśli pierwsza właściwość ma nową linię,
+  a literały tablic są formatowane w jednej linii, jeśli pasują do linii.
+- `"always"`, te literały są formatowane na wiele linii, niezależnie od długości listy.
+- `"never"`, te literały są formatowane w jednej linii, jeśli pasują do linii.
+
+> Domyślnie: `"auto"`
+
+
+### `javascript.formatter.operatorLinebreak`
+
+Podczas łamania wyrażeń binarnych na wiele linii, czy łamać je przed czy po operatorze binarnym.
+
+> Domyślnie: `"after"`.
+
+- `"after`: operator jest umieszczony po wyrażeniu:
+  ```js title="file.js"
+  if (
+    expressionOne &&
+    expressionTwo &&
+    expressionThree &&
+    expressionFour
+  ) {}
+  ```
+- `"before`: operator jest umieszczony przed wyrażeniem:
+  ```js title="file.js"
+  if (
+    expressionOne
+    && expressionTwo
+    && expressionThree
+    && expressionFour
+  ) {}
+  ```
+
+### `javascript.globals`
+
+Lista globalnych nazw, które Biome powinien ignorować (analizator, linter, itp.)
+
+```json title="biome.json"
+{
+  "javascript": {
+    "globals": ["$", "_", "externalVariable"]
+  }
+}
+```
+
+### `javascript.jsxRuntime`
+
+Wskazuje typ środowiska wykonawczego lub transformacji używanej do interpretacji JSX.
+
+- `"transparent"` &mdash; Wskazuje na nowoczesne lub natywne środowisko JSX, które
+nie wymaga specjalnego traktowania przez Biome.
+- `"reactClassic"` &mdash; Wskazuje na klasyczne środowisko React, które wymaga
+importu `React`. Odpowiada wartości `react` dla
+opcji `jsx` w [`tsconfig.json`](https://www.typescriptlang.org/tsconfig#jsx) TypeScript.
+
+```json title="biome.json"
+{
+  "javascript": {
+    "jsxRuntime": "reactClassic"
+  }
+}
+```
+
+Aby uzyskać więcej informacji o starym vs. nowym środowisku wykonawczym JSX, zobacz:
+https://legacy.reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html
+
+> Domyślnie: `"transparent"`
+
+### `javascript.linter.enabled`
+
+Włącza linter Biome dla plików JavaScript (i jego nadjęzyków).
+
+> Domyślnie: `true`
+
+
+```json title="biome.json"
+{
+  "javascript": {
+    "linter": {
+      "enabled": false
+    }
+  }
+}
+```
+
+
+### `javascript.assist.enabled`
+
+Włącza asystenta Biome dla plików JavaScript (i jego nadjęzyków).
+
+> Domyślnie: `true`
+
+```json title="biome.json"
+{
+  "javascript": {
+    "assist": {
+      "enabled": false
+    }
+  }
+}
+```
+
+## `json`
+
+Opcje stosowane do plików JSON.
+
+### `json.parser.allowComments`
+
+Włącza parsowanie komentarzy w plikach JSON.
+
+
+
+```json title="biome.json"
+{
+  "json": {
+    "parser": {
+      "allowComments": true
+    }
+  }
+}
+```
+
+### `json.parser.allowTrailingCommas`
+
+Włącza parsowanie końcowych przecinków w plikach JSON.
+
+
+
+```json title="biome.json"
+{
+  "json": {
+    "parser": {
+      "allowTrailingCommas": true
+    }
+  }
+}
+```
+
+### `json.formatter.enabled`
+
+Włącza formatowanie Biome dla plików JSON (i jego nadjęzyków).
+
+> Domyślnie: `true`
+
+```json title="biome.json"
+{
+  "json": {
+    "formatter": {
+      "enabled": false
+    }
+  }
+}
+```
+
+### `json.formatter.indentStyle`
+
+
+Styl wcięcia dla plików JSON (i jego nadjęzyków). Może być `"tab"` lub `"space"`.
+
+> Domyślnie: `"tab"`
+
+
+### `json.formatter.indentWidth`
+
+Jak duże powinno być wcięcie dla plików JSON (i jego nadjęzyków).
+
+> Domyślnie: `2`
+
+### `json.formatter.lineEnding`
+
+Typ zakończenia linii dla plików JSON (i jego nadjęzyków).
+- `"lf"`, tylko Line Feed (`\n`), powszechne na Linux i macOS oraz wewnątrz repozytoriów git;
+- `"crlf"`, znaki Carriage Return + Line Feed (`\r\n`), powszechne na Windows;
+- `"cr"`, tylko znak Carriage Return (`\r`), używane bardzo rzadko.
+
+> Domyślnie: `"lf"`
+
+### `json.formatter.lineWidth`
+
+Liczba znaków, które mogą być zapisane w jednej linii w plikach JSON (i jego nadjęzykach).
+
+> Domyślnie: `80`
+
+### `json.formatter.trailingCommas`
+
+Drukuj końcowe przecinki wszędzie tam, gdzie jest to możliwe w wieloliniowych strukturach składniowych oddzielonych przecinkami.
+
+Dozwolone wartości:
+- `"none"`: końcowy przecinek jest usuwany;
+- `"all"`: końcowy przecinek jest zachowywany **i** preferowany.
+
+> Domyślnie: `"none"`
+
+### `json.formatter.bracketSpacing`
+
+Wybierz, czy spacje powinny być dodawane między nawiasami a wartościami wewnętrznymi.
+
+> Domyślnie: `true`
+
+### `json.formatter.expand`
+
+Czy rozszerzać tablice i obiekty na wiele linii.
+- `"auto"`, literały obiektów są formatowane na wiele linii, jeśli pierwsza właściwość ma nową linię,
+  a literały tablic są formatowane w jednej linii, jeśli pasują do linii.
+- `"always"`, te literały są formatowane na wiele linii, niezależnie od długości listy.
+- `"never"`, te literały są formatowane w jednej linii, jeśli pasują do linii.
+
+Podczas formatowania `package.json`, Biome użyje `always`, chyba że skonfigurowano inaczej.
+
+> Domyślnie: `"auto"`
+
+### `json.linter.enabled`
+
+Włącza formatowanie Biome dla plików JSON (i jego nadjęzyków).
+
+> Domyślnie: `true`
+
+```json title="biome.json"
+{
+  "json": {
+    "linter": {
+      "enabled": false
+    }
+  }
+}
+```
+
+
+### `json.assist.enabled`
+
+Włącza asystenta Biome dla plików JSON (i jego nadjęzyków).
+
+> Domyślnie: `true`
+
+```json title="biome.json"
+{
+  "json": {
+    "assist": {
+      "enabled": false
+    }
+  }
+}
+```
+
+## `css`
+
+Opcje stosowane do plików CSS.
+
+### `css.parser.cssModules`
+
+Włącza parsowanie [modułów CSS](https://github.com/css-modules/css-modules)
+
+> Domyślnie: `false`
+
+### `css.parser.tailwindDirectives`
+
+<div style="display: none">tailwindDirectives, tailwind, tailwind directives, tailwind syntax</div>
+
+Włącza parsowanie specyficznej składni [Tailwind](https://tailwindcss.com), takiej jak `@theme`, `@utility` i `@apply`.
+
+> Domyślnie: `false`
+
+### `css.formatter.enabled`
+
+Włącza formatowanie Biome dla plików CSS.
+
+> Domyślnie: `false`
+
+```json title="biome.json"
+{
+  "css": {
+    "formatter": {
+      "enabled": false
+    }
+  }
+}
+```
+
+### `css.formatter.indentStyle`
+
+
+Styl wcięcia dla plików CSS. Może być `"tab"` lub `"space"`.
+
+> Domyślnie: `"tab"`
+
+
+### `css.formatter.indentWidth`
+
+Jak duże powinno być wcięcie dla plików CSS.
+
+> Domyślnie: `2`
+
+
+```json title="biome.json"
+{
+  "css": {
+    "formatter": {
+      "indentWidth": 2
+    }
+  }
+}
+```
+
+### `css.formatter.lineEnding`
+
+Typ zakończenia linii dla plików CSS.
+- `"lf"`, tylko Line Feed (`\n`), powszechne na Linux i macOS oraz wewnątrz repozytoriów git;
+- `"crlf"`, znaki Carriage Return + Line Feed (`\r\n`), powszechne na Windows;
+- `"cr"`, tylko znak Carriage Return (`\r`), używane bardzo rzadko.
+
+> Domyślnie: `"lf"`
+
+
+
+### `css.formatter.lineWidth`
+
+Liczba znaków, które mogą być zapisane w jednej linii w plikach CSS.
+
+> Domyślnie: `80`
+
+### `css.formatter.quoteStyle`
+
+Typ cudzysłowu używany przy reprezentowaniu literałów ciągów. Może być `"single"` lub `"double"`.
+
+> Domyślnie: `"double"`
+
+### `css.linter.enabled`
+
+Włącza linter Biome dla plików CSS.
+
+> Domyślnie: `true`
+
+```json title="biome.json"
+{
+  "css": {
+    "linter": {
+      "enabled": false
+    }
+  }
+}
+```
+
+### `css.assist.enabled`
+
+Włącza asystenta Biome dla plików CSS.
+
+> Domyślnie: `true`
+
+```json title="biome.json"
+{
+  "css": {
+    "assist": {
+      "enabled": false
+    }
+  }
+}
+```
+
+## `graphql`
+
+Opcje stosowane do plików GraphQL.
+
+
+### `graphql.formatter.enabled`
+
+Włącza formatowanie Biome dla plików GraphQL.
+
+> Domyślnie: `false`
+
+### `graphql.formatter.indentStyle`
+
+
+Styl wcięcia dla plików GraphQL. Może być `"tab"` lub `"space"`.
+
+> Domyślnie: `"tab"`
+
+
+### `graphql.formatter.indentWidth`
+
+Jak duże powinno być wcięcie dla plików GraphQL.
+
+> Domyślnie: `2`
+
+### `graphql.formatter.lineEnding`
+
+Typ zakończenia linii dla plików GraphQL.
+- `"lf"`, tylko Line Feed (`\n`), powszechne na Linux i macOS oraz wewnątrz repozytoriów git;
+- `"crlf"`, znaki Carriage Return + Line Feed (`\r\n`), powszechne na Windows;
+- `"cr"`, tylko znak Carriage Return (`\r`), używane bardzo rzadko.
+
+> Domyślnie: `"lf"`
+
+### `graphql.formatter.lineWidth`
+
+Liczba znaków, które mogą być zapisane w jednej linii w plikach GraphQL.
+
+> Domyślnie: `80`
+
+### `graphql.formatter.quoteStyle`
+
+Typ cudzysłowu używany przy reprezentowaniu literałów ciągów. Może być `"single"` lub `"double"`.
+
+> Domyślnie: `"double"`
+
+### `graphql.linter.enabled`
+
+Włącza linter Biome dla plików GraphQL.
+
+> Domyślnie: `true`
+
+### `graphql.assist.enabled`
+
+Włącza asystenta Biome dla plików GraphQL.
+
+> Domyślnie: `true`
+
+
+
+## `grit`
+
+Opcje stosowane do plików Grit.
+
+
+### `grit.formatter.enabled`
+
+Włącza formatowanie Biome dla plików Grit.
+
+> Domyślnie: `false`
+
+### `grit.formatter.indentStyle`
+
+
+Styl wcięcia dla plików Grit. Może być `"tab"` lub `"space"`.
+
+> Domyślnie: `"tab"`
+
+
+### `grit.formatter.indentWidth`
+
+Jak duże powinno być wcięcie dla plików Grit.
+
+> Domyślnie: `2`
+
+### `grit.formatter.lineEnding`
+
+Typ zakończenia linii dla plików Grit.
+- `"lf"`, tylko Line Feed (`\n`), powszechne na Linux i macOS oraz wewnątrz repozytoriów git;
+- `"crlf"`, znaki Carriage Return + Line Feed (`\r\n`), powszechne na Windows;
+- `"cr"`, tylko znak Carriage Return (`\r`), używane bardzo rzadko.
+
+> Domyślnie: `"lf"`
+
+### `grit.formatter.lineWidth`
+
+Liczba znaków, które mogą być zapisane w jednej linii w plikach Grit.
+
+> Domyślnie: `80`
+
+### `grit.formatter.quoteStyle`
+
+Typ cudzysłowu używany przy reprezentowaniu literałów ciągów. Może być `"single"` lub `"double"`.
+
+> Domyślnie: `"double"`
+
+### `grit.linter.enabled`
+
+Włącza linter Biome dla plików Grit.
+
+> Domyślnie: `true`
+
+```json title="biome.json"
+{
+  "grit": {
+    "linter": {
+      "enabled": false
+    }
+  }
+}
+```
+
+### `grit.assist.enabled`
+
+Włącza asystenta Biome dla plików Grit.
+
+> Domyślnie: `true`
+
+```json title="biome.json"
+{
+  "grit": {
+    "assist": {
+      "enabled": false
+    }
+  }
+}
+```
+
+## `html`
+
+:::caution
+Chociaż parser, formatowanie i linter HTML są domyślnie włączone, nadal są uważane za eksperymentalne.
+Zmiany łamiące będą zredukowane do minimum, jednak wprowadzenie poprawek i funkcji może zmienić
+zachowanie narzędzi.
+:::
+
+### `html.parser.interpolation`
+
+Włącza parsowanie podwójnych wyrażeń tekstowych, takich jak `{{ expression }}` wewnątrz plików `.html`.
+
+> Domyślnie: `false`
+
+### `html.formatter.enabled`
+
+Włącza formatowanie Biome dla plików HTML.
+
+> Domyślnie: `false`
+
+### `html.formatter.indentStyle`
+
+Styl wcięcia dla plików HTML. Może być `"tab"` lub `"space"`.
+
+> Domyślnie: `"tab"`
+
+### `html.formatter.indentWidth`
+
+Jak duże powinno być wcięcie dla plików HTML.
+
+> Domyślnie: `2`
+
+### `html.formatter.lineEnding`
+
+Typ zakończenia linii dla plików HTML.
+- `"lf"`, tylko Line Feed (`\n`), powszechne na Linux i macOS oraz wewnątrz repozytoriów git;
+- `"crlf"`, znaki Carriage Return + Line Feed (`\r\n`), powszechne na Windows;
+- `"cr"`, tylko znak Carriage Return (`\r`), używane bardzo rzadko.
+
+> Domyślnie: `"lf"`
+
+### `html.formatter.lineWidth`
+
+Liczba znaków, które mogą być zapisane w jednej linii w plikach HTML.
+
+> Domyślnie: `80`
+
+### `html.formatter.attributePosition`
+
+Styl pozycji atrybutów w elementach HTML.
+- `"auto"`, atrybuty są automatycznie formatowane i będą zwijane w wiele linii tylko wtedy, gdy spełnią określone kryteria;
+- `"multiline"`, atrybuty będą zwijane w wiele linii, jeśli używany jest więcej niż 1 atrybut.
+
+> Domyślnie: `"auto"`
+
+### `html.formatter.bracketSameLine`
+
+Czy przytulić zamykający nawias wieloliniowych tagów HTML do końca ostatniej linii, zamiast być samemu na następnej linii.
+
+> Domyślnie: `false`
+
+### `html.formatter.whitespaceSensitivity`
+
+<div style="display: none">whitespaceSensitivity, whitespace sensitivity</div>
+
+Czy uwzględniać wrażliwość na białe znaki podczas formatowania HTML (i jego nadjęzyków).
+
+> Domyślnie: "css"
+
+
+- `"css"`: Formatowanie uważa białe znaki za istotne dla elementów, które mają domyślnie styl wyświetlania "inline" w arkuszu stylów user agent przeglądarki.
+- `"strict"`: Wiodące i końcowe białe znaki w treści są uważane za istotne dla wszystkich elementów.
+
+  Formatowanie powinno pozostawić co najmniej jeden znak białego znaku, jeśli białe znaki są obecne.
+  W przeciwnym razie, jeśli nie ma białych znaków, nie powinno dodawać żadnych po `>` lub przed `<`. Innymi słowy, jeśli nie ma białych znaków, treść tekstowa powinna przytulić się do tagów.
+
+  Przykład treści przytulającej się do tagów:
+  ```html
+  <b
+     >content</b
+  >
+  ```
+- `"ignore"`: białe znaki są uważane za nieistotne. Formatowanie może swobodnie usuwać lub dodawać białe znaki, jak uzna za stosowne.
+
+### `html.formatter.indentScriptAndStyle`
+
+<div style="display: none">indentScriptAndStyle, indent script, indent style</div>
+
+*Od 2.3: Dotyczy tylko plików `.vue` i `.svelte`*
+
+Czy wciąć zawartość tagów `<script>` i `<style>` dla plików Vue i Svelte. Obecnie nie dotyczy to zwykłych plików HTML.
+
+> Domyślnie: `false`
+
+Gdy true, zawartość tagów `<script>` i `<style>` będzie wcięta o jeden poziom względem tagów.
+
+```vue title="foo.vue" del={2} ins={3}
+<script>
+import Bar from "./Bar.vue";
+  import Bar from "./Bar.vue";
+</script>
+```
+
+### `html.formatter.selfCloseVoidElements`
+
+<div style="display: none">selfCloseVoidElements, void elements, self closing elements</div>
+
+Czy elementy void powinny być samozamykające. Domyślnie nigdy.
+
+> Domyślnie: `"never"`
+
+- `"never"`: Ukośnik `/` wewnątrz elementów void jest usuwany przez formatowanie.
+- `"always"`: Ukośnik `/` wewnątrz elementów void jest zawsze dodawany.
+
+### `html.linter.enabled`
+
+Włącza linter Biome dla plików HTML.
+
+> Domyślnie: `true`
+
+### `html.linter.assist`
+
+Włącza asystenta Biome dla plików HTML.
+
+> Domyślnie: `true`
+
+
+## `overrides`
+
+Lista wzorców.
+
+Użyj tej konfiguracji, aby zmienić zachowanie narzędzi dla określonych plików.
+
+Gdy plik jest dopasowany do wzorca nadpisania, konfiguracja określona w tym wzorcu nadpisze konfigurację najwyższego poziomu.
+
+Kolejność wzorców ma znaczenie. Jeśli plik *może* dopasować trzy wzorce, używany jest tylko pierwszy.
+
+### `overrides.<ITEM>.includes`
+
+Lista [wzorców glob](https://en.wikipedia.org/wiki/Glob_(programming)) plików,
+dla których mają być zastosowane dostosowane ustawienia.
+
+```jsonc title="biome.jsonc"
+{
+  "overrides": [{
+    "includes": ["scripts/*.js"],
+    // ustawienia, które powinny dotyczyć tylko plików określonych w polu includes.
+  }]
+}
+```
+
+### `overrides.<ITEM>.formatter`
+
+Zawiera opcje konfiguracji [formatowania najwyższego poziomu](#formatter), minus `ignore` i `include`.
+
+#### Przykłady
+
+Na przykład możliwe jest zmodyfikowanie `lineWidth`, `indentStyle` formatowania dla określonych plików, które są zawarte w ścieżce glob `generated/**`:
+
+```json title="biome.json"
+{
+  "formatter": {
+    "lineWidth": 100
+  },
+  "overrides": [
+    {
+      "includes": ["generated/**"],
+      "formatter": {
+        "lineWidth": 160,
+        "indentStyle": "space"
+      }
+    }
+  ]
+}
+```
+
+### `overrides.<ITEM>.linter`
+
+Zawiera opcje konfiguracji [lintera najwyższego poziomu](#linter), minus `ignore` i `include`.
+
+
+#### Przykłady
+
+Możesz wyłączyć określone reguły dla określonych ścieżek glob i wyłączyć linter dla innych ścieżek glob:
+
+```json title="biome.json"
+{
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["lib/**"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noDebugger": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["shims/**"],
+      "linter": {
+        "enabled": false
+      }
+    }
+  ]
+}
+```
+
+### `overrides.<ITEM>.javascript`
+
+Zawiera opcje konfiguracji [JavaScript najwyższego poziomu](#javascript). Pozwala nadpisać ustawienia specyficzne dla JavaScript dla określonych plików.
+
+#### Przykłady
+
+Możesz zmienić zachowanie formatowania plików JavaScript w określonych folderach:
+
+```json title="biome.json"
+{
+  "formatter": {
+    "lineWidth": 120
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single"
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["lib/**"],
+      "javascript": {
+        "formatter": {
+          "quoteStyle": "double"
+        }
+      }
+    }
+  ]
+}
+```
+
+
+### `overrides.<ITEM>.json`
+
+Zawiera opcje konfiguracji [JSON najwyższego poziomu](#json). Pozwala nadpisać ustawienia specyficzne dla JSON dla określonych plików.
+
+
+#### Przykłady
+
+Możesz włączyć funkcje parsowania dla określonych plików JSON:
+
+```json title="biome.json"
+{
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true
+    }
+  },
+  "overrides": [
+    {
+      "includes": [".vscode/**"],
+      "json": {
+        "parser": {
+          "allowComments": true,
+          "allowTrailingCommas": true
+        }
+      }
+    }
+  ]
+}
+```
+
+### `overrides.<ITEM>.[language]`
+
+Zawiera opcje konfiguracji języka najwyższego poziomu. Pozwala nadpisać ustawienia specyficzne dla języka dla określonych plików.
+
+## Referencja składni Glob
+
+Wzorce glob są używane do dopasowania ścieżek plików i folderów. Biome obsługuje
+następującą składnię w globach:
+
+- `*` dopasowuje zero lub więcej znaków. Nie może dopasować separatora ścieżki `/`.
+- `**` rekurencyjnie dopasowuje katalogi i pliki. Ta sekwencja musi być używana jako
+  cały komponent ścieżki, więc zarówno `**a`, jak i `b**` są nieprawidłowe i spowodują
+  błąd. Sekwencja więcej niż dwóch kolejnych znaków `*` jest również
+  nieprawidłowa.
+- `[...]` dopasowuje dowolny znak wewnątrz nawiasów.
+  Zakresy znaków mogą być również określone, uporządkowane według Unicode, więc np.
+  `[0-9]` określa dowolny znak między 0 a 9 włącznie.
+- `[!...]` jest negacją `[...]`, tj. dopasowuje dowolne znaki **nie** w
+  nawiasach.
+- Jeśli cały glob zaczyna się od `!`, jest to tak zwany wzorzec zanegowany. Ten
+  glob dopasowuje tylko wtedy, gdy ścieżka _nie_ pasuje do globa. Wzorce zanegowane
+  nie mogą być używane samodzielnie, mogą być używane tylko jako _wyjątek_ od zwykłego globa.
+- Podczas określania, czy plik jest dołączony, czy nie, Biome uwzględnia również
+  foldery nadrzędne. Oznacza to, że jeśli chcesz _dołączyć_ wszystkie pliki w folderze,
+  musisz użyć sufiksu `/**`, aby dopasować te pliki. Ale jeśli chcesz
+  _zignorować_ wszystkie pliki w folderze, możesz to zrobić bez sufiksu `/**`. Zalecamy
+  ignorowanie folderów bez końcowego `/**`, aby uniknąć niepotrzebnego
+  przeszukiwania, a także uniknąć ryzyka, że Biome załaduje `biome.json` lub
+  plik `.gitignore` z zignorowanego folderu.
+
+Kilka przykładów:
+
+- `dist/**` dopasowuje folder `dist/` i wszystkie pliki wewnątrz niego.
+- `!dist` ignoruje folder `dist/` i wszystkie pliki wewnątrz niego.
+- `**/test/**` dopasowuje wszystkie pliki pod dowolnym folderem o nazwie `test`, niezależnie od
+  tego, gdzie się znajdują. Np. `dist/test`, `src/test`.
+- `**/*.js` dopasowuje wszystkie pliki kończące się rozszerzeniem `.js` we wszystkich folderach.
+
+:::caution
+Wzorce glob mogą być używane w pliku konfiguracyjnym Biome, ale mogą być również
+określone z wiersza poleceń. Gdy określasz glob w wierszu poleceń,
+jest on interpretowany przez twoją powłokę, a nie przez Biome. Powłoki mogą obsługiwać
+nieco inną składnię dla globów. Na przykład niektóre powłoki nie obsługują
+wzorca rekurencyjnego `**`.
+:::
