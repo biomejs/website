@@ -76,6 +76,17 @@ const z = function z() {
 }
 ```
 
+Functions that reference the [arguments
+object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments)
+are ignored because the arguments object is not available to arrow
+functions.
+
+```js
+const q = function () {
+    return arguments[0];
+}
+```
+
 Function expressions that declare the type of `this` are  also ignored:
 
 ```ts
