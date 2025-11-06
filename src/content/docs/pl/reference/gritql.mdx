@@ -1,0 +1,144 @@
+---
+title: GritQL
+description: Podstawowe użycie GritQL w Biome
+---
+
+GritQL to język zapytań do wykonywania strukturalnych wyszukiwań w kodzie źródłowym.
+Oznacza to, że szczegóły takie jak białe znaki lub nawet typ cudzysłowów używanych w
+ciągach będą ignorowane w twoim zapytaniu wyszukiwania. Dodatkowo oferuje wiele
+funkcji, które pozwalają na zapytania o strukturę składni, takie jak fragmenty, dopasowanie,
+zagnieżdżanie i zmienne.
+
+GritQL jest [open-source](https://github.com/getgrit/gritql/) i został stworzony przez [Grit.io](https://grit.io/).
+
+Biome używa GritQL do dwóch celów:
+
+- [Wtyczki analizatora](/linter/plugins).
+- Polecenie [`biome search`](/reference/cli/#biome-search), które mamy nadzieję
+  rozszerzyć również do naszych rozszerzeń IDE.
+
+## Wzorce
+
+Zapytania GritQL działają poprzez _wzorce_. Najczęstszym wzorcem, który zobaczysz, jest
+fragment kodu, który wygląda jak zwykły kod źródłowy owinięty w backticki:
+
+```grit
+`console.log('Hello, world!')`
+```
+
+Ten wzorzec dopasuje każde wywołanie `console.log()`, któremu przekazano ciąg
+`'Hello, world!'`. Ale ponieważ GritQL wykonuje _strukturalne_ dopasowanie, nie
+zależy mu na szczegółach formatowania. To również pasuje:
+
+```js
+console.log (
+    'Hello, world!'
+)
+```
+
+I to również (zauważ zmianę w cudzysłowach):
+
+```js
+console.log("Hello, world!")
+```
+
+:::note
+Większość powłok interpretuje backticki jako wywołania poleceń, co koliduje z
+fragmentami kodu GritQL. Więc podczas używania polecenia `biome search`, najlepiej jest
+umieścić _pojedyncze cudzysłowy_ wokół twoich zapytań Grit:
+
+```shell
+biome search '`console.log($message)`' # znajdź wszystkie wywołania `console.log`
+```
+:::
+
+## Zmienne
+
+Zapytania GritQL mogą również mieć _zmienne_. Następujące dopasuje każde wywołanie
+`console.log()` niezależnie od przekazanego komunikatu:
+
+```grit
+`console.log($message)`
+```
+
+To również dopasuje dowolną z metod na obiekcie `console`:
+
+```grit
+`console.$method($message)`
+```
+
+Ta sama nazwa zmiennej może wystąpić wiele razy w jednym fragmencie:
+
+```grit
+`$fn && $fn()`
+```
+
+To dopasuje `foo && foo()`, a nawet `foo.bar && foo.bar()`, ale nie
+`foo && bar()`.
+
+## Warunki
+
+Możesz dodać warunki do wzorców używając operatora `where`. Jest to
+często używane razem z _operatorem dopasowania_, `<:`:
+
+```grit
+`console.$method($message)` where {
+    $method <: `log`
+}
+```
+
+To zapytanie jest identyczne ze wzorcem `console.log($message)`, który widzieliśmy wcześniej,
+ale staje się szybko bardziej interesujące, gdy dodamy inne operatory do mieszanki:
+
+```grit
+`console.$method($message)` where {
+    $method <: or { `log`, `info`, `warn`, `error` }
+}
+```
+
+## Dopasowywanie węzłów składni Biome
+
+Dla bardziej precyzyjnych zapytań możesz dopasować bezpośrednio do wewnętrznych węzłów składni Biome. Każdy węzeł jest identyfikowany przez unikalną nazwę `PascalCase`.
+
+Na przykład, aby znaleźć wszystkie instrukcje JavaScript `if`, możesz dopasować węzeł `JsIfStatement`:
+
+```grit
+engine biome(1.0)
+language js(typescript,jsx)
+
+JsIfStatement() as $stmt where {
+  register_diagnostic(
+    span=$stmt,
+    message="Found an if statement"
+  )
+}
+```
+
+Możesz odkryć nazwy węzłów dla swojego kodu, eksplorując drzewo składni w [Biome Playground](https://biomejs.dev/playground/). Pełna lista wszystkich dostępnych węzłów jest również dostępna w plikach `.ungram` w katalogu [`xtask/codegen`](https://github.com/biomejs/biome/tree/main/xtask/codegen) repozytorium Biome.
+
+:::caution
+Gramatyka Biome może się zmieniać między wersjami, szczególnie dla nowych języków. To może spowodować zmianę nazw węzłów, co może zepsuć twoje wzorce. Bądź przygotowany na aktualizację swoich zapytań podczas aktualizacji Biome.
+:::
+
+## Dokumentacja języka
+
+Aby uzyskać więcej informacji o GritQL i jego składni, zobacz oficjalną
+[Dokumentację języka GritQL](https://docs.grit.io/language/overview).
+
+Proszę pamiętać, że Biome nie obsługuje jeszcze wszystkich funkcji Grit.
+
+## Status integracji
+
+Obsługa GritQL w Biome jest aktywnie rozwijana. Wiele rzeczy już działa,
+ale nadal można oczekiwać błędów, a niektóre funkcje są nadal całkowicie brakujące.
+
+Aby uzyskać szczegółowy przegląd, które funkcje GritQL są obsługiwane, a które są
+nadal w trakcie, zobacz issue na GitHubie:
+https://github.com/biomejs/biome/issues/2582.
+
+Mamy również szczegółowy RFC, który kieruje kierunkiem naszych wysiłków związanych z wtyczkami:
+https://github.com/biomejs/biome/discussions/1762
+
+**tl;dr**: Pracujemy nad obsługą wtyczek, które mogą być albo czystymi wtyczkami GritQL
+albo wtyczkami JS/TS, które używają GritQL do wyboru kodu, na którym chcą działać.
+Bądźcie czujni!
