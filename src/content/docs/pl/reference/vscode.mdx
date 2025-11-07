@@ -1,0 +1,263 @@
+---
+title: Rozszerzenie VS Code
+description: Uwagi dotyczące rozszerzenia VSCode dla Biome
+---
+import { FileTree } from '@astrojs/starlight/components';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Badge } from '@astrojs/starlight/components';
+
+Biome posiada oficjalne [rozszerzenie VS Code], które ściśle integruje się z
+edytorem kodu, dostarczając funkcje formatowania, lintowania i refaktoryzacji kodu
+do Twojego procesu programistycznego.
+
+[rozszerzenie VS Code]: https://marketplace.visualstudio.com/items?itemName=biomejs.biome
+
+Ten dokument referencyjny zawiera przegląd funkcji rozszerzenia, jak je zainstalować
+oraz jak skonfigurować je dla swoich projektów.
+
+:::tip
+Jeśli aktualizujesz rozszerzenie z wersji `2.x`, sprawdź [instrukcje migracji](#migracja-z-rozszerzenia-2x) na końcu tego dokumentu.
+:::
+
+## Instalacja rozszerzenia
+
+Zalecany sposób instalacji rozszerzenia to [Visual Studio Code Marketplace]
+dla użytkowników VS Code lub [rejestr Open VSX] dla VSCodium i innych pochodnych, takich jak Cursor.
+
+[Visual Studio Code Marketplace]: https://marketplace.visualstudio.com/items?itemName=biomejs.biome
+[rejestr Open VSX]: https://open-vsx.org/extension/biomejs/biome
+
+- [![](https://img.shields.io/badge/Zainstaluj%20Biome-w%20VS%20Code-007ACC?style=flat&logo=biome)](vscode:extension/biomejs.biome)
+- [![](https://img.shields.io/badge/Zainstaluj%20Biome-w%20VSCodium-007ACC?style=flat&logo=biome)](vscodium:extension/biomejs.biome)
+
+
+## Typowe przypadki użycia
+
+### Workspace z jednym folderem głównym
+
+Workspace z jednym folderem głównym to typowy workspace VS Code, w którym znajduje się tylko jeden folder workspace.
+
+<FileTree>
+- src/
+  - main.ts
+- biome.json
+- package.json
+</FileTree>
+
+### Workspace z wieloma folderami głównymi
+
+Workspace z wieloma folderami głównymi to workspace, w którym znajduje się wiele folderów workspace. W tym przypadku rozszerzenie automatycznie utworzy
+instancję Biome dla każdego folderu workspace.
+
+<FileTree>
+- api/ (folder workspace)
+	- biome.json
+	- src/
+		- main.ts
+- app/ (folder workspace)
+	- biome.json
+	- src/
+		- main.ts
+- my.code-workspace
+</FileTree>
+
+## Funkcje
+
+### Formatowanie
+
+Rozszerzenie Biome rejestruje się jako formatter dla [obsługiwanych typów plików](/internals/language-support) i wspiera formatowanie całego pliku lub wybranego fragmentu kodu.
+
+Uruchom jedno z poniższych poleceń z [palety poleceń](https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette):
+
+- Aby sformatować cały plik, uruchom polecenie `Format Document`.
+- Aby sformatować zaznaczony fragment kodu, zaznacz kod i uruchom polecenie `Format Selection`.
+
+#### Formatowanie przy zapisie
+
+Aby włączyć formatowanie przy zapisie, ustaw ustawienie [`editor.formatOnSave`](vscode://settings/editor.formatOnSave) w VS Code na `true`.
+
+### Naprawianie kodu
+
+Rozszerzenie Biome rejestruje się jako dostawca akcji kodu dla [obsługiwanych typów plików](/internals/language-support) i dostarcza poprawki kodu dla diagnostyki,
+która posiada bezpieczne poprawki.
+
+#### Naprawianie przy zapisie
+
+Aby włączyć **Naprawianie przy zapisie**, zaktualizuj ustawienie [`editor.codeActionsOnSave`](vscode://settings/editor.codeActionsOnSave) w VS Code, aby zawierało poniższe. Spowoduje to zastosowanie tylko [bezpiecznych poprawek](/linter/#safe-fixes):
+
+```diff
+{
+  "editor.codeActionsOnSave": {
++    "source.fixAll.biome": "explicit"
+  }
+}
+```
+
+Jeśli chcesz zastosować [niebezpieczne poprawki](/linter/#unsafe-fixes) przy zapisie, musisz uczynić [poprawkę kodu reguły bezpieczną](/linter/#configure-the-code-fix).
+
+#### Ręczne szybkie poprawki
+
+Aby ręcznie zastosować szybką poprawkę, zaznacz diagnostykę i kliknij przycisk `Quick Fix`.
+
+### Sortowanie importów
+
+Rozszerzenie potrafi sortować importy przy zapisie dla [obsługiwanych typów plików](/internals/language-support). Aby włączyć tę funkcję, ustaw ustawienie [`editor.codeActionsOnSave`](vscode://settings/editor.codeActionsOnSave) w VS Code, aby zawierało poniższe:
+
+```diff title="settings.json"
+{
+  "editor.codeActionsOnSave": {
++    "source.organizeImports.biome": "explicit"
+  }
+}
+```
+
+
+
+## Dokumentacja ustawień
+
+Następujące ustawienia są dostępne dla rozszerzenia.
+
+:::note[Pierwszeństwo ustawień]
+Wszystkie ustawienia są rozwiązywane zgodnie z zasadami [pierwszeństwa ustawień](https://code.visualstudio.com/docs/getstarted/settings#_settings-precedence) w VS Code.
+Oznacza to, że wartość ustawienia na najbardziej szczegółowym poziomie będzie użyta. Pozwala to ustawić ustawienie globalne i nadpisać je dla konkretnych
+folderów workspace.
+:::
+
+### `biome.enabled`
+
+**Domyślnie:** `true` | **Zakresy:** `global`, `workspace`, `workspace folder`
+
+To ustawienie kontroluje, czy rozszerzenie utworzy sesję LSP dla folderu workspace. Gdy ustawione globalnie, ma zastosowanie do wszystkich folderów workspace, chyba że same nadpiszą to ustawienie.
+
+### `biome.configurationPath`
+
+:::caution[Tylko Biome v2]
+To ustawienie zadziała tylko przy użyciu Biome `v2`. Jeśli używasz Biome `v1`, to ustawienie będzie ignorowane.
+:::
+
+**Domyślnie:** `null` | **Zakresy:** `global`, `workspace`, `workspace folder`
+
+To ustawienie pozwala określić ścieżkę do niestandardowego pliku konfiguracyjnego. Jeśli nie zostanie określone, zostanie użyty domyślny plik konfiguracyjny.
+
+### `biome.requireConfiguration`
+
+**Domyślnie:** `false` | **Zakresy:** `global`, `workspace`, `workspace folder`
+
+To ustawienie kontroluje, czy Biome zarejestruje się jako formatter i dostawca diagnostyki.
+
+Gdy ustawione na `true`, rozszerzenie zarejestruje się jako formatter i dostawca diagnostyki tylko wtedy, gdy plik `biome.json` jest obecny w folderze workspace.
+
+:::caution
+Ustawienie `biome.enabled` musi być ustawione na `true` (domyślnie) w tym samym zakresie, aby to ustawienie zadziałało.
+:::
+
+
+### `biome.lsp.bin`
+
+**Domyślnie:** `undefined` | **Zakresy:** `global`, `workspace`, `workspace folder`
+
+To ustawienie pozwala nadpisać ścieżkę do pliku binarnego `biome`. Jest to przydatne, jeśli chcesz użyć innej wersji Biome
+lub jeśli chcesz użyć pliku binarnego, który nie znajduje się w Twoim `PATH`. Może to być ścieżka do pliku binarnego lub obiekt mapujący platformę na ścieżkę.
+
+<Tabs>
+	<TabItem label="string">
+		```json
+		{
+			"biome.lsp.bin": "/path/to/biome"
+		}
+		```
+	</TabItem>
+	<TabItem label="object">
+
+		Przy użyciu obiektu, klucz to identyfikator platformy, zbudowany z wartości `<process.os>-<process.arch>`, a wartość to ścieżka do pliku binarnego.
+		```json
+		{
+			"biome.lsp.bin": {
+				"darwin-arm64": "/path/to/biome",
+				"win32-x64": "/path/to/biome.exe"
+			}
+		}
+		```
+	</TabItem>
+</Tabs>
+
+
+
+Powinieneś wiedzieć, że `@biomejs/biome` nie dostarcza żadnych plików binarnych. Plik `@biomejs/biome/bin` to tylko mały
+wrapper, który deleguje operację do prawdziwego pliku binarnego. Plik binarny zainstalowany na Twoim komputerze zależy od architektury Twojego systemu operacyjnego.
+
+Pliki binarne to pakiety zaczynające się od `@biomejs/cli-*`, które można znaleźć na [tej liście](https://www.npmjs.com/search?q=%40biomejs%2Fcli-*).
+Jeśli więc wskazujesz na plik binarny zainstalowany przez `npm`, konfiguracja będzie wyglądać następująco:
+
+
+<Tabs>
+	<TabItem label="string">
+		```json
+		{
+			"biome.lsp.bin": "./node_modules/@biomejs/cli-linux-x64/bin"
+		}
+		```
+	</TabItem>
+	<TabItem label="object">
+
+		Przy użyciu obiektu, klucz to identyfikator platformy, zbudowany z wartości `<process.os>-<process.arch>`, a wartość to ścieżka do pliku binarnego.
+		```json
+		{
+			"biome.lsp.bin": {
+				"darwin-arm64": "./node_modules/@biomejs/cli-darwin-arm64/bin",
+				"win32-x64": "./node_modules/@biomejs/cli-win32-x64/bin"
+			}
+		}
+		```
+	</TabItem>
+</Tabs>
+
+### `biome.runFromTemporaryLocation`
+
+**Domyślnie:** `true (windows), false (inne)` | **Zakresy:** `global`, `workspace`, `workspace folder`
+
+Określa, czy skopiować plik binarny Biome i uruchomić go z lokalizacji tymczasowej.
+
+W systemie Windows wyłączenie tego ustawienia uniemożliwi aktualizację Biome w node_modules, gdy aktywna
+sesja LSP jest uruchomiona, ponieważ system operacyjny blokuje plik binarny podczas jego działania. Będziesz musiał zamknąć VS Code przed aktualizacją Biome.
+
+### `biome.suggestInstallingGlobally`
+
+**Domyślnie:** `true` | **Zakresy:** `global`, `workspace`, `workspace folder`
+
+Gdy wymagana jest globalna instalacja Biome, ale nie została znaleziona w `PATH`, rozszerzenie zasugeruje jej zainstalowanie.
+
+To ustawienie kontroluje, czy to okienko z sugestią jest pokazywane.
+
+### `biome.lsp.trace.server`
+
+**Domyślnie:** `off` | **Zakresy:** `global`
+
+To ustawienie pozwala ustawić poziom logowania śledzenia LSP Biome. Możliwe wartości to `off`, `messages`, `verbose`.
+Możesz chcieć ustawić to ustawienie na `verbose`, gdy napotkasz problemy z rozszerzeniem i chciałbyś udostępnić nam logi.
+
+## Rozwiązywanie problemów
+
+Mogą zdarzyć się sytuacje, gdy napotkasz nieoczekiwane problemy z rozszerzeniem. Oto kilka wskazówek, które pomogą Ci rozwiązać
+najczęstsze problemy i zresetować stan rozszerzenia.
+
+### Dostęp do śledzenia LSP
+
+Jeśli napotkasz problemy z rozszerzeniem, możemy poprosić Cię o udostępnienie śledzenia LSP. Możesz to zrobić, ustawiając ustawienie [`biome.lsp.trace.server`](#biomelsptrace_server) na `verbose`
+i ponownie uruchamiając akcję, która spowodowała problem. Ślad będzie dostępny w panelu [wyjścia](vscode://workbench/panel), w opcji wyboru `Biome LSP trace (xxx)`.
+
+## Migracja z rozszerzenia `2.x`
+
+Jeśli migrujesz z rozszerzenia `2.x`, zalecamy wykonanie następujących kroków, dokładnie w tej kolejności:
+1. Zaktualizuj rozszerzenie
+2. Zamknij edytor całkowicie.
+3. Otwórz menedżera zadań i upewnij się, że zabiłeś wszystkie procesy o nazwie `biome`.
+4. Otwórz edytor.
+
+Spowoduje to zniszczenie możliwych starych połączeń Daemona, które są nadal podłączone do edytora, ale nie mogą zostać zamknięte w sposób elegancki przez rozszerzenie, co powodowało
+nieprawidłowe formatowanie, gdy plik był zapisywany.
+
+### Zmiany
+
+- Ustawienie `biome.lspBin` zostało zdeprecjonowane na rzecz `biome.lsp.bin`. Nadal będzie działać, ale zalecamy zaktualizowanie ustawień, aby używać nowej nazwy.
+- Ustawienie `biome.requireConfigFile` zostało przemianowane na `biome.requireConfiguration`. Powinieneś zmigrować to ustawienie teraz, ponieważ **stare już nie jest obsługiwane**.
