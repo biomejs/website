@@ -10,18 +10,18 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 <Tabs>
 <TabItem label="TypeScript and TSX" icon="seti:typescript">
 :::caution
-This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+This rule is part of the [nursery](/ru/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
 :::
 :::note
-This rule belongs to the project domain. This means that its activation will activate the Biome Scanner, which might affect the performance. Read more about it in the [documentation page](/linter/domains#project)
+This rule belongs to the project domain. This means that its activation will activate the Biome Scanner, which might affect the performance. Read more about it in the [documentation page](/ru/linter/domains#project)
 :::
 ## Summary
 - Rule available since: `v2.0.0`
-- Diagnostic Category: [`lint/nursery/noFloatingPromises`](/reference/diagnostics#diagnostic-category)
-- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
-- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Diagnostic Category: [`lint/nursery/noFloatingPromises`](/ru/reference/diagnostics#diagnostic-category)
+- This rule has an [**unsafe**](/ru/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**information**](/ru/reference/diagnostics#information).
 - This rule belongs to the following domains:
-  - [`project`](/linter/domains#project)
+  - [`project`](/ru/linter/domains#project)
 - Sources: 
   - Same as [`@typescript-eslint/no-floating-promises`](https://typescript-eslint.io/rules/no-floating-promises)
 
@@ -199,9 +199,9 @@ async function testCallingReturnsPromise(props: Props) {
 
 ## Related links
 
-- [Disable a rule](/linter/#disable-a-rule)
+- [Disable a rule](/ru/linter/#disable-a-rule)
 - [Configure the code fix](/linter#configure-the-code-fix)
-- [Rule options](/linter/#rule-options)
+- [Rule options](/ru/linter/#rule-options)
 - [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_floating_promises.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noFloatingPromises)
 

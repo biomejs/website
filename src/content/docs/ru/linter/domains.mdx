@@ -42,17 +42,17 @@ description: Список доступных доменов
 
 ### Правила Next
 Правила, принадлежащие домену:
-- [useExhaustiveDependencies](/linter/rules/use-exhaustive-dependencies) (рекомендовано)
-- [useHookAtTopLevel](/linter/rules/use-hook-at-top-level) (рекомендовано)
-- [noNextAsyncClientComponent](/linter/rules/no-next-async-client-component) [(nursery)](/linter/#nursery)
-- [noImgElement](/linter/rules/no-img-element) (рекомендовано)
-- [noUnwantedPolyfillio](/linter/rules/no-unwanted-polyfillio) (рекомендовано)
-- [useGoogleFontPreconnect](/linter/rules/use-google-font-preconnect) (рекомендовано)
-- [noHeadElement](/linter/rules/no-head-element) (рекомендовано)
-- [noDocumentImportInPage](/linter/rules/no-document-import-in-page) (рекомендовано)
-- [noHeadImportInDocument](/linter/rules/no-head-import-in-document) (рекомендовано)
+- [useExhaustiveDependencies](/ru/linter/rules/use-exhaustive-dependencies) (рекомендовано)
+- [useHookAtTopLevel](/ru/linter/rules/use-hook-at-top-level) (рекомендовано)
+- [noNextAsyncClientComponent](/ru/linter/rules/no-next-async-client-component) [(nursery)](/ru/linter/#nursery)
+- [noImgElement](/ru/linter/rules/no-img-element) (рекомендовано)
+- [noUnwantedPolyfillio](/ru/linter/rules/no-unwanted-polyfillio) (рекомендовано)
+- [useGoogleFontPreconnect](/ru/linter/rules/use-google-font-preconnect) (рекомендовано)
+- [noHeadElement](/ru/linter/rules/no-head-element) (рекомендовано)
+- [noDocumentImportInPage](/ru/linter/rules/no-document-import-in-page) (рекомендовано)
+- [noHeadImportInDocument](/ru/linter/rules/no-head-import-in-document) (рекомендовано)
 ## Project
-Этот домен содержит правила, выполняющие анализ на уровне проекта. Это включает граф модулей для разрешения зависимостей, а также информацию о типах. При включении правил, принадлежащих этому домену, Biome просканирует весь проект. Фаза сканирования окажет влияние на производительность процесса линтинга. См. документацию по нашему [сканеру](/internals/architecture/#scanner), чтобы узнать больше о сканере.
+Этот домен содержит правила, выполняющие анализ на уровне проекта. Это включает граф модулей для разрешения зависимостей, а также информацию о типах. При включении правил, принадлежащих этому домену, Biome просканирует весь проект. Фаза сканирования окажет влияние на производительность процесса линтинга. См. документацию по нашему [сканеру](/ru/internals/architecture/#scanner), чтобы узнать больше о сканере.
 ### Активация Project
 Включить **рекомендованные** правила домена:
 ```json title="biome.json" ins={3-5}
@@ -86,17 +86,17 @@ description: Список доступных доменов
 ```
 ### Правила Project
 Правила, принадлежащие домену:
-- [noPrivateImports](/linter/rules/no-private-imports) (рекомендовано)
-- [noUndeclaredDependencies](/linter/rules/no-undeclared-dependencies)
-- [useImportExtensions](/linter/rules/use-import-extensions)
-- [useJsonImportAttributes](/linter/rules/use-json-import-attributes)
-- [noDeprecatedImports](/linter/rules/no-deprecated-imports) [(nursery)](/linter/#nursery)
-- [noFloatingPromises](/linter/rules/no-floating-promises) (рекомендовано) [(nursery)](/linter/#nursery)
-- [noImportCycles](/linter/rules/no-import-cycles) [(nursery)](/linter/#nursery)
-- [noMisusedPromises](/linter/rules/no-misused-promises) (рекомендовано) [(nursery)](/linter/#nursery)
-- [noUnnecessaryConditions](/linter/rules/no-unnecessary-conditions) [(nursery)](/linter/#nursery)
-- [noUnresolvedImports](/linter/rules/no-unresolved-imports) [(nursery)](/linter/#nursery)
-- [useExhaustiveSwitchCases](/linter/rules/use-exhaustive-switch-cases) (рекомендовано) [(nursery)](/linter/#nursery)
+- [noPrivateImports](/ru/linter/rules/no-private-imports) (рекомендовано)
+- [noUndeclaredDependencies](/ru/linter/rules/no-undeclared-dependencies)
+- [useImportExtensions](/ru/linter/rules/use-import-extensions)
+- [useJsonImportAttributes](/ru/linter/rules/use-json-import-attributes)
+- [noDeprecatedImports](/ru/linter/rules/no-deprecated-imports) [(nursery)](/ru/linter/#nursery)
+- [noFloatingPromises](/ru/linter/rules/no-floating-promises) (рекомендовано) [(nursery)](/ru/linter/#nursery)
+- [noImportCycles](/ru/linter/rules/no-import-cycles) [(nursery)](/ru/linter/#nursery)
+- [noMisusedPromises](/ru/linter/rules/no-misused-promises) (рекомендовано) [(nursery)](/ru/linter/#nursery)
+- [noUnnecessaryConditions](/ru/linter/rules/no-unnecessary-conditions) [(nursery)](/ru/linter/#nursery)
+- [noUnresolvedImports](/ru/linter/rules/no-unresolved-imports) [(nursery)](/ru/linter/#nursery)
+- [useExhaustiveSwitchCases](/ru/linter/rules/use-exhaustive-switch-cases) (рекомендовано) [(nursery)](/ru/linter/#nursery)
 ## Qwik
 Используйте этот домен внутри проектов Qwik. Этот домен включает правила, специфичные для проектов Qwik.
 ### Активация Qwik
@@ -137,13 +137,13 @@ description: Список доступных доменов
 
 ### Правила Qwik
 Правила, принадлежащие домену:
-- [noQwikUseVisibleTask](/linter/rules/no-qwik-use-visible-task) (рекомендовано)
-- [useImageSize](/linter/rules/use-image-size) (рекомендовано)
-- [useJsxKeyInIterable](/linter/rules/use-jsx-key-in-iterable) (рекомендовано)
-- [useQwikClasslist](/linter/rules/use-qwik-classlist) (рекомендовано)
-- [useQwikMethodUsage](/linter/rules/use-qwik-method-usage) (рекомендовано) [(nursery)](/linter/#nursery)
-- [useQwikValidLexicalScope](/linter/rules/use-qwik-valid-lexical-scope) (рекомендовано) [(nursery)](/linter/#nursery)
-- [noReactSpecificProps](/linter/rules/no-react-specific-props) (рекомендовано)
+- [noQwikUseVisibleTask](/ru/linter/rules/no-qwik-use-visible-task) (рекомендовано)
+- [useImageSize](/ru/linter/rules/use-image-size) (рекомендовано)
+- [useJsxKeyInIterable](/ru/linter/rules/use-jsx-key-in-iterable) (рекомендовано)
+- [useQwikClasslist](/ru/linter/rules/use-qwik-classlist) (рекомендовано)
+- [useQwikMethodUsage](/ru/linter/rules/use-qwik-method-usage) (рекомендовано) [(nursery)](/ru/linter/#nursery)
+- [useQwikValidLexicalScope](/ru/linter/rules/use-qwik-valid-lexical-scope) (рекомендовано) [(nursery)](/ru/linter/#nursery)
+- [noReactSpecificProps](/ru/linter/rules/no-react-specific-props) (рекомендовано)
 ## React
 Используйте этот домен внутри проектов React. Он включает набор правил, которые помогают отлавливать ошибки и обеспечивать правильные практики. Этот домен включает правила, которые могут конфликтовать с доменом Solid.
 ### Активация React
@@ -183,21 +183,21 @@ description: Список доступных доменов
 
 ### Правила React
 Правила, принадлежащие домену:
-- [noChildrenProp](/linter/rules/no-children-prop) (рекомендовано)
-- [noNestedComponentDefinitions](/linter/rules/no-nested-component-definitions)
-- [noReactPropAssignments](/linter/rules/no-react-prop-assignments)
-- [noRenderReturnValue](/linter/rules/no-render-return-value) (рекомендовано)
-- [useExhaustiveDependencies](/linter/rules/use-exhaustive-dependencies) (рекомендовано)
-- [useHookAtTopLevel](/linter/rules/use-hook-at-top-level) (рекомендовано)
-- [useJsxKeyInIterable](/linter/rules/use-jsx-key-in-iterable) (рекомендовано)
-- [useUniqueElementIds](/linter/rules/use-unique-element-ids)
-- [noReactForwardRef](/linter/rules/no-react-forward-ref) [(nursery)](/linter/#nursery)
-- [noUnknownAttribute](/linter/rules/no-unknown-attribute) [(nursery)](/linter/#nursery)
-- [noDangerouslySetInnerHtml](/linter/rules/no-dangerously-set-inner-html) (рекомендовано)
-- [noDangerouslySetInnerHtmlWithChildren](/linter/rules/no-dangerously-set-inner-html-with-children) (рекомендовано)
-- [useComponentExportOnlyModules](/linter/rules/use-component-export-only-modules)
-- [useReactFunctionComponents](/linter/rules/use-react-function-components)
-- [noArrayIndexKey](/linter/rules/no-array-index-key) (рекомендовано)
+- [noChildrenProp](/ru/linter/rules/no-children-prop) (рекомендовано)
+- [noNestedComponentDefinitions](/ru/linter/rules/no-nested-component-definitions)
+- [noReactPropAssignments](/ru/linter/rules/no-react-prop-assignments)
+- [noRenderReturnValue](/ru/linter/rules/no-render-return-value) (рекомендовано)
+- [useExhaustiveDependencies](/ru/linter/rules/use-exhaustive-dependencies) (рекомендовано)
+- [useHookAtTopLevel](/ru/linter/rules/use-hook-at-top-level) (рекомендовано)
+- [useJsxKeyInIterable](/ru/linter/rules/use-jsx-key-in-iterable) (рекомендовано)
+- [useUniqueElementIds](/ru/linter/rules/use-unique-element-ids)
+- [noReactForwardRef](/ru/linter/rules/no-react-forward-ref) [(nursery)](/ru/linter/#nursery)
+- [noUnknownAttribute](/ru/linter/rules/no-unknown-attribute) [(nursery)](/ru/linter/#nursery)
+- [noDangerouslySetInnerHtml](/ru/linter/rules/no-dangerously-set-inner-html) (рекомендовано)
+- [noDangerouslySetInnerHtmlWithChildren](/ru/linter/rules/no-dangerously-set-inner-html-with-children) (рекомендовано)
+- [useComponentExportOnlyModules](/ru/linter/rules/use-component-export-only-modules)
+- [useReactFunctionComponents](/ru/linter/rules/use-react-function-components)
+- [noArrayIndexKey](/ru/linter/rules/no-array-index-key) (рекомендовано)
 ## Solid
 Используйте этот домен внутри проектов Solid. Этот домен включает правила, которые могут конфликтовать с доменом React.
 ### Активация Solid
@@ -237,9 +237,9 @@ description: Список доступных доменов
 
 ### Правила Solid
 Правила, принадлежащие домену:
-- [noSolidDestructuredProps](/linter/rules/no-solid-destructured-props)
-- [useSolidForComponent](/linter/rules/use-solid-for-component)
-- [noReactSpecificProps](/linter/rules/no-react-specific-props) (рекомендовано)
+- [noSolidDestructuredProps](/ru/linter/rules/no-solid-destructured-props)
+- [useSolidForComponent](/ru/linter/rules/use-solid-for-component)
+- [noReactSpecificProps](/ru/linter/rules/no-react-specific-props) (рекомендовано)
 ## Test
 Используйте этот домен при линтинге тестовых файлов. Он включает набор библиотечно-агностичных правил, которые помогают отлавливать возможное неправильное использование тестовых API.
 ### Активация Test
@@ -295,10 +295,10 @@ description: Список доступных доменов
 
 ### Правила Test
 Правила, принадлежащие домену:
-- [noExcessiveNestedTestSuites](/linter/rules/no-excessive-nested-test-suites)
-- [noDuplicateTestHooks](/linter/rules/no-duplicate-test-hooks) (рекомендовано)
-- [noExportsInTest](/linter/rules/no-exports-in-test) (рекомендовано)
-- [noFocusedTests](/linter/rules/no-focused-tests) (рекомендовано)
+- [noExcessiveNestedTestSuites](/ru/linter/rules/no-excessive-nested-test-suites)
+- [noDuplicateTestHooks](/ru/linter/rules/no-duplicate-test-hooks) (рекомендовано)
+- [noExportsInTest](/ru/linter/rules/no-exports-in-test) (рекомендовано)
+- [noFocusedTests](/ru/linter/rules/no-focused-tests) (рекомендовано)
 ## Vue
 Используйте этот домен внутри проектов Vue. Этот домен включает правила, специфичные для проектов Vue.
 ### Активация Vue
@@ -338,9 +338,9 @@ description: Список доступных доменов
 
 ### Правила Vue
 Правила, принадлежащие домену:
-- [noVueDataObjectDeclaration](/linter/rules/no-vue-data-object-declaration) (рекомендовано) [(nursery)](/linter/#nursery)
-- [noVueDuplicateKeys](/linter/rules/no-vue-duplicate-keys) (рекомендовано) [(nursery)](/linter/#nursery)
-- [noVueReservedKeys](/linter/rules/no-vue-reserved-keys) (рекомендовано) [(nursery)](/linter/#nursery)
-- [noVueReservedProps](/linter/rules/no-vue-reserved-props) (рекомендовано) [(nursery)](/linter/#nursery)
-- [useVueDefineMacrosOrder](/linter/rules/use-vue-define-macros-order) [(nursery)](/linter/#nursery)
-- [useVueMultiWordComponentNames](/linter/rules/use-vue-multi-word-component-names) (рекомендовано) [(nursery)](/linter/#nursery)
+- [noVueDataObjectDeclaration](/ru/linter/rules/no-vue-data-object-declaration) (рекомендовано) [(nursery)](/ru/linter/#nursery)
+- [noVueDuplicateKeys](/ru/linter/rules/no-vue-duplicate-keys) (рекомендовано) [(nursery)](/ru/linter/#nursery)
+- [noVueReservedKeys](/ru/linter/rules/no-vue-reserved-keys) (рекомендовано) [(nursery)](/ru/linter/#nursery)
+- [noVueReservedProps](/ru/linter/rules/no-vue-reserved-props) (рекомендовано) [(nursery)](/ru/linter/#nursery)
+- [useVueDefineMacrosOrder](/ru/linter/rules/use-vue-define-macros-order) [(nursery)](/ru/linter/#nursery)
+- [useVueMultiWordComponentNames](/ru/linter/rules/use-vue-multi-word-component-names) (рекомендовано) [(nursery)](/ru/linter/#nursery)

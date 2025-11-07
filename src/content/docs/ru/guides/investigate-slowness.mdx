@@ -17,17 +17,17 @@ Biome должен быть быстрым. _Очень быстрым._ И вс
 
 * если у вас есть папка `dist/` или `build/` с выходными файлами или другие такие
   папки с минифицированными файлами, пожалуйста, проверьте, будет ли их игнорирование с помощью
-  [`files.experimentalScannerIgnores`](https://biomejs.dev/reference/configuration/#filesexperimentalscannerignores),
+  [`files.experimentalScannerIgnores`](/ru/reference/configuration/#filesexperimentalscannerignores),
   а также
-  [`files.includes`](https://biomejs.dev/reference/configuration/#filesincludes)
+  [`files.includes`](/ru/reference/configuration/#filesincludes)
   иметь значение;
-* у вас включены [проектные правила](/linter/domains/#project)? Известно, что они
+* у вас включены [проектные правила](/ru/linter/domains/#project)? Известно, что они
   вызывают снижение производительности в обмен на более продвинутый анализ. Также см.
-  нашу [запись в FAQ](/linter/#why-is-biome-linter-so-slow-compared-to-v1) по этой
+  нашу [запись в FAQ](/ru/linter/#why-is-biome-linter-so-slow-compared-to-v1) по этой
   теме. Посмотрите, будет ли их отключение иметь значение;
   * если их отключение помогло, но вы хотите выяснить, что именно сделало
     это таким медленным, первым шагом может быть добавление `node_modules` в
-    [`files.experimentalScannerIgnores`](https://biomejs.dev/reference/configuration/#filesexperimentalscannerignores).
+    [`files.experimentalScannerIgnores`](/ru/reference/configuration/#filesexperimentalscannerignores).
     Это помогло? Отлично! Но вы, вероятно, не хотите оставлять это так,
     потому что информация о типах из зависимостей больше не будет доступна. Вы
     можете дополнительно настроить `files.experimentalScannerIgnores`, чтобы игнорировать определенную

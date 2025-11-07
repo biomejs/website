@@ -10,18 +10,18 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 <Tabs>
 <TabItem label="TypeScript and TSX" icon="seti:typescript">
 :::caution
-Это правило является частью группы [nursery](/linter/#nursery). Это означает, что оно экспериментальное и поведение может измениться в любое время.
+Это правило является частью группы [nursery](/ru/linter/#nursery). Это означает, что оно экспериментальное и поведение может измениться в любое время.
 :::
 :::note
-Это правило принадлежит к домену проекта. Это означает, что его активация активирует Biome Scanner, что может повлиять на производительность. Подробнее об этом читайте на [странице документации](/linter/domains#project)
+Это правило принадлежит к домену проекта. Это означает, что его активация активирует Biome Scanner, что может повлиять на производительность. Подробнее об этом читайте на [странице документации](/ru/linter/domains#project)
 :::
 ## Summary
 - Правило доступно с версии: `v2.1.0`
-- Категория диагностики: [`lint/nursery/noMisusedPromises`](/reference/diagnostics#diagnostic-category)
-- Это правило имеет [**небезопасное**](/linter/#unsafe-fixes) исправление.
-- Уровень важности правила по умолчанию [**information**](/reference/diagnostics#information).
+- Категория диагностики: [`lint/nursery/noMisusedPromises`](/ru/reference/diagnostics#diagnostic-category)
+- Это правило имеет [**небезопасное**](/ru/linter/#unsafe-fixes) исправление.
+- Уровень важности правила по умолчанию [**information**](/ru/reference/diagnostics#information).
 - Это правило принадлежит к следующим доменам:
-  - [`project`](/linter/domains#project)
+  - [`project`](/ru/linter/domains#project)
 - Источники:
   - Same as [`@typescript-eslint/no-misused-promises`](https://typescript-eslint.io/rules/no-misused-promises)
 
@@ -121,9 +121,9 @@ for (const value of [1, 2, 3]) {
 
 ## Связанные ссылки
 
-- [Отключить правило](/linter/#disable-a-rule)
+- [Отключить правило](/ru/linter/#disable-a-rule)
 - [Настроить исправление кода](/linter#configure-the-code-fix)
-- [Опции правила](/linter/#rule-options)
+- [Опции правила](/ru/linter/#rule-options)
 - [Исходный код](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_misused_promises.rs)
 - [Тестовые случаи](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noMisusedPromises)
 
