@@ -128,18 +128,19 @@ fn print_diagnostic(diagnostic: biome_diagnostics::Error, root: &Path, name: &st
 pub fn generate_diagnostics() -> Result<()> {
     let root = project_root().join("src/components/generated/diagnostics");
 
-    if root.exists() {
-        if let Err(err) = fs::remove_dir_all(&root) {
-            let is_not_found = err
-                .source()
-                .and_then(|err| err.downcast_ref::<io::Error>())
-                .is_some_and(|err| matches!(err.kind(), io::ErrorKind::NotFound));
+    if root.exists()
+        && let Err(err) = fs::remove_dir_all(&root)
+    {
+        let is_not_found = err
+            .source()
+            .and_then(|err| err.downcast_ref::<io::Error>())
+            .is_some_and(|err| matches!(err.kind(), io::ErrorKind::NotFound));
 
-            if !is_not_found {
-                return Err(err.into());
-            }
+        if !is_not_found {
+            return Err(err.into());
         }
     }
+
     fs::create_dir_all(&root)?;
 
     // severity
