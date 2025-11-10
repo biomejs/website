@@ -16,23 +16,23 @@ Before going too deep, we can perform a few steps to see if our issue is caused
 by one of the following:
 
 * If you have a `dist/` or `build/` folder with output files, or other such
-  folders with minified files, please verify if ignoring those using both
-  [`files.experimentalScannerIgnores`](https://biomejs.dev/reference/configuration/#filesexperimentalscannerignores)
-  as well as
-  [`files.includes`](https://biomejs.dev/reference/configuration/#filesincludes)
+  folders with minified files, please verify if ignoring those using
+  the `!!` syntax in
+  [`files.includes`](https://biomejs.dev/reference/configuration/#interaction-with-the-scanner)
   makes a difference.
 * Do you have [project rules](/linter/domains/#project) enabled? They are known
   to cause performance overhead, in return for more advanced analysis. Also see
   our [FAQ entry](/linter/#why-is-biome-linter-so-slow-compared-to-v1) on this
   topic. See if disabling them makes a difference.
   * If disabling them does help, but you want to find out what specifically made
-    it so slow, a first step can be to add `node_modules` to 
-    [`files.experimentalScannerIgnores`](https://biomejs.dev/reference/configuration/#filesexperimentalscannerignores).
+    it so slow, a first step can be to add `**/node_modules` to 
+    [`files.includes`](https://biomejs.dev/reference/configuration/#filesincludes)
+    with the `!!` syntax.
     Did that help? Great! But you probably don't want to keep it like this,
     because type information from dependencies won't be available anymore. You
-    can tweak `files.experimentalScannerIgnores` further to ignore a specific
-    dependency instead of the entire `node_modules` folder, but you will
-    probably want to read on to figure out which dependency to ignore...
+    can tweak `files.includes` further to ignore a specific dependency instead
+    of the entire `node_modules/` folder, but you will probably want to read on
+    to figure out which dependency to ignore...
 
 If none of the above helped, or if they did help, but you want to dig deeper, we
 can use tracing to see if there is a specific file that might be the culprit...
