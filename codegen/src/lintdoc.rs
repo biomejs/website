@@ -1530,7 +1530,7 @@ fn print_diagnostics_or_actions(
         DocumentFileSource::Js(file_source) => {
             // Temporary support for astro, svelte and vue code blocks
             let (code, file_source) = match file_source.as_embedding_kind() {
-                EmbeddingKind::Astro => (
+                EmbeddingKind::Astro { .. } => (
                     biome_service::file_handlers::AstroFileHandler::input(code),
                     JsFileSource::ts(),
                 ),
