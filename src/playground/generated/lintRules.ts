@@ -184,6 +184,7 @@ export const LINT_RULES = {
     noVueDuplicateKeys: "noVueDuplicateKeys",
     noVueReservedKeys: "noVueReservedKeys",
     noVueReservedProps: "noVueReservedProps",
+    useArraySortCompare: "useArraySortCompare",
     useConsistentArrowReturn: "useConsistentArrowReturn",
     useDeprecatedDate: "useDeprecatedDate",
     useExhaustiveSwitchCases: "useExhaustiveSwitchCases",

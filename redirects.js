@@ -260,6 +260,7 @@ export default {
   '/linter/rules/useAriaPropsForRole': '/linter/rules/use-aria-props-for-role',
   '/linter/rules/useAriaPropsSupportedByRole': '/linter/rules/use-aria-props-supported-by-role',
   '/linter/rules/useArrayLiterals': '/linter/rules/use-array-literals',
+  '/linter/rules/useArraySortCompare': '/linter/rules/use-array-sort-compare',
   '/linter/rules/useArrowFunction': '/linter/rules/use-arrow-function',
   '/linter/rules/useAsConstAssertion': '/linter/rules/use-as-const-assertion',
   '/linter/rules/useAtIndex': '/linter/rules/use-at-index',

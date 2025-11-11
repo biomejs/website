@@ -89,6 +89,13 @@ export function GET() {
 					"additionalProperties": false
 				},
 				{
+					"description": "Rules from [Deno Lint](https://github.com/denoland/deno_lint)",
+					"type": "object",
+					"required": ["denoLint"],
+					"properties": { "denoLint": { "type": "string" } },
+					"additionalProperties": false
+				},
+				{
 					"description": "Rules from [Eslint](https://eslint.org/)",
 					"type": "object",
 					"required": ["eslint"],
@@ -96,17 +103,17 @@ export function GET() {
 					"additionalProperties": false
 				},
 				{
+					"description": "Rules from [Eslint Plugin Barrel Files](https://github.com/thepassle/eslint-plugin-barrel-files)",
+					"type": "object",
+					"required": ["eslintBarrelFiles"],
+					"properties": { "eslintBarrelFiles": { "type": "string" } },
+					"additionalProperties": false
+				},
+				{
 					"description": "Rules from [GraphQL-ESLint](https://github.com/graphql-hive/graphql-eslint)",
 					"type": "object",
 					"required": ["eslintGraphql"],
 					"properties": { "eslintGraphql": { "type": "string" } },
-					"additionalProperties": false
-				},
-				{
-					"description": "Rules from [graphql-schema-linter](https://github.com/cjoudrey/graphql-schema-linter)",
-					"type": "object",
-					"required": ["graphqlSchemaLinter"],
-					"properties": { "graphqlSchemaLinter": { "type": "string" } },
 					"additionalProperties": false
 				},
 				{
@@ -131,13 +138,6 @@ export function GET() {
 					"additionalProperties": false
 				},
 				{
-					"description": "Rules from [Eslint Plugin JSX A11y](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y)",
-					"type": "object",
-					"required": ["eslintJsxA11y"],
-					"properties": { "eslintJsxA11y": { "type": "string" } },
-					"additionalProperties": false
-				},
-				{
 					"description": "Rules from [Eslint Plugin JSDOc](https://github.com/gajus/eslint-plugin-jsdoc)",
 					"type": "object",
 					"required": ["eslintJsDoc"],
@@ -145,10 +145,68 @@ export function GET() {
 					"additionalProperties": false
 				},
 				{
+					"description": "Rules from [Eslint Plugin JSX A11y](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y)",
+					"type": "object",
+					"required": ["eslintJsxA11y"],
+					"properties": { "eslintJsxA11y": { "type": "string" } },
+					"additionalProperties": false
+				},
+				{
+					"description": "Rules from [Eslint Plugin Mysticatea](https://github.com/mysticatea/eslint-plugin)",
+					"type": "object",
+					"required": ["eslintMysticatea"],
+					"properties": { "eslintMysticatea": { "type": "string" } },
+					"additionalProperties": false
+				},
+				{
+					"description": "Rules from [Eslint Plugin N](https://github.com/eslint-community/eslint-plugin-n)",
+					"type": "object",
+					"required": ["eslintN"],
+					"properties": { "eslintN": { "type": "string" } },
+					"additionalProperties": false
+				},
+				{
+					"description": "Rules from [Eslint Plugin Next](https://github.com/vercel/next.js/tree/canary/packages/eslint-plugin-next)",
+					"type": "object",
+					"required": ["eslintNext"],
+					"properties": { "eslintNext": { "type": "string" } },
+					"additionalProperties": false
+				},
+				{
+					"description": "Rules from [Eslint Plugin No Secrets](https://github.com/nickdeis/eslint-plugin-no-secrets)",
+					"type": "object",
+					"required": ["eslintNoSecrets"],
+					"properties": { "eslintNoSecrets": { "type": "string" } },
+					"additionalProperties": false
+				},
+				{
+					"description": "Rules from [Eslint Plugin Package.json](https://github.com/JoshuaKGoldberg/eslint-plugin-package-json)",
+					"type": "object",
+					"required": ["eslintPackageJson"],
+					"properties": { "eslintPackageJson": { "type": "string" } },
+					"additionalProperties": false
+				},
+				{
+					"description": "Rules from [Eslint Plugin Package.json Dependencies](https://github.com/idan-at/eslint-plugin-package-json-dependencies)",
+					"type": "object",
+					"required": ["eslintPackageJsonDependencies"],
+					"properties": {
+						"eslintPackageJsonDependencies": { "type": "string" }
+					},
+					"additionalProperties": false
+				},
+				{
 					"description": "Rules from [Eslint Plugin Perfectionist](https://perfectionist.dev/)",
 					"type": "object",
 					"required": ["eslintPerfectionist"],
 					"properties": { "eslintPerfectionist": { "type": "string" } },
+					"additionalProperties": false
+				},
+				{
+					"description": "Rules from [Eslint Plugin Qwik](https://github.com/QwikDev/qwik)",
+					"type": "object",
+					"required": ["eslintQwik"],
+					"properties": { "eslintQwik": { "type": "string" } },
 					"additionalProperties": false
 				},
 				{
@@ -163,6 +221,15 @@ export function GET() {
 					"type": "object",
 					"required": ["eslintReactHooks"],
 					"properties": { "eslintReactHooks": { "type": "string" } },
+					"additionalProperties": false
+				},
+				{
+					"description": "Rules from [Eslint Plugin React Prefer Function Component](https://github.com/tatethurston/eslint-plugin-react-prefer-function-component)",
+					"type": "object",
+					"required": ["eslintReactPreferFunctionComponent"],
+					"properties": {
+						"eslintReactPreferFunctionComponent": { "type": "string" }
+					},
 					"additionalProperties": false
 				},
 				{
@@ -187,12 +254,10 @@ export function GET() {
 					"additionalProperties": false
 				},
 				{
-					"description": "Rules from [Eslint Plugin React Prefer Function Component](https://github.com/tatethurston/eslint-plugin-react-prefer-function-component)",
+					"description": "Rules from [Eslint Plugin Regexp](https://github.com/ota-meshi/eslint-plugin-regexp)",
 					"type": "object",
-					"required": ["reactPreferFunctionComponent"],
-					"properties": {
-						"reactPreferFunctionComponent": { "type": "string" }
-					},
+					"required": ["eslintRegexp"],
+					"properties": { "eslintRegexp": { "type": "string" } },
 					"additionalProperties": false
 				},
 				{
@@ -238,69 +303,6 @@ export function GET() {
 					"additionalProperties": false
 				},
 				{
-					"description": "Rules from [Eslint Plugin Mysticatea](https://github.com/mysticatea/eslint-plugin)",
-					"type": "object",
-					"required": ["eslintMysticatea"],
-					"properties": { "eslintMysticatea": { "type": "string" } },
-					"additionalProperties": false
-				},
-				{
-					"description": "Rules from [Eslint Plugin Barrel Files](https://github.com/thepassle/eslint-plugin-barrel-files)",
-					"type": "object",
-					"required": ["eslintBarrelFiles"],
-					"properties": { "eslintBarrelFiles": { "type": "string" } },
-					"additionalProperties": false
-				},
-				{
-					"description": "Rules from [Eslint Plugin N](https://github.com/eslint-community/eslint-plugin-n)",
-					"type": "object",
-					"required": ["eslintN"],
-					"properties": { "eslintN": { "type": "string" } },
-					"additionalProperties": false
-				},
-				{
-					"description": "Rules from [Eslint Plugin Next](https://github.com/vercel/next.js/tree/canary/packages/eslint-plugin-next)",
-					"type": "object",
-					"required": ["eslintNext"],
-					"properties": { "eslintNext": { "type": "string" } },
-					"additionalProperties": false
-				},
-				{
-					"description": "Rules from [Eslint Plugin Qwik](https://github.com/QwikDev/qwik)",
-					"type": "object",
-					"required": ["eslintQwik"],
-					"properties": { "eslintQwik": { "type": "string" } },
-					"additionalProperties": false
-				},
-				{
-					"description": "Rules from [Stylelint](https://github.com/stylelint/stylelint)",
-					"type": "object",
-					"required": ["stylelint"],
-					"properties": { "stylelint": { "type": "string" } },
-					"additionalProperties": false
-				},
-				{
-					"description": "Rules from [Eslint Plugin No Secrets](https://github.com/nickdeis/eslint-plugin-no-secrets)",
-					"type": "object",
-					"required": ["eslintNoSecrets"],
-					"properties": { "eslintNoSecrets": { "type": "string" } },
-					"additionalProperties": false
-				},
-				{
-					"description": "Rules from [Eslint Plugin Regexp](https://github.com/ota-meshi/eslint-plugin-regexp)",
-					"type": "object",
-					"required": ["eslintRegexp"],
-					"properties": { "eslintRegexp": { "type": "string" } },
-					"additionalProperties": false
-				},
-				{
-					"description": "Rules from [deno lint](https://github.com/denoland/deno_lint)",
-					"type": "object",
-					"required": ["denoLint"],
-					"properties": { "denoLint": { "type": "string" } },
-					"additionalProperties": false
-				},
-				{
 					"description": "Rules from [Eslint Plugin Vitest](https://github.com/vitest-dev/eslint-plugin-vitest)",
 					"type": "object",
 					"required": ["eslintVitest"],
@@ -315,19 +317,17 @@ export function GET() {
 					"additionalProperties": false
 				},
 				{
-					"description": "Rules from [Eslint Plugin Package.json](https://github.com/JoshuaKGoldberg/eslint-plugin-package-json)",
+					"description": "Rules from [graphql-schema-linter](https://github.com/cjoudrey/graphql-schema-linter)",
 					"type": "object",
-					"required": ["eslintPackageJson"],
-					"properties": { "eslintPackageJson": { "type": "string" } },
+					"required": ["graphqlSchemaLinter"],
+					"properties": { "graphqlSchemaLinter": { "type": "string" } },
 					"additionalProperties": false
 				},
 				{
-					"description": "Rules from [Eslint Plugin Package.json Dependencies](https://github.com/idan-at/eslint-plugin-package-json-dependencies)",
+					"description": "Rules from [Stylelint](https://github.com/stylelint/stylelint)",
 					"type": "object",
-					"required": ["eslintPackageJsonDependencies"],
-					"properties": {
-						"eslintPackageJsonDependencies": { "type": "string" }
-					},
+					"required": ["stylelint"],
+					"properties": { "stylelint": { "type": "string" } },
 					"additionalProperties": false
 				}
 			]
