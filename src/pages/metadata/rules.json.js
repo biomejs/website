@@ -2309,6 +2309,23 @@ export function GET() {
             ],
             "docs": " Disallow reserved names to be used as props.\n\n Vue reserves certain prop names for its internal use. Using these reserved names\n as prop names can cause conflicts and unexpected behavior in your Vue components.\n\n This rule prevents the use of the following reserved prop names:\n - `key` - Used by Vue for list rendering and component identification\n - `ref` - Used by Vue for template refs\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script setup>\n defineProps({\n     ref: String,\n });\n </script>\n ```\n\n ```js,expect_diagnostic\n import {defineComponent} from 'vue';\n\n export default defineComponent({\n     props: [\n         'key',\n     ]\n });\n ```\n\n ```vue,expect_diagnostic\n <script setup lang=\"ts\">\n defineProps<{\n     ref: string,\n }>();\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script>\n export default {\n     props: {\n         key: String,\n     }\n };\n </script>\n ```\n\n ### Valid\n\n ```js\n import {defineComponent} from 'vue';\n\n export default defineComponent({\n     props: ['foo']\n });\n ```\n\n ```vue\n <script setup>\n defineProps({ foo: String });\n </script>\n ```\n\n ```vue\n <script setup lang=\"ts\">\n defineProps<{\n     foo: string,\n     bar: string,\n }>();\n </script>\n ```\n\n ```vue\n <script>\n export default {\n     props: {\n         foo: String,\n         bar: String,\n     }\n };\n </script>\n ```\n\n"
           },
+          "useArraySortCompare": {
+            "deprecated": false,
+            "version": "2.3.5",
+            "name": "useArraySortCompare",
+            "link": "https://biomejs.dev/linter/rules/use-array-sort-compare",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintTypeScript": "require-array-sort-compare"
+                }
+              }
+            ],
+            "docs": " Require Array#sort and Array#toSorted calls to always provide a compareFunction.\n\n When called without a compare function, Array#sort() and Array#toSorted() converts all non-undefined array elements into strings and then compares said strings based off their UTF-16 code units [ECMA specification](https://262.ecma-international.org/9.0/#sec-sortcompare).\n\n The result is that elements are sorted alphabetically, regardless of their type. For example, when sorting numbers, this results in a \"10 before 2\" order:\n\n ```ts,file=example.ts,ignore\n [1, 2, 3, 10, 20, 30].sort(); //→ [1, 10, 2, 20, 3, 30]\n ```\n\n This rule reports on any call to the sort methods that do not provide a compare argument.\n\n ## Examples\n\n ### Invalid\n\n ```ts,file=invalid.ts,expect_diagnostic\n const array: any[] = [];\n array.sort();\n ```\n\n ### Valid\n\n ```ts,file=valid.ts\n const array: any[] = [];\n array.sort((a, b) => a - b);\n ```\n\n"
+          },
           "useConsistentArrowReturn": {
             "deprecated": false,
             "version": "2.2.3",
@@ -5638,7 +5655,7 @@ export function GET() {
               {
                 "kind": "sameLogic",
                 "source": {
-                  "reactPreferFunctionComponent": "react-prefer-function-component"
+                  "eslintReactPreferFunctionComponent": "react-prefer-function-component"
                 }
               }
             ],
@@ -5776,7 +5793,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow primitive type aliases and misleading types.\n\n - Enforce consistent names for primitive types\n\n   Primitive types have aliases.\n   For example, `Number` is an alias of `number`.\n   The rule recommends the lowercase primitive type names.\n\n - Disallow the `Function` type\n\n   The `Function` type is loosely typed and is thus considered dangerous or harmful.\n   `Function` is equivalent to the type `(...rest: any[]) => any` that uses the unsafe `any` type.\n\n - Disallow the misleading non-nullable type `{}`\n\n   In TypeScript, the type `{}` doesn't represent an empty object.\n   It represents any value except `null` and `undefined`.\n   The following TypeScript example is perfectly valid:\n\n   ```ts,expect_diagnostic\n   const n: {} = 0\n   ```\n\n   To represent an empty object, you should use `{ [k: string]: never }` or `Record<string, never>`.\n\n   To avoid any confusion, the rule forbids the use of the type `{}`, except in two situations:\n\n   1. In type constraints to restrict a generic type to non-nullable types:\n\n   ```ts\n   function f<T extends {}>(x: T) {\n       assert(x != null);\n   }\n   ```\n\n   2. In a type intersection to narrow a type to its non-nullable equivalent type:\n\n   ```ts\n   type NonNullableMyType = MyType & {};\n   ```\n\n   In this last case, you can also use the `NonNullable` utility type:\n\n   ```ts\n   type NonNullableMyType = NonNullable<MyType>;\n   ```\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n let foo: String = \"bar\";\n ```\n\n ```ts,expect_diagnostic\n let bool = true as Boolean;\n ```\n\n ```ts,expect_diagnostic\n let invalidTuple: [string, Boolean] = [\"foo\", false];\n ```\n\n ### Valid\n\n ```ts\n let foo: string = \"bar\";\n ```\n\n ```ts\n let tuple: [boolean, string] = [false, \"foo\"];\n ```\n\n"
+            "docs": " Disallow primitive type aliases and misleading types.\n\n This rule aims to prevent usage of potentially \"misleading\" types and type aliases\n which may behave unexpectedly.\n\n ### Disallow \"boxed object\" types like `Boolean` and `Number`\n\n JavaScript's 8 data types are described in TypeScript by the lowercase types\n `undefined`, `null`, `boolean`, `number`, `string`, `bigint`, `symbol`, and `object`.\n\n The latter 6 also have uppercase variants, which instead represent _interfaces_ with the shared properties of their primitive counterparts.\n Due to the nature of structural typing, these uppercase types accept both primitive values and non-primitive \"boxed object\"s\n like `new Boolean(true)`, despite the two behaving differently in many circumstances like equality and truthiness.\n\n It is thus considered best practice to avoid these \"boxed types\" in favor of their lowercase\n primitive counterparts.\n\n ### Disallow the unsafe `Function` type\n\n TypeScript's built-in `Function` type is capable of accepting callbacks of any shape or form,\n behaving equivalent to `(...rest: any[]) => any` (which uses the unsafe `any` type) when called directly.\n It also accepts classes or plain objects that happen to possess all properties of the `Function` class,\n which is likewise a potential source of confusion.\n\n As such, it is almost always preferable to explicitly specify function parameters and return types where possible. \\\n When a generic \"catch-all\" callback type is required, one of the following can be used instead:\n - `() => void`: A function that accepts no parameters and whose return value is ignored\n - `(...args: never) => unknown`: A \"top type\" for functions that can be assigned any function type,\n    but can't be called directly\n\n ### Disallow the misleading empty object type `{}`\n In TypeScript, the type `{}` _doesn't_ represent an empty object (as many new to the language may assume).\n It actually accepts any non-nullish value, _including non-object primitives_.\n The following TypeScript example is thus perfectly valid:\n\n ```ts,expect_diagnostic\n const n: {} = 0;\n ```\n\n Often, developers writing `{}` actually mean one of the following:\n - `object`: Represents any object value\n - `unknown`: Represents any value at all, including `null` and `undefined`\n - `{ [k: string]: never }` or `Record<string, never>`: Represent object types that disallow property access\n\n To avoid confusion, this rule forbids the use of the type `{}`, except in two situations:\n\n 1. In type constraints to restrict a generic type to non-nullable types:\n\n ```ts\n function f<T extends {}>(x: T) {\n     assert(x != null);\n }\n ```\n\n 2. In a type intersection to narrow a type to its non-nullable equivalent type:\n\n ```ts\n type NonNullableMyType = MyType & {};\n ```\n\n In this last case, you can also use the `NonNullable` utility type to the same effect:\n\n ```ts\n type NonNullableMyType = NonNullable<MyType>;\n ```\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n let foo: String = \"bar\";\n ```\n\n ```ts,expect_diagnostic\n const bool = true as Boolean;\n ```\n\n ```ts,expect_diagnostic\n let invalidTuple: [string, Number] = [\"foo\", 12];\n ```\n\n ```ts,expect_diagnostic\n function badFunction(cb: Function) {\n   cb(12);\n }\n ```\n\n ```ts,expect_diagnostic\n const notEmpty: {} = {prop: 12};\n ```\n\n ```ts,expect_diagnostic\n const alsoNotAnObj: Object = \"foo\";\n ```\n\n ### Valid\n\n ```ts\n const foo: string = \"bar\";\n ```\n\n ```ts\n let tuple: [boolean, string] = [false, \"foo\"];\n ```\n\n ```ts\n function betterFunction(cb: (n: number) => string) {\n   return cb(12);\n }\n ```\n\n ```ts\n type wrapFn<T extends (...args: never) => unknown> = { func: T }\n ```\n\n ```ts\n const goodObj: object = {foo: 12};\n ```\n\n ```ts\n type emptyObj = Record<string, never>;\n ```\n\n Exceptions for `{}`:\n ```ts\n declare function foo<T extends {}>(x: T): void;\n ```\n\n ```ts\n type notNull<T> = T & {};\n ```\n\n"
           },
           "noEmptyTypeParameters": {
             "deprecated": false,
@@ -6368,7 +6385,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 371
+    "numberOrRules": 372
   },
   "syntax": {
     "languages": {
