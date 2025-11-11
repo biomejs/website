@@ -506,6 +506,23 @@ export function GET() {
             "fixKind": "none",
             "docs": " Disallow empty sources.\n\n A source containing only the following is considered empty:\n   - Whitespace (spaces, tabs or newlines)\n   - Comments\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n\n ```\n\n ```graphql,ignore\n # Invalid comment\n ```\n\n ### Valid\n\n ```graphql\n query Member {}\n ```\n\n ```graphql\n fragment StrippedMember on Member {}\n ```\n\n ## Options\n\n ### `allowComments`\n\n Whether the comments should be marked as meaningful.\n When this option has been set to `true`, a file with only comments is considered valid.\n\n Default `false`\n\n\n ```json,options\n {\n   \"options\": {\n     \"allowComments\": true\n   }\n }\n ```\n\n #### Invalid\n\n ```graphql,expect_diagnostic,use_options\n\n ```\n\n #### Valid\n\n ```graphql,ignore\n # Valid comment\n ```\n\n"
           },
+          "useConsistentGraphqlDescriptions": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useConsistentGraphqlDescriptions",
+            "link": "https://biomejs.dev/linter/rules/use-consistent-graphql-descriptions",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintGraphql": "description-style"
+                }
+              }
+            ],
+            "docs": " Require all descriptions to follow the same style (either block or inline) to  maintain consistency and improve readability across the schema.\n\n ## Examples\n\n ### style: `block`\n\n #### Invalid\n\n ```graphql,expect_diagnostic\n enum EnumValue {\n   \"this is a description\"\n   DEFAULT\n }\n ```\n\n #### Valid\n\n ```graphql\n enum EnumValue {\n   \"\"\"\n   this is a description\n   \"\"\"\n   DEFAULT\n }\n ```\n\n ## Options\n\n ### `style`\n\n This option will specify the description style.\n - `\"block\"`: Requires triple-quoted block descriptions (`\"\"\"...\"\"\"`)\n - `\"inline\"`: Requires single-quoted inline descriptions (`\"...\"`)\n\n Default `\"block\"`\n\n ```json,options\n {\n   \"options\": {\n     \"style\": \"inline\"\n   }\n }\n ```\n\n ```graphql,expect_diagnostic,use_options\n enum EnumValue {\n   \"\"\"\n   this is a description\n   \"\"\"\n   DEFAULT\n }\n ```\n\n"
+          },
           "useDeprecatedDate": {
             "deprecated": false,
             "version": "2.2.6",
@@ -6385,7 +6402,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 372
+    "numberOrRules": 373
   },
   "syntax": {
     "languages": {

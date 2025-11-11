@@ -186,6 +186,7 @@ export const LINT_RULES = {
     noVueReservedProps: "noVueReservedProps",
     useArraySortCompare: "useArraySortCompare",
     useConsistentArrowReturn: "useConsistentArrowReturn",
+    useConsistentGraphqlDescriptions: "useConsistentGraphqlDescriptions",
     useDeprecatedDate: "useDeprecatedDate",
     useExhaustiveSwitchCases: "useExhaustiveSwitchCases",
     useExplicitType: "useExplicitType",
