@@ -2067,6 +2067,23 @@ export function GET() {
             ],
             "docs": " Disallow empty sources.\n\n A source containing only the following is considered empty:\n   - Whitespace (spaces, tabs or newlines)\n   - Comments\n   - Directives\n   - Empty statements\n   - Empty block statements\n   - Hashbang\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n\n ```\n\n ```js,expect_diagnostic\n // Only comments\n ```\n\n ```js,expect_diagnostic\n /* Only comments */\n ```\n\n ```js,expect_diagnostic\n 'use strict';\n ```\n\n ```js,expect_diagnostic\n ;\n ```\n\n ```js,expect_diagnostic\n {\n }\n ```\n\n ```js,expect_diagnostic\n #!/usr/bin/env node\n ```\n\n ### Valid\n\n ```js\n const x = 0;\n ```\n\n ```js\n 'use strict';\n const x = 0;\n ```\n\n ```js\n ;;\n const x = 0;\n ```\n\n ```js\n {\n   const x = 0;\n }\n ```\n\n ## Options\n\n ### `allowComments`\n\n Whether the comments should be marked as meaningful.\n When this option has been set to `true`, a file with only comments is considered valid.\n\n Default `false`\n\n ```json,options\n {\n   \"options\": {\n     \"allowComments\": true\n   }\n }\n ```\n\n #### Invalid\n\n ```js,expect_diagnostic,use_options\n\n ```\n\n #### Valid\n\n ```js,use_options\n /* Only comments */\n ```\n\n"
           },
+          "noForIn": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noForIn",
+            "link": "https://biomejs.dev/linter/rules/no-for-in",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintTypeScript": "no-for-in-array"
+                }
+              }
+            ],
+            "docs": " Disallow iterating using a for-in loop.\n\n A for-in loop (`for (const i in o)`) iterates over the properties of an Object. While it is legal to use for-in loops with array values, it is not common. There are several potential bugs with this:\n\n 1. It iterates over all enumerable properties, including non-index ones and the entire prototype chain. For example, [`RegExp.prototype.exec`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec) returns an array with additional properties, and `for-in` will iterate over them. Some libraries or even your own code may add additional methods to `Array.prototype` (either as polyfill or as custom methods), and if not done properly, they may be iterated over as well.\n 2. It skips holes in the array. While sparse arrays are rare and advised against, they are still possible and your code should be able to handle them.\n 3. The \"index\" is returned as a string, not a number. This can be caught by TypeScript, but can still lead to subtle bugs.\n\n You may have confused for-in with for-of, which iterates over the elements of the array. If you actually need the index, use a regular `for` loop or the `forEach` method.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n for (const i in array) {\n   console.log(i, array[i]);\n }\n ```\n\n ### Valid\n\n ```js\n for (const value of array) {\n   console.log(value);\n }\n ```\n ```js\n for (let i = 0; i < array.length; i += 1) {\n   console.log(i, array[i]);\n }\n ```\n ```js\n array.forEach((value, i) => {\n   console.log(i, value);\n });\n ```\n ```js\n for (const [i, value] of array.entries()) {\n   console.log(i, value);\n }\n ```\n\n"
+          },
           "noImportCycles": {
             "deprecated": false,
             "version": "2.0.0",
@@ -6402,7 +6419,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 373
+    "numberOrRules": 374
   },
   "syntax": {
     "languages": {
