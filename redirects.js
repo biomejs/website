@@ -90,6 +90,7 @@ export default {
   '/linter/rules/noFloatingPromises': '/linter/rules/no-floating-promises',
   '/linter/rules/noFocusedTests': '/linter/rules/no-focused-tests',
   '/linter/rules/noForEach': '/linter/rules/no-for-each',
+  '/linter/rules/noForIn': '/linter/rules/no-for-in',
   '/linter/rules/noFunctionAssign': '/linter/rules/no-function-assign',
   '/linter/rules/noGlobalAssign': '/linter/rules/no-global-assign',
   '/linter/rules/noGlobalDirnameFilename': '/linter/rules/no-global-dirname-filename',
