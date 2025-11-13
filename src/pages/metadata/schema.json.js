@@ -1,40 +1,40 @@
 export function GET() {
 	const schema = {
-	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
 	"title": "RulesMetadata",
 	"type": "object",
 	"properties": {
 		"assist": {
-			"default": { "languages": {}, "numberOrRules": 0 },
-			"allOf": [{ "$ref": "#/definitions/Rules" }]
+			"$ref": "#/$defs/Rules",
+			"default": { "languages": {}, "numberOrRules": 0 }
 		},
 		"lints": {
-			"default": { "languages": {}, "numberOrRules": 0 },
-			"allOf": [{ "$ref": "#/definitions/Rules" }]
+			"$ref": "#/$defs/Rules",
+			"default": { "languages": {}, "numberOrRules": 0 }
 		},
 		"syntax": {
-			"default": { "languages": {}, "numberOrRules": 0 },
-			"allOf": [{ "$ref": "#/definitions/Rules" }]
+			"$ref": "#/$defs/Rules",
+			"default": { "languages": {}, "numberOrRules": 0 }
 		}
 	},
-	"definitions": {
+	"$defs": {
 		"FixKind": {
 			"description": "Used to identify the kind of code action emitted by a rule",
 			"oneOf": [
 				{
 					"description": "The rule doesn't emit code actions.",
 					"type": "string",
-					"enum": ["none"]
+					"const": "none"
 				},
 				{
 					"description": "The rule emits a code action that is safe to apply. Usually these fixes don't change the semantic of the program.",
 					"type": "string",
-					"enum": ["safe"]
+					"const": "safe"
 				},
 				{
-					"description": "The rule emits a code action that is _unsafe_ to apply. Usually these fixes remove comments, or change the semantic of the program.",
+					"description": "The rule emits a code action that is _unsafe_ to apply. Usually these fixes remove comments, or change\nthe semantic of the program.",
 					"type": "string",
-					"enum": ["unsafe"]
+					"const": "unsafe"
 				}
 			]
 		},
@@ -43,39 +43,39 @@ export function GET() {
 			"properties": {
 				"deprecated": {
 					"description": "It marks if a rule is deprecated, and if so a reason has to be provided.",
-					"default": false,
-					"type": "boolean"
+					"type": "boolean",
+					"default": false
 				},
-				"docs": { "default": "", "type": "string" },
+				"docs": { "type": "string", "default": "" },
 				"fixKind": {
 					"description": "The kind of fix",
-					"default": "none",
-					"allOf": [{ "$ref": "#/definitions/FixKind" }]
+					"$ref": "#/$defs/FixKind",
+					"default": "none"
 				},
 				"link": {
 					"description": "The rule's documentation URL",
-					"default": "",
-					"type": "string"
+					"type": "string",
+					"default": ""
 				},
 				"name": {
 					"description": "The name of this rule, displayed in the diagnostics it emits",
-					"default": "",
-					"type": "string"
+					"type": "string",
+					"default": ""
 				},
 				"recommended": {
 					"description": "Whether a rule is recommended or not",
-					"default": false,
-					"type": "boolean"
+					"type": "boolean",
+					"default": false
 				},
 				"sources": {
 					"description": "The source metadata of the rule",
 					"type": "array",
-					"items": { "$ref": "#/definitions/RuleSourceWithKind" }
+					"items": { "$ref": "#/$defs/RuleSourceWithKind" }
 				},
 				"version": {
 					"description": "The version when the rule was implemented",
-					"default": "",
-					"type": "string"
+					"type": "string",
+					"default": ""
 				}
 			}
 		},
@@ -84,251 +84,251 @@ export function GET() {
 				{
 					"description": "Rules from [Rust Clippy](https://rust-lang.github.io/rust-clippy/master/index.html)",
 					"type": "object",
-					"required": ["clippy"],
 					"properties": { "clippy": { "type": "string" } },
-					"additionalProperties": false
+					"additionalProperties": false,
+					"required": ["clippy"]
 				},
 				{
 					"description": "Rules from [Deno Lint](https://github.com/denoland/deno_lint)",
 					"type": "object",
-					"required": ["denoLint"],
 					"properties": { "denoLint": { "type": "string" } },
-					"additionalProperties": false
+					"additionalProperties": false,
+					"required": ["denoLint"]
 				},
 				{
 					"description": "Rules from [Eslint](https://eslint.org/)",
 					"type": "object",
-					"required": ["eslint"],
 					"properties": { "eslint": { "type": "string" } },
-					"additionalProperties": false
+					"additionalProperties": false,
+					"required": ["eslint"]
 				},
 				{
 					"description": "Rules from [Eslint Plugin Barrel Files](https://github.com/thepassle/eslint-plugin-barrel-files)",
 					"type": "object",
-					"required": ["eslintBarrelFiles"],
 					"properties": { "eslintBarrelFiles": { "type": "string" } },
-					"additionalProperties": false
+					"additionalProperties": false,
+					"required": ["eslintBarrelFiles"]
 				},
 				{
 					"description": "Rules from [GraphQL-ESLint](https://github.com/graphql-hive/graphql-eslint)",
 					"type": "object",
-					"required": ["eslintGraphql"],
 					"properties": { "eslintGraphql": { "type": "string" } },
-					"additionalProperties": false
+					"additionalProperties": false,
+					"required": ["eslintGraphql"]
 				},
 				{
 					"description": "Rules from [Eslint Plugin Import](https://github.com/import-js/eslint-plugin-import)",
 					"type": "object",
-					"required": ["eslintImport"],
 					"properties": { "eslintImport": { "type": "string" } },
-					"additionalProperties": false
+					"additionalProperties": false,
+					"required": ["eslintImport"]
 				},
 				{
 					"description": "Rules from [Eslint Plugin Import Access](https://github.com/uhyo/eslint-plugin-import-access)",
 					"type": "object",
-					"required": ["eslintImportAccess"],
 					"properties": { "eslintImportAccess": { "type": "string" } },
-					"additionalProperties": false
+					"additionalProperties": false,
+					"required": ["eslintImportAccess"]
 				},
 				{
 					"description": "Rules from [Eslint Plugin Jest](https://github.com/jest-community/eslint-plugin-jest)",
 					"type": "object",
-					"required": ["eslintJest"],
 					"properties": { "eslintJest": { "type": "string" } },
-					"additionalProperties": false
+					"additionalProperties": false,
+					"required": ["eslintJest"]
 				},
 				{
 					"description": "Rules from [Eslint Plugin JSDOc](https://github.com/gajus/eslint-plugin-jsdoc)",
 					"type": "object",
-					"required": ["eslintJsDoc"],
 					"properties": { "eslintJsDoc": { "type": "string" } },
-					"additionalProperties": false
+					"additionalProperties": false,
+					"required": ["eslintJsDoc"]
 				},
 				{
 					"description": "Rules from [Eslint Plugin JSX A11y](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y)",
 					"type": "object",
-					"required": ["eslintJsxA11y"],
 					"properties": { "eslintJsxA11y": { "type": "string" } },
-					"additionalProperties": false
+					"additionalProperties": false,
+					"required": ["eslintJsxA11y"]
 				},
 				{
 					"description": "Rules from [Eslint Plugin Mysticatea](https://github.com/mysticatea/eslint-plugin)",
 					"type": "object",
-					"required": ["eslintMysticatea"],
 					"properties": { "eslintMysticatea": { "type": "string" } },
-					"additionalProperties": false
+					"additionalProperties": false,
+					"required": ["eslintMysticatea"]
 				},
 				{
 					"description": "Rules from [Eslint Plugin N](https://github.com/eslint-community/eslint-plugin-n)",
 					"type": "object",
-					"required": ["eslintN"],
 					"properties": { "eslintN": { "type": "string" } },
-					"additionalProperties": false
+					"additionalProperties": false,
+					"required": ["eslintN"]
 				},
 				{
 					"description": "Rules from [Eslint Plugin Next](https://github.com/vercel/next.js/tree/canary/packages/eslint-plugin-next)",
 					"type": "object",
-					"required": ["eslintNext"],
 					"properties": { "eslintNext": { "type": "string" } },
-					"additionalProperties": false
+					"additionalProperties": false,
+					"required": ["eslintNext"]
 				},
 				{
 					"description": "Rules from [Eslint Plugin No Secrets](https://github.com/nickdeis/eslint-plugin-no-secrets)",
 					"type": "object",
-					"required": ["eslintNoSecrets"],
 					"properties": { "eslintNoSecrets": { "type": "string" } },
-					"additionalProperties": false
+					"additionalProperties": false,
+					"required": ["eslintNoSecrets"]
 				},
 				{
 					"description": "Rules from [Eslint Plugin Package.json](https://github.com/JoshuaKGoldberg/eslint-plugin-package-json)",
 					"type": "object",
-					"required": ["eslintPackageJson"],
 					"properties": { "eslintPackageJson": { "type": "string" } },
-					"additionalProperties": false
+					"additionalProperties": false,
+					"required": ["eslintPackageJson"]
 				},
 				{
 					"description": "Rules from [Eslint Plugin Package.json Dependencies](https://github.com/idan-at/eslint-plugin-package-json-dependencies)",
 					"type": "object",
-					"required": ["eslintPackageJsonDependencies"],
 					"properties": {
 						"eslintPackageJsonDependencies": { "type": "string" }
 					},
-					"additionalProperties": false
+					"additionalProperties": false,
+					"required": ["eslintPackageJsonDependencies"]
 				},
 				{
 					"description": "Rules from [Eslint Plugin Perfectionist](https://perfectionist.dev/)",
 					"type": "object",
-					"required": ["eslintPerfectionist"],
 					"properties": { "eslintPerfectionist": { "type": "string" } },
-					"additionalProperties": false
+					"additionalProperties": false,
+					"required": ["eslintPerfectionist"]
 				},
 				{
 					"description": "Rules from [Eslint Plugin Qwik](https://github.com/QwikDev/qwik)",
 					"type": "object",
-					"required": ["eslintQwik"],
 					"properties": { "eslintQwik": { "type": "string" } },
-					"additionalProperties": false
+					"additionalProperties": false,
+					"required": ["eslintQwik"]
 				},
 				{
 					"description": "Rules from [Eslint Plugin React](https://github.com/jsx-eslint/eslint-plugin-react)",
 					"type": "object",
-					"required": ["eslintReact"],
 					"properties": { "eslintReact": { "type": "string" } },
-					"additionalProperties": false
+					"additionalProperties": false,
+					"required": ["eslintReact"]
 				},
 				{
 					"description": "Rules from [Eslint Plugin React Hooks](https://github.com/facebook/react/blob/main/packages/eslint-plugin-react-hooks/README.md)",
 					"type": "object",
-					"required": ["eslintReactHooks"],
 					"properties": { "eslintReactHooks": { "type": "string" } },
-					"additionalProperties": false
+					"additionalProperties": false,
+					"required": ["eslintReactHooks"]
 				},
 				{
 					"description": "Rules from [Eslint Plugin React Prefer Function Component](https://github.com/tatethurston/eslint-plugin-react-prefer-function-component)",
 					"type": "object",
-					"required": ["eslintReactPreferFunctionComponent"],
 					"properties": {
 						"eslintReactPreferFunctionComponent": { "type": "string" }
 					},
-					"additionalProperties": false
+					"additionalProperties": false,
+					"required": ["eslintReactPreferFunctionComponent"]
 				},
 				{
 					"description": "Rules from [Eslint Plugin React Refresh](https://github.com/ArnaudBarre/eslint-plugin-react-refresh)",
 					"type": "object",
-					"required": ["eslintReactRefresh"],
 					"properties": { "eslintReactRefresh": { "type": "string" } },
-					"additionalProperties": false
+					"additionalProperties": false,
+					"required": ["eslintReactRefresh"]
 				},
 				{
 					"description": "Rules from [eslint-react.xyz](https://eslint-react.xyz/)",
 					"type": "object",
-					"required": ["eslintReactX"],
 					"properties": { "eslintReactX": { "type": "string" } },
-					"additionalProperties": false
+					"additionalProperties": false,
+					"required": ["eslintReactX"]
 				},
 				{
 					"description": "Rules from [eslint-react.xyz](https://eslint-react.xyz/)",
 					"type": "object",
-					"required": ["eslintReactXyz"],
 					"properties": { "eslintReactXyz": { "type": "string" } },
-					"additionalProperties": false
+					"additionalProperties": false,
+					"required": ["eslintReactXyz"]
 				},
 				{
 					"description": "Rules from [Eslint Plugin Regexp](https://github.com/ota-meshi/eslint-plugin-regexp)",
 					"type": "object",
-					"required": ["eslintRegexp"],
 					"properties": { "eslintRegexp": { "type": "string" } },
-					"additionalProperties": false
+					"additionalProperties": false,
+					"required": ["eslintRegexp"]
 				},
 				{
 					"description": "Rules from [Eslint Plugin Solid](https://github.com/solidjs-community/eslint-plugin-solid)",
 					"type": "object",
-					"required": ["eslintSolid"],
 					"properties": { "eslintSolid": { "type": "string" } },
-					"additionalProperties": false
+					"additionalProperties": false,
+					"required": ["eslintSolid"]
 				},
 				{
 					"description": "Rules from [Eslint Plugin Sonar](https://github.com/SonarSource/eslint-plugin-sonarjs)",
 					"type": "object",
-					"required": ["eslintSonarJs"],
 					"properties": { "eslintSonarJs": { "type": "string" } },
-					"additionalProperties": false
+					"additionalProperties": false,
+					"required": ["eslintSonarJs"]
 				},
 				{
 					"description": "Rules from [Eslint Plugin Stylistic](https://eslint.style)",
 					"type": "object",
-					"required": ["eslintStylistic"],
 					"properties": { "eslintStylistic": { "type": "string" } },
-					"additionalProperties": false
+					"additionalProperties": false,
+					"required": ["eslintStylistic"]
 				},
 				{
 					"description": "Rules from [Eslint Plugin Typescript](https://typescript-eslint.io)",
 					"type": "object",
-					"required": ["eslintTypeScript"],
 					"properties": { "eslintTypeScript": { "type": "string" } },
-					"additionalProperties": false
+					"additionalProperties": false,
+					"required": ["eslintTypeScript"]
 				},
 				{
 					"description": "Rules from [Eslint Plugin Unicorn](https://github.com/sindresorhus/eslint-plugin-unicorn)",
 					"type": "object",
-					"required": ["eslintUnicorn"],
 					"properties": { "eslintUnicorn": { "type": "string" } },
-					"additionalProperties": false
+					"additionalProperties": false,
+					"required": ["eslintUnicorn"]
 				},
 				{
 					"description": "Rules from [Eslint Plugin Unused Imports](https://github.com/sweepline/eslint-plugin-unused-imports)",
 					"type": "object",
-					"required": ["eslintUnusedImports"],
 					"properties": { "eslintUnusedImports": { "type": "string" } },
-					"additionalProperties": false
+					"additionalProperties": false,
+					"required": ["eslintUnusedImports"]
 				},
 				{
 					"description": "Rules from [Eslint Plugin Vitest](https://github.com/vitest-dev/eslint-plugin-vitest)",
 					"type": "object",
-					"required": ["eslintVitest"],
 					"properties": { "eslintVitest": { "type": "string" } },
-					"additionalProperties": false
+					"additionalProperties": false,
+					"required": ["eslintVitest"]
 				},
 				{
 					"description": "Rules from [Eslint Plugin Vue.js](https://eslint.vuejs.org/)",
 					"type": "object",
-					"required": ["eslintVueJs"],
 					"properties": { "eslintVueJs": { "type": "string" } },
-					"additionalProperties": false
+					"additionalProperties": false,
+					"required": ["eslintVueJs"]
 				},
 				{
 					"description": "Rules from [graphql-schema-linter](https://github.com/cjoudrey/graphql-schema-linter)",
 					"type": "object",
-					"required": ["graphqlSchemaLinter"],
 					"properties": { "graphqlSchemaLinter": { "type": "string" } },
-					"additionalProperties": false
+					"additionalProperties": false,
+					"required": ["graphqlSchemaLinter"]
 				},
 				{
 					"description": "Rules from [Stylelint](https://github.com/stylelint/stylelint)",
 					"type": "object",
-					"required": ["stylelint"],
 					"properties": { "stylelint": { "type": "string" } },
-					"additionalProperties": false
+					"additionalProperties": false,
+					"required": ["stylelint"]
 				}
 			]
 		},
@@ -337,42 +337,43 @@ export function GET() {
 				{
 					"description": "The rule implements the same logic of the source",
 					"type": "string",
-					"enum": ["sameLogic"]
+					"const": "sameLogic"
 				},
 				{
 					"description": "The rule deviate of the logic of the source",
 					"type": "string",
-					"enum": ["inspired"]
+					"const": "inspired"
 				}
 			]
 		},
 		"RuleSourceWithKind": {
 			"type": "object",
-			"required": ["kind", "source"],
 			"properties": {
-				"kind": { "$ref": "#/definitions/RuleSourceKind" },
-				"source": { "$ref": "#/definitions/RuleSource" }
-			}
+				"kind": { "$ref": "#/$defs/RuleSourceKind" },
+				"source": { "$ref": "#/$defs/RuleSource" }
+			},
+			"required": ["kind", "source"]
 		},
 		"Rules": {
 			"type": "object",
 			"properties": {
 				"languages": {
-					"default": {},
 					"type": "object",
 					"additionalProperties": {
 						"type": "object",
 						"additionalProperties": {
 							"type": "object",
-							"additionalProperties": { "$ref": "#/definitions/JsonMetadata" }
+							"additionalProperties": { "$ref": "#/$defs/JsonMetadata" }
 						}
-					}
+					},
+					"default": {}
 				},
 				"numberOrRules": {
-					"default": 0,
 					"type": "integer",
 					"format": "uint16",
-					"minimum": 0.0
+					"default": 0,
+					"maximum": 65535,
+					"minimum": 0
 				}
 			}
 		}

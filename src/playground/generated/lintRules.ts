@@ -195,6 +195,8 @@ export const LINT_RULES = {
     useQwikMethodUsage: "useQwikMethodUsage",
     useQwikValidLexicalScope: "useQwikValidLexicalScope",
     useSortedClasses: "useSortedClasses",
+    useSpread: "useSpread",
+    useUniqueGraphqlOperationName: "useUniqueGraphqlOperationName",
     useVueDefineMacrosOrder: "useVueDefineMacrosOrder",
     useVueMultiWordComponentNames: "useVueMultiWordComponentNames",
   } as const,
