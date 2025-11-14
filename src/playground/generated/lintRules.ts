@@ -191,6 +191,7 @@ export const LINT_RULES = {
     useDeprecatedDate: "useDeprecatedDate",
     useExhaustiveSwitchCases: "useExhaustiveSwitchCases",
     useExplicitType: "useExplicitType",
+    useFind: "useFind",
     useMaxParams: "useMaxParams",
     useQwikMethodUsage: "useQwikMethodUsage",
     useQwikValidLexicalScope: "useQwikValidLexicalScope",
