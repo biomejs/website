@@ -297,6 +297,7 @@ export default {
   '/linter/rules/useExportType': '/linter/rules/use-export-type',
   '/linter/rules/useExportsLast': '/linter/rules/use-exports-last',
   '/linter/rules/useFilenamingConvention': '/linter/rules/use-filenaming-convention',
+  '/linter/rules/useFind': '/linter/rules/use-find',
   '/linter/rules/useFlatMap': '/linter/rules/use-flat-map',
   '/linter/rules/useFocusableInteractive': '/linter/rules/use-focusable-interactive',
   '/linter/rules/useForOf': '/linter/rules/use-for-of',

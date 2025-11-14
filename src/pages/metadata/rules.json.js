@@ -2411,6 +2411,23 @@ export function GET() {
             ],
             "docs": " Require switch-case statements to be exhaustive.\n\n When working with union types in TypeScript, it's common to want to write a switch statement\n intended to contain a case for each possible variant.\n However, if the union type changes, it's easy to forget to modify the cases to account for\n any new types.\n\n This rule reports when a switch statement over a value typed as a union of literals lacks\n a case for any of those literal types and does not have a default clause.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=invalid.ts\n type Day =\n   | 'Monday'\n   | 'Tuesday'\n   | 'Wednesday'\n   | 'Thursday'\n   | 'Friday'\n   | 'Saturday'\n   | 'Sunday';\n\n declare const day: Day;\n let result = 0;\n\n switch (day) {\n   case 'Monday':\n     result = 1;\n     break;\n }\n ```\n\n ### Valid\n\n ```ts,file=valid.ts\n type Day =\n   | 'Monday'\n   | 'Tuesday'\n   | 'Wednesday'\n   | 'Thursday'\n   | 'Friday'\n   | 'Saturday'\n   | 'Sunday';\n\n declare const day: Day;\n let result = 0;\n\n switch (day) {\n   case 'Monday':\n     result = 1;\n     break;\n   case 'Tuesday':\n     result = 2;\n     break;\n   case 'Wednesday':\n     result = 3;\n     break;\n   case 'Thursday':\n     result = 4;\n     break;\n   case 'Friday':\n     result = 5;\n     break;\n   case 'Saturday':\n     result = 6;\n     break;\n   case 'Sunday':\n     result = 7;\n     break;\n }\n ```\n\n"
           },
+          "useFind": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useFind",
+            "link": "https://biomejs.dev/linter/rules/use-find",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintTypeScript": "prefer-find"
+                }
+              }
+            ],
+            "docs": " Enforce the use of Array.prototype.find() over Array.prototype.filter() followed by [0] when looking for a single result.\n\n When searching for the first item in an array matching a condition, it may be tempting to use code like `arr.filter(x => x > 0)[0]`.\n However, it is simpler to use `Array.prototype.find()` instead, `arr.find(x => x > 0)`, which also returns the first entry matching a condition.\n Because the `.find()` only needs to execute the callback until it finds a match, it's also more efficient.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=invalid.ts\n [1, 2, 3].filter(x => x > 1)[0];\n ```\n\n ```ts,expect_diagnostic,file=invalid2.ts\n [1, 2, 3].filter(x => x > 1).at(0);\n ```\n\n ### Valid\n\n ```ts,file=valid.ts\n [1, 2, 3].find(x => x > 1);\n ```\n\n"
+          },
           "useMaxParams": {
             "deprecated": false,
             "version": "2.2.0",
@@ -6453,7 +6470,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 376
+    "numberOrRules": 377
   },
   "syntax": {
     "languages": {
