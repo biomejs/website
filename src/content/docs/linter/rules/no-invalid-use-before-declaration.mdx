@@ -33,9 +33,10 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 ```
 ## Description
-Disallow the use of variables and function parameters before their declaration
+Disallow the use of variables, function parameters, classes, and enums before their declaration
 
-JavaScript doesn't allow the use of block-scoped variables (`let`, `const`) and function parameters before their declaration.
+JavaScript doesn't allow the use of block-scoped variables (`let`, `const`), function parameters, and classes before their declaration.
+Similarly TypeScript doesn't allow the use of enums before their declaration.
 A `ReferenceError` will be thrown with any attempt to access the variable or the parameter before its declaration.
 
 The rule also reports the use of variables declared with `var` before their declarations.
@@ -68,14 +69,18 @@ function f(a = b, b = 0) {}
 
 <pre class="language-text"><code class="language-text">code-block.js:1:16 <a href="https://biomejs.dev/linter/rules/no-invalid-use-before-declaration">lint/correctness/noInvalidUseBeforeDeclaration</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This parameter is used before its declaration.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>function f(a = b, b = 0) &#123;&#125;<br />   <strong>   │ </strong>               <strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The parameter is declared here:</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>function f(a = b, b = 0) &#123;&#125;<br />   <strong>   │ </strong>                  <strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br /></code></pre>
 
+```js
+new C();
+class C {}
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:5 <a href="https://biomejs.dev/linter/rules/no-invalid-use-before-declaration">lint/correctness/noInvalidUseBeforeDeclaration</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This class is used before its declaration.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>new C();<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>class C &#123;&#125;<br />    <strong>3 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The class is declared here:</span><br />  <br />    <strong>1 │ </strong>new C();<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>class C &#123;&#125;<br />   <strong>   │ </strong>      <strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong><br />  <br /></code></pre>
+
 ### Valid
 
 ```js
 f();
 function f() {}
-
-new C();
-class C {}
 ```
 
 ```js
@@ -87,6 +92,14 @@ const CONSTANT = 0;
 ```js
 function f() { return CONSTANT; }
 const CONSTANT = 0;
+```
+
+```ts
+function f() {
+    new C();
+}
+let c: C;
+class C {}
 ```
 
 ## Related links
