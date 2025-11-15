@@ -188,6 +188,7 @@ export default {
   '/linter/rules/noSuspiciousSemicolonInJsx': '/linter/rules/no-suspicious-semicolon-in-jsx',
   '/linter/rules/noSvgWithoutTitle': '/linter/rules/no-svg-without-title',
   '/linter/rules/noSwitchDeclarations': '/linter/rules/no-switch-declarations',
+  '/linter/rules/noSyncScripts': '/linter/rules/no-sync-scripts',
   '/linter/rules/noTemplateCurlyInString': '/linter/rules/no-template-curly-in-string',
   '/linter/rules/noThenProperty': '/linter/rules/no-then-property',
   '/linter/rules/noThisInStatic': '/linter/rules/no-this-in-static',
