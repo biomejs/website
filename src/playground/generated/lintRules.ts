@@ -175,6 +175,7 @@ export const LINT_RULES = {
     noParametersOnlyUsedInRecursion: "noParametersOnlyUsedInRecursion",
     noReactForwardRef: "noReactForwardRef",
     noShadow: "noShadow",
+    noSyncScripts: "noSyncScripts",
     noUnknownAttribute: "noUnknownAttribute",
     noUnnecessaryConditions: "noUnnecessaryConditions",
     noUnresolvedImports: "noUnresolvedImports",
