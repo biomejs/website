@@ -508,7 +508,7 @@ export function GET() {
           },
           "useConsistentGraphqlDescriptions": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.6",
             "name": "useConsistentGraphqlDescriptions",
             "link": "https://biomejs.dev/linter/rules/use-consistent-graphql-descriptions",
             "recommended": false,
@@ -542,7 +542,7 @@ export function GET() {
           },
           "useUniqueGraphqlOperationName": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.6",
             "name": "useUniqueGraphqlOperationName",
             "link": "https://biomejs.dev/linter/rules/use-unique-graphql-operation-name",
             "recommended": false,
@@ -2086,7 +2086,7 @@ export function GET() {
           },
           "noForIn": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.6",
             "name": "noForIn",
             "link": "https://biomejs.dev/linter/rules/no-for-in",
             "recommended": false,
@@ -2211,7 +2211,7 @@ export function GET() {
           },
           "noSyncScripts": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.6",
             "name": "noSyncScripts",
             "link": "https://biomejs.dev/linter/rules/no-sync-scripts",
             "recommended": false,
@@ -2430,7 +2430,7 @@ export function GET() {
           },
           "useFind": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.6",
             "name": "useFind",
             "link": "https://biomejs.dev/linter/rules/use-find",
             "recommended": false,
@@ -2479,7 +2479,7 @@ export function GET() {
           },
           "useSpread": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.6",
             "name": "useSpread",
             "link": "https://biomejs.dev/linter/rules/use-spread",
             "recommended": true,
