@@ -540,6 +540,26 @@ export default defineConfig({
 										ru: "Источники правил GraphQL",
 									},
 								},
+								{
+									label: "HTML Rules",
+									link: "/linter/html/rules",
+									translations: {
+										ja: "HTMLルール",
+										"zh-CN": "HTML 规则",
+										pl: "Reguły HTML",
+										ru: "Правила HTML",
+									},
+								},
+								{
+									label: "HTML Rules sources",
+									link: "/linter/html/sources",
+									translations: {
+										ja: "HTMLルールのソース",
+										"zh-CN": "HTML 规则来源",
+										pl: "Źródła reguł HTML",
+										ru: "Источники правил HTML",
+									},
+								},
 							],
 							translations: {
 								fr: "Outil de linting",

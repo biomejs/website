@@ -506,6 +506,23 @@ export function GET() {
             "fixKind": "none",
             "docs": " Disallow empty sources.\n\n A source containing only the following is considered empty:\n   - Whitespace (spaces, tabs or newlines)\n   - Comments\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n\n ```\n\n ```graphql,ignore\n # Invalid comment\n ```\n\n ### Valid\n\n ```graphql\n query Member {}\n ```\n\n ```graphql\n fragment StrippedMember on Member {}\n ```\n\n ## Options\n\n ### `allowComments`\n\n Whether the comments should be marked as meaningful.\n When this option has been set to `true`, a file with only comments is considered valid.\n\n Default `false`\n\n\n ```json,options\n {\n   \"options\": {\n     \"allowComments\": true\n   }\n }\n ```\n\n #### Invalid\n\n ```graphql,expect_diagnostic,use_options\n\n ```\n\n #### Valid\n\n ```graphql,ignore\n # Valid comment\n ```\n\n"
           },
+          "useConsistentGraphqlDescriptions": {
+            "deprecated": false,
+            "version": "2.3.6",
+            "name": "useConsistentGraphqlDescriptions",
+            "link": "https://biomejs.dev/linter/rules/use-consistent-graphql-descriptions",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintGraphql": "description-style"
+                }
+              }
+            ],
+            "docs": " Require all descriptions to follow the same style (either block or inline) to  maintain consistency and improve readability across the schema.\n\n ## Examples\n\n ### style: `block`\n\n #### Invalid\n\n ```graphql,expect_diagnostic\n enum EnumValue {\n   \"this is a description\"\n   DEFAULT\n }\n ```\n\n #### Valid\n\n ```graphql\n enum EnumValue {\n   \"\"\"\n   this is a description\n   \"\"\"\n   DEFAULT\n }\n ```\n\n ## Options\n\n ### `style`\n\n This option will specify the description style.\n - `\"block\"`: Requires triple-quoted block descriptions (`\"\"\"...\"\"\"`)\n - `\"inline\"`: Requires single-quoted inline descriptions (`\"...\"`)\n\n Default `\"block\"`\n\n ```json,options\n {\n   \"options\": {\n     \"style\": \"inline\"\n   }\n }\n ```\n\n ```graphql,expect_diagnostic,use_options\n enum EnumValue {\n   \"\"\"\n   this is a description\n   \"\"\"\n   DEFAULT\n }\n ```\n\n"
+          },
           "useDeprecatedDate": {
             "deprecated": false,
             "version": "2.2.6",
@@ -522,6 +539,23 @@ export function GET() {
               }
             ],
             "docs": " Require the `@deprecated` directive to specify a deletion date.\n\n Suggests removing deprecated code when the due date has been passed.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query {\n   member @deprecated(reason: \"Use `members` instead\") {\n     id\n   }\n }\n ```\n\n ### Valid\n\n ```graphql\n query {\n   member @deprecated(reason: \"Use `members` instead\", deletionDate: \"2099-12-25\") {\n     id\n   }\n }\n ```\n\n"
+          },
+          "useUniqueGraphqlOperationName": {
+            "deprecated": false,
+            "version": "2.3.6",
+            "name": "useUniqueGraphqlOperationName",
+            "link": "https://biomejs.dev/linter/rules/use-unique-graphql-operation-name",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintGraphql": "unique-operation-name"
+                }
+              }
+            ],
+            "docs": " Enforce unique operation names across a GraphQL document.\n\n This rule ensures that all GraphQL operations (queries, mutations, subscriptions) have unique names.\n Using unique operation names is essential for proper identification and reducing confusion.\n\n :::note\n This rule currently does not work across multiple files.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query user {\n   user {\n     id\n   }\n }\n\n query user {\n   me {\n     id\n   }\n }\n ```\n\n ### Valid\n\n ```graphql\n query user {\n   user {\n     id\n   }\n }\n\n query me {\n   me {\n     id\n   }\n }\n ```\n\n"
           }
         },
         "style": {
@@ -577,6 +611,182 @@ export function GET() {
               }
             ],
             "docs": " No duplicated fields in GraphQL operations.\n\n Checks for duplicate fields in selection set, variables in operation definition, or in arguments set of a field.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query test($v: String, $t: String, $v: String) {\n   id\n }\n ```\n\n ### Valid\n\n ```graphql\n query {\n   user {\n     id\n   }\n }\n ```\n\n"
+          }
+        }
+      },
+      "html": {
+        "a11y": {
+          "noHeaderScope": {
+            "deprecated": false,
+            "version": "2.3.0",
+            "name": "noHeaderScope",
+            "link": "https://biomejs.dev/linter/rules/no-header-scope",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJsxA11y": "scope"
+                }
+              }
+            ],
+            "docs": " The scope prop should be used only on `<th>` elements.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div scope=\"col\"></div>\n ```\n\n ```html,expect_diagnostic\n <div scope></div>\n ```\n\n ### Valid\n\n ```html\n <th scope=\"col\"></th>\n ```\n\n ```html\n <th scope></th>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 1.3.1](https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships)\n - [WCAG 4.1.1](https://www.w3.org/WAI/WCAG21/Understanding/parsing)\n\n"
+          }
+        },
+        "nursery": {
+          "noSyncScripts": {
+            "deprecated": false,
+            "version": "2.3.6",
+            "name": "noSyncScripts",
+            "link": "https://biomejs.dev/linter/rules/no-sync-scripts",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintNext": "no-sync-scripts"
+                }
+              }
+            ],
+            "docs": " Prevent the usage of synchronous scripts.\n\n A synchronous script can impact your webpage performance, read more on how to [Efficiently load third-party JavaScript](https://web.dev/articles/efficiently-load-third-party-javascript).\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <script src=\"\"></script>\n ```\n\n ### Valid\n\n ```html\n <script src=\"\" async></script>\n <script src=\"\" defer></script>\n ```\n\n"
+          },
+          "noVueVIfWithVFor": {
+            "deprecated": false,
+            "version": "2.3.6",
+            "name": "noVueVIfWithVFor",
+            "link": "https://biomejs.dev/linter/rules/no-vue-v-if-with-v-for",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "no-use-v-if-with-v-for"
+                }
+              }
+            ],
+            "docs": " Disallow using `v-if` and `v-for` directives on the same element.\n\n There are two common cases where this can be tempting:\n - To filter items in a list (e.g. `v-for=\"user in users\" v-if=\"user.isActive\"`). In these cases, replace users with a new computed property that returns your filtered list (e.g. activeUsers).\n - To avoid rendering a list if it should be hidden (e.g. `v-for=\"user in users\" v-if=\"shouldShowUsers\"`). In these cases, move the v-if to a container element.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <TodoItem\n     v-if=\"complete\"\n     v-for=\"todo in todos\"\n     :todo=\"todo\"\n />\n ```\n\n ### Valid\n\n ```vue\n <ul v-if=\"complete\">\n     <TodoItem\n         v-for=\"todo in todos\"\n         :todo=\"todo\"\n     />\n </ul>\n ```\n\n"
+          },
+          "useVueHyphenatedAttributes": {
+            "deprecated": false,
+            "version": "2.3.6",
+            "name": "useVueHyphenatedAttributes",
+            "link": "https://biomejs.dev/linter/rules/use-vue-hyphenated-attributes",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "attribute-hyphenation"
+                }
+              }
+            ],
+            "docs": " Enforce hyphenated (kebab-case) attribute names in Vue templates.\n\n Vue style guide recommends using hyphenated attribute (and prop) names in templates to\n keep them consistent and distinguish them from JavaScript identifiers written in camelCase/PascalCase.\n\n This rule flags attributes that are detected as camelCase, PascalCase, CONSTANT_CASE, snake_case\n or that contain any uppercase ASCII letter. It uses Biome's internal `Case::identify` helper.\n\n Allowed:\n - kebab-case attributes (e.g. `data-test-id`)\n - pure lowercase single word attributes (e.g. `class`, `id`)\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <div fooBar=\"x\"></div>\n ```\n\n ```vue,expect_diagnostic\n <MyComp :someProp=\"x\" />\n ```\n\n ### Valid\n\n ```vue\n <div data-test-id=\"x\"></div>\n <div class=\"foo\"></div>\n <MyComp :some-prop=\"x\" />\n ```\n\n ## Options\n\n The rule supports the following options:\n\n ### `ignore`\n\n A list of attribute names that should be ignored by the rule (they won't be required to be hyphenated).\n Use this when you have a fixed set of camelCase / PascalCase prop names you intentionally allow.\n\n ```json,options\n {\n   \"options\": {\n     \"ignore\": [\"someProp\", \"fooBar\"]\n   }\n }\n ```\n\n #### Valid (using `ignore`)\n\n ```vue,use_options\n <div fooBar=\"x\"></div>\n ```\n\n ### `ignoreTags`\n\n A list of tag names whose attributes should be skipped entirely.\n This is useful for third-party or internal components that deliberately expose non‑hyphenated prop names.\n\n ```json,options\n {\n   \"options\": {\n     \"ignoreTags\": [\"MyComp\", \"AnotherWidget\"]\n   }\n }\n ```\n\n #### Valid (using `ignoreTags`)\n\n ```vue,use_options\n <MyComp :someProp=\"x\" />\n ```\n\n"
+          },
+          "useVueValidVBind": {
+            "deprecated": false,
+            "version": "2.3.6",
+            "name": "useVueValidVBind",
+            "link": "https://biomejs.dev/linter/rules/use-vue-valid-v-bind",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "valid-v-bind"
+                }
+              }
+            ],
+            "docs": " Forbids `v-bind` directives with missing arguments or invalid modifiers.\n\n This rule reports v-bind directives in the following cases:\n - The directive does not have an argument. E.g. `<div v-bind></div>`\n - The directive does not have a value. E.g. `<div v-bind:aaa></div>`\n - The directive has invalid modifiers. E.g. `<div v-bind:aaa.bbb=\"ccc\"></div>`\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <Foo v-bind />\n ```\n\n ```vue,expect_diagnostic\n <div v-bind></div>\n ```\n\n ### Valid\n\n ```vue\n <Foo v-bind:foo=\"foo\" />\n ```\n\n"
+          },
+          "useVueValidVElse": {
+            "deprecated": false,
+            "version": "2.3.6",
+            "name": "useVueValidVElse",
+            "link": "https://biomejs.dev/linter/rules/use-vue-valid-v-else",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "valid-v-else"
+                }
+              }
+            ],
+            "docs": " Enforce valid usage of v-else.\n\n This rule reports v-else directives in the following cases:\n - The directive has an argument. E.g. `<div v-if=\"foo\"></div><div v-else:aaa></div>`\n - The directive has a modifier. E.g. `<div v-if=\"foo\"></div><div v-else.bbb></div>`\n - The directive has an attribute value. E.g. `<div v-if=\"foo\"></div><div v-else=\"bar\"></div>`\n - The directive is on elements where the previous element doesn't have `v-if`/`v-else-if` directives. E.g. `<div v-else></div>`\n - The directive is on elements which have `v-if`/`v-else-if` directives. E.g. `<div v-if=\"foo\" v-else></div>`\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <div v-else:arg></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-else.mod></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-else=\"value\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-else></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-if=\"foo\" v-else></div>\n ```\n\n ### Valid\n\n ```vue\n <div v-if=\"foo\"></div>\n <div v-else></div>\n ```\n\n ```vue\n <div v-if=\"foo\"></div>\n <div v-else-if=\"bar\"></div>\n <div v-else></div>\n ```\n\n"
+          },
+          "useVueValidVElseIf": {
+            "deprecated": false,
+            "version": "2.3.6",
+            "name": "useVueValidVElseIf",
+            "link": "https://biomejs.dev/linter/rules/use-vue-valid-v-else-if",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "valid-v-else-if"
+                }
+              }
+            ],
+            "docs": " Enforce valid `v-else-if` directives.\n\n Biome flags these cases:\n - Has an argument: `<div v-else-if:arg=\"b\"></div>`.\n - Has modifiers: `<div v-else-if.mod=\"b\"></div>`.\n - Missing value: `<div v-else-if></div>`.\n - Not preceded by a sibling with `v-if`/`v-else-if`.\n - On the same element as `v-if` or `v-else`.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <div v-if=\"a\"></div><div v-else-if:arg=\"b\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-if=\"a\"></div><div v-else-if.mod=\"b\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-if=\"a\"></div><div v-else-if></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-else-if=\"b\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-if=\"a\" v-else-if=\"b\"></div>\n ```\n\n ### Valid\n\n ```vue\n <div v-if=\"a\"></div><div v-else-if=\"b\"></div><div v-else></div>\n ```\n\n"
+          },
+          "useVueValidVHtml": {
+            "deprecated": false,
+            "version": "2.3.6",
+            "name": "useVueValidVHtml",
+            "link": "https://biomejs.dev/linter/rules/use-vue-valid-v-html",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "valid-v-html"
+                }
+              }
+            ],
+            "docs": " Enforce valid `v-html` directives.\n\n This rule reports v-html directives in the following cases:\n - The directive has an argument. E.g. `<div v-html:aaa></div>`\n - The directive has a modifier. E.g. `<div v-html.bbb></div>`\n - The directive does not have an attribute value. E.g. `<div v-html></div>`\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <div v-html:aaa=\"foo\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-html.bbb=\"foo\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-html></div>\n ```\n\n ### Valid\n\n ```vue\n <div v-html=\"htmlContent\"></div>\n ```\n\n"
+          },
+          "useVueValidVIf": {
+            "deprecated": false,
+            "version": "2.3.6",
+            "name": "useVueValidVIf",
+            "link": "https://biomejs.dev/linter/rules/use-vue-valid-v-if",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "valid-v-if"
+                }
+              }
+            ],
+            "docs": " Enforces valid `v-if` usage for Vue templates.\n\n This rule reports `v-if` directives in following cases:\n - The directive has an argument. E.g. `<div v-if:aaa=\"foo\"></div>`\n - The directive has a modifier. E.g. `<div v-if.bbb=\"foo\"></div>`\n - The directive does not have an attribute value. E.g. `<div v-if></div>`\n - The same element also has `v-else` or `v-else-if`. E.g. `<div v-if=\"foo\" v-else></div>`\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <div v-if:aaa=\"foo\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-if.bbb=\"foo\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-if></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-if=\"foo\" v-else></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-if=\"foo\" v-else-if=\"bar\"></div>\n ```\n\n ### Valid\n\n ```vue\n <div v-if=\"ok\"></div>\n ```\n\n ```vue\n <div v-if=\"a < b\"></div>\n ```\n\n ```vue\n <div v-if=\"a\"></div>\n <div v-else-if=\"b\"></div>\n <div v-else></div>\n ```\n\n"
+          },
+          "useVueValidVOn": {
+            "deprecated": false,
+            "version": "2.3.6",
+            "name": "useVueValidVOn",
+            "link": "https://biomejs.dev/linter/rules/use-vue-valid-v-on",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "valid-v-on"
+                }
+              }
+            ],
+            "docs": " Enforce valid `v-on` directives with proper arguments, modifiers, and handlers.\n\n This rule reports v-on directives in the following cases:\n - The directive does not have an event name. E.g. `<div v-on=\"foo\"></div>`\n - The directive has invalid modifiers. E.g. `<div v-on:click.bogus=\"foo\"></div>`\n - The directive is missing a handler expression. E.g. `<div v-on:click></div>`\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <Foo v-on />\n ```\n\n ### Valid\n\n ```vue\n <Foo v-on:click=\"foo\" />\n ```\n\n"
           }
         }
       },
@@ -1490,7 +1700,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow the use of variables and function parameters before their declaration\n\n JavaScript doesn't allow the use of block-scoped variables (`let`, `const`) and function parameters before their declaration.\n A `ReferenceError` will be thrown with any attempt to access the variable or the parameter before its declaration.\n\n The rule also reports the use of variables declared with `var` before their declarations.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function f() {\n     console.log(x);\n     let x;\n }\n ```\n\n ```js,expect_diagnostic\n function f() {\n     console.log(x);\n     var x = 0;\n }\n ```\n\n ```js,expect_diagnostic\n function f(a = b, b = 0) {}\n ```\n\n ### Valid\n\n ```js\n f();\n function f() {}\n\n new C();\n class C {}\n ```\n\n ```js\n // An export can reference a variable before its declaration.\n export { CONSTANT };\n const CONSTANT = 0;\n ```\n\n ```js\n function f() { return CONSTANT; }\n const CONSTANT = 0;\n ```\n"
+            "docs": " Disallow the use of variables, function parameters, classes, and enums before their declaration\n\n JavaScript doesn't allow the use of block-scoped variables (`let`, `const`), function parameters, and classes before their declaration.\n Similarly TypeScript doesn't allow the use of enums before their declaration.\n A `ReferenceError` will be thrown with any attempt to access the variable or the parameter before its declaration.\n\n The rule also reports the use of variables declared with `var` before their declarations.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function f() {\n     console.log(x);\n     let x;\n }\n ```\n\n ```js,expect_diagnostic\n function f() {\n     console.log(x);\n     var x = 0;\n }\n ```\n\n ```js,expect_diagnostic\n function f(a = b, b = 0) {}\n ```\n\n ```js,expect_diagnostic\n new C();\n class C {}\n ```\n\n ### Valid\n\n ```js\n f();\n function f() {}\n ```\n\n ```js\n // An export can reference a variable before its declaration.\n export { CONSTANT };\n const CONSTANT = 0;\n ```\n\n ```js\n function f() { return CONSTANT; }\n const CONSTANT = 0;\n ```\n\n ```ts\n function f() {\n     new C();\n }\n let c: C;\n class C {}\n ```\n"
           },
           "noNodejsModules": {
             "deprecated": false,
@@ -1840,7 +2050,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow unused private class members\n\n Private class members that are declared and not used anywhere in the code are most likely an error due to incomplete refactoring.\n Such class members take up space in the code and can lead to confusion by readers.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n class OnlyWrite {\n   #usedOnlyInWrite = 5;\n\n   method() {\n\t    this.#usedOnlyInWrite = 212;\n   }\n }\n ```\n\n ```ts,expect_diagnostic\n  class TsBioo {\n    private unusedProperty = 5;\n  }\n ```\n\n ```ts,expect_diagnostic\n  class TsBioo {\n    private unusedMethod() {}\n  }\n ```\n\n ### Valid\n\n ```js\n class UsedMember {\n   #usedMember = 42;\n\n   method() {\n\t    return this.#usedMember;\n   }\n }\n ```\n\n ## Caveats\n\n The rule currently considers that all TypeScript private members are used if it encounters a computed access.\n In the following example `member` is not reported. It is considered as used.\n\n ```ts\n  class TsBioo {\n    private member: number;\n\n    set_with_name(name: string, value: number) {\n      this[name] = value;\n    }\n  }\n ```\n\n"
+            "docs": " Disallow unused private class members\n\n Private class members that are declared and not used anywhere in the code are most likely an error due to incomplete refactoring.\n Such class members take up space in the code and can lead to confusion by readers.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n class OnlyWrite {\n   #usedOnlyInWrite = 5;\n\n   method() {\n        this.#usedOnlyInWrite = 212;\n   }\n }\n ```\n\n ```ts,expect_diagnostic\n  class TsBioo {\n    private unusedProperty = 5;\n  }\n ```\n\n ```ts,expect_diagnostic\n  class TsBioo {\n    private unusedMethod() {}\n  }\n ```\n\n ### Valid\n\n ```js\n class UsedMember {\n   #usedMember = 42;\n\n   method() {\n        return this.#usedMember;\n   }\n }\n ```\n\n ## Caveats\n\n The rule currently considers that all TypeScript private members are used if it encounters a computed access.\n In the following example `member` is not reported. It is considered as used.\n\n ```ts\n  class TsBioo {\n    private member: number;\n    private anotherMember: number;\n\n    set_with_name(name: 'member' | 'anotherMember', value: number) {\n      this[name]();\n    }\n  }\n ```\n\n"
           },
           "noUnusedVariables": {
             "deprecated": false,
@@ -2050,6 +2260,23 @@ export function GET() {
             ],
             "docs": " Disallow empty sources.\n\n A source containing only the following is considered empty:\n   - Whitespace (spaces, tabs or newlines)\n   - Comments\n   - Directives\n   - Empty statements\n   - Empty block statements\n   - Hashbang\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n\n ```\n\n ```js,expect_diagnostic\n // Only comments\n ```\n\n ```js,expect_diagnostic\n /* Only comments */\n ```\n\n ```js,expect_diagnostic\n 'use strict';\n ```\n\n ```js,expect_diagnostic\n ;\n ```\n\n ```js,expect_diagnostic\n {\n }\n ```\n\n ```js,expect_diagnostic\n #!/usr/bin/env node\n ```\n\n ### Valid\n\n ```js\n const x = 0;\n ```\n\n ```js\n 'use strict';\n const x = 0;\n ```\n\n ```js\n ;;\n const x = 0;\n ```\n\n ```js\n {\n   const x = 0;\n }\n ```\n\n ## Options\n\n ### `allowComments`\n\n Whether the comments should be marked as meaningful.\n When this option has been set to `true`, a file with only comments is considered valid.\n\n Default `false`\n\n ```json,options\n {\n   \"options\": {\n     \"allowComments\": true\n   }\n }\n ```\n\n #### Invalid\n\n ```js,expect_diagnostic,use_options\n\n ```\n\n #### Valid\n\n ```js,use_options\n /* Only comments */\n ```\n\n"
           },
+          "noForIn": {
+            "deprecated": false,
+            "version": "2.3.6",
+            "name": "noForIn",
+            "link": "https://biomejs.dev/linter/rules/no-for-in",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintTypeScript": "no-for-in-array"
+                }
+              }
+            ],
+            "docs": " Disallow iterating using a for-in loop.\n\n A for-in loop (`for (const i in o)`) iterates over the properties of an Object. While it is legal to use for-in loops with array values, it is not common. There are several potential bugs with this:\n\n 1. It iterates over all enumerable properties, including non-index ones and the entire prototype chain. For example, [`RegExp.prototype.exec`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec) returns an array with additional properties, and `for-in` will iterate over them. Some libraries or even your own code may add additional methods to `Array.prototype` (either as polyfill or as custom methods), and if not done properly, they may be iterated over as well.\n 2. It skips holes in the array. While sparse arrays are rare and advised against, they are still possible and your code should be able to handle them.\n 3. The \"index\" is returned as a string, not a number. This can be caught by TypeScript, but can still lead to subtle bugs.\n\n You may have confused for-in with for-of, which iterates over the elements of the array. If you actually need the index, use a regular `for` loop or the `forEach` method.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n for (const i in array) {\n   console.log(i, array[i]);\n }\n ```\n\n ### Valid\n\n ```js\n for (const value of array) {\n   console.log(value);\n }\n ```\n ```js\n for (let i = 0; i < array.length; i += 1) {\n   console.log(i, array[i]);\n }\n ```\n ```js\n array.forEach((value, i) => {\n   console.log(i, value);\n });\n ```\n ```js\n for (const [i, value] of array.entries()) {\n   console.log(i, value);\n }\n ```\n\n"
+          },
           "noImportCycles": {
             "deprecated": false,
             "version": "2.0.0",
@@ -2116,7 +2343,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow function parameters that are only used in recursive calls.\n\n A parameter that is only passed to recursive calls is effectively unused\n and can be removed or replaced with a constant, simplifying the function.\n\n This rule is inspired by Rust Clippy's `only_used_in_recursion` lint.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function factorial(n, acc) {\n     if (n === 0) return 1;\n     return factorial(n - 1, acc);\n }\n ```\n\n ```js,expect_diagnostic\n function countdown(n, step) {\n     if (n === 0) return 0;\n     return countdown(n - step, step);\n }\n ```\n\n ```js,expect_diagnostic\n class Counter {\n     count(n, acc) {\n         if (n === 0) return 0;\n         return this.count(n - 1, acc);\n     }\n }\n ```\n\n ```js,expect_diagnostic\n function fn(n, acc) {\n     if (n === 0) return 0;\n     return fn(n - 1, acc || 0);\n }\n ```\n\n ```js,expect_diagnostic\n class Counter {\n     count(n, acc) {\n         if (n === 0) return 0;\n         return this?.count(n - 1, acc);\n     }\n }\n ```\n\n ### Valid\n\n ```js\n function factorial(n, acc) {\n     if (n === 0) return acc;\n     return factorial(n - 1, acc * n);\n }\n ```\n\n ```js\n function countdown(n, step) {\n     console.log(step);\n     if (n === 0) return 0;\n     return countdown(n - step, step);\n }\n ```\n\n ```js\n function fn(n, threshold) {\n     if (n > threshold) return n;\n     return fn(n + 1, threshold);\n }\n ```\n"
+            "docs": " Disallow function parameters that are only used in recursive calls.\n\n A parameter that is only passed to recursive calls is effectively unused\n and can be removed or replaced with a constant, simplifying the function.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function factorial(n, acc) {\n     if (n === 0) return 1;\n     return factorial(n - 1, acc);\n }\n ```\n\n ```js,expect_diagnostic\n function countdown(n, step) {\n     if (n === 0) return 0;\n     return countdown(n - step, step);\n }\n ```\n\n ```js,expect_diagnostic\n class Counter {\n     count(n, acc) {\n         if (n === 0) return 0;\n         return this.count(n - 1, acc);\n     }\n }\n ```\n\n ```js,expect_diagnostic\n function fn(n, acc) {\n     if (n === 0) return 0;\n     return fn(n - 1, acc || 0);\n }\n ```\n\n ```js,expect_diagnostic\n class Counter {\n     count(n, acc) {\n         if (n === 0) return 0;\n         return this?.count(n - 1, acc);\n     }\n }\n ```\n\n ### Valid\n\n ```js\n function factorial(n, acc) {\n     if (n === 0) return acc;\n     return factorial(n - 1, acc * n);\n }\n ```\n\n ```js\n function countdown(n, step) {\n     console.log(step);\n     if (n === 0) return 0;\n     return countdown(n - step, step);\n }\n ```\n\n ```js\n function fn(n, threshold) {\n     if (n > threshold) return n;\n     return fn(n + 1, threshold);\n }\n ```\n"
           },
           "noReactForwardRef": {
             "deprecated": false,
@@ -2157,6 +2384,23 @@ export function GET() {
               }
             ],
             "docs": " Disallow variable declarations from shadowing variables declared in the outer scope.\n\n Shadowing is the process by which a local variable shares the same name as a variable in its containing scope. This can cause confusion while reading the code and make it impossible to access the global variable.\n\n See also: [`noShadowRestrictedNames`](http://biomejs.dev/linter/rules/no-shadow-restricted-names)\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const foo = \"bar\";\n if (true) {\n    const foo = \"baz\";\n }\n ```\n\n Variable declarations in functions can shadow variables in the outer scope:\n\n ```js,expect_diagnostic\n const foo = \"bar\";\n const bar = function () {\n     const foo = 10;\n }\n ```\n\n Function argument names can shadow variables in the outer scope:\n\n ```js,expect_diagnostic\n const foo = \"bar\";\n function bar(foo) {\n     foo = 10;\n }\n ```\n\n ### Valid\n\n ```js\n const foo = \"bar\";\n if (true) {\n    const qux = \"baz\";\n }\n ```\n\n"
+          },
+          "noSyncScripts": {
+            "deprecated": false,
+            "version": "2.3.6",
+            "name": "noSyncScripts",
+            "link": "https://biomejs.dev/linter/rules/no-sync-scripts",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintNext": "no-sync-scripts"
+                }
+              }
+            ],
+            "docs": " Prevent the usage of synchronous scripts.\n\n A synchronous script can impact your webpage performance, read more on how to [Efficiently load third-party JavaScript](https://web.dev/articles/efficiently-load-third-party-javascript).\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n const Invalid = () => <script src=\"https://third-party-script.js\" />;\n ```\n\n ### Valid\n\n ```jsx\n const Valid = () => {\n   return (\n     <>\n       <script src=\"https://third-party-script.js\" async />\n       <script src=\"https://third-party-script.js\" defer />\n     </>\n   );\n }\n ```\n\n #### Next.js\n\n ```jsx\n import Script from 'next/script'\n\n const Valid = () => <Script src=\"https://third-party-script.js\" />;\n ```\n\n"
           },
           "noUnnecessaryConditions": {
             "deprecated": false,
@@ -2309,6 +2553,23 @@ export function GET() {
             ],
             "docs": " Disallow reserved names to be used as props.\n\n Vue reserves certain prop names for its internal use. Using these reserved names\n as prop names can cause conflicts and unexpected behavior in your Vue components.\n\n This rule prevents the use of the following reserved prop names:\n - `key` - Used by Vue for list rendering and component identification\n - `ref` - Used by Vue for template refs\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script setup>\n defineProps({\n     ref: String,\n });\n </script>\n ```\n\n ```js,expect_diagnostic\n import {defineComponent} from 'vue';\n\n export default defineComponent({\n     props: [\n         'key',\n     ]\n });\n ```\n\n ```vue,expect_diagnostic\n <script setup lang=\"ts\">\n defineProps<{\n     ref: string,\n }>();\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script>\n export default {\n     props: {\n         key: String,\n     }\n };\n </script>\n ```\n\n ### Valid\n\n ```js\n import {defineComponent} from 'vue';\n\n export default defineComponent({\n     props: ['foo']\n });\n ```\n\n ```vue\n <script setup>\n defineProps({ foo: String });\n </script>\n ```\n\n ```vue\n <script setup lang=\"ts\">\n defineProps<{\n     foo: string,\n     bar: string,\n }>();\n </script>\n ```\n\n ```vue\n <script>\n export default {\n     props: {\n         foo: String,\n         bar: String,\n     }\n };\n </script>\n ```\n\n"
           },
+          "useArraySortCompare": {
+            "deprecated": false,
+            "version": "2.3.5",
+            "name": "useArraySortCompare",
+            "link": "https://biomejs.dev/linter/rules/use-array-sort-compare",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintTypeScript": "require-array-sort-compare"
+                }
+              }
+            ],
+            "docs": " Require Array#sort and Array#toSorted calls to always provide a compareFunction.\n\n When called without a compare function, Array#sort() and Array#toSorted() converts all non-undefined array elements into strings and then compares said strings based off their UTF-16 code units [ECMA specification](https://262.ecma-international.org/9.0/#sec-sortcompare).\n\n The result is that elements are sorted alphabetically, regardless of their type. For example, when sorting numbers, this results in a \"10 before 2\" order:\n\n ```ts,file=example.ts,ignore\n [1, 2, 3, 10, 20, 30].sort(); //→ [1, 10, 2, 20, 3, 30]\n ```\n\n This rule reports on any call to the sort methods that do not provide a compare argument.\n\n ## Examples\n\n ### Invalid\n\n ```ts,file=invalid.ts,expect_diagnostic\n const array: any[] = [];\n array.sort();\n ```\n\n ### Valid\n\n ```ts,file=valid.ts\n const array: any[] = [];\n array.sort((a, b) => a - b);\n ```\n\n"
+          },
           "useConsistentArrowReturn": {
             "deprecated": false,
             "version": "2.2.3",
@@ -2343,6 +2604,23 @@ export function GET() {
             ],
             "docs": " Require switch-case statements to be exhaustive.\n\n When working with union types in TypeScript, it's common to want to write a switch statement\n intended to contain a case for each possible variant.\n However, if the union type changes, it's easy to forget to modify the cases to account for\n any new types.\n\n This rule reports when a switch statement over a value typed as a union of literals lacks\n a case for any of those literal types and does not have a default clause.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=invalid.ts\n type Day =\n   | 'Monday'\n   | 'Tuesday'\n   | 'Wednesday'\n   | 'Thursday'\n   | 'Friday'\n   | 'Saturday'\n   | 'Sunday';\n\n declare const day: Day;\n let result = 0;\n\n switch (day) {\n   case 'Monday':\n     result = 1;\n     break;\n }\n ```\n\n ### Valid\n\n ```ts,file=valid.ts\n type Day =\n   | 'Monday'\n   | 'Tuesday'\n   | 'Wednesday'\n   | 'Thursday'\n   | 'Friday'\n   | 'Saturday'\n   | 'Sunday';\n\n declare const day: Day;\n let result = 0;\n\n switch (day) {\n   case 'Monday':\n     result = 1;\n     break;\n   case 'Tuesday':\n     result = 2;\n     break;\n   case 'Wednesday':\n     result = 3;\n     break;\n   case 'Thursday':\n     result = 4;\n     break;\n   case 'Friday':\n     result = 5;\n     break;\n   case 'Saturday':\n     result = 6;\n     break;\n   case 'Sunday':\n     result = 7;\n     break;\n }\n ```\n\n"
           },
+          "useFind": {
+            "deprecated": false,
+            "version": "2.3.6",
+            "name": "useFind",
+            "link": "https://biomejs.dev/linter/rules/use-find",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintTypeScript": "prefer-find"
+                }
+              }
+            ],
+            "docs": " Enforce the use of Array.prototype.find() over Array.prototype.filter() followed by [0] when looking for a single result.\n\n When searching for the first item in an array matching a condition, it may be tempting to use code like `arr.filter(x => x > 0)[0]`.\n However, it is simpler to use `Array.prototype.find()` instead, `arr.find(x => x > 0)`, which also returns the first entry matching a condition.\n Because the `.find()` only needs to execute the callback until it finds a match, it's also more efficient.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=invalid.ts\n [1, 2, 3].filter(x => x > 1)[0];\n ```\n\n ```ts,expect_diagnostic,file=invalid2.ts\n [1, 2, 3].filter(x => x > 1).at(0);\n ```\n\n ### Valid\n\n ```ts,file=valid.ts\n [1, 2, 3].find(x => x > 1);\n ```\n\n"
+          },
           "useMaxParams": {
             "deprecated": false,
             "version": "2.2.0",
@@ -2374,6 +2652,23 @@ export function GET() {
             "recommended": false,
             "fixKind": "unsafe",
             "docs": " Enforce the sorting of CSS utility classes.\n\n This rule implements the same sorting algorithm as [Tailwind CSS](https://tailwindcss.com/blog/automatic-class-sorting-with-prettier#how-classes-are-sorted), but supports any utility class framework including [UnoCSS](https://unocss.dev/).\n\n It is analogous to [`prettier-plugin-tailwindcss`](https://github.com/tailwindlabs/prettier-plugin-tailwindcss).\n\n\n :::caution\n ## Important notes\n\n This rule is a work in progress, and is only partially implemented. Progress is being tracked in the following GitHub issue: https://github.com/biomejs/biome/issues/1274\n\n Currently, utility class sorting is **not part of the formatter**, and is implemented as a linter rule instead, with an automatic fix. The fix is, at this stage, classified as unsafe. This means that **it won't be applied automatically** as part of IDE actions such as \"fix on save\".\n\n We appreciate any feedback on this rule, and encourage you to try it out and report any issues you find.\n\n **Please read this entire documentation page before reporting an issue.**\n\n Notably, keep in mind that the following features are not supported yet:\n\n - Screen variant sorting (e.g. `md:`, `max-lg:`). Only static, dynamic and arbitrary variants are supported.\n - Custom utilitites and variants (such as ones introduced by Tailwind CSS plugins). Only the default Tailwind CSS configuration is supported.\n - Options such as `prefix` and `separator`.\n - Object properties (e.g. in `clsx` calls).\n\n Please don't report issues about these features.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div class=\"px-2 foo p-4 bar\" />;\n ```\n\n ```jsx,expect_diagnostic\n <div class=\"hover:focus:m-2 foo hover:px-2 p-4\" />\n ```\n\n ## Options\n\n ### Code-related\n\n ```json,options\n {\n     \"options\": {\n         \"attributes\": [\"classList\"],\n         \"functions\": [\"clsx\", \"cva\", \"tw\", \"tw.*\"]\n     }\n }\n ```\n\n #### attributes\n\n Classes in the `class` and `className` JSX attributes are always sorted. Use this option to add more attributes that should be sorted.\n\n #### functions\n\n If specified, strings in the indicated functions will be sorted. This is useful when working with libraries like [`clsx`](https://github.com/lukeed/clsx) or [`cva`](https://cva.style/).\n\n ```js,expect_diagnostic,use_options\n clsx(\"px-2 foo p-4 bar\", {\n     \"some-css-class\": condition,\n });\n ```\n\n ```js,expect_diagnostic,use_options\n clsx(\"some-css-class\", {\n     \"block mx-4\": condition,\n });\n ```\n\n Tagged template literals are also supported, for example:\n\n ```js,use_options\n tw`px-2`;\n tw.div`px-2`;\n ```\n\n ```js,expect_diagnostic,use_options\n tw`px-2 foo p-4 bar`;\n ```\n\n ```js,expect_diagnostic,use_options\n tw.div`px-2 foo p-4 bar`;\n ```\n\n ### Sort-related\n\n :::caution\n At the moment, this rule does not support customizing the sort options. Instead, the default Tailwind CSS configuration is hard-coded.\n :::\n\n ## Differences with [Prettier](https://github.com/tailwindlabs/prettier-plugin-tailwindcss)\n\n The main key difference is that Tailwind CSS and its Prettier plugin read and execute the `tailwind.config.js` JavaScript file, which Biome can't do. Instead, Biome implements a simpler version of the configuration. The trade-offs are explained below.\n\n ### Values are not known\n\n The rule has no knowledge of values such as colors, font sizes, or spacing values, which are normally defined in a configuration file like `tailwind.config.js`. Instead, the rule matches utilities that support values in a simpler way: if they start with a known utility prefix, such as `px-` or `text-`, they're considered valid.\n\n This has two implications:\n\n - **False positives:** classes can be wrongly recognized as utilities even though their values are incorrect.\n   For example, if there's a `px-` utility defined in the configuration, it will match all of the following classes:\n   `px-2`, `px-1337`, `px-[not-actually-valid]`, `px-literally-anything`.\n\n - **No distinction between different utilities that share the same prefix:** for example,\n   `text-red-500` and `text-lg` are both interpreted as the same type of utility by this rule,\n    even though the former refers to a color and the latter to a font size. This results in all\n    utilities that share the same prefix being sorted together, regardless of their actual values.\n\n ### Custom additions must be specified\n\n The built-in Tailwind CSS preset (enabled by default) contains the set of utilities and variants that are available with the default configuration. More utilities and variants can be added through Tailwind CSS plugins. In Biome, these need to be manually specified in the Biome configuration file in order to \"extend\" the preset.\n\n ### Presets can't be modified\n\n In Tailwind CSS, core plugins (which provide the default utilities and variants) can be disabled. In Biome, however, there is no way to disable parts of a preset: it's all or nothing. A work-around is to, instead of using a preset, manually specify all utilities and variants in the Biome configuration file.\n\n ### Whitespace is collapsed\n\n The Tailwind CSS Prettier plugin preserves all original whitespace. This rule, however, collapses all whitespace (including newlines) into single spaces.\n\n This is a deliberate decision. We're unsure about this behavior, and would appreciate feedback on it. If this is a problem for you, please share a detailed explanation of your use case in [the GitHub issue](https://github.com/biomejs/biome/issues/1274).\n\n"
+          },
+          "useSpread": {
+            "deprecated": false,
+            "version": "2.3.6",
+            "name": "useSpread",
+            "link": "https://biomejs.dev/linter/rules/use-spread",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "prefer-spread"
+                }
+              }
+            ],
+            "docs": " Enforce the use of the spread operator over `.apply()`.\n\n The `apply()` method is used to call a function with a given `this` value and arguments provided as an array.\n The spread operator `...` can be used to achieve the same result, which is more concise and easier to read.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n foo.apply(null, args);\n ```\n\n ```js,expect_diagnostic\n foo.apply(null, [1, 2, 3]);\n ```\n\n ```js,expect_diagnostic\n foo.apply(undefined, args);\n ```\n\n ```js,expect_diagnostic\n obj.foo.apply(obj, args);\n ```\n\n ### Valid\n\n ```js\n foo(...args);\n\n obj.foo(...args);\n\n foo.apply(obj, [1, 2, 3]);\n\n ```\n\n"
           },
           "useVueDefineMacrosOrder": {
             "deprecated": false,
@@ -5638,7 +5933,7 @@ export function GET() {
               {
                 "kind": "sameLogic",
                 "source": {
-                  "reactPreferFunctionComponent": "react-prefer-function-component"
+                  "eslintReactPreferFunctionComponent": "react-prefer-function-component"
                 }
               }
             ],
@@ -5776,7 +6071,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow primitive type aliases and misleading types.\n\n - Enforce consistent names for primitive types\n\n   Primitive types have aliases.\n   For example, `Number` is an alias of `number`.\n   The rule recommends the lowercase primitive type names.\n\n - Disallow the `Function` type\n\n   The `Function` type is loosely typed and is thus considered dangerous or harmful.\n   `Function` is equivalent to the type `(...rest: any[]) => any` that uses the unsafe `any` type.\n\n - Disallow the misleading non-nullable type `{}`\n\n   In TypeScript, the type `{}` doesn't represent an empty object.\n   It represents any value except `null` and `undefined`.\n   The following TypeScript example is perfectly valid:\n\n   ```ts,expect_diagnostic\n   const n: {} = 0\n   ```\n\n   To represent an empty object, you should use `{ [k: string]: never }` or `Record<string, never>`.\n\n   To avoid any confusion, the rule forbids the use of the type `{}`, except in two situations:\n\n   1. In type constraints to restrict a generic type to non-nullable types:\n\n   ```ts\n   function f<T extends {}>(x: T) {\n       assert(x != null);\n   }\n   ```\n\n   2. In a type intersection to narrow a type to its non-nullable equivalent type:\n\n   ```ts\n   type NonNullableMyType = MyType & {};\n   ```\n\n   In this last case, you can also use the `NonNullable` utility type:\n\n   ```ts\n   type NonNullableMyType = NonNullable<MyType>;\n   ```\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n let foo: String = \"bar\";\n ```\n\n ```ts,expect_diagnostic\n let bool = true as Boolean;\n ```\n\n ```ts,expect_diagnostic\n let invalidTuple: [string, Boolean] = [\"foo\", false];\n ```\n\n ### Valid\n\n ```ts\n let foo: string = \"bar\";\n ```\n\n ```ts\n let tuple: [boolean, string] = [false, \"foo\"];\n ```\n\n"
+            "docs": " Disallow primitive type aliases and misleading types.\n\n This rule aims to prevent usage of potentially \"misleading\" types and type aliases\n which may behave unexpectedly.\n\n ### Disallow \"boxed object\" types like `Boolean` and `Number`\n\n JavaScript's 8 data types are described in TypeScript by the lowercase types\n `undefined`, `null`, `boolean`, `number`, `string`, `bigint`, `symbol`, and `object`.\n\n The latter 6 also have uppercase variants, which instead represent _interfaces_ with the shared properties of their primitive counterparts.\n Due to the nature of structural typing, these uppercase types accept both primitive values and non-primitive \"boxed object\"s\n like `new Boolean(true)`, despite the two behaving differently in many circumstances like equality and truthiness.\n\n It is thus considered best practice to avoid these \"boxed types\" in favor of their lowercase\n primitive counterparts.\n\n ### Disallow the unsafe `Function` type\n\n TypeScript's built-in `Function` type is capable of accepting callbacks of any shape or form,\n behaving equivalent to `(...rest: any[]) => any` (which uses the unsafe `any` type) when called directly.\n It also accepts classes or plain objects that happen to possess all properties of the `Function` class,\n which is likewise a potential source of confusion.\n\n As such, it is almost always preferable to explicitly specify function parameters and return types where possible. \\\n When a generic \"catch-all\" callback type is required, one of the following can be used instead:\n - `() => void`: A function that accepts no parameters and whose return value is ignored\n - `(...args: never) => unknown`: A \"top type\" for functions that can be assigned any function type,\n    but can't be called directly\n\n ### Disallow the misleading empty object type `{}`\n In TypeScript, the type `{}` _doesn't_ represent an empty object (as many new to the language may assume).\n It actually accepts any non-nullish value, _including non-object primitives_.\n The following TypeScript example is thus perfectly valid:\n\n ```ts,expect_diagnostic\n const n: {} = 0;\n ```\n\n Often, developers writing `{}` actually mean one of the following:\n - `object`: Represents any object value\n - `unknown`: Represents any value at all, including `null` and `undefined`\n - `{ [k: string]: never }` or `Record<string, never>`: Represent object types that disallow property access\n\n To avoid confusion, this rule forbids the use of the type `{}`, except in two situations:\n\n 1. In type constraints to restrict a generic type to non-nullable types:\n\n ```ts\n function f<T extends {}>(x: T) {\n     assert(x != null);\n }\n ```\n\n 2. In a type intersection to narrow a type to its non-nullable equivalent type:\n\n ```ts\n type NonNullableMyType = MyType & {};\n ```\n\n In this last case, you can also use the `NonNullable` utility type to the same effect:\n\n ```ts\n type NonNullableMyType = NonNullable<MyType>;\n ```\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n let foo: String = \"bar\";\n ```\n\n ```ts,expect_diagnostic\n const bool = true as Boolean;\n ```\n\n ```ts,expect_diagnostic\n let invalidTuple: [string, Number] = [\"foo\", 12];\n ```\n\n ```ts,expect_diagnostic\n function badFunction(cb: Function) {\n   cb(12);\n }\n ```\n\n ```ts,expect_diagnostic\n const notEmpty: {} = {prop: 12};\n ```\n\n ```ts,expect_diagnostic\n const alsoNotAnObj: Object = \"foo\";\n ```\n\n ### Valid\n\n ```ts\n const foo: string = \"bar\";\n ```\n\n ```ts\n let tuple: [boolean, string] = [false, \"foo\"];\n ```\n\n ```ts\n function betterFunction(cb: (n: number) => string) {\n   return cb(12);\n }\n ```\n\n ```ts\n type wrapFn<T extends (...args: never) => unknown> = { func: T }\n ```\n\n ```ts\n const goodObj: object = {foo: 12};\n ```\n\n ```ts\n type emptyObj = Record<string, never>;\n ```\n\n Exceptions for `{}`:\n ```ts\n declare function foo<T extends {}>(x: T): void;\n ```\n\n ```ts\n type notNull<T> = T & {};\n ```\n\n"
           },
           "noEmptyTypeParameters": {
             "deprecated": false,
@@ -6368,7 +6663,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 371
+    "numberOrRules": 388
   },
   "syntax": {
     "languages": {

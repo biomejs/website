@@ -66,7 +66,12 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-head-element](https://nextjs.org/docs/messages/no-head-element) |[noHeadElement](/linter/rules/no-head-element) |
 | [no-head-import-in-document](https://nextjs.org/docs/messages/no-head-import-in-document) |[noHeadImportInDocument](/linter/rules/no-head-import-in-document) |
 | [no-img-element](https://nextjs.org/docs/messages/no-img-element) |[noImgElement](/linter/rules/no-img-element) |
+| [no-sync-scripts](https://nextjs.org/docs/messages/no-sync-scripts) |[noSyncScripts](/linter/rules/no-sync-scripts) |
 | [no-unwanted-polyfillio](https://nextjs.org/docs/messages/no-unwanted-polyfillio) |[noUnwantedPolyfillio](/linter/rules/no-unwanted-polyfillio) |
+### @stylistic/eslint-plugin
+| @stylistic/eslint-plugin Rules name | Biome Rules name |
+| ---- | ---- |
+| [jsx-self-closing-comp](https://eslint.style/rules/default/jsx-self-closing-comp) |[useSelfClosingElements](/linter/rules/use-self-closing-elements) |
 ### @vitest/eslint-plugin
 | @vitest/eslint-plugin Rules name | Biome Rules name |
 | ---- | ---- |
@@ -96,6 +101,10 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [self_assignment](https://rust-lang.github.io/rust-clippy/master/#self_assignment) |[noSelfAssign](/linter/rules/no-self-assign) |
 | [too_many_arguments](https://rust-lang.github.io/rust-clippy/master/#too_many_arguments) |[useMaxParams](/linter/rules/use-max-params) |
 | [unreadable_literal](https://rust-lang.github.io/rust-clippy/master/#unreadable_literal) |[useNumericSeparators](/linter/rules/use-numeric-separators) |
+### Deno Lint
+| Deno Lint Rules name | Biome Rules name |
+| ---- | ---- |
+| [no-process-global](https://lint.deno.land/rules/no-process-global) |[noProcessGlobal](/linter/rules/no-process-global) |
 ### ESLint
 | ESLint Rules name | Biome Rules name |
 | ---- | ---- |
@@ -217,6 +226,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [prefer-object-spread](https://eslint.org/docs/latest/rules/prefer-object-spread) |[useObjectSpread](/linter/rules/use-object-spread) |
 | [prefer-regex-literals](https://eslint.org/docs/latest/rules/prefer-regex-literals) |[useRegexLiterals](/linter/rules/use-regex-literals) |
 | [prefer-rest-params](https://eslint.org/docs/latest/rules/prefer-rest-params) |[noArguments](/linter/rules/no-arguments) |
+| [prefer-spread](https://eslint.org/docs/latest/rules/prefer-spread) |[useSpread](/linter/rules/use-spread) |
 | [prefer-template](https://eslint.org/docs/latest/rules/prefer-template) |[useTemplate](/linter/rules/use-template) |
 | [radix](https://eslint.org/docs/latest/rules/radix) |[useParseIntRadix](/linter/rules/use-parse-int-radix) |
 | [require-await](https://eslint.org/docs/latest/rules/require-await) |[useAwait](/linter/rules/use-await) |
@@ -225,10 +235,6 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [use-isnan](https://eslint.org/docs/latest/rules/use-isnan) |[useIsNan](/linter/rules/use-is-nan) |
 | [valid-typeof](https://eslint.org/docs/latest/rules/valid-typeof) |[useValidTypeof](/linter/rules/use-valid-typeof) |
 | [yoda](https://eslint.org/docs/latest/rules/yoda) |[noYodaExpression](/linter/rules/no-yoda-expression) |
-### deno-lint
-| deno-lint Rules name | Biome Rules name |
-| ---- | ---- |
-| [no-process-global](https://lint.deno.land/rules/no-process-global) |[noProcessGlobal](/linter/rules/no-process-global) |
 ### eslint-plugin-barrel-files
 | eslint-plugin-barrel-files Rules name | Biome Rules name |
 | ---- | ---- |
@@ -373,10 +379,6 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | ---- | ---- |
 | [cognitive-complexity](https://github.com/SonarSource/eslint-plugin-sonarjs/blob/HEAD/docs/rules/cognitive-complexity.md) |[noExcessiveCognitiveComplexity](/linter/rules/no-excessive-cognitive-complexity) |
 | [prefer-while](https://github.com/SonarSource/eslint-plugin-sonarjs/blob/HEAD/docs/rules/prefer-while.md) |[useWhile](/linter/rules/use-while) |
-### eslint-plugin-stylistic
-| eslint-plugin-stylistic Rules name | Biome Rules name |
-| ---- | ---- |
-| [jsx-self-closing-comp](https://eslint.style/rules/default/jsx-self-closing-comp) |[useSelfClosingElements](/linter/rules/use-self-closing-elements) |
 ### eslint-plugin-unicorn
 | eslint-plugin-unicorn Rules name | Biome Rules name |
 | ---- | ---- |
@@ -446,6 +448,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-extra-non-null-assertion](https://typescript-eslint.io/rules/no-extra-non-null-assertion) |[noExtraNonNullAssertion](/linter/rules/no-extra-non-null-assertion) |
 | [no-extraneous-class](https://typescript-eslint.io/rules/no-extraneous-class) |[noStaticOnlyClass](/linter/rules/no-static-only-class) |
 | [no-floating-promises](https://typescript-eslint.io/rules/no-floating-promises) |[noFloatingPromises](/linter/rules/no-floating-promises) |
+| [no-for-in-array](https://typescript-eslint.io/rules/no-for-in-array) |[noForIn](/linter/rules/no-for-in) (inspired) |
 | [no-inferrable-types](https://typescript-eslint.io/rules/no-inferrable-types) |[noInferrableTypes](/linter/rules/no-inferrable-types) |
 | [no-invalid-void-type](https://typescript-eslint.io/rules/no-invalid-void-type) |[noConfusingVoidType](/linter/rules/no-confusing-void-type) |
 | [no-loss-of-precision](https://typescript-eslint.io/rules/no-loss-of-precision) |[noPrecisionLoss](/linter/rules/no-precision-loss) |
@@ -471,12 +474,14 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [parameter-properties](https://typescript-eslint.io/rules/parameter-properties) |[noParameterProperties](/linter/rules/no-parameter-properties) (inspired) |
 | [prefer-as-const](https://typescript-eslint.io/rules/prefer-as-const) |[useAsConstAssertion](/linter/rules/use-as-const-assertion) |
 | [prefer-enum-initializers](https://typescript-eslint.io/rules/prefer-enum-initializers) |[useEnumInitializers](/linter/rules/use-enum-initializers) |
+| [prefer-find](https://typescript-eslint.io/rules/prefer-find) |[useFind](/linter/rules/use-find) |
 | [prefer-for-of](https://typescript-eslint.io/rules/prefer-for-of) |[useForOf](/linter/rules/use-for-of) |
 | [prefer-function-type](https://typescript-eslint.io/rules/prefer-function-type) |[useShorthandFunctionType](/linter/rules/use-shorthand-function-type) |
 | [prefer-literal-enum-member](https://typescript-eslint.io/rules/prefer-literal-enum-member) |[useLiteralEnumMembers](/linter/rules/use-literal-enum-members) |
 | [prefer-namespace-keyword](https://typescript-eslint.io/rules/prefer-namespace-keyword) |[useNamespaceKeyword](/linter/rules/use-namespace-keyword) |
 | [prefer-optional-chain](https://typescript-eslint.io/rules/prefer-optional-chain) |[useOptionalChain](/linter/rules/use-optional-chain) |
 | [prefer-readonly](https://typescript-eslint.io/rules/prefer-readonly) |[useReadonlyClassProperties](/linter/rules/use-readonly-class-properties) |
+| [require-array-sort-compare](https://typescript-eslint.io/rules/require-array-sort-compare) |[useArraySortCompare](/linter/rules/use-array-sort-compare) |
 | [require-await](https://typescript-eslint.io/rules/require-await) |[useAwait](/linter/rules/use-await) |
 | [switch-exhaustiveness-check](https://typescript-eslint.io/rules/switch-exhaustiveness-check) |[useExhaustiveSwitchCases](/linter/rules/use-exhaustive-switch-cases) |
 | [unified-signatures](https://typescript-eslint.io/rules/unified-signatures) |[useUnifiedTypeSignatures](/linter/rules/use-unified-type-signatures) |

@@ -23,6 +23,8 @@ use biome_diagnostics::termcolor::NoColor;
 use biome_diagnostics::{Diagnostic, DiagnosticExt, PrintDiagnostic, Severity, Visit};
 use biome_formatter::{Expand, LineWidth};
 use biome_graphql_syntax::GraphqlLanguage;
+use biome_html_parser::HtmlParseOptions;
+use biome_html_syntax::HtmlLanguage;
 use biome_js_parser::JsParserOptions;
 use biome_js_syntax::{EmbeddingKind, JsFileSource, JsLanguage};
 use biome_json_factory::make;
@@ -81,6 +83,7 @@ enum SupportedLanguages {
     Css,
     Graphql,
     Json,
+    Html,
 }
 
 impl SupportedLanguages {
@@ -91,6 +94,7 @@ impl SupportedLanguages {
             SupportedLanguages::Css => biome_css_analyze::visit_registry(&mut visitor),
             SupportedLanguages::Graphql => biome_graphql_analyze::visit_registry(&mut visitor),
             SupportedLanguages::Json => biome_json_analyze::visit_registry(&mut visitor),
+            SupportedLanguages::Html => biome_html_analyze::visit_registry(&mut visitor),
         };
         visitor
     }
@@ -101,6 +105,7 @@ impl SupportedLanguages {
             SupportedLanguages::Css => root.join("css"),
             SupportedLanguages::Graphql => root.join("graphql"),
             SupportedLanguages::Json => root.join("json"),
+            SupportedLanguages::Html => root.join("html"),
         }
     }
 
@@ -110,6 +115,7 @@ impl SupportedLanguages {
             SupportedLanguages::Css => "CSS",
             SupportedLanguages::Graphql => "GraphQL",
             SupportedLanguages::Json => "JSON",
+            SupportedLanguages::Html => "HTML",
         }
     }
 }
@@ -221,6 +227,21 @@ impl RegistryVisitor<GraphqlLanguage> for RulesVisitor {
     }
 }
 
+impl RegistryVisitor<HtmlLanguage> for RulesVisitor {
+    fn record_category<C: GroupCategory<Language = HtmlLanguage>>(&mut self) {
+        if matches!(C::CATEGORY, RuleCategory::Lint | RuleCategory::Action) {
+            C::record_groups(self);
+        }
+    }
+
+    fn record_rule<R>(&mut self)
+    where
+        R: Rule<Query: Queryable<Language = HtmlLanguage, Output: Clone>> + 'static,
+    {
+        self.push_rule::<R, <R::Query as Queryable>::Language>()
+    }
+}
+
 pub fn generate_rule_docs() -> Result<()> {
     let linter_root = project_root().join("src/content/docs/linter");
     let actions_root = project_root().join("src/content/docs/assist");
@@ -228,6 +249,7 @@ pub fn generate_rule_docs() -> Result<()> {
     generate_language_rule_docs(&linter_root, &actions_root, SupportedLanguages::Json)?;
     generate_language_rule_docs(&linter_root, &actions_root, SupportedLanguages::Css)?;
     generate_language_rule_docs(&linter_root, &actions_root, SupportedLanguages::Graphql)?;
+    generate_language_rule_docs(&linter_root, &actions_root, SupportedLanguages::Html)?;
 
     generate_domains()?;
     generate_number_of_rules_and_actions()?;
@@ -241,6 +263,7 @@ fn generate_number_of_rules_and_actions() -> Result<()> {
     biome_json_analyze::visit_registry(&mut visitor);
     biome_css_analyze::visit_registry(&mut visitor);
     biome_graphql_analyze::visit_registry(&mut visitor);
+    biome_html_analyze::visit_registry(&mut visitor);
 
     let RulesVisitor { actions, lints } = visitor;
     let number_of_rules = lints.number_of_rules.len();
@@ -273,30 +296,30 @@ fn generate_language_rule_docs(
     let linter_root = supported_languages.as_language_path(linter_root);
     let actions_root = supported_languages.as_language_path(actions_root);
 
-    if linter_root.exists() {
-        if let Err(err) = fs::remove_dir_all(&linter_root) {
-            let is_not_found = err
-                .source()
-                .and_then(|err| err.downcast_ref::<io::Error>())
-                .is_some_and(|err| matches!(err.kind(), io::ErrorKind::NotFound));
+    if linter_root.exists()
+        && let Err(err) = fs::remove_dir_all(&linter_root)
+    {
+        let is_not_found = err
+            .source()
+            .and_then(|err| err.downcast_ref::<io::Error>())
+            .is_some_and(|err| matches!(err.kind(), io::ErrorKind::NotFound));
 
-            if !is_not_found {
-                return Err(err.into());
-            }
+        if !is_not_found {
+            return Err(err.into());
         }
     }
     fs::create_dir_all(&linter_root)?;
 
-    if actions_root.exists() {
-        if let Err(err) = fs::remove_dir_all(&actions_root) {
-            let is_not_found = err
-                .source()
-                .and_then(|err| err.downcast_ref::<io::Error>())
-                .is_some_and(|err| matches!(err.kind(), io::ErrorKind::NotFound));
+    if actions_root.exists()
+        && let Err(err) = fs::remove_dir_all(&actions_root)
+    {
+        let is_not_found = err
+            .source()
+            .and_then(|err| err.downcast_ref::<io::Error>())
+            .is_some_and(|err| matches!(err.kind(), io::ErrorKind::NotFound));
 
-            if !is_not_found {
-                return Err(err.into());
-            }
+        if !is_not_found {
+            return Err(err.into());
         }
     }
     fs::create_dir_all(&actions_root)?;
@@ -332,36 +355,37 @@ fn generate_rule_pages() -> Result<()> {
     biome_json_analyze::visit_registry(&mut visitor);
     biome_css_analyze::visit_registry(&mut visitor);
     biome_graphql_analyze::visit_registry(&mut visitor);
+    biome_html_analyze::visit_registry(&mut visitor);
 
     let RulesVisitor { actions, lints } = visitor;
 
     let linter_root = project_root().join("src/content/docs/linter/rules");
     let actions_root = project_root().join("src/content/docs/assist/actions");
 
-    if linter_root.exists() {
-        if let Err(err) = fs::remove_dir_all(&linter_root) {
-            let is_not_found = err
-                .source()
-                .and_then(|err| err.downcast_ref::<io::Error>())
-                .is_some_and(|err| matches!(err.kind(), io::ErrorKind::NotFound));
+    if linter_root.exists()
+        && let Err(err) = fs::remove_dir_all(&linter_root)
+    {
+        let is_not_found = err
+            .source()
+            .and_then(|err| err.downcast_ref::<io::Error>())
+            .is_some_and(|err| matches!(err.kind(), io::ErrorKind::NotFound));
 
-            if !is_not_found {
-                return Err(err.into());
-            }
+        if !is_not_found {
+            return Err(err.into());
         }
     }
     fs::create_dir_all(&linter_root)?;
 
-    if actions_root.exists() {
-        if let Err(err) = fs::remove_dir_all(&actions_root) {
-            let is_not_found = err
-                .source()
-                .and_then(|err| err.downcast_ref::<io::Error>())
-                .is_some_and(|err| matches!(err.kind(), io::ErrorKind::NotFound));
+    if actions_root.exists()
+        && let Err(err) = fs::remove_dir_all(&actions_root)
+    {
+        let is_not_found = err
+            .source()
+            .and_then(|err| err.downcast_ref::<io::Error>())
+            .is_some_and(|err| matches!(err.kind(), io::ErrorKind::NotFound));
 
-            if !is_not_found {
-                return Err(err.into());
-            }
+        if !is_not_found {
+            return Err(err.into());
         }
     }
     fs::create_dir_all(&actions_root)?;
@@ -1530,7 +1554,7 @@ fn print_diagnostics_or_actions(
         DocumentFileSource::Js(file_source) => {
             // Temporary support for astro, svelte and vue code blocks
             let (code, file_source) = match file_source.as_embedding_kind() {
-                EmbeddingKind::Astro => (
+                EmbeddingKind::Astro { .. } => (
                     biome_service::file_handlers::AstroFileHandler::input(code),
                     JsFileSource::ts(),
                 ),
@@ -1785,7 +1809,65 @@ fn print_diagnostics_or_actions(
                 });
             }
         }
-        DocumentFileSource::Html(_) | DocumentFileSource::Grit(_) => todo!(),
+        DocumentFileSource::Html(file_source) => {
+            let parse = biome_html_parser::parse_html(code, HtmlParseOptions::from(&file_source));
+
+            if parse.has_errors() {
+                for diag in parse.into_diagnostics() {
+                    let error = diag
+                        .with_file_path(test.file_path())
+                        .with_file_source_code(code);
+                    write_diagnostic(buffer, error)?;
+                }
+            } else {
+                let root = parse.tree();
+
+                let rule_filter = RuleFilter::Rule(group, rule);
+                let filter = AnalysisFilter {
+                    enabled_rules: Some(slice::from_ref(&rule_filter)),
+                    ..AnalysisFilter::default()
+                };
+
+                let options = AnalyzerOptions::default().with_file_path(test.file_path());
+                biome_html_analyze::analyze(&root, filter, &options, |signal| {
+                    match to_print_kind {
+                        ToPrintKind::Diagnostics => {
+                            if let Some(mut diag) = signal.diagnostic() {
+                                for action in signal.actions() {
+                                    if !action.is_suppression() {
+                                        diag = diag.add_code_suggestion(action.into());
+                                    }
+                                }
+
+                                let error = diag
+                                    .with_file_path(test.file_path())
+                                    .with_file_source_code(code);
+                                let res = write_diagnostic(buffer, error);
+
+                                // Abort the analysis on error
+                                if let Err(err) = res {
+                                    return ControlFlow::Break(err);
+                                }
+                            }
+                        }
+                        ToPrintKind::Actions => {
+                            for action in signal.actions() {
+                                if !action.is_suppression() {
+                                    let res = write_action(buffer, code, &test.file_path(), action);
+                                    // Abort the analysis on error
+                                    if let Err(err) = res {
+                                        return ControlFlow::Break(err);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    ControlFlow::Continue(())
+                });
+            }
+        }
+        DocumentFileSource::Grit(_) => todo!(),
         // Unknown code blocks should be ignored by tests
         DocumentFileSource::Unknown => {}
         _ => {}
@@ -1818,6 +1900,7 @@ fn to_language_tab(language: &str) -> &str {
         "json" => "JSON (and super languages)",
         "css" => "CSS",
         "graphql" => "GraphQL",
+        "html" => "HTML",
         _ => {
             panic!("Language {language} isn't supported.")
         }
@@ -1832,6 +1915,7 @@ fn to_language_icon(language: &str) -> &str {
         "json" => "seti:json",
         "css" => "seti:css",
         "graphql" => "seti:graphql",
+        "html" => "seti:html",
         _ => {
             panic!("Language {language} isn't supported.")
         }
