@@ -231,7 +231,6 @@ pub fn generate_json_metadata() -> anyhow::Result<()> {
     println!("Project root {}", project_root().display());
     let metadata_file = project_root().join("src/pages/metadata/rules.json.js");
     let schema_file = project_root().join("src/pages/metadata/schema.json.js");
-    println!("Metadata file {}", metadata_file.display());
 
     if metadata_file.exists() {
         fs::remove_file(&metadata_file)?;
@@ -263,7 +262,9 @@ pub fn generate_json_metadata() -> anyhow::Result<()> {
         biome_json_formatter::format_node(JsonFormatOptions::default(), &parsed.syntax())?
             .print()?;
 
+    println!("Metadata file {}", metadata_file.display());
     fs::write(metadata_file, content)?;
+
     let content = format!(
         r#"export function GET() {{
 	const schema = {};
@@ -277,6 +278,7 @@ pub fn generate_json_metadata() -> anyhow::Result<()> {
 "#,
         formatted.as_code()
     );
+    println!("Schema file {}", schema_file.display());
     fs::write(schema_file, content)?;
 
     Ok(())
