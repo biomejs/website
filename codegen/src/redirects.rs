@@ -4,6 +4,7 @@ use biome_analyze::GroupCategory;
 use biome_analyze::{Queryable, RegistryVisitor, Rule, RuleCategory, RuleGroup};
 use biome_css_syntax::CssLanguage;
 use biome_graphql_syntax::GraphqlLanguage;
+use biome_html_syntax::HtmlLanguage;
 use biome_js_syntax::JsLanguage;
 use biome_json_syntax::JsonLanguage;
 use biome_rowan::Language;
@@ -75,6 +76,15 @@ impl RegistryVisitor<GraphqlLanguage> for Redirects {
     }
 }
 
+impl RegistryVisitor<HtmlLanguage> for Redirects {
+    fn record_rule<R>(&mut self)
+    where
+        R: Rule<Query: Queryable<Language = HtmlLanguage, Output: Clone>> + 'static,
+    {
+        self.push_redirect::<R, HtmlLanguage>();
+    }
+}
+
 pub fn generate_redirects() -> Result<()> {
     let redirects_file = project_root().join("redirects.js");
 
@@ -88,6 +98,7 @@ pub fn generate_redirects() -> Result<()> {
     biome_json_analyze::visit_registry(&mut redirects);
     biome_css_analyze::visit_registry(&mut redirects);
     biome_graphql_analyze::visit_registry(&mut redirects);
+    biome_html_analyze::visit_registry(&mut redirects);
 
     for (from, to) in redirects.data {
         content.push_str(&format!("  '{from}': '{to}',\n"));

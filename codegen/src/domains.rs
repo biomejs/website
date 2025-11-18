@@ -20,6 +20,7 @@ pub fn generate_domains() -> anyhow::Result<()> {
     biome_json_analyze::visit_registry(&mut visitor);
     biome_css_analyze::visit_registry(&mut visitor);
     biome_graphql_analyze::visit_registry(&mut visitor);
+    biome_html_analyze::visit_registry(&mut visitor);
     let crate::lintdoc::RulesVisitor { lints, .. } = visitor;
     let domains = lints.domains_to_document;
     let mut buffer = Vec::new();
