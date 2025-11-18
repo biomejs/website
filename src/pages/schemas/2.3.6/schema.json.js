@@ -6215,10 +6215,8 @@ export function GET() {
 			},
 			RuleDomains: {
 				type: "object",
-				additionalProperties: {
-					$ref: "#/components/schemas/RuleDomainValue",
-				},
-				propertyNames: { $ref: "#/components/schemas/RuleDomain" },
+				additionalProperties: { $ref: "#/$defs/RuleDomainValue" },
+				propertyNames: { $ref: "#/$defs/RuleDomain" },
 			},
 			RulePlainConfiguration: {
 				oneOf: [
