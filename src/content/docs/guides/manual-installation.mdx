@@ -7,34 +7,148 @@ import { Code } from '@astrojs/starlight/components';
 import { getLatestVersion } from "@biomejs/version-utils";
 export const version = await getLatestVersion("stable");
 
-Using Biome's standalone CLI binary can be a great choice if you aren't already using Node.js or `npm` (or any other package manager).
-Or in other words, Biome shouldn't be the only reason for you to have a `package.json`.
+You can install Biome to your machine to use like any other command line tool. This can be a great choice
+if you need to run this manually: for instance, if you use a code editor that does not have a Biome plugin,
+or if you intend to use this in shell scripts or another local tool to automate processing of source code
+files, or if you intend to have an AI coding tool execute this tool.
+
+If you are using Biome in a CI/CD pipeline, you should install it directly into the project using a Node.js
+package manager (`npm`, `pnpm`, etc) and abandon this manual option.
 
 :::note
-If you're already using `npm` or another package manager, then using the package manager is the [preferred way to install](/guides/getting-started#installation) Biome.
-You're already familiar with the tooling, and installing and updating are simpler.
+If you are unsure which one to choose, see the [getting started guide](/guides/getting-started#installation).
+You're already familiar with package management in Node.js projects, using those tools makes installing,
+updating, and freezing the version simpler for collaboration scenarios.
 :::
 
-## Supported platforms
+## Supported Architectures
 
-You have to pick the correct binary for your platform for Biome work. The following table should help you do so.
+You have to pick the correct binary for your CPU architecture for Biome work. The following table should help you do so.
 
 | CPU Architecture | Windows       | macOS                        | Linux         | Linux (musl)       |
 | ---------------- | ------------- | ---------------------------- | ------------- | ------------------ |
 | `arm64`          | `win32-arm64` | `darwin-arm64` (M1 or newer) | `linux-arm64` | `linux-arm64-musl` |
 | `x64`            | `win32-x64`   | `darwin-x64`                 | `linux-x64`   | `linux-x64-musl`   |
 
+## Windows
+
+Install Biome either using the `winget` native package manager for Windows, or a download:
+
 :::note
 Use the Linux variant for Windows Subsystem for Linux (WSL).
 :::
 
-## Homebrew
+### Winget
+
+Native package manager for Windows:
+
+<Code lang="shell" code={`
+# Windows (x86_64, Powershell)
+winget install BiomeJS.Biome
+`} />
+
+### Download
+
+Download via [Latest CLI release](https://github.com/biomejs/biome/releases) on GitHub or the following shell command:
+
+<Code lang="shell" code={`
+# Windows (x86_64, Powershell)
+Invoke-WebRequest -Uri "https://github.com/biomejs/biome/releases/download/@biomejs/biome@${version}/biome-win32-x64.exe" -OutFile "%USERPROFILE%\Downloads\binaries\biome.exe"
+`} />
+
+Now you can use Biome by running `C:\users\<your_username>\Downloads\binaries\biome.exe`. Note that this does
+not register Biome on the PATH var (system or user var), so you cannot call it from within any folder by
+simply using `biome`. In order to register it to the PATH, edit the PATH variable using your operating
+system's GUI or command line:
+
+Either
+
+- Press Windows key + R to open the Run dialog, type **sysdm.cpl**, and press Enter.
+- Add the folder in a new line to the User PATH variable (not system PATH).
+
+or
+
+- Open Terminal and run:
+
+  <Code lang="shell" code={`
+  # Windows (x86_64, Powershell)
+  setx PATH "%PATH%;%USERPROFILE%\Downloads\binaries"
+  `} />
+
+  This updates the PATH permanently and applies to future terminal sessions. To update the current terminal, run
+
+  <Code lang="shell" code={`
+  # Windows (x86_64, Powershell)
+  set PATH="%PATH%;%USERPROFILE%\Downloads\binaries\"
+  `} />
+
+## macOS and Linux
 
 Biome is available as a [Homebrew formula](https://formulae.brew.sh/formula/biome) for macOS and Linux users.
 
 ```shell
 brew install biome
 ```
+
+### Using a published binary
+
+To install Biome, grab the executable for your platform from the [latest CLI release](https://github.com/biomejs/biome/releases) on GitHub and give it execution permission.
+
+<Code lang="shell" code={`
+# macOS arm64 (Apple Silicon – M1/M2/M3/M4)
+curl -L https://github.com/biomejs/biome/releases/download/@biomejs/biome@${version}/biome-darwin-arm64 -o biome
+chmod +x biome
+
+# macOS x86_64 (Intel Macs)
+curl -L https://github.com/biomejs/biome/releases/download/@biomejs/biome@${version}/biome-darwin-x64 -o biome
+chmod +x biome
+
+# Linux x86_64
+curl -L https://github.com/biomejs/biome/releases/download/@biomejs/biome@${version}/biome-linux-x64 -o biome
+chmod +x biome
+
+# Linux arm64/aarch64 (Raspberry Pi 64-bit, AWS Graviton, etc.)
+curl -L https://github.com/biomejs/biome/releases/download/@biomejs/biome@${version}/biome-linux-arm64 -o biome
+chmod +x biome
+`} />
+
+You can now run Biome with `./biome`.
+
+To run it globally from any directory just by typing `biome`, add it to your `PATH`.
+Here are the recommended ways:
+
+**Recommended: Move the binary to a directory already in `$PATH`**
+
+<Code lang="shell" code={`
+# Most common choice on both macOS and Linux
+sudo mv biome /usr/local/bin/biome
+
+# Alternative (user-local, no sudo needed – preferred on many modern Linux distros)
+mkdir -p ~/.local/bin
+mv biome ~/.local/bin/biome
+`} />
+
+**Alternative: Add the current folder to your `PATH`**
+If you prefer not to move the binary, append the current directory to `PATH` in your shell configuration file.
+
+- macOS (zsh – default since Catalina) – add to `~/.zshrc`
+  <Code lang="shell" code={`export PATH="$PATH:$(pwd)"`} />
+- macOS (bash) or Linux – add to `~/.bashrc`, `~/.zshrc`, or equivalent
+  <Code lang="shell" code={`export PATH="$PATH:$(pwd)"`} />
+
+Then reload your shell:
+
+<Code lang="shell" code={`source ~/.zshrc   # or source ~/.bashrc`} />
+
+:::note
+**Tip**: Moving the binary to `/usr/local/bin` or `~/.local/bin` (as shown in the
+recommended method) is cleaner, more reliable, and works across all terminal 
+sessions without relying on `$(pwd)`.
+:::
+
+Now `biome` works everywhere:
+
+<Code lang="shell" code={`biome --version biome format . biome lint .`} />
 
 ## Docker
 
@@ -62,27 +176,6 @@ docker run -v $(pwd):/code ghcr.io/biomejs/biome lint --write
 docker run -v $(pwd):/code ghcr.io/biomejs/biome format
 docker run -v $(pwd):/code ghcr.io/biomejs/biome format --write
 ```
-
-
-
-## Using a published binary
-
-To install Biome, grab the executable for your platform from the [latest CLI release](https://github.com/biomejs/biome/releases) on GitHub and give it execution permission.
-
-<Code lang="shell" code={`
-# macOS arm (M1 or newer)
-curl -L https://github.com/biomejs/biome/releases/download/@biomejs/biome@${version}/biome-darwin-arm64 -o biome
-chmod +x biome
-
-# Linux (x86_64)
-curl -L https://github.com/biomejs/biome/releases/download/@biomejs/biome@${version}/biome-linux-x64 -o biome
-chmod +x biome
-
-# Windows (x86_64, Powershell)
-Invoke-WebRequest -Uri "https://github.com/biomejs/biome/releases/download/@biomejs/biome@${version}/biome-win32-x64.exe" -OutFile "biome.exe"
-`} />
-
-Now you can use Biome by simply running `./biome`.
 
 ## Next Steps
 
