@@ -614,6 +614,182 @@ export function GET() {
           }
         }
       },
+      "html": {
+        "a11y": {
+          "noHeaderScope": {
+            "deprecated": false,
+            "version": "2.3.0",
+            "name": "noHeaderScope",
+            "link": "https://biomejs.dev/linter/rules/no-header-scope",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJsxA11y": "scope"
+                }
+              }
+            ],
+            "docs": " The scope prop should be used only on `<th>` elements.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div scope=\"col\"></div>\n ```\n\n ```html,expect_diagnostic\n <div scope></div>\n ```\n\n ### Valid\n\n ```html\n <th scope=\"col\"></th>\n ```\n\n ```html\n <th scope></th>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 1.3.1](https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships)\n - [WCAG 4.1.1](https://www.w3.org/WAI/WCAG21/Understanding/parsing)\n\n"
+          }
+        },
+        "nursery": {
+          "noSyncScripts": {
+            "deprecated": false,
+            "version": "2.3.6",
+            "name": "noSyncScripts",
+            "link": "https://biomejs.dev/linter/rules/no-sync-scripts",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintNext": "no-sync-scripts"
+                }
+              }
+            ],
+            "docs": " Prevent the usage of synchronous scripts.\n\n A synchronous script can impact your webpage performance, read more on how to [Efficiently load third-party JavaScript](https://web.dev/articles/efficiently-load-third-party-javascript).\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <script src=\"\"></script>\n ```\n\n ### Valid\n\n ```html\n <script src=\"\" async></script>\n <script src=\"\" defer></script>\n ```\n\n"
+          },
+          "noVueVIfWithVFor": {
+            "deprecated": false,
+            "version": "2.3.6",
+            "name": "noVueVIfWithVFor",
+            "link": "https://biomejs.dev/linter/rules/no-vue-v-if-with-v-for",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "no-use-v-if-with-v-for"
+                }
+              }
+            ],
+            "docs": " Disallow using `v-if` and `v-for` directives on the same element.\n\n There are two common cases where this can be tempting:\n - To filter items in a list (e.g. v-for=\"user in users\" v-if=\"user.isActive\"). In these cases, replace users with a new computed property that returns your filtered list (e.g. activeUsers).\n - To avoid rendering a list if it should be hidden (e.g. v-for=\"user in users\" v-if=\"shouldShowUsers\"). In these cases, move the v-if to a container element (e.g. ul, ol).\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <TodoItem\n     v-if=\"complete\"\n     v-for=\"todo in todos\"\n     :todo=\"todo\"\n />\n ```\n\n ### Valid\n\n ```vue\n <ul v-if=\"complete\">\n     <TodoItem\n         v-for=\"todo in todos\"\n         :todo=\"todo\"\n     />\n </ul>\n ```\n\n"
+          },
+          "useVueHyphenatedAttributes": {
+            "deprecated": false,
+            "version": "2.3.6",
+            "name": "useVueHyphenatedAttributes",
+            "link": "https://biomejs.dev/linter/rules/use-vue-hyphenated-attributes",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "attribute-hyphenation"
+                }
+              }
+            ],
+            "docs": " Enforce hyphenated (kebab-case) attribute names in Vue templates.\n\n Vue style guide recommends using hyphenated attribute (and prop) names in templates to\n keep them consistent and distinguish them from JavaScript identifiers written in camelCase/PascalCase.\n\n This rule flags attributes that are detected as camelCase, PascalCase, CONSTANT_CASE, snake_case\n or that contain any uppercase ASCII letter. It uses Biome's internal `Case::identify` helper.\n\n Allowed:\n - kebab-case attributes (e.g. `data-test-id`)\n - pure lowercase single word attributes (e.g. `class`, `id`)\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <div fooBar=\"x\"></div>\n ```\n\n ```vue,expect_diagnostic\n <MyComp :someProp=\"x\" />\n ```\n\n ### Valid\n\n ```vue\n <div data-test-id=\"x\"></div>\n <div class=\"foo\"></div>\n <MyComp :some-prop=\"x\" />\n ```\n\n ## Options\n\n The rule supports the following options:\n\n ### `ignore`\n\n A list of attribute names that should be ignored by the rule (they won't be required to be hyphenated).\n Use this when you have a fixed set of camelCase / PascalCase prop names you intentionally allow.\n\n ```json,options\n {\n   \"options\": {\n     \"ignore\": [\"someProp\", \"fooBar\"]\n   }\n }\n ```\n\n #### Valid (using `ignore`)\n\n ```vue,use_options\n <div fooBar=\"x\"></div>\n ```\n\n ### `ignoreTags`\n\n A list of tag names whose attributes should be skipped entirely.\n This is useful for third-party or internal components that deliberately expose non‑hyphenated prop names.\n\n ```json,options\n {\n   \"options\": {\n     \"ignoreTags\": [\"MyComp\", \"AnotherWidget\"]\n   }\n }\n ```\n\n #### Valid (using `ignoreTags`)\n\n ```vue,use_options\n <MyComp :someProp=\"x\" />\n ```\n\n"
+          },
+          "useVueValidVBind": {
+            "deprecated": false,
+            "version": "2.3.6",
+            "name": "useVueValidVBind",
+            "link": "https://biomejs.dev/linter/rules/use-vue-valid-v-bind",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "valid-v-bind"
+                }
+              }
+            ],
+            "docs": " Forbids `v-bind` directives with missing arguments or invalid modifiers.\n\n This rule reports v-bind directives in the following cases:\n - The directive does not have an argument. E.g. `<div v-bind></div>`\n - The directive does not have a value. E.g. `<div v-bind:aaa></div>`\n - The directive has invalid modifiers. E.g. `<div v-bind:aaa.bbb=\"ccc\"></div>`\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <Foo v-bind />\n ```\n\n ```vue,expect_diagnostic\n <div v-bind></div>\n ```\n\n ### Valid\n\n ```vue\n <Foo v-bind:foo=\"foo\" />\n ```\n\n"
+          },
+          "useVueValidVElse": {
+            "deprecated": false,
+            "version": "2.3.6",
+            "name": "useVueValidVElse",
+            "link": "https://biomejs.dev/linter/rules/use-vue-valid-v-else",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "valid-v-else"
+                }
+              }
+            ],
+            "docs": " Enforce valid usage of v-else.\n\n This rule reports v-else directives in the following cases:\n - The directive has an argument. E.g. `<div v-if=\"foo\"></div><div v-else:aaa></div>`\n - The directive has a modifier. E.g. `<div v-if=\"foo\"></div><div v-else.bbb></div>`\n - The directive has an attribute value. E.g. `<div v-if=\"foo\"></div><div v-else=\"bar\"></div>`\n - The directive is on elements where the previous element doesn't have `v-if`/`v-else-if` directives. E.g. `<div v-else></div>`\n - The directive is on elements which have `v-if`/`v-else-if` directives. E.g. `<div v-if=\"foo\" v-else></div>`\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <div v-else:arg></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-else.mod></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-else=\"value\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-else></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-if=\"foo\" v-else></div>\n ```\n\n ### Valid\n\n ```vue\n <div v-if=\"foo\"></div>\n <div v-else></div>\n ```\n\n ```vue\n <div v-if=\"foo\"></div>\n <div v-else-if=\"bar\"></div>\n <div v-else></div>\n ```\n\n"
+          },
+          "useVueValidVElseIf": {
+            "deprecated": false,
+            "version": "2.3.6",
+            "name": "useVueValidVElseIf",
+            "link": "https://biomejs.dev/linter/rules/use-vue-valid-v-else-if",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "valid-v-else-if"
+                }
+              }
+            ],
+            "docs": " Enforce valid `v-else-if` directives.\n\n Biome flags these cases:\n - Has an argument: `<div v-else-if:arg=\"b\"></div>`.\n - Has modifiers: `<div v-else-if.mod=\"b\"></div>`.\n - Missing value: `<div v-else-if></div>`.\n - Not preceded by a sibling with `v-if`/`v-else-if`.\n - On the same element as `v-if` or `v-else`.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <div v-if=\"a\"></div><div v-else-if:arg=\"b\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-if=\"a\"></div><div v-else-if.mod=\"b\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-if=\"a\"></div><div v-else-if></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-else-if=\"b\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-if=\"a\" v-else-if=\"b\"></div>\n ```\n\n ### Valid\n\n ```vue\n <div v-if=\"a\"></div><div v-else-if=\"b\"></div><div v-else></div>\n ```\n\n"
+          },
+          "useVueValidVHtml": {
+            "deprecated": false,
+            "version": "2.3.6",
+            "name": "useVueValidVHtml",
+            "link": "https://biomejs.dev/linter/rules/use-vue-valid-v-html",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "valid-v-html"
+                }
+              }
+            ],
+            "docs": " Enforce valid `v-html` directives.\n\n This rule reports v-html directives in the following cases:\n - The directive has an argument. E.g. `<div v-html:aaa></div>`\n - The directive has a modifier. E.g. `<div v-html.bbb></div>`\n - The directive does not have an attribute value. E.g. `<div v-html></div>`\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <div v-html:aaa=\"foo\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-html.bbb=\"foo\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-html></div>\n ```\n\n ### Valid\n\n ```vue\n <div v-html=\"htmlContent\"></div>\n ```\n\n"
+          },
+          "useVueValidVIf": {
+            "deprecated": false,
+            "version": "2.3.6",
+            "name": "useVueValidVIf",
+            "link": "https://biomejs.dev/linter/rules/use-vue-valid-v-if",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "valid-v-if"
+                }
+              }
+            ],
+            "docs": " Enforces valid `v-if` usage for Vue templates.\n\n This rule reports `v-if` directives in following cases:\n - The directive has an argument. E.g. `<div v-if:aaa=\"foo\"></div>`\n - The directive has a modifier. E.g. `<div v-if.bbb=\"foo\"></div>`\n - The directive does not have an attribute value. E.g. `<div v-if></div>`\n - The same element also has `v-else` or `v-else-if`. E.g. `<div v-if=\"foo\" v-else></div>`\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <div v-if:aaa=\"foo\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-if.bbb=\"foo\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-if></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-if=\"foo\" v-else></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-if=\"foo\" v-else-if=\"bar\"></div>\n ```\n\n ### Valid\n\n ```vue\n <div v-if=\"ok\"></div>\n ```\n\n ```vue\n <div v-if=\"a < b\"></div>\n ```\n\n ```vue\n <div v-if=\"a\"></div>\n <div v-else-if=\"b\"></div>\n <div v-else></div>\n ```\n\n"
+          },
+          "useVueValidVOn": {
+            "deprecated": false,
+            "version": "2.3.6",
+            "name": "useVueValidVOn",
+            "link": "https://biomejs.dev/linter/rules/use-vue-valid-v-on",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "valid-v-on"
+                }
+              }
+            ],
+            "docs": " Enforce valid `v-on` directives with proper arguments, modifiers, and handlers.\n\n This rule reports v-on directives in the following cases:\n - The directive does not have an event name. E.g. <div v-on=\"foo\"></div>\n - The directive has invalid modifiers. E.g. <div v-on:click.bogus=\"foo\"></div>\n - The directive is missing a handler expression. E.g. <div v-on:click></div>\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <Foo v-on />\n ```\n\n ### Valid\n\n ```vue\n <Foo v-on:click=\"foo\" />\n ```\n\n"
+          }
+        }
+      },
       "js": {
         "a11y": {
           "noStaticElementInteractions": {
@@ -6487,7 +6663,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 378
+    "numberOrRules": 388
   },
   "syntax": {
     "languages": {
