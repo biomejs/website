@@ -650,7 +650,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Prevent the usage of synchronous scripts.\n\n A synchronous script can impact your webpage performance, read more on how to [Efficiently load third-party JavaScript](https://web.dev/articles/efficiently-load-third-party-javascript).\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <script src=\"\"></script>\n ```\n\n ### Valid\n\n ```html\n <script src=\"\" async></script>\n <script src=\"\" defer></script>\n ```\n\n"
+            "docs": " Prevent the usage of synchronous scripts.\n\n A synchronous script can impact your webpage performance, read more on how to [Efficiently load third-party JavaScript](https://web.dev/articles/efficiently-load-third-party-javascript).\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <script src=\"\"></script>\n ```\n\n ### Valid\n\n ```html\n <script src=\"\" async></script>\n <script src=\"\" defer></script>\n <script src=\"\" type=\"module\"></script>\n ```\n\n"
           },
           "noVueVIfWithVFor": {
             "deprecated": false,
@@ -2400,7 +2400,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Prevent the usage of synchronous scripts.\n\n A synchronous script can impact your webpage performance, read more on how to [Efficiently load third-party JavaScript](https://web.dev/articles/efficiently-load-third-party-javascript).\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n const Invalid = () => <script src=\"https://third-party-script.js\" />;\n ```\n\n ### Valid\n\n ```jsx\n const Valid = () => {\n   return (\n     <>\n       <script src=\"https://third-party-script.js\" async />\n       <script src=\"https://third-party-script.js\" defer />\n     </>\n   );\n }\n ```\n\n #### Next.js\n\n ```jsx\n import Script from 'next/script'\n\n const Valid = () => <Script src=\"https://third-party-script.js\" />;\n ```\n\n"
+            "docs": " Prevent the usage of synchronous scripts.\n\n A synchronous script can impact your webpage performance, read more on how to [Efficiently load third-party JavaScript](https://web.dev/articles/efficiently-load-third-party-javascript).\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n const Invalid = () => <script src=\"https://third-party-script.js\" />;\n ```\n\n ### Valid\n\n ```jsx\n const Valid = () => {\n   return (\n     <>\n       <script src=\"https://third-party-script.js\" async />\n       <script src=\"https://third-party-script.js\" defer />\n       <script src=\"https://third-party-script.js\" type=\"module\" />\n     </>\n   );\n }\n ```\n\n #### Next.js\n\n ```jsx\n import Script from 'next/script'\n\n const Valid = () => <Script src=\"https://third-party-script.js\" />;\n ```\n\n"
           },
           "noUnnecessaryConditions": {
             "deprecated": false,
