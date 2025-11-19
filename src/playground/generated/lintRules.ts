@@ -209,6 +209,7 @@ export const LINT_RULES = {
     useVueValidVHtml: "useVueValidVHtml",
     useVueValidVIf: "useVueValidVIf",
     useVueValidVOn: "useVueValidVOn",
+    useVueValidVText: "useVueValidVText",
   } as const,
   performance: {
     noAccumulatingSpread: "noAccumulatingSpread",

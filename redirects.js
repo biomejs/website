@@ -387,6 +387,7 @@ export default {
   '/linter/rules/useVueValidVHtml': '/linter/rules/use-vue-valid-v-html',
   '/linter/rules/useVueValidVIf': '/linter/rules/use-vue-valid-v-if',
   '/linter/rules/useVueValidVOn': '/linter/rules/use-vue-valid-v-on',
+  '/linter/rules/useVueValidVText': '/linter/rules/use-vue-valid-v-text',
   '/linter/rules/useWhile': '/linter/rules/use-while',
   '/linter/rules/useYield': '/linter/rules/use-yield',
 };
