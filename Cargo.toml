@@ -16,47 +16,47 @@
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dependencies]
 	anyhow = "1.0.100"
-	biome_analyze = { git = "https://github.com/biomejs/biome.git", rev = "7fdcec8eb4ce9f28784f823ef01bd923d2c5d1cb", features = [
+	biome_analyze = { git = "https://github.com/biomejs/biome.git", rev = "0eb08e8e34f96b5a4fd8cc67f430b614736b6d4c", features = [
 		"schema",
 	] }
-	biome_cli = { git = "https://github.com/biomejs/biome.git", rev = "7fdcec8eb4ce9f28784f823ef01bd923d2c5d1cb" }
-	biome_configuration = { git = "https://github.com/biomejs/biome.git", rev = "7fdcec8eb4ce9f28784f823ef01bd923d2c5d1cb", features = [
+	biome_cli = { git = "https://github.com/biomejs/biome.git", rev = "0eb08e8e34f96b5a4fd8cc67f430b614736b6d4c" }
+	biome_configuration = { git = "https://github.com/biomejs/biome.git", rev = "0eb08e8e34f96b5a4fd8cc67f430b614736b6d4c", features = [
 		"schema",
 	] }
-	biome_console = { git = "https://github.com/biomejs/biome.git", rev = "7fdcec8eb4ce9f28784f823ef01bd923d2c5d1cb" }
-	biome_css_analyze = { git = "https://github.com/biomejs/biome.git", rev = "7fdcec8eb4ce9f28784f823ef01bd923d2c5d1cb" }
-	biome_css_parser = { git = "https://github.com/biomejs/biome.git", rev = "7fdcec8eb4ce9f28784f823ef01bd923d2c5d1cb" }
-	biome_css_syntax = { git = "https://github.com/biomejs/biome.git", rev = "7fdcec8eb4ce9f28784f823ef01bd923d2c5d1cb" }
-	biome_deserialize = { git = "https://github.com/biomejs/biome.git", rev = "7fdcec8eb4ce9f28784f823ef01bd923d2c5d1cb" }
-	biome_diagnostics = { git = "https://github.com/biomejs/biome.git", rev = "7fdcec8eb4ce9f28784f823ef01bd923d2c5d1cb" }
-	biome_flags = { git = "https://github.com/biomejs/biome.git", rev = "7fdcec8eb4ce9f28784f823ef01bd923d2c5d1cb" }
-	biome_formatter = { git = "https://github.com/biomejs/biome.git", rev = "7fdcec8eb4ce9f28784f823ef01bd923d2c5d1cb" }
-	biome_fs = { git = "https://github.com/biomejs/biome.git", rev = "7fdcec8eb4ce9f28784f823ef01bd923d2c5d1cb" }
-	biome_graphql_analyze = { git = "https://github.com/biomejs/biome.git", rev = "7fdcec8eb4ce9f28784f823ef01bd923d2c5d1cb" }
-	biome_graphql_parser = { git = "https://github.com/biomejs/biome.git", rev = "7fdcec8eb4ce9f28784f823ef01bd923d2c5d1cb" }
-	biome_graphql_syntax = { git = "https://github.com/biomejs/biome.git", rev = "7fdcec8eb4ce9f28784f823ef01bd923d2c5d1cb" }
-	biome_html_analyze = { git = "https://github.com/biomejs/biome.git", rev = "7fdcec8eb4ce9f28784f823ef01bd923d2c5d1cb" }
-	biome_html_parser = { git = "https://github.com/biomejs/biome.git", rev = "7fdcec8eb4ce9f28784f823ef01bd923d2c5d1cb" }
-	biome_html_syntax = { git = "https://github.com/biomejs/biome.git", rev = "7fdcec8eb4ce9f28784f823ef01bd923d2c5d1cb" }
-	biome_js_analyze = { git = "https://github.com/biomejs/biome.git", rev = "7fdcec8eb4ce9f28784f823ef01bd923d2c5d1cb" }
-	biome_js_formatter = { git = "https://github.com/biomejs/biome.git", rev = "7fdcec8eb4ce9f28784f823ef01bd923d2c5d1cb" }
-	biome_js_parser = { git = "https://github.com/biomejs/biome.git", rev = "7fdcec8eb4ce9f28784f823ef01bd923d2c5d1cb" }
-	biome_js_syntax = { git = "https://github.com/biomejs/biome.git", rev = "7fdcec8eb4ce9f28784f823ef01bd923d2c5d1cb" }
-	biome_json_analyze = { git = "https://github.com/biomejs/biome.git", rev = "7fdcec8eb4ce9f28784f823ef01bd923d2c5d1cb" }
-	biome_json_factory = { git = "https://github.com/biomejs/biome.git", rev = "7fdcec8eb4ce9f28784f823ef01bd923d2c5d1cb" }
-	biome_json_formatter = { git = "https://github.com/biomejs/biome.git", rev = "7fdcec8eb4ce9f28784f823ef01bd923d2c5d1cb" }
-	biome_json_parser = { git = "https://github.com/biomejs/biome.git", rev = "7fdcec8eb4ce9f28784f823ef01bd923d2c5d1cb" }
-	biome_json_syntax = { git = "https://github.com/biomejs/biome.git", rev = "7fdcec8eb4ce9f28784f823ef01bd923d2c5d1cb" }
-	biome_module_graph = { git = "https://github.com/biomejs/biome.git", rev = "7fdcec8eb4ce9f28784f823ef01bd923d2c5d1cb" }
-	biome_project_layout = { git = "https://github.com/biomejs/biome.git", rev = "7fdcec8eb4ce9f28784f823ef01bd923d2c5d1cb" }
-	biome_rowan = { git = "https://github.com/biomejs/biome.git", rev = "7fdcec8eb4ce9f28784f823ef01bd923d2c5d1cb" }
-	biome_ruledoc_utils = { git = "https://github.com/biomejs/biome.git", rev = "7fdcec8eb4ce9f28784f823ef01bd923d2c5d1cb" }
-	biome_service = { git = "https://github.com/biomejs/biome.git", rev = "7fdcec8eb4ce9f28784f823ef01bd923d2c5d1cb" }
-	biome_string_case = { git = "https://github.com/biomejs/biome.git", rev = "7fdcec8eb4ce9f28784f823ef01bd923d2c5d1cb" }
-	biome_test_utils = { git = "https://github.com/biomejs/biome.git", rev = "7fdcec8eb4ce9f28784f823ef01bd923d2c5d1cb" }
-	biome_text_edit = { git = "https://github.com/biomejs/biome.git", rev = "7fdcec8eb4ce9f28784f823ef01bd923d2c5d1cb" }
+	biome_console = { git = "https://github.com/biomejs/biome.git", rev = "0eb08e8e34f96b5a4fd8cc67f430b614736b6d4c" }
+	biome_css_analyze = { git = "https://github.com/biomejs/biome.git", rev = "0eb08e8e34f96b5a4fd8cc67f430b614736b6d4c" }
+	biome_css_parser = { git = "https://github.com/biomejs/biome.git", rev = "0eb08e8e34f96b5a4fd8cc67f430b614736b6d4c" }
+	biome_css_syntax = { git = "https://github.com/biomejs/biome.git", rev = "0eb08e8e34f96b5a4fd8cc67f430b614736b6d4c" }
+	biome_deserialize = { git = "https://github.com/biomejs/biome.git", rev = "0eb08e8e34f96b5a4fd8cc67f430b614736b6d4c" }
+	biome_diagnostics = { git = "https://github.com/biomejs/biome.git", rev = "0eb08e8e34f96b5a4fd8cc67f430b614736b6d4c" }
+	biome_flags = { git = "https://github.com/biomejs/biome.git", rev = "0eb08e8e34f96b5a4fd8cc67f430b614736b6d4c" }
+	biome_formatter = { git = "https://github.com/biomejs/biome.git", rev = "0eb08e8e34f96b5a4fd8cc67f430b614736b6d4c" }
+	biome_fs = { git = "https://github.com/biomejs/biome.git", rev = "0eb08e8e34f96b5a4fd8cc67f430b614736b6d4c" }
+	biome_graphql_analyze = { git = "https://github.com/biomejs/biome.git", rev = "0eb08e8e34f96b5a4fd8cc67f430b614736b6d4c" }
+	biome_graphql_parser = { git = "https://github.com/biomejs/biome.git", rev = "0eb08e8e34f96b5a4fd8cc67f430b614736b6d4c" }
+	biome_graphql_syntax = { git = "https://github.com/biomejs/biome.git", rev = "0eb08e8e34f96b5a4fd8cc67f430b614736b6d4c" }
+	biome_html_analyze = { git = "https://github.com/biomejs/biome.git", rev = "0eb08e8e34f96b5a4fd8cc67f430b614736b6d4c" }
+	biome_html_parser = { git = "https://github.com/biomejs/biome.git", rev = "0eb08e8e34f96b5a4fd8cc67f430b614736b6d4c" }
+	biome_html_syntax = { git = "https://github.com/biomejs/biome.git", rev = "0eb08e8e34f96b5a4fd8cc67f430b614736b6d4c" }
+	biome_js_analyze = { git = "https://github.com/biomejs/biome.git", rev = "0eb08e8e34f96b5a4fd8cc67f430b614736b6d4c" }
+	biome_js_formatter = { git = "https://github.com/biomejs/biome.git", rev = "0eb08e8e34f96b5a4fd8cc67f430b614736b6d4c" }
+	biome_js_parser = { git = "https://github.com/biomejs/biome.git", rev = "0eb08e8e34f96b5a4fd8cc67f430b614736b6d4c" }
+	biome_js_syntax = { git = "https://github.com/biomejs/biome.git", rev = "0eb08e8e34f96b5a4fd8cc67f430b614736b6d4c" }
+	biome_json_analyze = { git = "https://github.com/biomejs/biome.git", rev = "0eb08e8e34f96b5a4fd8cc67f430b614736b6d4c" }
+	biome_json_factory = { git = "https://github.com/biomejs/biome.git", rev = "0eb08e8e34f96b5a4fd8cc67f430b614736b6d4c" }
+	biome_json_formatter = { git = "https://github.com/biomejs/biome.git", rev = "0eb08e8e34f96b5a4fd8cc67f430b614736b6d4c" }
+	biome_json_parser = { git = "https://github.com/biomejs/biome.git", rev = "0eb08e8e34f96b5a4fd8cc67f430b614736b6d4c" }
+	biome_json_syntax = { git = "https://github.com/biomejs/biome.git", rev = "0eb08e8e34f96b5a4fd8cc67f430b614736b6d4c" }
+	biome_module_graph = { git = "https://github.com/biomejs/biome.git", rev = "0eb08e8e34f96b5a4fd8cc67f430b614736b6d4c" }
+	biome_project_layout = { git = "https://github.com/biomejs/biome.git", rev = "0eb08e8e34f96b5a4fd8cc67f430b614736b6d4c" }
+	biome_rowan = { git = "https://github.com/biomejs/biome.git", rev = "0eb08e8e34f96b5a4fd8cc67f430b614736b6d4c" }
+	biome_ruledoc_utils = { git = "https://github.com/biomejs/biome.git", rev = "0eb08e8e34f96b5a4fd8cc67f430b614736b6d4c" }
+	biome_service = { git = "https://github.com/biomejs/biome.git", rev = "0eb08e8e34f96b5a4fd8cc67f430b614736b6d4c" }
+	biome_string_case = { git = "https://github.com/biomejs/biome.git", rev = "0eb08e8e34f96b5a4fd8cc67f430b614736b6d4c" }
+	biome_test_utils = { git = "https://github.com/biomejs/biome.git", rev = "0eb08e8e34f96b5a4fd8cc67f430b614736b6d4c" }
+	biome_text_edit = { git = "https://github.com/biomejs/biome.git", rev = "0eb08e8e34f96b5a4fd8cc67f430b614736b6d4c" }
 	bpaf = { version = "0.9.20", features = ["docgen"] }
-	xtask_codegen = { git = "https://github.com/biomejs/biome.git", rev = "7fdcec8eb4ce9f28784f823ef01bd923d2c5d1cb", features = [
+	xtask_codegen = { git = "https://github.com/biomejs/biome.git", rev = "0eb08e8e34f96b5a4fd8cc67f430b614736b6d4c", features = [
 		"schema",
 	] }
 	# Needed to fix some weird dependency
