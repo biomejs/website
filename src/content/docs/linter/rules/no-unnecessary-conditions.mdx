@@ -23,7 +23,7 @@ This rule belongs to the project domain. This means that its activation will act
 - This rule belongs to the following domains:
   - [`project`](/linter/domains#project)
 - Sources: 
-  - Same as [`@typescript-eslint/no-unnecessary-condition`](https://typescript-eslint.io/rules/no-unnecessary-condition)
+  - Inspired from [`@typescript-eslint/no-unnecessary-condition`](https://typescript-eslint.io/rules/no-unnecessary-condition)
 
 ## How to configure
 ```json title="biome.json"
@@ -67,6 +67,21 @@ function foo(arg: 'bar' | 'baz') {
 function bar(arg: string) {
   return arg?.length;  // ?. is unnecessary
 }
+```
+
+Contrary to the source rule, this rule doesn't trigger bindings that are assigned to multiple
+values. In the following example, the variable `greeting` is assigned to multiple values; hence
+it can't be inferred to a truthy or falsy value.
+
+```ts
+let greeting = false;
+
+function changeGreeting() {
+    greeting = "Hello World!"
+}
+
+if (greeting) {} // rule not triggered here
+
 ```
 
 ### Valid
