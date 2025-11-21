@@ -124,6 +124,7 @@ export default {
   '/linter/rules/noJsxLiterals': '/linter/rules/no-jsx-literals',
   '/linter/rules/noLabelVar': '/linter/rules/no-label-var',
   '/linter/rules/noLabelWithoutControl': '/linter/rules/no-label-without-control',
+  '/linter/rules/noLeakedRender': '/linter/rules/no-leaked-render',
   '/linter/rules/noMagicNumbers': '/linter/rules/no-magic-numbers',
   '/linter/rules/noMisleadingCharacterClass': '/linter/rules/no-misleading-character-class',
   '/linter/rules/noMisleadingInstantiator': '/linter/rules/no-misleading-instantiator',
