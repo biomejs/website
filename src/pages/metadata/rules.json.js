@@ -2674,6 +2674,12 @@ export function GET() {
                 "source": {
                   "clippy": "too_many_arguments"
                 }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintTypeScript": "max-params"
+                }
               }
             ],
             "docs": " Enforce a maximum number of parameters in function definitions.\n\n Functions that take numerous parameters can be difficult to read and write\n because it requires the memorization of what each parameter is, its type,\n and the order they should appear in.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function foo(a, b, c, d, e, f, g, h) {\n     // too many parameters\n }\n ```\n\n ```js,expect_diagnostic\n const bar = (a, b, c, d, e, f, g, h) => {\n     // too many parameters\n }\n ```\n\n ```js,expect_diagnostic\n class Baz {\n     method(a, b, c, d, e, f, g, h) {\n         // too many parameters\n     }\n }\n ```\n\n ### Valid\n\n ```js\n function foo(a, b, c) {\n     // within limit\n }\n ```\n\n ```js\n const bar = (a, b, c) => {\n     // within limit\n }\n ```\n\n ```js\n class Baz {\n     method(a, b, c) {\n         // within limit\n     }\n }\n ```\n\n ## Options\n\n ### max\n\n The maximum number of parameters allowed (default: 4).\n\n"
@@ -5662,6 +5668,12 @@ export function GET() {
                 "kind": "sameLogic",
                 "source": {
                   "eslintReact": "jsx-key"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintQwik": "jsx-key"
                 }
               }
             ],
