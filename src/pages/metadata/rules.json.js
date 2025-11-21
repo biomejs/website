@@ -790,7 +790,7 @@ export function GET() {
           },
           "useVueValidVText": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.7",
             "name": "useVueValidVText",
             "link": "https://biomejs.dev/linter/rules/use-vue-valid-v-text",
             "recommended": true,
