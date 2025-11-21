@@ -2419,6 +2419,23 @@ export function GET() {
             ],
             "docs": " Prevent the usage of synchronous scripts.\n\n A synchronous script can impact your webpage performance, read more on how to [Efficiently load third-party JavaScript](https://web.dev/articles/efficiently-load-third-party-javascript).\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n const Invalid = () => <script src=\"https://third-party-script.js\" />;\n ```\n\n ### Valid\n\n ```jsx\n const Valid = () => {\n   return (\n     <>\n       <script src=\"https://third-party-script.js\" async />\n       <script src=\"https://third-party-script.js\" defer />\n       <script src=\"https://third-party-script.js\" type=\"module\" />\n     </>\n   );\n }\n ```\n\n #### Next.js\n\n ```jsx\n import Script from 'next/script'\n\n const Valid = () => <Script src=\"https://third-party-script.js\" />;\n ```\n\n"
           },
+          "noTernary": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noTernary",
+            "link": "https://biomejs.dev/linter/rules/no-ternary",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "no-ternary"
+                }
+              }
+            ],
+            "docs": " Disallow ternary operators.\n\n The ternary operator is used to conditionally assign a value to a variable.\n Some believe that the use of ternary operators leads to unclear code.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const foo = isBar ? baz : qux;\n ```\n\n ### Valid\n\n ```js\n let foo;\n\n if (isBar) {\n \tfoo = baz;\n } else {\n \tfoo = qux;\n }\n ```\n\n"
+          },
           "noUnnecessaryConditions": {
             "deprecated": false,
             "version": "2.1.4",
@@ -6680,7 +6697,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 389
+    "numberOrRules": 390
   },
   "syntax": {
     "languages": {

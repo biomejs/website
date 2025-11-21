@@ -176,6 +176,7 @@ export const LINT_RULES = {
     noReactForwardRef: "noReactForwardRef",
     noShadow: "noShadow",
     noSyncScripts: "noSyncScripts",
+    noTernary: "noTernary",
     noUnknownAttribute: "noUnknownAttribute",
     noUnnecessaryConditions: "noUnnecessaryConditions",
     noUnresolvedImports: "noUnresolvedImports",
