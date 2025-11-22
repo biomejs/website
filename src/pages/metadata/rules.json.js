@@ -2277,6 +2277,23 @@ export function GET() {
             ],
             "docs": " Disallow empty sources.\n\n A source containing only the following is considered empty:\n   - Whitespace (spaces, tabs or newlines)\n   - Comments\n   - Directives\n   - Empty statements\n   - Empty block statements\n   - Hashbang\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n\n ```\n\n ```js,expect_diagnostic\n // Only comments\n ```\n\n ```js,expect_diagnostic\n /* Only comments */\n ```\n\n ```js,expect_diagnostic\n 'use strict';\n ```\n\n ```js,expect_diagnostic\n ;\n ```\n\n ```js,expect_diagnostic\n {\n }\n ```\n\n ```js,expect_diagnostic\n #!/usr/bin/env node\n ```\n\n ### Valid\n\n ```js\n const x = 0;\n ```\n\n ```js\n 'use strict';\n const x = 0;\n ```\n\n ```js\n ;;\n const x = 0;\n ```\n\n ```js\n {\n   const x = 0;\n }\n ```\n\n ## Options\n\n ### `allowComments`\n\n Whether the comments should be marked as meaningful.\n When this option has been set to `true`, a file with only comments is considered valid.\n\n Default `false`\n\n ```json,options\n {\n   \"options\": {\n     \"allowComments\": true\n   }\n }\n ```\n\n #### Invalid\n\n ```js,expect_diagnostic,use_options\n\n ```\n\n #### Valid\n\n ```js,use_options\n /* Only comments */\n ```\n\n"
           },
+          "noEqualsToNull": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noEqualsToNull",
+            "link": "https://biomejs.dev/linter/rules/no-equals-to-null",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "no-eq-null"
+                }
+              }
+            ],
+            "docs": " Require the use of `===` or `!==` for comparison with `null`.\n\n Comparing to `null` with `==` or `!=` may have unintended results as the\n expression evaluates to `true` when comparing `null` to `undefined`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n foo == null;\n ```\n\n ```js,expect_diagnostic\n foo != null;\n ```\n\n ### Valid\n\n ```js\n foo === null;\n ```\n\n ```js\n foo !== null;\n ```\n"
+          },
           "noForIn": {
             "deprecated": false,
             "version": "2.3.6",
@@ -6732,7 +6749,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 391
+    "numberOrRules": 392
   },
   "syntax": {
     "languages": {
