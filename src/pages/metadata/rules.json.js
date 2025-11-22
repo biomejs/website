@@ -4377,6 +4377,12 @@ export function GET() {
                 "source": {
                   "eslintSolid": "no-react-specific-props"
                 }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintQwik": "no-react-props"
+                }
               }
             ],
             "docs": " Prevents React-specific JSX properties from being used.\n\n This rule is intended for use in JSX-based frameworks (such as Qwik, Solid, etc.) that do not use React-style prop names.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <Hello className=\"John\" />\n ```\n\n ### Valid\n\n ```jsx\n <Hello class=\"Doe\" />\n ```\n"
