@@ -67,6 +67,7 @@ export default {
   '/linter/rules/noDuplicateProperties': '/linter/rules/no-duplicate-properties',
   '/linter/rules/noDuplicateSelectorsKeyframeBlock': '/linter/rules/no-duplicate-selectors-keyframe-block',
   '/linter/rules/noDuplicateTestHooks': '/linter/rules/no-duplicate-test-hooks',
+  '/linter/rules/noDuplicatedSpreadProps': '/linter/rules/no-duplicated-spread-props',
   '/linter/rules/noDynamicNamespaceImportAccess': '/linter/rules/no-dynamic-namespace-import-access',
   '/linter/rules/noEmptyBlock': '/linter/rules/no-empty-block',
   '/linter/rules/noEmptyBlockStatements': '/linter/rules/no-empty-block-statements',

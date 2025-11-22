@@ -2260,6 +2260,23 @@ export function GET() {
             ],
             "docs": " Restrict imports of deprecated exports.\n\n This rule flags any imports for symbols (such as types, functions, or\n anything else that can be imported), that are documented with a JSDoc\n comment that contains an \"@deprecated\" annotation.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic,file=foo.js\n import { oldUtility } from \"./utils.js\";\n ```\n\n ```js,file=utils.js\n /**\n  * @deprecated\n  */\n export function oldUtility() {}\n ```\n\n ### Valid\n\n ```js,file=foo.js\n import { newUtility, oldUtility } from \"./utils.js\";\n ```\n\n ```js,file=utils.js\n export function newUtility() {}\n\n // @deprecated (this is not a JSDoc comment)\n export function oldUtility() {}\n ```\n\n"
           },
+          "noDuplicatedSpreadProps": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noDuplicatedSpreadProps",
+            "link": "https://biomejs.dev/linter/rules/no-duplicated-spread-props",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReact": "jsx-props-no-spread-multi"
+                }
+              }
+            ],
+            "docs": " Disallow JSX prop spreading the same identifier multiple times.\n\n Enforces that any unique expression is only spread once.\n Generally spreading the same expression twice is an indicator of a mistake since any attribute between the spreads may be overridden when the intent was not to.\n Even when that is not the case this will lead to unnecessary computations being performed.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div {...props} something=\"else\" {...props} />\n ```\n\n ### Valid\n\n ```jsx\n <div something=\"else\" {...props} />\n ```\n\n"
+          },
           "noEmptySource": {
             "deprecated": false,
             "version": "2.2.7",
@@ -6766,7 +6783,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 393
+    "numberOrRules": 394
   },
   "syntax": {
     "languages": {
