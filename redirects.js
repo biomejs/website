@@ -76,6 +76,7 @@ export default {
   '/linter/rules/noEmptySource': '/linter/rules/no-empty-source',
   '/linter/rules/noEmptyTypeParameters': '/linter/rules/no-empty-type-parameters',
   '/linter/rules/noEnum': '/linter/rules/no-enum',
+  '/linter/rules/noEqualsToNull': '/linter/rules/no-equals-to-null',
   '/linter/rules/noEvolvingTypes': '/linter/rules/no-evolving-types',
   '/linter/rules/noExcessiveCognitiveComplexity': '/linter/rules/no-excessive-cognitive-complexity',
   '/linter/rules/noExcessiveLinesPerFunction': '/linter/rules/no-excessive-lines-per-function',
