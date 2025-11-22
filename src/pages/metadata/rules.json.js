@@ -2345,6 +2345,23 @@ export function GET() {
             ],
             "docs": " Disallows the usage of the unary operators ++ and --.\n\n Because the unary ++ and -- operators are subject to automatic semicolon insertion, differences in whitespace can change semantics of source code.\n\n ```js,expect_diagnostic\n let i = 10;\n let j = 20;\n\n i ++\n j\n // i = 11, j = 20\n ```\n\n ```js,expect_diagnostic\n let i = 10;\n let j = 20;\n\n i\n ++\n j\n // i = 10, j = 21\n ```\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n let foo = 0;\n foo++;\n ```\n\n ```js,expect_diagnostic\n let bar = 42;\n bar--;\n ```\n\n ```js,expect_diagnostic\n for (let i = 0; i < 10; i++) {\n     doSomething(i);\n }\n ```\n\n ```js,expect_diagnostic\n for (let i = 0; i < 10;) {\n     doSomething(i);\n     i++;\n }\n ```\n\n ### Valid\n\n ```js\n let foo = 0;\n foo += 1;\n ```\n\n ```js\n let bar = 42;\n bar -= 1;\n ```\n\n ```js\n for (let i = 0; i < 10; i += 1) {\n     doSomething(i);\n }\n ```\n\n ```js\n for (let i = 0; i < 10;) {\n     doSomething(i);\n     i += 1;\n }\n ```\n\n ## Options\n\n ### `allowForLoopAfterthoughts`\n\n Allows unary operators ++ and -- in the afterthought (final expression) of a for loop.\n\n Default `false`\n\n ```json,options\n {\n   \"options\": {\n     \"allowForLoopAfterthoughts\": true\n   }\n }\n ```\n\n #### Invalid\n\n ```js,expect_diagnostic,use_options\n for (let i = 0; i < j; j = i++) {\n     doSomething(i, j);\n }\n ```\n\n ```js,expect_diagnostic,use_options\n for (let i = 10; i--;) {\n     doSomething(i);\n }\n ```\n\n ```js,expect_diagnostic,use_options\n for (let i = 0; i < 10;) i++;\n ```\n\n #### Valid\n\n ```js,use_options\n for (let i = 0; i < 10; i++) {\n     doSomething(i);\n }\n ```\n\n ```js,use_options\n for (let i = 0, j = l; i < l; i++, j--) {\n     doSomething(i, j);\n }\n ```\n\n"
           },
+          "noMultiStr": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noMultiStr",
+            "link": "https://biomejs.dev/linter/rules/no-multi-str",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "no-multi-str"
+                }
+              }
+            ],
+            "docs": " Disallow creating multiline strings by escaping newlines.\n\n Escaping newlines to create multiline strings is discouraged because it\n can lead to subtle errors caused by unexpected whitespace after the\n backslash.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const foo =\n     \"Line 1\\n\\\n Line 2\";\n ```\n\n ### Valid\n\n ```js\n const foo = \"Line 1\\nLine 2\";\n ```\n\n ```js\n const bar = `Line 1\n Line 2`;\n ```\n"
+          },
           "noNextAsyncClientComponent": {
             "deprecated": false,
             "version": "2.2.0",
@@ -6749,7 +6766,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 392
+    "numberOrRules": 393
   },
   "syntax": {
     "languages": {
