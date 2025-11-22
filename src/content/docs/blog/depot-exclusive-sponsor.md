@@ -14,15 +14,83 @@ socialImage: "@/assets/sponsors/depot-logo-horizontal-on-dark@3x.png"
 featured: true
 ---
 
-As for today, we're happy to announce that Depot has become Biome's exclusive sponsor!
+As for today, we're happy to announce that [Depot](https://depot.dev) has become **Biome's exclusive sponsor**!
 
-Biome is a **big Rust project**, that keeps growing overtime. As for 17th of November (time of writing), the project has the following stats:
-- A total of 90 crates.
-- `~651.971` lines of code between code and tests.
-- `~3.217` of `.rs` files, between production code and tests.
+## Biome by the numbers
 
-Since Rust is a compiled language, with e complex syntax, operations such as compilation, linting, codegen, and other operations will increase in time and resources over time.
+Biome is a **big Rust project**, that keeps growing overtime. As for 17th of November (time of writing of the blog post), the project has the following stats:
+- A total of 90 internal crates (AKA `biome_*` crates) that are compiled and shipped in production.
+- ~651.971 lines of code between production code and test code.
+- ~3.217 Rust files, between production code and test code.
 
-Depot had started sponsoring Biome's GitHub infrastructure months ago as a gold sponsor. With their support, our workflows became overall faster, leading to the following
+Since Rust is a compiled language, with e complex syntax, the resources required for compilation, testing, etc. are bound to increase over time. Before Depot came to the rescue, Biome used to use GitHub Action runners. Here's a few numbers:
 
+- Linting for pull requests took around ~15 minutes.
+- Tests for pull requests took around ~20 minutes.
+- Benchmarks for pull requests took around ~30 minutes. Benchmarks take longer because the code is compiled in production mode, and we make sure to stress test
+  our infrastructure by feeding the benchmarks very complex inputs.
+- A release might have required up to ~45 minutes.
+- At some point, Biome on Windows couldn't compile due to the memory required, which exceeded the memory available in the GitHub Actions runners.
 
+## Enters Depot
+
+I discovered Depot by chance on socials. A person thanked them because they sponsored their Rust project. So I took a chance and asked Depot if they were willing to sponsor Biome, and [Jacob Gillespie](https://github.com/jacobwgillespie)—CTO and Founder at Depot was very responsive and happy to back Biome up. In fact, Depot use Biome internally for their projects.
+
+Depot started sponsoring Biome's GitHub infrastructure months ago as a gold sponsor. With their support, **our workflows became way faster**:
+
+- Linting for pull requests take around ~2 minutes.
+- Tests for pull request take around ~4 minutes.
+- Benchmarks for pull requests take around up to ~15 minutes.
+- Releases take around ~25 minutes, and memory-related issues are a problem of the past.
+
+## Depot's impact on the ecosystem
+
+These aren't just numbers, and I tell why. Having a faster CI has had **positive repercussions** to maintainers, contributors and end-users.
+
+### Maintainers
+
+We've seen positive outcomes throughout the whole project management process. We're able to get faster feedbacks from our CI jobs, release more frequently and with more confidence, and we can fix CI issues faster. As you know, CI is a [YOLO](https://www.urbandictionary.com/define.php?term=Yolo) practice!
+
+### Contributors
+
+Contributors are able to see the effect of their PRs way faster than before, and fix possible bugs promptly. This means that by the time a maintainer comes and reviews the PR, it might be approved already because the CI is green! One reason why we're able to ship so much fixes in every patch release.
+
+### End-users
+
+End-users - you, the developers - can enjoy that fix you needed sooner than before!
+
+## Depot's endorsement
+
+Like Vercel, Depot believes that [Biome's inference engine](/blog/vercel-partners-biome-type-inference/) can and will improve the developer experience even further.
+
+Depot believes in Biome's mission, a unified toolchain where users can think less about their tools and dependencies, and more about building their own software using modern practices.
+
+**Thank you, Depot!**
+
+## I like where this is going, how can I help?
+
+I want to remind you that Biome is a project led by volunteers who like programming, open-source, and embrace the Biome philosophy, so any help is welcome 😁
+
+#### Translations
+
+If you are familiar with Biome and would like to contribute to its outreach, you can assist us by translating the website into your native language. In this [dashboard](https://biomejs.dev/i18n-dashboard/), you can check the supported languages and if they are up to date.
+
+#### Chat with us
+
+Join our [Discord server](https://biomejs.dev/chat), and engage with the community. Chatting with the community and being part of the community is a form of contribution.
+
+#### Code contributions
+
+If you like the technical aspects of the project, and you want to make your way into the Rust language, or practice your knowledge around parsers, compilers, analysers, etc., Biome is the project that does for you!
+
+There are numerous aspects to explore; I assure you that you won't get bored. Here is a small list of the things you can start with:
+- Create new lint rules! We have so many rules that we haven't implemented yet (ESLint, ESLint plugins, Next.js, Solid, etc.). We have a very [extensive technical guide](https://github.com/biomejs/biome/blob/main/crates/biome_analyze/CONTRIBUTING.md).
+- [Help](https://github.com/biomejs/biome/blob/main/crates/biome_parser/CONTRIBUTING.md) [building](https://github.com/biomejs/biome/tree/main/crates/biome_yaml_parser) [Biome](https://github.com/biomejs/biome/tree/main/crates/biome_html_parser) [parsers](https://github.com/biomejs/biome/tree/main/crates/biome_markdown_parser)!
+  One interesting fact about Biome parsers is that they are recoverable parsers [error resilient](/internals/architecture/#parser-and-cst) which emit a [CST](https://en.wikipedia.org/wiki/Parse_tree) instead of a classic AST.
+- Implement new capabilities in our [LSP (Language Server Protocol)](https://github.com/biomejs/biome/tree/main/crates/biome_lsp), or add new features in one of our editor extensions: [VS Code](https://github.com/biomejs/biome-vscode), [Zed](https://github.com/biomejs/biome-zed) and [JetBrains IntelliJ](https://github.com/biomejs/biome-intellij).
+
+#### Financial help
+
+If you believe in the future of the project, you can also help with a financial contribution, via [Open Collective](https://opencollective.com/biome) or [GitHub Sponsors](https://github.com/sponsors/biomejs).
+
+Additionally, the project provides an [enterprise support program ](/enterprise) where a company you can employ one of the core contributors to work a specific aspect of the Biome toolchain.
