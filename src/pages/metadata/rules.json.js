@@ -614,6 +614,199 @@ export function GET() {
           }
         }
       },
+      "html": {
+        "a11y": {
+          "noHeaderScope": {
+            "deprecated": false,
+            "version": "2.3.0",
+            "name": "noHeaderScope",
+            "link": "https://biomejs.dev/linter/rules/no-header-scope",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJsxA11y": "scope"
+                }
+              }
+            ],
+            "docs": " The scope prop should be used only on `<th>` elements.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div scope=\"col\"></div>\n ```\n\n ```html,expect_diagnostic\n <div scope></div>\n ```\n\n ### Valid\n\n ```html\n <th scope=\"col\"></th>\n ```\n\n ```html\n <th scope></th>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 1.3.1](https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships)\n - [WCAG 4.1.1](https://www.w3.org/WAI/WCAG21/Understanding/parsing)\n\n"
+          }
+        },
+        "nursery": {
+          "noSyncScripts": {
+            "deprecated": false,
+            "version": "2.3.6",
+            "name": "noSyncScripts",
+            "link": "https://biomejs.dev/linter/rules/no-sync-scripts",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintNext": "no-sync-scripts"
+                }
+              }
+            ],
+            "docs": " Prevent the usage of synchronous scripts.\n\n A synchronous script can impact your webpage performance, read more on how to [Efficiently load third-party JavaScript](https://web.dev/articles/efficiently-load-third-party-javascript).\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <script src=\"\"></script>\n ```\n\n ### Valid\n\n ```html\n <script src=\"\" async></script>\n <script src=\"\" defer></script>\n <script src=\"\" type=\"module\"></script>\n ```\n\n"
+          },
+          "noVueVIfWithVFor": {
+            "deprecated": false,
+            "version": "2.3.6",
+            "name": "noVueVIfWithVFor",
+            "link": "https://biomejs.dev/linter/rules/no-vue-v-if-with-v-for",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "no-use-v-if-with-v-for"
+                }
+              }
+            ],
+            "docs": " Disallow using `v-if` and `v-for` directives on the same element.\n\n There are two common cases where this can be tempting:\n - To filter items in a list (e.g. `v-for=\"user in users\" v-if=\"user.isActive\"`). In these cases, replace users with a new computed property that returns your filtered list (e.g. activeUsers).\n - To avoid rendering a list if it should be hidden (e.g. `v-for=\"user in users\" v-if=\"shouldShowUsers\"`). In these cases, move the v-if to a container element.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <TodoItem\n     v-if=\"complete\"\n     v-for=\"todo in todos\"\n     :todo=\"todo\"\n />\n ```\n\n ### Valid\n\n ```vue\n <ul v-if=\"complete\">\n     <TodoItem\n         v-for=\"todo in todos\"\n         :todo=\"todo\"\n     />\n </ul>\n ```\n\n"
+          },
+          "useVueHyphenatedAttributes": {
+            "deprecated": false,
+            "version": "2.3.6",
+            "name": "useVueHyphenatedAttributes",
+            "link": "https://biomejs.dev/linter/rules/use-vue-hyphenated-attributes",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "attribute-hyphenation"
+                }
+              }
+            ],
+            "docs": " Enforce hyphenated (kebab-case) attribute names in Vue templates.\n\n Vue style guide recommends using hyphenated attribute (and prop) names in templates to\n keep them consistent and distinguish them from JavaScript identifiers written in camelCase/PascalCase.\n\n This rule flags attributes that are detected as camelCase, PascalCase, CONSTANT_CASE, snake_case\n or that contain any uppercase ASCII letter. It uses Biome's internal `Case::identify` helper.\n\n Allowed:\n - kebab-case attributes (e.g. `data-test-id`)\n - pure lowercase single word attributes (e.g. `class`, `id`)\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <div fooBar=\"x\"></div>\n ```\n\n ```vue,expect_diagnostic\n <MyComp :someProp=\"x\" />\n ```\n\n ### Valid\n\n ```vue\n <div data-test-id=\"x\"></div>\n <div class=\"foo\"></div>\n <MyComp :some-prop=\"x\" />\n ```\n\n ## Options\n\n The rule supports the following options:\n\n ### `ignore`\n\n A list of attribute names that should be ignored by the rule (they won't be required to be hyphenated).\n Use this when you have a fixed set of camelCase / PascalCase prop names you intentionally allow.\n\n ```json,options\n {\n   \"options\": {\n     \"ignore\": [\"someProp\", \"fooBar\"]\n   }\n }\n ```\n\n #### Valid (using `ignore`)\n\n ```vue,use_options\n <div fooBar=\"x\"></div>\n ```\n\n ### `ignoreTags`\n\n A list of tag names whose attributes should be skipped entirely.\n This is useful for third-party or internal components that deliberately expose non‑hyphenated prop names.\n\n ```json,options\n {\n   \"options\": {\n     \"ignoreTags\": [\"MyComp\", \"AnotherWidget\"]\n   }\n }\n ```\n\n #### Valid (using `ignoreTags`)\n\n ```vue,use_options\n <MyComp :someProp=\"x\" />\n ```\n\n"
+          },
+          "useVueValidVBind": {
+            "deprecated": false,
+            "version": "2.3.6",
+            "name": "useVueValidVBind",
+            "link": "https://biomejs.dev/linter/rules/use-vue-valid-v-bind",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "valid-v-bind"
+                }
+              }
+            ],
+            "docs": " Forbids `v-bind` directives with missing arguments or invalid modifiers.\n\n This rule reports v-bind directives in the following cases:\n - The directive does not have an argument. E.g. `<div v-bind></div>`\n - The directive does not have a value. E.g. `<div v-bind:aaa></div>`\n - The directive has invalid modifiers. E.g. `<div v-bind:aaa.bbb=\"ccc\"></div>`\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <Foo v-bind />\n ```\n\n ```vue,expect_diagnostic\n <div v-bind></div>\n ```\n\n ### Valid\n\n ```vue\n <Foo v-bind:foo=\"foo\" />\n ```\n\n"
+          },
+          "useVueValidVElse": {
+            "deprecated": false,
+            "version": "2.3.6",
+            "name": "useVueValidVElse",
+            "link": "https://biomejs.dev/linter/rules/use-vue-valid-v-else",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "valid-v-else"
+                }
+              }
+            ],
+            "docs": " Enforce valid usage of v-else.\n\n This rule reports v-else directives in the following cases:\n - The directive has an argument. E.g. `<div v-if=\"foo\"></div><div v-else:aaa></div>`\n - The directive has a modifier. E.g. `<div v-if=\"foo\"></div><div v-else.bbb></div>`\n - The directive has an attribute value. E.g. `<div v-if=\"foo\"></div><div v-else=\"bar\"></div>`\n - The directive is on elements where the previous element doesn't have `v-if`/`v-else-if` directives. E.g. `<div v-else></div>`\n - The directive is on elements which have `v-if`/`v-else-if` directives. E.g. `<div v-if=\"foo\" v-else></div>`\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <div v-else:arg></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-else.mod></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-else=\"value\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-else></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-if=\"foo\" v-else></div>\n ```\n\n ### Valid\n\n ```vue\n <div v-if=\"foo\"></div>\n <div v-else></div>\n ```\n\n ```vue\n <div v-if=\"foo\"></div>\n <div v-else-if=\"bar\"></div>\n <div v-else></div>\n ```\n\n"
+          },
+          "useVueValidVElseIf": {
+            "deprecated": false,
+            "version": "2.3.6",
+            "name": "useVueValidVElseIf",
+            "link": "https://biomejs.dev/linter/rules/use-vue-valid-v-else-if",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "valid-v-else-if"
+                }
+              }
+            ],
+            "docs": " Enforce valid `v-else-if` directives.\n\n Biome flags these cases:\n - Has an argument: `<div v-else-if:arg=\"b\"></div>`.\n - Has modifiers: `<div v-else-if.mod=\"b\"></div>`.\n - Missing value: `<div v-else-if></div>`.\n - Not preceded by a sibling with `v-if`/`v-else-if`.\n - On the same element as `v-if` or `v-else`.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <div v-if=\"a\"></div><div v-else-if:arg=\"b\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-if=\"a\"></div><div v-else-if.mod=\"b\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-if=\"a\"></div><div v-else-if></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-else-if=\"b\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-if=\"a\" v-else-if=\"b\"></div>\n ```\n\n ### Valid\n\n ```vue\n <div v-if=\"a\"></div><div v-else-if=\"b\"></div><div v-else></div>\n ```\n\n"
+          },
+          "useVueValidVHtml": {
+            "deprecated": false,
+            "version": "2.3.6",
+            "name": "useVueValidVHtml",
+            "link": "https://biomejs.dev/linter/rules/use-vue-valid-v-html",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "valid-v-html"
+                }
+              }
+            ],
+            "docs": " Enforce valid `v-html` directives.\n\n This rule reports v-html directives in the following cases:\n - The directive has an argument. E.g. `<div v-html:aaa></div>`\n - The directive has a modifier. E.g. `<div v-html.bbb></div>`\n - The directive does not have an attribute value. E.g. `<div v-html></div>`\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <div v-html:aaa=\"foo\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-html.bbb=\"foo\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-html></div>\n ```\n\n ### Valid\n\n ```vue\n <div v-html=\"htmlContent\"></div>\n ```\n\n"
+          },
+          "useVueValidVIf": {
+            "deprecated": false,
+            "version": "2.3.6",
+            "name": "useVueValidVIf",
+            "link": "https://biomejs.dev/linter/rules/use-vue-valid-v-if",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "valid-v-if"
+                }
+              }
+            ],
+            "docs": " Enforces valid `v-if` usage for Vue templates.\n\n This rule reports `v-if` directives in following cases:\n - The directive has an argument. E.g. `<div v-if:aaa=\"foo\"></div>`\n - The directive has a modifier. E.g. `<div v-if.bbb=\"foo\"></div>`\n - The directive does not have an attribute value. E.g. `<div v-if></div>`\n - The same element also has `v-else` or `v-else-if`. E.g. `<div v-if=\"foo\" v-else></div>`\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <div v-if:aaa=\"foo\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-if.bbb=\"foo\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-if></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-if=\"foo\" v-else></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-if=\"foo\" v-else-if=\"bar\"></div>\n ```\n\n ### Valid\n\n ```vue\n <div v-if=\"ok\"></div>\n ```\n\n ```vue\n <div v-if=\"a < b\"></div>\n ```\n\n ```vue\n <div v-if=\"a\"></div>\n <div v-else-if=\"b\"></div>\n <div v-else></div>\n ```\n\n"
+          },
+          "useVueValidVOn": {
+            "deprecated": false,
+            "version": "2.3.6",
+            "name": "useVueValidVOn",
+            "link": "https://biomejs.dev/linter/rules/use-vue-valid-v-on",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "valid-v-on"
+                }
+              }
+            ],
+            "docs": " Enforce valid `v-on` directives with proper arguments, modifiers, and handlers.\n\n This rule reports v-on directives in the following cases:\n - The directive does not have an event name. E.g. `<div v-on=\"foo\"></div>`\n - The directive has invalid modifiers. E.g. `<div v-on:click.bogus=\"foo\"></div>`\n - The directive is missing a handler expression. E.g. `<div v-on:click></div>`\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <Foo v-on />\n ```\n\n ### Valid\n\n ```vue\n <Foo v-on:click=\"foo\" />\n ```\n\n"
+          },
+          "useVueValidVText": {
+            "deprecated": false,
+            "version": "2.3.7",
+            "name": "useVueValidVText",
+            "link": "https://biomejs.dev/linter/rules/use-vue-valid-v-text",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "valid-v-text"
+                }
+              }
+            ],
+            "docs": " Enforce valid `v-text` Vue directives.\n\n This rule reports `v-text` directives in the following cases:\n - The directive has an argument. E.g. `<div v-text:aaa></div>`\n - The directive has any modifiers. E.g. `<div v-text.bbb></div>`\n - The directive does not have a value. E.g. `<div v-text></div>`\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <div v-text />\n ```\n\n ```vue,expect_diagnostic\n <div v-text:aaa=\"foo\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-text.bbb=\"foo\"></div>\n ```\n\n ### Valid\n\n ```vue\n <div v-text=\"foo\" />\n ```\n\n"
+          }
+        }
+      },
       "js": {
         "a11y": {
           "noStaticElementInteractions": {
@@ -1874,7 +2067,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow unused private class members\n\n Private class members that are declared and not used anywhere in the code are most likely an error due to incomplete refactoring.\n Such class members take up space in the code and can lead to confusion by readers.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n class OnlyWrite {\n   #usedOnlyInWrite = 5;\n\n   method() {\n        this.#usedOnlyInWrite = 212;\n   }\n }\n ```\n\n ```ts,expect_diagnostic\n  class TsBioo {\n    private unusedProperty = 5;\n  }\n ```\n\n ```ts,expect_diagnostic\n  class TsBioo {\n    private unusedMethod() {}\n  }\n ```\n\n ### Valid\n\n ```js\n class UsedMember {\n   #usedMember = 42;\n\n   method() {\n        return this.#usedMember;\n   }\n }\n ```\n\n ## Caveats\n\n The rule currently considers that all TypeScript private members are used if it encounters a computed access.\n In the following example `member` is not reported. It is considered as used.\n\n ```ts\n  class TsBioo {\n    private member: number;\n    private anotherMember: number;\n\n    set_with_name(name: 'member' | 'anotherMember', value: number) {\n      this[name]();\n    }\n  }\n ```\n\n"
+            "docs": " Disallow unused private class members\n\n Private class members that are declared and not used anywhere in the code are most likely an error due to incomplete refactoring.\n Such class members take up space in the code and can lead to confusion by readers.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n class OnlyWrite {\n   #usedOnlyInWrite = 5;\n\n   method() {\n\t    this.#usedOnlyInWrite = 212;\n   }\n }\n ```\n\n ```ts,expect_diagnostic\n  class TsBioo {\n    private unusedProperty = 5;\n  }\n ```\n\n ```ts,expect_diagnostic\n  class TsBioo {\n    private unusedMethod() {}\n  }\n ```\n\n ### Valid\n\n ```js\n class UsedMember {\n   #usedMember = 42;\n\n   method() {\n\t    return this.#usedMember;\n   }\n }\n ```\n\n ## Caveats\n\n The rule currently considers that all TypeScript private members are used if it encounters a computed access.\n In the following example `member` is not reported. It is considered as used.\n\n ```ts\n  class TsBioo {\n    private member: number;\n\n    set_with_name(name: string, value: number) {\n      this[name] = value;\n    }\n  }\n ```\n\n"
           },
           "noUnusedVariables": {
             "deprecated": false,
@@ -2116,7 +2309,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Prevent import cycles.\n\n This rule warns when a file imports another file that, either directly\n or indirectly, imports the original file again.\n\n Cycles can lead to symbols that are unexpectedly `undefined` and are\n generally considered poor code hygiene.\n\n If a cycle is detected, it is advised to move code such that imports\n only go in a single direction, i.e. they don't point \"back\" to the\n importing file.\n\n :::note\n This rule is computationally expensive. If you are particularly\n pressed for lint time, or don't think you have an issue with dependency\n cycles, you may not want this rule enabled.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic,file=foobar.js\n import { baz } from \"./baz.js\";\n\n export function foo() {\n     baz();\n }\n\n export function bar() {\n     console.log(\"foobar\");\n }\n ```\n\n ```js,expect_diagnostic,file=baz.js\n import { bar } from \"./foobar.js\";\n\n export function baz() {\n     bar();\n }\n ```\n\n ### Valid\n\n ```js,file=foo.js\n import { baz } from \"./baz.js\";\n\n export function foo() {\n     baz();\n }\n ```\n\n ```js,file=bar.js\n export function bar() {\n     console.log(\"foobar\");\n }\n ```\n\n ```js,file=baz.js\n import { bar } from \"./bar.js\";\n\n export function baz() {\n     bar();\n }\n ```\n\n ```ts,file=types.ts\n import type { bar } from \"./qux.ts\";\n\n export type Foo = {\n   bar: typeof bar;\n };\n ```\n\n ```ts,file=qux.ts\n import type { Foo } from \"./types.ts\";\n\n export function bar(foo: Foo) {\n     console.log(foo);\n }\n ```\n\n ## Options\n\n The rule provides the options described below.\n\n ### `ignoreTypes`\n\n Ignores type-only imports when finding an import cycle. A type-only import (`import type`)\n will be removed by the compiler, so it cuts an import cycle at runtime. Note that named type\n imports (`import { type Foo }`) aren't considered as type-only because it's not removed by\n the compiler if the `verbatimModuleSyntax` option is enabled. Enabled by default.\n\n ```json,options\n {\n   \"options\": {\n     \"ignoreTypes\": false\n   }\n }\n ```\n\n #### Invalid\n\n ```ts,file=types.ts\n import type { bar } from \"./qux.ts\";\n\n export type Foo = {\n   bar: typeof bar;\n };\n ```\n\n ```ts,use_options,expect_diagnostic,file=qux.ts\n import type { Foo } from \"./types.ts\";\n\n export function bar(foo: Foo) {\n     console.log(foo);\n }\n ```\n"
+            "docs": " Prevent import cycles.\n\n This rule warns when a file imports another file that, either directly\n or indirectly, imports the original file again.\n\n Cycles can lead to symbols that are unexpectedly `undefined` and are\n generally considered poor code hygiene.\n\n If a cycle is detected, it is advised to move code such that imports\n only go in a single direction, i.e. they don't point \"back\" to the\n importing file.\n\n However, files that import themselves are allowed, and the rule won't trigger for these use cases.\n This allows for encapsulation of functions/variables into a namespace instead of using a\n static class (triggers [noStaticOnlyClass](https://biomejs.dev/linter/rules/no-static-only-class)).\n\n :::note\n This rule is computationally expensive. If you are particularly\n pressed for lint time, or don't think you have an issue with dependency\n cycles, you may not want this rule enabled.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic,file=foobar.js\n import { baz } from \"./baz.js\";\n\n export function foo() {\n     baz();\n }\n\n export function bar() {\n     console.log(\"foobar\");\n }\n ```\n\n ```js,expect_diagnostic,file=baz.js\n import { bar } from \"./foobar.js\";\n\n export function baz() {\n     bar();\n }\n ```\n\n ### Valid\n\n ```js,file=foo.js\n import { baz } from \"./baz.js\";\n\n export function foo() {\n     baz();\n }\n ```\n\n ```js,file=bar.js\n export function bar() {\n     console.log(\"foobar\");\n }\n ```\n\n ```js,file=baz.js\n import { bar } from \"./bar.js\";\n\n export function baz() {\n     bar();\n }\n ```\n\n ```js,file=foobaz.js\n export function foo() {\n     console.log(\"foobaz\");\n }\n\n export * as baz from './foobaz.js';\n\n import { baz } from './foobaz.js';\n ```\n\n ```ts,file=types.ts\n import type { bar } from \"./qux.ts\";\n\n export type Foo = {\n   bar: typeof bar;\n };\n ```\n\n ```ts,file=qux.ts\n import type { Foo } from \"./types.ts\";\n\n export function bar(foo: Foo) {\n     console.log(foo);\n }\n ```\n\n ## Options\n\n The rule provides the options described below.\n\n ### `ignoreTypes`\n\n Ignores type-only imports when finding an import cycle. A type-only import (`import type`)\n will be removed by the compiler, so it cuts an import cycle at runtime. Note that named type\n imports (`import { type Foo }`) aren't considered as type-only because it's not removed by\n the compiler if the `verbatimModuleSyntax` option is enabled. Enabled by default.\n\n ```json,options\n {\n   \"options\": {\n     \"ignoreTypes\": false\n   }\n }\n ```\n\n #### Invalid\n\n ```ts,file=types.ts\n import type { bar } from \"./qux.ts\";\n\n export type Foo = {\n   bar: typeof bar;\n };\n ```\n\n ```ts,use_options,expect_diagnostic,file=qux.ts\n import type { Foo } from \"./types.ts\";\n\n export function bar(foo: Foo) {\n     console.log(foo);\n }\n ```\n"
           },
           "noIncrementDecrement": {
             "deprecated": false,
@@ -2224,7 +2417,24 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Prevent the usage of synchronous scripts.\n\n A synchronous script can impact your webpage performance, read more on how to [Efficiently load third-party JavaScript](https://web.dev/articles/efficiently-load-third-party-javascript).\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n const Invalid = () => <script src=\"https://third-party-script.js\" />;\n ```\n\n ### Valid\n\n ```jsx\n const Valid = () => {\n   return (\n     <>\n       <script src=\"https://third-party-script.js\" async />\n       <script src=\"https://third-party-script.js\" defer />\n     </>\n   );\n }\n ```\n\n #### Next.js\n\n ```jsx\n import Script from 'next/script'\n\n const Valid = () => <Script src=\"https://third-party-script.js\" />;\n ```\n\n"
+            "docs": " Prevent the usage of synchronous scripts.\n\n A synchronous script can impact your webpage performance, read more on how to [Efficiently load third-party JavaScript](https://web.dev/articles/efficiently-load-third-party-javascript).\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n const Invalid = () => <script src=\"https://third-party-script.js\" />;\n ```\n\n ### Valid\n\n ```jsx\n const Valid = () => {\n   return (\n     <>\n       <script src=\"https://third-party-script.js\" async />\n       <script src=\"https://third-party-script.js\" defer />\n       <script src=\"https://third-party-script.js\" type=\"module\" />\n     </>\n   );\n }\n ```\n\n #### Next.js\n\n ```jsx\n import Script from 'next/script'\n\n const Valid = () => <Script src=\"https://third-party-script.js\" />;\n ```\n\n"
+          },
+          "noTernary": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noTernary",
+            "link": "https://biomejs.dev/linter/rules/no-ternary",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "no-ternary"
+                }
+              }
+            ],
+            "docs": " Disallow ternary operators.\n\n The ternary operator is used to conditionally assign a value to a variable.\n Some believe that the use of ternary operators leads to unclear code.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const foo = isBar ? baz : qux;\n ```\n\n ### Valid\n\n ```js\n let foo;\n\n if (isBar) {\n \tfoo = baz;\n } else {\n \tfoo = qux;\n }\n ```\n\n"
           },
           "noUnnecessaryConditions": {
             "deprecated": false,
@@ -2235,13 +2445,13 @@ export function GET() {
             "fixKind": "none",
             "sources": [
               {
-                "kind": "sameLogic",
+                "kind": "inspired",
                 "source": {
                   "eslintTypeScript": "no-unnecessary-condition"
                 }
               }
             ],
-            "docs": " Disallow unnecessary type-based conditions that can be statically determined as redundant.\n\n This rule detects if expressions inside conditions are statically inferrable and yield\n falsy or truthy values that don't change during the life cycle of the program.\n\n ## Examples\n\n ### Invalid\n\n ```ts\n function head<T>(items: T[]) {\n   if (items) {  // This check is unnecessary\n     return items[0].toUpperCase();\n   }\n }\n ```\n\n ```ts\n function foo(arg: 'bar' | 'baz') {\n   if (arg) {  // This check is unnecessary\n   }\n }\n ```\n\n ```ts\n function bar(arg: string) {\n   return arg?.length;  // ?. is unnecessary\n }\n ```\n\n ### Valid\n\n ```ts\n function head<T>(items: T[] | null) {\n   if (items) {  // This check is necessary\n     return items[0].toUpperCase();\n   }\n }\n ```\n\n ```ts\n function foo(arg: 'bar' | 'baz' | null) {\n   if (arg) {  // This check is necessary\n   }\n }\n ```\n\n ```ts\n function bar(arg: string | undefined) {\n   return arg?.length;  // ?. is necessary\n }\n ```\n\n"
+            "docs": " Disallow unnecessary type-based conditions that can be statically determined as redundant.\n\n This rule detects if expressions inside conditions are statically inferrable and yield\n falsy or truthy values that don't change during the life cycle of the program.\n\n ## Examples\n\n ### Invalid\n\n ```ts\n function head<T>(items: T[]) {\n   if (items) {  // This check is unnecessary\n     return items[0].toUpperCase();\n   }\n }\n ```\n\n ```ts\n function foo(arg: 'bar' | 'baz') {\n   if (arg) {  // This check is unnecessary\n   }\n }\n ```\n\n ```ts\n function bar(arg: string) {\n   return arg?.length;  // ?. is unnecessary\n }\n ```\n\n Contrary to the source rule, this rule doesn't trigger bindings that are assigned to multiple\n values. In the following example, the variable `greeting` is assigned to multiple values; hence\n it can't be inferred to a truthy or falsy value.\n\n ```ts\n let greeting = false;\n\n function changeGreeting() {\n     greeting = \"Hello World!\"\n }\n\n if (greeting) {} // rule not triggered here\n\n ```\n\n\n ### Valid\n\n ```ts\n function head<T>(items: T[] | null) {\n   if (items) {  // This check is necessary\n     return items[0].toUpperCase();\n   }\n }\n ```\n\n ```ts\n function foo(arg: 'bar' | 'baz' | null) {\n   if (arg) {  // This check is necessary\n   }\n }\n ```\n\n ```ts\n function bar(arg: string | undefined) {\n   return arg?.length;  // ?. is necessary\n }\n ```\n\n"
           },
           "noUnresolvedImports": {
             "deprecated": false,
@@ -2464,6 +2674,12 @@ export function GET() {
                 "source": {
                   "clippy": "too_many_arguments"
                 }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintTypeScript": "max-params"
+                }
               }
             ],
             "docs": " Enforce a maximum number of parameters in function definitions.\n\n Functions that take numerous parameters can be difficult to read and write\n because it requires the memorization of what each parameter is, its type,\n and the order they should appear in.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function foo(a, b, c, d, e, f, g, h) {\n     // too many parameters\n }\n ```\n\n ```js,expect_diagnostic\n const bar = (a, b, c, d, e, f, g, h) => {\n     // too many parameters\n }\n ```\n\n ```js,expect_diagnostic\n class Baz {\n     method(a, b, c, d, e, f, g, h) {\n         // too many parameters\n     }\n }\n ```\n\n ### Valid\n\n ```js\n function foo(a, b, c) {\n     // within limit\n }\n ```\n\n ```js\n const bar = (a, b, c) => {\n     // within limit\n }\n ```\n\n ```js\n class Baz {\n     method(a, b, c) {\n         // within limit\n     }\n }\n ```\n\n ## Options\n\n ### max\n\n The maximum number of parameters allowed (default: 4).\n\n"
@@ -2537,7 +2753,7 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/no-accumulating-spread",
             "recommended": true,
             "fixKind": "none",
-            "docs": " Disallow the use of spread (`...`) syntax on accumulators.\n\n Spread syntax allows an iterable to be expanded into its individual elements.\n\n Spread syntax should be avoided on accumulators (like those in `.reduce`)\n because it causes a time complexity of `O(n^2)` instead of `O(n)`.\n\n Source: https://prateeksurana.me/blog/why-using-object-spread-with-reduce-bad-idea/\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n var a = ['a', 'b', 'c'];\n a.reduce((acc, val) => [...acc, val], []);\n ```\n\n ```js,expect_diagnostic\n var a = ['a', 'b', 'c'];\n a.reduce((acc, val) => {return [...acc, val];}, []);\n ```\n\n ```js,expect_diagnostic\n var a = ['a', 'b', 'c'];\n a.reduce((acc, val) => ({...acc, [val]: val}), {});\n ```\n\n ```js,expect_diagnostic\n var a = ['a', 'b', 'c'];\n a.reduce((acc, val) => Object.assign(acc, val), []);\n ```\n\n ```js,expect_diagnostic\n var a = ['a', 'b', 'c'];\n a.reduce((acc, val) => {return Object.assign(acc, val);}, []);\n ```\n\n ### Valid\n\n ```js\n var a = ['a', 'b', 'c'];\n a.reduce((acc, val) => {acc.push(val); return acc}, []);\n ```\n\n"
+            "docs": " Disallow the use of spread (`...`) syntax on accumulators.\n\n Spread syntax allows an iterable to be expanded into its individual elements.\n\n Spread syntax should be avoided on accumulators (like those in `.reduce`)\n because it causes a time complexity of `O(n^2)` instead of `O(n)`.\n\n Source: https://prateeksurana.me/blog/why-using-object-spread-with-reduce-bad-idea/\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n var a = ['a', 'b', 'c'];\n a.reduce((acc, val) => [...acc, val], []);\n ```\n\n ```js,expect_diagnostic\n var a = ['a', 'b', 'c'];\n a.reduce((acc, val) => {return [...acc, val];}, []);\n ```\n\n ```js,expect_diagnostic\n var a = ['a', 'b', 'c'];\n a.reduce((acc, val) => ({...acc, [val]: val}), {});\n ```\n\n ```js,expect_diagnostic\n var a = ['a', 'b', 'c'];\n a.reduce((acc, val) => {return Object.assign([], acc, val);}, []);\n ```\n\n ### Valid\n\n ```js\n var a = ['a', 'b', 'c'];\n a.reduce((acc, val) => {acc.push(val); return acc}, []);\n ```\n\n ```js\n var a = ['a', 'b', 'c'];\n a.reduce((acc, val) => Object.assign(acc, val), []);\n ```\n\n ```js\n var a = ['a', 'b', 'c'];\n a.reduce((acc, val) => {return Object.assign(acc, val);}, []);\n ```\n\n"
           },
           "noAwaitInLoops": {
             "deprecated": false,
@@ -2685,7 +2901,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow usage of sensitive data such as API keys and tokens.\n\n This rule checks for high-entropy strings and matches common patterns\n for secrets, including AWS keys, Slack tokens, and private keys.\n It aims to help users identify immediate potential secret leaks in their codebase,\n especially for those who may not be aware of the risks associated with\n sensitive data exposure.\n\n ## Detected Secrets\n\n The following list contains the patterns we detect:\n\n - **JSON Web Token (JWT)**: Tokens in the format of `ey...`\n - **Base64-encoded JWT**: Base64-encoded JWT tokens with various parameters (alg, aud, iss, etc.)\n - **Slack Token**: Tokens such as `xox[baprs]-...`\n - **Slack Webhook URL**: URLs like `https://hooks.slack.com/services/...`\n - **GitHub Token**: GitHub tokens with lengths between 35-40 characters\n - **Twitter OAuth Token**: Twitter OAuth tokens with lengths between 35-44 characters\n - **Facebook OAuth Token**: Facebook OAuth tokens with possible lengths up to 42 characters\n - **Google OAuth Token**: Google OAuth tokens in the format `ya29...`\n - **AWS API Key**: Keys that begin with `AKIA` followed by 16 alphanumeric characters\n - **Passwords in URLs**: Passwords included in URL credentials (`protocol://user:pass@...`)\n - **Google Service Account**: JSON structure with the service-account identifier\n - **Twilio API Key**: API keys starting with `SK...` followed by 32 characters\n - **RSA Private Key**: Key blocks that start with `-----BEGIN RSA PRIVATE KEY-----`\n - **OpenSSH Private Key**: Key blocks that start with `-----BEGIN OPENSSH PRIVATE KEY-----`\n - **DSA Private Key**: Key blocks that start with `-----BEGIN DSA PRIVATE KEY-----`\n - **EC Private Key**: Key blocks that start with `-----BEGIN EC PRIVATE KEY-----`\n - **PGP Private Key Block**: Key blocks that start with `-----BEGIN PGP PRIVATE KEY BLOCK-----`\n\n ## Entropy Check\n\n In addition to detecting the above patterns, we also employ a **string entropy checker** to catch potential secrets based on their entropy (randomness). The entropy checker is configurable through the `Options`, allowing customization of thresholds for string entropy to fine-tune detection and minimize false positives.\n\n ## Disclaimer\n\n While this rule helps with most common cases, it is not intended to handle all of them.\n Therefore, always review your code carefully and consider implementing additional security\n measures, such as automated secret scanning in your CI/CD and git pipeline.\n\n ## Recommendations\n\n Some recommended tools for more comprehensive secret detection include:\n - [SonarQube](https://www.sonarsource.com/products/sonarqube/downloads/): Clean Code scanning solution with a secret scanner (Community version).\n - [Gitleaks](https://github.com/gitleaks/gitleaks/): A mature secret scanning tool.\n - [Trufflehog](https://github.com/trufflesecurity/trufflehog): A tool for finding secrets in git history.\n - [Sensleak](https://github.com/crates-pro/sensleak-rs): A Rust-based solution for secret detection.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const secret = \"AKIA1234567890EXAMPLE\";\n ```\n\n ### Valid\n\n ```js\n const nonSecret = \"hello world\";\n ```\n"
+            "docs": " Disallow usage of sensitive data such as API keys and tokens.\n\n This rule checks for high-entropy strings and matches common patterns\n for secrets, including AWS keys, Slack tokens, and private keys.\n It aims to help users identify immediate potential secret leaks in their codebase,\n especially for those who may not be aware of the risks associated with\n sensitive data exposure.\n\n ## Detected Secrets\n\n The following list contains the patterns we detect:\n\n - **JSON Web Token (JWT)**: Tokens in the format of `ey...`\n - **Base64-encoded JWT**: Base64-encoded JWT tokens with various parameters (alg, aud, iss, etc.)\n - **Slack Token**: Tokens such as `xox[baprs]-...`\n - **Slack Webhook URL**: URLs like `https://hooks.slack.com/services/...`\n - **GitHub Token**: GitHub tokens with lengths between 35-40 characters\n - **Twitter OAuth Token**: Twitter OAuth tokens with lengths between 35-44 characters\n - **Facebook OAuth Token**: Facebook OAuth tokens with possible lengths up to 42 characters\n - **Google OAuth Token**: Google OAuth tokens in the format `ya29...`\n - **AWS API Key**: Keys that begin with `AKIA` followed by 16 alphanumeric characters\n - **Passwords in URLs**: Passwords included in URL credentials (`protocol://user:pass@...`)\n - **Google Service Account**: JSON structure with the service-account identifier\n - **Twilio API Key**: API keys starting with `SK...` followed by 32 characters\n - **RSA Private Key**: Key blocks that start with `-----BEGIN RSA PRIVATE KEY-----`\n - **OpenSSH Private Key**: Key blocks that start with `-----BEGIN OPENSSH PRIVATE KEY-----`\n - **DSA Private Key**: Key blocks that start with `-----BEGIN DSA PRIVATE KEY-----`\n - **EC Private Key**: Key blocks that start with `-----BEGIN EC PRIVATE KEY-----`\n - **PGP Private Key Block**: Key blocks that start with `-----BEGIN PGP PRIVATE KEY BLOCK-----`\n\n ### Entropy Check\n\n In addition to detecting the above patterns, we also employ a **string entropy checker** to catch potential secrets based on their entropy (randomness). The entropy checker is configurable through the `entropyThreshold` option (see below), allowing customization of thresholds for string entropy to fine-tune detection and minimize false positives.\n\n ### Disclaimer\n\n While this rule helps with most common cases, it is not intended to handle all of them.\n Therefore, always review your code carefully and consider implementing additional security\n measures, such as automated secret scanning in your CI/CD and git pipeline.\n\n ### Recommendations\n\n Some recommended tools for more comprehensive secret detection include:\n - [SonarQube](https://www.sonarsource.com/products/sonarqube/downloads/): Clean Code scanning solution with a secret scanner (Community version).\n - [Gitleaks](https://github.com/gitleaks/gitleaks/): A mature secret scanning tool.\n - [Trufflehog](https://github.com/trufflesecurity/trufflehog): A tool for finding secrets in git history.\n - [Sensleak](https://github.com/crates-pro/sensleak-rs): A Rust-based solution for secret detection.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const secret = \"AKIA1234567890EXAMPLE\";\n ```\n\n ### Valid\n\n ```js\n const nonSecret = \"hello world\";\n ```\n\n ## Options\n\n The rule supports the following option:\n\n ```json,options\n {\n   \"options\": {\n     \"entropyThreshold\": 41\n   }\n }\n ```\n\n ### `entropyThreshold`\n\n Sets the sensitivity threshold for the high‑entropy detection pass.\n The underlying algorithm computes an adjusted entropy score for string tokens; if the score\n exceeds `entropyThreshold / 10` (e.g. `41` => `4.1`), and the string does not match any known\n safe pattern, it is reported as a potential secret.\n\n Increase the value to reduce false positives (stricter: fewer strings flagged).\n Decrease the value to increase sensitivity (more strings flagged).\n\n > **Default:** `41`\n\n Example raising the threshold (fewer detections):\n ```json,options\n {\n   \"options\": {\n     \"entropyThreshold\": 50\n   }\n }\n ```\n"
           }
         },
         "style": {
@@ -3201,7 +3417,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Enforce naming conventions for JavaScript and TypeScript filenames.\n\n Enforcing [naming conventions](https://en.wikipedia.org/wiki/Naming_convention_(programming)) helps to keep the codebase consistent.\n\n A filename consists of two parts: a name and a set of consecutive extensions.\n For instance, `my-filename.test.js` has `my-filename` as name, and two consecutive extensions: `.test` and `.js`.\n\n By default, the rule ensures that the name is either in [`camelCase`], [`kebab-case`], [`snake_case`],\n or equal to the name of one export in the file.\n By default, the rule ensures that the extensions are either in [`camelCase`], [`kebab-case`], or [`snake_case`].\n\n The rule supports the following exceptions:\n\n - The name of the file can start with a dot or a plus sign, be prefixed and suffixed by underscores `_`.\n   For example, `.filename.js`, `+filename.js`, `__filename__.js`, or even `.__filename__.js`.\n\n   The convention of prefixing a filename with a plus sign is used by [Sveltekit](https://kit.svelte.dev/docs/routing#page) and [Vike](https://vike.dev/route).\n\n - Also, the rule supports dynamic route syntaxes of [Next.js](https://nextjs.org/docs/pages/building-your-application/routing/dynamic-routes#catch-all-segments), [SolidStart](https://docs.solidjs.com/solid-start/building-your-application/routing#renaming-index), [Nuxt](https://nuxt.com/docs/guide/directory-structure/server#catch-all-route), and [Astro](https://docs.astro.build/en/guides/routing/#rest-parameters).\n   For example `[...slug].js` and `[[...slug]].js` are valid filenames.\n\n Note that if you specify the `match' option, the previous exceptions will no longer be handled.\n\n ## Ignoring some files\n\n Sometimes you want to completely ignore some files.\n Biome ignore comments cannot be used because the rule applies on filenames not file contents.\n To ignore files, you can use [`overrides`](https://biomejs.dev/reference/configuration/#overrides).\n If you want to ignore all files in the `test` directory, then you can disable the rule for those files only:\n\n ```json\n {\n   \"overrides\": [\n     {\n        \"includes\": [\"test/**/*\"],\n        \"linter\": {\n          \"rules\": {\n            \"style\": {\n              \"useFilenamingConvention\": \"off\"\n            }\n          }\n        }\n     }\n   ]\n }\n ```\n\n ## Options\n\n The rule provides several options that are detailed in the following subsections.\n\n ```jsonc,options\n {\n     \"options\": {\n         \"strictCase\": false,\n         \"requireAscii\": true,\n         \"match\": \"%?(.+?)[.](.+)\", // Since v2.0.0\n         \"filenameCases\": [\"camelCase\", \"export\"]\n     }\n }\n ```\n\n ### strictCase\n\n When this option is set to `true`, it forbids consecutive uppercase characters in [`camelCase`] and [`PascalCase`].\n For instance,  when the option is set to `true`, `agentID` will throw an error.\n This name should be renamed to `agentId`.\n\n When the option is set to `false`, consecutive uppercase characters are allowed.\n `agentID` is so valid.\n\n Default: `true`\n\n ### requireAscii\n\n When this option is set to `true`, it forbids names that include non-ASCII characters.\n For instance,  when the option is set to `true`, `café` or `안녕하세요` will throw an error.\n\n When the option is set to `false`, a name may include non-ASCII characters.\n `café` and `안녕하세요` are so valid.\n\n Default: `true`\n\n ### match\n\n `match` defines a regular expression that the filename must match.\n If the regex has capturing groups, then the first capture is considered as the filename\n and the second one as file extensions separated by dots.\n\n For example, given the regular expression `%?(.+?)\\.(.+)` and the filename `%index.d.ts`,\n the filename matches the regular expression with two captures: `index` and `d.ts`.\n The captures are checked against `filenameCases`.\n Note that we use the non-greedy quantifier `+?` to stop capturing as soon as we met the next character (`.`).\n If we use the greedy quantifier `+` instead, then the captures could be `index.d` and `ts`.\n\n The regular expression supports the following syntaxes:\n\n - Greedy quantifiers `*`, `?`, `+`, `{n}`, `{n,m}`, `{n,}`, `{m}`\n - Non-greedy quantifiers `*?`, `??`, `+?`, `{n}?`, `{n,m}?`, `{n,}?`, `{m}?`\n - Any character matcher `.`\n - Character classes `[a-z]`, `[xyz]`, `[^a-z]`\n - Alternations `|`\n - Capturing groups `()`\n - Non-capturing groups `(?:)`\n - Case-insensitive groups `(?i:)` and case-sensitive groups `(?-i:)`\n - A limited set of escaped characters including all special characters\n   and regular string escape characters `\\f`, `\\n`, `\\r`, `\\t`, `\\v`.\n   Note that you can also escape special characters using character classes.\n   For example, `\\$` and `[$]` are two valid patterns that escape `$`.\n\n ### filenameCases\n\n By default, the rule enforces that the filename  is either in [`camelCase`], [`kebab-case`], [`snake_case`], or equal to the name of one export in the file.\n\n You can enforce a stricter convention by setting `filenameCases` option.\n `filenameCases` accepts an array of cases among the following cases: [`camelCase`], [`kebab-case`], [`PascalCase`], [`snake_case`], and `export`.\n\n This option also applies to the file extensions.\n Extensions in lowercase are always allowed regardless of how `filenameCases` is set.\n\n [case]: https://en.wikipedia.org/wiki/Naming_convention_(programming)#Examples_of_multiple-word_identifier_formats\n [`camelCase`]: https://en.wikipedia.org/wiki/Camel_case\n [`kebab-case`]: https://en.wikipedia.org/wiki/Letter_case#Kebab_case\n [`PascalCase`]: https://en.wikipedia.org/wiki/Camel_case\n [`snake_case`]: https://en.wikipedia.org/wiki/Snake_case\n"
+            "docs": " Enforce naming conventions for JavaScript and TypeScript filenames.\n\n Enforcing [naming conventions](https://en.wikipedia.org/wiki/Naming_convention_(programming)) helps to keep the codebase consistent.\n\n A filename consists of two parts: a name and a set of consecutive extensions.\n For instance, `my-filename.test.js` has `my-filename` as name, and two consecutive extensions: `.test` and `.js`.\n\n By default, the rule ensures that the name is either in [`camelCase`], [`kebab-case`], [`snake_case`],\n or equal to the name of one export in the file.\n By default, the rule ensures that the extensions are either in [`camelCase`], [`kebab-case`], or [`snake_case`].\n\n The rule supports the following exceptions:\n\n - The name of the file can start with a dot, a plus sign, or a dollar sign, be prefixed and suffixed by underscores `_`.\n   For example, `.filename.js`, `+filename.js`, `$filename.js`, `__filename__.js`, or even `.__filename__.js`.\n\n   - The convention of prefixing a filename with a plus sign is used by [Sveltekit](https://kit.svelte.dev/docs/routing#page) and [Vike](https://vike.dev/route).\n   - The convention of prefixing a filename with a dollar sign is used by [TanStack Start](https://tanstack.com/start/latest/docs/framework/react/guide/routing#file-based-routing) for file-based routing.\n\n - Also, the rule supports dynamic route syntaxes of [Next.js](https://nextjs.org/docs/pages/building-your-application/routing/dynamic-routes#catch-all-segments), [SolidStart](https://docs.solidjs.com/solid-start/building-your-application/routing#renaming-index), [Nuxt](https://nuxt.com/docs/guide/directory-structure/server#catch-all-route), and [Astro](https://docs.astro.build/en/guides/routing/#rest-parameters).\n   For example `[...slug].js` and `[[...slug]].js` are valid filenames.\n\n Note that if you specify the `match` option, the previous exceptions will no longer be handled.\n\n ## Ignoring some files\n\n Sometimes you want to completely ignore some files.\n Biome ignore comments cannot be used because the rule applies on filenames not file contents.\n To ignore files, you can use [`overrides`](https://biomejs.dev/reference/configuration/#overrides).\n If you want to ignore all files in the `test` directory, then you can disable the rule for those files only:\n\n ```json\n {\n   \"overrides\": [\n     {\n        \"includes\": [\"test/**/*\"],\n        \"linter\": {\n          \"rules\": {\n            \"style\": {\n              \"useFilenamingConvention\": \"off\"\n            }\n          }\n        }\n     }\n   ]\n }\n ```\n\n ## Options\n\n The rule provides several options that are detailed in the following subsections.\n\n ```jsonc,options\n {\n     \"options\": {\n         \"strictCase\": false,\n         \"requireAscii\": true,\n         \"match\": \"%?(.+?)[.](.+)\", // Since v2.0.0\n         \"filenameCases\": [\"camelCase\", \"export\"]\n     }\n }\n ```\n\n ### strictCase\n\n When this option is set to `true`, it forbids consecutive uppercase characters in [`camelCase`] and [`PascalCase`].\n For instance,  when the option is set to `true`, `agentID` will throw an error.\n This name should be renamed to `agentId`.\n\n When the option is set to `false`, consecutive uppercase characters are allowed.\n `agentID` is so valid.\n\n Default: `true`\n\n ### requireAscii\n\n When this option is set to `true`, it forbids names that include non-ASCII characters.\n For instance,  when the option is set to `true`, `café` or `안녕하세요` will throw an error.\n\n When the option is set to `false`, a name may include non-ASCII characters.\n `café` and `안녕하세요` are so valid.\n\n Default: `true`\n\n ### match\n\n `match` defines a regular expression that the filename must match.\n If the regex has capturing groups, then the first capture is considered as the filename\n and the second one as file extensions separated by dots.\n\n For example, given the regular expression `%?(.+?)\\.(.+)` and the filename `%index.d.ts`,\n the filename matches the regular expression with two captures: `index` and `d.ts`.\n The captures are checked against `filenameCases`.\n Note that we use the non-greedy quantifier `+?` to stop capturing as soon as we met the next character (`.`).\n If we use the greedy quantifier `+` instead, then the captures could be `index.d` and `ts`.\n\n The regular expression supports the following syntaxes:\n\n - Greedy quantifiers `*`, `?`, `+`, `{n}`, `{n,m}`, `{n,}`, `{m}`\n - Non-greedy quantifiers `*?`, `??`, `+?`, `{n}?`, `{n,m}?`, `{n,}?`, `{m}?`\n - Any character matcher `.`\n - Character classes `[a-z]`, `[xyz]`, `[^a-z]`\n - Alternations `|`\n - Capturing groups `()`\n - Non-capturing groups `(?:)`\n - Case-insensitive groups `(?i:)` and case-sensitive groups `(?-i:)`\n - A limited set of escaped characters including all special characters\n   and regular string escape characters `\\f`, `\\n`, `\\r`, `\\t`, `\\v`.\n   Note that you can also escape special characters using character classes.\n   For example, `\\$` and `[$]` are two valid patterns that escape `$`.\n\n ### filenameCases\n\n By default, the rule enforces that the filename  is either in [`camelCase`], [`kebab-case`], [`snake_case`], or equal to the name of one export in the file.\n\n You can enforce a stricter convention by setting `filenameCases` option.\n `filenameCases` accepts an array of cases among the following cases: [`camelCase`], [`kebab-case`], [`PascalCase`], [`snake_case`], and `export`.\n\n This option also applies to the file extensions.\n Extensions in lowercase are always allowed regardless of how `filenameCases` is set.\n\n [case]: https://en.wikipedia.org/wiki/Naming_convention_(programming)#Examples_of_multiple-word_identifier_formats\n [`camelCase`]: https://en.wikipedia.org/wiki/Camel_case\n [`kebab-case`]: https://en.wikipedia.org/wiki/Letter_case#Kebab_case\n [`PascalCase`]: https://en.wikipedia.org/wiki/Camel_case\n [`snake_case`]: https://en.wikipedia.org/wiki/Snake_case\n"
           },
           "useForOf": {
             "deprecated": false,
@@ -4160,6 +4376,12 @@ export function GET() {
                 "kind": "sameLogic",
                 "source": {
                   "eslintSolid": "no-react-specific-props"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintQwik": "no-react-props"
                 }
               }
             ],
@@ -5453,6 +5675,12 @@ export function GET() {
                 "source": {
                   "eslintReact": "jsx-key"
                 }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintQwik": "jsx-key"
+                }
               }
             ],
             "docs": " Disallow missing key props in iterators/collection literals.\n\n Warn if an element that likely requires a key prop--namely, one present in an array literal or an arrow function expression.\n Check out React documentation for [explanation on the why does React need keys.](https://react.dev/learn/rendering-lists#why-does-react-need-keys)\n\n This rule is intended for use in both React and Qwik applications to prevent missing key props in JSX elements inside iterators.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n [<Hello />];\n ```\n ```jsx,expect_diagnostic\n {items.map(item => <li>{item}</li>)}\n ```\n\n ### Valid\n\n ```jsx\n [<Hello key=\"first\" />, <Hello key=\"second\" />, <Hello key=\"third\" />];\n {items.map(item => <li key={item.id}>{item}</li>)}\n ```\n\n ## Options\n\n ### checkShorthandFragments\n\n React fragments can not only be created with `<React.Fragment>`, but also with shorthand\n fragments (`<></>`). To also check if those require a key, pass `true` to this option.\n\n ```json,options\n {\n     \"options\": {\n         \"checkShorthandFragments\": true\n     }\n }\n ```\n ```jsx,expect_diagnostic,use_options\n data.map((x) => <>{x}</>);\n ```\n\n"
@@ -5501,6 +5729,23 @@ export function GET() {
               }
             ],
             "docs": " Disallow string literals inside JSX elements.\n\n This rule discourages the use of\n string literals directly within JSX elements. String literals in JSX can make code harder\n to maintain, especially in applications that require internationalization or dynamic content.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div>Hello World</div>\n ```\n\n ```jsx,expect_diagnostic\n <>Welcome to our site</>\n ```\n\n ```jsx,expect_diagnostic\n <span>\n   Please enter your name\n </span>\n ```\n\n ### Valid\n\n ```jsx\n <div>{'Hello World'}</div>\n ```\n\n ```jsx\n <>{'Welcome to our site'}</>\n ```\n\n ```jsx\n <span>\n   {'Please enter your name'}\n </span>\n ```\n\n ```jsx\n <div>{`Hello ${name}`}</div>\n ```\n\n ## Options\n\n ### `noStrings`\n\n When enabled, the rule will also flag string literals inside JSX expressions and attributes.\n\n > **Default:** `false`\n\n ```json,options\n {\n   \"options\": {\n     \"noStrings\": true\n   }\n }\n ```\n\n ```jsx,expect_diagnostic,use_options\n <span>\n   {'Please enter your name'}\n </span>\n ```\n ```jsx,expect_diagnostic,use_options\n <Component title=\"Hello!\" />\n ```\n\n\n\n ### `allowedStrings`\n\n An array of strings that are allowed as literals. This can be useful for common words\n or characters that don't need to be wrapped in expressions.\n\n ```json,options\n {\n   \"options\": {\n     \"allowedStrings\": [\"Hello\", \"&nbsp;\", \"·\"]\n   }\n }\n ```\n\n ```jsx,use_options\n <>\n   <div>Hello</div>\n   <div>&nbsp;</div>\n   <div>·</div>\n </>\n ```\n\n ### `ignoreProps`\n\n When enabled, the rule will ignore string literals used as prop values.\n\n > **Default:** `false`\n\n ```json,options\n {\n   \"options\": {\n     \"ignoreProps\": true\n   }\n }\n ```\n\n ```jsx,use_options\n <>\n   <Component title=\"Welcome\" />\n   <input placeholder=\"Enter name\" />\n </>\n ```\n\n"
+          },
+          "noLeakedRender": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noLeakedRender",
+            "link": "https://biomejs.dev/linter/rules/no-leaked-render",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintReact": "no-leaked-render"
+                }
+              }
+            ],
+            "docs": " Prevent problematic leaked values from being rendered.\n\n This rule prevents values that might cause unintentionally rendered values\n or rendering crashes in React JSX. When using conditional rendering with the\n logical AND operator (`&&`), if the left-hand side evaluates to a falsy value like\n `0`, `NaN`, or any empty string, these values will be rendered instead of rendering nothing.\n\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n const Component = () => {\n   const count = 0;\n   return <div>{count && <span>Count: {count}</span>}</div>;\n }\n ```\n\n ```jsx,expect_diagnostic\n const Component = () => {\n   const items = [];\n   return <div>{items.length && <List items={items} />}</div>;\n }\n ```\n\n ```jsx,expect_diagnostic\n const Component = () => {\n   const user = null;\n   return <div>{user && <Profile user={user} />}</div>;\n }\n ```\n\n\n ### Valid\n\n ```jsx\n const Component = () => {\n   const count = 0;\n   return <div>{count > 0 && <span>Count: {count}</span>}</div>;\n }\n ```\n\n ```jsx\n const Component = () => {\n   const items = [];\n   return <div>{!!items.length && <List items={items} />}</div>;\n }\n ```\n\n ```jsx\n const Component = () => {\n   const user = null;\n   return <div>{user ? <Profile user={user} /> : null}</div>;\n }\n ```\n\n ```jsx\n const Component = () => {\n   const condition = false;\n   return <div>{condition ? <Content /> : <Fallback />}</div>;\n }\n ```\n\n ```jsx\n const Component = () => {\n   const isReady = true;\n   return <div>{isReady && <Content />}</div>;\n }\n ```\n"
           },
           "noUnknownAttribute": {
             "deprecated": false,
@@ -6487,7 +6732,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 378
+    "numberOrRules": 391
   },
   "syntax": {
     "languages": {

@@ -89,10 +89,9 @@ In the following example `member` is not reported. It is considered as used.
 ```ts
  class TsBioo {
    private member: number;
-   private anotherMember: number;
 
-   set_with_name(name: 'member' | 'anotherMember', value: number) {
-     this[name]();
+   set_with_name(name: string, value: number) {
+     this[name] = value;
    }
  }
 ```
