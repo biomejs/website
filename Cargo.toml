@@ -20,7 +20,7 @@
 		"schema",
 	] }
 	biome_cli = { git = "https://github.com/biomejs/biome.git", rev = "7fedb92b9e2220f5cff105f0add7a4e3d3534461" }
-	biome_configuration = { git = "https://github.com/biomejs/biome.git", rev = "7fedb92b9e2220f5cff105f0add7a4e3d3534461", features = [
+	biome_configuration = { git = "https://github.com/biomejs/biome.git", rev = "188286c53a0914633c73cdbd0853286bc5d4161d", features = [
 		"schema",
 	] }
 	biome_console = { git = "https://github.com/biomejs/biome.git", rev = "7fedb92b9e2220f5cff105f0add7a4e3d3534461" }
