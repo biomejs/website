@@ -45,7 +45,7 @@ Depot started sponsoring Biome's GitHub infrastructure months ago as a gold spon
 
 ## Depot's impact on the ecosystem
 
-These aren't just numbers, and I tell why. Having a faster CI has had **positive repercussions** to maintainers, contributors and end-users.
+These aren't just numbers. Having a faster CI has had a significant **positive impact** to maintainers, contributors and end-users.
 
 ### Maintainers
 
