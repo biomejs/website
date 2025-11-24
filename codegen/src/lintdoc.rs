@@ -793,26 +793,28 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
         }
     }
 
-    match meta.severity {
-        Severity::Information => {
-            writeln!(
-                content,
-                "- The default severity of this rule is [**information**](/reference/diagnostics#information)."
-            )?;
+    if rule_category == RuleCategory::Lint {
+        match meta.severity {
+            Severity::Information => {
+                writeln!(
+                    content,
+                    "- The default severity of this rule is [**information**](/reference/diagnostics#information)."
+                )?;
+            }
+            Severity::Warning => {
+                writeln!(
+                    content,
+                    "- The default severity of this rule is [**warning**](/reference/diagnostics#warning)."
+                )?;
+            }
+            Severity::Error => {
+                writeln!(
+                    content,
+                    "- The default severity of this rule is [**error**](/reference/diagnostics#error)."
+                )?;
+            }
+            Severity::Hint | Severity::Fatal => panic!("Unsupported severity {}", meta.severity),
         }
-        Severity::Warning => {
-            writeln!(
-                content,
-                "- The default severity of this rule is [**warning**](/reference/diagnostics#warning)."
-            )?;
-        }
-        Severity::Error => {
-            writeln!(
-                content,
-                "- The default severity of this rule is [**error**](/reference/diagnostics#error)."
-            )?;
-        }
-        Severity::Hint | Severity::Fatal => panic!("Unsupported severity {}", meta.severity),
     }
 
     if !meta.domains.is_empty() {
