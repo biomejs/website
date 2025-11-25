@@ -52,6 +52,14 @@ However, the `check` is meant for running multiple tools at once, so if you want
 
 <PackageManagerBiomeCommand command="check --formatter-enabled=false --linter-enabled=false" />
 
+### Don't enforce assist
+
+By default, Biome enforces assists when running the `check` command. If you wish *to not enforce assist*, you can use the `--enforce-assist` CLI flag to `false`. This way, Biome won't emit a diagnostic error if some actions haven't been applied:
+
+```shell
+biome check --enforce-assist=false
+```
+
 ## Suppression assist actions
 
 You can refer to the [suppression page](/analyzer/suppressions).
