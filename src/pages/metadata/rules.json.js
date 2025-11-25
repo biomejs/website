@@ -2262,7 +2262,7 @@ export function GET() {
           },
           "noDuplicatedSpreadProps": {
             "deprecated": false,
-            "version": "2.3.8",
+            "version": "next",
             "name": "noDuplicatedSpreadProps",
             "link": "https://biomejs.dev/linter/rules/no-duplicated-spread-props",
             "recommended": false,
@@ -2296,7 +2296,7 @@ export function GET() {
           },
           "noEqualsToNull": {
             "deprecated": false,
-            "version": "2.3.8",
+            "version": "next",
             "name": "noEqualsToNull",
             "link": "https://biomejs.dev/linter/rules/no-equals-to-null",
             "recommended": false,
@@ -2364,7 +2364,7 @@ export function GET() {
           },
           "noMultiStr": {
             "deprecated": false,
-            "version": "2.3.8",
+            "version": "next",
             "name": "noMultiStr",
             "link": "https://biomejs.dev/linter/rules/no-multi-str",
             "recommended": false,
@@ -2472,7 +2472,7 @@ export function GET() {
           },
           "noTernary": {
             "deprecated": false,
-            "version": "2.3.8",
+            "version": "next",
             "name": "noTernary",
             "link": "https://biomejs.dev/linter/rules/no-ternary",
             "recommended": false,
@@ -5783,7 +5783,7 @@ export function GET() {
           },
           "noLeakedRender": {
             "deprecated": false,
-            "version": "2.3.8",
+            "version": "next",
             "name": "noLeakedRender",
             "link": "https://biomejs.dev/linter/rules/no-leaked-render",
             "recommended": false,
