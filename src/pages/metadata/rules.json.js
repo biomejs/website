@@ -2262,7 +2262,7 @@ export function GET() {
           },
           "noDuplicatedSpreadProps": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.8",
             "name": "noDuplicatedSpreadProps",
             "link": "https://biomejs.dev/linter/rules/no-duplicated-spread-props",
             "recommended": false,
@@ -2296,7 +2296,7 @@ export function GET() {
           },
           "noEqualsToNull": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.8",
             "name": "noEqualsToNull",
             "link": "https://biomejs.dev/linter/rules/no-equals-to-null",
             "recommended": false,
@@ -2364,7 +2364,7 @@ export function GET() {
           },
           "noMultiStr": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.8",
             "name": "noMultiStr",
             "link": "https://biomejs.dev/linter/rules/no-multi-str",
             "recommended": false,
@@ -2472,7 +2472,7 @@ export function GET() {
           },
           "noTernary": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.8",
             "name": "noTernary",
             "link": "https://biomejs.dev/linter/rules/no-ternary",
             "recommended": false,
@@ -3083,7 +3083,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow reassigning `function` parameters.\n\n Assignment to `function` parameters can be misleading and confusing,\n as modifying parameters will also mutate the `arguments` object.\n It is often unintended and indicative of a programmer error.\n\n In contrast to the _ESLint_ rule, this rule cannot be configured to report\n assignments to a property of a parameter.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function f(param) {\n     param = 13;\n }\n ```\n\n ```js,expect_diagnostic\n function f(param) {\n     param++;\n }\n ```\n\n ```js,expect_diagnostic\n function f(param) {\n     for (param of arr) {}\n }\n ```\n\n ```ts,expect_diagnostic\n class C {\n     constructor(readonly prop: number) {\n         prop++;\n     }\n }\n ```\n\n ### Valid\n\n ```js\n function f(param) {\n     let local = param;\n }\n ```\n\n ## Options\n\n ### propertyAssignment\n\n The `noParameterAssign` rule can be configured using the `propertyAssignment` option, which determines whether property assignments on function parameters are allowed or denied. By default, `propertyAssignment` is set to `allow`.\n\n ```json\n {\n     \"options\": {\n         \"propertyAssignment\": \"allow\"\n     }\n }\n ```\n\n - **allow**: Allows property assignments on function parameters. This is the default behavior.\n   - Example:\n\n ```json,options\n {\n     \"options\": {\n         \"propertyAssignment\": \"allow\"\n     }\n }\n ```\n\n ```js,use_options\n function update(obj) {\n     obj.key = \"value\"; // No diagnostic\n }\n ```\n\n - **deny**: Disallows property assignments on function parameters, enforcing stricter immutability.\n   - Example:\n\n ```json,options\n {\n     \"options\": {\n         \"propertyAssignment\": \"deny\"\n     }\n }\n ```\n\n ```js,use_options,expect_diagnostic\n function update(obj) {\n     obj.key = \"value\"; // Diagnostic: Assignment to a property of function parameter is not allowed.\n }\n ```\n"
+            "docs": " Disallow reassigning `function` parameters.\n\n Assignment to `function` parameters can be misleading and confusing,\n as modifying parameters will also mutate the `arguments` object.\n It is often unintended and indicative of a programmer error.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function f(param) {\n     param = 13;\n }\n ```\n\n ```js,expect_diagnostic\n function f(param) {\n     param++;\n }\n ```\n\n ```js,expect_diagnostic\n function f(param) {\n     for (param of arr) {}\n }\n ```\n\n ```ts,expect_diagnostic\n class C {\n     constructor(readonly prop: number) {\n         prop++;\n     }\n }\n ```\n\n ### Valid\n\n ```js\n function f(param) {\n     let local = param;\n }\n ```\n\n ## Options\n\n ### propertyAssignment\n\n The `noParameterAssign` rule can be configured using the `propertyAssignment` option, which determines whether property assignments on function parameters are allowed or denied. By default, `propertyAssignment` is set to `allow`.\n\n ```json\n {\n     \"options\": {\n         \"propertyAssignment\": \"allow\"\n     }\n }\n ```\n\n - **allow**: Allows property assignments on function parameters. This is the default behavior.\n   - Example:\n\n ```json,options\n {\n     \"options\": {\n         \"propertyAssignment\": \"allow\"\n     }\n }\n ```\n\n ```js,use_options\n function update(obj) {\n     obj.key = \"value\"; // No diagnostic\n }\n ```\n\n - **deny**: Disallows property assignments on function parameters, enforcing stricter immutability.\n   - Example:\n\n ```json,options\n {\n     \"options\": {\n         \"propertyAssignment\": \"deny\"\n     }\n }\n ```\n\n ```js,use_options,expect_diagnostic\n function update(obj) {\n     obj.key = \"value\"; // Diagnostic: Assignment to a property of function parameter is not allowed.\n }\n ```\n"
           },
           "noProcessEnv": {
             "deprecated": false,
@@ -5783,7 +5783,7 @@ export function GET() {
           },
           "noLeakedRender": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.8",
             "name": "noLeakedRender",
             "link": "https://biomejs.dev/linter/rules/no-leaked-render",
             "recommended": false,
