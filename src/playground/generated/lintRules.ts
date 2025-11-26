@@ -177,6 +177,7 @@ export const LINT_RULES = {
     noMultiStr: "noMultiStr",
     noNextAsyncClientComponent: "noNextAsyncClientComponent",
     noParametersOnlyUsedInRecursion: "noParametersOnlyUsedInRecursion",
+    noProto: "noProto",
     noReactForwardRef: "noReactForwardRef",
     noShadow: "noShadow",
     noSyncScripts: "noSyncScripts",
