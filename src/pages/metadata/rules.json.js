@@ -2413,6 +2413,23 @@ export function GET() {
             ],
             "docs": " Disallow function parameters that are only used in recursive calls.\n\n A parameter that is only passed to recursive calls is effectively unused\n and can be removed or replaced with a constant, simplifying the function.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function factorial(n, acc) {\n     if (n === 0) return 1;\n     return factorial(n - 1, acc);\n }\n ```\n\n ```js,expect_diagnostic\n function countdown(n, step) {\n     if (n === 0) return 0;\n     return countdown(n - step, step);\n }\n ```\n\n ```js,expect_diagnostic\n class Counter {\n     count(n, acc) {\n         if (n === 0) return 0;\n         return this.count(n - 1, acc);\n     }\n }\n ```\n\n ```js,expect_diagnostic\n function fn(n, acc) {\n     if (n === 0) return 0;\n     return fn(n - 1, acc || 0);\n }\n ```\n\n ```js,expect_diagnostic\n class Counter {\n     count(n, acc) {\n         if (n === 0) return 0;\n         return this?.count(n - 1, acc);\n     }\n }\n ```\n\n ### Valid\n\n ```js\n function factorial(n, acc) {\n     if (n === 0) return acc;\n     return factorial(n - 1, acc * n);\n }\n ```\n\n ```js\n function countdown(n, step) {\n     console.log(step);\n     if (n === 0) return 0;\n     return countdown(n - step, step);\n }\n ```\n\n ```js\n function fn(n, threshold) {\n     if (n > threshold) return n;\n     return fn(n + 1, threshold);\n }\n ```\n"
           },
+          "noProto": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noProto",
+            "link": "https://biomejs.dev/linter/rules/no-proto",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "no-proto"
+                }
+              }
+            ],
+            "docs": " Disallow the use of the `__proto__` property.\n\n The use of `__proto__` for getting or setting the prototype of an object\n is deprecated. Use `Object.getPrototypeOf()` or\n `Object.setPrototypeOf()` instead.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n obj.__proto__ = a;\n ```\n\n ```js,expect_diagnostic\n const b = obj.__proto__;\n ```\n\n ### Valid\n\n ```js\n const a = Object.getPrototypeOf(obj);\n ```\n\n ```js\n Object.setPrototypeOf(obj, b);\n ```\n"
+          },
           "noReactForwardRef": {
             "deprecated": false,
             "version": "2.2.5",
@@ -6783,7 +6800,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 394
+    "numberOrRules": 395
   },
   "syntax": {
     "languages": {
