@@ -354,6 +354,7 @@ export default {
   '/linter/rules/useReactFunctionComponents': '/linter/rules/use-react-function-components',
   '/linter/rules/useReadonlyClassProperties': '/linter/rules/use-readonly-class-properties',
   '/linter/rules/useRegexLiterals': '/linter/rules/use-regex-literals',
+  '/linter/rules/useRegexpExec': '/linter/rules/use-regexp-exec',
   '/linter/rules/useSelfClosingElements': '/linter/rules/use-self-closing-elements',
   '/linter/rules/useSemanticElements': '/linter/rules/use-semantic-elements',
   '/linter/rules/useShorthandAssign': '/linter/rules/use-shorthand-assign',

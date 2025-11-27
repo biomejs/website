@@ -2752,6 +2752,29 @@ export function GET() {
             ],
             "docs": " Enforce a maximum number of parameters in function definitions.\n\n Functions that take numerous parameters can be difficult to read and write\n because it requires the memorization of what each parameter is, its type,\n and the order they should appear in.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function foo(a, b, c, d, e, f, g, h) {\n     // too many parameters\n }\n ```\n\n ```js,expect_diagnostic\n const bar = (a, b, c, d, e, f, g, h) => {\n     // too many parameters\n }\n ```\n\n ```js,expect_diagnostic\n class Baz {\n     method(a, b, c, d, e, f, g, h) {\n         // too many parameters\n     }\n }\n ```\n\n ### Valid\n\n ```js\n function foo(a, b, c) {\n     // within limit\n }\n ```\n\n ```js\n const bar = (a, b, c) => {\n     // within limit\n }\n ```\n\n ```js\n class Baz {\n     method(a, b, c) {\n         // within limit\n     }\n }\n ```\n\n ## Options\n\n ### max\n\n The maximum number of parameters allowed (default: 4).\n\n"
           },
+          "useRegexpExec": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useRegexpExec",
+            "link": "https://biomejs.dev/linter/rules/use-regexp-exec",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintTypeScript": "prefer-regexp-exec"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintRegexp": "prefer-regexp-exec"
+                }
+              }
+            ],
+            "docs": " Enforce `RegExp#exec` over `String#match` if no global flag is provided.\n\n String#match is defined to work the same as RegExp#exec when the regular expression does not include the g flag.\n Keeping to consistently using one of the two can help improve code readability.\n\n RegExp#exec may also be slightly faster than String#match; this is the reason to choose it as the preferred usage.\n\n ## Examples\n\n ### Invalid\n\n ```ts,file=invalid.ts,expect_diagnostic\n 'something'.match(/thing/);\n ```\n\n ### Valid\n\n ```ts,file=valid.ts\n /thing/.exec('something');\n ```\n\n"
+          },
           "useSortedClasses": {
             "deprecated": false,
             "version": "1.6.0",
@@ -6800,7 +6823,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 395
+    "numberOrRules": 396
   },
   "syntax": {
     "languages": {
