@@ -157,6 +157,7 @@ export default {
   '/linter/rules/noPrivateImports': '/linter/rules/no-private-imports',
   '/linter/rules/noProcessEnv': '/linter/rules/no-process-env',
   '/linter/rules/noProcessGlobal': '/linter/rules/no-process-global',
+  '/linter/rules/noProto': '/linter/rules/no-proto',
   '/linter/rules/noPrototypeBuiltins': '/linter/rules/no-prototype-builtins',
   '/linter/rules/noQuickfixBiome': '/linter/rules/no-quickfix-biome',
   '/linter/rules/noQwikUseVisibleTask': '/linter/rules/no-qwik-use-visible-task',
