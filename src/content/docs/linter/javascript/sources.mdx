@@ -151,6 +151,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-empty-function](https://eslint.org/docs/latest/rules/no-empty-function) |[noEmptyBlockStatements](/linter/rules/no-empty-block-statements) |
 | [no-empty-pattern](https://eslint.org/docs/latest/rules/no-empty-pattern) |[noEmptyPattern](/linter/rules/no-empty-pattern) |
 | [no-empty-static-block](https://eslint.org/docs/latest/rules/no-empty-static-block) |[noEmptyBlockStatements](/linter/rules/no-empty-block-statements) |
+| [no-eq-null](https://eslint.org/docs/latest/rules/no-eq-null) |[noEqualsToNull](/linter/rules/no-equals-to-null) |
 | [no-eval](https://eslint.org/docs/latest/rules/no-eval) |[noGlobalEval](/linter/rules/no-global-eval) |
 | [no-ex-assign](https://eslint.org/docs/latest/rules/no-ex-assign) |[noCatchAssign](/linter/rules/no-catch-assign) |
 | [no-extra-boolean-cast](https://eslint.org/docs/latest/rules/no-extra-boolean-cast) |[noExtraBooleanCast](/linter/rules/no-extra-boolean-cast) |
@@ -168,6 +169,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-lonely-if](https://eslint.org/docs/latest/rules/no-lonely-if) |[useCollapsedElseIf](/linter/rules/use-collapsed-else-if) |
 | [no-loss-of-precision](https://eslint.org/docs/latest/rules/no-loss-of-precision) |[noPrecisionLoss](/linter/rules/no-precision-loss) |
 | [no-misleading-character-class](https://eslint.org/docs/latest/rules/no-misleading-character-class) |[noMisleadingCharacterClass](/linter/rules/no-misleading-character-class) |
+| [no-multi-str](https://eslint.org/docs/latest/rules/no-multi-str) |[noMultiStr](/linter/rules/no-multi-str) |
 | [no-negated-condition](https://eslint.org/docs/latest/rules/no-negated-condition) |[noNegationElse](/linter/rules/no-negation-else) |
 | [no-nested-ternary](https://eslint.org/docs/latest/rules/no-nested-ternary) |[noNestedTernary](/linter/rules/no-nested-ternary) |
 | [no-new-native-nonconstructor](https://eslint.org/docs/latest/rules/no-new-native-nonconstructor) |[noInvalidBuiltinInstantiation](/linter/rules/no-invalid-builtin-instantiation) |
@@ -177,6 +179,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-octal-escape](https://eslint.org/docs/latest/rules/no-octal-escape) |[noOctalEscape](/linter/rules/no-octal-escape) |
 | [no-param-reassign](https://eslint.org/docs/latest/rules/no-param-reassign) |[noParameterAssign](/linter/rules/no-parameter-assign) |
 | [no-plusplus](https://eslint.org/docs/latest/rules/no-plusplus) |[noIncrementDecrement](/linter/rules/no-increment-decrement) |
+| [no-proto](https://eslint.org/docs/latest/rules/no-proto) |[noProto](/linter/rules/no-proto) |
 | [no-prototype-builtins](https://eslint.org/docs/latest/rules/no-prototype-builtins) |[noPrototypeBuiltins](/linter/rules/no-prototype-builtins) |
 | [no-redeclare](https://eslint.org/docs/latest/rules/no-redeclare) |[noRedeclare](/linter/rules/no-redeclare) |
 | [no-regex-spaces](https://eslint.org/docs/latest/rules/no-regex-spaces) |[noAdjacentSpacesInRegex](/linter/rules/no-adjacent-spaces-in-regex) |
@@ -190,6 +193,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-shadow-restricted-names](https://eslint.org/docs/latest/rules/no-shadow-restricted-names) |[noShadowRestrictedNames](/linter/rules/no-shadow-restricted-names) |
 | [no-sparse-arrays](https://eslint.org/docs/latest/rules/no-sparse-arrays) |[noSparseArray](/linter/rules/no-sparse-array) |
 | [no-template-curly-in-string](https://eslint.org/docs/latest/rules/no-template-curly-in-string) |[noTemplateCurlyInString](/linter/rules/no-template-curly-in-string) |
+| [no-ternary](https://eslint.org/docs/latest/rules/no-ternary) |[noTernary](/linter/rules/no-ternary) |
 | [no-this-before-super](https://eslint.org/docs/latest/rules/no-this-before-super) |[noUnreachableSuper](/linter/rules/no-unreachable-super) |
 | [no-throw-literal](https://eslint.org/docs/latest/rules/no-throw-literal) |[useThrowOnlyError](/linter/rules/use-throw-only-error) (inspired) |
 | [no-unassigned-vars](https://eslint.org/docs/latest/rules/no-unassigned-vars) |[noUnassignedVariables](/linter/rules/no-unassigned-variables) |
@@ -340,10 +344,12 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [jsx-no-literals](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-no-literals.md) |[noJsxLiterals](/linter/rules/no-jsx-literals) |
 | [jsx-no-target-blank](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-no-target-blank.md) |[noBlankTarget](/linter/rules/no-blank-target) (inspired) |
 | [jsx-no-useless-fragment](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-no-useless-fragment.md) |[noUselessFragments](/linter/rules/no-useless-fragments) |
+| [jsx-props-no-spread-multi](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-props-no-spread-multi.md) |[noDuplicatedSpreadProps](/linter/rules/no-duplicated-spread-props) |
 | [no-array-index-key](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-array-index-key.md) |[noArrayIndexKey](/linter/rules/no-array-index-key) |
 | [no-children-prop](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-children-prop.md) |[noChildrenProp](/linter/rules/no-children-prop) |
 | [no-danger](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-danger.md) |[noDangerouslySetInnerHtml](/linter/rules/no-dangerously-set-inner-html) |
 | [no-danger-with-children](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-danger-with-children.md) |[noDangerouslySetInnerHtmlWithChildren](/linter/rules/no-dangerously-set-inner-html-with-children) |
+| [no-leaked-render](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-leaked-render.md) |[noLeakedRender](/linter/rules/no-leaked-render) (inspired) |
 | [no-unknown-property](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-unknown-property.md) |[noUnknownAttribute](/linter/rules/no-unknown-attribute) |
 | [void-dom-elements-no-children](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/void-dom-elements-no-children.md) |[noVoidElementsWithChildren](/linter/rules/no-void-elements-with-children) |
 ### eslint-plugin-react-hooks
