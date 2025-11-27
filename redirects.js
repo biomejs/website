@@ -2,6 +2,7 @@
 export default {
   '/assist/actions/organizeImports': '/assist/actions/organize-imports',
   '/assist/actions/useSortedAttributes': '/assist/actions/use-sorted-attributes',
+  '/assist/actions/useSortedInterfaceMembers': '/assist/actions/use-sorted-interface-members',
   '/assist/actions/useSortedKeys': '/assist/actions/use-sorted-keys',
   '/assist/actions/useSortedProperties': '/assist/actions/use-sorted-properties',
   '/linter/rules/noAccessKey': '/linter/rules/no-access-key',
@@ -157,7 +158,6 @@ export default {
   '/linter/rules/noPrivateImports': '/linter/rules/no-private-imports',
   '/linter/rules/noProcessEnv': '/linter/rules/no-process-env',
   '/linter/rules/noProcessGlobal': '/linter/rules/no-process-global',
-  '/linter/rules/noProto': '/linter/rules/no-proto',
   '/linter/rules/noPrototypeBuiltins': '/linter/rules/no-prototype-builtins',
   '/linter/rules/noQuickfixBiome': '/linter/rules/no-quickfix-biome',
   '/linter/rules/noQwikUseVisibleTask': '/linter/rules/no-qwik-use-visible-task',

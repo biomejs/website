@@ -177,7 +177,6 @@ export const LINT_RULES = {
     noMultiStr: "noMultiStr",
     noNextAsyncClientComponent: "noNextAsyncClientComponent",
     noParametersOnlyUsedInRecursion: "noParametersOnlyUsedInRecursion",
-    noProto: "noProto",
     noReactForwardRef: "noReactForwardRef",
     noShadow: "noShadow",
     noSyncScripts: "noSyncScripts",
@@ -241,6 +240,7 @@ export const LINT_RULES = {
   source: {
     organizeImports: "organizeImports",
     useSortedAttributes: "useSortedAttributes",
+    useSortedInterfaceMembers: "useSortedInterfaceMembers",
     useSortedKeys: "useSortedKeys",
     useSortedProperties: "useSortedProperties",
   } as const,

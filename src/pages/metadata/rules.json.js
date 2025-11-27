@@ -616,6 +616,40 @@ export function GET() {
       },
       "html": {
         "a11y": {
+          "noAccessKey": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noAccessKey",
+            "link": "https://biomejs.dev/linter/rules/no-access-key",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJsxA11y": "no-access-key"
+                }
+              }
+            ],
+            "docs": " Enforce that the `accesskey` attribute is not used on any HTML element.\n\n The `accesskey` assigns a keyboard shortcut to the current element. However, the `accesskey` value\n can conflict with keyboard commands used by screen readers and keyboard-only users, which leads to\n inconsistent keyboard actions across applications. To avoid accessibility complications,\n this rule suggests users remove the `accesskey` attribute on elements.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <input type=\"submit\" accesskey=\"s\" value=\"Submit\" />\n ```\n\n ```html,expect_diagnostic\n <a href=\"https://webaim.org/\" accesskey=\"w\">WebAIM.org</a>\n ```\n\n ```html,expect_diagnostic\n <button accesskey=\"n\">Next</button>\n ```\n\n ## Resources\n\n - [WebAIM: Keyboard Accessibility - Accesskey](https://webaim.org/techniques/keyboard/accesskey#spec)\n - [MDN `accesskey` documentation](https://developer.mozilla.org/docs/Web/HTML/Global_attributes/accesskey)\n\n"
+          },
+          "noDistractingElements": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noDistractingElements",
+            "link": "https://biomejs.dev/linter/rules/no-distracting-elements",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJsxA11y": "no-distracting-elements"
+                }
+              }
+            ],
+            "docs": " Enforces that no distracting elements are used.\n\n Elements that can be visually distracting can cause accessibility issues with visually impaired users.\n Such elements are most likely deprecated, and should be avoided.\n By default, the following elements are visually distracting: `<marquee>` and `<blink>`.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <marquee />\n ```\n\n ```html,expect_diagnostic\n <blink />\n ```\n\n ### Valid\n\n ```html\n <div />\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 2.2.2](https://www.w3.org/WAI/WCAG21/Understanding/pause-stop-hide)\n\n"
+          },
           "noHeaderScope": {
             "deprecated": false,
             "version": "2.3.0",
@@ -632,6 +666,40 @@ export function GET() {
               }
             ],
             "docs": " The scope prop should be used only on `<th>` elements.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div scope=\"col\"></div>\n ```\n\n ```html,expect_diagnostic\n <div scope></div>\n ```\n\n ### Valid\n\n ```html\n <th scope=\"col\"></th>\n ```\n\n ```html\n <th scope></th>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 1.3.1](https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships)\n - [WCAG 4.1.1](https://www.w3.org/WAI/WCAG21/Understanding/parsing)\n\n"
+          },
+          "useButtonType": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useButtonType",
+            "link": "https://biomejs.dev/linter/rules/use-button-type",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReact": "button-has-type"
+                }
+              }
+            ],
+            "docs": " Enforces the usage and validity of the attribute `type` for the element `button`\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <button>Do something</button>\n ```\n\n ```html,expect_diagnostic\n <button type=\"incorrectType\">Do something</button>\n ```\n\n ### Valid\n\n ```html\n <button type=\"button\">Do something</button>\n ```\n\n"
+          },
+          "useHtmlLang": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useHtmlLang",
+            "link": "https://biomejs.dev/linter/rules/use-html-lang",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJsxA11y": "html-has-lang"
+                }
+              }
+            ],
+            "docs": " Enforce that `html` element has `lang` attribute.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <html></html>\n ```\n\n ```html,expect_diagnostic\n <html lang=\"\"></html>\n ```\n\n ### Valid\n\n ```html\n <html lang=\"en\"></html>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 3.1.1](https://www.w3.org/WAI/WCAG21/Understanding/language-of-page)\n\n"
           }
         },
         "nursery": {
@@ -2105,7 +2173,7 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/use-import-extensions",
             "recommended": false,
             "fixKind": "safe",
-            "docs": " Enforce file extensions for relative imports.\n\n Browsers, Deno, and Node.js do not natively support importing files\n without extensions from JavaScript modules. This rule enforces the use\n of file extensions for relative imports to make the code more\n consistent -- and correct.\n\n In some cases, tooling can also benefit from explicit file extensions,\n because they do not need to guess which file to resolve.\n\n The rule checks both static imports (`import ... from \"...\"`) as well as\n dynamic imports such as `import(...)` and `require(...)`.\n\n ## Examples\n\n ### Invalid\n\n The following examples assume these imports will resolve to a file with\n an extension. Imports that don't resolve at all will not trigger a\n diagnostic.\n\n ```js\n import \"./foo\";\n ```\n ```js\n import \"./foo/\";\n ```\n ```js\n import \"../\";\n ```\n ```js\n import \"../.\";\n ```\n ```js\n import(\"./foo\");\n ```\n ```js\n require(\"./foo\");\n ```\n\n ### Valid\n\n ```js\n import \"biome\";\n ```\n ```js\n import \"./foo.js\";\n ```\n ```js\n import \"./bar/index.js\";\n ```\n ```js\n import(\"./foo.js\");\n ```\n ```js\n require(\"./foo.js\");\n ```\n\n ## Options\n\n The rule provides the options described below.\n\n ### forceJsExtensions\n\n Normally, this rule suggests to use the extension of the module that is\n found in your project. For instance, `.ts` or `.tsx` for a TypeScript\n file. If this option is set to `true`, the rule will always suggest to\n use `.js` regardless of the extension in your project.\n\n This is useful if you use the `\"module\": \"node16\"` setting when building\n your code with `tsc`.\n\n Default: `false`\n\n ```json,options\n {\n     \"options\": {\n         \"forceJsExtensions\": true\n     }\n }\n ```\n\n ## Editor Configuration\n\n If you use Visual Studio Code, you can ensure that it adds the file\n extension when automatically importing a variable by configuring\n `javascript.preferences.importModuleSpecifierEnding` and\n `typescript.preferences.importModuleSpecifierEnding`\n in your [settings](https://code.visualstudio.com/docs/getstarted/settings).\n\n ## Caveats\n\n If you are using TypeScript, TypeScript version 5.0 or later is\n required, also make sure to set\n [`allowImportingTsExtensions: true`](https://typescriptlang.org/tsconfig#allowImportingTsExtensions)\n in your `tsconfig.json`.\n"
+            "docs": " Enforce file extensions for relative imports.\n\n Browsers, Deno, and Node.js do not natively support importing files\n without extensions from JavaScript modules. This rule enforces the use\n of file extensions for relative imports to make the code more\n consistent -- and correct.\n\n In some cases, tooling can also benefit from explicit file extensions,\n because they do not need to guess which file to resolve.\n\n The rule checks both static imports (`import ... from \"...\"`) as well as\n dynamic imports such as `import(...)` and `require(...)`.\n\n ## Examples\n\n ### Invalid\n\n The following examples assume these imports will resolve to a file with\n an extension. Imports that don't resolve at all will not trigger a\n diagnostic.\n\n ```js\n import \"./foo\";\n ```\n ```js\n import \"./foo/\";\n ```\n ```js\n import \"../\";\n ```\n ```js\n import \"../.\";\n ```\n ```js\n import(\"./foo\");\n ```\n ```js\n require(\"./foo\");\n ```\n\n ### Valid\n\n ```js\n import \"biome\";\n ```\n ```js\n import \"./foo.js\";\n ```\n ```js\n import \"./bar/index.js\";\n ```\n ```js\n import(\"./foo.js\");\n ```\n ```js\n require(\"./foo.js\");\n ```\n\n ## Options\n\n The rule provides the options described below.\n\n ### extensionMappings\n\n A map of file extensions to their suggested replacements. This allows you\n to specify custom mappings for import extensions. For example, you can\n map TypeScript imports to JavaScript extensions.\n\n This is useful if you are bundling your code to JavaScript into a package\n and want to make sure all imports of TypeScript files use the `.js` extension\n instead.\n\n If no mapping is found for a given extension, and the import is missing an extension,\n the rule will suggest using the actual extension of the resolved file.\n\n Default: `{}` (empty object)\n\n ```json,options\n {\n     \"options\": {\n         \"extensionMappings\": {\n             \"ts\": \"js\",\n             \"tsx\": \"js\"\n         }\n     }\n }\n ```\n\n ### forceJsExtensions\n\n Normally, this rule suggests to use the extension of the module that is\n found in your project. For instance, `.ts` or `.tsx` for a TypeScript\n file. If this option is set to `true`, the rule will always suggest to\n use `.js` regardless of the extension in your project.\n\n This is useful if you use the `\"module\": \"node16\"` setting when building\n your code with `tsc`.\n\n Default: `false`\n\n ```json,options\n {\n     \"options\": {\n         \"forceJsExtensions\": true\n     }\n }\n ```\n\n ## Editor Configuration\n\n If you use Visual Studio Code, you can ensure that it adds the file\n extension when automatically importing a variable by configuring\n `javascript.preferences.importModuleSpecifierEnding` and\n `typescript.preferences.importModuleSpecifierEnding`\n in your [settings](https://code.visualstudio.com/docs/getstarted/settings).\n\n ## Caveats\n\n If you are using TypeScript, TypeScript version 5.0 or later is\n required, also make sure to set\n [`allowImportingTsExtensions: true`](https://typescriptlang.org/tsconfig#allowImportingTsExtensions)\n in your `tsconfig.json`.\n"
           },
           "useIsNan": {
             "deprecated": false,
@@ -2412,23 +2480,6 @@ export function GET() {
               }
             ],
             "docs": " Disallow function parameters that are only used in recursive calls.\n\n A parameter that is only passed to recursive calls is effectively unused\n and can be removed or replaced with a constant, simplifying the function.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function factorial(n, acc) {\n     if (n === 0) return 1;\n     return factorial(n - 1, acc);\n }\n ```\n\n ```js,expect_diagnostic\n function countdown(n, step) {\n     if (n === 0) return 0;\n     return countdown(n - step, step);\n }\n ```\n\n ```js,expect_diagnostic\n class Counter {\n     count(n, acc) {\n         if (n === 0) return 0;\n         return this.count(n - 1, acc);\n     }\n }\n ```\n\n ```js,expect_diagnostic\n function fn(n, acc) {\n     if (n === 0) return 0;\n     return fn(n - 1, acc || 0);\n }\n ```\n\n ```js,expect_diagnostic\n class Counter {\n     count(n, acc) {\n         if (n === 0) return 0;\n         return this?.count(n - 1, acc);\n     }\n }\n ```\n\n ### Valid\n\n ```js\n function factorial(n, acc) {\n     if (n === 0) return acc;\n     return factorial(n - 1, acc * n);\n }\n ```\n\n ```js\n function countdown(n, step) {\n     console.log(step);\n     if (n === 0) return 0;\n     return countdown(n - step, step);\n }\n ```\n\n ```js\n function fn(n, threshold) {\n     if (n > threshold) return n;\n     return fn(n + 1, threshold);\n }\n ```\n"
-          },
-          "noProto": {
-            "deprecated": false,
-            "version": "next",
-            "name": "noProto",
-            "link": "https://biomejs.dev/linter/rules/no-proto",
-            "recommended": true,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslint": "no-proto"
-                }
-              }
-            ],
-            "docs": " Disallow the use of the `__proto__` property.\n\n The use of `__proto__` for getting or setting the prototype of an object\n is deprecated. Use `Object.getPrototypeOf()` or\n `Object.setPrototypeOf()` instead.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n obj.__proto__ = a;\n ```\n\n ```js,expect_diagnostic\n const b = obj.__proto__;\n ```\n\n ### Valid\n\n ```js\n const a = Object.getPrototypeOf(obj);\n ```\n\n ```js\n Object.setPrototypeOf(obj, b);\n ```\n"
           },
           "noReactForwardRef": {
             "deprecated": false,
@@ -5711,7 +5762,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Enforce that all React hooks are being called from the Top Level component functions.\n\n _This rule should be used only in **React** projects._\n\n To understand why this required see https://reactjs.org/docs/hooks-rules.html#only-call-hooks-at-the-top-level\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function Component1({ a }) {\n     if (a == 1) {\n         useEffect();\n     }\n }\n ```\n\n ```js,expect_diagnostic\n function Component1({ a }) {\n     if (a != 1) {\n         return;\n     }\n\n     useEffect();\n }\n ```\n\n ### Valid\n\n ```js\n function Component1() {\n     useEffect();\n }\n ```\n\n"
+            "docs": " Enforce that all React hooks are being called from the Top Level component functions.\n\n _This rule should be used only in **React** projects._\n\n To understand why this required see https://reactjs.org/docs/hooks-rules.html#only-call-hooks-at-the-top-level\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function Component1({ a }) {\n     if (a == 1) {\n         useEffect();\n     }\n }\n ```\n\n ```js,expect_diagnostic\n function Component1({ a }) {\n     if (a != 1) {\n         return;\n     }\n\n     useEffect();\n }\n ```\n\n ```js,expect_diagnostic\n function notAHook() {\n     useEffect();\n }\n ```\n\n ### Valid\n\n ```js\n function Component1() {\n     useEffect();\n }\n ```\n\n ```js\n test(\"the hook\", () => {\n     renderHook(() => useHook());\n });\n ```\n\n"
           },
           "useImageSize": {
             "deprecated": false,
@@ -6800,7 +6851,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 395
+    "numberOrRules": 398
   },
   "syntax": {
     "languages": {
@@ -6929,9 +6980,30 @@ export function GET() {
             "docs": " Enforce attribute sorting in JSX elements.\n\n This rule checks if the JSX props are sorted in a consistent way.\n Props are sorted alphabetically using a [natural sort order](https://en.wikipedia.org/wiki/Natural_sort_order).\n This rule will not consider spread props as sortable.\n Instead, whenever it encounters a spread prop, it will sort all the\n previous non spread props up until the nearest spread prop, if one\n exist.\n This prevents breaking the override of certain props using spread\n props.\n\n ## Examples\n\n ```jsx,expect_diff\n <Hello lastName=\"Smith\" firstName=\"John\" />;\n ```\n\n ```jsx,expect_diff\n <Hello lastName=\"Smith\" firstName=\"John\" {...this.props} tel=\"0000\" address=\"111 Main Street\"  {...another.props} lastName=\"Smith\" />;\n ```\n\n ## Options\n This actions accepts following options\n\n ### `sortOrder`\n This options supports `natural` and `lexicographic` values. Where as `natural` is the default.\n\n Following will apply the natural sort order.\n\n ```json,options\n {\n     \"options\": {\n         \"sortOrder\": \"natural\"\n     }\n }\n ```\n ```jsx,use_options,expect_diagnostic\n <Hello tel={5555555} {...this.props} opt1=\"John\" opt2=\"\" opt12=\"\" opt11=\"\" />;\n ```\n\n Following will apply the lexicographic sort order.\n\n ```json,options\n {\n     \"options\": {\n         \"sortOrder\": \"lexicographic\"\n     }\n }\n ```\n ```jsx,use_options,expect_diagnostic\n <Hello tel={5555555} {...this.props} opt1=\"John\" opt2=\"\" opt12=\"\" opt11=\"\" />;\n ```\n\n"
           }
         }
+      },
+      "ts": {
+        "source": {
+          "useSortedInterfaceMembers": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useSortedInterfaceMembers",
+            "link": "https://biomejs.dev/linter/rules/use-sorted-interface-members",
+            "recommended": false,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintPerfectionist": "sort-interfaces"
+                }
+              }
+            ],
+            "docs": " Sort interface members by key.\n\n Interface members are sorted according to their names. The rule distinguishes between\n two types of members:\n\n **Sortable members** - Members with explicit, fixed names that can be alphabetically sorted:\n - Property signatures: `property: type`\n - Method signatures: `method(): type`\n - Getter signatures: `get property(): type`\n - Setter signatures: `set property(value: type): void`\n\n **Non-sortable members** - Members without fixed names or with dynamic/computed names:\n - Call signatures: `(): type` (represents the interface as a callable function)\n - Construct signatures: `new (): type` (represents the interface as a constructor)\n - Index signatures: `[key: string]: type` (represents dynamic property access)\n\n The rule sorts all sortable members alphabetically and places them first,\n followed by non-sortable members in their original order. Non-sortable members\n cannot be meaningfully sorted by name since they represent different interface\n contracts rather than named properties or methods.\n\n # Examples\n\n ## Invalid\n\n ```ts,expect_diagnostic\n interface MixedMembers {\n   z: string;\n   a: number;\n   (): void;  // Call signature\n   y: boolean;\n   new (): MixedMembers;  // Construct signature\n   b: string;\n   [key: string]: any;  // Index signature\n }\n ```\n\n ## Valid\n\n ```ts\n interface MixedMembers {\n   a: number;\n   b: string;\n   y: boolean;\n   z: string;\n   (): void;  // Non-sortable members remain in original order\n   new (): MixedMembers;\n   [key: string]: any;\n }\n ```\n\n"
+          }
+        }
       }
     },
-    "numberOrRules": 5
+    "numberOrRules": 6
   }
 };
 	return new Response(JSON.stringify(schema), {
