@@ -204,6 +204,7 @@ export const LINT_RULES = {
     useQwikMethodUsage: "useQwikMethodUsage",
     useQwikValidLexicalScope: "useQwikValidLexicalScope",
     useRegexpExec: "useRegexpExec",
+    useRequiredScripts: "useRequiredScripts",
     useSortedClasses: "useSortedClasses",
     useSpread: "useSpread",
     useUniqueGraphqlOperationName: "useUniqueGraphqlOperationName",

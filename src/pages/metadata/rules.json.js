@@ -4944,6 +4944,15 @@ export function GET() {
               }
             ],
             "docs": " Prevent the listing of duplicate dependencies.\n The rule supports the following dependency groups: \"bundledDependencies\", \"bundleDependencies\", \"dependencies\", \"devDependencies\", \"overrides\", \"optionalDependencies\", and \"peerDependencies\".\n\n Dependencies are not allowed to be listed twice under the same dependency group.\n\n ## Examples\n\n ### Invalid\n\n ```json\n {\n     \"dependencies\": {\n         \"foo\": \"1.0.0\",\n         \"foo\": \"2.0.0\"\n     }\n }\n ```\n\n ```json\n {\n     \"bundleDependencies\": [\"foo\", \"foo\"]\n }\n ```\n\n ### Valid\n\n ```json\n {\n     \"dependencies\": {\n         \"foo\": \"2.0.0\"\n     }\n }\n ```\n\n ```json\n {\n     \"bundleDependencies\": [\"foo\"]\n }\n ```\n\n Some dependency group dependencies are checked against other dependency groups;\n  - Dependencies listed in \"dependencies\" cannot be listed under \"devDependencies\", \"optionalDependencies\" or \"peerDependencies\".\n  - Dependencies listed in \"optionalDependencies\" cannot be listed under \"peerDependencies\" (and vice versa).\n\n Dependencies listed in \"devDependencies\" are allowed to be listed in \"optionalDependencies\" or \"peerDependencies\".\n And dependencies listed in \"overrides\" & \"bundleDependencies\" are not checked against other dependency groups.\n\n ## Examples\n\n ### Invalid\n\n ```json\n {\n     \"dependencies\": {\n         \"foo\": \"1.0.0\"\n     },\n     \"devDependencies\": {\n         \"foo\": \"1.0.0\"\n     }\n }\n ```\n\n ### Valid\n\n ```json\n {\n     \"dependencies\": {\n         \"foo\": \"1.0.0\"\n     }\n }\n ```\n\n"
+          },
+          "useRequiredScripts": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useRequiredScripts",
+            "link": "https://biomejs.dev/linter/rules/use-required-scripts",
+            "recommended": false,
+            "fixKind": "none",
+            "docs": " Enforce the presence of required scripts in package.json.\n\n This rule ensures that specified scripts are defined in the `scripts` section of a `package.json` file.\n It's particularly useful in monorepo environments where consistency across workspaces is important.\n\n Without required scripts configured, this rule doesn't do anything.\n\n ## Examples\n\n ### Invalid\n\n ```json,options\n {\n     \"options\": {\n         \"requiredScripts\": [\"test\", \"build\"]\n     }\n }\n ```\n\n ```json,use_options\n {\n     \"scripts\": {\n         \"test\": \"vitest\"\n     }\n }\n ```\n\n ### Valid\n\n ```json,use_options\n {\n     \"scripts\": {\n         \"test\": \"vitest\",\n         \"build\": \"tsc\"\n     }\n }\n ```\n\n ## Options\n\n ### `requiredScripts`\n\n An array of script names that must be present in the `scripts` section of `package.json`.\n Default: `[]` (no scripts required)\n\n"
           }
         },
         "suspicious": {
@@ -6823,7 +6832,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 396
+    "numberOrRules": 397
   },
   "syntax": {
     "languages": {
