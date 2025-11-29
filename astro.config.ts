@@ -562,6 +562,7 @@ export default defineConfig({
 								},
 							],
 							translations: {
+								"zh-CN": "检查器",
 								fr: "Outil de linting",
 								ja: "リンター",
 								pl: "Linter",
