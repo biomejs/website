@@ -55,7 +55,7 @@ For example, the Zed extension maps the [`require_configuration`](#require-confi
 > Type: `boolean`
 > Default: `false`
 
-Whether the Biome Language Server requires a configuration file. When set to `true`, it won't analyze any file.
+Whether the Biome Language Server requires a configuration file. When set to `true`, it won't analyze any file (exception for parsing) until there's a `biome.json` file in the root of the project.
 
 ```json
 {
@@ -70,7 +70,7 @@ Whether the Biome Language Server requires a configuration file. When set to `tr
 
 A path to a custom configuration file. The path can be the folder where the `biome.json`/`biome.jsonc` is, or a path to a file.
 
-The path *should* be an absolute. The Biome Language Server read this option only when provided.
+The path can be relative or absolute. The Biome Language Server reads this option only when provided. Use this option when the configuration is *in a subfolder of your project*.
 
 ```json
 {
