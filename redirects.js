@@ -259,6 +259,7 @@ export default {
   '/linter/rules/noVueDuplicateKeys': '/linter/rules/no-vue-duplicate-keys',
   '/linter/rules/noVueReservedKeys': '/linter/rules/no-vue-reserved-keys',
   '/linter/rules/noVueReservedProps': '/linter/rules/no-vue-reserved-props',
+  '/linter/rules/noVueSetupPropsReactivityLoss': '/linter/rules/no-vue-setup-props-reactivity-loss',
   '/linter/rules/noVueVIfWithVFor': '/linter/rules/no-vue-v-if-with-v-for',
   '/linter/rules/noWith': '/linter/rules/no-with',
   '/linter/rules/noYodaExpression': '/linter/rules/no-yoda-expression',
