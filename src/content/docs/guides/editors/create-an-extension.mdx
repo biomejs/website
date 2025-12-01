@@ -47,7 +47,7 @@ The Biome Language Server exposes the following settings, which the extension ca
 The following settings are meant for **extension developers**, not for users.
 An extension might decide to expose the settings to users with different names, or different formats.
 
-For example, the Zed extension maps the [`require_configuration`](#require-configuration) from the setting is called `require_config_file`, which is defined in a JSONC file.
+For example, the Zed extension maps the [`require_configuration`](#require-configuration) setting from the setting `require_config_file`, which is defined in a JSONC file.
 :::
 
 #### `require_configuration`
@@ -74,7 +74,7 @@ The path *should* be an absolute. The Biome Language Server read this option onl
 
 ```json
 {
-  "configuration_path": "/Users/nick/.configs/biome.json"
+  "configuration_path": "./frontend/biome.json"
 }
 ```
 
