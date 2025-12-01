@@ -192,6 +192,7 @@ export const LINT_RULES = {
     noVueDuplicateKeys: "noVueDuplicateKeys",
     noVueReservedKeys: "noVueReservedKeys",
     noVueReservedProps: "noVueReservedProps",
+    noVueSetupPropsReactivityLoss: "noVueSetupPropsReactivityLoss",
     noVueVIfWithVFor: "noVueVIfWithVFor",
     useArraySortCompare: "useArraySortCompare",
     useConsistentArrowReturn: "useConsistentArrowReturn",
