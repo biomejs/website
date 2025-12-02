@@ -2260,6 +2260,23 @@ export function GET() {
             ],
             "docs": " Restrict imports of deprecated exports.\n\n This rule flags any imports for symbols (such as types, functions, or\n anything else that can be imported), that are documented with a JSDoc\n comment that contains an \"@deprecated\" annotation.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic,file=foo.js\n import { oldUtility } from \"./utils.js\";\n ```\n\n ```js,file=utils.js\n /**\n  * @deprecated\n  */\n export function oldUtility() {}\n ```\n\n ### Valid\n\n ```js,file=foo.js\n import { newUtility, oldUtility } from \"./utils.js\";\n ```\n\n ```js,file=utils.js\n export function newUtility() {}\n\n // @deprecated (this is not a JSDoc comment)\n export function oldUtility() {}\n ```\n\n"
           },
+          "noDuplicatedSpreadProps": {
+            "deprecated": false,
+            "version": "2.3.8",
+            "name": "noDuplicatedSpreadProps",
+            "link": "https://biomejs.dev/linter/rules/no-duplicated-spread-props",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReact": "jsx-props-no-spread-multi"
+                }
+              }
+            ],
+            "docs": " Disallow JSX prop spreading the same identifier multiple times.\n\n Enforces that any unique expression is only spread once.\n Generally spreading the same expression twice is an indicator of a mistake since any attribute between the spreads may be overridden when the intent was not to.\n Even when that is not the case this will lead to unnecessary computations being performed.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div {...props} something=\"else\" {...props} />\n ```\n\n ### Valid\n\n ```jsx\n <div something=\"else\" {...props} />\n ```\n\n"
+          },
           "noEmptySource": {
             "deprecated": false,
             "version": "2.2.7",
@@ -2276,6 +2293,23 @@ export function GET() {
               }
             ],
             "docs": " Disallow empty sources.\n\n A source containing only the following is considered empty:\n   - Whitespace (spaces, tabs or newlines)\n   - Comments\n   - Directives\n   - Empty statements\n   - Empty block statements\n   - Hashbang\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n\n ```\n\n ```js,expect_diagnostic\n // Only comments\n ```\n\n ```js,expect_diagnostic\n /* Only comments */\n ```\n\n ```js,expect_diagnostic\n 'use strict';\n ```\n\n ```js,expect_diagnostic\n ;\n ```\n\n ```js,expect_diagnostic\n {\n }\n ```\n\n ```js,expect_diagnostic\n #!/usr/bin/env node\n ```\n\n ### Valid\n\n ```js\n const x = 0;\n ```\n\n ```js\n 'use strict';\n const x = 0;\n ```\n\n ```js\n ;;\n const x = 0;\n ```\n\n ```js\n {\n   const x = 0;\n }\n ```\n\n ## Options\n\n ### `allowComments`\n\n Whether the comments should be marked as meaningful.\n When this option has been set to `true`, a file with only comments is considered valid.\n\n Default `false`\n\n ```json,options\n {\n   \"options\": {\n     \"allowComments\": true\n   }\n }\n ```\n\n #### Invalid\n\n ```js,expect_diagnostic,use_options\n\n ```\n\n #### Valid\n\n ```js,use_options\n /* Only comments */\n ```\n\n"
+          },
+          "noEqualsToNull": {
+            "deprecated": false,
+            "version": "2.3.8",
+            "name": "noEqualsToNull",
+            "link": "https://biomejs.dev/linter/rules/no-equals-to-null",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "no-eq-null"
+                }
+              }
+            ],
+            "docs": " Require the use of `===` or `!==` for comparison with `null`.\n\n Comparing to `null` with `==` or `!=` may have unintended results as the\n expression evaluates to `true` when comparing `null` to `undefined`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n foo == null;\n ```\n\n ```js,expect_diagnostic\n foo != null;\n ```\n\n ### Valid\n\n ```js\n foo === null;\n ```\n\n ```js\n foo !== null;\n ```\n"
           },
           "noForIn": {
             "deprecated": false,
@@ -2328,6 +2362,23 @@ export function GET() {
             ],
             "docs": " Disallows the usage of the unary operators ++ and --.\n\n Because the unary ++ and -- operators are subject to automatic semicolon insertion, differences in whitespace can change semantics of source code.\n\n ```js,expect_diagnostic\n let i = 10;\n let j = 20;\n\n i ++\n j\n // i = 11, j = 20\n ```\n\n ```js,expect_diagnostic\n let i = 10;\n let j = 20;\n\n i\n ++\n j\n // i = 10, j = 21\n ```\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n let foo = 0;\n foo++;\n ```\n\n ```js,expect_diagnostic\n let bar = 42;\n bar--;\n ```\n\n ```js,expect_diagnostic\n for (let i = 0; i < 10; i++) {\n     doSomething(i);\n }\n ```\n\n ```js,expect_diagnostic\n for (let i = 0; i < 10;) {\n     doSomething(i);\n     i++;\n }\n ```\n\n ### Valid\n\n ```js\n let foo = 0;\n foo += 1;\n ```\n\n ```js\n let bar = 42;\n bar -= 1;\n ```\n\n ```js\n for (let i = 0; i < 10; i += 1) {\n     doSomething(i);\n }\n ```\n\n ```js\n for (let i = 0; i < 10;) {\n     doSomething(i);\n     i += 1;\n }\n ```\n\n ## Options\n\n ### `allowForLoopAfterthoughts`\n\n Allows unary operators ++ and -- in the afterthought (final expression) of a for loop.\n\n Default `false`\n\n ```json,options\n {\n   \"options\": {\n     \"allowForLoopAfterthoughts\": true\n   }\n }\n ```\n\n #### Invalid\n\n ```js,expect_diagnostic,use_options\n for (let i = 0; i < j; j = i++) {\n     doSomething(i, j);\n }\n ```\n\n ```js,expect_diagnostic,use_options\n for (let i = 10; i--;) {\n     doSomething(i);\n }\n ```\n\n ```js,expect_diagnostic,use_options\n for (let i = 0; i < 10;) i++;\n ```\n\n #### Valid\n\n ```js,use_options\n for (let i = 0; i < 10; i++) {\n     doSomething(i);\n }\n ```\n\n ```js,use_options\n for (let i = 0, j = l; i < l; i++, j--) {\n     doSomething(i, j);\n }\n ```\n\n"
           },
+          "noMultiStr": {
+            "deprecated": false,
+            "version": "2.3.8",
+            "name": "noMultiStr",
+            "link": "https://biomejs.dev/linter/rules/no-multi-str",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "no-multi-str"
+                }
+              }
+            ],
+            "docs": " Disallow creating multiline strings by escaping newlines.\n\n Escaping newlines to create multiline strings is discouraged because it\n can lead to subtle errors caused by unexpected whitespace after the\n backslash.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const foo =\n     \"Line 1\\n\\\n Line 2\";\n ```\n\n ### Valid\n\n ```js\n const foo = \"Line 1\\nLine 2\";\n ```\n\n ```js\n const bar = `Line 1\n Line 2`;\n ```\n"
+          },
           "noNextAsyncClientComponent": {
             "deprecated": false,
             "version": "2.2.0",
@@ -2361,6 +2412,23 @@ export function GET() {
               }
             ],
             "docs": " Disallow function parameters that are only used in recursive calls.\n\n A parameter that is only passed to recursive calls is effectively unused\n and can be removed or replaced with a constant, simplifying the function.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function factorial(n, acc) {\n     if (n === 0) return 1;\n     return factorial(n - 1, acc);\n }\n ```\n\n ```js,expect_diagnostic\n function countdown(n, step) {\n     if (n === 0) return 0;\n     return countdown(n - step, step);\n }\n ```\n\n ```js,expect_diagnostic\n class Counter {\n     count(n, acc) {\n         if (n === 0) return 0;\n         return this.count(n - 1, acc);\n     }\n }\n ```\n\n ```js,expect_diagnostic\n function fn(n, acc) {\n     if (n === 0) return 0;\n     return fn(n - 1, acc || 0);\n }\n ```\n\n ```js,expect_diagnostic\n class Counter {\n     count(n, acc) {\n         if (n === 0) return 0;\n         return this?.count(n - 1, acc);\n     }\n }\n ```\n\n ### Valid\n\n ```js\n function factorial(n, acc) {\n     if (n === 0) return acc;\n     return factorial(n - 1, acc * n);\n }\n ```\n\n ```js\n function countdown(n, step) {\n     console.log(step);\n     if (n === 0) return 0;\n     return countdown(n - step, step);\n }\n ```\n\n ```js\n function fn(n, threshold) {\n     if (n > threshold) return n;\n     return fn(n + 1, threshold);\n }\n ```\n"
+          },
+          "noProto": {
+            "deprecated": false,
+            "version": "2.3.8",
+            "name": "noProto",
+            "link": "https://biomejs.dev/linter/rules/no-proto",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "no-proto"
+                }
+              }
+            ],
+            "docs": " Disallow the use of the `__proto__` property.\n\n The use of `__proto__` for getting or setting the prototype of an object\n is deprecated. Use `Object.getPrototypeOf()` or\n `Object.setPrototypeOf()` instead.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n obj.__proto__ = a;\n ```\n\n ```js,expect_diagnostic\n const b = obj.__proto__;\n ```\n\n ### Valid\n\n ```js\n const a = Object.getPrototypeOf(obj);\n ```\n\n ```js\n Object.setPrototypeOf(obj, b);\n ```\n"
           },
           "noReactForwardRef": {
             "deprecated": false,
@@ -2421,7 +2489,7 @@ export function GET() {
           },
           "noTernary": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.8",
             "name": "noTernary",
             "link": "https://biomejs.dev/linter/rules/no-ternary",
             "recommended": false,
@@ -2587,6 +2655,23 @@ export function GET() {
             ],
             "docs": " Disallow reserved names to be used as props.\n\n Vue reserves certain prop names for its internal use. Using these reserved names\n as prop names can cause conflicts and unexpected behavior in your Vue components.\n\n This rule prevents the use of the following reserved prop names:\n - `key` - Used by Vue for list rendering and component identification\n - `ref` - Used by Vue for template refs\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script setup>\n defineProps({\n     ref: String,\n });\n </script>\n ```\n\n ```js,expect_diagnostic\n import {defineComponent} from 'vue';\n\n export default defineComponent({\n     props: [\n         'key',\n     ]\n });\n ```\n\n ```vue,expect_diagnostic\n <script setup lang=\"ts\">\n defineProps<{\n     ref: string,\n }>();\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script>\n export default {\n     props: {\n         key: String,\n     }\n };\n </script>\n ```\n\n ### Valid\n\n ```js\n import {defineComponent} from 'vue';\n\n export default defineComponent({\n     props: ['foo']\n });\n ```\n\n ```vue\n <script setup>\n defineProps({ foo: String });\n </script>\n ```\n\n ```vue\n <script setup lang=\"ts\">\n defineProps<{\n     foo: string,\n     bar: string,\n }>();\n </script>\n ```\n\n ```vue\n <script>\n export default {\n     props: {\n         foo: String,\n         bar: String,\n     }\n };\n </script>\n ```\n\n"
           },
+          "noVueSetupPropsReactivityLoss": {
+            "deprecated": false,
+            "version": "2.2.6",
+            "name": "noVueSetupPropsReactivityLoss",
+            "link": "https://biomejs.dev/linter/rules/no-vue-setup-props-reactivity-loss",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintVueJs": "no-setup-props-reactivity-loss"
+                }
+              }
+            ],
+            "docs": " Disallow destructuring of `props` passed to `setup` in Vue projects.\n\n In Vue's Composition API, props must be accessed as `props.propertyName` to maintain\n reactivity. Destructuring `props` directly in the `setup` function parameters will\n cause the resulting variables to lose their reactive nature.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n export default {\n   setup({ count }) {\n     return () => h('div', count);\n   }\n }\n ```\n\n ### Valid\n\n ```js\n export default {\n   setup(props) {\n     return () => h('div', props.count);\n   }\n }\n ```\n\n"
+          },
           "useArraySortCompare": {
             "deprecated": false,
             "version": "2.3.5",
@@ -2683,6 +2768,29 @@ export function GET() {
               }
             ],
             "docs": " Enforce a maximum number of parameters in function definitions.\n\n Functions that take numerous parameters can be difficult to read and write\n because it requires the memorization of what each parameter is, its type,\n and the order they should appear in.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function foo(a, b, c, d, e, f, g, h) {\n     // too many parameters\n }\n ```\n\n ```js,expect_diagnostic\n const bar = (a, b, c, d, e, f, g, h) => {\n     // too many parameters\n }\n ```\n\n ```js,expect_diagnostic\n class Baz {\n     method(a, b, c, d, e, f, g, h) {\n         // too many parameters\n     }\n }\n ```\n\n ### Valid\n\n ```js\n function foo(a, b, c) {\n     // within limit\n }\n ```\n\n ```js\n const bar = (a, b, c) => {\n     // within limit\n }\n ```\n\n ```js\n class Baz {\n     method(a, b, c) {\n         // within limit\n     }\n }\n ```\n\n ## Options\n\n ### max\n\n The maximum number of parameters allowed (default: 4).\n\n"
+          },
+          "useRegexpExec": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useRegexpExec",
+            "link": "https://biomejs.dev/linter/rules/use-regexp-exec",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintTypeScript": "prefer-regexp-exec"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintRegexp": "prefer-regexp-exec"
+                }
+              }
+            ],
+            "docs": " Enforce `RegExp#exec` over `String#match` if no global flag is provided.\n\n String#match is defined to work the same as RegExp#exec when the regular expression does not include the g flag.\n Keeping to consistently using one of the two can help improve code readability.\n\n RegExp#exec may also be slightly faster than String#match; this is the reason to choose it as the preferred usage.\n\n ## Examples\n\n ### Invalid\n\n ```ts,file=invalid.ts,expect_diagnostic\n 'something'.match(/thing/);\n ```\n\n ### Valid\n\n ```ts,file=valid.ts\n /thing/.exec('something');\n ```\n\n"
           },
           "useSortedClasses": {
             "deprecated": false,
@@ -3032,7 +3140,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow reassigning `function` parameters.\n\n Assignment to `function` parameters can be misleading and confusing,\n as modifying parameters will also mutate the `arguments` object.\n It is often unintended and indicative of a programmer error.\n\n In contrast to the _ESLint_ rule, this rule cannot be configured to report\n assignments to a property of a parameter.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function f(param) {\n     param = 13;\n }\n ```\n\n ```js,expect_diagnostic\n function f(param) {\n     param++;\n }\n ```\n\n ```js,expect_diagnostic\n function f(param) {\n     for (param of arr) {}\n }\n ```\n\n ```ts,expect_diagnostic\n class C {\n     constructor(readonly prop: number) {\n         prop++;\n     }\n }\n ```\n\n ### Valid\n\n ```js\n function f(param) {\n     let local = param;\n }\n ```\n\n ## Options\n\n ### propertyAssignment\n\n The `noParameterAssign` rule can be configured using the `propertyAssignment` option, which determines whether property assignments on function parameters are allowed or denied. By default, `propertyAssignment` is set to `allow`.\n\n ```json\n {\n     \"options\": {\n         \"propertyAssignment\": \"allow\"\n     }\n }\n ```\n\n - **allow**: Allows property assignments on function parameters. This is the default behavior.\n   - Example:\n\n ```json,options\n {\n     \"options\": {\n         \"propertyAssignment\": \"allow\"\n     }\n }\n ```\n\n ```js,use_options\n function update(obj) {\n     obj.key = \"value\"; // No diagnostic\n }\n ```\n\n - **deny**: Disallows property assignments on function parameters, enforcing stricter immutability.\n   - Example:\n\n ```json,options\n {\n     \"options\": {\n         \"propertyAssignment\": \"deny\"\n     }\n }\n ```\n\n ```js,use_options,expect_diagnostic\n function update(obj) {\n     obj.key = \"value\"; // Diagnostic: Assignment to a property of function parameter is not allowed.\n }\n ```\n"
+            "docs": " Disallow reassigning `function` parameters.\n\n Assignment to `function` parameters can be misleading and confusing,\n as modifying parameters will also mutate the `arguments` object.\n It is often unintended and indicative of a programmer error.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function f(param) {\n     param = 13;\n }\n ```\n\n ```js,expect_diagnostic\n function f(param) {\n     param++;\n }\n ```\n\n ```js,expect_diagnostic\n function f(param) {\n     for (param of arr) {}\n }\n ```\n\n ```ts,expect_diagnostic\n class C {\n     constructor(readonly prop: number) {\n         prop++;\n     }\n }\n ```\n\n ### Valid\n\n ```js\n function f(param) {\n     let local = param;\n }\n ```\n\n ## Options\n\n ### propertyAssignment\n\n The `noParameterAssign` rule can be configured using the `propertyAssignment` option, which determines whether property assignments on function parameters are allowed or denied. By default, `propertyAssignment` is set to `allow`.\n\n ```json\n {\n     \"options\": {\n         \"propertyAssignment\": \"allow\"\n     }\n }\n ```\n\n - **allow**: Allows property assignments on function parameters. This is the default behavior.\n   - Example:\n\n ```json,options\n {\n     \"options\": {\n         \"propertyAssignment\": \"allow\"\n     }\n }\n ```\n\n ```js,use_options\n function update(obj) {\n     obj.key = \"value\"; // No diagnostic\n }\n ```\n\n - **deny**: Disallows property assignments on function parameters, enforcing stricter immutability.\n   - Example:\n\n ```json,options\n {\n     \"options\": {\n         \"propertyAssignment\": \"deny\"\n     }\n }\n ```\n\n ```js,use_options,expect_diagnostic\n function update(obj) {\n     obj.key = \"value\"; // Diagnostic: Assignment to a property of function parameter is not allowed.\n }\n ```\n"
           },
           "noProcessEnv": {
             "deprecated": false,
@@ -3480,6 +3588,12 @@ export function GET() {
                 "kind": "sameLogic",
                 "source": {
                   "eslintUnicorn": "prefer-node-protocol"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintImport": "enforce-node-protocol-usage"
                 }
               }
             ],
@@ -4853,6 +4967,15 @@ export function GET() {
               }
             ],
             "docs": " Prevent the listing of duplicate dependencies.\n The rule supports the following dependency groups: \"bundledDependencies\", \"bundleDependencies\", \"dependencies\", \"devDependencies\", \"overrides\", \"optionalDependencies\", and \"peerDependencies\".\n\n Dependencies are not allowed to be listed twice under the same dependency group.\n\n ## Examples\n\n ### Invalid\n\n ```json\n {\n     \"dependencies\": {\n         \"foo\": \"1.0.0\",\n         \"foo\": \"2.0.0\"\n     }\n }\n ```\n\n ```json\n {\n     \"bundleDependencies\": [\"foo\", \"foo\"]\n }\n ```\n\n ### Valid\n\n ```json\n {\n     \"dependencies\": {\n         \"foo\": \"2.0.0\"\n     }\n }\n ```\n\n ```json\n {\n     \"bundleDependencies\": [\"foo\"]\n }\n ```\n\n Some dependency group dependencies are checked against other dependency groups;\n  - Dependencies listed in \"dependencies\" cannot be listed under \"devDependencies\", \"optionalDependencies\" or \"peerDependencies\".\n  - Dependencies listed in \"optionalDependencies\" cannot be listed under \"peerDependencies\" (and vice versa).\n\n Dependencies listed in \"devDependencies\" are allowed to be listed in \"optionalDependencies\" or \"peerDependencies\".\n And dependencies listed in \"overrides\" & \"bundleDependencies\" are not checked against other dependency groups.\n\n ## Examples\n\n ### Invalid\n\n ```json\n {\n     \"dependencies\": {\n         \"foo\": \"1.0.0\"\n     },\n     \"devDependencies\": {\n         \"foo\": \"1.0.0\"\n     }\n }\n ```\n\n ### Valid\n\n ```json\n {\n     \"dependencies\": {\n         \"foo\": \"1.0.0\"\n     }\n }\n ```\n\n"
+          },
+          "useRequiredScripts": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useRequiredScripts",
+            "link": "https://biomejs.dev/linter/rules/use-required-scripts",
+            "recommended": false,
+            "fixKind": "none",
+            "docs": " Enforce the presence of required scripts in package.json.\n\n This rule ensures that specified scripts are defined in the `scripts` section of a `package.json` file.\n It's particularly useful in monorepo environments where consistency across workspaces is important.\n\n Without required scripts configured, this rule doesn't do anything.\n\n ## Examples\n\n ### Invalid\n\n ```json,options\n {\n     \"options\": {\n         \"requiredScripts\": [\"test\", \"build\"]\n     }\n }\n ```\n\n ```json,use_options\n {\n     \"scripts\": {\n         \"test\": \"vitest\"\n     }\n }\n ```\n\n ### Valid\n\n ```json,use_options\n {\n     \"scripts\": {\n         \"test\": \"vitest\",\n         \"build\": \"tsc\"\n     }\n }\n ```\n\n ## Options\n\n ### `requiredScripts`\n\n An array of script names that must be present in the `scripts` section of `package.json`.\n Default: `[]` (no scripts required)\n\n"
           }
         },
         "suspicious": {
@@ -5732,7 +5855,7 @@ export function GET() {
           },
           "noLeakedRender": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.8",
             "name": "noLeakedRender",
             "link": "https://biomejs.dev/linter/rules/no-leaked-render",
             "recommended": false,
@@ -6732,7 +6855,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 391
+    "numberOrRules": 398
   },
   "syntax": {
     "languages": {

@@ -102,6 +102,53 @@ biome check --reporter=junit
 </testsuites>
 ```
 
+## GitLab
+
+```shell
+biome check --reporter=gitlab
+```
+
+```json
+[
+  {
+    "description": "Several of these imports are unused.",
+    "check_name": "lint/correctness/noUnusedImports",
+    "fingerprint": "15587197597897976171",
+    "severity": "major",
+    "location": {
+      "path": "index.ts",
+      "lines": {
+        "begin": 2
+      }
+    }
+  },
+  {
+    "description": "This variable f is unused.",
+    "check_name": "lint/correctness/noUnusedVariables",
+    "fingerprint": "11560602666260894730",
+    "severity": "major",
+    "location": {
+      "path": "index.ts",
+      "lines": {
+        "begin": 14
+      }
+    }
+  },
+  {
+    "description": "Using == may be unsafe if you are relying on type coercion.",
+    "check_name": "lint/suspicious/noDoubleEquals",
+    "fingerprint": "9497329216962766751",
+    "severity": "critical",
+    "location": {
+      "path": "index.ts",
+      "lines": {
+        "begin": 6
+      }
+    }
+  }
+]
+```
+
 ## Checkstyle
 
 [Checkstyle形式](https://checkstyle.org/)に従った診断結果を出力するにはこのリポータを利用してください。
