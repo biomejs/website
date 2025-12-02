@@ -8,7 +8,7 @@ interface Props {
 }
 
 const { number, approximation } = Astro.props;
-const numberString = number.toLocaleString();
+const numberString = new Intl.NumberFormat().format(number);
 const approx = approximation ? "~" : "";
 ---
 
