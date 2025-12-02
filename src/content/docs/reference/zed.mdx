@@ -35,8 +35,7 @@ By default, the biome.json file is required to be in the **root of the workspace
 
 Otherwise, it can be configured through the lsp settings:
 
-```jsonc
-// settings.json
+```json5 title=".zed/settings.json"
 {
   "lsp": {
     "biome": {
@@ -52,17 +51,21 @@ Otherwise, it can be configured through the lsp settings:
 
 To use the language server as a formatter, specify biome as your formatter in the settings:
 
-```jsonc
-// settings.json
+```json5 title=".zed/settings.json"
 {
   "languages": {
-    "JavaScript": { "formatter": { "language_server": { "name": "biome" } } },
-    "TypeScript": { "formatter": { "language_server": { "name": "biome" } } },
-    "TSX": { "formatter": { "language_server": { "name": "biome" } } },
-    "JSON": { "formatter": { "language_server": { "name": "biome" } } },
-    "JSONC": { "formatter": { "language_server": { "name": "biome" } } },
+    "Astro": { "formatter": { "language_server": { "name": "biome" } } },
     "CSS": { "formatter": { "language_server": { "name": "biome" } } },
     "GraphQL": { "formatter": { "language_server": { "name": "biome" } } },
+    "HTML": { "formatter": { "language_server": { "name": "biome" } } },
+    "JSON": { "formatter": { "language_server": { "name": "biome" } } },
+    "JSONC": { "formatter": { "language_server": { "name": "biome" } } },
+    "JSX": { "formatter": { "language_server": { "name": "biome" } } },
+    "JavaScript": { "formatter": { "language_server": { "name": "biome" } } },
+    "Svelte": { "formatter": { "language_server": { "name": "biome" } } },
+    "TSX": { "formatter": { "language_server": { "name": "biome" } } },
+    "TypeScript": { "formatter": { "language_server": { "name": "biome" } } },
+    "Vue.js": { "formatter": { "language_server": { "name": "biome" } } },
   }
 }
 ```
@@ -71,8 +74,7 @@ See [Language Support](/internals/language-support) for more information.
 
 ### Enable biome only when biome.json is present
 
-```jsonc
-// settings.json
+```json5 title=".zed/settings.json"
 {
   "lsp": {
     "biome": {
@@ -86,8 +88,7 @@ See [Language Support](/internals/language-support) for more information.
 
 ### Run code actions on format:
 
-```jsonc
-// settings.json
+```json5 title=".zed/settings.json"
 {
   "languages": {
     "JavaScript": {
@@ -107,9 +108,7 @@ See [Language Support](/internals/language-support) for more information.
     "TSX": {
       "formatter": { "language_server": { "name": "biome" } },
       "code_actions_on_format": {
-         "source.fixAll.biome": true,
-
-
+        "source.fixAll.biome": true,
         "source.organizeImports.biome": true
       }
     }
@@ -119,7 +118,7 @@ See [Language Support](/internals/language-support) for more information.
 
 If you want to apply [unsafe fixes](/linter/#unsafe-fixes) on save, you must make the [code fix of the rule safe](/linter/#configure-the-code-fix).
 
-### Project based configuration
+### Project-based configuration
 
 You can include these settings in Zed Project Settings (`.zed/settings.json`) at the root of your project folder or as Zed User Settings (`~/.config/zed/settings.json`) which will apply to all projects by default.
 
@@ -127,8 +126,7 @@ You can include these settings in Zed Project Settings (`.zed/settings.json`) at
 
 You can exclude biome for a given language (e.g. GraphQL) on project with:
 
-```jsonc
-// settings.json
+```json5 title=".zed/settings.json"
 {
   "languages": {
     "GraphQL": {
