@@ -25,7 +25,7 @@ Biome is a **big Rust project**, that keeps growing overtime. As for 17th of Nov
 - <LocaleNumber number={651.971} approximation={true} /> lines of code between production code and test code.
 - <LocaleNumber number={3217} approximation={true} /> Rust files, between production code and test code.
 
-Since Rust is a compiled language, with e complex syntax, the resources required for compilation, testing, etc. are bound to increase over time. Before Depot came to the rescue, Biome used to use GitHub Action runners. Here's a few numbers:
+Since Rust is a compiled language, with complex syntax, the resources required for compilation, testing, etc. are bound to increase over time. Before Depot came to the rescue, Biome used to use GitHub Action runners. Here's a few numbers:
 
 - Linting for pull requests took around ~15 minutes.
 - Tests for pull requests took around ~20 minutes.
@@ -36,11 +36,16 @@ Since Rust is a compiled language, with e complex syntax, the resources required
 
 ## Enters Depot
 
-I discovered Depot by chance on socials. A person thanked them because they sponsored their Rust project. So I took a chance and asked Depot if they were willing to sponsor Biome, and [Jacob Gillespie](https://github.com/jacobwgillespie)—CTO and Founder at Depot was very responsive and happy to back Biome up. In fact, Depot use Biome internally for their projects.
+I discovered Depot by chance on social media. Someone thanked them for sponsoring their Rust project, so I reached out to see if they'd be willing to sponsor Biome. [Jacob Gillespie](https://github.com/jacobwgillespie), CTO and Co-Founder at Depot, was incredibly responsive and eager to support us.
 
-Depot started sponsoring Biome's GitHub infrastructure months ago as a gold sponsor. With their support, **our workflows became way faster**:
+Depot started sponsoring Biome's GitHub infrastructure months ago as a gold sponsor. With their faster [GitHub Actions runners](https://depot.dev/docs/github-actions/overview), our workflows saw dramatic improvements:
 
-- Linting for pull requests take around ~2 minutes.
+  | Workflow   | Before (GitHub runners) | After (Depot) |
+  |------------|-------------------------|---------------|
+  | Linting    | ~15 minutes             | ~2 minutes    |
+  | Tests      | ~20 minutes             | ~4 minutes    |
+  | Benchmarks | ~30 minutes             | ~15 minutes   |
+  | Releases   | ~45 minutes             | ~25 minutes   |
 - Tests for pull request take around ~4 minutes.
 - Benchmarks for pull requests take around up to ~15 minutes.
 - Releases take around ~25 minutes, and memory-related issues are a problem of the past.
@@ -51,7 +56,7 @@ These aren't just numbers. Having a faster CI has had a significant **positive i
 
 ### Maintainers
 
-We've seen positive outcomes throughout the whole project management process. We're able to get faster feedbacks from our CI jobs, release more frequently and with more confidence, and we can fix CI issues faster. As you know, CI is a [YOLO](https://www.urbandictionary.com/define.php?term=Yolo) practice!
+We've seen positive outcomes throughout the whole project management process. We're able to get faster feedback from our CI jobs, release more frequently and with more confidence, and we can fix CI issues faster. As you know, CI is a [YOLO](https://www.urbandictionary.com/define.php?term=Yolo) practice!
 
 ### Contributors
 
