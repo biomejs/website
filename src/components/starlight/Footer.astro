@@ -1,10 +1,38 @@
 ---
+import { Image } from "astro:assets";
 import Default from "@astrojs/starlight/components/Footer.astro";
+import darkDepot from "@/assets/sponsors/depot-logo-horizontal-on-dark@3x.png";
+import lightDepot from "@/assets/sponsors/depot-logo-horizontal-on-light@3x.png";
 ---
 
 <Default {...Astro.props}>
 	<slot />
 </Default>
+
+<div class="footer-sponsors">
+	<p class="title">
+		Sponsored by
+	</p>
+	<div class="list">
+		<div class="item">
+			<Image
+				alt="Depot"
+				src={lightDepot}
+				data-canonical-src={lightDepot.src}
+				width="150"
+				class="dark:sl-hidden"
+			/>
+			<Image
+				alt="Depot"
+				src={darkDepot}
+				data-canonical-src={darkDepot.src}
+				width="150"
+				class="light:sl-hidden"
+			/>
+		</div>
+	</div>
+
+</div>
 
 <div class="copyright">
 	<p>Copyright (c) 2023-present Biome Developers and Contributors.</p>
@@ -26,4 +54,21 @@ import Default from "@astrojs/starlight/components/Footer.astro";
 	.copyright picture {
     vertical-align: top;
   }
+
+	.footer-sponsors {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: .5rem 2rem;
+
+		.title {
+			font-weight: bold;
+			margin-bottom: 1rem;
+		}
+
+		.list {
+			display: flex;
+			gap: 1rem;
+		}
+	}
 </style>
