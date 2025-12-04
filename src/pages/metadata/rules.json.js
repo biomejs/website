@@ -717,6 +717,23 @@ export function GET() {
               }
             ],
             "docs": " Enforces the usage of the attribute `title` for the element `iframe`.\n\n :::note\n In `.html` files, this rule matches `iframe` elements case-insensitively (e.g., `<IFRAME>`, `<IFrame>`).\n\n In component-based frameworks (Vue, Svelte, Astro), only lowercase `<iframe>` is checked. PascalCase variants like `<Iframe>` are assumed to be custom components and are ignored.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <iframe></iframe>\n ```\n\n ```html,expect_diagnostic\n <iframe title=\"\"></iframe>\n ```\n\n ### Valid\n\n ```html\n <iframe title=\"title\"></iframe>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 2.4.1](https://www.w3.org/WAI/WCAG21/Understanding/bypass-blocks)\n - [WCAG 4.1.2](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value)\n\n"
+          },
+          "useValidAriaRole": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useValidAriaRole",
+            "link": "https://biomejs.dev/linter/rules/use-valid-aria-role",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJsxA11y": "aria-role"
+                }
+              }
+            ],
+            "docs": " Elements with ARIA roles must use a valid, non-abstract ARIA role.\n\n Remember that this rule only supports static values for the `role` attribute.\n Dynamic `role` values are not checked.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div role=\"datepicker\"></div>\n ```\n\n ```html,expect_diagnostic\n <div role=\"range\"></div>\n ```\n\n ```html,expect_diagnostic\n <div role=\"\"></div>\n ```\n\n\n ### Valid\n\n ```html\n <div role=\"button\"></div>\n <div></div>\n ```\n\n ## Options\n\n\n ### `allowInvalidRoles`\n\n It allows specifying a list of roles that might be invalid otherwise\n\n ```json,options\n {\n     \"options\": {\n         \"allowInvalidRoles\": [\"datepicker\"]\n     }\n }\n ```\n\n ```html,use_options\n <div role=\"datepicker\"></div>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 4.1.2](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value)\n\n ## Resources\n\n - [Chrome Audit Rules, AX_ARIA_01](https://github.com/GoogleChrome/accessibility-developer-tools/wiki/Audit-Rules#ax_aria_01)\n - [DPUB-ARIA roles](https://www.w3.org/TR/dpub-aria-1.0/)\n - [MDN: Using ARIA: Roles, states, and properties](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques)\n\n"
           }
         },
         "nursery": {
@@ -6868,7 +6885,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 399
+    "numberOrRules": 400
   },
   "syntax": {
     "languages": {
