@@ -16,6 +16,7 @@ use biome_console::{
     fmt::{Formatter, HTML},
     markup,
 };
+use biome_css_analyze::CssAnalyzerServices;
 use biome_css_parser::CssParserOptions;
 use biome_css_syntax::CssLanguage;
 use biome_deserialize::json::deserialize_from_json_ast;
@@ -27,6 +28,7 @@ use biome_html_parser::HtmlParseOptions;
 use biome_html_syntax::HtmlLanguage;
 use biome_js_parser::JsParserOptions;
 use biome_js_syntax::{EmbeddingKind, JsFileSource, JsLanguage};
+use biome_json_analyze::JsonAnalyzeServices;
 use biome_json_factory::make;
 use biome_json_formatter::context::JsonFormatOptions;
 use biome_json_formatter::format_node;
@@ -1651,8 +1653,11 @@ fn print_diagnostics_or_actions(
                 };
 
                 let options = test.create_analyzer_options::<JsonLanguage>(config)?;
-
-                biome_json_analyze::analyze(&root, filter, &options, file_source, |signal| {
+                let json_services = JsonAnalyzeServices {
+                    file_source,
+                    configuration_source: None,
+                };
+                biome_json_analyze::analyze(&root, filter, &options, json_services, |signal| {
                     match to_print_kind {
                         ToPrintKind::Diagnostics => {
                             if let Some(mut diag) = signal.diagnostic() {
@@ -1713,8 +1718,9 @@ fn print_diagnostics_or_actions(
                 };
 
                 let options = test.create_analyzer_options::<CssLanguage>(config)?;
-
-                biome_css_analyze::analyze(&root, filter, &options, &[], |signal| {
+                let semantic_model = biome_css_semantic::semantic_model(&root);
+                let services = CssAnalyzerServices::default().with_semantic_model(&semantic_model);
+                biome_css_analyze::analyze(&root, filter, &options, services, &[], |signal| {
                     match to_print_kind {
                         ToPrintKind::Diagnostics => {
                             if let Some(mut diag) = signal.diagnostic() {

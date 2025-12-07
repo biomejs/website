@@ -2740,6 +2740,23 @@ export function GET() {
             ],
             "docs": " Disallow reserved names to be used as props.\n\n Vue reserves certain prop names for its internal use. Using these reserved names\n as prop names can cause conflicts and unexpected behavior in your Vue components.\n\n This rule prevents the use of the following reserved prop names:\n - `key` - Used by Vue for list rendering and component identification\n - `ref` - Used by Vue for template refs\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script setup>\n defineProps({\n     ref: String,\n });\n </script>\n ```\n\n ```js,expect_diagnostic\n import {defineComponent} from 'vue';\n\n export default defineComponent({\n     props: [\n         'key',\n     ]\n });\n ```\n\n ```vue,expect_diagnostic\n <script setup lang=\"ts\">\n defineProps<{\n     ref: string,\n }>();\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script>\n export default {\n     props: {\n         key: String,\n     }\n };\n </script>\n ```\n\n ### Valid\n\n ```js\n import {defineComponent} from 'vue';\n\n export default defineComponent({\n     props: ['foo']\n });\n ```\n\n ```vue\n <script setup>\n defineProps({ foo: String });\n </script>\n ```\n\n ```vue\n <script setup lang=\"ts\">\n defineProps<{\n     foo: string,\n     bar: string,\n }>();\n </script>\n ```\n\n ```vue\n <script>\n export default {\n     props: {\n         foo: String,\n         bar: String,\n     }\n };\n </script>\n ```\n\n"
           },
+          "noVueSetupPropsReactivityLoss": {
+            "deprecated": false,
+            "version": "2.2.6",
+            "name": "noVueSetupPropsReactivityLoss",
+            "link": "https://biomejs.dev/linter/rules/no-vue-setup-props-reactivity-loss",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintVueJs": "no-setup-props-reactivity-loss"
+                }
+              }
+            ],
+            "docs": " Disallow destructuring of `props` passed to `setup` in Vue projects.\n\n In Vue's Composition API, props must be accessed as `props.propertyName` to maintain\n reactivity. Destructuring `props` directly in the `setup` function parameters will\n cause the resulting variables to lose their reactive nature.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n export default {\n   setup({ count }) {\n     return () => h('div', count);\n   }\n }\n ```\n\n ### Valid\n\n ```js\n export default {\n   setup(props) {\n     return () => h('div', props.count);\n   }\n }\n ```\n\n"
+          },
           "useArraySortCompare": {
             "deprecated": false,
             "version": "2.3.5",
@@ -2757,6 +2774,23 @@ export function GET() {
             ],
             "docs": " Require Array#sort and Array#toSorted calls to always provide a compareFunction.\n\n When called without a compare function, Array#sort() and Array#toSorted() converts all non-undefined array elements into strings and then compares said strings based off their UTF-16 code units [ECMA specification](https://262.ecma-international.org/9.0/#sec-sortcompare).\n\n The result is that elements are sorted alphabetically, regardless of their type. For example, when sorting numbers, this results in a \"10 before 2\" order:\n\n ```ts,file=example.ts,ignore\n [1, 2, 3, 10, 20, 30].sort(); //→ [1, 10, 2, 20, 3, 30]\n ```\n\n This rule reports on any call to the sort methods that do not provide a compare argument.\n\n ## Examples\n\n ### Invalid\n\n ```ts,file=invalid.ts,expect_diagnostic\n const array: any[] = [];\n array.sort();\n ```\n\n ### Valid\n\n ```ts,file=valid.ts\n const array: any[] = [];\n array.sort((a, b) => a - b);\n ```\n\n"
           },
+          "useAwaitThenable": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useAwaitThenable",
+            "link": "https://biomejs.dev/linter/rules/use-await-thenable",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintTypeScript": "use-await-thenable"
+                }
+              }
+            ],
+            "docs": " Enforce that `await` is _only_ used on `Promise` values.\n\n :::caution\n At the moment, this rule only checks for instances of the global\n `Promise` class. This is a major shortcoming compared to the ESLint\n rule if you are using custom `Promise`-like implementations such as\n [Bluebird](http://bluebirdjs.com/) or in-house solutions.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic,file=invalid-primitive.js\n await 'value';\n ```\n\n ```js,expect_diagnostic,file=invalid-function-call.js\n const createValue = () => 'value';\n await createValue();\n ```\n\n ### Valid\n\n ```js,file=valid-examples.js\n await Promise.resolve('value');\n\n const createValue = async () => 'value';\n await createValue();\n ```\n\n"
+          },
           "useConsistentArrowReturn": {
             "deprecated": false,
             "version": "2.2.3",
@@ -2773,6 +2807,23 @@ export function GET() {
               }
             ],
             "docs": " Enforce consistent arrow function bodies.\n\n This rule enforces the use of arrow functions with no body block when the function body consists of a single return statement.\n This rule does not report when:\n - the function body contains directives (e.g. `\"use strict\"`), or\n - the body (or its descendants) contain comments, or\n - the single `return` has no argument (`return;`).\n\n The fix wraps expressions in parentheses when required for correctness (e.g. object literals and sequence expressions).\n\n ## Examples\n\n ### Invalid\n\n```js,expect_diagnostic\n const bar = () => {\n     return {\n         bar: {\n             foo: 1,\n             bar: 2,\n         }\n     };\n };\n ```\n\n ### Valid\n\n ```js\n const foo = () => 0;\n const bar = () => { \"use strict\"; return 1 }\n const baz = () => { /* intentional */ return x }\n const qux = () => ({ a: 1 })   // already concise with parens\n ```\n\n"
+          },
+          "useDestructuring": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useDestructuring",
+            "link": "https://biomejs.dev/linter/rules/use-destructuring",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "prefer-destructuring"
+                }
+              }
+            ],
+            "docs": " Require destructuring from arrays and/or objects\n\n With JavaScript ES6, a new syntax was added for creating variables from an array index or object property,\n called destructuring. This rule enforces usage of destructuring instead of accessing a property through a member expression.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n var foo = array[0];\n ```\n\n ```js,expect_diagnostic\n var bar = foo.bar;\n ```\n\n\n ### Valid\n\n ```js\n var [foo] = array;\n ```\n\n ```js\n var { bar } = foo;\n ```\n\n"
           },
           "useExhaustiveSwitchCases": {
             "deprecated": false,
@@ -2836,6 +2887,29 @@ export function GET() {
               }
             ],
             "docs": " Enforce a maximum number of parameters in function definitions.\n\n Functions that take numerous parameters can be difficult to read and write\n because it requires the memorization of what each parameter is, its type,\n and the order they should appear in.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function foo(a, b, c, d, e, f, g, h) {\n     // too many parameters\n }\n ```\n\n ```js,expect_diagnostic\n const bar = (a, b, c, d, e, f, g, h) => {\n     // too many parameters\n }\n ```\n\n ```js,expect_diagnostic\n class Baz {\n     method(a, b, c, d, e, f, g, h) {\n         // too many parameters\n     }\n }\n ```\n\n ### Valid\n\n ```js\n function foo(a, b, c) {\n     // within limit\n }\n ```\n\n ```js\n const bar = (a, b, c) => {\n     // within limit\n }\n ```\n\n ```js\n class Baz {\n     method(a, b, c) {\n         // within limit\n     }\n }\n ```\n\n ## Options\n\n ### max\n\n The maximum number of parameters allowed (default: 4).\n\n"
+          },
+          "useRegexpExec": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useRegexpExec",
+            "link": "https://biomejs.dev/linter/rules/use-regexp-exec",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintTypeScript": "prefer-regexp-exec"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintRegexp": "prefer-regexp-exec"
+                }
+              }
+            ],
+            "docs": " Enforce `RegExp#exec` over `String#match` if no global flag is provided.\n\n String#match is defined to work the same as RegExp#exec when the regular expression does not include the g flag.\n Keeping to consistently using one of the two can help improve code readability.\n\n RegExp#exec may also be slightly faster than String#match; this is the reason to choose it as the preferred usage.\n\n ## Examples\n\n ### Invalid\n\n ```ts,file=invalid.ts,expect_diagnostic\n 'something'.match(/thing/);\n ```\n\n ### Valid\n\n ```ts,file=valid.ts\n /thing/.exec('something');\n ```\n\n"
           },
           "useSortedClasses": {
             "deprecated": false,
@@ -3633,6 +3707,12 @@ export function GET() {
                 "kind": "sameLogic",
                 "source": {
                   "eslintUnicorn": "prefer-node-protocol"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintImport": "enforce-node-protocol-usage"
                 }
               }
             ],
@@ -5006,6 +5086,15 @@ export function GET() {
               }
             ],
             "docs": " Prevent the listing of duplicate dependencies.\n The rule supports the following dependency groups: \"bundledDependencies\", \"bundleDependencies\", \"dependencies\", \"devDependencies\", \"overrides\", \"optionalDependencies\", and \"peerDependencies\".\n\n Dependencies are not allowed to be listed twice under the same dependency group.\n\n ## Examples\n\n ### Invalid\n\n ```json\n {\n     \"dependencies\": {\n         \"foo\": \"1.0.0\",\n         \"foo\": \"2.0.0\"\n     }\n }\n ```\n\n ```json\n {\n     \"bundleDependencies\": [\"foo\", \"foo\"]\n }\n ```\n\n ### Valid\n\n ```json\n {\n     \"dependencies\": {\n         \"foo\": \"2.0.0\"\n     }\n }\n ```\n\n ```json\n {\n     \"bundleDependencies\": [\"foo\"]\n }\n ```\n\n Some dependency group dependencies are checked against other dependency groups;\n  - Dependencies listed in \"dependencies\" cannot be listed under \"devDependencies\", \"optionalDependencies\" or \"peerDependencies\".\n  - Dependencies listed in \"optionalDependencies\" cannot be listed under \"peerDependencies\" (and vice versa).\n\n Dependencies listed in \"devDependencies\" are allowed to be listed in \"optionalDependencies\" or \"peerDependencies\".\n And dependencies listed in \"overrides\" & \"bundleDependencies\" are not checked against other dependency groups.\n\n ## Examples\n\n ### Invalid\n\n ```json\n {\n     \"dependencies\": {\n         \"foo\": \"1.0.0\"\n     },\n     \"devDependencies\": {\n         \"foo\": \"1.0.0\"\n     }\n }\n ```\n\n ### Valid\n\n ```json\n {\n     \"dependencies\": {\n         \"foo\": \"1.0.0\"\n     }\n }\n ```\n\n"
+          },
+          "useRequiredScripts": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useRequiredScripts",
+            "link": "https://biomejs.dev/linter/rules/use-required-scripts",
+            "recommended": false,
+            "fixKind": "none",
+            "docs": " Enforce the presence of required scripts in package.json.\n\n This rule ensures that specified scripts are defined in the `scripts` section of a `package.json` file.\n It's particularly useful in monorepo environments where consistency across workspaces is important.\n\n Without required scripts configured, this rule doesn't do anything.\n\n ## Examples\n\n ### Invalid\n\n ```json,options\n {\n     \"options\": {\n         \"requiredScripts\": [\"test\", \"build\"]\n     }\n }\n ```\n\n ```json,use_options\n {\n     \"scripts\": {\n         \"test\": \"vitest\"\n     }\n }\n ```\n\n ### Valid\n\n ```json,use_options\n {\n     \"scripts\": {\n         \"test\": \"vitest\",\n         \"build\": \"tsc\"\n     }\n }\n ```\n\n ## Options\n\n ### `requiredScripts`\n\n An array of script names that must be present in the `scripts` section of `package.json`.\n Default: `[]` (no scripts required)\n\n"
           }
         },
         "suspicious": {
@@ -5016,7 +5105,7 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/no-biome-first-exception",
             "recommended": true,
             "fixKind": "safe",
-            "docs": " Prevents the use of the `!` pattern in the first position of `files.includes` in the configuration file.\n\n If the first pattern of `files.includes` starts with the leading `!`, Biome won't have any file to crawl. Generally,\n it is a good practice to declare the files/folders to include first, and then the files/folder to ignore.\n\n Check the [official documentation](https://biomejs.dev/guides/configure-biome/#exclude-files-via-configuration) for more examples.\n\n ## Examples\n\n ### Invalid\n\n ```json,ignore\n {\n     \"files\": {\n         \"includes\": [\"!dist\"]\n     }\n }\n ```\n\n ### Valid\n\n ```json,ignore\n {\n     \"files\": {\n         \"includes\": [\"src/**\", \"!dist\"]\n     }\n }\n ```\n\n"
+            "docs": " Prevents the misuse of glob patterns inside the `files.includes` field.\n\n ## Leading of negated patterns\n If the first pattern of `files.includes` starts with the leading `!`, Biome won't have any file to crawl. Generally,\n it is a good practice to declare the files/folders to include first, and then the files/folder to ignore.\n\n Check the [official documentation](https://biomejs.dev/guides/configure-biome/#exclude-files-via-configuration) for more examples.\n\n ### Examples\n\n #### Invalid\n\n ```json,ignore\n {\n     \"files\": {\n         \"includes\": [\"!dist\"]\n     }\n }\n ```\n\n #### Valid\n\n ```json,ignore\n {\n     \"files\": {\n         \"includes\": [\"src/**\", \"!dist\"]\n     }\n }\n ```\n\n ## Leading with catch-all `**`\n\n If the user configuration file extends from other sources (other configuration files or libraries), and those files contain the catch-all glob `**` in `files.includes`,\n the rule will trigger a violation if also the user configuration file has a `**`.\n\n #### Invalid\n\n ```jsonc,ignore\n // biome.json\n {\n     \"extends\": [\"./base.json\"],\n     \"files\": {\n         \"includes\": [\"**\", \"!**/test\"]\n     }\n }\n ```\n\n ```jsonc,ignore\n // base.json\n {\n     \"files\": {\n         \"includes\": [\"**\", \"!**/dist\"]\n     }\n }\n ```\n\n"
           },
           "noDuplicateObjectKeys": {
             "deprecated": false,

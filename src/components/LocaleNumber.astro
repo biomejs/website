@@ -1,0 +1,15 @@
+---
+interface Props {
+	number: number;
+	/**
+	 * When `true`, it prepends `~` to the number.
+	 * */
+	approximation: boolean;
+}
+
+const { number, approximation } = Astro.props;
+const numberString = new Intl.NumberFormat().format(number);
+const approx = approximation ? "~" : "";
+---
+
+{approx}{numberString}

@@ -1,0 +1,78 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: useRegexpExec
+description: Learn more about useRegexpExec
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+:::note
+This rule belongs to the project domain. This means that its activation will activate the Biome Scanner, which might affect the performance. Read more about it in the [documentation page](/linter/domains#project)
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/useRegexpExec`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`project`](/linter/domains#project)
+- Sources: 
+  - Same as [`@typescript-eslint/prefer-regexp-exec`](https://typescript-eslint.io/rules/prefer-regexp-exec)
+  - Same as [`regexp/prefer-regexp-exec`](https://ota-meshi.github.io/eslint-plugin-regexp/rules/prefer-regexp-exec.html)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useRegexpExec": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Enforce `RegExp#exec` over `String#match` if no global flag is provided.
+
+String#match is defined to work the same as RegExp#exec when the regular expression does not include the g flag.
+Keeping to consistently using one of the two can help improve code readability.
+
+RegExp#exec may also be slightly faster than String#match; this is the reason to choose it as the preferred usage.
+
+## Examples
+
+### Invalid
+
+```ts title='invalid.ts'
+'something'.match(/thing/);
+```
+
+<pre class="language-text"><code class="language-text"><a href="file:///invalid.ts">/invalid.ts</a>:1:1 <a href="https://biomejs.dev/linter/rules/use-regexp-exec">lint/nursery/useRegexpExec</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Prefer </span><span style="color: lightgreen;"><strong>RegExp#exec()</strong></span><span style="color: lightgreen;"> over </span><span style="color: lightgreen;"><strong>String#match()</strong></span><span style="color: lightgreen;"> when searching within a string.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>'something'.match(/thing/);<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Use </span><span style="color: lightgreen;"><strong>RegExp#exec()</strong></span><span style="color: lightgreen;"> instead of </span><span style="color: lightgreen;"><strong>String#match()</strong></span><span style="color: lightgreen;"> for consistent and slightly faster regex matching.</span><br />  <br /></code></pre>
+
+### Valid
+
+```ts title='valid.ts'
+/thing/.exec('something');
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_regexp_exec.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useRegexpExec)
+
+</TabItem>
+</Tabs>
+
