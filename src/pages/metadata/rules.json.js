@@ -635,6 +635,47 @@ export function GET() {
           }
         },
         "nursery": {
+          "noScriptUrl": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noScriptUrl",
+            "link": "https://biomejs.dev/linter/rules/no-script-url",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "no-script-url"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReact": "jsx-no-script-url"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintQwik": "jsx-no-script-url"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintSolid": "jsx-no-script-url"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReactXyz": "dom-no-script-url"
+                }
+              }
+            ],
+            "docs": " Disallow `javascript:` URLs in HTML.\n\n Using `javascript:` URLs is considered a form of `eval` and can be a security risk.\n These URLs can execute arbitrary JavaScript code, which can lead to cross-site scripting (XSS) vulnerabilities.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <a href=\"javascript:void(0)\">Click me</a>\n ```\n\n ```html,expect_diagnostic\n <a href=\"javascript:alert('XSS')\">Click me</a>\n ```\n\n ### Valid\n\n ```html\n <a href=\"https://example.com\">Click me</a>\n <a href=\"/path/to/page\">Click me</a>\n <a href=\"#section\">Click me</a>\n <span href=\"javascript:void(0)\">Not a real href</span>\n ```\n\n"
+          },
           "noSyncScripts": {
             "deprecated": false,
             "version": "2.3.6",
@@ -2452,6 +2493,47 @@ export function GET() {
               }
             ],
             "docs": " Replaces usages of `forwardRef` with passing `ref` as a prop.\n\n In React 19, `forwardRef` is no longer necessary. Pass `ref` as a prop instead.\n This rule detects the usage of the `forwardRef` API, and it suggests using the prop `ref`\n instead.\n See [the official blog post](https://react.dev/blog/2024/12/05/react-19#ref-as-a-prop) for details.\n\n This rule should be disabled if you are working with React 18 or earlier.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n import { forwardRef } from \"react\";\n\n const MyInput = forwardRef(function MyInput(props, ref) {\n   return <input ref={ref} {...props} />;\n });\n ```\n\n ```jsx,expect_diagnostic\n import { forwardRef } from \"react\";\n\n const MyInput = forwardRef((props, ref) => {\n   return <input ref={ref} {...props} />;\n });\n ```\n\n ### Valid\n\n ```jsx\n function MyInput({ ref, ...props }) {\n   return <input ref={ref} {...props} />;\n }\n ```\n\n ```jsx\n const MyInput = ({ ref, ...props }) => {\n   return <input ref={ref} {...props} />;\n }\n ```\n\n"
+          },
+          "noScriptUrl": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noScriptUrl",
+            "link": "https://biomejs.dev/linter/rules/no-script-url",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "no-script-url"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReact": "jsx-no-script-url"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintQwik": "jsx-no-script-url"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintSolid": "jsx-no-script-url"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReactXyz": "dom-no-script-url"
+                }
+              }
+            ],
+            "docs": " Disallow `javascript:` URLs.\n\n Using `javascript:` URLs is considered a form of `eval` and can be a security risk.\n These URLs can execute arbitrary JavaScript code, which can lead to cross-site scripting (XSS) vulnerabilities.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <a href=\"javascript:void(0)\">Click me</a>\n ```\n\n ```jsx,expect_diagnostic\n <a href=\"javascript:alert('XSS')\">Click me</a>\n ```\n\n ```js,expect_diagnostic\n React.createElement('a', { href: 'javascript:void(0)' });\n ```\n\n ### Valid\n\n ```jsx\n <a href=\"https://example.com\">Click me</a>\n ```\n\n ```jsx\n <a href=\"/path/to/page\">Click me</a>\n ```\n\n ```jsx\n <a href=\"#section\">Click me</a>\n ```\n\n"
           },
           "noShadow": {
             "deprecated": false,
@@ -6889,7 +6971,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 400
+    "numberOrRules": 402
   },
   "syntax": {
     "languages": {
