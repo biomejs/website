@@ -667,6 +667,23 @@ export function GET() {
             ],
             "docs": " The scope prop should be used only on `<th>` elements.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div scope=\"col\"></div>\n ```\n\n ```html,expect_diagnostic\n <div scope></div>\n ```\n\n ### Valid\n\n ```html\n <th scope=\"col\"></th>\n ```\n\n ```html\n <th scope></th>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 1.3.1](https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships)\n - [WCAG 4.1.1](https://www.w3.org/WAI/WCAG21/Understanding/parsing)\n\n"
           },
+          "useAriaPropsForRole": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useAriaPropsForRole",
+            "link": "https://biomejs.dev/linter/rules/use-aria-props-for-role",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJsxA11y": "role-has-required-aria-props"
+                }
+              }
+            ],
+            "docs": " Enforce that elements with ARIA roles must have all required ARIA attributes for that role.\n\n Remember that this rule only supports static values for the `role` attribute.\n Dynamic `role` values are not checked.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <span role=\"checkbox\"></span>\n ```\n\n ```html,expect_diagnostic\n <span role=\"heading\"></span>\n ```\n\n ### Valid\n\n ```html\n <span role=\"checkbox\" aria-checked=\"true\"></span>\n ```\n\n ```html\n <span role=\"heading\" aria-level=\"1\"></span>\n ```\n\n\n ## Accessibility guidelines\n - [WCAG 4.1.2](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value)\n\n ### Resources\n - [ARIA Spec, Roles](https://www.w3.org/TR/wai-aria/#roles)\n - [Chrome Audit Rules, AX_ARIA_03](https://github.com/GoogleChrome/accessibility-developer-tools/wiki/Audit-Rules#ax_aria_03)\n\n"
+          },
           "useButtonType": {
             "deprecated": false,
             "version": "next",
@@ -6991,7 +7008,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 406
+    "numberOrRules": 407
   },
   "syntax": {
     "languages": {
