@@ -1,0 +1,79 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noVueSetupPropsReactivityLoss
+description: Learn more about noVueSetupPropsReactivityLoss
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.2.6`
+- Diagnostic Category: [`lint/nursery/noVueSetupPropsReactivityLoss`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Inspired from [`vue/no-setup-props-reactivity-loss`](https://eslint.vuejs.org/rules/no-setup-props-reactivity-loss)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueSetupPropsReactivityLoss": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow destructuring of `props` passed to `setup` in Vue projects.
+
+In Vue's Composition API, props must be accessed as `props.propertyName` to maintain
+reactivity. Destructuring `props` directly in the `setup` function parameters will
+cause the resulting variables to lose their reactive nature.
+
+## Examples
+
+### Invalid
+
+```js
+export default {
+  setup({ count }) {
+    return () => h('div', count);
+  }
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:2:9 <a href="https://biomejs.dev/linter/rules/no-vue-setup-props-reactivity-loss">lint/nursery/noVueSetupPropsReactivityLoss</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Destructuring &#96;props&#96; in the &#96;setup&#96; function parameters loses reactivity.</span><br />  <br />    <strong>1 │ </strong>export default &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  setup(&#123; count &#125;) &#123;<br />   <strong>   │ </strong>        <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>    return () =&gt; h('div', count);<br />    <strong>4 │ </strong>  &#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">To preserve reactivity, access props as properties: &#96;props.propertyName&#96;.</span><br />  <br /></code></pre>
+
+### Valid
+
+```js
+export default {
+  setup(props) {
+    return () => h('div', props.count);
+  }
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_vue_setup_props_reactivity_loss.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noVueSetupPropsReactivityLoss)
+
+</TabItem>
+</Tabs>
+

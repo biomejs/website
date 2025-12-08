@@ -29,16 +29,18 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 ```
 ## Description
-Prevents the use of the `!` pattern in the first position of `files.includes` in the configuration file.
+Prevents the misuse of glob patterns inside the `files.includes` field.
+
+## Leading of negated patterns
 
 If the first pattern of `files.includes` starts with the leading `!`, Biome won't have any file to crawl. Generally,
 it is a good practice to declare the files/folders to include first, and then the files/folder to ignore.
 
 Check the [official documentation](https://biomejs.dev/guides/configure-biome/#exclude-files-via-configuration) for more examples.
 
-## Examples
+### Examples
 
-### Invalid
+#### Invalid
 
 ```json
 {
@@ -48,12 +50,38 @@ Check the [official documentation](https://biomejs.dev/guides/configure-biome/#e
 }
 ```
 
-### Valid
+#### Valid
 
 ```json
 {
     "files": {
         "includes": ["src/**", "!dist"]
+    }
+}
+```
+
+## Leading with catch-all `**`
+
+If the user configuration file extends from other sources (other configuration files or libraries), and those files contain the catch-all glob `**` in `files.includes`,
+the rule will trigger a violation if also the user configuration file has a `**`.
+
+#### Invalid
+
+```jsonc
+// biome.json
+{
+    "extends": ["./base.json"],
+    "files": {
+        "includes": ["**", "!**/test"]
+    }
+}
+```
+
+```jsonc
+// base.json
+{
+    "files": {
+        "includes": ["**", "!**/dist"]
     }
 }
 ```
