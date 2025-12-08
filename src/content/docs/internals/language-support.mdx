@@ -34,6 +34,23 @@ Biome supports the ES2024 version of the language.
 Biome supports only the official syntax. The team starts development of the new syntax when a proposal reaches
 [Stage 3](https://github.com/tc39/proposals#stage-3).
 
+### Embedded languages support (experimental)
+
+Biome supports the following languages embedded in template literals in JavaScript:
+
+- CSS (`css` or `styled` tag)
+- GraphQL (`gql` or `graphql` tag)
+
+This feature is still experimental and disabled by default. To enable this feature, set the `javascript.experimentalEmbeddedSnippetsEnabled` option.
+
+```json title=biome.json
+{
+  "javascript": {
+    "experimentalEmbeddedSnippetsEnabled": true
+  }
+}
+```
+
 ## TypeScript support
 
 Biome supports TypeScript version 5.6.
@@ -78,7 +95,7 @@ Some lint rules don't work across boundaries just yet. For example, the followin
 
 When **linting** `.svelte`, `.astro` or `.vue` files, it's advised to turn off a few additional rules to prevent false positive linting errors caused by our partial support. Use the option `overrides` for that:
 
-```json
+```json title=biome.json
 {
   "overrides": [
     {
@@ -107,7 +124,7 @@ the chances of inconsistencies can grow based on your configuration.
 
 For example, you could risk having a file mixed with tabs and spaces when formatting a HTML-ish file that contains JavaScript and CSS code, like in the following example (we assume full support is enabled):
 
-```json
+```json title=biome.json
 {
   "javascript": {
     "format": {
