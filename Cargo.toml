@@ -19,7 +19,7 @@
 	biome_analyze = { git = "https://github.com/biomejs/biome.git", rev = "65a0bf471a2b0b2f974bc9f957cc6ae4b3fa1406", features = [
 		"schema",
 	] }
-	biome_cli = { git = "https://github.com/biomejs/biome.git", rev = "65a0bf471a2b0b2f974bc9f957cc6ae4b3fa1406" }
+	biome_cli = { git = "https://github.com/biomejs/biome.git", rev = "2fddcc3e0457d9298af5e71530eeaf02ec36e5a9" }
 	biome_configuration = { git = "https://github.com/biomejs/biome.git", rev = "65a0bf471a2b0b2f974bc9f957cc6ae4b3fa1406", features = [
 		"schema",
 	] }
