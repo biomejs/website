@@ -75,7 +75,7 @@ debugger;
 
 次の例では、ルール`lint/suspicious/noDoubleEquals`は2行目と3行目では無効になりますが、5行目では診断が出力されます。
 
-```js name="file.js" ins={1} ins={4}
+```js title="file.js" ins={1} ins={4}
 // biome-ignore-start lint/suspicious/noDoubleEquals: 理由
 a == b;
 c == d;
@@ -89,7 +89,7 @@ f == g;
 
 範囲抑制は重複することもできます。以下にその例を示します。
 
-```js name="file.js"
+```js title="file.js"
 debugger;
 // biome-ignore-start lint/suspicious/noDebugger: 理由
 debugger;
