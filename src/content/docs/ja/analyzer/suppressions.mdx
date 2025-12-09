@@ -1,0 +1,113 @@
+---
+title: 抑制
+description: 抑制の使い方について
+---
+
+Biomeのアナライザーは、[リンター](/ja/linter)と[アシスト](/ja/assist)の基盤であり、これらの2つには多くの類似点があります。
+
+例えば、どちらも同じ抑制エンジンを使用しており、リントルールを抑制するのと同じ方法でアシストアクションを抑制できます。
+
+抑制を使うと、コードの特定の行、範囲、またはファイル全体に対してリントルール（またはアクション）を無効にすることができます。
+
+抑制には、**抑制コメント**を使用します。
+
+## 抑制の構文
+
+抑制コメントは以下の形式を持ちます。
+
+```js
+// biome-ignore lint: <説明>
+// biome-ignore assist: <説明>
+// biome-ignore syntax: <説明>
+// biome-ignore lint/suspicious: <説明>
+// biome-ignore lint/suspicious/noDebugger: <説明>
+// biome-ignore lint/suspicious/noDebugger(foo): <説明>
+// biome-ignore-all lint: <説明>
+// biome-ignore-start lint: <説明>
+// biome-ignore-end lint: <説明>
+```
+
+- `biome-ignore`、`biome-ignore-all`、`biome-ignore-start`、`biome-ignore-end`は、抑制コメントの冒頭です。
+- スペースの後に、抑制コメントの**カテゴリ**（`lint`、`assist`、`syntax`のいずれか）を含めます。
+- カテゴリの後に、スラッシュで区切られたオプションのグループ（例：`/suspicious`）またはグループと名前（例：`/suspicious/noDebugger`）を含めます。より詳細に指定するほど、抑制の対象は狭くなります。
+- 一部のルールでは、抑制の値を指定することもできます。値は、括弧（例：`(foo)`）で指定します。ルールが値による抑制をサポートしているかどうかは、ルールのドキュメントを参照します。
+- `<説明>`には、ルールを無効にした理由の説明を含めます。
+
+ルールまたはアクションの正確なカテゴリがわからない場合は、ドキュメントを参照してその*診断カテゴリ*を指定します。
+
+:::note
+以降は、抑制コメントの説明にJavaScriptを使用し、`lint`カテゴリを用います。
+:::
+
+### インライン抑制
+
+インライン抑制は、コードの**次の行**に対してリントルールを無効にします。
+
+以下の例では、抑制コメント`biome-ignore lint/suspicious/noDebugger: 理由`は2行目の`debugger`ステートメントの診断を抑制しますが、3行目の`debugger`はこれまでと同様に診断が出力されます。
+
+```js title="file.js" ins={1}
+// biome-ignore lint/suspicious/noDebugger: 理由
+debugger;
+debugger;
+```
+
+### トップレベル抑制
+
+トップレベル抑制は、ファイル全体に対してリントルールを無効にします。トップレベル抑制は**ファイルの先頭に配置**され、`biome-ignore-all`で始まります。
+
+トップレベル抑制は、*特定のファイルに対して*あるリントルールを抑制したいが、単一の設定による上書きを使いたくない場合に有用です。
+
+以下の例では、抑制コメント`biome-ignore-all lint/suspicious/noDebugger: 理由`は、`generated.js`内のすべての行でリントルールを無効にします。
+
+```js title="generated.js" ins={1}
+// biome-ignore-all lint/suspicious/noDebugger: 理由
+debugger;
+debugger;
+```
+
+トップレベル抑制のコメントがファイルの先頭にない場合、それは*未使用*とみなされ、Biomeはカテゴリ`suppression/unused`の診断を出力します。
+
+### 範囲抑制
+
+範囲抑制は、開始コメントのある行から、終了コメントのある行まで、ファイルの特定の範囲でリントルールを無効にします。
+
+範囲抑制の開始を示すには、抑制コメントを`biome-ignore-start`で始めます。終了を示すには、抑制コメントを`biome-ignore-end`で始めます。
+
+次の例では、ルール`lint/suspicious/noDoubleEquals`は2行目と3行目では無効になりますが、5行目では診断が出力されます。
+
+```js title="file.js" ins={1} ins={4}
+// biome-ignore-start lint/suspicious/noDoubleEquals: 理由
+a == b;
+c == d;
+// biome-ignore-end lint/suspicious/noDoubleEquals: 理由
+f == g;
+```
+
+:::note
+範囲抑制には、対応する`biome-ignore-end`抑制が必須です。
+:::
+
+範囲抑制は重複することもできます。以下にその例を示します。
+
+```js title="file.js"
+debugger;
+// biome-ignore-start lint/suspicious/noDebugger: 理由
+debugger;
+// biome-ignore-start lint/suspicious/noDoubleEquals: 理由
+a == b;
+c == d;
+// biome-ignore-end lint/suspicious/noDoubleEquals: 理由
+debugger;
+f == g;
+// biome-ignore-end lint/suspicious/noDebugger: 理由
+```
+
+上記のコードでは、
+
+- 1行目の`debugger`ステートメントは、それを無効にする抑制コメントがないため、診断が出力されます。
+- 2行目のコメント`// biome-ignore-start lint/suspicious/noDebugger: 理由`は、3行目以降で`noDebugger`を無効化します。
+- 4行目のコメント`// biome-ignore-start lint/suspicious/noDoubleEquals: 理由`は、5行目以降で`noDoubleEquals`を無効化します。
+- 7行目のコメント`// biome-ignore-end lint/suspicious/noDoubleEquals: 理由`は、4行目の抑制コメントによって開始された`noDoubleEquals`の抑制を終了します。
+- 8行目の`debugger`ステートメントは、2行目の抑制コメントにより診断が**出力されません**。
+- `f == g`ステートメントは、ルール`noDoubleEquals`の抑制が以前の行で終了したため、診断が出力されます。
+- 10行目のコメント`// biome-ignore-end lint/suspicious/noDebugger: 理由`は、2行目の抑制コメントによって開始された`noDebugger`の抑制を終了します。
