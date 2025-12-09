@@ -189,6 +189,7 @@ export interface PlaygroundSettings {
 	ruleDomains: RuleDomains;
 	indentScriptAndStyle: boolean;
 	whitespaceSensitivity: WhitespaceSensitivity;
+	experimentalEmbeddedSnippetsEnabled: boolean;
 	experimentalFullSupportEnabled: boolean;
 	cssModules: boolean;
 	tailwindDirectives: boolean;
@@ -244,6 +245,7 @@ export const defaultPlaygroundState: PlaygroundState = {
 		ruleDomains: {},
 		indentScriptAndStyle: false,
 		whitespaceSensitivity: WhitespaceSensitivity.Css,
+		experimentalEmbeddedSnippetsEnabled: true,
 		experimentalFullSupportEnabled: true,
 		cssModules: false,
 		tailwindDirectives: true,

@@ -60,6 +60,7 @@ self.addEventListener("message", async (e) => {
 				bracketSameLine,
 				attributePosition,
 				expand,
+				experimentalEmbeddedSnippetsEnabled,
 				indentScriptAndStyle,
 				whitespaceSensitivity,
 			} = settings;
@@ -82,6 +83,7 @@ self.addEventListener("message", async (e) => {
 				singleAttributePerLine:
 					attributePosition === AttributePosition.Multiline,
 				expand,
+				embeddedLanguageFormatting: experimentalEmbeddedSnippetsEnabled,
 				vueIndentScriptAndStyle: indentScriptAndStyle,
 				whitespaceSensitivity,
 			});
@@ -117,6 +119,7 @@ async function formatWithPrettier(
 		bracketSameLine: boolean;
 		singleAttributePerLine?: boolean;
 		expand: Expand;
+		embeddedLanguageFormatting: boolean;
 		vueIndentScriptAndStyle: boolean;
 		whitespaceSensitivity: WhitespaceSensitivity;
 	},
@@ -149,7 +152,9 @@ async function formatWithPrettier(
 			bracketSameLine: options.bracketSameLine,
 			singleAttributePerLine: options.singleAttributePerLine ?? false,
 			objectWrap: options.expand === Expand.Never ? "collapse" : "preserve",
-			embeddedLanguageFormatting: "off",
+			embeddedLanguageFormatting: options.embeddedLanguageFormatting
+				? "auto"
+				: "off",
 			vueIndentScriptAndStyle: options.vueIndentScriptAndStyle,
 			htmlWhitespaceSensitivity: options.whitespaceSensitivity,
 		};
