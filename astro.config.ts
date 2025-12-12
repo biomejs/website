@@ -10,12 +10,8 @@ import starlightChangelogs, {
 } from "starlight-changelogs";
 import starlightLinksValidator from "starlight-links-validator";
 import { searchForWorkspaceRoot } from "vite";
-import { version as biomeVersion } from "./node_modules/@biomejs/wasm-web/package.json" with {
-	type: "json",
-};
-import { version as prettierVersion } from "./node_modules/prettier/package.json" with {
-	type: "json",
-};
+import { version as biomeVersion } from "./node_modules/@biomejs/wasm-web/package.json" with { type: "json" };
+import { version as prettierVersion } from "./node_modules/prettier/package.json" with { type: "json" };
 import redirects from "./redirects.js";
 
 const plugins = [
@@ -164,7 +160,7 @@ export default defineConfig({
 					translations: {
 						es: "Guías",
 						ja: "ガイド",
-						"zh-CN": "指南",
+						"zh-CN": "使用指南",
 						pl: "Przewodniki",
 						"pt-BR": "Guias",
 						ru: "Гайды",
@@ -344,7 +340,7 @@ export default defineConfig({
 							translations: {
 								es: "Introducción",
 								ja: "イントロダクション",
-								"zh-CN": "介绍",
+								"zh-CN": "简介",
 								pl: "Wprowadzenie",
 								"pt-BR": "Introdução",
 								uk: "Вступ",
@@ -384,7 +380,7 @@ export default defineConfig({
 						es: "Formateador",
 						fr: "Outil de formatage",
 						ja: "フォーマッター",
-						"zh-CN": "格式化程序",
+						"zh-CN": "代码格式化",
 						pl: "Formatowanie",
 						"pt-BR": "Formatador",
 						uk: "Форматувальник",
@@ -397,7 +393,7 @@ export default defineConfig({
 						es: "Analizador",
 						fr: "Analyseur",
 						ja: "アナライザー",
-						"zh-CN": "分析器",
+						"zh-CN": "代码分析",
 						pl: "Analizator",
 						"pt-BR": "Analisador",
 						uk: "Аналізатор",
@@ -427,7 +423,7 @@ export default defineConfig({
 									translations: {
 										es: "Introducción",
 										ja: "イントロダクション",
-										"zh-CN": "介绍",
+										"zh-CN": "简介",
 										pl: "Wprowadzenie",
 										"pt-BR": "Introdução",
 										uk: "Вступ",
@@ -439,7 +435,7 @@ export default defineConfig({
 									link: "/linter/domains",
 									translations: {
 										ja: "ドメイン",
-										"zh-CN": "域",
+										"zh-CN": "领域",
 										pl: "Domeny",
 										ru: "Домены",
 									},
@@ -449,7 +445,7 @@ export default defineConfig({
 									link: "/linter/plugins",
 									translations: {
 										ja: "プラグイン",
-										"zh-CN": "插件",
+										"zh-CN": "插件系统",
 										pl: "Wtyczki",
 										ru: "Плагины",
 									},
@@ -578,7 +574,7 @@ export default defineConfig({
 									link: "/assist",
 									translations: {
 										ja: "イントロダクション",
-										"zh-CN": "介绍",
+										"zh-CN": "简介",
 										pl: "Wprowadzenie",
 										"pt-BR": "Introdução",
 										uk: "Вступ",
@@ -681,7 +677,7 @@ export default defineConfig({
 						es: "Referencia",
 						fr: "Références",
 						ja: "リファレンス",
-						"zh-CN": "参考",
+						"zh-CN": "参考文档",
 						pl: "Dokumentacja",
 						"pt-BR": "Referências",
 						uk: "Довідка",
@@ -782,7 +778,7 @@ export default defineConfig({
 						es: "Recetas",
 						fr: "Recettes",
 						ja: "レシピ",
-						"zh-CN": "与其他工具集成",
+						"zh-CN": "实践教程",
 						pl: "Przepisy",
 						"pt-BR": "Receitas",
 						uk: "Рецепти",
