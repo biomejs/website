@@ -1,0 +1,136 @@
+---
+title: 诊断
+description: 了解 Biome 的各种诊断
+---
+
+import DiagnosticFatal from "@/components/generated/diagnostics/DiagnosticFatal.md";
+import DiagnosticError from "@/components/generated/diagnostics/DiagnosticError.md";
+import DiagnosticWarning from "@/components/generated/diagnostics/DiagnosticWarning.md";
+import DiagnosticInformation from "@/components/generated/diagnostics/DiagnosticInformation.md";
+import DiagnosticVerbose from "@/components/generated/diagnostics/DiagnosticVerbose.md";
+import DiagnosticInternal from "@/components/generated/diagnostics/DiagnosticInternal.md";
+import DiagnosticFixable from "@/components/generated/diagnostics/DiagnosticFixable.md";
+import DiagnosticDeprecated from "@/components/generated/diagnostics/DiagnosticDeprecated.md";
+import DiagnosticCategorySimple from "@/components/generated/diagnostics/DiagnosticCategorySimple.md";
+import DiagnosticCategoryLink from "@/components/generated/diagnostics/DiagnosticCategoryLink.md";
+import DiagnosticLocFile from "@/components/generated/diagnostics/DiagnosticLocFile.md";
+import DiagnosticLocFrame from "@/components/generated/diagnostics/DiagnosticLocFrame.md";
+import DiagnosticLocAll from "@/components/generated/diagnostics/DiagnosticLocAll.md";
+import DiagnosticLocMultiline from "@/components/generated/diagnostics/DiagnosticLocMultiline.md";
+import DiagnosticWithAdvice from "@/components/generated/diagnostics/DiagnosticWithAdvice.md";
+
+Biome 的诊断信息包含丰富的信息，它们通常会提供理解错误和解决问题所需的所有信息。
+
+诊断不仅用于报告错误，还用于提供结构化信息、警告和提示。
+
+本页面详细介绍了诊断可能包含的所有信息。了解诊断的各个组成部分可以帮助您识别重要信息及其背后的"秘密"。
+
+## 诊断严重程度
+
+诊断的严重程度会影响 CLI 的行为。例如，错误诊断会强制 CLI 以错误代码退出。
+
+### 致命错误（Fatal）
+
+致命诊断使用红色文本。当 Biome 内部发生意外错误时通常会发出此类诊断。与普通错误相比，它们带有[致命标签](#诊断标签)。
+
+<DiagnosticFatal />
+
+### 错误（Error）
+
+错误诊断使用红色文本。通常应该处理这些错误，因为当 CLI 遇到它们时会返回错误代码。
+
+<DiagnosticError />
+
+### 警告（Warning）
+
+警告诊断使用黄色文本。通常也应该处理这些警告。警告不是阻断性问题，不会阻止 CLI 正常工作。
+
+<DiagnosticWarning />
+
+### 信息（Information）
+
+信息诊断使用绿色文本。它们提供有用的信息，但不会阻断 CLI 的执行。
+
+<DiagnosticInformation />
+
+## 诊断标签
+
+标签可以看作是附加到诊断上的元数据，它们会以不同方式影响客户端。
+
+### 详细（Verbose）
+
+详细诊断通常默认隐藏。通过 CLI，您可以使用 `--verbose` 选项来显示这些诊断。
+
+<DiagnosticVerbose />
+
+### 内部（Internal）
+
+当发生内部错误时会发出内部诊断。用户看到此类诊断时通常被鼓励提交 bug 报告。
+
+<DiagnosticInternal />
+
+### 可修复（Fixable）
+
+可修复诊断适用于那些用户可以自行修复的情况。它们通常用于具有代码操作的 lint 诊断。
+
+<DiagnosticFixable />
+
+### 废弃（Deprecated）
+
+包含已废弃代码的诊断
+
+<DiagnosticDeprecated />
+
+## 诊断分类
+
+分类用于对诊断进行分组。可选地，分类可以包含链接，例如属于 lint 规则的分类，如下例所示。
+
+### 简单分类
+
+此诊断属于 `"check"` 分类，这意味着在执行 `check` 命令时会发出该诊断：
+
+<DiagnosticCategorySimple />
+
+### 带链接的分类
+
+此诊断属于 `"lint/a11y/noAccessKey"` 分类。该链接会将用户带到 lint 规则 `noAccessKey` 的网页。
+
+<DiagnosticCategoryLink />
+
+## 诊断位置
+
+诊断可以包含 “位置” 信息。位置由三个可选部分组成：
+
+- 资源，即发出诊断的来源；
+- 文件的源代码；
+- 跨度(或文本范围)，通常是文件内的 **行** 和 **列** 。
+
+### 诊断文件路径
+
+文件路径通常是您在诊断左上角看到的第一条信息。
+
+<DiagnosticLocFile />
+
+### 诊断源代码
+
+这展示了与文件关联的源代码是如何显示的。请注意这里并未显示行列号。
+
+<DiagnosticLocFrame />
+
+### 诊断行号和列号
+
+**行** 和 **列** 通常打印在文件路径旁边，并且只有在有关联的源代码时才会显示。
+
+<DiagnosticLocAll />
+
+当诊断在 IDE 的终端中打印时，您可以点击 `path/to/file.js:2:2`，IDE 将打开相关文件并将光标定位在跨度的开始位置。
+
+<DiagnosticLocMultiline />
+
+## 诊断建议
+
+此外，我们的诊断还可以存储建议。建议是在原始消息之后追加的额外消息。
+
+这些建议有不同的类型和形式。通常情况下建议总是会被打印出来，除非它们是 _详细建议_。
+
+<DiagnosticWithAdvice />
