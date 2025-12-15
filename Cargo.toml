@@ -63,7 +63,7 @@
 	# Needed to fix some weird dependency
 	lock_api = "0.4.14"
 	# If you update this library, be aware of the breaking changes
-	camino         = "1.2.1"
+	camino         = "1.2.2"
 	pulldown-cmark = "0.13.0"
 	schemars       = "1.1.0"
 	serde          = "1.0.228"
