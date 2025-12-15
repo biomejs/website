@@ -26,7 +26,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "0.9.6",
-    "@astrojs/mdx": "4.3.12",
+    "@astrojs/mdx": "4.3.13",
     "@astrojs/netlify": "6.6.3",
     "@astrojs/prism": "3.3.0",
     "@astrojs/react": "4.4.2",
@@ -53,7 +53,7 @@
     "@types/react-dom": "19.2.3",
     "@uiw/react-codemirror": "4.25.3",
     "@vitejs/plugin-react": "5.1.1",
-    "astro": "5.16.4",
+    "astro": "5.16.5",
     "astro-og-canvas": "0.7.2",
     "autoprefixer": "10.4.22",
     "canvaskit-wasm": "0.40.0",
