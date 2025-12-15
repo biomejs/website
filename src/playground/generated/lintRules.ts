@@ -183,6 +183,7 @@ export const LINT_RULES = {
     noShadow: "noShadow",
     noSyncScripts: "noSyncScripts",
     noTernary: "noTernary",
+    noUndeclaredEnvVars: "noUndeclaredEnvVars",
     noUnknownAttribute: "noUnknownAttribute",
     noUnnecessaryConditions: "noUnnecessaryConditions",
     noUnresolvedImports: "noUnresolvedImports",
