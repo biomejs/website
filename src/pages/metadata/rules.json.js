@@ -637,7 +637,7 @@ export function GET() {
         "nursery": {
           "noScriptUrl": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.9",
             "name": "noScriptUrl",
             "link": "https://biomejs.dev/linter/rules/no-script-url",
             "recommended": true,
@@ -2496,7 +2496,7 @@ export function GET() {
           },
           "noScriptUrl": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.9",
             "name": "noScriptUrl",
             "link": "https://biomejs.dev/linter/rules/no-script-url",
             "recommended": true,
@@ -2773,7 +2773,7 @@ export function GET() {
           },
           "useAwaitThenable": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.9",
             "name": "useAwaitThenable",
             "link": "https://biomejs.dev/linter/rules/use-await-thenable",
             "recommended": false,
@@ -2807,7 +2807,7 @@ export function GET() {
           },
           "useDestructuring": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.9",
             "name": "useDestructuring",
             "link": "https://biomejs.dev/linter/rules/use-destructuring",
             "recommended": false,
@@ -2887,7 +2887,7 @@ export function GET() {
           },
           "useRegexpExec": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.9",
             "name": "useRegexpExec",
             "link": "https://biomejs.dev/linter/rules/use-regexp-exec",
             "recommended": false,
@@ -5086,7 +5086,7 @@ export function GET() {
           },
           "useRequiredScripts": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.9",
             "name": "useRequiredScripts",
             "link": "https://biomejs.dev/linter/rules/use-required-scripts",
             "recommended": false,
