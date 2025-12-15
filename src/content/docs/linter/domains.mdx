@@ -308,6 +308,44 @@ Rules that belong to the domain:
 - [noDuplicateTestHooks](/linter/rules/no-duplicate-test-hooks) (recommended)
 - [noExportsInTest](/linter/rules/no-exports-in-test) (recommended)
 - [noFocusedTests](/linter/rules/no-focused-tests) (recommended)
+### Turborepo activation
+Enabled the **recommended** rules of the domain:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"turborepo": "recommended"
+		}
+	}
+}
+```
+Enabled the **all** rules of the domain:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"turborepo": "all"
+		}
+	}
+}
+```
+**Disable** all rules of the domain:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"turborepo": "none"
+		}
+	}
+}
+```
+### Turborepo dependencies
+Enabled when the following dependencies are declared:
+- `turbo`: `>=1.0.0`
+
+### Turborepo rules
+Rules that belong to the domain:
+- [noUndeclaredEnvVars](/linter/rules/no-undeclared-env-vars) (recommended) [(nursery)](/linter/#nursery)
 ## Vue
 Use this domain inside Vue projects. This domain enables rules that are specific to Vue projects.
 ### Vue activation

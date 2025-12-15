@@ -329,6 +329,13 @@ export function GET() {
 					"properties": { "stylelint": { "type": "string" } },
 					"additionalProperties": false,
 					"required": ["stylelint"]
+				},
+				{
+					"description": "Rules from [Eslint Plugin Turbo](https://github.com/vercel/turborepo/tree/main/packages/eslint-plugin-turbo)",
+					"type": "object",
+					"properties": { "eslintTurbo": { "type": "string" } },
+					"additionalProperties": false,
+					"required": ["eslintTurbo"]
 				}
 			]
 		},
