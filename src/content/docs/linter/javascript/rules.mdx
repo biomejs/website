@@ -148,7 +148,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noUnusedVariables](/linter/rules/no-unused-variables) | Disallow unused variables. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noVoidElementsWithChildren](/linter/rules/no-void-elements-with-children) | This rules prevents void elements (AKA self-closing elements) from having children. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noVoidTypeReturn](/linter/rules/no-void-type-return) | Disallow returning a value from a function with the return type 'void' | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
-| [useExhaustiveDependencies](/linter/rules/use-exhaustive-dependencies) | Enforce all dependencies are correctly specified in a React hook. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [useExhaustiveDependencies](/linter/rules/use-exhaustive-dependencies) | Enforce correct dependency usage within React hooks. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useHookAtTopLevel](/linter/rules/use-hook-at-top-level) | Enforce that all React hooks are being called from the Top Level component functions. |  |
 | [useImageSize](/linter/rules/use-image-size) | Enforces that `<img>` elements have both width and height attributes. |  |
 | [useImportExtensions](/linter/rules/use-import-extensions) | Enforce file extensions for relative imports. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
@@ -182,12 +182,13 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noMultiStr](/linter/rules/no-multi-str) | Disallow creating multiline strings by escaping newlines. |  |
 | [noNextAsyncClientComponent](/linter/rules/no-next-async-client-component) | Prevent client components from being async functions. |  |
 | [noParametersOnlyUsedInRecursion](/linter/rules/no-parameters-only-used-in-recursion) | Disallow function parameters that are only used in recursive calls. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
-| [noProto](/linter/rules/no-proto) | Disallow the use of the `__proto__` property. |  |
+| [noProto](/linter/rules/no-proto) | Disallow the use of the deprecated `__proto__` object property. |  |
 | [noReactForwardRef](/linter/rules/no-react-forward-ref) | Replaces usages of `forwardRef` with passing `ref` as a prop. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
-| [noScriptUrl](/linter/rules/no-script-url) | Disallow `javascript:` URLs. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
+| [noScriptUrl](/linter/rules/no-script-url) | Disallow `javascript:` URLs. |  |
 | [noShadow](/linter/rules/no-shadow) | Disallow variable declarations from shadowing variables declared in the outer scope. |  |
 | [noSyncScripts](/linter/rules/no-sync-scripts) | Prevent the usage of synchronous scripts. |  |
 | [noTernary](/linter/rules/no-ternary) | Disallow ternary operators. |  |
+| [noUndeclaredEnvVars](/linter/rules/no-undeclared-env-vars) | Disallow the use of undeclared environment variables. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
 | [noUnknownAttribute](/linter/rules/no-unknown-attribute) | Disallow unknown DOM properties. |  |
 | [noUnnecessaryConditions](/linter/rules/no-unnecessary-conditions) | Disallow unnecessary type-based conditions that can be statically determined as redundant. |  |
 | [noUnresolvedImports](/linter/rules/no-unresolved-imports) | Warn when importing non-existing exports. |  |
@@ -200,16 +201,16 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noVueReservedProps](/linter/rules/no-vue-reserved-props) | Disallow reserved names to be used as props. |  |
 | [noVueSetupPropsReactivityLoss](/linter/rules/no-vue-setup-props-reactivity-loss) | Disallow destructuring of `props` passed to `setup` in Vue projects. |  |
 | [useArraySortCompare](/linter/rules/use-array-sort-compare) | Require Array#sort and Array#toSorted calls to always provide a compareFunction. |  |
-| [useAwaitThenable](/linter/rules/use-await-thenable) | Enforce that `await` is only used on `Promise` values. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
+| [useAwaitThenable](/linter/rules/use-await-thenable) | Enforce that `await` is only used on `Promise` values. |  |
 | [useConsistentArrowReturn](/linter/rules/use-consistent-arrow-return) | Enforce consistent arrow function bodies. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
-| [useDestructuring](/linter/rules/use-destructuring) | Require destructuring from arrays and/or objects | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
+| [useDestructuring](/linter/rules/use-destructuring) | Require destructuring from arrays and/or objects |  |
 | [useExhaustiveSwitchCases](/linter/rules/use-exhaustive-switch-cases) | Require switch-case statements to be exhaustive. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useExplicitType](/linter/rules/use-explicit-type) | Enforce types in functions, methods, variables, and parameters. |  |
 | [useFind](/linter/rules/use-find) | Enforce the use of Array.prototype.find() over Array.prototype.filter() followed by [0] when looking for a single result. |  |
 | [useMaxParams](/linter/rules/use-max-params) | Enforce a maximum number of parameters in function definitions. |  |
 | [useQwikMethodUsage](/linter/rules/use-qwik-method-usage) | Disallow `use*` hooks outside of `component$` or other `use*` hooks in Qwik applications. |  |
 | [useQwikValidLexicalScope](/linter/rules/use-qwik-valid-lexical-scope) | Disallow unserializable expressions in Qwik dollar ($) scopes. |  |
-| [useRegexpExec](/linter/rules/use-regexp-exec) | Enforce `RegExp#exec` over `String#match` if no global flag is provided. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
+| [useRegexpExec](/linter/rules/use-regexp-exec) | Enforce `RegExp#exec` over `String#match` if no global flag is provided. |  |
 | [useSortedClasses](/linter/rules/use-sorted-classes) | Enforce the sorting of CSS utility classes. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useSpread](/linter/rules/use-spread) | Enforce the use of the spread operator over `.apply()`. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useVueDefineMacrosOrder](/linter/rules/use-vue-define-macros-order) | Enforce specific order of Vue compiler macros. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |

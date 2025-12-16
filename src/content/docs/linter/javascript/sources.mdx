@@ -48,6 +48,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 ### @eslint-react/eslint-plugin
 | @eslint-react/eslint-plugin Rules name | Biome Rules name |
 | ---- | ---- |
+| [dom-no-script-url](https://eslint-react.xyz/docs/rules/dom-no-script-url) |[noScriptUrl](/linter/rules/no-script-url) |
 | [no-forward-ref](https://eslint-react.xyz/docs/rules/no-forward-ref) |[noReactForwardRef](/linter/rules/no-react-forward-ref) |
 | [no-nested-component-definitions](https://eslint-react.xyz/docs/rules/no-nested-component-definitions) |[noNestedComponentDefinitions](/linter/rules/no-nested-component-definitions) |
 | [no-nested-components](https://eslint-react.xyz/docs/rules/no-nested-components) |[noNestedComponentDefinitions](/linter/rules/no-nested-component-definitions) |
@@ -185,6 +186,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-regex-spaces](https://eslint.org/docs/latest/rules/no-regex-spaces) |[noAdjacentSpacesInRegex](/linter/rules/no-adjacent-spaces-in-regex) |
 | [no-restricted-globals](https://eslint.org/docs/latest/rules/no-restricted-globals) |[noRestrictedGlobals](/linter/rules/no-restricted-globals) |
 | [no-restricted-imports](https://eslint.org/docs/latest/rules/no-restricted-imports) |[noRestrictedImports](/linter/rules/no-restricted-imports) |
+| [no-script-url](https://eslint.org/docs/latest/rules/no-script-url) |[noScriptUrl](/linter/rules/no-script-url) |
 | [no-self-assign](https://eslint.org/docs/latest/rules/no-self-assign) |[noSelfAssign](/linter/rules/no-self-assign) |
 | [no-self-compare](https://eslint.org/docs/latest/rules/no-self-compare) |[noSelfCompare](/linter/rules/no-self-compare) |
 | [no-sequences](https://eslint.org/docs/latest/rules/no-sequences) |[noCommaOperator](/linter/rules/no-comma-operator) |
@@ -224,6 +226,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [operator-assignment](https://eslint.org/docs/latest/rules/operator-assignment) |[useShorthandAssign](/linter/rules/use-shorthand-assign) |
 | [prefer-arrow-callback](https://eslint.org/docs/latest/rules/prefer-arrow-callback) |[useArrowFunction](/linter/rules/use-arrow-function) (inspired) |
 | [prefer-const](https://eslint.org/docs/latest/rules/prefer-const) |[useConst](/linter/rules/use-const) |
+| [prefer-destructuring](https://eslint.org/docs/latest/rules/prefer-destructuring) |[useDestructuring](/linter/rules/use-destructuring) |
 | [prefer-exponentiation-operator](https://eslint.org/docs/latest/rules/prefer-exponentiation-operator) |[useExponentiationOperator](/linter/rules/use-exponentiation-operator) |
 | [prefer-numeric-literals](https://eslint.org/docs/latest/rules/prefer-numeric-literals) |[useNumericLiterals](/linter/rules/use-numeric-literals) |
 | [prefer-object-has-own](https://eslint.org/docs/latest/rules/prefer-object-has-own) |[noPrototypeBuiltins](/linter/rules/no-prototype-builtins) |
@@ -326,6 +329,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [jsx-a](https://qwik.dev/docs/advanced/eslint/#jsx-a) |[useValidAnchor](/linter/rules/use-valid-anchor) |
 | [jsx-img](https://qwik.dev/docs/advanced/eslint/#jsx-img) |[useImageSize](/linter/rules/use-image-size) |
 | [jsx-key](https://qwik.dev/docs/advanced/eslint/#jsx-key) |[useJsxKeyInIterable](/linter/rules/use-jsx-key-in-iterable) |
+| [jsx-no-script-url](https://qwik.dev/docs/advanced/eslint/#jsx-no-script-url) |[noScriptUrl](/linter/rules/no-script-url) |
 | [no-react-props](https://qwik.dev/docs/advanced/eslint/#no-react-props) |[noReactSpecificProps](/linter/rules/no-react-specific-props) |
 | [no-use-visible-task](https://qwik.dev/docs/advanced/eslint/#no-use-visible-task) |[noQwikUseVisibleTask](/linter/rules/no-qwik-use-visible-task) |
 | [prefer-classlist](https://qwik.dev/docs/advanced/eslint/#prefer-classlist) |[useQwikClasslist](/linter/rules/use-qwik-classlist) |
@@ -342,7 +346,9 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [jsx-key](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-key.md) |[useJsxKeyInIterable](/linter/rules/use-jsx-key-in-iterable) |
 | [jsx-no-comment-textnodes](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-no-comment-textnodes.md) |[noCommentText](/linter/rules/no-comment-text) |
 | [jsx-no-duplicate-props](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-no-duplicate-props.md) |[noDuplicateJsxProps](/linter/rules/no-duplicate-jsx-props) |
+| [jsx-no-leaked-render](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-no-leaked-render.md) |[noLeakedRender](/linter/rules/no-leaked-render) (inspired) |
 | [jsx-no-literals](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-no-literals.md) |[noJsxLiterals](/linter/rules/no-jsx-literals) |
+| [jsx-no-script-url](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-no-script-url.md) |[noScriptUrl](/linter/rules/no-script-url) |
 | [jsx-no-target-blank](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-no-target-blank.md) |[noBlankTarget](/linter/rules/no-blank-target) (inspired) |
 | [jsx-no-useless-fragment](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-no-useless-fragment.md) |[noUselessFragments](/linter/rules/no-useless-fragments) |
 | [jsx-props-no-spread-multi](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-props-no-spread-multi.md) |[noDuplicatedSpreadProps](/linter/rules/no-duplicated-spread-props) |
@@ -350,7 +356,6 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-children-prop](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-children-prop.md) |[noChildrenProp](/linter/rules/no-children-prop) |
 | [no-danger](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-danger.md) |[noDangerouslySetInnerHtml](/linter/rules/no-dangerously-set-inner-html) |
 | [no-danger-with-children](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-danger-with-children.md) |[noDangerouslySetInnerHtmlWithChildren](/linter/rules/no-dangerously-set-inner-html-with-children) |
-| [no-leaked-render](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-leaked-render.md) |[noLeakedRender](/linter/rules/no-leaked-render) (inspired) |
 | [no-unknown-property](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-unknown-property.md) |[noUnknownAttribute](/linter/rules/no-unknown-attribute) |
 | [void-dom-elements-no-children](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/void-dom-elements-no-children.md) |[noVoidElementsWithChildren](/linter/rules/no-void-elements-with-children) |
 ### eslint-plugin-react-hooks
@@ -377,9 +382,11 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | eslint-plugin-regexp Rules name | Biome Rules name |
 | ---- | ---- |
 | [no-useless-backreference](https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-useless-backreference.html) |[noUselessRegexBackrefs](/linter/rules/no-useless-regex-backrefs) |
+| [prefer-regexp-exec](https://ota-meshi.github.io/eslint-plugin-regexp/rules/prefer-regexp-exec.html) |[useRegexpExec](/linter/rules/use-regexp-exec) |
 ### eslint-plugin-solid
 | eslint-plugin-solid Rules name | Biome Rules name |
 | ---- | ---- |
+| [jsx-no-script-url](https://github.com/solidjs-community/eslint-plugin-solid/blob/main/packages/eslint-plugin-solid/docs/jsx-no-script-url.md) |[noScriptUrl](/linter/rules/no-script-url) |
 | [no-destructure](https://github.com/solidjs-community/eslint-plugin-solid/blob/main/packages/eslint-plugin-solid/docs/no-destructure.md) |[noSolidDestructuredProps](/linter/rules/no-solid-destructured-props) (inspired) |
 | [no-react-specific-props](https://github.com/solidjs-community/eslint-plugin-solid/blob/main/packages/eslint-plugin-solid/docs/no-react-specific-props.md) |[noReactSpecificProps](/linter/rules/no-react-specific-props) |
 | [prefer-for](https://github.com/solidjs-community/eslint-plugin-solid/blob/main/packages/eslint-plugin-solid/docs/prefer-for.md) |[useSolidForComponent](/linter/rules/use-solid-for-component) (inspired) |
@@ -492,9 +499,11 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [prefer-namespace-keyword](https://typescript-eslint.io/rules/prefer-namespace-keyword) |[useNamespaceKeyword](/linter/rules/use-namespace-keyword) |
 | [prefer-optional-chain](https://typescript-eslint.io/rules/prefer-optional-chain) |[useOptionalChain](/linter/rules/use-optional-chain) |
 | [prefer-readonly](https://typescript-eslint.io/rules/prefer-readonly) |[useReadonlyClassProperties](/linter/rules/use-readonly-class-properties) |
+| [prefer-regexp-exec](https://typescript-eslint.io/rules/prefer-regexp-exec) |[useRegexpExec](/linter/rules/use-regexp-exec) |
 | [require-array-sort-compare](https://typescript-eslint.io/rules/require-array-sort-compare) |[useArraySortCompare](/linter/rules/use-array-sort-compare) |
 | [require-await](https://typescript-eslint.io/rules/require-await) |[useAwait](/linter/rules/use-await) |
 | [switch-exhaustiveness-check](https://typescript-eslint.io/rules/switch-exhaustiveness-check) |[useExhaustiveSwitchCases](/linter/rules/use-exhaustive-switch-cases) |
 | [unified-signatures](https://typescript-eslint.io/rules/unified-signatures) |[useUnifiedTypeSignatures](/linter/rules/use-unified-type-signatures) |
+| [use-await-thenable](https://typescript-eslint.io/rules/use-await-thenable) |[useAwaitThenable](/linter/rules/use-await-thenable) (inspired) |
 
 Missing a rule? Help us by [contributing](https://github.com/biomejs/biome/blob/main/CONTRIBUTING.md) to the [analyzer](https://github.com/biomejs/biome/blob/main/crates/biome_analyze/CONTRIBUTING.md) or create a rule suggestion [here](https://github.com/biomejs/biome/discussions/categories/rule-suggestion).

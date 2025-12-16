@@ -204,6 +204,7 @@ export default {
   '/linter/rules/noTypeOnlyImportAttributes': '/linter/rules/no-type-only-import-attributes',
   '/linter/rules/noUnassignedVariables': '/linter/rules/no-unassigned-variables',
   '/linter/rules/noUndeclaredDependencies': '/linter/rules/no-undeclared-dependencies',
+  '/linter/rules/noUndeclaredEnvVars': '/linter/rules/no-undeclared-env-vars',
   '/linter/rules/noUndeclaredVariables': '/linter/rules/no-undeclared-variables',
   '/linter/rules/noUnknownAtRules': '/linter/rules/no-unknown-at-rules',
   '/linter/rules/noUnknownAttribute': '/linter/rules/no-unknown-attribute',
