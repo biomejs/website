@@ -5997,7 +5997,7 @@ export function GET() {
               {
                 "kind": "inspired",
                 "source": {
-                  "eslintReact": "no-leaked-render"
+                  "eslintReact": "jsx-no-leaked-render"
                 }
               }
             ],
