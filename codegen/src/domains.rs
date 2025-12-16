@@ -116,6 +116,13 @@ impl DocDomains {
                         "Use this domain inside Qwik projects. This domain enables rules that are specific to Qwik projects."
                     )?;
                 }
+                RuleDomain::Turborepo => {
+                    writeln!(buffer, "## {name}")?;
+                    writeln!(
+                        buffer,
+                        "Use this domain inside Turborepo projects. This domain enables rules that are specific to Turborepo projects."
+                    )?;
+                }
                 #[allow(unreachable_patterns)]
                 domain => {
                     eprintln!("Undocumented domain: {domain:?}");
