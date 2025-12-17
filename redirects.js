@@ -8,6 +8,7 @@ export default {
   '/linter/rules/noAccumulatingSpread': '/linter/rules/no-accumulating-spread',
   '/linter/rules/noAdjacentSpacesInRegex': '/linter/rules/no-adjacent-spaces-in-regex',
   '/linter/rules/noAlert': '/linter/rules/no-alert',
+  '/linter/rules/noAmbiguousAnchorText': '/linter/rules/no-ambiguous-anchor-text',
   '/linter/rules/noApproximativeNumericConstant': '/linter/rules/no-approximative-numeric-constant',
   '/linter/rules/noArguments': '/linter/rules/no-arguments',
   '/linter/rules/noAriaHiddenOnFocusable': '/linter/rules/no-aria-hidden-on-focusable',
