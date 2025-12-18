@@ -10,8 +10,12 @@ import starlightChangelogs, {
 } from "starlight-changelogs";
 import starlightLinksValidator from "starlight-links-validator";
 import { searchForWorkspaceRoot } from "vite";
-import { version as biomeVersion } from "./node_modules/@biomejs/wasm-web/package.json" with { type: "json" };
-import { version as prettierVersion } from "./node_modules/prettier/package.json" with { type: "json" };
+import { version as biomeVersion } from "./node_modules/@biomejs/wasm-web/package.json" with {
+	type: "json",
+};
+import { version as prettierVersion } from "./node_modules/prettier/package.json" with {
+	type: "json",
+};
 import redirects from "./redirects.js";
 
 const plugins = [
