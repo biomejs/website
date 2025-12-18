@@ -667,6 +667,23 @@ export function GET() {
             ],
             "docs": " The scope prop should be used only on `<th>` elements.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div scope=\"col\"></div>\n ```\n\n ```html,expect_diagnostic\n <div scope></div>\n ```\n\n ### Valid\n\n ```html\n <th scope=\"col\"></th>\n ```\n\n ```html\n <th scope></th>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 1.3.1](https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships)\n - [WCAG 4.1.1](https://www.w3.org/WAI/WCAG21/Understanding/parsing)\n\n"
           },
+          "noPositiveTabindex": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noPositiveTabindex",
+            "link": "https://biomejs.dev/linter/rules/no-positive-tabindex",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJsxA11y": "tabindex-no-positive"
+                }
+              }
+            ],
+            "docs": " Prevent the usage of positive integers on `tabindex` attribute.\n\n Avoid positive `tabindex` attribute values to synchronize the flow of the page with keyboard tab order.\n\n ## Accessibility guidelines\n\n [WCAG 2.4.3](https://www.w3.org/WAI/WCAG21/Understanding/focus-order)\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div tabindex=\"1\"></div>\n ```\n\n ```html,expect_diagnostic\n <div tabindex=\"5\"></div>\n ```\n\n ### Valid\n\n ```html\n <div tabindex=\"0\"></div>\n ```\n\n ```html\n <div tabindex=\"-1\"></div>\n ```\n\n"
+          },
           "useAriaPropsForRole": {
             "deprecated": false,
             "version": "next",
@@ -7107,7 +7124,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 410
+    "numberOrRules": 411
   },
   "syntax": {
     "languages": {
