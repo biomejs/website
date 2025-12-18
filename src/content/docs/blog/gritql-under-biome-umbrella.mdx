@@ -5,7 +5,7 @@ excerpt: |
 authors:
   - arendjr
   - team
-date: 2025-12-17
+date: 2025-12-18
 cover:
   light: "@/assets/blog/roadmap-2024/banner-light.png"
   dark: "@/assets/blog/roadmap-2024/banner-dark.png"
@@ -13,8 +13,6 @@ cover:
 socialImage: "@/assets/social-logo.png"
 featured: true
 ---
-import LocaleNumber from "@/components/LocaleNumber.astro"
-
 Today, we are happy and grateful to make a special announcement regarding the continuation of [GritQL](https://docs.grit.io/).
 
 Some observant members of the Biome and GritQL communities may have already spotted that something big was happening behind the scenes: Biome is now the proud owner of the [GritQL repositories](https://github.com/orgs/biomejs/repositories?q=gritql).
@@ -23,9 +21,7 @@ Ever since Biome 2.0, GritQL plugins have been supported as a mechanism to add c
 
 We took a leap of faith, because we believed in Morgante's vision in how GritQL can make writing of plugins more intuitive for our end users. The expressive power of GritQL makes it so that end users can intuitively understand how to write plugins, even if they're not familiar with the internals of AST structures themselves.
 
-For a little bit, it appeared our gamble was coming back to bite us. [Honeycomb](https://www.honeycomb.io/) bought Grit.io, and the future of the language looked uncertain.
-
-But thankfully, Morgante came around and graciously donated the GritQL repositories to Biome. Special thanks go to Honeycomb too, as they greenlit the move.
+When [Honeycomb](https://www.honeycomb.io/) acquired Grit earlier this year, and the future of the language looked unclear, it appeared our gamble was coming back to bite us. But thankfully, we're excited to share that Morgante and Honeycomb have graciously agreed to donate the GritQL repositories to Biome.
 
 ## So, does that mean Biome is now responsible for the development of GritQL?
 
@@ -45,7 +41,7 @@ Early 2024, we drafted our initial [Plugin Proposal RFC](https://github.com/biom
 
 We do recognise that not everyone likes writing plugins using GritQL.
 
-As the RFC mentioned, we also intend to work towards support for JS/TS plugins too. Last August, we [integrated](https://github.com/biomejs/biome/pull/7300) [Boa](https://boajs.dev/) as a JavaScript interpreter that we can integrate into Biome. Back in 2024, Morgante also proposed a [TypeScript API](https://github.com/biomejs/gritql/discussions/403) for GritQL so that users may or may not be able to use both forms of plugin functionality together. We don't know how this will pan out yet, but hopefully with Morgante's commitment, some of the work may speed up a bit.
+As the RFC mentioned, we also intend to work towards support for JS/TS plugins too. This August, we [integrated](https://github.com/biomejs/biome/pull/7300) [Boa](https://boajs.dev/) as a JavaScript interpreter that we can integrate into Biome. Back in 2024, Morgante also proposed a [TypeScript API](https://github.com/biomejs/gritql/discussions/403) for GritQL so that users may or may not be able to use both forms of plugin functionality together. We don't know how this will pan out yet, but hopefully with Morgante's commitment, some of the work may speed up a bit.
 
 ## Can I help move Biome's plugin efforts forward?
 
