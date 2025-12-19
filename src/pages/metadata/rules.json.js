@@ -2437,6 +2437,23 @@ export function GET() {
             ],
             "docs": " Disallows the usage of the unary operators ++ and --.\n\n Because the unary ++ and -- operators are subject to automatic semicolon insertion, differences in whitespace can change semantics of source code.\n\n ```js,expect_diagnostic\n let i = 10;\n let j = 20;\n\n i ++\n j\n // i = 11, j = 20\n ```\n\n ```js,expect_diagnostic\n let i = 10;\n let j = 20;\n\n i\n ++\n j\n // i = 10, j = 21\n ```\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n let foo = 0;\n foo++;\n ```\n\n ```js,expect_diagnostic\n let bar = 42;\n bar--;\n ```\n\n ```js,expect_diagnostic\n for (let i = 0; i < 10; i++) {\n     doSomething(i);\n }\n ```\n\n ```js,expect_diagnostic\n for (let i = 0; i < 10;) {\n     doSomething(i);\n     i++;\n }\n ```\n\n ### Valid\n\n ```js\n let foo = 0;\n foo += 1;\n ```\n\n ```js\n let bar = 42;\n bar -= 1;\n ```\n\n ```js\n for (let i = 0; i < 10; i += 1) {\n     doSomething(i);\n }\n ```\n\n ```js\n for (let i = 0; i < 10;) {\n     doSomething(i);\n     i += 1;\n }\n ```\n\n ## Options\n\n ### `allowForLoopAfterthoughts`\n\n Allows unary operators ++ and -- in the afterthought (final expression) of a for loop.\n\n Default `false`\n\n ```json,options\n {\n   \"options\": {\n     \"allowForLoopAfterthoughts\": true\n   }\n }\n ```\n\n #### Invalid\n\n ```js,expect_diagnostic,use_options\n for (let i = 0; i < j; j = i++) {\n     doSomething(i, j);\n }\n ```\n\n ```js,expect_diagnostic,use_options\n for (let i = 10; i--;) {\n     doSomething(i);\n }\n ```\n\n ```js,expect_diagnostic,use_options\n for (let i = 0; i < 10;) i++;\n ```\n\n #### Valid\n\n ```js,use_options\n for (let i = 0; i < 10; i++) {\n     doSomething(i);\n }\n ```\n\n ```js,use_options\n for (let i = 0, j = l; i < l; i++, j--) {\n     doSomething(i, j);\n }\n ```\n\n"
           },
+          "noMultiAssign": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noMultiAssign",
+            "link": "https://biomejs.dev/linter/rules/no-multi-assign",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslint": "no-multi-assign"
+                }
+              }
+            ],
+            "docs": " Disallow use of chained assignment expressions\n\n Chaining the assignment of variables can lead to unexpected results and\n be difficult to read.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const foo = bar = \"baz\";\n ```\n\n ### Valid\n\n ```js\n const foo = \"baz\";\n const bar = \"baz\";\n ```\n\n"
+          },
           "noMultiStr": {
             "deprecated": false,
             "version": "2.3.8",
@@ -7022,7 +7039,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 405
+    "numberOrRules": 406
   },
   "syntax": {
     "languages": {

@@ -175,6 +175,7 @@ export const LINT_RULES = {
     noJsxLiterals: "noJsxLiterals",
     noLeakedRender: "noLeakedRender",
     noMisusedPromises: "noMisusedPromises",
+    noMultiAssign: "noMultiAssign",
     noMultiStr: "noMultiStr",
     noNextAsyncClientComponent: "noNextAsyncClientComponent",
     noParametersOnlyUsedInRecursion: "noParametersOnlyUsedInRecursion",
