@@ -291,7 +291,7 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/no-value-at-rule",
             "recommended": false,
             "fixKind": "none",
-            "docs": " Disallow use of `@value` rule in css modules.\n\n Use of CSS variables is recommended instead of `@value` rule.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n @value red: #FF0000;\n ```\n\n ### Valid\n\n ```css\n :root {\n   --red: #FF0000\n }\n\n p {\n   background-color: var(--red);\n }\n ```\n\n"
+            "docs": " Disallow use of `@value` rule in CSS modules.\n\n Use of CSS variables is recommended instead of `@value` rule.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic,file=example.module.css\n @value red: #FF0000;\n ```\n\n ### Valid\n\n ```css,file=example.module.css\n :root {\n   --red: #FF0000\n }\n\n p {\n   background-color: var(--red);\n }\n ```\n\n"
           }
         },
         "suspicious": {
