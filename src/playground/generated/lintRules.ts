@@ -215,6 +215,7 @@ export const LINT_RULES = {
     useSortedClasses: "useSortedClasses",
     useSpread: "useSpread",
     useUniqueGraphqlOperationName: "useUniqueGraphqlOperationName",
+    useVueConsistentDefinePropsDeclaration: "useVueConsistentDefinePropsDeclaration",
     useVueDefineMacrosOrder: "useVueDefineMacrosOrder",
     useVueHyphenatedAttributes: "useVueHyphenatedAttributes",
     useVueMultiWordComponentNames: "useVueMultiWordComponentNames",
