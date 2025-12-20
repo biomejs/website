@@ -3002,6 +3002,23 @@ export function GET() {
             ],
             "docs": " Enforce the use of the spread operator over `.apply()`.\n\n The `apply()` method is used to call a function with a given `this` value and arguments provided as an array.\n The spread operator `...` can be used to achieve the same result, which is more concise and easier to read.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n foo.apply(null, args);\n ```\n\n ```js,expect_diagnostic\n foo.apply(null, [1, 2, 3]);\n ```\n\n ```js,expect_diagnostic\n foo.apply(undefined, args);\n ```\n\n ```js,expect_diagnostic\n obj.foo.apply(obj, args);\n ```\n\n ### Valid\n\n ```js\n foo(...args);\n\n obj.foo(...args);\n\n foo.apply(obj, [1, 2, 3]);\n\n ```\n\n"
           },
+          "useVueConsistentDefinePropsDeclaration": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useVueConsistentDefinePropsDeclaration",
+            "link": "https://biomejs.dev/linter/rules/use-vue-consistent-define-props-declaration",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "define-props-declaration"
+                }
+              }
+            ],
+            "docs": " Enforce consistent `defineProps` declaration style.\n\n This rule enforces `defineProps` typing style which you should use `type` or `runtime` declaration.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script setup lang=\"ts\">\n const props = defineProps({\n   kind: { type: String },\n });\n </script>\n ```\n\n ### Valid\n\n ```vue\n <script setup lang=\"ts\">\n const props = defineProps<{\n   kind: string;\n }>();\n </script>\n ```\n\n"
+          },
           "useVueDefineMacrosOrder": {
             "deprecated": false,
             "version": "2.3.0",
@@ -7039,7 +7056,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 406
+    "numberOrRules": 407
   },
   "syntax": {
     "languages": {

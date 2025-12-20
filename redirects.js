@@ -393,6 +393,7 @@ export default {
   '/linter/rules/useValidForDirection': '/linter/rules/use-valid-for-direction',
   '/linter/rules/useValidLang': '/linter/rules/use-valid-lang',
   '/linter/rules/useValidTypeof': '/linter/rules/use-valid-typeof',
+  '/linter/rules/useVueConsistentDefinePropsDeclaration': '/linter/rules/use-vue-consistent-define-props-declaration',
   '/linter/rules/useVueDefineMacrosOrder': '/linter/rules/use-vue-define-macros-order',
   '/linter/rules/useVueHyphenatedAttributes': '/linter/rules/use-vue-hyphenated-attributes',
   '/linter/rules/useVueMultiWordComponentNames': '/linter/rules/use-vue-multi-word-component-names',
