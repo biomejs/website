@@ -92,6 +92,30 @@ function PlaygroundLoader() {
 					break;
 				}
 
+				case "log": {
+					const { level, message } = event.data as {
+						level: "log" | "info" | "warn" | "error";
+						message: unknown[];
+					};
+					switch (level) {
+						case "log":
+							console.log("[Biome worker]", ...message);
+							break;
+						case "info":
+							console.info("[Biome worker]", ...message);
+							break;
+						case "warn":
+							console.warn("[Biome worker]", ...message);
+							break;
+						case "error":
+							console.error("[Biome worker]", ...message);
+							break;
+						default:
+							console.log("[Biome worker]", ...message);
+					}
+					break;
+				}
+
 				default:
 					console.error(`Unknown message ${event.data.type}`);
 			}
@@ -111,6 +135,30 @@ function PlaygroundLoader() {
 							},
 						},
 					}));
+					break;
+				}
+
+				case "log": {
+					const { level, message } = event.data as {
+						level: "log" | "info" | "warn" | "error";
+						message: unknown[];
+					};
+					switch (level) {
+						case "log":
+							console.log("[Prettier worker]", ...message);
+							break;
+						case "info":
+							console.info("[Prettier worker]", ...message);
+							break;
+						case "warn":
+							console.warn("[Prettier worker]", ...message);
+							break;
+						case "error":
+							console.error("[Prettier worker]", ...message);
+							break;
+						default:
+							console.log("[Prettier worker]", ...message);
+					}
 					break;
 				}
 

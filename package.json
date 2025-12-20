@@ -75,6 +75,7 @@
     "starlight-blog": "0.25.2",
     "starlight-changelogs": "0.2.3",
     "starlight-links-validator": "0.19.2",
+    "svelte": "^5.46.0",
     "textlint": "15.5.0",
     "textlint-filter-rule-comments": "1.2.2",
     "textlint-rule-preset-jtf-style": "3.0.3",
