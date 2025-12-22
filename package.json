@@ -87,7 +87,7 @@
   "pnpm": {
     "overrides": {
       "@biomejs/version-utils": "^0.4.0",
-      "shiki": "3.19.0"
+      "shiki": "3.20.0"
     }
   }
 }
