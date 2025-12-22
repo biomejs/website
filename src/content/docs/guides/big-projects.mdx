@@ -186,7 +186,7 @@ The root configuration excludes `app/generated.ts`, and the nested configuration
 ```
 
 **This setting won't exclude `app/generated.ts` if/when you decide to run a command from `/Users/todo/app`**. That's because when Biome resolves globs from `app/biome.json`,
-the extended glob `!app/generated.ts` is resolved like this: `/Users/todo/app ~ !app/generatd.ts`, which doesn't match any existing folder inside the project.
+the extended glob `!app/generated.ts` is resolved like this: `/Users/todo/app ~ !app/generated.ts`, which doesn't match any existing folder inside the project.
 
 To properly exclude `app/generated.ts`, you have two options:
 - Prepend the glob with `**`, so that any folder is matched:
