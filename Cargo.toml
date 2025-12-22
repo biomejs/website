@@ -19,7 +19,7 @@ anyhow = "1.0.100"
 biome_analyze = { git = "https://github.com/biomejs/biome.git", rev = "6b09620edbbe384adbcb7d2fbb945a88246ba6e3", features = [
 	"schema",
 ] }
-biome_cli = { git = "https://github.com/biomejs/biome.git", rev = "6b09620edbbe384adbcb7d2fbb945a88246ba6e3" }
+biome_cli = { git = "https://github.com/biomejs/biome.git", rev = "9250f6210947c56c15e12fd62b43f7206041ffed" }
 biome_configuration = { git = "https://github.com/biomejs/biome.git", rev = "6b09620edbbe384adbcb7d2fbb945a88246ba6e3", features = [
 	"schema",
 ] }
