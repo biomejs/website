@@ -65,7 +65,7 @@
     "postcss": "8.5.6",
     "postcss-mixins": "12.1.2",
     "prettier": "3.7.4",
-    "prettier-plugin-svelte": "3.4.0",
+    "prettier-plugin-svelte": "3.4.1",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "rehype-autolink-headings": "7.1.0",
