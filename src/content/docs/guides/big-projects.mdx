@@ -147,6 +147,61 @@ case, we suggest ignoring the nested project entirely using
 [the `files.includes` field](/reference/configuration/#filesincludes).
 :::
 
+### Globs resolution
+
+The resolution of globs defined in the `*.includes` fields doesn't change when a nested configuration file extends the root.
+
+For example, the following project is placed in the folder `/Users/todo`, and contains a root configuration in `/Users/todo/biome.json`, and one
+inside `/Users/todo/app/biome.json`.
+
+- Globs defined in `/Users/todo/biome.json` are resolved from `/Users/todo/`.
+- Globs defined in `/Users/todo/app/biome.json` are resolved from `/Users/todo/app`.
+
+The root configuration excludes `app/generate.ts`, and the nested configuration extends the root, as follow:
+
+<FileTree>
+  - app
+    - biome.json
+    - generated.ts
+    - package.json
+  - biome.json
+  - package.json
+</FileTree>
+
+```json title="/Users/todo/biome.json"
+{
+  "files": {
+    "includes": [
+      "**",
+      "!app/generated.ts"
+    ]
+  }
+}
+```
+
+```json title="/Users/todo/app/biome.json"
+{
+  "extends": "//"
+}
+```
+
+**This setting won't exclude `app/generated.ts` if/when you decide to run a command from `/Users/todo/app`**. That's because when Biome resolves globs from `app/biome.json`,
+the extended glob `!app/generated.ts` is resolved like this: `/Users/todo/app ~ !app/generatd.ts`, which doesn't match any existing folder inside the project.
+
+To properly exclude `app/generated.ts`, you have two options:
+- Prepend the glob with `**`, so that any folder is matched:
+  ```json title="/Users/todo/biome.json" ins="!**" ins={5}
+  {
+    "files": {
+      "includes": [
+        "**",
+        "!**/app/generated.ts"
+      ]
+    }
+  }
+  ```
+- Move the `!app/generated.ts` glob inside `/Users/todo/app/biome.json`
+
 ## Other ways to share a configuration file
 
 As we saw above, the `extends` field allows you to split your configuration

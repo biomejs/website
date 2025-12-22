@@ -57,6 +57,8 @@ This is required so Biome can orchestrate multiple files in CLI and editors at t
 
 A list of [glob patterns](#glob-syntax-reference) of files to process.
 
+All globs are resolved from the configuration file where they are defined.
+
 If a folder matches a glob pattern, all files inside that folder will be
 processed.
 
@@ -245,6 +247,8 @@ Enables Biome's linter.
 
 A list of [glob patterns](#glob-syntax-reference) of files to lint.
 
+All globs are resolved from the configuration file where they are defined.
+
 The following example lints all files with a `.js` extension inside the `src`
 folder:
 
@@ -392,6 +396,8 @@ Enables Biome's assist.
 
 A list of [glob patterns](#glob-syntax-reference) of files to lint.
 
+All globs are resolved from the configuration file where they are defined.
+
 The following example analyzes all files with a `.js` extension inside the `src`
 folder:
 
@@ -503,6 +509,8 @@ Enables Biome's formatter.
 ### `formatter.includes`
 
 A list of [glob patterns](#glob-syntax-reference) of files to format.
+
+All globs are resolved from the configuration file where they are defined.
 
 The following example formats all files with a `.js` extension inside the `src`
 folder:
@@ -1482,6 +1490,8 @@ The order of the patterns matter. If a file *can* match three patterns, only the
 
 A list of [glob patterns](https://en.wikipedia.org/wiki/Glob_(programming)) of
 files for which to apply customised settings.
+
+All globs are resolved from the configuration file where they are defined.
 
 ```jsonc title="biome.jsonc"
 {
