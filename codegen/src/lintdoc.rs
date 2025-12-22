@@ -761,12 +761,12 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
             if is_recommended {
                 writeln!(
                     content,
-                    "- This rule is **recommended**, which means is enabled by default."
+                    "- This rule is **recommended**, meaning it is enabled by default."
                 )?;
             } else if is_not_recommended {
                 writeln!(
                     content,
-                    "- This is not part of the recommended rules, meaning it is disabled by default."
+                    "- This rule isn't recommended, so you need to enable it."
                 )?;
             }
             match meta.fix_kind {
