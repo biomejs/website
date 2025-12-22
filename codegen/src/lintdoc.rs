@@ -475,7 +475,7 @@ fn generate_language_page(
 import {{ Icon }} from "@astrojs/starlight/components";
 
 Below the list of rules supported by Biome, divided by group. Here's a legend of the emojis:
-- The icon <span class='inline-icon' title="This rule is recommended"><Icon name="approve-check-circle"x label="This rule is recommended" /></span> indicates that the rule is part of the recommended rules.
+- The icon <span class='inline-icon' title="This rule is recommended"><Icon name="approve-check-circle" label="This rule is recommended" /></span> indicates that the rule is part of the recommended rules.
 - The icon <span class='inline-icon' title="This rule has a safe fix"><Icon name="seti:config" label="The rule has a safe fix" /></span> indicates that the rule provides a code action (fix) that is **safe** to apply.
 - The icon <span class='inline-icon' title="This rule has an unsafe fix"><Icon name="warning" label="The rule has an unsafe fix" /></span> indicates that the rule provides a code action (fix) that is **unsafe** to apply.
 - The icon <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" /></span> indicates that the rule has been implemented and scheduled for the next release.
@@ -534,7 +534,7 @@ fn generate_group(
 
     for (rule_name, rule_to_document) in rules {
         for meta in rule_to_document.clone().language_to_metadata.values() {
-            let is_recommended = !is_nursery && meta.recommended && meta.domains.is_empty();
+            let is_recommended = !is_nursery && meta.recommended;
             let dashed_rule = Case::Kebab.convert(rule_name);
             let severity = match meta.severity {
                 Severity::Information => {
@@ -698,7 +698,8 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
         path_prefix,
         rule_category,
     } = rule_content;
-    let is_recommended = !is_nursery && meta.recommended && meta.domains.is_empty();
+    let is_recommended = !is_nursery && meta.recommended;
+    let is_not_recommended = !is_nursery && !meta.recommended;
     let mut content = Vec::new();
 
     if let Some(reason) = &meta.deprecated {
@@ -760,7 +761,12 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
             if is_recommended {
                 writeln!(
                     content,
-                    "- This rule is **recommended**, which means is enabled by default."
+                    "- This rule is **recommended**, meaning it is enabled by default."
+                )?;
+            } else if is_not_recommended {
+                writeln!(
+                    content,
+                    "- This rule isn't recommended, so you need to enable it."
                 )?;
             }
             match meta.fix_kind {
