@@ -43,8 +43,14 @@ in the `turbo.json(c)` configuration file to ensure proper caching behavior.
 Using undeclared environment variables can lead to incorrect cache hits
 and unpredictable build behavior.
 
-This rule checks for `process.env.VAR_NAME` and `import.meta.env.VAR_NAME`
-accesses and validates them against:
+This rule checks for environment variable accesses in the following patterns:
+
+- `process.env.VAR_NAME` and `process.env["VAR_NAME"]`
+- `import.meta.env.VAR_NAME` and `import.meta.env["VAR_NAME"]`
+- `Bun.env.VAR_NAME` and `Bun.env["VAR_NAME"]`
+- `Deno.env.get("VAR_NAME")`
+
+It validates them against:
 
 1. Environment variables declared in `turbo.json(c)` (`globalEnv`, `globalPassThroughEnv`, task-level `env`, and task-level `passThroughEnv`)
 2. Environment variables specified in the rule's `allowedEnvVars` option
