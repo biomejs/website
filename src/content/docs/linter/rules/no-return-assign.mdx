@@ -1,0 +1,82 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noReturnAssign
+description: Learn more about noReturnAssign
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noReturnAssign`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Same as [`no-return-assign`](https://eslint.org/docs/latest/rules/no-return-assign)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noReturnAssign": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow assignments in return statements.
+
+In return statements, it is common to mistype a comparison operator (such as `==`) as an assignment operator (such as `=`).
+Moreover, the use of assignments in a return statement is confusing.
+Return statements are often considered side-effect free.
+
+## Examples
+
+### Invalid
+
+```js
+function f(a) {
+    return a = 1;
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:2:12 <a href="https://biomejs.dev/linter/rules/no-return-assign">lint/nursery/noReturnAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>Return statements</strong></span><span style="color: Tomato;"> should not contain </span><span style="color: Tomato;"><strong>assignments</strong></span><span style="color: Tomato;">.</span><br />  <br />    <strong>1 │ </strong>function f(a) &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>    return a = 1;<br />   <strong>   │ </strong>           <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Assignments inside return statements are easy to mistake for comparison operators (&#96;==&#96;), and add unexpected side effects to normally-pure code.<br /></span>    <span style="color: lightgreen;">If the assignment is intentional, move it outside of the return statement.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+### Valid
+
+```js
+function f(a) {
+    a = 1;
+    return a;
+}
+```
+
+```js
+function f(a) {
+    return a == 1;
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_return_assign.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noReturnAssign)
+
+</TabItem>
+</Tabs>
+

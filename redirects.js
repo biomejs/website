@@ -176,6 +176,7 @@ export default {
   '/linter/rules/noRestrictedGlobals': '/linter/rules/no-restricted-globals',
   '/linter/rules/noRestrictedImports': '/linter/rules/no-restricted-imports',
   '/linter/rules/noRestrictedTypes': '/linter/rules/no-restricted-types',
+  '/linter/rules/noReturnAssign': '/linter/rules/no-return-assign',
   '/linter/rules/noScriptUrl': '/linter/rules/no-script-url',
   '/linter/rules/noSecrets': '/linter/rules/no-secrets',
   '/linter/rules/noSelfAssign': '/linter/rules/no-self-assign',
