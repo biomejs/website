@@ -2545,6 +2545,23 @@ export function GET() {
             ],
             "docs": " Replaces usages of `forwardRef` with passing `ref` as a prop.\n\n In React 19, `forwardRef` is no longer necessary. Pass `ref` as a prop instead.\n This rule detects the usage of the `forwardRef` API, and it suggests using the prop `ref`\n instead.\n See [the official blog post](https://react.dev/blog/2024/12/05/react-19#ref-as-a-prop) for details.\n\n This rule should be disabled if you are working with React 18 or earlier.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n import { forwardRef } from \"react\";\n\n const MyInput = forwardRef(function MyInput(props, ref) {\n   return <input ref={ref} {...props} />;\n });\n ```\n\n ```jsx,expect_diagnostic\n import { forwardRef } from \"react\";\n\n const MyInput = forwardRef((props, ref) => {\n   return <input ref={ref} {...props} />;\n });\n ```\n\n ### Valid\n\n ```jsx\n function MyInput({ ref, ...props }) {\n   return <input ref={ref} {...props} />;\n }\n ```\n\n ```jsx\n const MyInput = ({ ref, ...props }) => {\n   return <input ref={ref} {...props} />;\n }\n ```\n\n"
           },
+          "noReturnAssign": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noReturnAssign",
+            "link": "https://biomejs.dev/linter/rules/no-return-assign",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "no-return-assign"
+                }
+              }
+            ],
+            "docs": " Disallow assignments in return statements.\n\n In return statements, it is common to mistype a comparison operator (such as `==`) as an assignment operator (such as `=`).\n Moreover, the use of assignments in a return statement is confusing.\n Return statements are often considered side-effect free.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function f(a) {\n     return a = 1;\n }\n ```\n\n ### Valid\n\n ```js\n function f(a) {\n     a = 1;\n     return a;\n }\n ```\n\n ```js\n function f(a) {\n     return a == 1;\n }\n ```\n\n"
+          },
           "noScriptUrl": {
             "deprecated": false,
             "version": "2.3.9",
@@ -7056,7 +7073,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 407
+    "numberOrRules": 408
   },
   "syntax": {
     "languages": {
