@@ -3,7 +3,7 @@ title: 大規模プロジェクトでのBiomeの使用方法
 description: 大規模プロジェクトでBiomeを使用するための簡単なガイド
 ---
 
-import {FileTree} from '@astrojs/starlight/components';
+import {FileTree, Steps} from '@astrojs/starlight/components';
 
 Biomeは、モノレポや複数のプロジェクトを含むワークスペースなどの大規模なプロジェクトで、適切に使用するためのツールを提供しています。
 
@@ -11,7 +11,7 @@ Biomeは、モノレポや複数のプロジェクトを含むワークスペー
 
 Biomeの機能をCLIやLSPで使用する場合、ツールは現在の作業ディレクトリから最も近い設定ファイルを参照します。
 
-設定ファイルが見つからない場合、Biomeは設定ファイルが見つかるまで、**上へ上へ**とディレクトリを移動します。
+設定ファイルが見つからない場合、Biomeは設定ファイルが見つかるまで、**上位ディレクトリへ向かって**探索します。
 
 この機能を活用して、プロジェクトやディレクトリごとに異なるオプションを適用することができます。
 
@@ -35,93 +35,213 @@ Biomeの機能をCLIやLSPで使用する場合、ツールは現在の作業デ
 
 `app/frontend/legacy-app/package.json`または`app/frontend/new-app/package.json`からスクリプトを実行すると、Biomeは`app/frontend/biome.json`を設定ファイルとして使用します。
 
-## 設定の共有
-
-[`extends`](/reference/configuration#extends)オプションを使用して、オプションを複数ファイルに分割することができる。
-
-例えば、以下の要件があるとします：
-- `legacy-app`ディレクトリでは、スペースでフォーマットする
-- `backend`ディレクトリと`new-app`ディレクトリでは、タブでフォーマットする
-- すべてのディレクトリでは、行幅を120でフォーマットする
-- `backend`ディレクトリでは、追加で他のリント設定を行う
-
-まず、`app/biome.json`に新しい設定ファイルを作成し、共通オプションの設定を行います：
-
-
-```json title="app/biome.json"
-{
-  "formatter": {
-    "enabled": true,
-    "lineWidth": 120
-  }
-}
-```
-
-ここで、`legacy-app`ディレクトリで別のオプションを使用するため、`app/frontend/biome.json`を`app/frontend/legacy-app/`に**移動**します：
-
-
-```json title="app/frontend/legacy-app/biome.json"
-{
-  "formatter": {
-    "indentStyle": "space"
-  }
-}
-```
-
-次に、`extends`プロパティを使って、`app/biome.json`のすべてのオプションを継承するように設定を加えます：
-
-```json title="app/frontend/legacy-app/biome.json" ins={2}
-{
-   "extends": ["../../biome.json"],
-   "formatter": {
-     "indentStyle": "space"
-   }
-}
-```
-
-最後に、`app/backend/biome.json`でリンタを有効にします：
-
-
-```json title="app/backend/biome.json"
-{
-  "extends": ["../biome.json"],
-  "linter": {
-    "enabled": true,
-    "rules": {
-      "recommended": true
-    }
-  }
-}
-```
-
 ## モノレポ
 
-モノレポは、複数のライブラリを単一の大きなリポジトリに保存して管理されるリポジトリです。それぞれのライブラリは独立したプロジェクトであり、異なる構成を持つことがあります。
+モノレポは、複数のライブラリを単一の大きなリポジトリに保存して管理されるリポジトリです。
+それぞれのライブラリは独立したプロジェクトであり、異なる構成を持つことがあります。
 
-Biomeはネストされた設定ファイルの解決においていくらかの制限があり、モノレポを適切にサポートしていません。[関連したIssueを手伝い、フォロー](https://github.com/biomejs/biome/issues/2228)してください。
+v2以降、Biomeはモノレポを標準でサポートしています。プロジェクトは以下のように設定する必要があります。
 
-現在の制限の下でより良い開発者体験を実現するには、モノレポのルートに `biome.json` を配置し、[`overrides`](/reference/configuration/#overrides) 設定を使っていくつかのパッケージでBiomeの動作を変更することを推奨しています。
+<Steps>
+1. モノレポのルートに`biome.json`ファイルを作成します。推奨ルールを使用し、フォーマッターオプションをカスタマイズします。
 
-以下の例では、パッケージ `packages/logger` の中ではルール `suspecious/noConsoleLog` を無効化しています。
-
-```json title="biome.jsonc"
-
-{
-  "linter": {
-    "enabled": true,
-    "rules": {
-      "recommended": true
-    }
-  },
-  "overrides": [{
-      "include": ["packages/logger/**"],
-      "linter": {
-        "rules": {
-          "suspicious": {
-            "noConsoleLog": "off"
-          }
+    ```json title="biome.json"
+    {
+        "linter": {
+            "enabled": true,
+            "rules": {
+                "recommended": true
+            }
+        },
+        "formatter": {
+            "lineWidth": 120,
+            "indentStyle": "space",
+            "indentWidth": 6
         }
-      }
-  }]
+    }
+    ```
+    このファイルは**ルート設定**と呼ばれ、プロジェクト全体に適用される基本オプションを定義します。
+    ただし、ネストされた設定では、これらのオプションに従うかどうかを個別に判断できます。
+    それでは、その仕組みを見ていきましょう。
+
+2. 必要な各パッケージに、ネストされた設定ファイルを作成します。これらのネストされた設定ファイルでは、フィールド`"root"`を`false`に設定する必要があります。
+
+    また、これらのパッケージには、ルート設定で定義されたフォーマットの基準を適用したいと考えています。
+    そのために、Biome v2で利用可能になった**新しいマイクロシンタックス** `"extends": "//"`を設定ファイルとして使用します。
+    この構文は、ネストされた設定がどこに置かれていても、**ルート設定**を継承することをBiomeに指示します。
+
+    それでは、`packages/logger`と`packages/generate`のそれぞれに設定ファイルを1つずつ作成しましょう。
+    前者では、`noConsole`を無効化し、後者では、コード生成されたファイルであるためフォーマッターを無効化します。
+
+    ```json title="packages/logger/biome.json"
+    {
+        "root": false,
+        "extends": "//",
+        "linter": {
+            "rules": {
+                "suspicious": {
+                    "noConsole": "off"
+                }
+            }
+        }
+    }
+    ```
+
+    ```json title="packages/generate/biome.json"
+    {
+        "root": false,
+        "extends": "//",
+        "formatter": {
+            "enabled": false
+        }
+    }
+    ```
+    便宜上、マイクロシンタックス`extends: "//"`を使用する場合は、この設定がルート設定ではないことがすでに暗黙的に示されているため、
+    `"root": false`を**省略**できます。
+
+    ```diff title="packages/generate/biome.json"
+    {
+    -   "root": false,
+        "extends": "//",
+        "formatter": {
+        "enabled": false
+    }
+    ```
+3. 次に、`packages/analytics`に新しいパッケージがあり、それが別のチームによって管理されていると仮定しましょう。
+
+    このチームはまったく異なるコーディング規約に従っているため、ルート設定のオプションを _継承したくありません。_
+    その場合、設定ファイルから`"extends": "//"`を省略し、フォーマットに関するオプションを変更するだけで対応できます。
+
+    ```json title="packages/analytics/biome.json"
+    {
+        "root": false,
+        "formatter": {
+            "lineWidth": 100,
+        }
+    }
+
+    ```
+4. すべての設定が整ったので、いくつかの選択肢があります。
+
+    プロジェクトのルートから`biome`のコマンドを実行することも、各パッケージ内から実行することもできます。
+    いずれの場合でも、Biomeはすべての設定を正しく反映します。
+</Steps>
+
+:::tip
+場合によっては、Biomeが`"root": false`が正しく設定されていないネストされた設定ファイルを検出してしまうことがあります。
+これは、たとえばBiomeを使用している別のプロジェクトをベンダー化したフォルダやGitサブモジュールとして含めている場合に起こりえます。
+このような場合は、[`files.includes`](/ja/reference/configuration/#filesincludes)フィールドを使用して、
+そのネストされたプロジェクト全体を無視することを推奨します。
+:::
+
+## 設定ファイルを共有するその他の方法
+
+これまで見てきたように、`extends`フィールドを使用することで、設定を複数のファイルに分割することができます。
+これにより、異なるプロジェクトやフォルダ間で共通の設定を共有することが可能になります。
+
+`"extends": "//"`構文は、ネストされた設定をルート設定から継承させたい場合に便利なショートカットですが、
+場合によっては、さらにカスタマイズされた設定を使用したいこともあるでしょう。
+
+`"//"`以外にも、`extends`設定は配列の値を受け取ることができます。
+この場合、配列内の各値は、継承元となる別の設定ファイルへのパスである必要があります。
+
+例えば、`common.json`という設定ファイルを継承するように設定する場合は、次のようになります。
+
+```json title="biome.json"
+{
+  "extends": ["./common.json"]
 }
 ```
+
+`extends`に定義されたエントリは、`biome.json`ファイルが定義されているパスを基準に解決されます。
+これらは記載されている順番で処理され、後に指定されたファイルの設定が、先に指定されたものを上書きします。
+
+`extends`によって継承されるファイルは、さらに別のファイルを`extend`することはできません。
+
+なお、設定ファイル内のパスは常に、`biome.json`/`biome.jsonc`ファイルが存在するフォルダを基準に解決されます。
+そのため`extends`フィールドを使用する場合、共有設定ファイル内に記述されたパスは、継承元のファイルの場所ではなく、
+それを継承している設定ファイルの場所を基準に解釈されます。
+
+たとえば、`backend/`と`frontend/`という2つのディレクトリを持つプロジェクトがあり、それぞれに`biome.json`が存在し、
+どちらもルートフォルダにある`common.json`設定を継承していると仮定しましょう。
+
+<FileTree>
+- backend/
+  - src/
+    - ...
+  - test/
+    - ...
+  - biome.json
+- frontend/
+  - src/
+    - ...
+  - test/
+    - ...
+  - biome.json
+- common.json
+</FileTree>
+
+```json title="common.json"
+{
+  "files": {
+    "includes": ["src/**/*.js", "test/**/*.js"],
+  },
+  "linter": {
+    "includes": ["**", "!test"]
+  }
+}
+```
+
+```json title="frontend/biome.json"
+{
+  "extends": ["../common.json"]
+}
+```
+
+* `frontend/`フォルダからBiomeを実行すると、`frontend/src/`および`frontend/test/`フォルダ内のすべての
+  JavaScriptファイルに対してリントが実行され、`frontend/src/`フォルダ内のファイルのみがフォーマット対象になります。
+  これは、`common.json`に指定されたパスが、`biome.json`ファイルが存在する`frontend/`フォルダを基準に解釈されるためです。
+
+* `backend/biome.json`が`frontend/biome.json`と同じ内容であると仮定すると、ふるまいも同様になりますが、パスは`backend/`フォルダを基準に解釈されます。
+
+なお、この構成では、`frontend/biome.json`と`backend/biome.json`の両方がルート設定として扱われます。
+そのため、`--config-path` CLIオプションを使用していずれかの設定ファイルを指定しない限り、リポジトリのルートからBiomeを実行することはできません。
+
+### NPMパッケージからのBiome設定のエクスポート
+
+Biomeは`node_modules/`フォルダ内にある設定ファイルも解決できます。
+そのため、設定ファイルをパッケージとして公開し、複数のプロジェクトからそれをインポートして利用することが可能です。
+
+これを行うには、まず「共有」用のBiome設定をある決まった形で用意する必要があります。
+たとえば、`@org/shared-configs`というパッケージから`@org/shared-configs/biome`という指定子を使って設定を共有したいとしましょう。
+その場合、このパッケージの`package.json`に`exports`エントリを作成する必要があります。
+
+```json title="package.json" ins={5,3}
+{
+  "name": "@org/shared-configs",
+  "type": "module",
+  "exports": {
+    "./biome": "./biome.json"
+  }
+}
+```
+
+`@org/shared-configs`がプロジェクトに正しくインストールされていることを確認し、`biome.json`ファイルを次のスニペットのように更新してください。
+
+```json title="biome.json"
+{
+  "extends": ["@org/shared-configs/biome"]
+}
+```
+
+Biomeは、作業ディレクトリを基準にして、ライブラリ`@org/shared-configs/`の解決を試みます。作業ディレクトリとは、次の場所を指します。
+
+- CLIを使用する場合は、スクリプトを実行したフォルダが基準になります。
+  通常は`package.json`ファイルが置かれている場所と一致します。
+- LSPを使用する場合は、プロジェクトのルートフォルダが基準になります。
+
+:::caution
+ドット`.`で始まるパス、または`.json/.jsonc`で終わるパスは、常に相対パスとして扱われるため、`node_modules/`からは解決されません。
+:::
+
+設定ファイルの解決アルゴリズムについて詳しくは、[Node.js documentation](https://nodejs.org/api/esm.html#resolution-and-loading-algorithm)を参照してください。
