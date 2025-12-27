@@ -386,6 +386,7 @@ export default {
   '/linter/rules/useUnifiedTypeSignatures': '/linter/rules/use-unified-type-signatures',
   '/linter/rules/useUniqueElementIds': '/linter/rules/use-unique-element-ids',
   '/linter/rules/useUniqueGraphqlOperationName': '/linter/rules/use-unique-graphql-operation-name',
+  '/linter/rules/useUniqueVariableNames': '/linter/rules/use-unique-variable-names',
   '/linter/rules/useValidAnchor': '/linter/rules/use-valid-anchor',
   '/linter/rules/useValidAriaProps': '/linter/rules/use-valid-aria-props',
   '/linter/rules/useValidAriaRole': '/linter/rules/use-valid-aria-role',

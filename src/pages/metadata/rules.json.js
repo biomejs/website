@@ -556,6 +556,23 @@ export function GET() {
               }
             ],
             "docs": " Enforce unique operation names across a GraphQL document.\n\n This rule ensures that all GraphQL operations (queries, mutations, subscriptions) have unique names.\n Using unique operation names is essential for proper identification and reducing confusion.\n\n :::note\n This rule currently does not work across multiple files.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query user {\n   user {\n     id\n   }\n }\n\n query user {\n   me {\n     id\n   }\n }\n ```\n\n ### Valid\n\n ```graphql\n query user {\n   user {\n     id\n   }\n }\n\n query me {\n   me {\n     id\n   }\n }\n ```\n\n"
+          },
+          "useUniqueVariableNames": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useUniqueVariableNames",
+            "link": "https://biomejs.dev/linter/rules/use-unique-variable-names",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintGraphql": "unique-variable-names"
+                }
+              }
+            ],
+            "docs": " Require all variable definitions to be unique.\n\n A GraphQL operation is only valid if all its variables are uniquely named.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query C($x: Int, $x: Int) {\n   __typename\n }\n ```\n\n ### Valid\n\n ```graphql\n query C($x: Int, $y: Int) {\n   __typename\n }\n ```\n\n"
           }
         },
         "style": {
@@ -7073,7 +7090,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 408
+    "numberOrRules": 409
   },
   "syntax": {
     "languages": {
