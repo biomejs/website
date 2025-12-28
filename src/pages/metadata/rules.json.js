@@ -6122,6 +6122,23 @@ export function GET() {
           }
         },
         "nursery": {
+          "noBeforeInteractiveScriptOutsideDocument": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noBeforeInteractiveScriptOutsideDocument",
+            "link": "https://biomejs.dev/linter/rules/no-before-interactive-script-outside-document",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintNext": "no-before-interactive-script-outside-document"
+                }
+              }
+            ],
+            "docs": " Prevent usage of `next/script`'s `beforeInteractive` strategy outside of `pages/_document.js` in a Next.js project.\n\n Next.js provides a `<Script>` component from `next/script` to optimize the loading of third-party scripts. Using the `beforeInteractive`\n strategy allows scripts to be preloaded before any first-party code. `beforeInteractive` scripts must be placed in `pages/_document.js`.\n\n This rule checks for any usage of the `beforeInteractive` scripts outside of these files.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n // pages/index.jsx\n import Script from 'next/script'\n\n export default function Index() {\n   return (\n     <div>\n       <Script\n         src=\"https://example.com/script.js\"\n         strategy=\"beforeInteractive\"\n       ></Script>\n     </div>\n   )\n }\n ```\n\n ### Valid\n\n ```jsx,ignore\n // pages/_document.jsx\n import { Html, Head, Main, NextScript } from 'next/document'\n import Script from 'next/script'\n\n export default function Document() {\n     return (\n         <Html>\n             <Head />\n             <body>\n                 <Main />\n                 <NextScript />\n                 <Script\n                   src=\"https://example.com/script.js\"\n                   strategy=\"beforeInteractive\"\n                 ></Script>\n             </body>\n         </Html>\n     )\n }\n ```\n\n"
+          },
           "noJsxLiterals": {
             "deprecated": false,
             "version": "2.2.4",
@@ -7141,7 +7158,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 412
+    "numberOrRules": 413
   },
   "syntax": {
     "languages": {
