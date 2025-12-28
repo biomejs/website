@@ -34,6 +34,48 @@ let only: AnalyzerSelector[] = [];
 // Configuration that comes from a virtual file. It takes precedence over the settings
 let fileConfiguration: undefined | Configuration;
 
+const originalConsole = {
+	log: console.log,
+	info: console.info,
+	warn: console.warn,
+	error: console.error,
+};
+
+function postLog(level: "log" | "info" | "warn" | "error", args: unknown[]) {
+	try {
+		self.postMessage({
+			type: "log",
+			level,
+			message: args.map((a) => {
+				try {
+					return typeof a === "string" ? a : JSON.stringify(a);
+				} catch {
+					return String(a);
+				}
+			}),
+		});
+	} catch {
+		// no-op
+	}
+}
+
+console.log = (...args: unknown[]) => {
+	postLog("log", args);
+	originalConsole.log(...args);
+};
+console.info = (...args: unknown[]) => {
+	postLog("info", args);
+	originalConsole.info(...args);
+};
+console.warn = (...args: unknown[]) => {
+	postLog("warn", args);
+	originalConsole.warn(...args);
+};
+console.error = (...args: unknown[]) => {
+	postLog("error", args);
+	originalConsole.error(...args);
+};
+
 self.addEventListener("message", async (e) => {
 	switch (e.data.type) {
 		case "init": {
