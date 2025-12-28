@@ -222,6 +222,8 @@ export const LINT_RULES = {
     useUniqueInputFieldNames: "useUniqueInputFieldNames",
     useUniqueVariableNames: "useUniqueVariableNames",
     useVueConsistentDefinePropsDeclaration: "useVueConsistentDefinePropsDeclaration",
+    useVueConsistentVBindStyle: "useVueConsistentVBindStyle",
+    useVueConsistentVOnStyle: "useVueConsistentVOnStyle",
     useVueDefineMacrosOrder: "useVueDefineMacrosOrder",
     useVueHyphenatedAttributes: "useVueHyphenatedAttributes",
     useVueMultiWordComponentNames: "useVueMultiWordComponentNames",
