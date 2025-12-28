@@ -795,6 +795,40 @@ export function GET() {
             ],
             "docs": " Disallow using `v-if` and `v-for` directives on the same element.\n\n There are two common cases where this can be tempting:\n - To filter items in a list (e.g. `v-for=\"user in users\" v-if=\"user.isActive\"`). In these cases, replace users with a new computed property that returns your filtered list (e.g. activeUsers).\n - To avoid rendering a list if it should be hidden (e.g. `v-for=\"user in users\" v-if=\"shouldShowUsers\"`). In these cases, move the v-if to a container element.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <TodoItem\n     v-if=\"complete\"\n     v-for=\"todo in todos\"\n     :todo=\"todo\"\n />\n ```\n\n ### Valid\n\n ```vue\n <ul v-if=\"complete\">\n     <TodoItem\n         v-for=\"todo in todos\"\n         :todo=\"todo\"\n     />\n </ul>\n ```\n\n"
           },
+          "useVueConsistentVBindStyle": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useVueConsistentVBindStyle",
+            "link": "https://biomejs.dev/linter/rules/use-vue-consistent-v-bind-style",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "v-bind-style"
+                }
+              }
+            ],
+            "docs": " Enforce a consistent style for `v-bind` in Vue templates.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <div v-bind:foo=\"bar\" />\n ```\n\n ### Valid\n\n ```vue\n <div :foo=\"bar\" />\n ```\n\n ## Options\n\n ### `style`\n\n Configures the preferred directive style. Default: `\"shorthand\"`.\n\n ```json,options\n {\n   \"options\": {\n     \"style\": \"longhand\"\n   }\n }\n ```\n\n #### Invalid\n\n ```vue,expect_diagnostic,use_options\n <div :foo=\"bar\" />\n ```\n\n #### Valid\n\n ```vue,use_options\n <div v-bind:foo=\"bar\" />\n ```\n\n"
+          },
+          "useVueConsistentVOnStyle": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useVueConsistentVOnStyle",
+            "link": "https://biomejs.dev/linter/rules/use-vue-consistent-v-on-style",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "v-on-style"
+                }
+              }
+            ],
+            "docs": " Enforce a consistent style for `v-on` in Vue templates.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <div v-on:click=\"onClick\" />\n ```\n\n ### Valid\n\n ```vue\n <div @click=\"onClick\" />\n ```\n\n ## Options\n\n ### `style`\n\n Configures the preferred directive style. Accepts `\"shorthand\"` or `\"longhand\"`. Default: `\"shorthand\"`.\n\n ```json,options\n {\n   \"options\": {\n     \"style\": \"longhand\"\n   }\n }\n ```\n\n #### Invalid\n\n ```vue,expect_diagnostic,use_options\n <div @click=\"onClick\" />\n ```\n\n #### Valid\n\n ```vue,use_options\n <div v-on:click=\"onClick\" />\n ```\n\n"
+          },
           "useVueHyphenatedAttributes": {
             "deprecated": false,
             "version": "2.3.6",
@@ -7226,7 +7260,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 417
+    "numberOrRules": 419
   },
   "syntax": {
     "languages": {
