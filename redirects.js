@@ -20,6 +20,7 @@ export default {
   '/linter/rules/noAwaitInLoops': '/linter/rules/no-await-in-loops',
   '/linter/rules/noBannedTypes': '/linter/rules/no-banned-types',
   '/linter/rules/noBarrelFile': '/linter/rules/no-barrel-file',
+  '/linter/rules/noBeforeInteractiveScriptOutsideDocument': '/linter/rules/no-before-interactive-script-outside-document',
   '/linter/rules/noBiomeFirstException': '/linter/rules/no-biome-first-exception',
   '/linter/rules/noBitwiseOperators': '/linter/rules/no-bitwise-operators',
   '/linter/rules/noBlankTarget': '/linter/rules/no-blank-target',

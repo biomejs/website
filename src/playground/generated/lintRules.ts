@@ -162,6 +162,7 @@ export const LINT_RULES = {
   } as const,
   nursery: {
     noAmbiguousAnchorText: "noAmbiguousAnchorText",
+    noBeforeInteractiveScriptOutsideDocument: "noBeforeInteractiveScriptOutsideDocument",
     noContinue: "noContinue",
     noDeprecatedImports: "noDeprecatedImports",
     noDuplicateDependencies: "noDuplicateDependencies",
