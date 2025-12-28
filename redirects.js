@@ -384,6 +384,7 @@ export default {
   '/linter/rules/useTopLevelRegex': '/linter/rules/use-top-level-regex',
   '/linter/rules/useTrimStartEnd': '/linter/rules/use-trim-start-end',
   '/linter/rules/useUnifiedTypeSignatures': '/linter/rules/use-unified-type-signatures',
+  '/linter/rules/useUniqueArgumentNames': '/linter/rules/use-unique-argument-names',
   '/linter/rules/useUniqueElementIds': '/linter/rules/use-unique-element-ids',
   '/linter/rules/useUniqueFieldDefinitionNames': '/linter/rules/use-unique-field-definition-names',
   '/linter/rules/useUniqueGraphqlOperationName': '/linter/rules/use-unique-graphql-operation-name',

@@ -540,6 +540,23 @@ export function GET() {
             ],
             "docs": " Require the `@deprecated` directive to specify a deletion date.\n\n Suggests removing deprecated code when the due date has been passed.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query {\n   member @deprecated(reason: \"Use `members` instead\") {\n     id\n   }\n }\n ```\n\n ### Valid\n\n ```graphql\n query {\n   member @deprecated(reason: \"Use `members` instead\", deletionDate: \"2099-12-25\") {\n     id\n   }\n }\n ```\n\n"
           },
+          "useUniqueArgumentNames": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useUniqueArgumentNames",
+            "link": "https://biomejs.dev/linter/rules/use-unique-argument-names",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintGraphql": "unique-argument-names"
+                }
+              }
+            ],
+            "docs": " Require all argument names for fields & directives to be unique.\n\n A GraphQL field or directive is only valid if all supplied arguments are uniquely named.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query {\n   field(arg1: \"value\", arg1: \"value\")\n }\n ```\n\n ### Valid\n\n ```graphql\n query {\n   field(arg1: \"value\", arg2: \"value\")\n }\n ```\n\n"
+          },
           "useUniqueFieldDefinitionNames": {
             "deprecated": false,
             "version": "next",
@@ -606,7 +623,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Require all variable definitions to be unique.\n\n A GraphQL operation is only valid if all its variables are uniquely named.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query C($x: Int, $x: Int) {\n   __typename\n }\n ```\n\n ### Valid\n\n ```graphql\n query C($x: Int, $y: Int) {\n   __typename\n }\n ```\n\n"
+            "docs": " Require all variable definitions to be unique.\n\n A GraphQL operation is only valid if all its variables are uniquely named.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query ($x: Int, $x: Int) {\n   field\n }\n ```\n\n ### Valid\n\n ```graphql\n query ($x: Int, $y: Int) {\n   field\n }\n ```\n\n"
           }
         },
         "style": {
@@ -7124,7 +7141,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 411
+    "numberOrRules": 412
   },
   "syntax": {
     "languages": {
