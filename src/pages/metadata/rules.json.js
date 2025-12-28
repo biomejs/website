@@ -812,6 +812,23 @@ export function GET() {
             ],
             "docs": " Enforce hyphenated (kebab-case) attribute names in Vue templates.\n\n Vue style guide recommends using hyphenated attribute (and prop) names in templates to\n keep them consistent and distinguish them from JavaScript identifiers written in camelCase/PascalCase.\n\n This rule flags attributes that are detected as camelCase, PascalCase, CONSTANT_CASE, snake_case\n or that contain any uppercase ASCII letter. It uses Biome's internal `Case::identify` helper.\n\n Allowed:\n - kebab-case attributes (e.g. `data-test-id`)\n - pure lowercase single word attributes (e.g. `class`, `id`)\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <div fooBar=\"x\"></div>\n ```\n\n ```vue,expect_diagnostic\n <MyComp :someProp=\"x\" />\n ```\n\n ### Valid\n\n ```vue\n <div data-test-id=\"x\"></div>\n <div class=\"foo\"></div>\n <MyComp :some-prop=\"x\" />\n ```\n\n ## Options\n\n The rule supports the following options:\n\n ### `ignore`\n\n A list of attribute names that should be ignored by the rule (they won't be required to be hyphenated).\n Use this when you have a fixed set of camelCase / PascalCase prop names you intentionally allow.\n\n ```json,options\n {\n   \"options\": {\n     \"ignore\": [\"someProp\", \"fooBar\"]\n   }\n }\n ```\n\n #### Valid (using `ignore`)\n\n ```vue,use_options\n <div fooBar=\"x\"></div>\n ```\n\n ### `ignoreTags`\n\n A list of tag names whose attributes should be skipped entirely.\n This is useful for third-party or internal components that deliberately expose non‑hyphenated prop names.\n\n ```json,options\n {\n   \"options\": {\n     \"ignoreTags\": [\"MyComp\", \"AnotherWidget\"]\n   }\n }\n ```\n\n #### Valid (using `ignoreTags`)\n\n ```vue,use_options\n <MyComp :someProp=\"x\" />\n ```\n\n"
           },
+          "useVueValidTemplateRoot": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useVueValidTemplateRoot",
+            "link": "https://biomejs.dev/linter/rules/use-vue-valid-template-root",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "valid-template-root"
+                }
+              }
+            ],
+            "docs": " Enforce valid Vue `<template>` root usage.\n\n This rule reports only root-level `<template>` elements. If the\n `<template>` has a `src` attribute, the element must be empty. Otherwise,\n the element must contain content.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <template src=\"./foo.html\">content</template>\n ```\n\n ```vue,expect_diagnostic\n <template></template>\n ```\n\n ### Valid\n\n ```vue\n <template>content</template>\n ```\n\n ```vue\n <template src=\"./foo.html\"></template>\n ```\n\n"
+          },
           "useVueValidVBind": {
             "deprecated": false,
             "version": "2.3.6",
@@ -828,6 +845,23 @@ export function GET() {
               }
             ],
             "docs": " Forbids `v-bind` directives with missing arguments or invalid modifiers.\n\n This rule reports v-bind directives in the following cases:\n - The directive does not have an argument. E.g. `<div v-bind></div>`\n - The directive does not have a value. E.g. `<div v-bind:aaa></div>`\n - The directive has invalid modifiers. E.g. `<div v-bind:aaa.bbb=\"ccc\"></div>`\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <Foo v-bind />\n ```\n\n ```vue,expect_diagnostic\n <div v-bind></div>\n ```\n\n ### Valid\n\n ```vue\n <Foo v-bind:foo=\"foo\" />\n ```\n\n"
+          },
+          "useVueValidVCloak": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useVueValidVCloak",
+            "link": "https://biomejs.dev/linter/rules/use-vue-valid-v-cloak",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "valid-v-cloak"
+                }
+              }
+            ],
+            "docs": " Enforce valid `v-cloak` Vue directives.\n\n This rule reports `v-cloak` directives in the following cases:\n - The directive has an argument. E.g. `<div v-cloak:aaa></div>`\n - The directive has any modifiers. E.g. `<div v-cloak.bbb></div>`\n - The directive has an attribute value. E.g. `<div v-cloak=\"foo\"></div>`\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <div v-cloak:arg></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-cloak.mod></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-cloak=\"value\"></div>\n ```\n\n ### Valid\n\n ```vue\n <div v-cloak></div>\n ```\n\n"
           },
           "useVueValidVElse": {
             "deprecated": false,
@@ -913,6 +947,40 @@ export function GET() {
               }
             ],
             "docs": " Enforce valid `v-on` directives with proper arguments, modifiers, and handlers.\n\n This rule reports v-on directives in the following cases:\n - The directive does not have an event name. E.g. `<div v-on=\"foo\"></div>`\n - The directive has invalid modifiers. E.g. `<div v-on:click.bogus=\"foo\"></div>`\n - The directive is missing a handler expression. E.g. `<div v-on:click></div>`\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <Foo v-on />\n ```\n\n ### Valid\n\n ```vue\n <Foo v-on:click=\"foo\" />\n ```\n\n"
+          },
+          "useVueValidVOnce": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useVueValidVOnce",
+            "link": "https://biomejs.dev/linter/rules/use-vue-valid-v-once",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "valid-v-once"
+                }
+              }
+            ],
+            "docs": " Enforce valid `v-once` Vue directives.\n\n\n ## Examples\n\n ### Invalid\n\n This rule reports `v-once` directives in the following cases:\n\n The directive has an argument so it is invalid.\n ```vue,expect_diagnostic\n <div v-once:arg></div>\n ```\n\n The directive has a modifier so it is invalid.\n ```vue,expect_diagnostic\n <div v-once.mod></div>\n ```\n\n The directive has a value so it is invalid.\n ```vue,expect_diagnostic\n <div v-once=\"value\"></div>\n ```\n\n ### Valid\n\n ```vue\n <div v-once></div>\n ```\n\n"
+          },
+          "useVueValidVPre": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useVueValidVPre",
+            "link": "https://biomejs.dev/linter/rules/use-vue-valid-v-pre",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "valid-v-pre"
+                }
+              }
+            ],
+            "docs": " Enforce valid `v-pre` Vue directives.\n\n\n ## Examples\n\n ### Invalid\n\n This rule reports `v-pre` directives in the following cases:\n\n The directive has an argument so it is invalid.\n ```vue,expect_diagnostic\n <div v-pre:arg></div>\n ```\n\n The directive has a modifier so it is invalid.\n ```vue,expect_diagnostic\n <div v-pre.mod></div>\n ```\n\n The directive has a value so it is invalid.\n ```vue,expect_diagnostic\n <div v-pre=\"value\"></div>\n ```\n\n ### Valid\n\n ```vue\n <div v-pre></div>\n ```\n\n"
           },
           "useVueValidVText": {
             "deprecated": false,
@@ -7158,7 +7226,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 413
+    "numberOrRules": 417
   },
   "syntax": {
     "languages": {

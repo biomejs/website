@@ -1,0 +1,87 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: useVueValidVCloak
+description: Learn more about useVueValidVCloak
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="HTML" icon="seti:html">
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/useVueValidVCloak`](/reference/diagnostics#diagnostic-category)
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/valid-v-cloak`](https://eslint.vuejs.org/rules/valid-v-cloak)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useVueValidVCloak": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Enforce valid `v-cloak` Vue directives.
+
+This rule reports `v-cloak` directives in the following cases:
+
+- The directive has an argument. E.g. `<div v-cloak:aaa></div>`
+- The directive has any modifiers. E.g. `<div v-cloak.bbb></div>`
+- The directive has an attribute value. E.g. `<div v-cloak="foo"></div>`
+
+## Examples
+
+### Invalid
+
+```vue
+<div v-cloak:arg></div>
+```
+
+<pre class="language-text"><code class="language-text"></code></pre>
+
+```vue
+<div v-cloak.mod></div>
+```
+
+<pre class="language-text"><code class="language-text"></code></pre>
+
+```vue
+<div v-cloak="value"></div>
+```
+
+<pre class="language-text"><code class="language-text"></code></pre>
+
+### Valid
+
+```vue
+<div v-cloak></div>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/use_vue_valid_v_cloak.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/useVueValidVCloak)
+
+</TabItem>
+</Tabs>
+
