@@ -126,6 +126,7 @@ export default {
   '/linter/rules/noInvalidUseBeforeDeclaration': '/linter/rules/no-invalid-use-before-declaration',
   '/linter/rules/noIrregularWhitespace': '/linter/rules/no-irregular-whitespace',
   '/linter/rules/noJsxLiterals': '/linter/rules/no-jsx-literals',
+  '/linter/rules/noJsxPropsBind': '/linter/rules/no-jsx-props-bind',
   '/linter/rules/noLabelVar': '/linter/rules/no-label-var',
   '/linter/rules/noLabelWithoutControl': '/linter/rules/no-label-without-control',
   '/linter/rules/noLeakedRender': '/linter/rules/no-leaked-render',
