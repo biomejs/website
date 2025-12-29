@@ -163,7 +163,7 @@ importers:
         specifier: 0.19.2
         version: 0.19.2(@astrojs/starlight@0.37.1(astro@5.16.6(@netlify/blobs@10.4.1)(@types/node@24.10.4)(jiti@2.4.2)(rollup@4.40.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(typescript@5.9.3)(yaml@2.8.0)))(astro@5.16.6(@netlify/blobs@10.4.1)(@types/node@24.10.4)(jiti@2.4.2)(rollup@4.40.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(typescript@5.9.3)(yaml@2.8.0))
       svelte:
-        specifier: ^5.46.0
+        specifier: 5.46.0
         version: 5.46.0
       textlint:
         specifier: 15.5.0
@@ -459,7 +459,7 @@ packages:
     resolution: {integrity: sha512-jboDhjZY8/bAPl2kgvjrbbyXyM6uimPsasY3TvFhSpPaNorij0UZROi/NjDQqQeZFSaIK3ieiRZXWwoBZh6rQQ==}
 
   '@biomejs/wasm-web@https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@0758b64':
-    resolution: {tarball: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@0758b64}
+    resolution: {integrity: sha512-nAbKIfp+ZRRux0AimX8P28e6Jig3NhaOXRRwkF0HLJEi6fuSByDEDkHIb3Ogqk9+T8ZBPVW7Wsvd4G2wJE53dg==, tarball: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@0758b64}
     version: 0.0.0-rev.0758b648dc85fa5c02335c7c8913279dea690c97
 
   '@braintree/sanitize-url@7.1.1':
