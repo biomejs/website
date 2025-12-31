@@ -494,7 +494,7 @@ export default defineConfig({
 									label: "CSS Rules sources",
 									link: "/linter/css/sources",
 									translations: {
-										ja: "JavaScriptルールのソース",
+										ja: "CSSルールのソース",
 										"zh-CN": "CSS 规则来源",
 										pl: "Źródła reguł CSS",
 										ru: "Источники правил CSS",
@@ -514,7 +514,7 @@ export default defineConfig({
 									label: "JSON Rules sources",
 									link: "/linter/json/sources",
 									translations: {
-										ja: "JavaScriptルールのソース",
+										ja: "JSONルールのソース",
 										"zh-CN": "JSON 规则来源",
 										pl: "Źródła reguł JSON",
 										ru: "Источники правил JSON",
