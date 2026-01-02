@@ -701,6 +701,23 @@ export function GET() {
             ],
             "docs": " Enforce that the `accesskey` attribute is not used on any HTML element.\n\n The `accesskey` assigns a keyboard shortcut to the current element. However, the `accesskey` value\n can conflict with keyboard commands used by screen readers and keyboard-only users, which leads to\n inconsistent keyboard actions across applications. To avoid accessibility complications,\n this rule suggests users remove the `accesskey` attribute on elements.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <input type=\"submit\" accesskey=\"s\" value=\"Submit\" />\n ```\n\n ```html,expect_diagnostic\n <a href=\"https://webaim.org/\" accesskey=\"w\">WebAIM.org</a>\n ```\n\n ```html,expect_diagnostic\n <button accesskey=\"n\">Next</button>\n ```\n\n ## Resources\n\n - [WebAIM: Keyboard Accessibility - Accesskey](https://webaim.org/techniques/keyboard/accesskey#spec)\n - [MDN `accesskey` documentation](https://developer.mozilla.org/docs/Web/HTML/Global_attributes/accesskey)\n\n"
           },
+          "noAutofocus": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noAutofocus",
+            "link": "https://biomejs.dev/linter/rules/no-autofocus",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJsxA11y": "no-autofocus"
+                }
+              }
+            ],
+            "docs": " Enforce that the `autofocus` attribute is not used on elements.\n\n Autofocusing elements can cause usability issues for sighted and non-sighted users, alike.\n However, the `autofocus` attribute is allowed on elements inside a `dialog` element or\n elements with a `popover` attribute, as these are modal contexts where autofocus is expected.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <input autofocus />\n ```\n\n ```html,expect_diagnostic\n <input autofocus=\"true\" />\n ```\n\n ```html,expect_diagnostic\n <textarea autofocus>content</textarea>\n ```\n\n ### Valid\n\n ```html\n <input />\n ```\n\n ```html\n <div popover><input autofocus /></div>\n ```\n\n ```html\n <dialog><input autofocus /></dialog>\n ```\n\n ## Resources\n\n - [WHATWG HTML Standard, The autofocus attribute](https://html.spec.whatwg.org/multipage/interaction.html#attr-fe-autofocus)\n - [The accessibility of HTML 5 autofocus](https://brucelawson.co.uk/2009/the-accessibility-of-html-5-autofocus/)\n - [MDN Web Docs, HTMLElement: autofocus property](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/autofocus)\n\n"
+          },
           "noDistractingElements": {
             "deprecated": false,
             "version": "next",
@@ -7448,7 +7465,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 431
+    "numberOrRules": 432
   },
   "syntax": {
     "languages": {
