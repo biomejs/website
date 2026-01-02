@@ -6,7 +6,7 @@ description: List of available domains
 ## Next
 Use this domain inside Next.js projects.
 ### Next activation
-Enabled the **recommended** rules of the domain:
+Enable the **recommended, non-nursery** rules of the domain:
 ```json title="biome.json" ins={3-5}
 {
 	"linter": {
@@ -44,6 +44,7 @@ Enabled when the following dependencies are declared:
 Rules that belong to the domain:
 - [useExhaustiveDependencies](/linter/rules/use-exhaustive-dependencies) (recommended)
 - [useHookAtTopLevel](/linter/rules/use-hook-at-top-level) (recommended)
+- [noBeforeInteractiveScriptOutsideDocument](/linter/rules/no-before-interactive-script-outside-document) [(nursery)](/linter/#nursery)
 - [noNextAsyncClientComponent](/linter/rules/no-next-async-client-component) [(nursery)](/linter/#nursery)
 - [noSyncScripts](/linter/rules/no-sync-scripts) [(nursery)](/linter/#nursery)
 - [noImgElement](/linter/rules/no-img-element) (recommended)
@@ -55,7 +56,7 @@ Rules that belong to the domain:
 ## Project
 This domain contains rules that perform project-level analysis. This includes our module graph for dependency resolution, as well as type information. When enabling rules that belong to this domain, Biome will scan the entire project. The scanning phase will have a performance impact on the linting process. See the documentation on our [scanner](/internals/architecture/#scanner) to learn more about the scanner.
 ### Project activation
-Enabled the **recommended** rules of the domain:
+Enable the **recommended, non-nursery** rules of the domain:
 ```json title="biome.json" ins={3-5}
 {
 	"linter": {
@@ -92,20 +93,20 @@ Rules that belong to the domain:
 - [useImportExtensions](/linter/rules/use-import-extensions)
 - [useJsonImportAttributes](/linter/rules/use-json-import-attributes)
 - [noDeprecatedImports](/linter/rules/no-deprecated-imports) [(nursery)](/linter/#nursery)
-- [noFloatingPromises](/linter/rules/no-floating-promises) (recommended) [(nursery)](/linter/#nursery)
+- [noFloatingPromises](/linter/rules/no-floating-promises) [(nursery)](/linter/#nursery)
 - [noImportCycles](/linter/rules/no-import-cycles) [(nursery)](/linter/#nursery)
-- [noMisusedPromises](/linter/rules/no-misused-promises) (recommended) [(nursery)](/linter/#nursery)
+- [noMisusedPromises](/linter/rules/no-misused-promises) [(nursery)](/linter/#nursery)
 - [noUnnecessaryConditions](/linter/rules/no-unnecessary-conditions) [(nursery)](/linter/#nursery)
 - [noUnresolvedImports](/linter/rules/no-unresolved-imports) [(nursery)](/linter/#nursery)
 - [useArraySortCompare](/linter/rules/use-array-sort-compare) [(nursery)](/linter/#nursery)
 - [useAwaitThenable](/linter/rules/use-await-thenable) [(nursery)](/linter/#nursery)
-- [useExhaustiveSwitchCases](/linter/rules/use-exhaustive-switch-cases) (recommended) [(nursery)](/linter/#nursery)
+- [useExhaustiveSwitchCases](/linter/rules/use-exhaustive-switch-cases) [(nursery)](/linter/#nursery)
 - [useFind](/linter/rules/use-find) [(nursery)](/linter/#nursery)
 - [useRegexpExec](/linter/rules/use-regexp-exec) [(nursery)](/linter/#nursery)
 ## Qwik
 Use this domain inside Qwik projects. This domain enables rules that are specific to Qwik projects.
 ### Qwik activation
-Enabled the **recommended** rules of the domain:
+Enable the **recommended, non-nursery** rules of the domain:
 ```json title="biome.json" ins={3-5}
 {
 	"linter": {
@@ -146,13 +147,13 @@ Rules that belong to the domain:
 - [useImageSize](/linter/rules/use-image-size) (recommended)
 - [useJsxKeyInIterable](/linter/rules/use-jsx-key-in-iterable) (recommended)
 - [useQwikClasslist](/linter/rules/use-qwik-classlist) (recommended)
-- [useQwikMethodUsage](/linter/rules/use-qwik-method-usage) (recommended) [(nursery)](/linter/#nursery)
-- [useQwikValidLexicalScope](/linter/rules/use-qwik-valid-lexical-scope) (recommended) [(nursery)](/linter/#nursery)
+- [useQwikMethodUsage](/linter/rules/use-qwik-method-usage) [(nursery)](/linter/#nursery)
+- [useQwikValidLexicalScope](/linter/rules/use-qwik-valid-lexical-scope) [(nursery)](/linter/#nursery)
 - [noReactSpecificProps](/linter/rules/no-react-specific-props) (recommended)
 ## React
 Use this domain inside React projects. It enables a set of rules that can help catching bugs and enforce correct practices. This domain enable rules that might conflict with the Solid domain.
 ### React activation
-Enabled the **recommended** rules of the domain:
+Enable the **recommended, non-nursery** rules of the domain:
 ```json title="biome.json" ins={3-5}
 {
 	"linter": {
@@ -197,6 +198,7 @@ Rules that belong to the domain:
 - [useJsxKeyInIterable](/linter/rules/use-jsx-key-in-iterable) (recommended)
 - [useUniqueElementIds](/linter/rules/use-unique-element-ids)
 - [noDuplicatedSpreadProps](/linter/rules/no-duplicated-spread-props) [(nursery)](/linter/#nursery)
+- [noJsxPropsBind](/linter/rules/no-jsx-props-bind) [(nursery)](/linter/#nursery)
 - [noLeakedRender](/linter/rules/no-leaked-render) [(nursery)](/linter/#nursery)
 - [noReactForwardRef](/linter/rules/no-react-forward-ref) [(nursery)](/linter/#nursery)
 - [noSyncScripts](/linter/rules/no-sync-scripts) [(nursery)](/linter/#nursery)
@@ -209,7 +211,7 @@ Rules that belong to the domain:
 ## Solid
 Use this domain inside Solid projects. This domain enables rules that might conflict with the React domain.
 ### Solid activation
-Enabled the **recommended** rules of the domain:
+Enable the **recommended, non-nursery** rules of the domain:
 ```json title="biome.json" ins={3-5}
 {
 	"linter": {
@@ -252,7 +254,7 @@ Rules that belong to the domain:
 ## Test
 Use this domain when linting test files. It enables a set of rules that are library agnostic, and can help to catch possible misuse of the test APIs.
 ### Test activation
-Enabled the **recommended** rules of the domain:
+Enable the **recommended, non-nursery** rules of the domain:
 ```json title="biome.json" ins={3-5}
 {
 	"linter": {
@@ -308,8 +310,10 @@ Rules that belong to the domain:
 - [noDuplicateTestHooks](/linter/rules/no-duplicate-test-hooks) (recommended)
 - [noExportsInTest](/linter/rules/no-exports-in-test) (recommended)
 - [noFocusedTests](/linter/rules/no-focused-tests) (recommended)
+## Turborepo
+Use this domain inside Turborepo projects. This domain enables rules that are specific to Turborepo projects.
 ### Turborepo activation
-Enabled the **recommended** rules of the domain:
+Enable the **recommended, non-nursery** rules of the domain:
 ```json title="biome.json" ins={3-5}
 {
 	"linter": {
@@ -319,6 +323,10 @@ Enabled the **recommended** rules of the domain:
 	}
 }
 ```
+
+:::note[No recommended rules]
+Since all rules in this domain are nursery rules, no rules will be activated when using the "recommended" setting. Use "all" to enable all nursery rules in this domain.
+:::
 Enabled the **all** rules of the domain:
 ```json title="biome.json" ins={3-5}
 {
@@ -345,11 +353,11 @@ Enabled when the following dependencies are declared:
 
 ### Turborepo rules
 Rules that belong to the domain:
-- [noUndeclaredEnvVars](/linter/rules/no-undeclared-env-vars) (recommended) [(nursery)](/linter/#nursery)
+- [noUndeclaredEnvVars](/linter/rules/no-undeclared-env-vars) [(nursery)](/linter/#nursery)
 ## Vue
 Use this domain inside Vue projects. This domain enables rules that are specific to Vue projects.
 ### Vue activation
-Enabled the **recommended** rules of the domain:
+Enable the **recommended, non-nursery** rules of the domain:
 ```json title="biome.json" ins={3-5}
 {
 	"linter": {
@@ -359,6 +367,10 @@ Enabled the **recommended** rules of the domain:
 	}
 }
 ```
+
+:::note[No recommended rules]
+Since all rules in this domain are nursery rules, no rules will be activated when using the "recommended" setting. Use "all" to enable all nursery rules in this domain.
+:::
 Enabled the **all** rules of the domain:
 ```json title="biome.json" ins={3-5}
 {
@@ -385,19 +397,26 @@ Enabled when the following dependencies are declared:
 
 ### Vue rules
 Rules that belong to the domain:
-- [noVueDataObjectDeclaration](/linter/rules/no-vue-data-object-declaration) (recommended) [(nursery)](/linter/#nursery)
-- [noVueDuplicateKeys](/linter/rules/no-vue-duplicate-keys) (recommended) [(nursery)](/linter/#nursery)
-- [noVueReservedKeys](/linter/rules/no-vue-reserved-keys) (recommended) [(nursery)](/linter/#nursery)
-- [noVueReservedProps](/linter/rules/no-vue-reserved-props) (recommended) [(nursery)](/linter/#nursery)
+- [noVueDataObjectDeclaration](/linter/rules/no-vue-data-object-declaration) [(nursery)](/linter/#nursery)
+- [noVueDuplicateKeys](/linter/rules/no-vue-duplicate-keys) [(nursery)](/linter/#nursery)
+- [noVueReservedKeys](/linter/rules/no-vue-reserved-keys) [(nursery)](/linter/#nursery)
+- [noVueReservedProps](/linter/rules/no-vue-reserved-props) [(nursery)](/linter/#nursery)
 - [noVueSetupPropsReactivityLoss](/linter/rules/no-vue-setup-props-reactivity-loss) [(nursery)](/linter/#nursery)
+- [useVueConsistentDefinePropsDeclaration](/linter/rules/use-vue-consistent-define-props-declaration) [(nursery)](/linter/#nursery)
 - [useVueDefineMacrosOrder](/linter/rules/use-vue-define-macros-order) [(nursery)](/linter/#nursery)
-- [useVueMultiWordComponentNames](/linter/rules/use-vue-multi-word-component-names) (recommended) [(nursery)](/linter/#nursery)
-- [noVueVIfWithVFor](/linter/rules/no-vue-v-if-with-v-for) (recommended) [(nursery)](/linter/#nursery)
-- [useVueHyphenatedAttributes](/linter/rules/use-vue-hyphenated-attributes) (recommended) [(nursery)](/linter/#nursery)
-- [useVueValidVBind](/linter/rules/use-vue-valid-v-bind) (recommended) [(nursery)](/linter/#nursery)
-- [useVueValidVElse](/linter/rules/use-vue-valid-v-else) (recommended) [(nursery)](/linter/#nursery)
-- [useVueValidVElseIf](/linter/rules/use-vue-valid-v-else-if) (recommended) [(nursery)](/linter/#nursery)
-- [useVueValidVHtml](/linter/rules/use-vue-valid-v-html) (recommended) [(nursery)](/linter/#nursery)
-- [useVueValidVIf](/linter/rules/use-vue-valid-v-if) (recommended) [(nursery)](/linter/#nursery)
-- [useVueValidVOn](/linter/rules/use-vue-valid-v-on) (recommended) [(nursery)](/linter/#nursery)
-- [useVueValidVText](/linter/rules/use-vue-valid-v-text) (recommended) [(nursery)](/linter/#nursery)
+- [useVueMultiWordComponentNames](/linter/rules/use-vue-multi-word-component-names) [(nursery)](/linter/#nursery)
+- [noVueVIfWithVFor](/linter/rules/no-vue-v-if-with-v-for) [(nursery)](/linter/#nursery)
+- [useVueConsistentVBindStyle](/linter/rules/use-vue-consistent-v-bind-style) [(nursery)](/linter/#nursery)
+- [useVueConsistentVOnStyle](/linter/rules/use-vue-consistent-v-on-style) [(nursery)](/linter/#nursery)
+- [useVueHyphenatedAttributes](/linter/rules/use-vue-hyphenated-attributes) [(nursery)](/linter/#nursery)
+- [useVueValidTemplateRoot](/linter/rules/use-vue-valid-template-root) [(nursery)](/linter/#nursery)
+- [useVueValidVBind](/linter/rules/use-vue-valid-v-bind) [(nursery)](/linter/#nursery)
+- [useVueValidVCloak](/linter/rules/use-vue-valid-v-cloak) [(nursery)](/linter/#nursery)
+- [useVueValidVElse](/linter/rules/use-vue-valid-v-else) [(nursery)](/linter/#nursery)
+- [useVueValidVElseIf](/linter/rules/use-vue-valid-v-else-if) [(nursery)](/linter/#nursery)
+- [useVueValidVHtml](/linter/rules/use-vue-valid-v-html) [(nursery)](/linter/#nursery)
+- [useVueValidVIf](/linter/rules/use-vue-valid-v-if) [(nursery)](/linter/#nursery)
+- [useVueValidVOn](/linter/rules/use-vue-valid-v-on) [(nursery)](/linter/#nursery)
+- [useVueValidVOnce](/linter/rules/use-vue-valid-v-once) [(nursery)](/linter/#nursery)
+- [useVueValidVPre](/linter/rules/use-vue-valid-v-pre) [(nursery)](/linter/#nursery)
+- [useVueValidVText](/linter/rules/use-vue-valid-v-text) [(nursery)](/linter/#nursery)

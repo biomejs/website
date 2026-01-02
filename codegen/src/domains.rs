@@ -116,12 +116,19 @@ impl DocDomains {
                         "Use this domain inside Qwik projects. This domain enables rules that are specific to Qwik projects."
                     )?;
                 }
+                RuleDomain::Turborepo => {
+                    writeln!(buffer, "## {name}")?;
+                    writeln!(
+                        buffer,
+                        "Use this domain inside Turborepo projects. This domain enables rules that are specific to Turborepo projects."
+                    )?;
+                }
                 #[allow(unreachable_patterns)]
                 domain => {
                     eprintln!("Undocumented domain: {domain:?}");
                 }
             }
-            Self::write_activation(name.as_str(), buffer)?;
+            Self::write_activation(name.as_str(), rules.as_slice(), buffer)?;
             Self::write_dependencies(domain, name.as_str(), buffer)?;
             Self::write_globals(domain, name.as_str(), buffer)?;
             Self::write_rules(rules.as_slice(), name.as_str(), buffer)?
@@ -144,7 +151,7 @@ impl DocDomains {
 
                 write!(buffer, "- [{}](/linter/rules/{dashed_rule})", rule.name)?;
 
-                if rule.recommended {
+                if rule.recommended && group != "nursery" {
                     write!(buffer, " (recommended)")?;
                 }
                 if group == "nursery" {
@@ -178,7 +185,11 @@ impl DocDomains {
         Ok(())
     }
 
-    fn write_activation(name: &str, buffer: &mut Vec<u8>) -> anyhow::Result<()> {
+    fn write_activation(
+        name: &str,
+        rules: &[(String, RuleMetadata)],
+        buffer: &mut Vec<u8>,
+    ) -> anyhow::Result<()> {
         writeln!(buffer, "### {name} activation")?;
         let recommended = format_node(
             JsonFormatOptions::default().with_expand(Expand::Always),
@@ -186,10 +197,23 @@ impl DocDomains {
         )?
         .print()?;
 
-        writeln!(buffer, "Enabled the **recommended** rules of the domain:")?;
+        writeln!(
+            buffer,
+            "Enable the **recommended, non-nursery** rules of the domain:"
+        )?;
         writeln!(buffer, "```json title=\"biome.json\" ins={{3-5}}")?;
         writeln!(buffer, "{}", recommended.as_code())?;
         writeln!(buffer, "```")?;
+
+        // Check if all rules are nursery rules
+        let all_nursery = !rules.is_empty() && rules.iter().all(|(group, _)| group == "nursery");
+        if all_nursery {
+            writeln!(buffer)?;
+            writeln!(
+                buffer,
+                ":::note[No recommended rules]\nSince all rules in this domain are nursery rules, no rules will be activated when using the \"recommended\" setting. Use \"all\" to enable all nursery rules in this domain.\n:::"
+            )?;
+        }
 
         let all = format_node(
             JsonFormatOptions::default().with_expand(Expand::Always),

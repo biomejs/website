@@ -93,7 +93,8 @@ Desde a v2, o Biome suporta monorepos nativamente, e você precisará configurar
     -   "root": false,
         "extends": "//",
         "formatter": {
-        "enabled": false
+            "enabled": false
+        }
     }
     ```
 3. Agora, vamos supor que temos um novo pacote em `packages/analytics` que é mantido por uma equipe diferente. Essa equipe segue padrões de codificação totalmente diferentes, então eles _não_ querem herdar opções da configuração raiz. Para eles, basta omitir `"extends": "//"` do arquivo de configuração e alterar as opções de formatação:

@@ -1,7 +1,5 @@
 import type { WhitespaceSensitivity } from "@biomejs/wasm-web";
-import * as prettier from "prettier";
-// @ts-expect-error
-import parserBabel from "prettier/esm/parser-babel.mjs";
+import parserBabel from "prettier/plugins/babel";
 // @ts-expect-error
 import pluginEstree from "prettier/plugins/estree.mjs";
 // @ts-expect-error
@@ -10,6 +8,7 @@ import pluginGraphql from "prettier/plugins/graphql.mjs";
 import pluginHtml from "prettier/plugins/html.mjs";
 // @ts-expect-error
 import pluginCss from "prettier/plugins/postcss.mjs";
+import * as prettier from "prettier/standalone";
 // @ts-expect-error
 import * as pluginSvelte from "prettier-plugin-svelte/browser";
 import {
@@ -37,6 +36,48 @@ import {
 } from "@/playground/utils";
 
 let settings = defaultPlaygroundState.settings;
+
+const originalConsole = {
+	log: console.log,
+	info: console.info,
+	warn: console.warn,
+	error: console.error,
+};
+
+function postLog(level: "log" | "info" | "warn" | "error", args: unknown[]) {
+	try {
+		self.postMessage({
+			type: "log",
+			level,
+			message: args.map((a) => {
+				try {
+					return typeof a === "string" ? a : JSON.stringify(a);
+				} catch {
+					return String(a);
+				}
+			}),
+		});
+	} catch {
+		// no-op
+	}
+}
+
+console.log = (...args: unknown[]) => {
+	postLog("log", args);
+	originalConsole.log(...args);
+};
+console.info = (...args: unknown[]) => {
+	postLog("info", args);
+	originalConsole.info(...args);
+};
+console.warn = (...args: unknown[]) => {
+	postLog("warn", args);
+	originalConsole.warn(...args);
+};
+console.error = (...args: unknown[]) => {
+	postLog("error", args);
+	originalConsole.error(...args);
+};
 
 self.addEventListener("message", async (e) => {
 	switch (e.data.type) {
@@ -156,6 +197,7 @@ async function formatWithPrettier(
 				? "auto"
 				: "off",
 			vueIndentScriptAndStyle: options.vueIndentScriptAndStyle,
+			svelteIndentScriptAndStyle: options.vueIndentScriptAndStyle,
 			htmlWhitespaceSensitivity: options.whitespaceSensitivity,
 		};
 

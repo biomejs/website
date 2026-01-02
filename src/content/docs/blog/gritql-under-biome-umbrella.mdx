@@ -1,0 +1,64 @@
+---
+title: "GritQL accepted by the Biome organisation"
+excerpt: |
+  GritQL has been in use by Biome as our preferred plugin language for a while now. As of today, we are happy to announce that GritQL comes under the Biome umbrella.
+authors:
+  - arendjr
+  - team
+date: 2025-12-18
+cover:
+  light: "@/assets/blog/roadmap-2024/banner-light.png"
+  dark: "@/assets/blog/roadmap-2024/banner-dark.png"
+  alt: The brand of the project. It says "Biome, toolchain of the web"
+socialImage: "@/assets/social-logo.png"
+featured: true
+---
+Today, we are happy and grateful to make a special announcement regarding the continuation of [GritQL](https://docs.grit.io/).
+
+Some observant members of the Biome and GritQL communities may have already spotted that something big was happening behind the scenes: Biome is now the proud owner of the [GritQL repositories](https://github.com/orgs/biomejs/repositories?q=gritql).
+
+Ever since Biome 2.0, GritQL plugins have been supported as a mechanism to add custom linter rules to your project. We took a big gamble here, as GritQL was being pioneered by a startup led by [Morgante Pell](https://github.com/morgante) and the future of the language was still uncertain.
+
+We took a leap of faith, because we believed in Morgante's vision of how GritQL can make plugin writing more intuitive for our end users. The expressive power of GritQL makes it so that end users can intuitively understand how to write plugins, even if they're not familiar with the internals of AST structures themselves.
+
+When [Honeycomb](https://www.honeycomb.io/) acquired Grit earlier this year, and the future of the language looked unclear, it appeared our gamble was coming back to bite us. But thankfully, we're excited to share that Morgante and Honeycomb have graciously agreed to donate the GritQL repositories to Biome.
+
+## So, does that mean Biome is now responsible for the development of GritQL?
+
+Yes, it does.
+
+But Morgante's gift came with something even more precious: he personally joined the Biome maintainers team. From under the Biome umbrella, he can continue working on GritQL and our plugin infrastructure as he sees fit.
+
+Please keep in mind that all Biome maintainers are volunteers, as most of us work on Biome in our free time. We have a respectful community that understands this, and this is something we continue to treasure.
+
+## What does this mean for Biome's plugin infrastructure, concretely?
+
+It's hard to say exactly.
+
+Early 2024, we drafted our initial [Plugin Proposal RFC](https://github.com/biomejs/biome/discussions/1762).  The release of Biome 2.0 in June 2025 saw the first realisation of Biome's vision in the form of GritQL linter plugins. That leaves a lot of work on the table still, but as usual we'll keep you posted.
+
+## Where does this leave JavaScript/TypeScript plugins?
+
+We do recognise that not everyone likes writing plugins using GritQL.
+
+As the RFC mentioned, we also intend to work towards support for JS/TS plugins too. This August, we [integrated](https://github.com/biomejs/biome/pull/7300) [Boa](https://boajs.dev/) as a JavaScript interpreter that we can integrate into Biome. Back in 2024, Morgante also proposed a [TypeScript API](https://github.com/biomejs/gritql/discussions/403) for GritQL so that users may or may not be able to use both forms of plugin functionality together. We don't know how this will pan out yet, but hopefully with Morgante's commitment, some of the work may speed up a bit.
+
+## Can I help move Biome's plugin efforts forward?
+
+We're glad you asked! Biome is a project led by volunteers who like programming, open-source, and who embrace the Biome philosophy, so any help is welcome 😁
+
+### Chat with us
+
+Join our [Discord server](https://biomejs.dev/chat), and engage with the community. We have a dedicated `#plugins` channel that can be used for this purpose. You may always ask around if there's something you can help with.
+
+We also have a [GitHub umbrella issue](https://github.com/biomejs/biome/issues/2463) that you can check out, but please be cautious to not start any work until you've engaged with the community first. This way we can be mindful of your contributions too.
+
+### Financial help
+
+If you believe in the long-term vision of Biome, you can also help with a financial contribution, via [Open Collective](https://opencollective.com/biome) or [GitHub Sponsors](https://github.com/sponsors/biomejs).
+
+Additionally, the project provides an [enterprise support program](/enterprise) that companies can use to contract a core contributor to work on a specific aspect of the Biome toolchain.
+
+## Acknowledgements
+
+Thanks again to both Morgante and Honeycomb for making this possible! And another round of thanks for our amazing community whom we are enjoying so much trust from! 💗

@@ -10,7 +10,7 @@ description: List of available lint rules for GraphQL
 import { Icon } from "@astrojs/starlight/components";
 
 Below the list of rules supported by Biome, divided by group. Here's a legend of the emojis:
-- The icon <span class='inline-icon' title="This rule is recommended"><Icon name="approve-check-circle"x label="This rule is recommended" /></span> indicates that the rule is part of the recommended rules.
+- The icon <span class='inline-icon' title="This rule is recommended"><Icon name="approve-check-circle" label="This rule is recommended" /></span> indicates that the rule is part of the recommended rules.
 - The icon <span class='inline-icon' title="This rule has a safe fix"><Icon name="seti:config" label="The rule has a safe fix" /></span> indicates that the rule provides a code action (fix) that is **safe** to apply.
 - The icon <span class='inline-icon' title="This rule has an unsafe fix"><Icon name="warning" label="The rule has an unsafe fix" /></span> indicates that the rule provides a code action (fix) that is **unsafe** to apply.
 - The icon <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" /></span> indicates that the rule has been implemented and scheduled for the next release.
@@ -28,7 +28,11 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noEmptySource](/linter/rules/no-empty-source) | Disallow empty sources. |  |
 | [useConsistentGraphqlDescriptions](/linter/rules/use-consistent-graphql-descriptions) | Require all descriptions to follow the same style (either block or inline) to  maintain consistency and improve readability across the schema. |  |
 | [useDeprecatedDate](/linter/rules/use-deprecated-date) | Require the `@deprecated` directive to specify a deletion date. |  |
+| [useUniqueArgumentNames](/linter/rules/use-unique-argument-names) | Require all argument names for fields & directives to be unique. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
+| [useUniqueFieldDefinitionNames](/linter/rules/use-unique-field-definition-names) | Require all fields of a type to be unique. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
 | [useUniqueGraphqlOperationName](/linter/rules/use-unique-graphql-operation-name) | Enforce unique operation names across a GraphQL document. |  |
+| [useUniqueInputFieldNames](/linter/rules/use-unique-input-field-names) | Require fields within an input object to be unique. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
+| [useUniqueVariableNames](/linter/rules/use-unique-variable-names) | Require all variable definitions to be unique. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
 
 ## `style`
 

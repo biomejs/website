@@ -32,7 +32,7 @@ Biome 的辅助功能默认启用，并且部分规则已包含在推荐规则�
 
 ## 在你的 IDE 中使用辅助操作
 
-如果你使用的是一款兼容 LSP 的 IDE，你可以配置 Biome 在保存文件时自动执行特定的辅助操作。每个辅助操作都有一个对应的“代码操作”名称。大多数操作遵循相同的命名模式，但也有例外情况（例如 `organizeImports`）。有关具体名称，请查阅每项操作的文档页面。
+如果你使用的是一款兼容 LSP 的 IDE，你可以配置 Biome 在保存文件时自动执行特定的辅助操作。每个辅助操作都有一个对应的代码操作（code action）。大多数操作遵循相同的命名规则，但也有例外情况（例如 `organizeImports`），因此请参阅每个操作的文档页面了解对应的代码操作名称。
 
 首先，你需要配置编辑器，在保存时自动应用所有修复。不同的编辑器配置方式略有不同。Biome 使用的通用代码操作名为 `source.fixAll.biome`：
 
@@ -44,13 +44,21 @@ Biome 的辅助功能默认启用，并且部分规则已包含在推荐规则�
 
 ## 通过 CLI 执行辅助操作
 
-你也可以通过 CLI 使用 `check` 命令来触发辅助操作：
+你也可以通过 CLI 使用 [check](/reference/cli/#biome-check) 命令来触发辅助操作：
 
 <PackageManagerBiomeCommand command="check" />
 
-不过，`check` 命令主要用于同时运行多个工具。如果你只想运行辅助操作，建议禁用 Formatter 和 Linter：
+不过，`check` 命令主要用于同时运行多个工具。如果你只想运行辅助操作，建议禁用格式化程序和 Linter：
 
 <PackageManagerBiomeCommand command="check --formatter-enabled=false --linter-enabled=false" />
+
+## 不强制执行辅助操作
+
+默认情况下，Biome 在运行 `check` 命令时会强制执行辅助操作。如果你 _不想强制执行辅助操作_，可以使用 `--enforce-assist` CLI 标志将其设置为 `false`。这样，即使某些操作尚未应用，Biome 也不会产生诊断错误：
+
+```shell
+biome check --enforce-assist=false
+```
 
 ## 禁用辅助操作
 
@@ -58,6 +66,6 @@ Biome 的辅助功能默认启用，并且部分规则已包含在推荐规则�
 
 ## 分组说明
 
-### Sources
+### Source
 
-“Sources”分组中的操作通常都是安全的，可以在保存文件时自动执行。这些操作一般不会影响程序的功能。
+此分组代表那些可以在保存文档时安全应用的操作。这些操作通常都是安全的，它们一般不会改变程序的功能。
