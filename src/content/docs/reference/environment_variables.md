@@ -27,3 +27,11 @@ If you don't define this variable, Biome will automatically detect the correct b
 # Nix derivation example; the binary path comes from "${pkgs.biome}/bin/biome"
 BIOME_BINARY=/nix/store/68fyfw1hidsqkal1839whi3nzgvqv4pa-biome-1.0.0/bin/biome npx @biomejs/biome format .
 ```
+
+### `RUST_BACKTRACE`
+
+Enables capturing the backtrace when Biome panicked. This allows you to identify where the panic is occurred at.
+
+```
+RUST_BACKTRACE=1 npx @biomejs/biome check .
+```
