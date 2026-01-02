@@ -466,6 +466,9 @@ function initState(
 			cssModules:
 				searchParams.get("cssModules") === "true" ||
 				defaultPlaygroundState.settings.cssModules,
+			experimentalEmbeddedSnippetsEnabled:
+				searchParams.get("experimentalEmbeddedSnippetsEnabled") === "true" ||
+				defaultPlaygroundState.settings.experimentalEmbeddedSnippetsEnabled,
 			experimentalFullSupportEnabled:
 				searchParams.get("experimentalFullSupportEnabled") === "true" ||
 				defaultPlaygroundState.settings.experimentalFullSupportEnabled,

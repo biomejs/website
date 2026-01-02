@@ -2,6 +2,7 @@
 export default {
   '/assist/actions/organizeImports': '/assist/actions/organize-imports',
   '/assist/actions/useSortedAttributes': '/assist/actions/use-sorted-attributes',
+  '/assist/actions/useSortedInterfaceMembers': '/assist/actions/use-sorted-interface-members',
   '/assist/actions/useSortedKeys': '/assist/actions/use-sorted-keys',
   '/assist/actions/useSortedProperties': '/assist/actions/use-sorted-properties',
   '/linter/rules/noAccessKey': '/linter/rules/no-access-key',
@@ -406,6 +407,7 @@ export default {
   '/linter/rules/useVueDefineMacrosOrder': '/linter/rules/use-vue-define-macros-order',
   '/linter/rules/useVueHyphenatedAttributes': '/linter/rules/use-vue-hyphenated-attributes',
   '/linter/rules/useVueMultiWordComponentNames': '/linter/rules/use-vue-multi-word-component-names',
+  '/linter/rules/useVueVForKey': '/linter/rules/use-vue-v-for-key',
   '/linter/rules/useVueValidTemplateRoot': '/linter/rules/use-vue-valid-template-root',
   '/linter/rules/useVueValidVBind': '/linter/rules/use-vue-valid-v-bind',
   '/linter/rules/useVueValidVCloak': '/linter/rules/use-vue-valid-v-cloak',
@@ -417,6 +419,7 @@ export default {
   '/linter/rules/useVueValidVOnce': '/linter/rules/use-vue-valid-v-once',
   '/linter/rules/useVueValidVPre': '/linter/rules/use-vue-valid-v-pre',
   '/linter/rules/useVueValidVText': '/linter/rules/use-vue-valid-v-text',
+  '/linter/rules/useVueVapor': '/linter/rules/use-vue-vapor',
   '/linter/rules/useWhile': '/linter/rules/use-while',
   '/linter/rules/useYield': '/linter/rules/use-yield',
 };

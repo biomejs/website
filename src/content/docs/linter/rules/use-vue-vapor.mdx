@@ -1,0 +1,75 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: useVueVapor
+description: Learn more about useVueVapor
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="HTML" icon="seti:html">
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/useVueVapor`](/reference/diagnostics#diagnostic-category)
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useVueVapor": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Enforce opting in to Vue Vapor mode in `<script setup>` blocks.
+
+Vue 3.6 introduces an opt-in “Vapor mode” for SFC `<script setup>` blocks:
+`<script setup vapor>`.
+
+Vapor mode only works for Vue Single File Components (SFCs) using `<script setup>`.
+
+This rule reports `<script setup>` opening tags that are missing the `vapor` attribute.
+
+## Examples
+
+### Invalid
+
+```vue
+<script setup>
+</script>
+```
+
+<pre class="language-text"><code class="language-text"></code></pre>
+
+### Valid
+
+```vue
+<script setup vapor>
+</script>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/use_vue_vapor.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/useVueVapor)
+
+</TabItem>
+</Tabs>
+

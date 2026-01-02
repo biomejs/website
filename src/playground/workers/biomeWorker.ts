@@ -135,6 +135,7 @@ self.addEventListener("message", async (e) => {
 				allowComments,
 				attributePosition,
 				ruleDomains,
+				experimentalEmbeddedSnippetsEnabled,
 				experimentalFullSupportEnabled,
 				cssModules,
 				tailwindDirectives,
@@ -194,6 +195,7 @@ self.addEventListener("message", async (e) => {
 					parser: {
 						unsafeParameterDecoratorsEnabled,
 					},
+					experimentalEmbeddedSnippetsEnabled,
 				},
 				css: {
 					formatter: {

@@ -39,6 +39,82 @@ It's the editor's responsibility to locate the resolve the path of the binary an
 
 The binary name is `biome` or `biome.exe`, and it can be found in the root directory of the library, e.g.: `@biomejs/cli-darwin-arm64/biome`, `@biomejs/cli-win32-x64/biome.exe`.
 
+### Extension settings
+
+The Biome Language Server exposes the following settings, which the extension can expose to users.
+
+:::note
+The following settings are meant for **extension developers**, not for users.
+An extension might decide to expose the settings to users with different names, or different formats.
+
+For example, the Zed extension maps the [`require_configuration`](#require-configuration) setting from the setting `require_config_file`, which is defined in a JSONC file.
+:::
+
+#### `require_configuration`
+
+> Type: `boolean`
+> Default: `false`
+
+Whether the Biome Language Server requires a configuration file. When set to `true`, it won't analyze any file (except for parsing) until there's a `biome.json` file in the root of the project.
+
+```json
+{
+  "require_configuration": true
+}
+```
+
+#### `configuration_path`
+
+> Type: `string`
+> Default: `null`
+
+A path to a custom configuration file. The path can be the folder where the `biome.json`/`biome.jsonc` is, or a path to a file.
+
+The path can be relative or absolute. The Biome Language Server reads this option only when provided. Use this option when the configuration is *in a subfolder of your project*.
+
+```json
+{
+  "configuration_path": "./frontend/biome.json"
+}
+```
+
+#### `inline_config`
+
+> Type: `object`
+> Default: `null`
+
+An inline version of the Biome configuration. The options of this configuration will override the options coming from any `biome.json` file read from disk (or the defaults).
+
+For example, let's say your project enables the rule `noConsole` with `error` severity:
+
+```json title="biome.json"
+{
+  "linter": {
+    "rules": {
+      "suspicious": {
+        "noConsole": "error"
+      }
+    }
+  }
+}
+```
+
+However, during local development, you want to disable this rule because it's useful and you don't want to see red squiggles. In your `inline_config`, you would write something like the following:
+
+```json
+{
+  "inline_config": {
+    "linter": {
+      "rules": {
+        "suspicious": {
+          "noConsole": "off"
+        }
+      }
+    }
+  }
+}
+```
+
 ### Use the daemon with the binary
 
 Using the binary via CLI is very efficient, although you won't be able to provide [logs](#daemon-logs) to your users. The CLI allows you to bootstrap a daemon and then use the CLI commands through the daemon itself.
