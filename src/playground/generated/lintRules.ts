@@ -228,6 +228,7 @@ export const LINT_RULES = {
     useVueDefineMacrosOrder: "useVueDefineMacrosOrder",
     useVueHyphenatedAttributes: "useVueHyphenatedAttributes",
     useVueMultiWordComponentNames: "useVueMultiWordComponentNames",
+    useVueVForKey: "useVueVForKey",
     useVueValidTemplateRoot: "useVueValidTemplateRoot",
     useVueValidVBind: "useVueValidVBind",
     useVueValidVCloak: "useVueValidVCloak",
@@ -239,6 +240,7 @@ export const LINT_RULES = {
     useVueValidVOnce: "useVueValidVOnce",
     useVueValidVPre: "useVueValidVPre",
     useVueValidVText: "useVueValidVText",
+    useVueVapor: "useVueVapor",
   } as const,
   performance: {
     noAccumulatingSpread: "noAccumulatingSpread",

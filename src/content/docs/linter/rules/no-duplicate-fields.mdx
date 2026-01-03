@@ -41,19 +41,49 @@ Checks for duplicate fields in selection set, variables in operation definition,
 ### Invalid
 
 ```graphql
-query test($v: String, $t: String, $v: String) {
+query {
+  users {
+    id
+    name
+    email
+    name
+  }
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.graphql:6:5 <a href="https://biomejs.dev/linter/rules/no-duplicate-fields">lint/suspicious/noDuplicateFields</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Field &#96;name&#96; defined multiple times.</span><br />  <br />    <strong>4 │ </strong>    name<br />    <strong>5 │ </strong>    email<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>6 │ </strong>    name<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>7 │ </strong>  &#125;<br />    <strong>8 │ </strong>&#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove the duplicated field.</span><br />  <br /></code></pre>
+
+```graphql
+query {
+  users(
+    first: 100,
+    after: 10,
+    filter: "test",
+    first: 50
+  ) {
+    id
+  }
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.graphql:6:5 <a href="https://biomejs.dev/linter/rules/no-duplicate-fields">lint/suspicious/noDuplicateFields</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Argument &#96;first&#96; defined multiple times.</span><br />  <br />    <strong>4 │ </strong>    after: 10,<br />    <strong>5 │ </strong>    filter: &quot;test&quot;,<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>6 │ </strong>    first: 50<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>7 │ </strong>  ) &#123;<br />    <strong>8 │ </strong>    id<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove the duplicated argument.</span><br />  <br /></code></pre>
+
+```graphql
+query ($v: String, $t: String, $v: String) {
   id
 }
 ```
 
-<pre class="language-text"><code class="language-text">code-block.graphql:1:36 <a href="https://biomejs.dev/linter/rules/no-duplicate-fields">lint/suspicious/noDuplicateFields</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Variable &#96;v&#96; defined multiple times.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>query test($v: String, $t: String, $v: String) &#123;<br />   <strong>   │ </strong>                                   <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>  id<br />    <strong>3 │ </strong>&#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove the duplicated variable.</span><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.graphql:1:32 <a href="https://biomejs.dev/linter/rules/no-duplicate-fields">lint/suspicious/noDuplicateFields</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Variable &#96;v&#96; defined multiple times.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>query ($v: String, $t: String, $v: String) &#123;<br />   <strong>   │ </strong>                               <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>  id<br />    <strong>3 │ </strong>&#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove the duplicated variable.</span><br />  <br /></code></pre>
 
 ### Valid
 
 ```graphql
 query {
-  user {
+  users {
     id
+    name
+    email
   }
 }
 ```

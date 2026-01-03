@@ -542,7 +542,7 @@ export function GET() {
           },
           "useUniqueArgumentNames": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.11",
             "name": "useUniqueArgumentNames",
             "link": "https://biomejs.dev/linter/rules/use-unique-argument-names",
             "recommended": false,
@@ -559,7 +559,7 @@ export function GET() {
           },
           "useUniqueFieldDefinitionNames": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.11",
             "name": "useUniqueFieldDefinitionNames",
             "link": "https://biomejs.dev/linter/rules/use-unique-field-definition-names",
             "recommended": false,
@@ -593,7 +593,7 @@ export function GET() {
           },
           "useUniqueInputFieldNames": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.11",
             "name": "useUniqueInputFieldNames",
             "link": "https://biomejs.dev/linter/rules/use-unique-input-field-names",
             "recommended": false,
@@ -610,7 +610,7 @@ export function GET() {
           },
           "useUniqueVariableNames": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.11",
             "name": "useUniqueVariableNames",
             "link": "https://biomejs.dev/linter/rules/use-unique-variable-names",
             "recommended": false,
@@ -678,7 +678,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " No duplicated fields in GraphQL operations.\n\n Checks for duplicate fields in selection set, variables in operation definition, or in arguments set of a field.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query test($v: String, $t: String, $v: String) {\n   id\n }\n ```\n\n ### Valid\n\n ```graphql\n query {\n   user {\n     id\n   }\n }\n ```\n\n"
+            "docs": " No duplicated fields in GraphQL operations.\n\n Checks for duplicate fields in selection set, variables in operation definition, or in arguments set of a field.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query {\n   users {\n     id\n     name\n     email\n     name\n   }\n }\n ```\n\n ```graphql,expect_diagnostic\n query {\n   users(\n     first: 100,\n     after: 10,\n     filter: \"test\",\n     first: 50\n   ) {\n     id\n   }\n }\n ```\n\n ```graphql,expect_diagnostic\n query ($v: String, $t: String, $v: String) {\n   id\n }\n ```\n\n ### Valid\n\n ```graphql\n query {\n   users {\n     id\n     name\n     email\n   }\n }\n ```\n\n"
           }
         }
       },
@@ -797,7 +797,7 @@ export function GET() {
           },
           "useVueConsistentVBindStyle": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.11",
             "name": "useVueConsistentVBindStyle",
             "link": "https://biomejs.dev/linter/rules/use-vue-consistent-v-bind-style",
             "recommended": true,
@@ -814,7 +814,7 @@ export function GET() {
           },
           "useVueConsistentVOnStyle": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.11",
             "name": "useVueConsistentVOnStyle",
             "link": "https://biomejs.dev/linter/rules/use-vue-consistent-v-on-style",
             "recommended": true,
@@ -846,9 +846,26 @@ export function GET() {
             ],
             "docs": " Enforce hyphenated (kebab-case) attribute names in Vue templates.\n\n Vue style guide recommends using hyphenated attribute (and prop) names in templates to\n keep them consistent and distinguish them from JavaScript identifiers written in camelCase/PascalCase.\n\n This rule flags attributes that are detected as camelCase, PascalCase, CONSTANT_CASE, snake_case\n or that contain any uppercase ASCII letter. It uses Biome's internal `Case::identify` helper.\n\n Allowed:\n - kebab-case attributes (e.g. `data-test-id`)\n - pure lowercase single word attributes (e.g. `class`, `id`)\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <div fooBar=\"x\"></div>\n ```\n\n ```vue,expect_diagnostic\n <MyComp :someProp=\"x\" />\n ```\n\n ### Valid\n\n ```vue\n <div data-test-id=\"x\"></div>\n <div class=\"foo\"></div>\n <MyComp :some-prop=\"x\" />\n ```\n\n ## Options\n\n The rule supports the following options:\n\n ### `ignore`\n\n A list of attribute names that should be ignored by the rule (they won't be required to be hyphenated).\n Use this when you have a fixed set of camelCase / PascalCase prop names you intentionally allow.\n\n ```json,options\n {\n   \"options\": {\n     \"ignore\": [\"someProp\", \"fooBar\"]\n   }\n }\n ```\n\n #### Valid (using `ignore`)\n\n ```vue,use_options\n <div fooBar=\"x\"></div>\n ```\n\n ### `ignoreTags`\n\n A list of tag names whose attributes should be skipped entirely.\n This is useful for third-party or internal components that deliberately expose non‑hyphenated prop names.\n\n ```json,options\n {\n   \"options\": {\n     \"ignoreTags\": [\"MyComp\", \"AnotherWidget\"]\n   }\n }\n ```\n\n #### Valid (using `ignoreTags`)\n\n ```vue,use_options\n <MyComp :someProp=\"x\" />\n ```\n\n"
           },
+          "useVueVForKey": {
+            "deprecated": false,
+            "version": "2.3.11",
+            "name": "useVueVForKey",
+            "link": "https://biomejs.dev/linter/rules/use-vue-v-for-key",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "require-v-for-key"
+                }
+              }
+            ],
+            "docs": " Enforce that elements using `v-for` also specify a unique `key`.\n\n When rendering lists with `v-for`, Vue relies on a `key` to track elements efficiently.\n The `key` can be provided via longhand `v-bind:key` or shorthand `:key`. If you need to\n animate the entrance/exit of an item in a list, the key should be a unique identifier for\n each item in the list, and not the index of the item.\n\n For more information, see the Vue documentation on [list rendering](https://vuejs.org/guide/essentials/list#maintaining-state-with-key).\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <li v-for=\"item in items\">{{ item }}</li>\n ```\n\n ### Valid\n\n ```vue\n <li v-for=\"item in items\" :key=\"item.id\">{{ item }}</li>\n ```\n\n ```vue\n <li v-for=\"item in items\" v-bind:key=\"item.id\">{{ item }}</li>\n ```\n\n"
+          },
           "useVueValidTemplateRoot": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.11",
             "name": "useVueValidTemplateRoot",
             "link": "https://biomejs.dev/linter/rules/use-vue-valid-template-root",
             "recommended": true,
@@ -882,7 +899,7 @@ export function GET() {
           },
           "useVueValidVCloak": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.11",
             "name": "useVueValidVCloak",
             "link": "https://biomejs.dev/linter/rules/use-vue-valid-v-cloak",
             "recommended": true,
@@ -984,7 +1001,7 @@ export function GET() {
           },
           "useVueValidVOnce": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.11",
             "name": "useVueValidVOnce",
             "link": "https://biomejs.dev/linter/rules/use-vue-valid-v-once",
             "recommended": true,
@@ -1001,7 +1018,7 @@ export function GET() {
           },
           "useVueValidVPre": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.11",
             "name": "useVueValidVPre",
             "link": "https://biomejs.dev/linter/rules/use-vue-valid-v-pre",
             "recommended": true,
@@ -1032,6 +1049,15 @@ export function GET() {
               }
             ],
             "docs": " Enforce valid `v-text` Vue directives.\n\n This rule reports `v-text` directives in the following cases:\n - The directive has an argument. E.g. `<div v-text:aaa></div>`\n - The directive has any modifiers. E.g. `<div v-text.bbb></div>`\n - The directive does not have a value. E.g. `<div v-text></div>`\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <div v-text />\n ```\n\n ```vue,expect_diagnostic\n <div v-text:aaa=\"foo\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-text.bbb=\"foo\"></div>\n ```\n\n ### Valid\n\n ```vue\n <div v-text=\"foo\" />\n ```\n\n"
+          },
+          "useVueVapor": {
+            "deprecated": false,
+            "version": "2.3.11",
+            "name": "useVueVapor",
+            "link": "https://biomejs.dev/linter/rules/use-vue-vapor",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "docs": " Enforce opting in to Vue Vapor mode in `<script setup>` blocks.\n\n Vue 3.6 introduces an opt-in “Vapor mode” for SFC `<script setup>` blocks:\n `<script setup vapor>`.\n\n Vapor mode only works for Vue Single File Components (SFCs) using `<script setup>`.\n\n This rule reports `<script setup>` opening tags that are missing the `vapor` attribute.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script setup>\n </script>\n ```\n\n ### Valid\n\n ```vue\n <script setup vapor>\n </script>\n ```\n\n"
           }
         }
       },
@@ -2609,7 +2635,7 @@ export function GET() {
           },
           "noMultiAssign": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.11",
             "name": "noMultiAssign",
             "link": "https://biomejs.dev/linter/rules/no-multi-assign",
             "recommended": false,
@@ -2717,7 +2743,7 @@ export function GET() {
           },
           "noReturnAssign": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.11",
             "name": "noReturnAssign",
             "link": "https://biomejs.dev/linter/rules/no-return-assign",
             "recommended": false,
@@ -3191,7 +3217,7 @@ export function GET() {
           },
           "useVueConsistentDefinePropsDeclaration": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.11",
             "name": "useVueConsistentDefinePropsDeclaration",
             "link": "https://biomejs.dev/linter/rules/use-vue-consistent-define-props-declaration",
             "recommended": false,
@@ -6226,7 +6252,7 @@ export function GET() {
         "nursery": {
           "noBeforeInteractiveScriptOutsideDocument": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.11",
             "name": "noBeforeInteractiveScriptOutsideDocument",
             "link": "https://biomejs.dev/linter/rules/no-before-interactive-script-outside-document",
             "recommended": false,
@@ -6260,7 +6286,7 @@ export function GET() {
           },
           "noJsxPropsBind": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.11",
             "name": "noJsxPropsBind",
             "link": "https://biomejs.dev/linter/rules/no-jsx-props-bind",
             "recommended": false,
@@ -6683,9 +6709,27 @@ export function GET() {
                 "source": {
                   "eslintTypeScript": "ban-types"
                 }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintTypeScript": "no-empty-object-type"
+                }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintTypeScript": "no-wrapper-object-types"
+                }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintTypeScript": "no-unsafe-function-type"
+                }
               }
             ],
-            "docs": " Disallow primitive type aliases and misleading types.\n\n This rule aims to prevent usage of potentially \"misleading\" types and type aliases\n which may behave unexpectedly.\n\n ### Disallow \"boxed object\" types like `Boolean` and `Number`\n\n JavaScript's 8 data types are described in TypeScript by the lowercase types\n `undefined`, `null`, `boolean`, `number`, `string`, `bigint`, `symbol`, and `object`.\n\n The latter 6 also have uppercase variants, which instead represent _interfaces_ with the shared properties of their primitive counterparts.\n Due to the nature of structural typing, these uppercase types accept both primitive values and non-primitive \"boxed object\"s\n like `new Boolean(true)`, despite the two behaving differently in many circumstances like equality and truthiness.\n\n It is thus considered best practice to avoid these \"boxed types\" in favor of their lowercase\n primitive counterparts.\n\n ### Disallow the unsafe `Function` type\n\n TypeScript's built-in `Function` type is capable of accepting callbacks of any shape or form,\n behaving equivalent to `(...rest: any[]) => any` (which uses the unsafe `any` type) when called directly.\n It also accepts classes or plain objects that happen to possess all properties of the `Function` class,\n which is likewise a potential source of confusion.\n\n As such, it is almost always preferable to explicitly specify function parameters and return types where possible. \\\n When a generic \"catch-all\" callback type is required, one of the following can be used instead:\n - `() => void`: A function that accepts no parameters and whose return value is ignored\n - `(...args: never) => unknown`: A \"top type\" for functions that can be assigned any function type,\n    but can't be called directly\n\n ### Disallow the misleading empty object type `{}`\n In TypeScript, the type `{}` _doesn't_ represent an empty object (as many new to the language may assume).\n It actually accepts any non-nullish value, _including non-object primitives_.\n The following TypeScript example is thus perfectly valid:\n\n ```ts,expect_diagnostic\n const n: {} = 0;\n ```\n\n Often, developers writing `{}` actually mean one of the following:\n - `object`: Represents any object value\n - `unknown`: Represents any value at all, including `null` and `undefined`\n - `{ [k: string]: never }` or `Record<string, never>`: Represent object types that disallow property access\n\n To avoid confusion, this rule forbids the use of the type `{}`, except in two situations:\n\n 1. In type constraints to restrict a generic type to non-nullable types:\n\n ```ts\n function f<T extends {}>(x: T) {\n     assert(x != null);\n }\n ```\n\n 2. In a type intersection to narrow a type to its non-nullable equivalent type:\n\n ```ts\n type NonNullableMyType = MyType & {};\n ```\n\n In this last case, you can also use the `NonNullable` utility type to the same effect:\n\n ```ts\n type NonNullableMyType = NonNullable<MyType>;\n ```\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n let foo: String = \"bar\";\n ```\n\n ```ts,expect_diagnostic\n const bool = true as Boolean;\n ```\n\n ```ts,expect_diagnostic\n let invalidTuple: [string, Number] = [\"foo\", 12];\n ```\n\n ```ts,expect_diagnostic\n function badFunction(cb: Function) {\n   cb(12);\n }\n ```\n\n ```ts,expect_diagnostic\n const notEmpty: {} = {prop: 12};\n ```\n\n ```ts,expect_diagnostic\n const alsoNotAnObj: Object = \"foo\";\n ```\n\n ### Valid\n\n ```ts\n const foo: string = \"bar\";\n ```\n\n ```ts\n let tuple: [boolean, string] = [false, \"foo\"];\n ```\n\n ```ts\n function betterFunction(cb: (n: number) => string) {\n   return cb(12);\n }\n ```\n\n ```ts\n type wrapFn<T extends (...args: never) => unknown> = { func: T }\n ```\n\n ```ts\n const goodObj: object = {foo: 12};\n ```\n\n ```ts\n type emptyObj = Record<string, never>;\n ```\n\n Exceptions for `{}`:\n ```ts\n declare function foo<T extends {}>(x: T): void;\n ```\n\n ```ts\n type notNull<T> = T & {};\n ```\n\n"
+            "docs": " Disallow primitive type aliases and misleading types.\n\n This rule aims to prevent usage of potentially \"misleading\" types and type aliases\n which may behave unexpectedly.\n\n ### Disallow \"boxed object\" types like `Boolean` and `Number`\n\n JavaScript's 8 data types are described in TypeScript by the lowercase types\n `undefined`, `null`, `boolean`, `number`, `string`, `bigint`, `symbol`, and `object`.\n\n The latter 6 also have uppercase variants, which instead represent _interfaces_ with the shared properties of their primitive counterparts.\n Due to the nature of structural typing, these uppercase types accept both primitive values and non-primitive \"boxed object\"s\n like `new Boolean(true)`, despite the two behaving differently in many circumstances like equality and truthiness.\n\n It is thus considered best practice to avoid these \"boxed types\" in favor of their lowercase\n primitive counterparts.\n\n ### Disallow the unsafe `Function` type\n\n TypeScript's built-in `Function` type is capable of accepting callbacks of any shape or form,\n behaving equivalent to `(...rest: any[]) => any` (which uses the unsafe `any` type) when called directly. \\\n It also accepts classes or plain objects that happen to possess all properties of the `Function` class,\n which is likewise a potential source of confusion.\n\n As such, it is almost always preferable to explicitly specify function parameters and return types where possible. \\\n When a generic \"catch-all\" callback type is required, one of the following can be used instead:\n - `() => void`: A function that accepts no parameters and whose return value is ignored\n - `(...args: never) => unknown`: A \"top type\" for functions that can be _assigned_ any function type,\n    but can't be called directly\n\n ### Disallow the misleading empty object type `{}`\n `{}`, also known as the \"empty object\" type, _doesn't_ actually represent an empty object (despite what many new to TypeScript may assume). \\\n Due to TypeScript's type system being _structural_ instead of nominal, it actually accepts _any non-nullish value_,\n The following example is thus perfectly valid TypeScript:\n\n ```ts,ignore\n const n: {} = 0;\n ```\n\n Often, developers writing `{}` actually mean one of the following:\n - `object`: Represents any object value\n - `unknown`: Represents any value at all, including `null` and `undefined`\n - `{ [k: keyof any]: never }` or `Record<keyof any, never>`: Represent object types whose properties are all of type `never` (and cannot be used)\n - `{ [myUniqueInternalSymbol]?: never }`: Represents an object type whose only \"property\" is an unexported `unique symbol`, thereby forcing external consumers to omit it[^2]. \\\n   This can be used as a type guard for use in `extends` clauses or a type annotation for use in [excess property checks](https://www.typescriptlang.org/docs/handbook/2/objects.html#excess-property-checks),\n   both with their own respective use cases and pitfalls.\n\n To avoid confusion, this rule forbids the use of the type `{}`, except in two situations:\n\n 1. In type constraints to restrict a generic type to non-nullable types:\n\n ```ts\n function f<T extends {}>(x: T) {\n     assert(x != null);\n }\n ```\n\n 2. In a type intersection to narrow a type to its non-nullable equivalent type:\n\n ```ts\n type NonNullableMyType = MyType & {};\n ```\n\n In this last case, you can also use the `NonNullable` utility type to the same effect:\n\n ```ts\n // equivalent to `{}`\n type AnythingNotNullish = NonNullable<unknown>;\n ```\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n let foo: String = \"bar\";\n ```\n\n ```ts,expect_diagnostic\n const bool = true as Boolean;\n ```\n\n ```ts,expect_diagnostic\n let invalidTuple: [string, Number] = [\"foo\", 12];\n ```\n\n ```ts,expect_diagnostic\n function badFunction(cb: Function) {\n   cb(12);\n }\n ```\n\n ```ts,expect_diagnostic\n const notEmpty: {} = {prop: 12};\n ```\n\n ```ts,expect_diagnostic\n const alsoNotAnObj: Object = \"foo\";\n ```\n\n ### Valid\n\n ```ts\n const foo: string = \"bar\";\n ```\n\n ```ts\n let tuple: [boolean, string] = [false, \"foo\"];\n ```\n\n ```ts\n function betterFunction(cb: (n: number) => string) {\n   return cb(12);\n }\n ```\n\n ```ts\n type wrapFn<T extends (...args: never) => unknown> = { func: T }\n ```\n\n ```ts\n const goodObj: object = {foo: 12};\n ```\n\n ```ts\n type emptyObj = Record<string, never>;\n ```\n\n Exceptions for `{}`:\n ```ts\n declare function foo<T extends {}>(x: T): void;\n ```\n\n ```ts\n type notNull<T> = T & {};\n ```\n\n [^1]: This is the exact same mechanism that allows passing `{ foo: number, bar: string }`\n to a function expecting `{ bar: string }`.\n Specifying `{}` doesn't restrict compatible types to ones with _exactly_ 0 properties;\n it simply requires they have _at least_ 0 properties.\n [^2]: In this case, you'd write `declare const myUniqueInternalSymbol: unique symbol` somewhere in the same file.\n"
           },
           "noEmptyTypeParameters": {
             "deprecated": false,
@@ -7277,7 +7321,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 420
+    "numberOrRules": 422
   },
   "syntax": {
     "languages": {
