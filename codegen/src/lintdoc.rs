@@ -1661,7 +1661,7 @@ fn print_diagnostics_or_actions(
                 let options = test.create_analyzer_options::<JsonLanguage>(config)?;
                 let json_services = JsonAnalyzeServices {
                     file_source,
-                    configuration_source: None,
+                    configuration_provider: None,
                 };
                 biome_json_analyze::analyze(&root, filter, &options, json_services, |signal| {
                     match to_print_kind {
