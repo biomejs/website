@@ -17,6 +17,9 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - The default severity of this rule is [**warning**](/reference/diagnostics#warning).
 - Sources: 
   - Same as [`@typescript-eslint/ban-types`](https://typescript-eslint.io/rules/ban-types)
+  - Inspired from [`@typescript-eslint/no-empty-object-type`](https://typescript-eslint.io/rules/no-empty-object-type)
+  - Inspired from [`@typescript-eslint/no-wrapper-object-types`](https://typescript-eslint.io/rules/no-wrapper-object-types)
+  - Inspired from [`@typescript-eslint/no-unsafe-function-type`](https://typescript-eslint.io/rules/no-unsafe-function-type)
 
 ## How to configure
 ```json title="biome.json"
@@ -52,7 +55,7 @@ primitive counterparts.
 ### Disallow the unsafe `Function` type
 
 TypeScript's built-in `Function` type is capable of accepting callbacks of any shape or form,
-behaving equivalent to `(...rest: any[]) => any` (which uses the unsafe `any` type) when called directly.
+behaving equivalent to `(...rest: any[]) => any` (which uses the unsafe `any` type) when called directly. <br />
 It also accepts classes or plain objects that happen to possess all properties of the `Function` class,
 which is likewise a potential source of confusion.
 
@@ -60,26 +63,27 @@ As such, it is almost always preferable to explicitly specify function parameter
 When a generic "catch-all" callback type is required, one of the following can be used instead:
 
 - `() => void`: A function that accepts no parameters and whose return value is ignored
-- `(...args: never) => unknown`: A "top type" for functions that can be assigned any function type,
+- `(...args: never) => unknown`: A "top type" for functions that can be _assigned_ any function type,
 but can't be called directly
 
 ### Disallow the misleading empty object type `{}`
 
-In TypeScript, the type `{}` _doesn't_ represent an empty object (as many new to the language may assume).
-It actually accepts any non-nullish value, _including non-object primitives_.
-The following TypeScript example is thus perfectly valid:
+`{}`, also known as the "empty object" type, _doesn't_ actually represent an empty object (despite what many new to TypeScript may assume). <br />
+Due to TypeScript's type system being _structural_ instead of nominal, it actually accepts _any non-nullish value_,
+The following example is thus perfectly valid TypeScript:
 
 ```ts
 const n: {} = 0;
 ```
 
-<pre class="language-text"><code class="language-text">code-block.ts:1:10 <a href="https://biomejs.dev/linter/rules/no-banned-types">lint/complexity/noBannedTypes</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Don't use '</span><span style="color: Orange;"><strong>&#123;&#125;</strong></span><span style="color: Orange;">' as a type.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>const n: &#123;&#125; = 0;<br />   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">'</span><span style="color: lightgreen;"><strong>&#123;&#125;</strong></span><span style="color: lightgreen;">' accepts </span><span style="color: lightgreen;"><strong>any</strong></span><span style="color: lightgreen;"> non-nullable value, including non-object primitives like '123' and 'true'.<br /></span>    <span style="color: lightgreen;">- If you want a type meaning &quot;any arbitrary object&quot;, use '</span><span style="color: lightgreen;"><strong>object</strong></span><span style="color: lightgreen;">' instead.<br /></span>    <span style="color: lightgreen;">- If you want a type meaning &quot;any value&quot;, use '</span><span style="color: lightgreen;"><strong>unknown</strong></span><span style="color: lightgreen;">' instead.<br /></span>    <span style="color: lightgreen;">- If you want a type meaning &quot;an object without any properties&quot;, use '</span><span style="color: lightgreen;"><strong>&#123; [k: string]: never &#125;</strong></span><span style="color: lightgreen;">' or '</span><span style="color: lightgreen;"><strong>Record&lt;string, never&gt;</strong></span><span style="color: lightgreen;">' instead.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">If that's really what you want, use an inline disable comment.</span><br />  <br /></code></pre>
-
 Often, developers writing `{}` actually mean one of the following:
 
 - `object`: Represents any object value
 - `unknown`: Represents any value at all, including `null` and `undefined`
-- `{ [k: string]: never }` or `Record<string, never>`: Represent object types that disallow property access
+- `{ [k: keyof any]: never }` or `Record<keyof any, never>`: Represent object types whose properties are all of type `never` (and cannot be used)
+- `{ [myUniqueInternalSymbol]?: never }`: Represents an object type whose only "property" is an unexported `unique symbol`, thereby forcing external consumers to omit it[^2]. <br />
+This can be used as a type guard for use in `extends` clauses or a type annotation for use in [excess property checks](https://www.typescriptlang.org/docs/handbook/2/objects.html#excess-property-checks),
+both with their own respective use cases and pitfalls.
 
 To avoid confusion, this rule forbids the use of the type `{}`, except in two situations:
 
@@ -100,7 +104,8 @@ type NonNullableMyType = MyType & {};
 In this last case, you can also use the `NonNullable` utility type to the same effect:
 
 ```ts
-type NonNullableMyType = NonNullable<MyType>;
+// equivalent to `{}`
+type AnythingNotNullish = NonNullable<unknown>;
 ```
 
 ## Examples
@@ -137,13 +142,13 @@ function badFunction(cb: Function) {
 const notEmpty: {} = {prop: 12};
 ```
 
-<pre class="language-text"><code class="language-text">code-block.ts:1:17 <a href="https://biomejs.dev/linter/rules/no-banned-types">lint/complexity/noBannedTypes</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Don't use '</span><span style="color: Orange;"><strong>&#123;&#125;</strong></span><span style="color: Orange;">' as a type.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>const notEmpty: &#123;&#125; = &#123;prop: 12&#125;;<br />   <strong>   │ </strong>                <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">'</span><span style="color: lightgreen;"><strong>&#123;&#125;</strong></span><span style="color: lightgreen;">' accepts </span><span style="color: lightgreen;"><strong>any</strong></span><span style="color: lightgreen;"> non-nullable value, including non-object primitives like '123' and 'true'.<br /></span>    <span style="color: lightgreen;">- If you want a type meaning &quot;any arbitrary object&quot;, use '</span><span style="color: lightgreen;"><strong>object</strong></span><span style="color: lightgreen;">' instead.<br /></span>    <span style="color: lightgreen;">- If you want a type meaning &quot;any value&quot;, use '</span><span style="color: lightgreen;"><strong>unknown</strong></span><span style="color: lightgreen;">' instead.<br /></span>    <span style="color: lightgreen;">- If you want a type meaning &quot;an object without any properties&quot;, use '</span><span style="color: lightgreen;"><strong>&#123; [k: string]: never &#125;</strong></span><span style="color: lightgreen;">' or '</span><span style="color: lightgreen;"><strong>Record&lt;string, never&gt;</strong></span><span style="color: lightgreen;">' instead.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">If that's really what you want, use an inline disable comment.</span><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.ts:1:17 <a href="https://biomejs.dev/linter/rules/no-banned-types">lint/complexity/noBannedTypes</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Don't use '</span><span style="color: Orange;"><strong>&#123;&#125;</strong></span><span style="color: Orange;">' as a type.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>const notEmpty: &#123;&#125; = &#123;prop: 12&#125;;<br />   <strong>   │ </strong>                <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">'</span><span style="color: lightgreen;"><strong>&#123;&#125;</strong></span><span style="color: lightgreen;">' accepts </span><span style="color: lightgreen;"><strong>any</strong></span><span style="color: lightgreen;"> non-nullish value, including non-object primitives like '</span><span style="color: lightgreen;"><strong>123</strong></span><span style="color: lightgreen;">' and '</span><span style="color: lightgreen;"><strong>true</strong></span><span style="color: lightgreen;">'.<br /></span>    <span style="color: lightgreen;">- If you want a type meaning &quot;any arbitrary object&quot;, use '</span><span style="color: lightgreen;"><strong>object</strong></span><span style="color: lightgreen;">' instead.<br /></span>    <span style="color: lightgreen;">- If you want a type meaning &quot;any value&quot;, use '</span><span style="color: lightgreen;"><strong>unknown</strong></span><span style="color: lightgreen;">' instead.<br /></span>    <span style="color: lightgreen;">- If you want a type meaning &quot;an object whose properties cannot be used&quot;, use '</span><span style="color: lightgreen;"><strong>&#123; [k: keyof any]: never &#125;</strong></span><span style="color: lightgreen;">' or '</span><span style="color: lightgreen;"><strong>Record&lt;keyof any, never&gt;</strong></span><span style="color: lightgreen;">' instead.<br /></span>    <span style="color: lightgreen;">- If you want a type meaning &quot;an object that cannot contain any properties whatsoever&quot;, use '</span><span style="color: lightgreen;"><strong>&#123; [uniqueSymbol]?: never &#125;</strong></span><span style="color: lightgreen;">' with an unexported </span><span style="color: lightgreen;"><strong>unique symbol</strong></span><span style="color: lightgreen;"> in the same file.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">If that's really what you want, use an inline disable comment.</span><br />  <br /></code></pre>
 
 ```ts
 const alsoNotAnObj: Object = "foo";
 ```
 
-<pre class="language-text"><code class="language-text">code-block.ts:1:21 <a href="https://biomejs.dev/linter/rules/no-banned-types">lint/complexity/noBannedTypes</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Don't use '</span><span style="color: Orange;"><strong>Object</strong></span><span style="color: Orange;">' as a type.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>const alsoNotAnObj: Object = &quot;foo&quot;;<br />   <strong>   │ </strong>                    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">'</span><span style="color: lightgreen;"><strong>Object</strong></span><span style="color: lightgreen;">' accepts </span><span style="color: lightgreen;"><strong>any</strong></span><span style="color: lightgreen;"> non-nullable value, including non-object primitives like '123' and 'true'.<br /></span>    <span style="color: lightgreen;">- If you want a type meaning &quot;any arbitrary object&quot;, use '</span><span style="color: lightgreen;"><strong>object</strong></span><span style="color: lightgreen;">' instead.<br /></span>    <span style="color: lightgreen;">- If you want a type meaning &quot;any value&quot;, use '</span><span style="color: lightgreen;"><strong>unknown</strong></span><span style="color: lightgreen;">' instead.<br /></span>    <span style="color: lightgreen;">- If you want a type meaning &quot;an object without any properties&quot;, use '</span><span style="color: lightgreen;"><strong>&#123; [k: string]: never &#125;</strong></span><span style="color: lightgreen;">' or '</span><span style="color: lightgreen;"><strong>Record&lt;string, never&gt;</strong></span><span style="color: lightgreen;">' instead.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">If that's really what you want, use an inline disable comment.</span><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.ts:1:21 <a href="https://biomejs.dev/linter/rules/no-banned-types">lint/complexity/noBannedTypes</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Don't use '</span><span style="color: Orange;"><strong>Object</strong></span><span style="color: Orange;">' as a type.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>const alsoNotAnObj: Object = &quot;foo&quot;;<br />   <strong>   │ </strong>                    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">'</span><span style="color: lightgreen;"><strong>Object</strong></span><span style="color: lightgreen;">' accepts </span><span style="color: lightgreen;"><strong>any</strong></span><span style="color: lightgreen;"> non-nullish value, including non-object primitives like '</span><span style="color: lightgreen;"><strong>123</strong></span><span style="color: lightgreen;">' and '</span><span style="color: lightgreen;"><strong>true</strong></span><span style="color: lightgreen;">'.<br /></span>    <span style="color: lightgreen;">- If you want a type meaning &quot;any arbitrary object&quot;, use '</span><span style="color: lightgreen;"><strong>object</strong></span><span style="color: lightgreen;">' instead.<br /></span>    <span style="color: lightgreen;">- If you want a type meaning &quot;any value&quot;, use '</span><span style="color: lightgreen;"><strong>unknown</strong></span><span style="color: lightgreen;">' instead.<br /></span>    <span style="color: lightgreen;">- If you want a type meaning &quot;an object whose properties cannot be used&quot;, use '</span><span style="color: lightgreen;"><strong>&#123; [k: keyof any]: never &#125;</strong></span><span style="color: lightgreen;">' or '</span><span style="color: lightgreen;"><strong>Record&lt;keyof any, never&gt;</strong></span><span style="color: lightgreen;">' instead.<br /></span>    <span style="color: lightgreen;">- If you want a type meaning &quot;an object that cannot contain any properties whatsoever&quot;, use '</span><span style="color: lightgreen;"><strong>&#123; [uniqueSymbol]?: never &#125;</strong></span><span style="color: lightgreen;">' with an unexported </span><span style="color: lightgreen;"><strong>unique symbol</strong></span><span style="color: lightgreen;"> in the same file.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">If that's really what you want, use an inline disable comment.</span><br />  <br /></code></pre>
 
 ### Valid
 
@@ -182,6 +187,12 @@ declare function foo<T extends {}>(x: T): void;
 ```ts
 type notNull<T> = T & {};
 ```
+
+[^1]: This is the exact same mechanism that allows passing `{ foo: number, bar: string }`
+to a function expecting `{ bar: string }`.
+Specifying `{}` doesn't restrict compatible types to ones with _exactly_ 0 properties;
+it simply requires they have _at least_ 0 properties.
+[^2]: In this case, you'd write `declare const myUniqueInternalSymbol: unique symbol` somewhere in the same file.
 
 ## Related links
 

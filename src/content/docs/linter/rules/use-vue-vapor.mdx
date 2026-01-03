@@ -2,8 +2,8 @@
 # Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
 # Head to the `biomejs/biome` repository, and modify the source code in there.
 
-title: useVueValidVOnce
-description: Learn more about useVueValidVOnce
+title: useVueVapor
+description: Learn more about useVueVapor
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
@@ -14,21 +14,18 @@ This rule is part of the [nursery](/linter/#nursery) group. This means that it i
 :::
 ## Summary
 - Rule available since: `v2.3.11`
-- Diagnostic Category: [`lint/nursery/useVueValidVOnce`](/reference/diagnostics#diagnostic-category)
+- Diagnostic Category: [`lint/nursery/useVueVapor`](/reference/diagnostics#diagnostic-category)
 - This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
 - The default severity of this rule is [**information**](/reference/diagnostics#information).
 - This rule belongs to the following domains:
   - [`vue`](/linter/domains#vue)
-- Sources: 
-  - Same as [`vue/valid-v-once`](https://eslint.vuejs.org/rules/valid-v-once)
-
 ## How to configure
 ```json title="biome.json"
 {
 	"linter": {
 		"rules": {
 			"nursery": {
-				"useVueValidVOnce": "error"
+				"useVueVapor": "error"
 			}
 		}
 	}
@@ -36,34 +33,22 @@ This rule is part of the [nursery](/linter/#nursery) group. This means that it i
 
 ```
 ## Description
-Enforce valid `v-once` Vue directives.
+Enforce opting in to Vue Vapor mode in `<script setup>` blocks.
+
+Vue 3.6 introduces an opt-in “Vapor mode” for SFC `<script setup>` blocks:
+`<script setup vapor>`.
+
+Vapor mode only works for Vue Single File Components (SFCs) using `<script setup>`.
+
+This rule reports `<script setup>` opening tags that are missing the `vapor` attribute.
 
 ## Examples
 
 ### Invalid
 
-This rule reports `v-once` directives in the following cases:
-
-The directive has an argument so it is invalid.
-
 ```vue
-<div v-once:arg></div>
-```
-
-<pre class="language-text"><code class="language-text"></code></pre>
-
-The directive has a modifier so it is invalid.
-
-```vue
-<div v-once.mod></div>
-```
-
-<pre class="language-text"><code class="language-text"></code></pre>
-
-The directive has a value so it is invalid.
-
-```vue
-<div v-once="value"></div>
+<script setup>
+</script>
 ```
 
 <pre class="language-text"><code class="language-text"></code></pre>
@@ -71,7 +56,8 @@ The directive has a value so it is invalid.
 ### Valid
 
 ```vue
-<div v-once></div>
+<script setup vapor>
+</script>
 ```
 
 ## Related links
@@ -79,8 +65,8 @@ The directive has a value so it is invalid.
 - [Disable a rule](/linter/#disable-a-rule)
 - [Configure the code fix](/linter#configure-the-code-fix)
 - [Rule options](/linter/#rule-options)
-- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/use_vue_valid_v_once.rs)
-- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/useVueValidVOnce)
+- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/use_vue_vapor.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/useVueVapor)
 
 </TabItem>
 </Tabs>
