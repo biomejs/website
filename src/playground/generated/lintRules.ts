@@ -218,6 +218,7 @@ export const LINT_RULES = {
     useSortedClasses: "useSortedClasses",
     useSpread: "useSpread",
     useUniqueArgumentNames: "useUniqueArgumentNames",
+    useUniqueEnumValueNames: "useUniqueEnumValueNames",
     useUniqueFieldDefinitionNames: "useUniqueFieldDefinitionNames",
     useUniqueGraphqlOperationName: "useUniqueGraphqlOperationName",
     useUniqueInputFieldNames: "useUniqueInputFieldNames",

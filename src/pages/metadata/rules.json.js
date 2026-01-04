@@ -557,6 +557,23 @@ export function GET() {
             ],
             "docs": " Require all argument names for fields & directives to be unique.\n\n A GraphQL field or directive is only valid if all supplied arguments are uniquely named.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query {\n   field(arg1: \"value\", arg1: \"value\")\n }\n ```\n\n ### Valid\n\n ```graphql\n query {\n   field(arg1: \"value\", arg2: \"value\")\n }\n ```\n\n"
           },
+          "useUniqueEnumValueNames": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useUniqueEnumValueNames",
+            "link": "https://biomejs.dev/linter/rules/use-unique-enum-value-names",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintGraphql": "unique-enum-value-names"
+                }
+              }
+            ],
+            "docs": " Require all enum value names to be unique.\n\n A GraphQL enum type is only valid if all its values are uniquely named.\n The enum value names are case insensitive, meaning `TEST` & `Test` are seen as the same enum value name.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n enum A {\n   TEST\n   OTHER\n   TEST\n }\n ```\n\n ```graphql,expect_diagnostic\n enum B {\n   TEST\n   TesT\n }\n ```\n\n ### Valid\n\n ```graphql\n enum A {\n   TEST\n   OTHER\n }\n ```\n\n"
+          },
           "useUniqueFieldDefinitionNames": {
             "deprecated": false,
             "version": "2.3.11",
@@ -7321,7 +7338,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 422
+    "numberOrRules": 423
   },
   "syntax": {
     "languages": {

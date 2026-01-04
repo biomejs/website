@@ -388,6 +388,7 @@ export default {
   '/linter/rules/useUnifiedTypeSignatures': '/linter/rules/use-unified-type-signatures',
   '/linter/rules/useUniqueArgumentNames': '/linter/rules/use-unique-argument-names',
   '/linter/rules/useUniqueElementIds': '/linter/rules/use-unique-element-ids',
+  '/linter/rules/useUniqueEnumValueNames': '/linter/rules/use-unique-enum-value-names',
   '/linter/rules/useUniqueFieldDefinitionNames': '/linter/rules/use-unique-field-definition-names',
   '/linter/rules/useUniqueGraphqlOperationName': '/linter/rules/use-unique-graphql-operation-name',
   '/linter/rules/useUniqueInputFieldNames': '/linter/rules/use-unique-input-field-names',
