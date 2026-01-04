@@ -210,6 +210,7 @@ export const LINT_RULES = {
     useExhaustiveSwitchCases: "useExhaustiveSwitchCases",
     useExplicitType: "useExplicitType",
     useFind: "useFind",
+    useLoneExecutableDefinition: "useLoneExecutableDefinition",
     useMaxParams: "useMaxParams",
     useQwikMethodUsage: "useQwikMethodUsage",
     useQwikValidLexicalScope: "useQwikValidLexicalScope",

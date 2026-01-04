@@ -540,6 +540,23 @@ export function GET() {
             ],
             "docs": " Require the `@deprecated` directive to specify a deletion date.\n\n Suggests removing deprecated code when the due date has been passed.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query {\n   member @deprecated(reason: \"Use `members` instead\") {\n     id\n   }\n }\n ```\n\n ### Valid\n\n ```graphql\n query {\n   member @deprecated(reason: \"Use `members` instead\", deletionDate: \"2099-12-25\") {\n     id\n   }\n }\n ```\n\n"
           },
+          "useLoneExecutableDefinition": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useLoneExecutableDefinition",
+            "link": "https://biomejs.dev/linter/rules/use-lone-executable-definition",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintGraphql": "lone-executable-definition"
+                }
+              }
+            ],
+            "docs": " Require queries, mutations, subscriptions or fragments each to be located in separate files.\n\n This rule ensures that each GraphQL document only contains a single operation (query, mutation, or subscription) or fragment definition.\n Having multiple executable definitions in a single file can make code harder to maintain, test, and understand.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query Foo {\n   id\n }\n\n fragment Bar on Baz {\n   id\n }\n ```\n\n ```graphql,expect_diagnostic\n query Foo {\n   id\n }\n\n mutation ($name: String!) {\n   createUser {\n     id\n   }\n }\n ```\n\n ```graphql,expect_diagnostic\n query Foo {\n   id\n }\n\n query Bar {\n   id\n }\n ```\n\n ### Valid\n\n ```graphql\n query Foo {\n   id\n }\n ```\n\n ```graphql\n fragment Bar on Baz {\n   id\n }\n ```\n\n"
+          },
           "useUniqueArgumentNames": {
             "deprecated": false,
             "version": "2.3.11",
@@ -7338,7 +7355,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 423
+    "numberOrRules": 424
   },
   "syntax": {
     "languages": {
