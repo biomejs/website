@@ -31,7 +31,9 @@ If neither exists, it will ask Zed to install Biome using `npm` and use that.
 
 ## Configuration
 
-By default, the biome.json file is required to be in the **root of the workspace**.
+### `config_path`
+
+By default, the configuration file is required to be in the **root of the workspace**.
 
 Otherwise, it can be configured through the lsp settings:
 
@@ -47,7 +49,66 @@ Otherwise, it can be configured through the lsp settings:
 }
 ```
 
-### Formatting
+### `require_config_file`
+
+It enables Biome only if the project contains a configuration file:
+
+> Default: `false`
+
+```json5 title=".zed/settings.json"
+{
+  "lsp": {
+    "biome": {
+      "settings": {
+        "require_config_file": true
+      }
+    }
+  }
+}
+```
+
+### `inline_config`
+
+An inline version of the Biome configuration. The options of this configuration will override the options coming from any `biome.json` file read from disk (or the defaults).
+
+For example, let's say your project enables the rule `noConsole` with `error` severity:
+
+```json title="biome.json"
+{
+  "linter": {
+    "rules": {
+      "suspicious": {
+        "noConsole": "error"
+      }
+    }
+  }
+}
+```
+
+However, during local development, you want to disable this rule because it's useful and you don't want to see red squiggles. In your `inline_config`, you would write something like the following:
+
+```json title=".zed/settings.json"
+{
+  "lsp": {
+    "biome": {
+      "settings": {
+        "inline_config": {
+          "linter": {
+            "rules": {
+              "suspicious": {
+                "noConsole": "off"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+
+## Formatting
 
 To use the language server as a formatter, specify biome as your formatter in the settings:
 
