@@ -100,8 +100,8 @@ importers:
         specifier: 5.16.6
         version: 5.16.6(@netlify/blobs@10.5.0)(@types/node@24.10.4)(jiti@2.6.1)(rollup@4.54.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.6))(typescript@5.9.3)(yaml@2.8.2)
       astro-og-canvas:
-        specifier: 0.7.2
-        version: 0.7.2(astro@5.16.6(@netlify/blobs@10.5.0)(@types/node@24.10.4)(jiti@2.6.1)(rollup@4.54.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.6))(typescript@5.9.3)(yaml@2.8.2))
+        specifier: 0.8.0
+        version: 0.8.0(astro@5.16.6(@netlify/blobs@10.5.0)(@types/node@24.10.4)(jiti@2.6.1)(rollup@4.54.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.6))(typescript@5.9.3)(yaml@2.8.2))
       autoprefixer:
         specifier: 10.4.23
         version: 10.4.23(postcss@8.5.6)
@@ -419,7 +419,7 @@ packages:
     resolution: {integrity: sha512-jboDhjZY8/bAPl2kgvjrbbyXyM6uimPsasY3TvFhSpPaNorij0UZROi/NjDQqQeZFSaIK3ieiRZXWwoBZh6rQQ==}
 
   '@biomejs/wasm-web@https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@cbb97cd':
-    resolution: {integrity: sha512-vjITP7RmSf6pNgbfsCo03ECUV9k+WsYr6IaqANk2AIRrc7uYPcddTyXZ1abW3cr9Lev5Y3DXjo5sw4cV1xkslQ==, tarball: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@cbb97cd}
+    resolution: {tarball: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@cbb97cd}
     version: 0.0.0-rev.cbb97cd41c2c667b050720ad7cd91786b9892600
 
   '@braintree/sanitize-url@7.1.1':
@@ -2187,11 +2187,10 @@ packages:
     peerDependencies:
       astro: ^4.0.0-beta || ^5.0.0-beta || ^3.3.0
 
-  astro-og-canvas@0.7.2:
-    resolution: {integrity: sha512-i7sWbdpl2MMF7wUZqSfzMnhW4c7GQz6s7T4BUJ7E06MqasZRHjJytn0n6D0JJkGDeTpZnU7E00A6Ffx0pRB4kg==}
-    engines: {node: '>=18.14.1'}
+  astro-og-canvas@0.8.0:
+    resolution: {integrity: sha512-0DUPEC9f5ajcXcY5Enx1KmD0lfW2VtjH69B4sFTQxKM/DdH9eF5MGRmBwjzlnAUGsOcmBXqCtO3lOP78eLlWSw==}
     peerDependencies:
-      astro: ^3.0.0 || ^4.0.0 || ^5.0.0
+      astro: ^5.0.0 || ^6.0.0-alpha
 
   astro-remote@0.3.4:
     resolution: {integrity: sha512-jL5skNQLA0YBc1R3bVGXyHew3FqGqsT7AgLzWAVeTLzFkwVMUYvs4/lKJSmS7ygcF1GnHnoKG6++8GL9VtWwGQ==}
@@ -8413,7 +8412,7 @@ snapshots:
       astro: 5.16.6(@netlify/blobs@10.5.0)(@types/node@24.10.4)(jiti@2.6.1)(rollup@4.54.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.6))(typescript@5.9.3)(yaml@2.8.2)
       rehype-expressive-code: 0.41.5
 
-  astro-og-canvas@0.7.2(astro@5.16.6(@netlify/blobs@10.5.0)(@types/node@24.10.4)(jiti@2.6.1)(rollup@4.54.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.6))(typescript@5.9.3)(yaml@2.8.2)):
+  astro-og-canvas@0.8.0(astro@5.16.6(@netlify/blobs@10.5.0)(@types/node@24.10.4)(jiti@2.6.1)(rollup@4.54.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.6))(typescript@5.9.3)(yaml@2.8.2)):
     dependencies:
       astro: 5.16.6(@netlify/blobs@10.5.0)(@types/node@24.10.4)(jiti@2.6.1)(rollup@4.54.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.6))(typescript@5.9.3)(yaml@2.8.2)
       canvaskit-wasm: 0.40.0
