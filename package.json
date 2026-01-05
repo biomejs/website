@@ -42,7 +42,7 @@
     "@codemirror/lang-vue": "0.1.3",
     "@codemirror/lint": "6.9.2",
     "@codemirror/state": "6.5.3",
-    "@codemirror/view": "6.39.7",
+    "@codemirror/view": "6.39.8",
     "@expressive-code/plugin-line-numbers": "0.41.5",
     "@lunariajs/core": "0.1.1",
     "@lunariajs/starlight": "0.1.1",
