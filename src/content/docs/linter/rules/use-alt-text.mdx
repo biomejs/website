@@ -84,5 +84,117 @@ By default, this rule checks for alternative text on the following elements: `<i
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/a11y/useAltText)
 
 </TabItem>
+<TabItem label="HTML" icon="seti:html">
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+## Summary
+- Diagnostic Category: [`lint/a11y/useAltText`](/reference/diagnostics#diagnostic-category)
+- This rule is **recommended**, meaning it is enabled by default.
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Same as [`jsx-a11y/alt-text`](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/alt-text.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"a11y": {
+				"useAltText": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Enforce that all elements that require alternative text have meaningful information to relay back to the end user.
+
+This is a critical component of accessibility for screen reader users in order for them
+to understand the content's purpose on the page.
+By default, this rule checks for alternative text on the following elements:
+`<img>`, `<area>`, `<input type="image">`, and `<object>`.
+
+:::note
+In `.html` files, this rule matches element names case-insensitively (e.g., `<IMG>`, `<Img>`).
+
+In component-based frameworks (Vue, Svelte, Astro), only lowercase element names are checked.
+PascalCase variants like `<Img>` are assumed to be custom components and are ignored.
+:::
+
+## Examples
+
+### Invalid
+
+```html
+<img src="image.png" />
+```
+
+<pre class="language-text"><code class="language-text">code-block.html:1:1 <a href="https://biomejs.dev/linter/rules/use-alt-text">lint/a11y/useAltText</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Provide a text alternative through the </span><span style="color: Tomato;"><strong>alt</strong></span><span style="color: Tomato;">, </span><span style="color: Tomato;"><strong>aria-label</strong></span><span style="color: Tomato;">, or </span><span style="color: Tomato;"><strong>aria-labelledby</strong></span><span style="color: Tomato;"> attribute.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;img src=&quot;image.png&quot; /&gt;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Meaningful alternative text on elements helps users relying on screen readers to understand content's purpose within a page.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">If the content is decorative, redundant, or obscured, consider hiding it from assistive technologies with the </span><span style="color: lightgreen;"><strong>aria-hidden</strong></span><span style="color: lightgreen;"> attribute.</span><br />  <br /></code></pre>
+
+```html
+<input type="image" src="image.png" />
+```
+
+<pre class="language-text"><code class="language-text">code-block.html:1:1 <a href="https://biomejs.dev/linter/rules/use-alt-text">lint/a11y/useAltText</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Provide a text alternative through the </span><span style="color: Tomato;"><strong>alt</strong></span><span style="color: Tomato;">, </span><span style="color: Tomato;"><strong>aria-label</strong></span><span style="color: Tomato;">, or </span><span style="color: Tomato;"><strong>aria-labelledby</strong></span><span style="color: Tomato;"> attribute.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;input type=&quot;image&quot; src=&quot;image.png&quot; /&gt;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Meaningful alternative text on elements helps users relying on screen readers to understand content's purpose within a page.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">If the content is decorative, redundant, or obscured, consider hiding it from assistive technologies with the </span><span style="color: lightgreen;"><strong>aria-hidden</strong></span><span style="color: lightgreen;"> attribute.</span><br />  <br /></code></pre>
+
+```html
+<area href="foo" />
+```
+
+<pre class="language-text"><code class="language-text">code-block.html:1:1 <a href="https://biomejs.dev/linter/rules/use-alt-text">lint/a11y/useAltText</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Provide a text alternative through the </span><span style="color: Tomato;"><strong>alt</strong></span><span style="color: Tomato;">, </span><span style="color: Tomato;"><strong>aria-label</strong></span><span style="color: Tomato;">, or </span><span style="color: Tomato;"><strong>aria-labelledby</strong></span><span style="color: Tomato;"> attribute.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;area href=&quot;foo&quot; /&gt;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Meaningful alternative text on elements helps users relying on screen readers to understand content's purpose within a page.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">If the content is decorative, redundant, or obscured, consider hiding it from assistive technologies with the </span><span style="color: lightgreen;"><strong>aria-hidden</strong></span><span style="color: lightgreen;"> attribute.</span><br />  <br /></code></pre>
+
+```html
+<object data="foo"></object>
+```
+
+<pre class="language-text"><code class="language-text">code-block.html:1:1 <a href="https://biomejs.dev/linter/rules/use-alt-text">lint/a11y/useAltText</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Provide a text alternative through the </span><span style="color: Tomato;"><strong>title</strong></span><span style="color: Tomato;">, </span><span style="color: Tomato;"><strong>aria-label</strong></span><span style="color: Tomato;">, or </span><span style="color: Tomato;"><strong>aria-labelledby</strong></span><span style="color: Tomato;"> attribute.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;object data=&quot;foo&quot;&gt;&lt;/object&gt;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Meaningful alternative text on elements helps users relying on screen readers to understand content's purpose within a page.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">If the content is decorative, redundant, or obscured, consider hiding it from assistive technologies with the </span><span style="color: lightgreen;"><strong>aria-hidden</strong></span><span style="color: lightgreen;"> attribute.</span><br />  <br /></code></pre>
+
+### Valid
+
+```html
+<img src="image.png" alt="A beautiful landscape" />
+```
+
+```html
+<input type="image" src="image.png" alt="Submit" />
+```
+
+```html
+<img src="image.png" aria-label="A beautiful landscape" />
+```
+
+```html
+<img src="image.png" aria-labelledby="image-description" />
+```
+
+```html
+<object data="foo" title="Embedded content"></object>
+```
+
+```html
+<!-- Decorative images can be hidden from assistive technologies -->
+<img src="decorative.png" alt="" />
+```
+
+```html
+<img src="decorative.png" aria-hidden="true" />
+```
+
+## Accessibility guidelines
+
+- [WCAG 1.1.1](https://www.w3.org/WAI/WCAG21/Understanding/non-text-content.html)
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/a11y/use_alt_text.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/a11y/useAltText)
+
+</TabItem>
 </Tabs>
 

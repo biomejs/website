@@ -730,12 +730,20 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
     }
 
     let is_project_domain = meta.domains.iter().find(|d| **d == RuleDomain::Project);
+    let is_types_domain = meta.domains.iter().find(|d| **d == RuleDomain::Types);
 
-    if is_project_domain.is_some() {
+    if is_types_domain.is_some() {
         writeln!(content, ":::note")?;
         writeln!(
             content,
-            "This rule belongs to the project domain. This means that its activation will activate the Biome Scanner, which might affect the performance. Read more about it in the [documentation page](/linter/domains#project)"
+            "This rule belongs to the types domain. This means that its activation will activate the Biome Scanner to scan the files of your project, and enable the type inference engine. Read more about it in the [documentation page](/linter/domains#types)"
+        )?;
+        writeln!(content, ":::")?;
+    } else if is_project_domain.is_some() {
+        writeln!(content, ":::note")?;
+        writeln!(
+            content,
+            "This rule belongs to the project domain. This means that its activation will activate the Biome Scanner to scan the files of your project. Read more about it in the [documentation page](/linter/domains#project)"
         )?;
         writeln!(content, ":::")?;
     }
@@ -1843,7 +1851,7 @@ fn print_diagnostics_or_actions(
                 };
 
                 let options = AnalyzerOptions::default().with_file_path(test.file_path());
-                biome_html_analyze::analyze(&root, filter, &options, |signal| {
+                biome_html_analyze::analyze(&root, filter, &options, file_source, |signal| {
                     match to_print_kind {
                         ToPrintKind::Diagnostics => {
                             if let Some(mut diag) = signal.diagnostic() {
