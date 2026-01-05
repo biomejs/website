@@ -54,7 +54,7 @@
     "@uiw/react-codemirror": "4.25.4",
     "@vitejs/plugin-react": "5.1.2",
     "astro": "5.16.6",
-    "astro-og-canvas": "0.7.2",
+    "astro-og-canvas": "0.8.0",
     "autoprefixer": "10.4.23",
     "canvaskit-wasm": "0.40.0",
     "cm6-graphql": "0.2.1",
