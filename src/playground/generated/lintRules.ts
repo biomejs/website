@@ -208,6 +208,7 @@ export const LINT_RULES = {
     useConsistentGraphqlDescriptions: "useConsistentGraphqlDescriptions",
     useDeprecatedDate: "useDeprecatedDate",
     useDestructuring: "useDestructuring",
+    useErrorCause: "useErrorCause",
     useExhaustiveSwitchCases: "useExhaustiveSwitchCases",
     useExplicitType: "useExplicitType",
     useFind: "useFind",

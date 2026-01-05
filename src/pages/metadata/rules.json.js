@@ -3154,6 +3154,23 @@ export function GET() {
             ],
             "docs": " Require destructuring from arrays and/or objects\n\n With JavaScript ES6, a new syntax was added for creating variables from an array index or object property,\n called destructuring. This rule enforces usage of destructuring instead of accessing a property through a member expression.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n var foo = array[0];\n ```\n\n ```js,expect_diagnostic\n var bar = foo.bar;\n ```\n\n\n ### Valid\n\n ```js\n var [foo] = array;\n ```\n\n ```js\n var { bar } = foo;\n ```\n\n"
           },
+          "useErrorCause": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useErrorCause",
+            "link": "https://biomejs.dev/linter/rules/use-error-cause",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "preserve-caught-error"
+                }
+              }
+            ],
+            "docs": " Enforce that `new Error()` is thrown with the original error as `cause`.\n\n When catching and rethrowing an error, it's recommended to wrap the original error in a new `Error` object to preserve the original error's stack trace and context. The original error should be passed as the `cause` property of the new `Error` object.\n\n This rule enforces that practice, helping to maintain a clear and traceable error propagation chain, which is crucial for effective debugging.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n try {\n   // ...\n } catch (err) {\n   throw new Error(err.message);\n }\n ```\n\n ```js,expect_diagnostic\n try {\n     doSomething();\n } catch {\n     throw new Error(\"Something went wrong\");\n }\n ```\n\n ```js,expect_diagnostic\n try {\n   // ...\n } catch ({ message }) {\n   throw new Error(message);\n }\n ```\n\n Cause error is being shadowed by a closer scoped redeclaration.\n ```js,expect_diagnostic\n try {\n     doSomething();\n } catch (error) {\n     if (whatever) {\n         const error = anotherError; // This declaration shadows the caught error.\n         throw new Error(\"Something went wrong\", { cause: error });\n     }\n }\n ```\n\n ### Valid\n\n ```js\n try {\n   // ...\n } catch (err) {\n   throw new Error(\"Something went wrong\", { cause: err });\n }\n\n try {\n     throw \"Not a rethrow, so it's ignored when nested\";\n } catch (err) {\n     const fn = () => {\n         throw new Error(\"New unrelated error\");\n     }\n     fn();\n }\n ```\n\n ## Options\n\n The following options are available:\n\n ### `requireCatchParameter`\n\n If `true`, the rule will report a diagnostic for a `throw` statement inside an empty `catch {}` block, recommending that the error be caught in a parameter.\n\n Default: `true`\n\n ```json,options\n {\n     \"options\": {\n         \"requireCatchParameter\": false\n     }\n }\n ```\n\n This option is enabled by default, meaning the following code is considered invalid:\n\n ```js,expect_diagnostic\n try {\n     doSomething();\n } catch {\n     throw new Error(\"Something went wrong\");\n }\n ```\n\n To disable this check, you would set the option to `false`:\n\n ```js,use_options\n try {\n     doSomething();\n } catch {\n     throw new Error(\"Something went wrong\");\n }\n ```\n\n"
+          },
           "useExhaustiveSwitchCases": {
             "deprecated": false,
             "version": "2.0.0",
@@ -7372,7 +7389,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 425
+    "numberOrRules": 426
   },
   "syntax": {
     "languages": {

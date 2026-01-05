@@ -307,6 +307,7 @@ export default {
   '/linter/rules/useDeprecatedReason': '/linter/rules/use-deprecated-reason',
   '/linter/rules/useDestructuring': '/linter/rules/use-destructuring',
   '/linter/rules/useEnumInitializers': '/linter/rules/use-enum-initializers',
+  '/linter/rules/useErrorCause': '/linter/rules/use-error-cause',
   '/linter/rules/useErrorMessage': '/linter/rules/use-error-message',
   '/linter/rules/useExhaustiveDependencies': '/linter/rules/use-exhaustive-dependencies',
   '/linter/rules/useExhaustiveSwitchCases': '/linter/rules/use-exhaustive-switch-cases',
