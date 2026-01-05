@@ -82,6 +82,7 @@ export default {
   '/linter/rules/noEqualsToNull': '/linter/rules/no-equals-to-null',
   '/linter/rules/noEvolvingTypes': '/linter/rules/no-evolving-types',
   '/linter/rules/noExcessiveCognitiveComplexity': '/linter/rules/no-excessive-cognitive-complexity',
+  '/linter/rules/noExcessiveLinesPerFile': '/linter/rules/no-excessive-lines-per-file',
   '/linter/rules/noExcessiveLinesPerFunction': '/linter/rules/no-excessive-lines-per-function',
   '/linter/rules/noExcessiveNestedTestSuites': '/linter/rules/no-excessive-nested-test-suites',
   '/linter/rules/noExplicitAny': '/linter/rules/no-explicit-any',
