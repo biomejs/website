@@ -6,7 +6,7 @@ alias l := lint
 
 format:
     cargo fmt
-    taplo fmt
+    pnpm tombi format
 
 lint:
     cargo clippy

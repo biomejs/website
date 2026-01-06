@@ -1576,11 +1576,14 @@ fn print_diagnostics_or_actions(
                     biome_service::file_handlers::AstroFileHandler::input(code),
                     JsFileSource::ts(),
                 ),
-                EmbeddingKind::Svelte => (
+                EmbeddingKind::Svelte { is_source: _ } => (
                     biome_service::file_handlers::SvelteFileHandler::input(code),
                     biome_service::file_handlers::SvelteFileHandler::file_source(code),
                 ),
-                EmbeddingKind::Vue { setup: _ } => (
+                EmbeddingKind::Vue {
+                    setup: _,
+                    is_source: _,
+                } => (
                     biome_service::file_handlers::VueFileHandler::input(code),
                     biome_service::file_handlers::VueFileHandler::file_source(code),
                 ),

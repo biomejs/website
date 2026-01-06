@@ -1,0 +1,5 @@
+[format]
+[format.rules]
+  indent-table-key-value-pairs    = true
+  key-value-equals-sign-alignment = true
+  line-width                      = 120
