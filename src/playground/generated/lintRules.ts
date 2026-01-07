@@ -165,6 +165,7 @@ export const LINT_RULES = {
     noBeforeInteractiveScriptOutsideDocument: "noBeforeInteractiveScriptOutsideDocument",
     noContinue: "noContinue",
     noDeprecatedImports: "noDeprecatedImports",
+    noDuplicateAttributes: "noDuplicateAttributes",
     noDuplicateDependencies: "noDuplicateDependencies",
     noDuplicatedSpreadProps: "noDuplicatedSpreadProps",
     noEmptySource: "noEmptySource",

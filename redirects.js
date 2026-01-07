@@ -55,6 +55,7 @@ export default {
   '/linter/rules/noDoneCallback': '/linter/rules/no-done-callback',
   '/linter/rules/noDoubleEquals': '/linter/rules/no-double-equals',
   '/linter/rules/noDuplicateAtImportRules': '/linter/rules/no-duplicate-at-import-rules',
+  '/linter/rules/noDuplicateAttributes': '/linter/rules/no-duplicate-attributes',
   '/linter/rules/noDuplicateCase': '/linter/rules/no-duplicate-case',
   '/linter/rules/noDuplicateClassMembers': '/linter/rules/no-duplicate-class-members',
   '/linter/rules/noDuplicateCustomProperties': '/linter/rules/no-duplicate-custom-properties',
