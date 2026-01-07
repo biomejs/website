@@ -754,6 +754,29 @@ export function GET() {
             ],
             "docs": " Disallow ambiguous anchor descriptions.\n\n Enforces `<a>` values are not exact matches for the phrases \"click here\", \"here\", \"link\", \"a link\", or \"learn more\".\n Screen readers announce tags as links/interactive, but rely on values for context.\n Ambiguous anchor descriptions do not provide sufficient context for users.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <a>learn more</a>\n ```\n\n ### Valid\n\n ```html\n <a>documentation</a>\n ```\n\n ## Options\n\n ### `words`\n\n The words option allows users to modify the strings that can be checked for in the anchor text. Useful for specifying other words in other languages.\n\n Default `[\"click here\", \"here\", \"link\", \"a link\", \"learn more\"]`\n\n ```json,options\n {\n   \"options\": {\n     \"words\": [\"click this\"]\n   }\n }\n ```\n\n #### Invalid\n\n ```html,expect_diagnostic,use_options\n <a>click this</a>\n ```\n\n"
           },
+          "noDuplicateAttributes": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noDuplicateAttributes",
+            "link": "https://biomejs.dev/linter/rules/no-duplicate-attributes",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "htmlEslint": "no-duplicate-attrs"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "no-duplicate-attributes"
+                }
+              }
+            ],
+            "docs": " Disallow duplication of attributes.\n\n According to the HTML specification, each attribute name must be unique within a single element.\n Duplicate attributes are invalid and can lead to unexpected behavior in browsers.\n\n ## Vue templates\n\n For Vue templates (`.vue` files), this rule also considers the following directives as\n aliases of their arguments:\n\n - `v-bind:foo` and `:foo` are handled as the attribute `foo`.\n\n Vue class/style bindings are ignored. For example, `class` and `:class` may co-exist.\n\n Event handlers are ignored. For example, `@click` and `v-on:click` are not considered\n attributes by this rule.\n\n Dynamic arguments such as `:[foo]` or `v-bind:[foo]` are ignored.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div foo=\"a\" foo=\"b\"></div>\n ```\n\n ```vue,expect_diagnostic\n <template>\n   <div foo :foo=\"bar\" />\n </template>\n ```\n\n ### Valid\n\n ```html\n <div foo=\"a\" bar=\"b\"></div>\n ```\n\n"
+          },
           "noScriptUrl": {
             "deprecated": false,
             "version": "2.3.9",
@@ -7389,7 +7412,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 426
+    "numberOrRules": 427
   },
   "syntax": {
     "languages": {

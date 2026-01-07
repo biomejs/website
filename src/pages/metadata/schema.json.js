@@ -336,6 +336,13 @@ export function GET() {
 					"properties": { "eslintTurbo": { "type": "string" } },
 					"additionalProperties": false,
 					"required": ["eslintTurbo"]
+				},
+				{
+					"description": "Rules from [html-eslint](https://html-eslint.org/)",
+					"type": "object",
+					"properties": { "htmlEslint": { "type": "string" } },
+					"additionalProperties": false,
+					"required": ["htmlEslint"]
 				}
 			]
 		},
