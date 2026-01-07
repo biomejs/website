@@ -186,6 +186,7 @@ export const LINT_RULES = {
     noProto: "noProto",
     noReactForwardRef: "noReactForwardRef",
     noReturnAssign: "noReturnAssign",
+    noRootType: "noRootType",
     noScriptUrl: "noScriptUrl",
     noShadow: "noShadow",
     noSyncScripts: "noSyncScripts",

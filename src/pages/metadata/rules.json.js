@@ -506,6 +506,23 @@ export function GET() {
             "fixKind": "none",
             "docs": " Disallow empty sources.\n\n A source containing only the following is considered empty:\n   - Whitespace (spaces, tabs or newlines)\n   - Comments\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n\n ```\n\n ```graphql,ignore\n # Invalid comment\n ```\n\n ### Valid\n\n ```graphql\n query Member {}\n ```\n\n ```graphql\n fragment StrippedMember on Member {}\n ```\n\n ## Options\n\n ### `allowComments`\n\n Whether the comments should be marked as meaningful.\n When this option has been set to `true`, a file with only comments is considered valid.\n\n Default `false`\n\n\n ```json,options\n {\n   \"options\": {\n     \"allowComments\": true\n   }\n }\n ```\n\n #### Invalid\n\n ```graphql,expect_diagnostic,use_options\n\n ```\n\n #### Valid\n\n ```graphql,ignore\n # Valid comment\n ```\n\n"
           },
+          "noRootType": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noRootType",
+            "link": "https://biomejs.dev/linter/rules/no-root-type",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintGraphql": "no-root-type"
+                }
+              }
+            ],
+            "docs": " Disallow the usage of specified root types\n\n Prevent the usage of certain root types (e.g. `mutation` and/or `subscription`)\n\n ## Examples\n\n ### Invalid\n\n ```json,options\n {\n   \"options\": {\n     \"disallow\": [\"mutation\"]\n   }\n }\n ```\n\n ```graphql,expect_diagnostic,use_options\n type Mutation {\n   createUser(input: CreateUserInput!): User!\n }\n ```\n\n ### Valid\n\n ```graphql,use_options\n type Query {\n   users: [User!]!\n }\n ```\n\n ## Options\n\n ### `disallow`\n\n This required option lists all disallowed root types (e.g. `mutation` and/or `subscription`).\n The values of the list are case-insensitive.\n\n Default `[]`\n\n ```json,options\n {\n   \"options\": {\n     \"disallow\": [\"subscription\"]\n   }\n }\n ```\n\n ```graphql,expect_diagnostic,use_options\n type Subscription {\n   user: User\n }\n ```\n\n"
+          },
           "useConsistentGraphqlDescriptions": {
             "deprecated": false,
             "version": "2.3.6",
@@ -7412,7 +7429,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 427
+    "numberOrRules": 428
   },
   "syntax": {
     "languages": {

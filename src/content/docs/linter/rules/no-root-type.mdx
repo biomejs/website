@@ -1,0 +1,128 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noRootType
+description: Learn more about noRootType
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="GraphQL" icon="seti:graphql">
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noRootType`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`@graphql-eslint/no-root-type`](https://the-guild.dev/graphql/eslint/rules/no-root-type)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noRootType": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow the usage of specified root types
+
+Prevent the usage of certain root types (e.g. `mutation` and/or `subscription`)
+
+## Examples
+
+### Invalid
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noRootType": {
+					"options": {
+						"disallow": [
+							"mutation"
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```graphql
+type Mutation {
+  createUser(input: CreateUserInput!): User!
+}
+```
+
+<pre class="language-text"><code class="language-text"></code></pre>
+
+### Valid
+
+```graphql
+type Query {
+  users: [User!]!
+}
+```
+
+## Options
+
+### `disallow`
+
+This required option lists all disallowed root types (e.g. `mutation` and/or `subscription`).
+The values of the list are case-insensitive.
+
+Default `[]`
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noRootType": {
+					"options": {
+						"disallow": [
+							"subscription"
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```graphql
+type Subscription {
+  user: User
+}
+```
+
+<pre class="language-text"><code class="language-text"></code></pre>
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/src/lint/nursery/no_root_type.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/tests/specs/nursery/noRootType)
+
+</TabItem>
+</Tabs>
+
