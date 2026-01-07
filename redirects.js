@@ -181,6 +181,7 @@ export default {
   '/linter/rules/noRestrictedImports': '/linter/rules/no-restricted-imports',
   '/linter/rules/noRestrictedTypes': '/linter/rules/no-restricted-types',
   '/linter/rules/noReturnAssign': '/linter/rules/no-return-assign',
+  '/linter/rules/noRootType': '/linter/rules/no-root-type',
   '/linter/rules/noScriptUrl': '/linter/rules/no-script-url',
   '/linter/rules/noSecrets': '/linter/rules/no-secrets',
   '/linter/rules/noSelfAssign': '/linter/rules/no-self-assign',
