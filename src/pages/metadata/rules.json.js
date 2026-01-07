@@ -769,6 +769,23 @@ export function GET() {
             ],
             "docs": " Prevent the usage of positive integers on `tabindex` attribute.\n\n Avoid positive `tabindex` attribute values to synchronize the flow of the page with keyboard tab order.\n\n ## Accessibility guidelines\n\n [WCAG 2.4.3](https://www.w3.org/WAI/WCAG21/Understanding/focus-order)\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div tabindex=\"1\"></div>\n ```\n\n ```html,expect_diagnostic\n <div tabindex=\"5\"></div>\n ```\n\n ### Valid\n\n ```html\n <div tabindex=\"0\"></div>\n ```\n\n ```html\n <div tabindex=\"-1\"></div>\n ```\n\n"
           },
+          "noRedundantAlt": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noRedundantAlt",
+            "link": "https://biomejs.dev/linter/rules/no-redundant-alt",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJsxA11y": "img-redundant-alt"
+                }
+              }
+            ],
+            "docs": " Enforce `img` alt prop does not contain the word \"image\", \"picture\", or \"photo\".\n\n The rule will first check if `aria-hidden` is truthy to determine whether to enforce the rule. If the image is\n hidden, then the rule will always succeed.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <img src=\"src\" alt=\"photo content\" />;\n ```\n\n ```html,expect_diagnostic\n <img alt=\"picture of cool person\" aria-hidden=\"false\" />;\n ```\n\n ### Valid\n\n ```html\n <>\n \t<img src=\"src\" alt=\"alt\" />\n \t<img src=\"bar\" aria-hidden alt=\"Picture of me taking a photo of an image\" />\n </>\n ```\n\n"
+          },
           "noSvgWithoutTitle": {
             "deprecated": false,
             "version": "next",
@@ -777,6 +794,23 @@ export function GET() {
             "recommended": true,
             "fixKind": "none",
             "docs": " Enforces the usage of the `title` element for the `svg` element.\n\n It is not possible to specify the `alt` attribute for the `svg` as for the `img`.\n To make svg accessible, the following methods are available:\n - provide the `title` element as the first child to `svg`\n - provide `role=\"img\"` and `aria-label` or `aria-labelledby` to `svg`\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <svg>foo</svg>\n ```\n\n ```html,expect_diagnostic\n <svg>\n     <title></title>\n     <circle />\n </svg>\n ```\n\n ```html,expect_diagnostic\n <svg role=\"img\" title=\"title\">\n     <span id=\"\">foo</span>\n </svg>\n ```\n\n ```html,expect_diagnostic\n <svg role=\"img\" aria-labelledby=\"title\">\n     <span id=\"title2\">foo</span>\n </svg>\n ```\n\n ### Valid\n\n ```html\n <svg>\n     <rect />\n     <rect />\n     <g>\n         <circle />\n         <circle />\n         <g>\n             <title>Pass</title>\n             <circle />\n             <circle />\n         </g>\n     </g>\n </svg>\n ```\n\n ```html\n <svg>\n     <title>Pass</title>\n     <circle />\n </svg>\n ```\n\n ```html\n <svg role=\"img\" aria-labelledby=\"title\">\n     <span id=\"title\">Pass</span>\n </svg>\n ```\n\n ```html\n <svg role=\"img\" aria-label=\"title\">\n     <span id=\"title\">Pass</span>\n </svg>\n ```\n\n ```html\n <svg role=\"img\" aria-label=\"\">\n     <span id=\"\">Pass</span>\n </svg>\n ```\n\n ```html\n <svg role=\"graphics-symbol\"><rect /></svg>\n ```\n\n ```html\n <svg role=\"graphics-symbol img\"><rect /></svg>\n ```\n\n ```html\n <svg aria-hidden=\"true\"><rect /></svg>\n ```\n\n ```html\n <svg role=\"presentation\">foo</svg>\n ```\n\n\n\n ## Accessibility guidelines\n [Document Structure – SVG 1.1 (Second Edition)](https://www.w3.org/TR/SVG11/struct.html#DescriptionAndTitleElements)\n [ARIA: img role - Accessibility | MDN](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/img_role)\n [Accessible SVGs | CSS-Tricks - CSS-Tricks](https://css-tricks.com/accessible-svgs/)\n [Contextually Marking up accessible images and SVGs | scottohara.me](https://www.scottohara.me/blog/2019/05/22/contextual-images-svgs-and-a11y.html)\n [Accessible SVGs](https://www.unimelb.edu.au/accessibility/techniques/accessible-svgs)\n\n"
+          },
+          "useAltText": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useAltText",
+            "link": "https://biomejs.dev/linter/rules/use-alt-text",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJsxA11y": "alt-text"
+                }
+              }
+            ],
+            "docs": " Enforce that all elements that require alternative text have meaningful information to relay back to the end user.\n\n This is a critical component of accessibility for screen reader users in order for them\n to understand the content's purpose on the page.\n By default, this rule checks for alternative text on the following elements:\n `<img>`, `<area>`, `<input type=\"image\">`, and `<object>`.\n\n :::note\n In `.html` files, this rule matches element names case-insensitively (e.g., `<IMG>`, `<Img>`).\n\n In component-based frameworks (Vue, Svelte, Astro), only lowercase element names are checked.\n PascalCase variants like `<Img>` are assumed to be custom components and are ignored.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <img src=\"image.png\" />\n ```\n\n ```html,expect_diagnostic\n <input type=\"image\" src=\"image.png\" />\n ```\n\n ```html,expect_diagnostic\n <area href=\"foo\" />\n ```\n\n ```html,expect_diagnostic\n <object data=\"foo\"></object>\n ```\n\n ### Valid\n\n ```html\n <img src=\"image.png\" alt=\"A beautiful landscape\" />\n ```\n\n ```html\n <input type=\"image\" src=\"image.png\" alt=\"Submit\" />\n ```\n\n ```html\n <img src=\"image.png\" aria-label=\"A beautiful landscape\" />\n ```\n\n ```html\n <img src=\"image.png\" aria-labelledby=\"image-description\" />\n ```\n\n ```html\n <object data=\"foo\" title=\"Embedded content\"></object>\n ```\n\n ```html\n <!-- Decorative images can be hidden from assistive technologies -->\n <img src=\"decorative.png\" alt=\"\" />\n ```\n\n ```html\n <img src=\"decorative.png\" aria-hidden=\"true\" />\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 1.1.1](https://www.w3.org/WAI/WCAG21/Understanding/non-text-content.html)\n\n"
           },
           "useAriaPropsForRole": {
             "deprecated": false,
@@ -862,6 +896,23 @@ export function GET() {
               }
             ],
             "docs": " Elements with ARIA roles must use a valid, non-abstract ARIA role.\n\n Remember that this rule only supports static values for the `role` attribute.\n Dynamic `role` values are not checked.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div role=\"datepicker\"></div>\n ```\n\n ```html,expect_diagnostic\n <div role=\"range\"></div>\n ```\n\n ```html,expect_diagnostic\n <div role=\"\"></div>\n ```\n\n\n ### Valid\n\n ```html\n <div role=\"button\"></div>\n <div></div>\n ```\n\n ## Options\n\n\n ### `allowInvalidRoles`\n\n It allows specifying a list of roles that might be invalid otherwise\n\n ```json,options\n {\n     \"options\": {\n         \"allowInvalidRoles\": [\"datepicker\"]\n     }\n }\n ```\n\n ```html,use_options\n <div role=\"datepicker\"></div>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 4.1.2](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value)\n\n ## Resources\n\n - [Chrome Audit Rules, AX_ARIA_01](https://github.com/GoogleChrome/accessibility-developer-tools/wiki/Audit-Rules#ax_aria_01)\n - [DPUB-ARIA roles](https://www.w3.org/TR/dpub-aria-1.0/)\n - [MDN: Using ARIA: Roles, states, and properties](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques)\n\n"
+          },
+          "useValidLang": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useValidLang",
+            "link": "https://biomejs.dev/linter/rules/use-valid-lang",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJsxA11y": "lang"
+                }
+              }
+            ],
+            "docs": " Ensure that the attribute passed to the `lang` attribute is a correct ISO language and/or country.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <html lang=\"lorem\" />\n ```\n\n ```html,expect_diagnostic\n <html lang=\"en-babab\" />\n ```\n\n ```html,expect_diagnostic\n <html lang=\"en-GB-typo\" />\n ```\n\n ### Valid\n\n ```html\n <html lang=\"en-GB\" />\n ```\n"
           }
         },
         "nursery": {
@@ -5480,7 +5531,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Enforce consistent return values in iterable callbacks.\n\n This rule ensures that callbacks passed to certain iterable methods either always return a\n value or never return a value, depending on the method's requirements.\n\n Note that async and generator callbacks are ignored as they always return `Promise` or\n `Generator` respectively.\n\n ## Methods and Their Requirements\n\n The following methods require a return in their callback:\n\n - `every`\n - `filter`\n - `find`\n - `findIndex`\n - `findLast`\n - `findLastIndex`\n - `flatMap`\n - `map`\n - `reduce`\n - `reduceRight`\n - `some`\n - `sort`\n - `toSorted`\n — `from` (when called on `Array`)\n\n A return value is disallowed in the method `forEach`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n [].map(() => {\n     // Missing return value\n });\n ```\n\n ```js,expect_diagnostic\n [].forEach(() => {\n     return 1; // Should not return a value\n });\n ```\n\n ### Valid\n\n ```js\n [].map(() => {\n     return 1; // Correctly returns a value\n });\n ```\n\n ```js\n [].forEach(() => {\n     // No return value, which is correct\n });\n ```\n\n ```js\n [].forEach(() => void null); // Void return value, which doesn't trigger the rule\n ```\n"
+            "docs": " Enforce consistent return values in iterable callbacks.\n\n This rule ensures that callbacks passed to certain iterable methods either always return a\n value or never return a value, depending on the method's requirements.\n\n Note that async and generator callbacks are ignored as they always return `Promise` or\n `Generator` respectively.\n\n ## Methods and Their Requirements\n\n The following methods require a return in their callback:\n\n - `every`\n - `filter`\n - `find`\n - `findIndex`\n - `findLast`\n - `findLastIndex`\n - `flatMap`\n - `map`\n - `reduce`\n - `reduceRight`\n - `some`\n - `sort`\n - `toSorted`\n — `from` (when called on `Array`)\n\n A return value is disallowed in the method `forEach`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n [].map(() => {\n     // Missing return value\n });\n ```\n\n ```js\n [].forEach(() => {\n     // No return value, which is correct\n });\n ```\n\n ```js,expect_diagnostic\n [].filter(() => {\n     // Missing required return value\n });\n ```\n\n ### Valid\n\n ```js\n [].map(() => {\n     return 1; // Correctly returns a value\n });\n ```\n\n ```js\n [].forEach(() => void null); // Void return value, which doesn't trigger the rule\n ```\n\n ## Options\n\n ### `checkForEach`\n\n **Since `v2.4.0**\n\n Default: `true`\n\n When set to `false`, the rule will skip `forEach` callbacks that return a value.\n\n ### Examples\n\n ```json,options\n {\n     \"options\": {\n         \"checkForEach\": false\n     }\n }\n ```\n\n ```js,use_options\n [1, 2, 3].forEach((el) => {\n     return el * 2;\n });\n ```\n\n When `checkForEach` is `false` (default), the above code will not trigger any diagnostic.\n\n"
           },
           "useNumberToFixedDigitsArgument": {
             "deprecated": false,
@@ -7465,7 +7516,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 432
+    "numberOrRules": 435
   },
   "syntax": {
     "languages": {
