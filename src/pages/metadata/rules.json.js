@@ -497,6 +497,108 @@ export function GET() {
           }
         },
         "nursery": {
+          "noDuplicateArgumentNames": {
+            "deprecated": false,
+            "version": "2.3.11",
+            "name": "noDuplicateArgumentNames",
+            "link": "https://biomejs.dev/linter/rules/no-duplicate-argument-names",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintGraphql": "unique-argument-names"
+                }
+              }
+            ],
+            "docs": " Require all argument names for fields & directives to be unique.\n\n A GraphQL field or directive is only valid if all supplied arguments are uniquely named.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query {\n   field(arg1: \"value\", arg1: \"value\")\n }\n ```\n\n ### Valid\n\n ```graphql\n query {\n   field(arg1: \"value\", arg2: \"value\")\n }\n ```\n\n"
+          },
+          "noDuplicateEnumValueNames": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noDuplicateEnumValueNames",
+            "link": "https://biomejs.dev/linter/rules/no-duplicate-enum-value-names",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintGraphql": "unique-enum-value-names"
+                }
+              }
+            ],
+            "docs": " Require all enum value names to be unique.\n\n A GraphQL enum type is only valid if all its values are uniquely named.\n The enum value names are case insensitive, meaning `TEST` & `Test` are seen as the same enum value name.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n enum A {\n   TEST\n   OTHER\n   TEST\n }\n ```\n\n ```graphql,expect_diagnostic\n enum B {\n   TEST\n   TesT\n }\n ```\n\n ### Valid\n\n ```graphql\n enum A {\n   TEST\n   OTHER\n }\n ```\n\n"
+          },
+          "noDuplicateFieldDefinitionNames": {
+            "deprecated": false,
+            "version": "2.3.11",
+            "name": "noDuplicateFieldDefinitionNames",
+            "link": "https://biomejs.dev/linter/rules/no-duplicate-field-definition-names",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintGraphql": "unique-field-definition-names"
+                }
+              }
+            ],
+            "docs": " Require all fields of a type to be unique.\n\n A GraphQL complex type is only valid if all its fields are uniquely named.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n type SomeObject {\n   foo: String\n   foo: String\n }\n ```\n\n ```graphql,expect_diagnostic\n interface SomeObject {\n   foo: String\n   foo: String\n }\n ```\n\n ```graphql,expect_diagnostic\n input SomeObject {\n   foo: String\n   foo: String\n }\n ```\n\n ### Valid\n\n ```graphql\n type SomeObject {\n   foo: String\n   bar: String\n }\n ```\n\n ```graphql\n interface SomeObject {\n   foo: String\n   bar: String\n }\n ```\n\n ```graphql\n input SomeObject {\n   foo: String\n   bar: String\n }\n ```\n\n"
+          },
+          "noDuplicateGraphqlOperationName": {
+            "deprecated": false,
+            "version": "2.3.6",
+            "name": "noDuplicateGraphqlOperationName",
+            "link": "https://biomejs.dev/linter/rules/no-duplicate-graphql-operation-name",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintGraphql": "unique-operation-name"
+                }
+              }
+            ],
+            "docs": " Enforce unique operation names across a GraphQL document.\n\n This rule ensures that all GraphQL operations (queries, mutations, subscriptions) have unique names.\n Using unique operation names is essential for proper identification and reducing confusion.\n\n :::note\n This rule currently does not work across multiple files.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query user {\n   user {\n     id\n   }\n }\n\n query user {\n   me {\n     id\n   }\n }\n ```\n\n ### Valid\n\n ```graphql\n query user {\n   user {\n     id\n   }\n }\n\n query me {\n   me {\n     id\n   }\n }\n ```\n\n"
+          },
+          "noDuplicateInputFieldNames": {
+            "deprecated": false,
+            "version": "2.3.11",
+            "name": "noDuplicateInputFieldNames",
+            "link": "https://biomejs.dev/linter/rules/no-duplicate-input-field-names",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintGraphql": "unique-input-field-names"
+                }
+              }
+            ],
+            "docs": " Require fields within an input object to be unique.\n\n A GraphQL input object value is only valid if all supplied fields are uniquely named.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query {\n   field(arg: { f1: \"value\", f1: \"value\" })\n }\n ```\n\n ### Valid\n\n ```graphql\n query {\n   field(arg: { f1: \"value\", f2: \"value\" })\n }\n ```\n\n"
+          },
+          "noDuplicateVariableNames": {
+            "deprecated": false,
+            "version": "2.3.11",
+            "name": "noDuplicateVariableNames",
+            "link": "https://biomejs.dev/linter/rules/no-duplicate-variable-names",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintGraphql": "unique-variable-names"
+                }
+              }
+            ],
+            "docs": " Require all variable definitions to be unique.\n\n A GraphQL operation is only valid if all its variables are uniquely named.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query ($x: Int, $x: Int) {\n   field\n }\n ```\n\n ### Valid\n\n ```graphql\n query ($x: Int, $y: Int) {\n   field\n }\n ```\n\n"
+          },
           "noEmptySource": {
             "deprecated": false,
             "version": "2.2.7",
@@ -573,108 +675,6 @@ export function GET() {
               }
             ],
             "docs": " Require queries, mutations, subscriptions or fragments each to be located in separate files.\n\n This rule ensures that each GraphQL document only contains a single operation (query, mutation, or subscription) or fragment definition.\n Having multiple executable definitions in a single file can make code harder to maintain, test, and understand.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query Foo {\n   id\n }\n\n fragment Bar on Baz {\n   id\n }\n ```\n\n ```graphql,expect_diagnostic\n query Foo {\n   id\n }\n\n mutation ($name: String!) {\n   createUser {\n     id\n   }\n }\n ```\n\n ```graphql,expect_diagnostic\n query Foo {\n   id\n }\n\n query Bar {\n   id\n }\n ```\n\n ### Valid\n\n ```graphql\n query Foo {\n   id\n }\n ```\n\n ```graphql\n fragment Bar on Baz {\n   id\n }\n ```\n\n"
-          },
-          "useUniqueArgumentNames": {
-            "deprecated": false,
-            "version": "2.3.11",
-            "name": "useUniqueArgumentNames",
-            "link": "https://biomejs.dev/linter/rules/use-unique-argument-names",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintGraphql": "unique-argument-names"
-                }
-              }
-            ],
-            "docs": " Require all argument names for fields & directives to be unique.\n\n A GraphQL field or directive is only valid if all supplied arguments are uniquely named.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query {\n   field(arg1: \"value\", arg1: \"value\")\n }\n ```\n\n ### Valid\n\n ```graphql\n query {\n   field(arg1: \"value\", arg2: \"value\")\n }\n ```\n\n"
-          },
-          "useUniqueEnumValueNames": {
-            "deprecated": false,
-            "version": "next",
-            "name": "useUniqueEnumValueNames",
-            "link": "https://biomejs.dev/linter/rules/use-unique-enum-value-names",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintGraphql": "unique-enum-value-names"
-                }
-              }
-            ],
-            "docs": " Require all enum value names to be unique.\n\n A GraphQL enum type is only valid if all its values are uniquely named.\n The enum value names are case insensitive, meaning `TEST` & `Test` are seen as the same enum value name.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n enum A {\n   TEST\n   OTHER\n   TEST\n }\n ```\n\n ```graphql,expect_diagnostic\n enum B {\n   TEST\n   TesT\n }\n ```\n\n ### Valid\n\n ```graphql\n enum A {\n   TEST\n   OTHER\n }\n ```\n\n"
-          },
-          "useUniqueFieldDefinitionNames": {
-            "deprecated": false,
-            "version": "2.3.11",
-            "name": "useUniqueFieldDefinitionNames",
-            "link": "https://biomejs.dev/linter/rules/use-unique-field-definition-names",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintGraphql": "unique-field-definition-names"
-                }
-              }
-            ],
-            "docs": " Require all fields of a type to be unique.\n\n A GraphQL complex type is only valid if all its fields are uniquely named.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n type SomeObject {\n   foo: String\n   foo: String\n }\n ```\n\n ```graphql,expect_diagnostic\n interface SomeObject {\n   foo: String\n   foo: String\n }\n ```\n\n ```graphql,expect_diagnostic\n input SomeObject {\n   foo: String\n   foo: String\n }\n ```\n\n ### Valid\n\n ```graphql\n type SomeObject {\n   foo: String\n   bar: String\n }\n ```\n\n ```graphql\n interface SomeObject {\n   foo: String\n   bar: String\n }\n ```\n\n ```graphql\n input SomeObject {\n   foo: String\n   bar: String\n }\n ```\n\n"
-          },
-          "useUniqueGraphqlOperationName": {
-            "deprecated": false,
-            "version": "2.3.6",
-            "name": "useUniqueGraphqlOperationName",
-            "link": "https://biomejs.dev/linter/rules/use-unique-graphql-operation-name",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "inspired",
-                "source": {
-                  "eslintGraphql": "unique-operation-name"
-                }
-              }
-            ],
-            "docs": " Enforce unique operation names across a GraphQL document.\n\n This rule ensures that all GraphQL operations (queries, mutations, subscriptions) have unique names.\n Using unique operation names is essential for proper identification and reducing confusion.\n\n :::note\n This rule currently does not work across multiple files.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query user {\n   user {\n     id\n   }\n }\n\n query user {\n   me {\n     id\n   }\n }\n ```\n\n ### Valid\n\n ```graphql\n query user {\n   user {\n     id\n   }\n }\n\n query me {\n   me {\n     id\n   }\n }\n ```\n\n"
-          },
-          "useUniqueInputFieldNames": {
-            "deprecated": false,
-            "version": "2.3.11",
-            "name": "useUniqueInputFieldNames",
-            "link": "https://biomejs.dev/linter/rules/use-unique-input-field-names",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintGraphql": "unique-input-field-names"
-                }
-              }
-            ],
-            "docs": " Require fields within an input object to be unique.\n\n A GraphQL input object value is only valid if all supplied fields are uniquely named.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query {\n   field(arg: { f1: \"value\", f1: \"value\" })\n }\n ```\n\n ### Valid\n\n ```graphql\n query {\n   field(arg: { f1: \"value\", f2: \"value\" })\n }\n ```\n\n"
-          },
-          "useUniqueVariableNames": {
-            "deprecated": false,
-            "version": "2.3.11",
-            "name": "useUniqueVariableNames",
-            "link": "https://biomejs.dev/linter/rules/use-unique-variable-names",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintGraphql": "unique-variable-names"
-                }
-              }
-            ],
-            "docs": " Require all variable definitions to be unique.\n\n A GraphQL operation is only valid if all its variables are uniquely named.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query ($x: Int, $x: Int) {\n   field\n }\n ```\n\n ### Valid\n\n ```graphql\n query ($x: Int, $y: Int) {\n   field\n }\n ```\n\n"
           }
         },
         "style": {
