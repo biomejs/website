@@ -11,6 +11,14 @@ nesting, and variables.
 
 GritQL is [open-source](https://github.com/getgrit/gritql/) and created by [Grit.io](https://grit.io/).
 
+## Supported Languages
+
+GritQL in Biome currently supports the following target languages:
+
+- **JavaScript/TypeScript**: `language js` (with optional flavors: `typescript`, `jsx`)
+- **CSS**: `language css`
+- **JSON**: `language json`
+
 Biome uses GritQL for two purposes:
 
 - The [Analyzer Plugins](/linter/plugins).
@@ -119,6 +127,34 @@ You can discover node names for your code by exploring the syntax tree in the [B
 :::caution
 Biome's grammar can change between versions, especially for new languages. This may cause node names to change, which could break your patterns. Be prepared to update your queries when upgrading Biome.
 :::
+
+## JSON Patterns
+
+GritQL can match patterns in JSON files, useful for searching and transforming configuration files:
+
+```grit
+language json
+
+`"name": $value`
+```
+
+This pattern matches any JSON member with the key `"name"`.
+
+For more precise matching, you can use Biome's JSON syntax nodes directly:
+
+```grit
+language json
+
+JsonMember(name = JsonMemberName(value = `"version"`))
+```
+
+JSON GritQL also supports TreeSitter-compatible node aliases for compatibility with existing Grit patterns:
+
+| Biome AST | TreeSitter Alias |
+|-----------|------------------|
+| `JsonMember` | `pair` |
+| `JsonObjectValue` | `object` |
+| `JsonArrayValue` | `array` |
 
 ## Language Documentation
 
