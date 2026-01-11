@@ -647,6 +647,22 @@ When formatting `package.json`, Biome will use `always` unless configured otherw
 
 > Default: `"auto"`
 
+### `formatter.trailingNewline`
+
+Whether to add a trailing newline at the end of the file.
+
+> Defaults to true.
+
+:::danger
+Setting this option to `false` is **highly discouraged** because it could cause many problems with other tools:
+- https://thoughtbot.com/blog/no-newline-at-end-of-file
+- https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804
+- https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files
+
+Disable trailing newline at your own risk.
+:::
+
+
 ### `formatter.useEditorconfig`
 
 Whether Biome should use the `.editorconfig` file to determine the formatting options.
@@ -873,6 +889,21 @@ When breaking binary expressions into multiple lines, whether to break them befo
   ) {}
   ```
 
+### `javascript.formatter.trailingNewline`
+
+Whether to add a trailing newline at the end of the file.
+
+> Defaults to true.
+
+:::danger
+Setting this option to `false` is **highly discouraged** because it could cause many problems with other tools:
+- https://thoughtbot.com/blog/no-newline-at-end-of-file
+- https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804
+- https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files
+
+Disable trailing newline at your own risk.
+:::
+
 ### `javascript.globals`
 
 A list of global names that Biome should ignore (analyzer, linter, etc.)
@@ -1067,6 +1098,21 @@ When formatting `package.json`, Biome will use `always` unless configured otherw
 
 > Default: `"auto"`
 
+### `json.formatter.trailingNewline`
+
+Whether to add a trailing newline at the end of the file.
+
+> Defaults to true.
+
+:::danger
+Setting this option to `false` is **highly discouraged** because it could cause many problems with other tools:
+- https://thoughtbot.com/blog/no-newline-at-end-of-file
+- https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804
+- https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files
+
+Disable trailing newline at your own risk.
+:::
+
 ### `json.linter.enabled`
 
 Enables Biome's formatter for JSON (and its super languages) files.
@@ -1198,6 +1244,21 @@ Enables Biome's linter for CSS files.
 }
 ```
 
+### `css.formatter.trailingNewline`
+
+Whether to add a trailing newline at the end of the file.
+
+> Defaults to true.
+
+:::danger
+Setting this option to `false` is **highly discouraged** because it could cause many problems with other tools:
+- https://thoughtbot.com/blog/no-newline-at-end-of-file
+- https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804
+- https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files
+
+Disable trailing newline at your own risk.
+:::
+
 ### `css.assist.enabled`
 
 Enables Biome's assist for CSS files.
@@ -1260,6 +1321,21 @@ The type of quote used when representing string literals. It can be `"single"` o
 
 > Default: `"double"`
 
+### `graphql.formatter.trailingNewline`
+
+Whether to add a trailing newline at the end of the file.
+
+> Defaults to true.
+
+:::danger
+Setting this option to `false` is **highly discouraged** because it could cause many problems with other tools:
+- https://thoughtbot.com/blog/no-newline-at-end-of-file
+- https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804
+- https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files
+
+Disable trailing newline at your own risk.
+:::
+
 ### `graphql.linter.enabled`
 
 Enables Biome's linter for GraphQL files.
@@ -1319,6 +1395,21 @@ The amount of characters that can be written on a single line in Grit files.
 The type of quote used when representing string literals. It can be `"single"` or `"double"`.
 
 > Default: `"double"`
+
+### `grit.formatter.trailingNewline`
+
+Whether to add a trailing newline at the end of the file.
+
+> Defaults to true.
+
+:::danger
+Setting this option to `false` is **highly discouraged** because it could cause many problems with other tools:
+- https://thoughtbot.com/blog/no-newline-at-end-of-file
+- https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804
+- https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files
+
+Disable trailing newline at your own risk.
+:::
 
 ### `grit.linter.enabled`
 
@@ -1470,6 +1561,21 @@ Whether void elements should be self-closed. Defaults to never.
 
 - `"never"`: The slash `/` inside void elements is removed by the formatter.
 - `"always"`: The slash `/` inside void elements is always added.
+
+### `html.formatter.trailingNewline`
+
+Whether to add a trailing newline at the end of the file.
+
+> Defaults to true.
+
+:::danger
+Setting this option to `false` is **highly discouraged** because it could cause many problems with other tools:
+- https://thoughtbot.com/blog/no-newline-at-end-of-file
+- https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804
+- https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files
+
+Disable trailing newline at your own risk.
+:::
 
 ### `html.linter.enabled`
 
