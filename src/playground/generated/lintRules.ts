@@ -169,6 +169,7 @@ export const LINT_RULES = {
     noDuplicateAttributes: "noDuplicateAttributes",
     noDuplicateDependencies: "noDuplicateDependencies",
     noDuplicateEnumValueNames: "noDuplicateEnumValueNames",
+    noDuplicateEnumValues: "noDuplicateEnumValues",
     noDuplicateFieldDefinitionNames: "noDuplicateFieldDefinitionNames",
     noDuplicateGraphqlOperationName: "noDuplicateGraphqlOperationName",
     noDuplicateInputFieldNames: "noDuplicateInputFieldNames",
