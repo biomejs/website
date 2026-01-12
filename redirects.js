@@ -63,6 +63,7 @@ export default {
   '/linter/rules/noDuplicateDependencies': '/linter/rules/no-duplicate-dependencies',
   '/linter/rules/noDuplicateElseIf': '/linter/rules/no-duplicate-else-if',
   '/linter/rules/noDuplicateEnumValueNames': '/linter/rules/no-duplicate-enum-value-names',
+  '/linter/rules/noDuplicateEnumValues': '/linter/rules/no-duplicate-enum-values',
   '/linter/rules/noDuplicateFieldDefinitionNames': '/linter/rules/no-duplicate-field-definition-names',
   '/linter/rules/noDuplicateFields': '/linter/rules/no-duplicate-fields',
   '/linter/rules/noDuplicateFontNames': '/linter/rules/no-duplicate-font-names',
