@@ -31,7 +31,7 @@ The roadmap represents the overall direction that we want to take; however, thin
   - Support for Tailwind syntax in CSS files
   - Experimental full support of parsing, formatting, linting for Vue, Svelte, and Astro. The language capabilities of Biome have improved and allow them to inspect multiple languages in the same document.
   - We improved and fixed many bugs around the Biome watcher and scanner. Some of those bugs caused some memory leaks, causing Biome being unusable to some users.
-- [Depot](https://depot.dev) has become a platinum sponsor, and exclusive sponsor.
+- [Depot](https://depot.dev) has become a platinum sponsor, and exclusive GitHub Runner sponsor.
 - We have surpassed [15 million monthly downloads](https://www.npmcharts.com/compare/@biomejs/biome?interval=30).
 - GritQL has now become part of the [Biome](/blog/gritql-under-biome-umbrella/) [organization](https://github.com/biomejs/gritql).
 
