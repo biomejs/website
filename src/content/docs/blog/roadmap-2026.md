@@ -72,7 +72,7 @@ I can't stress enough that Biome is a community-driven project, all the features
   With a configuration like this, Biome knows where to look for possible nested configuration files. We believe a solution like this **might improve the DX and the performance of the tool**.
 
 - **SCSS support**: we want to ship SCSS support. It was our [most wanted](https://github.com/biomejs/biome/discussions/3441). We recently closed it, and started the works.
-- **More lint rules and assist actions**: keep shipping new lint rules, and assist actions. We recently started implementing Accessibility lint rules for HTML-ish languages.
+- **More lint rules and assist actions**: keep shipping new lint rules, and assist actions. We recently started implementing [Accessibility lint rules for HTML-ish languages](https://github.com/biomejs/biome/issues/8155).
 - **Improve LSP features**: we want to explore and ship more LSP features. Internally, Biome has a module graph that can analyze and link with each other different files, such as JavaScript, CSS, and more. We want to explore and ship more IDE capabilities, such as the ability to highlight a reference such as a CSS class inside a JSX snippet, and allow to navigate to its declaration inside the CSS file with a click.
 - **Stabilize YAML**: our YAML parser is almost ready! Once the parsing is stable enough, formatting is just right there.
 
