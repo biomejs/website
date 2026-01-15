@@ -23,17 +23,17 @@ The roadmap represents the overall direction that we want to take; however, thin
 
 - We shipped Biome v2, which brought amazing new features to the ecosystem:
   - Support for nested configuration files, and better support in monorepos.
-  - First tool to ship type-aware lint rules that don't rely on the TypeScript compiler (notibly known as `tsc`), thanks to its inference engine, [sponsored by Vercel](/blog/vercel-partners-biome-type-inference/).
-  - Support for project lint rules, such as [`noImportCycle`](https://biomejs.dev/linter/rules/no-import-cycles/).
-  - Shipped the new concept of [linter domains](/linter/domains), a way to group different rules are different umbrellas, and a way to turn on those rules automatically based on your depdencies.
-  - Added support for plugins via [the DSL GritQL](https://docs.grit.io/). During the year the plugin engine has become even more powerful, allowing users to **query the Biome CST**.
+  - First tool to ship type-aware lint rules that don't rely on the TypeScript compiler (commonly known as `tsc`), thanks to its inference engine, [sponsored by Vercel](/blog/vercel-partners-biome-type-inference/).
+  - Support for project lint rules, such as [`noImportCycle`](/linter/rules/no-import-cycles/).
+  - Shipped the new concept of [linter domains](/linter/domains), a way to group different rules under different umbrellas, and a way to turn on those rules automatically based on your depdencies.
+  - Added support for plugins via [GritQL](https://docs.grit.io/). Throughout the year the plugin engine has become even more powerful, allowing users to **query the Biome CST** and report custom diagnostics.
 - We shipped **three new minors** after v2, which have added many new features:
   - Support for Tailwind syntax in CSS files
   - Experimental full support of parsing, formatting, linting for Vue, Svelte, and Astro. The language capabilities of Biome have improved and allow them to inspect multiple languages in the same document.
   - We improved and fixed many bugs around the Biome watcher and scanner. Some of those bugs caused some memory leaks, causing Biome being unusable to some users.
 - [Depot](https://depot.dev) has become a platinum sponsor, and exclusive sponsor.
 - We have surpassed [15 million monthly downloads](https://www.npmcharts.com/compare/@biomejs/biome?interval=30).
-- GritQL has now become part of the [Biome](http://localhost:4321/blog/gritql-under-biome-umbrella/) [organization](https://github.com/biomejs/gritql).
+- GritQL has now become part of the [Biome](/blog/gritql-under-biome-umbrella/) [organization](https://github.com/biomejs/gritql).
 
 ### Past mistakes
 
@@ -55,7 +55,7 @@ Later last year, we announced the experimental full support of Vue, Svelte, and 
 
 I can't stress enough that Biome is a community-driven project, all the features we want to implement are driven by our passions and needs. We can't promise that all of these features will be implemented. Alas, we will try our best to stay aligned and delivery what's listed below.
 
-- **JavaScript embeeded languages**: improve the DX of the embedded languages in JavaScript, such as CSS and GraphQL.
+- **JavaScript embedded languages**: improve the DX of the embedded languages in JavaScript, such as CSS and GraphQL.
 - **Stabilize everything around HTML**
   - Improve HTML formatting so that its formatting matches Prettier's as much as possible.
   - Enhance existing lint rules so that they work for HTML-ish languages too, notably Vue, Svelte, and Astro
@@ -70,7 +70,7 @@ I can't stress enough that Biome is a community-driven project, all the features
   }
   ```
   With a configuration like this, Biome knows where to look for possible nested configuration files. We believe a solution like this **might improve the DX and the performance of the tool**.
--
+
 - **SCSS support**: we want to ship SCSS support. It was our [most wanted](https://github.com/biomejs/biome/discussions/3441). We recently closed it, and started the works.
 - **More lint rules and assist actions**: keep shipping new lint rules, and assist actions. We recently started implementing Accessibility lint rules for HTML-ish languages.
 - **Improve LSP features**: we want to explore and ship more LSP features. Internally, Biome has a module graph that can analyze and link with each other different files, such as JavaScript, CSS, and more. We want to explore and ship more IDE capabilities, such as the ability to highlight a reference such as a CSS class inside a JSX snippet, and allow to navigate to its declaration inside the CSS file with a click.
@@ -80,7 +80,7 @@ I can't stress enough that Biome is a community-driven project, all the features
 
 We really wish to implement the parsing of Markdown, however we haven't enough time and resources to look into it. If there's someone that wish to help, please let us know on [Discord](https://biomejs.dev/chat)! We're looking for **a champion** that would help with the implementation **and the reviews**.
 
-## Can I help move Biome's plugin efforts forward?
+## Can I help move Biome's roadmap forward?
 
 We're glad you asked! Biome is a project led by volunteers who like programming, open-source, and who embrace the Biome philosophy, so any help is welcome 😁
 
