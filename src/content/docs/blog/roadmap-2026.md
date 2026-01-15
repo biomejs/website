@@ -95,8 +95,3 @@ We also have a [GitHub umbrella issue](https://github.com/biomejs/biome/issues/2
 If you believe in the long-term vision of Biome, you can also help with a financial contribution, via [Open Collective](https://opencollective.com/biome) or [GitHub Sponsors](https://github.com/sponsors/biomejs).
 
 Additionally, the project provides an [enterprise support program](/enterprise) that companies can use to contract a core contributor to work on a specific aspect of the Biome toolchain.
-
-## Acknowledgements
-
-Thanks again to both Morgante and Honeycomb for making this possible! And another round of thanks for our amazing community whom we are enjoying so much trust from! 💗
-
