@@ -207,6 +207,7 @@ export const LINT_RULES = {
     noUselessUndefined: "noUselessUndefined",
     noVueDataObjectDeclaration: "noVueDataObjectDeclaration",
     noVueDuplicateKeys: "noVueDuplicateKeys",
+    noVueOptionsApi: "noVueOptionsApi",
     noVueReservedKeys: "noVueReservedKeys",
     noVueReservedProps: "noVueReservedProps",
     noVueSetupPropsReactivityLoss: "noVueSetupPropsReactivityLoss",

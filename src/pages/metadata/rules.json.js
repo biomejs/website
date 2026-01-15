@@ -1131,7 +1131,7 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/use-vue-vapor",
             "recommended": false,
             "fixKind": "unsafe",
-            "docs": " Enforce opting in to Vue Vapor mode in `<script setup>` blocks.\n\n Vue 3.6 introduces an opt-in “Vapor mode” for SFC `<script setup>` blocks:\n `<script setup vapor>`.\n\n Vapor mode only works for Vue Single File Components (SFCs) using `<script setup>`.\n\n This rule reports `<script setup>` opening tags that are missing the `vapor` attribute.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script setup>\n </script>\n ```\n\n ### Valid\n\n ```vue\n <script setup vapor>\n </script>\n ```\n\n"
+            "docs": " Enforce opting in to Vue Vapor mode in `<script setup>` blocks.\n\n Vue 3.6 introduces an opt-in “Vapor mode” for SFC `<script setup>` blocks:\n `<script setup vapor>`.\n\n Vapor mode only works for Vue Single File Components (SFCs) using `<script setup>`.\n\n This rule reports `<script setup>` opening tags that are missing the `vapor` attribute.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script setup>\n </script>\n ```\n\n ### Valid\n\n ```vue\n <script setup vapor>\n </script>\n ```\n\n ## Related Rules\n\n - [noVueOptionsApi](https://biomejs.dev/linter/rules/no-vue-options-api): Disallows the Options API format, which is incompatible with Vapor Mode\n\n"
           }
         }
       },
@@ -3097,6 +3097,15 @@ export function GET() {
               }
             ],
             "docs": " Disallow duplicate keys in Vue component data, methods, computed properties, and other options.\n\n This rule prevents the use of duplicate keys across different Vue component options\n such as `props`, `data`, `computed`, `methods`, and `setup`. Even if keys don't conflict\n in the script tag, they may cause issues in the template since Vue allows direct\n access to these keys.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script>\n export default {\n     props: ['foo'],\n     data() {\n         return {\n             foo: 'bar'\n         };\n     }\n };\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script>\n export default {\n     data() {\n         return {\n             message: 'hello'\n         };\n     },\n     methods: {\n         message() {\n             console.log('duplicate key');\n         }\n     }\n };\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script>\n export default {\n     computed: {\n         count() {\n             return this.value * 2;\n         }\n     },\n     methods: {\n         count() {\n             this.value++;\n         }\n     }\n };\n </script>\n ```\n\n ### Valid\n\n ```vue\n <script>\n export default {\n     props: ['foo'],\n     data() {\n         return {\n             bar: 'baz'\n         };\n     },\n     methods: {\n         handleClick() {\n             console.log('unique key');\n         }\n     }\n };\n </script>\n ```\n\n ```vue\n <script>\n export default {\n     computed: {\n         displayMessage() {\n             return this.message.toUpperCase();\n         }\n     },\n     methods: {\n         clearMessage() {\n             this.message = '';\n         }\n     }\n };\n </script>\n ```\n\n"
+          },
+          "noVueOptionsApi": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noVueOptionsApi",
+            "link": "https://biomejs.dev/linter/rules/no-vue-options-api",
+            "recommended": false,
+            "fixKind": "none",
+            "docs": " Disallow the use of Vue Options API.\n\n Vue 3.6's Vapor Mode does not support the Options API.\n Components must use the Composition API (`<script setup>` or `defineComponent` with function signature) instead.\n\n This rule helps prepare codebases for Vapor Mode by detecting Options API\n patterns that are incompatible with the new rendering mode.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script>\n export default {\n   data() {\n     return { count: 0 }\n   }\n }\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script>\n export default {\n   methods: {\n     increment() {\n       this.count++\n     }\n   }\n }\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script>\n export default {\n   computed: {\n     doubled() {\n       return this.count * 2\n     }\n   }\n }\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script>\n export default {\n   mounted() {\n     console.log('Component mounted')\n   }\n }\n </script>\n ```\n\n ```js,expect_diagnostic\n import { defineComponent } from 'vue'\n\n defineComponent({\n   name: 'MyComponent',\n   data() {\n     return { count: 0 }\n   }\n })\n ```\n\n ### Valid\n\n ```vue\n <script setup>\n import { ref } from 'vue'\n const count = ref(0)\n </script>\n ```\n\n ```vue\n <script setup>\n import { ref, computed } from 'vue'\n\n const count = ref(0)\n const doubled = computed(() => count.value * 2)\n </script>\n ```\n\n ```vue\n <script setup>\n import { onMounted } from 'vue'\n\n onMounted(() => {\n   console.log('Component mounted')\n })\n </script>\n ```\n\n ## Related Rules\n\n - [useVueVapor](https://biomejs.dev/linter/rules/use-vue-vapor): Enforces the use of Vapor mode in Vue components\n\n ## Resources\n\n - [Vue 3 Composition API](https://vuejs.org/api/composition-api-setup.html)\n - [Options API vs Composition API](https://vuejs.org/guide/introduction.html#api-styles)\n\n"
           },
           "noVueReservedKeys": {
             "deprecated": false,
@@ -7452,7 +7461,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 429
+    "numberOrRules": 430
   },
   "syntax": {
     "languages": {
