@@ -1339,15 +1339,22 @@ Enables Biome's assist for Grit files.
 ## `html`
 
 :::caution
-While HTML parser, formatter and linter are enabled by default, they are still considered experimental.
+The HTML formatter is **disabled** by default because it is still experimental.
 Breaking changes will be reduced to a minimum, however the introduction of fixes and features might change
 the behavior of the tools.
 :::
 
 ### `html.experimentalFullSupportEnabled`
 
-When enabled, Biome enables full support for HTML-ish languages. Parsing, formatting and linting of
+When enabled, Biome enables full support for HTML-ish languages (Vue, Svelte, and Astro files). Parsing, formatting and linting of
 embedded languages inside these files are consistent.
+
+When disabled, Biome will only extract the JavaScript/TypeScript parts of these files for analysis, while ignoring the rest of the content.
+
+:::note
+Enabling this option merely switches this behavior for these files, not plain `.html` files. To format HTML files, you also
+need to enable `html.formatter.enabled`.
+:::
 
 ### `html.parser.interpolation`
 
@@ -1360,6 +1367,10 @@ Enables the parsing of double text expressions such as `{{ expression }}` inside
 Enables Biome's formatter for HTML files.
 
 > Default: `false`
+
+:::note
+This will be enabled by default when the HTML formatter is no longer experimental.
+:::
 
 ### `html.formatter.indentStyle`
 
