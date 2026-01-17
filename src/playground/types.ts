@@ -62,6 +62,11 @@ export enum ArrowParentheses {
 	AsNeeded = "as-needed",
 }
 
+export enum OperatorLinebreak {
+	After = "after",
+	Before = "before",
+}
+
 export enum AttributePosition {
 	Auto = "auto",
 	Multiline = "multiline",
@@ -176,6 +181,7 @@ export interface PlaygroundSettings {
 	trailingCommas: TrailingCommas;
 	semicolons: Semicolons;
 	arrowParentheses: ArrowParentheses;
+	operatorLinebreak: OperatorLinebreak;
 	attributePosition: AttributePosition;
 	bracketSpacing: boolean;
 	bracketSameLine: boolean;
@@ -231,6 +237,7 @@ export const defaultPlaygroundState: PlaygroundState = {
 		trailingCommas: TrailingCommas.All,
 		semicolons: Semicolons.Always,
 		arrowParentheses: ArrowParentheses.Always,
+		operatorLinebreak: OperatorLinebreak.After,
 		attributePosition: AttributePosition.Auto,
 		bracketSpacing: true,
 		bracketSameLine: false,
