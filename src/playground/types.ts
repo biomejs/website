@@ -18,7 +18,9 @@ export enum PlaygroundTab {
 	SemanticModel = "semantic-model",
 }
 
-export type { Options as PrettierOptions } from "prettier";
+export type PrettierOptions = import("prettier").Options & {
+	experimentalOperatorPosition?: "start" | "end";
+};
 
 export enum IndentStyle {
 	Tab = "tab",
