@@ -16,6 +16,7 @@ import {
 	LANGUAGE,
 	type Language,
 	type LintRule,
+	OperatorLinebreak,
 	type PlaygroundState,
 	QuoteProperties,
 	QuoteStyle,
@@ -57,6 +58,7 @@ export default function SettingsTab({
 			trailingCommas,
 			semicolons,
 			arrowParentheses,
+			operatorLinebreak,
 			bracketSpacing,
 			bracketSameLine,
 			expand,
@@ -111,6 +113,10 @@ export default function SettingsTab({
 	const setArrowParentheses = createPlaygroundSettingsSetter(
 		setPlaygroundState,
 		"arrowParentheses",
+	);
+	const setOperatorLinebreak = createPlaygroundSettingsSetter(
+		setPlaygroundState,
+		"operatorLinebreak",
 	);
 	const setAttributePosition = createPlaygroundSettingsSetter(
 		setPlaygroundState,
@@ -340,6 +346,8 @@ export default function SettingsTab({
 				setSemicolons={setSemicolons}
 				arrowParentheses={arrowParentheses}
 				setArrowParentheses={setArrowParentheses}
+				operatorLinebreak={operatorLinebreak}
+				setOperatorLinebreak={setOperatorLinebreak}
 				attributePosition={attributePosition}
 				setAttributePosition={setAttributePosition}
 				bracketSpacing={bracketSpacing}
@@ -738,6 +746,8 @@ function FormatterSettings({
 	setSemicolons,
 	arrowParentheses,
 	setArrowParentheses,
+	operatorLinebreak,
+	setOperatorLinebreak,
 	attributePosition,
 	setAttributePosition,
 	bracketSpacing,
@@ -769,6 +779,8 @@ function FormatterSettings({
 	setSemicolons: (value: Semicolons) => void;
 	arrowParentheses: ArrowParentheses;
 	setArrowParentheses: (value: ArrowParentheses) => void;
+	operatorLinebreak: OperatorLinebreak;
+	setOperatorLinebreak: (value: OperatorLinebreak) => void;
 	attributePosition: AttributePosition;
 	setAttributePosition: (value: AttributePosition) => void;
 	bracketSpacing: boolean;
@@ -790,6 +802,7 @@ function FormatterSettings({
 	const trailingCommasId = useId();
 	const semicolonsId = useId();
 	const arrowParenthesesId = useId();
+	const operatorLinebreakId = useId();
 	const attributePositionId = useId();
 	const bracketSpacingId = useId();
 	const bracketSameLineId = useId();
@@ -911,6 +924,19 @@ function FormatterSettings({
 						}}
 						value={arrowParentheses ?? ArrowParentheses.Always}
 						onChangeValue={setArrowParentheses}
+					/>
+				</div>
+				<div className="field-row">
+					<label htmlFor={operatorLinebreakId}>Operator Linebreak</label>
+					<EnumSelect
+						id={operatorLinebreakId}
+						name="operatorLinebreak"
+						options={{
+							[OperatorLinebreak.After]: "After",
+							[OperatorLinebreak.Before]: "Before",
+						}}
+						value={operatorLinebreak ?? OperatorLinebreak.After}
+						onChangeValue={setOperatorLinebreak}
 					/>
 				</div>
 				<div className="field-row">
