@@ -2696,6 +2696,23 @@ export function GET() {
             ],
             "docs": " Require the use of `===` or `!==` for comparison with `null`.\n\n Comparing to `null` with `==` or `!=` may have unintended results as the\n expression evaluates to `true` when comparing `null` to `undefined`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n foo == null;\n ```\n\n ```js,expect_diagnostic\n foo != null;\n ```\n\n ### Valid\n\n ```js\n foo === null;\n ```\n\n ```js\n foo !== null;\n ```\n"
           },
+          "noExcessiveClassesPerFile": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noExcessiveClassesPerFile",
+            "link": "https://biomejs.dev/linter/rules/no-excessive-classes-per-file",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "max-classes-per-file"
+                }
+              }
+            ],
+            "docs": " Enforce a maximum number of classes per file.\n\n Files containing multiple classes can often result in a less navigable and poorly structured codebase.\n Best practice is to keep each file limited to a single responsibility.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n class Foo {}\n class Bar {}\n ```\n\n ### Valid\n\n ```js\n class Foo {}\n ```\n\n ## Options\n\n The following options are available:\n\n ### `maxClasses`\n\n This option sets the maximum number of classes allowed in a file.\n If the file exceeds this limit, a diagnostic will be reported.\n\n Default: `1`\n\n ```json,options\n {\n     \"options\": {\n        \"maxClasses\": 2\n     }\n }\n ```\n\n ```js,expect_diagnostic,use_options\n class Foo {}\n class Bar {}\n class Baz {}\n ```\n\n"
+          },
           "noExcessiveLinesPerFile": {
             "deprecated": false,
             "version": "next",
@@ -7512,7 +7529,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 433
+    "numberOrRules": 434
   },
   "syntax": {
     "languages": {
