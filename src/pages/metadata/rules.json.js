@@ -2611,6 +2611,23 @@ export function GET() {
             ],
             "docs": " Restrict imports of deprecated exports.\n\n This rule flags any imports for symbols (such as types, functions, or\n anything else that can be imported), that are documented with a JSDoc\n comment that contains an \"@deprecated\" annotation.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic,file=foo.js\n import { oldUtility } from \"./utils.js\";\n ```\n\n ```js,file=utils.js\n /**\n  * @deprecated\n  */\n export function oldUtility() {}\n ```\n\n ### Valid\n\n ```js,file=foo.js\n import { newUtility, oldUtility } from \"./utils.js\";\n ```\n\n ```js,file=utils.js\n export function newUtility() {}\n\n // @deprecated (this is not a JSDoc comment)\n export function oldUtility() {}\n ```\n\n"
           },
+          "noDivRegex": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noDivRegex",
+            "link": "https://biomejs.dev/linter/rules/no-div-regex",
+            "recommended": false,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "no-div-regex"
+                }
+              }
+            ],
+            "docs": " Disallow equal signs explicitly at the beginning of regular expressions.\n\n This rule forbids equal signs (`=`) after the slash (`/`) at the beginning of a regular expression literal,\n because the characters `/=` can be confused with a division assignment operator.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function bar() {\n   return /=foo/;\n }\n ```\n\n ### Valid\n\n ```js\n function bar() {\n   return /[=]foo/;\n }\n ```\n\n"
+          },
           "noDuplicateEnumValues": {
             "deprecated": false,
             "version": "next",
@@ -6475,6 +6492,23 @@ export function GET() {
             ],
             "docs": " Disallow unknown DOM properties.\n\n In JSX, most DOM properties and attributes should be camelCased to be consistent with standard JavaScript style.\n This can be a possible source of error if you are used to writing plain HTML.\n Only `data-*` and `aria-*` attributes are allowed to use hyphens and lowercase letters in JSX.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div allowTransparency=\"true\" />\n ```\n\n ```jsx,expect_diagnostic\n <div onclick={() => {}} />\n ```\n\n ```jsx,expect_diagnostic\n <div for=\"bar\" />\n ```\n\n ### Valid\n\n ```jsx\n <div className=\"foo\" />\n ```\n\n ```jsx\n <div onClick={() => {}} />\n ```\n\n ```jsx\n <div htmlFor=\"bar\" />\n ```\n\n ```jsx\n <div data-foo=\"bar\" />\n ```\n\n ```jsx\n <div aria-label=\"Close\" />\n ```\n\n ## Options\n\n ### `ignore`\n\n An array of property and attribute names to ignore during validation.\n\n ```json\n {\n   \"noUnknownAttribute\": {\n     \"options\": {\n       \"ignore\": [\"custom-attribute\", \"non-standard-prop\"]\n     }\n   }\n }\n ```\n"
           },
+          "useInlineScriptId": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useInlineScriptId",
+            "link": "https://biomejs.dev/linter/rules/use-inline-script-id",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintNext": "inline-script-id"
+                }
+              }
+            ],
+            "docs": " Enforce `id` attribute on `next/script` components with inline content or `dangerouslySetInnerHTML`.\n\n Using inline scripts or `dangerouslySetInnerHTML` in `next/script` components requires an `id` attribute to ensure that Next.js can track and optimize them correctly.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n import Script from 'next/script'\n\n export default function Page() {\n   return (\n      <Script>{`console.log('Hello world!');`}</Script>\n   )\n }\n ```\n\n ```jsx,expect_diagnostic\n import Script from 'next/script'\n\n export default function Page() {\n   return (\n      <Script dangerouslySetInnerHTML={{ __html: `console.log('Hello world!');` }} />\n   )\n }\n ```\n\n ### Valid\n ```jsx\n import Script from 'next/script'\n\n export default function Page() {\n   return (\n      <Script id=\"my-script\">{`console.log('Hello world!');`}</Script>\n   )\n }\n ```\n\n ```jsx\n import Script from 'next/script'\n\n export default function Page() {\n   return (\n      <Script id=\"my-script\" dangerouslySetInnerHTML={{ __html: `console.log('Hello world!');` }} />\n   )\n }\n ```\n\n"
+          },
           "useQwikMethodUsage": {
             "deprecated": false,
             "version": "2.2.6",
@@ -7461,7 +7495,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 430
+    "numberOrRules": 432
   },
   "syntax": {
     "languages": {
