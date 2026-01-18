@@ -101,6 +101,7 @@ export default {
   '/linter/rules/noExtraNonNullAssertion': '/linter/rules/no-extra-non-null-assertion',
   '/linter/rules/noFallthroughSwitchClause': '/linter/rules/no-fallthrough-switch-clause',
   '/linter/rules/noFlatMapIdentity': '/linter/rules/no-flat-map-identity',
+  '/linter/rules/noFloatingClasses': '/linter/rules/no-floating-classes',
   '/linter/rules/noFloatingPromises': '/linter/rules/no-floating-promises',
   '/linter/rules/noFocusedTests': '/linter/rules/no-focused-tests',
   '/linter/rules/noForEach': '/linter/rules/no-for-each',

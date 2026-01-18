@@ -2713,6 +2713,23 @@ export function GET() {
             ],
             "docs": " Restrict the number of lines in a file.\n\n This rule checks the number of lines in a file and reports a diagnostic if it exceeds a specified limit.\n Some people consider large files a code smell. Large files tend to do many things and can make it hard to follow what's going on.\n Many coding style guides dictate a limit of the number of lines that a file can comprise of. This rule can help enforce that style.\n\n ## Examples\n\n ### Invalid\n\n The following example will show a diagnostic when `maxLines` is set to 2:\n\n ```json,options\n {\n     \"options\": {\n        \"maxLines\": 2\n     }\n }\n ```\n ```js,expect_diagnostic,use_options\n const a = 1;\n const b = 2;\n const c = 3;\n ```\n\n ### Valid\n\n ```js\n const a = 1;\n const b = 2;\n ```\n\n ## Options\n\n The following options are available:\n\n ### `maxLines`\n\n This option sets the maximum number of lines allowed in a file.\n If the file exceeds this limit, a diagnostic will be reported.\n\n Default: `300`\n\n When `maxLines: 2`, the following file will be considered invalid:\n ```json,options\n {\n     \"options\": {\n        \"maxLines\": 2\n     }\n }\n ```\n ```js,expect_diagnostic,use_options\n const a = 1;\n const b = 2;\n const c = 3;\n ```\n\n ### `skipBlankLines`\n\n When this option is set to `true`, blank lines are not counted towards the maximum line limit.\n This means that only lines with actual code or comments will be counted.\n\n Default: `false`\n\n When `maxLines: 3` and `skipBlankLines: true`, the following file will be considered valid\n even though it has 5 total lines, because only 3 lines contain code:\n ```json,options\n {\n     \"options\": {\n        \"maxLines\": 3,\n        \"skipBlankLines\": true\n     }\n }\n ```\n ```js,use_options\n const a = 1;\n\n const b = 2;\n\n const c = 3;\n ```\n\n ## Suppressions\n\n If you need to exceed the line limit in a specific file, you can suppress this rule\n at the top of the file:\n\n ```json,options\n {\n     \"options\": {\n         \"maxLines\": 2\n     }\n }\n ```\n ```js,use_options\n // biome-ignore lint/nursery/noExcessiveLinesPerFile: generated file\n const a = 1;\n const b = 2;\n const c = 3;\n ```\n\n"
           },
+          "noFloatingClasses": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noFloatingClasses",
+            "link": "https://biomejs.dev/linter/rules/no-floating-classes",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "no-new"
+                }
+              }
+            ],
+            "docs": " Disallow `new` operators outside of assignments or comparisons.\n\n The goal of using `new` with a constructor is typically to create an object of a particular type and store that object in a variable, such as:\n\n ```js\n const person = new Person();\n ```\n\n It's less common to use `new` and not store the result, such as:\n\n ```js,ignore\n new Person();\n ```\n\n In this case, the created object is thrown away because its reference isn't stored anywhere, and in many cases, this means that the constructor should be replaced with a function that doesn't require `new` to be used.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n new Thing();\n ```\n\n ### Valid\n\n ```js\n const thing = new Thing();\n ```\n\n"
+          },
           "noForIn": {
             "deprecated": false,
             "version": "2.3.6",
@@ -7495,7 +7512,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 432
+    "numberOrRules": 433
   },
   "syntax": {
     "languages": {

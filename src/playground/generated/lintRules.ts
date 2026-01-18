@@ -179,6 +179,7 @@ export const LINT_RULES = {
     noEmptySource: "noEmptySource",
     noEqualsToNull: "noEqualsToNull",
     noExcessiveLinesPerFile: "noExcessiveLinesPerFile",
+    noFloatingClasses: "noFloatingClasses",
     noFloatingPromises: "noFloatingPromises",
     noForIn: "noForIn",
     noImportCycles: "noImportCycles",
