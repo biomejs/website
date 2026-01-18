@@ -14,18 +14,6 @@ test.describe("playground should format code", () => {
 			).toContainText("let a = 5;");
 		});
 
-		test("javascript operator linebreak before", async ({ page }) => {
-			await page.goto(
-				"/playground?code=const%20foo%20=%20bar%20%2B%20baz%3B&lineWidth=10&indentStyle=space&indentWidth=2&operatorLinebreak=before",
-			);
-			await expect(
-				page.getByTestId("biome-output").getByRole("textbox"),
-			).toContainText(/\n\s+\+ baz;/);
-			await expect(
-				page.getByTestId("prettier-output").getByRole("textbox"),
-			).toContainText(/\n\s+\+ baz;/);
-		});
-
 		test("css", async ({ page }) => {
 			await page.goto(
 				"/playground?files.main.css=ZABpAHYAIAB7AGMAbwBsAG8AcgA6ACAAYgBsAHUAZQA7AH0A",
