@@ -264,6 +264,15 @@ export function GET() {
               }
             ],
             "docs": " Disallow empty sources.\n\n A source containing only the following is considered empty:\n   - Whitespace (spaces, tabs or newlines)\n   - Comments\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n\n ```\n\n ```css,expect_diagnostic\n /* Only comments */\n ```\n\n ### Valid\n\n ```css\n a { }\n ```\n\n ## Options\n\n ### `allowComments`\n\n Whether the comments should be marked as meaningful.\n When this option has been set to `true`, a file with only comments is considered valid.\n\n Default `false`\n\n ```json,options\n {\n   \"options\": {\n     \"allowComments\": true\n   }\n }\n ```\n\n #### Invalid\n\n ```css,expect_diagnostic,use_options\n\n ```\n\n #### Valid\n\n ```css,use_options\n /* Only comments */\n ```\n\n"
+          },
+          "noExcessiveLinesPerFile": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noExcessiveLinesPerFile",
+            "link": "https://biomejs.dev/linter/rules/no-excessive-lines-per-file",
+            "recommended": false,
+            "fixKind": "none",
+            "docs": " Restrict the number of lines in a file.\n\n Large files tend to do many things and can make it hard to follow what's going on.\n This rule can help enforce a limit on the number of lines in a file.\n\n ## Examples\n\n ### Invalid\n\n The following example will show a diagnostic when `maxLines` is set to 2:\n\n ```json,options\n {\n     \"options\": {\n        \"maxLines\": 2\n     }\n }\n ```\n ```css,expect_diagnostic,use_options\n .a { color: red; }\n .b { color: blue; }\n .c { color: green; }\n ```\n\n ### Valid\n\n ```css\n .a { color: red; }\n .b { color: blue; }\n ```\n\n ## Options\n\n ### `maxLines`\n\n This option sets the maximum number of lines allowed in a file.\n If the file exceeds this limit, a diagnostic will be reported.\n\n Default: `300`\n\n ### `skipBlankLines`\n\n When this option is set to `true`, blank lines are not counted towards the maximum line limit.\n\n Default: `false`\n\n"
           }
         },
         "style": {
@@ -607,6 +616,15 @@ export function GET() {
             "recommended": false,
             "fixKind": "none",
             "docs": " Disallow empty sources.\n\n A source containing only the following is considered empty:\n   - Whitespace (spaces, tabs or newlines)\n   - Comments\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n\n ```\n\n ```graphql,ignore\n # Invalid comment\n ```\n\n ### Valid\n\n ```graphql\n query Member {}\n ```\n\n ```graphql\n fragment StrippedMember on Member {}\n ```\n\n ## Options\n\n ### `allowComments`\n\n Whether the comments should be marked as meaningful.\n When this option has been set to `true`, a file with only comments is considered valid.\n\n Default `false`\n\n\n ```json,options\n {\n   \"options\": {\n     \"allowComments\": true\n   }\n }\n ```\n\n #### Invalid\n\n ```graphql,expect_diagnostic,use_options\n\n ```\n\n #### Valid\n\n ```graphql,ignore\n # Valid comment\n ```\n\n"
+          },
+          "noExcessiveLinesPerFile": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noExcessiveLinesPerFile",
+            "link": "https://biomejs.dev/linter/rules/no-excessive-lines-per-file",
+            "recommended": false,
+            "fixKind": "none",
+            "docs": " Restrict the number of lines in a file.\n\n Large files tend to do many things and can make it hard to follow what's going on.\n This rule can help enforce a limit on the number of lines in a file.\n\n ## Examples\n\n ### Invalid\n\n The following example will show a diagnostic when `maxLines` is set to 2:\n\n ```json,options\n {\n     \"options\": {\n        \"maxLines\": 2\n     }\n }\n ```\n ```graphql,expect_diagnostic,use_options\n query Foo { id }\n query Bar { id }\n query Baz { id }\n ```\n\n ### Valid\n\n ```graphql\n query Foo { id }\n query Bar { id }\n ```\n\n ## Options\n\n ### `maxLines`\n\n This option sets the maximum number of lines allowed in a file.\n If the file exceeds this limit, a diagnostic will be reported.\n\n Default: `300`\n\n ### `skipBlankLines`\n\n When this option is set to `true`, blank lines are not counted towards the maximum line limit.\n\n Default: `false`\n\n"
           },
           "noRootType": {
             "deprecated": false,
@@ -7529,7 +7547,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 434
+    "numberOrRules": 436
   },
   "syntax": {
     "languages": {
