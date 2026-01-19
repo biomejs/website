@@ -82,6 +82,18 @@ class Foo {
 }
 ```
 
+Exported variables are not flagged because in some frameworks (e.g., Svelte 4),
+initializing exported variables to `undefined` is used to declare optional props.
+
+```js
+export let x = undefined;
+```
+
+```js
+let y = undefined;
+export { y };
+```
+
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)
