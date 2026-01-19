@@ -56,7 +56,7 @@ biome_service = { git = "https://github.com/biomejs/biome.git", rev = "5ba9995e4
 biome_string_case = { git = "https://github.com/biomejs/biome.git", rev = "5ba9995e49e9152b3cb404cf6a73e6b071a3ccef" }
 biome_test_utils = { git = "https://github.com/biomejs/biome.git", rev = "5ba9995e49e9152b3cb404cf6a73e6b071a3ccef" }
 biome_text_edit = { git = "https://github.com/biomejs/biome.git", rev = "5ba9995e49e9152b3cb404cf6a73e6b071a3ccef" }
-bpaf = { version = "0.9.20", features = ["docgen"] }
+bpaf = { version = "0.9.22", features = ["docgen"] }
 xtask_codegen = { git = "https://github.com/biomejs/biome.git", rev = "5ba9995e49e9152b3cb404cf6a73e6b071a3ccef", features = [
 	"schema",
 ] }
