@@ -27,6 +27,7 @@ The roadmap represents the overall direction that we want to take; however, thin
   - Support for project lint rules, such as [`noImportCycle`](/linter/rules/no-import-cycles/).
   - Shipped the new concept of [linter domains](/linter/domains), a way to group different rules under different umbrellas, and a way to turn on those rules automatically based on your depdencies.
   - Added support for plugins via [GritQL](https://docs.grit.io/). Throughout the year the plugin engine has become even more powerful, allowing users to **query the Biome CST** and report custom diagnostics.
+  - Shipped the new [JavaScript import and export organizer](https://biomejs.dev/assist/actions/organize-imports/) that provides advanced feature like import merging, and custom import groups.
 - We shipped **three new minors** after v2, which have added many new features:
   - Support for Tailwind syntax in CSS files
   - Experimental full support of parsing, formatting, linting for Vue, Svelte, and Astro. The language capabilities of Biome have improved and allow them to inspect multiple languages in the same document.
