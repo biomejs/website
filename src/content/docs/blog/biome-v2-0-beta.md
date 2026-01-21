@@ -10,8 +10,8 @@ authors:
   - team
 date: 2025-03-24
 cover:
-  light: "@/assets/blog/roadmap-2024/banner-light.png"
-  dark: "@/assets/blog/roadmap-2024/banner-dark.png"
+  light: "@/assets/blog/banner-light.png"
+  dark: "@/assets/blog/banner-dark.png"
   alt: The brand of the project. It says "Biome, toolchain of the web"
 socialImage: "@/assets/social-logo.png"
 ---
@@ -137,13 +137,13 @@ It will trigger the following diagnostic:
 example.js:3:1 lint/nursery/noFloatingPromises ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   ℹ A “floating” Promise was found, meaning it is not properly handled and could lead to ignored errors or unexpected behavior.
-  
+
     1 │ async function returnsPromise() { /* ... */ }
-    2 │ 
+    2 │
   > 3 │ returnsPromise().then(() => {});
       │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    5 │ 
-  
+    5 │
+
   ℹ This happens when a Promise is not awaited, lacks a .catch or .then rejection handler, or is not explicitly ignored using the void operator.
 ```
 

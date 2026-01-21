@@ -6,11 +6,10 @@ authors:
   - team
 date: 2025-01-22
 cover:
-  light: "@/assets/blog/roadmap-2024/banner-light.png"
-  dark: "@/assets/blog/roadmap-2024/banner-dark.png"
+  light: "@/assets/blog/banner-light.png"
+  dark: "@/assets/blog/banner-dark.png"
   alt: "Biome - Toolchain of the web"
 socialImage: "@/assets/social-logo.png"
-featured: true
 ---
 
 Today we're happy to share our plans for Biome 2.0 as well as the rest of our roadmap for 2025. But before we dive into what's coming, let's do a quick recap of the major developments in 2024.
@@ -21,7 +20,7 @@ Today we're happy to share our plans for Biome 2.0 as well as the rest of our ro
 
 * We released 4 new "minor" Biome versions, from 1.6 through 1.9, with plenty of useful features:
   * New `biome search` and `biome explain` commands, while the `biome migrate` command was significantly expanded to help users coming from ESLint and Prettier.
-  * Added support for **CSS** and **GraphQL** formatting and linting. 
+  * Added support for **CSS** and **GraphQL** formatting and linting.
   * Partial support for **Astro**, **Svelte** and **Vue** files.
   * The ability to let configuration files extend from one another, which is especially useful in monorepo and larger organizational setups.
   * Custom [reporters](https://biomejs.dev/reference/reporters/) for better CI integration and machine-readable output.
