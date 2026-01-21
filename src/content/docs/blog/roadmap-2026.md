@@ -27,11 +27,11 @@ The roadmap represents the overall direction that we want to take; however, thin
   - Support for project lint rules, such as [`noImportCycle`](/linter/rules/no-import-cycles/).
   - Shipped the new concept of [linter domains](/linter/domains), a way to group different rules under different umbrellas, and a way to turn on those rules automatically based on your dependencies.
   - Added support for plugins via [GritQL](https://docs.grit.io/). Throughout the year the plugin engine has become even more powerful, allowing users to **query the Biome CST** and report custom diagnostics.
-  - Shipped the new [JavaScript import and export organizer](https://biomejs.dev/assist/actions/organize-imports/) that provides advanced feature like import merging, and custom import groups.
+  - Shipped the new [JavaScript import and export organizer](https://biomejs.dev/assist/actions/organize-imports/) that provides advanced features like import merging, and custom import groups.
 - We shipped **three new minors** after v2, which have added many new features:
   - Support for Tailwind syntax in CSS files
   - Experimental full support of parsing, formatting, linting for Vue, Svelte, and Astro. The language capabilities of Biome have improved and allow them to inspect multiple languages in the same document.
-  - We improved and fixed many bugs around the Biome watcher and scanner. Some of those bugs caused some memory leaks, causing Biome being unusable to some users.
+  - We improved and fixed many bugs around the Biome watcher and scanner. Some of those bugs caused some memory leaks, causing Biome to be unusable for some users.
 - [Depot](https://depot.dev) has become a platinum sponsor.
 - We have surpassed [15 million monthly downloads](https://www.npmcharts.com/compare/@biomejs/biome?interval=30).
 - GritQL has now become part of the [Biome](/blog/gritql-under-biome-umbrella/) [organization](https://github.com/biomejs/gritql).
@@ -42,7 +42,7 @@ Of course, Biome and team are far from being perfect, so we want to acknowledge 
 
 #### Monorepo out of the box
 
-Biome is able to discover nested ignore file and nested configuration files out of the box, without any particular configuration. While this provides an optimal DX, it uncovered some undesired situations where memory leaks get out of hand. Also, in some cases, users don't have enough control over the folders that are real libraries.
+Biome is able to discover nested ignore files and nested configuration files out of the box, without any particular configuration. While this provides an optimal DX, it uncovered some undesired situations where memory leaks get out of hand. Also, in some cases, users don't have enough control over the folders that are real libraries.
 
 #### Difficult to debug
 
@@ -79,7 +79,7 @@ I can't stress enough that Biome is a community-driven project, all the features
 
 ### Markdown
 
-We really wish to implement the parsing of Markdown, however we haven't enough time and resources to look into it. If there's someone that wish to help, please let us know on [Discord](https://biomejs.dev/chat)! We're looking for **a champion** that would help with the implementation **and the reviews**.
+We really wish to implement the parsing of Markdown; however, we don't have enough time and resources to look into it. If there's someone who wishes to help, please let us know on [Discord](https://biomejs.dev/chat)! We're looking for **a champion** who would help with the implementation **and the reviews**.
 
 ## Can I help move Biome's roadmap forward?
 
