@@ -15,6 +15,7 @@ import {
 	Expand,
 	IndentStyle,
 	LoadingState,
+	OperatorLinebreak,
 	type PlaygroundSettings,
 	QuoteProperties,
 	QuoteStyle,
@@ -125,6 +126,7 @@ self.addEventListener("message", async (e) => {
 				trailingCommas,
 				semicolons,
 				arrowParentheses,
+				operatorLinebreak,
 				bracketSpacing,
 				bracketSameLine,
 				expand,
@@ -184,6 +186,10 @@ self.addEventListener("message", async (e) => {
 							arrowParentheses === ArrowParentheses.Always
 								? "always"
 								: "asNeeded",
+						operatorLinebreak:
+							operatorLinebreak === OperatorLinebreak.Before
+								? "before"
+								: "after",
 						bracketSpacing,
 						bracketSameLine,
 						attributePosition:

@@ -171,11 +171,14 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noBeforeInteractiveScriptOutsideDocument](/linter/rules/no-before-interactive-script-outside-document) | Prevent usage of `next/script`'s `beforeInteractive` strategy outside of `pages/_document.js` in a Next.js project. |  |
 | [noContinue](/linter/rules/no-continue) | Disallow continue statements. |  |
 | [noDeprecatedImports](/linter/rules/no-deprecated-imports) | Restrict imports of deprecated exports. |  |
+| [noDivRegex](/linter/rules/no-div-regex) | Disallow equal signs explicitly at the beginning of regular expressions. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span><span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
 | [noDuplicateEnumValues](/linter/rules/no-duplicate-enum-values) | Disallow duplicate enum member values. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
 | [noDuplicatedSpreadProps](/linter/rules/no-duplicated-spread-props) | Disallow JSX prop spreading the same identifier multiple times. |  |
 | [noEmptySource](/linter/rules/no-empty-source) | Disallow empty sources. |  |
 | [noEqualsToNull](/linter/rules/no-equals-to-null) | Require the use of `===` or `!==` for comparison with `null`. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [noExcessiveClassesPerFile](/linter/rules/no-excessive-classes-per-file) | Enforce a maximum number of classes per file. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
 | [noExcessiveLinesPerFile](/linter/rules/no-excessive-lines-per-file) | Restrict the number of lines in a file. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
+| [noFloatingClasses](/linter/rules/no-floating-classes) | Disallow `new` operators outside of assignments or comparisons. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
 | [noFloatingPromises](/linter/rules/no-floating-promises) | Require Promise-like statements to be handled appropriately. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noForIn](/linter/rules/no-for-in) | Disallow iterating using a for-in loop. |  |
 | [noImportCycles](/linter/rules/no-import-cycles) | Prevent import cycles. |  |
@@ -204,6 +207,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noUselessUndefined](/linter/rules/no-useless-undefined) | Disallow the use of useless `undefined`. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [noVueDataObjectDeclaration](/linter/rules/no-vue-data-object-declaration) | Enforce that Vue component `data` options are declared as functions. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [noVueDuplicateKeys](/linter/rules/no-vue-duplicate-keys) | Disallow duplicate keys in Vue component data, methods, computed properties, and other options. |  |
+| [noVueOptionsApi](/linter/rules/no-vue-options-api) | Disallow the use of Vue Options API. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
 | [noVueReservedKeys](/linter/rules/no-vue-reserved-keys) | Disallow reserved keys in Vue component data and computed properties. |  |
 | [noVueReservedProps](/linter/rules/no-vue-reserved-props) | Disallow reserved names to be used as props. |  |
 | [noVueSetupPropsReactivityLoss](/linter/rules/no-vue-setup-props-reactivity-loss) | Disallow destructuring of `props` passed to `setup` in Vue projects. |  |
@@ -215,6 +219,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [useExhaustiveSwitchCases](/linter/rules/use-exhaustive-switch-cases) | Require switch-case statements to be exhaustive. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useExplicitType](/linter/rules/use-explicit-type) | Enforce types in functions, methods, variables, and parameters. |  |
 | [useFind](/linter/rules/use-find) | Enforce the use of Array.prototype.find() over Array.prototype.filter() followed by [0] when looking for a single result. |  |
+| [useInlineScriptId](/linter/rules/use-inline-script-id) | Enforce `id` attribute on `next/script` components with inline content or `dangerouslySetInnerHTML`. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
 | [useMaxParams](/linter/rules/use-max-params) | Enforce a maximum number of parameters in function definitions. |  |
 | [useQwikMethodUsage](/linter/rules/use-qwik-method-usage) | Disallow `use*` hooks outside of `component$` or other `use*` hooks in Qwik applications. |  |
 | [useQwikValidLexicalScope](/linter/rules/use-qwik-valid-lexical-scope) | Disallow unserializable expressions in Qwik dollar ($) scopes. |  |
