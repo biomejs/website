@@ -677,6 +677,23 @@ export function GET() {
             ],
             "docs": " Require the `@deprecated` directive to specify a deletion date.\n\n Suggests removing deprecated code when the due date has been passed.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query {\n   member @deprecated(reason: \"Use `members` instead\") {\n     id\n   }\n }\n ```\n\n ### Valid\n\n ```graphql\n query {\n   member @deprecated(reason: \"Use `members` instead\", deletionDate: \"2099-12-25\") {\n     id\n   }\n }\n ```\n\n"
           },
+          "useLoneAnonymousOperation": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useLoneAnonymousOperation",
+            "link": "https://biomejs.dev/linter/rules/use-lone-anonymous-operation",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintGraphql": "lone-anonymous-operation"
+                }
+              }
+            ],
+            "docs": " Disallow anonymous operations when more than one operation specified in document.\n\n A GraphQL document that contains an anonymous operation (the query short-hand) is only valid if it contains only that one operation definition.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query {\n   fieldA\n }\n\n query B {\n   fieldB\n }\n ```\n\n ### Valid\n\n ```graphql\n query A {\n   fieldA\n }\n\n query B {\n   fieldB\n }\n ```\n\n"
+          },
           "useLoneExecutableDefinition": {
             "deprecated": false,
             "version": "next",
@@ -7547,7 +7564,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 436
+    "numberOrRules": 437
   },
   "syntax": {
     "languages": {
