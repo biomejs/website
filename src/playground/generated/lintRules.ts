@@ -226,6 +226,7 @@ export const LINT_RULES = {
     useExplicitType: "useExplicitType",
     useFind: "useFind",
     useInlineScriptId: "useInlineScriptId",
+    useLoneAnonymousOperation: "useLoneAnonymousOperation",
     useLoneExecutableDefinition: "useLoneExecutableDefinition",
     useMaxParams: "useMaxParams",
     useQwikMethodUsage: "useQwikMethodUsage",
