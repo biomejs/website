@@ -267,7 +267,7 @@ export function GET() {
           },
           "noExcessiveLinesPerFile": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.12",
             "name": "noExcessiveLinesPerFile",
             "link": "https://biomejs.dev/linter/rules/no-excessive-lines-per-file",
             "recommended": false,
@@ -525,7 +525,7 @@ export function GET() {
           },
           "noDuplicateEnumValueNames": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.12",
             "name": "noDuplicateEnumValueNames",
             "link": "https://biomejs.dev/linter/rules/no-duplicate-enum-value-names",
             "recommended": false,
@@ -619,7 +619,7 @@ export function GET() {
           },
           "noExcessiveLinesPerFile": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.12",
             "name": "noExcessiveLinesPerFile",
             "link": "https://biomejs.dev/linter/rules/no-excessive-lines-per-file",
             "recommended": false,
@@ -628,7 +628,7 @@ export function GET() {
           },
           "noRootType": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.12",
             "name": "noRootType",
             "link": "https://biomejs.dev/linter/rules/no-root-type",
             "recommended": false,
@@ -679,7 +679,7 @@ export function GET() {
           },
           "useLoneAnonymousOperation": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.12",
             "name": "useLoneAnonymousOperation",
             "link": "https://biomejs.dev/linter/rules/use-lone-anonymous-operation",
             "recommended": false,
@@ -696,7 +696,7 @@ export function GET() {
           },
           "useLoneExecutableDefinition": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.12",
             "name": "useLoneExecutableDefinition",
             "link": "https://biomejs.dev/linter/rules/use-lone-executable-definition",
             "recommended": false,
@@ -808,7 +808,7 @@ export function GET() {
           },
           "noDuplicateAttributes": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.12",
             "name": "noDuplicateAttributes",
             "link": "https://biomejs.dev/linter/rules/no-duplicate-attributes",
             "recommended": true,
@@ -2648,7 +2648,7 @@ export function GET() {
           },
           "noDivRegex": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.12",
             "name": "noDivRegex",
             "link": "https://biomejs.dev/linter/rules/no-div-regex",
             "recommended": false,
@@ -2665,7 +2665,7 @@ export function GET() {
           },
           "noDuplicateEnumValues": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.12",
             "name": "noDuplicateEnumValues",
             "link": "https://biomejs.dev/linter/rules/no-duplicate-enum-values",
             "recommended": false,
@@ -2733,7 +2733,7 @@ export function GET() {
           },
           "noExcessiveClassesPerFile": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.12",
             "name": "noExcessiveClassesPerFile",
             "link": "https://biomejs.dev/linter/rules/no-excessive-classes-per-file",
             "recommended": false,
@@ -2750,7 +2750,7 @@ export function GET() {
           },
           "noExcessiveLinesPerFile": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.12",
             "name": "noExcessiveLinesPerFile",
             "link": "https://biomejs.dev/linter/rules/no-excessive-lines-per-file",
             "recommended": false,
@@ -2767,7 +2767,7 @@ export function GET() {
           },
           "noFloatingClasses": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.12",
             "name": "noFloatingClasses",
             "link": "https://biomejs.dev/linter/rules/no-floating-classes",
             "recommended": false,
@@ -3186,7 +3186,7 @@ export function GET() {
           },
           "noVueOptionsApi": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.12",
             "name": "noVueOptionsApi",
             "link": "https://biomejs.dev/linter/rules/no-vue-options-api",
             "recommended": false,
@@ -3314,7 +3314,7 @@ export function GET() {
           },
           "useErrorCause": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.12",
             "name": "useErrorCause",
             "link": "https://biomejs.dev/linter/rules/use-error-cause",
             "recommended": false,
@@ -6563,7 +6563,7 @@ export function GET() {
           },
           "useInlineScriptId": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.12",
             "name": "useInlineScriptId",
             "link": "https://biomejs.dev/linter/rules/use-inline-script-id",
             "recommended": true,
