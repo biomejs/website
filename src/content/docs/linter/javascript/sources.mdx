@@ -31,6 +31,7 @@ description: A page that maps rules from other sources to Biome
 - [noUselessEscapeInString](/linter/rules/no-useless-escape-in-string) 
 - [noUselessStringRaw](/linter/rules/no-useless-string-raw) 
 - [noVoidTypeReturn](/linter/rules/no-void-type-return) 
+- [noVueOptionsApi](/linter/rules/no-vue-options-api) 
 - [useImportExtensions](/linter/rules/use-import-extensions) 
 - [useJsonImportAttributes](/linter/rules/use-json-import-attributes) 
 - [useNodeAssertStrict](/linter/rules/use-node-assert-strict) 
@@ -62,6 +63,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | ---- | ---- |
 | [google-font-display](https://nextjs.org/docs/messages/google-font-display) |[useGoogleFontDisplay](/linter/rules/use-google-font-display) |
 | [google-font-preconnect](https://nextjs.org/docs/messages/google-font-preconnect) |[useGoogleFontPreconnect](/linter/rules/use-google-font-preconnect) |
+| [inline-script-id](https://nextjs.org/docs/messages/inline-script-id) |[useInlineScriptId](/linter/rules/use-inline-script-id) |
 | [no-async-client-component](https://nextjs.org/docs/messages/no-async-client-component) |[noNextAsyncClientComponent](/linter/rules/no-next-async-client-component) |
 | [no-before-interactive-script-outside-document](https://nextjs.org/docs/messages/no-before-interactive-script-outside-document) |[noBeforeInteractiveScriptOutsideDocument](/linter/rules/no-before-interactive-script-outside-document) |
 | [no-document-import-in-page](https://nextjs.org/docs/messages/no-document-import-in-page) |[noDocumentImportInPage](/linter/rules/no-document-import-in-page) |
@@ -124,6 +126,8 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [getter-return](https://eslint.org/docs/latest/rules/getter-return) |[useGetterReturn](/linter/rules/use-getter-return) |
 | [grouped-accessor-pairs](https://eslint.org/docs/latest/rules/grouped-accessor-pairs) |[useGroupedAccessorPairs](/linter/rules/use-grouped-accessor-pairs) |
 | [guard-for-in](https://eslint.org/docs/latest/rules/guard-for-in) |[useGuardForIn](/linter/rules/use-guard-for-in) |
+| [max-classes-per-file](https://eslint.org/docs/latest/rules/max-classes-per-file) |[noExcessiveClassesPerFile](/linter/rules/no-excessive-classes-per-file) |
+| [max-lines](https://eslint.org/docs/latest/rules/max-lines) |[noExcessiveLinesPerFile](/linter/rules/no-excessive-lines-per-file) (inspired) |
 | [max-lines-per-function](https://eslint.org/docs/latest/rules/max-lines-per-function) |[noExcessiveLinesPerFunction](/linter/rules/no-excessive-lines-per-function) (inspired) |
 | [max-params](https://eslint.org/docs/latest/rules/max-params) |[useMaxParams](/linter/rules/use-max-params) |
 | [no-alert](https://eslint.org/docs/latest/rules/no-alert) |[noAlert](/linter/rules/no-alert) |
@@ -143,6 +147,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-continue](https://eslint.org/docs/latest/rules/no-continue) |[noContinue](/linter/rules/no-continue) |
 | [no-control-regex](https://eslint.org/docs/latest/rules/no-control-regex) |[noControlCharactersInRegex](/linter/rules/no-control-characters-in-regex) |
 | [no-debugger](https://eslint.org/docs/latest/rules/no-debugger) |[noDebugger](/linter/rules/no-debugger) |
+| [no-div-regex](https://eslint.org/docs/latest/rules/no-div-regex) |[noDivRegex](/linter/rules/no-div-regex) |
 | [no-dupe-args](https://eslint.org/docs/latest/rules/no-dupe-args) |[noDuplicateParameters](/linter/rules/no-duplicate-parameters) |
 | [no-dupe-class-members](https://eslint.org/docs/latest/rules/no-dupe-class-members) |[noDuplicateClassMembers](/linter/rules/no-duplicate-class-members) |
 | [no-dupe-else-if](https://eslint.org/docs/latest/rules/no-dupe-else-if) |[noDuplicateElseIf](/linter/rules/no-duplicate-else-if) |
@@ -176,6 +181,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-multi-str](https://eslint.org/docs/latest/rules/no-multi-str) |[noMultiStr](/linter/rules/no-multi-str) |
 | [no-negated-condition](https://eslint.org/docs/latest/rules/no-negated-condition) |[noNegationElse](/linter/rules/no-negation-else) |
 | [no-nested-ternary](https://eslint.org/docs/latest/rules/no-nested-ternary) |[noNestedTernary](/linter/rules/no-nested-ternary) |
+| [no-new](https://eslint.org/docs/latest/rules/no-new) |[noFloatingClasses](/linter/rules/no-floating-classes) |
 | [no-new-native-nonconstructor](https://eslint.org/docs/latest/rules/no-new-native-nonconstructor) |[noInvalidBuiltinInstantiation](/linter/rules/no-invalid-builtin-instantiation) |
 | [no-new-wrappers](https://eslint.org/docs/latest/rules/no-new-wrappers) |[useConsistentBuiltinInstantiation](/linter/rules/use-consistent-builtin-instantiation) |
 | [no-nonoctal-decimal-escape](https://eslint.org/docs/latest/rules/no-nonoctal-decimal-escape) |[noNonoctalDecimalEscape](/linter/rules/no-nonoctal-decimal-escape) |
@@ -239,6 +245,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [prefer-rest-params](https://eslint.org/docs/latest/rules/prefer-rest-params) |[noArguments](/linter/rules/no-arguments) |
 | [prefer-spread](https://eslint.org/docs/latest/rules/prefer-spread) |[useSpread](/linter/rules/use-spread) |
 | [prefer-template](https://eslint.org/docs/latest/rules/prefer-template) |[useTemplate](/linter/rules/use-template) |
+| [preserve-caught-error](https://eslint.org/docs/latest/rules/preserve-caught-error) |[useErrorCause](/linter/rules/use-error-cause) |
 | [radix](https://eslint.org/docs/latest/rules/radix) |[useParseIntRadix](/linter/rules/use-parse-int-radix) |
 | [require-await](https://eslint.org/docs/latest/rules/require-await) |[useAwait](/linter/rules/use-await) |
 | [require-yield](https://eslint.org/docs/latest/rules/require-yield) |[useYield](/linter/rules/use-yield) |
@@ -471,6 +478,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-array-constructor](https://typescript-eslint.io/rules/no-array-constructor) |[useArrayLiterals](/linter/rules/use-array-literals) |
 | [no-deprecated](https://typescript-eslint.io/rules/no-deprecated) |[noDeprecatedImports](/linter/rules/no-deprecated-imports) (inspired) |
 | [no-dupe-class-members](https://typescript-eslint.io/rules/no-dupe-class-members) |[noDuplicateClassMembers](/linter/rules/no-duplicate-class-members) |
+| [no-duplicate-enum-values](https://typescript-eslint.io/rules/no-duplicate-enum-values) |[noDuplicateEnumValues](/linter/rules/no-duplicate-enum-values) |
 | [no-empty-function](https://typescript-eslint.io/rules/no-empty-function) |[noEmptyBlockStatements](/linter/rules/no-empty-block-statements) |
 | [no-empty-interface](https://typescript-eslint.io/rules/no-empty-interface) |[noEmptyInterface](/linter/rules/no-empty-interface) (inspired) |
 | [no-empty-object-type](https://typescript-eslint.io/rules/no-empty-object-type) |[noBannedTypes](/linter/rules/no-banned-types) (inspired) |
