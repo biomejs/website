@@ -218,6 +218,7 @@ export const LINT_RULES = {
     useArraySortCompare: "useArraySortCompare",
     useAwaitThenable: "useAwaitThenable",
     useConsistentArrowReturn: "useConsistentArrowReturn",
+    useConsistentEnumValueType: "useConsistentEnumValueType",
     useConsistentGraphqlDescriptions: "useConsistentGraphqlDescriptions",
     useDeprecatedDate: "useDeprecatedDate",
     useDestructuring: "useDestructuring",

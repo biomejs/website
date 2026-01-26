@@ -307,6 +307,7 @@ export default {
   '/linter/rules/useConsistentArrowReturn': '/linter/rules/use-consistent-arrow-return',
   '/linter/rules/useConsistentBuiltinInstantiation': '/linter/rules/use-consistent-builtin-instantiation',
   '/linter/rules/useConsistentCurlyBraces': '/linter/rules/use-consistent-curly-braces',
+  '/linter/rules/useConsistentEnumValueType': '/linter/rules/use-consistent-enum-value-type',
   '/linter/rules/useConsistentGraphqlDescriptions': '/linter/rules/use-consistent-graphql-descriptions',
   '/linter/rules/useConsistentMemberAccessibility': '/linter/rules/use-consistent-member-accessibility',
   '/linter/rules/useConsistentObjectDefinitions': '/linter/rules/use-consistent-object-definitions',
