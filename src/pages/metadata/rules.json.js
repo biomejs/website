@@ -7064,6 +7064,23 @@ export function GET() {
             ],
             "docs": " Disallow Promises to be used in places where they are almost certainly a\n mistake.\n\n In most cases, if you assign a `Promise` somewhere a `Promise` is not\n allowed, the TypeScript compiler will be able to catch such a mistake.\n But there are a few places where TypeScript allows them -- they're not\n _necessarily_ a mistake -- even though they could be considered almost\n certainly to be one.\n\n This rule disallows using Promises in such places.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic,file=promise-in-condition.js\n const promise = Promise.resolve('value');\n if (promise) { /* This branch will always execute */ }\n ```\n\n ```js,expect_diagnostic,file=promise-in-ternary-condition.js\n const promise = Promise.resolve('value');\n const val = promise ? 123 : 456; // Always evaluates to `123`.\n ```\n\n ```js,expect_diagnostic,file=promise-in-filter.js\n // The following filter has no effect:\n const promise = Promise.resolve('value');\n [1, 2, 3].filter(() => promise);\n ```\n\n ```js,expect_diagnostic,file=promise-while-condition.js\n const promise = Promise.resolve('value');\n while (promise) { /* This is an endless loop */ }\n ```\n\n ```js,expect_diagnostic,file=spread-promise.js\n // Using a `Promise` as an iterable expands to nothing:\n const getData = () => fetch('/');\n console.log({ foo: 42, ...getData() });\n ```\n\n ```js,expect_diagnostic,file=promise-in-forEach.js\n // These `fetch`-es are not `await`-ed in order:\n [1, 2, 3].forEach(async value => {\n     await fetch(`/${value}`);\n });\n ```\n\n ### Valid\n\n ```js,file=valid-promises.js\n const promise = Promise.resolve('value');\n if (await promise) { /* Do something */ }\n\n const val = (await promise) ? 123 : 456;\n\n while (await promise) { /* Do something */ }\n\n const getData = () => fetch('/');\n console.log({ foo: 42, ...(await getData()) });\n\n // for-of puts `await` in outer context:\n for (const value of [1, 2, 3]) {\n     await doSomething(value);\n }\n ```\n\n"
           },
+          "useConsistentEnumValueType": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useConsistentEnumValueType",
+            "link": "https://biomejs.dev/linter/rules/use-consistent-enum-value-type",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintTypeScript": "no-mixed-enums"
+                }
+              }
+            ],
+            "docs": " Disallow enums from having both number and string members.\n\n TypeScript enums are allowed to assign numeric or string values to their members.\n Most enums contain either all numbers or all strings, but in theory you can mix-and-match within the same enum.\n Mixing enum member types is generally considered confusing and a bad practice.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n enum Status {\n   Unknown,\n   Closed = 1,\n   Open = 'open',\n }\n ```\n\n ### Valid\n\n ```ts\n enum Status {\n   Unknown = 0,\n   Closed = 1,\n   Open = 2,\n }\n ```\n\n ```ts\n enum Status {\n   Unknown,\n   Closed,\n   Open,\n }\n ```\n\n ```ts\n enum Status {\n   Unknown = 'unknown',\n   Closed = 'closed',\n   Open = 'open',\n }\n ```\n\n"
+          },
           "useExplicitType": {
             "deprecated": false,
             "version": "1.9.3",
@@ -7564,7 +7581,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 437
+    "numberOrRules": 438
   },
   "syntax": {
     "languages": {
