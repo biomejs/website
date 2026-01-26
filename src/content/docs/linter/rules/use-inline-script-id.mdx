@@ -1,0 +1,103 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: useInlineScriptId
+description: Learn more about useInlineScriptId
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JSX and TSX" icon="seti:javascript">
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.3.12`
+- Diagnostic Category: [`lint/nursery/useInlineScriptId`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`next`](/linter/domains#next)
+- Sources: 
+  - Same as [`@next/next/inline-script-id`](https://nextjs.org/docs/messages/inline-script-id)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useInlineScriptId": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Enforce `id` attribute on `next/script` components with inline content or `dangerouslySetInnerHTML`.
+
+Using inline scripts or `dangerouslySetInnerHTML` in `next/script` components requires an `id` attribute to ensure that Next.js can track and optimize them correctly.
+
+## Examples
+
+### Invalid
+
+```jsx
+import Script from 'next/script'
+
+export default function Page() {
+  return (
+     <Script>{`console.log('Hello world!');`}</Script>
+  )
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.jsx:5:6 <a href="https://biomejs.dev/linter/rules/use-inline-script-id">lint/nursery/useInlineScriptId</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>next/script</strong></span><span style="color: Tomato;"> components have inline content or &#96;dangerouslySetInnerHTML&#96; without </span><span style="color: Tomato;"><strong>id</strong></span><span style="color: Tomato;"> attribute.</span><br />  <br />    <strong>3 │ </strong>export default function Page() &#123;<br />    <strong>4 │ </strong>  return (<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>5 │ </strong>     &lt;Script&gt;&#123;&#96;console.log('Hello world!');&#96;&#125;&lt;/Script&gt;<br />   <strong>   │ </strong>     <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>6 │ </strong>  )<br />    <strong>7 │ </strong>&#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Next.js requires </span><span style="color: lightgreen;"><strong>id</strong></span><span style="color: lightgreen;"> attribute to track and optimize inline scripts. Without it, performance issues may occur.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">See the </span><span style="color: lightgreen;"><a href="https://nextjs.org/docs/messages/inline-script-id">Next.js docs</a></span><span style="color: lightgreen;"> for more details.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+```jsx
+import Script from 'next/script'
+
+export default function Page() {
+  return (
+     <Script dangerouslySetInnerHTML={{ __html: `console.log('Hello world!');` }} />
+  )
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.jsx:5:6 <a href="https://biomejs.dev/linter/rules/use-inline-script-id">lint/nursery/useInlineScriptId</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>next/script</strong></span><span style="color: Tomato;"> components have inline content or &#96;dangerouslySetInnerHTML&#96; without </span><span style="color: Tomato;"><strong>id</strong></span><span style="color: Tomato;"> attribute.</span><br />  <br />    <strong>3 │ </strong>export default function Page() &#123;<br />    <strong>4 │ </strong>  return (<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>5 │ </strong>     &lt;Script dangerouslySetInnerHTML=&#123;&#123; &#95;&#95;html: &#96;console.log('Hello world!');&#96; &#125;&#125; /&gt;<br />   <strong>   │ </strong>     <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>6 │ </strong>  )<br />    <strong>7 │ </strong>&#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Next.js requires </span><span style="color: lightgreen;"><strong>id</strong></span><span style="color: lightgreen;"> attribute to track and optimize inline scripts. Without it, performance issues may occur.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">See the </span><span style="color: lightgreen;"><a href="https://nextjs.org/docs/messages/inline-script-id">Next.js docs</a></span><span style="color: lightgreen;"> for more details.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+### Valid
+
+```jsx
+import Script from 'next/script'
+
+export default function Page() {
+  return (
+     <Script id="my-script">{`console.log('Hello world!');`}</Script>
+  )
+}
+```
+
+```jsx
+import Script from 'next/script'
+
+export default function Page() {
+  return (
+     <Script id="my-script" dangerouslySetInnerHTML={{ __html: `console.log('Hello world!');` }} />
+  )
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_inline_script_id.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useInlineScriptId)
+
+</TabItem>
+</Tabs>
+

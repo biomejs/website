@@ -1,0 +1,170 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: useErrorCause
+description: Learn more about useErrorCause
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.3.12`
+- Diagnostic Category: [`lint/nursery/useErrorCause`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`preserve-caught-error`](https://eslint.org/docs/latest/rules/preserve-caught-error)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useErrorCause": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Enforce that `new Error()` is thrown with the original error as `cause`.
+
+When catching and rethrowing an error, it's recommended to wrap the original error in a new `Error` object to preserve the original error's stack trace and context. The original error should be passed as the `cause` property of the new `Error` object.
+
+This rule enforces that practice, helping to maintain a clear and traceable error propagation chain, which is crucial for effective debugging.
+
+## Examples
+
+### Invalid
+
+```js
+try {
+  // ...
+} catch (err) {
+  throw new Error(err.message);
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:4:3 <a href="https://biomejs.dev/linter/rules/use-error-cause">lint/nursery/useErrorCause</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The original error is not being passed to the new &#96;Error&#96; object.Include the original error in the &#96;cause&#96; property to preserve it.</span><br />  <br />    <strong>2 │ </strong>  // ...<br />    <strong>3 │ </strong>&#125; catch (err) &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>  throw new Error(err.message);<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>5 │ </strong>&#125;<br />    <strong>6 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+```js
+try {
+    doSomething();
+} catch {
+    throw new Error("Something went wrong");
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:4:5 <a href="https://biomejs.dev/linter/rules/use-error-cause">lint/nursery/useErrorCause</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The original error is being discarded because the &#96;catch&#96; clause doesn't have a parameter.Specify an error object in the &#96;catch&#96; clause to access the original error.</span><br />  <br />    <strong>2 │ </strong>    doSomething();<br />    <strong>3 │ </strong>&#125; catch &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>    throw new Error(&quot;Something went wrong&quot;);<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>5 │ </strong>&#125;<br />    <strong>6 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+```js
+try {
+  // ...
+} catch ({ message }) {
+  throw new Error(message);
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:3:10 <a href="https://biomejs.dev/linter/rules/use-error-cause">lint/nursery/useErrorCause</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Destructuring the error in a &#96;catch&#96; clause is not recommended, as it can lead to losing important information from the error object, such as the stack trace.Use a single variable to catch the error, and then access its properties.</span><br />  <br />    <strong>1 │ </strong>try &#123;<br />    <strong>2 │ </strong>  // ...<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>&#125; catch (&#123; message &#125;) &#123;<br />   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>  throw new Error(message);<br />    <strong>5 │ </strong>&#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+Cause error is being shadowed by a closer scoped redeclaration.
+
+```js
+try {
+    doSomething();
+} catch (error) {
+    if (whatever) {
+        const error = anotherError; // This declaration shadows the caught error.
+        throw new Error("Something went wrong", { cause: error });
+    }
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:6:58 <a href="https://biomejs.dev/linter/rules/use-error-cause">lint/nursery/useErrorCause</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The &#96;cause&#96; property is shadowing the original error from the &#96;catch&#96; clause.</span><br />  <br />    <strong>4 │ </strong>    if (whatever) &#123;<br />    <strong>5 │ </strong>        const error = anotherError; // This declaration shadows the caught error.<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>6 │ </strong>        throw new Error(&quot;Something went wrong&quot;, &#123; cause: error &#125;);<br />   <strong>   │ </strong>                                                         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>7 │ </strong>    &#125;<br />    <strong>8 │ </strong>&#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The original error is declared here.</span><br />  <br />    <strong>1 │ </strong>try &#123;<br />    <strong>2 │ </strong>    doSomething();<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>&#125; catch (error) &#123;<br />   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>    if (whatever) &#123;<br />    <strong>5 │ </strong>        const error = anotherError; // This declaration shadows the caught error.<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+### Valid
+
+```js
+try {
+  // ...
+} catch (err) {
+  throw new Error("Something went wrong", { cause: err });
+}
+
+try {
+    throw "Not a rethrow, so it's ignored when nested";
+} catch (err) {
+    const fn = () => {
+        throw new Error("New unrelated error");
+    }
+    fn();
+}
+```
+
+## Options
+
+The following options are available:
+
+### `requireCatchParameter`
+
+If `true`, the rule will report a diagnostic for a `throw` statement inside an empty `catch {}` block, recommending that the error be caught in a parameter.
+
+Default: `true`
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useErrorCause": {
+					"options": {
+						"requireCatchParameter": false
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+This option is enabled by default, meaning the following code is considered invalid:
+
+```js
+try {
+    doSomething();
+} catch {
+    throw new Error("Something went wrong");
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:4:5 <a href="https://biomejs.dev/linter/rules/use-error-cause">lint/nursery/useErrorCause</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The original error is being discarded because the &#96;catch&#96; clause doesn't have a parameter.Specify an error object in the &#96;catch&#96; clause to access the original error.</span><br />  <br />    <strong>2 │ </strong>    doSomething();<br />    <strong>3 │ </strong>&#125; catch &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>    throw new Error(&quot;Something went wrong&quot;);<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>5 │ </strong>&#125;<br />    <strong>6 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+To disable this check, you would set the option to `false`:
+
+```js
+try {
+    doSomething();
+} catch {
+    throw new Error("Something went wrong");
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_error_cause.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useErrorCause)
+
+</TabItem>
+</Tabs>
+

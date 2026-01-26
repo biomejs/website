@@ -7,7 +7,7 @@ use biome_json_factory::make::{
 };
 use biome_json_formatter::context::JsonFormatOptions;
 use biome_json_formatter::format_node;
-use biome_json_syntax::{AnyJsonValue, JsonObjectValue, T};
+use biome_json_syntax::{AnyJsonMemberName, AnyJsonValue, JsonObjectValue, T};
 use biome_rowan::AstNode;
 use biome_string_case::Case;
 use std::collections::HashMap;
@@ -271,19 +271,23 @@ fn make_config_json(domain_name: &str, value: &str) -> JsonObjectValue {
         token(T!['{']),
         json_member_list(
             vec![json_member(
-                json_member_name(json_string_literal("linter")),
+                AnyJsonMemberName::JsonMemberName(json_member_name(json_string_literal("linter"))),
                 token(T![:]),
                 AnyJsonValue::JsonObjectValue(json_object_value(
                     token(T!['{']),
                     json_member_list(
                         vec![json_member(
-                            json_member_name(json_string_literal("domains")),
+                            AnyJsonMemberName::JsonMemberName(json_member_name(
+                                json_string_literal("domains"),
+                            )),
                             token(T![:]),
                             AnyJsonValue::JsonObjectValue(json_object_value(
                                 token(T!['{']),
                                 json_member_list(
                                     vec![json_member(
-                                        json_member_name(json_string_literal(domain_name)),
+                                        AnyJsonMemberName::JsonMemberName(json_member_name(
+                                            json_string_literal(domain_name),
+                                        )),
                                         token(T![:]),
                                         AnyJsonValue::JsonStringValue(json_string_value(
                                             json_string_literal(value),

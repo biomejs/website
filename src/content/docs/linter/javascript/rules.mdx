@@ -168,27 +168,32 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | Rule name | Description | Properties |
 | --- | --- | --- |
 | [noAmbiguousAnchorText](/linter/rules/no-ambiguous-anchor-text) | Disallow ambiguous anchor descriptions. |  |
-| [noBeforeInteractiveScriptOutsideDocument](/linter/rules/no-before-interactive-script-outside-document) | Prevent usage of `next/script`'s `beforeInteractive` strategy outside of `pages/_document.js` in a Next.js project. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
+| [noBeforeInteractiveScriptOutsideDocument](/linter/rules/no-before-interactive-script-outside-document) | Prevent usage of `next/script`'s `beforeInteractive` strategy outside of `pages/_document.js` in a Next.js project. |  |
 | [noContinue](/linter/rules/no-continue) | Disallow continue statements. |  |
 | [noDeprecatedImports](/linter/rules/no-deprecated-imports) | Restrict imports of deprecated exports. |  |
+| [noDivRegex](/linter/rules/no-div-regex) | Disallow equal signs explicitly at the beginning of regular expressions. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
+| [noDuplicateEnumValues](/linter/rules/no-duplicate-enum-values) | Disallow duplicate enum member values. |  |
 | [noDuplicatedSpreadProps](/linter/rules/no-duplicated-spread-props) | Disallow JSX prop spreading the same identifier multiple times. |  |
 | [noEmptySource](/linter/rules/no-empty-source) | Disallow empty sources. |  |
 | [noEqualsToNull](/linter/rules/no-equals-to-null) | Require the use of `===` or `!==` for comparison with `null`. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [noExcessiveClassesPerFile](/linter/rules/no-excessive-classes-per-file) | Enforce a maximum number of classes per file. |  |
+| [noExcessiveLinesPerFile](/linter/rules/no-excessive-lines-per-file) | Restrict the number of lines in a file. |  |
+| [noFloatingClasses](/linter/rules/no-floating-classes) | Disallow `new` operators outside of assignments or comparisons. |  |
 | [noFloatingPromises](/linter/rules/no-floating-promises) | Require Promise-like statements to be handled appropriately. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noForIn](/linter/rules/no-for-in) | Disallow iterating using a for-in loop. |  |
 | [noImportCycles](/linter/rules/no-import-cycles) | Prevent import cycles. |  |
 | [noIncrementDecrement](/linter/rules/no-increment-decrement) | Disallows the usage of the unary operators ++ and --. |  |
 | [noJsxLiterals](/linter/rules/no-jsx-literals) | Disallow string literals inside JSX elements. |  |
-| [noJsxPropsBind](/linter/rules/no-jsx-props-bind) | Disallow .bind(), arrow functions, or function expressions in JSX props | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
+| [noJsxPropsBind](/linter/rules/no-jsx-props-bind) | Disallow .bind(), arrow functions, or function expressions in JSX props |  |
 | [noLeakedRender](/linter/rules/no-leaked-render) | Prevent problematic leaked values from being rendered. |  |
 | [noMisusedPromises](/linter/rules/no-misused-promises) | Disallow Promises to be used in places where they are almost certainly a | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
-| [noMultiAssign](/linter/rules/no-multi-assign) | Disallow use of chained assignment expressions | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
+| [noMultiAssign](/linter/rules/no-multi-assign) | Disallow use of chained assignment expressions |  |
 | [noMultiStr](/linter/rules/no-multi-str) | Disallow creating multiline strings by escaping newlines. |  |
 | [noNextAsyncClientComponent](/linter/rules/no-next-async-client-component) | Prevent client components from being async functions. |  |
 | [noParametersOnlyUsedInRecursion](/linter/rules/no-parameters-only-used-in-recursion) | Disallow function parameters that are only used in recursive calls. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noProto](/linter/rules/no-proto) | Disallow the use of the deprecated `__proto__` object property. |  |
 | [noReactForwardRef](/linter/rules/no-react-forward-ref) | Replaces usages of `forwardRef` with passing `ref` as a prop. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
-| [noReturnAssign](/linter/rules/no-return-assign) | Disallow assignments in return statements. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
+| [noReturnAssign](/linter/rules/no-return-assign) | Disallow assignments in return statements. |  |
 | [noScriptUrl](/linter/rules/no-script-url) | Disallow `javascript:` URLs. |  |
 | [noShadow](/linter/rules/no-shadow) | Disallow variable declarations from shadowing variables declared in the outer scope. |  |
 | [noSyncScripts](/linter/rules/no-sync-scripts) | Prevent the usage of synchronous scripts. |  |
@@ -202,6 +207,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noUselessUndefined](/linter/rules/no-useless-undefined) | Disallow the use of useless `undefined`. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [noVueDataObjectDeclaration](/linter/rules/no-vue-data-object-declaration) | Enforce that Vue component `data` options are declared as functions. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [noVueDuplicateKeys](/linter/rules/no-vue-duplicate-keys) | Disallow duplicate keys in Vue component data, methods, computed properties, and other options. |  |
+| [noVueOptionsApi](/linter/rules/no-vue-options-api) | Disallow the use of Vue Options API. |  |
 | [noVueReservedKeys](/linter/rules/no-vue-reserved-keys) | Disallow reserved keys in Vue component data and computed properties. |  |
 | [noVueReservedProps](/linter/rules/no-vue-reserved-props) | Disallow reserved names to be used as props. |  |
 | [noVueSetupPropsReactivityLoss](/linter/rules/no-vue-setup-props-reactivity-loss) | Disallow destructuring of `props` passed to `setup` in Vue projects. |  |
@@ -209,16 +215,18 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [useAwaitThenable](/linter/rules/use-await-thenable) | Enforce that `await` is only used on `Promise` values. |  |
 | [useConsistentArrowReturn](/linter/rules/use-consistent-arrow-return) | Enforce consistent arrow function bodies. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [useDestructuring](/linter/rules/use-destructuring) | Require destructuring from arrays and/or objects |  |
+| [useErrorCause](/linter/rules/use-error-cause) | Enforce that `new Error()` is thrown with the original error as `cause`. |  |
 | [useExhaustiveSwitchCases](/linter/rules/use-exhaustive-switch-cases) | Require switch-case statements to be exhaustive. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useExplicitType](/linter/rules/use-explicit-type) | Enforce types in functions, methods, variables, and parameters. |  |
 | [useFind](/linter/rules/use-find) | Enforce the use of Array.prototype.find() over Array.prototype.filter() followed by [0] when looking for a single result. |  |
+| [useInlineScriptId](/linter/rules/use-inline-script-id) | Enforce `id` attribute on `next/script` components with inline content or `dangerouslySetInnerHTML`. |  |
 | [useMaxParams](/linter/rules/use-max-params) | Enforce a maximum number of parameters in function definitions. |  |
 | [useQwikMethodUsage](/linter/rules/use-qwik-method-usage) | Disallow `use*` hooks outside of `component$` or other `use*` hooks in Qwik applications. |  |
 | [useQwikValidLexicalScope](/linter/rules/use-qwik-valid-lexical-scope) | Disallow unserializable expressions in Qwik dollar ($) scopes. |  |
 | [useRegexpExec](/linter/rules/use-regexp-exec) | Enforce `RegExp#exec` over `String#match` if no global flag is provided. |  |
 | [useSortedClasses](/linter/rules/use-sorted-classes) | Enforce the sorting of CSS utility classes. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useSpread](/linter/rules/use-spread) | Enforce the use of the spread operator over `.apply()`. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
-| [useVueConsistentDefinePropsDeclaration](/linter/rules/use-vue-consistent-define-props-declaration) | Enforce consistent `defineProps` declaration style. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
+| [useVueConsistentDefinePropsDeclaration](/linter/rules/use-vue-consistent-define-props-declaration) | Enforce consistent `defineProps` declaration style. |  |
 | [useVueDefineMacrosOrder](/linter/rules/use-vue-define-macros-order) | Enforce specific order of Vue compiler macros. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useVueMultiWordComponentNames](/linter/rules/use-vue-multi-word-component-names) | Enforce multi-word component names in Vue components. |  |
 

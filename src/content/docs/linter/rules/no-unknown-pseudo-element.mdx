@@ -78,6 +78,37 @@ a::before {}
 input::-moz-placeholder {}
 ```
 
+## Options
+
+### `ignore`
+
+A list of unknown pseudo-element names to ignore (case-insensitive).
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noUnknownPseudoElement": {
+					"options": {
+						"ignore": [
+							"custom-pseudo-element"
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Valid
+
+```css
+::custom-pseudo-element {}
+```
+
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

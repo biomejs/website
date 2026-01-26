@@ -33,7 +33,7 @@ use biome_json_factory::make;
 use biome_json_formatter::context::JsonFormatOptions;
 use biome_json_formatter::format_node;
 use biome_json_parser::JsonParserOptions;
-use biome_json_syntax::{AnyJsonValue, JsonLanguage, JsonObjectValue};
+use biome_json_syntax::{AnyJsonMemberName, AnyJsonValue, JsonLanguage, JsonObjectValue};
 use biome_rowan::{AstNode, TextSize};
 use biome_ruledoc_utils::{AnalyzerServicesBuilder, CodeBlock, OptionsParsingMode};
 use biome_service::settings::ServiceLanguage;
@@ -932,7 +932,9 @@ fn make_json_object_with_single_member<V: Into<AnyJsonValue>>(
         make::token(biome_json_syntax::JsonSyntaxKind::L_CURLY),
         make::json_member_list(
             [make::json_member(
-                make::json_member_name(make::json_string_literal(name)),
+                AnyJsonMemberName::JsonMemberName(make::json_member_name(
+                    make::json_string_literal(name),
+                )),
                 make::token(biome_json_syntax::JsonSyntaxKind::COLON),
                 value.into(),
             )],
@@ -950,7 +952,13 @@ fn get_first_member<V: Into<AnyJsonValue>>(parent: V, expected_name: &str) -> Op
         .into_iter()
         .next()?
         .ok()?;
-    let member_name = member.name().ok()?.inner_string_text().ok()?.to_string();
+    let member_name = member
+        .name()
+        .ok()?
+        .as_json_member_name()?
+        .inner_string_text()
+        .ok()?
+        .to_string();
 
     if member_name.as_str() == expected_name {
         member.value().ok()
@@ -1672,44 +1680,52 @@ fn print_diagnostics_or_actions(
                 let options = test.create_analyzer_options::<JsonLanguage>(config)?;
                 let json_services = JsonAnalyzeServices {
                     file_source,
-                    configuration_source: None,
+                    configuration_provider: None,
                 };
-                biome_json_analyze::analyze(&root, filter, &options, json_services, |signal| {
-                    match to_print_kind {
-                        ToPrintKind::Diagnostics => {
-                            if let Some(mut diag) = signal.diagnostic() {
-                                for action in signal.actions() {
-                                    if !action.is_suppression() {
-                                        diag = diag.add_code_suggestion(action.into());
+                biome_json_analyze::analyze(
+                    &root,
+                    filter,
+                    &options,
+                    json_services,
+                    &[],
+                    |signal| {
+                        match to_print_kind {
+                            ToPrintKind::Diagnostics => {
+                                if let Some(mut diag) = signal.diagnostic() {
+                                    for action in signal.actions() {
+                                        if !action.is_suppression() {
+                                            diag = diag.add_code_suggestion(action.into());
+                                        }
                                     }
-                                }
 
-                                let error = diag
-                                    .with_file_path(test.file_path())
-                                    .with_file_source_code(code);
-                                let res: Result<()> = write_diagnostic(buffer, error);
+                                    let error = diag
+                                        .with_file_path(test.file_path())
+                                        .with_file_source_code(code);
+                                    let res: Result<()> = write_diagnostic(buffer, error);
 
-                                // Abort the analysis on error
-                                if let Err(err) = res {
-                                    return ControlFlow::Break(err);
-                                }
-                            }
-                        }
-                        ToPrintKind::Actions => {
-                            for action in signal.actions() {
-                                if !action.is_suppression() {
-                                    let res = write_action(buffer, code, &test.file_path(), action);
                                     // Abort the analysis on error
                                     if let Err(err) = res {
                                         return ControlFlow::Break(err);
                                     }
                                 }
                             }
+                            ToPrintKind::Actions => {
+                                for action in signal.actions() {
+                                    if !action.is_suppression() {
+                                        let res =
+                                            write_action(buffer, code, &test.file_path(), action);
+                                        // Abort the analysis on error
+                                        if let Err(err) = res {
+                                            return ControlFlow::Break(err);
+                                        }
+                                    }
+                                }
+                            }
                         }
-                    }
 
-                    ControlFlow::Continue(())
-                });
+                        ControlFlow::Continue(())
+                    },
+                );
             }
         }
         DocumentFileSource::Css(file_source) => {
