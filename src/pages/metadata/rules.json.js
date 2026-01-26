@@ -7066,7 +7066,7 @@ export function GET() {
           },
           "useConsistentEnumValueType": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.13",
             "name": "useConsistentEnumValueType",
             "link": "https://biomejs.dev/linter/rules/use-consistent-enum-value-type",
             "recommended": false,
