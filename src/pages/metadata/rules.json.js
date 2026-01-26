@@ -125,7 +125,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow unknown CSS value functions.\n\n This rule ignores double-dashed custom functions, e.g. `--custom-function()`.\n\n Data sources of known CSS value functions are:\n - MDN reference on [CSS value functions](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Functions)\n - MDN reference on [CSS reference](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference)\n - MDN [browser compatibility data for CSS value functions](https://github.com/mdn/browser-compat-data/tree/main/css/types)\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a { transform: unknown(1); }\n ```\n\n ### Valid\n\n ```css\n a { transform: scale(1); }\n ```\n\n"
+            "docs": " Disallow unknown CSS value functions.\n\n This rule ignores double-dashed custom functions, e.g. `--custom-function()`.\n\n Data sources of known CSS value functions are:\n - MDN reference on [CSS value functions](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Functions)\n - MDN reference on [CSS reference](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference)\n - MDN [browser compatibility data for CSS value functions](https://github.com/mdn/browser-compat-data/tree/main/css/types)\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a { transform: unknown(1); }\n ```\n\n ### Valid\n\n ```css\n a { transform: scale(1); }\n ```\n\n ## Options\n\n ### `ignore`\n\n A list of unknown function names to ignore (case-insensitive).\n\n ```json,options\n {\n   \"options\": {\n     \"ignore\": [\n       \"custom-function\"\n     ]\n   }\n }\n ```\n\n #### Valid\n\n ```css,use_options\n a { transform: custom-function(1); }\n ```\n\n"
           },
           "noUnknownMediaFeatureName": {
             "deprecated": false,
@@ -159,7 +159,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow unknown properties.\n\n This rule considers properties defined in the CSS Specifications and browser specific properties to be known.\n https://github.com/known-css/known-css-properties#source\n\n\n This rule ignores:\n\n - custom variables e.g. `--custom-property`\n - vendor-prefixed properties (e.g., `-moz-align-self,` `-webkit-align-self`)\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a {\n   colr: blue;\n }\n ```\n\n ```css,expect_diagnostic\n a {\n   my-property: 1;\n }\n ```\n\n ### Valid\n\n ```css\n a {\n   color: green;\n }\n ```\n\n ```css\n a {\n   fill: black;\n }\n ```\n\n ```css\n a {\n   -moz-align-self: center;\n }\n ```\n\n"
+            "docs": " Disallow unknown properties.\n\n This rule considers properties defined in the CSS Specifications and browser specific properties to be known.\n https://github.com/known-css/known-css-properties#source\n\n\n This rule ignores:\n\n - custom variables e.g. `--custom-property`\n - vendor-prefixed properties (e.g., `-moz-align-self,` `-webkit-align-self`)\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a {\n   colr: blue;\n }\n ```\n\n ```css,expect_diagnostic\n a {\n   my-property: 1;\n }\n ```\n\n ### Valid\n\n ```css\n a {\n   color: green;\n }\n ```\n\n ```css\n a {\n   fill: black;\n }\n ```\n\n ```css\n a {\n   -moz-align-self: center;\n }\n ```\n\n ## Options\n\n ### `ignore`\n\n A list of unknown property names to ignore (case-insensitive).\n\n ```json,options\n {\n   \"options\": {\n     \"ignore\": [\n       \"custom-property\"\n     ]\n   }\n }\n ```\n\n #### Valid\n\n ```css,use_options\n a {\n   custom-property: black;\n }\n ```\n\n"
           },
           "noUnknownPseudoClass": {
             "deprecated": false,
@@ -176,7 +176,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow unknown pseudo-class selectors.\n\n For details on known pseudo-class, see the [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes)\n\n This rule ignores vendor-prefixed pseudo-class selectors.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a:unknown {}\n ```\n\n ```css,expect_diagnostic\n a:UNKNOWN {}\n ```\n\n ```css,expect_diagnostic\n a:hoverr {}\n ```\n\n ### Valid\n\n ```css\n a:hover {}\n ```\n\n ```css\n a:focus {}\n ```\n\n ```css\n :not(p) {}\n ```\n\n ```css\n input:-moz-placeholder {}\n ```\n\n"
+            "docs": " Disallow unknown pseudo-class selectors.\n\n For details on known pseudo-class, see the [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes)\n\n This rule ignores vendor-prefixed pseudo-class selectors.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a:unknown {}\n ```\n\n ```css,expect_diagnostic\n a:UNKNOWN {}\n ```\n\n ```css,expect_diagnostic\n a:hoverr {}\n ```\n\n ### Valid\n\n ```css\n a:hover {}\n ```\n\n ```css\n a:focus {}\n ```\n\n ```css\n :not(p) {}\n ```\n\n ```css\n input:-moz-placeholder {}\n ```\n\n ## Options\n\n ### `ignore`\n\n A list of unknown pseudo-class names to ignore (case-insensitive).\n\n ```json,options\n {\n   \"options\": {\n     \"ignore\": [\n       \"custom-pseudo-class\"\n     ]\n   }\n }\n ```\n\n #### Valid\n\n ```css,use_options\n a:custom-pseudo-class {}\n ```\n\n"
           },
           "noUnknownPseudoElement": {
             "deprecated": false,
@@ -193,7 +193,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow unknown pseudo-element selectors.\n\n For details on known CSS pseudo-elements, see the [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements#list_of_pseudo-elements).\n\n This rule ignores vendor-prefixed pseudo-element selectors.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a::pseudo {}\n ```\n\n ```css,expect_diagnostic\n a::PSEUDO {}\n ```\n\n ```css,expect_diagnostic\n a::element {}\n ```\n\n ### Valid\n\n ```css\n a:before {}\n ```\n\n ```css\n a::before {}\n ```\n\n ```css\n ::selection {}\n ```\n\n ```css\n input::-moz-placeholder {}\n ```\n\n"
+            "docs": " Disallow unknown pseudo-element selectors.\n\n For details on known CSS pseudo-elements, see the [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements#list_of_pseudo-elements).\n\n This rule ignores vendor-prefixed pseudo-element selectors.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a::pseudo {}\n ```\n\n ```css,expect_diagnostic\n a::PSEUDO {}\n ```\n\n ```css,expect_diagnostic\n a::element {}\n ```\n\n ### Valid\n\n ```css\n a:before {}\n ```\n\n ```css\n a::before {}\n ```\n\n ```css\n ::selection {}\n ```\n\n ```css\n input::-moz-placeholder {}\n ```\n\n ## Options\n\n ### `ignore`\n\n A list of unknown pseudo-element names to ignore (case-insensitive).\n\n ```json,options\n {\n   \"options\": {\n     \"ignore\": [\n       \"custom-pseudo-element\"\n     ]\n   }\n }\n ```\n\n #### Valid\n\n ```css,use_options\n ::custom-pseudo-element {}\n ```\n\n"
           },
           "noUnknownTypeSelector": {
             "deprecated": false,
@@ -264,6 +264,15 @@ export function GET() {
               }
             ],
             "docs": " Disallow empty sources.\n\n A source containing only the following is considered empty:\n   - Whitespace (spaces, tabs or newlines)\n   - Comments\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n\n ```\n\n ```css,expect_diagnostic\n /* Only comments */\n ```\n\n ### Valid\n\n ```css\n a { }\n ```\n\n ## Options\n\n ### `allowComments`\n\n Whether the comments should be marked as meaningful.\n When this option has been set to `true`, a file with only comments is considered valid.\n\n Default `false`\n\n ```json,options\n {\n   \"options\": {\n     \"allowComments\": true\n   }\n }\n ```\n\n #### Invalid\n\n ```css,expect_diagnostic,use_options\n\n ```\n\n #### Valid\n\n ```css,use_options\n /* Only comments */\n ```\n\n"
+          },
+          "noExcessiveLinesPerFile": {
+            "deprecated": false,
+            "version": "2.3.12",
+            "name": "noExcessiveLinesPerFile",
+            "link": "https://biomejs.dev/linter/rules/no-excessive-lines-per-file",
+            "recommended": false,
+            "fixKind": "none",
+            "docs": " Restrict the number of lines in a file.\n\n Large files tend to do many things and can make it hard to follow what's going on.\n This rule can help enforce a limit on the number of lines in a file.\n\n ## Examples\n\n ### Invalid\n\n The following example will show a diagnostic when `maxLines` is set to 2:\n\n ```json,options\n {\n     \"options\": {\n        \"maxLines\": 2\n     }\n }\n ```\n ```css,expect_diagnostic,use_options\n .a { color: red; }\n .b { color: blue; }\n .c { color: green; }\n ```\n\n ### Valid\n\n ```css\n .a { color: red; }\n .b { color: blue; }\n ```\n\n ## Options\n\n ### `maxLines`\n\n This option sets the maximum number of lines allowed in a file.\n If the file exceeds this limit, a diagnostic will be reported.\n\n Default: `300`\n\n ### `skipBlankLines`\n\n When this option is set to `true`, blank lines are not counted towards the maximum line limit.\n\n Default: `false`\n\n"
           }
         },
         "style": {
@@ -497,6 +506,108 @@ export function GET() {
           }
         },
         "nursery": {
+          "noDuplicateArgumentNames": {
+            "deprecated": false,
+            "version": "2.3.11",
+            "name": "noDuplicateArgumentNames",
+            "link": "https://biomejs.dev/linter/rules/no-duplicate-argument-names",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintGraphql": "unique-argument-names"
+                }
+              }
+            ],
+            "docs": " Require all argument names for fields & directives to be unique.\n\n A GraphQL field or directive is only valid if all supplied arguments are uniquely named.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query {\n   field(arg1: \"value\", arg1: \"value\")\n }\n ```\n\n ### Valid\n\n ```graphql\n query {\n   field(arg1: \"value\", arg2: \"value\")\n }\n ```\n\n"
+          },
+          "noDuplicateEnumValueNames": {
+            "deprecated": false,
+            "version": "2.3.12",
+            "name": "noDuplicateEnumValueNames",
+            "link": "https://biomejs.dev/linter/rules/no-duplicate-enum-value-names",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintGraphql": "unique-enum-value-names"
+                }
+              }
+            ],
+            "docs": " Require all enum value names to be unique.\n\n A GraphQL enum type is only valid if all its values are uniquely named.\n The enum value names are case insensitive, meaning `TEST` & `Test` are seen as the same enum value name.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n enum A {\n   TEST\n   OTHER\n   TEST\n }\n ```\n\n ```graphql,expect_diagnostic\n enum B {\n   TEST\n   TesT\n }\n ```\n\n ### Valid\n\n ```graphql\n enum A {\n   TEST\n   OTHER\n }\n ```\n\n"
+          },
+          "noDuplicateFieldDefinitionNames": {
+            "deprecated": false,
+            "version": "2.3.11",
+            "name": "noDuplicateFieldDefinitionNames",
+            "link": "https://biomejs.dev/linter/rules/no-duplicate-field-definition-names",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintGraphql": "unique-field-definition-names"
+                }
+              }
+            ],
+            "docs": " Require all fields of a type to be unique.\n\n A GraphQL complex type is only valid if all its fields are uniquely named.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n type SomeObject {\n   foo: String\n   foo: String\n }\n ```\n\n ```graphql,expect_diagnostic\n interface SomeObject {\n   foo: String\n   foo: String\n }\n ```\n\n ```graphql,expect_diagnostic\n input SomeObject {\n   foo: String\n   foo: String\n }\n ```\n\n ### Valid\n\n ```graphql\n type SomeObject {\n   foo: String\n   bar: String\n }\n ```\n\n ```graphql\n interface SomeObject {\n   foo: String\n   bar: String\n }\n ```\n\n ```graphql\n input SomeObject {\n   foo: String\n   bar: String\n }\n ```\n\n"
+          },
+          "noDuplicateGraphqlOperationName": {
+            "deprecated": false,
+            "version": "2.3.6",
+            "name": "noDuplicateGraphqlOperationName",
+            "link": "https://biomejs.dev/linter/rules/no-duplicate-graphql-operation-name",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintGraphql": "unique-operation-name"
+                }
+              }
+            ],
+            "docs": " Enforce unique operation names across a GraphQL document.\n\n This rule ensures that all GraphQL operations (queries, mutations, subscriptions) have unique names.\n Using unique operation names is essential for proper identification and reducing confusion.\n\n :::note\n This rule currently does not work across multiple files.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query user {\n   user {\n     id\n   }\n }\n\n query user {\n   me {\n     id\n   }\n }\n ```\n\n ### Valid\n\n ```graphql\n query user {\n   user {\n     id\n   }\n }\n\n query me {\n   me {\n     id\n   }\n }\n ```\n\n"
+          },
+          "noDuplicateInputFieldNames": {
+            "deprecated": false,
+            "version": "2.3.11",
+            "name": "noDuplicateInputFieldNames",
+            "link": "https://biomejs.dev/linter/rules/no-duplicate-input-field-names",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintGraphql": "unique-input-field-names"
+                }
+              }
+            ],
+            "docs": " Require fields within an input object to be unique.\n\n A GraphQL input object value is only valid if all supplied fields are uniquely named.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query {\n   field(arg: { f1: \"value\", f1: \"value\" })\n }\n ```\n\n ### Valid\n\n ```graphql\n query {\n   field(arg: { f1: \"value\", f2: \"value\" })\n }\n ```\n\n"
+          },
+          "noDuplicateVariableNames": {
+            "deprecated": false,
+            "version": "2.3.11",
+            "name": "noDuplicateVariableNames",
+            "link": "https://biomejs.dev/linter/rules/no-duplicate-variable-names",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintGraphql": "unique-variable-names"
+                }
+              }
+            ],
+            "docs": " Require all variable definitions to be unique.\n\n A GraphQL operation is only valid if all its variables are uniquely named.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query ($x: Int, $x: Int) {\n   field\n }\n ```\n\n ### Valid\n\n ```graphql\n query ($x: Int, $y: Int) {\n   field\n }\n ```\n\n"
+          },
           "noEmptySource": {
             "deprecated": false,
             "version": "2.2.7",
@@ -505,6 +616,32 @@ export function GET() {
             "recommended": false,
             "fixKind": "none",
             "docs": " Disallow empty sources.\n\n A source containing only the following is considered empty:\n   - Whitespace (spaces, tabs or newlines)\n   - Comments\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n\n ```\n\n ```graphql,ignore\n # Invalid comment\n ```\n\n ### Valid\n\n ```graphql\n query Member {}\n ```\n\n ```graphql\n fragment StrippedMember on Member {}\n ```\n\n ## Options\n\n ### `allowComments`\n\n Whether the comments should be marked as meaningful.\n When this option has been set to `true`, a file with only comments is considered valid.\n\n Default `false`\n\n\n ```json,options\n {\n   \"options\": {\n     \"allowComments\": true\n   }\n }\n ```\n\n #### Invalid\n\n ```graphql,expect_diagnostic,use_options\n\n ```\n\n #### Valid\n\n ```graphql,ignore\n # Valid comment\n ```\n\n"
+          },
+          "noExcessiveLinesPerFile": {
+            "deprecated": false,
+            "version": "2.3.12",
+            "name": "noExcessiveLinesPerFile",
+            "link": "https://biomejs.dev/linter/rules/no-excessive-lines-per-file",
+            "recommended": false,
+            "fixKind": "none",
+            "docs": " Restrict the number of lines in a file.\n\n Large files tend to do many things and can make it hard to follow what's going on.\n This rule can help enforce a limit on the number of lines in a file.\n\n ## Examples\n\n ### Invalid\n\n The following example will show a diagnostic when `maxLines` is set to 2:\n\n ```json,options\n {\n     \"options\": {\n        \"maxLines\": 2\n     }\n }\n ```\n ```graphql,expect_diagnostic,use_options\n query Foo { id }\n query Bar { id }\n query Baz { id }\n ```\n\n ### Valid\n\n ```graphql\n query Foo { id }\n query Bar { id }\n ```\n\n ## Options\n\n ### `maxLines`\n\n This option sets the maximum number of lines allowed in a file.\n If the file exceeds this limit, a diagnostic will be reported.\n\n Default: `300`\n\n ### `skipBlankLines`\n\n When this option is set to `true`, blank lines are not counted towards the maximum line limit.\n\n Default: `false`\n\n"
+          },
+          "noRootType": {
+            "deprecated": false,
+            "version": "2.3.12",
+            "name": "noRootType",
+            "link": "https://biomejs.dev/linter/rules/no-root-type",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintGraphql": "no-root-type"
+                }
+              }
+            ],
+            "docs": " Disallow the usage of specified root types\n\n Prevent the usage of certain root types (e.g. `mutation` and/or `subscription`)\n\n ## Examples\n\n ### Invalid\n\n ```json,options\n {\n   \"options\": {\n     \"disallow\": [\"mutation\"]\n   }\n }\n ```\n\n ```graphql,expect_diagnostic,use_options\n type Mutation {\n   createUser(input: CreateUserInput!): User!\n }\n ```\n\n ### Valid\n\n ```graphql,use_options\n type Query {\n   users: [User!]!\n }\n ```\n\n ## Options\n\n ### `disallow`\n\n This required option lists all disallowed root types (e.g. `mutation` and/or `subscription`).\n The values of the list are case-insensitive.\n\n Default `[]`\n\n ```json,options\n {\n   \"options\": {\n     \"disallow\": [\"subscription\"]\n   }\n }\n ```\n\n ```graphql,expect_diagnostic,use_options\n type Subscription {\n   user: User\n }\n ```\n\n"
           },
           "useConsistentGraphqlDescriptions": {
             "deprecated": false,
@@ -540,90 +677,39 @@ export function GET() {
             ],
             "docs": " Require the `@deprecated` directive to specify a deletion date.\n\n Suggests removing deprecated code when the due date has been passed.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query {\n   member @deprecated(reason: \"Use `members` instead\") {\n     id\n   }\n }\n ```\n\n ### Valid\n\n ```graphql\n query {\n   member @deprecated(reason: \"Use `members` instead\", deletionDate: \"2099-12-25\") {\n     id\n   }\n }\n ```\n\n"
           },
-          "useUniqueArgumentNames": {
+          "useLoneAnonymousOperation": {
             "deprecated": false,
-            "version": "next",
-            "name": "useUniqueArgumentNames",
-            "link": "https://biomejs.dev/linter/rules/use-unique-argument-names",
+            "version": "2.3.12",
+            "name": "useLoneAnonymousOperation",
+            "link": "https://biomejs.dev/linter/rules/use-lone-anonymous-operation",
             "recommended": false,
             "fixKind": "none",
             "sources": [
               {
                 "kind": "sameLogic",
                 "source": {
-                  "eslintGraphql": "unique-argument-names"
+                  "eslintGraphql": "lone-anonymous-operation"
                 }
               }
             ],
-            "docs": " Require all argument names for fields & directives to be unique.\n\n A GraphQL field or directive is only valid if all supplied arguments are uniquely named.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query {\n   field(arg1: \"value\", arg1: \"value\")\n }\n ```\n\n ### Valid\n\n ```graphql\n query {\n   field(arg1: \"value\", arg2: \"value\")\n }\n ```\n\n"
+            "docs": " Disallow anonymous operations when more than one operation specified in document.\n\n A GraphQL document that contains an anonymous operation (the query short-hand) is only valid if it contains only that one operation definition.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query {\n   fieldA\n }\n\n query B {\n   fieldB\n }\n ```\n\n ### Valid\n\n ```graphql\n query A {\n   fieldA\n }\n\n query B {\n   fieldB\n }\n ```\n\n"
           },
-          "useUniqueFieldDefinitionNames": {
+          "useLoneExecutableDefinition": {
             "deprecated": false,
-            "version": "next",
-            "name": "useUniqueFieldDefinitionNames",
-            "link": "https://biomejs.dev/linter/rules/use-unique-field-definition-names",
+            "version": "2.3.12",
+            "name": "useLoneExecutableDefinition",
+            "link": "https://biomejs.dev/linter/rules/use-lone-executable-definition",
             "recommended": false,
             "fixKind": "none",
             "sources": [
               {
                 "kind": "sameLogic",
                 "source": {
-                  "eslintGraphql": "unique-field-definition-names"
+                  "eslintGraphql": "lone-executable-definition"
                 }
               }
             ],
-            "docs": " Require all fields of a type to be unique.\n\n A GraphQL complex type is only valid if all its fields are uniquely named.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n type SomeObject {\n   foo: String\n   foo: String\n }\n ```\n\n ```graphql,expect_diagnostic\n interface SomeObject {\n   foo: String\n   foo: String\n }\n ```\n\n ```graphql,expect_diagnostic\n input SomeObject {\n   foo: String\n   foo: String\n }\n ```\n\n ### Valid\n\n ```graphql\n type SomeObject {\n   foo: String\n   bar: String\n }\n ```\n\n ```graphql\n interface SomeObject {\n   foo: String\n   bar: String\n }\n ```\n\n ```graphql\n input SomeObject {\n   foo: String\n   bar: String\n }\n ```\n\n"
-          },
-          "useUniqueGraphqlOperationName": {
-            "deprecated": false,
-            "version": "2.3.6",
-            "name": "useUniqueGraphqlOperationName",
-            "link": "https://biomejs.dev/linter/rules/use-unique-graphql-operation-name",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "inspired",
-                "source": {
-                  "eslintGraphql": "unique-operation-name"
-                }
-              }
-            ],
-            "docs": " Enforce unique operation names across a GraphQL document.\n\n This rule ensures that all GraphQL operations (queries, mutations, subscriptions) have unique names.\n Using unique operation names is essential for proper identification and reducing confusion.\n\n :::note\n This rule currently does not work across multiple files.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query user {\n   user {\n     id\n   }\n }\n\n query user {\n   me {\n     id\n   }\n }\n ```\n\n ### Valid\n\n ```graphql\n query user {\n   user {\n     id\n   }\n }\n\n query me {\n   me {\n     id\n   }\n }\n ```\n\n"
-          },
-          "useUniqueInputFieldNames": {
-            "deprecated": false,
-            "version": "next",
-            "name": "useUniqueInputFieldNames",
-            "link": "https://biomejs.dev/linter/rules/use-unique-input-field-names",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintGraphql": "unique-input-field-names"
-                }
-              }
-            ],
-            "docs": " Require fields within an input object to be unique.\n\n A GraphQL input object value is only valid if all supplied fields are uniquely named.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query {\n   field(arg: { f1: \"value\", f1: \"value\" })\n }\n ```\n\n ### Valid\n\n ```graphql\n query {\n   field(arg: { f1: \"value\", f2: \"value\" })\n }\n ```\n\n"
-          },
-          "useUniqueVariableNames": {
-            "deprecated": false,
-            "version": "next",
-            "name": "useUniqueVariableNames",
-            "link": "https://biomejs.dev/linter/rules/use-unique-variable-names",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintGraphql": "unique-variable-names"
-                }
-              }
-            ],
-            "docs": " Require all variable definitions to be unique.\n\n A GraphQL operation is only valid if all its variables are uniquely named.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query ($x: Int, $x: Int) {\n   field\n }\n ```\n\n ### Valid\n\n ```graphql\n query ($x: Int, $y: Int) {\n   field\n }\n ```\n\n"
+            "docs": " Require queries, mutations, subscriptions or fragments each to be located in separate files.\n\n This rule ensures that each GraphQL document only contains a single operation (query, mutation, or subscription) or fragment definition.\n Having multiple executable definitions in a single file can make code harder to maintain, test, and understand.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query Foo {\n   id\n }\n\n fragment Bar on Baz {\n   id\n }\n ```\n\n ```graphql,expect_diagnostic\n query Foo {\n   id\n }\n\n mutation ($name: String!) {\n   createUser {\n     id\n   }\n }\n ```\n\n ```graphql,expect_diagnostic\n query Foo {\n   id\n }\n\n query Bar {\n   id\n }\n ```\n\n ### Valid\n\n ```graphql\n query Foo {\n   id\n }\n ```\n\n ```graphql\n fragment Bar on Baz {\n   id\n }\n ```\n\n"
           }
         },
         "style": {
@@ -793,7 +879,7 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/no-svg-without-title",
             "recommended": true,
             "fixKind": "none",
-            "docs": " Enforces the usage of the `title` element for the `svg` element.\n\n It is not possible to specify the `alt` attribute for the `svg` as for the `img`.\n To make svg accessible, the following methods are available:\n - provide the `title` element as the first child to `svg`\n - provide `role=\"img\"` and `aria-label` or `aria-labelledby` to `svg`\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <svg>foo</svg>\n ```\n\n ```html,expect_diagnostic\n <svg>\n     <title></title>\n     <circle />\n </svg>\n ```\n\n ```html,expect_diagnostic\n <svg role=\"img\" title=\"title\">\n     <span id=\"\">foo</span>\n </svg>\n ```\n\n ```html,expect_diagnostic\n <svg role=\"img\" aria-labelledby=\"title\">\n     <span id=\"title2\">foo</span>\n </svg>\n ```\n\n ### Valid\n\n ```html\n <svg>\n     <rect />\n     <rect />\n     <g>\n         <circle />\n         <circle />\n         <g>\n             <title>Pass</title>\n             <circle />\n             <circle />\n         </g>\n     </g>\n </svg>\n ```\n\n ```html\n <svg>\n     <title>Pass</title>\n     <circle />\n </svg>\n ```\n\n ```html\n <svg role=\"img\" aria-labelledby=\"title\">\n     <span id=\"title\">Pass</span>\n </svg>\n ```\n\n ```html\n <svg role=\"img\" aria-label=\"title\">\n     <span id=\"title\">Pass</span>\n </svg>\n ```\n\n ```html\n <svg role=\"img\" aria-label=\"\">\n     <span id=\"\">Pass</span>\n </svg>\n ```\n\n ```html\n <svg role=\"graphics-symbol\"><rect /></svg>\n ```\n\n ```html\n <svg role=\"graphics-symbol img\"><rect /></svg>\n ```\n\n ```html\n <svg aria-hidden=\"true\"><rect /></svg>\n ```\n\n ```html\n <svg role=\"presentation\">foo</svg>\n ```\n\n\n\n ## Accessibility guidelines\n [Document Structure – SVG 1.1 (Second Edition)](https://www.w3.org/TR/SVG11/struct.html#DescriptionAndTitleElements)\n [ARIA: img role - Accessibility | MDN](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/img_role)\n [Accessible SVGs | CSS-Tricks - CSS-Tricks](https://css-tricks.com/accessible-svgs/)\n [Contextually Marking up accessible images and SVGs | scottohara.me](https://www.scottohara.me/blog/2019/05/22/contextual-images-svgs-and-a11y.html)\n [Accessible SVGs](https://www.unimelb.edu.au/accessibility/techniques/accessible-svgs)\n\n"
+            "docs": " Enforces the usage of the `title` element for the `svg` element.\n\n It is not possible to specify the `alt` attribute for the `svg` as for the `img`.\n To make svg accessible, the following methods are available:\n - provide the `title` element as the first child to `svg`\n - provide `role=\"img\"` and `aria-label` or `aria-labelledby` to `svg`\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <svg>foo</svg>\n ```\n\n ```html,expect_diagnostic\n <svg>\n     <title></title>\n     <circle />\n </svg>\n ```\n\n ```html,expect_diagnostic\n <svg role=\"img\" title=\"title\">\n     <span id=\"\">foo</span>\n </svg>\n ```\n\n ```html,expect_diagnostic\n <svg role=\"img\" aria-labelledby=\"title\">\n     <span id=\"title2\">foo</span>\n </svg>\n ```\n\n ```html,expect_diagnostic\n <svg>\n     <rect />\n     <rect />\n     <g>\n         <title>foo</title>\n         <circle />\n         <circle />\n     </g>\n </svg>\n ```\n\n ```html,expect_diagnostic\n <svg role=\"graphics-symbol\"><rect /></svg>\n ```\n\n ### Valid\n\n ```html\n <svg>\n     <title>Pass</title>\n     <circle />\n </svg>\n ```\n\n ```html\n <svg role=\"img\" aria-labelledby=\"title\">\n     <span id=\"title\">Pass</span>\n </svg>\n ```\n\n ```html\n <svg role=\"img\" aria-label=\"title\">\n     <span id=\"title\">Pass</span>\n </svg>\n ```\n\n ```html\n <svg role=\"img\" aria-label=\"\">\n     <span id=\"\">Pass</span>\n </svg>\n ```\n\n ```html\n <svg role=\"graphics-symbol\">\n     <title>Pass</title>\n     <rect />\n </svg>\n ```\n\n ```html\n <svg role=\"graphics-symbol img\"><rect /></svg>\n ```\n\n ```html\n <svg aria-hidden=\"true\"><rect /></svg>\n ```\n\n ```html\n <svg role=\"presentation\">foo</svg>\n ```\n\n\n ## Accessibility guidelines\n [Document Structure – SVG 1.1 (Second Edition)](https://www.w3.org/TR/SVG11/struct.html#DescriptionAndTitleElements)\n [ARIA: img role - Accessibility | MDN](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/img_role)\n [Accessible SVGs | CSS-Tricks - CSS-Tricks](https://css-tricks.com/accessible-svgs/)\n [Contextually Marking up accessible images and SVGs | scottohara.me](https://www.scottohara.me/blog/2019/05/22/contextual-images-svgs-and-a11y.html)\n [Accessible SVGs](https://www.unimelb.edu.au/accessibility/techniques/accessible-svgs)\n\n"
           },
           "useAltText": {
             "deprecated": false,
@@ -811,6 +897,23 @@ export function GET() {
               }
             ],
             "docs": " Enforce that all elements that require alternative text have meaningful information to relay back to the end user.\n\n This is a critical component of accessibility for screen reader users in order for them\n to understand the content's purpose on the page.\n By default, this rule checks for alternative text on the following elements:\n `<img>`, `<area>`, `<input type=\"image\">`, and `<object>`.\n\n :::note\n In `.html` files, this rule matches element names case-insensitively (e.g., `<IMG>`, `<Img>`).\n\n In component-based frameworks (Vue, Svelte, Astro), only lowercase element names are checked.\n PascalCase variants like `<Img>` are assumed to be custom components and are ignored.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <img src=\"image.png\" />\n ```\n\n ```html,expect_diagnostic\n <input type=\"image\" src=\"image.png\" />\n ```\n\n ```html,expect_diagnostic\n <area href=\"foo\" />\n ```\n\n ```html,expect_diagnostic\n <object data=\"foo\"></object>\n ```\n\n ### Valid\n\n ```html\n <img src=\"image.png\" alt=\"A beautiful landscape\" />\n ```\n\n ```html\n <input type=\"image\" src=\"image.png\" alt=\"Submit\" />\n ```\n\n ```html\n <img src=\"image.png\" aria-label=\"A beautiful landscape\" />\n ```\n\n ```html\n <img src=\"image.png\" aria-labelledby=\"image-description\" />\n ```\n\n ```html\n <object data=\"foo\" title=\"Embedded content\"></object>\n ```\n\n ```html\n <!-- Decorative images can be hidden from assistive technologies -->\n <img src=\"decorative.png\" alt=\"\" />\n ```\n\n ```html\n <img src=\"decorative.png\" aria-hidden=\"true\" />\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 1.1.1](https://www.w3.org/WAI/WCAG21/Understanding/non-text-content.html)\n\n"
+          },
+          "useAnchorContent": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useAnchorContent",
+            "link": "https://biomejs.dev/linter/rules/use-anchor-content",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJsxA11y": "anchor-has-content"
+                }
+              }
+            ],
+            "docs": " Enforce that anchors have content and that the content is accessible to screen readers.\n\n Accessible means the content is not hidden using the `aria-hidden` attribute.\n Anchor tags should have text content that describes the link destination for screen reader users.\n Alternatively, the anchor can have an accessible name via the `aria-label` or `title` attribute.\n\n :::note\n In `.html` files, this rule matches element names case-insensitively (e.g., `<A>`, `<a>`).\n\n In component-based frameworks (Vue, Svelte, Astro), only lowercase element names are checked.\n PascalCase variants like `<A>` are assumed to be custom components and are ignored.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <a></a>\n ```\n\n ```html,expect_diagnostic\n <a>   </a>\n ```\n\n ```html,expect_diagnostic\n <a aria-hidden=\"true\">content</a>\n ```\n\n ```html,expect_diagnostic\n <a><span aria-hidden=\"true\">content</span></a>\n ```\n\n ### Valid\n\n ```html\n <a>content</a>\n ```\n\n ```html\n <a><span>content</span></a>\n ```\n\n ```html\n <a><span aria-hidden=\"true\"></span>content</a>\n ```\n\n ```html\n <a aria-label=\"Navigate to home\"></a>\n ```\n\n ```html\n <a title=\"Home page\"></a>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 2.4.4](https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-in-context)\n - [WCAG 4.1.2](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value)\n\n"
           },
           "useAriaPropsForRole": {
             "deprecated": false,
@@ -880,6 +983,23 @@ export function GET() {
             ],
             "docs": " Enforces the usage of the attribute `title` for the element `iframe`.\n\n :::note\n In `.html` files, this rule matches `iframe` elements case-insensitively (e.g., `<IFRAME>`, `<IFrame>`).\n\n In component-based frameworks (Vue, Svelte, Astro), only lowercase `<iframe>` is checked. PascalCase variants like `<Iframe>` are assumed to be custom components and are ignored.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <iframe></iframe>\n ```\n\n ```html,expect_diagnostic\n <iframe title=\"\"></iframe>\n ```\n\n ### Valid\n\n ```html\n <iframe title=\"title\"></iframe>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 2.4.1](https://www.w3.org/WAI/WCAG21/Understanding/bypass-blocks)\n - [WCAG 4.1.2](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value)\n\n"
           },
+          "useMediaCaption": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useMediaCaption",
+            "link": "https://biomejs.dev/linter/rules/use-media-caption",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJsxA11y": "media-has-caption"
+                }
+              }
+            ],
+            "docs": " Enforces that `audio` and `video` elements must have a `track` for captions.\n\n Captions support users with hearing-impairments. They should be a transcription\n or translation of the dialogue, sound effects, musical cues, and other relevant\n audio information.\n\n :::note\n In `.html` files, this rule matches element names case-insensitively (e.g., `<VIDEO>`, `<video>`).\n\n In component-based frameworks (Vue, Svelte, Astro), only lowercase element names are checked.\n PascalCase variants like `<Video>` are assumed to be custom components and are ignored.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <video src=\"video.mp4\"></video>\n ```\n\n ```html,expect_diagnostic\n <audio src=\"audio.mp3\">\n     <source src=\"audio.ogg\" type=\"audio/ogg\" />\n </audio>\n ```\n\n ### Valid\n\n ```html\n <video src=\"video.mp4\">\n     <track kind=\"captions\" src=\"captions.vtt\" />\n </video>\n ```\n\n ```html\n <audio src=\"audio.mp3\">\n     <track kind=\"captions\" src=\"captions.vtt\" />\n </audio>\n ```\n\n ```html\n <video muted src=\"video.mp4\"></video>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 1.2.2](https://www.w3.org/WAI/WCAG21/Understanding/captions-prerecorded)\n - [WCAG 1.2.3](https://www.w3.org/WAI/WCAG21/Understanding/audio-description-or-media-alternative-prerecorded)\n\n"
+          },
           "useValidAriaRole": {
             "deprecated": false,
             "version": "next",
@@ -932,6 +1052,29 @@ export function GET() {
               }
             ],
             "docs": " Disallow ambiguous anchor descriptions.\n\n Enforces `<a>` values are not exact matches for the phrases \"click here\", \"here\", \"link\", \"a link\", or \"learn more\".\n Screen readers announce tags as links/interactive, but rely on values for context.\n Ambiguous anchor descriptions do not provide sufficient context for users.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <a>learn more</a>\n ```\n\n ### Valid\n\n ```html\n <a>documentation</a>\n ```\n\n ## Options\n\n ### `words`\n\n The words option allows users to modify the strings that can be checked for in the anchor text. Useful for specifying other words in other languages.\n\n Default `[\"click here\", \"here\", \"link\", \"a link\", \"learn more\"]`\n\n ```json,options\n {\n   \"options\": {\n     \"words\": [\"click this\"]\n   }\n }\n ```\n\n #### Invalid\n\n ```html,expect_diagnostic,use_options\n <a>click this</a>\n ```\n\n"
+          },
+          "noDuplicateAttributes": {
+            "deprecated": false,
+            "version": "2.3.12",
+            "name": "noDuplicateAttributes",
+            "link": "https://biomejs.dev/linter/rules/no-duplicate-attributes",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "htmlEslint": "no-duplicate-attrs"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "no-duplicate-attributes"
+                }
+              }
+            ],
+            "docs": " Disallow duplication of attributes.\n\n According to the HTML specification, each attribute name must be unique within a single element.\n Duplicate attributes are invalid and can lead to unexpected behavior in browsers.\n\n ## Vue templates\n\n For Vue templates (`.vue` files), this rule also considers the following directives as\n aliases of their arguments:\n\n - `v-bind:foo` and `:foo` are handled as the attribute `foo`.\n\n Vue class/style bindings are ignored. For example, `class` and `:class` may co-exist.\n\n Event handlers are ignored. For example, `@click` and `v-on:click` are not considered\n attributes by this rule.\n\n Dynamic arguments such as `:[foo]` or `v-bind:[foo]` are ignored.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div foo=\"a\" foo=\"b\"></div>\n ```\n\n ```vue,expect_diagnostic\n <template>\n   <div foo :foo=\"bar\" />\n </template>\n ```\n\n ### Valid\n\n ```html\n <div foo=\"a\" bar=\"b\"></div>\n ```\n\n"
           },
           "noScriptUrl": {
             "deprecated": false,
@@ -1010,7 +1153,7 @@ export function GET() {
           },
           "useVueConsistentVBindStyle": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.11",
             "name": "useVueConsistentVBindStyle",
             "link": "https://biomejs.dev/linter/rules/use-vue-consistent-v-bind-style",
             "recommended": true,
@@ -1027,7 +1170,7 @@ export function GET() {
           },
           "useVueConsistentVOnStyle": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.11",
             "name": "useVueConsistentVOnStyle",
             "link": "https://biomejs.dev/linter/rules/use-vue-consistent-v-on-style",
             "recommended": true,
@@ -1061,7 +1204,7 @@ export function GET() {
           },
           "useVueVForKey": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.11",
             "name": "useVueVForKey",
             "link": "https://biomejs.dev/linter/rules/use-vue-v-for-key",
             "recommended": true,
@@ -1078,7 +1221,7 @@ export function GET() {
           },
           "useVueValidTemplateRoot": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.11",
             "name": "useVueValidTemplateRoot",
             "link": "https://biomejs.dev/linter/rules/use-vue-valid-template-root",
             "recommended": true,
@@ -1112,7 +1255,7 @@ export function GET() {
           },
           "useVueValidVCloak": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.11",
             "name": "useVueValidVCloak",
             "link": "https://biomejs.dev/linter/rules/use-vue-valid-v-cloak",
             "recommended": true,
@@ -1214,7 +1357,7 @@ export function GET() {
           },
           "useVueValidVOnce": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.11",
             "name": "useVueValidVOnce",
             "link": "https://biomejs.dev/linter/rules/use-vue-valid-v-once",
             "recommended": true,
@@ -1231,7 +1374,7 @@ export function GET() {
           },
           "useVueValidVPre": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.11",
             "name": "useVueValidVPre",
             "link": "https://biomejs.dev/linter/rules/use-vue-valid-v-pre",
             "recommended": true,
@@ -1265,12 +1408,12 @@ export function GET() {
           },
           "useVueVapor": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.11",
             "name": "useVueVapor",
             "link": "https://biomejs.dev/linter/rules/use-vue-vapor",
             "recommended": false,
             "fixKind": "unsafe",
-            "docs": " Enforce opting in to Vue Vapor mode in `<script setup>` blocks.\n\n Vue 3.6 introduces an opt-in “Vapor mode” for SFC `<script setup>` blocks:\n `<script setup vapor>`.\n\n Vapor mode only works for Vue Single File Components (SFCs) using `<script setup>`.\n\n This rule reports `<script setup>` opening tags that are missing the `vapor` attribute.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script setup>\n </script>\n ```\n\n ### Valid\n\n ```vue\n <script setup vapor>\n </script>\n ```\n\n"
+            "docs": " Enforce opting in to Vue Vapor mode in `<script setup>` blocks.\n\n Vue 3.6 introduces an opt-in “Vapor mode” for SFC `<script setup>` blocks:\n `<script setup vapor>`.\n\n Vapor mode only works for Vue Single File Components (SFCs) using `<script setup>`.\n\n This rule reports `<script setup>` opening tags that are missing the `vapor` attribute.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script setup>\n </script>\n ```\n\n ### Valid\n\n ```vue\n <script setup vapor>\n </script>\n ```\n\n ## Related Rules\n\n - [noVueOptionsApi](https://biomejs.dev/linter/rules/no-vue-options-api): Disallows the Options API format, which is incompatible with Vapor Mode\n\n"
           }
         }
       },
@@ -1392,6 +1535,12 @@ export function GET() {
                 "kind": "sameLogic",
                 "source": {
                   "eslintSonarJs": "cognitive-complexity"
+                }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslint": "complexity"
                 }
               }
             ],
@@ -1760,7 +1909,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow initializing variables to `undefined`.\n\n A variable that is declared and not initialized to any value automatically gets the value of `undefined`.\n It’s considered a best practice to avoid initializing variables to `undefined`.\n\n Please note that any inline comments attached to the initialization value or variable will be moved at the end of the variable declaration on auto-fix.\n Please be also aware that this differs from Eslint's behaviour.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n var a = undefined;\n ```\n ```js,expect_diagnostic\n let b = undefined, c = 1, d = 2;\n ```\n ```js,expect_diagnostic\n for (let i = 0; i < 100; i++) {\n \tlet i = undefined;\n }\n ```\n ```js,expect_diagnostic\n let f = /**/undefined/**/ ;\n ```\n ### Valid\n\n ```js\n var a = 1;\n ```\n ```js\n class Foo {\n \tbar = undefined;\n }\n ```\n\n"
+            "docs": " Disallow initializing variables to `undefined`.\n\n A variable that is declared and not initialized to any value automatically gets the value of `undefined`.\n It’s considered a best practice to avoid initializing variables to `undefined`.\n\n Please note that any inline comments attached to the initialization value or variable will be moved at the end of the variable declaration on auto-fix.\n Please be also aware that this differs from Eslint's behaviour.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n var a = undefined;\n ```\n ```js,expect_diagnostic\n let b = undefined, c = 1, d = 2;\n ```\n ```js,expect_diagnostic\n for (let i = 0; i < 100; i++) {\n \tlet i = undefined;\n }\n ```\n ```js,expect_diagnostic\n let f = /**/undefined/**/ ;\n ```\n ### Valid\n\n ```js\n var a = 1;\n ```\n ```js\n class Foo {\n \tbar = undefined;\n }\n ```\n\n Exported variables are not flagged because in some frameworks (e.g., Svelte 4),\n initializing exported variables to `undefined` is used to declare optional props.\n\n ```js\n export let x = undefined;\n ```\n ```js\n let y = undefined;\n export { y };\n ```\n\n"
           },
           "noVoid": {
             "deprecated": false,
@@ -2144,7 +2293,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Ensure that builtins are correctly instantiated.\n\n The following builtins require `new` to be instantiate:\n\n - ArrayBuffer\n - BigInt64Array\n - BigUint64Array\n - DataView\n - FinalizationRegistry\n - Float32Array\n - Float64Array\n - Int16Array\n - Int32Array\n - Int8Array\n - Map\n - Promise\n - Proxy\n - Set\n - SharedArrayBuffer\n - Uint16Array\n - Uint32Array\n - Uint8Array\n - Uint8ClampedArray\n - WeakMap\n - WeakRef\n - WeakSet\n\n Conversely, the following builtins cannot be instaiated with `new`:\n\n - BigInt\n - Symbol\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const text = new BigInt(1);\n ```\n\n ```js,expect_diagnostic\n const map = Map([\n   ['foo', 'bar']\n ]);\n ```\n\n ### Valid\n\n ```js\n const text = BigInt(1);\n ```\n\n ```js\n const map = new Map([\n  ['foo', 'bar']\n ]);\n ```\n"
+            "docs": " Ensure that builtins are correctly instantiated.\n\n The following builtins require `new` to be instantiate:\n\n - ArrayBuffer\n - BigInt64Array\n - BigUint64Array\n - DataView\n - FinalizationRegistry\n - Float32Array\n - Float64Array\n - Int16Array\n - Int32Array\n - Int8Array\n - Map\n - Promise\n - Proxy\n - Set\n - SharedArrayBuffer\n - Uint16Array\n - Uint32Array\n - Uint8Array\n - Uint8ClampedArray\n - WeakMap\n - WeakRef\n - WeakSet\n\n Conversely, the following builtins cannot be instantiated with `new`:\n\n - BigInt\n - Symbol\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const text = new BigInt(1);\n ```\n\n ```js,expect_diagnostic\n const map = Map([\n   ['foo', 'bar']\n ]);\n ```\n\n ### Valid\n\n ```js\n const text = BigInt(1);\n ```\n\n ```js\n const map = new Map([\n  ['foo', 'bar']\n ]);\n ```\n"
           },
           "noInvalidConstructorSuper": {
             "deprecated": false,
@@ -2744,6 +2893,40 @@ export function GET() {
             ],
             "docs": " Restrict imports of deprecated exports.\n\n This rule flags any imports for symbols (such as types, functions, or\n anything else that can be imported), that are documented with a JSDoc\n comment that contains an \"@deprecated\" annotation.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic,file=foo.js\n import { oldUtility } from \"./utils.js\";\n ```\n\n ```js,file=utils.js\n /**\n  * @deprecated\n  */\n export function oldUtility() {}\n ```\n\n ### Valid\n\n ```js,file=foo.js\n import { newUtility, oldUtility } from \"./utils.js\";\n ```\n\n ```js,file=utils.js\n export function newUtility() {}\n\n // @deprecated (this is not a JSDoc comment)\n export function oldUtility() {}\n ```\n\n"
           },
+          "noDivRegex": {
+            "deprecated": false,
+            "version": "2.3.12",
+            "name": "noDivRegex",
+            "link": "https://biomejs.dev/linter/rules/no-div-regex",
+            "recommended": false,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "no-div-regex"
+                }
+              }
+            ],
+            "docs": " Disallow equal signs explicitly at the beginning of regular expressions.\n\n This rule forbids equal signs (`=`) after the slash (`/`) at the beginning of a regular expression literal,\n because the characters `/=` can be confused with a division assignment operator.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function bar() {\n   return /=foo/;\n }\n ```\n\n ### Valid\n\n ```js\n function bar() {\n   return /[=]foo/;\n }\n ```\n\n"
+          },
+          "noDuplicateEnumValues": {
+            "deprecated": false,
+            "version": "2.3.12",
+            "name": "noDuplicateEnumValues",
+            "link": "https://biomejs.dev/linter/rules/no-duplicate-enum-values",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintTypeScript": "no-duplicate-enum-values"
+                }
+              }
+            ],
+            "docs": " Disallow duplicate enum member values.\n\n Although TypeScript supports duplicate enum member values, people usually expect members to have unique values within the same enum.\n Duplicate values can lead to bugs that are hard to track down.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n enum E {\n   A = 0,\n   B = 0,\n }\n ```\n\n ```ts,expect_diagnostic\n enum E {\n   A = \"A\",\n   B = 'A',\n   C = `A`,\n }\n ```\n\n ### Valid\n\n ```ts\n enum E {\n   A = 0,\n   B = 1,\n }\n ```\n\n ```ts\n enum E {\n   A = \"A\",\n   B = 'B',\n   C = `C`,\n }\n ```\n\n"
+          },
           "noDuplicatedSpreadProps": {
             "deprecated": false,
             "version": "2.3.8",
@@ -2794,6 +2977,57 @@ export function GET() {
               }
             ],
             "docs": " Require the use of `===` or `!==` for comparison with `null`.\n\n Comparing to `null` with `==` or `!=` may have unintended results as the\n expression evaluates to `true` when comparing `null` to `undefined`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n foo == null;\n ```\n\n ```js,expect_diagnostic\n foo != null;\n ```\n\n ### Valid\n\n ```js\n foo === null;\n ```\n\n ```js\n foo !== null;\n ```\n"
+          },
+          "noExcessiveClassesPerFile": {
+            "deprecated": false,
+            "version": "2.3.12",
+            "name": "noExcessiveClassesPerFile",
+            "link": "https://biomejs.dev/linter/rules/no-excessive-classes-per-file",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "max-classes-per-file"
+                }
+              }
+            ],
+            "docs": " Enforce a maximum number of classes per file.\n\n Files containing multiple classes can often result in a less navigable and poorly structured codebase.\n Best practice is to keep each file limited to a single responsibility.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n class Foo {}\n class Bar {}\n ```\n\n ### Valid\n\n ```js\n class Foo {}\n ```\n\n ## Options\n\n The following options are available:\n\n ### `maxClasses`\n\n This option sets the maximum number of classes allowed in a file.\n If the file exceeds this limit, a diagnostic will be reported.\n\n Default: `1`\n\n ```json,options\n {\n     \"options\": {\n        \"maxClasses\": 2\n     }\n }\n ```\n\n ```js,expect_diagnostic,use_options\n class Foo {}\n class Bar {}\n class Baz {}\n ```\n\n"
+          },
+          "noExcessiveLinesPerFile": {
+            "deprecated": false,
+            "version": "2.3.12",
+            "name": "noExcessiveLinesPerFile",
+            "link": "https://biomejs.dev/linter/rules/no-excessive-lines-per-file",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslint": "max-lines"
+                }
+              }
+            ],
+            "docs": " Restrict the number of lines in a file.\n\n This rule checks the number of lines in a file and reports a diagnostic if it exceeds a specified limit.\n Some people consider large files a code smell. Large files tend to do many things and can make it hard to follow what's going on.\n Many coding style guides dictate a limit of the number of lines that a file can comprise of. This rule can help enforce that style.\n\n ## Examples\n\n ### Invalid\n\n The following example will show a diagnostic when `maxLines` is set to 2:\n\n ```json,options\n {\n     \"options\": {\n        \"maxLines\": 2\n     }\n }\n ```\n ```js,expect_diagnostic,use_options\n const a = 1;\n const b = 2;\n const c = 3;\n ```\n\n ### Valid\n\n ```js\n const a = 1;\n const b = 2;\n ```\n\n ## Options\n\n The following options are available:\n\n ### `maxLines`\n\n This option sets the maximum number of lines allowed in a file.\n If the file exceeds this limit, a diagnostic will be reported.\n\n Default: `300`\n\n When `maxLines: 2`, the following file will be considered invalid:\n ```json,options\n {\n     \"options\": {\n        \"maxLines\": 2\n     }\n }\n ```\n ```js,expect_diagnostic,use_options\n const a = 1;\n const b = 2;\n const c = 3;\n ```\n\n ### `skipBlankLines`\n\n When this option is set to `true`, blank lines are not counted towards the maximum line limit.\n This means that only lines with actual code or comments will be counted.\n\n Default: `false`\n\n When `maxLines: 3` and `skipBlankLines: true`, the following file will be considered valid\n even though it has 5 total lines, because only 3 lines contain code:\n ```json,options\n {\n     \"options\": {\n        \"maxLines\": 3,\n        \"skipBlankLines\": true\n     }\n }\n ```\n ```js,use_options\n const a = 1;\n\n const b = 2;\n\n const c = 3;\n ```\n\n ## Suppressions\n\n If you need to exceed the line limit in a specific file, you can suppress this rule\n at the top of the file:\n\n ```json,options\n {\n     \"options\": {\n         \"maxLines\": 2\n     }\n }\n ```\n ```js,use_options\n // biome-ignore lint/nursery/noExcessiveLinesPerFile: generated file\n const a = 1;\n const b = 2;\n const c = 3;\n ```\n\n"
+          },
+          "noFloatingClasses": {
+            "deprecated": false,
+            "version": "2.3.12",
+            "name": "noFloatingClasses",
+            "link": "https://biomejs.dev/linter/rules/no-floating-classes",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "no-new"
+                }
+              }
+            ],
+            "docs": " Disallow `new` operators outside of assignments or comparisons.\n\n The goal of using `new` with a constructor is typically to create an object of a particular type and store that object in a variable, such as:\n\n ```js\n const person = new Person();\n ```\n\n It's less common to use `new` and not store the result, such as:\n\n ```js,ignore\n new Person();\n ```\n\n In this case, the created object is thrown away because its reference isn't stored anywhere, and in many cases, this means that the constructor should be replaced with a function that doesn't require `new` to be used.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n new Thing();\n ```\n\n ### Valid\n\n ```js\n const thing = new Thing();\n ```\n\n"
           },
           "noForIn": {
             "deprecated": false,
@@ -2848,7 +3082,7 @@ export function GET() {
           },
           "noMultiAssign": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.11",
             "name": "noMultiAssign",
             "link": "https://biomejs.dev/linter/rules/no-multi-assign",
             "recommended": false,
@@ -2956,7 +3190,7 @@ export function GET() {
           },
           "noReturnAssign": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.11",
             "name": "noReturnAssign",
             "link": "https://biomejs.dev/linter/rules/no-return-assign",
             "recommended": false,
@@ -3197,6 +3431,15 @@ export function GET() {
             ],
             "docs": " Disallow duplicate keys in Vue component data, methods, computed properties, and other options.\n\n This rule prevents the use of duplicate keys across different Vue component options\n such as `props`, `data`, `computed`, `methods`, and `setup`. Even if keys don't conflict\n in the script tag, they may cause issues in the template since Vue allows direct\n access to these keys.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script>\n export default {\n     props: ['foo'],\n     data() {\n         return {\n             foo: 'bar'\n         };\n     }\n };\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script>\n export default {\n     data() {\n         return {\n             message: 'hello'\n         };\n     },\n     methods: {\n         message() {\n             console.log('duplicate key');\n         }\n     }\n };\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script>\n export default {\n     computed: {\n         count() {\n             return this.value * 2;\n         }\n     },\n     methods: {\n         count() {\n             this.value++;\n         }\n     }\n };\n </script>\n ```\n\n ### Valid\n\n ```vue\n <script>\n export default {\n     props: ['foo'],\n     data() {\n         return {\n             bar: 'baz'\n         };\n     },\n     methods: {\n         handleClick() {\n             console.log('unique key');\n         }\n     }\n };\n </script>\n ```\n\n ```vue\n <script>\n export default {\n     computed: {\n         displayMessage() {\n             return this.message.toUpperCase();\n         }\n     },\n     methods: {\n         clearMessage() {\n             this.message = '';\n         }\n     }\n };\n </script>\n ```\n\n"
           },
+          "noVueOptionsApi": {
+            "deprecated": false,
+            "version": "2.3.12",
+            "name": "noVueOptionsApi",
+            "link": "https://biomejs.dev/linter/rules/no-vue-options-api",
+            "recommended": false,
+            "fixKind": "none",
+            "docs": " Disallow the use of Vue Options API.\n\n Vue 3.6's Vapor Mode does not support the Options API.\n Components must use the Composition API (`<script setup>` or `defineComponent` with function signature) instead.\n\n This rule helps prepare codebases for Vapor Mode by detecting Options API\n patterns that are incompatible with the new rendering mode.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script>\n export default {\n   data() {\n     return { count: 0 }\n   }\n }\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script>\n export default {\n   methods: {\n     increment() {\n       this.count++\n     }\n   }\n }\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script>\n export default {\n   computed: {\n     doubled() {\n       return this.count * 2\n     }\n   }\n }\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script>\n export default {\n   mounted() {\n     console.log('Component mounted')\n   }\n }\n </script>\n ```\n\n ```js,expect_diagnostic\n import { defineComponent } from 'vue'\n\n defineComponent({\n   name: 'MyComponent',\n   data() {\n     return { count: 0 }\n   }\n })\n ```\n\n ### Valid\n\n ```vue\n <script setup>\n import { ref } from 'vue'\n const count = ref(0)\n </script>\n ```\n\n ```vue\n <script setup>\n import { ref, computed } from 'vue'\n\n const count = ref(0)\n const doubled = computed(() => count.value * 2)\n </script>\n ```\n\n ```vue\n <script setup>\n import { onMounted } from 'vue'\n\n onMounted(() => {\n   console.log('Component mounted')\n })\n </script>\n ```\n\n ## Related Rules\n\n - [useVueVapor](https://biomejs.dev/linter/rules/use-vue-vapor): Enforces the use of Vapor mode in Vue components\n\n ## Resources\n\n - [Vue 3 Composition API](https://vuejs.org/api/composition-api-setup.html)\n - [Options API vs Composition API](https://vuejs.org/guide/introduction.html#api-styles)\n\n"
+          },
           "noVueReservedKeys": {
             "deprecated": false,
             "version": "2.1.3",
@@ -3316,6 +3559,23 @@ export function GET() {
             ],
             "docs": " Require destructuring from arrays and/or objects\n\n With JavaScript ES6, a new syntax was added for creating variables from an array index or object property,\n called destructuring. This rule enforces usage of destructuring instead of accessing a property through a member expression.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n var foo = array[0];\n ```\n\n ```js,expect_diagnostic\n var bar = foo.bar;\n ```\n\n\n ### Valid\n\n ```js\n var [foo] = array;\n ```\n\n ```js\n var { bar } = foo;\n ```\n\n"
           },
+          "useErrorCause": {
+            "deprecated": false,
+            "version": "2.3.12",
+            "name": "useErrorCause",
+            "link": "https://biomejs.dev/linter/rules/use-error-cause",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "preserve-caught-error"
+                }
+              }
+            ],
+            "docs": " Enforce that `new Error()` is thrown with the original error as `cause`.\n\n When catching and rethrowing an error, it's recommended to wrap the original error in a new `Error` object to preserve the original error's stack trace and context. The original error should be passed as the `cause` property of the new `Error` object.\n\n This rule enforces that practice, helping to maintain a clear and traceable error propagation chain, which is crucial for effective debugging.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n try {\n   // ...\n } catch (err) {\n   throw new Error(err.message);\n }\n ```\n\n ```js,expect_diagnostic\n try {\n     doSomething();\n } catch {\n     throw new Error(\"Something went wrong\");\n }\n ```\n\n ```js,expect_diagnostic\n try {\n   // ...\n } catch ({ message }) {\n   throw new Error(message);\n }\n ```\n\n Cause error is being shadowed by a closer scoped redeclaration.\n ```js,expect_diagnostic\n try {\n     doSomething();\n } catch (error) {\n     if (whatever) {\n         const error = anotherError; // This declaration shadows the caught error.\n         throw new Error(\"Something went wrong\", { cause: error });\n     }\n }\n ```\n\n ### Valid\n\n ```js\n try {\n   // ...\n } catch (err) {\n   throw new Error(\"Something went wrong\", { cause: err });\n }\n\n try {\n     throw \"Not a rethrow, so it's ignored when nested\";\n } catch (err) {\n     const fn = () => {\n         throw new Error(\"New unrelated error\");\n     }\n     fn();\n }\n ```\n\n ## Options\n\n The following options are available:\n\n ### `requireCatchParameter`\n\n If `true`, the rule will report a diagnostic for a `throw` statement inside an empty `catch {}` block, recommending that the error be caught in a parameter.\n\n Default: `true`\n\n ```json,options\n {\n     \"options\": {\n         \"requireCatchParameter\": false\n     }\n }\n ```\n\n This option is enabled by default, meaning the following code is considered invalid:\n\n ```js,expect_diagnostic\n try {\n     doSomething();\n } catch {\n     throw new Error(\"Something went wrong\");\n }\n ```\n\n To disable this check, you would set the option to `false`:\n\n ```js,use_options\n try {\n     doSomething();\n } catch {\n     throw new Error(\"Something went wrong\");\n }\n ```\n\n"
+          },
           "useExhaustiveSwitchCases": {
             "deprecated": false,
             "version": "2.0.0",
@@ -3430,7 +3690,7 @@ export function GET() {
           },
           "useVueConsistentDefinePropsDeclaration": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.11",
             "name": "useVueConsistentDefinePropsDeclaration",
             "link": "https://biomejs.dev/linter/rules/use-vue-consistent-define-props-declaration",
             "recommended": false,
@@ -5891,7 +6151,7 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/no-svg-without-title",
             "recommended": true,
             "fixKind": "none",
-            "docs": " Enforces the usage of the `title` element for the `svg` element.\n\n It is not possible to specify the `alt` attribute for the `svg` as for the `img`.\n To make svg accessible, the following methods are available:\n - provide the `title` element as the first child to `svg`\n - provide `role=\"img\"` and `aria-label` or `aria-labelledby` to `svg`\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <svg>foo</svg>\n ```\n\n ```jsx,expect_diagnostic\n <svg>\n     <title></title>\n     <circle />\n </svg>\n ```\n\n ```jsx,expect_diagnostic\n <svg>foo</svg>\n ```\n\n ```jsx\n <svg role=\"img\" aria-label=\"\">\n     <span id=\"\">Pass</span>\n </svg>\n ```\n\n ```jsx\n <svg role=\"presentation\">foo</svg>\n ```\n\n ### Valid\n\n ```jsx\n <svg>\n     <rect />\n     <rect />\n     <g>\n         <circle />\n         <circle />\n         <g>\n             <title>Pass</title>\n             <circle />\n             <circle />\n         </g>\n     </g>\n </svg>\n ```\n\n ```jsx\n <svg>\n     <title>Pass</title>\n     <circle />\n </svg>\n ```\n\n ```jsx\n <svg role=\"img\" aria-labelledby=\"title\">\n     <span id=\"title\">Pass</span>\n </svg>\n ```\n\n ```jsx\n <svg role=\"img\" aria-label=\"title\">\n     <span id=\"title\">Pass</span>\n </svg>\n ```\n ```jsx\n <svg role=\"graphics-symbol\"><rect /></svg>\n ```\n\n ```jsx\n <svg role=\"graphics-symbol img\"><rect /></svg>\n ```\n\n ```jsx\n <svg aria-hidden=\"true\"><rect /></svg>\n ```\n\n\n ## Accessibility guidelines\n [Document Structure – SVG 1.1 (Second Edition)](https://www.w3.org/TR/SVG11/struct.html#DescriptionAndTitleElements)\n [ARIA: img role - Accessibility | MDN](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/img_role)\n [Accessible SVGs | CSS-Tricks - CSS-Tricks](https://css-tricks.com/accessible-svgs/)\n [Contextually Marking up accessible images and SVGs | scottohara.me](https://www.scottohara.me/blog/2019/05/22/contextual-images-svgs-and-a11y.html)\n [Accessible SVGs](https://www.unimelb.edu.au/accessibility/techniques/accessible-svgs)\n\n"
+            "docs": " Enforces the usage of the `title` element for the `svg` element.\n\n It is not possible to specify the `alt` attribute for the `svg` as for the `img`.\n To make svg accessible, the following methods are available:\n - provide the `title` element as the first child to `svg`\n - provide `role=\"img\"` and `aria-label` or `aria-labelledby` to `svg`\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <svg>foo</svg>\n ```\n\n ```jsx,expect_diagnostic\n <svg>\n     <title></title>\n     <circle />\n </svg>\n ```\n\n ```jsx,expect_diagnostic\n <svg>foo</svg>\n ```\n\n ```jsx,expect_diagnostic\n <svg>\n     <rect />\n     <rect />\n     <g>\n         <title>foo</title>\n         <circle />\n         <circle />\n     </g>\n </svg>\n ```\n\n ```jsx,expect_diagnostic\n <svg role=\"graphics-symbol\"><rect /></svg>\n ```\n\n ### Valid\n\n\n ```jsx\n <svg>\n     <title>Pass</title>\n     <circle />\n </svg>\n ```\n\n ```jsx\n <svg role=\"img\" aria-labelledby=\"title\">\n     <span id=\"title\">Pass</span>\n </svg>\n ```\n\n ```jsx\n <svg role=\"img\" aria-label=\"title\">\n     <span id=\"title\">Pass</span>\n </svg>\n ```\n\n ```jsx\n <svg role=\"graphics-symbol\">\n     <title>Pass</title>\n     <rect />\n </svg>\n ```\n\n ```jsx\n <svg role=\"graphics-symbol img\"><rect /></svg>\n ```\n\n ```jsx\n <svg aria-hidden=\"true\"><rect /></svg>\n ```\n\n ```jsx\n <svg role=\"img\" aria-label=\"\">\n     <span id=\"\">Pass</span>\n </svg>\n ```\n\n ```jsx\n <svg role=\"presentation\">foo</svg>\n ```\n\n\n ## Accessibility guidelines\n [Document Structure – SVG 1.1 (Second Edition)](https://www.w3.org/TR/SVG11/struct.html#DescriptionAndTitleElements)\n [ARIA: img role - Accessibility | MDN](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/img_role)\n [Accessible SVGs | CSS-Tricks - CSS-Tricks](https://css-tricks.com/accessible-svgs/)\n [Contextually Marking up accessible images and SVGs | scottohara.me](https://www.scottohara.me/blog/2019/05/22/contextual-images-svgs-and-a11y.html)\n [Accessible SVGs](https://www.unimelb.edu.au/accessibility/techniques/accessible-svgs)\n\n"
           },
           "useAltText": {
             "deprecated": false,
@@ -6465,7 +6725,7 @@ export function GET() {
         "nursery": {
           "noBeforeInteractiveScriptOutsideDocument": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.11",
             "name": "noBeforeInteractiveScriptOutsideDocument",
             "link": "https://biomejs.dev/linter/rules/no-before-interactive-script-outside-document",
             "recommended": false,
@@ -6499,7 +6759,7 @@ export function GET() {
           },
           "noJsxPropsBind": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.3.11",
             "name": "noJsxPropsBind",
             "link": "https://biomejs.dev/linter/rules/no-jsx-props-bind",
             "recommended": false,
@@ -6547,6 +6807,23 @@ export function GET() {
               }
             ],
             "docs": " Disallow unknown DOM properties.\n\n In JSX, most DOM properties and attributes should be camelCased to be consistent with standard JavaScript style.\n This can be a possible source of error if you are used to writing plain HTML.\n Only `data-*` and `aria-*` attributes are allowed to use hyphens and lowercase letters in JSX.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div allowTransparency=\"true\" />\n ```\n\n ```jsx,expect_diagnostic\n <div onclick={() => {}} />\n ```\n\n ```jsx,expect_diagnostic\n <div for=\"bar\" />\n ```\n\n ### Valid\n\n ```jsx\n <div className=\"foo\" />\n ```\n\n ```jsx\n <div onClick={() => {}} />\n ```\n\n ```jsx\n <div htmlFor=\"bar\" />\n ```\n\n ```jsx\n <div data-foo=\"bar\" />\n ```\n\n ```jsx\n <div aria-label=\"Close\" />\n ```\n\n ## Options\n\n ### `ignore`\n\n An array of property and attribute names to ignore during validation.\n\n ```json\n {\n   \"noUnknownAttribute\": {\n     \"options\": {\n       \"ignore\": [\"custom-attribute\", \"non-standard-prop\"]\n     }\n   }\n }\n ```\n"
+          },
+          "useInlineScriptId": {
+            "deprecated": false,
+            "version": "2.3.12",
+            "name": "useInlineScriptId",
+            "link": "https://biomejs.dev/linter/rules/use-inline-script-id",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintNext": "inline-script-id"
+                }
+              }
+            ],
+            "docs": " Enforce `id` attribute on `next/script` components with inline content or `dangerouslySetInnerHTML`.\n\n Using inline scripts or `dangerouslySetInnerHTML` in `next/script` components requires an `id` attribute to ensure that Next.js can track and optimize them correctly.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n import Script from 'next/script'\n\n export default function Page() {\n   return (\n      <Script>{`console.log('Hello world!');`}</Script>\n   )\n }\n ```\n\n ```jsx,expect_diagnostic\n import Script from 'next/script'\n\n export default function Page() {\n   return (\n      <Script dangerouslySetInnerHTML={{ __html: `console.log('Hello world!');` }} />\n   )\n }\n ```\n\n ### Valid\n ```jsx\n import Script from 'next/script'\n\n export default function Page() {\n   return (\n      <Script id=\"my-script\">{`console.log('Hello world!');`}</Script>\n   )\n }\n ```\n\n ```jsx\n import Script from 'next/script'\n\n export default function Page() {\n   return (\n      <Script id=\"my-script\" dangerouslySetInnerHTML={{ __html: `console.log('Hello world!');` }} />\n   )\n }\n ```\n\n"
           },
           "useQwikMethodUsage": {
             "deprecated": false,
@@ -6922,9 +7199,27 @@ export function GET() {
                 "source": {
                   "eslintTypeScript": "ban-types"
                 }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintTypeScript": "no-empty-object-type"
+                }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintTypeScript": "no-wrapper-object-types"
+                }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintTypeScript": "no-unsafe-function-type"
+                }
               }
             ],
-            "docs": " Disallow primitive type aliases and misleading types.\n\n This rule aims to prevent usage of potentially \"misleading\" types and type aliases\n which may behave unexpectedly.\n\n ### Disallow \"boxed object\" types like `Boolean` and `Number`\n\n JavaScript's 8 data types are described in TypeScript by the lowercase types\n `undefined`, `null`, `boolean`, `number`, `string`, `bigint`, `symbol`, and `object`.\n\n The latter 6 also have uppercase variants, which instead represent _interfaces_ with the shared properties of their primitive counterparts.\n Due to the nature of structural typing, these uppercase types accept both primitive values and non-primitive \"boxed object\"s\n like `new Boolean(true)`, despite the two behaving differently in many circumstances like equality and truthiness.\n\n It is thus considered best practice to avoid these \"boxed types\" in favor of their lowercase\n primitive counterparts.\n\n ### Disallow the unsafe `Function` type\n\n TypeScript's built-in `Function` type is capable of accepting callbacks of any shape or form,\n behaving equivalent to `(...rest: any[]) => any` (which uses the unsafe `any` type) when called directly.\n It also accepts classes or plain objects that happen to possess all properties of the `Function` class,\n which is likewise a potential source of confusion.\n\n As such, it is almost always preferable to explicitly specify function parameters and return types where possible. \\\n When a generic \"catch-all\" callback type is required, one of the following can be used instead:\n - `() => void`: A function that accepts no parameters and whose return value is ignored\n - `(...args: never) => unknown`: A \"top type\" for functions that can be assigned any function type,\n    but can't be called directly\n\n ### Disallow the misleading empty object type `{}`\n In TypeScript, the type `{}` _doesn't_ represent an empty object (as many new to the language may assume).\n It actually accepts any non-nullish value, _including non-object primitives_.\n The following TypeScript example is thus perfectly valid:\n\n ```ts,expect_diagnostic\n const n: {} = 0;\n ```\n\n Often, developers writing `{}` actually mean one of the following:\n - `object`: Represents any object value\n - `unknown`: Represents any value at all, including `null` and `undefined`\n - `{ [k: string]: never }` or `Record<string, never>`: Represent object types that disallow property access\n\n To avoid confusion, this rule forbids the use of the type `{}`, except in two situations:\n\n 1. In type constraints to restrict a generic type to non-nullable types:\n\n ```ts\n function f<T extends {}>(x: T) {\n     assert(x != null);\n }\n ```\n\n 2. In a type intersection to narrow a type to its non-nullable equivalent type:\n\n ```ts\n type NonNullableMyType = MyType & {};\n ```\n\n In this last case, you can also use the `NonNullable` utility type to the same effect:\n\n ```ts\n type NonNullableMyType = NonNullable<MyType>;\n ```\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n let foo: String = \"bar\";\n ```\n\n ```ts,expect_diagnostic\n const bool = true as Boolean;\n ```\n\n ```ts,expect_diagnostic\n let invalidTuple: [string, Number] = [\"foo\", 12];\n ```\n\n ```ts,expect_diagnostic\n function badFunction(cb: Function) {\n   cb(12);\n }\n ```\n\n ```ts,expect_diagnostic\n const notEmpty: {} = {prop: 12};\n ```\n\n ```ts,expect_diagnostic\n const alsoNotAnObj: Object = \"foo\";\n ```\n\n ### Valid\n\n ```ts\n const foo: string = \"bar\";\n ```\n\n ```ts\n let tuple: [boolean, string] = [false, \"foo\"];\n ```\n\n ```ts\n function betterFunction(cb: (n: number) => string) {\n   return cb(12);\n }\n ```\n\n ```ts\n type wrapFn<T extends (...args: never) => unknown> = { func: T }\n ```\n\n ```ts\n const goodObj: object = {foo: 12};\n ```\n\n ```ts\n type emptyObj = Record<string, never>;\n ```\n\n Exceptions for `{}`:\n ```ts\n declare function foo<T extends {}>(x: T): void;\n ```\n\n ```ts\n type notNull<T> = T & {};\n ```\n\n"
+            "docs": " Disallow primitive type aliases and misleading types.\n\n This rule aims to prevent usage of potentially \"misleading\" types and type aliases\n which may behave unexpectedly.\n\n ### Disallow \"boxed object\" types like `Boolean` and `Number`\n\n JavaScript's 8 data types are described in TypeScript by the lowercase types\n `undefined`, `null`, `boolean`, `number`, `string`, `bigint`, `symbol`, and `object`.\n\n The latter 6 also have uppercase variants, which instead represent _interfaces_ with the shared properties of their primitive counterparts.\n Due to the nature of structural typing, these uppercase types accept both primitive values and non-primitive \"boxed object\"s\n like `new Boolean(true)`, despite the two behaving differently in many circumstances like equality and truthiness.\n\n It is thus considered best practice to avoid these \"boxed types\" in favor of their lowercase\n primitive counterparts.\n\n ### Disallow the unsafe `Function` type\n\n TypeScript's built-in `Function` type is capable of accepting callbacks of any shape or form,\n behaving equivalent to `(...rest: any[]) => any` (which uses the unsafe `any` type) when called directly. \\\n It also accepts classes or plain objects that happen to possess all properties of the `Function` class,\n which is likewise a potential source of confusion.\n\n As such, it is almost always preferable to explicitly specify function parameters and return types where possible. \\\n When a generic \"catch-all\" callback type is required, one of the following can be used instead:\n - `() => void`: A function that accepts no parameters and whose return value is ignored\n - `(...args: never) => unknown`: A \"top type\" for functions that can be _assigned_ any function type,\n    but can't be called directly\n\n ### Disallow the misleading empty object type `{}`\n `{}`, also known as the \"empty object\" type, _doesn't_ actually represent an empty object (despite what many new to TypeScript may assume). \\\n Due to TypeScript's type system being _structural_ instead of nominal, it actually accepts _any non-nullish value_,\n The following example is thus perfectly valid TypeScript:\n\n ```ts,ignore\n const n: {} = 0;\n ```\n\n Often, developers writing `{}` actually mean one of the following:\n - `object`: Represents any object value\n - `unknown`: Represents any value at all, including `null` and `undefined`\n - `{ [k: keyof any]: never }` or `Record<keyof any, never>`: Represent object types whose properties are all of type `never` (and cannot be used)\n - `{ [myUniqueInternalSymbol]?: never }`: Represents an object type whose only \"property\" is an unexported `unique symbol`, thereby forcing external consumers to omit it[^2]. \\\n   This can be used as a type guard for use in `extends` clauses or a type annotation for use in [excess property checks](https://www.typescriptlang.org/docs/handbook/2/objects.html#excess-property-checks),\n   both with their own respective use cases and pitfalls.\n\n To avoid confusion, this rule forbids the use of the type `{}`, except in two situations:\n\n 1. In type constraints to restrict a generic type to non-nullable types:\n\n ```ts\n function f<T extends {}>(x: T) {\n     assert(x != null);\n }\n ```\n\n 2. In a type intersection to narrow a type to its non-nullable equivalent type:\n\n ```ts\n type NonNullableMyType = MyType & {};\n ```\n\n In this last case, you can also use the `NonNullable` utility type to the same effect:\n\n ```ts\n // equivalent to `{}`\n type AnythingNotNullish = NonNullable<unknown>;\n ```\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n let foo: String = \"bar\";\n ```\n\n ```ts,expect_diagnostic\n const bool = true as Boolean;\n ```\n\n ```ts,expect_diagnostic\n let invalidTuple: [string, Number] = [\"foo\", 12];\n ```\n\n ```ts,expect_diagnostic\n function badFunction(cb: Function) {\n   cb(12);\n }\n ```\n\n ```ts,expect_diagnostic\n const notEmpty: {} = {prop: 12};\n ```\n\n ```ts,expect_diagnostic\n const alsoNotAnObj: Object = \"foo\";\n ```\n\n ### Valid\n\n ```ts\n const foo: string = \"bar\";\n ```\n\n ```ts\n let tuple: [boolean, string] = [false, \"foo\"];\n ```\n\n ```ts\n function betterFunction(cb: (n: number) => string) {\n   return cb(12);\n }\n ```\n\n ```ts\n type wrapFn<T extends (...args: never) => unknown> = { func: T }\n ```\n\n ```ts\n const goodObj: object = {foo: 12};\n ```\n\n ```ts\n type emptyObj = Record<string, never>;\n ```\n\n Exceptions for `{}`:\n ```ts\n declare function foo<T extends {}>(x: T): void;\n ```\n\n ```ts\n type notNull<T> = T & {};\n ```\n\n [^1]: This is the exact same mechanism that allows passing `{ foo: number, bar: string }`\n to a function expecting `{ bar: string }`.\n Specifying `{}` doesn't restrict compatible types to ones with _exactly_ 0 properties;\n it simply requires they have _at least_ 0 properties.\n [^2]: In this case, you'd write `declare const myUniqueInternalSymbol: unique symbol` somewhere in the same file.\n"
           },
           "noEmptyTypeParameters": {
             "deprecated": false,
@@ -7516,7 +7811,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 435
+    "numberOrRules": 452
   },
   "syntax": {
     "languages": {
@@ -7591,7 +7886,21 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/organize-imports",
             "recommended": true,
             "fixKind": "safe",
-            "docs": " Provides a code action to sort the imports and exports in the file using a built-in or custom order.\n\n Imports and exports are first separated into chunks, before being sorted.\n Imports or exports of a chunk are then grouped according to the user-defined groups.\n Within a group, imports are sorted using a built-in order that depends on the import/export kind, whether the import/export has attributes and the source being imported from.\n **source** is also often called **specifier** in the JavaScript ecosystem.\n\n ```js,ignore\n import A from \"@my/lib\" with { \"attribute1\": \"value\" };\n ^^^^^^^^       ^^^^^^^         ^^^^^^^^^^^^^^^^^^^^^\n   kind         source                attributes\n\n export * from \"@my/lib\" with { \"attribute1\": \"value\" };\n ^^^^^^^^       ^^^^^^^         ^^^^^^^^^^^^^^^^^^^^^\n   kind         source                attributes\n ```\n\n\n ## Chunk of imports and chunk of exports\n\n A **chunk** is a sequence of adjacent imports or exports.\n A chunk contains only imports or exports, not both at the same time.\n The following example includes two chunks.\n The first chunk consists of the three imports and the second chunk consists of the three exports.\n\n ```js,ignore\n // chunk 1\n import A from \"a\";\n import * as B from \"b\";\n import { C } from \"c\";\n // chunk 2\n export * from \"d\";\n export * as F from \"e\";\n export { F } from \"f\";\n ```\n\n Chunks also end as soon as a statement or a **side-effect import** (also called _bare import_) is encountered.\n Every side-effect import forms an independent chunk.\n The following example contains six chunks:\n\n ```js,ignore\n // chunk 1\n import A from \"a\";\n import * as B from \"b\";\n // chunk 2\n import \"x\";\n // chunk 3\n import \"y\";\n // chunk 4\n import { C } from \"c\";\n // chunk 5\n export * from \"d\";\n function f() {}\n // chunk 6\n export * as E from \"e\";\n export { F } from \"f\";\n ```\n\n 1. The first chunk contains the two first `import` and ends with the appearance of the first side-effect import `import \"x\"`.\n 2. The second chunk contains only the side-effect import `import \"x\"`.\n 3. The third chunk contains only the side-effect import `import \"y\"`.\n 4. The fourth chunk contains a single `import`; The first `export` ends it.\n 5. The fifth chunk contains the first `export`; The function declaration ends it.\n 6. The sixth chunk contains the last two `export`.\n\n Chunks are also delimited by detached comments.\n A **detached comment** is a comment followed by a blank line.\n Comments not followed by a blank line are **attached comments**.\n Note that blank lines alone are not taken into account when chunking imports and exports.\n The following example contains a detached comment that splits the imports into two chunks:\n\n ```js,ignore\n // Attached comment 1\n import A from \"a\";\n\n // Attached comment 2\n import * as B from \"b\";\n // Detached comment\n\n import { C } from \"c\";\n ```\n\n The line `import { C } from \"c\"` forms the second chunk.\n The blank line between the first two imports is ignored so they form a single chunk.\n\n The sorter ensures that chunks are separated from each other with blank lines.\n Only side-effect imports adjacent to a chunk of imports are not separated by a blank line.\n The following code...\n\n ```js,ignore\n import A from \"a\";\n import * as B from \"b\";\n import \"x\";\n import { C } from \"c\";\n export * from \"d\";\n // Detached comment\n\n export * as F from \"e\";\n // Attached comment\n export { F } from \"f\";\n ```\n\n is sorted as:\n\n ```js,ignore\n import A from \"a\";\n import * as B from \"b\";\n import \"x\";\n import { C } from \"c\";\n\n export * from \"d\";\n\n // Detached comment\n\n export * as F from \"e\";\n // Attached comment\n export { F } from \"f\";\n ```\n\n Also, note that blank lines inside a chunk are ignored and preserved.\n They can be removed by explicitly defining groups as demonstrated in the next section.\n\n\n ## Import and export sorting\n\n Once chunks are formed, imports and exports of each chunk are sorted.\n Imports and exports are sorted by their source.\n Sources are ordered by \"distance\".\n Sources that are \"farther\" from the current module are put on the top, sources \"closer\" to the user are put on the bottom.\n This leads to the following order:\n\n 1. URLs such as `https://example.org`.\n 2. Packages with a protocol such as `node:path`, `bun:test`, `jsr:@my?lib`, or `npm:lib`.\n 3. Packages such as `mylib` or `@my/lib`.\n 4. Aliases: sources starting with `@/`, `#`, `~`, `$`, or `%`.\n    They usually are [Node.js subpath imports](https://nodejs.org/api/packages.html#subpath-imports) or [TypeScript path aliases](https://www.typescriptlang.org/tsconfig/#paths).\n 5. Absolute and relative paths.\n\n Two imports/exports with the same source category are sorted using a [natural sort order](https://en.wikipedia.org/wiki/Natural_sort_order) tailored to URLs, packages, and paths.\n Notably, the order ensures that `A < a < B < b`.\n The order takes also numbers into account, e.g. `a9 < a10`.\n\n For example, the following code...\n\n ```js,ignore\n import sibling from \"./file.js\";\n import internal from \"#alias\";\n import fs from \"fs\";\n import { test } from \"node:test\";\n import path from \"node:path\";\n import parent from \"../parent.js\";\n import scopedLibUsingJsr from \"jsr:@scoped/lib\";\n import data from \"https://example.org\";\n import lib from \"lib\";\n import scopedLib from \"@scoped/lib\";\n ```\n\n ...is sorted as follows:\n\n ```js,ignore\n import data from \"https://example.org\";\n import scopedLibUsingJsr from \"jsr:@scoped/lib\";\n import path from \"node:path\";\n import { test } from \"node:test\";\n import scopedLib from \"@scoped/lib\";\n import fs from \"fs\";\n import lib from \"lib\";\n import internal from \"#alias\";\n import parent from \"../parent.js\";\n import sibling from \"./file.js\";\n ```\n\n If two imports or exports share the same source and are in the same chunk, then they are ordered according to their kind as follows:\n\n 1. Namespace type import / Namespace type export\n 2. Default type import\n 3. Named type import / Named type export\n 4. Namespace import / Namespace export\n 5. Combined default and namespace import\n 6. Default import\n 7. Combined default and named import\n 8. Named import / Named export\n\n Imports and exports with attributes are always placed first.\n For example, the following code...\n\n ```ts,ignore\n import * as namespaceImport from \"same-source\";\n import type * as namespaceTypeImport from \"same-source\";\n import type { namedTypeImport } from \"same-source\";\n import defaultNamespaceCombined, * as namespaceCombined from \"same-source\";\n import defaultNamedCombined, { namedCombined } from \"same-source\";\n import defaultImport from \"same-source\";\n import type defaultTypeImport from \"same-source\";\n import { importWithAttribute } from \"same-source\" with { \"attribute\": \"value\" } ;\n ```\n\n is sorted as follows:\n\n ```ts,ignore\n import { importWithAttribute } from \"same-source\" with { \"attribute\": \"value\" } ;\n import type * as namespaceTypeImport from \"same-source\";\n import type defaultTypeImport from \"same-source\";\n import type { namedTypeImport } from \"same-source\";\n import * as namespaceImport from \"same-source\";\n import defaultNamespaceCombined, * as namespaceCombined from \"same-source\";\n import defaultImport from \"same-source\";\n import defaultNamedCombined, { namedCombined } from \"same-source\";\n ```\n\n This default order cannot be changed.\n However, users can still customize how imports and exports are sorted using the concept of groups as explained in the following section.\n\n\n ## Import and export groups\n\n Imports or exports of a chunk are divided into groups before being sorted with the built-in order described in the previous section.\n By default every chunk consists of a single group.\n These default groups and their order may not be to your taste.\n The sorter provides a `groups` option that allows you to customize how the chunks are divided into groups.\n The `groups` option is a list of group matchers.\n A group matcher is:\n\n - A predefined group matcher, or\n - A glob pattern, or\n - An object matcher, or\n - A list of glob patterns, predefined group matchers, and object matchers.\n\n Predefined group matchers are strings in `CONSTANT_CASE` prefixed and suffixed by `:`.\n The sorter provides several predefined group matchers:\n\n - `:ALIAS:`: sources starting with `#`, `@/`, `~`, `$`, or `%`.\n - `:BUN:`: sources starting with the protocol `bun:` or that correspond to a built-in Bun module such as `bun`.\n - `:NODE:`: sources starting with the protocol `node:` or that correspond to a built-in Node.js module such as `fs` or `path`.\n - `:PACKAGE:`: scoped and bare packages.\n - `:PACKAGE_WITH_PROTOCOL:`: scoped and bare packages with a protocol.\n - `:PATH:`: absolute and relative paths.\n - `:URL:`: sources starting with `https://` and `http://`.\n\n Let's take an example.\n In the default configuration, Node.js modules without the `node:` protocol are separated from those with a protocol.\n To group them together, you can use the predefined group `:NODE:`.\n Given the following configuration...\n\n ```json,full_options\n {\n     \"assist\": {\n         \"actions\": {\n             \"source\": {\n                 \"organizeImports\": {\n                     \"level\": \"on\",\n                     \"options\": {\n                         \"groups\": [\n                             \":URL:\",\n                             \":NODE:\"\n                         ]\n                     }\n                 }\n             }\n         }\n     }\n }\n ```\n\n ...and the following code...\n\n ```js,ignore\n import sibling from \"./file.js\";\n import internal from \"#alias\";\n import fs from \"fs\";\n import { test } from \"node:test\";\n import path from \"node:path\";\n import parent from \"../parent.js\";\n import scopedLibUsingJsr from \"jsr:@scoped/lib\";\n import data from \"https://example.org\";\n import lib from \"lib\";\n import scopedLib from \"@scoped/lib\";\n ```\n\n ...we end up with the following sorted result where the imports of `node:path` and the `fs` Node.js module are grouped together:\n\n ```js,ignore\n import data from \"https://example.org\";\n import fs from \"fs\";\n import path from \"node:path\";\n import { test } from \"node:test\";\n import scopedLibUsingJsr from \"jsr:@scoped/lib\";\n import scopedLib from \"@scoped/lib\";\n import lib from \"lib\";\n import internal from \"#alias\";\n import parent from \"../parent.js\";\n import sibling from \"./file.js\";\n ```\n\n Note that all imports that don't match a group matcher are always placed at the end.\n\n\n Group matchers can also be glob patterns and list of glob patterns.\n Glob patterns select imports and exports with a source that matches the pattern.\n In the following example, we create two groups: one that gathers imports/exports with a source starting with `@my/lib` except `@my/lib/special` and the other that gathers imports/exports starting with `@/`.\n\n ```json\n {\n     \"options\": {\n         \"groups\": [\n             [\"@my/lib\", \"@my/lib/**\", \"!@my/lib/special\", \"!@my/lib/special/**\"],\n             \"@/**\"\n         ]\n     }\n }\n ```\n\n By applying this configuration to the following code...\n\n ```js,ignore\n import lib from \"@my/lib\";\n import aliased from \"@/alias\";\n import path from \"@my/lib/special\";\n import test from \"@my/lib/path\";\n ```\n\n ...we obtain the following sorted result.\n Imports with the sources `@my/lib` and `@my/lib/path` form the first group.\n They match the glob patterns `@my/lib` and `@my/lib/**` respectively.\n The import with the source `@my/lib/special` is not placed in this first group because it is rejected by the exception `!@my/lib/special`.\n The import with the source `@/alias` is placed in a second group because it matches the glob pattern `@/**`.\n Finally, other imports are placed at the end.\n\n ```js,ignore\n import lib from \"@my/lib\";\n import test from \"@my/lib/path\";\n import aliased from \"@/alias\";\n import path from \"@my/lib/special\";\n ```\n\n Note that `@my/lib` matches `@my/lib` but not `@my/lib/**`.\n Conversely, `@my/lib/subpath` matches `@my/lib/**`, but not `@my/lib`.\n So, you have to specify both glob patterns if you want to accept all imports/exports that start with `@my/lib`.\n The prefix `!` indicates an exception.\n You can create exceptions of exceptions by following an exception by a regular glob pattern.\n For example `[\"@my/lib\", \"@my/lib/**\", \"!@my/lib/special\", \"!@my/lib/special/**\", \"@my/lib/special/*/accepted/**\"]` allows you to accepts all sources matching `@my/lib/special/*/accepted/**`.\n Note that the predefined groups can also be negated. `!:NODE:` matches all sources that don't match `:NODE:`.\n For more details on the supported glob patterns, see the dedicated section.\n\n Finally, group matchers can be object matchers.\n An object matcher allows to match type-only imports and exports.\n\n Given the following configuration:\n\n ```json\n {\n     \"options\": {\n         \"groups\": [\n             { \"type\": false, \"source\": [\"@my/lib\", \"@my/lib/**\"] },\n             [\"@my/lib\", \"@my/lib/**\"]\n         ]\n     }\n }\n ```\n\n The following code:\n\n ```ts,ignore\n import type { T } from \"@my/lib\";\n import { V } from \"@my/lib\";\n ```\n\n is sorted as follows:\n\n ```ts,ignore\n import { V } from \"@my/lib\";\n import type { T } from \"@my/lib\";\n ```\n\n The object matcher `{ \"type\": false, \"source\": [\"@my/lib\", \"@my/lib/**\"] }` match against imports and exports without the `type` keyword with a source that matches one of the glob pattern of the list `[\"@my/lib\", \"@my/lib/**\"]`.\n\n The sorter allows the separation of two groups with a blank line using the predefined string `:BLANK_LINE:`.\n Given the following configuration...\n\n ```json\n {\n     \"options\": {\n         \"groups\": [\n             [\":BUN:\", \":NODE:\"],\n             \":BLANK_LINE:\",\n             [\"@my/lib\", \"@my/lib/**\", \"!@my/lib/special\", \"!@my/lib/special/**\"],\n             \"@/**\"\n         ]\n     }\n }\n ```\n\n ...the following code...\n\n ```js,ignore\n import test from \"bun:test\";\n import path from \"node:path\";\n import lib from \"@my/lib\";\n import libPath from \"@my/lib/path\";\n import libSpecial from \"@my/lib/special\";\n import aliased from \"@/alias\";\n ```\n\n ...is sorted as:\n\n ```js,ignore\n import path from \"node:path\";\n\n import lib from \"@my/lib\";\n import test from \"@my/lib/path\";\n import aliased from \"@/alias\";\n import path from \"@my/lib/special\";\n ```\n\n Groups are matched in order.\n This means that one group matcher can shadow succeeding groups.\n For example, in the following configuration, the group matcher `:URL:` is never matched because all imports and exports match the first matcher `**`.\n\n ```json\n {\n     \"options\": {\n         \"groups\": [\n             \"**\",\n             \":URL:\"\n         ]\n     }\n }\n ```\n\n\n ## Comment handling\n\n When sorting imports and exports, attached comments are moved with their import or export,\n and detached comments (comments followed by a blank line) are left where they are.\n\n However, there is an exception to the rule.\n If a comment appears at the top of the file, it is considered as detached even if no blank line follows.\n This ensures that copyright notice and file header comments stay at the top of the file.\n\n For example, the following code...\n\n ```js,ignore\n // Copyright notice and file header comment\n import F from \"f\";\n // Attached comment for `e`\n import E from \"e\";\n // Attached comment for `d`\n import D from \"d\";\n // Detached comment (new chunk)\n\n // Attached comment for `b`\n import B from \"b\";\n // Attached comment for `a`\n import A from \"a\";\n ```\n\n ...is sorted as follows.\n A blank line is automatically added after the header comment to ensure that the attached comment doesn't merge with the header comment.\n\n ```js,ignore\n // Copyright notice and file header comment\n\n // Attached comment for `d`\n import D from \"d\";\n // Attached comment for `e`\n import E from \"e\";\n import F from \"f\";\n\n // Detached comment (new chunk)\n\n // Attached comment for `a`\n import A from \"a\";\n // Attached comment for `b`\n import B from \"b\";\n ```\n\n\n ## Import and export merging\n\n The organizer also merges imports and exports that can be merged.\n\n For example, the following code:\n\n ```ts,ignore\n import type { T1 } from \"package\";\n import type { T2 } from \"package\";\n import * as ns from \"package\";\n import D1 from \"package\";\n import D2 from \"package\";\n import { A } from \"package\";\n import { B } from \"package\";\n ```\n\n is merged as follows:\n\n ```ts,ignore\n import type { T1, T2 } from \"package\";\n import D1, * as ns from \"package\";\n import D2, { A, B } from \"package\";\n ```\n\n\n ## Named imports, named exports and attributes sorting\n\n The sorter also sorts named imports, named exports, as well as attributes.\n It uses a natural sort order for comparing numbers.\n\n The following code...\n\n ```js,ignore\n import { a, b, A, B, c10, c9 } from \"a\";\n\n export { a, b, A, B, c10, c9 } from \"a\";\n\n import special from  \"special\" with { \"type\": \"ty\", \"metadata\": \"data\" };\n ```\n\n ...is sorted as follows:\n\n ```js,ignore\n import { A, a, B, b, c9, c10 } from \"a\";\n\n export { A, a, B, b, c9, c10 } from \"a\";\n\n import special from  \"special\" with { \"metadata\": \"data\", \"type\": \"ty\" };\n ```\n\n\n ## Supported glob patterns\n\n You need to understand the structure of a source to understand which source matches a glob.\n A source is divided in source segments.\n Every source segment is delimited by the separator `/` or the start/end of the source.\n For instance `src/file.js` consists of two source segments: `src` and `file.js`.\n\n - star `*` that matches zero or more characters inside a source segment\n\n   `file.js` matches `*.js`.\n   Conversely, `src/file.js` doesn't match `*.js`\n\n - globstar `**` that matches zero or more source segments\n   `**` must be enclosed by separators `/` or the start/end of the glob.\n   For example, `**a` is not a valid glob.\n   Also, `**` must not be followed by another globstar.\n   For example, `**/**` is not a valid glob.\n\n   `file.js` and `src/file.js` match `**` and `**/*.js`\n   Conversely, `README.txt` doesn't match `**/*.js` because the source ends with `.txt`.\n\n - Use `\\*` to escape `*`\n\n   `\\*` matches the literal `*` character in a source.\n\n - `?`, `[`, `]`, `{`, and `}` must be escaped using `\\`.\n   These characters are reserved for possible future use.\n\n - Use `!` as first character to negate a glob\n\n   `file.js` matches `!*.test.js`.\n   `src/file.js` matches `!*.js` because the source contains several segments.\n\n\n ## Common configurations\n\n This section provides some examples of common configurations.\n\n ### Placing `import type` and `export type` at the start of the chunks\n\n ```json\n {\n     \"options\": {\n         \"groups\": [\n             { \"type\": true }\n         ]\n     }\n }\n ```\n\n Note that you may want to use the lint rule [`useImportType`](https://next.biomejs.dev/linter/rules/use-import-type/) and its [`style`](https://next.biomejs.dev/linter/rules/use-import-type/#style) to enforce the use of `import type` instead of `import { type }`.\n\n ### Placing `import type` and `export type` at the end of the chunks\n\n ```json\n {\n     \"options\": {\n         \"groups\": [\n             { \"type\": false }\n         ]\n     }\n }\n ```\n\n ## Change the sorting of import identifiers to lexicographic sorting\n This only applies to the named import/exports and not the source itself.\n\n ```json,options\n {\n     \"options\": {\n         \"identifierOrder\": \"lexicographic\"\n     }\n }\n ```\n ```js,use_options,expect_diagnostic\n import { var1, var2, var21, var11, var12, var22 } from 'my-package'\n ```\n\n ## Change the sorting of import identifiers to logical sorting\n This is the default behavior in case you do not override. This only applies to the named import/exports and not the source itself.\n\n ```json,options\n {\n     \"options\": {\n         \"identifierOrder\": \"natural\"\n     }\n }\n ```\n ```js,use_options,expect_diagnostic\n import { var1, var2, var21, var11, var12, var22 } from 'my-package'\n ```\n\n"
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslint": "sort-imports"
+                }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslint": "no-duplicate-imports"
+                }
+              }
+            ],
+            "docs": " Provides a code action to sort the imports and exports in the file using a built-in or custom order.\n\n Imports and exports are first separated into chunks, before being sorted.\n Imports or exports of a chunk are then grouped according to the user-defined groups.\n Within a group, imports are sorted using a built-in order that depends on the import/export kind, whether the import/export has attributes and the source being imported from.\n **source** is also often called **specifier** in the JavaScript ecosystem.\n\n ```js,ignore\n import A from \"@my/lib\" with { \"attribute1\": \"value\" };\n ^^^^^^^^       ^^^^^^^         ^^^^^^^^^^^^^^^^^^^^^\n   kind         source                attributes\n\n export * from \"@my/lib\" with { \"attribute1\": \"value\" };\n ^^^^^^^^       ^^^^^^^         ^^^^^^^^^^^^^^^^^^^^^\n   kind         source                attributes\n ```\n\n\n ## Chunk of imports and chunk of exports\n\n A **chunk** is a sequence of adjacent imports or exports.\n A chunk contains only imports or exports, not both at the same time.\n The following example includes two chunks.\n The first chunk consists of the three imports and the second chunk consists of the three exports.\n\n ```js,ignore\n // chunk 1\n import A from \"a\";\n import * as B from \"b\";\n import { C } from \"c\";\n // chunk 2\n export * from \"d\";\n export * as F from \"e\";\n export { F } from \"f\";\n ```\n\n Chunks also end as soon as a statement or a **side-effect import** (also called _bare import_) is encountered.\n Every side-effect import forms an independent chunk.\n The following example contains six chunks:\n\n ```js,ignore\n // chunk 1\n import A from \"a\";\n import * as B from \"b\";\n // chunk 2\n import \"x\";\n // chunk 3\n import \"y\";\n // chunk 4\n import { C } from \"c\";\n // chunk 5\n export * from \"d\";\n function f() {}\n // chunk 6\n export * as E from \"e\";\n export { F } from \"f\";\n ```\n\n 1. The first chunk contains the two first `import` and ends with the appearance of the first side-effect import `import \"x\"`.\n 2. The second chunk contains only the side-effect import `import \"x\"`.\n 3. The third chunk contains only the side-effect import `import \"y\"`.\n 4. The fourth chunk contains a single `import`; The first `export` ends it.\n 5. The fifth chunk contains the first `export`; The function declaration ends it.\n 6. The sixth chunk contains the last two `export`.\n\n Chunks are also delimited by detached comments.\n A **detached comment** is a comment followed by a blank line.\n Comments not followed by a blank line are **attached comments**.\n Note that blank lines alone are not taken into account when chunking imports and exports.\n The following example contains a detached comment that splits the imports into two chunks:\n\n ```js,ignore\n // Attached comment 1\n import A from \"a\";\n\n // Attached comment 2\n import * as B from \"b\";\n // Detached comment\n\n import { C } from \"c\";\n ```\n\n The line `import { C } from \"c\"` forms the second chunk.\n The blank line between the first two imports is ignored so they form a single chunk.\n\n The sorter ensures that chunks are separated from each other with blank lines.\n Only side-effect imports adjacent to a chunk of imports are not separated by a blank line.\n The following code...\n\n ```js,ignore\n import A from \"a\";\n import * as B from \"b\";\n import \"x\";\n import { C } from \"c\";\n export * from \"d\";\n // Detached comment\n\n export * as F from \"e\";\n // Attached comment\n export { F } from \"f\";\n ```\n\n is sorted as:\n\n ```js,ignore\n import A from \"a\";\n import * as B from \"b\";\n import \"x\";\n import { C } from \"c\";\n\n export * from \"d\";\n\n // Detached comment\n\n export * as F from \"e\";\n // Attached comment\n export { F } from \"f\";\n ```\n\n Also, note that blank lines inside a chunk are ignored and preserved.\n They can be removed by explicitly defining groups as demonstrated in the next section.\n\n\n ## Import and export sorting\n\n Once chunks are formed, imports and exports of each chunk are sorted.\n Imports and exports are sorted by their source.\n Sources are ordered by \"distance\".\n Sources that are \"farther\" from the current module are put on the top, sources \"closer\" to the user are put on the bottom.\n This leads to the following order:\n\n 1. URLs such as `https://example.org`.\n 2. Packages with a protocol such as `node:path`, `bun:test`, `jsr:@my?lib`, or `npm:lib`.\n 3. Packages such as `mylib` or `@my/lib`.\n 4. Aliases: sources starting with `@/`, `#`, `~`, `$`, or `%`.\n    They usually are [Node.js subpath imports](https://nodejs.org/api/packages.html#subpath-imports) or [TypeScript path aliases](https://www.typescriptlang.org/tsconfig/#paths).\n 5. Absolute and relative paths.\n\n Two imports/exports with the same source category are sorted using a [natural sort order](https://en.wikipedia.org/wiki/Natural_sort_order) tailored to URLs, packages, and paths.\n Notably, the order ensures that `A < a < B < b`.\n The order takes also numbers into account, e.g. `a9 < a10`.\n\n For example, the following code...\n\n ```js,ignore\n import sibling from \"./file.js\";\n import internal from \"#alias\";\n import fs from \"fs\";\n import { test } from \"node:test\";\n import path from \"node:path\";\n import parent from \"../parent.js\";\n import scopedLibUsingJsr from \"jsr:@scoped/lib\";\n import data from \"https://example.org\";\n import lib from \"lib\";\n import scopedLib from \"@scoped/lib\";\n ```\n\n ...is sorted as follows:\n\n ```js,ignore\n import data from \"https://example.org\";\n import scopedLibUsingJsr from \"jsr:@scoped/lib\";\n import path from \"node:path\";\n import { test } from \"node:test\";\n import scopedLib from \"@scoped/lib\";\n import fs from \"fs\";\n import lib from \"lib\";\n import internal from \"#alias\";\n import parent from \"../parent.js\";\n import sibling from \"./file.js\";\n ```\n\n If two imports or exports share the same source and are in the same chunk, then they are ordered according to their kind as follows:\n\n 1. Namespace type import / Namespace type export\n 2. Default type import\n 3. Named type import / Named type export\n 4. Namespace import / Namespace export\n 5. Combined default and namespace import\n 6. Default import\n 7. Combined default and named import\n 8. Named import / Named export\n\n Imports and exports with attributes are always placed first.\n For example, the following code...\n\n ```ts,ignore\n import * as namespaceImport from \"same-source\";\n import type * as namespaceTypeImport from \"same-source\";\n import type { namedTypeImport } from \"same-source\";\n import defaultNamespaceCombined, * as namespaceCombined from \"same-source\";\n import defaultNamedCombined, { namedCombined } from \"same-source\";\n import defaultImport from \"same-source\";\n import type defaultTypeImport from \"same-source\";\n import { importWithAttribute } from \"same-source\" with { \"attribute\": \"value\" } ;\n ```\n\n is sorted as follows:\n\n ```ts,ignore\n import { importWithAttribute } from \"same-source\" with { \"attribute\": \"value\" } ;\n import type * as namespaceTypeImport from \"same-source\";\n import type defaultTypeImport from \"same-source\";\n import type { namedTypeImport } from \"same-source\";\n import * as namespaceImport from \"same-source\";\n import defaultNamespaceCombined, * as namespaceCombined from \"same-source\";\n import defaultImport from \"same-source\";\n import defaultNamedCombined, { namedCombined } from \"same-source\";\n ```\n\n This default order cannot be changed.\n However, users can still customize how imports and exports are sorted using the concept of groups as explained in the following section.\n\n\n ## Import and export groups\n\n Imports or exports of a chunk are divided into groups before being sorted with the built-in order described in the previous section.\n By default every chunk consists of a single group.\n These default groups and their order may not be to your taste.\n The sorter provides a `groups` option that allows you to customize how the chunks are divided into groups.\n The `groups` option is a list of group matchers.\n A group matcher is:\n\n - A predefined group matcher, or\n - A glob pattern, or\n - An object matcher, or\n - A list of glob patterns, predefined group matchers, and object matchers.\n\n Predefined group matchers are strings in `CONSTANT_CASE` prefixed and suffixed by `:`.\n The sorter provides several predefined group matchers:\n\n - `:ALIAS:`: sources starting with `#`, `@/`, `~`, `$`, or `%`.\n - `:BUN:`: sources starting with the protocol `bun:` or that correspond to a built-in Bun module such as `bun`.\n - `:NODE:`: sources starting with the protocol `node:` or that correspond to a built-in Node.js module such as `fs` or `path`.\n - `:PACKAGE:`: scoped and bare packages.\n - `:PACKAGE_WITH_PROTOCOL:`: scoped and bare packages with a protocol.\n - `:PATH:`: absolute and relative paths.\n - `:URL:`: sources starting with `https://` and `http://`.\n\n Let's take an example.\n In the default configuration, Node.js modules without the `node:` protocol are separated from those with a protocol.\n To group them together, you can use the predefined group `:NODE:`.\n Given the following configuration...\n\n ```json,full_options\n {\n     \"assist\": {\n         \"actions\": {\n             \"source\": {\n                 \"organizeImports\": {\n                     \"level\": \"on\",\n                     \"options\": {\n                         \"groups\": [\n                             \":URL:\",\n                             \":NODE:\"\n                         ]\n                     }\n                 }\n             }\n         }\n     }\n }\n ```\n\n ...and the following code...\n\n ```js,ignore\n import sibling from \"./file.js\";\n import internal from \"#alias\";\n import fs from \"fs\";\n import { test } from \"node:test\";\n import path from \"node:path\";\n import parent from \"../parent.js\";\n import scopedLibUsingJsr from \"jsr:@scoped/lib\";\n import data from \"https://example.org\";\n import lib from \"lib\";\n import scopedLib from \"@scoped/lib\";\n ```\n\n ...we end up with the following sorted result where the imports of `node:path` and the `fs` Node.js module are grouped together:\n\n ```js,ignore\n import data from \"https://example.org\";\n import fs from \"fs\";\n import path from \"node:path\";\n import { test } from \"node:test\";\n import scopedLibUsingJsr from \"jsr:@scoped/lib\";\n import scopedLib from \"@scoped/lib\";\n import lib from \"lib\";\n import internal from \"#alias\";\n import parent from \"../parent.js\";\n import sibling from \"./file.js\";\n ```\n\n Note that all imports that don't match a group matcher are always placed at the end.\n\n\n Group matchers can also be glob patterns and list of glob patterns.\n Glob patterns select imports and exports with a source that matches the pattern.\n In the following example, we create two groups: one that gathers imports/exports with a source starting with `@my/lib` except `@my/lib/special` and the other that gathers imports/exports starting with `@/`.\n\n ```json\n {\n     \"options\": {\n         \"groups\": [\n             [\"@my/lib\", \"@my/lib/**\", \"!@my/lib/special\", \"!@my/lib/special/**\"],\n             \"@/**\"\n         ]\n     }\n }\n ```\n\n By applying this configuration to the following code...\n\n ```js,ignore\n import lib from \"@my/lib\";\n import aliased from \"@/alias\";\n import path from \"@my/lib/special\";\n import test from \"@my/lib/path\";\n ```\n\n ...we obtain the following sorted result.\n Imports with the sources `@my/lib` and `@my/lib/path` form the first group.\n They match the glob patterns `@my/lib` and `@my/lib/**` respectively.\n The import with the source `@my/lib/special` is not placed in this first group because it is rejected by the exception `!@my/lib/special`.\n The import with the source `@/alias` is placed in a second group because it matches the glob pattern `@/**`.\n Finally, other imports are placed at the end.\n\n ```js,ignore\n import lib from \"@my/lib\";\n import test from \"@my/lib/path\";\n import aliased from \"@/alias\";\n import path from \"@my/lib/special\";\n ```\n\n Note that `@my/lib` matches `@my/lib` but not `@my/lib/**`.\n Conversely, `@my/lib/subpath` matches `@my/lib/**`, but not `@my/lib`.\n So, you have to specify both glob patterns if you want to accept all imports/exports that start with `@my/lib`.\n The prefix `!` indicates an exception.\n You can create exceptions of exceptions by following an exception by a regular glob pattern.\n For example `[\"@my/lib\", \"@my/lib/**\", \"!@my/lib/special\", \"!@my/lib/special/**\", \"@my/lib/special/*/accepted/**\"]` allows you to accepts all sources matching `@my/lib/special/*/accepted/**`.\n Note that the predefined groups can also be negated. `!:NODE:` matches all sources that don't match `:NODE:`.\n For more details on the supported glob patterns, see the dedicated section.\n\n Finally, group matchers can be object matchers.\n An object matcher allows to match type-only imports and exports.\n\n Given the following configuration:\n\n ```json\n {\n     \"options\": {\n         \"groups\": [\n             { \"type\": false, \"source\": [\"@my/lib\", \"@my/lib/**\"] },\n             [\"@my/lib\", \"@my/lib/**\"]\n         ]\n     }\n }\n ```\n\n The following code:\n\n ```ts,ignore\n import type { T } from \"@my/lib\";\n import { V } from \"@my/lib\";\n ```\n\n is sorted as follows:\n\n ```ts,ignore\n import { V } from \"@my/lib\";\n import type { T } from \"@my/lib\";\n ```\n\n The object matcher `{ \"type\": false, \"source\": [\"@my/lib\", \"@my/lib/**\"] }` match against imports and exports without the `type` keyword with a source that matches one of the glob pattern of the list `[\"@my/lib\", \"@my/lib/**\"]`.\n\n The sorter allows the separation of two groups with a blank line using the predefined string `:BLANK_LINE:`.\n Given the following configuration...\n\n ```json\n {\n     \"options\": {\n         \"groups\": [\n             [\":BUN:\", \":NODE:\"],\n             \":BLANK_LINE:\",\n             [\"@my/lib\", \"@my/lib/**\", \"!@my/lib/special\", \"!@my/lib/special/**\"],\n             \"@/**\"\n         ]\n     }\n }\n ```\n\n ...the following code...\n\n ```js,ignore\n import test from \"bun:test\";\n import path from \"node:path\";\n import lib from \"@my/lib\";\n import libPath from \"@my/lib/path\";\n import libSpecial from \"@my/lib/special\";\n import aliased from \"@/alias\";\n ```\n\n ...is sorted as:\n\n ```js,ignore\n import path from \"node:path\";\n\n import lib from \"@my/lib\";\n import test from \"@my/lib/path\";\n import aliased from \"@/alias\";\n import path from \"@my/lib/special\";\n ```\n\n Groups are matched in order.\n This means that one group matcher can shadow succeeding groups.\n For example, in the following configuration, the group matcher `:URL:` is never matched because all imports and exports match the first matcher `**`.\n\n ```json\n {\n     \"options\": {\n         \"groups\": [\n             \"**\",\n             \":URL:\"\n         ]\n     }\n }\n ```\n\n\n ## Comment handling\n\n When sorting imports and exports, attached comments are moved with their import or export,\n and detached comments (comments followed by a blank line) are left where they are.\n\n However, there is an exception to the rule.\n If a comment appears at the top of the file, it is considered as detached even if no blank line follows.\n This ensures that copyright notice and file header comments stay at the top of the file.\n\n For example, the following code...\n\n ```js,ignore\n // Copyright notice and file header comment\n import F from \"f\";\n // Attached comment for `e`\n import E from \"e\";\n // Attached comment for `d`\n import D from \"d\";\n // Detached comment (new chunk)\n\n // Attached comment for `b`\n import B from \"b\";\n // Attached comment for `a`\n import A from \"a\";\n ```\n\n ...is sorted as follows.\n A blank line is automatically added after the header comment to ensure that the attached comment doesn't merge with the header comment.\n\n ```js,ignore\n // Copyright notice and file header comment\n\n // Attached comment for `d`\n import D from \"d\";\n // Attached comment for `e`\n import E from \"e\";\n import F from \"f\";\n\n // Detached comment (new chunk)\n\n // Attached comment for `a`\n import A from \"a\";\n // Attached comment for `b`\n import B from \"b\";\n ```\n\n\n ## Import and export merging\n\n The organizer also merges imports and exports that can be merged.\n\n For example, the following code:\n\n ```ts,ignore\n import type { T1 } from \"package\";\n import type { T2 } from \"package\";\n import * as ns from \"package\";\n import D1 from \"package\";\n import D2 from \"package\";\n import { A } from \"package\";\n import { B } from \"package\";\n import { type T3 } from \"package\";\n ```\n\n is merged as follows:\n\n ```ts,ignore\n import type { T1, T2 } from \"package\";\n import D1, * as ns from \"package\";\n import D2, { A, B, type T3 } from \"package\";\n ```\n\n You may want to merge the first and the last imports.\n To do this, you have to enable the linter rule [`useImportType`](https://biomejs.dev/linter/rules/use-import-type/)\n and to set its option `style` to `inlineType`.\n\n With the following configuration...\n\n ```json\n {\n   \"linter\": {\n     \"enabled\": true,\n     \"rules\": {\n       \"style\": {\n         \"useImportType\": {\n           \"level\": \"on\",\n           \"options\": { \"style\": \"inlineType\" }\n         }\n       }\n     }\n   },\n   \"assist\": {\n     \"enabled\": true,\n     \"actions\": { \"source\": { \"organizeImports\": \"on\" } }\n   }\n }\n ```\n\n The previous imports are merged as follows:\n\n ```ts,ignore\n import D1, * as ns from \"package\";\n import D2, { A, B, type T1, type T2, type T3 } from \"package\";\n ```\n\n Note that if you set `style` to `separatedType` you will get the following merge:\n\n ```ts,ignore\n import type { T1, T2, T3 } from \"package\";\n import { V1 } from \"package\";\n import D1, * as ns from \"package\";\n import D2, { A, B } from \"package\";\n ```\n\n\n ## Named imports, named exports and attributes sorting\n\n The sorter also sorts named imports, named exports, as well as attributes.\n It uses a natural sort order for comparing numbers.\n\n The following code...\n\n ```js,ignore\n import { a, b, A, B, c10, c9 } from \"a\";\n\n export { a, b, A, B, c10, c9 } from \"a\";\n\n import special from  \"special\" with { \"type\": \"ty\", \"metadata\": \"data\" };\n ```\n\n ...is sorted as follows:\n\n ```js,ignore\n import { A, a, B, b, c9, c10 } from \"a\";\n\n export { A, a, B, b, c9, c10 } from \"a\";\n\n import special from  \"special\" with { \"metadata\": \"data\", \"type\": \"ty\" };\n ```\n\n\n ## Supported glob patterns\n\n You need to understand the structure of a source to understand which source matches a glob.\n A source is divided in source segments.\n Every source segment is delimited by the separator `/` or the start/end of the source.\n For instance `src/file.js` consists of two source segments: `src` and `file.js`.\n\n - star `*` that matches zero or more characters inside a source segment\n\n   `file.js` matches `*.js`.\n   Conversely, `src/file.js` doesn't match `*.js`\n\n - globstar `**` that matches zero or more source segments\n   `**` must be enclosed by separators `/` or the start/end of the glob.\n   For example, `**a` is not a valid glob.\n   Also, `**` must not be followed by another globstar.\n   For example, `**/**` is not a valid glob.\n\n   `file.js` and `src/file.js` match `**` and `**/*.js`\n   Conversely, `README.txt` doesn't match `**/*.js` because the source ends with `.txt`.\n\n - Use `\\*` to escape `*`\n\n   `\\*` matches the literal `*` character in a source.\n\n - `?`, `[`, `]`, `{`, and `}` must be escaped using `\\`.\n   These characters are reserved for possible future use.\n\n - Use `!` as first character to negate a glob\n\n   `file.js` matches `!*.test.js`.\n   `src/file.js` matches `!*.js` because the source contains several segments.\n\n\n ## Common configurations\n\n This section provides some examples of common configurations.\n\n ### Placing `import type` and `export type` at the start of the chunks\n\n ```json\n {\n     \"options\": {\n         \"groups\": [\n             { \"type\": true }\n         ]\n     }\n }\n ```\n\n Note that you may want to use the lint rule [`useImportType`](https://next.biomejs.dev/linter/rules/use-import-type/) and its [`style`](https://next.biomejs.dev/linter/rules/use-import-type/#style) to enforce the use of `import type` instead of `import { type }`.\n\n ### Placing `import type` and `export type` at the end of the chunks\n\n ```json\n {\n     \"options\": {\n         \"groups\": [\n             { \"type\": false }\n         ]\n     }\n }\n ```\n\n ## Change the sorting of import identifiers to lexicographic sorting\n This only applies to the named import/exports and not the source itself.\n\n ```json,options\n {\n     \"options\": {\n         \"identifierOrder\": \"lexicographic\"\n     }\n }\n ```\n ```js,use_options,expect_diagnostic\n import { var1, var2, var21, var11, var12, var22 } from 'my-package'\n ```\n\n ## Change the sorting of import identifiers to logical sorting\n This is the default behavior in case you do not override. This only applies to the named import/exports and not the source itself.\n\n ```json,options\n {\n     \"options\": {\n         \"identifierOrder\": \"natural\"\n     }\n }\n ```\n ```js,use_options,expect_diagnostic\n import { var1, var2, var21, var11, var12, var22 } from 'my-package'\n ```\n\n"
           },
           "useSortedKeys": {
             "deprecated": false,
