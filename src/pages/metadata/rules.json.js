@@ -248,6 +248,23 @@ export function GET() {
           }
         },
         "nursery": {
+          "noDeprecatedMediaType": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noDeprecatedMediaType",
+            "link": "https://biomejs.dev/linter/rules/no-deprecated-media-type",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "stylelint": "media-type-no-deprecated"
+                }
+              }
+            ],
+            "docs": " Disallow deprecated media types.\n\n Several media types defined in earlier specifications have been deprecated and should\n no longer be used. The deprecated media types are still recognized, but they match nothing.\n\n For details on media types, see the\n [Media Queries Level 5 specification](https://drafts.csswg.org/mediaqueries-5/#media-types).\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n @media tv {}\n ```\n\n ```css,expect_diagnostic\n @media handheld and (min-width: 480px) {}\n ```\n\n ### Valid\n\n ```css\n @media screen {}\n ```\n\n ```css\n @media print and (min-resolution: 300dpi) {}\n ```\n\n ## Options\n\n ### `allow`\n\n Media types to allow (case-insensitive).\n\n ```json,options\n {\n   \"options\": {\n     \"allow\": [\"tv\", \"speech\"]\n   }\n }\n ```\n\n #### Valid\n\n ```css,use_options\n @media tv {}\n @media speech {}\n ```\n\n"
+          },
           "noEmptySource": {
             "deprecated": false,
             "version": "2.2.7",
@@ -273,6 +290,23 @@ export function GET() {
             "recommended": false,
             "fixKind": "none",
             "docs": " Restrict the number of lines in a file.\n\n Large files tend to do many things and can make it hard to follow what's going on.\n This rule can help enforce a limit on the number of lines in a file.\n\n ## Examples\n\n ### Invalid\n\n The following example will show a diagnostic when `maxLines` is set to 2:\n\n ```json,options\n {\n     \"options\": {\n        \"maxLines\": 2\n     }\n }\n ```\n ```css,expect_diagnostic,use_options\n .a { color: red; }\n .b { color: blue; }\n .c { color: green; }\n ```\n\n ### Valid\n\n ```css\n .a { color: red; }\n .b { color: blue; }\n ```\n\n ## Options\n\n ### `maxLines`\n\n This option sets the maximum number of lines allowed in a file.\n If the file exceeds this limit, a diagnostic will be reported.\n\n Default: `300`\n\n ### `skipBlankLines`\n\n When this option is set to `true`, blank lines are not counted towards the maximum line limit.\n\n Default: `false`\n\n"
+          },
+          "noHexColors": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noHexColors",
+            "link": "https://biomejs.dev/linter/rules/no-hex-colors",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "stylelint": "color-no-hex"
+                }
+              }
+            ],
+            "docs": " Disallow hex colors.\n\n While hex colors are widely supported and compact, they can be less readable\n and have limitations in terms of color representation compared to color models\n like HSL or OKLCH. This rule encourages the use of more expressive color formats.\n\n This rule is inspired by the Stylelint rule\n [`color-no-hex`](https://stylelint.io/user-guide/rules/color-no-hex/).\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a { color: #000; }\n ```\n\n ```css,expect_diagnostic\n a { color: #fff1aa; }\n ```\n\n ```css,expect_diagnostic\n a { color: #123456aa; }\n ```\n\n ### Valid\n\n ```css\n a { color: black; }\n ```\n\n ```css\n a { color: rgb(0, 0, 0); }\n ```\n\n ### References\n\n - [MDN Web Docs on CSS color values](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value)\n\n"
           }
         },
         "style": {
@@ -676,6 +710,23 @@ export function GET() {
               }
             ],
             "docs": " Require the `@deprecated` directive to specify a deletion date.\n\n Suggests removing deprecated code when the due date has been passed.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query {\n   member @deprecated(reason: \"Use `members` instead\") {\n     id\n   }\n }\n ```\n\n ### Valid\n\n ```graphql\n query {\n   member @deprecated(reason: \"Use `members` instead\", deletionDate: \"2099-12-25\") {\n     id\n   }\n }\n ```\n\n"
+          },
+          "useInputName": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useInputName",
+            "link": "https://biomejs.dev/linter/rules/use-input-name",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintGraphql": "input-name"
+                }
+              }
+            ],
+            "docs": " Require mutation argument to be always called \"input\"\n\n Using the same name for all input parameters will make your schemas easier to consume and more predictable.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n type Mutation {\n   SetMessage(message: InputMessage): String\n }\n ```\n\n ### Valid\n\n ```graphql\n type Mutation {\n   SetMessage(input: SetMessageInput): String\n }\n ```\n\n ## Options\n\n ### `checkInputType`\n\n With the option `checkInputType` on, the input type name requires to be called `<mutation name>Input`.\n This can either be \"loose\" (case-insensitive) or \"strict\" (case-sensitive).\n Using the name of the mutation in the input type name will make it easier to find the mutation that the input type belongs to.\n\n Default `\"off\"`\n\n ```json,options\n {\n   \"options\": {\n     \"checkInputType\": \"loose\"\n   }\n }\n ```\n\n ```graphql,expect_diagnostic,use_options\n type Mutation {\n   SetMessage(input: InputMessage): String\n }\n ```\n\n ```graphql,use_options\n type Mutation {\n   SetMessage(input: setMessageInput): String\n }\n ```\n\n ```graphql,use_options\n type Mutation {\n   SetMessage(input: SetMessageInput): String\n }\n ```\n\n\n ```json,options\n {\n   \"options\": {\n     \"checkInputType\": \"strict\"\n   }\n }\n ```\n\n ```graphql,expect_diagnostic,use_options\n type Mutation {\n   SetMessage(input: InputMessage): String\n }\n ```\n\n ```graphql,expect_diagnostic,use_options\n type Mutation {\n   SetMessage(input: setMessageInput): String\n }\n ```\n\n ```graphql,use_options\n type Mutation {\n   SetMessage(input: SetMessageInput): String\n }\n ```\n\n"
           },
           "useLoneAnonymousOperation": {
             "deprecated": false,
@@ -1957,6 +2008,12 @@ export function GET() {
                 "kind": "sameLogic",
                 "source": {
                   "eslintUnicorn": "prefer-date-now"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintE18e": "prefer-date-now"
                 }
               }
             ],
@@ -3684,6 +3741,12 @@ export function GET() {
                 "source": {
                   "eslint": "prefer-spread"
                 }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintE18e": "prefer-spread-syntax"
+                }
               }
             ],
             "docs": " Enforce the use of the spread operator over `.apply()`.\n\n The `apply()` method is used to call a function with a given `this` value and arguments provided as an array.\n The spread operator `...` can be used to achieve the same result, which is more concise and easier to read.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n foo.apply(null, args);\n ```\n\n ```js,expect_diagnostic\n foo.apply(null, [1, 2, 3]);\n ```\n\n ```js,expect_diagnostic\n foo.apply(undefined, args);\n ```\n\n ```js,expect_diagnostic\n obj.foo.apply(obj, args);\n ```\n\n ### Valid\n\n ```js\n foo(...args);\n\n obj.foo(...args);\n\n foo.apply(obj, [1, 2, 3]);\n\n ```\n\n"
@@ -4188,6 +4251,12 @@ export function GET() {
                 "source": {
                   "eslintUnicorn": "prefer-at"
                 }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintE18e": "prefer-array-at"
+                }
               }
             ],
             "docs": " Use `at()` instead of integer index access.\n\n Accessing an element at the end of an array or a string is inconvenient because you have to subtract the length of the array or the string from the backward 1-based index of the element to access.\n For example, to access the last element of an array or a string, you would have to write `array[array.length - 1]`.\n A more convenient way to achieve the same thing is to use the `at()` method with a negative index.\n To access the last element of an array or a string just write `array.at(-1)`.\n\n This rule enforces the usage of `at()` over index access, `charAt()`, and `slice()[0]` when `at()` is more convenient.\n\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const foo = array[array.length - 1];\n ```\n\n ```js,expect_diagnostic\n const foo = array[array.length - 5];\n ```\n\n ```js,expect_diagnostic\n const foo = array.slice(-1)[0];\n ```\n\n ```js,expect_diagnostic\n const foo = array.slice(-1).pop();\n ```\n\n ```js,expect_diagnostic\n const foo = array.slice(-5).shift();\n ```\n\n ```js,expect_diagnostic\n const foo = string.charAt(string.length - 5);\n ```\n\n ### Valid\n\n ```js\n const foo = array.at(-1);\n ```\n\n ```js\n const foo = array.at(-5);\n ```\n\n ```js\n const foo = array[100];\n ```\n\n ```js\n const foo = array.at(array.length - 1);\n ```\n\n ```js\n array[array.length - 1] = foo;\n ```\n"
@@ -4376,6 +4445,12 @@ export function GET() {
                 "source": {
                   "eslint": "prefer-exponentiation-operator"
                 }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintE18e": "prefer-exponentiation-operator"
+                }
               }
             ],
             "docs": " Disallow the use of `Math.pow` in favor of the `**` operator.\n\n Introduced in ES2016, the infix exponentiation operator `**` is an alternative for the standard `Math.pow` function.\n Infix notation is considered to be more readable and thus more preferable than the function notation.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const foo = Math.pow(2, 8);\n ```\n\n ```js,expect_diagnostic\n const bar = Math.pow(a, b);\n ```\n\n ```js,expect_diagnostic\n let baz = Math.pow(a + b, c + d);\n ```\n\n ```js,expect_diagnostic\n let quux = Math.pow(-1, n);\n ```\n\n ### Valid\n\n ```js\n const foo = 2 ** 8;\n\n const bar = a ** b;\n\n let baz = (a + b) ** (c + d);\n\n let quux = (-1) ** n;\n ```\n\n"
@@ -4538,6 +4613,12 @@ export function GET() {
                 "kind": "sameLogic",
                 "source": {
                   "eslint": "prefer-object-spread"
+                }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintE18e": "prefer-spread-syntax"
                 }
               }
             ],
@@ -5360,6 +5441,12 @@ export function GET() {
                 "kind": "sameLogic",
                 "source": {
                   "eslint": "prefer-object-has-own"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintE18e": "prefer-object-has-own"
                 }
               }
             ],
@@ -7311,6 +7398,23 @@ export function GET() {
             ],
             "docs": " Disallow Promises to be used in places where they are almost certainly a\n mistake.\n\n In most cases, if you assign a `Promise` somewhere a `Promise` is not\n allowed, the TypeScript compiler will be able to catch such a mistake.\n But there are a few places where TypeScript allows them -- they're not\n _necessarily_ a mistake -- even though they could be considered almost\n certainly to be one.\n\n This rule disallows using Promises in such places.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic,file=promise-in-condition.js\n const promise = Promise.resolve('value');\n if (promise) { /* This branch will always execute */ }\n ```\n\n ```js,expect_diagnostic,file=promise-in-ternary-condition.js\n const promise = Promise.resolve('value');\n const val = promise ? 123 : 456; // Always evaluates to `123`.\n ```\n\n ```js,expect_diagnostic,file=promise-in-filter.js\n // The following filter has no effect:\n const promise = Promise.resolve('value');\n [1, 2, 3].filter(() => promise);\n ```\n\n ```js,expect_diagnostic,file=promise-while-condition.js\n const promise = Promise.resolve('value');\n while (promise) { /* This is an endless loop */ }\n ```\n\n ```js,expect_diagnostic,file=spread-promise.js\n // Using a `Promise` as an iterable expands to nothing:\n const getData = () => fetch('/');\n console.log({ foo: 42, ...getData() });\n ```\n\n ```js,expect_diagnostic,file=promise-in-forEach.js\n // These `fetch`-es are not `await`-ed in order:\n [1, 2, 3].forEach(async value => {\n     await fetch(`/${value}`);\n });\n ```\n\n ### Valid\n\n ```js,file=valid-promises.js\n const promise = Promise.resolve('value');\n if (await promise) { /* Do something */ }\n\n const val = (await promise) ? 123 : 456;\n\n while (await promise) { /* Do something */ }\n\n const getData = () => fetch('/');\n console.log({ foo: 42, ...(await getData()) });\n\n // for-of puts `await` in outer context:\n for (const value of [1, 2, 3]) {\n     await doSomething(value);\n }\n ```\n\n"
           },
+          "useConsistentEnumValueType": {
+            "deprecated": false,
+            "version": "2.3.13",
+            "name": "useConsistentEnumValueType",
+            "link": "https://biomejs.dev/linter/rules/use-consistent-enum-value-type",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintTypeScript": "no-mixed-enums"
+                }
+              }
+            ],
+            "docs": " Disallow enums from having both number and string members.\n\n TypeScript enums are allowed to assign numeric or string values to their members.\n Most enums contain either all numbers or all strings, but in theory you can mix-and-match within the same enum.\n Mixing enum member types is generally considered confusing and a bad practice.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n enum Status {\n   Unknown,\n   Closed = 1,\n   Open = 'open',\n }\n ```\n\n ### Valid\n\n ```ts\n enum Status {\n   Unknown = 0,\n   Closed = 1,\n   Open = 2,\n }\n ```\n\n ```ts\n enum Status {\n   Unknown,\n   Closed,\n   Open,\n }\n ```\n\n ```ts\n enum Status {\n   Unknown = 'unknown',\n   Closed = 'closed',\n   Open = 'open',\n }\n ```\n\n"
+          },
           "useExplicitType": {
             "deprecated": false,
             "version": "1.9.3",
@@ -7811,7 +7915,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 452
+    "numberOrRules": 456
   },
   "syntax": {
     "languages": {
