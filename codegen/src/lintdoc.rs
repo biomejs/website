@@ -1487,6 +1487,12 @@ fn write_documentation(
                 write!(content, "{html}")?;
             }
 
+            Event::Start(Tag::HtmlBlock) => {}
+            Event::Html(html) => {
+                write!(content, "{html}")?;
+            }
+            Event::End(TagEnd::HtmlBlock) => {}
+
             _ => {
                 // TODO: Implement remaining events as required
                 bail!("unimplemented event {event:?}")
