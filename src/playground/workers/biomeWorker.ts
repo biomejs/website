@@ -126,6 +126,7 @@ self.addEventListener("message", async (e) => {
 				semicolons,
 				arrowParentheses,
 				bracketSpacing,
+				delimiterSpacing,
 				bracketSameLine,
 				expand,
 				indentScriptAndStyle,
@@ -186,6 +187,7 @@ self.addEventListener("message", async (e) => {
 								? "always"
 								: "asNeeded",
 						bracketSpacing,
+						delimiterSpacing,
 						bracketSameLine,
 						attributePosition:
 							attributePosition === AttributePosition.Auto
@@ -200,6 +202,7 @@ self.addEventListener("message", async (e) => {
 				css: {
 					formatter: {
 						quoteStyle: quoteStyle === QuoteStyle.Double ? "double" : "single",
+						delimiterSpacing,
 					},
 					parser: {
 						allowWrongLineComments: true,
@@ -208,6 +211,9 @@ self.addEventListener("message", async (e) => {
 					},
 				},
 				json: {
+					formatter: {
+						delimiterSpacing,
+					},
 					parser: {
 						allowComments,
 					},

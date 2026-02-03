@@ -432,6 +432,9 @@ function initState(
 			bracketSpacing:
 				searchParams.get("bracketSpacing") === "true" ||
 				defaultPlaygroundState.settings.bracketSpacing,
+			delimiterSpacing:
+				searchParams.get("delimiterSpacing") === "true" ||
+				defaultPlaygroundState.settings.delimiterSpacing,
 			bracketSameLine:
 				searchParams.get("bracketSameLine") === "true" ||
 				defaultPlaygroundState.settings.bracketSameLine,
