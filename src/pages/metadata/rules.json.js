@@ -248,6 +248,23 @@ export function GET() {
           }
         },
         "nursery": {
+          "noDeprecatedMediaType": {
+            "deprecated": false,
+            "version": "2.3.14",
+            "name": "noDeprecatedMediaType",
+            "link": "https://biomejs.dev/linter/rules/no-deprecated-media-type",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "stylelint": "media-type-no-deprecated"
+                }
+              }
+            ],
+            "docs": " Disallow deprecated media types.\n\n Several media types defined in earlier specifications have been deprecated and should\n no longer be used. The deprecated media types are still recognized, but they match nothing.\n\n For details on media types, see the\n [Media Queries Level 5 specification](https://drafts.csswg.org/mediaqueries-5/#media-types).\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n @media tv {}\n ```\n\n ```css,expect_diagnostic\n @media handheld and (min-width: 480px) {}\n ```\n\n ### Valid\n\n ```css\n @media screen {}\n ```\n\n ```css\n @media print and (min-resolution: 300dpi) {}\n ```\n\n ## Options\n\n ### `allow`\n\n Media types to allow (case-insensitive).\n\n ```json,options\n {\n   \"options\": {\n     \"allow\": [\"tv\", \"speech\"]\n   }\n }\n ```\n\n #### Valid\n\n ```css,use_options\n @media tv {}\n @media speech {}\n ```\n\n"
+          },
           "noEmptySource": {
             "deprecated": false,
             "version": "2.2.7",
@@ -273,6 +290,23 @@ export function GET() {
             "recommended": false,
             "fixKind": "none",
             "docs": " Restrict the number of lines in a file.\n\n Large files tend to do many things and can make it hard to follow what's going on.\n This rule can help enforce a limit on the number of lines in a file.\n\n ## Examples\n\n ### Invalid\n\n The following example will show a diagnostic when `maxLines` is set to 2:\n\n ```json,options\n {\n     \"options\": {\n        \"maxLines\": 2\n     }\n }\n ```\n ```css,expect_diagnostic,use_options\n .a { color: red; }\n .b { color: blue; }\n .c { color: green; }\n ```\n\n ### Valid\n\n ```css\n .a { color: red; }\n .b { color: blue; }\n ```\n\n ## Options\n\n ### `maxLines`\n\n This option sets the maximum number of lines allowed in a file.\n If the file exceeds this limit, a diagnostic will be reported.\n\n Default: `300`\n\n ### `skipBlankLines`\n\n When this option is set to `true`, blank lines are not counted towards the maximum line limit.\n\n Default: `false`\n\n"
+          },
+          "noHexColors": {
+            "deprecated": false,
+            "version": "2.3.14",
+            "name": "noHexColors",
+            "link": "https://biomejs.dev/linter/rules/no-hex-colors",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "stylelint": "color-no-hex"
+                }
+              }
+            ],
+            "docs": " Disallow hex colors.\n\n While hex colors are widely supported and compact, they can be less readable\n and have limitations in terms of color representation compared to color models\n like HSL or OKLCH. This rule encourages the use of more expressive color formats.\n\n This rule is inspired by the Stylelint rule\n [`color-no-hex`](https://stylelint.io/user-guide/rules/color-no-hex/).\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a { color: #000; }\n ```\n\n ```css,expect_diagnostic\n a { color: #fff1aa; }\n ```\n\n ```css,expect_diagnostic\n a { color: #123456aa; }\n ```\n\n ### Valid\n\n ```css\n a { color: black; }\n ```\n\n ```css\n a { color: rgb(0, 0, 0); }\n ```\n\n ### References\n\n - [MDN Web Docs on CSS color values](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value)\n\n"
           }
         },
         "style": {
@@ -676,6 +710,23 @@ export function GET() {
               }
             ],
             "docs": " Require the `@deprecated` directive to specify a deletion date.\n\n Suggests removing deprecated code when the due date has been passed.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query {\n   member @deprecated(reason: \"Use `members` instead\") {\n     id\n   }\n }\n ```\n\n ### Valid\n\n ```graphql\n query {\n   member @deprecated(reason: \"Use `members` instead\", deletionDate: \"2099-12-25\") {\n     id\n   }\n }\n ```\n\n"
+          },
+          "useInputName": {
+            "deprecated": false,
+            "version": "2.3.14",
+            "name": "useInputName",
+            "link": "https://biomejs.dev/linter/rules/use-input-name",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintGraphql": "input-name"
+                }
+              }
+            ],
+            "docs": " Require mutation argument to be always called \"input\"\n\n Using the same name for all input parameters will make your schemas easier to consume and more predictable.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n type Mutation {\n   SetMessage(message: InputMessage): String\n }\n ```\n\n ### Valid\n\n ```graphql\n type Mutation {\n   SetMessage(input: SetMessageInput): String\n }\n ```\n\n ## Options\n\n ### `checkInputType`\n\n With the option `checkInputType` on, the input type name requires to be called `<mutation name>Input`.\n This can either be \"loose\" (case-insensitive) or \"strict\" (case-sensitive).\n Using the name of the mutation in the input type name will make it easier to find the mutation that the input type belongs to.\n\n Default `\"off\"`\n\n ```json,options\n {\n   \"options\": {\n     \"checkInputType\": \"loose\"\n   }\n }\n ```\n\n ```graphql,expect_diagnostic,use_options\n type Mutation {\n   SetMessage(input: InputMessage): String\n }\n ```\n\n ```graphql,use_options\n type Mutation {\n   SetMessage(input: setMessageInput): String\n }\n ```\n\n ```graphql,use_options\n type Mutation {\n   SetMessage(input: SetMessageInput): String\n }\n ```\n\n\n ```json,options\n {\n   \"options\": {\n     \"checkInputType\": \"strict\"\n   }\n }\n ```\n\n ```graphql,expect_diagnostic,use_options\n type Mutation {\n   SetMessage(input: InputMessage): String\n }\n ```\n\n ```graphql,expect_diagnostic,use_options\n type Mutation {\n   SetMessage(input: setMessageInput): String\n }\n ```\n\n ```graphql,use_options\n type Mutation {\n   SetMessage(input: SetMessageInput): String\n }\n ```\n\n"
           },
           "useLoneAnonymousOperation": {
             "deprecated": false,
@@ -1696,7 +1747,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Use arrow functions over function expressions.\n\n An arrow function expression is a compact alternative to a regular function expression,\n with an important distinction:\n `this` is not bound to the arrow function. It inherits `this` from its parent scope.\n\n This rule proposes turning all function expressions that are not generators (`function*`) and don't use `this` into arrow functions.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const z = function() {\n     return 0;\n }\n ```\n\n ```js,expect_diagnostic\n const delegatedFetch = async function(url) {\n     return await fetch(url);\n }\n ```\n\n ### Valid\n\n ```js\n const f = function() {\n     return this.prop;\n }\n ```\n\n Named function expressions are ignored:\n\n ```js\n const z = function z() {\n     return 0;\n }\n ```\n\n Functions that reference the [arguments\n object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments)\n are ignored because the arguments object is not available to arrow\n functions.\n\n ```js\n const q = function () {\n     return arguments[0];\n }\n ```\n\n Function expressions that declare the type of `this` are  also ignored:\n\n ```ts\n const z = function(this: A): number {\n     return 0;\n }\n ```\n"
+            "docs": " Use arrow functions over function expressions.\n\n An arrow function expression is a compact alternative to a regular function expression,\n with an important distinction:\n `this` is not bound to the arrow function. It inherits `this` from its parent scope.\n\n This rule proposes turning all function expressions that are not generators (`function*`) and don't use `this` into arrow functions.\n\n This rule does not modify top-level function declarations ([discuss here](https://github.com/biomejs/biome/discussions/7108)).\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const z = function() {\n     return 0;\n }\n ```\n\n ```js,expect_diagnostic\n const delegatedFetch = async function(url) {\n     return await fetch(url);\n }\n ```\n\n ### Valid\n\n ```js\n const f = function() {\n     return this.prop;\n }\n ```\n\n Named function expressions are ignored:\n\n ```js\n const z = function z() {\n     return 0;\n }\n ```\n\n Functions that reference the [arguments\n object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments)\n are ignored because the arguments object is not available to arrow\n functions.\n\n ```js\n const q = function () {\n     return arguments[0];\n }\n ```\n\n Function expressions that declare the type of `this` are  also ignored:\n\n ```ts\n const z = function(this: A): number {\n     return 0;\n }\n ```\n"
           },
           "useDateNow": {
             "deprecated": false,
@@ -2941,6 +2992,15 @@ export function GET() {
             ],
             "docs": " Replaces usages of `forwardRef` with passing `ref` as a prop.\n\n In React 19, `forwardRef` is no longer necessary. Pass `ref` as a prop instead.\n This rule detects the usage of the `forwardRef` API, and it suggests using the prop `ref`\n instead.\n See [the official blog post](https://react.dev/blog/2024/12/05/react-19#ref-as-a-prop) for details.\n\n This rule should be disabled if you are working with React 18 or earlier.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n import { forwardRef } from \"react\";\n\n const MyInput = forwardRef(function MyInput(props, ref) {\n   return <input ref={ref} {...props} />;\n });\n ```\n\n ```jsx,expect_diagnostic\n import { forwardRef } from \"react\";\n\n const MyInput = forwardRef((props, ref) => {\n   return <input ref={ref} {...props} />;\n });\n ```\n\n ### Valid\n\n ```jsx\n function MyInput({ ref, ...props }) {\n   return <input ref={ref} {...props} />;\n }\n ```\n\n ```jsx\n const MyInput = ({ ref, ...props }) => {\n   return <input ref={ref} {...props} />;\n }\n ```\n\n"
           },
+          "noRedundantDefaultExport": {
+            "deprecated": false,
+            "version": "2.3.14",
+            "name": "noRedundantDefaultExport",
+            "link": "https://biomejs.dev/linter/rules/no-redundant-default-export",
+            "recommended": false,
+            "fixKind": "none",
+            "docs": " Checks if a default export exports the same symbol as a named export.\n\n This rule warns when a `default` export references the same identifier as a named export.\n Re-exports are out of scope.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n export const foo = 42;\n export default foo;\n ```\n\n ### Valid\n\n ```js\n export const foo = 42;\n export default 42;\n ```\n\n"
+          },
           "noReturnAssign": {
             "deprecated": false,
             "version": "2.3.11",
@@ -3143,6 +3203,23 @@ export function GET() {
               }
             ],
             "docs": " Disallow the use of useless `undefined`.\n\n `undefined` is the default value for new variables, parameters, return statements, etc., so specifying it doesn't make any difference.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n let foo = undefined;\n ```\n\n ```js,expect_diagnostic\n const {foo = undefined} = bar;\n ```\n\n ```js,expect_diagnostic\n function foo() {\n    return undefined;\n }\n ```\n\n ```js,expect_diagnostic\n function* foo() {\n   yield undefined;\n }\n ```\n\n ```js,expect_diagnostic\n function foo(bar = undefined) {}\n ```\n\n ```js,expect_diagnostic\n function foo({bar = undefined}) {}\n ```\n\n ### Valid\n\n ```js\n let foo;\n const {foo} = bar;\n function foo() {\n   return;\n }\n function* foo() {\n   yield;\n }\n function foo(bar) {}\n function foo({bar}) {}\n foo();\n ```\n\n"
+          },
+          "noVueArrowFuncInWatch": {
+            "deprecated": false,
+            "version": "2.3.14",
+            "name": "noVueArrowFuncInWatch",
+            "link": "https://biomejs.dev/linter/rules/no-vue-arrow-func-in-watch",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "no-arrow-functions-in-watch"
+                }
+              }
+            ],
+            "docs": " Disallows using arrow functions when defining a watcher.\n\n When using the Options API in Vue.js, defining watchers with arrow functions is discouraged. This is because arrow functions bind to their parent context, which means that the `this` keyword inside the arrow function does not refer to the Vue instance as expected. Instead, it refers to the context in which the arrow function was defined, which can be confusing.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script>\n export default {\n   watch: {\n     foo: (val, oldVal) => {\n       console.log('new: %s, old: %s', val, oldVal)\n     }\n   }\n }\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script>\n export default {\n   watch: {\n     foo: {\n       handler: (val, oldVal) => {\n         console.log('new: %s, old: %s', val, oldVal)\n       }\n     }\n   }\n }\n </script>\n ```\n\n ### Valid\n\n ```vue\n <script>\n export default {\n   watch: {\n     a: function (val, oldVal) {\n       console.log('new: %s, old: %s', val, oldVal)\n     },\n     b: 'someMethod',\n     c: {\n       handler: function (val, oldVal) { /* ... */ },\n       deep: true\n     },\n     d: {\n       handler: 'someMethod',\n       immediate: true\n     },\n     e: [\n       'handle1',\n       function handle2 (val, oldVal) { /* ... */ },\n       {\n         handler: function handle3 (val, oldVal) { /* ... */ },\n         /* ... */\n       }\n     ],\n     'e.f': function (val, oldVal) { /* ... */ }\n   }\n }\n </script>\n ```\n\n References:\n - <https://vuejs.org/api/options-state.html#watch>\n\n"
           },
           "noVueDataObjectDeclaration": {
             "deprecated": false,
@@ -3362,6 +3439,23 @@ export function GET() {
               }
             ],
             "docs": " Enforce the use of Array.prototype.find() over Array.prototype.filter() followed by [0] when looking for a single result.\n\n When searching for the first item in an array matching a condition, it may be tempting to use code like `arr.filter(x => x > 0)[0]`.\n However, it is simpler to use `Array.prototype.find()` instead, `arr.find(x => x > 0)`, which also returns the first entry matching a condition.\n Because the `.find()` only needs to execute the callback until it finds a match, it's also more efficient.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=invalid.ts\n [1, 2, 3].filter(x => x > 1)[0];\n ```\n\n ```ts,expect_diagnostic,file=invalid2.ts\n [1, 2, 3].filter(x => x > 1).at(0);\n ```\n\n ### Valid\n\n ```ts,file=valid.ts\n [1, 2, 3].find(x => x > 1);\n ```\n\n"
+          },
+          "useGlobalThis": {
+            "deprecated": false,
+            "version": "2.3.14",
+            "name": "useGlobalThis",
+            "link": "https://biomejs.dev/linter/rules/use-global-this",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintUnicorn": "prefer-global-this"
+                }
+              }
+            ],
+            "docs": " Enforce the use of `globalThis` over `window`, `self`, and `global`.\n\n `globalThis` is a standard way to access the global object across platforms such as browsers, Web Workers, Node.js and so on, and using it can make your code portable.\n\n However, there are several exceptions that are allowed:\n\n 1. Certain window/Web Workers-specific APIs, such as `window.innerHeight` and `self.postMessage`\n 2. Window-specific events, such as `window.addEventListener('resize')`\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n window.foo;\n ```\n\n ```js,expect_diagnostic\n window.addEventListener('click', () => {});\n ```\n\n ### Valid\n\n ```js\n globalThis.foo;\n ```\n\n ```js\n globalThis.addEventListener('click', () => {});\n ```\n\n ```js\n // window/Web Workers-specific APIs are allowed\n window.innerWidth;\n self.postMessage({ type: 'ready' });\n ```\n\n ```js\n // window-specific events are allowed\n window.addEventListener('resize', () => {});\n ```\n\n"
           },
           "useMaxParams": {
             "deprecated": false,
@@ -7081,6 +7175,23 @@ export function GET() {
             ],
             "docs": " Disallow enums from having both number and string members.\n\n TypeScript enums are allowed to assign numeric or string values to their members.\n Most enums contain either all numbers or all strings, but in theory you can mix-and-match within the same enum.\n Mixing enum member types is generally considered confusing and a bad practice.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n enum Status {\n   Unknown,\n   Closed = 1,\n   Open = 'open',\n }\n ```\n\n ### Valid\n\n ```ts\n enum Status {\n   Unknown = 0,\n   Closed = 1,\n   Open = 2,\n }\n ```\n\n ```ts\n enum Status {\n   Unknown,\n   Closed,\n   Open,\n }\n ```\n\n ```ts\n enum Status {\n   Unknown = 'unknown',\n   Closed = 'closed',\n   Open = 'open',\n }\n ```\n\n"
           },
+          "useConsistentMethodSignatures": {
+            "deprecated": false,
+            "version": "2.3.14",
+            "name": "useConsistentMethodSignatures",
+            "link": "https://biomejs.dev/linter/rules/use-consistent-method-signatures",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintTypeScript": "method-signature-style"
+                }
+              }
+            ],
+            "docs": " Enforce consistent use of either method signatures or function properties within interfaces and type aliases.\n\n TypeScript provides 2 different ways to declare methods within interfaces and object types:\n ```ts,ignore\n interface Example {\n   // method shorthand syntax\n   methodFunc(arg: string): void;\n\n   // regular property with function type\n   prop: (arg: string) => void;\n }\n\n // These forms correspond to the analogous JS object literal patterns:\n const obj = {\n   methodFunc(arg) {},\n   prop: (arg) => {},\n } satisfies Example;\n ```\n\n While mostly a matter of stylistic consistency, the two gain subtle differences in behavior when the\n [`strictFunctionTypes`](https://www.typescriptlang.org/tsconfig/#strictFunctionTypes) compiler option is enabled. \\\n More specifically, its stricter contravariant checks will **only** apply to functions written in _property_ syntax —\n ones written as methods will remain with the weaker bivariant type checks.\n\n <details>\n <summary>What's the difference?</summary>\n\n To illustrate the differences between method bivariance and contravariance, consider the following snippet of code:\n ```ts,ignore\n interface Emitter {\n   methodFunc(arg: Event): void;\n   propFunc: (arg: Event) => void;\n }\n\n interface SpecialEvent extends Event {\n   isBirthday: boolean;\n }\n\n interface SpecialEmitter extends Emitter {\n   methodFunc(arg: SpecialEvent): void; // OK\n   propFunc: (arg: SpecialEvent) => void; // Error under `strictFunctionTypes`\n }\n ```\n In the above example, `SpecialEmitter.methodFunc` is compatible with `Emitter.methodFunc` under _bivariant_[^1] checks,\n as `SpecialEvent` is assignable to `Event` (i.e. all `SpecialEvent`s are guaranteed to be valid `Event`s). \\\n On the other hand, the strict _contravariant_ checks for function properties produce errors on `propFunc` as the reverse is not guaranteed —\n `Event` is not assignable to `SpecialEvent` (i.e. not all `Event`s are guaranteed to be valid `SpecialEvent`s).\n\n The full rationale for this behavior can be found in the [TypeScript handbook](https://www.typescriptlang.org/docs/handbook/type-compatibility.html#function-parameter-bivariance).\n\n [^1]: From a purely type-theoretical perspective, bivariance technically refers to a type being _both_ covariant _and_ contravariant at once\n (`A` ⊆ `B` implies `T<A>` ≣ `T<B>`). \\\n In practice, this is only true for pathological types like `type T<A> = number`,\n and so is often used to refer to a type being either covariant _or_ contravariant (which simply requires `T<A>` and `T<B>` to have some non-zero amount of overlap).\n\n </details>\n\n To avoid inconsistent type assignability issues and enforce stylistic consistency, this rule attempts to\n ensure either method- or property-style declarations are used consistently across a given codebase.\n\n :::info\n Without `strictFunctionTypes` enabled, method signatures and function properties become **functionally identical**.\n In this case, which option to use simply becomes a matter of personal preference.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n interface Example {\n   methodFunc(arg: string): number;\n }\n ```\n\n ```ts,expect_diagnostic\n type Generic<T, U> = {\n   methodFunc(arg: T): U;\n }\n ```\n\n ```ts,expect_diagnostic\n type Union =\n   | {\n     foo(bar: number): number;\n   }\n   | 4;\n ```\n\n ```ts,expect_diagnostic\n type Intersection =\n   {\n     qux(quux: number): \"quuux\";\n   } & { foo: string };\n ```\n\n ### Valid\n\n ```ts\n interface Prop {\n   propFunc: (arg: string) => number;\n }\n ```\n\n ```ts\n type Thing<T> = {\n   genericProp: <U>(arg: U) => T;\n }\n ```\n\n ```ts\n type Callback = () => void;\n ```\n\n Classes (as well as interfaces lacking function declarations) are always ignored:\n ```ts\n interface Example {\n   notAFunc: number;\n }\n ```\n\n ```ts\n class Foo {\n   methodFunc(arg: string): number;\n }\n ```\n\n ## Options\n\n ### `style`\n The desired method signature style to enforce. \\\n Possible values are either `\"method\"` or `\"property\"`.\n\n Default: `\"property\"`[^2]\n\n #### Examples for `\"style\": \"method\"`\n\n ```json,options\n {\n  \"options\": {\n    \"style\": \"method\"\n  }\n }\n ```\n\n ```ts,use_options,expect_diagnostic\n interface Blah {\n   propFunc: (arg: string) => void;\n }\n ```\n\n ```ts,use_options,expect_diagnostic\n type Generic = {\n   propFunc: <T, U>(arg: T) => U;\n }\n ```\n\n ```ts,use_options\n type OK = {\n   flubber(arg: number): number;\n }\n ```\n\n [^2]: Chosen to allow stricter type checks under the aforementioned `strictFunctionTypes`.\n"
+          },
           "useExplicitType": {
             "deprecated": false,
             "version": "1.9.3",
@@ -7292,7 +7403,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Enforce type definitions to consistently use either `interface` or `type`.\n\n _TypeScript_ provides two different ways to define an object type: `interface` and `type`.\n\n This rule enforces consistent usage of either `interface` or `type` for object type definitions.\n Consistent type definition styles, aside from improving code readability, help minimize cognitive load when developers\n switch between different codebases or within a large codebase.\n\n ## Example\n\n ### Invalid\n\n ```ts,expect_diagnostic\n type Point = { x: number; y: number; };\n ```\n\n ### Valid\n\n ```ts\n interface Point {\n   x: number;\n   y: number;\n }\n ```\n\n ## Options\n\n The following options are available\n\n ### `style`\n\n This option will determine which style to use for type definitions.\n\n Default: `interface`\n\n ```json,options\n {\n     \"options\": {\n         \"style\": \"type\"\n     }\n }\n ```\n\n ```ts,use_options,expect_diagnostic\n interface Point {\n   x: number;\n   y: number;\n }\n ```\n\n"
+            "docs": " Enforce type definitions to consistently use either `interface` or `type`.\n\n _TypeScript_ provides two different ways to define an object type: `interface` and `type`.\n\n This rule enforces consistent usage of either `interface` or `type` for object type definitions.\n Consistent type definition styles, aside from improving code readability, help minimize cognitive load when developers\n switch between different codebases or within a large codebase.\n\n Empty object type declarations will be left as-is and will not be converted to interfaces,\n as it will conflict with the `noEmptyInterface` rule.\n\n ## Example\n\n ### Invalid\n\n ```ts,expect_diagnostic\n type Point = { x: number; y: number; };\n ```\n\n ### Valid\n\n ```ts\n interface Point {\n   x: number;\n   y: number;\n }\n ```\n\n ```ts\n type AnyObject = {};\n ```\n\n ## Options\n\n The following options are available\n\n ### `style`\n\n This option will determine which style to use for type definitions.\n\n Default: `interface`\n\n ```json,options\n {\n     \"options\": {\n         \"style\": \"type\"\n     }\n }\n ```\n\n ```ts,use_options,expect_diagnostic\n interface Point {\n   x: number;\n   y: number;\n }\n ```\n\n"
           },
           "useEnumInitializers": {
             "deprecated": false,
@@ -7581,7 +7692,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 438
+    "numberOrRules": 445
   },
   "syntax": {
     "languages": {
