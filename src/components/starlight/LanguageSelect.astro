@@ -22,7 +22,17 @@ import Select from "@astrojs/starlight/components/Select.astro";
         constructor() {
             super();
 
-            this.querySelector('select')?.addEventListener('change', (e) => {
+            const el = this.querySelector("select");
+
+            if (!el) return;
+
+            const host = window.location.host;
+            const subdomain = host.split(".")[0];
+            if (subdomain === "next") {
+                el.value = "next";
+            }
+
+            el.addEventListener("change", (e) => {
                 const value = (e.currentTarget as HTMLSelectElement).value;
 
                 let url: URL;
