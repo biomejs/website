@@ -35,7 +35,7 @@ import Select from "@astrojs/starlight/components/Select.astro";
             el.addEventListener("change", (e) => {
                 const value = (e.currentTarget as HTMLSelectElement).value;
 
-                let url = new URL(window.location.href);
+                const url = new URL(window.location.href);
                 switch (value) {
 									  case "v1":
 												url.hostname = "v1.biomejs.dev";
