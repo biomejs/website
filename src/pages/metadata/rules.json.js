@@ -3764,6 +3764,12 @@ export function GET() {
               {
                 "kind": "sameLogic",
                 "source": {
+                  "eslintTypeScript": "no-var-requires"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
                   "eslintImport": "no-commonjs"
                 }
               }
