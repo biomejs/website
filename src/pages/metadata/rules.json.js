@@ -4583,7 +4583,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow assignments in expressions.\n\n In expressions, it is common to mistype a comparison operator (such as `==`) as an assignment operator (such as `=`).\n Moreover, the use of assignments in expressions is confusing.\n Indeed, expressions are often considered as side-effect free.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n let a, b;\n a = (b = 1) + 1;\n ```\n\n ```ts,expect_diagnostic\n let a;\n if (a = 1) {\n }\n ```\n\n ```ts,expect_diagnostic\n function f(a) {\n     return a = 1;\n }\n ```\n\n ### Valid\n\n ```ts\n let a;\n a = 1;\n ```\n"
+            "docs": " Disallow assignments in expressions.\n\n In expressions, it is common to mistype a comparison operator (such as `==`) as an assignment operator (such as `=`).\n Moreover, the use of assignments in expressions is confusing.\n Indeed, expressions are often considered as side-effect free.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n let a, b;\n a = (b = 1) + 1;\n ```\n\n ```ts,expect_diagnostic\n let a;\n if (a = 1) {\n }\n ```\n\n ```ts,expect_diagnostic\n function f(a) {\n     return a = 1;\n }\n ```\n\n ### Valid\n\n ```ts\n let a;\n a = 1;\n ```\n\n ```ts\n let a = 0;\n const f = b => a += b;\n ```\n"
           },
           "noAsyncPromiseExecutor": {
             "deprecated": false,
