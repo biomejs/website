@@ -3448,6 +3448,23 @@ export function GET() {
             ],
             "docs": " Disallow the use of useless `undefined`.\n\n `undefined` is the default value for new variables, parameters, return statements, etc., so specifying it doesn't make any difference.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n let foo = undefined;\n ```\n\n ```js,expect_diagnostic\n const {foo = undefined} = bar;\n ```\n\n ```js,expect_diagnostic\n function foo() {\n    return undefined;\n }\n ```\n\n ```js,expect_diagnostic\n function* foo() {\n   yield undefined;\n }\n ```\n\n ```js,expect_diagnostic\n function foo(bar = undefined) {}\n ```\n\n ```js,expect_diagnostic\n function foo({bar = undefined}) {}\n ```\n\n ### Valid\n\n ```js\n let foo;\n const {foo} = bar;\n function foo() {\n   return;\n }\n function* foo() {\n   yield;\n }\n function foo(bar) {}\n function foo({bar}) {}\n foo();\n ```\n\n"
           },
+          "noVueArrowFuncInWatch": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noVueArrowFuncInWatch",
+            "link": "https://biomejs.dev/linter/rules/no-vue-arrow-func-in-watch",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "no-arrow-functions-in-watch"
+                }
+              }
+            ],
+            "docs": " Disallows using arrow functions when defining a watcher.\n\n When using the Options API in Vue.js, defining watchers with arrow functions is discouraged. This is because arrow functions bind to their parent context, which means that the `this` keyword inside the arrow function does not refer to the Vue instance as expected. Instead, it refers to the context in which the arrow function was defined, which can be confusing.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script>\n export default {\n   watch: {\n     foo: (val, oldVal) => {\n       console.log('new: %s, old: %s', val, oldVal)\n     }\n   }\n }\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script>\n export default {\n   watch: {\n     foo: {\n       handler: (val, oldVal) => {\n         console.log('new: %s, old: %s', val, oldVal)\n       }\n     }\n   }\n }\n </script>\n ```\n\n ### Valid\n\n ```vue\n <script>\n export default {\n   watch: {\n     a: function (val, oldVal) {\n       console.log('new: %s, old: %s', val, oldVal)\n     },\n     b: 'someMethod',\n     c: {\n       handler: function (val, oldVal) { /* ... */ },\n       deep: true\n     },\n     d: {\n       handler: 'someMethod',\n       immediate: true\n     },\n     e: [\n       'handle1',\n       function handle2 (val, oldVal) { /* ... */ },\n       {\n         handler: function handle3 (val, oldVal) { /* ... */ },\n         /* ... */\n       }\n     ],\n     'e.f': function (val, oldVal) { /* ... */ }\n   }\n }\n </script>\n ```\n\n References:\n - https://vuejs.org/api/options-state.html#watch\n\n"
+          },
           "noVueDataObjectDeclaration": {
             "deprecated": false,
             "version": "2.1.4",
@@ -7915,7 +7932,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 456
+    "numberOrRules": 457
   },
   "syntax": {
     "languages": {
@@ -7981,6 +7998,27 @@ export function GET() {
           }
         }
       },
+      "html": {
+        "source": {
+          "noDuplicateClasses": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noDuplicateClasses",
+            "link": "https://biomejs.dev/linter/rules/no-duplicate-classes",
+            "recommended": false,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintBetterTailwindcss": "no-duplicate-classes"
+                }
+              }
+            ],
+            "docs": " Remove duplicate CSS classes.\n\n Detects and removes duplicate CSS classes in HTML `class` attributes.\n\n This action helps keep your class strings clean by detecting and removing duplicates.\n\n Duplicate classes are redundant and can indicate copy-paste errors or merge conflicts.\n\n ## Examples\n\n ```html,expect_diff\n <div class=\"flex flex\"></div>\n ```\n\n ```html,expect_diff\n <div class=\"p-4 text-red-500 p-4 bg-white\"></div>\n ```\n\n"
+          }
+        }
+      },
       "js": {
         "source": {
           "organizeImports": {
@@ -8040,6 +8078,23 @@ export function GET() {
       },
       "jsx": {
         "source": {
+          "noDuplicateClasses": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noDuplicateClasses",
+            "link": "https://biomejs.dev/linter/rules/no-duplicate-classes",
+            "recommended": false,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintBetterTailwindcss": "no-duplicate-classes"
+                }
+              }
+            ],
+            "docs": " Remove duplicate CSS classes.\n\n Detects and removes duplicate CSS classes in JSX `class` and `className` attributes,\n as well as in utility function calls like `clsx`, `cn`, `cva`, etc.\n\n Duplicate classes are redundant and can indicate copy-paste errors or merge conflicts.\n\n ## Examples\n\n ```jsx,expect_diff\n <div class=\"flex flex\" />;\n ```\n\n ```jsx,expect_diff\n <div class=\"p-4 text-red-500 p-4 bg-white\" />;\n ```\n\n ## Options\n\n Use the `attributes` option to specify additional JSX attributes to check.\n Use the `functions` option to specify utility functions to check (e.g., `clsx`, `cn`, `cva`).\n\n"
+          },
           "useSortedAttributes": {
             "deprecated": false,
             "version": "2.0.0",
@@ -8081,7 +8136,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 6
+    "numberOrRules": 8
   }
 };
 	return new Response(JSON.stringify(schema), {
