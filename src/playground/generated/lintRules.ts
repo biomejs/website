@@ -210,6 +210,7 @@ export const LINT_RULES = {
     noUnusedExpressions: "noUnusedExpressions",
     noUselessCatchBinding: "noUselessCatchBinding",
     noUselessUndefined: "noUselessUndefined",
+    noVueArrowFuncInWatch: "noVueArrowFuncInWatch",
     noVueDataObjectDeclaration: "noVueDataObjectDeclaration",
     noVueDuplicateKeys: "noVueDuplicateKeys",
     noVueOptionsApi: "noVueOptionsApi",
@@ -281,6 +282,7 @@ export const LINT_RULES = {
     noSecrets: "noSecrets",
   } as const,
   source: {
+    noDuplicateClasses: "noDuplicateClasses",
     organizeImports: "organizeImports",
     useSortedAttributes: "useSortedAttributes",
     useSortedInterfaceMembers: "useSortedInterfaceMembers",
