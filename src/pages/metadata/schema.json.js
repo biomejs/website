@@ -110,6 +110,20 @@ export function GET() {
 					"required": ["eslintBarrelFiles"]
 				},
 				{
+					"description": "Rules from [Eslint Plugin Better Tailwindcss](https://github.com/schoero/eslint-plugin-better-tailwindcss)",
+					"type": "object",
+					"properties": { "eslintBetterTailwindcss": { "type": "string" } },
+					"additionalProperties": false,
+					"required": ["eslintBetterTailwindcss"]
+				},
+				{
+					"description": "Rules from [e18e ESLint Plugin](https://github.com/e18e/eslint-plugin)",
+					"type": "object",
+					"properties": { "eslintE18e": { "type": "string" } },
+					"additionalProperties": false,
+					"required": ["eslintE18e"]
+				},
+				{
 					"description": "Rules from [GraphQL-ESLint](https://github.com/graphql-hive/graphql-eslint)",
 					"type": "object",
 					"properties": { "eslintGraphql": { "type": "string" } },

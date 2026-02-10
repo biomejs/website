@@ -125,7 +125,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow unknown CSS value functions.\n\n This rule ignores double-dashed custom functions, e.g. `--custom-function()`.\n\n Data sources of known CSS value functions are:\n - MDN reference on [CSS value functions](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Functions)\n - MDN reference on [CSS reference](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference)\n - MDN [browser compatibility data for CSS value functions](https://github.com/mdn/browser-compat-data/tree/main/css/types)\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a { transform: unknown(1); }\n ```\n\n ### Valid\n\n ```css\n a { transform: scale(1); }\n ```\n\n"
+            "docs": " Disallow unknown CSS value functions.\n\n This rule ignores double-dashed custom functions, e.g. `--custom-function()`.\n\n Data sources of known CSS value functions are:\n - MDN reference on [CSS value functions](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Functions)\n - MDN reference on [CSS reference](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference)\n - MDN [browser compatibility data for CSS value functions](https://github.com/mdn/browser-compat-data/tree/main/css/types)\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a { transform: unknown(1); }\n ```\n\n ### Valid\n\n ```css\n a { transform: scale(1); }\n ```\n\n ## Options\n\n ### `ignore`\n\n A list of unknown function names to ignore (case-insensitive).\n\n ```json,options\n {\n   \"options\": {\n     \"ignore\": [\n       \"custom-function\"\n     ]\n   }\n }\n ```\n\n #### Valid\n\n ```css,use_options\n a { transform: custom-function(1); }\n ```\n\n"
           },
           "noUnknownMediaFeatureName": {
             "deprecated": false,
@@ -159,7 +159,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow unknown properties.\n\n This rule considers properties defined in the CSS Specifications and browser specific properties to be known.\n https://github.com/known-css/known-css-properties#source\n\n\n This rule ignores:\n\n - custom variables e.g. `--custom-property`\n - vendor-prefixed properties (e.g., `-moz-align-self,` `-webkit-align-self`)\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a {\n   colr: blue;\n }\n ```\n\n ```css,expect_diagnostic\n a {\n   my-property: 1;\n }\n ```\n\n ### Valid\n\n ```css\n a {\n   color: green;\n }\n ```\n\n ```css\n a {\n   fill: black;\n }\n ```\n\n ```css\n a {\n   -moz-align-self: center;\n }\n ```\n\n"
+            "docs": " Disallow unknown properties.\n\n This rule considers properties defined in the CSS Specifications and browser specific properties to be known.\n https://github.com/known-css/known-css-properties#source\n\n\n This rule ignores:\n\n - custom variables e.g. `--custom-property`\n - vendor-prefixed properties (e.g., `-moz-align-self,` `-webkit-align-self`)\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a {\n   colr: blue;\n }\n ```\n\n ```css,expect_diagnostic\n a {\n   my-property: 1;\n }\n ```\n\n ### Valid\n\n ```css\n a {\n   color: green;\n }\n ```\n\n ```css\n a {\n   fill: black;\n }\n ```\n\n ```css\n a {\n   -moz-align-self: center;\n }\n ```\n\n ## Options\n\n ### `ignore`\n\n A list of unknown property names to ignore (case-insensitive).\n\n ```json,options\n {\n   \"options\": {\n     \"ignore\": [\n       \"custom-property\"\n     ]\n   }\n }\n ```\n\n #### Valid\n\n ```css,use_options\n a {\n   custom-property: black;\n }\n ```\n\n"
           },
           "noUnknownPseudoClass": {
             "deprecated": false,
@@ -176,7 +176,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow unknown pseudo-class selectors.\n\n For details on known pseudo-class, see the [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes)\n\n This rule ignores vendor-prefixed pseudo-class selectors.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a:unknown {}\n ```\n\n ```css,expect_diagnostic\n a:UNKNOWN {}\n ```\n\n ```css,expect_diagnostic\n a:hoverr {}\n ```\n\n ### Valid\n\n ```css\n a:hover {}\n ```\n\n ```css\n a:focus {}\n ```\n\n ```css\n :not(p) {}\n ```\n\n ```css\n input:-moz-placeholder {}\n ```\n\n"
+            "docs": " Disallow unknown pseudo-class selectors.\n\n For details on known pseudo-class, see the [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes)\n\n This rule ignores vendor-prefixed pseudo-class selectors.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a:unknown {}\n ```\n\n ```css,expect_diagnostic\n a:UNKNOWN {}\n ```\n\n ```css,expect_diagnostic\n a:hoverr {}\n ```\n\n ### Valid\n\n ```css\n a:hover {}\n ```\n\n ```css\n a:focus {}\n ```\n\n ```css\n :not(p) {}\n ```\n\n ```css\n input:-moz-placeholder {}\n ```\n\n ## Options\n\n ### `ignore`\n\n A list of unknown pseudo-class names to ignore (case-insensitive).\n\n ```json,options\n {\n   \"options\": {\n     \"ignore\": [\n       \"custom-pseudo-class\"\n     ]\n   }\n }\n ```\n\n #### Valid\n\n ```css,use_options\n a:custom-pseudo-class {}\n ```\n\n"
           },
           "noUnknownPseudoElement": {
             "deprecated": false,
@@ -193,7 +193,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow unknown pseudo-element selectors.\n\n For details on known CSS pseudo-elements, see the [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements#list_of_pseudo-elements).\n\n This rule ignores vendor-prefixed pseudo-element selectors.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a::pseudo {}\n ```\n\n ```css,expect_diagnostic\n a::PSEUDO {}\n ```\n\n ```css,expect_diagnostic\n a::element {}\n ```\n\n ### Valid\n\n ```css\n a:before {}\n ```\n\n ```css\n a::before {}\n ```\n\n ```css\n ::selection {}\n ```\n\n ```css\n input::-moz-placeholder {}\n ```\n\n"
+            "docs": " Disallow unknown pseudo-element selectors.\n\n For details on known CSS pseudo-elements, see the [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements#list_of_pseudo-elements).\n\n This rule ignores vendor-prefixed pseudo-element selectors.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a::pseudo {}\n ```\n\n ```css,expect_diagnostic\n a::PSEUDO {}\n ```\n\n ```css,expect_diagnostic\n a::element {}\n ```\n\n ### Valid\n\n ```css\n a:before {}\n ```\n\n ```css\n a::before {}\n ```\n\n ```css\n ::selection {}\n ```\n\n ```css\n input::-moz-placeholder {}\n ```\n\n ## Options\n\n ### `ignore`\n\n A list of unknown pseudo-element names to ignore (case-insensitive).\n\n ```json,options\n {\n   \"options\": {\n     \"ignore\": [\n       \"custom-pseudo-element\"\n     ]\n   }\n }\n ```\n\n #### Valid\n\n ```css,use_options\n ::custom-pseudo-element {}\n ```\n\n"
           },
           "noUnknownTypeSelector": {
             "deprecated": false,
@@ -250,7 +250,7 @@ export function GET() {
         "nursery": {
           "noDeprecatedMediaType": {
             "deprecated": false,
-            "version": "2.3.14",
+            "version": "next",
             "name": "noDeprecatedMediaType",
             "link": "https://biomejs.dev/linter/rules/no-deprecated-media-type",
             "recommended": false,
@@ -293,7 +293,7 @@ export function GET() {
           },
           "noHexColors": {
             "deprecated": false,
-            "version": "2.3.14",
+            "version": "next",
             "name": "noHexColors",
             "link": "https://biomejs.dev/linter/rules/no-hex-colors",
             "recommended": false,
@@ -334,7 +334,7 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/no-value-at-rule",
             "recommended": false,
             "fixKind": "none",
-            "docs": " Disallow use of `@value` rule in css modules.\n\n Use of CSS variables is recommended instead of `@value` rule.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n @value red: #FF0000;\n ```\n\n ### Valid\n\n ```css\n :root {\n   --red: #FF0000\n }\n\n p {\n   background-color: var(--red);\n }\n ```\n\n"
+            "docs": " Disallow use of `@value` rule in CSS modules.\n\n Use of CSS variables is recommended instead of `@value` rule.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic,file=example.module.css\n @value red: #FF0000;\n ```\n\n ### Valid\n\n ```css,file=example.module.css\n :root {\n   --red: #FF0000\n }\n\n p {\n   background-color: var(--red);\n }\n ```\n\n"
           }
         },
         "suspicious": {
@@ -713,7 +713,7 @@ export function GET() {
           },
           "useInputName": {
             "deprecated": false,
-            "version": "2.3.14",
+            "version": "next",
             "name": "useInputName",
             "link": "https://biomejs.dev/linter/rules/use-input-name",
             "recommended": false,
@@ -821,6 +821,57 @@ export function GET() {
       },
       "html": {
         "a11y": {
+          "noAccessKey": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noAccessKey",
+            "link": "https://biomejs.dev/linter/rules/no-access-key",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJsxA11y": "no-access-key"
+                }
+              }
+            ],
+            "docs": " Enforce that the `accesskey` attribute is not used on any HTML element.\n\n The `accesskey` assigns a keyboard shortcut to the current element. However, the `accesskey` value\n can conflict with keyboard commands used by screen readers and keyboard-only users, which leads to\n inconsistent keyboard actions across applications. To avoid accessibility complications,\n this rule suggests users remove the `accesskey` attribute on elements.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <input type=\"submit\" accesskey=\"s\" value=\"Submit\" />\n ```\n\n ```html,expect_diagnostic\n <a href=\"https://webaim.org/\" accesskey=\"w\">WebAIM.org</a>\n ```\n\n ```html,expect_diagnostic\n <button accesskey=\"n\">Next</button>\n ```\n\n ## Resources\n\n - [WebAIM: Keyboard Accessibility - Accesskey](https://webaim.org/techniques/keyboard/accesskey#spec)\n - [MDN `accesskey` documentation](https://developer.mozilla.org/docs/Web/HTML/Global_attributes/accesskey)\n\n"
+          },
+          "noAutofocus": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noAutofocus",
+            "link": "https://biomejs.dev/linter/rules/no-autofocus",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJsxA11y": "no-autofocus"
+                }
+              }
+            ],
+            "docs": " Enforce that the `autofocus` attribute is not used on elements.\n\n Autofocusing elements can cause usability issues for sighted and non-sighted users, alike.\n However, the `autofocus` attribute is allowed on elements inside a `dialog` element or\n elements with a `popover` attribute, as these are modal contexts where autofocus is expected.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <input autofocus />\n ```\n\n ```html,expect_diagnostic\n <input autofocus=\"true\" />\n ```\n\n ```html,expect_diagnostic\n <textarea autofocus>content</textarea>\n ```\n\n ### Valid\n\n ```html\n <input />\n ```\n\n ```html\n <div popover><input autofocus /></div>\n ```\n\n ```html\n <dialog><input autofocus /></dialog>\n ```\n\n ## Resources\n\n - [WHATWG HTML Standard, The autofocus attribute](https://html.spec.whatwg.org/multipage/interaction.html#attr-fe-autofocus)\n - [The accessibility of HTML 5 autofocus](https://brucelawson.co.uk/2009/the-accessibility-of-html-5-autofocus/)\n - [MDN Web Docs, HTMLElement: autofocus property](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/autofocus)\n\n"
+          },
+          "noDistractingElements": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noDistractingElements",
+            "link": "https://biomejs.dev/linter/rules/no-distracting-elements",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJsxA11y": "no-distracting-elements"
+                }
+              }
+            ],
+            "docs": " Enforces that no distracting elements are used.\n\n Elements that can be visually distracting can cause accessibility issues with visually impaired users.\n Such elements are most likely deprecated, and should be avoided.\n By default, the following elements are visually distracting: `<marquee>` and `<blink>`.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <marquee />\n ```\n\n ```html,expect_diagnostic\n <blink />\n ```\n\n ### Valid\n\n ```html\n <div />\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 2.2.2](https://www.w3.org/WAI/WCAG21/Understanding/pause-stop-hide)\n\n"
+          },
           "noHeaderScope": {
             "deprecated": false,
             "version": "2.3.0",
@@ -837,6 +888,202 @@ export function GET() {
               }
             ],
             "docs": " The scope prop should be used only on `<th>` elements.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div scope=\"col\"></div>\n ```\n\n ```html,expect_diagnostic\n <div scope></div>\n ```\n\n ### Valid\n\n ```html\n <th scope=\"col\"></th>\n ```\n\n ```html\n <th scope></th>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 1.3.1](https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships)\n - [WCAG 4.1.1](https://www.w3.org/WAI/WCAG21/Understanding/parsing)\n\n"
+          },
+          "noPositiveTabindex": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noPositiveTabindex",
+            "link": "https://biomejs.dev/linter/rules/no-positive-tabindex",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJsxA11y": "tabindex-no-positive"
+                }
+              }
+            ],
+            "docs": " Prevent the usage of positive integers on `tabindex` attribute.\n\n Avoid positive `tabindex` attribute values to synchronize the flow of the page with keyboard tab order.\n\n ## Accessibility guidelines\n\n [WCAG 2.4.3](https://www.w3.org/WAI/WCAG21/Understanding/focus-order)\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div tabindex=\"1\"></div>\n ```\n\n ```html,expect_diagnostic\n <div tabindex=\"5\"></div>\n ```\n\n ### Valid\n\n ```html\n <div tabindex=\"0\"></div>\n ```\n\n ```html\n <div tabindex=\"-1\"></div>\n ```\n\n"
+          },
+          "noRedundantAlt": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noRedundantAlt",
+            "link": "https://biomejs.dev/linter/rules/no-redundant-alt",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJsxA11y": "img-redundant-alt"
+                }
+              }
+            ],
+            "docs": " Enforce `img` alt prop does not contain the word \"image\", \"picture\", or \"photo\".\n\n The rule will first check if `aria-hidden` is truthy to determine whether to enforce the rule. If the image is\n hidden, then the rule will always succeed.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <img src=\"src\" alt=\"photo content\" />;\n ```\n\n ```html,expect_diagnostic\n <img alt=\"picture of cool person\" aria-hidden=\"false\" />;\n ```\n\n ### Valid\n\n ```html\n <>\n \t<img src=\"src\" alt=\"alt\" />\n \t<img src=\"bar\" aria-hidden alt=\"Picture of me taking a photo of an image\" />\n </>\n ```\n\n"
+          },
+          "noSvgWithoutTitle": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noSvgWithoutTitle",
+            "link": "https://biomejs.dev/linter/rules/no-svg-without-title",
+            "recommended": true,
+            "fixKind": "none",
+            "docs": " Enforces the usage of the `title` element for the `svg` element.\n\n It is not possible to specify the `alt` attribute for the `svg` as for the `img`.\n To make svg accessible, the following methods are available:\n - provide the `title` element as the first child to `svg`\n - provide `role=\"img\"` and `aria-label` or `aria-labelledby` to `svg`\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <svg>foo</svg>\n ```\n\n ```html,expect_diagnostic\n <svg>\n     <title></title>\n     <circle />\n </svg>\n ```\n\n ```html,expect_diagnostic\n <svg role=\"img\" title=\"title\">\n     <span id=\"\">foo</span>\n </svg>\n ```\n\n ```html,expect_diagnostic\n <svg role=\"img\" aria-labelledby=\"title\">\n     <span id=\"title2\">foo</span>\n </svg>\n ```\n\n ```html,expect_diagnostic\n <svg>\n     <rect />\n     <rect />\n     <g>\n         <title>foo</title>\n         <circle />\n         <circle />\n     </g>\n </svg>\n ```\n\n ```html,expect_diagnostic\n <svg role=\"graphics-symbol\"><rect /></svg>\n ```\n\n ### Valid\n\n ```html\n <svg>\n     <title>Pass</title>\n     <circle />\n </svg>\n ```\n\n ```html\n <svg role=\"img\" aria-labelledby=\"title\">\n     <span id=\"title\">Pass</span>\n </svg>\n ```\n\n ```html\n <svg role=\"img\" aria-label=\"title\">\n     <span id=\"title\">Pass</span>\n </svg>\n ```\n\n ```html\n <svg role=\"img\" aria-label=\"\">\n     <span id=\"\">Pass</span>\n </svg>\n ```\n\n ```html\n <svg role=\"graphics-symbol\">\n     <title>Pass</title>\n     <rect />\n </svg>\n ```\n\n ```html\n <svg role=\"graphics-symbol img\"><rect /></svg>\n ```\n\n ```html\n <svg aria-hidden=\"true\"><rect /></svg>\n ```\n\n ```html\n <svg role=\"presentation\">foo</svg>\n ```\n\n\n ## Accessibility guidelines\n [Document Structure – SVG 1.1 (Second Edition)](https://www.w3.org/TR/SVG11/struct.html#DescriptionAndTitleElements)\n [ARIA: img role - Accessibility | MDN](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/img_role)\n [Accessible SVGs | CSS-Tricks - CSS-Tricks](https://css-tricks.com/accessible-svgs/)\n [Contextually Marking up accessible images and SVGs | scottohara.me](https://www.scottohara.me/blog/2019/05/22/contextual-images-svgs-and-a11y.html)\n [Accessible SVGs](https://www.unimelb.edu.au/accessibility/techniques/accessible-svgs)\n\n"
+          },
+          "useAltText": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useAltText",
+            "link": "https://biomejs.dev/linter/rules/use-alt-text",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJsxA11y": "alt-text"
+                }
+              }
+            ],
+            "docs": " Enforce that all elements that require alternative text have meaningful information to relay back to the end user.\n\n This is a critical component of accessibility for screen reader users in order for them\n to understand the content's purpose on the page.\n By default, this rule checks for alternative text on the following elements:\n `<img>`, `<area>`, `<input type=\"image\">`, and `<object>`.\n\n :::note\n In `.html` files, this rule matches element names case-insensitively (e.g., `<IMG>`, `<Img>`).\n\n In component-based frameworks (Vue, Svelte, Astro), only lowercase element names are checked.\n PascalCase variants like `<Img>` are assumed to be custom components and are ignored.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <img src=\"image.png\" />\n ```\n\n ```html,expect_diagnostic\n <input type=\"image\" src=\"image.png\" />\n ```\n\n ```html,expect_diagnostic\n <area href=\"foo\" />\n ```\n\n ```html,expect_diagnostic\n <object data=\"foo\"></object>\n ```\n\n ### Valid\n\n ```html\n <img src=\"image.png\" alt=\"A beautiful landscape\" />\n ```\n\n ```html\n <input type=\"image\" src=\"image.png\" alt=\"Submit\" />\n ```\n\n ```html\n <img src=\"image.png\" aria-label=\"A beautiful landscape\" />\n ```\n\n ```html\n <img src=\"image.png\" aria-labelledby=\"image-description\" />\n ```\n\n ```html\n <object data=\"foo\" title=\"Embedded content\"></object>\n ```\n\n ```html\n <!-- Decorative images can be hidden from assistive technologies -->\n <img src=\"decorative.png\" alt=\"\" />\n ```\n\n ```html\n <img src=\"decorative.png\" aria-hidden=\"true\" />\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 1.1.1](https://www.w3.org/WAI/WCAG21/Understanding/non-text-content.html)\n\n"
+          },
+          "useAnchorContent": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useAnchorContent",
+            "link": "https://biomejs.dev/linter/rules/use-anchor-content",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJsxA11y": "anchor-has-content"
+                }
+              }
+            ],
+            "docs": " Enforce that anchors have content and that the content is accessible to screen readers.\n\n Accessible means the content is not hidden using the `aria-hidden` attribute.\n Anchor tags should have text content that describes the link destination for screen reader users.\n Alternatively, the anchor can have an accessible name via the `aria-label` or `title` attribute.\n\n :::note\n In `.html` files, this rule matches element names case-insensitively (e.g., `<A>`, `<a>`).\n\n In component-based frameworks (Vue, Svelte, Astro), only lowercase element names are checked.\n PascalCase variants like `<A>` are assumed to be custom components and are ignored.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <a></a>\n ```\n\n ```html,expect_diagnostic\n <a>   </a>\n ```\n\n ```html,expect_diagnostic\n <a aria-hidden=\"true\">content</a>\n ```\n\n ```html,expect_diagnostic\n <a><span aria-hidden=\"true\">content</span></a>\n ```\n\n ### Valid\n\n ```html\n <a>content</a>\n ```\n\n ```html\n <a><span>content</span></a>\n ```\n\n ```html\n <a><span aria-hidden=\"true\"></span>content</a>\n ```\n\n ```html\n <a aria-label=\"Navigate to home\"></a>\n ```\n\n ```html\n <a title=\"Home page\"></a>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 2.4.4](https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-in-context)\n - [WCAG 4.1.2](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value)\n\n"
+          },
+          "useAriaPropsForRole": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useAriaPropsForRole",
+            "link": "https://biomejs.dev/linter/rules/use-aria-props-for-role",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJsxA11y": "role-has-required-aria-props"
+                }
+              }
+            ],
+            "docs": " Enforce that elements with ARIA roles must have all required ARIA attributes for that role.\n\n Remember that this rule only supports static values for the `role` attribute.\n Dynamic `role` values are not checked.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <span role=\"checkbox\"></span>\n ```\n\n ```html,expect_diagnostic\n <span role=\"heading\"></span>\n ```\n\n ### Valid\n\n ```html\n <span role=\"checkbox\" aria-checked=\"true\"></span>\n ```\n\n ```html\n <span role=\"heading\" aria-level=\"1\"></span>\n ```\n\n\n ## Accessibility guidelines\n - [WCAG 4.1.2](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value)\n\n ### Resources\n - [ARIA Spec, Roles](https://www.w3.org/TR/wai-aria/#roles)\n - [Chrome Audit Rules, AX_ARIA_03](https://github.com/GoogleChrome/accessibility-developer-tools/wiki/Audit-Rules#ax_aria_03)\n\n"
+          },
+          "useButtonType": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useButtonType",
+            "link": "https://biomejs.dev/linter/rules/use-button-type",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReact": "button-has-type"
+                }
+              }
+            ],
+            "docs": " Enforces the usage and validity of the attribute `type` for the element `button`\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <button>Do something</button>\n ```\n\n ```html,expect_diagnostic\n <button type=\"incorrectType\">Do something</button>\n ```\n\n ### Valid\n\n ```html\n <button type=\"button\">Do something</button>\n ```\n\n"
+          },
+          "useHtmlLang": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useHtmlLang",
+            "link": "https://biomejs.dev/linter/rules/use-html-lang",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJsxA11y": "html-has-lang"
+                }
+              }
+            ],
+            "docs": " Enforce that `html` element has `lang` attribute.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <html></html>\n ```\n\n ```html,expect_diagnostic\n <html lang=\"\"></html>\n ```\n\n ### Valid\n\n ```html\n <html lang=\"en\"></html>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 3.1.1](https://www.w3.org/WAI/WCAG21/Understanding/language-of-page)\n\n"
+          },
+          "useIframeTitle": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useIframeTitle",
+            "link": "https://biomejs.dev/linter/rules/use-iframe-title",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJsxA11y": "iframe-has-title"
+                }
+              }
+            ],
+            "docs": " Enforces the usage of the attribute `title` for the element `iframe`.\n\n :::note\n In `.html` files, this rule matches `iframe` elements case-insensitively (e.g., `<IFRAME>`, `<IFrame>`).\n\n In component-based frameworks (Vue, Svelte, Astro), only lowercase `<iframe>` is checked. PascalCase variants like `<Iframe>` are assumed to be custom components and are ignored.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <iframe></iframe>\n ```\n\n ```html,expect_diagnostic\n <iframe title=\"\"></iframe>\n ```\n\n ### Valid\n\n ```html\n <iframe title=\"title\"></iframe>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 2.4.1](https://www.w3.org/WAI/WCAG21/Understanding/bypass-blocks)\n - [WCAG 4.1.2](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value)\n\n"
+          },
+          "useMediaCaption": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useMediaCaption",
+            "link": "https://biomejs.dev/linter/rules/use-media-caption",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJsxA11y": "media-has-caption"
+                }
+              }
+            ],
+            "docs": " Enforces that `audio` and `video` elements must have a `track` for captions.\n\n Captions support users with hearing-impairments. They should be a transcription\n or translation of the dialogue, sound effects, musical cues, and other relevant\n audio information.\n\n :::note\n In `.html` files, this rule matches element names case-insensitively (e.g., `<VIDEO>`, `<video>`).\n\n In component-based frameworks (Vue, Svelte, Astro), only lowercase element names are checked.\n PascalCase variants like `<Video>` are assumed to be custom components and are ignored.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <video src=\"video.mp4\"></video>\n ```\n\n ```html,expect_diagnostic\n <audio src=\"audio.mp3\">\n     <source src=\"audio.ogg\" type=\"audio/ogg\" />\n </audio>\n ```\n\n ### Valid\n\n ```html\n <video src=\"video.mp4\">\n     <track kind=\"captions\" src=\"captions.vtt\" />\n </video>\n ```\n\n ```html\n <audio src=\"audio.mp3\">\n     <track kind=\"captions\" src=\"captions.vtt\" />\n </audio>\n ```\n\n ```html\n <video muted src=\"video.mp4\"></video>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 1.2.2](https://www.w3.org/WAI/WCAG21/Understanding/captions-prerecorded)\n - [WCAG 1.2.3](https://www.w3.org/WAI/WCAG21/Understanding/audio-description-or-media-alternative-prerecorded)\n\n"
+          },
+          "useValidAriaRole": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useValidAriaRole",
+            "link": "https://biomejs.dev/linter/rules/use-valid-aria-role",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJsxA11y": "aria-role"
+                }
+              }
+            ],
+            "docs": " Elements with ARIA roles must use a valid, non-abstract ARIA role.\n\n Remember that this rule only supports static values for the `role` attribute.\n Dynamic `role` values are not checked.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div role=\"datepicker\"></div>\n ```\n\n ```html,expect_diagnostic\n <div role=\"range\"></div>\n ```\n\n ```html,expect_diagnostic\n <div role=\"\"></div>\n ```\n\n\n ### Valid\n\n ```html\n <div role=\"button\"></div>\n <div></div>\n ```\n\n ## Options\n\n\n ### `allowInvalidRoles`\n\n It allows specifying a list of roles that might be invalid otherwise\n\n ```json,options\n {\n     \"options\": {\n         \"allowInvalidRoles\": [\"datepicker\"]\n     }\n }\n ```\n\n ```html,use_options\n <div role=\"datepicker\"></div>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 4.1.2](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value)\n\n ## Resources\n\n - [Chrome Audit Rules, AX_ARIA_01](https://github.com/GoogleChrome/accessibility-developer-tools/wiki/Audit-Rules#ax_aria_01)\n - [DPUB-ARIA roles](https://www.w3.org/TR/dpub-aria-1.0/)\n - [MDN: Using ARIA: Roles, states, and properties](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques)\n\n"
+          },
+          "useValidLang": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useValidLang",
+            "link": "https://biomejs.dev/linter/rules/use-valid-lang",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJsxA11y": "lang"
+                }
+              }
+            ],
+            "docs": " Ensure that the attribute passed to the `lang` attribute is a correct ISO language and/or country.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <html lang=\"lorem\" />\n ```\n\n ```html,expect_diagnostic\n <html lang=\"en-babab\" />\n ```\n\n ```html,expect_diagnostic\n <html lang=\"en-GB-typo\" />\n ```\n\n ### Valid\n\n ```html\n <html lang=\"en-GB\" />\n ```\n"
           }
         },
         "nursery": {
@@ -1747,7 +1994,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Use arrow functions over function expressions.\n\n An arrow function expression is a compact alternative to a regular function expression,\n with an important distinction:\n `this` is not bound to the arrow function. It inherits `this` from its parent scope.\n\n This rule proposes turning all function expressions that are not generators (`function*`) and don't use `this` into arrow functions.\n\n This rule does not modify top-level function declarations ([discuss here](https://github.com/biomejs/biome/discussions/7108)).\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const z = function() {\n     return 0;\n }\n ```\n\n ```js,expect_diagnostic\n const delegatedFetch = async function(url) {\n     return await fetch(url);\n }\n ```\n\n ### Valid\n\n ```js\n const f = function() {\n     return this.prop;\n }\n ```\n\n Named function expressions are ignored:\n\n ```js\n const z = function z() {\n     return 0;\n }\n ```\n\n Functions that reference the [arguments\n object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments)\n are ignored because the arguments object is not available to arrow\n functions.\n\n ```js\n const q = function () {\n     return arguments[0];\n }\n ```\n\n Function expressions that declare the type of `this` are  also ignored:\n\n ```ts\n const z = function(this: A): number {\n     return 0;\n }\n ```\n"
+            "docs": " Use arrow functions over function expressions.\n\n An arrow function expression is a compact alternative to a regular function expression,\n with an important distinction:\n `this` is not bound to the arrow function. It inherits `this` from its parent scope.\n\n This rule proposes turning all function expressions that are not generators (`function*`) and don't use `this` into arrow functions.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const z = function() {\n     return 0;\n }\n ```\n\n ```js,expect_diagnostic\n const delegatedFetch = async function(url) {\n     return await fetch(url);\n }\n ```\n\n ### Valid\n\n ```js\n const f = function() {\n     return this.prop;\n }\n ```\n\n Named function expressions are ignored:\n\n ```js\n const z = function z() {\n     return 0;\n }\n ```\n\n Functions that reference the [arguments\n object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments)\n are ignored because the arguments object is not available to arrow\n functions.\n\n ```js\n const q = function () {\n     return arguments[0];\n }\n ```\n\n Function expressions that declare the type of `this` are  also ignored:\n\n ```ts\n const z = function(this: A): number {\n     return 0;\n }\n ```\n"
           },
           "useDateNow": {
             "deprecated": false,
@@ -1761,6 +2008,12 @@ export function GET() {
                 "kind": "sameLogic",
                 "source": {
                   "eslintUnicorn": "prefer-date-now"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintE18e": "prefer-date-now"
                 }
               }
             ],
@@ -2525,7 +2778,7 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/use-import-extensions",
             "recommended": false,
             "fixKind": "safe",
-            "docs": " Enforce file extensions for relative imports.\n\n Browsers, Deno, and Node.js do not natively support importing files\n without extensions from JavaScript modules. This rule enforces the use\n of file extensions for relative imports to make the code more\n consistent -- and correct.\n\n In some cases, tooling can also benefit from explicit file extensions,\n because they do not need to guess which file to resolve.\n\n The rule checks both static imports (`import ... from \"...\"`) as well as\n dynamic imports such as `import(...)` and `require(...)`.\n\n ## Examples\n\n ### Invalid\n\n The following examples assume these imports will resolve to a file with\n an extension. Imports that don't resolve at all will not trigger a\n diagnostic.\n\n ```js\n import \"./foo\";\n ```\n ```js\n import \"./foo/\";\n ```\n ```js\n import \"../\";\n ```\n ```js\n import \"../.\";\n ```\n ```js\n import(\"./foo\");\n ```\n ```js\n require(\"./foo\");\n ```\n\n ### Valid\n\n ```js\n import \"biome\";\n ```\n ```js\n import \"./foo.js\";\n ```\n ```js\n import \"./bar/index.js\";\n ```\n ```js\n import(\"./foo.js\");\n ```\n ```js\n require(\"./foo.js\");\n ```\n\n ## Options\n\n The rule provides the options described below.\n\n ### forceJsExtensions\n\n Normally, this rule suggests to use the extension of the module that is\n found in your project. For instance, `.ts` or `.tsx` for a TypeScript\n file. If this option is set to `true`, the rule will always suggest to\n use `.js` regardless of the extension in your project.\n\n This is useful if you use the `\"module\": \"node16\"` setting when building\n your code with `tsc`.\n\n Default: `false`\n\n ```json,options\n {\n     \"options\": {\n         \"forceJsExtensions\": true\n     }\n }\n ```\n\n ## Editor Configuration\n\n If you use Visual Studio Code, you can ensure that it adds the file\n extension when automatically importing a variable by configuring\n `javascript.preferences.importModuleSpecifierEnding` and\n `typescript.preferences.importModuleSpecifierEnding`\n in your [settings](https://code.visualstudio.com/docs/getstarted/settings).\n\n ## Caveats\n\n If you are using TypeScript, TypeScript version 5.0 or later is\n required, also make sure to set\n [`allowImportingTsExtensions: true`](https://typescriptlang.org/tsconfig#allowImportingTsExtensions)\n in your `tsconfig.json`.\n"
+            "docs": " Enforce file extensions for relative imports.\n\n Browsers, Deno, and Node.js do not natively support importing files\n without extensions from JavaScript modules. This rule enforces the use\n of file extensions for relative imports to make the code more\n consistent -- and correct.\n\n In some cases, tooling can also benefit from explicit file extensions,\n because they do not need to guess which file to resolve.\n\n The rule checks both static imports (`import ... from \"...\"`) as well as\n dynamic imports such as `import(...)` and `require(...)`.\n\n ## Examples\n\n ### Invalid\n\n The following examples assume these imports will resolve to a file with\n an extension. Imports that don't resolve at all will not trigger a\n diagnostic.\n\n ```js\n import \"./foo\";\n ```\n ```js\n import \"./foo/\";\n ```\n ```js\n import \"../\";\n ```\n ```js\n import \"../.\";\n ```\n ```js\n import(\"./foo\");\n ```\n ```js\n require(\"./foo\");\n ```\n\n ### Valid\n\n ```js\n import \"biome\";\n ```\n ```js\n import \"./foo.js\";\n ```\n ```js\n import \"./bar/index.js\";\n ```\n ```js\n import(\"./foo.js\");\n ```\n ```js\n require(\"./foo.js\");\n ```\n\n ## Options\n\n The rule provides the options described below.\n\n ### extensionMappings\n\n A map of file extensions to their suggested replacements. This allows you\n to specify custom mappings for import extensions. For example, you can\n map TypeScript imports to JavaScript extensions.\n\n This is useful if you are bundling your code to JavaScript into a package\n and want to make sure all imports of TypeScript files use the `.js` extension\n instead.\n\n If no mapping is found for a given extension, and the import is missing an extension,\n the rule will suggest using the actual extension of the resolved file.\n\n Default: `{}` (empty object)\n\n ```json,options\n {\n     \"options\": {\n         \"extensionMappings\": {\n             \"ts\": \"js\",\n             \"tsx\": \"js\"\n         }\n     }\n }\n ```\n\n ### forceJsExtensions\n\n Normally, this rule suggests to use the extension of the module that is\n found in your project. For instance, `.ts` or `.tsx` for a TypeScript\n file. If this option is set to `true`, the rule will always suggest to\n use `.js` regardless of the extension in your project.\n\n This is useful if you use the `\"module\": \"node16\"` setting when building\n your code with `tsc`.\n\n Default: `false`\n\n ```json,options\n {\n     \"options\": {\n         \"forceJsExtensions\": true\n     }\n }\n ```\n\n ## Editor Configuration\n\n If you use Visual Studio Code, you can ensure that it adds the file\n extension when automatically importing a variable by configuring\n `javascript.preferences.importModuleSpecifierEnding` and\n `typescript.preferences.importModuleSpecifierEnding`\n in your [settings](https://code.visualstudio.com/docs/getstarted/settings).\n\n ## Caveats\n\n If you are using TypeScript, TypeScript version 5.0 or later is\n required, also make sure to set\n [`allowImportingTsExtensions: true`](https://typescriptlang.org/tsconfig#allowImportingTsExtensions)\n in your `tsconfig.json`.\n"
           },
           "useIsNan": {
             "deprecated": false,
@@ -2992,15 +3245,6 @@ export function GET() {
             ],
             "docs": " Replaces usages of `forwardRef` with passing `ref` as a prop.\n\n In React 19, `forwardRef` is no longer necessary. Pass `ref` as a prop instead.\n This rule detects the usage of the `forwardRef` API, and it suggests using the prop `ref`\n instead.\n See [the official blog post](https://react.dev/blog/2024/12/05/react-19#ref-as-a-prop) for details.\n\n This rule should be disabled if you are working with React 18 or earlier.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n import { forwardRef } from \"react\";\n\n const MyInput = forwardRef(function MyInput(props, ref) {\n   return <input ref={ref} {...props} />;\n });\n ```\n\n ```jsx,expect_diagnostic\n import { forwardRef } from \"react\";\n\n const MyInput = forwardRef((props, ref) => {\n   return <input ref={ref} {...props} />;\n });\n ```\n\n ### Valid\n\n ```jsx\n function MyInput({ ref, ...props }) {\n   return <input ref={ref} {...props} />;\n }\n ```\n\n ```jsx\n const MyInput = ({ ref, ...props }) => {\n   return <input ref={ref} {...props} />;\n }\n ```\n\n"
           },
-          "noRedundantDefaultExport": {
-            "deprecated": false,
-            "version": "2.3.14",
-            "name": "noRedundantDefaultExport",
-            "link": "https://biomejs.dev/linter/rules/no-redundant-default-export",
-            "recommended": false,
-            "fixKind": "none",
-            "docs": " Checks if a default export exports the same symbol as a named export.\n\n This rule warns when a `default` export references the same identifier as a named export.\n Re-exports are out of scope.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n export const foo = 42;\n export default foo;\n ```\n\n ### Valid\n\n ```js\n export const foo = 42;\n export default 42;\n ```\n\n"
-          },
           "noReturnAssign": {
             "deprecated": false,
             "version": "2.3.11",
@@ -3206,7 +3450,7 @@ export function GET() {
           },
           "noVueArrowFuncInWatch": {
             "deprecated": false,
-            "version": "2.3.14",
+            "version": "next",
             "name": "noVueArrowFuncInWatch",
             "link": "https://biomejs.dev/linter/rules/no-vue-arrow-func-in-watch",
             "recommended": true,
@@ -3440,23 +3684,6 @@ export function GET() {
             ],
             "docs": " Enforce the use of Array.prototype.find() over Array.prototype.filter() followed by [0] when looking for a single result.\n\n When searching for the first item in an array matching a condition, it may be tempting to use code like `arr.filter(x => x > 0)[0]`.\n However, it is simpler to use `Array.prototype.find()` instead, `arr.find(x => x > 0)`, which also returns the first entry matching a condition.\n Because the `.find()` only needs to execute the callback until it finds a match, it's also more efficient.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=invalid.ts\n [1, 2, 3].filter(x => x > 1)[0];\n ```\n\n ```ts,expect_diagnostic,file=invalid2.ts\n [1, 2, 3].filter(x => x > 1).at(0);\n ```\n\n ### Valid\n\n ```ts,file=valid.ts\n [1, 2, 3].find(x => x > 1);\n ```\n\n"
           },
-          "useGlobalThis": {
-            "deprecated": false,
-            "version": "2.3.14",
-            "name": "useGlobalThis",
-            "link": "https://biomejs.dev/linter/rules/use-global-this",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintUnicorn": "prefer-global-this"
-                }
-              }
-            ],
-            "docs": " Enforce the use of `globalThis` over `window`, `self`, and `global`.\n\n `globalThis` is a standard way to access the global object across platforms such as browsers, Web Workers, Node.js and so on, and using it can make your code portable.\n\n However, there are several exceptions that are allowed:\n\n 1. Certain window/Web Workers-specific APIs, such as `window.innerHeight` and `self.postMessage`\n 2. Window-specific events, such as `window.addEventListener('resize')`\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n window.foo;\n ```\n\n ```js,expect_diagnostic\n window.addEventListener('click', () => {});\n ```\n\n ### Valid\n\n ```js\n globalThis.foo;\n ```\n\n ```js\n globalThis.addEventListener('click', () => {});\n ```\n\n ```js\n // window/Web Workers-specific APIs are allowed\n window.innerWidth;\n self.postMessage({ type: 'ready' });\n ```\n\n ```js\n // window-specific events are allowed\n window.addEventListener('resize', () => {});\n ```\n\n"
-          },
           "useMaxParams": {
             "deprecated": false,
             "version": "2.2.0",
@@ -3530,6 +3757,12 @@ export function GET() {
                 "kind": "sameLogic",
                 "source": {
                   "eslint": "prefer-spread"
+                }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintE18e": "prefer-spread-syntax"
                 }
               }
             ],
@@ -3759,12 +3992,6 @@ export function GET() {
                 "kind": "sameLogic",
                 "source": {
                   "eslintTypeScript": "no-require-imports"
-                }
-              },
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintTypeScript": "no-var-requires"
                 }
               },
               {
@@ -4041,6 +4268,12 @@ export function GET() {
                 "source": {
                   "eslintUnicorn": "prefer-at"
                 }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintE18e": "prefer-array-at"
+                }
               }
             ],
             "docs": " Use `at()` instead of integer index access.\n\n Accessing an element at the end of an array or a string is inconvenient because you have to subtract the length of the array or the string from the backward 1-based index of the element to access.\n For example, to access the last element of an array or a string, you would have to write `array[array.length - 1]`.\n A more convenient way to achieve the same thing is to use the `at()` method with a negative index.\n To access the last element of an array or a string just write `array.at(-1)`.\n\n This rule enforces the usage of `at()` over index access, `charAt()`, and `slice()[0]` when `at()` is more convenient.\n\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const foo = array[array.length - 1];\n ```\n\n ```js,expect_diagnostic\n const foo = array[array.length - 5];\n ```\n\n ```js,expect_diagnostic\n const foo = array.slice(-1)[0];\n ```\n\n ```js,expect_diagnostic\n const foo = array.slice(-1).pop();\n ```\n\n ```js,expect_diagnostic\n const foo = array.slice(-5).shift();\n ```\n\n ```js,expect_diagnostic\n const foo = string.charAt(string.length - 5);\n ```\n\n ### Valid\n\n ```js\n const foo = array.at(-1);\n ```\n\n ```js\n const foo = array.at(-5);\n ```\n\n ```js\n const foo = array[100];\n ```\n\n ```js\n const foo = array.at(array.length - 1);\n ```\n\n ```js\n array[array.length - 1] = foo;\n ```\n"
@@ -4229,6 +4462,12 @@ export function GET() {
                 "source": {
                   "eslint": "prefer-exponentiation-operator"
                 }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintE18e": "prefer-exponentiation-operator"
+                }
               }
             ],
             "docs": " Disallow the use of `Math.pow` in favor of the `**` operator.\n\n Introduced in ES2016, the infix exponentiation operator `**` is an alternative for the standard `Math.pow` function.\n Infix notation is considered to be more readable and thus more preferable than the function notation.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const foo = Math.pow(2, 8);\n ```\n\n ```js,expect_diagnostic\n const bar = Math.pow(a, b);\n ```\n\n ```js,expect_diagnostic\n let baz = Math.pow(a + b, c + d);\n ```\n\n ```js,expect_diagnostic\n let quux = Math.pow(-1, n);\n ```\n\n ### Valid\n\n ```js\n const foo = 2 ** 8;\n\n const bar = a ** b;\n\n let baz = (a + b) ** (c + d);\n\n let quux = (-1) ** n;\n ```\n\n"
@@ -4391,6 +4630,12 @@ export function GET() {
                 "kind": "sameLogic",
                 "source": {
                   "eslint": "prefer-object-spread"
+                }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintE18e": "prefer-spread-syntax"
                 }
               }
             ],
@@ -4589,7 +4834,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow assignments in expressions.\n\n In expressions, it is common to mistype a comparison operator (such as `==`) as an assignment operator (such as `=`).\n Moreover, the use of assignments in expressions is confusing.\n Indeed, expressions are often considered as side-effect free.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n let a, b;\n a = (b = 1) + 1;\n ```\n\n ```ts,expect_diagnostic\n let a;\n if (a = 1) {\n }\n ```\n\n ```ts,expect_diagnostic\n function f(a) {\n     return a = 1;\n }\n ```\n\n ### Valid\n\n ```ts\n let a;\n a = 1;\n ```\n\n ```ts\n let a = 0;\n const f = b => a += b;\n ```\n"
+            "docs": " Disallow assignments in expressions.\n\n In expressions, it is common to mistype a comparison operator (such as `==`) as an assignment operator (such as `=`).\n Moreover, the use of assignments in expressions is confusing.\n Indeed, expressions are often considered as side-effect free.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n let a, b;\n a = (b = 1) + 1;\n ```\n\n ```ts,expect_diagnostic\n let a;\n if (a = 1) {\n }\n ```\n\n ```ts,expect_diagnostic\n function f(a) {\n     return a = 1;\n }\n ```\n\n ### Valid\n\n ```ts\n let a;\n a = 1;\n ```\n"
           },
           "noAsyncPromiseExecutor": {
             "deprecated": false,
@@ -5214,6 +5459,12 @@ export function GET() {
                 "source": {
                   "eslint": "prefer-object-has-own"
                 }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintE18e": "prefer-object-has-own"
+                }
               }
             ],
             "docs": " Disallow direct use of `Object.prototype` builtins.\n\n ECMAScript 5.1 added `Object.create` which allows the creation of an object with a custom prototype.\n This pattern is often used for objects used as Maps. However, this pattern can lead to errors\n if something else relies on prototype properties/methods.\n Moreover, the methods could be shadowed, this can lead to random bugs and denial of service\n vulnerabilities. For example, calling `hasOwnProperty` directly on parsed JSON like `{\"hasOwnProperty\": 1}` could lead to vulnerabilities.\n To avoid subtle bugs like this, you should call these methods from `Object.prototype`.\n For example, `foo.isPrototypeOf(bar)` should be replaced with `Object.prototype.isPrototypeOf.call(foo, \"bar\")`\n As for the `hasOwn` method, `foo.hasOwn(\"bar\")` should be replaced with `Object.hasOwn(foo, \"bar\")`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n var invalid = foo.hasOwnProperty(\"bar\");\n ```\n\n ```js,expect_diagnostic\n var invalid = foo.isPrototypeOf(bar);\n ```\n\n ```js,expect_diagnostic\n var invalid = foo.propertyIsEnumerable(\"bar\");\n ```\n\n ```js,expect_diagnostic\n Object.hasOwnProperty.call(foo, \"bar\");\n ```\n\n ### Valid\n\n ```js\n var valid = Object.hasOwn(foo, \"bar\");\n var valid = Object.prototype.isPrototypeOf.call(foo, bar);\n var valid = {}.propertyIsEnumerable.call(foo, \"bar\");\n ```\n\n"
@@ -5542,7 +5793,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Ensure `async` functions utilize `await`.\n\n This rule reports `async` functions that lack an `await` expression. As `async`\n functions return a promise, the use of `await` is often necessary to capture the\n resolved value and handle the asynchronous operation appropriately. Without `await`,\n the function operates synchronously and might not leverage the advantages of async\n functions.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n async function fetchData() {\n // Missing `await` for the promise returned by `fetch`\n   return fetch('/data');\n }\n ```\n\n ### Valid\n\n ```js\n async function fetchData() {\n   const response = await fetch('/data');\n   const data = await response.json();\n   return data;\n }\n\n // This rule does not warn about non-async functions\n function processData() {\n   return compute(data);\n }\n\n // Nor does it warn about empty `async` functions\n async function noop() { }\n\n // Async generators that use `yield*` with an async iterable\n async function* delegateToAsyncIterable() {\n   yield* otherAsyncIterable();\n }\n ```\n"
+            "docs": " Ensure `async` functions utilize `await`.\n\n This rule reports `async` functions that lack an `await` expression. As `async`\n functions return a promise, the use of `await` is often necessary to capture the\n resolved value and handle the asynchronous operation appropriately. Without `await`,\n the function operates synchronously and might not leverage the advantages of async\n functions.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n async function fetchData() {\n // Missing `await` for the promise returned by `fetch`\n   return fetch('/data');\n }\n ```\n\n ### Valid\n\n ```js\n async function fetchData() {\n   const response = await fetch('/data');\n   const data = await response.json();\n   return data;\n }\n\n // This rule does not warn about non-async functions\n function processData() {\n   return compute(data);\n }\n\n // Nor does it warn about empty `async` functions\n async function noop() { }\n ```\n"
           },
           "useDefaultSwitchClauseLast": {
             "deprecated": false,
@@ -5644,7 +5895,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Enforce consistent return values in iterable callbacks.\n\n This rule ensures that callbacks passed to certain iterable methods either always return a\n value or never return a value, depending on the method's requirements.\n\n Note that async and generator callbacks are ignored as they always return `Promise` or\n `Generator` respectively.\n\n ## Methods and Their Requirements\n\n The following methods require a return in their callback:\n\n - `every`\n - `filter`\n - `find`\n - `findIndex`\n - `findLast`\n - `findLastIndex`\n - `flatMap`\n - `map`\n - `reduce`\n - `reduceRight`\n - `some`\n - `sort`\n - `toSorted`\n — `from` (when called on `Array`)\n\n A return value is disallowed in the method `forEach`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n [].map(() => {\n     // Missing return value\n });\n ```\n\n ```js,expect_diagnostic\n [].forEach(() => {\n     return 1; // Should not return a value\n });\n ```\n\n ### Valid\n\n ```js\n [].map(() => {\n     return 1; // Correctly returns a value\n });\n ```\n\n ```js\n [].forEach(() => {\n     // No return value, which is correct\n });\n ```\n\n ```js\n [].forEach(() => void null); // Void return value, which doesn't trigger the rule\n ```\n"
+            "docs": " Enforce consistent return values in iterable callbacks.\n\n This rule ensures that callbacks passed to certain iterable methods either always return a\n value or never return a value, depending on the method's requirements.\n\n Note that async and generator callbacks are ignored as they always return `Promise` or\n `Generator` respectively.\n\n ## Methods and Their Requirements\n\n The following methods require a return in their callback:\n\n - `every`\n - `filter`\n - `find`\n - `findIndex`\n - `findLast`\n - `findLastIndex`\n - `flatMap`\n - `map`\n - `reduce`\n - `reduceRight`\n - `some`\n - `sort`\n - `toSorted`\n — `from` (when called on `Array`)\n\n A return value is disallowed in the method `forEach`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n [].map(() => {\n     // Missing return value\n });\n ```\n\n ```js\n [].forEach(() => {\n     // No return value, which is correct\n });\n ```\n\n ```js,expect_diagnostic\n [].filter(() => {\n     // Missing required return value\n });\n ```\n\n ### Valid\n\n ```js\n [].map(() => {\n     return 1; // Correctly returns a value\n });\n ```\n\n ```js\n [].forEach(() => void null); // Void return value, which doesn't trigger the rule\n ```\n\n ## Options\n\n ### `checkForEach`\n\n **Since `v2.4.0**\n\n Default: `true`\n\n When set to `false`, the rule will skip `forEach` callbacks that return a value.\n\n ### Examples\n\n ```json,options\n {\n     \"options\": {\n         \"checkForEach\": false\n     }\n }\n ```\n\n ```js,use_options\n [1, 2, 3].forEach((el) => {\n     return el * 2;\n });\n ```\n\n When `checkForEach` is `false` (default), the above code will not trigger any diagnostic.\n\n"
           },
           "useNumberToFixedDigitsArgument": {
             "deprecated": false,
@@ -6004,7 +6255,7 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/no-svg-without-title",
             "recommended": true,
             "fixKind": "none",
-            "docs": " Enforces the usage of the `title` element for the `svg` element.\n\n It is not possible to specify the `alt` attribute for the `svg` as for the `img`.\n To make svg accessible, the following methods are available:\n - provide the `title` element as the first child to `svg`\n - provide `role=\"img\"` and `aria-label` or `aria-labelledby` to `svg`\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <svg>foo</svg>\n ```\n\n ```jsx,expect_diagnostic\n <svg>\n     <title></title>\n     <circle />\n </svg>\n ```\n\n ```jsx,expect_diagnostic\n <svg>foo</svg>\n ```\n\n ```jsx\n <svg role=\"img\" aria-label=\"\">\n     <span id=\"\">Pass</span>\n </svg>\n ```\n\n ```jsx\n <svg role=\"presentation\">foo</svg>\n ```\n\n ### Valid\n\n ```jsx\n <svg>\n     <rect />\n     <rect />\n     <g>\n         <circle />\n         <circle />\n         <g>\n             <title>Pass</title>\n             <circle />\n             <circle />\n         </g>\n     </g>\n </svg>\n ```\n\n ```jsx\n <svg>\n     <title>Pass</title>\n     <circle />\n </svg>\n ```\n\n ```jsx\n <svg role=\"img\" aria-labelledby=\"title\">\n     <span id=\"title\">Pass</span>\n </svg>\n ```\n\n ```jsx\n <svg role=\"img\" aria-label=\"title\">\n     <span id=\"title\">Pass</span>\n </svg>\n ```\n ```jsx\n <svg role=\"graphics-symbol\"><rect /></svg>\n ```\n\n ```jsx\n <svg role=\"graphics-symbol img\"><rect /></svg>\n ```\n\n ```jsx\n <svg aria-hidden=\"true\"><rect /></svg>\n ```\n\n\n ## Accessibility guidelines\n [Document Structure – SVG 1.1 (Second Edition)](https://www.w3.org/TR/SVG11/struct.html#DescriptionAndTitleElements)\n [ARIA: img role - Accessibility | MDN](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/img_role)\n [Accessible SVGs | CSS-Tricks - CSS-Tricks](https://css-tricks.com/accessible-svgs/)\n [Contextually Marking up accessible images and SVGs | scottohara.me](https://www.scottohara.me/blog/2019/05/22/contextual-images-svgs-and-a11y.html)\n [Accessible SVGs](https://www.unimelb.edu.au/accessibility/techniques/accessible-svgs)\n\n"
+            "docs": " Enforces the usage of the `title` element for the `svg` element.\n\n It is not possible to specify the `alt` attribute for the `svg` as for the `img`.\n To make svg accessible, the following methods are available:\n - provide the `title` element as the first child to `svg`\n - provide `role=\"img\"` and `aria-label` or `aria-labelledby` to `svg`\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <svg>foo</svg>\n ```\n\n ```jsx,expect_diagnostic\n <svg>\n     <title></title>\n     <circle />\n </svg>\n ```\n\n ```jsx,expect_diagnostic\n <svg>foo</svg>\n ```\n\n ```jsx,expect_diagnostic\n <svg>\n     <rect />\n     <rect />\n     <g>\n         <title>foo</title>\n         <circle />\n         <circle />\n     </g>\n </svg>\n ```\n\n ```jsx,expect_diagnostic\n <svg role=\"graphics-symbol\"><rect /></svg>\n ```\n\n ### Valid\n\n\n ```jsx\n <svg>\n     <title>Pass</title>\n     <circle />\n </svg>\n ```\n\n ```jsx\n <svg role=\"img\" aria-labelledby=\"title\">\n     <span id=\"title\">Pass</span>\n </svg>\n ```\n\n ```jsx\n <svg role=\"img\" aria-label=\"title\">\n     <span id=\"title\">Pass</span>\n </svg>\n ```\n\n ```jsx\n <svg role=\"graphics-symbol\">\n     <title>Pass</title>\n     <rect />\n </svg>\n ```\n\n ```jsx\n <svg role=\"graphics-symbol img\"><rect /></svg>\n ```\n\n ```jsx\n <svg aria-hidden=\"true\"><rect /></svg>\n ```\n\n ```jsx\n <svg role=\"img\" aria-label=\"\">\n     <span id=\"\">Pass</span>\n </svg>\n ```\n\n ```jsx\n <svg role=\"presentation\">foo</svg>\n ```\n\n\n ## Accessibility guidelines\n [Document Structure – SVG 1.1 (Second Edition)](https://www.w3.org/TR/SVG11/struct.html#DescriptionAndTitleElements)\n [ARIA: img role - Accessibility | MDN](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/img_role)\n [Accessible SVGs | CSS-Tricks - CSS-Tricks](https://css-tricks.com/accessible-svgs/)\n [Contextually Marking up accessible images and SVGs | scottohara.me](https://www.scottohara.me/blog/2019/05/22/contextual-images-svgs-and-a11y.html)\n [Accessible SVGs](https://www.unimelb.edu.au/accessibility/techniques/accessible-svgs)\n\n"
           },
           "useAltText": {
             "deprecated": false,
@@ -6489,7 +6740,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Enforce correct dependency usage within React hooks.\n\n React components have access to various [hooks](https://react.dev/reference/react/hooks) that can perform\n various actions like querying and updating state.\n\n For hooks that trigger whenever a variable changes (such as `useEffect` and `useMemo`),\n React relies on the hook's listed dependencies array to determine when to re-compute Effects and re-render the page.\n\n This can lead to unexpected behavior when dependencies are incorrectly specified:\n ```jsx,ignore\n\n function ticker() {\n   const [count, setCount] = useState(0);\n\n   /** Increment the count once per second. */\n   function onTick() {\n     setCount(count + 1);\n   }\n\n   // React _thinks_ this code doesn't depend on anything else, so\n   // it will only use the _initial_ version of `onTick` when rendering the component.\n   // As a result, our normally-dynamic counter will always display 1!\n   // This is referred to as a \"stale closure\", and is a common pitfall for beginners.\n   useEffect(() => {\n     const id = setInterval(onTick, 1000);\n     return () => clearInterval(id);\n   }, []);\n\n   return <h1>Counter: {count}</h1>;\n }\n ```\n\n ```jsx,ignore\n function apples() {\n   const [count, setCount] = useState(0);\n   const [message, setMessage] = useState(\"We have 0 apples!\");\n\n   // React _thinks_ this code depends on BOTH `count` and `message`, and will re-run the hook whenever\n   // `message` is changed despite it not actually being used inside the closure.\n   // In fact, this will create an infinite loop due to our hook updating `message` and triggering itself again!\n   useEffect(() => {\n     setMessage(`We have ${count} apples!`)\n   }, [count, message]);\n\n }\n ```\n\n This rule attempts to prevent such issues by diagnosing potentially incorrect or invalid usages of hook dependencies.\n\n ### Default Behavior\n By default, the following hooks (and their Preact counterparts) will have their arguments checked by this rule:\n\n - `useEffect`\n - `useLayoutEffect`\n - `useInsertionEffect`\n - `useCallback`\n - `useMemo`\n - `useImperativeHandle`\n\n #### Stable results\n When a hook is known to have a stable return value (one whose identity doesn't change across invocations),\n that value doesn't need to and _should not_ be specified as a dependency.\n For example, setters returned by React's `useState` hook will not change throughout the lifetime of a program\n and should therefore be omitted.\n\n By default, the following hooks are considered to have stable return values:\n - `useState` (index 1)\n - `useReducer` (index 1)\n - `useTransition` (index 1)\n - `useRef`\n - `useEffectEvent`\n\n If you want to add custom hooks to the rule's diagnostics or specify your own functions with stable results,\n see the [options](#options) section for more information.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import { useEffect } from \"react\";\n\n function component() {\n   let a = 1;\n   useEffect(() => {\n     console.log(a);\n   }, []);\n }\n ```\n\n ```js,expect_diagnostic\n import { useEffect } from \"react\";\n\n function badComponent() {\n   let a = 1;\n   useEffect(() => {\n     console.log(a);\n   }, \"not an array\");\n }\n ```\n\n ```js,expect_diagnostic\n import { useEffect } from \"react\";\n\n function component() {\n     let unused = 1;\n     useEffect(() => {}, [unused]);\n }\n ```\n\n ```js,expect_diagnostic\n import { useEffect, useState } from \"react\";\n\n function component() {\n   const [name, setName] = useState();\n   useEffect(() => {\n     console.log(name);\n     setName(\"i never change and don't need to be here\");\n   }, [name, setName]);\n }\n ```\n\n ```js,expect_diagnostic\n import { useEffect, useState } from \"react\";\n\n function component() {\n   const name = \"foo\"\n   // name doesn't change, so specifying it is redundant\n   useEffect(() => {\n     console.log(name);\n   }, [name]);\n }\n ```\n\n ```js,expect_diagnostic\n import { useEffect } from \"react\";\n\n function component() {\n   let a = 1;\n   const b = a + 1;\n   useEffect(() => {\n     console.log(b);\n   }, []);\n }\n ```\n\n ```jsx,expect_diagnostic\n import { useCallback } from \"react\";\n\n function component() {\n   const Component = () => null;\n   const render = useCallback(() => <Component />, []);\n }\n ```\n\n ### Valid\n\n ```js\n import { useEffect } from \"react\";\n\n function component() {\n   let a = 1;\n   useEffect(() => {\n     console.log(a);\n   }, [a]);\n }\n ```\n\n ```js\n import { useEffect } from \"react\";\n\n function component() {\n   const SECONDS_PER_DAY = 60 * 60 * 24;\n   useEffect(() => {\n     console.log(SECONDS_PER_DAY);\n   });\n }\n ```\n\n ```js\n import { useEffect, useState } from \"react\";\n\n function component() {\n   const [name, setName] = useState();\n   useEffect(() => {\n     console.log(name);\n     setName(\"\");\n   }, [name]);\n }\n ```\n\n Hooks not imported from React are ignored by default (unless specified inside [rule options](#options))\n ```ts\n import type { EffectCallback, DependencyList } from \"react\";\n // custom useEffect function\n declare function useEffect(cb: EffectCallback, deps?: DependencyList): void;\n\n function component() {\n   let name = \"John Doe\";\n   useEffect(() => {\n     console.log(name);\n   }, []);\n }\n ```\n\n ## Ignoring a specific dependency\n\n Sometimes you may wish to ignore a diagnostic about a specific\n dependency without disabling *all* linting for that hook. To do so,\n you may specify the name of a specific dependency between parentheses,\n like this:\n\n ```js\n import { useEffect } from \"react\";\n\n function component() {\n   let a = 1;\n   // biome-ignore lint/correctness/useExhaustiveDependencies(a): suppress dependency a\n   useEffect(() => {\n     console.log(a);\n   }, []);\n }\n ```\n\n If you wish to ignore multiple dependencies, you can add multiple\n comments and add a reason for each:\n\n ```js\n import { useEffect } from \"react\";\n\n function component() {\n   let a = 1;\n   let b = 1;\n   // biome-ignore lint/correctness/useExhaustiveDependencies(a): suppress dependency a\n   // biome-ignore lint/correctness/useExhaustiveDependencies(b): suppress dependency b\n   useEffect(() => {\n     console.log(a, b);\n   }, []);\n }\n ```\n\n :::caution\n Mismatching code & dependencies has a **very high risk** of creating bugs in your components.\n By suppressing the linter, you “lie” to React about the values your Effect depends on,\n so prefer changing the code over suppressing the rule where possible.\n :::\n\n ## Options\n\n ### `hooks`\n Allows specifying custom hooks (from libraries or internal projects) whose dependencies\n should be checked and/or which are known to have stable return values.\n\n For every hook whose dependencies you want validated, you must specify the index of both the closure\n using the dependencies and the dependencies array to validate it against.\n\n ##### Example\n\n ```json,options\n {\n   \"options\": {\n     \"hooks\": [\n       { \"name\": \"useLocation\", \"closureIndex\": 0, \"dependenciesIndex\": 1 },\n       { \"name\": \"useQuery\", \"closureIndex\": 2, \"dependenciesIndex\": 0 }\n     ]\n   }\n }\n ```\n\n This would enable checks on the following code snippets:\n\n ```js,expect_diagnostic,use_options\n function Foo() {\n   let stateVar = 1;\n   useLocation(() => {console.log(stateVar)}, []);\n }\n ```\n ```js,use_options\n function Foo() {\n   let stateVar = 1;\n   useQuery([stateVar], \"smthng\", () => {console.log(stateVar)});\n }\n ```\n\n #### Configuring stable results\n\n As previously discussed, the lint rule takes into account so-called [stable results](#stable-results)\n and will ensure any such variables are _not_ specified as dependencies.\n\n You can specify custom functions as returning stable results in one of four ways:\n\n 1. `\"stableResult\": true` -- marks the return value as stable. An example\n   of a React hook that would be configured like this is `useRef()`.\n 2. `\"stableResult\": [1]` -- expects the return value to be an array and\n    marks the given indices as stable. An example of a React\n    hook that would be configured like this is `useState()`.\n 3. `\"stableResult\": 1` -- shorthand for option 2 (`\"stableResult\": [1]`).\n    Useful for hooks that only have a single stable return.\n 4. `\"stableResult\": [\"setValue\"]` -- expects the return value to be an\n    object and marks the properties with the given keys as stable.\n\n ##### Example\n\n ```json,options\n {\n   \"options\": {\n     \"hooks\": [\n       { \"name\": \"useDispatch\", \"stableResult\": true }\n     ]\n   }\n }\n ```\n\n With this configuration, the following is valid:\n\n ```js,use_options\n const dispatch = useDispatch();\n // No need to list `dispatch` as dependency since it doesn't change\n const doAction = useCallback(() => dispatch(someAction()), []);\n ```\n\n ### `reportUnnecessaryDependencies`\n\n If set to `false`, the rule will not trigger diagnostics for unused dependencies passed to hooks that do not use them.\n\n :::caution\n Over-specifying dependencies can reduce application performance or even cause infinite loops, so caution is advised.\n :::\n\n Default: `true`\n\n ##### Example\n\n ```json,options\n {\n   \"options\": {\n     \"reportUnnecessaryDependencies\": false\n   }\n }\n ```\n\n ```jsx,use_options\n import { useEffect } from \"react\";\n\n function Foo() {\n   let stateVar = 1;\n   // not used but still OK\n   useEffect(() => {}, [stateVar]);\n }\n ```\n\n ### `reportMissingDependenciesArray`\n\n If enabled, the rule will also trigger diagnostics for hooks that lack dependency arrays altogether,\n requiring any hooks lacking dependencies to explicitly specify an empty array.\n\n Default: `false`\n\n ##### Example\n\n ```json,options\n {\n   \"options\": {\n     \"reportMissingDependenciesArray\": true\n   }\n }\n ```\n\n ```jsx,expect_diagnostic,use_options\n function noArrayYesProblem() {\n   let stateVar = 1;\n   React.useEffect(() => {});\n }\n ```\n\n"
+            "docs": " Enforce correct dependency usage within React hooks.\n\n React components have access to various [hooks](https://react.dev/reference/react/hooks) that can perform\n various actions like querying and updating state.\n\n For hooks that trigger whenever a variable changes (such as `useEffect` and `useMemo`),\n React relies on the hook's listed dependencies array to determine when to re-compute Effects and re-render the page.\n\n This can lead to unexpected behavior when dependencies are incorrectly specified:\n ```jsx,ignore\n\n function ticker() {\n   const [count, setCount] = useState(0);\n\n   /** Increment the count once per second. */\n   function onTick() {\n     setCount(count + 1);\n   }\n\n   // React _thinks_ this code doesn't depend on anything else, so\n   // it will only use the _initial_ version of `onTick` when rendering the component.\n   // As a result, our normally-dynamic counter will always display 1!\n   // This is referred to as a \"stale closure\", and is a common pitfall for beginners.\n   useEffect(() => {\n     const id = setInterval(onTick, 1000);\n     return () => clearInterval(id);\n   }, []);\n\n   return <h1>Counter: {count}</h1>;\n }\n ```\n\n ```jsx,ignore\n function apples() {\n   const [count, setCount] = useState(0);\n   const [message, setMessage] = useState(\"We have 0 apples!\");\n\n   // React _thinks_ this code depends on BOTH `count` and `message`, and will re-run the hook whenever\n   // `message` is changed despite it not actually being used inside the closure.\n   // In fact, this will create an infinite loop due to our hook updating `message` and triggering itself again!\n   useEffect(() => {\n     setMessage(`We have ${count} apples!`)\n   }, [count, message]);\n\n }\n ```\n\n This rule attempts to prevent such issues by diagnosing potentially incorrect or invalid usages of hook dependencies.\n\n ### Default Behavior\n By default, the following hooks (and their Preact counterparts) will have their arguments checked by this rule:\n\n - `useEffect`\n - `useLayoutEffect`\n - `useInsertionEffect`\n - `useCallback`\n - `useMemo`\n - `useImperativeHandle`\n\n #### Stable results\n When a hook is known to have a stable return value (one whose identity doesn't change across invocations),\n that value doesn't need to and _should not_ be specified as a dependency.\n For example, setters returned by React's `useState` hook will not change throughout the lifetime of a program\n and should therefore be omitted.\n\n By default, the following hooks are considered to have stable return values:\n - `useState` (index 1)\n - `useReducer` (index 1)\n - `useTransition` (index 1)\n - `useRef`\n - `useEffectEvent`\n\n If you want to add custom hooks to the rule's diagnostics or specify your own functions with stable results,\n see the [options](#options) section for more information.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import { useEffect } from \"react\";\n\n function component() {\n   let a = 1;\n   useEffect(() => {\n     console.log(a);\n   }, []);\n }\n ```\n\n ```js,expect_diagnostic\n import { useEffect } from \"react\";\n\n function badComponent() {\n   let a = 1;\n   useEffect(() => {\n     console.log(a);\n   }, \"not an array\");\n }\n ```\n\n ```js,expect_diagnostic\n import { useEffect } from \"react\";\n\n function component() {\n     let unused = 1;\n     useEffect(() => {}, [unused]);\n }\n ```\n\n ```js,expect_diagnostic\n import { useEffect, useState } from \"react\";\n\n function component() {\n   const [name, setName] = useState();\n   useEffect(() => {\n     console.log(name);\n     setName(\"i never change and don't need to be here\");\n   }, [name, setName]);\n }\n ```\n\n ```js,expect_diagnostic\n import { useEffect, useState } from \"react\";\n\n function component() {\n   const name = \"foo\"\n   // name doesn't change, so specifying it is redundant\n   useEffect(() => {\n     console.log(name);\n   }, [name]);\n }\n ```\n\n ```js,expect_diagnostic\n import { useEffect } from \"react\";\n\n function component() {\n   let a = 1;\n   const b = a + 1;\n   useEffect(() => {\n     console.log(b);\n   }, []);\n }\n ```\n\n ### Valid\n\n ```js\n import { useEffect } from \"react\";\n\n function component() {\n   let a = 1;\n   useEffect(() => {\n     console.log(a);\n   }, [a]);\n }\n ```\n\n ```js\n import { useEffect } from \"react\";\n\n function component() {\n   const SECONDS_PER_DAY = 60 * 60 * 24;\n   useEffect(() => {\n     console.log(SECONDS_PER_DAY);\n   });\n }\n ```\n\n ```js\n import { useEffect, useState } from \"react\";\n\n function component() {\n   const [name, setName] = useState();\n   useEffect(() => {\n     console.log(name);\n     setName(\"\");\n   }, [name]);\n }\n ```\n\n Hooks not imported from React are ignored by default (unless specified inside [rule options](#options))\n ```ts\n import type { EffectCallback, DependencyList } from \"react\";\n // custom useEffect function\n declare function useEffect(cb: EffectCallback, deps?: DependencyList): void;\n\n function component() {\n   let name = \"John Doe\";\n   useEffect(() => {\n     console.log(name);\n   }, []);\n }\n ```\n\n ## Ignoring a specific dependency\n\n Sometimes you may wish to ignore a diagnostic about a specific\n dependency without disabling *all* linting for that hook. To do so,\n you may specify the name of a specific dependency between parentheses,\n like this:\n\n ```js\n import { useEffect } from \"react\";\n\n function component() {\n   let a = 1;\n   // biome-ignore lint/correctness/useExhaustiveDependencies(a): suppress dependency a\n   useEffect(() => {\n     console.log(a);\n   }, []);\n }\n ```\n\n If you wish to ignore multiple dependencies, you can add multiple\n comments and add a reason for each:\n\n ```js\n import { useEffect } from \"react\";\n\n function component() {\n   let a = 1;\n   let b = 1;\n   // biome-ignore lint/correctness/useExhaustiveDependencies(a): suppress dependency a\n   // biome-ignore lint/correctness/useExhaustiveDependencies(b): suppress dependency b\n   useEffect(() => {\n     console.log(a, b);\n   }, []);\n }\n ```\n\n :::caution\n Mismatching code & dependencies has a **very high risk** of creating bugs in your components.\n By suppressing the linter, you “lie” to React about the values your Effect depends on,\n so prefer changing the code over suppressing the rule where possible.\n :::\n\n ## Options\n\n ### `hooks`\n Allows specifying custom hooks (from libraries or internal projects) whose dependencies\n should be checked and/or which are known to have stable return values.\n\n For every hook whose dependencies you want validated, you must specify the index of both the closure\n using the dependencies and the dependencies array to validate it against.\n\n ##### Example\n\n ```json,options\n {\n   \"options\": {\n     \"hooks\": [\n       { \"name\": \"useLocation\", \"closureIndex\": 0, \"dependenciesIndex\": 1 },\n       { \"name\": \"useQuery\", \"closureIndex\": 2, \"dependenciesIndex\": 0 }\n     ]\n   }\n }\n ```\n\n This would enable checks on the following code snippets:\n\n ```js,expect_diagnostic,use_options\n function Foo() {\n   let stateVar = 1;\n   useLocation(() => {console.log(stateVar)}, []);\n }\n ```\n ```js,use_options\n function Foo() {\n   let stateVar = 1;\n   useQuery([stateVar], \"smthng\", () => {console.log(stateVar)});\n }\n ```\n\n #### Configuring stable results\n\n As previously discussed, the lint rule takes into account so-called [stable results](#stable-results)\n and will ensure any such variables are _not_ specified as dependencies.\n\n You can specify custom functions as returning stable results in one of four ways:\n\n 1. `\"stableResult\": true` -- marks the return value as stable. An example\n   of a React hook that would be configured like this is `useRef()`.\n 2. `\"stableResult\": [1]` -- expects the return value to be an array and\n    marks the given indices as stable. An example of a React\n    hook that would be configured like this is `useState()`.\n 3. `\"stableResult\": 1` -- shorthand for option 2 (`\"stableResult\": [1]`).\n    Useful for hooks that only have a single stable return.\n 4. `\"stableResult\": [\"setValue\"]` -- expects the return value to be an\n    object and marks the properties with the given keys as stable.\n\n ##### Example\n\n ```json,options\n {\n   \"options\": {\n     \"hooks\": [\n       { \"name\": \"useDispatch\", \"stableResult\": true }\n     ]\n   }\n }\n ```\n\n With this configuration, the following is valid:\n\n ```js,use_options\n const dispatch = useDispatch();\n // No need to list `dispatch` as dependency since it doesn't change\n const doAction = useCallback(() => dispatch(someAction()), []);\n ```\n\n ### `reportUnnecessaryDependencies`\n\n If set to `false`, the rule will not trigger diagnostics for unused dependencies passed to hooks that do not use them.\n\n :::caution\n Over-specifying dependencies can reduce application performance or even cause infinite loops, so caution is advised.\n :::\n\n Default: `true`\n\n ##### Example\n\n ```json,options\n {\n   \"options\": {\n     \"reportUnnecessaryDependencies\": false\n   }\n }\n ```\n\n ```jsx,use_options\n import { useEffect } from \"react\";\n\n function Foo() {\n   let stateVar = 1;\n   // not used but still OK\n   useEffect(() => {}, [stateVar]);\n }\n ```\n\n ### `reportMissingDependenciesArray`\n\n If enabled, the rule will also trigger diagnostics for hooks that lack dependency arrays altogether,\n requiring any hooks lacking dependencies to explicitly specify an empty array.\n\n Default: `false`\n\n ##### Example\n\n ```json,options\n {\n   \"options\": {\n     \"reportMissingDependenciesArray\": true\n   }\n }\n ```\n\n ```jsx,expect_diagnostic,use_options\n function noArrayYesProblem() {\n   let stateVar = 1;\n   React.useEffect(() => {});\n }\n ```\n\n"
           },
           "useHookAtTopLevel": {
             "deprecated": false,
@@ -6506,7 +6757,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Enforce that all React hooks are being called from the Top Level component functions.\n\n _This rule should be used only in **React** projects._\n\n To understand why this required see https://reactjs.org/docs/hooks-rules.html#only-call-hooks-at-the-top-level\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function Component1({ a }) {\n     if (a == 1) {\n         useEffect();\n     }\n }\n ```\n\n ```js,expect_diagnostic\n function Component1({ a }) {\n     if (a != 1) {\n         return;\n     }\n\n     useEffect();\n }\n ```\n\n ### Valid\n\n ```js\n function Component1() {\n     useEffect();\n }\n ```\n\n"
+            "docs": " Enforce that all React hooks are being called from the Top Level component functions.\n\n _This rule should be used only in **React** projects._\n\n To understand why this required see https://reactjs.org/docs/hooks-rules.html#only-call-hooks-at-the-top-level\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function Component1({ a }) {\n     if (a == 1) {\n         useEffect();\n     }\n }\n ```\n\n ```js,expect_diagnostic\n function Component1({ a }) {\n     if (a != 1) {\n         return;\n     }\n\n     useEffect();\n }\n ```\n\n ```js,expect_diagnostic\n function notAHook() {\n     useEffect();\n }\n ```\n\n ### Valid\n\n ```js\n function Component1() {\n     useEffect();\n }\n ```\n\n ```js\n test(\"the hook\", () => {\n     renderHook(() => useHook());\n });\n ```\n\n"
           },
           "useImageSize": {
             "deprecated": false,
@@ -7181,23 +7432,6 @@ export function GET() {
             ],
             "docs": " Disallow enums from having both number and string members.\n\n TypeScript enums are allowed to assign numeric or string values to their members.\n Most enums contain either all numbers or all strings, but in theory you can mix-and-match within the same enum.\n Mixing enum member types is generally considered confusing and a bad practice.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n enum Status {\n   Unknown,\n   Closed = 1,\n   Open = 'open',\n }\n ```\n\n ### Valid\n\n ```ts\n enum Status {\n   Unknown = 0,\n   Closed = 1,\n   Open = 2,\n }\n ```\n\n ```ts\n enum Status {\n   Unknown,\n   Closed,\n   Open,\n }\n ```\n\n ```ts\n enum Status {\n   Unknown = 'unknown',\n   Closed = 'closed',\n   Open = 'open',\n }\n ```\n\n"
           },
-          "useConsistentMethodSignatures": {
-            "deprecated": false,
-            "version": "2.3.14",
-            "name": "useConsistentMethodSignatures",
-            "link": "https://biomejs.dev/linter/rules/use-consistent-method-signatures",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintTypeScript": "method-signature-style"
-                }
-              }
-            ],
-            "docs": " Enforce consistent use of either method signatures or function properties within interfaces and type aliases.\n\n TypeScript provides 2 different ways to declare methods within interfaces and object types:\n ```ts,ignore\n interface Example {\n   // method shorthand syntax\n   methodFunc(arg: string): void;\n\n   // regular property with function type\n   prop: (arg: string) => void;\n }\n\n // These forms correspond to the analogous JS object literal patterns:\n const obj = {\n   methodFunc(arg) {},\n   prop: (arg) => {},\n } satisfies Example;\n ```\n\n While mostly a matter of stylistic consistency, the two gain subtle differences in behavior when the\n [`strictFunctionTypes`](https://www.typescriptlang.org/tsconfig/#strictFunctionTypes) compiler option is enabled. \\\n More specifically, its stricter contravariant checks will **only** apply to functions written in _property_ syntax —\n ones written as methods will remain with the weaker bivariant type checks.\n\n <details>\n <summary>What's the difference?</summary>\n\n To illustrate the differences between method bivariance and contravariance, consider the following snippet of code:\n ```ts,ignore\n interface Emitter {\n   methodFunc(arg: Event): void;\n   propFunc: (arg: Event) => void;\n }\n\n interface SpecialEvent extends Event {\n   isBirthday: boolean;\n }\n\n interface SpecialEmitter extends Emitter {\n   methodFunc(arg: SpecialEvent): void; // OK\n   propFunc: (arg: SpecialEvent) => void; // Error under `strictFunctionTypes`\n }\n ```\n In the above example, `SpecialEmitter.methodFunc` is compatible with `Emitter.methodFunc` under _bivariant_[^1] checks,\n as `SpecialEvent` is assignable to `Event` (i.e. all `SpecialEvent`s are guaranteed to be valid `Event`s). \\\n On the other hand, the strict _contravariant_ checks for function properties produce errors on `propFunc` as the reverse is not guaranteed —\n `Event` is not assignable to `SpecialEvent` (i.e. not all `Event`s are guaranteed to be valid `SpecialEvent`s).\n\n The full rationale for this behavior can be found in the [TypeScript handbook](https://www.typescriptlang.org/docs/handbook/type-compatibility.html#function-parameter-bivariance).\n\n [^1]: From a purely type-theoretical perspective, bivariance technically refers to a type being _both_ covariant _and_ contravariant at once\n (`A` ⊆ `B` implies `T<A>` ≣ `T<B>`). \\\n In practice, this is only true for pathological types like `type T<A> = number`,\n and so is often used to refer to a type being either covariant _or_ contravariant (which simply requires `T<A>` and `T<B>` to have some non-zero amount of overlap).\n\n </details>\n\n To avoid inconsistent type assignability issues and enforce stylistic consistency, this rule attempts to\n ensure either method- or property-style declarations are used consistently across a given codebase.\n\n :::info\n Without `strictFunctionTypes` enabled, method signatures and function properties become **functionally identical**.\n In this case, which option to use simply becomes a matter of personal preference.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n interface Example {\n   methodFunc(arg: string): number;\n }\n ```\n\n ```ts,expect_diagnostic\n type Generic<T, U> = {\n   methodFunc(arg: T): U;\n }\n ```\n\n ```ts,expect_diagnostic\n type Union =\n   | {\n     foo(bar: number): number;\n   }\n   | 4;\n ```\n\n ```ts,expect_diagnostic\n type Intersection =\n   {\n     qux(quux: number): \"quuux\";\n   } & { foo: string };\n ```\n\n ### Valid\n\n ```ts\n interface Prop {\n   propFunc: (arg: string) => number;\n }\n ```\n\n ```ts\n type Thing<T> = {\n   genericProp: <U>(arg: U) => T;\n }\n ```\n\n ```ts\n type Callback = () => void;\n ```\n\n Classes (as well as interfaces lacking function declarations) are always ignored:\n ```ts\n interface Example {\n   notAFunc: number;\n }\n ```\n\n ```ts\n class Foo {\n   methodFunc(arg: string): number;\n }\n ```\n\n ## Options\n\n ### `style`\n The desired method signature style to enforce. \\\n Possible values are either `\"method\"` or `\"property\"`.\n\n Default: `\"property\"`[^2]\n\n #### Examples for `\"style\": \"method\"`\n\n ```json,options\n {\n  \"options\": {\n    \"style\": \"method\"\n  }\n }\n ```\n\n ```ts,use_options,expect_diagnostic\n interface Blah {\n   propFunc: (arg: string) => void;\n }\n ```\n\n ```ts,use_options,expect_diagnostic\n type Generic = {\n   propFunc: <T, U>(arg: T) => U;\n }\n ```\n\n ```ts,use_options\n type OK = {\n   flubber(arg: number): number;\n }\n ```\n\n [^2]: Chosen to allow stricter type checks under the aforementioned `strictFunctionTypes`.\n"
-          },
           "useExplicitType": {
             "deprecated": false,
             "version": "1.9.3",
@@ -7409,7 +7643,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Enforce type definitions to consistently use either `interface` or `type`.\n\n _TypeScript_ provides two different ways to define an object type: `interface` and `type`.\n\n This rule enforces consistent usage of either `interface` or `type` for object type definitions.\n Consistent type definition styles, aside from improving code readability, help minimize cognitive load when developers\n switch between different codebases or within a large codebase.\n\n Empty object type declarations will be left as-is and will not be converted to interfaces,\n as it will conflict with the `noEmptyInterface` rule.\n\n ## Example\n\n ### Invalid\n\n ```ts,expect_diagnostic\n type Point = { x: number; y: number; };\n ```\n\n ### Valid\n\n ```ts\n interface Point {\n   x: number;\n   y: number;\n }\n ```\n\n ```ts\n type AnyObject = {};\n ```\n\n ## Options\n\n The following options are available\n\n ### `style`\n\n This option will determine which style to use for type definitions.\n\n Default: `interface`\n\n ```json,options\n {\n     \"options\": {\n         \"style\": \"type\"\n     }\n }\n ```\n\n ```ts,use_options,expect_diagnostic\n interface Point {\n   x: number;\n   y: number;\n }\n ```\n\n"
+            "docs": " Enforce type definitions to consistently use either `interface` or `type`.\n\n _TypeScript_ provides two different ways to define an object type: `interface` and `type`.\n\n This rule enforces consistent usage of either `interface` or `type` for object type definitions.\n Consistent type definition styles, aside from improving code readability, help minimize cognitive load when developers\n switch between different codebases or within a large codebase.\n\n ## Example\n\n ### Invalid\n\n ```ts,expect_diagnostic\n type Point = { x: number; y: number; };\n ```\n\n ### Valid\n\n ```ts\n interface Point {\n   x: number;\n   y: number;\n }\n ```\n\n ## Options\n\n The following options are available\n\n ### `style`\n\n This option will determine which style to use for type definitions.\n\n Default: `interface`\n\n ```json,options\n {\n     \"options\": {\n         \"style\": \"type\"\n     }\n }\n ```\n\n ```ts,use_options,expect_diagnostic\n interface Point {\n   x: number;\n   y: number;\n }\n ```\n\n"
           },
           "useEnumInitializers": {
             "deprecated": false,
@@ -7545,7 +7779,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow overload signatures that can be unified into a single signature.\n\n Overload signatures that can be merged into a single signature are redundant and should be avoided.\n This rule helps simplify function signatures by combining overloads by making parameters optional\n and/or using type unions.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n function f(a: number): void;\n function f(a: string): void;\n ```\n\n ```ts,expect_diagnostic\n interface I {\n     a(): void;\n     a(x: number): void;\n }\n ```\n\n ### Valid\n\n ```ts\n function f(a: number | string): void {}\n ```\n\n ```ts\n interface I {\n     a(x?: number): void;\n }\n ```\n\n Different return types cannot be merged:\n ```ts\n interface I {\n     f(): void;\n     f(x: number): number;\n }\n ```\n\n Different type parameters cannot be merged:\n ```ts\n function f<T extends number>(x: T): void;\n function f<T extends string>(x: T): void;\n function f(x: unknown): void {}\n ```\n\n"
+            "docs": " Disallow overload signatures that can be unified into a single signature.\n\n Overload signatures that can be merged into a single signature are redundant and should be avoided.\n This rule helps simplify function signatures by combining overloads by making parameters optional\n and/or using type unions.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n function f(a: number): void;\n function f(a: string): void;\n ```\n\n ```ts,expect_diagnostic\n function f({ a }: Record<\"a\", string>): void;\n function f({ a }: Record<\"a\", boolean>): void;\n function f(obj: any): void {};\n ```\n\n ```ts,expect_diagnostic\n type T = {\n     a(): void;\n     a(x: number): void;\n }\n ```\n\n ```ts,expect_diagnostic\n interface I {\n     (): void;\n     (x: number): void;\n }\n ```\n\n ```ts,expect_diagnostic\n export function fizzbuzz([fizz, buzz]: [number, number]): void;\n export function fizzbuzz([fizz, buzz]: [string, string]): void;\n export default function fizzbuzz([fizz, buzz]: [string | number, string | number]): void {}\n ```\n\n ### Valid\n\n ```ts\n function f(a: number | string): void {}\n ```\n\n ```ts\n function f({ a }: Record<\"a\", string | boolean>): void;\n ```\n\n ```ts\n interface I {\n     a(x?: number): void;\n }\n ```\n\n ```ts\n export function fizzbuzz([fizz, buzz]: [number, number] | [string, string]): void;\n export default function fizzbuzz([fizz, buzz]: [string | number, string | number]): void {}\n ```\n\n Different return types cannot be merged:\n ```ts\n interface I {\n     f(): void;\n     f(x: number): number;\n }\n ```\n\n Different type parameters cannot be merged:\n ```ts\n function f<T extends number>(x: T): void;\n function f<T extends string>(x: T): void;\n function f(x: unknown): void {}\n ```\n\n Different rest signatures cannot be merged:\n (cf https://github.com/microsoft/TypeScript/issues/5077)\n ```ts\n function foo(...x: string[]): void;\n function foo(...x: number[]): void;\n function foo(...x: any[]): void {}\n ```\n\n ## Options\n\n ### `ignoreDifferentlyNamedParameters`\n\n If set to `true`, overloads with differently named parameters will be ignored,\n even if said parameters would be of otherwise mergeable types.\n\n Parameter declarations that lack specified \"names\" (such as array spread and destructuring literals)\n will be ignored for this check.\n\n Default: `false`\n\n ```json,options\n {\n   \"options\": {\n     \"ignoreDifferentlyNamedParameters\": true\n   }\n }\n ```\n\n ```ts,use_options\n function bake(numApples: number): void;\n function bake(cakeType: string): void;\n ```\n\n ### `ignoreDifferentJsDoc`\n\n If set to `true`, overloads with different JSDoc comments from one another will be ignored.\n Ones with identical comments will be merged as normal.\n\n Default: `false`\n\n ```json,options\n {\n   \"options\": {\n     \"ignoreDifferentJsDoc\": true\n   }\n }\n ```\n\n ```ts,use_options\n /** Print foo + 1 */\n function doThing(foo: number): void;\n /** Print foo concatenated with 3 */\n function doThing(foo: string): void;\n /** @deprecated - don't use this, it crashes the program */\n function doThing(foo: boolean): void;\n ```\n\n"
           }
         },
         "suspicious": {
@@ -7698,7 +7932,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 445
+    "numberOrRules": 457
   },
   "syntax": {
     "languages": {
@@ -7764,6 +7998,27 @@ export function GET() {
           }
         }
       },
+      "html": {
+        "source": {
+          "noDuplicateClasses": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noDuplicateClasses",
+            "link": "https://biomejs.dev/linter/rules/no-duplicate-classes",
+            "recommended": false,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintBetterTailwindcss": "no-duplicate-classes"
+                }
+              }
+            ],
+            "docs": " Remove duplicate CSS classes.\n\n Detects and removes duplicate CSS classes in HTML `class` attributes.\n\n This action helps keep your class strings clean by detecting and removing duplicates.\n\n Duplicate classes are redundant and can indicate copy-paste errors or merge conflicts.\n\n ## Examples\n\n ```html,expect_diff\n <div class=\"flex flex\"></div>\n ```\n\n ```html,expect_diff\n <div class=\"p-4 text-red-500 p-4 bg-white\"></div>\n ```\n\n"
+          }
+        }
+      },
       "js": {
         "source": {
           "organizeImports": {
@@ -7804,7 +8059,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Sort properties of a JS object in natural order.\n\n [Natural order](https://en.wikipedia.org/wiki/Natural_sort_order) means\n that uppercase letters come before lowercase letters (e.g. `A` < `a` <\n `B` < `b`) and numbers are compared in a human way (e.g. `9` < `10`).\n\n This rule will consider spread/calculated keys e.g [k]: 1 as\n non-sortable. Instead, whenever it encounters a non-sortable key, it\n will sort all the previous sortable keys up until the nearest\n non-sortable key, if one exist. This prevents breaking the override of\n certain keys using spread keys.\n\n Sorting the keys of an object technically changes the semantics of the\n program. It affects the result of operations like\n `Object.getOwnPropertyNames`. Since ES2020, operations like `for-in`\n loops, `Object.keys`, and `JSON.stringify` are guaranteed to process\n string keys in insertion order.\n\n In cases where the order of such operations is important, you can\n disable the assist action using a suppression comment:\n\n `// biome-ignore assist/source/useSortedKeys`\n\n ## Examples\n\n ```js,expect_diff\n const obj = {\n   x: 1,\n   a: 2,\n };\n ```\n\n ```js,expect_diff\n const obj = {\n   x: 1,\n   ...f,\n   y: 4,\n   a: 2,\n   [calculated()]: true,\n   b: 3,\n   a: 1,\n };\n ```\n\n ```js\n const obj = {\n   get aab() {\n     return this._aab;\n   },\n   set aac(v) {\n     this._aac = v;\n   },\n   w: 1,\n   x: 1,\n   ...g,\n   get aaa() {\n     return \"\";\n   },\n   u: 1,\n   v: 1,\n   [getProp()]: 2,\n   o: 1,\n   p: 1,\n   q: 1,\n }\n ```\n\n ## Options\n This actions accepts following options\n\n ### `sortOrder`\n This options supports `natural` and `lexicographic` values. Where as `natural` is the default.\n\n Following will apply the natural sort order.\n\n ```json,options\n {\n     \"options\": {\n         \"sortOrder\": \"natural\"\n     }\n }\n ```\n ```js,use_options,expect_diff\n const obj = {\n     val13: 1,\n     val1: 1,\n     val2: 1,\n     val21: 1,\n     val11: 1,\n };\n ```\n\n Following will apply the lexicographic sort order.\n\n ```json,options\n {\n     \"options\": {\n         \"sortOrder\": \"lexicographic\"\n     }\n }\n ```\n ```js,use_options,expect_diff\n const obj = {\n     val13: 1,\n     val1: 1,\n     val2: 1,\n     val21: 1,\n     val11: 1,\n };\n ```\n\n"
+            "docs": " Sort properties of a JS object in natural order.\n\n [Natural order](https://en.wikipedia.org/wiki/Natural_sort_order) means\n that uppercase letters come before lowercase letters (e.g. `A` < `a` <\n `B` < `b`) and numbers are compared in a human way (e.g. `9` < `10`).\n\n This rule will consider spread/calculated keys e.g [k]: 1 as\n non-sortable. Instead, whenever it encounters a non-sortable key, it\n will sort all the previous sortable keys up until the nearest\n non-sortable key, if one exist. This prevents breaking the override of\n certain keys using spread keys.\n\n Sorting the keys of an object technically changes the semantics of the\n program. It affects the result of operations like\n `Object.getOwnPropertyNames`. Since ES2020, operations like `for-in`\n loops, `Object.keys`, and `JSON.stringify` are guaranteed to process\n string keys in insertion order.\n\n In cases where the order of such operations is important, you can\n disable the assist action using a suppression comment:\n\n `// biome-ignore assist/source/useSortedKeys`\n\n ## Examples\n\n ```js,expect_diff\n const obj = {\n   x: 1,\n   a: 2,\n };\n ```\n\n ```js,expect_diff\n const obj = {\n   x: 1,\n   ...f,\n   y: 4,\n   a: 2,\n   [calculated()]: true,\n   b: 3,\n   a: 1,\n };\n ```\n\n ```js\n const obj = {\n   get aab() {\n     return this._aab;\n   },\n   set aac(v) {\n     this._aac = v;\n   },\n   w: 1,\n   x: 1,\n   ...g,\n   get aaa() {\n     return \"\";\n   },\n   u: 1,\n   v: 1,\n   [getProp()]: 2,\n   o: 1,\n   p: 1,\n   q: 1,\n }\n ```\n\n ## Options\n This actions accepts following options\n\n ### `sortOrder`\n This options supports `natural` and `lexicographic` values. Where as `natural` is the default.\n\n Following will apply the natural sort order.\n\n ```json,options\n {\n     \"options\": {\n         \"sortOrder\": \"natural\"\n     }\n }\n ```\n ```js,use_options,expect_diff\n const obj = {\n     val13: 1,\n     val1: 1,\n     val2: 1,\n     val21: 1,\n     val11: 1,\n };\n ```\n\n Following will apply the lexicographic sort order.\n\n ```json,options\n {\n     \"options\": {\n         \"sortOrder\": \"lexicographic\"\n     }\n }\n ```\n ```js,use_options,expect_diff\n const obj = {\n     val13: 1,\n     val1: 1,\n     val2: 1,\n     val21: 1,\n     val11: 1,\n };\n ```\n\n ### `groupByNesting`\n When enabled, groups object keys by their value's nesting depth before sorting alphabetically.\n Simple values (primitives, single-line arrays, and single-line objects) are sorted first,\n followed by nested values (multi-line arrays and multi-line objects).\n\n > Default: `false`\n\n\n ```json,options\n {\n     \"options\": {\n         \"groupByNesting\": true\n     }\n }\n ```\n ```js,use_options,expect_diagnostic\n const obj = {\n     name: \"Sample\",\n     details: {\n         description: \"nested\"\n     },\n     id: 123\n };\n ```\n\n"
           }
         }
       },
@@ -7817,12 +8072,29 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/use-sorted-keys",
             "recommended": false,
             "fixKind": "safe",
-            "docs": " Sort the keys of a JSON object in natural order.\n\n [Natural order](https://en.wikipedia.org/wiki/Natural_sort_order) means\n that uppercase letters come before lowercase letters (e.g. `A` < `a` <\n `B` < `b`) and numbers are compared in a human way (e.g. `9` < `10`).\n\n ## Examples\n\n ```json,expect_diff\n {\n     \"vase\": \"fancy\",\n     \"nested\": {\n         \"omega\": \"bar\",\n         \"alpha\": \"foo\"\n     }\n }\n ```\n\n ## Options\n This actions accepts following options\n\n ### `sortOrder`\n This options supports `natural` and `lexicographic` values. Where as `natural` is the default.\n\n Following will apply the natural sort order.\n\n ```json,options\n {\n     \"options\": {\n         \"sortOrder\": \"natural\"\n     }\n }\n ```\n ```json,use_options,expect_diff\n {\n     \"val13\": 1,\n     \"val1\": 1,\n     \"val2\": 1,\n     \"val21\": 1,\n     \"val11\": 1\n }\n ```\n\n Following will apply the lexicographic sort order.\n\n ```json,options\n {\n     \"options\": {\n         \"sortOrder\": \"lexicographic\"\n     }\n }\n ```\n ```json,use_options,expect_diff\n {\n     \"val13\": 1,\n     \"val1\": 1,\n     \"val2\": 1,\n     \"val21\": 1,\n     \"val11\": 1\n }\n ```\n\n"
+            "docs": " Sort the keys of a JSON object in natural order.\n\n [Natural order](https://en.wikipedia.org/wiki/Natural_sort_order) means\n that uppercase letters come before lowercase letters (e.g. `A` < `a` <\n `B` < `b`) and numbers are compared in a human way (e.g. `9` < `10`).\n\n ## Examples\n\n ```json,expect_diff\n {\n     \"vase\": \"fancy\",\n     \"nested\": {\n         \"omega\": \"bar\",\n         \"alpha\": \"foo\"\n     }\n }\n ```\n\n ## Options\n This actions accepts following options\n\n ### `sortOrder`\n This options supports `natural` and `lexicographic` values. Where as `natural` is the default.\n\n Following will apply the natural sort order.\n\n ```json,options\n {\n     \"options\": {\n         \"sortOrder\": \"natural\"\n     }\n }\n ```\n ```json,use_options,expect_diff\n {\n     \"val13\": 1,\n     \"val1\": 1,\n     \"val2\": 1,\n     \"val21\": 1,\n     \"val11\": 1\n }\n ```\n\n Following will apply the lexicographic sort order.\n\n ```json,options\n {\n     \"options\": {\n         \"sortOrder\": \"lexicographic\"\n     }\n }\n ```\n ```json,use_options,expect_diff\n {\n     \"val13\": 1,\n     \"val1\": 1,\n     \"val2\": 1,\n     \"val21\": 1,\n     \"val11\": 1\n }\n ```\n\n ### `groupByNesting`\n When enabled, groups object keys by their value's nesting depth before sorting alphabetically.\n Simple values (primitives, single-line arrays, and single-line objects) are sorted first,\n followed by nested values (multi-line arrays and multi-line objects).\n\n > Default: `false`\n\n ```json,options\n {\n     \"options\": {\n         \"groupByNesting\": true\n     }\n }\n ```\n ```json,use_options,expect_diagnostic\n {\n     \"name\": \"Sample\",\n     \"details\": {\n         \"description\": \"nested\"\n     },\n     \"id\": 123\n }\n ```\n\n"
           }
         }
       },
       "jsx": {
         "source": {
+          "noDuplicateClasses": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noDuplicateClasses",
+            "link": "https://biomejs.dev/linter/rules/no-duplicate-classes",
+            "recommended": false,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintBetterTailwindcss": "no-duplicate-classes"
+                }
+              }
+            ],
+            "docs": " Remove duplicate CSS classes.\n\n Detects and removes duplicate CSS classes in JSX `class` and `className` attributes,\n as well as in utility function calls like `clsx`, `cn`, `cva`, etc.\n\n Duplicate classes are redundant and can indicate copy-paste errors or merge conflicts.\n\n ## Examples\n\n ```jsx,expect_diff\n <div class=\"flex flex\" />;\n ```\n\n ```jsx,expect_diff\n <div class=\"p-4 text-red-500 p-4 bg-white\" />;\n ```\n\n ## Options\n\n Use the `attributes` option to specify additional JSX attributes to check.\n Use the `functions` option to specify utility functions to check (e.g., `clsx`, `cn`, `cva`).\n\n"
+          },
           "useSortedAttributes": {
             "deprecated": false,
             "version": "2.0.0",
@@ -7841,9 +8113,30 @@ export function GET() {
             "docs": " Enforce attribute sorting in JSX elements.\n\n This rule checks if the JSX props are sorted in a consistent way.\n Props are sorted alphabetically using a [natural sort order](https://en.wikipedia.org/wiki/Natural_sort_order).\n This rule will not consider spread props as sortable.\n Instead, whenever it encounters a spread prop, it will sort all the\n previous non spread props up until the nearest spread prop, if one\n exist.\n This prevents breaking the override of certain props using spread\n props.\n\n ## Examples\n\n ```jsx,expect_diff\n <Hello lastName=\"Smith\" firstName=\"John\" />;\n ```\n\n ```jsx,expect_diff\n <Hello lastName=\"Smith\" firstName=\"John\" {...this.props} tel=\"0000\" address=\"111 Main Street\"  {...another.props} lastName=\"Smith\" />;\n ```\n\n ## Options\n This actions accepts following options\n\n ### `sortOrder`\n This options supports `natural` and `lexicographic` values. Where as `natural` is the default.\n\n Following will apply the natural sort order.\n\n ```json,options\n {\n     \"options\": {\n         \"sortOrder\": \"natural\"\n     }\n }\n ```\n ```jsx,use_options,expect_diagnostic\n <Hello tel={5555555} {...this.props} opt1=\"John\" opt2=\"\" opt12=\"\" opt11=\"\" />;\n ```\n\n Following will apply the lexicographic sort order.\n\n ```json,options\n {\n     \"options\": {\n         \"sortOrder\": \"lexicographic\"\n     }\n }\n ```\n ```jsx,use_options,expect_diagnostic\n <Hello tel={5555555} {...this.props} opt1=\"John\" opt2=\"\" opt12=\"\" opt11=\"\" />;\n ```\n\n"
           }
         }
+      },
+      "ts": {
+        "source": {
+          "useSortedInterfaceMembers": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useSortedInterfaceMembers",
+            "link": "https://biomejs.dev/linter/rules/use-sorted-interface-members",
+            "recommended": false,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintPerfectionist": "sort-interfaces"
+                }
+              }
+            ],
+            "docs": " Sort interface members by key.\n\n Interface members are sorted according to their names. The rule distinguishes between\n two types of members:\n\n **Sortable members** - Members with explicit, fixed names that can be alphabetically sorted:\n - Property signatures: `property: type`\n - Method signatures: `method(): type`\n - Getter signatures: `get property(): type`\n - Setter signatures: `set property(value: type): void`\n\n **Non-sortable members** - Members without fixed names or with dynamic/computed names:\n - Call signatures: `(): type` (represents the interface as a callable function)\n - Construct signatures: `new (): type` (represents the interface as a constructor)\n - Index signatures: `[key: string]: type` (represents dynamic property access)\n\n The rule sorts all sortable members alphabetically and places them first,\n followed by non-sortable members in their original order. Non-sortable members\n cannot be meaningfully sorted by name since they represent different interface\n contracts rather than named properties or methods.\n\n # Examples\n\n ## Invalid\n\n ```ts,expect_diagnostic\n interface MixedMembers {\n   z: string;\n   a: number;\n   (): void;  // Call signature\n   y: boolean;\n   new (): MixedMembers;  // Construct signature\n   b: string;\n   [key: string]: any;  // Index signature\n }\n ```\n\n ## Valid\n\n ```ts\n interface MixedMembers {\n   a: number;\n   b: string;\n   y: boolean;\n   z: string;\n   (): void;  // Non-sortable members remain in original order\n   new (): MixedMembers;\n   [key: string]: any;\n }\n ```\n\n"
+          }
+        }
       }
     },
-    "numberOrRules": 5
+    "numberOrRules": 8
   }
 };
 	return new Response(JSON.stringify(schema), {

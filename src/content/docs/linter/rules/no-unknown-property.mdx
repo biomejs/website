@@ -82,6 +82,39 @@ a {
 }
 ```
 
+## Options
+
+### `ignore`
+
+A list of unknown property names to ignore (case-insensitive).
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noUnknownProperty": {
+					"options": {
+						"ignore": [
+							"custom-property"
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Valid
+
+```css
+a {
+  custom-property: black;
+}
+```
+
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

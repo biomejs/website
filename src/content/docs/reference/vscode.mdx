@@ -151,6 +151,39 @@ When set to `true`, the extension will only register itself as a formatter and d
 The `biome.enabled` setting must be set to `true` (default) in the same scope for this setting to take effect.
 :::
 
+### `biome.inlineConfig`
+
+An inline version of the Biome configuration. The options of this configuration will override the options coming from any `biome.json` file read from disk (or the defaults).
+
+For example, let's say your project enables the rule `noConsole` with `error` severity:
+
+```json title="biome.json"
+{
+  "linter": {
+    "rules": {
+      "suspicious": {
+        "noConsole": "error"
+      }
+    }
+  }
+}
+```
+
+However, during local development, you want to disable this rule because it's useful, and you don't want to see red squiggles. In your `inlineConfig`, you would write something like the following:
+
+```json title=".vscode/settings.json"
+{
+  "biome.inlineConfig": {
+    "linter": {
+      "rules": {
+        "suspicious": {
+          "noConsole": "off"
+        }
+      }
+    }
+  }
+}
+```
 
 ### `biome.lsp.bin`
 

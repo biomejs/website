@@ -72,6 +72,7 @@ export default function SettingsTab({
 			allowComments,
 			attributePosition,
 			ruleDomains,
+			experimentalEmbeddedSnippetsEnabled,
 			experimentalFullSupportEnabled,
 			cssModules,
 			tailwindDirectives,
@@ -174,6 +175,11 @@ export default function SettingsTab({
 	const setRuleDomains = createPlaygroundSettingsSetter(
 		setPlaygroundState,
 		"ruleDomains",
+	);
+
+	const setExperimentalEmbeddedSnippetsEnabled = createPlaygroundSettingsSetter(
+		setPlaygroundState,
+		"experimentalEmbeddedSnippetsEnabled",
 	);
 
 	const setExperimentalFullSupportEnabled = createPlaygroundSettingsSetter(
@@ -384,6 +390,12 @@ export default function SettingsTab({
 					setUnsafeParameterDecoratorsEnabled
 				}
 				setAllowComments={setAllowComments}
+				experimentalEmbeddedSnippetsEnabled={
+					experimentalEmbeddedSnippetsEnabled
+				}
+				setExperimentalEmbeddedSnippetsEnabled={
+					setExperimentalEmbeddedSnippetsEnabled
+				}
 				experimentalFullSupportEnabled={experimentalFullSupportEnabled}
 				setExperimentalFullSupportEnabled={setExperimentalFullSupportEnabled}
 				cssModules={cssModules}
@@ -613,6 +625,8 @@ function SyntaxSettings({
 	setUnsafeParameterDecoratorsEnabled,
 	setAllowComments,
 	allowComments,
+	experimentalEmbeddedSnippetsEnabled,
+	setExperimentalEmbeddedSnippetsEnabled,
 	experimentalFullSupportEnabled,
 	setExperimentalFullSupportEnabled,
 	cssModules,
@@ -626,6 +640,8 @@ function SyntaxSettings({
 	allowComments: boolean;
 	setUnsafeParameterDecoratorsEnabled: (value: boolean) => void;
 	setAllowComments: (value: boolean) => void;
+	experimentalEmbeddedSnippetsEnabled: boolean;
+	setExperimentalEmbeddedSnippetsEnabled: (value: boolean) => void;
 	experimentalFullSupportEnabled: boolean;
 	setExperimentalFullSupportEnabled: (value: boolean) => void;
 	cssModules: boolean;
@@ -637,6 +653,7 @@ function SyntaxSettings({
 	const enumSelectId = useId();
 	const allowCommentsId = useId();
 	const decoratorsId = useId();
+	const experimentalEmbeddedSnippetsId = useId();
 	const experimentalFullSupportId = useId();
 	const cssModulesId = useId();
 	const tailwindDirectivesId = useId();
@@ -689,8 +706,22 @@ function SyntaxSettings({
 				</div>
 				<div className="field-row">
 					<input
+						id={experimentalEmbeddedSnippetsId}
+						name="experimental-embedded-snippets"
+						type="checkbox"
+						checked={experimentalEmbeddedSnippetsEnabled}
+						onChange={(e) =>
+							setExperimentalEmbeddedSnippetsEnabled(e.target.checked)
+						}
+					/>
+					<label htmlFor={experimentalEmbeddedSnippetsId}>
+						Experimental embedded snippets support
+					</label>
+				</div>
+				<div className="field-row">
+					<input
 						id={experimentalFullSupportId}
-						name="allow-comments"
+						name="experimental-full-support"
 						type="checkbox"
 						checked={experimentalFullSupportEnabled}
 						onChange={(e) =>
@@ -701,11 +732,10 @@ function SyntaxSettings({
 						Experimental HTML-ish full support
 					</label>
 				</div>
-
 				<div className="field-row">
 					<input
 						id={cssModulesId}
-						name="allow-comments"
+						name="css-modules"
 						type="checkbox"
 						checked={cssModules}
 						onChange={(e) => setCssModules(e.target.checked)}
@@ -715,7 +745,7 @@ function SyntaxSettings({
 				<div className="field-row">
 					<input
 						id={tailwindDirectivesId}
-						name="allow-comments"
+						name="tailwind-directives"
 						type="checkbox"
 						checked={tailwindDirectives}
 						onChange={(e) => setTailwindDirectives(e.target.checked)}

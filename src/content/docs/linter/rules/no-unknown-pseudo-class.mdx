@@ -78,6 +78,37 @@ a:focus {}
 input:-moz-placeholder {}
 ```
 
+## Options
+
+### `ignore`
+
+A list of unknown pseudo-class names to ignore (case-insensitive).
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noUnknownPseudoClass": {
+					"options": {
+						"ignore": [
+							"custom-pseudo-class"
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Valid
+
+```css
+a:custom-pseudo-class {}
+```
+
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

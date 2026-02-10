@@ -58,6 +58,37 @@ a { transform: unknown(1); }
 a { transform: scale(1); }
 ```
 
+## Options
+
+### `ignore`
+
+A list of unknown function names to ignore (case-insensitive).
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noUnknownFunction": {
+					"options": {
+						"ignore": [
+							"custom-function"
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Valid
+
+```css
+a { transform: custom-function(1); }
+```
+
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

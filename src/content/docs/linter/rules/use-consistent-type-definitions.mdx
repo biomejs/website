@@ -40,9 +40,6 @@ This rule enforces consistent usage of either `interface` or `type` for object t
 Consistent type definition styles, aside from improving code readability, help minimize cognitive load when developers
 switch between different codebases or within a large codebase.
 
-Empty object type declarations will be left as-is and will not be converted to interfaces,
-as it will conflict with the `noEmptyInterface` rule.
-
 ## Example
 
 ### Invalid
@@ -60,10 +57,6 @@ interface Point {
   x: number;
   y: number;
 }
-```
-
-```ts
-type AnyObject = {};
 ```
 
 ## Options

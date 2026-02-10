@@ -10,7 +10,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
 :::note
-This rule belongs to the project domain. This means that its activation will activate the Biome Scanner, which might affect the performance. Read more about it in the [documentation page](/linter/domains#project)
+This rule belongs to the project domain. This means that its activation will activate the Biome Scanner to scan the files of your project. Read more about it in the [documentation page](/linter/domains#project)
 :::
 ## Summary
 - Rule available since: `v1.8.0`
@@ -104,6 +104,41 @@ require("./foo.js");
 ## Options
 
 The rule provides the options described below.
+
+### extensionMappings
+
+A map of file extensions to their suggested replacements. This allows you
+to specify custom mappings for import extensions. For example, you can
+map TypeScript imports to JavaScript extensions.
+
+This is useful if you are bundling your code to JavaScript into a package
+and want to make sure all imports of TypeScript files use the `.js` extension
+instead.
+
+If no mapping is found for a given extension, and the import is missing an extension,
+the rule will suggest using the actual extension of the resolved file.
+
+Default: `{}` (empty object)
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"useImportExtensions": {
+					"options": {
+						"extensionMappings": {
+							"ts": "js",
+							"tsx": "js"
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+```
 
 ### forceJsExtensions
 

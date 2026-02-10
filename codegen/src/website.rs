@@ -129,6 +129,7 @@ export function GET() {"#,
         parse_module(&schema_js_content, JsParserOptions::default())
             .tree()
             .syntax(),
+        false,
     )?
     .print()?;
 
