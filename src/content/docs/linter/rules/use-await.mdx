@@ -70,11 +70,6 @@ function processData() {
 
 // Nor does it warn about empty `async` functions
 async function noop() { }
-
-// Async generators that use `yield*` with an async iterable
-async function* delegateToAsyncIterable() {
-  yield* otherAsyncIterable();
-}
 ```
 
 ## Related links
