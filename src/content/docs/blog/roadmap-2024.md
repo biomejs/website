@@ -6,8 +6,8 @@ authors:
   - team
 date: 2024-01-08
 cover:
-  light: "@/assets/blog/roadmap-2024/banner-light.png"
-  dark: "@/assets/blog/roadmap-2024/banner-dark.png"
+  light: "@/assets/blog/banner-light.png"
+  dark: "@/assets/blog/banner-dark.png"
   alt: The Prettier challenge banner, with the Biome logo over it
 socialImage: "@/assets/social-logo.png"
 ---

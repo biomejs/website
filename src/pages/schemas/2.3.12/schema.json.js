@@ -442,25 +442,6 @@ export function GET() {
 				type: "boolean",
 			},
 			BracketSpacing: { type: "boolean" },
-			CheckInputType: {
-				oneOf: [
-					{
-						description: "Don't check the input type",
-						type: "string",
-						const: "off",
-					},
-					{
-						description: "Check the input type (case-insensitive)",
-						type: "string",
-						const: "loose",
-					},
-					{
-						description: "Check the input type (case-sensitive)",
-						type: "string",
-						const: "strict",
-					},
-				],
-			},
 			Complexity: {
 				description: "A list of rules that belong to this group",
 				type: "object",
@@ -2702,22 +2683,6 @@ export function GET() {
 				additionalProperties: false,
 			},
 			MaxSize: { type: "integer", format: "uint64", minimum: 1 },
-			MethodSignatureStyle: {
-				oneOf: [
-					{
-						description:
-							"Enforce use of property-style signatures (`methodName: (args) => returnType`).",
-						type: "string",
-						const: "property",
-					},
-					{
-						description:
-							"Enforce use of method-style signatures (`methodName(args): returnType`).",
-						type: "string",
-						const: "method",
-					},
-				],
-			},
 			Modifiers: {
 				type: "array",
 				items: { $ref: "#/$defs/RestrictedModifier" },
@@ -3184,23 +3149,6 @@ export function GET() {
 			},
 			NoDeprecatedImportsOptions: {
 				type: "object",
-				additionalProperties: false,
-			},
-			NoDeprecatedMediaTypeConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithNoDeprecatedMediaTypeOptions" },
-				],
-			},
-			NoDeprecatedMediaTypeOptions: {
-				type: "object",
-				properties: {
-					allow: {
-						description: "Media types to allow (case-insensitive).",
-						type: ["array", "null"],
-						items: { type: "string" },
-					},
-				},
 				additionalProperties: false,
 			},
 			NoDescendingSpecificityConfiguration: {
@@ -3930,13 +3878,6 @@ export function GET() {
 				],
 			},
 			NoHeaderScopeOptions: { type: "object", additionalProperties: false },
-			NoHexColorsConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithNoHexColorsOptions" },
-				],
-			},
-			NoHexColorsOptions: { type: "object", additionalProperties: false },
 			NoImgElementConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -4635,16 +4576,6 @@ export function GET() {
 				],
 			},
 			NoRedundantAltOptions: {
-				type: "object",
-				additionalProperties: false,
-			},
-			NoRedundantDefaultExportConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithNoRedundantDefaultExportOptions" },
-				],
-			},
-			NoRedundantDefaultExportOptions: {
 				type: "object",
 				additionalProperties: false,
 			},
@@ -5623,16 +5554,6 @@ export function GET() {
 				type: "object",
 				additionalProperties: false,
 			},
-			NoVueArrowFuncInWatchConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithNoVueArrowFuncInWatchOptions" },
-				],
-			},
-			NoVueArrowFuncInWatchOptions: {
-				type: "object",
-				additionalProperties: false,
-			},
 			NoVueDataObjectDeclarationConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -5760,14 +5681,6 @@ export function GET() {
 							"Restrict imports of deprecated exports.\nSee https://biomejs.dev/linter/rules/no-deprecated-imports",
 						anyOf: [
 							{ $ref: "#/$defs/NoDeprecatedImportsConfiguration" },
-							{ type: "null" },
-						],
-					},
-					noDeprecatedMediaType: {
-						description:
-							"Disallow deprecated media types.\nSee https://biomejs.dev/linter/rules/no-deprecated-media-type",
-						anyOf: [
-							{ $ref: "#/$defs/NoDeprecatedMediaTypeConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -5912,14 +5825,6 @@ export function GET() {
 							"Disallow iterating using a for-in loop.\nSee https://biomejs.dev/linter/rules/no-for-in",
 						anyOf: [{ $ref: "#/$defs/NoForInConfiguration" }, { type: "null" }],
 					},
-					noHexColors: {
-						description:
-							"Disallow hex colors.\nSee https://biomejs.dev/linter/rules/no-hex-colors",
-						anyOf: [
-							{ $ref: "#/$defs/NoHexColorsConfiguration" },
-							{ type: "null" },
-						],
-					},
 					noImportCycles: {
 						description:
 							"Prevent import cycles.\nSee https://biomejs.dev/linter/rules/no-import-cycles",
@@ -6010,14 +5915,6 @@ export function GET() {
 							"Replaces usages of forwardRef with passing ref as a prop.\nSee https://biomejs.dev/linter/rules/no-react-forward-ref",
 						anyOf: [
 							{ $ref: "#/$defs/NoReactForwardRefConfiguration" },
-							{ type: "null" },
-						],
-					},
-					noRedundantDefaultExport: {
-						description:
-							"Checks if a default export exports the same symbol as a named export.\nSee https://biomejs.dev/linter/rules/no-redundant-default-export",
-						anyOf: [
-							{ $ref: "#/$defs/NoRedundantDefaultExportConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -6125,14 +6022,6 @@ export function GET() {
 							{ type: "null" },
 						],
 					},
-					noVueArrowFuncInWatch: {
-						description:
-							"Disallows using arrow functions when defining a watcher.\nSee https://biomejs.dev/linter/rules/no-vue-arrow-func-in-watch",
-						anyOf: [
-							{ $ref: "#/$defs/NoVueArrowFuncInWatchConfiguration" },
-							{ type: "null" },
-						],
-					},
 					noVueDataObjectDeclaration: {
 						description:
 							"Enforce that Vue component data options are declared as functions.\nSee https://biomejs.dev/linter/rules/no-vue-data-object-declaration",
@@ -6217,27 +6106,11 @@ export function GET() {
 							{ type: "null" },
 						],
 					},
-					useConsistentEnumValueType: {
-						description:
-							"Disallow enums from having both number and string members.\nSee https://biomejs.dev/linter/rules/use-consistent-enum-value-type",
-						anyOf: [
-							{ $ref: "#/$defs/UseConsistentEnumValueTypeConfiguration" },
-							{ type: "null" },
-						],
-					},
 					useConsistentGraphqlDescriptions: {
 						description:
 							"Require all descriptions to follow the same style (either block or inline) to  maintain consistency and improve readability across the schema.\nSee https://biomejs.dev/linter/rules/use-consistent-graphql-descriptions",
 						anyOf: [
 							{ $ref: "#/$defs/UseConsistentGraphqlDescriptionsConfiguration" },
-							{ type: "null" },
-						],
-					},
-					useConsistentMethodSignatures: {
-						description:
-							"Enforce consistent use of either method signatures or function properties within interfaces and type aliases.\nSee https://biomejs.dev/linter/rules/use-consistent-method-signatures",
-						anyOf: [
-							{ $ref: "#/$defs/UseConsistentMethodSignaturesConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -6286,27 +6159,11 @@ export function GET() {
 							"Enforce the use of Array.prototype.find() over Array.prototype.filter() followed by [0] when looking for a single result.\nSee https://biomejs.dev/linter/rules/use-find",
 						anyOf: [{ $ref: "#/$defs/UseFindConfiguration" }, { type: "null" }],
 					},
-					useGlobalThis: {
-						description:
-							"Enforce the use of globalThis over window, self, and global.\nSee https://biomejs.dev/linter/rules/use-global-this",
-						anyOf: [
-							{ $ref: "#/$defs/UseGlobalThisConfiguration" },
-							{ type: "null" },
-						],
-					},
 					useInlineScriptId: {
 						description:
 							"Enforce id attribute on next/script components with inline content or dangerouslySetInnerHTML.\nSee https://biomejs.dev/linter/rules/use-inline-script-id",
 						anyOf: [
 							{ $ref: "#/$defs/UseInlineScriptIdConfiguration" },
-							{ type: "null" },
-						],
-					},
-					useInputName: {
-						description:
-							'Require mutation argument to be always called "input".\nSee https://biomejs.dev/linter/rules/use-input-name',
-						anyOf: [
-							{ $ref: "#/$defs/UseInputNameConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -7501,15 +7358,6 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
-			RuleWithNoDeprecatedMediaTypeOptions: {
-				type: "object",
-				properties: {
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/NoDeprecatedMediaTypeOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
 			RuleWithNoDescendingSpecificityOptions: {
 				type: "object",
 				properties: {
@@ -8138,15 +7986,6 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
-			RuleWithNoHexColorsOptions: {
-				type: "object",
-				properties: {
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/NoHexColorsOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
 			RuleWithNoImgElementOptions: {
 				type: "object",
 				properties: {
@@ -8758,15 +8597,6 @@ export function GET() {
 				properties: {
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/NoRedundantAltOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
-			RuleWithNoRedundantDefaultExportOptions: {
-				type: "object",
-				properties: {
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/NoRedundantDefaultExportOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -9620,16 +9450,6 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
-			RuleWithNoVueArrowFuncInWatchOptions: {
-				type: "object",
-				properties: {
-					fix: { anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }] },
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/NoVueArrowFuncInWatchOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
 			RuleWithNoVueDataObjectDeclarationOptions: {
 				type: "object",
 				properties: {
@@ -9938,15 +9758,6 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
-			RuleWithUseConsistentEnumValueTypeOptions: {
-				type: "object",
-				properties: {
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/UseConsistentEnumValueTypeOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
 			RuleWithUseConsistentGraphqlDescriptionsOptions: {
 				type: "object",
 				properties: {
@@ -9961,15 +9772,6 @@ export function GET() {
 				properties: {
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/UseConsistentMemberAccessibilityOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
-			RuleWithUseConsistentMethodSignaturesOptions: {
-				type: "object",
-				properties: {
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/UseConsistentMethodSignaturesOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -10239,15 +10041,6 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
-			RuleWithUseGlobalThisOptions: {
-				type: "object",
-				properties: {
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/UseGlobalThisOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
 			RuleWithUseGoogleFontDisplayOptions: {
 				type: "object",
 				properties: {
@@ -10384,15 +10177,6 @@ export function GET() {
 				properties: {
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/UseInlineScriptIdOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
-			RuleWithUseInputNameOptions: {
-				type: "object",
-				properties: {
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/UseInputNameOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -13075,16 +12859,6 @@ export function GET() {
 				type: "object",
 				additionalProperties: false,
 			},
-			UseConsistentEnumValueTypeConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithUseConsistentEnumValueTypeOptions" },
-				],
-			},
-			UseConsistentEnumValueTypeOptions: {
-				type: "object",
-				additionalProperties: false,
-			},
 			UseConsistentGraphqlDescriptionsConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -13124,24 +12898,6 @@ export function GET() {
 						description:
 							'The kind of accessibility you want to enforce. Default to "noPublic"',
 						anyOf: [{ $ref: "#/$defs/Accessibility" }, { type: "null" }],
-					},
-				},
-				additionalProperties: false,
-			},
-			UseConsistentMethodSignaturesConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithUseConsistentMethodSignaturesOptions" },
-				],
-			},
-			UseConsistentMethodSignaturesOptions: {
-				description: "Options type for `useConsistentMethodSignatures`.",
-				type: "object",
-				properties: {
-					style: {
-						description:
-							'The style of method signatures whose usage will be enforced.\n\nDefault: "property"',
-						anyOf: [{ $ref: "#/$defs/MethodSignatureStyle" }, { type: "null" }],
 					},
 				},
 				additionalProperties: false,
@@ -13469,13 +13225,6 @@ export function GET() {
 				type: "object",
 				additionalProperties: false,
 			},
-			UseGlobalThisConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithUseGlobalThisOptions" },
-				],
-			},
-			UseGlobalThisOptions: { type: "object", additionalProperties: false },
 			UseGoogleFontDisplayConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -13631,23 +13380,6 @@ export function GET() {
 			},
 			UseInlineScriptIdOptions: {
 				type: "object",
-				additionalProperties: false,
-			},
-			UseInputNameConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithUseInputNameOptions" },
-				],
-			},
-			UseInputNameOptions: {
-				type: "object",
-				properties: {
-					checkInputType: {
-						description:
-							"Check that the input type name follows the convention <mutationName>Input",
-						anyOf: [{ $ref: "#/$defs/CheckInputType" }, { type: "null" }],
-					},
-				},
 				additionalProperties: false,
 			},
 			UseIsArrayConfiguration: {

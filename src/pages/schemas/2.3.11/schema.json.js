@@ -85,7 +85,7 @@ export function GET() {
 				properties: {
 					noAccessKey: {
 						description:
-							"Enforce that the accessKey attribute is not used on any HTML element.\nSee https://biomejs.dev/linter/rules/no-access-key",
+							"Enforce that the accessKey attribute is not used on any HTML element.\nSee <https://biomejs.dev/linter/rules/no-access-key>",
 						anyOf: [
 							{ $ref: "#/$defs/NoAccessKeyConfiguration" },
 							{ type: "null" },
@@ -93,7 +93,7 @@ export function GET() {
 					},
 					noAriaHiddenOnFocusable: {
 						description:
-							'Enforce that aria-hidden="true" is not set on focusable elements.\nSee https://biomejs.dev/linter/rules/no-aria-hidden-on-focusable',
+							'Enforce that aria-hidden="true" is not set on focusable elements.\nSee <https://biomejs.dev/linter/rules/no-aria-hidden-on-focusable>',
 						anyOf: [
 							{ $ref: "#/$defs/NoAriaHiddenOnFocusableConfiguration" },
 							{ type: "null" },
@@ -101,7 +101,7 @@ export function GET() {
 					},
 					noAriaUnsupportedElements: {
 						description:
-							"Enforce that elements that do not support ARIA roles, states, and properties do not have those attributes.\nSee https://biomejs.dev/linter/rules/no-aria-unsupported-elements",
+							"Enforce that elements that do not support ARIA roles, states, and properties do not have those attributes.\nSee <https://biomejs.dev/linter/rules/no-aria-unsupported-elements>",
 						anyOf: [
 							{ $ref: "#/$defs/NoAriaUnsupportedElementsConfiguration" },
 							{ type: "null" },
@@ -109,7 +109,7 @@ export function GET() {
 					},
 					noAutofocus: {
 						description:
-							"Enforce that autoFocus prop is not used on elements.\nSee https://biomejs.dev/linter/rules/no-autofocus",
+							"Enforce that autoFocus prop is not used on elements.\nSee <https://biomejs.dev/linter/rules/no-autofocus>",
 						anyOf: [
 							{ $ref: "#/$defs/NoAutofocusConfiguration" },
 							{ type: "null" },
@@ -117,7 +117,7 @@ export function GET() {
 					},
 					noDistractingElements: {
 						description:
-							"Enforces that no distracting elements are used.\nSee https://biomejs.dev/linter/rules/no-distracting-elements",
+							"Enforces that no distracting elements are used.\nSee <https://biomejs.dev/linter/rules/no-distracting-elements>",
 						anyOf: [
 							{ $ref: "#/$defs/NoDistractingElementsConfiguration" },
 							{ type: "null" },
@@ -125,7 +125,7 @@ export function GET() {
 					},
 					noHeaderScope: {
 						description:
-							"The scope prop should be used only on \\<th> elements.\nSee https://biomejs.dev/linter/rules/no-header-scope",
+							"The scope prop should be used only on \\<th> elements.\nSee <https://biomejs.dev/linter/rules/no-header-scope>",
 						anyOf: [
 							{ $ref: "#/$defs/NoHeaderScopeConfiguration" },
 							{ type: "null" },
@@ -133,7 +133,7 @@ export function GET() {
 					},
 					noInteractiveElementToNoninteractiveRole: {
 						description:
-							"Enforce that non-interactive ARIA roles are not assigned to interactive HTML elements.\nSee https://biomejs.dev/linter/rules/no-interactive-element-to-noninteractive-role",
+							"Enforce that non-interactive ARIA roles are not assigned to interactive HTML elements.\nSee <https://biomejs.dev/linter/rules/no-interactive-element-to-noninteractive-role>",
 						anyOf: [
 							{
 								$ref: "#/$defs/NoInteractiveElementToNoninteractiveRoleConfiguration",
@@ -143,7 +143,7 @@ export function GET() {
 					},
 					noLabelWithoutControl: {
 						description:
-							"Enforce that a label element or component has a text label and an associated input.\nSee https://biomejs.dev/linter/rules/no-label-without-control",
+							"Enforce that a label element or component has a text label and an associated input.\nSee <https://biomejs.dev/linter/rules/no-label-without-control>",
 						anyOf: [
 							{ $ref: "#/$defs/NoLabelWithoutControlConfiguration" },
 							{ type: "null" },
@@ -151,7 +151,7 @@ export function GET() {
 					},
 					noNoninteractiveElementInteractions: {
 						description:
-							"Disallow use event handlers on non-interactive elements.\nSee https://biomejs.dev/linter/rules/no-noninteractive-element-interactions",
+							"Disallow use event handlers on non-interactive elements.\nSee <https://biomejs.dev/linter/rules/no-noninteractive-element-interactions>",
 						anyOf: [
 							{
 								$ref: "#/$defs/NoNoninteractiveElementInteractionsConfiguration",
@@ -161,7 +161,7 @@ export function GET() {
 					},
 					noNoninteractiveElementToInteractiveRole: {
 						description:
-							"Enforce that interactive ARIA roles are not assigned to non-interactive HTML elements.\nSee https://biomejs.dev/linter/rules/no-noninteractive-element-to-interactive-role",
+							"Enforce that interactive ARIA roles are not assigned to non-interactive HTML elements.\nSee <https://biomejs.dev/linter/rules/no-noninteractive-element-to-interactive-role>",
 						anyOf: [
 							{
 								$ref: "#/$defs/NoNoninteractiveElementToInteractiveRoleConfiguration",
@@ -171,7 +171,7 @@ export function GET() {
 					},
 					noNoninteractiveTabindex: {
 						description:
-							"Enforce that tabIndex is not assigned to non-interactive HTML elements.\nSee https://biomejs.dev/linter/rules/no-noninteractive-tabindex",
+							"Enforce that tabIndex is not assigned to non-interactive HTML elements.\nSee <https://biomejs.dev/linter/rules/no-noninteractive-tabindex>",
 						anyOf: [
 							{ $ref: "#/$defs/NoNoninteractiveTabindexConfiguration" },
 							{ type: "null" },
@@ -179,7 +179,7 @@ export function GET() {
 					},
 					noPositiveTabindex: {
 						description:
-							"Prevent the usage of positive integers on tabIndex property.\nSee https://biomejs.dev/linter/rules/no-positive-tabindex",
+							"Prevent the usage of positive integers on tabIndex property.\nSee <https://biomejs.dev/linter/rules/no-positive-tabindex>",
 						anyOf: [
 							{ $ref: "#/$defs/NoPositiveTabindexConfiguration" },
 							{ type: "null" },
@@ -187,7 +187,7 @@ export function GET() {
 					},
 					noRedundantAlt: {
 						description:
-							'Enforce img alt prop does not contain the word "image", "picture", or "photo".\nSee https://biomejs.dev/linter/rules/no-redundant-alt',
+							'Enforce img alt prop does not contain the word "image", "picture", or "photo".\nSee <https://biomejs.dev/linter/rules/no-redundant-alt>',
 						anyOf: [
 							{ $ref: "#/$defs/NoRedundantAltConfiguration" },
 							{ type: "null" },
@@ -195,7 +195,7 @@ export function GET() {
 					},
 					noRedundantRoles: {
 						description:
-							"Enforce explicit role property is not the same as implicit/default role property on an element.\nSee https://biomejs.dev/linter/rules/no-redundant-roles",
+							"Enforce explicit role property is not the same as implicit/default role property on an element.\nSee <https://biomejs.dev/linter/rules/no-redundant-roles>",
 						anyOf: [
 							{ $ref: "#/$defs/NoRedundantRolesConfiguration" },
 							{ type: "null" },
@@ -203,7 +203,7 @@ export function GET() {
 					},
 					noStaticElementInteractions: {
 						description:
-							"Enforce that static, visible elements (such as \\<div>) that have click handlers use the valid role attribute.\nSee https://biomejs.dev/linter/rules/no-static-element-interactions",
+							"Enforce that static, visible elements (such as \\<div>) that have click handlers use the valid role attribute.\nSee <https://biomejs.dev/linter/rules/no-static-element-interactions>",
 						anyOf: [
 							{ $ref: "#/$defs/NoStaticElementInteractionsConfiguration" },
 							{ type: "null" },
@@ -211,7 +211,7 @@ export function GET() {
 					},
 					noSvgWithoutTitle: {
 						description:
-							"Enforces the usage of the title element for the svg element.\nSee https://biomejs.dev/linter/rules/no-svg-without-title",
+							"Enforces the usage of the title element for the svg element.\nSee <https://biomejs.dev/linter/rules/no-svg-without-title>",
 						anyOf: [
 							{ $ref: "#/$defs/NoSvgWithoutTitleConfiguration" },
 							{ type: "null" },
@@ -223,7 +223,7 @@ export function GET() {
 					},
 					useAltText: {
 						description:
-							"Enforce that all elements that require alternative text have meaningful information to relay back to the end user.\nSee https://biomejs.dev/linter/rules/use-alt-text",
+							"Enforce that all elements that require alternative text have meaningful information to relay back to the end user.\nSee <https://biomejs.dev/linter/rules/use-alt-text>",
 						anyOf: [
 							{ $ref: "#/$defs/UseAltTextConfiguration" },
 							{ type: "null" },
@@ -231,7 +231,7 @@ export function GET() {
 					},
 					useAnchorContent: {
 						description:
-							"Enforce that anchors have content and that the content is accessible to screen readers.\nSee https://biomejs.dev/linter/rules/use-anchor-content",
+							"Enforce that anchors have content and that the content is accessible to screen readers.\nSee <https://biomejs.dev/linter/rules/use-anchor-content>",
 						anyOf: [
 							{ $ref: "#/$defs/UseAnchorContentConfiguration" },
 							{ type: "null" },
@@ -239,7 +239,7 @@ export function GET() {
 					},
 					useAriaActivedescendantWithTabindex: {
 						description:
-							"Enforce that tabIndex is assigned to non-interactive HTML elements with aria-activedescendant.\nSee https://biomejs.dev/linter/rules/use-aria-activedescendant-with-tabindex",
+							"Enforce that tabIndex is assigned to non-interactive HTML elements with aria-activedescendant.\nSee <https://biomejs.dev/linter/rules/use-aria-activedescendant-with-tabindex>",
 						anyOf: [
 							{
 								$ref: "#/$defs/UseAriaActivedescendantWithTabindexConfiguration",
@@ -249,7 +249,7 @@ export function GET() {
 					},
 					useAriaPropsForRole: {
 						description:
-							"Enforce that elements with ARIA roles must have all required ARIA attributes for that role.\nSee https://biomejs.dev/linter/rules/use-aria-props-for-role",
+							"Enforce that elements with ARIA roles must have all required ARIA attributes for that role.\nSee <https://biomejs.dev/linter/rules/use-aria-props-for-role>",
 						anyOf: [
 							{ $ref: "#/$defs/UseAriaPropsForRoleConfiguration" },
 							{ type: "null" },
@@ -257,7 +257,7 @@ export function GET() {
 					},
 					useAriaPropsSupportedByRole: {
 						description:
-							"Enforce that ARIA properties are valid for the roles that are supported by the element.\nSee https://biomejs.dev/linter/rules/use-aria-props-supported-by-role",
+							"Enforce that ARIA properties are valid for the roles that are supported by the element.\nSee <https://biomejs.dev/linter/rules/use-aria-props-supported-by-role>",
 						anyOf: [
 							{ $ref: "#/$defs/UseAriaPropsSupportedByRoleConfiguration" },
 							{ type: "null" },
@@ -265,7 +265,7 @@ export function GET() {
 					},
 					useButtonType: {
 						description:
-							"Enforces the usage of the attribute type for the element button.\nSee https://biomejs.dev/linter/rules/use-button-type",
+							"Enforces the usage of the attribute type for the element button.\nSee <https://biomejs.dev/linter/rules/use-button-type>",
 						anyOf: [
 							{ $ref: "#/$defs/UseButtonTypeConfiguration" },
 							{ type: "null" },
@@ -273,7 +273,7 @@ export function GET() {
 					},
 					useFocusableInteractive: {
 						description:
-							"Elements with an interactive role and interaction handlers must be focusable.\nSee https://biomejs.dev/linter/rules/use-focusable-interactive",
+							"Elements with an interactive role and interaction handlers must be focusable.\nSee <https://biomejs.dev/linter/rules/use-focusable-interactive>",
 						anyOf: [
 							{ $ref: "#/$defs/UseFocusableInteractiveConfiguration" },
 							{ type: "null" },
@@ -281,7 +281,7 @@ export function GET() {
 					},
 					useGenericFontNames: {
 						description:
-							"Disallow a missing generic family keyword within font families.\nSee https://biomejs.dev/linter/rules/use-generic-font-names",
+							"Disallow a missing generic family keyword within font families.\nSee <https://biomejs.dev/linter/rules/use-generic-font-names>",
 						anyOf: [
 							{ $ref: "#/$defs/UseGenericFontNamesConfiguration" },
 							{ type: "null" },
@@ -289,7 +289,7 @@ export function GET() {
 					},
 					useHeadingContent: {
 						description:
-							"Enforce that heading elements (h1, h2, etc.) have content and that the content is accessible to screen readers. Accessible means that it is not hidden using the aria-hidden prop.\nSee https://biomejs.dev/linter/rules/use-heading-content",
+							"Enforce that heading elements (h1, h2, etc.) have content and that the content is accessible to screen readers. Accessible means that it is not hidden using the aria-hidden prop.\nSee <https://biomejs.dev/linter/rules/use-heading-content>",
 						anyOf: [
 							{ $ref: "#/$defs/UseHeadingContentConfiguration" },
 							{ type: "null" },
@@ -297,7 +297,7 @@ export function GET() {
 					},
 					useHtmlLang: {
 						description:
-							"Enforce that html element has lang attribute.\nSee https://biomejs.dev/linter/rules/use-html-lang",
+							"Enforce that html element has lang attribute.\nSee <https://biomejs.dev/linter/rules/use-html-lang>",
 						anyOf: [
 							{ $ref: "#/$defs/UseHtmlLangConfiguration" },
 							{ type: "null" },
@@ -305,7 +305,7 @@ export function GET() {
 					},
 					useIframeTitle: {
 						description:
-							"Enforces the usage of the attribute title for the element iframe.\nSee https://biomejs.dev/linter/rules/use-iframe-title",
+							"Enforces the usage of the attribute title for the element iframe.\nSee <https://biomejs.dev/linter/rules/use-iframe-title>",
 						anyOf: [
 							{ $ref: "#/$defs/UseIframeTitleConfiguration" },
 							{ type: "null" },
@@ -313,7 +313,7 @@ export function GET() {
 					},
 					useKeyWithClickEvents: {
 						description:
-							"Enforce onClick is accompanied by at least one of the following: onKeyUp, onKeyDown, onKeyPress.\nSee https://biomejs.dev/linter/rules/use-key-with-click-events",
+							"Enforce onClick is accompanied by at least one of the following: onKeyUp, onKeyDown, onKeyPress.\nSee <https://biomejs.dev/linter/rules/use-key-with-click-events>",
 						anyOf: [
 							{ $ref: "#/$defs/UseKeyWithClickEventsConfiguration" },
 							{ type: "null" },
@@ -321,7 +321,7 @@ export function GET() {
 					},
 					useKeyWithMouseEvents: {
 						description:
-							"Enforce onMouseOver / onMouseOut are accompanied by onFocus / onBlur.\nSee https://biomejs.dev/linter/rules/use-key-with-mouse-events",
+							"Enforce onMouseOver / onMouseOut are accompanied by onFocus / onBlur.\nSee <https://biomejs.dev/linter/rules/use-key-with-mouse-events>",
 						anyOf: [
 							{ $ref: "#/$defs/UseKeyWithMouseEventsConfiguration" },
 							{ type: "null" },
@@ -329,7 +329,7 @@ export function GET() {
 					},
 					useMediaCaption: {
 						description:
-							"Enforces that audio and video elements must have a track for captions.\nSee https://biomejs.dev/linter/rules/use-media-caption",
+							"Enforces that audio and video elements must have a track for captions.\nSee <https://biomejs.dev/linter/rules/use-media-caption>",
 						anyOf: [
 							{ $ref: "#/$defs/UseMediaCaptionConfiguration" },
 							{ type: "null" },
@@ -337,7 +337,7 @@ export function GET() {
 					},
 					useSemanticElements: {
 						description:
-							"It detects the use of role attributes in JSX elements and suggests using semantic elements instead.\nSee https://biomejs.dev/linter/rules/use-semantic-elements",
+							"It detects the use of role attributes in JSX elements and suggests using semantic elements instead.\nSee <https://biomejs.dev/linter/rules/use-semantic-elements>",
 						anyOf: [
 							{ $ref: "#/$defs/UseSemanticElementsConfiguration" },
 							{ type: "null" },
@@ -345,7 +345,7 @@ export function GET() {
 					},
 					useValidAnchor: {
 						description:
-							"Enforce that all anchors are valid, and they are navigable elements.\nSee https://biomejs.dev/linter/rules/use-valid-anchor",
+							"Enforce that all anchors are valid, and they are navigable elements.\nSee <https://biomejs.dev/linter/rules/use-valid-anchor>",
 						anyOf: [
 							{ $ref: "#/$defs/UseValidAnchorConfiguration" },
 							{ type: "null" },
@@ -353,7 +353,7 @@ export function GET() {
 					},
 					useValidAriaProps: {
 						description:
-							"Ensures that ARIA properties aria-* are all valid.\nSee https://biomejs.dev/linter/rules/use-valid-aria-props",
+							"Ensures that ARIA properties aria-* are all valid.\nSee <https://biomejs.dev/linter/rules/use-valid-aria-props>",
 						anyOf: [
 							{ $ref: "#/$defs/UseValidAriaPropsConfiguration" },
 							{ type: "null" },
@@ -361,7 +361,7 @@ export function GET() {
 					},
 					useValidAriaRole: {
 						description:
-							"Elements with ARIA roles must use a valid, non-abstract ARIA role.\nSee https://biomejs.dev/linter/rules/use-valid-aria-role",
+							"Elements with ARIA roles must use a valid, non-abstract ARIA role.\nSee <https://biomejs.dev/linter/rules/use-valid-aria-role>",
 						anyOf: [
 							{ $ref: "#/$defs/UseValidAriaRoleConfiguration" },
 							{ type: "null" },
@@ -369,7 +369,7 @@ export function GET() {
 					},
 					useValidAriaValues: {
 						description:
-							"Enforce that ARIA state and property values are valid.\nSee https://biomejs.dev/linter/rules/use-valid-aria-values",
+							"Enforce that ARIA state and property values are valid.\nSee <https://biomejs.dev/linter/rules/use-valid-aria-values>",
 						anyOf: [
 							{ $ref: "#/$defs/UseValidAriaValuesConfiguration" },
 							{ type: "null" },
@@ -377,7 +377,7 @@ export function GET() {
 					},
 					useValidAutocomplete: {
 						description:
-							"Use valid values for the autocomplete attribute on input elements.\nSee https://biomejs.dev/linter/rules/use-valid-autocomplete",
+							"Use valid values for the autocomplete attribute on input elements.\nSee <https://biomejs.dev/linter/rules/use-valid-autocomplete>",
 						anyOf: [
 							{ $ref: "#/$defs/UseValidAutocompleteConfiguration" },
 							{ type: "null" },
@@ -385,7 +385,7 @@ export function GET() {
 					},
 					useValidLang: {
 						description:
-							"Ensure that the attribute passed to the lang attribute is a correct ISO language and/or country.\nSee https://biomejs.dev/linter/rules/use-valid-lang",
+							"Ensure that the attribute passed to the lang attribute is a correct ISO language and/or country.\nSee <https://biomejs.dev/linter/rules/use-valid-lang>",
 						anyOf: [
 							{ $ref: "#/$defs/UseValidLangConfiguration" },
 							{ type: "null" },
@@ -442,32 +442,13 @@ export function GET() {
 				type: "boolean",
 			},
 			BracketSpacing: { type: "boolean" },
-			CheckInputType: {
-				oneOf: [
-					{
-						description: "Don't check the input type",
-						type: "string",
-						const: "off",
-					},
-					{
-						description: "Check the input type (case-insensitive)",
-						type: "string",
-						const: "loose",
-					},
-					{
-						description: "Check the input type (case-sensitive)",
-						type: "string",
-						const: "strict",
-					},
-				],
-			},
 			Complexity: {
 				description: "A list of rules that belong to this group",
 				type: "object",
 				properties: {
 					noAdjacentSpacesInRegex: {
 						description:
-							"Disallow unclear usage of consecutive space characters in regular expression literals.\nSee https://biomejs.dev/linter/rules/no-adjacent-spaces-in-regex",
+							"Disallow unclear usage of consecutive space characters in regular expression literals.\nSee <https://biomejs.dev/linter/rules/no-adjacent-spaces-in-regex>",
 						anyOf: [
 							{ $ref: "#/$defs/NoAdjacentSpacesInRegexConfiguration" },
 							{ type: "null" },
@@ -475,7 +456,7 @@ export function GET() {
 					},
 					noArguments: {
 						description:
-							"Disallow the use of arguments.\nSee https://biomejs.dev/linter/rules/no-arguments",
+							"Disallow the use of arguments.\nSee <https://biomejs.dev/linter/rules/no-arguments>",
 						anyOf: [
 							{ $ref: "#/$defs/NoArgumentsConfiguration" },
 							{ type: "null" },
@@ -483,7 +464,7 @@ export function GET() {
 					},
 					noBannedTypes: {
 						description:
-							"Disallow primitive type aliases and misleading types.\nSee https://biomejs.dev/linter/rules/no-banned-types",
+							"Disallow primitive type aliases and misleading types.\nSee <https://biomejs.dev/linter/rules/no-banned-types>",
 						anyOf: [
 							{ $ref: "#/$defs/NoBannedTypesConfiguration" },
 							{ type: "null" },
@@ -491,7 +472,7 @@ export function GET() {
 					},
 					noCommaOperator: {
 						description:
-							"Disallow comma operator.\nSee https://biomejs.dev/linter/rules/no-comma-operator",
+							"Disallow comma operator.\nSee <https://biomejs.dev/linter/rules/no-comma-operator>",
 						anyOf: [
 							{ $ref: "#/$defs/NoCommaOperatorConfiguration" },
 							{ type: "null" },
@@ -499,7 +480,7 @@ export function GET() {
 					},
 					noEmptyTypeParameters: {
 						description:
-							"Disallow empty type parameters in type aliases and interfaces.\nSee https://biomejs.dev/linter/rules/no-empty-type-parameters",
+							"Disallow empty type parameters in type aliases and interfaces.\nSee <https://biomejs.dev/linter/rules/no-empty-type-parameters>",
 						anyOf: [
 							{ $ref: "#/$defs/NoEmptyTypeParametersConfiguration" },
 							{ type: "null" },
@@ -507,7 +488,7 @@ export function GET() {
 					},
 					noExcessiveCognitiveComplexity: {
 						description:
-							"Disallow functions that exceed a given Cognitive Complexity score.\nSee https://biomejs.dev/linter/rules/no-excessive-cognitive-complexity",
+							"Disallow functions that exceed a given Cognitive Complexity score.\nSee <https://biomejs.dev/linter/rules/no-excessive-cognitive-complexity>",
 						anyOf: [
 							{ $ref: "#/$defs/NoExcessiveCognitiveComplexityConfiguration" },
 							{ type: "null" },
@@ -515,7 +496,7 @@ export function GET() {
 					},
 					noExcessiveLinesPerFunction: {
 						description:
-							"Restrict the number of lines of code in a function.\nSee https://biomejs.dev/linter/rules/no-excessive-lines-per-function",
+							"Restrict the number of lines of code in a function.\nSee <https://biomejs.dev/linter/rules/no-excessive-lines-per-function>",
 						anyOf: [
 							{ $ref: "#/$defs/NoExcessiveLinesPerFunctionConfiguration" },
 							{ type: "null" },
@@ -523,7 +504,7 @@ export function GET() {
 					},
 					noExcessiveNestedTestSuites: {
 						description:
-							"This rule enforces a maximum depth to nested describe() in test files.\nSee https://biomejs.dev/linter/rules/no-excessive-nested-test-suites",
+							"This rule enforces a maximum depth to nested describe() in test files.\nSee <https://biomejs.dev/linter/rules/no-excessive-nested-test-suites>",
 						anyOf: [
 							{ $ref: "#/$defs/NoExcessiveNestedTestSuitesConfiguration" },
 							{ type: "null" },
@@ -531,7 +512,7 @@ export function GET() {
 					},
 					noExtraBooleanCast: {
 						description:
-							"Disallow unnecessary boolean casts.\nSee https://biomejs.dev/linter/rules/no-extra-boolean-cast",
+							"Disallow unnecessary boolean casts.\nSee <https://biomejs.dev/linter/rules/no-extra-boolean-cast>",
 						anyOf: [
 							{ $ref: "#/$defs/NoExtraBooleanCastConfiguration" },
 							{ type: "null" },
@@ -539,7 +520,7 @@ export function GET() {
 					},
 					noFlatMapIdentity: {
 						description:
-							"Disallow to use unnecessary callback on flatMap.\nSee https://biomejs.dev/linter/rules/no-flat-map-identity",
+							"Disallow to use unnecessary callback on flatMap.\nSee <https://biomejs.dev/linter/rules/no-flat-map-identity>",
 						anyOf: [
 							{ $ref: "#/$defs/NoFlatMapIdentityConfiguration" },
 							{ type: "null" },
@@ -547,7 +528,7 @@ export function GET() {
 					},
 					noForEach: {
 						description:
-							"Prefer for...of statement instead of Array.forEach.\nSee https://biomejs.dev/linter/rules/no-for-each",
+							"Prefer for...of statement instead of Array.forEach.\nSee <https://biomejs.dev/linter/rules/no-for-each>",
 						anyOf: [
 							{ $ref: "#/$defs/NoForEachConfiguration" },
 							{ type: "null" },
@@ -555,7 +536,7 @@ export function GET() {
 					},
 					noImplicitCoercions: {
 						description:
-							"Disallow shorthand type conversions.\nSee https://biomejs.dev/linter/rules/no-implicit-coercions",
+							"Disallow shorthand type conversions.\nSee <https://biomejs.dev/linter/rules/no-implicit-coercions>",
 						anyOf: [
 							{ $ref: "#/$defs/NoImplicitCoercionsConfiguration" },
 							{ type: "null" },
@@ -563,7 +544,7 @@ export function GET() {
 					},
 					noImportantStyles: {
 						description:
-							"Disallow the use of the !important style.\nSee https://biomejs.dev/linter/rules/no-important-styles",
+							"Disallow the use of the !important style.\nSee <https://biomejs.dev/linter/rules/no-important-styles>",
 						anyOf: [
 							{ $ref: "#/$defs/NoImportantStylesConfiguration" },
 							{ type: "null" },
@@ -571,7 +552,7 @@ export function GET() {
 					},
 					noStaticOnlyClass: {
 						description:
-							"This rule reports when a class has no non-static members, such as for a class used exclusively as a static namespace.\nSee https://biomejs.dev/linter/rules/no-static-only-class",
+							"This rule reports when a class has no non-static members, such as for a class used exclusively as a static namespace.\nSee <https://biomejs.dev/linter/rules/no-static-only-class>",
 						anyOf: [
 							{ $ref: "#/$defs/NoStaticOnlyClassConfiguration" },
 							{ type: "null" },
@@ -579,7 +560,7 @@ export function GET() {
 					},
 					noThisInStatic: {
 						description:
-							"Disallow this and super in static contexts.\nSee https://biomejs.dev/linter/rules/no-this-in-static",
+							"Disallow this and super in static contexts.\nSee <https://biomejs.dev/linter/rules/no-this-in-static>",
 						anyOf: [
 							{ $ref: "#/$defs/NoThisInStaticConfiguration" },
 							{ type: "null" },
@@ -587,7 +568,7 @@ export function GET() {
 					},
 					noUselessCatch: {
 						description:
-							"Disallow unnecessary catch clauses.\nSee https://biomejs.dev/linter/rules/no-useless-catch",
+							"Disallow unnecessary catch clauses.\nSee <https://biomejs.dev/linter/rules/no-useless-catch>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUselessCatchConfiguration" },
 							{ type: "null" },
@@ -595,7 +576,7 @@ export function GET() {
 					},
 					noUselessConstructor: {
 						description:
-							"Disallow unnecessary constructors.\nSee https://biomejs.dev/linter/rules/no-useless-constructor",
+							"Disallow unnecessary constructors.\nSee <https://biomejs.dev/linter/rules/no-useless-constructor>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUselessConstructorConfiguration" },
 							{ type: "null" },
@@ -603,7 +584,7 @@ export function GET() {
 					},
 					noUselessContinue: {
 						description:
-							"Avoid using unnecessary continue.\nSee https://biomejs.dev/linter/rules/no-useless-continue",
+							"Avoid using unnecessary continue.\nSee <https://biomejs.dev/linter/rules/no-useless-continue>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUselessContinueConfiguration" },
 							{ type: "null" },
@@ -611,7 +592,7 @@ export function GET() {
 					},
 					noUselessEmptyExport: {
 						description:
-							"Disallow empty exports that don't change anything in a module file.\nSee https://biomejs.dev/linter/rules/no-useless-empty-export",
+							"Disallow empty exports that don't change anything in a module file.\nSee <https://biomejs.dev/linter/rules/no-useless-empty-export>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUselessEmptyExportConfiguration" },
 							{ type: "null" },
@@ -619,7 +600,7 @@ export function GET() {
 					},
 					noUselessEscapeInRegex: {
 						description:
-							"Disallow unnecessary escape sequence in regular expression literals.\nSee https://biomejs.dev/linter/rules/no-useless-escape-in-regex",
+							"Disallow unnecessary escape sequence in regular expression literals.\nSee <https://biomejs.dev/linter/rules/no-useless-escape-in-regex>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUselessEscapeInRegexConfiguration" },
 							{ type: "null" },
@@ -627,7 +608,7 @@ export function GET() {
 					},
 					noUselessFragments: {
 						description:
-							"Disallow unnecessary fragments.\nSee https://biomejs.dev/linter/rules/no-useless-fragments",
+							"Disallow unnecessary fragments.\nSee <https://biomejs.dev/linter/rules/no-useless-fragments>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUselessFragmentsConfiguration" },
 							{ type: "null" },
@@ -635,7 +616,7 @@ export function GET() {
 					},
 					noUselessLabel: {
 						description:
-							"Disallow unnecessary labels.\nSee https://biomejs.dev/linter/rules/no-useless-label",
+							"Disallow unnecessary labels.\nSee <https://biomejs.dev/linter/rules/no-useless-label>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUselessLabelConfiguration" },
 							{ type: "null" },
@@ -643,7 +624,7 @@ export function GET() {
 					},
 					noUselessLoneBlockStatements: {
 						description:
-							"Disallow unnecessary nested block statements.\nSee https://biomejs.dev/linter/rules/no-useless-lone-block-statements",
+							"Disallow unnecessary nested block statements.\nSee <https://biomejs.dev/linter/rules/no-useless-lone-block-statements>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUselessLoneBlockStatementsConfiguration" },
 							{ type: "null" },
@@ -651,7 +632,7 @@ export function GET() {
 					},
 					noUselessRename: {
 						description:
-							"Disallow renaming import, export, and destructured assignments to the same name.\nSee https://biomejs.dev/linter/rules/no-useless-rename",
+							"Disallow renaming import, export, and destructured assignments to the same name.\nSee <https://biomejs.dev/linter/rules/no-useless-rename>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUselessRenameConfiguration" },
 							{ type: "null" },
@@ -659,7 +640,7 @@ export function GET() {
 					},
 					noUselessStringConcat: {
 						description:
-							"Disallow unnecessary concatenation of string or template literals.\nSee https://biomejs.dev/linter/rules/no-useless-string-concat",
+							"Disallow unnecessary concatenation of string or template literals.\nSee <https://biomejs.dev/linter/rules/no-useless-string-concat>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUselessStringConcatConfiguration" },
 							{ type: "null" },
@@ -667,7 +648,7 @@ export function GET() {
 					},
 					noUselessStringRaw: {
 						description:
-							"Disallow unnecessary String.raw function in template string literals without any escape sequence.\nSee https://biomejs.dev/linter/rules/no-useless-string-raw",
+							"Disallow unnecessary String.raw function in template string literals without any escape sequence.\nSee <https://biomejs.dev/linter/rules/no-useless-string-raw>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUselessStringRawConfiguration" },
 							{ type: "null" },
@@ -675,7 +656,7 @@ export function GET() {
 					},
 					noUselessSwitchCase: {
 						description:
-							"Disallow useless case in switch statements.\nSee https://biomejs.dev/linter/rules/no-useless-switch-case",
+							"Disallow useless case in switch statements.\nSee <https://biomejs.dev/linter/rules/no-useless-switch-case>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUselessSwitchCaseConfiguration" },
 							{ type: "null" },
@@ -683,7 +664,7 @@ export function GET() {
 					},
 					noUselessTernary: {
 						description:
-							"Disallow ternary operators when simpler alternatives exist.\nSee https://biomejs.dev/linter/rules/no-useless-ternary",
+							"Disallow ternary operators when simpler alternatives exist.\nSee <https://biomejs.dev/linter/rules/no-useless-ternary>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUselessTernaryConfiguration" },
 							{ type: "null" },
@@ -691,7 +672,7 @@ export function GET() {
 					},
 					noUselessThisAlias: {
 						description:
-							"Disallow useless this aliasing.\nSee https://biomejs.dev/linter/rules/no-useless-this-alias",
+							"Disallow useless this aliasing.\nSee <https://biomejs.dev/linter/rules/no-useless-this-alias>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUselessThisAliasConfiguration" },
 							{ type: "null" },
@@ -699,7 +680,7 @@ export function GET() {
 					},
 					noUselessTypeConstraint: {
 						description:
-							"Disallow using any or unknown as type constraint.\nSee https://biomejs.dev/linter/rules/no-useless-type-constraint",
+							"Disallow using any or unknown as type constraint.\nSee <https://biomejs.dev/linter/rules/no-useless-type-constraint>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUselessTypeConstraintConfiguration" },
 							{ type: "null" },
@@ -707,7 +688,7 @@ export function GET() {
 					},
 					noUselessUndefinedInitialization: {
 						description:
-							"Disallow initializing variables to undefined.\nSee https://biomejs.dev/linter/rules/no-useless-undefined-initialization",
+							"Disallow initializing variables to undefined.\nSee <https://biomejs.dev/linter/rules/no-useless-undefined-initialization>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUselessUndefinedInitializationConfiguration" },
 							{ type: "null" },
@@ -715,7 +696,7 @@ export function GET() {
 					},
 					noVoid: {
 						description:
-							"Disallow the use of void operators, which is not a familiar operator.\nSee https://biomejs.dev/linter/rules/no-void",
+							"Disallow the use of void operators, which is not a familiar operator.\nSee <https://biomejs.dev/linter/rules/no-void>",
 						anyOf: [{ $ref: "#/$defs/NoVoidConfiguration" }, { type: "null" }],
 					},
 					recommended: {
@@ -724,7 +705,7 @@ export function GET() {
 					},
 					useArrowFunction: {
 						description:
-							"Use arrow functions over function expressions.\nSee https://biomejs.dev/linter/rules/use-arrow-function",
+							"Use arrow functions over function expressions.\nSee <https://biomejs.dev/linter/rules/use-arrow-function>",
 						anyOf: [
 							{ $ref: "#/$defs/UseArrowFunctionConfiguration" },
 							{ type: "null" },
@@ -732,7 +713,7 @@ export function GET() {
 					},
 					useDateNow: {
 						description:
-							"Use Date.now() to get the number of milliseconds since the Unix Epoch.\nSee https://biomejs.dev/linter/rules/use-date-now",
+							"Use Date.now() to get the number of milliseconds since the Unix Epoch.\nSee <https://biomejs.dev/linter/rules/use-date-now>",
 						anyOf: [
 							{ $ref: "#/$defs/UseDateNowConfiguration" },
 							{ type: "null" },
@@ -740,7 +721,7 @@ export function GET() {
 					},
 					useFlatMap: {
 						description:
-							"Promotes the use of .flatMap() when map().flat() are used together.\nSee https://biomejs.dev/linter/rules/use-flat-map",
+							"Promotes the use of .flatMap() when map().flat() are used together.\nSee <https://biomejs.dev/linter/rules/use-flat-map>",
 						anyOf: [
 							{ $ref: "#/$defs/UseFlatMapConfiguration" },
 							{ type: "null" },
@@ -748,7 +729,7 @@ export function GET() {
 					},
 					useIndexOf: {
 						description:
-							"Prefer Array#{indexOf,lastIndexOf}() over Array#{findIndex,findLastIndex}() when looking for the index of an item.\nSee https://biomejs.dev/linter/rules/use-index-of",
+							"Prefer Array#{indexOf,lastIndexOf}() over Array#{findIndex,findLastIndex}() when looking for the index of an item.\nSee <https://biomejs.dev/linter/rules/use-index-of>",
 						anyOf: [
 							{ $ref: "#/$defs/UseIndexOfConfiguration" },
 							{ type: "null" },
@@ -756,7 +737,7 @@ export function GET() {
 					},
 					useLiteralKeys: {
 						description:
-							"Enforce the usage of a literal access to properties over computed property access.\nSee https://biomejs.dev/linter/rules/use-literal-keys",
+							"Enforce the usage of a literal access to properties over computed property access.\nSee <https://biomejs.dev/linter/rules/use-literal-keys>",
 						anyOf: [
 							{ $ref: "#/$defs/UseLiteralKeysConfiguration" },
 							{ type: "null" },
@@ -764,7 +745,7 @@ export function GET() {
 					},
 					useNumericLiterals: {
 						description:
-							"Disallow parseInt() and Number.parseInt() in favor of binary, octal, and hexadecimal literals.\nSee https://biomejs.dev/linter/rules/use-numeric-literals",
+							"Disallow parseInt() and Number.parseInt() in favor of binary, octal, and hexadecimal literals.\nSee <https://biomejs.dev/linter/rules/use-numeric-literals>",
 						anyOf: [
 							{ $ref: "#/$defs/UseNumericLiteralsConfiguration" },
 							{ type: "null" },
@@ -772,7 +753,7 @@ export function GET() {
 					},
 					useOptionalChain: {
 						description:
-							"Enforce using concise optional chain instead of chained logical expressions.\nSee https://biomejs.dev/linter/rules/use-optional-chain",
+							"Enforce using concise optional chain instead of chained logical expressions.\nSee <https://biomejs.dev/linter/rules/use-optional-chain>",
 						anyOf: [
 							{ $ref: "#/$defs/UseOptionalChainConfiguration" },
 							{ type: "null" },
@@ -780,7 +761,7 @@ export function GET() {
 					},
 					useRegexLiterals: {
 						description:
-							"Enforce the use of the regular expression literals instead of the RegExp constructor if possible.\nSee https://biomejs.dev/linter/rules/use-regex-literals",
+							"Enforce the use of the regular expression literals instead of the RegExp constructor if possible.\nSee <https://biomejs.dev/linter/rules/use-regex-literals>",
 						anyOf: [
 							{ $ref: "#/$defs/UseRegexLiteralsConfiguration" },
 							{ type: "null" },
@@ -788,7 +769,7 @@ export function GET() {
 					},
 					useSimpleNumberKeys: {
 						description:
-							"Disallow number literal object member names which are not base 10 or use underscore as separator.\nSee https://biomejs.dev/linter/rules/use-simple-number-keys",
+							"Disallow number literal object member names which are not base 10 or use underscore as separator.\nSee <https://biomejs.dev/linter/rules/use-simple-number-keys>",
 						anyOf: [
 							{ $ref: "#/$defs/UseSimpleNumberKeysConfiguration" },
 							{ type: "null" },
@@ -796,7 +777,7 @@ export function GET() {
 					},
 					useSimplifiedLogicExpression: {
 						description:
-							"Discard redundant terms from logical expressions.\nSee https://biomejs.dev/linter/rules/use-simplified-logic-expression",
+							"Discard redundant terms from logical expressions.\nSee <https://biomejs.dev/linter/rules/use-simplified-logic-expression>",
 						anyOf: [
 							{ $ref: "#/$defs/UseSimplifiedLogicExpressionConfiguration" },
 							{ type: "null" },
@@ -804,7 +785,7 @@ export function GET() {
 					},
 					useWhile: {
 						description:
-							"Enforce the use of while loops instead of for loops when the initializer and update expressions are not needed.\nSee https://biomejs.dev/linter/rules/use-while",
+							"Enforce the use of while loops instead of for loops when the initializer and update expressions are not needed.\nSee <https://biomejs.dev/linter/rules/use-while>",
 						anyOf: [
 							{ $ref: "#/$defs/UseWhileConfiguration" },
 							{ type: "null" },
@@ -865,7 +846,7 @@ export function GET() {
 				properties: {
 					noChildrenProp: {
 						description:
-							"Prevent passing of children as props.\nSee https://biomejs.dev/linter/rules/no-children-prop",
+							"Prevent passing of children as props.\nSee <https://biomejs.dev/linter/rules/no-children-prop>",
 						anyOf: [
 							{ $ref: "#/$defs/NoChildrenPropConfiguration" },
 							{ type: "null" },
@@ -873,7 +854,7 @@ export function GET() {
 					},
 					noConstAssign: {
 						description:
-							"Prevents from having const variables being re-assigned.\nSee https://biomejs.dev/linter/rules/no-const-assign",
+							"Prevents from having const variables being re-assigned.\nSee <https://biomejs.dev/linter/rules/no-const-assign>",
 						anyOf: [
 							{ $ref: "#/$defs/NoConstAssignConfiguration" },
 							{ type: "null" },
@@ -881,7 +862,7 @@ export function GET() {
 					},
 					noConstantCondition: {
 						description:
-							"Disallow constant expressions in conditions.\nSee https://biomejs.dev/linter/rules/no-constant-condition",
+							"Disallow constant expressions in conditions.\nSee <https://biomejs.dev/linter/rules/no-constant-condition>",
 						anyOf: [
 							{ $ref: "#/$defs/NoConstantConditionConfiguration" },
 							{ type: "null" },
@@ -889,7 +870,7 @@ export function GET() {
 					},
 					noConstantMathMinMaxClamp: {
 						description:
-							"Disallow the use of Math.min and Math.max to clamp a value where the result itself is constant.\nSee https://biomejs.dev/linter/rules/no-constant-math-min-max-clamp",
+							"Disallow the use of Math.min and Math.max to clamp a value where the result itself is constant.\nSee <https://biomejs.dev/linter/rules/no-constant-math-min-max-clamp>",
 						anyOf: [
 							{ $ref: "#/$defs/NoConstantMathMinMaxClampConfiguration" },
 							{ type: "null" },
@@ -897,7 +878,7 @@ export function GET() {
 					},
 					noConstructorReturn: {
 						description:
-							"Disallow returning a value from a constructor.\nSee https://biomejs.dev/linter/rules/no-constructor-return",
+							"Disallow returning a value from a constructor.\nSee <https://biomejs.dev/linter/rules/no-constructor-return>",
 						anyOf: [
 							{ $ref: "#/$defs/NoConstructorReturnConfiguration" },
 							{ type: "null" },
@@ -905,7 +886,7 @@ export function GET() {
 					},
 					noEmptyCharacterClassInRegex: {
 						description:
-							"Disallow empty character classes in regular expression literals.\nSee https://biomejs.dev/linter/rules/no-empty-character-class-in-regex",
+							"Disallow empty character classes in regular expression literals.\nSee <https://biomejs.dev/linter/rules/no-empty-character-class-in-regex>",
 						anyOf: [
 							{ $ref: "#/$defs/NoEmptyCharacterClassInRegexConfiguration" },
 							{ type: "null" },
@@ -913,7 +894,7 @@ export function GET() {
 					},
 					noEmptyPattern: {
 						description:
-							"Disallows empty destructuring patterns.\nSee https://biomejs.dev/linter/rules/no-empty-pattern",
+							"Disallows empty destructuring patterns.\nSee <https://biomejs.dev/linter/rules/no-empty-pattern>",
 						anyOf: [
 							{ $ref: "#/$defs/NoEmptyPatternConfiguration" },
 							{ type: "null" },
@@ -921,7 +902,7 @@ export function GET() {
 					},
 					noGlobalDirnameFilename: {
 						description:
-							"Disallow the use of __dirname and __filename in the global scope.\nSee https://biomejs.dev/linter/rules/no-global-dirname-filename",
+							"Disallow the use of __dirname and __filename in the global scope.\nSee <https://biomejs.dev/linter/rules/no-global-dirname-filename>",
 						anyOf: [
 							{ $ref: "#/$defs/NoGlobalDirnameFilenameConfiguration" },
 							{ type: "null" },
@@ -929,7 +910,7 @@ export function GET() {
 					},
 					noGlobalObjectCalls: {
 						description:
-							"Disallow calling global object properties as functions.\nSee https://biomejs.dev/linter/rules/no-global-object-calls",
+							"Disallow calling global object properties as functions.\nSee <https://biomejs.dev/linter/rules/no-global-object-calls>",
 						anyOf: [
 							{ $ref: "#/$defs/NoGlobalObjectCallsConfiguration" },
 							{ type: "null" },
@@ -937,7 +918,7 @@ export function GET() {
 					},
 					noInnerDeclarations: {
 						description:
-							"Disallow function and var declarations that are accessible outside their block.\nSee https://biomejs.dev/linter/rules/no-inner-declarations",
+							"Disallow function and var declarations that are accessible outside their block.\nSee <https://biomejs.dev/linter/rules/no-inner-declarations>",
 						anyOf: [
 							{ $ref: "#/$defs/NoInnerDeclarationsConfiguration" },
 							{ type: "null" },
@@ -945,7 +926,7 @@ export function GET() {
 					},
 					noInvalidBuiltinInstantiation: {
 						description:
-							"Ensure that builtins are correctly instantiated.\nSee https://biomejs.dev/linter/rules/no-invalid-builtin-instantiation",
+							"Ensure that builtins are correctly instantiated.\nSee <https://biomejs.dev/linter/rules/no-invalid-builtin-instantiation>",
 						anyOf: [
 							{ $ref: "#/$defs/NoInvalidBuiltinInstantiationConfiguration" },
 							{ type: "null" },
@@ -953,7 +934,7 @@ export function GET() {
 					},
 					noInvalidConstructorSuper: {
 						description:
-							"Prevents the incorrect use of super() inside classes. It also checks whether a call super() is missing from classes that extends other constructors.\nSee https://biomejs.dev/linter/rules/no-invalid-constructor-super",
+							"Prevents the incorrect use of super() inside classes. It also checks whether a call super() is missing from classes that extends other constructors.\nSee <https://biomejs.dev/linter/rules/no-invalid-constructor-super>",
 						anyOf: [
 							{ $ref: "#/$defs/NoInvalidConstructorSuperConfiguration" },
 							{ type: "null" },
@@ -961,7 +942,7 @@ export function GET() {
 					},
 					noInvalidDirectionInLinearGradient: {
 						description:
-							"Disallow non-standard direction values for linear gradient functions.\nSee https://biomejs.dev/linter/rules/no-invalid-direction-in-linear-gradient",
+							"Disallow non-standard direction values for linear gradient functions.\nSee <https://biomejs.dev/linter/rules/no-invalid-direction-in-linear-gradient>",
 						anyOf: [
 							{
 								$ref: "#/$defs/NoInvalidDirectionInLinearGradientConfiguration",
@@ -971,7 +952,7 @@ export function GET() {
 					},
 					noInvalidGridAreas: {
 						description:
-							"Disallows invalid named grid areas in CSS Grid Layouts.\nSee https://biomejs.dev/linter/rules/no-invalid-grid-areas",
+							"Disallows invalid named grid areas in CSS Grid Layouts.\nSee <https://biomejs.dev/linter/rules/no-invalid-grid-areas>",
 						anyOf: [
 							{ $ref: "#/$defs/NoInvalidGridAreasConfiguration" },
 							{ type: "null" },
@@ -979,7 +960,7 @@ export function GET() {
 					},
 					noInvalidPositionAtImportRule: {
 						description:
-							"Disallow the use of @import at-rules in invalid positions.\nSee https://biomejs.dev/linter/rules/no-invalid-position-at-import-rule",
+							"Disallow the use of @import at-rules in invalid positions.\nSee <https://biomejs.dev/linter/rules/no-invalid-position-at-import-rule>",
 						anyOf: [
 							{ $ref: "#/$defs/NoInvalidPositionAtImportRuleConfiguration" },
 							{ type: "null" },
@@ -987,7 +968,7 @@ export function GET() {
 					},
 					noInvalidUseBeforeDeclaration: {
 						description:
-							"Disallow the use of variables, function parameters, classes, and enums before their declaration.\nSee https://biomejs.dev/linter/rules/no-invalid-use-before-declaration",
+							"Disallow the use of variables, function parameters, classes, and enums before their declaration.\nSee <https://biomejs.dev/linter/rules/no-invalid-use-before-declaration>",
 						anyOf: [
 							{ $ref: "#/$defs/NoInvalidUseBeforeDeclarationConfiguration" },
 							{ type: "null" },
@@ -995,7 +976,7 @@ export function GET() {
 					},
 					noMissingVarFunction: {
 						description:
-							"Disallow missing var function for css variables.\nSee https://biomejs.dev/linter/rules/no-missing-var-function",
+							"Disallow missing var function for css variables.\nSee <https://biomejs.dev/linter/rules/no-missing-var-function>",
 						anyOf: [
 							{ $ref: "#/$defs/NoMissingVarFunctionConfiguration" },
 							{ type: "null" },
@@ -1003,7 +984,7 @@ export function GET() {
 					},
 					noNestedComponentDefinitions: {
 						description:
-							"Disallows defining React components inside other components.\nSee https://biomejs.dev/linter/rules/no-nested-component-definitions",
+							"Disallows defining React components inside other components.\nSee <https://biomejs.dev/linter/rules/no-nested-component-definitions>",
 						anyOf: [
 							{ $ref: "#/$defs/NoNestedComponentDefinitionsConfiguration" },
 							{ type: "null" },
@@ -1011,7 +992,7 @@ export function GET() {
 					},
 					noNodejsModules: {
 						description:
-							"Forbid the use of Node.js builtin modules.\nSee https://biomejs.dev/linter/rules/no-nodejs-modules",
+							"Forbid the use of Node.js builtin modules.\nSee <https://biomejs.dev/linter/rules/no-nodejs-modules>",
 						anyOf: [
 							{ $ref: "#/$defs/NoNodejsModulesConfiguration" },
 							{ type: "null" },
@@ -1019,7 +1000,7 @@ export function GET() {
 					},
 					noNonoctalDecimalEscape: {
 						description:
-							"Disallow \\8 and \\9 escape sequences in string literals.\nSee https://biomejs.dev/linter/rules/no-nonoctal-decimal-escape",
+							"Disallow \\8 and \\9 escape sequences in string literals.\nSee <https://biomejs.dev/linter/rules/no-nonoctal-decimal-escape>",
 						anyOf: [
 							{ $ref: "#/$defs/NoNonoctalDecimalEscapeConfiguration" },
 							{ type: "null" },
@@ -1027,7 +1008,7 @@ export function GET() {
 					},
 					noPrecisionLoss: {
 						description:
-							"Disallow literal numbers that lose precision.\nSee https://biomejs.dev/linter/rules/no-precision-loss",
+							"Disallow literal numbers that lose precision.\nSee <https://biomejs.dev/linter/rules/no-precision-loss>",
 						anyOf: [
 							{ $ref: "#/$defs/NoPrecisionLossConfiguration" },
 							{ type: "null" },
@@ -1035,7 +1016,7 @@ export function GET() {
 					},
 					noPrivateImports: {
 						description:
-							"Restrict imports of private exports.\nSee https://biomejs.dev/linter/rules/no-private-imports",
+							"Restrict imports of private exports.\nSee <https://biomejs.dev/linter/rules/no-private-imports>",
 						anyOf: [
 							{ $ref: "#/$defs/NoPrivateImportsConfiguration" },
 							{ type: "null" },
@@ -1043,7 +1024,7 @@ export function GET() {
 					},
 					noProcessGlobal: {
 						description:
-							"Disallow the use of process global.\nSee https://biomejs.dev/linter/rules/no-process-global",
+							"Disallow the use of process global.\nSee <https://biomejs.dev/linter/rules/no-process-global>",
 						anyOf: [
 							{ $ref: "#/$defs/NoProcessGlobalConfiguration" },
 							{ type: "null" },
@@ -1051,7 +1032,7 @@ export function GET() {
 					},
 					noQwikUseVisibleTask: {
 						description:
-							"Disallow useVisibleTask$() functions in Qwik components.\nSee https://biomejs.dev/linter/rules/no-qwik-use-visible-task",
+							"Disallow useVisibleTask$() functions in Qwik components.\nSee <https://biomejs.dev/linter/rules/no-qwik-use-visible-task>",
 						anyOf: [
 							{ $ref: "#/$defs/NoQwikUseVisibleTaskConfiguration" },
 							{ type: "null" },
@@ -1059,7 +1040,7 @@ export function GET() {
 					},
 					noReactPropAssignments: {
 						description:
-							"Disallow assigning to React component props.\nSee https://biomejs.dev/linter/rules/no-react-prop-assignments",
+							"Disallow assigning to React component props.\nSee <https://biomejs.dev/linter/rules/no-react-prop-assignments>",
 						anyOf: [
 							{ $ref: "#/$defs/NoReactPropAssignmentsConfiguration" },
 							{ type: "null" },
@@ -1067,7 +1048,7 @@ export function GET() {
 					},
 					noRenderReturnValue: {
 						description:
-							"Prevent the usage of the return value of React.render.\nSee https://biomejs.dev/linter/rules/no-render-return-value",
+							"Prevent the usage of the return value of React.render.\nSee <https://biomejs.dev/linter/rules/no-render-return-value>",
 						anyOf: [
 							{ $ref: "#/$defs/NoRenderReturnValueConfiguration" },
 							{ type: "null" },
@@ -1075,7 +1056,7 @@ export function GET() {
 					},
 					noRestrictedElements: {
 						description:
-							"Disallow the use of configured elements.\nSee https://biomejs.dev/linter/rules/no-restricted-elements",
+							"Disallow the use of configured elements.\nSee <https://biomejs.dev/linter/rules/no-restricted-elements>",
 						anyOf: [
 							{ $ref: "#/$defs/NoRestrictedElementsConfiguration" },
 							{ type: "null" },
@@ -1083,7 +1064,7 @@ export function GET() {
 					},
 					noSelfAssign: {
 						description:
-							"Disallow assignments where both sides are exactly the same.\nSee https://biomejs.dev/linter/rules/no-self-assign",
+							"Disallow assignments where both sides are exactly the same.\nSee <https://biomejs.dev/linter/rules/no-self-assign>",
 						anyOf: [
 							{ $ref: "#/$defs/NoSelfAssignConfiguration" },
 							{ type: "null" },
@@ -1091,7 +1072,7 @@ export function GET() {
 					},
 					noSetterReturn: {
 						description:
-							"Disallow returning a value from a setter.\nSee https://biomejs.dev/linter/rules/no-setter-return",
+							"Disallow returning a value from a setter.\nSee <https://biomejs.dev/linter/rules/no-setter-return>",
 						anyOf: [
 							{ $ref: "#/$defs/NoSetterReturnConfiguration" },
 							{ type: "null" },
@@ -1099,7 +1080,7 @@ export function GET() {
 					},
 					noSolidDestructuredProps: {
 						description:
-							"Disallow destructuring props inside JSX components in Solid projects.\nSee https://biomejs.dev/linter/rules/no-solid-destructured-props",
+							"Disallow destructuring props inside JSX components in Solid projects.\nSee <https://biomejs.dev/linter/rules/no-solid-destructured-props>",
 						anyOf: [
 							{ $ref: "#/$defs/NoSolidDestructuredPropsConfiguration" },
 							{ type: "null" },
@@ -1107,7 +1088,7 @@ export function GET() {
 					},
 					noStringCaseMismatch: {
 						description:
-							"Disallow comparison of expressions modifying the string case with non-compliant value.\nSee https://biomejs.dev/linter/rules/no-string-case-mismatch",
+							"Disallow comparison of expressions modifying the string case with non-compliant value.\nSee <https://biomejs.dev/linter/rules/no-string-case-mismatch>",
 						anyOf: [
 							{ $ref: "#/$defs/NoStringCaseMismatchConfiguration" },
 							{ type: "null" },
@@ -1115,7 +1096,7 @@ export function GET() {
 					},
 					noSwitchDeclarations: {
 						description:
-							"Disallow lexical declarations in switch clauses.\nSee https://biomejs.dev/linter/rules/no-switch-declarations",
+							"Disallow lexical declarations in switch clauses.\nSee <https://biomejs.dev/linter/rules/no-switch-declarations>",
 						anyOf: [
 							{ $ref: "#/$defs/NoSwitchDeclarationsConfiguration" },
 							{ type: "null" },
@@ -1123,7 +1104,7 @@ export function GET() {
 					},
 					noUndeclaredDependencies: {
 						description:
-							"Disallow the use of dependencies that aren't specified in the package.json.\nSee https://biomejs.dev/linter/rules/no-undeclared-dependencies",
+							"Disallow the use of dependencies that aren't specified in the package.json.\nSee <https://biomejs.dev/linter/rules/no-undeclared-dependencies>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUndeclaredDependenciesConfiguration" },
 							{ type: "null" },
@@ -1131,7 +1112,7 @@ export function GET() {
 					},
 					noUndeclaredVariables: {
 						description:
-							"Prevents the usage of variables that haven't been declared inside the document.\nSee https://biomejs.dev/linter/rules/no-undeclared-variables",
+							"Prevents the usage of variables that haven't been declared inside the document.\nSee <https://biomejs.dev/linter/rules/no-undeclared-variables>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUndeclaredVariablesConfiguration" },
 							{ type: "null" },
@@ -1139,7 +1120,7 @@ export function GET() {
 					},
 					noUnknownFunction: {
 						description:
-							"Disallow unknown CSS value functions.\nSee https://biomejs.dev/linter/rules/no-unknown-function",
+							"Disallow unknown CSS value functions.\nSee <https://biomejs.dev/linter/rules/no-unknown-function>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUnknownFunctionConfiguration" },
 							{ type: "null" },
@@ -1147,7 +1128,7 @@ export function GET() {
 					},
 					noUnknownMediaFeatureName: {
 						description:
-							"Disallow unknown media feature names.\nSee https://biomejs.dev/linter/rules/no-unknown-media-feature-name",
+							"Disallow unknown media feature names.\nSee <https://biomejs.dev/linter/rules/no-unknown-media-feature-name>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUnknownMediaFeatureNameConfiguration" },
 							{ type: "null" },
@@ -1155,7 +1136,7 @@ export function GET() {
 					},
 					noUnknownProperty: {
 						description:
-							"Disallow unknown properties.\nSee https://biomejs.dev/linter/rules/no-unknown-property",
+							"Disallow unknown properties.\nSee <https://biomejs.dev/linter/rules/no-unknown-property>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUnknownPropertyConfiguration" },
 							{ type: "null" },
@@ -1163,7 +1144,7 @@ export function GET() {
 					},
 					noUnknownPseudoClass: {
 						description:
-							"Disallow unknown pseudo-class selectors.\nSee https://biomejs.dev/linter/rules/no-unknown-pseudo-class",
+							"Disallow unknown pseudo-class selectors.\nSee <https://biomejs.dev/linter/rules/no-unknown-pseudo-class>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUnknownPseudoClassConfiguration" },
 							{ type: "null" },
@@ -1171,7 +1152,7 @@ export function GET() {
 					},
 					noUnknownPseudoElement: {
 						description:
-							"Disallow unknown pseudo-element selectors.\nSee https://biomejs.dev/linter/rules/no-unknown-pseudo-element",
+							"Disallow unknown pseudo-element selectors.\nSee <https://biomejs.dev/linter/rules/no-unknown-pseudo-element>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUnknownPseudoElementConfiguration" },
 							{ type: "null" },
@@ -1179,7 +1160,7 @@ export function GET() {
 					},
 					noUnknownTypeSelector: {
 						description:
-							"Disallow unknown type selectors.\nSee https://biomejs.dev/linter/rules/no-unknown-type-selector",
+							"Disallow unknown type selectors.\nSee <https://biomejs.dev/linter/rules/no-unknown-type-selector>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUnknownTypeSelectorConfiguration" },
 							{ type: "null" },
@@ -1187,7 +1168,7 @@ export function GET() {
 					},
 					noUnknownUnit: {
 						description:
-							"Disallow unknown CSS units.\nSee https://biomejs.dev/linter/rules/no-unknown-unit",
+							"Disallow unknown CSS units.\nSee <https://biomejs.dev/linter/rules/no-unknown-unit>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUnknownUnitConfiguration" },
 							{ type: "null" },
@@ -1195,7 +1176,7 @@ export function GET() {
 					},
 					noUnmatchableAnbSelector: {
 						description:
-							"Disallow unmatchable An+B selectors.\nSee https://biomejs.dev/linter/rules/no-unmatchable-anb-selector",
+							"Disallow unmatchable An+B selectors.\nSee <https://biomejs.dev/linter/rules/no-unmatchable-anb-selector>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUnmatchableAnbSelectorConfiguration" },
 							{ type: "null" },
@@ -1203,7 +1184,7 @@ export function GET() {
 					},
 					noUnreachable: {
 						description:
-							"Disallow unreachable code.\nSee https://biomejs.dev/linter/rules/no-unreachable",
+							"Disallow unreachable code.\nSee <https://biomejs.dev/linter/rules/no-unreachable>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUnreachableConfiguration" },
 							{ type: "null" },
@@ -1211,7 +1192,7 @@ export function GET() {
 					},
 					noUnreachableSuper: {
 						description:
-							"Ensures the super() constructor is called exactly once on every code  path in a class constructor before this is accessed if the class has a superclass.\nSee https://biomejs.dev/linter/rules/no-unreachable-super",
+							"Ensures the super() constructor is called exactly once on every code  path in a class constructor before this is accessed if the class has a superclass.\nSee <https://biomejs.dev/linter/rules/no-unreachable-super>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUnreachableSuperConfiguration" },
 							{ type: "null" },
@@ -1219,7 +1200,7 @@ export function GET() {
 					},
 					noUnsafeFinally: {
 						description:
-							"Disallow control flow statements in finally blocks.\nSee https://biomejs.dev/linter/rules/no-unsafe-finally",
+							"Disallow control flow statements in finally blocks.\nSee <https://biomejs.dev/linter/rules/no-unsafe-finally>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUnsafeFinallyConfiguration" },
 							{ type: "null" },
@@ -1227,7 +1208,7 @@ export function GET() {
 					},
 					noUnsafeOptionalChaining: {
 						description:
-							"Disallow the use of optional chaining in contexts where the undefined value is not allowed.\nSee https://biomejs.dev/linter/rules/no-unsafe-optional-chaining",
+							"Disallow the use of optional chaining in contexts where the undefined value is not allowed.\nSee <https://biomejs.dev/linter/rules/no-unsafe-optional-chaining>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUnsafeOptionalChainingConfiguration" },
 							{ type: "null" },
@@ -1235,7 +1216,7 @@ export function GET() {
 					},
 					noUnusedFunctionParameters: {
 						description:
-							"Disallow unused function parameters.\nSee https://biomejs.dev/linter/rules/no-unused-function-parameters",
+							"Disallow unused function parameters.\nSee <https://biomejs.dev/linter/rules/no-unused-function-parameters>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUnusedFunctionParametersConfiguration" },
 							{ type: "null" },
@@ -1243,7 +1224,7 @@ export function GET() {
 					},
 					noUnusedImports: {
 						description:
-							"Disallow unused imports.\nSee https://biomejs.dev/linter/rules/no-unused-imports",
+							"Disallow unused imports.\nSee <https://biomejs.dev/linter/rules/no-unused-imports>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUnusedImportsConfiguration" },
 							{ type: "null" },
@@ -1251,7 +1232,7 @@ export function GET() {
 					},
 					noUnusedLabels: {
 						description:
-							"Disallow unused labels.\nSee https://biomejs.dev/linter/rules/no-unused-labels",
+							"Disallow unused labels.\nSee <https://biomejs.dev/linter/rules/no-unused-labels>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUnusedLabelsConfiguration" },
 							{ type: "null" },
@@ -1259,7 +1240,7 @@ export function GET() {
 					},
 					noUnusedPrivateClassMembers: {
 						description:
-							"Disallow unused private class members.\nSee https://biomejs.dev/linter/rules/no-unused-private-class-members",
+							"Disallow unused private class members.\nSee <https://biomejs.dev/linter/rules/no-unused-private-class-members>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUnusedPrivateClassMembersConfiguration" },
 							{ type: "null" },
@@ -1267,7 +1248,7 @@ export function GET() {
 					},
 					noUnusedVariables: {
 						description:
-							"Disallow unused variables.\nSee https://biomejs.dev/linter/rules/no-unused-variables",
+							"Disallow unused variables.\nSee <https://biomejs.dev/linter/rules/no-unused-variables>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUnusedVariablesConfiguration" },
 							{ type: "null" },
@@ -1275,7 +1256,7 @@ export function GET() {
 					},
 					noVoidElementsWithChildren: {
 						description:
-							"This rules prevents void elements (AKA self-closing elements) from having children.\nSee https://biomejs.dev/linter/rules/no-void-elements-with-children",
+							"This rules prevents void elements (AKA self-closing elements) from having children.\nSee <https://biomejs.dev/linter/rules/no-void-elements-with-children>",
 						anyOf: [
 							{ $ref: "#/$defs/NoVoidElementsWithChildrenConfiguration" },
 							{ type: "null" },
@@ -1283,7 +1264,7 @@ export function GET() {
 					},
 					noVoidTypeReturn: {
 						description:
-							"Disallow returning a value from a function with the return type 'void'.\nSee https://biomejs.dev/linter/rules/no-void-type-return",
+							"Disallow returning a value from a function with the return type 'void'.\nSee <https://biomejs.dev/linter/rules/no-void-type-return>",
 						anyOf: [
 							{ $ref: "#/$defs/NoVoidTypeReturnConfiguration" },
 							{ type: "null" },
@@ -1295,7 +1276,7 @@ export function GET() {
 					},
 					useExhaustiveDependencies: {
 						description:
-							"Enforce correct dependency usage within React hooks.\nSee https://biomejs.dev/linter/rules/use-exhaustive-dependencies",
+							"Enforce correct dependency usage within React hooks.\nSee <https://biomejs.dev/linter/rules/use-exhaustive-dependencies>",
 						anyOf: [
 							{ $ref: "#/$defs/UseExhaustiveDependenciesConfiguration" },
 							{ type: "null" },
@@ -1303,7 +1284,7 @@ export function GET() {
 					},
 					useGraphqlNamedOperations: {
 						description:
-							"Enforce specifying the name of GraphQL operations.\nSee https://biomejs.dev/linter/rules/use-graphql-named-operations",
+							"Enforce specifying the name of GraphQL operations.\nSee <https://biomejs.dev/linter/rules/use-graphql-named-operations>",
 						anyOf: [
 							{ $ref: "#/$defs/UseGraphqlNamedOperationsConfiguration" },
 							{ type: "null" },
@@ -1311,7 +1292,7 @@ export function GET() {
 					},
 					useHookAtTopLevel: {
 						description:
-							"Enforce that all React hooks are being called from the Top Level component functions.\nSee https://biomejs.dev/linter/rules/use-hook-at-top-level",
+							"Enforce that all React hooks are being called from the Top Level component functions.\nSee <https://biomejs.dev/linter/rules/use-hook-at-top-level>",
 						anyOf: [
 							{ $ref: "#/$defs/UseHookAtTopLevelConfiguration" },
 							{ type: "null" },
@@ -1319,7 +1300,7 @@ export function GET() {
 					},
 					useImageSize: {
 						description:
-							"Enforces that \\<img> elements have both width and height attributes.\nSee https://biomejs.dev/linter/rules/use-image-size",
+							"Enforces that \\<img> elements have both width and height attributes.\nSee <https://biomejs.dev/linter/rules/use-image-size>",
 						anyOf: [
 							{ $ref: "#/$defs/UseImageSizeConfiguration" },
 							{ type: "null" },
@@ -1327,7 +1308,7 @@ export function GET() {
 					},
 					useImportExtensions: {
 						description:
-							"Enforce file extensions for relative imports.\nSee https://biomejs.dev/linter/rules/use-import-extensions",
+							"Enforce file extensions for relative imports.\nSee <https://biomejs.dev/linter/rules/use-import-extensions>",
 						anyOf: [
 							{ $ref: "#/$defs/UseImportExtensionsConfiguration" },
 							{ type: "null" },
@@ -1335,7 +1316,7 @@ export function GET() {
 					},
 					useIsNan: {
 						description:
-							"Require calls to isNaN() when checking for NaN.\nSee https://biomejs.dev/linter/rules/use-is-nan",
+							"Require calls to isNaN() when checking for NaN.\nSee <https://biomejs.dev/linter/rules/use-is-nan>",
 						anyOf: [
 							{ $ref: "#/$defs/UseIsNanConfiguration" },
 							{ type: "null" },
@@ -1343,7 +1324,7 @@ export function GET() {
 					},
 					useJsonImportAttributes: {
 						description:
-							'Enforces the use of with { type: "json" } for JSON module imports.\nSee https://biomejs.dev/linter/rules/use-json-import-attributes',
+							'Enforces the use of with { type: "json" } for JSON module imports.\nSee <https://biomejs.dev/linter/rules/use-json-import-attributes>',
 						anyOf: [
 							{ $ref: "#/$defs/UseJsonImportAttributesConfiguration" },
 							{ type: "null" },
@@ -1351,7 +1332,7 @@ export function GET() {
 					},
 					useJsxKeyInIterable: {
 						description:
-							"Disallow missing key props in iterators/collection literals.\nSee https://biomejs.dev/linter/rules/use-jsx-key-in-iterable",
+							"Disallow missing key props in iterators/collection literals.\nSee <https://biomejs.dev/linter/rules/use-jsx-key-in-iterable>",
 						anyOf: [
 							{ $ref: "#/$defs/UseJsxKeyInIterableConfiguration" },
 							{ type: "null" },
@@ -1359,7 +1340,7 @@ export function GET() {
 					},
 					useParseIntRadix: {
 						description:
-							"Enforce the consistent use of the radix argument when using parseInt().\nSee https://biomejs.dev/linter/rules/use-parse-int-radix",
+							"Enforce the consistent use of the radix argument when using parseInt().\nSee <https://biomejs.dev/linter/rules/use-parse-int-radix>",
 						anyOf: [
 							{ $ref: "#/$defs/UseParseIntRadixConfiguration" },
 							{ type: "null" },
@@ -1367,7 +1348,7 @@ export function GET() {
 					},
 					useQwikClasslist: {
 						description:
-							"Prefer using the class prop as a classlist over the classnames helper.\nSee https://biomejs.dev/linter/rules/use-qwik-classlist",
+							"Prefer using the class prop as a classlist over the classnames helper.\nSee <https://biomejs.dev/linter/rules/use-qwik-classlist>",
 						anyOf: [
 							{ $ref: "#/$defs/UseQwikClasslistConfiguration" },
 							{ type: "null" },
@@ -1375,7 +1356,7 @@ export function GET() {
 					},
 					useSingleJsDocAsterisk: {
 						description:
-							"Enforce JSDoc comment lines to start with a single asterisk, except for the first one.\nSee https://biomejs.dev/linter/rules/use-single-js-doc-asterisk",
+							"Enforce JSDoc comment lines to start with a single asterisk, except for the first one.\nSee <https://biomejs.dev/linter/rules/use-single-js-doc-asterisk>",
 						anyOf: [
 							{ $ref: "#/$defs/UseSingleJsDocAsteriskConfiguration" },
 							{ type: "null" },
@@ -1383,7 +1364,7 @@ export function GET() {
 					},
 					useUniqueElementIds: {
 						description:
-							"Prevent the usage of static string literal id attribute on elements.\nSee https://biomejs.dev/linter/rules/use-unique-element-ids",
+							"Prevent the usage of static string literal id attribute on elements.\nSee <https://biomejs.dev/linter/rules/use-unique-element-ids>",
 						anyOf: [
 							{ $ref: "#/$defs/UseUniqueElementIdsConfiguration" },
 							{ type: "null" },
@@ -1391,7 +1372,7 @@ export function GET() {
 					},
 					useValidForDirection: {
 						description:
-							'Enforce "for" loop update clause moving the counter in the right direction.\nSee https://biomejs.dev/linter/rules/use-valid-for-direction',
+							'Enforce "for" loop update clause moving the counter in the right direction.\nSee <https://biomejs.dev/linter/rules/use-valid-for-direction>',
 						anyOf: [
 							{ $ref: "#/$defs/UseValidForDirectionConfiguration" },
 							{ type: "null" },
@@ -1399,7 +1380,7 @@ export function GET() {
 					},
 					useValidTypeof: {
 						description:
-							"This rule checks that the result of a typeof expression is compared to a valid value.\nSee https://biomejs.dev/linter/rules/use-valid-typeof",
+							"This rule checks that the result of a typeof expression is compared to a valid value.\nSee <https://biomejs.dev/linter/rules/use-valid-typeof>",
 						anyOf: [
 							{ $ref: "#/$defs/UseValidTypeofConfiguration" },
 							{ type: "null" },
@@ -1407,7 +1388,7 @@ export function GET() {
 					},
 					useYield: {
 						description:
-							"Require generator functions to contain yield.\nSee https://biomejs.dev/linter/rules/use-yield",
+							"Require generator functions to contain yield.\nSee <https://biomejs.dev/linter/rules/use-yield>",
 						anyOf: [
 							{ $ref: "#/$defs/UseYieldConfiguration" },
 							{ type: "null" },
@@ -2702,22 +2683,6 @@ export function GET() {
 				additionalProperties: false,
 			},
 			MaxSize: { type: "integer", format: "uint64", minimum: 1 },
-			MethodSignatureStyle: {
-				oneOf: [
-					{
-						description:
-							"Enforce use of property-style signatures (`methodName: (args) => returnType`).",
-						type: "string",
-						const: "property",
-					},
-					{
-						description:
-							"Enforce use of method-style signatures (`methodName(args): returnType`).",
-						type: "string",
-						const: "method",
-					},
-				],
-			},
 			Modifiers: {
 				type: "array",
 				items: { $ref: "#/$defs/RestrictedModifier" },
@@ -3186,23 +3151,6 @@ export function GET() {
 				type: "object",
 				additionalProperties: false,
 			},
-			NoDeprecatedMediaTypeConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithNoDeprecatedMediaTypeOptions" },
-				],
-			},
-			NoDeprecatedMediaTypeOptions: {
-				type: "object",
-				properties: {
-					allow: {
-						description: "Media types to allow (case-insensitive).",
-						type: ["array", "null"],
-						items: { type: "string" },
-					},
-				},
-				additionalProperties: false,
-			},
 			NoDescendingSpecificityConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -3223,13 +3171,6 @@ export function GET() {
 				type: "object",
 				additionalProperties: false,
 			},
-			NoDivRegexConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithNoDivRegexOptions" },
-				],
-			},
-			NoDivRegexOptions: { type: "object", additionalProperties: false },
 			NoDocumentCookieConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -3277,16 +3218,6 @@ export function GET() {
 				},
 				additionalProperties: false,
 			},
-			NoDuplicateArgumentNamesConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithNoDuplicateArgumentNamesOptions" },
-				],
-			},
-			NoDuplicateArgumentNamesOptions: {
-				type: "object",
-				additionalProperties: false,
-			},
 			NoDuplicateAtImportRulesConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -3294,16 +3225,6 @@ export function GET() {
 				],
 			},
 			NoDuplicateAtImportRulesOptions: {
-				type: "object",
-				additionalProperties: false,
-			},
-			NoDuplicateAttributesConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithNoDuplicateAttributesOptions" },
-				],
-			},
-			NoDuplicateAttributesOptions: {
 				type: "object",
 				additionalProperties: false,
 			},
@@ -3357,36 +3278,6 @@ export function GET() {
 				type: "object",
 				additionalProperties: false,
 			},
-			NoDuplicateEnumValueNamesConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithNoDuplicateEnumValueNamesOptions" },
-				],
-			},
-			NoDuplicateEnumValueNamesOptions: {
-				type: "object",
-				additionalProperties: false,
-			},
-			NoDuplicateEnumValuesConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithNoDuplicateEnumValuesOptions" },
-				],
-			},
-			NoDuplicateEnumValuesOptions: {
-				type: "object",
-				additionalProperties: false,
-			},
-			NoDuplicateFieldDefinitionNamesConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithNoDuplicateFieldDefinitionNamesOptions" },
-				],
-			},
-			NoDuplicateFieldDefinitionNamesOptions: {
-				type: "object",
-				additionalProperties: false,
-			},
 			NoDuplicateFieldsConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -3404,26 +3295,6 @@ export function GET() {
 				],
 			},
 			NoDuplicateFontNamesOptions: {
-				type: "object",
-				additionalProperties: false,
-			},
-			NoDuplicateGraphqlOperationNameConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithNoDuplicateGraphqlOperationNameOptions" },
-				],
-			},
-			NoDuplicateGraphqlOperationNameOptions: {
-				type: "object",
-				additionalProperties: false,
-			},
-			NoDuplicateInputFieldNamesConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithNoDuplicateInputFieldNamesOptions" },
-				],
-			},
-			NoDuplicateInputFieldNamesOptions: {
 				type: "object",
 				additionalProperties: false,
 			},
@@ -3484,16 +3355,6 @@ export function GET() {
 				],
 			},
 			NoDuplicateTestHooksOptions: {
-				type: "object",
-				additionalProperties: false,
-			},
-			NoDuplicateVariableNamesConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithNoDuplicateVariableNamesOptions" },
-				],
-			},
-			NoDuplicateVariableNamesOptions: {
 				type: "object",
 				additionalProperties: false,
 			},
@@ -3617,25 +3478,6 @@ export function GET() {
 				type: "object",
 				additionalProperties: false,
 			},
-			NoExcessiveClassesPerFileConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithNoExcessiveClassesPerFileOptions" },
-				],
-			},
-			NoExcessiveClassesPerFileOptions: {
-				type: "object",
-				properties: {
-					maxClasses: {
-						description: "The maximum number of classes allowed in a file.",
-						type: ["integer", "null"],
-						format: "uint16",
-						maximum: 65535,
-						minimum: 1,
-					},
-				},
-				additionalProperties: false,
-			},
 			NoExcessiveCognitiveComplexityConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -3652,30 +3494,6 @@ export function GET() {
 						format: "uint8",
 						maximum: 255,
 						minimum: 1,
-					},
-				},
-				additionalProperties: false,
-			},
-			NoExcessiveLinesPerFileConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithNoExcessiveLinesPerFileOptions" },
-				],
-			},
-			NoExcessiveLinesPerFileOptions: {
-				type: "object",
-				properties: {
-					maxLines: {
-						description: "The maximum number of lines allowed in a file.",
-						type: ["integer", "null"],
-						format: "uint16",
-						maximum: 65535,
-						minimum: 1,
-					},
-					skipBlankLines: {
-						description:
-							"When this option is set to `true`, blank lines are not counted towards the maximum line limit.",
-						type: ["boolean", "null"],
 					},
 				},
 				additionalProperties: false,
@@ -3784,16 +3602,6 @@ export function GET() {
 				],
 			},
 			NoFlatMapIdentityOptions: {
-				type: "object",
-				additionalProperties: false,
-			},
-			NoFloatingClassesConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithNoFloatingClassesOptions" },
-				],
-			},
-			NoFloatingClassesOptions: {
 				type: "object",
 				additionalProperties: false,
 			},
@@ -3930,13 +3738,6 @@ export function GET() {
 				],
 			},
 			NoHeaderScopeOptions: { type: "object", additionalProperties: false },
-			NoHexColorsConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithNoHexColorsOptions" },
-				],
-			},
-			NoHexColorsOptions: { type: "object", additionalProperties: false },
 			NoImgElementConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -4638,16 +4439,6 @@ export function GET() {
 				type: "object",
 				additionalProperties: false,
 			},
-			NoRedundantDefaultExportConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithNoRedundantDefaultExportOptions" },
-				],
-			},
-			NoRedundantDefaultExportOptions: {
-				type: "object",
-				additionalProperties: false,
-			},
 			NoRedundantRolesConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -4762,24 +4553,6 @@ export function GET() {
 			},
 			NoReturnAssignOptions: {
 				type: "object",
-				additionalProperties: false,
-			},
-			NoRootTypeConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithNoRootTypeOptions" },
-				],
-			},
-			NoRootTypeOptions: {
-				type: "object",
-				properties: {
-					disallow: {
-						description:
-							'A list of disallowed root types (e.g. "mutation" and/or "subscription").\nThe values of the list are case-insensitive.',
-						type: "array",
-						items: { type: "string" },
-					},
-				},
 				additionalProperties: false,
 			},
 			NoScriptUrlConfiguration: {
@@ -5623,16 +5396,6 @@ export function GET() {
 				type: "object",
 				additionalProperties: false,
 			},
-			NoVueArrowFuncInWatchConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithNoVueArrowFuncInWatchOptions" },
-				],
-			},
-			NoVueArrowFuncInWatchOptions: {
-				type: "object",
-				additionalProperties: false,
-			},
 			NoVueDataObjectDeclarationConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -5650,16 +5413,6 @@ export function GET() {
 				],
 			},
 			NoVueDuplicateKeysOptions: {
-				type: "object",
-				additionalProperties: false,
-			},
-			NoVueOptionsApiConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithNoVueOptionsApiOptions" },
-				],
-			},
-			NoVueOptionsApiOptions: {
 				type: "object",
 				additionalProperties: false,
 			},
@@ -5731,7 +5484,7 @@ export function GET() {
 				properties: {
 					noAmbiguousAnchorText: {
 						description:
-							"Disallow ambiguous anchor descriptions.\nSee https://biomejs.dev/linter/rules/no-ambiguous-anchor-text",
+							"Disallow ambiguous anchor descriptions.\nSee <https://biomejs.dev/linter/rules/no-ambiguous-anchor-text>",
 						anyOf: [
 							{ $ref: "#/$defs/NoAmbiguousAnchorTextConfiguration" },
 							{ type: "null" },
@@ -5739,7 +5492,7 @@ export function GET() {
 					},
 					noBeforeInteractiveScriptOutsideDocument: {
 						description:
-							"Prevent usage of next/script's beforeInteractive strategy outside of pages/_document.js in a Next.js project.\nSee https://biomejs.dev/linter/rules/no-before-interactive-script-outside-document",
+							"Prevent usage of next/script's beforeInteractive strategy outside of pages/_document.js in a Next.js project.\nSee <https://biomejs.dev/linter/rules/no-before-interactive-script-outside-document>",
 						anyOf: [
 							{
 								$ref: "#/$defs/NoBeforeInteractiveScriptOutsideDocumentConfiguration",
@@ -5749,7 +5502,7 @@ export function GET() {
 					},
 					noContinue: {
 						description:
-							"Disallow continue statements.\nSee https://biomejs.dev/linter/rules/no-continue",
+							"Disallow continue statements.\nSee <https://biomejs.dev/linter/rules/no-continue>",
 						anyOf: [
 							{ $ref: "#/$defs/NoContinueConfiguration" },
 							{ type: "null" },
@@ -5757,103 +5510,23 @@ export function GET() {
 					},
 					noDeprecatedImports: {
 						description:
-							"Restrict imports of deprecated exports.\nSee https://biomejs.dev/linter/rules/no-deprecated-imports",
+							"Restrict imports of deprecated exports.\nSee <https://biomejs.dev/linter/rules/no-deprecated-imports>",
 						anyOf: [
 							{ $ref: "#/$defs/NoDeprecatedImportsConfiguration" },
 							{ type: "null" },
 						],
 					},
-					noDeprecatedMediaType: {
-						description:
-							"Disallow deprecated media types.\nSee https://biomejs.dev/linter/rules/no-deprecated-media-type",
-						anyOf: [
-							{ $ref: "#/$defs/NoDeprecatedMediaTypeConfiguration" },
-							{ type: "null" },
-						],
-					},
-					noDivRegex: {
-						description:
-							"Disallow equal signs explicitly at the beginning of regular expressions.\nSee https://biomejs.dev/linter/rules/no-div-regex",
-						anyOf: [
-							{ $ref: "#/$defs/NoDivRegexConfiguration" },
-							{ type: "null" },
-						],
-					},
-					noDuplicateArgumentNames: {
-						description:
-							"Require all argument names for fields & directives to be unique.\nSee https://biomejs.dev/linter/rules/no-duplicate-argument-names",
-						anyOf: [
-							{ $ref: "#/$defs/NoDuplicateArgumentNamesConfiguration" },
-							{ type: "null" },
-						],
-					},
-					noDuplicateAttributes: {
-						description:
-							"Disallow duplication of attributes.\nSee https://biomejs.dev/linter/rules/no-duplicate-attributes",
-						anyOf: [
-							{ $ref: "#/$defs/NoDuplicateAttributesConfiguration" },
-							{ type: "null" },
-						],
-					},
 					noDuplicateDependencies: {
 						description:
-							'Prevent the listing of duplicate dependencies. The rule supports the following dependency groups: "bundledDependencies", "bundleDependencies", "dependencies", "devDependencies", "overrides", "optionalDependencies", and "peerDependencies".\nSee https://biomejs.dev/linter/rules/no-duplicate-dependencies',
+							'Prevent the listing of duplicate dependencies. The rule supports the following dependency groups: "bundledDependencies", "bundleDependencies", "dependencies", "devDependencies", "overrides", "optionalDependencies", and "peerDependencies".\nSee <https://biomejs.dev/linter/rules/no-duplicate-dependencies>',
 						anyOf: [
 							{ $ref: "#/$defs/NoDuplicateDependenciesConfiguration" },
 							{ type: "null" },
 						],
 					},
-					noDuplicateEnumValueNames: {
-						description:
-							"Require all enum value names to be unique.\nSee https://biomejs.dev/linter/rules/no-duplicate-enum-value-names",
-						anyOf: [
-							{ $ref: "#/$defs/NoDuplicateEnumValueNamesConfiguration" },
-							{ type: "null" },
-						],
-					},
-					noDuplicateEnumValues: {
-						description:
-							"Disallow duplicate enum member values.\nSee https://biomejs.dev/linter/rules/no-duplicate-enum-values",
-						anyOf: [
-							{ $ref: "#/$defs/NoDuplicateEnumValuesConfiguration" },
-							{ type: "null" },
-						],
-					},
-					noDuplicateFieldDefinitionNames: {
-						description:
-							"Require all fields of a type to be unique.\nSee https://biomejs.dev/linter/rules/no-duplicate-field-definition-names",
-						anyOf: [
-							{ $ref: "#/$defs/NoDuplicateFieldDefinitionNamesConfiguration" },
-							{ type: "null" },
-						],
-					},
-					noDuplicateGraphqlOperationName: {
-						description:
-							"Enforce unique operation names across a GraphQL document.\nSee https://biomejs.dev/linter/rules/no-duplicate-graphql-operation-name",
-						anyOf: [
-							{ $ref: "#/$defs/NoDuplicateGraphqlOperationNameConfiguration" },
-							{ type: "null" },
-						],
-					},
-					noDuplicateInputFieldNames: {
-						description:
-							"Require fields within an input object to be unique.\nSee https://biomejs.dev/linter/rules/no-duplicate-input-field-names",
-						anyOf: [
-							{ $ref: "#/$defs/NoDuplicateInputFieldNamesConfiguration" },
-							{ type: "null" },
-						],
-					},
-					noDuplicateVariableNames: {
-						description:
-							"Require all variable definitions to be unique.\nSee https://biomejs.dev/linter/rules/no-duplicate-variable-names",
-						anyOf: [
-							{ $ref: "#/$defs/NoDuplicateVariableNamesConfiguration" },
-							{ type: "null" },
-						],
-					},
 					noDuplicatedSpreadProps: {
 						description:
-							"Disallow JSX prop spreading the same identifier multiple times.\nSee https://biomejs.dev/linter/rules/no-duplicated-spread-props",
+							"Disallow JSX prop spreading the same identifier multiple times.\nSee <https://biomejs.dev/linter/rules/no-duplicated-spread-props>",
 						anyOf: [
 							{ $ref: "#/$defs/NoDuplicatedSpreadPropsConfiguration" },
 							{ type: "null" },
@@ -5861,7 +5534,7 @@ export function GET() {
 					},
 					noEmptySource: {
 						description:
-							"Disallow empty sources.\nSee https://biomejs.dev/linter/rules/no-empty-source",
+							"Disallow empty sources.\nSee <https://biomejs.dev/linter/rules/no-empty-source>",
 						anyOf: [
 							{ $ref: "#/$defs/NoEmptySourceConfiguration" },
 							{ type: "null" },
@@ -5869,39 +5542,15 @@ export function GET() {
 					},
 					noEqualsToNull: {
 						description:
-							"Require the use of === or !== for comparison with null.\nSee https://biomejs.dev/linter/rules/no-equals-to-null",
+							"Require the use of === or !== for comparison with null.\nSee <https://biomejs.dev/linter/rules/no-equals-to-null>",
 						anyOf: [
 							{ $ref: "#/$defs/NoEqualsToNullConfiguration" },
 							{ type: "null" },
 						],
 					},
-					noExcessiveClassesPerFile: {
-						description:
-							"Enforce a maximum number of classes per file.\nSee https://biomejs.dev/linter/rules/no-excessive-classes-per-file",
-						anyOf: [
-							{ $ref: "#/$defs/NoExcessiveClassesPerFileConfiguration" },
-							{ type: "null" },
-						],
-					},
-					noExcessiveLinesPerFile: {
-						description:
-							"Restrict the number of lines in a file.\nSee https://biomejs.dev/linter/rules/no-excessive-lines-per-file",
-						anyOf: [
-							{ $ref: "#/$defs/NoExcessiveLinesPerFileConfiguration" },
-							{ type: "null" },
-						],
-					},
-					noFloatingClasses: {
-						description:
-							"Disallow new operators outside of assignments or comparisons.\nSee https://biomejs.dev/linter/rules/no-floating-classes",
-						anyOf: [
-							{ $ref: "#/$defs/NoFloatingClassesConfiguration" },
-							{ type: "null" },
-						],
-					},
 					noFloatingPromises: {
 						description:
-							"Require Promise-like statements to be handled appropriately.\nSee https://biomejs.dev/linter/rules/no-floating-promises",
+							"Require Promise-like statements to be handled appropriately.\nSee <https://biomejs.dev/linter/rules/no-floating-promises>",
 						anyOf: [
 							{ $ref: "#/$defs/NoFloatingPromisesConfiguration" },
 							{ type: "null" },
@@ -5909,20 +5558,12 @@ export function GET() {
 					},
 					noForIn: {
 						description:
-							"Disallow iterating using a for-in loop.\nSee https://biomejs.dev/linter/rules/no-for-in",
+							"Disallow iterating using a for-in loop.\nSee <https://biomejs.dev/linter/rules/no-for-in>",
 						anyOf: [{ $ref: "#/$defs/NoForInConfiguration" }, { type: "null" }],
-					},
-					noHexColors: {
-						description:
-							"Disallow hex colors.\nSee https://biomejs.dev/linter/rules/no-hex-colors",
-						anyOf: [
-							{ $ref: "#/$defs/NoHexColorsConfiguration" },
-							{ type: "null" },
-						],
 					},
 					noImportCycles: {
 						description:
-							"Prevent import cycles.\nSee https://biomejs.dev/linter/rules/no-import-cycles",
+							"Prevent import cycles.\nSee <https://biomejs.dev/linter/rules/no-import-cycles>",
 						anyOf: [
 							{ $ref: "#/$defs/NoImportCyclesConfiguration" },
 							{ type: "null" },
@@ -5930,7 +5571,7 @@ export function GET() {
 					},
 					noIncrementDecrement: {
 						description:
-							"Disallows the usage of the unary operators ++ and --.\nSee https://biomejs.dev/linter/rules/no-increment-decrement",
+							"Disallows the usage of the unary operators ++ and --.\nSee <https://biomejs.dev/linter/rules/no-increment-decrement>",
 						anyOf: [
 							{ $ref: "#/$defs/NoIncrementDecrementConfiguration" },
 							{ type: "null" },
@@ -5938,7 +5579,7 @@ export function GET() {
 					},
 					noJsxLiterals: {
 						description:
-							"Disallow string literals inside JSX elements.\nSee https://biomejs.dev/linter/rules/no-jsx-literals",
+							"Disallow string literals inside JSX elements.\nSee <https://biomejs.dev/linter/rules/no-jsx-literals>",
 						anyOf: [
 							{ $ref: "#/$defs/NoJsxLiteralsConfiguration" },
 							{ type: "null" },
@@ -5946,7 +5587,7 @@ export function GET() {
 					},
 					noJsxPropsBind: {
 						description:
-							"Disallow .bind(), arrow functions, or function expressions in JSX props.\nSee https://biomejs.dev/linter/rules/no-jsx-props-bind",
+							"Disallow .bind(), arrow functions, or function expressions in JSX props.\nSee <https://biomejs.dev/linter/rules/no-jsx-props-bind>",
 						anyOf: [
 							{ $ref: "#/$defs/NoJsxPropsBindConfiguration" },
 							{ type: "null" },
@@ -5954,7 +5595,7 @@ export function GET() {
 					},
 					noLeakedRender: {
 						description:
-							"Prevent problematic leaked values from being rendered.\nSee https://biomejs.dev/linter/rules/no-leaked-render",
+							"Prevent problematic leaked values from being rendered.\nSee <https://biomejs.dev/linter/rules/no-leaked-render>",
 						anyOf: [
 							{ $ref: "#/$defs/NoLeakedRenderConfiguration" },
 							{ type: "null" },
@@ -5962,7 +5603,7 @@ export function GET() {
 					},
 					noMisusedPromises: {
 						description:
-							"Disallow Promises to be used in places where they are almost certainly a mistake.\nSee https://biomejs.dev/linter/rules/no-misused-promises",
+							"Disallow Promises to be used in places where they are almost certainly a mistake.\nSee <https://biomejs.dev/linter/rules/no-misused-promises>",
 						anyOf: [
 							{ $ref: "#/$defs/NoMisusedPromisesConfiguration" },
 							{ type: "null" },
@@ -5970,7 +5611,7 @@ export function GET() {
 					},
 					noMultiAssign: {
 						description:
-							"Disallow use of chained assignment expressions.\nSee https://biomejs.dev/linter/rules/no-multi-assign",
+							"Disallow use of chained assignment expressions.\nSee <https://biomejs.dev/linter/rules/no-multi-assign>",
 						anyOf: [
 							{ $ref: "#/$defs/NoMultiAssignConfiguration" },
 							{ type: "null" },
@@ -5978,7 +5619,7 @@ export function GET() {
 					},
 					noMultiStr: {
 						description:
-							"Disallow creating multiline strings by escaping newlines.\nSee https://biomejs.dev/linter/rules/no-multi-str",
+							"Disallow creating multiline strings by escaping newlines.\nSee <https://biomejs.dev/linter/rules/no-multi-str>",
 						anyOf: [
 							{ $ref: "#/$defs/NoMultiStrConfiguration" },
 							{ type: "null" },
@@ -5986,7 +5627,7 @@ export function GET() {
 					},
 					noNextAsyncClientComponent: {
 						description:
-							"Prevent client components from being async functions.\nSee https://biomejs.dev/linter/rules/no-next-async-client-component",
+							"Prevent client components from being async functions.\nSee <https://biomejs.dev/linter/rules/no-next-async-client-component>",
 						anyOf: [
 							{ $ref: "#/$defs/NoNextAsyncClientComponentConfiguration" },
 							{ type: "null" },
@@ -5994,7 +5635,7 @@ export function GET() {
 					},
 					noParametersOnlyUsedInRecursion: {
 						description:
-							"Disallow function parameters that are only used in recursive calls.\nSee https://biomejs.dev/linter/rules/no-parameters-only-used-in-recursion",
+							"Disallow function parameters that are only used in recursive calls.\nSee <https://biomejs.dev/linter/rules/no-parameters-only-used-in-recursion>",
 						anyOf: [
 							{ $ref: "#/$defs/NoParametersOnlyUsedInRecursionConfiguration" },
 							{ type: "null" },
@@ -6002,44 +5643,28 @@ export function GET() {
 					},
 					noProto: {
 						description:
-							"Disallow the use of the deprecated __proto__ object property.\nSee https://biomejs.dev/linter/rules/no-proto",
+							"Disallow the use of the deprecated __proto__ object property.\nSee <https://biomejs.dev/linter/rules/no-proto>",
 						anyOf: [{ $ref: "#/$defs/NoProtoConfiguration" }, { type: "null" }],
 					},
 					noReactForwardRef: {
 						description:
-							"Replaces usages of forwardRef with passing ref as a prop.\nSee https://biomejs.dev/linter/rules/no-react-forward-ref",
+							"Replaces usages of forwardRef with passing ref as a prop.\nSee <https://biomejs.dev/linter/rules/no-react-forward-ref>",
 						anyOf: [
 							{ $ref: "#/$defs/NoReactForwardRefConfiguration" },
 							{ type: "null" },
 						],
 					},
-					noRedundantDefaultExport: {
-						description:
-							"Checks if a default export exports the same symbol as a named export.\nSee https://biomejs.dev/linter/rules/no-redundant-default-export",
-						anyOf: [
-							{ $ref: "#/$defs/NoRedundantDefaultExportConfiguration" },
-							{ type: "null" },
-						],
-					},
 					noReturnAssign: {
 						description:
-							"Disallow assignments in return statements.\nSee https://biomejs.dev/linter/rules/no-return-assign",
+							"Disallow assignments in return statements.\nSee <https://biomejs.dev/linter/rules/no-return-assign>",
 						anyOf: [
 							{ $ref: "#/$defs/NoReturnAssignConfiguration" },
 							{ type: "null" },
 						],
 					},
-					noRootType: {
-						description:
-							"Disallow the usage of specified root types.\nSee https://biomejs.dev/linter/rules/no-root-type",
-						anyOf: [
-							{ $ref: "#/$defs/NoRootTypeConfiguration" },
-							{ type: "null" },
-						],
-					},
 					noScriptUrl: {
 						description:
-							"Disallow javascript: URLs in HTML.\nSee https://biomejs.dev/linter/rules/no-script-url",
+							"Disallow javascript: URLs in HTML.\nSee <https://biomejs.dev/linter/rules/no-script-url>",
 						anyOf: [
 							{ $ref: "#/$defs/NoScriptUrlConfiguration" },
 							{ type: "null" },
@@ -6047,7 +5672,7 @@ export function GET() {
 					},
 					noShadow: {
 						description:
-							"Disallow variable declarations from shadowing variables declared in the outer scope.\nSee https://biomejs.dev/linter/rules/no-shadow",
+							"Disallow variable declarations from shadowing variables declared in the outer scope.\nSee <https://biomejs.dev/linter/rules/no-shadow>",
 						anyOf: [
 							{ $ref: "#/$defs/NoShadowConfiguration" },
 							{ type: "null" },
@@ -6055,7 +5680,7 @@ export function GET() {
 					},
 					noSyncScripts: {
 						description:
-							"Prevent the usage of synchronous scripts.\nSee https://biomejs.dev/linter/rules/no-sync-scripts",
+							"Prevent the usage of synchronous scripts.\nSee <https://biomejs.dev/linter/rules/no-sync-scripts>",
 						anyOf: [
 							{ $ref: "#/$defs/NoSyncScriptsConfiguration" },
 							{ type: "null" },
@@ -6063,7 +5688,7 @@ export function GET() {
 					},
 					noTernary: {
 						description:
-							"Disallow ternary operators.\nSee https://biomejs.dev/linter/rules/no-ternary",
+							"Disallow ternary operators.\nSee <https://biomejs.dev/linter/rules/no-ternary>",
 						anyOf: [
 							{ $ref: "#/$defs/NoTernaryConfiguration" },
 							{ type: "null" },
@@ -6071,7 +5696,7 @@ export function GET() {
 					},
 					noUndeclaredEnvVars: {
 						description:
-							"Disallow the use of undeclared environment variables.\nSee https://biomejs.dev/linter/rules/no-undeclared-env-vars",
+							"Disallow the use of undeclared environment variables.\nSee <https://biomejs.dev/linter/rules/no-undeclared-env-vars>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUndeclaredEnvVarsConfiguration" },
 							{ type: "null" },
@@ -6079,7 +5704,7 @@ export function GET() {
 					},
 					noUnknownAttribute: {
 						description:
-							"Disallow unknown DOM properties.\nSee https://biomejs.dev/linter/rules/no-unknown-attribute",
+							"Disallow unknown DOM properties.\nSee <https://biomejs.dev/linter/rules/no-unknown-attribute>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUnknownAttributeConfiguration" },
 							{ type: "null" },
@@ -6087,7 +5712,7 @@ export function GET() {
 					},
 					noUnnecessaryConditions: {
 						description:
-							"Disallow unnecessary type-based conditions that can be statically determined as redundant.\nSee https://biomejs.dev/linter/rules/no-unnecessary-conditions",
+							"Disallow unnecessary type-based conditions that can be statically determined as redundant.\nSee <https://biomejs.dev/linter/rules/no-unnecessary-conditions>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUnnecessaryConditionsConfiguration" },
 							{ type: "null" },
@@ -6095,7 +5720,7 @@ export function GET() {
 					},
 					noUnresolvedImports: {
 						description:
-							"Warn when importing non-existing exports.\nSee https://biomejs.dev/linter/rules/no-unresolved-imports",
+							"Warn when importing non-existing exports.\nSee <https://biomejs.dev/linter/rules/no-unresolved-imports>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUnresolvedImportsConfiguration" },
 							{ type: "null" },
@@ -6103,7 +5728,7 @@ export function GET() {
 					},
 					noUnusedExpressions: {
 						description:
-							"Disallow expression statements that are neither a function call nor an assignment.\nSee https://biomejs.dev/linter/rules/no-unused-expressions",
+							"Disallow expression statements that are neither a function call nor an assignment.\nSee <https://biomejs.dev/linter/rules/no-unused-expressions>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUnusedExpressionsConfiguration" },
 							{ type: "null" },
@@ -6111,7 +5736,7 @@ export function GET() {
 					},
 					noUselessCatchBinding: {
 						description:
-							"Disallow unused catch bindings.\nSee https://biomejs.dev/linter/rules/no-useless-catch-binding",
+							"Disallow unused catch bindings.\nSee <https://biomejs.dev/linter/rules/no-useless-catch-binding>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUselessCatchBindingConfiguration" },
 							{ type: "null" },
@@ -6119,23 +5744,15 @@ export function GET() {
 					},
 					noUselessUndefined: {
 						description:
-							"Disallow the use of useless undefined.\nSee https://biomejs.dev/linter/rules/no-useless-undefined",
+							"Disallow the use of useless undefined.\nSee <https://biomejs.dev/linter/rules/no-useless-undefined>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUselessUndefinedConfiguration" },
 							{ type: "null" },
 						],
 					},
-					noVueArrowFuncInWatch: {
-						description:
-							"Disallows using arrow functions when defining a watcher.\nSee https://biomejs.dev/linter/rules/no-vue-arrow-func-in-watch",
-						anyOf: [
-							{ $ref: "#/$defs/NoVueArrowFuncInWatchConfiguration" },
-							{ type: "null" },
-						],
-					},
 					noVueDataObjectDeclaration: {
 						description:
-							"Enforce that Vue component data options are declared as functions.\nSee https://biomejs.dev/linter/rules/no-vue-data-object-declaration",
+							"Enforce that Vue component data options are declared as functions.\nSee <https://biomejs.dev/linter/rules/no-vue-data-object-declaration>",
 						anyOf: [
 							{ $ref: "#/$defs/NoVueDataObjectDeclarationConfiguration" },
 							{ type: "null" },
@@ -6143,23 +5760,15 @@ export function GET() {
 					},
 					noVueDuplicateKeys: {
 						description:
-							"Disallow duplicate keys in Vue component data, methods, computed properties, and other options.\nSee https://biomejs.dev/linter/rules/no-vue-duplicate-keys",
+							"Disallow duplicate keys in Vue component data, methods, computed properties, and other options.\nSee <https://biomejs.dev/linter/rules/no-vue-duplicate-keys>",
 						anyOf: [
 							{ $ref: "#/$defs/NoVueDuplicateKeysConfiguration" },
 							{ type: "null" },
 						],
 					},
-					noVueOptionsApi: {
-						description:
-							"Disallow the use of Vue Options API.\nSee https://biomejs.dev/linter/rules/no-vue-options-api",
-						anyOf: [
-							{ $ref: "#/$defs/NoVueOptionsApiConfiguration" },
-							{ type: "null" },
-						],
-					},
 					noVueReservedKeys: {
 						description:
-							"Disallow reserved keys in Vue component data and computed properties.\nSee https://biomejs.dev/linter/rules/no-vue-reserved-keys",
+							"Disallow reserved keys in Vue component data and computed properties.\nSee <https://biomejs.dev/linter/rules/no-vue-reserved-keys>",
 						anyOf: [
 							{ $ref: "#/$defs/NoVueReservedKeysConfiguration" },
 							{ type: "null" },
@@ -6167,7 +5776,7 @@ export function GET() {
 					},
 					noVueReservedProps: {
 						description:
-							"Disallow reserved names to be used as props.\nSee https://biomejs.dev/linter/rules/no-vue-reserved-props",
+							"Disallow reserved names to be used as props.\nSee <https://biomejs.dev/linter/rules/no-vue-reserved-props>",
 						anyOf: [
 							{ $ref: "#/$defs/NoVueReservedPropsConfiguration" },
 							{ type: "null" },
@@ -6175,7 +5784,7 @@ export function GET() {
 					},
 					noVueSetupPropsReactivityLoss: {
 						description:
-							"Disallow destructuring of props passed to setup in Vue projects.\nSee https://biomejs.dev/linter/rules/no-vue-setup-props-reactivity-loss",
+							"Disallow destructuring of props passed to setup in Vue projects.\nSee <https://biomejs.dev/linter/rules/no-vue-setup-props-reactivity-loss>",
 						anyOf: [
 							{ $ref: "#/$defs/NoVueSetupPropsReactivityLossConfiguration" },
 							{ type: "null" },
@@ -6183,7 +5792,7 @@ export function GET() {
 					},
 					noVueVIfWithVFor: {
 						description:
-							"Disallow using v-if and v-for directives on the same element.\nSee https://biomejs.dev/linter/rules/no-vue-v-if-with-v-for",
+							"Disallow using v-if and v-for directives on the same element.\nSee <https://biomejs.dev/linter/rules/no-vue-v-if-with-v-for>",
 						anyOf: [
 							{ $ref: "#/$defs/NoVueVIfWithVForConfiguration" },
 							{ type: "null" },
@@ -6195,7 +5804,7 @@ export function GET() {
 					},
 					useArraySortCompare: {
 						description:
-							"Require Array#sort and Array#toSorted calls to always provide a compareFunction.\nSee https://biomejs.dev/linter/rules/use-array-sort-compare",
+							"Require Array#sort and Array#toSorted calls to always provide a compareFunction.\nSee <https://biomejs.dev/linter/rules/use-array-sort-compare>",
 						anyOf: [
 							{ $ref: "#/$defs/UseArraySortCompareConfiguration" },
 							{ type: "null" },
@@ -6203,7 +5812,7 @@ export function GET() {
 					},
 					useAwaitThenable: {
 						description:
-							"Enforce that await is only used on Promise values.\nSee https://biomejs.dev/linter/rules/use-await-thenable",
+							"Enforce that await is only used on Promise values.\nSee <https://biomejs.dev/linter/rules/use-await-thenable>",
 						anyOf: [
 							{ $ref: "#/$defs/UseAwaitThenableConfiguration" },
 							{ type: "null" },
@@ -6211,39 +5820,23 @@ export function GET() {
 					},
 					useConsistentArrowReturn: {
 						description:
-							"Enforce consistent arrow function bodies.\nSee https://biomejs.dev/linter/rules/use-consistent-arrow-return",
+							"Enforce consistent arrow function bodies.\nSee <https://biomejs.dev/linter/rules/use-consistent-arrow-return>",
 						anyOf: [
 							{ $ref: "#/$defs/UseConsistentArrowReturnConfiguration" },
 							{ type: "null" },
 						],
 					},
-					useConsistentEnumValueType: {
-						description:
-							"Disallow enums from having both number and string members.\nSee https://biomejs.dev/linter/rules/use-consistent-enum-value-type",
-						anyOf: [
-							{ $ref: "#/$defs/UseConsistentEnumValueTypeConfiguration" },
-							{ type: "null" },
-						],
-					},
 					useConsistentGraphqlDescriptions: {
 						description:
-							"Require all descriptions to follow the same style (either block or inline) to  maintain consistency and improve readability across the schema.\nSee https://biomejs.dev/linter/rules/use-consistent-graphql-descriptions",
+							"Require all descriptions to follow the same style (either block or inline) to  maintain consistency and improve readability across the schema.\nSee <https://biomejs.dev/linter/rules/use-consistent-graphql-descriptions>",
 						anyOf: [
 							{ $ref: "#/$defs/UseConsistentGraphqlDescriptionsConfiguration" },
 							{ type: "null" },
 						],
 					},
-					useConsistentMethodSignatures: {
-						description:
-							"Enforce consistent use of either method signatures or function properties within interfaces and type aliases.\nSee https://biomejs.dev/linter/rules/use-consistent-method-signatures",
-						anyOf: [
-							{ $ref: "#/$defs/UseConsistentMethodSignaturesConfiguration" },
-							{ type: "null" },
-						],
-					},
 					useDeprecatedDate: {
 						description:
-							"Require the @deprecated directive to specify a deletion date.\nSee https://biomejs.dev/linter/rules/use-deprecated-date",
+							"Require the @deprecated directive to specify a deletion date.\nSee <https://biomejs.dev/linter/rules/use-deprecated-date>",
 						anyOf: [
 							{ $ref: "#/$defs/UseDeprecatedDateConfiguration" },
 							{ type: "null" },
@@ -6251,23 +5844,15 @@ export function GET() {
 					},
 					useDestructuring: {
 						description:
-							"Require destructuring from arrays and/or objects.\nSee https://biomejs.dev/linter/rules/use-destructuring",
+							"Require destructuring from arrays and/or objects.\nSee <https://biomejs.dev/linter/rules/use-destructuring>",
 						anyOf: [
 							{ $ref: "#/$defs/UseDestructuringConfiguration" },
 							{ type: "null" },
 						],
 					},
-					useErrorCause: {
-						description:
-							"Enforce that new Error() is thrown with the original error as cause.\nSee https://biomejs.dev/linter/rules/use-error-cause",
-						anyOf: [
-							{ $ref: "#/$defs/UseErrorCauseConfiguration" },
-							{ type: "null" },
-						],
-					},
 					useExhaustiveSwitchCases: {
 						description:
-							"Require switch-case statements to be exhaustive.\nSee https://biomejs.dev/linter/rules/use-exhaustive-switch-cases",
+							"Require switch-case statements to be exhaustive.\nSee <https://biomejs.dev/linter/rules/use-exhaustive-switch-cases>",
 						anyOf: [
 							{ $ref: "#/$defs/UseExhaustiveSwitchCasesConfiguration" },
 							{ type: "null" },
@@ -6275,7 +5860,7 @@ export function GET() {
 					},
 					useExplicitType: {
 						description:
-							"Enforce types in functions, methods, variables, and parameters.\nSee https://biomejs.dev/linter/rules/use-explicit-type",
+							"Enforce types in functions, methods, variables, and parameters.\nSee <https://biomejs.dev/linter/rules/use-explicit-type>",
 						anyOf: [
 							{ $ref: "#/$defs/UseExplicitTypeConfiguration" },
 							{ type: "null" },
@@ -6283,52 +5868,12 @@ export function GET() {
 					},
 					useFind: {
 						description:
-							"Enforce the use of Array.prototype.find() over Array.prototype.filter() followed by [0] when looking for a single result.\nSee https://biomejs.dev/linter/rules/use-find",
+							"Enforce the use of Array.prototype.find() over Array.prototype.filter() followed by [0] when looking for a single result.\nSee <https://biomejs.dev/linter/rules/use-find>",
 						anyOf: [{ $ref: "#/$defs/UseFindConfiguration" }, { type: "null" }],
-					},
-					useGlobalThis: {
-						description:
-							"Enforce the use of globalThis over window, self, and global.\nSee https://biomejs.dev/linter/rules/use-global-this",
-						anyOf: [
-							{ $ref: "#/$defs/UseGlobalThisConfiguration" },
-							{ type: "null" },
-						],
-					},
-					useInlineScriptId: {
-						description:
-							"Enforce id attribute on next/script components with inline content or dangerouslySetInnerHTML.\nSee https://biomejs.dev/linter/rules/use-inline-script-id",
-						anyOf: [
-							{ $ref: "#/$defs/UseInlineScriptIdConfiguration" },
-							{ type: "null" },
-						],
-					},
-					useInputName: {
-						description:
-							'Require mutation argument to be always called "input".\nSee https://biomejs.dev/linter/rules/use-input-name',
-						anyOf: [
-							{ $ref: "#/$defs/UseInputNameConfiguration" },
-							{ type: "null" },
-						],
-					},
-					useLoneAnonymousOperation: {
-						description:
-							"Disallow anonymous operations when more than one operation specified in document.\nSee https://biomejs.dev/linter/rules/use-lone-anonymous-operation",
-						anyOf: [
-							{ $ref: "#/$defs/UseLoneAnonymousOperationConfiguration" },
-							{ type: "null" },
-						],
-					},
-					useLoneExecutableDefinition: {
-						description:
-							"Require queries, mutations, subscriptions or fragments each to be located in separate files.\nSee https://biomejs.dev/linter/rules/use-lone-executable-definition",
-						anyOf: [
-							{ $ref: "#/$defs/UseLoneExecutableDefinitionConfiguration" },
-							{ type: "null" },
-						],
 					},
 					useMaxParams: {
 						description:
-							"Enforce a maximum number of parameters in function definitions.\nSee https://biomejs.dev/linter/rules/use-max-params",
+							"Enforce a maximum number of parameters in function definitions.\nSee <https://biomejs.dev/linter/rules/use-max-params>",
 						anyOf: [
 							{ $ref: "#/$defs/UseMaxParamsConfiguration" },
 							{ type: "null" },
@@ -6336,7 +5881,7 @@ export function GET() {
 					},
 					useQwikMethodUsage: {
 						description:
-							"Disallow use* hooks outside of component$ or other use* hooks in Qwik applications.\nSee https://biomejs.dev/linter/rules/use-qwik-method-usage",
+							"Disallow use* hooks outside of component$ or other use* hooks in Qwik applications.\nSee <https://biomejs.dev/linter/rules/use-qwik-method-usage>",
 						anyOf: [
 							{ $ref: "#/$defs/UseQwikMethodUsageConfiguration" },
 							{ type: "null" },
@@ -6344,7 +5889,7 @@ export function GET() {
 					},
 					useQwikValidLexicalScope: {
 						description:
-							"Disallow unserializable expressions in Qwik dollar ($) scopes.\nSee https://biomejs.dev/linter/rules/use-qwik-valid-lexical-scope",
+							"Disallow unserializable expressions in Qwik dollar ($) scopes.\nSee <https://biomejs.dev/linter/rules/use-qwik-valid-lexical-scope>",
 						anyOf: [
 							{ $ref: "#/$defs/UseQwikValidLexicalScopeConfiguration" },
 							{ type: "null" },
@@ -6352,7 +5897,7 @@ export function GET() {
 					},
 					useRegexpExec: {
 						description:
-							"Enforce RegExp#exec over String#match if no global flag is provided.\nSee https://biomejs.dev/linter/rules/use-regexp-exec",
+							"Enforce RegExp#exec over String#match if no global flag is provided.\nSee <https://biomejs.dev/linter/rules/use-regexp-exec>",
 						anyOf: [
 							{ $ref: "#/$defs/UseRegexpExecConfiguration" },
 							{ type: "null" },
@@ -6360,7 +5905,7 @@ export function GET() {
 					},
 					useRequiredScripts: {
 						description:
-							"Enforce the presence of required scripts in package.json.\nSee https://biomejs.dev/linter/rules/use-required-scripts",
+							"Enforce the presence of required scripts in package.json.\nSee <https://biomejs.dev/linter/rules/use-required-scripts>",
 						anyOf: [
 							{ $ref: "#/$defs/UseRequiredScriptsConfiguration" },
 							{ type: "null" },
@@ -6368,7 +5913,7 @@ export function GET() {
 					},
 					useSortedClasses: {
 						description:
-							"Enforce the sorting of CSS utility classes.\nSee https://biomejs.dev/linter/rules/use-sorted-classes",
+							"Enforce the sorting of CSS utility classes.\nSee <https://biomejs.dev/linter/rules/use-sorted-classes>",
 						anyOf: [
 							{ $ref: "#/$defs/UseSortedClassesConfiguration" },
 							{ type: "null" },
@@ -6376,15 +5921,55 @@ export function GET() {
 					},
 					useSpread: {
 						description:
-							"Enforce the use of the spread operator over .apply().\nSee https://biomejs.dev/linter/rules/use-spread",
+							"Enforce the use of the spread operator over .apply().\nSee <https://biomejs.dev/linter/rules/use-spread>",
 						anyOf: [
 							{ $ref: "#/$defs/UseSpreadConfiguration" },
 							{ type: "null" },
 						],
 					},
+					useUniqueArgumentNames: {
+						description:
+							"Require all argument names for fields & directives to be unique.\nSee <https://biomejs.dev/linter/rules/use-unique-argument-names>",
+						anyOf: [
+							{ $ref: "#/$defs/UseUniqueArgumentNamesConfiguration" },
+							{ type: "null" },
+						],
+					},
+					useUniqueFieldDefinitionNames: {
+						description:
+							"Require all fields of a type to be unique.\nSee <https://biomejs.dev/linter/rules/use-unique-field-definition-names>",
+						anyOf: [
+							{ $ref: "#/$defs/UseUniqueFieldDefinitionNamesConfiguration" },
+							{ type: "null" },
+						],
+					},
+					useUniqueGraphqlOperationName: {
+						description:
+							"Enforce unique operation names across a GraphQL document.\nSee <https://biomejs.dev/linter/rules/use-unique-graphql-operation-name>",
+						anyOf: [
+							{ $ref: "#/$defs/UseUniqueGraphqlOperationNameConfiguration" },
+							{ type: "null" },
+						],
+					},
+					useUniqueInputFieldNames: {
+						description:
+							"Require fields within an input object to be unique.\nSee <https://biomejs.dev/linter/rules/use-unique-input-field-names>",
+						anyOf: [
+							{ $ref: "#/$defs/UseUniqueInputFieldNamesConfiguration" },
+							{ type: "null" },
+						],
+					},
+					useUniqueVariableNames: {
+						description:
+							"Require all variable definitions to be unique.\nSee <https://biomejs.dev/linter/rules/use-unique-variable-names>",
+						anyOf: [
+							{ $ref: "#/$defs/UseUniqueVariableNamesConfiguration" },
+							{ type: "null" },
+						],
+					},
 					useVueConsistentDefinePropsDeclaration: {
 						description:
-							"Enforce consistent defineProps declaration style.\nSee https://biomejs.dev/linter/rules/use-vue-consistent-define-props-declaration",
+							"Enforce consistent defineProps declaration style.\nSee <https://biomejs.dev/linter/rules/use-vue-consistent-define-props-declaration>",
 						anyOf: [
 							{
 								$ref: "#/$defs/UseVueConsistentDefinePropsDeclarationConfiguration",
@@ -6394,7 +5979,7 @@ export function GET() {
 					},
 					useVueConsistentVBindStyle: {
 						description:
-							"Enforce a consistent style for v-bind in Vue templates.\nSee https://biomejs.dev/linter/rules/use-vue-consistent-v-bind-style",
+							"Enforce a consistent style for v-bind in Vue templates.\nSee <https://biomejs.dev/linter/rules/use-vue-consistent-v-bind-style>",
 						anyOf: [
 							{ $ref: "#/$defs/UseVueConsistentVBindStyleConfiguration" },
 							{ type: "null" },
@@ -6402,7 +5987,7 @@ export function GET() {
 					},
 					useVueConsistentVOnStyle: {
 						description:
-							"Enforce a consistent style for v-on in Vue templates.\nSee https://biomejs.dev/linter/rules/use-vue-consistent-v-on-style",
+							"Enforce a consistent style for v-on in Vue templates.\nSee <https://biomejs.dev/linter/rules/use-vue-consistent-v-on-style>",
 						anyOf: [
 							{ $ref: "#/$defs/UseVueConsistentVOnStyleConfiguration" },
 							{ type: "null" },
@@ -6410,7 +5995,7 @@ export function GET() {
 					},
 					useVueDefineMacrosOrder: {
 						description:
-							"Enforce specific order of Vue compiler macros.\nSee https://biomejs.dev/linter/rules/use-vue-define-macros-order",
+							"Enforce specific order of Vue compiler macros.\nSee <https://biomejs.dev/linter/rules/use-vue-define-macros-order>",
 						anyOf: [
 							{ $ref: "#/$defs/UseVueDefineMacrosOrderConfiguration" },
 							{ type: "null" },
@@ -6418,7 +6003,7 @@ export function GET() {
 					},
 					useVueHyphenatedAttributes: {
 						description:
-							"Enforce hyphenated (kebab-case) attribute names in Vue templates.\nSee https://biomejs.dev/linter/rules/use-vue-hyphenated-attributes",
+							"Enforce hyphenated (kebab-case) attribute names in Vue templates.\nSee <https://biomejs.dev/linter/rules/use-vue-hyphenated-attributes>",
 						anyOf: [
 							{ $ref: "#/$defs/UseVueHyphenatedAttributesConfiguration" },
 							{ type: "null" },
@@ -6426,7 +6011,7 @@ export function GET() {
 					},
 					useVueMultiWordComponentNames: {
 						description:
-							"Enforce multi-word component names in Vue components.\nSee https://biomejs.dev/linter/rules/use-vue-multi-word-component-names",
+							"Enforce multi-word component names in Vue components.\nSee <https://biomejs.dev/linter/rules/use-vue-multi-word-component-names>",
 						anyOf: [
 							{ $ref: "#/$defs/UseVueMultiWordComponentNamesConfiguration" },
 							{ type: "null" },
@@ -6434,7 +6019,7 @@ export function GET() {
 					},
 					useVueVForKey: {
 						description:
-							"Enforce that elements using v-for also specify a unique key.\nSee https://biomejs.dev/linter/rules/use-vue-v-for-key",
+							"Enforce that elements using v-for also specify a unique key.\nSee <https://biomejs.dev/linter/rules/use-vue-v-for-key>",
 						anyOf: [
 							{ $ref: "#/$defs/UseVueVForKeyConfiguration" },
 							{ type: "null" },
@@ -6442,7 +6027,7 @@ export function GET() {
 					},
 					useVueValidTemplateRoot: {
 						description:
-							"Enforce valid Vue \\<template> root usage.\nSee https://biomejs.dev/linter/rules/use-vue-valid-template-root",
+							"Enforce valid Vue \\<template> root usage.\nSee <https://biomejs.dev/linter/rules/use-vue-valid-template-root>",
 						anyOf: [
 							{ $ref: "#/$defs/UseVueValidTemplateRootConfiguration" },
 							{ type: "null" },
@@ -6450,7 +6035,7 @@ export function GET() {
 					},
 					useVueValidVBind: {
 						description:
-							"Forbids v-bind directives with missing arguments or invalid modifiers.\nSee https://biomejs.dev/linter/rules/use-vue-valid-v-bind",
+							"Forbids v-bind directives with missing arguments or invalid modifiers.\nSee <https://biomejs.dev/linter/rules/use-vue-valid-v-bind>",
 						anyOf: [
 							{ $ref: "#/$defs/UseVueValidVBindConfiguration" },
 							{ type: "null" },
@@ -6458,7 +6043,7 @@ export function GET() {
 					},
 					useVueValidVCloak: {
 						description:
-							"Enforce valid v-cloak Vue directives.\nSee https://biomejs.dev/linter/rules/use-vue-valid-v-cloak",
+							"Enforce valid v-cloak Vue directives.\nSee <https://biomejs.dev/linter/rules/use-vue-valid-v-cloak>",
 						anyOf: [
 							{ $ref: "#/$defs/UseVueValidVCloakConfiguration" },
 							{ type: "null" },
@@ -6466,7 +6051,7 @@ export function GET() {
 					},
 					useVueValidVElse: {
 						description:
-							"Enforce valid usage of v-else.\nSee https://biomejs.dev/linter/rules/use-vue-valid-v-else",
+							"Enforce valid usage of v-else.\nSee <https://biomejs.dev/linter/rules/use-vue-valid-v-else>",
 						anyOf: [
 							{ $ref: "#/$defs/UseVueValidVElseConfiguration" },
 							{ type: "null" },
@@ -6474,7 +6059,7 @@ export function GET() {
 					},
 					useVueValidVElseIf: {
 						description:
-							"Enforce valid v-else-if directives.\nSee https://biomejs.dev/linter/rules/use-vue-valid-v-else-if",
+							"Enforce valid v-else-if directives.\nSee <https://biomejs.dev/linter/rules/use-vue-valid-v-else-if>",
 						anyOf: [
 							{ $ref: "#/$defs/UseVueValidVElseIfConfiguration" },
 							{ type: "null" },
@@ -6482,7 +6067,7 @@ export function GET() {
 					},
 					useVueValidVHtml: {
 						description:
-							"Enforce valid v-html directives.\nSee https://biomejs.dev/linter/rules/use-vue-valid-v-html",
+							"Enforce valid v-html directives.\nSee <https://biomejs.dev/linter/rules/use-vue-valid-v-html>",
 						anyOf: [
 							{ $ref: "#/$defs/UseVueValidVHtmlConfiguration" },
 							{ type: "null" },
@@ -6490,7 +6075,7 @@ export function GET() {
 					},
 					useVueValidVIf: {
 						description:
-							"Enforces valid v-if usage for Vue templates.\nSee https://biomejs.dev/linter/rules/use-vue-valid-v-if",
+							"Enforces valid v-if usage for Vue templates.\nSee <https://biomejs.dev/linter/rules/use-vue-valid-v-if>",
 						anyOf: [
 							{ $ref: "#/$defs/UseVueValidVIfConfiguration" },
 							{ type: "null" },
@@ -6498,7 +6083,7 @@ export function GET() {
 					},
 					useVueValidVOn: {
 						description:
-							"Enforce valid v-on directives with proper arguments, modifiers, and handlers.\nSee https://biomejs.dev/linter/rules/use-vue-valid-v-on",
+							"Enforce valid v-on directives with proper arguments, modifiers, and handlers.\nSee <https://biomejs.dev/linter/rules/use-vue-valid-v-on>",
 						anyOf: [
 							{ $ref: "#/$defs/UseVueValidVOnConfiguration" },
 							{ type: "null" },
@@ -6506,7 +6091,7 @@ export function GET() {
 					},
 					useVueValidVOnce: {
 						description:
-							"Enforce valid v-once Vue directives.\nSee https://biomejs.dev/linter/rules/use-vue-valid-v-once",
+							"Enforce valid v-once Vue directives.\nSee <https://biomejs.dev/linter/rules/use-vue-valid-v-once>",
 						anyOf: [
 							{ $ref: "#/$defs/UseVueValidVOnceConfiguration" },
 							{ type: "null" },
@@ -6514,7 +6099,7 @@ export function GET() {
 					},
 					useVueValidVPre: {
 						description:
-							"Enforce valid v-pre Vue directives.\nSee https://biomejs.dev/linter/rules/use-vue-valid-v-pre",
+							"Enforce valid v-pre Vue directives.\nSee <https://biomejs.dev/linter/rules/use-vue-valid-v-pre>",
 						anyOf: [
 							{ $ref: "#/$defs/UseVueValidVPreConfiguration" },
 							{ type: "null" },
@@ -6522,7 +6107,7 @@ export function GET() {
 					},
 					useVueValidVText: {
 						description:
-							"Enforce valid v-text Vue directives.\nSee https://biomejs.dev/linter/rules/use-vue-valid-v-text",
+							"Enforce valid v-text Vue directives.\nSee <https://biomejs.dev/linter/rules/use-vue-valid-v-text>",
 						anyOf: [
 							{ $ref: "#/$defs/UseVueValidVTextConfiguration" },
 							{ type: "null" },
@@ -6530,7 +6115,7 @@ export function GET() {
 					},
 					useVueVapor: {
 						description:
-							"Enforce opting in to Vue Vapor mode in \\<script setup> blocks.\nSee https://biomejs.dev/linter/rules/use-vue-vapor",
+							"Enforce opting in to Vue Vapor mode in \\<script setup> blocks.\nSee <https://biomejs.dev/linter/rules/use-vue-vapor>",
 						anyOf: [
 							{ $ref: "#/$defs/UseVueVaporConfiguration" },
 							{ type: "null" },
@@ -6819,7 +6404,7 @@ export function GET() {
 				properties: {
 					noAccumulatingSpread: {
 						description:
-							"Disallow the use of spread (...) syntax on accumulators.\nSee https://biomejs.dev/linter/rules/no-accumulating-spread",
+							"Disallow the use of spread (...) syntax on accumulators.\nSee <https://biomejs.dev/linter/rules/no-accumulating-spread>",
 						anyOf: [
 							{ $ref: "#/$defs/NoAccumulatingSpreadConfiguration" },
 							{ type: "null" },
@@ -6827,7 +6412,7 @@ export function GET() {
 					},
 					noAwaitInLoops: {
 						description:
-							"Disallow await inside loops.\nSee https://biomejs.dev/linter/rules/no-await-in-loops",
+							"Disallow await inside loops.\nSee <https://biomejs.dev/linter/rules/no-await-in-loops>",
 						anyOf: [
 							{ $ref: "#/$defs/NoAwaitInLoopsConfiguration" },
 							{ type: "null" },
@@ -6835,7 +6420,7 @@ export function GET() {
 					},
 					noBarrelFile: {
 						description:
-							"Disallow the use of barrel file.\nSee https://biomejs.dev/linter/rules/no-barrel-file",
+							"Disallow the use of barrel file.\nSee <https://biomejs.dev/linter/rules/no-barrel-file>",
 						anyOf: [
 							{ $ref: "#/$defs/NoBarrelFileConfiguration" },
 							{ type: "null" },
@@ -6843,7 +6428,7 @@ export function GET() {
 					},
 					noDelete: {
 						description:
-							"Disallow the use of the delete operator.\nSee https://biomejs.dev/linter/rules/no-delete",
+							"Disallow the use of the delete operator.\nSee <https://biomejs.dev/linter/rules/no-delete>",
 						anyOf: [
 							{ $ref: "#/$defs/NoDeleteConfiguration" },
 							{ type: "null" },
@@ -6851,7 +6436,7 @@ export function GET() {
 					},
 					noDynamicNamespaceImportAccess: {
 						description:
-							"Disallow accessing namespace imports dynamically.\nSee https://biomejs.dev/linter/rules/no-dynamic-namespace-import-access",
+							"Disallow accessing namespace imports dynamically.\nSee <https://biomejs.dev/linter/rules/no-dynamic-namespace-import-access>",
 						anyOf: [
 							{ $ref: "#/$defs/NoDynamicNamespaceImportAccessConfiguration" },
 							{ type: "null" },
@@ -6859,7 +6444,7 @@ export function GET() {
 					},
 					noImgElement: {
 						description:
-							"Prevent usage of \\<img> element in a Next.js project.\nSee https://biomejs.dev/linter/rules/no-img-element",
+							"Prevent usage of \\<img> element in a Next.js project.\nSee <https://biomejs.dev/linter/rules/no-img-element>",
 						anyOf: [
 							{ $ref: "#/$defs/NoImgElementConfiguration" },
 							{ type: "null" },
@@ -6867,7 +6452,7 @@ export function GET() {
 					},
 					noNamespaceImport: {
 						description:
-							"Disallow the use of namespace imports.\nSee https://biomejs.dev/linter/rules/no-namespace-import",
+							"Disallow the use of namespace imports.\nSee <https://biomejs.dev/linter/rules/no-namespace-import>",
 						anyOf: [
 							{ $ref: "#/$defs/NoNamespaceImportConfiguration" },
 							{ type: "null" },
@@ -6875,7 +6460,7 @@ export function GET() {
 					},
 					noReExportAll: {
 						description:
-							"Avoid re-export all.\nSee https://biomejs.dev/linter/rules/no-re-export-all",
+							"Avoid re-export all.\nSee <https://biomejs.dev/linter/rules/no-re-export-all>",
 						anyOf: [
 							{ $ref: "#/$defs/NoReExportAllConfiguration" },
 							{ type: "null" },
@@ -6883,7 +6468,7 @@ export function GET() {
 					},
 					noUnwantedPolyfillio: {
 						description:
-							"Prevent duplicate polyfills from Polyfill.io.\nSee https://biomejs.dev/linter/rules/no-unwanted-polyfillio",
+							"Prevent duplicate polyfills from Polyfill.io.\nSee <https://biomejs.dev/linter/rules/no-unwanted-polyfillio>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUnwantedPolyfillioConfiguration" },
 							{ type: "null" },
@@ -6895,7 +6480,7 @@ export function GET() {
 					},
 					useGoogleFontPreconnect: {
 						description:
-							"Ensure the preconnect attribute is used when using Google Fonts.\nSee https://biomejs.dev/linter/rules/use-google-font-preconnect",
+							"Ensure the preconnect attribute is used when using Google Fonts.\nSee <https://biomejs.dev/linter/rules/use-google-font-preconnect>",
 						anyOf: [
 							{ $ref: "#/$defs/UseGoogleFontPreconnectConfiguration" },
 							{ type: "null" },
@@ -6903,7 +6488,7 @@ export function GET() {
 					},
 					useSolidForComponent: {
 						description:
-							"Enforce using Solid's \\<For /> component for mapping an array to JSX elements.\nSee https://biomejs.dev/linter/rules/use-solid-for-component",
+							"Enforce using Solid's \\<For /> component for mapping an array to JSX elements.\nSee <https://biomejs.dev/linter/rules/use-solid-for-component>",
 						anyOf: [
 							{ $ref: "#/$defs/UseSolidForComponentConfiguration" },
 							{ type: "null" },
@@ -6911,7 +6496,7 @@ export function GET() {
 					},
 					useTopLevelRegex: {
 						description:
-							"Require regex literals to be declared at the top level.\nSee https://biomejs.dev/linter/rules/use-top-level-regex",
+							"Require regex literals to be declared at the top level.\nSee <https://biomejs.dev/linter/rules/use-top-level-regex>",
 						anyOf: [
 							{ $ref: "#/$defs/UseTopLevelRegexConfiguration" },
 							{ type: "null" },
@@ -7501,15 +7086,6 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
-			RuleWithNoDeprecatedMediaTypeOptions: {
-				type: "object",
-				properties: {
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/NoDeprecatedMediaTypeOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
 			RuleWithNoDescendingSpecificityOptions: {
 				type: "object",
 				properties: {
@@ -7525,16 +7101,6 @@ export function GET() {
 					fix: { anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }] },
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/NoDistractingElementsOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
-			RuleWithNoDivRegexOptions: {
-				type: "object",
-				properties: {
-					fix: { anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }] },
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/NoDivRegexOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -7576,29 +7142,11 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
-			RuleWithNoDuplicateArgumentNamesOptions: {
-				type: "object",
-				properties: {
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/NoDuplicateArgumentNamesOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
 			RuleWithNoDuplicateAtImportRulesOptions: {
 				type: "object",
 				properties: {
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/NoDuplicateAtImportRulesOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
-			RuleWithNoDuplicateAttributesOptions: {
-				type: "object",
-				properties: {
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/NoDuplicateAttributesOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -7648,33 +7196,6 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
-			RuleWithNoDuplicateEnumValueNamesOptions: {
-				type: "object",
-				properties: {
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/NoDuplicateEnumValueNamesOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
-			RuleWithNoDuplicateEnumValuesOptions: {
-				type: "object",
-				properties: {
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/NoDuplicateEnumValuesOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
-			RuleWithNoDuplicateFieldDefinitionNamesOptions: {
-				type: "object",
-				properties: {
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/NoDuplicateFieldDefinitionNamesOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
 			RuleWithNoDuplicateFieldsOptions: {
 				type: "object",
 				properties: {
@@ -7689,24 +7210,6 @@ export function GET() {
 				properties: {
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/NoDuplicateFontNamesOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
-			RuleWithNoDuplicateGraphqlOperationNameOptions: {
-				type: "object",
-				properties: {
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/NoDuplicateGraphqlOperationNameOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
-			RuleWithNoDuplicateInputFieldNamesOptions: {
-				type: "object",
-				properties: {
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/NoDuplicateInputFieldNamesOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -7763,15 +7266,6 @@ export function GET() {
 				properties: {
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/NoDuplicateTestHooksOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
-			RuleWithNoDuplicateVariableNamesOptions: {
-				type: "object",
-				properties: {
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/NoDuplicateVariableNamesOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -7886,29 +7380,11 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
-			RuleWithNoExcessiveClassesPerFileOptions: {
-				type: "object",
-				properties: {
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/NoExcessiveClassesPerFileOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
 			RuleWithNoExcessiveCognitiveComplexityOptions: {
 				type: "object",
 				properties: {
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/NoExcessiveCognitiveComplexityOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
-			RuleWithNoExcessiveLinesPerFileOptions: {
-				type: "object",
-				properties: {
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/NoExcessiveLinesPerFileOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -7993,15 +7469,6 @@ export function GET() {
 					fix: { anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }] },
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/NoFlatMapIdentityOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
-			RuleWithNoFloatingClassesOptions: {
-				type: "object",
-				properties: {
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/NoFloatingClassesOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -8134,15 +7601,6 @@ export function GET() {
 					fix: { anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }] },
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/NoHeaderScopeOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
-			RuleWithNoHexColorsOptions: {
-				type: "object",
-				properties: {
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/NoHexColorsOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -8762,15 +8220,6 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
-			RuleWithNoRedundantDefaultExportOptions: {
-				type: "object",
-				properties: {
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/NoRedundantDefaultExportOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
 			RuleWithNoRedundantRolesOptions: {
 				type: "object",
 				properties: {
@@ -8842,15 +8291,6 @@ export function GET() {
 				properties: {
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/NoReturnAssignOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
-			RuleWithNoRootTypeOptions: {
-				type: "object",
-				properties: {
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/NoRootTypeOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -9620,16 +9060,6 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
-			RuleWithNoVueArrowFuncInWatchOptions: {
-				type: "object",
-				properties: {
-					fix: { anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }] },
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/NoVueArrowFuncInWatchOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
 			RuleWithNoVueDataObjectDeclarationOptions: {
 				type: "object",
 				properties: {
@@ -9645,15 +9075,6 @@ export function GET() {
 				properties: {
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/NoVueDuplicateKeysOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
-			RuleWithNoVueOptionsApiOptions: {
-				type: "object",
-				properties: {
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/NoVueOptionsApiOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -9938,15 +9359,6 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
-			RuleWithUseConsistentEnumValueTypeOptions: {
-				type: "object",
-				properties: {
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/UseConsistentEnumValueTypeOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
 			RuleWithUseConsistentGraphqlDescriptionsOptions: {
 				type: "object",
 				properties: {
@@ -9961,15 +9373,6 @@ export function GET() {
 				properties: {
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/UseConsistentMemberAccessibilityOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
-			RuleWithUseConsistentMethodSignaturesOptions: {
-				type: "object",
-				properties: {
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/UseConsistentMethodSignaturesOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -10075,15 +9478,6 @@ export function GET() {
 					fix: { anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }] },
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/UseEnumInitializersOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
-			RuleWithUseErrorCauseOptions: {
-				type: "object",
-				properties: {
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/UseErrorCauseOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -10239,15 +9633,6 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
-			RuleWithUseGlobalThisOptions: {
-				type: "object",
-				properties: {
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/UseGlobalThisOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
 			RuleWithUseGoogleFontDisplayOptions: {
 				type: "object",
 				properties: {
@@ -10379,24 +9764,6 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
-			RuleWithUseInlineScriptIdOptions: {
-				type: "object",
-				properties: {
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/UseInlineScriptIdOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
-			RuleWithUseInputNameOptions: {
-				type: "object",
-				properties: {
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/UseInputNameOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
 			RuleWithUseIsArrayOptions: {
 				type: "object",
 				properties: {
@@ -10478,24 +9845,6 @@ export function GET() {
 					fix: { anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }] },
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/UseLiteralKeysOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
-			RuleWithUseLoneAnonymousOperationOptions: {
-				type: "object",
-				properties: {
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/UseLoneAnonymousOperationOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
-			RuleWithUseLoneExecutableDefinitionOptions: {
-				type: "object",
-				properties: {
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/UseLoneExecutableDefinitionOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -10897,11 +10246,56 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
+			RuleWithUseUniqueArgumentNamesOptions: {
+				type: "object",
+				properties: {
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/UseUniqueArgumentNamesOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
 			RuleWithUseUniqueElementIdsOptions: {
 				type: "object",
 				properties: {
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/UseUniqueElementIdsOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
+			RuleWithUseUniqueFieldDefinitionNamesOptions: {
+				type: "object",
+				properties: {
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/UseUniqueFieldDefinitionNamesOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
+			RuleWithUseUniqueGraphqlOperationNameOptions: {
+				type: "object",
+				properties: {
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/UseUniqueGraphqlOperationNameOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
+			RuleWithUseUniqueInputFieldNamesOptions: {
+				type: "object",
+				properties: {
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/UseUniqueInputFieldNamesOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
+			RuleWithUseUniqueVariableNamesOptions: {
+				type: "object",
+				properties: {
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/UseUniqueVariableNamesOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -11231,7 +10625,7 @@ export function GET() {
 				properties: {
 					noBlankTarget: {
 						description:
-							'Disallow target="_blank" attribute without rel="noopener".\nSee https://biomejs.dev/linter/rules/no-blank-target',
+							'Disallow target="_blank" attribute without rel="noopener".\nSee <https://biomejs.dev/linter/rules/no-blank-target>',
 						anyOf: [
 							{ $ref: "#/$defs/NoBlankTargetConfiguration" },
 							{ type: "null" },
@@ -11239,7 +10633,7 @@ export function GET() {
 					},
 					noDangerouslySetInnerHtml: {
 						description:
-							"Prevent the usage of dangerous JSX props.\nSee https://biomejs.dev/linter/rules/no-dangerously-set-inner-html",
+							"Prevent the usage of dangerous JSX props.\nSee <https://biomejs.dev/linter/rules/no-dangerously-set-inner-html>",
 						anyOf: [
 							{ $ref: "#/$defs/NoDangerouslySetInnerHtmlConfiguration" },
 							{ type: "null" },
@@ -11247,7 +10641,7 @@ export function GET() {
 					},
 					noDangerouslySetInnerHtmlWithChildren: {
 						description:
-							"Report when a DOM element or a component uses both children and dangerouslySetInnerHTML prop.\nSee https://biomejs.dev/linter/rules/no-dangerously-set-inner-html-with-children",
+							"Report when a DOM element or a component uses both children and dangerouslySetInnerHTML prop.\nSee <https://biomejs.dev/linter/rules/no-dangerously-set-inner-html-with-children>",
 						anyOf: [
 							{
 								$ref: "#/$defs/NoDangerouslySetInnerHtmlWithChildrenConfiguration",
@@ -11257,7 +10651,7 @@ export function GET() {
 					},
 					noGlobalEval: {
 						description:
-							"Disallow the use of global eval().\nSee https://biomejs.dev/linter/rules/no-global-eval",
+							"Disallow the use of global eval().\nSee <https://biomejs.dev/linter/rules/no-global-eval>",
 						anyOf: [
 							{ $ref: "#/$defs/NoGlobalEvalConfiguration" },
 							{ type: "null" },
@@ -11265,7 +10659,7 @@ export function GET() {
 					},
 					noSecrets: {
 						description:
-							"Disallow usage of sensitive data such as API keys and tokens.\nSee https://biomejs.dev/linter/rules/no-secrets",
+							"Disallow usage of sensitive data such as API keys and tokens.\nSee <https://biomejs.dev/linter/rules/no-secrets>",
 						anyOf: [
 							{ $ref: "#/$defs/NoSecretsConfiguration" },
 							{ type: "null" },
@@ -11365,7 +10759,7 @@ export function GET() {
 				properties: {
 					organizeImports: {
 						description:
-							"Provides a code action to sort the imports and exports in the file using a built-in or custom order.\nSee https://biomejs.dev/assist/actions/organize-imports",
+							"Provides a code action to sort the imports and exports in the file using a built-in or custom order.\nSee <https://biomejs.dev/assist/actions/organize-imports>",
 						anyOf: [
 							{ $ref: "#/$defs/OrganizeImportsConfiguration" },
 							{ type: "null" },
@@ -11377,7 +10771,7 @@ export function GET() {
 					},
 					useSortedAttributes: {
 						description:
-							"Enforce attribute sorting in JSX elements.\nSee https://biomejs.dev/assist/actions/use-sorted-attributes",
+							"Enforce attribute sorting in JSX elements.\nSee <https://biomejs.dev/assist/actions/use-sorted-attributes>",
 						anyOf: [
 							{ $ref: "#/$defs/UseSortedAttributesConfiguration" },
 							{ type: "null" },
@@ -11385,7 +10779,7 @@ export function GET() {
 					},
 					useSortedKeys: {
 						description:
-							"Sort the keys of a JSON object in natural order.\nSee https://biomejs.dev/assist/actions/use-sorted-keys",
+							"Sort the keys of a JSON object in natural order.\nSee <https://biomejs.dev/assist/actions/use-sorted-keys>",
 						anyOf: [
 							{ $ref: "#/$defs/UseSortedKeysConfiguration" },
 							{ type: "null" },
@@ -11393,7 +10787,7 @@ export function GET() {
 					},
 					useSortedProperties: {
 						description:
-							"Enforce ordering of CSS properties and nested rules.\nSee https://biomejs.dev/assist/actions/use-sorted-properties",
+							"Enforce ordering of CSS properties and nested rules.\nSee <https://biomejs.dev/assist/actions/use-sorted-properties>",
 						anyOf: [
 							{ $ref: "#/$defs/UseSortedPropertiesConfiguration" },
 							{ type: "null" },
@@ -11447,7 +10841,7 @@ export function GET() {
 				properties: {
 					noCommonJs: {
 						description:
-							"Disallow use of CommonJs module system in favor of ESM style imports.\nSee https://biomejs.dev/linter/rules/no-common-js",
+							"Disallow use of CommonJs module system in favor of ESM style imports.\nSee <https://biomejs.dev/linter/rules/no-common-js>",
 						anyOf: [
 							{ $ref: "#/$defs/NoCommonJsConfiguration" },
 							{ type: "null" },
@@ -11455,7 +10849,7 @@ export function GET() {
 					},
 					noDefaultExport: {
 						description:
-							"Disallow default exports.\nSee https://biomejs.dev/linter/rules/no-default-export",
+							"Disallow default exports.\nSee <https://biomejs.dev/linter/rules/no-default-export>",
 						anyOf: [
 							{ $ref: "#/$defs/NoDefaultExportConfiguration" },
 							{ type: "null" },
@@ -11463,7 +10857,7 @@ export function GET() {
 					},
 					noDescendingSpecificity: {
 						description:
-							"Disallow a lower specificity selector from coming after a higher specificity selector.\nSee https://biomejs.dev/linter/rules/no-descending-specificity",
+							"Disallow a lower specificity selector from coming after a higher specificity selector.\nSee <https://biomejs.dev/linter/rules/no-descending-specificity>",
 						anyOf: [
 							{ $ref: "#/$defs/NoDescendingSpecificityConfiguration" },
 							{ type: "null" },
@@ -11471,7 +10865,7 @@ export function GET() {
 					},
 					noDoneCallback: {
 						description:
-							"Disallow using a callback in asynchronous tests and hooks.\nSee https://biomejs.dev/linter/rules/no-done-callback",
+							"Disallow using a callback in asynchronous tests and hooks.\nSee <https://biomejs.dev/linter/rules/no-done-callback>",
 						anyOf: [
 							{ $ref: "#/$defs/NoDoneCallbackConfiguration" },
 							{ type: "null" },
@@ -11479,12 +10873,12 @@ export function GET() {
 					},
 					noEnum: {
 						description:
-							"Disallow TypeScript enum.\nSee https://biomejs.dev/linter/rules/no-enum",
+							"Disallow TypeScript enum.\nSee <https://biomejs.dev/linter/rules/no-enum>",
 						anyOf: [{ $ref: "#/$defs/NoEnumConfiguration" }, { type: "null" }],
 					},
 					noExportedImports: {
 						description:
-							"Disallow exporting an imported variable.\nSee https://biomejs.dev/linter/rules/no-exported-imports",
+							"Disallow exporting an imported variable.\nSee <https://biomejs.dev/linter/rules/no-exported-imports>",
 						anyOf: [
 							{ $ref: "#/$defs/NoExportedImportsConfiguration" },
 							{ type: "null" },
@@ -11492,7 +10886,7 @@ export function GET() {
 					},
 					noHeadElement: {
 						description:
-							"Prevent usage of \\<head> element in a Next.js project.\nSee https://biomejs.dev/linter/rules/no-head-element",
+							"Prevent usage of \\<head> element in a Next.js project.\nSee <https://biomejs.dev/linter/rules/no-head-element>",
 						anyOf: [
 							{ $ref: "#/$defs/NoHeadElementConfiguration" },
 							{ type: "null" },
@@ -11500,7 +10894,7 @@ export function GET() {
 					},
 					noImplicitBoolean: {
 						description:
-							"Disallow implicit true values on JSX boolean attributes.\nSee https://biomejs.dev/linter/rules/no-implicit-boolean",
+							"Disallow implicit true values on JSX boolean attributes.\nSee <https://biomejs.dev/linter/rules/no-implicit-boolean>",
 						anyOf: [
 							{ $ref: "#/$defs/NoImplicitBooleanConfiguration" },
 							{ type: "null" },
@@ -11508,7 +10902,7 @@ export function GET() {
 					},
 					noInferrableTypes: {
 						description:
-							"Disallow type annotations for variables, parameters, and class properties initialized with a literal expression.\nSee https://biomejs.dev/linter/rules/no-inferrable-types",
+							"Disallow type annotations for variables, parameters, and class properties initialized with a literal expression.\nSee <https://biomejs.dev/linter/rules/no-inferrable-types>",
 						anyOf: [
 							{ $ref: "#/$defs/NoInferrableTypesConfiguration" },
 							{ type: "null" },
@@ -11516,7 +10910,7 @@ export function GET() {
 					},
 					noMagicNumbers: {
 						description:
-							'Reports usage of "magic numbers" — numbers used directly instead of being assigned to named constants.\nSee https://biomejs.dev/linter/rules/no-magic-numbers',
+							'Reports usage of "magic numbers" — numbers used directly instead of being assigned to named constants.\nSee <https://biomejs.dev/linter/rules/no-magic-numbers>',
 						anyOf: [
 							{ $ref: "#/$defs/NoMagicNumbersConfiguration" },
 							{ type: "null" },
@@ -11524,7 +10918,7 @@ export function GET() {
 					},
 					noNamespace: {
 						description:
-							"Disallow the use of TypeScript's namespaces.\nSee https://biomejs.dev/linter/rules/no-namespace",
+							"Disallow the use of TypeScript's namespaces.\nSee <https://biomejs.dev/linter/rules/no-namespace>",
 						anyOf: [
 							{ $ref: "#/$defs/NoNamespaceConfiguration" },
 							{ type: "null" },
@@ -11532,7 +10926,7 @@ export function GET() {
 					},
 					noNegationElse: {
 						description:
-							"Disallow negation in the condition of an if statement if it has an else clause.\nSee https://biomejs.dev/linter/rules/no-negation-else",
+							"Disallow negation in the condition of an if statement if it has an else clause.\nSee <https://biomejs.dev/linter/rules/no-negation-else>",
 						anyOf: [
 							{ $ref: "#/$defs/NoNegationElseConfiguration" },
 							{ type: "null" },
@@ -11540,7 +10934,7 @@ export function GET() {
 					},
 					noNestedTernary: {
 						description:
-							"Disallow nested ternary expressions.\nSee https://biomejs.dev/linter/rules/no-nested-ternary",
+							"Disallow nested ternary expressions.\nSee <https://biomejs.dev/linter/rules/no-nested-ternary>",
 						anyOf: [
 							{ $ref: "#/$defs/NoNestedTernaryConfiguration" },
 							{ type: "null" },
@@ -11548,7 +10942,7 @@ export function GET() {
 					},
 					noNonNullAssertion: {
 						description:
-							"Disallow non-null assertions using the ! postfix operator.\nSee https://biomejs.dev/linter/rules/no-non-null-assertion",
+							"Disallow non-null assertions using the ! postfix operator.\nSee <https://biomejs.dev/linter/rules/no-non-null-assertion>",
 						anyOf: [
 							{ $ref: "#/$defs/NoNonNullAssertionConfiguration" },
 							{ type: "null" },
@@ -11556,7 +10950,7 @@ export function GET() {
 					},
 					noParameterAssign: {
 						description:
-							"Disallow reassigning function parameters.\nSee https://biomejs.dev/linter/rules/no-parameter-assign",
+							"Disallow reassigning function parameters.\nSee <https://biomejs.dev/linter/rules/no-parameter-assign>",
 						anyOf: [
 							{ $ref: "#/$defs/NoParameterAssignConfiguration" },
 							{ type: "null" },
@@ -11564,7 +10958,7 @@ export function GET() {
 					},
 					noParameterProperties: {
 						description:
-							"Disallow the use of parameter properties in class constructors.\nSee https://biomejs.dev/linter/rules/no-parameter-properties",
+							"Disallow the use of parameter properties in class constructors.\nSee <https://biomejs.dev/linter/rules/no-parameter-properties>",
 						anyOf: [
 							{ $ref: "#/$defs/NoParameterPropertiesConfiguration" },
 							{ type: "null" },
@@ -11572,7 +10966,7 @@ export function GET() {
 					},
 					noProcessEnv: {
 						description:
-							"Disallow the use of process.env.\nSee https://biomejs.dev/linter/rules/no-process-env",
+							"Disallow the use of process.env.\nSee <https://biomejs.dev/linter/rules/no-process-env>",
 						anyOf: [
 							{ $ref: "#/$defs/NoProcessEnvConfiguration" },
 							{ type: "null" },
@@ -11580,7 +10974,7 @@ export function GET() {
 					},
 					noRestrictedGlobals: {
 						description:
-							"This rule allows you to specify global variable names that you don’t want to use in your application.\nSee https://biomejs.dev/linter/rules/no-restricted-globals",
+							"This rule allows you to specify global variable names that you don’t want to use in your application.\nSee <https://biomejs.dev/linter/rules/no-restricted-globals>",
 						anyOf: [
 							{ $ref: "#/$defs/NoRestrictedGlobalsConfiguration" },
 							{ type: "null" },
@@ -11588,7 +10982,7 @@ export function GET() {
 					},
 					noRestrictedImports: {
 						description:
-							"Disallow specified modules when loaded by import or require.\nSee https://biomejs.dev/linter/rules/no-restricted-imports",
+							"Disallow specified modules when loaded by import or require.\nSee <https://biomejs.dev/linter/rules/no-restricted-imports>",
 						anyOf: [
 							{ $ref: "#/$defs/NoRestrictedImportsConfiguration" },
 							{ type: "null" },
@@ -11596,7 +10990,7 @@ export function GET() {
 					},
 					noRestrictedTypes: {
 						description:
-							"Disallow user defined types.\nSee https://biomejs.dev/linter/rules/no-restricted-types",
+							"Disallow user defined types.\nSee <https://biomejs.dev/linter/rules/no-restricted-types>",
 						anyOf: [
 							{ $ref: "#/$defs/NoRestrictedTypesConfiguration" },
 							{ type: "null" },
@@ -11604,7 +10998,7 @@ export function GET() {
 					},
 					noShoutyConstants: {
 						description:
-							"Disallow the use of constants which its value is the upper-case version of its name.\nSee https://biomejs.dev/linter/rules/no-shouty-constants",
+							"Disallow the use of constants which its value is the upper-case version of its name.\nSee <https://biomejs.dev/linter/rules/no-shouty-constants>",
 						anyOf: [
 							{ $ref: "#/$defs/NoShoutyConstantsConfiguration" },
 							{ type: "null" },
@@ -11612,7 +11006,7 @@ export function GET() {
 					},
 					noSubstr: {
 						description:
-							"Enforce the use of String.slice() over String.substr() and String.substring().\nSee https://biomejs.dev/linter/rules/no-substr",
+							"Enforce the use of String.slice() over String.substr() and String.substring().\nSee <https://biomejs.dev/linter/rules/no-substr>",
 						anyOf: [
 							{ $ref: "#/$defs/NoSubstrConfiguration" },
 							{ type: "null" },
@@ -11620,7 +11014,7 @@ export function GET() {
 					},
 					noUnusedTemplateLiteral: {
 						description:
-							"Disallow template literals if interpolation and special-character handling are not needed.\nSee https://biomejs.dev/linter/rules/no-unused-template-literal",
+							"Disallow template literals if interpolation and special-character handling are not needed.\nSee <https://biomejs.dev/linter/rules/no-unused-template-literal>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUnusedTemplateLiteralConfiguration" },
 							{ type: "null" },
@@ -11628,7 +11022,7 @@ export function GET() {
 					},
 					noUselessElse: {
 						description:
-							"Disallow else block when the if block breaks early.\nSee https://biomejs.dev/linter/rules/no-useless-else",
+							"Disallow else block when the if block breaks early.\nSee <https://biomejs.dev/linter/rules/no-useless-else>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUselessElseConfiguration" },
 							{ type: "null" },
@@ -11636,7 +11030,7 @@ export function GET() {
 					},
 					noValueAtRule: {
 						description:
-							"Disallow use of @value rule in css modules.\nSee https://biomejs.dev/linter/rules/no-value-at-rule",
+							"Disallow use of @value rule in css modules.\nSee <https://biomejs.dev/linter/rules/no-value-at-rule>",
 						anyOf: [
 							{ $ref: "#/$defs/NoValueAtRuleConfiguration" },
 							{ type: "null" },
@@ -11644,7 +11038,7 @@ export function GET() {
 					},
 					noYodaExpression: {
 						description:
-							"Disallow the use of yoda expressions.\nSee https://biomejs.dev/linter/rules/no-yoda-expression",
+							"Disallow the use of yoda expressions.\nSee <https://biomejs.dev/linter/rules/no-yoda-expression>",
 						anyOf: [
 							{ $ref: "#/$defs/NoYodaExpressionConfiguration" },
 							{ type: "null" },
@@ -11656,7 +11050,7 @@ export function GET() {
 					},
 					useArrayLiterals: {
 						description:
-							"Disallow Array constructors.\nSee https://biomejs.dev/linter/rules/use-array-literals",
+							"Disallow Array constructors.\nSee <https://biomejs.dev/linter/rules/use-array-literals>",
 						anyOf: [
 							{ $ref: "#/$defs/UseArrayLiteralsConfiguration" },
 							{ type: "null" },
@@ -11664,7 +11058,7 @@ export function GET() {
 					},
 					useAsConstAssertion: {
 						description:
-							"Enforce the use of as const over literal type and type annotation.\nSee https://biomejs.dev/linter/rules/use-as-const-assertion",
+							"Enforce the use of as const over literal type and type annotation.\nSee <https://biomejs.dev/linter/rules/use-as-const-assertion>",
 						anyOf: [
 							{ $ref: "#/$defs/UseAsConstAssertionConfiguration" },
 							{ type: "null" },
@@ -11672,7 +11066,7 @@ export function GET() {
 					},
 					useAtIndex: {
 						description:
-							"Use at() instead of integer index access.\nSee https://biomejs.dev/linter/rules/use-at-index",
+							"Use at() instead of integer index access.\nSee <https://biomejs.dev/linter/rules/use-at-index>",
 						anyOf: [
 							{ $ref: "#/$defs/UseAtIndexConfiguration" },
 							{ type: "null" },
@@ -11680,7 +11074,7 @@ export function GET() {
 					},
 					useBlockStatements: {
 						description:
-							"Requires following curly brace conventions.\nSee https://biomejs.dev/linter/rules/use-block-statements",
+							"Requires following curly brace conventions.\nSee <https://biomejs.dev/linter/rules/use-block-statements>",
 						anyOf: [
 							{ $ref: "#/$defs/UseBlockStatementsConfiguration" },
 							{ type: "null" },
@@ -11688,7 +11082,7 @@ export function GET() {
 					},
 					useCollapsedElseIf: {
 						description:
-							"Enforce using else if instead of nested if in else clauses.\nSee https://biomejs.dev/linter/rules/use-collapsed-else-if",
+							"Enforce using else if instead of nested if in else clauses.\nSee <https://biomejs.dev/linter/rules/use-collapsed-else-if>",
 						anyOf: [
 							{ $ref: "#/$defs/UseCollapsedElseIfConfiguration" },
 							{ type: "null" },
@@ -11696,7 +11090,7 @@ export function GET() {
 					},
 					useCollapsedIf: {
 						description:
-							"Enforce using single if instead of nested if clauses.\nSee https://biomejs.dev/linter/rules/use-collapsed-if",
+							"Enforce using single if instead of nested if clauses.\nSee <https://biomejs.dev/linter/rules/use-collapsed-if>",
 						anyOf: [
 							{ $ref: "#/$defs/UseCollapsedIfConfiguration" },
 							{ type: "null" },
@@ -11704,7 +11098,7 @@ export function GET() {
 					},
 					useComponentExportOnlyModules: {
 						description:
-							"Enforce declaring components only within modules that export React Components exclusively.\nSee https://biomejs.dev/linter/rules/use-component-export-only-modules",
+							"Enforce declaring components only within modules that export React Components exclusively.\nSee <https://biomejs.dev/linter/rules/use-component-export-only-modules>",
 						anyOf: [
 							{ $ref: "#/$defs/UseComponentExportOnlyModulesConfiguration" },
 							{ type: "null" },
@@ -11712,7 +11106,7 @@ export function GET() {
 					},
 					useConsistentArrayType: {
 						description:
-							"Require consistently using either T\\[] or Array\\<T>.\nSee https://biomejs.dev/linter/rules/use-consistent-array-type",
+							"Require consistently using either T\\[] or Array\\<T>.\nSee <https://biomejs.dev/linter/rules/use-consistent-array-type>",
 						anyOf: [
 							{ $ref: "#/$defs/UseConsistentArrayTypeConfiguration" },
 							{ type: "null" },
@@ -11720,7 +11114,7 @@ export function GET() {
 					},
 					useConsistentBuiltinInstantiation: {
 						description:
-							"Enforce the use of new for all builtins, except String, Number and Boolean.\nSee https://biomejs.dev/linter/rules/use-consistent-builtin-instantiation",
+							"Enforce the use of new for all builtins, except String, Number and Boolean.\nSee <https://biomejs.dev/linter/rules/use-consistent-builtin-instantiation>",
 						anyOf: [
 							{
 								$ref: "#/$defs/UseConsistentBuiltinInstantiationConfiguration",
@@ -11730,7 +11124,7 @@ export function GET() {
 					},
 					useConsistentCurlyBraces: {
 						description:
-							"This rule enforces consistent use of curly braces inside JSX attributes and JSX children.\nSee https://biomejs.dev/linter/rules/use-consistent-curly-braces",
+							"This rule enforces consistent use of curly braces inside JSX attributes and JSX children.\nSee <https://biomejs.dev/linter/rules/use-consistent-curly-braces>",
 						anyOf: [
 							{ $ref: "#/$defs/UseConsistentCurlyBracesConfiguration" },
 							{ type: "null" },
@@ -11738,7 +11132,7 @@ export function GET() {
 					},
 					useConsistentMemberAccessibility: {
 						description:
-							"Require consistent accessibility modifiers on class properties and methods.\nSee https://biomejs.dev/linter/rules/use-consistent-member-accessibility",
+							"Require consistent accessibility modifiers on class properties and methods.\nSee <https://biomejs.dev/linter/rules/use-consistent-member-accessibility>",
 						anyOf: [
 							{ $ref: "#/$defs/UseConsistentMemberAccessibilityConfiguration" },
 							{ type: "null" },
@@ -11746,7 +11140,7 @@ export function GET() {
 					},
 					useConsistentObjectDefinitions: {
 						description:
-							"Require the consistent declaration of object literals. Defaults to explicit definitions.\nSee https://biomejs.dev/linter/rules/use-consistent-object-definitions",
+							"Require the consistent declaration of object literals. Defaults to explicit definitions.\nSee <https://biomejs.dev/linter/rules/use-consistent-object-definitions>",
 						anyOf: [
 							{ $ref: "#/$defs/UseConsistentObjectDefinitionsConfiguration" },
 							{ type: "null" },
@@ -11754,7 +11148,7 @@ export function GET() {
 					},
 					useConsistentTypeDefinitions: {
 						description:
-							"Enforce type definitions to consistently use either interface or type.\nSee https://biomejs.dev/linter/rules/use-consistent-type-definitions",
+							"Enforce type definitions to consistently use either interface or type.\nSee <https://biomejs.dev/linter/rules/use-consistent-type-definitions>",
 						anyOf: [
 							{ $ref: "#/$defs/UseConsistentTypeDefinitionsConfiguration" },
 							{ type: "null" },
@@ -11762,7 +11156,7 @@ export function GET() {
 					},
 					useConst: {
 						description:
-							"Require const declarations for variables that are only assigned once.\nSee https://biomejs.dev/linter/rules/use-const",
+							"Require const declarations for variables that are only assigned once.\nSee <https://biomejs.dev/linter/rules/use-const>",
 						anyOf: [
 							{ $ref: "#/$defs/UseConstConfiguration" },
 							{ type: "null" },
@@ -11770,7 +11164,7 @@ export function GET() {
 					},
 					useDefaultParameterLast: {
 						description:
-							"Enforce default function parameters and optional function parameters to be last.\nSee https://biomejs.dev/linter/rules/use-default-parameter-last",
+							"Enforce default function parameters and optional function parameters to be last.\nSee <https://biomejs.dev/linter/rules/use-default-parameter-last>",
 						anyOf: [
 							{ $ref: "#/$defs/UseDefaultParameterLastConfiguration" },
 							{ type: "null" },
@@ -11778,7 +11172,7 @@ export function GET() {
 					},
 					useDefaultSwitchClause: {
 						description:
-							"Require the default clause in switch statements.\nSee https://biomejs.dev/linter/rules/use-default-switch-clause",
+							"Require the default clause in switch statements.\nSee <https://biomejs.dev/linter/rules/use-default-switch-clause>",
 						anyOf: [
 							{ $ref: "#/$defs/UseDefaultSwitchClauseConfiguration" },
 							{ type: "null" },
@@ -11786,7 +11180,7 @@ export function GET() {
 					},
 					useDeprecatedReason: {
 						description:
-							"Require specifying the reason argument when using @deprecated directive.\nSee https://biomejs.dev/linter/rules/use-deprecated-reason",
+							"Require specifying the reason argument when using @deprecated directive.\nSee <https://biomejs.dev/linter/rules/use-deprecated-reason>",
 						anyOf: [
 							{ $ref: "#/$defs/UseDeprecatedReasonConfiguration" },
 							{ type: "null" },
@@ -11794,7 +11188,7 @@ export function GET() {
 					},
 					useEnumInitializers: {
 						description:
-							"Require that each enum member value be explicitly initialized.\nSee https://biomejs.dev/linter/rules/use-enum-initializers",
+							"Require that each enum member value be explicitly initialized.\nSee <https://biomejs.dev/linter/rules/use-enum-initializers>",
 						anyOf: [
 							{ $ref: "#/$defs/UseEnumInitializersConfiguration" },
 							{ type: "null" },
@@ -11802,7 +11196,7 @@ export function GET() {
 					},
 					useExplicitLengthCheck: {
 						description:
-							"Enforce explicitly comparing the length, size, byteLength or byteOffset property of a value.\nSee https://biomejs.dev/linter/rules/use-explicit-length-check",
+							"Enforce explicitly comparing the length, size, byteLength or byteOffset property of a value.\nSee <https://biomejs.dev/linter/rules/use-explicit-length-check>",
 						anyOf: [
 							{ $ref: "#/$defs/UseExplicitLengthCheckConfiguration" },
 							{ type: "null" },
@@ -11810,7 +11204,7 @@ export function GET() {
 					},
 					useExponentiationOperator: {
 						description:
-							"Disallow the use of Math.pow in favor of the ** operator.\nSee https://biomejs.dev/linter/rules/use-exponentiation-operator",
+							"Disallow the use of Math.pow in favor of the ** operator.\nSee <https://biomejs.dev/linter/rules/use-exponentiation-operator>",
 						anyOf: [
 							{ $ref: "#/$defs/UseExponentiationOperatorConfiguration" },
 							{ type: "null" },
@@ -11818,7 +11212,7 @@ export function GET() {
 					},
 					useExportType: {
 						description:
-							"Promotes the use of export type for types.\nSee https://biomejs.dev/linter/rules/use-export-type",
+							"Promotes the use of export type for types.\nSee <https://biomejs.dev/linter/rules/use-export-type>",
 						anyOf: [
 							{ $ref: "#/$defs/UseExportTypeConfiguration" },
 							{ type: "null" },
@@ -11826,7 +11220,7 @@ export function GET() {
 					},
 					useExportsLast: {
 						description:
-							"Require that all exports are declared after all non-export statements.\nSee https://biomejs.dev/linter/rules/use-exports-last",
+							"Require that all exports are declared after all non-export statements.\nSee <https://biomejs.dev/linter/rules/use-exports-last>",
 						anyOf: [
 							{ $ref: "#/$defs/UseExportsLastConfiguration" },
 							{ type: "null" },
@@ -11834,7 +11228,7 @@ export function GET() {
 					},
 					useFilenamingConvention: {
 						description:
-							"Enforce naming conventions for JavaScript and TypeScript filenames.\nSee https://biomejs.dev/linter/rules/use-filenaming-convention",
+							"Enforce naming conventions for JavaScript and TypeScript filenames.\nSee <https://biomejs.dev/linter/rules/use-filenaming-convention>",
 						anyOf: [
 							{ $ref: "#/$defs/UseFilenamingConventionConfiguration" },
 							{ type: "null" },
@@ -11842,7 +11236,7 @@ export function GET() {
 					},
 					useForOf: {
 						description:
-							"Prefer using for...of loops over standard for loops where possible.\nSee https://biomejs.dev/linter/rules/use-for-of",
+							"Prefer using for...of loops over standard for loops where possible.\nSee <https://biomejs.dev/linter/rules/use-for-of>",
 						anyOf: [
 							{ $ref: "#/$defs/UseForOfConfiguration" },
 							{ type: "null" },
@@ -11850,7 +11244,7 @@ export function GET() {
 					},
 					useFragmentSyntax: {
 						description:
-							"This rule enforces the use of \\<>...\\</> over \\<Fragment>...\\</Fragment>.\nSee https://biomejs.dev/linter/rules/use-fragment-syntax",
+							"This rule enforces the use of \\<>...\\</> over \\<Fragment>...\\</Fragment>.\nSee <https://biomejs.dev/linter/rules/use-fragment-syntax>",
 						anyOf: [
 							{ $ref: "#/$defs/UseFragmentSyntaxConfiguration" },
 							{ type: "null" },
@@ -11858,7 +11252,7 @@ export function GET() {
 					},
 					useGraphqlNamingConvention: {
 						description:
-							"Validates that all enum values are capitalized.\nSee https://biomejs.dev/linter/rules/use-graphql-naming-convention",
+							"Validates that all enum values are capitalized.\nSee <https://biomejs.dev/linter/rules/use-graphql-naming-convention>",
 						anyOf: [
 							{ $ref: "#/$defs/UseGraphqlNamingConventionConfiguration" },
 							{ type: "null" },
@@ -11866,7 +11260,7 @@ export function GET() {
 					},
 					useGroupedAccessorPairs: {
 						description:
-							"Enforce that getters and setters for the same property are adjacent in class and object definitions.\nSee https://biomejs.dev/linter/rules/use-grouped-accessor-pairs",
+							"Enforce that getters and setters for the same property are adjacent in class and object definitions.\nSee <https://biomejs.dev/linter/rules/use-grouped-accessor-pairs>",
 						anyOf: [
 							{ $ref: "#/$defs/UseGroupedAccessorPairsConfiguration" },
 							{ type: "null" },
@@ -11874,7 +11268,7 @@ export function GET() {
 					},
 					useImportType: {
 						description:
-							"Promotes the use of import type for types.\nSee https://biomejs.dev/linter/rules/use-import-type",
+							"Promotes the use of import type for types.\nSee <https://biomejs.dev/linter/rules/use-import-type>",
 						anyOf: [
 							{ $ref: "#/$defs/UseImportTypeConfiguration" },
 							{ type: "null" },
@@ -11882,7 +11276,7 @@ export function GET() {
 					},
 					useLiteralEnumMembers: {
 						description:
-							"Require all enum members to be literal values.\nSee https://biomejs.dev/linter/rules/use-literal-enum-members",
+							"Require all enum members to be literal values.\nSee <https://biomejs.dev/linter/rules/use-literal-enum-members>",
 						anyOf: [
 							{ $ref: "#/$defs/UseLiteralEnumMembersConfiguration" },
 							{ type: "null" },
@@ -11890,7 +11284,7 @@ export function GET() {
 					},
 					useNamingConvention: {
 						description:
-							"Enforce naming conventions for everything across a codebase.\nSee https://biomejs.dev/linter/rules/use-naming-convention",
+							"Enforce naming conventions for everything across a codebase.\nSee <https://biomejs.dev/linter/rules/use-naming-convention>",
 						anyOf: [
 							{ $ref: "#/$defs/UseNamingConventionConfiguration" },
 							{ type: "null" },
@@ -11898,7 +11292,7 @@ export function GET() {
 					},
 					useNodeAssertStrict: {
 						description:
-							"Promotes the usage of node:assert/strict over node:assert.\nSee https://biomejs.dev/linter/rules/use-node-assert-strict",
+							"Promotes the usage of node:assert/strict over node:assert.\nSee <https://biomejs.dev/linter/rules/use-node-assert-strict>",
 						anyOf: [
 							{ $ref: "#/$defs/UseNodeAssertStrictConfiguration" },
 							{ type: "null" },
@@ -11906,7 +11300,7 @@ export function GET() {
 					},
 					useNodejsImportProtocol: {
 						description:
-							"Enforces using the node: protocol for Node.js builtin modules.\nSee https://biomejs.dev/linter/rules/use-nodejs-import-protocol",
+							"Enforces using the node: protocol for Node.js builtin modules.\nSee <https://biomejs.dev/linter/rules/use-nodejs-import-protocol>",
 						anyOf: [
 							{ $ref: "#/$defs/UseNodejsImportProtocolConfiguration" },
 							{ type: "null" },
@@ -11914,7 +11308,7 @@ export function GET() {
 					},
 					useNumberNamespace: {
 						description:
-							"Use the Number properties instead of global ones.\nSee https://biomejs.dev/linter/rules/use-number-namespace",
+							"Use the Number properties instead of global ones.\nSee <https://biomejs.dev/linter/rules/use-number-namespace>",
 						anyOf: [
 							{ $ref: "#/$defs/UseNumberNamespaceConfiguration" },
 							{ type: "null" },
@@ -11922,7 +11316,7 @@ export function GET() {
 					},
 					useNumericSeparators: {
 						description:
-							"Enforce the use of numeric separators in numeric literals.\nSee https://biomejs.dev/linter/rules/use-numeric-separators",
+							"Enforce the use of numeric separators in numeric literals.\nSee <https://biomejs.dev/linter/rules/use-numeric-separators>",
 						anyOf: [
 							{ $ref: "#/$defs/UseNumericSeparatorsConfiguration" },
 							{ type: "null" },
@@ -11930,7 +11324,7 @@ export function GET() {
 					},
 					useObjectSpread: {
 						description:
-							"Prefer object spread over Object.assign() when constructing new objects.\nSee https://biomejs.dev/linter/rules/use-object-spread",
+							"Prefer object spread over Object.assign() when constructing new objects.\nSee <https://biomejs.dev/linter/rules/use-object-spread>",
 						anyOf: [
 							{ $ref: "#/$defs/UseObjectSpreadConfiguration" },
 							{ type: "null" },
@@ -11938,7 +11332,7 @@ export function GET() {
 					},
 					useReactFunctionComponents: {
 						description:
-							"Enforce that components are defined as functions and never as classes.\nSee https://biomejs.dev/linter/rules/use-react-function-components",
+							"Enforce that components are defined as functions and never as classes.\nSee <https://biomejs.dev/linter/rules/use-react-function-components>",
 						anyOf: [
 							{ $ref: "#/$defs/UseReactFunctionComponentsConfiguration" },
 							{ type: "null" },
@@ -11946,7 +11340,7 @@ export function GET() {
 					},
 					useReadonlyClassProperties: {
 						description:
-							"Enforce marking members as readonly if they are never modified outside the constructor.\nSee https://biomejs.dev/linter/rules/use-readonly-class-properties",
+							"Enforce marking members as readonly if they are never modified outside the constructor.\nSee <https://biomejs.dev/linter/rules/use-readonly-class-properties>",
 						anyOf: [
 							{ $ref: "#/$defs/UseReadonlyClassPropertiesConfiguration" },
 							{ type: "null" },
@@ -11954,7 +11348,7 @@ export function GET() {
 					},
 					useSelfClosingElements: {
 						description:
-							"Prevent extra closing tags for components without children.\nSee https://biomejs.dev/linter/rules/use-self-closing-elements",
+							"Prevent extra closing tags for components without children.\nSee <https://biomejs.dev/linter/rules/use-self-closing-elements>",
 						anyOf: [
 							{ $ref: "#/$defs/UseSelfClosingElementsConfiguration" },
 							{ type: "null" },
@@ -11962,7 +11356,7 @@ export function GET() {
 					},
 					useShorthandAssign: {
 						description:
-							"Require assignment operator shorthand where possible.\nSee https://biomejs.dev/linter/rules/use-shorthand-assign",
+							"Require assignment operator shorthand where possible.\nSee <https://biomejs.dev/linter/rules/use-shorthand-assign>",
 						anyOf: [
 							{ $ref: "#/$defs/UseShorthandAssignConfiguration" },
 							{ type: "null" },
@@ -11970,7 +11364,7 @@ export function GET() {
 					},
 					useShorthandFunctionType: {
 						description:
-							"Enforce using function types instead of object type with call signatures.\nSee https://biomejs.dev/linter/rules/use-shorthand-function-type",
+							"Enforce using function types instead of object type with call signatures.\nSee <https://biomejs.dev/linter/rules/use-shorthand-function-type>",
 						anyOf: [
 							{ $ref: "#/$defs/UseShorthandFunctionTypeConfiguration" },
 							{ type: "null" },
@@ -11978,7 +11372,7 @@ export function GET() {
 					},
 					useSingleVarDeclarator: {
 						description:
-							"Disallow multiple variable declarations in the same variable statement.\nSee https://biomejs.dev/linter/rules/use-single-var-declarator",
+							"Disallow multiple variable declarations in the same variable statement.\nSee <https://biomejs.dev/linter/rules/use-single-var-declarator>",
 						anyOf: [
 							{ $ref: "#/$defs/UseSingleVarDeclaratorConfiguration" },
 							{ type: "null" },
@@ -11986,7 +11380,7 @@ export function GET() {
 					},
 					useSymbolDescription: {
 						description:
-							"Require a description parameter for the Symbol().\nSee https://biomejs.dev/linter/rules/use-symbol-description",
+							"Require a description parameter for the Symbol().\nSee <https://biomejs.dev/linter/rules/use-symbol-description>",
 						anyOf: [
 							{ $ref: "#/$defs/UseSymbolDescriptionConfiguration" },
 							{ type: "null" },
@@ -11994,7 +11388,7 @@ export function GET() {
 					},
 					useTemplate: {
 						description:
-							"Prefer template literals over string concatenation.\nSee https://biomejs.dev/linter/rules/use-template",
+							"Prefer template literals over string concatenation.\nSee <https://biomejs.dev/linter/rules/use-template>",
 						anyOf: [
 							{ $ref: "#/$defs/UseTemplateConfiguration" },
 							{ type: "null" },
@@ -12002,7 +11396,7 @@ export function GET() {
 					},
 					useThrowNewError: {
 						description:
-							"Require new when throwing an error.\nSee https://biomejs.dev/linter/rules/use-throw-new-error",
+							"Require new when throwing an error.\nSee <https://biomejs.dev/linter/rules/use-throw-new-error>",
 						anyOf: [
 							{ $ref: "#/$defs/UseThrowNewErrorConfiguration" },
 							{ type: "null" },
@@ -12010,7 +11404,7 @@ export function GET() {
 					},
 					useThrowOnlyError: {
 						description:
-							"Disallow throwing non-Error values.\nSee https://biomejs.dev/linter/rules/use-throw-only-error",
+							"Disallow throwing non-Error values.\nSee <https://biomejs.dev/linter/rules/use-throw-only-error>",
 						anyOf: [
 							{ $ref: "#/$defs/UseThrowOnlyErrorConfiguration" },
 							{ type: "null" },
@@ -12018,7 +11412,7 @@ export function GET() {
 					},
 					useTrimStartEnd: {
 						description:
-							"Enforce the use of String.trimStart() and String.trimEnd() over String.trimLeft() and String.trimRight().\nSee https://biomejs.dev/linter/rules/use-trim-start-end",
+							"Enforce the use of String.trimStart() and String.trimEnd() over String.trimLeft() and String.trimRight().\nSee <https://biomejs.dev/linter/rules/use-trim-start-end>",
 						anyOf: [
 							{ $ref: "#/$defs/UseTrimStartEndConfiguration" },
 							{ type: "null" },
@@ -12026,7 +11420,7 @@ export function GET() {
 					},
 					useUnifiedTypeSignatures: {
 						description:
-							"Disallow overload signatures that can be unified into a single signature.\nSee https://biomejs.dev/linter/rules/use-unified-type-signatures",
+							"Disallow overload signatures that can be unified into a single signature.\nSee <https://biomejs.dev/linter/rules/use-unified-type-signatures>",
 						anyOf: [
 							{ $ref: "#/$defs/UseUnifiedTypeSignaturesConfiguration" },
 							{ type: "null" },
@@ -12041,12 +11435,12 @@ export function GET() {
 				properties: {
 					noAlert: {
 						description:
-							"Disallow the use of alert, confirm, and prompt.\nSee https://biomejs.dev/linter/rules/no-alert",
+							"Disallow the use of alert, confirm, and prompt.\nSee <https://biomejs.dev/linter/rules/no-alert>",
 						anyOf: [{ $ref: "#/$defs/NoAlertConfiguration" }, { type: "null" }],
 					},
 					noApproximativeNumericConstant: {
 						description:
-							"Use standard constants instead of approximated literals.\nSee https://biomejs.dev/linter/rules/no-approximative-numeric-constant",
+							"Use standard constants instead of approximated literals.\nSee <https://biomejs.dev/linter/rules/no-approximative-numeric-constant>",
 						anyOf: [
 							{ $ref: "#/$defs/NoApproximativeNumericConstantConfiguration" },
 							{ type: "null" },
@@ -12054,7 +11448,7 @@ export function GET() {
 					},
 					noArrayIndexKey: {
 						description:
-							"Discourage the usage of Array index in keys.\nSee https://biomejs.dev/linter/rules/no-array-index-key",
+							"Discourage the usage of Array index in keys.\nSee <https://biomejs.dev/linter/rules/no-array-index-key>",
 						anyOf: [
 							{ $ref: "#/$defs/NoArrayIndexKeyConfiguration" },
 							{ type: "null" },
@@ -12062,7 +11456,7 @@ export function GET() {
 					},
 					noAssignInExpressions: {
 						description:
-							"Disallow assignments in expressions.\nSee https://biomejs.dev/linter/rules/no-assign-in-expressions",
+							"Disallow assignments in expressions.\nSee <https://biomejs.dev/linter/rules/no-assign-in-expressions>",
 						anyOf: [
 							{ $ref: "#/$defs/NoAssignInExpressionsConfiguration" },
 							{ type: "null" },
@@ -12070,7 +11464,7 @@ export function GET() {
 					},
 					noAsyncPromiseExecutor: {
 						description:
-							"Disallows using an async function as a Promise executor.\nSee https://biomejs.dev/linter/rules/no-async-promise-executor",
+							"Disallows using an async function as a Promise executor.\nSee <https://biomejs.dev/linter/rules/no-async-promise-executor>",
 						anyOf: [
 							{ $ref: "#/$defs/NoAsyncPromiseExecutorConfiguration" },
 							{ type: "null" },
@@ -12078,7 +11472,7 @@ export function GET() {
 					},
 					noBiomeFirstException: {
 						description:
-							"Prevents the misuse of glob patterns inside the files.includes field.\nSee https://biomejs.dev/linter/rules/no-biome-first-exception",
+							"Prevents the misuse of glob patterns inside the files.includes field.\nSee <https://biomejs.dev/linter/rules/no-biome-first-exception>",
 						anyOf: [
 							{ $ref: "#/$defs/NoBiomeFirstExceptionConfiguration" },
 							{ type: "null" },
@@ -12086,7 +11480,7 @@ export function GET() {
 					},
 					noBitwiseOperators: {
 						description:
-							"Disallow bitwise operators.\nSee https://biomejs.dev/linter/rules/no-bitwise-operators",
+							"Disallow bitwise operators.\nSee <https://biomejs.dev/linter/rules/no-bitwise-operators>",
 						anyOf: [
 							{ $ref: "#/$defs/NoBitwiseOperatorsConfiguration" },
 							{ type: "null" },
@@ -12094,7 +11488,7 @@ export function GET() {
 					},
 					noCatchAssign: {
 						description:
-							"Disallow reassigning exceptions in catch clauses.\nSee https://biomejs.dev/linter/rules/no-catch-assign",
+							"Disallow reassigning exceptions in catch clauses.\nSee <https://biomejs.dev/linter/rules/no-catch-assign>",
 						anyOf: [
 							{ $ref: "#/$defs/NoCatchAssignConfiguration" },
 							{ type: "null" },
@@ -12102,7 +11496,7 @@ export function GET() {
 					},
 					noClassAssign: {
 						description:
-							"Disallow reassigning class members.\nSee https://biomejs.dev/linter/rules/no-class-assign",
+							"Disallow reassigning class members.\nSee <https://biomejs.dev/linter/rules/no-class-assign>",
 						anyOf: [
 							{ $ref: "#/$defs/NoClassAssignConfiguration" },
 							{ type: "null" },
@@ -12110,7 +11504,7 @@ export function GET() {
 					},
 					noCommentText: {
 						description:
-							"Prevent comments from being inserted as text nodes.\nSee https://biomejs.dev/linter/rules/no-comment-text",
+							"Prevent comments from being inserted as text nodes.\nSee <https://biomejs.dev/linter/rules/no-comment-text>",
 						anyOf: [
 							{ $ref: "#/$defs/NoCommentTextConfiguration" },
 							{ type: "null" },
@@ -12118,7 +11512,7 @@ export function GET() {
 					},
 					noCompareNegZero: {
 						description:
-							"Disallow comparing against -0.\nSee https://biomejs.dev/linter/rules/no-compare-neg-zero",
+							"Disallow comparing against -0.\nSee <https://biomejs.dev/linter/rules/no-compare-neg-zero>",
 						anyOf: [
 							{ $ref: "#/$defs/NoCompareNegZeroConfiguration" },
 							{ type: "null" },
@@ -12126,7 +11520,7 @@ export function GET() {
 					},
 					noConfusingLabels: {
 						description:
-							"Disallow labeled statements that are not loops.\nSee https://biomejs.dev/linter/rules/no-confusing-labels",
+							"Disallow labeled statements that are not loops.\nSee <https://biomejs.dev/linter/rules/no-confusing-labels>",
 						anyOf: [
 							{ $ref: "#/$defs/NoConfusingLabelsConfiguration" },
 							{ type: "null" },
@@ -12134,7 +11528,7 @@ export function GET() {
 					},
 					noConfusingVoidType: {
 						description:
-							"Disallow void type outside of generic or return types.\nSee https://biomejs.dev/linter/rules/no-confusing-void-type",
+							"Disallow void type outside of generic or return types.\nSee <https://biomejs.dev/linter/rules/no-confusing-void-type>",
 						anyOf: [
 							{ $ref: "#/$defs/NoConfusingVoidTypeConfiguration" },
 							{ type: "null" },
@@ -12142,7 +11536,7 @@ export function GET() {
 					},
 					noConsole: {
 						description:
-							"Disallow the use of console.\nSee https://biomejs.dev/linter/rules/no-console",
+							"Disallow the use of console.\nSee <https://biomejs.dev/linter/rules/no-console>",
 						anyOf: [
 							{ $ref: "#/$defs/NoConsoleConfiguration" },
 							{ type: "null" },
@@ -12150,7 +11544,7 @@ export function GET() {
 					},
 					noConstEnum: {
 						description:
-							"Disallow TypeScript const enum.\nSee https://biomejs.dev/linter/rules/no-const-enum",
+							"Disallow TypeScript const enum.\nSee <https://biomejs.dev/linter/rules/no-const-enum>",
 						anyOf: [
 							{ $ref: "#/$defs/NoConstEnumConfiguration" },
 							{ type: "null" },
@@ -12158,7 +11552,7 @@ export function GET() {
 					},
 					noConstantBinaryExpressions: {
 						description:
-							"Disallow expressions where the operation doesn't affect the value.\nSee https://biomejs.dev/linter/rules/no-constant-binary-expressions",
+							"Disallow expressions where the operation doesn't affect the value.\nSee <https://biomejs.dev/linter/rules/no-constant-binary-expressions>",
 						anyOf: [
 							{ $ref: "#/$defs/NoConstantBinaryExpressionsConfiguration" },
 							{ type: "null" },
@@ -12166,7 +11560,7 @@ export function GET() {
 					},
 					noControlCharactersInRegex: {
 						description:
-							"Prevents from having control characters and some escape sequences that match control characters in regular expression literals.\nSee https://biomejs.dev/linter/rules/no-control-characters-in-regex",
+							"Prevents from having control characters and some escape sequences that match control characters in regular expression literals.\nSee <https://biomejs.dev/linter/rules/no-control-characters-in-regex>",
 						anyOf: [
 							{ $ref: "#/$defs/NoControlCharactersInRegexConfiguration" },
 							{ type: "null" },
@@ -12174,7 +11568,7 @@ export function GET() {
 					},
 					noDebugger: {
 						description:
-							"Disallow the use of debugger.\nSee https://biomejs.dev/linter/rules/no-debugger",
+							"Disallow the use of debugger.\nSee <https://biomejs.dev/linter/rules/no-debugger>",
 						anyOf: [
 							{ $ref: "#/$defs/NoDebuggerConfiguration" },
 							{ type: "null" },
@@ -12182,7 +11576,7 @@ export function GET() {
 					},
 					noDocumentCookie: {
 						description:
-							"Disallow direct assignments to document.cookie.\nSee https://biomejs.dev/linter/rules/no-document-cookie",
+							"Disallow direct assignments to document.cookie.\nSee <https://biomejs.dev/linter/rules/no-document-cookie>",
 						anyOf: [
 							{ $ref: "#/$defs/NoDocumentCookieConfiguration" },
 							{ type: "null" },
@@ -12190,7 +11584,7 @@ export function GET() {
 					},
 					noDocumentImportInPage: {
 						description:
-							"Prevents importing next/document outside of pages/_document.jsx in Next.js projects.\nSee https://biomejs.dev/linter/rules/no-document-import-in-page",
+							"Prevents importing next/document outside of pages/_document.jsx in Next.js projects.\nSee <https://biomejs.dev/linter/rules/no-document-import-in-page>",
 						anyOf: [
 							{ $ref: "#/$defs/NoDocumentImportInPageConfiguration" },
 							{ type: "null" },
@@ -12198,7 +11592,7 @@ export function GET() {
 					},
 					noDoubleEquals: {
 						description:
-							"Require the use of === and !==.\nSee https://biomejs.dev/linter/rules/no-double-equals",
+							"Require the use of === and !==.\nSee <https://biomejs.dev/linter/rules/no-double-equals>",
 						anyOf: [
 							{ $ref: "#/$defs/NoDoubleEqualsConfiguration" },
 							{ type: "null" },
@@ -12206,7 +11600,7 @@ export function GET() {
 					},
 					noDuplicateAtImportRules: {
 						description:
-							"Disallow duplicate @import rules.\nSee https://biomejs.dev/linter/rules/no-duplicate-at-import-rules",
+							"Disallow duplicate @import rules.\nSee <https://biomejs.dev/linter/rules/no-duplicate-at-import-rules>",
 						anyOf: [
 							{ $ref: "#/$defs/NoDuplicateAtImportRulesConfiguration" },
 							{ type: "null" },
@@ -12214,7 +11608,7 @@ export function GET() {
 					},
 					noDuplicateCase: {
 						description:
-							"Disallow duplicate case labels.\nSee https://biomejs.dev/linter/rules/no-duplicate-case",
+							"Disallow duplicate case labels.\nSee <https://biomejs.dev/linter/rules/no-duplicate-case>",
 						anyOf: [
 							{ $ref: "#/$defs/NoDuplicateCaseConfiguration" },
 							{ type: "null" },
@@ -12222,7 +11616,7 @@ export function GET() {
 					},
 					noDuplicateClassMembers: {
 						description:
-							"Disallow duplicate class members.\nSee https://biomejs.dev/linter/rules/no-duplicate-class-members",
+							"Disallow duplicate class members.\nSee <https://biomejs.dev/linter/rules/no-duplicate-class-members>",
 						anyOf: [
 							{ $ref: "#/$defs/NoDuplicateClassMembersConfiguration" },
 							{ type: "null" },
@@ -12230,7 +11624,7 @@ export function GET() {
 					},
 					noDuplicateCustomProperties: {
 						description:
-							"Disallow duplicate custom properties within declaration blocks.\nSee https://biomejs.dev/linter/rules/no-duplicate-custom-properties",
+							"Disallow duplicate custom properties within declaration blocks.\nSee <https://biomejs.dev/linter/rules/no-duplicate-custom-properties>",
 						anyOf: [
 							{ $ref: "#/$defs/NoDuplicateCustomPropertiesConfiguration" },
 							{ type: "null" },
@@ -12238,7 +11632,7 @@ export function GET() {
 					},
 					noDuplicateElseIf: {
 						description:
-							"Disallow duplicate conditions in if-else-if chains.\nSee https://biomejs.dev/linter/rules/no-duplicate-else-if",
+							"Disallow duplicate conditions in if-else-if chains.\nSee <https://biomejs.dev/linter/rules/no-duplicate-else-if>",
 						anyOf: [
 							{ $ref: "#/$defs/NoDuplicateElseIfConfiguration" },
 							{ type: "null" },
@@ -12246,7 +11640,7 @@ export function GET() {
 					},
 					noDuplicateFields: {
 						description:
-							"No duplicated fields in GraphQL operations.\nSee https://biomejs.dev/linter/rules/no-duplicate-fields",
+							"No duplicated fields in GraphQL operations.\nSee <https://biomejs.dev/linter/rules/no-duplicate-fields>",
 						anyOf: [
 							{ $ref: "#/$defs/NoDuplicateFieldsConfiguration" },
 							{ type: "null" },
@@ -12254,7 +11648,7 @@ export function GET() {
 					},
 					noDuplicateFontNames: {
 						description:
-							"Disallow duplicate names within font families.\nSee https://biomejs.dev/linter/rules/no-duplicate-font-names",
+							"Disallow duplicate names within font families.\nSee <https://biomejs.dev/linter/rules/no-duplicate-font-names>",
 						anyOf: [
 							{ $ref: "#/$defs/NoDuplicateFontNamesConfiguration" },
 							{ type: "null" },
@@ -12262,7 +11656,7 @@ export function GET() {
 					},
 					noDuplicateJsxProps: {
 						description:
-							"Prevents JSX properties to be assigned multiple times.\nSee https://biomejs.dev/linter/rules/no-duplicate-jsx-props",
+							"Prevents JSX properties to be assigned multiple times.\nSee <https://biomejs.dev/linter/rules/no-duplicate-jsx-props>",
 						anyOf: [
 							{ $ref: "#/$defs/NoDuplicateJsxPropsConfiguration" },
 							{ type: "null" },
@@ -12270,7 +11664,7 @@ export function GET() {
 					},
 					noDuplicateObjectKeys: {
 						description:
-							"Disallow two keys with the same name inside objects.\nSee https://biomejs.dev/linter/rules/no-duplicate-object-keys",
+							"Disallow two keys with the same name inside objects.\nSee <https://biomejs.dev/linter/rules/no-duplicate-object-keys>",
 						anyOf: [
 							{ $ref: "#/$defs/NoDuplicateObjectKeysConfiguration" },
 							{ type: "null" },
@@ -12278,7 +11672,7 @@ export function GET() {
 					},
 					noDuplicateParameters: {
 						description:
-							"Disallow duplicate function parameter name.\nSee https://biomejs.dev/linter/rules/no-duplicate-parameters",
+							"Disallow duplicate function parameter name.\nSee <https://biomejs.dev/linter/rules/no-duplicate-parameters>",
 						anyOf: [
 							{ $ref: "#/$defs/NoDuplicateParametersConfiguration" },
 							{ type: "null" },
@@ -12286,7 +11680,7 @@ export function GET() {
 					},
 					noDuplicateProperties: {
 						description:
-							"Disallow duplicate properties within declaration blocks.\nSee https://biomejs.dev/linter/rules/no-duplicate-properties",
+							"Disallow duplicate properties within declaration blocks.\nSee <https://biomejs.dev/linter/rules/no-duplicate-properties>",
 						anyOf: [
 							{ $ref: "#/$defs/NoDuplicatePropertiesConfiguration" },
 							{ type: "null" },
@@ -12294,7 +11688,7 @@ export function GET() {
 					},
 					noDuplicateSelectorsKeyframeBlock: {
 						description:
-							"Disallow duplicate selectors within keyframe blocks.\nSee https://biomejs.dev/linter/rules/no-duplicate-selectors-keyframe-block",
+							"Disallow duplicate selectors within keyframe blocks.\nSee <https://biomejs.dev/linter/rules/no-duplicate-selectors-keyframe-block>",
 						anyOf: [
 							{
 								$ref: "#/$defs/NoDuplicateSelectorsKeyframeBlockConfiguration",
@@ -12304,7 +11698,7 @@ export function GET() {
 					},
 					noDuplicateTestHooks: {
 						description:
-							"A describe block should not contain duplicate hooks.\nSee https://biomejs.dev/linter/rules/no-duplicate-test-hooks",
+							"A describe block should not contain duplicate hooks.\nSee <https://biomejs.dev/linter/rules/no-duplicate-test-hooks>",
 						anyOf: [
 							{ $ref: "#/$defs/NoDuplicateTestHooksConfiguration" },
 							{ type: "null" },
@@ -12312,7 +11706,7 @@ export function GET() {
 					},
 					noEmptyBlock: {
 						description:
-							"Disallow CSS empty blocks.\nSee https://biomejs.dev/linter/rules/no-empty-block",
+							"Disallow CSS empty blocks.\nSee <https://biomejs.dev/linter/rules/no-empty-block>",
 						anyOf: [
 							{ $ref: "#/$defs/NoEmptyBlockConfiguration" },
 							{ type: "null" },
@@ -12320,7 +11714,7 @@ export function GET() {
 					},
 					noEmptyBlockStatements: {
 						description:
-							"Disallow empty block statements and static blocks.\nSee https://biomejs.dev/linter/rules/no-empty-block-statements",
+							"Disallow empty block statements and static blocks.\nSee <https://biomejs.dev/linter/rules/no-empty-block-statements>",
 						anyOf: [
 							{ $ref: "#/$defs/NoEmptyBlockStatementsConfiguration" },
 							{ type: "null" },
@@ -12328,7 +11722,7 @@ export function GET() {
 					},
 					noEmptyInterface: {
 						description:
-							"Disallow the declaration of empty interfaces.\nSee https://biomejs.dev/linter/rules/no-empty-interface",
+							"Disallow the declaration of empty interfaces.\nSee <https://biomejs.dev/linter/rules/no-empty-interface>",
 						anyOf: [
 							{ $ref: "#/$defs/NoEmptyInterfaceConfiguration" },
 							{ type: "null" },
@@ -12336,7 +11730,7 @@ export function GET() {
 					},
 					noEvolvingTypes: {
 						description:
-							"Disallow variables from evolving into any type through reassignments.\nSee https://biomejs.dev/linter/rules/no-evolving-types",
+							"Disallow variables from evolving into any type through reassignments.\nSee <https://biomejs.dev/linter/rules/no-evolving-types>",
 						anyOf: [
 							{ $ref: "#/$defs/NoEvolvingTypesConfiguration" },
 							{ type: "null" },
@@ -12344,7 +11738,7 @@ export function GET() {
 					},
 					noExplicitAny: {
 						description:
-							"Disallow the any type usage.\nSee https://biomejs.dev/linter/rules/no-explicit-any",
+							"Disallow the any type usage.\nSee <https://biomejs.dev/linter/rules/no-explicit-any>",
 						anyOf: [
 							{ $ref: "#/$defs/NoExplicitAnyConfiguration" },
 							{ type: "null" },
@@ -12352,7 +11746,7 @@ export function GET() {
 					},
 					noExportsInTest: {
 						description:
-							"Disallow using export or module.exports in files containing tests.\nSee https://biomejs.dev/linter/rules/no-exports-in-test",
+							"Disallow using export or module.exports in files containing tests.\nSee <https://biomejs.dev/linter/rules/no-exports-in-test>",
 						anyOf: [
 							{ $ref: "#/$defs/NoExportsInTestConfiguration" },
 							{ type: "null" },
@@ -12360,7 +11754,7 @@ export function GET() {
 					},
 					noExtraNonNullAssertion: {
 						description:
-							"Prevents the wrong usage of the non-null assertion operator (!) in TypeScript files.\nSee https://biomejs.dev/linter/rules/no-extra-non-null-assertion",
+							"Prevents the wrong usage of the non-null assertion operator (!) in TypeScript files.\nSee <https://biomejs.dev/linter/rules/no-extra-non-null-assertion>",
 						anyOf: [
 							{ $ref: "#/$defs/NoExtraNonNullAssertionConfiguration" },
 							{ type: "null" },
@@ -12368,7 +11762,7 @@ export function GET() {
 					},
 					noFallthroughSwitchClause: {
 						description:
-							"Disallow fallthrough of switch clauses.\nSee https://biomejs.dev/linter/rules/no-fallthrough-switch-clause",
+							"Disallow fallthrough of switch clauses.\nSee <https://biomejs.dev/linter/rules/no-fallthrough-switch-clause>",
 						anyOf: [
 							{ $ref: "#/$defs/NoFallthroughSwitchClauseConfiguration" },
 							{ type: "null" },
@@ -12376,7 +11770,7 @@ export function GET() {
 					},
 					noFocusedTests: {
 						description:
-							"Disallow focused tests.\nSee https://biomejs.dev/linter/rules/no-focused-tests",
+							"Disallow focused tests.\nSee <https://biomejs.dev/linter/rules/no-focused-tests>",
 						anyOf: [
 							{ $ref: "#/$defs/NoFocusedTestsConfiguration" },
 							{ type: "null" },
@@ -12384,7 +11778,7 @@ export function GET() {
 					},
 					noFunctionAssign: {
 						description:
-							"Disallow reassigning function declarations.\nSee https://biomejs.dev/linter/rules/no-function-assign",
+							"Disallow reassigning function declarations.\nSee <https://biomejs.dev/linter/rules/no-function-assign>",
 						anyOf: [
 							{ $ref: "#/$defs/NoFunctionAssignConfiguration" },
 							{ type: "null" },
@@ -12392,7 +11786,7 @@ export function GET() {
 					},
 					noGlobalAssign: {
 						description:
-							"Disallow assignments to native objects and read-only global variables.\nSee https://biomejs.dev/linter/rules/no-global-assign",
+							"Disallow assignments to native objects and read-only global variables.\nSee <https://biomejs.dev/linter/rules/no-global-assign>",
 						anyOf: [
 							{ $ref: "#/$defs/NoGlobalAssignConfiguration" },
 							{ type: "null" },
@@ -12400,7 +11794,7 @@ export function GET() {
 					},
 					noGlobalIsFinite: {
 						description:
-							"Use Number.isFinite instead of global isFinite.\nSee https://biomejs.dev/linter/rules/no-global-is-finite",
+							"Use Number.isFinite instead of global isFinite.\nSee <https://biomejs.dev/linter/rules/no-global-is-finite>",
 						anyOf: [
 							{ $ref: "#/$defs/NoGlobalIsFiniteConfiguration" },
 							{ type: "null" },
@@ -12408,7 +11802,7 @@ export function GET() {
 					},
 					noGlobalIsNan: {
 						description:
-							"Use Number.isNaN instead of global isNaN.\nSee https://biomejs.dev/linter/rules/no-global-is-nan",
+							"Use Number.isNaN instead of global isNaN.\nSee <https://biomejs.dev/linter/rules/no-global-is-nan>",
 						anyOf: [
 							{ $ref: "#/$defs/NoGlobalIsNanConfiguration" },
 							{ type: "null" },
@@ -12416,7 +11810,7 @@ export function GET() {
 					},
 					noHeadImportInDocument: {
 						description:
-							"Prevent using the next/head module in pages/_document.js on Next.js projects.\nSee https://biomejs.dev/linter/rules/no-head-import-in-document",
+							"Prevent using the next/head module in pages/_document.js on Next.js projects.\nSee <https://biomejs.dev/linter/rules/no-head-import-in-document>",
 						anyOf: [
 							{ $ref: "#/$defs/NoHeadImportInDocumentConfiguration" },
 							{ type: "null" },
@@ -12424,7 +11818,7 @@ export function GET() {
 					},
 					noImplicitAnyLet: {
 						description:
-							"Disallow use of implicit any type on variable declarations.\nSee https://biomejs.dev/linter/rules/no-implicit-any-let",
+							"Disallow use of implicit any type on variable declarations.\nSee <https://biomejs.dev/linter/rules/no-implicit-any-let>",
 						anyOf: [
 							{ $ref: "#/$defs/NoImplicitAnyLetConfiguration" },
 							{ type: "null" },
@@ -12432,7 +11826,7 @@ export function GET() {
 					},
 					noImportAssign: {
 						description:
-							"Disallow assigning to imported bindings.\nSee https://biomejs.dev/linter/rules/no-import-assign",
+							"Disallow assigning to imported bindings.\nSee <https://biomejs.dev/linter/rules/no-import-assign>",
 						anyOf: [
 							{ $ref: "#/$defs/NoImportAssignConfiguration" },
 							{ type: "null" },
@@ -12440,7 +11834,7 @@ export function GET() {
 					},
 					noImportantInKeyframe: {
 						description:
-							"Disallow invalid !important within keyframe declarations.\nSee https://biomejs.dev/linter/rules/no-important-in-keyframe",
+							"Disallow invalid !important within keyframe declarations.\nSee <https://biomejs.dev/linter/rules/no-important-in-keyframe>",
 						anyOf: [
 							{ $ref: "#/$defs/NoImportantInKeyframeConfiguration" },
 							{ type: "null" },
@@ -12448,7 +11842,7 @@ export function GET() {
 					},
 					noIrregularWhitespace: {
 						description:
-							"Disallows the use of irregular whitespace characters.\nSee https://biomejs.dev/linter/rules/no-irregular-whitespace",
+							"Disallows the use of irregular whitespace characters.\nSee <https://biomejs.dev/linter/rules/no-irregular-whitespace>",
 						anyOf: [
 							{ $ref: "#/$defs/NoIrregularWhitespaceConfiguration" },
 							{ type: "null" },
@@ -12456,7 +11850,7 @@ export function GET() {
 					},
 					noLabelVar: {
 						description:
-							"Disallow labels that share a name with a variable.\nSee https://biomejs.dev/linter/rules/no-label-var",
+							"Disallow labels that share a name with a variable.\nSee <https://biomejs.dev/linter/rules/no-label-var>",
 						anyOf: [
 							{ $ref: "#/$defs/NoLabelVarConfiguration" },
 							{ type: "null" },
@@ -12464,7 +11858,7 @@ export function GET() {
 					},
 					noMisleadingCharacterClass: {
 						description:
-							"Disallow characters made with multiple code points in character class syntax.\nSee https://biomejs.dev/linter/rules/no-misleading-character-class",
+							"Disallow characters made with multiple code points in character class syntax.\nSee <https://biomejs.dev/linter/rules/no-misleading-character-class>",
 						anyOf: [
 							{ $ref: "#/$defs/NoMisleadingCharacterClassConfiguration" },
 							{ type: "null" },
@@ -12472,7 +11866,7 @@ export function GET() {
 					},
 					noMisleadingInstantiator: {
 						description:
-							"Enforce proper usage of new and constructor.\nSee https://biomejs.dev/linter/rules/no-misleading-instantiator",
+							"Enforce proper usage of new and constructor.\nSee <https://biomejs.dev/linter/rules/no-misleading-instantiator>",
 						anyOf: [
 							{ $ref: "#/$defs/NoMisleadingInstantiatorConfiguration" },
 							{ type: "null" },
@@ -12480,7 +11874,7 @@ export function GET() {
 					},
 					noMisplacedAssertion: {
 						description:
-							"Checks that the assertion function, for example expect, is placed inside an it() function call.\nSee https://biomejs.dev/linter/rules/no-misplaced-assertion",
+							"Checks that the assertion function, for example expect, is placed inside an it() function call.\nSee <https://biomejs.dev/linter/rules/no-misplaced-assertion>",
 						anyOf: [
 							{ $ref: "#/$defs/NoMisplacedAssertionConfiguration" },
 							{ type: "null" },
@@ -12488,7 +11882,7 @@ export function GET() {
 					},
 					noMisrefactoredShorthandAssign: {
 						description:
-							"Disallow shorthand assign when variable appears on both sides.\nSee https://biomejs.dev/linter/rules/no-misrefactored-shorthand-assign",
+							"Disallow shorthand assign when variable appears on both sides.\nSee <https://biomejs.dev/linter/rules/no-misrefactored-shorthand-assign>",
 						anyOf: [
 							{ $ref: "#/$defs/NoMisrefactoredShorthandAssignConfiguration" },
 							{ type: "null" },
@@ -12496,7 +11890,7 @@ export function GET() {
 					},
 					noNonNullAssertedOptionalChain: {
 						description:
-							"Disallow non-null assertions after optional chaining expressions.\nSee https://biomejs.dev/linter/rules/no-non-null-asserted-optional-chain",
+							"Disallow non-null assertions after optional chaining expressions.\nSee <https://biomejs.dev/linter/rules/no-non-null-asserted-optional-chain>",
 						anyOf: [
 							{ $ref: "#/$defs/NoNonNullAssertedOptionalChainConfiguration" },
 							{ type: "null" },
@@ -12504,7 +11898,7 @@ export function GET() {
 					},
 					noOctalEscape: {
 						description:
-							"Disallow octal escape sequences in string literals.\nSee https://biomejs.dev/linter/rules/no-octal-escape",
+							"Disallow octal escape sequences in string literals.\nSee <https://biomejs.dev/linter/rules/no-octal-escape>",
 						anyOf: [
 							{ $ref: "#/$defs/NoOctalEscapeConfiguration" },
 							{ type: "null" },
@@ -12512,7 +11906,7 @@ export function GET() {
 					},
 					noPrototypeBuiltins: {
 						description:
-							"Disallow direct use of Object.prototype builtins.\nSee https://biomejs.dev/linter/rules/no-prototype-builtins",
+							"Disallow direct use of Object.prototype builtins.\nSee <https://biomejs.dev/linter/rules/no-prototype-builtins>",
 						anyOf: [
 							{ $ref: "#/$defs/NoPrototypeBuiltinsConfiguration" },
 							{ type: "null" },
@@ -12520,7 +11914,7 @@ export function GET() {
 					},
 					noQuickfixBiome: {
 						description:
-							"Disallow the use if quickfix.biome inside editor settings file.\nSee https://biomejs.dev/linter/rules/no-quickfix-biome",
+							"Disallow the use if quickfix.biome inside editor settings file.\nSee <https://biomejs.dev/linter/rules/no-quickfix-biome>",
 						anyOf: [
 							{ $ref: "#/$defs/NoQuickfixBiomeConfiguration" },
 							{ type: "null" },
@@ -12528,7 +11922,7 @@ export function GET() {
 					},
 					noReactSpecificProps: {
 						description:
-							"Prevents React-specific JSX properties from being used.\nSee https://biomejs.dev/linter/rules/no-react-specific-props",
+							"Prevents React-specific JSX properties from being used.\nSee <https://biomejs.dev/linter/rules/no-react-specific-props>",
 						anyOf: [
 							{ $ref: "#/$defs/NoReactSpecificPropsConfiguration" },
 							{ type: "null" },
@@ -12536,7 +11930,7 @@ export function GET() {
 					},
 					noRedeclare: {
 						description:
-							"Disallow variable, function, class, and type redeclarations in the same scope.\nSee https://biomejs.dev/linter/rules/no-redeclare",
+							"Disallow variable, function, class, and type redeclarations in the same scope.\nSee <https://biomejs.dev/linter/rules/no-redeclare>",
 						anyOf: [
 							{ $ref: "#/$defs/NoRedeclareConfiguration" },
 							{ type: "null" },
@@ -12544,7 +11938,7 @@ export function GET() {
 					},
 					noRedundantUseStrict: {
 						description:
-							'Prevents from having redundant "use strict".\nSee https://biomejs.dev/linter/rules/no-redundant-use-strict',
+							'Prevents from having redundant "use strict".\nSee <https://biomejs.dev/linter/rules/no-redundant-use-strict>',
 						anyOf: [
 							{ $ref: "#/$defs/NoRedundantUseStrictConfiguration" },
 							{ type: "null" },
@@ -12552,7 +11946,7 @@ export function GET() {
 					},
 					noSelfCompare: {
 						description:
-							"Disallow comparisons where both sides are exactly the same.\nSee https://biomejs.dev/linter/rules/no-self-compare",
+							"Disallow comparisons where both sides are exactly the same.\nSee <https://biomejs.dev/linter/rules/no-self-compare>",
 						anyOf: [
 							{ $ref: "#/$defs/NoSelfCompareConfiguration" },
 							{ type: "null" },
@@ -12560,7 +11954,7 @@ export function GET() {
 					},
 					noShadowRestrictedNames: {
 						description:
-							"Disallow identifiers from shadowing restricted names.\nSee https://biomejs.dev/linter/rules/no-shadow-restricted-names",
+							"Disallow identifiers from shadowing restricted names.\nSee <https://biomejs.dev/linter/rules/no-shadow-restricted-names>",
 						anyOf: [
 							{ $ref: "#/$defs/NoShadowRestrictedNamesConfiguration" },
 							{ type: "null" },
@@ -12568,7 +11962,7 @@ export function GET() {
 					},
 					noShorthandPropertyOverrides: {
 						description:
-							"Disallow shorthand properties that override related longhand properties.\nSee https://biomejs.dev/linter/rules/no-shorthand-property-overrides",
+							"Disallow shorthand properties that override related longhand properties.\nSee <https://biomejs.dev/linter/rules/no-shorthand-property-overrides>",
 						anyOf: [
 							{ $ref: "#/$defs/NoShorthandPropertyOverridesConfiguration" },
 							{ type: "null" },
@@ -12576,7 +11970,7 @@ export function GET() {
 					},
 					noSkippedTests: {
 						description:
-							"Disallow disabled tests.\nSee https://biomejs.dev/linter/rules/no-skipped-tests",
+							"Disallow disabled tests.\nSee <https://biomejs.dev/linter/rules/no-skipped-tests>",
 						anyOf: [
 							{ $ref: "#/$defs/NoSkippedTestsConfiguration" },
 							{ type: "null" },
@@ -12584,7 +11978,7 @@ export function GET() {
 					},
 					noSparseArray: {
 						description:
-							"Prevents the use of sparse arrays (arrays with holes).\nSee https://biomejs.dev/linter/rules/no-sparse-array",
+							"Prevents the use of sparse arrays (arrays with holes).\nSee <https://biomejs.dev/linter/rules/no-sparse-array>",
 						anyOf: [
 							{ $ref: "#/$defs/NoSparseArrayConfiguration" },
 							{ type: "null" },
@@ -12592,7 +11986,7 @@ export function GET() {
 					},
 					noSuspiciousSemicolonInJsx: {
 						description:
-							'It detects possible "wrong" semicolons inside JSX elements.\nSee https://biomejs.dev/linter/rules/no-suspicious-semicolon-in-jsx',
+							'It detects possible "wrong" semicolons inside JSX elements.\nSee <https://biomejs.dev/linter/rules/no-suspicious-semicolon-in-jsx>',
 						anyOf: [
 							{ $ref: "#/$defs/NoSuspiciousSemicolonInJsxConfiguration" },
 							{ type: "null" },
@@ -12600,7 +11994,7 @@ export function GET() {
 					},
 					noTemplateCurlyInString: {
 						description:
-							"Disallow template literal placeholder syntax in regular strings.\nSee https://biomejs.dev/linter/rules/no-template-curly-in-string",
+							"Disallow template literal placeholder syntax in regular strings.\nSee <https://biomejs.dev/linter/rules/no-template-curly-in-string>",
 						anyOf: [
 							{ $ref: "#/$defs/NoTemplateCurlyInStringConfiguration" },
 							{ type: "null" },
@@ -12608,7 +12002,7 @@ export function GET() {
 					},
 					noThenProperty: {
 						description:
-							"Disallow then property.\nSee https://biomejs.dev/linter/rules/no-then-property",
+							"Disallow then property.\nSee <https://biomejs.dev/linter/rules/no-then-property>",
 						anyOf: [
 							{ $ref: "#/$defs/NoThenPropertyConfiguration" },
 							{ type: "null" },
@@ -12616,7 +12010,7 @@ export function GET() {
 					},
 					noTsIgnore: {
 						description:
-							"Prevents the use of the TypeScript directive @ts-ignore.\nSee https://biomejs.dev/linter/rules/no-ts-ignore",
+							"Prevents the use of the TypeScript directive @ts-ignore.\nSee <https://biomejs.dev/linter/rules/no-ts-ignore>",
 						anyOf: [
 							{ $ref: "#/$defs/NoTsIgnoreConfiguration" },
 							{ type: "null" },
@@ -12624,7 +12018,7 @@ export function GET() {
 					},
 					noUnassignedVariables: {
 						description:
-							"Disallow let or var variables that are read but never assigned.\nSee https://biomejs.dev/linter/rules/no-unassigned-variables",
+							"Disallow let or var variables that are read but never assigned.\nSee <https://biomejs.dev/linter/rules/no-unassigned-variables>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUnassignedVariablesConfiguration" },
 							{ type: "null" },
@@ -12632,7 +12026,7 @@ export function GET() {
 					},
 					noUnknownAtRules: {
 						description:
-							"Disallow unknown at-rules.\nSee https://biomejs.dev/linter/rules/no-unknown-at-rules",
+							"Disallow unknown at-rules.\nSee <https://biomejs.dev/linter/rules/no-unknown-at-rules>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUnknownAtRulesConfiguration" },
 							{ type: "null" },
@@ -12640,7 +12034,7 @@ export function GET() {
 					},
 					noUnsafeDeclarationMerging: {
 						description:
-							"Disallow unsafe declaration merging between interfaces and classes.\nSee https://biomejs.dev/linter/rules/no-unsafe-declaration-merging",
+							"Disallow unsafe declaration merging between interfaces and classes.\nSee <https://biomejs.dev/linter/rules/no-unsafe-declaration-merging>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUnsafeDeclarationMergingConfiguration" },
 							{ type: "null" },
@@ -12648,7 +12042,7 @@ export function GET() {
 					},
 					noUnsafeNegation: {
 						description:
-							"Disallow using unsafe negation.\nSee https://biomejs.dev/linter/rules/no-unsafe-negation",
+							"Disallow using unsafe negation.\nSee <https://biomejs.dev/linter/rules/no-unsafe-negation>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUnsafeNegationConfiguration" },
 							{ type: "null" },
@@ -12656,7 +12050,7 @@ export function GET() {
 					},
 					noUselessEscapeInString: {
 						description:
-							"Disallow unnecessary escapes in string literals.\nSee https://biomejs.dev/linter/rules/no-useless-escape-in-string",
+							"Disallow unnecessary escapes in string literals.\nSee <https://biomejs.dev/linter/rules/no-useless-escape-in-string>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUselessEscapeInStringConfiguration" },
 							{ type: "null" },
@@ -12664,7 +12058,7 @@ export function GET() {
 					},
 					noUselessRegexBackrefs: {
 						description:
-							"Disallow useless backreferences in regular expression literals that always match an empty string.\nSee https://biomejs.dev/linter/rules/no-useless-regex-backrefs",
+							"Disallow useless backreferences in regular expression literals that always match an empty string.\nSee <https://biomejs.dev/linter/rules/no-useless-regex-backrefs>",
 						anyOf: [
 							{ $ref: "#/$defs/NoUselessRegexBackrefsConfiguration" },
 							{ type: "null" },
@@ -12672,12 +12066,12 @@ export function GET() {
 					},
 					noVar: {
 						description:
-							"Disallow the use of var.\nSee https://biomejs.dev/linter/rules/no-var",
+							"Disallow the use of var.\nSee <https://biomejs.dev/linter/rules/no-var>",
 						anyOf: [{ $ref: "#/$defs/NoVarConfiguration" }, { type: "null" }],
 					},
 					noWith: {
 						description:
-							"Disallow with statements in non-strict contexts.\nSee https://biomejs.dev/linter/rules/no-with",
+							"Disallow with statements in non-strict contexts.\nSee <https://biomejs.dev/linter/rules/no-with>",
 						anyOf: [{ $ref: "#/$defs/NoWithConfiguration" }, { type: "null" }],
 					},
 					recommended: {
@@ -12686,7 +12080,7 @@ export function GET() {
 					},
 					useAdjacentOverloadSignatures: {
 						description:
-							"Disallow the use of overload signatures that are not next to each other.\nSee https://biomejs.dev/linter/rules/use-adjacent-overload-signatures",
+							"Disallow the use of overload signatures that are not next to each other.\nSee <https://biomejs.dev/linter/rules/use-adjacent-overload-signatures>",
 						anyOf: [
 							{ $ref: "#/$defs/UseAdjacentOverloadSignaturesConfiguration" },
 							{ type: "null" },
@@ -12694,7 +12088,7 @@ export function GET() {
 					},
 					useAwait: {
 						description:
-							"Ensure async functions utilize await.\nSee https://biomejs.dev/linter/rules/use-await",
+							"Ensure async functions utilize await.\nSee <https://biomejs.dev/linter/rules/use-await>",
 						anyOf: [
 							{ $ref: "#/$defs/UseAwaitConfiguration" },
 							{ type: "null" },
@@ -12702,7 +12096,7 @@ export function GET() {
 					},
 					useBiomeIgnoreFolder: {
 						description:
-							"Promotes the correct usage for ignoring folders in the configuration file.\nSee https://biomejs.dev/linter/rules/use-biome-ignore-folder",
+							"Promotes the correct usage for ignoring folders in the configuration file.\nSee <https://biomejs.dev/linter/rules/use-biome-ignore-folder>",
 						anyOf: [
 							{ $ref: "#/$defs/UseBiomeIgnoreFolderConfiguration" },
 							{ type: "null" },
@@ -12710,7 +12104,7 @@ export function GET() {
 					},
 					useDefaultSwitchClauseLast: {
 						description:
-							"Enforce default clauses in switch statements to be last.\nSee https://biomejs.dev/linter/rules/use-default-switch-clause-last",
+							"Enforce default clauses in switch statements to be last.\nSee <https://biomejs.dev/linter/rules/use-default-switch-clause-last>",
 						anyOf: [
 							{ $ref: "#/$defs/UseDefaultSwitchClauseLastConfiguration" },
 							{ type: "null" },
@@ -12718,7 +12112,7 @@ export function GET() {
 					},
 					useErrorMessage: {
 						description:
-							"Enforce passing a message value when creating a built-in error.\nSee https://biomejs.dev/linter/rules/use-error-message",
+							"Enforce passing a message value when creating a built-in error.\nSee <https://biomejs.dev/linter/rules/use-error-message>",
 						anyOf: [
 							{ $ref: "#/$defs/UseErrorMessageConfiguration" },
 							{ type: "null" },
@@ -12726,7 +12120,7 @@ export function GET() {
 					},
 					useGetterReturn: {
 						description:
-							"Enforce get methods to always return a value.\nSee https://biomejs.dev/linter/rules/use-getter-return",
+							"Enforce get methods to always return a value.\nSee <https://biomejs.dev/linter/rules/use-getter-return>",
 						anyOf: [
 							{ $ref: "#/$defs/UseGetterReturnConfiguration" },
 							{ type: "null" },
@@ -12734,7 +12128,7 @@ export function GET() {
 					},
 					useGoogleFontDisplay: {
 						description:
-							"Enforces the use of a recommended display strategy with Google Fonts.\nSee https://biomejs.dev/linter/rules/use-google-font-display",
+							"Enforces the use of a recommended display strategy with Google Fonts.\nSee <https://biomejs.dev/linter/rules/use-google-font-display>",
 						anyOf: [
 							{ $ref: "#/$defs/UseGoogleFontDisplayConfiguration" },
 							{ type: "null" },
@@ -12742,7 +12136,7 @@ export function GET() {
 					},
 					useGuardForIn: {
 						description:
-							"Require for-in loops to include an if statement.\nSee https://biomejs.dev/linter/rules/use-guard-for-in",
+							"Require for-in loops to include an if statement.\nSee <https://biomejs.dev/linter/rules/use-guard-for-in>",
 						anyOf: [
 							{ $ref: "#/$defs/UseGuardForInConfiguration" },
 							{ type: "null" },
@@ -12750,7 +12144,7 @@ export function GET() {
 					},
 					useIsArray: {
 						description:
-							"Use Array.isArray() instead of instanceof Array.\nSee https://biomejs.dev/linter/rules/use-is-array",
+							"Use Array.isArray() instead of instanceof Array.\nSee <https://biomejs.dev/linter/rules/use-is-array>",
 						anyOf: [
 							{ $ref: "#/$defs/UseIsArrayConfiguration" },
 							{ type: "null" },
@@ -12758,7 +12152,7 @@ export function GET() {
 					},
 					useIterableCallbackReturn: {
 						description:
-							"Enforce consistent return values in iterable callbacks.\nSee https://biomejs.dev/linter/rules/use-iterable-callback-return",
+							"Enforce consistent return values in iterable callbacks.\nSee <https://biomejs.dev/linter/rules/use-iterable-callback-return>",
 						anyOf: [
 							{ $ref: "#/$defs/UseIterableCallbackReturnConfiguration" },
 							{ type: "null" },
@@ -12766,7 +12160,7 @@ export function GET() {
 					},
 					useNamespaceKeyword: {
 						description:
-							"Require using the namespace keyword over the module keyword to declare TypeScript namespaces.\nSee https://biomejs.dev/linter/rules/use-namespace-keyword",
+							"Require using the namespace keyword over the module keyword to declare TypeScript namespaces.\nSee <https://biomejs.dev/linter/rules/use-namespace-keyword>",
 						anyOf: [
 							{ $ref: "#/$defs/UseNamespaceKeywordConfiguration" },
 							{ type: "null" },
@@ -12774,7 +12168,7 @@ export function GET() {
 					},
 					useNumberToFixedDigitsArgument: {
 						description:
-							"Enforce using the digits argument with Number#toFixed().\nSee https://biomejs.dev/linter/rules/use-number-to-fixed-digits-argument",
+							"Enforce using the digits argument with Number#toFixed().\nSee <https://biomejs.dev/linter/rules/use-number-to-fixed-digits-argument>",
 						anyOf: [
 							{ $ref: "#/$defs/UseNumberToFixedDigitsArgumentConfiguration" },
 							{ type: "null" },
@@ -12782,7 +12176,7 @@ export function GET() {
 					},
 					useStaticResponseMethods: {
 						description:
-							"Use static Response methods instead of new Response() constructor when possible.\nSee https://biomejs.dev/linter/rules/use-static-response-methods",
+							"Use static Response methods instead of new Response() constructor when possible.\nSee <https://biomejs.dev/linter/rules/use-static-response-methods>",
 						anyOf: [
 							{ $ref: "#/$defs/UseStaticResponseMethodsConfiguration" },
 							{ type: "null" },
@@ -12790,7 +12184,7 @@ export function GET() {
 					},
 					useStrictMode: {
 						description:
-							'Enforce the use of the directive "use strict" in script files.\nSee https://biomejs.dev/linter/rules/use-strict-mode',
+							'Enforce the use of the directive "use strict" in script files.\nSee <https://biomejs.dev/linter/rules/use-strict-mode>',
 						anyOf: [
 							{ $ref: "#/$defs/UseStrictModeConfiguration" },
 							{ type: "null" },
@@ -13075,16 +12469,6 @@ export function GET() {
 				type: "object",
 				additionalProperties: false,
 			},
-			UseConsistentEnumValueTypeConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithUseConsistentEnumValueTypeOptions" },
-				],
-			},
-			UseConsistentEnumValueTypeOptions: {
-				type: "object",
-				additionalProperties: false,
-			},
 			UseConsistentGraphqlDescriptionsConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -13124,24 +12508,6 @@ export function GET() {
 						description:
 							'The kind of accessibility you want to enforce. Default to "noPublic"',
 						anyOf: [{ $ref: "#/$defs/Accessibility" }, { type: "null" }],
-					},
-				},
-				additionalProperties: false,
-			},
-			UseConsistentMethodSignaturesConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithUseConsistentMethodSignaturesOptions" },
-				],
-			},
-			UseConsistentMethodSignaturesOptions: {
-				description: "Options type for `useConsistentMethodSignatures`.",
-				type: "object",
-				properties: {
-					style: {
-						description:
-							'The style of method signatures whose usage will be enforced.\n\nDefault: "property"',
-						anyOf: [{ $ref: "#/$defs/MethodSignatureStyle" }, { type: "null" }],
 					},
 				},
 				additionalProperties: false,
@@ -13263,25 +12629,6 @@ export function GET() {
 			},
 			UseEnumInitializersOptions: {
 				type: "object",
-				additionalProperties: false,
-			},
-			UseErrorCauseConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithUseErrorCauseOptions" },
-				],
-			},
-			UseErrorCauseOptions: {
-				description: "Options for the `useErrorCause` rule.",
-				type: "object",
-				properties: {
-					requireCatchParameter: {
-						description:
-							"When set to `true`, the rule requires that `catch` clauses have a parameter.",
-						type: "boolean",
-						default: true,
-					},
-				},
 				additionalProperties: false,
 			},
 			UseErrorMessageConfiguration: {
@@ -13469,13 +12816,6 @@ export function GET() {
 				type: "object",
 				additionalProperties: false,
 			},
-			UseGlobalThisConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithUseGlobalThisOptions" },
-				],
-			},
-			UseGlobalThisOptions: { type: "object", additionalProperties: false },
 			UseGoogleFontDisplayConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -13623,33 +12963,6 @@ export function GET() {
 				],
 			},
 			UseIndexOfOptions: { type: "object", additionalProperties: false },
-			UseInlineScriptIdConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithUseInlineScriptIdOptions" },
-				],
-			},
-			UseInlineScriptIdOptions: {
-				type: "object",
-				additionalProperties: false,
-			},
-			UseInputNameConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithUseInputNameOptions" },
-				],
-			},
-			UseInputNameOptions: {
-				type: "object",
-				properties: {
-					checkInputType: {
-						description:
-							"Check that the input type name follows the convention <mutationName>Input",
-						anyOf: [{ $ref: "#/$defs/CheckInputType" }, { type: "null" }],
-					},
-				},
-				additionalProperties: false,
-			},
 			UseIsArrayConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -13737,26 +13050,6 @@ export function GET() {
 				],
 			},
 			UseLiteralKeysOptions: {
-				type: "object",
-				additionalProperties: false,
-			},
-			UseLoneAnonymousOperationConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithUseLoneAnonymousOperationOptions" },
-				],
-			},
-			UseLoneAnonymousOperationOptions: {
-				type: "object",
-				additionalProperties: false,
-			},
-			UseLoneExecutableDefinitionConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithUseLoneExecutableDefinitionOptions" },
-				],
-			},
-			UseLoneExecutableDefinitionOptions: {
 				type: "object",
 				additionalProperties: false,
 			},
@@ -14254,6 +13547,16 @@ export function GET() {
 				type: "object",
 				additionalProperties: false,
 			},
+			UseUniqueArgumentNamesConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithUseUniqueArgumentNamesOptions" },
+				],
+			},
+			UseUniqueArgumentNamesOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
 			UseUniqueElementIdsConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -14271,6 +13574,46 @@ export function GET() {
 						uniqueItems: true,
 					},
 				},
+				additionalProperties: false,
+			},
+			UseUniqueFieldDefinitionNamesConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithUseUniqueFieldDefinitionNamesOptions" },
+				],
+			},
+			UseUniqueFieldDefinitionNamesOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
+			UseUniqueGraphqlOperationNameConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithUseUniqueGraphqlOperationNameOptions" },
+				],
+			},
+			UseUniqueGraphqlOperationNameOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
+			UseUniqueInputFieldNamesConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithUseUniqueInputFieldNamesOptions" },
+				],
+			},
+			UseUniqueInputFieldNamesOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
+			UseUniqueVariableNamesConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithUseUniqueVariableNamesOptions" },
+				],
+			},
+			UseUniqueVariableNamesOptions: {
+				type: "object",
 				additionalProperties: false,
 			},
 			UseValidAnchorConfiguration: {

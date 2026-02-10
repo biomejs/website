@@ -4,6 +4,7 @@
 .diagnostics-pane {
 	height: 200px;
 	border-top: 1px solid var(--sl-border);
+
 	:root[data-theme="dark"] & {
 		.empty-panel {
 			background-color: #282c34;
@@ -54,6 +55,8 @@ ul.diagnostics-list {
 		white-space: pre;
 
 		picture {
+			width: 16px;
+			height: 16px;
 			margin: 7px 10px;
 			display: flex;
 

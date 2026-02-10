@@ -17,6 +17,7 @@ import {
 	defaultPlaygroundState,
 	Expand,
 	IndentStyle,
+	OperatorLinebreak,
 	type PlaygroundSettings,
 	type PrettierOptions,
 	type PrettierOutput,
@@ -97,6 +98,7 @@ self.addEventListener("message", async (e) => {
 				trailingCommas: trailingComma,
 				semicolons,
 				arrowParentheses,
+				operatorLinebreak,
 				bracketSpacing,
 				bracketSameLine,
 				attributePosition,
@@ -119,6 +121,7 @@ self.addEventListener("message", async (e) => {
 				trailingComma,
 				semicolons,
 				arrowParentheses,
+				operatorLinebreak,
 				bracketSpacing,
 				bracketSameLine,
 				singleAttributePerLine:
@@ -156,6 +159,7 @@ async function formatWithPrettier(
 		trailingComma: TrailingCommas;
 		semicolons: Semicolons;
 		arrowParentheses: ArrowParentheses;
+		operatorLinebreak: OperatorLinebreak;
 		bracketSpacing: boolean;
 		bracketSameLine: boolean;
 		singleAttributePerLine?: boolean;
@@ -189,6 +193,10 @@ async function formatWithPrettier(
 				options.arrowParentheses === ArrowParentheses.Always
 					? "always"
 					: "avoid",
+			experimentalOperatorPosition:
+				options.operatorLinebreak === OperatorLinebreak.Before
+					? "start"
+					: "end",
 			bracketSpacing: options.bracketSpacing,
 			bracketSameLine: options.bracketSameLine,
 			singleAttributePerLine: options.singleAttributePerLine ?? false,

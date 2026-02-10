@@ -24,6 +24,7 @@ import {
 	type Language,
 	type LintRule,
 	LoadingState,
+	type OperatorLinebreak,
 	type PlaygroundSettings,
 	type PlaygroundState,
 	type QuoteProperties,
@@ -426,6 +427,9 @@ function initState(
 			arrowParentheses:
 				(searchParams.get("arrowParentheses") as ArrowParentheses) ??
 				defaultPlaygroundState.settings.arrowParentheses,
+			operatorLinebreak:
+				(searchParams.get("operatorLinebreak") as OperatorLinebreak) ??
+				defaultPlaygroundState.settings.operatorLinebreak,
 			attributePosition:
 				(searchParams.get("attributePosition") as AttributePosition) ??
 				defaultPlaygroundState.settings.attributePosition,
