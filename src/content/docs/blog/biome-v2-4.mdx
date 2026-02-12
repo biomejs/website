@@ -1,0 +1,640 @@
+---
+title: "Biome v2.4—Embedded Snippets, HTML Accessibility, and Better Framework Support"
+excerpt: |
+  Biome 2.4 introduces embedded CSS and GraphQL formatting, 15 new HTML accessibility rules, significantly improved support for Vue, Svelte, and Astro, and promotes 24 rules to stable. Plus new CLI reporters, rule profiler, and editor configuration features.
+authors:
+  - ema
+  - team
+date: 2026-02-10
+cover:
+  light: "@/assets/blog/banner-light.png"
+  dark: "@/assets/blog/banner-dark.png"
+  alt: The brand of the project. It says "Biome, toolchain of the web"
+socialImage: "@/assets/social-logo.png"
+---
+
+import Avatar from "@/components/Avatar.astro";
+import EditorSettings from "@/components/EditorSettings.astro";
+import Contributor from "@/components/Contributor.astro";
+
+Biome v2.4 is the first minor release of the year! After more than ten patches from v2.3, today we bring to you a new version that contains many new features!
+
+Once you have upgraded to Biome v2.4.0, migrate your Biome configuration to the new version by running the `migrate` command:
+
+```shell showLineNumbers=false
+biome migrate --write
+```
+
+## Highlights
+
+Among all the features shipped in this release, here's the ones we think you're going to like most!
+
+- [Embedded snippets in JavaScript](#embedded-snippets-in-javascript)
+- [Editor inline configuration](#editor-inline-configuration)
+- [Major improvements to HTML-ish languages](#major-improvements-to-html-ish-languages)
+- [HTML accessibility rules](#html-accessibility-rules)
+- [Rule profiler](#rule-profiler)
+- [Configuration file discovery](#configuration-file-discovery)
+
+### Embedded snippets in JavaScript
+
+One of the most significant new features in Biome 2.4 is the ability to format and lint embedded CSS and GraphQL snippets within JavaScript files. Enable this experimental feature to automatically format and lint CSS and GraphQL code within template literals.
+
+Biome recognizes CSS snippets from styled-components, Emotion, and similar CSS-in-JS libraries:
+
+```js title="styled-components.js"
+import styled from "styled-components";
+
+const Foo = styled.div`
+  display: flex;
+  color: red;
+`;
+```
+
+GraphQL queries and mutations within JavaScript are now properly formatted and linted:
+
+```js title="graphql-query.js"
+import gql from "graphql-tag";
+
+const PeopleCountQuery = gql`
+  query PeopleCount {
+    allPeople {
+      totalCount
+    }
+  }
+`;
+```
+
+To enable these features, add this to your configuration:
+
+```json title="biome.json"
+{
+  "javascript": {
+    "experimentalEmbeddedSnippetsEnabled": true
+  }
+}
+```
+
+:::note
+Snippets with interpolations are not yet supported.
+:::
+
+### Editor inline configuration
+
+Editors can now inject a Biome configuration to the Biome Language Server without affecting the project's configuration.
+
+If you have a Biome extension compatible with your LSP-ready editor, you can map `inlineConfig`. The configuration will be merged with the project's configuration and it will take precedence.
+
+In the following example, the editor won't emit any diagnostics for the rule `noConsole`, but the CLI will still conform to the configuration of the project.
+
+<EditorSettings
+  zed={{
+    name: "inline_config",
+    value: `{
+          "linter": {
+            "rules": {
+              "suspicious": {
+                "noConsole": "off"
+              }
+            },
+          }
+        }`,
+  }}
+  vsCode={{
+    name: "inlineConfig",
+    value: `{
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noConsole": "off"
+          }
+        },
+      }
+    }`,
+  }}
+/>
+
+### Major improvements to HTML-ish languages
+
+In Biome v2.3, we announced experimental full support for HTML-ish languages such as Vue, Svelte, and Astro. We've since focused on improving the developer experience based on community feedback. Several improvements were shipped in patch releases.
+
+Biome 2.4 brings significantly improved parsing for Vue and Svelte, resulting in better formatting across the board. Additionally, the rules `noUnusedVariables`, `useConst`, `useImportType` and `noUnusedImports` have been substantially improved, so you will see fewer false positives.
+
+All these improvements are visible only when the flag `html.experimentalFullSupportEnabled` is set to `true`. If you previously used [the `overrides` configuration workaround](/internals/language-support/#linting-html-ish-languages) to disable certain rules, you can now remove it. If you encounter false positives, please report them in this [issue](https://github.com/biomejs/biome/issues/8590). We now have the infrastructure to address these problems.
+
+The CSS parser can now parse Vue SFC syntax such as `:slotted`, `:deep`, and `v-bind()`, as well as `:global` and `:local` inside `.astro`, `.svelte` and `.vue` files.
+
+### HTML accessibility rules
+
+Biome 2.4 introduces 15 comprehensive accessibility-focused lint rules for HTML, helping you build more accessible web applications:
+
+- [`noAutofocus`](https://biomejs.dev/linter/rules/no-autofocus/)
+- [`noPositiveTabindex`](https://biomejs.dev/linter/rules/no-positive-tabindex/)
+- [`useAltText`](https://biomejs.dev/linter/rules/use-alt-text/)
+- [`useAnchorContent`](https://biomejs.dev/linter/rules/use-anchor-content/)
+- [`useMediaCaption`](https://biomejs.dev/linter/rules/use-media-caption/)
+- [`useHtmlLang`](https://biomejs.dev/linter/rules/use-html-lang/)
+- [`useValidLang`](https://biomejs.dev/linter/rules/use-valid-lang/)
+- [`useValidAriaRole`](https://biomejs.dev/linter/rules/use-valid-aria-role/)
+- [`useAriaPropsForRole`](https://biomejs.dev/linter/rules/use-aria-props-for-role/)
+- [`useButtonType`](https://biomejs.dev/linter/rules/use-button-type/)
+- [`noAccessKey`](https://biomejs.dev/linter/rules/no-access-key/)
+- [`noDistractingElements`](https://biomejs.dev/linter/rules/no-distracting-elements/)
+- [`noSvgWithoutTitle`](https://biomejs.dev/linter/rules/no-svg-without-title/)
+- [`noRedundantAlt`](https://biomejs.dev/linter/rules/no-redundant-alt/)
+- [`useIframeTitle`](https://biomejs.dev/linter/rules/use-iframe-title/)
+
+These rules work seamlessly with Vue, Svelte, and Astro files.
+
+### Rule profiler
+
+The commands `lint` and `check` has now a `--profile-rules` flag. This flag enables the new internal profiler, which allows you to capture the execution time of lint rules, assist actions, and GritQL plugins.
+
+The profiler tracks only the execution time of the rule, and it doesn't track the time spent in querying Biome's CST. The flag will print an output similar to this one:
+
+```txt showLineNumbers=false
+Rule execution time (does not include any preprocessing)
+  total       avg         min         max         count rule
+    42.069ms     1.010µs    41.000ns   227.625µs  41633  correctness/noUnusedVariables
+    23.131ms   452.000ns    42.000ns   330.750µs  51096  suspicious/noFocusedTests
+     9.864ms   193.000ns     0.000ns   149.375µs  51046  suspicious/noConsole
+     8.074ms   198.000ns     0.000ns   141.208µs  40721  correctness/noUnusedFunctionParameters
+     7.963ms   137.000ns     0.000ns   263.958µs  57899  style/useNodejsImportProtocol
+     6.711ms     4.355µs    41.000ns   686.000µs   1541  source/organizeImports
+     4.076ms   664.000ns     0.000ns   132.792µs   6130  correctness/noUnusedImports
+     4.015ms    55.000ns     0.000ns   131.250µs  72343  correctness/noTypeOnlyImportAttributes
+     3.320ms   524.000ns     0.000ns   115.791µs   6334  style/useImportType
+   384.101µs   164.000ns     0.000ns    74.875µs   2328  correctness/noNodejsModules
+   384.042µs     2.782µs    42.000ns   163.417µs    138  correctness/noDuplicatePrivateClassMembers
+    10.753µs   282.000ns    83.000ns   833.000ns     38  correctness/noSuperWithoutExtends
+```
+
+A way to interpreter the data is to check the rules/actions that have low counts, and check their execution time. If the execution time feels off, for example, way too high compared to what it should be, maybe it's a good place to look for possible optimizations. Since we landed this feature, we found some bottlenecks that we fixed since then.
+
+### Configuration file discovery
+
+Biome 2.4 improves configuration file discovery in two major ways:
+
+1. **Hidden configuration files**: Biome now loads `.biome.json` and `.biome.jsonc` files. The loading order is: `biome.json` → `biome.jsonc` → `.biome.json` → `.biome.jsonc`
+
+2. **Config home directories**: Biome now attempts to load configuration files from platform-specific config directories:
+   - `$XDG_CONFIG_HOME` or `$HOME/.config/biome` on Linux
+   - `/Users/$USER/Library/Application Support/biome` on macOS
+   - `C:\Users\$USER\AppData\Roaming\biome\config` on Windows
+
+The priority order is: project folder (working directory) → parent folders → config home.
+
+## Linter and Assist
+
+### New Assist Actions
+
+#### Remove Duplicate CSS Classes
+
+Biome 2.4 introduces the [`noDuplicateClasses`](https://biomejs.dev/assist/actions/no-duplicate-classes/) assist action to detect and remove duplicate CSS classes.
+
+**For JSX files:** Supports `class`, `className` attributes and utility functions like `clsx`, `cn`, `cva`.
+
+**For HTML files:** Checks `class` attributes. This is the first assist action for HTML.
+
+```jsx title="example.jsx"
+// Before
+<div class="flex p-4 flex" />;
+
+// After
+<div class="flex p-4" />;
+```
+
+Thank you <Contributor handle="mldangelo" />.
+
+#### Sort Interface Members
+
+Added a new assist action `useSortedInterfaceMembers` that sorts TypeScript interface members for improved readability. It includes an autofix.
+
+Before:
+
+```ts title="example.ts"
+interface MixedMembers {
+  z: string;
+  a: number;
+  (): void;
+  y: boolean;
+}
+```
+
+After:
+
+```ts title="example.ts"
+interface MixedMembers {
+  a: number;
+  y: boolean;
+  z: string;
+  (): void;
+}
+```
+
+### Enhanced Lint Rules
+
+#### `useSortedKeys` with `groupByNesting` Option
+
+Added `groupByNesting` option to the `useSortedKeys` assist. When enabled, object keys are grouped by their value's nesting depth before sorting alphabetically.
+
+Simple values (primitives, single-line arrays, and single-line objects) are sorted first, followed by nested values (multi-line arrays and multi-line objects).
+
+```json title="biome.json"
+{
+  "linter": {
+    "rules": {
+      "source": {
+        "useSortedKeys": {
+          "options": {
+            "groupByNesting": true
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+#### `useHookAtTopLevel` with `ignore` Option
+
+Added `ignore` option to the [`useHookAtTopLevel`](https://biomejs.dev/linter/rules/use-hook-at-top-level/) rule. You can now specify function names that should not be treated as hooks, even if they follow the `use*` naming convention.
+
+```json title="biome.json"
+{
+  "linter": {
+    "rules": {
+      "correctness": {
+        "useHookAtTopLevel": {
+          "options": {
+            "ignore": ["useDebounce", "useCustomUtility"]
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+#### `useIterableCallbackReturn` with `checkForEach` Option
+
+The rule [`useIterableCallbackReturn`](https://biomejs.dev/linter/rules/use-iterable-callback-return/) now supports a `checkForEach` option. When set to `false`, the rule will skip checking for `forEach()` callbacks for returning values.
+
+#### Improved `useHookAtTopLevel` Detection
+
+Updated [`useHookAtTopLevel`](https://biomejs.dev/linter/rules/use-hook-at-top-level/) to better catch invalid hook usage. The rule now generates diagnostics if:
+
+- A hook is used at the module level (top of the file, outside any function)
+- A hook is used within a function or method which is not a hook or component, unless it is a function expression (such as arrow functions commonly used in tests)
+
+#### `useImportExtensions` with Custom Mappings
+
+Added the `extensionMappings` option to `useImportExtensions`. This allows you to specify custom file extensions for different module types. For example, to ban all `.ts` imports in favor of `.js` imports:
+
+```json title="biome.json"
+{
+  "linter": {
+    "rules": {
+      "nursery": {
+        "useImportExtensions": {
+          "level": "error",
+          "options": {
+            "extensionMappings": {
+              "ts": "js"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+#### `useUnifiedTypeSignatures` Enhancements
+
+Added 2 options from `typescript-eslint` to [`useUnifiedTypeSignatures`](https://biomejs.dev/linter/rules/use-unified-type-signatures/):
+
+- `ignoreDifferentlyNamedParameters` - Ignores overload signatures whose parameter names differ
+- `ignoreDifferentJsDoc` - Ignores overload signatures whose JSDoc comments differ
+
+#### Ignore Options for CSS Rules
+
+Added `ignore` option to [`noUnknownProperty`](https://biomejs.dev/linter/rules/no-unknown-property), `noUnknownFunction`, `noUnknownPseudoClass`, and `noUnknownPseudoElement`. If an unknown property/function/selector name matches any of the items provided in `ignore`, a diagnostic won't be emitted.
+
+#### Improved Svelte Variables Detection
+
+Improved the rule `noUnusedVariables` in Svelte files by correctly detecting variables defined in the JavaScript blocks and used inside the templates.
+
+### New Linter Domain: `types`
+
+Biome 2.4 introduces a new linter domain called `types`. This domain enables all rules that require the type inference engine to function.
+
+As opposed to the `project` domain (which only enables rules that require the module graph), the `types` domain specifically targets rules that need type information.
+
+The following nursery rules have been moved to the `types` domain:
+
+- `useArraySortCompare`
+- `useAwaitThenable`
+- `useFind`
+- `useRegexpExec`
+- `noUnnecessaryConditions`
+- `noMisusedPromises`
+- `noFloatingPromises`
+
+This allows you to enable or disable type-based linting more granularly using the `--only` and `--skip` flags.
+
+### Promoted Rules
+
+Biome 2.4 promotes 24 nursery rules to stable groups, making them production-ready.
+
+#### Correctness Rules
+
+Promoted the following rules to the `correctness` group:
+
+- [`noUnresolvedImports`](https://biomejs.dev/linter/rules/no-unresolved-imports/) - Reports imports that cannot be resolved
+- [`noVueReservedProps`](https://biomejs.dev/linter/rules/no-vue-reserved-props/) - Reports Vue reserved props usage
+- [`noVueReservedKeys`](https://biomejs.dev/linter/rules/no-vue-reserved-keys/) - Reports Vue reserved keys usage
+- [`noVueDataObjectDeclaration`](https://biomejs.dev/linter/rules/no-vue-data-object-declaration/) - Reports Vue 2 data declared as an object instead of a function
+- [`noNextAsyncClientComponent`](https://biomejs.dev/linter/rules/no-next-async-client-component/) - Reports async Next.js client components
+- [`noVueDuplicateKeys`](https://biomejs.dev/linter/rules/no-vue-duplicate-keys/) - Reports duplicate keys in Vue component options
+- [`noVueSetupPropsReactivityLoss`](https://biomejs.dev/linter/rules/no-vue-setup-props-reactivity-loss/) - Reports destructuring of props in Vue 3 setup which causes reactivity loss
+- [`useQwikMethodUsage`](https://biomejs.dev/linter/rules/use-qwik-method-usage/) - Enforces correct Qwik framework method usage
+- [`useQwikValidLexicalScope`](https://biomejs.dev/linter/rules/use-qwik-valid-lexical-scope/) - Enforces valid lexical scope in Qwik framework
+
+#### Suspicious Rules
+
+Promoted the following rules to the `suspicious` group:
+
+- [`noShadow`](https://biomejs.dev/linter/rules/no-shadow/) - Reports variable shadowing
+- [`noImportCycles`](https://biomejs.dev/linter/rules/no-import-cycles/) - Reports circular imports
+- [`noDeprecatedImports`](https://biomejs.dev/linter/rules/no-deprecated-imports/) - Reports imports of deprecated symbols
+- [`noReactForwardRef`](https://biomejs.dev/linter/rules/no-react-forward-ref/) - Reports usage of `React.forwardRef`
+- [`noUnusedExpressions`](https://biomejs.dev/linter/rules/no-unused-expressions/) - Reports expressions that are never used
+- [`noEmptySource`](https://biomejs.dev/linter/rules/no-empty-source/) - Reports empty source files
+- [`useDeprecatedDate`](https://biomejs.dev/linter/rules/use-deprecated-date/) - Enforces use of GraphQL `@deprecated` directive with date
+- [`noDuplicateDependencies`](https://biomejs.dev/linter/rules/no-duplicate-dependencies/) - Reports duplicate dependencies in package.json
+
+#### Complexity Rules
+
+Promoted the following rules to the `complexity` group:
+
+- [`noUselessUndefined`](https://biomejs.dev/linter/rules/no-useless-undefined/) - Reports useless `undefined` initialization and returns
+- [`useMaxParams`](https://biomejs.dev/linter/rules/use-max-params/) - Enforces a maximum number of function parameters
+- [`noUselessCatchBinding`](https://biomejs.dev/linter/rules/no-useless-catch-binding/) - Reports useless catch binding parameters
+
+#### Style Rules
+
+Promoted the following rules to the `style` group:
+
+- [`useConsistentArrowReturn`](https://biomejs.dev/linter/rules/use-consistent-arrow-return/) - Enforces consistent return in arrow functions
+- [`noJsxLiterals`](https://biomejs.dev/linter/rules/no-jsx-literals/) - Reports literal strings in JSX
+
+## Formatter
+
+### Embedded Snippets Formatting
+
+Biome 2.4 can now format embedded CSS and GraphQL snippets within JavaScript files. See the [Embedded snippets in JavaScript](#embedded-snippets-in-javascript) section in Highlights for details and examples.
+
+### Trailing Newline Option
+
+Added the formatter option [`trailingNewline`](https://biomejs.dev/reference/configuration/#formattertrailingnewline). When set to `false`, the formatter will remove the trailing newline at the end of formatted files. The default value is `true`, which preserves the current behavior.
+
+This option is available globally and for each language-specific formatter configuration:
+
+```json title="biome.json"
+{
+  "formatter": {
+    "trailingNewline": false
+  },
+  "javascript": {
+    "formatter": {
+      "trailingNewline": true
+    }
+  }
+}
+```
+
+CLI flags are also available: `--formatter-trailing-newline`, `--javascript-formatter-trailing-newline`, `--json-formatter-trailing-newline`, etc.
+
+:::caution
+Setting `trailingNewline` to `false` can cause issues in certain environments and tools. Many POSIX-compliant tools and text editors expect files to end with a newline character. Removing the trailing newline may result in:
+
+- Warnings or errors from compilers and interpreters
+- Issues with shell scripts that may not process the last line correctly
+- Problems with version control systems showing unnecessary diff changes
+- Incompatibility with coding standards that require POSIX-compliant text files
+
+We recommend keeping the default value of `true` unless you have a specific requirement to remove trailing newlines.
+:::
+
+### Top-Level Suppression Comments
+
+Added support for the top-level suppression comment `biome-ignore-all format: <explanation>`. When placed at the beginning of the document, Biome won't format the code.
+
+```js title="generated.js"
+// biome-ignore-all format: generated
+
+const a = [];
+const b = [];
+```
+
+### Formatting Applied with Code Fixes
+
+Formatting is now applied when applying safe/unsafe fixes via `biome check`. This ensures your code is properly formatted after applying automated fixes.
+
+### CSS Parser Improvements
+
+#### CSS `@function` At-Rule Support
+
+Added support for parsing and formatting the CSS `@function` at-rule from the [CSS Mixins Module Level 1](https://drafts.csswg.org/css-mixins-1/#function-rule) specification:
+
+```css title="styles.css"
+@function --transparent(--color <color>, --alpha <number>: 0.5) returns <color> {
+  result: oklch(from var(--color) l c h / var(--alpha));
+}
+```
+
+#### CSS Modules Auto-Detection
+
+Biome now automatically enables CSS modules parsing for `*.module.css` files. If your codebase only uses `*.module.css` files, you can remove the manual parser configuration.
+
+#### CSS Properties Ordering Update
+
+Updated the CSS properties ordering to align with `stylelint-config-recess-order` v7.4.0, adding support for containment properties, font synthesis properties, ruby properties, color adjustment properties, view transitions properties, shapes properties, motion path properties, and more.
+
+#### CSS Module Syntax in Vue/Svelte/Astro
+
+Added support for parsing `:global` and `:local` inside `.astro`, `.svelte` and `.vue` files, in the `<style>` portion of the file. This capability is only available when `experimentalFullHtmlSupportedEnabled` is set to `true`.
+
+## CLI
+
+### Enhanced `--skip` and `--only` Flags
+
+Added `--only` and `--skip` options to `biome check` and `biome ci`, covering both lint diagnostics and assist actions. You can now run or exclude specific:
+
+- Lint rules
+- Assist actions
+- Groups of rules and actions
+- Domains (including the new `types` domain)
+
+Examples:
+
+```shell showLineNumbers=false
+biome check --only=suspicious/noDebugger src/**/*.js
+biome ci --skip=project src/**
+biome lint --only=types  # Run only type-based rules
+```
+
+### Multiple Reporters and Reporter Output to Files
+
+Biome 2.4 adds support for multiple reporters and the ability to save reporter output to arbitrary files.
+
+#### Combine Multiple Reporters in CI
+
+If you run Biome on GitHub, you can now use both the default reporter and the GitHub reporter:
+
+```shell showLineNumbers=false
+biome ci --reporter=default --reporter=github
+```
+
+#### Save Reporter Output to a File
+
+With the new `--reporter-file` CLI option, it's now possible to save the output of all reporters to a file:
+
+```shell showLineNumbers=false
+biome ci --reporter=rdjson --reporter-file=/etc/tmp/report.json
+biome ci --reporter=summary --reporter-file=./reports/file.txt
+```
+
+You can combine these two features. For example, have the `default` reporter written on terminal, and the `rdjson` reporter written on file:
+
+```shell showLineNumbers=false
+biome ci --reporter=default --reporter=rdjson --reporter-file=/etc/tmp/report.json
+```
+
+**The `--reporter` and `--reporter-file` flags must appear next to each other, otherwise an error is thrown.**
+
+### New SARIF Reporter
+
+Added a new reporter `--reporter=sarif`, that emits diagnostics using the [SARIF](https://sarifweb.azurewebsites.net/) format. This is particularly useful for integrating Biome with security and code quality platforms.
+
+```shell showLineNumbers=false
+biome ci --reporter=sarif --reporter-file=biome-results.sarif
+```
+
+### File Watcher Control
+
+Added new CLI options to the commands `lsp-proxy` and `start` that allow control over the Biome file watcher:
+
+- **`--watcher-kind`** (env: `BIOME_WATCHER_KIND`): Controls how the Biome file watcher behaves. Options: `recommended` (default), `polling`, or `none`.
+- **`--watcher-polling-interval`** (env: `BIOME_WATCHER_POLLING_INTERVAL`): The polling interval in milliseconds when using `polling` mode (defaults to 2000ms).
+
+### Enhanced Logging Options
+
+Revamped the logging options for all Biome commands. The commands `format`, `lint`, `check`, `ci`, `search`, `lsp-proxy` and `start` now accept consistent logging CLI options with environment variable aliases:
+
+- `--log-file` (env: `BIOME_LOG_FILE`) - Optional path/file to redirect log messages to
+- `--log-prefix-name` (env: `BIOME_LOG_PREFIX_NAME`) - Allows changing the prefix applied to the file name of the logs (daemon only)
+- `--log-path` (env: `BIOME_LOG_PATH`) - Allows changing the folder where logs are stored (daemon only)
+- `--log-level` (env: `BIOME_LOG_LEVEL`) - The level of logging: `debug`, `info`, `warn`, `error`, or `none`
+- `--log-kind` (env: `BIOME_LOG_KIND`) - What the log should look like
+
+### Stacktrace for Fatal Errors
+
+It's now possible to provide the stacktrace for a fatal error. The stacktrace is only available when the environment variable `RUST_BACKTRACE=1` is set:
+
+```shell
+RUST_BACKTRACE=1 biome lint
+```
+
+## Additional Features
+
+### GritQL JSON Support
+
+Added JSON as a target language for GritQL pattern matching. You can now write Grit plugins for JSON files, enabling:
+
+- Searching and transforming JSON configuration files
+- Enforcing patterns in `package.json` and other JSON configs
+- Writing custom lint rules for JSON using GritQL
+
+Example patterns:
+
+Match all key-value pairs:
+
+```grit title="pattern.grit"
+language json
+pair(key = $k, value = $v)
+```
+
+Match objects with specific structure:
+
+```grit title="pattern.grit"
+language json
+JsonObjectValue()
+```
+
+Supports both native Biome AST names (`JsonMember`, `JsonObjectValue`) and TreeSitter-compatible names (`pair`, `object`, `array`) for compatibility with existing Grit patterns.
+
+For more details, see the [GritQL documentation](https://biomejs.dev/reference/gritql/).
+
+### LSP and Editor Features
+
+#### LSP Progress Reporting
+
+The Biome Language Server now reports progress while scanning files and dependencies in the project, providing better feedback during long-running operations.
+
+### Configuration and Editor Support
+
+#### Cursor Files Support
+
+Added support for Cursor files. When Biome sees a Cursor JSON file, it will parse it with comments enabled and trailing commas enabled:
+
+- `$PROJECT/.cursor/`
+- `%APPDATA%\Cursor\User\` on Windows
+- `~/Library/Application Support/Cursor/User/` on macOS
+- `~/.config/Cursor/User/` on Linux
+
+### Other Improvements
+
+#### Vue SFC CSS Syntax Support
+
+The Biome CSS parser is now able to parse Vue SFC syntax such as `:slotted`, `:deep`, and `v-bind()`. These pseudo-functions and directives are only correctly parsed when the CSS is defined inside `.vue` components.
+
+This capability is only available when `experimentalFullHtmlSupportedEnabled` is set to `true`.
+
+#### e18e ESLint Plugin Support
+
+Added e18e ESLint plugin as a recognized rule source. Six Biome rules now reference their e18e equivalents: `useAtIndex`, `useExponentiationOperator`, `noPrototypeBuiltins`, `useDateNow`, `useSpread`, and `useObjectSpread`.
+
+## More Improvements
+
+In addition to the features highlighted above, Biome 2.4 includes numerous bug fixes, performance improvements, and smaller enhancements across the toolchain. For a complete list of changes, refer to the [changelog page](/internals/changelog/version/2-4-0/).
+
+## I like where this is going, how can I help?
+
+I want to remind you that Biome is a project led by volunteers who like programming, open-source, and embrace the Biome philosophy, so any help is welcome.
+
+### Translations
+
+If you are familiar with Biome and would like to contribute to its outreach, you can assist us by translating the website into your native language. In this [dashboard](https://biomejs.dev/i18n-dashboard/), you can check the supported languages and if they are up to date.
+
+### Chat with us
+
+Join our [Discord server](https://biomejs.dev/chat), and engage with the community. Chatting with the community and being part of the community is a form of contribution.
+
+### Code contributions
+
+If you like the technical aspects of the project, and you want to make your way into the Rust language, or practice your knowledge around parsers, compilers, analysers, etc., Biome is the project that does for you!
+
+There are numerous aspects to explore; I assure you that you won't get bored. Here is a small list of the things you can start with:
+
+- Create new lint rules! We have so many rules that we haven't implemented yet (ESLint, ESLint plugins, Next.js, Solid, etc.). We have a very [extensive technical guide](https://github.com/biomejs/biome/blob/main/crates/biome_analyze/CONTRIBUTING.md).
+- [Help](https://github.com/biomejs/biome/blob/main/crates/biome_parser/CONTRIBUTING.md) [building](https://github.com/biomejs/biome/tree/main/crates/biome_yaml_parser) [Biome](https://github.com/biomejs/biome/tree/main/crates/biome_html_parser) [parsers](https://github.com/biomejs/biome/tree/main/crates/biome_markdown_parser)!
+  One interesting fact about Biome parsers is that they are recoverable parsers [error resilient](/internals/architecture/#parser-and-cst) which emit a [CST](https://en.wikipedia.org/wiki/Parse_tree) instead of a classic AST.
+- Implement new capabilities in our [LSP (Language Server Protocol)](https://github.com/biomejs/biome/tree/main/crates/biome_lsp), or add new features in one of our editor extensions: [VS Code](https://github.com/biomejs/biome-vscode), [Zed](https://github.com/biomejs/biome-zed) and [JetBrains IntelliJ](https://github.com/biomejs/biome-intellij).
+
+### Financial help
+
+If you believe in the future of the project, you can also help with a financial contribution, via [Open Collective](https://opencollective.com/biome) or [GitHub Sponsors](https://github.com/sponsors/biomejs).
+
+Additionally, the project provides an [enterprise support program ](/enterprise) where a company you can employ one of the core contributors to work a specific aspect of the Biome toolchain.
