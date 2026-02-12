@@ -2918,6 +2918,23 @@ export function GET() {
             ],
             "docs": " Disallow creating multiline strings by escaping newlines.\n\n Escaping newlines to create multiline strings is discouraged because it\n can lead to subtle errors caused by unexpected whitespace after the\n backslash.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const foo =\n     \"Line 1\\n\\\n Line 2\";\n ```\n\n ### Valid\n\n ```js\n const foo = \"Line 1\\nLine 2\";\n ```\n\n ```js\n const bar = `Line 1\n Line 2`;\n ```\n"
           },
+          "noNestedPromises": {
+            "deprecated": false,
+            "version": "2.3.15",
+            "name": "noNestedPromises",
+            "link": "https://biomejs.dev/linter/rules/no-nested-promises",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintPromise": "no-nesting"
+                }
+              }
+            ],
+            "docs": " Disallow nested `.then()` or `.catch()` promise calls.\n\n Nesting `.then()` or `.catch()` calls defeats the purpose of promises,\n which is to create a flat chain of asynchronous operations. Nested promise\n callbacks can make code harder to read and maintain.\n\n However, nesting is allowed when the nested callback references variables\n from the outer scope, as flattening would break the code in such cases.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n doThing().then(function() { return a.then() })\n ```\n\n ```js,expect_diagnostic\n doThing().then(() => b.catch())\n ```\n\n ```js,expect_diagnostic\n doThing()\n   .then(a => getB(a)\n     .then(b => getC(b))\n   )\n ```\n\n ### Valid\n\n ```js\n // Simple returns\n doThing().then(function() { return 4 })\n doThing().then(() => 4)\n ```\n\n ```js\n // Chained promises (no nesting)\n doThing()\n   .then(a => getB(a))\n   .then(b => getC(b))\n ```\n\n ```js\n // Nested but references outer scope variable 'a'\n doThing()\n   .then(a => getB(a)\n     .then(b => getC(a, b))\n   )\n ```\n\n ```js\n // Promise.resolve/all are fine\n doThing().then(function() { return Promise.all([a,b,c]) })\n doThing().then(() => Promise.resolve(4))\n ```\n\n"
+          },
           "noNextAsyncClientComponent": {
             "deprecated": false,
             "version": "2.2.0",
@@ -3186,6 +3203,23 @@ export function GET() {
             "recommended": false,
             "fixKind": "unsafe",
             "docs": " Disallow unused catch bindings.\n\n This rule disallows unnecessary catch bindings in accordance with ECMAScript 2019.\n See also: the ECMAScript 2019 “optional catch binding” feature in the language specification.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n try {\n     // Do something\n } catch (unused) {}\n ```\n\n ```js,expect_diagnostic\n try {\n     // Do something\n } catch ({ unused }) {}\n ```\n\n ```js,expect_diagnostic\n try {\n     // Do something\n } catch ({ unused1, unused2 }) {}\n ```\n\n ### Valid\n\n ```js\n try {\n     // Do something\n } catch (used) {\n     console.error(used);\n }\n ```\n\n ```js\n try {\n     // Do something\n } catch ({ used }) {\n     console.error(used);\n }\n ```\n\n ```js\n try {\n     // Do something\n } catch ({ used, unused }) {\n     console.error(used);\n }\n ```\n\n ```js\n try {\n     // Do something\n } catch {}\n ```\n\n"
+          },
+          "noUselessReturn": {
+            "deprecated": false,
+            "version": "2.3.15",
+            "name": "noUselessReturn",
+            "link": "https://biomejs.dev/linter/rules/no-useless-return",
+            "recommended": false,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslint": "no-useless-return"
+                }
+              }
+            ],
+            "docs": " Disallow redundant return statements.\n\n A `return;` statement with nothing after it is redundant when it is the\n last reachable statement in a function body. Removing it does not change\n the function's behavior, as execution naturally falls through to the end.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function foo() {\n     return;\n }\n ```\n\n ```js,expect_diagnostic\n function foo() {\n     doSomething();\n     return;\n }\n ```\n\n ```js,expect_diagnostic\n function foo() {\n     if (condition) {\n         bar();\n         return;\n     }\n }\n ```\n\n ### Valid\n\n ```js\n function foo() {\n     return 5;\n }\n ```\n\n ```js\n function foo() {\n     if (condition) {\n         return;\n     }\n     bar();\n }\n ```\n\n ```js\n function foo() {\n     for (const x of xs) {\n         return;\n     }\n }\n ```\n\n"
           },
           "noUselessUndefined": {
             "deprecated": false,
@@ -7698,7 +7732,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 445
+    "numberOrRules": 447
   },
   "syntax": {
     "languages": {
