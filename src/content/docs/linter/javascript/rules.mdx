@@ -189,10 +189,12 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noMisusedPromises](/linter/rules/no-misused-promises) | Disallow Promises to be used in places where they are almost certainly a | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noMultiAssign](/linter/rules/no-multi-assign) | Disallow use of chained assignment expressions |  |
 | [noMultiStr](/linter/rules/no-multi-str) | Disallow creating multiline strings by escaping newlines. |  |
+| [noNestedPromises](/linter/rules/no-nested-promises) | Disallow nested `.then()` or `.catch()` promise calls. |  |
 | [noNextAsyncClientComponent](/linter/rules/no-next-async-client-component) | Prevent client components from being async functions. |  |
 | [noParametersOnlyUsedInRecursion](/linter/rules/no-parameters-only-used-in-recursion) | Disallow function parameters that are only used in recursive calls. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noProto](/linter/rules/no-proto) | Disallow the use of the deprecated `__proto__` object property. |  |
 | [noReactForwardRef](/linter/rules/no-react-forward-ref) | Replaces usages of `forwardRef` with passing `ref` as a prop. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [noRedundantDefaultExport](/linter/rules/no-redundant-default-export) | Checks if a default export exports the same symbol as a named export. |  |
 | [noReturnAssign](/linter/rules/no-return-assign) | Disallow assignments in return statements. |  |
 | [noScriptUrl](/linter/rules/no-script-url) | Disallow `javascript:` URLs. |  |
 | [noShadow](/linter/rules/no-shadow) | Disallow variable declarations from shadowing variables declared in the outer scope. |  |
@@ -204,8 +206,9 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noUnresolvedImports](/linter/rules/no-unresolved-imports) | Warn when importing non-existing exports. |  |
 | [noUnusedExpressions](/linter/rules/no-unused-expressions) | Disallow expression statements that are neither a function call nor an |  |
 | [noUselessCatchBinding](/linter/rules/no-useless-catch-binding) | Disallow unused catch bindings. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [noUselessReturn](/linter/rules/no-useless-return) | Disallow redundant return statements. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [noUselessUndefined](/linter/rules/no-useless-undefined) | Disallow the use of useless `undefined`. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
-| [noVueArrowFuncInWatch](/linter/rules/no-vue-arrow-func-in-watch) | Disallows using arrow functions when defining a watcher. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span><span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
+| [noVueArrowFuncInWatch](/linter/rules/no-vue-arrow-func-in-watch) | Disallows using arrow functions when defining a watcher. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noVueDataObjectDeclaration](/linter/rules/no-vue-data-object-declaration) | Enforce that Vue component `data` options are declared as functions. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [noVueDuplicateKeys](/linter/rules/no-vue-duplicate-keys) | Disallow duplicate keys in Vue component data, methods, computed properties, and other options. |  |
 | [noVueOptionsApi](/linter/rules/no-vue-options-api) | Disallow the use of Vue Options API. |  |
@@ -216,11 +219,13 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [useAwaitThenable](/linter/rules/use-await-thenable) | Enforce that `await` is only used on `Promise` values. |  |
 | [useConsistentArrowReturn](/linter/rules/use-consistent-arrow-return) | Enforce consistent arrow function bodies. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [useConsistentEnumValueType](/linter/rules/use-consistent-enum-value-type) | Disallow enums from having both number and string members. |  |
+| [useConsistentMethodSignatures](/linter/rules/use-consistent-method-signatures) | Enforce consistent use of either method signatures or function properties within interfaces and type aliases. |  |
 | [useDestructuring](/linter/rules/use-destructuring) | Require destructuring from arrays and/or objects |  |
 | [useErrorCause](/linter/rules/use-error-cause) | Enforce that `new Error()` is thrown with the original error as `cause`. |  |
 | [useExhaustiveSwitchCases](/linter/rules/use-exhaustive-switch-cases) | Require switch-case statements to be exhaustive. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useExplicitType](/linter/rules/use-explicit-type) | Enforce types in functions, methods, variables, and parameters. |  |
 | [useFind](/linter/rules/use-find) | Enforce the use of Array.prototype.find() over Array.prototype.filter() followed by [0] when looking for a single result. |  |
+| [useGlobalThis](/linter/rules/use-global-this) | Enforce the use of `globalThis` over `window`, `self`, and `global`. |  |
 | [useInlineScriptId](/linter/rules/use-inline-script-id) | Enforce `id` attribute on `next/script` components with inline content or `dangerouslySetInnerHTML`. |  |
 | [useMaxParams](/linter/rules/use-max-params) | Enforce a maximum number of parameters in function definitions. |  |
 | [useQwikMethodUsage](/linter/rules/use-qwik-method-usage) | Disallow `use*` hooks outside of `component$` or other `use*` hooks in Qwik applications. |  |

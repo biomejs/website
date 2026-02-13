@@ -217,6 +217,13 @@ export function GET() {
 					"required": ["eslintPerfectionist"]
 				},
 				{
+					"description": "Rules from [Eslint Plugin Promise](https://github.com/eslint-community/eslint-plugin-promise)",
+					"type": "object",
+					"properties": { "eslintPromise": { "type": "string" } },
+					"additionalProperties": false,
+					"required": ["eslintPromise"]
+				},
+				{
 					"description": "Rules from [Eslint Plugin Qwik](https://github.com/QwikDev/qwik)",
 					"type": "object",
 					"properties": { "eslintQwik": { "type": "string" } },
