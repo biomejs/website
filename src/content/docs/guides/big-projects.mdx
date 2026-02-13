@@ -148,6 +148,22 @@ case, we suggest ignoring the nested project entirely using
 [the `files.includes` field](/reference/configuration/#filesincludes).
 :::
 
+:::caution[Agentic Workflows and Parallel Processes]
+When running multiple Biome processes in parallel (e.g., in CI/CD pipelines or agentic workflows), you may experience high CPU usage and resource contention. Each Biome instance can use 60-80% CPU, which can slow down overall execution when many agents run simultaneously.
+
+To limit the number of threads Biome uses across all commands, set the `RAYON_NUM_THREADS` environment variable:
+
+```bash
+# Limit Biome to use only 1 thread per instance
+RAYON_NUM_THREADS=1 biome lint .
+
+# Or set it globally for all Biome commands in your environment
+export RAYON_NUM_THREADS=1
+```
+
+This approach is more convenient than using the `--threads` flag (which is only available for the `ci` command) because it applies to all Biome commands automatically without modifying individual command invocations.
+:::
+
 ## Other ways to share a configuration file
 
 As we saw above, the `extends` field allows you to split your configuration
