@@ -27,7 +27,7 @@ biome migrate --write
 
 ## Highlights
 
-Among all the features shipped in this release, here's the ones we think you're going to like most!
+Among all the features shipped in this release, here are the ones we think you're going to like most!
 
 - [Embedded snippets in JavaScript](#embedded-snippets-in-javascript)
 - [Editor inline configuration](#editor-inline-configuration)
@@ -148,7 +148,7 @@ These rules work seamlessly with Vue, Svelte, and Astro files.
 
 ### Rule profiler
 
-The commands `lint` and `check` has now a `--profile-rules` flag. This flag enables the new internal profiler, which allows you to capture the execution time of lint rules, assist actions, and GritQL plugins.
+The commands `lint` and `check` now have a `--profile-rules` flag. This flag enables the new internal profiler, which allows you to capture the execution time of lint rules, assist actions, and GritQL plugins.
 
 The profiler tracks only the execution time of the rule, and it doesn't track the time spent in querying Biome's CST. The flag will print an output similar to this one:
 
@@ -169,7 +169,7 @@ Rule execution time (does not include any preprocessing)
     10.753µs   282.000ns    83.000ns   833.000ns     38  correctness/noSuperWithoutExtends
 ```
 
-A way to interpreter the data is to check the rules/actions that have low counts, and check their execution time. If the execution time feels off, for example, way too high compared to what it should be, maybe it's a good place to look for possible optimizations. Since we landed this feature, we found some bottlenecks that we fixed since then.
+One way to interpret the data is to check the rules/actions that have low counts, and check their execution time. For example, if the execution time feels way too high compared to what it should be, maybe it's a good place to look for possible optimizations. Since we landed this feature, we found some bottlenecks that we fixed since then.
 
 ### Configuration file discovery
 
@@ -616,8 +616,7 @@ I want to remind you that Biome is a project led by volunteers who like programm
 
 ### Translations
 
-If you are familiar with Biome and would like to contribute to its outreach, you can assist us by translating the website into your native language. In this [dashboard](https://biomejs.dev/i18n-dashboard/), you can check the supported languages and if they are up to date.
-
+If you are familiar with Biome and would like to contribute to its outreach, you can assist us by translating the website into your native language. In this [dashboard](https://biomejs.dev/i18n-dashboard/), you can check the supported languages and if they are up-to-date.
 ### Chat with us
 
 Join our [Discord server](https://biomejs.dev/chat), and engage with the community. Chatting with the community and being part of the community is a form of contribution.
