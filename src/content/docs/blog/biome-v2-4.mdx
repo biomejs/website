@@ -144,7 +144,7 @@ Biome 2.4 introduces 15 comprehensive accessibility-focused lint rules for HTML,
 - [`noRedundantAlt`](https://biomejs.dev/linter/rules/no-redundant-alt/)
 - [`useIframeTitle`](https://biomejs.dev/linter/rules/use-iframe-title/)
 
-These rules work seamlessly with Vue, Svelte, and Astro files.
+These rules work seamlessly with Vue, Svelte, and Astro files. Please help us to ship more [a11y rules](https://github.com/biomejs/biome/issues/8155).
 
 ### Rule profiler
 
@@ -169,7 +169,7 @@ Rule execution time (does not include any preprocessing)
     10.753µs   282.000ns    83.000ns   833.000ns     38  correctness/noSuperWithoutExtends
 ```
 
-One way to interpret the data is to check the rules/actions that have low counts, and check their execution time. For example, if the execution time feels way too high compared to what it should be, maybe it's a good place to look for possible optimizations. Since we landed this feature, we found some bottlenecks that we fixed since then.
+One way to interpret the data is to check the rules/actions that have low counts, and check their execution time. For example, if the execution time feels way too high compared to what it should be, maybe it's a good place to look for possible optimizations. Since we landed this feature, we have found some bottlenecks that we have fixed since then.
 
 ### Configuration file discovery
 
@@ -365,7 +365,6 @@ Promoted the following rules to the `correctness` group:
 
 Promoted the following rules to the `suspicious` group:
 
-- [`noShadow`](https://biomejs.dev/linter/rules/no-shadow/) - Reports variable shadowing
 - [`noImportCycles`](https://biomejs.dev/linter/rules/no-import-cycles/) - Reports circular imports
 - [`noDeprecatedImports`](https://biomejs.dev/linter/rules/no-deprecated-imports/) - Reports imports of deprecated symbols
 - [`noReactForwardRef`](https://biomejs.dev/linter/rules/no-react-forward-ref/) - Reports usage of `React.forwardRef`
@@ -464,7 +463,7 @@ Updated the CSS properties ordering to align with `stylelint-config-recess-order
 
 #### CSS Module Syntax in Vue/Svelte/Astro
 
-Added support for parsing `:global` and `:local` inside `.astro`, `.svelte` and `.vue` files, in the `<style>` portion of the file. This capability is only available when `experimentalFullHtmlSupportedEnabled` is set to `true`.
+Added support for parsing `:global` and `:local` inside `.astro`, `.svelte` and `.vue` files, in the `<style>` portion of the file. This capability is only available when `experimentalFullHtmlSupportEnabled` is set to `true`.
 
 ## CLI
 
@@ -512,7 +511,7 @@ You can combine these two features. For example, have the `default` reporter wri
 biome ci --reporter=default --reporter=rdjson --reporter-file=/etc/tmp/report.json
 ```
 
-**The `--reporter` and `--reporter-file` flags must appear next to each other, otherwise an error is thrown.**
+**The `--reporter` and `--reporter-file` flags must appear next to each other.**
 
 ### New SARIF Reporter
 
@@ -600,7 +599,7 @@ Added support for Cursor files. When Biome sees a Cursor JSON file, it will pars
 
 The Biome CSS parser is now able to parse Vue SFC syntax such as `:slotted`, `:deep`, and `v-bind()`. These pseudo-functions and directives are only correctly parsed when the CSS is defined inside `.vue` components.
 
-This capability is only available when `experimentalFullHtmlSupportedEnabled` is set to `true`.
+This capability is only available when `experimentalFullHtmlSupportEnabled` is set to `true`.
 
 #### e18e ESLint Plugin Support
 
@@ -617,13 +616,14 @@ I want to remind you that Biome is a project led by volunteers who like programm
 ### Translations
 
 If you are familiar with Biome and would like to contribute to its outreach, you can assist us by translating the website into your native language. In this [dashboard](https://biomejs.dev/i18n-dashboard/), you can check the supported languages and if they are up-to-date.
+
 ### Chat with us
 
 Join our [Discord server](https://biomejs.dev/chat), and engage with the community. Chatting with the community and being part of the community is a form of contribution.
 
 ### Code contributions
 
-If you like the technical aspects of the project, and you want to make your way into the Rust language, or practice your knowledge around parsers, compilers, analysers, etc., Biome is the project that does for you!
+If you like the technical aspects of the project, and you want to make your way into the Rust language, or practice your knowledge around parsers, compilers, analysers, etc., Biome is the project for you!
 
 There are numerous aspects to explore; I assure you that you won't get bored. Here is a small list of the things you can start with:
 
@@ -636,4 +636,4 @@ There are numerous aspects to explore; I assure you that you won't get bored. He
 
 If you believe in the future of the project, you can also help with a financial contribution, via [Open Collective](https://opencollective.com/biome) or [GitHub Sponsors](https://github.com/sponsors/biomejs).
 
-Additionally, the project provides an [enterprise support program ](/enterprise) where a company you can employ one of the core contributors to work a specific aspect of the Biome toolchain.
+Additionally, the project provides an [enterprise support program ](/enterprise) where you as a company can employ one of the core contributors to work a specific aspect of the Biome toolchain.
