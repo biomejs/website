@@ -100,8 +100,8 @@ importers:
         specifier: 5.16.15
         version: 5.16.15(@netlify/blobs@10.5.0)(@types/node@24.10.4)(jiti@2.6.1)(rollup@4.57.1)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.6))(typescript@5.9.3)(yaml@2.8.2)
       astro-og-canvas:
-        specifier: 0.8.0
-        version: 0.8.0(astro@5.16.15(@netlify/blobs@10.5.0)(@types/node@24.10.4)(jiti@2.6.1)(rollup@4.57.1)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.6))(typescript@5.9.3)(yaml@2.8.2))
+        specifier: 0.10.1
+        version: 0.10.1(astro@5.16.15(@netlify/blobs@10.5.0)(@types/node@24.10.4)(jiti@2.6.1)(rollup@4.57.1)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.6))(typescript@5.9.3)(yaml@2.8.2))
       autoprefixer:
         specifier: 10.4.24
         version: 10.4.24(postcss@8.5.6)
@@ -2196,8 +2196,8 @@ packages:
     peerDependencies:
       astro: ^4.0.0-beta || ^5.0.0-beta || ^3.3.0 || ^6.0.0-beta
 
-  astro-og-canvas@0.8.0:
-    resolution: {integrity: sha512-0DUPEC9f5ajcXcY5Enx1KmD0lfW2VtjH69B4sFTQxKM/DdH9eF5MGRmBwjzlnAUGsOcmBXqCtO3lOP78eLlWSw==}
+  astro-og-canvas@0.10.1:
+    resolution: {integrity: sha512-cUjsWIOkDBi9Bfkgta1Cr45m2UnTX/jW+tK406SVcD1idhqIHrGD+M5qtwGcJ6OanHeWSgyHGmzQuzELGAwPKg==}
     peerDependencies:
       astro: ^5.0.0 || ^6.0.0-alpha
 
@@ -8413,7 +8413,7 @@ snapshots:
       astro: 5.16.15(@netlify/blobs@10.5.0)(@types/node@24.10.4)(jiti@2.6.1)(rollup@4.57.1)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.6))(typescript@5.9.3)(yaml@2.8.2)
       rehype-expressive-code: 0.41.6
 
-  astro-og-canvas@0.8.0(astro@5.16.15(@netlify/blobs@10.5.0)(@types/node@24.10.4)(jiti@2.6.1)(rollup@4.57.1)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.6))(typescript@5.9.3)(yaml@2.8.2)):
+  astro-og-canvas@0.10.1(astro@5.16.15(@netlify/blobs@10.5.0)(@types/node@24.10.4)(jiti@2.6.1)(rollup@4.57.1)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.6))(typescript@5.9.3)(yaml@2.8.2)):
     dependencies:
       astro: 5.16.15(@netlify/blobs@10.5.0)(@types/node@24.10.4)(jiti@2.6.1)(rollup@4.57.1)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.6))(typescript@5.9.3)(yaml@2.8.2)
       canvaskit-wasm: 0.40.0
