@@ -1,0 +1,23 @@
+---
+interface Props {
+	handle: string;
+}
+
+const { handle } = Astro.props;
+const url = `https://github.com/${handle}`;
+const alt = `Contributor @${handle}`;
+---
+
+<a class="handle" href={url} title={alt}>
+	@{handle}
+</a>
+
+
+<style>
+	.handle {
+		text-decoration: underline;
+		color: inherit;
+		font-weight: bold;
+		line-height: 30px;
+	}
+</style>
