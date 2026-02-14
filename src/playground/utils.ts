@@ -421,3 +421,34 @@ export function spanInBytesToSpanInCodeUnits(
 
 	return spanInCodeUnits;
 }
+
+/**
+ * Convert a byte offset to a code unit offset in a UTF-8 string
+ */
+export function byteOffsetToCodeUnitOffset(
+	byteOffset: number,
+	text: string,
+): number {
+	let byteIndex = 0;
+	let codeUnitIndex = 0;
+
+	for (codeUnitIndex = 0; codeUnitIndex < text.length; codeUnitIndex++) {
+		const codePoint = text.codePointAt(codeUnitIndex) ?? 0;
+		const byteLength =
+			codePoint <= 0x7f
+				? 1
+				: codePoint <= 0x7ff
+					? 2
+					: codePoint <= 0xffff
+						? 3
+						: 4;
+
+		if (byteIndex + byteLength > byteOffset) {
+			break;
+		}
+
+		byteIndex += byteLength;
+	}
+
+	return codeUnitIndex;
+}

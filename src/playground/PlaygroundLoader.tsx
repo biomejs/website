@@ -44,8 +44,8 @@ import {
 	normalizeFilename,
 } from "@/playground/utils";
 
-function throttle(callback: () => void): () => void {
-	const timeout = setTimeout(callback, 100);
+function throttle(callback: () => void, delay = 100): () => void {
+	const timeout = setTimeout(callback, delay);
 
 	return () => {
 		clearTimeout(timeout);
@@ -243,18 +243,24 @@ function PlaygroundLoader() {
 				code: getCurrentCode(state),
 			});
 
+			const file = getFileState(state, state.currentFile);
+
 			workerRef.current?.postMessage({
 				type: "update",
 				cursorPosition: state.cursorPosition,
 				filename: state.currentFile,
 				code: getCurrentCode(state),
+				gritQuery: file?.gritQuery,
+				defaultLanguage: state.settings.gritTargetLanguage,
 			});
 		});
 	}, [
 		loadingState,
 		state.currentFile,
 		state.cursorPosition,
+		state.settings.gritTargetLanguage,
 		getCurrentCode(state),
+		getFileState(state, state.currentFile)?.gritQuery,
 	]);
 
 	switch (loadingState) {
@@ -304,6 +310,11 @@ function buildLocation(state: PlaygroundState): string {
 		const language = guessLanguage(state.currentFile);
 		if (language !== LANGUAGE.TSX) {
 			queryStringObj.language = language;
+		}
+
+		const gritQuery = getFileState(state, state.currentFile)?.gritQuery;
+		if (gritQuery) {
+			queryStringObj.gritQuery = gritQuery;
 		}
 	} else {
 		// Populate files
@@ -361,11 +372,16 @@ function initState(
 				language: (searchParams.get("language") as Language) ?? LANGUAGE.TSX,
 				script: searchParams.get("script") === "true",
 			});
-			files[`main.${ext}`] = {
+			const gritQuery = searchParams.get("gritQuery");
+			const baseFile = {
 				content: decodeCode(searchParams.get("code") ?? ""),
 				biome: emptyBiomeOutput,
 				prettier: emptyPrettierOutput,
 			};
+			files[`main.${ext}`] =
+				gritQuery !== null && gritQuery !== ""
+					? { ...baseFile, gritQuery }
+					: baseFile;
 			hasFiles = true;
 		}
 	}
@@ -399,6 +415,7 @@ function initState(
 			lineWidth: Number.parseInt(
 				searchParams.get("lineWidth") ??
 					String(defaultPlaygroundState.settings.lineWidth),
+				10,
 			),
 			indentStyle:
 				(searchParams.get("indentStyle") as IndentStyle) ??
@@ -420,6 +437,7 @@ function initState(
 			indentWidth: Number.parseInt(
 				searchParams.get("indentWidth") ??
 					String(defaultPlaygroundState.settings.indentWidth),
+				10,
 			),
 			semicolons:
 				(searchParams.get("semicolons") as Semicolons) ??
@@ -476,6 +494,11 @@ function initState(
 			tailwindDirectives:
 				searchParams.get("tailwindDirectives") === "true" ||
 				defaultPlaygroundState.settings.tailwindDirectives,
+			gritTargetLanguage:
+				(searchParams.get("gritTargetLanguage") as
+					| "JavaScript"
+					| "CSS"
+					| undefined) ?? defaultPlaygroundState.settings.gritTargetLanguage,
 		},
 	};
 }

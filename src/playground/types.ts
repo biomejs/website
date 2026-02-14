@@ -126,6 +126,10 @@ export interface BiomeOutput {
 		ir: string;
 		registered: string;
 	};
+	gritQuery: {
+		matches: [number, number][];
+		error?: string;
+	};
 }
 
 export const emptyBiomeOutput: BiomeOutput = {
@@ -149,6 +153,9 @@ export const emptyBiomeOutput: BiomeOutput = {
 	types: {
 		ir: "",
 		registered: "",
+	},
+	gritQuery: {
+		matches: [],
 	},
 };
 
@@ -200,12 +207,14 @@ export interface PlaygroundSettings {
 	experimentalFullSupportEnabled: boolean;
 	cssModules: boolean;
 	tailwindDirectives: boolean;
+	gritTargetLanguage: "JavaScript" | "CSS";
 }
 
 export interface PlaygroundFileState {
 	content: string;
 	prettier: PrettierOutput;
 	biome: BiomeOutput;
+	gritQuery?: string;
 }
 
 export interface PlaygroundState {
@@ -256,6 +265,7 @@ export const defaultPlaygroundState: PlaygroundState = {
 		experimentalFullSupportEnabled: true,
 		cssModules: false,
 		tailwindDirectives: true,
+		gritTargetLanguage: "JavaScript",
 	},
 };
 
