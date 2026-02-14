@@ -9,12 +9,10 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JSX and TSX" icon="seti:javascript">
-:::caution
-This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
-:::
 ## Summary
 - Rule available since: `v2.2.6`
-- Diagnostic Category: [`lint/nursery/useQwikMethodUsage`](/reference/diagnostics#diagnostic-category)
+- Diagnostic Category: [`lint/correctness/useQwikMethodUsage`](/reference/diagnostics#diagnostic-category)
+- This rule is **recommended**, meaning it is enabled by default.
 - This rule doesn't have a fix.
 - The default severity of this rule is [**error**](/reference/diagnostics#error).
 - This rule belongs to the following domains:
@@ -27,7 +25,7 @@ This rule is part of the [nursery](/linter/#nursery) group. This means that it i
 {
 	"linter": {
 		"rules": {
-			"nursery": {
+			"correctness": {
 				"useQwikMethodUsage": "error"
 			}
 		}
@@ -53,7 +51,7 @@ export const Counter = () => {
 };
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:4:17 <a href="https://biomejs.dev/linter/rules/use-qwik-method-usage">lint/nursery/useQwikMethodUsage</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Qwik hook detected outside of an allowed scope.</span><br />  <br />    <strong>3 │ </strong>export const Counter = () =&gt; &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>  const count = useSignal(0);<br />   <strong>   │ </strong>                <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>5 │ </strong>&#125;;<br />    <strong>6 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Qwik's reactive hooks (functions starting with  </span><span style="color: lightgreen;"><strong>use&#42;</strong></span><span style="color: lightgreen;"> followed by uppercase letter) must be:<br /></span>    <span style="color: lightgreen;">- Used exclusively within &#96;component$&#96; functions<br /></span>    <span style="color: lightgreen;">- Or encapsulated within other valid Qwik hooks</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Check the </span><span style="color: lightgreen;"><a href="https://qwik.dev/docs/components/state/#use-methods">Qwik documentation</a></span><span style="color: lightgreen;">.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:4:17 <a href="https://biomejs.dev/linter/rules/use-qwik-method-usage">lint/correctness/useQwikMethodUsage</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Qwik hook detected outside of an allowed scope.</span><br />  <br />    <strong>3 │ </strong>export const Counter = () =&gt; &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>  const count = useSignal(0);<br />   <strong>   │ </strong>                <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>5 │ </strong>&#125;;<br />    <strong>6 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Qwik's reactive hooks (functions starting with  </span><span style="color: lightgreen;"><strong>use&#42;</strong></span><span style="color: lightgreen;"> followed by uppercase letter) must be:<br /></span>    <span style="color: lightgreen;">- Used exclusively within &#96;component$&#96; functions<br /></span>    <span style="color: lightgreen;">- Or encapsulated within other valid Qwik hooks</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Check the </span><span style="color: lightgreen;"><a href="https://qwik.dev/docs/components/state/#use-methods">Qwik documentation</a></span><span style="color: lightgreen;">.</span><br />  <br /></code></pre>
 
 ### Valid
 
@@ -75,8 +73,8 @@ export const useCounter = () => {
 - [Disable a rule](/linter/#disable-a-rule)
 - [Configure the code fix](/linter#configure-the-code-fix)
 - [Rule options](/linter/#rule-options)
-- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_qwik_method_usage.rs)
-- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useQwikMethodUsage)
+- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/use_qwik_method_usage.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/useQwikMethodUsage)
 
 </TabItem>
 </Tabs>
