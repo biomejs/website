@@ -1,31 +1,33 @@
 [build]
-	command = "rm -rf node_modules && pnpm i --frozen-lockfile && pnpm build:netlify"
-	publish = "dist/"
+  command = "rm -rf node_modules && pnpm i --frozen-lockfile && pnpm build:netlify"
+  publish = "dist/"
 
 [[headers]]
-	for = "/assets/*"
-	[headers.values]
-		#  Multi-value headers are expressed with multi-line strings
-		cache-control = '''
+  for = "/assets/*"
+
+[headers.values]
+  # Multi-value headers are expressed with multi-line strings
+  cache-control = '''
 			public,
 			max-age=31536000000,
 			immutable
 			'''
 
 [[headers]]
-	for = "/_astro/*"
-	[headers.values]
-		#  Multi-value headers are expressed with multi-line strings
-		cache-control = '''
+  for = "/_astro/*"
+
+[headers.values]
+  # Multi-value headers are expressed with multi-line strings
+  cache-control = '''
 			public,
 			max-age=31536000000,
 			immutable
 			'''
 
 [context.deploy-preview.environment]
-	SKIP_OG = "true"
+  SKIP_OG = "true"
 
 [[redirects]]
-	from   = "/chat"
-	status = 301
-	to     = "https://discord.gg/BypW39g6Yc"
+  from   = "/chat"
+  status = 301
+  to     = "https://discord.gg/BypW39g6Yc"

@@ -81,5 +81,72 @@ React.createElement("div", { tabIndex: -1 })
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/a11y/noPositiveTabindex)
 
 </TabItem>
+<TabItem label="HTML" icon="seti:html">
+## Summary
+- Rule available since: `v2.4.0`
+- Diagnostic Category: [`lint/a11y/noPositiveTabindex`](/reference/diagnostics#diagnostic-category)
+- This rule is **recommended**, meaning it is enabled by default.
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Same as [`jsx-a11y/tabindex-no-positive`](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/tabindex-no-positive.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"a11y": {
+				"noPositiveTabindex": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Prevent the usage of positive integers on `tabindex` attribute.
+
+Avoid positive `tabindex` attribute values to synchronize the flow of the page with keyboard tab order.
+
+## Accessibility guidelines
+
+[WCAG 2.4.3](https://www.w3.org/WAI/WCAG21/Understanding/focus-order)
+
+## Examples
+
+### Invalid
+
+```html
+<div tabindex="1"></div>
+```
+
+<pre class="language-text"><code class="language-text">code-block.html:1:15 <a href="https://biomejs.dev/linter/rules/no-positive-tabindex">lint/a11y/noPositiveTabindex</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Avoid positive values for the </span><span style="color: Tomato;"><strong>tabindex</strong></span><span style="color: Tomato;"> attribute.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;div tabindex=&quot;1&quot;&gt;&lt;/div&gt;<br />   <strong>   │ </strong>              <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Elements with a positive </span><span style="color: lightgreen;"><strong>tabindex</strong></span><span style="color: lightgreen;"> override natural page content order. This causes elements without a positive tab index to come last when navigating using a keyboard.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Use only 0 and -1 as </span><span style="color: lightgreen;"><strong>tabindex</strong></span><span style="color: lightgreen;"> values. Avoid using </span><span style="color: lightgreen;"><strong>tabindex</strong></span><span style="color: lightgreen;"> values greater than 0 and CSS properties that can change the order of focusable HTML elements.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Remove the </span><span style="color: lightgreen;"><strong>tabindex</strong></span><span style="color: lightgreen;"> attribute.</span><br />  <br />  <strong>  1 │ </strong>&lt;div<span style="opacity: 0.8;">·</span><span style="color: Tomato;">t</span><span style="color: Tomato;">a</span><span style="color: Tomato;">b</span><span style="color: Tomato;">i</span><span style="color: Tomato;">n</span><span style="color: Tomato;">d</span><span style="color: Tomato;">e</span><span style="color: Tomato;">x</span><span style="color: Tomato;">=</span><span style="color: Tomato;">&quot;</span><span style="color: Tomato;">1</span><span style="color: Tomato;">&quot;</span>&gt;&lt;/div&gt;<br />  <strong>    │ </strong>     <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span>       <br /></code></pre>
+
+```html
+<div tabindex="5"></div>
+```
+
+<pre class="language-text"><code class="language-text">code-block.html:1:15 <a href="https://biomejs.dev/linter/rules/no-positive-tabindex">lint/a11y/noPositiveTabindex</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Avoid positive values for the </span><span style="color: Tomato;"><strong>tabindex</strong></span><span style="color: Tomato;"> attribute.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;div tabindex=&quot;5&quot;&gt;&lt;/div&gt;<br />   <strong>   │ </strong>              <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Elements with a positive </span><span style="color: lightgreen;"><strong>tabindex</strong></span><span style="color: lightgreen;"> override natural page content order. This causes elements without a positive tab index to come last when navigating using a keyboard.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Use only 0 and -1 as </span><span style="color: lightgreen;"><strong>tabindex</strong></span><span style="color: lightgreen;"> values. Avoid using </span><span style="color: lightgreen;"><strong>tabindex</strong></span><span style="color: lightgreen;"> values greater than 0 and CSS properties that can change the order of focusable HTML elements.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Remove the </span><span style="color: lightgreen;"><strong>tabindex</strong></span><span style="color: lightgreen;"> attribute.</span><br />  <br />  <strong>  1 │ </strong>&lt;div<span style="opacity: 0.8;">·</span><span style="color: Tomato;">t</span><span style="color: Tomato;">a</span><span style="color: Tomato;">b</span><span style="color: Tomato;">i</span><span style="color: Tomato;">n</span><span style="color: Tomato;">d</span><span style="color: Tomato;">e</span><span style="color: Tomato;">x</span><span style="color: Tomato;">=</span><span style="color: Tomato;">&quot;</span><span style="color: Tomato;">5</span><span style="color: Tomato;">&quot;</span>&gt;&lt;/div&gt;<br />  <strong>    │ </strong>     <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span>       <br /></code></pre>
+
+### Valid
+
+```html
+<div tabindex="0"></div>
+```
+
+```html
+<div tabindex="-1"></div>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/a11y/no_positive_tabindex.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/a11y/noPositiveTabindex)
+
+</TabItem>
 </Tabs>
 

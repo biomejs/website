@@ -3,7 +3,7 @@ import { Code, TabItem, Tabs } from "@astrojs/starlight/components";
 
 interface Props {
 	zed: {
-		value: string;
+		value: string | object;
 		name: string;
 	};
 	vsCode: {
@@ -19,7 +19,7 @@ const zedCode = `
     "biome": {
       "settings": {
          "${zed.name}": ${zed.value}
-      }    
+      }
     }
   }
 }
@@ -27,7 +27,7 @@ const zedCode = `
 const vscodeCode = `
 {
   "biome.lsp": {
-    "${vsCode.name}": ${vsCode.value} 
+    "${vsCode.name}": ${vsCode.value}
   }
 }
 `;

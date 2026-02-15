@@ -99,22 +99,10 @@ Shows the Biome version information and quit.
   Silence errors that would be emitted in case no files were processed during the execution of the command.
 - **`    --error-on-warnings`** &mdash; 
   Tell Biome to exit with an error code if some diagnostics emit warnings.
-- **`    --reporter`**=_`<json|json-pretty|github|junit|summary|gitlab|checkstyle|rdjson>`_ &mdash; 
-  Allows to change how diagnostics and summary are reported.
-- **`    --log-file`**=_`ARG`_ &mdash; 
-  Optional path to redirect log messages to.
+### \[**`--reporter`**=_`<default|json|json-pretty|github|junit|summary|gitlab|checkstyle|rdjson|sarif>`_\] \[**`--reporter-file`**=_`PATH`_\]
+- **`    --reporter`**=_`<default|json|json-pretty|github|junit|summary|gitlab|checkstyle|rdjson|sarif>`_
+- **`    --reporter-file`**=_`PATH`_
 
-  If omitted, logs are printed to stdout.
-- **`    --log-level`**=_`<none|debug|info|warn|error>`_ &mdash; 
-  The level of logging. In order, from the most verbose to the least verbose: debug, info, warn, error.
-
-  The value `none` won't show any logging.
-   
-  [default: none]
-- **`    --log-kind`**=_`<pretty|compact|json>`_ &mdash; 
-  How the log should look like.
-   
-  [default: pretty]
 - **`    --diagnostic-level`**=_`<info|warn|error>`_ &mdash; 
   The level of diagnostics to show. In order, from the lowest to the most important: info, warn, error. Passing `--diagnostic-level=error` will cause Biome to print only diagnostics that contain only errors.
    
@@ -154,26 +142,48 @@ Prints information for debugging.
   Silence errors that would be emitted in case no files were processed during the execution of the command.
 - **`    --error-on-warnings`** &mdash; 
   Tell Biome to exit with an error code if some diagnostics emit warnings.
-- **`    --reporter`**=_`<json|json-pretty|github|junit|summary|gitlab|checkstyle|rdjson>`_ &mdash; 
-  Allows to change how diagnostics and summary are reported.
-- **`    --log-file`**=_`ARG`_ &mdash; 
-  Optional path to redirect log messages to.
+### \[**`--reporter`**=_`<default|json|json-pretty|github|junit|summary|gitlab|checkstyle|rdjson|sarif>`_\] \[**`--reporter-file`**=_`PATH`_\]
+- **`    --reporter`**=_`<default|json|json-pretty|github|junit|summary|gitlab|checkstyle|rdjson|sarif>`_
+- **`    --reporter-file`**=_`PATH`_
+
+- **`    --diagnostic-level`**=_`<info|warn|error>`_ &mdash; 
+  The level of diagnostics to show. In order, from the lowest to the most important: info, warn, error. Passing `--diagnostic-level=error` will cause Biome to print only diagnostics that contain only errors.
+   
+  [default: info]
+
+
+
+**Options to control logging (CLI and Daemon)**
+- **`    --log-file`**=_`STRING`_ &mdash; 
+  Optional path/file to redirect log messages to. This option is applicable only to the CLI.
 
   If omitted, logs are printed to stdout.
+   
+  Uses environment variable **`BIOME_LOG_FILE`**
+- **`    --log-prefix-name`**=_`STRING`_ &mdash; 
+  Uses environment variable **`BIOME_LOG_PREFIX_NAME`**
+   
+  [default: server.log]
+- **`    --log-path`**=_`PATH`_ &mdash; 
+  Allows changing the folder where logs are stored. This option is applicable only to the daemon.
+   
+  Uses environment variable **`BIOME_LOG_PATH`**
+   
+  [default: /Users/ema/Library/Caches/dev.biomejs.biome/biome-logs]
 - **`    --log-level`**=_`<none|debug|info|warn|error>`_ &mdash; 
   The level of logging. In order, from the most verbose to the least verbose: debug, info, warn, error.
 
   The value `none` won't show any logging.
    
+  Uses environment variable **`BIOME_LOG_LEVEL`**
+   
   [default: none]
 - **`    --log-kind`**=_`<pretty|compact|json>`_ &mdash; 
-  How the log should look like.
+  What the log should look like.
+   
+  Uses environment variable **`BIOME_LOG_KIND`**
    
   [default: pretty]
-- **`    --diagnostic-level`**=_`<info|warn|error>`_ &mdash; 
-  The level of diagnostics to show. In order, from the lowest to the most important: info, warn, error. Passing `--diagnostic-level=error` will cause Biome to print only diagnostics that contain only errors.
-   
-  [default: info]
 
 
 
@@ -192,19 +202,59 @@ Prints information for debugging.
 
 Starts the Biome daemon server process.
 
-**Usage**: **`biome`** **`start`** 
+**Usage**: **`biome`** **`start`** \[**`--log-prefix-name`**=_`STRING`_\] \[**`--log-path`**=_`PATH`_\] \[**`--log-level`**=_`<none|debug|info|warn|error>`_\] \[**`--log-kind`**=_`<pretty|compact|json>`_\] \[**`--watcher-kind`**=_`<polling|recommended|none>`_\] \[**`--watcher-polling-interval`**=_`NUMBER`_\]
 
-**Available options:**
-- **`    --log-prefix-name`**=_`STRING`_ &mdash; 
-  Allows to change the prefix applied to the file name of the logs.
+**Options to control logging (CLI and Daemon)**
+- **`    --log-file`**=_`STRING`_ &mdash; 
+  Optional path/file to redirect log messages to. This option is applicable only to the CLI.
+
+  If omitted, logs are printed to stdout.
    
+  Uses environment variable **`BIOME_LOG_FILE`**
+- **`    --log-prefix-name`**=_`STRING`_ &mdash; 
   Uses environment variable **`BIOME_LOG_PREFIX_NAME`**
    
   [default: server.log]
 - **`    --log-path`**=_`PATH`_ &mdash; 
-  Allows to change the folder where logs are stored.
+  Allows changing the folder where logs are stored. This option is applicable only to the daemon.
    
   Uses environment variable **`BIOME_LOG_PATH`**
+   
+  [default: /Users/ema/Library/Caches/dev.biomejs.biome/biome-logs]
+- **`    --log-level`**=_`<none|debug|info|warn|error>`_ &mdash; 
+  The level of logging. In order, from the most verbose to the least verbose: debug, info, warn, error.
+
+  The value `none` won't show any logging.
+   
+  Uses environment variable **`BIOME_LOG_LEVEL`**
+   
+  [default: none]
+- **`    --log-kind`**=_`<pretty|compact|json>`_ &mdash; 
+  What the log should look like.
+   
+  Uses environment variable **`BIOME_LOG_KIND`**
+   
+  [default: pretty]
+
+
+
+**Controls various aspects of the Biome Daemon.**
+- **`    --watcher-kind`**=_`<polling|recommended|none>`_ &mdash; 
+  Controls how the Biome file watcher should behave.
+   
+  Uses environment variable **`BIOME_WATCHER_KIND`**
+   
+  [default: recommended]
+- **`    --watcher-polling-interval`**=_`NUMBER`_ &mdash; 
+  The polling interval in milliseconds. This is only applicable when using the polling watcher.
+   
+  Uses environment variable **`BIOME_WATCHER_POLLING_INTERVAL`**
+   
+  [default: 2000]
+
+
+
+**Available options:**
 - **`-h`**, **`--help`** &mdash; 
   Prints help information
 
@@ -224,7 +274,7 @@ Stops the Biome daemon server process.
 
 Runs formatter, linter and import sorting to the requested files.
 
-**Usage**: **`biome`** **`check`** \[**`--write`**\] \[**`--unsafe`**\] \[**`--assist-enabled`**=_`<true|false>`_\] \[**`--enforce-assist`**=_`<true|false>`_\] \[**`--format-with-errors`**=_`<true|false>`_\] \[**`--staged`**\] \[**`--changed`**\] \[**`--since`**=_`REF`_\] \[_`PATH`_\]...
+**Usage**: **`biome`** **`check`** \[**`--write`**\] \[**`--unsafe`**\] \[**`--assist-enabled`**=_`<true|false>`_\] \[**`--enforce-assist`**=_`<true|false>`_\] \[**`--format-with-errors`**=_`<true|false>`_\] \[**`--profile-rules`**\] \[**`--staged`**\] \[**`--changed`**\] \[**`--since`**=_`REF`_\] \[**`--only`**=_`<GROUP|RULE|DOMAIN|ACTION>`_\]... \[**`--skip`**=_`<GROUP|RULE|DOMAIN|ACTION>`_\]... \[_`PATH`_\]...
 
 **Options that changes how the JSON parser behaves**
 - **`    --json-parse-allow-comments`**=_`<true|false>`_ &mdash; 
@@ -269,6 +319,14 @@ Runs formatter, linter and import sorting to the requested files.
   Whether to insert spaces around brackets in object literals. Defaults to true.
 - **`    --expand`**=_`<auto|always|never>`_ &mdash; 
   Whether to expand arrays and objects on multiple lines. When set to `auto`, object literals are formatted on multiple lines if the first property has a newline, and array literals are formatted on a single line if it fits in the line. When set to `always`, these literals are formatted on multiple lines, regardless of length of the list. When set to `never`, these literals are formatted on a single line if it fits in the line. When formatting `package.json`, Biome will use `always` unless configured otherwise. Defaults to "auto".
+- **`    --trailing-newline`**=_`<true|false>`_ &mdash; 
+  Whether to add a trailing newline at the end of the file.
+
+  Setting this option to `false` is **highly discouraged** because it could cause many problems with other tools: - https://thoughtbot.com/blog/no-newline-at-end-of-file - https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804 - https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files
+
+  Disable the option at your own risk.
+
+  Defaults to true.
 - **`    --use-editorconfig`**=_`<true|false>`_ &mdash; 
   Use any `.editorconfig` files to configure the formatter. Configuration in `biome.json` will override `.editorconfig` configuration.
 
@@ -309,6 +367,14 @@ Runs formatter, linter and import sorting to the requested files.
   Whether to expand arrays and objects on multiple lines. When set to `auto`, object literals are formatted on multiple lines if the first property has a newline, and array literals are formatted on a single line if it fits in the line. When set to `always`, these literals are formatted on multiple lines, regardless of length of the list. When set to `never`, these literals are formatted on a single line if it fits in the line. When formatting `package.json`, Biome will use `always` unless configured otherwise. Defaults to "auto".
 - **`    --javascript-formatter-operator-linebreak`**=_`<before|after>`_ &mdash; 
   When breaking binary expressions into multiple lines, whether to break them before or after the binary operator. Defaults to "after".
+- **`    --javascript-formatter-trailing-newline`**=_`<true|false>`_ &mdash; 
+  Whether to add a trailing newline at the end of the file.
+
+  Setting this option to `false` is **highly discouraged** because it could cause many problems with other tools: - https://thoughtbot.com/blog/no-newline-at-end-of-file - https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804 - https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files
+
+  Disable the option at your own risk.
+
+  Defaults to true.
 - **`    --javascript-linter-enabled`**=_`<true|false>`_ &mdash; 
   Control the linter for JavaScript (and its super languages) files.
 - **`    --javascript-assist-enabled`**=_`<true|false>`_ &mdash; 
@@ -333,12 +399,20 @@ Runs formatter, linter and import sorting to the requested files.
   Whether to expand arrays and objects on multiple lines. When set to `auto`, object literals are formatted on multiple lines if the first property has a newline, and array literals are formatted on a single line if it fits in the line. When set to `always`, these literals are formatted on multiple lines, regardless of length of the list. When set to `never`, these literals are formatted on a single line if it fits in the line. When formatting `package.json`, Biome will use `always` unless configured otherwise. Defaults to "auto".
 - **`    --json-formatter-bracket-spacing`**=_`<true|false>`_ &mdash; 
   Whether to insert spaces around brackets in object literals. Defaults to true.
+- **`    --json-formatter-trailing-newline`**=_`<true|false>`_ &mdash; 
+  Whether to add a trailing newline at the end of the file.
+
+  Setting this option to `false` is **highly discouraged** because it could cause many problems with other tools: - https://thoughtbot.com/blog/no-newline-at-end-of-file - https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804 - https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files
+
+  Disable the option at your own risk.
+
+  Defaults to true.
 - **`    --json-linter-enabled`**=_`<true|false>`_ &mdash; 
   Control the linter for JSON (and its super languages) files.
 - **`    --json-assist-enabled`**=_`<true|false>`_ &mdash; 
   Control the assist for JSON (and its super languages) files.
 - **`    --css-parse-css-modules`**=_`<true|false>`_ &mdash; 
-  Enables parsing of CSS Modules specific features.
+  Enables parsing of CSS Modules specific features. Enable this feature only when your files don't end in `.module.css`.
 - **`    --css-parse-tailwind-directives`**=_`<true|false>`_ &mdash; 
   Enables parsing of Tailwind CSS 4.0 directives and functions.
 - **`    --css-formatter-enabled`**=_`<true|false>`_ &mdash; 
@@ -353,6 +427,14 @@ Runs formatter, linter and import sorting to the requested files.
   What's the max width of a line applied to CSS (and its super languages) files. Defaults to 80.
 - **`    --css-formatter-quote-style`**=_`<double|single>`_ &mdash; 
   The type of quotes used in CSS code. Defaults to double.
+- **`    --css-formatter-trailing-newline`**=_`<true|false>`_ &mdash; 
+  Whether to add a trailing newline at the end of the file.
+
+  Setting this option to `false` is **highly discouraged** because it could cause many problems with other tools: - https://thoughtbot.com/blog/no-newline-at-end-of-file - https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804 - https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files
+
+  Disable the option at your own risk.
+
+  Defaults to true.
 - **`    --css-linter-enabled`**=_`<true|false>`_ &mdash; 
   Control the linter for CSS files.
 - **`    --css-assist-enabled`**=_`<true|false>`_ &mdash; 
@@ -369,6 +451,14 @@ Runs formatter, linter and import sorting to the requested files.
   What's the max width of a line applied to GraphQL files. Defaults to 80.
 - **`    --graphql-formatter-quote-style`**=_`<double|single>`_ &mdash; 
   The type of quotes used in GraphQL code. Defaults to double.
+- **`    --graphql-formatter-trailing-newline`**=_`<true|false>`_ &mdash; 
+  Whether to add a trailing newline at the end of the file.
+
+  Setting this option to `false` is **highly discouraged** because it could cause many problems with other tools: - https://thoughtbot.com/blog/no-newline-at-end-of-file - https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804 - https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files
+
+  Disable the option at your own risk.
+
+  Defaults to true.
 - **`    --graphql-linter-enabled`**=_`<true|false>`_ &mdash; 
   Control the formatter for GraphQL files.
 - **`    --graphql-assist-enabled`**=_`<true|false>`_ &mdash; 
@@ -383,6 +473,14 @@ Runs formatter, linter and import sorting to the requested files.
   The type of line ending applied to Grit files.
 - **`    --grit-formatter-line-width`**=_`NUMBER`_ &mdash; 
   What's the max width of a line applied to Grit files. Defaults to 80.
+- **`    --grit-formatter-trailing-newline`**=_`<true|false>`_ &mdash; 
+  Whether to add a trailing newline at the end of the file.
+
+  Setting this option to `false` is **highly discouraged** because it could cause many problems with other tools: - https://thoughtbot.com/blog/no-newline-at-end-of-file - https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804 - https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files
+
+  Disable the option at your own risk.
+
+  Defaults to true.
 - **`    --grit-linter-enabled`**=_`<true|false>`_ &mdash; 
   Control the linter for Grit files.
 - **`    --grit-assist-enabled`**=_`<true|false>`_ &mdash; 
@@ -407,6 +505,14 @@ Runs formatter, linter and import sorting to the requested files.
   Whether to indent the `<script>` and `<style>` tags for HTML (and its super languages). Defaults to false.
 - **`    --html-formatter-self-close-void-elements`**=_`<always|never>`_ &mdash; 
   Whether void elements should be self-closed. Defaults to never.
+- **`    --html-formatter-trailing-newline`**=_`<true|false>`_ &mdash; 
+  Whether to add a trailing newline at the end of the file.
+
+  Setting this option to `false` is **highly discouraged** because it could cause many problems with other tools: - https://thoughtbot.com/blog/no-newline-at-end-of-file - https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804 - https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files
+
+  Disable the option at your own risk.
+
+  Defaults to true.
 - **`    --html-linter-enabled`**=_`<true|false>`_ &mdash; 
   Control the linter for HTML (and its super languages) files.
 - **`    --html-assist-enabled`**=_`<true|false>`_ &mdash; 
@@ -437,26 +543,48 @@ Runs formatter, linter and import sorting to the requested files.
   Silence errors that would be emitted in case no files were processed during the execution of the command.
 - **`    --error-on-warnings`** &mdash; 
   Tell Biome to exit with an error code if some diagnostics emit warnings.
-- **`    --reporter`**=_`<json|json-pretty|github|junit|summary|gitlab|checkstyle|rdjson>`_ &mdash; 
-  Allows to change how diagnostics and summary are reported.
-- **`    --log-file`**=_`ARG`_ &mdash; 
-  Optional path to redirect log messages to.
+### \[**`--reporter`**=_`<default|json|json-pretty|github|junit|summary|gitlab|checkstyle|rdjson|sarif>`_\] \[**`--reporter-file`**=_`PATH`_\]
+- **`    --reporter`**=_`<default|json|json-pretty|github|junit|summary|gitlab|checkstyle|rdjson|sarif>`_
+- **`    --reporter-file`**=_`PATH`_
+
+- **`    --diagnostic-level`**=_`<info|warn|error>`_ &mdash; 
+  The level of diagnostics to show. In order, from the lowest to the most important: info, warn, error. Passing `--diagnostic-level=error` will cause Biome to print only diagnostics that contain only errors.
+   
+  [default: info]
+
+
+
+**Options to control logging (CLI and Daemon)**
+- **`    --log-file`**=_`STRING`_ &mdash; 
+  Optional path/file to redirect log messages to. This option is applicable only to the CLI.
 
   If omitted, logs are printed to stdout.
+   
+  Uses environment variable **`BIOME_LOG_FILE`**
+- **`    --log-prefix-name`**=_`STRING`_ &mdash; 
+  Uses environment variable **`BIOME_LOG_PREFIX_NAME`**
+   
+  [default: server.log]
+- **`    --log-path`**=_`PATH`_ &mdash; 
+  Allows changing the folder where logs are stored. This option is applicable only to the daemon.
+   
+  Uses environment variable **`BIOME_LOG_PATH`**
+   
+  [default: /Users/ema/Library/Caches/dev.biomejs.biome/biome-logs]
 - **`    --log-level`**=_`<none|debug|info|warn|error>`_ &mdash; 
   The level of logging. In order, from the most verbose to the least verbose: debug, info, warn, error.
 
   The value `none` won't show any logging.
    
+  Uses environment variable **`BIOME_LOG_LEVEL`**
+   
   [default: none]
 - **`    --log-kind`**=_`<pretty|compact|json>`_ &mdash; 
-  How the log should look like.
+  What the log should look like.
+   
+  Uses environment variable **`BIOME_LOG_KIND`**
    
   [default: pretty]
-- **`    --diagnostic-level`**=_`<info|warn|error>`_ &mdash; 
-  The level of diagnostics to show. In order, from the lowest to the most important: info, warn, error. Passing `--diagnostic-level=error` will cause Biome to print only diagnostics that contain only errors.
-   
-  [default: info]
 
 
 
@@ -483,6 +611,8 @@ Runs formatter, linter and import sorting to the requested files.
   Allows enforcing assist, and make the CLI fail if some actions aren't applied. Defaults to `true`.
 - **`    --format-with-errors`**=_`<true|false>`_ &mdash; 
   Whether formatting should be allowed to proceed if a given file has syntax errors
+- **`    --profile-rules`** &mdash; 
+  Enable rule profiling output. Captures timing only for rule execution, not preprocessing such as querying or building the semantic model.
 - **`    --stdin-file-path`**=_`PATH`_ &mdash; 
   Use this option when you want to format code piped from `stdin`, and print the output to `stdout`.
 
@@ -499,6 +629,26 @@ Runs formatter, linter and import sorting to the requested files.
   When set to true, only the files that have been changed compared to your `defaultBranch` configuration will be linted. This option should be used in CI environments.
 - **`    --since`**=_`REF`_ &mdash; 
   Use this to specify the base branch to compare against when you're using the --changed flag and the `defaultBranch` is not set in your `biome.json`
+- **`    --only`**=_`<GROUP|RULE|DOMAIN|ACTION>`_ &mdash; 
+  Run only the given lint rule, assist action, group of rules and actions, or domain. If the severity level of a rule is `off`, then the severity level of the rule is set to `error` if it is a recommended rule or `warn` otherwise.
+
+  Example:
+
+  
+  ```shell
+  biome check --only=correctness/noUnusedVariables --only=suspicious --only=test
+  ```
+
+- **`    --skip`**=_`<GROUP|RULE|DOMAIN|ACTION>`_ &mdash; 
+  Skip the given lint rule, assist action, group of rules and actions, or domain by setting the severity level of the rules to `off`. This option takes precedence over `--only`.
+
+  Example:
+
+  
+  ```shell
+  biome check --skip=correctness/noUnusedVariables --skip=suspicious --skip=project
+  ```
+
 - **`-h`**, **`--help`** &mdash; 
   Prints help information
 
@@ -507,7 +657,7 @@ Runs formatter, linter and import sorting to the requested files.
 
 Run various checks on a set of files.
 
-**Usage**: **`biome`** **`lint`** \[**`--write`**\] \[**`--unsafe`**\] \[**`--suppress`**\] \[**`--reason`**=_`STRING`_\] \[**`--only`**=_`<GROUP|RULE|DOMAIN>`_\]... \[**`--skip`**=_`<GROUP|RULE|DOMAIN>`_\]... \[**`--staged`**\] \[**`--changed`**\] \[**`--since`**=_`REF`_\] \[_`PATH`_\]...
+**Usage**: **`biome`** **`lint`** \[**`--write`**\] \[**`--unsafe`**\] \[**`--suppress`**\] \[**`--reason`**=_`STRING`_\] \[**`--only`**=_`<GROUP|RULE|DOMAIN|ACTION>`_\]... \[**`--skip`**=_`<GROUP|RULE|DOMAIN|ACTION>`_\]... \[**`--staged`**\] \[**`--changed`**\] \[**`--since`**=_`REF`_\] \[**`--profile-rules`**\] \[_`PATH`_\]...
 
 **Options that changes how the JSON parser behaves**
 - **`    --json-parse-allow-comments`**=_`<true|false>`_ &mdash; 
@@ -574,26 +724,48 @@ Run various checks on a set of files.
   Silence errors that would be emitted in case no files were processed during the execution of the command.
 - **`    --error-on-warnings`** &mdash; 
   Tell Biome to exit with an error code if some diagnostics emit warnings.
-- **`    --reporter`**=_`<json|json-pretty|github|junit|summary|gitlab|checkstyle|rdjson>`_ &mdash; 
-  Allows to change how diagnostics and summary are reported.
-- **`    --log-file`**=_`ARG`_ &mdash; 
-  Optional path to redirect log messages to.
+### \[**`--reporter`**=_`<default|json|json-pretty|github|junit|summary|gitlab|checkstyle|rdjson|sarif>`_\] \[**`--reporter-file`**=_`PATH`_\]
+- **`    --reporter`**=_`<default|json|json-pretty|github|junit|summary|gitlab|checkstyle|rdjson|sarif>`_
+- **`    --reporter-file`**=_`PATH`_
+
+- **`    --diagnostic-level`**=_`<info|warn|error>`_ &mdash; 
+  The level of diagnostics to show. In order, from the lowest to the most important: info, warn, error. Passing `--diagnostic-level=error` will cause Biome to print only diagnostics that contain only errors.
+   
+  [default: info]
+
+
+
+**Options to control logging (CLI and Daemon)**
+- **`    --log-file`**=_`STRING`_ &mdash; 
+  Optional path/file to redirect log messages to. This option is applicable only to the CLI.
 
   If omitted, logs are printed to stdout.
+   
+  Uses environment variable **`BIOME_LOG_FILE`**
+- **`    --log-prefix-name`**=_`STRING`_ &mdash; 
+  Uses environment variable **`BIOME_LOG_PREFIX_NAME`**
+   
+  [default: server.log]
+- **`    --log-path`**=_`PATH`_ &mdash; 
+  Allows changing the folder where logs are stored. This option is applicable only to the daemon.
+   
+  Uses environment variable **`BIOME_LOG_PATH`**
+   
+  [default: /Users/ema/Library/Caches/dev.biomejs.biome/biome-logs]
 - **`    --log-level`**=_`<none|debug|info|warn|error>`_ &mdash; 
   The level of logging. In order, from the most verbose to the least verbose: debug, info, warn, error.
 
   The value `none` won't show any logging.
    
+  Uses environment variable **`BIOME_LOG_LEVEL`**
+   
   [default: none]
 - **`    --log-kind`**=_`<pretty|compact|json>`_ &mdash; 
-  How the log should look like.
+  What the log should look like.
+   
+  Uses environment variable **`BIOME_LOG_KIND`**
    
   [default: pretty]
-- **`    --diagnostic-level`**=_`<info|warn|error>`_ &mdash; 
-  The level of diagnostics to show. In order, from the lowest to the most important: info, warn, error. Passing `--diagnostic-level=error` will cause Biome to print only diagnostics that contain only errors.
-   
-  [default: info]
 
 
 
@@ -614,8 +786,8 @@ Run various checks on a set of files.
   Fixes lint rule violations with comment suppressions instead of using a rule code action (fix)
 - **`    --reason`**=_`STRING`_ &mdash; 
   Explanation for suppressing diagnostics with `--suppress`
-- **`    --only`**=_`<GROUP|RULE|DOMAIN>`_ &mdash; 
-  Run only the given rule, group of rules or domain. If the severity level of a rule is `off`, then the severity level of the rule is set to `error` if it is a recommended rule or `warn` otherwise.
+- **`    --only`**=_`<GROUP|RULE|DOMAIN|ACTION>`_ &mdash; 
+  Run only the given lint rule, assist action, group of rules and actions, or domain. If the severity level of a rule is `off`, then the severity level of the rule is set to `error` if it is a recommended rule or `warn` otherwise.
 
   Example:
 
@@ -624,8 +796,8 @@ Run various checks on a set of files.
   biome lint --only=correctness/noUnusedVariables --only=suspicious --only=test
   ```
 
-- **`    --skip`**=_`<GROUP|RULE|DOMAIN>`_ &mdash; 
-  Skip the given rule, group of rules or domain by setting the severity level of the rules to `off`. This option takes precedence over `--only`.
+- **`    --skip`**=_`<GROUP|RULE|DOMAIN|ACTION>`_ &mdash; 
+  Skip the given lint rule, assist action, group of rules and actions, or domain by setting the severity level of the rules to `off`. This option takes precedence over `--only`.
 
   Example:
 
@@ -648,6 +820,8 @@ Run various checks on a set of files.
   When set to true, only the files that have been changed compared to your `defaultBranch` configuration will be linted.
 - **`    --since`**=_`REF`_ &mdash; 
   Use this to specify the base branch to compare against when you're using the --changed flag and the `defaultBranch` is not set in your biome.json
+- **`    --profile-rules`** &mdash; 
+  Enable rule profiling output. Captures timing only for rule execution, not preprocessing such as querying or building the semantic model.
 - **`-h`**, **`--help`** &mdash; 
   Prints help information
 
@@ -677,6 +851,14 @@ Run the formatter on a set of files.
   Whether to insert spaces around brackets in object literals. Defaults to true.
 - **`    --expand`**=_`<auto|always|never>`_ &mdash; 
   Whether to expand arrays and objects on multiple lines. When set to `auto`, object literals are formatted on multiple lines if the first property has a newline, and array literals are formatted on a single line if it fits in the line. When set to `always`, these literals are formatted on multiple lines, regardless of length of the list. When set to `never`, these literals are formatted on a single line if it fits in the line. When formatting `package.json`, Biome will use `always` unless configured otherwise. Defaults to "auto".
+- **`    --trailing-newline`**=_`<true|false>`_ &mdash; 
+  Whether to add a trailing newline at the end of the file.
+
+  Setting this option to `false` is **highly discouraged** because it could cause many problems with other tools: - https://thoughtbot.com/blog/no-newline-at-end-of-file - https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804 - https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files
+
+  Disable the option at your own risk.
+
+  Defaults to true.
 - **`    --use-editorconfig`**=_`<true|false>`_ &mdash; 
   Use any `.editorconfig` files to configure the formatter. Configuration in `biome.json` will override `.editorconfig` configuration.
 
@@ -717,6 +899,14 @@ Run the formatter on a set of files.
   Whether to expand arrays and objects on multiple lines. When set to `auto`, object literals are formatted on multiple lines if the first property has a newline, and array literals are formatted on a single line if it fits in the line. When set to `always`, these literals are formatted on multiple lines, regardless of length of the list. When set to `never`, these literals are formatted on a single line if it fits in the line. When formatting `package.json`, Biome will use `always` unless configured otherwise. Defaults to "auto".
 - **`    --javascript-formatter-operator-linebreak`**=_`<before|after>`_ &mdash; 
   When breaking binary expressions into multiple lines, whether to break them before or after the binary operator. Defaults to "after".
+- **`    --javascript-formatter-trailing-newline`**=_`<true|false>`_ &mdash; 
+  Whether to add a trailing newline at the end of the file.
+
+  Setting this option to `false` is **highly discouraged** because it could cause many problems with other tools: - https://thoughtbot.com/blog/no-newline-at-end-of-file - https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804 - https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files
+
+  Disable the option at your own risk.
+
+  Defaults to true.
 
 
 
@@ -725,6 +915,96 @@ Run the formatter on a set of files.
   Allow parsing comments in `.json` files
 - **`    --json-parse-allow-trailing-commas`**=_`<true|false>`_ &mdash; 
   Allow parsing trailing commas in `.json` files
+
+
+
+**Options that changes how the CSS parser behaves**
+- **`    --css-parse-css-modules`**=_`<true|false>`_ &mdash; 
+  Enables parsing of CSS Modules specific features. Enable this feature only when your files don't end in `.module.css`.
+- **`    --css-parse-tailwind-directives`**=_`<true|false>`_ &mdash; 
+  Enables parsing of Tailwind CSS 4.0 directives and functions.
+
+
+
+**Options that changes how the GraphQL formatter behaves**
+- **`    --graphql-formatter-enabled`**=_`<true|false>`_ &mdash; 
+  Control the formatter for GraphQL files.
+- **`    --graphql-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
+  The indent style applied to GraphQL files.
+- **`    --graphql-formatter-indent-width`**=_`NUMBER`_ &mdash; 
+  The size of the indentation applied to GraphQL files. Default to 2.
+- **`    --graphql-formatter-line-ending`**=_`<lf|crlf|cr|auto>`_ &mdash; 
+  The type of line ending applied to GraphQL files. `auto` uses CRLF on Windows and LF on other platforms.
+- **`    --graphql-formatter-line-width`**=_`NUMBER`_ &mdash; 
+  What's the max width of a line applied to GraphQL files. Defaults to 80.
+- **`    --graphql-formatter-quote-style`**=_`<double|single>`_ &mdash; 
+  The type of quotes used in GraphQL code. Defaults to double.
+- **`    --bracket-spacing`**=_`<true|false>`_ &mdash; 
+  Whether to insert spaces around brackets in object literals. Defaults to true.
+- **`    --graphql-formatter-trailing-newline`**=_`<true|false>`_ &mdash; 
+  Whether to add a trailing newline at the end of the file.
+
+  Setting this option to `false` is **highly discouraged** because it could cause many problems with other tools: - https://thoughtbot.com/blog/no-newline-at-end-of-file - https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804 - https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files
+
+  Disable the option at your own risk.
+
+  Defaults to true.
+
+
+
+**Options that changes how the CSS formatter behaves**
+- **`    --css-formatter-enabled`**=_`<true|false>`_ &mdash; 
+  Control the formatter for CSS (and its super languages) files.
+- **`    --css-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
+  The indent style applied to CSS (and its super languages) files.
+- **`    --css-formatter-indent-width`**=_`NUMBER`_ &mdash; 
+  The size of the indentation applied to CSS (and its super languages) files. Default to 2.
+- **`    --css-formatter-line-ending`**=_`<lf|crlf|cr|auto>`_ &mdash; 
+  The type of line ending applied to CSS (and its super languages) files. `auto` uses CRLF on Windows and LF on other platforms.
+- **`    --css-formatter-line-width`**=_`NUMBER`_ &mdash; 
+  What's the max width of a line applied to CSS (and its super languages) files. Defaults to 80.
+- **`    --css-formatter-quote-style`**=_`<double|single>`_ &mdash; 
+  The type of quotes used in CSS code. Defaults to double.
+- **`    --css-formatter-trailing-newline`**=_`<true|false>`_ &mdash; 
+  Whether to add a trailing newline at the end of the file.
+
+  Setting this option to `false` is **highly discouraged** because it could cause many problems with other tools: - https://thoughtbot.com/blog/no-newline-at-end-of-file - https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804 - https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files
+
+  Disable the option at your own risk.
+
+  Defaults to true.
+
+
+
+**Options that changes how the HTML formatter behaves**
+- **`    --html-formatter-enabled`**=_`<true|false>`_ &mdash; 
+  Control the formatter for HTML (and its super languages) files.
+- **`    --html-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
+  The indent style applied to HTML (and its super languages) files.
+- **`    --html-formatter-indent-width`**=_`NUMBER`_ &mdash; 
+  The size of the indentation applied to HTML (and its super languages) files. Default to 2.
+- **`    --html-formatter-line-ending`**=_`<lf|crlf|cr|auto>`_ &mdash; 
+  The type of line ending applied to HTML (and its super languages) files. `auto` uses CRLF on Windows and LF on other platforms.
+- **`    --html-formatter-line-width`**=_`NUMBER`_ &mdash; 
+  What's the max width of a line applied to HTML (and its super languages) files. Defaults to 80.
+- **`    --html-formatter-attribute-position`**=_`<multiline|auto>`_ &mdash; 
+  The attribute position style in HTML elements. Defaults to auto.
+- **`    --html-formatter-bracket-same-line`**=_`<true|false>`_ &mdash; 
+  Whether to hug the closing bracket of multiline HTML tags to the end of the last line, rather than being alone on the following line. Defaults to false.
+- **`    --html-formatter-whitespace-sensitivity`**=_`<css|strict|ignore>`_ &mdash; 
+  Whether to account for whitespace sensitivity when formatting HTML (and its super languages). Defaults to "css".
+- **`    --html-formatter-indent-script-and-style`**=_`<true|false>`_ &mdash; 
+  Whether to indent the `<script>` and `<style>` tags for HTML (and its super languages). Defaults to false.
+- **`    --html-formatter-self-close-void-elements`**=_`<always|never>`_ &mdash; 
+  Whether void elements should be self-closed. Defaults to never.
+- **`    --html-formatter-trailing-newline`**=_`<true|false>`_ &mdash; 
+  Whether to add a trailing newline at the end of the file.
+
+  Setting this option to `false` is **highly discouraged** because it could cause many problems with other tools: - https://thoughtbot.com/blog/no-newline-at-end-of-file - https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804 - https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files
+
+  Disable the option at your own risk.
+
+  Defaults to true.
 
 
 
@@ -773,26 +1053,48 @@ Run the formatter on a set of files.
   Silence errors that would be emitted in case no files were processed during the execution of the command.
 - **`    --error-on-warnings`** &mdash; 
   Tell Biome to exit with an error code if some diagnostics emit warnings.
-- **`    --reporter`**=_`<json|json-pretty|github|junit|summary|gitlab|checkstyle|rdjson>`_ &mdash; 
-  Allows to change how diagnostics and summary are reported.
-- **`    --log-file`**=_`ARG`_ &mdash; 
-  Optional path to redirect log messages to.
+### \[**`--reporter`**=_`<default|json|json-pretty|github|junit|summary|gitlab|checkstyle|rdjson|sarif>`_\] \[**`--reporter-file`**=_`PATH`_\]
+- **`    --reporter`**=_`<default|json|json-pretty|github|junit|summary|gitlab|checkstyle|rdjson|sarif>`_
+- **`    --reporter-file`**=_`PATH`_
+
+- **`    --diagnostic-level`**=_`<info|warn|error>`_ &mdash; 
+  The level of diagnostics to show. In order, from the lowest to the most important: info, warn, error. Passing `--diagnostic-level=error` will cause Biome to print only diagnostics that contain only errors.
+   
+  [default: info]
+
+
+
+**Options to control logging (CLI and Daemon)**
+- **`    --log-file`**=_`STRING`_ &mdash; 
+  Optional path/file to redirect log messages to. This option is applicable only to the CLI.
 
   If omitted, logs are printed to stdout.
+   
+  Uses environment variable **`BIOME_LOG_FILE`**
+- **`    --log-prefix-name`**=_`STRING`_ &mdash; 
+  Uses environment variable **`BIOME_LOG_PREFIX_NAME`**
+   
+  [default: server.log]
+- **`    --log-path`**=_`PATH`_ &mdash; 
+  Allows changing the folder where logs are stored. This option is applicable only to the daemon.
+   
+  Uses environment variable **`BIOME_LOG_PATH`**
+   
+  [default: /Users/ema/Library/Caches/dev.biomejs.biome/biome-logs]
 - **`    --log-level`**=_`<none|debug|info|warn|error>`_ &mdash; 
   The level of logging. In order, from the most verbose to the least verbose: debug, info, warn, error.
 
   The value `none` won't show any logging.
    
+  Uses environment variable **`BIOME_LOG_LEVEL`**
+   
   [default: none]
 - **`    --log-kind`**=_`<pretty|compact|json>`_ &mdash; 
-  How the log should look like.
+  What the log should look like.
+   
+  Uses environment variable **`BIOME_LOG_KIND`**
    
   [default: pretty]
-- **`    --diagnostic-level`**=_`<info|warn|error>`_ &mdash; 
-  The level of diagnostics to show. In order, from the lowest to the most important: info, warn, error. Passing `--diagnostic-level=error` will cause Biome to print only diagnostics that contain only errors.
-   
-  [default: info]
 
 
 
@@ -819,6 +1121,14 @@ Run the formatter on a set of files.
   Whether to expand arrays and objects on multiple lines. When set to `auto`, object literals are formatted on multiple lines if the first property has a newline, and array literals are formatted on a single line if it fits in the line. When set to `always`, these literals are formatted on multiple lines, regardless of length of the list. When set to `never`, these literals are formatted on a single line if it fits in the line. When formatting `package.json`, Biome will use `always` unless configured otherwise. Defaults to "auto".
 - **`    --json-formatter-bracket-spacing`**=_`<true|false>`_ &mdash; 
   Whether to insert spaces around brackets in object literals. Defaults to true.
+- **`    --json-formatter-trailing-newline`**=_`<true|false>`_ &mdash; 
+  Whether to add a trailing newline at the end of the file.
+
+  Setting this option to `false` is **highly discouraged** because it could cause many problems with other tools: - https://thoughtbot.com/blog/no-newline-at-end-of-file - https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804 - https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files
+
+  Disable the option at your own risk.
+
+  Defaults to true.
 - **`    --stdin-file-path`**=_`PATH`_ &mdash; 
   Use this option when you want to format code piped from `stdin`, and print the output to `stdout`.
 
@@ -847,7 +1157,7 @@ Command to use in CI environments. Runs formatter, linter and import sorting to 
 
 Files won't be modified, the command is a read-only operation.
 
-**Usage**: **`biome`** **`ci`** \[**`--formatter-enabled`**=_`<true|false>`_\] \[**`--linter-enabled`**=_`<true|false>`_\] \[**`--assist-enabled`**=_`<true|false>`_\] \[**`--format-with-errors`**=_`<true|false>`_\] \[**`--enforce-assist`**=_`<true|false>`_\] \[**`--changed`**\] \[**`--since`**=_`REF`_\] \[_`PATH`_\]...
+**Usage**: **`biome`** **`ci`** \[**`--formatter-enabled`**=_`<true|false>`_\] \[**`--linter-enabled`**=_`<true|false>`_\] \[**`--assist-enabled`**=_`<true|false>`_\] \[**`--format-with-errors`**=_`<true|false>`_\] \[**`--enforce-assist`**=_`<true|false>`_\] \[**`--changed`**\] \[**`--since`**=_`REF`_\] \[**`--only`**=_`<GROUP|RULE|DOMAIN|ACTION>`_\]... \[**`--skip`**=_`<GROUP|RULE|DOMAIN|ACTION>`_\]... \[_`PATH`_\]...
 
 **Options that changes how the JSON parser behaves**
 - **`    --json-parse-allow-comments`**=_`<true|false>`_ &mdash; 
@@ -892,6 +1202,14 @@ Files won't be modified, the command is a read-only operation.
   Whether to insert spaces around brackets in object literals. Defaults to true.
 - **`    --expand`**=_`<auto|always|never>`_ &mdash; 
   Whether to expand arrays and objects on multiple lines. When set to `auto`, object literals are formatted on multiple lines if the first property has a newline, and array literals are formatted on a single line if it fits in the line. When set to `always`, these literals are formatted on multiple lines, regardless of length of the list. When set to `never`, these literals are formatted on a single line if it fits in the line. When formatting `package.json`, Biome will use `always` unless configured otherwise. Defaults to "auto".
+- **`    --trailing-newline`**=_`<true|false>`_ &mdash; 
+  Whether to add a trailing newline at the end of the file.
+
+  Setting this option to `false` is **highly discouraged** because it could cause many problems with other tools: - https://thoughtbot.com/blog/no-newline-at-end-of-file - https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804 - https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files
+
+  Disable the option at your own risk.
+
+  Defaults to true.
 - **`    --use-editorconfig`**=_`<true|false>`_ &mdash; 
   Use any `.editorconfig` files to configure the formatter. Configuration in `biome.json` will override `.editorconfig` configuration.
 
@@ -932,6 +1250,14 @@ Files won't be modified, the command is a read-only operation.
   Whether to expand arrays and objects on multiple lines. When set to `auto`, object literals are formatted on multiple lines if the first property has a newline, and array literals are formatted on a single line if it fits in the line. When set to `always`, these literals are formatted on multiple lines, regardless of length of the list. When set to `never`, these literals are formatted on a single line if it fits in the line. When formatting `package.json`, Biome will use `always` unless configured otherwise. Defaults to "auto".
 - **`    --javascript-formatter-operator-linebreak`**=_`<before|after>`_ &mdash; 
   When breaking binary expressions into multiple lines, whether to break them before or after the binary operator. Defaults to "after".
+- **`    --javascript-formatter-trailing-newline`**=_`<true|false>`_ &mdash; 
+  Whether to add a trailing newline at the end of the file.
+
+  Setting this option to `false` is **highly discouraged** because it could cause many problems with other tools: - https://thoughtbot.com/blog/no-newline-at-end-of-file - https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804 - https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files
+
+  Disable the option at your own risk.
+
+  Defaults to true.
 - **`    --javascript-linter-enabled`**=_`<true|false>`_ &mdash; 
   Control the linter for JavaScript (and its super languages) files.
 - **`    --javascript-assist-enabled`**=_`<true|false>`_ &mdash; 
@@ -956,12 +1282,20 @@ Files won't be modified, the command is a read-only operation.
   Whether to expand arrays and objects on multiple lines. When set to `auto`, object literals are formatted on multiple lines if the first property has a newline, and array literals are formatted on a single line if it fits in the line. When set to `always`, these literals are formatted on multiple lines, regardless of length of the list. When set to `never`, these literals are formatted on a single line if it fits in the line. When formatting `package.json`, Biome will use `always` unless configured otherwise. Defaults to "auto".
 - **`    --json-formatter-bracket-spacing`**=_`<true|false>`_ &mdash; 
   Whether to insert spaces around brackets in object literals. Defaults to true.
+- **`    --json-formatter-trailing-newline`**=_`<true|false>`_ &mdash; 
+  Whether to add a trailing newline at the end of the file.
+
+  Setting this option to `false` is **highly discouraged** because it could cause many problems with other tools: - https://thoughtbot.com/blog/no-newline-at-end-of-file - https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804 - https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files
+
+  Disable the option at your own risk.
+
+  Defaults to true.
 - **`    --json-linter-enabled`**=_`<true|false>`_ &mdash; 
   Control the linter for JSON (and its super languages) files.
 - **`    --json-assist-enabled`**=_`<true|false>`_ &mdash; 
   Control the assist for JSON (and its super languages) files.
 - **`    --css-parse-css-modules`**=_`<true|false>`_ &mdash; 
-  Enables parsing of CSS Modules specific features.
+  Enables parsing of CSS Modules specific features. Enable this feature only when your files don't end in `.module.css`.
 - **`    --css-parse-tailwind-directives`**=_`<true|false>`_ &mdash; 
   Enables parsing of Tailwind CSS 4.0 directives and functions.
 - **`    --css-formatter-enabled`**=_`<true|false>`_ &mdash; 
@@ -976,6 +1310,14 @@ Files won't be modified, the command is a read-only operation.
   What's the max width of a line applied to CSS (and its super languages) files. Defaults to 80.
 - **`    --css-formatter-quote-style`**=_`<double|single>`_ &mdash; 
   The type of quotes used in CSS code. Defaults to double.
+- **`    --css-formatter-trailing-newline`**=_`<true|false>`_ &mdash; 
+  Whether to add a trailing newline at the end of the file.
+
+  Setting this option to `false` is **highly discouraged** because it could cause many problems with other tools: - https://thoughtbot.com/blog/no-newline-at-end-of-file - https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804 - https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files
+
+  Disable the option at your own risk.
+
+  Defaults to true.
 - **`    --css-linter-enabled`**=_`<true|false>`_ &mdash; 
   Control the linter for CSS files.
 - **`    --css-assist-enabled`**=_`<true|false>`_ &mdash; 
@@ -992,6 +1334,14 @@ Files won't be modified, the command is a read-only operation.
   What's the max width of a line applied to GraphQL files. Defaults to 80.
 - **`    --graphql-formatter-quote-style`**=_`<double|single>`_ &mdash; 
   The type of quotes used in GraphQL code. Defaults to double.
+- **`    --graphql-formatter-trailing-newline`**=_`<true|false>`_ &mdash; 
+  Whether to add a trailing newline at the end of the file.
+
+  Setting this option to `false` is **highly discouraged** because it could cause many problems with other tools: - https://thoughtbot.com/blog/no-newline-at-end-of-file - https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804 - https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files
+
+  Disable the option at your own risk.
+
+  Defaults to true.
 - **`    --graphql-linter-enabled`**=_`<true|false>`_ &mdash; 
   Control the formatter for GraphQL files.
 - **`    --graphql-assist-enabled`**=_`<true|false>`_ &mdash; 
@@ -1006,6 +1356,14 @@ Files won't be modified, the command is a read-only operation.
   The type of line ending applied to Grit files.
 - **`    --grit-formatter-line-width`**=_`NUMBER`_ &mdash; 
   What's the max width of a line applied to Grit files. Defaults to 80.
+- **`    --grit-formatter-trailing-newline`**=_`<true|false>`_ &mdash; 
+  Whether to add a trailing newline at the end of the file.
+
+  Setting this option to `false` is **highly discouraged** because it could cause many problems with other tools: - https://thoughtbot.com/blog/no-newline-at-end-of-file - https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804 - https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files
+
+  Disable the option at your own risk.
+
+  Defaults to true.
 - **`    --grit-linter-enabled`**=_`<true|false>`_ &mdash; 
   Control the linter for Grit files.
 - **`    --grit-assist-enabled`**=_`<true|false>`_ &mdash; 
@@ -1030,6 +1388,14 @@ Files won't be modified, the command is a read-only operation.
   Whether to indent the `<script>` and `<style>` tags for HTML (and its super languages). Defaults to false.
 - **`    --html-formatter-self-close-void-elements`**=_`<always|never>`_ &mdash; 
   Whether void elements should be self-closed. Defaults to never.
+- **`    --html-formatter-trailing-newline`**=_`<true|false>`_ &mdash; 
+  Whether to add a trailing newline at the end of the file.
+
+  Setting this option to `false` is **highly discouraged** because it could cause many problems with other tools: - https://thoughtbot.com/blog/no-newline-at-end-of-file - https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804 - https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files
+
+  Disable the option at your own risk.
+
+  Defaults to true.
 - **`    --html-linter-enabled`**=_`<true|false>`_ &mdash; 
   Control the linter for HTML (and its super languages) files.
 - **`    --html-assist-enabled`**=_`<true|false>`_ &mdash; 
@@ -1060,26 +1426,48 @@ Files won't be modified, the command is a read-only operation.
   Silence errors that would be emitted in case no files were processed during the execution of the command.
 - **`    --error-on-warnings`** &mdash; 
   Tell Biome to exit with an error code if some diagnostics emit warnings.
-- **`    --reporter`**=_`<json|json-pretty|github|junit|summary|gitlab|checkstyle|rdjson>`_ &mdash; 
-  Allows to change how diagnostics and summary are reported.
-- **`    --log-file`**=_`ARG`_ &mdash; 
-  Optional path to redirect log messages to.
+### \[**`--reporter`**=_`<default|json|json-pretty|github|junit|summary|gitlab|checkstyle|rdjson|sarif>`_\] \[**`--reporter-file`**=_`PATH`_\]
+- **`    --reporter`**=_`<default|json|json-pretty|github|junit|summary|gitlab|checkstyle|rdjson|sarif>`_
+- **`    --reporter-file`**=_`PATH`_
+
+- **`    --diagnostic-level`**=_`<info|warn|error>`_ &mdash; 
+  The level of diagnostics to show. In order, from the lowest to the most important: info, warn, error. Passing `--diagnostic-level=error` will cause Biome to print only diagnostics that contain only errors.
+   
+  [default: info]
+
+
+
+**Options to control logging (CLI and Daemon)**
+- **`    --log-file`**=_`STRING`_ &mdash; 
+  Optional path/file to redirect log messages to. This option is applicable only to the CLI.
 
   If omitted, logs are printed to stdout.
+   
+  Uses environment variable **`BIOME_LOG_FILE`**
+- **`    --log-prefix-name`**=_`STRING`_ &mdash; 
+  Uses environment variable **`BIOME_LOG_PREFIX_NAME`**
+   
+  [default: server.log]
+- **`    --log-path`**=_`PATH`_ &mdash; 
+  Allows changing the folder where logs are stored. This option is applicable only to the daemon.
+   
+  Uses environment variable **`BIOME_LOG_PATH`**
+   
+  [default: /Users/ema/Library/Caches/dev.biomejs.biome/biome-logs]
 - **`    --log-level`**=_`<none|debug|info|warn|error>`_ &mdash; 
   The level of logging. In order, from the most verbose to the least verbose: debug, info, warn, error.
 
   The value `none` won't show any logging.
    
+  Uses environment variable **`BIOME_LOG_LEVEL`**
+   
   [default: none]
 - **`    --log-kind`**=_`<pretty|compact|json>`_ &mdash; 
-  How the log should look like.
+  What the log should look like.
+   
+  Uses environment variable **`BIOME_LOG_KIND`**
    
   [default: pretty]
-- **`    --diagnostic-level`**=_`<info|warn|error>`_ &mdash; 
-  The level of diagnostics to show. In order, from the lowest to the most important: info, warn, error. Passing `--diagnostic-level=error` will cause Biome to print only diagnostics that contain only errors.
-   
-  [default: info]
 
 
 
@@ -1108,6 +1496,26 @@ Files won't be modified, the command is a read-only operation.
   The number of threads to use. This is useful when running the CLI in environments with limited resource, for example CI.
    
   Uses environment variable **`BIOME_THREADS`**
+- **`    --only`**=_`<GROUP|RULE|DOMAIN|ACTION>`_ &mdash; 
+  Run only the given lint rule, assist action, group of rules and actions, or domain. If the severity level of a rule is `off`, then the severity level of the rule is set to `error` if it is a recommended rule or `warn` otherwise.
+
+  Example:
+
+  
+  ```shell
+  biome ci --only=correctness/noUnusedVariables --only=suspicious --only=test
+  ```
+
+- **`    --skip`**=_`<GROUP|RULE|DOMAIN|ACTION>`_ &mdash; 
+  Skip the given lint rule, assist action, group of rules and actions, or domain by setting the severity level of the rules to `off`. This option takes precedence over `--only`.
+
+  Example:
+
+  
+  ```shell
+  biome ci --skip=correctness/noUnusedVariables --skip=suspicious --skip=project
+  ```
+
 - **`-h`**, **`--help`** &mdash; 
   Prints help information
 
@@ -1129,19 +1537,59 @@ Bootstraps a new biome project. Creates a configuration file with some defaults.
 
 Acts as a server for the Language Server Protocol over stdin/stdout.
 
-**Usage**: **`biome`** **`lsp-proxy`** 
+**Usage**: **`biome`** **`lsp-proxy`** \[**`--log-prefix-name`**=_`STRING`_\] \[**`--log-path`**=_`PATH`_\] \[**`--log-level`**=_`<none|debug|info|warn|error>`_\] \[**`--log-kind`**=_`<pretty|compact|json>`_\] \[**`--watcher-kind`**=_`<polling|recommended|none>`_\] \[**`--watcher-polling-interval`**=_`NUMBER`_\]
 
-**Available options:**
-- **`    --log-prefix-name`**=_`STRING`_ &mdash; 
-  Allows to change the prefix applied to the file name of the logs.
+**Options to control logging (CLI and Daemon)**
+- **`    --log-file`**=_`STRING`_ &mdash; 
+  Optional path/file to redirect log messages to. This option is applicable only to the CLI.
+
+  If omitted, logs are printed to stdout.
    
+  Uses environment variable **`BIOME_LOG_FILE`**
+- **`    --log-prefix-name`**=_`STRING`_ &mdash; 
   Uses environment variable **`BIOME_LOG_PREFIX_NAME`**
    
   [default: server.log]
 - **`    --log-path`**=_`PATH`_ &mdash; 
-  Allows to change the folder where logs are stored.
+  Allows changing the folder where logs are stored. This option is applicable only to the daemon.
    
   Uses environment variable **`BIOME_LOG_PATH`**
+   
+  [default: /Users/ema/Library/Caches/dev.biomejs.biome/biome-logs]
+- **`    --log-level`**=_`<none|debug|info|warn|error>`_ &mdash; 
+  The level of logging. In order, from the most verbose to the least verbose: debug, info, warn, error.
+
+  The value `none` won't show any logging.
+   
+  Uses environment variable **`BIOME_LOG_LEVEL`**
+   
+  [default: none]
+- **`    --log-kind`**=_`<pretty|compact|json>`_ &mdash; 
+  What the log should look like.
+   
+  Uses environment variable **`BIOME_LOG_KIND`**
+   
+  [default: pretty]
+
+
+
+**Controls various aspects of the Biome Daemon.**
+- **`    --watcher-kind`**=_`<polling|recommended|none>`_ &mdash; 
+  Controls how the Biome file watcher should behave.
+   
+  Uses environment variable **`BIOME_WATCHER_KIND`**
+   
+  [default: recommended]
+- **`    --watcher-polling-interval`**=_`NUMBER`_ &mdash; 
+  The polling interval in milliseconds. This is only applicable when using the polling watcher.
+   
+  Uses environment variable **`BIOME_WATCHER_POLLING_INTERVAL`**
+   
+  [default: 2000]
+
+
+
+**Available options:**
 - **`-h`**, **`--help`** &mdash; 
   Prints help information
 
@@ -1173,26 +1621,48 @@ Updates the configuration when there are breaking changes.
   Silence errors that would be emitted in case no files were processed during the execution of the command.
 - **`    --error-on-warnings`** &mdash; 
   Tell Biome to exit with an error code if some diagnostics emit warnings.
-- **`    --reporter`**=_`<json|json-pretty|github|junit|summary|gitlab|checkstyle|rdjson>`_ &mdash; 
-  Allows to change how diagnostics and summary are reported.
-- **`    --log-file`**=_`ARG`_ &mdash; 
-  Optional path to redirect log messages to.
+### \[**`--reporter`**=_`<default|json|json-pretty|github|junit|summary|gitlab|checkstyle|rdjson|sarif>`_\] \[**`--reporter-file`**=_`PATH`_\]
+- **`    --reporter`**=_`<default|json|json-pretty|github|junit|summary|gitlab|checkstyle|rdjson|sarif>`_
+- **`    --reporter-file`**=_`PATH`_
+
+- **`    --diagnostic-level`**=_`<info|warn|error>`_ &mdash; 
+  The level of diagnostics to show. In order, from the lowest to the most important: info, warn, error. Passing `--diagnostic-level=error` will cause Biome to print only diagnostics that contain only errors.
+   
+  [default: info]
+
+
+
+**Options to control logging (CLI and Daemon)**
+- **`    --log-file`**=_`STRING`_ &mdash; 
+  Optional path/file to redirect log messages to. This option is applicable only to the CLI.
 
   If omitted, logs are printed to stdout.
+   
+  Uses environment variable **`BIOME_LOG_FILE`**
+- **`    --log-prefix-name`**=_`STRING`_ &mdash; 
+  Uses environment variable **`BIOME_LOG_PREFIX_NAME`**
+   
+  [default: server.log]
+- **`    --log-path`**=_`PATH`_ &mdash; 
+  Allows changing the folder where logs are stored. This option is applicable only to the daemon.
+   
+  Uses environment variable **`BIOME_LOG_PATH`**
+   
+  [default: /Users/ema/Library/Caches/dev.biomejs.biome/biome-logs]
 - **`    --log-level`**=_`<none|debug|info|warn|error>`_ &mdash; 
   The level of logging. In order, from the most verbose to the least verbose: debug, info, warn, error.
 
   The value `none` won't show any logging.
    
+  Uses environment variable **`BIOME_LOG_LEVEL`**
+   
   [default: none]
 - **`    --log-kind`**=_`<pretty|compact|json>`_ &mdash; 
-  How the log should look like.
+  What the log should look like.
+   
+  Uses environment variable **`BIOME_LOG_KIND`**
    
   [default: pretty]
-- **`    --diagnostic-level`**=_`<info|warn|error>`_ &mdash; 
-  The level of diagnostics to show. In order, from the lowest to the most important: info, warn, error. Passing `--diagnostic-level=error` will cause Biome to print only diagnostics that contain only errors.
-   
-  [default: info]
 
 
 
@@ -1275,26 +1745,48 @@ Note: GritQL escapes code snippets using backticks, but most shells interpret ba
   Silence errors that would be emitted in case no files were processed during the execution of the command.
 - **`    --error-on-warnings`** &mdash; 
   Tell Biome to exit with an error code if some diagnostics emit warnings.
-- **`    --reporter`**=_`<json|json-pretty|github|junit|summary|gitlab|checkstyle|rdjson>`_ &mdash; 
-  Allows to change how diagnostics and summary are reported.
-- **`    --log-file`**=_`ARG`_ &mdash; 
-  Optional path to redirect log messages to.
+### \[**`--reporter`**=_`<default|json|json-pretty|github|junit|summary|gitlab|checkstyle|rdjson|sarif>`_\] \[**`--reporter-file`**=_`PATH`_\]
+- **`    --reporter`**=_`<default|json|json-pretty|github|junit|summary|gitlab|checkstyle|rdjson|sarif>`_
+- **`    --reporter-file`**=_`PATH`_
+
+- **`    --diagnostic-level`**=_`<info|warn|error>`_ &mdash; 
+  The level of diagnostics to show. In order, from the lowest to the most important: info, warn, error. Passing `--diagnostic-level=error` will cause Biome to print only diagnostics that contain only errors.
+   
+  [default: info]
+
+
+
+**Options to control logging (CLI and Daemon)**
+- **`    --log-file`**=_`STRING`_ &mdash; 
+  Optional path/file to redirect log messages to. This option is applicable only to the CLI.
 
   If omitted, logs are printed to stdout.
+   
+  Uses environment variable **`BIOME_LOG_FILE`**
+- **`    --log-prefix-name`**=_`STRING`_ &mdash; 
+  Uses environment variable **`BIOME_LOG_PREFIX_NAME`**
+   
+  [default: server.log]
+- **`    --log-path`**=_`PATH`_ &mdash; 
+  Allows changing the folder where logs are stored. This option is applicable only to the daemon.
+   
+  Uses environment variable **`BIOME_LOG_PATH`**
+   
+  [default: /Users/ema/Library/Caches/dev.biomejs.biome/biome-logs]
 - **`    --log-level`**=_`<none|debug|info|warn|error>`_ &mdash; 
   The level of logging. In order, from the most verbose to the least verbose: debug, info, warn, error.
 
   The value `none` won't show any logging.
    
+  Uses environment variable **`BIOME_LOG_LEVEL`**
+   
   [default: none]
 - **`    --log-kind`**=_`<pretty|compact|json>`_ &mdash; 
-  How the log should look like.
+  What the log should look like.
+   
+  Uses environment variable **`BIOME_LOG_KIND`**
    
   [default: pretty]
-- **`    --diagnostic-level`**=_`<info|warn|error>`_ &mdash; 
-  The level of diagnostics to show. In order, from the lowest to the most important: info, warn, error. Passing `--diagnostic-level=error` will cause Biome to print only diagnostics that contain only errors.
-   
-  [default: info]
 
 
 
