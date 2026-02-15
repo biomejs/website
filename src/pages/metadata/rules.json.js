@@ -823,7 +823,7 @@ export function GET() {
         "a11y": {
           "noAccessKey": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.0",
             "name": "noAccessKey",
             "link": "https://biomejs.dev/linter/rules/no-access-key",
             "recommended": true,
@@ -840,7 +840,7 @@ export function GET() {
           },
           "noAutofocus": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.0",
             "name": "noAutofocus",
             "link": "https://biomejs.dev/linter/rules/no-autofocus",
             "recommended": true,
@@ -857,7 +857,7 @@ export function GET() {
           },
           "noDistractingElements": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.0",
             "name": "noDistractingElements",
             "link": "https://biomejs.dev/linter/rules/no-distracting-elements",
             "recommended": true,
@@ -891,7 +891,7 @@ export function GET() {
           },
           "noPositiveTabindex": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.0",
             "name": "noPositiveTabindex",
             "link": "https://biomejs.dev/linter/rules/no-positive-tabindex",
             "recommended": true,
@@ -908,7 +908,7 @@ export function GET() {
           },
           "noRedundantAlt": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.0",
             "name": "noRedundantAlt",
             "link": "https://biomejs.dev/linter/rules/no-redundant-alt",
             "recommended": true,
@@ -925,7 +925,7 @@ export function GET() {
           },
           "noSvgWithoutTitle": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.0",
             "name": "noSvgWithoutTitle",
             "link": "https://biomejs.dev/linter/rules/no-svg-without-title",
             "recommended": true,
@@ -934,7 +934,7 @@ export function GET() {
           },
           "useAltText": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.0",
             "name": "useAltText",
             "link": "https://biomejs.dev/linter/rules/use-alt-text",
             "recommended": true,
@@ -951,7 +951,7 @@ export function GET() {
           },
           "useAnchorContent": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.0",
             "name": "useAnchorContent",
             "link": "https://biomejs.dev/linter/rules/use-anchor-content",
             "recommended": true,
@@ -968,7 +968,7 @@ export function GET() {
           },
           "useAriaPropsForRole": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.0",
             "name": "useAriaPropsForRole",
             "link": "https://biomejs.dev/linter/rules/use-aria-props-for-role",
             "recommended": true,
@@ -985,7 +985,7 @@ export function GET() {
           },
           "useButtonType": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.0",
             "name": "useButtonType",
             "link": "https://biomejs.dev/linter/rules/use-button-type",
             "recommended": true,
@@ -1002,7 +1002,7 @@ export function GET() {
           },
           "useHtmlLang": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.0",
             "name": "useHtmlLang",
             "link": "https://biomejs.dev/linter/rules/use-html-lang",
             "recommended": true,
@@ -1019,7 +1019,7 @@ export function GET() {
           },
           "useIframeTitle": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.0",
             "name": "useIframeTitle",
             "link": "https://biomejs.dev/linter/rules/use-iframe-title",
             "recommended": true,
@@ -1036,7 +1036,7 @@ export function GET() {
           },
           "useMediaCaption": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.0",
             "name": "useMediaCaption",
             "link": "https://biomejs.dev/linter/rules/use-media-caption",
             "recommended": true,
@@ -1053,7 +1053,7 @@ export function GET() {
           },
           "useValidAriaRole": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.0",
             "name": "useValidAriaRole",
             "link": "https://biomejs.dev/linter/rules/use-valid-aria-role",
             "recommended": true,
@@ -1070,7 +1070,7 @@ export function GET() {
           },
           "useValidLang": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.0",
             "name": "useValidLang",
             "link": "https://biomejs.dev/linter/rules/use-valid-lang",
             "recommended": true,
@@ -8085,7 +8085,7 @@ export function GET() {
         "source": {
           "noDuplicateClasses": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.0",
             "name": "noDuplicateClasses",
             "link": "https://biomejs.dev/linter/rules/no-duplicate-classes",
             "recommended": false,
@@ -8163,7 +8163,7 @@ export function GET() {
         "source": {
           "noDuplicateClasses": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.0",
             "name": "noDuplicateClasses",
             "link": "https://biomejs.dev/linter/rules/no-duplicate-classes",
             "recommended": false,
@@ -8201,7 +8201,7 @@ export function GET() {
         "source": {
           "useSortedInterfaceMembers": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.0",
             "name": "useSortedInterfaceMembers",
             "link": "https://biomejs.dev/linter/rules/use-sorted-interface-members",
             "recommended": false,
