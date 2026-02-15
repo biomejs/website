@@ -1604,7 +1604,7 @@ export function GET() {
 					},
 					trailingNewline: {
 						description:
-							"Whether to add a trailing newline at the end of the file.\n\nSetting this option to `false` is **highly discouraged** because it could cause many problems with other tools:\n- <https://thoughtbot.com/blog/no-newline-at-end-of-file>\n- <https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804>\n- <https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files>\n\nDisable the option at your own risk.\n\nDefaults to true.",
+							"Whether to add a trailing newline at the end of the file.\n\nSetting this option to `false` is **highly discouraged** because it could cause many problems with other tools:\n- https://thoughtbot.com/blog/no-newline-at-end-of-file\n- https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804\n- https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files\n\nDisable the option at your own risk.\n\nDefaults to true.",
 						anyOf: [{ $ref: "#/$defs/TrailingNewline" }, { type: "null" }],
 					},
 				},
@@ -1867,7 +1867,7 @@ export function GET() {
 					},
 					trailingNewline: {
 						description:
-							"Whether to add a trailing newline at the end of the file.\n\nSetting this option to `false` is **highly discouraged** because it could cause many problems with other tools:\n- <https://thoughtbot.com/blog/no-newline-at-end-of-file>\n- <https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804>\n- <https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files>\n\nDisable the option at your own risk.\n\nDefaults to true.",
+							"Whether to add a trailing newline at the end of the file.\n\nSetting this option to `false` is **highly discouraged** because it could cause many problems with other tools:\n- https://thoughtbot.com/blog/no-newline-at-end-of-file\n- https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804\n- https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files\n\nDisable the option at your own risk.\n\nDefaults to true.",
 						anyOf: [{ $ref: "#/$defs/TrailingNewline" }, { type: "null" }],
 					},
 					useEditorconfig: {
@@ -1964,7 +1964,7 @@ export function GET() {
 					},
 					trailingNewline: {
 						description:
-							"Whether to add a trailing newline at the end of the file.\n\nSetting this option to `false` is **highly discouraged** because it could cause many problems with other tools:\n- <https://thoughtbot.com/blog/no-newline-at-end-of-file>\n- <https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804>\n- <https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files>\n\nDisable the option at your own risk.\n\nDefaults to true.",
+							"Whether to add a trailing newline at the end of the file.\n\nSetting this option to `false` is **highly discouraged** because it could cause many problems with other tools:\n- https://thoughtbot.com/blog/no-newline-at-end-of-file\n- https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804\n- https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files\n\nDisable the option at your own risk.\n\nDefaults to true.",
 						anyOf: [{ $ref: "#/$defs/TrailingNewline" }, { type: "null" }],
 					},
 				},
@@ -2047,7 +2047,7 @@ export function GET() {
 					},
 					trailingNewline: {
 						description:
-							"Whether to add a trailing newline at the end of the file.\n\nSetting this option to `false` is **highly discouraged** because it could cause many problems with other tools:\n- <https://thoughtbot.com/blog/no-newline-at-end-of-file>\n- <https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804>\n- <https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files>\n\nDisable the option at your own risk.\n\nDefaults to true.",
+							"Whether to add a trailing newline at the end of the file.\n\nSetting this option to `false` is **highly discouraged** because it could cause many problems with other tools:\n- https://thoughtbot.com/blog/no-newline-at-end-of-file\n- https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804\n- https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files\n\nDisable the option at your own risk.\n\nDefaults to true.",
 						anyOf: [{ $ref: "#/$defs/TrailingNewline" }, { type: "null" }],
 					},
 				},
@@ -2242,7 +2242,7 @@ export function GET() {
 					},
 					trailingNewline: {
 						description:
-							"Whether to add a trailing newline at the end of the file.\n\nSetting this option to `false` is **highly discouraged** because it could cause many problems with other tools:\n- <https://thoughtbot.com/blog/no-newline-at-end-of-file>\n- <https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804>\n- <https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files>\n\nDisable the option at your own risk.\n\nDefaults to true.",
+							"Whether to add a trailing newline at the end of the file.\n\nSetting this option to `false` is **highly discouraged** because it could cause many problems with other tools:\n- https://thoughtbot.com/blog/no-newline-at-end-of-file\n- https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804\n- https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files\n\nDisable the option at your own risk.\n\nDefaults to true.",
 						anyOf: [{ $ref: "#/$defs/TrailingNewline" }, { type: "null" }],
 					},
 					whitespaceSensitivity: {
@@ -2473,7 +2473,7 @@ export function GET() {
 					},
 					trailingNewline: {
 						description:
-							"Whether to add a trailing newline at the end of the file.\n\nSetting this option to `false` is **highly discouraged** because it could cause many problems with other tools:\n- <https://thoughtbot.com/blog/no-newline-at-end-of-file>\n- <https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804>\n- <https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files>\n\nDisable the option at your own risk.\n\nDefaults to true.",
+							"Whether to add a trailing newline at the end of the file.\n\nSetting this option to `false` is **highly discouraged** because it could cause many problems with other tools:\n- https://thoughtbot.com/blog/no-newline-at-end-of-file\n- https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804\n- https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files\n\nDisable the option at your own risk.\n\nDefaults to true.",
 						anyOf: [{ $ref: "#/$defs/TrailingNewline" }, { type: "null" }],
 					},
 				},
@@ -2611,7 +2611,7 @@ export function GET() {
 					},
 					trailingNewline: {
 						description:
-							"Whether to add a trailing newline at the end of the file.\n\nSetting this option to `false` is **highly discouraged** because it could cause many problems with other tools:\n- <https://thoughtbot.com/blog/no-newline-at-end-of-file>\n- <https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804>\n- <https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files>\n\nDisable the option at your own risk.\n\nDefaults to true.",
+							"Whether to add a trailing newline at the end of the file.\n\nSetting this option to `false` is **highly discouraged** because it could cause many problems with other tools:\n- https://thoughtbot.com/blog/no-newline-at-end-of-file\n- https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804\n- https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files\n\nDisable the option at your own risk.\n\nDefaults to true.",
 						anyOf: [{ $ref: "#/$defs/TrailingNewline" }, { type: "null" }],
 					},
 				},
@@ -6718,7 +6718,7 @@ export function GET() {
 					},
 					trailingNewline: {
 						description:
-							"Whether to add a trailing newline at the end of the file.\n\nSetting this option to `false` is **highly discouraged** because it could cause many problems with other tools:\n- <https://thoughtbot.com/blog/no-newline-at-end-of-file>\n- <https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804>\n- <https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files>\n\nDisable the option at your own risk.\n\nDefaults to true.",
+							"Whether to add a trailing newline at the end of the file.\n\nSetting this option to `false` is **highly discouraged** because it could cause many problems with other tools:\n- https://thoughtbot.com/blog/no-newline-at-end-of-file\n- https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804\n- https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files\n\nDisable the option at your own risk.\n\nDefaults to true.",
 						anyOf: [{ $ref: "#/$defs/TrailingNewline" }, { type: "null" }],
 					},
 				},
