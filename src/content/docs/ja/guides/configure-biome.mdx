@@ -74,10 +74,23 @@ Biomeでは、JavaScript言語のすべての種類を `javascript` と呼んで
 
 ## 設定ファイルの解決
 
-Biomeは最も近い設定ファイルを見つけるために自動探索を利用します。
-作業ディレクトリとその親ディレクトリから `biome.json` または `biome.jsonc` ファイルを見つけます。
-いずれの設定も見つからない場合は、Biomeのデフォルトを適用します。
-`biome.json` と `biome.jsonc` の両方が同じフォルダにある場合は、`biome.json` を優先します。
+Biomeは次の順序で以下の設定ファイルをサポートしています：
+1. `biome.json`
+2. `biome.jsonc`
+3. `.biome.json`
+4. `.biome.jsonc`
+
+Biomeは次の順序で設定ファイルを検出しようとします：
+1. 現在の作業ディレクトリ
+  - CLIでは、作業ディレクトリはコマンドが実行される場所です
+  - エディタでは、作業ディレクトリはプロジェクトのルートです
+2. 親フォルダを再帰的に検索
+3. ホームディレクトリ（OSによって異なります）：
+  - Linuxでは [`$XDG_CONFIG_HOME`](https://specifications.freedesktop.org/basedir/latest/#variables) または `$HOME/.config/biome`
+  - macOSでは `/Users/$USER/Library/Application Support/biome`
+  - Windowsでは `C:\Users\$USER\AppData\Roaming\biome\config`
+
+設定が見つからない場合は、Biomeのデフォルト設定が使用されます。
 
 以下は例です：
 
@@ -100,7 +113,7 @@ Biomeは最も近い設定ファイルを見つけるために自動探索を利
   `app/frontend/biome.json` の設定ファイルを使います
 
 :::note
-Biome（v2.0.0以降）はネストされた `biome.json` ファイルをサポートしています。詳細については、[大規模プロジェクトでのBiomeの使用](/guides/big-projects#use-multiple-configuration-files)を参照してください。
+Biomeはネストされた `biome.json` ファイルをサポートしています。詳細については、[大規模プロジェクトでのBiomeの使用](/guides/big-projects#use-multiple-configuration-files)を参照してください。
 :::
 
 
@@ -187,23 +200,35 @@ biome lint test/
 
 #### 設定ファイルでファイルを除外する
 
-Biomeによって処理されないファイルやフォルダを除外したい場合は、`files.includes` 設定を使用し、先頭に `!` を付けたnegatedパターンを使用できます。
+Biomeによって処理されないファイルやフォルダを除外したい場合は、`files.includes` 設定を使用し、negatedパターンを使用できます：
+- 先頭に `!` を使用してファイルをリント/フォーマットから除外する
+- 二重の先頭 `!!` を使用してプロジェクト関連の操作からファイルを除外する
+
+プロジェクト関連の操作には以下が含まれます：
+- 内部モジュールグラフの構築。[一部のプロジェクトルール](/linter/domains/#project)がインポートとエクスポートから情報を解決できるようにするためです。
+- 型の推論。型を考慮したリントルールが正しく型を推論できるようにするためです。
+
+プロジェクト関連の操作の対象と見なされるファイルは**インデックス化**されます。
 
 negatedされたglobを列挙する前に、**それらの前に `**` パターンを付ける必要があります**。
 
-次の例では、すべてのファイルを含めるようBiomeに指示しますが、任意の `dist/` フォルダ内のファイルと、`.generated.js` で終わるファイルは除外します：
+次の例では、すべてのファイルを含めるようBiomeに指示しますが、以下を除外します：
+- `dist/` フォルダ。プロジェクト関連の操作から除外されるため、インデックス化されません。
+- `.generated.js` で終わるファイル。フォーマットとリントから除外されますが、インデックス化はされます。
 
 ```json title="biome.json"
 {
   "files": {
     "includes": [
       "**",
-      "!**/dist",
-      "!**/*.generated.js"
+      "!**/*.generated.js",
+      "!!**/dist"
     ]
   }
 }
 ```
+
+スキャナーとの相互作用、およびファイルのインデックス化方法の詳細については、[関連するリファレンスページ](/reference/configuration#interaction-with-the-scanner)を確認してください。
 
 
 ### VCSでファイルを制御する
@@ -267,3 +292,6 @@ negatedされたglobを列挙する前に、**それらの前に `**` パター�
 - `tsconfig.json`
 - `typedoc.json`
 - `typescript.json`
+- `$PROJECT/.vscode/*` フォルダ配下および[ユーザーVSCode設定フォルダ](https://code.visualstudio.com/docs/configure/settings#_user-settingsjson-location)配下のすべての `.json` ファイル
+- `$PROJECT/.zed/*` フォルダ配下および[ユーザーZed設定フォルダ](https://zed.dev/docs/configuring-zed#user-settings-file)配下のすべての `.json` ファイル
+- `$PROJECT/.cursor/*` フォルダ配下およびユーザーCursor設定フォルダ配下のすべての `.json` ファイル

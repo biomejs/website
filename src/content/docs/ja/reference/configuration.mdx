@@ -32,13 +32,22 @@ JSONスキーマファイルへのパスを指定できます。
 
 ## `extends`
 
-他のJSONファイルへのパスのリストです。Biomeは `extends` リストに含まれるファイルのオプションを解決して適用し、最終的に `biome.json` ファイルに含まれるオプションを適用します。
+他のBiome設定ファイルへのパスのリストです。Biomeは `extends` リストに含まれるファイルの設定を解決して適用し、
+最終的に `biome.json`/`biome.jsonc` ファイルに含まれるオプションを適用します。
 
-```json title="biome.json"
-{
-  "extends": ["./biome.base.json"]
-}
-```
+拡張するパスの順序は、関連性の低いものから高いものへと進みます。
+
+v2以降、このオプションは値 `"//"` に一致する必要がある文字列を受け入れます。これは[モノレポ](/guides/big-projects#monorepo)を設定する際に使用できます。
+
+
+## `root`
+
+この設定をルートとして扱うかどうかを指定します。デフォルトでは、すべての設定ファイルはデフォルトでルートと見なされます。
+設定ファイルが「ネストされた設定」である場合、`"root": false` を設定する必要があります。そうしないとエラーがスローされます。
+
+これは、BiomeがCLIとエディタで同時に複数のファイルを調整できるようにするために必要です。
+
+> デフォルト: `true`
 
 
 ## `files`
@@ -73,22 +82,48 @@ Biomeは、これらのパターンに一致するファイルやフォルダの
 3. しかし、 `special.test.js` は処理対象に戻す。
 4. ただし、`test` という名前のフォルダ内にある場合は処理しない。
 
+:::note
+`!test` を使用してディレクトリを完全に除外することは `files.includes` でのみサポートされています。`includes` を使用する他の場所（`linter.includes`、`formatter.includes` など）では、ディレクトリを除外するために `!/test/**` を使用する必要があります。
+:::
+
 つまり、結果は以下の通りです。
+
 * `src/app.js` は処理対象
 * `src/app.test.js` は処理対象**外**
 * `src/special.test.js` は処理対象
 * `test/special.test.js` は処理対象**外**
 
-#### Biome のスキャナーについて
+`node_modules/` 内のファイルは、`files.includes` 設定に関係なく無視されることに注意してください。
 
-Biomeにはスキャナーがあり、ネストされた `.gitignore` ファイルを検出したり、プロジェクトドメインのルールが有効な場合はプロジェクトをインデックス化します。
-スキャナーは `files.includes` の設定を尊重しますが、いくつか注意点があります。詳細は [スキャナーのドキュメント](/internals/architecture/#scanner) を参照してください。
+#### スキャナーとの相互作用
+
+Biomeには[スキャナー](/internals/architecture/#scanner)があり、ネストされた設定ファイルや `.gitignore` ファイルを検出します。また、
+[プロジェクトドメイン](/linter/domains/#project)の1つ以上のルールが有効になっている場合、ソースファイルをインデックス化することもできます。
+
+スキャナーは `files.includes` と `.gitignore` ファイルからの無視パターンの両方を尊重しますが、注意すべき2つの例外があります：
+* `biome.json` や `.gitignore` などの特殊ファイルは、`files.includes` の無視パターンよりも優先されます。
+* プロジェクトドメインのルールが有効な場合、スキャナーはソースファイルとそのソースファイルの**依存関係をインデックス化**します。これは、`files.includes` の一部として無視されるファイルでも、それらのファイルをインポートする他の含まれるファイルがある限り、スキャナーによってインデックス化される可能性があることを意味します。また、これは `node_modules/` 内の `.d.ts` ファイルや `package.json` マニフェストもインデックス化される可能性があることを意味します。
+
+スキャナーによって明示的に無視するファイルを強制したい場合は、
+いわゆる _force-ignore パターン_ を使用できます。force-ignoreパターンは通常のnegatedパターンのように見えますが、二重の感嘆符 (`!!`) で始まります。
+
+例えば、次の設定を使用して、Biomeに任意の `dist/` フォルダ内を決して見ないように指示できます：
+
+```json title="biome.json"
+{
+  "files": {
+    "includes": ["**", "!!**/dist"]
+  }
+}
+```
+
+`build/` や `dist/` などの _出力_ ファイルを含むフォルダには、force-ignore構文を使用することをお勧めします。このようなフォルダの場合、インデックス化が有用な利点を持つ可能性は極めて低いです。生成されたファイルを含むフォルダの場合、通常の無視パターンを使用することをお勧めします。これにより、ファイルから型情報を抽出できます。
+
+明示的に無視したいネストされた `biome.json` ファイルや `.gitignore` ファイルについても、force-ignore構文を使用する必要があります。
 
 ### `files.ignoreUnknown`
 
-Biomeは、処理できないファイルに遭遇した場合、診断情報を出力しません。
-
-
+`true` の場合、Biomeは処理できないファイルに遭遇しても診断を出力しません。
 
 ```json title="biome.json"
 {
@@ -99,6 +134,21 @@ Biomeは、処理できないファイルに遭遇した場合、診断情報を
 ```
 
 > デフォルト: `false`
+
+### `files.maxSize`
+
+ソースコードファイルの最大許容サイズ（バイト単位）です。この制限を超えるファイルは、パフォーマンス上の理由から無視されます。
+
+> デフォルト: `1048576`（1024*1024、1MB）
+
+### `files.experimentalScannerIgnores`
+
+:::caution
+このオプションは**非推奨**となり、将来のリリースで削除される可能性があります。
+代わりに `files.includes` で [_force-ignore 構文_](/reference/configuration/#interaction-with-the-scanner) を使用してください。
+:::
+
+スキャナーがクロール中に無視すべきリテラルパスセグメントの配列です。無視されたファイルはインデックス化されません。つまり、これらのファイルはモジュールグラフの一部にならず、それらから型が推論されません。
 
 ## `vcs`
 
@@ -139,53 +189,69 @@ Biomeのリンタを有効にします。
 
 > デフォルト: `true`
 
-### `linter.ignore`
+### `linter.includes`
 
-Biomeのリンタは、パターンに一致するファイルやフォルダを無視します。
-Unixシェル形式のパターンのリストで指定します。
+リントするファイルの[globパターン](#glob-syntax-reference)のリストです。
 
-
-
-```json title="biome.json"
-{
-  "linter": {
-    "ignore": ["scripts/*.js"]
-  }
-}
-```
-
-
-### `linter.include`
-
-Biomeのリンタは、これらのパターンに一致するファイルやフォルダのみを処理します。
-Unixシェル形式のパターンのリストで指定します。
-
-
+次の例は、`src` フォルダ内の `.js` 拡張子を持つすべてのファイルをリントします：
 
 ```json title="biome.json"
 {
   "linter": {
-    "include": ["scripts/*.js"]
+    "includes": ["src/**/*.js"]
   }
 }
 ```
 
-:::caution
-`include` と `ignore` の両方が指定されている場合、`ignore` が `include` よりも**優先**されます。
+`*` は _フォルダ内のすべてのファイル_ に一致し、`**` は _フォルダ内のすべてのファイルとサブフォルダを再帰的に_ 一致させます。globの詳細については、
+[glob構文リファレンス](#glob-syntax-reference)を参照してください。
+
+`includes` は、例外であるnegatedパターンもサポートしています。これらは `!` で始まるパターンで、Biomeにnegatedパターンに一致するファイルを除く _すべて_ のファイルを処理するように指示するために使用できます。
+
+例外は順番に処理されるため、例外の例外を指定できます。
+
+次の例を考えてみましょう：
+
+```json title="biome.json"
+{
+  "linter": {
+    "includes": ["**", "!**/*.test.js", "**/special.test.js"]
+  }
+}
+```
+
+この例は次のことを指定しています：
+
+1. `**` パターンのおかげで、すべての（サブ）フォルダ内のすべてのファイルがリントされます。..
+2. ... ただし、それらのファイルが `.test.js` 拡張子を持つ場合は除きます。..
+3. ... しかし、ファイル `special.test.ts` は _まだ_ リントされます。
+
+つまり：
+
+* `src/app.js` は**リントされます**。
+* `src/app.test.js` は**リントされません**。
+* `src/special.test.js` は**リントされます**。
+
+`linter.includes` は `files.includes` の _後に_ 適用されることに注意してください。これは、`files.includes` に一致しないファイルは、もはや `linter.includes` に一致できないことを意味します。これは、次の例が**機能しない**ことを意味します：
+
+```json5 title="biome.jsonc"
+{
+  "files": {
+    "includes": "src/**"
+  },
+  "linter": {
+    // これは files.includes と重複がないため何も一致しません：
+    "includes": "scripts/**"
+  }
+}
+```
+
+`linter.includes` が指定されていない場合、[`files.includes`](#filesincludes) に一致するすべてのファイルがリントされます。
+
+:::note
+技術的な制限により、`linter.includes` は `files.includes` がフォルダに一致できるのに対して、フォルダに一致できません。フォルダ内のすべてのファイルに一致させたい場合は、
+明示的に最後に `/**` を追加する必要があります。
 :::
-
-例えば、下記のような指定を考えます。
-
-```json title="biome.json"
-{
-  "linter": {
-    "include": ["scripts/**/*.js", "src/**/*.js"],
-    "ignore": ["scripts/**/*.js"]
-  }
-}
-```
-
-パターン `src/**/*.js` に一致するファイルのみが処理され、パターン `scripts/**/*.js` に一致するファイルは無視されます。
 
 
 ### `linter.rules.recommended`
@@ -253,6 +319,108 @@ Unixシェル形式のパターンのリストで指定します。
 }
 ```
 
+## `assist`
+
+### `assist.enabled`
+
+Biomeのアシスト機能を有効にします。
+
+> デフォルト: `true`
+
+
+### `assist.includes`
+
+解析するファイルの[globパターン](#glob-syntax-reference)のリストです。
+
+次の例は、`src` フォルダ内の `.js` 拡張子を持つすべてのファイルを解析します：
+
+```json title="biome.json"
+{
+  "assist": {
+    "includes": ["src/**/*.js"]
+  }
+}
+```
+
+`*` は _フォルダ内のすべてのファイル_ に一致し、`**` は _フォルダ内のすべてのファイルとサブフォルダを再帰的に_ 一致させます。globの詳細については、
+[glob構文リファレンス](#glob-syntax-reference)を参照してください。
+
+`includes` は、例外であるnegatedパターンもサポートしています。これらは `!` で始まるパターンで、Biomeにnegatedパターンに一致するファイルを除く _すべて_ のファイルを処理するように指示するために使用できます。
+
+例外は順番に処理されるため、例外の例外を指定できます。
+
+次の例を考えてみましょう：
+
+```json title="biome.json"
+{
+  "assist": {
+    "includes": ["**", "!**/*.test.js", "**/special.test.js"]
+  }
+}
+```
+
+この例は次のことを指定しています：
+
+1. `**` パターンのおかげで、すべての（サブ）フォルダ内のすべてのファイルが解析されます。..
+2. ... ただし、それらのファイルが `.test.js` 拡張子を持つ場合は除きます。..
+3. ... しかし、ファイル `special.test.ts` は _まだ_ 解析されます。
+
+つまり：
+
+* `src/app.js` は**解析されます**。
+* `src/app.test.js` は**解析されません**。
+* `src/special.test.js` は**解析されます**。
+
+`assist.includes` は `files.includes` の _後に_ 適用されることに注意してください。これは、`files.includes` に一致しないファイルは、もはや `assist.includes` に一致できないことを意味します。これは、次の例が**機能しない**ことを意味します：
+
+```json5 title="biome.jsonc"
+{
+  "files": {
+    "includes": "src/**"
+  },
+  "assist": {
+    // これは files.includes と重複がないため何も一致しません：
+    "includes": "scripts/**"
+  }
+}
+```
+
+`assist.includes` が指定されていない場合、[`files.includes`](#filesincludes) に一致するすべてのファイルがリントされます。
+
+:::note
+技術的な制限により、`assist.includes` は `files.includes` がフォルダに一致できるのに対して、フォルダに一致できません。フォルダ内のすべてのファイルに一致させたい場合は、
+明示的に最後に `/**` を追加する必要があります。
+:::
+
+### `assist.actions.recommended`
+
+すべてのグループの推奨アクションを有効にします。
+
+### `assist.actions.[group]`
+
+単一グループのルールに影響を与えるオプションです。Biomeは次のグループをサポートしています：
+
+- source: このグループは、保存時にドキュメントに安全に適用できるアクションを表します。これらのアクションは一般的にすべて安全で、通常はプログラムの機能を変更しません。
+
+### `assist.actions.[group].recommended`
+
+単一グループの推奨ルールを有効にします。
+
+例：
+
+```json title="biome.json"
+{
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "recommended": true
+      }
+    }
+  }
+}
+```
+
 ## `formatter`
 
 これらのオプションはすべての言語に適用されます。
@@ -264,50 +432,69 @@ Biomeのフォーマッタを有効にします。
 
 > デフォルト: `true`
 
-### `formatter.ignore`
+### `formatter.includes`
 
-Biomeのフォーマッタは、パターンに一致するファイルやフォルダを無視します。
-Unixシェル形式のパターンのリストで指定します。
+フォーマットするファイルの[globパターン](#glob-syntax-reference)のリストです。
 
-
-```json title="biome.json"
-{
-  "formatter": {
-    "ignore": ["scripts/*.js"]
-  }
-}
-```
-
-### `formatter.include`
-
-Biomeのフォーマッタは、これらのパターンに一致するファイルやフォルダのみを処理します。
-Unixシェル形式のパターンのリストで指定します。
-
+次の例は、`src` フォルダ内の `.js` 拡張子を持つすべてのファイルをフォーマットします：
 
 ```json title="biome.json"
 {
   "formatter": {
-    "include": ["scripts/*.js"]
+    "includes": ["src/**/*.js"]
   }
 }
 ```
 
-:::caution
-`include` と `ignore` の両方が指定されている場合、`ignore` が `include` よりも**優先**されます。
+`*` は _フォルダ内のすべてのファイル_ に一致し、`**` は _フォルダ内のすべてのファイルとサブフォルダを再帰的に_ 一致させます。globの詳細については、
+[glob構文リファレンス](#glob-syntax-reference)を参照してください。
+
+`includes` は、例外であるnegatedパターンもサポートしています。これらは `!` で始まるパターンで、Biomeにnegatedパターンに一致するファイルを除く _すべて_ のファイルを処理するように指示するために使用できます。
+
+例外は順番に処理されるため、例外の例外を指定できます。
+
+次の例を考えてみましょう：
+
+```json title="biome.json"
+{
+  "formatter": {
+    "includes": ["**", "!**/*.test.js", "**/special.test.js"]
+  }
+}
+```
+
+この例は次のことを指定しています：
+
+1. `**` パターンのおかげで、すべての（サブ）フォルダ内のすべてのファイルがフォーマットされます。..
+2. ... ただし、それらのファイルが `.test.js` 拡張子を持つ場合は除きます。..
+3. ... しかし、ファイル `special.test.ts` は _まだ_ フォーマットされます。
+
+つまり：
+
+* `src/app.js` は**フォーマットされます**。
+* `src/app.test.js` は**フォーマットされません**。
+* `src/special.test.js` は**フォーマットされます**。
+
+`formatter.includes` は `files.includes` の _後に_ 適用されることに注意してください。これは、`files.includes` に一致しないファイルは、もはや `formatter.includes` に一致できないことを意味します。これは、次の例が**機能しない**ことを意味します：
+
+```json5 title="biome.jsonc"
+{
+  "files": {
+    "includes": "src/**"
+  },
+  "formatter": {
+    // これは files.includes と重複がないため何も一致しません：
+    "includes": "scripts/**"
+  }
+}
+```
+
+`formatter.includes` が指定されていない場合、[`files.includes`](#filesincludes) に一致するすべてのファイルがフォーマットされます。
+
+:::note
+技術的な制限により、`formatter.includes` は `files.includes` がフォルダに一致できるのに対して、フォルダに一致できません。フォルダ内のすべてのファイルに一致させたい場合は、
+明示的に最後に `/**` を追加する必要があります。
 :::
-
-例えば、下記のような指定を考えます。
-
-```json title="biome.json"
-{
-  "formatter": {
-    "include": ["scripts/**/*.js", "src/**/*.js"],
-    "ignore": ["scripts/**/*.js"]
-  }
-}
-```
-
-パターン `src/**/*.js` に一致するファイルのみが処理され、パターン `scripts/**/*.js` に一致するファイルは無視されます。
 
 
 ### `formatter.formatWithErrors`
@@ -334,22 +521,13 @@ Unixシェル形式のパターンのリストで指定します。
 
 > デフォルト: `"tab"`
 
-### `formatter.indentSize`
-
-このオプションは廃止されました。代わりに [`formatter.indentWidth`](#formatterindentwidth) を使用してください。
-
-<details>
-    <summary>廃止されました</summary>
-
-    インデントのサイズを指定します。
-
-    > デフォルト: `2`
-
-</details>
-
 ### `formatter.indentWidth`
 
 インデントのサイズを指定します。
+
+:::note
+このプロパティは、`indentStyle` が `tab` に設定されている場合は無視されます。
+:::
 
 > デフォルト: `2`
 
@@ -364,16 +542,15 @@ Unixシェル形式のパターンのリストで指定します。
 
 ### `formatter.lineWidth`
 
-行の文字数を指定します。
+1行に書き込むことができる文字数を指定します。
 
 > デフォルト: `80`
 
 ### `formatter.attributePosition`
 
-HTML言語（あるいはHTMLベースの言語）における属性の位置スタイルを指定します。
-
-- `"auto"`: 属性は自動的にフォーマットされ、特定の基準に達したときのみ複数行に折り返されます。
-- `"multiline"`: 属性は常に複数行でフォーマットされます。
+HTML系言語の属性位置スタイルを指定します。
+- `"auto"`、属性は自動的にフォーマットされ、特定の基準に達したときのみ複数行に折り返されます。
+- `"multiline"`、属性が2つ以上使用されている場合、複数行に折り返されます。
 
 > デフォルト: `"auto"`
 
@@ -385,23 +562,43 @@ HTML言語（あるいはHTMLベースの言語）における属性の位置ス
 
 ### `formatter.expand`
 
-配列とオブジェクトのリテラルを複数行に展開するかどうかを指定します。
-- `"auto"`: オブジェクトリテラルは最初のプロパティに改行があれば複数行にフォーマットされ、配列リテラルは行に収まる場合は単一行にフォーマットされます。
-- `"always"`: これらのリテラルは長さを問わず複数行にフォーマットされます。
-- `"never"`: これらのリテラルは行に収まる場合は単一行にフォーマットされます。
+配列とオブジェクトを複数行に展開するかどうかを指定します。
+- `"auto"`、オブジェクトリテラルは最初のプロパティに改行がある場合は複数行にフォーマットされ、
+  配列リテラルは行に収まる場合は単一行にフォーマットされます。
+- `"always"`、これらのリテラルはリストの長さに関係なく複数行にフォーマットされます。
+- `"never"`、これらのリテラルは行に収まる場合は単一行にフォーマットされます。
 
 `package.json` をフォーマットする場合、別途設定されない限りBiomeは `always` を使います。
 
 > デフォルト: `"auto"`
 
+### `formatter.trailingNewline`
+
+ファイルの末尾に改行を追加するかどうかを指定します。
+
+> デフォルト: true
+
+:::danger
+このオプションを `false` に設定することは**非常に推奨されません**。他のツールとの多くの問題を引き起こす可能性があるためです：
+- https://thoughtbot.com/blog/no-newline-at-end-of-file
+- https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804
+- https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files
+
+末尾の改行を無効にする場合は、自己責任で行ってください。
+:::
+
 ### `formatter.useEditorconfig`
 
-フォーマットのオプションを導出するために `.editorconfig` ファイルを利用するかを指定します。
-`true` の場合、`.editorconfig` ファイルの中の適用可能なオプションが利用されますが、`biome.json` ファイルの設定が優先されます。
+Biomeが `.editorconfig` ファイルを使用してフォーマットオプションを決定するかどうかを指定します。
 
-`biome migrate` でPrettierから移行する場合、このオプションはPrettierの動作と一致させるため `true` に設定されます。
+設定ファイル `.editorconfig` と `biome.json` は次のルールに従います：
+
+- `biome.json` のフォーマット設定は常に `.editorconfig` ファイルより優先されます。
+- `biome.json` ファイルよりも階層の上位に存在する `.editorconfig` ファイルは既に無視されます。これは、誰かのホームディレクトリからフォーマット設定を `biome.json` ファイルを持つプロジェクトにロードすることを避けるためです。
+- ネストされた `.editorconfig` ファイルは現在サポートされていません。
 
 > デフォルト: `false`
+
 
 ## `organizeImports`
 
@@ -700,6 +897,21 @@ JavaScript（およびその拡張言語）ファイル用のBiomeアシスト�
 }
 ```
 
+
+### `javascript.experimentalEmbeddedSnippetsEnabled`
+
+JavaScript（およびその拡張言語）ファイル内の埋め込み言語スニペットのパースとフォーマットを有効にします。
+
+> デフォルト: `false`
+
+```json title=biome.json
+{
+  "javascript": {
+    "experimentalEmbeddedSnippetsEnabled": true
+  }
+}
+```
+
 ## `json`
 
 JSONファイルに適用されるオプションです。
@@ -848,6 +1060,14 @@ CSSファイルに適用されるオプションです。
 
 > デフォルト: `false`
 
+### `css.parser.tailwindDirectives`
+
+<div style="display: none">tailwindDirectives, tailwind, tailwind directives, tailwind syntax</div>
+
+[Tailwind](https://tailwindcss.com) 固有の構文（`@theme`、`@utility`、`@apply` など）の解析を有効にします。
+
+> デフォルト: `false`
+
 ### `css.formatter.enabled`
 
 CSSファイル用のBiomeのフォーマッタを有効にします。
@@ -898,11 +1118,27 @@ CSSファイルの行の文字数を指定します。
 
 > デフォルト: `"double"`
 
+### `css.formatter.trailingNewline`
+
+ファイルの末尾に改行を追加するかどうかを指定します。
+
+> デフォルト: true
+
+:::danger
+このオプションを `false` に設定することは**非常に推奨されません**。他のツールとの多くの問題を引き起こす可能性があるためです：
+- https://thoughtbot.com/blog/no-newline-at-end-of-file
+- https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804
+- https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files
+
+末尾の改行を無効にする場合は、自己責任で行ってください。
+:::
+
+
 ### `css.linter.enabled`
 
 CSSファイル用のBiomeのリンタを有効にします。
 
-> デフォルト: `false`
+> デフォルト: `true`
 
 ```json title="biome.json"
 {
@@ -913,12 +1149,11 @@ CSSファイル用のBiomeのリンタを有効にします。
   }
 }
 ```
-
 ### `css.assist.enabled`
 
 CSSファイル用のBiomeのアシストを有効にします。
 
-> デフォルト: `false`
+> デフォルト: `true`
 
 ```json title="biome.json"
 {
@@ -973,17 +1208,32 @@ GraphQLファイルの行の文字数を指定します。
 
 > デフォルト: `"double"`
 
+### `graphql.formatter.trailingNewline`
+
+ファイルの末尾に改行を追加するかどうかを指定します。
+
+> デフォルト: true
+
+:::danger
+このオプションを `false` に設定することは**非常に推奨されません**。他のツールとの多くの問題を引き起こす可能性があるためです：
+- https://thoughtbot.com/blog/no-newline-at-end-of-file
+- https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804
+- https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files
+
+末尾の改行を無効にする場合は、自己責任で行ってください。
+:::
+
 ### `graphql.linter.enabled`
 
 GraphQLファイル用のBiomeのリンタを有効にします。
 
-> デフォルト: `false`
+> デフォルト: `true`
 
 ### `graphql.assist.enabled`
 
 GraphQLファイル用のBiomeのアシストを有効にします。
 
-> デフォルト: `false`
+> デフォルト: `true`
 
 ## `grit`
 
@@ -1028,17 +1278,208 @@ Gritファイルの行の文字数を指定します。
 
 > デフォルト: `"double"`
 
+### `grit.formatter.trailingNewline`
+
+ファイルの末尾に改行を追加するかどうかを指定します。
+
+> デフォルト: true
+
+:::danger
+このオプションを `false` に設定することは**非常に推奨されません**。他のツールとの多くの問題を引き起こす可能性があるためです：
+- https://thoughtbot.com/blog/no-newline-at-end-of-file
+- https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804
+- https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files
+
+末尾の改行を無効にする場合は、自己責任で行ってください。
+:::
+
 ### `grit.linter.enabled`
 
 Gritファイル用のBiomeのリンタを有効にします。
 
-> デフォルト: `false`
+> デフォルト: `true`
+
+```json title="biome.json"
+{
+  "grit": {
+    "linter": {
+      "enabled": false
+    }
+  }
+}
+```
 
 ### `grit.assist.enabled`
 
 Gritファイル用のBiomeのアシストを有効にします。
 
+> デフォルト: `true`
+
+```json title="biome.json"
+{
+  "grit": {
+    "assist": {
+      "enabled": false
+    }
+  }
+}
+```
+
+## `html`
+
+:::caution
+HTMLフォーマッタは実験的であるため、**デフォルトで無効**になっています。
+破壊的な変更は最小限に抑えられますが、修正や機能の導入によってツールの動作が変わる可能性があります。
+:::
+
+### `html.experimentalFullSupportEnabled`
+
+有効にすると、BiomeはHTML系言語（Vue、Svelte、Astroファイル）の完全サポートを有効にします。これらのファイル内の埋め込み言語のパース、フォーマット、リントは一貫しています。
+
+無効にすると、BiomeはこれらのファイルのJavaScript/TypeScript部分のみを解析用に抽出し、残りのコンテンツは無視します。
+
+:::note
+このオプションを有効にしても、これらのファイルに対してこの動作を切り替えるだけで、プレーンな `.html` ファイルには影響しません。HTMLファイルをフォーマットするには、
+`html.formatter.enabled` も有効にする必要があります。
+:::
+
+### `html.parser.interpolation`
+
+`.html` ファイル内の `{{ expression }}` のような二重テキスト式のパースを有効にします。
+
 > デフォルト: `false`
+
+### `html.formatter.enabled`
+
+HTMLファイル用のBiomeのフォーマッタを有効にします。
+
+> デフォルト: `false`
+
+:::note
+これは、HTMLフォーマッタが実験的でなくなったときにデフォルトで有効になります。
+:::
+
+### `html.formatter.indentStyle`
+
+HTMLファイルのインデントスタイルです。 `"tab"` または `"space"` のいずれかを指定できます。
+
+> デフォルト: `"tab"`
+
+### `html.formatter.indentWidth`
+
+HTMLファイルのインデントサイズを指定します。
+
+> デフォルト: `2`
+
+### `html.formatter.lineEnding`
+
+HTMLファイルの改行コードの種類を指定します。
+- `"lf"`: Line Feedのみ (`\n`)、LinuxやmacOS、またはgitリポジトリ内で一般的です。
+- `"crlf"`: Carriage Return + Line Feed文字 (`\r\n`)、Windowsで一般的です。
+- `"cr"`: Carriage Return文字のみ (`\r`)、非常にまれに使用されます。
+
+> デフォルト: `"lf"`
+
+### `html.formatter.lineWidth`
+
+HTMLファイルの行の文字数を指定します。
+
+> デフォルト: `80`
+
+### `html.formatter.attributePosition`
+
+HTML要素の属性位置スタイルを指定します。
+- `"auto"`、属性は自動的にフォーマットされ、特定の基準に達したときのみ複数行に折り返されます。
+- `"multiline"`、属性が2つ以上使用されている場合、複数行に折り返されます。
+
+> デフォルト: `"auto"`
+
+### `html.formatter.bracketSameLine`
+
+複数行のHTMLタグの閉じ括弧を、最後の行の末尾に配置するか、次の行に単独で配置するかを指定します。
+
+> デフォルト: `false`
+
+### `html.formatter.whitespaceSensitivity`
+
+<div style="display: none">whitespaceSensitivity, whitespace sensitivity</div>
+
+HTML（およびその拡張言語）をフォーマットする際に、空白の重要性を考慮するかどうかを指定します。
+
+> デフォルト: "css"
+
+
+- `"css"`: フォーマッタは、ブラウザのユーザーエージェントスタイルシートでデフォルトで "inline" 表示スタイルを持つ要素の空白を重要と見なします。
+- `"strict"`: コンテンツ内の先頭と末尾の空白は、すべての要素にとって重要と見なされます。
+
+  空白が存在する場合、フォーマッタは少なくとも1つの空白文字を残す必要があります。
+  そうでない場合、空白がない場合は、`>` の後や `<` の前に空白を追加しないでください。つまり、空白がない場合、テキストコンテンツはタグに密着する必要があります。
+
+  タグに密着するテキストの例：
+  ```html
+  <b
+     >content</b
+  >
+  ```
+- `"ignore"`: 空白は重要ではないと見なされます。フォーマッタは適切と判断したときに空白を削除または追加できます。
+
+### `html.formatter.indentScriptAndStyle`
+
+<div style="display: none">indentScriptAndStyle, indent script, indent style</div>
+
+*2.3以降：`.vue` および `.svelte` ファイルにのみ影響します*
+
+VueおよびSvelteファイルの `<script>` および `<style>` タグのコンテンツをインデントするかどうかを指定します。現在、これはプレーンなHTMLファイルには適用されません。
+
+> デフォルト: `false`
+
+trueの場合、`<script>` および `<style>` タグのコンテンツは、タグに対して1レベルインデントされます。
+
+```vue title="foo.vue" del={2} ins={3}
+<script>
+import Bar from "./Bar.vue";
+  import Bar from "./Bar.vue";
+</script>
+```
+
+### `html.formatter.selfCloseVoidElements`
+
+<div style="display: none">selfCloseVoidElements, void elements, self closing elements</div>
+
+void要素を自己閉じタグにするかどうかを指定します。デフォルトはneverです。
+
+> デフォルト: `"never"`
+
+- `"never"`: void要素内のスラッシュ `/` はフォーマッタによって削除されます。
+- `"always"`: void要素内のスラッシュ `/` は常に追加されます。
+
+### `html.formatter.trailingNewline`
+
+ファイルの末尾に改行を追加するかどうかを指定します。
+
+> デフォルト: true
+
+:::danger
+このオプションを `false` に設定することは**非常に推奨されません**。他のツールとの多くの問題を引き起こす可能性があるためです：
+- https://thoughtbot.com/blog/no-newline-at-end-of-file
+- https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804
+- https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files
+
+末尾の改行を無効にする場合は、自己責任で行ってください。
+:::
+
+### `html.linter.enabled`
+
+HTMLファイル用のBiomeのリンタを有効にします。
+
+> デフォルト: `true`
+
+### `html.assist.enabled`
+
+HTMLファイル用のBiomeのアシストを有効にします。
+
+> デフォルト: `true`
+
 
 ## `overrides`
 
@@ -1047,28 +1488,15 @@ Gritファイル用のBiomeのアシストを有効にします。
 ファイルがオーバーライドパターンに一致すると、そのパターンに指定された設定がトップレベルの設定を上書きします。
 パターンの順序は重要です。ファイルが3つのパターンに一致する場合、最初のパターンのみが使用されます。
 
-### `overrides.<ITEM>.ignore`
+### `overrides.<ITEM>.includes`
 
-Unixシェル形式のパターンのリストです。Biomeは、これらのパターンに一致するファイルに対してオーバーライドを適用しません。
+カスタマイズされた設定を適用するファイルの[globパターン](https://en.wikipedia.org/wiki/Glob_(programming))のリストです。
 
-
-```json title="biome.json"
+```jsonc title="biome.jsonc"
 {
   "overrides": [{
-    "ignore": ["scripts/*.js"]
-  }]
-}
-```
-
-### `overrides.<ITEM>.include`
-
-Unixシェル形式のパターンのリストです。Biomeは、これらのパターンに一致するファイルにのみオーバーライドを適用します。
-
-
-```json title="biome.json"
-{
-  "overrides": [{
-    "include": ["scripts/*.js"]
+    "includes": ["scripts/*.js"],
+    // includes フィールドで指定されたファイルにのみ適用される設定
   }]
 }
 ```
@@ -1138,9 +1566,9 @@ Unixシェル形式のパターンのリストです。Biomeは、これらの�
 }
 ```
 
-### `overrides.<ITEM>.organizeImports`
+### `overrides.<ITEM>.[language]`
 
-`ignore` と `include` を除いた、[上位のorganizeImports](#organizeimports) 設定のオプションが含まれます。
+トップレベルの言語設定のオプションが含まれます。特定のファイルに対して言語固有の設定を上書きできます。
 
 ### `overrides.<ITEM>.javascript`
 
@@ -1198,7 +1626,7 @@ Unixシェル形式のパターンのリストです。Biomeは、これらの�
   },
   "overrides": [
     {
-      "include": [".vscode/**"],
+      "includes": [".vscode/**"],
       "json": {
         "parser": {
           "allowComments": true,
@@ -1209,3 +1637,36 @@ Unixシェル形式のパターンのリストです。Biomeは、これらの�
   ]
 }
 ```
+
+## Glob構文リファレンス
+
+Globパターンは、ファイルとフォルダのパスを一致させるために使用されます。Biomeは
+globで次の構文をサポートしています：
+
+- `*` はゼロ個以上の文字に一致します。パスセパレータ `/` には一致できません。
+- `**` はディレクトリとファイルを再帰的に一致させます。このシーケンスは
+  パスコンポーネント全体として使用する必要があるため、`**a` と `b**` の両方が無効でエラーになります。連続する2つ以上の `*` 文字のシーケンスも
+  無効です。
+- `[...]` は括弧内の任意の文字に一致します。
+  文字の範囲も指定できます。Unicodeで順序付けられているため、例えば
+  `[0-9]` は0から9までの任意の文字を指定します。
+- `[!...]` は `[...]` の否定、つまり括弧内に**ない**任意の文字に一致します。
+- glob全体が `!` で始まる場合、いわゆるnegatedパターンです。この
+  globは、パスがglobに一致_しない_場合にのみ一致します。Negatedパターンは
+  単独では使用できず、通常のglobの_例外_としてのみ使用できます。
+- ファイルが含まれるかどうかを判断する際、Biomeは親フォルダも考慮します。これは、フォルダ内のすべてのファイルを_含める_場合、
+  これらのファイルに一致するように `/**` サフィックスを使用する必要があることを意味します。ただし、フォルダ内のすべてのファイルを_無視_する場合は、`/**` サフィックスなしで実行できます。不必要にフォルダをトラバースすることを避けるため、また無視されたフォルダから `biome.json` または
+  `.gitignore` ファイルをBiomeが読み込むリスクを避けるために、末尾の `/**` なしでフォルダを無視することをお勧めします。
+
+いくつかの例：
+
+- `dist/**` は `dist/` フォルダとその中のすべてのファイルに一致します。
+- `!dist` は `dist/` フォルダとその中のすべてのファイルを無視します。
+- `**/test/**` は `test` という名前のフォルダの下のすべてのファイルに一致します。どこにあっても。例：`dist/test`、`src/test`。
+- `**/*.js` はすべてのフォルダ内の `.js` 拡張子で終わるすべてのファイルに一致します。
+
+:::caution
+Globパターンは、Biome設定ファイルで使用できますが、コマンドラインから指定することもできます。コマンドラインでglobを指定すると、
+Biomeではなくシェルによって解釈されます。シェルは、globに対して若干異なる構文をサポートしている場合があります。たとえば、一部のシェルは
+再帰的パターン `**` をサポートしていません。
+:::
