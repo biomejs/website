@@ -3122,7 +3122,7 @@ export function GET() {
           },
           "noConditionalExpect": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.2",
             "name": "noConditionalExpect",
             "link": "https://biomejs.dev/linter/rules/no-conditional-expect",
             "recommended": false,
@@ -3389,7 +3389,7 @@ export function GET() {
           },
           "noPlaywrightElementHandle": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.2",
             "name": "noPlaywrightElementHandle",
             "link": "https://biomejs.dev/linter/rules/no-playwright-element-handle",
             "recommended": false,
@@ -3406,7 +3406,7 @@ export function GET() {
           },
           "noPlaywrightEval": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.2",
             "name": "noPlaywrightEval",
             "link": "https://biomejs.dev/linter/rules/no-playwright-eval",
             "recommended": false,
@@ -3423,7 +3423,7 @@ export function GET() {
           },
           "noPlaywrightForceOption": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.2",
             "name": "noPlaywrightForceOption",
             "link": "https://biomejs.dev/linter/rules/no-playwright-force-option",
             "recommended": false,
@@ -3440,7 +3440,7 @@ export function GET() {
           },
           "noPlaywrightMissingAwait": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.2",
             "name": "noPlaywrightMissingAwait",
             "link": "https://biomejs.dev/linter/rules/no-playwright-missing-await",
             "recommended": false,
@@ -3457,7 +3457,7 @@ export function GET() {
           },
           "noPlaywrightNetworkidle": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.2",
             "name": "noPlaywrightNetworkidle",
             "link": "https://biomejs.dev/linter/rules/no-playwright-networkidle",
             "recommended": false,
@@ -3474,7 +3474,7 @@ export function GET() {
           },
           "noPlaywrightPagePause": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.2",
             "name": "noPlaywrightPagePause",
             "link": "https://biomejs.dev/linter/rules/no-playwright-page-pause",
             "recommended": false,
@@ -3491,7 +3491,7 @@ export function GET() {
           },
           "noPlaywrightUselessAwait": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.2",
             "name": "noPlaywrightUselessAwait",
             "link": "https://biomejs.dev/linter/rules/no-playwright-useless-await",
             "recommended": false,
@@ -3508,7 +3508,7 @@ export function GET() {
           },
           "noPlaywrightWaitForNavigation": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.2",
             "name": "noPlaywrightWaitForNavigation",
             "link": "https://biomejs.dev/linter/rules/no-playwright-wait-for-navigation",
             "recommended": false,
@@ -3525,7 +3525,7 @@ export function GET() {
           },
           "noPlaywrightWaitForSelector": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.2",
             "name": "noPlaywrightWaitForSelector",
             "link": "https://biomejs.dev/linter/rules/no-playwright-wait-for-selector",
             "recommended": false,
@@ -3542,7 +3542,7 @@ export function GET() {
           },
           "noPlaywrightWaitForTimeout": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.2",
             "name": "noPlaywrightWaitForTimeout",
             "link": "https://biomejs.dev/linter/rules/no-playwright-wait-for-timeout",
             "recommended": false,
@@ -3856,7 +3856,7 @@ export function GET() {
           },
           "useExpect": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.2",
             "name": "useExpect",
             "link": "https://biomejs.dev/linter/rules/use-expect",
             "recommended": false,
@@ -3919,7 +3919,7 @@ export function GET() {
           },
           "usePlaywrightValidDescribeCallback": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.2",
             "name": "usePlaywrightValidDescribeCallback",
             "link": "https://biomejs.dev/linter/rules/use-playwright-valid-describe-callback",
             "recommended": false,
