@@ -23,7 +23,8 @@ runs:
       id: cache-restore
       uses: actions/cache/restore@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
       with:
-        key: rust-cache
+        key: rust-cache-${{ github.sha }}
+        restore-key: rust-cache-
         path: |
           $HOME/.cargo/registry
           target/debug
@@ -88,7 +89,7 @@ runs:
     - name: Save new rust cache
       uses: actions/cache/save@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
       with:
-        key: rust-cache
+        key: rust-cache-${{ github.sha }}
         path: |
           $HOME/.cargo/registry
           target/debug
