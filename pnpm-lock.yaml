@@ -26,7 +26,7 @@ importers:
         version: 3.3.0
       '@astrojs/react':
         specifier: 4.4.2
-        version: 4.4.2(@types/node@24.10.4)(@types/react-dom@19.2.3(@types/react@19.2.13))(@types/react@19.2.13)(jiti@2.4.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0)
+        version: 4.4.2(@types/node@24.10.4)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(jiti@2.4.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0)
       '@astrojs/rss':
         specifier: 4.0.15
         version: 4.0.15
@@ -85,11 +85,11 @@ importers:
         specifier: 24.10.4
         version: 24.10.4
       '@types/react':
-        specifier: 19.2.13
-        version: 19.2.13
+        specifier: 19.2.14
+        version: 19.2.14
       '@types/react-dom':
         specifier: 19.2.3
-        version: 19.2.3(@types/react@19.2.13)
+        version: 19.2.3(@types/react@19.2.14)
       '@uiw/react-codemirror':
         specifier: 4.25.4
         version: 4.25.4(@babel/runtime@7.24.4)(@codemirror/autocomplete@6.15.0(@codemirror/language@6.10.1)(@codemirror/state@6.5.4)(@codemirror/view@6.39.14)(@lezer/common@1.2.1))(@codemirror/language@6.10.1)(@codemirror/lint@6.9.4)(@codemirror/search@6.5.6)(@codemirror/state@6.5.4)(@codemirror/theme-one-dark@6.1.2)(@codemirror/view@6.39.14)(codemirror@6.0.1(@lezer/common@1.2.1))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -2298,8 +2298,8 @@ packages:
     peerDependencies:
       '@types/react': ^19.2.0
 
-  '@types/react@19.2.13':
-    resolution: {integrity: sha512-KkiJeU6VbYbUOp5ITMIc7kBfqlYkKA5KhEHVrGMmUUMt7NeaZg65ojdPk+FtNrBAOXNVM5QM72jnADjM+XVRAQ==}
+  '@types/react@19.2.14':
+    resolution: {integrity: sha512-ilcTH/UniCkMdtexkoCN0bI7pMcJDvmQFPvuPvmEaYA/NSfFTAgdUSLAoVjaRJm7+6PvcM+q1zYOwS4wTYMF9w==}
 
   '@types/retry@0.12.2':
     resolution: {integrity: sha512-XISRgDJ2Tc5q4TRqvgJtzsRkFYNJzZrhTdtMoGVBttwzzQJkPnS3WWTFc7kuDRoPtPakl+T+OfdEUjYJj7Jbow==}
@@ -5794,6 +5794,7 @@ packages:
   tar@7.5.7:
     resolution: {integrity: sha512-fov56fJiRuThVFXD6o6/Q354S7pnWMJIVlDBYijsTNx6jKSE4pvrDTs6lUnmGvNyfJwFQQwWy3owKz1ucIhveQ==}
     engines: {node: '>=18'}
+    deprecated: Old versions of tar are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
 
   terminal-link@5.0.0:
     resolution: {integrity: sha512-qFAy10MTMwjzjU8U16YS4YoZD+NQLHzLssFMNqgravjbvIPNiqkGFR4yjhJfmY9R5OFU7+yHxc6y+uGHkKwLRA==}
@@ -6718,10 +6719,10 @@ snapshots:
     dependencies:
       prismjs: 1.30.0
 
-  '@astrojs/react@4.4.2(@types/node@24.10.4)(@types/react-dom@19.2.3(@types/react@19.2.13))(@types/react@19.2.13)(jiti@2.4.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0)':
+  '@astrojs/react@4.4.2(@types/node@24.10.4)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(jiti@2.4.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0)':
     dependencies:
-      '@types/react': 19.2.13
-      '@types/react-dom': 19.2.3(@types/react@19.2.13)
+      '@types/react': 19.2.14
+      '@types/react-dom': 19.2.3(@types/react@19.2.14)
       '@vitejs/plugin-react': 4.7.0(vite@6.4.1(@types/node@24.10.4)(jiti@2.4.2)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(yaml@2.8.0))
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
@@ -8976,11 +8977,11 @@ snapshots:
 
   '@types/picomatch@3.0.2': {}
 
-  '@types/react-dom@19.2.3(@types/react@19.2.13)':
+  '@types/react-dom@19.2.3(@types/react@19.2.14)':
     dependencies:
-      '@types/react': 19.2.13
+      '@types/react': 19.2.14
 
-  '@types/react@19.2.13':
+  '@types/react@19.2.14':
     dependencies:
       csstype: 3.2.3
 
