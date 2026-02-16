@@ -1,17 +1,20 @@
 ---
 title: Biomeの設定
 description: Biomeの設定がどのように機能するかを学びます。
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 4
 ---
 
 import { FileTree } from '@astrojs/starlight/components';
 
 このガイドでは、Biomeの設定方法を理解するために役立ちます。
 Biomeの設定ファイルの構成と、Biomeがどのように設定を解決するかを説明します。
-あなたがすでに設定方法について詳しい場合は、利用可能なすべてのオプションの詳細が記載された[設定リファレンス](/reference/configuration/)を参照してください。
+あなたがすでに設定方法について詳しい場合は、利用可能なすべてのオプションの詳細が記載された[設定リファレンス](/ja/reference/configuration/)を参照してください。
 
 Biomeでは、CLIのオプションか `biome.json` または `biome.jsonc` の設定ファイルを使って動作をカスタマイズできます。
 設定ファイルをそれぞれのプロジェクトに作成することを推奨しています。
-これにより、CLIおよびBiomeと連携したエディタにおいてチームのメンバが同じ設定を使うことを保証できます。
+これにより、CLIおよびBiomeと連携したエディターにおいて、チームのメンバーが同じ設定を使うことを保証できます。
 設定ファイルで利用可能なオプションの多くはCLIでも利用できます。
 
 ## 設定ファイルの構成
@@ -113,7 +116,7 @@ Biomeは次の順序で設定ファイルを検出しようとします：
   `app/frontend/biome.json` の設定ファイルを使います
 
 :::note
-Biomeはネストされた `biome.json` ファイルをサポートしています。詳細については、[大規模プロジェクトでのBiomeの使用](/guides/big-projects#use-multiple-configuration-files)を参照してください。
+Biomeはネストされた `biome.json` ファイルをサポートしています。詳細については、[大規模プロジェクトでのBiomeの使用](/ja/guides/big-projects#複数の設定ファイルの使用)を参照してください。
 :::
 
 
@@ -150,12 +153,12 @@ biome format file1.js src/
 ### 設定ファイルでファイルを制御する
 
 Biomeの設定ファイルを使用して、処理するファイルを絞り込むことができます。
-[`files.includes` フィールド](/reference/configuration/#filesincludes)を使用して、処理するファイルを明示的に列挙できます。
-`files.includes` は `src/**/*.js` などの[globパターン](/reference/configuration/#glob-syntax-reference)を受け入れます。
-`!` で始まるnegatedパターンを使用してファイルを除外できます。
+[`files.includes` フィールド](/ja/reference/configuration/#filesincludes)を使用して、処理するファイルを明示的に列挙できます。
+`files.includes` は `src/**/*.js` などの[globパターン](/ja/reference/configuration/#Glob構文リファレンス)を受け入れます。
+`!` で始まる否定パターンを使用してファイルを除外できます。
 
 Biomeの設定ファイル内のパスとglobは、設定ファイルがあるフォルダを基準に解決されます。
-例外は、設定ファイルが別の設定ファイルによって[継承](/reference/configuration/#extends)されている場合です。
+例外は、設定ファイルが別の設定ファイルによって[継承](/ja/reference/configuration/#extends)されている場合です。
 
 `files.includes` はBiomeのすべてのツールに適用されます。つまり、ここで指定されたファイルは、特に指定しない限り、リンタ、フォーマッタ、アシストによって処理されます。
 個々のツールについては、`<tool>.includes` を使用してマッチするファイルをさらに絞り込むことができます。
@@ -200,9 +203,9 @@ biome lint test/
 
 #### 設定ファイルでファイルを除外する
 
-Biomeによって処理されないファイルやフォルダを除外したい場合は、`files.includes` 設定を使用し、negatedパターンを使用できます：
+Biomeによって処理されないファイルやフォルダを除外したい場合は、`files.includes` 設定を使用し、否定パターンを使用できます：
 - 先頭に `!` を使用してファイルをリント/フォーマットから除外する
-- 二重の先頭 `!!` を使用してプロジェクト関連の操作からファイルを除外する
+- 先頭に二重の `!!` を使用してプロジェクト関連の操作からファイルを除外する
 
 プロジェクト関連の操作には以下が含まれます：
 - 内部モジュールグラフの構築。[一部のプロジェクトルール](/linter/domains/#project)がインポートとエクスポートから情報を解決できるようにするためです。
@@ -210,7 +213,7 @@ Biomeによって処理されないファイルやフォルダを除外したい
 
 プロジェクト関連の操作の対象と見なされるファイルは**インデックス化**されます。
 
-negatedされたglobを列挙する前に、**それらの前に `**` パターンを付ける必要があります**。
+否定されたglobを列挙する前に、**それらの前に `**` パターンを付ける必要があります**。
 
 次の例では、すべてのファイルを含めるようBiomeに指示しますが、以下を除外します：
 - `dist/` フォルダ。プロジェクト関連の操作から除外されるため、インデックス化されません。
@@ -228,12 +231,12 @@ negatedされたglobを列挙する前に、**それらの前に `**` パター�
 }
 ```
 
-スキャナーとの相互作用、およびファイルのインデックス化方法の詳細については、[関連するリファレンスページ](/reference/configuration#interaction-with-the-scanner)を確認してください。
+スキャナーとの相互作用、およびファイルのインデックス化方法の詳細については、[関連するリファレンスページ](/ja/reference/configuration#スキャナーとの相互作用)を確認してください。
 
 
 ### VCSでファイルを制御する
 
-[VCSで無視されたファイルを無視する](/guides/integrate-in-vcs#use-the-ignore-file)こともできます。
+[VCSで無視されたファイルを無視する](/ja/guides/integrate-in-vcs#無視するファイルを設定する)こともできます。
 
 
 ## 既知のファイル
@@ -292,6 +295,6 @@ negatedされたglobを列挙する前に、**それらの前に `**` パター�
 - `tsconfig.json`
 - `typedoc.json`
 - `typescript.json`
-- `$PROJECT/.vscode/*` フォルダ配下および[ユーザーVSCode設定フォルダ](https://code.visualstudio.com/docs/configure/settings#_user-settingsjson-location)配下のすべての `.json` ファイル
+- `$PROJECT/.vscode/*` フォルダ配下および[ユーザーVS Code設定フォルダ](https://code.visualstudio.com/docs/configure/settings#_user-settingsjson-location)配下のすべての `.json` ファイル
 - `$PROJECT/.zed/*` フォルダ配下および[ユーザーZed設定フォルダ](https://zed.dev/docs/configuring-zed#user-settings-file)配下のすべての `.json` ファイル
 - `$PROJECT/.cursor/*` フォルダ配下およびユーザーCursor設定フォルダ配下のすべての `.json` ファイル

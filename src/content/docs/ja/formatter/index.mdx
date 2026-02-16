@@ -5,10 +5,10 @@ description: Biomeのフォーマッタの使い方
 
 import PackageManagerBiomeCommand from "@/components/PackageManagerBiomeCommand.astro";
 
-Biomeは[複数の言語をサポートする](/internals/language-support)、opinionatedなフォーマッタです。
+Biomeは[複数の言語をサポートする](/ja/internals/language-support)、opinionatedなフォーマッタです。
 [Prettierと近い哲学](https://prettier.io/docs/en/option-philosophy.html)に従い、
 スタイルに関する議論がBiomeのオプションに関する議論に発展するのを避けるために、いくつかのオプションのみをサポートしています。
-チーム内での[些細な議論](https://en.wikipedia.org/wiki/Law_of_triviality)を防ぎ、本当に重要なことに集中できるようにするために、[新しいオプションを意図的に追加しない](https://github.com/prettier/prettier/issues/40)ようにしています。
+チーム内での[些細な議論](https://ja.wikipedia.org/wiki/パーキンソンの凡俗法則)を防ぎ、本当に重要なことに集中できるようにするために、[新しいオプションを意図的に追加しない](https://github.com/prettier/prettier/issues/40)ようにしています。
 
 ## CLI
 
@@ -42,10 +42,10 @@ biome format ./src/**/*.test.{js,ts}
 Biomeは、フォーマッタの動作を調整するためのいくつかのオプションを提供しています。
 他のツールとは異なり、Biomeは言語に依存しないオプションと言語固有のオプションを分離しています。
 
-フォーマッタオプションは、[CLI](/reference/cli/#biome-format)または[Biome設定ファイル](/guides/configure-biome)で設定できます。
+フォーマッタオプションは、[CLI](/reference/cli/#biome-format)または[Biome設定ファイル](/ja/guides/configure-biome)で設定できます。
 v1.9以降、Biomeは `.editorconfig` ファイルの読み込みをサポートしています。
 
-[Biome設定ファイル](/guides/configure-biome)を使用して、Biome CLIとBiome LSPの両方が同じオプションを適用するようにすることをお勧めします。
+[Biome設定ファイル](/ja/guides/configure-biome)を使用して、Biome CLIとBiome LSPの両方に同じオプションが適用されるようにすることをお勧めします。
 以下のデフォルト設定が適用されます：
 
 ```json title="biome.json"
@@ -79,13 +79,13 @@ v1.9以降、Biomeは `.editorconfig` ファイルの読み込みをサポート
 }
 ```
 
-Biomeフォーマッタがサポートする主な言語に依存しないオプションは次のとおりです：
+Biomeフォーマッタがサポートする、言語に依存しない主なオプションは次のとおりです：
 
 - インデントスタイル（デフォルト：`tab`）：インデントにスペースまたはタブを使用します。
 - インデント幅（デフォルト：`2`）：インデントレベルごとのスペースの数です。
 - 行幅（デフォルト：`80`）：Biomeがコードを折り返す列幅です。
 
-詳細については、[設定リファレンス](/reference/configuration#formatter)を参照してください。
+詳細については、[設定リファレンス](/ja/reference/configuration#formatter)を参照してください。
 
 ## コードを無視する
 

@@ -13,7 +13,7 @@ Biome Assistはコード品質と開発者体験を向上させるための一�
 
 アシストのコード修正は一般的に安全に適用できます。もしアシストの修正がコードを壊した場合、それはバグと見なされますので、バグ報告をお願いします。
 
-アシストはエディタやIDEで最も効果を発揮します。ただし、CLIでもアシストアクションの使用を強制することが可能です。アシストアクションはセマンティクスにおいて[LSPコードアクション](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#codeActionKind)に非常に近く、[グループ](#groups)に分けられています。
+アシストはエディタやIDEで最も効果を発揮します。ただし、CLIでもアシストアクションの使用を強制することが可能です。アシストアクションはセマンティクスにおいて[LSPコードアクション](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#codeActionKind)に非常に近く、[グループ](#グループ)に分けられています。
 
 Biomeのアシストはデフォルトで有効になっており、いくつかのルールは推奨ルールセットに含まれています。以下の例は `useSortedKeys` アクションを有効にする方法を示しています：
 
@@ -32,13 +32,13 @@ Biomeのアシストはデフォルトで有効になっており、いくつか
 
 ## IDEでアシストアクションを使用する
 
-LSP互換のIDEを使用している場合、保存時に特定のアクションを実行するようにBiomeを設定できます。各アシストアクションには「コードアクション」と呼ばれる特定のコードがあります。大部分の名前は同じパターンに従っていますが、いくつかの例外がある場合があります（例：`organizeImports`）ので、関連するコードを知るには各アクションのドキュメントページを参照してください。
+LSP互換のIDEを使用している場合、保存時に特定のアクションを実行するようにBiomeを設定できます。各アシストアクションには「コードアクション」と呼ばれる特定のコードがあります。大部分の名前は同じパターンに従っていますが、いくつかの例外があります（例：`organizeImports`）ので、コードを知るには各アクションのドキュメントページを参照してください。
 
 まず、保存時にすべての修正を適用するようにエディタを設定する必要があります。設定はエディタによって異なります。コードアクション名は `source.fixAll.biome` です：
 
 <EditorAction action="source.fixAll.biome" />
 
-次に、各アクションのコードを追加できます。たとえば、アクション [`useSortedKeys`](/assist/actions/use-sorted-keys) には `source.action.useSortedKeys.biome` というコードアクションがあります。VSCodeを使用している場合、このコードをコピーして `editor.codeActionsOnSave` セクションに配置すると、ドキュメントを保存したときにBiomeがそれを適用します：
+次に、各アクションのコードを追加できます。たとえば、アクション [`useSortedKeys`](/assist/actions/use-sorted-keys) には `source.action.useSortedKeys.biome` というコードアクションがあります。VS Codeを使用している場合、こののコードをコピーして `editor.codeActionsOnSave` セクションに配置すると、ドキュメントを保存したときにBiomeがアクションを適用します：
 
 <EditorAction includeFixAll action="source.action.useSortedKeys.biome" />
 
@@ -62,7 +62,7 @@ biome check --enforce-assist=false
 
 ## アシストアクションの抑制
 
-[抑制ページ](/analyzer/suppressions)を参照してください。
+[抑制のページ](/ja/analyzer/suppressions)を参照してください。
 
 ## グループ
 
