@@ -364,6 +364,13 @@ export function GET() {
 					"properties": { "htmlEslint": { "type": "string" } },
 					"additionalProperties": false,
 					"required": ["htmlEslint"]
+				},
+				{
+					"description": "Rules from [Eslint Plugin Playwright](https://github.com/playwright-community/eslint-plugin-playwright)",
+					"type": "object",
+					"properties": { "eslintPlaywright": { "type": "string" } },
+					"additionalProperties": false,
+					"required": ["eslintPlaywright"]
 				}
 			]
 		},
