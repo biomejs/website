@@ -181,7 +181,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | --- | --- | --- |
 | [noAmbiguousAnchorText](/linter/rules/no-ambiguous-anchor-text) | Disallow ambiguous anchor descriptions. |  |
 | [noBeforeInteractiveScriptOutsideDocument](/linter/rules/no-before-interactive-script-outside-document) | Prevent usage of `next/script`'s `beforeInteractive` strategy outside of `pages/_document.js` in a Next.js project. |  |
-| [noConditionalExpect](/linter/rules/no-conditional-expect) | Disallow conditional `expect()` calls inside tests. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
+| [noConditionalExpect](/linter/rules/no-conditional-expect) | Disallow conditional `expect()` calls inside tests. |  |
 | [noContinue](/linter/rules/no-continue) | Disallow continue statements. |  |
 | [noDivRegex](/linter/rules/no-div-regex) | Disallow equal signs explicitly at the beginning of regular expressions. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [noDuplicateEnumValues](/linter/rules/no-duplicate-enum-values) | Disallow duplicate enum member values. |  |
@@ -200,16 +200,16 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noMultiStr](/linter/rules/no-multi-str) | Disallow creating multiline strings by escaping newlines. |  |
 | [noNestedPromises](/linter/rules/no-nested-promises) | Disallow nested `.then()` or `.catch()` promise calls. |  |
 | [noParametersOnlyUsedInRecursion](/linter/rules/no-parameters-only-used-in-recursion) | Disallow function parameters that are only used in recursive calls. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
-| [noPlaywrightElementHandle](/linter/rules/no-playwright-element-handle) | Disallow usage of element handles (`page.$()` and `page.$$()`). | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span><span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
-| [noPlaywrightEval](/linter/rules/no-playwright-eval) | Disallow usage of `page.$eval()` and `page.$$eval()`. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
-| [noPlaywrightForceOption](/linter/rules/no-playwright-force-option) | Disallow usage of the `{ force: true }` option. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
-| [noPlaywrightMissingAwait](/linter/rules/no-playwright-missing-await) | Enforce Playwright async APIs to be awaited or returned. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span><span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
-| [noPlaywrightNetworkidle](/linter/rules/no-playwright-networkidle) | Disallow usage of the `networkidle` option. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
-| [noPlaywrightPagePause](/linter/rules/no-playwright-page-pause) | Disallow using `page.pause()`. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
-| [noPlaywrightUselessAwait](/linter/rules/no-playwright-useless-await) | Disallow unnecessary `await` for Playwright methods that don't return promises. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span><span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
-| [noPlaywrightWaitForNavigation](/linter/rules/no-playwright-wait-for-navigation) | Disallow using `page.waitForNavigation()`. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
-| [noPlaywrightWaitForSelector](/linter/rules/no-playwright-wait-for-selector) | Disallow using `page.waitForSelector()`. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span><span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
-| [noPlaywrightWaitForTimeout](/linter/rules/no-playwright-wait-for-timeout) | Disallow using `page.waitForTimeout()`. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
+| [noPlaywrightElementHandle](/linter/rules/no-playwright-element-handle) | Disallow usage of element handles (`page.$()` and `page.$$()`). | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [noPlaywrightEval](/linter/rules/no-playwright-eval) | Disallow usage of `page.$eval()` and `page.$$eval()`. |  |
+| [noPlaywrightForceOption](/linter/rules/no-playwright-force-option) | Disallow usage of the `{ force: true }` option. |  |
+| [noPlaywrightMissingAwait](/linter/rules/no-playwright-missing-await) | Enforce Playwright async APIs to be awaited or returned. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [noPlaywrightNetworkidle](/linter/rules/no-playwright-networkidle) | Disallow usage of the `networkidle` option. |  |
+| [noPlaywrightPagePause](/linter/rules/no-playwright-page-pause) | Disallow using `page.pause()`. |  |
+| [noPlaywrightUselessAwait](/linter/rules/no-playwright-useless-await) | Disallow unnecessary `await` for Playwright methods that don't return promises. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
+| [noPlaywrightWaitForNavigation](/linter/rules/no-playwright-wait-for-navigation) | Disallow using `page.waitForNavigation()`. |  |
+| [noPlaywrightWaitForSelector](/linter/rules/no-playwright-wait-for-selector) | Disallow using `page.waitForSelector()`. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [noPlaywrightWaitForTimeout](/linter/rules/no-playwright-wait-for-timeout) | Disallow using `page.waitForTimeout()`. |  |
 | [noProto](/linter/rules/no-proto) | Disallow the use of the deprecated `__proto__` object property. |  |
 | [noRedundantDefaultExport](/linter/rules/no-redundant-default-export) | Checks if a default export exports the same symbol as a named export. |  |
 | [noReturnAssign](/linter/rules/no-return-assign) | Disallow assignments in return statements. |  |
@@ -230,12 +230,12 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [useDestructuring](/linter/rules/use-destructuring) | Require destructuring from arrays and/or objects |  |
 | [useErrorCause](/linter/rules/use-error-cause) | Enforce that `new Error()` is thrown with the original error as `cause`. |  |
 | [useExhaustiveSwitchCases](/linter/rules/use-exhaustive-switch-cases) | Require switch-case statements to be exhaustive. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
-| [useExpect](/linter/rules/use-expect) | Ensure that test functions contain at least one `expect()` assertion. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
+| [useExpect](/linter/rules/use-expect) | Ensure that test functions contain at least one `expect()` assertion. |  |
 | [useExplicitType](/linter/rules/use-explicit-type) | Enforce types in functions, methods, variables, and parameters. |  |
 | [useFind](/linter/rules/use-find) | Enforce the use of Array.prototype.find() over Array.prototype.filter() followed by [0] when looking for a single result. |  |
 | [useGlobalThis](/linter/rules/use-global-this) | Enforce the use of `globalThis` over `window`, `self`, and `global`. |  |
 | [useInlineScriptId](/linter/rules/use-inline-script-id) | Enforce `id` attribute on `next/script` components with inline content or `dangerouslySetInnerHTML`. |  |
-| [usePlaywrightValidDescribeCallback](/linter/rules/use-playwright-valid-describe-callback) | Enforce valid `describe()` callback. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
+| [usePlaywrightValidDescribeCallback](/linter/rules/use-playwright-valid-describe-callback) | Enforce valid `describe()` callback. |  |
 | [useRegexpExec](/linter/rules/use-regexp-exec) | Enforce `RegExp#exec` over `String#match` if no global flag is provided. |  |
 | [useSortedClasses](/linter/rules/use-sorted-classes) | Enforce the sorting of CSS utility classes. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useSpread](/linter/rules/use-spread) | Enforce the use of the spread operator over `.apply()`. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
