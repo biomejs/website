@@ -18,9 +18,9 @@ description: Biomeがサポートする言語と機能。
 | JSON                                                     | <span aria-label="対応済み" role="img">✅</span>  | <span aria-label="対応済み" role="img">✅</span>  | <span aria-label="対応済み" role="img">✅</span>     | <span aria-label="対応済み" role="img">✅</span>     |
 | JSONC                                                    | <span aria-label="対応済み" role="img">✅</span>  | <span aria-label="対応済み" role="img">✅</span>  | <span aria-label="対応済み" role="img">✅</span>     | <span aria-label="対応済み" role="img">✅</span>     |
 | HTML*                                                    | <span aria-label="対応済み" role="img">✅</span>  | <span aria-label="対応済み" role="img">✅</span>  | <span aria-label="対応済み" role="img">✅</span>     | <span aria-label="対応済み" role="img">✅</span>     |
-| Vue                                                      | <span aria-label="実験的" role="img">🟡</span>  | <span aria-label="実験的" role="img">🟡</span>  | <span aria-label="実験的" role="img">🟡</span>     | <span aria-label="実験的" role="img">🟡</span>     |
-| Svelte                                                   | <span aria-label="実験的" role="img">🟡</span>  | <span aria-label="実験的" role="img">🟡</span>  | <span aria-label="実験的" role="img">🟡</span>     | <span aria-label="実験的" role="img">🟡</span>     |
-| Astro                                                    | <span aria-label="実験的" role="img">🟡</span>  | <span aria-label="実験的" role="img">🟡</span>  | <span aria-label="実験的" role="img">🟡</span>     | <span aria-label="実験的" role="img">🟡</span>     |
+| [Vue](#html拡張言語のサポート)                                    | <span aria-label="実験的" role="img">🟡</span>  | <span aria-label="実験的" role="img">🟡</span>  | <span aria-label="実験的" role="img">🟡</span>     | <span aria-label="実験的" role="img">🟡</span>     |
+| [Svelte](#html拡張言語のサポート)                                 | <span aria-label="実験的" role="img">🟡</span>  | <span aria-label="実験的" role="img">🟡</span>  | <span aria-label="実験的" role="img">🟡</span>     | <span aria-label="実験的" role="img">🟡</span>     |
+| [Astro](#html拡張言語のサポート)                                  | <span aria-label="実験的" role="img">🟡</span>  | <span aria-label="実験的" role="img">🟡</span>  | <span aria-label="実験的" role="img">🟡</span>     | <span aria-label="実験的" role="img">🟡</span>     |
 | CSS                                                      | <span aria-label="対応済み" role="img">✅️</span> | <span aria-label="対応済み" role="img">✅️</span> | <span aria-label="対応済み" role="img">✅️</span>    | <span aria-label="対応済み" role="img">✅</span>     |
 | SCSS                                                     | <span aria-label="進行中" role="img">⌛️</span>  | <span aria-label="進行中" role="img">⌛️</span>  | <span aria-label="進行中ではない" role="img">🚫</span> | <span aria-label="進行中ではない" role="img">🚫</span> |
 | [YAML](https://github.com/biomejs/biome/issues/2365)     | <span aria-label="進行中" role="img">⌛️</span>  | <span aria-label="進行中" role="img">⌛️</span>  | <span aria-label="進行中ではない" role="img">🚫</span> | <span aria-label="進行中ではない" role="img">🚫</span> |
@@ -28,7 +28,7 @@ description: Biomeがサポートする言語と機能。
 | [Markdown](https://github.com/biomejs/biome/issues/3718) | <span aria-label="進行中" role="img">⌛️</span>  | <span aria-label="進行中" role="img">⌛️</span>  | <span aria-label="進行中ではない" role="img">🚫</span> | <span aria-label="進行中ではない" role="img">🚫</span> |
 | GritQL                                                   | <span aria-label="対応済み" role="img">✅️</span> | <span aria-label="対応済み" role="img">✅️</span> | <span aria-label="進行中ではない" role="img">🚫</span> | <span aria-label="進行中ではない" role="img">🚫</span> |
 
-*\* 現在、[明示的なオプトイン](/ja/reference/configuration/#html)が必要です。*
+*\* 現在、[明示的なオプトイン](https://biomejs.dev/reference/configuration/#html)が必要です。*
 
 ## JavaScriptのサポート
 
@@ -81,6 +81,32 @@ JSONCは「コメント付きJSON」の略です。この形式は、[VS Code](h
 特に、`v2.3.0` の時点では、Biomeは言語固有の構文（例：Svelteの制御フロー構文 `{#if } {/if}`）に対して特別なパースを行いません。これは、フォーマットが期待される結果と一致しない場合があり、リントルールが一部のケースを検出できない可能性があることを意味します。
 
 埋め込み言語をまたいで動作するリントルールはまだサポートされていません。
+
+### HTML系言語のリント
+
+`html.experimentalFullSupportEnabled` が `false` の場合に `.svelte`、`.astro`、または `.vue` ファイルを**リント**する際は、部分的なサポートによって引き起こされる誤検出のリントエラーを防ぐために、いくつかの追加ルールをオフにすることをお勧めします。そのために `overrides` オプションを使用します：
+
+```json title=biome.json
+{
+  "overrides": [
+    {
+      "includes": ["**/*.svelte", "**/*.astro", "**/*.vue"],
+      "linter": {
+        "rules": {
+          "style": {
+            "useConst": "off",
+            "useImportType": "off"
+          },
+          "correctness": {
+            "noUnusedVariables": "off",
+            "noUnusedImports": "off"
+          }
+        }
+      }
+    }
+  ]
+}
+```
 
 ### 異なる設定でのフォーマット
 
