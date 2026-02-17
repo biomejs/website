@@ -3150,16 +3150,6 @@ export function GET() {
 				type: "object",
 				additionalProperties: false,
 			},
-			NoConditionalExpectConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithNoConditionalExpectOptions" },
-				],
-			},
-			NoConditionalExpectOptions: {
-				type: "object",
-				additionalProperties: false,
-			},
 			NoConfusingLabelsConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -4663,106 +4653,6 @@ export function GET() {
 				type: "object",
 				additionalProperties: false,
 			},
-			NoPlaywrightElementHandleConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithNoPlaywrightElementHandleOptions" },
-				],
-			},
-			NoPlaywrightElementHandleOptions: {
-				type: "object",
-				additionalProperties: false,
-			},
-			NoPlaywrightEvalConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithNoPlaywrightEvalOptions" },
-				],
-			},
-			NoPlaywrightEvalOptions: {
-				type: "object",
-				additionalProperties: false,
-			},
-			NoPlaywrightForceOptionConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithNoPlaywrightForceOptionOptions" },
-				],
-			},
-			NoPlaywrightForceOptionOptions: {
-				type: "object",
-				additionalProperties: false,
-			},
-			NoPlaywrightMissingAwaitConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithNoPlaywrightMissingAwaitOptions" },
-				],
-			},
-			NoPlaywrightMissingAwaitOptions: {
-				type: "object",
-				additionalProperties: false,
-			},
-			NoPlaywrightNetworkidleConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithNoPlaywrightNetworkidleOptions" },
-				],
-			},
-			NoPlaywrightNetworkidleOptions: {
-				type: "object",
-				additionalProperties: false,
-			},
-			NoPlaywrightPagePauseConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithNoPlaywrightPagePauseOptions" },
-				],
-			},
-			NoPlaywrightPagePauseOptions: {
-				type: "object",
-				additionalProperties: false,
-			},
-			NoPlaywrightUselessAwaitConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithNoPlaywrightUselessAwaitOptions" },
-				],
-			},
-			NoPlaywrightUselessAwaitOptions: {
-				type: "object",
-				additionalProperties: false,
-			},
-			NoPlaywrightWaitForNavigationConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithNoPlaywrightWaitForNavigationOptions" },
-				],
-			},
-			NoPlaywrightWaitForNavigationOptions: {
-				type: "object",
-				additionalProperties: false,
-			},
-			NoPlaywrightWaitForSelectorConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithNoPlaywrightWaitForSelectorOptions" },
-				],
-			},
-			NoPlaywrightWaitForSelectorOptions: {
-				type: "object",
-				additionalProperties: false,
-			},
-			NoPlaywrightWaitForTimeoutConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithNoPlaywrightWaitForTimeoutOptions" },
-				],
-			},
-			NoPlaywrightWaitForTimeoutOptions: {
-				type: "object",
-				additionalProperties: false,
-			},
 			NoPositiveTabindexConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -6068,14 +5958,6 @@ export function GET() {
 							{ type: "null" },
 						],
 					},
-					noConditionalExpect: {
-						description:
-							"Disallow conditional expect() calls inside tests.\nSee https://biomejs.dev/linter/rules/no-conditional-expect",
-						anyOf: [
-							{ $ref: "#/$defs/NoConditionalExpectConfiguration" },
-							{ type: "null" },
-						],
-					},
 					noContinue: {
 						description:
 							"Disallow continue statements.\nSee https://biomejs.dev/linter/rules/no-continue",
@@ -6289,86 +6171,6 @@ export function GET() {
 							{ type: "null" },
 						],
 					},
-					noPlaywrightElementHandle: {
-						description:
-							"Disallow usage of element handles (page.$() and page.$$()).\nSee https://biomejs.dev/linter/rules/no-playwright-element-handle",
-						anyOf: [
-							{ $ref: "#/$defs/NoPlaywrightElementHandleConfiguration" },
-							{ type: "null" },
-						],
-					},
-					noPlaywrightEval: {
-						description:
-							"Disallow usage of page.$eval() and page.$$eval().\nSee https://biomejs.dev/linter/rules/no-playwright-eval",
-						anyOf: [
-							{ $ref: "#/$defs/NoPlaywrightEvalConfiguration" },
-							{ type: "null" },
-						],
-					},
-					noPlaywrightForceOption: {
-						description:
-							"Disallow usage of the { force: true } option.\nSee https://biomejs.dev/linter/rules/no-playwright-force-option",
-						anyOf: [
-							{ $ref: "#/$defs/NoPlaywrightForceOptionConfiguration" },
-							{ type: "null" },
-						],
-					},
-					noPlaywrightMissingAwait: {
-						description:
-							"Enforce Playwright async APIs to be awaited or returned.\nSee https://biomejs.dev/linter/rules/no-playwright-missing-await",
-						anyOf: [
-							{ $ref: "#/$defs/NoPlaywrightMissingAwaitConfiguration" },
-							{ type: "null" },
-						],
-					},
-					noPlaywrightNetworkidle: {
-						description:
-							"Disallow usage of the networkidle option.\nSee https://biomejs.dev/linter/rules/no-playwright-networkidle",
-						anyOf: [
-							{ $ref: "#/$defs/NoPlaywrightNetworkidleConfiguration" },
-							{ type: "null" },
-						],
-					},
-					noPlaywrightPagePause: {
-						description:
-							"Disallow using page.pause().\nSee https://biomejs.dev/linter/rules/no-playwright-page-pause",
-						anyOf: [
-							{ $ref: "#/$defs/NoPlaywrightPagePauseConfiguration" },
-							{ type: "null" },
-						],
-					},
-					noPlaywrightUselessAwait: {
-						description:
-							"Disallow unnecessary await for Playwright methods that don't return promises.\nSee https://biomejs.dev/linter/rules/no-playwright-useless-await",
-						anyOf: [
-							{ $ref: "#/$defs/NoPlaywrightUselessAwaitConfiguration" },
-							{ type: "null" },
-						],
-					},
-					noPlaywrightWaitForNavigation: {
-						description:
-							"Disallow using page.waitForNavigation().\nSee https://biomejs.dev/linter/rules/no-playwright-wait-for-navigation",
-						anyOf: [
-							{ $ref: "#/$defs/NoPlaywrightWaitForNavigationConfiguration" },
-							{ type: "null" },
-						],
-					},
-					noPlaywrightWaitForSelector: {
-						description:
-							"Disallow using page.waitForSelector().\nSee https://biomejs.dev/linter/rules/no-playwright-wait-for-selector",
-						anyOf: [
-							{ $ref: "#/$defs/NoPlaywrightWaitForSelectorConfiguration" },
-							{ type: "null" },
-						],
-					},
-					noPlaywrightWaitForTimeout: {
-						description:
-							"Disallow using page.waitForTimeout().\nSee https://biomejs.dev/linter/rules/no-playwright-wait-for-timeout",
-						anyOf: [
-							{ $ref: "#/$defs/NoPlaywrightWaitForTimeoutConfiguration" },
-							{ type: "null" },
-						],
-					},
 					noProto: {
 						description:
 							"Disallow the use of the deprecated __proto__ object property.\nSee https://biomejs.dev/linter/rules/no-proto",
@@ -6554,14 +6356,6 @@ export function GET() {
 							{ type: "null" },
 						],
 					},
-					useExpect: {
-						description:
-							"Ensure that test functions contain at least one expect() assertion.\nSee https://biomejs.dev/linter/rules/use-expect",
-						anyOf: [
-							{ $ref: "#/$defs/UseExpectConfiguration" },
-							{ type: "null" },
-						],
-					},
 					useExplicitType: {
 						description:
 							"Enforce types in functions, methods, variables, and parameters.\nSee https://biomejs.dev/linter/rules/use-explicit-type",
@@ -6612,16 +6406,6 @@ export function GET() {
 							"Require queries, mutations, subscriptions or fragments each to be located in separate files.\nSee https://biomejs.dev/linter/rules/use-lone-executable-definition",
 						anyOf: [
 							{ $ref: "#/$defs/UseLoneExecutableDefinitionConfiguration" },
-							{ type: "null" },
-						],
-					},
-					usePlaywrightValidDescribeCallback: {
-						description:
-							"Enforce valid describe() callback.\nSee https://biomejs.dev/linter/rules/use-playwright-valid-describe-callback",
-						anyOf: [
-							{
-								$ref: "#/$defs/UsePlaywrightValidDescribeCallbackConfiguration",
-							},
 							{ type: "null" },
 						],
 					},
@@ -7325,11 +7109,6 @@ export function GET() {
 						const: "turborepo",
 					},
 					{
-						description: "Playwright testing framework rules",
-						type: "string",
-						const: "playwright",
-					},
-					{
 						description: "Rules that require type inference",
 						type: "string",
 						const: "types",
@@ -7641,15 +7420,6 @@ export function GET() {
 					fix: { anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }] },
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/NoCompareNegZeroOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
-			RuleWithNoConditionalExpectOptions: {
-				type: "object",
-				properties: {
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/NoConditionalExpectOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -8941,100 +8711,6 @@ export function GET() {
 					fix: { anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }] },
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/NoParametersOnlyUsedInRecursionOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
-			RuleWithNoPlaywrightElementHandleOptions: {
-				type: "object",
-				properties: {
-					fix: { anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }] },
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/NoPlaywrightElementHandleOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
-			RuleWithNoPlaywrightEvalOptions: {
-				type: "object",
-				properties: {
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/NoPlaywrightEvalOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
-			RuleWithNoPlaywrightForceOptionOptions: {
-				type: "object",
-				properties: {
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/NoPlaywrightForceOptionOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
-			RuleWithNoPlaywrightMissingAwaitOptions: {
-				type: "object",
-				properties: {
-					fix: { anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }] },
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/NoPlaywrightMissingAwaitOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
-			RuleWithNoPlaywrightNetworkidleOptions: {
-				type: "object",
-				properties: {
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/NoPlaywrightNetworkidleOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
-			RuleWithNoPlaywrightPagePauseOptions: {
-				type: "object",
-				properties: {
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/NoPlaywrightPagePauseOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
-			RuleWithNoPlaywrightUselessAwaitOptions: {
-				type: "object",
-				properties: {
-					fix: { anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }] },
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/NoPlaywrightUselessAwaitOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
-			RuleWithNoPlaywrightWaitForNavigationOptions: {
-				type: "object",
-				properties: {
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/NoPlaywrightWaitForNavigationOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
-			RuleWithNoPlaywrightWaitForSelectorOptions: {
-				type: "object",
-				properties: {
-					fix: { anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }] },
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/NoPlaywrightWaitForSelectorOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
-			RuleWithNoPlaywrightWaitForTimeoutOptions: {
-				type: "object",
-				properties: {
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/NoPlaywrightWaitForTimeoutOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -10545,15 +10221,6 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
-			RuleWithUseExpectOptions: {
-				type: "object",
-				properties: {
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: { $ref: "#/$defs/UseExpectOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
 			RuleWithUseExplicitLengthCheckOptions: {
 				type: "object",
 				properties: {
@@ -11061,17 +10728,6 @@ export function GET() {
 					fix: { anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }] },
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/UseParseIntRadixOptions" },
-				},
-				additionalProperties: false,
-				required: ["level"],
-			},
-			RuleWithUsePlaywrightValidDescribeCallbackOptions: {
-				type: "object",
-				properties: {
-					level: { $ref: "#/$defs/RulePlainConfiguration" },
-					options: {
-						$ref: "#/$defs/UsePlaywrightValidDescribeCallbackOptions",
-					},
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -13869,13 +13525,6 @@ export function GET() {
 				type: "object",
 				additionalProperties: false,
 			},
-			UseExpectConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithUseExpectOptions" },
-				],
-			},
-			UseExpectOptions: { type: "object", additionalProperties: false },
 			UseExplicitLengthCheckConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -14479,16 +14128,6 @@ export function GET() {
 				],
 			},
 			UseParseIntRadixOptions: {
-				type: "object",
-				additionalProperties: false,
-			},
-			UsePlaywrightValidDescribeCallbackConfiguration: {
-				oneOf: [
-					{ $ref: "#/$defs/RulePlainConfiguration" },
-					{ $ref: "#/$defs/RuleWithUsePlaywrightValidDescribeCallbackOptions" },
-				],
-			},
-			UsePlaywrightValidDescribeCallbackOptions: {
 				type: "object",
 				additionalProperties: false,
 			},

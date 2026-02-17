@@ -54,6 +54,64 @@ Rules that belong to the domain:
 - [noHeadElement](/linter/rules/no-head-element) (recommended)
 - [noDocumentImportInPage](/linter/rules/no-document-import-in-page) (recommended)
 - [noHeadImportInDocument](/linter/rules/no-head-import-in-document) (recommended)
+## Playwright
+Use this domain inside Playwright test projects. This domain enables rules that help enforce best practices and catch common mistakes when writing Playwright tests.
+### Playwright activation
+Enable the **recommended, non-nursery** rules of the domain:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"playwright": "recommended"
+		}
+	}
+}
+```
+
+:::note[No recommended rules]
+Since all rules in this domain are nursery rules, no rules will be activated when enabling the domain. You need to enable the single rules.:::#
+Enabled the **all** rules of the domain:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"playwright": "all"
+		}
+	}
+}
+```
+**Disable** all rules of the domain:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"playwright": "none"
+		}
+	}
+}
+```
+### Playwright dependencies
+Enabled when the following dependencies are declared:
+- `@playwright/test`: `>=1.0.0`
+
+### Playwright globals
+When enabled, the following global bindings are recognised by Biome:
+- `test`
+- `expect`
+
+### Playwright rules
+Rules that belong to the domain:
+- [noPlaywrightElementHandle](/linter/rules/no-playwright-element-handle) [(nursery)](/linter/#nursery)
+- [noPlaywrightEval](/linter/rules/no-playwright-eval) [(nursery)](/linter/#nursery)
+- [noPlaywrightForceOption](/linter/rules/no-playwright-force-option) [(nursery)](/linter/#nursery)
+- [noPlaywrightMissingAwait](/linter/rules/no-playwright-missing-await) [(nursery)](/linter/#nursery)
+- [noPlaywrightNetworkidle](/linter/rules/no-playwright-networkidle) [(nursery)](/linter/#nursery)
+- [noPlaywrightPagePause](/linter/rules/no-playwright-page-pause) [(nursery)](/linter/#nursery)
+- [noPlaywrightUselessAwait](/linter/rules/no-playwright-useless-await) [(nursery)](/linter/#nursery)
+- [noPlaywrightWaitForNavigation](/linter/rules/no-playwright-wait-for-navigation) [(nursery)](/linter/#nursery)
+- [noPlaywrightWaitForSelector](/linter/rules/no-playwright-wait-for-selector) [(nursery)](/linter/#nursery)
+- [noPlaywrightWaitForTimeout](/linter/rules/no-playwright-wait-for-timeout) [(nursery)](/linter/#nursery)
+- [usePlaywrightValidDescribeCallback](/linter/rules/use-playwright-valid-describe-callback) [(nursery)](/linter/#nursery)
 ## Project
 This domain contains rules that perform project-level analysis. This includes our module graph for dependency resolution. When enabling rules that belong to this domain, Biome will scan the entire project. The scanning phase will have a performance impact on the linting process. See the documentation on our [scanner](/internals/architecture/#scanner) to learn more about the scanner.
 ### Project activation
@@ -300,9 +358,12 @@ When enabled, the following global bindings are recognised by Biome:
 ### Test rules
 Rules that belong to the domain:
 - [noExcessiveNestedTestSuites](/linter/rules/no-excessive-nested-test-suites)
+- [noConditionalExpect](/linter/rules/no-conditional-expect) [(nursery)](/linter/#nursery)
+- [useExpect](/linter/rules/use-expect) [(nursery)](/linter/#nursery)
 - [noDuplicateTestHooks](/linter/rules/no-duplicate-test-hooks) (recommended)
 - [noExportsInTest](/linter/rules/no-exports-in-test) (recommended)
 - [noFocusedTests](/linter/rules/no-focused-tests) (recommended)
+- [noSkippedTests](/linter/rules/no-skipped-tests)
 ## Turborepo
 Use this domain inside Turborepo projects. This domain enables rules that are specific to Turborepo projects.
 ### Turborepo activation

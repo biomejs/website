@@ -95,6 +95,13 @@ impl DocDomains {
                     writeln!(buffer, "## {name}")?;
                     writeln!(buffer, "Use this domain inside Next.js projects.")?;
                 }
+                RuleDomain::Playwright => {
+                    writeln!(buffer, "## {name}")?;
+                    writeln!(
+                        buffer,
+                        "Use this domain inside Playwright test projects. This domain enables rules that help enforce best practices and catch common mistakes when writing Playwright tests."
+                    )?;
+                }
                 RuleDomain::Project => {
                     writeln!(buffer, "## {name}")?;
                     writeln!(

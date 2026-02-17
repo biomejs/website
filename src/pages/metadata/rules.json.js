@@ -834,6 +834,12 @@ export function GET() {
                 "source": {
                   "eslintJsxA11y": "no-access-key"
                 }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "htmlEslint": "no-accesskey-attrs"
+                }
               }
             ],
             "docs": " Enforce that the `accesskey` attribute is not used on any HTML element.\n\n The `accesskey` assigns a keyboard shortcut to the current element. However, the `accesskey` value\n can conflict with keyboard commands used by screen readers and keyboard-only users, which leads to\n inconsistent keyboard actions across applications. To avoid accessibility complications,\n this rule suggests users remove the `accesskey` attribute on elements.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <input type=\"submit\" accesskey=\"s\" value=\"Submit\" />\n ```\n\n ```html,expect_diagnostic\n <a href=\"https://webaim.org/\" accesskey=\"w\">WebAIM.org</a>\n ```\n\n ```html,expect_diagnostic\n <button accesskey=\"n\">Next</button>\n ```\n\n ## Resources\n\n - [WebAIM: Keyboard Accessibility - Accesskey](https://webaim.org/techniques/keyboard/accesskey#spec)\n - [MDN `accesskey` documentation](https://developer.mozilla.org/docs/Web/HTML/Global_attributes/accesskey)\n\n"
@@ -902,6 +908,12 @@ export function GET() {
                 "source": {
                   "eslintJsxA11y": "tabindex-no-positive"
                 }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "htmlEslint": "no-positive-tabindex"
+                }
               }
             ],
             "docs": " Prevent the usage of positive integers on `tabindex` attribute.\n\n Avoid positive `tabindex` attribute values to synchronize the flow of the page with keyboard tab order.\n\n ## Accessibility guidelines\n\n [WCAG 2.4.3](https://www.w3.org/WAI/WCAG21/Understanding/focus-order)\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div tabindex=\"1\"></div>\n ```\n\n ```html,expect_diagnostic\n <div tabindex=\"5\"></div>\n ```\n\n ### Valid\n\n ```html\n <div tabindex=\"0\"></div>\n ```\n\n ```html\n <div tabindex=\"-1\"></div>\n ```\n\n"
@@ -944,6 +956,12 @@ export function GET() {
                 "kind": "sameLogic",
                 "source": {
                   "eslintJsxA11y": "alt-text"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "htmlEslint": "require-img-alt"
                 }
               }
             ],
@@ -996,6 +1014,12 @@ export function GET() {
                 "source": {
                   "eslintReact": "button-has-type"
                 }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "htmlEslint": "require-button-type"
+                }
               }
             ],
             "docs": " Enforces the usage and validity of the attribute `type` for the element `button`\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <button>Do something</button>\n ```\n\n ```html,expect_diagnostic\n <button type=\"incorrectType\">Do something</button>\n ```\n\n ### Valid\n\n ```html\n <button type=\"button\">Do something</button>\n ```\n\n"
@@ -1012,6 +1036,12 @@ export function GET() {
                 "kind": "sameLogic",
                 "source": {
                   "eslintJsxA11y": "html-has-lang"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "htmlEslint": "require-lang"
                 }
               }
             ],
@@ -2858,7 +2888,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow unused variables.\n\n There is an exception to this rule: variables that start with underscore, e.g. `let _something;`.\n\n The pattern of having an underscore as a prefix of a variable is a very diffuse\n pattern among programmers, and Biome follows it.\n\n This rule won't report unused imports.\n If you want to report unused imports,\n enable [noUnusedImports](https://biomejs.dev/linter/rules/no-unused-imports/).\n\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n let a = 4;\n a++;\n ```\n\n ```js,expect_diagnostic\n function foo() {}\n ```\n\n ```js,expect_diagnostic\n function foo() {\n     foo();\n }\n ```\n\n ```js,expect_diagnostic\n const foo = () => {\n     foo();\n };\n ```\n\n ```ts,expect_diagnostic\n export function f<T>() {}\n ```\n\n ```js,expect_diagnostic\n const { brand } = car;\n ```\n\n ### Valid\n\n ```js\n function foo(b) {\n     console.log(b)\n };\n foo();\n ```\n\n ```js\n export function foo(_unused) {}\n ```\n\n ```ts\n function used_overloaded(): number;\n function used_overloaded(s: string): string;\n function used_overloaded(s?: string) {\n     return s;\n }\n used_overloaded();\n ```\n\n By default, unused variables declared inside destructured objects are ignored\n if the destructuring pattern also contains a rest property.\n (See the [rule options](#options) if you want to enable these checks).\n ```js\n const car = { brand: \"Tesla\", year: 2019, countryCode: \"US\" };\n const { brand, ...rest } = car;\n console.log(rest);\n ```\n\n ## Options\n\n ### `ignoreRestSiblings`\n\n Whether to ignore unused variables declared inside destructured objects\n containing rest properties (such as `const { a, b, ...rest } = obj`.\n\n Default: `true`\n\n #### Example\n\n ```json,options\n {\n   \"options\": {\n     \"ignoreRestSiblings\": false\n   }\n }\n ```\n\n ```js,expect_diagnostic,use_options\n const car = { brand: \"Tesla\", year: 2019, countryCode: \"US\" };\n const { brand, ...other } = car;\n console.log(other);\n ```\n\n ```js,use_options\n const car = { brand: \"Tesla\", year: 2019, countryCode: \"US\" };\n const { brand: _, ...other } = car;\n console.log(other);\n ```\n"
+            "docs": " Disallow unused variables.\n\n There is an exception to this rule: variables that start with underscore, e.g. `let _something;`.\n\n The pattern of having an underscore as a prefix of a variable is a very diffuse\n pattern among programmers, and Biome follows it.\n\n This rule won't report unused imports.\n If you want to report unused imports,\n enable [noUnusedImports](https://biomejs.dev/linter/rules/no-unused-imports/).\n\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n let a = 4;\n a++;\n ```\n\n ```js,expect_diagnostic\n function foo() {}\n ```\n\n ```js,expect_diagnostic\n function foo() {\n     foo();\n }\n ```\n\n ```js,expect_diagnostic\n const foo = () => {\n     foo();\n };\n ```\n\n ```ts,expect_diagnostic\n export function f<T>() {}\n ```\n\n ```js,expect_diagnostic\n const { brand } = car;\n ```\n\n ### Valid\n\n ```js\n function foo(b) {\n     console.log(b)\n };\n foo();\n ```\n\n ```js\n export function foo(_unused) {}\n ```\n\n ```ts\n function used_overloaded(): number;\n function used_overloaded(s: string): string;\n function used_overloaded(s?: string) {\n     return s;\n }\n used_overloaded();\n ```\n\n By default, unused variables declared inside destructured objects are ignored\n if the destructuring pattern also contains a rest property.\n (See the [rule options](#options) if you want to enable these checks).\n ```js\n const car = { brand: \"Tesla\", year: 2019, countryCode: \"US\" };\n const { brand, ...rest } = car;\n console.log(rest);\n ```\n\n In Astro files, a top-level interface or a type alias named `Props` is always ignored\n as it's implicitly read by the framework.\n ```astro,ignore\n ---\n interface Props {\n   name: string;\n   greeting?: string;\n }\n\n const { name, greeting } = Astro.props;\n ---\n ```\n\n ## Options\n\n ### `ignoreRestSiblings`\n\n Whether to ignore unused variables declared inside destructured objects\n containing rest properties (such as `const { a, b, ...rest } = obj`.\n\n Default: `true`\n\n #### Example\n\n ```json,options\n {\n   \"options\": {\n     \"ignoreRestSiblings\": false\n   }\n }\n ```\n\n ```js,expect_diagnostic,use_options\n const car = { brand: \"Tesla\", year: 2019, countryCode: \"US\" };\n const { brand, ...other } = car;\n console.log(other);\n ```\n\n ```js,use_options\n const car = { brand: \"Tesla\", year: 2019, countryCode: \"US\" };\n const { brand: _, ...other } = car;\n console.log(other);\n ```\n"
           },
           "noVueDataObjectDeclaration": {
             "deprecated": false,
@@ -3089,6 +3119,35 @@ export function GET() {
               }
             ],
             "docs": " Disallow ambiguous anchor descriptions.\n\n Enforces `<a>` values are not exact matches for the phrases \"click here\", \"here\", \"link\", \"a link\", or \"learn more\".\n Screen readers announce tags as links/interactive, but rely on values for context.\n Ambiguous anchor descriptions do not provide sufficient context for users.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n const Invalid = () => <a>learn more</a>;\n ```\n\n ### Valid\n\n ```jsx\n const Valid = () => <a>documentation</a>;\n ```\n\n ## Options\n\n ### `words`\n\n The words option allows users to modify the strings that can be checked for in the anchor text. Useful for specifying other words in other languages.\n\n Default `[\"click here\", \"here\", \"link\", \"a link\", \"learn more\"]`\n\n ```json,options\n {\n   \"options\": {\n     \"words\": [\"click this\"]\n   }\n }\n ```\n\n #### Invalid\n\n ```jsx,expect_diagnostic,use_options\n const Invalid = () => <a>click this</a>;\n ```\n\n"
+          },
+          "noConditionalExpect": {
+            "deprecated": false,
+            "version": "2.4.2",
+            "name": "noConditionalExpect",
+            "link": "https://biomejs.dev/linter/rules/no-conditional-expect",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintPlaywright": "no-conditional-expect"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJest": "no-conditional-expect"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVitest": "no-conditional-expect"
+                }
+              }
+            ],
+            "docs": " Disallow conditional `expect()` calls inside tests.\n\n Conditional expectations are problematic because they can silently pass\n when the condition is false, meaning assertions may never actually run.\n This can lead to tests that pass despite bugs in the code.\n\n If you need conditional testing logic, consider:\n - Using `test.skip()` to skip the entire test\n - Splitting into separate tests with clear conditions\n - Using `expect.soft()` for optional assertions\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n test(\"conditional expect\", async ({ page }) => {\n     if (someCondition) {\n         await expect(page).toHaveTitle(\"Title\");\n     }\n });\n ```\n\n ```js,expect_diagnostic\n test(\"ternary expect\", async ({ page }) => {\n     someCondition ? await expect(page).toHaveTitle(\"Title\") : null;\n });\n ```\n\n ```js,expect_diagnostic\n test(\"catch expect\", async ({ page }) => {\n     try {\n         await page.click(\"button\");\n     } catch (e) {\n         await expect(page).toHaveTitle(\"Title\");\n     }\n });\n ```\n\n ### Valid\n\n ```js\n test(\"unconditional expect\", async ({ page }) => {\n     await expect(page).toHaveTitle(\"Title\");\n });\n ```\n\n ```js\n test(\"skip based on condition\", async ({ page }) => {\n     test.skip(someCondition, \"Reason to skip\");\n     await expect(page).toHaveTitle(\"Title\");\n });\n ```\n\n"
           },
           "noContinue": {
             "deprecated": false,
@@ -3327,6 +3386,176 @@ export function GET() {
               }
             ],
             "docs": " Disallow function parameters that are only used in recursive calls.\n\n A parameter that is only passed to recursive calls is effectively unused\n and can be removed or replaced with a constant, simplifying the function.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function factorial(n, acc) {\n     if (n === 0) return 1;\n     return factorial(n - 1, acc);\n }\n ```\n\n ```js,expect_diagnostic\n function countdown(n, step) {\n     if (n === 0) return 0;\n     return countdown(n - step, step);\n }\n ```\n\n ```js,expect_diagnostic\n class Counter {\n     count(n, acc) {\n         if (n === 0) return 0;\n         return this.count(n - 1, acc);\n     }\n }\n ```\n\n ```js,expect_diagnostic\n function fn(n, acc) {\n     if (n === 0) return 0;\n     return fn(n - 1, acc || 0);\n }\n ```\n\n ```js,expect_diagnostic\n class Counter {\n     count(n, acc) {\n         if (n === 0) return 0;\n         return this?.count(n - 1, acc);\n     }\n }\n ```\n\n ### Valid\n\n ```js\n function factorial(n, acc) {\n     if (n === 0) return acc;\n     return factorial(n - 1, acc * n);\n }\n ```\n\n ```js\n function countdown(n, step) {\n     console.log(step);\n     if (n === 0) return 0;\n     return countdown(n - step, step);\n }\n ```\n\n ```js\n function fn(n, threshold) {\n     if (n > threshold) return n;\n     return fn(n + 1, threshold);\n }\n ```\n"
+          },
+          "noPlaywrightElementHandle": {
+            "deprecated": false,
+            "version": "2.4.2",
+            "name": "noPlaywrightElementHandle",
+            "link": "https://biomejs.dev/linter/rules/no-playwright-element-handle",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintPlaywright": "no-element-handle"
+                }
+              }
+            ],
+            "docs": " Disallow usage of element handles (`page.$()` and `page.$$()`).\n\n Element handles are discouraged in Playwright. Use locators instead, which auto-wait\n and are more reliable. Locators represent a way to find elements at any moment,\n while element handles are references to specific elements that may become stale.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const button = await page.$('button');\n ```\n\n ```js,expect_diagnostic\n const buttons = await page.$$('.btn');\n ```\n\n ```js,expect_diagnostic\n const element = await frame.$('#element');\n ```\n\n ### Valid\n\n ```js\n const button = page.locator('button');\n await button.click();\n ```\n\n ```js\n const buttons = page.locator('.btn');\n await expect(buttons).toHaveCount(3);\n ```\n\n ```js\n await page.getByRole('button', { name: 'Submit' }).click();\n ```\n\n"
+          },
+          "noPlaywrightEval": {
+            "deprecated": false,
+            "version": "2.4.2",
+            "name": "noPlaywrightEval",
+            "link": "https://biomejs.dev/linter/rules/no-playwright-eval",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintPlaywright": "no-eval"
+                }
+              }
+            ],
+            "docs": " Disallow usage of `page.$eval()` and `page.$$eval()`.\n\n These methods are discouraged in favor of `locator.evaluate()` and `locator.evaluateAll()`.\n Locator-based evaluation is more reliable and follows Playwright's recommended patterns.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n await page.$eval('.foo', el => el.textContent);\n ```\n\n ```js,expect_diagnostic\n const texts = await page.$$eval('.foo', els => els.map(el => el.textContent));\n ```\n\n ### Valid\n\n ```js\n const text = await page.locator('.foo').evaluate(el => el.textContent);\n ```\n\n ```js\n const texts = await page.locator('.foo').evaluateAll(els => els.map(el => el.textContent));\n ```\n\n"
+          },
+          "noPlaywrightForceOption": {
+            "deprecated": false,
+            "version": "2.4.2",
+            "name": "noPlaywrightForceOption",
+            "link": "https://biomejs.dev/linter/rules/no-playwright-force-option",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintPlaywright": "no-force-option"
+                }
+              }
+            ],
+            "docs": " Disallow usage of the `{ force: true }` option.\n\n Playwright's `force` option bypasses actionability checks and can lead to unreliable tests.\n Instead of using `{ force: true }`, you should fix the underlying issue that requires forcing the action.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n await page.locator('button').click({ force: true });\n ```\n\n ```js,expect_diagnostic\n await page.locator('check').check({ force: true });\n ```\n\n ```js,expect_diagnostic\n await page.locator('input').fill('text', { force: true });\n ```\n\n ### Valid\n\n ```js\n await page.locator('button').click();\n ```\n\n ```js\n await page.locator('check').check();\n ```\n\n ```js\n await page.locator('input').fill('text');\n ```\n\n"
+          },
+          "noPlaywrightMissingAwait": {
+            "deprecated": false,
+            "version": "2.4.2",
+            "name": "noPlaywrightMissingAwait",
+            "link": "https://biomejs.dev/linter/rules/no-playwright-missing-await",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintPlaywright": "missing-playwright-await"
+                }
+              }
+            ],
+            "docs": " Enforce Playwright async APIs to be awaited or returned.\n\n Playwright has asynchronous matchers and methods that must be properly awaited.\n This rule identifies common mistakes where async Playwright APIs are not properly handled,\n which can lead to false positives in tests.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n test('example', async ({ page }) => {\n     expect(page.getByRole('button')).toBeVisible();\n });\n ```\n\n ```js,expect_diagnostic\n test('example', async ({ page }) => {\n     test.step('step', async () => {});\n });\n ```\n\n ### Valid\n\n ```js\n test('example', async ({ page }) => {\n     await expect(page.getByRole('button')).toBeVisible();\n });\n ```\n\n ```js\n test('example', async ({ page }) => {\n     await test.step('step', async () => {});\n });\n ```\n\n ```js\n test('example', async ({ page }) => {\n     return expect(page.getByRole('button')).toBeVisible();\n });\n ```\n\n"
+          },
+          "noPlaywrightNetworkidle": {
+            "deprecated": false,
+            "version": "2.4.2",
+            "name": "noPlaywrightNetworkidle",
+            "link": "https://biomejs.dev/linter/rules/no-playwright-networkidle",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintPlaywright": "no-networkidle"
+                }
+              }
+            ],
+            "docs": " Disallow usage of the `networkidle` option.\n\n Using `networkidle` is discouraged in favor of using web-first assertions.\n The `networkidle` event is unreliable and can lead to flaky tests.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n await page.waitForLoadState('networkidle');\n ```\n\n ```js,expect_diagnostic\n await page.goto('https://example.com', { waitUntil: 'networkidle' });\n ```\n\n ### Valid\n\n ```js\n await page.waitForLoadState('load');\n ```\n\n ```js\n await page.goto('https://example.com');\n await page.locator('.content').waitFor();\n ```\n\n"
+          },
+          "noPlaywrightPagePause": {
+            "deprecated": false,
+            "version": "2.4.2",
+            "name": "noPlaywrightPagePause",
+            "link": "https://biomejs.dev/linter/rules/no-playwright-page-pause",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintPlaywright": "no-page-pause"
+                }
+              }
+            ],
+            "docs": " Disallow using `page.pause()`.\n\n Playwright's `page.pause()` is a debugging utility that should not be committed to version control.\n It pauses test execution and opens the Playwright Inspector, which is useful during development\n but should not be present in production test code.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n await page.pause();\n ```\n\n ```js,expect_diagnostic\n test('example', async ({ page }) => {\n     await page.click('button');\n     await page.pause();\n });\n ```\n\n ### Valid\n\n ```js\n test('example', async ({ page }) => {\n     await page.click('button');\n     await expect(page.locator('.result')).toBeVisible();\n });\n ```\n\n"
+          },
+          "noPlaywrightUselessAwait": {
+            "deprecated": false,
+            "version": "2.4.2",
+            "name": "noPlaywrightUselessAwait",
+            "link": "https://biomejs.dev/linter/rules/no-playwright-useless-await",
+            "recommended": false,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintPlaywright": "no-useless-await"
+                }
+              }
+            ],
+            "docs": " Disallow unnecessary `await` for Playwright methods that don't return promises.\n\n Some Playwright methods are frequently, yet incorrectly, awaited when they return\n synchronous values. This includes locator methods, which return locators (not promises),\n and synchronous expect matchers.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n await page.locator('.my-element');\n ```\n\n ```js,expect_diagnostic\n await page.getByRole('button');\n ```\n\n ```js,expect_diagnostic\n await expect(1).toBe(1);\n ```\n\n ### Valid\n\n ```js\n page.locator('.my-element');\n await page.locator('.my-element').click();\n ```\n\n ```js\n page.getByRole('button');\n await page.getByRole('button').click();\n ```\n\n ```js\n expect(1).toBe(1);\n await expect(page.locator('.foo')).toBeVisible();\n ```\n\n"
+          },
+          "noPlaywrightWaitForNavigation": {
+            "deprecated": false,
+            "version": "2.4.2",
+            "name": "noPlaywrightWaitForNavigation",
+            "link": "https://biomejs.dev/linter/rules/no-playwright-wait-for-navigation",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintPlaywright": "no-wait-for-navigation"
+                }
+              }
+            ],
+            "docs": " Disallow using `page.waitForNavigation()`.\n\n Playwright's `page.waitForNavigation()` is deprecated and should be replaced with more reliable\n alternatives like `page.waitForURL()` or `page.waitForLoadState()`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n await page.waitForNavigation();\n ```\n\n ```js,expect_diagnostic\n await page.click('button');\n await page.waitForNavigation({ waitUntil: 'networkidle' });\n ```\n\n ### Valid\n\n ```js\n await page.waitForURL('/home');\n ```\n\n ```js\n await page.waitForLoadState('networkidle');\n ```\n\n ```js\n await page.goto('/home');\n ```\n\n"
+          },
+          "noPlaywrightWaitForSelector": {
+            "deprecated": false,
+            "version": "2.4.2",
+            "name": "noPlaywrightWaitForSelector",
+            "link": "https://biomejs.dev/linter/rules/no-playwright-wait-for-selector",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintPlaywright": "no-wait-for-selector"
+                }
+              }
+            ],
+            "docs": " Disallow using `page.waitForSelector()`.\n\n Playwright's `page.waitForSelector()` is discouraged in favor of more reliable locator-based APIs.\n Using locators with assertions or actions automatically waits for elements to be ready.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n await page.waitForSelector('.submit-button');\n ```\n\n ```js,expect_diagnostic\n await page.waitForSelector('#dialog', { state: 'visible' });\n await page.click('#dialog .button');\n ```\n\n ### Valid\n\n ```js\n await page.locator('.submit-button').click();\n ```\n\n ```js\n await expect(page.locator('#dialog')).toBeVisible();\n ```\n\n ```js\n const button = page.getByRole('button', { name: 'Submit' });\n await button.click();\n ```\n\n"
+          },
+          "noPlaywrightWaitForTimeout": {
+            "deprecated": false,
+            "version": "2.4.2",
+            "name": "noPlaywrightWaitForTimeout",
+            "link": "https://biomejs.dev/linter/rules/no-playwright-wait-for-timeout",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintPlaywright": "no-wait-for-timeout"
+                }
+              }
+            ],
+            "docs": " Disallow using `page.waitForTimeout()`.\n\n Playwright provides methods like `page.waitForLoadState()`, `page.waitForURL()`,\n and `page.waitForFunction()` which are better alternatives to using hardcoded timeouts.\n These methods wait for specific conditions and are more reliable than arbitrary timeouts.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n await page.waitForTimeout(5000);\n ```\n\n ```js,expect_diagnostic\n await page.waitForTimeout(1000);\n ```\n\n ### Valid\n\n ```js\n await page.waitForLoadState();\n ```\n\n ```js\n await page.waitForURL('/home');\n ```\n\n ```js\n await page.waitForFunction(() => window.innerWidth < 100);\n ```\n\n"
           },
           "noProto": {
             "deprecated": false,
@@ -3625,6 +3854,35 @@ export function GET() {
             ],
             "docs": " Require switch-case statements to be exhaustive.\n\n When working with union types in TypeScript, it's common to want to write a switch statement\n intended to contain a case for each possible variant.\n However, if the union type changes, it's easy to forget to modify the cases to account for\n any new types.\n\n This rule reports when a switch statement over a value typed as a union of literals lacks\n a case for any of those literal types and does not have a default clause.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=invalid.ts\n type Day =\n   | 'Monday'\n   | 'Tuesday'\n   | 'Wednesday'\n   | 'Thursday'\n   | 'Friday'\n   | 'Saturday'\n   | 'Sunday';\n\n declare const day: Day;\n let result = 0;\n\n switch (day) {\n   case 'Monday':\n     result = 1;\n     break;\n }\n ```\n\n ### Valid\n\n ```ts,file=valid.ts\n type Day =\n   | 'Monday'\n   | 'Tuesday'\n   | 'Wednesday'\n   | 'Thursday'\n   | 'Friday'\n   | 'Saturday'\n   | 'Sunday';\n\n declare const day: Day;\n let result = 0;\n\n switch (day) {\n   case 'Monday':\n     result = 1;\n     break;\n   case 'Tuesday':\n     result = 2;\n     break;\n   case 'Wednesday':\n     result = 3;\n     break;\n   case 'Thursday':\n     result = 4;\n     break;\n   case 'Friday':\n     result = 5;\n     break;\n   case 'Saturday':\n     result = 6;\n     break;\n   case 'Sunday':\n     result = 7;\n     break;\n }\n ```\n\n"
           },
+          "useExpect": {
+            "deprecated": false,
+            "version": "2.4.2",
+            "name": "useExpect",
+            "link": "https://biomejs.dev/linter/rules/use-expect",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintPlaywright": "expect-expect"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJest": "expect-expect"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVitest": "expect-expect"
+                }
+              }
+            ],
+            "docs": " Ensure that test functions contain at least one `expect()` assertion.\n\n Tests without assertions may pass even when behavior is broken, leading to\n false confidence in the test suite. This rule ensures that every test\n validates some expected behavior using `expect()`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n test(\"no assertion\", async ({ page }) => {\n     await page.goto(\"/\");\n     await page.click(\"button\");\n });\n ```\n\n ### Valid\n\n ```js\n test(\"has assertion\", async ({ page }) => {\n     await page.goto(\"/\");\n     await expect(page).toHaveTitle(\"Title\");\n });\n ```\n\n ```js\n test(\"soft assertion\", async ({ page }) => {\n     await page.goto(\"/\");\n     await expect.soft(page.locator(\"h1\")).toBeVisible();\n });\n ```\n\n"
+          },
           "useFind": {
             "deprecated": false,
             "version": "2.3.6",
@@ -3658,6 +3916,23 @@ export function GET() {
               }
             ],
             "docs": " Enforce the use of `globalThis` over `window`, `self`, and `global`.\n\n `globalThis` is a standard way to access the global object across platforms such as browsers, Web Workers, Node.js and so on, and using it can make your code portable.\n\n However, there are several exceptions that are allowed:\n\n 1. Certain window/Web Workers-specific APIs, such as `window.innerHeight` and `self.postMessage`\n 2. Window-specific events, such as `window.addEventListener('resize')`\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n window.foo;\n ```\n\n ```js,expect_diagnostic\n window.addEventListener('click', () => {});\n ```\n\n ### Valid\n\n ```js\n globalThis.foo;\n ```\n\n ```js\n globalThis.addEventListener('click', () => {});\n ```\n\n ```js\n // window/Web Workers-specific APIs are allowed\n window.innerWidth;\n self.postMessage({ type: 'ready' });\n ```\n\n ```js\n // window-specific events are allowed\n window.addEventListener('resize', () => {});\n ```\n\n"
+          },
+          "usePlaywrightValidDescribeCallback": {
+            "deprecated": false,
+            "version": "2.4.2",
+            "name": "usePlaywrightValidDescribeCallback",
+            "link": "https://biomejs.dev/linter/rules/use-playwright-valid-describe-callback",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintPlaywright": "valid-describe-callback"
+                }
+              }
+            ],
+            "docs": " Enforce valid `describe()` callback.\n\n Using an improper `describe()` callback function can lead to unexpected test errors.\n This rule validates that describe callbacks are proper synchronous functions without parameters.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n test.describe('suite', async () => {\n     test('one', async ({ page }) => {});\n });\n ```\n\n ```js,expect_diagnostic\n test.describe('suite', (done) => {\n     test('one', async ({ page }) => {});\n });\n ```\n\n ### Valid\n\n ```js\n test.describe('suite', () => {\n     test('one', async ({ page }) => {});\n     test('two', async ({ page }) => {});\n });\n ```\n\n ```js\n describe('suite', function() {\n     test('one', async ({ page }) => {});\n });\n ```\n\n"
           },
           "useRegexpExec": {
             "deprecated": false,
@@ -5632,9 +5907,15 @@ export function GET() {
                 "source": {
                   "eslintVitest": "no-disabled-tests"
                 }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintPlaywright": "no-skipped-test"
+                }
               }
             ],
-            "docs": " Disallow disabled tests.\n\n Disabled test are useful when developing and debugging, although they should not be committed in production.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n describe.skip(\"test\", () => {});\n ```\n\n ```js,expect_diagnostic\n test.skip(\"test\", () => {});\n ```\n\n ## Valid\n\n ```js\n test.only(\"test\", () => {});\n test(\"test\", () => {});\n ```\n\n"
+            "docs": " Disallow disabled tests.\n\n Disabled tests are useful when developing and debugging, although they should not be committed in production.\n\n The rule detects the following patterns:\n - `describe.skip`, `it.skip`, `test.skip`\n - `describe.fixme`, `it.fixme`, `test.fixme`\n - `test.describe.skip`, `test.describe.fixme`\n - `test.describe.parallel.skip`, `test.describe.serial.skip`\n - `test.describe.parallel.fixme`, `test.describe.serial.fixme`\n - `test.step.skip`, `test.step.fixme`\n - `xdescribe`, `xit`, `xtest`\n - Bracket notation: `test[\"skip\"]`, `test[\"fixme\"]`\n - Bare `test.skip()` / `test.fixme()` calls (0 arguments)\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n describe.skip(\"test\", () => {});\n ```\n\n ```js,expect_diagnostic\n test.skip(\"test\", () => {});\n ```\n\n ```js,expect_diagnostic\n test.fixme(\"needs fixing\", async () => {});\n ```\n\n ## Valid\n\n ```js\n test.only(\"test\", () => {});\n test(\"test\", () => {});\n ```\n\n"
           },
           "noSparseArray": {
             "deprecated": false,
@@ -8015,7 +8296,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 462
+    "numberOrRules": 475
   },
   "syntax": {
     "languages": {

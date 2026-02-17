@@ -88,7 +88,9 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 ### @vitest/eslint-plugin
 | @vitest/eslint-plugin Rules name | Biome Rules name |
 | ---- | ---- |
+| [expect-expect](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/expect-expect.md) |[useExpect](/linter/rules/use-expect) |
 | [max-nested-describe](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/max-nested-describe.md) |[noExcessiveNestedTestSuites](/linter/rules/no-excessive-nested-test-suites) |
+| [no-conditional-expect](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/no-conditional-expect.md) |[noConditionalExpect](/linter/rules/no-conditional-expect) |
 | [no-disabled-tests](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/no-disabled-tests.md) |[noSkippedTests](/linter/rules/no-skipped-tests) (inspired) |
 | [no-done-callback](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/no-done-callback.md) |[noDoneCallback](/linter/rules/no-done-callback) |
 | [no-duplicate-hooks](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/no-duplicate-hooks.md) |[noDuplicateTestHooks](/linter/rules/no-duplicate-test-hooks) (inspired) |
@@ -288,7 +290,9 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 ### eslint-plugin-jest
 | eslint-plugin-jest Rules name | Biome Rules name |
 | ---- | ---- |
+| [expect-expect](https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/expect-expect.md) |[useExpect](/linter/rules/use-expect) |
 | [max-nested-describe](https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/max-nested-describe.md) |[noExcessiveNestedTestSuites](/linter/rules/no-excessive-nested-test-suites) |
+| [no-conditional-expect](https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-conditional-expect.md) |[noConditionalExpect](/linter/rules/no-conditional-expect) |
 | [no-disabled-tests](https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-disabled-tests.md) |[noSkippedTests](/linter/rules/no-skipped-tests) (inspired) |
 | [no-done-callback](https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-done-callback.md) |[noDoneCallback](/linter/rules/no-done-callback) |
 | [no-duplicate-hooks](https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-duplicate-hooks.md) |[noDuplicateTestHooks](/linter/rules/no-duplicate-test-hooks) (inspired) |
@@ -345,6 +349,23 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | eslint-plugin-no-secrets Rules name | Biome Rules name |
 | ---- | ---- |
 | [no-secrets](https://github.com/nickdeis/eslint-plugin-no-secrets/blob/master/README.md) |[noSecrets](/linter/rules/no-secrets) (inspired) |
+### eslint-plugin-playwright
+| eslint-plugin-playwright Rules name | Biome Rules name |
+| ---- | ---- |
+| [expect-expect](https://github.com/playwright-community/eslint-plugin-playwright/blob/main/docs/rules/expect-expect.md) |[useExpect](/linter/rules/use-expect) |
+| [missing-playwright-await](https://github.com/playwright-community/eslint-plugin-playwright/blob/main/docs/rules/missing-playwright-await.md) |[noPlaywrightMissingAwait](/linter/rules/no-playwright-missing-await) |
+| [no-conditional-expect](https://github.com/playwright-community/eslint-plugin-playwright/blob/main/docs/rules/no-conditional-expect.md) |[noConditionalExpect](/linter/rules/no-conditional-expect) |
+| [no-element-handle](https://github.com/playwright-community/eslint-plugin-playwright/blob/main/docs/rules/no-element-handle.md) |[noPlaywrightElementHandle](/linter/rules/no-playwright-element-handle) |
+| [no-eval](https://github.com/playwright-community/eslint-plugin-playwright/blob/main/docs/rules/no-eval.md) |[noPlaywrightEval](/linter/rules/no-playwright-eval) |
+| [no-force-option](https://github.com/playwright-community/eslint-plugin-playwright/blob/main/docs/rules/no-force-option.md) |[noPlaywrightForceOption](/linter/rules/no-playwright-force-option) |
+| [no-networkidle](https://github.com/playwright-community/eslint-plugin-playwright/blob/main/docs/rules/no-networkidle.md) |[noPlaywrightNetworkidle](/linter/rules/no-playwright-networkidle) |
+| [no-page-pause](https://github.com/playwright-community/eslint-plugin-playwright/blob/main/docs/rules/no-page-pause.md) |[noPlaywrightPagePause](/linter/rules/no-playwright-page-pause) |
+| [no-skipped-test](https://github.com/playwright-community/eslint-plugin-playwright/blob/main/docs/rules/no-skipped-test.md) |[noSkippedTests](/linter/rules/no-skipped-tests) (inspired) |
+| [no-useless-await](https://github.com/playwright-community/eslint-plugin-playwright/blob/main/docs/rules/no-useless-await.md) |[noPlaywrightUselessAwait](/linter/rules/no-playwright-useless-await) |
+| [no-wait-for-navigation](https://github.com/playwright-community/eslint-plugin-playwright/blob/main/docs/rules/no-wait-for-navigation.md) |[noPlaywrightWaitForNavigation](/linter/rules/no-playwright-wait-for-navigation) |
+| [no-wait-for-selector](https://github.com/playwright-community/eslint-plugin-playwright/blob/main/docs/rules/no-wait-for-selector.md) |[noPlaywrightWaitForSelector](/linter/rules/no-playwright-wait-for-selector) |
+| [no-wait-for-timeout](https://github.com/playwright-community/eslint-plugin-playwright/blob/main/docs/rules/no-wait-for-timeout.md) |[noPlaywrightWaitForTimeout](/linter/rules/no-playwright-wait-for-timeout) |
+| [valid-describe-callback](https://github.com/playwright-community/eslint-plugin-playwright/blob/main/docs/rules/valid-describe-callback.md) |[usePlaywrightValidDescribeCallback](/linter/rules/use-playwright-valid-describe-callback) |
 ### eslint-plugin-promise
 | eslint-plugin-promise Rules name | Biome Rules name |
 | ---- | ---- |
