@@ -5,40 +5,48 @@ description: Biomeのフォーマッタの使い方
 
 import PackageManagerBiomeCommand from "@/components/PackageManagerBiomeCommand.astro";
 
-Biomeは、スタイル関する議論に終止符を打つことを目的とした「opinionated」なフォーマッタです。
-[Prettierと近い哲学](https://prettier.io/docs/en/option-philosophy.html)を持ち、
+Biomeは[複数の言語をサポートする](/ja/internals/language-support)、opinionatedなフォーマッタです。
+[Prettierと近い哲学](https://prettier.io/docs/en/option-philosophy.html)に従い、
 スタイルに関する議論がBiomeのオプションに関する議論に発展するのを避けるために、いくつかのオプションのみをサポートしています。
 チーム内での[些細な議論](https://ja.wikipedia.org/wiki/パーキンソンの凡俗法則)を防ぎ、本当に重要なことに集中できるようにするために、[新しいオプションを意図的に追加しない](https://github.com/prettier/prettier/issues/40)ようにしています。
 
-## オプション
-
-Biomeがサポートする、言語に依存しないオプションは以下の通りです。
-
-- インデントスタイル（デフォルト： `tab`）：インデントにはスペースまたはタブを使用します
-- タブ幅（デフォルト：`2`）：インデントレベルごとのスペースの数です。
-- 行幅（デフォルト：`80`）：Biomeがコードを折り返す列幅です。
-
-特定の言語に対する他のフォーマットオプションも利用可能です。詳しくは[設定オプション](/reference/configuration)をご覧ください。
-
 ## CLI
 
-デフォルトでは、フォーマッタはコードを**チェック**し、差分がある場合はそれを報告します。
+次のコマンドは、`src` ディレクトリ内のファイルのフォーマットをチェックします。
+フォーマットされていないコードが見つかった場合、テキストの差分を出力します。
 
 <PackageManagerBiomeCommand command="format ./src" />
 
-新しいフォーマットを**適用**する場合は、`--write`オプションを使用してください。
+新しいフォーマットを**適用**する場合は、`--write` オプションを渡してください：
 
 <PackageManagerBiomeCommand command="format --write ./src" />
 
-利用可能なオプションを知りたい場合は、`--help`フラグを使用してください。
+このコマンドは、ファイルとディレクトリのリストを受け入れます。
 
-<PackageManagerBiomeCommand command="format --help" />
+:::caution
+パラメータとしてglobを渡すと、シェルによって展開されます。
+展開の結果は、使用しているシェルによって異なります。
+例えば、一部のシェルは次のコマンドの再帰的glob `**` や代替 `{}` をサポートしていません：
 
-その他については、[CLIのリファレンス](/reference/cli#biome-format)を確認してください。
+```shell
+biome format ./src/**/*.test.{js,ts}
+```
 
-## 設定
+シェルの展開にはパフォーマンスコストがあり、コマンドに渡せるファイル数にも制限があります。
+:::
 
-`biome.json`を使用して、[フォーマッターを設定](/reference/configuration/#formatter)することができます。以下はデフォルトの設定です。
+利用可能なすべてのオプションの詳細については、[CLIリファレンス](/reference/cli#biome-format)を確認してください。
+
+## オプション
+
+Biomeは、フォーマッタの動作を調整するためのいくつかのオプションを提供しています。
+他のツールとは異なり、Biomeは言語に依存しないオプションと言語固有のオプションを分離しています。
+
+フォーマッタオプションは、[CLI](/reference/cli/#biome-format)または[Biome設定ファイル](/ja/guides/configure-biome)で設定できます。
+v1.9以降、Biomeは `.editorconfig` ファイルの読み込みをサポートしています。
+
+[Biome設定ファイル](/ja/guides/configure-biome)を使用して、Biome CLIとBiome LSPの両方に同じオプションが適用されるようにすることをお勧めします。
+以下のデフォルト設定が適用されます：
 
 ```json title="biome.json"
 {
@@ -49,8 +57,8 @@ Biomeがサポートする、言語に依存しないオプションは以下の
     "attributePosition": "auto",
     "indentStyle": "tab",
     "indentWidth": 2,
-    "lineEnding": "lf",
-    "lineWidth": 80
+    "lineWidth": 80,
+    "lineEnding": "lf"
   },
   "javascript": {
     "formatter": {
@@ -71,21 +79,58 @@ Biomeがサポートする、言語に依存しないオプションは以下の
 }
 ```
 
-他のツールと違って、Biomeは言語ごとに関するオプションを設定することができます。
+Biomeフォーマッタがサポートする、言語に依存しない主なオプションは次のとおりです：
 
-## コードのフォーマットを無効にする
+- インデントスタイル（デフォルト：`tab`）：インデントにスペースまたはタブを使用します。
+- インデント幅（デフォルト：`2`）：インデントレベルごとのスペースの数です。
+- 行幅（デフォルト：`80`）：Biomeがコードを折り返す列幅です。
+
+詳細については、[設定リファレンス](/ja/reference/configuration#formatter)を参照してください。
+
+## コードを無視する
 
 フォーマットされたコードが理想的でない場合があります。
 
-そのような場合は、フォーマットを抑制するコメントが使用できます。
+### ファイル全体を無視する
 
-```js
-// biome-ignore format: <説明文>
+ファイル全体に対してフォーマッタを抑制（無視）するには、**ファイルの先頭**に `biome-ignore-all format: reason` コメントを使用します：
+
+例えば、JavaScriptの場合：
+
+```js title="example.js"
+// biome-ignore-all format: generated file
+
+const expr1 =
+  [
+    (2 * n) / (r - l),
+    0,
+    (r + l) / (r - l),
+    -1,
+    0,
+  ];
+
+
+const expr2 =
+  [
+    (2 * n) / (r - l),
+    0,
+    (r + l) / (r - l),
+    -1,
+    0,
+  ];
 ```
 
-Example:
+### ノードを無視する
 
-```js
+コードの一部（ノード）だけを抑制したい場合は、抑制コメント `biome-ignore format: reason` を使用します
+
+```js title="example.js"
+// biome-ignore format: reason
+```
+
+例：
+
+```js title="example.js"
 const expr =
   // biome-ignore format: この配列はフォーマットさせない。
   [
