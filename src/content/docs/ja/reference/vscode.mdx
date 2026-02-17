@@ -139,6 +139,40 @@ Biome拡張機能は、[サポートされているファイルタイプ](/ja/in
 この設定を有効にするには、`biome.enabled`設定を同じスコープで`true`（デフォルト）に設定する必要があります。
 :::
 
+### `biome.inlineConfig`
+
+Biome設定のインラインバージョン。この設定のオプションは、ディスクから読み取られた`biome.json`ファイル（またはデフォルト値）のオプションを上書きします。
+
+例えば、プロジェクトで`noConsole`ルールを`error`の重大度で有効にしているとします：
+
+```json title="biome.json"
+{
+  "linter": {
+    "rules": {
+      "suspicious": {
+        "noConsole": "error"
+      }
+    }
+  }
+}
+```
+
+しかし、ローカル開発中は、このルールが便利で赤い波線を見たくないため、このルールを無効にしたいとします。`inlineConfig`には、次のように記述します：
+
+```json title=".vscode/settings.json"
+{
+  "biome.inlineConfig": {
+    "linter": {
+      "rules": {
+        "suspicious": {
+          "noConsole": "off"
+        }
+      }
+    }
+  }
+}
+```
+
 ### `biome.lsp.bin`
 
 **デフォルト:** `undefined` | **スコープ:** `global`, `workspace`, `workspace folder`

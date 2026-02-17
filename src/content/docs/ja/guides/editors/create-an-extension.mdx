@@ -41,6 +41,82 @@ Biomeは新しい出力（変更がない場合は元の出力）を[標準出�
 
 バイナリ名は `biome` または `biome.exe` で、ライブラリのルートディレクトリに配置されています。例：`@biomejs/cli-darwin-arm64/biome`、`@biomejs/cli-win32-x64/biome.exe`
 
+### 拡張機能の設定
+
+Biome Language Serverは以下の設定を公開しており、拡張機能はこれらをユーザーに公開できます。
+
+:::note
+以下の設定は**拡張機能開発者向け**であり、ユーザー向けではありません。
+拡張機能は、異なる名前や異なる形式で設定をユーザーに公開することができます。
+
+例えば、Zed拡張機能は[`require_configuration`](#require-configuration)設定を、JSONCファイルで定義される`require_config_file`設定としてマッピングしています。
+:::
+
+#### `require_configuration`
+
+> Type: `boolean`
+> Default: `false`
+
+Biome Language Serverが設定ファイルを必要とするかどうか。`true`に設定すると、プロジェクトのルートに`biome.json`ファイルがあるまで、（パース以外の）ファイルの解析を行いません。
+
+```json
+{
+  "require_configuration": true
+}
+```
+
+#### `configuration_path`
+
+> Type: `string`
+> Default: `null`
+
+カスタム設定ファイルへのパス。パスは`biome.json`/`biome.jsonc`があるフォルダ、またはファイルへのパスを指定できます。
+
+パスは相対パスまたは絶対パスで指定できます。Biome Language Serverは、この設定が指定された場合にのみ読み取ります。設定が*プロジェクトのサブフォルダにある*場合にこの設定を使用してください。
+
+```json
+{
+  "configuration_path": "./frontend/biome.json"
+}
+```
+
+#### `inline_config`
+
+> Type: `object`
+> Default: `null`
+
+Biome設定のインラインバージョン。この設定のオプションは、ディスクから読み取られた`biome.json`ファイル（またはデフォルト値）のオプションを上書きします。
+
+例えば、プロジェクトで`noConsole`ルールを`error`の重大度で有効にしているとします：
+
+```json title="biome.json"
+{
+  "linter": {
+    "rules": {
+      "suspicious": {
+        "noConsole": "error"
+      }
+    }
+  }
+}
+```
+
+しかし、ローカル開発中は、このルールが便利で赤い波線を見たくないため、このルールを無効にしたいとします。`inline_config`には、次のように記述します：
+
+```json
+{
+  "inline_config": {
+    "linter": {
+      "rules": {
+        "suspicious": {
+          "noConsole": "off"
+        }
+      }
+    }
+  }
+}
+```
+
 ### バイナリとデーモンを使用する
 
 CLIを介してバイナリを使用するのは非常に効率的ですが、[ログ](#デーモンログ)をユーザーに提供することはできません。CLIを使用するとデーモンを起動し、デーモン経由でCLIコマンドを使用できます。
