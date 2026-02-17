@@ -19,7 +19,7 @@ BiomeのGritQLは現在、以下のターゲット言語をサポートしてい
 
 BiomeはGritQLを2つの目的で使用しています：
 
-- [アナライザープラグイン](/linter/plugins)
+- [アナライザープラグイン](/ja/linter/plugins)
 - [`biome search`](/reference/cli/#biome-search)コマンド。これはIDE拡張機能にも拡張したいと考えています
 
 ## パターン
@@ -100,9 +100,9 @@ GritQLクエリでは変数も使用できます。
 
 ## Biomeの構文ノードとのマッチング
 
-より正確なクエリを行うために、Biomeの内部構文ノードに直接マッチさせることができます。各ノードは一意の`PascalCase`名で識別されます。
+より正確なクエリを行うために、Biome内部の構文ノードに直接マッチさせることができます。各ノードは一意の `PascalCase` 名で識別されます。
 
-たとえば、すべてのJavaScript `if`文を見つけるには、`JsIfStatement`ノードとマッチさせることができます：
+たとえば、すべてのJavaScript `if` 文を見つけるには、 `JsIfStatement` ノードとマッチさせることができます：
 
 ```grit
 engine biome(1.0)
@@ -116,7 +116,7 @@ JsIfStatement() as $stmt where {
 }
 ```
 
-コードのノード名を調べるには、[Biome Playground](https://biomejs.dev/playground/)で構文ツリーを探索できます。利用可能なすべてのノードの完全なリストは、Biomeリポジトリの[`xtask/codegen`](https://github.com/biomejs/biome/tree/main/xtask/codegen)ディレクトリにある`.ungram`ファイルでも確認できます。
+コードのノード名を調べるには、[Biome Playground](https://biomejs.dev/playground/)で構文ツリーを探索できます。利用可能なすべてのノードの完全なリストは、Biomeリポジトリの [`xtask/codegen`](https://github.com/biomejs/biome/tree/main/xtask/codegen) ディレクトリにある `.ungram` ファイルでも確認できます。
 
 :::caution
 Biomeの文法はバージョン間で変更される可能性があり、特に新しい言語では変更が多いです。これにより、ノード名が変更される可能性があり、パターンが壊れる可能性があります。Biomeをアップグレードする際は、クエリを更新する準備をしてください。
@@ -132,7 +132,7 @@ language json
 `"foo": $value`
 ```
 
-このパターンは、キー`"foo"`を持つ任意のJSONメンバーにマッチします。
+このパターンは、キー `"foo"` を持つ任意のJSONメンバーにマッチします。
 
 より正確なマッチングには、BiomeのJSON構文ノードを直接使用できます：
 

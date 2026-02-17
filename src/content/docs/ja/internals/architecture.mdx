@@ -9,30 +9,30 @@ description: Biomeの内部動作
 
 Biomeには、プロジェクトに関する重要なメタデータを抽出するためにファイルシステムをクロールする責任を持つスキャナーがあります。具体的には、スキャナーは次の3つの方法で使用されます：
 
-- モノレポ内のネストされた`biome.json`/`biome.jsonc`ファイルを検出する
-- [`vcs.useIgnoreFile`](/reference/configuration/#vcsuseignorefile)設定が有効な場合、ネストされた`.gitignore`ファイルを検出する
-- [プロジェクトドメイン](/linter/domains/#project)のルールが有効な場合、`package.json`マニフェストとプロジェクト内のソースファイルをインデックス化する
+- モノレポ内のネストされた `biome.json` / `biome.jsonc` ファイルを検出する
+- [`vcs.useIgnoreFile`](/ja/reference/configuration/#vcsuseignorefile) 設定が有効な場合、ネストされた `.gitignore` ファイルを検出する
+- [`project` ドメイン](/linter/domains/#project) のルールが有効な場合、 `package.json` マニフェストとプロジェクト内のソースファイルをインデックス化する
 
 ### スキャナーのターゲット設定
 
 プロジェクトルールが有効でない場合、スキャナーは特定のセッションに関連するフォルダのみを自動的にターゲットにします。
 
-つまり、大規模なモノレポがあり、`packages/foo/`フォルダ内から`biome check`を実行すると、そのフォルダが「ターゲット」になります。これは、以下のフォルダがネストされた設定ファイルやネストされたignoreファイルに対してスキャンされることを意味します：
+つまり、大規模なモノレポがあり、 `packages/foo/` フォルダ内から `biome check` を実行すると、そのフォルダが「ターゲット」になります。これは、以下のフォルダがネストされた設定ファイルやネストされたignoreファイルに対してスキャンされることを意味します：
 
 - リポジトリのルートフォルダ
-- `packages/`フォルダ
-- `packages/foo/`フォルダ
-- `packages/foo/`の下に存在するすべてのフォルダ（`node_modules/`や設定で除外されたフォルダを除く（[以下](#スキャナーの設定)を参照））
+- `packages/` フォルダ
+- `packages/foo/` フォルダ
+- `packages/foo/` の下に存在するすべてのフォルダ（`node_modules/` や設定で除外されたフォルダを除く（[以下](#スキャナーの設定)を参照））
 
-`packages/`または`packages/foo/`に隣接する他のフォルダは自動的にスキップされます。
+`packages/` または `packages/foo/` に隣接する他のフォルダは自動的にスキップされます。
 
-同様に、リポジトリのルートから`biome format packages/bar/src/index.ts`を実行すると、スキャナーは`packages/bar/src/`フォルダをターゲットにします。
+同様に、リポジトリのルートから `biome format packages/bar/src/index.ts` を実行すると、スキャナーは `packages/bar/src/` フォルダをターゲットにします。
 
 プロジェクトルールが有効な場合、これらの最適化は適用されません。
 
 ### スキャナーの設定
 
-スキャナーは[`files.includes`](/reference/configuration/#interactionwiththescanner)設定を通じて設定できます。
+スキャナーは [`files.includes`](/ja/reference/configuration/#スキャナーとの相互作用) 設定を通じて設定できます。
 
 ## パーサーとCST
 
