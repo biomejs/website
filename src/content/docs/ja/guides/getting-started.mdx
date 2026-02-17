@@ -1,4 +1,3 @@
-
 ---
 title: はじめる
 description: Biomeと共に新しいプロジェクトを立ち上げる方法
@@ -22,14 +21,14 @@ Biomeはプロジェクトの開発依存としてインストールするのが
 
 :::note[バージョンの固定]
 `-E` はパッケージマネージャがBiomeのバージョンを固定することを保証します。
-[バージョンの固定が重要な理由]についての詳細は、[バージョニングページ](/internals/versioning)をご覧ください。
+[バージョンの固定が重要な理由]についての詳細は、[バージョニングのページ](/ja/internals/versioning)をご覧ください。
 :::
 
-[バージョンの固定が重要な理由]: /internals/versioning#why-pinning-the-version-is-important
+[バージョンの固定が重要な理由]: /ja/internals/versioning#バージョンの固定が重要な理由
 
 ## 設定
 
-Biomeは設定なしで動作しますが、プロジェクトのニーズに合わせていくつかの設定を調整したい場合は、次のコマンドを実行して`biome.json`設定ファイルを生成できます。
+Biomeは設定なしでも動作しますが、プロジェクトのニーズに合わせていくつかの設定を調整したい場合は、次のコマンドを実行して `biome.json` 設定ファイルを生成できます。
 
 <PackageManagerBiomeCommand command="init"/>
 
@@ -155,29 +154,29 @@ yarn exec biome check --write <files>
 
 Biomeはお気に入りのエディタでファーストパーティの拡張機能として利用可能です。
 
-- [VS Code](/guides/editors/first-party-extensions#vs-code)
-- [IntelliJ](/guides/editors/first-party-extensions#intellij)
-- [Zed](/guides/editors/first-party-extensions#zed)
+- [VS Code](/ja/guides/editors/first-party-extensions#vs-code)
+- [IntelliJ](/ja/guides/editors/first-party-extensions#intellij)
+- [Zed](/ja/guides/editors/first-party-extensions#zed)
 
-**Vim**、**Neovim**、**Sublime Text**などの他のエディタ向けの[コミュニティ拡張機能](/guides/editors/third-party-extensions)もあります。
+**Vim**、**Neovim**、**Sublime Text**などの他のエディタ向けの[コミュニティ拡張機能](/ja/guides/editors/third-party-extensions)もあります。
 
 ### 継続的インテグレーション
 
-チーム全体でコード品質と一貫性を保つために、CIパイプラインの一部として`biome ci`を実行します。これは`biome check`コマンドと同様に動作しますが、CI環境向けに最適化されています。
+チーム全体でコード品質と一貫性を保つために、CIパイプラインの一部として `biome ci` を実行します。これは `biome check` コマンドと同様に動作しますが、CI環境向けに最適化されています。
 
-- [GitHub Actions](/recipes/continuous-integration#github-actions)
-- [GitLab CI](/recipes/continuous-integration#gitlab-ci)
+- [GitHub Actions](/ja/recipes/continuous-integration#github-actions)
+- [GitLab CI](/ja/recipes/continuous-integration#gitlab-ci)
 
-その他の例については、[継続的インテグレーション](/recipes/continuous-integration)のレシピをご覧ください。
+その他の例については、[継続的インテグレーション](/ja/recipes/continuous-integration)のレシピをご覧ください。
 
 ## 次のステップ
 
 成功です！これでBiomeを使う準備が整いました。🥳
 
-- [ESLintとPrettierから移行する](/guides/migrate-eslint-prettier)
-- [Biomeの設定方法](/guides/configure-biome)について詳しく知る
-- [フォーマッタ](/formatter)の使い方と設定方法について詳しく知る
-- [リンタ](/linter)の使い方と設定方法について詳しく知る
+- [ESLintとPrettierから移行する](/ja/guides/migrate-eslint-prettier)
+- [Biomeの設定方法](/ja/guides/configure-biome)について詳しく知る
+- [フォーマッタ](/ja/formatter)の使い方と設定方法について詳しく知る
+- [リンタ](/ja/linter)の使い方と設定方法について詳しく知る
 - [CLIコマンドとオプション](/reference/cli)を使いこなす
-- [設定オプション](/reference/configuration)を使いこなす
+- [設定オプション](/ja/reference/configuration)を使いこなす
 - [Discordのコミュニティ](https://biomejs.dev/chat)に参加する
