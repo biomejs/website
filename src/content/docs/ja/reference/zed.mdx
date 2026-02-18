@@ -7,17 +7,37 @@ description: BiomeのZed拡張機能
 
 Zed >= **v0.131.0** が必要です。
 
-この拡張機能は、Zedエディタで利用できます。 `zed: extensions` を開き、 _Biome_ と検索してください。
+この拡張機能は、Zedエディタの拡張機能ビューで利用できます。 `zed: extensions` を開き、 _Biome_ を検索してください。内部でBiomeバイナリを実行し、以下の順序でBiomeのインストールを確認します：
+
+1. Zedの設定で指定されたパス、例えば：
+  ```json title='.zed/settings.json'
+  {
+    "lsp": {
+      "biome": {
+       "binary": {
+          "path": "/var/biome-2.2.3/bin/biome",
+          "arguments": [
+            "lsp-proxy"
+         ]
+        }
+      }
+    }
+  }
+  ```
+2. `package.json` 経由でローカルにインストールされたBiome
+3. `PATH` にシステム全体にインストールされたBiome
+
+いずれも存在しない場合、Biomeを `npm` でインストールして使用するようZedに依頼します。
 
 ## 設定
 
-デフォルトでは、biome.jsonファイルは **ワークスペースのルート** に配置する必要があります。
+### `config_path`
 
-それ以外の場合は、LSP設定を通じて構成できます。
+デフォルトでは、設定ファイルは**ワークスペースのルート**に配置する必要があります。
 
+それ以外の場合は、LSP設定を通じて構成できます：
 
-```jsonc
-// settings.json
+```json5 title=".zed/settings.json"
 {
   "lsp": {
     "biome": {
@@ -29,25 +49,13 @@ Zed >= **v0.131.0** が必要です。
 }
 ```
 
-### フォーマット
+### `require_config_file`
 
-言語サーバーをフォーマッタとして使用するには、設定でbiomeをフォーマッタとして指定してください。
+プロジェクトに設定ファイルが含まれている場合にのみBiomeを有効にします：
 
-```jsonc
-// settings.json
-{
-  "formatter": {
-    "language_server": {
-      "name": "biome"
-    }
-  }
-}
-```
+> デフォルト: `false`
 
-### biome.jsonが存在する場合にのみbiomeを有効にする
-
-```jsonc
-// settings.json
+```json5 title=".zed/settings.json"
 {
   "lsp": {
     "biome": {
@@ -59,38 +67,138 @@ Zed >= **v0.131.0** が必要です。
 }
 ```
 
-### プロジェクトベースの設定
+### `inline_config`
 
-すべてのプロジェクトでbiomeの実行を除外したい場合は、次の手順に従ってください。
+Biome設定のインラインバージョン。この設定のオプションは、ディスクから読み取られた `biome.json` ファイル（またはデフォルト値）のオプションを上書きします。
 
-1. ユーザー設定でbiome言語サーバーを無効にする。
+例えば、プロジェクトで `noConsole` ルールを `error` の重大度で有効にしているとします：
 
-```jsonc
-// settings.json
+```json title="biome.json"
 {
-  "language_servers": [ "!biome", "..." ]
-}
-```
-
-2. そして、プロジェクトのローカル設定で有効にします。
-
-```jsonc
-// <workspace>/.zed/settings.json
-{
-  "language_servers": [ "biome", "..." ]
-}
-```
-
-また、[`languages`](https://zed.dev/docs/configuring-zed#languages)キーを使用して言語ごとに設定することもできます。
-
-### フォーマット時にコードアクションを実行する
-
-```jsonc
-// settings.json
-{
-  "code_actions_on_format": {
-    "source.fixAll.biome": true,
-    "source.organizeImports.biome": true
+  "linter": {
+    "rules": {
+      "suspicious": {
+        "noConsole": "error"
+      }
+    }
   }
 }
 ```
+
+しかし、ローカル開発中は、このルールが便利で赤い波線を見たくないため、このルールを無効にしたいとします。 `inline_config` には、次のように記述します：
+
+```json title=".zed/settings.json"
+{
+  "lsp": {
+    "biome": {
+      "settings": {
+        "inline_config": {
+          "linter": {
+            "rules": {
+              "suspicious": {
+                "noConsole": "off"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+
+## フォーマット
+
+言語サーバーをフォーマッタとして使用するには、設定で `biome` をフォーマッタとして指定してください：
+
+```json5 title=".zed/settings.json"
+{
+  "languages": {
+    "Astro": { "formatter": { "language_server": { "name": "biome" } } },
+    "CSS": { "formatter": { "language_server": { "name": "biome" } } },
+    "GraphQL": { "formatter": { "language_server": { "name": "biome" } } },
+    "HTML": { "formatter": { "language_server": { "name": "biome" } } },
+    "JSON": { "formatter": { "language_server": { "name": "biome" } } },
+    "JSONC": { "formatter": { "language_server": { "name": "biome" } } },
+    "JSX": { "formatter": { "language_server": { "name": "biome" } } },
+    "JavaScript": { "formatter": { "language_server": { "name": "biome" } } },
+    "Svelte": { "formatter": { "language_server": { "name": "biome" } } },
+    "TSX": { "formatter": { "language_server": { "name": "biome" } } },
+    "TypeScript": { "formatter": { "language_server": { "name": "biome" } } },
+    "Vue.js": { "formatter": { "language_server": { "name": "biome" } } },
+  }
+}
+```
+
+詳細については、[言語サポート](/ja/internals/language-support)を参照してください。
+
+### biome.jsonが存在する場合にのみBiomeを有効にする
+
+```json5 title=".zed/settings.json"
+{
+  "lsp": {
+    "biome": {
+      "settings": {
+        "require_config_file": true
+      }
+    }
+  }
+}
+```
+
+### フォーマット時にコードアクションを実行する：
+
+```json5 title=".zed/settings.json"
+{
+  "languages": {
+    "JavaScript": {
+      "formatter": { "language_server": { "name": "biome" } },
+      "code_actions_on_format": {
+        "source.fixAll.biome": true,
+        "source.organizeImports.biome": true
+      }
+    },
+    "TypeScript": {
+      "formatter": { "language_server": { "name": "biome" } },
+      "code_actions_on_format": {
+        "source.fixAll.biome": true,
+        "source.organizeImports.biome": true
+      }
+    },
+    "TSX": {
+      "formatter": { "language_server": { "name": "biome" } },
+      "code_actions_on_format": {
+        "source.fixAll.biome": true,
+        "source.organizeImports.biome": true
+      }
+    }
+  }
+}
+```
+
+[安全でない修正](/ja/linter/#安全でない修正-unsafe-fixes)を保存時に適用したい場合は、[ルールのコード修正を安全にする](/ja/linter/#コード修正を設定する)必要があります。
+
+### プロジェクトベースの設定
+
+これらの設定は、プロジェクトフォルダのルートにあるZedプロジェクト設定（`.zed/settings.json`）に含めるか、すべてのプロジェクトにデフォルトで適用されるZedユーザー設定（`~/.config/zed/settings.json`）に含めることができます。
+
+#### 特定のプロジェクトでBiomeを無効にする
+
+プロジェクトで特定の言語（例：GraphQL）のBiomeを除外できます：
+
+```json5 title=".zed/settings.json"
+{
+  "languages": {
+    "GraphQL": {
+      "language_servers": [ "!biome", "..." ]
+    }
+  }
+}
+```
+
+### グローバル設定
+
+Zed settings.jsonのトップレベルの `language_servers`、`formatter`、または `code_actions_on_format` キーに `biome` を追加することは推奨されません。`language_server` または `formatter` として `biome` をグローバルに指定すると、Biomeがサポートしていない言語（Rust、Pythonなど）の機能が壊れる可能性があります。サポートされている言語の完全なリストについては、[言語サポート](/ja/internals/language-support)を参照してください。
+
+このドキュメントでは以前、グローバル設定を推奨していました。Zedの設定を言語ごとにBiomeを明示的に設定するように切り替えてください。
