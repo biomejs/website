@@ -327,7 +327,8 @@ self.addEventListener("message", async (e) => {
 				break;
 			}
 
-			const { filename, code, cursorPosition } = e.data;
+			const { filename, code, cursorPosition, gritQuery, defaultLanguage } =
+				e.data;
 			const path = `/${filename}`;
 
 			filesystem.insert(path, encoder.encode(code));
@@ -424,6 +425,41 @@ self.addEventListener("message", async (e) => {
 			} catch (e) {
 				console.warn("Failed to get control flow graph:", e);
 				typesRegistered = "";
+			}
+
+			let gritQueryMatches: [number, number][] = [];
+			if (gritQuery) {
+				let patternId: string | null = null;
+				try {
+					const parseResult = workspace.parsePattern({
+						pattern: String(gritQuery),
+						defaultLanguage: defaultLanguage || "JavaScript",
+					});
+					patternId = String(parseResult.patternId);
+				} catch (e) {
+					console.error("Failed to parse GritQL query:", e);
+				}
+
+				if (patternId) {
+					try {
+						const searchResults = workspace.searchPattern({
+							path: `/${filename}`,
+							pattern: patternId,
+							projectKey,
+						});
+						gritQueryMatches = searchResults.matches || [];
+					} catch (e) {
+						console.error("Failed to search with GritQL query:", e);
+					}
+
+					try {
+						workspace.dropPattern({
+							pattern: patternId,
+						});
+					} catch (e) {
+						console.warn("Failed to drop pattern:", e);
+					}
+				}
 			}
 
 			let formatterIr = "";
@@ -524,6 +560,9 @@ self.addEventListener("message", async (e) => {
 				types: {
 					ir: typesIr,
 					registered: typesRegistered,
+				},
+				gritQuery: {
+					matches: gritQueryMatches,
 				},
 			};
 

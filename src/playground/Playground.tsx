@@ -63,6 +63,9 @@ export default function Playground({
 	const file = getFileState(playgroundState, playgroundState.currentFile);
 	const biomeOutput = file.biome;
 	const prettierOutput = file.prettier;
+	const gritQuery = file.gritQuery ?? "";
+	const gritQueryResults = biomeOutput.gritQuery ?? { matches: [] };
+	const gritTargetLanguage = playgroundState.settings.gritTargetLanguage;
 
 	const codeMirrorExtensions = useMemo(() => {
 		if (isJsonFilename(playgroundState.currentFile)) {
@@ -193,6 +196,7 @@ export default function Playground({
 			onChange={onChange}
 			autoFocus={true}
 			data-testid="editor"
+			gritQueryMatches={gritQueryResults.matches}
 		/>
 	);
 
@@ -353,6 +357,30 @@ export default function Playground({
 						console={biomeOutput.diagnostics.console}
 						diagnostics={biomeOutput.diagnostics.list}
 						code={code}
+						gritQuery={gritQuery}
+						gritQueryResults={gritQueryResults}
+						gritTargetLanguage={gritTargetLanguage}
+						onGritQueryChange={(query) => {
+							setPlaygroundState((state) => ({
+								...state,
+								files: {
+									...state.files,
+									[state.currentFile]: {
+										...getFileState(state, state.currentFile),
+										gritQuery: query,
+									},
+								},
+							}));
+						}}
+						onLanguageChange={(language) => {
+							setPlaygroundState((state) => ({
+								...state,
+								settings: {
+									...state.settings,
+									gritTargetLanguage: language,
+								},
+							}));
+						}}
 					/>
 				</Resizable>
 			</div>
