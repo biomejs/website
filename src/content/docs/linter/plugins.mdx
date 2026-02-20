@@ -3,9 +3,9 @@ title: Linter Plugins
 description: An overview of how to use Biome's Linter Plugins
 ---
 
-Biome Linter supports [GritQL](/reference/gritql/) plugins. Currently, these
-plugins allow you to match specific code patterns and register customized
-diagnostic messages for them.
+Biome Linter supports [GritQL](/reference/gritql/) plugins. Plugins can match
+specific code patterns, report customized diagnostics, and suggest fixable
+rewrites.
 
 Here is an example of a plugin that reports on all usages of `Object.assign()`:
 
@@ -46,6 +46,29 @@ $ biome lint
     14 │ }
 ```
 
+Plugins can also suggest code rewrites using the `=>` operator:
+
+```grit
+language js
+
+`console.log($msg)` as $call where {
+    register_diagnostic(
+        span = $call,
+        message = "Use console.info instead of console.log.",
+        severity = "warn",
+        fix_kind = "safe"
+    ),
+    $call => `console.info($msg)`
+}
+```
+
+Rewrite behavior:
+
+- Without `--write`, rewrites are shown as suggestions but not applied.
+- With `--write`, Biome applies plugin rewrites marked with `fix_kind = "safe"`.
+- With `--write --unsafe`, Biome also applies unsafe plugin rewrites.
+- If `fix_kind` is omitted, the rewrite is treated as unsafe by default.
+
 ## Target Languages
 
 A GritQL snippet always attempts to match against a given _target language_.
@@ -69,7 +92,7 @@ language css;
 }
 ```
 
-We currently do not support other target languages than JavaScript and CSS.
+Biome currently supports JavaScript, CSS, and JSON target languages.
 
 ## Plugin API
 
@@ -81,10 +104,13 @@ Biome currently supports one extra function:
 
 Registers a diagnostic to be reported whenever the pattern matches.
 
-Supports three arguments:
+Supports four arguments:
 
 - `span` (required): The syntax node to attach the diagnostic to. This is
   typically a variable that you matched within a code snippet.
 - `message` (required): The message to show with the diagnostic.
 - `severity`: The severity of the diagnostic. Allowed values are: `hint`,
   `info`, `warn`, and `error`. By default, `error` is used.
+- `fix_kind`: Safety of an associated rewrite fix (`safe` or `unsafe`). This is
+  only relevant when the pattern also uses the rewrite operator (`=>`). By
+  default, fixes are treated as unsafe.
