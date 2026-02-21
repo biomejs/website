@@ -225,7 +225,7 @@ impl DocDomains {
             writeln!(buffer)?;
             writeln!(
                 buffer,
-                ":::note[No recommended rules]\nSince all rules in this domain are nursery rules, no rules will be activated when enabling the domain. You need to enable the single rules.:::#"
+                ":::note[No recommended rules]\nSince all rules in this domain are nursery rules, no rules will be activated when enabling the domain. You need to enable the single rules.\n:::"
             )?;
         }
 
