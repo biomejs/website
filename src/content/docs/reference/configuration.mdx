@@ -50,6 +50,50 @@ This is required so Biome can orchestrate multiple files in CLI and editors at t
 
 > Default: `true`
 
+## `plugins`
+
+A list of [GritQL plugins](/linter/plugins/) to enable. Each entry can be
+either a simple path string or an object with a path and optional file-scoping
+options.
+
+Simple path:
+
+```json title="biome.json"
+{
+  "plugins": ["./my-plugin.grit"]
+}
+```
+
+Path with file scoping:
+
+```json title="biome.json"
+{
+  "plugins": [
+    {
+      "path": "./react-plugin.grit",
+      "includes": ["src/components/**"],
+      "excludes": ["src/components/generated/**"]
+    }
+  ]
+}
+```
+
+You can mix both forms in the same list.
+
+### `plugins.<ITEM>.path`
+
+Path to the plugin file (`.grit`) or plugin directory containing a
+`biome-manifest.jsonc`.
+
+### `plugins.<ITEM>.includes`
+
+A list of glob patterns for files the plugin should run on. If set, only
+matching files are analyzed by this plugin.
+
+### `plugins.<ITEM>.excludes`
+
+A list of glob patterns for files the plugin should skip. If set, matching
+files are excluded from analysis by this plugin.
 
 ## `files`
 

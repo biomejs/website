@@ -30,7 +30,35 @@ the following configuration:
 ```
 
 The plugin will now be enabled on all supported files the linter runs on. You
-can see its results when running `biome lint` or `biome check`. For example:
+can see its results when running `biome lint` or `biome check`.
+
+### File Scoping
+
+By default, a plugin runs on every file the linter processes. If a plugin only
+applies to certain files, you can restrict it using `includes` and `excludes`
+glob patterns:
+
+```json name="biome.json"
+{
+    "plugins": [
+        {
+            "path": "./react-plugin.grit",
+            "includes": ["src/components/**"]
+        },
+        {
+            "path": "./no-test-debug.grit",
+            "excludes": ["tests/**"]
+        }
+    ]
+}
+```
+
+When `includes` is set, the plugin only runs on files matching at least one of
+the include patterns. When `excludes` is set, the plugin skips files matching
+any exclude pattern. If both are set, a file must match an include pattern _and_
+not match any exclude pattern.
+
+For example:
 
 ```shell
 $ biome lint
