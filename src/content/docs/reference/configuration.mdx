@@ -71,8 +71,7 @@ Path with file scoping:
   "plugins": [
     {
       "path": "./react-plugin.grit",
-      "includes": ["src/components/**"],
-      "excludes": ["src/components/generated/**"]
+      "includes": ["src/components/**", "!src/components/generated/**"]
     }
   ]
 }
@@ -88,12 +87,9 @@ Path to the plugin file (`.grit`) or plugin directory containing a
 ### `plugins.<ITEM>.includes`
 
 A list of glob patterns for files the plugin should run on. If set, only
-matching files are analyzed by this plugin.
-
-### `plugins.<ITEM>.excludes`
-
-A list of glob patterns for files the plugin should skip. If set, matching
-files are excluded from analysis by this plugin.
+matching files are analyzed by this plugin. Use negated globs (prefixed with
+`!`) for exclusions, following the same semantics as
+[`.gitignore`](https://git-scm.com/docs/gitignore#_pattern_format).
 
 ## `files`
 
