@@ -47,14 +47,14 @@ Use negated globs (prefixed with `!`) for exclusions:
         },
         {
             "path": "./ts-only-plugin.grit",
-            "includes": ["src/**/*.ts", "!**/*.test.ts"]
+            "includes": ["src/**/*.ts", "!src/**/*.test.ts"]
         }
     ]
 }
 ```
 
-When `includes` is set, the plugin only runs on files matching at least one of
-the patterns. Negated patterns act as exceptions. Patterns follow the
+When `includes` is set, the plugin only runs on files that match at least one
+positive pattern and are not excluded by a negated pattern. Patterns follow the
 [glob syntax reference](/reference/configuration/#glob-syntax-reference).
 
 ## Target Languages
