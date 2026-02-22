@@ -297,6 +297,7 @@ export default {
   '/linter/rules/noVueDataObjectDeclaration': '/linter/rules/no-vue-data-object-declaration',
   '/linter/rules/noVueDuplicateKeys': '/linter/rules/no-vue-duplicate-keys',
   '/linter/rules/noVueOptionsApi': '/linter/rules/no-vue-options-api',
+  '/linter/rules/noVueRefAsOperand': '/linter/rules/no-vue-ref-as-operand',
   '/linter/rules/noVueReservedKeys': '/linter/rules/no-vue-reserved-keys',
   '/linter/rules/noVueReservedProps': '/linter/rules/no-vue-reserved-props',
   '/linter/rules/noVueSetupPropsReactivityLoss': '/linter/rules/no-vue-setup-props-reactivity-loss',

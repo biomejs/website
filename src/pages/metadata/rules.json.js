@@ -3769,6 +3769,23 @@ export function GET() {
             "fixKind": "none",
             "docs": " Disallow the use of Vue Options API.\n\n Vue 3.6's Vapor Mode does not support the Options API.\n Components must use the Composition API (`<script setup>` or `defineComponent` with function signature) instead.\n\n This rule helps prepare codebases for Vapor Mode by detecting Options API\n patterns that are incompatible with the new rendering mode.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script>\n export default {\n   data() {\n     return { count: 0 }\n   }\n }\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script>\n export default {\n   methods: {\n     increment() {\n       this.count++\n     }\n   }\n }\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script>\n export default {\n   computed: {\n     doubled() {\n       return this.count * 2\n     }\n   }\n }\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script>\n export default {\n   mounted() {\n     console.log('Component mounted')\n   }\n }\n </script>\n ```\n\n ```js,expect_diagnostic\n import { defineComponent } from 'vue'\n\n defineComponent({\n   name: 'MyComponent',\n   data() {\n     return { count: 0 }\n   }\n })\n ```\n\n ### Valid\n\n ```vue\n <script setup>\n import { ref } from 'vue'\n const count = ref(0)\n </script>\n ```\n\n ```vue\n <script setup>\n import { ref, computed } from 'vue'\n\n const count = ref(0)\n const doubled = computed(() => count.value * 2)\n </script>\n ```\n\n ```vue\n <script setup>\n import { onMounted } from 'vue'\n\n onMounted(() => {\n   console.log('Component mounted')\n })\n </script>\n ```\n\n ## Related Rules\n\n - [useVueVapor](https://biomejs.dev/linter/rules/use-vue-vapor): Enforces the use of Vapor mode in Vue components\n\n ## Resources\n\n - [Vue 3 Composition API](https://vuejs.org/api/composition-api-setup.html)\n - [Options API vs Composition API](https://vuejs.org/guide/introduction.html#api-styles)\n\n"
           },
+          "noVueRefAsOperand": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noVueRefAsOperand",
+            "link": "https://biomejs.dev/linter/rules/no-vue-ref-as-operand",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "no-ref-as-operand"
+                }
+              }
+            ],
+            "docs": " Disallow the use of value wrapped by `ref()`(Composition API) as operand\n \n To access value wrapped by `ref()`, you must use `.value`.\n\n ## Examples\n\n ### Invalid\n \n ```js,expect_diagnostic\n import { ref } from \"vue\"\n \n const count = ref(0)\n count++\n ```\n \n ```js,expect_diagnostic\n import { ref } from \"vue\"\n \n const ok = ref(false)\n const msg = ok ? \"yes\" : \"no\"\n ```\n \n ```js,expect_diagnostic\n import { ref } from \"vue\"\n \n const ok = ref(false)\n if (ok) {\n   //\n }\n ```\n \n ```js,expect_diagnostic\n import { ref } from \"vue\"\n \n export default {\n   setup(_props, { emit }) {\n     const count = ref(0)\n     emit('increment', count)\n   }\n }\n ```\n\n ### Valid\n \n ```js\n import { ref } from \"vue\"\n \n const count = ref(0)\n count.value++\n ```\n \n ```js\n import { ref } from \"vue\"\n \n const ok = ref(true)\n const msg = ok.value ? \"yes\" : \"no\"\n if (ok.value) {\n   //\n }\n ```\n \n ```js\n import { ref } from \"vue\"\n \n export default {\n   setup(_props, { emit }) {\n     const count = ref(0)\n     emit('increment', count.value)\n   }\n }\n ```\n \n"
+          },
           "useArraySortCompare": {
             "deprecated": false,
             "version": "2.3.5",
@@ -8296,7 +8313,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 475
+    "numberOrRules": 476
   },
   "syntax": {
     "languages": {
