@@ -32,7 +32,7 @@ the following configuration:
 The plugin will now be enabled on all supported files the linter runs on. You
 can see its results when running `biome lint` or `biome check`.
 
-### File Scoping
+## File Scoping
 
 By default, a plugin runs on every file the linter processes. If a plugin only
 applies to certain files, you can restrict it using `includes` glob patterns.
@@ -54,24 +54,8 @@ Use negated globs (prefixed with `!`) for exclusions:
 ```
 
 When `includes` is set, the plugin only runs on files matching at least one of
-the patterns. Negated patterns act as exceptions, following the same semantics
-as [`.gitignore`](https://git-scm.com/docs/gitignore#_pattern_format).
-
-For example:
-
-```shell
-$ biome lint
-/packages/tailwindcss-config-analyzer/src/introspect.ts:12:17 plugin ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-  ✖ Prefer object spread instead of `Object.assign()`
-
-    10 │ function createContextFromConfig(config: Partial<Config>) {
-    11 │        return createContext(
-  > 12 │                resolveConfig(Object.assign({}, DEFAULT_CONFIG, config)),
-       │                              ^^^^^^^^^^^^^
-    13 │        );
-    14 │ }
-```
+the patterns. Negated patterns act as exceptions. Patterns follow the
+[glob syntax reference](/reference/configuration/#glob-syntax-reference).
 
 ## Target Languages
 
