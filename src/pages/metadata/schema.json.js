@@ -110,6 +110,20 @@ export function GET() {
 					"required": ["eslintBarrelFiles"]
 				},
 				{
+					"description": "Rules from [Eslint Plugin Better Tailwindcss](https://github.com/schoero/eslint-plugin-better-tailwindcss)",
+					"type": "object",
+					"properties": { "eslintBetterTailwindcss": { "type": "string" } },
+					"additionalProperties": false,
+					"required": ["eslintBetterTailwindcss"]
+				},
+				{
+					"description": "Rules from [e18e ESLint Plugin](https://github.com/e18e/eslint-plugin)",
+					"type": "object",
+					"properties": { "eslintE18e": { "type": "string" } },
+					"additionalProperties": false,
+					"required": ["eslintE18e"]
+				},
+				{
 					"description": "Rules from [GraphQL-ESLint](https://github.com/graphql-hive/graphql-eslint)",
 					"type": "object",
 					"properties": { "eslintGraphql": { "type": "string" } },
@@ -201,6 +215,13 @@ export function GET() {
 					"properties": { "eslintPerfectionist": { "type": "string" } },
 					"additionalProperties": false,
 					"required": ["eslintPerfectionist"]
+				},
+				{
+					"description": "Rules from [Eslint Plugin Promise](https://github.com/eslint-community/eslint-plugin-promise)",
+					"type": "object",
+					"properties": { "eslintPromise": { "type": "string" } },
+					"additionalProperties": false,
+					"required": ["eslintPromise"]
 				},
 				{
 					"description": "Rules from [Eslint Plugin Qwik](https://github.com/QwikDev/qwik)",
@@ -343,6 +364,13 @@ export function GET() {
 					"properties": { "htmlEslint": { "type": "string" } },
 					"additionalProperties": false,
 					"required": ["htmlEslint"]
+				},
+				{
+					"description": "Rules from [Eslint Plugin Playwright](https://github.com/playwright-community/eslint-plugin-playwright)",
+					"type": "object",
+					"properties": { "eslintPlaywright": { "type": "string" } },
+					"additionalProperties": false,
+					"required": ["eslintPlaywright"]
 				}
 			]
 		},

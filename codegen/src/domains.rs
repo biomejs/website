@@ -7,7 +7,7 @@ use biome_json_factory::make::{
 };
 use biome_json_formatter::context::JsonFormatOptions;
 use biome_json_formatter::format_node;
-use biome_json_syntax::{AnyJsonValue, JsonObjectValue, T};
+use biome_json_syntax::{AnyJsonMemberName, AnyJsonValue, JsonObjectValue, T};
 use biome_rowan::AstNode;
 use biome_string_case::Case;
 use std::collections::HashMap;
@@ -95,11 +95,18 @@ impl DocDomains {
                     writeln!(buffer, "## {name}")?;
                     writeln!(buffer, "Use this domain inside Next.js projects.")?;
                 }
+                RuleDomain::Playwright => {
+                    writeln!(buffer, "## {name}")?;
+                    writeln!(
+                        buffer,
+                        "Use this domain inside Playwright test projects. This domain enables rules that help enforce best practices and catch common mistakes when writing Playwright tests."
+                    )?;
+                }
                 RuleDomain::Project => {
                     writeln!(buffer, "## {name}")?;
                     writeln!(
                         buffer,
-                        "This domain contains rules that perform project-level analysis. This includes our module graph for dependency resolution, as well as type information. When enabling rules that belong to this domain, Biome will scan the entire project. The scanning phase will have a performance impact on the linting process. See the documentation on our [scanner](/internals/architecture/#scanner) to learn more about the scanner."
+                        "This domain contains rules that perform project-level analysis. This includes our module graph for dependency resolution. When enabling rules that belong to this domain, Biome will scan the entire project. The scanning phase will have a performance impact on the linting process. See the documentation on our [scanner](/internals/architecture/#scanner) to learn more about the scanner."
                     )?;
                 }
                 RuleDomain::Vue => {
@@ -121,6 +128,13 @@ impl DocDomains {
                     writeln!(
                         buffer,
                         "Use this domain inside Turborepo projects. This domain enables rules that are specific to Turborepo projects."
+                    )?;
+                }
+                RuleDomain::Types => {
+                    writeln!(buffer, "## {name}")?;
+                    writeln!(
+                        buffer,
+                        "This domain contains rules that perform project-level analysis. This includes our module graph for dependency resolution. When enabling rules that belong to this domain, Biome will scan the entire project, *and it will enable the inference engine to resolve and flat types*. The scanning phase will have a performance impact on the linting process. See the documentation on our [scanner](/internals/architecture/#scanner) to learn more about the scanner."
                     )?;
                 }
                 #[allow(unreachable_patterns)]
@@ -211,7 +225,7 @@ impl DocDomains {
             writeln!(buffer)?;
             writeln!(
                 buffer,
-                ":::note[No recommended rules]\nSince all rules in this domain are nursery rules, no rules will be activated when enabling the domain. You need to enable the single rules.:::#"
+                ":::note[No recommended rules]\nSince all rules in this domain are nursery rules, no rules will be activated when enabling the domain. You need to enable the single rules.\n:::"
             )?;
         }
 
@@ -264,19 +278,23 @@ fn make_config_json(domain_name: &str, value: &str) -> JsonObjectValue {
         token(T!['{']),
         json_member_list(
             vec![json_member(
-                json_member_name(json_string_literal("linter")),
+                AnyJsonMemberName::JsonMemberName(json_member_name(json_string_literal("linter"))),
                 token(T![:]),
                 AnyJsonValue::JsonObjectValue(json_object_value(
                     token(T!['{']),
                     json_member_list(
                         vec![json_member(
-                            json_member_name(json_string_literal("domains")),
+                            AnyJsonMemberName::JsonMemberName(json_member_name(
+                                json_string_literal("domains"),
+                            )),
                             token(T![:]),
                             AnyJsonValue::JsonObjectValue(json_object_value(
                                 token(T!['{']),
                                 json_member_list(
                                     vec![json_member(
-                                        json_member_name(json_string_literal(domain_name)),
+                                        AnyJsonMemberName::JsonMemberName(json_member_name(
+                                            json_string_literal(domain_name),
+                                        )),
                                         token(T![:]),
                                         AnyJsonValue::JsonStringValue(json_string_value(
                                             json_string_literal(value),

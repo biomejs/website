@@ -10,9 +10,13 @@ if [ "$#" -ne 1 ]; then
 fi
 
 new_rev=$1
+short_rev=$(echo $new_rev | cut -c 1-7)
 
-# Update the @biomejs/wasm-web dependency
-pnpm add -D https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@$(echo $new_rev | cut -c 1-7)
+# Update the @biomejs/wasm-web dependency in package.json
+jq ".devDependencies[\"@biomejs/wasm-web\"] = \"https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@$short_rev\"" package.json > package.json.tmp && mv package.json.tmp package.json
+
+# Install dependencies
+pnpm install --no-frozen-lockfile
 
 # Update the rev values for the biome dependencies
 awk -v new_rev="$new_rev" '{gsub(/rev = "[^"]+"/, "rev = \"" new_rev "\""); print}' Cargo.toml >temp.toml && mv temp.toml Cargo.toml

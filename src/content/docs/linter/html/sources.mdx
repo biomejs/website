@@ -8,6 +8,7 @@ description: A page that maps rules from other sources to Biome
 ---
     
 ## Biome exclusive rules
+- [noSvgWithoutTitle](/linter/rules/no-svg-without-title) 
 - [useVueVapor](/linter/rules/use-vue-vapor) 
 ## Rules from other sources
 :::note
@@ -20,7 +21,12 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 ### @html-eslint/eslint-plugin
 | @html-eslint/eslint-plugin Rules name | Biome Rules name |
 | ---- | ---- |
+| [no-accesskey-attrs](https://html-eslint.org/docs/rules/no-accesskey-attrs) |[noAccessKey](/linter/rules/no-access-key) |
 | [no-duplicate-attrs](https://html-eslint.org/docs/rules/no-duplicate-attrs) |[noDuplicateAttributes](/linter/rules/no-duplicate-attributes) |
+| [no-positive-tabindex](https://html-eslint.org/docs/rules/no-positive-tabindex) |[noPositiveTabindex](/linter/rules/no-positive-tabindex) |
+| [require-button-type](https://html-eslint.org/docs/rules/require-button-type) |[useButtonType](/linter/rules/use-button-type) |
+| [require-img-alt](https://html-eslint.org/docs/rules/require-img-alt) |[useAltText](/linter/rules/use-alt-text) |
+| [require-lang](https://html-eslint.org/docs/rules/require-lang) |[useHtmlLang](/linter/rules/use-html-lang) |
 ### @next/eslint-plugin-next
 | @next/eslint-plugin-next Rules name | Biome Rules name |
 | ---- | ---- |
@@ -32,8 +38,21 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 ### eslint-plugin-jsx-a11y
 | eslint-plugin-jsx-a11y Rules name | Biome Rules name |
 | ---- | ---- |
+| [alt-text](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/alt-text.md) |[useAltText](/linter/rules/use-alt-text) |
 | [anchor-ambiguous-text](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/anchor-ambiguous-text.md) |[noAmbiguousAnchorText](/linter/rules/no-ambiguous-anchor-text) |
+| [anchor-has-content](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/anchor-has-content.md) |[useAnchorContent](/linter/rules/use-anchor-content) |
+| [aria-role](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/aria-role.md) |[useValidAriaRole](/linter/rules/use-valid-aria-role) |
+| [html-has-lang](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/html-has-lang.md) |[useHtmlLang](/linter/rules/use-html-lang) |
+| [iframe-has-title](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/iframe-has-title.md) |[useIframeTitle](/linter/rules/use-iframe-title) |
+| [img-redundant-alt](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/img-redundant-alt.md) |[noRedundantAlt](/linter/rules/no-redundant-alt) |
+| [lang](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/lang.md) |[useValidLang](/linter/rules/use-valid-lang) |
+| [media-has-caption](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/media-has-caption.md) |[useMediaCaption](/linter/rules/use-media-caption) |
+| [no-access-key](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/no-access-key.md) |[noAccessKey](/linter/rules/no-access-key) |
+| [no-autofocus](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/no-autofocus.md) |[noAutofocus](/linter/rules/no-autofocus) |
+| [no-distracting-elements](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/no-distracting-elements.md) |[noDistractingElements](/linter/rules/no-distracting-elements) |
+| [role-has-required-aria-props](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/role-has-required-aria-props.md) |[useAriaPropsForRole](/linter/rules/use-aria-props-for-role) |
 | [scope](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/scope.md) |[noHeaderScope](/linter/rules/no-header-scope) |
+| [tabindex-no-positive](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/tabindex-no-positive.md) |[noPositiveTabindex](/linter/rules/no-positive-tabindex) |
 ### eslint-plugin-qwik
 | eslint-plugin-qwik Rules name | Biome Rules name |
 | ---- | ---- |
@@ -41,6 +60,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 ### eslint-plugin-react
 | eslint-plugin-react Rules name | Biome Rules name |
 | ---- | ---- |
+| [button-has-type](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/button-has-type.md) |[useButtonType](/linter/rules/use-button-type) |
 | [jsx-no-script-url](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-no-script-url.md) |[noScriptUrl](/linter/rules/no-script-url) |
 ### eslint-plugin-solid
 | eslint-plugin-solid Rules name | Biome Rules name |

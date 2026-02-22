@@ -9,20 +9,18 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="GraphQL" icon="seti:graphql">
-:::caution
-This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
-:::
 ## Summary
 - Rule available since: `v2.2.7`
-- Diagnostic Category: [`lint/nursery/noEmptySource`](/reference/diagnostics#diagnostic-category)
+- Diagnostic Category: [`lint/suspicious/noEmptySource`](/reference/diagnostics#diagnostic-category)
+- This rule isn't recommended, so you need to enable it.
 - This rule doesn't have a fix.
-- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
 ## How to configure
 ```json title="biome.json"
 {
 	"linter": {
 		"rules": {
-			"nursery": {
+			"suspicious": {
 				"noEmptySource": "error"
 			}
 		}
@@ -46,7 +44,7 @@ A source containing only the following is considered empty:
 
 ```
 
-<pre class="language-text"><code class="language-text">code-block.graphql:2:1 <a href="https://biomejs.dev/linter/rules/no-empty-source">lint/nursery/noEmptySource</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">An empty source is not allowed.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong><br />   <strong>   │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Empty sources can clutter the codebase and increase cognitive load; deleting empty sources can help reduce it.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.graphql:2:1 <a href="https://biomejs.dev/linter/rules/no-empty-source">lint/suspicious/noEmptySource</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">An empty source is not allowed.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong><br />   <strong>   │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Empty sources can clutter the codebase and increase cognitive load; deleting empty sources can help reduce it.</span><br />  <br /></code></pre>
 
 ```graphql
 ```
@@ -74,7 +72,7 @@ Default `false`
 {
 	"linter": {
 		"rules": {
-			"nursery": {
+			"suspicious": {
 				"noEmptySource": {
 					"options": {
 						"allowComments": true
@@ -93,7 +91,7 @@ Default `false`
 
 ```
 
-<pre class="language-text"><code class="language-text">code-block.graphql:2:1 <a href="https://biomejs.dev/linter/rules/no-empty-source">lint/nursery/noEmptySource</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">An empty source is not allowed.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong><br />   <strong>   │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Empty sources can clutter the codebase and increase cognitive load; deleting empty sources can help reduce it.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.graphql:2:1 <a href="https://biomejs.dev/linter/rules/no-empty-source">lint/suspicious/noEmptySource</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">An empty source is not allowed.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong><br />   <strong>   │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Empty sources can clutter the codebase and increase cognitive load; deleting empty sources can help reduce it.</span><br />  <br /></code></pre>
 
 #### Valid
 
@@ -105,19 +103,17 @@ Default `false`
 - [Disable a rule](/linter/#disable-a-rule)
 - [Configure the code fix](/linter#configure-the-code-fix)
 - [Rule options](/linter/#rule-options)
-- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/src/lint/nursery/no_empty_source.rs)
-- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/tests/specs/nursery/noEmptySource)
+- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/src/lint/suspicious/no_empty_source.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/tests/specs/suspicious/noEmptySource)
 
 </TabItem>
 <TabItem label="CSS" icon="seti:css">
-:::caution
-This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
-:::
 ## Summary
 - Rule available since: `v2.2.7`
-- Diagnostic Category: [`lint/nursery/noEmptySource`](/reference/diagnostics#diagnostic-category)
+- Diagnostic Category: [`lint/suspicious/noEmptySource`](/reference/diagnostics#diagnostic-category)
+- This rule isn't recommended, so you need to enable it.
 - This rule doesn't have a fix.
-- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
 - Sources: 
   - Same as [`no-empty-source`](https://github.com/stylelint/stylelint/blob/main/lib/rules/no-empty-source/README.md)
 
@@ -126,7 +122,7 @@ This rule is part of the [nursery](/linter/#nursery) group. This means that it i
 {
 	"linter": {
 		"rules": {
-			"nursery": {
+			"suspicious": {
 				"noEmptySource": "error"
 			}
 		}
@@ -150,13 +146,13 @@ A source containing only the following is considered empty:
 
 ```
 
-<pre class="language-text"><code class="language-text">code-block.css:2:1 <a href="https://biomejs.dev/linter/rules/no-empty-source">lint/nursery/noEmptySource</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">An empty source is not allowed.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong><br />   <strong>   │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Empty sources can clutter the codebase and increase cognitive load; deleting empty sources can help reduce it.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.css:2:1 <a href="https://biomejs.dev/linter/rules/no-empty-source">lint/suspicious/noEmptySource</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">An empty source is not allowed.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong><br />   <strong>   │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Empty sources can clutter the codebase and increase cognitive load; deleting empty sources can help reduce it.</span><br />  <br /></code></pre>
 
 ```css
 /* Only comments */
 ```
 
-<pre class="language-text"><code class="language-text">code-block.css:2:1 <a href="https://biomejs.dev/linter/rules/no-empty-source">lint/nursery/noEmptySource</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">An empty source is not allowed.</span><br />  <br />    <strong>1 │ </strong>/&#42; Only comments &#42;/<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong><br />   <strong>   │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Empty sources can clutter the codebase and increase cognitive load; deleting empty sources can help reduce it.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.css:2:1 <a href="https://biomejs.dev/linter/rules/no-empty-source">lint/suspicious/noEmptySource</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">An empty source is not allowed.</span><br />  <br />    <strong>1 │ </strong>/&#42; Only comments &#42;/<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong><br />   <strong>   │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Empty sources can clutter the codebase and increase cognitive load; deleting empty sources can help reduce it.</span><br />  <br /></code></pre>
 
 ### Valid
 
@@ -177,7 +173,7 @@ Default `false`
 {
 	"linter": {
 		"rules": {
-			"nursery": {
+			"suspicious": {
 				"noEmptySource": {
 					"options": {
 						"allowComments": true
@@ -196,7 +192,7 @@ Default `false`
 
 ```
 
-<pre class="language-text"><code class="language-text">code-block.css:2:1 <a href="https://biomejs.dev/linter/rules/no-empty-source">lint/nursery/noEmptySource</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">An empty source is not allowed.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong><br />   <strong>   │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Empty sources can clutter the codebase and increase cognitive load; deleting empty sources can help reduce it.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.css:2:1 <a href="https://biomejs.dev/linter/rules/no-empty-source">lint/suspicious/noEmptySource</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">An empty source is not allowed.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong><br />   <strong>   │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Empty sources can clutter the codebase and increase cognitive load; deleting empty sources can help reduce it.</span><br />  <br /></code></pre>
 
 #### Valid
 
@@ -209,19 +205,17 @@ Default `false`
 - [Disable a rule](/linter/#disable-a-rule)
 - [Configure the code fix](/linter#configure-the-code-fix)
 - [Rule options](/linter/#rule-options)
-- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/nursery/no_empty_source.rs)
-- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/nursery/noEmptySource)
+- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/suspicious/no_empty_source.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/suspicious/noEmptySource)
 
 </TabItem>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-:::caution
-This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
-:::
 ## Summary
 - Rule available since: `v2.2.7`
-- Diagnostic Category: [`lint/nursery/noEmptySource`](/reference/diagnostics#diagnostic-category)
+- Diagnostic Category: [`lint/suspicious/noEmptySource`](/reference/diagnostics#diagnostic-category)
+- This rule isn't recommended, so you need to enable it.
 - This rule doesn't have a fix.
-- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
 - Sources: 
   - Same as [`unicorn/no-empty-file`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-empty-file.md)
 
@@ -230,7 +224,7 @@ This rule is part of the [nursery](/linter/#nursery) group. This means that it i
 {
 	"linter": {
 		"rules": {
-			"nursery": {
+			"suspicious": {
 				"noEmptySource": "error"
 			}
 		}
@@ -258,44 +252,44 @@ A source containing only the following is considered empty:
 
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:2:1 <a href="https://biomejs.dev/linter/rules/no-empty-source">lint/nursery/noEmptySource</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">An empty source is not allowed.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong><br />   <strong>   │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Empty sources can clutter the codebase and increase cognitive load; deleting empty sources can help reduce it.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:2:1 <a href="https://biomejs.dev/linter/rules/no-empty-source">lint/suspicious/noEmptySource</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">An empty source is not allowed.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong><br />   <strong>   │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Empty sources can clutter the codebase and increase cognitive load; deleting empty sources can help reduce it.</span><br />  <br /></code></pre>
 
 ```js
 // Only comments
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:2:1 <a href="https://biomejs.dev/linter/rules/no-empty-source">lint/nursery/noEmptySource</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">An empty source is not allowed.</span><br />  <br />    <strong>1 │ </strong>// Only comments<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong><br />   <strong>   │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Empty sources can clutter the codebase and increase cognitive load; deleting empty sources can help reduce it.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:2:1 <a href="https://biomejs.dev/linter/rules/no-empty-source">lint/suspicious/noEmptySource</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">An empty source is not allowed.</span><br />  <br />    <strong>1 │ </strong>// Only comments<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong><br />   <strong>   │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Empty sources can clutter the codebase and increase cognitive load; deleting empty sources can help reduce it.</span><br />  <br /></code></pre>
 
 ```js
 /* Only comments */
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:2:1 <a href="https://biomejs.dev/linter/rules/no-empty-source">lint/nursery/noEmptySource</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">An empty source is not allowed.</span><br />  <br />    <strong>1 │ </strong>/&#42; Only comments &#42;/<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong><br />   <strong>   │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Empty sources can clutter the codebase and increase cognitive load; deleting empty sources can help reduce it.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:2:1 <a href="https://biomejs.dev/linter/rules/no-empty-source">lint/suspicious/noEmptySource</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">An empty source is not allowed.</span><br />  <br />    <strong>1 │ </strong>/&#42; Only comments &#42;/<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong><br />   <strong>   │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Empty sources can clutter the codebase and increase cognitive load; deleting empty sources can help reduce it.</span><br />  <br /></code></pre>
 
 ```js
 'use strict';
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-empty-source">lint/nursery/noEmptySource</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">An empty source is not allowed.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>'use strict';<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Empty sources can clutter the codebase and increase cognitive load; deleting empty sources can help reduce it.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-empty-source">lint/suspicious/noEmptySource</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">An empty source is not allowed.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>'use strict';<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Empty sources can clutter the codebase and increase cognitive load; deleting empty sources can help reduce it.</span><br />  <br /></code></pre>
 
 ```js
 ;
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-empty-source">lint/nursery/noEmptySource</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">An empty source is not allowed.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Empty sources can clutter the codebase and increase cognitive load; deleting empty sources can help reduce it.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-empty-source">lint/suspicious/noEmptySource</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">An empty source is not allowed.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Empty sources can clutter the codebase and increase cognitive load; deleting empty sources can help reduce it.</span><br />  <br /></code></pre>
 
 ```js
 {
 }
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-empty-source">lint/nursery/noEmptySource</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">An empty source is not allowed.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&#123;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>&#125;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Empty sources can clutter the codebase and increase cognitive load; deleting empty sources can help reduce it.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-empty-source">lint/suspicious/noEmptySource</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">An empty source is not allowed.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&#123;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>&#125;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Empty sources can clutter the codebase and increase cognitive load; deleting empty sources can help reduce it.</span><br />  <br /></code></pre>
 
 ```js
 #!/usr/bin/env node
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-empty-source">lint/nursery/noEmptySource</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">An empty source is not allowed.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>#!/usr/bin/env node<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Empty sources can clutter the codebase and increase cognitive load; deleting empty sources can help reduce it.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/no-empty-source">lint/suspicious/noEmptySource</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">An empty source is not allowed.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>#!/usr/bin/env node<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Empty sources can clutter the codebase and increase cognitive load; deleting empty sources can help reduce it.</span><br />  <br /></code></pre>
 
 ### Valid
 
@@ -332,7 +326,7 @@ Default `false`
 {
 	"linter": {
 		"rules": {
-			"nursery": {
+			"suspicious": {
 				"noEmptySource": {
 					"options": {
 						"allowComments": true
@@ -351,7 +345,7 @@ Default `false`
 
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:2:1 <a href="https://biomejs.dev/linter/rules/no-empty-source">lint/nursery/noEmptySource</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">An empty source is not allowed.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong><br />   <strong>   │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Empty sources can clutter the codebase and increase cognitive load; deleting empty sources can help reduce it.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:2:1 <a href="https://biomejs.dev/linter/rules/no-empty-source">lint/suspicious/noEmptySource</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">An empty source is not allowed.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong><br />   <strong>   │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Empty sources can clutter the codebase and increase cognitive load; deleting empty sources can help reduce it.</span><br />  <br /></code></pre>
 
 #### Valid
 
@@ -364,8 +358,8 @@ Default `false`
 - [Disable a rule](/linter/#disable-a-rule)
 - [Configure the code fix](/linter#configure-the-code-fix)
 - [Rule options](/linter/#rule-options)
-- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_empty_source.rs)
-- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noEmptySource)
+- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_empty_source.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noEmptySource)
 
 </TabItem>
 </Tabs>

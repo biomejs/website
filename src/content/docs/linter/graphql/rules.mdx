@@ -31,11 +31,10 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noDuplicateGraphqlOperationName](/linter/rules/no-duplicate-graphql-operation-name) | Enforce unique operation names across a GraphQL document. |  |
 | [noDuplicateInputFieldNames](/linter/rules/no-duplicate-input-field-names) | Require fields within an input object to be unique. |  |
 | [noDuplicateVariableNames](/linter/rules/no-duplicate-variable-names) | Require all variable definitions to be unique. |  |
-| [noEmptySource](/linter/rules/no-empty-source) | Disallow empty sources. |  |
 | [noExcessiveLinesPerFile](/linter/rules/no-excessive-lines-per-file) | Restrict the number of lines in a file. |  |
 | [noRootType](/linter/rules/no-root-type) | Disallow the usage of specified root types |  |
 | [useConsistentGraphqlDescriptions](/linter/rules/use-consistent-graphql-descriptions) | Require all descriptions to follow the same style (either block or inline) to  maintain consistency and improve readability across the schema. |  |
-| [useDeprecatedDate](/linter/rules/use-deprecated-date) | Require the `@deprecated` directive to specify a deletion date. |  |
+| [useInputName](/linter/rules/use-input-name) | Require mutation argument to be always called "input" |  |
 | [useLoneAnonymousOperation](/linter/rules/use-lone-anonymous-operation) | Disallow anonymous operations when more than one operation specified in document. |  |
 | [useLoneExecutableDefinition](/linter/rules/use-lone-executable-definition) | Require queries, mutations, subscriptions or fragments each to be located in separate files. |  |
 
@@ -51,6 +50,8 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | Rule name | Description | Properties |
 | --- | --- | --- |
 | [noDuplicateFields](/linter/rules/no-duplicate-fields) | No duplicated fields in GraphQL operations. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [noEmptySource](/linter/rules/no-empty-source) | Disallow empty sources. |  |
+| [useDeprecatedDate](/linter/rules/use-deprecated-date) | Require the `@deprecated` directive to specify a deletion date. |  |
 ## Recommended rules 
 - [useGraphqlNamedOperations](/linter/rules/use-graphql-named-operations) (Severity: [error](/reference/diagnostics#error))
 - [useDeprecatedReason](/linter/rules/use-deprecated-reason) (Severity: [warning](/reference/diagnostics#warning))

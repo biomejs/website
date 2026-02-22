@@ -78,11 +78,23 @@ This includes TypeScript, JSX and TSX.
 
 ## Configuration file resolution
 
-Biome uses auto discovery to find the nearest configuration file. It looks in
-the working directory and its parent folders until it finds a `biome.json` or a
-`biome.jsonc` file. If no configuration is found, Biome's default configuration
-is used. If both `biome.json` and `biome.jsonc` are present in the same folder,
-`biome.json` is used.
+Biome supports the following configuration files, in the following order:
+1. `biome.json`
+2. `biome.jsonc`
+3. `.biome.json`
+4. `.biome.jsonc`
+
+Biome attempts to discover the configuration file in the following order:
+1. The current working directory
+  - From the CLI, the working directory is where the command is executed
+  - From the editor, the working directory is the root of the project
+2. Parent folders, recursively
+3. The home directory, which depends on your operative system:
+  - [`$XDG_CONFIG_HOME`](https://specifications.freedesktop.org/basedir/latest/#variables) or `$HOME/.config/biome` on Linux
+  - `/Users/$USER/Library/Application Support/biome` on macOS
+  - `C:\Users\$USER\AppData\Roaming\biome\config` on Windows
+
+If no configuration is found, Biome's default configuration is used.
 
 Here's an example:
 
@@ -105,9 +117,8 @@ Here's an example:
 will use the configuration file `app/frontend/biome.json`;
 
 :::note
-Biome (since v2.0.0) supports nested `biome.json` files. For more information, read [Use Biome in big projects](/guides/big-projects#use-multiple-configuration-files).
+Biome supports nested `biome.json` files. For more information, read [Use Biome in big projects](/guides/big-projects#use-multiple-configuration-files).
 :::
-
 
 ## Specifying files to process
 
@@ -294,3 +305,6 @@ The following files are parsed as `JSON` files with the options `json.parser.all
 - `tsconfig.json`
 - `typedoc.json`
 - `typescript.json`
+- All `.json` files under the `$PROJECT/.vscode/*` folder and under the [user VS Code settings folder](https://code.visualstudio.com/docs/configure/settings#_user-settingsjson-location)
+- All `.json` files under the `$PROJECT/.zed/*` folder and under the [user Zed settings folder](https://zed.dev/docs/configuring-zed#user-settings-file)
+- All `.json` files under the `$PROJECT/.cursor/*` folder and under the user Cursor settings folder

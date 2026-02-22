@@ -94,10 +94,41 @@ See the [configuration reference](/reference/configuration#formatter) for more d
 
 There are times when the formatted code isn't ideal.
 
-For these cases, you can use a format suppression comment:
+### Ignore an entire file
+
+You can suppress (ignore) the formatter for an entire file by using the `biome-ignore-all format: reason` comment **at the top of the file**:
+
+For example, in JavaScript:
 
 ```js title="example.js"
-// biome-ignore format: <explanation>
+// biome-ignore-all format: generated file
+
+const expr1 =
+  [
+    (2 * n) / (r - l),
+    0,
+    (r + l) / (r - l),
+    -1,
+    0,
+  ];
+
+
+const expr2 =
+  [
+    (2 * n) / (r - l),
+    0,
+    (r + l) / (r - l),
+    -1,
+    0,
+  ];
+```
+
+### Ignore nodes
+
+In case you want to suppress only a portion (node) of the code, use the suppression comment `biome-ignore format: reason`
+
+```js title="example.js"
+// biome-ignore format: reason
 ```
 
 Example:
@@ -124,6 +155,3 @@ const expr =
     0,
   ];
 ```
-
-Biome doesn't provide ignore comments that ignore an entire file.
-However, you can [ignore a file using the Biome configuration file](/guides/configure-biome/#ignore-files).

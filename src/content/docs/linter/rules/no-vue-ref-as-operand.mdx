@@ -1,0 +1,131 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noVueRefAsOperand
+description: Learn more about noVueRefAsOperand
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noVueRefAsOperand`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/no-ref-as-operand`](https://eslint.vuejs.org/rules/no-ref-as-operand)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueRefAsOperand": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow the use of value wrapped by `ref()`(Composition API) as operand
+
+To access value wrapped by `ref()`, you must use `.value`.
+
+## Examples
+
+### Invalid
+
+```js
+import { ref } from "vue"
+
+const count = ref(0)
+count++
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:4:1 <a href="https://biomejs.dev/linter/rules/no-vue-ref-as-operand">lint/nursery/noVueRefAsOperand</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Ref value is accessed without </span><span style="color: Tomato;"><strong>&#96;.value&#96;</strong></span><span style="color: Tomato;">.</span><br />  <br />    <strong>3 │ </strong>const count = ref(0)<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>count++<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>5 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Without </span><span style="color: lightgreen;"><strong>&#96;.value&#96;</strong></span><span style="color: lightgreen;">, Vue cannot track changes to the ref, which may break reactivity.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Use </span><span style="color: lightgreen;"><strong>&#96;.value&#96;</strong></span><span style="color: lightgreen;"> to access ref value.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+```js
+import { ref } from "vue"
+
+const ok = ref(false)
+const msg = ok ? "yes" : "no"
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:4:13 <a href="https://biomejs.dev/linter/rules/no-vue-ref-as-operand">lint/nursery/noVueRefAsOperand</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Ref value is accessed without </span><span style="color: Tomato;"><strong>&#96;.value&#96;</strong></span><span style="color: Tomato;">.</span><br />  <br />    <strong>3 │ </strong>const ok = ref(false)<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>const msg = ok ? &quot;yes&quot; : &quot;no&quot;<br />   <strong>   │ </strong>            <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>5 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Without </span><span style="color: lightgreen;"><strong>&#96;.value&#96;</strong></span><span style="color: lightgreen;">, Vue cannot track changes to the ref, which may break reactivity.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Use </span><span style="color: lightgreen;"><strong>&#96;.value&#96;</strong></span><span style="color: lightgreen;"> to access ref value.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+```js
+import { ref } from "vue"
+
+const ok = ref(false)
+if (ok) {
+  //
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:4:5 <a href="https://biomejs.dev/linter/rules/no-vue-ref-as-operand">lint/nursery/noVueRefAsOperand</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Ref value is accessed without </span><span style="color: Tomato;"><strong>&#96;.value&#96;</strong></span><span style="color: Tomato;">.</span><br />  <br />    <strong>3 │ </strong>const ok = ref(false)<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>if (ok) &#123;<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>5 │ </strong>  //<br />    <strong>6 │ </strong>&#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Without </span><span style="color: lightgreen;"><strong>&#96;.value&#96;</strong></span><span style="color: lightgreen;">, Vue cannot track changes to the ref, which may break reactivity.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Use </span><span style="color: lightgreen;"><strong>&#96;.value&#96;</strong></span><span style="color: lightgreen;"> to access ref value.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+```js
+import { ref } from "vue"
+
+export default {
+  setup(_props, { emit }) {
+    const count = ref(0)
+    emit('increment', count)
+  }
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:6:23 <a href="https://biomejs.dev/linter/rules/no-vue-ref-as-operand">lint/nursery/noVueRefAsOperand</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Ref value is accessed without </span><span style="color: Tomato;"><strong>&#96;.value&#96;</strong></span><span style="color: Tomato;">.</span><br />  <br />    <strong>4 │ </strong>  setup(&#95;props, &#123; emit &#125;) &#123;<br />    <strong>5 │ </strong>    const count = ref(0)<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>6 │ </strong>    emit('increment', count)<br />   <strong>   │ </strong>                      <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>7 │ </strong>  &#125;<br />    <strong>8 │ </strong>&#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Without </span><span style="color: lightgreen;"><strong>&#96;.value&#96;</strong></span><span style="color: lightgreen;">, Vue cannot track changes to the ref, which may break reactivity.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Use </span><span style="color: lightgreen;"><strong>&#96;.value&#96;</strong></span><span style="color: lightgreen;"> to access ref value.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+### Valid
+
+```js
+import { ref } from "vue"
+
+const count = ref(0)
+count.value++
+```
+
+```js
+import { ref } from "vue"
+
+const ok = ref(true)
+const msg = ok.value ? "yes" : "no"
+if (ok.value) {
+  //
+}
+```
+
+```js
+import { ref } from "vue"
+
+export default {
+  setup(_props, { emit }) {
+    const count = ref(0)
+    emit('increment', count.value)
+  }
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_vue_ref_as_operand.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noVueRefAsOperand)
+
+</TabItem>
+</Tabs>
+
