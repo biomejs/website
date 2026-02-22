@@ -227,6 +227,7 @@ export const LINT_RULES = {
     noUselessReturn: "noUselessReturn",
     noVueArrowFuncInWatch: "noVueArrowFuncInWatch",
     noVueOptionsApi: "noVueOptionsApi",
+    noVueRefAsOperand: "noVueRefAsOperand",
     noVueVIfWithVFor: "noVueVIfWithVFor",
     useArraySortCompare: "useArraySortCompare",
     useAwaitThenable: "useAwaitThenable",
