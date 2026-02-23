@@ -64,7 +64,7 @@
   pulldown-cmark        = "0.13.0"
   schemars              = "1.1.0"
   serde                 = "1.0.228"
-  serde_json            = "1.0.145"
+  serde_json            = "1.0.149"
   ureq                  = "3.1.4"
   xtask_codegen         = { git = "https://github.com/biomejs/biome.git", rev = "688fd3480ae5c4b1d8d3a43fc5fe41c64ed0d0d1", features = [
     "schema",
