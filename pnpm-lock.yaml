@@ -40,8 +40,8 @@ importers:
         specifier: ^0.4.0
         version: 0.4.0
       '@biomejs/wasm-web':
-        specifier: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@688fd34
-        version: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@688fd34
+        specifier: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@375e296
+        version: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@375e296
       '@codemirror/lang-css':
         specifier: 6.3.1
         version: 6.3.1(@codemirror/view@6.39.14)
@@ -512,9 +512,9 @@ packages:
   '@biomejs/version-utils@0.4.0':
     resolution: {integrity: sha512-jboDhjZY8/bAPl2kgvjrbbyXyM6uimPsasY3TvFhSpPaNorij0UZROi/NjDQqQeZFSaIK3ieiRZXWwoBZh6rQQ==}
 
-  '@biomejs/wasm-web@https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@688fd34':
-    resolution: {integrity: sha512-aEqL+QaphsjrRDwMfLI/BZ9R81nEnklpFkakcPUjKoraItF/Fd3vBlIsoA37H8ncsvt+9uVGW8faJkCsFDHOnw==, tarball: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@688fd34}
-    version: 0.0.0-rev.688fd3480ae5c4b1d8d3a43fc5fe41c64ed0d0d1
+  '@biomejs/wasm-web@https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@375e296':
+    resolution: {integrity: sha512-+0esTfwah4BloQCBtOOn2ZNdq8hs6/DdpjXzrW+o87Ogn+DIPNkAw6zMmtHUegjUr7+TJe1GoaDNKfzGGGTsNA==, tarball: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@375e296}
+    version: 0.0.0-rev.375e296e11e6e8e5bbf4d8132aed19f208a90fb7
 
   '@braintree/sanitize-url@7.1.1':
     resolution: {integrity: sha512-i1L7noDNxtFyL5DmZafWy1wRVhGehQmzZaz1HiN5e7iylJMSZR7ekOV7NsIqa5qBldlLrsKv4HbgFUVlQrz8Mw==}
@@ -7133,7 +7133,7 @@ snapshots:
       undici: 6.21.3
       yaml: 2.8.0
 
-  '@biomejs/wasm-web@https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@688fd34': {}
+  '@biomejs/wasm-web@https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@375e296': {}
 
   '@braintree/sanitize-url@7.1.1': {}
 
