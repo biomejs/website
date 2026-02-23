@@ -49,8 +49,6 @@ $ biome lint
 Plugins can also suggest code rewrites using the `=>` operator:
 
 ```grit
-language js
-
 `console.log($msg)` as $call where {
     register_diagnostic(
         span = $call,
