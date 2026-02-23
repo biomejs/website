@@ -39,8 +39,7 @@ applies to certain files, you can restrict it using `includes` glob patterns.
 Use negated globs (prefixed with `!`) for exclusions.
 
 In the following example, the first plugin only runs on files inside
-`src/components/`. The second plugin runs on all TypeScript files under `src/`,
-except test files:
+`src/components/`. The second plugin runs on all files that have the extension `.ts` under `src/` folder, except for files that end with `.test.ts` in the `src/` folder:
 
 ```json name="biome.json"
 {
