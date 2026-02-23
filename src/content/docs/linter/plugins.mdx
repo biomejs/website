@@ -32,11 +32,15 @@ the following configuration:
 The plugin will now be enabled on all supported files the linter runs on. You
 can see its results when running `biome lint` or `biome check`.
 
-## File Scoping
+## Restricting Plugins to Specific Files
 
 By default, a plugin runs on every file the linter processes. If a plugin only
 applies to certain files, you can restrict it using `includes` glob patterns.
-Use negated globs (prefixed with `!`) for exclusions:
+Use negated globs (prefixed with `!`) for exclusions.
+
+In the following example, the first plugin only runs on files inside
+`src/components/`. The second plugin runs on all TypeScript files under `src/`,
+except test files:
 
 ```json name="biome.json"
 {
