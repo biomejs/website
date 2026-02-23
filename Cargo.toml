@@ -65,7 +65,7 @@
   schemars              = "1.2.1"
   serde                 = "1.0.228"
   serde_json            = "1.0.149"
-  ureq                  = "3.1.4"
+  ureq                  = "3.2.0"
   xtask_codegen         = { git = "https://github.com/biomejs/biome.git", rev = "375e296e11e6e8e5bbf4d8132aed19f208a90fb7", features = [
     "schema",
   ] }
