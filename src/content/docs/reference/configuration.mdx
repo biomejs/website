@@ -53,7 +53,7 @@ This is required so Biome can orchestrate multiple files in CLI and editors at t
 ## `plugins`
 
 A list of [GritQL plugins](/linter/plugins/) to enable. Each entry can be
-either a simple path string or an object with a path and optional file-scoping
+either a simple path string or an object with a path and optional file-filtering
 options.
 
 Simple path:
@@ -64,7 +64,7 @@ Simple path:
 }
 ```
 
-Path with file scoping:
+Restricting to specific files:
 
 ```json title="biome.json"
 {
@@ -80,6 +80,8 @@ Path with file scoping:
 You can mix both forms in the same list.
 
 ### `plugins.<ITEM>.path`
+
+**Required.**
 
 Path to the plugin file (`.grit`) or plugin directory containing a
 `biome-manifest.jsonc`.
