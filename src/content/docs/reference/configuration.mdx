@@ -91,7 +91,7 @@ Path to the plugin file (`.grit`) or plugin directory containing a
 A list of [glob patterns](#glob-syntax-reference) for files the plugin should
 run on. Use negated globs (prefixed with `!`) for exclusions.
 
-When omitted, the plugin runs on every file the linter processes.
+When omitted, the plugin runs on every file the linter processes. If `includes` is empty `[]`, the plugin doesn't run on any file.
 
 ## `files`
 
