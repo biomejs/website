@@ -1,4 +1,9 @@
-import type { Diagnostic, FixFileMode, RuleDomains } from "@biomejs/wasm-web";
+import type {
+	Diagnostic,
+	FixFileMode,
+	GritTargetLanguage,
+	RuleDomains,
+} from "@biomejs/wasm-web";
 import type { parser } from "codemirror-lang-rome-ast";
 import type { Dispatch, SetStateAction } from "react";
 import { LINT_RULES } from "@/playground/generated/lintRules.ts";
@@ -126,6 +131,10 @@ export interface BiomeOutput {
 		ir: string;
 		registered: string;
 	};
+	gritQuery: {
+		matches: [number, number][];
+		error: string | undefined;
+	};
 }
 
 export const emptyBiomeOutput: BiomeOutput = {
@@ -149,6 +158,10 @@ export const emptyBiomeOutput: BiomeOutput = {
 	types: {
 		ir: "",
 		registered: "",
+	},
+	gritQuery: {
+		matches: [],
+		error: undefined,
 	},
 };
 
@@ -201,12 +214,14 @@ export interface PlaygroundSettings {
 	experimentalFullSupportEnabled: boolean;
 	cssModules: boolean;
 	tailwindDirectives: boolean;
+	gritTargetLanguage: GritTargetLanguage;
 }
 
 export interface PlaygroundFileState {
 	content: string;
 	prettier: PrettierOutput;
 	biome: BiomeOutput;
+	gritQuery?: string;
 }
 
 export interface PlaygroundState {
@@ -258,6 +273,7 @@ export const defaultPlaygroundState: PlaygroundState = {
 		experimentalFullSupportEnabled: true,
 		cssModules: false,
 		tailwindDirectives: true,
+		gritTargetLanguage: "JavaScript",
 	},
 };
 

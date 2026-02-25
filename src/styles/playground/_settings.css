@@ -143,7 +143,6 @@
 		&.disabled {
 			opacity: 0.4;
 
-			/* biome-ignore lint/style/noDescendingSpecificity: false positive */
 			&,
 			* {
 				cursor: not-allowed;
