@@ -29,6 +29,17 @@ the following configuration:
 }
 ```
 
+## Plugin paths
+
+Plugin entries support a few path styles:
+
+- Paths starting with `./` or `../` are treated as relative paths and are
+resolved from the configuration file where they are declared (even if that
+configuration file is referenced via `extends`).
+- Scoped package specifiers (starting with `@`) are resolved via
+  `package.json` resolution (for example, from `node_modules` or workspaces).
+- Other strings are treated as paths relative to the entry configuration file.
+
 The plugin will now be enabled on all supported files the linter runs on. You
 can see its results when running `biome lint` or `biome check`. For example:
 
