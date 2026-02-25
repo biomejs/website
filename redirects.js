@@ -394,6 +394,7 @@ export default {
   '/linter/rules/useNamingConvention': '/linter/rules/use-naming-convention',
   '/linter/rules/useNodeAssertStrict': '/linter/rules/use-node-assert-strict',
   '/linter/rules/useNodejsImportProtocol': '/linter/rules/use-nodejs-import-protocol',
+  '/linter/rules/useNullishCoalescing': '/linter/rules/use-nullish-coalescing',
   '/linter/rules/useNumberNamespace': '/linter/rules/use-number-namespace',
   '/linter/rules/useNumberToFixedDigitsArgument': '/linter/rules/use-number-to-fixed-digits-argument',
   '/linter/rules/useNumericLiterals': '/linter/rules/use-numeric-literals',
