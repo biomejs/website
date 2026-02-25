@@ -161,8 +161,11 @@ You can explicitly list the files to be processed using
 `src/**/*.js`. Negated patterns starting with `!` can be used to exclude files.
 
 Paths and globs inside Biome's configuration file are resolved relative to the
-folder the configuration file is in. An exception to this is when a
-configuration file is [extended](/reference/configuration/#extends) by another.
+folder the configuration file is in. When a configuration file is
+[extended](/reference/configuration/#extends), paths inside the extended file
+resolve relative to the extending config, except `plugins` entries that start
+with `./` or `../`, which resolve relative to the config where they are
+declared.
 
 `files.includes` applies to all of Biome's tools, meaning the files specified
 here are processed by the linter, the formatter and the assist, unless specified

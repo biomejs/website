@@ -41,6 +41,10 @@ The order of paths to extend goes from least relevant to most relevant.
 Since v2, this option accepts a string that must match the value `"//"`, which can be used
 when setting up [monorepos](/guides/big-projects#monorepo)
 
+Most relative paths inside a configuration file are resolved relative to the extending config. There is one exception:
+`plugins`. Plugin path entries starting with `./` or `../` are resolved relative to the configuration file where they
+are declared, even if that file is pulled in via `extends`. See [Linter Plugins](/linter/plugins) for details.
+
 ## `root`
 
 Whether this configuration should be treated as a root. By default, any configuration file is considered a root by default.
