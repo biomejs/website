@@ -1,0 +1,105 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: useNullishCoalescing
+description: Learn more about useNullishCoalescing
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+:::note
+This rule belongs to the types domain. This means that its activation will activate the Biome Scanner to scan the files of your project, and enable the type inference engine. Read more about it in the [documentation page](/linter/domains#types)
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/useNullishCoalescing`](/reference/diagnostics#diagnostic-category)
+- This rule has a [**safe**](/linter/#safe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`types`](/linter/domains#types)
+- Sources: 
+  - Inspired from [`@typescript-eslint/prefer-nullish-coalescing`](https://typescript-eslint.io/rules/prefer-nullish-coalescing)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useNullishCoalescing": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Enforce using nullish coalescing operator (`??`) instead of logical or (`||`).
+
+The `??` operator only checks for `null` and `undefined`, while `||` checks
+for any falsy value including `0`, `''`, and `false`. This can prevent bugs
+where legitimate falsy values are incorrectly treated as missing.
+
+This rule triggers when the left operand of `||` is possibly nullish (contains
+`null` or `undefined` in its type). A safe fix is only offered when the type
+analysis confirms the left operand can only be truthy or nullish (not other
+falsy values like `0` or `''`).
+
+By default, `||` expressions in conditional test positions (if/while/for/ternary)
+are ignored, as the falsy-checking behavior is often intentional there. This can
+be disabled with the `ignoreConditionalTests` option.
+
+## Examples
+
+### Invalid
+
+```ts
+declare const maybeString: string | null;
+const value = maybeString || 'default'; // should use ??
+```
+
+```ts
+declare const maybeNumber: number | undefined;
+const value = maybeNumber || 0; // should use ??
+```
+
+### Valid
+
+```ts
+// Already using ??
+declare const maybeString: string | null;
+const value = maybeString ?? 'default';
+```
+
+```ts
+// Type is not nullish - no null or undefined in union
+declare const definiteString: string;
+const value = definiteString || 'fallback';
+```
+
+```ts
+// In conditional test position (ignored by default)
+declare const cond: string | null;
+if (cond || 'fallback') {
+  console.log('in if');
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_nullish_coalescing.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useNullishCoalescing)
+
+</TabItem>
+</Tabs>
+

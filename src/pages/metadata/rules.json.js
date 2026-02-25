@@ -3898,7 +3898,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Ensure that test functions contain at least one `expect()` assertion.\n\n Tests without assertions may pass even when behavior is broken, leading to\n false confidence in the test suite. This rule ensures that every test\n validates some expected behavior using `expect()`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n test(\"no assertion\", async ({ page }) => {\n     await page.goto(\"/\");\n     await page.click(\"button\");\n });\n ```\n\n ### Valid\n\n ```js\n test(\"has assertion\", async ({ page }) => {\n     await page.goto(\"/\");\n     await expect(page).toHaveTitle(\"Title\");\n });\n ```\n\n ```js\n test(\"soft assertion\", async ({ page }) => {\n     await page.goto(\"/\");\n     await expect.soft(page.locator(\"h1\")).toBeVisible();\n });\n ```\n\n"
+            "docs": " Ensure that test functions contain at least one `expect()` or similar assertion.\n\n Tests without assertions may pass even when behavior is broken, leading to\n false confidence in the test suite. This rule ensures that every test\n validates some expected behavior using `expect()` or an allowed variant thereof.\n \n ### Allowed `expect` variants\n \n - [`assert`](https://www.chaijs.com/api/assert/)\n - [`expectTypeOf`](https://github.com/mmkal/expect-type)\n - [`assertType`](https://vitest.dev/api/assert-type)\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n test(\"no assertion\", async ({ page }) => {\n     await page.goto(\"/\");\n     await page.click(\"button\");\n });\n ```\n\n ### Valid\n\n ```js\n test(\"has assertion\", async ({ page }) => {\n     await page.goto(\"/\");\n     await expect(page).toHaveTitle(\"Title\");\n });\n ```\n\n ```js\n it(\"soft assertion\", async ({ page }) => {\n     await page.goto(\"/\");\n     await expect.soft(page.locator(\"h1\")).toBeVisible();\n });\n ```\n \n Variant assertions are allowed:\n ```js\n it(\"returns bar when passed foo\", () => {\n   assert(myFunc(\"foo\") === \"bar\", \"didn't return bar\");\n });\n ```\n\n ```ts\n it(\"should allow passing 'foo' as an argument\", () => {\n   expectTypeOf(myFunc).toBeCallableWith(\"foo\");\n });\n ```\n ```ts\n it(\"should have proper type\", () => {\n   assertType<(n: string) => string>(myFunc);\n });\n ```\n (This replicates the rule's behavior in eslint-plugin-vitest with `typecheck` set to `true`.)\n\n"
           },
           "useFind": {
             "deprecated": false,
@@ -3933,6 +3933,23 @@ export function GET() {
               }
             ],
             "docs": " Enforce the use of `globalThis` over `window`, `self`, and `global`.\n\n `globalThis` is a standard way to access the global object across platforms such as browsers, Web Workers, Node.js and so on, and using it can make your code portable.\n\n However, there are several exceptions that are allowed:\n\n 1. Certain window/Web Workers-specific APIs, such as `window.innerHeight` and `self.postMessage`\n 2. Window-specific events, such as `window.addEventListener('resize')`\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n window.foo;\n ```\n\n ```js,expect_diagnostic\n window.addEventListener('click', () => {});\n ```\n\n ### Valid\n\n ```js\n globalThis.foo;\n ```\n\n ```js\n globalThis.addEventListener('click', () => {});\n ```\n\n ```js\n // window/Web Workers-specific APIs are allowed\n window.innerWidth;\n self.postMessage({ type: 'ready' });\n ```\n\n ```js\n // window-specific events are allowed\n window.addEventListener('resize', () => {});\n ```\n\n"
+          },
+          "useNullishCoalescing": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useNullishCoalescing",
+            "link": "https://biomejs.dev/linter/rules/use-nullish-coalescing",
+            "recommended": false,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintTypeScript": "prefer-nullish-coalescing"
+                }
+              }
+            ],
+            "docs": " Enforce using nullish coalescing operator (`??`) instead of logical or (`||`).\n\n The `??` operator only checks for `null` and `undefined`, while `||` checks\n for any falsy value including `0`, `''`, and `false`. This can prevent bugs\n where legitimate falsy values are incorrectly treated as missing.\n\n This rule triggers when the left operand of `||` is possibly nullish (contains\n `null` or `undefined` in its type). A safe fix is only offered when the type\n analysis confirms the left operand can only be truthy or nullish (not other\n falsy values like `0` or `''`).\n\n By default, `||` expressions in conditional test positions (if/while/for/ternary)\n are ignored, as the falsy-checking behavior is often intentional there. This can\n be disabled with the `ignoreConditionalTests` option.\n\n ## Examples\n\n ### Invalid\n\n ```ts\n declare const maybeString: string | null;\n const value = maybeString || 'default'; // should use ??\n ```\n\n ```ts\n declare const maybeNumber: number | undefined;\n const value = maybeNumber || 0; // should use ??\n ```\n\n ### Valid\n\n ```ts\n // Already using ??\n declare const maybeString: string | null;\n const value = maybeString ?? 'default';\n ```\n\n ```ts\n // Type is not nullish - no null or undefined in union\n declare const definiteString: string;\n const value = definiteString || 'fallback';\n ```\n\n ```ts\n // In conditional test position (ignored by default)\n declare const cond: string | null;\n if (cond || 'fallback') {\n   console.log('in if');\n }\n ```\n\n"
           },
           "usePlaywrightValidDescribeCallback": {
             "deprecated": false,
@@ -8313,7 +8330,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 476
+    "numberOrRules": 477
   },
   "syntax": {
     "languages": {

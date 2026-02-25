@@ -245,6 +245,7 @@ export const LINT_RULES = {
     useInputName: "useInputName",
     useLoneAnonymousOperation: "useLoneAnonymousOperation",
     useLoneExecutableDefinition: "useLoneExecutableDefinition",
+    useNullishCoalescing: "useNullishCoalescing",
     usePlaywrightValidDescribeCallback: "usePlaywrightValidDescribeCallback",
     useRegexpExec: "useRegexpExec",
     useRequiredScripts: "useRequiredScripts",
