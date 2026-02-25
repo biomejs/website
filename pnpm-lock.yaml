@@ -133,8 +133,8 @@ importers:
         specifier: 3.8.1
         version: 3.8.1
       prettier-plugin-svelte:
-        specifier: 3.4.1
-        version: 3.4.1(prettier@3.8.1)(svelte@5.51.5)
+        specifier: 3.5.0
+        version: 3.5.0(prettier@3.8.1)(svelte@5.53.3)
       react:
         specifier: 19.2.4
         version: 19.2.4
@@ -163,8 +163,8 @@ importers:
         specifier: 0.19.2
         version: 0.19.2(@astrojs/starlight@0.37.6(astro@5.16.15(@netlify/blobs@10.6.0)(@types/node@24.10.4)(jiti@2.4.2)(rollup@4.57.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(typescript@5.9.3)(yaml@2.8.0)))(astro@5.16.15(@netlify/blobs@10.6.0)(@types/node@24.10.4)(jiti@2.4.2)(rollup@4.57.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.6))(typescript@5.9.3)(yaml@2.8.0))
       svelte:
-        specifier: 5.51.5
-        version: 5.51.5
+        specifier: 5.53.3
+        version: 5.53.3
       textlint:
         specifier: 15.5.1
         version: 15.5.1
@@ -2567,6 +2567,10 @@ packages:
 
   argparse@2.0.1:
     resolution: {integrity: sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==}
+
+  aria-query@5.3.1:
+    resolution: {integrity: sha512-Z/ZeOgVl7bcSYZ/u/rh0fOpvEpq//LZmdbkXyc7syVzjPAhfOa9ebsdTSjEBDU4vs5nC98Kfduj1uFo0qyET3g==}
+    engines: {node: '>= 0.4'}
 
   aria-query@5.3.2:
     resolution: {integrity: sha512-COROpnaoap1E2F000S62r6A60uHZnmlvomhfyT2DlTcrY1OrBKn2UhH7qn5wTC9zMvD0AY7csdPSNwKP+7WiQw==}
@@ -5167,8 +5171,8 @@ packages:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
 
-  prettier-plugin-svelte@3.4.1:
-    resolution: {integrity: sha512-xL49LCloMoZRvSwa6IEdN2GV6cq2IqpYGstYtMT+5wmml1/dClEoI0MZR78MiVPpu6BdQFfN0/y73yO6+br5Pg==}
+  prettier-plugin-svelte@3.5.0:
+    resolution: {integrity: sha512-2lLO/7EupnjO/95t+XZesXs8Bf3nYLIDfCo270h5QWbj/vjLqmrQ1LiRk9LPggxSDsnVYfehamZNf+rgQYApZg==}
     peerDependencies:
       prettier: ^3.0.0
       svelte: ^3.2.0 || ^4.0.0-next.0 || ^5.0.0-next.0
@@ -5763,8 +5767,8 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
 
-  svelte@5.51.5:
-    resolution: {integrity: sha512-/4tR5cLsWOgH3wnNRXnFoWaJlwPGbJanZPSKSD6nHM2y01dvXeEF4Nx7jevoZ+UpJpkIHh6mY2tqDncuI4GHng==}
+  svelte@5.53.3:
+    resolution: {integrity: sha512-pRUBr6j6uQDgBi208gHnGRMykw0Rf2Yr1HmLyRucsvcaYgIUxswJkT93WZJflsmezu5s8Lq+q78EoyLv2yaFCg==}
     engines: {node: '>=18'}
 
   svg-parser@2.0.4:
@@ -9337,6 +9341,8 @@ snapshots:
 
   argparse@2.0.1: {}
 
+  aria-query@5.3.1: {}
+
   aria-query@5.3.2: {}
 
   array-iterate@2.0.1: {}
@@ -12583,10 +12589,10 @@ snapshots:
 
   prelude-ls@1.2.1: {}
 
-  prettier-plugin-svelte@3.4.1(prettier@3.8.1)(svelte@5.51.5):
+  prettier-plugin-svelte@3.5.0(prettier@3.8.1)(svelte@5.53.3):
     dependencies:
       prettier: 3.8.1
-      svelte: 5.51.5
+      svelte: 5.53.3
 
   prettier@3.8.1: {}
 
@@ -13450,7 +13456,7 @@ snapshots:
 
   supports-preserve-symlinks-flag@1.0.0: {}
 
-  svelte@5.51.5:
+  svelte@5.53.3:
     dependencies:
       '@jridgewell/remapping': 2.3.5
       '@jridgewell/sourcemap-codec': 1.5.5
@@ -13458,7 +13464,7 @@ snapshots:
       '@types/estree': 1.0.8
       '@types/trusted-types': 2.0.7
       acorn: 8.15.0
-      aria-query: 5.3.2
+      aria-query: 5.3.1
       axobject-query: 4.1.0
       clsx: 2.1.1
       devalue: 5.6.3
