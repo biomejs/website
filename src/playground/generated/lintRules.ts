@@ -229,6 +229,7 @@ export const LINT_RULES = {
     noVueOptionsApi: "noVueOptionsApi",
     noVueRefAsOperand: "noVueRefAsOperand",
     noVueVIfWithVFor: "noVueVIfWithVFor",
+    useArraySome: "useArraySome",
     useArraySortCompare: "useArraySortCompare",
     useAwaitThenable: "useAwaitThenable",
     useConsistentEnumValueType: "useConsistentEnumValueType",
