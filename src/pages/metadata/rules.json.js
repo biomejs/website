@@ -3786,6 +3786,23 @@ export function GET() {
             ],
             "docs": " Disallow the use of value wrapped by `ref()`(Composition API) as operand\n \n To access value wrapped by `ref()`, you must use `.value`.\n\n ## Examples\n\n ### Invalid\n \n ```js,expect_diagnostic\n import { ref } from \"vue\"\n \n const count = ref(0)\n count++\n ```\n \n ```js,expect_diagnostic\n import { ref } from \"vue\"\n \n const ok = ref(false)\n const msg = ok ? \"yes\" : \"no\"\n ```\n \n ```js,expect_diagnostic\n import { ref } from \"vue\"\n \n const ok = ref(false)\n if (ok) {\n   //\n }\n ```\n \n ```js,expect_diagnostic\n import { ref } from \"vue\"\n \n export default {\n   setup(_props, { emit }) {\n     const count = ref(0)\n     emit('increment', count)\n   }\n }\n ```\n\n ### Valid\n \n ```js\n import { ref } from \"vue\"\n \n const count = ref(0)\n count.value++\n ```\n \n ```js\n import { ref } from \"vue\"\n \n const ok = ref(true)\n const msg = ok.value ? \"yes\" : \"no\"\n if (ok.value) {\n   //\n }\n ```\n \n ```js\n import { ref } from \"vue\"\n \n export default {\n   setup(_props, { emit }) {\n     const count = ref(0)\n     emit('increment', count.value)\n   }\n }\n ```\n \n"
           },
+          "useArraySome": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useArraySome",
+            "link": "https://biomejs.dev/linter/rules/use-array-some",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintUnicorn": "prefer-array-some"
+                }
+              }
+            ],
+            "docs": " Prefer `Array.prototype.some()` over verbose existence checks.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n array.filter(predicate).length > 0;\n ```\n\n ```js,expect_diagnostic\n array.findIndex(predicate) !== -1;\n ```\n\n ```js,expect_diagnostic\n if (array.find(predicate)) {}\n ```\n\n ```js,expect_diagnostic\n array.find(predicate) != null;\n ```\n\n ```js,expect_diagnostic\n array.findLastIndex(predicate) !== -1;\n ```\n\n ```js,expect_diagnostic\n if (array.findLast(predicate)) {}\n ```\n\n ### Valid\n\n ```js\n array.some(predicate);\n ```\n\n"
+          },
           "useArraySortCompare": {
             "deprecated": false,
             "version": "2.3.5",
@@ -8330,7 +8347,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 477
+    "numberOrRules": 478
   },
   "syntax": {
     "languages": {
