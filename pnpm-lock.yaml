@@ -67,8 +67,8 @@ importers:
         specifier: 6.39.15
         version: 6.39.15
       '@expressive-code/plugin-line-numbers':
-        specifier: 0.41.6
-        version: 0.41.6
+        specifier: 0.41.7
+        version: 0.41.7
       '@lunariajs/core':
         specifier: 0.1.1
         version: 0.1.1
@@ -513,7 +513,7 @@ packages:
     resolution: {integrity: sha512-jboDhjZY8/bAPl2kgvjrbbyXyM6uimPsasY3TvFhSpPaNorij0UZROi/NjDQqQeZFSaIK3ieiRZXWwoBZh6rQQ==}
 
   '@biomejs/wasm-web@https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@e43e730':
-    resolution: {tarball: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@e43e730}
+    resolution: {integrity: sha512-mRM0W5uOPYby1EQh8VG5xwVgwVSi0DTwhqADtJqGBTG+08vHKpWBjsWVakR4bj4cdsfS4VmoBJQFv3Lnjwc8mQ==, tarball: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@e43e730}
     version: 0.0.0-rev.e43e730f603bb360d2993842d1b883a787224c29
 
   '@braintree/sanitize-url@7.1.1':
@@ -1097,17 +1097,17 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@expressive-code/core@0.41.5':
-    resolution: {integrity: sha512-II5TEy5eOoXiqPwqtpSqwamUd7lZS3YH3ofxR1ZyQMmygqORZn8/7SzgfF8G0kB7uKCBzFZT6RgKgCuHcJuPpA==}
-
   '@expressive-code/core@0.41.6':
     resolution: {integrity: sha512-FvJQP+hG0jWi/FLBSmvHInDqWR7jNANp9PUDjdMqSshHb0y7sxx3vHuoOr6SgXjWw+MGLqorZyPQ0aAlHEok6g==}
+
+  '@expressive-code/core@0.41.7':
+    resolution: {integrity: sha512-ck92uZYZ9Wba2zxkiZLsZGi9N54pMSAVdrI9uW3Oo9AtLglD5RmrdTwbYPCT2S/jC36JGB2i+pnQtBm/Ib2+dg==}
 
   '@expressive-code/plugin-frames@0.41.1':
     resolution: {integrity: sha512-cwUUWMr2jNpKpgiepEzM9BGnU60WepE5/Ar3H2aOn8IzcDa4Eeuk0JqQB1Vvpo0bu+VRIxaTA2njoAIeQuMN5w==}
 
-  '@expressive-code/plugin-line-numbers@0.41.6':
-    resolution: {integrity: sha512-YS8oLrGNBjY8qVVl6ZntwPXIh5HGrLEq23R6eyJ0tCJQmq03tCOOiWw9cc2R3J/XobXAI7coAtVbqAiGFB8pXQ==}
+  '@expressive-code/plugin-line-numbers@0.41.7':
+    resolution: {integrity: sha512-wI9D5NBcgE9ksiJJV8YfOC0RPI3283+9AYWIb8pBUM5TSM8msIs1YRPDt8c8Ub0XGQvbjJKtB+f9fAl2RiHJ2A==}
 
   '@expressive-code/plugin-shiki@0.41.1':
     resolution: {integrity: sha512-xJHk89ECxQpvf7ftTmtEfAKoApYYr5Um7d6fiE6GuY7+WuXN02+ZHH8r5pSJpxlQMfAmavqbNPd3dEJ9v/zHnQ==}
@@ -7548,7 +7548,7 @@ snapshots:
   '@esbuild/win32-x64@0.27.3':
     optional: true
 
-  '@expressive-code/core@0.41.5':
+  '@expressive-code/core@0.41.6':
     dependencies:
       '@ctrl/tinycolor': 4.1.0
       hast-util-select: 6.0.2
@@ -7560,7 +7560,7 @@ snapshots:
       unist-util-visit: 5.0.0
       unist-util-visit-parents: 6.0.2
 
-  '@expressive-code/core@0.41.6':
+  '@expressive-code/core@0.41.7':
     dependencies:
       '@ctrl/tinycolor': 4.1.0
       hast-util-select: 6.0.2
@@ -7574,20 +7574,20 @@ snapshots:
 
   '@expressive-code/plugin-frames@0.41.1':
     dependencies:
-      '@expressive-code/core': 0.41.5
-
-  '@expressive-code/plugin-line-numbers@0.41.6':
-    dependencies:
       '@expressive-code/core': 0.41.6
+
+  '@expressive-code/plugin-line-numbers@0.41.7':
+    dependencies:
+      '@expressive-code/core': 0.41.7
 
   '@expressive-code/plugin-shiki@0.41.1':
     dependencies:
-      '@expressive-code/core': 0.41.5
+      '@expressive-code/core': 0.41.6
       shiki: 3.20.0
 
   '@expressive-code/plugin-text-markers@0.41.1':
     dependencies:
-      '@expressive-code/core': 0.41.5
+      '@expressive-code/core': 0.41.6
 
   '@fastify/accept-negotiator@2.0.1': {}
 
@@ -10575,7 +10575,7 @@ snapshots:
 
   expressive-code@0.41.1:
     dependencies:
-      '@expressive-code/core': 0.41.5
+      '@expressive-code/core': 0.41.6
       '@expressive-code/plugin-frames': 0.41.1
       '@expressive-code/plugin-shiki': 0.41.1
       '@expressive-code/plugin-text-markers': 0.41.1

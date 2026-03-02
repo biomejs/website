@@ -43,7 +43,7 @@
     "@codemirror/lint": "6.9.4",
     "@codemirror/state": "6.5.4",
     "@codemirror/view": "6.39.15",
-    "@expressive-code/plugin-line-numbers": "0.41.6",
+    "@expressive-code/plugin-line-numbers": "0.41.7",
     "@lunariajs/core": "0.1.1",
     "@lunariajs/starlight": "0.1.1",
     "@playwright/test": "1.57.0",
