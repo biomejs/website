@@ -254,6 +254,7 @@ export const LINT_RULES = {
     useScopedStyles: "useScopedStyles",
     useSortedClasses: "useSortedClasses",
     useSpread: "useSpread",
+    useUnicodeRegex: "useUnicodeRegex",
     useVueConsistentDefinePropsDeclaration: "useVueConsistentDefinePropsDeclaration",
     useVueConsistentVBindStyle: "useVueConsistentVBindStyle",
     useVueConsistentVOnStyle: "useVueConsistentVOnStyle",

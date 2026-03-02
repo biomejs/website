@@ -250,6 +250,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [prefer-const](https://eslint.org/docs/latest/rules/prefer-const) |[useConst](/linter/rules/use-const) |
 | [prefer-destructuring](https://eslint.org/docs/latest/rules/prefer-destructuring) |[useDestructuring](/linter/rules/use-destructuring) |
 | [prefer-exponentiation-operator](https://eslint.org/docs/latest/rules/prefer-exponentiation-operator) |[useExponentiationOperator](/linter/rules/use-exponentiation-operator) |
+| [prefer-named-capture-group](https://eslint.org/docs/latest/rules/prefer-named-capture-group) |[useNamedCaptureGroup](/linter/rules/use-named-capture-group) |
 | [prefer-numeric-literals](https://eslint.org/docs/latest/rules/prefer-numeric-literals) |[useNumericLiterals](/linter/rules/use-numeric-literals) |
 | [prefer-object-has-own](https://eslint.org/docs/latest/rules/prefer-object-has-own) |[noPrototypeBuiltins](/linter/rules/no-prototype-builtins) |
 | [prefer-object-spread](https://eslint.org/docs/latest/rules/prefer-object-spread) |[useObjectSpread](/linter/rules/use-object-spread) |
@@ -260,6 +261,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [preserve-caught-error](https://eslint.org/docs/latest/rules/preserve-caught-error) |[useErrorCause](/linter/rules/use-error-cause) |
 | [radix](https://eslint.org/docs/latest/rules/radix) |[useParseIntRadix](/linter/rules/use-parse-int-radix) |
 | [require-await](https://eslint.org/docs/latest/rules/require-await) |[useAwait](/linter/rules/use-await) |
+| [require-unicode-regexp](https://eslint.org/docs/latest/rules/require-unicode-regexp) |[useUnicodeRegex](/linter/rules/use-unicode-regex) |
 | [require-yield](https://eslint.org/docs/latest/rules/require-yield) |[useYield](/linter/rules/use-yield) |
 | [symbol-description](https://eslint.org/docs/latest/rules/symbol-description) |[useSymbolDescription](/linter/rules/use-symbol-description) |
 | [use-isnan](https://eslint.org/docs/latest/rules/use-isnan) |[useIsNan](/linter/rules/use-is-nan) |
@@ -467,6 +469,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [numeric-separators-style](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/numeric-separators-style.md) |[useNumericSeparators](/linter/rules/use-numeric-separators) |
 | [prefer-array-flat-map](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-array-flat-map.md) |[useFlatMap](/linter/rules/use-flat-map) |
 | [prefer-array-index-of](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-array-index-of.md) |[useIndexOf](/linter/rules/use-index-of) |
+| [prefer-array-some](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-array-some.md) |[useArraySome](/linter/rules/use-array-some) (inspired) |
 | [prefer-at](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-at.md) |[useAtIndex](/linter/rules/use-at-index) (inspired) |
 | [prefer-date-now](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-date-now.md) |[useDateNow](/linter/rules/use-date-now) |
 | [prefer-global-this](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-global-this.md) |[useGlobalThis](/linter/rules/use-global-this) |
@@ -491,6 +494,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-arrow-functions-in-watch](https://eslint.vuejs.org/rules/no-arrow-functions-in-watch) |[noVueArrowFuncInWatch](/linter/rules/no-vue-arrow-func-in-watch) |
 | [no-deprecated-data-object-declaration](https://eslint.vuejs.org/rules/no-deprecated-data-object-declaration) |[noVueDataObjectDeclaration](/linter/rules/no-vue-data-object-declaration) (inspired) |
 | [no-dupe-keys](https://eslint.vuejs.org/rules/no-dupe-keys) |[noVueDuplicateKeys](/linter/rules/no-vue-duplicate-keys) |
+| [no-ref-as-operand](https://eslint.vuejs.org/rules/no-ref-as-operand) |[noVueRefAsOperand](/linter/rules/no-vue-ref-as-operand) |
 | [no-reserved-keys](https://eslint.vuejs.org/rules/no-reserved-keys) |[noVueReservedKeys](/linter/rules/no-vue-reserved-keys) |
 | [no-reserved-props](https://eslint.vuejs.org/rules/no-reserved-props) |[noVueReservedProps](/linter/rules/no-vue-reserved-props) |
 | [no-setup-props-reactivity-loss](https://eslint.vuejs.org/rules/no-setup-props-reactivity-loss) |[noVueSetupPropsReactivityLoss](/linter/rules/no-vue-setup-props-reactivity-loss) (inspired) |
@@ -559,6 +563,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [prefer-function-type](https://typescript-eslint.io/rules/prefer-function-type) |[useShorthandFunctionType](/linter/rules/use-shorthand-function-type) |
 | [prefer-literal-enum-member](https://typescript-eslint.io/rules/prefer-literal-enum-member) |[useLiteralEnumMembers](/linter/rules/use-literal-enum-members) |
 | [prefer-namespace-keyword](https://typescript-eslint.io/rules/prefer-namespace-keyword) |[useNamespaceKeyword](/linter/rules/use-namespace-keyword) |
+| [prefer-nullish-coalescing](https://typescript-eslint.io/rules/prefer-nullish-coalescing) |[useNullishCoalescing](/linter/rules/use-nullish-coalescing) (inspired) |
 | [prefer-optional-chain](https://typescript-eslint.io/rules/prefer-optional-chain) |[useOptionalChain](/linter/rules/use-optional-chain) |
 | [prefer-readonly](https://typescript-eslint.io/rules/prefer-readonly) |[useReadonlyClassProperties](/linter/rules/use-readonly-class-properties) |
 | [prefer-regexp-exec](https://typescript-eslint.io/rules/prefer-regexp-exec) |[useRegexpExec](/linter/rules/use-regexp-exec) |
