@@ -1234,7 +1234,7 @@ export function GET() {
           },
           "useScopedStyles": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.5",
             "name": "useScopedStyles",
             "link": "https://biomejs.dev/linter/rules/use-scoped-styles",
             "recommended": true,
@@ -3788,7 +3788,7 @@ export function GET() {
           },
           "noVueRefAsOperand": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.5",
             "name": "noVueRefAsOperand",
             "link": "https://biomejs.dev/linter/rules/no-vue-ref-as-operand",
             "recommended": false,
@@ -3805,7 +3805,7 @@ export function GET() {
           },
           "useArraySome": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.5",
             "name": "useArraySome",
             "link": "https://biomejs.dev/linter/rules/use-array-some",
             "recommended": false,
@@ -3970,7 +3970,7 @@ export function GET() {
           },
           "useNamedCaptureGroup": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.5",
             "name": "useNamedCaptureGroup",
             "link": "https://biomejs.dev/linter/rules/use-named-capture-group",
             "recommended": false,
@@ -3987,7 +3987,7 @@ export function GET() {
           },
           "useNullishCoalescing": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.5",
             "name": "useNullishCoalescing",
             "link": "https://biomejs.dev/linter/rules/use-nullish-coalescing",
             "recommended": false,
@@ -4073,6 +4073,23 @@ export function GET() {
               }
             ],
             "docs": " Enforce the use of the spread operator over `.apply()`.\n\n The `apply()` method is used to call a function with a given `this` value and arguments provided as an array.\n The spread operator `...` can be used to achieve the same result, which is more concise and easier to read.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n foo.apply(null, args);\n ```\n\n ```js,expect_diagnostic\n foo.apply(null, [1, 2, 3]);\n ```\n\n ```js,expect_diagnostic\n foo.apply(undefined, args);\n ```\n\n ```js,expect_diagnostic\n obj.foo.apply(obj, args);\n ```\n\n ### Valid\n\n ```js\n foo(...args);\n\n obj.foo(...args);\n\n foo.apply(obj, [1, 2, 3]);\n\n ```\n\n"
+          },
+          "useUnicodeRegex": {
+            "deprecated": false,
+            "version": "2.4.5",
+            "name": "useUnicodeRegex",
+            "link": "https://biomejs.dev/linter/rules/use-unicode-regex",
+            "recommended": false,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "require-unicode-regexp"
+                }
+              }
+            ],
+            "docs": " Enforce the use of the `u` or `v` flag for regular expressions.\n\n The `u` flag (Unicode mode) and `v` flag (Unicode Sets mode) enable proper handling\n of Unicode characters in regular expressions. Without these flags, regex patterns\n may not correctly match Unicode characters like emoji or characters outside the\n Basic Multilingual Plane.\n\n The `u` flag was introduced in ES2015 and enables:\n - Correct handling of surrogate pairs (e.g., emoji)\n - Unicode code point escapes (`\\u{...}`)\n - Case-insensitive matching for Unicode characters\n\n The `v` flag was introduced in ES2024 and provides all `u` flag features plus:\n - Set notation in character classes\n - String literals in character classes\n - Improved Unicode property escapes\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n /foo/;\n ```\n\n ```js,expect_diagnostic\n /foo/gi;\n ```\n\n ```js,expect_diagnostic\n new RegExp(\"foo\");\n ```\n\n ```js,expect_diagnostic\n new RegExp(\"foo\", \"gi\");\n ```\n\n ### Valid\n\n ```js\n /foo/u;\n /foo/v;\n /foo/giu;\n new RegExp(\"foo\", \"u\");\n new RegExp(\"foo\", \"giv\");\n new RegExp(\"foo\", flags); // dynamic flags are ignored\n ```\n\n"
           },
           "useVueConsistentDefinePropsDeclaration": {
             "deprecated": false,
@@ -8381,7 +8398,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 480
+    "numberOrRules": 481
   },
   "syntax": {
     "languages": {
@@ -8488,6 +8505,12 @@ export function GET() {
                 "kind": "inspired",
                 "source": {
                   "eslint": "no-duplicate-imports"
+                }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintImport": "order"
                 }
               }
             ],
