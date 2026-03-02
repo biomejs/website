@@ -41,16 +41,19 @@ This rule belongs to the types domain. This means that its activation will activ
 
 ```
 ## Description
-Enforce using nullish coalescing operator (`??`) instead of logical or (`||`).
+Enforce using the nullish coalescing operator (`??`) instead of logical or (`||`).
 
 The `??` operator only checks for `null` and `undefined`, while `||` checks
 for any falsy value including `0`, `''`, and `false`. This can prevent bugs
 where legitimate falsy values are incorrectly treated as missing.
 
-This rule triggers when the left operand of `||` is possibly nullish (contains
-`null` or `undefined` in its type). A safe fix is only offered when the type
-analysis confirms the left operand can only be truthy or nullish (not other
-falsy values like `0` or `''`).
+For `||` expressions, this rule triggers when the left operand is possibly
+nullish (contains `null` or `undefined` in its type). A safe fix is only
+offered when type analysis confirms the left operand can only be truthy or
+nullish (not other falsy values like `0` or `''`).
+
+For `||=` assignment expressions, the same logic applies: `a ||= b` is
+flagged when `a` is possibly nullish and can be rewritten as `a ??= b`.
 
 By default, `||` expressions in conditional test positions (if/while/for/ternary)
 are ignored, as the falsy-checking behavior is often intentional there. This can
@@ -68,6 +71,11 @@ const value = maybeString || 'default'; // should use ??
 ```ts
 declare const maybeNumber: number | undefined;
 const value = maybeNumber || 0; // should use ??
+```
+
+```ts
+declare let x: string | null;
+x ||= 'default'; // should use ??=
 ```
 
 ### Valid
@@ -90,6 +98,12 @@ declare const cond: string | null;
 if (cond || 'fallback') {
   console.log('in if');
 }
+```
+
+```ts
+// Already using ??=
+declare let y: string | null;
+y ??= 'default';
 ```
 
 ## Related links

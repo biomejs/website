@@ -1232,6 +1232,23 @@ export function GET() {
             ],
             "docs": " Disallow using `v-if` and `v-for` directives on the same element.\n\n There are two common cases where this can be tempting:\n - To filter items in a list (e.g. `v-for=\"user in users\" v-if=\"user.isActive\"`). In these cases, replace users with a new computed property that returns your filtered list (e.g. activeUsers).\n - To avoid rendering a list if it should be hidden (e.g. `v-for=\"user in users\" v-if=\"shouldShowUsers\"`). In these cases, move the v-if to a container element.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <TodoItem\n     v-if=\"complete\"\n     v-for=\"todo in todos\"\n     :todo=\"todo\"\n />\n ```\n\n ### Valid\n\n ```vue\n <ul v-if=\"complete\">\n     <TodoItem\n         v-for=\"todo in todos\"\n         :todo=\"todo\"\n     />\n </ul>\n ```\n\n"
           },
+          "useScopedStyles": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useScopedStyles",
+            "link": "https://biomejs.dev/linter/rules/use-scoped-styles",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintVueJs": "enforce-style-attribute"
+                }
+              }
+            ],
+            "docs": " Enforce that `<style>` blocks in Vue SFCs have the `scoped` attribute and that `<style>` blocks in Astro components do not have the `is:global` directive.\n\n Vue's `scoped` attribute automatically scopes CSS to the component,\n preventing style leakage and conflicts. Astro's `is:global` attribute\n allows for global styles, but without it, styles are scoped to the component by default.\n\n Style blocks with the `module` attribute are exempt, as CSS Modules\n is an alternative scoping mechanism.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <style>\n .foo { color: red; }\n </style>\n ```\n\n ```astro,expect_diagnostic\n <style is:global>\n .foo { color: red; }\n </style>\n ```\n\n ### Valid\n\n ```vue\n <style scoped>\n .foo { color: red; }\n </style>\n ```\n\n ```vue\n <style module>\n .foo { color: red; }\n </style>\n ```\n\n ## References:\n\n - [Vue Documentation](https://vuejs.org/api/sfc-css-features.html#scoped-css)\n - [Astro Documentation](https://docs.astro.build/en/guides/styling/#global-styles)\n"
+          },
           "useVueConsistentVBindStyle": {
             "deprecated": false,
             "version": "2.3.11",
@@ -3951,6 +3968,23 @@ export function GET() {
             ],
             "docs": " Enforce the use of `globalThis` over `window`, `self`, and `global`.\n\n `globalThis` is a standard way to access the global object across platforms such as browsers, Web Workers, Node.js and so on, and using it can make your code portable.\n\n However, there are several exceptions that are allowed:\n\n 1. Certain window/Web Workers-specific APIs, such as `window.innerHeight` and `self.postMessage`\n 2. Window-specific events, such as `window.addEventListener('resize')`\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n window.foo;\n ```\n\n ```js,expect_diagnostic\n window.addEventListener('click', () => {});\n ```\n\n ### Valid\n\n ```js\n globalThis.foo;\n ```\n\n ```js\n globalThis.addEventListener('click', () => {});\n ```\n\n ```js\n // window/Web Workers-specific APIs are allowed\n window.innerWidth;\n self.postMessage({ type: 'ready' });\n ```\n\n ```js\n // window-specific events are allowed\n window.addEventListener('resize', () => {});\n ```\n\n"
           },
+          "useNamedCaptureGroup": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useNamedCaptureGroup",
+            "link": "https://biomejs.dev/linter/rules/use-named-capture-group",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "prefer-named-capture-group"
+                }
+              }
+            ],
+            "docs": " Enforce using named capture groups in regular expression.\n\n Numbered capture groups like `(...)` can be difficult to work with,\n as they are matched by their position and not by a descriptive name.\n Named capture groups (`(?<name>...)`) associate a descriptive name\n with each match, making the regular expression more readable and\n its intent clearer.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n /(ba[rz])/;\n ```\n\n ```js,expect_diagnostic\n /([0-9]{4})/;\n ```\n\n ```js,expect_diagnostic\n /(?:ab)(cd)/;\n ```\n\n ```js,expect_diagnostic\n new RegExp(\"(foo)\");\n ```\n\n ```js,expect_diagnostic\n RegExp(\"(foo)\");\n ```\n\n ### Valid\n\n ```js\n /(?<id>ba[rz])/;\n /(?:ba[rz])/;\n /ba[rz]/;\n /(?<year>[0-9]{4})-(?<month>[0-9]{2})/;\n new RegExp(\"(?<id>foo)\");\n new RegExp(pattern);\n ```\n\n"
+          },
           "useNullishCoalescing": {
             "deprecated": false,
             "version": "next",
@@ -3966,7 +4000,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Enforce using nullish coalescing operator (`??`) instead of logical or (`||`).\n\n The `??` operator only checks for `null` and `undefined`, while `||` checks\n for any falsy value including `0`, `''`, and `false`. This can prevent bugs\n where legitimate falsy values are incorrectly treated as missing.\n\n This rule triggers when the left operand of `||` is possibly nullish (contains\n `null` or `undefined` in its type). A safe fix is only offered when the type\n analysis confirms the left operand can only be truthy or nullish (not other\n falsy values like `0` or `''`).\n\n By default, `||` expressions in conditional test positions (if/while/for/ternary)\n are ignored, as the falsy-checking behavior is often intentional there. This can\n be disabled with the `ignoreConditionalTests` option.\n\n ## Examples\n\n ### Invalid\n\n ```ts\n declare const maybeString: string | null;\n const value = maybeString || 'default'; // should use ??\n ```\n\n ```ts\n declare const maybeNumber: number | undefined;\n const value = maybeNumber || 0; // should use ??\n ```\n\n ### Valid\n\n ```ts\n // Already using ??\n declare const maybeString: string | null;\n const value = maybeString ?? 'default';\n ```\n\n ```ts\n // Type is not nullish - no null or undefined in union\n declare const definiteString: string;\n const value = definiteString || 'fallback';\n ```\n\n ```ts\n // In conditional test position (ignored by default)\n declare const cond: string | null;\n if (cond || 'fallback') {\n   console.log('in if');\n }\n ```\n\n"
+            "docs": " Enforce using the nullish coalescing operator (`??`) instead of logical or (`||`).\n\n The `??` operator only checks for `null` and `undefined`, while `||` checks\n for any falsy value including `0`, `''`, and `false`. This can prevent bugs\n where legitimate falsy values are incorrectly treated as missing.\n\n For `||` expressions, this rule triggers when the left operand is possibly\n nullish (contains `null` or `undefined` in its type). A safe fix is only\n offered when type analysis confirms the left operand can only be truthy or\n nullish (not other falsy values like `0` or `''`).\n\n For `||=` assignment expressions, the same logic applies: `a ||= b` is\n flagged when `a` is possibly nullish and can be rewritten as `a ??= b`.\n\n By default, `||` expressions in conditional test positions (if/while/for/ternary)\n are ignored, as the falsy-checking behavior is often intentional there. This can\n be disabled with the `ignoreConditionalTests` option.\n\n ## Examples\n\n ### Invalid\n\n ```ts\n declare const maybeString: string | null;\n const value = maybeString || 'default'; // should use ??\n ```\n\n ```ts\n declare const maybeNumber: number | undefined;\n const value = maybeNumber || 0; // should use ??\n ```\n\n ```ts\n declare let x: string | null;\n x ||= 'default'; // should use ??=\n ```\n\n ### Valid\n\n ```ts\n // Already using ??\n declare const maybeString: string | null;\n const value = maybeString ?? 'default';\n ```\n\n ```ts\n // Type is not nullish - no null or undefined in union\n declare const definiteString: string;\n const value = definiteString || 'fallback';\n ```\n\n ```ts\n // In conditional test position (ignored by default)\n declare const cond: string | null;\n if (cond || 'fallback') {\n   console.log('in if');\n }\n ```\n\n ```ts\n // Already using ??=\n declare let y: string | null;\n y ??= 'default';\n ```\n\n"
           },
           "usePlaywrightValidDescribeCallback": {
             "deprecated": false,
@@ -8347,7 +8381,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 478
+    "numberOrRules": 480
   },
   "syntax": {
     "languages": {

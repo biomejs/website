@@ -1,0 +1,99 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: useScopedStyles
+description: Learn more about useScopedStyles
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="HTML" icon="seti:html">
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/useScopedStyles`](/reference/diagnostics#diagnostic-category)
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Inspired from [`vue/enforce-style-attribute`](https://eslint.vuejs.org/rules/enforce-style-attribute)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useScopedStyles": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Enforce that `<style>` blocks in Vue SFCs have the `scoped` attribute and that `<style>` blocks in Astro components do not have the `is:global` directive.
+
+Vue's `scoped` attribute automatically scopes CSS to the component,
+preventing style leakage and conflicts. Astro's `is:global` attribute
+allows for global styles, but without it, styles are scoped to the component by default.
+
+Style blocks with the `module` attribute are exempt, as CSS Modules
+is an alternative scoping mechanism.
+
+## Examples
+
+### Invalid
+
+```vue
+<style>
+.foo { color: red; }
+</style>
+```
+
+<pre class="language-text"><code class="language-text"></code></pre>
+
+```astro
+<style is:global>
+.foo { color: red; }
+</style>
+```
+
+<pre class="language-text"><code class="language-text"></code></pre>
+
+### Valid
+
+```vue
+<style scoped>
+.foo { color: red; }
+</style>
+```
+
+```vue
+<style module>
+.foo { color: red; }
+</style>
+```
+
+## References:
+
+- [Vue Documentation](https://vuejs.org/api/sfc-css-features.html#scoped-css)
+- [Astro Documentation](https://docs.astro.build/en/guides/styling/#global-styles)
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/use_scoped_styles.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/useScopedStyles)
+
+</TabItem>
+</Tabs>
+
