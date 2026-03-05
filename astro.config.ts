@@ -665,6 +665,26 @@ export default defineConfig({
 										ru: "Источники действий GraphQL",
 									},
 								},
+								{
+									label: "HTML Actions",
+									link: "/assist/html/actions",
+									translations: {
+										ja: "HTMLアクション",
+										"zh-CN": "HTML 操作",
+										pl: "Akcje HTML",
+										ru: "Действия HTML",
+									},
+								},
+								{
+									label: "HTML Actions sources",
+									link: "/assist/html/sources",
+									translations: {
+										ja: "HTMLアクションのソース",
+										"zh-CN": "HTML 操作来源",
+										pl: "Źródła akcji HTML",
+										ru: "Источники действий HTML",
+									},
+								},
 							],
 							translations: {
 								ja: "アシスト",
