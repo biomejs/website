@@ -24,7 +24,7 @@ use biome_diagnostics::termcolor::NoColor;
 use biome_diagnostics::{Diagnostic, DiagnosticExt, PrintDiagnostic, Severity, Visit};
 use biome_formatter::{Expand, LineWidth};
 use biome_graphql_syntax::GraphqlLanguage;
-use biome_html_parser::HtmlParseOptions;
+use biome_html_parser::HtmlParserOptions;
 use biome_html_syntax::HtmlLanguage;
 use biome_js_parser::JsParserOptions;
 use biome_js_syntax::{EmbeddingKind, JsFileSource, JsLanguage};
@@ -1854,7 +1854,7 @@ fn print_diagnostics_or_actions(
             }
         }
         DocumentFileSource::Html(file_source) => {
-            let parse = biome_html_parser::parse_html(code, HtmlParseOptions::from(&file_source));
+            let parse = biome_html_parser::parse_html(code, HtmlParserOptions::from(&file_source));
 
             if parse.has_errors() {
                 for diag in parse.into_diagnostics() {
