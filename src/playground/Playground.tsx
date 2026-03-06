@@ -49,6 +49,7 @@ import {
 	useWindowSize,
 } from "@/playground/utils";
 import AnalyzerFixesTab from "./tabs/AnalyzerFixesTab";
+import GritQLSearchTab from "./tabs/GritQLSearchTab";
 import SemanticModelTab from "./tabs/SemanticModelTab";
 
 export default function Playground({
@@ -315,6 +316,41 @@ export default function Playground({
 					visible: hasNarrowViewport,
 					children: (
 						<DiagnosticsConsoleTab console={biomeOutput.diagnostics.console} />
+					),
+				},
+				{
+					key: PlaygroundTab.GritQL,
+					title: "GritQL",
+					visible: hasNarrowViewport,
+					children: (
+						<GritQLSearchTab
+							editorRef={editorRef}
+							code={code}
+							gritQuery={gritQuery}
+							gritQueryResults={gritQueryResults}
+							gritTargetLanguage={gritTargetLanguage}
+							onGritQueryChange={(query) => {
+								setPlaygroundState((state) => ({
+									...state,
+									files: {
+										...state.files,
+										[state.currentFile]: {
+											...getFileState(state, state.currentFile),
+											gritQuery: query,
+										},
+									},
+								}));
+							}}
+							onLanguageChange={(language) => {
+								setPlaygroundState((state) => ({
+									...state,
+									settings: {
+										...state.settings,
+										gritTargetLanguage: language,
+									},
+								}));
+							}}
+						/>
 					),
 				},
 				{

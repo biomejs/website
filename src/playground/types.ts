@@ -21,6 +21,7 @@ export enum PlaygroundTab {
 	TypesIr = "types-ir",
 	TypesRegistered = "types-registered",
 	SemanticModel = "semantic-model",
+	GritQL = "gritql",
 }
 
 export type PrettierOptions = import("prettier").Options & {
