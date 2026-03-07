@@ -1,11 +1,6 @@
 import type { Diagnostic, GritTargetLanguage } from "@biomejs/wasm-web";
 import type { ReactCodeMirrorRef } from "@uiw/react-codemirror";
-import {
-	type Dispatch,
-	type RefObject,
-	type SetStateAction,
-	useState,
-} from "react";
+import type { Dispatch, RefObject, SetStateAction } from "react";
 import Tabs from "@/playground/components/Tabs";
 import DiagnosticsConsoleTab from "@/playground/tabs/DiagnosticsConsoleTab";
 import DiagnosticsListTab from "@/playground/tabs/DiagnosticsListTab";
@@ -39,20 +34,17 @@ export default function DiagnosticsPane({
 	setPlaygroundState,
 	currentPane,
 }: Props) {
-	const [pane, setPane] = useState<PlaygroundPane>(currentPane);
-
 	const onSelect = (tab: PlaygroundPane) => {
-		setPane(tab);
 		setPlaygroundState((state) => ({
 			...state,
-			pane: tab as PlaygroundPane,
+			pane: tab,
 		}));
 	};
 
 	return (
 		<Tabs
 			className="diagnostics-tabs"
-			selectedTab={pane}
+			selectedTab={currentPane}
 			onSelect={onSelect}
 			tabs={[
 				{

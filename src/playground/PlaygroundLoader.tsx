@@ -25,6 +25,7 @@ import {
 	type LintRule,
 	LoadingState,
 	type OperatorLinebreak,
+	PLAYGROUND_PANE,
 	type PlaygroundSettings,
 	type PlaygroundState,
 	type QuoteProperties,
@@ -417,9 +418,11 @@ function initState(
 			(searchParams.get("tab") as PlaygroundState["tab"]) ??
 			defaultPlaygroundState.tab,
 		singleFileMode,
-		pane:
-			(searchParams.get("pane") as PlaygroundState["pane"]) ??
-			defaultPlaygroundState.pane,
+		pane: Object.values(PLAYGROUND_PANE).includes(
+			searchParams.get("pane") as PlaygroundState["pane"],
+		)
+			? (searchParams.get("pane") as PlaygroundState["pane"])
+			: defaultPlaygroundState.pane,
 		currentFile: Object.keys(files)[0] ?? defaultPlaygroundState.currentFile,
 		files,
 		settings: {
@@ -548,8 +551,6 @@ export function usePlaygroundState(): [
 	function resetPlaygroundState() {
 		setPlaygroundState(initState(new URLSearchParams(""), false));
 	}
-
-	console.log("here", playgroundState);
 
 	useEffect(() => {
 		setUrl(buildLocation(playgroundState));
