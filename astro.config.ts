@@ -202,10 +202,6 @@ export default defineConfig({
 						{
 							label: "Configure Biome",
 							link: "/guides/configure-biome",
-							badge: {
-								text: "updated",
-								variant: "note",
-							},
 							translations: {
 								es: "Configurar Biome",
 								fr: "Configurer Biome",
@@ -852,6 +848,14 @@ export default defineConfig({
 								"zh-CN": "Biome 徽章",
 								pl: "Odznaki społecznościowe",
 								ru: "Социальные значки",
+							},
+						},
+						{
+							label: "GritQL Plugin Recipes",
+							link: "/recipes/gritql-plugins",
+							badge: {
+								text: "new",
+								variant: "success",
 							},
 						},
 					],

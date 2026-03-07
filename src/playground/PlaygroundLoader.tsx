@@ -302,6 +302,14 @@ function buildLocation(state: PlaygroundState): string {
 		}
 	}
 
+	if (state.tab) {
+		queryStringObj.tab = state.tab;
+	}
+
+	if (state.pane) {
+		queryStringObj.pane = state.pane;
+	}
+
 	if (state.singleFileMode && Object.keys(state.files).length === 1) {
 		// Single file mode
 		const code = getCurrentCode(state);
@@ -411,6 +419,9 @@ function initState(
 			(searchParams.get("tab") as PlaygroundState["tab"]) ??
 			defaultPlaygroundState.tab,
 		singleFileMode,
+		pane:
+			(searchParams.get("pane") as PlaygroundState["pane"]) ??
+			defaultPlaygroundState.pane,
 		currentFile: Object.keys(files)[0] ?? defaultPlaygroundState.currentFile,
 		files,
 		settings: {
@@ -539,6 +550,8 @@ export function usePlaygroundState(): [
 	function resetPlaygroundState() {
 		setPlaygroundState(initState(new URLSearchParams(""), false));
 	}
+
+	console.log("here", playgroundState);
 
 	useEffect(() => {
 		setUrl(buildLocation(playgroundState));
