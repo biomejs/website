@@ -1,10 +1,16 @@
 import type { Diagnostic, GritTargetLanguage } from "@biomejs/wasm-web";
 import type { ReactCodeMirrorRef } from "@uiw/react-codemirror";
-import { type RefObject, useState } from "react";
+import {
+	type Dispatch,
+	type RefObject,
+	type SetStateAction,
+	useState,
+} from "react";
 import Tabs from "@/playground/components/Tabs";
 import DiagnosticsConsoleTab from "@/playground/tabs/DiagnosticsConsoleTab";
 import DiagnosticsListTab from "@/playground/tabs/DiagnosticsListTab";
 import GritQLSearchTab from "@/playground/tabs/GritQLSearchTab";
+import type { PlaygroundPane, PlaygroundState } from "@/playground/types.ts";
 
 interface Props {
 	editorRef: RefObject<ReactCodeMirrorRef | null>;
@@ -16,6 +22,8 @@ interface Props {
 	gritTargetLanguage: GritTargetLanguage;
 	onGritQueryChange: (query: string) => void;
 	onLanguageChange: (language: GritTargetLanguage) => void;
+	setPlaygroundState: Dispatch<SetStateAction<PlaygroundState>>;
+	currentPane: PlaygroundPane;
 }
 
 export default function DiagnosticsPane({
@@ -28,19 +36,27 @@ export default function DiagnosticsPane({
 	gritTargetLanguage,
 	onGritQueryChange,
 	onLanguageChange,
+	setPlaygroundState,
+	currentPane,
 }: Props) {
-	const [tab, setTab] = useState<"diagnostics" | "console" | "gritql">(
-		"diagnostics",
-	);
+	const [pane, setPane] = useState<PlaygroundPane>(currentPane);
+
+	const onSelect = (tab: PlaygroundPane) => {
+		setPane(tab);
+		setPlaygroundState((state) => ({
+			...state,
+			pane: tab as PlaygroundPane,
+		}));
+	};
 
 	return (
 		<Tabs
 			className="diagnostics-tabs"
-			selectedTab={tab}
-			onSelect={setTab}
+			selectedTab={pane}
+			onSelect={onSelect}
 			tabs={[
 				{
-					key: "diagnostics",
+					key: "Diagnostics",
 					title: "Diagnostics",
 					children: (
 						<DiagnosticsListTab
@@ -51,12 +67,12 @@ export default function DiagnosticsPane({
 					),
 				},
 				{
-					key: "console",
+					key: "Console",
 					title: "Console",
 					children: <DiagnosticsConsoleTab console={console} />,
 				},
 				{
-					key: "gritql",
+					key: "GritQL",
 					title: "GritQL",
 					children: (
 						<GritQLSearchTab

@@ -396,6 +396,8 @@ export default function Playground({
 						gritQuery={gritQuery}
 						gritQueryResults={gritQueryResults}
 						gritTargetLanguage={gritTargetLanguage}
+						currentPane={playgroundState.pane}
+						setPlaygroundState={setPlaygroundState}
 						onGritQueryChange={(query) => {
 							setPlaygroundState((state) => ({
 								...state,
