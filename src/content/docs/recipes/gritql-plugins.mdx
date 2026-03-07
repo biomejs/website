@@ -290,6 +290,8 @@ const arrow = (a, b, c, d, e) => {};
 `ok` has 3 parameters and is fine. `tooMany` and `arrow` both exceed the limit,
 with the diagnostic highlighting the 4th parameter onward.
 
+[Try this example in the Playground](</playground?tab=syntax&pane=GritQL&code=ZgB1AG4AYwB0AGkAbwBuACAAbwBrACgAYQAsACAAYgAsACAAYwApACAAewB9AAoAZgB1AG4AYwB0AGkAbwBuACAAdABvAG8ATQBhAG4AeQAoAGEALAAgAGIALAAgAGMALAAgAGQAKQAgAHsAfQAKAGMAbwBuAHMAdAAgAGEAcgByAG8AdwAgAD0AIAAoAGEALAAgAGIALAAgAGMALAAgAGQALAAgAGUAKQAgAD0APgAgAHsAfQA7AA%3D%3D&gritQuery=engine%20biome(1.0)%0Alanguage%20js(typescript%2C%20jsx)%0A%0AJsFormalParameter()%20as%20%24fourth%20where%20%7B%0A%20%20%20%20%24fourth%20%3C%3A%20within%20JsParameters(items%20%3D%20%5B%24_%2C%20%24_%2C%20%24_%2C%20%24fourth%2C%20%24...%5D)%0A%7D>)
+
 ### No empty catch blocks
 
 CST nodes can be **nested** in the pattern to express structural constraints.
@@ -391,6 +393,8 @@ counter++;
 All `let` declarations with initializers (lines 1, 2, 4) are matched. The
 `const` on line 3 and the standalone `counter++` on line 5 are not.
 
+[Try this example in the Playground](/playground?tab=syntax&pane=GritQL&code=bABlAHQAIAB4ACAAPQAgADEAOwAKAGwAZQB0ACAAeQAgAD0AIAAiAGgAZQBsAGwAbwAiADsACgBjAG8AbgBzAHQAIAB6ACAAPQAgAHQAcgB1AGUAOwAKAGwAZQB0ACAAYwBvAHUAbgB0AGUAcgAgAD0AIAAwADsACgBjAG8AdQBuAHQAZQByACsAKwA7AA%3D%3D&gritQuery=%60let%20%24name%20%3D%20%24value%60)
+
 ### Ban `dangerouslySetInnerHTML`
 
 GritQL snippet patterns work inside JSX. Here we match the
@@ -486,7 +490,7 @@ language css;
 
 Lines 2 and 6 contain `!important` declarations and are matched.
 
-[Try this example in the Playground](/playground?tab=syntax&pane=GritQL&code=LgBiAHUAdAB0AG8AbgAgAHsACgAgACAAIAAgAGMAbwBsAG8AcgA6ACAAcgBlAGQAIAAhAGkAbQBwAG8AcgB0AGEAbgB0ADsACgAgACAAIAAgAGQAaQBzAHAAbABhAHkAOgAgAGYAbABlAHgAOwAKAH0ACgAuAG8AdgBlAHIAcgBpAGQAZQAgAHsACgAgACAAIAAgAG0AYQByAGcAaQBuADoAIAAwACAAIQBpAG0AcABvAHIAdABhAG4AdAA7AAoAfQA%3D&gritQuery=language+css%3B%0A%0A%60color%3A+%24value+%21important%60&language=css&gritTargetLanguage=CSS)
+[Try this example in the Playground](/playground?tab=syntax&pane=GritQL&code=LgBiAHUAdAB0AG8AbgAgAHsACgAgACAAIAAgAGMAbwBsAG8AcgA6ACAAcgBlAGQAIAAhAGkAbQBwAG8AcgB0AGEAbgB0ADsACgAgACAAIAAgAGQAaQBzAHAAbABhAHkAOgAgAGYAbABlAHgAOwAKAH0ACgAuAG8AdgBlAHIAcgBpAGQAZQAgAHsACgAgACAAIAAgAG0AYQByAGcAaQBuADoAIAAwACAAIQBpAG0AcABvAHIAdABhAG4AdAA7AAoAfQA%3D&gritQuery=language%20css%3B%0A%0A%60%24property%3A%20%24value%20!important%60&language=css&gritTargetLanguage=CSS)
 
 ### Ban hardcoded colors — use CSS custom properties
 
@@ -644,6 +648,8 @@ language json;
 `user_name` (snake_case) and `UserAge` (PascalCase) don't match the camelCase
 regex and are flagged. `userName` and `email` pass.
 
+[Try this example in the Playground](/playground?tab=syntax&pane=GritQL&code=ewAKACAAIAAiAHUAcwBlAHIATgBhAG0AZQAiADoAIAAiAGEAbABpAGMAZQAiACwACgAgACAAIgB1AHMAZQByAF8AbgBhAG0AZQAiADoAIAAiAGIAbwBiACIALAAKACAAIAAiAFUAcwBlAHIAQQBnAGUAIgA6ACAAMwAwACwACgAgACAAIgBlAG0AYQBpAGwAIgA6ACAAIgBhAEAAYgAuAGMAbwBtACIACgB9AA%3D%3D&gritQuery=language%20json%3B%0A%0A%60%22%24key%22%3A%20%24value%60%20where%20%7B%0A%20%20%20%20not%20%24key%20%3C%3A%20r%22%5E%5Ba-z%5D%5Ba-zA-Z0-9%5D*%24%22%0A%7D&language=json&gritTargetLanguage=JSON)
+
 ---
 
 ## Advanced Patterns
@@ -680,6 +686,8 @@ function process() {
 
 Lines 1 and 3 contain TODO/FIXME markers and are matched. The normal comment
 on line 6 does not contain either marker.
+
+[Try this example in the Playground](</playground?tab=syntax&pane=GritQL&code=LwAvACAAVABPAEQATwA6ACAAcgBlAGYAYQBjAHQAbwByACAAdABoAGkAcwAgAGYAdQBuAGMAdABpAG8AbgAKAGYAdQBuAGMAdABpAG8AbgAgAHAAcgBvAGMAZQBzAHMAKAApACAAewAKACAAIAAvAC8AIABGAEkAWABNAEUAOgAgAGgAYQBuAGQAbABlACAAZQBkAGcAZQAgAGMAYQBzAGUACgAgACAAcgBlAHQAdQByAG4AIABkAGEAdABhADsACgB9AAoALwAvACAAVABoAGkAcwAgAGkAcwAgAGEAIABuAG8AcgBtAGEAbAAgAGMAbwBtAG0AZQBuAHQA&gritQuery=engine%20biome(1.0)%0Alanguage%20js(typescript%2C%20jsx)%0A%0AJsComment()%20as%20%24comment%20where%20%7B%0A%20%20%20%20%24comment%20%3C%3A%20r%22.*(TODO%7CFIXME).*%22%0A%7D>)
 
 :::caution
 Comment node names vary between languages. In CSS, use `CssComment()` instead
