@@ -1,0 +1,816 @@
+---
+title: GritQL Plugin Recipes
+description: Ready-to-use GritQL plugin examples for common linting use cases in Biome
+---
+
+This page provides a collection of practical [GritQL](/reference/gritql/) plugin
+examples that you can use directly in your projects. Each example is designed to
+demonstrate a specific GritQL feature while solving a real-world linting problem.
+
+For an introduction to GritQL syntax and the plugin system, see the
+[Linter Plugins](/linter/plugins) and [GritQL reference](/reference/gritql/)
+pages first.
+
+To use any of the examples below, save the GritQL snippet to a `.grit` file in
+your project and register it in your configuration:
+
+```json name="biome.json"
+{
+  "plugins": ["./plugins/your-rule.grit"]
+}
+```
+
+Alternatively, you can navigate the playground link attached to each example.
+
+---
+
+## JavaScript / TypeScript
+
+Below, there's a collection of examples for JavaScript/TypeScript language.
+
+### Enforce strict equality except against `null`
+
+GritQL patterns can have **conditions** attached via the `where` clause. Inside
+a `where` block, the **match operator** `<:` tests whether a variable matches a
+given pattern, and the **`not`** keyword negates that test. Multiple conditions
+separated by commas must all be true for the pattern to match.
+
+Here we match any `==` comparison, then use two `not` conditions to skip cases
+where either operand is the literal `null` — since `== null` is the one
+idiomatic use of loose equality:
+
+```grit ins="where" ins="not" ins="<:"
+`$left == $right` where {
+    not $right <: `null`,
+    not $left <: `null`,
+    register_diagnostic(
+        span = $left,
+        message = "Use `===` instead of `==`. Loose equality is only acceptable when comparing against `null`.",
+        severity = "warn"
+    )
+}
+```
+
+Matched — neither side is `null`:
+
+```js mark="x == 1" mark='x == "hello"'
+if (x == 1) {
+}
+if (x == "hello") {
+}
+```
+
+Not matched — one side is `null`, so loose equality is acceptable:
+
+```js
+if (x == null) {
+}
+if (null == x) {
+}
+```
+
+[Try this example in the Playground](/playground?tab=syntax&pane=GritQL&code=aQBmACAAKAB4ACAAPQA9ACAAMQApACAAewB9AAoAaQBmACAAKAB4ACAAPQA9ACAAbgB1AGwAbAApACAAewB9AAoAaQBmACAAKABuAHUAbABsACAAPQA9ACAAeAApACAAewB9AAoAaQBmACAAKAB4ACAAPQA9ACAAIgBoAGUAbABsAG8AIgApACAAewB9AA%3D%3D&gritQuery=%60%24left+%3D%3D+%24right%60+where+%7B%0A++++not+%24right+%3C%3A+%60null%60%2C%0A++++not+%24left+%3C%3A+%60null%60%0A%7D)
+
+### Ban `forEach` — prefer `for...of`
+
+The **spread metavariable** `$...` matches zero or more arguments (or list
+elements) without binding them. The **`as`** keyword binds the entire matched
+node to a variable, so you can reference it later — typically to set the
+diagnostic `span`.
+
+We use `$...` to match `.forEach()` regardless of how many arguments are passed,
+and `as $call` to capture the full expression for the diagnostic span:
+
+```grit ins="$..." ins="as $call"
+`$collection.forEach($...)` as $call where {
+    register_diagnostic(
+        span = $call,
+        message = "Prefer `for...of` over `.forEach()`. It supports `break`, `continue`, and `await`."
+    )
+}
+```
+
+```js ins={2} ins={3-5} mark=".forEach"
+const items = [1, 2, 3];
+items.forEach((item) => console.log(item));
+items.forEach((item, index) => {
+  console.log(index, item);
+});
+for (const item of items) {
+  console.log(item);
+}
+```
+
+Both `.forEach()` calls are matched (lines 2 and 3). The `for...of` loop on
+line 6 is not affected.
+
+[Try this example in the Playground](/playground?tab=syntax&pane=GritQL&code=YwBvAG4AcwB0ACAAaQB0AGUAbQBzACAAPQAgAFsAMQAsACAAMgAsACAAMwBdADsACgBpAHQAZQBtAHMALgBmAG8AcgBFAGEAYwBoACgAaQB0AGUAbQAgAD0APgAgAGMAbwBuAHMAbwBsAGUALgBsAG8AZwAoAGkAdABlAG0AKQApADsACgBpAHQAZQBtAHMALgBmAG8AcgBFAGEAYwBoACgAKABpAHQAZQBtACwAIABpAG4AZABlAHgAKQAgAD0APgAgAHsACgAgACAAIAAgAGMAbwBuAHMAbwBsAGUALgBsAG8AZwAoAGkAbgBkAGUAeAAsACAAaQB0AGUAbQApADsACgB9ACkAOwAKAGYAbwByACAAKABjAG8AbgBzAHQAIABpAHQAZQBtACAAbwBmACAAaQB0AGUAbQBzACkAIAB7AAoAIAAgACAAIABjAG8AbgBzAG8AbABlAC4AbABvAGcAKABpAHQAZQBtACkAOwAKAH0A&gritQuery=%60%24collection.forEach%28%24...%29%60)
+
+### No restricted imports
+
+The **`or`** operator matches if any of its child patterns match. Here we use
+it to list multiple banned package names. The **anonymous metavariable** `$_`
+matches any node without creating a named binding — useful when you don't care
+about the value.
+
+We match any `import` statement, ignore the imported bindings with `$_`, and
+check whether the source string matches any of the banned packages:
+
+```grit ins=" or " ins="$_"
+`import $_ from $source` where {
+    $source <: or { `'lodash'`, `'underscore'`, `'moment'` },
+    register_diagnostic(
+        span = $source,
+        message = "This package is not allowed. Use the approved alternative instead."
+    )
+}
+```
+
+```js ins={1} ins={3} ins={4} mark='"lodash"' mark='"moment"' mark='"underscore"'
+import _ from "lodash";
+import dayjs from "dayjs";
+import moment from "moment";
+import { merge } from "underscore";
+```
+
+Lines 1, 3, and 4 are matched. Line 2 (`dayjs`) is not in the banned list.
+
+[Try this example in the Playground](/playground?tab=syntax&pane=GritQL&code=aQBtAHAAbwByAHQAIABfACAAZgByAG8AbQAgACIAbABvAGQAYQBzAGgAIgA7AAoAaQBtAHAAbwByAHQAIABkAGEAeQBqAHMAIABmAHIAbwBtACAAIgBkAGEAeQBqAHMAIgA7AAoAaQBtAHAAbwByAHQAIABtAG8AbQBlAG4AdAAgAGYAcgBvAG0AIAAiAG0AbwBtAGUAbgB0ACIAOwAKAGkAbQBwAG8AcgB0ACAAewAgAG0AZQByAGcAZQAgAH0AIABmAHIAbwBtACAAIgB1AG4AZABlAHIAcwBjAG8AcgBlACIAOwA%3D&gritQuery=%60import+%24_+from+%24source%60+where+%7B%0A++++%24source+%3C%3A+or+%7B+%60%22lodash%22%60%2C+%60%22underscore%22%60%2C+%60%22moment%22%60+%7D%0A%7D)
+
+You can also catch `require()` calls in the same file by using a **top-level
+`or`** to match both import styles:
+
+```grit ins={1} ins={3}
+or {
+    `import $_ from $source`,
+    `require($source)`
+} where {
+    $source <: or { `'lodash'`, `'underscore'`, `'moment'` },
+    register_diagnostic(
+        span = $source,
+        message = "This package is not allowed. Use the approved alternative instead."
+    )
+}
+```
+
+### Ban `new Date()` — use a date library
+
+When a code snippet contains `$...` as the only argument, it matches
+**zero or more arguments**. When you add a named metavariable before it like
+`$first, $...`, the pattern requires **at least one argument** — `$first` must
+bind to something.
+
+Here the first form matches all `new Date()` calls. The second form uses
+`$first` to require at least one argument, allowing `new Date()` (getting
+"now") while flagging `new Date("2024-01-15")` and similar parsing calls:
+
+```grit ins="$first" ins="$..."
+`new Date($first, $...)` as $expr where {
+    register_diagnostic(
+        span = $expr,
+        message = "Avoid the `Date` constructor for parsing. Use the project's date utility instead."
+    )
+}
+```
+
+```js ins={2} ins={3} ins={4} mark='new Date("2024-01-15")' mark="new Date(2024, 0, 15)" mark="new Date(1705276800000)"
+const now = new Date();
+const parsed = new Date("2024-01-15");
+const custom = new Date(2024, 0, 15);
+const fromTs = new Date(1705276800000);
+```
+
+Line 1 (`new Date()` with no args) is not matched. Lines 2-4 all have at least
+one argument, so they trigger the diagnostic.
+
+[Try this example in the Playground](/playground?tab=syntax&pane=GritQL&code=YwBvAG4AcwB0ACAAbgBvAHcAIAA9ACAAbgBlAHcAIABEAGEAdABlACgAKQA7AAoAYwBvAG4AcwB0ACAAcABhAHIAcwBlAGQAIAA9ACAAbgBlAHcAIABEAGEAdABlACgAIgAyADAAMgA0AC0AMAAxAC0AMQA1ACIAKQA7AAoAYwBvAG4AcwB0ACAAYwB1AHMAdABvAG0AIAA9ACAAbgBlAHcAIABEAGEAdABlACgAMgAwADIANAAsACAAMAAsACAAMQA1ACkAOwAKAGMAbwBuAHMAdAAgAGYAcgBvAG0AVABzACAAPQAgAG4AZQB3ACAARABhAHQAZQAoADEANwAwADUAMgA3ADYAOAAwADAAMAAwADAAKQA7AA%3D%3D&gritQuery=%60new+Date%28%24first%2C+%24...%29%60)
+
+### Ban `eval()` and `Function()` constructor
+
+A **top-level `or`** lets you combine unrelated syntax patterns into a single
+plugin rule. Each arm can use `as $match` to **unify the variable name** so
+that the shared `where` clause can reference it consistently — even though the
+arms match completely different syntax shapes.
+
+Here we combine `eval()` calls and `new Function()` constructors into one rule:
+
+```grit ins={1} ins="as $match"
+or {
+    `eval($code)` as $match,
+    `new Function($...)` as $match
+} where {
+    register_diagnostic(
+        span = $match,
+        message = "Dynamic code evaluation is not allowed. Avoid `eval()` and `new Function()`."
+    )
+}
+```
+
+```js ins={1} ins={2} mark='eval("alert(1)")' mark='new Function("a", "b", "return a + b")'
+eval("alert(1)");
+const fn = new Function("a", "b", "return a + b");
+const safe = JSON.parse(data);
+```
+
+Lines 1 and 2 are matched. Line 3 is not — `JSON.parse` is a different pattern
+entirely.
+
+[Try this example in the Playground](/playground?tab=syntax&pane=GritQL&code=ZQB2AGEAbAAoACIAYQBsAGUAcgB0ACgAMQApACIAKQA7AAoAYwBvAG4AcwB0ACAAZgBuACAAPQAgAG4AZQB3ACAARgB1AG4AYwB0AGkAbwBuACgAIgBhACIALAAgACIAYgAiACwAIAAiAHIAZQB0AHUAcgBuACAAYQAgACsAIABiACIAKQA7AAoAYwBvAG4AcwB0ACAAcwBhAGYAZQAgAD0AIABKAFMATwBOAC4AcABhAHIAcwBlACgAZABhAHQAYQApADsA&gritQuery=or+%7B%0A++++%60eval%28%24code%29%60%2C%0A++++%60new+Function%28%24...%29%60%0A%7D)
+
+### No nested ternaries
+
+Instead of matching source code snippets, you can match against **Biome's
+concrete syntax tree (CST) nodes** directly. Each node type has a unique
+`PascalCase` name like `JsConditionalExpression`. The **`contains`** modifier
+searches the entire subtree of a matched node, catching nested structures at
+any depth.
+
+Here we find any ternary that contains another ternary nested inside it:
+
+```grit ins="JsConditionalExpression()" ins="contains"
+engine biome(1.0)
+language js(typescript, jsx)
+
+JsConditionalExpression() as $outer where {
+    $outer <: contains JsConditionalExpression() as $inner,
+    register_diagnostic(
+        span = $inner,
+        message = "Nested ternary expressions are not allowed. Use `if`/`else` instead."
+    )
+}
+```
+
+```js ins={2} ins={3} mark="y ? 1 : 2" mark="y ? 2 : 3"
+const a = x ? 1 : 0;
+const b = x ? (y ? 1 : 2) : 0;
+const c = x ? 1 : y ? 2 : 3;
+```
+
+Line 1 has a single (non-nested) ternary and is not matched. Lines 2 and 3 each
+contain a ternary inside another ternary.
+
+[Try this example in the Playground](/playground?tab=syntax&pane=GritQL&code=YwBvAG4AcwB0ACAAYQAgAD0AIAB4ACAAPwAgADEAIAA6ACAAMAA7AAoAYwBvAG4AcwB0ACAAYgAgAD0AIAB4ACAAPwAgACgAeQAgAD8AIAAxACAAOgAgADIAKQAgADoAIAAwADsACgBjAG8AbgBzAHQAIABjACAAPQAgAHgAIAA%2FACAAMQAgADoAIAB5ACAAPwAgADIAIAA6ACAAMwA7AA%3D%3D&gritQuery=engine+biome%281.0%29%0Alanguage+js%28typescript%2C+jsx%29%0A%0AJsConditionalExpression%28%29+as+%24outer+where+%7B%0A++++%24outer+%3C%3A+contains+JsConditionalExpression%28%29%0A%7D)
+
+:::note
+CST node names like `JsConditionalExpression` are specific to Biome's parser.
+See the [Discovering CST Node Names](#discovering-cst-node-names) section below
+to learn how to find these names.
+:::
+
+### Limit function parameters
+
+CST nodes can be matched with **named fields** to inspect their children. The
+**`within`** modifier checks whether a node appears inside a specific parent
+structure. **List patterns** like `[$_, $_, $_, $fourth, $...]` match ordered
+sequences — here requiring at least 4 items to be present.
+
+We match any parameter node, then check whether it sits at position 4 or later
+in a parameter list:
+
+```grit ins="within" ins="items = [$_, $_, $_, $fourth, $...]"
+engine biome(1.0)
+language js(typescript, jsx)
+
+JsFormalParameter() as $fourth where {
+    $fourth <: within JsParameters(items = [$_, $_, $_, $fourth, $...]),
+    register_diagnostic(
+        span = $fourth,
+        message = "Functions should not have more than 3 parameters. Use an options object instead.",
+        severity = "warn"
+    )
+}
+```
+
+```js ins={2} ins={3} mark=", d" mark=", e"
+function ok(a, b, c) {}
+function tooMany(a, b, c, d) {}
+const arrow = (a, b, c, d, e) => {};
+```
+
+`ok` has 3 parameters and is fine. `tooMany` and `arrow` both exceed the limit,
+with the diagnostic highlighting the 4th parameter onward.
+
+[Try this example in the Playground](</playground?tab=syntax&pane=GritQL&code=ZgB1AG4AYwB0AGkAbwBuACAAbwBrACgAYQAsACAAYgAsACAAYwApACAAewB9AAoAZgB1AG4AYwB0AGkAbwBuACAAdABvAG8ATQBhAG4AeQAoAGEALAAgAGIALAAgAGMALAAgAGQAKQAgAHsAfQAKAGMAbwBuAHMAdAAgAGEAcgByAG8AdwAgAD0AIAAoAGEALAAgAGIALAAgAGMALAAgAGQALAAgAGUAKQAgAD0APgAgAHsAfQA7AA%3D%3D&gritQuery=engine%20biome(1.0)%0Alanguage%20js(typescript%2C%20jsx)%0A%0AJsFormalParameter()%20as%20%24fourth%20where%20%7B%0A%20%20%20%20%24fourth%20%3C%3A%20within%20JsParameters(items%20%3D%20%5B%24_%2C%20%24_%2C%20%24_%2C%20%24fourth%2C%20%24...%5D)%0A%7D>)
+
+### No empty catch blocks
+
+CST nodes can be **nested** in the pattern to express structural constraints.
+Here we match a `JsCatchClause` whose `body` field is a `JsBlockStatement` with
+an empty `statements` list (`[]`). This reads almost like a type assertion: "a
+catch clause containing a block with no statements."
+
+```grit ins="body = JsBlockStatement(statements = [])"
+engine biome(1.0)
+language js(typescript, jsx)
+
+JsCatchClause(body = JsBlockStatement(statements = [])) as $catch where {
+    register_diagnostic(
+        span = $catch,
+        message = "Empty catch blocks are not allowed. Handle the error or add a comment explaining why it is ignored."
+    )
+}
+```
+
+```js ins={3} mark="catch (e) {}"
+try {
+  riskyOperation();
+} catch (e) {}
+
+try {
+  anotherOp();
+} catch (e) {
+  console.error(e);
+}
+```
+
+The first `catch` block (line 3) is empty and matched. The second one has a
+statement inside and is not.
+
+[Try this example in the Playground](/playground?tab=syntax&pane=GritQL&code=dAByAHkAIAB7AAoAIAAgACAAIAByAGkAcwBrAHkATwBwAGUAcgBhAHQAaQBvAG4AKAApADsACgB9ACAAYwBhAHQAYwBoACAAKABlACkAIAB7AH0ACgAKAHQAcgB5ACAAewAKACAAIAAgACAAYQBuAG8AdABoAGUAcgBPAHAAKAApADsACgB9ACAAYwBhAHQAYwBoACAAKABlACkAIAB7AAoAIAAgACAAIABjAG8AbgBzAG8AbABlAC4AZQByAHIAbwByACgAZQApADsACgB9AA%3D%3D&gritQuery=%60try+%7B+%24_+%7D+catch+%28%24_%29+%7B%7D%60)
+
+### Disallow `any` type annotation
+
+Some CST nodes are specific to **TypeScript**. The `TsAnyType` node represents
+the `any` keyword wherever it appears as a type annotation. By matching this
+node directly, you catch every occurrence — in variable declarations, function
+parameters, return types, and generic arguments.
+
+```grit ins="TsAnyType()"
+engine biome(1.0)
+language js(typescript)
+
+TsAnyType() as $any where {
+    register_diagnostic(
+        span = $any,
+        message = "Don't use `any`. Use `unknown`, a specific type, or a generic instead.",
+        severity = "warn"
+    )
+}
+```
+
+```ts ins={1} ins={2} ins={5} mark="any"
+let x: any = 1;
+function foo(x: any): any {
+  return x;
+}
+const arr: Array<any> = [];
+let safe: unknown = 1;
+```
+
+Every `any` annotation on lines 1-3 is matched. The `unknown` on line 4 is a
+different type and is not affected.
+
+[Try this example in the Playground](/playground?tab=syntax&pane=GritQL&code=bABlAHQAIAB4ADoAIABhAG4AeQAgAD0AIAAxADsACgBmAHUAbgBjAHQAaQBvAG4AIABmAG8AbwAoAHgAOgAgAGEAbgB5ACkAOgAgAGEAbgB5ACAAewAgAHIAZQB0AHUAcgBuACAAeAA7ACAAfQAKAGMAbwBuAHMAdAAgAGEAcgByADoAIABBAHIAcgBhAHkAPABhAG4AeQA%2BACAAPQAgAFsAXQA7AAoAbABlAHQAIABzAGEAZgBlADoAIAB1AG4AawBuAG8AdwBuACAAPQAgADEAOwA%3D&gritQuery=engine+biome%281.0%29%0Alanguage+js%28typescript%29%0A%0ATsAnyType%28%29)
+
+### Enforce `const` over `let`
+
+The **`severity`** argument to `register_diagnostic()` controls how the
+diagnostic is displayed. The default is `"error"`. Use `"warn"` for
+recommendations, `"hint"` for soft nudges, and `"info"` for informational
+messages.
+
+This rule uses `"hint"` because GritQL plugins cannot perform data-flow analysis
+to detect whether a variable is actually reassigned:
+
+```grit ins={5}
+`let $name = $value` as $decl where {
+    register_diagnostic(
+        span = $decl,
+        message = "Prefer `const` unless the variable is reassigned.",
+        severity = "hint"
+    )
+}
+```
+
+```js ins={1} ins={2} ins={4} mark="let x = 1" mark='let y = "hello"' mark="let counter = 0"
+let x = 1;
+let y = "hello";
+const z = true;
+let counter = 0;
+counter++;
+```
+
+All `let` declarations with initializers (lines 1, 2, 4) are matched. The
+`const` on line 3 and the standalone `counter++` on line 5 are not.
+
+[Try this example in the Playground](/playground?tab=syntax&pane=GritQL&code=bABlAHQAIAB4ACAAPQAgADEAOwAKAGwAZQB0ACAAeQAgAD0AIAAiAGgAZQBsAGwAbwAiADsACgBjAG8AbgBzAHQAIAB6ACAAPQAgAHQAcgB1AGUAOwAKAGwAZQB0ACAAYwBvAHUAbgB0AGUAcgAgAD0AIAAwADsACgBjAG8AdQBuAHQAZQByACsAKwA7AA%3D%3D&gritQuery=%60let%20%24name%20%3D%20%24value%60)
+
+### Ban `dangerouslySetInnerHTML`
+
+GritQL snippet patterns work inside JSX. Here we match the
+`dangerouslySetInnerHTML` prop regardless of the element it's on or the value
+passed to it:
+
+```grit ins="dangerouslySetInnerHTML=$value"
+`dangerouslySetInnerHTML=$value` as $attr where {
+    register_diagnostic(
+        span = $attr,
+        message = "Do not use `dangerouslySetInnerHTML`. Sanitize content and render it safely instead."
+    )
+}
+```
+
+Matched — any element using the prop:
+
+```jsx mark="dangerouslySetInnerHTML={{ __html: content }}" mark="dangerouslySetInnerHTML={{ __html: text }}"
+<div dangerouslySetInnerHTML={{ __html: content }} />
+<p dangerouslySetInnerHTML={{ __html: text }}></p>
+```
+
+Not matched — no `dangerouslySetInnerHTML`:
+
+```jsx
+<div className="safe">{content}</div>
+```
+
+[Try this example in the Playground](/playground?tab=syntax&pane=GritQL&code=PABkAGkAdgAgAGQAYQBuAGcAZQByAG8AdQBzAGwAeQBTAGUAdABJAG4AbgBlAHIASABUAE0ATAA9AHsAewAgAF8AXwBoAHQAbQBsADoAIABjAG8AbgB0AGUAbgB0ACAAfQB9ACAALwA%2BAAoAPABwACAAZABhAG4AZwBlAHIAbwB1AHMAbAB5AFMAZQB0AEkAbgBuAGUAcgBIAFQATQBMAD0AewB7ACAAXwBfAGgAdABtAGwAOgAgAHQAZQB4AHQAIAB9AH0APgA8AC8AcAA%2BAAoAPABkAGkAdgAgAGMAbABhAHMAcwBOAGEAbQBlAD0AIgBzAGEAZgBlACIAPgB7AGMAbwBuAHQAZQBuAHQAfQA8AC8AZABpAHYAPgA%3D&gritQuery=%60dangerouslySetInnerHTML%3D%24value%60)
+
+### No inline `style` props
+
+The same approach works for banning inline `style` props. This encourages
+the use of CSS classes or CSS-in-JS solutions instead of inline styles:
+
+```grit ins="style=$value"
+`style=$value` as $attr where {
+    register_diagnostic(
+        span = $attr,
+        message = "Avoid inline `style` props. Use a CSS class or a styled component instead.",
+        severity = "warn"
+    )
+}
+```
+
+Matched — inline `style` prop:
+
+```jsx mark='style={{ color: "red" }}' mark="style={{ margin: 0, padding: 10 }}"
+<button style={{ color: "red" }}>Click</button>
+<div style={{ margin: 0, padding: 10 }}>Content</div>
+```
+
+Not matched — using `className` instead:
+
+```jsx
+<span className="highlight">OK</span>
+```
+
+[Try this example in the Playground](/playground?tab=syntax&pane=GritQL&code=PABiAHUAdAB0AG8AbgAgAHMAdAB5AGwAZQA9AHsAewAgAGMAbwBsAG8AcgA6ACAAIgByAGUAZAAiACAAfQB9AD4AQwBsAGkAYwBrADwALwBiAHUAdAB0AG8AbgA%2BAAoAPABkAGkAdgAgAHMAdAB5AGwAZQA9AHsAewAgAG0AYQByAGcAaQBuADoAIAAwACwAIABwAGEAZABkAGkAbgBnADoAIAAxADAAIAB9AH0APgBDAG8AbgB0AGUAbgB0ADwALwBkAGkAdgA%2BAAoAPABzAHAAYQBuACAAYwBsAGEAcwBzAE4AYQBtAGUAPQAiAGgAaQBnAGgAbABpAGcAaAB0ACIAPgBPAEsAPAAvAHMAcABhAG4APgA%3D&gritQuery=%60style%3D%24value%60)
+
+---
+
+## CSS
+
+### Disallow `!important`
+
+By default, GritQL patterns target JavaScript. The **`language css;`** directive
+at the top of a `.grit` file switches the target language to CSS. After this
+directive, code snippets in backticks are parsed as CSS instead of JavaScript.
+
+Here we match any CSS declaration that ends with `!important`:
+
+```grit ins="language css;"
+language css;
+
+`$property: $value !important` as $decl where {
+    register_diagnostic(
+        span = $decl,
+        message = "Avoid `!important`. Increase selector specificity or restructure your styles instead."
+    )
+}
+```
+
+```css ins={2} ins={6} mark="!important"
+.button {
+  color: red !important;
+  display: flex;
+}
+.override {
+  margin: 0 !important;
+}
+```
+
+Lines 2 and 6 contain `!important` declarations and are matched.
+
+[Try this example in the Playground](/playground?tab=syntax&pane=GritQL&code=LgBiAHUAdAB0AG8AbgAgAHsACgAgACAAIAAgAGMAbwBsAG8AcgA6ACAAcgBlAGQAIAAhAGkAbQBwAG8AcgB0AGEAbgB0ADsACgAgACAAIAAgAGQAaQBzAHAAbABhAHkAOgAgAGYAbABlAHgAOwAKAH0ACgAuAG8AdgBlAHIAcgBpAGQAZQAgAHsACgAgACAAIAAgAG0AYQByAGcAaQBuADoAIAAwACAAIQBpAG0AcABvAHIAdABhAG4AdAA7AAoAfQA%3D&gritQuery=language%20css%3B%0A%0A%60%24property%3A%20%24value%20!important%60&language=css&gritTargetLanguage=CSS)
+
+### Ban hardcoded colors — use CSS custom properties
+
+**Regex patterns** use the `r"..."` syntax. They match against the text content
+of a node rather than its syntactic structure. This is useful for matching
+values like hex color codes that don't have a dedicated syntax node.
+
+Here we use a regex to match any hex color value in `color` declarations:
+
+```grit ins={4}
+language css;
+
+`color: $value` as $decl where {
+    $value <: r"#[0-9a-fA-F]+",
+    register_diagnostic(
+        span = $value,
+        message = "Don't use hardcoded hex colors. Use a CSS custom property (e.g. `var(--color-primary)`) instead.",
+        severity = "warn"
+    )
+}
+```
+
+```css ins={2} ins={6} mark="#ff0000" mark="#1a2b3c"
+.header {
+  color: #ff0000;
+  background: var(--bg-primary);
+}
+.text {
+  color: #1a2b3c;
+}
+```
+
+Lines 2 and 6 use hardcoded hex colors and are matched. The `var()` reference
+on line 3 is not a hex value and passes.
+
+[Try this example in the Playground](/playground?tab=syntax&pane=GritQL&code=LgBoAGUAYQBkAGUAcgAgAHsACgAgACAAIAAgAGMAbwBsAG8AcgA6ACAAIwBmAGYAMAAwADAAMAA7AAoAIAAgACAAIABiAGEAYwBrAGcAcgBvAHUAbgBkADoAIAB2AGEAcgAoAC0ALQBiAGcALQBwAHIAaQBtAGEAcgB5ACkAOwAKAH0ACgAuAHQAZQB4AHQAIAB7AAoAIAAgACAAIABjAG8AbABvAHIAOgAgACMAMQBhADIAYgAzAGMAOwAKAH0A&gritQuery=language+css%3B%0A%0A%60color%3A+%24value%60+where+%7B%0A++++%24value+%3C%3A+r%22%23%5B0-9a-fA-F%5D%2B%22%0A%7D&language=css&gritTargetLanguage=CSS)
+
+To also catch `rgb()` and `hsl()` functions, combine multiple regex patterns
+with `or`:
+
+```grit
+language css;
+
+`color: $value` as $decl where {
+    $value <: or {
+        r"#[0-9a-fA-F]+",
+        r"rgba?\(.*\)",
+        r"hsla?\(.*\)"
+    },
+    register_diagnostic(
+        span = $value,
+        message = "Don't use hardcoded colors. Use a CSS custom property instead.",
+        severity = "warn"
+    )
+}
+```
+
+Matched — hex, `rgb()`, and `hsl()` values:
+
+```css ins={2} ins={6} ins={9} mark="#ff0000" mark="rgb(255, 0, 0)" mark="hsl(200, 50%, 50%)"
+.header {
+  color: #ff0000;
+  background: var(--bg-primary);
+}
+.alert {
+  color: rgb(255, 0, 0);
+}
+.text {
+  color: hsl(200, 50%, 50%);
+}
+.safe {
+  color: var(--text-primary);
+}
+```
+
+The `var()` references on lines 3 and 12 don't match any of the regex patterns and pass.
+
+[Try this example in the Playground](</playground?tab=syntax&pane=GritQL&code=LgBoAGUAYQBkAGUAcgAgAHsACgAgACAAYwBvAGwAbwByADoAIAAjAGYAZgAwADAAMAAwADsACgAgACAAYgBhAGMAawBnAHIAbwB1AG4AZAA6ACAAdgBhAHIAKAAtAC0AYgBnAC0AcAByAGkAbQBhAHIAeQApADsACgB9AAoALgBhAGwAZQByAHQAIAB7AAoAIAAgAGMAbwBsAG8AcgA6ACAAcgBnAGIAKAAyADUANQAsACAAMAAsACAAMAApADsACgB9AAoALgB0AGUAeAB0ACAAewAKACAAIABjAG8AbABvAHIAOgAgAGgAcwBsACgAMgAwADAALAAgADUAMAAlACwAIAA1ADAAJQApADsACgB9AAoALgBzAGEAZgBlACAAewAKACAAIABjAG8AbABvAHIAOgAgAHYAYQByACgALQAtAHQAZQB4AHQALQBwAHIAaQBtAGEAcgB5ACkAOwAKAH0A&gritQuery=language%20css%3B%0A%0A%60color%3A%20%24value%60%20where%20%7B%0A%20%20%20%20%24value%20%3C%3A%20or%20%7B%0A%20%20%20%20%20%20%20%20r%22%23%5B0-9a-fA-F%5D%2B%22%2C%0A%20%20%20%20%20%20%20%20r%22rgba%3F%5C(.*%5C)%22%2C%0A%20%20%20%20%20%20%20%20r%22hsla%3F%5C(.*%5C)%22%0A%20%20%20%20%7D%0A%7D&language=css&gritTargetLanguage=CSS>)
+
+### Disallow specific CSS properties
+
+The **`contains`** operator searches within a matched node's subtree. This is
+useful for CSS rule blocks where you want to search across all declarations
+regardless of their position. Here we match any CSS rule, then search its
+declarations for banned properties:
+
+```grit ins="contains"
+language css;
+
+`$selector { $props }` where {
+    $props <: contains `$property: $value` as $decl where {
+        $property <: or { `float`, `clear` },
+        register_diagnostic(
+            span = $decl,
+            message = "The `float` and `clear` properties are not allowed. Use Flexbox or Grid for layout."
+        )
+    }
+}
+```
+
+```css ins={2} ins={6} mark="float: left" mark="clear: both"
+.sidebar {
+  float: left;
+  width: 200px;
+}
+.clearfix {
+  clear: both;
+}
+.modern {
+  display: grid;
+}
+```
+
+`float` on line 2 and `clear` on line 6 are matched. The `.modern` rule uses
+`display: grid` which is not in the banned list.
+
+[Try this example in the Playground](/playground?tab=syntax&pane=GritQL&code=LgBzAGkAZABlAGIAYQByACAAewAKACAAIAAgACAAZgBsAG8AYQB0ADoAIABsAGUAZgB0ADsACgAgACAAIAAgAHcAaQBkAHQAaAA6ACAAMgAwADAAcAB4ADsACgB9AAoALgBjAGwAZQBhAHIAZgBpAHgAIAB7AAoAIAAgACAAIABjAGwAZQBhAHIAOgAgAGIAbwB0AGgAOwAKAH0ACgAuAG0AbwBkAGUAcgBuACAAewAKACAAIAAgACAAZABpAHMAcABsAGEAeQA6ACAAZwByAGkAZAA7AAoAfQA%3D&gritQuery=language%20css%3B%0A%0A%60%24selector%20%7B%20%24props%20%7D%60%20where%20%7B%0A%20%20%20%20%24props%20%3C%3A%20contains%20%60%24property%3A%20%24value%60%20where%20%7B%0A%20%20%20%20%20%20%20%20%24property%20%3C%3A%20or%20%7B%20%60float%60%2C%20%60clear%60%20%7D%0A%20%20%20%20%7D%0A%7D&language=css&gritTargetLanguage=CSS)
+
+---
+
+## JSON
+
+### Enforce JSON key naming conventions
+
+The **`language json;`** directive targets JSON files. You can match JSON
+members using snippet patterns like `` `"$key": $value` ``. Combined with
+**regex** and **`not`**, this lets you enforce naming conventions on keys.
+
+Here we flag any key that doesn't match `camelCase`, while excluding keys
+starting with `$` (common in JSON Schema):
+
+```grit ins="language json;" ins={4} ins={5}
+language json;
+
+`"$key": $value` where {
+    not $key <: r"^[a-z][a-zA-Z0-9]*$",
+    not $key <: r"^\$.*",
+    register_diagnostic(
+        span = $key,
+        message = "JSON keys must use camelCase.",
+        severity = "warn"
+    )
+}
+```
+
+```json ins={3} ins={4} mark="user_name" mark="UserAge"
+{
+  "userName": "alice",
+  "user_name": "bob",
+  "UserAge": 30,
+  "email": "a@b.com"
+}
+```
+
+`user_name` (snake_case) and `UserAge` (PascalCase) don't match the camelCase
+regex and are flagged. `userName` and `email` pass.
+
+[Try this example in the Playground](/playground?tab=syntax&pane=GritQL&code=ewAKACAAIAAiAHUAcwBlAHIATgBhAG0AZQAiADoAIAAiAGEAbABpAGMAZQAiACwACgAgACAAIgB1AHMAZQByAF8AbgBhAG0AZQAiADoAIAAiAGIAbwBiACIALAAKACAAIAAiAFUAcwBlAHIAQQBnAGUAIgA6ACAAMwAwACwACgAgACAAIgBlAG0AYQBpAGwAIgA6ACAAIgBhAEAAYgAuAGMAbwBtACIACgB9AA%3D%3D&gritQuery=language%20json%3B%0A%0A%60%22%24key%22%3A%20%24value%60%20where%20%7B%0A%20%20%20%20not%20%24key%20%3C%3A%20r%22%5E%5Ba-z%5D%5Ba-zA-Z0-9%5D*%24%22%0A%7D&language=json&gritTargetLanguage=JSON)
+
+---
+
+## Advanced Patterns
+
+### Detect TODO/FIXME comments
+
+GritQL can match **comment nodes** using Biome's CST. `JsComment()` matches any
+JavaScript comment — both `//` line comments and `/* */` block comments. Combined
+with a regex, this lets you surface markers like `TODO` and `FIXME` as linting
+diagnostics.
+
+```grit ins={4} ins={5}
+engine biome(1.0)
+language js(typescript, jsx)
+
+JsComment() as $comment where {
+    $comment <: r".*(TODO|FIXME).*",
+    register_diagnostic(
+        span = $comment,
+        message = "Unresolved TODO/FIXME comment found.",
+        severity = "info"
+    )
+}
+```
+
+```js ins={1} ins={3} mark="TODO" mark="FIXME"
+// TODO: refactor this function
+function process() {
+  // FIXME: handle edge case
+  return data;
+}
+// This is a normal comment
+```
+
+Lines 1 and 3 contain TODO/FIXME markers and are matched. The normal comment
+on line 6 does not contain either marker.
+
+[Try this example in the Playground](</playground?tab=syntax&pane=GritQL&code=LwAvACAAVABPAEQATwA6ACAAcgBlAGYAYQBjAHQAbwByACAAdABoAGkAcwAgAGYAdQBuAGMAdABpAG8AbgAKAGYAdQBuAGMAdABpAG8AbgAgAHAAcgBvAGMAZQBzAHMAKAApACAAewAKACAAIAAvAC8AIABGAEkAWABNAEUAOgAgAGgAYQBuAGQAbABlACAAZQBkAGcAZQAgAGMAYQBzAGUACgAgACAAcgBlAHQAdQByAG4AIABkAGEAdABhADsACgB9AAoALwAvACAAVABoAGkAcwAgAGkAcwAgAGEAIABuAG8AcgBtAGEAbAAgAGMAbwBtAG0AZQBuAHQA&gritQuery=engine%20biome(1.0)%0Alanguage%20js(typescript%2C%20jsx)%0A%0AJsComment()%20as%20%24comment%20where%20%7B%0A%20%20%20%20%24comment%20%3C%3A%20r%22.*(TODO%7CFIXME).*%22%0A%7D>)
+
+:::caution
+Comment node names vary between languages. In CSS, use `CssComment()` instead
+of `JsComment()`.
+:::
+
+### Combine multiple related rules in one file
+
+You can group **multiple independent rules** into a single `.grit` file using a
+top-level `or`. Each arm has its own pattern, conditions, and diagnostic. The
+`where` clause can be placed inside each arm independently, giving each rule
+its own severity and message.
+
+Here we combine three debug-related checks into one plugin:
+
+```grit ins={1} ins={7} ins={13}
+or {
+    `debugger` as $match where {
+        register_diagnostic(
+            span = $match,
+            message = "Remove `debugger` statements before committing."
+        )
+    },
+    `alert($...)` as $match where {
+        register_diagnostic(
+            span = $match,
+            message = "Remove `alert()` calls before committing."
+        )
+    },
+    `console.$method($...)` as $match where {
+        $method <: or { `log`, `debug`, `trace` },
+        register_diagnostic(
+            span = $match,
+            message = "Remove debug logging before committing.",
+            severity = "warn"
+        )
+    }
+}
+```
+
+```js ins={1} ins={2} ins={3} ins={5} mark="debugger" mark='alert("test")' mark='console.log("debug info")' mark='console.debug("trace")'
+debugger;
+alert("test");
+console.log("debug info");
+console.error("real error");
+console.debug("trace");
+```
+
+Lines 1, 2, 3, and 5 are matched by different arms of the `or`. Line 4
+(`console.error`) is not in the `log`, `debug`, `trace` list and passes.
+
+[Try this example in the Playground](/playground?tab=syntax&pane=GritQL&code=ZABlAGIAdQBnAGcAZQByADsACgBhAGwAZQByAHQAKAAiAHQAZQBzAHQAIgApADsACgBjAG8AbgBzAG8AbABlAC4AbABvAGcAKAAiAGQAZQBiAHUAZwAgAGkAbgBmAG8AIgApADsACgBjAG8AbgBzAG8AbABlAC4AZQByAHIAbwByACgAIgByAGUAYQBsACAAZQByAHIAbwByACIAKQA7AAoAYwBvAG4AcwBvAGwAZQAuAGQAZQBiAHUAZwAoACIAdAByAGEAYwBlACIAKQA7AA%3D%3D&gritQuery=or+%7B%0A++++%60debugger%60%2C%0A++++%60alert%28%24...%29%60%2C%0A++++%60console.%24method%28%24...%29%60+where+%7B%0A++++++++%24method+%3C%3A+or+%7B+%60log%60%2C+%60debug%60%2C+%60trace%60+%7D%0A++++%7D%0A%7D)
+
+---
+
+## Discovering CST Node Names
+
+Several examples above use Biome's CST node names like `JsConditionalExpression`
+or `TsAnyType`. Here's how to find the right node name for the code you want to
+match.
+
+### Using the Biome Playground
+
+1. Open the [Biome Playground](/playground/).
+2. Paste or type the code snippet you want to match.
+3. Switch to the **Syntax** tab in the output panel on the right.
+4. The syntax tree is displayed with every node labeled by its type name. Expand
+   nodes to see their children and fields.
+5. Use the node name you find in your GritQL pattern:
+   `NodeName()` for any instance, or `NodeName(field = ...)` to match specific
+   children.
+
+### Common node names
+
+Here are some frequently useful Biome CST node names for JavaScript/TypeScript:
+
+| Node Name                   | Matches                         |
+| --------------------------- | ------------------------------- |
+| `JsIfStatement`             | `if (...) { ... }`              |
+| `JsConditionalExpression`   | `a ? b : c`                     |
+| `JsForStatement`            | `for (...; ...; ...) { ... }`   |
+| `JsForOfStatement`          | `for (... of ...) { ... }`      |
+| `JsCallExpression`          | `fn()`, `obj.method()`          |
+| `JsNewExpression`           | `new Foo()`                     |
+| `JsArrowFunctionExpression` | `() => { ... }`                 |
+| `JsFunctionDeclaration`     | `function foo() { ... }`        |
+| `JsCatchClause`             | `catch (e) { ... }`             |
+| `JsBlockStatement`          | `{ ... }` (block of statements) |
+| `JsFormalParameter`         | A single function parameter     |
+| `JsParameters`              | The parameter list `(a, b, c)`  |
+| `JsVariableDeclaration`     | `const x = 1`, `let y = 2`      |
+| `TsAnyType`                 | `: any` type annotation         |
+| `TsTypeAlias`               | `type Foo = ...`                |
+| `TsInterfaceDeclaration`    | `interface Foo { ... }`         |
+| `JsxElement`                | `<div>...</div>`                |
+| `JsxSelfClosingElement`     | `<img />`                       |
+| `JsxAttribute`              | `className="test"`, `disabled`  |
+
+For CSS:
+
+| Node Name                     | Matches            |
+| ----------------------------- | ------------------ |
+| `CssDeclarationWithSemicolon` | `property: value;` |
+| `CssComplexSelector`          | `div > .class`     |
+| `CssComment`                  | `/* ... */`        |
+
+:::note
+These node names are specific to Biome's parser and may change between versions.
+Always verify against the Playground for your version. A complete list is
+available in the [`.ungram` files](https://github.com/biomejs/biome/tree/main/xtask/codegen)
+in the Biome repository.
+:::
+
+### Header directives for CST patterns
+
+When using CST node names, your `.grit` file should include the engine and
+language directives:
+
+```grit ins={1} ins={2}
+engine biome(1.0)
+language js(typescript, jsx)
+```
+
+The `engine biome(1.0)` directive tells GritQL to use Biome's syntax tree (as
+opposed to Tree-sitter's). The `language` directive specifies which language
+grammar to match against — without it, JavaScript is assumed.

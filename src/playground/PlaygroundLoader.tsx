@@ -25,6 +25,7 @@ import {
 	type LintRule,
 	LoadingState,
 	type OperatorLinebreak,
+	PLAYGROUND_PANE,
 	type PlaygroundSettings,
 	type PlaygroundState,
 	type QuoteProperties,
@@ -300,6 +301,14 @@ function buildLocation(state: PlaygroundState): string {
 		}
 	}
 
+	if (state.tab) {
+		queryStringObj.tab = state.tab;
+	}
+
+	if (state.pane) {
+		queryStringObj.pane = state.pane;
+	}
+
 	if (state.singleFileMode && Object.keys(state.files).length === 1) {
 		// Single file mode
 		const code = getCurrentCode(state);
@@ -409,6 +418,11 @@ function initState(
 			(searchParams.get("tab") as PlaygroundState["tab"]) ??
 			defaultPlaygroundState.tab,
 		singleFileMode,
+		pane: Object.values(PLAYGROUND_PANE).includes(
+			searchParams.get("pane") as PlaygroundState["pane"],
+		)
+			? (searchParams.get("pane") as PlaygroundState["pane"])
+			: defaultPlaygroundState.pane,
 		currentFile: Object.keys(files)[0] ?? defaultPlaygroundState.currentFile,
 		files,
 		settings: {
