@@ -157,8 +157,8 @@ importers:
         specifier: 0.25.3
         version: 0.25.3(@astrojs/starlight@0.37.6(astro@5.16.15(@netlify/blobs@10.6.0)(@types/node@24.10.4)(jiti@2.4.2)(rollup@4.57.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.0)))(astro@5.16.15(@netlify/blobs@10.6.0)(@types/node@24.10.4)(jiti@2.4.2)(rollup@4.57.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.0))
       starlight-changelogs:
-        specifier: 0.3.0
-        version: 0.3.0(@astrojs/starlight@0.37.6(astro@5.16.15(@netlify/blobs@10.6.0)(@types/node@24.10.4)(jiti@2.4.2)(rollup@4.57.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.0)))(astro@5.16.15(@netlify/blobs@10.6.0)(@types/node@24.10.4)(jiti@2.4.2)(rollup@4.57.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.0))
+        specifier: 0.4.0
+        version: 0.4.0(@astrojs/starlight@0.37.6(astro@5.16.15(@netlify/blobs@10.6.0)(@types/node@24.10.4)(jiti@2.4.2)(rollup@4.57.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.0)))(astro@5.16.15(@netlify/blobs@10.6.0)(@types/node@24.10.4)(jiti@2.4.2)(rollup@4.57.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.0))
       starlight-links-validator:
         specifier: 0.19.2
         version: 0.19.2(@astrojs/starlight@0.37.6(astro@5.16.15(@netlify/blobs@10.6.0)(@types/node@24.10.4)(jiti@2.4.2)(rollup@4.57.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.0)))(astro@5.16.15(@netlify/blobs@10.6.0)(@types/node@24.10.4)(jiti@2.4.2)(rollup@4.57.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.0))
@@ -510,7 +510,7 @@ packages:
     resolution: {integrity: sha512-jboDhjZY8/bAPl2kgvjrbbyXyM6uimPsasY3TvFhSpPaNorij0UZROi/NjDQqQeZFSaIK3ieiRZXWwoBZh6rQQ==}
 
   '@biomejs/wasm-web@https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@5046d2b':
-    resolution: {integrity: sha512-pE2WqmLHUcvj8uTmICis17F4CkvPKA6VpvgohNXR/hbBeJurWZzyAj+ovyiQWSUbxQazyWY4UMaZI5PoCkdmvA==, tarball: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@5046d2b}
+    resolution: {tarball: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@5046d2b}
     version: 0.0.0-rev.5046d2b4f04849a35ea3c5483f22178c1817f6da
 
   '@braintree/sanitize-url@7.1.1':
@@ -5671,8 +5671,8 @@ packages:
     peerDependencies:
       '@astrojs/starlight': '>=0.33.0'
 
-  starlight-changelogs@0.3.0:
-    resolution: {integrity: sha512-e2nVEMI2RASEWot9o2JXSUBcgo14gyrg6IexhIZ2LM1J8NDCvR9cKIaSMmW/033MsINalKvvKsJv88dL0ST58w==}
+  starlight-changelogs@0.4.0:
+    resolution: {integrity: sha512-Yzd10aAet3flycj5dZoUWryE7jdzwhkmoQpHScYUqxF93pE09GCXGGWsfGA/TnG3VH9RquSEBAVwRWz7hyT6Ww==}
     engines: {node: '>=18.17.1'}
     peerDependencies:
       '@astrojs/starlight': '>=0.35.0'
@@ -13309,7 +13309,7 @@ snapshots:
       - astro
       - supports-color
 
-  starlight-changelogs@0.3.0(@astrojs/starlight@0.37.6(astro@5.16.15(@netlify/blobs@10.6.0)(@types/node@24.10.4)(jiti@2.4.2)(rollup@4.57.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.0)))(astro@5.16.15(@netlify/blobs@10.6.0)(@types/node@24.10.4)(jiti@2.4.2)(rollup@4.57.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.0)):
+  starlight-changelogs@0.4.0(@astrojs/starlight@0.37.6(astro@5.16.15(@netlify/blobs@10.6.0)(@types/node@24.10.4)(jiti@2.4.2)(rollup@4.57.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.0)))(astro@5.16.15(@netlify/blobs@10.6.0)(@types/node@24.10.4)(jiti@2.4.2)(rollup@4.57.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.0)):
     dependencies:
       '@ascorbic/loader-utils': 1.0.2(astro@5.16.15(@netlify/blobs@10.6.0)(@types/node@24.10.4)(jiti@2.4.2)(rollup@4.57.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.0))
       '@astrojs/starlight': 0.37.6(astro@5.16.15(@netlify/blobs@10.6.0)(@types/node@24.10.4)(jiti@2.4.2)(rollup@4.57.1)(sass@1.77.8)(sugarss@5.0.0(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.0))
