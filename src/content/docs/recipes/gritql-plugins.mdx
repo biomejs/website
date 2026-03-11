@@ -153,6 +153,18 @@ or {
 }
 ```
 
+```js ins={1} ins={3} ins={4} mark='"lodash"' mark='"moment"'
+import _ from "lodash";
+import dayjs from "dayjs";
+const moment = require("moment");
+const utils = require("lodash");
+```
+
+Both `import` and `require()` forms are matched for banned packages. `dayjs` on
+line 2 is not in the list.
+
+[Try this example in the Playground](/playground?tab=syntax&pane=GritQL&code=aQBtAHAAbwByAHQAIABfACAAZgByAG8AbQAgACIAbABvAGQAYQBzAGgAIgA7AAoAaQBtAHAAbwByAHQAIABkAGEAeQBqAHMAIABmAHIAbwBtACAAIgBkAGEAeQBqAHMAIgA7AAoAYwBvAG4AcwB0ACAAbQBvAG0AZQBuAHQAIAA9ACAAcgBlAHEAdQBpAHIAZQAoACIAbQBvAG0AZQBuAHQAIgApADsACgBjAG8AbgBzAHQAIAB1AHQAaQBsAHMAIAA9ACAAcgBlAHEAdQBpAHIAZQAoACIAbABvAGQAYQBzAGgAIgApADsA&gritQuery=or%20%7B%0A%20%20%20%20%60import%20%24_%20from%20%24source%60%2C%0A%20%20%20%20%60require%28%24source%29%60%0A%7D%20where%20%7B%0A%20%20%20%20%24source%20%3C%3A%20or%20%7B%20%60%22lodash%22%60%2C%20%60%22underscore%22%60%2C%20%60%22moment%22%60%20%7D%0A%7D)
+
 ### Ban `new Date()` — use a date library
 
 When a code snippet contains `$...` as the only argument, it matches
@@ -259,38 +271,33 @@ to learn how to find these names.
 
 ### Limit function parameters
 
-CST nodes can be matched with **named fields** to inspect their children. The
-**`within`** modifier checks whether a node appears inside a specific parent
-structure. **List patterns** like `[$_, $_, $_, $fourth, $...]` match ordered
-sequences — here requiring at least 4 items to be present.
+We match **`JsParameters()`** and use a **regex** to check whether the parameter
+list contains 3 or more commas — meaning 4 or more parameters:
 
-We match any parameter node, then check whether it sits at position 4 or later
-in a parameter list:
-
-```grit ins="within" ins="items = [$_, $_, $_, $fourth, $...]"
+```grit ins={4} ins={5}
 engine biome(1.0)
 language js(typescript, jsx)
 
-JsFormalParameter() as $fourth where {
-    $fourth <: within JsParameters(items = [$_, $_, $_, $fourth, $...]),
+JsParameters() as $params where {
+    $params <: r".*,.*,.*,.*",
     register_diagnostic(
-        span = $fourth,
+        span = $params,
         message = "Functions should not have more than 3 parameters. Use an options object instead.",
         severity = "warn"
     )
 }
 ```
 
-```js ins={2} ins={3} mark=", d" mark=", e"
+```js ins={2} ins={3} mark="(a, b, c, d)" mark="(a, b, c, d, e)"
 function ok(a, b, c) {}
 function tooMany(a, b, c, d) {}
 const arrow = (a, b, c, d, e) => {};
 ```
 
-`ok` has 3 parameters and is fine. `tooMany` and `arrow` both exceed the limit,
-with the diagnostic highlighting the 4th parameter onward.
+`ok` has 3 parameters and is fine. `tooMany` and `arrow` both have 4+ parameters
+and are matched.
 
-[Try this example in the Playground](</playground?tab=syntax&pane=GritQL&code=ZgB1AG4AYwB0AGkAbwBuACAAbwBrACgAYQAsACAAYgAsACAAYwApACAAewB9AAoAZgB1AG4AYwB0AGkAbwBuACAAdABvAG8ATQBhAG4AeQAoAGEALAAgAGIALAAgAGMALAAgAGQAKQAgAHsAfQAKAGMAbwBuAHMAdAAgAGEAcgByAG8AdwAgAD0AIAAoAGEALAAgAGIALAAgAGMALAAgAGQALAAgAGUAKQAgAD0APgAgAHsAfQA7AA%3D%3D&gritQuery=engine%20biome(1.0)%0Alanguage%20js(typescript%2C%20jsx)%0A%0AJsFormalParameter()%20as%20%24fourth%20where%20%7B%0A%20%20%20%20%24fourth%20%3C%3A%20within%20JsParameters(items%20%3D%20%5B%24_%2C%20%24_%2C%20%24_%2C%20%24fourth%2C%20%24...%5D)%0A%7D>)
+[Try this example in the Playground](/playground?tab=syntax&pane=GritQL&code=ZgB1AG4AYwB0AGkAbwBuACAAbwBrACgAYQAsACAAYgAsACAAYwApACAAewB9AAoAZgB1AG4AYwB0AGkAbwBuACAAdABvAG8ATQBhAG4AeQAoAGEALAAgAGIALAAgAGMALAAgAGQAKQAgAHsAfQAKAGMAbwBuAHMAdAAgAGEAcgByAG8AdwAgAD0AIAAoAGEALAAgAGIALAAgAGMALAAgAGQALAAgAGUAKQAgAD0APgAgAHsAfQA7AA==&gritQuery=engine%20biome(1.0)%0Alanguage%20js(typescript%2C%20jsx)%0A%0AJsParameters()%20as%20%24params%20where%20%7B%0A%20%20%20%20%24params%20%3C%3A%20r%22.*%2C.*%2C.*%2C.*%22%0A%7D)
 
 ### No empty catch blocks
 
@@ -364,36 +371,34 @@ different type and is not affected.
 
 ### Enforce `const` over `let`
 
-The **`severity`** argument to `register_diagnostic()` controls how the
-diagnostic is displayed. The default is `"error"`. Use `"warn"` for
-recommendations, `"hint"` for soft nudges, and `"info"` for informational
-messages.
+Since `let` is a keyword rather than a syntax node, we match
+**`JsVariableStatement()`** and filter with a **regex** to select only
+statements whose text starts with `let`:
 
-This rule uses `"hint"` because GritQL plugins cannot perform data-flow analysis
-to detect whether a variable is actually reassigned:
+```grit ins={4} ins={5} ins={8}
+engine biome(1.0)
+language js(typescript, jsx)
 
-```grit ins={5}
-`let $name = $value` as $decl where {
+JsVariableStatement() as $stmt where {
+    $stmt <: r"let.*",
     register_diagnostic(
-        span = $decl,
+        span = $stmt,
         message = "Prefer `const` unless the variable is reassigned.",
         severity = "hint"
     )
 }
 ```
 
-```js ins={1} ins={2} ins={4} mark="let x = 1" mark='let y = "hello"' mark="let counter = 0"
+```js ins={1} ins={2} mark="let x = 1;" mark='let y = "hello";'
 let x = 1;
 let y = "hello";
 const z = true;
-let counter = 0;
-counter++;
 ```
 
-All `let` declarations with initializers (lines 1, 2, 4) are matched. The
-`const` on line 3 and the standalone `counter++` on line 5 are not.
+Both `let` statements (lines 1 and 2) are matched. The `const` on line 3 is
+not — its text starts with `const`, so the regex `let.*` doesn't match.
 
-[Try this example in the Playground](/playground?tab=syntax&pane=GritQL&code=bABlAHQAIAB4ACAAPQAgADEAOwAKAGwAZQB0ACAAeQAgAD0AIAAiAGgAZQBsAGwAbwAiADsACgBjAG8AbgBzAHQAIAB6ACAAPQAgAHQAcgB1AGUAOwAKAGwAZQB0ACAAYwBvAHUAbgB0AGUAcgAgAD0AIAAwADsACgBjAG8AdQBuAHQAZQByACsAKwA7AA%3D%3D&gritQuery=%60let%20%24name%20%3D%20%24value%60)
+[Try this example in the Playground](/playground?tab=syntax&pane=GritQL&code=bABlAHQAIAB4ACAAPQAgADEAOwAKAGwAZQB0ACAAeQAgAD0AIAAiAGgAZQBsAGwAbwAiADsACgBjAG8AbgBzAHQAIAB6ACAAPQAgAHQAcgB1AGUAOwA=&gritQuery=engine%20biome(1.0)%0Alanguage%20js(typescript%2C%20jsx)%0A%0AJsVariableStatement()%20as%20%24stmt%20where%20%7B%0A%20%20%20%20%24stmt%20%3C%3A%20r%22let.*%22%0A%7D)
 
 ### Ban `dangerouslySetInnerHTML`
 
@@ -461,16 +466,18 @@ Not matched — using `className` instead:
 
 ### Disallow `!important`
 
-By default, GritQL patterns target JavaScript. The **`language css;`** directive
-at the top of a `.grit` file switches the target language to CSS. After this
-directive, code snippets in backticks are parsed as CSS instead of JavaScript.
+By default, GritQL patterns target JavaScript. The **`engine biome(1.0)`** and
+**`language css`** directives at the top of a `.grit` file switch to Biome's CSS
+syntax tree. The `!important` modifier is represented as a
+**`CssDeclarationImportant()`** node, so we use **`contains`** to find any
+declaration that includes it:
 
-Here we match any CSS declaration that ends with `!important`:
+```grit ins={2} ins={5}
+engine biome(1.0)
+language css
 
-```grit ins="language css;"
-language css;
-
-`$property: $value !important` as $decl where {
+CssDeclarationWithSemicolon() as $decl where {
+    $decl <: contains CssDeclarationImportant(),
     register_diagnostic(
         span = $decl,
         message = "Avoid `!important`. Increase selector specificity or restructure your styles instead."
@@ -490,7 +497,7 @@ language css;
 
 Lines 2 and 6 contain `!important` declarations and are matched.
 
-[Try this example in the Playground](/playground?tab=syntax&pane=GritQL&code=LgBiAHUAdAB0AG8AbgAgAHsACgAgACAAIAAgAGMAbwBsAG8AcgA6ACAAcgBlAGQAIAAhAGkAbQBwAG8AcgB0AGEAbgB0ADsACgAgACAAIAAgAGQAaQBzAHAAbABhAHkAOgAgAGYAbABlAHgAOwAKAH0ACgAuAG8AdgBlAHIAcgBpAGQAZQAgAHsACgAgACAAIAAgAG0AYQByAGcAaQBuADoAIAAwACAAIQBpAG0AcABvAHIAdABhAG4AdAA7AAoAfQA%3D&gritQuery=language%20css%3B%0A%0A%60%24property%3A%20%24value%20!important%60&language=css&gritTargetLanguage=CSS)
+[Try this example in the Playground](/playground?tab=syntax&pane=GritQL&code=LgBiAHUAdAB0AG8AbgAgAHsACgAgACAAYwBvAGwAbwByADoAIAByAGUAZAAgACEAaQBtAHAAbwByAHQAYQBuAHQAOwAKACAAIABkAGkAcwBwAGwAYQB5ADoAIABmAGwAZQB4ADsACgB9AAoALgBvAHYAZQByAHIAaQBkAGUAIAB7AAoAIAAgAG0AYQByAGcAaQBuADoAIAAwACAAIQBpAG0AcABvAHIAdABhAG4AdAA7AAoAfQA=&gritQuery=engine%20biome(1.0)%0Alanguage%20css%0A%0ACssDeclarationWithSemicolon()%20as%20%24decl%20where%20%7B%0A%20%20%20%20%24decl%20%3C%3A%20contains%20CssDeclarationImportant()%0A%7D&language=css&gritTargetLanguage=CSS)
 
 ### Ban hardcoded colors — use CSS custom properties
 
@@ -568,26 +575,25 @@ Matched — hex, `rgb()`, and `hsl()` values:
 
 The `var()` references on lines 3 and 12 don't match any of the regex patterns and pass.
 
-[Try this example in the Playground](</playground?tab=syntax&pane=GritQL&code=LgBoAGUAYQBkAGUAcgAgAHsACgAgACAAYwBvAGwAbwByADoAIAAjAGYAZgAwADAAMAAwADsACgAgACAAYgBhAGMAawBnAHIAbwB1AG4AZAA6ACAAdgBhAHIAKAAtAC0AYgBnAC0AcAByAGkAbQBhAHIAeQApADsACgB9AAoALgBhAGwAZQByAHQAIAB7AAoAIAAgAGMAbwBsAG8AcgA6ACAAcgBnAGIAKAAyADUANQAsACAAMAAsACAAMAApADsACgB9AAoALgB0AGUAeAB0ACAAewAKACAAIABjAG8AbABvAHIAOgAgAGgAcwBsACgAMgAwADAALAAgADUAMAAlACwAIAA1ADAAJQApADsACgB9AAoALgBzAGEAZgBlACAAewAKACAAIABjAG8AbABvAHIAOgAgAHYAYQByACgALQAtAHQAZQB4AHQALQBwAHIAaQBtAGEAcgB5ACkAOwAKAH0A&gritQuery=language%20css%3B%0A%0A%60color%3A%20%24value%60%20where%20%7B%0A%20%20%20%20%24value%20%3C%3A%20or%20%7B%0A%20%20%20%20%20%20%20%20r%22%23%5B0-9a-fA-F%5D%2B%22%2C%0A%20%20%20%20%20%20%20%20r%22rgba%3F%5C(.*%5C)%22%2C%0A%20%20%20%20%20%20%20%20r%22hsla%3F%5C(.*%5C)%22%0A%20%20%20%20%7D%0A%7D&language=css&gritTargetLanguage=CSS>)
+[Try this example in the Playground](/playground?tab=syntax&pane=GritQL&code=LgBoAGUAYQBkAGUAcgAgAHsACgAgACAAYwBvAGwAbwByADoAIAAjAGYAZgAwADAAMAAwADsACgAgACAAYgBhAGMAawBnAHIAbwB1AG4AZAA6ACAAdgBhAHIAKAAtAC0AYgBnAC0AcAByAGkAbQBhAHIAeQApADsACgB9AAoALgBhAGwAZQByAHQAIAB7AAoAIAAgAGMAbwBsAG8AcgA6ACAAcgBnAGIAKAAyADUANQAsACAAMAAsACAAMAApADsACgB9AAoALgB0AGUAeAB0ACAAewAKACAAIABjAG8AbABvAHIAOgAgAGgAcwBsACgAMgAwADAALAAgADUAMAAlACwAIAA1ADAAJQApADsACgB9AAoALgBzAGEAZgBlACAAewAKACAAIABjAG8AbABvAHIAOgAgAHYAYQByACgALQAtAHQAZQB4AHQALQBwAHIAaQBtAGEAcgB5ACkAOwAKAH0A&gritQuery=language%20css%3B%0A%0A%60color%3A%20%24value%60%20where%20%7B%0A%20%20%20%20%24value%20%3C%3A%20or%20%7B%0A%20%20%20%20%20%20%20%20r%22%23%5B0-9a-fA-F%5D%2B%22%2C%0A%20%20%20%20%20%20%20%20r%22rgba%3F%5C(.*%5C)%22%2C%0A%20%20%20%20%20%20%20%20r%22hsla%3F%5C(.*%5C)%22%0A%20%20%20%20%7D%0A%7D&language=css&gritTargetLanguage=CSS)
 
 ### Disallow specific CSS properties
 
-The **`contains`** operator searches within a matched node's subtree. This is
-useful for CSS rule blocks where you want to search across all declarations
-regardless of their position. Here we match any CSS rule, then search its
-declarations for banned properties:
+A top-level **`or`** lists alternative snippet patterns. Each arm matches
+independently, so you can ban multiple CSS properties by listing them
+explicitly:
 
-```grit ins="contains"
+```grit ins={3} ins={4} ins={5} ins={6}
 language css;
 
-`$selector { $props }` where {
-    $props <: contains `$property: $value` as $decl where {
-        $property <: or { `float`, `clear` },
-        register_diagnostic(
-            span = $decl,
-            message = "The `float` and `clear` properties are not allowed. Use Flexbox or Grid for layout."
-        )
-    }
+or {
+    `float: $value`,
+    `clear: $value`
+} as $decl where {
+    register_diagnostic(
+        span = $decl,
+        message = "The `float` and `clear` properties are not allowed. Use Flexbox or Grid for layout."
+    )
 }
 ```
 
@@ -607,7 +613,7 @@ language css;
 `float` on line 2 and `clear` on line 6 are matched. The `.modern` rule uses
 `display: grid` which is not in the banned list.
 
-[Try this example in the Playground](/playground?tab=syntax&pane=GritQL&code=LgBzAGkAZABlAGIAYQByACAAewAKACAAIAAgACAAZgBsAG8AYQB0ADoAIABsAGUAZgB0ADsACgAgACAAIAAgAHcAaQBkAHQAaAA6ACAAMgAwADAAcAB4ADsACgB9AAoALgBjAGwAZQBhAHIAZgBpAHgAIAB7AAoAIAAgACAAIABjAGwAZQBhAHIAOgAgAGIAbwB0AGgAOwAKAH0ACgAuAG0AbwBkAGUAcgBuACAAewAKACAAIAAgACAAZABpAHMAcABsAGEAeQA6ACAAZwByAGkAZAA7AAoAfQA%3D&gritQuery=language%20css%3B%0A%0A%60%24selector%20%7B%20%24props%20%7D%60%20where%20%7B%0A%20%20%20%20%24props%20%3C%3A%20contains%20%60%24property%3A%20%24value%60%20where%20%7B%0A%20%20%20%20%20%20%20%20%24property%20%3C%3A%20or%20%7B%20%60float%60%2C%20%60clear%60%20%7D%0A%20%20%20%20%7D%0A%7D&language=css&gritTargetLanguage=CSS)
+[Try this example in the Playground](/playground?tab=syntax&pane=GritQL&code=LgBzAGkAZABlAGIAYQByACAAewAKACAAIABmAGwAbwBhAHQAOgAgAGwAZQBmAHQAOwAKACAAIAB3AGkAZAB0AGgAOgAgADIAMAAwAHAAeAA7AAoAfQAKAC4AYwBsAGUAYQByAGYAaQB4ACAAewAKACAAIABjAGwAZQBhAHIAOgAgAGIAbwB0AGgAOwAKAH0ACgAuAG0AbwBkAGUAcgBuACAAewAKACAAIABkAGkAcwBwAGwAYQB5ADoAIABnAHIAaQBkADsACgB9AA==&gritQuery=language%20css%3B%0A%0Aor%20%7B%0A%20%20%20%20%60float%3A%20%24value%60%2C%0A%20%20%20%20%60clear%3A%20%24value%60%0A%7D&language=css&gritTargetLanguage=CSS)
 
 ---
 
@@ -615,21 +621,22 @@ language css;
 
 ### Enforce JSON key naming conventions
 
-The **`language json;`** directive targets JSON files. You can match JSON
-members using snippet patterns like `` `"$key": $value` ``. Combined with
-**regex** and **`not`**, this lets you enforce naming conventions on keys.
+The **`language json`** directive (used with `engine biome(1.0)`) targets JSON
+files. Since JSON snippets with metavariables aren't supported, use the CST node
+**`JsonMemberName()`** to match any key. Combined with **regex** and **`or`**,
+this lets you enforce naming conventions.
 
-Here we flag any key that doesn't match `camelCase`, while excluding keys
-starting with `$` (common in JSON Schema):
+Here we flag any key that contains an underscore or starts with an uppercase
+letter — both violate camelCase:
 
-```grit ins="language json;" ins={4} ins={5}
-language json;
+```grit ins={2} ins={5}
+engine biome(1.0)
+language json
 
-`"$key": $value` where {
-    not $key <: r"^[a-z][a-zA-Z0-9]*$",
-    not $key <: r"^\$.*",
+JsonMemberName() as $name where {
+    $name <: or { r".*_.*", r".[A-Z].*" },
     register_diagnostic(
-        span = $key,
+        span = $name,
         message = "JSON keys must use camelCase.",
         severity = "warn"
     )
@@ -645,54 +652,20 @@ language json;
 }
 ```
 
-`user_name` (snake_case) and `UserAge` (PascalCase) don't match the camelCase
-regex and are flagged. `userName` and `email` pass.
+`user_name` (snake_case) and `UserAge` (PascalCase) are matched by the regex
+alternatives. `userName` and `email` are valid camelCase and not matched.
 
-[Try this example in the Playground](/playground?tab=syntax&pane=GritQL&code=ewAKACAAIAAiAHUAcwBlAHIATgBhAG0AZQAiADoAIAAiAGEAbABpAGMAZQAiACwACgAgACAAIgB1AHMAZQByAF8AbgBhAG0AZQAiADoAIAAiAGIAbwBiACIALAAKACAAIAAiAFUAcwBlAHIAQQBnAGUAIgA6ACAAMwAwACwACgAgACAAIgBlAG0AYQBpAGwAIgA6ACAAIgBhAEAAYgAuAGMAbwBtACIACgB9AA%3D%3D&gritQuery=language%20json%3B%0A%0A%60%22%24key%22%3A%20%24value%60%20where%20%7B%0A%20%20%20%20not%20%24key%20%3C%3A%20r%22%5E%5Ba-z%5D%5Ba-zA-Z0-9%5D*%24%22%0A%7D&language=json&gritTargetLanguage=JSON)
+:::note
+The regex matches against the full node text, which includes the surrounding
+quotes (e.g. `"user_name"`). The pattern `r".*_.*"` works because `.*` covers
+the quotes on both sides.
+:::
+
+[Try this example in the Playground](/playground?tab=syntax&pane=GritQL&code=ewAKACAAIAAiAHUAcwBlAHIATgBhAG0AZQAiADoAIAAiAGEAbABpAGMAZQAiACwACgAgACAAIgB1AHMAZQByAF8AbgBhAG0AZQAiADoAIAAiAGIAbwBiACIALAAKACAAIAAiAFUAcwBlAHIAQQBnAGUAIgA6ACAAMwAwACwACgAgACAAIgBlAG0AYQBpAGwAIgA6ACAAIgBhAEAAYgAuAGMAbwBtACIACgB9AA==&gritQuery=engine%20biome(1.0)%0Alanguage%20json%0A%0AJsonMemberName()%20as%20%24name%20where%20%7B%0A%20%20%20%20%24name%20%3C%3A%20or%20%7B%20r%22.*_.*%22%2C%20r%22.%5BA-Z%5D.*%22%20%7D%0A%7D&language=json&gritTargetLanguage=JSON)
 
 ---
 
 ## Advanced Patterns
-
-### Detect TODO/FIXME comments
-
-GritQL can match **comment nodes** using Biome's CST. `JsComment()` matches any
-JavaScript comment — both `//` line comments and `/* */` block comments. Combined
-with a regex, this lets you surface markers like `TODO` and `FIXME` as linting
-diagnostics.
-
-```grit ins={4} ins={5}
-engine biome(1.0)
-language js(typescript, jsx)
-
-JsComment() as $comment where {
-    $comment <: r".*(TODO|FIXME).*",
-    register_diagnostic(
-        span = $comment,
-        message = "Unresolved TODO/FIXME comment found.",
-        severity = "info"
-    )
-}
-```
-
-```js ins={1} ins={3} mark="TODO" mark="FIXME"
-// TODO: refactor this function
-function process() {
-  // FIXME: handle edge case
-  return data;
-}
-// This is a normal comment
-```
-
-Lines 1 and 3 contain TODO/FIXME markers and are matched. The normal comment
-on line 6 does not contain either marker.
-
-[Try this example in the Playground](</playground?tab=syntax&pane=GritQL&code=LwAvACAAVABPAEQATwA6ACAAcgBlAGYAYQBjAHQAbwByACAAdABoAGkAcwAgAGYAdQBuAGMAdABpAG8AbgAKAGYAdQBuAGMAdABpAG8AbgAgAHAAcgBvAGMAZQBzAHMAKAApACAAewAKACAAIAAvAC8AIABGAEkAWABNAEUAOgAgAGgAYQBuAGQAbABlACAAZQBkAGcAZQAgAGMAYQBzAGUACgAgACAAcgBlAHQAdQByAG4AIABkAGEAdABhADsACgB9AAoALwAvACAAVABoAGkAcwAgAGkAcwAgAGEAIABuAG8AcgBtAGEAbAAgAGMAbwBtAG0AZQBuAHQA&gritQuery=engine%20biome(1.0)%0Alanguage%20js(typescript%2C%20jsx)%0A%0AJsComment()%20as%20%24comment%20where%20%7B%0A%20%20%20%20%24comment%20%3C%3A%20r%22.*(TODO%7CFIXME).*%22%0A%7D>)
-
-:::caution
-Comment node names vary between languages. In CSS, use `CssComment()` instead
-of `JsComment()`.
-:::
 
 ### Combine multiple related rules in one file
 
@@ -792,7 +765,6 @@ For CSS:
 | ----------------------------- | ------------------ |
 | `CssDeclarationWithSemicolon` | `property: value;` |
 | `CssComplexSelector`          | `div > .class`     |
-| `CssComment`                  | `/* ... */`        |
 
 :::note
 These node names are specific to Biome's parser and may change between versions.
