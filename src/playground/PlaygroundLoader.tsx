@@ -53,7 +53,9 @@ function throttle(callback: () => void, delay = 100): () => void {
 }
 
 function PlaygroundLoader() {
-	const [loadingState, setLoadingState] = useState(LoadingState.Loading);
+	const [loadingState, setLoadingState] = useState<LoadingState>(
+		LoadingState.Loading,
+	);
 	const [state, setPlaygroundState, resetPlaygroundState] =
 		usePlaygroundState();
 	const workerRef = useRef<Worker | null>(null);
