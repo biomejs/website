@@ -35,14 +35,14 @@ a `where` block, the **match operator** `<:` tests whether a variable matches a
 given pattern, and the **`not`** keyword negates that test. Multiple conditions
 separated by commas must all be true for the pattern to match.
 
-Here we match any `==` comparison, then use two `not` conditions to skip cases
-where either operand is the literal `null` — since `== null` is the one
+Here we match any `==` comparison, then use two conditions with `not` to skip
+cases where either operand is the literal `null` — since `== null` is the one
 idiomatic use of loose equality:
 
 ```grit ins="where" ins="not" ins="<:"
 `$left == $right` where {
-    not $right <: `null`,
-    not $left <: `null`,
+    $right <: not `null`,
+    $left <: not `null`,
     register_diagnostic(
         span = $left,
         message = "Use `===` instead of `==`. Loose equality is only acceptable when comparing against `null`.",
@@ -69,7 +69,7 @@ if (null == x) {
 }
 ```
 
-[Try this example in the Playground](/playground?tab=syntax&pane=GritQL&code=aQBmACAAKAB4ACAAPQA9ACAAMQApACAAewB9AAoAaQBmACAAKAB4ACAAPQA9ACAAbgB1AGwAbAApACAAewB9AAoAaQBmACAAKABuAHUAbABsACAAPQA9ACAAeAApACAAewB9AAoAaQBmACAAKAB4ACAAPQA9ACAAIgBoAGUAbABsAG8AIgApACAAewB9AA%3D%3D&gritQuery=%60%24left+%3D%3D+%24right%60+where+%7B%0A++++not+%24right+%3C%3A+%60null%60%2C%0A++++not+%24left+%3C%3A+%60null%60%0A%7D)
+[Try this example in the Playground](/playground?tab=syntax&pane=GritQL&code=aQBmACAAKAB4ACAAPQA9ACAAMQApACAAewB9AAoAaQBmACAAKAB4ACAAPQA9ACAAbgB1AGwAbAApACAAewB9AAoAaQBmACAAKABuAHUAbABsACAAPQA9ACAAeAApACAAewB9AAoAaQBmACAAKAB4ACAAPQA9ACAAIgBoAGUAbABsAG8AIgApACAAewB9AA%3D%3D&gritQuery=%60%24left%20%3D%3D%20%24right%60%20where%20%7B%0A%20%20%20%20%24right%20%3C%3A%20not%20%60null%60%2C%0A%20%20%20%20%24left%20%3C%3A%20not%20%60null%60%0A%7D)
 
 ### Ban `forEach` — prefer `for...of`
 
@@ -172,9 +172,9 @@ When a code snippet contains `$...` as the only argument, it matches
 `$first, $...`, the pattern requires **at least one argument** — `$first` must
 bind to something.
 
-Here the first form matches all `new Date()` calls. The second form uses
-`$first` to require at least one argument, allowing `new Date()` (getting
-"now") while flagging `new Date("2024-01-15")` and similar parsing calls:
+Here `$first` requires at least one argument, so `new Date()` (getting "now")
+is allowed while `new Date("2024-01-15")` and similar parsing calls are
+flagged:
 
 ```grit ins="$first" ins="$..."
 `new Date($first, $...)` as $expr where {
@@ -297,7 +297,7 @@ const arrow = (a, b, c, d, e) => {};
 `ok` has 3 parameters and is fine. `tooMany` and `arrow` both have 4+ parameters
 and are matched.
 
-[Try this example in the Playground](/playground?tab=syntax&pane=GritQL&code=ZgB1AG4AYwB0AGkAbwBuACAAbwBrACgAYQAsACAAYgAsACAAYwApACAAewB9AAoAZgB1AG4AYwB0AGkAbwBuACAAdABvAG8ATQBhAG4AeQAoAGEALAAgAGIALAAgAGMALAAgAGQAKQAgAHsAfQAKAGMAbwBuAHMAdAAgAGEAcgByAG8AdwAgAD0AIAAoAGEALAAgAGIALAAgAGMALAAgAGQALAAgAGUAKQAgAD0APgAgAHsAfQA7AA==&gritQuery=engine%20biome(1.0)%0Alanguage%20js(typescript%2C%20jsx)%0A%0AJsParameters()%20as%20%24params%20where%20%7B%0A%20%20%20%20%24params%20%3C%3A%20r%22.*%2C.*%2C.*%2C.*%22%0A%7D)
+[Try this example in the Playground](</playground?tab=syntax&pane=GritQL&code=ZgB1AG4AYwB0AGkAbwBuACAAbwBrACgAYQAsACAAYgAsACAAYwApACAAewB9AAoAZgB1AG4AYwB0AGkAbwBuACAAdABvAG8ATQBhAG4AeQAoAGEALAAgAGIALAAgAGMALAAgAGQAKQAgAHsAfQAKAGMAbwBuAHMAdAAgAGEAcgByAG8AdwAgAD0AIAAoAGEALAAgAGIALAAgAGMALAAgAGQALAAgAGUAKQAgAD0APgAgAHsAfQA7AA==&gritQuery=engine%20biome(1.0)%0Alanguage%20js(typescript%2C%20jsx)%0A%0AJsParameters()%20as%20%24params%20where%20%7B%0A%20%20%20%20%24params%20%3C%3A%20r%22.*%2C.*%2C.*%2C.*%22%0A%7D>)
 
 ### No empty catch blocks
 
@@ -398,7 +398,7 @@ const z = true;
 Both `let` statements (lines 1 and 2) are matched. The `const` on line 3 is
 not — its text starts with `const`, so the regex `let.*` doesn't match.
 
-[Try this example in the Playground](/playground?tab=syntax&pane=GritQL&code=bABlAHQAIAB4ACAAPQAgADEAOwAKAGwAZQB0ACAAeQAgAD0AIAAiAGgAZQBsAGwAbwAiADsACgBjAG8AbgBzAHQAIAB6ACAAPQAgAHQAcgB1AGUAOwA=&gritQuery=engine%20biome(1.0)%0Alanguage%20js(typescript%2C%20jsx)%0A%0AJsVariableStatement()%20as%20%24stmt%20where%20%7B%0A%20%20%20%20%24stmt%20%3C%3A%20r%22let.*%22%0A%7D)
+[Try this example in the Playground](</playground?tab=syntax&pane=GritQL&code=bABlAHQAIAB4ACAAPQAgADEAOwAKAGwAZQB0ACAAeQAgAD0AIAAiAGgAZQBsAGwAbwAiADsACgBjAG8AbgBzAHQAIAB6ACAAPQAgAHQAcgB1AGUAOwA=&gritQuery=engine%20biome(1.0)%0Alanguage%20js(typescript%2C%20jsx)%0A%0AJsVariableStatement()%20as%20%24stmt%20where%20%7B%0A%20%20%20%20%24stmt%20%3C%3A%20r%22let.*%22%0A%7D>)
 
 ### Ban `dangerouslySetInnerHTML`
 
@@ -497,7 +497,7 @@ CssDeclarationWithSemicolon() as $decl where {
 
 Lines 2 and 6 contain `!important` declarations and are matched.
 
-[Try this example in the Playground](/playground?tab=syntax&pane=GritQL&code=LgBiAHUAdAB0AG8AbgAgAHsACgAgACAAYwBvAGwAbwByADoAIAByAGUAZAAgACEAaQBtAHAAbwByAHQAYQBuAHQAOwAKACAAIABkAGkAcwBwAGwAYQB5ADoAIABmAGwAZQB4ADsACgB9AAoALgBvAHYAZQByAHIAaQBkAGUAIAB7AAoAIAAgAG0AYQByAGcAaQBuADoAIAAwACAAIQBpAG0AcABvAHIAdABhAG4AdAA7AAoAfQA=&gritQuery=engine%20biome(1.0)%0Alanguage%20css%0A%0ACssDeclarationWithSemicolon()%20as%20%24decl%20where%20%7B%0A%20%20%20%20%24decl%20%3C%3A%20contains%20CssDeclarationImportant()%0A%7D&language=css&gritTargetLanguage=CSS)
+[Try this example in the Playground](</playground?tab=syntax&pane=GritQL&code=LgBiAHUAdAB0AG8AbgAgAHsACgAgACAAYwBvAGwAbwByADoAIAByAGUAZAAgACEAaQBtAHAAbwByAHQAYQBuAHQAOwAKACAAIABkAGkAcwBwAGwAYQB5ADoAIABmAGwAZQB4ADsACgB9AAoALgBvAHYAZQByAHIAaQBkAGUAIAB7AAoAIAAgAG0AYQByAGcAaQBuADoAIAAwACAAIQBpAG0AcABvAHIAdABhAG4AdAA7AAoAfQA=&gritQuery=engine%20biome(1.0)%0Alanguage%20css%0A%0ACssDeclarationWithSemicolon()%20as%20%24decl%20where%20%7B%0A%20%20%20%20%24decl%20%3C%3A%20contains%20CssDeclarationImportant()%0A%7D&language=css&gritTargetLanguage=CSS>)
 
 ### Ban hardcoded colors — use CSS custom properties
 
@@ -575,7 +575,7 @@ Matched — hex, `rgb()`, and `hsl()` values:
 
 The `var()` references on lines 3 and 12 don't match any of the regex patterns and pass.
 
-[Try this example in the Playground](/playground?tab=syntax&pane=GritQL&code=LgBoAGUAYQBkAGUAcgAgAHsACgAgACAAYwBvAGwAbwByADoAIAAjAGYAZgAwADAAMAAwADsACgAgACAAYgBhAGMAawBnAHIAbwB1AG4AZAA6ACAAdgBhAHIAKAAtAC0AYgBnAC0AcAByAGkAbQBhAHIAeQApADsACgB9AAoALgBhAGwAZQByAHQAIAB7AAoAIAAgAGMAbwBsAG8AcgA6ACAAcgBnAGIAKAAyADUANQAsACAAMAAsACAAMAApADsACgB9AAoALgB0AGUAeAB0ACAAewAKACAAIABjAG8AbABvAHIAOgAgAGgAcwBsACgAMgAwADAALAAgADUAMAAlACwAIAA1ADAAJQApADsACgB9AAoALgBzAGEAZgBlACAAewAKACAAIABjAG8AbABvAHIAOgAgAHYAYQByACgALQAtAHQAZQB4AHQALQBwAHIAaQBtAGEAcgB5ACkAOwAKAH0A&gritQuery=language%20css%3B%0A%0A%60color%3A%20%24value%60%20where%20%7B%0A%20%20%20%20%24value%20%3C%3A%20or%20%7B%0A%20%20%20%20%20%20%20%20r%22%23%5B0-9a-fA-F%5D%2B%22%2C%0A%20%20%20%20%20%20%20%20r%22rgba%3F%5C(.*%5C)%22%2C%0A%20%20%20%20%20%20%20%20r%22hsla%3F%5C(.*%5C)%22%0A%20%20%20%20%7D%0A%7D&language=css&gritTargetLanguage=CSS)
+[Try this example in the Playground](</playground?tab=syntax&pane=GritQL&code=LgBoAGUAYQBkAGUAcgAgAHsACgAgACAAYwBvAGwAbwByADoAIAAjAGYAZgAwADAAMAAwADsACgAgACAAYgBhAGMAawBnAHIAbwB1AG4AZAA6ACAAdgBhAHIAKAAtAC0AYgBnAC0AcAByAGkAbQBhAHIAeQApADsACgB9AAoALgBhAGwAZQByAHQAIAB7AAoAIAAgAGMAbwBsAG8AcgA6ACAAcgBnAGIAKAAyADUANQAsACAAMAAsACAAMAApADsACgB9AAoALgB0AGUAeAB0ACAAewAKACAAIABjAG8AbABvAHIAOgAgAGgAcwBsACgAMgAwADAALAAgADUAMAAlACwAIAA1ADAAJQApADsACgB9AAoALgBzAGEAZgBlACAAewAKACAAIABjAG8AbABvAHIAOgAgAHYAYQByACgALQAtAHQAZQB4AHQALQBwAHIAaQBtAGEAcgB5ACkAOwAKAH0A&gritQuery=language%20css%3B%0A%0A%60color%3A%20%24value%60%20where%20%7B%0A%20%20%20%20%24value%20%3C%3A%20or%20%7B%0A%20%20%20%20%20%20%20%20r%22%23%5B0-9a-fA-F%5D%2B%22%2C%0A%20%20%20%20%20%20%20%20r%22rgba%3F%5C(.*%5C)%22%2C%0A%20%20%20%20%20%20%20%20r%22hsla%3F%5C(.*%5C)%22%0A%20%20%20%20%7D%0A%7D&language=css&gritTargetLanguage=CSS>)
 
 ### Disallow specific CSS properties
 
@@ -661,7 +661,7 @@ quotes (e.g. `"user_name"`). The pattern `r".*_.*"` works because `.*` covers
 the quotes on both sides.
 :::
 
-[Try this example in the Playground](/playground?tab=syntax&pane=GritQL&code=ewAKACAAIAAiAHUAcwBlAHIATgBhAG0AZQAiADoAIAAiAGEAbABpAGMAZQAiACwACgAgACAAIgB1AHMAZQByAF8AbgBhAG0AZQAiADoAIAAiAGIAbwBiACIALAAKACAAIAAiAFUAcwBlAHIAQQBnAGUAIgA6ACAAMwAwACwACgAgACAAIgBlAG0AYQBpAGwAIgA6ACAAIgBhAEAAYgAuAGMAbwBtACIACgB9AA==&gritQuery=engine%20biome(1.0)%0Alanguage%20json%0A%0AJsonMemberName()%20as%20%24name%20where%20%7B%0A%20%20%20%20%24name%20%3C%3A%20or%20%7B%20r%22.*_.*%22%2C%20r%22.%5BA-Z%5D.*%22%20%7D%0A%7D&language=json&gritTargetLanguage=JSON)
+[Try this example in the Playground](</playground?tab=syntax&pane=GritQL&code=ewAKACAAIAAiAHUAcwBlAHIATgBhAG0AZQAiADoAIAAiAGEAbABpAGMAZQAiACwACgAgACAAIgB1AHMAZQByAF8AbgBhAG0AZQAiADoAIAAiAGIAbwBiACIALAAKACAAIAAiAFUAcwBlAHIAQQBnAGUAIgA6ACAAMwAwACwACgAgACAAIgBlAG0AYQBpAGwAIgA6ACAAIgBhAEAAYgAuAGMAbwBtACIACgB9AA==&gritQuery=engine%20biome(1.0)%0Alanguage%20json%0A%0AJsonMemberName()%20as%20%24name%20where%20%7B%0A%20%20%20%20%24name%20%3C%3A%20or%20%7B%20r%22.*_.*%22%2C%20r%22.%5BA-Z%5D.*%22%20%7D%0A%7D&language=json&gritTargetLanguage=JSON>)
 
 ---
 
