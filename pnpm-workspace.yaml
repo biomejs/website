@@ -1,0 +1,4 @@
+linkWorkspacePackages: tru
+packages:
+  - "scripts"
+  - "./"

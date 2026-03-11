@@ -190,6 +190,12 @@ importers:
         specifier: 4.5.0
         version: 4.5.0(rollup@4.59.0)(typescript@5.9.3)(vite@7.3.1(@types/node@24.12.0)(jiti@2.6.1)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.8))(yaml@2.8.2))
 
+  scripts:
+    devDependencies:
+      '@biomejs/wasm-nodejs':
+        specifier: 2.4.6
+        version: 2.4.6
+
 packages:
 
   '@antfu/install-pkg@1.1.0':
@@ -430,6 +436,9 @@ packages:
 
   '@biomejs/version-utils@0.4.0':
     resolution: {integrity: sha512-jboDhjZY8/bAPl2kgvjrbbyXyM6uimPsasY3TvFhSpPaNorij0UZROi/NjDQqQeZFSaIK3ieiRZXWwoBZh6rQQ==}
+
+  '@biomejs/wasm-nodejs@2.4.6':
+    resolution: {integrity: sha512-YRhedzOovXDMs+ZKzi/ZcDTefZIMcrp3z0Ruq+abrNb622aYUh/2m1Ooj8BcG4anGUGR6o+dTCbvAEx9vc74hw==}
 
   '@biomejs/wasm-web@https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@d4e3d6e':
     resolution: {integrity: sha512-QJYfz/nl9L7WGk82BkLy8hKcQ7hvYi3c4e4b74CszcZiJfBa+tQza8QqKTyZn+IvfMhLel9uWA6Ksk5vLxnEJA==, tarball: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@d4e3d6e}
@@ -6984,6 +6993,8 @@ snapshots:
       semver: 7.7.4
       undici: 6.24.1
       yaml: 2.8.2
+
+  '@biomejs/wasm-nodejs@2.4.6': {}
 
   '@biomejs/wasm-web@https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@d4e3d6e': {}
 
