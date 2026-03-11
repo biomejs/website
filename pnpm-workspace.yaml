@@ -1,4 +1,4 @@
-linkWorkspacePackages: tru
+linkWorkspacePackages: true
 packages:
   - "scripts"
   - "./"
