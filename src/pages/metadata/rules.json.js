@@ -290,6 +290,23 @@ export function GET() {
               }
             ],
             "docs": " Disallow hex colors.\n\n While hex colors are widely supported and compact, they can be less readable\n and have limitations in terms of color representation compared to color models\n like HSL or OKLCH. This rule encourages the use of more expressive color formats.\n\n This rule is inspired by the Stylelint rule\n [`color-no-hex`](https://stylelint.io/user-guide/rules/color-no-hex/).\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a { color: #000; }\n ```\n\n ```css,expect_diagnostic\n a { color: #fff1aa; }\n ```\n\n ```css,expect_diagnostic\n a { color: #123456aa; }\n ```\n\n ### Valid\n\n ```css\n a { color: black; }\n ```\n\n ```css\n a { color: rgb(0, 0, 0); }\n ```\n\n ### References\n\n - [MDN Web Docs on CSS color values](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value)\n\n"
+          },
+          "useBaseline": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useBaseline",
+            "link": "https://biomejs.dev/linter/rules/use-baseline",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintCss": "use-baseline"
+                }
+              }
+            ],
+            "docs": " Disallow CSS properties, values, at-rules, functions, and selectors that are not part of the configured Baseline.\n\n [Baseline](https://developer.mozilla.org/en-US/docs/Glossary/Baseline/Compatibility)\n tracks the availability of web platform features across core browsers.\n This rule helps you avoid features that aren't supported in the browsers you need to target.\n\n Features are categorized into three tiers:\n - **Limited**: Not yet available in all core browsers.\n - **Newly available**: Available in all core browsers for less than 30 months.\n - **Widely available**: Available in all core browsers for at least 30 months.\n\n By default, the rule reports on anything that is not Baseline **widely available**.\n\n Code inside `@supports` blocks is exempt: if you feature-detect a capability before\n using it, the rule does not flag it.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a {\n   backdrop-filter: blur(4px);\n }\n ```\n\n ```css,expect_diagnostic\n a { width: abs(20% - 100px); }\n ```\n\n ```css,expect_diagnostic\n @media (inverted-colors: inverted) { a { color: red; } }\n ```\n\n ```css,expect_diagnostic\n details::details-content { background: red; }\n ```\n\n ### Valid\n\n ```css\n a { color: red; }\n ```\n\n ```css\n /* @supports exempts feature-detected code */\n @supports (backdrop-filter: blur(4px)) {\n   a { backdrop-filter: blur(4px); }\n }\n ```\n\n ## Options\n\n ### `available`\n\n Specifies the minimum Baseline availability tier to accept. Defaults to `\"widely\"`.\n\n - `\"widely\"`: Only accept features that are Baseline widely available (default).\n - `\"newly\"`: Accept features that are at least Baseline newly available.\n - A year number (e.g. `2023`): Accept features that became newly available in that year or earlier.\n\n Default: `\"widely\"`\n\n ```json,options\n {\n   \"options\": {\n     \"available\": \"newly\"\n   }\n }\n ```\n\n With `\"newly\"`, a property that is newly (but not yet widely) available doesn't trigger the rule:\n\n ```css,use_options\n a { backdrop-filter: blur(4px); }\n ```\n\n But a limited property still fails:\n\n ```css,expect_diagnostic,use_options\n a { accent-color: red; }\n ```\n\n ### `allowProperties`\n\n A list of CSS property names to exclude from checking (case-insensitive).\n\n Default: `[]`\n\n ```json,options\n {\n   \"options\": {\n     \"allowProperties\": [\"backdrop-filter\"]\n   }\n }\n ```\n\n ```css,use_options\n a { backdrop-filter: blur(4px); }\n ```\n\n ### `allowAtRules`\n\n A list of CSS at-rule names to exclude from checking (without `@`, case-insensitive).\n\n Default: `[]`\n\n ```json,options\n {\n   \"options\": {\n     \"allowAtRules\": [\"view-transition\"]\n   }\n }\n ```\n\n ```css,use_options\n @view-transition { navigation: auto; }\n ```\n\n ### `allowFunctions`\n\n A list of CSS value function names to exclude from checking (case-insensitive).\n\n Default: `[]`\n\n ```json,options\n {\n   \"options\": {\n     \"allowFunctions\": [\"abs\"]\n   }\n }\n ```\n\n ```css,use_options\n a { width: abs(20% - 100px); }\n ```\n\n ### `allowMediaConditions`\n\n A list of CSS media query condition names to exclude from checking (case-insensitive).\n\n Default: `[]`\n\n ```json,options\n {\n   \"options\": {\n     \"allowMediaConditions\": [\"inverted-colors\"]\n   }\n }\n ```\n\n ```css,use_options\n @media (inverted-colors: inverted) { a { color: red; } }\n ```\n\n ### `allowPropertyValues`\n\n An object mapping property names to arrays of allowed values (case-insensitive).\n\n Default: `{}`\n\n ```json,options\n {\n   \"options\": {\n     \"allowPropertyValues\": {\n       \"clip-path\": [\"fill-box\"]\n     }\n   }\n }\n ```\n\n ```css,use_options\n a { clip-path: fill-box; }\n ```\n\n ### `allowSelectors`\n\n A list of CSS pseudo-class or pseudo-element names to exclude from checking\n (without `:` or `::`, case-insensitive).\n\n Default: `[]`\n\n ```json,options\n {\n   \"options\": {\n     \"allowSelectors\": [\"has\"]\n   }\n }\n ```\n\n ```css,use_options\n h1:has(+ h2) { margin: 0; }\n ```\n\n"
           }
         },
         "style": {
@@ -515,7 +532,7 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/no-useless-escape-in-string",
             "recommended": true,
             "fixKind": "safe",
-            "docs": " Disallow unnecessary escapes in string literals.\n\n Escaping non-special characters in string literals doesn't have any effect.\n Hence, they may confuse a reader.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a::after {\n   content: \"\\a\"\n }\n ```\n\n ```css,expect_diagnostic\n a::after {\n   content: \"\\'\"\n }\n ```\n\n ### Valid\n\n ```css\n a::after {\n   content: \"\\\"\"\n }\n ```\n\n ```css\n a::after {\n   content: \"\\n\"\n }\n ```\n\n"
+            "docs": " Disallow unnecessary escapes in string literals.\n\n Escaping non-special characters in string literals doesn't have any effect.\n Hence, they may confuse a reader.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a::after {\n   content: \"\\z\"\n }\n ```\n\n ```css,expect_diagnostic\n a::after {\n   content: \"\\'\"\n }\n ```\n\n ### Valid\n\n ```css\n a::after {\n   content: \"\\\"\"\n }\n ```\n\n ```css\n a::after {\n   content: \"\\n\"\n }\n ```\n\n ```css\n a::after {\n   content: \"\\e7bb\"\n }\n ```\n\n"
           }
         }
       },
@@ -3598,7 +3615,7 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/no-redundant-default-export",
             "recommended": false,
             "fixKind": "none",
-            "docs": " Checks if a default export exports the same symbol as a named export.\n\n This rule warns when a `default` export references the same identifier as a named export.\n Re-exports are out of scope.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n export const foo = 42;\n export default foo;\n ```\n\n ### Valid\n\n ```js\n export const foo = 42;\n export default 42;\n ```\n\n"
+            "docs": " Checks if a default export exports the same symbol as a named export.\n\n This rule reports when a `default` export references the same identifier as a named export.\n Re-exports are out of scope.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n export const foo = 42;\n export default foo;\n ```\n\n ### Valid\n\n ```js\n export const foo = 42;\n export default 42;\n ```\n\n"
           },
           "noReturnAssign": {
             "deprecated": false,
@@ -3967,6 +3984,23 @@ export function GET() {
               }
             ],
             "docs": " Enforce the use of `globalThis` over `window`, `self`, and `global`.\n\n `globalThis` is a standard way to access the global object across platforms such as browsers, Web Workers, Node.js and so on, and using it can make your code portable.\n\n However, there are several exceptions that are allowed:\n\n 1. Certain window/Web Workers-specific APIs, such as `window.innerHeight` and `self.postMessage`\n 2. Window-specific events, such as `window.addEventListener('resize')`\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n window.foo;\n ```\n\n ```js,expect_diagnostic\n window.addEventListener('click', () => {});\n ```\n\n ### Valid\n\n ```js\n globalThis.foo;\n ```\n\n ```js\n globalThis.addEventListener('click', () => {});\n ```\n\n ```js\n // window/Web Workers-specific APIs are allowed\n window.innerWidth;\n self.postMessage({ type: 'ready' });\n ```\n\n ```js\n // window-specific events are allowed\n window.addEventListener('resize', () => {});\n ```\n\n"
+          },
+          "useImportsFirst": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useImportsFirst",
+            "link": "https://biomejs.dev/linter/rules/use-imports-first",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintImport": "first"
+                }
+              }
+            ],
+            "docs": " Enforce that all imports appear at the top of the module.\n\n Import statements that appear after non-import statements are harder to\n find and may indicate disorganized code. Keeping all imports together at\n the top makes dependencies immediately visible.\n\n Directives such as `\"use strict\"` are always allowed before\n imports, since they are parsed separately from module items.\n\n This rule only applies to ES module `import` statements. CommonJS\n `require()` calls are not covered.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import { foo } from \"foo\";\n const bar = 1;\n import { baz } from \"baz\";\n ```\n\n ### Valid\n\n ```js\n import { foo } from \"foo\";\n import { bar } from \"bar\";\n const baz = 1;\n ```\n\n ```js\n \"use strict\";\n import { foo } from \"foo\";\n ```\n\n"
           },
           "useNamedCaptureGroup": {
             "deprecated": false,
@@ -6385,6 +6419,40 @@ export function GET() {
       },
       "json": {
         "nursery": {
+          "noEmptyObjectKeys": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noEmptyObjectKeys",
+            "link": "https://biomejs.dev/linter/rules/no-empty-object-keys",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJson": "no-empty-keys"
+                }
+              }
+            ],
+            "docs": " Disallow empty keys in JSON objects.\n\n In JSON, using empty keys (keys that are empty strings or contain only whitespace) can lead to accessibility and maintenance issues.\n While technically valid in JSON, empty keys make objects harder to read, can cause confusion when debugging, and may create problems with some JSON parsers or processors.\n Additionally, empty keys often indicate mistakes or oversights in the processes.\n\n ## Examples\n\n ### Invalid\n\n ```json,expect_diagnostic\n {\n   \"\": \"value\"\n }\n ```\n\n ```json,expect_diagnostic\n {\n   \"validKey\": \"value\",\n   \"\": \"another value\"\n }\n ```\n\n ```json,expect_diagnostic\n {\n   \" \": \"space as key\"\n }\n ```\n\n ```json,expect_diagnostic\n {\n   \"\\t\": \"tab as key\"\n }\n ```\n\n ```json,expect_diagnostic\n {\n   \"\\n\": \"newline as key\"\n }\n ```\n\n ### Valid\n\n ```json\n {\n   \"key\": \"value\"\n }\n ```\n\n"
+          },
+          "noTopLevelLiterals": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noTopLevelLiterals",
+            "link": "https://biomejs.dev/linter/rules/no-top-level-literals",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJson": "top-level-interop"
+                }
+              }
+            ],
+            "docs": " Require the JSON top-level value to be an array or object.\n\n The JSON specification technically allows any JSON value (object, array, string, number, boolean, or null) to be used as the top-level element of a JSON document.\n However, some older JSON parsers, especially those created before [RFC 7158](https://datatracker.ietf.org/doc/html/rfc7158)/[4627](https://datatracker.ietf.org/doc/html/rfc4627) was fully adopted, only support objects or arrays as the root element.\n\n Additionally, some security practices (such as those preventing JSON hijacking attacks) rely on the assumption that the top-level value is an object or array.\n Using an object or array at the top level also provides better extensibility for your data structures over time.\n\n ## Examples\n\n ### Invalid\n\n ```json,expect_diagnostic\n \"just a string\"\n ```\n\n ```json,expect_diagnostic\n 42\n ```\n\n ```json,expect_diagnostic\n true\n ```\n\n ```json,expect_diagnostic\n null\n ```\n\n ### Valid\n\n ```json\n {\n   \"property\": \"value\",\n   \"otherProperty\": 123\n }\n ```\n\n ```json\n [\"element\", \"anotherElement\"]\n ```\n\n ```json\n {}\n ```\n\n ```json\n []\n ```\n\n"
+          },
           "useRequiredScripts": {
             "deprecated": false,
             "version": "2.3.9",
@@ -6435,6 +6503,14 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/no-duplicate-object-keys",
             "recommended": true,
             "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJson": "no-duplicate-keys"
+                }
+              }
+            ],
             "docs": " Disallow two keys with the same name inside objects.\n\n ## Examples\n\n ### Invalid\n\n ```json,expect_diagnostic\n {\n   \"title\": \"New title\",\n   \"title\": \"Second title\"\n }\n ```\n\n ### Valid\n\n ```json\n {\n   \"title\": \"New title\",\n   \"secondTitle\": \"Second title\"\n }\n ```\n"
           },
           "noQuickfixBiome": {
@@ -6925,7 +7001,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " It detects the use of `role` attributes in JSX elements and suggests using semantic elements instead.\n\n The `role` attribute is used to define the purpose of an element, but it should be used as a last resort.\n Using semantic elements like `<button>`, `<nav>` and others are more accessible and provide better semantics.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div role=\"checkbox\"></div>\n ```\n\n ```jsx,expect_diagnostic\n <div role=\"separator\"></div>\n ```\n\n ```jsx,expect_diagnostic\n <div role=\"checkbox\" />\n ```\n\n ```jsx,expect_diagnostic\n <div role=\"separator\" />\n ```\n\n ### Valid\n\n ```jsx\n <>\n   <input type=\"checkbox\">label</input>\n   <hr/>\n </>;\n ```\n\n All elements with `role=\"img\"` are ignored:\n\n ```jsx\n <div role=\"img\" aria-label=\"That cat is so cute\">\n   <p>&#x1F408; &#x1F602;</p>\n </div>\n ```\n"
+            "docs": " It detects the use of `role` attributes in JSX elements and suggests using semantic elements instead.\n\n The `role` attribute is used to define the purpose of an element, but it should be used as a last resort.\n Using semantic elements like `<button>`, `<nav>` and others are more accessible and provide better semantics.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div role=\"checkbox\"></div>\n ```\n\n ```jsx,expect_diagnostic\n <div role=\"separator\"></div>\n ```\n\n ```jsx,expect_diagnostic\n <div role=\"checkbox\" />\n ```\n\n ```jsx,expect_diagnostic\n <div role=\"separator\" />\n ```\n\n ### Valid\n\n ```jsx\n <>\n   <input type=\"checkbox\">label</input>\n   <hr/>\n   <div role=\"status\"></div>\n </>;\n ```\n\n All elements with `role=\"img\"` are ignored:\n\n ```jsx\n <div role=\"img\" aria-label=\"That cat is so cute\">\n   <p>&#x1F408; &#x1F602;</p>\n </div>\n ```\n\n Semantic elements with a matching role are not flagged (see [noRedundantRoles](https://biomejs.dev/linter/rules/no-redundant-roles/)):\n\n ```jsx\n <>\n   <nav role=\"navigation\"></nav>\n   <footer role=\"contentinfo\"></footer>\n </>;\n ```\n"
           },
           "useValidAnchor": {
             "deprecated": false,
@@ -8398,7 +8474,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 481
+    "numberOrRules": 485
   },
   "syntax": {
     "languages": {
@@ -8544,6 +8620,14 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/use-sorted-keys",
             "recommended": false,
             "fixKind": "safe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJson": "sort-keys"
+                }
+              }
+            ],
             "docs": " Sort the keys of a JSON object in natural order.\n\n [Natural order](https://en.wikipedia.org/wiki/Natural_sort_order) means\n that uppercase letters come before lowercase letters (e.g. `A` < `a` <\n `B` < `b`) and numbers are compared in a human way (e.g. `9` < `10`).\n\n ## Examples\n\n ```json,expect_diff\n {\n     \"vase\": \"fancy\",\n     \"nested\": {\n         \"omega\": \"bar\",\n         \"alpha\": \"foo\"\n     }\n }\n ```\n\n ## Options\n This actions accepts following options\n\n ### `sortOrder`\n This options supports `natural` and `lexicographic` values. Where as `natural` is the default.\n\n Following will apply the natural sort order.\n\n ```json,options\n {\n     \"options\": {\n         \"sortOrder\": \"natural\"\n     }\n }\n ```\n ```json,use_options,expect_diff\n {\n     \"val13\": 1,\n     \"val1\": 1,\n     \"val2\": 1,\n     \"val21\": 1,\n     \"val11\": 1\n }\n ```\n\n Following will apply the lexicographic sort order.\n\n ```json,options\n {\n     \"options\": {\n         \"sortOrder\": \"lexicographic\"\n     }\n }\n ```\n ```json,use_options,expect_diff\n {\n     \"val13\": 1,\n     \"val1\": 1,\n     \"val2\": 1,\n     \"val21\": 1,\n     \"val11\": 1\n }\n ```\n\n ### `groupByNesting`\n When enabled, groups object keys by their value's nesting depth before sorting alphabetically.\n Simple values (primitives, single-line arrays, and single-line objects) are sorted first,\n followed by nested values (multi-line arrays and multi-line objects).\n\n > Default: `false`\n\n ```json,options\n {\n     \"options\": {\n         \"groupByNesting\": true\n     }\n }\n ```\n ```json,use_options,expect_diagnostic\n {\n     \"name\": \"Sample\",\n     \"details\": {\n         \"description\": \"nested\"\n     },\n     \"id\": 123\n }\n ```\n\n"
           }
         }

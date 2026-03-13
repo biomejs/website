@@ -22,6 +22,6 @@ pnpm install --no-frozen-lockfile
 awk -v new_rev="$new_rev" '{gsub(/rev = "[^"]+"/, "rev = \"" new_rev "\""); print}' Cargo.toml >temp.toml && mv temp.toml Cargo.toml
 
 # Update Cargo.lock
-cargo update
+cargo update --git https://github.com/biomejs/biome.git
 
 echo "Revision updated to $new_rev."

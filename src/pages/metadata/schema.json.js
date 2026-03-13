@@ -371,6 +371,34 @@ export function GET() {
 					"properties": { "eslintPlaywright": { "type": "string" } },
 					"additionalProperties": false,
 					"required": ["eslintPlaywright"]
+				},
+				{
+					"description": "Rules from [Eslint Plugin Json](https://github.com/eslint/json)",
+					"type": "object",
+					"properties": { "eslintJson": { "type": "string" } },
+					"additionalProperties": false,
+					"required": ["eslintJson"]
+				},
+				{
+					"description": "Rules from [Eslint Plugin Markdown](https://github.com/eslint/markdown)",
+					"type": "object",
+					"properties": { "eslintMarkdown": { "type": "string" } },
+					"additionalProperties": false,
+					"required": ["eslintMarkdown"]
+				},
+				{
+					"description": "Rules from [Eslint Plugin Yml](https://ota-meshi.github.io/eslint-plugin-yml/)",
+					"type": "object",
+					"properties": { "eslintYml": { "type": "string" } },
+					"additionalProperties": false,
+					"required": ["eslintYml"]
+				},
+				{
+					"description": "Rules from [Eslint CSS](https://github.com/eslint/css)",
+					"type": "object",
+					"properties": { "eslintCss": { "type": "string" } },
+					"additionalProperties": false,
+					"required": ["eslintCss"]
 				}
 			]
 		},
