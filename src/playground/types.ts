@@ -25,6 +25,17 @@ export const PlaygroundTab = {
 } as const;
 export type PlaygroundTab = (typeof PlaygroundTab)[keyof typeof PlaygroundTab];
 
+export const PLAYGROUND_PANE = {
+	diagnostics: "Diagnostics",
+	console: "Console",
+	gritql: "GritQL",
+} as const;
+
+type Pane = typeof PLAYGROUND_PANE;
+
+export type PlaygroundPaneKey = keyof Pane;
+export type PlaygroundPane = Pane[keyof Pane];
+
 export type PrettierOptions = import("prettier").Options & {
 	experimentalOperatorPosition?: "start" | "end";
 };
@@ -248,6 +259,7 @@ export interface PlaygroundState {
 	currentFile: string;
 	singleFileMode: boolean;
 	tab: PlaygroundTab;
+	pane: PlaygroundPane;
 	cursorPosition: number;
 	files: Record<string, undefined | PlaygroundFileState>;
 	settings: PlaygroundSettings;
@@ -256,6 +268,7 @@ export interface PlaygroundState {
 export const defaultPlaygroundState: PlaygroundState = {
 	cursorPosition: 0,
 	tab: PlaygroundTab.Formatter,
+	pane: PLAYGROUND_PANE.diagnostics,
 	currentFile: "main.tsx",
 	singleFileMode: true,
 	files: {
