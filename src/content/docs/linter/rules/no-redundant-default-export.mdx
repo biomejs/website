@@ -33,7 +33,7 @@ This rule is part of the [nursery](/linter/#nursery) group. This means that it i
 ## Description
 Checks if a default export exports the same symbol as a named export.
 
-This rule warns when a `default` export references the same identifier as a named export.
+This rule reports when a `default` export references the same identifier as a named export.
 Re-exports are out of scope.
 
 ## Examples

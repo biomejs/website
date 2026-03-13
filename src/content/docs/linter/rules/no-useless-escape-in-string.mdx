@@ -40,11 +40,11 @@ Hence, they may confuse a reader.
 
 ```css
 a::after {
-  content: "\a"
+  content: "\z"
 }
 ```
 
-<pre class="language-text"><code class="language-text">code-block.css:2:14 <a href="https://biomejs.dev/linter/rules/no-useless-escape-in-string">lint/suspicious/noUselessEscapeInString</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">The character doesn't need to be escaped.</span><br />  <br />    <strong>1 │ </strong>a::after &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  content: &quot;&#92;a&quot;<br />   <strong>   │ </strong>             <strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Only quotes that enclose the string and special characters need to be escaped.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Safe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Unescape the character.</span><br />  <br />  <strong>  2 │ </strong><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span>content:<span style="opacity: 0.8;">·</span>&quot;<span style="color: Tomato;">&#92;</span>a&quot;<br />  <strong>    │ </strong>            <span style="color: Tomato;">-</span>  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.css:2:14 <a href="https://biomejs.dev/linter/rules/no-useless-escape-in-string">lint/suspicious/noUselessEscapeInString</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">The character doesn't need to be escaped.</span><br />  <br />    <strong>1 │ </strong>a::after &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  content: &quot;&#92;z&quot;<br />   <strong>   │ </strong>             <strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Only quotes that enclose the string and special characters need to be escaped.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Safe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Unescape the character.</span><br />  <br />  <strong>  2 │ </strong><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span>content:<span style="opacity: 0.8;">·</span>&quot;<span style="color: Tomato;">&#92;</span>z&quot;<br />  <strong>    │ </strong>            <span style="color: Tomato;">-</span>  <br /></code></pre>
 
 ```css
 a::after {
@@ -65,6 +65,12 @@ a::after {
 ```css
 a::after {
   content: "\n"
+}
+```
+
+```css
+a::after {
+  content: "\e7bb"
 }
 ```
 

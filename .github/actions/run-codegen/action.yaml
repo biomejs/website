@@ -48,7 +48,7 @@ runs:
 
         for kind in "${kinds[@]}"; do
           echo "Running codegen for $kind"
-          cargo run -p codegen "$kind"
+          cargo run -p codegen "$kind" --locked
         done
       env:
         RUST_LOG: info
