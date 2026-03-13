@@ -15,6 +15,9 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - This rule is **recommended**, meaning it is enabled by default.
 - This rule doesn't have a fix.
 - The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Same as [`json/no-duplicate-keys`](https://github.com/eslint/json/blob/main/docs/rules/no-duplicate-keys.md)
+
 ## How to configure
 ```json title="biome.json"
 {

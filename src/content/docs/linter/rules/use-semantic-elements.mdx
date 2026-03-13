@@ -71,6 +71,7 @@ Using semantic elements like `<button>`, `<nav>` and others are more accessible 
 <>
   <input type="checkbox">label</input>
   <hr/>
+  <div role="status"></div>
 </>;
 ```
 
@@ -80,6 +81,15 @@ All elements with `role="img"` are ignored:
 <div role="img" aria-label="That cat is so cute">
   <p>&#x1F408; &#x1F602;</p>
 </div>
+```
+
+Semantic elements with a matching role are not flagged (see [noRedundantRoles](https://biomejs.dev/linter/rules/no-redundant-roles/)):
+
+```jsx
+<>
+  <nav role="navigation"></nav>
+  <footer role="contentinfo"></footer>
+</>;
 ```
 
 ## Related links
