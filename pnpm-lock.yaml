@@ -514,8 +514,8 @@ packages:
     resolution: {integrity: sha512-jboDhjZY8/bAPl2kgvjrbbyXyM6uimPsasY3TvFhSpPaNorij0UZROi/NjDQqQeZFSaIK3ieiRZXWwoBZh6rQQ==}
 
   '@biomejs/wasm-web@https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@1f30838':
-    resolution: {integrity: sha512-a50iwNxEnsPln9SKD/2W+Sk7KWohk6SMD/Sz6a7z0NMoieVR/+gNT20tdeVRij7LNqkIC08P7EHAEGjrsmzwrA==, tarball: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@1f30838}
-    version: 0.0.0-rev.1f30838b288bf317bf88c9247da029d9a394d009
+    resolution: {tarball: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@1f30838}
+    version: 2.4.7
 
   '@braintree/sanitize-url@7.1.1':
     resolution: {integrity: sha512-i1L7noDNxtFyL5DmZafWy1wRVhGehQmzZaz1HiN5e7iylJMSZR7ekOV7NsIqa5qBldlLrsKv4HbgFUVlQrz8Mw==}
