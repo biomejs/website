@@ -1,9 +1,9 @@
 [package]
-name = "codegen"
-version = "0.1.0"
-edition = "2024"
+name        = "codegen"
+version     = "0.1.0"
+edition     = "2024"
 description = "Crate used to generate pages from the Rust source code of Biome"
-publish = false
+publish     = false
 
 [lib]
 name = "codegen"
@@ -57,8 +57,6 @@ biome_string_case = { git = "https://github.com/biomejs/biome.git", rev = "1f308
 biome_test_utils = { git = "https://github.com/biomejs/biome.git", rev = "1f30838b288bf317bf88c9247da029d9a394d009" }
 biome_text_edit = { git = "https://github.com/biomejs/biome.git", rev = "1f30838b288bf317bf88c9247da029d9a394d009" }
 bpaf = { version = "0.9.23", features = ["docgen"] }
-# pin it because cargo keeps update it
-ls-types = "=0.0.3"
 # If you update this library, be aware of the breaking changes
 camino = "1.2.2"
 # Needed to fix some weird dependency
