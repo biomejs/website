@@ -25,8 +25,7 @@ awk -v new_rev="$new_rev" '{gsub(/rev = "[^"]+"/, "rev = \"" new_rev "\""); prin
 biome_crates=$(
   cargo tree --prefix none --depth 1 --format '{p}' \
     | grep '^biome_' \
-    | awk '{print $1}' \
-    | sort -u
+    | awk '{print $1}'
 )
 
 # Update each biome crate to point to the new revision
