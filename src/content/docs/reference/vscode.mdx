@@ -269,6 +269,32 @@ This setting controls whether that suggestion popup is shown.
 This setting allows to set the logging level of the Biome LSP trace. The possible values are `off`, `messages`, `verbose`.
 You may want to set this setting to `verbose` when you encounter issues with the extension, and you'd like to share the logs with us.
 
+### `biome.lsp.watcher.kind`
+
+:::caution[Biome `2.4.0+` required]
+This setting will only take effect when using Biome `2.4.0` or later; otherwise, this setting will be ignored.
+:::
+
+**Default:** `null` | **Scopes:** `global`, `workspace`, `workspace folder`
+
+Controls how the Biome file watcher should behave. By default, Biome chooses the best watcher strategy for the current OS, however sometimes this could result in some issues, such as folders locked.
+
+The option accepts the current values:
+- `recommended`: The default option, which chooses the best watcher for the current platform.
+- `polling`: Uses the polling strategy.
+- `none`: It doesn't enable the watcher. When the watcher is disabled, changes to files aren't recorded anymore by Biome. This might have
+repercussions on some lint rules that might rely on updated types or updated paths.
+
+### `biome.lsp.watcher.pollingInterval`
+
+:::caution[Biome `2.4.0+` required]
+This setting will only take effect when using Biome `2.4.0` or later; otherwise, this setting will be ignored.
+:::
+
+**Default:** `null` | **Scopes:** `global`, `workspace`, `workspace folder`
+
+The polling interval in milliseconds. This is only applicable when using the `polling` watcher. It defaults to `2000` milliseconds.
+
 ## Troubleshooting
 
 There may be times when you encounter unexpected issues with the extension. Here a a couple tip to help you troubleshoot
