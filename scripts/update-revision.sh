@@ -21,7 +21,7 @@ pnpm install --no-frozen-lockfile
 # Update the rev values for the biome dependencies
 awk -v new_rev="$new_rev" '{gsub(/rev = "[^"]+"/, "rev = \"" new_rev "\""); print}' Cargo.toml >temp.toml && mv temp.toml Cargo.toml
 
-# Identify all biome crates
+# Identify all top-level biome crates
 biome_crates=$(
   cargo tree --prefix none --depth 1 --format '{p}' \
     | grep '^biome_' \
