@@ -25,7 +25,7 @@ import {
 	QuoteStyle,
 	Semicolons,
 	type TrailingCommas,
-} from "@/playground/types";
+} from "@/playground/types.ts";
 import {
 	isCssFilename,
 	isGraphqlFilename,
@@ -34,7 +34,7 @@ import {
 	isSvelteFilename,
 	isTypeScriptFilename,
 	isVueFilename,
-} from "@/playground/utils";
+} from "@/playground/utils.ts";
 
 let settings = defaultPlaygroundState.settings;
 
