@@ -1620,7 +1620,6 @@ dependencies = [
  "bpaf",
  "camino",
  "lock_api",
- "ls-types",
  "pulldown-cmark",
  "schemars",
  "serde",
