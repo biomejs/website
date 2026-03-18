@@ -293,7 +293,7 @@ export function GET() {
           },
           "useBaseline": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.7",
             "name": "useBaseline",
             "link": "https://biomejs.dev/linter/rules/use-baseline",
             "recommended": false,
@@ -3987,7 +3987,7 @@ export function GET() {
           },
           "useImportsFirst": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.7",
             "name": "useImportsFirst",
             "link": "https://biomejs.dev/linter/rules/use-imports-first",
             "recommended": false,
@@ -6421,7 +6421,7 @@ export function GET() {
         "nursery": {
           "noEmptyObjectKeys": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.7",
             "name": "noEmptyObjectKeys",
             "link": "https://biomejs.dev/linter/rules/no-empty-object-keys",
             "recommended": false,
@@ -6438,7 +6438,7 @@ export function GET() {
           },
           "noTopLevelLiterals": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.7",
             "name": "noTopLevelLiterals",
             "link": "https://biomejs.dev/linter/rules/no-top-level-literals",
             "recommended": false,
@@ -8600,6 +8600,12 @@ export function GET() {
             "recommended": false,
             "fixKind": "safe",
             "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslint": "sort-keys"
+                }
+              },
               {
                 "kind": "inspired",
                 "source": {
