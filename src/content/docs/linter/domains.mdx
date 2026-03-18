@@ -3,6 +3,49 @@
 title: Domains
 description: List of available domains
 ---
+### Drizzle activation
+Enable the **recommended, non-nursery** rules of the domain:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"drizzle": "recommended"
+		}
+	}
+}
+```
+
+:::note[No recommended rules]
+Since all rules in this domain are nursery rules, no rules will be activated when enabling the domain. You need to enable the single rules.
+:::
+Enabled the **all** rules of the domain:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"drizzle": "all"
+		}
+	}
+}
+```
+**Disable** all rules of the domain:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"drizzle": "none"
+		}
+	}
+}
+```
+### Drizzle dependencies
+Enabled when the following dependencies are declared:
+- `drizzle-orm`: `>=0.9.0`
+
+### Drizzle rules
+Rules that belong to the domain:
+- [noDrizzleDeleteWithoutWhere](/linter/rules/no-drizzle-delete-without-where) [(nursery)](/linter/#nursery)
+- [noDrizzleUpdateWithoutWhere](/linter/rules/no-drizzle-update-without-where) [(nursery)](/linter/#nursery)
 ## Next
 Use this domain inside Next.js projects.
 ### Next activation
