@@ -35,4 +35,7 @@ if [ -n "$biome_crates" ]; then
     "$@"
 fi
 
+# Update the biome-revision file
+echo "$new_rev" > biome-revision
+
 echo "Revision updated to $new_rev."

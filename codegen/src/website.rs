@@ -10,7 +10,6 @@ use biome_json_parser::{JsonParserOptions, parse_json};
 use biome_rowan::AstNode;
 use std::convert::TryInto;
 use std::fs;
-use xtask_codegen::generate_schema::generate_schema_as_string;
 
 /// Generates the following files:
 ///
@@ -94,7 +93,10 @@ pub(crate) fn generate_cli_doc() -> anyhow::Result<()> {
     Ok(())
 }
 
-/// Generates the schema js file: `src/pages/schemas/<version>/schema.json.js`
+/// Fetches the configuration schema JSON from the biome repository at the
+/// commit recorded in the `biome-revision` file, then writes it as a JS
+/// endpoint to `src/pages/schemas/<version>/schema.json.js` and
+/// `src/pages/schemas/latest/schema.json.js`.
 pub(crate) fn generate_schema_js() -> anyhow::Result<()> {
     let schema_root_folder_path = project_root().join("src/pages/schemas");
     let schema_version_folder_path = schema_root_folder_path.join(VERSION);
@@ -107,13 +109,29 @@ pub(crate) fn generate_schema_js() -> anyhow::Result<()> {
 
     fs::create_dir(&schema_version_folder_path)?;
 
+    // Read the commit hash from the biome-revision file
+    let revision_path = project_root().join("biome-revision");
+    let revision = fs::read_to_string(&revision_path)
+        .map_err(|e| anyhow::anyhow!("Failed to read biome-revision file: {e}"))?
+        .trim()
+        .to_string();
+
+    // Fetch the configuration schema from the biome repository at the pinned revision
+    let url = format!(
+        "https://raw.githubusercontent.com/biomejs/biome/{revision}/packages/%40biomejs/biome/configuration_schema.json"
+    );
+
+    eprintln!("Fetching configuration schema from {url}");
+
+    let schema_json: String = ureq::get(&url).call()?.into_body().read_to_string()?;
+
     let mut schema_js_content = String::new();
     schema_js_content.push_str(
         r#"// Run `BIOME_VERSION=<version number> pnpm codegen:release-files
 // to generate a new schema
 export function GET() {"#,
     );
-    schema_js_content.push_str(&format!("const schema = {};", generate_schema_as_string()?));
+    schema_js_content.push_str(&format!("const schema = {};", schema_json));
     schema_js_content.push_str(
         r#"return new Response(JSON.stringify(schema), {
     status: 200,
