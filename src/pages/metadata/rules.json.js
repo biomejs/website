@@ -3217,6 +3217,40 @@ export function GET() {
             ],
             "docs": " Disallow equal signs explicitly at the beginning of regular expressions.\n\n This rule forbids equal signs (`=`) after the slash (`/`) at the beginning of a regular expression literal,\n because the characters `/=` can be confused with a division assignment operator.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function bar() {\n   return /=foo/;\n }\n ```\n\n ### Valid\n\n ```js\n function bar() {\n   return /[=]foo/;\n }\n ```\n\n"
           },
+          "noDrizzleDeleteWithoutWhere": {
+            "deprecated": false,
+            "version": "2.4.8",
+            "name": "noDrizzleDeleteWithoutWhere",
+            "link": "https://biomejs.dev/linter/rules/no-drizzle-delete-without-where",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintDrizzle": "enforce-delete-with-where"
+                }
+              }
+            ],
+            "docs": " Require `.where()` to be called when using `.delete()` with Drizzle ORM.\n\n Without a `.where()` clause, a `delete` statement will delete **all rows** from the table.\n This rule requires explicitly calling `.where()` to prevent accidental data loss.\n\n ## Options\n\n Use the `drizzleObjectName` option to specify the variable names that represent Drizzle\n ORM instances.\n\n ```json,options\n {\n   \"options\": {\n     \"drizzleObjectName\": [\"db\"]\n   }\n }\n ```\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic,use_options\n await db.delete(users);\n ```\n\n ### Valid\n\n ```js,use_options\n await db.delete(users).where(eq(users.id, 1));\n ```\n\n"
+          },
+          "noDrizzleUpdateWithoutWhere": {
+            "deprecated": false,
+            "version": "2.4.8",
+            "name": "noDrizzleUpdateWithoutWhere",
+            "link": "https://biomejs.dev/linter/rules/no-drizzle-update-without-where",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintDrizzle": "enforce-update-with-where"
+                }
+              }
+            ],
+            "docs": " Require `.where()` to be called when using `.update()` with Drizzle ORM.\n\n Without a `.where()` clause, an `update` statement will update **all rows** in the table.\n This rule requires explicitly calling `.where()` to prevent accidental mass updates.\n\n ## Options\n\n Use the `drizzleObjectName` option to specify the variable names that represent Drizzle\n ORM instances.\n\n ```json,options\n {\n   \"options\": {\n     \"drizzleObjectName\": [\"db\"]\n   }\n }\n ```\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic,use_options\n await db.update(users).set({ name: \"John\" });\n ```\n\n ### Valid\n\n ```js,use_options\n await db.update(users).set({ name: \"John\" }).where(eq(users.id, 1));\n ```\n\n"
+          },
           "noDuplicateEnumValues": {
             "deprecated": false,
             "version": "2.3.12",
@@ -8474,7 +8508,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 485
+    "numberOrRules": 487
   },
   "syntax": {
     "languages": {

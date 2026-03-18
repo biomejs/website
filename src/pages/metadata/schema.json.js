@@ -399,6 +399,13 @@ export function GET() {
 					"properties": { "eslintCss": { "type": "string" } },
 					"additionalProperties": false,
 					"required": ["eslintCss"]
+				},
+				{
+					"description": "Rules from [Eslint Plugin Drizzle](https://orm.drizzle.team/docs/eslint-plugin)",
+					"type": "object",
+					"properties": { "eslintDrizzle": { "type": "string" } },
+					"additionalProperties": false,
+					"required": ["eslintDrizzle"]
 				}
 			]
 		},
