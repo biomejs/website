@@ -62,7 +62,7 @@ checksum = "72b3254f16251a8381aa12e40e3c4d2f0199f8c6508fbecb9d91f575e0fbb8c6"
 [[package]]
 name = "biome_analyze"
 version = "0.5.7"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_console",
  "biome_deserialize",
@@ -82,7 +82,7 @@ dependencies = [
 [[package]]
 name = "biome_analyze_macros"
 version = "0.0.0"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "anyhow",
  "biome_string_case",
@@ -96,7 +96,7 @@ dependencies = [
 [[package]]
 name = "biome_aria"
 version = "0.5.7"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_aria_metadata",
 ]
@@ -104,7 +104,7 @@ dependencies = [
 [[package]]
 name = "biome_aria_metadata"
 version = "0.5.7"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_deserialize",
  "biome_deserialize_macros",
@@ -120,7 +120,7 @@ dependencies = [
 [[package]]
 name = "biome_cli"
 version = "0.0.0"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "anyhow",
  "biome_analyze",
@@ -183,7 +183,7 @@ dependencies = [
 [[package]]
 name = "biome_configuration"
 version = "0.0.1"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_analyze",
  "biome_configuration_macros",
@@ -215,7 +215,7 @@ dependencies = [
 [[package]]
 name = "biome_configuration_macros"
 version = "0.0.1"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_analyze",
  "biome_css_analyze",
@@ -237,7 +237,7 @@ dependencies = [
 [[package]]
 name = "biome_console"
 version = "0.5.7"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_markup",
  "biome_text_size",
@@ -251,7 +251,7 @@ dependencies = [
 [[package]]
 name = "biome_control_flow"
 version = "0.5.7"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_rowan",
  "rustc-hash 2.1.1",
@@ -260,7 +260,7 @@ dependencies = [
 [[package]]
 name = "biome_css_analyze"
 version = "0.5.7"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_analyze",
  "biome_analyze_macros",
@@ -286,7 +286,7 @@ dependencies = [
 [[package]]
 name = "biome_css_factory"
 version = "0.5.7"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_css_syntax",
  "biome_rowan",
@@ -295,7 +295,7 @@ dependencies = [
 [[package]]
 name = "biome_css_formatter"
 version = "0.5.7"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_css_syntax",
  "biome_diagnostics",
@@ -308,7 +308,7 @@ dependencies = [
 [[package]]
 name = "biome_css_parser"
 version = "0.5.7"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_console",
  "biome_css_factory",
@@ -323,7 +323,7 @@ dependencies = [
 [[package]]
 name = "biome_css_semantic"
 version = "0.0.0"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_css_syntax",
  "biome_formatter",
@@ -334,19 +334,18 @@ dependencies = [
 [[package]]
 name = "biome_css_syntax"
 version = "0.5.7"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_rowan",
  "biome_string_case",
  "camino",
- "schemars",
  "serde",
 ]
 
 [[package]]
 name = "biome_deserialize"
 version = "0.6.0"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_console",
  "biome_diagnostics",
@@ -364,7 +363,7 @@ dependencies = [
 [[package]]
 name = "biome_deserialize_macros"
 version = "0.6.0"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_string_case",
  "proc-macro-error2",
@@ -376,7 +375,7 @@ dependencies = [
 [[package]]
 name = "biome_diagnostics"
 version = "0.5.7"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "backtrace",
  "biome_console",
@@ -388,7 +387,6 @@ dependencies = [
  "bpaf",
  "camino",
  "enumflags2",
- "schemars",
  "serde",
  "serde_json",
  "termcolor",
@@ -399,18 +397,16 @@ dependencies = [
 [[package]]
 name = "biome_diagnostics_categories"
 version = "0.5.7"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "quote",
- "schemars",
  "serde",
- "serde_json",
 ]
 
 [[package]]
 name = "biome_diagnostics_macros"
 version = "0.5.7"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "proc-macro-error2",
  "proc-macro2",
@@ -421,7 +417,7 @@ dependencies = [
 [[package]]
 name = "biome_flags"
 version = "0.0.0"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_console",
 ]
@@ -429,7 +425,7 @@ dependencies = [
 [[package]]
 name = "biome_formatter"
 version = "0.5.7"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_console",
  "biome_deserialize",
@@ -450,7 +446,7 @@ dependencies = [
 [[package]]
 name = "biome_fs"
 version = "0.5.7"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_diagnostics",
  "camino",
@@ -462,7 +458,6 @@ dependencies = [
  "path-absolutize",
  "rayon",
  "rustc-hash 2.1.1",
- "schemars",
  "serde",
  "smallvec",
  "tracing",
@@ -471,7 +466,7 @@ dependencies = [
 [[package]]
 name = "biome_glob"
 version = "0.1.0"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_deserialize",
  "biome_deserialize_macros",
@@ -484,7 +479,7 @@ dependencies = [
 [[package]]
 name = "biome_graphql_analyze"
 version = "0.0.1"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_analyze",
  "biome_analyze_macros",
@@ -507,7 +502,7 @@ dependencies = [
 [[package]]
 name = "biome_graphql_factory"
 version = "0.1.0"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_graphql_syntax",
  "biome_rowan",
@@ -516,7 +511,7 @@ dependencies = [
 [[package]]
 name = "biome_graphql_formatter"
 version = "0.1.0"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_diagnostics",
  "biome_formatter",
@@ -528,7 +523,7 @@ dependencies = [
 [[package]]
 name = "biome_graphql_parser"
 version = "0.1.0"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_console",
  "biome_diagnostics",
@@ -544,19 +539,18 @@ dependencies = [
 [[package]]
 name = "biome_graphql_syntax"
 version = "0.1.0"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_rowan",
  "biome_string_case",
  "camino",
- "schemars",
  "serde",
 ]
 
 [[package]]
 name = "biome_grit_factory"
 version = "0.5.7"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_grit_syntax",
  "biome_rowan",
@@ -565,7 +559,7 @@ dependencies = [
 [[package]]
 name = "biome_grit_formatter"
 version = "0.0.0"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_diagnostics_categories",
  "biome_formatter",
@@ -577,7 +571,7 @@ dependencies = [
 [[package]]
 name = "biome_grit_parser"
 version = "0.1.0"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_console",
  "biome_diagnostics",
@@ -595,7 +589,7 @@ dependencies = [
 [[package]]
 name = "biome_grit_patterns"
 version = "0.0.1"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_analyze",
  "biome_console",
@@ -618,7 +612,6 @@ dependencies = [
  "rand",
  "regex",
  "rustc-hash 2.1.1",
- "schemars",
  "serde",
  "serde_json",
 ]
@@ -626,19 +619,18 @@ dependencies = [
 [[package]]
 name = "biome_grit_syntax"
 version = "0.5.7"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_rowan",
  "biome_string_case",
  "camino",
- "schemars",
  "serde",
 ]
 
 [[package]]
 name = "biome_html_analyze"
 version = "0.5.7"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_analyze",
  "biome_analyze_macros",
@@ -661,7 +653,7 @@ dependencies = [
 [[package]]
 name = "biome_html_factory"
 version = "0.5.7"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_html_syntax",
  "biome_rowan",
@@ -670,7 +662,7 @@ dependencies = [
 [[package]]
 name = "biome_html_formatter"
 version = "0.0.0"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_deserialize",
  "biome_deserialize_macros",
@@ -688,7 +680,7 @@ dependencies = [
 [[package]]
 name = "biome_html_parser"
 version = "0.0.1"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_console",
  "biome_diagnostics",
@@ -703,7 +695,7 @@ dependencies = [
 [[package]]
 name = "biome_html_syntax"
 version = "0.5.7"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_rowan",
  "biome_string_case",
@@ -715,7 +707,7 @@ dependencies = [
 [[package]]
 name = "biome_js_analyze"
 version = "0.5.7"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_analyze",
  "biome_analyze_macros",
@@ -750,7 +742,6 @@ dependencies = [
  "regex",
  "roaring",
  "rustc-hash 2.1.1",
- "schemars",
  "serde",
  "smallvec",
 ]
@@ -758,7 +749,7 @@ dependencies = [
 [[package]]
 name = "biome_js_factory"
 version = "0.5.7"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_js_syntax",
  "biome_rowan",
@@ -767,7 +758,7 @@ dependencies = [
 [[package]]
 name = "biome_js_formatter"
 version = "0.5.7"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_deserialize",
  "biome_deserialize_macros",
@@ -790,7 +781,7 @@ dependencies = [
 [[package]]
 name = "biome_js_parser"
 version = "0.5.7"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_console",
  "biome_diagnostics",
@@ -803,8 +794,6 @@ dependencies = [
  "enumflags2",
  "indexmap",
  "rustc-hash 2.1.1",
- "schemars",
- "serde",
  "serde_json",
  "smallvec",
  "tracing",
@@ -813,7 +802,7 @@ dependencies = [
 [[package]]
 name = "biome_js_semantic"
 version = "0.5.7"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_formatter",
  "biome_js_syntax",
@@ -826,7 +815,7 @@ dependencies = [
 [[package]]
 name = "biome_js_syntax"
 version = "0.5.7"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_aria",
  "biome_aria_metadata",
@@ -834,14 +823,13 @@ dependencies = [
  "biome_string_case",
  "camino",
  "enumflags2",
- "schemars",
  "serde",
 ]
 
 [[package]]
 name = "biome_js_type_info"
 version = "0.0.1"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_formatter",
  "biome_js_semantic",
@@ -858,7 +846,7 @@ dependencies = [
 [[package]]
 name = "biome_js_type_info_macros"
 version = "0.0.1"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "proc-macro-error2",
  "proc-macro2",
@@ -869,7 +857,7 @@ dependencies = [
 [[package]]
 name = "biome_jsdoc_comment"
 version = "0.0.1"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_formatter",
  "biome_js_parser",
@@ -881,7 +869,7 @@ dependencies = [
 [[package]]
 name = "biome_json_analyze"
 version = "0.5.7"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_analyze",
  "biome_analyze_macros",
@@ -902,7 +890,7 @@ dependencies = [
 [[package]]
 name = "biome_json_factory"
 version = "0.5.7"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_json_syntax",
  "biome_rowan",
@@ -911,7 +899,7 @@ dependencies = [
 [[package]]
 name = "biome_json_formatter"
 version = "0.5.7"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_deserialize",
  "biome_deserialize_macros",
@@ -928,7 +916,7 @@ dependencies = [
 [[package]]
 name = "biome_json_parser"
 version = "0.5.7"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_console",
  "biome_diagnostics",
@@ -944,7 +932,7 @@ dependencies = [
 [[package]]
 name = "biome_json_syntax"
 version = "0.5.7"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_rowan",
  "biome_string_case",
@@ -957,7 +945,7 @@ dependencies = [
 [[package]]
 name = "biome_json_value"
 version = "0.1.0"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_deserialize",
  "biome_deserialize_macros",
@@ -971,7 +959,7 @@ dependencies = [
 [[package]]
 name = "biome_line_index"
 version = "0.1.0"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_text_size",
  "rustc-hash 2.1.1",
@@ -980,7 +968,7 @@ dependencies = [
 [[package]]
 name = "biome_lsp"
 version = "0.0.0"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "anyhow",
  "biome_analyze",
@@ -1011,7 +999,7 @@ dependencies = [
 [[package]]
 name = "biome_lsp_converters"
 version = "0.1.0"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "anyhow",
  "biome_line_index",
@@ -1023,7 +1011,7 @@ dependencies = [
 [[package]]
 name = "biome_markdown_factory"
 version = "0.0.1"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_markdown_syntax",
  "biome_rowan",
@@ -1032,7 +1020,7 @@ dependencies = [
 [[package]]
 name = "biome_markdown_formatter"
 version = "0.0.1"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_formatter",
  "biome_markdown_factory",
@@ -1043,7 +1031,7 @@ dependencies = [
 [[package]]
 name = "biome_markdown_parser"
 version = "0.0.1"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_console",
  "biome_diagnostics",
@@ -1060,19 +1048,18 @@ dependencies = [
 [[package]]
 name = "biome_markdown_syntax"
 version = "0.0.1"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_rowan",
  "biome_string_case",
  "camino",
- "schemars",
  "serde",
 ]
 
 [[package]]
 name = "biome_markup"
 version = "0.5.7"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "proc-macro-error2",
  "proc-macro2",
@@ -1082,7 +1069,7 @@ dependencies = [
 [[package]]
 name = "biome_migrate"
 version = "0.0.0"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_analyze",
  "biome_configuration",
@@ -1100,7 +1087,7 @@ dependencies = [
 [[package]]
 name = "biome_module_graph"
 version = "0.0.1"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_console",
  "biome_css_semantic",
@@ -1122,7 +1109,6 @@ dependencies = [
  "once_cell",
  "papaya",
  "rustc-hash 2.1.1",
- "schemars",
  "serde",
  "serde_json",
  "static_assertions",
@@ -1131,7 +1117,7 @@ dependencies = [
 [[package]]
 name = "biome_package"
 version = "0.5.7"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_console",
  "biome_deserialize",
@@ -1154,7 +1140,7 @@ dependencies = [
 [[package]]
 name = "biome_parser"
 version = "0.5.7"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_console",
  "biome_diagnostics",
@@ -1168,7 +1154,7 @@ dependencies = [
 [[package]]
 name = "biome_plugin_loader"
 version = "0.0.1"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_analyze",
  "biome_console",
@@ -1197,7 +1183,7 @@ dependencies = [
 [[package]]
 name = "biome_project_layout"
 version = "0.0.1"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_package",
  "biome_parser",
@@ -1210,7 +1196,7 @@ dependencies = [
 [[package]]
 name = "biome_resolver"
 version = "0.1.0"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_console",
  "biome_diagnostics",
@@ -1224,7 +1210,7 @@ dependencies = [
 [[package]]
 name = "biome_rowan"
 version = "0.5.7"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_text_edit",
  "biome_text_size",
@@ -1237,7 +1223,7 @@ dependencies = [
 [[package]]
 name = "biome_rule_options"
 version = "0.0.1"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_console",
  "biome_deserialize",
@@ -1261,7 +1247,7 @@ dependencies = [
 [[package]]
 name = "biome_ruledoc_utils"
 version = "0.0.1"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "anyhow",
  "biome_analyze",
@@ -1280,7 +1266,7 @@ dependencies = [
 [[package]]
 name = "biome_service"
 version = "0.0.0"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_analyze",
  "biome_configuration",
@@ -1345,7 +1331,6 @@ dependencies = [
  "rayon",
  "regex",
  "rustc-hash 2.1.1",
- "schemars",
  "serde",
  "serde_json",
  "smallvec",
@@ -1357,7 +1342,7 @@ dependencies = [
 [[package]]
 name = "biome_string_case"
 version = "0.5.7"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_rowan",
  "caseless",
@@ -1366,7 +1351,7 @@ dependencies = [
 [[package]]
 name = "biome_suppression"
 version = "0.5.7"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_console",
  "biome_diagnostics",
@@ -1376,7 +1361,7 @@ dependencies = [
 [[package]]
 name = "biome_test_utils"
 version = "0.0.0"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_analyze",
  "biome_configuration",
@@ -1411,10 +1396,9 @@ dependencies = [
 [[package]]
 name = "biome_text_edit"
 version = "0.5.7"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "biome_text_size",
- "schemars",
  "serde",
  "similar",
 ]
@@ -1422,21 +1406,16 @@ dependencies = [
 [[package]]
 name = "biome_text_size"
 version = "0.5.7"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 dependencies = [
  "schemars",
  "serde",
 ]
 
 [[package]]
-name = "biome_ungrammar"
-version = "0.3.1"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
-
-[[package]]
 name = "biome_unicode_table"
 version = "0.5.7"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
+source = "git+https://github.com/biomejs/biome.git?rev=f4bf3411cc34ae6458b298a03c6255ac3cd00231#f4bf3411cc34ae6458b298a03c6255ac3cd00231"
 
 [[package]]
 name = "bitflags"
@@ -1556,8 +1535,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "aebf35691d1bfb0ac386a69bac2fde4dd276fb618cf8bf4f5318fe285e821bb2"
 dependencies = [
  "find-msvc-tools",
- "jobserver",
- "libc",
  "shlex",
 ]
 
@@ -1625,7 +1602,6 @@ dependencies = [
  "serde",
  "serde_json",
  "ureq",
- "xtask_codegen",
 ]
 
 [[package]]
@@ -2094,25 +2070,13 @@ dependencies = [
 
 [[package]]
 name = "getrandom"
-version = "0.3.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "899def5c37c4fd7b2664648c28120ecec138e4d395b459e5ca34f9cce2dd77fd"
-dependencies = [
- "cfg-if",
- "libc",
- "r-efi 5.3.0",
- "wasip2",
-]
-
-[[package]]
-name = "getrandom"
 version = "0.4.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0de51e6874e94e7bf76d726fc5d13ba782deca734ff60d5bb2fb2607c7406555"
 dependencies = [
  "cfg-if",
  "libc",
- "r-efi 6.0.0",
+ "r-efi",
  "wasip2",
  "wasip3",
 ]
@@ -2122,19 +2086,6 @@ name = "gimli"
 version = "0.32.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e629b9b98ef3dd8afe6ca2bd0f89306cec16d43d907889945bc5d6687f2f13c7"
-
-[[package]]
-name = "git2"
-version = "0.20.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7b88256088d75a56f8ecfa070513a775dd9107f6530ef14919dac831af9cfe2b"
-dependencies = [
- "bitflags 2.11.0",
- "libc",
- "libgit2-sys",
- "log",
- "url",
-]
 
 [[package]]
 name = "globset"
@@ -2443,16 +2394,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "jobserver"
-version = "0.1.34"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9afb3de4395d6b3e67a780b6de64b51c978ecf11cb9a462c66be7d4ca9039d33"
-dependencies = [
- "getrandom 0.3.4",
- "libc",
-]
-
-[[package]]
 name = "js-sys"
 version = "0.3.91"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2507,18 +2448,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b5b646652bf6661599e1da8901b3b9522896f01e736bad5f723fe7a3a27f899d"
 
 [[package]]
-name = "libgit2-sys"
-version = "0.18.3+1.9.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c9b3acc4b91781bb0b3386669d325163746af5f6e4f73e6d2d630e09a35f3487"
-dependencies = [
- "cc",
- "libc",
- "libz-sys",
- "pkg-config",
-]
-
-[[package]]
 name = "libmimalloc-sys"
 version = "0.1.44"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2538,18 +2467,6 @@ dependencies = [
  "libc",
  "plain",
  "redox_syscall 0.7.3",
-]
-
-[[package]]
-name = "libz-sys"
-version = "1.1.25"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d52f4c29e2a68ac30c9087e1b772dc9f44a2b66ed44edf2266cf2be9b03dafc1"
-dependencies = [
- "cc",
- "libc",
- "pkg-config",
- "vcpkg",
 ]
 
 [[package]]
@@ -2839,12 +2756,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a89322df9ebe1c1578d689c92318e070967d1042b512afbe49518723f4e6d5cd"
 
 [[package]]
-name = "pkg-config"
-version = "0.3.32"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7edddbd0b52d732b21ad9a5fab5c704c14cd949e5e9a1ec5929a24fded1b904c"
-
-[[package]]
 name = "plain"
 version = "0.2.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2980,12 +2891,6 @@ checksum = "41f2619966050689382d2b44f664f4bc593e129785a36d6ee376ddf37259b924"
 dependencies = [
  "proc-macro2",
 ]
-
-[[package]]
-name = "r-efi"
-version = "5.3.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "69cdb34c158ceb288df11e18b4bd39de994f6657d83847bdffdbd7f346754b0f"
 
 [[package]]
 name = "r-efi"
@@ -3960,12 +3865,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ba73ea9cf16a25df0c8caa16c51acb937d5712a8429db78a3ee29d5dcacd3a65"
 
 [[package]]
-name = "vcpkg"
-version = "0.2.15"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "accd4ea62f7bb7a82fe23066fb0957d48ef677f6eeb8215f372f52e48bb32426"
-
-[[package]]
 name = "vte"
 version = "0.14.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4378,42 +4277,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "05f360fc0b24296329c78fda852a1e9ae82de9cf7b27dae4b7f62f118f77b9ed"
 dependencies = [
  "tap",
-]
-
-[[package]]
-name = "xtask_codegen"
-version = "0.0.0"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
-dependencies = [
- "anyhow",
- "biome_analyze",
- "biome_configuration",
- "biome_diagnostics",
- "biome_js_factory",
- "biome_js_formatter",
- "biome_js_syntax",
- "biome_json_formatter",
- "biome_json_parser",
- "biome_rowan",
- "biome_service",
- "biome_string_case",
- "biome_ungrammar",
- "bpaf",
- "git2",
- "proc-macro2",
- "quote",
- "schemars",
- "serde_json",
- "ureq",
- "xtask_glue",
-]
-
-[[package]]
-name = "xtask_glue"
-version = "0.0.0"
-source = "git+https://github.com/biomejs/biome.git?rev=1f30838b288bf317bf88c9247da029d9a394d009#1f30838b288bf317bf88c9247da029d9a394d009"
-dependencies = [
- "anyhow",
 ]
 
 [[package]]

@@ -184,6 +184,8 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noConditionalExpect](/linter/rules/no-conditional-expect) | Disallow conditional `expect()` calls inside tests. |  |
 | [noContinue](/linter/rules/no-continue) | Disallow continue statements. |  |
 | [noDivRegex](/linter/rules/no-div-regex) | Disallow equal signs explicitly at the beginning of regular expressions. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
+| [noDrizzleDeleteWithoutWhere](/linter/rules/no-drizzle-delete-without-where) | Require `.where()` to be called when using `.delete()` with Drizzle ORM. |  |
+| [noDrizzleUpdateWithoutWhere](/linter/rules/no-drizzle-update-without-where) | Require `.where()` to be called when using `.update()` with Drizzle ORM. |  |
 | [noDuplicateEnumValues](/linter/rules/no-duplicate-enum-values) | Disallow duplicate enum member values. |  |
 | [noDuplicatedSpreadProps](/linter/rules/no-duplicated-spread-props) | Disallow JSX prop spreading the same identifier multiple times. |  |
 | [noEqualsToNull](/linter/rules/no-equals-to-null) | Require the use of `===` or `!==` for comparison with `null`. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
@@ -236,7 +238,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [useExplicitType](/linter/rules/use-explicit-type) | Enforce types in functions, methods, variables, and parameters. |  |
 | [useFind](/linter/rules/use-find) | Enforce the use of Array.prototype.find() over Array.prototype.filter() followed by [0] when looking for a single result. |  |
 | [useGlobalThis](/linter/rules/use-global-this) | Enforce the use of `globalThis` over `window`, `self`, and `global`. |  |
-| [useImportsFirst](/linter/rules/use-imports-first) | Enforce that all imports appear at the top of the module. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
+| [useImportsFirst](/linter/rules/use-imports-first) | Enforce that all imports appear at the top of the module. |  |
 | [useInlineScriptId](/linter/rules/use-inline-script-id) | Enforce `id` attribute on `next/script` components with inline content or `dangerouslySetInnerHTML`. |  |
 | [useNamedCaptureGroup](/linter/rules/use-named-capture-group) | Enforce using named capture groups in regular expression. |  |
 | [useNullishCoalescing](/linter/rules/use-nullish-coalescing) | Enforce using the nullish coalescing operator (`??`) instead of logical or (`||`). | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
