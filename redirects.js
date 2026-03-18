@@ -59,6 +59,8 @@ export default {
   '/linter/rules/noDocumentImportInPage': '/linter/rules/no-document-import-in-page',
   '/linter/rules/noDoneCallback': '/linter/rules/no-done-callback',
   '/linter/rules/noDoubleEquals': '/linter/rules/no-double-equals',
+  '/linter/rules/noDrizzleDeleteWithoutWhere': '/linter/rules/no-drizzle-delete-without-where',
+  '/linter/rules/noDrizzleUpdateWithoutWhere': '/linter/rules/no-drizzle-update-without-where',
   '/linter/rules/noDuplicateArgumentNames': '/linter/rules/no-duplicate-argument-names',
   '/linter/rules/noDuplicateAtImportRules': '/linter/rules/no-duplicate-at-import-rules',
   '/linter/rules/noDuplicateAttributes': '/linter/rules/no-duplicate-attributes',

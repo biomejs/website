@@ -179,6 +179,8 @@ export const LINT_RULES = {
     noContinue: "noContinue",
     noDeprecatedMediaType: "noDeprecatedMediaType",
     noDivRegex: "noDivRegex",
+    noDrizzleDeleteWithoutWhere: "noDrizzleDeleteWithoutWhere",
+    noDrizzleUpdateWithoutWhere: "noDrizzleUpdateWithoutWhere",
     noDuplicateArgumentNames: "noDuplicateArgumentNames",
     noDuplicateAttributes: "noDuplicateAttributes",
     noDuplicateEnumValueNames: "noDuplicateEnumValueNames",
