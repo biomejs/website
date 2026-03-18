@@ -142,6 +142,8 @@ export function GET() {"#,
 }"#,
     );
 
+    eprintln!("formatting generated schema");
+    let start = std::time::Instant::now();
     let schema_js_printed = biome_js_formatter::format_node(
         JsFormatOptions::new(JsFileSource::js_module()),
         parse_module(&schema_js_content, JsParserOptions::default())
@@ -150,6 +152,7 @@ export function GET() {"#,
         false,
     )?
     .print()?;
+    eprintln!("Done, took {:?}", start.elapsed());
 
     fs::write(schema_js_path, schema_js_printed.as_code())?;
     fs::write(schema_latest_path, schema_js_printed.as_code())?;
