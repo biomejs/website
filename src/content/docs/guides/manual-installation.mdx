@@ -36,6 +36,25 @@ Biome is available as a [Homebrew formula](https://formulae.brew.sh/formula/biom
 brew install biome
 ```
 
+## Arch Linux (x86_64) 
+
+Biome is available as a community maintained binary from the [Arch Linux Extra repository](https://archlinux.org/packages/extra/x86_64/biome). 
+
+:::note
+The [extra] repository is usually enabled by default in /etc/pacman.conf. If it is disabled, uncomment the following lines:
+::: 
+
+```ini
+[extra]
+Include = /etc/pacman.d/mirrorlist
+```
+
+To install Biome run:
+
+```shell
+pacman -S biome
+```
+
 ## Docker
 
 Biome publishes [official Docker images](https://github.com/biomejs/docker/pkgs/container/biome) that support
