@@ -5,11 +5,10 @@ authors:
   - arendjr
 date: 2025-04-02
 cover:
-  light: "@/assets/blog/roadmap-2024/banner-light.png"
-  dark: "@/assets/blog/roadmap-2024/banner-dark.png"
+  light: "@/assets/blog/banner-light.png"
+  dark: "@/assets/blog/banner-dark.png"
   alt: The brand of the project. It says "Biome, toolchain of the web"
 socialImage: "@/assets/social-logo.png"
-featured: true
 ---
 
 Back at the start of 2024, Biome added an ambitious goal to its
@@ -66,7 +65,7 @@ state they are willing to compromise correctness in favor of productivity.
 
 For a linter, what's most important is that we don't flag _false positives_,
 instances where our lint rules may think there's an issue when really there's
-not. False positives are a source of frustration for developers, because they 
+not. False positives are a source of frustration for developers, because they
 take time to analyze; time that was wasted when it turns out there really wasn't
 an issue to begin with.
 

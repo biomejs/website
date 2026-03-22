@@ -8,8 +8,8 @@ authors:
   - team
 date: 2024-04-15
 cover:
-  light: "@/assets/blog/roadmap-2024/banner-light.png"
-  dark: "@/assets/blog/roadmap-2024/banner-dark.png"
+  light: "@/assets/blog/banner-light.png"
+  dark: "@/assets/blog/banner-dark.png"
   alt: The brand of the project. It says "Biome, toolchain of the web"
 socialImage: "@/assets/social-logo.png"
 ---

@@ -1,0 +1,125 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noDuplicateClasses
+description: Learn more about noDuplicateClasses
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import EditorAction from "@/components/EditorAction.astro";
+
+<Tabs>
+<TabItem label="HTML" icon="seti:html">
+## Summary
+- Rule available since: `v2.4.0`
+- Diagnostic Category: [`assist/source/noDuplicateClasses`](/reference/diagnostics#diagnostic-category)
+- Sources: 
+  - Inspired from [`better-tailwindcss/no-duplicate-classes`](https://github.com/schoero/eslint-plugin-better-tailwindcss/blob/main/docs/rules/no-duplicate-classes.md)
+
+## How to enable in your editor
+<EditorAction includeFixAll action="source.action.noDuplicateClasses.biome" />
+## How to configure
+```json title="biome.json"
+{
+	"assist": {
+		"actions": {
+			"source": {
+				"noDuplicateClasses": "on"
+			}
+		}
+	}
+}
+
+```
+## Description
+Remove duplicate CSS classes.
+
+Detects and removes duplicate CSS classes in HTML `class` attributes.
+
+This action helps keep your class strings clean by detecting and removing duplicates.
+
+Duplicate classes are redundant and can indicate copy-paste errors or merge conflicts.
+
+## Examples
+
+```html
+<div class="flex flex"></div>
+```
+
+<pre class="language-diff"><code class="language-diff">code-block.html ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Source action diff:</span><br />  <br />  <strong>  1 │ </strong>&lt;div<span style="opacity: 0.8;">·</span>class=&quot;flex<span style="opacity: 0.8;"><span style="color: Tomato;">·</span></span><span style="color: Tomato;">f</span><span style="color: Tomato;">l</span><span style="color: Tomato;">e</span><span style="color: Tomato;">x</span>&quot;&gt;&lt;/div&gt;<br />  <strong>    │ </strong>                <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span>        <br /></code></pre>
+
+```html
+<div class="p-4 text-red-500 p-4 bg-white"></div>
+```
+
+<pre class="language-diff"><code class="language-diff">code-block.html ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Source action diff:</span><br />  <br />  <strong>  1 │ </strong>&lt;div<span style="opacity: 0.8;">·</span>class=&quot;p-4<span style="opacity: 0.8;">·</span>text-red-500<span style="opacity: 0.8;">·</span><span style="color: Tomato;">p</span><span style="color: Tomato;">-</span><span style="color: Tomato;">4</span><span style="opacity: 0.8;"><span style="color: Tomato;">·</span></span>bg-white&quot;&gt;&lt;/div&gt;<br />  <strong>    │ </strong>                             <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span>                <br /></code></pre>
+
+## Related links
+
+- [Disable a rule](/assist/#disable-a-rule)
+- [Configure the code fix](/assist#configure-the-code-fix)
+- [Rule options](/assist/#rule-options)
+- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/assist/source/no_duplicate_classes.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/source/noDuplicateClasses)
+
+</TabItem>
+<TabItem label="JSX and TSX" icon="seti:javascript">
+## Summary
+- Rule available since: `v2.4.0`
+- Diagnostic Category: [`assist/source/noDuplicateClasses`](/reference/diagnostics#diagnostic-category)
+- Sources: 
+  - Inspired from [`better-tailwindcss/no-duplicate-classes`](https://github.com/schoero/eslint-plugin-better-tailwindcss/blob/main/docs/rules/no-duplicate-classes.md)
+
+## How to enable in your editor
+<EditorAction includeFixAll action="source.action.noDuplicateClasses.biome" />
+## How to configure
+```json title="biome.json"
+{
+	"assist": {
+		"actions": {
+			"source": {
+				"noDuplicateClasses": "on"
+			}
+		}
+	}
+}
+
+```
+## Description
+Remove duplicate CSS classes.
+
+Detects and removes duplicate CSS classes in JSX `class` and `className` attributes,
+as well as in utility function calls like `clsx`, `cn`, `cva`, etc.
+
+Duplicate classes are redundant and can indicate copy-paste errors or merge conflicts.
+
+## Examples
+
+```jsx
+<div class="flex flex" />;
+```
+
+<pre class="language-diff"><code class="language-diff">code-block.jsx ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Source action diff:</span><br />  <br />  <strong>  1 │ </strong>&lt;div<span style="opacity: 0.8;">·</span>class=&quot;flex<span style="opacity: 0.8;"><span style="color: Tomato;">·</span></span><span style="color: Tomato;">f</span><span style="color: Tomato;">l</span><span style="color: Tomato;">e</span><span style="color: Tomato;">x</span>&quot;<span style="opacity: 0.8;">·</span>/&gt;;<br />  <strong>    │ </strong>                <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span>     <br /></code></pre>
+
+```jsx
+<div class="p-4 text-red-500 p-4 bg-white" />;
+```
+
+<pre class="language-diff"><code class="language-diff">code-block.jsx ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Source action diff:</span><br />  <br />  <strong>  1 │ </strong>&lt;div<span style="opacity: 0.8;">·</span>class=&quot;p-4<span style="opacity: 0.8;">·</span>text-red-500<span style="opacity: 0.8;">·</span><span style="color: Tomato;">p</span><span style="color: Tomato;">-</span><span style="color: Tomato;">4</span><span style="opacity: 0.8;"><span style="color: Tomato;">·</span></span>bg-white&quot;<span style="opacity: 0.8;">·</span>/&gt;;<br />  <strong>    │ </strong>                             <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span>             <br /></code></pre>
+
+## Options
+
+Use the `attributes` option to specify additional JSX attributes to check.
+Use the `functions` option to specify utility functions to check (e.g., `clsx`, `cn`, `cva`).
+
+## Related links
+
+- [Disable a rule](/assist/#disable-a-rule)
+- [Configure the code fix](/assist#configure-the-code-fix)
+- [Rule options](/assist/#rule-options)
+- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/assist/source/no_duplicate_classes.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/source/noDuplicateClasses)
+
+</TabItem>
+</Tabs>
+

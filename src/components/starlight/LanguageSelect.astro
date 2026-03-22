@@ -22,23 +22,31 @@ import Select from "@astrojs/starlight/components/Select.astro";
         constructor() {
             super();
 
-            this.querySelector('select')?.addEventListener('change', (e) => {
+            const el = this.querySelector("select");
+
+            if (!el) return;
+
+            const host = window.location.host;
+            const subdomain = host.split(".")[0];
+            if (subdomain === "next") {
+                el.value = "next";
+            }
+
+            el.addEventListener("change", (e) => {
                 const value = (e.currentTarget as HTMLSelectElement).value;
 
-                let url: URL;
+                const url = new URL(window.location.href);
                 switch (value) {
-                    case "next":
-                        url = new URL("https://next.biomejs.dev/");
+									  case "v1":
+												url.hostname = "v1.biomejs.dev";
                         break;
-                    case "v2":
-                        url = new URL("https://biomejs.dev/");
+                    case "next":
+                        url.hostname = "next.biomejs.dev";
                         break;
                     default:
-                        url = new URL("https://v1.biomejs.dev/");
+                        url.hostname = "biomejs.dev";
                         break;
                 }
-
-                url.pathname = window.location.pathname;
 
                 window.location.href = url.toString();
             });

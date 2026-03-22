@@ -1,0 +1,110 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noNestedPromises
+description: Learn more about noNestedPromises
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.3.15`
+- Diagnostic Category: [`lint/nursery/noNestedPromises`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`promise/no-nesting`](https://github.com/eslint-community/eslint-plugin-promise/blob/main/docs/rules/no-nesting.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noNestedPromises": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow nested `.then()` or `.catch()` promise calls.
+
+Nesting `.then()` or `.catch()` calls defeats the purpose of promises,
+which is to create a flat chain of asynchronous operations. Nested promise
+callbacks can make code harder to read and maintain.
+
+However, nesting is allowed when the nested callback references variables
+from the outer scope, as flattening would break the code in such cases.
+
+## Examples
+
+### Invalid
+
+```js
+doThing().then(function() { return a.then() })
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:38 <a href="https://biomejs.dev/linter/rules/no-nested-promises">lint/nursery/noNestedPromises</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Avoid nesting promises.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>doThing().then(function() &#123; return a.then() &#125;)<br />   <strong>   │ </strong>                                     <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Nesting promises can lead to harder-to-read code because it creates multiple levels of indentation and makes the flow of asynchronous operations less clear.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Consider refactoring the code to use promise chaining (foo.then().then()) instead of nesting.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+```js
+doThing().then(() => b.catch())
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:24 <a href="https://biomejs.dev/linter/rules/no-nested-promises">lint/nursery/noNestedPromises</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Avoid nesting promises.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>doThing().then(() =&gt; b.catch())<br />   <strong>   │ </strong>                       <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Nesting promises can lead to harder-to-read code because it creates multiple levels of indentation and makes the flow of asynchronous operations less clear.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Consider refactoring the code to use promise chaining (foo.then().then()) instead of nesting.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+```js
+doThing()
+  .then(a => getB(a)
+    .then(b => getC(b))
+  )
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:3:6 <a href="https://biomejs.dev/linter/rules/no-nested-promises">lint/nursery/noNestedPromises</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Avoid nesting promises.</span><br />  <br />    <strong>1 │ </strong>doThing()<br />    <strong>2 │ </strong>  .then(a =&gt; getB(a)<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>    .then(b =&gt; getC(b))<br />   <strong>   │ </strong>     <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>  )<br />    <strong>5 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Nesting promises can lead to harder-to-read code because it creates multiple levels of indentation and makes the flow of asynchronous operations less clear.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Consider refactoring the code to use promise chaining (foo.then().then()) instead of nesting.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+### Valid
+
+```js
+// Simple returns
+doThing().then(function() { return 4 })
+doThing().then(() => 4)
+```
+
+```js
+// Chained promises (no nesting)
+doThing()
+  .then(a => getB(a))
+  .then(b => getC(b))
+```
+
+```js
+// Nested but references outer scope variable 'a'
+doThing()
+  .then(a => getB(a)
+    .then(b => getC(a, b))
+  )
+```
+
+```js
+// Promise.resolve/all are fine
+doThing().then(function() { return Promise.all([a,b,c]) })
+doThing().then(() => Promise.resolve(4))
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_nested_promises.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noNestedPromises)
+
+</TabItem>
+</Tabs>
+

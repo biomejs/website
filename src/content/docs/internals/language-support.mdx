@@ -16,7 +16,7 @@ Legend:
 | JSX                                                      | <span aria-label="Supported" role="img">✅</span>     | <span aria-label="Supported" role="img">✅</span>        | <span aria-label="Supported" role="img">✅</span>        | <span aria-label="Supported" role="img">✅</span>        |
 | TSX                                                      | <span aria-label="Supported" role="img">✅</span>     | <span aria-label="Supported" role="img">✅</span>        | <span aria-label="Supported" role="img">✅</span>        | <span aria-label="Supported" role="img">✅</span>        |
 | JSON                                                     | <span aria-label="Supported" role="img">✅</span>     | <span aria-label="Supported" role="img">✅</span>        | <span aria-label="Supported" role="img">✅</span>        | <span aria-label="Supported" role="img">✅</span>        |
-| JSONC                                                    | <span aria-label="Supported" role="img">✅</span>     | <span aria-label="Supported" role="img">✅</span>        | <span aria-label="Supported" role="img">✅</span>        | <span aria-label="Not in Progress" role="img">🚫</span> |
+| JSONC                                                    | <span aria-label="Supported" role="img">✅</span>     | <span aria-label="Supported" role="img">✅</span>        | <span aria-label="Supported" role="img">✅</span>        | <span aria-label="Supported" role="img">✅</span>|
 | HTML*                                                     | <span aria-label="Supported" role="img">✅</span>     | <span aria-label="Supported" role="img">✅</span>        | <span aria-label="Supported" role="img">✅</span>        | <span aria-label="Supported" role="img">✅</span>        |
 | [Vue](#html-super-languages-support)                     | <span aria-label="Experimental" role="img">🟡</span> | <span aria-label="Experimental" role="img">🟡</span>    | <span aria-label="Experimental" role="img">🟡</span>    | <span aria-label="Experimental" role="img">🟡</span>    |
 | [Svelte](#html-super-languages-support)                  | <span aria-label="Experimental" role="img">🟡</span> | <span aria-label="Experimental" role="img">🟡</span>    | <span aria-label="Experimental" role="img">🟡</span>    | <span aria-label="Experimental" role="img">🟡</span>    |
@@ -83,19 +83,7 @@ Lint rules that work across embedded languages aren't supported yet.
 
 ### Linting HTML-ish languages
 
-Some lint rules don't work across boundaries just yet. For example, the following `.vue` file, the rule `noUnusedVariables` will flag a false positive for `greeting`:
-
-```vue title=app.vue ins="greeting"
-<script setup lang="ts">
-    const greeting = "hello world"
-</script>
-
-<template>
-    <h1>{{ greeting }}</h1>
-</template>
-```
-
-When **linting** `.svelte`, `.astro` or `.vue` files, it's advised to turn off a few additional rules to prevent false positive linting errors caused by our partial support. Use the option `overrides` for that:
+If you **lint** `.svelte`, `.astro` or `.vue` files and `html.experimentalFullSupportEnabled` is `false`, it's advised to turn off a few additional rules to prevent false positive linting errors caused by our partial support. Use the option `overrides` for that:
 
 ```json title=biome.json
 {

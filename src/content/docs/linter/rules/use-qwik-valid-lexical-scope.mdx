@@ -9,12 +9,10 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JSX and TSX" icon="seti:javascript">
-:::caution
-This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
-:::
 ## Summary
 - Rule available since: `v2.2.6`
-- Diagnostic Category: [`lint/nursery/useQwikValidLexicalScope`](/reference/diagnostics#diagnostic-category)
+- Diagnostic Category: [`lint/correctness/useQwikValidLexicalScope`](/reference/diagnostics#diagnostic-category)
+- This rule is **recommended**, meaning it is enabled by default.
 - This rule doesn't have a fix.
 - The default severity of this rule is [**error**](/reference/diagnostics#error).
 - This rule belongs to the following domains:
@@ -27,7 +25,7 @@ This rule is part of the [nursery](/linter/#nursery) group. This means that it i
 {
 	"linter": {
 		"rules": {
-			"nursery": {
+			"correctness": {
 				"useQwikValidLexicalScope": "error"
 			}
 		}
@@ -52,7 +50,7 @@ const handleClick = () => {
 };
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:2:21 <a href="https://biomejs.dev/linter/rules/use-qwik-valid-lexical-scope">lint/nursery/useQwikValidLexicalScope</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Non-serializable expression must be wrapped with </span><span style="color: Tomato;"><strong>$(...)</strong></span><br />  <br />    <strong>1 │ </strong>// Arrow function assigned without wrapping it in $(...)<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>const handleClick = () =&gt; &#123;<br />   <strong>   │ </strong>                    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>  console.log(&quot;clicked&quot;);<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>&#125;;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>5 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Qwik requires serializable closures for:<br /></span>    <span style="color: lightgreen;">- Resumability (pausing/resuming execution)<br /></span>    <span style="color: lightgreen;">- Code splitting (lazy loading components)<br /></span>    <span style="color: lightgreen;">- Optimized rehydration (client-side continuation)</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Wrap the expression with </span><span style="color: lightgreen;"><strong>$(...)</strong></span><span style="color: lightgreen;"> to make it serializable. Learn more: </span><span style="color: lightgreen;"><a href="https://qwik.dev/docs/components/state/#use-methods">Qwik documentation</a></span><span style="color: lightgreen;">.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:2:21 <a href="https://biomejs.dev/linter/rules/use-qwik-valid-lexical-scope">lint/correctness/useQwikValidLexicalScope</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Non-serializable expression must be wrapped with </span><span style="color: Tomato;"><strong>$(...)</strong></span><br />  <br />    <strong>1 │ </strong>// Arrow function assigned without wrapping it in $(...)<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>const handleClick = () =&gt; &#123;<br />   <strong>   │ </strong>                    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>  console.log(&quot;clicked&quot;);<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>&#125;;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>5 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Qwik requires serializable closures for:<br /></span>    <span style="color: lightgreen;">- Resumability (pausing/resuming execution)<br /></span>    <span style="color: lightgreen;">- Code splitting (lazy loading components)<br /></span>    <span style="color: lightgreen;">- Optimized rehydration (client-side continuation)</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Wrap the expression with </span><span style="color: lightgreen;"><strong>$(...)</strong></span><span style="color: lightgreen;"> to make it serializable. Learn more: </span><span style="color: lightgreen;"><a href="https://qwik.dev/docs/components/state/#use-methods">Qwik documentation</a></span><span style="color: lightgreen;">.</span><br />  <br /></code></pre>
 
 ### Valid
 
@@ -68,8 +66,8 @@ const handleClick = $(() => {
 - [Disable a rule](/linter/#disable-a-rule)
 - [Configure the code fix](/linter#configure-the-code-fix)
 - [Rule options](/linter/#rule-options)
-- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_qwik_valid_lexical_scope.rs)
-- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useQwikValidLexicalScope)
+- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/use_qwik_valid_lexical_scope.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/useQwikValidLexicalScope)
 
 </TabItem>
 </Tabs>

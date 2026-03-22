@@ -9,12 +9,10 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-:::caution
-This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
-:::
 ## Summary
 - Rule available since: `v2.1.2`
-- Diagnostic Category: [`lint/nursery/noVueReservedProps`](/reference/diagnostics#diagnostic-category)
+- Diagnostic Category: [`lint/correctness/noVueReservedProps`](/reference/diagnostics#diagnostic-category)
+- This rule is **recommended**, meaning it is enabled by default.
 - This rule doesn't have a fix.
 - The default severity of this rule is [**error**](/reference/diagnostics#error).
 - This rule belongs to the following domains:
@@ -27,7 +25,7 @@ This rule is part of the [nursery](/linter/#nursery) group. This means that it i
 {
 	"linter": {
 		"rules": {
-			"nursery": {
+			"correctness": {
 				"noVueReservedProps": "error"
 			}
 		}
@@ -58,7 +56,7 @@ defineProps({
 </script>
 ```
 
-<pre class="language-text"><code class="language-text">code-block.vue:2:5 <a href="https://biomejs.dev/linter/rules/no-vue-reserved-props">lint/nursery/noVueReservedProps</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>ref</strong></span><span style="color: Tomato;"> is a reserved attribute and cannot be used as props.</span><br />  <br />    <strong>1 │ </strong>defineProps(&#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>    ref: String,<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>&#125;);<br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Rename the prop to avoid possible conflicts.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.vue:2:5 <a href="https://biomejs.dev/linter/rules/no-vue-reserved-props">lint/correctness/noVueReservedProps</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>ref</strong></span><span style="color: Tomato;"> is a reserved attribute and cannot be used as props.</span><br />  <br />    <strong>1 │ </strong>defineProps(&#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>    ref: String,<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>&#125;);<br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Rename the prop to avoid possible conflicts.</span><br />  <br /></code></pre>
 
 ```js
 import {defineComponent} from 'vue';
@@ -70,7 +68,7 @@ export default defineComponent({
 });
 ```
 
-<pre class="language-text"><code class="language-text">code-block.js:5:9 <a href="https://biomejs.dev/linter/rules/no-vue-reserved-props">lint/nursery/noVueReservedProps</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>key</strong></span><span style="color: Tomato;"> is a reserved attribute and cannot be used as props.</span><br />  <br />    <strong>3 │ </strong>export default defineComponent(&#123;<br />    <strong>4 │ </strong>    props: [<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>5 │ </strong>        'key',<br />   <strong>   │ </strong>        <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>6 │ </strong>    ]<br />    <strong>7 │ </strong>&#125;);<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Rename the prop to avoid possible conflicts.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.js:5:9 <a href="https://biomejs.dev/linter/rules/no-vue-reserved-props">lint/correctness/noVueReservedProps</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>key</strong></span><span style="color: Tomato;"> is a reserved attribute and cannot be used as props.</span><br />  <br />    <strong>3 │ </strong>export default defineComponent(&#123;<br />    <strong>4 │ </strong>    props: [<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>5 │ </strong>        'key',<br />   <strong>   │ </strong>        <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>6 │ </strong>    ]<br />    <strong>7 │ </strong>&#125;);<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Rename the prop to avoid possible conflicts.</span><br />  <br /></code></pre>
 
 ```vue
 <script setup lang="ts">
@@ -80,7 +78,7 @@ defineProps<{
 </script>
 ```
 
-<pre class="language-text"><code class="language-text">code-block.vue:2:5 <a href="https://biomejs.dev/linter/rules/no-vue-reserved-props">lint/nursery/noVueReservedProps</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>ref</strong></span><span style="color: Tomato;"> is a reserved attribute and cannot be used as props.</span><br />  <br />    <strong>1 │ </strong>defineProps&lt;&#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>    ref: string,<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>&#125;&gt;();<br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Rename the prop to avoid possible conflicts.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.vue:2:5 <a href="https://biomejs.dev/linter/rules/no-vue-reserved-props">lint/correctness/noVueReservedProps</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>ref</strong></span><span style="color: Tomato;"> is a reserved attribute and cannot be used as props.</span><br />  <br />    <strong>1 │ </strong>defineProps&lt;&#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>    ref: string,<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>&#125;&gt;();<br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Rename the prop to avoid possible conflicts.</span><br />  <br /></code></pre>
 
 ```vue
 <script>
@@ -92,7 +90,7 @@ export default {
 </script>
 ```
 
-<pre class="language-text"><code class="language-text">code-block.vue:3:9 <a href="https://biomejs.dev/linter/rules/no-vue-reserved-props">lint/nursery/noVueReservedProps</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>key</strong></span><span style="color: Tomato;"> is a reserved attribute and cannot be used as props.</span><br />  <br />    <strong>1 │ </strong>export default &#123;<br />    <strong>2 │ </strong>    props: &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>        key: String,<br />   <strong>   │ </strong>        <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>    &#125;<br />    <strong>5 │ </strong>&#125;;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Rename the prop to avoid possible conflicts.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.vue:3:9 <a href="https://biomejs.dev/linter/rules/no-vue-reserved-props">lint/correctness/noVueReservedProps</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;"><strong>key</strong></span><span style="color: Tomato;"> is a reserved attribute and cannot be used as props.</span><br />  <br />    <strong>1 │ </strong>export default &#123;<br />    <strong>2 │ </strong>    props: &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>        key: String,<br />   <strong>   │ </strong>        <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>    &#125;<br />    <strong>5 │ </strong>&#125;;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Rename the prop to avoid possible conflicts.</span><br />  <br /></code></pre>
 
 ### Valid
 
@@ -135,8 +133,8 @@ export default {
 - [Disable a rule](/linter/#disable-a-rule)
 - [Configure the code fix](/linter#configure-the-code-fix)
 - [Rule options](/linter/#rule-options)
-- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_vue_reserved_props.rs)
-- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noVueReservedProps)
+- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/no_vue_reserved_props.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/noVueReservedProps)
 
 </TabItem>
 </Tabs>
