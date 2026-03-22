@@ -635,6 +635,14 @@ Choose whether spaces should be added between brackets and inner values.
 
 > Default: `true`
 
+### `formatter.delimiterSpacing`
+
+Whether to insert spaces inside delimiters. Affects parentheses `()`, square brackets `[]`, TypeScript angle brackets `<>`, and JSX curly braces `{}`.
+
+This option is available for JavaScript, JSON, and CSS. It is not available for GraphQL.
+
+> Default: `false`
+
 ### `formatter.expand`
 
 Whether to expand arrays and objects on multiple lines.
@@ -844,6 +852,14 @@ Choose whether the ending `>` of a multi-line JSX element should be on the last 
 Choose whether spaces should be added between brackets and inner values.
 
 > Default: `true`
+
+### `javascript.formatter.delimiterSpacing`
+
+Whether to insert spaces inside delimiters. Affects parentheses `()`, square brackets `[]`, TypeScript angle brackets `<>`, and JSX curly braces `{}`.
+
+This option is available for JavaScript, JSON, and CSS. It is not available for GraphQL.
+
+> Default: `false`
 
 ### `javascript.formatter.attributePosition`
 
@@ -1086,6 +1102,12 @@ Choose whether spaces should be added between brackets and inner values.
 
 > Default: `true`
 
+### `json.formatter.delimiterSpacing`
+
+Whether to insert spaces inside square brackets `[]`.
+
+> Default: `false`
+
 ### `json.formatter.expand`
 
 Whether to expand arrays and objects on multiple lines.
@@ -1228,6 +1250,12 @@ The type of quote used when representing string literals. It can be `"single"` o
 
 > Default: `"double"`
 
+### `css.formatter.delimiterSpacing`
+
+Whether to insert spaces inside delimiters. Affects parentheses `()` and square brackets `[]`.
+
+> Default: `false`
+
 ### `css.formatter.trailingNewline`
 
 Whether to add a trailing newline at the end of the file.
@@ -1242,7 +1270,6 @@ Setting this option to `false` is **highly discouraged** because it could cause 
 
 Disable trailing newline at your own risk.
 :::
-
 
 ### `css.linter.enabled`
 

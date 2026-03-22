@@ -60,6 +60,7 @@ export default function SettingsTab({
 			arrowParentheses,
 			operatorLinebreak,
 			bracketSpacing,
+			delimiterSpacing,
 			bracketSameLine,
 			expand,
 			indentScriptAndStyle,
@@ -126,6 +127,10 @@ export default function SettingsTab({
 	const setBracketSpacing = createPlaygroundSettingsSetter(
 		setPlaygroundState,
 		"bracketSpacing",
+	);
+	const setDelimiterSpacing = createPlaygroundSettingsSetter(
+		setPlaygroundState,
+		"delimiterSpacing",
 	);
 	const setBracketSameLine = createPlaygroundSettingsSetter(
 		setPlaygroundState,
@@ -358,6 +363,8 @@ export default function SettingsTab({
 				setAttributePosition={setAttributePosition}
 				bracketSpacing={bracketSpacing}
 				setBracketSpacing={setBracketSpacing}
+				delimiterSpacing={delimiterSpacing}
+				setDelimiterSpacing={setDelimiterSpacing}
 				bracketSameLine={bracketSameLine}
 				setBracketSameLine={setBracketSameLine}
 				expand={expand}
@@ -782,6 +789,8 @@ function FormatterSettings({
 	setAttributePosition,
 	bracketSpacing,
 	setBracketSpacing,
+	delimiterSpacing,
+	setDelimiterSpacing,
 	bracketSameLine,
 	setBracketSameLine,
 	expand,
@@ -815,6 +824,8 @@ function FormatterSettings({
 	setAttributePosition: (value: AttributePosition) => void;
 	bracketSpacing: boolean;
 	setBracketSpacing: (value: boolean) => void;
+	delimiterSpacing: boolean;
+	setDelimiterSpacing: (value: boolean) => void;
 	bracketSameLine: boolean;
 	setBracketSameLine: (value: boolean) => void;
 	expand: Expand;
@@ -835,6 +846,7 @@ function FormatterSettings({
 	const operatorLinebreakId = useId();
 	const attributePositionId = useId();
 	const bracketSpacingId = useId();
+	const delimiterSpacingId = useId();
 	const bracketSameLineId = useId();
 	const expandId = useId();
 	const indentScriptAndStyleId = useId();
@@ -990,6 +1002,16 @@ function FormatterSettings({
 						type="checkbox"
 						checked={bracketSpacing}
 						onChange={(e) => setBracketSpacing(e.target.checked)}
+					/>
+				</div>
+				<div className="field-row">
+					<label htmlFor={delimiterSpacingId}>Delimiter Spacing</label>
+					<input
+						id={delimiterSpacingId}
+						name="delimiterSpacing"
+						type="checkbox"
+						checked={delimiterSpacing}
+						onChange={(e) => setDelimiterSpacing(e.target.checked)}
 					/>
 				</div>
 				<div className="field-row">
