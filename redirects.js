@@ -136,6 +136,7 @@ export default {
   '/linter/rules/noIncrementDecrement': '/linter/rules/no-increment-decrement',
   '/linter/rules/noInferrableTypes': '/linter/rules/no-inferrable-types',
   '/linter/rules/noInitializerWithDefinite': '/linter/rules/no-initializer-with-definite',
+  '/linter/rules/noInlineStyles': '/linter/rules/no-inline-styles',
   '/linter/rules/noInnerDeclarations': '/linter/rules/no-inner-declarations',
   '/linter/rules/noInteractiveElementToNoninteractiveRole': '/linter/rules/no-interactive-element-to-noninteractive-role',
   '/linter/rules/noInvalidBuiltinInstantiation': '/linter/rules/no-invalid-builtin-instantiation',
