@@ -27,7 +27,7 @@ export const collections = {
 	team: defineCollection({
 		schema: () =>
 			z.object({
-				id: z.string(),
+				id: z.number(),
 				type: z.enum(["core", "maintainer"]),
 			}),
 		loader: file("src/content/team.json"),
