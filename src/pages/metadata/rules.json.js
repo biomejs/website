@@ -1174,6 +1174,23 @@ export function GET() {
             ],
             "docs": " Disallow duplication of attributes.\n\n According to the HTML specification, each attribute name must be unique within a single element.\n Duplicate attributes are invalid and can lead to unexpected behavior in browsers.\n\n ## Vue templates\n\n For Vue templates (`.vue` files), this rule also considers the following directives as\n aliases of their arguments:\n\n - `v-bind:foo` and `:foo` are handled as the attribute `foo`.\n\n Vue class/style bindings are ignored. For example, `class` and `:class` may co-exist.\n\n Event handlers are ignored. For example, `@click` and `v-on:click` are not considered\n attributes by this rule.\n\n Dynamic arguments such as `:[foo]` or `v-bind:[foo]` are ignored.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div foo=\"a\" foo=\"b\"></div>\n ```\n\n ```vue,expect_diagnostic\n <template>\n   <div foo :foo=\"bar\" />\n </template>\n ```\n\n ### Valid\n\n ```html\n <div foo=\"a\" bar=\"b\"></div>\n ```\n\n"
           },
+          "noInlineStyles": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noInlineStyles",
+            "link": "https://biomejs.dev/linter/rules/no-inline-styles",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "htmlEslint": "no-inline-styles"
+                }
+              }
+            ],
+            "docs": " Disallow the use of inline styles.\n\n Inline styles via the `style` attribute make code harder to maintain and override,\n prevent reusability of styling, and can be a security concern when implementing\n a strict Content Security Policy (CSP).\n\n Instead of inline styles, use CSS classes, CSS modules, or a styling library.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div style=\"color: red;\"></div>\n ```\n\n ```html,expect_diagnostic\n <p style=\"font-size: 14px;\">Hello</p>\n ```\n\n ### Valid\n\n ```html\n <div class=\"text-red\"></div>\n ```\n\n ```html\n <p class=\"body-text\">Hello</p>\n ```\n\n ## Resources\n\n - [Content Security Policy: Allowing inline styles](https://content-security-policy.com/examples/allow-inline-style)\n\n"
+          },
           "noScriptUrl": {
             "deprecated": false,
             "version": "2.3.9",
@@ -2239,7 +2256,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Enforce using concise optional chain instead of chained logical expressions.\n\n TypeScript 3.7 introduced support for the optional chain operator, which was later standardized and included in the ECMAScript specification.\n This operator allows you to safely access properties and methods on objects when they are potentially `null` or `undefined`.\n The optional chain operator only chains when the property value is `null` or `undefined`.\n It is much safer than relying upon logical operator chaining; which chains on any truthy value.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n foo && foo.bar && foo.bar.baz && foo.bar.baz.buzz\n ```\n\n ```js,expect_diagnostic\n foo.bar && foo.bar.baz.buzz\n ```\n\n ```js,expect_diagnostic\n foo !== undefined && foo.bar != undefined && foo.bar.baz !== null && foo.bar.baz.buzz\n ```\n\n ```js,expect_diagnostic\n ((foo || {}).bar || {}).baz;\n ```\n\n ```js,expect_diagnostic\n (await (foo1 || {}).foo2 || {}).foo3;\n ```\n\n ```ts,expect_diagnostic\n (((typeof x) as string) || {}).bar;\n ```\n\n ### Valid\n\n ```js\n foo && bar;\n```\n ```js\n foo || {};\n```\n\n ```js\n (foo = 2 || {}).bar;\n```\n\n ```js\n foo || foo.bar;\n```\n\n ```js\n foo[\"some long\"] && foo[\"some long string\"].baz\n```\n\n"
+            "docs": " Enforce using concise optional chain instead of chained logical expressions.\n\n TypeScript 3.7 introduced support for the optional chain operator, which was later standardized and included in the ECMAScript specification.\n This operator allows you to safely access properties and methods on objects when they are potentially `null` or `undefined`.\n The optional chain operator only chains when the property value is `null` or `undefined`.\n It is much safer than relying upon logical operator chaining; which chains on any truthy value.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n foo && foo.bar && foo.bar.baz && foo.bar.baz.buzz\n ```\n\n ```js,expect_diagnostic\n foo.bar && foo.bar.baz.buzz\n ```\n\n ```js,expect_diagnostic\n foo !== undefined && foo.bar != undefined && foo.bar.baz !== null && foo.bar.baz.buzz\n ```\n\n ```js,expect_diagnostic\n ((foo || {}).bar || {}).baz;\n ```\n\n ```js,expect_diagnostic\n (await (foo1 || {}).foo2 || {}).foo3;\n ```\n\n ```ts,expect_diagnostic\n (((typeof x) as string) || {}).bar;\n ```\n\n ```js,expect_diagnostic\n !foo || !foo.bar\n ```\n\n ### Valid\n\n ```js\n foo && bar;\n```\n ```js\n foo || {};\n```\n\n ```js\n (foo = 2 || {}).bar;\n```\n\n ```js\n foo || foo.bar;\n```\n\n ```js\n foo[\"some long\"] && foo[\"some long string\"].baz\n```\n\n"
           },
           "useRegexLiterals": {
             "deprecated": false,
@@ -3386,6 +3403,15 @@ export function GET() {
               }
             ],
             "docs": " Disallows the usage of the unary operators ++ and --.\n\n Because the unary ++ and -- operators are subject to automatic semicolon insertion, differences in whitespace can change semantics of source code.\n\n ```js,expect_diagnostic\n let i = 10;\n let j = 20;\n\n i ++\n j\n // i = 11, j = 20\n ```\n\n ```js,expect_diagnostic\n let i = 10;\n let j = 20;\n\n i\n ++\n j\n // i = 10, j = 21\n ```\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n let foo = 0;\n foo++;\n ```\n\n ```js,expect_diagnostic\n let bar = 42;\n bar--;\n ```\n\n ```js,expect_diagnostic\n for (let i = 0; i < 10; i++) {\n     doSomething(i);\n }\n ```\n\n ```js,expect_diagnostic\n for (let i = 0; i < 10;) {\n     doSomething(i);\n     i++;\n }\n ```\n\n ### Valid\n\n ```js\n let foo = 0;\n foo += 1;\n ```\n\n ```js\n let bar = 42;\n bar -= 1;\n ```\n\n ```js\n for (let i = 0; i < 10; i += 1) {\n     doSomething(i);\n }\n ```\n\n ```js\n for (let i = 0; i < 10;) {\n     doSomething(i);\n     i += 1;\n }\n ```\n\n ## Options\n\n ### `allowForLoopAfterthoughts`\n\n Allows unary operators ++ and -- in the afterthought (final expression) of a for loop.\n\n Default `false`\n\n ```json,options\n {\n   \"options\": {\n     \"allowForLoopAfterthoughts\": true\n   }\n }\n ```\n\n #### Invalid\n\n ```js,expect_diagnostic,use_options\n for (let i = 0; i < j; j = i++) {\n     doSomething(i, j);\n }\n ```\n\n ```js,expect_diagnostic,use_options\n for (let i = 10; i--;) {\n     doSomething(i);\n }\n ```\n\n ```js,expect_diagnostic,use_options\n for (let i = 0; i < 10;) i++;\n ```\n\n #### Valid\n\n ```js,use_options\n for (let i = 0; i < 10; i++) {\n     doSomething(i);\n }\n ```\n\n ```js,use_options\n for (let i = 0, j = l; i < l; i++, j--) {\n     doSomething(i, j);\n }\n ```\n\n"
+          },
+          "noInlineStyles": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noInlineStyles",
+            "link": "https://biomejs.dev/linter/rules/no-inline-styles",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "docs": " Disallow the use of inline styles.\n\n Inline styles via the `style` attribute make code harder to maintain and override,\n prevent reusability of styling, and can be a security concern when implementing\n a strict Content Security Policy (CSP).\n\n Instead of inline styles, use CSS classes, CSS modules, or a styling library.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div style={{ color: \"red\" }}>Error</div>\n ```\n\n ```js,expect_diagnostic\n React.createElement(\"div\", { style: { color: \"red\" } });\n ```\n\n ### Valid\n\n ```jsx\n <div className=\"text-red\">Error</div>\n ```\n\n ```js\n React.createElement(\"div\", { className: \"container\" });\n ```\n\n ## Resources\n\n - [Content Security Policy: Allowing inline styles](https://content-security-policy.com/examples/allow-inline-style)\n\n"
           },
           "noMultiAssign": {
             "deprecated": false,
@@ -7997,7 +8023,7 @@ export function GET() {
             "name": "useConsistentMethodSignatures",
             "link": "https://biomejs.dev/linter/rules/use-consistent-method-signatures",
             "recommended": false,
-            "fixKind": "none",
+            "fixKind": "unsafe",
             "sources": [
               {
                 "kind": "sameLogic",
@@ -8508,7 +8534,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 487
+    "numberOrRules": 489
   },
   "syntax": {
     "languages": {
