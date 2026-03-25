@@ -1,0 +1,117 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noDuplicateSelectors
+description: Learn more about noDuplicateSelectors
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="CSS" icon="seti:css">
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.4.9`
+- Diagnostic Category: [`lint/nursery/noDuplicateSelectors`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- Sources: 
+  - Same as [`no-duplicate-selectors`](https://github.com/stylelint/stylelint/blob/main/lib/rules/no-duplicate-selectors/README.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noDuplicateSelectors": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow duplicate selectors.
+
+This rule checks for duplicate selectors across a stylesheet. A duplicate
+occurs when two rules have the same fully-resolved selector list (after
+sorting for order-independence), within the same at-rule context.
+
+Selectors are **normalized** before comparison so that equivalent selectors
+written differently are still caught:
+
+- Whitespace differences are ignored.
+- HTML type selectors are compared case-insensitively (`DIV` == `div`).
+- Compound selector parts are order-normalized, so `.a.b` and `.b.a` are
+considered equal.
+- Selector list order is ignored: `.a, .b` and `.b, .a` are equal.
+
+CSS nesting is fully resolved before comparison:
+`a { & b {} }` produces the resolved selector `a b`, which is compared
+against all other resolved selectors in the same context.
+
+Selectors are only compared within the same at-rule context. A selector
+inside `@media` is not considered a duplicate of the same selector at the
+top level.
+
+## Examples
+
+### Invalid
+
+```css
+.foo {}
+.foo {}
+```
+
+<pre class="language-text"><code class="language-text">code-block.css:2:1 <a href="https://biomejs.dev/linter/rules/no-duplicate-selectors">lint/nursery/noDuplicateSelectors</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Duplicate selector list &quot;</span><span style="color: Orange;"><strong>.foo</strong></span><span style="color: Orange;">&quot;.</span><br />  <br />    <strong>1 │ </strong>.foo &#123;&#125;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>.foo &#123;&#125;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">It was first defined here.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>.foo &#123;&#125;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>.foo &#123;&#125;<br />    <strong>3 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove or merge the duplicate rule to keep the stylesheet clean.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+```css
+.foo, .bar {}
+.bar, .foo {}
+```
+
+<pre class="language-text"><code class="language-text">code-block.css:2:1 <a href="https://biomejs.dev/linter/rules/no-duplicate-selectors">lint/nursery/noDuplicateSelectors</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Duplicate selector list &quot;</span><span style="color: Orange;"><strong>.bar, .foo</strong></span><span style="color: Orange;">&quot;.</span><br />  <br />    <strong>1 │ </strong>.foo, .bar &#123;&#125;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>.bar, .foo &#123;&#125;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">It was first defined here.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>.foo, .bar &#123;&#125;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>.bar, .foo &#123;&#125;<br />    <strong>3 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove or merge the duplicate rule to keep the stylesheet clean.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+```css
+a b {}
+a {
+  & b {}
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.css:3:3 <a href="https://biomejs.dev/linter/rules/no-duplicate-selectors">lint/nursery/noDuplicateSelectors</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Duplicate selector list &quot;</span><span style="color: Orange;"><strong>a b</strong></span><span style="color: Orange;">&quot;.</span><br />  <br />    <strong>1 │ </strong>a b &#123;&#125;<br />    <strong>2 │ </strong>a &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>  &amp; b &#123;&#125;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>&#125;<br />    <strong>5 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">It was first defined here.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>a b &#123;&#125;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>a &#123;<br />    <strong>3 │ </strong>  &amp; b &#123;&#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove or merge the duplicate rule to keep the stylesheet clean.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+### Valid
+
+```css
+.foo {}
+.bar {}
+```
+
+```css
+.foo {}
+@media (min-width: 600px) {
+  .foo {}
+}
+```
+
+```css
+.foo {
+  .foo {}
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/nursery/no_duplicate_selectors.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/nursery/noDuplicateSelectors)
+
+</TabItem>
+</Tabs>
+

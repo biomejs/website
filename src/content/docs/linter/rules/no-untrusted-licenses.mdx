@@ -1,0 +1,245 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noUntrustedLicenses
+description: Learn more about noUntrustedLicenses
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JSON (and super languages)" icon="seti:json">
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+:::note
+This rule belongs to the project domain. This means that its activation will activate the Biome Scanner to scan the files of your project. Read more about it in the [documentation page](/linter/domains#project)
+:::
+## Summary
+- Rule available since: `v2.4.9`
+- Diagnostic Category: [`lint/nursery/noUntrustedLicenses`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- This rule belongs to the following domains:
+  - [`project`](/linter/domains#project)
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noUntrustedLicenses": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow dependencies with untrusted licenses.
+
+When you install a dependency, it comes with a license that defines how you can use it.
+Some licenses may not be compatible with your project's requirements. For example,
+a proprietary project may not be allowed to use copyleft-licensed dependencies, or
+your organization may require all dependencies to use OSI-approved licenses.
+
+This rule reads the `license` field from each dependency's `package.json` inside
+`node_modules` and checks it against the [SPDX license list](https://spdx.org/licenses/).
+It supports compound expressions like `MIT OR Apache-2.0`.
+
+By default, the rule flags dependencies that:
+
+- Have **no** `license` field.
+- Have a license that is **not** a valid SPDX identifier.
+- Have a license **deprecated** in the SPDX standard.
+
+:::note
+This rule catches only dependencies that are actually used in your project (i.e., imported by some code).
+Currently, the `WITH` specifier is currently not supported.
+:::
+
+## Examples
+
+### Invalid
+
+A dependency whose `package.json` has `"license": "my-custom-license"` is
+flagged because the identifier is not part of the SPDX standard:
+
+```json
+{
+    "dependencies": {
+        "untrusted-pkg": "^1.0.0"
+    }
+}
+```
+
+A dependency whose `package.json` has no `license` field at all is also
+flagged:
+
+```json
+{
+    "devDependencies": {
+        "no-license-pkg": "^1.0.0"
+    }
+}
+```
+
+### Valid
+
+A dependency whose `package.json` has `"license": "MIT"` passes because
+MIT is a valid, non-deprecated SPDX identifier:
+
+```json
+{
+    "dependencies": {
+        "trusted-pkg": "^1.0.0"
+    }
+}
+```
+
+## Options
+
+### `allow`
+
+A list of extra license identifiers to accept, even if they are not part of
+the SPDX standard. This is useful for custom or proprietary licenses used
+inside your organization.
+
+Default: `[]`
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noUntrustedLicenses": {
+					"options": {
+						"allow": [
+							"LicenseRef-Company",
+							"my-org-license"
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+### `deny`
+
+A list of license identifiers to explicitly reject, even if they are valid
+SPDX identifiers. This lets you block specific licenses that your project
+cannot use, for example, copyleft licenses in a proprietary codebase.
+
+Deny always takes precedence over allow and SPDX validity.
+
+Default: `[]`
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noUntrustedLicenses": {
+					"options": {
+						"deny": [
+							"GPL-3.0-only",
+							"AGPL-3.0-only"
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+### `requireOsiApproved`
+
+When enabled, only licenses that have been approved by the
+[Open Source Initiative](https://opensource.org/) are accepted.
+Licenses in the `allow` list bypass this check.
+
+Default: `false`
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noUntrustedLicenses": {
+					"options": {
+						"requireOsiApproved": true
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+### `requireFsfLibre`
+
+When enabled, only licenses that are recognized as free/libre by the
+[Free Software Foundation](https://www.gnu.org/licenses/license-list.html)
+are accepted. Licenses in the `allow` list bypass this check.
+
+Default: `false`
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noUntrustedLicenses": {
+					"options": {
+						"requireFsfLibre": true
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+### `ignoreDeprecated`
+
+When enabled, deprecated SPDX license identifiers are accepted without
+being flagged. By default, deprecated identifiers such as `GPL-2.0` (which
+should be `GPL-2.0-only` or `GPL-2.0-or-later`) produce a diagnostic.
+
+Default: `false`
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noUntrustedLicenses": {
+					"options": {
+						"ignoreDeprecated": true
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_json_analyze/src/lint/nursery/no_untrusted_licenses.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_json_analyze/tests/specs/nursery/noUntrustedLicenses)
+
+</TabItem>
+</Tabs>
+
