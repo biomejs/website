@@ -1684,6 +1684,7 @@ fn print_diagnostics_or_actions(
                 let json_services = JsonAnalyzeServices {
                     file_source,
                     configuration_provider: None,
+                    project_layout: None,
                 };
                 biome_json_analyze::analyze(
                     &root,

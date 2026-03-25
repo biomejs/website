@@ -265,6 +265,23 @@ export function GET() {
             ],
             "docs": " Disallow deprecated media types.\n\n Several media types defined in earlier specifications have been deprecated and should\n no longer be used. The deprecated media types are still recognized, but they match nothing.\n\n For details on media types, see the\n [Media Queries Level 5 specification](https://drafts.csswg.org/mediaqueries-5/#media-types).\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n @media tv {}\n ```\n\n ```css,expect_diagnostic\n @media handheld and (min-width: 480px) {}\n ```\n\n ### Valid\n\n ```css\n @media screen {}\n ```\n\n ```css\n @media print and (min-resolution: 300dpi) {}\n ```\n\n ## Options\n\n ### `allow`\n\n Media types to allow (case-insensitive).\n\n ```json,options\n {\n   \"options\": {\n     \"allow\": [\"tv\", \"speech\"]\n   }\n }\n ```\n\n #### Valid\n\n ```css,use_options\n @media tv {}\n @media speech {}\n ```\n\n"
           },
+          "noDuplicateSelectors": {
+            "deprecated": false,
+            "version": "2.4.9",
+            "name": "noDuplicateSelectors",
+            "link": "https://biomejs.dev/linter/rules/no-duplicate-selectors",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "stylelint": "no-duplicate-selectors"
+                }
+              }
+            ],
+            "docs": " Disallow duplicate selectors.\n\n This rule checks for duplicate selectors across a stylesheet. A duplicate\n occurs when two rules have the same fully-resolved selector list (after\n sorting for order-independence), within the same at-rule context.\n\n Selectors are **normalized** before comparison so that equivalent selectors\n written differently are still caught:\n - Whitespace differences are ignored.\n - HTML type selectors are compared case-insensitively (`DIV` == `div`).\n - Compound selector parts are order-normalized, so `.a.b` and `.b.a` are\n   considered equal.\n - Selector list order is ignored: `.a, .b` and `.b, .a` are equal.\n\n CSS nesting is fully resolved before comparison:\n `a { & b {} }` produces the resolved selector `a b`, which is compared\n against all other resolved selectors in the same context.\n\n Selectors are only compared within the same at-rule context. A selector\n inside `@media` is not considered a duplicate of the same selector at the\n top level.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n .foo {}\n .foo {}\n ```\n\n ```css,expect_diagnostic\n .foo, .bar {}\n .bar, .foo {}\n ```\n\n ```css,expect_diagnostic\n a b {}\n a {\n   & b {}\n }\n ```\n\n ### Valid\n\n ```css\n .foo {}\n .bar {}\n ```\n\n ```css\n .foo {}\n @media (min-width: 600px) {\n   .foo {}\n }\n ```\n\n ```css\n .foo {\n   .foo {}\n }\n ```\n\n"
+          },
           "noExcessiveLinesPerFile": {
             "deprecated": false,
             "version": "2.3.12",
@@ -1176,7 +1193,7 @@ export function GET() {
           },
           "noInlineStyles": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.9",
             "name": "noInlineStyles",
             "link": "https://biomejs.dev/linter/rules/no-inline-styles",
             "recommended": false,
@@ -3406,7 +3423,7 @@ export function GET() {
           },
           "noInlineStyles": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.9",
             "name": "noInlineStyles",
             "link": "https://biomejs.dev/linter/rules/no-inline-styles",
             "recommended": false,
@@ -6513,6 +6530,15 @@ export function GET() {
             ],
             "docs": " Require the JSON top-level value to be an array or object.\n\n The JSON specification technically allows any JSON value (object, array, string, number, boolean, or null) to be used as the top-level element of a JSON document.\n However, some older JSON parsers, especially those created before [RFC 7158](https://datatracker.ietf.org/doc/html/rfc7158)/[4627](https://datatracker.ietf.org/doc/html/rfc4627) was fully adopted, only support objects or arrays as the root element.\n\n Additionally, some security practices (such as those preventing JSON hijacking attacks) rely on the assumption that the top-level value is an object or array.\n Using an object or array at the top level also provides better extensibility for your data structures over time.\n\n ## Examples\n\n ### Invalid\n\n ```json,expect_diagnostic\n \"just a string\"\n ```\n\n ```json,expect_diagnostic\n 42\n ```\n\n ```json,expect_diagnostic\n true\n ```\n\n ```json,expect_diagnostic\n null\n ```\n\n ### Valid\n\n ```json\n {\n   \"property\": \"value\",\n   \"otherProperty\": 123\n }\n ```\n\n ```json\n [\"element\", \"anotherElement\"]\n ```\n\n ```json\n {}\n ```\n\n ```json\n []\n ```\n\n"
           },
+          "noUntrustedLicenses": {
+            "deprecated": false,
+            "version": "2.4.9",
+            "name": "noUntrustedLicenses",
+            "link": "https://biomejs.dev/linter/rules/no-untrusted-licenses",
+            "recommended": false,
+            "fixKind": "none",
+            "docs": " Disallow dependencies with untrusted licenses.\n\n When you install a dependency, it comes with a license that defines how you can use it.\n Some licenses may not be compatible with your project's requirements. For example,\n a proprietary project may not be allowed to use copyleft-licensed dependencies, or\n your organization may require all dependencies to use OSI-approved licenses.\n\n This rule reads the `license` field from each dependency's `package.json` inside\n `node_modules` and checks it against the [SPDX license list](https://spdx.org/licenses/).\n It supports compound expressions like `MIT OR Apache-2.0`.\n\n By default, the rule flags dependencies that:\n - Have **no** `license` field.\n - Have a license that is **not** a valid SPDX identifier.\n - Have a license **deprecated** in the SPDX standard.\n\n :::note\n This rule catches only dependencies that are actually used in your project (i.e., imported by some code).\n Currently, the `WITH` specifier is currently not supported.\n :::\n\n ## Examples\n\n ### Invalid\n\n A dependency whose `package.json` has `\"license\": \"my-custom-license\"` is\n flagged because the identifier is not part of the SPDX standard:\n\n ```json,ignore\n {\n     \"dependencies\": {\n         \"untrusted-pkg\": \"^1.0.0\"\n     }\n }\n ```\n\n A dependency whose `package.json` has no `license` field at all is also\n flagged:\n\n ```json,ignore\n {\n     \"devDependencies\": {\n         \"no-license-pkg\": \"^1.0.0\"\n     }\n }\n ```\n\n ### Valid\n\n A dependency whose `package.json` has `\"license\": \"MIT\"` passes because\n MIT is a valid, non-deprecated SPDX identifier:\n\n ```json,ignore\n {\n     \"dependencies\": {\n         \"trusted-pkg\": \"^1.0.0\"\n     }\n }\n ```\n\n ## Options\n\n ### `allow`\n\n A list of extra license identifiers to accept, even if they are not part of\n the SPDX standard. This is useful for custom or proprietary licenses used\n inside your organization.\n\n Default: `[]`\n\n ```json,options\n {\n     \"options\": {\n         \"allow\": [\"LicenseRef-Company\", \"my-org-license\"]\n     }\n }\n ```\n\n ### `deny`\n\n A list of license identifiers to explicitly reject, even if they are valid\n SPDX identifiers. This lets you block specific licenses that your project\n cannot use, for example, copyleft licenses in a proprietary codebase.\n\n Deny always takes precedence over allow and SPDX validity.\n\n Default: `[]`\n\n ```json,options\n {\n     \"options\": {\n         \"deny\": [\"GPL-3.0-only\", \"AGPL-3.0-only\"]\n     }\n }\n ```\n\n ### `requireOsiApproved`\n\n When enabled, only licenses that have been approved by the\n [Open Source Initiative](https://opensource.org/) are accepted.\n Licenses in the `allow` list bypass this check.\n\n Default: `false`\n\n ```json,options\n {\n     \"options\": {\n         \"requireOsiApproved\": true\n     }\n }\n ```\n\n ### `requireFsfLibre`\n\n When enabled, only licenses that are recognized as free/libre by the\n [Free Software Foundation](https://www.gnu.org/licenses/license-list.html)\n are accepted. Licenses in the `allow` list bypass this check.\n\n Default: `false`\n\n ```json,options\n {\n     \"options\": {\n         \"requireFsfLibre\": true\n     }\n }\n ```\n\n ### `ignoreDeprecated`\n\n When enabled, deprecated SPDX license identifiers are accepted without\n being flagged. By default, deprecated identifiers such as `GPL-2.0` (which\n should be `GPL-2.0-only` or `GPL-2.0-or-later`) produce a diagnostic.\n\n Default: `false`\n\n ```json,options\n {\n     \"options\": {\n         \"ignoreDeprecated\": true\n     }\n }\n ```\n\n"
+          },
           "useRequiredScripts": {
             "deprecated": false,
             "version": "2.3.9",
@@ -8534,7 +8560,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 489
+    "numberOrRules": 491
   },
   "syntax": {
     "languages": {
