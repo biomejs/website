@@ -3404,6 +3404,29 @@ export function GET() {
             ],
             "docs": " Disallow iterating using a for-in loop.\n\n A for-in loop (`for (const i in o)`) iterates over the properties of an Object. While it is legal to use for-in loops with array values, it is not common. There are several potential bugs with this:\n\n 1. It iterates over all enumerable properties, including non-index ones and the entire prototype chain. For example, [`RegExp.prototype.exec`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec) returns an array with additional properties, and `for-in` will iterate over them. Some libraries or even your own code may add additional methods to `Array.prototype` (either as polyfill or as custom methods), and if not done properly, they may be iterated over as well.\n 2. It skips holes in the array. While sparse arrays are rare and advised against, they are still possible and your code should be able to handle them.\n 3. The \"index\" is returned as a string, not a number. This can be caught by TypeScript, but can still lead to subtle bugs.\n\n You may have confused for-in with for-of, which iterates over the elements of the array. If you actually need the index, use a regular `for` loop or the `forEach` method.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n for (const i in array) {\n   console.log(i, array[i]);\n }\n ```\n\n ### Valid\n\n ```js\n for (const value of array) {\n   console.log(value);\n }\n ```\n ```js\n for (let i = 0; i < array.length; i += 1) {\n   console.log(i, array[i]);\n }\n ```\n ```js\n array.forEach((value, i) => {\n   console.log(i, value);\n });\n ```\n ```js\n for (const [i, value] of array.entries()) {\n   console.log(i, value);\n }\n ```\n\n"
           },
+          "noImpliedEval": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noImpliedEval",
+            "link": "https://biomejs.dev/linter/rules/no-implied-eval",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "no-implied-eval"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintTypeScript": "no-implied-eval"
+                }
+              }
+            ],
+            "docs": " Disallow the use of `eval()`-like methods.\n\n The `eval()` function evaluates the passed string as a _JavaScript_ code.\n Calling `setTimeout`, `setInterval`, or `setImmediate` with a string argument\n is an implied `eval()` because the string is evaluated as code.\n\n Using implied `eval()` is considered a bad practice because:\n 1. It exposes your code to security risks and performance issues\n 2. The code is evaluated in the global scope rather than the local scope\n 3. It prevents the JavaScript engine from optimizing the code\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n setTimeout(\"alert('Hello world!');\", 100);\n ```\n\n ```js,expect_diagnostic\n setInterval(\"alert('Hello world!');\", 100);\n ```\n\n ```js,expect_diagnostic\n setImmediate(\"alert('Hello world!');\");\n ```\n\n ```js,expect_diagnostic\n window.setTimeout(\"count = 5\", 10);\n ```\n\n ```js,expect_diagnostic\n window.setInterval(\"foo = bar\", 10);\n ```\n\n ### Valid\n\n ```js\n setTimeout(function() {\n     alert('Hello world!');\n }, 100);\n ```\n\n ```js\n setInterval(() => {\n     alert('Hello world!');\n }, 100);\n ```\n\n ```js\n // setTimeout is shadowed by a local variable\n function foo(setTimeout) {\n     setTimeout(\"alert('Hello world!');\", 100);\n }\n ```\n\n ## Resources\n\n - [MDN setTimeout() documentation](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout#the_string_problem)\n - [MDN eval() documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval#never_use_direct_eval!)\n\n"
+          },
           "noIncrementDecrement": {
             "deprecated": false,
             "version": "2.3.2",
@@ -8560,7 +8583,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 491
+    "numberOrRules": 492
   },
   "syntax": {
     "languages": {
