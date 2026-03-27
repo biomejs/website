@@ -11,8 +11,8 @@ const member = await getEntry("team", handle);
 if (!member) {
 	throw new Error(`The member ${handle} doesn't exist`);
 }
-const url = `https://github.com/${member.data.id}`;
-const image = `https://github.com/${member.data.id}.png?size=200`;
+const url = `https://github.com/${member.id}`;
+const image = `https://avatars.githubusercontent.com/u/${member.data.id}?v=4&s=200`;
 const alt = `User ${handle}`;
 ---
 
@@ -23,5 +23,5 @@ const alt = `User ${handle}`;
             width="200"
             height="200"
     />
-	<span>@{member.data.id}</span>
+	<span>@{member.id}</span>
 </a>

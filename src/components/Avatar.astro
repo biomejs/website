@@ -13,16 +13,16 @@ if (!member) {
 }
 
 const prefix = member.data.type === "core" ? "Core Contributor" : "Maintainer";
-const url = `https://github.com/${member.data.id}`;
-const imageUrl = `${url}.png?size=25`;
-const alt = `Member @${member.data.id}`;
+const url = `https://github.com/${member.id}`;
+const imageUrl = `https://avatars.githubusercontent.com/u/${member.data.id}?v=4&s=25`;
+const alt = `Member @${member.id}`;
 ---
 
 <span class="avatar">
 	<span>{prefix}</span>
 	<a href={url} title={alt}>
 		<Image src={imageUrl} alt={alt} width="25" height="25" />
-		<span>@{member.data.id}</span>
+		<span>@{member.id}</span>
 	</a>
 </span>
 
