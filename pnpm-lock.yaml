@@ -160,8 +160,8 @@ importers:
         specifier: 0.4.0
         version: 0.4.0(@astrojs/starlight@0.37.6(astro@5.16.15(@netlify/blobs@10.7.2)(@types/node@24.12.0)(jiti@2.6.1)(rollup@4.59.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.2)))(astro@5.16.15(@netlify/blobs@10.7.2)(@types/node@24.12.0)(jiti@2.6.1)(rollup@4.59.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.2))
       starlight-links-validator:
-        specifier: 0.19.2
-        version: 0.19.2(@astrojs/starlight@0.37.6(astro@5.16.15(@netlify/blobs@10.7.2)(@types/node@24.12.0)(jiti@2.6.1)(rollup@4.59.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.2)))(astro@5.16.15(@netlify/blobs@10.7.2)(@types/node@24.12.0)(jiti@2.6.1)(rollup@4.59.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.2))
+        specifier: 0.20.1
+        version: 0.20.1(@astrojs/starlight@0.37.6(astro@5.16.15(@netlify/blobs@10.7.2)(@types/node@24.12.0)(jiti@2.6.1)(rollup@4.59.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.2)))(astro@5.16.15(@netlify/blobs@10.7.2)(@types/node@24.12.0)(jiti@2.6.1)(rollup@4.59.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.2))
       svelte:
         specifier: 5.53.11
         version: 5.53.11
@@ -441,7 +441,7 @@ packages:
     resolution: {integrity: sha512-pTfObtbrSfifZqdEE75EQc6R6ZZ3K3dtuS4KqOsmOYz9on8b5RXpXEYRp/VR0MQ5NzRBk4UteKL8PMT4GKHHnw==}
 
   '@biomejs/wasm-web@https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@13b3261':
-    resolution: {integrity: sha512-gJ1GwNkKYk/d4M6nuhHl18sTAEberSsqGn4BkslWY+u1SkpgSbdAGBPabFrG57fmdck2aKfe3KDZKO9n21f6EQ==, tarball: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@13b3261}
+    resolution: {tarball: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@13b3261}
     version: 0.0.0-rev.13b3261fde0748c07b1fe4f25527a4e744f4a223
 
   '@braintree/sanitize-url@7.1.2':
@@ -2165,8 +2165,8 @@ packages:
   '@types/normalize-package-data@2.4.4':
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==}
 
-  '@types/picomatch@3.0.2':
-    resolution: {integrity: sha512-n0i8TD3UDB7paoMMxA3Y65vUncFJXjcUf7lQY7YyKGl6031FNjfsLs6pdLFCy2GNFxItPJG8GvvpbZc2skH7WA==}
+  '@types/picomatch@4.0.2':
+    resolution: {integrity: sha512-qHHxQ+P9PysNEGbALT8f8YOSHW0KJu6l2xU8DYY0fu/EmGxXdVnuTLvFUvBgPJMSqXq29SYHveejeAha+4AYgA==}
 
   '@types/react-dom@19.2.3':
     resolution: {integrity: sha512-jp2L/eY6fn+KgVVQAOqYItbF0VY/YApe5Mz2F0aykSO8gx31bYCZyvSeYxCHKvzHG5eZjc+zyaS5BrBWya2+kQ==}
@@ -4036,9 +4036,9 @@ packages:
   iron-webcrypto@1.2.1:
     resolution: {integrity: sha512-feOM6FaSr6rEABp/eDfVseKyTMDt+KGpeB35SkVn9Tyn0CqvVsY3EwI0v5i8nMHyJnzCIQf7nsy3p41TPkJZhg==}
 
-  is-absolute-url@4.0.1:
-    resolution: {integrity: sha512-/51/TKE88Lmm7Gc4/8btclNXWS+g50wXhYJq8HWIBAGUBnoAdRu1aXeh364t/O7wXDAcTJDP8PNuNKWUDWie+A==}
-    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+  is-absolute-url@5.0.0:
+    resolution: {integrity: sha512-sdJyNpBnQHuVnBunfzjAecOhZr2+A30ywfFvu3EnxtKLUWfwGgyWUmqHbGZiU6vTfHpCPm5GvLe4BAvlU9n8VQ==}
+    engines: {node: '>=20'}
 
   is-alphabetical@1.0.4:
     resolution: {integrity: sha512-DwzsA04LQ10FHTZuL0/grVDk4rFoVH1pjAToYwBrHSxcrBIGQuXrQMtD5U1b0U2XVgKZCTLLP8u2Qxqhy3l2Vg==}
@@ -5727,12 +5727,12 @@ packages:
     peerDependencies:
       '@astrojs/starlight': '>=0.35.0'
 
-  starlight-links-validator@0.19.2:
-    resolution: {integrity: sha512-IHeK3R78fsmv53VfRkGbXkwK1CQEUBHM9QPzBEyoAxjZ/ssi5gjV+F4oNNUppTR48iPp+lEY0MTAmvkX7yNnkw==}
-    engines: {node: '>=18.17.1'}
+  starlight-links-validator@0.20.1:
+    resolution: {integrity: sha512-bPfX9tlvkLcygIwo4nszOf7TOj1iqfZEpUss5oxRlaa3/mt7zGBHANSkanVMd0FK6VQa2oUD9MjH1DszykkwPA==}
+    engines: {node: '>=22.12.0'}
     peerDependencies:
-      '@astrojs/starlight': '>=0.32.0'
-      astro: '>=5.1.5'
+      '@astrojs/starlight': '>=0.38.0'
+      astro: '>=6.0.0'
 
   statuses@2.0.2:
     resolution: {integrity: sha512-DvEy55V3DB7uknRo+4iOGT5fP1slR8wQohVdknigZPMpMstaKJQWhwiYBACJE3Ul2pTnATihhBYnRhZQHGBiRw==}
@@ -8791,7 +8791,7 @@ snapshots:
 
   '@types/normalize-package-data@2.4.4': {}
 
-  '@types/picomatch@3.0.2': {}
+  '@types/picomatch@4.0.2': {}
 
   '@types/react-dom@19.2.3(@types/react@19.2.14)':
     dependencies:
@@ -11165,7 +11165,7 @@ snapshots:
 
   iron-webcrypto@1.2.1: {}
 
-  is-absolute-url@4.0.1: {}
+  is-absolute-url@5.0.0: {}
 
   is-alphabetical@1.0.4: {}
 
@@ -13439,15 +13439,15 @@ snapshots:
       - astro
       - supports-color
 
-  starlight-links-validator@0.19.2(@astrojs/starlight@0.37.6(astro@5.16.15(@netlify/blobs@10.7.2)(@types/node@24.12.0)(jiti@2.6.1)(rollup@4.59.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.2)))(astro@5.16.15(@netlify/blobs@10.7.2)(@types/node@24.12.0)(jiti@2.6.1)(rollup@4.59.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.2)):
+  starlight-links-validator@0.20.1(@astrojs/starlight@0.37.6(astro@5.16.15(@netlify/blobs@10.7.2)(@types/node@24.12.0)(jiti@2.6.1)(rollup@4.59.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.2)))(astro@5.16.15(@netlify/blobs@10.7.2)(@types/node@24.12.0)(jiti@2.6.1)(rollup@4.59.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.2)):
     dependencies:
       '@astrojs/starlight': 0.37.6(astro@5.16.15(@netlify/blobs@10.7.2)(@types/node@24.12.0)(jiti@2.6.1)(rollup@4.59.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.2))
-      '@types/picomatch': 3.0.2
+      '@types/picomatch': 4.0.2
       astro: 5.16.15(@netlify/blobs@10.7.2)(@types/node@24.12.0)(jiti@2.6.1)(rollup@4.59.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.2)
       github-slugger: 2.0.0
       hast-util-from-html: 2.0.3
       hast-util-has-property: 3.0.0
-      is-absolute-url: 4.0.1
+      is-absolute-url: 5.0.0
       kleur: 4.1.5
       mdast-util-mdx-jsx: 3.2.0
       mdast-util-to-string: 4.0.0
