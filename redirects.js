@@ -130,6 +130,7 @@ export default {
   '/linter/rules/noImplicitAnyLet': '/linter/rules/no-implicit-any-let',
   '/linter/rules/noImplicitBoolean': '/linter/rules/no-implicit-boolean',
   '/linter/rules/noImplicitCoercions': '/linter/rules/no-implicit-coercions',
+  '/linter/rules/noImpliedEval': '/linter/rules/no-implied-eval',
   '/linter/rules/noImportAssign': '/linter/rules/no-import-assign',
   '/linter/rules/noImportCycles': '/linter/rules/no-import-cycles',
   '/linter/rules/noImportantInKeyframe': '/linter/rules/no-important-in-keyframe',

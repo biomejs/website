@@ -199,6 +199,7 @@ export const LINT_RULES = {
     noFloatingPromises: "noFloatingPromises",
     noForIn: "noForIn",
     noHexColors: "noHexColors",
+    noImpliedEval: "noImpliedEval",
     noIncrementDecrement: "noIncrementDecrement",
     noInlineStyles: "noInlineStyles",
     noJsxPropsBind: "noJsxPropsBind",
