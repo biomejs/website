@@ -265,6 +265,7 @@ export default {
   '/linter/rules/noUnsafeFinally': '/linter/rules/no-unsafe-finally',
   '/linter/rules/noUnsafeNegation': '/linter/rules/no-unsafe-negation',
   '/linter/rules/noUnsafeOptionalChaining': '/linter/rules/no-unsafe-optional-chaining',
+  '/linter/rules/noUnsafePlusOperands': '/linter/rules/no-unsafe-plus-operands',
   '/linter/rules/noUntrustedLicenses': '/linter/rules/no-untrusted-licenses',
   '/linter/rules/noUnusedExpressions': '/linter/rules/no-unused-expressions',
   '/linter/rules/noUnusedFunctionParameters': '/linter/rules/no-unused-function-parameters',
