@@ -1,5 +1,4 @@
 @import "../../styles/_variables";
-@import "../../styles/_mixins";
 
 .results-pane {
 	border-left: 1px solid var(--sl-border);
