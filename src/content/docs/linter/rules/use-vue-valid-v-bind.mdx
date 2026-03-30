@@ -36,11 +36,10 @@ This rule is part of the [nursery](/linter/#nursery) group. This means that it i
 
 ```
 ## Description
-Forbids `v-bind` directives with missing arguments or invalid modifiers.
+Forbids `v-bind` directives with missing values or invalid modifiers.
 
 This rule reports v-bind directives in the following cases:
 
-- The directive does not have an argument. E.g. `<div v-bind></div>`
 - The directive does not have a value. E.g. `<div v-bind:aaa></div>`
 - The directive has invalid modifiers. E.g. `<div v-bind:aaa.bbb="ccc"></div>`
 

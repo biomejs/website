@@ -497,7 +497,7 @@ self.addEventListener("message", async (e) => {
 				categories,
 				only,
 				skip: [],
-				pullCodeActions: true,
+				includeCodeFix: true,
 			});
 
 			const printer = new DiagnosticPrinter(path, code);
