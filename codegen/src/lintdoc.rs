@@ -5,9 +5,9 @@ use crate::shared::{add_codegen_disclaimer_frontmatter, add_codegen_rule_suggest
 use anyhow::Context;
 use anyhow::{Result, bail};
 use biome_analyze::{
-    AnalysisFilter, AnalyzerAction, AnalyzerOptions, ControlFlow, FixKind, GroupCategory,
-    Queryable, RegistryVisitor, Rule, RuleCategory, RuleDomain, RuleFilter, RuleGroup,
-    RuleMetadata, RuleSourceKind,
+    ActionFilter, AnalysisFilter, AnalyzerAction, AnalyzerOptions, ControlFlow, FixKind,
+    GroupCategory, Queryable, RegistryVisitor, Rule, RuleCategory, RuleDomain, RuleFilter,
+    RuleGroup, RuleMetadata, RuleSourceKind,
 };
 use biome_configuration::Configuration;
 use biome_console::fmt::Termcolor;
@@ -1627,7 +1627,7 @@ fn print_diagnostics_or_actions(
                     match to_print_kind {
                         ToPrintKind::Diagnostics => {
                             if let Some(mut diag) = signal.diagnostic() {
-                                for action in signal.actions() {
+                                for action in signal.actions(ActionFilter::all()) {
                                     if !action.is_suppression() {
                                         diag = diag.add_code_suggestion(action.into());
                                     }
@@ -1645,7 +1645,7 @@ fn print_diagnostics_or_actions(
                             }
                         }
                         ToPrintKind::Actions => {
-                            for action in signal.actions() {
+                            for action in signal.actions(ActionFilter::all()) {
                                 if !action.is_suppression() {
                                     let res = write_action(buffer, code, &test.file_path(), action);
                                     // Abort the analysis on error
@@ -1696,7 +1696,7 @@ fn print_diagnostics_or_actions(
                         match to_print_kind {
                             ToPrintKind::Diagnostics => {
                                 if let Some(mut diag) = signal.diagnostic() {
-                                    for action in signal.actions() {
+                                    for action in signal.actions(ActionFilter::all()) {
                                         if !action.is_suppression() {
                                             diag = diag.add_code_suggestion(action.into());
                                         }
@@ -1714,7 +1714,7 @@ fn print_diagnostics_or_actions(
                                 }
                             }
                             ToPrintKind::Actions => {
-                                for action in signal.actions() {
+                                for action in signal.actions(ActionFilter::all()) {
                                     if !action.is_suppression() {
                                         let res =
                                             write_action(buffer, code, &test.file_path(), action);
@@ -1761,7 +1761,7 @@ fn print_diagnostics_or_actions(
                     match to_print_kind {
                         ToPrintKind::Diagnostics => {
                             if let Some(mut diag) = signal.diagnostic() {
-                                for action in signal.actions() {
+                                for action in signal.actions(ActionFilter::all()) {
                                     if !action.is_suppression() {
                                         diag = diag.add_code_suggestion(action.into());
                                     }
@@ -1779,7 +1779,7 @@ fn print_diagnostics_or_actions(
                             }
                         }
                         ToPrintKind::Actions => {
-                            for action in signal.actions() {
+                            for action in signal.actions(ActionFilter::all()) {
                                 if !action.is_suppression() {
                                     let res = write_action(buffer, code, &test.file_path(), action);
                                     // Abort the analysis on error
@@ -1820,7 +1820,7 @@ fn print_diagnostics_or_actions(
                     match to_print_kind {
                         ToPrintKind::Diagnostics => {
                             if let Some(mut diag) = signal.diagnostic() {
-                                for action in signal.actions() {
+                                for action in signal.actions(ActionFilter::all()) {
                                     if !action.is_suppression() {
                                         diag = diag.add_code_suggestion(action.into());
                                     }
@@ -1838,7 +1838,7 @@ fn print_diagnostics_or_actions(
                             }
                         }
                         ToPrintKind::Actions => {
-                            for action in signal.actions() {
+                            for action in signal.actions(ActionFilter::all()) {
                                 if !action.is_suppression() {
                                     let res = write_action(buffer, code, &test.file_path(), action);
                                     // Abort the analysis on error
@@ -1878,7 +1878,7 @@ fn print_diagnostics_or_actions(
                     match to_print_kind {
                         ToPrintKind::Diagnostics => {
                             if let Some(mut diag) = signal.diagnostic() {
-                                for action in signal.actions() {
+                                for action in signal.actions(ActionFilter::all()) {
                                     if !action.is_suppression() {
                                         diag = diag.add_code_suggestion(action.into());
                                     }
@@ -1896,7 +1896,7 @@ fn print_diagnostics_or_actions(
                             }
                         }
                         ToPrintKind::Actions => {
-                            for action in signal.actions() {
+                            for action in signal.actions(ActionFilter::all()) {
                                 if !action.is_suppression() {
                                     let res = write_action(buffer, code, &test.file_path(), action);
                                     // Abort the analysis on error

@@ -4233,6 +4233,13 @@ export function GET() {
 				type: "object",
 				additionalProperties: false,
 			},
+			NoImpliedEvalConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithNoImpliedEvalOptions" },
+				],
+			},
+			NoImpliedEvalOptions: { type: "object", additionalProperties: false },
 			NoImportAssignConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -6416,6 +6423,14 @@ export function GET() {
 							{ type: "null" },
 						],
 					},
+					noImpliedEval: {
+						description:
+							"Disallow the use of eval()-like methods.\nSee https://biomejs.dev/linter/rules/no-implied-eval",
+						anyOf: [
+							{ $ref: "#/$defs/NoImpliedEvalConfiguration" },
+							{ type: "null" },
+						],
+					},
 					noIncrementDecrement: {
 						description:
 							"Disallows the usage of the unary operators ++ and --.\nSee https://biomejs.dev/linter/rules/no-increment-decrement",
@@ -7004,7 +7019,7 @@ export function GET() {
 					},
 					useVueValidVBind: {
 						description:
-							"Forbids v-bind directives with missing arguments or invalid modifiers.\nSee https://biomejs.dev/linter/rules/use-vue-valid-v-bind",
+							"Forbids v-bind directives with missing values or invalid modifiers.\nSee https://biomejs.dev/linter/rules/use-vue-valid-v-bind",
 						anyOf: [
 							{ $ref: "#/$defs/UseVueValidVBindConfiguration" },
 							{ type: "null" },
@@ -8816,6 +8831,15 @@ export function GET() {
 					fix: { anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }] },
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/NoImplicitCoercionsOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
+			RuleWithNoImpliedEvalOptions: {
+				type: "object",
+				properties: {
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/NoImpliedEvalOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],

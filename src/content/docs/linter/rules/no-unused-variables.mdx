@@ -122,6 +122,17 @@ const { brand, ...rest } = car;
 console.log(rest);
 ```
 
+TypeScript namespaces that participate in declaration merging with an exported
+or referenced value of the same name are not flagged.
+
+```ts
+const MyComponent = () => {};
+namespace MyComponent {
+    export type Props = { id: string };
+}
+export default MyComponent;
+```
+
 In Astro files, a top-level interface or a type alias named `Props` is always ignored
 as it's implicitly read by the framework.
 
