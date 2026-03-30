@@ -231,6 +231,7 @@ export const LINT_RULES = {
     noUndeclaredEnvVars: "noUndeclaredEnvVars",
     noUnknownAttribute: "noUnknownAttribute",
     noUnnecessaryConditions: "noUnnecessaryConditions",
+    noUnsafePlusOperands: "noUnsafePlusOperands",
     noUntrustedLicenses: "noUntrustedLicenses",
     noUselessReturn: "noUselessReturn",
     noVueArrowFuncInWatch: "noVueArrowFuncInWatch",
