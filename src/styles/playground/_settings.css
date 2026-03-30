@@ -49,6 +49,25 @@
 		width: auto;
 	}
 
+	.field-row {
+		display: flex;
+		line-height: 25px;
+		margin-bottom: 10px;
+
+		label {
+			width: 100%;
+		}
+
+		&.disabled {
+			opacity: 0.4;
+
+			&,
+			* {
+				cursor: not-allowed;
+			}
+		}
+	}
+
 	select {
 		background: rgba(0, 0, 0, 0.05);
 		border-radius: 6px;
@@ -193,25 +212,6 @@
 		&:last-child {
 			border-top-right-radius: 6px;
 			border-bottom-right-radius: 6px;
-		}
-	}
-
-	.field-row {
-		display: flex;
-		line-height: 25px;
-		margin-bottom: 10px;
-
-		label {
-			width: 100%;
-		}
-
-		&.disabled {
-			opacity: 0.4;
-
-			&,
-			* {
-				cursor: not-allowed;
-			}
 		}
 	}
 }
