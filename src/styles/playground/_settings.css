@@ -1,5 +1,4 @@
 @import "../../styles/_variables";
-@import "../../styles/_mixins";
 
 .settings-panel {
 	flex-shrink: 0;
@@ -51,14 +50,34 @@
 	}
 
 	select {
-		@mixin button;
+		background: rgba(0, 0, 0, 0.05);
 		border-radius: 6px;
 		padding: 2px 6px;
+		font-weight: 500;
+		font-size: 0.75rem;
+		line-height: 1rem;
 		color: inherit;
 		border: 1px solid var(--sl-color-gray-5);
 
+		&:hover {
+			background: #e9ecef;
+		}
+
+		&:active {
+			background: #dadfe4;
+		}
+
 		:root[data-theme="dark"] & {
+			background: rgba(255, 255, 255, 0.1);
 			border: 1px solid var(--sl-color-gray-4);
+
+			&:hover {
+				background: rgba(255, 255, 255, 0.2);
+			}
+
+			&:active {
+				background: rgba(255, 255, 255, 0.3);
+			}
 
 			& option {
 				background-color: var(--sl-color-gray-6);
@@ -67,7 +86,16 @@
 
 		@media (prefers-color-scheme: dark) {
 			:root[data-theme="auto"] & {
+				background: rgba(255, 255, 255, 0.1);
 				border: 1px solid var(--sl-color-gray-4);
+
+				&:hover {
+					background: rgba(255, 255, 255, 0.2);
+				}
+
+				&:active {
+					background: rgba(255, 255, 255, 0.3);
+				}
 
 				& option {
 					background-color: var(--sl-color-gray-6);
@@ -96,12 +124,49 @@
 	}
 
 	button {
-		@mixin button;
-		border: 1px solid var(--sl-color-gray-5);
-		padding: 2px 6px;
-		color: inherit;
+		background: rgba(0, 0, 0, 0.05);
 		border-radius: 6px;
+		padding: 2px 6px;
+		font-weight: 500;
+		font-size: 0.75rem;
+		line-height: 1rem;
+		border: 1px solid var(--sl-color-gray-5);
+		color: inherit;
 		cursor: pointer;
+
+		&:hover {
+			background: #e9ecef;
+		}
+
+		&:active {
+			background: #dadfe4;
+		}
+
+		:root[data-theme="dark"] & {
+			background: rgba(255, 255, 255, 0.1);
+
+			&:hover {
+				background: rgba(255, 255, 255, 0.2);
+			}
+
+			&:active {
+				background: rgba(255, 255, 255, 0.3);
+			}
+		}
+
+		@media (prefers-color-scheme: dark) {
+			:root[data-theme="auto"] & {
+				background: rgba(255, 255, 255, 0.1);
+
+				&:hover {
+					background: rgba(255, 255, 255, 0.2);
+				}
+
+				&:active {
+					background: rgba(255, 255, 255, 0.3);
+				}
+			}
+		}
 
 		&:disabled {
 			opacity: 0.5;

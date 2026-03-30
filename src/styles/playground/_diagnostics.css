@@ -1,5 +1,4 @@
 @import "../../styles/_variables";
-@import "../../styles/_mixins";
 
 .diagnostics-pane {
 	height: 200px;
