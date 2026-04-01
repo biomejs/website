@@ -263,11 +263,13 @@ self.addEventListener("message", async (e) => {
 				workspace.updateSettings({
 					configuration: fileConfiguration,
 					projectKey,
+					moduleGraphResolutionKind: "modulesAndTypes",
 				});
 			} else {
 				workspace.updateSettings({
 					configuration,
 					projectKey,
+					moduleGraphResolutionKind: "modulesAndTypes",
 				});
 			}
 			break;
@@ -307,6 +309,7 @@ self.addEventListener("message", async (e) => {
 					...configuration,
 					plugins,
 				},
+				moduleGraphResolutionKind: "modulesAndTypes",
 			});
 
 			// TODO: Handle diagnostics
@@ -338,6 +341,7 @@ self.addEventListener("message", async (e) => {
 				workspace.updateSettings({
 					projectKey,
 					configuration: { ...configuration },
+					moduleGraphResolutionKind: "modulesAndTypes",
 				});
 			}
 
@@ -356,6 +360,7 @@ self.addEventListener("message", async (e) => {
 					workspace.updateSettings({
 						projectKey,
 						configuration: fileConfiguration,
+						moduleGraphResolutionKind: "modulesAndTypes",
 					});
 					console.info("Correct set custom configuration");
 					// biome-ignore lint/suspicious/noExplicitAny: It's an error message

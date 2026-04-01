@@ -1,5 +1,4 @@
 @import "../../styles/_variables";
-@import "../../styles/_mixins";
 
 .react-tabs__tab-panel {
 	display: none;

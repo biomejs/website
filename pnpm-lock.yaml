@@ -13,14 +13,14 @@ importers:
   .:
     devDependencies:
       '@astrojs/check':
-        specifier: 0.9.6
-        version: 0.9.6(prettier@3.8.1)(typescript@5.9.3)
+        specifier: 0.9.8
+        version: 0.9.8(prettier@3.8.1)(typescript@5.9.3)
       '@astrojs/mdx':
-        specifier: 4.3.13
-        version: 4.3.13(astro@5.16.15(@netlify/blobs@10.7.2)(@types/node@24.12.0)(jiti@2.6.1)(rollup@4.59.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.2))
+        specifier: 4.3.14
+        version: 4.3.14(astro@5.16.15(@netlify/blobs@10.7.2)(@types/node@24.12.0)(jiti@2.6.1)(rollup@4.59.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.2))
       '@astrojs/netlify':
-        specifier: 6.6.4
-        version: 6.6.4(@types/node@24.12.0)(astro@5.16.15(@netlify/blobs@10.7.2)(@types/node@24.12.0)(jiti@2.6.1)(rollup@4.59.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.2))(jiti@2.6.1)(rollup@4.59.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.8))(yaml@2.8.2)
+        specifier: 6.6.5
+        version: 6.6.5(@types/node@24.12.0)(astro@5.16.15(@netlify/blobs@10.7.2)(@types/node@24.12.0)(jiti@2.6.1)(rollup@4.59.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.2))(jiti@2.6.1)(rollup@4.59.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.8))(yaml@2.8.2)
       '@astrojs/prism':
         specifier: 3.3.0
         version: 3.3.0
@@ -28,8 +28,8 @@ importers:
         specifier: 4.4.2
         version: 4.4.2(@types/node@24.12.0)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(jiti@2.6.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.8))(yaml@2.8.2)
       '@astrojs/rss':
-        specifier: 4.0.15
-        version: 4.0.15
+        specifier: 4.0.18
+        version: 4.0.18
       '@astrojs/starlight':
         specifier: 0.37.6
         version: 0.37.6(astro@5.16.15(@netlify/blobs@10.7.2)(@types/node@24.12.0)(jiti@2.6.1)(rollup@4.59.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.2))
@@ -40,8 +40,8 @@ importers:
         specifier: ^0.4.0
         version: 0.4.0
       '@biomejs/wasm-web':
-        specifier: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@61b7ec5
-        version: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@61b7ec5
+        specifier: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@716e4e1
+        version: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@716e4e1
       '@codemirror/lang-css':
         specifier: 6.3.1
         version: 6.3.1
@@ -102,9 +102,6 @@ importers:
       astro-og-canvas:
         specifier: 0.10.1
         version: 0.10.1(astro@5.16.15(@netlify/blobs@10.7.2)(@types/node@24.12.0)(jiti@2.6.1)(rollup@4.59.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.2))
-      autoprefixer:
-        specifier: 10.4.27
-        version: 10.4.27(postcss@8.5.8)
       canvaskit-wasm:
         specifier: 0.40.0
         version: 0.40.0
@@ -123,18 +120,12 @@ importers:
       mermaid:
         specifier: 11.13.0
         version: 11.13.0
-      postcss:
-        specifier: 8.5.8
-        version: 8.5.8
-      postcss-mixins:
-        specifier: 12.1.2
-        version: 12.1.2(postcss@8.5.8)
       prettier:
         specifier: 3.8.1
         version: 3.8.1
       prettier-plugin-svelte:
         specifier: 3.5.1
-        version: 3.5.1(prettier@3.8.1)(svelte@5.53.11)
+        version: 3.5.1(prettier@3.8.1)(svelte@5.55.0)
       react:
         specifier: 19.2.4
         version: 19.2.4
@@ -163,8 +154,8 @@ importers:
         specifier: 0.19.2
         version: 0.19.2(@astrojs/starlight@0.37.6(astro@5.16.15(@netlify/blobs@10.7.2)(@types/node@24.12.0)(jiti@2.6.1)(rollup@4.59.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.2)))(astro@5.16.15(@netlify/blobs@10.7.2)(@types/node@24.12.0)(jiti@2.6.1)(rollup@4.59.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.2))
       svelte:
-        specifier: 5.53.11
-        version: 5.53.11
+        specifier: 5.55.0
+        version: 5.55.0
       textlint:
         specifier: 15.5.2
         version: 15.5.2
@@ -206,8 +197,8 @@ packages:
     peerDependencies:
       astro: ^4.14.0 || ^5.0.0-beta.0
 
-  '@astrojs/check@0.9.6':
-    resolution: {integrity: sha512-jlaEu5SxvSgmfGIFfNgcn5/f+29H61NJzEMfAZ82Xopr4XBchXB1GVlcJsE+elUlsYSbXlptZLX+JMG3b/wZEA==}
+  '@astrojs/check@0.9.8':
+    resolution: {integrity: sha512-LDng8446QLS5ToKjRHd3bgUdirvemVVExV7nRyJfW2wV36xuv7vDxwy5NWN9zqeSEDgg0Tv84sP+T3yEq+Zlkw==}
     hasBin: true
     peerDependencies:
       typescript: ^5.0.0
@@ -239,14 +230,14 @@ packages:
   '@astrojs/markdown-remark@6.3.11':
     resolution: {integrity: sha512-hcaxX/5aC6lQgHeGh1i+aauvSwIT6cfyFjKWvExYSxUhZZBBdvCliOtu06gbQyhbe0pGJNoNmqNlQZ5zYUuIyQ==}
 
-  '@astrojs/mdx@4.3.13':
-    resolution: {integrity: sha512-IHDHVKz0JfKBy3//52JSiyWv089b7GVSChIXLrlUOoTLWowG3wr2/8hkaEgEyd/vysvNQvGk+QhysXpJW5ve6Q==}
+  '@astrojs/mdx@4.3.14':
+    resolution: {integrity: sha512-FBrqJQORVm+rkRa2TS5CjU9PBA6hkhrwLVBSS9A77gN2+iehvjq1w6yya/d0YKC7osiVorKkr3Qd9wNbl0ZkGA==}
     engines: {node: 18.20.8 || ^20.3.0 || >=22.0.0}
     peerDependencies:
       astro: ^5.0.0
 
-  '@astrojs/netlify@6.6.4':
-    resolution: {integrity: sha512-wKLH0hYenuS7UZNE9ag8I9mP094EZzt3OStFWvj+xrlOc9xVP7vYiVvgX5Ua8TkuXnvMWfyy6zEu+1cSIKMx9w==}
+  '@astrojs/netlify@6.6.5':
+    resolution: {integrity: sha512-TE3GABF144NxJ/A8jUSzKlSRzaraPKaBba+3bY93XA8ejhTXoraqHdYSWnp/PvfMWYZnbHtEaW/GgKlE20h+EA==}
     peerDependencies:
       astro: ^5.7.0
 
@@ -263,8 +254,8 @@ packages:
       react: ^17.0.2 || ^18.0.0 || ^19.0.0
       react-dom: ^17.0.2 || ^18.0.0 || ^19.0.0
 
-  '@astrojs/rss@4.0.15':
-    resolution: {integrity: sha512-uXO/k6AhRkIDXmRoc6xQpoPZrimQNUmS43X4+60yunfuMNHtSRN5e/FiSi7NApcZqmugSMc5+cJi8ovqgO+qIg==}
+  '@astrojs/rss@4.0.18':
+    resolution: {integrity: sha512-wc5DwKlbTEdgVAWnHy8krFTeQ42t1v/DJqeq5HtulYK3FYHE4krtRGjoyhS3eXXgfdV6Raoz2RU3wrMTFAitRg==}
 
   '@astrojs/sitemap@3.7.1':
     resolution: {integrity: sha512-IzQqdTeskaMX+QDZCzMuJIp8A8C1vgzMBp/NmHNnadepHYNHcxQdGLQZYfkbd2EbRXUfOS+UDIKx8sKg0oWVdw==}
@@ -440,9 +431,9 @@ packages:
   '@biomejs/wasm-nodejs@2.4.9':
     resolution: {integrity: sha512-KrzMpx4pbZcgV+LzyJU+Yiz8YbxoCzNtjQTQ8d/wrrut8Wm+GzgrfKR+Cab/k00GDYKMG6bIxU0ymrdzVaYNMA==}
 
-  '@biomejs/wasm-web@https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@61b7ec5':
-    resolution: {integrity: sha512-G+Fy78V6hWVUIcCYOFWaNTJ5P9MkDRGBjEsNGdYzUtqrOJp340EyT69ZQujtxbSjw1v5QAlJ5MsDviIYJZijQg==, tarball: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@61b7ec5}
-    version: 0.0.0-rev.61b7ec5afd5949c109949557ace5508da1ea7ed9
+  '@biomejs/wasm-web@https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@716e4e1':
+    resolution: {tarball: https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@716e4e1}
+    version: 0.0.0-rev.716e4e195d6a76f02850f3cf41b8b38b757708ec
 
   '@braintree/sanitize-url@7.1.2':
     resolution: {integrity: sha512-jigsZK+sMF/cuiB7sERuo9V7N9jx+dhmHHnQyDSVdpZwVutaBu7WvNYqMDLSgFgfB30n452TP3vjDAvFC973mA==}
@@ -2510,13 +2501,6 @@ packages:
   async@3.2.6:
     resolution: {integrity: sha512-htCUDlxyyCLMgaM3xXg0C0LW2xqfuQ6p05pCEIsXuyQ+a1koYKTuBMzRNwmybfLgvJDMd0r1LTn4+E0Ti6C2AA==}
 
-  autoprefixer@10.4.27:
-    resolution: {integrity: sha512-NP9APE+tO+LuJGn7/9+cohklunJsXWiaWEfV3si4Gi/XHDwVNgkwr1J3RQYFIvPy76GmJ9/bW8vyoU1LcxwKHA==}
-    engines: {node: ^10 || ^12 || >=14}
-    hasBin: true
-    peerDependencies:
-      postcss: ^8.1.0
-
   available-typed-arrays@1.0.7:
     resolution: {integrity: sha512-wvUjBtSGN7+7SjNpq/9M2Tg350UZD3q62IFZLbRAR1bSMlCo1ZaeW+BJ+D090e4hIIZLBcTDWe4Mh4jvUDajzQ==}
     engines: {node: '>= 0.4'}
@@ -2685,10 +2669,6 @@ packages:
   callsites@3.1.0:
     resolution: {integrity: sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==}
     engines: {node: '>=6'}
-
-  camelcase-css@2.0.1:
-    resolution: {integrity: sha512-QOSvevhslijgYwRx6Rv7zKdMF8lbRmx+uQGx2+vDc+KI/eBnsy9kit5aj23AgGu3pa4t9AgwbnXWqS+iOY+2aA==}
-    engines: {node: '>= 6'}
 
   camelcase@6.3.0:
     resolution: {integrity: sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==}
@@ -3594,8 +3574,8 @@ packages:
   fast-xml-builder@1.1.4:
     resolution: {integrity: sha512-f2jhpN4Eccy0/Uz9csxh3Nu6q4ErKxf0XIsasomfOihuSUa3/xw6w8dnOtCDgEItQFJG8KyXPzQXzcODDrrbOg==}
 
-  fast-xml-parser@5.5.6:
-    resolution: {integrity: sha512-3+fdZyBRVg29n4rXP0joHthhcHdPUHaIC16cuyyd1iLsuaO6Vea36MPrxgAzbZna8lhvZeRL8Bc9GP56/J9xEw==}
+  fast-xml-parser@5.5.9:
+    resolution: {integrity: sha512-jldvxr1MC6rtiZKgrFnDSvT8xuH+eJqxqOBThUVjYrxssYTo1avZLGql5l0a0BAERR01CadYzZ83kVEkbyDg+g==}
     hasBin: true
 
   fastq@1.20.1:
@@ -3692,9 +3672,6 @@ packages:
   forwarded@0.2.0:
     resolution: {integrity: sha512-buRG0fpBtRHSTCOASe6hD258tEubFoRLb4ZNA6NxMVHNw2gOcwHo9wyablzMzOA5z9xA9L1KNjk/Nt6MT9aYow==}
     engines: {node: '>= 0.6'}
-
-  fraction.js@5.3.4:
-    resolution: {integrity: sha512-1X1NTtiJphryn/uLQz3whtY6jK3fTqoE3ohKs0tT+Ujr1W59oopxmoEh7Lu5p6vBaPbgoM0bzveAW4Qi5RyWDQ==}
 
   fresh@2.0.0:
     resolution: {integrity: sha512-Rx/WycZ60HOaqLKAi6cHRKKI7zxWbJ31MhntmtwMoaTeF7XFH9hhBp8vITaMidfljRQ6eYWCKkaTK+ykVJHP2A==}
@@ -5093,8 +5070,8 @@ packages:
     resolution: {integrity: sha512-RjhtfwJOxzcFmNOi6ltcbcu4Iu+FL3zEj83dk4kAS+fVpTxXLO1b38RvJgT/0QwvV/L3aY9TAnyv0EOqW4GoMQ==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
-  path-expression-matcher@1.1.3:
-    resolution: {integrity: sha512-qdVgY8KXmVdJZRSS1JdEPOKPdTiEK/pi0RkcT2sw1RhXxohdujUlJFPuS1TSkevZ9vzd3ZlL7ULl1MHGTApKzQ==}
+  path-expression-matcher@1.2.0:
+    resolution: {integrity: sha512-DwmPWeFn+tq7TiyJ2CxezCAirXjFxvaiD03npak3cRjlP9+OjTmSy1EpIrEbh+l6JgUundniloMLDQ/6VTdhLQ==}
     engines: {node: '>=14.0.0'}
 
   path-key@3.1.1:
@@ -5192,18 +5169,6 @@ packages:
     resolution: {integrity: sha512-/+5VFTchJDoVj3bhoqi6UeymcD00DAwb1nJwamzPvHEszJ4FpF6SNNbUbOS8yI56qHzdV8eK0qEfOSiodkTdxg==}
     engines: {node: '>= 0.4'}
 
-  postcss-js@4.1.0:
-    resolution: {integrity: sha512-oIAOTqgIo7q2EOwbhb8UalYePMvYoIeRY2YKntdpFQXNosSu3vLrniGgmH9OKs/qAkfoj5oB3le/7mINW1LCfw==}
-    engines: {node: ^12 || ^14 || >= 16}
-    peerDependencies:
-      postcss: ^8.4.21
-
-  postcss-mixins@12.1.2:
-    resolution: {integrity: sha512-90pSxmZVfbX9e5xCv7tI5RV1mnjdf16y89CJKbf/hD7GyOz1FCxcYMl8ZYA8Hc56dbApTKKmU9HfvgfWdCxlwg==}
-    engines: {node: ^20.0 || ^22.0 || >=24.0}
-    peerDependencies:
-      postcss: ^8.2.14
-
   postcss-nested@6.2.0:
     resolution: {integrity: sha512-HQbt28KulC5AJzG+cZtj9kvKB93CFCdLvog1WFLf1D+xmMvPGlBstkpTEZfK5+AN9hfJocyBFCNiqyS48bpgzQ==}
     engines: {node: '>=12.0'}
@@ -5213,15 +5178,6 @@ packages:
   postcss-selector-parser@6.1.2:
     resolution: {integrity: sha512-Q8qQfPiZ+THO/3ZrOrO0cJJKfpYCagtMUkXbnEfmgUjwXg6z/WBeOyS9APBBPCTSiDV+s4SwQGu8yFsiMRIudg==}
     engines: {node: '>=4'}
-
-  postcss-simple-vars@7.0.1:
-    resolution: {integrity: sha512-5GLLXaS8qmzHMOjVxqkk1TZPf1jMqesiI7qLhnlyERalG0sMbHIbJqrcnrpmZdKCLglHnRHoEBB61RtGTsj++A==}
-    engines: {node: '>=14.0'}
-    peerDependencies:
-      postcss: ^8.2.1
-
-  postcss-value-parser@4.2.0:
-    resolution: {integrity: sha512-1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ==}
 
   postcss-values-parser@6.0.2:
     resolution: {integrity: sha512-YLJpK0N1brcNJrs9WatuJFtHaV9q5aAOj+S4DI5S7jgHlRfm0PIbDCAFRYMQD5SHq7Fy6xsDhyutgS0QOAs0qw==}
@@ -5796,8 +5752,8 @@ packages:
     resolution: {integrity: sha512-dOESqjYr96iWYylGObzd39EuNTa5VJxyvVAEm5Jnh7KGo75V43Hk1odPQkNDyXNmUR6k+gEiDVXnjB8HJ3crXw==}
     engines: {node: '>=12'}
 
-  strnum@2.2.0:
-    resolution: {integrity: sha512-Y7Bj8XyJxnPAORMZj/xltsfo55uOiyHcU2tnAVzHUnSJR/KsEX+9RoDeXEnsXtl/CX4fAcrt64gZ13aGaWPeBg==}
+  strnum@2.2.2:
+    resolution: {integrity: sha512-DnR90I+jtXNSTXWdwrEy9FakW7UX+qUZg28gj5fk2vxxl7uS/3bpI4fjFYVmdK9etptYBPNkpahuQnEwhwECqA==}
 
   structured-source@4.0.0:
     resolution: {integrity: sha512-qGzRFNJDjFieQkl/sVOI2dUjHKRyL9dAJi2gCPGJLbJHBIkyOHxjuocpIEfbLioX+qSJpvbYdT49/YCdMznKxA==}
@@ -5836,8 +5792,8 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
 
-  svelte@5.53.11:
-    resolution: {integrity: sha512-GYmqRjRhJYLQBonfdfGAt28gkfWEShrtXKGXcFGneXi502aBE+I1dJcs/YQriByvP6xqXRz/OdBGC6tfvUQHyQ==}
+  svelte@5.55.0:
+    resolution: {integrity: sha512-SThllKq6TRMBwPtat7ASnm/9CDXnIhBR0NPGw0ujn2DVYx9rVwsPZxDaDQcYGdUz/3BYVsCzdq7pZarRQoGvtw==}
     engines: {node: '>=18'}
 
   svg-parser@2.0.4:
@@ -6580,7 +6536,7 @@ snapshots:
     dependencies:
       astro: 5.16.15(@netlify/blobs@10.7.2)(@types/node@24.12.0)(jiti@2.6.1)(rollup@4.59.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.2)
 
-  '@astrojs/check@0.9.6(prettier@3.8.1)(typescript@5.9.3)':
+  '@astrojs/check@0.9.8(prettier@3.8.1)(typescript@5.9.3)':
     dependencies:
       '@astrojs/language-server': 2.16.5(prettier@3.8.1)(typescript@5.9.3)
       chokidar: 4.0.3
@@ -6674,9 +6630,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/mdx@4.3.13(astro@5.16.15(@netlify/blobs@10.7.2)(@types/node@24.12.0)(jiti@2.6.1)(rollup@4.59.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.2))':
+  '@astrojs/mdx@4.3.14(astro@5.16.15(@netlify/blobs@10.7.2)(@types/node@24.12.0)(jiti@2.6.1)(rollup@4.59.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.2))':
     dependencies:
-      '@astrojs/markdown-remark': 6.3.10
+      '@astrojs/markdown-remark': 6.3.11
       '@mdx-js/mdx': 3.1.1
       acorn: 8.16.0
       astro: 5.16.15(@netlify/blobs@10.7.2)(@types/node@24.12.0)(jiti@2.6.1)(rollup@4.59.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.2)
@@ -6693,9 +6649,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/netlify@6.6.4(@types/node@24.12.0)(astro@5.16.15(@netlify/blobs@10.7.2)(@types/node@24.12.0)(jiti@2.6.1)(rollup@4.59.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.2))(jiti@2.6.1)(rollup@4.59.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.8))(yaml@2.8.2)':
+  '@astrojs/netlify@6.6.5(@types/node@24.12.0)(astro@5.16.15(@netlify/blobs@10.7.2)(@types/node@24.12.0)(jiti@2.6.1)(rollup@4.59.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.2))(jiti@2.6.1)(rollup@4.59.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.8))(yaml@2.8.2)':
     dependencies:
-      '@astrojs/internal-helpers': 0.7.5
+      '@astrojs/internal-helpers': 0.7.6
       '@astrojs/underscore-redirects': 1.0.0
       '@netlify/blobs': 10.7.2
       '@netlify/functions': 5.1.3
@@ -6770,10 +6726,11 @@ snapshots:
       - tsx
       - yaml
 
-  '@astrojs/rss@4.0.15':
+  '@astrojs/rss@4.0.18':
     dependencies:
-      fast-xml-parser: 5.5.6
+      fast-xml-parser: 5.5.9
       piccolore: 0.1.3
+      zod: 4.3.6
 
   '@astrojs/sitemap@3.7.1':
     dependencies:
@@ -6784,7 +6741,7 @@ snapshots:
   '@astrojs/starlight@0.37.6(astro@5.16.15(@netlify/blobs@10.7.2)(@types/node@24.12.0)(jiti@2.6.1)(rollup@4.59.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.2))':
     dependencies:
       '@astrojs/markdown-remark': 6.3.11
-      '@astrojs/mdx': 4.3.13(astro@5.16.15(@netlify/blobs@10.7.2)(@types/node@24.12.0)(jiti@2.6.1)(rollup@4.59.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.2))
+      '@astrojs/mdx': 4.3.14(astro@5.16.15(@netlify/blobs@10.7.2)(@types/node@24.12.0)(jiti@2.6.1)(rollup@4.59.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.2))
       '@astrojs/sitemap': 3.7.1
       '@pagefind/default-ui': 1.4.0
       '@types/hast': 3.0.4
@@ -6996,7 +6953,7 @@ snapshots:
 
   '@biomejs/wasm-nodejs@2.4.9': {}
 
-  '@biomejs/wasm-web@https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@61b7ec5': {}
+  '@biomejs/wasm-web@https://pkg.pr.new/biomejs/biome/@biomejs/wasm-web@716e4e1': {}
 
   '@braintree/sanitize-url@7.1.2': {}
 
@@ -9329,15 +9286,6 @@ snapshots:
 
   async@3.2.6: {}
 
-  autoprefixer@10.4.27(postcss@8.5.8):
-    dependencies:
-      browserslist: 4.28.1
-      caniuse-lite: 1.0.30001780
-      fraction.js: 5.3.4
-      picocolors: 1.1.1
-      postcss: 8.5.8
-      postcss-value-parser: 4.2.0
-
   available-typed-arrays@1.0.7:
     dependencies:
       possible-typed-array-names: 1.1.0
@@ -9509,8 +9457,6 @@ snapshots:
   callsite@1.0.0: {}
 
   callsites@3.1.0: {}
-
-  camelcase-css@2.0.1: {}
 
   camelcase@6.3.0: {}
 
@@ -10574,13 +10520,13 @@ snapshots:
 
   fast-xml-builder@1.1.4:
     dependencies:
-      path-expression-matcher: 1.1.3
+      path-expression-matcher: 1.2.0
 
-  fast-xml-parser@5.5.6:
+  fast-xml-parser@5.5.9:
     dependencies:
       fast-xml-builder: 1.1.4
-      path-expression-matcher: 1.1.3
-      strnum: 2.2.0
+      path-expression-matcher: 1.2.0
+      strnum: 2.2.2
 
   fastq@1.20.1:
     dependencies:
@@ -10676,8 +10622,6 @@ snapshots:
       fetch-blob: 3.2.0
 
   forwarded@0.2.0: {}
-
-  fraction.js@5.3.4: {}
 
   fresh@2.0.0: {}
 
@@ -12571,7 +12515,7 @@ snapshots:
 
   path-exists@5.0.0: {}
 
-  path-expression-matcher@1.1.3: {}
+  path-expression-matcher@1.2.0: {}
 
   path-key@3.1.1: {}
 
@@ -12644,19 +12588,6 @@ snapshots:
 
   possible-typed-array-names@1.1.0: {}
 
-  postcss-js@4.1.0(postcss@8.5.8):
-    dependencies:
-      camelcase-css: 2.0.1
-      postcss: 8.5.8
-
-  postcss-mixins@12.1.2(postcss@8.5.8):
-    dependencies:
-      postcss: 8.5.8
-      postcss-js: 4.1.0(postcss@8.5.8)
-      postcss-simple-vars: 7.0.1(postcss@8.5.8)
-      sugarss: 5.0.1(postcss@8.5.8)
-      tinyglobby: 0.2.15
-
   postcss-nested@6.2.0(postcss@8.5.8):
     dependencies:
       postcss: 8.5.8
@@ -12666,12 +12597,6 @@ snapshots:
     dependencies:
       cssesc: 3.0.0
       util-deprecate: 1.0.2
-
-  postcss-simple-vars@7.0.1(postcss@8.5.8):
-    dependencies:
-      postcss: 8.5.8
-
-  postcss-value-parser@4.2.0: {}
 
   postcss-values-parser@6.0.2(postcss@8.5.8):
     dependencies:
@@ -12708,10 +12633,10 @@ snapshots:
 
   prelude-ls@1.2.1: {}
 
-  prettier-plugin-svelte@3.5.1(prettier@3.8.1)(svelte@5.53.11):
+  prettier-plugin-svelte@3.5.1(prettier@3.8.1)(svelte@5.55.0):
     dependencies:
       prettier: 3.8.1
-      svelte: 5.53.11
+      svelte: 5.55.0
 
   prettier@3.8.1: {}
 
@@ -13408,8 +13333,8 @@ snapshots:
   starlight-blog@0.25.3(@astrojs/starlight@0.37.6(astro@5.16.15(@netlify/blobs@10.7.2)(@types/node@24.12.0)(jiti@2.6.1)(rollup@4.59.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.2)))(astro@5.16.15(@netlify/blobs@10.7.2)(@types/node@24.12.0)(jiti@2.6.1)(rollup@4.59.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.2)):
     dependencies:
       '@astrojs/markdown-remark': 6.3.11
-      '@astrojs/mdx': 4.3.13(astro@5.16.15(@netlify/blobs@10.7.2)(@types/node@24.12.0)(jiti@2.6.1)(rollup@4.59.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.2))
-      '@astrojs/rss': 4.0.15
+      '@astrojs/mdx': 4.3.14(astro@5.16.15(@netlify/blobs@10.7.2)(@types/node@24.12.0)(jiti@2.6.1)(rollup@4.59.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.2))
+      '@astrojs/rss': 4.0.18
       '@astrojs/starlight': 0.37.6(astro@5.16.15(@netlify/blobs@10.7.2)(@types/node@24.12.0)(jiti@2.6.1)(rollup@4.59.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.2))
       astro-remote: 0.3.4
       github-slugger: 2.0.0
@@ -13541,7 +13466,7 @@ snapshots:
 
   strip-final-newline@3.0.0: {}
 
-  strnum@2.2.0: {}
+  strnum@2.2.2: {}
 
   structured-source@4.0.0:
     dependencies:
@@ -13562,6 +13487,7 @@ snapshots:
   sugarss@5.0.1(postcss@8.5.8):
     dependencies:
       postcss: 8.5.8
+    optional: true
 
   supports-color@10.2.2: {}
 
@@ -13576,7 +13502,7 @@ snapshots:
 
   supports-preserve-symlinks-flag@1.0.0: {}
 
-  svelte@5.53.11:
+  svelte@5.55.0:
     dependencies:
       '@jridgewell/remapping': 2.3.5
       '@jridgewell/sourcemap-codec': 1.5.5

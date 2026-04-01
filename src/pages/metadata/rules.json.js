@@ -3406,7 +3406,7 @@ export function GET() {
           },
           "noImpliedEval": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.10",
             "name": "noImpliedEval",
             "link": "https://biomejs.dev/linter/rules/no-implied-eval",
             "recommended": false,
@@ -3860,6 +3860,23 @@ export function GET() {
             ],
             "docs": " Disallow unnecessary type-based conditions that can be statically determined as redundant.\n\n This rule detects if expressions inside conditions are statically inferrable and yield\n falsy or truthy values that don't change during the life cycle of the program.\n\n ## Examples\n\n ### Invalid\n\n ```ts\n function head<T>(items: T[]) {\n   if (items) {  // This check is unnecessary\n     return items[0].toUpperCase();\n   }\n }\n ```\n\n ```ts\n function foo(arg: 'bar' | 'baz') {\n   if (arg) {  // This check is unnecessary\n   }\n }\n ```\n\n ```ts\n function bar(arg: string) {\n   return arg?.length;  // ?. is unnecessary\n }\n ```\n\n Contrary to the source rule, this rule doesn't trigger bindings that are assigned to multiple\n values. In the following example, the variable `greeting` is assigned to multiple values; hence\n it can't be inferred to a truthy or falsy value.\n\n ```ts\n let greeting = false;\n\n function changeGreeting() {\n     greeting = \"Hello World!\"\n }\n\n if (greeting) {} // rule not triggered here\n\n ```\n\n\n ### Valid\n\n ```ts\n function head<T>(items: T[] | null) {\n   if (items) {  // This check is necessary\n     return items[0].toUpperCase();\n   }\n }\n ```\n\n ```ts\n function foo(arg: 'bar' | 'baz' | null) {\n   if (arg) {  // This check is necessary\n   }\n }\n ```\n\n ```ts\n function bar(arg: string | undefined) {\n   return arg?.length;  // ?. is necessary\n }\n ```\n\n"
           },
+          "noUnsafePlusOperands": {
+            "deprecated": false,
+            "version": "2.4.10",
+            "name": "noUnsafePlusOperands",
+            "link": "https://biomejs.dev/linter/rules/no-unsafe-plus-operands",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintTypeScript": "restrict-plus-operands"
+                }
+              }
+            ],
+            "docs": " Disallow `+` operations with operands that are known to be unsafe.\n\n This rule uses type information to report `+` and `+=` operations that are\n very likely mistakes at runtime, such as mixing `number` with `bigint` or\n using object-like, `symbol`, `unknown`, or `never` values as operands.\n\n This port intentionally does not support the original rule's options.\n It keeps the upstream default behavior for no-option usage and always checks\n compound `+=` assignments.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=invalid-bigint-plus-number.ts\n const value = 1n + 1;\n ```\n\n ```ts,expect_diagnostic,file=invalid-number-plus-bigint.ts\n const value = 1 + 1n;\n ```\n\n ```ts,expect_diagnostic,file=invalid-bigint-add-assign.ts\n declare let count: number;\n count += 1n;\n ```\n\n ### Valid\n\n ```ts,file=valid-number-plus-number.ts\n const sum = 1 + 2;\n ```\n\n ```ts,file=valid-string-plus-number.ts\n const message = \"value: \" + 1;\n ```\n\n ```ts,file=valid-bigint-add-assign.ts\n let total = 1n;\n total += 2n;\n ```\n"
+          },
           "noUselessReturn": {
             "deprecated": false,
             "version": "2.3.15",
@@ -3876,6 +3893,23 @@ export function GET() {
               }
             ],
             "docs": " Disallow redundant return statements.\n\n A `return;` statement with nothing after it is redundant when it is the\n last reachable statement in a function body. Removing it does not change\n the function's behavior, as execution naturally falls through to the end.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function foo() {\n     return;\n }\n ```\n\n ```js,expect_diagnostic\n function foo() {\n     doSomething();\n     return;\n }\n ```\n\n ```js,expect_diagnostic\n function foo() {\n     if (condition) {\n         bar();\n         return;\n     }\n }\n ```\n\n ### Valid\n\n ```js\n function foo() {\n     return 5;\n }\n ```\n\n ```js\n function foo() {\n     if (condition) {\n         return;\n     }\n     bar();\n }\n ```\n\n ```js\n function foo() {\n     for (const x of xs) {\n         return;\n     }\n }\n ```\n\n"
+          },
+          "noUselessTypeConversion": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noUselessTypeConversion",
+            "link": "https://biomejs.dev/linter/rules/no-useless-type-conversion",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintTypeScript": "no-unnecessary-type-conversion"
+                }
+              }
+            ],
+            "docs": " Disallow type conversions that do not change the type of an expression.\n\n This rule reports common conversion patterns when the converted expression\n is already known to have the target base type (AKA primitive type).\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=invalid-string.ts\n const text: string = \"text\";\n String(text);\n ```\n\n ```ts,expect_diagnostic,file=invalid-boolean.ts\n const value: boolean = true;\n !!value;\n ```\n\n ```ts,expect_diagnostic,file=invalid-assignment.ts\n let str = \"text\";\n str += \"\";\n ```\n\n ### Valid\n\n Genuine conversions are allowed.\n ```ts\n String(1);\n !!0;\n ```\n\n Unboxing boxed values is allowed.\n ```ts\n String(new String());\n ```\n"
           },
           "noVueArrowFuncInWatch": {
             "deprecated": false,
@@ -8583,7 +8617,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 492
+    "numberOrRules": 494
   },
   "syntax": {
     "languages": {
