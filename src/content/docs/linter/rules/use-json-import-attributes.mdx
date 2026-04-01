@@ -12,6 +12,26 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 :::note
 This rule belongs to the project domain. This means that its activation will activate the Biome Scanner to scan the files of your project. Read more about it in the [documentation page](/linter/domains#project)
 :::
+:::caution[Information severity]
+This rule emits [information](/reference/diagnostics#information) diagnostics by default. These diagnostics won't affect the exit status code of the CLI, even when `--error-on-warnings` is passed. If you want this rule to affect the exit status, configure it with a higher severity.
+
+<details>
+<summary>Example configuration</summary>
+
+```json title="biome.json"
+{
+  "linter": {
+    "rules": {
+      "correctness": {
+        "useJsonImportAttributes": "warn"
+      }
+    }
+  }
+}
+```
+
+</details>
+:::
 ## Summary
 - Rule available since: `v2.0.0`
 - Diagnostic Category: [`lint/correctness/useJsonImportAttributes`](/reference/diagnostics#diagnostic-category)

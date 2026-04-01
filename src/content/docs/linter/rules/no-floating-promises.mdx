@@ -15,6 +15,26 @@ This rule is part of the [nursery](/linter/#nursery) group. This means that it i
 :::note
 This rule belongs to the types domain. This means that its activation will activate the Biome Scanner to scan the files of your project, and enable the type inference engine. Read more about it in the [documentation page](/linter/domains#types)
 :::
+:::caution[Information severity]
+This rule emits [information](/reference/diagnostics#information) diagnostics by default. These diagnostics won't affect the exit status code of the CLI, even when `--error-on-warnings` is passed. If you want this rule to affect the exit status, configure it with a higher severity.
+
+<details>
+<summary>Example configuration</summary>
+
+```json title="biome.json"
+{
+  "linter": {
+    "rules": {
+      "nursery": {
+        "noFloatingPromises": "warn"
+      }
+    }
+  }
+}
+```
+
+</details>
+:::
 ## Summary
 - Rule available since: `v2.0.0`
 - Diagnostic Category: [`lint/nursery/noFloatingPromises`](/reference/diagnostics#diagnostic-category)

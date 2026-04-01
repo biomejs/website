@@ -748,6 +748,32 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
         writeln!(content, ":::")?;
     }
 
+    if rule_category == RuleCategory::Lint && matches!(meta.severity, Severity::Information) {
+        writeln!(content, ":::caution[Information severity]")?;
+        writeln!(
+            content,
+            "This rule emits [information](/reference/diagnostics#information) diagnostics by default. These diagnostics won't affect the exit status code of the CLI, even when `--error-on-warnings` is passed. If you want this rule to affect the exit status, configure it with a higher severity."
+        )?;
+        writeln!(content)?;
+        writeln!(content, "<details>")?;
+        writeln!(content, "<summary>Example configuration</summary>")?;
+        writeln!(content)?;
+        writeln!(content, "```json title=\"biome.json\"")?;
+        writeln!(content, "{{")?;
+        writeln!(content, "  \"linter\": {{")?;
+        writeln!(content, "    \"rules\": {{")?;
+        writeln!(content, "      \"{group}\": {{")?;
+        writeln!(content, "        \"{rule_name}\": \"warn\"")?;
+        writeln!(content, "      }}")?;
+        writeln!(content, "    }}")?;
+        writeln!(content, "  }}")?;
+        writeln!(content, "}}")?;
+        writeln!(content, "```")?;
+        writeln!(content)?;
+        writeln!(content, "</details>")?;
+        writeln!(content, ":::")?;
+    }
+
     writeln!(content, "## Summary")?;
 
     if meta.version != "next" {
