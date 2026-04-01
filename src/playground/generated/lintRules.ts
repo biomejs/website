@@ -234,6 +234,7 @@ export const LINT_RULES = {
     noUnsafePlusOperands: "noUnsafePlusOperands",
     noUntrustedLicenses: "noUntrustedLicenses",
     noUselessReturn: "noUselessReturn",
+    noUselessTypeConversion: "noUselessTypeConversion",
     noVueArrowFuncInWatch: "noVueArrowFuncInWatch",
     noVueOptionsApi: "noVueOptionsApi",
     noVueRefAsOperand: "noVueRefAsOperand",

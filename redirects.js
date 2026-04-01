@@ -295,6 +295,7 @@ export default {
   '/linter/rules/noUselessTernary': '/linter/rules/no-useless-ternary',
   '/linter/rules/noUselessThisAlias': '/linter/rules/no-useless-this-alias',
   '/linter/rules/noUselessTypeConstraint': '/linter/rules/no-useless-type-constraint',
+  '/linter/rules/noUselessTypeConversion': '/linter/rules/no-useless-type-conversion',
   '/linter/rules/noUselessUndefined': '/linter/rules/no-useless-undefined',
   '/linter/rules/noUselessUndefinedInitialization': '/linter/rules/no-useless-undefined-initialization',
   '/linter/rules/noValueAtRule': '/linter/rules/no-value-at-rule',
