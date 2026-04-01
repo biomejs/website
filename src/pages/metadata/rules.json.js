@@ -3894,6 +3894,23 @@ export function GET() {
             ],
             "docs": " Disallow redundant return statements.\n\n A `return;` statement with nothing after it is redundant when it is the\n last reachable statement in a function body. Removing it does not change\n the function's behavior, as execution naturally falls through to the end.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function foo() {\n     return;\n }\n ```\n\n ```js,expect_diagnostic\n function foo() {\n     doSomething();\n     return;\n }\n ```\n\n ```js,expect_diagnostic\n function foo() {\n     if (condition) {\n         bar();\n         return;\n     }\n }\n ```\n\n ### Valid\n\n ```js\n function foo() {\n     return 5;\n }\n ```\n\n ```js\n function foo() {\n     if (condition) {\n         return;\n     }\n     bar();\n }\n ```\n\n ```js\n function foo() {\n     for (const x of xs) {\n         return;\n     }\n }\n ```\n\n"
           },
+          "noUselessTypeConversion": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noUselessTypeConversion",
+            "link": "https://biomejs.dev/linter/rules/no-useless-type-conversion",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintTypeScript": "no-unnecessary-type-conversion"
+                }
+              }
+            ],
+            "docs": " Disallow type conversions that do not change the type of an expression.\n\n This rule reports common conversion patterns when the converted expression\n is already known to have the target base type (AKA primitive type).\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=invalid-string.ts\n const text: string = \"text\";\n String(text);\n ```\n\n ```ts,expect_diagnostic,file=invalid-boolean.ts\n const value: boolean = true;\n !!value;\n ```\n\n ```ts,expect_diagnostic,file=invalid-assignment.ts\n let str = \"text\";\n str += \"\";\n ```\n\n ### Valid\n\n Genuine conversions are allowed.\n ```ts\n String(1);\n !!0;\n ```\n\n Unboxing boxed values is allowed.\n ```ts\n String(new String());\n ```\n"
+          },
           "noVueArrowFuncInWatch": {
             "deprecated": false,
             "version": "2.3.14",
@@ -8600,7 +8617,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 493
+    "numberOrRules": 494
   },
   "syntax": {
     "languages": {
