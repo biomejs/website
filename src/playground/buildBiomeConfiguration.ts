@@ -14,6 +14,11 @@ import {
 } from "@/playground/types";
 
 type LinterRules = NonNullable<NonNullable<Configuration["linter"]>["rules"]>;
+type LintRuleGroup = Exclude<keyof typeof LINT_RULES, "recommended" | "all">;
+
+const LINT_RULE_GROUPS = Object.entries(LINT_RULES).filter((entry) => {
+	return typeof entry[1] === "object";
+}) as Array<[LintRuleGroup, Record<string, string>]>;
 
 function getBiomeIndentStyle(indentStyle: PlaygroundSettings["indentStyle"]) {
 	return indentStyle === IndentStyle.Tab ? "tab" : "space";
@@ -40,6 +45,18 @@ function getBiomeQuoteStyle(quoteStyle: PlaygroundSettings["quoteStyle"]) {
 	return quoteStyle === QuoteStyle.Double ? "double" : "single";
 }
 
+function getLintRuleGroup(
+	lintRule: PlaygroundSettings["lintRules"],
+): LintRuleGroup | undefined {
+	for (const [groupName, rules] of LINT_RULE_GROUPS) {
+		if (lintRule in rules) {
+			return groupName;
+		}
+	}
+
+	return undefined;
+}
+
 function getLintRulesConfiguration(
 	lintRules: PlaygroundSettings["lintRules"],
 ): LinterRules {
@@ -61,10 +78,22 @@ function getLintRulesConfiguration(
 				style: "on",
 				suspicious: "on",
 			};
-		default:
+		default: {
+			const lintRuleGroup = getLintRuleGroup(lintRules);
+
+			if (lintRuleGroup !== undefined) {
+				return {
+					recommended: false,
+					[lintRuleGroup]: {
+						[lintRules]: "on",
+					},
+				} as LinterRules;
+			}
+
 			return {
 				recommended: false,
 			};
+		}
 	}
 }
 
@@ -84,6 +113,20 @@ function getPlaygroundLintRules(linterRules: LinterRules | undefined) {
 		rules.style,
 		rules.suspicious,
 	];
+
+	for (const [groupName, groupRules] of LINT_RULE_GROUPS) {
+		const groupConfiguration = rules[groupName];
+
+		if (!groupConfiguration || typeof groupConfiguration !== "object") {
+			continue;
+		}
+
+		for (const lintRule of Object.keys(groupRules)) {
+			if ((groupConfiguration as Record<string, unknown>)[lintRule] === "on") {
+				return lintRule as PlaygroundSettings["lintRules"];
+			}
+		}
+	}
 
 	if (enabledGroups.every((value) => value === "on")) {
 		return LINT_RULES.all;
