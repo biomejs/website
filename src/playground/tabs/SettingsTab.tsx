@@ -7,6 +7,7 @@ import type {
 import type React from "react";
 import { type Dispatch, type SetStateAction, useId, useState } from "react";
 import EnumSelect from "@/playground/components/EnumSelect";
+import SettingsJsonEditorModal from "@/playground/components/SettingsJsonEditorModal";
 import { LINT_RULES } from "@/playground/generated/lintRules.ts";
 import {
 	ArrowParentheses,
@@ -76,6 +77,7 @@ export default function SettingsTab({
 			experimentalFullSupportEnabled,
 			cssModules,
 			tailwindDirectives,
+			gritTargetLanguage,
 		},
 	},
 }: SettingsTabProps) {
@@ -320,6 +322,39 @@ export default function SettingsTab({
 					{singleFileMode ? "Multi-file mode" : "Single-file mode"}
 				</button>
 			</section>
+			<SettingsJsonEditorSection
+				settings={{
+					lineWidth,
+					indentWidth,
+					indentStyle,
+					quoteStyle,
+					jsxQuoteStyle,
+					quoteProperties,
+					trailingCommas,
+					semicolons,
+					arrowParentheses,
+					operatorLinebreak,
+					bracketSpacing,
+					bracketSameLine,
+					expand,
+					indentScriptAndStyle,
+					whitespaceSensitivity,
+					lintRules,
+					enabledLinting,
+					analyzerFixMode,
+					enabledAssist,
+					unsafeParameterDecoratorsEnabled,
+					allowComments,
+					attributePosition,
+					ruleDomains,
+					experimentalEmbeddedSnippetsEnabled,
+					experimentalFullSupportEnabled,
+					cssModules,
+					tailwindDirectives,
+					gritTargetLanguage,
+				}}
+				setPlaygroundState={setPlaygroundState}
+			/>
 
 			{singleFileMode ? (
 				<LanguageView language={language} setLanguage={setLanguage} />
@@ -753,6 +788,37 @@ function SyntaxSettings({
 					<label htmlFor={tailwindDirectivesId}>Tailwind v4</label>
 				</div>
 			</section>
+		</>
+	);
+}
+
+function SettingsJsonEditorSection({
+	settings,
+	setPlaygroundState,
+}: {
+	settings: PlaygroundState["settings"];
+	setPlaygroundState: Dispatch<SetStateAction<PlaygroundState>>;
+}) {
+	const [isJsonModalOpen, setIsJsonModalOpen] = useState(false);
+
+	return (
+		<>
+			<section className="settings-json-actions">
+				<button type="button" onClick={() => setIsJsonModalOpen(true)}>
+					Edit as JSON
+				</button>
+			</section>
+			<SettingsJsonEditorModal
+				isOpen={isJsonModalOpen}
+				settings={settings}
+				onApply={(nextSettings) => {
+					setPlaygroundState((state) => ({
+						...state,
+						settings: nextSettings,
+					}));
+				}}
+				onClose={() => setIsJsonModalOpen(false)}
+			/>
 		</>
 	);
 }
