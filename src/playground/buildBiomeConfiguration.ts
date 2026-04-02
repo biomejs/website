@@ -248,8 +248,9 @@ export function buildBiomeConfiguration(
 
 export function parseBiomeConfiguration(
 	configuration: Configuration,
+	currentSettings: PlaygroundSettings = defaultPlaygroundState.settings,
 ): PlaygroundSettings {
-	const defaults = defaultPlaygroundState.settings;
+	const defaults = currentSettings;
 	const formatter = configuration.formatter;
 	const javascript = configuration.javascript;
 	const javascriptFormatter = javascript?.formatter;

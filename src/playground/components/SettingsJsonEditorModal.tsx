@@ -83,7 +83,7 @@ export default function SettingsJsonEditorModal({
 	function applyJsonSettings() {
 		try {
 			const parsed = JSON.parse(jsonValue) as Configuration;
-			onApply(parseBiomeConfiguration(parsed));
+			onApply(parseBiomeConfiguration(parsed, settings));
 			onClose();
 		} catch (error) {
 			setJsonError(
