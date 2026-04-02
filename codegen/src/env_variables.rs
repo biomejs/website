@@ -1,5 +1,6 @@
 use crate::project_root;
 use anyhow::Result;
+use biome_flags::BiomeEnv;
 use std::fs;
 use std::io::Write;
 
@@ -38,25 +39,14 @@ pub fn generate_env_variables() -> Result<()> {
     let env = biome_flags::biome_env();
 
     writeln!(content, "{HEADER}")?;
-
-    writeln!(
-        content,
-        "### `{}`\n\n {}\n",
-        env.biome_log_prefix_name.name(),
-        env.biome_log_prefix_name.description()
-    )?;
-    writeln!(
-        content,
-        "### `{}`\n\n {}\n",
-        env.biome_log_path.name(),
-        env.biome_log_path.description()
-    )?;
-    writeln!(
-        content,
-        "### `{}`\n\n {}\n",
-        env.biome_config_path.name(),
-        env.biome_config_path.description()
-    )?;
+    for variable in BiomeEnv::ENV_VARIABLES {
+        writeln!(
+            content,
+            "### `{}`\n\n {}\n",
+            variable.name(),
+            variable.description()
+        )?;
+    }
 
     writeln!(content, "{FOOTER}")?;
 
