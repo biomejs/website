@@ -308,6 +308,7 @@
 	border: 1px solid var(--sl-border);
 	border-radius: 14px;
 	background: #282c34;
+	color: rgb(226 232 240 / 92%);
 	box-shadow: 0 28px 80px rgb(0 0 0 / 35%);
 }
 
@@ -384,4 +385,5 @@
 	margin: 0;
 	padding: 10px 14px 0;
 	font-size: 0.75rem;
+	color: rgb(248 113 113 / 92%);
 }
