@@ -31,18 +31,21 @@ export default function SettingsJsonEditorModal({
 	onClose,
 }: SettingsJsonEditorModalProps) {
 	const dialogRef = useRef<HTMLDialogElement>(null);
+	const wasOpenRef = useRef(false);
 	const [jsonValue, setJsonValue] = useState("");
 	const [jsonError, setJsonError] = useState<string | null>(null);
 	const [copyStatus, setCopyStatus] = useState<"idle" | "copied">("idle");
 
 	useEffect(() => {
-		if (isOpen) {
+		if (isOpen && !wasOpenRef.current) {
 			setJsonValue(
 				JSON.stringify(createEditableConfiguration(settings), null, 2),
 			);
 			setJsonError(null);
 			setCopyStatus("idle");
 		}
+
+		wasOpenRef.current = isOpen;
 	}, [isOpen, settings]);
 
 	useEffect(() => {
