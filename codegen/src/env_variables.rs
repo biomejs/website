@@ -9,7 +9,10 @@ const HEADER: &str = r#"---
 
 title: Environment variables
 description: A list of the environment variables available via Biome
----"#;
+---
+A list of the environment variables available via Biome.
+
+"#;
 
 const FOOTER: &str = r#"
 ## `BIOME_BINARY`
@@ -32,7 +35,7 @@ RUST_BACKTRACE=1 npx @biomejs/biome check .
 ```"#;
 
 pub fn generate_env_variables() -> Result<()> {
-    let file_path = project_root().join("src/content/docs/reference/environment_variables.md");
+    let file_path = project_root().join("src/content/docs/reference/environment-variables.md");
 
     let mut content = vec![];
 
