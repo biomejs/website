@@ -12,7 +12,7 @@ description: A list of the environment variables available via Biome
 ---"#;
 
 const FOOTER: &str = r#"
-### `BIOME_BINARY`
+## `BIOME_BINARY`
 
 Overrides the Biome binary being used. This allows you, for example, to use a system-wide Biome binary.
 
@@ -23,7 +23,7 @@ If you don't define this variable, Biome will automatically detect the correct b
 BIOME_BINARY=/nix/store/68fyfw1hidsqkal1839whi3nzgvqv4pa-biome-1.0.0/bin/biome npx @biomejs/biome format .
 ```
 
-### `RUST_BACKTRACE`
+## `RUST_BACKTRACE`
 
 Enables capturing the backtrace when Biome panicked. This allows you to identify where the panic occurred.
 
@@ -36,13 +36,11 @@ pub fn generate_env_variables() -> Result<()> {
 
     let mut content = vec![];
 
-    let env = biome_flags::biome_env();
-
     writeln!(content, "{HEADER}")?;
     for variable in BiomeEnv::ENV_VARIABLES {
         writeln!(
             content,
-            "### `{}`\n\n {}\n",
+            "## `{}`\n\n {}\n",
             variable.name(),
             variable.description()
         )?;
