@@ -14,6 +14,9 @@ use std::collections::HashMap;
 use std::fs;
 use std::io::Write;
 
+const DOMAINS_EDIT_URL: &str =
+    "https://github.com/biomejs/website/edit/main/codegen/src/domains.rs";
+
 pub fn generate_domains() -> anyhow::Result<()> {
     let mut visitor = crate::lintdoc::RulesVisitor::default();
     biome_js_analyze::visit_registry(&mut visitor);
@@ -30,6 +33,8 @@ pub fn generate_domains() -> anyhow::Result<()> {
         buffer,
         "# this file is auto generated, use `pnpm codegen:rules` to update it"
     )?;
+    writeln!(buffer, "editUrl: \"{DOMAINS_EDIT_URL}\"")?;
+    writeln!(buffer)?;
     writeln!(buffer, "title: Domains")?;
     writeln!(buffer, "description: List of available domains")?;
     writeln!(buffer, "---")?;
