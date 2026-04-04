@@ -35,6 +35,7 @@ export const collections = {
 		loader: changelogsLoader([
 			{
 				base: "internals/changelog",
+				pagefind: false,
 				provider: "changeset",
 				title: {
 					en: "Version History",
