@@ -1,6 +1,7 @@
 ---
 title: Changelog
 description: The changelog of Biome
+pagefind: false
 tableOfContents:
   maxHeadingLevel: 2
 ---
@@ -37,7 +38,7 @@ New entries must be placed in a section entitled
 
   ```cts
   import type { TypeFromRequire } from "pkg" with {
-      "resolution-mode": "require"
+    "resolution-mode": "require",
   };
   ```
 
@@ -94,17 +95,16 @@ New entries must be placed in a section entitled
 - Biome no longer crashes when it encounters a string that contain a multibyte character ([#4181](https://github.com/biomejs/biome/issues/4181)).
 
   This fixes a regression introduced in Biome 1.9.3 The regression affected the following linter rules:
-
-    - `nursery/useSortedClasses`
-    - `nursery/useTrimStartEnd`
-    - `style/useTemplate`
-    - `suspicious/noMisleadingCharacterClass`
+  - `nursery/useSortedClasses`
+  - `nursery/useTrimStartEnd`
+  - `style/useTemplate`
+  - `suspicious/noMisleadingCharacterClass`
 
   Contributed by @Conaclos
 
 - Fix [#4190](https://github.com/biomejs/biome/issues/4190), where the rule
   `noMissingVarFunction` wrongly reported a variable as missing when used inside a
-  `var()`  function that was a newline. Contributed by @ematipico
+  `var()` function that was a newline. Contributed by @ematipico
 
 - Fix [#4041](https://github.com/biomejs/biome/issues/4041). Now the rule `useSortedClasses` won't be triggered if
   `className` is composed only by inlined variables. Contributed by @ematipico
@@ -154,9 +154,7 @@ New entries must be placed in a section entitled
 
   ```jsx
   function Component() {
-    return (
-      <div key={index}>{line || <>&nbsp;</>}</div>
-    )
+    return <div key={index}>{line || <>&nbsp;</>}</div>;
   }
   ```
 
@@ -169,7 +167,7 @@ New entries must be placed in a section entitled
   ```ts
   export class Foo {
     bar(name: string, _class: new (name: string) => any) {
-      return name
+      return name;
     }
   }
   ```
@@ -185,7 +183,7 @@ New entries must be placed in a section entitled
 
   ```js
   class Button {}
-  export { Button }
+  export { Button };
   ```
 
   The rule now correctly handles the renaming of an export. For example, the file containing the following export can only be named
@@ -193,7 +191,7 @@ New entries must be placed in a section entitled
 
   ```js
   class A {}
-  export { A as Button }
+  export { A as Button };
   ```
 
   Contributed by @Conaclos
@@ -206,9 +204,11 @@ New entries must be placed in a section entitled
 
   The following code `calc-size` is no longer reported as unknown:
 
-   ```css
-   .a { height: calc-size(0px); }
-   ```
+  ```css
+  .a {
+    height: calc-size(0px);
+  }
+  ```
 
   Contributed by @fireairforce
 
@@ -241,11 +241,15 @@ Contributed by @sepruko
   `resolution-mode` in Import Types([#2115](https://github.com/biomejs/biome/issues/2115))
 
   ```ts
-  export type Fs = typeof import('fs', { with: { 'resolution-mode': 'import' } });
-  export type TypeFromRequire =
-    import("pkg", { with: { "resolution-mode": "require" } }).TypeFromRequire;
-  export type TypeFromImport =
-    import("pkg", { with: { "resolution-mode": "import" } }).TypeFromImport;
+  export type Fs = typeof import("fs", {
+    with: { "resolution-mode": "import" },
+  });
+  export type TypeFromRequire = import("pkg", {
+    with: { "resolution-mode": "require" },
+  }).TypeFromRequire;
+  export type TypeFromImport = import("pkg", {
+    with: { "resolution-mode": "import" },
+  }).TypeFromImport;
   ```
 
   Contributed by @fireairforce
@@ -303,6 +307,7 @@ Contributed by @sepruko
   Contributed by @abidjappie
 
 - Fix a case where raw values inside `url()` functions weren't properly trimmed.
+
   ```diff
   .value {
   -  background: url(
@@ -311,6 +316,7 @@ Contributed by @sepruko
   + background: url(whitespace-around-string);
   }
   ```
+
   Contributed by @ematipico
 
 - Fixed [#4076](https://github.com/biomejs/biome/issues/4076), where a media query wasn't correctly formatted:
@@ -403,7 +409,7 @@ Contributed by @sepruko
   The following code is no longer reported:
 
   ```js
-  React.createElement("button", { type: "button" }, "foo")
+  React.createElement("button", { type: "button" }, "foo");
   ```
 
   Contributed by @Conaclos
@@ -440,8 +446,8 @@ Contributed by @sepruko
 #### New features
 
 - Added support for custom GritQL definitions, including:
-    - Pattern and predicate definitions: https://docs.grit.io/guides/patterns
-    - Function definitions: https://docs.grit.io/language/functions#function-definitions
+  - Pattern and predicate definitions: https://docs.grit.io/guides/patterns
+  - Function definitions: https://docs.grit.io/language/functions#function-definitions
 
   Contributed by @arendjr
 
@@ -563,33 +569,33 @@ Contributed by @sepruko
 
 - The option `--max-diagnostics` now accept a
   `none` value, which lifts the limit of diagnostics shown. Contributed by @ematipico
-    - Add a new reporter
-      `--reporter=gitlab`, that emits diagnostics for using the [GitLab Code Quality report](https://docs.gitlab.com/ee/ci/testing/code_quality.html#implement-a-custom-tool).
+  - Add a new reporter
+    `--reporter=gitlab`, that emits diagnostics for using the [GitLab Code Quality report](https://docs.gitlab.com/ee/ci/testing/code_quality.html#implement-a-custom-tool).
 
-      ```json
-      [
-        {
-          "description": "Use === instead of ==. == is only allowed when comparing against `null`",
-          "check_name": "lint/suspicious/noDoubleEquals",
-          "fingerprint": "6143155163249580709",
-          "severity": "critical",
-          "location": {
-            "path": "main.ts",
-            "lines": {
-              "begin": 4
-            }
+    ```json
+    [
+      {
+        "description": "Use === instead of ==. == is only allowed when comparing against `null`",
+        "check_name": "lint/suspicious/noDoubleEquals",
+        "fingerprint": "6143155163249580709",
+        "severity": "critical",
+        "location": {
+          "path": "main.ts",
+          "lines": {
+            "begin": 4
           }
         }
-      ]
-      ```
+      }
+    ]
+    ```
 
-      Contributed by @NiclasvanEyk
+    Contributed by @NiclasvanEyk
 
 - Add new options to the `lsp-proxy` and `start` commands:
-    - `--log-path`: a directory where to store the daemon logs. The commands also accepts the environment variable
-      `BIOME_LOG_PATH`.
-    - `--log-prefix-name`: a prefix that's added to the file name of the logs. It defaults to
-      `server.log`. The commands also accepts the environment variable `BIOME_LOG_PREFIX_NAME`.
+  - `--log-path`: a directory where to store the daemon logs. The commands also accepts the environment variable
+    `BIOME_LOG_PATH`.
+  - `--log-prefix-name`: a prefix that's added to the file name of the logs. It defaults to
+    `server.log`. The commands also accepts the environment variable `BIOME_LOG_PREFIX_NAME`.
 
   @Contributed by @ematipico
 
@@ -598,14 +604,13 @@ Contributed by @sepruko
 - When a `--reporter` is provided, and it's different from the default one, the value provided by via
   `--max-diagnostics` is ignored and **the limit is lifted**. Contributed by @ematipico
 
--
-`biome init` now generates a new config file with more options set. This change intends to improve discoverability of the options and to set the more commonly used options to their default values. Contributed by @Conaclos
+- `biome init` now generates a new config file with more options set. This change intends to improve discoverability of the options and to set the more commonly used options to their default values. Contributed by @Conaclos
 
-- The `--verbose` flag now reports the list of files that were evaluated, and the list of files that were fixed. The *
+- The `--verbose` flag now reports the list of files that were evaluated, and the list of files that were fixed. The \*
   *evaluated
   ** files are the those files that can be handled by Biome, files that are ignored, don't have an extension or have an extension that Biome can't evaluate are excluded by this list. The
-  **fixed** files are those files that were handled by Biome and
-  *changed*. Files that stays the same after the process are excluded from this list.
+  **fixed\*\* files are those files that were handled by Biome and
+  *changed\*. Files that stays the same after the process are excluded from this list.
 
   ```shell
    VERBOSE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -700,12 +705,12 @@ Contributed by @sepruko
 
   ```json5
   {
-    "overrides": [
+    overrides: [
       {
-        "include": ["**/*.json"],
+        include: ["**/*.json"],
         // ...
-      }
-    ]
+      },
+    ],
   }
   ```
 
@@ -713,13 +718,13 @@ Contributed by @sepruko
 
   ```json5
   {
-    "extends": ["./biome.shared.json"],
-    "overrides": [
+    extends: ["./biome.shared.json"],
+    overrides: [
       {
-        "include": ["**/*.ts"],
+        include: ["**/*.ts"],
         // ...
-      }
-    ]
+      },
+    ],
   }
   ```
 
@@ -728,17 +733,17 @@ Contributed by @sepruko
 
   ```json5
   {
-    "extends": ["./biome.shared.json"],
-    "overrides": [
+    extends: ["./biome.shared.json"],
+    overrides: [
       {
-        "include": ["**/*.json"],
+        include: ["**/*.json"],
         // ...
       },
       {
-        "include": ["**/*.ts"],
+        include: ["**/*.ts"],
         // ...
-      }
-    ]
+      },
+    ],
   }
   ```
 
@@ -822,9 +827,9 @@ Contributed by @sepruko
   In the following example, parentheses are no longer removed.
 
   ```ts
-  export const PROPS = /** @satisfies {Record<string, string>} */ ({
+  export const PROPS = /** @satisfies {Record<string, string>} */ {
     prop: 0,
-  });
+  };
   ```
 
   Contributed by @Conaclos
@@ -882,12 +887,9 @@ The following JavaScript rules are promoted:
 
 #### Deprecated rules
 
--
-`correctness/noInvalidNewBuiltin` is deprecated. Use [correctness/noInvalidBuiltinInstantiation](https://biomejs.dev/linter/rules/no-invalid-builtin-instantiation/) instead.
--
-`style/useSingleCaseStatement` is deprecated. Use [correctness/noSwitchDeclarations](https://biomejs.dev/linter/rules/no-switch-declarations/) instead.
--
-`suspicious/noConsoleLog` is deprecated. Use [suspicious/noConsole](https://biomejs.dev/linter/rules/no-console/) instead.
+- `correctness/noInvalidNewBuiltin` is deprecated. Use [correctness/noInvalidBuiltinInstantiation](https://biomejs.dev/linter/rules/no-invalid-builtin-instantiation/) instead.
+- `style/useSingleCaseStatement` is deprecated. Use [correctness/noSwitchDeclarations](https://biomejs.dev/linter/rules/no-switch-declarations/) instead.
+- `suspicious/noConsoleLog` is deprecated. Use [suspicious/noConsole](https://biomejs.dev/linter/rules/no-console/) instead.
 
 #### New features
 
@@ -1080,11 +1082,9 @@ The following JavaScript rules are promoted:
 
 - [noControlCharactersInRegex](https://www.biomejs.dev/linter/rules/no-control-characters-in-regex) now reports control characters and escape sequence of control characters in string regexes. Contributed by @Conaclos
 
--
-`noExcessiveNestedTestSuites`: fix an edge case where the rule would alert on heavily nested zod schemas. Contributed by @dyc3
+- `noExcessiveNestedTestSuites`: fix an edge case where the rule would alert on heavily nested zod schemas. Contributed by @dyc3
 
--
-`noExtraNonNullAssertion` no longer reports a single non-null assertion enclosed in parentheses ([#3352](https://github.com/biomejs/biome/issues/3352)). Contributed by @Conaclos
+- `noExtraNonNullAssertion` no longer reports a single non-null assertion enclosed in parentheses ([#3352](https://github.com/biomejs/biome/issues/3352)). Contributed by @Conaclos
 
 - [noMultipleSpacesInRegularExpressionLiterals](https://biomejs.dev/linter/rules/no-multiple-spaces-in-regular-expression-literals/) now correctly provides a code fix when Unicode characters are used. Contributed by @Conaclos
 
@@ -1148,7 +1148,7 @@ The following JavaScript rules are promoted:
   `useNamingConvention` to suggest an empty fix. The rule no longer provides a fix for this case.
 
   ```ts
-  type AAb = any
+  type AAb = any;
   ```
 
   Contributed by @Conaclos
@@ -1222,11 +1222,13 @@ The following JavaScript rules are promoted:
   ```
 
 - Fix [#3410](https://github.com/biomejs/biome/issues/3410) by correctly parsing break statements containing keywords.
+
   ```js
   out: while (true) {
     break out;
   }
   ```
+
   Contributed by @ah-yu
 
 - Fix [#3464](https://github.com/biomejs/biome/issues/3464) by enabling JSX in `.vue` files that use the `lang='jsx'` or
@@ -1343,7 +1345,8 @@ The following JavaScript rules are promoted:
             "suspicious": { "noDebugger": "warn" }
           }
         }
-      }, {
+      },
+      {
         "include": ["index.js"],
         "linter": {
           "rules": {
@@ -1475,7 +1478,7 @@ The following JavaScript rules are promoted:
 
 #### New features
 
-- Add [noUnknownPseudoClass](https://biomejs.dev/linter/rules/no-unknown-pseudo-class/). Contributed by  @tunamaguro
+- Add [noUnknownPseudoClass](https://biomejs.dev/linter/rules/no-unknown-pseudo-class/). Contributed by @tunamaguro
 
 #### Bug fixes
 
@@ -1599,6 +1602,7 @@ The following JavaScript rules are promoted:
   ```shell
   biome check --css-formatter-enabled=true --css-linter-enabled=true ./
   ```
+
   Contributed by @ematipico
 
 - Add new CLI options to control the CSS formatting. Check the [CLI reference page](https://biomejs.dev/reference/cli/) for more details. Contributed by @ematipico
@@ -1677,6 +1681,7 @@ The following JavaScript rules are promoted:
   lint/suspicious/noRedeclare                             12 (12 error(s), 0 warning(s), 0 info(s))
   lint/suspicious/noDebugger                              20 (20 error(s), 0 warning(s), 0 info(s))
   ```
+
   Contributed by @ematipico
 
 - `biome ci` now enforces printing the output using colours. If you were previously using
@@ -1689,7 +1694,9 @@ The following JavaScript rules are promoted:
   ::error title=lint/suspicious/noDebugger,file=main.ts,line=6,endLine=6,col=1,endColumn=9::This is an unexpected use of the debugger statement.
   ::error title=lint/nursery/noEvolvingAny,file=main.ts,line=8,endLine=8,col=5,endColumn=6::This variable's type is not allowed to evolve implicitly, leading to potential any types.
   ```
+
   Contributed by @ematipico
+
 - Add a new `--reporter` called
   `junit`. This reporter will print diagnostics using [GitHub workflow commands](https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#about-workflow-commands):
 
@@ -1713,12 +1720,13 @@ The following JavaScript rules are promoted:
     </testsuite>
   </testsuites>
   ```
+
   Contributed by @ematipico
 
 #### Bug fixes
 
-- Fix  [#3024](https://github.com/biomejs/biome/issues/3024), where running `biome init` would create
-  `biome.json` even if `biome.jsonc` already exists.  Contributed by @minht11
+- Fix [#3024](https://github.com/biomejs/biome/issues/3024), where running `biome init` would create
+  `biome.json` even if `biome.jsonc` already exists. Contributed by @minht11
 
 ### Configuration
 
@@ -1729,10 +1737,9 @@ The following JavaScript rules are promoted:
 
   A rule can provide a safe or an **unsafe** code **action**. You can now tune the kind of code actions thanks to the
   `fix` option. This rule option takes a value among:
-
-    - `none`: the rule no longer emits code actions.
-    - `safe`: the rule emits safe code action.
-    - `unsafe`: the rule emits unsafe code action.
+  - `none`: the rule no longer emits code actions.
+  - `safe`: the rule emits safe code action.
+  - `unsafe`: the rule emits unsafe code action.
 
   The following configuration disables the code actions of `noUnusedVariables`, makes the emitted code actions of
   `style/useConst` and `style/useTemplate` unsafe and safe respectively.
@@ -1786,6 +1793,7 @@ The following JavaScript rules are promoted:
     }
   }
   ```
+
   Contributed by @ematipico
 
 #### Enhancements
@@ -1849,27 +1857,27 @@ New rules are incubated in the nursery group. Once stable, we promote them to a 
 
   ```json
   {
-  	"linter": {
-  		"rules": {
-  			"style": {
-  				"useNamingConvention": {
-  					"level": "error",
-  					"options": {
-  						"conventions": [
-  							{
-  								"selector": {
-  									"kind": "classMember",
-  									"modifiers": ["private"]
-  								},
-  								"match": "_(.*)",
+    "linter": {
+      "rules": {
+        "style": {
+          "useNamingConvention": {
+            "level": "error",
+            "options": {
+              "conventions": [
+                {
+                  "selector": {
+                    "kind": "classMember",
+                    "modifiers": ["private"]
+                  },
+                  "match": "_(.*)",
                   "formats": ["camelCase"]
-  							}
-  						]
-  					}
-  				}
-  			}
-  		}
-  	}
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
   }
   ```
 
@@ -1905,6 +1913,7 @@ New rules are incubated in the nursery group. Once stable, we promote them to a 
   The rule now suggests using `undefined` instead of `void` in confusing places. The diagnosis is also clearer.
 
   Contributed by @Conaclos
+
 - Improve code action for [nursery/noUselessUndefinedInitialization](https://biomejs.dev/linter/rules/no-useless-undefined-initialization/) to handle comments.
 
   The rule now places inline comments after the declaration statement, instead of removing them. The code action is now safe to apply.
@@ -1937,7 +1946,7 @@ New rules are incubated in the nursery group. Once stable, we promote them to a 
   // This references the import namespace because it is a qualified name.
   type T3 = Ns3.Inner;
   // This also references the import namespace.
-  export type { Ns3 }
+  export type { Ns3 };
   ```
 
   Contributed by @Conaclos
@@ -1959,11 +1968,11 @@ New rules are incubated in the nursery group. Once stable, we promote them to a 
   The rule no longer reports `this` as undeclared in following code.
 
   ```jsx
-  import { Component } from 'react';
+  import { Component } from "react";
 
   export class MyComponent extends Component {
     render() {
-      return <this.foo />
+      return <this.foo />;
     }
   }
   ```
@@ -1975,12 +1984,14 @@ New rules are incubated in the nursery group. Once stable, we promote them to a 
 ```jsx
 // valid
 [].map((item) => {
-    return <>{item.condition ? <div key={item.id}/> : <div key={item.id}>foo</div>}</>;
+  return (
+    <>{item.condition ? <div key={item.id} /> : <div key={item.id}>foo</div>}</>
+  );
 });
 
 // invalid
 [].map((item) => {
-    return <>{item.condition ? <div/> : <div>foo</div>}</>;
+  return <>{item.condition ? <div /> : <div>foo</div>}</>;
 });
 ```
 
@@ -1990,16 +2001,15 @@ New rules are incubated in the nursery group. Once stable, we promote them to a 
 ```js
 // now valid
 z.object({})
-    .describe('')
-    .describe('')
-    .describe('')
-    .describe('')
-    .describe('')
-    .describe('');
+  .describe("")
+  .describe("")
+  .describe("")
+  .describe("")
+  .describe("")
+  .describe("");
 ```
 
--
-`noEmptyBlockStatements` no longer reports empty constructors using typescript parameter properties. [#3005](https://github.com/biomejs/biome/issues/3005) Contributed by @dyc3
+- `noEmptyBlockStatements` no longer reports empty constructors using typescript parameter properties. [#3005](https://github.com/biomejs/biome/issues/3005) Contributed by @dyc3
 - `noEmptyBlockStatements` no longer reports empty private or protected constructors. Contributed by @dyc3
 
 - [noExportsInTest](https://biomejs.dev/linter/rules/no-exports-in-test/) rule no longer treats files with in-source testing as test files https://github.com/biomejs/biome/issues/2859. Contributed by @ah-yu
@@ -2014,6 +2024,7 @@ z.object({})
     3 3 │   	<div class={`px-2 foo p-4 bar ${variable}`}/>
     4 4 │   </>
   ```
+
 - [noUndeclaredDependencies](https://biomejs.dev/linter/rules/no-undeclared-dependencies/) is correctly triggered when running
   `biome ci`. Contributed by @ematipico
 - [noUnusedVariables](https://biomejs.dev/linter/rules/no-unused-variables/) no longer panics when a certain combination of characters is typed. Contributed by @ematipico
@@ -2025,8 +2036,7 @@ z.object({})
 
 #### Enhancements
 
--
-`lang="tsx"` is now supported in Vue Single File Components. [#2765](https://github.com/biomejs/biome/issues/2765) Contributed by @dyc3
+- `lang="tsx"` is now supported in Vue Single File Components. [#2765](https://github.com/biomejs/biome/issues/2765) Contributed by @dyc3
 
 #### Bug fixes
 
@@ -2037,7 +2047,7 @@ z.object({})
 
   ```ts
   interface I {
-    new<const T>(x: T): T
+    new <const T>(x: T): T;
   }
   ```
 
@@ -2076,8 +2086,7 @@ z.object({})
 - Add [nursery/noUselessStringConcat](https://biomejs.dev/linter/rules/no-useless-string-concat/).
 - Add [nursery/useExplicitLengthCheck](https://biomejs.dev/linter/rules/use-explicit-length-check/). Contributed by @minht11
 
--
-`useExhaustiveDependencies` now recognizes (some) dependencies that change on every render ([#2374](https://github.com/biomejs/biome/issues/2374)). Contributed by @arendjr
+- `useExhaustiveDependencies` now recognizes (some) dependencies that change on every render ([#2374](https://github.com/biomejs/biome/issues/2374)). Contributed by @arendjr
 
 #### Bug fixes
 
@@ -2225,8 +2234,8 @@ z.object({})
 
   ```ts
   type Overloads = {
-    ({ a }: { a: number }): number,
-    ({ a }: { a: string }): string,
+    ({ a }: { a: number }): number;
+    ({ a }: { a: string }): string;
   };
   ```
 
@@ -2279,17 +2288,16 @@ z.object({})
   Contributed by @Conaclos
 
 - [noMisplacedAssertion](https://biomejs.dev/linter/rules/no-misplaced-assertion/) now allow these matchers
-
-    - `expect.any()`
-    - `expect.anything()`
-    - `expect.closeTo`
-    - `expect.arrayContaining`
-    - `expect.objectContaining`
-    - `expect.stringContaining`
-    - `expect.stringMatching`
-    - `expect.extend`
-    - `expect.addEqualityTesters`
-    - `expect.addSnapshotSerializer`
+  - `expect.any()`
+  - `expect.anything()`
+  - `expect.closeTo`
+  - `expect.arrayContaining`
+  - `expect.objectContaining`
+  - `expect.stringContaining`
+  - `expect.stringMatching`
+  - `expect.extend`
+  - `expect.addEqualityTesters`
+  - `expect.addSnapshotSerializer`
 
   Contributed by @fujiyamaorange
 
@@ -2325,9 +2333,11 @@ z.object({})
 - Correctly format dangling comments of continue statements. [#2555](https://github.com/biomejs/biome/pull/2555). Contributed by @ah-yu
 
 - Prevent comments from being eaten by the formatter [#2578](https://github.com/biomejs/biome/pull/2578). Now the comments won't be eaten for the following code:
+
   ```js
-  console.log((a,b/* comment */));
+  console.log((a, b) /* comment */);
   ```
+
   Contributed by @ah-yu
 
 - Correctly format nested union type to avoid reformatting issue. [#2628](https://github.com/biomejs/biome/pull/2628). Contributed by @ah-yu
@@ -2341,7 +2351,7 @@ z.object({})
 - Fix [#2460](https://github.com/biomejs/biome/issues/2460), where the rule
   `noUselessFragments` was crashing the linter in some cases. Now cases like these are correctly handled:
   ```jsx
-  callFunction(<>{bar}</>)
+  callFunction(<>{bar}</>);
   ```
   Contributed by @ematipico
 - Fix [#2366](https://github.com/biomejs/biome/issues/2366), where
@@ -2350,13 +2360,15 @@ z.object({})
 #### Enhancements
 
 - The rule `noMisplacedAssertions` now considers valid calling `expect` inside `waitFor`:
+
   ```js
-  import { waitFor } from '@testing-library/react';
+  import { waitFor } from "@testing-library/react";
 
   await waitFor(() => {
     expect(111).toBe(222);
   });
   ```
+
   Contributed by @ematipico
 
 ## 1.7.0 (2024-04-15)
@@ -2367,11 +2379,9 @@ z.object({})
 
 - Now Biome can detect the script language in Svelte and Vue script blocks more reliably ([#2245](https://github.com/biomejs/biome/issues/2245)). Contributed by @Sec-ant
 
--
-`useExhaustiveDependencies` no longer reports recursive calls as missing dependencies ([#2361](https://github.com/biomejs/biome/issues/2361)). Contributed by @arendjr
+- `useExhaustiveDependencies` no longer reports recursive calls as missing dependencies ([#2361](https://github.com/biomejs/biome/issues/2361)). Contributed by @arendjr
 
--
-`useExhaustiveDependencies` correctly reports missing dependencies declared using function declarations ([#2362](https://github.com/biomejs/biome/issues/2362)). Contributed by @arendjr
+- `useExhaustiveDependencies` correctly reports missing dependencies declared using function declarations ([#2362](https://github.com/biomejs/biome/issues/2362)). Contributed by @arendjr
 
 - Biome now can handle `.svelte` and `.vue` files with `CRLF` as the end-of-line sequence. Contributed by @Sec-ant
 
@@ -2418,17 +2428,19 @@ z.object({})
 
   ```json
   {
-        "ignore_patterns": ["**/*.test.js"],
-        "globals": { "var2": "readonly" },
+    "ignore_patterns": ["**/*.test.js"],
+    "globals": { "var2": "readonly" },
+    "rules": {
+      "eqeqeq": "error"
+    },
+    "overrides": [
+      {
+        "files": ["lib/*.js"],
         "rules": {
-            "eqeqeq": "error"
-        },
-        "overrides": [{
-            "files": ["lib/*.js"],
-            "rules": {
-              "default-param-last": "off"
-            }
-        }]
+          "default-param-last": "off"
+        }
+      }
+    ]
   }
   ```
 
@@ -2445,16 +2457,18 @@ z.object({})
       }
     },
     "javascript": { "globals": ["var2"] },
-    "overrides": [{
-      "include": ["lib/*.js"],
-      "linter": {
-        "rules": {
-          "style": {
-            "useDefaultParameterLast": "off"
+    "overrides": [
+      {
+        "include": ["lib/*.js"],
+        "linter": {
+          "rules": {
+            "style": {
+              "useDefaultParameterLast": "off"
+            }
           }
         }
       }
-    }]
+    ]
   }
   ```
 
@@ -2799,6 +2813,7 @@ New rules are incubated in the nursery group. Once stable, we promote them to a 
   ---
   <div></div>
   ```
+
   Contributed by @ematipico
 
 ## 1.6.3 (2024-03-25)
@@ -2940,7 +2955,7 @@ New rules are incubated in the nursery group. Once stable, we promote them to a 
 - Add rule [noDoneCallback](https://biomejs.dev/linter/rules/no-done-callback), this rule checks the function parameter of hooks & tests for use of the done argument, suggesting you return a promise instead. Contributed by @vasucp1207
 
   ```js
-  beforeEach(done => {
+  beforeEach((done) => {
     // ...
   });
   ```
@@ -3012,6 +3027,7 @@ New rules are incubated in the nursery group. Once stable, we promote them to a 
 
   <div></div>
   ```
+
 - Add partial for
   `.vue` files. Biome is able to sort imports inside the script block of Vue files. Contributed by @nhedger
 
@@ -3119,7 +3135,7 @@ New rules are incubated in the nursery group. Once stable, we promote them to a 
   `try-finally` statements. Contributed by @ah-yu
 
 - Fix [#1924](https://github.com/biomejs/biome/issues/1924) Use the correct export name to sort in the import clause. Contributed by @ah-yu
-- Fix [#1805](https://github.com/biomejs/biome/issues/1805) fix formatting arrow function which has conditional expression body  Contributed by @mdm317
+- Fix [#1805](https://github.com/biomejs/biome/issues/1805) fix formatting arrow function which has conditional expression body Contributed by @mdm317
 
 - Fix [#1781](https://github.com/biomejs/biome/issues/1781) by avoiding the retrieval of the entire static member expression for the reference if the static member expression does not start with the reference. Contributed by @ah-yu
 
@@ -3183,6 +3199,7 @@ New rules are incubated in the nursery group. Once stable, we promote them to a 
 
 - Fix overriding of `javascript.globals`. Contributed by @arendjr
 - Fix a bug where syntax rules weren't run when pulling the diagnostics. Now Biome will emit more parsing diagnostics, e.g.
+
   ```
   check.js:1:17 parse/noDuplicatePrivateClassMembers ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -3192,6 +3209,7 @@ New rules are incubated in the nursery group. Once stable, we promote them to a 
         │                 ^^^^
 
   ```
+
   Contributed by @ematipico
 
 - Fix [#1774](https://github.com/biomejs/biome/issues/1774) by taking into account the option
@@ -3206,7 +3224,9 @@ New rules are incubated in the nursery group. Once stable, we promote them to a 
 
     × The file contains diagnostics that needs to be addressed.
   ```
+
   Contributed by @ematipico
+
 - The command
   `format` now emits parsing diagnostics if there are any, and it will terminate with a non-zero exit code. Contributed by @ematipico
 
@@ -3229,11 +3249,13 @@ New rules are incubated in the nursery group. Once stable, we promote them to a 
   ```
 
   And the `biome.json` file that "imports" said configuration, will look like this:
+
   ```json
   {
     "extends": "@org/configs/biome"
   }
   ```
+
   Read the [documentation](https://biomejs.dev/guides/how-biome-works#the-extends-option) to better understand how it works, expectations and restrictions.
 
 ### Editors
@@ -3242,6 +3264,7 @@ New rules are incubated in the nursery group. Once stable, we promote them to a 
 
 - Fix a regression where ignored files where formatted in the editor. Contributed by @ematipico
 - Fix a bug where syntax rules weren't run when pulling the diagnostics. Now Biome will emit more parsing diagnostics, e.g.
+
   ```
   check.js:1:17 parse/noDuplicatePrivateClassMembers ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -3251,6 +3274,7 @@ New rules are incubated in the nursery group. Once stable, we promote them to a 
         │                 ^^^^
 
   ```
+
   Contributed by @ematipico
 
 ### Formatter
@@ -3272,6 +3296,7 @@ New rules are incubated in the nursery group. Once stable, we promote them to a 
 
   <div></div>
   ```
+
 - Add partial for `.vue` files. Biome is able to format the script block of Vue files. Contributed by @nhedger
 
   ```diff
@@ -3319,11 +3344,10 @@ New rules are incubated in the nursery group. Once stable, we promote them to a 
   ```
 
   The following files are still protected, and thus ignored:
-
-    - `composer.lock`
-    - `npm-shrinkwrap.json`
-    - `package-lock.json`
-    - `yarn.lock`
+  - `composer.lock`
+  - `npm-shrinkwrap.json`
+  - `package-lock.json`
+  - `yarn.lock`
 
   Contributed by @pattrickrice and @Conaclos
 
@@ -3394,6 +3418,7 @@ Additionally, the following rules are now recommended:
   describe.skip("test", () => {});
   it.skip("test", () => {});
   ```
+
   Contributed by @ematipico
 
 - Add the rule [noFocusedTests](https://biomejs.dev/linter/rules/no-focused-tests), to disallow skipped tests:
@@ -3402,6 +3427,7 @@ Additionally, the following rules are now recommended:
   describe.only("test", () => {});
   it.only("test", () => {});
   ```
+
   Contributed by @ematipico
 
 - Add rule [useSortedClasses](https://biomejs.dev/linter/rules/use-sorted-classes), to sort CSS utility classes:
@@ -3410,6 +3436,7 @@ Additionally, the following rules are now recommended:
   - <div class="px-2 foo p-4 bar" />
   + <div class="foo bar p-4 px-2" />
   ```
+
   Contributed by @DaniGuardiola
 
 - Add rule [noUndeclaredDependencies](https://biomejs.dev/linter/rules/no-undeclared-dependencies), to detect the use of dependencies that aren't present in the
@@ -3424,7 +3451,9 @@ Additionally, the following rules are now recommended:
   ```js
   import * as foo from "foo";
   ```
+
   Contributed by @unvalley
+
 - Add partial support for
   `.astro` files. Biome is able to lint and fix the frontmatter of the Astro files. Contributed by @ematipico
 
@@ -3465,15 +3494,17 @@ Additionally, the following rules are now recommended:
         <div />;
       </div>
     );
-  }
+  };
   ```
 
   Contributed by @fujiyamaorange
+
 - Add rule [noBarrelFile](https://biomejs.dev/linter/rules/no-barrel-file), to report the usage of barrel file:
 
   ```js
   export * from "foo";
   ```
+
   Contributed by @togami2864
 
 - Add rule [noReExportAll](https://biomejs.dev/linter/rules/no-re-export-all/) that report
@@ -3513,7 +3544,7 @@ Additionally, the following rules are now recommended:
 
   ```js
   3.14_15; // PI
-  .4342; // LOG10E
+  0.4342; // LOG10E
   ```
 
   Contributed by @Conaclos
@@ -3523,7 +3554,7 @@ Additionally, the following rules are now recommended:
   The following numbers are now valid.
 
   ```js
-  .1230000000000000000000000;
+  0.123;
   1230000000000000000000000.0;
   ```
 
@@ -3590,7 +3621,7 @@ Additionally, the following rules are now recommended:
   The rule no longer reports the following code:
 
   ```ts
-  type Conditional<T> = T extends void ? Record<string, never> : T
+  type Conditional<T> = T extends void ? Record<string, never> : T;
   ```
 
   Contributed by @lucasweng
@@ -3641,9 +3672,11 @@ Additionally, the following rules are now recommended:
 
 - Fix [#1765](https://github.com/biomejs/biome/issues/1765). Now the rule
   `noDelete` doesn't trigger when deleting a dataset:
+
   ```js
   delete element.dataset.prop;
   ```
+
   Contributed by @ematipico
 
 - [useNamingConvention](https://biomejs.dev/linter/rules/use-naming-convention)
@@ -3676,12 +3709,10 @@ Additionally, the following rules are now recommended:
   Now the following code is correctly parsed:
 
   ```ts
-  declare global
-  { }
+  declare global {}
 
   declare module foo {
-    global
-    { }
+    global {}
   }
   ```
 
@@ -3691,9 +3722,9 @@ Additionally, the following rules are now recommended:
   `delete` expressions with operands that are not simple member expressions.
 
   ```js
-  delete(a.b);
+  delete a.b;
   delete console.log(1);
-  delete(() => {});
+  delete (() => {});
   ```
 
   Contributed by @printfn
@@ -4042,8 +4073,8 @@ Biome now scores 97% compatibility with Prettier and features more than 180 lint
   ```jsonc
   {
     "files": {
-      "ignoreUnknown": true
-    }
+      "ignoreUnknown": true,
+    },
   }
   ```
 
@@ -4073,9 +4104,9 @@ Biome now scores 97% compatibility with Prettier and features more than 180 lint
     "files": {
       "ignore": [
         "node_modules/**",
-        "!**/dist/**" // this is now accepted and allow files inside the `dist` folder
-      ]
-    }
+        "!**/dist/**", // this is now accepted and allow files inside the `dist` folder
+      ],
+    },
   }
   ```
 
@@ -4197,8 +4228,9 @@ New rules are incubated in the nursery group. Once stable, we promote them to a 
   -   (): string;
   - }
   + type Example = () => string
+  ```
 
-```
+````
 
 - Add [noNodejsModules](https://biomejs.dev/linter/rules/no-nodejs-modules), that disallows the use of _Node.js_ modules. Contributed by @anonrig, @ematipico, and @Conaclos
 
@@ -4209,7 +4241,7 @@ New rules are incubated in the nursery group. Once stable, we promote them to a 
     console.log(c); // Use of `c` before its declaration.
     const c = 0;
   }
-  ```
+````
 
 - Add [useConsistentArrayType](https://biomejs.dev/linter/rules/use-consistent-array-type) that enforces the use of a consistent syntax for array types. Contributed by @eryue0220
 
@@ -4282,15 +4314,9 @@ New rules are incubated in the nursery group. Once stable, we promote them to a 
   +
   ```
 
--
-`<svg>` element is now considered as a non-interactive HTML element ([#1095](https://github.com/biomejs/biome/issues/1095)). Contributed by @chansuke
+- `<svg>` element is now considered as a non-interactive HTML element ([#1095](https://github.com/biomejs/biome/issues/1095)). Contributed by @chansuke
 
-This affects the following rules:
-    - [noAriaHiddenOnFocusable](https://biomejs.dev/linter/rules/no-aria-hidden-on-focusable)
-    - [noInteractiveElementToNoninteractiveRole](https://biomejs.dev/linter/rules/no-interactive-element-to-noninteractive-role)
-    - [noNoninteractiveElementToInteractiveRole](https://biomejs.dev/linter/rules/no-noninteractive-element-to-interactive-role)
-    - [noNoninteractiveTabindex](https://biomejs.dev/linter/rules/no-noninteractive-tabindex)
-    - [useAriaActivedescendantWithTabindex](https://biomejs.dev/linter/rules/use-aria-activedescendant-with-tabindex)
+This affects the following rules: - [noAriaHiddenOnFocusable](https://biomejs.dev/linter/rules/no-aria-hidden-on-focusable) - [noInteractiveElementToNoninteractiveRole](https://biomejs.dev/linter/rules/no-interactive-element-to-noninteractive-role) - [noNoninteractiveElementToInteractiveRole](https://biomejs.dev/linter/rules/no-noninteractive-element-to-interactive-role) - [noNoninteractiveTabindex](https://biomejs.dev/linter/rules/no-noninteractive-tabindex) - [useAriaActivedescendantWithTabindex](https://biomejs.dev/linter/rules/use-aria-activedescendant-with-tabindex)
 
 - [noMultipleSpacesInRegularExpressionLiterals](https://biomejs.dev/linter/rules/no-multiple-spaces-in-regular-expression-literals/)
   has a safe code fix. Contributed by @Conaclos
@@ -4314,7 +4340,7 @@ The following code is no longer reported:
 export default function (a: boolean): boolean;
 export default function (a: number): number;
 export default function (a: number | boolean): number | boolean {
-    return a;
+  return a;
 }
 ```
 
@@ -4329,10 +4355,10 @@ The following code is no longer reported:
 let outer = false;
 
 const Component = ({}) => {
-    useEffect(() => {
-        outer = true;
-    }, []);
-}
+  useEffect(() => {
+    outer = true;
+  }, []);
+};
 ```
 
 -
@@ -4397,11 +4423,11 @@ now correctly handles parenthesized expressions and respects type coercions. Con
 These cases are now properly handled:
 
 ```js
-"a" + (1 + 2) // `a${1 + 2}`
+"a" + (1 + 2); // `a${1 + 2}`
 ```
 
 ```js
-1 + (2 + "a") // `${1}${2}a`
+1 + (2 + "a"); // `${1}${2}a`
 ```
 
 -
@@ -4482,19 +4508,19 @@ now ignores `<svg>` element with `aria-hidden="true"`. COntributed by @vasucp120
   _JavaScript_:
 
   ```javascript
-    a ? (b) : a => {};
+  a ? b : (a) => {};
   ```
 
   _TypeScript_:
 
   ```ts
-    a ? (b) : a => {};
+  a ? b : (a) => {};
   ```
 
   _JSX_:
 
   ```jsx
-    bar ? (foo) : (<a>{() => {}}</a>);
+  bar ? foo : <a>{() => {}}</a>;
   ```
 
 - Allow empty type parameter lists for interfaces and type aliases ([#1237](https://github.com/biomejs/biome/issues/1237)). COntributed by @togami2864
@@ -4555,13 +4581,13 @@ now ignores `<svg>` element with `aria-hidden="true"`. COntributed by @vasucp120
 
   ```js
   function f(x) {
-      if (x < 0) {
-        // this `if` doesn't break early.
-      } else if (x > 0) {
-          return x;
-      } else {
-          // This `else` block was previously reported as useless.
-      }
+    if (x < 0) {
+      // this `if` doesn't break early.
+    } else if (x > 0) {
+      return x;
+    } else {
+      // This `else` block was previously reported as useless.
+    }
   }
   ```
 
@@ -4901,6 +4927,7 @@ fixes false-positives to `aria-label` and reports svg's role attribute is implic
   ```shell
   biome format --log-level=info ./src
   ```
+
   There are four different levels of logging, from the most verbose to the least verbose: `debug`, `info`, `warn`
   and `error`. Here's how an `INFO` log will look like:
 
@@ -4941,11 +4968,11 @@ fixes false-positives to `aria-label` and reports svg's role attribute is implic
 - Add option `json.formatter.indentWidth`, and deprecated the option
   `json.formatter.indentSize`. Contributed by @ematipico
 - Add option `include` to multiple sections of the configuration
-    - `files.include`;
-    - `formatter.include`;
-    - `linter.include`;
-    - `organizeImports.include`; When `include` and `ignore` are both specified, `ignore` takes **precedence** over
-      `include`
+  - `files.include`;
+  - `formatter.include`;
+  - `linter.include`;
+  - `organizeImports.include`; When `include` and `ignore` are both specified, `ignore` takes **precedence** over
+    `include`
 - Add option `overrides`, where users can modify the behaviour of the tools for certain files or paths.
 
   For example, it's possible to modify the formatter `lineWidth`, and even
@@ -5089,14 +5116,13 @@ rule. The rule enforces the non-interactive ARIA roles are not assigned to inter
 #### Enhancements
 
 - The following rules have now safe code fixes:
-
-    - [noNegationElse](https://biomejs.dev/linter/rules/no-negation-else)
-    - [noUselessLabel](https://biomejs.dev/linter/rules/no-useless-label)
-    - [noUselessTypeConstraint](https://biomejs.dev/linter/rules/no-useless-type-constraint)
-    - [noUnusedLabels](https://biomejs.dev/linter/rules/no-unused-labels)
-    - [useConst](https://biomejs.dev/linter/rules/use-const)
-    - [useEnumInitializers](https://biomejs.dev/linter/rules/use-enum-initializers)
-    - [useWhile](https://biomejs.dev/linter/rules/use-while)
+  - [noNegationElse](https://biomejs.dev/linter/rules/no-negation-else)
+  - [noUselessLabel](https://biomejs.dev/linter/rules/no-useless-label)
+  - [noUselessTypeConstraint](https://biomejs.dev/linter/rules/no-useless-type-constraint)
+  - [noUnusedLabels](https://biomejs.dev/linter/rules/no-unused-labels)
+  - [useConst](https://biomejs.dev/linter/rules/use-const)
+  - [useEnumInitializers](https://biomejs.dev/linter/rules/use-enum-initializers)
+  - [useWhile](https://biomejs.dev/linter/rules/use-while)
 
 - [noAccumulatingSpread](https://biomejs.dev/linter/rules/no-accumulating-spread) makes more check in order to reduce potential false positives. Contributed by @Vivalldi
 
@@ -5194,14 +5220,14 @@ now provides correct code fixes for signed numbers. Contributed by @Conaclos
 #### New features
 
 - Add new options to customize the behaviour the formatter based on the language of the file
-    - `--json-formatter-enabled`
-    - `--json-formatter-indent-style`
-    - `--json-formatter-indent-size`
-    - `--json-formatter-line-width`
-    - `--javascript-formatter-enabled`
-    - `--javascript-formatter-indent-style`
-    - `--javascript-formatter-indent-size`
-    - `--javascript-formatter-line-width`
+  - `--json-formatter-enabled`
+  - `--json-formatter-indent-style`
+  - `--json-formatter-indent-size`
+  - `--json-formatter-line-width`
+  - `--javascript-formatter-enabled`
+  - `--javascript-formatter-indent-style`
+  - `--javascript-formatter-indent-size`
+  - `--javascript-formatter-line-width`
 
 #### Bug fixes
 
@@ -5212,14 +5238,14 @@ now provides correct code fixes for signed numbers. Contributed by @Conaclos
 #### New features
 
 - Add new options to customize the behaviour of the formatter based on the language of the file
-    - `json.formatter.enabled`
-    - `json.formatter.indentStyle`
-    - `json.formatter.indentSize`
-    - `json.formatter.lineWidth`
-    - `javascript.formatter.enabled`
-    - `javascript.formatter.indentStyle`
-    - `javascript.formatter.indentSize`
-    - `javascript.formatter.lineWidth`
+  - `json.formatter.enabled`
+  - `json.formatter.indentStyle`
+  - `json.formatter.indentSize`
+  - `json.formatter.lineWidth`
+  - `javascript.formatter.enabled`
+  - `javascript.formatter.indentStyle`
+  - `javascript.formatter.indentSize`
+  - `javascript.formatter.lineWidth`
 
 ### Linter
 
@@ -5283,7 +5309,7 @@ New rules are incubated in the nursery group. Once stable, we promote them to a 
 
   ```ts
   interface I {
-    instance(): I
+    instance(): I;
   }
   ```
 
@@ -5301,20 +5327,20 @@ New rules are incubated in the nursery group. Once stable, we promote them to a 
 - Fix [#137](https://github.com/biomejs/biome/issues/137), fix [noRedeclare](https://biomejs.dev/linter/rules/no-redeclare/) false positive case with TypeScript module declaration:
 
   ```typescript
-  declare module '*.gif' {
-      const src: string;
+  declare module "*.gif" {
+    const src: string;
   }
 
-  declare module '*.bmp' {
-      const src: string;
+  declare module "*.bmp" {
+    const src: string;
   }
   ```
+
   Contributed by @denbezrukov
 
 - Fix [#258](https://github.com/biomejs/biome/issues/258), fix [noUselessFragments](https://biomejs.dev/linter/rules/no-useless-fragments/) the case where the rule removing an assignment. Contributed by @denbezrukov
 - Fix [#266](https://github.com/biomejs/biome/issues/266), where
   `complexity/useLiteralKeys` emitted a code action with an invalid AST. Contributed by @ematipico
-
 
 - Fix [#105](https://github.com/biomejs/biome/issues/105), removing false positives reported by [noUnusedVariables](https://biomejs.dev/linter/rules/no-unused-variables/).
 
@@ -5347,7 +5373,7 @@ New rules are incubated in the nursery group. Once stable, we promote them to a 
 #### Enhancements
 
 - [useNamingConvention](https://biomejs.dev/linter/rules/use-naming-convention/) now accepts import namespaces in
-  _PascalCase_ and rejects export namespaces in _CONSTANT\_CASE_.
+  _PascalCase_ and rejects export namespaces in _CONSTANT_CASE_.
 
   The following code is now valid:
 
@@ -5478,11 +5504,7 @@ New rules are incubated in the nursery group. Once stable, we promote them to a 
   `for` loop. The following code is now correctly ignored:
 
   ```js
-  for (
-    let i = 0, j = 1, k = 2;
-    i < 100;
-    i++, j++, k++
-  ) {}
+  for (let i = 0, j = 1, k = 2; i < 100; i++, j++, k++) {}
   ```
 
   Contributed by @Conaclos
@@ -5503,7 +5525,7 @@ New rules are incubated in the nursery group. Once stable, we promote them to a 
   ```diff
   - a + b + "px"
   + `${a + b}px`
-   ```
+  ```
 
   Contributed by @Conaclos
 
@@ -5608,17 +5630,17 @@ New rules are incubated in the nursery group. Once stable, we promote them to a 
 
 - Add a new option to ignore unknown files `--files-ignore-unknown`:
 
-    ```shell
-    biome format --files-ignore-unknown ./src
-    ```
+  ```shell
+  biome format --files-ignore-unknown ./src
+  ```
 
   Doing so, Biome won't emit diagnostics for files that doesn't know how to handle.
 
 - Add the new option `--no-errors-on-unmatched`:
 
-    ```shell
-    biome format --no-errors-on-unmatched ./src
-    ```
+  ```shell
+  biome format --no-errors-on-unmatched ./src
+  ```
 
   Biome doesn't exit with an error code if no files were processed in the given paths.
 
@@ -5631,22 +5653,22 @@ New rules are incubated in the nursery group. Once stable, we promote them to a 
 - Introduced a new command called `biome lint`, which will only run lint rules against the code base.
 
 - Biome recognizes known files as "JSON files with comments allowed":
+  - `typescript.json`;
+  - `tsconfig.json`;
+  - `jsconfig.json`;
+  - `tslint.json`;
+  - `babel.config.json`;
+  - `.babelrc.json`;
+  - `.ember-cli`;
+  - `typedoc.json`;
+  - `.eslintrc.json`;
+  - `.eslintrc`;
+  - `.jsfmtrc`;
+  - `.jshintrc`;
+  - `.swcrc`;
+  - `.hintrc`;
+  - `.babelrc`;
 
-    - `typescript.json`;
-    - `tsconfig.json`;
-    - `jsconfig.json`;
-    - `tslint.json`;
-    - `babel.config.json`;
-    - `.babelrc.json`;
-    - `.ember-cli`;
-    - `typedoc.json`;
-    - `.eslintrc.json`;
-    - `.eslintrc`;
-    - `.jsfmtrc`;
-    - `.jshintrc`;
-    - `.swcrc`;
-    - `.hintrc`;
-    - `.babelrc`;
 - Add support for `biome.json`;
 
 ### Configuration
@@ -5655,26 +5677,27 @@ New rules are incubated in the nursery group. Once stable, we promote them to a 
 
 - Add a new option to ignore unknown files:
 
-    ```json
-    {
-       "files": {
-          "ignoreUnknown": true
-       }
+  ```json
+  {
+    "files": {
+      "ignoreUnknown": true
     }
-    ```
+  }
+  ```
+
   Doing so, Biome won't emit diagnostics for file that it doesn't know how to handle.
 
 - Add a new `"javascript"` option to support the unsafe/experimental parameter decorators:
 
-    ```json
-    {
-       "javascript": {
-          "parser": {
-             "unsafeParameterDecoratorsEnabled": true
-          }
-       }
+  ```json
+  {
+    "javascript": {
+      "parser": {
+        "unsafeParameterDecoratorsEnabled": true
+      }
     }
-    ```
+  }
+  ```
 
 - Add a new `"extends"` option, useful to split the configuration file in multiple files:
 
@@ -5802,7 +5825,7 @@ New rules are incubated in the nursery group. Once stable, we promote them to a 
 
   ```js
   class Person {
-      get firstName() {}
+    get firstName() {}
   }
   ```
 
@@ -5820,10 +5843,10 @@ New rules are promoted, please check [#4750](https://github.com/rome/tools/discu
 
 The following rules are now recommended:
 
-**- [noUselessFragments](https://biomejs.dev/linter/rules/no-useless-fragments/)
+\*\*- [noUselessFragments](https://biomejs.dev/linter/rules/no-useless-fragments/)
 
 - [noRedundantUseStrict](https://biomejs.dev/linter/rules/no-redundant-use-strict/)
-- [useExponentiationOperator](https://biomejs.dev/linter/rules/use-exponentiation-operator/)**
+- [useExponentiationOperator](https://biomejs.dev/linter/rules/use-exponentiation-operator/)\*\*
 
 #### Other changes
 
@@ -5841,7 +5864,7 @@ namespaces.
 For instance, the following code is now reported by `noConsoleLog`:
 
 ```js
-globalThis.console.log("log")
+globalThis.console.log("log");
 ```
 
 - Improve [noDuplicateParameters](https://biomejs.dev/linter/rules/no-duplicate-parameters/) to manage constructor parameters.
@@ -5882,7 +5905,7 @@ globalThis.console.log("log")
 
   ```ts
   function f<T extends {}>(x: T) {
-      assert(x != null);
+    assert(x != null);
   }
   ```
 
@@ -5915,13 +5938,13 @@ globalThis.console.log("log")
   All arrow functions that enclose its parameter with parenthesis are allowed. Thus, the following snippet no longer trigger the rule:
 
   ```js
-  var x = (a) => 1 ? 2 : 3;
+  var x = (a) => (1 ? 2 : 3);
   ```
 
   The following snippet still triggers the rule:
 
   ```js
-  var x = a => 1 ? 2 : 3;
+  var x = (a) => (1 ? 2 : 3);
   ```
 
 - Relax [useLiteralEnumMembers](https://biomejs.dev/linter/rules/use-literal-enum-members/)
@@ -5942,8 +5965,8 @@ globalThis.console.log("log")
   ```ts
   enum FileAccess {
     None = 0,
-    Read = 2**0,
-    Write = 2**1,
+    Read = 2 ** 0,
+    Write = 2 ** 1,
     All = Read | Write,
   }
   ```
@@ -5982,18 +6005,16 @@ globalThis.console.log("log")
   ```json
   {
     "linter": {
-       "rules": {
-          "nursery": {
-             "useExhaustiveDependencies": {
-                "level": "error",
-                "options": {
-                   "hooks": [
-                      ["useMyEffect", 0, 1]
-                   ]
-                }
-             }
+      "rules": {
+        "nursery": {
+          "useExhaustiveDependencies": {
+            "level": "error",
+            "options": {
+              "hooks": [["useMyEffect", 0, 1]]
+            }
           }
-       }
+        }
+      }
     }
   }
   ```
@@ -6003,22 +6024,22 @@ globalThis.console.log("log")
   ```json
   {
     "linter": {
-       "rules": {
-          "nursery": {
-             "useExhaustiveDependencies": {
-                "level": "error",
-                "options": {
-                   "hooks": [
-                      {
-                         "name": "useMyEffect",
-                         "closureIndex": 0,
-                         "dependenciesIndex": 1
-                      }
-                   ]
+      "rules": {
+        "nursery": {
+          "useExhaustiveDependencies": {
+            "level": "error",
+            "options": {
+              "hooks": [
+                {
+                  "name": "useMyEffect",
+                  "closureIndex": 0,
+                  "dependenciesIndex": 1
                 }
-             }
+              ]
+            }
           }
-       }
+        }
+      }
     }
   }
   ```
@@ -6031,10 +6052,9 @@ globalThis.console.log("log")
 - Fix a crash in the [NoParameterAssign](https://biomejs.dev/linter/rules/no-parameter-assign/) rule that occurred when there was a bogus binding. [#4323](https://github.com/rome/tools/issues/4323)
 
 - Fix [useExhaustiveDependencies](https://biomejs.dev/linter/rules/use-exhaustive-dependencies/) in the following cases [#4330](https://github.com/rome/tools/issues/4330):
-
-    - when the first argument of hooks is a named function
-    - inside an export default function
-    - for `React.use` hooks
+  - when the first argument of hooks is a named function
+  - inside an export default function
+  - for `React.use` hooks
 
 - Fix [noInvalidConstructorSuper](https://biomejs.dev/linter/rules/no-invalid-constructor-super/) that erroneously reported generic parents [#4624](https://github.com/rome/tools/issues/4624).
 
@@ -6069,24 +6089,25 @@ globalThis.console.log("log")
 
 - Add support for decorators in class method parameters, example:
 
-    ```js
-    class AppController {
-       get(@Param() id) {}
-       // ^^^^^^^^ new supported syntax
-    }
-    ```
+  ```js
+  class AppController {
+    get(@Param() id) {}
+    // ^^^^^^^^ new supported syntax
+  }
+  ```
 
   This syntax is only supported via configuration, because it's a non-standard syntax.
 
-    ```json
-    {
-       "javascript": {
-          "parser": {
-             "unsafeParameterDecoratorsEnabled": true
-          }
-       }
+  ```json
+  {
+    "javascript": {
+      "parser": {
+        "unsafeParameterDecoratorsEnabled": true
+      }
     }
-    ```
+  }
+  ```
+
 - Add support for parsing comments inside JSON files:
 
   ```json
@@ -6098,6 +6119,7 @@ globalThis.console.log("log")
     }
   }
   ```
+
 - Add support for the new `using` syntax
 
   ```js
