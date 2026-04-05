@@ -137,6 +137,10 @@ impl DocDomains {
                         "This domain contains rules that perform project-level analysis. This includes our module graph for dependency resolution. When enabling rules that belong to this domain, Biome will scan the entire project, *and it will enable the inference engine to resolve and flat types*. The scanning phase will have a performance impact on the linting process. See the documentation on our [scanner](/internals/architecture/#scanner) to learn more about the scanner."
                     )?;
                 }
+                RuleDomain::Drizzle => {
+                    writeln!(buffer, "## {name}")?;
+                    writeln!(buffer, "Use this domain with projects using Drizzle.")?;
+                }
                 #[allow(unreachable_patterns)]
                 domain => {
                     eprintln!("Undocumented domain: {domain:?}");
