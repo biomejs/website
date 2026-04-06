@@ -103,8 +103,8 @@ importers:
         specifier: 0.10.1
         version: 0.10.1(astro@5.16.15(@netlify/blobs@10.7.2)(@types/node@24.12.0)(jiti@2.6.1)(rollup@4.59.0)(sass@1.77.8)(sugarss@5.0.1(postcss@8.5.8))(typescript@5.9.3)(yaml@2.8.2))
       canvaskit-wasm:
-        specifier: 0.40.0
-        version: 0.40.0
+        specifier: 0.41.0
+        version: 0.41.0
       cm6-graphql:
         specifier: 0.2.1
         version: 0.2.1(@codemirror/autocomplete@6.20.1)(@codemirror/language@6.12.2)(@codemirror/lint@6.9.5)(@codemirror/state@6.6.0)(@codemirror/view@6.41.0)(@lezer/highlight@1.2.3)(graphql@16.8.2)
@@ -2683,6 +2683,9 @@ packages:
 
   canvaskit-wasm@0.40.0:
     resolution: {integrity: sha512-Od2o+ZmoEw9PBdN/yCGvzfu0WVqlufBPEWNG452wY7E9aT8RBE+ChpZF526doOlg7zumO4iCS+RAeht4P0Gbpw==}
+
+  canvaskit-wasm@0.41.0:
+    resolution: {integrity: sha512-cnbL02NFB3yOYMF/MtxViZHgD1vh55Pvy+zR8q4JuFvyCPejZP3eClkt2GuZ0S7jOmGMCJXaHBasbMChbR9JZg==}
 
   ccount@1.1.0:
     resolution: {integrity: sha512-vlNK021QdI7PNeiUh/lKkC/mNHHfV0m/Ad5JoI0TYtlBnJAslM/JIkm/tGC88bkLIwO6OQ5uV6ztS6kVAtCDlg==}
@@ -9465,6 +9468,10 @@ snapshots:
   caniuse-lite@1.0.30001780: {}
 
   canvaskit-wasm@0.40.0:
+    dependencies:
+      '@webgpu/types': 0.1.21
+
+  canvaskit-wasm@0.41.0:
     dependencies:
       '@webgpu/types': 0.1.21
 
