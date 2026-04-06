@@ -40,6 +40,8 @@ For instance, deleting an array element [does not change the length of the array
 The only legitimate use of `delete` is on an object that behaves like a _map_.
 To allow this pattern, this rule does not report `delete` on computed properties that are not literal values.
 Consider using [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) instead of an object.
+An exception is [`delete process.env.NAME`](https://nodejs.org/api/process.html#processenv),
+which Node.js documents as the way to remove environment variables.
 
 ## Examples
 
@@ -76,6 +78,10 @@ delete map[key];
 ```js
 let x = 5;
 delete f(); // uncovered by this rule.
+```
+
+```js
+delete process.env.FOO;
 ```
 
 ## Related links

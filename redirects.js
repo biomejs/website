@@ -344,6 +344,7 @@ export default {
   '/linter/rules/useConsistentMemberAccessibility': '/linter/rules/use-consistent-member-accessibility',
   '/linter/rules/useConsistentMethodSignatures': '/linter/rules/use-consistent-method-signatures',
   '/linter/rules/useConsistentObjectDefinitions': '/linter/rules/use-consistent-object-definitions',
+  '/linter/rules/useConsistentTestIt': '/linter/rules/use-consistent-test-it',
   '/linter/rules/useConsistentTypeDefinitions': '/linter/rules/use-consistent-type-definitions',
   '/linter/rules/useConst': '/linter/rules/use-const',
   '/linter/rules/useDateNow': '/linter/rules/use-date-now',
