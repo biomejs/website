@@ -246,6 +246,7 @@ export const LINT_RULES = {
     useConsistentEnumValueType: "useConsistentEnumValueType",
     useConsistentGraphqlDescriptions: "useConsistentGraphqlDescriptions",
     useConsistentMethodSignatures: "useConsistentMethodSignatures",
+    useConsistentTestIt: "useConsistentTestIt",
     useDestructuring: "useDestructuring",
     useErrorCause: "useErrorCause",
     useExhaustiveSwitchCases: "useExhaustiveSwitchCases",
