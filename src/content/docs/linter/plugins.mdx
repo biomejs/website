@@ -34,6 +34,7 @@ can see its results when running `biome lint` or `biome check`. For example:
 
 ```shell
 $ biome lint
+
 /packages/tailwindcss-config-analyzer/src/introspect.ts:12:17 plugin ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   ✖ Prefer object spread instead of `Object.assign()`
@@ -66,6 +67,32 @@ Rewrite behavior:
 - With `--write`, Biome applies plugin rewrites marked with `fix_kind = "safe"`.
 - With `--write --unsafe`, Biome also applies unsafe plugin rewrites.
 - If `fix_kind` is omitted, the rewrite is treated as unsafe by default.
+
+## Restricting Plugins to Specific Files
+
+By default, a plugin runs on every file Biome processes. However, you can use the `includes` option to retrict files and folder of where the plugin can or can't run.
+
+In the following example, the first plugin only runs on files inside
+`src/components/`. The second plugin runs on all files that have the extension `.ts` under `src/` folder, except for files that end with `.test.ts` in the `src/` folder:
+
+```json name="biome.json"
+{
+    "plugins": [
+        {
+            "path": "./react-plugin.grit",
+            "includes": ["src/components/**"]
+        },
+        {
+            "path": "./ts-only-plugin.grit",
+            "includes": ["src/**/*.ts", "!src/**/*.test.ts"]
+        }
+    ]
+}
+```
+
+When `includes` is set, the plugin only runs on files that match at least one
+positive pattern and are not excluded by a negated pattern. Patterns follow the
+[glob syntax reference](/reference/configuration/#glob-syntax-reference).
 
 ## Target Languages
 
