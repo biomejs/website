@@ -49,9 +49,7 @@ $ biome lint
 
 ## Restricting Plugins to Specific Files
 
-By default, a plugin runs on every file the linter processes. If a plugin only
-applies to certain files, you can restrict it using `includes` glob patterns.
-Use negated globs (prefixed with `!`) for exclusions.
+By default, a plugin runs on every file Biome processes. However, you can use the `includes` option to retrict files and folder of where the plugin can or can't run.
 
 In the following example, the first plugin only runs on files inside
 `src/components/`. The second plugin runs on all files that have the extension `.ts` under `src/` folder, except for files that end with `.test.ts` in the `src/` folder:
