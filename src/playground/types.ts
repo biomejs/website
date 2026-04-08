@@ -186,6 +186,7 @@ export interface PlaygroundSettings {
 	operatorLinebreak: OperatorLinebreak;
 	attributePosition: AttributePosition;
 	bracketSpacing: boolean;
+	delimiterSpacing: boolean;
 	bracketSameLine: boolean;
 	expand: Expand;
 	lintRules: LintRule;
@@ -243,6 +244,7 @@ export const defaultPlaygroundState: PlaygroundState = {
 		operatorLinebreak: OperatorLinebreak.After,
 		attributePosition: AttributePosition.Auto,
 		bracketSpacing: true,
+		delimiterSpacing: false,
 		bracketSameLine: false,
 		expand: Expand.Auto,
 		lintRules: LINT_RULES.recommended,
