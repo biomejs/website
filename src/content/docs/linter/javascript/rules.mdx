@@ -199,6 +199,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noInlineStyles](/linter/rules/no-inline-styles) | Disallow the use of inline styles. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noJsxPropsBind](/linter/rules/no-jsx-props-bind) | Disallow .bind(), arrow functions, or function expressions in JSX props |  |
 | [noLeakedRender](/linter/rules/no-leaked-render) | Prevent problematic leaked values from being rendered. |  |
+| [noMisleadingReturnType](/linter/rules/no-misleading-return-type) | Detect return type annotations that are misleadingly wider than what | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
 | [noMisusedPromises](/linter/rules/no-misused-promises) | Disallow Promises to be used in places where they are almost certainly a | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noMultiAssign](/linter/rules/no-multi-assign) | Disallow use of chained assignment expressions |  |
 | [noMultiStr](/linter/rules/no-multi-str) | Disallow creating multiline strings by escaping newlines. |  |
@@ -237,9 +238,11 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [useConsistentMethodSignatures](/linter/rules/use-consistent-method-signatures) | Enforce consistent use of either method signatures or function properties within interfaces and type aliases. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useConsistentTestIt](/linter/rules/use-consistent-test-it) | Enforce consistent use of `it` or `test` for test functions. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span><span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
 | [useDestructuring](/linter/rules/use-destructuring) | Require destructuring from arrays and/or objects |  |
+| [useDisposables](/linter/rules/use-disposables) | Detects a disposable object assigned to a variable without using or await using syntax. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span><span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
 | [useErrorCause](/linter/rules/use-error-cause) | Enforce that `new Error()` is thrown with the original error as `cause`. |  |
 | [useExhaustiveSwitchCases](/linter/rules/use-exhaustive-switch-cases) | Require switch-case statements to be exhaustive. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useExpect](/linter/rules/use-expect) | Ensure that test functions contain at least one `expect()` or similar assertion. |  |
+| [useExplicitReturnType](/linter/rules/use-explicit-return-type) | Require explicit return types on functions and class methods. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
 | [useExplicitType](/linter/rules/use-explicit-type) | Enforce types in functions, methods, variables, and parameters. |  |
 | [useFind](/linter/rules/use-find) | Enforce the use of Array.prototype.find() over Array.prototype.filter() followed by [0] when looking for a single result. |  |
 | [useGlobalThis](/linter/rules/use-global-this) | Enforce the use of `globalThis` over `window`, `self`, and `global`. |  |
