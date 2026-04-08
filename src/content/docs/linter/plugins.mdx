@@ -30,7 +30,22 @@ the following configuration:
 ```
 
 The plugin will now be enabled on all supported files the linter runs on. You
-can see its results when running `biome lint` or `biome check`.
+can see its results when running `biome lint` or `biome check`. For example:
+
+```shell
+$ biome lint
+
+/packages/tailwindcss-config-analyzer/src/introspect.ts:12:17 plugin ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✖ Prefer object spread instead of `Object.assign()`
+
+    10 │ function createContextFromConfig(config: Partial<Config>) {
+    11 │        return createContext(
+  > 12 │                resolveConfig(Object.assign({}, DEFAULT_CONFIG, config)),
+       │                              ^^^^^^^^^^^^^
+    13 │        );
+    14 │ }
+```
 
 ## Restricting Plugins to Specific Files
 
