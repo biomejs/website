@@ -53,6 +53,10 @@ nullish (not other falsy values like `0` or `''`).
 For `||=` assignment expressions, the same logic applies: `a ||= b` is
 flagged when `a` is possibly nullish and can be rewritten as `a ??= b`.
 
+For ternary expressions, this rule detects patterns like `x !== null ? x : y`
+and suggests rewriting them as `x ?? y`. This applies to strict and loose
+equality checks against `null` or `undefined`, including compound checks.
+
 By default, `||` expressions in conditional test positions (if/while/for/ternary)
 are ignored, as the falsy-checking behavior is often intentional there. This can
 be disabled with the `ignoreConditionalTests` option.
@@ -75,6 +79,20 @@ const value = maybeNumber || 0; // should use ??
 declare let x: string | null;
 x ||= 'default'; // should use ??=
 ```
+
+```ts
+declare const x: string | null;
+const value = x !== null ? x : 'default'; // should use ??
+```
+
+<pre class="language-text"><code class="language-text">code-block.ts:2:15 <a href="https://biomejs.dev/linter/rules/use-nullish-coalescing">lint/nursery/useNullishCoalescing</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Prefer </span><span style="color: lightgreen;"><strong>??</strong></span><span style="color: lightgreen;"> over a ternary expression checking for nullish.</span><br />  <br />    <strong>1 │ </strong>declare const x: string | null;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>const value = x !== null ? x : 'default'; // should use ??<br />   <strong>   │ </strong>              <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule is still being actively worked on, so it may be missing features or have rough edges. Visit </span><span style="color: lightgreen;"><a href="https://github.com/biomejs/biome/issues/8043">https://github.com/biomejs/biome/issues/8043</a></span><span style="color: lightgreen;"> for more information or to report possible bugs.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Safe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Use </span><span style="color: lightgreen;"><strong>??</strong></span><span style="color: lightgreen;"> instead.</span><br />  <br />    <strong>1</strong> <strong>1</strong><strong> │ </strong>  declare const x: string | null;<br />    <strong>2</strong>  <strong> │ </strong><span style="color: Tomato;">-</span> <span style="color: Tomato;">c</span><span style="color: Tomato;">o</span><span style="color: Tomato;">n</span><span style="color: Tomato;">s</span><span style="color: Tomato;">t</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">v</span><span style="color: Tomato;">a</span><span style="color: Tomato;">l</span><span style="color: Tomato;">u</span><span style="color: Tomato;">e</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">=</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">x</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;"><strong>!</strong></span><span style="color: Tomato;"><strong>=</strong></span><span style="color: Tomato;"><strong>=</strong></span><span style="color: Tomato;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: Tomato;"><strong>n</strong></span><span style="color: Tomato;"><strong>u</strong></span><span style="color: Tomato;"><strong>l</strong></span><span style="color: Tomato;"><strong>l</strong></span><span style="color: Tomato;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: Tomato;">?</span><span style="color: Tomato;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: Tomato;"><strong>x</strong></span><span style="color: Tomato;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: Tomato;"><strong>:</strong></span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">'</span><span style="color: Tomato;">d</span><span style="color: Tomato;">e</span><span style="color: Tomato;">f</span><span style="color: Tomato;">a</span><span style="color: Tomato;">u</span><span style="color: Tomato;">l</span><span style="color: Tomato;">t</span><span style="color: Tomato;">'</span><span style="color: Tomato;">;</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">/</span><span style="color: Tomato;">/</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">s</span><span style="color: Tomato;">h</span><span style="color: Tomato;">o</span><span style="color: Tomato;">u</span><span style="color: Tomato;">l</span><span style="color: Tomato;">d</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">u</span><span style="color: Tomato;">s</span><span style="color: Tomato;">e</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">?</span><span style="color: Tomato;">?</span><br />      <strong>2</strong><strong> │ </strong><span style="color: MediumSeaGreen;">+</span> <span style="color: MediumSeaGreen;">c</span><span style="color: MediumSeaGreen;">o</span><span style="color: MediumSeaGreen;">n</span><span style="color: MediumSeaGreen;">s</span><span style="color: MediumSeaGreen;">t</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">v</span><span style="color: MediumSeaGreen;">a</span><span style="color: MediumSeaGreen;">l</span><span style="color: MediumSeaGreen;">u</span><span style="color: MediumSeaGreen;">e</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">=</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">x</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">?</span><span style="color: MediumSeaGreen;"><strong>?</strong></span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">'</span><span style="color: MediumSeaGreen;">d</span><span style="color: MediumSeaGreen;">e</span><span style="color: MediumSeaGreen;">f</span><span style="color: MediumSeaGreen;">a</span><span style="color: MediumSeaGreen;">u</span><span style="color: MediumSeaGreen;">l</span><span style="color: MediumSeaGreen;">t</span><span style="color: MediumSeaGreen;">'</span><span style="color: MediumSeaGreen;">;</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">/</span><span style="color: MediumSeaGreen;">/</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">s</span><span style="color: MediumSeaGreen;">h</span><span style="color: MediumSeaGreen;">o</span><span style="color: MediumSeaGreen;">u</span><span style="color: MediumSeaGreen;">l</span><span style="color: MediumSeaGreen;">d</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">u</span><span style="color: MediumSeaGreen;">s</span><span style="color: MediumSeaGreen;">e</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">?</span><span style="color: MediumSeaGreen;">?</span><br />    <strong>3</strong> <strong>3</strong><strong> │ </strong>  <br />  <br /></code></pre>
+
+```ts
+declare const x: string | null;
+const value = x == null ? 'default' : x; // should use ??
+```
+
+<pre class="language-text"><code class="language-text">code-block.ts:2:15 <a href="https://biomejs.dev/linter/rules/use-nullish-coalescing">lint/nursery/useNullishCoalescing</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Prefer </span><span style="color: lightgreen;"><strong>??</strong></span><span style="color: lightgreen;"> over a ternary expression checking for nullish.</span><br />  <br />    <strong>1 │ </strong>declare const x: string | null;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>const value = x == null ? 'default' : x; // should use ??<br />   <strong>   │ </strong>              <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule is still being actively worked on, so it may be missing features or have rough edges. Visit </span><span style="color: lightgreen;"><a href="https://github.com/biomejs/biome/issues/8043">https://github.com/biomejs/biome/issues/8043</a></span><span style="color: lightgreen;"> for more information or to report possible bugs.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Safe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Use </span><span style="color: lightgreen;"><strong>??</strong></span><span style="color: lightgreen;"> instead.</span><br />  <br />    <strong>1</strong> <strong>1</strong><strong> │ </strong>  declare const x: string | null;<br />    <strong>2</strong>  <strong> │ </strong><span style="color: Tomato;">-</span> <span style="color: Tomato;">c</span><span style="color: Tomato;">o</span><span style="color: Tomato;">n</span><span style="color: Tomato;">s</span><span style="color: Tomato;">t</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">v</span><span style="color: Tomato;">a</span><span style="color: Tomato;">l</span><span style="color: Tomato;">u</span><span style="color: Tomato;">e</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">=</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">x</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;"><strong>=</strong></span><span style="color: Tomato;"><strong>=</strong></span><span style="color: Tomato;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: Tomato;"><strong>n</strong></span><span style="color: Tomato;"><strong>u</strong></span><span style="color: Tomato;"><strong>l</strong></span><span style="color: Tomato;"><strong>l</strong></span><span style="color: Tomato;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: Tomato;">?</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">'</span><span style="color: Tomato;">d</span><span style="color: Tomato;">e</span><span style="color: Tomato;">f</span><span style="color: Tomato;">a</span><span style="color: Tomato;">u</span><span style="color: Tomato;">l</span><span style="color: Tomato;">t</span><span style="color: Tomato;">'</span><span style="color: Tomato;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: Tomato;"><strong>:</strong></span><span style="color: Tomato;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: Tomato;"><strong>x</strong></span><span style="color: Tomato;">;</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">/</span><span style="color: Tomato;">/</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">s</span><span style="color: Tomato;">h</span><span style="color: Tomato;">o</span><span style="color: Tomato;">u</span><span style="color: Tomato;">l</span><span style="color: Tomato;">d</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">u</span><span style="color: Tomato;">s</span><span style="color: Tomato;">e</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">?</span><span style="color: Tomato;">?</span><br />      <strong>2</strong><strong> │ </strong><span style="color: MediumSeaGreen;">+</span> <span style="color: MediumSeaGreen;">c</span><span style="color: MediumSeaGreen;">o</span><span style="color: MediumSeaGreen;">n</span><span style="color: MediumSeaGreen;">s</span><span style="color: MediumSeaGreen;">t</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">v</span><span style="color: MediumSeaGreen;">a</span><span style="color: MediumSeaGreen;">l</span><span style="color: MediumSeaGreen;">u</span><span style="color: MediumSeaGreen;">e</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">=</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">x</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">?</span><span style="color: MediumSeaGreen;"><strong>?</strong></span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">'</span><span style="color: MediumSeaGreen;">d</span><span style="color: MediumSeaGreen;">e</span><span style="color: MediumSeaGreen;">f</span><span style="color: MediumSeaGreen;">a</span><span style="color: MediumSeaGreen;">u</span><span style="color: MediumSeaGreen;">l</span><span style="color: MediumSeaGreen;">t</span><span style="color: MediumSeaGreen;">'</span><span style="color: MediumSeaGreen;">;</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">/</span><span style="color: MediumSeaGreen;">/</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">s</span><span style="color: MediumSeaGreen;">h</span><span style="color: MediumSeaGreen;">o</span><span style="color: MediumSeaGreen;">u</span><span style="color: MediumSeaGreen;">l</span><span style="color: MediumSeaGreen;">d</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">u</span><span style="color: MediumSeaGreen;">s</span><span style="color: MediumSeaGreen;">e</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">?</span><span style="color: MediumSeaGreen;">?</span><br />    <strong>3</strong> <strong>3</strong><strong> │ </strong>  <br />  <br /></code></pre>
 
 ### Valid
 
@@ -102,6 +120,71 @@ if (cond || 'fallback') {
 // Already using ??=
 declare let y: string | null;
 y ??= 'default';
+```
+
+## Options
+
+### ignoreConditionalTests
+
+Ignore `||` expressions inside conditional test positions
+(if/while/for/do-while/ternary conditions), where falsy-checking
+behavior may be intentional.
+
+**Default:** `true`
+
+Setting this to `false` will report `||` in conditional tests:
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useNullishCoalescing": {
+					"options": {
+						"ignoreConditionalTests": false
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```ts
+declare const cond: string | null;
+if (cond || 'fallback') {}
+```
+
+### ignoreTernaryTests
+
+Ignore ternary expressions that check for `null` or `undefined`
+and could be replaced with `??`.
+
+**Default:** `false`
+
+Setting this to `true` will suppress ternary diagnostics:
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useNullishCoalescing": {
+					"options": {
+						"ignoreTernaryTests": true
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```ts
+declare const x: string | null;
+const value = x !== null ? x : 'default'; // no diagnostic
 ```
 
 ## Related links
