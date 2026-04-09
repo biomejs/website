@@ -1,0 +1,102 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: useQwikLoaderLocation
+description: Learn more about useQwikLoaderLocation
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.4.11`
+- Diagnostic Category: [`lint/nursery/useQwikLoaderLocation`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- This rule belongs to the following domains:
+  - [`qwik`](/linter/domains#qwik)
+- Sources: 
+  - Same as [`qwik/loader-location`](https://qwik.dev/docs/advanced/eslint/#loader-location)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useQwikLoaderLocation": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Enforce that Qwik loader functions are declared in the correct location.
+
+Route functions like `routeLoader$`, `routeAction$` must be declared in route boundary files
+(`index`, `layout`, or `plugin` files inside the configured routes directory).
+All loader/action functions must also be exported from the module and follow the `use*` naming convention.
+
+See the [Qwik documentation](https://qwik.dev/docs/route-loader/) for more details.
+
+## Examples
+
+### Invalid
+
+```jsx title='src/components/product.jsx'
+// src/components/product.jsx
+import { routeLoader$ } from '@builder.io/qwik-city';
+export const useProducts = routeLoader$(async () => {});
+```
+
+<pre class="language-text"><code class="language-text"><a href="file:///src/components/product.jsx">/src/components/product.jsx</a>:3:28 <a href="https://biomejs.dev/linter/rules/use-qwik-loader-location">lint/nursery/useQwikLoaderLocation</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">The route function </span><span style="color: Orange;"><strong>routeLoader$</strong></span><span style="color: Orange;">() has been declared outside of the route boundaries.</span><br />  <br />    <strong>1 │ </strong>// src/components/product.jsx<br />    <strong>2 │ </strong>import &#123; routeLoader$ &#125; from '@builder.io/qwik-city';<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>export const useProducts = routeLoader$(async () =&gt; &#123;&#125;);<br />   <strong>   │ </strong>                           <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Route functions are typically declared within the route boundaries as they are tied to a specific route, if not, Qwik can't associate them with a route.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Route boundary files are </span><span style="color: lightgreen;"><strong>index</strong></span><span style="color: lightgreen;">, </span><span style="color: lightgreen;"><strong>layout</strong></span><span style="color: lightgreen;">, and </span><span style="color: lightgreen;"><strong>plugin</strong></span><span style="color: lightgreen;"> files inside the &quot;</span><span style="color: lightgreen;"><strong>src/routes</strong></span><span style="color: lightgreen;">&quot; directory.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Move the file within the route boundaries or if you want to create reusable logic, you must re-export from within the router boundary.<br /></span>    <span style="color: lightgreen;">See the </span><span style="color: lightgreen;"><a href="https://qwik.dev/docs/re-exporting-loaders/">Qwik docs on re-exporting loaders</a></span><span style="color: lightgreen;"> for details.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+```jsx title='src/routes/index.jsx'
+// src/routes/index.jsx
+import { routeLoader$ } from '@builder.io/qwik-city';
+export const getProducts = routeLoader$(async () => {});
+```
+
+<pre class="language-text"><code class="language-text"><a href="file:///src/routes/index.jsx">/src/routes/index.jsx</a>:3:14 <a href="https://biomejs.dev/linter/rules/use-qwik-loader-location">lint/nursery/useQwikLoaderLocation</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">The exported name of </span><span style="color: Orange;"><strong>routeLoader$</strong></span><span style="color: Orange;">() must follow the </span><span style="color: Orange;"><strong>use&#42;</strong></span><span style="color: Orange;"> naming convention.</span><br />  <br />    <strong>1 │ </strong>// src/routes/index.jsx<br />    <strong>2 │ </strong>import &#123; routeLoader$ &#125; from '@builder.io/qwik-city';<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>export const getProducts = routeLoader$(async () =&gt; &#123;&#125;);<br />   <strong>   │ </strong>             <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Rename the declaration to start with &quot;</span><span style="color: lightgreen;"><strong>use</strong></span><span style="color: lightgreen;">&quot;.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+```jsx title='src/routes/index.jsx'
+// src/routes/index.jsx
+import { routeLoader$ } from '@builder.io/qwik-city';
+const useProducts = routeLoader$(async () => {});
+```
+
+<pre class="language-text"><code class="language-text"><a href="file:///src/routes/index.jsx">/src/routes/index.jsx</a>:3:7 <a href="https://biomejs.dev/linter/rules/use-qwik-loader-location">lint/nursery/useQwikLoaderLocation</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">The loader function </span><span style="color: Orange;"><strong>routeLoader$</strong></span><span style="color: Orange;">() is not being exported.</span><br />  <br />    <strong>1 │ </strong>// src/routes/index.jsx<br />    <strong>2 │ </strong>import &#123; routeLoader$ &#125; from '@builder.io/qwik-city';<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>const useProducts = routeLoader$(async () =&gt; &#123;&#125;);<br />   <strong>   │ </strong>      <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">A loader function must be exported, if not, the loader will not run. Make sure to export the loader.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+```jsx title='src/routes/index.jsx'
+// src/routes/index.jsx
+import { routeLoader$ } from '@builder.io/qwik-city';
+async function fetcher() {}
+const useProducts = routeLoader$(fetcher);
+```
+
+<pre class="language-text"><code class="language-text"><a href="file:///src/routes/index.jsx">/src/routes/index.jsx</a>:4:7 <a href="https://biomejs.dev/linter/rules/use-qwik-loader-location">lint/nursery/useQwikLoaderLocation</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">The loader function </span><span style="color: Orange;"><strong>routeLoader$</strong></span><span style="color: Orange;">() is not being exported.</span><br />  <br />    <strong>2 │ </strong>import &#123; routeLoader$ &#125; from '@builder.io/qwik-city';<br />    <strong>3 │ </strong>async function fetcher() &#123;&#125;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>const useProducts = routeLoader$(fetcher);<br />   <strong>   │ </strong>      <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>5 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">A loader function must be exported, if not, the loader will not run. Make sure to export the loader.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+### Valid
+
+```jsx title='src/routes/index.jsx'
+// src/routes/index.jsx
+import { routeLoader$ } from '@builder.io/qwik-city';
+export const useProducts = routeLoader$(async () => {});
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_qwik_loader_location.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useQwikLoaderLocation)
+
+</TabItem>
+</Tabs>
+
