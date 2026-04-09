@@ -2308,7 +2308,7 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/use-simplified-logic-expression",
             "recommended": false,
             "fixKind": "safe",
-            "docs": " Discard redundant terms from logical expressions.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const boolExp = true;\n const r = true && boolExp;\n ```\n\n ```js,expect_diagnostic\n const boolExp2 = true;\n const r2 = boolExp || true;\n ```\n\n ```js,expect_diagnostic\n const nonNullExp = 123;\n const r3 = null ?? nonNullExp;\n ```\n\n ```js,expect_diagnostic\n const boolExpr1 = true;\n const boolExpr2 = false;\n const r4 = !boolExpr1 || !boolExpr2;\n ```\n\n ### Valid\n ```js\n const boolExpr3 = true;\n const boolExpr4 = false;\n const r5 = !(boolExpr1 && boolExpr2);\n const boolExpr5 = true;\n const boolExpr6 = false;\n ```\n\n"
+            "docs": " Discard redundant terms from logical expressions.\n\n The rule applies the [De Morgan's Law](https://en.wikipedia.org/wiki/De_Morgan%27s_laws) rule to simplify logical expressions.\n This means that some simplified expressions that are fixed by the rule might seem less intuitive to read, but they are more efficient to evaluate.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const boolExp = true;\n const r = true && boolExp;\n ```\n\n ```js,expect_diagnostic\n const boolExp2 = true;\n const r2 = boolExp || true;\n ```\n\n ```js,expect_diagnostic\n const nonNullExp = 123;\n const r3 = null ?? nonNullExp;\n ```\n\n ```js,expect_diagnostic\n const boolExpr1 = true;\n const boolExpr2 = false;\n const r4 = !boolExpr1 || !boolExpr2;\n ```\n\n ### Valid\n ```js\n const boolExpr3 = true;\n const boolExpr4 = false;\n const r5 = !(boolExpr1 && boolExpr2);\n const boolExpr5 = true;\n const boolExpr6 = false;\n ```\n\n"
           },
           "useWhile": {
             "deprecated": false,
@@ -3902,7 +3902,7 @@ export function GET() {
           },
           "noUselessTypeConversion": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.11",
             "name": "noUselessTypeConversion",
             "link": "https://biomejs.dev/linter/rules/no-useless-type-conversion",
             "recommended": false,
@@ -4013,7 +4013,7 @@ export function GET() {
           },
           "useConsistentTestIt": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.11",
             "name": "useConsistentTestIt",
             "link": "https://biomejs.dev/linter/rules/use-consistent-test-it",
             "recommended": false,
@@ -4053,7 +4053,7 @@ export function GET() {
           },
           "useDisposables": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.11",
             "name": "useDisposables",
             "link": "https://biomejs.dev/linter/rules/use-disposables",
             "recommended": false,
@@ -4224,6 +4224,23 @@ export function GET() {
               }
             ],
             "docs": " Enforce valid `describe()` callback.\n\n Using an improper `describe()` callback function can lead to unexpected test errors.\n This rule validates that describe callbacks are proper synchronous functions without parameters.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n test.describe('suite', async () => {\n     test('one', async ({ page }) => {});\n });\n ```\n\n ```js,expect_diagnostic\n test.describe('suite', (done) => {\n     test('one', async ({ page }) => {});\n });\n ```\n\n ### Valid\n\n ```js\n test.describe('suite', () => {\n     test('one', async ({ page }) => {});\n     test('two', async ({ page }) => {});\n });\n ```\n\n ```js\n describe('suite', function() {\n     test('one', async ({ page }) => {});\n });\n ```\n\n"
+          },
+          "useQwikLoaderLocation": {
+            "deprecated": false,
+            "version": "2.4.11",
+            "name": "useQwikLoaderLocation",
+            "link": "https://biomejs.dev/linter/rules/use-qwik-loader-location",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintQwik": "loader-location"
+                }
+              }
+            ],
+            "docs": " Enforce that Qwik loader functions are declared in the correct location.\n\n Route functions like `routeLoader$`, `routeAction$` must be declared in route boundary files\n (`index`, `layout`, or `plugin` files inside the configured routes directory).\n All loader/action functions must also be exported from the module and follow the `use*` naming convention.\n\n See the [Qwik documentation](https://qwik.dev/docs/route-loader/) for more details.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic,file=src/components/product.jsx\n // src/components/product.jsx\n import { routeLoader$ } from '@builder.io/qwik-city';\n export const useProducts = routeLoader$(async () => {});\n ```\n\n ```jsx,expect_diagnostic,file=src/routes/index.jsx\n // src/routes/index.jsx\n import { routeLoader$ } from '@builder.io/qwik-city';\n export const getProducts = routeLoader$(async () => {});\n ```\n\n ```jsx,expect_diagnostic,file=src/routes/index.jsx\n // src/routes/index.jsx\n import { routeLoader$ } from '@builder.io/qwik-city';\n const useProducts = routeLoader$(async () => {});\n ```\n\n ```jsx,expect_diagnostic,file=src/routes/index.jsx\n // src/routes/index.jsx\n import { routeLoader$ } from '@builder.io/qwik-city';\n async function fetcher() {}\n const useProducts = routeLoader$(fetcher);\n ```\n\n ### Valid\n\n ```jsx,file=src/routes/index.jsx\n // src/routes/index.jsx\n import { routeLoader$ } from '@builder.io/qwik-city';\n export const useProducts = routeLoader$(async () => {});\n ```\n\n"
           },
           "useRegexpExec": {
             "deprecated": false,
@@ -8106,7 +8123,7 @@ export function GET() {
           },
           "noMisleadingReturnType": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.11",
             "name": "noMisleadingReturnType",
             "link": "https://biomejs.dev/linter/rules/no-misleading-return-type",
             "recommended": false,
@@ -8166,7 +8183,7 @@ export function GET() {
           },
           "useExplicitReturnType": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.11",
             "name": "useExplicitReturnType",
             "link": "https://biomejs.dev/linter/rules/use-explicit-return-type",
             "recommended": false,
@@ -8681,7 +8698,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 498
+    "numberOrRules": 499
   },
   "syntax": {
     "languages": {
@@ -8897,6 +8914,12 @@ export function GET() {
                 "kind": "inspired",
                 "source": {
                   "eslintPerfectionist": "sort-interfaces"
+                }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintTypescriptSortKeys": "interface"
                 }
               }
             ],

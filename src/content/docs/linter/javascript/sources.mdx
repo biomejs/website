@@ -20,6 +20,7 @@ description: A page that maps rules from other sources to Biome
 - [noGlobalIsNan](/linter/rules/no-global-is-nan) 
 - [noImplicitAnyLet](/linter/rules/no-implicit-any-let) 
 - [noInlineStyles](/linter/rules/no-inline-styles) 
+- [noMisleadingReturnType](/linter/rules/no-misleading-return-type) 
 - [noRedundantDefaultExport](/linter/rules/no-redundant-default-export) 
 - [noRedundantUseStrict](/linter/rules/no-redundant-use-strict) 
 - [noRenderReturnValue](/linter/rules/no-render-return-value) 
@@ -34,6 +35,7 @@ description: A page that maps rules from other sources to Biome
 - [noUselessStringRaw](/linter/rules/no-useless-string-raw) 
 - [noVoidTypeReturn](/linter/rules/no-void-type-return) 
 - [noVueOptionsApi](/linter/rules/no-vue-options-api) 
+- [useDisposables](/linter/rules/use-disposables) 
 - [useImportExtensions](/linter/rules/use-import-extensions) 
 - [useJsonImportAttributes](/linter/rules/use-json-import-attributes) 
 - [useNodeAssertStrict](/linter/rules/use-node-assert-strict) 
@@ -89,6 +91,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 ### @vitest/eslint-plugin
 | @vitest/eslint-plugin Rules name | Biome Rules name |
 | ---- | ---- |
+| [consistent-test-it](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/consistent-test-it.md) |[useConsistentTestIt](/linter/rules/use-consistent-test-it) (inspired) |
 | [expect-expect](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/expect-expect.md) |[useExpect](/linter/rules/use-expect) |
 | [max-nested-describe](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/max-nested-describe.md) |[noExcessiveNestedTestSuites](/linter/rules/no-excessive-nested-test-suites) |
 | [no-conditional-expect](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/no-conditional-expect.md) |[noConditionalExpect](/linter/rules/no-conditional-expect) |
@@ -301,6 +304,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 ### eslint-plugin-jest
 | eslint-plugin-jest Rules name | Biome Rules name |
 | ---- | ---- |
+| [consistent-test-it](https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/consistent-test-it.md) |[useConsistentTestIt](/linter/rules/use-consistent-test-it) (inspired) |
 | [expect-expect](https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/expect-expect.md) |[useExpect](/linter/rules/use-expect) |
 | [max-nested-describe](https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/max-nested-describe.md) |[noExcessiveNestedTestSuites](/linter/rules/no-excessive-nested-test-suites) |
 | [no-conditional-expect](https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-conditional-expect.md) |[noConditionalExpect](/linter/rules/no-conditional-expect) |
@@ -388,6 +392,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [jsx-img](https://qwik.dev/docs/advanced/eslint/#jsx-img) |[useImageSize](/linter/rules/use-image-size) |
 | [jsx-key](https://qwik.dev/docs/advanced/eslint/#jsx-key) |[useJsxKeyInIterable](/linter/rules/use-jsx-key-in-iterable) |
 | [jsx-no-script-url](https://qwik.dev/docs/advanced/eslint/#jsx-no-script-url) |[noScriptUrl](/linter/rules/no-script-url) |
+| [loader-location](https://qwik.dev/docs/advanced/eslint/#loader-location) |[useQwikLoaderLocation](/linter/rules/use-qwik-loader-location) |
 | [no-react-props](https://qwik.dev/docs/advanced/eslint/#no-react-props) |[noReactSpecificProps](/linter/rules/no-react-specific-props) |
 | [no-use-visible-task](https://qwik.dev/docs/advanced/eslint/#no-use-visible-task) |[noQwikUseVisibleTask](/linter/rules/no-qwik-use-visible-task) |
 | [prefer-classlist](https://qwik.dev/docs/advanced/eslint/#prefer-classlist) |[useQwikClasslist](/linter/rules/use-qwik-classlist) |
@@ -520,7 +525,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [consistent-type-imports](https://typescript-eslint.io/rules/consistent-type-imports) |[useImportType](/linter/rules/use-import-type) (inspired) |
 | [default-param-last](https://typescript-eslint.io/rules/default-param-last) |[useDefaultParameterLast](/linter/rules/use-default-parameter-last) |
 | [dot-notation](https://typescript-eslint.io/rules/dot-notation) |[useLiteralKeys](/linter/rules/use-literal-keys) |
-| [explicit-function-return-type](https://typescript-eslint.io/rules/explicit-function-return-type) |[useExplicitType](/linter/rules/use-explicit-type) (inspired) |
+| [explicit-function-return-type](https://typescript-eslint.io/rules/explicit-function-return-type) |[useExplicitReturnType](/linter/rules/use-explicit-return-type) (inspired) |
 | [explicit-member-accessibility](https://typescript-eslint.io/rules/explicit-member-accessibility) |[useConsistentMemberAccessibility](/linter/rules/use-consistent-member-accessibility) |
 | [explicit-module-boundary-types](https://typescript-eslint.io/rules/explicit-module-boundary-types) |[useExplicitType](/linter/rules/use-explicit-type) (inspired) |
 | [max-params](https://typescript-eslint.io/rules/max-params) |[useMaxParams](/linter/rules/use-max-params) |
@@ -556,6 +561,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-this-alias](https://typescript-eslint.io/rules/no-this-alias) |[noUselessThisAlias](/linter/rules/no-useless-this-alias) (inspired) |
 | [no-unnecessary-condition](https://typescript-eslint.io/rules/no-unnecessary-condition) |[noUnnecessaryConditions](/linter/rules/no-unnecessary-conditions) (inspired) |
 | [no-unnecessary-type-constraint](https://typescript-eslint.io/rules/no-unnecessary-type-constraint) |[noUselessTypeConstraint](/linter/rules/no-useless-type-constraint) |
+| [no-unnecessary-type-conversion](https://typescript-eslint.io/rules/no-unnecessary-type-conversion) |[noUselessTypeConversion](/linter/rules/no-useless-type-conversion) |
 | [no-unsafe-declaration-merging](https://typescript-eslint.io/rules/no-unsafe-declaration-merging) |[noUnsafeDeclarationMerging](/linter/rules/no-unsafe-declaration-merging) |
 | [no-unsafe-function-type](https://typescript-eslint.io/rules/no-unsafe-function-type) |[noBannedTypes](/linter/rules/no-banned-types) (inspired) |
 | [no-unused-vars](https://typescript-eslint.io/rules/no-unused-vars) |[noUnusedVariables](/linter/rules/no-unused-variables) |

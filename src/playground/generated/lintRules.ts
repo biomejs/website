@@ -265,6 +265,7 @@ export const LINT_RULES = {
     useNamedCaptureGroup: "useNamedCaptureGroup",
     useNullishCoalescing: "useNullishCoalescing",
     usePlaywrightValidDescribeCallback: "usePlaywrightValidDescribeCallback",
+    useQwikLoaderLocation: "useQwikLoaderLocation",
     useRegexpExec: "useRegexpExec",
     useRequiredScripts: "useRequiredScripts",
     useScopedStyles: "useScopedStyles",

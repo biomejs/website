@@ -422,6 +422,7 @@ export default {
   '/linter/rules/useParseIntRadix': '/linter/rules/use-parse-int-radix',
   '/linter/rules/usePlaywrightValidDescribeCallback': '/linter/rules/use-playwright-valid-describe-callback',
   '/linter/rules/useQwikClasslist': '/linter/rules/use-qwik-classlist',
+  '/linter/rules/useQwikLoaderLocation': '/linter/rules/use-qwik-loader-location',
   '/linter/rules/useQwikMethodUsage': '/linter/rules/use-qwik-method-usage',
   '/linter/rules/useQwikValidLexicalScope': '/linter/rules/use-qwik-valid-lexical-scope',
   '/linter/rules/useReactFunctionComponents': '/linter/rules/use-react-function-components',
