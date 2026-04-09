@@ -407,6 +407,13 @@ export function GET() {
 					"properties": { "eslintDrizzle": { "type": "string" } },
 					"additionalProperties": false,
 					"required": ["eslintDrizzle"]
+				},
+				{
+					"description": "Rules from [Eslint Plugin Typescript Sort Keys](https://github.com/infctr/eslint-plugin-typescript-sort-keys)",
+					"type": "object",
+					"properties": { "eslintTypescriptSortKeys": { "type": "string" } },
+					"additionalProperties": false,
+					"required": ["eslintTypescriptSortKeys"]
 				}
 			]
 		},
