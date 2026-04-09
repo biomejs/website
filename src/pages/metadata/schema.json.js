@@ -80,6 +80,7 @@ export function GET() {
 			}
 		},
 		"RuleSource": {
+			"description": "Declaration order defines the sort order used for comparing rule sources.",
 			"oneOf": [
 				{
 					"description": "Rules from [Rust Clippy](https://rust-lang.github.io/rust-clippy/master/index.html)",
