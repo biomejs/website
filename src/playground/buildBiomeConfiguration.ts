@@ -21,28 +21,125 @@ const LINT_RULE_GROUPS = Object.entries(LINT_RULES).filter((entry) => {
 }) as Array<[LintRuleGroup, Record<string, string>]>;
 
 function getBiomeIndentStyle(indentStyle: PlaygroundSettings["indentStyle"]) {
-	return indentStyle === IndentStyle.Tab ? "tab" : "space";
+	return indentStyle === IndentStyle.Tab ? IndentStyle.Tab : IndentStyle.Space;
+}
+
+function getPlaygroundIndentStyle(indentStyle: IndentStyle | undefined) {
+	return indentStyle === IndentStyle.Space
+		? IndentStyle.Space
+		: defaultPlaygroundState.settings.indentStyle;
 }
 
 function getBiomeAttributePosition(
 	attributePosition: PlaygroundSettings["attributePosition"],
 ) {
-	return attributePosition === AttributePosition.Auto ? "auto" : "multiline";
+	return attributePosition === AttributePosition.Auto
+		? AttributePosition.Auto
+		: AttributePosition.Multiline;
+}
+
+function getPlaygroundAttributePosition(
+	attributePosition: AttributePosition | undefined,
+) {
+	return attributePosition === AttributePosition.Multiline
+		? AttributePosition.Multiline
+		: defaultPlaygroundState.settings.attributePosition;
 }
 
 function getBiomeExpand(expand: PlaygroundSettings["expand"]) {
 	switch (expand) {
 		case Expand.Always:
-			return "always";
+			return Expand.Always;
 		case Expand.Never:
-			return "never";
+			return Expand.Never;
 		default:
-			return "auto";
+			return Expand.Auto;
+	}
+}
+
+function getPlaygroundExpand(expand: Expand | undefined) {
+	switch (expand) {
+		case Expand.Always:
+			return Expand.Always;
+		case Expand.Never:
+			return Expand.Never;
+		default:
+			return defaultPlaygroundState.settings.expand;
 	}
 }
 
 function getBiomeQuoteStyle(quoteStyle: PlaygroundSettings["quoteStyle"]) {
-	return quoteStyle === QuoteStyle.Double ? "double" : "single";
+	return quoteStyle === QuoteStyle.Double
+		? QuoteStyle.Double
+		: QuoteStyle.Single;
+}
+
+function getPlaygroundQuoteStyle(quoteStyle: QuoteStyle | undefined) {
+	if (quoteStyle === QuoteStyle.Single) {
+		return QuoteStyle.Single;
+	}
+
+	if (quoteStyle === QuoteStyle.Double) {
+		return QuoteStyle.Double;
+	}
+
+	return undefined;
+}
+
+function getBiomeQuoteProperties(
+	quoteProperties: PlaygroundSettings["quoteProperties"],
+) {
+	return quoteProperties === QuoteProperties.Preserve ? "preserve" : "asNeeded";
+}
+
+function getPlaygroundQuoteProperties(
+	quoteProperties: "preserve" | "asNeeded" | undefined,
+) {
+	return quoteProperties === QuoteProperties.Preserve
+		? QuoteProperties.Preserve
+		: defaultPlaygroundState.settings.quoteProperties;
+}
+
+function getBiomeSemicolons(semicolons: PlaygroundSettings["semicolons"]) {
+	return semicolons === Semicolons.Always ? "always" : "asNeeded";
+}
+
+function getPlaygroundSemicolons(
+	semicolons: "always" | "asNeeded" | undefined,
+) {
+	return semicolons === "asNeeded"
+		? Semicolons.AsNeeded
+		: defaultPlaygroundState.settings.semicolons;
+}
+
+function getBiomeArrowParentheses(
+	arrowParentheses: PlaygroundSettings["arrowParentheses"],
+) {
+	return arrowParentheses === ArrowParentheses.Always ? "always" : "asNeeded";
+}
+
+function getPlaygroundArrowParentheses(
+	arrowParentheses: "always" | "asNeeded" | undefined,
+) {
+	return arrowParentheses === "asNeeded"
+		? ArrowParentheses.AsNeeded
+		: defaultPlaygroundState.settings.arrowParentheses;
+}
+
+function getBiomeOperatorLinebreak(
+	operatorLinebreak: PlaygroundSettings["operatorLinebreak"],
+) {
+	return operatorLinebreak === OperatorLinebreak.Before
+		? OperatorLinebreak.Before
+		: OperatorLinebreak.After;
+}
+
+function getPlaygroundOperatorLinebreak(
+	operatorLinebreak: OperatorLinebreak | undefined,
+) {
+	return operatorLinebreak === OperatorLinebreak.Before
+		? OperatorLinebreak.Before
+		: defaultPlaygroundState.settings.operatorLinebreak;
 }
 
 function getLintRuleGroup(
@@ -199,16 +296,11 @@ export function buildBiomeConfiguration(
 			formatter: {
 				quoteStyle: getBiomeQuoteStyle(quoteStyle),
 				jsxQuoteStyle: getBiomeQuoteStyle(jsxQuoteStyle),
-				quoteProperties:
-					quoteProperties === QuoteProperties.Preserve
-						? "preserve"
-						: "asNeeded",
+				quoteProperties: getBiomeQuoteProperties(quoteProperties),
 				trailingCommas,
-				semicolons: semicolons === Semicolons.Always ? "always" : "asNeeded",
-				arrowParentheses:
-					arrowParentheses === ArrowParentheses.Always ? "always" : "asNeeded",
-				operatorLinebreak:
-					operatorLinebreak === OperatorLinebreak.Before ? "before" : "after",
+				semicolons: getBiomeSemicolons(semicolons),
+				arrowParentheses: getBiomeArrowParentheses(arrowParentheses),
+				operatorLinebreak: getBiomeOperatorLinebreak(operatorLinebreak),
 				bracketSpacing,
 				bracketSameLine,
 				attributePosition: getBiomeAttributePosition(attributePosition),
@@ -268,54 +360,39 @@ export function parseBiomeConfiguration(
 	return {
 		...defaults,
 		lineWidth: formatter?.lineWidth ?? defaults.lineWidth,
-		indentStyle:
-			formatter?.indentStyle === "space"
-				? IndentStyle.Space
-				: defaults.indentStyle,
+		indentStyle: getPlaygroundIndentStyle(formatter?.indentStyle),
 		indentWidth: formatter?.indentWidth ?? defaults.indentWidth,
 		quoteStyle:
-			javascriptFormatter?.quoteStyle === "single"
-				? QuoteStyle.Single
-				: cssFormatter?.quoteStyle === "single"
-					? QuoteStyle.Single
-					: defaults.quoteStyle,
+			getPlaygroundQuoteStyle(javascriptFormatter?.quoteStyle) ??
+			getPlaygroundQuoteStyle(cssFormatter?.quoteStyle) ??
+			defaults.quoteStyle,
 		jsxQuoteStyle:
-			javascriptFormatter?.jsxQuoteStyle === "single"
-				? QuoteStyle.Single
-				: defaults.jsxQuoteStyle,
-		quoteProperties:
-			javascriptFormatter?.quoteProperties === "preserve"
-				? QuoteProperties.Preserve
-				: defaults.quoteProperties,
+			getPlaygroundQuoteStyle(javascriptFormatter?.jsxQuoteStyle) ??
+			defaults.jsxQuoteStyle,
+		quoteProperties: getPlaygroundQuoteProperties(
+			javascriptFormatter?.quoteProperties,
+		),
 		trailingCommas:
 			javascriptFormatter?.trailingCommas ?? defaults.trailingCommas,
-		semicolons:
-			javascriptFormatter?.semicolons === "asNeeded"
-				? Semicolons.AsNeeded
-				: defaults.semicolons,
-		arrowParentheses:
-			javascriptFormatter?.arrowParentheses === "asNeeded"
-				? ArrowParentheses.AsNeeded
-				: defaults.arrowParentheses,
-		operatorLinebreak:
-			javascriptFormatter?.operatorLinebreak === "before"
-				? OperatorLinebreak.Before
-				: defaults.operatorLinebreak,
+		semicolons: getPlaygroundSemicolons(javascriptFormatter?.semicolons),
+		arrowParentheses: getPlaygroundArrowParentheses(
+			javascriptFormatter?.arrowParentheses,
+		),
+		operatorLinebreak: getPlaygroundOperatorLinebreak(
+			javascriptFormatter?.operatorLinebreak,
+		),
 		attributePosition:
-			formatter?.attributePosition === "multiline" ||
-			javascriptFormatter?.attributePosition === "multiline"
+			getPlaygroundAttributePosition(formatter?.attributePosition) ===
+				AttributePosition.Multiline ||
+			getPlaygroundAttributePosition(javascriptFormatter?.attributePosition) ===
+				AttributePosition.Multiline
 				? AttributePosition.Multiline
 				: defaults.attributePosition,
 		bracketSpacing:
 			javascriptFormatter?.bracketSpacing ?? defaults.bracketSpacing,
 		bracketSameLine:
 			javascriptFormatter?.bracketSameLine ?? defaults.bracketSameLine,
-		expand:
-			formatter?.expand === "always"
-				? Expand.Always
-				: formatter?.expand === "never"
-					? Expand.Never
-					: defaults.expand,
+		expand: getPlaygroundExpand(formatter?.expand),
 		lintRules: getPlaygroundLintRules(linter?.rules),
 		enabledLinting: linter?.enabled ?? defaults.enabledLinting,
 		analyzerFixMode: defaults.analyzerFixMode,

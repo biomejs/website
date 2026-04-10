@@ -805,7 +805,7 @@ function SettingsJsonEditorSection({
 		<>
 			<section className="settings-json-actions">
 				<button type="button" onClick={() => setIsJsonModalOpen(true)}>
-					Edit as JSON
+					Edit configuration as JSON
 				</button>
 			</section>
 			<SettingsJsonEditorModal

@@ -32,13 +32,15 @@ export default function SettingsJsonEditorModal({
 }: SettingsJsonEditorModalProps) {
 	const dialogRef = useRef<HTMLDialogElement>(null);
 	const wasOpenRef = useRef(false);
-	const [jsonValue, setJsonValue] = useState("");
+	const [configurationAsJson, setConfigurationAsJson] = useState(() =>
+		JSON.stringify(createEditableConfiguration(settings), null, 2),
+	);
 	const [jsonError, setJsonError] = useState<string | null>(null);
 	const [copyStatus, setCopyStatus] = useState<"idle" | "copied">("idle");
 
 	useEffect(() => {
 		if (isOpen && !wasOpenRef.current) {
-			setJsonValue(
+			setConfigurationAsJson(
 				JSON.stringify(createEditableConfiguration(settings), null, 2),
 			);
 			setJsonError(null);
@@ -79,13 +81,13 @@ export default function SettingsJsonEditorModal({
 	}, [copyStatus]);
 
 	async function copyJsonSettings() {
-		await navigator.clipboard.writeText(jsonValue);
+		await navigator.clipboard.writeText(configurationAsJson);
 		setCopyStatus("copied");
 	}
 
 	function applyJsonSettings() {
 		try {
-			const parsed = JSON.parse(jsonValue) as Configuration;
+			const parsed = JSON.parse(configurationAsJson) as Configuration;
 			onApply(parseBiomeConfiguration(parsed, settings));
 			onClose();
 		} catch (error) {
@@ -148,10 +150,10 @@ export default function SettingsJsonEditorModal({
 				</div>
 				<CodeMirror
 					className="settings-json-modal__editor"
-					value={jsonValue}
+					value={configurationAsJson}
 					extensions={[json()]}
 					onChange={(value) => {
-						setJsonValue(value);
+						setConfigurationAsJson(value);
 						if (jsonError !== null) {
 							setJsonError(null);
 						}
