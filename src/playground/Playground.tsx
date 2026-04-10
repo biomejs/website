@@ -34,7 +34,7 @@ import {
 	type BiomeAstSyntacticData,
 	type PlaygroundProps,
 	PlaygroundTab,
-} from "@/playground/types";
+} from "@/playground/types.ts";
 import {
 	getCurrentCode,
 	getFileState,

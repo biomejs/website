@@ -1,7 +1,8 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection } from "astro:content";
 import { docsLoader, i18nLoader } from "@astrojs/starlight/loaders";
 import { docsSchema, i18nSchema } from "@astrojs/starlight/schema";
 import { file } from "astro/loaders";
+import { z } from "astro/zod";
 import { blogSchema } from "starlight-blog/schema";
 import { changelogsLoader } from "starlight-changelogs/loader";
 
@@ -26,7 +27,7 @@ export const collections = {
 	team: defineCollection({
 		schema: () =>
 			z.object({
-				id: z.string(),
+				id: z.number(),
 				type: z.enum(["core", "maintainer"]),
 			}),
 		loader: file("src/content/team.json"),

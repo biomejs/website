@@ -24,7 +24,7 @@ import {
 	SourceType,
 	TrailingCommas,
 	WhitespaceSensitivity,
-} from "@/playground/types";
+} from "@/playground/types.ts";
 import {
 	classnames,
 	createPlaygroundSettingsSetter,
