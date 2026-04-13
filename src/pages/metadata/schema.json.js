@@ -264,16 +264,37 @@ export function GET() {
 				{
 					"description": "Rules from [eslint-react.xyz](https://eslint-react.xyz/)",
 					"type": "object",
+					"properties": { "eslintReactXyz": { "type": "string" } },
+					"additionalProperties": false,
+					"required": ["eslintReactXyz"]
+				},
+				{
+					"description": "A subset of react rules from [eslint-react.xyz](https://eslint-react.xyz/)",
+					"type": "object",
 					"properties": { "eslintReactX": { "type": "string" } },
 					"additionalProperties": false,
 					"required": ["eslintReactX"]
 				},
 				{
-					"description": "Rules from [eslint-react.xyz](https://eslint-react.xyz/)",
+					"description": "A subset of JSX rules from [eslint-react.xyz](https://eslint-react.xyz/)",
 					"type": "object",
-					"properties": { "eslintReactXyz": { "type": "string" } },
+					"properties": { "eslintReactJsx": { "type": "string" } },
 					"additionalProperties": false,
-					"required": ["eslintReactXyz"]
+					"required": ["eslintReactJsx"]
+				},
+				{
+					"description": "A subset of DOM rules from [eslint-react.xyz](https://eslint-react.xyz/)",
+					"type": "object",
+					"properties": { "eslintReactDom": { "type": "string" } },
+					"additionalProperties": false,
+					"required": ["eslintReactDom"]
+				},
+				{
+					"description": "A subset of RSC rules from [eslint-react.xyz](https://eslint-react.xyz/)",
+					"type": "object",
+					"properties": { "eslintReactRsc": { "type": "string" } },
+					"additionalProperties": false,
+					"required": ["eslintReactRsc"]
 				},
 				{
 					"description": "Rules from [Eslint Plugin Regexp](https://github.com/ota-meshi/eslint-plugin-regexp)",

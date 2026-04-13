@@ -1,0 +1,161 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noExcessiveSelectorClasses
+description: Learn more about noExcessiveSelectorClasses
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="CSS" icon="seti:css">
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noExcessiveSelectorClasses`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`selector-max-class`](https://github.com/stylelint/stylelint/blob/main/lib/rules/selector-max-class/README.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noExcessiveSelectorClasses": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Limit the number of classes in a selector.
+
+Selectors with too many chained classes are harder to read, harder to override,
+and often signal overly specific styling.
+This rule enforces an upper bound on how many class selectors can appear in one selector.
+
+Each selector in a selector list is evaluated separately.
+For example, `.foo, .bar.baz` is treated as two selectors, and only `.bar.baz`
+contributes two class selectors.
+
+Nested selectors are checked as written instead of being resolved against their parent selector.
+For example, in `.foo { &.bar {} }`, the nested selector `&.bar` contributes one class selector.
+
+## Examples
+
+### Invalid
+
+The following example will show a diagnostic when `maxClasses` is set to `1`:
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noExcessiveSelectorClasses": {
+					"options": {
+						"maxClasses": 1
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```css
+.foo .bar {}
+```
+
+<pre class="language-text"><code class="language-text">code-block.css:1:1 <a href="https://biomejs.dev/linter/rules/no-excessive-selector-classes">lint/nursery/noExcessiveSelectorClasses</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Expected this selector to have no more than 1 class selector, but found 2.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>.foo .bar &#123;&#125;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Selectors with too many chained classes are harder to read, override, and reuse.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Reduce the number of class selectors in this selector, or split it into simpler selectors.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+```css
+:is(.foo, .bar.baz) {}
+```
+
+<pre class="language-text"><code class="language-text">code-block.css:1:1 <a href="https://biomejs.dev/linter/rules/no-excessive-selector-classes">lint/nursery/noExcessiveSelectorClasses</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Expected this selector to have no more than 1 class selector, but found 3.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>:is(.foo, .bar.baz) &#123;&#125;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Selectors with too many chained classes are harder to read, override, and reuse.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Reduce the number of class selectors in this selector, or split it into simpler selectors.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+### Valid
+
+The following examples are valid when `maxClasses` is set to `1`:
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noExcessiveSelectorClasses": {
+					"options": {
+						"maxClasses": 1
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```css
+.foo {}
+```
+
+```css
+.foo, div {}
+```
+
+## Options
+
+### `maxClasses`
+
+The maximum number of class selectors allowed in a single selector.
+
+This option has no default value. Configure it explicitly to enable the rule.
+A value of `0` disallows class selectors entirely.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noExcessiveSelectorClasses": {
+					"options": {
+						"maxClasses": 2
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+The following selector exceeds the configured limit because it contains three
+class selectors:
+
+```css
+.foo .bar.baz {}
+```
+
+<pre class="language-text"><code class="language-text">code-block.css:1:1 <a href="https://biomejs.dev/linter/rules/no-excessive-selector-classes">lint/nursery/noExcessiveSelectorClasses</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Expected this selector to have no more than 2 class selectors, but found 3.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>.foo .bar.baz &#123;&#125;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Selectors with too many chained classes are harder to read, override, and reuse.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Reduce the number of class selectors in this selector, or split it into simpler selectors.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/nursery/no_excessive_selector_classes.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/nursery/noExcessiveSelectorClasses)
+
+</TabItem>
+</Tabs>
+
