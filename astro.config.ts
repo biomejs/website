@@ -32,27 +32,27 @@ const plugins = [
 		authors: {
 			arendjr: {
 				name: "Arend van Beelen jr.",
-				picture: "https://github.com/arendjr.png",
+				picture: "https://avatars.githubusercontent.com/u/533294?v=4",
 				url: "https://arendjr.nl/",
 			},
 			conaclos: {
 				name: "Victorien Elvinger",
-				picture: "https://github.com/conaclos.png",
+				picture: "https://avatars.githubusercontent.com/u/2358560?v=4",
 				url: "https://bsky.app/profile/conaclos.bsky.social",
 			},
 			dyc3: {
 				name: "Carson McManus",
-				picture: "https://github.com/dyc3.png",
+				picture: "https://avatars.githubusercontent.com/u/1808807?v=4",
 				url: "https://github.com/dyc3",
 			},
 			ema: {
 				name: "Emanuele Stoppa",
-				picture: "https://github.com/ematipico.png",
+				picture: "https://avatars.githubusercontent.com/u/602478?v=4",
 				url: "https://bsky.app/profile/ematipico.xyz",
 			},
 			nhedger: {
 				name: "Nicolas Hedger",
-				picture: "https://github.com/nhedger.png",
+				picture: "https://avatars.githubusercontent.com/u/649677?v=4",
 				url: "https://bsky.app/profile/hedger.ch",
 			},
 			team: {
@@ -1034,7 +1034,12 @@ export default defineConfig({
 		format: "directory",
 	},
 	image: {
-		domains: ["github.com", "raw.githubusercontent.com", "img.shields.io"],
+		domains: [
+			"github.com",
+			"avatars.githubusercontent.com",
+			"raw.githubusercontent.com",
+			"img.shields.io",
+		],
 	},
 
 	markdown: {
