@@ -16,12 +16,12 @@ const response = await fetch(
 	`https://github.com/${member.data.id}.png?size=200`,
 	{ redirect: "manual" },
 );
-if (response.status < 300 || response.status >= 400) {
-	throw new Error("The GitHub avatar image should response 30x redirect");
+const image = response.headers.get("location");
+if (response.status < 300 || response.status >= 400 || !image) {
+	throw new Error("The GitHub avatar image should respond with 30x redirect");
 }
 
 const url = `https://github.com/${member.data.id}`;
-const image = response.headers.get("location") as string;
 const alt = `User ${handle}`;
 ---
 
