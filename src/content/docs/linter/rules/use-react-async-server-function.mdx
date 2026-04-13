@@ -1,0 +1,121 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: useReactAsyncServerFunction
+description: Learn more about useReactAsyncServerFunction
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/useReactAsyncServerFunction`](/reference/diagnostics#diagnostic-category)
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`react`](/linter/domains#react)
+- Sources: 
+  - Same as [`react/async-server-action`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/async-server-action.md)
+  - Same as [`@eslint-react/rsc-function-definition`](https://eslint-react.xyz/docs/rules/rsc-function-definition)
+  - Same as [`react-rsc/function-definition`](https://eslint-react.xyz/docs/rules/rsc-function-definition)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useReactAsyncServerFunction": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Require functions with the "use server" directive to be async.
+
+Require Server Functions (functions in a file with a top-level `"use server"` directive or functions with their own `"use server"` directive) to be async.
+
+See the [React documentation](https://react.dev/reference/rsc/use-server) for more details.
+
+## Examples
+
+### Invalid
+
+```jsx
+<form
+  action={() => {
+    'use server';
+    // ...
+  }}
+>
+  // ...
+</form>
+```
+
+<pre class="language-text"><code class="language-text">code-block.jsx:2:11 <a href="https://biomejs.dev/linter/rules/use-react-async-server-function">lint/nursery/useReactAsyncServerFunction</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This server function is missing the </span><span style="color: lightgreen;"><strong>async</strong></span><span style="color: lightgreen;"> keyword.</span><br />  <br />    <strong>1 │ </strong>&lt;form<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  action=&#123;() =&gt; &#123;<br />   <strong>   │ </strong>          <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>    'use server';<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>    // ...<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>5 │ </strong>  &#125;&#125;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><br />    <strong>6 │ </strong>&gt;<br />    <strong>7 │ </strong>  // ...<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Functions with the &quot;use server&quot; directive are React Server Functions and therefore must be async.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Add </span><span style="color: lightgreen;"><strong>async</strong></span><span style="color: lightgreen;"> keyword.</span><br />  <br />  <strong>  2 │ </strong><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span>action=&#123;<span style="color: MediumSeaGreen;">a</span><span style="color: MediumSeaGreen;">s</span><span style="color: MediumSeaGreen;">y</span><span style="color: MediumSeaGreen;">n</span><span style="color: MediumSeaGreen;">c</span><span style="opacity: 0.8;"><span style="color: MediumSeaGreen;">·</span></span>()<span style="opacity: 0.8;">·</span>=&gt;<span style="opacity: 0.8;">·</span>&#123;<br />  <strong>    │ </strong>          <span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span>       <br /></code></pre>
+
+```js
+function serverFunction() {
+  'use server';
+  // ...
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/use-react-async-server-function">lint/nursery/useReactAsyncServerFunction</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This server function is missing the </span><span style="color: lightgreen;"><strong>async</strong></span><span style="color: lightgreen;"> keyword.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>function serverFunction() &#123;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  'use server';<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>  // ...<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>&#125;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>5 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Functions with the &quot;use server&quot; directive are React Server Functions and therefore must be async.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Add </span><span style="color: lightgreen;"><strong>async</strong></span><span style="color: lightgreen;"> keyword.</span><br />  <br />  <strong>  1 │ </strong><span style="color: MediumSeaGreen;">a</span><span style="color: MediumSeaGreen;">s</span><span style="color: MediumSeaGreen;">y</span><span style="color: MediumSeaGreen;">n</span><span style="color: MediumSeaGreen;">c</span><span style="opacity: 0.8;"><span style="color: MediumSeaGreen;">·</span></span>function<span style="opacity: 0.8;">·</span>serverFunction()<span style="opacity: 0.8;">·</span>&#123;<br />  <strong>    │ </strong><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span>                           <br /></code></pre>
+
+```js
+'use server';
+export function serverFunction() {
+  // ...
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:2:8 <a href="https://biomejs.dev/linter/rules/use-react-async-server-function">lint/nursery/useReactAsyncServerFunction</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This server function is missing the </span><span style="color: lightgreen;"><strong>async</strong></span><span style="color: lightgreen;"> keyword.</span><br />  <br />    <strong>1 │ </strong>'use server';<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>export function serverFunction() &#123;<br />   <strong>   │ </strong>       <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>  // ...<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>&#125;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>5 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Functions exported from files with the &quot;use server&quot; directive are React Server Functions and therefore must be async.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Add </span><span style="color: lightgreen;"><strong>async</strong></span><span style="color: lightgreen;"> keyword.</span><br />  <br />  <strong>  2 │ </strong>export<span style="opacity: 0.8;">·</span><span style="color: MediumSeaGreen;">a</span><span style="color: MediumSeaGreen;">s</span><span style="color: MediumSeaGreen;">y</span><span style="color: MediumSeaGreen;">n</span><span style="color: MediumSeaGreen;">c</span><span style="opacity: 0.8;"><span style="color: MediumSeaGreen;">·</span></span>function<span style="opacity: 0.8;">·</span>serverFunction()<span style="opacity: 0.8;">·</span>&#123;<br />  <strong>    │ </strong>       <span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span>                           <br /></code></pre>
+
+### Valid
+
+```jsx
+<form
+  action={async () => {
+    'use server';
+    // ...
+  }}
+>
+  // ...
+</form>
+```
+
+```js
+async function serverFunction() {
+  'use server';
+  // ...
+}
+```
+
+```js
+'use server';
+export async function serverFunction() {
+  // ...
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_react_async_server_function.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useReactAsyncServerFunction)
+
+</TabItem>
+</Tabs>
+

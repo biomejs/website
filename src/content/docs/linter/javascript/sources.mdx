@@ -61,11 +61,19 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 ### @eslint-react/eslint-plugin
 | @eslint-react/eslint-plugin Rules name | Biome Rules name |
 | ---- | ---- |
+| [dom-no-dangerously-set-innerhtml](https://eslint-react.xyz/docs/rules/dom-no-dangerously-set-innerhtml) |[noDangerouslySetInnerHtml](/linter/rules/no-dangerously-set-inner-html) |
+| [dom-no-dangerously-set-innerhtml-with-children](https://eslint-react.xyz/docs/rules/dom-no-dangerously-set-innerhtml-with-children) |[noDangerouslySetInnerHtmlWithChildren](/linter/rules/no-dangerously-set-inner-html-with-children) |
+| [dom-no-missing-button-type](https://eslint-react.xyz/docs/rules/dom-no-missing-button-type) |[useButtonType](/linter/rules/use-button-type) |
 | [dom-no-script-url](https://eslint-react.xyz/docs/rules/dom-no-script-url) |[noScriptUrl](/linter/rules/no-script-url) |
+| [dom-no-unsafe-target-blank](https://eslint-react.xyz/docs/rules/dom-no-unsafe-target-blank) |[noBlankTarget](/linter/rules/no-blank-target) (inspired) |
+| [dom-no-void-elements-with-children](https://eslint-react.xyz/docs/rules/dom-no-void-elements-with-children) |[noVoidElementsWithChildren](/linter/rules/no-void-elements-with-children) |
+| [exhaustive-deps](https://eslint-react.xyz/docs/rules/exhaustive-deps) |[useExhaustiveDependencies](/linter/rules/use-exhaustive-dependencies) |
+| [jsx-no-children-prop](https://eslint-react.xyz/docs/rules/jsx-no-children-prop) |[noChildrenProp](/linter/rules/no-children-prop) |
+| [jsx-no-useless-fragment](https://eslint-react.xyz/docs/rules/jsx-no-useless-fragment) |[noUselessFragments](/linter/rules/no-useless-fragments) |
+| [no-array-index-key](https://eslint-react.xyz/docs/rules/no-array-index-key) |[noArrayIndexKey](/linter/rules/no-array-index-key) |
 | [no-forward-ref](https://eslint-react.xyz/docs/rules/no-forward-ref) |[noReactForwardRef](/linter/rules/no-react-forward-ref) |
+| [no-missing-key](https://eslint-react.xyz/docs/rules/no-missing-key) |[useJsxKeyInIterable](/linter/rules/use-jsx-key-in-iterable) |
 | [no-nested-component-definitions](https://eslint-react.xyz/docs/rules/no-nested-component-definitions) |[noNestedComponentDefinitions](/linter/rules/no-nested-component-definitions) |
-| [no-nested-components](https://eslint-react.xyz/docs/rules/no-nested-components) |[noNestedComponentDefinitions](/linter/rules/no-nested-component-definitions) |
-| [no-useless-fragment](https://eslint-react.xyz/docs/rules/no-useless-fragment) |[noUselessFragments](/linter/rules/no-useless-fragments) |
 ### @mysticatea/eslint-plugin
 | @mysticatea/eslint-plugin Rules name | Biome Rules name |
 | ---- | ---- |
@@ -422,12 +430,26 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-danger-with-children](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-danger-with-children.md) |[noDangerouslySetInnerHtmlWithChildren](/linter/rules/no-dangerously-set-inner-html-with-children) |
 | [no-unknown-property](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-unknown-property.md) |[noUnknownAttribute](/linter/rules/no-unknown-attribute) |
 | [void-dom-elements-no-children](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/void-dom-elements-no-children.md) |[noVoidElementsWithChildren](/linter/rules/no-void-elements-with-children) |
+### eslint-plugin-react-dom
+| eslint-plugin-react-dom Rules name | Biome Rules name |
+| ---- | ---- |
+| [no-dangerously-set-innerhtml](https://eslint-react.xyz/docs/rules/dom-no-dangerously-set-innerhtml) |[noDangerouslySetInnerHtml](/linter/rules/no-dangerously-set-inner-html) |
+| [no-dangerously-set-innerhtml-with-children](https://eslint-react.xyz/docs/rules/dom-no-dangerously-set-innerhtml-with-children) |[noDangerouslySetInnerHtmlWithChildren](/linter/rules/no-dangerously-set-inner-html-with-children) |
+| [no-missing-button-type](https://eslint-react.xyz/docs/rules/dom-no-missing-button-type) |[useButtonType](/linter/rules/use-button-type) |
+| [no-script-url](https://eslint-react.xyz/docs/rules/dom-no-script-url) |[noScriptUrl](/linter/rules/no-script-url) |
+| [no-unsafe-target-blank](https://eslint-react.xyz/docs/rules/dom-no-unsafe-target-blank) |[noBlankTarget](/linter/rules/no-blank-target) (inspired) |
+| [no-void-elements-with-children](https://eslint-react.xyz/docs/rules/dom-no-void-elements-with-children) |[noVoidElementsWithChildren](/linter/rules/no-void-elements-with-children) |
 ### eslint-plugin-react-hooks
 | eslint-plugin-react-hooks Rules name | Biome Rules name |
 | ---- | ---- |
 | [exhaustive-deps](https://github.com/facebook/react/blob/main/packages/eslint-plugin-react-hooks/README.md) |[useExhaustiveDependencies](/linter/rules/use-exhaustive-dependencies) |
 | [react-compiler](https://github.com/facebook/react/blob/main/packages/eslint-plugin-react-hooks/README.md) |[noReactPropAssignments](/linter/rules/no-react-prop-assignments) |
 | [rules-of-hooks](https://github.com/facebook/react/blob/main/packages/eslint-plugin-react-hooks/README.md) |[useHookAtTopLevel](/linter/rules/use-hook-at-top-level) |
+### eslint-plugin-react-jsx
+| eslint-plugin-react-jsx Rules name | Biome Rules name |
+| ---- | ---- |
+| [no-children-prop](https://eslint-react.xyz/docs/rules/jsx-no-children-prop) |[noChildrenProp](/linter/rules/no-children-prop) |
+| [no-useless-fragment](https://eslint-react.xyz/docs/rules/jsx-no-useless-fragment) |[noUselessFragments](/linter/rules/no-useless-fragments) |
 ### eslint-plugin-react-prefer-function-component
 | eslint-plugin-react-prefer-function-component Rules name | Biome Rules name |
 | ---- | ---- |
@@ -439,9 +461,11 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 ### eslint-plugin-react-x
 | eslint-plugin-react-x Rules name | Biome Rules name |
 | ---- | ---- |
+| [exhaustive-deps](https://eslint-react.xyz/docs/rules/exhaustive-deps) |[useExhaustiveDependencies](/linter/rules/use-exhaustive-dependencies) |
+| [no-array-index-key](https://eslint-react.xyz/docs/rules/no-array-index-key) |[noArrayIndexKey](/linter/rules/no-array-index-key) |
 | [no-forward-ref](https://eslint-react.xyz/docs/rules/no-forward-ref) |[noReactForwardRef](/linter/rules/no-react-forward-ref) |
-| [no-nested-components](https://eslint-react.xyz/docs/rules/no-nested-components) |[noNestedComponentDefinitions](/linter/rules/no-nested-component-definitions) |
-| [no-useless-fragment](https://eslint-react.xyz/docs/rules/no-useless-fragment) |[noUselessFragments](/linter/rules/no-useless-fragments) |
+| [no-missing-key](https://eslint-react.xyz/docs/rules/no-missing-key) |[useJsxKeyInIterable](/linter/rules/use-jsx-key-in-iterable) |
+| [no-nested-component-definitions](https://eslint-react.xyz/docs/rules/no-nested-component-definitions) |[noNestedComponentDefinitions](/linter/rules/no-nested-component-definitions) |
 ### eslint-plugin-regexp
 | eslint-plugin-regexp Rules name | Biome Rules name |
 | ---- | ---- |
@@ -476,6 +500,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-for-loop](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-for-loop.md) |[useForOf](/linter/rules/use-for-of) |
 | [no-instanceof-array](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-instanceof-array.md) |[useIsArray](/linter/rules/use-is-array) |
 | [no-lonely-if](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-lonely-if.md) |[useCollapsedIf](/linter/rules/use-collapsed-if) |
+| [no-nested-ternary](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-nested-ternary.md) |[noNestedTernary](/linter/rules/no-nested-ternary) (inspired) |
 | [no-static-only-class](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-static-only-class.md) |[noStaticOnlyClass](/linter/rules/no-static-only-class) |
 | [no-thenable](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-thenable.md) |[noThenProperty](/linter/rules/no-then-property) |
 | [no-useless-switch-case](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-useless-switch-case.md) |[noUselessSwitchCase](/linter/rules/no-useless-switch-case) |

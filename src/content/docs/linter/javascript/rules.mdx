@@ -181,6 +181,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | --- | --- | --- |
 | [noAmbiguousAnchorText](/linter/rules/no-ambiguous-anchor-text) | Disallow ambiguous anchor descriptions. |  |
 | [noBeforeInteractiveScriptOutsideDocument](/linter/rules/no-before-interactive-script-outside-document) | Prevent usage of `next/script`'s `beforeInteractive` strategy outside of `pages/_document.js` in a Next.js project. |  |
+| [noComponentHookFactories](/linter/rules/no-component-hook-factories) | Disallows defining React components or custom hooks inside other functions. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
 | [noConditionalExpect](/linter/rules/no-conditional-expect) | Disallow conditional `expect()` calls inside tests. |  |
 | [noContinue](/linter/rules/no-continue) | Disallow continue statements. |  |
 | [noDivRegex](/linter/rules/no-div-regex) | Disallow equal signs explicitly at the beginning of regular expressions. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
@@ -194,9 +195,11 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noFloatingClasses](/linter/rules/no-floating-classes) | Disallow `new` operators outside of assignments or comparisons. |  |
 | [noFloatingPromises](/linter/rules/no-floating-promises) | Require Promise-like statements to be handled appropriately. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noForIn](/linter/rules/no-for-in) | Disallow iterating using a for-in loop. |  |
+| [noIdenticalTestTitle](/linter/rules/no-identical-test-title) | Disallow identical titles in test suites and test cases. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
 | [noImpliedEval](/linter/rules/no-implied-eval) | Disallow the use of `eval()`-like methods. |  |
 | [noIncrementDecrement](/linter/rules/no-increment-decrement) | Disallows the usage of the unary operators ++ and --. |  |
 | [noInlineStyles](/linter/rules/no-inline-styles) | Disallow the use of inline styles. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [noJsxNamespace](/linter/rules/no-jsx-namespace) | Disallow JSX namespace syntax. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
 | [noJsxPropsBind](/linter/rules/no-jsx-props-bind) | Disallow .bind(), arrow functions, or function expressions in JSX props |  |
 | [noLeakedRender](/linter/rules/no-leaked-render) | Prevent problematic leaked values from being rendered. |  |
 | [noMisleadingReturnType](/linter/rules/no-misleading-return-type) | Detect return type annotations that are misleadingly wider than what |  |
@@ -252,9 +255,12 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [useNullishCoalescing](/linter/rules/use-nullish-coalescing) | Enforce using the nullish coalescing operator (`??`) instead of logical or (`||`). | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [usePlaywrightValidDescribeCallback](/linter/rules/use-playwright-valid-describe-callback) | Enforce valid `describe()` callback. |  |
 | [useQwikLoaderLocation](/linter/rules/use-qwik-loader-location) | Enforce that Qwik loader functions are declared in the correct location. |  |
+| [useReactAsyncServerFunction](/linter/rules/use-react-async-server-function) | Require functions with the "use server" directive to be async. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span><span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
+| [useReduceTypeParameter](/linter/rules/use-reduce-type-parameter) | Enforce using a type parameter on `Array#reduce` instead of casting the initial value. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span><span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
 | [useRegexpExec](/linter/rules/use-regexp-exec) | Enforce `RegExp#exec` over `String#match` if no global flag is provided. |  |
 | [useSortedClasses](/linter/rules/use-sorted-classes) | Enforce the sorting of CSS utility classes. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useSpread](/linter/rules/use-spread) | Enforce the use of the spread operator over `.apply()`. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [useStringStartsEndsWith](/linter/rules/use-string-starts-ends-with) | Prefer `String#startsWith()` and `String#endsWith()` over verbose prefix and suffix checks. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span><span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
 | [useUnicodeRegex](/linter/rules/use-unicode-regex) | Enforce the use of the `u` or `v` flag for regular expressions. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [useVueConsistentDefinePropsDeclaration](/linter/rules/use-vue-consistent-define-props-declaration) | Enforce consistent `defineProps` declaration style. |  |
 | [useVueDefineMacrosOrder](/linter/rules/use-vue-define-macros-order) | Enforce specific order of Vue compiler macros. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |

@@ -1,0 +1,114 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noComponentHookFactories
+description: Learn more about noComponentHookFactories
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JSX and TSX" icon="seti:javascript">
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noComponentHookFactories`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`react`](/linter/domains#react)
+- Sources: 
+  - Same as [`react-hooks/component-hook-factories`](https://github.com/facebook/react/blob/main/packages/eslint-plugin-react-hooks/README.md)
+  - Same as [`react-x/component-hook-factories`](https://eslint-react.xyz/docs/rules/component-hook-factories)
+  - Same as [`@eslint-react/component-hook-factories`](https://eslint-react.xyz/docs/rules/component-hook-factories)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noComponentHookFactories": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallows defining React components or custom hooks inside other functions.
+
+Defining components or hooks inside other functions creates new instances on every call.
+React treats each new instance as a completely different component, which destroys and
+recreates the entire component subtree on each render and causes all state to be lost.
+
+## Examples
+
+### Invalid
+
+A component is defined inside a factory function:
+
+```jsx
+function makeComponent(label) {
+  function MyComponent() {
+    return <div>{label}</div>;
+  }
+  return MyComponent;
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.jsx:2:12 <a href="https://biomejs.dev/linter/rules/no-component-hook-factories">lint/nursery/noComponentHookFactories</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Do not define component </span><span style="color: Tomato;"><strong>MyComponent</strong></span><span style="color: Tomato;"> inside a function.</span><br />  <br />    <strong>1 │ </strong>function makeComponent(label) &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  function MyComponent() &#123;<br />   <strong>   │ </strong>           <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>    return &lt;div&gt;&#123;label&#125;&lt;/div&gt;;<br />    <strong>4 │ </strong>  &#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">React treats components defined inside functions as completely different on each call, destroying the entire subtree and losing all state. Move it to the module level.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+A hook is defined inside a factory function:
+
+```jsx
+function makeHook(key) {
+  function useMyHook() {
+    return useState(key);
+  }
+  return useMyHook;
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.jsx:2:12 <a href="https://biomejs.dev/linter/rules/no-component-hook-factories">lint/nursery/noComponentHookFactories</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Do not define hook </span><span style="color: Tomato;"><strong>useMyHook</strong></span><span style="color: Tomato;"> inside a function.</span><br />  <br />    <strong>1 │ </strong>function makeHook(key) &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  function useMyHook() &#123;<br />   <strong>   │ </strong>           <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>    return useState(key);<br />    <strong>4 │ </strong>  &#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Each call creates a new hook identity, causing React to lose its state across renders. Move it to the module level.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+### Valid
+
+Components and hooks defined at the module level:
+
+```jsx
+function MyComponent() {
+  return <div>Hello</div>;
+}
+
+function useMyHook() {
+  return useState(0);
+}
+```
+
+Higher-order components that receive a component as a parameter are allowed:
+
+```jsx
+function withAuth(WrappedComponent) {
+  function AuthenticatedComponent(props) {
+    return <WrappedComponent {...props} />;
+  }
+  return AuthenticatedComponent;
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_component_hook_factories.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noComponentHookFactories)
+
+</TabItem>
+</Tabs>
+
