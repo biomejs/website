@@ -12,26 +12,17 @@ if (!member) {
 	throw new Error(`The member ${handle} doesn't exist`);
 }
 
-// Fetch the image and extract the redirected URL as Astro doesn't support remote images with redirection.
-const response = await fetch(
-	`https://github.com/${member.data.id}.png?size=25`,
-	{ redirect: "manual" },
-);
-const imageUrl = response.headers.get("location");
-if (response.status < 300 || response.status >= 400 || !imageUrl) {
-	throw new Error("The GitHub avatar image should respond with 30x redirect");
-}
-
 const prefix = member.data.type === "core" ? "Core Contributor" : "Maintainer";
-const url = `https://github.com/${member.data.id}`;
-const alt = `Member @${member.data.id}`;
+const url = `https://github.com/${member.id}`;
+const imageUrl = `https://avatars.githubusercontent.com/u/${member.data.id}?v=4&s=25`;
+const alt = `Member @${member.id}`;
 ---
 
 <span class="avatar">
 	<span>{prefix}</span>
 	<a href={url} title={alt}>
 		<Image src={imageUrl} alt={alt} width="25" height="25" />
-		<span>@{member.data.id}</span>
+		<span>@{member.id}</span>
 	</a>
 </span>
 
