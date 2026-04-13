@@ -103,8 +103,8 @@ importers:
         specifier: 0.11.0
         version: 0.11.0(astro@5.16.15(@netlify/blobs@10.7.4)(@types/node@24.12.2)(jiti@2.6.1)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3))
       canvaskit-wasm:
-        specifier: 0.41.0
-        version: 0.41.0
+        specifier: 0.41.1
+        version: 0.41.1
       cm6-graphql:
         specifier: 0.2.1
         version: 0.2.1(@codemirror/autocomplete@6.20.1)(@codemirror/language@6.12.3)(@codemirror/lint@6.9.5)(@codemirror/state@6.6.0)(@codemirror/view@6.41.0)(@lezer/highlight@1.2.3)(graphql@16.13.2)
@@ -2691,8 +2691,8 @@ packages:
   caniuse-lite@1.0.30001787:
     resolution: {integrity: sha512-mNcrMN9KeI68u7muanUpEejSLghOKlVhRqS/Za2IeyGllJ9I9otGpR9g3nsw7n4W378TE/LyIteA0+/FOZm4Kg==}
 
-  canvaskit-wasm@0.41.0:
-    resolution: {integrity: sha512-cnbL02NFB3yOYMF/MtxViZHgD1vh55Pvy+zR8q4JuFvyCPejZP3eClkt2GuZ0S7jOmGMCJXaHBasbMChbR9JZg==}
+  canvaskit-wasm@0.41.1:
+    resolution: {integrity: sha512-gO2rNMIE0lOQ8MaarM4qNeq2zZAEknAObKP2XAKidMSAY8P5sURGdFkrx1TSdHuBFqTf5w35JqjuUzjibqkD5g==}
 
   ccount@1.1.0:
     resolution: {integrity: sha512-vlNK021QdI7PNeiUh/lKkC/mNHHfV0m/Ad5JoI0TYtlBnJAslM/JIkm/tGC88bkLIwO6OQ5uV6ztS6kVAtCDlg==}
@@ -9169,7 +9169,7 @@ snapshots:
   astro-og-canvas@0.11.0(astro@5.16.15(@netlify/blobs@10.7.4)(@types/node@24.12.2)(jiti@2.6.1)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3)):
     dependencies:
       astro: 5.16.15(@netlify/blobs@10.7.4)(@types/node@24.12.2)(jiti@2.6.1)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3)
-      canvaskit-wasm: 0.41.0
+      canvaskit-wasm: 0.41.1
       deterministic-object-hash: 2.0.2
       entities: 8.0.0
 
@@ -9463,7 +9463,7 @@ snapshots:
 
   caniuse-lite@1.0.30001787: {}
 
-  canvaskit-wasm@0.41.0:
+  canvaskit-wasm@0.41.1:
     dependencies:
       '@webgpu/types': 0.1.21
 
