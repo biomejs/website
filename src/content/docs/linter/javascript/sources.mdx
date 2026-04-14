@@ -61,19 +61,23 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 ### @eslint-react/eslint-plugin
 | @eslint-react/eslint-plugin Rules name | Biome Rules name |
 | ---- | ---- |
+| [component-hook-factories](https://eslint-react.xyz/docs/rules/component-hook-factories) |[noComponentHookFactories](/linter/rules/no-component-hook-factories) |
 | [dom-no-dangerously-set-innerhtml](https://eslint-react.xyz/docs/rules/dom-no-dangerously-set-innerhtml) |[noDangerouslySetInnerHtml](/linter/rules/no-dangerously-set-inner-html) |
 | [dom-no-dangerously-set-innerhtml-with-children](https://eslint-react.xyz/docs/rules/dom-no-dangerously-set-innerhtml-with-children) |[noDangerouslySetInnerHtmlWithChildren](/linter/rules/no-dangerously-set-inner-html-with-children) |
 | [dom-no-missing-button-type](https://eslint-react.xyz/docs/rules/dom-no-missing-button-type) |[useButtonType](/linter/rules/use-button-type) |
+| [dom-no-missing-iframe-sandbox](https://eslint-react.xyz/docs/rules/dom-no-missing-iframe-sandbox) |[useIframeSandbox](/linter/rules/use-iframe-sandbox) |
 | [dom-no-script-url](https://eslint-react.xyz/docs/rules/dom-no-script-url) |[noScriptUrl](/linter/rules/no-script-url) |
 | [dom-no-unsafe-target-blank](https://eslint-react.xyz/docs/rules/dom-no-unsafe-target-blank) |[noBlankTarget](/linter/rules/no-blank-target) (inspired) |
 | [dom-no-void-elements-with-children](https://eslint-react.xyz/docs/rules/dom-no-void-elements-with-children) |[noVoidElementsWithChildren](/linter/rules/no-void-elements-with-children) |
 | [exhaustive-deps](https://eslint-react.xyz/docs/rules/exhaustive-deps) |[useExhaustiveDependencies](/linter/rules/use-exhaustive-dependencies) |
 | [jsx-no-children-prop](https://eslint-react.xyz/docs/rules/jsx-no-children-prop) |[noChildrenProp](/linter/rules/no-children-prop) |
+| [jsx-no-namespace](https://eslint-react.xyz/docs/rules/jsx-no-namespace) |[noJsxNamespace](/linter/rules/no-jsx-namespace) |
 | [jsx-no-useless-fragment](https://eslint-react.xyz/docs/rules/jsx-no-useless-fragment) |[noUselessFragments](/linter/rules/no-useless-fragments) |
 | [no-array-index-key](https://eslint-react.xyz/docs/rules/no-array-index-key) |[noArrayIndexKey](/linter/rules/no-array-index-key) |
 | [no-forward-ref](https://eslint-react.xyz/docs/rules/no-forward-ref) |[noReactForwardRef](/linter/rules/no-react-forward-ref) |
 | [no-missing-key](https://eslint-react.xyz/docs/rules/no-missing-key) |[useJsxKeyInIterable](/linter/rules/use-jsx-key-in-iterable) |
 | [no-nested-component-definitions](https://eslint-react.xyz/docs/rules/no-nested-component-definitions) |[noNestedComponentDefinitions](/linter/rules/no-nested-component-definitions) |
+| [rsc-function-definition](https://eslint-react.xyz/docs/rules/rsc-function-definition) |[useReactAsyncServerFunction](/linter/rules/use-react-async-server-function) |
 ### @mysticatea/eslint-plugin
 | @mysticatea/eslint-plugin Rules name | Biome Rules name |
 | ---- | ---- |
@@ -107,6 +111,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-done-callback](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/no-done-callback.md) |[noDoneCallback](/linter/rules/no-done-callback) |
 | [no-duplicate-hooks](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/no-duplicate-hooks.md) |[noDuplicateTestHooks](/linter/rules/no-duplicate-test-hooks) (inspired) |
 | [no-focused-tests](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/no-focused-tests.md) |[noFocusedTests](/linter/rules/no-focused-tests) (inspired) |
+| [no-identical-title](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/no-identical-title.md) |[noIdenticalTestTitle](/linter/rules/no-identical-test-title) |
 | [no-standalone-expect](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/no-standalone-expect.md) |[noMisplacedAssertion](/linter/rules/no-misplaced-assertion) (inspired) |
 ### Clippy
 | Clippy Rules name | Biome Rules name |
@@ -200,6 +205,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-lone-blocks](https://eslint.org/docs/latest/rules/no-lone-blocks) |[noUselessLoneBlockStatements](/linter/rules/no-useless-lone-block-statements) |
 | [no-lonely-if](https://eslint.org/docs/latest/rules/no-lonely-if) |[useCollapsedElseIf](/linter/rules/use-collapsed-else-if) |
 | [no-loss-of-precision](https://eslint.org/docs/latest/rules/no-loss-of-precision) |[noPrecisionLoss](/linter/rules/no-precision-loss) |
+| [no-magic-numbers](https://eslint.org/docs/latest/rules/no-magic-numbers) |[noMagicNumbers](/linter/rules/no-magic-numbers) (inspired) |
 | [no-misleading-character-class](https://eslint.org/docs/latest/rules/no-misleading-character-class) |[noMisleadingCharacterClass](/linter/rules/no-misleading-character-class) |
 | [no-multi-assign](https://eslint.org/docs/latest/rules/no-multi-assign) |[noMultiAssign](/linter/rules/no-multi-assign) (inspired) |
 | [no-multi-str](https://eslint.org/docs/latest/rules/no-multi-str) |[noMultiStr](/linter/rules/no-multi-str) |
@@ -280,6 +286,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [symbol-description](https://eslint.org/docs/latest/rules/symbol-description) |[useSymbolDescription](/linter/rules/use-symbol-description) |
 | [use-isnan](https://eslint.org/docs/latest/rules/use-isnan) |[useIsNan](/linter/rules/use-is-nan) |
 | [valid-typeof](https://eslint.org/docs/latest/rules/valid-typeof) |[useValidTypeof](/linter/rules/use-valid-typeof) |
+| [vars-on-top](https://eslint.org/docs/latest/rules/vars-on-top) |[useVarsOnTop](/linter/rules/use-vars-on-top) |
 | [yoda](https://eslint.org/docs/latest/rules/yoda) |[noYodaExpression](/linter/rules/no-yoda-expression) |
 ### eslint-plugin-barrel-files
 | eslint-plugin-barrel-files Rules name | Biome Rules name |
@@ -321,6 +328,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-duplicate-hooks](https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-duplicate-hooks.md) |[noDuplicateTestHooks](/linter/rules/no-duplicate-test-hooks) (inspired) |
 | [no-export](https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-export.md) |[noExportsInTest](/linter/rules/no-exports-in-test) (inspired) |
 | [no-focused-tests](https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-focused-tests.md) |[noFocusedTests](/linter/rules/no-focused-tests) (inspired) |
+| [no-identical-title](https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-identical-title.md) |[noIdenticalTestTitle](/linter/rules/no-identical-test-title) |
 | [no-standalone-expect](https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-standalone-expect.md) |[noMisplacedAssertion](/linter/rules/no-misplaced-assertion) (inspired) |
 ### eslint-plugin-jsdoc
 | eslint-plugin-jsdoc Rules name | Biome Rules name |
@@ -409,6 +417,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 ### eslint-plugin-react
 | eslint-plugin-react Rules name | Biome Rules name |
 | ---- | ---- |
+| [async-server-action](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/async-server-action.md) |[useReactAsyncServerFunction](/linter/rules/use-react-async-server-function) |
 | [button-has-type](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/button-has-type.md) |[useButtonType](/linter/rules/use-button-type) |
 | [forbid-elements](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/forbid-elements.md) |[noRestrictedElements](/linter/rules/no-restricted-elements) |
 | [jsx-boolean-value](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-boolean-value.md) |[noImplicitBoolean](/linter/rules/no-implicit-boolean) (inspired) |
@@ -436,12 +445,14 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-dangerously-set-innerhtml](https://eslint-react.xyz/docs/rules/dom-no-dangerously-set-innerhtml) |[noDangerouslySetInnerHtml](/linter/rules/no-dangerously-set-inner-html) |
 | [no-dangerously-set-innerhtml-with-children](https://eslint-react.xyz/docs/rules/dom-no-dangerously-set-innerhtml-with-children) |[noDangerouslySetInnerHtmlWithChildren](/linter/rules/no-dangerously-set-inner-html-with-children) |
 | [no-missing-button-type](https://eslint-react.xyz/docs/rules/dom-no-missing-button-type) |[useButtonType](/linter/rules/use-button-type) |
+| [no-missing-iframe-sandbox](https://eslint-react.xyz/docs/rules/dom-no-missing-iframe-sandbox) |[useIframeSandbox](/linter/rules/use-iframe-sandbox) (inspired) |
 | [no-script-url](https://eslint-react.xyz/docs/rules/dom-no-script-url) |[noScriptUrl](/linter/rules/no-script-url) |
 | [no-unsafe-target-blank](https://eslint-react.xyz/docs/rules/dom-no-unsafe-target-blank) |[noBlankTarget](/linter/rules/no-blank-target) (inspired) |
 | [no-void-elements-with-children](https://eslint-react.xyz/docs/rules/dom-no-void-elements-with-children) |[noVoidElementsWithChildren](/linter/rules/no-void-elements-with-children) |
 ### eslint-plugin-react-hooks
 | eslint-plugin-react-hooks Rules name | Biome Rules name |
 | ---- | ---- |
+| [component-hook-factories](https://github.com/facebook/react/blob/main/packages/eslint-plugin-react-hooks/README.md) |[noComponentHookFactories](/linter/rules/no-component-hook-factories) |
 | [exhaustive-deps](https://github.com/facebook/react/blob/main/packages/eslint-plugin-react-hooks/README.md) |[useExhaustiveDependencies](/linter/rules/use-exhaustive-dependencies) |
 | [react-compiler](https://github.com/facebook/react/blob/main/packages/eslint-plugin-react-hooks/README.md) |[noReactPropAssignments](/linter/rules/no-react-prop-assignments) |
 | [rules-of-hooks](https://github.com/facebook/react/blob/main/packages/eslint-plugin-react-hooks/README.md) |[useHookAtTopLevel](/linter/rules/use-hook-at-top-level) |
@@ -449,6 +460,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | eslint-plugin-react-jsx Rules name | Biome Rules name |
 | ---- | ---- |
 | [no-children-prop](https://eslint-react.xyz/docs/rules/jsx-no-children-prop) |[noChildrenProp](/linter/rules/no-children-prop) |
+| [no-namespace](https://eslint-react.xyz/docs/rules/jsx-no-namespace) |[noJsxNamespace](/linter/rules/no-jsx-namespace) |
 | [no-useless-fragment](https://eslint-react.xyz/docs/rules/jsx-no-useless-fragment) |[noUselessFragments](/linter/rules/no-useless-fragments) |
 ### eslint-plugin-react-prefer-function-component
 | eslint-plugin-react-prefer-function-component Rules name | Biome Rules name |
@@ -458,9 +470,14 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | eslint-plugin-react-refresh Rules name | Biome Rules name |
 | ---- | ---- |
 | [only-export-components](https://github.com/ArnaudBarre/eslint-plugin-react-refresh) |[useComponentExportOnlyModules](/linter/rules/use-component-export-only-modules) (inspired) |
+### eslint-plugin-react-rsc
+| eslint-plugin-react-rsc Rules name | Biome Rules name |
+| ---- | ---- |
+| [function-definition](https://eslint-react.xyz/docs/rules/rsc-function-definition) |[useReactAsyncServerFunction](/linter/rules/use-react-async-server-function) |
 ### eslint-plugin-react-x
 | eslint-plugin-react-x Rules name | Biome Rules name |
 | ---- | ---- |
+| [component-hook-factories](https://eslint-react.xyz/docs/rules/component-hook-factories) |[noComponentHookFactories](/linter/rules/no-component-hook-factories) |
 | [exhaustive-deps](https://eslint-react.xyz/docs/rules/exhaustive-deps) |[useExhaustiveDependencies](/linter/rules/use-exhaustive-dependencies) |
 | [no-array-index-key](https://eslint-react.xyz/docs/rules/no-array-index-key) |[noArrayIndexKey](/linter/rules/no-array-index-key) |
 | [no-forward-ref](https://eslint-react.xyz/docs/rules/no-forward-ref) |[noReactForwardRef](/linter/rules/no-react-forward-ref) |
@@ -607,7 +624,9 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [prefer-nullish-coalescing](https://typescript-eslint.io/rules/prefer-nullish-coalescing) |[useNullishCoalescing](/linter/rules/use-nullish-coalescing) (inspired) |
 | [prefer-optional-chain](https://typescript-eslint.io/rules/prefer-optional-chain) |[useOptionalChain](/linter/rules/use-optional-chain) |
 | [prefer-readonly](https://typescript-eslint.io/rules/prefer-readonly) |[useReadonlyClassProperties](/linter/rules/use-readonly-class-properties) |
+| [prefer-reduce-type-parameter](https://typescript-eslint.io/rules/prefer-reduce-type-parameter) |[useReduceTypeParameter](/linter/rules/use-reduce-type-parameter) (inspired) |
 | [prefer-regexp-exec](https://typescript-eslint.io/rules/prefer-regexp-exec) |[useRegexpExec](/linter/rules/use-regexp-exec) |
+| [prefer-string-starts-ends-with](https://typescript-eslint.io/rules/prefer-string-starts-ends-with) |[useStringStartsEndsWith](/linter/rules/use-string-starts-ends-with) (inspired) |
 | [require-array-sort-compare](https://typescript-eslint.io/rules/require-array-sort-compare) |[useArraySortCompare](/linter/rules/use-array-sort-compare) |
 | [require-await](https://typescript-eslint.io/rules/require-await) |[useAwait](/linter/rules/use-await) |
 | [restrict-plus-operands](https://typescript-eslint.io/rules/restrict-plus-operands) |[noUnsafePlusOperands](/linter/rules/no-unsafe-plus-operands) |
