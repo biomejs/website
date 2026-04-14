@@ -293,7 +293,7 @@ export function GET() {
           },
           "noExcessiveSelectorClasses": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.12",
             "name": "noExcessiveSelectorClasses",
             "link": "https://biomejs.dev/linter/rules/no-excessive-selector-classes",
             "recommended": false,
@@ -1311,6 +1311,15 @@ export function GET() {
               }
             ],
             "docs": " Disallow using `v-if` and `v-for` directives on the same element.\n\n There are two common cases where this can be tempting:\n - To filter items in a list (e.g. `v-for=\"user in users\" v-if=\"user.isActive\"`). In these cases, replace users with a new computed property that returns your filtered list (e.g. activeUsers).\n - To avoid rendering a list if it should be hidden (e.g. `v-for=\"user in users\" v-if=\"shouldShowUsers\"`). In these cases, move the v-if to a container element.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <TodoItem\n     v-if=\"complete\"\n     v-for=\"todo in todos\"\n     :todo=\"todo\"\n />\n ```\n\n ### Valid\n\n ```vue\n <ul v-if=\"complete\">\n     <TodoItem\n         v-for=\"todo in todos\"\n         :todo=\"todo\"\n     />\n </ul>\n ```\n\n"
+          },
+          "useIframeSandbox": {
+            "deprecated": false,
+            "version": "2.4.12",
+            "name": "useIframeSandbox",
+            "link": "https://biomejs.dev/linter/rules/use-iframe-sandbox",
+            "recommended": false,
+            "fixKind": "none",
+            "docs": " Enforce the 'sandbox' attribute for 'iframe' elements.\n\n The sandbox attribute enables an extra set of restrictions for the content in the iframe.\n Using the sandbox attribute is considered a good security practice.\n\n See [the Mozilla docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/iframe#sandbox) for details.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <iframe src=\"https://example.com\"></iframe>\n ```\n\n ### Valid\n\n ```html\n <iframe src=\"https://example.com\" sandbox=\"allow-popups\"></iframe>\n ```\n\n"
           },
           "useScopedStyles": {
             "deprecated": false,
@@ -3435,7 +3444,7 @@ export function GET() {
           },
           "noIdenticalTestTitle": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.12",
             "name": "noIdenticalTestTitle",
             "link": "https://biomejs.dev/linter/rules/no-identical-test-title",
             "recommended": true,
@@ -4302,7 +4311,7 @@ export function GET() {
           },
           "useReactAsyncServerFunction": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.12",
             "name": "useReactAsyncServerFunction",
             "link": "https://biomejs.dev/linter/rules/use-react-async-server-function",
             "recommended": false,
@@ -4386,7 +4395,7 @@ export function GET() {
           },
           "useStringStartsEndsWith": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.12",
             "name": "useStringStartsEndsWith",
             "link": "https://biomejs.dev/linter/rules/use-string-starts-ends-with",
             "recommended": true,
@@ -4417,6 +4426,23 @@ export function GET() {
               }
             ],
             "docs": " Enforce the use of the `u` or `v` flag for regular expressions.\n\n The `u` flag (Unicode mode) and `v` flag (Unicode Sets mode) enable proper handling\n of Unicode characters in regular expressions. Without these flags, regex patterns\n may not correctly match Unicode characters like emoji or characters outside the\n Basic Multilingual Plane.\n\n The `u` flag was introduced in ES2015 and enables:\n - Correct handling of surrogate pairs (e.g., emoji)\n - Unicode code point escapes (`\\u{...}`)\n - Case-insensitive matching for Unicode characters\n\n The `v` flag was introduced in ES2024 and provides all `u` flag features plus:\n - Set notation in character classes\n - String literals in character classes\n - Improved Unicode property escapes\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n /foo/;\n ```\n\n ```js,expect_diagnostic\n /foo/gi;\n ```\n\n ```js,expect_diagnostic\n new RegExp(\"foo\");\n ```\n\n ```js,expect_diagnostic\n new RegExp(\"foo\", \"gi\");\n ```\n\n ### Valid\n\n ```js\n /foo/u;\n /foo/v;\n /foo/giu;\n new RegExp(\"foo\", \"u\");\n new RegExp(\"foo\", \"giv\");\n new RegExp(\"foo\", flags); // dynamic flags are ignored\n ```\n\n"
+          },
+          "useVarsOnTop": {
+            "deprecated": false,
+            "version": "2.4.12",
+            "name": "useVarsOnTop",
+            "link": "https://biomejs.dev/linter/rules/use-vars-on-top",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "vars-on-top"
+                }
+              }
+            ],
+            "docs": " Require `var` declarations to appear at the top of their containing scope.\n\n Because `var` declarations are hoisted to the top of the nearest function,\n script, module, or static block, placing them later in the body makes code\n harder to follow. Keeping them at the top makes the scope's variable\n declarations easier to find. Note that this is not a problem for `let` and\n `const` declarations, which are block-scoped and not hoisted.\n\n This rule only allows leading standalone `var` statements. At module\n scope, leading `export var` declarations are allowed too. Directives and\n imports may appear before them.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function f() {\n     doSomething();\n     var value = 1;\n }\n ```\n\n ### Valid\n\n ```js\n function f() {\n     var value = 1;\n     doSomething(value);\n }\n ```\n\n Related:\n - [noVar](https://biomejs.dev/linter/rules/no-var/)\n - [useConst](https://biomejs.dev/linter/rules/use-const/)\n"
           },
           "useVueConsistentDefinePropsDeclaration": {
             "deprecated": false,
@@ -7767,7 +7793,7 @@ export function GET() {
           },
           "noComponentHookFactories": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.12",
             "name": "noComponentHookFactories",
             "link": "https://biomejs.dev/linter/rules/no-component-hook-factories",
             "recommended": false,
@@ -7796,7 +7822,7 @@ export function GET() {
           },
           "noJsxNamespace": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.12",
             "name": "noJsxNamespace",
             "link": "https://biomejs.dev/linter/rules/no-jsx-namespace",
             "recommended": false,
@@ -7867,6 +7893,29 @@ export function GET() {
               }
             ],
             "docs": " Disallow unknown DOM properties.\n\n In JSX, most DOM properties and attributes should be camelCased to be consistent with standard JavaScript style.\n This can be a possible source of error if you are used to writing plain HTML.\n Only `data-*` and `aria-*` attributes are allowed to use hyphens and lowercase letters in JSX.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div allowTransparency=\"true\" />\n ```\n\n ```jsx,expect_diagnostic\n <div onclick={() => {}} />\n ```\n\n ```jsx,expect_diagnostic\n <div for=\"bar\" />\n ```\n\n ### Valid\n\n ```jsx\n <div className=\"foo\" />\n ```\n\n ```jsx\n <div onClick={() => {}} />\n ```\n\n ```jsx\n <div htmlFor=\"bar\" />\n ```\n\n ```jsx\n <div data-foo=\"bar\" />\n ```\n\n ```jsx\n <div aria-label=\"Close\" />\n ```\n\n ## Options\n\n ### `ignore`\n\n An array of property and attribute names to ignore during validation.\n\n ```json\n {\n   \"noUnknownAttribute\": {\n     \"options\": {\n       \"ignore\": [\"custom-attribute\", \"non-standard-prop\"]\n     }\n   }\n }\n ```\n"
+          },
+          "useIframeSandbox": {
+            "deprecated": false,
+            "version": "2.4.12",
+            "name": "useIframeSandbox",
+            "link": "https://biomejs.dev/linter/rules/use-iframe-sandbox",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintReactDom": "no-missing-iframe-sandbox"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReactXyz": "dom-no-missing-iframe-sandbox"
+                }
+              }
+            ],
+            "docs": " Enforce the 'sandbox' attribute for 'iframe' elements.\n\n The sandbox attribute enables an extra set of restrictions for the content in the iframe.\n Using the sandbox attribute is considered a good security practice.\n\n See [the Mozilla docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/iframe#sandbox) for details.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n function MyComponent() {\n   return <iframe src=\"https://example.com\" />;\n }\n ```\n\n ### Valid\n\n ```jsx\n function MyComponent() {\n   return <iframe src=\"https://example.com\" sandbox=\"allow-popups\" />;\n }\n ```\n\n"
           },
           "useInlineScriptId": {
             "deprecated": false,
@@ -8487,7 +8536,7 @@ export function GET() {
           },
           "useReduceTypeParameter": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.12",
             "name": "useReduceTypeParameter",
             "link": "https://biomejs.dev/linter/rules/use-reduce-type-parameter",
             "recommended": false,
@@ -8538,6 +8587,12 @@ export function GET() {
             "recommended": false,
             "fixKind": "none",
             "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslint": "no-magic-numbers"
+                }
+              },
               {
                 "kind": "sameLogic",
                 "source": {
@@ -8979,7 +9034,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 506
+    "numberOrRules": 509
   },
   "syntax": {
     "languages": {
