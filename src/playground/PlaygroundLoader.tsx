@@ -45,6 +45,8 @@ import {
 	normalizeFilename,
 } from "@/playground/utils.ts";
 
+import "@/styles/playground/index.css";
+
 function throttle(callback: () => void, delay = 100): () => void {
 	const timeout = setTimeout(callback, delay);
 
