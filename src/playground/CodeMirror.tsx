@@ -10,7 +10,8 @@ import type {
 } from "@uiw/react-codemirror";
 import RealCodeMirror from "@uiw/react-codemirror";
 import { forwardRef, useEffect, useMemo, useState } from "react";
-import { spanInBytesToSpanInCodeUnits, useTheme } from "@/playground/utils";
+
+import { spanInBytesToSpanInCodeUnits, useTheme } from "./utils";
 
 export type BiomeExtension = Extension;
 
@@ -124,10 +125,6 @@ export default forwardRef<ReactCodeMirrorRef, Props>(function CodeMirror(
 
 	const [editor, setEditor] = useState<EditorView>();
 
-	function onCreateEditor(editor: EditorView) {
-		setEditor(editor);
-	}
-
 	const extensions = useMemo(() => {
 		const baseExtensions = [
 			EditorView.lineWrapping,
@@ -171,7 +168,7 @@ export default forwardRef<ReactCodeMirrorRef, Props>(function CodeMirror(
 		<RealCodeMirror
 			{...props}
 			extensions={extensions}
-			onCreateEditor={onCreateEditor}
+			onCreateEditor={setEditor}
 			ref={ref}
 			theme={theme}
 		/>
