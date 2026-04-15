@@ -31,6 +31,7 @@ export default function SettingsJsonEditorModal({
 	onClose,
 }: SettingsJsonEditorModalProps) {
 	const dialogRef = useRef<HTMLDialogElement>(null);
+	const copyStatusTimeoutRef = useRef<number | null>(null);
 	const wasOpenRef = useRef(false);
 	const [configurationAsJson, setConfigurationAsJson] = useState(() =>
 		JSON.stringify(createEditableConfiguration(settings), null, 2),
@@ -39,50 +40,57 @@ export default function SettingsJsonEditorModal({
 	const [copyStatus, setCopyStatus] = useState<"idle" | "copied">("idle");
 
 	useEffect(() => {
+		return () => {
+			if (copyStatusTimeoutRef.current !== null) {
+				window.clearTimeout(copyStatusTimeoutRef.current);
+			}
+		};
+	}, []);
+
+	useEffect(() => {
+		const dialog = dialogRef.current;
+
 		if (isOpen && !wasOpenRef.current) {
 			setConfigurationAsJson(
 				JSON.stringify(createEditableConfiguration(settings), null, 2),
 			);
 			setJsonError(null);
+			if (copyStatusTimeoutRef.current !== null) {
+				window.clearTimeout(copyStatusTimeoutRef.current);
+				copyStatusTimeoutRef.current = null;
+			}
 			setCopyStatus("idle");
 		}
 
-		wasOpenRef.current = isOpen;
-	}, [isOpen, settings]);
-
-	useEffect(() => {
 		if (!isOpen) {
-			if (dialogRef.current?.open) {
-				dialogRef.current.close();
+			if (dialog?.open) {
+				dialog.close();
 			}
+			wasOpenRef.current = isOpen;
 			return;
 		}
 
-		const dialog = dialogRef.current;
 		if (dialog === null || dialog.open) {
+			wasOpenRef.current = isOpen;
 			return;
 		}
 
 		dialog.showModal();
-	}, [isOpen]);
-
-	useEffect(() => {
-		if (copyStatus !== "copied") {
-			return;
-		}
-
-		const timeoutId = window.setTimeout(() => {
-			setCopyStatus("idle");
-		}, 2000);
-
-		return () => {
-			window.clearTimeout(timeoutId);
-		};
-	}, [copyStatus]);
+		wasOpenRef.current = isOpen;
+	}, [isOpen, settings]);
 
 	async function copyJsonSettings() {
 		await navigator.clipboard.writeText(configurationAsJson);
+
+		if (copyStatusTimeoutRef.current !== null) {
+			window.clearTimeout(copyStatusTimeoutRef.current);
+		}
+
 		setCopyStatus("copied");
+		copyStatusTimeoutRef.current = window.setTimeout(() => {
+			setCopyStatus("idle");
+			copyStatusTimeoutRef.current = null;
+		}, 2000);
 	}
 
 	function applyJsonSettings() {

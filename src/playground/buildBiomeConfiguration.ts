@@ -25,9 +25,15 @@ function getBiomeIndentStyle(indentStyle: PlaygroundSettings["indentStyle"]) {
 }
 
 function getPlaygroundIndentStyle(indentStyle: IndentStyle | undefined) {
-	return indentStyle === IndentStyle.Space
-		? IndentStyle.Space
-		: defaultPlaygroundState.settings.indentStyle;
+	if (indentStyle === IndentStyle.Space) {
+		return IndentStyle.Space;
+	}
+
+	if (indentStyle === IndentStyle.Tab) {
+		return IndentStyle.Tab;
+	}
+
+	return undefined;
 }
 
 function getBiomeAttributePosition(
@@ -41,9 +47,15 @@ function getBiomeAttributePosition(
 function getPlaygroundAttributePosition(
 	attributePosition: AttributePosition | undefined,
 ) {
-	return attributePosition === AttributePosition.Multiline
-		? AttributePosition.Multiline
-		: defaultPlaygroundState.settings.attributePosition;
+	if (attributePosition === AttributePosition.Multiline) {
+		return AttributePosition.Multiline;
+	}
+
+	if (attributePosition === AttributePosition.Auto) {
+		return AttributePosition.Auto;
+	}
+
+	return undefined;
 }
 
 function getBiomeExpand(expand: PlaygroundSettings["expand"]) {
@@ -63,8 +75,10 @@ function getPlaygroundExpand(expand: Expand | undefined) {
 			return Expand.Always;
 		case Expand.Never:
 			return Expand.Never;
+		case Expand.Auto:
+			return Expand.Auto;
 		default:
-			return defaultPlaygroundState.settings.expand;
+			return undefined;
 	}
 }
 
@@ -95,9 +109,15 @@ function getBiomeQuoteProperties(
 function getPlaygroundQuoteProperties(
 	quoteProperties: "preserve" | "asNeeded" | undefined,
 ) {
-	return quoteProperties === QuoteProperties.Preserve
-		? QuoteProperties.Preserve
-		: defaultPlaygroundState.settings.quoteProperties;
+	if (quoteProperties === "preserve") {
+		return QuoteProperties.Preserve;
+	}
+
+	if (quoteProperties === "asNeeded") {
+		return QuoteProperties.AsNeeded;
+	}
+
+	return undefined;
 }
 
 function getBiomeSemicolons(semicolons: PlaygroundSettings["semicolons"]) {
@@ -107,9 +127,15 @@ function getBiomeSemicolons(semicolons: PlaygroundSettings["semicolons"]) {
 function getPlaygroundSemicolons(
 	semicolons: "always" | "asNeeded" | undefined,
 ) {
-	return semicolons === "asNeeded"
-		? Semicolons.AsNeeded
-		: defaultPlaygroundState.settings.semicolons;
+	if (semicolons === "asNeeded") {
+		return Semicolons.AsNeeded;
+	}
+
+	if (semicolons === "always") {
+		return Semicolons.Always;
+	}
+
+	return undefined;
 }
 
 function getBiomeArrowParentheses(
@@ -121,9 +147,15 @@ function getBiomeArrowParentheses(
 function getPlaygroundArrowParentheses(
 	arrowParentheses: "always" | "asNeeded" | undefined,
 ) {
-	return arrowParentheses === "asNeeded"
-		? ArrowParentheses.AsNeeded
-		: defaultPlaygroundState.settings.arrowParentheses;
+	if (arrowParentheses === "asNeeded") {
+		return ArrowParentheses.AsNeeded;
+	}
+
+	if (arrowParentheses === "always") {
+		return ArrowParentheses.Always;
+	}
+
+	return undefined;
 }
 
 function getBiomeOperatorLinebreak(
@@ -137,9 +169,15 @@ function getBiomeOperatorLinebreak(
 function getPlaygroundOperatorLinebreak(
 	operatorLinebreak: OperatorLinebreak | undefined,
 ) {
-	return operatorLinebreak === OperatorLinebreak.Before
-		? OperatorLinebreak.Before
-		: defaultPlaygroundState.settings.operatorLinebreak;
+	if (operatorLinebreak === OperatorLinebreak.Before) {
+		return OperatorLinebreak.Before;
+	}
+
+	if (operatorLinebreak === OperatorLinebreak.After) {
+		return OperatorLinebreak.After;
+	}
+
+	return undefined;
 }
 
 function getLintRuleGroup(
@@ -196,7 +234,7 @@ function getLintRulesConfiguration(
 
 function getPlaygroundLintRules(linterRules: LinterRules | undefined) {
 	if (!linterRules || typeof linterRules !== "object") {
-		return defaultPlaygroundState.settings.lintRules;
+		return undefined;
 	}
 
 	const rules = linterRules as Record<string, unknown>;
@@ -239,7 +277,7 @@ function getPlaygroundLintRules(linterRules: LinterRules | undefined) {
 		return LINT_RULES.recommended;
 	}
 
-	return defaultPlaygroundState.settings.lintRules;
+	return undefined;
 }
 
 export function buildBiomeConfiguration(
@@ -360,7 +398,8 @@ export function parseBiomeConfiguration(
 	return {
 		...defaults,
 		lineWidth: formatter?.lineWidth ?? defaults.lineWidth,
-		indentStyle: getPlaygroundIndentStyle(formatter?.indentStyle),
+		indentStyle:
+			getPlaygroundIndentStyle(formatter?.indentStyle) ?? defaults.indentStyle,
 		indentWidth: formatter?.indentWidth ?? defaults.indentWidth,
 		quoteStyle:
 			getPlaygroundQuoteStyle(javascriptFormatter?.quoteStyle) ??
@@ -369,31 +408,30 @@ export function parseBiomeConfiguration(
 		jsxQuoteStyle:
 			getPlaygroundQuoteStyle(javascriptFormatter?.jsxQuoteStyle) ??
 			defaults.jsxQuoteStyle,
-		quoteProperties: getPlaygroundQuoteProperties(
-			javascriptFormatter?.quoteProperties,
-		),
+		quoteProperties:
+			getPlaygroundQuoteProperties(javascriptFormatter?.quoteProperties) ??
+			defaults.quoteProperties,
 		trailingCommas:
 			javascriptFormatter?.trailingCommas ?? defaults.trailingCommas,
-		semicolons: getPlaygroundSemicolons(javascriptFormatter?.semicolons),
-		arrowParentheses: getPlaygroundArrowParentheses(
-			javascriptFormatter?.arrowParentheses,
-		),
-		operatorLinebreak: getPlaygroundOperatorLinebreak(
-			javascriptFormatter?.operatorLinebreak,
-		),
+		semicolons:
+			getPlaygroundSemicolons(javascriptFormatter?.semicolons) ??
+			defaults.semicolons,
+		arrowParentheses:
+			getPlaygroundArrowParentheses(javascriptFormatter?.arrowParentheses) ??
+			defaults.arrowParentheses,
+		operatorLinebreak:
+			getPlaygroundOperatorLinebreak(javascriptFormatter?.operatorLinebreak) ??
+			defaults.operatorLinebreak,
 		attributePosition:
-			getPlaygroundAttributePosition(formatter?.attributePosition) ===
-				AttributePosition.Multiline ||
-			getPlaygroundAttributePosition(javascriptFormatter?.attributePosition) ===
-				AttributePosition.Multiline
-				? AttributePosition.Multiline
-				: defaults.attributePosition,
+			getPlaygroundAttributePosition(javascriptFormatter?.attributePosition) ??
+			getPlaygroundAttributePosition(formatter?.attributePosition) ??
+			defaults.attributePosition,
 		bracketSpacing:
 			javascriptFormatter?.bracketSpacing ?? defaults.bracketSpacing,
 		bracketSameLine:
 			javascriptFormatter?.bracketSameLine ?? defaults.bracketSameLine,
-		expand: getPlaygroundExpand(formatter?.expand),
-		lintRules: getPlaygroundLintRules(linter?.rules),
+		expand: getPlaygroundExpand(formatter?.expand) ?? defaults.expand,
+		lintRules: getPlaygroundLintRules(linter?.rules) ?? defaults.lintRules,
 		enabledLinting: linter?.enabled ?? defaults.enabledLinting,
 		analyzerFixMode: defaults.analyzerFixMode,
 		enabledAssist: assist?.enabled ?? defaults.enabledAssist,
