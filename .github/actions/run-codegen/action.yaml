@@ -17,7 +17,7 @@ runs:
       uses: moonrepo/setup-rust@ede6de059f8046a5e236c94046823e2af11ca670 # v1.2.2
       with:
         cache: false
-        bins: cargo-cache
+        bins: cargo-cache, cargo-sweep
 
     - name: Restore rust cache
       id: cache-restore
@@ -28,6 +28,10 @@ runs:
         path: |
           $HOME/.cargo/registry
           target/debug
+
+    - name: Stamp rust build cache
+      shell: bash
+      run: cargo sweep --stamp
 
     - name: Codegen
       shell: bash
@@ -85,6 +89,10 @@ runs:
         echo "Removing dep-info files (*.d)"
         find "target/debug" -type f -name "*.d" -exec rm -f {} \;
       continue-on-error: true
+
+    - name: Sweep unused rust build cache
+      shell: bash
+      run: cargo sweep --file
 
     - name: Save new rust cache
       uses: actions/cache/save@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5.0.4
