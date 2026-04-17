@@ -274,6 +274,7 @@ export const LINT_RULES = {
     useReactAsyncServerFunction: "useReactAsyncServerFunction",
     useReduceTypeParameter: "useReduceTypeParameter",
     useRegexpExec: "useRegexpExec",
+    useRegexpTest: "useRegexpTest",
     useRequiredScripts: "useRequiredScripts",
     useScopedStyles: "useScopedStyles",
     useSortedClasses: "useSortedClasses",
