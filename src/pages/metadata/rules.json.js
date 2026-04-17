@@ -4361,6 +4361,23 @@ export function GET() {
             ],
             "docs": " Enforce `RegExp#exec` over `String#match` if no global flag is provided.\n\n String#match is defined to work the same as RegExp#exec when the regular expression does not include the g flag.\n Keeping to consistently using one of the two can help improve code readability.\n\n RegExp#exec may also be slightly faster than String#match; this is the reason to choose it as the preferred usage.\n\n ## Examples\n\n ### Invalid\n\n ```ts,file=invalid.ts,expect_diagnostic\n 'something'.match(/thing/);\n ```\n\n ### Valid\n\n ```ts,file=valid.ts\n /thing/.exec('something');\n ```\n\n"
           },
+          "useRegexpTest": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useRegexpTest",
+            "link": "https://biomejs.dev/linter/rules/use-regexp-test",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintUnicorn": "prefer-regexp-test"
+                }
+              }
+            ],
+            "docs": " Enforce the use of `RegExp.prototype.test()` over `String.prototype.match()` and `RegExp.prototype.exec()` in boolean contexts.\n\n When checking whether a string matches a regular expression, `RegExp.prototype.test()` is more appropriate\n than `String.prototype.match()` and `RegExp.prototype.exec()` because it returns a boolean directly.\n In contrast, `match()` and `exec()` return match objects or arrays, which involves unnecessary computation\n when only a true/false result is needed.\n\n The fix is marked as unsafe because `match()` and `exec()` can have side effects when used with\n [global or sticky](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/lastIndex) regular expressions,\n since they advance the `lastIndex` property differently than `test()`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n if (\"hello world\".match(/hello/)) {}\n ```\n\n ```js,expect_diagnostic\n if (/hello/.exec(\"hello world\")) {}\n ```\n\n ### Valid\n\n ```js\n if (/hello/.test(\"hello world\")) {}\n ```\n\n"
+          },
           "useSortedClasses": {
             "deprecated": false,
             "version": "1.6.0",
@@ -9034,7 +9051,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 509
+    "numberOrRules": 510
   },
   "syntax": {
     "languages": {

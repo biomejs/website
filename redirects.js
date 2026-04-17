@@ -436,6 +436,7 @@ export default {
   '/linter/rules/useReduceTypeParameter': '/linter/rules/use-reduce-type-parameter',
   '/linter/rules/useRegexLiterals': '/linter/rules/use-regex-literals',
   '/linter/rules/useRegexpExec': '/linter/rules/use-regexp-exec',
+  '/linter/rules/useRegexpTest': '/linter/rules/use-regexp-test',
   '/linter/rules/useRequiredScripts': '/linter/rules/use-required-scripts',
   '/linter/rules/useScopedStyles': '/linter/rules/use-scoped-styles',
   '/linter/rules/useSelfClosingElements': '/linter/rules/use-self-closing-elements',
