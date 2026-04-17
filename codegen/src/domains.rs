@@ -69,83 +69,9 @@ impl DocDomains {
             if rules.is_empty() {
                 continue;
             }
-            match domain {
-                RuleDomain::React => {
-                    writeln!(buffer, "## {name}")?;
-                    writeln!(
-                        buffer,
-                        "Use this domain inside React projects. It enables a set of rules that can help catching bugs and enforce correct practices. This domain enable rules that might conflict with the Solid domain."
-                    )?;
-                }
-                RuleDomain::Test => {
-                    writeln!(buffer, "## {name}")?;
-                    writeln!(
-                        buffer,
-                        "Use this domain when linting test files. It enables a set of rules that are library agnostic, and can help to catch possible misuse of the test APIs."
-                    )?;
-                }
-                RuleDomain::Solid => {
-                    writeln!(buffer, "## {name}")?;
-                    writeln!(
-                        buffer,
-                        "Use this domain inside Solid projects. This domain enables rules that might conflict with the React domain."
-                    )?;
-                }
-                RuleDomain::Next => {
-                    writeln!(buffer, "## {name}")?;
-                    writeln!(buffer, "Use this domain inside Next.js projects.")?;
-                }
-                RuleDomain::Playwright => {
-                    writeln!(buffer, "## {name}")?;
-                    writeln!(
-                        buffer,
-                        "Use this domain inside Playwright test projects. This domain enables rules that help enforce best practices and catch common mistakes when writing Playwright tests."
-                    )?;
-                }
-                RuleDomain::Project => {
-                    writeln!(buffer, "## {name}")?;
-                    writeln!(
-                        buffer,
-                        "This domain contains rules that perform project-level analysis. This includes our module graph for dependency resolution. When enabling rules that belong to this domain, Biome will scan the entire project. The scanning phase will have a performance impact on the linting process. See the documentation on our [scanner](/internals/architecture/#scanner) to learn more about the scanner."
-                    )?;
-                }
-                RuleDomain::Vue => {
-                    writeln!(buffer, "## {name}")?;
-                    writeln!(
-                        buffer,
-                        "Use this domain inside Vue projects. This domain enables rules that are specific to Vue projects."
-                    )?;
-                }
-                RuleDomain::Qwik => {
-                    writeln!(buffer, "## {name}")?;
-                    writeln!(
-                        buffer,
-                        "Use this domain inside Qwik projects. This domain enables rules that are specific to Qwik projects."
-                    )?;
-                }
-                RuleDomain::Turborepo => {
-                    writeln!(buffer, "## {name}")?;
-                    writeln!(
-                        buffer,
-                        "Use this domain inside Turborepo projects. This domain enables rules that are specific to Turborepo projects."
-                    )?;
-                }
-                RuleDomain::Types => {
-                    writeln!(buffer, "## {name}")?;
-                    writeln!(
-                        buffer,
-                        "This domain contains rules that perform project-level analysis. This includes our module graph for dependency resolution. When enabling rules that belong to this domain, Biome will scan the entire project, *and it will enable the inference engine to resolve and flat types*. The scanning phase will have a performance impact on the linting process. See the documentation on our [scanner](/internals/architecture/#scanner) to learn more about the scanner."
-                    )?;
-                }
-                RuleDomain::Drizzle => {
-                    writeln!(buffer, "## {name}")?;
-                    writeln!(buffer, "Use this domain with projects using Drizzle.")?;
-                }
-                #[allow(unreachable_patterns)]
-                domain => {
-                    eprintln!("Undocumented domain: {domain:?}");
-                }
-            }
+            writeln!(buffer, "## {name}")?;
+            writeln!(buffer, "{}", domain.as_description())?;
+
             Self::write_activation(name.as_str(), rules.as_slice(), buffer)?;
             Self::write_dependencies(domain, name.as_str(), buffer)?;
             Self::write_globals(domain, name.as_str(), buffer)?;

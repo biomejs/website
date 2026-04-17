@@ -206,6 +206,7 @@ export default {
   '/linter/rules/noQwikUseVisibleTask': '/linter/rules/no-qwik-use-visible-task',
   '/linter/rules/noReExportAll': '/linter/rules/no-re-export-all',
   '/linter/rules/noReactForwardRef': '/linter/rules/no-react-forward-ref',
+  '/linter/rules/noReactNativeRawText': '/linter/rules/no-react-native-raw-text',
   '/linter/rules/noReactPropAssignments': '/linter/rules/no-react-prop-assignments',
   '/linter/rules/noReactSpecificProps': '/linter/rules/no-react-specific-props',
   '/linter/rules/noRedeclare': '/linter/rules/no-redeclare',
