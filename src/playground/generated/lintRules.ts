@@ -225,6 +225,7 @@ export const LINT_RULES = {
     noPlaywrightWaitForSelector: "noPlaywrightWaitForSelector",
     noPlaywrightWaitForTimeout: "noPlaywrightWaitForTimeout",
     noProto: "noProto",
+    noReactNativeRawText: "noReactNativeRawText",
     noRedundantDefaultExport: "noRedundantDefaultExport",
     noReturnAssign: "noReturnAssign",
     noRootType: "noRootType",
