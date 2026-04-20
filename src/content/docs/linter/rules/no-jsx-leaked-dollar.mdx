@@ -1,0 +1,109 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noJsxLeakedDollar
+description: Learn more about noJsxLeakedDollar
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JSX and TSX" icon="seti:javascript">
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noJsxLeakedDollar`](/reference/diagnostics#diagnostic-category)
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- This rule belongs to the following domains:
+  - [`react`](/linter/domains#react)
+- Sources: 
+  - Same as [`react-jsx/no-leaked-dollar`](https://eslint-react.xyz/docs/rules/jsx-no-leaked-dollar)
+  - Same as [`@eslint-react/jsx-no-leaked-dollar`](https://eslint-react.xyz/docs/rules/jsx-no-leaked-dollar)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noJsxLeakedDollar": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Flags text nodes with a trailing `$` before a JSX expression.
+
+This can happen when refactoring from a template literal to JSX and forgetting
+to remove the dollar sign. This results in an unintentional `$` being rendered
+as text in the output.
+
+```jsx
+function MyComponent({ user }) {
+  return `Hello ${user.name}`;
+}
+```
+
+When refactored to JSX, it might look like this:
+
+```jsx
+function MyComponent({ user }) {
+  return <>Hello ${user.name}</>;
+}
+```
+
+However, the `$` before `{user.name}` is unnecessary and will be rendered as text in the output.
+
+## Examples
+
+### Invalid
+
+```jsx
+function MyComponent({ user }) {
+  return <div>Hello ${user.name}</div>;
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.jsx:2:21 <a href="https://biomejs.dev/linter/rules/no-jsx-leaked-dollar">lint/nursery/noJsxLeakedDollar</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Possible unintentional </span><span style="color: Orange;"><strong>'$'</strong></span><span style="color: Orange;"> before a JSX expression.</span><br />  <br />    <strong>1 │ </strong>function MyComponent(&#123; user &#125;) &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  return &lt;div&gt;Hello $&#123;user.name&#125;&lt;/div&gt;;<br />   <strong>   │ </strong>                    <strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This </span><span style="color: lightgreen;"><strong>'$'</strong></span><span style="color: lightgreen;"> will be rendered as text. Remove the </span><span style="color: lightgreen;"><strong>'$'</strong></span><span style="color: lightgreen;"> from the text node or add a suppression if it is intentional.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Remove dollar sign.</span><br />  <br />  <strong>  2 │ </strong><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span>return<span style="opacity: 0.8;">·</span>&lt;div&gt;Hello<span style="opacity: 0.8;">·</span><span style="color: Tomato;">$</span>&#123;user.name&#125;&lt;/div&gt;;<br />  <strong>    │ </strong>                    <span style="color: Tomato;">-</span>                  <br /></code></pre>
+
+```jsx
+function MyComponent({ user }) {
+  return <div>${user.name} is your name</div>;
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.jsx:2:15 <a href="https://biomejs.dev/linter/rules/no-jsx-leaked-dollar">lint/nursery/noJsxLeakedDollar</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Possible unintentional </span><span style="color: Orange;"><strong>'$'</strong></span><span style="color: Orange;"> before a JSX expression.</span><br />  <br />    <strong>1 │ </strong>function MyComponent(&#123; user &#125;) &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  return &lt;div&gt;$&#123;user.name&#125; is your name&lt;/div&gt;;<br />   <strong>   │ </strong>              <strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This </span><span style="color: lightgreen;"><strong>'$'</strong></span><span style="color: lightgreen;"> will be rendered as text. Remove the </span><span style="color: lightgreen;"><strong>'$'</strong></span><span style="color: lightgreen;"> from the text node or add a suppression if it is intentional.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Remove dollar sign.</span><br />  <br />  <strong>  2 │ </strong><span style="opacity: 0.8;">·</span><span style="opacity: 0.8;">·</span>return<span style="opacity: 0.8;">·</span>&lt;div&gt;<span style="color: Tomato;">$</span>&#123;user.name&#125;<span style="opacity: 0.8;">·</span>is<span style="opacity: 0.8;">·</span>your<span style="opacity: 0.8;">·</span>name&lt;/div&gt;;<br />  <strong>    │ </strong>              <span style="color: Tomato;">-</span>                               <br /></code></pre>
+
+### Valid
+
+```jsx
+function MyComponent({ user }) {
+  return <div>Hello {user.name}</div>;
+}
+```
+
+```jsx
+// A lone `$` before a single expression is treated as intentional (e.g. a price).
+function MyComponent({ price }) {
+  return <div>${price}</div>;
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_jsx_leaked_dollar.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noJsxLeakedDollar)
+
+</TabItem>
+</Tabs>
+

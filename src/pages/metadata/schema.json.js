@@ -246,6 +246,13 @@ export function GET() {
 					"required": ["eslintReactHooks"]
 				},
 				{
+					"description": "Rules from [Eslint Plugin React Native](https://github.com/Intellicode/eslint-plugin-react-native)",
+					"type": "object",
+					"properties": { "eslintReactNative": { "type": "string" } },
+					"additionalProperties": false,
+					"required": ["eslintReactNative"]
+				},
+				{
 					"description": "Rules from [Eslint Plugin React Prefer Function Component](https://github.com/tatethurston/eslint-plugin-react-prefer-function-component)",
 					"type": "object",
 					"properties": {
