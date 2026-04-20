@@ -3520,6 +3520,29 @@ export function GET() {
             "fixKind": "unsafe",
             "docs": " Disallow the use of inline styles.\n\n Inline styles via the `style` attribute make code harder to maintain and override,\n prevent reusability of styling, and can be a security concern when implementing\n a strict Content Security Policy (CSP).\n\n Instead of inline styles, use CSS classes, CSS modules, or a styling library.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div style={{ color: \"red\" }}>Error</div>\n ```\n\n ```js,expect_diagnostic\n React.createElement(\"div\", { style: { color: \"red\" } });\n ```\n\n ### Valid\n\n ```jsx\n <div className=\"text-red\">Error</div>\n ```\n\n ```js\n React.createElement(\"div\", { className: \"container\" });\n ```\n\n ## Resources\n\n - [Content Security Policy: Allowing inline styles](https://content-security-policy.com/examples/allow-inline-style)\n\n"
           },
+          "noLoopFunc": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noLoopFunc",
+            "link": "https://biomejs.dev/linter/rules/no-loop-func",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "no-loop-func"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintTypeScript": "no-loop-func"
+                }
+              }
+            ],
+            "docs": " Disallow functions declared inside loops that capture unsafe outer variables.\n\n Functions created in loops can easily observe values from a later iteration instead of the\n iteration where they were created. This rule reports functions that capture outer bindings\n which may be reassigned while the loop continues.\n\n The rule ignores plain immediately invoked function expressions (IIFEs), but still reports\n async, generator, and self-referential IIFEs because they can escape the current iteration.\n\n ## Examples\n\n ### Invalid\n\n Using `var` for the iteration variable creates a single binding shared across all iterations, so it's unsafe to capture.\n\n ```js,expect_diagnostic\n for (var i = 0; i < 10; i++) {\n     handlers.push(() => i);\n }\n ```\n\n ```js,expect_diagnostic\n let value = 0;\n for (let i = 0; i < 10; i++) {\n     queue.push(function () {\n         return value;\n     });\n     value += 1;\n }\n ```\n\n ### Valid\n\n Using `let` or `const` for the iteration variable creates a fresh binding each iteration, so it's safe to capture.\n\n ```js\n for (let i = 0; i < 10; i++) {\n     handlers.push(() => i);\n }\n ```\n\n ```js\n for (var i = 0; i < 10; i++) {\n     const current = i;\n     queue.push(function() {\n         return current;\n     });\n }\n ```\n\n"
+          },
           "noMultiAssign": {
             "deprecated": false,
             "version": "2.3.11",
@@ -3775,6 +3798,40 @@ export function GET() {
             ],
             "docs": " Disallow the use of the deprecated `__proto__` object property.\n\n [`Object.prototype.__proto__`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/proto)\n is a special accessor used to get or set the prototype of an object. \\\n\n However, it has been **deprecated** since _ECMAScript 2009_, being much slower and much less reliable than its\n modern counterparts [`Object.getPrototypeOf()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getPrototypeOf)\n and [`Object.setPrototypeOf()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/setPrototypeOf).\n\n Since it is a regular property on `Object.prototype`,\n `__proto__` **will not work** on `null`-prototype objects that do not extend from `Object.prototype`\n nor ones having created their own `__proto__` properties via `Object.defineProperty`.\n\n As such, this rule encourages the use of `Object.getPrototypeOf()` and `Object.setPrototypeOf()`\n in lieu of directly accessing `__proto__`.\n\n :::info\n Note that this does **not** check for the use of `__proto__` inside object literal definitions\n to set a newly created object's prototype, \\\n which is standard practice and well-optimized in modern browsers.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n obj.__proto__ = a;\n ```\n\n ```js,expect_diagnostic\n const b = obj.__proto__;\n ```\n\n ### Valid\n\n ```js\n const a = Object.getPrototypeOf(obj);\n ```\n\n ```js\n Object.setPrototypeOf(obj, b);\n ```\n\n ```js\n // This sets `foo`'s prototype to `null` (similar to `Object.create`), and is\n // well-defined across browsers.\n const foo = {\n   __proto__: null,\n   a: 1,\n }\n ```\n"
           },
+          "noReactNativeDeepImports": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noReactNativeDeepImports",
+            "link": "https://biomejs.dev/linter/rules/no-react-native-deep-imports",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReactNative": "no-deep-imports"
+                }
+              }
+            ],
+            "docs": " Disallow deep imports from the `react-native` package.\n\n Deep imports reach into React Native's internal file structure,\n which is not part of the public API. Internal paths can change\n between versions without warning, breaking code that depends on them.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import View from \"react-native/Libraries/Components/View/View\";\n ```\n\n ```js,expect_diagnostic\n const Platform = require(\"react-native/Libraries/Utilities/Platform\");\n ```\n\n ```js,expect_diagnostic\n const View = require(\"react-native/Libraries/Components/View/View\");\n ```\n\n ```js,expect_diagnostic\n import(\"react-native/Libraries/Utilities/Platform\");\n ```\n\n ### Valid\n\n ```js\n import { View } from \"react-native\";\n ```\n\n ```js\n const { Platform } = require(\"react-native\");\n ```\n\n"
+          },
+          "noReactNativeLiteralColors": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noReactNativeLiteralColors",
+            "link": "https://biomejs.dev/linter/rules/no-react-native-literal-colors",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReactNative": "no-color-literals"
+                }
+              }
+            ],
+            "docs": " Disallow color literals in React Native styles.\n\n Hard-coding colors inside styles makes it harder to keep them consistent\n across components and to swap the palette when the design system evolves.\n Extracting colors into named constants or a shared theme module produces\n more maintainable code.\n\n This rule reports properties whose name contains `color` (case-insensitive)\n and whose value is a string literal, when they appear inside a\n `StyleSheet.create` call or inside a JSX attribute whose name contains\n `style` (case-insensitive). A ternary expression is also reported when\n either branch is a string literal.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n const Hello = () => <Text style={{ backgroundColor: '#FFFFFF' }}>hi</Text>;\n ```\n\n ```jsx,expect_diagnostic\n const styles = StyleSheet.create({\n     text: { color: 'red' }\n });\n ```\n\n ```jsx,expect_diagnostic\n const Hello = (flag) => (\n     <Text style={{ backgroundColor: flag ? '#fff' : '#000' }}>hi</Text>\n );\n ```\n\n ### Valid\n\n ```jsx\n const red = '#f00';\n const styles = StyleSheet.create({\n     text: { color: red }\n });\n ```\n\n ```jsx\n const Hello = () => (\n     <Text style={{ backgroundColor: theme.background }}>hi</Text>\n );\n ```\n\n"
+          },
           "noRedundantDefaultExport": {
             "deprecated": false,
             "version": "2.3.14",
@@ -3932,6 +3989,23 @@ export function GET() {
               }
             ],
             "docs": " Disallow unnecessary type-based conditions that can be statically determined as redundant.\n\n This rule detects if expressions inside conditions are statically inferrable and yield\n falsy or truthy values that don't change during the life cycle of the program.\n\n ## Examples\n\n ### Invalid\n\n ```ts\n function head<T>(items: T[]) {\n   if (items) {  // This check is unnecessary\n     return items[0].toUpperCase();\n   }\n }\n ```\n\n ```ts\n function foo(arg: 'bar' | 'baz') {\n   if (arg) {  // This check is unnecessary\n   }\n }\n ```\n\n ```ts\n function bar(arg: string) {\n   return arg?.length;  // ?. is unnecessary\n }\n ```\n\n Contrary to the source rule, this rule doesn't trigger bindings that are assigned to multiple\n values. In the following example, the variable `greeting` is assigned to multiple values; hence\n it can't be inferred to a truthy or falsy value.\n\n ```ts\n let greeting = false;\n\n function changeGreeting() {\n     greeting = \"Hello World!\"\n }\n\n if (greeting) {} // rule not triggered here\n\n ```\n\n\n ### Valid\n\n ```ts\n function head<T>(items: T[] | null) {\n   if (items) {  // This check is necessary\n     return items[0].toUpperCase();\n   }\n }\n ```\n\n ```ts\n function foo(arg: 'bar' | 'baz' | null) {\n   if (arg) {  // This check is necessary\n   }\n }\n ```\n\n ```ts\n function bar(arg: string | undefined) {\n   return arg?.length;  // ?. is necessary\n }\n ```\n\n"
+          },
+          "noUnnecessaryTemplateExpression": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noUnnecessaryTemplateExpression",
+            "link": "https://biomejs.dev/linter/rules/no-unnecessary-template-expression",
+            "recommended": false,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintTypeScript": "no-unnecessary-template-expression"
+                }
+              }
+            ],
+            "docs": " Disallow unnecessary template expressions.\n\n A template expression (or template literal) is unnecessary when it only contains\n string literal expressions that could be written as a regular string literal instead.\n\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const a = `${'hello'}`;\n ```\n\n ```js,expect_diagnostic\n const b = `${\"world\"}`;\n ```\n\n ```js,expect_diagnostic\n const c = `${'hello'}${'world'}`;\n ```\n\n ```js,expect_diagnostic\n const d = `prefix_${'suffix'}`;\n ```\n\n ### Valid\n\n ```js\n // Template with a non-string-literal expression\n const a = `${someVariable}`;\n ```\n\n ```js\n // Template with a non-string-literal interpolation mixed with text\n const b = `Hello, ${name}!`;\n ```\n\n ```js\n // Tagged templates are never flagged\n const c = html`${'foo'}`;\n ```\n\n ```js\n // Templates with newlines in the text part need the template syntax\n const d = `line one\n ${'line two'}`;\n ```\n\n"
           },
           "noUnsafePlusOperands": {
             "deprecated": false,
@@ -4126,6 +4200,40 @@ export function GET() {
             "recommended": false,
             "fixKind": "unsafe",
             "docs": " Detects a disposable object assigned to a variable without using or await using syntax.\n\n Disposable objects, which implements Disposable or AsyncDisposable interface, are intended\n to dispose after use. Not disposing them can lead some resource or memory leak depending on\n the implementation.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=example1.ts\n function createDisposable(): Disposable {\n   return {\n     [Symbol.dispose]() {\n       // do something\n     },\n   };\n }\n\n const disposable = createDisposable();\n ```\n\n ```ts,expect_diagnostic,file=example2.ts\n class MyClass implements AsyncDisposable {\n   async [Symbol.asyncDispose]() {\n     // do something\n   }\n }\n\n const instance = new MyClass();\n ```\n\n ### Valid\n\n ```ts,file=example3.ts\n function createDisposable(): Disposable {\n   return {\n     [Symbol.dispose]() {\n       // do something\n     },\n   };\n }\n\n using disposable = createDisposable();\n ```\n\n ```ts,file=example4.ts\n class MyClass implements AsyncDisposable {\n   async [Symbol.asyncDispose]() {\n     // do something\n   }\n }\n\n await using instance = new MyClass();\n ```\n\n"
+          },
+          "useDomNodeTextContent": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useDomNodeTextContent",
+            "link": "https://biomejs.dev/linter/rules/use-dom-node-text-content",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintUnicorn": "prefer-dom-node-text-content"
+                }
+              }
+            ],
+            "docs": " Prefer `.textContent` over `.innerText` for DOM node text.\n\n Because `innerText` depends on rendered layout and CSS, it should only be used when you specifically need that behavior.\n `textContent` is usually faster and more predictable than `innerText`.\n\n :::note\n `textContent` and `innerText` are not equivalent.\n See the [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent#differences_from_innertext) for the differences between them.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const text = node.innerText;\n ```\n\n ```js,expect_diagnostic\n const {innerText} = node;\n ```\n\n ```js,expect_diagnostic\n node[\"innerText\"] = \"Biome\";\n ```\n\n ### Valid\n\n ```js\n const text = node.textContent;\n ```\n\n ```js\n const {textContent} = node;\n ```\n\n"
+          },
+          "useDomQuerySelector": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useDomQuerySelector",
+            "link": "https://biomejs.dev/linter/rules/use-dom-query-selector",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintUnicorn": "prefer-query-selector"
+                }
+              }
+            ],
+            "docs": " Prefer `querySelector()` and `querySelectorAll()` over older DOM query APIs.\n\n This rule prefers `querySelector()` over `getElementById()`, and `querySelectorAll()` over\n `getElementsByClassName()`, `getElementsByTagName()`, and `getElementsByName()`.\n\n Using the more modern DOM query APIs can often make the intent of a DOM lookup clearer and\n more concise than the older APIs, especially for complex selectors or if filtering by multiple attributes.\n Additionally, these newer APIs are more flexible and can be easily refined later with more\n specific selectors without needing to change the method being called.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n document.getElementById(\"foo\");\n ```\n\n ```js,expect_diagnostic\n document.getElementsByClassName(\"foo bar\");\n ```\n\n ```js,expect_diagnostic\n document.getElementsByTagName(\"main\");\n ```\n\n ### Valid\n\n ```js\n document.querySelector(\"#foo\");\n ```\n\n ```js\n document.querySelectorAll(\".foo.bar\");\n ```\n\n"
           },
           "useErrorCause": {
             "deprecated": false,
@@ -7837,6 +7945,29 @@ export function GET() {
             ],
             "docs": " Disallows defining React components or custom hooks inside other functions.\n\n Defining components or hooks inside other functions creates new instances on every call.\n React treats each new instance as a completely different component, which destroys and\n recreates the entire component subtree on each render and causes all state to be lost.\n\n ## Examples\n\n ### Invalid\n\n A component is defined inside a factory function:\n\n ```jsx,expect_diagnostic\n function makeComponent(label) {\n   function MyComponent() {\n     return <div>{label}</div>;\n   }\n   return MyComponent;\n }\n ```\n\n A hook is defined inside a factory function:\n\n ```jsx,expect_diagnostic\n function makeHook(key) {\n   function useMyHook() {\n     return useState(key);\n   }\n   return useMyHook;\n }\n ```\n\n ### Valid\n\n Components and hooks defined at the module level:\n\n ```jsx\n function MyComponent() {\n   return <div>Hello</div>;\n }\n\n function useMyHook() {\n   return useState(0);\n }\n ```\n\n Higher-order components that receive a component as a parameter are allowed:\n\n ```jsx\n function withAuth(WrappedComponent) {\n   function AuthenticatedComponent(props) {\n     return <WrappedComponent {...props} />;\n   }\n   return AuthenticatedComponent;\n }\n ```\n\n"
           },
+          "noJsxLeakedDollar": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noJsxLeakedDollar",
+            "link": "https://biomejs.dev/linter/rules/no-jsx-leaked-dollar",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReactJsx": "no-leaked-dollar"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReactXyz": "jsx-no-leaked-dollar"
+                }
+              }
+            ],
+            "docs": " Flags text nodes with a trailing `$` before a JSX expression.\n\n This can happen when refactoring from a template literal to JSX and forgetting\n to remove the dollar sign. This results in an unintentional `$` being rendered\n as text in the output.\n\n ```jsx\n function MyComponent({ user }) {\n   return `Hello ${user.name}`;\n }\n ```\n\n When refactored to JSX, it might look like this:\n\n ```jsx,ignore\n function MyComponent({ user }) {\n   return <>Hello ${user.name}</>;\n }\n ```\n\n However, the `$` before `{user.name}` is unnecessary and will be rendered as text in the output.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n function MyComponent({ user }) {\n   return <div>Hello ${user.name}</div>;\n }\n ```\n\n ```jsx,expect_diagnostic\n function MyComponent({ user }) {\n   return <div>${user.name} is your name</div>;\n }\n ```\n\n ### Valid\n\n ```jsx\n function MyComponent({ user }) {\n   return <div>Hello {user.name}</div>;\n }\n ```\n\n ```jsx\n // A lone `$` before a single expression is treated as intentional (e.g. a price).\n function MyComponent({ price }) {\n   return <div>${price}</div>;\n }\n ```\n\n"
+          },
           "noJsxNamespace": {
             "deprecated": false,
             "version": "2.4.12",
@@ -7893,6 +8024,23 @@ export function GET() {
               }
             ],
             "docs": " Prevent problematic leaked values from being rendered.\n\n This rule prevents values that might cause unintentionally rendered values\n or rendering crashes in React JSX. When using conditional rendering with the\n logical AND operator (`&&`), if the left-hand side evaluates to a falsy value like\n `0`, `NaN`, or any empty string, these values will be rendered instead of rendering nothing.\n\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n const Component = () => {\n   const count = 0;\n   return <div>{count && <span>Count: {count}</span>}</div>;\n }\n ```\n\n ```jsx,expect_diagnostic\n const Component = () => {\n   const items = [];\n   return <div>{items.length && <List items={items} />}</div>;\n }\n ```\n\n ```jsx,expect_diagnostic\n const Component = () => {\n   const user = null;\n   return <div>{user && <Profile user={user} />}</div>;\n }\n ```\n\n\n ### Valid\n\n ```jsx\n const Component = () => {\n   const count = 0;\n   return <div>{count > 0 && <span>Count: {count}</span>}</div>;\n }\n ```\n\n ```jsx\n const Component = () => {\n   const items = [];\n   return <div>{!!items.length && <List items={items} />}</div>;\n }\n ```\n\n ```jsx\n const Component = () => {\n   const user = null;\n   return <div>{user ? <Profile user={user} /> : null}</div>;\n }\n ```\n\n ```jsx\n const Component = () => {\n   const condition = false;\n   return <div>{condition ? <Content /> : <Fallback />}</div>;\n }\n ```\n\n ```jsx\n const Component = () => {\n   const isReady = true;\n   return <div>{isReady && <Content />}</div>;\n }\n ```\n"
+          },
+          "noReactNativeRawText": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noReactNativeRawText",
+            "link": "https://biomejs.dev/linter/rules/no-react-native-raw-text",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReactNative": "no-raw-text"
+                }
+              }
+            ],
+            "docs": " Disallow raw text outside `<Text>` components in React Native.\n\n In React Native, every string rendered in the UI must be wrapped in a `<Text>`\n component. Rendering text directly inside containers such as `<View>` throws at\n runtime on native platforms.\n\n By default, the following element names are treated as valid text containers:\n `Text`, `TSpan`, `StyledText`, and `Animated.Text`. Additional components can be\n whitelisted through the `skip` option.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <View>some text</View>\n ```\n\n ```jsx,expect_diagnostic\n <View>{'some text'}</View>\n ```\n\n ```jsx,expect_diagnostic\n const text = 'some text';\n <View>{`${text}`}</View>\n ```\n\n ### Valid\n\n ```jsx\n <View><Text>some text</Text></View>\n ```\n\n ```jsx\n <View><Text>{'some text'}</Text></View>\n ```\n\n ## Options\n\n ### `skip`\n\n An array of additional component names that are allowed to contain raw text.\n\n ```json,options\n {\n     \"options\": {\n         \"skip\": [\"Title\"]\n     }\n }\n ```\n\n ```jsx,use_options\n const Title = ({ children }) => <Text>{children}</Text>;\n <Title>This is the title</Title>;\n ```\n\n"
           },
           "noUnknownAttribute": {
             "deprecated": false,
@@ -9051,7 +9199,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 510
+    "numberOrRules": 518
   },
   "syntax": {
     "languages": {

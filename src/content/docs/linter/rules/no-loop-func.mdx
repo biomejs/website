@@ -1,0 +1,104 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noLoopFunc
+description: Learn more about noLoopFunc
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noLoopFunc`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- Sources: 
+  - Same as [`no-loop-func`](https://eslint.org/docs/latest/rules/no-loop-func)
+  - Same as [`@typescript-eslint/no-loop-func`](https://typescript-eslint.io/rules/no-loop-func)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noLoopFunc": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow functions declared inside loops that capture unsafe outer variables.
+
+Functions created in loops can easily observe values from a later iteration instead of the
+iteration where they were created. This rule reports functions that capture outer bindings
+which may be reassigned while the loop continues.
+
+The rule ignores plain immediately invoked function expressions (IIFEs), but still reports
+async, generator, and self-referential IIFEs because they can escape the current iteration.
+
+## Examples
+
+### Invalid
+
+Using `var` for the iteration variable creates a single binding shared across all iterations, so it's unsafe to capture.
+
+```js
+for (var i = 0; i < 10; i++) {
+    handlers.push(() => i);
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:2:19 <a href="https://biomejs.dev/linter/rules/no-loop-func">lint/nursery/noLoopFunc</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">This function declared in a loop contains unsafe references to outer variables.</span><br />  <br />    <strong>1 │ </strong>for (var i = 0; i &lt; 10; i++) &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>    handlers.push(() =&gt; i);<br />   <strong>   │ </strong>                  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Loop-created functions often run after the loop continues, but captured outer bindings like </span><span style="color: lightgreen;"><strong>var</strong></span><span style="color: lightgreen;"> variables are reused instead of copied per iteration.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The following variables were detected: </span><span style="color: lightgreen;"><strong>i</strong></span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Move the function outside the loop, capture only per-iteration bindings, or avoid mutating the captured variable across iterations.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+```js
+let value = 0;
+for (let i = 0; i < 10; i++) {
+    queue.push(function () {
+        return value;
+    });
+    value += 1;
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:3:16 <a href="https://biomejs.dev/linter/rules/no-loop-func">lint/nursery/noLoopFunc</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">This function declared in a loop contains unsafe references to outer variables.</span><br />  <br />    <strong>1 │ </strong>let value = 0;<br />    <strong>2 │ </strong>for (let i = 0; i &lt; 10; i++) &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>    queue.push(function () &#123;<br />   <strong>   │ </strong>               <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>        return value;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>5 │ </strong>    &#125;);<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><br />    <strong>6 │ </strong>    value += 1;<br />    <strong>7 │ </strong>&#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Loop-created functions often run after the loop continues, but captured outer bindings like </span><span style="color: lightgreen;"><strong>var</strong></span><span style="color: lightgreen;"> variables are reused instead of copied per iteration.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The following variables were detected: </span><span style="color: lightgreen;"><strong>value</strong></span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Move the function outside the loop, capture only per-iteration bindings, or avoid mutating the captured variable across iterations.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+### Valid
+
+Using `let` or `const` for the iteration variable creates a fresh binding each iteration, so it's safe to capture.
+
+```js
+for (let i = 0; i < 10; i++) {
+    handlers.push(() => i);
+}
+```
+
+```js
+for (var i = 0; i < 10; i++) {
+    const current = i;
+    queue.push(function() {
+        return current;
+    });
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_loop_func.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noLoopFunc)
+
+</TabItem>
+</Tabs>
+
