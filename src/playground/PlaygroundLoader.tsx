@@ -33,7 +33,7 @@ import {
 	type Semicolons,
 	type TrailingCommas,
 	type WhitespaceSensitivity,
-} from "@/playground/types";
+} from "@/playground/types.ts";
 import {
 	createLocalStorage,
 	decodeCode,
@@ -43,7 +43,9 @@ import {
 	getFileState,
 	guessLanguage,
 	normalizeFilename,
-} from "@/playground/utils";
+} from "@/playground/utils.ts";
+
+import "@/styles/playground/index.css";
 
 function throttle(callback: () => void, delay = 100): () => void {
 	const timeout = setTimeout(callback, delay);

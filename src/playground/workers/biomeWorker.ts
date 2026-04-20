@@ -20,7 +20,7 @@ import {
 	QuoteProperties,
 	QuoteStyle,
 	Semicolons,
-} from "@/playground/types";
+} from "@/playground/types.ts";
 
 const encoder = new TextEncoder();
 const knownFiles = new Set<string>();

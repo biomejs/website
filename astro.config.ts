@@ -32,27 +32,27 @@ const plugins = [
 		authors: {
 			arendjr: {
 				name: "Arend van Beelen jr.",
-				picture: "https://avatars.githubusercontent.com/u/533294?v=4",
+				picture: "https://avatars.githubusercontent.com/u/533294?s=25&v=4",
 				url: "https://arendjr.nl/",
 			},
 			conaclos: {
 				name: "Victorien Elvinger",
-				picture: "https://avatars.githubusercontent.com/u/2358560?v=4",
+				picture: "https://avatars.githubusercontent.com/u/2358560?s=25&v=4",
 				url: "https://bsky.app/profile/conaclos.bsky.social",
 			},
 			dyc3: {
 				name: "Carson McManus",
-				picture: "https://avatars.githubusercontent.com/u/1808807?v=4",
+				picture: "https://avatars.githubusercontent.com/u/1808807?s=25&v=4",
 				url: "https://github.com/dyc3",
 			},
 			ema: {
 				name: "Emanuele Stoppa",
-				picture: "https://avatars.githubusercontent.com/u/602478?v=4",
+				picture: "https://avatars.githubusercontent.com/u/602478?s=25&v=4",
 				url: "https://bsky.app/profile/ematipico.xyz",
 			},
 			nhedger: {
 				name: "Nicolas Hedger",
-				picture: "https://avatars.githubusercontent.com/u/649677?v=4",
+				picture: "https://avatars.githubusercontent.com/u/649677?s=25&v=4",
 				url: "https://bsky.app/profile/hedger.ch",
 			},
 			team: {
@@ -1056,11 +1056,6 @@ export default defineConfig({
 	},
 
 	vite: {
-		resolve: {
-			alias: {
-				"@": new URL("./src", import.meta.url).pathname,
-			},
-		},
 		plugins: [],
 
 		worker: {
@@ -1077,6 +1072,14 @@ export default defineConfig({
 		define: {
 			PRETTIER_VERSION: JSON.stringify(prettierVersion),
 			BIOME_VERSION: JSON.stringify(biomeVersion),
+		},
+	},
+	experimental: {
+		// rustCompiler: true,
+		queuedRendering: {
+			enabled: true,
+			contentCache: true,
+			poolSize: 2000,
 		},
 	},
 });
