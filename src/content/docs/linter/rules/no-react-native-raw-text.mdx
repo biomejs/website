@@ -1,0 +1,124 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: noReactNativeRawText
+description: Learn more about noReactNativeRawText
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JSX and TSX" icon="seti:javascript">
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noReactNativeRawText`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`reactNative`](/linter/domains#reactNative)
+- Sources: 
+  - Same as [`react-native/no-raw-text`](https://github.com/Intellicode/eslint-plugin-react-native/blob/master/docs/rules/no-raw-text.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noReactNativeRawText": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow raw text outside `<Text>` components in React Native.
+
+In React Native, every string rendered in the UI must be wrapped in a `<Text>`
+component. Rendering text directly inside containers such as `<View>` throws at
+runtime on native platforms.
+
+By default, the following element names are treated as valid text containers:
+`Text`, `TSpan`, `StyledText`, and `Animated.Text`. Additional components can be
+whitelisted through the `skip` option.
+
+## Examples
+
+### Invalid
+
+```jsx
+<View>some text</View>
+```
+
+<pre class="language-text"><code class="language-text">code-block.jsx:1:7 <a href="https://biomejs.dev/linter/rules/no-react-native-raw-text">lint/nursery/noReactNativeRawText</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Raw text (some text) cannot be used outside of a </span><span style="color: Tomato;"><strong>&lt;Text&gt;</strong></span><span style="color: Tomato;"> tag.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;View&gt;some text&lt;/View&gt;<br />   <strong>   │ </strong>      <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">In React Native, strings must be rendered within a </span><span style="color: lightgreen;"><strong>&lt;Text&gt;</strong></span><span style="color: lightgreen;"> component, otherwise the application throws at runtime.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Wrap the text in a </span><span style="color: lightgreen;"><strong>&lt;Text&gt;</strong></span><span style="color: lightgreen;"> component, or add the containing component to the </span><span style="color: lightgreen;"><strong>skip</strong></span><span style="color: lightgreen;"> option.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+```jsx
+<View>{'some text'}</View>
+```
+
+<pre class="language-text"><code class="language-text">code-block.jsx:1:7 <a href="https://biomejs.dev/linter/rules/no-react-native-raw-text">lint/nursery/noReactNativeRawText</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Raw text (some text) cannot be used outside of a </span><span style="color: Tomato;"><strong>&lt;Text&gt;</strong></span><span style="color: Tomato;"> tag.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;View&gt;&#123;'some text'&#125;&lt;/View&gt;<br />   <strong>   │ </strong>      <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">In React Native, strings must be rendered within a </span><span style="color: lightgreen;"><strong>&lt;Text&gt;</strong></span><span style="color: lightgreen;"> component, otherwise the application throws at runtime.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Wrap the text in a </span><span style="color: lightgreen;"><strong>&lt;Text&gt;</strong></span><span style="color: lightgreen;"> component, or add the containing component to the </span><span style="color: lightgreen;"><strong>skip</strong></span><span style="color: lightgreen;"> option.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+```jsx
+const text = 'some text';
+<View>{`${text}`}</View>
+```
+
+<pre class="language-text"><code class="language-text">code-block.jsx:2:7 <a href="https://biomejs.dev/linter/rules/no-react-native-raw-text">lint/nursery/noReactNativeRawText</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Raw text (TemplateLiteral: text) cannot be used outside of a </span><span style="color: Tomato;"><strong>&lt;Text&gt;</strong></span><span style="color: Tomato;"> tag.</span><br />  <br />    <strong>1 │ </strong>const text = 'some text';<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>&lt;View&gt;&#123;&#96;$&#123;text&#125;&#96;&#125;&lt;/View&gt;<br />   <strong>   │ </strong>      <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">In React Native, strings must be rendered within a </span><span style="color: lightgreen;"><strong>&lt;Text&gt;</strong></span><span style="color: lightgreen;"> component, otherwise the application throws at runtime.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Wrap the text in a </span><span style="color: lightgreen;"><strong>&lt;Text&gt;</strong></span><span style="color: lightgreen;"> component, or add the containing component to the </span><span style="color: lightgreen;"><strong>skip</strong></span><span style="color: lightgreen;"> option.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+### Valid
+
+```jsx
+<View><Text>some text</Text></View>
+```
+
+```jsx
+<View><Text>{'some text'}</Text></View>
+```
+
+## Options
+
+### `skip`
+
+An array of additional component names that are allowed to contain raw text.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noReactNativeRawText": {
+					"options": {
+						"skip": [
+							"Title"
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```jsx
+const Title = ({ children }) => <Text>{children}</Text>;
+<Title>This is the title</Title>;
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_react_native_raw_text.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noReactNativeRawText)
+
+</TabItem>
+</Tabs>
+

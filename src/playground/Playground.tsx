@@ -17,24 +17,29 @@ import {
 	useRef,
 	useState,
 } from "react";
-import CodeMirror from "@/playground/CodeMirror";
-import DiagnosticsPane from "@/playground/components/DiagnosticsPane";
-import Resizable from "@/playground/components/Resizable";
-import SettingsPanel from "@/playground/components/SettingsPanel";
-import Tabs from "@/playground/components/Tabs";
-import ControlFlowTab from "@/playground/tabs/ControlFlowTab";
-import DiagnosticsConsoleTab from "@/playground/tabs/DiagnosticsConsoleTab";
-import DiagnosticsListTab from "@/playground/tabs/DiagnosticsListTab";
-import FormatterCodeTab from "@/playground/tabs/FormatterCodeTab";
-import FormatterIrTab from "@/playground/tabs/FormatterIrTab";
-import SettingsTab from "@/playground/tabs/SettingsTab";
-import SyntaxTab from "@/playground/tabs/SyntaxTab";
-import TyeInfoTab from "@/playground/tabs/TypeInfoTab";
+
+import CodeMirror from "./CodeMirror";
+import { javascriptWithEmbeddedSnippets } from "./codemirror/javascriptWithEmbeddedSnippets.ts";
+import DiagnosticsPane from "./components/DiagnosticsPane";
+import Resizable from "./components/Resizable";
+import SettingsPanel from "./components/SettingsPanel";
+import Tabs from "./components/Tabs";
+import AnalyzerFixesTab from "./tabs/AnalyzerFixesTab";
+import ControlFlowTab from "./tabs/ControlFlowTab";
+import DiagnosticsConsoleTab from "./tabs/DiagnosticsConsoleTab";
+import DiagnosticsListTab from "./tabs/DiagnosticsListTab";
+import FormatterCodeTab from "./tabs/FormatterCodeTab";
+import FormatterIrTab from "./tabs/FormatterIrTab";
+import GritQLSearchTab from "./tabs/GritQLSearchTab";
+import SemanticModelTab from "./tabs/SemanticModelTab";
+import SettingsTab from "./tabs/SettingsTab";
+import SyntaxTab from "./tabs/SyntaxTab";
+import TyeInfoTab from "./tabs/TypeInfoTab";
 import {
 	type BiomeAstSyntacticData,
 	type PlaygroundProps,
 	PlaygroundTab,
-} from "@/playground/types.ts";
+} from "./types";
 import {
 	getCurrentCode,
 	getFileState,
@@ -47,10 +52,7 @@ import {
 	isTypeScriptFilename,
 	isVueFilename,
 	useWindowSize,
-} from "@/playground/utils";
-import AnalyzerFixesTab from "./tabs/AnalyzerFixesTab";
-import GritQLSearchTab from "./tabs/GritQLSearchTab";
-import SemanticModelTab from "./tabs/SemanticModelTab";
+} from "./utils";
 
 export default function Playground({
 	setPlaygroundState,
@@ -87,13 +89,16 @@ export default function Playground({
 		if (isSvelteFilename(playgroundState.currentFile)) {
 			return [svelte()];
 		}
-		return [
-			javascript({
-				jsx: isJsxFilename(playgroundState.currentFile),
-				typescript: isTypeScriptFilename(playgroundState.currentFile),
-			}),
-		];
-	}, [playgroundState.currentFile]);
+		const jsx = isJsxFilename(playgroundState.currentFile);
+		const typescript = isTypeScriptFilename(playgroundState.currentFile);
+		if (playgroundState.settings.experimentalEmbeddedSnippetsEnabled) {
+			return [javascriptWithEmbeddedSnippets({ jsx, typescript })];
+		}
+		return [javascript({ jsx, typescript })];
+	}, [
+		playgroundState.currentFile,
+		playgroundState.settings.experimentalEmbeddedSnippetsEnabled,
+	]);
 
 	const biomeAstSyntacticDataRef = useRef<BiomeAstSyntacticData | null>(null);
 

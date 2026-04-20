@@ -250,7 +250,7 @@ Rules that belong to the domain:
 - [useQwikLoaderLocation](/linter/rules/use-qwik-loader-location) [(nursery)](/linter/#nursery)
 - [noReactSpecificProps](/linter/rules/no-react-specific-props) (recommended)
 ## React
-Use this domain inside React projects. It enables a set of rules that can help catching bugs and enforce correct practices. This domain enable rules that might conflict with the Solid domain.
+Use this domain inside React projects. It enables a set of rules that can help catching bugs and enforce correct practices. This domain enables rules that might conflict with the Solid domain.
 ### React activation
 Enable the **recommended, non-nursery** rules of the domain:
 ```json title="biome.json" ins={3-5}
@@ -298,6 +298,7 @@ Rules that belong to the domain:
 - [useUniqueElementIds](/linter/rules/use-unique-element-ids)
 - [noComponentHookFactories](/linter/rules/no-component-hook-factories) [(nursery)](/linter/#nursery)
 - [noDuplicatedSpreadProps](/linter/rules/no-duplicated-spread-props) [(nursery)](/linter/#nursery)
+- [noJsxLeakedDollar](/linter/rules/no-jsx-leaked-dollar) [(nursery)](/linter/#nursery)
 - [noJsxNamespace](/linter/rules/no-jsx-namespace) [(nursery)](/linter/#nursery)
 - [noJsxPropsBind](/linter/rules/no-jsx-props-bind) [(nursery)](/linter/#nursery)
 - [noLeakedRender](/linter/rules/no-leaked-render) [(nursery)](/linter/#nursery)
@@ -310,6 +311,52 @@ Rules that belong to the domain:
 - [useReactFunctionComponents](/linter/rules/use-react-function-components)
 - [noArrayIndexKey](/linter/rules/no-array-index-key) (recommended)
 - [noReactForwardRef](/linter/rules/no-react-forward-ref)
+## ReactNative
+Use this domain inside React Native projects. It enables a set of rules that help catch runtime issues specific to React Native, such as rendering raw text outside of `<Text>` components.
+### ReactNative activation
+Enable the **recommended, non-nursery** rules of the domain:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"reactnative": "recommended"
+		}
+	}
+}
+```
+
+:::note[No recommended rules]
+Since all rules in this domain are nursery rules, no rules will be activated when enabling the domain. You need to enable the single rules.
+:::
+Enabled the **all** rules of the domain:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"reactnative": "all"
+		}
+	}
+}
+```
+**Disable** all rules of the domain:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"reactnative": "none"
+		}
+	}
+}
+```
+### ReactNative dependencies
+Enabled when the following dependencies are declared:
+- `react-native`: `>=0.60.0`
+
+### ReactNative rules
+Rules that belong to the domain:
+- [noReactNativeDeepImports](/linter/rules/no-react-native-deep-imports) [(nursery)](/linter/#nursery)
+- [noReactNativeLiteralColors](/linter/rules/no-react-native-literal-colors) [(nursery)](/linter/#nursery)
+- [noReactNativeRawText](/linter/rules/no-react-native-raw-text) [(nursery)](/linter/#nursery)
 ## Solid
 Use this domain inside Solid projects. This domain enables rules that might conflict with the React domain.
 ### Solid activation
