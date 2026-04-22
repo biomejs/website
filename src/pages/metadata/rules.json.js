@@ -36,6 +36,12 @@ export function GET() {
                 "source": {
                   "stylelint": "declaration-no-important"
                 }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintCss": "no-important"
+                }
               }
             ],
             "docs": " Disallow the use of the `!important` style.\n\n The `!important` CSS style is a declaration used to give a specific rule\n higher precedence over other conflicting rules. When it is applied to a CSS\n property, that property's value is prioritized over any other declarations,\n regardless of specificity or order of appearance in the stylesheet.\n\n ### How `!important` Works\n - Normally, CSS rules follow a cascade order, where the browser decides\n   which rules apply based on specificity, inheritance, and proximity to the\n   targeted element.\n - Adding `!important` to a rule overrides this cascade logic, forcing the\n   rule to apply even if other rules have higher specificity or are defined later.\n\n ### Why `!important` Should Be Avoided\n While `!important` can solve specific and immediate styling issues, its effects\n can result in long-term problems within a codebase:\n\n - **Breaks the Cascade Logic**: It overrides the natural flow of cascading rules,\n   making it harder to predict which styles will apply.\n - **Increases Complexity**: Once `!important` is used in a stylesheet, other developers\n   may respond by using it even more aggressively, creating a cycle of overrides and\n   increasing maintenance difficulty.\n - **Reduces Reusability**: Overriding styles often makes components less flexible,\n   as future adjustments require more effort.\n - **Hinders Debugging**: Debugging styles becomes more challenging, as developers\n   must account for the `!important` rule overriding expected behavior.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n .style {\n     color: red !important;\n }\n ```\n\n ## Useful links\n\n - [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/important)\n"
@@ -71,6 +77,12 @@ export function GET() {
                 "kind": "sameLogic",
                 "source": {
                   "stylelint": "named-grid-areas-no-invalid"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintCss": "no-invalid-named-grid-areas"
                 }
               }
             ],
@@ -459,6 +471,12 @@ export function GET() {
                 "source": {
                   "stylelint": "keyframe-block-no-duplicate-selectors"
                 }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintCss": "no-duplicate-keyframe-selectors"
+                }
               }
             ],
             "docs": " Disallow duplicate selectors within keyframe blocks.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n @keyframes foo { from {} from {} }\n ```\n\n ```css,expect_diagnostic\n @keyframes foo { from {} FROM {} }\n ```\n\n ```css,expect_diagnostic\n @keyframes foo { 0% {} 0% {} }\n ```\n\n ### Valid\n\n ```css\n @keyframes foo { 0% {} 100% {} }\n ```\n\n ```css\n @keyframes foo { from {} to {} }\n ```\n\n"
@@ -475,6 +493,12 @@ export function GET() {
                 "kind": "sameLogic",
                 "source": {
                   "stylelint": "block-no-empty"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintCss": "no-empty-blocks"
                 }
               }
             ],
