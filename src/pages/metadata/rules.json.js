@@ -1984,7 +1984,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow unnecessary escape sequence in regular expression literals.\n\n Escaping non-special characters in regular expression literals doesn't have any effect.\n Hence, they may confuse a reader.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n /\\a/;\n ```\n\n ```js,expect_diagnostic\n /[\\-]/;\n ```\n\n ```js,expect_diagnostic\n /[\\&]/v;\n ```\n\n ### Valid\n\n ```js\n /\\^\\d\\b/\n ```\n\n ```js\n /[\\b]/\n ```\n"
+            "docs": " Disallow unnecessary escape sequence in regular expression literals.\n\n Escaping non-special characters in regular expression literals doesn't have any effect.\n Hence, they may confuse a reader.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n /\\a/;\n ```\n\n ```js,expect_diagnostic\n /[\\-]/;\n ```\n\n ### Valid\n\n ```js\n /\\^\\d\\b/\n ```\n\n ```js\n /[\\b]/\n ```\n\n ```js\n /[\\&]/v\n ```\n"
           },
           "noUselessLabel": {
             "deprecated": false,
@@ -3546,7 +3546,7 @@ export function GET() {
           },
           "noLoopFunc": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.13",
             "name": "noLoopFunc",
             "link": "https://biomejs.dev/linter/rules/no-loop-func",
             "recommended": false,
@@ -3824,7 +3824,7 @@ export function GET() {
           },
           "noReactNativeDeepImports": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.13",
             "name": "noReactNativeDeepImports",
             "link": "https://biomejs.dev/linter/rules/no-react-native-deep-imports",
             "recommended": true,
@@ -3841,7 +3841,7 @@ export function GET() {
           },
           "noReactNativeLiteralColors": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.13",
             "name": "noReactNativeLiteralColors",
             "link": "https://biomejs.dev/linter/rules/no-react-native-literal-colors",
             "recommended": false,
@@ -4016,7 +4016,7 @@ export function GET() {
           },
           "noUnnecessaryTemplateExpression": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.13",
             "name": "noUnnecessaryTemplateExpression",
             "link": "https://biomejs.dev/linter/rules/no-unnecessary-template-expression",
             "recommended": false,
@@ -4227,7 +4227,7 @@ export function GET() {
           },
           "useDomNodeTextContent": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.13",
             "name": "useDomNodeTextContent",
             "link": "https://biomejs.dev/linter/rules/use-dom-node-text-content",
             "recommended": true,
@@ -4244,7 +4244,7 @@ export function GET() {
           },
           "useDomQuerySelector": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.13",
             "name": "useDomQuerySelector",
             "link": "https://biomejs.dev/linter/rules/use-dom-query-selector",
             "recommended": false,
@@ -4470,6 +4470,23 @@ export function GET() {
             ],
             "docs": " Require functions with the \"use server\" directive to be async.\n\n Require Server Functions (functions in a file with a top-level `\"use server\"` directive or functions with their own `\"use server\"` directive) to be async.\n\n See the [React documentation](https://react.dev/reference/rsc/use-server) for more details.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <form\n   action={() => {\n     'use server';\n     // ...\n   }}\n >\n   // ...\n </form>\n ```\n\n ```js,expect_diagnostic\n function serverFunction() {\n   'use server';\n   // ...\n }\n ```\n\n ```js,expect_diagnostic\n 'use server';\n export function serverFunction() {\n   // ...\n }\n ```\n\n ### Valid\n\n ```jsx\n <form\n   action={async () => {\n     'use server';\n     // ...\n   }}\n >\n   // ...\n </form>\n ```\n\n ```js\n async function serverFunction() {\n   'use server';\n   // ...\n }\n ```\n\n ```js\n 'use server';\n export async function serverFunction() {\n   // ...\n }\n ```\n\n"
           },
+          "useReactNativePlatformComponents": {
+            "deprecated": false,
+            "version": "2.4.13",
+            "name": "useReactNativePlatformComponents",
+            "link": "https://biomejs.dev/linter/rules/use-react-native-platform-components",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintReactNative": "split-platform-components"
+                }
+              }
+            ],
+            "docs": " Ensure that platform-specific React Native components are only\n imported in files named for that platform.\n\n Some React Native components only work on one platform. For example,\n `ProgressBarAndroid` is Android-only and `ActivityIndicatorIOS` is\n iOS-only. These components should live in files with a matching\n platform suffix such as `.android.js` or `.ios.js`, so the React\n Native bundler can ship the right code to each platform.\n\n This rule reports an error when a platform-specific component is\n imported in a file that does not have the matching suffix, or when\n both Android and iOS components are imported in the same file.\n\n ## Examples\n\n ### Invalid\n\n Importing an Android component in a non-Android file:\n\n ```js,expect_diagnostic\n import { ProgressBarAndroid } from \"react-native\";\n ```\n\n Importing an iOS component in a non-iOS file:\n\n ```js,expect_diagnostic\n import { ActivityIndicatorIOS } from \"react-native\";\n ```\n\n ### Valid\n\n ```js\n import { View } from \"react-native\";\n ```\n\n ## Options\n\n ### `androidPathPatterns`\n\n A list of glob patterns to identify Android-specific files.\n\n Default: `[\"**/*.android.{js,jsx,ts,tsx}\"]`\n\n In the following example, Android files use `.droid.jsx` as their suffix instead of the default `.android.js`:\n\n ```json,options\n {\n     \"options\": {\n         \"androidPathPatterns\": [\"**/*.droid.jsx\"]\n     }\n }\n ```\n\n ```jsx,use_options,file=Button.droid.jsx\n import { ProgressBarAndroid } from \"react-native\";\n ```\n\n ```jsx,expect_diagnostic,use_options,file=Button.android.jsx\n import { ProgressBarAndroid } from \"react-native\";\n ```\n\n ### `iosPathPatterns`\n\n A list of glob patterns to identify iOS-specific files.\n\n Default: `[\"**/*.ios.{js,jsx,ts,tsx}\"]`\n\n In the following example, iOS files use `.apple.jsx` as their suffix instead of the default `.ios.js`:\n\n ```json,options\n {\n     \"options\": {\n         \"iosPathPatterns\": [\"**/*.apple.jsx\"]\n     }\n }\n ```\n\n ```jsx,use_options,file=Button.apple.jsx\n import { ActivityIndicatorIOS } from \"react-native\";\n ```\n\n ```jsx,expect_diagnostic,use_options,file=Button.ios.jsx\n import { ActivityIndicatorIOS } from \"react-native\";\n ```\n\n"
+          },
           "useRegexpExec": {
             "deprecated": false,
             "version": "2.3.9",
@@ -4495,7 +4512,7 @@ export function GET() {
           },
           "useRegexpTest": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.13",
             "name": "useRegexpTest",
             "link": "https://biomejs.dev/linter/rules/use-regexp-test",
             "recommended": false,
@@ -7971,7 +7988,7 @@ export function GET() {
           },
           "noJsxLeakedDollar": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.13",
             "name": "noJsxLeakedDollar",
             "link": "https://biomejs.dev/linter/rules/no-jsx-leaked-dollar",
             "recommended": false,
@@ -8051,7 +8068,7 @@ export function GET() {
           },
           "noReactNativeRawText": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.13",
             "name": "noReactNativeRawText",
             "link": "https://biomejs.dev/linter/rules/no-react-native-raw-text",
             "recommended": true,
@@ -9223,7 +9240,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 518
+    "numberOrRules": 519
   },
   "syntax": {
     "languages": {

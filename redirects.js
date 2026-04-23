@@ -440,6 +440,7 @@ export default {
   '/linter/rules/useQwikValidLexicalScope': '/linter/rules/use-qwik-valid-lexical-scope',
   '/linter/rules/useReactAsyncServerFunction': '/linter/rules/use-react-async-server-function',
   '/linter/rules/useReactFunctionComponents': '/linter/rules/use-react-function-components',
+  '/linter/rules/useReactNativePlatformComponents': '/linter/rules/use-react-native-platform-components',
   '/linter/rules/useReadonlyClassProperties': '/linter/rules/use-readonly-class-properties',
   '/linter/rules/useReduceTypeParameter': '/linter/rules/use-reduce-type-parameter',
   '/linter/rules/useRegexLiterals': '/linter/rules/use-regex-literals',

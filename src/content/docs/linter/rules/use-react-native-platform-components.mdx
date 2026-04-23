@@ -1,0 +1,164 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+
+title: useReactNativePlatformComponents
+description: Learn more about useReactNativePlatformComponents
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.4.13`
+- Diagnostic Category: [`lint/nursery/useReactNativePlatformComponents`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`reactNative`](/linter/domains#reactNative)
+- Sources: 
+  - Inspired from [`react-native/split-platform-components`](https://github.com/Intellicode/eslint-plugin-react-native/blob/master/docs/rules/split-platform-components.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useReactNativePlatformComponents": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Ensure that platform-specific React Native components are only
+imported in files named for that platform.
+
+Some React Native components only work on one platform. For example,
+`ProgressBarAndroid` is Android-only and `ActivityIndicatorIOS` is
+iOS-only. These components should live in files with a matching
+platform suffix such as `.android.js` or `.ios.js`, so the React
+Native bundler can ship the right code to each platform.
+
+This rule reports an error when a platform-specific component is
+imported in a file that does not have the matching suffix, or when
+both Android and iOS components are imported in the same file.
+
+## Examples
+
+### Invalid
+
+Importing an Android component in a non-Android file:
+
+```js
+import { ProgressBarAndroid } from "react-native";
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:10 <a href="https://biomejs.dev/linter/rules/use-react-native-platform-components">lint/nursery/useReactNativePlatformComponents</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Android component </span><span style="color: Tomato;"><strong>ProgressBarAndroid</strong></span><span style="color: Tomato;"> is used outside of an Android-specific file.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>import &#123; ProgressBarAndroid &#125; from &quot;react-native&quot;;<br />   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Platform-specific components produce incorrect bundles when imported in shared files.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Move this import to a file with an Android-specific suffix (e.g. </span><span style="color: lightgreen;"><strong>.android.js</strong></span><span style="color: lightgreen;">).</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+Importing an iOS component in a non-iOS file:
+
+```js
+import { ActivityIndicatorIOS } from "react-native";
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:10 <a href="https://biomejs.dev/linter/rules/use-react-native-platform-components">lint/nursery/useReactNativePlatformComponents</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">iOS component </span><span style="color: Tomato;"><strong>ActivityIndicatorIOS</strong></span><span style="color: Tomato;"> is used outside of an iOS-specific file.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>import &#123; ActivityIndicatorIOS &#125; from &quot;react-native&quot;;<br />   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Platform-specific components produce incorrect bundles when imported in shared files.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Move this import to a file with an iOS-specific suffix (e.g. </span><span style="color: lightgreen;"><strong>.ios.js</strong></span><span style="color: lightgreen;">).</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+### Valid
+
+```js
+import { View } from "react-native";
+```
+
+## Options
+
+### `androidPathPatterns`
+
+A list of glob patterns to identify Android-specific files.
+
+Default: `["**/*.android.{js,jsx,ts,tsx}"]`
+
+In the following example, Android files use `.droid.jsx` as their suffix instead of the default `.android.js`:
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useReactNativePlatformComponents": {
+					"options": {
+						"androidPathPatterns": [
+							"**/*.droid.jsx"
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```jsx title='Button.droid.jsx'
+import { ProgressBarAndroid } from "react-native";
+```
+
+```jsx title='Button.android.jsx'
+import { ProgressBarAndroid } from "react-native";
+```
+
+<pre class="language-text"><code class="language-text"><a href="file:///Button.android.jsx">/Button.android.jsx</a>:1:10 <a href="https://biomejs.dev/linter/rules/use-react-native-platform-components">lint/nursery/useReactNativePlatformComponents</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Android component </span><span style="color: Tomato;"><strong>ProgressBarAndroid</strong></span><span style="color: Tomato;"> is used outside of an Android-specific file.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>import &#123; ProgressBarAndroid &#125; from &quot;react-native&quot;;<br />   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Platform-specific components produce incorrect bundles when imported in shared files.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Move this import to a file with an Android-specific suffix (e.g. </span><span style="color: lightgreen;"><strong>.android.js</strong></span><span style="color: lightgreen;">).</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+### `iosPathPatterns`
+
+A list of glob patterns to identify iOS-specific files.
+
+Default: `["**/*.ios.{js,jsx,ts,tsx}"]`
+
+In the following example, iOS files use `.apple.jsx` as their suffix instead of the default `.ios.js`:
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useReactNativePlatformComponents": {
+					"options": {
+						"iosPathPatterns": [
+							"**/*.apple.jsx"
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```jsx title='Button.apple.jsx'
+import { ActivityIndicatorIOS } from "react-native";
+```
+
+```jsx title='Button.ios.jsx'
+import { ActivityIndicatorIOS } from "react-native";
+```
+
+<pre class="language-text"><code class="language-text"><a href="file:///Button.ios.jsx">/Button.ios.jsx</a>:1:10 <a href="https://biomejs.dev/linter/rules/use-react-native-platform-components">lint/nursery/useReactNativePlatformComponents</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">iOS component </span><span style="color: Tomato;"><strong>ActivityIndicatorIOS</strong></span><span style="color: Tomato;"> is used outside of an iOS-specific file.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>import &#123; ActivityIndicatorIOS &#125; from &quot;react-native&quot;;<br />   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Platform-specific components produce incorrect bundles when imported in shared files.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Move this import to a file with an iOS-specific suffix (e.g. </span><span style="color: lightgreen;"><strong>.ios.js</strong></span><span style="color: lightgreen;">).</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_react_native_platform_components.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useReactNativePlatformComponents)
+
+</TabItem>
+</Tabs>
+
