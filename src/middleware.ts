@@ -1,7 +1,7 @@
 import { defineMiddleware } from "astro:middleware";
 
 export const onRequest = defineMiddleware((context, next) => {
-	if (context.props.isFallback || shouldRedirectToEnglish(context.url)) {
+	if (shouldRedirectToEnglish(context.url)) {
 		return context.redirect(englishUrl(context.url));
 	}
 
@@ -10,7 +10,13 @@ export const onRequest = defineMiddleware((context, next) => {
 
 const locales = ["es", "fr", "ja", "zh-cn", "pl", "pt-br", "uk", "ru"];
 
-const englishOnlyPrefixes = ["/internals/"];
+const englishOnlyPrefixes = [
+	"/internals/",
+	"/linter/rules/",
+	"/linter/rule-sources/",
+	"/assist/actions/",
+	"/assist/action-sources/",
+];
 
 function shouldRedirectToEnglish(url: URL): boolean {
 	const maybeLocale = url.pathname.split("/")[1];
@@ -18,7 +24,9 @@ function shouldRedirectToEnglish(url: URL): boolean {
 		return false;
 	}
 	const pathWithoutLocale = url.pathname.slice(maybeLocale.length + 1);
-	return englishOnlyPrefixes.some((prefix) => pathWithoutLocale.startsWith(prefix));
+	return englishOnlyPrefixes.some((prefix) =>
+		pathWithoutLocale.startsWith(prefix),
+	);
 }
 
 function englishUrl(url: URL): string {
