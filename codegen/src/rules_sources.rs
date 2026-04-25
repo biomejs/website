@@ -1,11 +1,16 @@
 use crate::lintdoc::RuleToDocument;
-use crate::shared::{add_codegen_disclaimer_frontmatter, add_codegen_rule_suggestion};
+use crate::shared::{
+    CodegenEditUrl, add_codegen_disclaimer_frontmatter, add_codegen_rule_suggestion,
+};
 use anyhow::Result;
 use biome_analyze::RuleCategory;
 use biome_string_case::Case;
 use std::cmp::Ordering;
 use std::collections::{BTreeMap, BTreeSet};
 use std::io::Write;
+
+const RULES_SOURCES_EDIT_URL: &str =
+    "https://github.com/biomejs/website/edit/main/codegen/src/rules_sources.rs";
 
 #[derive(Debug, Eq, PartialEq)]
 struct SourceSet {
@@ -47,7 +52,7 @@ pub(crate) fn generate_rule_sources(
     };
 
     writeln!(buffer, "---")?;
-    add_codegen_disclaimer_frontmatter(&mut buffer)?;
+    add_codegen_disclaimer_frontmatter(&mut buffer, CodegenEditUrl::Url(RULES_SOURCES_EDIT_URL))?;
     writeln!(
         buffer,
         r#"

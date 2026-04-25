@@ -1,4 +1,5 @@
 use crate::project_root;
+use crate::shared::{CodegenEditUrl, add_codegen_disclaimer_frontmatter};
 use biome_analyze::{RuleDomain, RuleMetadata};
 use biome_formatter::Expand;
 use biome_json_factory::make::{
@@ -14,6 +15,9 @@ use std::collections::HashMap;
 use std::fs;
 use std::io::Write;
 
+const DOMAINS_EDIT_URL: &str =
+    "https://github.com/biomejs/website/edit/main/codegen/src/domains.rs";
+
 pub fn generate_domains() -> anyhow::Result<()> {
     let mut visitor = crate::lintdoc::RulesVisitor::default();
     biome_js_analyze::visit_registry(&mut visitor);
@@ -26,10 +30,7 @@ pub fn generate_domains() -> anyhow::Result<()> {
     let mut buffer = Vec::new();
 
     writeln!(buffer, "---")?;
-    writeln!(
-        buffer,
-        "# this file is auto generated, use `pnpm codegen:rules` to update it"
-    )?;
+    add_codegen_disclaimer_frontmatter(&mut buffer, CodegenEditUrl::Url(DOMAINS_EDIT_URL))?;
     writeln!(buffer, "title: Domains")?;
     writeln!(buffer, "description: List of available domains")?;
     writeln!(buffer, "---")?;
