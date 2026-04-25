@@ -1,10 +1,15 @@
 use std::io::Write;
 
+pub enum CodegenEditUrl<'a> {
+    Disabled,
+    Url(&'a str),
+}
+
 /// Add a disclaimer to the generated code.
 /// This function must be used after the `---` of the frontmatter for MDX/MD files
 pub fn add_codegen_disclaimer_frontmatter(
     content: &mut Vec<u8>,
-    edit_url: Option<&str>,
+    edit_url: CodegenEditUrl,
 ) -> anyhow::Result<()> {
     writeln!(
         content,
@@ -14,8 +19,9 @@ pub fn add_codegen_disclaimer_frontmatter(
         content,
         "# Head to the `biomejs/biome` repository, and modify the source code in there."
     )?;
-    if let Some(edit_url) = edit_url {
-        writeln!(content, "editUrl: \"{edit_url}\"")?;
+    match edit_url {
+        CodegenEditUrl::Disabled => writeln!(content, "editUrl: false")?,
+        CodegenEditUrl::Url(edit_url) => writeln!(content, "editUrl: \"{edit_url}\"")?,
     }
     writeln!(content)?;
     Ok(())

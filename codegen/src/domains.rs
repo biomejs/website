@@ -1,5 +1,5 @@
 use crate::project_root;
-use crate::shared::add_codegen_disclaimer_frontmatter;
+use crate::shared::{CodegenEditUrl, add_codegen_disclaimer_frontmatter};
 use biome_analyze::{RuleDomain, RuleMetadata};
 use biome_formatter::Expand;
 use biome_json_factory::make::{
@@ -30,7 +30,7 @@ pub fn generate_domains() -> anyhow::Result<()> {
     let mut buffer = Vec::new();
 
     writeln!(buffer, "---")?;
-    add_codegen_disclaimer_frontmatter(&mut buffer, Some(DOMAINS_EDIT_URL))?;
+    add_codegen_disclaimer_frontmatter(&mut buffer, CodegenEditUrl::Url(DOMAINS_EDIT_URL))?;
     writeln!(buffer, "title: Domains")?;
     writeln!(buffer, "description: List of available domains")?;
     writeln!(buffer, "---")?;

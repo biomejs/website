@@ -1,5 +1,7 @@
 use crate::lintdoc::RuleToDocument;
-use crate::shared::{add_codegen_disclaimer_frontmatter, add_codegen_rule_suggestion};
+use crate::shared::{
+    CodegenEditUrl, add_codegen_disclaimer_frontmatter, add_codegen_rule_suggestion,
+};
 use anyhow::Result;
 use biome_analyze::RuleCategory;
 use biome_string_case::Case;
@@ -50,7 +52,7 @@ pub(crate) fn generate_rule_sources(
     };
 
     writeln!(buffer, "---")?;
-    add_codegen_disclaimer_frontmatter(&mut buffer, Some(RULES_SOURCES_EDIT_URL))?;
+    add_codegen_disclaimer_frontmatter(&mut buffer, CodegenEditUrl::Url(RULES_SOURCES_EDIT_URL))?;
     writeln!(
         buffer,
         r#"

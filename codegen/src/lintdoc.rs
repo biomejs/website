@@ -1,7 +1,9 @@
 use crate::domains::{DocDomains, generate_domains};
 use crate::project_root;
 use crate::rules_sources::generate_rule_sources;
-use crate::shared::{add_codegen_disclaimer_frontmatter, add_codegen_rule_suggestion};
+use crate::shared::{
+    CodegenEditUrl, add_codegen_disclaimer_frontmatter, add_codegen_rule_suggestion,
+};
 use anyhow::Context;
 use anyhow::{Result, bail};
 use biome_analyze::{
@@ -466,7 +468,7 @@ fn generate_language_page(
     let mut index = Vec::new();
     let mut reference_buffer = Vec::new();
     writeln!(index, "---")?;
-    add_codegen_disclaimer_frontmatter(&mut index, Some(LINTDOC_EDIT_URL))?;
+    add_codegen_disclaimer_frontmatter(&mut index, CodegenEditUrl::Url(LINTDOC_EDIT_URL))?;
     writeln!(index, "title: {language_prefix} {title}")?;
     writeln!(index, "description: {description} for {language_prefix}")?;
     writeln!(index, "---")?;
@@ -637,20 +639,7 @@ fn generate_rule(payload: GenRule, path_prefix: &str, rule_category: RuleCategor
     }
 
     writeln!(content, "---")?;
-    let edit_url = payload
-        .rule_to_document
-        .language_to_metadata
-        .iter()
-        .min_by_key(|(language, _)| *language)
-        .map(|(_, meta)| {
-            rule_source_code_url(
-                meta.language,
-                payload.group,
-                payload.rule_name,
-                rule_category,
-            )
-        });
-    add_codegen_disclaimer_frontmatter(&mut content, edit_url.as_deref())?;
+    add_codegen_disclaimer_frontmatter(&mut content, CodegenEditUrl::Disabled)?;
     writeln!(content, "title: {}", payload.rule_name)?;
     writeln!(
         content,
@@ -906,7 +895,7 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
             "- [Configure the code fix](/{path_prefix}#configure-the-code-fix)"
         )?;
         writeln!(content, "- [Rule options](/{path_prefix}/#rule-options)")?;
-        writeln!(content, "- [Source Code]({source_code_url})")?;
+        writeln!(content, "- [Source Code (Edit this Page)]({source_code_url})")?;
         writeln!(
             content,
             "- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/{test_cases_file_path})"
