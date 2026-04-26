@@ -679,9 +679,7 @@ Choose whether spaces should be added between brackets and inner values.
 
 ### `formatter.delimiterSpacing`
 
-Whether to insert spaces inside delimiters. Affects parentheses `()`, square brackets `[]`, TypeScript angle brackets `<>`, and JSX curly braces `{}`.
-
-This option is available for JavaScript, JSON, and CSS. It is not available for GraphQL.
+Whether to insert spaces inside delimiters (after the opening delimiter and before the closing delimiter). Empty delimiters are not affected, and no space is added before the opening delimiter.
 
 > Default: `false`
 
@@ -897,9 +895,9 @@ Choose whether spaces should be added between brackets and inner values.
 
 ### `javascript.formatter.delimiterSpacing`
 
-Whether to insert spaces inside delimiters. Affects parentheses `()`, square brackets `[]`, TypeScript angle brackets `<>`, and JSX curly braces `{}`.
+Whether to insert spaces inside delimiters (after the opening delimiter and before the closing delimiter). Empty delimiters are not affected, and no space is added before the opening delimiter.
 
-This option is available for JavaScript, JSON, and CSS. It is not available for GraphQL.
+For JavaScript, affects parentheses (e.g., `foo( a, b )`), square brackets (e.g., `[ a, b ]`), template literal interpolations (e.g., `${ expr }`), TypeScript angle brackets (e.g., `foo< T >()`), JSX expression braces (e.g., `{ value }`), and the logical NOT operator (e.g., `! x`).
 
 > Default: `false`
 
@@ -1146,7 +1144,7 @@ Choose whether spaces should be added between brackets and inner values.
 
 ### `json.formatter.delimiterSpacing`
 
-Whether to insert spaces inside square brackets `[]`.
+Whether to insert spaces inside delimiters (after the opening delimiter and before the closing delimiter). Empty delimiters are not affected, and no space is added before the opening delimiter. For JSON, affects square brackets (e.g., `[ 1, 2, 3 ]`).
 
 > Default: `false`
 
@@ -1294,7 +1292,7 @@ The type of quote used when representing string literals. It can be `"single"` o
 
 ### `css.formatter.delimiterSpacing`
 
-Whether to insert spaces inside delimiters. Affects parentheses `()` and square brackets `[]`.
+Whether to insert spaces inside delimiters (after the opening delimiter and before the closing delimiter). Empty delimiters are not affected, and no space is added before the opening delimiter. For CSS, affects parentheses (e.g., `rgb( 0, 0, 0 )`) and square brackets (e.g., `[ data-attr ]`).
 
 > Default: `false`
 
