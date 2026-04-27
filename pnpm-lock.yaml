@@ -131,7 +131,7 @@ importers:
         version: 3.8.3
       prettier-plugin-svelte:
         specifier: 3.5.1
-        version: 3.5.1(prettier@3.8.3)(svelte@5.55.4)
+        version: 3.5.1(prettier@3.8.3)(svelte@5.55.5)
       react:
         specifier: 19.2.5
         version: 19.2.5
@@ -160,8 +160,8 @@ importers:
         specifier: 0.23.0
         version: 0.23.0(@astrojs/starlight@0.38.4(astro@6.1.9(@netlify/blobs@10.7.4)(@types/node@24.12.2)(jiti@2.6.1)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3)))(astro@6.1.9(@netlify/blobs@10.7.4)(@types/node@24.12.2)(jiti@2.6.1)(rollup@4.60.1)(typescript@5.9.3)(yaml@2.8.3))
       svelte:
-        specifier: 5.55.4
-        version: 5.55.4
+        specifier: 5.55.5
+        version: 5.55.5
       textlint:
         specifier: 15.5.4
         version: 15.5.4
@@ -5617,8 +5617,8 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
 
-  svelte@5.55.4:
-    resolution: {integrity: sha512-q8DFohk6vUswSng95IZb9nzWJnbINZsK7OiM1snAa3qCjJBL0ZQpvMyAaVXjUukdM75J/m8UE8xwqat8Ors/zQ==}
+  svelte@5.55.5:
+    resolution: {integrity: sha512-2uCs/LZ9us+AktdzYJM8OcxQ8qnPS1kpaO7syGT/MgO+6Qr1Ybl+TqPq+97u7PHqmmMlye5ZkoyXONy5mjjAbw==}
     engines: {node: '>=18'}
 
   svg-parser@2.0.4:
@@ -12270,10 +12270,10 @@ snapshots:
 
   prelude-ls@1.2.1: {}
 
-  prettier-plugin-svelte@3.5.1(prettier@3.8.3)(svelte@5.55.4):
+  prettier-plugin-svelte@3.5.1(prettier@3.8.3)(svelte@5.55.5):
     dependencies:
       prettier: 3.8.3
-      svelte: 5.55.4
+      svelte: 5.55.5
 
   prettier@3.8.3: {}
 
@@ -13110,7 +13110,7 @@ snapshots:
 
   supports-preserve-symlinks-flag@1.0.0: {}
 
-  svelte@5.55.4:
+  svelte@5.55.5:
     dependencies:
       '@jridgewell/remapping': 2.3.5
       '@jridgewell/sourcemap-codec': 1.5.5
