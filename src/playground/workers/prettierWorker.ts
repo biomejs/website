@@ -7,6 +7,8 @@ import pluginGraphql from "prettier/plugins/graphql.mjs";
 // @ts-expect-error
 import pluginHtml from "prettier/plugins/html.mjs";
 // @ts-expect-error
+import pluginMarkdown from "prettier/plugins/markdown.mjs";
+// @ts-expect-error
 import pluginCss from "prettier/plugins/postcss.mjs";
 import * as prettier from "prettier/standalone";
 // @ts-expect-error
@@ -31,6 +33,7 @@ import {
 	isGraphqlFilename,
 	isHtmlFilename,
 	isJsonFilename,
+	isMarkdownFilename,
 	isSvelteFilename,
 	isTypeScriptFilename,
 	isVueFilename,
@@ -181,6 +184,7 @@ async function formatWithPrettier(
 				pluginEstree,
 				pluginGraphql,
 				pluginHtml,
+				pluginMarkdown,
 				pluginSvelte,
 			],
 			parser: getPrettierParser(options.filepath),
@@ -265,6 +269,9 @@ function getPrettierParser(filename: string): string {
 	}
 	if (isSvelteFilename(filename)) {
 		return "svelte";
+	}
+	if (isMarkdownFilename(filename)) {
+		return "markdown";
 	}
 	return "babel";
 }
