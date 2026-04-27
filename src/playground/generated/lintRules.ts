@@ -289,6 +289,7 @@ export const LINT_RULES = {
     useSortedClasses: "useSortedClasses",
     useSpread: "useSpread",
     useStringStartsEndsWith: "useStringStartsEndsWith",
+    useTestHooksOnTop: "useTestHooksOnTop",
     useUnicodeRegex: "useUnicodeRegex",
     useVarsOnTop: "useVarsOnTop",
     useVueConsistentDefinePropsDeclaration: "useVueConsistentDefinePropsDeclaration",

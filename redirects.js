@@ -464,6 +464,7 @@ export default {
   '/linter/rules/useStringStartsEndsWith': '/linter/rules/use-string-starts-ends-with',
   '/linter/rules/useSymbolDescription': '/linter/rules/use-symbol-description',
   '/linter/rules/useTemplate': '/linter/rules/use-template',
+  '/linter/rules/useTestHooksOnTop': '/linter/rules/use-test-hooks-on-top',
   '/linter/rules/useThrowNewError': '/linter/rules/use-throw-new-error',
   '/linter/rules/useThrowOnlyError': '/linter/rules/use-throw-only-error',
   '/linter/rules/useTopLevelRegex': '/linter/rules/use-top-level-regex',

@@ -3942,9 +3942,15 @@ export function GET() {
                 "source": {
                   "eslint": "no-shadow"
                 }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintTypeScript": "no-shadow"
+                }
               }
             ],
-            "docs": " Disallow variable declarations from shadowing variables declared in the outer scope.\n\n Shadowing is the process by which a local variable shares the same name as a variable in its containing scope. This can cause confusion while reading the code and make it impossible to access the global variable.\n\n See also: [`noShadowRestrictedNames`](http://biomejs.dev/linter/rules/no-shadow-restricted-names)\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const foo = \"bar\";\n if (true) {\n    const foo = \"baz\";\n }\n ```\n\n Variable declarations in functions can shadow variables in the outer scope:\n\n ```js,expect_diagnostic\n const foo = \"bar\";\n const bar = function () {\n     const foo = 10;\n }\n ```\n\n Function argument names can shadow variables in the outer scope:\n\n ```js,expect_diagnostic\n const foo = \"bar\";\n function bar(foo) {\n     foo = 10;\n }\n ```\n\n ### Valid\n\n ```js\n const foo = \"bar\";\n if (true) {\n    const qux = \"baz\";\n }\n ```\n\n"
+            "docs": " Disallow variable declarations from shadowing variables declared in the outer scope.\n\n Shadowing is the process by which a local variable shares the same name as a variable in its containing scope. This can cause confusion while reading the code and make it impossible to access the global variable.\n\n See also: [`noShadowRestrictedNames`](http://biomejs.dev/linter/rules/no-shadow-restricted-names)\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const foo = \"bar\";\n if (true) {\n    const foo = \"baz\";\n }\n ```\n\n Variable declarations in functions can shadow variables in the outer scope:\n\n ```js,expect_diagnostic\n const foo = \"bar\";\n const bar = function () {\n     const foo = 10;\n }\n ```\n\n Function argument names can shadow variables in the outer scope:\n\n ```js,expect_diagnostic\n const foo = \"bar\";\n function bar(foo) {\n     foo = 10;\n }\n ```\n\n ### Valid\n\n ```js\n const foo = \"bar\";\n if (true) {\n    const qux = \"baz\";\n }\n ```\n\n ## Options\n\n ### `ignoreTypeValueShadow`\n\n Default: `true`\n\n When enabled, a value binding that shares its name with a type-only\n declaration (type alias or interface) is not flagged, since types and\n values occupy separate namespaces in TypeScript.\n\n When set to `false`, those cases are flagged:\n\n ```json,options\n {\n     \"options\": {\n         \"ignoreTypeValueShadow\": false\n     }\n }\n ```\n ```ts,expect_diagnostic,use_options\n type Foo = number;\n function f(Foo: string) {}\n ```\n\n ### `ignoreFunctionTypeParameterNameValueShadow`\n\n Default: `true`\n\n When enabled, parameter names in function type annotations\n (e.g. `(x: string) => void`) can share names with outer variables\n without being flagged.\n\n When set to `false`, those cases are flagged:\n\n ```json,options\n {\n     \"options\": {\n         \"ignoreFunctionTypeParameterNameValueShadow\": false\n     }\n }\n ```\n ```ts,expect_diagnostic,use_options\n const test = 1;\n type Fn = (test: string) => typeof test;\n ```\n\n"
           },
           "noSyncScripts": {
             "deprecated": false,
@@ -4575,6 +4581,35 @@ export function GET() {
               }
             ],
             "docs": " Prefer `String#startsWith()` and `String#endsWith()` over verbose prefix and suffix checks.\n\n This rule detects common string comparisons such as indexing, `charAt`, `indexOf`, `lastIndexOf`,\n `slice`, `substring`, `match`, and anchored `RegExp#test` calls when they are being used to check\n whether a string starts or ends with another string.\n\n The rule uses type information and only reports when the receiver is known to be a string. Array\n indexing and other non-string receivers are ignored.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=invalid-index.ts\n declare const text: string;\n text[0] === \"a\";\n ```\n\n ```ts,expect_diagnostic,file=invalid-search.ts\n declare const text: string;\n text.indexOf(\"foo\") === 0;\n ```\n\n ```ts,expect_diagnostic,file=invalid-regex.ts\n declare const text: string;\n /^foo/.test(text);\n ```\n\n ### Valid\n\n ```ts,file=valid-string.ts\n declare const text: string;\n text.startsWith(\"foo\");\n text.endsWith(\"bar\");\n ```\n\n ```ts,file=valid-array.ts\n declare const list: string[];\n list[0] === \"a\";\n ```\n"
+          },
+          "useTestHooksOnTop": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useTestHooksOnTop",
+            "link": "https://biomejs.dev/linter/rules/use-test-hooks-on-top",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJest": "prefer-hooks-on-top"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVitest": "prefer-hooks-on-top"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintPlaywright": "prefer-hooks-on-top"
+                }
+              }
+            ],
+            "docs": " Enforce that lifecycle hooks appear before any test cases in the same block.\n\n Placing `beforeEach`, `beforeAll`, `afterEach`, and `afterAll` hooks after\n test cases (`it`, `test`) makes the setup and teardown harder to spot at a\n glance and can be a source of confusion for readers of the test suite.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n describe('foo', () => {\n   it('does something', () => {});\n   beforeEach(() => {});\n });\n ```\n\n ### Valid\n\n ```js\n describe('foo', () => {\n   beforeEach(() => {});\n   it('does something', () => {});\n });\n ```\n\n"
           },
           "useUnicodeRegex": {
             "deprecated": false,
@@ -9240,7 +9275,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 519
+    "numberOrRules": 520
   },
   "syntax": {
     "languages": {
