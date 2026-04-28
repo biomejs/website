@@ -1,6 +1,7 @@
 ---
 # Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
 # Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
 
 title: noEmptyBlock
 description: Learn more about noEmptyBlock
@@ -17,6 +18,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - The default severity of this rule is [**warning**](/reference/diagnostics#warning).
 - Sources: 
   - Same as [`block-no-empty`](https://github.com/stylelint/stylelint/blob/main/lib/rules/block-no-empty/README.md)
+  - Same as [`css/no-empty-blocks`](https://github.com/eslint/css/blob/main/docs/rules/no-empty-blocks.md)
 
 ## How to configure
 ```json title="biome.json"
@@ -79,7 +81,7 @@ p { /* foo */ }
 - [Disable a rule](/linter/#disable-a-rule)
 - [Configure the code fix](/linter#configure-the-code-fix)
 - [Rule options](/linter/#rule-options)
-- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/suspicious/no_empty_block.rs)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/suspicious/no_empty_block.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/suspicious/noEmptyBlock)
 
 </TabItem>

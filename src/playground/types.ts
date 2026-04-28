@@ -1,90 +1,126 @@
-import type { Diagnostic, FixFileMode, RuleDomains } from "@biomejs/wasm-web";
+import type {
+	Diagnostic,
+	FixFileMode,
+	GritTargetLanguage,
+	RuleDomains,
+} from "@biomejs/wasm-web";
 import type { parser } from "codemirror-lang-rome-ast";
 import type { Dispatch, SetStateAction } from "react";
 import { LINT_RULES } from "@/playground/generated/lintRules.ts";
 
-export enum PlaygroundTab {
-	Code = "code",
-	Diagnostics = "diagnostics",
-	Formatter = "formatter",
-	FormatterIr = "formatter-ir",
-	Syntax = "syntax",
-	ControlFlowGraph = "control-flow-graph",
-	Console = "console",
-	Settings = "settings",
-	AnalyzerFixes = "analyzer-fixes",
-	TypesIr = "types-ir",
-	TypesRegistered = "types-registered",
-	SemanticModel = "semantic-model",
-}
+export const PlaygroundTab = {
+	Code: "code",
+	Diagnostics: "diagnostics",
+	Formatter: "formatter",
+	FormatterIr: "formatter-ir",
+	Syntax: "syntax",
+	ControlFlowGraph: "control-flow-graph",
+	Console: "console",
+	Settings: "settings",
+	AnalyzerFixes: "analyzer-fixes",
+	TypesIr: "types-ir",
+	TypesRegistered: "types-registered",
+	SemanticModel: "semantic-model",
+	GritQL: "gritql",
+} as const;
+export type PlaygroundTab = (typeof PlaygroundTab)[keyof typeof PlaygroundTab];
+
+export const PLAYGROUND_PANE = {
+	diagnostics: "Diagnostics",
+	console: "Console",
+	gritql: "GritQL",
+} as const;
+
+type Pane = typeof PLAYGROUND_PANE;
+
+export type PlaygroundPaneKey = keyof Pane;
+export type PlaygroundPane = Pane[keyof Pane];
 
 export type PrettierOptions = import("prettier").Options & {
 	experimentalOperatorPosition?: "start" | "end";
 };
 
-export enum IndentStyle {
-	Tab = "tab",
-	Space = "space",
-}
+export const IndentStyle = {
+	Tab: "tab",
+	Space: "space",
+} as const;
+export type IndentStyle = (typeof IndentStyle)[keyof typeof IndentStyle];
 
-export enum SourceType {
-	Module = "module",
-	Script = "script",
-}
+export const SourceType = {
+	Module: "module",
+	Script: "script",
+} as const;
+export type SourceType = (typeof SourceType)[keyof typeof SourceType];
 
-export enum QuoteStyle {
-	Double = "double",
-	Single = "single",
-}
+export const QuoteStyle = {
+	Double: "double",
+	Single: "single",
+} as const;
+export type QuoteStyle = (typeof QuoteStyle)[keyof typeof QuoteStyle];
 
-export enum QuoteProperties {
-	AsNeeded = "as-needed",
-	Preserve = "preserve",
-}
+export const QuoteProperties = {
+	AsNeeded: "as-needed",
+	Preserve: "preserve",
+} as const;
+export type QuoteProperties =
+	(typeof QuoteProperties)[keyof typeof QuoteProperties];
 
-export enum TrailingCommas {
-	All = "all",
-	Es5 = "es5",
-	None = "none",
-}
+export const TrailingCommas = {
+	All: "all",
+	Es5: "es5",
+	None: "none",
+} as const;
+export type TrailingCommas =
+	(typeof TrailingCommas)[keyof typeof TrailingCommas];
 
-export enum LoadingState {
-	Loading = 0,
-	Success = 1,
-	Error = 2,
-}
+export const LoadingState = {
+	Loading: 0,
+	Success: 1,
+	Error: 2,
+} as const;
+export type LoadingState = (typeof LoadingState)[keyof typeof LoadingState];
 
-export enum Semicolons {
-	Always = "always",
-	AsNeeded = "as-needed",
-}
+export const Semicolons = {
+	Always: "always",
+	AsNeeded: "as-needed",
+} as const;
+export type Semicolons = (typeof Semicolons)[keyof typeof Semicolons];
 
-export enum ArrowParentheses {
-	Always = "always",
-	AsNeeded = "as-needed",
-}
+export const ArrowParentheses = {
+	Always: "always",
+	AsNeeded: "as-needed",
+} as const;
+export type ArrowParentheses =
+	(typeof ArrowParentheses)[keyof typeof ArrowParentheses];
 
-export enum OperatorLinebreak {
-	After = "after",
-	Before = "before",
-}
+export const OperatorLinebreak = {
+	After: "after",
+	Before: "before",
+} as const;
+export type OperatorLinebreak =
+	(typeof OperatorLinebreak)[keyof typeof OperatorLinebreak];
 
-export enum AttributePosition {
-	Auto = "auto",
-	Multiline = "multiline",
-}
+export const AttributePosition = {
+	Auto: "auto",
+	Multiline: "multiline",
+} as const;
+export type AttributePosition =
+	(typeof AttributePosition)[keyof typeof AttributePosition];
 
-export enum Expand {
-	Auto = "auto",
-	Always = "always",
-	Never = "never",
-}
+export const Expand = {
+	Auto: "auto",
+	Always: "always",
+	Never: "never",
+} as const;
+export type Expand = (typeof Expand)[keyof typeof Expand];
 
-export enum WhitespaceSensitivity {
-	Css = "css",
-	Strict = "strict",
-	Ignore = "ignore",
-}
+export const WhitespaceSensitivity = {
+	Css: "css",
+	Strict: "strict",
+	Ignore: "ignore",
+} as const;
+export type WhitespaceSensitivity =
+	(typeof WhitespaceSensitivity)[keyof typeof WhitespaceSensitivity];
 
 export type PrettierOutput =
 	| {
@@ -126,6 +162,10 @@ export interface BiomeOutput {
 		ir: string;
 		registered: string;
 	};
+	gritQuery: {
+		matches: [number, number][];
+		error: string | undefined;
+	};
 }
 
 export const emptyBiomeOutput: BiomeOutput = {
@@ -149,6 +189,10 @@ export const emptyBiomeOutput: BiomeOutput = {
 	types: {
 		ir: "",
 		registered: "",
+	},
+	gritQuery: {
+		matches: [],
+		error: undefined,
 	},
 };
 
@@ -201,18 +245,21 @@ export interface PlaygroundSettings {
 	experimentalFullSupportEnabled: boolean;
 	cssModules: boolean;
 	tailwindDirectives: boolean;
+	gritTargetLanguage: GritTargetLanguage;
 }
 
 export interface PlaygroundFileState {
 	content: string;
 	prettier: PrettierOutput;
 	biome: BiomeOutput;
+	gritQuery?: string;
 }
 
 export interface PlaygroundState {
 	currentFile: string;
 	singleFileMode: boolean;
 	tab: PlaygroundTab;
+	pane: PlaygroundPane;
 	cursorPosition: number;
 	files: Record<string, undefined | PlaygroundFileState>;
 	settings: PlaygroundSettings;
@@ -221,6 +268,7 @@ export interface PlaygroundState {
 export const defaultPlaygroundState: PlaygroundState = {
 	cursorPosition: 0,
 	tab: PlaygroundTab.Formatter,
+	pane: PLAYGROUND_PANE.diagnostics,
 	currentFile: "main.tsx",
 	singleFileMode: true,
 	files: {
@@ -258,6 +306,7 @@ export const defaultPlaygroundState: PlaygroundState = {
 		experimentalFullSupportEnabled: true,
 		cssModules: false,
 		tailwindDirectives: true,
+		gritTargetLanguage: "JavaScript",
 	},
 };
 

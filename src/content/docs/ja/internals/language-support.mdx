@@ -7,33 +7,56 @@ description: Biomeがサポートする言語と機能。
 - ✅: 対応済み
 - 🚫: 進行中ではない
 - ⌛️: 進行中
-- ⚠️: 一部サポート（いくつかの注意点あり）
+- 🟡: 実験的
 
-| Language | Parsing | Formatting | Linting |
-| -------- | ------- | ---------- | ------- |
-| [JavaScript](#javascriptのサポート) | <span aria-label="対応済み" role="img">✅</span> | <span aria-label="対応済み" role="img">✅</span> | <span aria-label="対応済み" role="img">✅</span> |
-| [TypeScript](#typescriptのサポート) | <span aria-label="対応済み" role="img">✅</span> | <span aria-label="対応済み" role="img">✅</span> | <span aria-label="対応済み" role="img">✅</span> |
-| JSX | <span aria-label="対応済み" role="img">✅</span> | <span aria-label="対応済み" role="img">✅</span> | <span aria-label="対応済み" role="img">✅</span> |
-| TSX | <span aria-label="対応済み" role="img">✅</span> | <span aria-label="対応済み" role="img">✅</span> | <span aria-label="対応済み" role="img">✅</span> |
-| JSON | <span aria-label="対応済み" role="img">✅</span> | <span aria-label="対応済み" role="img">✅</span> | <span aria-label="対応済み" role="img">✅</span> |
-| JSONC | <span aria-label="対応済み" role="img">✅</span> | <span aria-label="対応済み" role="img">✅</span> | <span aria-label="対応済み" role="img">✅</span> |
-| HTML | <span aria-label="対応済み" role="img">✅</span> | <span aria-label="対応済み" role="img">✅</span> | <span aria-label="対応済み" role="img">✅</span> |
-| [Vue](#html拡張言語のサポート) | <span aria-label="一部サポート" role="img">⚠️</span> | <span aria-label="一部サポート" role="img">⚠️</span> | <span aria-label="一部サポート" role="img">⚠️</span> |
-| [Svelte](#html拡張言語のサポート) | <span aria-label="一部サポート" role="img">⚠️</span> | <span aria-label="一部サポート" role="img">⚠️</span> | <span aria-label="一部サポート" role="img">⚠️</span> |
-| [Astro](#html拡張言語のサポート) | <span aria-label="一部サポート" role="img">⚠️</span> | <span aria-label="一部サポート" role="img">⚠️</span> | <span aria-label="一部サポート" role="img">⚠️</span> |
-| CSS | <span aria-label="対応済み" role="img">✅️</span> | <span aria-label="対応済み" role="img">✅️</span> | <span aria-label="対応済み" role="img">✅️</span> |
-| [YAML](https://github.com/biomejs/biome/issues/2365) | <span aria-label="進行中" role="img">⌛️</span> | <span aria-label="進行中ではない" role="img">🚫</span> | <span aria-label="進行中ではない" role="img">🚫</span> |
-| GraphQL | <span aria-label="対応済み" role="img">✅️</span> | <span aria-label="対応済み" role="img">✅️</span> | <span aria-label="対応済み" role="img">✅️</span> |
-| [Markdown](https://github.com/biomejs/biome/issues/3718) | <span aria-label="進行中" role="img">⌛️</span> | <span aria-label="進行中ではない" role="img">🚫</span> | <span aria-label="進行中ではない" role="img">🚫</span> |
+| 言語                                                       | パース                                          | フォーマット                                       | リント                                             | プラグインサポート                                       |
+|----------------------------------------------------------|----------------------------------------------|----------------------------------------------|-------------------------------------------------|-------------------------------------------------|
+| [JavaScript](#javascriptのサポート)                           | <span aria-label="対応済み" role="img">✅</span>  | <span aria-label="対応済み" role="img">✅</span>  | <span aria-label="対応済み" role="img">✅</span>     | <span aria-label="対応済み" role="img">✅</span>     |
+| [TypeScript](#typescriptのサポート)                           | <span aria-label="対応済み" role="img">✅</span>  | <span aria-label="対応済み" role="img">✅</span>  | <span aria-label="対応済み" role="img">✅</span>     | <span aria-label="対応済み" role="img">✅</span>     |
+| JSX                                                      | <span aria-label="対応済み" role="img">✅</span>  | <span aria-label="対応済み" role="img">✅</span>  | <span aria-label="対応済み" role="img">✅</span>     | <span aria-label="対応済み" role="img">✅</span>     |
+| TSX                                                      | <span aria-label="対応済み" role="img">✅</span>  | <span aria-label="対応済み" role="img">✅</span>  | <span aria-label="対応済み" role="img">✅</span>     | <span aria-label="対応済み" role="img">✅</span>     |
+| JSON                                                     | <span aria-label="対応済み" role="img">✅</span>  | <span aria-label="対応済み" role="img">✅</span>  | <span aria-label="対応済み" role="img">✅</span>     | <span aria-label="対応済み" role="img">✅</span>     |
+| JSONC                                                    | <span aria-label="対応済み" role="img">✅</span>  | <span aria-label="対応済み" role="img">✅</span>  | <span aria-label="対応済み" role="img">✅</span>     | <span aria-label="対応済み" role="img">✅</span>     |
+| HTML*                                                    | <span aria-label="対応済み" role="img">✅</span>  | <span aria-label="対応済み" role="img">✅</span>  | <span aria-label="対応済み" role="img">✅</span>     | <span aria-label="対応済み" role="img">✅</span>     |
+| [Vue](#html拡張言語のサポート)                                    | <span aria-label="実験的" role="img">🟡</span>  | <span aria-label="実験的" role="img">🟡</span>  | <span aria-label="実験的" role="img">🟡</span>     | <span aria-label="実験的" role="img">🟡</span>     |
+| [Svelte](#html拡張言語のサポート)                                 | <span aria-label="実験的" role="img">🟡</span>  | <span aria-label="実験的" role="img">🟡</span>  | <span aria-label="実験的" role="img">🟡</span>     | <span aria-label="実験的" role="img">🟡</span>     |
+| [Astro](#html拡張言語のサポート)                                  | <span aria-label="実験的" role="img">🟡</span>  | <span aria-label="実験的" role="img">🟡</span>  | <span aria-label="実験的" role="img">🟡</span>     | <span aria-label="実験的" role="img">🟡</span>     |
+| CSS                                                      | <span aria-label="対応済み" role="img">✅️</span> | <span aria-label="対応済み" role="img">✅️</span> | <span aria-label="対応済み" role="img">✅️</span>    | <span aria-label="対応済み" role="img">✅</span>     |
+| SCSS                                                     | <span aria-label="進行中" role="img">⌛️</span>  | <span aria-label="進行中" role="img">⌛️</span>  | <span aria-label="進行中ではない" role="img">🚫</span> | <span aria-label="進行中ではない" role="img">🚫</span> |
+| [YAML](https://github.com/biomejs/biome/issues/2365)     | <span aria-label="進行中" role="img">⌛️</span>  | <span aria-label="進行中" role="img">⌛️</span>  | <span aria-label="進行中ではない" role="img">🚫</span> | <span aria-label="進行中ではない" role="img">🚫</span> |
+| GraphQL                                                  | <span aria-label="対応済み" role="img">✅️</span> | <span aria-label="対応済み" role="img">✅️</span> | <span aria-label="対応済み" role="img">✅️</span>    | <span aria-label="進行中ではない" role="img">🚫</span> |
+| [Markdown](https://github.com/biomejs/biome/issues/3718) | <span aria-label="進行中" role="img">⌛️</span>  | <span aria-label="進行中" role="img">⌛️</span>  | <span aria-label="進行中ではない" role="img">🚫</span> | <span aria-label="進行中ではない" role="img">🚫</span> |
+| GritQL                                                   | <span aria-label="対応済み" role="img">✅️</span> | <span aria-label="対応済み" role="img">✅️</span> | <span aria-label="進行中ではない" role="img">🚫</span> | <span aria-label="進行中ではない" role="img">🚫</span> |
+
+*\* 現在、[明示的なオプトイン](/ja/reference/configuration/#html)が必要です。*
 
 ## JavaScriptのサポート
 
-Biomeは、JavaScript（ES2024）をサポートしています。
-また、公式の構文のみをサポートしています。新しい構文に対する機能の開発は、その構文の提案が[Stage 3](https://github.com/tc39/proposals#stage-3)に達したときに開始されます。
+BiomeはES2024バージョンの言語をサポートしています。
+
+Biomeは公式の構文のみをサポートしています。新しい構文の開発は、提案が
+[Stage 3](https://github.com/tc39/proposals#stage-3)に達したときに開始されます。
+
+### 埋め込み言語のサポート（実験的）
+
+BiomeはJavaScriptのテンプレートリテラル内に埋め込まれた以下の言語をサポートしています：
+
+- CSS（`css` または `styled` タグ）
+- GraphQL（`gql` または `graphql` タグ）
+
+この機能はまだ実験的で、デフォルトでは無効になっています。この機能を有効にするには、`javascript.experimentalEmbeddedSnippetsEnabled` オプションを設定してください。
+
+```json title=biome.json
+{
+  "javascript": {
+    "experimentalEmbeddedSnippetsEnabled": true
+  }
+}
+```
 
 ## TypeScriptのサポート
 
-Biomeは、TypeScriptバージョン5.6をサポートしています。
+Biomeは、TypeScriptバージョン5.9をサポートしています。
 
 ## JSONCサポート
 
@@ -51,39 +74,64 @@ JSONCは「コメント付きJSON」の略です。この形式は、[VS Code](h
 
 ## HTML拡張言語のサポート
 
-バージョン `1.6.0` 以降、これらの言語は**部分的に**サポートされています。Biomeは時間とともに改善され、プロジェクトを調整するためのオプションが増えていく予定です。しかし、現在ではいくつかの期待と制限を考慮する必要があります：
-- `.astro` ファイルでは、**フロントマター部分のみ**がサポートされています。
-- `.vue` および `.svelte` ファイルでは、**\<script\>タグ部分のみ**がサポートされています。
-- 診断は上記の部分に属するコードフレームのみを表示します。
-- `.vue` および `.svelte` ファイルを**フォーマット**する際、JavaScript/TypeScriptコードのインデントは最初から始まります。
+バージョン `v2.3.0` 以降、BiomeはVue、Svelte、Astroファイルをすぐにサポートしています。これは、Biomeがファイル内のHTML、CSS、JavaScriptの部分をフォーマットおよびリントできることを意味します。
 
-  ```vue title="file.vue" del={2} ins={3}
-  <script>
-    import Component from "./Component.vue";
-  import Component from "./Component.vue";
-  </script>
-  ```
+ただし、この**サポートは実験的なもの**と見なす必要があり、変更や改善の対象となります。`v2.3.0` では、この機能を可能にするアーキテクチャが導入されましたが、いくつかのフォーマットおよびリントルールは調整が必要です。
 
-- `.svelte` 、`.astro` 、 `.vue` ファイルを**静的解析**する際、コンパイラエラーを防ぐためにいくつかのルールをオフにすることをお勧めします。オプション `overrides` を使用します：
+特に、`v2.3.0` の時点では、Biomeは言語固有の構文（例：Svelteの制御フロー構文 `{#if } {/if}`）に対して特別なパースを行いません。これは、フォーマットが期待される結果と一致しない場合があり、リントルールが一部のケースを検出できない可能性があることを意味します。
 
-  ```json
-  {
-    "overrides": [
-      {
-        "includes": ["**/*.svelte", "**/*.astro", "**/*.vue"],
-        "linter": {
-          "rules": {
-            "style": {
-              "useConst": "off",
-              "useImportType": "off"
-            },
-            "correctness": {
-              "noUnusedVariables": "off",
-              "noUnusedImports": "off"
-            }
+埋め込み言語をまたいで動作するリントルールはまだサポートされていません。
+
+### HTML系言語のリント
+
+`html.experimentalFullSupportEnabled` が `false` の場合に `.svelte`、`.astro`、または `.vue` ファイルを**リント**する際は、部分的なサポートによって引き起こされる誤検出のリントエラーを防ぐために、いくつかの追加ルールをオフにすることをお勧めします。そのために `overrides` オプションを使用します：
+
+```json title=biome.json
+{
+  "overrides": [
+    {
+      "includes": ["**/*.svelte", "**/*.astro", "**/*.vue"],
+      "linter": {
+        "rules": {
+          "style": {
+            "useConst": "off",
+            "useImportType": "off"
+          },
+          "correctness": {
+            "noUnusedVariables": "off",
+            "noUnusedImports": "off"
           }
         }
       }
-    ]
+    }
+  ]
+}
+```
+
+### 異なる設定でのフォーマット
+
+Biomeでは、異なる言語のフォーマットを制御できます。Biomeが同じファイル内で複数の言語を処理できるようになったため、設定によっては不整合が発生する可能性が高まります。
+
+例えば、完全サポートが有効になっていると仮定した場合、JavaScriptとCSSコードを含むHTML系ファイルをフォーマットする際に、次の例のようにタブとスペースが混在するファイルになるリスクがあります：
+
+```json title=biome.json
+{
+  "javascript": {
+    "format": {
+      "indentStyle": "tab"
+    }
+  },
+  "css": {
+    "format": {
+      "indentStyle": "space",
+      "indentWidth": 4
+    }
   }
-  ```
+}
+```
+
+この問題に対処するための[GitHubディスカッション](https://github.com/biomejs/biome/discussions/7754)を作成しました。ディスカッションに参加して、ご意見をお聞かせください。
+
+:::note
+この最後のセクションは古くなる可能性があるため、[プレイグラウンド](https://biomejs.dev/playground)を使用して、機能が実装されているかどうかを確認することをお勧めします。
+:::

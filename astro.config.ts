@@ -32,27 +32,27 @@ const plugins = [
 		authors: {
 			arendjr: {
 				name: "Arend van Beelen jr.",
-				picture: "https://github.com/arendjr.png",
+				picture: "https://avatars.githubusercontent.com/u/533294?s=25&v=4",
 				url: "https://arendjr.nl/",
 			},
 			conaclos: {
 				name: "Victorien Elvinger",
-				picture: "https://github.com/conaclos.png",
+				picture: "https://avatars.githubusercontent.com/u/2358560?s=25&v=4",
 				url: "https://bsky.app/profile/conaclos.bsky.social",
 			},
 			dyc3: {
 				name: "Carson McManus",
-				picture: "https://github.com/dyc3.png",
+				picture: "https://avatars.githubusercontent.com/u/1808807?s=25&v=4",
 				url: "https://github.com/dyc3",
 			},
 			ema: {
 				name: "Emanuele Stoppa",
-				picture: "https://github.com/ematipico.png",
+				picture: "https://avatars.githubusercontent.com/u/602478?s=25&v=4",
 				url: "https://bsky.app/profile/ematipico.xyz",
 			},
 			nhedger: {
 				name: "Nicolas Hedger",
-				picture: "https://github.com/nhedger.png",
+				picture: "https://avatars.githubusercontent.com/u/649677?s=25&v=4",
 				url: "https://bsky.app/profile/hedger.ch",
 			},
 			team: {
@@ -202,10 +202,6 @@ export default defineConfig({
 						{
 							label: "Configure Biome",
 							link: "/guides/configure-biome",
-							badge: {
-								text: "updated",
-								variant: "note",
-							},
 							translations: {
 								es: "Configurar Biome",
 								fr: "Configurer Biome",
@@ -665,6 +661,26 @@ export default defineConfig({
 										ru: "Источники действий GraphQL",
 									},
 								},
+								{
+									label: "HTML Actions",
+									link: "/assist/html/actions",
+									translations: {
+										ja: "HTMLアクション",
+										"zh-CN": "HTML 操作",
+										pl: "Akcje HTML",
+										ru: "Действия HTML",
+									},
+								},
+								{
+									label: "HTML Actions sources",
+									link: "/assist/html/sources",
+									translations: {
+										ja: "HTMLアクションのソース",
+										"zh-CN": "HTML 操作来源",
+										pl: "Źródła akcji HTML",
+										ru: "Источники действий HTML",
+									},
+								},
 							],
 							translations: {
 								ja: "アシスト",
@@ -832,6 +848,14 @@ export default defineConfig({
 								"zh-CN": "Biome 徽章",
 								pl: "Odznaki społecznościowe",
 								ru: "Социальные значки",
+							},
+						},
+						{
+							label: "GritQL Plugin Recipes",
+							link: "/recipes/gritql-plugins",
+							badge: {
+								text: "new",
+								variant: "success",
 							},
 						},
 					],
@@ -1010,7 +1034,12 @@ export default defineConfig({
 		format: "directory",
 	},
 	image: {
-		domains: ["github.com", "raw.githubusercontent.com", "img.shields.io"],
+		domains: [
+			"github.com",
+			"avatars.githubusercontent.com",
+			"raw.githubusercontent.com",
+			"img.shields.io",
+		],
 	},
 
 	markdown: {
@@ -1027,11 +1056,6 @@ export default defineConfig({
 	},
 
 	vite: {
-		resolve: {
-			alias: {
-				"@": new URL("./src", import.meta.url).pathname,
-			},
-		},
 		plugins: [],
 
 		worker: {
@@ -1048,6 +1072,14 @@ export default defineConfig({
 		define: {
 			PRETTIER_VERSION: JSON.stringify(prettierVersion),
 			BIOME_VERSION: JSON.stringify(biomeVersion),
+		},
+	},
+	experimental: {
+		// rustCompiler: true,
+		queuedRendering: {
+			enabled: true,
+			contentCache: true,
+			poolSize: 2000,
 		},
 	},
 });

@@ -1,4 +1,5 @@
 use crate::project_root;
+use crate::shared::{CodegenEditUrl, add_codegen_disclaimer_frontmatter};
 use biome_analyze::{RuleDomain, RuleMetadata};
 use biome_formatter::Expand;
 use biome_json_factory::make::{
@@ -14,6 +15,9 @@ use std::collections::HashMap;
 use std::fs;
 use std::io::Write;
 
+const DOMAINS_EDIT_URL: &str =
+    "https://github.com/biomejs/website/edit/main/codegen/src/domains.rs";
+
 pub fn generate_domains() -> anyhow::Result<()> {
     let mut visitor = crate::lintdoc::RulesVisitor::default();
     biome_js_analyze::visit_registry(&mut visitor);
@@ -26,10 +30,7 @@ pub fn generate_domains() -> anyhow::Result<()> {
     let mut buffer = Vec::new();
 
     writeln!(buffer, "---")?;
-    writeln!(
-        buffer,
-        "# this file is auto generated, use `pnpm codegen:rules` to update it"
-    )?;
+    add_codegen_disclaimer_frontmatter(&mut buffer, CodegenEditUrl::Url(DOMAINS_EDIT_URL))?;
     writeln!(buffer, "title: Domains")?;
     writeln!(buffer, "description: List of available domains")?;
     writeln!(buffer, "---")?;
@@ -69,72 +70,9 @@ impl DocDomains {
             if rules.is_empty() {
                 continue;
             }
-            match domain {
-                RuleDomain::React => {
-                    writeln!(buffer, "## {name}")?;
-                    writeln!(
-                        buffer,
-                        "Use this domain inside React projects. It enables a set of rules that can help catching bugs and enforce correct practices. This domain enable rules that might conflict with the Solid domain."
-                    )?;
-                }
-                RuleDomain::Test => {
-                    writeln!(buffer, "## {name}")?;
-                    writeln!(
-                        buffer,
-                        "Use this domain when linting test files. It enables a set of rules that are library agnostic, and can help to catch possible misuse of the test APIs."
-                    )?;
-                }
-                RuleDomain::Solid => {
-                    writeln!(buffer, "## {name}")?;
-                    writeln!(
-                        buffer,
-                        "Use this domain inside Solid projects. This domain enables rules that might conflict with the React domain."
-                    )?;
-                }
-                RuleDomain::Next => {
-                    writeln!(buffer, "## {name}")?;
-                    writeln!(buffer, "Use this domain inside Next.js projects.")?;
-                }
-                RuleDomain::Project => {
-                    writeln!(buffer, "## {name}")?;
-                    writeln!(
-                        buffer,
-                        "This domain contains rules that perform project-level analysis. This includes our module graph for dependency resolution. When enabling rules that belong to this domain, Biome will scan the entire project. The scanning phase will have a performance impact on the linting process. See the documentation on our [scanner](/internals/architecture/#scanner) to learn more about the scanner."
-                    )?;
-                }
-                RuleDomain::Vue => {
-                    writeln!(buffer, "## {name}")?;
-                    writeln!(
-                        buffer,
-                        "Use this domain inside Vue projects. This domain enables rules that are specific to Vue projects."
-                    )?;
-                }
-                RuleDomain::Qwik => {
-                    writeln!(buffer, "## {name}")?;
-                    writeln!(
-                        buffer,
-                        "Use this domain inside Qwik projects. This domain enables rules that are specific to Qwik projects."
-                    )?;
-                }
-                RuleDomain::Turborepo => {
-                    writeln!(buffer, "## {name}")?;
-                    writeln!(
-                        buffer,
-                        "Use this domain inside Turborepo projects. This domain enables rules that are specific to Turborepo projects."
-                    )?;
-                }
-                RuleDomain::Types => {
-                    writeln!(buffer, "## {name}")?;
-                    writeln!(
-                        buffer,
-                        "This domain contains rules that perform project-level analysis. This includes our module graph for dependency resolution. When enabling rules that belong to this domain, Biome will scan the entire project, *and it will enable the inference engine to resolve and flat types*. The scanning phase will have a performance impact on the linting process. See the documentation on our [scanner](/internals/architecture/#scanner) to learn more about the scanner."
-                    )?;
-                }
-                #[allow(unreachable_patterns)]
-                domain => {
-                    eprintln!("Undocumented domain: {domain:?}");
-                }
-            }
+            writeln!(buffer, "## {name}")?;
+            writeln!(buffer, "{}", domain.as_description())?;
+
             Self::write_activation(name.as_str(), rules.as_slice(), buffer)?;
             Self::write_dependencies(domain, name.as_str(), buffer)?;
             Self::write_globals(domain, name.as_str(), buffer)?;
@@ -218,7 +156,7 @@ impl DocDomains {
             writeln!(buffer)?;
             writeln!(
                 buffer,
-                ":::note[No recommended rules]\nSince all rules in this domain are nursery rules, no rules will be activated when enabling the domain. You need to enable the single rules.:::#"
+                ":::note[No recommended rules]\nSince all rules in this domain are nursery rules, no rules will be activated when enabling the domain. You need to enable the single rules.\n:::"
             )?;
         }
 

@@ -1,6 +1,7 @@
 ---
 # Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
 # Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: "https://github.com/biomejs/website/edit/main/codegen/src/rules_sources.rs"
 
 
 title: Rules sources
@@ -9,6 +10,7 @@ description: A page that maps rules from other sources to Biome
     
 ## Biome exclusive rules
 - [noSvgWithoutTitle](/linter/rules/no-svg-without-title) 
+- [useIframeSandbox](/linter/rules/use-iframe-sandbox) 
 - [useVueVapor](/linter/rules/use-vue-vapor) 
 ## Rules from other sources
 :::note
@@ -21,7 +23,13 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 ### @html-eslint/eslint-plugin
 | @html-eslint/eslint-plugin Rules name | Biome Rules name |
 | ---- | ---- |
+| [no-accesskey-attrs](https://html-eslint.org/docs/rules/no-accesskey-attrs) |[noAccessKey](/linter/rules/no-access-key) |
 | [no-duplicate-attrs](https://html-eslint.org/docs/rules/no-duplicate-attrs) |[noDuplicateAttributes](/linter/rules/no-duplicate-attributes) |
+| [no-inline-styles](https://html-eslint.org/docs/rules/no-inline-styles) |[noInlineStyles](/linter/rules/no-inline-styles) |
+| [no-positive-tabindex](https://html-eslint.org/docs/rules/no-positive-tabindex) |[noPositiveTabindex](/linter/rules/no-positive-tabindex) |
+| [require-button-type](https://html-eslint.org/docs/rules/require-button-type) |[useButtonType](/linter/rules/use-button-type) |
+| [require-img-alt](https://html-eslint.org/docs/rules/require-img-alt) |[useAltText](/linter/rules/use-alt-text) |
+| [require-lang](https://html-eslint.org/docs/rules/require-lang) |[useHtmlLang](/linter/rules/use-html-lang) |
 ### @next/eslint-plugin-next
 | @next/eslint-plugin-next Rules name | Biome Rules name |
 | ---- | ---- |
@@ -57,6 +65,10 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | ---- | ---- |
 | [button-has-type](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/button-has-type.md) |[useButtonType](/linter/rules/use-button-type) |
 | [jsx-no-script-url](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-no-script-url.md) |[noScriptUrl](/linter/rules/no-script-url) |
+### eslint-plugin-react-dom
+| eslint-plugin-react-dom Rules name | Biome Rules name |
+| ---- | ---- |
+| [no-script-url](https://eslint-react.xyz/docs/rules/dom-no-script-url) |[noScriptUrl](/linter/rules/no-script-url) |
 ### eslint-plugin-solid
 | eslint-plugin-solid Rules name | Biome Rules name |
 | ---- | ---- |
@@ -65,6 +77,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | eslint-plugin-vue Rules name | Biome Rules name |
 | ---- | ---- |
 | [attribute-hyphenation](https://eslint.vuejs.org/rules/attribute-hyphenation) |[useVueHyphenatedAttributes](/linter/rules/use-vue-hyphenated-attributes) |
+| [enforce-style-attribute](https://eslint.vuejs.org/rules/enforce-style-attribute) |[useScopedStyles](/linter/rules/use-scoped-styles) (inspired) |
 | [no-duplicate-attributes](https://eslint.vuejs.org/rules/no-duplicate-attributes) |[noDuplicateAttributes](/linter/rules/no-duplicate-attributes) |
 | [no-use-v-if-with-v-for](https://eslint.vuejs.org/rules/no-use-v-if-with-v-for) |[noVueVIfWithVFor](/linter/rules/no-vue-v-if-with-v-for) |
 | [require-v-for-key](https://eslint.vuejs.org/rules/require-v-for-key) |[useVueVForKey](/linter/rules/use-vue-v-for-key) |

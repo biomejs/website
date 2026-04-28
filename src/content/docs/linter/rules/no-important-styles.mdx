@@ -1,6 +1,7 @@
 ---
 # Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
 # Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
 
 title: noImportantStyles
 description: Learn more about noImportantStyles
@@ -17,6 +18,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - The default severity of this rule is [**warning**](/reference/diagnostics#warning).
 - Sources: 
   - Same as [`declaration-no-important`](https://github.com/stylelint/stylelint/blob/main/lib/rules/declaration-no-important/README.md)
+  - Same as [`css/no-important`](https://github.com/eslint/css/blob/main/docs/rules/no-important.md)
 
 ## How to configure
 ```json title="biome.json"
@@ -83,7 +85,7 @@ must account for the `!important` rule overriding expected behavior.
 - [Disable a rule](/linter/#disable-a-rule)
 - [Configure the code fix](/linter#configure-the-code-fix)
 - [Rule options](/linter/#rule-options)
-- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/complexity/no_important_styles.rs)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/complexity/no_important_styles.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/complexity/noImportantStyles)
 
 </TabItem>

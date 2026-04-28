@@ -1,7 +1,6 @@
 ---
 import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
 import PlaygroundLoader from "@/playground/PlaygroundLoader";
-import "@/styles/playground/index.css";
 ---
 
 <StarlightPage
@@ -41,7 +40,7 @@ import "@/styles/playground/index.css";
 </style>
 
 <script>
-  import type { ThemeChanged } from "@/frontend-scripts/util";
+  import type { ThemeChanged } from "@/frontend-scripts/util.ts";
 
   //May this change when we have our own theme switcher component
   const themeSelect = document.querySelector("starlight-theme-select select");

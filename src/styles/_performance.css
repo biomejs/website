@@ -1,12 +1,10 @@
-@import "_mixins";
-
 .hero-code {
 	margin-top: 7rem !important;
 }
 
 .head {
 	text-align: center;
-	@mixin desktop-only {
+	@media only screen and (min-width: calc(var(--mobile-breakpoint) + 1)) {
 		font-size: 3.7rem;
 	}
 }

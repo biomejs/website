@@ -1,6 +1,7 @@
 ---
 # Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
 # Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
 
 title: noDuplicateSelectorsKeyframeBlock
 description: Learn more about noDuplicateSelectorsKeyframeBlock
@@ -17,6 +18,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - The default severity of this rule is [**error**](/reference/diagnostics#error).
 - Sources: 
   - Same as [`keyframe-block-no-duplicate-selectors`](https://github.com/stylelint/stylelint/blob/main/lib/rules/keyframe-block-no-duplicate-selectors/README.md)
+  - Same as [`css/no-duplicate-keyframe-selectors`](https://github.com/eslint/css/blob/main/docs/rules/no-duplicate-keyframe-selectors.md)
 
 ## How to configure
 ```json title="biome.json"
@@ -71,7 +73,7 @@ Disallow duplicate selectors within keyframe blocks.
 - [Disable a rule](/linter/#disable-a-rule)
 - [Configure the code fix](/linter#configure-the-code-fix)
 - [Rule options](/linter/#rule-options)
-- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/suspicious/no_duplicate_selectors_keyframe_block.rs)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/suspicious/no_duplicate_selectors_keyframe_block.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/suspicious/noDuplicateSelectorsKeyframeBlock)
 
 </TabItem>

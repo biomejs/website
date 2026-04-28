@@ -8,6 +8,10 @@ description: フォーマット、リントなどが一瞬で完了します！
 editUrl: false
 next: false
 
+banner:
+    content: |
+      今年最初のマイナーリリース、<a href="/blog/biome-v2-4/"><b>Biome v2.4がリリースされました！</b></a>
+
 hero:
   title: Web開発のためのたった1つのツールチェーン
   tagline: フォーマット、リントなどが一瞬で完了します！
@@ -40,7 +44,8 @@ import "@/styles/_community.css";
 import Netlify from "@/components/Netlify.astro";
 import Sponsors from "@/components/Sponsors.astro";
 import LinterExample from "@/components/linter/example.md";
-import AwardBanner from "@/components/AwardBanner.astro";
+import NumberOfRules from "@/components/generated/linter/NumberOfRules.astro";
+import AwardBanner from "@/components/AwardBanner.astro"
 import FeaturedUsers from "@/components/FeaturedUsers.astro"
 
 <div class="gradient"></div>
@@ -49,7 +54,7 @@ import FeaturedUsers from "@/components/FeaturedUsers.astro"
 <div class="hero-code">
     <h2 class="head">Prettierのようにコードをフォーマット、しかも高速</h2>
 
-    **Biomeは _JavaScript_、_TypeScript_、_JSX_、_JSON_、_CSS_ そして _GraphQL_ のための[高速なフォーマッタ](https://github.com/biomejs/biome/tree/main/benchmark#formatting)** であり、[**_Prettier_ と97%の互換性**](https://console.algora.io/challenges/prettier)を持ち、**CIと開発者の時間を節約します**。
+    **Biomeは _JavaScript_、_TypeScript_、_JSX_、_TSX_、_JSON_、_HTML_、_CSS_ そして _GraphQL_ のための[高速なフォーマッタ](https://github.com/biomejs/biome/tree/main/benchmark#formatting)** であり、[**_Prettier_ と97%の互換性**](https://console.algora.io/challenges/prettier)を持ち、**CIと開発者の時間を節約します**。
 
     Biomeは、[お気に入りのエディタ](/ja/guides/editors/first-party-extensions/)でコードを書く際に、**不正な形式のコード**さえもフォーマットできます。
 
@@ -98,7 +103,7 @@ import FeaturedUsers from "@/components/FeaturedUsers.astro"
 <div class="hero-code">
     <h2 class="head">問題を修正し、ベストプラクティスを学ぶ</h2>
 
-    **Biomeは _JavaScript_、_TypeScript_、_JSX_、_CSS_ そして _GraphQL_ のための[高性能なリンタ](https://github.com/biomejs/biome/tree/main/benchmark#linting)** であり、ESLint、typescript-eslint、[その他のソース](https://github.com/biomejs/biome/discussions/3)に由来する **[200以上のルール](/linter/rules/)** を備えています。
+    **Biomeは _JavaScript_、_TypeScript_、_JSX_、_CSS_ そして _GraphQL_ のための[高性能なリンタ](https://github.com/biomejs/biome/tree/main/benchmark#linting)** であり、ESLint、TypeScript ESLint、[その他のソース](/linter/rules-sources/)に由来する **[<NumberOfRules/>個のルール](/ja/linter/)** を備えています。
 
     **Biomeは、文脈を考慮した詳細な診断を出力**してくれるため、あなたがコードを改善してより優れたプログラマーになるのに役立ちます！
 
@@ -144,14 +149,14 @@ import FeaturedUsers from "@/components/FeaturedUsers.astro"
     <Card title="スケーラブル" icon="random">
       あらゆる規模のコードベースに対応するよう設計されているので、ツールではなく製品の成長に集中できます。
     </Card>
-    <Card title="最適化済み" icon="setting">
-      各機能の内部処理は、可能な限り統合され、再利用されています。このため、あるツールの改善がすべてのツールを向上させることがあります。
-    </Card>
-    <Card title="豊富な情報量" icon="information">
+    <Card title="実用的で有益" icon="information">
       曖昧なエラーメッセージを極力避けます。問題がある場合は、その位置を明示して、解決のためのステップを提供します。
     </Card>
     <Card title="すぐに使える" icon="add-document">
-      フロントエンド開発で利用される言語に対して、優れたサポートを提供します。特にTypeScriptおよびJSXへのサポートを第一にしています。
+      今日使用しているすべての言語機能をそのままサポートします。TypeScriptとJSXへのファーストクラスサポートを提供します。
+    </Card>
+    <Card title="商用サポート" icon="phone">
+      コントリビューターのコミュニティを通じて、必要とする組織に<a href="/enterprise/">商用サポート</a>を提供しています。
     </Card>
   </CardGrid>
 </div>
@@ -162,7 +167,7 @@ import FeaturedUsers from "@/components/FeaturedUsers.astro"
       <div class="installation-description">
         好みのパッケージマネージャーを使用してBiomeをインストールし、エディターに組み込みましょう。
       </div>
-      <a class="installation-biome" href="/ja/guides/getting-started/">
+      <a class="installation-biome" href="/ja/guides/getting-started/#installation">
         パッケージマネージャーでインストール
         <Image src={arrow} alt="arrow" />
       </a>

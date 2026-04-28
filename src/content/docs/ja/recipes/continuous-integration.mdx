@@ -5,6 +5,18 @@ description: CI環境でのBiomeの使用
 
 CI環境でBiomeを動作させることは簡単です。以下の例を参考にしてください。
 
+### `biome check` VS `biome ci`
+
+Biomeは、すべてのチェックを実行するための2つのCLIコマンドを提供しています： `biome check` と `biome ci` です。ただし、CI（継続的インテグレーション）環境では後者を使用する必要があります。
+
+`check` コマンドと比較して、 `ci` コマンドは：
+- `--write` / `--fix` オプションを提供しません。
+- 特定のランナーとより良く統合します。たとえば、GitHubで実行すると、診断はGitHubアノテーションを使用して出力されます。
+- スレッド数を制御できます。
+- VCS統合が有効な場合、リモートリポジトリには「ステージされたファイル」の概念がないため、 `--staged` の代わりに `--changed` フラグを使用します。
+
+時間の経過とともに、 `ci` コマンドはさらに多くの機能を受け取ります。
+
 ## GitHub Actions
 
 Biomeをランナーにセットアップするためのファーストパーティ[GitHub Action](https://github.com/marketplace/actions/setup-biome)を提供します。
@@ -35,6 +47,18 @@ jobs:
         run: biome ci .
 ```
 
+Biome設定に外部の依存関係がある場合（例：パッケージから設定を拡張している場合）、Biomeを実行する前にNode.jsをセットアップし、好みのパッケージマネージャーを使用して依存関係をインストールする必要があります：
+
+```yaml
+- name: Setup Node.js
+  uses: actions/setup-node@v4
+  with:
+    node-version: 22 # または好みのバージョン
+    cache: "npm" # または 'yarn', 'pnpm'
+- name: Install dependencies
+  run: npm ci # または yarn install --frozen-lockfile, pnpm install --frozen-lockfile
+```
+
 ### サードパーティーアクション
 
 他のコミュニティによって維持されているアクションも使用できます：
@@ -57,4 +81,31 @@ jobs:
         with:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-review
+```
+
+## GitLab CI
+
+以下は設定例です：
+
+```yaml title=".gitlab-ci.yml"
+# パイプラインステージの定義
+stages:
+  - quality
+
+# Lintジョブの設定：Biomeを使用してコード品質チェックを実行
+lint:
+    image:
+      name: ghcr.io/biomejs/biome:latest  # 最新のBiome Dockerイメージを使用
+      entrypoint: [""]                    # GitLab CIでイメージを動作させるために必要
+    stage: quality                        # qualityステージで実行
+    script:
+        - biome ci --reporter=gitlab --colors=off > /tmp/code-quality.json
+        - cp /tmp/code-quality.json code-quality.json
+    artifacts:
+      reports:
+        codequality:
+          - code-quality.json    # コード品質レポートのアーティファクトを収集
+    rules:
+        - if: $CI_COMMIT_BRANCH    # ブランチへのコミットに対してジョブを実行
+        - if: $CI_MERGE_REQUEST_ID # マージリクエストに対してジョブを実行
 ```

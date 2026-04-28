@@ -1,6 +1,7 @@
 ---
 # Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
 # Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
 
 title: noDangerouslySetInnerHtml
 description: Learn more about noDangerouslySetInnerHtml
@@ -19,6 +20,8 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
   - [`react`](/linter/domains#react)
 - Sources: 
   - Same as [`react/no-danger`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-danger.md)
+  - Same as [`react-dom/no-dangerously-set-innerhtml`](https://eslint-react.xyz/docs/rules/dom-no-dangerously-set-innerhtml)
+  - Same as [`@eslint-react/dom-no-dangerously-set-innerhtml`](https://eslint-react.xyz/docs/rules/dom-no-dangerously-set-innerhtml)
 
 ## How to configure
 ```json title="biome.json"
@@ -62,7 +65,7 @@ React.createElement('div', {
 - [Disable a rule](/linter/#disable-a-rule)
 - [Configure the code fix](/linter#configure-the-code-fix)
 - [Rule options](/linter/#rule-options)
-- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/security/no_dangerously_set_inner_html.rs)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/security/no_dangerously_set_inner_html.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/security/noDangerouslySetInnerHtml)
 
 </TabItem>

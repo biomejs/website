@@ -24,7 +24,7 @@ import {
 	SourceType,
 	TrailingCommas,
 	WhitespaceSensitivity,
-} from "@/playground/types";
+} from "@/playground/types.ts";
 import {
 	classnames,
 	createPlaygroundSettingsSetter,
@@ -867,7 +867,7 @@ function FormatterSettings({
 						id={indentWidthId}
 						value={indentWidth}
 						onChange={(e) => {
-							setIndentWidth(Number.parseInt(e.target.value));
+							setIndentWidth(Number.parseInt(e.target.value, 10));
 						}}
 					/>
 				</div>
@@ -1274,7 +1274,7 @@ function LineWidthInput({
 						id={lineWidthId}
 						value={lineWidth}
 						onChange={(e) => {
-							setLineWidth(Number.parseInt(e.target.value));
+							setLineWidth(Number.parseInt(e.target.value, 10));
 						}}
 					/>
 				)}

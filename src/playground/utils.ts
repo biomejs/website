@@ -1,6 +1,6 @@
 import { type Dispatch, type SetStateAction, useEffect, useState } from "react";
-import type { ThemeChanged, ThemeName } from "@/frontend-scripts/util";
-import { getCurrentTheme } from "@/frontend-scripts/util";
+import type { ThemeChanged, ThemeName } from "@/frontend-scripts/util.ts";
+import { getCurrentTheme } from "@/frontend-scripts/util.ts";
 import {
 	emptyBiomeOutput,
 	emptyPrettierOutput,
@@ -9,7 +9,7 @@ import {
 	type PlaygroundFileState,
 	type PlaygroundSettings,
 	type PlaygroundState,
-} from "@/playground/types";
+} from "@/playground/types.ts";
 
 export function classNames(
 	...classes: (string | undefined | boolean)[]
@@ -420,4 +420,40 @@ export function spanInBytesToSpanInCodeUnits(
 	spanInCodeUnits[1] = currCodeUnitIndex;
 
 	return spanInCodeUnits;
+}
+
+/**
+ * Convert a byte offset to a code unit offset in a UTF-8 string
+ */
+export function byteOffsetToCodeUnitOffset(
+	byteOffset: number,
+	text: string,
+): number {
+	let byteIndex = 0;
+	let codeUnitIndex = 0;
+
+	for (codeUnitIndex = 0; codeUnitIndex < text.length; codeUnitIndex++) {
+		const codePoint = text.codePointAt(codeUnitIndex) ?? 0;
+		const byteLength =
+			codePoint <= 0x7f
+				? 1
+				: codePoint <= 0x7ff
+					? 2
+					: codePoint <= 0xffff
+						? 3
+						: 4;
+
+		if (byteIndex + byteLength > byteOffset) {
+			break;
+		}
+
+		byteIndex += byteLength;
+
+		// Skip the low surrogate for 4-byte characters (surrogate pairs)
+		if (byteLength === 4) {
+			codeUnitIndex++;
+		}
+	}
+
+	return codeUnitIndex;
 }

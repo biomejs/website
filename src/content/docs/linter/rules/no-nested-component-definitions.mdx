@@ -1,6 +1,7 @@
 ---
 # Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
 # Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
 
 title: noNestedComponentDefinitions
 description: Learn more about noNestedComponentDefinitions
@@ -18,8 +19,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - This rule belongs to the following domains:
   - [`react`](/linter/domains#react)
 - Sources: 
-  - Same as [`react-x/no-nested-components`](https://eslint-react.xyz/docs/rules/no-nested-components)
-  - Same as [`@eslint-react/no-nested-components`](https://eslint-react.xyz/docs/rules/no-nested-components)
+  - Same as [`react-x/no-nested-component-definitions`](https://eslint-react.xyz/docs/rules/no-nested-component-definitions)
   - Same as [`@eslint-react/no-nested-component-definitions`](https://eslint-react.xyz/docs/rules/no-nested-component-definitions)
 
 ## How to configure
@@ -133,7 +133,7 @@ function ParentComponent({ children }) {
 - [Disable a rule](/linter/#disable-a-rule)
 - [Configure the code fix](/linter#configure-the-code-fix)
 - [Rule options](/linter/#rule-options)
-- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/no_nested_component_definitions.rs)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/no_nested_component_definitions.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/noNestedComponentDefinitions)
 
 </TabItem>

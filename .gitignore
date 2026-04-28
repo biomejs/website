@@ -9,3 +9,4 @@ target/
 /blob-report/
 /playwright/.cache/
 .claude/settings.local.json
+.opencode/plans

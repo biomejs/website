@@ -1,6 +1,7 @@
 ---
 # Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
 # Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: "https://github.com/biomejs/website/edit/main/codegen/src/rules_sources.rs"
 
 
 title: Rules sources
@@ -15,6 +16,18 @@ description: A page that maps rules from other sources to Biome
 :::note
 Some **Biome** rules might **not** have options, compared to the original rule.
 :::
+### @eslint/css
+| @eslint/css Rules name | Biome Rules name |
+| ---- | ---- |
+| [no-duplicate-keyframe-selectors](https://github.com/eslint/css/blob/main/docs/rules/no-duplicate-keyframe-selectors.md) |[noDuplicateSelectorsKeyframeBlock](/linter/rules/no-duplicate-selectors-keyframe-block) |
+| [no-empty-blocks](https://github.com/eslint/css/blob/main/docs/rules/no-empty-blocks.md) |[noEmptyBlock](/linter/rules/no-empty-block) |
+| [no-important](https://github.com/eslint/css/blob/main/docs/rules/no-important.md) |[noImportantStyles](/linter/rules/no-important-styles) |
+| [no-invalid-named-grid-areas](https://github.com/eslint/css/blob/main/docs/rules/no-invalid-named-grid-areas.md) |[noInvalidGridAreas](/linter/rules/no-invalid-grid-areas) |
+| [use-baseline](https://github.com/eslint/css/blob/main/docs/rules/use-baseline.md) |[useBaseline](/linter/rules/use-baseline) (inspired) |
+### @html-eslint/eslint-plugin
+| @html-eslint/eslint-plugin Rules name | Biome Rules name |
+| ---- | ---- |
+| [use-baseline](https://html-eslint.org/docs/rules/use-baseline) |[useBaseline](/linter/rules/use-baseline) (inspired) |
 ### Stylelint
 | Stylelint Rules name | Biome Rules name |
 | ---- | ---- |
@@ -37,11 +50,13 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [named-grid-areas-no-invalid](https://github.com/stylelint/stylelint/blob/main/lib/rules/named-grid-areas-no-invalid/README.md) |[noInvalidGridAreas](/linter/rules/no-invalid-grid-areas) |
 | [no-descending-specificity](https://github.com/stylelint/stylelint/blob/main/lib/rules/no-descending-specificity/README.md) |[noDescendingSpecificity](/linter/rules/no-descending-specificity) |
 | [no-duplicate-at-import-rules](https://github.com/stylelint/stylelint/blob/main/lib/rules/no-duplicate-at-import-rules/README.md) |[noDuplicateAtImportRules](/linter/rules/no-duplicate-at-import-rules) |
+| [no-duplicate-selectors](https://github.com/stylelint/stylelint/blob/main/lib/rules/no-duplicate-selectors/README.md) |[noDuplicateSelectors](/linter/rules/no-duplicate-selectors) |
 | [no-empty-source](https://github.com/stylelint/stylelint/blob/main/lib/rules/no-empty-source/README.md) |[noEmptySource](/linter/rules/no-empty-source) |
 | [no-invalid-position-at-import-rule](https://github.com/stylelint/stylelint/blob/main/lib/rules/no-invalid-position-at-import-rule/README.md) |[noInvalidPositionAtImportRule](/linter/rules/no-invalid-position-at-import-rule) |
 | [no-irregular-whitespace](https://github.com/stylelint/stylelint/blob/main/lib/rules/no-irregular-whitespace/README.md) |[noIrregularWhitespace](/linter/rules/no-irregular-whitespace) |
 | [property-no-unknown](https://github.com/stylelint/stylelint/blob/main/lib/rules/property-no-unknown/README.md) |[noUnknownProperty](/linter/rules/no-unknown-property) |
 | [selector-anb-no-unmatchable](https://github.com/stylelint/stylelint/blob/main/lib/rules/selector-anb-no-unmatchable/README.md) |[noUnmatchableAnbSelector](/linter/rules/no-unmatchable-anb-selector) |
+| [selector-max-class](https://github.com/stylelint/stylelint/blob/main/lib/rules/selector-max-class/README.md) |[noExcessiveSelectorClasses](/linter/rules/no-excessive-selector-classes) |
 | [selector-pseudo-class-no-unknown](https://github.com/stylelint/stylelint/blob/main/lib/rules/selector-pseudo-class-no-unknown/README.md) |[noUnknownPseudoClass](/linter/rules/no-unknown-pseudo-class) |
 | [selector-pseudo-element-no-unknown](https://github.com/stylelint/stylelint/blob/main/lib/rules/selector-pseudo-element-no-unknown/README.md) |[noUnknownPseudoElement](/linter/rules/no-unknown-pseudo-element) |
 | [selector-type-no-unknown](https://github.com/stylelint/stylelint/blob/main/lib/rules/selector-type-no-unknown/README.md) |[noUnknownTypeSelector](/linter/rules/no-unknown-type-selector) |

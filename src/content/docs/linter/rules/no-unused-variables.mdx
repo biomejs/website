@@ -1,6 +1,7 @@
 ---
 # Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
 # Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
 
 title: noUnusedVariables
 description: Learn more about noUnusedVariables
@@ -122,6 +123,31 @@ const { brand, ...rest } = car;
 console.log(rest);
 ```
 
+TypeScript namespaces that participate in declaration merging with an exported
+or referenced value of the same name are not flagged.
+
+```ts
+const MyComponent = () => {};
+namespace MyComponent {
+    export type Props = { id: string };
+}
+export default MyComponent;
+```
+
+In Astro files, a top-level interface or a type alias named `Props` is always ignored
+as it's implicitly read by the framework.
+
+```astro
+---
+interface Props {
+  name: string;
+  greeting?: string;
+}
+
+const { name, greeting } = Astro.props;
+---
+```
+
 ## Options
 
 ### `ignoreRestSiblings`
@@ -169,7 +195,7 @@ console.log(other);
 - [Disable a rule](/linter/#disable-a-rule)
 - [Configure the code fix](/linter#configure-the-code-fix)
 - [Rule options](/linter/#rule-options)
-- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/no_unused_variables.rs)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/no_unused_variables.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/noUnusedVariables)
 
 </TabItem>

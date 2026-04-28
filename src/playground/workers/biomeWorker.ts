@@ -20,7 +20,7 @@ import {
 	QuoteProperties,
 	QuoteStyle,
 	Semicolons,
-} from "@/playground/types";
+} from "@/playground/types.ts";
 
 const encoder = new TextEncoder();
 const knownFiles = new Set<string>();
@@ -263,11 +263,13 @@ self.addEventListener("message", async (e) => {
 				workspace.updateSettings({
 					configuration: fileConfiguration,
 					projectKey,
+					moduleGraphResolutionKind: "modulesAndTypes",
 				});
 			} else {
 				workspace.updateSettings({
 					configuration,
 					projectKey,
+					moduleGraphResolutionKind: "modulesAndTypes",
 				});
 			}
 			break;
@@ -307,6 +309,7 @@ self.addEventListener("message", async (e) => {
 					...configuration,
 					plugins,
 				},
+				moduleGraphResolutionKind: "modulesAndTypes",
 			});
 
 			// TODO: Handle diagnostics
@@ -327,7 +330,8 @@ self.addEventListener("message", async (e) => {
 				break;
 			}
 
-			const { filename, code, cursorPosition } = e.data;
+			const { filename, code, cursorPosition, gritQuery, defaultLanguage } =
+				e.data;
 			const path = `/${filename}`;
 
 			filesystem.insert(path, encoder.encode(code));
@@ -337,6 +341,7 @@ self.addEventListener("message", async (e) => {
 				workspace.updateSettings({
 					projectKey,
 					configuration: { ...configuration },
+					moduleGraphResolutionKind: "modulesAndTypes",
 				});
 			}
 
@@ -355,6 +360,7 @@ self.addEventListener("message", async (e) => {
 					workspace.updateSettings({
 						projectKey,
 						configuration: fileConfiguration,
+						moduleGraphResolutionKind: "modulesAndTypes",
 					});
 					console.info("Correct set custom configuration");
 					// biome-ignore lint/suspicious/noExplicitAny: It's an error message
@@ -426,6 +432,47 @@ self.addEventListener("message", async (e) => {
 				typesRegistered = "";
 			}
 
+			let gritQueryMatches: [number, number][] = [];
+			let gritQueryError: string | undefined;
+			if (gritQuery) {
+				let patternId: string | null = null;
+				try {
+					const parseResult = workspace.parsePattern({
+						pattern: String(gritQuery),
+						defaultLanguage: defaultLanguage || "JavaScript",
+					});
+					patternId = String(parseResult.patternId);
+				} catch (e) {
+					console.error(
+						"Failed to parse GritQL query:",
+						e instanceof Error ? e.message : e,
+					);
+					gritQueryError = `Failed to parse query: ${e instanceof Error ? e.message : String(e)}`;
+				}
+
+				if (patternId) {
+					try {
+						const searchResults = workspace.searchPattern({
+							path: `/${filename}`,
+							pattern: patternId,
+							projectKey,
+						});
+						gritQueryMatches = searchResults.matches || [];
+					} catch (e) {
+						console.error("Failed to search with GritQL query:", e);
+						gritQueryError = `Failed to search with query: ${e instanceof Error ? e.message : String(e)}`;
+					}
+
+					try {
+						workspace.dropPattern({
+							pattern: patternId,
+						});
+					} catch (e) {
+						console.warn("Failed to drop pattern:", e);
+					}
+				}
+			}
+
 			let formatterIr = "";
 			try {
 				formatterIr =
@@ -455,7 +502,7 @@ self.addEventListener("message", async (e) => {
 				categories,
 				only,
 				skip: [],
-				pullCodeActions: true,
+				includeCodeFix: true,
 			});
 
 			const printer = new DiagnosticPrinter(path, code);
@@ -524,6 +571,10 @@ self.addEventListener("message", async (e) => {
 				types: {
 					ir: typesIr,
 					registered: typesRegistered,
+				},
+				gritQuery: {
+					matches: gritQueryMatches,
+					error: gritQueryError,
 				},
 			};
 

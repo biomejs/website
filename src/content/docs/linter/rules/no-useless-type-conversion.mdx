@@ -1,0 +1,98 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noUselessTypeConversion
+description: Learn more about noUselessTypeConversion
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+:::note
+This rule belongs to the types domain. This means that its activation will activate the Biome Scanner to scan the files of your project, and enable the type inference engine. Read more about it in the [documentation page](/linter/domains#types)
+:::
+## Summary
+- Rule available since: `v2.4.11`
+- Diagnostic Category: [`lint/nursery/noUselessTypeConversion`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`types`](/linter/domains#types)
+- Sources: 
+  - Same as [`@typescript-eslint/no-unnecessary-type-conversion`](https://typescript-eslint.io/rules/no-unnecessary-type-conversion)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noUselessTypeConversion": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow type conversions that do not change the type of an expression.
+
+This rule reports common conversion patterns when the converted expression
+is already known to have the target base type (AKA primitive type).
+
+## Examples
+
+### Invalid
+
+```ts title='invalid-string.ts'
+const text: string = "text";
+String(text);
+```
+
+<pre class="language-text"><code class="language-text"><a href="file:///invalid-string.ts">/invalid-string.ts</a>:2:1 <a href="https://biomejs.dev/linter/rules/no-useless-type-conversion">lint/nursery/noUselessTypeConversion</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Avoid calling &#96;String()&#96; on a string value.</span><br />  <br />    <strong>1 │ </strong>const text: string = &quot;text&quot;;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>String(text);<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This expression already evaluates to a string.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove the conversion and use the value directly.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Redundant conversions make it harder to see that the value already has the expected string type.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule is still being actively worked on, so it may be missing features or have rough edges. Visit </span><span style="color: lightgreen;"><a href="https://github.com/biomejs/biome/issues/9752">https://github.com/biomejs/biome/issues/9752</a></span><span style="color: lightgreen;"> for more information or to report possible bugs.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+```ts title='invalid-boolean.ts'
+const value: boolean = true;
+!!value;
+```
+
+<pre class="language-text"><code class="language-text"><a href="file:///invalid-boolean.ts">/invalid-boolean.ts</a>:2:1 <a href="https://biomejs.dev/linter/rules/no-useless-type-conversion">lint/nursery/noUselessTypeConversion</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Avoid applying &#96;!!&#96; to a boolean value.</span><br />  <br />    <strong>1 │ </strong>const value: boolean = true;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>!!value;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This expression already evaluates to a boolean.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This expression already evaluates to a boolean, so the double negation has no effect.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Redundant conversions make it harder to see that the value already has the expected boolean type.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule is still being actively worked on, so it may be missing features or have rough edges. Visit </span><span style="color: lightgreen;"><a href="https://github.com/biomejs/biome/issues/9752">https://github.com/biomejs/biome/issues/9752</a></span><span style="color: lightgreen;"> for more information or to report possible bugs.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+```ts title='invalid-assignment.ts'
+let str = "text";
+str += "";
+```
+
+<pre class="language-text"><code class="language-text"><a href="file:///invalid-assignment.ts">/invalid-assignment.ts</a>:2:1 <a href="https://biomejs.dev/linter/rules/no-useless-type-conversion">lint/nursery/noUselessTypeConversion</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Avoid appending an empty string to a string value.</span><br />  <br />    <strong>1 │ </strong>let str = &quot;text&quot;;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>str += &quot;&quot;;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This expression already evaluates to a string.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This expression already evaluates to a string, so the empty string has no effect.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Redundant conversions make it harder to see that the value already has the expected string type.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule is still being actively worked on, so it may be missing features or have rough edges. Visit </span><span style="color: lightgreen;"><a href="https://github.com/biomejs/biome/issues/9752">https://github.com/biomejs/biome/issues/9752</a></span><span style="color: lightgreen;"> for more information or to report possible bugs.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+### Valid
+
+Genuine conversions are allowed.
+
+```ts
+String(1);
+!!0;
+```
+
+Unboxing boxed values is allowed.
+
+```ts
+String(new String());
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_useless_type_conversion.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noUselessTypeConversion)
+
+</TabItem>
+</Tabs>
+

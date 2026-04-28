@@ -14,19 +14,24 @@ runs:
   using: composite
   steps:
     - name: Install rust toolchain
-      uses: moonrepo/setup-rust@ede6de059f8046a5e236c94046823e2af11ca670 # v1.2.2
+      uses: moonrepo/setup-rust@abb2d32350334249b178c401e5ec5836e0cd88d3 # v1.3.0
       with:
         cache: false
-        bins: cargo-cache
+        bins: cargo-cache, cargo-sweep
 
     - name: Restore rust cache
       id: cache-restore
-      uses: actions/cache/restore@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
+      uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
       with:
-        key: rust-cache
+        key: rust-cache-${{ github.sha }}
+        restore-keys: rust-cache-
         path: |
           $HOME/.cargo/registry
           target/debug
+
+    - name: Stamp rust build cache
+      shell: bash
+      run: cargo sweep --stamp
 
     - name: Codegen
       shell: bash
@@ -85,10 +90,14 @@ runs:
         find "target/debug" -type f -name "*.d" -exec rm -f {} \;
       continue-on-error: true
 
+    - name: Sweep unused rust build cache
+      shell: bash
+      run: cargo sweep --file
+
     - name: Save new rust cache
-      uses: actions/cache/save@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
+      uses: actions/cache/save@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
       with:
-        key: rust-cache
+        key: rust-cache-${{ github.sha }}
         path: |
           $HOME/.cargo/registry
           target/debug

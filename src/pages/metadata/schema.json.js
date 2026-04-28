@@ -80,6 +80,7 @@ export function GET() {
 			}
 		},
 		"RuleSource": {
+			"description": "Declaration order defines the sort order used for comparing rule sources.",
 			"oneOf": [
 				{
 					"description": "Rules from [Rust Clippy](https://rust-lang.github.io/rust-clippy/master/index.html)",
@@ -245,6 +246,13 @@ export function GET() {
 					"required": ["eslintReactHooks"]
 				},
 				{
+					"description": "Rules from [Eslint Plugin React Native](https://github.com/Intellicode/eslint-plugin-react-native)",
+					"type": "object",
+					"properties": { "eslintReactNative": { "type": "string" } },
+					"additionalProperties": false,
+					"required": ["eslintReactNative"]
+				},
+				{
 					"description": "Rules from [Eslint Plugin React Prefer Function Component](https://github.com/tatethurston/eslint-plugin-react-prefer-function-component)",
 					"type": "object",
 					"properties": {
@@ -263,16 +271,37 @@ export function GET() {
 				{
 					"description": "Rules from [eslint-react.xyz](https://eslint-react.xyz/)",
 					"type": "object",
+					"properties": { "eslintReactXyz": { "type": "string" } },
+					"additionalProperties": false,
+					"required": ["eslintReactXyz"]
+				},
+				{
+					"description": "A subset of react rules from [eslint-react.xyz](https://eslint-react.xyz/)",
+					"type": "object",
 					"properties": { "eslintReactX": { "type": "string" } },
 					"additionalProperties": false,
 					"required": ["eslintReactX"]
 				},
 				{
-					"description": "Rules from [eslint-react.xyz](https://eslint-react.xyz/)",
+					"description": "A subset of JSX rules from [eslint-react.xyz](https://eslint-react.xyz/)",
 					"type": "object",
-					"properties": { "eslintReactXyz": { "type": "string" } },
+					"properties": { "eslintReactJsx": { "type": "string" } },
 					"additionalProperties": false,
-					"required": ["eslintReactXyz"]
+					"required": ["eslintReactJsx"]
+				},
+				{
+					"description": "A subset of DOM rules from [eslint-react.xyz](https://eslint-react.xyz/)",
+					"type": "object",
+					"properties": { "eslintReactDom": { "type": "string" } },
+					"additionalProperties": false,
+					"required": ["eslintReactDom"]
+				},
+				{
+					"description": "A subset of RSC rules from [eslint-react.xyz](https://eslint-react.xyz/)",
+					"type": "object",
+					"properties": { "eslintReactRsc": { "type": "string" } },
+					"additionalProperties": false,
+					"required": ["eslintReactRsc"]
 				},
 				{
 					"description": "Rules from [Eslint Plugin Regexp](https://github.com/ota-meshi/eslint-plugin-regexp)",
@@ -364,6 +393,55 @@ export function GET() {
 					"properties": { "htmlEslint": { "type": "string" } },
 					"additionalProperties": false,
 					"required": ["htmlEslint"]
+				},
+				{
+					"description": "Rules from [Eslint Plugin Playwright](https://github.com/playwright-community/eslint-plugin-playwright)",
+					"type": "object",
+					"properties": { "eslintPlaywright": { "type": "string" } },
+					"additionalProperties": false,
+					"required": ["eslintPlaywright"]
+				},
+				{
+					"description": "Rules from [Eslint Plugin Json](https://github.com/eslint/json)",
+					"type": "object",
+					"properties": { "eslintJson": { "type": "string" } },
+					"additionalProperties": false,
+					"required": ["eslintJson"]
+				},
+				{
+					"description": "Rules from [Eslint Plugin Markdown](https://github.com/eslint/markdown)",
+					"type": "object",
+					"properties": { "eslintMarkdown": { "type": "string" } },
+					"additionalProperties": false,
+					"required": ["eslintMarkdown"]
+				},
+				{
+					"description": "Rules from [Eslint Plugin Yml](https://ota-meshi.github.io/eslint-plugin-yml/)",
+					"type": "object",
+					"properties": { "eslintYml": { "type": "string" } },
+					"additionalProperties": false,
+					"required": ["eslintYml"]
+				},
+				{
+					"description": "Rules from [Eslint CSS](https://github.com/eslint/css)",
+					"type": "object",
+					"properties": { "eslintCss": { "type": "string" } },
+					"additionalProperties": false,
+					"required": ["eslintCss"]
+				},
+				{
+					"description": "Rules from [Eslint Plugin Drizzle](https://orm.drizzle.team/docs/eslint-plugin)",
+					"type": "object",
+					"properties": { "eslintDrizzle": { "type": "string" } },
+					"additionalProperties": false,
+					"required": ["eslintDrizzle"]
+				},
+				{
+					"description": "Rules from [Eslint Plugin Typescript Sort Keys](https://github.com/infctr/eslint-plugin-typescript-sort-keys)",
+					"type": "object",
+					"properties": { "eslintTypescriptSortKeys": { "type": "string" } },
+					"additionalProperties": false,
+					"required": ["eslintTypescriptSortKeys"]
 				}
 			]
 		},

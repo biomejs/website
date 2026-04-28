@@ -1,5 +1,5 @@
 ---
-title: GritQL [実験的機能]
+title: GritQL
 description: BiomeにおけるGritQLの基本的な使い方
 ---
 
@@ -9,10 +9,18 @@ GritQLは、ソースコードの構造検索を実行するためのクエリ�
 
 GritQLは[オープンソース](https://github.com/getgrit/gritql/)であり、[Grit.io](https://grit.io/)によって作成されました。
 
-BiomeはGritQLを2つの目的で統合しています：
+## サポートされている言語
 
-- IDE拡張機能にも拡張したいと考えている、[`biome search`](/reference/cli/#biome-search) コマンド
-- 現在進行中の、プラグインへの取り組み
+BiomeのGritQLは現在、以下のターゲット言語をサポートしています：
+
+- **JavaScript/TypeScript**: `language js`（オプションのフレーバー：`typescript`、`jsx`）
+- **CSS**: `language css`
+- **JSON**: `language json`
+
+BiomeはGritQLを2つの目的で使用しています：
+
+- [アナライザープラグイン](/ja/linter/plugins)
+- [`biome search`](/reference/cli/#biome-search)コマンド。これはIDE拡張機能にも拡張したいと考えています
 
 ## パターン
 
@@ -89,6 +97,58 @@ GritQLクエリでは変数も使用できます。
     $method <: or { `log`, `info`, `warn`, `error` }
 }
 ```
+
+## Biomeの構文ノードとのマッチング
+
+より正確なクエリを行うために、Biome内部の構文ノードに直接マッチさせることができます。各ノードは一意の `PascalCase` 名で識別されます。
+
+たとえば、すべてのJavaScript `if` 文を見つけるには、 `JsIfStatement` ノードとマッチさせることができます：
+
+```grit
+engine biome(1.0)
+language js(typescript,jsx)
+
+JsIfStatement() as $stmt where {
+  register_diagnostic(
+    span=$stmt,
+    message="Found an if statement"
+  )
+}
+```
+
+コードのノード名を調べるには、[Biome Playground](https://biomejs.dev/playground/)で構文ツリーを探索できます。利用可能なすべてのノードの完全なリストは、Biomeリポジトリの [`xtask/codegen`](https://github.com/biomejs/biome/tree/main/xtask/codegen) ディレクトリにある `.ungram` ファイルでも確認できます。
+
+:::caution
+Biomeの文法はバージョン間で変更される可能性があり、特に新しい言語では変更が多いです。これにより、ノード名が変更される可能性があり、パターンが壊れる可能性があります。Biomeをアップグレードする際は、クエリを更新する準備をしてください。
+:::
+
+## JSONパターン
+
+GritQLはJSONファイル内のパターンをマッチさせることができ、設定ファイルの検索と変換に役立ちます：
+
+```grit
+language json
+
+`"foo": $value`
+```
+
+このパターンは、キー `"foo"` を持つ任意のJSONメンバーにマッチします。
+
+より正確なマッチングには、BiomeのJSON構文ノードを直接使用できます：
+
+```grit
+language json
+
+JsonMember(name = JsonMemberName(value = `"version"`))
+```
+
+JSON GritQLは、既存のGritパターンとの互換性のために、TreeSitter互換のノードエイリアスもサポートしています：
+
+| Biome AST | TreeSitterエイリアス |
+|-----------|------------------|
+| `JsonMember` | `pair` |
+| `JsonObjectValue` | `object` |
+| `JsonArrayValue` | `array` |
 
 ## 言語ドキュメント
 
