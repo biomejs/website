@@ -26,6 +26,7 @@ use biome_diagnostics::termcolor::NoColor;
 use biome_diagnostics::{Diagnostic, DiagnosticExt, PrintDiagnostic, Severity, Visit};
 use biome_formatter::{Expand, LineWidth};
 use biome_graphql_syntax::GraphqlLanguage;
+use biome_html_analyze::HtmlAnalyzerServices;
 use biome_html_parser::HtmlParserOptions;
 use biome_html_syntax::HtmlLanguage;
 use biome_js_parser::JsParserOptions;
@@ -895,7 +896,10 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
             "- [Configure the code fix](/{path_prefix}#configure-the-code-fix)"
         )?;
         writeln!(content, "- [Rule options](/{path_prefix}/#rule-options)")?;
-        writeln!(content, "- [Source Code (Edit this Page)]({source_code_url})")?;
+        writeln!(
+            content,
+            "- [Source Code (Edit this Page)]({source_code_url})"
+        )?;
         writeln!(
             content,
             "- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/{test_cases_file_path})"
@@ -1607,14 +1611,11 @@ fn print_diagnostics_or_actions(
                     biome_service::file_handlers::AstroFileHandler::input(code),
                     JsFileSource::ts(),
                 ),
-                EmbeddingKind::Svelte { is_source: _ } => (
+                EmbeddingKind::Svelte { .. } => (
                     biome_service::file_handlers::SvelteFileHandler::input(code),
                     biome_service::file_handlers::SvelteFileHandler::file_source(code),
                 ),
-                EmbeddingKind::Vue {
-                    setup: _,
-                    is_source: _,
-                } => (
+                EmbeddingKind::Vue { .. } => (
                     biome_service::file_handlers::VueFileHandler::input(code),
                     biome_service::file_handlers::VueFileHandler::file_source(code),
                 ),
@@ -1894,42 +1895,50 @@ fn print_diagnostics_or_actions(
                 };
 
                 let options = AnalyzerOptions::default().with_file_path(test.file_path());
-                biome_html_analyze::analyze(&root, filter, &options, file_source, |signal| {
-                    match to_print_kind {
-                        ToPrintKind::Diagnostics => {
-                            if let Some(mut diag) = signal.diagnostic() {
-                                for action in signal.actions(ActionFilter::all()) {
-                                    if !action.is_suppression() {
-                                        diag = diag.add_code_suggestion(action.into());
+                biome_html_analyze::analyze(
+                    &root,
+                    filter,
+                    &options,
+                    file_source,
+                    HtmlAnalyzerServices::default(),
+                    |signal| {
+                        match to_print_kind {
+                            ToPrintKind::Diagnostics => {
+                                if let Some(mut diag) = signal.diagnostic() {
+                                    for action in signal.actions(ActionFilter::all()) {
+                                        if !action.is_suppression() {
+                                            diag = diag.add_code_suggestion(action.into());
+                                        }
                                     }
-                                }
 
-                                let error = diag
-                                    .with_file_path(test.file_path())
-                                    .with_file_source_code(code);
-                                let res = write_diagnostic(buffer, error);
+                                    let error = diag
+                                        .with_file_path(test.file_path())
+                                        .with_file_source_code(code);
+                                    let res = write_diagnostic(buffer, error);
 
-                                // Abort the analysis on error
-                                if let Err(err) = res {
-                                    return ControlFlow::Break(err);
-                                }
-                            }
-                        }
-                        ToPrintKind::Actions => {
-                            for action in signal.actions(ActionFilter::all()) {
-                                if !action.is_suppression() {
-                                    let res = write_action(buffer, code, &test.file_path(), action);
                                     // Abort the analysis on error
                                     if let Err(err) = res {
                                         return ControlFlow::Break(err);
                                     }
                                 }
                             }
+                            ToPrintKind::Actions => {
+                                for action in signal.actions(ActionFilter::all()) {
+                                    if !action.is_suppression() {
+                                        let res =
+                                            write_action(buffer, code, &test.file_path(), action);
+                                        // Abort the analysis on error
+                                        if let Err(err) = res {
+                                            return ControlFlow::Break(err);
+                                        }
+                                    }
+                                }
+                            }
                         }
-                    }
 
-                    ControlFlow::Continue(())
-                });
+                        ControlFlow::Continue(())
+                    },
+                );
             }
         }
         DocumentFileSource::Grit(_) => todo!(),

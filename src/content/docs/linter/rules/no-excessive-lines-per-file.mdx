@@ -371,5 +371,189 @@ const c = 3;
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noExcessiveLinesPerFile)
 
 </TabItem>
+<TabItem label="HTML" icon="seti:html">
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noExcessiveLinesPerFile`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noExcessiveLinesPerFile": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Restrict the number of lines in a file.
+
+Large files tend to do many things and can make it hard to follow what's going on.
+This rule can help enforce a limit on the number of lines in a file.
+
+## Examples
+
+### Invalid
+
+The following example will show a diagnostic when `maxLines` is set to 2:
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noExcessiveLinesPerFile": {
+					"options": {
+						"maxLines": 2
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```html
+<div></div>
+<span></span>
+<p></p>
+```
+
+<pre class="language-text"><code class="language-text"></code></pre>
+
+### Valid
+
+```html
+<div></div>
+<span></span>
+```
+
+## Options
+
+### `maxLines`
+
+This option sets the maximum number of lines allowed in a file.
+If the file exceeds this limit, a diagnostic will be reported.
+
+Default: `300`
+
+#### Examples
+
+The default value for `maxLines` is `300`. The following example shows how to set the
+`maxLines` option to a smaller value. It reports a diagnostic because the file has more
+than 4 lines:
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noExcessiveLinesPerFile": {
+					"options": {
+						"maxLines": 4
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```html
+<div>Line 1</div>
+<div>Line 2</div>
+<div>Line 3</div>
+<div>Line 4</div>
+<div>Line 5</div>
+```
+
+<pre class="language-text"><code class="language-text"></code></pre>
+
+### `skipBlankLines`
+
+When this option is set to `true`, blank lines are not counted towards the maximum line limit.
+
+Default: `false`
+
+#### Examples
+
+The following example shows how `skipBlankLines` can prevent a diagnostic by excluding blank
+lines from the total count:
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noExcessiveLinesPerFile": {
+					"options": {
+						"maxLines": 2,
+						"skipBlankLines": true
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```html
+<div></div>
+
+
+<span></span>
+```
+
+## Suppressions
+
+If you need to exceed the line limit in a specific file, you can suppress this rule
+at the top of the file:
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noExcessiveLinesPerFile": {
+					"options": {
+						"maxLines": 2
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```html
+<!-- biome-ignore lint/nursery/noExcessiveLinesPerFile: generated file -->
+<div></div>
+<span></span>
+<p></p>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/no_excessive_lines_per_file.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/noExcessiveLinesPerFile)
+
+</TabItem>
 </Tabs>
 

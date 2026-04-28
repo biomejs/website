@@ -77,5 +77,86 @@ it must either have an inherent tabIndex of zero or declare a tabIndex attribute
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/a11y/useAriaActivedescendantWithTabindex)
 
 </TabItem>
+<TabItem label="HTML" icon="seti:html">
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+## Summary
+- Diagnostic Category: [`lint/a11y/useAriaActivedescendantWithTabindex`](/reference/diagnostics#diagnostic-category)
+- This rule is **recommended**, meaning it is enabled by default.
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Same as [`jsx-a11y/aria-activedescendant-has-tabindex`](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/aria-activedescendant-has-tabindex.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"a11y": {
+				"useAriaActivedescendantWithTabindex": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Enforce that `tabindex` is assigned to non-interactive HTML elements with `aria-activedescendant`.
+
+`aria-activedescendant` is used to manage focus within a [composite widget](https://www.w3.org/TR/wai-aria/#composite).
+The element with the attribute `aria-activedescendant` retains the active document focus.
+
+It indicates which of its child elements has secondary focus by assigning the ID of that
+element to the value of `aria-activedescendant`. This pattern is used to build a widget
+like a search typeahead select list. The search input box retains document focus
+so that the user can type in the input. If the down arrow key is pressed and
+a search suggestion is highlighted, the ID of the suggestion element will be applied
+as the value of `aria-activedescendant` on the input element.
+
+Because an element with `aria-activedescendant` must be tabbable,
+it must either have an inherent tabIndex of zero or declare a tabindex attribute.
+
+:::note
+In `.html` files, this rule matches element names case-insensitively (e.g., `<DIV>`, `<div>`).
+
+In component-based frameworks (Vue, Svelte, Astro), only lowercase element names are checked.
+PascalCase variants are assumed to be custom components and are ignored.
+:::
+
+## Examples
+
+### Invalid
+
+```html
+<div aria-activedescendant="some-id"></div>
+```
+
+<pre class="language-text"><code class="language-text">code-block.html:1:1 <a href="https://biomejs.dev/linter/rules/use-aria-activedescendant-with-tabindex">lint/a11y/useAriaActivedescendantWithTabindex</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Enforce elements with aria-activedescendant are tabbable.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;div aria-activedescendant=&quot;some-id&quot;&gt;&lt;/div&gt;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">aria-activedescendant is used to manage focus within a composite widget.<br /></span>    <span style="color: lightgreen;">The element with the attribute aria-activedescendant retains the active document focus.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Add the </span><span style="color: lightgreen;"><strong>tabindex</strong></span><span style="color: lightgreen;"> attribute to the element with a value greater than or equal to -1.</span><br />  <br /></code></pre>
+
+### Valid
+
+```html
+<div aria-activedescendant="some-id" tabindex="0"></div>
+```
+
+```html
+<input aria-activedescendant="some-id" />
+```
+
+```html
+<button aria-activedescendant="some-id"></button>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/a11y/use_aria_activedescendant_with_tabindex.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/a11y/useAriaActivedescendantWithTabindex)
+
+</TabItem>
 </Tabs>
 
