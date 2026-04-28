@@ -356,6 +356,7 @@ dependencies = [
  "biome_rowan",
  "biome_string_case",
  "camino",
+ "schemars",
  "serde",
 ]
 
@@ -405,6 +406,7 @@ dependencies = [
  "camino",
  "enumflags2",
  "notify",
+ "schemars",
  "serde",
  "serde_json",
  "termcolor",
@@ -418,7 +420,9 @@ version = "0.5.7"
 source = "git+https://github.com/biomejs/biome.git?rev=9c7c6eb99f6880aa87ae0e7aff357e978361c4a3#9c7c6eb99f6880aa87ae0e7aff357e978361c4a3"
 dependencies = [
  "quote",
+ "schemars",
  "serde",
+ "serde_json",
 ]
 
 [[package]]
@@ -476,6 +480,7 @@ dependencies = [
  "path-absolutize",
  "rayon",
  "rustc-hash 2.1.2",
+ "schemars",
  "serde",
  "smallvec",
  "tracing",
@@ -562,6 +567,7 @@ dependencies = [
  "biome_rowan",
  "biome_string_case",
  "camino",
+ "schemars",
  "serde",
 ]
 
@@ -630,6 +636,7 @@ dependencies = [
  "rand 0.8.5",
  "regex",
  "rustc-hash 2.1.2",
+ "schemars",
  "serde",
  "serde_json",
 ]
@@ -642,6 +649,7 @@ dependencies = [
  "biome_rowan",
  "biome_string_case",
  "camino",
+ "schemars",
  "serde",
 ]
 
@@ -766,6 +774,7 @@ dependencies = [
  "regex",
  "roaring",
  "rustc-hash 2.1.2",
+ "schemars",
  "serde",
  "smallvec",
 ]
@@ -818,6 +827,8 @@ dependencies = [
  "enumflags2",
  "indexmap",
  "rustc-hash 2.1.2",
+ "schemars",
+ "serde",
  "serde_json",
  "smallvec",
  "tracing",
@@ -848,6 +859,7 @@ dependencies = [
  "biome_string_case",
  "camino",
  "enumflags2",
+ "schemars",
  "serde",
 ]
 
@@ -1080,6 +1092,7 @@ dependencies = [
  "biome_rowan",
  "biome_string_case",
  "camino",
+ "schemars",
  "serde",
 ]
 
@@ -1137,6 +1150,7 @@ dependencies = [
  "once_cell",
  "papaya",
  "rustc-hash 2.1.2",
+ "schemars",
  "serde",
  "serde_json",
  "static_assertions",
@@ -1363,6 +1377,7 @@ dependencies = [
  "rayon",
  "regex",
  "rustc-hash 2.1.2",
+ "schemars",
  "serde",
  "serde_json",
  "smallvec",
@@ -1433,6 +1448,7 @@ version = "0.5.7"
 source = "git+https://github.com/biomejs/biome.git?rev=9c7c6eb99f6880aa87ae0e7aff357e978361c4a3#9c7c6eb99f6880aa87ae0e7aff357e978361c4a3"
 dependencies = [
  "biome_text_size",
+ "schemars",
  "serde",
  "similar",
 ]

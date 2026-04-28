@@ -48,7 +48,7 @@ biome_module_graph = { git = "https://github.com/biomejs/biome.git", rev = "9c7c
 biome_project_layout = { git = "https://github.com/biomejs/biome.git", rev = "9c7c6eb99f6880aa87ae0e7aff357e978361c4a3", version = "0.0.1" }
 biome_rowan = { git = "https://github.com/biomejs/biome.git", rev = "9c7c6eb99f6880aa87ae0e7aff357e978361c4a3", version = "0.5.7" }
 biome_ruledoc_utils = { git = "https://github.com/biomejs/biome.git", rev = "9c7c6eb99f6880aa87ae0e7aff357e978361c4a3", version = "0.0.1" }
-biome_service = { git = "https://github.com/biomejs/biome.git", rev = "9c7c6eb99f6880aa87ae0e7aff357e978361c4a3", version = "0.0.0" }
+biome_service = { git = "https://github.com/biomejs/biome.git", rev = "9c7c6eb99f6880aa87ae0e7aff357e978361c4a3", version = "0.0.0", features = ["schema"] }
 biome_string_case = { git = "https://github.com/biomejs/biome.git", rev = "9c7c6eb99f6880aa87ae0e7aff357e978361c4a3", version = "0.5.7" }
 biome_test_utils = { git = "https://github.com/biomejs/biome.git", rev = "9c7c6eb99f6880aa87ae0e7aff357e978361c4a3", version = "0.0.0" }
 biome_text_edit = { git = "https://github.com/biomejs/biome.git", rev = "9c7c6eb99f6880aa87ae0e7aff357e978361c4a3", version = "0.5.7" }
