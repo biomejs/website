@@ -102,6 +102,21 @@ However, during local development, you want to disable this rule because it's us
 }
 ```
 
+### `go_to_definition`
+
+**Type**: `boolean`<br />
+**Default**: `true`
+
+It enables the LSP `textDocument/definition` capabilities using the Biome module graph.
+
+What's supported:
+- Resolve definitions of variables declared in the same file or in another file for JavaScript (and super languages) and HTML-ish files.
+- Resolve definitions of CSS classes used in JSX files and HTML-ish files.
+- Resolve definitions JSX Components.
+
+What's out of scope:
+- Resolve variables defined in dependencies.
+- Resolve variables defined in dependencies that aren't used inside the project.
 
 ## Integrate Biome in an editor extension
 
