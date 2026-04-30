@@ -364,7 +364,7 @@ If you are migrating from ESLint, there's a dedicated [migration guide](/guides/
     ```
 2. Lint the project by suppressing possible new rules that are caught by Biome, using the following command:
     ```shell
-    biome lint --write --unsafe --suppress="suppressed due to migration"
+    biome lint --suppress --reason "suppressed due to migration"
     ```
    The command will suppress all linting violation that Biome finds, using the reason `"suppressed due to migration"`. Now the linter shouldn't error anymore, and it's possible to remove the suppression comments at a later stage.
 </Steps>
