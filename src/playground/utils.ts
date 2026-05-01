@@ -267,6 +267,10 @@ export function isAstroFilename(filename: string): boolean {
 	return filename.endsWith(".astro");
 }
 
+export function isMarkdownFilename(filename: string): boolean {
+	return filename.endsWith(".md");
+}
+
 export function guessLanguage(filename: string): Language {
 	if (isJsonFilename(filename)) return LANGUAGE.JSON;
 	if (isGraphqlFilename(filename)) return LANGUAGE.GraphQL;
@@ -276,6 +280,7 @@ export function guessLanguage(filename: string): Language {
 	if (isVueFilename(filename)) return LANGUAGE.Vue;
 	if (isSvelteFilename(filename)) return LANGUAGE.Svelte;
 	if (isAstroFilename(filename)) return LANGUAGE.Astro;
+	if (isMarkdownFilename(filename)) return LANGUAGE.Markdown;
 	if (isJsxFilename(filename))
 		return isTypeScriptFilename(filename) ? LANGUAGE.TSX : LANGUAGE.JSX;
 	return isTypeScriptFilename(filename) ? LANGUAGE.TS : LANGUAGE.JS;
@@ -323,6 +328,8 @@ export function getExtension(opts: ExtensionOptions): string {
 			return "svelte";
 		case LANGUAGE.Astro:
 			return "astro";
+		case LANGUAGE.Markdown:
+			return "md";
 		default:
 			throw new Error(
 				`Unsupported language type: ${opts.language satisfies never}`, // must be exhaustive
@@ -341,7 +348,8 @@ export function isValidExtension(filename: string): boolean {
 		isGraphqlFilename(filename) ||
 		isHtmlFilename(filename) ||
 		isFrameworkTemplateFilename(filename) ||
-		isGritFilename(filename)
+		isGritFilename(filename) ||
+		isMarkdownFilename(filename)
 	);
 }
 
