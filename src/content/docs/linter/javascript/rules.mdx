@@ -193,6 +193,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noEqualsToNull](/linter/rules/no-equals-to-null) | Require the use of `===` or `!==` for comparison with `null`. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noExcessiveClassesPerFile](/linter/rules/no-excessive-classes-per-file) | Enforce a maximum number of classes per file. |  |
 | [noExcessiveLinesPerFile](/linter/rules/no-excessive-lines-per-file) | Restrict the number of lines in a file. |  |
+| [noExcessiveNestedCallbacks](/linter/rules/no-excessive-nested-callbacks) | Enforce a maximum depth that callbacks can be nested. |  |
 | [noFloatingClasses](/linter/rules/no-floating-classes) | Disallow `new` operators outside of assignments or comparisons. |  |
 | [noFloatingPromises](/linter/rules/no-floating-promises) | Require Promise-like statements to be handled appropriately. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noForIn](/linter/rules/no-for-in) | Disallow iterating using a for-in loop. |  |
@@ -225,7 +226,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noReactNativeDeepImports](/linter/rules/no-react-native-deep-imports) | Disallow deep imports from the `react-native` package. |  |
 | [noReactNativeLiteralColors](/linter/rules/no-react-native-literal-colors) | Disallow color literals in React Native styles. |  |
 | [noReactNativeRawText](/linter/rules/no-react-native-raw-text) | Disallow raw text outside `<Text>` components in React Native. |  |
-| [noReactStringRefs](/linter/rules/no-react-string-refs) | Disallow string refs in React components. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
+| [noReactStringRefs](/linter/rules/no-react-string-refs) | Disallow string refs in React components. |  |
 | [noRedundantDefaultExport](/linter/rules/no-redundant-default-export) | Checks if a default export exports the same symbol as a named export. |  |
 | [noReturnAssign](/linter/rules/no-return-assign) | Disallow assignments in return statements. |  |
 | [noScriptUrl](/linter/rules/no-script-url) | Disallow `javascript:` URLs. |  |
@@ -262,7 +263,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [useIframeSandbox](/linter/rules/use-iframe-sandbox) | Enforce the 'sandbox' attribute for 'iframe' elements. |  |
 | [useImportsFirst](/linter/rules/use-imports-first) | Enforce that all imports appear at the top of the module. |  |
 | [useInlineScriptId](/linter/rules/use-inline-script-id) | Enforce `id` attribute on `next/script` components with inline content or `dangerouslySetInnerHTML`. |  |
-| [useMathMinMax](/linter/rules/use-math-min-max) | Prefer `Math.min()` and `Math.max()` over ternaries for simple comparisons. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span><span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
+| [useMathMinMax](/linter/rules/use-math-min-max) | Prefer `Math.min()` and `Math.max()` over ternaries for simple comparisons. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useNamedCaptureGroup](/linter/rules/use-named-capture-group) | Enforce using named capture groups in regular expression. |  |
 | [useNullishCoalescing](/linter/rules/use-nullish-coalescing) | Enforce using the nullish coalescing operator (`??`) instead of logical or (`||`). | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [usePlaywrightValidDescribeCallback](/linter/rules/use-playwright-valid-describe-callback) | Enforce valid `describe()` callback. |  |
@@ -275,7 +276,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [useSortedClasses](/linter/rules/use-sorted-classes) | Enforce the sorting of CSS utility classes. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useSpread](/linter/rules/use-spread) | Enforce the use of the spread operator over `.apply()`. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useStringStartsEndsWith](/linter/rules/use-string-starts-ends-with) | Prefer `String#startsWith()` and `String#endsWith()` over verbose prefix and suffix checks. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
-| [useTestHooksOnTop](/linter/rules/use-test-hooks-on-top) | Enforce that lifecycle hooks appear before any test cases in the same block. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
+| [useTestHooksOnTop](/linter/rules/use-test-hooks-on-top) | Enforce that lifecycle hooks appear before any test cases in the same block. |  |
 | [useUnicodeRegex](/linter/rules/use-unicode-regex) | Enforce the use of the `u` or `v` flag for regular expressions. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [useVarsOnTop](/linter/rules/use-vars-on-top) | Require `var` declarations to appear at the top of their containing scope. |  |
 | [useVueConsistentDefinePropsDeclaration](/linter/rules/use-vue-consistent-define-props-declaration) | Enforce consistent `defineProps` declaration style. |  |

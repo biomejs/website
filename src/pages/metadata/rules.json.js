@@ -3432,6 +3432,23 @@ export function GET() {
             ],
             "docs": " Restrict the number of lines in a file.\n\n This rule checks the number of lines in a file and reports a diagnostic if it exceeds a specified limit.\n Some people consider large files a code smell. Large files tend to do many things and can make it hard to follow what's going on.\n Many coding style guides dictate a limit of the number of lines that a file can comprise of. This rule can help enforce that style.\n\n ## Examples\n\n ### Invalid\n\n The following example will show a diagnostic when `maxLines` is set to 2:\n\n ```json,options\n {\n     \"options\": {\n        \"maxLines\": 2\n     }\n }\n ```\n ```js,expect_diagnostic,use_options\n const a = 1;\n const b = 2;\n const c = 3;\n ```\n\n ### Valid\n\n ```js\n const a = 1;\n const b = 2;\n ```\n\n ## Options\n\n The following options are available:\n\n ### `maxLines`\n\n This option sets the maximum number of lines allowed in a file.\n If the file exceeds this limit, a diagnostic will be reported.\n\n Default: `300`\n\n When `maxLines: 2`, the following file will be considered invalid:\n ```json,options\n {\n     \"options\": {\n        \"maxLines\": 2\n     }\n }\n ```\n ```js,expect_diagnostic,use_options\n const a = 1;\n const b = 2;\n const c = 3;\n ```\n\n ### `skipBlankLines`\n\n When this option is set to `true`, blank lines are not counted towards the maximum line limit.\n This means that only lines with actual code or comments will be counted.\n\n Default: `false`\n\n When `maxLines: 3` and `skipBlankLines: true`, the following file will be considered valid\n even though it has 5 total lines, because only 3 lines contain code:\n ```json,options\n {\n     \"options\": {\n        \"maxLines\": 3,\n        \"skipBlankLines\": true\n     }\n }\n ```\n ```js,use_options\n const a = 1;\n\n const b = 2;\n\n const c = 3;\n ```\n\n ## Suppressions\n\n If you need to exceed the line limit in a specific file, you can suppress this rule\n at the top of the file:\n\n ```json,options\n {\n     \"options\": {\n         \"maxLines\": 2\n     }\n }\n ```\n ```js,use_options\n // biome-ignore lint/nursery/noExcessiveLinesPerFile: generated file\n const a = 1;\n const b = 2;\n const c = 3;\n ```\n\n"
           },
+          "noExcessiveNestedCallbacks": {
+            "deprecated": false,
+            "version": "2.4.14",
+            "name": "noExcessiveNestedCallbacks",
+            "link": "https://biomejs.dev/linter/rules/no-excessive-nested-callbacks",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "max-nested-callbacks"
+                }
+              }
+            ],
+            "docs": " Enforce a maximum depth that callbacks can be nested.\n\n Deeply nested callbacks make asynchronous control flow difficult to read and follow.\n This rule reports callback functions nested beyond the configured limit.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n foo1(function () {\n     foo2(function () {\n         foo3(function () {\n             foo4(function () {\n                 foo5(function () {\n                     foo6(function () {});\n                 });\n             });\n         });\n     });\n });\n ```\n\n ### Valid\n\n ```js\n foo1(handleFoo1);\n\n function handleFoo1() {\n     foo2(handleFoo2);\n }\n ```\n\n ## Options\n\n ### max\n\n The maximum callback nesting depth allowed (default: 5).\n\n ```json,options\n {\n     \"options\": {\n         \"max\": 3\n     }\n }\n ```\n\n #### Invalid\n ```js,use_options,expect_diagnostic\n foo1(function () {\n     foo2(function () {\n         foo3(function () {\n             foo4(function () {});\n         });\n     });\n });\n ```\n\n #### Valid\n ```js,use_options\n foo1(function () {\n     foo2(function () {\n         foo3(function () {});\n     });\n });\n ```\n\n"
+          },
           "noFloatingClasses": {
             "deprecated": false,
             "version": "2.3.12",
@@ -3858,7 +3875,7 @@ export function GET() {
           },
           "noReactStringRefs": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.14",
             "name": "noReactStringRefs",
             "link": "https://biomejs.dev/linter/rules/no-react-string-refs",
             "recommended": true,
@@ -4398,7 +4415,7 @@ export function GET() {
           },
           "useMathMinMax": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.14",
             "name": "useMathMinMax",
             "link": "https://biomejs.dev/linter/rules/use-math-min-max",
             "recommended": true,
@@ -4618,7 +4635,7 @@ export function GET() {
           },
           "useTestHooksOnTop": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.4.14",
             "name": "useTestHooksOnTop",
             "link": "https://biomejs.dev/linter/rules/use-test-hooks-on-top",
             "recommended": false,
@@ -9315,7 +9332,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 522
+    "numberOrRules": 523
   },
   "syntax": {
     "languages": {
