@@ -196,6 +196,7 @@ export const LINT_RULES = {
     noEqualsToNull: "noEqualsToNull",
     noExcessiveClassesPerFile: "noExcessiveClassesPerFile",
     noExcessiveLinesPerFile: "noExcessiveLinesPerFile",
+    noExcessiveNestedCallbacks: "noExcessiveNestedCallbacks",
     noExcessiveSelectorClasses: "noExcessiveSelectorClasses",
     noFloatingClasses: "noFloatingClasses",
     noFloatingPromises: "noFloatingPromises",

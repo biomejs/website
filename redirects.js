@@ -103,6 +103,7 @@ export default {
   '/linter/rules/noExcessiveCognitiveComplexity': '/linter/rules/no-excessive-cognitive-complexity',
   '/linter/rules/noExcessiveLinesPerFile': '/linter/rules/no-excessive-lines-per-file',
   '/linter/rules/noExcessiveLinesPerFunction': '/linter/rules/no-excessive-lines-per-function',
+  '/linter/rules/noExcessiveNestedCallbacks': '/linter/rules/no-excessive-nested-callbacks',
   '/linter/rules/noExcessiveNestedTestSuites': '/linter/rules/no-excessive-nested-test-suites',
   '/linter/rules/noExcessiveSelectorClasses': '/linter/rules/no-excessive-selector-classes',
   '/linter/rules/noExplicitAny': '/linter/rules/no-explicit-any',
