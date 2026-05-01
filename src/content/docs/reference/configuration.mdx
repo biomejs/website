@@ -1510,6 +1510,14 @@ Enables the parsing of double text expressions such as `{{ expression }}` inside
 
 > Default: `false`
 
+### `html.parser.vue`
+
+Enables the parsing of Vue-specific syntax inside `.html` files. Enabling this option also enables `html.parser.interpolation` implicitly, since it's a core part of Vue's syntax.
+
+Biome already auto detects `.vue` files, so you likely don't need to enable this option unless your project uses `.html` files for Vue components.
+
+> Default: `false`
+
 ### `html.formatter.enabled`
 
 Enables Biome's formatter for HTML files.
