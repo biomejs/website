@@ -911,7 +911,7 @@ export function GET() {
             "fixKind": "unsafe",
             "sources": [
               {
-                "kind": "sameLogic",
+                "kind": "inspired",
                 "source": {
                   "eslintJsxA11y": "no-access-key"
                 }
@@ -3856,6 +3856,23 @@ export function GET() {
             ],
             "docs": " Disallow color literals in React Native styles.\n\n Hard-coding colors inside styles makes it harder to keep them consistent\n across components and to swap the palette when the design system evolves.\n Extracting colors into named constants or a shared theme module produces\n more maintainable code.\n\n This rule reports properties whose name contains `color` (case-insensitive)\n and whose value is a string literal, when they appear inside a\n `StyleSheet.create` call or inside a JSX attribute whose name contains\n `style` (case-insensitive). A ternary expression is also reported when\n either branch is a string literal.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n const Hello = () => <Text style={{ backgroundColor: '#FFFFFF' }}>hi</Text>;\n ```\n\n ```jsx,expect_diagnostic\n const styles = StyleSheet.create({\n     text: { color: 'red' }\n });\n ```\n\n ```jsx,expect_diagnostic\n const Hello = (flag) => (\n     <Text style={{ backgroundColor: flag ? '#fff' : '#000' }}>hi</Text>\n );\n ```\n\n ### Valid\n\n ```jsx\n const red = '#f00';\n const styles = StyleSheet.create({\n     text: { color: red }\n });\n ```\n\n ```jsx\n const Hello = () => (\n     <Text style={{ backgroundColor: theme.background }}>hi</Text>\n );\n ```\n\n"
           },
+          "noReactStringRefs": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noReactStringRefs",
+            "link": "https://biomejs.dev/linter/rules/no-react-string-refs",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReact": "no-string-refs"
+                }
+              }
+            ],
+            "docs": " Disallow string refs in React components.\n\n String refs are a legacy React feature. Modern React code should use callback refs,\n `createRef()`, or `useRef()` instead.\n\n Biome also flags template literal refs, even though upstream only does so through an option.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n function Hello() {\n   return <div ref=\"hello\">Hello</div>;\n }\n ```\n\n ```jsx,expect_diagnostic\n function Hello({ id }) {\n   return <div ref={`hello-${id}`}>Hello</div>;\n }\n ```\n\n ```jsx,expect_diagnostic\n class Hello extends React.Component {\n   componentDidMount() {\n     this.refs.hello.focus();\n   }\n }\n ```\n\n ### Valid\n\n ```jsx\n function Hello() {\n   const helloRef = useRef(null);\n   return <div ref={helloRef}>Hello</div>;\n }\n ```\n\n"
+          },
           "noRedundantDefaultExport": {
             "deprecated": false,
             "version": "2.3.14",
@@ -4378,6 +4395,23 @@ export function GET() {
               }
             ],
             "docs": " Enforce that all imports appear at the top of the module.\n\n Import statements that appear after non-import statements are harder to\n find and may indicate disorganized code. Keeping all imports together at\n the top makes dependencies immediately visible.\n\n Directives such as `\"use strict\"` are always allowed before\n imports, since they are parsed separately from module items.\n\n This rule only applies to ES module `import` statements. CommonJS\n `require()` calls are not covered.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import { foo } from \"foo\";\n const bar = 1;\n import { baz } from \"baz\";\n ```\n\n ### Valid\n\n ```js\n import { foo } from \"foo\";\n import { bar } from \"bar\";\n const baz = 1;\n ```\n\n ```js\n \"use strict\";\n import { foo } from \"foo\";\n ```\n\n"
+          },
+          "useMathMinMax": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useMathMinMax",
+            "link": "https://biomejs.dev/linter/rules/use-math-min-max",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintUnicorn": "prefer-math-min-max"
+                }
+              }
+            ],
+            "docs": " Prefer `Math.min()` and `Math.max()` over ternaries for simple comparisons.\n\n Replacing ternary comparisons like `a > b ? b : a` with `Math.min(a, b)` makes the intent clearer and keeps equivalent min/max comparisons consistent across a codebase.\n\n This rule only targets straightforward min/max ternaries and ignores operands that are obviously not numeric, such as `bigint` and `Date` values.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n height > 50 ? 50 : height;\n ```\n\n ```js,expect_diagnostic\n height < 50 ? 50 : height;\n ```\n\n ### Valid\n\n ```js\n Math.min(height, 50);\n ```\n\n ```js\n Math.max(height, 50);\n ```\n\n ```js\n foo ? foo : bar;\n ```\n\n"
           },
           "useNamedCaptureGroup": {
             "deprecated": false,
@@ -7083,6 +7117,12 @@ export function GET() {
                 "source": {
                   "eslintJsxA11y": "no-access-key"
                 }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "htmlEslint": "no-accesskey-attrs"
+                }
               }
             ],
             "docs": " Enforce that the `accessKey` attribute is not used on any HTML element.\n\n The `accessKey` assigns a keyboard shortcut to the current element. However, the `accessKey` value\n can conflict with keyboard commands used by screen readers and keyboard-only users, which leads to\n inconsistent keyboard actions across applications. To avoid accessibility complications,\n this rule suggests users remove the `accessKey` attribute on elements.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <input type=\"submit\" accessKey=\"s\" value=\"Submit\" />\n ```\n\n ```jsx,expect_diagnostic\n <a href=\"https://webaim.org/\" accessKey=\"w\">WebAIM.org</a>\n ```\n\n ```jsx,expect_diagnostic\n <button accessKey=\"n\">Next</button>\n ```\n\n ## Resources\n\n - [WebAIM: Keyboard Accessibility - Accesskey](https://webaim.org/techniques/keyboard/accesskey#spec)\n - [MDN `accesskey` documentation](https://developer.mozilla.org/docs/Web/HTML/Global_attributes/accesskey)\n\n"
@@ -8682,7 +8722,7 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/no-misleading-return-type",
             "recommended": false,
             "fixKind": "none",
-            "docs": " Detect return type annotations that are misleadingly wider than what\n the implementation actually returns.\n\n Reports when a function's explicit return type annotation is wider than\n what TypeScript would infer from the implementation, hiding precise types\n from callers.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=invalid.ts\n function getStatus(b: boolean): string { if (b) return \"loading\"; return \"idle\"; }\n ```\n\n ```ts,expect_diagnostic,file=invalid2.ts\n function getCode(ok: boolean): number { if (ok) return 200; return 404; }\n ```\n\n ```ts,expect_diagnostic,file=invalid3.ts\n class Foo { getStatus(b: boolean): string { if (b) return \"loading\"; return \"idle\"; } }\n ```\n\n ```ts,expect_diagnostic,file=invalid4.ts\n const obj = { getMode(b: boolean): string { if (b) return \"dark\"; return \"light\"; } };\n ```\n\n ### Valid\n\n ```ts\n function getStatus() { return \"loading\"; }\n ```\n\n ```ts\n function run(): void { return; }\n ```\n\n ```ts\n class Foo { greet(): string { return \"hello\"; } }\n ```\n"
+            "docs": " Detect return type annotations that are misleadingly wider than what\n the implementation actually returns.\n\n Reports when a function's explicit return type annotation is wider than\n what TypeScript would infer from the implementation, hiding precise types\n from callers.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=invalid.ts\n function getStatus(b: boolean): string { if (b) return \"loading\"; return \"idle\"; }\n ```\n\n ```ts,expect_diagnostic,file=invalid2.ts\n function getCode(ok: boolean): number { if (ok) return 200; return 404; }\n ```\n\n ```ts,expect_diagnostic,file=invalid3.ts\n class Foo { getStatus(b: boolean): string { if (b) return \"loading\"; return \"idle\"; } }\n ```\n\n ```ts,expect_diagnostic,file=invalid4.ts\n const obj = { getMode(b: boolean): string { if (b) return \"dark\"; return \"light\"; } };\n ```\n\n ```ts,expect_diagnostic,file=invalid5.ts\n function makeData(): object { return { retry: true }; }\n ```\n\n ### Valid\n\n ```ts\n function getStatus() { return \"loading\"; }\n ```\n\n ```ts\n function run(): void { return; }\n ```\n\n ```ts\n class Foo { greet(): string { return \"hello\"; } }\n ```\n\n ## Known limitations\n\n When a return uses a type assertion such as `as T`, the rule does\n not flag the return unless it can prove that `T` is narrower than\n `object`. Trusted cases include `unknown`, `any`, `typeof` queries,\n conditional types, generic type parameters, and types the rule\n cannot resolve. Intersections (`A & B`) are trusted when every\n member is or when any member is `any`; unions (`A | B`) when at\n least one is.\n"
           },
           "noMisusedPromises": {
             "deprecated": false,
@@ -9275,7 +9315,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 520
+    "numberOrRules": 522
   },
   "syntax": {
     "languages": {
