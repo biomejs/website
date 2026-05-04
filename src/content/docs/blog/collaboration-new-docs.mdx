@@ -1,7 +1,7 @@
 ---
 title: "Investing resources where it matters"
 excerpt: |
-  Biome will collaborate with Sarah and Yan to improve the documentation and developer experience of the project.
+  Biome will collaborate with Sarah Rainsberger and Yan Thomas to improve the documentation and developer experience of the project.
 authors:
   - ema
   - team
@@ -16,10 +16,10 @@ Biome is a project solely driven by passionate volunteers that want to improve t
 of the different web technologies, and have fun coding.
 
 Since the project started a few years ago, Biome has gone a long way with amazing milestones. Among them:
-- Won the P[rettier Challenge](prettier challenge link) in a matter of weeks.
+- Won the [Prettier Challenge](https://console.algora.io/challenges/prettier) in a matter of weeks.
 - Won the [OS Awards](https://osawards.com/javascript/2024) in the Productivity Booster category.
-- Received a [total of ~75k USD](open collectinve link) from individuals and [companies](sponsors link from readme github) and distributed ~40k USD to Core team members.
-- Created and shipped a TypeScript inference system that doesn't require the TypeScript compiler, thanks to the collaboration with [Vercel]().
+- Received a [total of ~75k USD](https://opencollective.com/biome) from individuals and [companies](https://github.com/biomejs/biome) and distributed ~40k USD to Core team members.
+- Created and shipped a TypeScript inference system that doesn't require the TypeScript compiler, thanks to the collaboration with [Vercel](/blog/vercel-partners-biome-type-inference/).
 - And, hopefully, saved a lot of CI time among our users!
 
 The project evolves and grows thanks to the feedback and contributions of our community, which means your voice and opinions can shape the roadmap of the project.
@@ -28,37 +28,38 @@ Among the feedback received by the community, we saw a recurrent pattern: diffic
 
 ## The documentation swings
 
-Shortly after Biome was launched, we started to cement some important concepts as part of our core values, like the [rule pillars](local link to rule pillars). Enforcing this framework made sure that lint rules were informative **and actionable**.
+Shortly after Biome was launched, we started to cement some important concepts as part of our core values, like the [rule pillars](/linter/#rule-pillars). Enforcing this framework made sure that lint rules were informative **and actionable**.
 
 On the other hand, we shipped many other features that didn't have an established value nor framework, and after a while their documentation fell short: unclear concepts, missing information, information too technical and lack of examples.
 
 Two big, clear examples:
 - After the launch of GritQL plugins, we have received many reports of users that couldn't find good examples, or at least a way to easily introduce users to the concept. All we did was to redirect the users to the GritQL website.
 - Monorepo was another feature that users asked for a while, and even though we tried to provide examples and explanation, some users struggle to understand the right behavior of the feature. Some other users rightfully flagged that some information in missing, leaving some holes in how the feature is supposed to work in some cases.
-- The documentation of the  [`organizeImport`](add local link to assist action), when shipped, was very technical and too focused on how the feature worked, and it wasn't written for the end-user.
+- The documentation of the  [`organizeImports`](/assist/actions/organize-imports/), when shipped, was very technical and too focused on how the feature worked, and it wasn't written for the end-user.
 
 So while we delivered something of good quality from one hand, on the other hand, we couldn't provide such quality on other parts of the project.
 
-## We want to invest in good documentantion
+## We want to invest in good documentation
 
-As for today, I am **very happy** to announce that the Biome project enters in a collaboration with [Sarah](https://bsky.app/profile/sarah11918.rainsberger.ca) and [Yan](https://bsky.app/profile/yanthomas.dev)!
+As of today, I am **very happy** to announce that the Biome project enters in a collaboration with [Sarah Rainsberger](https://bsky.app/profile/sarah11918.rainsberger.ca) and [Yan Thomas](https://bsky.app/profile/yanthomas.dev)!
 
 <div style={{ minWidth: "200px" }}>
   <img
     src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHEzMzhiYjVtbWgzcnBobGRmYW8xaHlob3RpaWZ1eWdxZWI5N3J1MyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/11sBLVxNs7v6WA/giphy.gif"
     width="100%"
+    alt="Animated GIF of the Minions esulting"
   />
 </div>
 
-Sarah and Yan are the main reasons why [Astro docs](link to docs astro ) are so good, and why Astro has the [highest satisfaction rate](https://2025.stateofjs.com/en-US/libraries/meta-frameworks/) among the web frameworks. They are a rock star team and come with my highest recommendation.
+Sarah and Yan are the main reasons why [Astro docs](https://docs.astro.build/) are so good, and why Astro has the [highest satisfaction rate](https://2025.stateofjs.com/en-US/libraries/meta-frameworks/) among the web frameworks. They are a rock star team and come with my highest recommendation.
 
 Sarah has been working with Astro for over four years; she fostered a very welcoming community and taught a lot of people how to help others. She was also one of the MC at ViteConf together with [patak](https://bsky.app/profile/patak.cat). She also spoke at [ViteConf 2025](https://youtu.be/bzogTYPv65M?si=992hUoseHoQc5L6f), explaining how meaningful contributions often come from the docs.
 
-Yan, like Sarah, has been working with Astro for at least three years. He's the creator and maintainer of [Lunaria](https://lunaria.dev/), a set of tools to track and improve the localization of your website. Websites such [Biome](https://biomejs.dev/i18n-dashboard/), [VitePress](https://vitepress.dev/_translations/) and [Tauri](https://tauri.app/contribute/translate-status/) use it. Every team would be lucky to have him, as he's great at writing good docs, very user-centered and clear. I learnt a lot from his hawk-eyes reviews!
+Yan, like Sarah, has been working with Astro for at least three years. He's the creator and maintainer of [Lunaria](https://lunaria.dev/), a set of tools to track and improve the localization of your website. Websites such as [Biome](https://biomejs.dev/i18n-dashboard/), [VitePress](https://vitepress.dev/_translations/) and [Tauri](https://tauri.app/contribute/translate-status/) use it. Every team would be lucky to have him, as he's great at writing good docs, very user-centered and clear. I learnt a lot from his hawk-eyes reviews!
 
 In this collaboration, Sarah and Yan will work together to improve many aspects of the documentation. Among them:
 - Improve the overall communication of the Biome documentation, make it more user-centric where necessary.
 - Bring their expertise and share it with the Biome community.
 - Create an internal framework (guidelines, tips, rules, etc.) for the Core team and contributors.
 
-The whole team is very excited by the initiative, and I am sure that maintainers, contributors and end-users users will see the benefits very soon!
+The whole team is very excited by the initiative, and I am sure that maintainers, contributors and end users will see the benefits very soon!
