@@ -27,8 +27,14 @@ Biome has an `lsp-proxy` command that acts as a server for the Language Server P
 Helix 23.10 has [support for multiple language servers](https://github.com/helix-editor/helix/pull/2507). Now you can use biome alongside `typescript-language-server`.
 
 ```toml
-[language-server]
-biome = { command = "biome", args = ["lsp-proxy"] }
+[language-server.biome]
+command = "biome"
+args = ["lsp-proxy"]
+
+# Inline configuration is also supported 
+# https://biomejs.dev/blog/biome-v2-4/#editor-inline-configuration
+[language-server.biome.config.biome.inlineConfig]
+linter.rules.suspicious.noConsole = "off"
 
 [[language]]
 name = "javascript"
