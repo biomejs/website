@@ -209,6 +209,7 @@ export const LANGUAGE = {
 	Vue: "vue",
 	Svelte: "svelte",
 	Astro: "astro",
+	Markdown: "md",
 } as const;
 
 export type Language = (typeof LANGUAGE)[keyof typeof LANGUAGE];

@@ -435,6 +435,7 @@ function LanguageView({
 						[LANGUAGE.Vue]: "Vue",
 						[LANGUAGE.Svelte]: "Svelte",
 						[LANGUAGE.Astro]: "Astro",
+						[LANGUAGE.Markdown]: "Markdown",
 					}}
 					value={language ?? LANGUAGE.TSX}
 					onChangeValue={setLanguage}

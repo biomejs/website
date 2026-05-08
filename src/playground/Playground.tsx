@@ -2,6 +2,7 @@ import { css } from "@codemirror/lang-css";
 import { html } from "@codemirror/lang-html";
 import { javascript } from "@codemirror/lang-javascript";
 import { json } from "@codemirror/lang-json";
+import { markdown } from "@codemirror/lang-markdown";
 import { vue } from "@codemirror/lang-vue";
 import { EditorSelection } from "@codemirror/state";
 import type { ViewUpdate } from "@codemirror/view";
@@ -48,6 +49,7 @@ import {
 	isHtmlFilename,
 	isJsonFilename,
 	isJsxFilename,
+	isMarkdownFilename,
 	isSvelteFilename,
 	isTypeScriptFilename,
 	isVueFilename,
@@ -88,6 +90,9 @@ export default function Playground({
 		}
 		if (isSvelteFilename(playgroundState.currentFile)) {
 			return [svelte()];
+		}
+		if (isMarkdownFilename(playgroundState.currentFile)) {
+			return [markdown()];
 		}
 		const jsx = isJsxFilename(playgroundState.currentFile);
 		const typescript = isTypeScriptFilename(playgroundState.currentFile);
