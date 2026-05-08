@@ -15,7 +15,6 @@ pub fn generate_lsp_docs() -> Result<()> {
     output.push_str("## Custom Requests\n\n");
 
     for method in &all_methods {
-        // Using h4 on purpose to avoid polluting the table of contents.
         output.push_str(&format!("### `biome/{}`\n\n", method.name));
 
         let params_schema = method.params.as_value();
@@ -46,11 +45,11 @@ pub fn generate_lsp_docs() -> Result<()> {
 
     let start_idx = content
         .find(START_MARKER)
-        .expect("introduction.mdx should contain start marker")
+        .expect("daemon.md should contain start marker")
         + START_MARKER.len();
     let end_idx = content
         .find(END_MARKER)
-        .expect("introduction.mdx should contain end marker");
+        .expect("daemon.md should contain end marker");
 
     content.replace_range(start_idx..end_idx, &output);
     fs::write(mdx_path, content)?;
@@ -69,8 +68,9 @@ fn schema_title(schema: &Value) -> String {
 fn is_primitive_schema(schema: &Value) -> bool {
     matches!(
         schema.get("type").and_then(|v| v.as_str()),
-        Some("null" | "boolean" | "string")
+        Some("null" | "boolean" | "string" | "number" | "integer")
     )
+}
 }
 
 fn primitive_ts_name(schema: &Value) -> Option<&'static str> {
