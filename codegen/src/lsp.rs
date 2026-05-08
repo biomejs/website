@@ -71,7 +71,6 @@ fn is_primitive_schema(schema: &Value) -> bool {
         Some("null" | "boolean" | "string" | "number" | "integer")
     )
 }
-}
 
 fn primitive_ts_name(schema: &Value) -> Option<&'static str> {
     match schema.get("type").and_then(|v| v.as_str()) {
