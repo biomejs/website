@@ -895,7 +895,10 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
             "- [Configure the code fix](/{path_prefix}#configure-the-code-fix)"
         )?;
         writeln!(content, "- [Rule options](/{path_prefix}/#rule-options)")?;
-        writeln!(content, "- [Source Code (Edit this Page)]({source_code_url})")?;
+        writeln!(
+            content,
+            "- [Source Code (Edit this Page)]({source_code_url})"
+        )?;
         writeln!(
             content,
             "- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/{test_cases_file_path})"

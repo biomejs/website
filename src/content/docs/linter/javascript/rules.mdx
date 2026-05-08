@@ -181,6 +181,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | Rule name | Description | Properties |
 | --- | --- | --- |
 | [noAmbiguousAnchorText](/linter/rules/no-ambiguous-anchor-text) | Disallow ambiguous anchor descriptions. |  |
+| [noBaseToString](/linter/rules/no-base-to-string) | Require stringification to avoid values that only use the default object representation. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
 | [noBeforeInteractiveScriptOutsideDocument](/linter/rules/no-before-interactive-script-outside-document) | Prevent usage of `next/script`'s `beforeInteractive` strategy outside of `pages/_document.js` in a Next.js project. |  |
 | [noComponentHookFactories](/linter/rules/no-component-hook-factories) | Disallows defining React components or custom hooks inside other functions. |  |
 | [noConditionalExpect](/linter/rules/no-conditional-expect) | Disallow conditional `expect()` calls inside tests. |  |
@@ -241,6 +242,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noUselessReturn](/linter/rules/no-useless-return) | Disallow redundant return statements. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [noUselessTypeConversion](/linter/rules/no-useless-type-conversion) | Disallow type conversions that do not change the type of an expression. |  |
 | [noVueArrowFuncInWatch](/linter/rules/no-vue-arrow-func-in-watch) | Disallows using arrow functions when defining a watcher. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [noVueImportCompilerMacros](/linter/rules/no-vue-import-compiler-macros) | Disallow importing Vue compiler macros. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
 | [noVueOptionsApi](/linter/rules/no-vue-options-api) | Disallow the use of Vue Options API. |  |
 | [noVueRefAsOperand](/linter/rules/no-vue-ref-as-operand) | Disallow the use of value wrapped by `ref()`(Composition API) as operand |  |
 | [useArraySome](/linter/rules/use-array-some) | Prefer `Array.prototype.some()` over verbose existence checks. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
@@ -276,12 +278,15 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [useSortedClasses](/linter/rules/use-sorted-classes) | Enforce the sorting of CSS utility classes. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useSpread](/linter/rules/use-spread) | Enforce the use of the spread operator over `.apply()`. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useStringStartsEndsWith](/linter/rules/use-string-starts-ends-with) | Prefer `String#startsWith()` and `String#endsWith()` over verbose prefix and suffix checks. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [useTestHooksInOrder](/linter/rules/use-test-hooks-in-order) | Enforce that test lifecycle hooks are declared in the order they execute. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
 | [useTestHooksOnTop](/linter/rules/use-test-hooks-on-top) | Enforce that lifecycle hooks appear before any test cases in the same block. |  |
+| [useThisInClassMethods](/linter/rules/use-this-in-class-methods) | Enforce that class methods utilize `this`. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
 | [useUnicodeRegex](/linter/rules/use-unicode-regex) | Enforce the use of the `u` or `v` flag for regular expressions. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [useVarsOnTop](/linter/rules/use-vars-on-top) | Require `var` declarations to appear at the top of their containing scope. |  |
 | [useVueConsistentDefinePropsDeclaration](/linter/rules/use-vue-consistent-define-props-declaration) | Enforce consistent `defineProps` declaration style. |  |
 | [useVueDefineMacrosOrder](/linter/rules/use-vue-define-macros-order) | Enforce specific order of Vue compiler macros. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useVueMultiWordComponentNames](/linter/rules/use-vue-multi-word-component-names) | Enforce multi-word component names in Vue components. |  |
+| [useVueNextTickPromise](/linter/rules/use-vue-next-tick-promise) | Enforces Promise syntax when using Vue `nextTick`. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
 
 ## `performance`
 
