@@ -784,6 +784,14 @@ export default defineConfig({
 							label: "GritQL",
 							link: "/reference/gritql",
 						},
+						{
+							label: "Daemon requests",
+							link: "/reference/daemon",
+							badge: {
+								text: "new",
+								variant: "success",
+							},
+						},
 					],
 				},
 				{

@@ -12,13 +12,17 @@ pub fn generate_lsp_docs() -> Result<()> {
 
     let mut output = String::new();
 
+    output.push_str("## Custom Requests\n\n");
+
     for method in &all_methods {
         // Using h4 on purpose to avoid polluting the table of contents.
-        output.push_str(&format!("#### `biome/{}`\n\n", method.name));
+        output.push_str(&format!("### `biome/{}`\n\n", method.name));
 
         let params_schema = method.params.as_value();
 
         if !is_primitive_schema(params_schema) {
+            let title = schema_title(params_schema);
+            output.push_str(&format!("Accepts `{title}`.\n\n"));
             output.push_str("```ts\n");
             output.push_str(&format_interface(params_schema));
             output.push_str("\n```\n\n");
@@ -37,7 +41,7 @@ pub fn generate_lsp_docs() -> Result<()> {
         }
     }
 
-    let mdx_path = project_root().join("src/content/docs/editors/introduction.mdx");
+    let mdx_path = project_root().join("src/content/docs/reference/daemon.md");
     let mut content = fs::read_to_string(&mdx_path)?;
 
     let start_idx = content

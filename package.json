@@ -21,6 +21,7 @@
     "codegen:diagnostics": "pnpm codegen diagnostics",
     "codegen:redirects": "pnpm codegen redirects",
     "codegen:all": "pnpm codegen all",
+    "codegen:lsp": "pnpm codegen lsp",
     "lunaria:build": "lunaria build",
     "lunaria:preview": "lunaria preview"
   },
