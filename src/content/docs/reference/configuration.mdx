@@ -676,6 +676,12 @@ Choose whether spaces should be added between brackets and inner values.
 
 > Default: `true`
 
+### `formatter.delimiterSpacing`
+
+Whether to insert spaces inside delimiters (after the opening delimiter and before the closing delimiter). Empty delimiters are not affected, and no space is added before the opening delimiter.
+
+> Default: `false`
+
 ### `formatter.expand`
 
 Whether to expand arrays and objects on multiple lines.
@@ -885,6 +891,14 @@ Choose whether the ending `>` of a multi-line JSX element should be on the last 
 Choose whether spaces should be added between brackets and inner values.
 
 > Default: `true`
+
+### `javascript.formatter.delimiterSpacing`
+
+Whether to insert spaces inside delimiters (after the opening delimiter and before the closing delimiter). Empty delimiters are not affected, and no space is added before the opening delimiter.
+
+For JavaScript, affects parentheses (e.g., `foo( a, b )`), square brackets (e.g., `[ a, b ]`), template literal interpolations (e.g., `${ expr }`), TypeScript angle brackets (e.g., `foo< T >()`), JSX expression braces (e.g., `{ value }`), and the logical NOT operator (e.g., `! x`).
+
+> Default: `false`
 
 ### `javascript.formatter.attributePosition`
 
@@ -1127,6 +1141,12 @@ Choose whether spaces should be added between brackets and inner values.
 
 > Default: `true`
 
+### `json.formatter.delimiterSpacing`
+
+Whether to insert spaces inside delimiters (after the opening delimiter and before the closing delimiter). Empty delimiters are not affected, and no space is added before the opening delimiter. For JSON, affects square brackets (e.g., `[ 1, 2, 3 ]`).
+
+> Default: `false`
+
 ### `json.formatter.expand`
 
 Whether to expand arrays and objects on multiple lines.
@@ -1269,6 +1289,12 @@ The type of quote used when representing string literals. It can be `"single"` o
 
 > Default: `"double"`
 
+### `css.formatter.delimiterSpacing`
+
+Whether to insert spaces inside delimiters (after the opening delimiter and before the closing delimiter). Empty delimiters are not affected, and no space is added before the opening delimiter. For CSS, affects parentheses (e.g., `rgb( 0, 0, 0 )`) and square brackets (e.g., `[ data-attr ]`).
+
+> Default: `false`
+
 ### `css.formatter.trailingNewline`
 
 Whether to add a trailing newline at the end of the file.
@@ -1283,7 +1309,6 @@ Setting this option to `false` is **highly discouraged** because it could cause 
 
 Disable trailing newline at your own risk.
 :::
-
 
 ### `css.linter.enabled`
 
