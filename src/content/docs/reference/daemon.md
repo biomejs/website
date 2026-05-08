@@ -14,7 +14,7 @@ Each method sends a request with the following JSON payload, where `method` is o
   "method": "biome/open_project",
   "params": {
     "path": "/Some/path",
-    "openInitialized": true
+    "openUninitialized": false
   }
 }
 ```
