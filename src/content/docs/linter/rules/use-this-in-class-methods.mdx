@@ -1,0 +1,234 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useThisInClassMethods
+description: Learn more about useThisInClassMethods
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/useThisInClassMethods`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- Sources: 
+  - Same as [`class-methods-use-this`](https://eslint.org/docs/latest/rules/class-methods-use-this)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useThisInClassMethods": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Enforce that class methods utilize `this`.
+
+Instance methods usually communicate that their behavior depends on instance state.
+When a class member never uses `this`, it can often be made `static` or moved outside
+the class to better reflect its intent.
+
+This rule checks instance methods, getters, setters, and instance field initializers
+whose value is an arrow function or function expression. Constructors, static members,
+and static blocks are ignored.
+
+## Examples
+
+### Invalid
+
+```js
+class A {
+    foo() {
+        console.log("Hello");
+    }
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:2:5 <a href="https://biomejs.dev/linter/rules/use-this-in-class-methods">lint/nursery/useThisInClassMethods</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Expected </span><span style="color: Orange;"><strong>this</strong></span><span style="color: Orange;"> to be used by class method </span><span style="color: Orange;"><strong>foo</strong></span><span style="color: Orange;">.</span><br />  <br />    <strong>1 │ </strong>class A &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>    foo() &#123;<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>        console.log(&quot;Hello&quot;);<br />    <strong>4 │ </strong>    &#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Adding functions as class members can be a convenient way to organize code related to a class, but when those functions do not use instance state, it can be misleading to readers. Consider whether </span><span style="color: lightgreen;"><strong>static</strong></span><span style="color: lightgreen;"> or a module-level function would better communicate the intent of this code.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">If this member does not depend on instance state, make it </span><span style="color: lightgreen;"><strong>static</strong></span><span style="color: lightgreen;"> or move it outside the class.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+### Valid
+
+```js
+class A {
+    foo() {
+        this.value = "Hello";
+    }
+}
+```
+
+```js
+class A {
+    static foo() {}
+}
+```
+
+## Options
+
+### `ignoreMethods`
+
+A list of method names to ignore for this rule.
+
+Default: `[]`
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useThisInClassMethods": {
+					"options": {
+						"ignoreMethods": [
+							"render",
+							"#serialize"
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+In this example, `render` and `#serialize` are ignored, so the rule does not report these methods.
+
+```js
+class Component {
+    render() {}
+    #serialize() {}
+}
+```
+
+### `ignoreOverrideMethods`
+
+Whether to ignore `override` methods on subclasses.
+
+Default: `false`
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useThisInClassMethods": {
+					"options": {
+						"ignoreOverrideMethods": true
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+In this example, the method in `Derived` is ignored because it is marked with `override`.
+
+```ts
+abstract class Base {
+    abstract method(): void;
+}
+
+class Derived extends Base {
+    override method() {} // ignored because it has `override`
+}
+```
+
+### `ignoreClassesWithImplements`
+
+Controls how classes with an `implements` clause are handled.
+
+Default: `"none"`
+
+- `"none"` checks classes with an `implements` clause the same way as any other class.
+- `"all"` ignores every eligible instance member in classes that implement an interface.
+- `"public-fields"` ignores only public eligible members in those classes. Protected and
+private members are still checked.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useThisInClassMethods": {
+					"options": {
+						"ignoreClassesWithImplements": "all"
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+In this example, every eligible member in a class with an `implements` clause is ignored.
+
+```ts
+interface Service {
+    run(): void;
+}
+
+class ServiceImpl implements Service {
+    run() {}
+}
+```
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useThisInClassMethods": {
+					"options": {
+						"ignoreClassesWithImplements": "public-fields"
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+In this example, only public eligible members are ignored, so `helper` is still reported.
+
+```ts
+interface Service {
+    run(): void;
+}
+
+class ServiceImpl implements Service {
+    run() {}
+    protected helper() {}
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.ts:7:15 <a href="https://biomejs.dev/linter/rules/use-this-in-class-methods">lint/nursery/useThisInClassMethods</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Expected </span><span style="color: Orange;"><strong>this</strong></span><span style="color: Orange;"> to be used by class method </span><span style="color: Orange;"><strong>helper</strong></span><span style="color: Orange;">.</span><br />  <br />    <strong>5 │ </strong>class ServiceImpl implements Service &#123;<br />    <strong>6 │ </strong>    run() &#123;&#125;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>7 │ </strong>    protected helper() &#123;&#125;<br />   <strong>   │ </strong>              <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>8 │ </strong>&#125;<br />    <strong>9 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Adding functions as class members can be a convenient way to organize code related to a class, but when those functions do not use instance state, it can be misleading to readers. Consider whether </span><span style="color: lightgreen;"><strong>static</strong></span><span style="color: lightgreen;"> or a module-level function would better communicate the intent of this code.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">If this member does not depend on instance state, make it </span><span style="color: lightgreen;"><strong>static</strong></span><span style="color: lightgreen;"> or move it outside the class.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_this_in_class_methods.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useThisInClassMethods)
+
+</TabItem>
+</Tabs>
+
