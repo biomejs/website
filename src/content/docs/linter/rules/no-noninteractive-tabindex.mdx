@@ -84,5 +84,82 @@ Keep the tab ring small, which is the order of elements when tabbing, for a more
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/a11y/noNoninteractiveTabindex)
 
 </TabItem>
+<TabItem label="HTML" icon="seti:html">
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+## Summary
+- Diagnostic Category: [`lint/a11y/noNoninteractiveTabindex`](/reference/diagnostics#diagnostic-category)
+- This rule is **recommended**, meaning it is enabled by default.
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Inspired from [`jsx-a11y/no-noninteractive-tabindex`](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/no-noninteractive-tabindex.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"a11y": {
+				"noNoninteractiveTabindex": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Enforce that `tabindex` is not assigned to non-interactive HTML elements.
+
+When using the tab key to navigate a webpage, limit it to interactive elements.
+You don't need to add tabindex to items in an unordered list as assistive technology can navigate through the HTML.
+Keep the tab ring small, which is the order of elements when tabbing, for a more efficient and accessible browsing experience.
+
+## Examples
+
+### Invalid
+
+```html
+<div tabindex="0"></div>
+```
+
+<pre class="language-text"><code class="language-text">code-block.html:1:6 <a href="https://biomejs.dev/linter/rules/no-noninteractive-tabindex">lint/a11y/noNoninteractiveTabindex</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The HTML element </span><span style="color: Tomato;"><strong>div</strong></span><span style="color: Tomato;"> is non-interactive. Do not use </span><span style="color: Tomato;"><strong>tabindex</strong></span><span style="color: Tomato;">.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;div tabindex=&quot;0&quot;&gt;&lt;/div&gt;<br />   <strong>   │ </strong>     <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Adding non-interactive elements to the keyboard navigation flow can confuse users.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Remove the </span><span style="color: lightgreen;"><strong>tabindex</strong></span><span style="color: lightgreen;"> attribute.</span><br />  <br />  <strong>  1 │ </strong>&lt;div<span style="opacity: 0.8;">·</span><span style="color: Tomato;">t</span><span style="color: Tomato;">a</span><span style="color: Tomato;">b</span><span style="color: Tomato;">i</span><span style="color: Tomato;">n</span><span style="color: Tomato;">d</span><span style="color: Tomato;">e</span><span style="color: Tomato;">x</span><span style="color: Tomato;">=</span><span style="color: Tomato;">&quot;</span><span style="color: Tomato;">0</span><span style="color: Tomato;">&quot;</span>&gt;&lt;/div&gt;<br />  <strong>    │ </strong>     <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span>       <br /></code></pre>
+
+```html
+<div role="article" tabindex="0"></div>
+```
+
+<pre class="language-text"><code class="language-text">code-block.html:1:21 <a href="https://biomejs.dev/linter/rules/no-noninteractive-tabindex">lint/a11y/noNoninteractiveTabindex</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The HTML element </span><span style="color: Tomato;"><strong>div</strong></span><span style="color: Tomato;"> is non-interactive. Do not use </span><span style="color: Tomato;"><strong>tabindex</strong></span><span style="color: Tomato;">.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;div role=&quot;article&quot; tabindex=&quot;0&quot;&gt;&lt;/div&gt;<br />   <strong>   │ </strong>                    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Adding non-interactive elements to the keyboard navigation flow can confuse users.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Remove the </span><span style="color: lightgreen;"><strong>tabindex</strong></span><span style="color: lightgreen;"> attribute.</span><br />  <br />  <strong>  1 │ </strong>&lt;div<span style="opacity: 0.8;">·</span>role=&quot;article&quot;<span style="opacity: 0.8;">·</span><span style="color: Tomato;">t</span><span style="color: Tomato;">a</span><span style="color: Tomato;">b</span><span style="color: Tomato;">i</span><span style="color: Tomato;">n</span><span style="color: Tomato;">d</span><span style="color: Tomato;">e</span><span style="color: Tomato;">x</span><span style="color: Tomato;">=</span><span style="color: Tomato;">&quot;</span><span style="color: Tomato;">0</span><span style="color: Tomato;">&quot;</span>&gt;&lt;/div&gt;<br />  <strong>    │ </strong>                    <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span>       <br /></code></pre>
+
+```html
+<article tabindex="0"></article>
+```
+
+<pre class="language-text"><code class="language-text">code-block.html:1:10 <a href="https://biomejs.dev/linter/rules/no-noninteractive-tabindex">lint/a11y/noNoninteractiveTabindex</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The HTML element </span><span style="color: Tomato;"><strong>article</strong></span><span style="color: Tomato;"> is non-interactive. Do not use </span><span style="color: Tomato;"><strong>tabindex</strong></span><span style="color: Tomato;">.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;article tabindex=&quot;0&quot;&gt;&lt;/article&gt;<br />   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Adding non-interactive elements to the keyboard navigation flow can confuse users.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Unsafe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Remove the </span><span style="color: lightgreen;"><strong>tabindex</strong></span><span style="color: lightgreen;"> attribute.</span><br />  <br />  <strong>  1 │ </strong>&lt;article<span style="opacity: 0.8;">·</span><span style="color: Tomato;">t</span><span style="color: Tomato;">a</span><span style="color: Tomato;">b</span><span style="color: Tomato;">i</span><span style="color: Tomato;">n</span><span style="color: Tomato;">d</span><span style="color: Tomato;">e</span><span style="color: Tomato;">x</span><span style="color: Tomato;">=</span><span style="color: Tomato;">&quot;</span><span style="color: Tomato;">0</span><span style="color: Tomato;">&quot;</span>&gt;&lt;/article&gt;<br />  <strong>    │ </strong>         <span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span><span style="color: Tomato;">-</span>           <br /></code></pre>
+
+### Valid
+
+```html
+<div></div>
+```
+
+```html
+<button tabindex="0"></button>
+```
+
+```html
+<article tabindex="-1"></article>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/a11y/no_noninteractive_tabindex.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/a11y/noNoninteractiveTabindex)
+
+</TabItem>
 </Tabs>
 

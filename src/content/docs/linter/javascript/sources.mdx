@@ -84,6 +84,15 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | @html-eslint/eslint-plugin Rules name | Biome Rules name |
 | ---- | ---- |
 | [no-accesskey-attrs](https://html-eslint.org/docs/rules/no-accesskey-attrs) |[noAccessKey](/linter/rules/no-access-key) (inspired) |
+| [no-aria-hidden-on-focusable](https://html-eslint.org/docs/rules/no-aria-hidden-on-focusable) |[noAriaHiddenOnFocusable](/linter/rules/no-aria-hidden-on-focusable) (inspired) |
+| [no-empty-headings](https://html-eslint.org/docs/rules/no-empty-headings) |[useHeadingContent](/linter/rules/use-heading-content) (inspired) |
+| [no-invalid-role](https://html-eslint.org/docs/rules/no-invalid-role) |[useValidAriaRole](/linter/rules/use-valid-aria-role) (inspired) |
+| [no-positive-tabindex](https://html-eslint.org/docs/rules/no-positive-tabindex) |[noPositiveTabindex](/linter/rules/no-positive-tabindex) (inspired) |
+| [no-redundant-role](https://html-eslint.org/docs/rules/no-redundant-role) |[noRedundantRoles](/linter/rules/no-redundant-roles) (inspired) |
+| [require-button-type](https://html-eslint.org/docs/rules/require-button-type) |[useButtonType](/linter/rules/use-button-type) (inspired) |
+| [require-frame-title](https://html-eslint.org/docs/rules/require-frame-title) |[useIframeTitle](/linter/rules/use-iframe-title) (inspired) |
+| [require-img-alt](https://html-eslint.org/docs/rules/require-img-alt) |[useAltText](/linter/rules/use-alt-text) (inspired) |
+| [require-lang](https://html-eslint.org/docs/rules/require-lang) |[useHtmlLang](/linter/rules/use-html-lang) (inspired) |
 ### @mysticatea/eslint-plugin
 | @mysticatea/eslint-plugin Rules name | Biome Rules name |
 | ---- | ---- |
@@ -119,7 +128,6 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-focused-tests](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/no-focused-tests.md) |[noFocusedTests](/linter/rules/no-focused-tests) (inspired) |
 | [no-identical-title](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/no-identical-title.md) |[noIdenticalTestTitle](/linter/rules/no-identical-test-title) |
 | [no-standalone-expect](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/no-standalone-expect.md) |[noMisplacedAssertion](/linter/rules/no-misplaced-assertion) (inspired) |
-| [prefer-hooks-on-top](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/prefer-hooks-on-top.md) |[useTestHooksOnTop](/linter/rules/use-test-hooks-on-top) |
 ### Clippy
 | Clippy Rules name | Biome Rules name |
 | ---- | ---- |
@@ -164,7 +172,6 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [max-classes-per-file](https://eslint.org/docs/latest/rules/max-classes-per-file) |[noExcessiveClassesPerFile](/linter/rules/no-excessive-classes-per-file) |
 | [max-lines](https://eslint.org/docs/latest/rules/max-lines) |[noExcessiveLinesPerFile](/linter/rules/no-excessive-lines-per-file) (inspired) |
 | [max-lines-per-function](https://eslint.org/docs/latest/rules/max-lines-per-function) |[noExcessiveLinesPerFunction](/linter/rules/no-excessive-lines-per-function) (inspired) |
-| [max-nested-callbacks](https://eslint.org/docs/latest/rules/max-nested-callbacks) |[noExcessiveNestedCallbacks](/linter/rules/no-excessive-nested-callbacks) |
 | [max-params](https://eslint.org/docs/latest/rules/max-params) |[useMaxParams](/linter/rules/use-max-params) |
 | [no-alert](https://eslint.org/docs/latest/rules/no-alert) |[noAlert](/linter/rules/no-alert) |
 | [no-array-constructor](https://eslint.org/docs/latest/rules/no-array-constructor) |[useArrayLiterals](/linter/rules/use-array-literals) |
@@ -339,7 +346,6 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-focused-tests](https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-focused-tests.md) |[noFocusedTests](/linter/rules/no-focused-tests) (inspired) |
 | [no-identical-title](https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-identical-title.md) |[noIdenticalTestTitle](/linter/rules/no-identical-test-title) |
 | [no-standalone-expect](https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-standalone-expect.md) |[noMisplacedAssertion](/linter/rules/no-misplaced-assertion) (inspired) |
-| [prefer-hooks-on-top](https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/prefer-hooks-on-top.md) |[useTestHooksOnTop](/linter/rules/use-test-hooks-on-top) |
 ### eslint-plugin-jsdoc
 | eslint-plugin-jsdoc Rules name | Biome Rules name |
 | ---- | ---- |
@@ -406,7 +412,6 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-wait-for-navigation](https://github.com/playwright-community/eslint-plugin-playwright/blob/main/docs/rules/no-wait-for-navigation.md) |[noPlaywrightWaitForNavigation](/linter/rules/no-playwright-wait-for-navigation) |
 | [no-wait-for-selector](https://github.com/playwright-community/eslint-plugin-playwright/blob/main/docs/rules/no-wait-for-selector.md) |[noPlaywrightWaitForSelector](/linter/rules/no-playwright-wait-for-selector) |
 | [no-wait-for-timeout](https://github.com/playwright-community/eslint-plugin-playwright/blob/main/docs/rules/no-wait-for-timeout.md) |[noPlaywrightWaitForTimeout](/linter/rules/no-playwright-wait-for-timeout) |
-| [prefer-hooks-on-top](https://github.com/playwright-community/eslint-plugin-playwright/blob/main/docs/rules/prefer-hooks-on-top.md) |[useTestHooksOnTop](/linter/rules/use-test-hooks-on-top) |
 | [valid-describe-callback](https://github.com/playwright-community/eslint-plugin-playwright/blob/main/docs/rules/valid-describe-callback.md) |[usePlaywrightValidDescribeCallback](/linter/rules/use-playwright-valid-describe-callback) |
 ### eslint-plugin-promise
 | eslint-plugin-promise Rules name | Biome Rules name |
@@ -448,7 +453,6 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-children-prop](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-children-prop.md) |[noChildrenProp](/linter/rules/no-children-prop) |
 | [no-danger](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-danger.md) |[noDangerouslySetInnerHtml](/linter/rules/no-dangerously-set-inner-html) |
 | [no-danger-with-children](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-danger-with-children.md) |[noDangerouslySetInnerHtmlWithChildren](/linter/rules/no-dangerously-set-inner-html-with-children) |
-| [no-string-refs](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-string-refs.md) |[noReactStringRefs](/linter/rules/no-react-string-refs) |
 | [no-unknown-property](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-unknown-property.md) |[noUnknownAttribute](/linter/rules/no-unknown-attribute) |
 | [void-dom-elements-no-children](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/void-dom-elements-no-children.md) |[noVoidElementsWithChildren](/linter/rules/no-void-elements-with-children) |
 ### eslint-plugin-react-dom
@@ -550,7 +554,6 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [prefer-date-now](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-date-now.md) |[useDateNow](/linter/rules/use-date-now) |
 | [prefer-dom-node-text-content](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-dom-node-text-content.md) |[useDomNodeTextContent](/linter/rules/use-dom-node-text-content) |
 | [prefer-global-this](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-global-this.md) |[useGlobalThis](/linter/rules/use-global-this) |
-| [prefer-math-min-max](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-math-min-max.md) |[useMathMinMax](/linter/rules/use-math-min-max) |
 | [prefer-module](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-module.md) |[noGlobalDirnameFilename](/linter/rules/no-global-dirname-filename) (inspired) |
 | [prefer-node-protocol](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-node-protocol.md) |[useNodejsImportProtocol](/linter/rules/use-nodejs-import-protocol) |
 | [prefer-number-properties](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-number-properties.md) |[useNumberNamespace](/linter/rules/use-number-namespace) |

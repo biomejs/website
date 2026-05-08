@@ -1,0 +1,92 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noUnusedClasses
+description: Learn more about noUnusedClasses
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="CSS" icon="seti:css">
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+:::note
+This rule belongs to the project domain. This means that its activation will activate the Biome Scanner to scan the files of your project. Read more about it in the [documentation page](/linter/domains#project)
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noUnusedClasses`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`project`](/linter/domains#project)
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noUnusedClasses": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Reports CSS class selectors that are never referenced in any JSX or HTML file.
+
+This rule checks all CSS class selectors (`.foo`) in a CSS file and verifies
+that each class name is referenced somewhere in a `class=` or `className=`
+attribute in an HTML or JSX file that imports (directly or transitively) the
+CSS file.
+
+Classes inside `:global(.foo)` are excluded from this check, as they are
+intended to be used by external consumers without explicit imports.
+
+## Examples
+
+### Invalid
+
+```css title='styles.css'
+.unused { color: red; }  /* Class "unused" is never referenced */
+.used { color: blue; }
+```
+
+```jsx title='App.jsx'
+import "./styles.css";
+export default () => <div className="used" />;
+```
+
+### Valid
+
+```css title='styles.css'
+.button { color: blue; }
+.container { padding: 1rem; }
+```
+
+```jsx title='App.jsx'
+import "./styles.css";
+export default () => (
+    <div className="container">
+        <button className="button">Click</button>
+    </div>
+);
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/nursery/no_unused_classes.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/nursery/noUnusedClasses)
+
+</TabItem>
+</Tabs>
+

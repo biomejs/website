@@ -95,6 +95,7 @@ This rule supports the following options:
 - `devDependencies`: If set to `false`, then the rule will show an error when `devDependencies` are imported. Defaults to `true`.
 - `peerDependencies`: If set to `false`, then the rule will show an error when `peerDependencies` are imported. Defaults to `true`.
 - `optionalDependencies`: If set to `false`, then the rule will show an error when `optionalDependencies` are imported. Defaults to `true`.
+- `bundleDependencies`: If set to `false`, then the rule will show an error when `bundleDependencies` are imported. Defaults to `true`.
 
 You can set the options like this:
 
@@ -107,7 +108,8 @@ You can set the options like this:
 					"options": {
 						"devDependencies": false,
 						"peerDependencies": false,
-						"optionalDependencies": false
+						"optionalDependencies": false,
+						"bundleDependencies": false
 					}
 				}
 			}
@@ -124,9 +126,8 @@ in the array, and `false` otherwise.
 
 ### Example using the `devDependencies` option
 
-In this example, only test files can use dependencies in the
-`devDependencies` section. `dependencies`, `peerDependencies`, and
-`optionalDependencies` are always available.
+In this example, only test files can use dependencies in the `devDependencies` section.
+`dependencies`, `peerDependencies`, `optionalDependencies` and `bundleDependencies` are always available.
 
 ```json title='biome.json'
 {
