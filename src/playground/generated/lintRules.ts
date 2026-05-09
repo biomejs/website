@@ -313,6 +313,7 @@ export const LINT_RULES = {
     useVueValidVCloak: "useVueValidVCloak",
     useVueValidVElse: "useVueValidVElse",
     useVueValidVElseIf: "useVueValidVElseIf",
+    useVueValidVFor: "useVueValidVFor",
     useVueValidVHtml: "useVueValidVHtml",
     useVueValidVIf: "useVueValidVIf",
     useVueValidVOn: "useVueValidVOn",
