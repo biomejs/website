@@ -1336,6 +1336,23 @@ export function GET() {
             ],
             "docs": " Disallow using `v-if` and `v-for` directives on the same element.\n\n There are two common cases where this can be tempting:\n - To filter items in a list (e.g. `v-for=\"user in users\" v-if=\"user.isActive\"`). In these cases, replace users with a new computed property that returns your filtered list (e.g. activeUsers).\n - To avoid rendering a list if it should be hidden (e.g. `v-for=\"user in users\" v-if=\"shouldShowUsers\"`). In these cases, move the v-if to a container element.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <TodoItem\n     v-if=\"complete\"\n     v-for=\"todo in todos\"\n     :todo=\"todo\"\n />\n ```\n\n ### Valid\n\n ```vue\n <ul v-if=\"complete\">\n     <TodoItem\n         v-for=\"todo in todos\"\n         :todo=\"todo\"\n     />\n </ul>\n ```\n\n"
           },
+          "noVueVOnNumberValues": {
+            "deprecated": false,
+            "version": "2.4.15",
+            "name": "noVueVOnNumberValues",
+            "link": "https://biomejs.dev/linter/rules/no-vue-v-on-number-values",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "no-deprecated-v-on-number-modifiers"
+                }
+              }
+            ],
+            "docs": " Disallow deprecated number modifiers on Vue `v-on` directives.\n\n Vue 3 no longer supports using key code numbers as event modifiers.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <input v-on:keyup.13=\"submit\" />\n ```\n\n ```vue,expect_diagnostic\n <input @keyup.13=\"submit\" />\n ```\n\n ### Valid\n\n ```vue\n <input v-on:keyup.enter=\"submit\" />\n ```\n\n ```vue\n <input @keyup.enter=\"submit\" />\n ```\n\n"
+          },
           "useIframeSandbox": {
             "deprecated": false,
             "version": "2.4.12",
@@ -1428,7 +1445,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Enforce that elements using `v-for` also specify a unique `key`.\n\n When rendering lists with `v-for`, Vue relies on a `key` to track elements efficiently.\n The `key` can be provided via longhand `v-bind:key` or shorthand `:key`. If you need to\n animate the entrance/exit of an item in a list, the key should be a unique identifier for\n each item in the list, and not the index of the item.\n\n For more information, see the Vue documentation on [list rendering](https://vuejs.org/guide/essentials/list#maintaining-state-with-key).\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <li v-for=\"item in items\">{{ item }}</li>\n ```\n\n ### Valid\n\n ```vue\n <li v-for=\"item in items\" :key=\"item.id\">{{ item }}</li>\n ```\n\n ```vue\n <li v-for=\"item in items\" v-bind:key=\"item.id\">{{ item }}</li>\n ```\n\n"
+            "docs": " Enforce that elements using `v-for` also specify a unique `key`.\n\n When rendering lists with `v-for`, Vue relies on a `key` to track elements efficiently.\n The `key` can be provided via longhand `v-bind:key` or shorthand `:key`. If you need to\n animate the entrance/exit of an item in a list, the key should be a unique identifier for\n each item in the list, and not the index of the item.\n\n For more information, see the Vue documentation on [list rendering](https://vuejs.org/guide/essentials/list#maintaining-state-with-key).\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <li v-for=\"item in items\">{{ item }}</li>\n ```\n\n ### Valid\n\n ```vue\n <li v-for=\"item in items\" :key=\"item.id\">{{ item }}</li>\n ```\n\n ```vue\n <li v-for=\"item in items\" v-bind:key=\"item.id\">{{ item }}</li>\n ```\n\n Related rules:\n - [`useVueValidVFor`](https://biomejs.dev/linter/rules/use-vue-valid-v-for/)\n\n"
           },
           "useVueValidTemplateRoot": {
             "deprecated": false,
@@ -1514,6 +1531,23 @@ export function GET() {
               }
             ],
             "docs": " Enforce valid `v-else-if` directives.\n\n Biome flags these cases:\n - Has an argument: `<div v-else-if:arg=\"b\"></div>`.\n - Has modifiers: `<div v-else-if.mod=\"b\"></div>`.\n - Missing value: `<div v-else-if></div>`.\n - Not preceded by a sibling with `v-if`/`v-else-if`.\n - On the same element as `v-if` or `v-else`.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <div v-if=\"a\"></div><div v-else-if:arg=\"b\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-if=\"a\"></div><div v-else-if.mod=\"b\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-if=\"a\"></div><div v-else-if></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-else-if=\"b\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-if=\"a\" v-else-if=\"b\"></div>\n ```\n\n ### Valid\n\n ```vue\n <div v-if=\"a\"></div><div v-else-if=\"b\"></div><div v-else></div>\n ```\n\n"
+          },
+          "useVueValidVFor": {
+            "deprecated": false,
+            "version": "2.4.15",
+            "name": "useVueValidVFor",
+            "link": "https://biomejs.dev/linter/rules/use-vue-valid-v-for",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "valid-v-for"
+                }
+              }
+            ],
+            "docs": " Enforces valid `v-for` directives in Vue templates.\n\n This rule reports `v-for` directives in the following cases:\n - The directive has an argument. E.g. `<div v-for:aaa=\"item in items\"></div>`\n - The directive has a modifier. E.g. `<div v-for.bbb=\"item in items\"></div>`\n - The directive does not have a value. E.g. `<div v-for></div>`\n - The second or third aliases are empty or are not simple identifiers.\n - A custom component rendered with `v-for` is missing `v-bind:key`.\n - The `v-bind:key` expression does not use any variable introduced by the `v-for` directive.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <div v-for:aaa=\"item in items\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-for=\"(item, { key }) in items\"></div>\n ```\n\n ```vue,expect_diagnostic\n <MyItem v-for=\"item in items\"></MyItem>\n ```\n\n ```vue,expect_diagnostic\n <div v-for=\"item in items\" :key=\"foo\"></div>\n ```\n\n ### Valid\n\n ```vue\n <div v-for=\"item in items\"></div>\n ```\n\n ```vue\n <MyItem v-for=\"item in items\" :key=\"item.id\" />\n ```\n\n ```vue\n <template v-for=\"item in items\">\n     <div :key=\"item.id\"></div>\n </template>\n ```\n\n Related rules:\n - [`useVueVForKey`](https://biomejs.dev/linter/rules/use-vue-v-for-key/)\n\n"
           },
           "useVueValidVHtml": {
             "deprecated": false,
@@ -3250,6 +3284,23 @@ export function GET() {
             ],
             "docs": " Disallow ambiguous anchor descriptions.\n\n Enforces `<a>` values are not exact matches for the phrases \"click here\", \"here\", \"link\", \"a link\", or \"learn more\".\n Screen readers announce tags as links/interactive, but rely on values for context.\n Ambiguous anchor descriptions do not provide sufficient context for users.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n const Invalid = () => <a>learn more</a>;\n ```\n\n ### Valid\n\n ```jsx\n const Valid = () => <a>documentation</a>;\n ```\n\n ## Options\n\n ### `words`\n\n The words option allows users to modify the strings that can be checked for in the anchor text. Useful for specifying other words in other languages.\n\n Default `[\"click here\", \"here\", \"link\", \"a link\", \"learn more\"]`\n\n ```json,options\n {\n   \"options\": {\n     \"words\": [\"click this\"]\n   }\n }\n ```\n\n #### Invalid\n\n ```jsx,expect_diagnostic,use_options\n const Invalid = () => <a>click this</a>;\n ```\n\n"
           },
+          "noBaseToString": {
+            "deprecated": false,
+            "version": "2.4.15",
+            "name": "noBaseToString",
+            "link": "https://biomejs.dev/linter/rules/no-base-to-string",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintTypeScript": "no-base-to-string"
+                }
+              }
+            ],
+            "docs": " Require stringification to avoid values that only use the default object representation.\n\n JavaScript coerces values to strings in several places, such as `String(value)`,\n `value.toString()`, string concatenation, template interpolation, and `Array#join()`.\n When the value only inherits the default object stringification, that often produces\n `\"[object Object]\"` instead of something intentionally readable.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=invalid-string.ts\n const value: {} = {};\n String(value);\n ```\n\n ```ts,expect_diagnostic,file=invalid-template.ts\n const value: {} = {};\n `${value}`;\n ```\n\n ```ts,expect_diagnostic,file=invalid-join.ts\n const values: {}[] = [{}];\n values.join(\",\");\n ```\n\n ### Valid\n\n ```ts\n String(1);\n ```\n\n ```ts\n class CustomToString {\n     toString() {\n         return \"ok\";\n     }\n }\n\n `${new CustomToString()}`;\n ```\n"
+          },
           "noConditionalExpect": {
             "deprecated": false,
             "version": "2.4.2",
@@ -4139,6 +4190,23 @@ export function GET() {
             ],
             "docs": " Disallows using arrow functions when defining a watcher.\n\n When using the Options API in Vue.js, defining watchers with arrow functions is discouraged. This is because arrow functions bind to their parent context, which means that the `this` keyword inside the arrow function does not refer to the Vue instance as expected. Instead, it refers to the context in which the arrow function was defined, which can be confusing.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script>\n export default {\n   watch: {\n     foo: (val, oldVal) => {\n       console.log('new: %s, old: %s', val, oldVal)\n     }\n   }\n }\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script>\n export default {\n   watch: {\n     foo: {\n       handler: (val, oldVal) => {\n         console.log('new: %s, old: %s', val, oldVal)\n       }\n     }\n   }\n }\n </script>\n ```\n\n ### Valid\n\n ```vue\n <script>\n export default {\n   watch: {\n     a: function (val, oldVal) {\n       console.log('new: %s, old: %s', val, oldVal)\n     },\n     b: 'someMethod',\n     c: {\n       handler: function (val, oldVal) { /* ... */ },\n       deep: true\n     },\n     d: {\n       handler: 'someMethod',\n       immediate: true\n     },\n     e: [\n       'handle1',\n       function handle2 (val, oldVal) { /* ... */ },\n       {\n         handler: function handle3 (val, oldVal) { /* ... */ },\n         /* ... */\n       }\n     ],\n     'e.f': function (val, oldVal) { /* ... */ }\n   }\n }\n </script>\n ```\n\n References:\n - https://vuejs.org/api/options-state.html#watch\n\n"
           },
+          "noVueImportCompilerMacros": {
+            "deprecated": false,
+            "version": "2.4.15",
+            "name": "noVueImportCompilerMacros",
+            "link": "https://biomejs.dev/linter/rules/no-vue-import-compiler-macros",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "no-import-compiler-macros"
+                }
+              }
+            ],
+            "docs": " Disallow importing Vue compiler macros.\n\n Vue compiler macros are globally available inside `<script setup>` blocks and must not be imported.\n Outside of `<script setup>`, compiler macros are not valid Vue runtime imports.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script setup>\n import { defineProps } from \"vue\";\n defineProps({});\n </script>\n ```\n\n ### Valid\n\n ```vue\n <script setup>\n defineProps({});\n </script>\n ```\n\n"
+          },
           "noVueOptionsApi": {
             "deprecated": false,
             "version": "2.3.12",
@@ -4633,6 +4701,35 @@ export function GET() {
             ],
             "docs": " Prefer `String#startsWith()` and `String#endsWith()` over verbose prefix and suffix checks.\n\n This rule detects common string comparisons such as indexing, `charAt`, `indexOf`, `lastIndexOf`,\n `slice`, `substring`, `match`, and anchored `RegExp#test` calls when they are being used to check\n whether a string starts or ends with another string.\n\n The rule uses type information and only reports when the receiver is known to be a string. Array\n indexing and other non-string receivers are ignored.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=invalid-index.ts\n declare const text: string;\n text[0] === \"a\";\n ```\n\n ```ts,expect_diagnostic,file=invalid-search.ts\n declare const text: string;\n text.indexOf(\"foo\") === 0;\n ```\n\n ```ts,expect_diagnostic,file=invalid-regex.ts\n declare const text: string;\n /^foo/.test(text);\n ```\n\n ### Valid\n\n ```ts,file=valid-string.ts\n declare const text: string;\n text.startsWith(\"foo\");\n text.endsWith(\"bar\");\n ```\n\n ```ts,file=valid-array.ts\n declare const list: string[];\n list[0] === \"a\";\n ```\n"
           },
+          "useTestHooksInOrder": {
+            "deprecated": false,
+            "version": "2.4.15",
+            "name": "useTestHooksInOrder",
+            "link": "https://biomejs.dev/linter/rules/use-test-hooks-in-order",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJest": "prefer-hooks-in-order"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVitest": "prefer-hooks-in-order"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintPlaywright": "prefer-hooks-in-order"
+                }
+              }
+            ],
+            "docs": " Enforce that test lifecycle hooks are declared in the order they execute.\n\n Jest and Vitest always execute lifecycle hooks in the following order,\n regardless of how they are written in the file:\n\n 1. `beforeAll` (or `before` if you are using `node:test`)\n 2. `beforeEach`\n 3. `afterEach`\n 4. `afterAll` (or `after` if you are using `node:test`)\n\n Writing the hooks in a different order creates a discrepancy between\n the visual order in the source and the actual execution order, which\n makes test code harder to reason about.\n\n This rule flags any hook that appears after a hook that runs later in the\n execution order. Only consecutive groups of hooks in the same block are\n compared — test cases and other statements between hooks are allowed and\n reset the comparison baseline.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n describe('foo', () => {\n   beforeEach(() => {});\n   beforeAll(() => {});\n });\n ```\n\n ```js,expect_diagnostic\n describe('foo', () => {\n   afterEach(() => {});\n   afterAll(() => {});\n   beforeAll(() => {});\n });\n ```\n\n ### Valid\n\n ```js\n describe('foo', () => {\n   beforeAll(() => {});\n   beforeEach(() => {});\n   afterEach(() => {});\n   afterAll(() => {});\n });\n ```\n\n ```js\n // Hooks separated by test cases are treated independently.\n describe('foo', () => {\n   beforeEach(() => {});\n   it('a test', () => {});\n   afterAll(() => {});\n });\n ```\n\n See [`useTestHooksOnTop`](https://biomejs.dev/linter/rules/use-test-hooks-on-top) if you want to group all the hooks at the top of the block, before any test cases.\n\n"
+          },
           "useTestHooksOnTop": {
             "deprecated": false,
             "version": "2.4.14",
@@ -4660,7 +4757,24 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Enforce that lifecycle hooks appear before any test cases in the same block.\n\n Placing `beforeEach`, `beforeAll`, `afterEach`, and `afterAll` hooks after\n test cases (`it`, `test`) makes the setup and teardown harder to spot at a\n glance and can be a source of confusion for readers of the test suite.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n describe('foo', () => {\n   it('does something', () => {});\n   beforeEach(() => {});\n });\n ```\n\n ### Valid\n\n ```js\n describe('foo', () => {\n   beforeEach(() => {});\n   it('does something', () => {});\n });\n ```\n\n"
+            "docs": " Enforce that lifecycle hooks appear before any test cases in the same block.\n\n Placing `beforeEach`, `beforeAll`, `afterEach`, and `afterAll` hooks after\n test cases (`it`, `test`) makes the setup and teardown harder to spot at a\n glance and can be a source of confusion for readers of the test suite.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n describe('foo', () => {\n   it('does something', () => {});\n   beforeEach(() => {});\n });\n ```\n\n ### Valid\n\n ```js\n describe('foo', () => {\n   beforeEach(() => {});\n   it('does something', () => {});\n });\n ```\n\n See also: [`useTestHooksInOrder`](https://biomejs.dev/linter/rules/use-test-hooks-in-order)\n\n"
+          },
+          "useThisInClassMethods": {
+            "deprecated": false,
+            "version": "2.4.15",
+            "name": "useThisInClassMethods",
+            "link": "https://biomejs.dev/linter/rules/use-this-in-class-methods",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "class-methods-use-this"
+                }
+              }
+            ],
+            "docs": " Enforce that class methods utilize `this`.\n\n Instance methods usually communicate that their behavior depends on instance state.\n When a class member never uses `this`, it can often be made `static` or moved outside\n the class to better reflect its intent.\n\n This rule checks instance methods, getters, setters, and instance field initializers\n whose value is an arrow function or function expression. Constructors, static members,\n and static blocks are ignored.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n class A {\n     foo() {\n         console.log(\"Hello\");\n     }\n }\n ```\n\n ### Valid\n\n ```js\n class A {\n     foo() {\n         this.value = \"Hello\";\n     }\n }\n ```\n\n ```js\n class A {\n     static foo() {}\n }\n ```\n\n ## Options\n\n ### `ignoreMethods`\n\n A list of method names to ignore for this rule.\n\n Default: `[]`\n\n ```json,options\n {\n     \"options\": {\n         \"ignoreMethods\": [\"render\", \"#serialize\"]\n     }\n }\n ```\n\n In this example, `render` and `#serialize` are ignored, so the rule does not report these methods.\n ```js,use_options\n class Component {\n     render() {}\n     #serialize() {}\n }\n ```\n\n ### `ignoreOverrideMethods`\n\n Whether to ignore `override` methods on subclasses.\n\n Default: `false`\n\n ```json,options\n {\n     \"options\": {\n         \"ignoreOverrideMethods\": true\n     }\n }\n ```\n\n In this example, the method in `Derived` is ignored because it is marked with `override`.\n ```ts,use_options\n abstract class Base {\n     abstract method(): void;\n }\n\n class Derived extends Base {\n     override method() {} // ignored because it has `override`\n }\n ```\n\n ### `ignoreClassesWithImplements`\n\n Controls how classes with an `implements` clause are handled.\n\n Default: `\"none\"`\n\n - `\"none\"` checks classes with an `implements` clause the same way as any other class.\n - `\"all\"` ignores every eligible instance member in classes that implement an interface.\n - `\"public-fields\"` ignores only public eligible members in those classes. Protected and\n   private members are still checked.\n\n ```json,options\n {\n     \"options\": {\n         \"ignoreClassesWithImplements\": \"all\"\n     }\n }\n ```\n\n In this example, every eligible member in a class with an `implements` clause is ignored.\n ```ts,use_options\n interface Service {\n     run(): void;\n }\n\n class ServiceImpl implements Service {\n     run() {}\n }\n ```\n\n ```json,options\n {\n     \"options\": {\n         \"ignoreClassesWithImplements\": \"public-fields\"\n     }\n }\n ```\n\n In this example, only public eligible members are ignored, so `helper` is still reported.\n ```ts,expect_diagnostic,use_options\n interface Service {\n     run(): void;\n }\n\n class ServiceImpl implements Service {\n     run() {}\n     protected helper() {}\n }\n ```\n"
           },
           "useUnicodeRegex": {
             "deprecated": false,
@@ -4746,6 +4860,23 @@ export function GET() {
               }
             ],
             "docs": " Enforce multi-word component names in Vue components.\n\n Using a single-word component name (e.g. `App`, `Header`) can:\n - Conflict with native/custom HTML elements (present or future)\n - Reduce clarity/expressiveness\n\n This rule requires component names to be \"multi-word\".\n\n A name is considered multi-word when:\n - Kebab-case: contains at least one hyphen (`my-component`)\n - PascalCase / CamelCase: contains at least two capital letters (`MyComponent`); single-cap names like `App` or `Foo` are rejected\n\n Component names are extracted from the `name` property in Options API components, or inferred from the file name if not explicitly set.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script>\n export default {\n   name: \"Foo\"\n };\n </script>\n ```\n\n ```js,expect_diagnostic\n import { defineComponent } from \"vue\";\n export default defineComponent({\n   name: \"Header\"\n });\n ```\n\n ```js,expect_diagnostic\n import { createApp } from \"vue\";\n createApp({\n   name: \"Widget\"\n }).mount(\"#app\");\n ```\n\n ### Valid\n\n ```vue\n <script>\n export default {\n   name: \"MyComponent\"\n };\n </script>\n ```\n\n ```js\n export default {\n   name: \"my-component\"\n };\n ```\n\n ```js\n defineComponent({\n   name: \"MyComponent\"\n });\n ```\n\n ```js\n createApp({ name: \"MyApp\" }).mount(\"#app\");\n ```\n\n ## Options\n\n ### `ignores`\n\n Additional single-word component names to ignore (case-insensitive). The rule already ignores Vue built-in components and `App` by default.\n\n ```json,options\n {\n   \"options\": {\n     \"ignores\": [\n       \"Foo\"\n     ]\n   }\n }\n ```\n\n #### Valid\n\n ```vue,use_options\n <script>\n export default {\n   name: \"Foo\"\n };\n </script>\n ```\n\n"
+          },
+          "useVueNextTickPromise": {
+            "deprecated": false,
+            "version": "2.4.15",
+            "name": "useVueNextTickPromise",
+            "link": "https://biomejs.dev/linter/rules/use-vue-next-tick-promise",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintVueJs": "next-tick-style"
+                }
+              }
+            ],
+            "docs": " Enforces Promise syntax when using Vue `nextTick`.\n\n Vue `nextTick` returns a Promise when no callback is passed. Promise syntax composes better with `await` and keeps asynchronous control flow explicit.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script>\n import { nextTick } from \"vue\";\n\n nextTick(() => {\n   // ...\n });\n </script>\n ```\n\n ### Valid\n\n ```vue\n <script>\n import { nextTick } from \"vue\";\n\n await nextTick();\n // ...\n </script>\n ```\n\n"
           }
         },
         "performance": {
@@ -8739,7 +8870,7 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/no-misleading-return-type",
             "recommended": false,
             "fixKind": "none",
-            "docs": " Detect return type annotations that are misleadingly wider than what\n the implementation actually returns.\n\n Reports when a function's explicit return type annotation is wider than\n what TypeScript would infer from the implementation, hiding precise types\n from callers.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=invalid.ts\n function getStatus(b: boolean): string { if (b) return \"loading\"; return \"idle\"; }\n ```\n\n ```ts,expect_diagnostic,file=invalid2.ts\n function getCode(ok: boolean): number { if (ok) return 200; return 404; }\n ```\n\n ```ts,expect_diagnostic,file=invalid3.ts\n class Foo { getStatus(b: boolean): string { if (b) return \"loading\"; return \"idle\"; } }\n ```\n\n ```ts,expect_diagnostic,file=invalid4.ts\n const obj = { getMode(b: boolean): string { if (b) return \"dark\"; return \"light\"; } };\n ```\n\n ```ts,expect_diagnostic,file=invalid5.ts\n function makeData(): object { return { retry: true }; }\n ```\n\n ### Valid\n\n ```ts\n function getStatus() { return \"loading\"; }\n ```\n\n ```ts\n function run(): void { return; }\n ```\n\n ```ts\n class Foo { greet(): string { return \"hello\"; } }\n ```\n\n ## Known limitations\n\n When a return uses a type assertion such as `as T`, the rule does\n not flag the return unless it can prove that `T` is narrower than\n `object`. Trusted cases include `unknown`, `any`, `typeof` queries,\n conditional types, generic type parameters, and types the rule\n cannot resolve. Intersections (`A & B`) are trusted when every\n member is or when any member is `any`; unions (`A | B`) when at\n least one is.\n"
+            "docs": " Detect return type annotations that are misleadingly wider than what\n the implementation actually returns.\n\n Reports when a function's explicit return type annotation is wider than\n what TypeScript would infer from the implementation, hiding precise types\n from callers.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=invalid.ts\n function getStatus(b: boolean): string { if (b) return \"loading\"; return \"idle\"; }\n ```\n\n ```ts,expect_diagnostic,file=invalid2.ts\n function getCode(ok: boolean): number { if (ok) return 200; return 404; }\n ```\n\n ```ts,expect_diagnostic,file=invalid3.ts\n class Foo { getStatus(b: boolean): string { if (b) return \"loading\"; return \"idle\"; } }\n ```\n\n ```ts,expect_diagnostic,file=invalid4.ts\n const obj = { getMode(b: boolean): string { if (b) return \"dark\"; return \"light\"; } };\n ```\n\n ```ts,expect_diagnostic,file=invalid5.ts\n function makeData(): object { return { retry: true }; }\n ```\n\n ### Valid\n\n ```ts\n function getStatus() { return \"loading\"; }\n ```\n\n ```ts\n function run(): void { return; }\n ```\n\n ```ts\n class Foo { greet(): string { return \"hello\"; } }\n ```\n\n ## Known limitations\n\n - Suggested replacement types are only shown when their textual\n   representation is up to 80 characters long. Longer unions fall back to\n   a generic note without the specific suggestion.\n - When a return uses a type assertion such as `as T`, the rule does\n   not flag the return unless it can prove that `T` is narrower than\n   `object`. Trusted cases include `unknown`, `any`, `typeof` queries,\n   conditional types, generic type parameters, and types the rule\n   cannot resolve. Intersections (`A & B`) are trusted when every\n   member is or when any member is `any`; unions (`A | B`) when at\n   least one is.\n"
           },
           "noMisusedPromises": {
             "deprecated": false,
@@ -9332,7 +9463,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 523
+    "numberOrRules": 530
   },
   "syntax": {
     "languages": {
