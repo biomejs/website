@@ -1,0 +1,195 @@
+---
+title: Biome Language Server
+description: Integrate Biome through its Language Server Protocol support, extension settings, and editor workflows.
+---
+
+Biome has [LSP](https://microsoft.github.io/language-server-protocol/) first-class support.
+
+## Supported requests
+
+Below, the list of the supported features that the Biome Language Server supports:
+- [`initialize`](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#initialize)
+- [`initialized`](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#initialized)
+- [`workspace/didChangeConfiguration`](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#workspace_didChangeConfiguration)
+- [`workspace/didChangeWatchedFiles`](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#workspace_didChangeWatchedFiles)
+- [`workspace/didChangeWorkspaceFolders`](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#workspace_didChangeWorkspaceFolders)
+- [`textDocument/didOpen`](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_didOpen)
+- [`textDocument/didChange`](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_didChange)
+- [`textDocument/didSave`](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_didSave)
+- [`textDocument/didClose`](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_didClose)
+- [`textDocument/publishDiagnostics`](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_publishDiagnostics)
+- [`textDocument/codeAction`](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_codeAction)
+- [`codeAction/resolve`](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#codeAction_resolve)
+- [`textDocument/formatting`](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_formatting)
+- [`textDocument/rangeFormatting`](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_rangeFormatting)
+- [`textDocument/onTypeFormatting`](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_onTypeFormatting)
+- [`textDocument/definition`](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_definition)
+
+
+## Extension settings
+
+The Biome Language Server exposes the following settings, which the extension can expose to users.
+
+:::note
+The following settings are meant for **extension developers**, not for users.
+An extension might decide to expose the settings to users with different names, or different formats.
+
+For example, the Zed extension maps the [`require_configuration`](#require-configuration) setting from the setting `require_config_file`, which is defined in a JSONC file.
+:::
+
+### `require_configuration`
+
+**Type**: `boolean` <br />
+**Default**: `false`
+
+Whether the Biome Language Server requires a configuration file. When set to `true`, it won't analyze any file (except for parsing) until there's a `biome.json` file in the root of the project.
+
+```json
+{
+  "require_configuration": true
+}
+```
+
+### `configuration_path`
+
+**Type**: `string` <br />
+**Default**: `null`
+
+A path to a custom configuration file. The path can be the folder where the `biome.json`/`biome.jsonc` is, or a path to a file.
+
+The path can be relative or absolute. The Biome Language Server reads this option only when provided. Use this option when the configuration is *in a subfolder of your project*.
+
+```json
+{
+  "configuration_path": "./frontend/biome.json"
+}
+```
+
+### `inline_config`
+
+**Type**: `object`<br />
+**Default**: `null`
+
+An inline version of the Biome configuration. The options of this configuration will override the options coming from any `biome.json` file read from disk (or the defaults).
+
+For example, let's say your project enables the rule `noConsole` with `error` severity:
+
+```json title="biome.json"
+{
+  "linter": {
+    "rules": {
+      "suspicious": {
+        "noConsole": "error"
+      }
+    }
+  }
+}
+```
+
+However, during local development, you want to disable this rule because it's useful and you don't want to see red squiggles. In your `inline_config`, you would write something like the following:
+
+```json
+{
+  "inline_config": {
+    "linter": {
+      "rules": {
+        "suspicious": {
+          "noConsole": "off"
+        }
+      }
+    }
+  }
+}
+```
+
+### `go_to_definition`
+
+**Type**: `boolean`<br />
+**Default**: `true`
+
+It enables the LSP `textDocument/definition` capabilities using the Biome module graph.
+
+What's supported:
+- Resolve definitions of variables declared in the same file or in another file for JavaScript (and super languages) and HTML-ish files.
+- Resolve definitions of CSS classes used in JSX files and HTML-ish files.
+- Resolve definitions of JSX Components.
+- Resolve definitions of HTML-ish Components.
+
+What's out of scope:
+- Resolve variables defined in dependencies.
+- Resolve variables defined in dependencies that aren't used inside the project.
+
+## Integrate Biome in an editor extension
+
+You can integrate Biome in your editor extension is different ways.
+
+### Use the LSP proxy
+
+Biome has a command called `lsp-proxy`. When executed, Biome will spawn two processes:
+- a [daemon](/internals/architecture#daemon) that does execute the requested operations;
+- a server that functions as a proxy between the requests of the client - the editor - and the server - the daemon;
+
+If your editor is able to interact with a server and send [JSON-RPC](https://www.jsonrpc.org/) request, you only need to configure the editor run that command.
+
+You can check how the [`neo-vim biome extension`](https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/configs/biome.lua) does it.
+
+### Use `stdin`
+
+If your editor doesn't support LSP, you use directly the binary `biome` and call it using [standard input](https://en.wikipedia.org/wiki/Standard_streams#Standard_input_(stdin)).
+
+The following commands can be called via standard input:
+- [`format`](/reference/cli/#biome-format)
+- [`lint`](/reference/cli/#biome-lint)
+- [`check`](/reference/cli/#biome-check)
+
+Biome will return the new output (or the original output if changes haven't occurred) to [standard output](https://en.wikipedia.org/wiki/Standard_streams#Standard_output_(stdout)) and the diagnostics to [standard error](https://en.wikipedia.org/wiki/Standard_streams#Standard_error_(stderr)).
+
+When you use `stdin`, you must pass the `--stdin-file-path` option. The file `path` **doesn't need to exist** in your file system, it can be any name. **What's important** is to provide the correct file extension, so Biome knows **how to treat** your file.
+
+It's the editor's responsibility to locate the resolve the path of the binary and then call it when it's needed. The binaries are shipped to npm based on the architectures and OS that we support:
+
+- `@biomejs/cli-darwin-arm64`
+- `@biomejs/cli-darwin-x64`
+- `@biomejs/cli-linux-arm64`
+- `@biomejs/cli-linux-x64`
+- `@biomejs/cli-win32-arm64`
+- `@biomejs/cli-win32-x64`
+
+The binary name is `biome` or `biome.exe`, and it can be found in the root directory of the library, e.g.: `@biomejs/cli-darwin-arm64/biome`, `@biomejs/cli-win32-x64/biome.exe`.
+
+The language server exposes [some options](/editors/introduction#extension-settings) that editor extension can exposse to users.
+
+### Use the daemon with the binary
+
+Using the binary via CLI is very efficient, although you won't be able to provide [logs](#language-server-logs) to your users. The CLI allows you to bootstrap a daemon and then use the CLI commands through the daemon itself.
+
+In order to do so, you first need to start a daemon process with the [`start`](/reference/cli#biome-start) command:
+
+```shell
+biome start
+```
+Then, every command needs to add the `--use-server` options, e.g.:
+
+```shell
+echo "console.log('')" | biome format --use-server --stdin-file-path=dummy.js
+```
+
+:::note
+If you decide to use the daemon, you're also responsible to restart/kill the process with the [`stop`](/reference/cli#biome-stop) command, to avoid having ghost processes.
+:::
+
+## Language Server logs
+
+The Biome daemon saves logs in your file system. Logs are stored in a folder called `biome-logs`. The path of  this folder changes based on your operative system:
+-  Linux: `~/.cache/biome`;
+-  Windows: `C:\Users\<UserName>\AppData\Local\biomejs\biome\cache`
+-  macOS: `/Users/<UserName>/Library/Caches/dev.biomejs.biome`
+
+For other operative systems, you can find the folder in the system's temporary directory.
+
+To obtain the precise path, execute the following command:
+```shell
+biome explain daemon-logs
+```
+
+The log files are rotated on an hourly basis.
