@@ -19,7 +19,7 @@ This rule is part of the [nursery](/linter/#nursery) group. This means that it i
 - This rule doesn't have a fix.
 - The default severity of this rule is [**information**](/reference/diagnostics#information).
 - Sources: 
-  - Same as [`prefer-destructuring`](https://eslint.org/docs/latest/rules/prefer-destructuring)
+  - Inspired from [`prefer-destructuring`](https://eslint.org/docs/latest/rules/prefer-destructuring)
 
 ## How to configure
 ```json title="biome.json"
@@ -69,6 +69,59 @@ var { bar } = foo;
 ```ts
 // Variables with type annotations are ignored
 const foo: string = object.foo;
+```
+
+## Options
+
+### `variableDeclarator`
+
+Default: `{ "array": true, "object": true }`
+
+Controls whether to enforce destructuring in variable declarations.
+Set `array` or `object` to `false` to disable enforcement for that pattern.
+
+In the following example, array destructuring is disabled in declarations:
+
+```json
+{
+    "//": "...",
+    "options": {
+        "variableDeclarator": {
+            "array": false
+        }
+    }
+}
+```
+
+```js
+var foo = array[0]; // allowed
+var foo = object.foo; // still flagged
+```
+
+### `assignmentExpression`
+
+Default: `{ "array": true, "object": true }`
+
+Controls whether to enforce destructuring in assignment expressions.
+Set `array` or `object` to `false` to disable enforcement for that pattern.
+When enabled for objects, the diagnostic instructs users to wrap in parentheses: `({ prop } = object)`.
+
+In the following example, assignment destructuring is disabled entirely:
+
+```json
+{
+    "//": "...",
+    "options": {
+        "assignmentExpression": {
+            "array": false,
+            "object": false
+        }
+    }
+}
+```
+
+```js
+foo = object.foo; // allowed
 ```
 
 ## Related links

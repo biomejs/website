@@ -3918,7 +3918,7 @@ export function GET() {
               {
                 "kind": "sameLogic",
                 "source": {
-                  "eslintReactNative": "no-color-literals"
+                  "eslintReactNativeIntellicode": "no-color-literals"
                 }
               }
             ],
@@ -4316,13 +4316,13 @@ export function GET() {
             "fixKind": "none",
             "sources": [
               {
-                "kind": "sameLogic",
+                "kind": "inspired",
                 "source": {
                   "eslint": "prefer-destructuring"
                 }
               }
             ],
-            "docs": " Require destructuring from arrays and/or objects\n\n With JavaScript ES6, a new syntax was added for creating variables from an array index or object property,\n called destructuring. This rule enforces usage of destructuring instead of accessing a property through a member expression.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n var foo = array[0];\n ```\n\n ```js,expect_diagnostic\n var bar = foo.bar;\n ```\n\n\n ### Valid\n\n ```js\n var [foo] = array;\n ```\n\n ```js\n var { bar } = foo;\n ```\n\n ```ts\n // Variables with type annotations are ignored\n const foo: string = object.foo;\n ```\n\n"
+            "docs": " Require destructuring from arrays and/or objects\n\n With JavaScript ES6, a new syntax was added for creating variables from an array index or object property,\n called destructuring. This rule enforces usage of destructuring instead of accessing a property through a member expression.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n var foo = array[0];\n ```\n\n ```js,expect_diagnostic\n var bar = foo.bar;\n ```\n\n\n ### Valid\n\n ```js\n var [foo] = array;\n ```\n\n ```js\n var { bar } = foo;\n ```\n\n ```ts\n // Variables with type annotations are ignored\n const foo: string = object.foo;\n ```\n\n ## Options\n\n ### `variableDeclarator`\n\n Default: `{ \"array\": true, \"object\": true }`\n\n Controls whether to enforce destructuring in variable declarations.\n Set `array` or `object` to `false` to disable enforcement for that pattern.\n\n In the following example, array destructuring is disabled in declarations:\n\n ```json\n {\n     \"//\": \"...\",\n     \"options\": {\n         \"variableDeclarator\": {\n             \"array\": false\n         }\n     }\n }\n ```\n\n ```js,ignore\n var foo = array[0]; // allowed\n var foo = object.foo; // still flagged\n ```\n\n ### `assignmentExpression`\n\n Default: `{ \"array\": true, \"object\": true }`\n\n Controls whether to enforce destructuring in assignment expressions.\n Set `array` or `object` to `false` to disable enforcement for that pattern.\n When enabled for objects, the diagnostic instructs users to wrap in parentheses: `({ prop } = object)`.\n\n In the following example, assignment destructuring is disabled entirely:\n\n ```json\n {\n     \"//\": \"...\",\n     \"options\": {\n         \"assignmentExpression\": {\n             \"array\": false,\n             \"object\": false\n         }\n     }\n }\n ```\n\n ```js,ignore\n foo = object.foo; // allowed\n ```\n\n"
           },
           "useDisposables": {
             "deprecated": false,
@@ -4606,7 +4606,7 @@ export function GET() {
               {
                 "kind": "inspired",
                 "source": {
-                  "eslintReactNative": "split-platform-components"
+                  "eslintReactNativeIntellicode": "split-platform-components"
                 }
               }
             ],
@@ -8300,7 +8300,7 @@ export function GET() {
               {
                 "kind": "sameLogic",
                 "source": {
-                  "eslintReactNative": "no-raw-text"
+                  "eslintReactNativeIntellicode": "no-raw-text"
                 }
               }
             ],
