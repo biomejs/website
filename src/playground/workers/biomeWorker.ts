@@ -214,6 +214,7 @@ self.addEventListener("message", async (e) => {
 					},
 				},
 				json: {
+					formatter: {},
 					parser: {
 						allowComments,
 					},
