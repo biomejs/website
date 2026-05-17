@@ -1,11 +1,11 @@
 ---
-title: Daemon requests
-description: List of daemon requests that clients can use.
+title: Daemon methods
+description: List of daemon methods that clients can use.
 ---
 
-The Biome Daemon uses [JSON-RPC](https://www.jsonrpc.org/specification), a series of methods that can be leveraged by third-party clients, such as editor extensions.
+The Biome daemon uses [JSON-RPC](https://www.jsonrpc.org/specification), a lightweight RPC (remote procedure call) protocol that can be leveraged by third-party clients, such as editor extensions.
 
-Each method sends a request with the following JSON payload, where `method` is one of the methods listed on this page. Below is an example of a `biome/open_project` request:
+Clients send requests with the following JSON payload, where `method` is one of the methods listed on this page. Below is an example of a `biome/open_project` request:
 
 ```json
 {
@@ -23,8 +23,8 @@ Each method sends a request with the following JSON payload, where `method` is o
 These methods aren't part of the semantic versioning contract, and may change without notice.
 :::
 
-[//]: # (Start-custom-requests)
-## Custom Requests
+[//]: # (Start-custom-methods)
+## Custom methods
 
 ### `biome/file_features`
 
