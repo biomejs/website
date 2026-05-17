@@ -643,14 +643,14 @@ export default defineConfig({
 				{
 					label: "Biome Language Server",
 					translations: {
-						es: "Biome en tu IDE",
-						fr: "Biome dans votre IDE",
-						ja: "Biome をあなたのエディタに導入する",
-						"zh-CN": "编辑器中使用 Biome",
-						pl: "Biome w Twoim IDE",
-						"pt-BR": "Biome no seu editor",
-						uk: "Biome в вашому IDE",
-						ru: "Biome в вашей IDE",
+						es: "Biome Language Server",
+						fr: "Biome Language Server",
+						ja: "Biome Language Server",
+						"zh-CN": "Biome Language Server",
+						pl: "Biome Language Server",
+						"pt-BR": "Biome Language Server",
+						uk: "Biome Language Server",
+						ru: "Biome Language Server",
 					},
 					items: [
 						{
