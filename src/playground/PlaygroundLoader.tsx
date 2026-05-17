@@ -399,6 +399,7 @@ function initState(
 			lineWidth: Number.parseInt(
 				searchParams.get("lineWidth") ??
 					String(defaultPlaygroundState.settings.lineWidth),
+				10,
 			),
 			indentStyle:
 				(searchParams.get("indentStyle") as IndentStyle) ??
@@ -420,6 +421,7 @@ function initState(
 			indentWidth: Number.parseInt(
 				searchParams.get("indentWidth") ??
 					String(defaultPlaygroundState.settings.indentWidth),
+				10,
 			),
 			semicolons:
 				(searchParams.get("semicolons") as Semicolons) ??
@@ -436,9 +438,6 @@ function initState(
 			bracketSpacing:
 				searchParams.get("bracketSpacing") === "true" ||
 				defaultPlaygroundState.settings.bracketSpacing,
-			delimiterSpacing:
-				searchParams.get("delimiterSpacing") === "true" ||
-				defaultPlaygroundState.settings.delimiterSpacing,
 			bracketSameLine:
 				searchParams.get("bracketSameLine") === "true" ||
 				defaultPlaygroundState.settings.bracketSameLine,
