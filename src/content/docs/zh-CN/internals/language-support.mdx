@@ -7,25 +7,29 @@ description: Biome 的语言支持。
 - ✅：支持
 - 🚫：未在开发中
 - ⌛️：开发中
-- ⚠️：部分支持（可能带有警告）
+- 🟡：实验性
 
-| 语言 | 解析 | 格式化 | 检查 | 插件支持 |
-|-|:-:|:-:|:-:|:-:|
-| [JavaScript](#javascript-支持) | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> |
-| [TypeScript](#typescript-支持) | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> |
-| JSX | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> |
-| TSX | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> |
-| JSON | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> | <span aria-label="未在开发中" role="img">🚫</span> |
-| JSONC | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> | <span aria-label="未在开发中" role="img">🚫</span> |
-| HTML | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> | <span aria-label="支持" role="img">✅</span> | <span aria-label="未在开发中" role="img">🚫</span> |
-| [Vue](#html-超集支持) | <span aria-label="部分支持" role="img">⚠️</span> | <span aria-label="部分支持" role="img">⚠️</span> | <span aria-label="部分支持" role="img">⚠️</span> | <span aria-label="未在开发中" role="img">🚫</span> |
-| [Svelte](#html-超集支持) | <span aria-label="部分支持" role="img">⚠️</span> | <span aria-label="部分支持" role="img">⚠️</span> | <span aria-label="部分支持" role="img">⚠️</span> | <span aria-label="未在开发中" role="img">🚫</span> |
-| [Astro](#html-超集支持) | <span aria-label="部分支持" role="img">⚠️</span> | <span aria-label="部分支持" role="img">⚠️</span> | <span aria-label="部分支持" role="img">⚠️</span> | <span aria-label="未在开发中" role="img">🚫</span> |
-| CSS | <span aria-label="支持" role="img">✅️</span> | <span aria-label="支持" role="img">✅️</span> | <span aria-label="支持" role="img">✅️</span> | <span aria-label="Supported" role="img">✅</span> |
-| [YAML](https://github.com/biomejs/biome/issues/2365) | <span aria-label="开发中" role="img">⌛️</span> | <span aria-label="未在开发中" role="img">🚫</span> | <span aria-label="未在开发中" role="img">🚫</span> | <span aria-label="未在开发中" role="img">🚫</span> |
-| GraphQL | <span aria-label="支持" role="img">✅️</span> | <span aria-label="支持" role="img">✅️</span> | <span aria-label="支持" role="img">✅️</span> | <span aria-label="未在开发中" role="img">🚫</span> |
-| [Markdown](https://github.com/biomejs/biome/issues/3718) | <span aria-label="开发中" role="img">⌛️</span> | <span aria-label="未在开发中" role="img">🚫</span> | <span aria-label="未在开发中" role="img">🚫</span> | <span aria-label="未在开发中" role="img">🚫</span> |
-| GritQL | <span aria-label="支持" role="img">✅️</span> | <span aria-label="支持" role="img">✅️</span> | <span aria-label="未在开发中" role="img">🚫</span> | <span aria-label="未在开发中" role="img">🚫</span> |
+| 语言                                                     | 解析                                                       | 格式化                                                     | 检查                                                         | 插件支持                                                     |
+|----------------------------------------------------------|------------------------------------------------------------|------------------------------------------------------------|--------------------------------------------------------------|--------------------------------------------------------------|
+| [JavaScript](#javascript-支持)                            | <span aria-label="支持" role="img">✅</span>                | <span aria-label="支持" role="img">✅</span>                | <span aria-label="支持" role="img">✅</span>                   | <span aria-label="支持" role="img">✅</span>                   |
+| [TypeScript](#typescript-支持)                            | <span aria-label="支持" role="img">✅</span>                | <span aria-label="支持" role="img">✅</span>                | <span aria-label="支持" role="img">✅</span>                   | <span aria-label="支持" role="img">✅</span>                   |
+| JSX                                                      | <span aria-label="支持" role="img">✅</span>                | <span aria-label="支持" role="img">✅</span>                | <span aria-label="支持" role="img">✅</span>                   | <span aria-label="支持" role="img">✅</span>                   |
+| TSX                                                      | <span aria-label="支持" role="img">✅</span>                | <span aria-label="支持" role="img">✅</span>                | <span aria-label="支持" role="img">✅</span>                   | <span aria-label="支持" role="img">✅</span>                   |
+| JSON                                                     | <span aria-label="支持" role="img">✅</span>                | <span aria-label="支持" role="img">✅</span>                | <span aria-label="支持" role="img">✅</span>                   | <span aria-label="支持" role="img">✅</span>                   |
+| JSONC                                                    | <span aria-label="支持" role="img">✅</span>                | <span aria-label="支持" role="img">✅</span>                | <span aria-label="支持" role="img">✅</span>                   | <span aria-label="支持" role="img">✅</span>                   |
+| HTML*                                                    | <span aria-label="支持" role="img">✅</span>                | <span aria-label="支持" role="img">✅</span>                | <span aria-label="支持" role="img">✅</span>                   | <span aria-label="支持" role="img">✅</span>                   |
+| SVG                                                      | <span aria-label="支持" role="img">✅</span>                | <span aria-label="支持" role="img">✅</span>                | <span aria-label="支持" role="img">✅</span>                   | <span aria-label="支持" role="img">✅</span>                   |
+| [Vue](#html-超集支持)                                      | <span aria-label="实验性" role="img">🟡</span>              | <span aria-label="实验性" role="img">🟡</span>              | <span aria-label="实验性" role="img">🟡</span>                 | <span aria-label="实验性" role="img">🟡</span>                 |
+| [Svelte](#html-超集支持)                                   | <span aria-label="实验性" role="img">🟡</span>              | <span aria-label="实验性" role="img">🟡</span>              | <span aria-label="实验性" role="img">🟡</span>                 | <span aria-label="实验性" role="img">🟡</span>                 |
+| [Astro](#html-超集支持)                                    | <span aria-label="实验性" role="img">🟡</span>              | <span aria-label="实验性" role="img">🟡</span>              | <span aria-label="实验性" role="img">🟡</span>                 | <span aria-label="实验性" role="img">🟡</span>                 |
+| CSS                                                      | <span aria-label="支持" role="img">✅️</span>               | <span aria-label="支持" role="img">✅️</span>               | <span aria-label="支持" role="img">✅️</span>                  | <span aria-label="支持" role="img">✅</span>                   |
+| SCSS                                                     | <span aria-label="开发中" role="img">⌛️</span>             | <span aria-label="开发中" role="img">⌛️</span>             | <span aria-label="未在开发中" role="img">🚫</span>             | <span aria-label="未在开发中" role="img">🚫</span>             |
+| [YAML](https://github.com/biomejs/biome/issues/2365)     | <span aria-label="开发中" role="img">⌛️</span>             | <span aria-label="开发中" role="img">⌛️</span>             | <span aria-label="未在开发中" role="img">🚫</span>             | <span aria-label="未在开发中" role="img">🚫</span>             |
+| GraphQL                                                  | <span aria-label="支持" role="img">✅️</span>               | <span aria-label="支持" role="img">✅️</span>               | <span aria-label="支持" role="img">✅️</span>                  | <span aria-label="未在开发中" role="img">🚫</span>             |
+| [Markdown](https://github.com/biomejs/biome/issues/3718) | <span aria-label="开发中" role="img">⌛️</span>             | <span aria-label="开发中" role="img">⌛️</span>             | <span aria-label="未在开发中" role="img">🚫</span>             | <span aria-label="未在开发中" role="img">🚫</span>             |
+| GritQL                                                   | <span aria-label="支持" role="img">✅️</span>               | <span aria-label="支持" role="img">✅️</span>               | <span aria-label="未在开发中" role="img">🚫</span>             | <span aria-label="未在开发中" role="img">🚫</span>             |
+
+*\* 目前需要[显式启用](/zh-cn/reference/configuration/#html)*
 
 ## JavaScript 支持
 
