@@ -4,15 +4,15 @@ use biome_service::workspace_types::methods;
 use serde_json::Value;
 use std::fs;
 
-const START_MARKER: &str = "\n[//]: # (Start-custom-requests)\n";
-const END_MARKER: &str = "\n[//]: # (End-custom-requests)";
+const START_MARKER: &str = "\n[//]: # (Start-custom-methods)\n";
+const END_MARKER: &str = "\n[//]: # (End-custom-methods)";
 
 pub fn generate_lsp_docs() -> Result<()> {
     let all_methods = methods();
 
     let mut output = String::new();
 
-    output.push_str("## Custom Requests\n\n");
+    output.push_str("## Custom methods\n\n");
 
     for method in &all_methods {
         output.push_str(&format!("### `biome/{}`\n\n", method.name));
@@ -77,6 +77,7 @@ fn primitive_ts_name(schema: &Value) -> Option<&'static str> {
         Some("null") => Some("void"),
         Some("boolean") => Some("boolean"),
         Some("string") => Some("string"),
+        Some("number" | "integer") => Some("number"),
         _ => None,
     }
 }
