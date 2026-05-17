@@ -107,21 +107,32 @@ export default defineConfig({
 		"/guides/editors/first-party-extensions": "/editors/first-party-extensions",
 		"/guides/editors/third-party-extensions": "/editors/third-party-extensions",
 		"/guides/editors/create-an-extension": "/editors/create-an-extension",
-		"/es/guides/editors/first-party-extensions": "/es/editors/first-party-extensions",
-		"/es/guides/editors/third-party-extensions": "/es/editors/third-party-extensions",
+		"/es/guides/editors/first-party-extensions":
+			"/es/editors/first-party-extensions",
+		"/es/guides/editors/third-party-extensions":
+			"/es/editors/third-party-extensions",
 		"/es/guides/editors/create-an-extension": "/es/editors/create-an-extension",
-		"/fr/guides/editors/first-party-extensions": "/fr/editors/first-party-extensions",
-		"/fr/guides/editors/third-party-extensions": "/fr/editors/third-party-extensions",
+		"/fr/guides/editors/first-party-extensions":
+			"/fr/editors/first-party-extensions",
+		"/fr/guides/editors/third-party-extensions":
+			"/fr/editors/third-party-extensions",
 		"/fr/guides/editors/create-an-extension": "/fr/editors/create-an-extension",
-		"/ja/guides/editors/first-party-extensions": "/ja/editors/first-party-extensions",
-		"/ja/guides/editors/third-party-extensions": "/ja/editors/third-party-extensions",
+		"/ja/guides/editors/first-party-extensions":
+			"/ja/editors/first-party-extensions",
+		"/ja/guides/editors/third-party-extensions":
+			"/ja/editors/third-party-extensions",
 		"/ja/guides/editors/create-an-extension": "/ja/editors/create-an-extension",
-		"/pl/guides/editors/first-party-extensions": "/pl/editors/first-party-extensions",
-		"/pl/guides/editors/third-party-extensions": "/pl/editors/third-party-extensions",
+		"/pl/guides/editors/first-party-extensions":
+			"/pl/editors/first-party-extensions",
+		"/pl/guides/editors/third-party-extensions":
+			"/pl/editors/third-party-extensions",
 		"/pl/guides/editors/create-an-extension": "/pl/editors/create-an-extension",
-		"/zh-cn/guides/editors/first-party-extensions": "/zh-cn/editors/first-party-extensions",
-		"/zh-cn/guides/editors/third-party-extensions": "/zh-cn/editors/third-party-extensions",
-		"/zh-cn/guides/editors/create-an-extension": "/zh-cn/editors/create-an-extension",
+		"/zh-cn/guides/editors/first-party-extensions":
+			"/zh-cn/editors/first-party-extensions",
+		"/zh-cn/guides/editors/third-party-extensions":
+			"/zh-cn/editors/third-party-extensions",
+		"/zh-cn/guides/editors/create-an-extension":
+			"/zh-cn/editors/create-an-extension",
 	},
 	integrations: [
 		react(),
