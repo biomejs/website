@@ -52,7 +52,7 @@
   biome_string_case     = { git = "https://github.com/biomejs/biome.git", rev = "dba36d1dacb965a45608277c054667e17ac80b73", version = "0.5.7" }
   biome_test_utils      = { git = "https://github.com/biomejs/biome.git", rev = "dba36d1dacb965a45608277c054667e17ac80b73", version = "0.0.0" }
   biome_text_edit       = { git = "https://github.com/biomejs/biome.git", rev = "dba36d1dacb965a45608277c054667e17ac80b73", version = "0.5.7" }
-  bpaf                  = { version = "0.9.25", features = ["docgen"] }
+  bpaf                  = { version = "0.9.26", features = ["docgen"] }
   # If you update this library, be aware of the breaking changes
   camino                = "1.2.2"
   # Needed to fix some weird dependency
