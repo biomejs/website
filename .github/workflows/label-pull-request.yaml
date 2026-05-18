@@ -10,7 +10,7 @@ permissions:
 jobs:
   label-pull-request:
     name: Label pull request
-    runs-on: depot-ubuntu-24.04-arm-16
+    runs-on: ubuntu-slim
     if: github.repository_owner == 'biomejs'
     steps:
       - uses: actions/labeler@634933edcd8ababfe52f92936142cc22ac488b1b # v6.0.1

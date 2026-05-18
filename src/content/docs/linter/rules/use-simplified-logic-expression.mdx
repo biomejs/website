@@ -1,6 +1,7 @@
 ---
 # Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
 # Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
 
 title: useSimplifiedLogicExpression
 description: Learn more about useSimplifiedLogicExpression
@@ -30,6 +31,9 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 ```
 ## Description
 Discard redundant terms from logical expressions.
+
+The rule applies the [De Morgan's Law](https://en.wikipedia.org/wiki/De_Morgan%27s_laws) rule to simplify logical expressions.
+This means that some simplified expressions that are fixed by the rule might seem less intuitive to read, but they are more efficient to evaluate.
 
 ## Examples
 
@@ -79,7 +83,7 @@ const boolExpr6 = false;
 - [Disable a rule](/linter/#disable-a-rule)
 - [Configure the code fix](/linter#configure-the-code-fix)
 - [Rule options](/linter/#rule-options)
-- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/complexity/use_simplified_logic_expression.rs)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/complexity/use_simplified_logic_expression.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/complexity/useSimplifiedLogicExpression)
 
 </TabItem>

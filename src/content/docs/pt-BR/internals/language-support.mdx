@@ -3,22 +3,33 @@ title: Suporte de linguagens
 description: Linguagens e funcionalidades suportados pelo Biome
 ---
 
-| Linguagem | Análise Sintática | Formatação | Linting |
-| --------- | ----------------- | ---------- | ------- |
-| [JavaScript](#suporte-a-javascript) | <span aria-label="Disponível" role="img">✅</span> | <span aria-label="Disponível" role="img">✅</span> | <span aria-label="Disponível" role="img">✅</span> |
-| [TypeScript](#suporte-a-typescript) | <span aria-label="Disponível" role="img">✅</span> | <span aria-label="Disponível" role="img">✅</span> | <span aria-label="Disponível" role="img">✅</span> |
-| JSX | <span aria-label="Disponível" role="img">✅</span> | <span aria-label="Disponível" role="img">✅</span> | <span aria-label="Disponível" role="img">✅</span> |
-| TSX | <span aria-label="Disponível" role="img">✅</span> | <span aria-label="Disponível" role="img">✅</span> | <span aria-label="Disponível" role="img">✅</span> |
-| JSON | <span aria-label="Disponível" role="img">✅</span> | <span aria-label="Disponível" role="img">✅</span> | <span aria-label="Disponível" role="img">✅</span> |
-| JSONC | <span aria-label="Disponível" role="img">✅</span> | <span aria-label="Disponível" role="img">✅</span> | <span aria-label="Disponível" role="img">✅</span> |
-| HTML | <span aria-label="Disponível" role="img">✅</span> | <span aria-label="Disponível" role="img">✅</span> | <span aria-label="Disponível" role="img">✅</span> |
-| [Vue](#suporte-a-super-linguagens-no-html) | <span aria-label="Não disponível" role="img">🚫</span> | <span aria-label="Não disponível" role="img">🚫</span> | <span aria-label="Não disponível" role="img">🚫</span> |
-| [Svelte](#suporte-a-super-linguagens-no-html) | <span aria-label="Não disponível" role="img">🚫</span> | <span aria-label="Não disponível" role="img">🚫</span> | <span aria-label="Não disponível" role="img">🚫</span> |
-| [Astro](#suporte-a-super-linguagens-no-html) | <span aria-label="Não disponível" role="img">🚫</span> | <span aria-label="Não disponível" role="img">🚫</span> | <span aria-label="Não disponível" role="img">🚫</span> |
-| CSS | <span aria-label="Disponível" role="img">✅️</span> | <span aria-label="Disponível" role="img">✅️</span> | <span aria-label="Disponível" role="img">✅️</span> |
-| [YAML](https://github.com/biomejs/biome/issues/2365) | <span aria-label="Em progresso" role="img">⌛️</span> | <span aria-label="Não disponível" role="img">🚫</span> | <span aria-label="Não disponível" role="img">🚫</span> |
-| GraphQL | <span aria-label="Disponível" role="img">✅️</span> | <span aria-label="Disponível" role="img">✅️</span> | <span aria-label="Disponível" role="img">✅️</span> |
-| [Markdown](https://github.com/biomejs/biome/issues/3718) | <span aria-label="Em progresso" role="img">⌛️</span> | <span aria-label="Não disponível" role="img">🚫</span> | <span aria-label="Não disponível" role="img">🚫</span> |
+Legenda:
+- ✅: Disponível
+- 🚫: Não em andamento
+- ⌛️: Em andamento
+- 🟡: Experimental
+
+| Linguagem                                                | Análise Sintática                                          | Formatação                                                 | Linting                                                      | Suporte de plugins                                           |
+|----------------------------------------------------------|------------------------------------------------------------|------------------------------------------------------------|--------------------------------------------------------------|--------------------------------------------------------------|
+| [JavaScript](#suporte-a-javascript)                      | <span aria-label="Disponível" role="img">✅</span>         | <span aria-label="Disponível" role="img">✅</span>         | <span aria-label="Disponível" role="img">✅</span>            | <span aria-label="Disponível" role="img">✅</span>            |
+| [TypeScript](#suporte-a-typescript)                      | <span aria-label="Disponível" role="img">✅</span>         | <span aria-label="Disponível" role="img">✅</span>         | <span aria-label="Disponível" role="img">✅</span>            | <span aria-label="Disponível" role="img">✅</span>            |
+| JSX                                                      | <span aria-label="Disponível" role="img">✅</span>         | <span aria-label="Disponível" role="img">✅</span>         | <span aria-label="Disponível" role="img">✅</span>            | <span aria-label="Disponível" role="img">✅</span>            |
+| TSX                                                      | <span aria-label="Disponível" role="img">✅</span>         | <span aria-label="Disponível" role="img">✅</span>         | <span aria-label="Disponível" role="img">✅</span>            | <span aria-label="Disponível" role="img">✅</span>            |
+| JSON                                                     | <span aria-label="Disponível" role="img">✅</span>         | <span aria-label="Disponível" role="img">✅</span>         | <span aria-label="Disponível" role="img">✅</span>            | <span aria-label="Disponível" role="img">✅</span>            |
+| JSONC                                                    | <span aria-label="Disponível" role="img">✅</span>         | <span aria-label="Disponível" role="img">✅</span>         | <span aria-label="Disponível" role="img">✅</span>            | <span aria-label="Disponível" role="img">✅</span>            |
+| HTML*                                                    | <span aria-label="Disponível" role="img">✅</span>         | <span aria-label="Disponível" role="img">✅</span>         | <span aria-label="Disponível" role="img">✅</span>            | <span aria-label="Disponível" role="img">✅</span>            |
+| SVG                                                      | <span aria-label="Disponível" role="img">✅</span>         | <span aria-label="Disponível" role="img">✅</span>         | <span aria-label="Disponível" role="img">✅</span>            | <span aria-label="Disponível" role="img">✅</span>            |
+| [Vue](#suporte-a-super-linguagens-no-html)               | <span aria-label="Experimental" role="img">🟡</span>      | <span aria-label="Experimental" role="img">🟡</span>      | <span aria-label="Experimental" role="img">🟡</span>         | <span aria-label="Experimental" role="img">🟡</span>         |
+| [Svelte](#suporte-a-super-linguagens-no-html)            | <span aria-label="Experimental" role="img">🟡</span>      | <span aria-label="Experimental" role="img">🟡</span>      | <span aria-label="Experimental" role="img">🟡</span>         | <span aria-label="Experimental" role="img">🟡</span>         |
+| [Astro](#suporte-a-super-linguagens-no-html)             | <span aria-label="Experimental" role="img">🟡</span>      | <span aria-label="Experimental" role="img">🟡</span>      | <span aria-label="Experimental" role="img">🟡</span>         | <span aria-label="Experimental" role="img">🟡</span>         |
+| CSS                                                      | <span aria-label="Disponível" role="img">✅️</span>        | <span aria-label="Disponível" role="img">✅️</span>        | <span aria-label="Disponível" role="img">✅️</span>           | <span aria-label="Disponível" role="img">✅</span>            |
+| SCSS                                                     | <span aria-label="Em andamento" role="img">⌛️</span>      | <span aria-label="Em andamento" role="img">⌛️</span>      | <span aria-label="Não em andamento" role="img">🚫</span>     | <span aria-label="Não em andamento" role="img">🚫</span>     |
+| [YAML](https://github.com/biomejs/biome/issues/2365)     | <span aria-label="Em andamento" role="img">⌛️</span>      | <span aria-label="Em andamento" role="img">⌛️</span>      | <span aria-label="Não em andamento" role="img">🚫</span>     | <span aria-label="Não em andamento" role="img">🚫</span>     |
+| GraphQL                                                  | <span aria-label="Disponível" role="img">✅️</span>        | <span aria-label="Disponível" role="img">✅️</span>        | <span aria-label="Disponível" role="img">✅️</span>           | <span aria-label="Não em andamento" role="img">🚫</span>     |
+| [Markdown](https://github.com/biomejs/biome/issues/3718) | <span aria-label="Em andamento" role="img">⌛️</span>      | <span aria-label="Em andamento" role="img">⌛️</span>      | <span aria-label="Não em andamento" role="img">🚫</span>     | <span aria-label="Não em andamento" role="img">🚫</span>     |
+| GritQL                                                   | <span aria-label="Disponível" role="img">✅️</span>        | <span aria-label="Disponível" role="img">✅️</span>        | <span aria-label="Não em andamento" role="img">🚫</span>     | <span aria-label="Não em andamento" role="img">🚫</span>     |
+
+*\* atualmente requer [ativação explícita](/reference/configuration/#html)*
 
 ## Suporte a JavaScript
 

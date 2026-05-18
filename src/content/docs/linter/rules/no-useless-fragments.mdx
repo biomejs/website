@@ -1,6 +1,7 @@
 ---
 # Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
 # Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
 
 title: noUselessFragments
 description: Learn more about noUselessFragments
@@ -17,8 +18,8 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - The default severity of this rule is [**information**](/reference/diagnostics#information).
 - Sources: 
   - Same as [`react/jsx-no-useless-fragment`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-no-useless-fragment.md)
-  - Same as [`react-x/no-useless-fragment`](https://eslint-react.xyz/docs/rules/no-useless-fragment)
-  - Same as [`@eslint-react/no-useless-fragment`](https://eslint-react.xyz/docs/rules/no-useless-fragment)
+  - Same as [`react-jsx/no-useless-fragment`](https://eslint-react.xyz/docs/rules/jsx-no-useless-fragment)
+  - Same as [`@eslint-react/jsx-no-useless-fragment`](https://eslint-react.xyz/docs/rules/jsx-no-useless-fragment)
 
 ## How to configure
 ```json title="biome.json"
@@ -85,7 +86,7 @@ foo
 - [Disable a rule](/linter/#disable-a-rule)
 - [Configure the code fix](/linter#configure-the-code-fix)
 - [Rule options](/linter/#rule-options)
-- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/complexity/no_useless_fragments.rs)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/complexity/no_useless_fragments.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/complexity/noUselessFragments)
 
 </TabItem>

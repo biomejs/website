@@ -41,3 +41,7 @@ Biomeは[セマンティックバージョニング](https://semver.org/)に従�
 Visual Studio Codeは、拡張機能について[プレリリースタグをサポートしていません](https://code.visualstudio.com/api/working-with-extensions/publishing-extension#prerelease-extensions)。そのため、Biomeは以下のバージョンスキーマを使用して安定版とプレビュー版を区別します：
 * 安定版リリースは偶数のバージョン番号を使用します：10, 12, 14, 16, ...
 * プレビュー版は奇数のバージョン番号を使用します：11, 13, 15, 17, ...
+
+## バージョンの固定が重要な理由
+
+すべてのチームメンバーとCI環境で同じバージョンのBiomeを使用することを保証するために、 `package.json` でBiomeのバージョンを固定することが重要です。パッチリリースであっても、フォーマットやリントの結果がわずかに変わることがあります。

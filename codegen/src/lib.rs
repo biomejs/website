@@ -6,6 +6,7 @@ pub mod diagnostics;
 pub mod domains;
 pub mod env_variables;
 pub mod lintdoc;
+pub mod lsp;
 pub mod metadata;
 pub mod redirects;
 pub mod rules_sources;
@@ -48,6 +49,10 @@ pub enum CodegenCommand {
     /// Generate redirects
     #[bpaf(command)]
     Redirects,
+
+    /// Generates the LSP custom methods documentation
+    #[bpaf(command)]
+    Lsp,
 
     /// Updates the documentation of the rule pages and the files of a release
     #[bpaf(command)]

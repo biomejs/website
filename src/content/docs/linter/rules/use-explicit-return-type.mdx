@@ -1,0 +1,318 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useExplicitReturnType
+description: Learn more about useExplicitReturnType
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="TypeScript and TSX" icon="seti:typescript">
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.4.11`
+- Diagnostic Category: [`lint/nursery/useExplicitReturnType`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- Sources: 
+  - Inspired from [`@typescript-eslint/explicit-function-return-type`](https://typescript-eslint.io/rules/explicit-function-return-type)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useExplicitReturnType": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Require explicit return types on functions and class methods.
+
+Functions in TypeScript often don't need to be given an explicit return type annotation.
+Leaving off the return type is less code to read or write and allows the compiler to infer it from the contents of the function.
+
+However, explicit return types are required when using TypeScript's
+[isolatedModules](https://www.typescriptlang.org/tsconfig/#isolatedModules) and similar
+single-file transpilation tools, because the compiler cannot perform
+cross-file type inference. Without explicit return types, exported functions may produce
+incomplete or incorrect `.d.ts` declarations.
+
+This rule enforces that functions do have an explicit return type annotation.
+
+## Examples
+
+### Invalid
+
+```ts
+// Should indicate that no value is returned (void)
+function test() {
+  return;
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.ts:2:1 <a href="https://biomejs.dev/linter/rules/use-explicit-return-type">lint/nursery/useExplicitReturnType</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Missing return type on function.</span><br />  <br />    <strong>1 │ </strong>// Should indicate that no value is returned (void)<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>function test() &#123;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>  return;<br />    <strong>4 │ </strong>&#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Declaring the return type makes the code self-documented and can speed up TypeScript type checking.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Add a return type to the function.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule is still being actively worked on, so it may be missing features or have rough edges. Visit </span><span style="color: lightgreen;"><a href="https://github.com/biomejs/biome/issues/2017">https://github.com/biomejs/biome/issues/2017</a></span><span style="color: lightgreen;"> for more information or to report possible bugs.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+```ts
+// Should indicate that a number is returned
+var fn = function () {
+   return 1;
+};
+```
+
+<pre class="language-text"><code class="language-text">code-block.ts:2:10 <a href="https://biomejs.dev/linter/rules/use-explicit-return-type">lint/nursery/useExplicitReturnType</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Missing return type on function.</span><br />  <br />    <strong>1 │ </strong>// Should indicate that a number is returned<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>var fn = function () &#123;<br />   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>   return 1;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>&#125;;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>5 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Declaring the return type makes the code self-documented and can speed up TypeScript type checking.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Add a return type to the function.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule is still being actively worked on, so it may be missing features or have rough edges. Visit </span><span style="color: lightgreen;"><a href="https://github.com/biomejs/biome/issues/2017">https://github.com/biomejs/biome/issues/2017</a></span><span style="color: lightgreen;"> for more information or to report possible bugs.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+```ts
+// Should indicate that a string is returned
+var arrowFn = () => 'test';
+```
+
+<pre class="language-text"><code class="language-text">code-block.ts:2:15 <a href="https://biomejs.dev/linter/rules/use-explicit-return-type">lint/nursery/useExplicitReturnType</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Missing return type on function.</span><br />  <br />    <strong>1 │ </strong>// Should indicate that a string is returned<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>var arrowFn = () =&gt; 'test';<br />   <strong>   │ </strong>              <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Declaring the return type makes the code self-documented and can speed up TypeScript type checking.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Add a return type to the function.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule is still being actively worked on, so it may be missing features or have rough edges. Visit </span><span style="color: lightgreen;"><a href="https://github.com/biomejs/biome/issues/2017">https://github.com/biomejs/biome/issues/2017</a></span><span style="color: lightgreen;"> for more information or to report possible bugs.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+```ts
+class Test {
+  // Should indicate that no value is returned (void)
+  method() {
+    return;
+  }
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.ts:3:3 <a href="https://biomejs.dev/linter/rules/use-explicit-return-type">lint/nursery/useExplicitReturnType</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Missing return type on function.</span><br />  <br />    <strong>1 │ </strong>class Test &#123;<br />    <strong>2 │ </strong>  // Should indicate that no value is returned (void)<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>  method() &#123;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>    return;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>5 │ </strong>  &#125;<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><br />    <strong>6 │ </strong>&#125;<br />    <strong>7 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Declaring the return type makes the code self-documented and can speed up TypeScript type checking.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Add a return type to the function.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule is still being actively worked on, so it may be missing features or have rough edges. Visit </span><span style="color: lightgreen;"><a href="https://github.com/biomejs/biome/issues/2017">https://github.com/biomejs/biome/issues/2017</a></span><span style="color: lightgreen;"> for more information or to report possible bugs.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+The following example is considered incorrect for a higher-order function, as the returned function does not specify a return type:
+
+```ts
+var arrowFn = () => () => {};
+```
+
+<pre class="language-text"><code class="language-text">code-block.ts:1:21 <a href="https://biomejs.dev/linter/rules/use-explicit-return-type">lint/nursery/useExplicitReturnType</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Missing return type on function.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>var arrowFn = () =&gt; () =&gt; &#123;&#125;;<br />   <strong>   │ </strong>                    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Declaring the return type makes the code self-documented and can speed up TypeScript type checking.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Add a return type to the function.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule is still being actively worked on, so it may be missing features or have rough edges. Visit </span><span style="color: lightgreen;"><a href="https://github.com/biomejs/biome/issues/2017">https://github.com/biomejs/biome/issues/2017</a></span><span style="color: lightgreen;"> for more information or to report possible bugs.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+```ts
+var arrowFn = () => {
+  return () => { };
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.ts:2:10 <a href="https://biomejs.dev/linter/rules/use-explicit-return-type">lint/nursery/useExplicitReturnType</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Missing return type on function.</span><br />  <br />    <strong>1 │ </strong>var arrowFn = () =&gt; &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  return () =&gt; &#123; &#125;;<br />   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Declaring the return type makes the code self-documented and can speed up TypeScript type checking.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Add a return type to the function.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule is still being actively worked on, so it may be missing features or have rough edges. Visit </span><span style="color: lightgreen;"><a href="https://github.com/biomejs/biome/issues/2017">https://github.com/biomejs/biome/issues/2017</a></span><span style="color: lightgreen;"> for more information or to report possible bugs.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+The following example is considered incorrect because not all return statements return a function. A higher-order function is only valid when every return statement returns a function expression:
+
+```ts
+function f() {
+  if (x) {
+    return 0;
+  }
+  return (): void => {}
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.ts:1:1 <a href="https://biomejs.dev/linter/rules/use-explicit-return-type">lint/nursery/useExplicitReturnType</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Missing return type on function.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>function f() &#123;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>  if (x) &#123;<br />    <strong>3 │ </strong>    return 0;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Declaring the return type makes the code self-documented and can speed up TypeScript type checking.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Add a return type to the function.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule is still being actively worked on, so it may be missing features or have rough edges. Visit </span><span style="color: lightgreen;"><a href="https://github.com/biomejs/biome/issues/2017">https://github.com/biomejs/biome/issues/2017</a></span><span style="color: lightgreen;"> for more information or to report possible bugs.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+### Valid
+
+```ts
+// No return value should be expected (void)
+function test(): void {
+  return;
+}
+```
+
+```ts
+// A return value of type number
+var fn = function (): number {
+  return 1;
+}
+```
+
+```ts
+// A return value of type string
+var arrowFn = (): string => 'test';
+```
+
+```ts
+class Test {
+  // No return value should be expected (void)
+  method(): void {
+    return;
+  }
+}
+```
+
+The following example is considered correct code for a function immediately returning a value with `as const`:
+
+```ts
+var func = (value: number) => ({ foo: 'bar', value }) as const;
+```
+
+The following examples are considered correct code for a function passed as an argument:
+
+```ts
+// Callbacks without return types
+setTimeout(function() { console.log("Hello!"); }, 1000);
+```
+
+The following example is considered correct code for a higher-order function, where the returned function explicitly specifies a return type and the function body contains only one statement:
+
+```ts
+// the outer function returns an inner function that has a `void` return type
+var arrowFn = () => (): void => {};
+```
+
+```ts
+// the outer function returns an inner function that has a `void` return type
+var arrowFn = () => {
+  return (): void => { };
+}
+```
+
+The following examples are considered correct for type annotations on variables in function expressions:
+
+```ts
+// A function with a type assertion using `as`
+var asTyped = (() => '') as () => string;
+```
+
+```ts
+// A function with a type assertion using `<>`
+var castTyped = <() => string>(() => '');
+```
+
+```ts
+// A variable declarator with a type annotation.
+type FuncType = () => string;
+var arrowFn: FuncType = () => 'test';
+```
+
+```ts
+// A function is a default parameter with a type annotation
+type CallBack = () => void;
+var f = (gotcha: CallBack = () => { }): void => { };
+```
+
+```ts
+// A class property with a type annotation
+type MethodType = () => void;
+class App {
+    private method: MethodType = () => { };
+}
+```
+
+## Options
+
+### `allowExpressions`
+
+When set to `true`, only function declarations and class methods are checked.
+Function expressions (assigned to variables, passed as arguments, etc.) are allowed
+without return types.
+
+Default: `false`
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useExplicitReturnType": {
+					"options": {
+						"allowExpressions": true
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```ts
+// Callbacks and standalone expressions are allowed
+setTimeout(function() { console.log("Hello!"); }, 1000);
+foo(() => 1);
+```
+
+### `allowIifes`
+
+When set to `true`, IIFEs (Immediately Invoked Function Expressions) are allowed
+without explicit return types.
+
+Default: `false`
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useExplicitReturnType": {
+					"options": {
+						"allowIifes": true
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```ts
+// IIFEs are allowed
+(function () {
+  return 1;
+})();
+(() => {
+  return 1;
+})();
+```
+
+### `allowedNames`
+
+An array of function/method names that are allowed to not have explicit return types.
+
+Default: `[]`
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useExplicitReturnType": {
+					"options": {
+						"allowedNames": [
+							"myFunction"
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```ts
+// Functions with allowed names don't need return types
+function myFunction() {
+  return 42;
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_explicit_return_type.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useExplicitReturnType)
+
+</TabItem>
+</Tabs>
+

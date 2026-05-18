@@ -11,7 +11,7 @@ permissions:
 jobs:
   label-issues:
     name: Label issue
-    runs-on: depot-ubuntu-24.04-arm-16
+    runs-on: ubuntu-slim
     steps:
       - name: Label documentation issues
         uses: github/issue-labeler@3431626a3aa0d4dd8cb7e3e8a03c95e45aa89d21

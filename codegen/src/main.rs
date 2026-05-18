@@ -1,6 +1,7 @@
 use codegen::diagnostics::generate_diagnostics;
 use codegen::env_variables::generate_env_variables;
 use codegen::lintdoc::generate_rule_docs;
+use codegen::lsp::generate_lsp_docs;
 use codegen::metadata::{generate_json_metadata, generate_playground_rules};
 use codegen::redirects::generate_redirects;
 use codegen::website::generate_files;
@@ -28,6 +29,7 @@ fn main() -> anyhow::Result<()> {
             generate_files()?;
             generate_env_variables()?;
             generate_json_metadata()?;
+            generate_lsp_docs()?;
         }
         CodegenCommand::Metadata => generate_json_metadata()?,
         CodegenCommand::Env => {
@@ -35,6 +37,9 @@ fn main() -> anyhow::Result<()> {
         }
         CodegenCommand::Diagnostics => {
             generate_diagnostics()?;
+        }
+        CodegenCommand::Lsp => {
+            generate_lsp_docs()?;
         }
     }
 

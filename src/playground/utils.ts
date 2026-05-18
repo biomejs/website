@@ -1,6 +1,6 @@
 import { type Dispatch, type SetStateAction, useEffect, useState } from "react";
-import type { ThemeChanged, ThemeName } from "@/frontend-scripts/util";
-import { getCurrentTheme } from "@/frontend-scripts/util";
+import type { ThemeChanged, ThemeName } from "@/frontend-scripts/util.ts";
+import { getCurrentTheme } from "@/frontend-scripts/util.ts";
 import {
 	emptyBiomeOutput,
 	emptyPrettierOutput,
@@ -9,7 +9,7 @@ import {
 	type PlaygroundFileState,
 	type PlaygroundSettings,
 	type PlaygroundState,
-} from "@/playground/types";
+} from "@/playground/types.ts";
 
 export function classNames(
 	...classes: (string | undefined | boolean)[]
@@ -267,6 +267,10 @@ export function isAstroFilename(filename: string): boolean {
 	return filename.endsWith(".astro");
 }
 
+export function isMarkdownFilename(filename: string): boolean {
+	return filename.endsWith(".md");
+}
+
 export function guessLanguage(filename: string): Language {
 	if (isJsonFilename(filename)) return LANGUAGE.JSON;
 	if (isGraphqlFilename(filename)) return LANGUAGE.GraphQL;
@@ -276,6 +280,7 @@ export function guessLanguage(filename: string): Language {
 	if (isVueFilename(filename)) return LANGUAGE.Vue;
 	if (isSvelteFilename(filename)) return LANGUAGE.Svelte;
 	if (isAstroFilename(filename)) return LANGUAGE.Astro;
+	if (isMarkdownFilename(filename)) return LANGUAGE.Markdown;
 	if (isJsxFilename(filename))
 		return isTypeScriptFilename(filename) ? LANGUAGE.TSX : LANGUAGE.JSX;
 	return isTypeScriptFilename(filename) ? LANGUAGE.TS : LANGUAGE.JS;
@@ -323,6 +328,8 @@ export function getExtension(opts: ExtensionOptions): string {
 			return "svelte";
 		case LANGUAGE.Astro:
 			return "astro";
+		case LANGUAGE.Markdown:
+			return "md";
 		default:
 			throw new Error(
 				`Unsupported language type: ${opts.language satisfies never}`, // must be exhaustive
@@ -341,7 +348,8 @@ export function isValidExtension(filename: string): boolean {
 		isGraphqlFilename(filename) ||
 		isHtmlFilename(filename) ||
 		isFrameworkTemplateFilename(filename) ||
-		isGritFilename(filename)
+		isGritFilename(filename) ||
+		isMarkdownFilename(filename)
 	);
 }
 
@@ -420,4 +428,40 @@ export function spanInBytesToSpanInCodeUnits(
 	spanInCodeUnits[1] = currCodeUnitIndex;
 
 	return spanInCodeUnits;
+}
+
+/**
+ * Convert a byte offset to a code unit offset in a UTF-8 string
+ */
+export function byteOffsetToCodeUnitOffset(
+	byteOffset: number,
+	text: string,
+): number {
+	let byteIndex = 0;
+	let codeUnitIndex = 0;
+
+	for (codeUnitIndex = 0; codeUnitIndex < text.length; codeUnitIndex++) {
+		const codePoint = text.codePointAt(codeUnitIndex) ?? 0;
+		const byteLength =
+			codePoint <= 0x7f
+				? 1
+				: codePoint <= 0x7ff
+					? 2
+					: codePoint <= 0xffff
+						? 3
+						: 4;
+
+		if (byteIndex + byteLength > byteOffset) {
+			break;
+		}
+
+		byteIndex += byteLength;
+
+		// Skip the low surrogate for 4-byte characters (surrogate pairs)
+		if (byteLength === 4) {
+			codeUnitIndex++;
+		}
+	}
+
+	return codeUnitIndex;
 }

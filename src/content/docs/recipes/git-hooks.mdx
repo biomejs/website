@@ -124,13 +124,13 @@ Some examples of configuration:
 - Check formatting and lint before committing
 
   ```shell title=".husky/pre-commit"
-  git-format-staged --formatter 'biome check --files-ignore-unknown=true --no-errors-on-unmatched \"{}\"' .
+  git-format-staged --formatter 'biome check --files-ignore-unknown=true --no-errors-on-unmatched --stdin-file-path="{}"' '*'
   ```
 
 - Format, lint, and apply safe code fixes before committing
 
   ```shell title=".husky/pre-commit"
-  git-format-staged --formatter 'biome check --write --files-ignore-unknown=true --no-errors-on-unmatched \"{}\"' .
+  git-format-staged --formatter 'biome check --write --files-ignore-unknown=true --no-errors-on-unmatched --stdin-file-path="{}"' '*'
   ```
 
 

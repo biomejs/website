@@ -1,6 +1,7 @@
 ---
 # Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
 # Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: "https://github.com/biomejs/website/edit/main/codegen/src/rules_sources.rs"
 
 
 title: Actions sources
@@ -17,10 +18,15 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | ---- | ---- |
 | [no-duplicate-imports](https://eslint.org/docs/latest/rules/no-duplicate-imports) |[organizeImports](/assist/actions/organize-imports) (inspired) |
 | [sort-imports](https://eslint.org/docs/latest/rules/sort-imports) |[organizeImports](/assist/actions/organize-imports) (inspired) |
+| [sort-keys](https://eslint.org/docs/latest/rules/sort-keys) |[useSortedKeys](/assist/actions/use-sorted-keys) (inspired) |
 ### eslint-plugin-better-tailwindcss
 | eslint-plugin-better-tailwindcss Actions name | Biome Actions name |
 | ---- | ---- |
 | [no-duplicate-classes](https://github.com/schoero/eslint-plugin-better-tailwindcss/blob/main/docs/rules/no-duplicate-classes.md) |[noDuplicateClasses](/assist/actions/no-duplicate-classes) (inspired) |
+### eslint-plugin-import
+| eslint-plugin-import Actions name | Biome Actions name |
+| ---- | ---- |
+| [order](https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/order.md) |[organizeImports](/assist/actions/organize-imports) (inspired) |
 ### eslint-plugin-perfectionist
 | eslint-plugin-perfectionist Actions name | Biome Actions name |
 | ---- | ---- |
@@ -30,5 +36,9 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | eslint-plugin-react Actions name | Biome Actions name |
 | ---- | ---- |
 | [jsx-sort-props](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-sort-props.md) |[useSortedAttributes](/assist/actions/use-sorted-attributes) |
+### eslint-plugin-typescript-sort-keys
+| eslint-plugin-typescript-sort-keys Actions name | Biome Actions name |
+| ---- | ---- |
+| [interface](https://github.com/infctr/eslint-plugin-typescript-sort-keys/blob/master/docs/rules/interface.md) |[useSortedInterfaceMembers](/assist/actions/use-sorted-interface-members) (inspired) |
 
 Missing a rule? Help us by [contributing](https://github.com/biomejs/biome/blob/main/CONTRIBUTING.md) to the [analyzer](https://github.com/biomejs/biome/blob/main/crates/biome_analyze/CONTRIBUTING.md) or create a rule suggestion [here](https://github.com/biomejs/biome/discussions/categories/rule-suggestion).

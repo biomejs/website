@@ -16,7 +16,7 @@
   "packageRules": [
     {
       "matchManagers": ["cargo"],
-      "matchDepNames": ["biome_*", "xtask_codegen"],
+      "matchDepNames": ["biome_*"],
       "enabled": false
     }
   ]

@@ -1,6 +1,7 @@
 ---
 # Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
 # Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
 
 title: noMagicNumbers
 description: Learn more about noMagicNumbers
@@ -16,6 +17,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 - This rule doesn't have a fix.
 - The default severity of this rule is [**information**](/reference/diagnostics#information).
 - Sources: 
+  - Inspired from [`no-magic-numbers`](https://eslint.org/docs/latest/rules/no-magic-numbers)
   - Same as [`@typescript-eslint/no-magic-numbers`](https://typescript-eslint.io/rules/no-magic-numbers)
 
 ## How to configure
@@ -75,7 +77,7 @@ let total = price * TAX_RATE;
 - [Disable a rule](/linter/#disable-a-rule)
 - [Configure the code fix](/linter#configure-the-code-fix)
 - [Rule options](/linter/#rule-options)
-- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/no_magic_numbers.rs)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/no_magic_numbers.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/noMagicNumbers)
 
 </TabItem>

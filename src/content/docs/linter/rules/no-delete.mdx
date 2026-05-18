@@ -1,6 +1,7 @@
 ---
 # Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
 # Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
 
 title: noDelete
 description: Learn more about noDelete
@@ -40,6 +41,8 @@ For instance, deleting an array element [does not change the length of the array
 The only legitimate use of `delete` is on an object that behaves like a _map_.
 To allow this pattern, this rule does not report `delete` on computed properties that are not literal values.
 Consider using [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) instead of an object.
+An exception is [`delete process.env.NAME`](https://nodejs.org/api/process.html#processenv),
+which Node.js documents as the way to remove environment variables.
 
 ## Examples
 
@@ -78,12 +81,16 @@ let x = 5;
 delete f(); // uncovered by this rule.
 ```
 
+```js
+delete process.env.FOO;
+```
+
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)
 - [Configure the code fix](/linter#configure-the-code-fix)
 - [Rule options](/linter/#rule-options)
-- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/performance/no_delete.rs)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/performance/no_delete.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/performance/noDelete)
 
 </TabItem>

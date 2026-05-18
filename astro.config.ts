@@ -32,27 +32,27 @@ const plugins = [
 		authors: {
 			arendjr: {
 				name: "Arend van Beelen jr.",
-				picture: "https://github.com/arendjr.png",
+				picture: "https://avatars.githubusercontent.com/u/533294?s=25&v=4",
 				url: "https://arendjr.nl/",
 			},
 			conaclos: {
 				name: "Victorien Elvinger",
-				picture: "https://github.com/conaclos.png",
+				picture: "https://avatars.githubusercontent.com/u/2358560?s=25&v=4",
 				url: "https://bsky.app/profile/conaclos.bsky.social",
 			},
 			dyc3: {
 				name: "Carson McManus",
-				picture: "https://github.com/dyc3.png",
+				picture: "https://avatars.githubusercontent.com/u/1808807?s=25&v=4",
 				url: "https://github.com/dyc3",
 			},
 			ema: {
 				name: "Emanuele Stoppa",
-				picture: "https://github.com/ematipico.png",
+				picture: "https://avatars.githubusercontent.com/u/602478?s=25&v=4",
 				url: "https://bsky.app/profile/ematipico.xyz",
 			},
 			nhedger: {
 				name: "Nicolas Hedger",
-				picture: "https://github.com/nhedger.png",
+				picture: "https://avatars.githubusercontent.com/u/649677?s=25&v=4",
 				url: "https://bsky.app/profile/hedger.ch",
 			},
 			team: {
@@ -104,6 +104,35 @@ export default defineConfig({
 		"/blog/annoucing-biome": "/blog/announcing-biome",
 		"/guides/editors/create-a-extension": "/guides/editors/create-an-extension",
 		"/internals/credits": "/internals/people-and-credits",
+		"/guides/editors/first-party-extensions": "/editors/first-party-extensions",
+		"/guides/editors/third-party-extensions": "/editors/third-party-extensions",
+		"/guides/editors/create-an-extension": "/editors/create-an-extension",
+		"/es/guides/editors/first-party-extensions":
+			"/es/editors/first-party-extensions",
+		"/es/guides/editors/third-party-extensions":
+			"/es/editors/third-party-extensions",
+		"/es/guides/editors/create-an-extension": "/es/editors/create-an-extension",
+		"/fr/guides/editors/first-party-extensions":
+			"/fr/editors/first-party-extensions",
+		"/fr/guides/editors/third-party-extensions":
+			"/fr/editors/third-party-extensions",
+		"/fr/guides/editors/create-an-extension": "/fr/editors/create-an-extension",
+		"/ja/guides/editors/first-party-extensions":
+			"/ja/editors/first-party-extensions",
+		"/ja/guides/editors/third-party-extensions":
+			"/ja/editors/third-party-extensions",
+		"/ja/guides/editors/create-an-extension": "/ja/editors/create-an-extension",
+		"/pl/guides/editors/first-party-extensions":
+			"/pl/editors/first-party-extensions",
+		"/pl/guides/editors/third-party-extensions":
+			"/pl/editors/third-party-extensions",
+		"/pl/guides/editors/create-an-extension": "/pl/editors/create-an-extension",
+		"/zh-cn/guides/editors/first-party-extensions":
+			"/zh-cn/editors/first-party-extensions",
+		"/zh-cn/guides/editors/third-party-extensions":
+			"/zh-cn/editors/third-party-extensions",
+		"/zh-cn/guides/editors/create-an-extension":
+			"/zh-cn/editors/create-an-extension",
 	},
 	integrations: [
 		react(),
@@ -202,10 +231,6 @@ export default defineConfig({
 						{
 							label: "Configure Biome",
 							link: "/guides/configure-biome",
-							badge: {
-								text: "updated",
-								variant: "note",
-							},
 							translations: {
 								es: "Configurar Biome",
 								fr: "Configurer Biome",
@@ -240,60 +265,6 @@ export default defineConfig({
 								pl: "Aktualizacja do Biome v2",
 								ru: "Обновление до Biome v2",
 							},
-						},
-						{
-							label: "Biome in your IDE",
-							translations: {
-								es: "Biome en tu IDE",
-								fr: "Biome dans votre IDE",
-								ja: "Biome をあなたのエディタに導入する",
-								"zh-CN": "编辑器中使用 Biome",
-								pl: "Biome w Twoim IDE",
-								"pt-BR": "Biome no seu editor",
-								uk: "Biome в вашому IDE",
-								ru: "Biome в вашей IDE",
-							},
-							items: [
-								{
-									label: "First-party extensions",
-									link: "/guides/editors/first-party-extensions",
-									translations: {
-										es: "Extensiones de primera mano",
-										fr: "Extensions officielles",
-										ja: "Biome 公式拡張機能",
-										"zh-CN": "官方扩展",
-										pl: "Oficjalne rozszerzenia",
-										uk: "Офіційні розширення",
-										ru: "Официальные расширения",
-									},
-								},
-								{
-									label: "Third-party extensions",
-									link: "/guides/editors/third-party-extensions",
-									translations: {
-										es: "Extensiones de terceros",
-										fr: "Extensions tierces",
-										ja: "サードパーティの拡張機能",
-										"zh-CN": "第三方扩展",
-										pl: "Rozszerzenia stron trzecich",
-										uk: "Розширення сторонніх розробників",
-										ru: "Сторонние расширения",
-									},
-								},
-								{
-									label: "Integrate Biome in an editor extension",
-									link: "/guides/editors/create-an-extension",
-									translations: {
-										es: "Integrar Biome en una extensión para un editor",
-										fr: "Intégrer Biome à une extension pour un éditeur",
-										ja: "エディタ拡張機能への Biome の統合",
-										"zh-CN": "在编辑器扩展中集成 Biome",
-										pl: "Integracja Biome w rozszerzeniu edytora",
-										uk: "Інтеграція Biome в розширення редактора",
-										ru: "Интеграция Biome в расширение редактора",
-									},
-								},
-							],
 						},
 						{
 							label: "Integrate Biome with your VCS",
@@ -665,12 +636,77 @@ export default defineConfig({
 										ru: "Источники действий GraphQL",
 									},
 								},
+								{
+									label: "HTML Actions",
+									link: "/assist/html/actions",
+									translations: {
+										ja: "HTMLアクション",
+										"zh-CN": "HTML 操作",
+										pl: "Akcje HTML",
+										ru: "Действия HTML",
+									},
+								},
+								{
+									label: "HTML Actions sources",
+									link: "/assist/html/sources",
+									translations: {
+										ja: "HTMLアクションのソース",
+										"zh-CN": "HTML 操作来源",
+										pl: "Źródła akcji HTML",
+										ru: "Источники действий HTML",
+									},
+								},
 							],
 							translations: {
 								ja: "アシスト",
 								"zh-CN": "辅助操作",
 								pl: "Asystent",
 								ru: "Действия",
+							},
+						},
+					],
+				},
+				{
+					label: "Biome Language Server",
+					translations: {
+						es: "Biome Language Server",
+						fr: "Biome Language Server",
+						ja: "Biome Language Server",
+						"zh-CN": "Biome Language Server",
+						pl: "Biome Language Server",
+						"pt-BR": "Biome Language Server",
+						uk: "Biome Language Server",
+						ru: "Biome Language Server",
+					},
+					items: [
+						{
+							label: "Introduction",
+							link: "/editors/introduction",
+						},
+						{
+							label: "First-party extensions",
+							link: "/editors/first-party-extensions",
+							translations: {
+								es: "Extensiones de primera mano",
+								fr: "Extensions officielles",
+								ja: "Biome 公式拡張機能",
+								"zh-CN": "官方扩展",
+								pl: "Oficjalne rozszerzenia",
+								uk: "Офіційні розширення",
+								ru: "Официальные расширения",
+							},
+						},
+						{
+							label: "Third-party extensions",
+							link: "/editors/third-party-extensions",
+							translations: {
+								es: "Extensiones de terceros",
+								fr: "Extensions tierces",
+								ja: "サードパーティの拡張機能",
+								"zh-CN": "第三方扩展",
+								pl: "Rozszerzenia stron trzecich",
+								uk: "Розширення сторонніх розробників",
+								ru: "Сторонние расширения",
 							},
 						},
 					],
@@ -774,6 +810,14 @@ export default defineConfig({
 							label: "GritQL",
 							link: "/reference/gritql",
 						},
+						{
+							label: "Daemon requests",
+							link: "/reference/daemon",
+							badge: {
+								text: "new",
+								variant: "success",
+							},
+						},
 					],
 				},
 				{
@@ -832,6 +876,14 @@ export default defineConfig({
 								"zh-CN": "Biome 徽章",
 								pl: "Odznaki społecznościowe",
 								ru: "Социальные значки",
+							},
+						},
+						{
+							label: "GritQL Plugin Recipes",
+							link: "/recipes/gritql-plugins",
+							badge: {
+								text: "new",
+								variant: "success",
 							},
 						},
 					],
@@ -1010,7 +1062,12 @@ export default defineConfig({
 		format: "directory",
 	},
 	image: {
-		domains: ["github.com", "raw.githubusercontent.com", "img.shields.io"],
+		domains: [
+			"github.com",
+			"avatars.githubusercontent.com",
+			"raw.githubusercontent.com",
+			"img.shields.io",
+		],
 	},
 
 	markdown: {
@@ -1027,11 +1084,6 @@ export default defineConfig({
 	},
 
 	vite: {
-		resolve: {
-			alias: {
-				"@": new URL("./src", import.meta.url).pathname,
-			},
-		},
 		plugins: [],
 
 		worker: {
@@ -1048,6 +1100,14 @@ export default defineConfig({
 		define: {
 			PRETTIER_VERSION: JSON.stringify(prettierVersion),
 			BIOME_VERSION: JSON.stringify(biomeVersion),
+		},
+	},
+	experimental: {
+		// rustCompiler: true,
+		queuedRendering: {
+			enabled: true,
+			contentCache: true,
+			poolSize: 2000,
 		},
 	},
 });

@@ -5,10 +5,10 @@ const collectionEntries = await getCollection("docs");
 
 /** Paths for all of our Markdown content we want to generate OG images for. */
 const pages = process.env.SKIP_OG
-	? []
+	? {}
 	: Object.fromEntries(collectionEntries.map(({ id, data }) => [id, data]));
 
-export const { getStaticPaths, GET } = OGImageRoute({
+export const { getStaticPaths, GET } = await OGImageRoute({
 	param: "path",
 
 	pages,
@@ -16,7 +16,7 @@ export const { getStaticPaths, GET } = OGImageRoute({
 	getImageOptions: (_, page) => {
 		return {
 			title: page.title,
-			description: page.description,
+			description: page.description ?? "",
 			logo: {
 				path: "./public/img/logo-avatar.png",
 				size: [200],

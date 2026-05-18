@@ -3,7 +3,7 @@ import CodeMirror from "@/playground/CodeMirror";
 import Collapsible from "@/playground/Collapsible";
 import BiomeHeader from "@/playground/components/BiomeHeader";
 import PrettierHeader from "@/playground/components/PrettierHeader";
-import type { PrettierOutput } from "@/playground/types";
+import type { PrettierOutput } from "@/playground/types.ts";
 
 interface Props {
 	prettier: PrettierOutput;

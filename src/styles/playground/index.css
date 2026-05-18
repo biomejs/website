@@ -1,5 +1,4 @@
 @import "../_variables";
-@import "../_mixins";
 @import "../_global";
 @import "../_grid";
 @import "../_pre";
@@ -9,6 +8,7 @@
 @import "_results";
 @import "_tabs";
 @import "_settings";
+@import "_gritql";
 
 html,
 body {

@@ -1,6 +1,7 @@
 ---
 # Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
 # Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
 
 title: noArrayIndexKey
 description: Learn more about noArrayIndexKey
@@ -19,6 +20,8 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
   - [`react`](/linter/domains#react)
 - Sources: 
   - Same as [`react/no-array-index-key`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-array-index-key.md)
+  - Same as [`react-x/no-array-index-key`](https://eslint-react.xyz/docs/rules/no-array-index-key)
+  - Same as [`@eslint-react/no-array-index-key`](https://eslint-react.xyz/docs/rules/no-array-index-key)
 
 ## How to configure
 ```json title="biome.json"
@@ -100,7 +103,7 @@ something.forEach((item) => {
 - [Disable a rule](/linter/#disable-a-rule)
 - [Configure the code fix](/linter#configure-the-code-fix)
 - [Rule options](/linter/#rule-options)
-- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_array_index_key.rs)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_array_index_key.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noArrayIndexKey)
 
 </TabItem>

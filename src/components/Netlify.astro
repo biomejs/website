@@ -1,9 +1,26 @@
+---
+import { Image } from "astro:assets";
+import darkNetlify from "../assets/sponsors/logo-netlify-large-fullcolor-darkmode.png";
+import lightNetlify from "../assets/sponsors/logo-netlify-large-fullcolor-lightmode.png";
+---
 <div class="not-content">
   <a href="https://www.netlify.com" title="This site is powered by Netlify">
-    <img
-      src="https://www.netlify.com/v3/img/components/netlify-color-bg.svg"
-      alt="This site is powered by Netlify"
-    />
+		<Image
+			alt="Netlify"
+			src={lightNetlify}
+			data-canonical-src={lightNetlify.src}
+			width="300"
+			class="dark:sl-hidden"
+			loading="eager"
+		/>
+		<Image
+			alt="Netlify"
+			src={darkNetlify}
+			data-canonical-src={darkNetlify.src}
+			width="300"
+			class="light:sl-hidden"
+			loading="eager"
+		/>
   </a>
 </div>
 

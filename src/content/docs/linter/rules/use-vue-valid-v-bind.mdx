@@ -1,6 +1,7 @@
 ---
 # Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
 # Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
 
 title: useVueValidVBind
 description: Learn more about useVueValidVBind
@@ -36,11 +37,10 @@ This rule is part of the [nursery](/linter/#nursery) group. This means that it i
 
 ```
 ## Description
-Forbids `v-bind` directives with missing arguments or invalid modifiers.
+Forbids `v-bind` directives with missing values or invalid modifiers.
 
 This rule reports v-bind directives in the following cases:
 
-- The directive does not have an argument. E.g. `<div v-bind></div>`
 - The directive does not have a value. E.g. `<div v-bind:aaa></div>`
 - The directive has invalid modifiers. E.g. `<div v-bind:aaa.bbb="ccc"></div>`
 
@@ -71,7 +71,7 @@ This rule reports v-bind directives in the following cases:
 - [Disable a rule](/linter/#disable-a-rule)
 - [Configure the code fix](/linter#configure-the-code-fix)
 - [Rule options](/linter/#rule-options)
-- [Source Code](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/use_vue_valid_v_bind.rs)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/use_vue_valid_v_bind.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/useVueValidVBind)
 
 </TabItem>

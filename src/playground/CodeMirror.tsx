@@ -2,19 +2,63 @@ import type { Diagnostic as BiomeDiagnostic } from "@biomejs/wasm-web";
 import type { Diagnostic as CodeMirrorDiagnostic } from "@codemirror/lint";
 import { lintGutter, setDiagnostics } from "@codemirror/lint";
 import type { Extension } from "@codemirror/state";
-import { EditorView } from "@codemirror/view";
+import { Annotation, StateField } from "@codemirror/state";
+import { Decoration, type DecorationSet, EditorView } from "@codemirror/view";
 import type {
 	ReactCodeMirrorProps,
 	ReactCodeMirrorRef,
 } from "@uiw/react-codemirror";
 import RealCodeMirror from "@uiw/react-codemirror";
 import { forwardRef, useEffect, useMemo, useState } from "react";
-import { spanInBytesToSpanInCodeUnits, useTheme } from "@/playground/utils";
+
+import { spanInBytesToSpanInCodeUnits, useTheme } from "./utils";
 
 export type BiomeExtension = Extension;
 
+const yellowHighlight = Decoration.mark({ class: "gritql-match" });
+
+const gritQueryMatchesAnnotation = Annotation.define<[number, number][]>();
+
+function buildDecorations(
+	matches: [number, number][],
+	doc: string,
+): DecorationSet {
+	const decorations = [];
+
+	for (const [from, to] of matches) {
+		const [codeUnitFrom, codeUnitTo] = spanInBytesToSpanInCodeUnits(
+			[from, to],
+			doc,
+		);
+		if (codeUnitFrom === codeUnitTo) {
+			// Don't render zero-length matches. They throw errors that kill rendering.
+			continue;
+		}
+		decorations.push(yellowHighlight.range(codeUnitFrom, codeUnitTo));
+	}
+
+	return Decoration.set(decorations);
+}
+
+const gritQueryMatchesField = StateField.define<DecorationSet>({
+	create() {
+		return Decoration.none;
+	},
+	update(matches, tr) {
+		const newMatches = tr.annotation(gritQueryMatchesAnnotation);
+		if (newMatches !== undefined) {
+			return buildDecorations(newMatches, tr.state.doc.toString());
+		}
+		return matches.map(tr.changes);
+	},
+	provide: (f) => {
+		return EditorView.decorations.from(f);
+	},
+});
+
 interface Props extends ReactCodeMirrorProps {
 	diagnostics?: BiomeDiagnostic[];
+	gritQueryMatches?: [number, number][];
 }
 
 function getDiagnosticMessage(diagnostic: BiomeDiagnostic): string {
@@ -73,29 +117,30 @@ function biomeDiagnosticsToCodeMirror(
 	return codeMirror;
 }
 
-function getDefaultExtensions(extensions: Extension[] = []) {
-	return [EditorView.lineWrapping, ...extensions];
-}
-
 export default forwardRef<ReactCodeMirrorRef, Props>(function CodeMirror(
-	{ diagnostics, ...props },
+	{ diagnostics, gritQueryMatches, ...props },
 	ref,
 ) {
 	const theme = useTheme();
 
 	const [editor, setEditor] = useState<EditorView>();
 
-	function onCreateEditor(editor: EditorView) {
-		setEditor(editor);
-	}
-
 	const extensions = useMemo(() => {
-		if (diagnostics === undefined || diagnostics.length === 0) {
-			return getDefaultExtensions(props.extensions);
+		const baseExtensions = [
+			EditorView.lineWrapping,
+			...(props.extensions ?? []),
+		];
+
+		if (gritQueryMatches && gritQueryMatches.length > 0) {
+			return [gritQueryMatchesField, ...baseExtensions];
 		}
 
-		return [lintGutter(), ...getDefaultExtensions(props.extensions)];
-	}, [diagnostics, props.extensions]);
+		if (diagnostics === undefined || diagnostics.length === 0) {
+			return baseExtensions;
+		}
+
+		return [lintGutter(), ...baseExtensions];
+	}, [diagnostics, props.extensions, gritQueryMatches]);
 
 	useEffect(() => {
 		if (editor !== undefined && diagnostics !== undefined) {
@@ -111,11 +156,19 @@ export default forwardRef<ReactCodeMirrorRef, Props>(function CodeMirror(
 		}
 	}, [editor, diagnostics]);
 
+	useEffect(() => {
+		if (editor !== undefined && gritQueryMatches !== undefined) {
+			editor.dispatch({
+				annotations: [gritQueryMatchesAnnotation.of(gritQueryMatches)],
+			});
+		}
+	}, [editor, gritQueryMatches]);
+
 	return (
 		<RealCodeMirror
 			{...props}
 			extensions={extensions}
-			onCreateEditor={onCreateEditor}
+			onCreateEditor={setEditor}
 			ref={ref}
 			theme={theme}
 		/>

@@ -1,5 +1,4 @@
 @import "../../styles/_variables";
-@import "../../styles/_mixins";
 
 .code-pane {
 	display: flex;
