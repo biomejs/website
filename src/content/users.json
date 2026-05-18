@@ -90,6 +90,12 @@
     "featured": true
   },
   {
+    "id": "Hashiverse",
+    "logo": "@/assets/users/hashiverse.png",
+    "url": "https://github.com/hashiverse",
+    "featured": false
+  },
+  {
     "id": "Harvard Medical School - Department of Biomedical Informatics",
     "logo": "@/assets/users/hms-dbmi.png",
     "url": "https://github.com/hms-dbmi",
