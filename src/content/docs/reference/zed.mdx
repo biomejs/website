@@ -199,6 +199,6 @@ You can exclude biome for a given language (e.g. GraphQL) on project with:
 
 ### Global Settings
 
-It is not recommended to add `biome` to top-level `language_servers`, `formatter` or `code_actions_on_format` keys in your Zed setting.json. Specifying biome as `language_server` or `formatter` globally may break functionality for languages that biome does not support (Rust, Python, etc).  See [language support](/internals/language-support) for a complete list of supported languages.
+It is not recommended to add `biome` to top-level `language_servers`, `formatter` or `code_actions_on_format` keys in your Zed `settings.json`. Specifying biome as `language_server` or `formatter` globally may break functionality for languages that biome does not support (Rust, Python, etc).  See [language support](/internals/language-support) for a complete list of supported languages.
 
 This documentation previously recommended global settings; please switch your Zed settings to explicitly configure biome on a per language basis.
