@@ -136,6 +136,8 @@ re-enable them one by one to identify the problematic configuration.
 For example, if your `eslint.config.js` looks like this:
 
 ```js title="eslint.config.js"
+import { defineConfig } from 'eslint';
+import jsxA11y from 'eslint-plugin-jsx-a11y';
 import react from '@eslint-react/eslint-plugin';
 import stylistic from '@stylistic/eslint-plugin';
 import tsEslint from 'typescript-eslint';
@@ -155,6 +157,12 @@ export default defineConfig([
 Try commenting out the problematic entries and re-running the migration:
 
 ```js title="eslint.config.js"
+import { defineConfig } from 'eslint';
+import jsxA11y from 'eslint-plugin-jsx-a11y';
+import react from '@eslint-react/eslint-plugin';
+import stylistic from '@stylistic/eslint-plugin';
+import tsEslint from 'typescript-eslint';
+
 export default defineConfig([
   // react.configs.recommended,
   // jsxA11y.flatConfigs.recommended,
