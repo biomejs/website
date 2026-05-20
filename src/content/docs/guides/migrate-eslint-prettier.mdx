@@ -125,10 +125,51 @@ Note that you are unlikely to get exactly the same behavior as ESLint because Bi
 Since ESLint takes VCS ignore files into account,
 we recommend that you enable Biome's [VCS integration](/guides/integrate-in-vcs).
 
-:::caution
+::::caution
 Some plugins or shared configurations may export an object with a cyclic reference.
 Biome may fail to load such a configuration.
-:::
+
+**Workaround:** If the migration fails with a cyclic reference error, temporarily comment out
+the plugins or shared configurations that are causing the issue, run the migration, and then
+re-enable them one by one to identify the problematic configuration.
+
+For example, if your `eslint.config.js` looks like this:
+
+```js title="eslint.config.js"
+import react from '@eslint-react/eslint-plugin';
+import stylistic from '@stylistic/eslint-plugin';
+import tsEslint from 'typescript-eslint';
+
+export default defineConfig([
+  react.configs.recommended,   // may cause cyclic reference
+  jsxA11y.flatConfigs.recommended, // may cause cyclic reference
+  {
+    plugins: {
+      '@stylistic': stylistic,           // may cause cyclic reference
+      '@typescript-eslint': tsEslint.plugin, // may cause cyclic reference
+    },
+  }
+]);
+```
+
+Try commenting out the problematic entries and re-running the migration:
+
+```js title="eslint.config.js"
+export default defineConfig([
+  // react.configs.recommended,
+  // jsxA11y.flatConfigs.recommended,
+  {
+    plugins: {
+      // '@stylistic': stylistic,
+      // '@typescript-eslint': tsEslint.plugin,
+    },
+  }
+]);
+```
+
+Once the migration is complete, you can restore and manually configure any
+rules from those plugins in your new `biome.json`.
+::::
 
 ## Migrate from Prettier
 
