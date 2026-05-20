@@ -18,13 +18,11 @@ Is there a extension for an editor that isn't listed here? Please file a PR and 
 
 ### Helix
 
-Currently, biome supports the following file extensions: `js`, `jsx`, `ts`, `tsx`, `d.ts`, `json` and `jsonc`.
+Biome has an `lsp-proxy` command that acts as a server for the Language Server Protocol over stdin/stdout. Helix 23.10 introduced [support for multiple language servers](https://github.com/helix-editor/helix/pull/2507), allowing you to use Biome alongside other servers like `typescript-language-server`.
 
-Biome has an `lsp-proxy` command that acts as a server for the Language Server Protocol over stdin/stdout.
+#### Using Biome globally
 
-#### Helix 23.10
-
-Helix 23.10 has [support for multiple language servers](https://github.com/helix-editor/helix/pull/2507). Now you can use biome alongside `typescript-language-server`.
+To use Biome globally, you can set it as the formatter in your `languages.toml` file.
 
 ```toml
 [language-server.biome]
@@ -40,25 +38,31 @@ linter.rules.suspicious.noConsole = "off"
 name = "javascript"
 language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
 auto-format = true
+```
+
+#### Using Biome by project
+
+If you want Helix to correctly apply your project-specific settings, you must specify the `roots` array. This tells Helix to detect the project root based on the presence of Biome's configuration files.
+
+```toml
+[language-server.biome]
+command = "biome"
+args = ["lsp-proxy"]
 
 [[language]]
-name = "typescript"
+name = "javascript"
+roots = ["biome.json", "biome.jsonc", "package.json"]
 language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
 auto-format = true
+```
 
-[[language]]
-name = "tsx"
-auto-format = true
-language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
+#### Configuring other languages
 
-[[language]]
-name = "jsx"
-auto-format = true
-language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
+Biome supports formatting and linting for many languages, not just JavaScript. To configure Biome for other languages (such as TypeScript, JSON, or CSS), add a new `[[language]]` block to your configuration and specify the appropriate language server.
 
-[[language]]
-name = "json"
-language-servers = [ { name = "vscode-json-language-server", except-features = [ "format" ] }, "biome" ]
+For reference, see:
+- [Languages supported by Biome](https://biomejs.dev/internals/language-support/)
+- [LSP language identifiers](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocumentItem)
 ```
 
 ### Video record
