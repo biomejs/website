@@ -7,14 +7,7 @@ In some cases, Biome has intentionally decided to format code in a way that does
 
 ## Known limitations compared to Prettier
 
-While Biome scores highly on compatibility for supported languages, there are a few features that are not currently implemented:
-
-- **Embedded language formatting** (e.g. formatting JavaScript inside an HTML `<script>` tag or CSS in a `<style>` block) is [not yet supported](https://github.com/biomejs/biome/issues/3334).
-- **Markdown formatting** is [currently in progress](https://github.com/biomejs/biome/issues/3718).
-- **YAML formatting** is not supported.
-- **Framework-specific files** like `.vue`, `.svelte`, and `.astro` are not natively supported by the formatter.
-
-If your project relies heavily on these, you can easily use Prettier alongside Biome as a fallback to format only the file types that Biome doesn't support.
+Biome does not yet support formatting for all languages and frameworks. For a detailed breakdown of what is currently supported, please see our [language support page](https://biomejs.dev/internals/language-support/).
 
 ## Prettier doesn't unquote some object properties that are valid JavaScript identifiers.
 
