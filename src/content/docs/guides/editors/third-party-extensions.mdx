@@ -18,7 +18,7 @@ Is there a extension for an editor that isn't listed here? Please file a PR and 
 
 ### Helix
 
-Biome has an `lsp-proxy` command that acts as a server for the Language Server Protocol over stdin/stdout. Helix 23.10 introduced [support for multiple language servers](https://github.com/helix-editor/helix/pull/2507), allowing you to use Biome alongside other servers like `typescript-language-server`.
+Biome has an `lsp-proxy` command that acts as a server for the Language Server Protocol over stdin/stdout.
 
 #### Using Biome globally
 
@@ -42,7 +42,7 @@ auto-format = true
 
 #### Using Biome by project
 
-If you want Helix to correctly apply your project-specific settings, you must specify the `roots` array. This tells Helix to detect the project root based on the presence of Biome's configuration files.
+If you want Helix to correctly apply your project-specific settings, you must add Biome configuration file to the `roots` field. This tells Helix to detect the project root based on the presence of Biome's configuration files.
 
 ```toml
 [language-server.biome]
@@ -50,7 +50,7 @@ command = "biome"
 args = ["lsp-proxy"]
 
 [[language]]
-name = "javascript"
+name = "typescript"
 roots = ["biome.json", "biome.jsonc", "package.json"]
 language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
 auto-format = true
