@@ -5,6 +5,10 @@ description: In-depth explanation of the differences with Prettier.
 
 In some cases, Biome has intentionally decided to format code in a way that doesn't match Prettier's output. These divergences are explained below.
 
+## Known limitations compared to Prettier
+
+Biome does not yet support formatting for all languages and frameworks. For a detailed breakdown of what is currently supported, please see our [language support page](https://biomejs.dev/internals/language-support/).
+
 ## Prettier doesn't unquote some object properties that are valid JavaScript identifiers.
 
 Prettier and Biome unquote object and class properties that are valid JavaScript identifiers.
