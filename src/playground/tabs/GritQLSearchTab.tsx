@@ -1,4 +1,4 @@
-import type { GritTargetLanguage } from "@biomejs/wasm-web";
+import type { SearchLanguage } from "@biomejs/wasm-web";
 import { EditorSelection } from "@codemirror/state";
 import type { ReactCodeMirrorRef } from "@uiw/react-codemirror";
 import type { RefObject } from "react";
@@ -12,9 +12,9 @@ interface Props {
 	code: string;
 	gritQuery: string;
 	gritQueryResults: { matches: [number, number][]; error: string | undefined };
-	gritTargetLanguage: GritTargetLanguage;
+	searchLanguage: SearchLanguage;
 	onGritQueryChange: (query: string) => void;
-	onLanguageChange: (language: GritTargetLanguage) => void;
+	onLanguageChange: (language: SearchLanguage) => void;
 }
 
 export default function GritQLSearchTab({
@@ -22,7 +22,7 @@ export default function GritQLSearchTab({
 	code,
 	gritQuery,
 	gritQueryResults,
-	gritTargetLanguage,
+	searchLanguage,
 	onGritQueryChange,
 	onLanguageChange,
 }: Props) {
@@ -49,10 +49,8 @@ export default function GritQLSearchTab({
 			<div className="gritql-stats">
 				<select
 					className="gritql-select"
-					value={gritTargetLanguage}
-					onChange={(e) =>
-						onLanguageChange(e.target.value as GritTargetLanguage)
-					}
+					value={searchLanguage}
+					onChange={(e) => onLanguageChange(e.target.value as SearchLanguage)}
 				>
 					<option value="JavaScript">JavaScript</option>
 					<option value="CSS">CSS</option>

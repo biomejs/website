@@ -1,8 +1,8 @@
 import type {
 	Diagnostic,
 	FixFileMode,
-	GritTargetLanguage,
 	RuleDomains,
+	SearchLanguage,
 } from "@biomejs/wasm-web";
 import type { parser } from "codemirror-lang-rome-ast";
 import type { Dispatch, SetStateAction } from "react";
@@ -246,7 +246,7 @@ export interface PlaygroundSettings {
 	experimentalFullSupportEnabled: boolean;
 	cssModules: boolean;
 	tailwindDirectives: boolean;
-	gritTargetLanguage: GritTargetLanguage;
+	searchLanguage: SearchLanguage;
 }
 
 export interface PlaygroundFileState {
@@ -307,7 +307,7 @@ export const defaultPlaygroundState: PlaygroundState = {
 		experimentalFullSupportEnabled: true,
 		cssModules: false,
 		tailwindDirectives: true,
-		gritTargetLanguage: "JavaScript",
+		searchLanguage: "js",
 	},
 };
 

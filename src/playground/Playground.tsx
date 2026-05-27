@@ -70,7 +70,7 @@ export default function Playground({
 	const prettierOutput = file.prettier;
 	const gritQuery = file.gritQuery ?? "";
 	const gritQueryResults = biomeOutput.gritQuery ?? { matches: [] };
-	const gritTargetLanguage = playgroundState.settings.gritTargetLanguage;
+	const searchLanguage = playgroundState.settings.searchLanguage;
 
 	const codeMirrorExtensions = useMemo(() => {
 		if (isJsonFilename(playgroundState.currentFile)) {
@@ -338,7 +338,7 @@ export default function Playground({
 							code={code}
 							gritQuery={gritQuery}
 							gritQueryResults={gritQueryResults}
-							gritTargetLanguage={gritTargetLanguage}
+							searchLanguage={searchLanguage}
 							onGritQueryChange={(query) => {
 								setPlaygroundState((state) => ({
 									...state,
@@ -405,7 +405,7 @@ export default function Playground({
 						code={code}
 						gritQuery={gritQuery}
 						gritQueryResults={gritQueryResults}
-						gritTargetLanguage={gritTargetLanguage}
+						searchLanguage={searchLanguage}
 						currentPane={playgroundState.pane}
 						setPlaygroundState={setPlaygroundState}
 						onGritQueryChange={(query) => {

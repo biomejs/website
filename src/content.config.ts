@@ -19,7 +19,7 @@ export const collections = {
 			return z.object({
 				id: z.string(),
 				logo: image(),
-				url: z.string().url(),
+				url: z.url(),
 				featured: z.boolean(),
 			});
 		},
