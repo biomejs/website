@@ -254,14 +254,14 @@ function PlaygroundLoader() {
 				filename: state.currentFile,
 				code: getCurrentCode(state),
 				gritQuery: file?.gritQuery,
-				defaultLanguage: state.settings.gritTargetLanguage,
+				defaultLanguage: state.settings.searchLanguage,
 			});
 		});
 	}, [
 		loadingState,
 		state.currentFile,
 		state.cursorPosition,
-		state.settings.gritTargetLanguage,
+		state.settings.searchLanguage,
 		getCurrentCode(state),
 		getFileState(state, state.currentFile)?.gritQuery,
 	]);
@@ -513,11 +513,12 @@ function initState(
 			tailwindDirectives:
 				searchParams.get("tailwindDirectives") === "true" ||
 				defaultPlaygroundState.settings.tailwindDirectives,
-			gritTargetLanguage:
-				(searchParams.get("gritTargetLanguage") as
-					| "JavaScript"
-					| "CSS"
-					| undefined) ?? defaultPlaygroundState.settings.gritTargetLanguage,
+			searchLanguage:
+				(searchParams.get("searchLanguage") as
+					| "js"
+					| "css"
+					| "json"
+					| undefined) ?? defaultPlaygroundState.settings.searchLanguage,
 		},
 	};
 }
