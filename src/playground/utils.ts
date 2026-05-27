@@ -271,6 +271,10 @@ export function isMarkdownFilename(filename: string): boolean {
 	return filename.endsWith(".md");
 }
 
+export function isYamlFilename(filename: string): boolean {
+	return filename.endsWith(".yaml") || filename.endsWith(".yml");
+}
+
 export function guessLanguage(filename: string): Language {
 	if (isJsonFilename(filename)) return LANGUAGE.JSON;
 	if (isGraphqlFilename(filename)) return LANGUAGE.GraphQL;
@@ -281,6 +285,7 @@ export function guessLanguage(filename: string): Language {
 	if (isSvelteFilename(filename)) return LANGUAGE.Svelte;
 	if (isAstroFilename(filename)) return LANGUAGE.Astro;
 	if (isMarkdownFilename(filename)) return LANGUAGE.Markdown;
+	if (isYamlFilename(filename)) return LANGUAGE.YAML;
 	if (isJsxFilename(filename))
 		return isTypeScriptFilename(filename) ? LANGUAGE.TSX : LANGUAGE.JSX;
 	return isTypeScriptFilename(filename) ? LANGUAGE.TS : LANGUAGE.JS;
@@ -330,6 +335,8 @@ export function getExtension(opts: ExtensionOptions): string {
 			return "astro";
 		case LANGUAGE.Markdown:
 			return "md";
+		case LANGUAGE.YAML:
+			return "yaml";
 		default:
 			throw new Error(
 				`Unsupported language type: ${opts.language satisfies never}`, // must be exhaustive
@@ -349,7 +356,8 @@ export function isValidExtension(filename: string): boolean {
 		isHtmlFilename(filename) ||
 		isFrameworkTemplateFilename(filename) ||
 		isGritFilename(filename) ||
-		isMarkdownFilename(filename)
+		isMarkdownFilename(filename) ||
+		isYamlFilename(filename)
 	);
 }
 

@@ -4,6 +4,7 @@ import { javascript } from "@codemirror/lang-javascript";
 import { json } from "@codemirror/lang-json";
 import { markdown } from "@codemirror/lang-markdown";
 import { vue } from "@codemirror/lang-vue";
+import { yaml } from "@codemirror/lang-yaml";
 import { EditorSelection } from "@codemirror/state";
 import type { ViewUpdate } from "@codemirror/view";
 import { svelte } from "@replit/codemirror-lang-svelte";
@@ -53,6 +54,7 @@ import {
 	isSvelteFilename,
 	isTypeScriptFilename,
 	isVueFilename,
+	isYamlFilename,
 	useWindowSize,
 } from "./utils";
 
@@ -93,6 +95,9 @@ export default function Playground({
 		}
 		if (isMarkdownFilename(playgroundState.currentFile)) {
 			return [markdown()];
+		}
+		if (isYamlFilename(playgroundState.currentFile)) {
+			return [yaml()];
 		}
 		const jsx = isJsxFilename(playgroundState.currentFile);
 		const typescript = isTypeScriptFilename(playgroundState.currentFile);

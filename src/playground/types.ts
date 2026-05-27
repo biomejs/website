@@ -210,6 +210,7 @@ export const LANGUAGE = {
 	Svelte: "svelte",
 	Astro: "astro",
 	Markdown: "md",
+	YAML: "yaml",
 } as const;
 
 export type Language = (typeof LANGUAGE)[keyof typeof LANGUAGE];
