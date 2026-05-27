@@ -134,7 +134,7 @@ importers:
         version: 3.8.3
       prettier-plugin-svelte:
         specifier: 3.5.2
-        version: 3.5.2(prettier@3.8.3)(svelte@5.55.7)
+        version: 3.5.2(prettier@3.8.3)(svelte@5.55.9(@typescript-eslint/types@8.58.1))
       react:
         specifier: 19.2.6
         version: 19.2.6
@@ -163,8 +163,8 @@ importers:
         specifier: 0.24.0
         version: 0.24.0(@astrojs/starlight@0.39.2(astro@6.3.3(@netlify/blobs@10.7.7)(@types/node@24.12.4)(jiti@2.6.1)(rollup@4.60.1)(yaml@2.8.3))(typescript@5.9.3))(astro@6.3.3(@netlify/blobs@10.7.7)(@types/node@24.12.4)(jiti@2.6.1)(rollup@4.60.1)(yaml@2.8.3))
       svelte:
-        specifier: 5.55.7
-        version: 5.55.7
+        specifier: 5.55.9
+        version: 5.55.9(@typescript-eslint/types@8.58.1)
       textlint:
         specifier: 15.6.0
         version: 15.6.0
@@ -1768,6 +1768,11 @@ packages:
 
   '@so-ric/colorspace@1.1.6':
     resolution: {integrity: sha512-/KiKkpHNOBgkFJwu9sh48LkHSMYGyuTcSFK/qMBdnOAlrRJzRSXAOFB5qwzaVQuDl8wAvHVMkaASQDReTahxuw==}
+
+  '@sveltejs/acorn-typescript@1.0.10':
+    resolution: {integrity: sha512-4WfKk68eTih+MiJD4fSbxN7E8kVBmTMPWHUPYjvl2N0rMs53YLTT8/YjKU5Dtnz5LqDjl7LEw4U7lXR2W3J5WA==}
+    peerDependencies:
+      acorn: ^8.9.0
 
   '@sveltejs/acorn-typescript@1.0.9':
     resolution: {integrity: sha512-lVJX6qEgs/4DOcRTpo56tmKzVPtoWAaVbL4hfO7t7NVwl9AAXzQR6cihesW1BmNMPl+bK6dreu2sOKBP2Q9CIA==}
@@ -3376,8 +3381,13 @@ packages:
     engines: {node: '>=4'}
     hasBin: true
 
-  esrap@2.2.4:
-    resolution: {integrity: sha512-suICpxAmZ9A8bzJjEl/+rLJiDKC0X4gYWUxT6URAWBLvlXmtbZd5ySMu/N2ZGEtMCAmflUDPSehrP9BQcsGcSg==}
+  esrap@2.2.9:
+    resolution: {integrity: sha512-4KijP+NxCWthMCUC3qHbE6n4vCjqgJS1uAYKhuT/GWfFTf1Qyive2TgOjep+gzbSzRfnNyaN/UU9YmdOt8Eg0A==}
+    peerDependencies:
+      '@typescript-eslint/types': ^8.2.0
+    peerDependenciesMeta:
+      '@typescript-eslint/types':
+        optional: true
 
   estraverse@5.3.0:
     resolution: {integrity: sha512-MMdARuVEQziNTeJD8DgMqmhwR11BRQ/cBP+pLtYdSTnf3MIO8fFeiINEbX36ZdNlfU/7A9f3gUw49B3oQsvwBA==}
@@ -5706,8 +5716,8 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
 
-  svelte@5.55.7:
-    resolution: {integrity: sha512-ymI5ykLPwIHW839E053FQbI1G+jnRFJEw3Kv5Y4njixVWywQBx+NUFpkkKyk5LIb36Fg9DVXSYpqiGekLD0hyw==}
+  svelte@5.55.9:
+    resolution: {integrity: sha512-fTjjT8cHLDwigcu2j3pv7Jq04LklXevPB8uBgyHNiTXv+RMNvVnrjS4UEYrLMkhuq1vpCodHjiW+z/95SDs/fg==}
     engines: {node: '>=18'}
 
   svg-parser@2.0.4:
@@ -8233,6 +8243,10 @@ snapshots:
       color: 5.0.3
       text-hex: 1.0.0
 
+  '@sveltejs/acorn-typescript@1.0.10(acorn@8.16.0)':
+    dependencies:
+      acorn: 8.16.0
+
   '@sveltejs/acorn-typescript@1.0.9(acorn@8.16.0)':
     dependencies:
       acorn: 8.16.0
@@ -10156,9 +10170,10 @@ snapshots:
 
   esprima@4.0.1: {}
 
-  esrap@2.2.4:
+  esrap@2.2.9(@typescript-eslint/types@8.58.1):
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.5
+    optionalDependencies:
       '@typescript-eslint/types': 8.58.1
 
   estraverse@5.3.0: {}
@@ -12437,10 +12452,10 @@ snapshots:
 
   prelude-ls@1.2.1: {}
 
-  prettier-plugin-svelte@3.5.2(prettier@3.8.3)(svelte@5.55.7):
+  prettier-plugin-svelte@3.5.2(prettier@3.8.3)(svelte@5.55.9(@typescript-eslint/types@8.58.1)):
     dependencies:
       prettier: 3.8.3
-      svelte: 5.55.7
+      svelte: 5.55.9(@typescript-eslint/types@8.58.1)
 
   prettier@3.8.3: {}
 
@@ -13292,11 +13307,11 @@ snapshots:
 
   supports-preserve-symlinks-flag@1.0.0: {}
 
-  svelte@5.55.7:
+  svelte@5.55.9(@typescript-eslint/types@8.58.1):
     dependencies:
       '@jridgewell/remapping': 2.3.5
       '@jridgewell/sourcemap-codec': 1.5.5
-      '@sveltejs/acorn-typescript': 1.0.9(acorn@8.16.0)
+      '@sveltejs/acorn-typescript': 1.0.10(acorn@8.16.0)
       '@types/estree': 1.0.8
       '@types/trusted-types': 2.0.7
       acorn: 8.16.0
@@ -13305,11 +13320,13 @@ snapshots:
       clsx: 2.1.1
       devalue: 5.8.1
       esm-env: 1.2.2
-      esrap: 2.2.4
+      esrap: 2.2.9(@typescript-eslint/types@8.58.1)
       is-reference: 3.0.3
       locate-character: 3.0.0
       magic-string: 0.30.21
       zimmerframe: 1.1.4
+    transitivePeerDependencies:
+      - '@typescript-eslint/types'
 
   svg-parser@2.0.4: {}
 
