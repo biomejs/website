@@ -134,7 +134,7 @@ importers:
         version: 3.8.3
       prettier-plugin-svelte:
         specifier: 3.5.2
-        version: 3.5.2(prettier@3.8.3)(svelte@5.55.9(@typescript-eslint/types@8.58.1))
+        version: 3.5.2(prettier@3.8.3)(svelte@5.55.10(@typescript-eslint/types@8.58.1))
       react:
         specifier: 19.2.6
         version: 19.2.6
@@ -163,8 +163,8 @@ importers:
         specifier: 0.24.0
         version: 0.24.0(@astrojs/starlight@0.39.2(astro@6.4.2(@netlify/blobs@10.7.7)(@types/node@24.12.4)(jiti@2.6.1)(rollup@4.60.1)(yaml@2.8.3))(typescript@5.9.3))(astro@6.4.2(@netlify/blobs@10.7.7)(@types/node@24.12.4)(jiti@2.6.1)(rollup@4.60.1)(yaml@2.8.3))
       svelte:
-        specifier: 5.55.9
-        version: 5.55.9(@typescript-eslint/types@8.58.1)
+        specifier: 5.55.10
+        version: 5.55.10(@typescript-eslint/types@8.58.1)
       textlint:
         specifier: 15.6.0
         version: 15.6.0
@@ -454,7 +454,7 @@ packages:
     resolution: {integrity: sha512-3BSGXHJ25Is+9gRgV+Gwz7YdMktrMOBP+Vw3RwXy3Y/CHqXbbNSyhaMt6VFk1J/WAGutdYfBy+NzhlvOftwd+g==}
 
   '@biomejs/wasm-web@https://pkg.pr.new/@biomejs/wasm-web@95e1d8d':
-    resolution: {tarball: https://pkg.pr.new/@biomejs/wasm-web@95e1d8d}
+    resolution: {integrity: sha512-6fBgnH+j8044FqOSxHuWSNF1gxtxt7zG4q9E+sOCrPinek+JRSGDzgsgLe+TCCwvmeYkLqtNGO/GOmjO1Ec+mg==, tarball: https://pkg.pr.new/@biomejs/wasm-web@95e1d8d}
     version: 0.0.0-rev.95e1d8d60bb0d6aa5754bedefe23a4a1da0a5f3e
 
   '@braintree/sanitize-url@7.1.2':
@@ -5621,8 +5621,8 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
 
-  svelte@5.55.9:
-    resolution: {integrity: sha512-fTjjT8cHLDwigcu2j3pv7Jq04LklXevPB8uBgyHNiTXv+RMNvVnrjS4UEYrLMkhuq1vpCodHjiW+z/95SDs/fg==}
+  svelte@5.55.10:
+    resolution: {integrity: sha512-v9mFVBY1USosyIWdXE7Cg4AN0ywyKCMcAhONvli8doMowEhFhMdNLKD1j7O/UnsrdVTHaUOk/jv8hD/HClVy+g==}
     engines: {node: '>=18'}
 
   svg-parser@2.0.4:
@@ -12271,10 +12271,10 @@ snapshots:
 
   prelude-ls@1.2.1: {}
 
-  prettier-plugin-svelte@3.5.2(prettier@3.8.3)(svelte@5.55.9(@typescript-eslint/types@8.58.1)):
+  prettier-plugin-svelte@3.5.2(prettier@3.8.3)(svelte@5.55.10(@typescript-eslint/types@8.58.1)):
     dependencies:
       prettier: 3.8.3
-      svelte: 5.55.9(@typescript-eslint/types@8.58.1)
+      svelte: 5.55.10(@typescript-eslint/types@8.58.1)
 
   prettier@3.8.3: {}
 
@@ -13112,7 +13112,7 @@ snapshots:
 
   supports-preserve-symlinks-flag@1.0.0: {}
 
-  svelte@5.55.9(@typescript-eslint/types@8.58.1):
+  svelte@5.55.10(@typescript-eslint/types@8.58.1):
     dependencies:
       '@jridgewell/remapping': 2.3.5
       '@jridgewell/sourcemap-codec': 1.5.5
