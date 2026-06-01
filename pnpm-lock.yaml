@@ -193,8 +193,8 @@ importers:
   scripts:
     devDependencies:
       '@biomejs/wasm-nodejs':
-        specifier: 2.4.15
-        version: 2.4.15
+        specifier: 2.4.16
+        version: 2.4.16
 
 packages:
 
@@ -444,11 +444,11 @@ packages:
   '@biomejs/version-utils@0.4.0':
     resolution: {integrity: sha512-jboDhjZY8/bAPl2kgvjrbbyXyM6uimPsasY3TvFhSpPaNorij0UZROi/NjDQqQeZFSaIK3ieiRZXWwoBZh6rQQ==}
 
-  '@biomejs/wasm-nodejs@2.4.15':
-    resolution: {integrity: sha512-5mfoUf66sFwBkR9T82KRxapviesSadJH+qH4+w06gge87sYwjLKTXw4rxGOiJkUTCRtxCuMSUT9VO6VAqhsmkg==}
+  '@biomejs/wasm-nodejs@2.4.16':
+    resolution: {integrity: sha512-3BSGXHJ25Is+9gRgV+Gwz7YdMktrMOBP+Vw3RwXy3Y/CHqXbbNSyhaMt6VFk1J/WAGutdYfBy+NzhlvOftwd+g==}
 
   '@biomejs/wasm-web@https://pkg.pr.new/@biomejs/wasm-web@95e1d8d':
-    resolution: {integrity: sha512-6fBgnH+j8044FqOSxHuWSNF1gxtxt7zG4q9E+sOCrPinek+JRSGDzgsgLe+TCCwvmeYkLqtNGO/GOmjO1Ec+mg==, tarball: https://pkg.pr.new/@biomejs/wasm-web@95e1d8d}
+    resolution: {tarball: https://pkg.pr.new/@biomejs/wasm-web@95e1d8d}
     version: 0.0.0-rev.95e1d8d60bb0d6aa5754bedefe23a4a1da0a5f3e
 
   '@braintree/sanitize-url@7.1.2':
@@ -6711,7 +6711,7 @@ snapshots:
       undici: 6.24.1
       yaml: 2.8.3
 
-  '@biomejs/wasm-nodejs@2.4.15': {}
+  '@biomejs/wasm-nodejs@2.4.16': {}
 
   '@biomejs/wasm-web@https://pkg.pr.new/@biomejs/wasm-web@95e1d8d': {}
 
