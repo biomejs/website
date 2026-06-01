@@ -40,72 +40,113 @@ This rule belongs to the types domain. This means that its activation will activ
 
 ```
 ## Description
-Disallow unnecessary type-based conditions that can be statically determined as redundant.
+Disallow conditions that always evaluate to the same value.
 
-This rule detects if expressions inside conditions are statically inferrable and yield
-falsy or truthy values that don't change during the life cycle of the program.
+Using type information, this rule reports conditions whose result is
+statically known. It covers `if`/`while`/`for`/ternary tests, the `??`
+and `||`/`&&` operators, optional chaining (`?.`), comparisons against
+`null`/`undefined`, and `case` clauses that can never match the value
+passed to `switch`.
 
 ## Examples
 
 ### Invalid
 
+A non-nullable value never needs an `if` guard:
+
 ```ts
 function head<T>(items: T[]) {
-  if (items) {  // This check is unnecessary
-    return items[0].toUpperCase();
-  }
+    if (items) {
+        return items[0];
+    }
 }
 ```
+
+A literal-union type can never be empty, so the truthiness check is
+redundant:
 
 ```ts
 function foo(arg: 'bar' | 'baz') {
-  if (arg) {  // This check is unnecessary
-  }
+    if (arg) {}
 }
 ```
+
+`?.` and `??` on operands that are guaranteed to be non-nullish:
 
 ```ts
 function bar(arg: string) {
-  return arg?.length;  // ?. is unnecessary
+    return arg?.length;
 }
 ```
 
-Contrary to the source rule, this rule doesn't trigger bindings that are assigned to multiple
-values. In the following example, the variable `greeting` is assigned to multiple values; hence
-it can't be inferred to a truthy or falsy value.
+```ts
+function withDefault(name: string) {
+    return name ?? "anonymous";
+}
+```
+
+`||` and `&&` on always-truthy operands:
 
 ```ts
-let greeting = false;
-
-function changeGreeting() {
-    greeting = "Hello World!"
+interface Config { items: string[] }
+function f(c: Config) {
+    return c.items || [];
 }
+```
 
-if (greeting) {} // rule not triggered here
+`!expr` on a value that is always truthy:
 
+```ts
+const items = [];
+if (!items) {}
+```
+
+Comparing a non-nullable value against `null` or `undefined`:
+
+```ts
+function f(x: string) {
+    return x === null;
+}
+```
+
+A `case` whose value can never equal the value passed to `switch`:
+
+```ts
+function f(v: 'a' | 'b') {
+    switch (v) {
+        case 'c': return 1;
+    }
+}
 ```
 
 ### Valid
 
+When the type allows nullish or empty values, the check is meaningful.
+The rule also does not report bindings that are reassigned to values of
+different truthiness, since their narrowing cannot be inferred reliably.
+
 ```ts
 function head<T>(items: T[] | null) {
-  if (items) {  // This check is necessary
-    return items[0].toUpperCase();
-  }
+    if (items) {
+        return items[0];
+    }
 }
-```
 
-```ts
-function foo(arg: 'bar' | 'baz' | null) {
-  if (arg) {  // This check is necessary
-  }
-}
-```
-
-```ts
 function bar(arg: string | undefined) {
-  return arg?.length;  // ?. is necessary
+    return arg?.length;
 }
+
+function f(v: 'a' | 'b' | 'c') {
+    switch (v) {
+        case 'a': break;
+        case 'b': break;
+        case 'c': break;
+    }
+}
+
+let greeting = false;
+function update() { greeting = "Hello"; }
+if (greeting) {}
 ```
 
 ## Related links
