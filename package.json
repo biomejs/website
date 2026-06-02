@@ -34,7 +34,7 @@
     "@astrojs/starlight": "0.39.2",
     "@biomejs/biome": "2.4.16",
     "@biomejs/version-utils": "0.4.0",
-    "@biomejs/wasm-web": "https://pkg.pr.new/@biomejs/wasm-web@ba74508",
+    "@biomejs/wasm-web": "https://pkg.pr.new/@biomejs/wasm-web@d150071",
     "@codemirror/lang-css": "6.3.1",
     "@codemirror/lang-html": "6.4.11",
     "@codemirror/lang-javascript": "6.2.5",
@@ -57,7 +57,7 @@
     "@types/react-dom": "19.2.3",
     "@uiw/react-codemirror": "4.25.10",
     "@vitejs/plugin-react": "5.2.0",
-    "astro": "6.4.2",
+    "astro": "6.3.8",
     "astro-og-canvas": "0.11.1",
     "canvaskit-wasm": "0.41.1",
     "cm6-graphql": "0.2.1",
@@ -86,11 +86,5 @@
     "vite": "7.3.3",
     "vite-plugin-svgr": "4.5.0"
   },
-  "packageManager": "pnpm@10.33.4+sha512.1c67b3b359b2d408119ba1ed289f34b8fc3c6873412bec6fd264fbdc82489e510fcbecb9ce9d22dae7f3b76269d8441046014bdca53b9979cd7a561ad631b800",
-  "pnpm": {
-    "overrides": {
-      "@biomejs/version-utils": "^0.4.0",
-      "shiki": "3.23.0"
-    }
-  }
+  "packageManager": "pnpm@11.5.0+sha512.dbfcc4f81cf48597afd4bc391ffdf12c11f1a9fb83a395bfa6b0a2d9cc2fd8ffebafdb1ccbd529632153f793904c2615b7f09fe1a345473fd1c35845172a8eb1"
 }
