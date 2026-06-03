@@ -468,6 +468,7 @@ export default {
   '/linter/rules/useStaticResponseMethods': '/linter/rules/use-static-response-methods',
   '/linter/rules/useStrictMode': '/linter/rules/use-strict-mode',
   '/linter/rules/useStringStartsEndsWith': '/linter/rules/use-string-starts-ends-with',
+  '/linter/rules/useSvelteRequireEachKey': '/linter/rules/use-svelte-require-each-key',
   '/linter/rules/useSymbolDescription': '/linter/rules/use-symbol-description',
   '/linter/rules/useTemplate': '/linter/rules/use-template',
   '/linter/rules/useTestHooksInOrder': '/linter/rules/use-test-hooks-in-order',

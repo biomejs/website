@@ -1,0 +1,79 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useSvelteRequireEachKey
+description: Learn more about useSvelteRequireEachKey
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="HTML" icon="seti:html">
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/useSvelteRequireEachKey`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`svelte`](/linter/domains#svelte)
+- Sources: 
+  - Same as [`svelte/require-each-key`](https://sveltejs.github.io/eslint-plugin-svelte/rules/require-each-key/)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useSvelteRequireEachKey": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Require keyed `{#each}` blocks in Svelte templates.
+
+Svelte uses keyed each blocks to track list items across updates. Without a key, Svelte
+updates items by position, which can cause state to move between items when the list changes.
+
+For more information, see the Svelte documentation on [keyed each blocks](https://svelte.dev/docs/svelte/each#Keyed-each-blocks).
+
+## Examples
+
+### Invalid
+
+```svelte
+{#each items as item}
+  <div>{item}</div>
+{/each}
+```
+
+<pre class="language-text"><code class="language-text"></code></pre>
+
+### Valid
+
+```svelte
+{#each items as item (item.id)}
+  <div>{item}</div>
+{/each}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/use_svelte_require_each_key.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/useSvelteRequireEachKey)
+
+</TabItem>
+</Tabs>
+
