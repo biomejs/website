@@ -36,6 +36,7 @@ import {
 	isHtmlFilename,
 	isJsonFilename,
 	isMarkdownFilename,
+	isScssFilename,
 	isSvelteFilename,
 	isTypeScriptFilename,
 	isVueFilename,
@@ -261,6 +262,9 @@ function getPrettierParser(filename: string): string {
 	}
 	if (isCssFilename(filename)) {
 		return "css";
+	}
+	if (isScssFilename(filename)) {
+		return "scss";
 	}
 	if (isGraphqlFilename(filename)) {
 		return "graphql";
