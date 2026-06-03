@@ -405,6 +405,50 @@ Rules that belong to the domain:
 - [noDuplicatedSpreadProps](/linter/rules/no-duplicated-spread-props) [(nursery)](/linter/#nursery)
 - [useSolidForComponent](/linter/rules/use-solid-for-component)
 - [noReactSpecificProps](/linter/rules/no-react-specific-props) (recommended)
+## Svelte
+Use this domain inside Svelte projects. This domain enables rules that are specific to Svelte projects.
+### Svelte activation
+Enable the **recommended, non-nursery** rules of the domain:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"svelte": "recommended"
+		}
+	}
+}
+```
+
+:::note[No recommended rules]
+Since all rules in this domain are nursery rules, no rules will be activated when enabling the domain. You need to enable the single rules.
+:::
+Enabled the **all** rules of the domain:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"svelte": "all"
+		}
+	}
+}
+```
+**Disable** all rules of the domain:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"svelte": "none"
+		}
+	}
+}
+```
+### Svelte dependencies
+Enabled when the following dependencies are declared:
+- `svelte`: `>=3.0.0`
+
+### Svelte rules
+Rules that belong to the domain:
+- [useSvelteRequireEachKey](/linter/rules/use-svelte-require-each-key) [(nursery)](/linter/#nursery)
 ## Test
 Use this domain when linting test files. It enables a set of rules that are library agnostic, and can help to catch possible misuse of the test APIs.
 ### Test activation

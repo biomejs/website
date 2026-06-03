@@ -1379,6 +1379,23 @@ export function GET() {
             ],
             "docs": " Enforce that `<style>` blocks in Vue SFCs have the `scoped` attribute and that `<style>` blocks in Astro components do not have the `is:global` directive.\n\n Vue's `scoped` attribute automatically scopes CSS to the component,\n preventing style leakage and conflicts. Astro's `is:global` attribute\n allows for global styles, but without it, styles are scoped to the component by default.\n\n Style blocks with the `module` attribute are exempt, as CSS Modules\n is an alternative scoping mechanism.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <style>\n .foo { color: red; }\n </style>\n ```\n\n ```astro,expect_diagnostic\n <style is:global>\n .foo { color: red; }\n </style>\n ```\n\n ### Valid\n\n ```vue\n <style scoped>\n .foo { color: red; }\n </style>\n ```\n\n ```vue\n <style module>\n .foo { color: red; }\n </style>\n ```\n\n ## References:\n\n - [Vue Documentation](https://vuejs.org/api/sfc-css-features.html#scoped-css)\n - [Astro Documentation](https://docs.astro.build/en/guides/styling/#global-styles)\n"
           },
+          "useSvelteRequireEachKey": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useSvelteRequireEachKey",
+            "link": "https://biomejs.dev/linter/rules/use-svelte-require-each-key",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintSvelte": "require-each-key"
+                }
+              }
+            ],
+            "docs": " Require keyed `{#each}` blocks in Svelte templates.\n\n Svelte uses keyed each blocks to track list items across updates. Without a key, Svelte\n updates items by position, which can cause state to move between items when the list changes.\n\n For more information, see the Svelte documentation on [keyed each blocks](https://svelte.dev/docs/svelte/each#Keyed-each-blocks).\n\n ## Examples\n\n ### Invalid\n\n ```svelte,expect_diagnostic\n {#each items as item}\n   <div>{item}</div>\n {/each}\n ```\n\n ### Valid\n\n ```svelte\n {#each items as item (item.id)}\n   <div>{item}</div>\n {/each}\n ```\n\n"
+          },
           "useVueConsistentVBindStyle": {
             "deprecated": false,
             "version": "2.3.11",
@@ -9463,7 +9480,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 530
+    "numberOrRules": 531
   },
   "syntax": {
     "languages": {

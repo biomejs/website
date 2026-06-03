@@ -295,6 +295,7 @@ export const LINT_RULES = {
     useSortedClasses: "useSortedClasses",
     useSpread: "useSpread",
     useStringStartsEndsWith: "useStringStartsEndsWith",
+    useSvelteRequireEachKey: "useSvelteRequireEachKey",
     useTestHooksInOrder: "useTestHooksInOrder",
     useTestHooksOnTop: "useTestHooksOnTop",
     useThisInClassMethods: "useThisInClassMethods",

@@ -327,6 +327,13 @@ export function GET() {
 					"required": ["eslintSolid"]
 				},
 				{
+					"description": "Rules from [Eslint Plugin Svelte](https://github.com/sveltejs/eslint-plugin-svelte)",
+					"type": "object",
+					"properties": { "eslintSvelte": { "type": "string" } },
+					"additionalProperties": false,
+					"required": ["eslintSvelte"]
+				},
+				{
 					"description": "Rules from [Eslint Plugin Sonar](https://github.com/SonarSource/eslint-plugin-sonarjs)",
 					"type": "object",
 					"properties": { "eslintSonarJs": { "type": "string" } },
