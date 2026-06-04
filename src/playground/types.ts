@@ -214,9 +214,11 @@ export const LANGUAGE = {
 
 export type Language = (typeof LANGUAGE)[keyof typeof LANGUAGE];
 
-export type LintRule =
-	| keyof typeof LINT_RULES
-	| keyof (typeof LINT_RULES)[keyof typeof LINT_RULES];
+type ValueOf<T> = T[keyof T];
+
+export type LintRule = ValueOf<{
+	[G in keyof typeof LINT_RULES]: ValueOf<(typeof LINT_RULES)[G]>;
+}>;
 
 export interface PlaygroundSettings {
 	lineWidth: number;

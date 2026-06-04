@@ -230,31 +230,30 @@ self.addEventListener("message", async (e) => {
 			};
 
 			switch (lintRules) {
-				case LINT_RULES.recommended: {
+				case LINT_RULES.preset.recommended: {
 					configuration!.linter!.rules = {
 						nursery: {
-							recommended: false,
+							preset: "none",
 						},
 					};
 					break;
 				}
-				case LINT_RULES.all: {
-					// TODO: not entirely sure what to do here now that we have rule domains, and no longer have a single "all" option
+				case LINT_RULES.preset.all: {
 					configuration!.linter!.rules = {
-						a11y: "on",
-						nursery: "on",
-						complexity: "on",
-						correctness: "on",
-						performance: "on",
-						security: "on",
-						style: "on",
-						suspicious: "on",
+						preset: "all",
 					};
 					break;
 				}
+				case LINT_RULES.preset.none: {
+					configuration!.linter!.rules = {
+						preset: "none",
+					};
+					break;
+				}
+
 				default: {
 					configuration!.linter!.rules = {
-						recommended: false,
+						preset: "recommended",
 					};
 					only = [lintRules];
 				}
