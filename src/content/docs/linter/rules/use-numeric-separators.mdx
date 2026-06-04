@@ -85,6 +85,161 @@ var a = 0.123_456_7;
 var a = 0b1100_1100;
 ```
 
+## Options
+
+Each numeric literal type `binary`, `octal`, `decimal`, and `hexadecimal` can be configured with its own options object. Each type accepts `minimumDigits` or `groupLength`.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useNumericSeparators": {
+					"options": {
+						"decimal": {
+							"minimumDigits": 7,
+							"groupLength": 3
+						},
+						"hexadecimal": {
+							"minimumDigits": 4,
+							"groupLength": 2
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+### `<numeric literal type>.minimumDigits`
+
+Minimum number of digits required before adding separators. For example, with `minimumDigits` set to `5`, the number `1234` would not require separators, but `12345` would be expected to be formatted as `12_345`.
+
+Default values for `minimumDigits` vary by numeric literal type:
+
+- `binary`: `0`
+- `octal`: `0`
+- `decimal`: `5`
+- `hexadecimal`: `0`
+
+#### Invalid
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useNumericSeparators": {
+					"options": {
+						"decimal": {
+							"minimumDigits": 8
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```js
+12345678;
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/use-numeric-separators">lint/style/useNumericSeparators</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Long numeric literal lacks separators.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>12345678;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Adding separators helps improve readability and clarity for long numbers.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Safe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Add numeric separators.</span><br />  <br />    <strong>1</strong>  <strong> │ </strong><span style="color: Tomato;">-</span> <span style="color: Tomato;"><strong>1</strong></span><span style="color: Tomato;"><strong>2</strong></span><span style="color: Tomato;"><strong>3</strong></span><span style="color: Tomato;"><strong>4</strong></span><span style="color: Tomato;"><strong>5</strong></span><span style="color: Tomato;"><strong>6</strong></span><span style="color: Tomato;"><strong>7</strong></span><span style="color: Tomato;"><strong>8</strong></span><span style="color: Tomato;">;</span><br />      <strong>1</strong><strong> │ </strong><span style="color: MediumSeaGreen;">+</span> <span style="color: MediumSeaGreen;"><strong>1</strong></span><span style="color: MediumSeaGreen;"><strong>2</strong></span><span style="color: MediumSeaGreen;"><strong>&#95;</strong></span><span style="color: MediumSeaGreen;"><strong>3</strong></span><span style="color: MediumSeaGreen;"><strong>4</strong></span><span style="color: MediumSeaGreen;"><strong>5</strong></span><span style="color: MediumSeaGreen;"><strong>&#95;</strong></span><span style="color: MediumSeaGreen;"><strong>6</strong></span><span style="color: MediumSeaGreen;"><strong>7</strong></span><span style="color: MediumSeaGreen;"><strong>8</strong></span><span style="color: MediumSeaGreen;">;</span><br />    <strong>2</strong> <strong>2</strong><strong> │ </strong>  <br />  <br /></code></pre>
+
+#### Valid
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useNumericSeparators": {
+					"options": {
+						"decimal": {
+							"minimumDigits": 8
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```js
+1234;
+12_345_678;
+```
+
+### `<numeric literal type>.groupLength`
+
+Number of digits between separators. For example, with `groupLength` set to `2`, the number `12345` would be expected to be formatted as `1_23_45`.
+
+Default values for `groupLength` vary by numeric literal type:
+
+- `binary`: `4`
+- `octal`: `4`
+- `decimal`: `3`
+- `hexadecimal`: `2`
+
+#### Invalid
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useNumericSeparators": {
+					"options": {
+						"decimal": {
+							"groupLength": 5
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```js
+123_451_2345;
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:1 <a href="https://biomejs.dev/linter/rules/use-numeric-separators">lint/style/useNumericSeparators</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Inconsistent grouping of digits in numeric literal.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>123&#95;451&#95;2345;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Numbers with inconsistently placed separators can be misleading or confusing.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Safe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Use consistent numeric separator grouping.</span><br />  <br />    <strong>1</strong>  <strong> │ </strong><span style="color: Tomato;">-</span> <span style="color: Tomato;"><strong>1</strong></span><span style="color: Tomato;"><strong>2</strong></span><span style="color: Tomato;"><strong>3</strong></span><span style="color: Tomato;"><strong>&#95;</strong></span><span style="color: Tomato;"><strong>4</strong></span><span style="color: Tomato;"><strong>5</strong></span><span style="color: Tomato;"><strong>1</strong></span><span style="color: Tomato;"><strong>&#95;</strong></span><span style="color: Tomato;"><strong>2</strong></span><span style="color: Tomato;"><strong>3</strong></span><span style="color: Tomato;"><strong>4</strong></span><span style="color: Tomato;"><strong>5</strong></span><span style="color: Tomato;">;</span><br />      <strong>1</strong><strong> │ </strong><span style="color: MediumSeaGreen;">+</span> <span style="color: MediumSeaGreen;"><strong>1</strong></span><span style="color: MediumSeaGreen;"><strong>2</strong></span><span style="color: MediumSeaGreen;"><strong>3</strong></span><span style="color: MediumSeaGreen;"><strong>4</strong></span><span style="color: MediumSeaGreen;"><strong>5</strong></span><span style="color: MediumSeaGreen;"><strong>&#95;</strong></span><span style="color: MediumSeaGreen;"><strong>1</strong></span><span style="color: MediumSeaGreen;"><strong>2</strong></span><span style="color: MediumSeaGreen;"><strong>3</strong></span><span style="color: MediumSeaGreen;"><strong>4</strong></span><span style="color: MediumSeaGreen;"><strong>5</strong></span><span style="color: MediumSeaGreen;">;</span><br />    <strong>2</strong> <strong>2</strong><strong> │ </strong>  <br />  <br /></code></pre>
+
+#### Valid
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useNumericSeparators": {
+					"options": {
+						"decimal": {
+							"groupLength": 5
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```js
+12345_12345;
+```
+
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

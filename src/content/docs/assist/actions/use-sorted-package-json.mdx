@@ -1,0 +1,285 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useSortedPackageJson
+description: Learn more about useSortedPackageJson
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import EditorAction from "@/components/EditorAction.astro";
+
+<Tabs>
+<TabItem label="JSON (and super languages)" icon="seti:json">
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+## Summary
+- Diagnostic Category: [`assist/source/useSortedPackageJson`](/reference/diagnostics#diagnostic-category)
+- Sources: 
+  - Same as [`sort-package-json`](https://github.com/keithamus/sort-package-json)
+  - Inspired from [`package-json/sort-collections`](https://github.com/JoshuaKGoldberg/eslint-plugin-package-json/blob/main/docs/rules/sort-collections.md)
+  - Inspired from [`package-json-dependencies/alphabetically-sorted-dependencies`](https://github.com/idan-at/eslint-plugin-package-json-dependencies/blob/master/docs/rules/alphabetically-sorted-dependencies.md)
+  - Inspired from [`unordered-dependencies`](https://github.com/QuiiBz/sherif#unordered-dependencies)
+
+## How to enable in your editor
+<EditorAction includeFixAll action="source.action.useSortedPackageJson.biome" />
+## How to configure
+```json title="biome.json"
+{
+	"assist": {
+		"actions": {
+			"source": {
+				"useSortedPackageJson": "on"
+			}
+		}
+	}
+}
+
+```
+## Description
+Organize package.json fields according to established conventions.
+
+Sorts fields following the same conventions as the popular
+[sort-package-json](https://github.com/keithamus/sort-package-json) tool.
+
+## Sorting Rules
+
+`package.json` fields are sorted by the order they are listed below. The default key sort order is alphabetical.
+
+_Note: when a specific key order is used, any other keys will be sorted in the end of the object_
+
+| Key                   | Rules                                                                          |
+| --------------------- | ------------------------------------------------------------------------------ |
+| $schema              |                                                                                |
+| name                  |                                                                                |
+| displayName           |                                                                                |
+| version               |                                                                                |
+| private               |                                                                                |
+| description           |                                                                                |
+| categories            | Unique items                                                                   |
+| keywords              | Unique items                                                                   |
+| homepage              |                                                                                |
+| bugs                  | Key order: `url`, `email`                                                      |
+| repository            | Key order: `type`, `url`                                                       |
+| funding               | Key order: `type`, `url`                                                       |
+| license               | Key order: `type`, `url`                                                       |
+| qna                   |                                                                                |
+| author                | Key order: `name`, `email`, `url`                                              |
+| maintainers           | Key order (per item): `name`, `email`, `url`                                   |
+| contributors          | Key order (per item): `name`, `email`, `url`                                   |
+| publisher             |                                                                                |
+| sideEffects           |                                                                                |
+| type                  |                                                                                |
+| imports               |                                                                                |
+| exports               |                                                                                |
+| main                  |                                                                                |
+| svelte                |                                                                                |
+| umd:main              |                                                                                |
+| jsdelivr              |                                                                                |
+| unpkg                 |                                                                                |
+| module                |                                                                                |
+| source                |                                                                                |
+| jsnext:main           |                                                                                |
+| browser               |                                                                                |
+| react-native          |                                                                                |
+| types                 |                                                                                |
+| typesVersions         |                                                                                |
+| typings               |                                                                                |
+| style                 |                                                                                |
+| example               |                                                                                |
+| examplestyle          |                                                                                |
+| assets                |                                                                                |
+| bin                   | Key sort                                                                       |
+| man                   |                                                                                |
+| directories           | Key order: `lib`, `bin`, `man`, `doc`, `example`, `test`                       |
+| files                 | Unique items                                                                   |
+| workspaces            | Key order (when object): `packages`, `catalog`                                 |
+| binary,               | Key order: `module_name`, `module_path`, `remote_path`, `package_name`, `host` |
+| scripts               | [Script sort](#scripts)                                                        |
+| betterScripts         | [Script sort](#scripts)                                                        |
+| contributes           | Key sort                                                                       |
+| activationEvents      | Unique items                                                                   |
+| husky                 | Sorts the `hooks` field using [git hook sort](#git-hooks)                      |
+| simple-git-hooks      | Key sort using [git hook sort](#git-hooks)                                     |
+| pre-commit            |                                                                                |
+| commitlint            | Key sort                                                                       |
+| lint-staged           |                                                                                |
+| nano-staged           |                                                                                |
+| config                | Key sort                                                                       |
+| nodemonConfig         | Key sort                                                                       |
+| browserify            | Key sort                                                                       |
+| babel                 | Key sort                                                                       |
+| browserslist          |                                                                                |
+| xo                    | Key sort                                                                       |
+| prettier              | [Prettier sort](#prettier)                                                     |
+| eslintConfig          | [ESLint sort](#eslint)                                                         |
+| eslintIgnore          |                                                                                |
+| npmpackagejsonlint    | Key sort (also recognizes: npmPackageJsonLintConfig, npmpkgjsonlint)           |
+| release               | Key sort                                                                       |
+| remarkConfig          | Key sort                                                                       |
+| stylelint             |                                                                                |
+| ava                   | Key sort                                                                       |
+| jest                  | Key sort                                                                       |
+| mocha                 | Key sort                                                                       |
+| nyc                   | Key sort                                                                       |
+| tap                   | Key sort                                                                       |
+| oclif                 | Key sort (deep)                                                                |
+| resolutions           | Key sort                                                                       |
+| dependencies          | Key sort                                                                       |
+| devDependencies       | Key sort                                                                       |
+| dependenciesMeta      | Key sort (deep)                                                                |
+| peerDependencies      | Key sort                                                                       |
+| peerDependenciesMeta  | Key sort (deep)                                                                |
+| optionalDependencies  | Key sort                                                                       |
+| bundledDependencies   | Sort unique items                                                              |
+| bundleDependencies    | Sort unique items                                                              |
+| extensionPack         | Sort unique items                                                              |
+| extensionDependencies | Sort unique items                                                              |
+| flat                  |                                                                                |
+| packageManager        |                                                                                |
+| engines               | Key sort                                                                       |
+| engineStrict          | Key sort                                                                       |
+| devEngines            | Key order (packageManager): `name`, `version`, `onFail`                        |
+| volta                 | Key order: `node`, `npm`, `yarn`                                               |
+| languageName          |                                                                                |
+| os                    |                                                                                |
+| cpu                   |                                                                                |
+| preferGlobal          | Key sort                                                                       |
+| publishConfig         | Key sort                                                                       |
+| icon                  |                                                                                |
+| badges                | Key order (per item): `description`, `url`, `href`                             |
+| galleryBanner         | Key sort                                                                       |
+| preview               |                                                                                |
+| markdown              |                                                                                |
+| pnpm                  | Base property order: `neverBuiltDependencies`, `onlyBuiltDependencies`, `onlyBuiltDependenciesFile`, `overrides`, `packageExtensions`, `patchedDependencies`, `peerDependencyRules`, `allowedDeprecatedVersions`, `allowNonAppliedPatches`, `auditConfig`, `ignoredOptionalDependencies`, `updateConfig`. Other properties sorted alphabetically. Deep sorting applied. |
+
+### Special Rules
+
+#### ESLint
+
+Fields are sorted by the order they are listed below:
+
+| Key                           | Rules                                                               |
+| ----------------------------- | ------------------------------------------------------------------- |
+| env                           |                                                                     |
+| parser                        |                                                                     |
+| parserOptions                 |                                                                     |
+| settings                      |                                                                     |
+| plugins                       |                                                                     |
+| extends                       |                                                                     |
+| rules                         | Group built-in rules first, then plugin rules. Each group is sorted |
+| overrides                     | Key order (per item): `files`, `excludedFiles`                      |
+| globals                       |                                                                     |
+| processor                     |                                                                     |
+| noInlineConfig                |                                                                     |
+| reportUnusedDisableDirectives |                                                                     |
+
+#### Git Hooks
+
+Item order:
+
+- `applypatch-msg`
+- `pre-applypatch`
+- `post-applypatch`
+- `pre-commit`
+- `pre-merge-commit`
+- `prepare-commit-msg`
+- `commit-msg`
+- `post-commit`
+- `pre-rebase`
+- `post-checkout`
+- `post-merge`
+- `pre-push`
+- `pre-receive`
+- `update`
+- `proc-receive`
+- `post-receive`
+- `post-update`
+- `reference-transaction`
+- `push-to-checkout`
+- `pre-auto-gc`
+- `post-rewrite`
+- `sendemail-validate`
+- `fsmonitor-watchman`
+- `p4-changelist`
+- `p4-prepare-changelist`
+- `p4-post-changelist`
+- `p4-pre-submit`
+- `post-index-change`
+
+#### Prettier
+
+Keys are sorted alphabetically except for `overrides`, which is placed last. Keys are also sorted in `overrides` and `overrides.options` items.
+
+#### Scripts
+
+Keys are sorted alphabetically except for [pre/post scripts](https://docs.npmjs.com/cli/v6/using-npm/scripts#pre--post-scripts). Those are placed before and after their corresponding base npm script.
+
+An example - notice how `preinstall` and `postinstall` are placed before and after `install`:
+
+```json
+{
+  "scripts": {
+    "build": "",
+    "preinstall": "",
+    "install": "",
+    "postinstall": "",
+    "lint": ""
+  }
+}
+```
+
+Scripts for which the pre/post order is applied:
+
+- install
+- pack
+- prepare
+- publish
+- restart
+- shrinkwrap
+- start
+- stop
+- test
+- uninstall
+- version
+
+## Examples
+
+### Invalid
+
+```json title='package.json'
+{
+  "dependencies": {
+    "lodash": "^4.0.0"
+  },
+  "name": "my-package",
+  "version": "1.0.0"
+}
+```
+
+<pre class="language-text"><code class="language-text"><a href="file:///package.json">/package.json</a>:1:1 <a href="https://biomejs.dev/assist/actions/use-sorted-package-json">assist/source/useSortedPackageJson</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">package.json fields can be organized.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&#123;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  &quot;dependencies&quot;: &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>    &quot;lodash&quot;: &quot;^4.0.0&quot;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>  &#125;,<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>5 │ </strong>  &quot;name&quot;: &quot;my-package&quot;,<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>6 │ </strong>  &quot;version&quot;: &quot;1.0.0&quot;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>7 │ </strong>&#125;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>8 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Safe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Organize package.json fields.</span><br />  <br />    <strong>1</strong> <strong>1</strong><strong> │ </strong>  &#123;<br />    <strong>2</strong>  <strong> │ </strong><span style="color: Tomato;">-</span> <span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">&quot;</span><span style="color: Tomato;"><strong>d</strong></span><span style="color: Tomato;"><strong>e</strong></span><span style="color: Tomato;"><strong>p</strong></span><span style="color: Tomato;"><strong>e</strong></span><span style="color: Tomato;"><strong>n</strong></span><span style="color: Tomato;"><strong>d</strong></span><span style="color: Tomato;"><strong>e</strong></span><span style="color: Tomato;"><strong>n</strong></span><span style="color: Tomato;"><strong>c</strong></span><span style="color: Tomato;"><strong>i</strong></span><span style="color: Tomato;"><strong>e</strong></span><span style="color: Tomato;"><strong>s</strong></span><span style="color: Tomato;">&quot;</span><span style="color: Tomato;">:</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;"><strong>&#123;</strong></span><br />    <strong>3</strong>  <strong> │ </strong><span style="color: Tomato;">-</span> <span style="color: Tomato;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: Tomato;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: Tomato;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: Tomato;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: Tomato;">&quot;</span><span style="color: Tomato;"><strong>l</strong></span><span style="color: Tomato;"><strong>o</strong></span><span style="color: Tomato;"><strong>d</strong></span><span style="color: Tomato;"><strong>a</strong></span><span style="color: Tomato;"><strong>s</strong></span><span style="color: Tomato;"><strong>h</strong></span><span style="color: Tomato;">&quot;</span><span style="color: Tomato;">:</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">&quot;</span><span style="color: Tomato;"><strong>^</strong></span><span style="color: Tomato;"><strong>4</strong></span><span style="color: Tomato;"><strong>.</strong></span><span style="color: Tomato;"><strong>0</strong></span><span style="color: Tomato;"><strong>.</strong></span><span style="color: Tomato;"><strong>0</strong></span><span style="color: Tomato;">&quot;</span><br />    <strong>4</strong>  <strong> │ </strong><span style="color: Tomato;">-</span> <span style="color: Tomato;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: Tomato;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: Tomato;"><strong>&#125;</strong></span><span style="color: Tomato;">,</span><br />    <strong>5</strong>  <strong> │ </strong><span style="color: Tomato;">-</span> <span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">&quot;</span><span style="color: Tomato;"><strong>n</strong></span><span style="color: Tomato;"><strong>a</strong></span><span style="color: Tomato;"><strong>m</strong></span><span style="color: Tomato;"><strong>e</strong></span><span style="color: Tomato;">&quot;</span><span style="color: Tomato;">:</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;"><strong>&quot;</strong></span><span style="color: Tomato;"><strong>m</strong></span><span style="color: Tomato;"><strong>y</strong></span><span style="color: Tomato;"><strong>-</strong></span><span style="color: Tomato;"><strong>p</strong></span><span style="color: Tomato;"><strong>a</strong></span><span style="color: Tomato;"><strong>c</strong></span><span style="color: Tomato;"><strong>k</strong></span><span style="color: Tomato;"><strong>a</strong></span><span style="color: Tomato;"><strong>g</strong></span><span style="color: Tomato;"><strong>e</strong></span><span style="color: Tomato;"><strong>&quot;</strong></span><span style="color: Tomato;"><strong>,</strong></span><br />    <strong>6</strong>  <strong> │ </strong><span style="color: Tomato;">-</span> <span style="color: Tomato;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: Tomato;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: Tomato;">&quot;</span><span style="color: Tomato;"><strong>v</strong></span><span style="color: Tomato;"><strong>e</strong></span><span style="color: Tomato;"><strong>r</strong></span><span style="color: Tomato;"><strong>s</strong></span><span style="color: Tomato;"><strong>i</strong></span><span style="color: Tomato;"><strong>o</strong></span><span style="color: Tomato;"><strong>n</strong></span><span style="color: Tomato;">&quot;</span><span style="color: Tomato;">:</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">&quot;</span><span style="color: Tomato;"><strong>1</strong></span><span style="color: Tomato;"><strong>.</strong></span><span style="color: Tomato;"><strong>0</strong></span><span style="color: Tomato;"><strong>.</strong></span><span style="color: Tomato;"><strong>0</strong></span><span style="color: Tomato;">&quot;</span><br />      <strong>2</strong><strong> │ </strong><span style="color: MediumSeaGreen;">+</span> <span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">&quot;</span><span style="color: MediumSeaGreen;"><strong>n</strong></span><span style="color: MediumSeaGreen;"><strong>a</strong></span><span style="color: MediumSeaGreen;"><strong>m</strong></span><span style="color: MediumSeaGreen;"><strong>e</strong></span><span style="color: MediumSeaGreen;">&quot;</span><span style="color: MediumSeaGreen;">:</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;"><strong>&quot;</strong></span><span style="color: MediumSeaGreen;"><strong>m</strong></span><span style="color: MediumSeaGreen;"><strong>y</strong></span><span style="color: MediumSeaGreen;"><strong>-</strong></span><span style="color: MediumSeaGreen;"><strong>p</strong></span><span style="color: MediumSeaGreen;"><strong>a</strong></span><span style="color: MediumSeaGreen;"><strong>c</strong></span><span style="color: MediumSeaGreen;"><strong>k</strong></span><span style="color: MediumSeaGreen;"><strong>a</strong></span><span style="color: MediumSeaGreen;"><strong>g</strong></span><span style="color: MediumSeaGreen;"><strong>e</strong></span><span style="color: MediumSeaGreen;"><strong>&quot;</strong></span><span style="color: MediumSeaGreen;"><strong>,</strong></span><br />      <strong>3</strong><strong> │ </strong><span style="color: MediumSeaGreen;">+</span> <span style="color: MediumSeaGreen;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: MediumSeaGreen;">&quot;</span><span style="color: MediumSeaGreen;"><strong>v</strong></span><span style="color: MediumSeaGreen;"><strong>e</strong></span><span style="color: MediumSeaGreen;"><strong>r</strong></span><span style="color: MediumSeaGreen;"><strong>s</strong></span><span style="color: MediumSeaGreen;"><strong>i</strong></span><span style="color: MediumSeaGreen;"><strong>o</strong></span><span style="color: MediumSeaGreen;"><strong>n</strong></span><span style="color: MediumSeaGreen;">&quot;</span><span style="color: MediumSeaGreen;">:</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">&quot;</span><span style="color: MediumSeaGreen;"><strong>1</strong></span><span style="color: MediumSeaGreen;"><strong>.</strong></span><span style="color: MediumSeaGreen;"><strong>0</strong></span><span style="color: MediumSeaGreen;"><strong>.</strong></span><span style="color: MediumSeaGreen;"><strong>0</strong></span><span style="color: MediumSeaGreen;">&quot;</span><span style="color: MediumSeaGreen;">,</span><br />      <strong>4</strong><strong> │ </strong><span style="color: MediumSeaGreen;">+</span> <span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">&quot;</span><span style="color: MediumSeaGreen;"><strong>d</strong></span><span style="color: MediumSeaGreen;"><strong>e</strong></span><span style="color: MediumSeaGreen;"><strong>p</strong></span><span style="color: MediumSeaGreen;"><strong>e</strong></span><span style="color: MediumSeaGreen;"><strong>n</strong></span><span style="color: MediumSeaGreen;"><strong>d</strong></span><span style="color: MediumSeaGreen;"><strong>e</strong></span><span style="color: MediumSeaGreen;"><strong>n</strong></span><span style="color: MediumSeaGreen;"><strong>c</strong></span><span style="color: MediumSeaGreen;"><strong>i</strong></span><span style="color: MediumSeaGreen;"><strong>e</strong></span><span style="color: MediumSeaGreen;"><strong>s</strong></span><span style="color: MediumSeaGreen;">&quot;</span><span style="color: MediumSeaGreen;">:</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;"><strong>&#123;</strong></span><br />      <strong>5</strong><strong> │ </strong><span style="color: MediumSeaGreen;">+</span> <span style="color: MediumSeaGreen;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: MediumSeaGreen;">&quot;</span><span style="color: MediumSeaGreen;"><strong>l</strong></span><span style="color: MediumSeaGreen;"><strong>o</strong></span><span style="color: MediumSeaGreen;"><strong>d</strong></span><span style="color: MediumSeaGreen;"><strong>a</strong></span><span style="color: MediumSeaGreen;"><strong>s</strong></span><span style="color: MediumSeaGreen;"><strong>h</strong></span><span style="color: MediumSeaGreen;">&quot;</span><span style="color: MediumSeaGreen;">:</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">&quot;</span><span style="color: MediumSeaGreen;"><strong>^</strong></span><span style="color: MediumSeaGreen;"><strong>4</strong></span><span style="color: MediumSeaGreen;"><strong>.</strong></span><span style="color: MediumSeaGreen;"><strong>0</strong></span><span style="color: MediumSeaGreen;"><strong>.</strong></span><span style="color: MediumSeaGreen;"><strong>0</strong></span><span style="color: MediumSeaGreen;">&quot;</span><br />      <strong>6</strong><strong> │ </strong><span style="color: MediumSeaGreen;">+</span> <span style="color: MediumSeaGreen;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: MediumSeaGreen;"><strong>&#125;</strong></span><br />    <strong>7</strong> <strong>7</strong><strong> │ </strong>  &#125;<br />    <strong>8</strong> <strong>8</strong><strong> │ </strong>  <br />  <br /></code></pre>
+
+### Valid
+
+```json title='package.json'
+{
+  "name": "my-package",
+  "version": "1.0.0",
+  "dependencies": {
+    "lodash": "^4.0.0"
+  }
+}
+```
+
+## Related links
+
+- [Disable a rule](/assist/#disable-a-rule)
+- [Configure the code fix](/assist#configure-the-code-fix)
+- [Rule options](/assist/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_json_analyze/src/assist/source/use_sorted_package_json.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_json_analyze/tests/specs/source/useSortedPackageJson)
+
+</TabItem>
+</Tabs>
+

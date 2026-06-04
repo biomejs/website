@@ -1,0 +1,184 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noUndeclaredClasses
+description: Learn more about noUndeclaredClasses
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="HTML" icon="seti:html">
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+:::note
+This rule belongs to the project domain. This means that its activation will activate the Biome Scanner to scan the files of your project. Read more about it in the [documentation page](/linter/domains#project)
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noUndeclaredClasses`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`project`](/linter/domains#project)
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noUndeclaredClasses": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Reports CSS class names in HTML `class` attributes that are not defined
+in any `<style>` block or linked stylesheet available to the file.
+
+When an HTML file has `<style>` blocks or `<link rel="stylesheet">` elements,
+every class name used in `class="..."` attributes is checked against the
+available class definitions. Classes that are not defined are reported.
+
+## Framework style scoping
+
+Different frameworks scope their embedded styles differently. For the
+**same file**, both locally and globally scoped classes are considered
+valid — a scoped `<style>` block defines classes that are available to
+that component's own template. When traversing **parent files** (via
+upward import traversal), only globally scoped classes are visible:
+
+- **HTML** `<style>`: always global.
+- **Vue** `<style>` (no attribute): global.
+- **Vue** `<style scoped>`: local — visible within the same component,
+not to child components.
+- **Astro** `<style>` (default): local — visible within the same component,
+not to child components.
+- **Astro** `<style is:global>`: global.
+- **Svelte** `<style>` (default): local — visible within the same component,
+not to child components. Individual selectors inside `:global(...)` within
+a scoped block are still treated as global.
+
+## Components
+
+Components (custom elements) are excluded from this check, as they may receive
+class names as props or use scoped styling. A component is identified by:
+
+- Tag names starting with an uppercase letter (e.g., `MyComponent`)
+- Tag names containing a hyphen (e.g., `my-component`)
+- Member expressions (e.g., `Component.Item`)
+
+## No false positives on unstyled files
+
+If the file has no style information (no `<style>` blocks and no linked
+stylesheets), this rule does not emit diagnostics to avoid false positives.
+
+## Examples
+
+### Invalid
+
+```html
+<style>.card { border: 1px solid; }</style>
+<div class="header">Content</div>
+```
+
+### Valid
+
+```html
+<style>.card { border: 1px solid; }</style>
+<div class="card">Content</div>
+```
+
+```html
+<style>.card { border: 1px solid; }</style>
+<MyComponent class="any-class">Components are not checked</MyComponent>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/no_undeclared_classes.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/noUndeclaredClasses)
+
+</TabItem>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+:::note
+This rule belongs to the project domain. This means that its activation will activate the Biome Scanner to scan the files of your project. Read more about it in the [documentation page](/linter/domains#project)
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noUndeclaredClasses`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`project`](/linter/domains#project)
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noUndeclaredClasses": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Reports CSS class names in JSX `className` or `class` attributes that are not defined
+in any imported CSS file.
+
+When a JSX file imports CSS files, every class name used in `className=` or `class=`
+attributes is checked against the available class definitions. Classes that are not
+defined are reported.
+
+This rule checks string literals, variable references (resolved through the semantic
+model), call expressions like `clsx(...)` / `classnames(...)`, object expression keys,
+and array expressions. Dynamic class names that cannot be statically resolved are
+silently skipped.
+
+In Astro files, `class:list={...}` directives and `class={...}` attribute expressions
+are also checked. CSS files imported in the frontmatter (`import "./styles.css"`) are
+included in the class resolution.
+
+## Examples
+
+### Invalid
+
+```js
+import "./styles.css";
+export default () => <div className="missing" />;
+```
+
+### Valid
+
+```js
+import "./styles.css";
+export default () => <div className="header" />;
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_undeclared_classes.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noUndeclaredClasses)
+
+</TabItem>
+</Tabs>
+
