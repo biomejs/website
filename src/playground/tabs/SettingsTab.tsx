@@ -431,6 +431,7 @@ function LanguageView({
 						[LANGUAGE.GraphQL]: "GraphQL",
 						[LANGUAGE.Grit]: "Grit",
 						[LANGUAGE.CSS]: "CSS",
+						[LANGUAGE.SCSS]: "SCSS (unstable)",
 						[LANGUAGE.HTML]: "HTML",
 						[LANGUAGE.Vue]: "Vue",
 						[LANGUAGE.Svelte]: "Svelte",

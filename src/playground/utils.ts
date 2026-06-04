@@ -235,6 +235,10 @@ export function isCssFilename(filename: string): boolean {
 	return filename.endsWith(".css");
 }
 
+export function isScssFilename(filename: string): boolean {
+	return filename.endsWith(".scss");
+}
+
 export function isGraphqlFilename(filename: string): boolean {
 	return filename.endsWith(".gql") || filename.endsWith(".graphql");
 }
@@ -280,6 +284,7 @@ export function guessLanguage(filename: string): Language {
 	if (isGraphqlFilename(filename)) return LANGUAGE.GraphQL;
 	if (isGritFilename(filename)) return LANGUAGE.Grit;
 	if (isCssFilename(filename)) return LANGUAGE.CSS;
+	if (isScssFilename(filename)) return LANGUAGE.SCSS;
 	if (isHtmlFilename(filename)) return LANGUAGE.HTML;
 	if (isVueFilename(filename)) return LANGUAGE.Vue;
 	if (isSvelteFilename(filename)) return LANGUAGE.Svelte;
@@ -325,6 +330,8 @@ export function getExtension(opts: ExtensionOptions): string {
 			return "grit";
 		case LANGUAGE.CSS:
 			return "css";
+		case LANGUAGE.SCSS:
+			return "scss";
 		case LANGUAGE.HTML:
 			return "html";
 		case LANGUAGE.Vue:
@@ -352,6 +359,7 @@ export function isValidExtension(filename: string): boolean {
 		isJsxFilename(filename) ||
 		isJsonFilename(filename) ||
 		isCssFilename(filename) ||
+		isScssFilename(filename) ||
 		isGraphqlFilename(filename) ||
 		isHtmlFilename(filename) ||
 		isFrameworkTemplateFilename(filename) ||

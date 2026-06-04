@@ -5,6 +5,8 @@ import { json } from "@codemirror/lang-json";
 import { markdown } from "@codemirror/lang-markdown";
 import { vue } from "@codemirror/lang-vue";
 import { yaml } from "@codemirror/lang-yaml";
+import { StreamLanguage } from "@codemirror/language";
+import { sCSS } from "@codemirror/legacy-modes/mode/css";
 import { EditorSelection } from "@codemirror/state";
 import type { ViewUpdate } from "@codemirror/view";
 import { svelte } from "@replit/codemirror-lang-svelte";
@@ -51,12 +53,15 @@ import {
 	isJsonFilename,
 	isJsxFilename,
 	isMarkdownFilename,
+	isScssFilename,
 	isSvelteFilename,
 	isTypeScriptFilename,
 	isVueFilename,
 	isYamlFilename,
 	useWindowSize,
 } from "./utils";
+
+const scssLanguage = StreamLanguage.define(sCSS);
 
 export default function Playground({
 	setPlaygroundState,
@@ -80,6 +85,9 @@ export default function Playground({
 		}
 		if (isCssFilename(playgroundState.currentFile)) {
 			return [css()];
+		}
+		if (isScssFilename(playgroundState.currentFile)) {
+			return [scssLanguage];
 		}
 		if (isGraphqlFilename(playgroundState.currentFile)) {
 			return [graphql()];

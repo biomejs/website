@@ -205,6 +205,7 @@ export const LANGUAGE = {
 	GraphQL: "graphql",
 	Grit: "grit",
 	CSS: "css",
+	SCSS: "scss",
 	HTML: "html",
 	Vue: "vue",
 	Svelte: "svelte",
