@@ -388,7 +388,8 @@ export const LINT_RULES = {{
 		all: "all",
 		none: "none"
 	}},
-}} as const;{}"#,
+{}
+}} as const;"#,
         visitor
             .names
             .into_iter()

@@ -1725,6 +1725,7 @@ dependencies = [
  "biome_text_edit",
  "bpaf",
  "camino",
+ "jiff-static",
  "lock_api",
  "pulldown-cmark",
  "schemars",
