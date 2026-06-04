@@ -431,11 +431,13 @@ function LanguageView({
 						[LANGUAGE.GraphQL]: "GraphQL",
 						[LANGUAGE.Grit]: "Grit",
 						[LANGUAGE.CSS]: "CSS",
+						[LANGUAGE.SCSS]: "SCSS (unstable)",
 						[LANGUAGE.HTML]: "HTML",
 						[LANGUAGE.Vue]: "Vue",
 						[LANGUAGE.Svelte]: "Svelte",
 						[LANGUAGE.Astro]: "Astro",
-						[LANGUAGE.Markdown]: "Markdown",
+						[LANGUAGE.Markdown]: "Markdown (unstable)",
+						[LANGUAGE.YAML]: "YAML (unstable)",
 					}}
 					value={language ?? LANGUAGE.TSX}
 					onChangeValue={setLanguage}

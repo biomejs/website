@@ -1,4 +1,4 @@
-import type { Diagnostic, GritTargetLanguage } from "@biomejs/wasm-web";
+import type { Diagnostic, SearchLanguage } from "@biomejs/wasm-web";
 import type { ReactCodeMirrorRef } from "@uiw/react-codemirror";
 import type { Dispatch, RefObject, SetStateAction } from "react";
 import Tabs from "@/playground/components/Tabs";
@@ -14,9 +14,9 @@ interface Props {
 	code: string;
 	gritQuery: string;
 	gritQueryResults: { matches: [number, number][]; error: string | undefined };
-	gritTargetLanguage: GritTargetLanguage;
+	searchLanguage: SearchLanguage;
 	onGritQueryChange: (query: string) => void;
-	onLanguageChange: (language: GritTargetLanguage) => void;
+	onLanguageChange: (language: SearchLanguage) => void;
 	setPlaygroundState: Dispatch<SetStateAction<PlaygroundState>>;
 	currentPane: PlaygroundPane;
 }
@@ -28,7 +28,7 @@ export default function DiagnosticsPane({
 	code,
 	gritQuery,
 	gritQueryResults,
-	gritTargetLanguage,
+	searchLanguage,
 	onGritQueryChange,
 	onLanguageChange,
 	setPlaygroundState,
@@ -72,7 +72,7 @@ export default function DiagnosticsPane({
 							code={code}
 							gritQuery={gritQuery}
 							gritQueryResults={gritQueryResults}
-							gritTargetLanguage={gritTargetLanguage}
+							searchLanguage={searchLanguage}
 							onGritQueryChange={onGritQueryChange}
 							onLanguageChange={onLanguageChange}
 						/>

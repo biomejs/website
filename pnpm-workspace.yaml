@@ -1,3 +1,8 @@
+allowBuilds:
+  '@parcel/watcher': false
+  esbuild: false
+  sharp: false
+  tombi: false
 linkWorkspacePackages: true
 packages:
   - "scripts"

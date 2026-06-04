@@ -1,8 +1,8 @@
 import type {
 	Diagnostic,
 	FixFileMode,
-	GritTargetLanguage,
 	RuleDomains,
+	SearchLanguage,
 } from "@biomejs/wasm-web";
 import type { parser } from "codemirror-lang-rome-ast";
 import type { Dispatch, SetStateAction } from "react";
@@ -205,18 +205,22 @@ export const LANGUAGE = {
 	GraphQL: "graphql",
 	Grit: "grit",
 	CSS: "css",
+	SCSS: "scss",
 	HTML: "html",
 	Vue: "vue",
 	Svelte: "svelte",
 	Astro: "astro",
 	Markdown: "md",
+	YAML: "yaml",
 } as const;
 
 export type Language = (typeof LANGUAGE)[keyof typeof LANGUAGE];
 
-export type LintRule =
-	| keyof typeof LINT_RULES
-	| keyof (typeof LINT_RULES)[keyof typeof LINT_RULES];
+type ValueOf<T> = T[keyof T];
+
+export type LintRule = ValueOf<{
+	[G in keyof typeof LINT_RULES]: ValueOf<(typeof LINT_RULES)[G]>;
+}>;
 
 export interface PlaygroundSettings {
 	lineWidth: number;
@@ -246,7 +250,7 @@ export interface PlaygroundSettings {
 	experimentalFullSupportEnabled: boolean;
 	cssModules: boolean;
 	tailwindDirectives: boolean;
-	gritTargetLanguage: GritTargetLanguage;
+	searchLanguage: SearchLanguage;
 }
 
 export interface PlaygroundFileState {
@@ -294,7 +298,7 @@ export const defaultPlaygroundState: PlaygroundState = {
 		bracketSpacing: true,
 		bracketSameLine: false,
 		expand: Expand.Auto,
-		lintRules: LINT_RULES.recommended,
+		lintRules: LINT_RULES.preset.recommended,
 		enabledLinting: true,
 		analyzerFixMode: "safeFixes",
 		enabledAssist: true,
@@ -307,7 +311,7 @@ export const defaultPlaygroundState: PlaygroundState = {
 		experimentalFullSupportEnabled: true,
 		cssModules: false,
 		tailwindDirectives: true,
-		gritTargetLanguage: "JavaScript",
+		searchLanguage: "js",
 	},
 };
 
