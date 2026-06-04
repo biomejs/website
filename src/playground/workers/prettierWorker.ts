@@ -10,6 +10,8 @@ import pluginHtml from "prettier/plugins/html.mjs";
 import pluginMarkdown from "prettier/plugins/markdown.mjs";
 // @ts-expect-error
 import pluginCss from "prettier/plugins/postcss.mjs";
+// @ts-expect-error
+import pluginYaml from "prettier/plugins/yaml.mjs";
 import * as prettier from "prettier/standalone";
 // @ts-expect-error
 import * as pluginSvelte from "prettier-plugin-svelte/browser";
@@ -34,9 +36,11 @@ import {
 	isHtmlFilename,
 	isJsonFilename,
 	isMarkdownFilename,
+	isScssFilename,
 	isSvelteFilename,
 	isTypeScriptFilename,
 	isVueFilename,
+	isYamlFilename,
 } from "@/playground/utils.ts";
 
 let settings = defaultPlaygroundState.settings;
@@ -186,6 +190,7 @@ async function formatWithPrettier(
 				pluginHtml,
 				pluginMarkdown,
 				pluginSvelte,
+				pluginYaml,
 			],
 			parser: getPrettierParser(options.filepath),
 			singleQuote: options.quoteStyle === QuoteStyle.Single,
@@ -258,6 +263,9 @@ function getPrettierParser(filename: string): string {
 	if (isCssFilename(filename)) {
 		return "css";
 	}
+	if (isScssFilename(filename)) {
+		return "scss";
+	}
 	if (isGraphqlFilename(filename)) {
 		return "graphql";
 	}
@@ -272,6 +280,9 @@ function getPrettierParser(filename: string): string {
 	}
 	if (isMarkdownFilename(filename)) {
 		return "markdown";
+	}
+	if (isYamlFilename(filename)) {
+		return "yaml";
 	}
 	return "babel";
 }

@@ -1336,6 +1336,23 @@ export function GET() {
             ],
             "docs": " Disallow using `v-if` and `v-for` directives on the same element.\n\n There are two common cases where this can be tempting:\n - To filter items in a list (e.g. `v-for=\"user in users\" v-if=\"user.isActive\"`). In these cases, replace users with a new computed property that returns your filtered list (e.g. activeUsers).\n - To avoid rendering a list if it should be hidden (e.g. `v-for=\"user in users\" v-if=\"shouldShowUsers\"`). In these cases, move the v-if to a container element.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <TodoItem\n     v-if=\"complete\"\n     v-for=\"todo in todos\"\n     :todo=\"todo\"\n />\n ```\n\n ### Valid\n\n ```vue\n <ul v-if=\"complete\">\n     <TodoItem\n         v-for=\"todo in todos\"\n         :todo=\"todo\"\n     />\n </ul>\n ```\n\n"
           },
+          "noVueVOnNumberValues": {
+            "deprecated": false,
+            "version": "2.4.15",
+            "name": "noVueVOnNumberValues",
+            "link": "https://biomejs.dev/linter/rules/no-vue-v-on-number-values",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "no-deprecated-v-on-number-modifiers"
+                }
+              }
+            ],
+            "docs": " Disallow deprecated number modifiers on Vue `v-on` directives.\n\n Vue 3 no longer supports using key code numbers as event modifiers.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <input v-on:keyup.13=\"submit\" />\n ```\n\n ```vue,expect_diagnostic\n <input @keyup.13=\"submit\" />\n ```\n\n ### Valid\n\n ```vue\n <input v-on:keyup.enter=\"submit\" />\n ```\n\n ```vue\n <input @keyup.enter=\"submit\" />\n ```\n\n"
+          },
           "useIframeSandbox": {
             "deprecated": false,
             "version": "2.4.12",
@@ -1361,6 +1378,23 @@ export function GET() {
               }
             ],
             "docs": " Enforce that `<style>` blocks in Vue SFCs have the `scoped` attribute and that `<style>` blocks in Astro components do not have the `is:global` directive.\n\n Vue's `scoped` attribute automatically scopes CSS to the component,\n preventing style leakage and conflicts. Astro's `is:global` attribute\n allows for global styles, but without it, styles are scoped to the component by default.\n\n Style blocks with the `module` attribute are exempt, as CSS Modules\n is an alternative scoping mechanism.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <style>\n .foo { color: red; }\n </style>\n ```\n\n ```astro,expect_diagnostic\n <style is:global>\n .foo { color: red; }\n </style>\n ```\n\n ### Valid\n\n ```vue\n <style scoped>\n .foo { color: red; }\n </style>\n ```\n\n ```vue\n <style module>\n .foo { color: red; }\n </style>\n ```\n\n ## References:\n\n - [Vue Documentation](https://vuejs.org/api/sfc-css-features.html#scoped-css)\n - [Astro Documentation](https://docs.astro.build/en/guides/styling/#global-styles)\n"
+          },
+          "useSvelteRequireEachKey": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useSvelteRequireEachKey",
+            "link": "https://biomejs.dev/linter/rules/use-svelte-require-each-key",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintSvelte": "require-each-key"
+                }
+              }
+            ],
+            "docs": " Require keyed `{#each}` blocks in Svelte templates.\n\n Svelte uses keyed each blocks to track list items across updates. Without a key, Svelte\n updates items by position, which can cause state to move between items when the list changes.\n\n For more information, see the Svelte documentation on [keyed each blocks](https://svelte.dev/docs/svelte/each#Keyed-each-blocks).\n\n ## Examples\n\n ### Invalid\n\n ```svelte,expect_diagnostic\n {#each items as item}\n   <div>{item}</div>\n {/each}\n ```\n\n ### Valid\n\n ```svelte\n {#each items as item (item.id)}\n   <div>{item}</div>\n {/each}\n ```\n\n"
           },
           "useVueConsistentVBindStyle": {
             "deprecated": false,
@@ -1428,7 +1462,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Enforce that elements using `v-for` also specify a unique `key`.\n\n When rendering lists with `v-for`, Vue relies on a `key` to track elements efficiently.\n The `key` can be provided via longhand `v-bind:key` or shorthand `:key`. If you need to\n animate the entrance/exit of an item in a list, the key should be a unique identifier for\n each item in the list, and not the index of the item.\n\n For more information, see the Vue documentation on [list rendering](https://vuejs.org/guide/essentials/list#maintaining-state-with-key).\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <li v-for=\"item in items\">{{ item }}</li>\n ```\n\n ### Valid\n\n ```vue\n <li v-for=\"item in items\" :key=\"item.id\">{{ item }}</li>\n ```\n\n ```vue\n <li v-for=\"item in items\" v-bind:key=\"item.id\">{{ item }}</li>\n ```\n\n"
+            "docs": " Enforce that elements using `v-for` also specify a unique `key`.\n\n When rendering lists with `v-for`, Vue relies on a `key` to track elements efficiently.\n The `key` can be provided via longhand `v-bind:key` or shorthand `:key`. If you need to\n animate the entrance/exit of an item in a list, the key should be a unique identifier for\n each item in the list, and not the index of the item.\n\n For more information, see the Vue documentation on [list rendering](https://vuejs.org/guide/essentials/list#maintaining-state-with-key).\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <li v-for=\"item in items\">{{ item }}</li>\n ```\n\n ### Valid\n\n ```vue\n <li v-for=\"item in items\" :key=\"item.id\">{{ item }}</li>\n ```\n\n ```vue\n <li v-for=\"item in items\" v-bind:key=\"item.id\">{{ item }}</li>\n ```\n\n Related rules:\n - [`useVueValidVFor`](https://biomejs.dev/linter/rules/use-vue-valid-v-for/)\n\n"
           },
           "useVueValidTemplateRoot": {
             "deprecated": false,
@@ -1514,6 +1548,23 @@ export function GET() {
               }
             ],
             "docs": " Enforce valid `v-else-if` directives.\n\n Biome flags these cases:\n - Has an argument: `<div v-else-if:arg=\"b\"></div>`.\n - Has modifiers: `<div v-else-if.mod=\"b\"></div>`.\n - Missing value: `<div v-else-if></div>`.\n - Not preceded by a sibling with `v-if`/`v-else-if`.\n - On the same element as `v-if` or `v-else`.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <div v-if=\"a\"></div><div v-else-if:arg=\"b\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-if=\"a\"></div><div v-else-if.mod=\"b\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-if=\"a\"></div><div v-else-if></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-else-if=\"b\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-if=\"a\" v-else-if=\"b\"></div>\n ```\n\n ### Valid\n\n ```vue\n <div v-if=\"a\"></div><div v-else-if=\"b\"></div><div v-else></div>\n ```\n\n"
+          },
+          "useVueValidVFor": {
+            "deprecated": false,
+            "version": "2.4.15",
+            "name": "useVueValidVFor",
+            "link": "https://biomejs.dev/linter/rules/use-vue-valid-v-for",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "valid-v-for"
+                }
+              }
+            ],
+            "docs": " Enforces valid `v-for` directives in Vue templates.\n\n This rule reports `v-for` directives in the following cases:\n - The directive has an argument. E.g. `<div v-for:aaa=\"item in items\"></div>`\n - The directive has a modifier. E.g. `<div v-for.bbb=\"item in items\"></div>`\n - The directive does not have a value. E.g. `<div v-for></div>`\n - The second or third aliases are empty or are not simple identifiers.\n - A custom component rendered with `v-for` is missing `v-bind:key`.\n - The `v-bind:key` expression does not use any variable introduced by the `v-for` directive.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <div v-for:aaa=\"item in items\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-for=\"(item, { key }) in items\"></div>\n ```\n\n ```vue,expect_diagnostic\n <MyItem v-for=\"item in items\"></MyItem>\n ```\n\n ```vue,expect_diagnostic\n <div v-for=\"item in items\" :key=\"foo\"></div>\n ```\n\n ### Valid\n\n ```vue\n <div v-for=\"item in items\"></div>\n ```\n\n ```vue\n <MyItem v-for=\"item in items\" :key=\"item.id\" />\n ```\n\n ```vue\n <template v-for=\"item in items\">\n     <div :key=\"item.id\"></div>\n </template>\n ```\n\n Related rules:\n - [`useVueVForKey`](https://biomejs.dev/linter/rules/use-vue-v-for-key/)\n\n"
           },
           "useVueValidVHtml": {
             "deprecated": false,
@@ -3118,7 +3169,7 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/use-import-extensions",
             "recommended": false,
             "fixKind": "safe",
-            "docs": " Enforce file extensions for relative imports.\n\n Browsers, Deno, and Node.js do not natively support importing files\n without extensions from JavaScript modules. This rule enforces the use\n of file extensions for relative imports to make the code more\n consistent -- and correct.\n\n In some cases, tooling can also benefit from explicit file extensions,\n because they do not need to guess which file to resolve.\n\n The rule checks both static imports (`import ... from \"...\"`) as well as\n dynamic imports such as `import(...)` and `require(...)`.\n\n ## Examples\n\n ### Invalid\n\n The following examples assume these imports will resolve to a file with\n an extension. Imports that don't resolve at all will not trigger a\n diagnostic.\n\n ```js\n import \"./foo\";\n ```\n ```js\n import \"./foo/\";\n ```\n ```js\n import \"../\";\n ```\n ```js\n import \"../.\";\n ```\n ```js\n import(\"./foo\");\n ```\n ```js\n require(\"./foo\");\n ```\n\n ### Valid\n\n ```js\n import \"biome\";\n ```\n ```js\n import \"./foo.js\";\n ```\n ```js\n import \"./bar/index.js\";\n ```\n ```js\n import(\"./foo.js\");\n ```\n ```js\n require(\"./foo.js\");\n ```\n\n ## Options\n\n The rule provides the options described below.\n\n ### extensionMappings\n\n A map of file extensions to their suggested replacements. This allows you\n to specify custom mappings for import extensions. For example, you can\n map TypeScript imports to JavaScript extensions.\n\n This is useful if you are bundling your code to JavaScript into a package\n and want to make sure all imports of TypeScript files use the `.js` extension\n instead.\n\n If no mapping is found for a given extension, and the import is missing an extension,\n the rule will suggest using the actual extension of the resolved file.\n\n Default: `{}` (empty object)\n\n ```json,options\n {\n     \"options\": {\n         \"extensionMappings\": {\n             \"ts\": \"js\",\n             \"tsx\": \"js\"\n         }\n     }\n }\n ```\n\n ### forceJsExtensions\n\n Normally, this rule suggests to use the extension of the module that is\n found in your project. For instance, `.ts` or `.tsx` for a TypeScript\n file. If this option is set to `true`, the rule will always suggest to\n use `.js` regardless of the extension in your project.\n\n This is useful if you use the `\"module\": \"node16\"` setting when building\n your code with `tsc`.\n\n Default: `false`\n\n ```json,options\n {\n     \"options\": {\n         \"forceJsExtensions\": true\n     }\n }\n ```\n\n ## Editor Configuration\n\n If you use Visual Studio Code, you can ensure that it adds the file\n extension when automatically importing a variable by configuring\n `javascript.preferences.importModuleSpecifierEnding` and\n `typescript.preferences.importModuleSpecifierEnding`\n in your [settings](https://code.visualstudio.com/docs/getstarted/settings).\n\n ## Caveats\n\n If you are using TypeScript, TypeScript version 5.0 or later is\n required, also make sure to set\n [`allowImportingTsExtensions: true`](https://typescriptlang.org/tsconfig#allowImportingTsExtensions)\n in your `tsconfig.json`.\n"
+            "docs": " Enforce file extensions for relative imports.\n\n Browsers, Deno, and Node.js do not natively support importing files\n without extensions from JavaScript modules. This rule enforces the use\n of file extensions for relative imports to make the code more\n consistent -- and correct.\n\n In some cases, tooling can also benefit from explicit file extensions,\n because they do not need to guess which file to resolve.\n\n The rule checks both static imports (`import ... from \"...\"`) as well as\n dynamic imports such as `import(...)` and `require(...)`.\n\n ## Examples\n\n ### Invalid\n\n The following examples assume these imports will resolve to a file with\n an extension. Imports that don't resolve at all will not trigger a\n diagnostic.\n\n ```js\n import \"./foo\";\n ```\n ```js\n import \"./foo/\";\n ```\n ```js\n import \"../\";\n ```\n ```js\n import \"../.\";\n ```\n ```js\n import(\"./foo\");\n ```\n ```js\n require(\"./foo\");\n ```\n\n ### Valid\n\n ```js\n import \"biome\";\n ```\n ```js\n import \"./foo.js\";\n ```\n ```js\n import \"./bar/index.js\";\n ```\n ```js\n import(\"./foo.js\");\n ```\n ```js\n require(\"./foo.js\");\n ```\n\n ## Options\n\n The rule provides the options described below.\n\n ### extensionMappings\n\n A map of file extensions to their suggested replacements. This allows you\n to specify custom mappings for import extensions. For example, you can\n map TypeScript imports to JavaScript extensions.\n\n This is useful if you are bundling your code to JavaScript into a package\n and want to make sure all imports of TypeScript files use the `.js` extension\n instead.\n\n If no mapping is found for a given extension, and the import is missing an extension,\n the rule will suggest using the actual extension of the resolved file.\n\n Default: `{}` (empty object)\n\n ```json,options\n {\n     \"options\": {\n         \"extensionMappings\": {\n             \"ts\": \"js\",\n             \"tsx\": \"js\"\n         }\n     }\n }\n ```\n\n ### forceJsExtensions\n\n Normally, this rule suggests to use the extension of the module that is\n found in your project. For instance, `.ts` or `.tsx` for a TypeScript\n file. If this option is set to `true`, the rule will always suggest to\n use `.js` regardless of the extension in your project.\n\n This is useful if you use the `\"module\": \"node16\"` setting when building\n your code with `tsc`.\n\n Default: `false`\n\n ```json,options\n {\n     \"options\": {\n         \"forceJsExtensions\": true\n     }\n }\n ```\n\n ## Editor Configuration\n\n If you use Visual Studio Code, you can ensure that it adds the file\n extension when automatically importing a variable by configuring\n `javascript.preferences.importModuleSpecifierEnding` and\n `typescript.preferences.importModuleSpecifierEnding`\n in your [settings](https://code.visualstudio.com/docs/getstarted/settings).\n"
           },
           "useIsNan": {
             "deprecated": false,
@@ -3249,6 +3300,23 @@ export function GET() {
               }
             ],
             "docs": " Disallow ambiguous anchor descriptions.\n\n Enforces `<a>` values are not exact matches for the phrases \"click here\", \"here\", \"link\", \"a link\", or \"learn more\".\n Screen readers announce tags as links/interactive, but rely on values for context.\n Ambiguous anchor descriptions do not provide sufficient context for users.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n const Invalid = () => <a>learn more</a>;\n ```\n\n ### Valid\n\n ```jsx\n const Valid = () => <a>documentation</a>;\n ```\n\n ## Options\n\n ### `words`\n\n The words option allows users to modify the strings that can be checked for in the anchor text. Useful for specifying other words in other languages.\n\n Default `[\"click here\", \"here\", \"link\", \"a link\", \"learn more\"]`\n\n ```json,options\n {\n   \"options\": {\n     \"words\": [\"click this\"]\n   }\n }\n ```\n\n #### Invalid\n\n ```jsx,expect_diagnostic,use_options\n const Invalid = () => <a>click this</a>;\n ```\n\n"
+          },
+          "noBaseToString": {
+            "deprecated": false,
+            "version": "2.4.15",
+            "name": "noBaseToString",
+            "link": "https://biomejs.dev/linter/rules/no-base-to-string",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintTypeScript": "no-base-to-string"
+                }
+              }
+            ],
+            "docs": " Require stringification to avoid values that only use the default object representation.\n\n JavaScript coerces values to strings in several places, such as `String(value)`,\n `value.toString()`, string concatenation, template interpolation, and `Array#join()`.\n When the value only inherits the default object stringification, that often produces\n `\"[object Object]\"` instead of something intentionally readable.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=invalid-string.ts\n const value: {} = {};\n String(value);\n ```\n\n ```ts,expect_diagnostic,file=invalid-template.ts\n const value: {} = {};\n `${value}`;\n ```\n\n ```ts,expect_diagnostic,file=invalid-join.ts\n const values: {}[] = [{}];\n values.join(\",\");\n ```\n\n ### Valid\n\n ```ts\n String(1);\n ```\n\n ```ts\n class CustomToString {\n     toString() {\n         return \"ok\";\n     }\n }\n\n `${new CustomToString()}`;\n ```\n"
           },
           "noConditionalExpect": {
             "deprecated": false,
@@ -3867,7 +3935,7 @@ export function GET() {
               {
                 "kind": "sameLogic",
                 "source": {
-                  "eslintReactNative": "no-color-literals"
+                  "eslintReactNativeIntellicode": "no-color-literals"
                 }
               }
             ],
@@ -4052,7 +4120,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow unnecessary type-based conditions that can be statically determined as redundant.\n\n This rule detects if expressions inside conditions are statically inferrable and yield\n falsy or truthy values that don't change during the life cycle of the program.\n\n ## Examples\n\n ### Invalid\n\n ```ts\n function head<T>(items: T[]) {\n   if (items) {  // This check is unnecessary\n     return items[0].toUpperCase();\n   }\n }\n ```\n\n ```ts\n function foo(arg: 'bar' | 'baz') {\n   if (arg) {  // This check is unnecessary\n   }\n }\n ```\n\n ```ts\n function bar(arg: string) {\n   return arg?.length;  // ?. is unnecessary\n }\n ```\n\n Contrary to the source rule, this rule doesn't trigger bindings that are assigned to multiple\n values. In the following example, the variable `greeting` is assigned to multiple values; hence\n it can't be inferred to a truthy or falsy value.\n\n ```ts\n let greeting = false;\n\n function changeGreeting() {\n     greeting = \"Hello World!\"\n }\n\n if (greeting) {} // rule not triggered here\n\n ```\n\n\n ### Valid\n\n ```ts\n function head<T>(items: T[] | null) {\n   if (items) {  // This check is necessary\n     return items[0].toUpperCase();\n   }\n }\n ```\n\n ```ts\n function foo(arg: 'bar' | 'baz' | null) {\n   if (arg) {  // This check is necessary\n   }\n }\n ```\n\n ```ts\n function bar(arg: string | undefined) {\n   return arg?.length;  // ?. is necessary\n }\n ```\n\n"
+            "docs": " Disallow conditions that always evaluate to the same value.\n\n Using type information, this rule reports conditions whose result is\n statically known. It covers `if`/`while`/`for`/ternary tests, the `??`\n and `||`/`&&` operators, optional chaining (`?.`), comparisons against\n `null`/`undefined`, and `case` clauses that can never match the value\n passed to `switch`.\n\n ## Examples\n\n ### Invalid\n\n A non-nullable value never needs an `if` guard:\n\n ```ts\n function head<T>(items: T[]) {\n     if (items) {\n         return items[0];\n     }\n }\n ```\n\n A literal-union type can never be empty, so the truthiness check is\n redundant:\n\n ```ts\n function foo(arg: 'bar' | 'baz') {\n     if (arg) {}\n }\n ```\n\n `?.` and `??` on operands that are guaranteed to be non-nullish:\n\n ```ts\n function bar(arg: string) {\n     return arg?.length;\n }\n ```\n\n ```ts\n function withDefault(name: string) {\n     return name ?? \"anonymous\";\n }\n ```\n\n `||` and `&&` on always-truthy operands:\n\n ```ts\n interface Config { items: string[] }\n function f(c: Config) {\n     return c.items || [];\n }\n ```\n\n `!expr` on a value that is always truthy:\n\n ```ts\n const items = [];\n if (!items) {}\n ```\n\n Comparing a non-nullable value against `null` or `undefined`:\n\n ```ts\n function f(x: string) {\n     return x === null;\n }\n ```\n\n A `case` whose value can never equal the value passed to `switch`:\n\n ```ts\n function f(v: 'a' | 'b') {\n     switch (v) {\n         case 'c': return 1;\n     }\n }\n ```\n\n ### Valid\n\n When the type allows nullish or empty values, the check is meaningful.\n The rule also does not report bindings that are reassigned to values of\n different truthiness, since their narrowing cannot be inferred reliably.\n\n ```ts\n function head<T>(items: T[] | null) {\n     if (items) {\n         return items[0];\n     }\n }\n\n function bar(arg: string | undefined) {\n     return arg?.length;\n }\n\n function f(v: 'a' | 'b' | 'c') {\n     switch (v) {\n         case 'a': break;\n         case 'b': break;\n         case 'c': break;\n     }\n }\n\n let greeting = false;\n function update() { greeting = \"Hello\"; }\n if (greeting) {}\n ```\n\n"
           },
           "noUnnecessaryTemplateExpression": {
             "deprecated": false,
@@ -4138,6 +4206,23 @@ export function GET() {
               }
             ],
             "docs": " Disallows using arrow functions when defining a watcher.\n\n When using the Options API in Vue.js, defining watchers with arrow functions is discouraged. This is because arrow functions bind to their parent context, which means that the `this` keyword inside the arrow function does not refer to the Vue instance as expected. Instead, it refers to the context in which the arrow function was defined, which can be confusing.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script>\n export default {\n   watch: {\n     foo: (val, oldVal) => {\n       console.log('new: %s, old: %s', val, oldVal)\n     }\n   }\n }\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script>\n export default {\n   watch: {\n     foo: {\n       handler: (val, oldVal) => {\n         console.log('new: %s, old: %s', val, oldVal)\n       }\n     }\n   }\n }\n </script>\n ```\n\n ### Valid\n\n ```vue\n <script>\n export default {\n   watch: {\n     a: function (val, oldVal) {\n       console.log('new: %s, old: %s', val, oldVal)\n     },\n     b: 'someMethod',\n     c: {\n       handler: function (val, oldVal) { /* ... */ },\n       deep: true\n     },\n     d: {\n       handler: 'someMethod',\n       immediate: true\n     },\n     e: [\n       'handle1',\n       function handle2 (val, oldVal) { /* ... */ },\n       {\n         handler: function handle3 (val, oldVal) { /* ... */ },\n         /* ... */\n       }\n     ],\n     'e.f': function (val, oldVal) { /* ... */ }\n   }\n }\n </script>\n ```\n\n References:\n - https://vuejs.org/api/options-state.html#watch\n\n"
+          },
+          "noVueImportCompilerMacros": {
+            "deprecated": false,
+            "version": "2.4.15",
+            "name": "noVueImportCompilerMacros",
+            "link": "https://biomejs.dev/linter/rules/no-vue-import-compiler-macros",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "no-import-compiler-macros"
+                }
+              }
+            ],
+            "docs": " Disallow importing Vue compiler macros.\n\n Vue compiler macros are globally available inside `<script setup>` blocks and must not be imported.\n Outside of `<script setup>`, compiler macros are not valid Vue runtime imports.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script setup>\n import { defineProps } from \"vue\";\n defineProps({});\n </script>\n ```\n\n ### Valid\n\n ```vue\n <script setup>\n defineProps({});\n </script>\n ```\n\n"
           },
           "noVueOptionsApi": {
             "deprecated": false,
@@ -4248,13 +4333,13 @@ export function GET() {
             "fixKind": "none",
             "sources": [
               {
-                "kind": "sameLogic",
+                "kind": "inspired",
                 "source": {
                   "eslint": "prefer-destructuring"
                 }
               }
             ],
-            "docs": " Require destructuring from arrays and/or objects\n\n With JavaScript ES6, a new syntax was added for creating variables from an array index or object property,\n called destructuring. This rule enforces usage of destructuring instead of accessing a property through a member expression.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n var foo = array[0];\n ```\n\n ```js,expect_diagnostic\n var bar = foo.bar;\n ```\n\n\n ### Valid\n\n ```js\n var [foo] = array;\n ```\n\n ```js\n var { bar } = foo;\n ```\n\n ```ts\n // Variables with type annotations are ignored\n const foo: string = object.foo;\n ```\n\n"
+            "docs": " Require destructuring from arrays and/or objects\n\n With JavaScript ES6, a new syntax was added for creating variables from an array index or object property,\n called destructuring. This rule enforces usage of destructuring instead of accessing a property through a member expression.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n var foo = array[0];\n ```\n\n ```js,expect_diagnostic\n var bar = foo.bar;\n ```\n\n\n ### Valid\n\n ```js\n var [foo] = array;\n ```\n\n ```js\n var { bar } = foo;\n ```\n\n ```ts\n // Variables with type annotations are ignored\n const foo: string = object.foo;\n ```\n\n ## Options\n\n ### `variableDeclarator`\n\n Default: `{ \"array\": true, \"object\": true }`\n\n Controls whether to enforce destructuring in variable declarations.\n Set `array` or `object` to `false` to disable enforcement for that pattern.\n\n In the following example, array destructuring is disabled in declarations:\n\n ```json\n {\n     \"//\": \"...\",\n     \"options\": {\n         \"variableDeclarator\": {\n             \"array\": false\n         }\n     }\n }\n ```\n\n ```js,ignore\n var foo = array[0]; // allowed\n var foo = object.foo; // still flagged\n ```\n\n ### `assignmentExpression`\n\n Default: `{ \"array\": true, \"object\": true }`\n\n Controls whether to enforce destructuring in assignment expressions.\n Set `array` or `object` to `false` to disable enforcement for that pattern.\n When enabled for objects, the diagnostic instructs users to wrap in parentheses: `({ prop } = object)`.\n\n In the following example, assignment destructuring is disabled entirely:\n\n ```json\n {\n     \"//\": \"...\",\n     \"options\": {\n         \"assignmentExpression\": {\n             \"array\": false,\n             \"object\": false\n         }\n     }\n }\n ```\n\n ```js,ignore\n foo = object.foo; // allowed\n ```\n\n"
           },
           "useDisposables": {
             "deprecated": false,
@@ -4462,7 +4547,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Enforce using the nullish coalescing operator (`??`) instead of logical or (`||`).\n\n The `??` operator only checks for `null` and `undefined`, while `||` checks\n for any falsy value including `0`, `''`, and `false`. This can prevent bugs\n where legitimate falsy values are incorrectly treated as missing.\n\n For `||` expressions, this rule triggers when the left operand is possibly\n nullish (contains `null` or `undefined` in its type). A safe fix is only\n offered when type analysis confirms the left operand can only be truthy or\n nullish (not other falsy values like `0` or `''`).\n\n For `||=` assignment expressions, the same logic applies: `a ||= b` is\n flagged when `a` is possibly nullish and can be rewritten as `a ??= b`.\n\n For ternary expressions, this rule detects patterns like `x !== null ? x : y`\n and suggests rewriting them as `x ?? y`. This applies to strict and loose\n equality checks against `null` or `undefined`, including compound checks.\n\n By default, `||` expressions in conditional test positions (if/while/for/ternary)\n are ignored, as the falsy-checking behavior is often intentional there. This can\n be disabled with the `ignoreConditionalTests` option.\n\n ## Examples\n\n ### Invalid\n\n ```ts\n declare const maybeString: string | null;\n const value = maybeString || 'default'; // should use ??\n ```\n\n ```ts\n declare const maybeNumber: number | undefined;\n const value = maybeNumber || 0; // should use ??\n ```\n\n ```ts\n declare let x: string | null;\n x ||= 'default'; // should use ??=\n ```\n\n ```ts,expect_diagnostic\n declare const x: string | null;\n const value = x !== null ? x : 'default'; // should use ??\n ```\n\n ```ts,expect_diagnostic\n declare const x: string | null;\n const value = x == null ? 'default' : x; // should use ??\n ```\n\n ### Valid\n\n ```ts\n // Already using ??\n declare const maybeString: string | null;\n const value = maybeString ?? 'default';\n ```\n\n ```ts\n // Type is not nullish - no null or undefined in union\n declare const definiteString: string;\n const value = definiteString || 'fallback';\n ```\n\n ```ts\n // In conditional test position (ignored by default)\n declare const cond: string | null;\n if (cond || 'fallback') {\n   console.log('in if');\n }\n ```\n\n ```ts\n // Already using ??=\n declare let y: string | null;\n y ??= 'default';\n ```\n\n ## Options\n\n ### ignoreConditionalTests\n\n Ignore `||` expressions inside conditional test positions\n (if/while/for/do-while/ternary conditions), where falsy-checking\n behavior may be intentional.\n\n **Default:** `true`\n\n Setting this to `false` will report `||` in conditional tests:\n\n ```json,options\n {\n     \"options\": {\n         \"ignoreConditionalTests\": false\n     }\n }\n ```\n\n ```ts,use_options\n declare const cond: string | null;\n if (cond || 'fallback') {}\n ```\n\n ### ignoreTernaryTests\n\n Ignore ternary expressions that check for `null` or `undefined`\n and could be replaced with `??`.\n\n **Default:** `false`\n\n Setting this to `true` will suppress ternary diagnostics:\n\n ```json,options\n {\n     \"options\": {\n         \"ignoreTernaryTests\": true\n     }\n }\n ```\n\n ```ts,use_options\n declare const x: string | null;\n const value = x !== null ? x : 'default'; // no diagnostic\n ```\n\n"
+            "docs": " Enforce using the nullish coalescing operator (`??`) instead of logical or (`||`).\n\n `??` only checks for `null` and `undefined`, while `||` checks for any falsy value\n including `0`, `''`, and `false`. The rule reports `||`, `||=`, and ternary patterns\n (`x !== null ? x : y`) when type analysis shows the left operand is possibly nullish.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=invalid-or.ts\n declare const maybeString: string | null;\n const value = maybeString || 'default';\n ```\n\n ```ts,expect_diagnostic,file=invalid-or-undefined.ts\n declare const maybeNumber: number | undefined;\n const value = maybeNumber || 0;\n ```\n\n ```ts,expect_diagnostic,file=invalid-or-assign.ts\n declare let x: string | null;\n x ||= 'default';\n ```\n\n ```ts,expect_diagnostic\n declare const x: string | null;\n const value = x !== null ? x : 'default';\n ```\n\n ```ts,expect_diagnostic\n declare const x: string | null;\n const value = x == null ? 'default' : x;\n ```\n\n ### Valid\n\n ```ts\n declare const maybeString: string | null;\n const value = maybeString ?? 'default';\n ```\n\n ```ts\n declare const definiteString: string;\n const value = definiteString || 'fallback';\n ```\n\n ```ts\n declare const cond: string | null;\n if (cond || 'fallback') {\n   console.log('in if');\n }\n ```\n\n ```ts\n declare let y: string | null;\n y ??= 'default';\n ```\n\n ## Options\n\n ### ignoreConditionalTests\n\n Ignore `||` expressions inside conditional test positions (if/while/for/do-while/ternary).\n Default: `true`.\n\n ```json,options\n {\n     \"options\": {\n         \"ignoreConditionalTests\": false\n     }\n }\n ```\n\n ```ts,use_options\n declare const cond: string | null;\n if (cond || 'fallback') {}\n ```\n\n ### ignoreTernaryTests\n\n Ignore ternary expressions that check for `null` or `undefined`. Default: `false`.\n\n ```json,options\n {\n     \"options\": {\n         \"ignoreTernaryTests\": true\n     }\n }\n ```\n\n ```ts,use_options\n declare const x: string | null;\n const value = x !== null ? x : 'default';\n ```\n\n ### ignoreMixedLogicalExpressions\n\n Ignore `||` and `||=` whose connected logical tree also contains a `&&`. Default: `false`.\n\n ```json,options\n {\n     \"options\": {\n         \"ignoreMixedLogicalExpressions\": true\n     }\n }\n ```\n\n #### Invalid\n\n `||` and `||=` are still reported when the surrounding logical tree does not contain `&&`.\n\n ```ts,expect_diagnostic,use_options,file=invalid-mixed-or.ts\n declare const maybeString: string | null;\n const value = maybeString || 'default';\n ```\n\n ```ts,expect_diagnostic,use_options,file=invalid-mixed-or-assign.ts\n declare let assigned: string | null;\n assigned ||= 'default';\n ```\n\n #### Valid\n\n `||` and `||=` mixed with `&&` in the same logical tree are not reported.\n\n ```ts,use_options\n declare const a: string | null;\n declare const b: string;\n const r = (a || 'default') && b;\n ```\n\n ```ts,use_options\n declare const b: string;\n declare let assigned: string | null;\n assigned ||= b && 'fallback';\n ```\n\n"
           },
           "usePlaywrightValidDescribeCallback": {
             "deprecated": false,
@@ -4538,7 +4623,7 @@ export function GET() {
               {
                 "kind": "inspired",
                 "source": {
-                  "eslintReactNative": "split-platform-components"
+                  "eslintReactNativeIntellicode": "split-platform-components"
                 }
               }
             ],
@@ -4633,6 +4718,35 @@ export function GET() {
             ],
             "docs": " Prefer `String#startsWith()` and `String#endsWith()` over verbose prefix and suffix checks.\n\n This rule detects common string comparisons such as indexing, `charAt`, `indexOf`, `lastIndexOf`,\n `slice`, `substring`, `match`, and anchored `RegExp#test` calls when they are being used to check\n whether a string starts or ends with another string.\n\n The rule uses type information and only reports when the receiver is known to be a string. Array\n indexing and other non-string receivers are ignored.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=invalid-index.ts\n declare const text: string;\n text[0] === \"a\";\n ```\n\n ```ts,expect_diagnostic,file=invalid-search.ts\n declare const text: string;\n text.indexOf(\"foo\") === 0;\n ```\n\n ```ts,expect_diagnostic,file=invalid-regex.ts\n declare const text: string;\n /^foo/.test(text);\n ```\n\n ### Valid\n\n ```ts,file=valid-string.ts\n declare const text: string;\n text.startsWith(\"foo\");\n text.endsWith(\"bar\");\n ```\n\n ```ts,file=valid-array.ts\n declare const list: string[];\n list[0] === \"a\";\n ```\n"
           },
+          "useTestHooksInOrder": {
+            "deprecated": false,
+            "version": "2.4.15",
+            "name": "useTestHooksInOrder",
+            "link": "https://biomejs.dev/linter/rules/use-test-hooks-in-order",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJest": "prefer-hooks-in-order"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVitest": "prefer-hooks-in-order"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintPlaywright": "prefer-hooks-in-order"
+                }
+              }
+            ],
+            "docs": " Enforce that test lifecycle hooks are declared in the order they execute.\n\n Jest and Vitest always execute lifecycle hooks in the following order,\n regardless of how they are written in the file:\n\n 1. `beforeAll` (or `before` if you are using `node:test`)\n 2. `beforeEach`\n 3. `afterEach`\n 4. `afterAll` (or `after` if you are using `node:test`)\n\n Writing the hooks in a different order creates a discrepancy between\n the visual order in the source and the actual execution order, which\n makes test code harder to reason about.\n\n This rule flags any hook that appears after a hook that runs later in the\n execution order. Only consecutive groups of hooks in the same block are\n compared — test cases and other statements between hooks are allowed and\n reset the comparison baseline.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n describe('foo', () => {\n   beforeEach(() => {});\n   beforeAll(() => {});\n });\n ```\n\n ```js,expect_diagnostic\n describe('foo', () => {\n   afterEach(() => {});\n   afterAll(() => {});\n   beforeAll(() => {});\n });\n ```\n\n ### Valid\n\n ```js\n describe('foo', () => {\n   beforeAll(() => {});\n   beforeEach(() => {});\n   afterEach(() => {});\n   afterAll(() => {});\n });\n ```\n\n ```js\n // Hooks separated by test cases are treated independently.\n describe('foo', () => {\n   beforeEach(() => {});\n   it('a test', () => {});\n   afterAll(() => {});\n });\n ```\n\n See [`useTestHooksOnTop`](https://biomejs.dev/linter/rules/use-test-hooks-on-top) if you want to group all the hooks at the top of the block, before any test cases.\n\n"
+          },
           "useTestHooksOnTop": {
             "deprecated": false,
             "version": "2.4.14",
@@ -4660,7 +4774,24 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Enforce that lifecycle hooks appear before any test cases in the same block.\n\n Placing `beforeEach`, `beforeAll`, `afterEach`, and `afterAll` hooks after\n test cases (`it`, `test`) makes the setup and teardown harder to spot at a\n glance and can be a source of confusion for readers of the test suite.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n describe('foo', () => {\n   it('does something', () => {});\n   beforeEach(() => {});\n });\n ```\n\n ### Valid\n\n ```js\n describe('foo', () => {\n   beforeEach(() => {});\n   it('does something', () => {});\n });\n ```\n\n"
+            "docs": " Enforce that lifecycle hooks appear before any test cases in the same block.\n\n Placing `beforeEach`, `beforeAll`, `afterEach`, and `afterAll` hooks after\n test cases (`it`, `test`) makes the setup and teardown harder to spot at a\n glance and can be a source of confusion for readers of the test suite.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n describe('foo', () => {\n   it('does something', () => {});\n   beforeEach(() => {});\n });\n ```\n\n ### Valid\n\n ```js\n describe('foo', () => {\n   beforeEach(() => {});\n   it('does something', () => {});\n });\n ```\n\n See also: [`useTestHooksInOrder`](https://biomejs.dev/linter/rules/use-test-hooks-in-order)\n\n"
+          },
+          "useThisInClassMethods": {
+            "deprecated": false,
+            "version": "2.4.15",
+            "name": "useThisInClassMethods",
+            "link": "https://biomejs.dev/linter/rules/use-this-in-class-methods",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "class-methods-use-this"
+                }
+              }
+            ],
+            "docs": " Enforce that class methods utilize `this`.\n\n Instance methods usually communicate that their behavior depends on instance state.\n When a class member never uses `this`, it can often be made `static` or moved outside\n the class to better reflect its intent.\n\n This rule checks instance methods, getters, setters, and instance field initializers\n whose value is an arrow function or function expression. Constructors, static members,\n and static blocks are ignored.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n class A {\n     foo() {\n         console.log(\"Hello\");\n     }\n }\n ```\n\n ### Valid\n\n ```js\n class A {\n     foo() {\n         this.value = \"Hello\";\n     }\n }\n ```\n\n ```js\n class A {\n     static foo() {}\n }\n ```\n\n ## Options\n\n ### `ignoreMethods`\n\n A list of method names to ignore for this rule.\n\n Default: `[]`\n\n ```json,options\n {\n     \"options\": {\n         \"ignoreMethods\": [\"render\", \"#serialize\"]\n     }\n }\n ```\n\n In this example, `render` and `#serialize` are ignored, so the rule does not report these methods.\n ```js,use_options\n class Component {\n     render() {}\n     #serialize() {}\n }\n ```\n\n ### `ignoreOverrideMethods`\n\n Whether to ignore `override` methods on subclasses.\n\n Default: `false`\n\n ```json,options\n {\n     \"options\": {\n         \"ignoreOverrideMethods\": true\n     }\n }\n ```\n\n In this example, the method in `Derived` is ignored because it is marked with `override`.\n ```ts,use_options\n abstract class Base {\n     abstract method(): void;\n }\n\n class Derived extends Base {\n     override method() {} // ignored because it has `override`\n }\n ```\n\n ### `ignoreClassesWithImplements`\n\n Controls how classes with an `implements` clause are handled.\n\n Default: `\"none\"`\n\n - `\"none\"` checks classes with an `implements` clause the same way as any other class.\n - `\"all\"` ignores every eligible instance member in classes that implement an interface.\n - `\"public-fields\"` ignores only public eligible members in those classes. Protected and\n   private members are still checked.\n\n ```json,options\n {\n     \"options\": {\n         \"ignoreClassesWithImplements\": \"all\"\n     }\n }\n ```\n\n In this example, every eligible member in a class with an `implements` clause is ignored.\n ```ts,use_options\n interface Service {\n     run(): void;\n }\n\n class ServiceImpl implements Service {\n     run() {}\n }\n ```\n\n ```json,options\n {\n     \"options\": {\n         \"ignoreClassesWithImplements\": \"public-fields\"\n     }\n }\n ```\n\n In this example, only public eligible members are ignored, so `helper` is still reported.\n ```ts,expect_diagnostic,use_options\n interface Service {\n     run(): void;\n }\n\n class ServiceImpl implements Service {\n     run() {}\n     protected helper() {}\n }\n ```\n"
           },
           "useUnicodeRegex": {
             "deprecated": false,
@@ -4746,6 +4877,23 @@ export function GET() {
               }
             ],
             "docs": " Enforce multi-word component names in Vue components.\n\n Using a single-word component name (e.g. `App`, `Header`) can:\n - Conflict with native/custom HTML elements (present or future)\n - Reduce clarity/expressiveness\n\n This rule requires component names to be \"multi-word\".\n\n A name is considered multi-word when:\n - Kebab-case: contains at least one hyphen (`my-component`)\n - PascalCase / CamelCase: contains at least two capital letters (`MyComponent`); single-cap names like `App` or `Foo` are rejected\n\n Component names are extracted from the `name` property in Options API components, or inferred from the file name if not explicitly set.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script>\n export default {\n   name: \"Foo\"\n };\n </script>\n ```\n\n ```js,expect_diagnostic\n import { defineComponent } from \"vue\";\n export default defineComponent({\n   name: \"Header\"\n });\n ```\n\n ```js,expect_diagnostic\n import { createApp } from \"vue\";\n createApp({\n   name: \"Widget\"\n }).mount(\"#app\");\n ```\n\n ### Valid\n\n ```vue\n <script>\n export default {\n   name: \"MyComponent\"\n };\n </script>\n ```\n\n ```js\n export default {\n   name: \"my-component\"\n };\n ```\n\n ```js\n defineComponent({\n   name: \"MyComponent\"\n });\n ```\n\n ```js\n createApp({ name: \"MyApp\" }).mount(\"#app\");\n ```\n\n ## Options\n\n ### `ignores`\n\n Additional single-word component names to ignore (case-insensitive). The rule already ignores Vue built-in components and `App` by default.\n\n ```json,options\n {\n   \"options\": {\n     \"ignores\": [\n       \"Foo\"\n     ]\n   }\n }\n ```\n\n #### Valid\n\n ```vue,use_options\n <script>\n export default {\n   name: \"Foo\"\n };\n </script>\n ```\n\n"
+          },
+          "useVueNextTickPromise": {
+            "deprecated": false,
+            "version": "2.4.15",
+            "name": "useVueNextTickPromise",
+            "link": "https://biomejs.dev/linter/rules/use-vue-next-tick-promise",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintVueJs": "next-tick-style"
+                }
+              }
+            ],
+            "docs": " Enforces Promise syntax when using Vue `nextTick`.\n\n Vue `nextTick` returns a Promise when no callback is passed. Promise syntax composes better with `await` and keeps asynchronous control flow explicit.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script>\n import { nextTick } from \"vue\";\n\n nextTick(() => {\n   // ...\n });\n </script>\n ```\n\n ### Valid\n\n ```vue\n <script>\n import { nextTick } from \"vue\";\n\n await nextTick();\n // ...\n </script>\n ```\n\n"
           }
         },
         "performance": {
@@ -5330,7 +5478,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Require the consistent declaration of object literals. Defaults to explicit definitions.\n\n ECMAScript 6 provides two ways to define an object literal: `{foo: foo}` and `{foo}`.\n The two styles are functionally equivalent.\n Using the same style consistently across your codebase makes it easier to quickly read and understand object definitions.\n\n ## Example\n\n ### Invalid\n\n ```json,options\n {\n     \"options\": {\n         \"syntax\": \"shorthand\"\n     }\n }\n ```\n\n ```js,expect_diagnostic,use_options\n let foo = 1;\n let invalid = {\n     foo: foo\n };\n ```\n\n ```js,expect_diagnostic,use_options\n let invalid = {\n     bar: function() { return \"bar\"; },\n };\n ```\n\n ### Valid\n\n ```js,use_options\n let foo = 1;\n let valid = {\n     foo,\n     bar() { return \"bar\"; },\n };\n ```\n\n ### Invalid\n\n ```json,options\n {\n     \"options\": {\n         \"syntax\": \"explicit\"\n     }\n }\n ```\n\n ```js,expect_diagnostic,use_options\n let foo = 1;\n let invalid = {\n     foo\n };\n ```\n\n ```js,expect_diagnostic,use_options\n let invalid = {\n     bar() { return \"bar\"; },\n };\n ```\n\n ### Valid\n\n ```js,use_options\n let foo = 1;\n let valid = {\n     foo: foo,\n     bar: function() { return \"bar\"; },\n };\n ```\n\n ## Options\n\n Use the options to specify the syntax of object literals to enforce.\n\n ```json,options\n {\n     \"options\": {\n         \"syntax\": \"explicit\"\n     }\n }\n ```\n\n ### syntax\n\n The syntax to use:\n - `shorthand`: enforces the use of shorthand object property syntax when possible.\n - `explicit`: enforces the use of explicit object property syntax in every case.\n\n **Default:** `shorthand`\n\n"
+            "docs": " Require the consistent declaration of object literals.\n\n ECMAScript 6 provides two ways to define an object literal: `{foo: foo}` and `{foo}`.\n The two styles are functionally equivalent.\n Using the same style consistently across your codebase makes it easier to quickly read and understand object definitions.\n\n ## Example\n\n ### Invalid\n\n ```json,options\n {\n     \"options\": {\n         \"syntax\": \"shorthand\"\n     }\n }\n ```\n\n ```js,expect_diagnostic,use_options\n let foo = 1;\n let invalid = {\n     foo: foo\n };\n ```\n\n ```js,expect_diagnostic,use_options\n let invalid = {\n     bar: function() { return \"bar\"; },\n };\n ```\n\n ### Valid\n\n ```js,use_options\n let foo = 1;\n let valid = {\n     foo,\n     bar() { return \"bar\"; },\n };\n ```\n\n ### Invalid\n\n ```json,options\n {\n     \"options\": {\n         \"syntax\": \"explicit\"\n     }\n }\n ```\n\n ```js,expect_diagnostic,use_options\n let foo = 1;\n let invalid = {\n     foo\n };\n ```\n\n ```js,expect_diagnostic,use_options\n let invalid = {\n     bar() { return \"bar\"; },\n };\n ```\n\n ### Valid\n\n ```js,use_options\n let foo = 1;\n let valid = {\n     foo: foo,\n     bar: function() { return \"bar\"; },\n };\n ```\n\n ## Options\n\n Use the options to specify the syntax of object literals to enforce.\n\n ```json,options\n {\n     \"options\": {\n         \"syntax\": \"explicit\"\n     }\n }\n ```\n\n ### syntax\n\n The syntax to use:\n - `shorthand`: enforces the use of shorthand object property syntax when possible.\n - `explicit`: enforces the use of explicit object property syntax in every case.\n\n **Default:** `shorthand`\n\n"
           },
           "useConst": {
             "deprecated": false,
@@ -8169,7 +8317,7 @@ export function GET() {
               {
                 "kind": "sameLogic",
                 "source": {
-                  "eslintReactNative": "no-raw-text"
+                  "eslintReactNativeIntellicode": "no-raw-text"
                 }
               }
             ],
@@ -8739,7 +8887,7 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/no-misleading-return-type",
             "recommended": false,
             "fixKind": "none",
-            "docs": " Detect return type annotations that are misleadingly wider than what\n the implementation actually returns.\n\n Reports when a function's explicit return type annotation is wider than\n what TypeScript would infer from the implementation, hiding precise types\n from callers.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=invalid.ts\n function getStatus(b: boolean): string { if (b) return \"loading\"; return \"idle\"; }\n ```\n\n ```ts,expect_diagnostic,file=invalid2.ts\n function getCode(ok: boolean): number { if (ok) return 200; return 404; }\n ```\n\n ```ts,expect_diagnostic,file=invalid3.ts\n class Foo { getStatus(b: boolean): string { if (b) return \"loading\"; return \"idle\"; } }\n ```\n\n ```ts,expect_diagnostic,file=invalid4.ts\n const obj = { getMode(b: boolean): string { if (b) return \"dark\"; return \"light\"; } };\n ```\n\n ```ts,expect_diagnostic,file=invalid5.ts\n function makeData(): object { return { retry: true }; }\n ```\n\n ### Valid\n\n ```ts\n function getStatus() { return \"loading\"; }\n ```\n\n ```ts\n function run(): void { return; }\n ```\n\n ```ts\n class Foo { greet(): string { return \"hello\"; } }\n ```\n\n ## Known limitations\n\n When a return uses a type assertion such as `as T`, the rule does\n not flag the return unless it can prove that `T` is narrower than\n `object`. Trusted cases include `unknown`, `any`, `typeof` queries,\n conditional types, generic type parameters, and types the rule\n cannot resolve. Intersections (`A & B`) are trusted when every\n member is or when any member is `any`; unions (`A | B`) when at\n least one is.\n"
+            "docs": " Detect return type annotations that are misleadingly wider than what\n the implementation actually returns.\n\n Reports when a function's explicit return type annotation is wider than\n what TypeScript would infer from the implementation, hiding precise types\n from callers.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=invalid.ts\n function getStatus(b: boolean): string { if (b) return \"loading\"; return \"idle\"; }\n ```\n\n ```ts,expect_diagnostic,file=invalid2.ts\n function getCode(ok: boolean): number { if (ok) return 200; return 404; }\n ```\n\n ```ts,expect_diagnostic,file=invalid3.ts\n class Foo { getStatus(b: boolean): string { if (b) return \"loading\"; return \"idle\"; } }\n ```\n\n ```ts,expect_diagnostic,file=invalid4.ts\n const obj = { getMode(b: boolean): string { if (b) return \"dark\"; return \"light\"; } };\n ```\n\n ```ts,expect_diagnostic,file=invalid5.ts\n function makeData(): object { return { retry: true }; }\n ```\n\n ### Valid\n\n ```ts\n function getStatus() { return \"loading\"; }\n ```\n\n ```ts\n function run(): void { return; }\n ```\n\n ```ts\n class Foo { greet(): string { return \"hello\"; } }\n ```\n\n ## Known limitations\n\n - Suggested replacement types are only shown when their textual\n   representation is up to 80 characters long. Longer unions fall back to\n   a generic note without the specific suggestion.\n - When a return uses a type assertion such as `as T`, the rule does\n   not flag the return unless it can prove that `T` is narrower than\n   `object`. Trusted cases include `unknown`, `any`, `typeof` queries,\n   conditional types, generic type parameters, and types the rule\n   cannot resolve. Intersections (`A & B`) are trusted when every\n   member is or when any member is `any`; unions (`A | B`) when at\n   least one is.\n"
           },
           "noMisusedPromises": {
             "deprecated": false,
@@ -9332,7 +9480,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 523
+    "numberOrRules": 531
   },
   "syntax": {
     "languages": {

@@ -246,11 +246,20 @@ export function GET() {
 					"required": ["eslintReactHooks"]
 				},
 				{
-					"description": "Rules from [Eslint Plugin React Native](https://github.com/Intellicode/eslint-plugin-react-native)",
+					"description": "Rules from [Eslint Plugin React Native](https://github.com/facebook/react-native/blob/main/packages/eslint-plugin-react-native/README.md)",
 					"type": "object",
 					"properties": { "eslintReactNative": { "type": "string" } },
 					"additionalProperties": false,
 					"required": ["eslintReactNative"]
+				},
+				{
+					"description": "Rules from [Eslint Plugin React Native](https://github.com/Intellicode/eslint-plugin-react-native)",
+					"type": "object",
+					"properties": {
+						"eslintReactNativeIntellicode": { "type": "string" }
+					},
+					"additionalProperties": false,
+					"required": ["eslintReactNativeIntellicode"]
 				},
 				{
 					"description": "Rules from [Eslint Plugin React Prefer Function Component](https://github.com/tatethurston/eslint-plugin-react-prefer-function-component)",
@@ -316,6 +325,13 @@ export function GET() {
 					"properties": { "eslintSolid": { "type": "string" } },
 					"additionalProperties": false,
 					"required": ["eslintSolid"]
+				},
+				{
+					"description": "Rules from [Eslint Plugin Svelte](https://github.com/sveltejs/eslint-plugin-svelte)",
+					"type": "object",
+					"properties": { "eslintSvelte": { "type": "string" } },
+					"additionalProperties": false,
+					"required": ["eslintSvelte"]
 				},
 				{
 					"description": "Rules from [Eslint Plugin Sonar](https://github.com/SonarSource/eslint-plugin-sonarjs)",

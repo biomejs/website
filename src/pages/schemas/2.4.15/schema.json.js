@@ -1729,14 +1729,6 @@ export function GET() {
 					},
 				],
 			},
-			DestructuringConfig: {
-				type: "object",
-				properties: {
-					array: { type: ["boolean", "null"] },
-					object: { type: ["boolean", "null"] },
-				},
-				additionalProperties: false,
-			},
 			Expand: {
 				oneOf: [
 					{
@@ -7779,11 +7771,6 @@ export function GET() {
 						description: "What's the max width of a line. Defaults to 80.",
 						anyOf: [{ $ref: "#/$defs/LineWidth" }, { type: "null" }],
 					},
-					trailingCommas: {
-						description:
-							"Print trailing commas wherever possible in multi-line comma-separated syntactic structures.",
-						anyOf: [{ $ref: "#/$defs/JsTrailingCommas" }, { type: "null" }],
-					},
 					trailingNewline: {
 						description:
 							"Whether to add a trailing newline at the end of the file.\n\nSetting this option to `false` is **highly discouraged** because it could cause many problems with other tools:\n- https://thoughtbot.com/blog/no-newline-at-end-of-file\n- https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804\n- https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files\n\nDisable the option at your own risk.\n\nDefaults to true.",
@@ -13582,7 +13569,7 @@ export function GET() {
 					},
 					useConsistentObjectDefinitions: {
 						description:
-							"Require the consistent declaration of object literals.\nSee https://biomejs.dev/linter/rules/use-consistent-object-definitions",
+							"Require the consistent declaration of object literals. Defaults to explicit definitions.\nSee https://biomejs.dev/linter/rules/use-consistent-object-definitions",
 						anyOf: [
 							{ $ref: "#/$defs/UseConsistentObjectDefinitionsConfiguration" },
 							{ type: "null" },
@@ -15248,14 +15235,6 @@ export function GET() {
 			},
 			UseDestructuringOptions: {
 				type: "object",
-				properties: {
-					assignmentExpression: {
-						anyOf: [{ $ref: "#/$defs/DestructuringConfig" }, { type: "null" }],
-					},
-					variableDeclarator: {
-						anyOf: [{ $ref: "#/$defs/DestructuringConfig" }, { type: "null" }],
-					},
-				},
 				additionalProperties: false,
 			},
 			UseDisposablesConfiguration: {

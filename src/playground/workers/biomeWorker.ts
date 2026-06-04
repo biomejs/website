@@ -227,6 +227,16 @@ self.addEventListener("message", async (e) => {
 					},
 					experimentalFullSupportEnabled,
 				},
+				markdown: {
+					formatter: {
+						enabled: true,
+					},
+				},
+				yaml: {
+					formatter: {
+						enabled: true,
+					},
+				},
 			};
 
 			switch (lintRules) {

@@ -235,6 +235,10 @@ export function isCssFilename(filename: string): boolean {
 	return filename.endsWith(".css");
 }
 
+export function isScssFilename(filename: string): boolean {
+	return filename.endsWith(".scss");
+}
+
 export function isGraphqlFilename(filename: string): boolean {
 	return filename.endsWith(".gql") || filename.endsWith(".graphql");
 }
@@ -271,16 +275,22 @@ export function isMarkdownFilename(filename: string): boolean {
 	return filename.endsWith(".md");
 }
 
+export function isYamlFilename(filename: string): boolean {
+	return filename.endsWith(".yaml") || filename.endsWith(".yml");
+}
+
 export function guessLanguage(filename: string): Language {
 	if (isJsonFilename(filename)) return LANGUAGE.JSON;
 	if (isGraphqlFilename(filename)) return LANGUAGE.GraphQL;
 	if (isGritFilename(filename)) return LANGUAGE.Grit;
 	if (isCssFilename(filename)) return LANGUAGE.CSS;
+	if (isScssFilename(filename)) return LANGUAGE.SCSS;
 	if (isHtmlFilename(filename)) return LANGUAGE.HTML;
 	if (isVueFilename(filename)) return LANGUAGE.Vue;
 	if (isSvelteFilename(filename)) return LANGUAGE.Svelte;
 	if (isAstroFilename(filename)) return LANGUAGE.Astro;
 	if (isMarkdownFilename(filename)) return LANGUAGE.Markdown;
+	if (isYamlFilename(filename)) return LANGUAGE.YAML;
 	if (isJsxFilename(filename))
 		return isTypeScriptFilename(filename) ? LANGUAGE.TSX : LANGUAGE.JSX;
 	return isTypeScriptFilename(filename) ? LANGUAGE.TS : LANGUAGE.JS;
@@ -320,6 +330,8 @@ export function getExtension(opts: ExtensionOptions): string {
 			return "grit";
 		case LANGUAGE.CSS:
 			return "css";
+		case LANGUAGE.SCSS:
+			return "scss";
 		case LANGUAGE.HTML:
 			return "html";
 		case LANGUAGE.Vue:
@@ -330,6 +342,8 @@ export function getExtension(opts: ExtensionOptions): string {
 			return "astro";
 		case LANGUAGE.Markdown:
 			return "md";
+		case LANGUAGE.YAML:
+			return "yaml";
 		default:
 			throw new Error(
 				`Unsupported language type: ${opts.language satisfies never}`, // must be exhaustive
@@ -345,11 +359,13 @@ export function isValidExtension(filename: string): boolean {
 		isJsxFilename(filename) ||
 		isJsonFilename(filename) ||
 		isCssFilename(filename) ||
+		isScssFilename(filename) ||
 		isGraphqlFilename(filename) ||
 		isHtmlFilename(filename) ||
 		isFrameworkTemplateFilename(filename) ||
 		isGritFilename(filename) ||
-		isMarkdownFilename(filename)
+		isMarkdownFilename(filename) ||
+		isYamlFilename(filename)
 	);
 }
 
