@@ -111,6 +111,10 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-img-element](https://nextjs.org/docs/messages/no-img-element) |[noImgElement](/linter/rules/no-img-element) |
 | [no-sync-scripts](https://nextjs.org/docs/messages/no-sync-scripts) |[noSyncScripts](/linter/rules/no-sync-scripts) |
 | [no-unwanted-polyfillio](https://nextjs.org/docs/messages/no-unwanted-polyfillio) |[noUnwantedPolyfillio](/linter/rules/no-unwanted-polyfillio) |
+### @react-native/eslint-plugin
+| @react-native/eslint-plugin Rules name | Biome Rules name |
+| ---- | ---- |
+| [no-deep-imports](https://github.com/facebook/react-native/blob/main/packages/eslint-plugin-react-native/README.md) |[noReactNativeDeepImports](/linter/rules/no-react-native-deep-imports) |
 ### @stylistic/eslint-plugin
 | @stylistic/eslint-plugin Rules name | Biome Rules name |
 | ---- | ---- |
@@ -128,6 +132,8 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-focused-tests](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/no-focused-tests.md) |[noFocusedTests](/linter/rules/no-focused-tests) (inspired) |
 | [no-identical-title](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/no-identical-title.md) |[noIdenticalTestTitle](/linter/rules/no-identical-test-title) |
 | [no-standalone-expect](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/no-standalone-expect.md) |[noMisplacedAssertion](/linter/rules/no-misplaced-assertion) (inspired) |
+| [prefer-hooks-in-order](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/prefer-hooks-in-order.md) |[useTestHooksInOrder](/linter/rules/use-test-hooks-in-order) |
+| [prefer-hooks-on-top](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/prefer-hooks-on-top.md) |[useTestHooksOnTop](/linter/rules/use-test-hooks-on-top) |
 ### Clippy
 | Clippy Rules name | Biome Rules name |
 | ---- | ---- |
@@ -157,6 +163,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | ---- | ---- |
 | [array-callback-return](https://eslint.org/docs/latest/rules/array-callback-return) |[useIterableCallbackReturn](/linter/rules/use-iterable-callback-return) |
 | [arrow-body-style](https://eslint.org/docs/latest/rules/arrow-body-style) |[useConsistentArrowReturn](/linter/rules/use-consistent-arrow-return) |
+| [class-methods-use-this](https://eslint.org/docs/latest/rules/class-methods-use-this) |[useThisInClassMethods](/linter/rules/use-this-in-class-methods) |
 | [complexity](https://eslint.org/docs/latest/rules/complexity) |[noExcessiveCognitiveComplexity](/linter/rules/no-excessive-cognitive-complexity) (inspired) |
 | [constructor-super](https://eslint.org/docs/latest/rules/constructor-super) |[noInvalidConstructorSuper](/linter/rules/no-invalid-constructor-super) |
 | [curly](https://eslint.org/docs/latest/rules/curly) |[useBlockStatements](/linter/rules/use-block-statements) |
@@ -172,6 +179,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [max-classes-per-file](https://eslint.org/docs/latest/rules/max-classes-per-file) |[noExcessiveClassesPerFile](/linter/rules/no-excessive-classes-per-file) |
 | [max-lines](https://eslint.org/docs/latest/rules/max-lines) |[noExcessiveLinesPerFile](/linter/rules/no-excessive-lines-per-file) (inspired) |
 | [max-lines-per-function](https://eslint.org/docs/latest/rules/max-lines-per-function) |[noExcessiveLinesPerFunction](/linter/rules/no-excessive-lines-per-function) (inspired) |
+| [max-nested-callbacks](https://eslint.org/docs/latest/rules/max-nested-callbacks) |[noExcessiveNestedCallbacks](/linter/rules/no-excessive-nested-callbacks) |
 | [max-params](https://eslint.org/docs/latest/rules/max-params) |[useMaxParams](/linter/rules/use-max-params) |
 | [no-alert](https://eslint.org/docs/latest/rules/no-alert) |[noAlert](/linter/rules/no-alert) |
 | [no-array-constructor](https://eslint.org/docs/latest/rules/no-array-constructor) |[useArrayLiterals](/linter/rules/use-array-literals) |
@@ -284,7 +292,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [operator-assignment](https://eslint.org/docs/latest/rules/operator-assignment) |[useShorthandAssign](/linter/rules/use-shorthand-assign) |
 | [prefer-arrow-callback](https://eslint.org/docs/latest/rules/prefer-arrow-callback) |[useArrowFunction](/linter/rules/use-arrow-function) (inspired) |
 | [prefer-const](https://eslint.org/docs/latest/rules/prefer-const) |[useConst](/linter/rules/use-const) |
-| [prefer-destructuring](https://eslint.org/docs/latest/rules/prefer-destructuring) |[useDestructuring](/linter/rules/use-destructuring) |
+| [prefer-destructuring](https://eslint.org/docs/latest/rules/prefer-destructuring) |[useDestructuring](/linter/rules/use-destructuring) (inspired) |
 | [prefer-exponentiation-operator](https://eslint.org/docs/latest/rules/prefer-exponentiation-operator) |[useExponentiationOperator](/linter/rules/use-exponentiation-operator) |
 | [prefer-named-capture-group](https://eslint.org/docs/latest/rules/prefer-named-capture-group) |[useNamedCaptureGroup](/linter/rules/use-named-capture-group) |
 | [prefer-numeric-literals](https://eslint.org/docs/latest/rules/prefer-numeric-literals) |[useNumericLiterals](/linter/rules/use-numeric-literals) |
@@ -346,6 +354,8 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-focused-tests](https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-focused-tests.md) |[noFocusedTests](/linter/rules/no-focused-tests) (inspired) |
 | [no-identical-title](https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-identical-title.md) |[noIdenticalTestTitle](/linter/rules/no-identical-test-title) |
 | [no-standalone-expect](https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-standalone-expect.md) |[noMisplacedAssertion](/linter/rules/no-misplaced-assertion) (inspired) |
+| [prefer-hooks-in-order](https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/prefer-hooks-in-order.md) |[useTestHooksInOrder](/linter/rules/use-test-hooks-in-order) |
+| [prefer-hooks-on-top](https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/prefer-hooks-on-top.md) |[useTestHooksOnTop](/linter/rules/use-test-hooks-on-top) |
 ### eslint-plugin-jsdoc
 | eslint-plugin-jsdoc Rules name | Biome Rules name |
 | ---- | ---- |
@@ -412,6 +422,8 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-wait-for-navigation](https://github.com/playwright-community/eslint-plugin-playwright/blob/main/docs/rules/no-wait-for-navigation.md) |[noPlaywrightWaitForNavigation](/linter/rules/no-playwright-wait-for-navigation) |
 | [no-wait-for-selector](https://github.com/playwright-community/eslint-plugin-playwright/blob/main/docs/rules/no-wait-for-selector.md) |[noPlaywrightWaitForSelector](/linter/rules/no-playwright-wait-for-selector) |
 | [no-wait-for-timeout](https://github.com/playwright-community/eslint-plugin-playwright/blob/main/docs/rules/no-wait-for-timeout.md) |[noPlaywrightWaitForTimeout](/linter/rules/no-playwright-wait-for-timeout) |
+| [prefer-hooks-in-order](https://github.com/playwright-community/eslint-plugin-playwright/blob/main/docs/rules/prefer-hooks-in-order.md) |[useTestHooksInOrder](/linter/rules/use-test-hooks-in-order) |
+| [prefer-hooks-on-top](https://github.com/playwright-community/eslint-plugin-playwright/blob/main/docs/rules/prefer-hooks-on-top.md) |[useTestHooksOnTop](/linter/rules/use-test-hooks-on-top) |
 | [valid-describe-callback](https://github.com/playwright-community/eslint-plugin-playwright/blob/main/docs/rules/valid-describe-callback.md) |[usePlaywrightValidDescribeCallback](/linter/rules/use-playwright-valid-describe-callback) |
 ### eslint-plugin-promise
 | eslint-plugin-promise Rules name | Biome Rules name |
@@ -453,6 +465,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-children-prop](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-children-prop.md) |[noChildrenProp](/linter/rules/no-children-prop) |
 | [no-danger](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-danger.md) |[noDangerouslySetInnerHtml](/linter/rules/no-dangerously-set-inner-html) |
 | [no-danger-with-children](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-danger-with-children.md) |[noDangerouslySetInnerHtmlWithChildren](/linter/rules/no-dangerously-set-inner-html-with-children) |
+| [no-string-refs](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-string-refs.md) |[noReactStringRefs](/linter/rules/no-react-string-refs) |
 | [no-unknown-property](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-unknown-property.md) |[noUnknownAttribute](/linter/rules/no-unknown-attribute) |
 | [void-dom-elements-no-children](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/void-dom-elements-no-children.md) |[noVoidElementsWithChildren](/linter/rules/no-void-elements-with-children) |
 ### eslint-plugin-react-dom
@@ -483,7 +496,6 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | eslint-plugin-react-native Rules name | Biome Rules name |
 | ---- | ---- |
 | [no-color-literals](https://github.com/Intellicode/eslint-plugin-react-native/blob/master/docs/rules/no-color-literals.md) |[noReactNativeLiteralColors](/linter/rules/no-react-native-literal-colors) |
-| [no-deep-imports](https://github.com/Intellicode/eslint-plugin-react-native/blob/master/docs/rules/no-deep-imports.md) |[noReactNativeDeepImports](/linter/rules/no-react-native-deep-imports) |
 | [no-raw-text](https://github.com/Intellicode/eslint-plugin-react-native/blob/master/docs/rules/no-raw-text.md) |[noReactNativeRawText](/linter/rules/no-react-native-raw-text) |
 | [split-platform-components](https://github.com/Intellicode/eslint-plugin-react-native/blob/master/docs/rules/split-platform-components.md) |[useReactNativePlatformComponents](/linter/rules/use-react-native-platform-components) (inspired) |
 ### eslint-plugin-react-prefer-function-component
@@ -554,6 +566,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [prefer-date-now](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-date-now.md) |[useDateNow](/linter/rules/use-date-now) |
 | [prefer-dom-node-text-content](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-dom-node-text-content.md) |[useDomNodeTextContent](/linter/rules/use-dom-node-text-content) |
 | [prefer-global-this](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-global-this.md) |[useGlobalThis](/linter/rules/use-global-this) |
+| [prefer-math-min-max](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-math-min-max.md) |[useMathMinMax](/linter/rules/use-math-min-max) |
 | [prefer-module](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-module.md) |[noGlobalDirnameFilename](/linter/rules/no-global-dirname-filename) (inspired) |
 | [prefer-node-protocol](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-node-protocol.md) |[useNodejsImportProtocol](/linter/rules/use-nodejs-import-protocol) |
 | [prefer-number-properties](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-number-properties.md) |[useNumberNamespace](/linter/rules/use-number-namespace) |
@@ -574,9 +587,11 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [define-macros-order](https://eslint.vuejs.org/rules/define-macros-order) |[useVueDefineMacrosOrder](/linter/rules/use-vue-define-macros-order) |
 | [define-props-declaration](https://eslint.vuejs.org/rules/define-props-declaration) |[useVueConsistentDefinePropsDeclaration](/linter/rules/use-vue-consistent-define-props-declaration) |
 | [multi-word-component-names](https://eslint.vuejs.org/rules/multi-word-component-names) |[useVueMultiWordComponentNames](/linter/rules/use-vue-multi-word-component-names) (inspired) |
+| [next-tick-style](https://eslint.vuejs.org/rules/next-tick-style) |[useVueNextTickPromise](/linter/rules/use-vue-next-tick-promise) (inspired) |
 | [no-arrow-functions-in-watch](https://eslint.vuejs.org/rules/no-arrow-functions-in-watch) |[noVueArrowFuncInWatch](/linter/rules/no-vue-arrow-func-in-watch) |
 | [no-deprecated-data-object-declaration](https://eslint.vuejs.org/rules/no-deprecated-data-object-declaration) |[noVueDataObjectDeclaration](/linter/rules/no-vue-data-object-declaration) (inspired) |
 | [no-dupe-keys](https://eslint.vuejs.org/rules/no-dupe-keys) |[noVueDuplicateKeys](/linter/rules/no-vue-duplicate-keys) |
+| [no-import-compiler-macros](https://eslint.vuejs.org/rules/no-import-compiler-macros) |[noVueImportCompilerMacros](/linter/rules/no-vue-import-compiler-macros) |
 | [no-ref-as-operand](https://eslint.vuejs.org/rules/no-ref-as-operand) |[noVueRefAsOperand](/linter/rules/no-vue-ref-as-operand) |
 | [no-reserved-keys](https://eslint.vuejs.org/rules/no-reserved-keys) |[noVueReservedKeys](/linter/rules/no-vue-reserved-keys) |
 | [no-reserved-props](https://eslint.vuejs.org/rules/no-reserved-props) |[noVueReservedProps](/linter/rules/no-vue-reserved-props) |
@@ -601,6 +616,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [method-signature-style](https://typescript-eslint.io/rules/method-signature-style) |[useConsistentMethodSignatures](/linter/rules/use-consistent-method-signatures) |
 | [naming-convention](https://typescript-eslint.io/rules/naming-convention) |[useNamingConvention](/linter/rules/use-naming-convention) (inspired) |
 | [no-array-constructor](https://typescript-eslint.io/rules/no-array-constructor) |[useArrayLiterals](/linter/rules/use-array-literals) |
+| [no-base-to-string](https://typescript-eslint.io/rules/no-base-to-string) |[noBaseToString](/linter/rules/no-base-to-string) |
 | [no-deprecated](https://typescript-eslint.io/rules/no-deprecated) |[noDeprecatedImports](/linter/rules/no-deprecated-imports) (inspired) |
 | [no-dupe-class-members](https://typescript-eslint.io/rules/no-dupe-class-members) |[noDuplicateClassMembers](/linter/rules/no-duplicate-class-members) |
 | [no-duplicate-enum-values](https://typescript-eslint.io/rules/no-duplicate-enum-values) |[noDuplicateEnumValues](/linter/rules/no-duplicate-enum-values) |
