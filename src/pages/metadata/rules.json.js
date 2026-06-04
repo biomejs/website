@@ -337,6 +337,15 @@ export function GET() {
             ],
             "docs": " Disallow hex colors.\n\n While hex colors are widely supported and compact, they can be less readable\n and have limitations in terms of color representation compared to color models\n like HSL or OKLCH. This rule encourages the use of more expressive color formats.\n\n This rule is inspired by the Stylelint rule\n [`color-no-hex`](https://stylelint.io/user-guide/rules/color-no-hex/).\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a { color: #000; }\n ```\n\n ```css,expect_diagnostic\n a { color: #fff1aa; }\n ```\n\n ```css,expect_diagnostic\n a { color: #123456aa; }\n ```\n\n ### Valid\n\n ```css\n a { color: black; }\n ```\n\n ```css\n a { color: rgb(0, 0, 0); }\n ```\n\n ### References\n\n - [MDN Web Docs on CSS color values](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value)\n\n"
           },
+          "noUnusedClasses": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noUnusedClasses",
+            "link": "https://biomejs.dev/linter/rules/no-unused-classes",
+            "recommended": false,
+            "fixKind": "none",
+            "docs": " Reports CSS class selectors that are never referenced in any JSX or HTML file.\n\n This rule checks all CSS class selectors (`.foo`) in a CSS file and verifies\n that each class name is referenced somewhere in a `class=` or `className=`\n attribute in an HTML or JSX file that imports (directly or transitively) the\n CSS file.\n\n Classes inside `:global(.foo)` are excluded from this check, as they are\n intended to be used by external consumers without explicit imports.\n\n ## Examples\n\n ### Invalid\n\n ```css,file=styles.css\n .unused { color: red; }  /* Class \"unused\" is never referenced */\n .used { color: blue; }\n ```\n\n ```jsx,file=App.jsx\n import \"./styles.css\";\n export default () => <div className=\"used\" />;\n ```\n\n ### Valid\n\n ```css,file=styles.css\n .button { color: blue; }\n .container { padding: 1rem; }\n ```\n\n ```jsx,file=App.jsx\n import \"./styles.css\";\n export default () => (\n     <div className=\"container\">\n         <button className=\"button\">Click</button>\n     </div>\n );\n ```\n\n"
+          },
           "useBaseline": {
             "deprecated": false,
             "version": "2.4.7",
@@ -925,6 +934,46 @@ export function GET() {
             ],
             "docs": " Enforce that the `accesskey` attribute is not used on any HTML element.\n\n The `accesskey` assigns a keyboard shortcut to the current element. However, the `accesskey` value\n can conflict with keyboard commands used by screen readers and keyboard-only users, which leads to\n inconsistent keyboard actions across applications. To avoid accessibility complications,\n this rule suggests users remove the `accesskey` attribute on elements.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <input type=\"submit\" accesskey=\"s\" value=\"Submit\" />\n ```\n\n ```html,expect_diagnostic\n <a href=\"https://webaim.org/\" accesskey=\"w\">WebAIM.org</a>\n ```\n\n ```html,expect_diagnostic\n <button accesskey=\"n\">Next</button>\n ```\n\n ## Resources\n\n - [WebAIM: Keyboard Accessibility - Accesskey](https://webaim.org/techniques/keyboard/accesskey#spec)\n - [MDN `accesskey` documentation](https://developer.mozilla.org/docs/Web/HTML/Global_attributes/accesskey)\n\n"
           },
+          "noAriaHiddenOnFocusable": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noAriaHiddenOnFocusable",
+            "link": "https://biomejs.dev/linter/rules/no-aria-hidden-on-focusable",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintJsxA11y": "no-aria-hidden-on-focusable"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "htmlEslint": "no-aria-hidden-on-focusable"
+                }
+              }
+            ],
+            "docs": " Enforce that aria-hidden=\"true\" is not set on focusable elements.\n\n `aria-hidden=\"true\"` can be used to hide purely decorative content from screen reader users.\n A focusable element with `aria-hidden=\"true\"` can be reached by keyboard.\n This can lead to confusion or unexpected behavior for screen reader users.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div aria-hidden=\"true\" tabindex=\"0\"></div>\n ```\n\n ```html,expect_diagnostic\n <a href=\"/\" aria-hidden=\"true\">link</a>\n ```\n\n ### Valid\n\n ```html\n <div aria-hidden=\"true\"></div>\n ```\n\n ```html\n <button aria-hidden=\"true\" tabindex=\"-1\"></button>\n ```\n\n ## Resources\n\n - [aria-hidden elements do not contain focusable elements](https://dequeuniversity.com/rules/axe/html/4.4/aria-hidden-focus)\n - [Element with aria-hidden has no content in sequential focus navigation](https://www.w3.org/WAI/standards-guidelines/act/rules/6cfa84/proposed/)\n - [MDN aria-hidden](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden)\n\n"
+          },
+          "noAriaUnsupportedElements": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noAriaUnsupportedElements",
+            "link": "https://biomejs.dev/linter/rules/no-aria-unsupported-elements",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintJsxA11y": "aria-unsupported-elements"
+                }
+              }
+            ],
+            "docs": " Enforce that elements that do not support ARIA roles, states, and properties do not have those attributes.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <meta charset=\"UTF-8\" role=\"meta\" />\n ```\n\n ```html,expect_diagnostic\n <html aria-required=\"true\"></html>\n ```\n\n ### Valid\n\n ```html\n <meta charset=\"UTF-8\" />\n ```\n\n ```html\n <html></html>\n ```\n\n"
+          },
           "noAutofocus": {
             "deprecated": false,
             "version": "2.4.0",
@@ -934,7 +983,7 @@ export function GET() {
             "fixKind": "unsafe",
             "sources": [
               {
-                "kind": "sameLogic",
+                "kind": "inspired",
                 "source": {
                   "eslintJsxA11y": "no-autofocus"
                 }
@@ -951,7 +1000,7 @@ export function GET() {
             "fixKind": "unsafe",
             "sources": [
               {
-                "kind": "sameLogic",
+                "kind": "inspired",
                 "source": {
                   "eslintJsxA11y": "no-distracting-elements"
                 }
@@ -968,13 +1017,98 @@ export function GET() {
             "fixKind": "unsafe",
             "sources": [
               {
-                "kind": "sameLogic",
+                "kind": "inspired",
                 "source": {
                   "eslintJsxA11y": "scope"
                 }
               }
             ],
             "docs": " The scope prop should be used only on `<th>` elements.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div scope=\"col\"></div>\n ```\n\n ```html,expect_diagnostic\n <div scope></div>\n ```\n\n ### Valid\n\n ```html\n <th scope=\"col\"></th>\n ```\n\n ```html\n <th scope></th>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 1.3.1](https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships)\n - [WCAG 4.1.1](https://www.w3.org/WAI/WCAG21/Understanding/parsing)\n\n"
+          },
+          "noInteractiveElementToNoninteractiveRole": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noInteractiveElementToNoninteractiveRole",
+            "link": "https://biomejs.dev/linter/rules/no-interactive-element-to-noninteractive-role",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintJsxA11y": "no-interactive-element-to-noninteractive-role"
+                }
+              }
+            ],
+            "docs": " Enforce that non-interactive ARIA roles are not assigned to interactive HTML elements.\n\n Interactive HTML elements indicate controls in the user interface.\n Interactive elements include `<a href>`, `<button>`, `<input>`, `<select>`, `<textarea>`.\n Non-interactive HTML elements and non-interactive ARIA roles indicate content and containers in the user interface.\n Non-interactive elements include `<main>`, `<area>`, `<h1>` (,`<h2>`, etc), `<img>`, `<li>`, `<ul>` and `<ol>`.\n\n [WAI-ARIA roles](https://www.w3.org/TR/wai-aria-1.1/#usage_intro) should not be used to convert an interactive element to a non-interactive element.\n Non-interactive ARIA roles include `article`, `banner`, `complementary`, `img`, `listitem`, `main`, `region` and `tooltip`.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <input role=\"img\" />\n ```\n\n ### Valid\n\n ```html\n <input role=\"button\" />\n ```\n\n ```html\n <canvas role=\"img\"></canvas>\n ```\n\n"
+          },
+          "noLabelWithoutControl": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noLabelWithoutControl",
+            "link": "https://biomejs.dev/linter/rules/no-label-without-control",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintJsxA11y": "label-has-associated-control"
+                }
+              }
+            ],
+            "docs": " Enforce that a label element or component has a text label and an associated input.\n\n An \"input\" is considered one of the following elements: `input`, `meter`, `output`, `progress`, `select`, `textarea` or `button`.\n\n There are two supported ways to associate a label with an input:\n - Wrapping an input in a label element.\n - Adding a `for` attribute (or `htmlFor` in React) to a label and assigning it a DOM ID string associated with an input on the page.\n\n\n This rule checks that any `label` element (or an indicated custom component that will output a `label` element) meets one of these conditions:\n - Wraps an `input` element (or an indicated custom component that will output an `input` element)\n - Has a `for` or `htmlFor` attribute and that the `label` element/component has accessible text content.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <label for=\"html_id\"></label>\n ```\n\n ```html,expect_diagnostic\n <label for=\"html_id\"><input /></label>\n ```\n\n ```html,expect_diagnostic\n <label>A label</label>\n ```\n\n ```html,expect_diagnostic\n <div><label></label><input /></div>\n ```\n\n ### Valid\n\n ```html\n <label for=\"html_id\" aria-label=\"A label\"></label>\n <label for=\"html_id\" aria-labelledby=\"A label\"></label>\n <label>A label<input /></label>\n <label>A label<textarea></textarea></label>\n <label><img alt=\"A label\" /><input /></label>\n ```\n\n ## Options\n\n The rule supports the following options:\n - `inputComponents` - An array of component names that should be considered the same as an `input` element.\n - `labelAttributes` - An array of attributes that should be treated as the `label` accessible text content.\n - `labelComponents` - An array of component names that should be considered the same as a `label` element.\n\n Both options `inputComponents` and `labelComponents` don't have support for namespace components (e.g. `<Control.Input>`).\n\n ```json,options\n {\n     \"options\": {\n         \"inputComponents\": [\"CustomInput\"],\n         \"labelAttributes\": [\"label\"],\n         \"labelComponents\": [\"CustomLabel\"]\n     }\n }\n ```\n\n"
+          },
+          "noNoninteractiveElementInteractions": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noNoninteractiveElementInteractions",
+            "link": "https://biomejs.dev/linter/rules/no-noninteractive-element-interactions",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintJsxA11y": "no-noninteractive-element-interactions"
+                }
+              }
+            ],
+            "docs": " Disallow use event handlers on non-interactive elements.\n\n Non-interactive HTML elements indicate _content_ and _containers_ in the user interface.\n Non-interactive elements include `<main>`, `<h1>` (,`<h2>`, etc), `<img>`, `<li>`, `<ul>` and `<ol>`.\n\n A Non-interactive element does not support event handlers(mouse and key handlers).\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div onclick=\"() => {}\">button</div>\n ```\n\n ### Valid\n\n ```html\n <button onclick=\"() => { }\">button</button>\n ```\n\n ```html\n // Adding a role to element does not add behavior.\n // If not used semantic HTML elements like `button`, developers need to implement the expected behavior for role(like focusability and key press support)\n // See https://www.w3.org/WAI/ARIA/apg/\n <div role=\"button\" onclick=\"() => { }\">button</div>\n ```\n\n ```html\n // The role=\"presentation\" attribute removes the semantic meaning of an element, indicating that it should be ignored by assistive technologies.\n // Therefore, it's acceptable to add event handlers to elements with role=\"presentation\" for visual effects or other purposes,\n // but users relying on assistive technologies may not be able to interact with these elements.\n <div role=\"presentation\" onclick=\"() => { }\">button</div>\n ```\n\n ```html\n // Hidden from screen reader.\n <div onclick=\"() => {}\" aria-hidden=\"true\" />\n ```\n\n ```svelte\n // Custom component is not checked.\n <SomeComponent onClick={() => {}}>button</SomeComponent>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 4.1.2](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value)\n\n ### Resources\n\n - [WAI-ARIA roles](https://www.w3.org/TR/wai-aria-1.1/#usage_intro)\n - [WAI-ARIA Authoring Practices Guide - Design Patterns and Widgets](https://www.w3.org/TR/wai-aria-practices-1.1/#aria_ex)\n - [Fundamental Keyboard Navigation Conventions](https://www.w3.org/TR/wai-aria-practices-1.1/#kbd_generalnav)\n - [Mozilla Developer Network - ARIA Techniques](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_button_role#Keyboard_and_focus)\n\n"
+          },
+          "noNoninteractiveElementToInteractiveRole": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noNoninteractiveElementToInteractiveRole",
+            "link": "https://biomejs.dev/linter/rules/no-noninteractive-element-to-interactive-role",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintJsxA11y": "no-noninteractive-element-to-interactive-role"
+                }
+              }
+            ],
+            "docs": " Enforce that interactive ARIA roles are not assigned to non-interactive HTML elements.\n\n Non-interactive HTML elements indicate _content_ and _containers_ in the user interface.\n Non-interactive elements include `<main>`, `<h1>` (,`<h2>`, etc), `<img>`, `<li>`, `<ul>` and `<ol>`.\n\n Interactive HTML elements indicate _controls_ in the user interface.\n Interactive elements include `<a href>`, `<area>`, `<button>`, `<input>`, `<select>`, `<textarea>`.\n\n [WAI-ARIA roles](https://www.w3.org/TR/wai-aria-1.1/#usage_intro) should not be used to convert a non-interactive element to an interactive element.\n Interactive ARIA roles include `button`, `link`, `checkbox`, `menuitem`, `menuitemcheckbox`, `menuitemradio`, `option`, `radio`, `searchbox`, `switch` and `textbox`.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <h1 role=\"button\">Some text</h1>\n ```\n\n ### Valid\n\n\n ```jsx\n <span role=\"button\">Some text</span>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 4.1.2](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value)\n\n ### Resources\n\n - [WAI-ARIA roles](https://www.w3.org/TR/wai-aria-1.1/#usage_intro)\n - [WAI-ARIA Authoring Practices Guide - Design Patterns and Widgets](https://www.w3.org/TR/wai-aria-practices-1.1/#aria_ex)\n - [Fundamental Keyboard Navigation Conventions](https://www.w3.org/TR/wai-aria-practices-1.1/#kbd_generalnav)\n - [Mozilla Developer Network - ARIA Techniques](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_button_role#Keyboard_and_focus)\n\n"
+          },
+          "noNoninteractiveTabindex": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noNoninteractiveTabindex",
+            "link": "https://biomejs.dev/linter/rules/no-noninteractive-tabindex",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintJsxA11y": "no-noninteractive-tabindex"
+                }
+              }
+            ],
+            "docs": " Enforce that `tabindex` is not assigned to non-interactive HTML elements.\n\n When using the tab key to navigate a webpage, limit it to interactive elements.\n You don't need to add tabindex to items in an unordered list as assistive technology can navigate through the HTML.\n Keep the tab ring small, which is the order of elements when tabbing, for a more efficient and accessible browsing experience.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div tabindex=\"0\"></div>\n ```\n\n ```html,expect_diagnostic\n <div role=\"article\" tabindex=\"0\"></div>\n ```\n\n ```html,expect_diagnostic\n <article tabindex=\"0\"></article>\n ```\n\n ### Valid\n\n ```html\n <div></div>\n ```\n\n ```html\n <button tabindex=\"0\"></button>\n ```\n\n ```html\n <article tabindex=\"-1\"></article>\n ```\n\n"
           },
           "noPositiveTabindex": {
             "deprecated": false,
@@ -985,7 +1119,7 @@ export function GET() {
             "fixKind": "unsafe",
             "sources": [
               {
-                "kind": "sameLogic",
+                "kind": "inspired",
                 "source": {
                   "eslintJsxA11y": "tabindex-no-positive"
                 }
@@ -1008,13 +1142,53 @@ export function GET() {
             "fixKind": "none",
             "sources": [
               {
-                "kind": "sameLogic",
+                "kind": "inspired",
                 "source": {
                   "eslintJsxA11y": "img-redundant-alt"
                 }
               }
             ],
             "docs": " Enforce `img` alt prop does not contain the word \"image\", \"picture\", or \"photo\".\n\n The rule will first check if `aria-hidden` is truthy to determine whether to enforce the rule. If the image is\n hidden, then the rule will always succeed.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <img src=\"src\" alt=\"photo content\" />;\n ```\n\n ```html,expect_diagnostic\n <img alt=\"picture of cool person\" aria-hidden=\"false\" />;\n ```\n\n ### Valid\n\n ```html\n <div>\n \t<img src=\"src\" alt=\"alt\" />\n \t<img src=\"bar\" aria-hidden alt=\"Picture of me taking a photo of an image\" />\n </div>\n ```\n\n"
+          },
+          "noRedundantRoles": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noRedundantRoles",
+            "link": "https://biomejs.dev/linter/rules/no-redundant-roles",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintJsxA11y": "no-redundant-roles"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "htmlEslint": "no-redundant-role"
+                }
+              }
+            ],
+            "docs": " Enforce explicit `role` property is not the same as implicit/default role property on an element.\n\n :::note\n In `.html` files, all elements are treated as native HTML elements.\n\n In component-based frameworks (Vue, Svelte, Astro), only native HTML element names are checked.\n PascalCase names like `<Button>` and kebab-case names like `<my-button>` are assumed to be\n custom components and are ignored.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <article role=\"article\"></article>\n ```\n\n ```html,expect_diagnostic\n <button role=\"button\"></button>\n ```\n\n ```html,expect_diagnostic\n <h1 role=\"heading\" aria-level=\"1\">title</h1>\n ```\n\n ### Valid\n\n ```html\n <article role=\"presentation\"></article>\n ```\n\n ```html\n <span></span>\n ```\n\n"
+          },
+          "noStaticElementInteractions": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noStaticElementInteractions",
+            "link": "https://biomejs.dev/linter/rules/no-static-element-interactions",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintJsxA11y": "no-static-element-interactions"
+                }
+              }
+            ],
+            "docs": " Enforce that static, visible elements (such as `<div>`) that have click handlers use the valid role attribute.\n\n Static HTML elements do not have semantic meaning. This is clear in the case of `<div>` and `<span>`.\n It is less so clear in the case of elements that seem semantic, but that do not have a semantic mapping in the accessibility layer. For example `<a>` without href attribute, `<meta>`, `<script>`, `<picture>`, `<section>`, and `<colgroup>` -- to name a few -- have no semantic layer mapping. They are as void of meaning as `<div>`.\n\n The [WAI-ARIA role attribute](https://www.w3.org/TR/wai-aria-1.1/#usage_intro) confers a semantic mapping to an element. The semantic value can then be expressed to a user via assistive technology.\n In order to add interactivity such as a mouse or key event listener to a static element, that element must be given a role value as well.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div onclick=\"myFunction()\"></div>\n ```\n\n ```html,expect_diagnostic\n <span onclick=\"myFunction()\"></span>\n ```\n\n When `<a>` does not have \"href\" attribute, that is non-interactive.\n ```html,expect_diagnostic\n <a onclick=\"myFunction()\"></a>\n ```\n\n ### Valid\n\n ```html\n <div role=\"button\" onclick=\"myFunction()\"></div>\n <span role=\"scrollbar\" onclick=\"myFunction()\"></span>\n <a href=\"http://example.com\" onclick=\"myFunction()\"></a>\n ```\n\n Custom components are not checked.\n ```astro\n <TestComponent onclick={doFoo} />\n ```\n\n"
           },
           "noSvgWithoutTitle": {
             "deprecated": false,
@@ -1034,7 +1208,7 @@ export function GET() {
             "fixKind": "none",
             "sources": [
               {
-                "kind": "sameLogic",
+                "kind": "inspired",
                 "source": {
                   "eslintJsxA11y": "alt-text"
                 }
@@ -1057,13 +1231,30 @@ export function GET() {
             "fixKind": "unsafe",
             "sources": [
               {
-                "kind": "sameLogic",
+                "kind": "inspired",
                 "source": {
                   "eslintJsxA11y": "anchor-has-content"
                 }
               }
             ],
             "docs": " Enforce that anchors have content and that the content is accessible to screen readers.\n\n Accessible means the content is not hidden using the `aria-hidden` attribute.\n Anchor tags should have text content that describes the link destination for screen reader users.\n Alternatively, the anchor can have an accessible name via the `aria-label` or `title` attribute.\n\n :::note\n In `.html` files, this rule matches element names case-insensitively (e.g., `<A>`, `<a>`).\n\n In component-based frameworks (Vue, Svelte, Astro), only lowercase element names are checked.\n PascalCase variants like `<A>` are assumed to be custom components and are ignored.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <a></a>\n ```\n\n ```html,expect_diagnostic\n <a>   </a>\n ```\n\n ```html,expect_diagnostic\n <a aria-hidden=\"true\">content</a>\n ```\n\n ```html,expect_diagnostic\n <a><span aria-hidden=\"true\">content</span></a>\n ```\n\n ### Valid\n\n ```html\n <a>content</a>\n ```\n\n ```html\n <a><span>content</span></a>\n ```\n\n ```html\n <a><span aria-hidden=\"true\"></span>content</a>\n ```\n\n ```html\n <a aria-label=\"Navigate to home\"></a>\n ```\n\n ```html\n <a title=\"Home page\"></a>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 2.4.4](https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-in-context)\n - [WCAG 4.1.2](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value)\n\n"
+          },
+          "useAriaActivedescendantWithTabindex": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useAriaActivedescendantWithTabindex",
+            "link": "https://biomejs.dev/linter/rules/use-aria-activedescendant-with-tabindex",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintJsxA11y": "aria-activedescendant-has-tabindex"
+                }
+              }
+            ],
+            "docs": " Enforce that `tabindex` is assigned to non-interactive HTML elements with `aria-activedescendant`.\n\n `aria-activedescendant` is used to manage focus within a [composite widget](https://www.w3.org/TR/wai-aria/#composite).\n The element with the attribute `aria-activedescendant` retains the active document focus.\n\n It indicates which of its child elements has secondary focus by assigning the ID of that\n element to the value of `aria-activedescendant`. This pattern is used to build a widget\n like a search typeahead select list. The search input box retains document focus\n so that the user can type in the input. If the down arrow key is pressed and\n a search suggestion is highlighted, the ID of the suggestion element will be applied\n as the value of `aria-activedescendant` on the input element.\n\n Because an element with `aria-activedescendant` must be tabbable,\n it must either have an inherent tabIndex of zero or declare a tabindex attribute.\n\n :::note\n In `.html` files, this rule matches element names case-insensitively (e.g., `<DIV>`, `<div>`).\n\n In component-based frameworks (Vue, Svelte, Astro), only lowercase element names are checked.\n PascalCase variants are assumed to be custom components and are ignored.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div aria-activedescendant=\"some-id\"></div>\n ```\n\n ### Valid\n\n ```html\n <div aria-activedescendant=\"some-id\" tabindex=\"0\"></div>\n ```\n\n ```html\n <input aria-activedescendant=\"some-id\" />\n ```\n\n ```html\n <button aria-activedescendant=\"some-id\"></button>\n ```\n\n"
           },
           "useAriaPropsForRole": {
             "deprecated": false,
@@ -1074,13 +1265,30 @@ export function GET() {
             "fixKind": "none",
             "sources": [
               {
-                "kind": "sameLogic",
+                "kind": "inspired",
                 "source": {
                   "eslintJsxA11y": "role-has-required-aria-props"
                 }
               }
             ],
             "docs": " Enforce that elements with ARIA roles must have all required ARIA attributes for that role.\n\n Remember that this rule only supports static values for the `role` attribute.\n Dynamic `role` values are not checked.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <span role=\"checkbox\"></span>\n ```\n\n ```html,expect_diagnostic\n <span role=\"heading\"></span>\n ```\n\n ### Valid\n\n ```html\n <span role=\"checkbox\" aria-checked=\"true\"></span>\n ```\n\n ```html\n <span role=\"heading\" aria-level=\"1\"></span>\n ```\n\n\n ## Accessibility guidelines\n - [WCAG 4.1.2](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value)\n\n ### Resources\n - [ARIA Spec, Roles](https://www.w3.org/TR/wai-aria/#roles)\n - [Chrome Audit Rules, AX_ARIA_03](https://github.com/GoogleChrome/accessibility-developer-tools/wiki/Audit-Rules#ax_aria_03)\n\n"
+          },
+          "useAriaPropsSupportedByRole": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useAriaPropsSupportedByRole",
+            "link": "https://biomejs.dev/linter/rules/use-aria-props-supported-by-role",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintJsxA11y": "role-supports-aria-props"
+                }
+              }
+            ],
+            "docs": " Enforce that ARIA properties are valid for the roles that are supported by the element.\n\n Invalid ARIA properties can make it difficult for users of assistive technologies to understand the purpose of the element.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <a href=\"#\" aria-checked=\"true\"></a>\n ```\n\n ```html,expect_diagnostic\n <img alt=\"foobar\" aria-checked=\"true\" />\n ```\n\n ### Valid\n\n ```html\n <a href=\"#\" aria-expanded=\"true\"></a>\n <img alt=\"foobar\" aria-hidden=\"true\" />\n <div role=\"heading\" aria-level=\"1\"></div>\n ```\n\n"
           },
           "useButtonType": {
             "deprecated": false,
@@ -1091,9 +1299,21 @@ export function GET() {
             "fixKind": "none",
             "sources": [
               {
-                "kind": "sameLogic",
+                "kind": "inspired",
                 "source": {
                   "eslintReact": "button-has-type"
+                }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintReactDom": "no-missing-button-type"
+                }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintReactXyz": "dom-no-missing-button-type"
                 }
               },
               {
@@ -1105,6 +1325,46 @@ export function GET() {
             ],
             "docs": " Enforces the usage and validity of the attribute `type` for the element `button`\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <button>Do something</button>\n ```\n\n ```html,expect_diagnostic\n <button type=\"incorrectType\">Do something</button>\n ```\n\n ### Valid\n\n ```html\n <button type=\"button\">Do something</button>\n ```\n\n"
           },
+          "useFocusableInteractive": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useFocusableInteractive",
+            "link": "https://biomejs.dev/linter/rules/use-focusable-interactive",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintJsxA11y": "interactive-supports-focus"
+                }
+              }
+            ],
+            "docs": " Elements with an interactive role and interaction handlers must be focusable.\n\n HTML elements with interactive roles must have `tabindex` defined to ensure they are\n focusable. Without `tabindex`, assistive technologies may not recognize these elements as\n interactive.\n You could also consider switching from an interactive role to its semantic HTML element\n instead.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div role=\"button\"></div>\n ```\n\n ```html,expect_diagnostic\n <div role=\"tab\"></div>\n ```\n\n ### Valid\n\n ```html\n <div role=\"button\" tabindex=\"0\"></div>\n ```\n\n ```html\n <div></div>\n ```\n\n"
+          },
+          "useHeadingContent": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useHeadingContent",
+            "link": "https://biomejs.dev/linter/rules/use-heading-content",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintJsxA11y": "heading-has-content"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "htmlEslint": "no-empty-headings"
+                }
+              }
+            ],
+            "docs": " Enforce that heading elements (`h1`, `h2`, etc.) have content and that the content is\n accessible to screen readers.\n\n Accessible means that it is not hidden using the `aria-hidden` attribute.\n All headings on a page should have content that is accessible to screen readers\n to convey meaningful structure and enable navigation for assistive technology users.\n\n :::note\n In `.html` files, this rule matches element names case-insensitively (e.g., `<H1>`, `<h1>`).\n\n In component-based frameworks (Vue, Svelte, Astro), only lowercase element names are checked.\n PascalCase variants are assumed to be custom components and are ignored.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <h1></h1>\n ```\n\n ```html,expect_diagnostic\n <h1 aria-hidden=\"true\">invisible content</h1>\n ```\n\n ```html,expect_diagnostic\n <h1><span aria-hidden=\"true\">hidden</span></h1>\n ```\n\n ### Valid\n\n ```html\n <h1>heading</h1>\n ```\n\n ```html\n <h1 aria-label=\"Screen reader content\"></h1>\n ```\n\n ```html\n <h1><span aria-hidden=\"true\">hidden</span> visible content</h1>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 2.4.6](https://www.w3.org/TR/UNDERSTANDING-WCAG20/navigation-mechanisms-descriptive.html)\n\n"
+          },
           "useHtmlLang": {
             "deprecated": false,
             "version": "2.4.0",
@@ -1114,7 +1374,7 @@ export function GET() {
             "fixKind": "none",
             "sources": [
               {
-                "kind": "sameLogic",
+                "kind": "inspired",
                 "source": {
                   "eslintJsxA11y": "html-has-lang"
                 }
@@ -1137,13 +1397,53 @@ export function GET() {
             "fixKind": "none",
             "sources": [
               {
-                "kind": "sameLogic",
+                "kind": "inspired",
                 "source": {
                   "eslintJsxA11y": "iframe-has-title"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "htmlEslint": "require-frame-title"
                 }
               }
             ],
             "docs": " Enforces the usage of the attribute `title` for the element `iframe`.\n\n :::note\n In `.html` files, this rule matches `iframe` elements case-insensitively (e.g., `<IFRAME>`, `<IFrame>`).\n\n In component-based frameworks (Vue, Svelte, Astro), only lowercase `<iframe>` is checked. PascalCase variants like `<Iframe>` are assumed to be custom components and are ignored.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <iframe></iframe>\n ```\n\n ```html,expect_diagnostic\n <iframe title=\"\"></iframe>\n ```\n\n ### Valid\n\n ```html\n <iframe title=\"title\"></iframe>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 2.4.1](https://www.w3.org/WAI/WCAG21/Understanding/bypass-blocks)\n - [WCAG 4.1.2](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value)\n\n"
+          },
+          "useKeyWithClickEvents": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useKeyWithClickEvents",
+            "link": "https://biomejs.dev/linter/rules/use-key-with-click-events",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintJsxA11y": "click-events-have-key-events"
+                }
+              }
+            ],
+            "docs": " Enforce elements with a click event handler to also have at least one keyboard event handler.\n\n Coding for the keyboard is important for users with physical disabilities who cannot use a mouse,\n AT compatibility, and screen reader users. This rule checks that interactive elements with an\n `onclick` attribute also include at least one of `onkeydown`, `onkeyup`, or `onkeypress`.\n\n This does not apply to elements that are inherently keyboard-accessible (such as `<button>`,\n `<input>`, `<select>`, `<textarea>`, or `<a>` with an `href` attribute) or elements that are\n hidden from assistive technologies.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div onclick=\"handleClick()\"></div>\n ```\n\n ### Valid\n\n ```html\n <div onclick=\"handleClick()\" onkeydown=\"handleKeyDown()\"></div>\n ```\n\n ```html\n <div onclick=\"handleClick()\" onkeyup=\"handleKeyUp()\"></div>\n ```\n\n ```html\n <div onclick=\"handleClick()\" onkeypress=\"handleKeyPress()\"></div>\n ```\n\n ```html\n <button onclick=\"handleClick()\">Submit</button>\n ```\n\n ```html\n <input onclick=\"handleClick()\" />\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 2.1.1](https://www.w3.org/WAI/WCAG21/Understanding/keyboard)\n\n"
+          },
+          "useKeyWithMouseEvents": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useKeyWithMouseEvents",
+            "link": "https://biomejs.dev/linter/rules/use-key-with-mouse-events",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintJsxA11y": "mouse-events-have-key-events"
+                }
+              }
+            ],
+            "docs": " Enforce that `onmouseover` is accompanied by `onfocus` and `onmouseout` by `onblur`.\n\n Coding for the keyboard is important for users with physical disabilities who cannot use a mouse,\n AT compatibility, and screen reader users.\n\n :::note\n In `.html` files, attribute names are matched case-insensitively.\n\n In component-based frameworks (Vue, Svelte, Astro), PascalCase elements like `<MyComponent>`\n are assumed to be custom components and are ignored.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div onmouseover=\"handleMouseOver()\"></div>\n ```\n\n ```html,expect_diagnostic\n <div onmouseout=\"handleMouseOut()\"></div>\n ```\n\n ### Valid\n\n ```html\n <div onmouseover=\"handleMouseOver()\" onfocus=\"handleFocus()\"></div>\n ```\n\n ```html\n <div onmouseout=\"handleMouseOut()\" onblur=\"handleBlur()\"></div>\n ```\n\n ```html\n <div onmouseover=\"handleMouseOver()\" onfocus=\"handleFocus()\" onmouseout=\"handleMouseOut()\" onblur=\"handleBlur()\"></div>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 2.1.1](https://www.w3.org/WAI/WCAG21/Understanding/keyboard)\n\n"
           },
           "useMediaCaption": {
             "deprecated": false,
@@ -1154,13 +1454,70 @@ export function GET() {
             "fixKind": "none",
             "sources": [
               {
-                "kind": "sameLogic",
+                "kind": "inspired",
                 "source": {
                   "eslintJsxA11y": "media-has-caption"
                 }
               }
             ],
             "docs": " Enforces that `audio` and `video` elements must have a `track` for captions.\n\n Captions support users with hearing-impairments. They should be a transcription\n or translation of the dialogue, sound effects, musical cues, and other relevant\n audio information.\n\n :::note\n In `.html` files, this rule matches element names case-insensitively (e.g., `<VIDEO>`, `<video>`).\n\n In component-based frameworks (Vue, Svelte, Astro), only lowercase element names are checked.\n PascalCase variants like `<Video>` are assumed to be custom components and are ignored.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <video src=\"video.mp4\"></video>\n ```\n\n ```html,expect_diagnostic\n <audio src=\"audio.mp3\">\n     <source src=\"audio.ogg\" type=\"audio/ogg\" />\n </audio>\n ```\n\n ### Valid\n\n ```html\n <video src=\"video.mp4\">\n     <track kind=\"captions\" src=\"captions.vtt\" />\n </video>\n ```\n\n ```html\n <audio src=\"audio.mp3\">\n     <track kind=\"captions\" src=\"captions.vtt\" />\n </audio>\n ```\n\n ```html\n <video muted src=\"video.mp4\"></video>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 1.2.2](https://www.w3.org/WAI/WCAG21/Understanding/captions-prerecorded)\n - [WCAG 1.2.3](https://www.w3.org/WAI/WCAG21/Understanding/audio-description-or-media-alternative-prerecorded)\n\n"
+          },
+          "useSemanticElements": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useSemanticElements",
+            "link": "https://biomejs.dev/linter/rules/use-semantic-elements",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintJsxA11y": "prefer-tag-over-role"
+                }
+              }
+            ],
+            "docs": " Enforces using semantic DOM elements over the ARIA `role` property.\n\n The `role` attribute is used to define the purpose of an element, but it should be used as a last resort.\n Using semantic elements like `<button>`, `<nav>` and others are more accessible and provide better semantics.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div role=\"checkbox\"></div>\n ```\n\n ```html,expect_diagnostic\n <div role=\"separator\"></div>\n ```\n\n ### Valid\n\n ```html\n <input type=\"checkbox\" />\n <hr />\n <div role=\"status\"></div>\n ```\n\n All elements with `role=\"img\"` are ignored:\n\n ```html\n <div role=\"img\" aria-label=\"That cat is so cute\">\n   <p>&#x1F408; &#x1F602;</p>\n </div>\n ```\n\n Semantic elements with a matching role are not flagged (see [noRedundantRoles](https://biomejs.dev/linter/rules/no-redundant-roles/)):\n\n ```html\n <nav role=\"navigation\"></nav>\n <footer role=\"contentinfo\"></footer>\n ```\n\n"
+          },
+          "useValidAnchor": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useValidAnchor",
+            "link": "https://biomejs.dev/linter/rules/use-valid-anchor",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintJsxA11y": "anchor-is-valid"
+                }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintQwik": "jsx-a"
+                }
+              }
+            ],
+            "docs": " Enforce that all anchors are valid, and they are navigable elements.\n\n The anchor element (`<a></a>`) - also called **hyperlink** - is an important element\n that allows users to navigate pages, in the same page, same website or on another website.\n\n While before it was possible to attach logic to an anchor element, with the advent of JSX libraries,\n it's now easier to attach logic to any HTML element, anchors included.\n\n This rule is designed to prevent users from attaching logic at the click of anchors when the `href`\n provided to the anchor element is not valid. Avoid using `#` symbol inside the `href` when you are\n attaching the logic to the anchor element. If the anchor has logic attached to it with an incorrect `href`\n the rules suggests to turn it to a `button`, because that's likely what the user wants.\n\n Anchor `<a></a>` elements should be used for navigation, while `<button></button>` should be\n used for user interaction.\n\n There are **many reasons** why an anchor should not have a logic with an incorrect `href` attribute:\n - it can disrupt the correct flow of the user navigation e.g. a user that wants to open the link\n in another tab, but the default \"click\" behavior is prevented\n - it can be a source of invalid links, and crawlers can't navigate the website, risking to penalize\n SEO ranking\n\n\n For a detailed explanation, check out [this article by Marcy Sutton](https://marcysutton.com/links-vs-buttons-in-modern-web-applications)\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <a href>navigate here</a>\n ```\n ```html,expect_diagnostic\n <a href=\"javascript:void(0)\">navigate here</a>\n ```\n ```html,expect_diagnostic\n <a onclick=\"func()\">navigate here</a>\n ```\n\n ### Valid\n\n ```html\n <a href=\"https://example.com\">navigate here</a>\n ```\n ```html\n <a href=\"https://www.javascript.com\">navigate here</a>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 2.1.1](https://www.w3.org/WAI/WCAG21/Understanding/keyboard)\n\n"
+          },
+          "useValidAriaProps": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useValidAriaProps",
+            "link": "https://biomejs.dev/linter/rules/use-valid-aria-props",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintJsxA11y": "aria-props"
+                }
+              }
+            ],
+            "docs": " Ensures that ARIA properties `aria-*` are all valid.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <input type=\"text\" aria-labell=\"\" />\n ```\n\n ```html,expect_diagnostic\n <div aria-lorem=\"foobar\"></div>\n ```\n\n ### Valid\n\n ```html\n <input type=\"text\" aria-label=\"Enter your name\" />\n <div aria-hidden=\"true\"></div>\n ```\n\n ## Accessibility guidelines\n - [WCAG 4.1.2](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value)\n"
           },
           "useValidAriaRole": {
             "deprecated": false,
@@ -1171,13 +1528,53 @@ export function GET() {
             "fixKind": "unsafe",
             "sources": [
               {
-                "kind": "sameLogic",
+                "kind": "inspired",
                 "source": {
                   "eslintJsxA11y": "aria-role"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "htmlEslint": "no-invalid-role"
                 }
               }
             ],
             "docs": " Elements with ARIA roles must use a valid, non-abstract ARIA role.\n\n Remember that this rule only supports static values for the `role` attribute.\n Dynamic `role` values are not checked.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div role=\"datepicker\"></div>\n ```\n\n ```html,expect_diagnostic\n <div role=\"range\"></div>\n ```\n\n ```html,expect_diagnostic\n <div role=\"\"></div>\n ```\n\n\n ### Valid\n\n ```html\n <div role=\"button\"></div>\n <div></div>\n ```\n\n ## Options\n\n\n ### `allowInvalidRoles`\n\n It allows specifying a list of roles that might be invalid otherwise\n\n ```json,options\n {\n     \"options\": {\n         \"allowInvalidRoles\": [\"datepicker\"]\n     }\n }\n ```\n\n ```html,use_options\n <div role=\"datepicker\"></div>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 4.1.2](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value)\n\n ## Resources\n\n - [Chrome Audit Rules, AX_ARIA_01](https://github.com/GoogleChrome/accessibility-developer-tools/wiki/Audit-Rules#ax_aria_01)\n - [DPUB-ARIA roles](https://www.w3.org/TR/dpub-aria-1.0/)\n - [MDN: Using ARIA: Roles, states, and properties](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques)\n\n"
+          },
+          "useValidAriaValues": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useValidAriaValues",
+            "link": "https://biomejs.dev/linter/rules/use-valid-aria-values",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintJsxA11y": "aria-proptypes"
+                }
+              }
+            ],
+            "docs": " Enforce that ARIA state and property values are valid.\n\n :::note\n In `.html` files, attribute names are matched case-insensitively.\n\n In component-based frameworks (Vue, Svelte, Astro), dynamic bindings\n (e.g., `:aria-checked=\"expr\"`) are skipped because the value is a runtime expression.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <span aria-checked=\"test\">some text</span>\n ```\n\n ```html,expect_diagnostic\n <span aria-labelledby=\"\">some text</span>\n ```\n\n ### Valid\n\n ```html\n <span aria-checked=\"true\">some text</span>\n ```\n\n ```html\n <span aria-labelledby=\"fooId barId\">some text</span>\n ```\n\n ## Accessibility guidelines\n - [WCAG 4.1.2](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value)\n"
+          },
+          "useValidAutocomplete": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useValidAutocomplete",
+            "link": "https://biomejs.dev/linter/rules/use-valid-autocomplete",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintJsxA11y": "autocomplete-valid"
+                }
+              }
+            ],
+            "docs": " Use valid values for the `autocomplete` attribute on `input` elements.\n\n The HTML autocomplete attribute only accepts specific predefined values.\n This allows for more detailed purpose definitions compared to the `type` attribute.\n Using these predefined values, user agents and assistive technologies can present input purposes to users in different ways.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <input type=\"text\" autocomplete=\"incorrect\" />\n ```\n\n ### Valid\n\n ```html\n <input type=\"text\" autocomplete=\"name\" />\n ```\n\n ```vue\n <MyInput autocomplete=\"incorrect\" />\n ```\n\n ## Options\n\n ```json,options\n {\n     \"options\": {\n         \"inputComponents\": [\"MyInput\"]\n     }\n }\n ```\n\n ## Accessibility guidelines\n - [WCAG 1.3.5](https://www.w3.org/WAI/WCAG21/Understanding/identify-input-purpose)\n\n ### Resources\n - [HTML Living Standard autofill](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofill)\n - [HTML attribute: autocomplete - HTML: HyperText Markup Language | MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete)\n\n"
           },
           "useValidLang": {
             "deprecated": false,
@@ -1188,7 +1585,7 @@ export function GET() {
             "fixKind": "none",
             "sources": [
               {
-                "kind": "sameLogic",
+                "kind": "inspired",
                 "source": {
                   "eslintJsxA11y": "lang"
                 }
@@ -1237,6 +1634,15 @@ export function GET() {
               }
             ],
             "docs": " Disallow duplication of attributes.\n\n According to the HTML specification, each attribute name must be unique within a single element.\n Duplicate attributes are invalid and can lead to unexpected behavior in browsers.\n\n ## Vue templates\n\n For Vue templates (`.vue` files), this rule also considers the following directives as\n aliases of their arguments:\n\n - `v-bind:foo` and `:foo` are handled as the attribute `foo`.\n\n Vue class/style bindings are ignored. For example, `class` and `:class` may co-exist.\n\n Event handlers are ignored. For example, `@click` and `v-on:click` are not considered\n attributes by this rule.\n\n Dynamic arguments such as `:[foo]` or `v-bind:[foo]` are ignored.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div foo=\"a\" foo=\"b\"></div>\n ```\n\n ```vue,expect_diagnostic\n <template>\n   <div foo :foo=\"bar\" />\n </template>\n ```\n\n ### Valid\n\n ```html\n <div foo=\"a\" bar=\"b\"></div>\n ```\n\n"
+          },
+          "noExcessiveLinesPerFile": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noExcessiveLinesPerFile",
+            "link": "https://biomejs.dev/linter/rules/no-excessive-lines-per-file",
+            "recommended": false,
+            "fixKind": "none",
+            "docs": " Restrict the number of lines in a file.\n\n Large files tend to do many things and can make it hard to follow what's going on.\n This rule can help enforce a limit on the number of lines in a file.\n\n ## Examples\n\n ### Invalid\n\n The following example will show a diagnostic when `maxLines` is set to 2:\n\n ```json,options\n {\n     \"options\": {\n        \"maxLines\": 2\n     }\n }\n ```\n ```html,expect_diagnostic,use_options\n <div></div>\n <span></span>\n <p></p>\n ```\n\n ### Valid\n\n ```html\n <div></div>\n <span></span>\n ```\n\n ## Options\n\n ### `maxLines`\n\n This option sets the maximum number of lines allowed in a file.\n If the file exceeds this limit, a diagnostic will be reported.\n\n Default: `300`\n\n #### Examples\n\n The default value for `maxLines` is `300`. The following example shows how to set the\n `maxLines` option to a smaller value. It reports a diagnostic because the file has more\n than 4 lines:\n\n ```json,options\n {\n     \"options\": {\n         \"maxLines\": 4\n     }\n }\n ```\n ```html,expect_diagnostic,use_options\n <div>Line 1</div>\n <div>Line 2</div>\n <div>Line 3</div>\n <div>Line 4</div>\n <div>Line 5</div>\n ```\n\n ### `skipBlankLines`\n\n When this option is set to `true`, blank lines are not counted towards the maximum line limit.\n\n Default: `false`\n\n #### Examples\n\n The following example shows how `skipBlankLines` can prevent a diagnostic by excluding blank\n lines from the total count:\n\n ```json,options\n {\n     \"options\": {\n         \"maxLines\": 2,\n         \"skipBlankLines\": true\n     }\n }\n ```\n ```html,use_options\n <div></div>\n\n\n <span></span>\n ```\n\n ## Suppressions\n\n If you need to exceed the line limit in a specific file, you can suppress this rule\n at the top of the file:\n\n ```json,options\n {\n     \"options\": {\n         \"maxLines\": 2\n     }\n }\n ```\n ```html,use_options\n <!-- biome-ignore lint/nursery/noExcessiveLinesPerFile: generated file -->\n <div></div>\n <span></span>\n <p></p>\n ```\n\n"
           },
           "noInlineStyles": {
             "deprecated": false,
@@ -1318,6 +1724,15 @@ export function GET() {
               }
             ],
             "docs": " Prevent the usage of synchronous scripts.\n\n A synchronous script can impact your webpage performance, read more on how to [Efficiently load third-party JavaScript](https://web.dev/articles/efficiently-load-third-party-javascript).\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <script src=\"\"></script>\n ```\n\n ### Valid\n\n ```html\n <script src=\"\" async></script>\n <script src=\"\" defer></script>\n <script src=\"\" type=\"module\"></script>\n ```\n\n"
+          },
+          "noUndeclaredClasses": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noUndeclaredClasses",
+            "link": "https://biomejs.dev/linter/rules/no-undeclared-classes",
+            "recommended": false,
+            "fixKind": "none",
+            "docs": " Reports CSS class names in HTML `class` attributes that are not defined\n in any `<style>` block or linked stylesheet available to the file.\n\n When an HTML file has `<style>` blocks or `<link rel=\"stylesheet\">` elements,\n every class name used in `class=\"...\"` attributes is checked against the\n available class definitions. Classes that are not defined are reported.\n\n ## Framework style scoping\n\n Different frameworks scope their embedded styles differently. For the\n **same file**, both locally and globally scoped classes are considered\n valid — a scoped `<style>` block defines classes that are available to\n that component's own template. When traversing **parent files** (via\n upward import traversal), only globally scoped classes are visible:\n\n - **HTML** `<style>`: always global.\n - **Vue** `<style>` (no attribute): global.\n - **Vue** `<style scoped>`: local — visible within the same component,\n   not to child components.\n - **Astro** `<style>` (default): local — visible within the same component,\n   not to child components.\n - **Astro** `<style is:global>`: global.\n - **Svelte** `<style>` (default): local — visible within the same component,\n   not to child components. Individual selectors inside `:global(...)` within\n   a scoped block are still treated as global.\n\n ## Components\n\n Components (custom elements) are excluded from this check, as they may receive\n class names as props or use scoped styling. A component is identified by:\n - Tag names starting with an uppercase letter (e.g., `MyComponent`)\n - Tag names containing a hyphen (e.g., `my-component`)\n - Member expressions (e.g., `Component.Item`)\n\n ## No false positives on unstyled files\n\n If the file has no style information (no `<style>` blocks and no linked\n stylesheets), this rule does not emit diagnostics to avoid false positives.\n\n ## Examples\n\n ### Invalid\n\n ```html,ignore\n <style>.card { border: 1px solid; }</style>\n <div class=\"header\">Content</div>\n ```\n\n ### Valid\n\n ```html,ignore\n <style>.card { border: 1px solid; }</style>\n <div class=\"card\">Content</div>\n ```\n\n ```html,ignore\n <style>.card { border: 1px solid; }</style>\n <MyComponent class=\"any-class\">Components are not checked</MyComponent>\n ```\n\n"
           },
           "noVueVIfWithVFor": {
             "deprecated": false,
@@ -1920,7 +2335,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow shorthand type conversions.\n\n JavaScript allows shorthand type conversions by using operators like `!!`, `+`, `~`, etc.\n These shortcuts can make the code harder to read and understand, especially for developers\n who are not familiar with these patterns. Using explicit type conversion functions like\n `Boolean()`, `Number()`, and `String()` makes the intent clearer and more readable.\n\n This rule reports when values are converted to:\n - Boolean using double negation `!!value`\n - Number using unary plus `+value`, subtraction from zero `value - 0`, multiplication by one `value * 1`, division by one `value / 1`, or double negation with minus `-(-value)`\n - String using concatenation with empty string `value + \"\"` or empty template literal `` value + `` ``\n - Check index using bitwise NOT with indexOf `~value.indexOf(item)` instead of comparing with -1\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n !!foo;\n ```\n\n ```js,expect_diagnostic\n +foo;\n ```\n\n ```js,expect_diagnostic\n -(-foo);\n ```\n\n ```js,expect_diagnostic\n foo - 0;\n ```\n\n ```js,expect_diagnostic\n foo * 1;\n ```\n\n ```js,expect_diagnostic\n foo / 1;\n ```\n\n ```js,expect_diagnostic\n \"\" + foo;\n ```\n\n ```js,expect_diagnostic\n foo + \"\";\n ```\n\n ```js,expect_diagnostic\n `` + foo;\n ```\n\n ```js,expect_diagnostic\n foo += \"\";\n ```\n\n ```js,expect_diagnostic\n ~foo.indexOf(1);\n ```\n\n ### Valid\n\n ```js\n Boolean(foo);\n ```\n\n ```js\n Number(foo);\n ```\n\n ```js\n String(foo);\n ```\n\n ```js\n foo.indexOf(1) !== -1;\n ```\n\n These are not flagged because they don't perform type coercion:\n ```js\n !foo;\n ~foo;\n -foo;\n +1234;\n 2 * foo;\n foo + 'bar';\n ```\n\n"
+            "docs": " Encourage use of explicit type conversion functions over their shorthand counterparts.\n\n JavaScript (due to its dynamic typing) [automatically coerces](https://developer.mozilla.org/en-US/docs/Glossary/Type_coercion)\n values to and from different types when applying certain operators.\n As such, one can use these operators as a \"shorthand\" for coercing values between different types:\n ```js,ignore\n const answer = +\"42\"; // 42 (coerced to number)\n\n const myStr = \"\" + answer; // \"42\" (coerced to string)\n console.log(!!answer); // true (coerced to boolean)\n ```\n\n While these \"implicit coercions\" can save space, there are several reasons one may prefer to avoid them:\n - Relying on these shortcuts can hurt readability, especially for newer developers less familiar with these patterns.\n   Writing `Boolean(value)` or `String(myNum)` makes the type of the resulting value clear and explicit, as opposed to `!!value` or `foo + \"\"` (which may appear confusing at first glance).\n - TypeScript does not allow declaration merging for the built-in type coercion operators, unlike their more explicit function counterparts.\n   For instance, `+value` cannot be overridden to return a more specific type under certain conditions (as opposed to `Number()`,\n   whose method signatures can be customized to do exactly that).\n\n This rule encourages the use of explicit type conversion functions like `Boolean()`, `Number()`, and `String()`\n in favor of implicit operator conversions.\n\n ### Disallowed patterns\n A full list of constructs linted by this rule are as follows:\n\n | Pattern                                        | Target              | Example                       |\n | ---------------------------------------------- | ------------------- | ----------------------------- |\n | Double negation[^1]                            | `Boolean`           | `!!value       `              |\n | Unary plus                                     | `Number`            | `+value`                      |\n | Double unary negation                          | `Number`            | `-(-value)`                   |\n | Subtraction with zero[^2]                      | `Number`            | `value - 0`                   |\n | Multiplication with one[^2]                    | `Number`            | `value * 1`                   |\n | Division with one[^2]                          | `Number`            | `value / 1`                   |\n | Concatenation with an empty string[^2]         | `String`            | `value + \"\"`, ``value + `` `` |\n | Bitwise NOT with `indexOf`[^3]                 | Check against `-1`  | `~arr.indexOf(value)`         |\n\n [^1]: Unless the `allowDoubleNegation` option is set to `true`, in which case it is ignored.\n\n [^2]: Including their assignment counterparts (`+=`, `-=`, `*=`, `/=`).\n\n [^3]: Bitwise NOT produces the 2's complement negation of a number, which is `0` for `-1`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n !!foo;\n ```\n\n ```js,expect_diagnostic\n +foo;\n ```\n\n ```js,expect_diagnostic\n -(-foo);\n ```\n\n ```js,expect_diagnostic\n foo - 0;\n ```\n\n ```js,expect_diagnostic\n foo * 1;\n ```\n\n ```js,expect_diagnostic\n foo / 1;\n ```\n\n ```js,expect_diagnostic\n foo + \"\";\n ```\n\n ```js,expect_diagnostic\n '' + foo;\n ```\n\n ```js,expect_diagnostic\n baz += ``;\n ```\n\n ```js,expect_diagnostic\n ~foo.indexOf(1);\n ```\n\n ### Valid\n\n ```js\n Boolean(foo);\n ```\n\n ```js\n Number(foo);\n ```\n\n ```js\n String(foo);\n ```\n\n ```js\n foo.indexOf(1) !== -1;\n ```\n\n ```js\n `a${foo}`;\n ```\n\n ```js\n tag`${foo}`;\n ```\n\n These are not flagged because they may have other effects on the produced value other than type coercion:\n ```js\n !foo;\n ~foo;\n -foo;\n +1234;\n 2 * foo;\n foo + 'bar';\n foo + 0; // has the potential to concatenate strings, unlike `foo - 0` which always produces a number\n ```\n\n ## Options\n\n ### `allowDoubleNegation`\n Whether to allow or disallow the use of double negation (`!!value`) for `Boolean` coercions.\n\n Default: `false` (disallow)\n\n Examples of correct code with `allowDoubleNegation` set to `true`:\n ```json,options\n {\n   \"options\": {\n      \"allowDoubleNegation\": true\n   }\n }\n ```\n\n ```js,use_options\n !!foo;\n ```\n\n :::info\n While one could make an argument to add options for each individual disallowed pattern, the other variants are significantly less common\n and tend to suffer even more from readability issues.\n As such, the choice was made (for the time being) to only allow toggling double negation given its relatively high frequency.\n\n If you have a strong case to selectively allow one of the other patterns, open a feature request on [GitHub](https://github.com/biomejs/biome/discussions) and we can discuss it there!\n :::\n\n"
           },
           "noStaticOnlyClass": {
             "deprecated": false,
@@ -2878,7 +3293,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow the use of dependencies that aren't specified in the `package.json`.\n\n Indirect dependencies will trigger the rule because they aren't declared in the `package.json`.\n This means that if the package `@org/foo` has a dependency on `lodash`, and then you use\n `import \"lodash\"` somewhere in your project, the rule will trigger a diagnostic for this import.\n\n The rule is meant to catch those dependencies that aren't declared inside the closest `package.json`, and\n isn't meant to detect dependencies declared in other manifest files, e.g. the root `package.json` in a monorepo setting.\n\n The rule ignores imports that are not valid package names.\n This includes internal imports that start with `#` and `@/` and imports with a protocol such as `node:`, `bun:`, `jsr:`, `https:`.\n\n To ensure that Visual Studio Code uses relative imports when it automatically imports a variable,\n you may set [`javascript.preferences.importModuleSpecifier` and `typescript.preferences.importModuleSpecifier`](https://code.visualstudio.com/docs/getstarted/settings) to `relative`.\n\n ## Examples\n\n ### Invalid\n\n ```json,file=package.json\n {\n   \"dependencies\": {}\n }\n ```\n\n ```js,expect_diagnostic,file=index.js\n import \"vite\";\n ```\n\n ### Valid\n\n ```json,file=package.json\n {\n   \"dependencies\": {\n     \"vite\": \"*\"\n   }\n }\n ```\n\n ```js,file=index.js\n import \"vite\"; // package is correctly declared\n\n import assert from \"node:assert\"; // Node imports don't need declaration\n\n import { A } from \"./local.js\"; // relative imports don't trigger the rule\n import { B } from \"#alias\"; // same goes for aliases\n ```\n\n ## Options\n\n This rule supports the following options:\n - `devDependencies`: If set to `false`, then the rule will show an error when `devDependencies` are imported. Defaults to `true`.\n - `peerDependencies`: If set to `false`, then the rule will show an error when `peerDependencies` are imported. Defaults to `true`.\n - `optionalDependencies`: If set to `false`, then the rule will show an error when `optionalDependencies` are imported. Defaults to `true`.\n\n You can set the options like this:\n\n ```json,options\n {\n   \"options\": {\n     \"devDependencies\": false,\n     \"peerDependencies\": false,\n     \"optionalDependencies\": false\n   }\n }\n ```\n\n You can also use an array of globs instead of literal booleans.\n When using an array of globs, the setting will be set to `true` (no errors reported)\n if the name of the file being linted (i.e. not the imported file/module) matches a single glob\n in the array, and `false` otherwise.\n\n ### Example using the `devDependencies` option\n\n In this example, only test files can use dependencies in the\n `devDependencies` section. `dependencies`, `peerDependencies`, and\n `optionalDependencies` are always available.\n\n ```json,options\n {\n   \"options\": {\n     \"devDependencies\": [\"**/tests/*.test.js\", \"**/tests/*.spec.js\"]\n   }\n }\n ```\n\n ```json,file=package.json\n {\n   \"devDependencies\": {\n     \"vite\": \"*\"\n   }\n }\n ```\n\n ```js,expect_diagnostic,use_options,file=src/index.js\n // cannot import from a non-test file\n import \"vite\";\n ```\n\n ```js,use_options,file=tests/foo.test.js\n // this works, because the file matches a glob from the options\n import \"vite\";\n ```\n"
+            "docs": " Disallow the use of dependencies that aren't specified in the `package.json`.\n\n Indirect dependencies will trigger the rule because they aren't declared in the `package.json`.\n This means that if the package `@org/foo` has a dependency on `lodash`, and then you use\n `import \"lodash\"` somewhere in your project, the rule will trigger a diagnostic for this import.\n\n The rule is meant to catch those dependencies that aren't declared inside the closest `package.json`, and\n isn't meant to detect dependencies declared in other manifest files, e.g. the root `package.json` in a monorepo setting.\n\n The rule ignores imports that are not valid package names.\n This includes internal imports that start with `#` and `@/` and imports with a protocol such as `node:`, `bun:`, `jsr:`, `https:`.\n\n To ensure that Visual Studio Code uses relative imports when it automatically imports a variable,\n you may set [`javascript.preferences.importModuleSpecifier` and `typescript.preferences.importModuleSpecifier`](https://code.visualstudio.com/docs/getstarted/settings) to `relative`.\n\n ## Examples\n\n ### Invalid\n\n ```json,file=package.json\n {\n   \"dependencies\": {}\n }\n ```\n\n ```js,expect_diagnostic,file=index.js\n import \"vite\";\n ```\n\n ### Valid\n\n ```json,file=package.json\n {\n   \"dependencies\": {\n     \"vite\": \"*\"\n   }\n }\n ```\n\n ```js,file=index.js\n import \"vite\"; // package is correctly declared\n\n import assert from \"node:assert\"; // Node imports don't need declaration\n\n import { A } from \"./local.js\"; // relative imports don't trigger the rule\n import { B } from \"#alias\"; // same goes for aliases\n ```\n\n ## Options\n\n This rule supports the following options:\n - `devDependencies`: If set to `false`, then the rule will show an error when `devDependencies` are imported. Defaults to `true`.\n - `peerDependencies`: If set to `false`, then the rule will show an error when `peerDependencies` are imported. Defaults to `true`.\n - `optionalDependencies`: If set to `false`, then the rule will show an error when `optionalDependencies` are imported. Defaults to `true`.\n - `bundleDependencies`: If set to `false`, then the rule will show an error when `bundleDependencies` are imported. Defaults to `true`.\n\n You can set the options like this:\n\n ```json,options\n {\n   \"options\": {\n     \"devDependencies\": false,\n     \"peerDependencies\": false,\n     \"optionalDependencies\": false,\n     \"bundleDependencies\": false\n   }\n }\n ```\n\n You can also use an array of globs instead of literal booleans.\n When using an array of globs, the setting will be set to `true` (no errors reported)\n if the name of the file being linted (i.e. not the imported file/module) matches a single glob\n in the array, and `false` otherwise.\n\n ### Example using the `devDependencies` option\n\n In this example, only test files can use dependencies in the `devDependencies` section.\n `dependencies`, `peerDependencies`, `optionalDependencies` and `bundleDependencies` are always available.\n\n ```json,options\n {\n   \"options\": {\n     \"devDependencies\": [\"**/tests/*.test.js\", \"**/tests/*.spec.js\"]\n   }\n }\n ```\n\n ```json,file=package.json\n {\n   \"devDependencies\": {\n     \"vite\": \"*\"\n   }\n }\n ```\n\n ```js,expect_diagnostic,use_options,file=src/index.js\n // cannot import from a non-test file\n import \"vite\";\n ```\n\n ```js,use_options,file=tests/foo.test.js\n // this works, because the file matches a glob from the options\n import \"vite\";\n ```\n"
           },
           "noUndeclaredVariables": {
             "deprecated": false,
@@ -3069,7 +3484,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow unused variables.\n\n There is an exception to this rule: variables that start with underscore, e.g. `let _something;`.\n\n The pattern of having an underscore as a prefix of a variable is a very diffuse\n pattern among programmers, and Biome follows it.\n\n This rule won't report unused imports.\n If you want to report unused imports,\n enable [noUnusedImports](https://biomejs.dev/linter/rules/no-unused-imports/).\n\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n let a = 4;\n a++;\n ```\n\n ```js,expect_diagnostic\n function foo() {}\n ```\n\n ```js,expect_diagnostic\n function foo() {\n     foo();\n }\n ```\n\n ```js,expect_diagnostic\n const foo = () => {\n     foo();\n };\n ```\n\n ```ts,expect_diagnostic\n export function f<T>() {}\n ```\n\n ```js,expect_diagnostic\n const { brand } = car;\n ```\n\n ### Valid\n\n ```js\n function foo(b) {\n     console.log(b)\n };\n foo();\n ```\n\n ```js\n export function foo(_unused) {}\n ```\n\n ```ts\n function used_overloaded(): number;\n function used_overloaded(s: string): string;\n function used_overloaded(s?: string) {\n     return s;\n }\n used_overloaded();\n ```\n\n By default, unused variables declared inside destructured objects are ignored\n if the destructuring pattern also contains a rest property.\n (See the [rule options](#options) if you want to enable these checks).\n ```js\n const car = { brand: \"Tesla\", year: 2019, countryCode: \"US\" };\n const { brand, ...rest } = car;\n console.log(rest);\n ```\n\n TypeScript namespaces that participate in declaration merging with an exported\n or referenced value of the same name are not flagged.\n ```ts\n const MyComponent = () => {};\n namespace MyComponent {\n     export type Props = { id: string };\n }\n export default MyComponent;\n ```\n\n In Astro files, a top-level interface or a type alias named `Props` is always ignored\n as it's implicitly read by the framework.\n ```astro,ignore\n ---\n interface Props {\n   name: string;\n   greeting?: string;\n }\n\n const { name, greeting } = Astro.props;\n ---\n ```\n\n ## Options\n\n ### `ignoreRestSiblings`\n\n Whether to ignore unused variables declared inside destructured objects\n containing rest properties (such as `const { a, b, ...rest } = obj`.\n\n Default: `true`\n\n #### Example\n\n ```json,options\n {\n   \"options\": {\n     \"ignoreRestSiblings\": false\n   }\n }\n ```\n\n ```js,expect_diagnostic,use_options\n const car = { brand: \"Tesla\", year: 2019, countryCode: \"US\" };\n const { brand, ...other } = car;\n console.log(other);\n ```\n\n ```js,use_options\n const car = { brand: \"Tesla\", year: 2019, countryCode: \"US\" };\n const { brand: _, ...other } = car;\n console.log(other);\n ```\n"
+            "docs": " Disallow unused variables.\n\n There is an exception to this rule: variables that start with underscore, e.g. `let _something;`.\n\n The pattern of having an underscore as a prefix of a variable is a very diffuse\n pattern among programmers, and Biome follows it.\n\n This rule won't report unused imports.\n If you want to report unused imports,\n enable [noUnusedImports](https://biomejs.dev/linter/rules/no-unused-imports/).\n\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n let a = 4;\n a++;\n ```\n\n ```js,expect_diagnostic\n function foo() {}\n ```\n\n ```js,expect_diagnostic\n function foo() {\n     foo();\n }\n ```\n\n ```js,expect_diagnostic\n const foo = () => {\n     foo();\n };\n ```\n\n ```ts,expect_diagnostic\n export function f<T>() {}\n ```\n\n ```js,expect_diagnostic\n const { brand } = car;\n ```\n\n ### Valid\n\n ```js\n function foo(b) {\n     console.log(b)\n };\n foo();\n ```\n\n ```js\n export function foo(_unused) {}\n ```\n\n ```ts\n function used_overloaded(): number;\n function used_overloaded(s: string): string;\n function used_overloaded(s?: string) {\n     return s;\n }\n used_overloaded();\n ```\n\n By default, unused variables declared inside destructured objects are ignored\n if the destructuring pattern also contains a rest property.\n (See the [rule options](#options) if you want to enable these checks).\n ```js\n const car = { brand: \"Tesla\", year: 2019, countryCode: \"US\" };\n const { brand, ...rest } = car;\n console.log(rest);\n ```\n\n TypeScript namespaces that participate in declaration merging with an exported\n or referenced value of the same name are not flagged.\n ```ts\n const MyComponent = () => {};\n namespace MyComponent {\n     export type Props = { id: string };\n }\n export default MyComponent;\n ```\n\n In Astro files, a top-level interface or a type alias named `Props` is always ignored\n as it's implicitly read by the framework.\n ```astro,ignore\n ---\n interface Props {\n   name: string;\n   greeting?: string;\n }\n\n const { name, greeting } = Astro.props;\n ---\n ```\n\n ## Options\n\n ### `ignoreRestSiblings`\n\n Whether to ignore unused variables declared inside destructured objects\n containing rest properties (such as `const { a, b, ...rest } = obj`.\n\n Default: `true`\n\n If this option is set to `false`, unused rest siblings either have to be renamed or removed.\n\n ```json,options\n {\n   \"options\": {\n     \"ignoreRestSiblings\": false\n   }\n }\n ```\n\n ```js,expect_diagnostic,use_options\n const car = { brand: \"Tesla\", year: 2019, countryCode: \"US\" };\n const { brand, ...other } = car;\n console.log(other);\n ```\n\n ```js,use_options\n const car = { brand: \"Tesla\", year: 2019, countryCode: \"US\" };\n const { brand: _, ...other } = car;\n console.log(other);\n ```\n\n ### `ignore`\n\n An object that allows excluding matching identifiers from this rule.\n\n Each key may specify an array of identifiers to ignore which are case-sensitive matches.\n\n The special string `\"*\"` can serve two purposes:\n - As a **key** it refers to every kind of identifier.\n - As a **value** it may be used to match all identifiers in the respective group, effectively disabling this rule for that group.\n\n Allowed keys:\n\n - `\"*\"`: Applies to all identifiers\n - `\"class\"`: Applies to class names\n - `\"function\"`: Applies to function names\n - `\"interface\"`: Applies to interface names\n - `\"typeAlias\"`: Applies to type aliases\n - `\"typeParameter\"`: Applies to type parameters\n - `\"variable\"`: Applies to variable names\n\n Default: `{}` (no variables are excluded)\n\n For example, you can exclude all unused identifiers named `ignored` regardless of their kind,\n all unused classes named `IgnoredClass`, and all unused functions with the following\n configuration.\n\n A variable named `unusedVariable` is still flagged as unused, and so is a class named\n `UnusedClass` since they don't fall under the exceptions.\n\n ```json,options\n {\n   \"options\": {\n     \"ignore\": {\n       \"*\": [\"ignored\"],\n       \"class\": [\"IgnoredClass\"],\n       \"function\": [\"*\"]\n     }\n   }\n }\n ```\n\n ```js,expect_diagnostic,ignore,use_options\n const ignored = 0;\n class IgnoredClass {}\n function ignoredFunction() {}\n\n const unusedVariable = 0;\n class UnusedClass {}\n ```\n\n"
           },
           "noVueDataObjectDeclaration": {
             "deprecated": false,
@@ -4088,6 +4503,15 @@ export function GET() {
             ],
             "docs": " Disallow ternary operators.\n\n The ternary operator is used to conditionally assign a value to a variable.\n Some believe that the use of ternary operators leads to unclear code.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const foo = isBar ? baz : qux;\n ```\n\n ### Valid\n\n ```js\n let foo;\n\n if (isBar) {\n \tfoo = baz;\n } else {\n \tfoo = qux;\n }\n ```\n\n"
           },
+          "noUndeclaredClasses": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noUndeclaredClasses",
+            "link": "https://biomejs.dev/linter/rules/no-undeclared-classes",
+            "recommended": false,
+            "fixKind": "none",
+            "docs": " Reports CSS class names in JSX `className` or `class` attributes that are not defined\n in any imported CSS file.\n\n When a JSX file imports CSS files, every class name used in `className=` or `class=`\n attributes is checked against the available class definitions. Classes that are not\n defined are reported.\n\n This rule checks string literals, variable references (resolved through the semantic\n model), call expressions like `clsx(...)` / `classnames(...)`, object expression keys,\n and array expressions. Dynamic class names that cannot be statically resolved are\n silently skipped.\n\n In Astro files, `class:list={...}` directives and `class={...}` attribute expressions\n are also checked. CSS files imported in the frontmatter (`import \"./styles.css\"`) are\n included in the class resolution.\n\n ## Examples\n\n ### Invalid\n\n ```js,ignore\n import \"./styles.css\";\n export default () => <div className=\"missing\" />;\n ```\n\n ### Valid\n\n ```js,ignore\n import \"./styles.css\";\n export default () => <div className=\"header\" />;\n ```\n\n"
+          },
           "noUndeclaredEnvVars": {
             "deprecated": false,
             "version": "2.3.10",
@@ -4497,6 +4921,23 @@ export function GET() {
               }
             ],
             "docs": " Enforce that all imports appear at the top of the module.\n\n Import statements that appear after non-import statements are harder to\n find and may indicate disorganized code. Keeping all imports together at\n the top makes dependencies immediately visible.\n\n Directives such as `\"use strict\"` are always allowed before\n imports, since they are parsed separately from module items.\n\n This rule only applies to ES module `import` statements. CommonJS\n `require()` calls are not covered.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import { foo } from \"foo\";\n const bar = 1;\n import { baz } from \"baz\";\n ```\n\n ### Valid\n\n ```js\n import { foo } from \"foo\";\n import { bar } from \"bar\";\n const baz = 1;\n ```\n\n ```js\n \"use strict\";\n import { foo } from \"foo\";\n ```\n\n"
+          },
+          "useIncludes": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useIncludes",
+            "link": "https://biomejs.dev/linter/rules/use-includes",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintTypeScript": "prefer-includes"
+                }
+              }
+            ],
+            "docs": " Prefer `Array#includes()` over `Array#indexOf()` checks.\n\n `Array#indexOf()` returns a numeric index and is commonly compared against `-1` to check\n for the presence of an element. `Array#includes()` is more readable and expressive for\n this purpose, and avoids off-by-one mistakes with the comparison operator.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=invalid1.ts\n const arr = [1, 2, 3];\n arr.indexOf(1) !== -1;\n ```\n\n ```ts,expect_diagnostic,file=invalid2.ts\n const arr = [1, 2, 3];\n arr.indexOf(1) >= 0;\n ```\n\n ```ts,expect_diagnostic,file=invalid3.ts\n const arr = [1, 2, 3];\n arr.indexOf(1) === -1;\n ```\n\n ### Valid\n\n ```ts\n const arr = [1, 2, 3];\n arr.includes(1);\n ```\n\n ```ts\n const arr = [1, 2, 3];\n // Positional use of indexOf is fine\n const pos = arr.indexOf(1);\n ```\n\n"
           },
           "useMathMinMax": {
             "deprecated": false,
@@ -5721,7 +6162,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Enforce the use of numeric separators in numeric literals.\n\n Enforces a convention of grouping digits using [numeric separators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#Numeric_separators).\n Long numbers can become difficult to read, so separating groups of digits with an underscore (`_`) improves code clarity. This rule also enforces proper usage of the numeric separator, by checking if the groups of digits are of the correct size.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n var a = 1234567890;\n ```\n\n ```js,expect_diagnostic\n var a = -999_99;\n ```\n\n ```js,expect_diagnostic\n var a = 0.1234567;\n ```\n\n ```js,expect_diagnostic\n var a = 0b11001100;\n ```\n\n ### Valid\n\n ```js\n var a = 1_234_567_890;\n ```\n\n ```js\n var a = -99_999;\n ```\n\n ```js\n var a = 0.123_456_7;\n ```\n\n ```js\n var a = 0b1100_1100;\n ```\n\n"
+            "docs": " Enforce the use of numeric separators in numeric literals.\n\n Enforces a convention of grouping digits using [numeric separators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#Numeric_separators).\n Long numbers can become difficult to read, so separating groups of digits with an underscore (`_`) improves code clarity. This rule also enforces proper usage of the numeric separator, by checking if the groups of digits are of the correct size.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n var a = 1234567890;\n ```\n\n ```js,expect_diagnostic\n var a = -999_99;\n ```\n\n ```js,expect_diagnostic\n var a = 0.1234567;\n ```\n\n ```js,expect_diagnostic\n var a = 0b11001100;\n ```\n\n ### Valid\n\n ```js\n var a = 1_234_567_890;\n ```\n\n ```js\n var a = -99_999;\n ```\n\n ```js\n var a = 0.123_456_7;\n ```\n\n ```js\n var a = 0b1100_1100;\n ```\n\n ## Options\n\n Each numeric literal type `binary`, `octal`, `decimal`, and `hexadecimal` can be configured with its own options object. Each type accepts `minimumDigits` or `groupLength`.\n\n ```json,options\n {\n     \"options\": {\n         \"decimal\": {\n             \"minimumDigits\": 7,\n             \"groupLength\": 3\n         },\n         \"hexadecimal\": {\n             \"minimumDigits\": 4,\n             \"groupLength\": 2\n         }\n     }\n }\n ```\n\n ### `<numeric literal type>.minimumDigits`\n\n Minimum number of digits required before adding separators. For example, with `minimumDigits` set to `5`, the number `1234` would not require separators, but `12345` would be expected to be formatted as `12_345`.\n\n Default values for `minimumDigits` vary by numeric literal type:\n - `binary`: `0`\n - `octal`: `0`\n - `decimal`: `5`\n - `hexadecimal`: `0`\n\n #### Invalid\n\n ```json,options\n {\n    \"options\": {\n       \"decimal\": {\n          \"minimumDigits\": 8\n       }\n    }\n }\n ```\n\n ```js,use_options,expect_diagnostic\n 12345678;\n ```\n\n #### Valid\n\n ```json,options\n {\n    \"options\": {\n       \"decimal\": {\n          \"minimumDigits\": 8\n       }\n    }\n }\n ```\n\n ```js,use_options\n 1234;\n 12_345_678;\n ```\n\n ### `<numeric literal type>.groupLength`\n\n Number of digits between separators. For example, with `groupLength` set to `2`, the number `12345` would be expected to be formatted as `1_23_45`.\n\n Default values for `groupLength` vary by numeric literal type:\n - `binary`: `4`\n - `octal`: `4`\n - `decimal`: `3`\n - `hexadecimal`: `2`\n\n #### Invalid\n\n ```json,options\n {\n    \"options\": {\n       \"decimal\": {\n          \"groupLength\": 5\n       }\n    }\n }\n ```\n\n ```js,use_options,expect_diagnostic\n 123_451_2345;\n ```\n\n #### Valid\n\n ```json,options\n {\n    \"options\": {\n       \"decimal\": {\n          \"groupLength\": 5\n       }\n    }\n }\n ```\n\n ```js,use_options\n 12345_12345;\n ```\n\n"
           },
           "useObjectSpread": {
             "deprecated": false,
@@ -7103,7 +7544,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Enforce consistent return values in iterable callbacks.\n\n This rule ensures that callbacks passed to certain iterable methods either always return a\n value or never return a value, depending on the method's requirements.\n\n Note that async and generator callbacks are ignored as they always return `Promise` or\n `Generator` respectively.\n\n ## Methods and Their Requirements\n\n The following methods require a return in their callback:\n\n - `every`\n - `filter`\n - `find`\n - `findIndex`\n - `findLast`\n - `findLastIndex`\n - `flatMap`\n - `map`\n - `reduce`\n - `reduceRight`\n - `some`\n - `sort`\n - `toSorted`\n — `from` (when called on `Array`)\n\n A return value is disallowed in the method `forEach`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n [].map(() => {\n     // Missing return value\n });\n ```\n\n ```js\n [].forEach(() => {\n     // No return value, which is correct\n });\n ```\n\n ```js,expect_diagnostic\n [].filter(() => {\n     // Missing required return value\n });\n ```\n\n ### Valid\n\n ```js\n [].map(() => {\n     return 1; // Correctly returns a value\n });\n ```\n\n ```js\n [].forEach(() => void null); // Void return value, which doesn't trigger the rule\n ```\n\n ## Options\n\n ### `checkForEach`\n\n **Since `v2.4.0**\n\n Default: `true`\n\n When set to `false`, the rule will skip `forEach` callbacks that return a value.\n\n ### Examples\n\n ```json,options\n {\n     \"options\": {\n         \"checkForEach\": false\n     }\n }\n ```\n\n ```js,use_options\n [1, 2, 3].forEach((el) => {\n     return el * 2;\n });\n ```\n\n When `checkForEach` is `false` (default), the above code will not trigger any diagnostic.\n\n"
+            "docs": " Enforce consistent return values in iterable callbacks.\n\n This rule ensures that callbacks passed to certain iterable methods either always return a\n value or never return a value, depending on the method's requirements.\n\n Note that async and generator callbacks are ignored as they always return `Promise` or\n `Generator` respectively.\n\n ## Methods and Their Requirements\n\n The following methods require a return in their callback:\n\n - `every`\n - `filter`\n - `find`\n - `findIndex`\n - `findLast`\n - `findLastIndex`\n - `flatMap`\n - `map`\n - `reduce`\n - `reduceRight`\n - `some`\n - `sort`\n - `toSorted`\n — `from` (when called on `Array`)\n\n A return value is disallowed in the method `forEach`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n [].map(() => {\n     // Missing return value\n });\n ```\n\n ```js\n [].forEach(() => {\n     // No return value, which is correct\n });\n ```\n\n ```js,expect_diagnostic\n [].filter(() => {\n     // Missing required return value\n });\n ```\n\n ### Valid\n\n ```js\n [].map(() => {\n     return 1; // Correctly returns a value\n });\n ```\n\n ```js\n [].forEach(() => void null); // Void return value, which doesn't trigger the rule\n ```\n\n ## Options\n\n ### `checkForEach`\n\n **Since `v2.4.0`**\n\n Default: `true`\n\n When set to `false`, the rule will skip `forEach` callbacks that return a value.\n\n ### Examples\n\n ```json,options\n {\n     \"options\": {\n         \"checkForEach\": false\n     }\n }\n ```\n\n ```js,use_options\n [1, 2, 3].forEach((el) => {\n     return el * 2;\n });\n ```\n\n When `checkForEach` is `false`, the above code will not trigger any diagnostic.\n\n ### `allowImplicit`\n\n **Since `v2.5.0`**\n \n Default: `false`\n\n When set to `true`, allows callbacks to implicitly return `undefined`\n using `return;`. This is useful for patterns like `.filter(Boolean)`\n chaining where some callbacks intentionally return `undefined`.\n\n ### Examples\n\n ```json,options\n {\n     \"options\": {\n         \"allowImplicit\": true\n     }\n }\n ```\n\n ```js,use_options\n ;[1, 2, 3].map((it) => {\n     if (it % 2 === 0) {\n         return it;\n     }\n     if (it > 2) {\n         return it ** 2;\n     }\n     return;\n }).filter(Boolean);\n ```\n\n"
           },
           "useNumberToFixedDigitsArgument": {
             "deprecated": false,
@@ -7305,6 +7746,12 @@ export function GET() {
                 "source": {
                   "eslintJsxA11y": "no-aria-hidden-on-focusable"
                 }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "htmlEslint": "no-aria-hidden-on-focusable"
+                }
               }
             ],
             "docs": " Enforce that aria-hidden=\"true\" is not set on focusable elements.\n\n `aria-hidden=\"true\"` can be used to hide purely decorative content from screen reader users.\n A focusable element with `aria-hidden=\"true\"` can be reached by keyboard.\n This can lead to confusion or unexpected behavior for screen reader users.\n\n ## Example\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div aria-hidden=\"true\" tabIndex=\"0\" />\n ```\n\n ```jsx,expect_diagnostic\n <a href=\"/\" aria-hidden=\"true\" />\n ```\n\n ### Valid\n\n ```jsx\n <button aria-hidden=\"true\" tabIndex=\"-1\" />\n ```\n\n ```jsx\n <button aria-hidden=\"true\" tabIndex={-1} />\n ```\n\n ```jsx\n <div aria-hidden=\"true\"><a href=\"#\"></a></div>\n ```\n\n ## Resources\n\n - [aria-hidden elements do not contain focusable elements](https://dequeuniversity.com/rules/axe/html/4.4/aria-hidden-focus)\n - [Element with aria-hidden has no content in sequential focus navigation](https://www.w3.org/WAI/standards-guidelines/act/rules/6cfa84/proposed/)\n - [MDN aria-hidden](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden)\n\n"
@@ -7475,6 +7922,12 @@ export function GET() {
                 "source": {
                   "eslintJsxA11y": "tabindex-no-positive"
                 }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "htmlEslint": "no-positive-tabindex"
+                }
               }
             ],
             "docs": " Prevent the usage of positive integers on `tabIndex` property\n\n Avoid positive `tabIndex` property values to synchronize the flow of the page with keyboard tab order.\n ## Accessibility guidelines\n\n [WCAG 2.4.3](https://www.w3.org/WAI/WCAG21/Understanding/focus-order)\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div tabIndex={1}>foo</div>\n ```\n\n ```jsx,expect_diagnostic\n <div tabIndex={\"1\"} />\n ```\n\n ```js,expect_diagnostic\n React.createElement(\"div\", { tabIndex: 1 })\n ```\n\n ### Valid\n\n ```jsx\n <div tabIndex=\"0\" />\n ```\n\n ```js\n React.createElement(\"div\", { tabIndex: -1 })\n ```\n"
@@ -7509,6 +7962,12 @@ export function GET() {
                 "source": {
                   "eslintJsxA11y": "no-redundant-roles"
                 }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "htmlEslint": "no-redundant-role"
+                }
               }
             ],
             "docs": " Enforce explicit `role` property is not the same as implicit/default role property on an element.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <article role='article'></article>\n ```\n\n ```jsx,expect_diagnostic\n <button role='button'></button>\n ```\n\n ```jsx,expect_diagnostic\n <h1 role='heading' aria-level='1'>title</h1>\n ```\n\n ### Valid\n\n ```jsx\n <article role='presentation'></article>\n ```\n\n ```jsx\n <Button role='button'></Button>\n ```\n\n ```jsx\n <span></span>\n ```\n\n"
@@ -7534,6 +7993,12 @@ export function GET() {
                 "kind": "sameLogic",
                 "source": {
                   "eslintJsxA11y": "alt-text"
+                }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "htmlEslint": "require-img-alt"
                 }
               }
             ],
@@ -7615,6 +8080,12 @@ export function GET() {
                 "source": {
                   "eslintReactXyz": "dom-no-missing-button-type"
                 }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "htmlEslint": "require-button-type"
+                }
               }
             ],
             "docs": " Enforces the usage of the attribute `type` for the element `button`\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <button>Do something</button>\n ```\n\n ```jsx,expect_diagnostic\n <button type=\"incorrectType\">Do something</button>\n ```\n\n ```js,expect_diagnostic\n React.createElement('button');\n ```\n\n ### Valid\n\n ```jsx\n <>\n     <button type=\"button\">Do something</button>\n     <button type={buttonType}>Do something</button>\n </>\n ```\n"
@@ -7649,6 +8120,12 @@ export function GET() {
                 "source": {
                   "eslintJsxA11y": "heading-has-content"
                 }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "htmlEslint": "no-empty-headings"
+                }
               }
             ],
             "docs": " Enforce that heading elements (h1, h2, etc.) have content and that the content is accessible to screen readers. Accessible means that it is not hidden using the aria-hidden prop.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <h1 />\n ```\n\n ```jsx,expect_diagnostic\n <h1><div aria-hidden /></h1>\n ```\n\n ```jsx,expect_diagnostic\n <h1 aria-label=\"Screen reader content\" aria-hidden>invisible content</h1>\n ```\n\n\n ```jsx,expect_diagnostic\n <h1></h1>\n ```\n\n ### Valid\n\n ```jsx\n <h1>heading</h1>\n ```\n\n ```jsx\n <h1><div aria-hidden=\"true\"></div>visible content</h1>\n ```\n\n ```jsx\n <h1 aria-label=\"Screen reader content\"><div aria-hidden=\"true\">invisible content</div></h1>\n ```\n\n ```jsx\n <h1 dangerouslySetInnerHTML={{ __html: \"heading\" }} />\n ```\n\n ```jsx\n <h1><div aria-hidden />visible content</h1>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 2.4.6](https://www.w3.org/TR/UNDERSTANDING-WCAG20/navigation-mechanisms-descriptive.html)\n\n"
@@ -7666,6 +8143,12 @@ export function GET() {
                 "source": {
                   "eslintJsxA11y": "html-has-lang"
                 }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "htmlEslint": "require-lang"
+                }
               }
             ],
             "docs": " Enforce that `html` element has `lang` attribute.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <html></html>\n ```\n\n ```jsx,expect_diagnostic\n <html lang={\"\"}></html>\n ```\n\n ```jsx,expect_diagnostic\n <html lang={null}></html>\n ```\n\n ```jsx,expect_diagnostic\n <html lang={undefined}></html>\n ```\n\n ```jsx,expect_diagnostic\n <html lang={true}></html>\n ```\n\n ### Valid\n\n ```jsx\n <html lang=\"en\"></html>\n ```\n\n ```jsx\n <html lang={language}></html>\n ```\n\n ```jsx\n <html {...props}></html>\n ```\n\n ```jsx\n <html lang={\"\"} {...props}></html>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 3.1.1](https://www.w3.org/WAI/WCAG21/Understanding/language-of-page)\n\n"
@@ -7682,6 +8165,12 @@ export function GET() {
                 "kind": "sameLogic",
                 "source": {
                   "eslintJsxA11y": "iframe-has-title"
+                }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "htmlEslint": "require-frame-title"
                 }
               }
             ],
@@ -7702,7 +8191,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Enforce onClick is accompanied by at least one of the following: `onKeyUp`, `onKeyDown`, `onKeyPress`.\n\n Coding for the keyboard is important for users with physical disabilities who cannot use a mouse, AT compatibility, and screenreader users.\n This does not apply for interactive or hidden elements.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div onClick={() => {}} />\n ```\n\n ### Valid\n\n ```jsx\n <div onClick={() => {}} onKeyDown={handleKeyDown} />\n```\n\n ```jsx\n <div onClick={() => {}} onKeyUp={handleKeyUp} />\n```\n\n ```jsx\n <div onClick={() => {}} onKeyPress={handleKeyPress} />\n```\n\n ```jsx\n // this rule doesn't apply to user created component\n <MyComponent onClick={() => {}} />\n```\n\n ```jsx\n <button onClick={() => console.log(\"test\")}>Submit</button>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 2.1.1](https://www.w3.org/WAI/WCAG21/Understanding/keyboard)\n\n"
+            "docs": " Enforce elements with a click event handler to also have at least one keyboard event handler.\n\n Coding for the keyboard is important for users with physical disabilities who cannot use a mouse, AT compatibility, and screen reader users.\n This does not apply for interactive or hidden elements.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div onClick={() => {}} />\n ```\n\n ### Valid\n\n ```jsx\n <div onClick={() => {}} onKeyDown={handleKeyDown} />\n```\n\n ```jsx\n <div onClick={() => {}} onKeyUp={handleKeyUp} />\n```\n\n ```jsx\n <div onClick={() => {}} onKeyPress={handleKeyPress} />\n```\n\n ```jsx\n // this rule doesn't apply to user created component\n <MyComponent onClick={() => {}} />\n```\n\n ```jsx\n <button onClick={() => console.log(\"test\")}>Submit</button>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 2.1.1](https://www.w3.org/WAI/WCAG21/Understanding/keyboard)\n\n"
           },
           "useKeyWithMouseEvents": {
             "deprecated": false,
@@ -7753,7 +8242,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " It detects the use of `role` attributes in JSX elements and suggests using semantic elements instead.\n\n The `role` attribute is used to define the purpose of an element, but it should be used as a last resort.\n Using semantic elements like `<button>`, `<nav>` and others are more accessible and provide better semantics.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div role=\"checkbox\"></div>\n ```\n\n ```jsx,expect_diagnostic\n <div role=\"separator\"></div>\n ```\n\n ```jsx,expect_diagnostic\n <div role=\"checkbox\" />\n ```\n\n ```jsx,expect_diagnostic\n <div role=\"separator\" />\n ```\n\n ### Valid\n\n ```jsx\n <>\n   <input type=\"checkbox\">label</input>\n   <hr/>\n   <div role=\"status\"></div>\n </>;\n ```\n\n All elements with `role=\"img\"` are ignored:\n\n ```jsx\n <div role=\"img\" aria-label=\"That cat is so cute\">\n   <p>&#x1F408; &#x1F602;</p>\n </div>\n ```\n\n Semantic elements with a matching role are not flagged (see [noRedundantRoles](https://biomejs.dev/linter/rules/no-redundant-roles/)):\n\n ```jsx\n <>\n   <nav role=\"navigation\"></nav>\n   <footer role=\"contentinfo\"></footer>\n </>;\n ```\n"
+            "docs": " Enforces using semantic DOM elements over the ARIA `role` property.\n\n The `role` attribute is used to define the purpose of an element, but it should be used as a last resort.\n Using semantic elements like `<button>`, `<nav>` and others are more accessible and provide better semantics.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div role=\"checkbox\"></div>\n ```\n\n ```jsx,expect_diagnostic\n <div role=\"separator\"></div>\n ```\n\n ```jsx,expect_diagnostic\n <div role=\"checkbox\" />\n ```\n\n ```jsx,expect_diagnostic\n <div role=\"separator\" />\n ```\n\n ### Valid\n\n ```jsx\n <>\n   <input type=\"checkbox\">label</input>\n   <hr/>\n   <div role=\"status\"></div>\n </>;\n ```\n\n All elements with `role=\"img\"` are ignored:\n\n ```jsx\n <div role=\"img\" aria-label=\"That cat is so cute\">\n   <p>&#x1F408; &#x1F602;</p>\n </div>\n ```\n\n Semantic elements with a matching role are not flagged (see [noRedundantRoles](https://biomejs.dev/linter/rules/no-redundant-roles/)):\n\n ```jsx\n <>\n   <nav role=\"navigation\"></nav>\n   <footer role=\"contentinfo\"></footer>\n </>;\n ```\n"
           },
           "useValidAnchor": {
             "deprecated": false,
@@ -7807,6 +8296,12 @@ export function GET() {
                 "kind": "sameLogic",
                 "source": {
                   "eslintJsxA11y": "aria-role"
+                }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "htmlEslint": "no-invalid-role"
                 }
               }
             ],
@@ -9480,7 +9975,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 531
+    "numberOrRules": 556
   },
   "syntax": {
     "languages": {
@@ -9546,6 +10041,61 @@ export function GET() {
           }
         }
       },
+      "graphql": {
+        "source": {
+          "useSortedEnumMembers": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useSortedEnumMembers",
+            "link": "https://biomejs.dev/linter/rules/use-sorted-enum-members",
+            "recommended": false,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintGraphql": "alphabetize"
+                }
+              }
+            ],
+            "docs": " Sort the members of an enum in natural order.\n\n Enforce a consistent natural sort order for GraphQL enum values.\n\n Keeping enum values sorted makes schema definitions easier to review and maintain,\n especially as enums grow over time.\n\n Members are sorted in a [Natural order](https://en.wikipedia.org/wiki/Natural_sort_order),\n meaning that uppercase letters come before lowercase letters (e.g. `A` < `a` < `B` < `b`)\n and numbers are compared to their numerical value (e.g. `9` < `10`).\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n enum Role {\n   SUPER_ADMIN\n   ADMIN\n   USER\n   GOD\n }\n ```\n\n ### Valid\n\n ```graphql\n enum Role {\n   ADMIN\n   GOD\n   SUPER_ADMIN\n   USER\n }\n ```\n\n"
+          },
+          "useSortedSelectionSet": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useSortedSelectionSet",
+            "link": "https://biomejs.dev/linter/rules/use-sorted-selection-set",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintGraphql": "alphabetize"
+                }
+              }
+            ],
+            "docs": " Sort GraphQL selection sets.\n\n This rule orders fields first, fragment spreads next, and inline fragments last.\n Within each category, identifiers are sorted alphabetically.\n\n For fields, aliases are used as the sort key when present.\n This keeps selections deterministic and easier to scan in reviews.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diff\n query {\n   id\n   ...bFragment\n   firstName: name\n   ... on Contact {\n     phoneNumber\n     email\n   }\n   age\n   ... on Address {\n     street\n     city\n   }\n   ...aFragment\n }\n ```\n\n ### Valid\n\n ```graphql\n query {\n   age\n   firstName: name\n   id\n   ...aFragment\n   ...bFragment\n   ... on Address {\n     city\n     street\n   }\n   ... on Contact {\n     email\n     phoneNumber\n   }\n }\n ```\n\n"
+          },
+          "useSortedTypeFields": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useSortedTypeFields",
+            "link": "https://biomejs.dev/linter/rules/use-sorted-type-fields",
+            "recommended": false,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintGraphql": "alphabetize"
+                }
+              }
+            ],
+            "docs": " Sort fields in GraphQL type definitions alphabetically.\n\n This rule ensures that fields within `type`, `interface`, and `input`\n definitions are sorted alphabetically. For GraphQL identifiers (`[A-Za-z0-9_]`),\n the sort order matches JavaScript's `localeCompare()`, including case handling.\n\n ## Examples\n\n ```graphql,expect_diff\n type User {\n   name: String\n   age: Int\n   id: ID\n }\n ```\n\n ```graphql,expect_diff\n interface Node {\n   name: String\n   id: ID\n }\n ```\n\n ```graphql,expect_diff\n input CreateUserInput {\n   name: String\n   age: Int\n }\n ```\n\n"
+          }
+        }
+      },
       "html": {
         "source": {
           "noDuplicateClasses": {
@@ -9564,6 +10114,41 @@ export function GET() {
               }
             ],
             "docs": " Remove duplicate CSS classes.\n\n Detects and removes duplicate CSS classes in HTML `class` attributes.\n\n This action helps keep your class strings clean by detecting and removing duplicates.\n\n Duplicate classes are redundant and can indicate copy-paste errors or merge conflicts.\n\n ## Examples\n\n ```html,expect_diff\n <div class=\"flex flex\"></div>\n ```\n\n ```html,expect_diff\n <div class=\"p-4 text-red-500 p-4 bg-white\"></div>\n ```\n\n"
+          },
+          "useSortedAttributes": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useSortedAttributes",
+            "link": "https://biomejs.dev/linter/rules/use-sorted-attributes",
+            "recommended": false,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "htmlEslint": "sort-attrs"
+                }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintVueJs": "attributes-order"
+                }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintSvelte": "sort-attributes"
+                }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintAstro": "sort-attributes"
+                }
+              }
+            ],
+            "docs": " Enforce attribute sorting in HTML elements.\n\n This rule checks if HTML attributes, along with Astro, Svelte, and Vue directives,\n are sorted in a consistent way.\n The sort order is:\n - Regular HTML attributes, sorted alphabetically according to the `sortOrder` option\n - Astro directives, sorted alphabetically according to `sortOrder`\n - Svelte directives, sorted according to eslint-plugin-svelte's [`sort-attributes` rule](https://sveltejs.github.io/eslint-plugin-svelte/rules/sort-attributes/)\n - Vue directives, sorted according to the [Vue.js Style Guide](https://eslint.vuejs.org/rules/attributes-order)\n\n If two attributes belong to the same category, they will be sorted alphabetically\n according to `sortOrder`.\n\n This rule will not consider spread props or the [Vue `v-bind=\"object\"` syntax](https://vuejs.org/guide/essentials/template-syntax.html#dynamically-binding-multiple-attributes)\n as sortable.\n Instead, it will sort each group of consecutive sortable attributes within the element,\n leaving any spread props or `v-bind=\"object\"` attributes in place.\n This prevents breaking the override of certain props using spread\n props or `v-bind=\"object\"`.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <input type=\"text\" id=\"name\" name=\"name\" />\n ```\n\n ```html,expect_diagnostic\n <textarea id=\"mytextarea\" name=\"textarea\" rows=\"5\" cols=\"20\" data-1=\"\" data-11=\"\" data-12=\"\" data-2=\"\">Hello, world!</textarea>\n ```\n\n ```astro,expect_diagnostic\n   <svg slot=\"fallback\" class=\"generic-avatar\" transition:name=\"avatar\">...</svg>\n ```\n\n ```svelte,expect_diagnostic\n   \t<input type=\"range\" bind:value={b} min=\"0\" max=\"10\" />\n ```\n\n ```svelte,expect_diagnostic\n   \t<div bind:value2={a} bind:value1={a} {...props} style:color=\"red\">...</div>\n ```\n\n ```vue,expect_diagnostic\n   \t<input @input=\"onInput\" :value=\"text\" placeholder=\"Type here\">\n ```\n\n ### Valid\n\n ```html\n <input id=\"name\" name=\"name\" type=\"text\" />\n ```\n\n ```html\n <textarea cols=\"20\" data-1=\"\" data-2=\"\" data-11=\"\" data-12=\"\" id=\"mytextarea\" name=\"textarea\" rows=\"5\">Hello, world!</textarea>\n ```\n\n ```astro\n   <svg class=\"generic-avatar\" slot=\"fallback\" transition:name=\"avatar\">...</svg>\n ```\n\n ```svelte\n   \t<input max=\"10\" min=\"0\" type=\"range\" bind:value={b} />\n ```\n\n ```svelte\n   \t<div bind:value1={a} bind:value2={a} {...props} style:color=\"red\">...</div>\n ```\n\n ```vue\n   \t<input placeholder=\"Type here\" :value=\"text\" @input=\"onInput\" >\n ```\n\n ## Options\n\n The following options are available\n\n ### `sortOrder`\n The sort ordering to enforce.\n Values:\n\n - `\"[natural](https://en.wikipedia.org/wiki/Natural_sort_order)\"`\n - `\"[lexicographic](https://en.wikipedia.org/wiki/Lexicographic_order)\"`\n\n Default: `\"natural\"`\n\n #### Examples for `\"sortOrder\": \"lexicographic\"`\n\n ```json,options\n {\n     \"options\": {\n         \"sortOrder\": \"lexicographic\"\n     }\n }\n ```\n ```html,use_options,expect_diagnostic\n <textarea id=\"mytextarea\" name=\"textarea\" rows=\"5\" cols=\"20\" data-1=\"\" data-2=\"\" data-11=\"\" data-12=\"\">Hello, world!</textarea>\n ```\n\n"
           }
         }
       },
@@ -9596,7 +10181,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Sorts imports and exports in your JavaScript and TypeScript files.\n\n By default, imports and exports are sorted by \"distance\" from the current file:\n\n 1. URLs such as `https://example.org`.\n 2. Packages with a protocol such as `node:path`, `bun:test`, `jsr:@my?lib`, or `npm:lib`.\n 3. Packages such as `mylib` or `@my/lib`.\n 4. Aliases: sources starting with `@/`, `#`, `~`, `$`, or `%`.\n    They usually are [Node.js subpath imports](https://nodejs.org/api/packages.html#subpath-imports) or [TypeScript path aliases](https://www.typescriptlang.org/tsconfig/#paths).\n 5. Absolute and relative paths.\n\n Imports and exports with the same distance are sorted using a\n [natural sort order](https://en.wikipedia.org/wiki/Natural_sort_order)\n such that `A < a < a9 < a10 < B < b`\n\n The action also merges imports and exports from the same source,\n sorts named specifiers and attributes using a natural sort order.\n\n For example, the following code...\n\n ```js,ignore\n import sibling from \"./file.js\";\n import internal from \"#alias\";\n import fs from \"fs\";\n import { test } from \"node:test\";\n import path from \"node:path\";\n import { mock } from \"node:test\";\n import parent from \"../parent.js\";\n import scopedLibUsingJsr from \"jsr:@scoped/lib\";\n import data from \"https://example.org\";\n import { B, A, b, a10, a9 } from \"lib\";\n import scopedLib from \"@scoped/lib\";\n export { Y } from \"dep\";\n export * from \"./inner.js\";\n export { X } from \"dep\";\n ```\n\n ...is sorted as follows:\n\n ```js,ignore\n import data from \"https://example.org\";\n import scopedLibUsingJsr from \"jsr:@scoped/lib\";\n import path from \"node:path\";\n import { mock, test } from \"node:test\";\n import scopedLib from \"@scoped/lib\";\n import fs from \"fs\";\n import { A, a9, a10, B, b } from \"lib\";\n import internal from \"#alias\";\n import parent from \"../parent.js\";\n import sibling from \"./file.js\";\n\n export { X, Y } from \"dep\";\n export * from \"./inner.js\";\n ```\n\n ## Options\n\n The action provides several options to customize how imports and exports are ordered:\n\n - `groups` allows to group imports and exports before sorting them;\n   It allows expressing custom order between imports or exports.\n - `identifierOrder` allows changing how named specifiers and attributes are sorted\n\n ### `groups`\n\n You can customize how imports and exports are grouped using the `groups` option.\n The option accepts an array of group matchers,\n which in their simplest form are glob patterns or predefined group matchers.\n Imports and exports that don't match any group are automatically moved after all the groups.\n\n Groups are always matched in order, so earlier matchers take priority.\n To exclude some imports of a group, you can use an array of group matchers\n with negated matchers, prefixed with `!`.\n In the following example, we use the negated glob matcher `!@myown/**`,\n to exclude `@myown/package` from the `:PACKAGE:` group.\n\n With this configuration...\n\n ```json,options\n {\n    \"options\": {\n         \"groups\": [\n             [\":BUN:\", \":NODE:\"],\n             \":BLANK_LINE:\",\n             [\":PACKAGE:\", \"!@myown/**\"],\n             \":BLANK_LINE:\",\n             \"@myown/**\",\n             \":BLANK_LINE:\",\n             [\":ALIAS:\", \":PATH:\"]\n         ]\n     }\n }\n ```\n\n ...the following code...\n\n ```js,ignore\n import aliased from \"@/components/Button\";\n import lib from \"lib\";\n import path from \"node:path\";\n import sibling from \"./file.js\";\n import myown from \"@myown/package\";\n import scopedLib from \"@scoped/lib\";\n import fs from \"fs\";\n ```\n\n ...is sorted as:\n\n ```js,ignore\n import fs from \"fs\";\n import path from \"node:path\";\n\n import scopedLib from \"@scoped/lib\";\n import lib from \"lib\";\n\n import myown from \"@myown/package\";\n\n import aliased from \"@/components/Button\";\n import sibling from \"./file.js\";\n ```\n\n Each entry in the `groups` array is a group matcher that can be:\n\n - A predefined group like `:NODE:`, `:BUN:`, or `:PACKAGE:`\n - A glob pattern like `@my/lib/**`;\n   the action supports a [limited set of globs](#supported-glob-patterns).\n - Type-only imports like `{ \"type\": true }`\n - A combination of the above, e.g. `[\":BUN:\", \":NODE:\"]`\n - `:BLANK_LINE:` to insert a blank line between groups\n\n #### Predefined groups\n\n - `:URL:`: sources starting with `https://` or `http://`\n - `:NODE:`: Node.js built-in modules (`node:path`, `fs`, `path`, etc.)\n - `:BUN:`: Bun built-in modules (`bun:test`, `bun`, etc.)\n - `:PACKAGE_WITH_PROTOCOL:`: packages with a protocol (`jsr:@my/lib`, `npm:lib`)\n - `:PACKAGE:`: bare and scoped packages (`lib`, `@scoped/lib`)\n - `:ALIAS:`: path aliases starting with `#`, `@/`, `~`, `$`, or `%`\n - `:PATH:`: absolute and relative paths\n\n #### Type-only matcher\n\n Use a type-only matcher to separate `import type` from regular imports:\n Setting `\"type\": true` matches only `import type` and `export type` statements.\n Setting `\"type\": false` matches only non-type imports and exports.\n\n Given the following configuration...\n\n ```json,options\n {\n     \"options\": {\n         \"groups\": [\n             { \"type\": false, \"source\": [\"@my/lib\", \"@my/lib/**\"] },\n             [\"@my/lib\", \"@my/lib/**\"]\n         ]\n     }\n }\n ```\n\n ...the following code...\n\n ```ts,ignore\n import type { T } from \"@my/lib\";\n import { V } from \"@my/lib\";\n ```\n\n ...is sorted as:\n\n ```ts,ignore\n import { V } from \"@my/lib\";\n import type { T } from \"@my/lib\";\n ```\n\n The `source` field accepts predefined groups and glob patterns.\n\n ### `identifierOrder`\n\n By default, attributes, imported and exported names are sorted with a `natural` sort order.\n Opt for a `lexicographic` sort, also referred as _binary_ sort,\n by setting the `identifierOrder` option to `lexicographic`:\n\n ```json,options\n {\n     \"options\": {\n         \"identifierOrder\": \"lexicographic\"\n     }\n }\n ```\n\n ```js,use_options,expect_diagnostic\n import { var1, var2, var21, var11, var12, var22 } from \"my-package\" with { \"att10\": \"\", \"att2\": \"\" };\n\n export { var1, var2, var21, var11, var12, var22 };\n ```\n\n Note that this order doesn't change how import and export sources are sorted.\n\n\n ## Common configurations\n\n ### Group Node.js and bun built-in\n\n The following example moves the Node.js and `bun` built-ins at the top of the file,\n and adds a blank line just after them.\n Other imports are placed after this blank line.\n\n ```json,options\n {\n    \"options\": {\n         \"groups\": [\n             [\":BUN:\", \":NODE:\"],\n             \":BLANK_LINE:\"\n         ]\n     }\n }\n ```\n\n ```ts,use_options,expect_diagnostic\n import { test } from \"bun:test\";\n import path from \"node:path\";\n import { A } from \"@my/package\";\n import { $ } from \"bun\";\n import fs from \"fs\";\n ```\n\n ### Group monorepo packages\n\n Let's assume that all your monorepo packages are scoped by `@mycompany`.\n The following example groups all monorepo imports after imports of external dependencies.\n\n Because groups are matched in order, the first group has to exclude monorepo imports.\n Indeed, `:PACKAGE:` matches imports like `@mycompany/db`, and thus must be excluded\n thanks to the exception `!@mycompany/**`.\n\n ```json,options\n {\n     \"options\": {\n         \"groups\": [\n             [\":PACKAGE:\", \":PACKAGE_WITH_PROTOCOL:\", \"!@mycompany/**\"],\n             \":BLANK_LINE:\",\n             [\"@mycompany/**\"],\n             \":BLANK_LINE:\"\n         ]\n     }\n }\n ```\n\n ```js,use_options,expect_diagnostic\n import { Button } from \"@mycompany/ui\";\n import express from \"express\";\n import { db } from \"@mycompany/db\";\n import { handler } from \"./handler.js\";\n import { A } from \"./file.js\"\n ```\n\n ### Group multiple libraries\n\n In the following example, `react` and libraries like `react-dom` are grouped together.\n A blank line separates them from the other imports placed directly below.\n\n```json,options\n {\n     \"options\": {\n         \"groups\": [\n             [\"react\", \"react/**\", \"react-*\", \"react-*/**\"],\n             \":BLANK_LINE:\"\n         ]\n     }\n }\n ```\n\n ```js,use_options,expect_diagnostic\n import lib from \"lib\";\n import { useState } from \"react\";\n import { render } from \"react-dom/client\";\n ```\n\n ### Place CSS/style imports last\n\n The following example groups style imports together and place them after other imports.\n Because groups are matched in order, the first group has to exclude style imports.\n `**` matches everything and is followed by the two exceptions that exclude style imports.\n\n ```json,options\n {\n     \"options\": {\n         \"groups\": [\n             [\"**\", \"!**/*.css\", \"!**/*.scss\"],\n             \":BLANK_LINE:\",\n             [\"**/*.css\", \"**/*.scss\"]\n         ]\n     }\n }\n ```\n\n ```js,use_options,expect_diagnostic\n import \"./styles/reset.css\";\n import { useState } from \"react\";\n import styles from \"./Component.module.css\";\n import { Button } from \"@/components/Button\";\n ```\n\n ### Group test utilities together\n\n The following example places test-related utilities at the top of the file.\n They are separated from other imports by a blank line.\n\n ```json,options\n {\n     \"options\": {\n         \"groups\": [\n             [\"vitest\", \"vitest/**\", \"@testing-library\", \"@testing-library/**\", \"jest\", \"@jest/**\"],\n             \":BLANK_LINE:\"\n         ]\n     }\n }\n ```\n\n ```js,use_options,expect_diagnostic\n import { render } from \"@testing-library/react\";\n import { Button } from \"@/components/Button\";\n import { describe, it, expect } from \"vitest\";\n import { server } from \"./mocks/server\";\n ```\n\n ### Group `import type` and group `export type`\n\n Use the following configuration to place `import type` and `export type` at the top of the file:\n\n ```json,options\n {\n     \"options\": {\n         \"groups\": [\n             { \"type\": true }\n         ]\n     }\n }\n ```\n\n ```ts,use_options,expect_diagnostic\n import { V } from \"my-package\";\n import type { T } from \"my-package\";\n ```\n\n To place them after other imports, use the following configuration.\n\n ```json,options\n {\n     \"options\": {\n         \"groups\": [\n             { \"type\": false }\n         ]\n     }\n }\n ```\n\n The following code...\n\n ```ts,ignore\n import type { T } from \"my-package\";\n import { V } from \"my-package\";\n ```\n\n ...is organized as:\n\n ```ts,ignore\n import { V } from \"my-package\";\n import type { T } from \"my-package\";\n ```\n\n Note that you may want to use the lint rule\n [`useImportType`](https://biomejs.dev/linter/rules/use-import-type/)\n and its [`style`](https://biomejs.dev/linter/rules/use-import-type/#style)\n to enforce the use of `import type` instead of `import { type }`.\n\n With the following configuration...\n\n ```json,full_options\n {\n   \"linter\": {\n     \"rules\": {\n       \"style\": {\n         \"useImportType\": {\n           \"level\": \"on\",\n           \"options\": { \"style\": \"separatedType\" }\n         }\n       }\n     }\n   },\n   \"assist\": {\n     \"enabled\": true,\n     \"actions\": { \"source\": { \"organizeImports\": \"on\" } }\n   }\n }\n ```\n\n ...the following code...\n\n ```ts,ignore\n import type { T1 } from \"a\";\n import { type T2, V } from \"a\";\n ```\n\n ...is organized as:\n\n ```ts,ignore\n import type { T1, T2 } from \"a\";\n import { V } from \"a\";\n ```\n\n ### Maximize import merging with `useImportType`\n\n To merge type-only imports (`import type { T }`) with regular imports (`import { V }`),\n enable [`useImportType`](https://biomejs.dev/linter/rules/use-import-type/) with `inlineType`:\n\n ```json,full_options\n {\n   \"linter\": {\n     \"rules\": {\n       \"style\": {\n         \"useImportType\": {\n           \"level\": \"on\",\n           \"options\": { \"style\": \"inlineType\" }\n         }\n       }\n     }\n   },\n   \"assist\": {\n     \"enabled\": true,\n     \"actions\": { \"source\": { \"organizeImports\": \"on\" } }\n   }\n }\n ```\n\n The following code...\n\n ```ts,ignore\n import type { T } from \"a\";\n import { V } from \"a\";\n ```\n\n ...is organized as:\n\n ```ts,ignore\n import { type T, V } from \"a\";\n ```\n\n\n ## How it works\n\n This section provides an in-depth explanation of the internal mechanics of the action.\n\n ### Import anatomy\n\n First, let's agree on the terminology that we will use in this section.\n\n ```js,ignore\n import A from \"@my/lib\" with { \"attribute1\": \"value\" };\n ^^^^^^^^       ^^^^^^^         ^^^^^^^^^^^^^^^^^^^^^\n   kind         source                attributes\n\n export * from \"@my/lib\" with { \"attribute1\": \"value\" };\n ^^^^^^^^       ^^^^^^^         ^^^^^^^^^^^^^^^^^^^^^\n   kind         source                attributes\n ```\n\n ### Chunks\n\n Before sorting, imports and exports are divided into **chunks**.\n A chunk is a sequence of adjacent imports or exports.\n The action never moves imports or exports across chunk boundaries.\n\n Chunks are separated by:\n - Switching between imports and exports\n - Any statement that is not an import or an export\n - Bare imports also called side-effect imports (`import \"polyfill\"`);\n   Each forms its own chunk.\n - A comment followed by a blank line that we call a **detached comment**;\n   See the [comment handling section](#comment-handling) for more details.\n\n :::note\n Blank lines alone do **not** create new chunks.\n Use a comment followed by a blank line to force the start of a new chunk.\n :::\n\n The following example shows how imports and exports are chunked.\n\n ```js,ignore\n // chunk 1\n import A from \"a\";\n import * as B from \"b\";\n // chunk 2 (a bare import creates its own chunk)\n import \"x\";\n // Chunk 3\n import A from \"a\";\n\n // Still same chunk (blank line alone doesn't split)\n import * as B from \"b\";\n // Detached comment (followed by blank line)\n\n // New chunk starts here\n import { C } from \"c\";\n ```\n\n The action enforces the presence of a blank line between different chunks.\n Bare imports adjacent to a chunk of imports are not separated by a blank line.\n\n :::note\n Blank lines inside a chunk are preserved.\n They can be removed by explicitly defining the option `groups`.\n :::\n\n ### Sorting within a chunk\n\n As described in the preliminary section,\n Imports and exports of a chunk are sorted by \"distance\" from the current file.\n\n When two imports share the same source, they are ordered by kind:\n\n 1. Namespace type import / Namespace type export\n 2. Default type import\n 3. Named type import / Named type export\n 4. Namespace import / Namespace export\n 5. Combined default and namespace import\n 6. Default import\n 7. Combined default and named import\n 8. Named import / Named export\n\n Imports and exports with attributes (`with { ... }`) are always placed first.\n For example, the following code...\n\n ```ts,ignore\n import * as namespaceImport from \"same-source\";\n import type * as namespaceTypeImport from \"same-source\";\n import type { namedTypeImport } from \"same-source\";\n import defaultNamespaceCombined, * as namespaceCombined from \"same-source\";\n import defaultNamedCombined, { namedCombined } from \"same-source\";\n import defaultImport from \"same-source\";\n import type defaultTypeImport from \"same-source\";\n import { importWithAttribute } from \"same-source\" with { \"attribute\": \"value\" } ;\n ```\n\n is sorted as follows:\n\n ```ts,ignore\n import { importWithAttribute } from \"same-source\" with { \"attribute\": \"value\" } ;\n import type * as namespaceTypeImport from \"same-source\";\n import type defaultTypeImport from \"same-source\";\n import type { namedTypeImport } from \"same-source\";\n import * as namespaceImport from \"same-source\";\n import defaultNamespaceCombined, * as namespaceCombined from \"same-source\";\n import defaultImport from \"same-source\";\n import defaultNamedCombined, { namedCombined } from \"same-source\";\n ```\n\n This kind order cannot be changed.\n\n ### Named specifier and attribute sorting\n\n Named imports, named exports, and import attributes are also sorted,\n as shown in the following example.\n\n ```js,expect_diagnostic\n import { a, b, A, B, c10, c9 } from \"a\";\n\n export { a, b, A, B, c10, c9 } from \"a\";\n\n import special from  \"special\" with { \"type\": \"ty\", \"metadata\": \"data\" };\n ```\n\n ### Import and export merging\n\n Imports from the same source in the same chunk are merged when possible.\n\n The following code...\n\n ```ts,ignore\n import type { T1 } from \"package\";\n import type { T2 } from \"package\";\n import * as ns from \"package\";\n import D1 from \"package\";\n import D2 from \"package\";\n import { A } from \"package\";\n import { B } from \"package\";\n import { type T3 } from \"package\";\n ```\n\n ...becomes:\n\n ```ts,ignore\n import type { T1, T2 } from \"package\";\n import D1, * as ns from \"package\";\n import D2, { A, B, type T3 } from \"package\";\n ```\n\n With [`useImportType`](https://biomejs.dev/linter/rules/use-import-type/)\n set to `separatedType`, the result is:\n\n ```ts,ignore\n import type { T1, T2, T3 } from \"package\";\n import D1, * as ns from \"package\";\n import D2, { A, B } from \"package\";\n ```\n\n ### Comment handling\n\n Comments directly above an import (attached comments) move with that import when it is sorted.\n Comments followed by a blank line (detached comments) stay in place and create a new chunk.\n\n File-header comments, i.e. comments at the very top of the file,\n are always treated as detached, even without a blank line.\n This preserves copyright notices and license headers.\n\n The following code...\n\n ```js,ignore\n // Copyright notice and file header comment\n import F from \"f\";\n // Attached comment for `e`\n import E from \"e\";\n // Attached comment for `d`\n import D from \"d\";\n // Detached comment (new chunk)\n\n // Attached comment for `b`\n import B from \"b\";\n // Attached comment for `a`\n import A from \"a\";\n ```\n\n ...becomes:\n\n ```js,ignore\n // Copyright notice and file header comment\n\n // Attached comment for `d`\n import D from \"d\";\n // Attached comment for `e`\n import E from \"e\";\n import F from \"f\";\n\n // Detached comment (new chunk)\n\n // Attached comment for `a`\n import A from \"a\";\n // Attached comment for `b`\n import B from \"b\";\n ```\n\n A blank line is automatically added after the header comment\n to ensure that the attached comment doesn't merge with the header comment.\n\n ### Supported glob patterns\n\n A source is split into segments by `/`.\n For example, `src/file.js` has two segments: `src` and `file.js`.\n\n - `*`: matches zero or more characters within a single segment;\n   `file.js` matches `*.js`, but `src/file.js` does not.\n\n - `**`: matches zero or more segments and must be enclosed by `/` or be at the start/end;\n   `file.js` and `src/file.js` both match `**/*.js`.\n\n - `!`: negates a pattern when used as the first character;\n   `file.js` matches `!*.test.js`;\n   Exceptions can be layered: `[\"@my/lib/**\", \"!@my/lib/internal/**\", \"@my/lib/internal/allowed/**\"]`.\n\n - `\\*`: matches a literal `*` character.\n\n - `?`, `[`, `]`, `{`, `}`: reserved characters, must be escaped with `\\`.\n\n"
+            "docs": " Sorts imports and exports in your JavaScript and TypeScript files.\n\n By default, imports and exports are sorted by \"distance\" from the current file:\n\n 1. URLs such as `https://example.org`.\n 2. Packages with a protocol such as `node:path`, `bun:test`, `jsr:@my?lib`, or `npm:lib`.\n 3. Packages such as `mylib` or `@my/lib`.\n 4. Aliases: sources starting with `@/`, `#`, `~`, `$`, or `%`.\n    They usually are [Node.js subpath imports](https://nodejs.org/api/packages.html#subpath-imports) or [TypeScript path aliases](https://www.typescriptlang.org/tsconfig/#paths).\n 5. Absolute and relative paths.\n\n Imports and exports with the same distance are sorted using a\n [natural sort order](https://en.wikipedia.org/wiki/Natural_sort_order)\n such that `A < a < a9 < a10 < B < b`\n\n The action also merges imports and exports from the same source,\n sorts named specifiers and attributes using a natural sort order.\n\n For example, the following code...\n\n ```js,ignore\n import sibling from \"./file.js\";\n import internal from \"#alias\";\n import fs from \"fs\";\n import { test } from \"node:test\";\n import path from \"node:path\";\n import { mock } from \"node:test\";\n import parent from \"../parent.js\";\n import scopedLibUsingJsr from \"jsr:@scoped/lib\";\n import data from \"https://example.org\";\n import { B, A, b, a10, a9 } from \"lib\";\n import scopedLib from \"@scoped/lib\";\n export { Y } from \"dep\";\n export * from \"./inner.js\";\n export { X } from \"dep\";\n ```\n\n ...is sorted as follows:\n\n ```js,ignore\n import data from \"https://example.org\";\n import scopedLibUsingJsr from \"jsr:@scoped/lib\";\n import path from \"node:path\";\n import { mock, test } from \"node:test\";\n import scopedLib from \"@scoped/lib\";\n import fs from \"fs\";\n import { A, a9, a10, B, b } from \"lib\";\n import internal from \"#alias\";\n import parent from \"../parent.js\";\n import sibling from \"./file.js\";\n\n export { X, Y } from \"dep\";\n export * from \"./inner.js\";\n ```\n\n ## Options\n\n The action provides several options to customize how imports and exports are ordered:\n\n - `groups` allows to group imports and exports before sorting them;\n   It allows expressing custom order between imports or exports.\n - `sortBareImports` allows sorting bare imports (also called side-effect imports);\n   By default the action doesn't sort them.\n - `identifierOrder` allows changing how named specifiers and attributes are sorted\n\n ### `groups`\n\n You can customize how imports and exports are grouped using the `groups` option.\n The option accepts an array of group matchers,\n which in their simplest form are glob patterns or predefined group matchers.\n Imports and exports that don't match any group are automatically moved after all the groups.\n\n Groups are always matched in order, so earlier matchers take priority.\n To exclude some imports of a group, you can use an array of group matchers\n with negated matchers, prefixed with `!`.\n In the following example, we use the negated glob matcher `!@myown/**`,\n to exclude `@myown/package` from the `:PACKAGE:` group.\n\n With this configuration...\n\n ```json,options\n {\n    \"options\": {\n         \"groups\": [\n             [\":BUN:\", \":NODE:\"],\n             \":BLANK_LINE:\",\n             [\":PACKAGE:\", \"!@myown/**\"],\n             \":BLANK_LINE:\",\n             \"@myown/**\",\n             \":BLANK_LINE:\",\n             [\":ALIAS:\", \":PATH:\"]\n         ]\n     }\n }\n ```\n\n ...the following code...\n\n ```js,ignore\n import aliased from \"@/components/Button\";\n import lib from \"lib\";\n import path from \"node:path\";\n import sibling from \"./file.js\";\n import myown from \"@myown/package\";\n import scopedLib from \"@scoped/lib\";\n import fs from \"fs\";\n ```\n\n ...is sorted as:\n\n ```js,ignore\n import fs from \"fs\";\n import path from \"node:path\";\n\n import scopedLib from \"@scoped/lib\";\n import lib from \"lib\";\n\n import myown from \"@myown/package\";\n\n import aliased from \"@/components/Button\";\n import sibling from \"./file.js\";\n ```\n\n Each entry in the `groups` array is a group matcher that can be:\n\n - A predefined group like `:NODE:`, `:BUN:`, or `:PACKAGE:`\n - A glob pattern like `@my/lib/**`;\n   the action supports a [limited set of globs](#supported-glob-patterns).\n - Type-only imports like `{ \"type\": true }`\n - A combination of the above, e.g. `[\":BUN:\", \":NODE:\"]`\n - `:BLANK_LINE:` to insert a blank line between groups\n\n #### Predefined groups\n\n - `:URL:`: sources starting with `https://` or `http://`\n - `:NODE:`: Node.js built-in modules (`node:path`, `fs`, `path`, etc.)\n - `:BUN:`: Bun built-in modules (`bun:test`, `bun`, etc.)\n - `:PACKAGE_WITH_PROTOCOL:`: packages with a protocol (`jsr:@my/lib`, `npm:lib`)\n - `:PACKAGE:`: bare and scoped packages (`lib`, `@scoped/lib`)\n - `:ALIAS:`: path aliases starting with `#`, `@/`, `~`, `$`, or `%`\n - `:PATH:`: absolute and relative paths\n - `:STYLE:`: paths ending with the following style extensions:\n   `.css`, `.less`, `.pcss`, `.sass`, `.scss`, `.sss` and `.styl`\n\n #### Kind matcher\n\n Use a kind matcher to filter imports by their syntactic kind.\n Currently, the only supported kind is `bare`, which matches\n bare (side-effect) imports such as `import \"polyfill\"`.\n Prefix the kind with `!` to match everything except that kind.\n\n ```json,options\n {\n     \"options\": {\n         \"sortBareImports\": true,\n         \"groups\": [\n             { \"kind\": \"!bare\" },\n             \":BLANK_LINE:\",\n             { \"kind\": \"bare\" }\n         ]\n     }\n }\n ```\n\n The kind matcher composes with the `source` field,\n allowing patterns such as \"only bare imports that import a CSS file\":\n\n ```json,options\n {\n     \"options\": {\n         \"sortBareImports\": true,\n         \"groups\": [\n             { \"kind\": \"bare\", \"source\": \"**/*.css\" }\n         ]\n     }\n }\n ```\n\n :::note\n The `bare` kind requires [`sortBareImports`](#sortbareimports) to be `true`\n for bare imports to participate in group matching.\n :::\n\n #### Type-only matcher\n\n Use a type-only matcher to separate `import type` from regular imports:\n Setting `\"type\": true` matches only `import type` and `export type` statements.\n Setting `\"type\": false` matches only non-type imports and exports.\n\n Given the following configuration...\n\n ```json,options\n {\n     \"options\": {\n         \"groups\": [\n             { \"type\": false, \"source\": [\"@my/lib\", \"@my/lib/**\"] },\n             [\"@my/lib\", \"@my/lib/**\"]\n         ]\n     }\n }\n ```\n\n ...the following code...\n\n ```ts,ignore\n import type { T } from \"@my/lib\";\n import { V } from \"@my/lib\";\n ```\n\n ...is sorted as:\n\n ```ts,ignore\n import { V } from \"@my/lib\";\n import type { T } from \"@my/lib\";\n ```\n\n The `source` field accepts predefined groups and glob patterns.\n\n ### `sortBareImports`\n\n By default, _bare imports_, also called _side-effect imports_, aren't sorted with other imports.\n Setting `sortBareImports` to `true`, allow sorting them with other imports.\n\n :::caution\n This can lead to issues because bare imports often signal the presence of side-effects.\n Thus changing their order can change the behavior of your code.\n :::\n\n ```json,options\n {\n     \"options\": {\n         \"sortBareImports\": true\n     }\n }\n ```\n\n ```js,use_options,expect_diagnostic\n import \"./file\";\n import { A } from \"my-package\";\n ```\n\n ### `identifierOrder`\n\n By default, attributes, imported and exported names are sorted with a `natural` sort order.\n Opt for a `lexicographic` sort, also referred as _binary_ sort,\n by setting the `identifierOrder` option to `lexicographic`:\n\n ```json,options\n {\n     \"options\": {\n         \"identifierOrder\": \"lexicographic\"\n     }\n }\n ```\n\n ```js,use_options,expect_diagnostic\n import { var1, var2, var21, var11, var12, var22 } from \"my-package\" with { \"att10\": \"\", \"att2\": \"\" };\n\n export { var1, var2, var21, var11, var12, var22 };\n ```\n\n Note that this order doesn't change how import and export sources are sorted.\n\n\n ## Common configurations\n\n ### Group Node.js and bun built-in\n\n The following example moves the Node.js and `bun` built-ins at the top of the file,\n and adds a blank line just after them.\n Other imports are placed after this blank line.\n\n ```json,options\n {\n    \"options\": {\n         \"groups\": [\n             [\":BUN:\", \":NODE:\"],\n             \":BLANK_LINE:\"\n         ]\n     }\n }\n ```\n\n ```ts,use_options,expect_diagnostic\n import { test } from \"bun:test\";\n import path from \"node:path\";\n import { A } from \"@my/package\";\n import { $ } from \"bun\";\n import fs from \"fs\";\n ```\n\n ### Group monorepo packages\n\n Let's assume that all your monorepo packages are scoped by `@mycompany`.\n The following example groups all monorepo imports after imports of external dependencies.\n\n Because groups are matched in order, the first group has to exclude monorepo imports.\n Indeed, `:PACKAGE:` matches imports like `@mycompany/db`, and thus must be excluded\n thanks to the exception `!@mycompany/**`.\n\n ```json,options\n {\n     \"options\": {\n         \"groups\": [\n             [\":PACKAGE:\", \":PACKAGE_WITH_PROTOCOL:\", \"!@mycompany/**\"],\n             \":BLANK_LINE:\",\n             [\"@mycompany/**\"],\n             \":BLANK_LINE:\"\n         ]\n     }\n }\n ```\n\n ```js,use_options,expect_diagnostic\n import { Button } from \"@mycompany/ui\";\n import express from \"express\";\n import { db } from \"@mycompany/db\";\n import { handler } from \"./handler.js\";\n import { A } from \"./file.js\"\n ```\n\n ### Group multiple libraries\n\n In the following example, `react` and libraries like `react-dom` are grouped together.\n A blank line separates them from the other imports placed directly below.\n\n```json,options\n {\n     \"options\": {\n         \"groups\": [\n             [\"react\", \"react/**\", \"react-*\", \"react-*/**\"],\n             \":BLANK_LINE:\"\n         ]\n     }\n }\n ```\n\n ```js,use_options,expect_diagnostic\n import lib from \"lib\";\n import { useState } from \"react\";\n import { render } from \"react-dom/client\";\n ```\n\n ### Place side-effect imports last\n\n Combine [`sortBareImports`](#sortbareimports) with the `{ \"kind\": \"bare\" }` matcher to\n gather all bare (side-effect) imports at the bottom of the import list. This is useful,\n for example, to enforce that web-component or polyfill registrations run after all\n binding imports:\n\n ```json,options\n {\n     \"options\": {\n         \"sortBareImports\": true,\n         \"groups\": [\n             { \"kind\": \"!bare\" },\n             \":BLANK_LINE:\",\n             { \"kind\": \"bare\" }\n         ]\n     }\n }\n ```\n\n ```ts,use_options,expect_diagnostic\n import \"./register-my-component\";\n import { render } from \"react-dom\";\n import \"./polyfill\";\n import { Button } from \"@/components/Button\";\n ```\n\n ### Place style imports last\n\n The following example groups style imports together and place them after other imports.\n Because groups are matched in order, the first group has to exclude style imports.\n `**` matches everything and is followed by the two exceptions that exclude style imports.\n\n ```json,options\n {\n     \"options\": {\n         \"groups\": [\n             [\"**\", \"!:STYLE:\"],\n             \":BLANK_LINE:\",\n             [\":STYLE:\"]\n         ]\n     }\n }\n ```\n\n ```js,use_options,expect_diagnostic\n import \"./styles/reset.css\";\n import { useState } from \"react\";\n import styles from \"./Component.module.css\";\n import { Button } from \"@/components/Button\";\n ```\n\n ### Group test utilities together\n\n The following example places test-related utilities at the top of the file.\n They are separated from other imports by a blank line.\n\n ```json,options\n {\n     \"options\": {\n         \"groups\": [\n             [\"vitest\", \"vitest/**\", \"@testing-library\", \"@testing-library/**\", \"jest\", \"@jest/**\"],\n             \":BLANK_LINE:\"\n         ]\n     }\n }\n ```\n\n ```js,use_options,expect_diagnostic\n import { render } from \"@testing-library/react\";\n import { Button } from \"@/components/Button\";\n import { describe, it, expect } from \"vitest\";\n import { server } from \"./mocks/server\";\n ```\n\n ### Group `import type` and group `export type`\n\n Use the following configuration to place `import type` and `export type` at the top of the file:\n\n ```json,options\n {\n     \"options\": {\n         \"groups\": [\n             { \"type\": true }\n         ]\n     }\n }\n ```\n\n ```ts,use_options,expect_diagnostic\n import { V } from \"my-package\";\n import type { T } from \"my-package\";\n ```\n\n To place them after other imports, use the following configuration.\n\n ```json,options\n {\n     \"options\": {\n         \"groups\": [\n             { \"type\": false }\n         ]\n     }\n }\n ```\n\n The following code...\n\n ```ts,ignore\n import type { T } from \"my-package\";\n import { V } from \"my-package\";\n ```\n\n ...is organized as:\n\n ```ts,ignore\n import { V } from \"my-package\";\n import type { T } from \"my-package\";\n ```\n\n Note that you may want to use the lint rule\n [`useImportType`](https://next.biomejs.dev/linter/rules/use-import-type/)\n and its [`style`](https://next.biomejs.dev/linter/rules/use-import-type/#style)\n to enforce the use of `import type` instead of `import { type }`.\n\n With the following configuration...\n\n ```json,full_options\n {\n   \"linter\": {\n     \"rules\": {\n       \"style\": {\n         \"useImportType\": {\n           \"level\": \"on\",\n           \"options\": { \"style\": \"separatedType\" }\n         }\n       }\n     }\n   },\n   \"assist\": {\n     \"enabled\": true,\n     \"actions\": { \"source\": { \"organizeImports\": \"on\" } }\n   }\n }\n ```\n\n ...the following code...\n\n ```ts,ignore\n import type { T1 } from \"a\";\n import { type T2, V } from \"a\";\n ```\n\n ...is organized as:\n\n ```ts,ignore\n import type { T1, T2 } from \"a\";\n import { V } from \"a\";\n ```\n\n ### Maximize import merging with `useImportType`\n\n To merge type-only imports (`import type { T }`) with regular imports (`import { V }`),\n enable [`useImportType`](https://biomejs.dev/linter/rules/use-import-type/) with `inlineType`:\n\n ```json,full_options\n {\n   \"linter\": {\n     \"rules\": {\n       \"style\": {\n         \"useImportType\": {\n           \"level\": \"on\",\n           \"options\": { \"style\": \"inlineType\" }\n         }\n       }\n     }\n   },\n   \"assist\": {\n     \"enabled\": true,\n     \"actions\": { \"source\": { \"organizeImports\": \"on\" } }\n   }\n }\n ```\n\n The following code...\n\n ```ts,ignore\n import type { T } from \"a\";\n import { V } from \"a\";\n ```\n\n ...is organized as:\n\n ```ts,ignore\n import { type T, V } from \"a\";\n ```\n\n\n ## How it works\n\n This section provides an in-depth explanation of the internal mechanics of the action.\n\n ### Import anatomy\n\n First, let's agree on the terminology that we will use in this section.\n\n ```js,ignore\n import A from \"@my/lib\" with { \"attribute1\": \"value\" };\n ^^^^^^^^       ^^^^^^^         ^^^^^^^^^^^^^^^^^^^^^\n   kind         source                attributes\n\n export * from \"@my/lib\" with { \"attribute1\": \"value\" };\n ^^^^^^^^       ^^^^^^^         ^^^^^^^^^^^^^^^^^^^^^\n   kind         source                attributes\n ```\n\n ### Chunks\n\n Before sorting, imports and exports are divided into **chunks**.\n A chunk is a sequence of adjacent imports or exports.\n The action never moves imports or exports across chunk boundaries.\n\n Chunks are separated by:\n - Switching between imports and exports\n - Any statement that is not an import or an export\n - Bare imports also called side-effect imports (`import \"polyfill\"`);\n   Each forms its own chunk.\n   Set [`sortBareImports`](#sortbareimports) to `true` to disable this rule and sort\n   bare imports together with their neighbors. Combined with the `{ \"kind\": \"bare\" }`\n   group matcher, this lets you express conventions such as \"place all side-effect\n   imports at the end of the import list\".\n - A comment followed by a blank line that we call a **detached comment**;\n   See the [comment handling section](#comment-handling) for more details.\n\n :::note\n Blank lines alone do **not** create new chunks.\n Use a comment followed by a blank line to force the start of a new chunk.\n :::\n\n The following example shows how imports and exports are chunked.\n\n ```js,ignore\n // chunk 1\n import A from \"a\";\n import * as B from \"b\";\n // chunk 2 (a bare import creates its own chunk)\n import \"x\";\n // Chunk 3\n import A from \"a\";\n\n // Still same chunk (blank line alone doesn't split)\n import * as B from \"b\";\n // Detached comment (followed by blank line)\n\n // New chunk starts here\n import { C } from \"c\";\n ```\n\n The action enforces the presence of a blank line between different chunks.\n Bare imports adjacent to a chunk of imports are not separated by a blank line.\n\n :::note\n Blank lines inside a chunk are preserved.\n They can be removed by explicitly defining the option `groups`.\n :::\n\n ### Sorting within a chunk\n\n As described in the preliminary section,\n Imports and exports of a chunk are sorted by \"distance\" from the current file.\n\n When two imports share the same source, they are ordered by kind:\n\n 1. Bare imports\n 2. Namespace type import / Namespace type export\n 3. Default type import\n 4. Named type import / Named type export\n 5. Namespace import / Namespace export\n 6. Combined default and namespace import\n 7. Default import\n 8. Combined default and named import\n 9. Named import / Named export\n\n Imports and exports with attributes (`with { ... }`) are always placed first.\n For example, the following code...\n\n ```ts,ignore\n import * as namespaceImport from \"same-source\";\n import type * as namespaceTypeImport from \"same-source\";\n import type { namedTypeImport } from \"same-source\";\n import defaultNamespaceCombined, * as namespaceCombined from \"same-source\";\n import defaultNamedCombined, { namedCombined } from \"same-source\";\n import defaultImport from \"same-source\";\n import type defaultTypeImport from \"same-source\";\n import { importWithAttribute } from \"same-source\" with { \"attribute\": \"value\" } ;\n ```\n\n is sorted as follows:\n\n ```ts,ignore\n import { importWithAttribute } from \"same-source\" with { \"attribute\": \"value\" } ;\n import type * as namespaceTypeImport from \"same-source\";\n import type defaultTypeImport from \"same-source\";\n import type { namedTypeImport } from \"same-source\";\n import * as namespaceImport from \"same-source\";\n import defaultNamespaceCombined, * as namespaceCombined from \"same-source\";\n import defaultImport from \"same-source\";\n import defaultNamedCombined, { namedCombined } from \"same-source\";\n ```\n\n This kind order cannot be changed.\n\n ### Named specifier and attribute sorting\n\n Named imports, named exports, and import attributes are also sorted,\n as shown in the following example.\n\n ```js,expect_diagnostic\n import { a, b, A, B, c10, c9 } from \"a\";\n\n export { a, b, A, B, c10, c9 } from \"a\";\n\n import special from  \"special\" with { \"type\": \"ty\", \"metadata\": \"data\" };\n ```\n\n ### Import and export merging\n\n Imports from the same source in the same chunk are merged when possible.\n\n The following code...\n\n ```ts,ignore\n import type { T1 } from \"package\";\n import type { T2 } from \"package\";\n import * as ns from \"package\";\n import D1 from \"package\";\n import D2 from \"package\";\n import { A } from \"package\";\n import { B } from \"package\";\n import { type T3 } from \"package\";\n ```\n\n ...becomes:\n\n ```ts,ignore\n import type { T1, T2 } from \"package\";\n import D1, * as ns from \"package\";\n import D2, { A, B, type T3 } from \"package\";\n ```\n\n With [`useImportType`](https://biomejs.dev/linter/rules/use-import-type/)\n set to `separatedType`, the result is:\n\n ```ts,ignore\n import type { T1, T2, T3 } from \"package\";\n import D1, * as ns from \"package\";\n import D2, { A, B } from \"package\";\n ```\n\n ### Comment handling\n\n Comments directly above an import (attached comments) move with that import when it is sorted.\n Comments followed by a blank line (detached comments) stay in place and create a new chunk.\n\n File-header comments, i.e. comments at the very top of the file,\n are always treated as detached, even without a blank line.\n This preserves copyright notices and license headers.\n\n The following code...\n\n ```js,ignore\n // Copyright notice and file header comment\n import F from \"f\";\n // Attached comment for `e`\n import E from \"e\";\n // Attached comment for `d`\n import D from \"d\";\n // Detached comment (new chunk)\n\n // Attached comment for `b`\n import B from \"b\";\n // Attached comment for `a`\n import A from \"a\";\n ```\n\n ...becomes:\n\n ```js,ignore\n // Copyright notice and file header comment\n\n // Attached comment for `d`\n import D from \"d\";\n // Attached comment for `e`\n import E from \"e\";\n import F from \"f\";\n\n // Detached comment (new chunk)\n\n // Attached comment for `a`\n import A from \"a\";\n // Attached comment for `b`\n import B from \"b\";\n ```\n\n A blank line is automatically added after the header comment\n to ensure that the attached comment doesn't merge with the header comment.\n\n ### Supported glob patterns\n\n A source is split into segments by `/`.\n For example, `src/file.js` has two segments: `src` and `file.js`.\n\n - `*`: matches zero or more characters within a single segment;\n   `file.js` matches `*.js`, but `src/file.js` does not.\n\n - `**`: matches zero or more segments and must be enclosed by `/` or be at the start/end;\n   `file.js` and `src/file.js` both match `**/*.js`.\n\n - `!`: negates a pattern when used as the first character;\n   `file.js` matches `!*.test.js`;\n   Exceptions can be layered: `[\"@my/lib/**\", \"!@my/lib/internal/**\", \"@my/lib/internal/allowed/**\"]`.\n\n - `\\*`: matches a literal `*` character.\n\n - `?`, `[`, `]`, `{`, `}`: reserved characters, must be escaped with `\\`.\n\n"
           },
           "useSortedKeys": {
             "deprecated": false,
@@ -9640,7 +10225,40 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Sort the keys of a JSON object in natural order.\n\n [Natural order](https://en.wikipedia.org/wiki/Natural_sort_order) means\n that uppercase letters come before lowercase letters (e.g. `A` < `a` <\n `B` < `b`) and numbers are compared in a human way (e.g. `9` < `10`).\n\n ## Examples\n\n ```json,expect_diff\n {\n     \"vase\": \"fancy\",\n     \"nested\": {\n         \"omega\": \"bar\",\n         \"alpha\": \"foo\"\n     }\n }\n ```\n\n ## Options\n This actions accepts following options\n\n ### `sortOrder`\n This options supports `natural` and `lexicographic` values. Where as `natural` is the default.\n\n Following will apply the natural sort order.\n\n ```json,options\n {\n     \"options\": {\n         \"sortOrder\": \"natural\"\n     }\n }\n ```\n ```json,use_options,expect_diff\n {\n     \"val13\": 1,\n     \"val1\": 1,\n     \"val2\": 1,\n     \"val21\": 1,\n     \"val11\": 1\n }\n ```\n\n Following will apply the lexicographic sort order.\n\n ```json,options\n {\n     \"options\": {\n         \"sortOrder\": \"lexicographic\"\n     }\n }\n ```\n ```json,use_options,expect_diff\n {\n     \"val13\": 1,\n     \"val1\": 1,\n     \"val2\": 1,\n     \"val21\": 1,\n     \"val11\": 1\n }\n ```\n\n ### `groupByNesting`\n When enabled, groups object keys by their value's nesting depth before sorting alphabetically.\n Simple values (primitives, single-line arrays, and single-line objects) are sorted first,\n followed by nested values (multi-line arrays and multi-line objects).\n\n > Default: `false`\n\n ```json,options\n {\n     \"options\": {\n         \"groupByNesting\": true\n     }\n }\n ```\n ```json,use_options,expect_diagnostic\n {\n     \"name\": \"Sample\",\n     \"details\": {\n         \"description\": \"nested\"\n     },\n     \"id\": 123\n }\n ```\n\n"
+            "docs": " Sort the keys of a JSON object in natural order.\n\n :::note\n For consistent ordering in `package.json` files, use the action [useSortedPackageJson](https://biomejs.dev/assist/actions/use-sorted-package-json)\n :::\n\n [Natural order](https://en.wikipedia.org/wiki/Natural_sort_order) means\n that uppercase letters come before lowercase letters (e.g. `A` < `a` <\n `B` < `b`) and numbers are compared in a human way (e.g. `9` < `10`).\n\n ## Examples\n\n ```json,expect_diff\n {\n     \"vase\": \"fancy\",\n     \"nested\": {\n         \"omega\": \"bar\",\n         \"alpha\": \"foo\"\n     }\n }\n ```\n\n ## Options\n This actions accepts following options\n\n ### `sortOrder`\n This options supports `natural` and `lexicographic` values. Where as `natural` is the default.\n\n Following will apply the natural sort order.\n\n ```json,options\n {\n     \"options\": {\n         \"sortOrder\": \"natural\"\n     }\n }\n ```\n ```json,use_options,expect_diff\n {\n     \"val13\": 1,\n     \"val1\": 1,\n     \"val2\": 1,\n     \"val21\": 1,\n     \"val11\": 1\n }\n ```\n\n Following will apply the lexicographic sort order.\n\n ```json,options\n {\n     \"options\": {\n         \"sortOrder\": \"lexicographic\"\n     }\n }\n ```\n ```json,use_options,expect_diff\n {\n     \"val13\": 1,\n     \"val1\": 1,\n     \"val2\": 1,\n     \"val21\": 1,\n     \"val11\": 1\n }\n ```\n\n ### `groupByNesting`\n When enabled, groups object keys by their value's nesting depth before sorting alphabetically.\n Simple values (primitives, single-line arrays, and single-line objects) are sorted first,\n followed by nested values (multi-line arrays and multi-line objects).\n\n > Default: `false`\n\n ```json,options\n {\n     \"options\": {\n         \"groupByNesting\": true\n     }\n }\n ```\n ```json,use_options,expect_diagnostic\n {\n     \"name\": \"Sample\",\n     \"details\": {\n         \"description\": \"nested\"\n     },\n     \"id\": 123\n }\n ```\n\n"
+          },
+          "useSortedPackageJson": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useSortedPackageJson",
+            "link": "https://biomejs.dev/linter/rules/use-sorted-package-json",
+            "recommended": false,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": "sortPackageJson"
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintPackageJson": "sort-collections"
+                }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintPackageJsonDependencies": "alphabetically-sorted-dependencies"
+                }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "sherif": "unordered-dependencies"
+                }
+              }
+            ],
+            "docs": " Organize package.json fields according to established conventions.\n\n Sorts fields following the same conventions as the popular\n [sort-package-json](https://github.com/keithamus/sort-package-json) tool.\n\n ## Sorting Rules\n\n `package.json` fields are sorted by the order they are listed below. The default key sort order is alphabetical.\n\n _Note: when a specific key order is used, any other keys will be sorted in the end of the object_\n\n | Key                   | Rules                                                                          |\n | --------------------- | ------------------------------------------------------------------------------ |\n | \\$schema              |                                                                                |\n | name                  |                                                                                |\n | displayName           |                                                                                |\n | version               |                                                                                |\n | private               |                                                                                |\n | description           |                                                                                |\n | categories            | Unique items                                                                   |\n | keywords              | Unique items                                                                   |\n | homepage              |                                                                                |\n | bugs                  | Key order: `url`, `email`                                                      |\n | repository            | Key order: `type`, `url`                                                       |\n | funding               | Key order: `type`, `url`                                                       |\n | license               | Key order: `type`, `url`                                                       |\n | qna                   |                                                                                |\n | author                | Key order: `name`, `email`, `url`                                              |\n | maintainers           | Key order (per item): `name`, `email`, `url`                                   |\n | contributors          | Key order (per item): `name`, `email`, `url`                                   |\n | publisher             |                                                                                |\n | sideEffects           |                                                                                |\n | type                  |                                                                                |\n | imports               |                                                                                |\n | exports               |                                                                                |\n | main                  |                                                                                |\n | svelte                |                                                                                |\n | umd:main              |                                                                                |\n | jsdelivr              |                                                                                |\n | unpkg                 |                                                                                |\n | module                |                                                                                |\n | source                |                                                                                |\n | jsnext:main           |                                                                                |\n | browser               |                                                                                |\n | react-native          |                                                                                |\n | types                 |                                                                                |\n | typesVersions         |                                                                                |\n | typings               |                                                                                |\n | style                 |                                                                                |\n | example               |                                                                                |\n | examplestyle          |                                                                                |\n | assets                |                                                                                |\n | bin                   | Key sort                                                                       |\n | man                   |                                                                                |\n | directories           | Key order: `lib`, `bin`, `man`, `doc`, `example`, `test`                       |\n | files                 | Unique items                                                                   |\n | workspaces            | Key order (when object): `packages`, `catalog`                                 |\n | binary,               | Key order: `module_name`, `module_path`, `remote_path`, `package_name`, `host` |\n | scripts               | [Script sort](#scripts)                                                        |\n | betterScripts         | [Script sort](#scripts)                                                        |\n | contributes           | Key sort                                                                       |\n | activationEvents      | Unique items                                                                   |\n | husky                 | Sorts the `hooks` field using [git hook sort](#git-hooks)                      |\n | simple-git-hooks      | Key sort using [git hook sort](#git-hooks)                                     |\n | pre-commit            |                                                                                |\n | commitlint            | Key sort                                                                       |\n | lint-staged           |                                                                                |\n | nano-staged           |                                                                                |\n | config                | Key sort                                                                       |\n | nodemonConfig         | Key sort                                                                       |\n | browserify            | Key sort                                                                       |\n | babel                 | Key sort                                                                       |\n | browserslist          |                                                                                |\n | xo                    | Key sort                                                                       |\n | prettier              | [Prettier sort](#prettier)                                                     |\n | eslintConfig          | [ESLint sort](#eslint)                                                         |\n | eslintIgnore          |                                                                                |\n | npmpackagejsonlint    | Key sort (also recognizes: npmPackageJsonLintConfig, npmpkgjsonlint)           |\n | release               | Key sort                                                                       |\n | remarkConfig          | Key sort                                                                       |\n | stylelint             |                                                                                |\n | ava                   | Key sort                                                                       |\n | jest                  | Key sort                                                                       |\n | mocha                 | Key sort                                                                       |\n | nyc                   | Key sort                                                                       |\n | tap                   | Key sort                                                                       |\n | oclif                 | Key sort (deep)                                                                |\n | resolutions           | Key sort                                                                       |\n | dependencies          | Key sort                                                                       |\n | devDependencies       | Key sort                                                                       |\n | dependenciesMeta      | Key sort (deep)                                                                |\n | peerDependencies      | Key sort                                                                       |\n | peerDependenciesMeta  | Key sort (deep)                                                                |\n | optionalDependencies  | Key sort                                                                       |\n | bundledDependencies   | Sort unique items                                                              |\n | bundleDependencies    | Sort unique items                                                              |\n | extensionPack         | Sort unique items                                                              |\n | extensionDependencies | Sort unique items                                                              |\n | flat                  |                                                                                |\n | packageManager        |                                                                                |\n | engines               | Key sort                                                                       |\n | engineStrict          | Key sort                                                                       |\n | devEngines            | Key order (packageManager): `name`, `version`, `onFail`                        |\n | volta                 | Key order: `node`, `npm`, `yarn`                                               |\n | languageName          |                                                                                |\n | os                    |                                                                                |\n | cpu                   |                                                                                |\n | preferGlobal          | Key sort                                                                       |\n | publishConfig         | Key sort                                                                       |\n | icon                  |                                                                                |\n | badges                | Key order (per item): `description`, `url`, `href`                             |\n | galleryBanner         | Key sort                                                                       |\n | preview               |                                                                                |\n | markdown              |                                                                                |\n | pnpm                  | Base property order: `neverBuiltDependencies`, `onlyBuiltDependencies`, `onlyBuiltDependenciesFile`, `overrides`, `packageExtensions`, `patchedDependencies`, `peerDependencyRules`, `allowedDeprecatedVersions`, `allowNonAppliedPatches`, `auditConfig`, `ignoredOptionalDependencies`, `updateConfig`. Other properties sorted alphabetically. Deep sorting applied. |\n\n ### Special Rules\n\n #### ESLint\n\n Fields are sorted by the order they are listed below:\n\n | Key                           | Rules                                                               |\n | ----------------------------- | ------------------------------------------------------------------- |\n | env                           |                                                                     |\n | parser                        |                                                                     |\n | parserOptions                 |                                                                     |\n | settings                      |                                                                     |\n | plugins                       |                                                                     |\n | extends                       |                                                                     |\n | rules                         | Group built-in rules first, then plugin rules. Each group is sorted |\n | overrides                     | Key order (per item): `files`, `excludedFiles`                      |\n | globals                       |                                                                     |\n | processor                     |                                                                     |\n | noInlineConfig                |                                                                     |\n | reportUnusedDisableDirectives |                                                                     |\n\n #### Git Hooks\n\n Item order:\n\n - `applypatch-msg`\n - `pre-applypatch`\n - `post-applypatch`\n - `pre-commit`\n - `pre-merge-commit`\n - `prepare-commit-msg`\n - `commit-msg`\n - `post-commit`\n - `pre-rebase`\n - `post-checkout`\n - `post-merge`\n - `pre-push`\n - `pre-receive`\n - `update`\n - `proc-receive`\n - `post-receive`\n - `post-update`\n - `reference-transaction`\n - `push-to-checkout`\n - `pre-auto-gc`\n - `post-rewrite`\n - `sendemail-validate`\n - `fsmonitor-watchman`\n - `p4-changelist`\n - `p4-prepare-changelist`\n - `p4-post-changelist`\n - `p4-pre-submit`\n - `post-index-change`\n\n #### Prettier\n\n Keys are sorted alphabetically except for `overrides`, which is placed last. Keys are also sorted in `overrides` and `overrides.options` items.\n\n #### Scripts\n\n Keys are sorted alphabetically except for [pre/post scripts](https://docs.npmjs.com/cli/v6/using-npm/scripts#pre--post-scripts). Those are placed before and after their corresponding base npm script.\n\n An example - notice how `preinstall` and `postinstall` are placed before and after `install`:\n\n ```json\n {\n   \"scripts\": {\n     \"build\": \"\",\n     \"preinstall\": \"\",\n     \"install\": \"\",\n     \"postinstall\": \"\",\n     \"lint\": \"\"\n   }\n }\n ```\n\n Scripts for which the pre/post order is applied:\n\n - install\n - pack\n - prepare\n - publish\n - restart\n - shrinkwrap\n - start\n - stop\n - test\n - uninstall\n - version\n\n ## Examples\n\n ### Invalid\n\n ```json,expect_diagnostic,file=package.json\n {\n   \"dependencies\": {\n     \"lodash\": \"^4.0.0\"\n   },\n   \"name\": \"my-package\",\n   \"version\": \"1.0.0\"\n }\n ```\n\n ### Valid\n\n ```json,file=package.json\n {\n   \"name\": \"my-package\",\n   \"version\": \"1.0.0\",\n   \"dependencies\": {\n     \"lodash\": \"^4.0.0\"\n   }\n }\n ```\n"
           }
         }
       },
@@ -9684,6 +10302,29 @@ export function GET() {
       },
       "ts": {
         "source": {
+          "useSortedEnumMembers": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useSortedEnumMembers",
+            "link": "https://biomejs.dev/linter/rules/use-sorted-enum-members",
+            "recommended": false,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintPerfectionist": "sort-enums"
+                }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintTypescriptSortKeys": "string-enum"
+                }
+              }
+            ],
+            "docs": " Sort the members of an enum in natural order.\n\n Enforce a consistent natural sort order for TypeScript enum members with string initializers.\n\n This rule sorts members in string enums so declarations stay predictable and easier to scan.\n Members that cannot be compared, such as computed names, are left in place and split the enum into sortable groups.\n\n Members are sorted in a [Natural order](https://en.wikipedia.org/wiki/Natural_sort_order),\n meaning that uppercase letters come before lowercase letters (e.g. `A` < `a` < `B` < `b`)\n and numbers are compared to their numerical value (e.g. `9` < `10`).\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diff\n enum Status {\n \tInProgress = 'In Progress',\n \tCompleted = 'Completed',\n \tOnHold = 'On Hold',\n \tCancelled = 'Cancelled',\n \tNotStarted = 'Not Started',\n }\n ```\n\n ### Valid\n\n ```ts\n enum Status {\n \tCancelled = 'Cancelled',\n \tCompleted = 'Completed',\n \tInProgress = 'In Progress',\n \tNotStarted = 'Not Started',\n \tOnHold = 'On Hold',\n }\n ```\n\n"
+          },
           "useSortedInterfaceMembers": {
             "deprecated": false,
             "version": "2.4.0",
@@ -9710,7 +10351,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 8
+    "numberOrRules": 14
   }
 };
 	return new Response(JSON.stringify(schema), {
