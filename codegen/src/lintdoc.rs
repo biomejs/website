@@ -1894,7 +1894,7 @@ fn print_diagnostics_or_actions(
                 };
 
                 let options = AnalyzerOptions::default().with_file_path(test.file_path());
-                biome_html_analyze::analyze(&root, filter, &options, file_source, |signal| {
+                biome_html_analyze::analyze(&root, filter, &options, file_source, biome_html_analyze::HtmlAnalyzerServices::default(), |signal| {
                     match to_print_kind {
                         ToPrintKind::Diagnostics => {
                             if let Some(mut diag) = signal.diagnostic() {
