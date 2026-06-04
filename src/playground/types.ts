@@ -296,7 +296,7 @@ export const defaultPlaygroundState: PlaygroundState = {
 		bracketSpacing: true,
 		bracketSameLine: false,
 		expand: Expand.Auto,
-		lintRules: LINT_RULES.recommended,
+		lintRules: LINT_RULES.preset.recommended,
 		enabledLinting: true,
 		analyzerFixMode: "safeFixes",
 		enabledAssist: true,
