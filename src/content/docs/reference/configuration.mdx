@@ -378,6 +378,16 @@ Enables the recommended rules for all groups.
 
 > Default: `true`
 
+:::caution
+This options is deprecated. Use [`linter.rules.preset`](/reference/configuration#lintrulespreset) instead.
+:::
+
+### `linter.rules.preset`
+
+It allows enabling a certain set of specific rules. It accepts the following values:
+- `"recommended"`: it enables Biome's recommended rules (default)
+- `"all"`: it enables all lint rules, expect for nursery rules.
+- `none`: it disables all lint rules.
 
 ### `linter.rules.[group]`
 
@@ -1010,6 +1020,14 @@ For more information about the old vs. new JSX runtime, please see:
 https://legacy.reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html
 
 > Default: `"transparent"`
+
+### `javascript.resolver.experimentalPnpmCatalogs`
+
+Enables support for resolving dependencies from default and named pnpm catalogs.
+
+When enabled, Biome can use `catalog` and `catalogs` entries in `pnpm-workspace.yaml` while resolving package dependencies.
+
+> Default: `false`
 
 ### `javascript.linter.enabled`
 

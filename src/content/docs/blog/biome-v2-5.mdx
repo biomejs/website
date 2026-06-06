@@ -1,82 +1,335 @@
 ---
-title: "Biome v2.5—500 Lint Rules, Watch Mode, and Cross-File Linting"
+title: "Biome v2.5—500 Lint Rules, Plugin Code Fix, and Cross-File Linting"
 excerpt: |
-  Biome 2.5 crosses 500 lint rules, adds a watch mode and a `biome upgrade` command, brings go-to definition to the language server, introduces linter presets, and promotes 73 rules to stable.
+  Biome 2.5 crosses 500 lint rules, ships code fixes for GritQL plugins, adds the `delimiterSpacing` formatter option, watcher mode, concise reporter, and more than 70 rules stabilized.
 authors:
   - ema
   - team
 date: 2026-06-05
 cover:
-  light: "@/assets/blog/banner-light.png"
-  dark: "@/assets/blog/banner-dark.png"
+  light: "@/assets/blog/biome-v2-5/500-light.png"
+  dark: "@/assets/blog/biome-v2-5/500-dark.png"
   alt: The brand of the project. It says "Biome, toolchain of the web"
 socialImage: "@/assets/social-logo.png"
 ---
+import Contributor from "@/components/Contributor.astro"
 
 ## 500 lint rules
 
-{/* the milestone — 508 unique rules total (429 stable + nursery) counted via
-    declare_lint_rule! in biome crates; 73 promoted to stable in this release */}
+With this release, Biome has surpassed 500 rules! It took us a very long time, but we're thrilled of this milestone. The release also promotes over 70 rules spread among Vue framework, type-aware, and more.
 
-## Highlights
+However, I want to provide the spotlight to three particular rules.
 
-### Watch mode
+### Cross-language lint rules
 
-{/* source: cold-pianos-try.md — --watch for check/format/lint */}
+The rules `noUndeclaredClasses` and `noUnusedClasses` are two new nursery rules that use the powerful Biome module graph.
 
-### The `biome upgrade` command
+The rule `noUnusedClasses` analyses all the CSS clases defined in your project, and emits a diagnostic if the class isn't used in any HTML-ish files or JSX files.
 
-{/* source: add-upgrade-command.md */}
+The rule `noUndeclaredClasses` analyses the `class` and `className` attributes of all your HTML-ish files and JSX files, and emits a diagnostic if a class hasn't been defined in any of CSS files or `<style>` tags. It also detects the `:global()` pseudo-selector.
 
-### Go-to definition
+### `noRestrictedDependencies`
 
-{/* source: dirty-lions-talk.md — LSP go-to definition */}
+This rule is an homage to the [e18e initiative](https://e18e.dev/) and their [https://replacements.fyi/](https://replacements.fyi/) website, and their [`ban-dependencies` lint rule](https://github.com/e18e/eslint-plugin#module-replacements).
 
-### Linter presets
+This rule uses their data to detect packages that are deemed replaceable due to being deprecated, heavy, or because there's a native alternative.
 
-{/* source: huge-walls-float.md — preset: recommended/all/none */}
 
-### HTML accessibility rules
+### Promoted rules
 
-{/* source: ~18 HTML a11y rule ports/additions */}
+Promoted 73 nursery rules to stable groups.
 
-### SVG support
+Four rules were renamed as part of the promotion:
 
-{/* source: funny-frogs-film.md */}
+- `noFloatingClasses` is now [`noUnusedInstantiation`](/linter/rules/no-unused-instantiation/), because the rule checks any discarded `new` expression, not only classes.
+- `noMultiStr` is now [`noMultilineString`](/linter/rules/no-multiline-string/).
+- `useFind` is now [`useArrayFind`](/linter/rules/use-array-find/).
+- `useSpread` is now [`useSpreadOverApply`](/linter/rules/use-spread-over-apply/), because the rule enforces spread call arguments over `Function.apply()`, not array or object spread.
 
-### The `delimiterSpacing` formatter option
+#### Correctness
 
-{/* source: stale-oranges-run.md */}
+Promoted the following rules to the `correctness` group:
 
-### Plugin improvements
+- [`noBeforeInteractiveScriptOutsideDocument`](/linter/rules/no-before-interactive-script-outside-document/)
+- [`noUnusedInstantiation`](/linter/rules/no-unused-instantiation/)
+- [`useInlineScriptId`](/linter/rules/use-inline-script-id/) (recommended, Next.js domain)
+- [`noVueVIfWithVFor`](/linter/rules/no-vue-v-if-with-v-for/) (recommended, Vue domain)
+- [`useVueValidVBind`](/linter/rules/use-vue-valid-v-bind/) (recommended, Vue domain)
+- [`useVueValidVElse`](/linter/rules/use-vue-valid-v-else/) (recommended, Vue domain)
+- [`useVueValidVElseIf`](/linter/rules/use-vue-valid-v-else-if/) (recommended, Vue domain)
+- [`useVueValidVHtml`](/linter/rules/use-vue-valid-v-html/) (recommended, Vue domain)
+- [`useVueValidVIf`](/linter/rules/use-vue-valid-v-if/) (recommended, Vue domain)
+- [`useVueValidVOn`](/linter/rules/use-vue-valid-v-on/) (recommended, Vue domain)
+- [`useVueValidVText`](/linter/rules/use-vue-valid-v-text/) (recommended, Vue domain)
+- [`useVueValidTemplateRoot`](/linter/rules/use-vue-valid-template-root/) (recommended, Vue domain)
+- [`useVueValidVCloak`](/linter/rules/use-vue-valid-v-cloak/) (recommended, Vue domain)
+- [`useVueValidVOnce`](/linter/rules/use-vue-valid-v-once/) (recommended, Vue domain)
+- [`useVueValidVPre`](/linter/rules/use-vue-valid-v-pre/) (recommended, Vue domain)
+- [`useVueVForKey`](/linter/rules/use-vue-v-for-key/) (recommended, Vue domain)
+- [`noDuplicateAttributes`](/linter/rules/no-duplicate-attributes/) (recommended)
+- [`noDuplicateArgumentNames`](/linter/rules/no-duplicate-argument-names/) (recommended)
+- [`noDuplicateInputFieldNames`](/linter/rules/no-duplicate-input-field-names/) (recommended)
+- [`noDuplicateVariableNames`](/linter/rules/no-duplicate-variable-names/) (recommended)
+- [`noDuplicateEnumValueNames`](/linter/rules/no-duplicate-enum-value-names/) (recommended)
+- [`useLoneAnonymousOperation`](/linter/rules/use-lone-anonymous-operation/) (recommended)
 
-{/* source: fixable-gritql-plugins.md — GritQL rewrites (=>) become applicable code actions,
-    safe/unsafe fix_kind for plugin authors;
-    plugin-file-scoping.md — `includes` option to scope plugins to glob patterns */}
+#### Suspicious
 
-## Promoted rules
+Promoted the following rules to the `suspicious` group:
 
-{/* source: promote-rules-v2-5.md — 73 promotions, 4 renames */}
+- [`noShadow`](/linter/rules/no-shadow/)
+- [`noUnnecessaryConditions`](/linter/rules/no-unnecessary-conditions/)
+- [`noParametersOnlyUsedInRecursion`](/linter/rules/no-parameters-only-used-in-recursion/)
+- [`noUnknownAttribute`](/linter/rules/no-unknown-attribute/)
+- [`useArraySortCompare`](/linter/rules/use-array-sort-compare/)
+- [`noForIn`](/linter/rules/no-for-in/)
+- [`noDuplicatedSpreadProps`](/linter/rules/no-duplicated-spread-props/)
+- [`noEqualsToNull`](/linter/rules/no-equals-to-null/)
+- [`noProto`](/linter/rules/no-proto/) (recommended)
+- [`noUndeclaredEnvVars`](/linter/rules/no-undeclared-env-vars/) (recommended, Turborepo domain)
+- [`noReturnAssign`](/linter/rules/no-return-assign/)
+- [`noDuplicateEnumValues`](/linter/rules/no-duplicate-enum-values/) (recommended)
+- [`noVueArrowFuncInWatch`](/linter/rules/no-vue-arrow-func-in-watch/) (recommended, Vue domain)
+- [`noNestedPromises`](/linter/rules/no-nested-promises/)
+- [`noLeakedRender`](/linter/rules/no-leaked-render/)
+- [`noDeprecatedMediaType`](/linter/rules/no-deprecated-media-type/) (recommended)
+- [`noDuplicateGraphqlOperationName`](/linter/rules/no-duplicate-graphql-operation-name/)
+- [`useRequiredScripts`](/linter/rules/use-required-scripts/)
 
-## Other notable changes
+#### Style
 
-{/* one-line bullets: concise reporter, pnpm catalogs,
-    sorted-* assist actions, organizeImports matchers, rule options,
-    .git/info/exclude, html.parser.vue, js-api span helper */}
+Promoted the following rules to the `style` group:
 
-## The first cross-file lint rules
+- [`useVueMultiWordComponentNames`](/linter/rules/use-vue-multi-word-component-names/) (recommended, Vue domain)
+- [`useVueDefineMacrosOrder`](/linter/rules/use-vue-define-macros-order/)
+- [`noIncrementDecrement`](/linter/rules/no-increment-decrement/)
+- [`noContinue`](/linter/rules/no-continue/)
+- [`useSpreadOverApply`](/linter/rules/use-spread-over-apply/)
+- [`noTernary`](/linter/rules/no-ternary/)
+- [`noMultilineString`](/linter/rules/no-multiline-string/)
+- [`noMultiAssign`](/linter/rules/no-multi-assign/)
+- [`noExcessiveClassesPerFile`](/linter/rules/no-excessive-classes-per-file/)
+- [`noExcessiveLinesPerFile`](/linter/rules/no-excessive-lines-per-file/)
+- [`noVueOptionsApi`](/linter/rules/no-vue-options-api/)
+- [`useErrorCause`](/linter/rules/use-error-cause/)
+- [`useConsistentEnumValueType`](/linter/rules/use-consistent-enum-value-type/)
+- [`useConsistentMethodSignatures`](/linter/rules/use-consistent-method-signatures/)
+- [`useGlobalThis`](/linter/rules/use-global-this/)
+- [`useDestructuring`](/linter/rules/use-destructuring/)
+- [`useVueHyphenatedAttributes`](/linter/rules/use-vue-hyphenated-attributes/) (recommended, Vue domain)
+- [`useVueConsistentVBindStyle`](/linter/rules/use-vue-consistent-v-bind-style/) (recommended, Vue domain)
+- [`useVueConsistentVOnStyle`](/linter/rules/use-vue-consistent-v-on-style/) (recommended, Vue domain)
+- [`noHexColors`](/linter/rules/no-hex-colors/)
+- [`useConsistentGraphqlDescriptions`](/linter/rules/use-consistent-graphql-descriptions/)
+- [`noRootType`](/linter/rules/no-root-type/)
+- [`useLoneExecutableDefinition`](/linter/rules/use-lone-executable-definition/)
+- [`useInputName`](/linter/rules/use-input-name/)
 
-{/* source: add-no-undeclared-styles.md (noUndeclaredClasses) +
-    add-no-unused-styles.md (noUnusedClasses) — module-graph powered */}
+#### Complexity
 
-## More Improvements
+Promoted the following rules to the `complexity` group:
+
+- [`useArrayFind`](/linter/rules/use-array-find/)
+- [`noRedundantDefaultExport`](/linter/rules/no-redundant-default-export/)
+- [`noUselessReturn`](/linter/rules/no-useless-return/)
+- [`noDivRegex`](/linter/rules/no-div-regex/)
+
+#### Performance
+
+Promoted the following rules to the `performance` group:
+
+- [`noSyncScripts`](/linter/rules/no-sync-scripts/)
+- [`noJsxPropsBind`](/linter/rules/no-jsx-props-bind/)
+- [`useVueVapor`](/linter/rules/use-vue-vapor/)
+
+#### Security
+
+Promoted the following rules to the `security` group:
+
+- [`noScriptUrl`](/linter/rules/no-script-url/) (recommended)
+
+#### A11y
+
+Promoted the following rules to the `a11y` group:
+
+- [`noAmbiguousAnchorText`](/linter/rules/no-ambiguous-anchor-text/) (recommended)
+
+
+## Plugin improvements
+
+This release ships two important enhancements for GritQL plugins inside Biome, thanks to contributor <Contributor handle="chocky335" />.
+
+### Apply plugins to specific paths
+
+You can now specify which paths a plugin should be applied to, using the `includes` setting. The option accepts globs and negate globs, so you can
+whilelist and denylist paths based on your needs:
+
+In the following example, the first plugin only runs on files inside
+`src/components/`. The second plugin runs on all files that have the extension `.ts` under `src/` folder, except for files that end with `.test.ts` in the `src/` folder:
+
+
+```json title="biome.json" ins="\"includes\""
+{
+    "plugins": [
+        {
+            "path": "./react-plugin.grit",
+            "includes": ["src/components/**"]
+        },
+        {
+            "path": "./ts-only-plugin.grit",
+            "includes": ["src/**/*.ts", "!src/**/*.test.ts"]
+        }
+    ]
+}
+```
+
+### Code fix for plugins
+
+Plugins can now declare a code fix, where appropriate. To register a code fix, you can use the `=>` symbol and specify the new code.
+
+The `register_diagnostic` functon now accepts a `fix_kind` option where you can decide the entity of the fix.
+
+By default, code fixes of plugins are marked as `"unsafe"`, and they are applied when you fun `lint` or `check` with `--write --unsafe`. You can explicitly use `"safe"`, and the code fix is applied when you use `--write` via CLI.
+
+The following examples how to change a `$call` of a `console.log` function, and the fix is "safe":
+
+```txt title="no-console-log.grit" ins="\"safe\"" ins={6,8}
+`console.log($msg)` as $call where {
+    register_diagnostic(
+        span = $call,
+        message = "Use console.info instead of console.log.",
+        severity = "warn",
+        fix_kind = "safe"
+    ),
+    $call => `console.info($msg)`
+}
+```
+
+## New `delimiterSpacing` formatter option
+
+We are very excited about this new option. The team felt this option was worth having it because it will help people with dyslexia.
+However, at the time of acceptance, the team didn't have the resources to implement it.
+
+Contributors <Contributor handle="sirreal" /> and <Contributor handle="luisherranz" /> are the real heroes here, they implemented the option for JavaScript, CSS, JSON, and GraphQL!
+
+When enabled, the formatter adds spaces to language-delimiters:
+
+```json title="biome.json" ins={3}
+{
+  "formatter": {
+    "delimiterSpacing": true
+  }
+}
+```
+
+```diff
+-function name(param) {
++function name( param )
+-  return [1, 3, 4]
++  return [ 1, 3, 4 ]
+}
+```
+
+The option behaves differently based on the language, so make sure to consult the [documentation](/reference/configuration#formatterdelimiterspacing) of each language.
+
+## Watch mode
+
+Since version v2.0, Biome has shipped with its own file watcher. Biome uses the file watcher to provide real-time diagnostics for [type-aware lint rule](/linter/domains#types) and [project lint rules](/linter/domains#project). When a file changes, types and module graph are updated.
+
+With v2.5, we now expose the watcher to the `lint`, `format` and `check` commands with the `--watch` option. When in watch mode, Biome listens to files changes that belong to the project, and emits diagnostics while typing. Watch mode works only in read mode, which means you can't use `--fix` or `--write`.
+
+You can use [`BIOME_WATCHER_KIND`](/reference/environment-variables/#biome_watcher_kind) and [`BIOME_WATCHER_POLLING`](/reference/environment-variables/#biome_watcher_polling) to change the behaviour of the wathcer.
+
+## Go-to definition
+
+The Biome Language server now supports the "go-to definition" feature.
+
+When the cursor of the mouse is hovering an entity (variable, CSS class, type, etc.), and the command <kbd>CTRL</kbd> + click is triggered, the editor jumps to where this entity is defined, if the language server can find it.
+
+Here's what Biome is able to resolve:
+- Variables and types used in JavaScript modules, defined in the same file or imported from another module.
+- JSX Components used in JavaScript modules, defined in the same file or imported from another module.
+- CSS classes used in JSX and HTML-ish files (Vue, Svelte and Astro), and defined in CSS files.
+- Components used in HTML-ish files and defined in other HTML-ish.
+- Variables used in HTML-ish files and defined in the same file or imported from another module (JavaScript or HTML-ish).
+
+## Linter preset option
+
+Introduce the option [`linter.rules.preset`](/reference/configuration#linterrulespreset), to provide better control over which rules should be
+enabled by default.
+
+Among the available presets, there's the `"all"` preset that allows enabling all rules, expect for the nursery rules.
+
+As a result, the option `recommended` has been deprecated. Run `biome migrate --write` to update the configuration:
+
+```json title="biome.json" del={4} ins={5} ins="\"preset\""
+{
+  "linter": {
+    "rules": {
+      "recommended": true
+      "preset": "recommended"
+    }
+  }
+}
+```
+
+## The `biome upgrade` command
+
+Added a `biome upgrade` command for [standalone installations](/guides/manual-installation). It upgrades Homebrew installs with `brew upgrade biome`, updates manually installed binaries from the latest GitHub release, and tells npm users to upgrade with their package manager instead.
+
+
+## New `concise` reporter
+
+The CLI option `--reporter` now accepts a new `concise`, which prints a shorter version of Biome diagnostics. If you use a coding agent, this is the perfect reporter because it will save you tokens.
+
+```txt showLineNumbers=false
+! index.ts:2:10: lint/correctness/noUnusedImports: Several of these imports are unused.
+! main.ts:9:7: lint/correctness/noUnusedVariables: This variable f is unused.
+× index.ts:8:5: lint/suspicious/noImplicitAnyLet: This variable implicitly has the any type.
+× main.ts:2:10: lint/suspicious/noRedeclare: Shouldn't redeclare 'z'. Consider to delete it or rename it.
+```
+
+## Other new features and notable changes
+
+This release also includes several smaller features that are worth mentioning:
+
+- Biome `lint` and `check` are now ~13% faster.
+- Biome can now format and lint `.svg` files.
+- The `organizeImports` assist action can now sort bare imports, match imports by syntactic kind with `kind: "bare"` and `kind: "!bare"`, and group style imports with the new `:STYLE:` matcher.
+- New sorting assist actions are available for `package.json` fields, HTML attributes, TypeScript and GraphQL enum members, GraphQL selection sets, and GraphQL type fields.
+- Biome can now resolve dependencies from default and named pnpm catalogs when `javascript.resolver.experimentalPnpmCatalogs` is enabled. This feature uses our internal YAML parser, which is soon to be stable. Thank you <Contributor handle="apple-yagi" />
+- When VCS ignore files are enabled, Biome now respects `.git/info/exclude` in the same way as `.gitignore`, including in linked worktrees. Than you <Contributor handle="jongwan56" />
+- The new `html.parser.vue` option enables Vue syntax parsing in regular `.html` files for projects that embed Vue syntax outside `.vue` files.
+- The JavaScript API now exposes `spanInBytesToSpanInCodeUnits`, which converts byte-based diagnostic spans into UTF-16 code unit spans for JavaScript strings.
+- Several rules received new options, including `noUnusedVariables.ignore`, `useIterableCallbackReturn.allowImplicit`, `useNumericSeparators` grouping options, `noUndeclaredDependencies.bundleDependencies`, and `noImplicitCoercions.allowDoubleNegation`.
+
+For a detailed list of all the new changes, consult the [changelog.](internals/changelog/version/2-5-0/)
 
 ## I like where this is going, how can I help?
 
+I want to remind you that Biome is a project led by volunteers who like programming, open-source, and embrace the Biome philosophy, so any help is welcome.
+
 ### Translations
+
+If you are familiar with Biome and would like to contribute to its outreach, you can assist us by translating the website into your native language. In this [dashboard](/i18n-dashboard/), you can check the supported languages and if they are up-to-date.
 
 ### Chat with us
 
+Join our [Discord server](/chat), and engage with the community. Chatting with the community and being part of the community is a form of contribution.
+
 ### Code contributions
 
+If you like the technical aspects of the project, and you want to make your way into the Rust language, or practice your knowledge around parsers, compilers, analysers, etc., Biome is the project for you!
+
+There are numerous aspects to explore; I assure you that you won't get bored. Here is a small list of the things you can start with:
+
+- Create new lint rules! We have so many rules that we haven't implemented yet (ESLint, ESLint plugins, Next.js, Solid, etc.). We have a very [extensive technical guide](https://github.com/biomejs/biome/blob/main/crates/biome_analyze/CONTRIBUTING.md).
+- [Help](https://github.com/biomejs/biome/blob/main/crates/biome_parser/CONTRIBUTING.md) [building](https://github.com/biomejs/biome/tree/main/crates/biome_yaml_parser) [Biome](https://github.com/biomejs/biome/tree/main/crates/biome_html_parser) [parsers](https://github.com/biomejs/biome/tree/main/crates/biome_markdown_parser)!
+One interesting fact about Biome parsers is that they are recoverable parsers [error resilient](/internals/architecture/#parser-and-cst) which emit a [CST](https://en.wikipedia.org/wiki/Parse_tree) instead of a classic AST.
+- Implement new capabilities in our [LSP (Language Server Protocol)](https://github.com/biomejs/biome/tree/main/crates/biome_lsp), or add new features in one of our editor extensions: [VS Code](https://github.com/biomejs/biome-vscode), [Zed](https://github.com/biomejs/biome-zed) and [JetBrains IntelliJ](https://github.com/biomejs/biome-intellij).
+
 ### Financial help
+
+If you believe in the future of the project, you can also help with a financial contribution, via [Open Collective](https://opencollective.com/biome) or [GitHub Sponsors](https://github.com/sponsors/biomejs).
+
+Additionally, the project provides an [enterprise support program ](/enterprise) where you as a company can employ one of the core contributors to work a specific aspect of the Biome toolchain.
