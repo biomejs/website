@@ -16,7 +16,7 @@ import Contributor from "@/components/Contributor.astro"
 
 ## 500 lint rules
 
-With this release, Biome has surpassed 500 rules! It took us a very long time, but we're thrilled of this milestone. The release also promotes over 70 rules spread among Vue framework, type-aware, and more.
+With this release, Biome has surpassed 500 rules! It took us a very long time, but we're thrilled about this milestone. The release also promotes over 70 rules spread among the Vue framework, type-aware rules, and more.
 
 However, I want to provide the spotlight to three particular rules.
 
@@ -24,15 +24,15 @@ However, I want to provide the spotlight to three particular rules.
 
 The rules `noUndeclaredClasses` and `noUnusedClasses` are two new nursery rules that use the powerful Biome module graph.
 
-The rule `noUnusedClasses` analyses all the CSS clases defined in your project, and emits a diagnostic if the class isn't used in any HTML-ish files or JSX files.
+The rule `noUnusedClasses` analyses all the CSS classes defined in your project, and emits a diagnostic if the class isn't used in any HTML-ish files or JSX files.
 
-The rule `noUndeclaredClasses` analyses the `class` and `className` attributes of all your HTML-ish files and JSX files, and emits a diagnostic if a class hasn't been defined in any of CSS files or `<style>` tags. It also detects the `:global()` pseudo-selector.
+The rule `noUndeclaredClasses` analyses the `class` and `className` attributes of all your HTML-ish files and JSX files, and emits a diagnostic if a class hasn't been defined in any of the CSS files or `<style>` tags. It also detects the `:global()` pseudo-selector.
 
 ### `noRestrictedDependencies`
 
 This rule is an homage to the [e18e initiative](https://e18e.dev/) and their [https://replacements.fyi/](https://replacements.fyi/) website, and their [`ban-dependencies` lint rule](https://github.com/e18e/eslint-plugin#module-replacements).
 
-This rule uses their data to detect packages that are deemed replaceable due to being deprecated, heavy, or because there's a native alternative.
+This rule uses their data to detect dependencies that are deemed replaceable due to being deprecated, heavy, or because there's a native alternative.
 
 
 ### Promoted rules
@@ -161,11 +161,9 @@ This release ships two important enhancements for GritQL plugins inside Biome, t
 
 ### Apply plugins to specific paths
 
-You can now specify which paths a plugin should be applied to, using the `includes` setting. The option accepts globs and negate globs, so you can
-whilelist and denylist paths based on your needs:
+You can now specify which paths a plugin should be applied to, using the `includes` setting. The option accepts globs and negative globs, so you can whitelist and denylist paths based on your needs:
 
-In the following example, the first plugin only runs on files inside
-`src/components/`. The second plugin runs on all files that have the extension `.ts` under `src/` folder, except for files that end with `.test.ts` in the `src/` folder:
+In the following example, the first plugin only runs on files inside `src/components/`. The second plugin runs on all files that have the extension `.ts` under the `src/` folder, except for files that end with `.test.ts`:
 
 
 ```json title="biome.json" ins="\"includes\""
@@ -187,11 +185,11 @@ In the following example, the first plugin only runs on files inside
 
 Plugins can now declare a code fix, where appropriate. To register a code fix, you can use the `=>` symbol and specify the new code.
 
-The `register_diagnostic` functon now accepts a `fix_kind` option where you can decide the entity of the fix.
+The `register_diagnostic` function now accepts a `fix_kind` option where you can decide the entity of the fix.
 
-By default, code fixes of plugins are marked as `"unsafe"`, and they are applied when you fun `lint` or `check` with `--write --unsafe`. You can explicitly use `"safe"`, and the code fix is applied when you use `--write` via CLI.
+By default, code fixes of plugins are marked as `"unsafe"`, and they are applied when you run `lint` or `check` with `--write --unsafe`. You can explicitly use `"safe"`, and the code fix is applied when you use `--write` via CLI.
 
-The following examples how to change a `$call` of a `console.log` function, and the fix is "safe":
+The following example shows how to change a `$call` of a `console.log` function with a "safe" fix:
 
 ```txt title="no-console-log.grit" ins="\"safe\"" ins={6,8}
 `console.log($msg)` as $call where {
@@ -207,10 +205,9 @@ The following examples how to change a `$call` of a `console.log` function, and 
 
 ## New `delimiterSpacing` formatter option
 
-We are very excited about this new option. The team felt this option was worth having it because it will help people with dyslexia.
-However, at the time of acceptance, the team didn't have the resources to implement it.
+We are very excited about this new option. The team felt this option was worth having because it will help people with dyslexia. However, at the time of acceptance, the team didn't have the resources to implement it.
 
-Contributors <Contributor handle="sirreal" /> and <Contributor handle="luisherranz" /> are the real heroes here, they implemented the option for JavaScript, CSS, JSON, and GraphQL!
+Contributors <Contributor handle="sirreal" /> and <Contributor handle="luisherranz" /> are the real heroes here; they implemented the option for JavaScript, CSS, JSON, and GraphQL!
 
 When enabled, the formatter adds spaces to language-delimiters:
 
@@ -234,11 +231,11 @@ The option behaves differently based on the language, so make sure to consult th
 
 ## Watch mode
 
-Since version v2.0, Biome has shipped with its own file watcher. Biome uses the file watcher to provide real-time diagnostics for [type-aware lint rule](/linter/domains#types) and [project lint rules](/linter/domains#project). When a file changes, types and module graph are updated.
+Since version v2.0, Biome has shipped with its own file watcher. Biome uses the file watcher to provide real-time diagnostics for [type-aware lint rules](/linter/domains#types) and [project lint rules](/linter/domains#project). When a file changes, types and the module graph are updated.
 
-With v2.5, we now expose the watcher to the `lint`, `format` and `check` commands with the `--watch` option. When in watch mode, Biome listens to files changes that belong to the project, and emits diagnostics while typing. Watch mode works only in read mode, which means you can't use `--fix` or `--write`.
+With v2.5, we now expose the watcher to the `lint`, `format`, and `check` commands with the `--watch` option. When in watch mode, Biome listens to file changes that belong to the project and emits diagnostics while typing. Watch mode works only in read mode, which means you can't use `--fix` or `--write`.
 
-You can use [`BIOME_WATCHER_KIND`](/reference/environment-variables/#biome_watcher_kind) and [`BIOME_WATCHER_POLLING`](/reference/environment-variables/#biome_watcher_polling) to change the behaviour of the wathcer.
+You can use [`BIOME_WATCHER_KIND`](/reference/environment-variables/#biome_watcher_kind) and [`BIOME_WATCHER_POLLING`](/reference/environment-variables/#biome_watcher_polling) to change the behavior of the watcher.
 
 ## Go-to definition
 
@@ -246,7 +243,7 @@ The Biome Language server now supports the "go-to definition" feature.
 
 When the cursor of the mouse is hovering an entity (variable, CSS class, type, etc.), and the command <kbd>CTRL</kbd> + click is triggered, the editor jumps to where this entity is defined, if the language server can find it.
 
-Here's what Biome is able to resolve:
+Here's what Biome can resolve:
 - Variables and types used in JavaScript modules, defined in the same file or imported from another module.
 - JSX Components used in JavaScript modules, defined in the same file or imported from another module.
 - CSS classes used in JSX and HTML-ish files (Vue, Svelte and Astro), and defined in CSS files.
@@ -255,10 +252,9 @@ Here's what Biome is able to resolve:
 
 ## Linter preset option
 
-Introduce the option [`linter.rules.preset`](/reference/configuration#linterrulespreset), to provide better control over which rules should be
-enabled by default.
+We added the [`linter.rules.preset`](/reference/configuration#linterrulespreset) option, giving you better control over which rules should be enabled by default.
 
-Among the available presets, there's the `"all"` preset that allows enabling all rules, expect for the nursery rules.
+Among the available presets, there's the `"all"` preset that allows enabling all rules, except for the nursery rules.
 
 As a result, the option `recommended` has been deprecated. Run `biome migrate --write` to update the configuration:
 
@@ -298,7 +294,7 @@ This release also includes several smaller features that are worth mentioning:
 - The `organizeImports` assist action can now sort bare imports, match imports by syntactic kind with `kind: "bare"` and `kind: "!bare"`, and group style imports with the new `:STYLE:` matcher.
 - New sorting assist actions are available for `package.json` fields, HTML attributes, TypeScript and GraphQL enum members, GraphQL selection sets, and GraphQL type fields.
 - Biome can now resolve dependencies from default and named pnpm catalogs when `javascript.resolver.experimentalPnpmCatalogs` is enabled. This feature uses our internal YAML parser, which is soon to be stable. Thank you <Contributor handle="apple-yagi" />
-- When VCS ignore files are enabled, Biome now respects `.git/info/exclude` in the same way as `.gitignore`, including in linked worktrees. Than you <Contributor handle="jongwan56" />
+- When VCS ignore files are enabled, Biome now respects `.git/info/exclude` in the same way as `.gitignore`, including in linked worktrees. Thank you <Contributor handle="jongwan56" />
 - The new `html.parser.vue` option enables Vue syntax parsing in regular `.html` files for projects that embed Vue syntax outside `.vue` files.
 - The JavaScript API now exposes `spanInBytesToSpanInCodeUnits`, which converts byte-based diagnostic spans into UTF-16 code unit spans for JavaScript strings.
 - Several rules received new options, including `noUnusedVariables.ignore`, `useIterableCallbackReturn.allowImplicit`, `useNumericSeparators` grouping options, `noUndeclaredDependencies.bundleDependencies`, and `noImplicitCoercions.allowDoubleNegation`.
@@ -311,7 +307,7 @@ I want to remind you that Biome is a project led by volunteers who like programm
 
 ### Translations
 
-If you are familiar with Biome and would like to contribute to its outreach, you can assist us by translating the website into your native language. In this [dashboard](/i18n-dashboard/), you can check the supported languages and if they are up-to-date.
+If you are familiar with Biome and would like to contribute to its outreach, you can assist us by translating the website into your native language. In this [dashboard](/i18n-dashboard/), you can check the supported languages and whether they are up-to-date.
 
 ### Chat with us
 
@@ -325,11 +321,11 @@ There are numerous aspects to explore; I assure you that you won't get bored. He
 
 - Create new lint rules! We have so many rules that we haven't implemented yet (ESLint, ESLint plugins, Next.js, Solid, etc.). We have a very [extensive technical guide](https://github.com/biomejs/biome/blob/main/crates/biome_analyze/CONTRIBUTING.md).
 - [Help](https://github.com/biomejs/biome/blob/main/crates/biome_parser/CONTRIBUTING.md) [building](https://github.com/biomejs/biome/tree/main/crates/biome_yaml_parser) [Biome](https://github.com/biomejs/biome/tree/main/crates/biome_html_parser) [parsers](https://github.com/biomejs/biome/tree/main/crates/biome_markdown_parser)!
-One interesting fact about Biome parsers is that they are recoverable parsers [error resilient](/internals/architecture/#parser-and-cst) which emit a [CST](https://en.wikipedia.org/wiki/Parse_tree) instead of a classic AST.
-- Implement new capabilities in our [LSP (Language Server Protocol)](https://github.com/biomejs/biome/tree/main/crates/biome_lsp), or add new features in one of our editor extensions: [VS Code](https://github.com/biomejs/biome-vscode), [Zed](https://github.com/biomejs/biome-zed) and [JetBrains IntelliJ](https://github.com/biomejs/biome-intellij).
+One interesting fact about Biome parsers is that they are recoverable parsers ([error-resilient](/internals/architecture/#parser-and-cst)), which emit a [CST](https://en.wikipedia.org/wiki/Parse_tree) instead of a classic AST.
+- Implement new capabilities in our [LSP (Language Server Protocol)](https://github.com/biomejs/biome/tree/main/crates/biome_lsp), or add new features in one of our editor extensions: [VS Code](https://github.com/biomejs/biome-vscode), [Zed](https://github.com/biomejs/biome-zed), and [JetBrains IntelliJ](https://github.com/biomejs/biome-intellij).
 
 ### Financial help
 
 If you believe in the future of the project, you can also help with a financial contribution, via [Open Collective](https://opencollective.com/biome) or [GitHub Sponsors](https://github.com/sponsors/biomejs).
 
-Additionally, the project provides an [enterprise support program ](/enterprise) where you as a company can employ one of the core contributors to work a specific aspect of the Biome toolchain.
+Additionally, the project provides an [enterprise support program](/enterprise) where you as a company can employ one of the core contributors to work on a specific aspect of the Biome toolchain.
