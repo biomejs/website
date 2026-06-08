@@ -10,12 +10,10 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="HTML" icon="seti:html">
-:::caution
-This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
-:::
 ## Summary
 - Rule available since: `v2.3.11`
-- Diagnostic Category: [`lint/nursery/useVueConsistentVOnStyle`](/reference/diagnostics#diagnostic-category)
+- Diagnostic Category: [`lint/style/useVueConsistentVOnStyle`](/reference/diagnostics#diagnostic-category)
+- This rule is **recommended**, meaning it is enabled by default.
 - This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
 - The default severity of this rule is [**information**](/reference/diagnostics#information).
 - This rule belongs to the following domains:
@@ -28,7 +26,7 @@ This rule is part of the [nursery](/linter/#nursery) group. This means that it i
 {
 	"linter": {
 		"rules": {
-			"nursery": {
+			"style": {
 				"useVueConsistentVOnStyle": "error"
 			}
 		}
@@ -65,7 +63,7 @@ Configures the preferred directive style. Accepts `"shorthand"` or `"longhand"`.
 {
 	"linter": {
 		"rules": {
-			"nursery": {
+			"style": {
 				"useVueConsistentVOnStyle": {
 					"options": {
 						"style": "longhand"
@@ -97,8 +95,8 @@ Configures the preferred directive style. Accepts `"shorthand"` or `"longhand"`.
 - [Disable a rule](/linter/#disable-a-rule)
 - [Configure the code fix](/linter#configure-the-code-fix)
 - [Rule options](/linter/#rule-options)
-- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/use_vue_consistent_v_on_style.rs)
-- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/useVueConsistentVOnStyle)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/style/use_vue_consistent_v_on_style.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/style/useVueConsistentVOnStyle)
 
 </TabItem>
 </Tabs>

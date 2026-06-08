@@ -10,14 +10,12 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="HTML" icon="seti:html">
-:::caution
-This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
-:::
 ## Summary
 - Rule available since: `v2.3.11`
-- Diagnostic Category: [`lint/nursery/useVueValidVPre`](/reference/diagnostics#diagnostic-category)
+- Diagnostic Category: [`lint/correctness/useVueValidVPre`](/reference/diagnostics#diagnostic-category)
+- This rule is **recommended**, meaning it is enabled by default.
 - This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
-- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
 - This rule belongs to the following domains:
   - [`vue`](/linter/domains#vue)
 - Sources: 
@@ -28,7 +26,7 @@ This rule is part of the [nursery](/linter/#nursery) group. This means that it i
 {
 	"linter": {
 		"rules": {
-			"nursery": {
+			"correctness": {
 				"useVueValidVPre": "error"
 			}
 		}
@@ -80,8 +78,8 @@ The directive has a value so it is invalid.
 - [Disable a rule](/linter/#disable-a-rule)
 - [Configure the code fix](/linter#configure-the-code-fix)
 - [Rule options](/linter/#rule-options)
-- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/use_vue_valid_v_pre.rs)
-- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/useVueValidVPre)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/correctness/use_vue_valid_v_pre.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/correctness/useVueValidVPre)
 
 </TabItem>
 </Tabs>
