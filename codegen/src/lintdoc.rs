@@ -1894,42 +1894,50 @@ fn print_diagnostics_or_actions(
                 };
 
                 let options = AnalyzerOptions::default().with_file_path(test.file_path());
-                biome_html_analyze::analyze(&root, filter, &options, file_source, biome_html_analyze::HtmlAnalyzerServices::default(), |signal| {
-                    match to_print_kind {
-                        ToPrintKind::Diagnostics => {
-                            if let Some(mut diag) = signal.diagnostic() {
-                                for action in signal.actions(ActionFilter::all()) {
-                                    if !action.is_suppression() {
-                                        diag = diag.add_code_suggestion(action.into());
+                biome_html_analyze::analyze(
+                    &root,
+                    filter,
+                    &options,
+                    file_source,
+                    biome_html_analyze::HtmlAnalyzerServices::default(),
+                    |signal| {
+                        match to_print_kind {
+                            ToPrintKind::Diagnostics => {
+                                if let Some(mut diag) = signal.diagnostic() {
+                                    for action in signal.actions(ActionFilter::all()) {
+                                        if !action.is_suppression() {
+                                            diag = diag.add_code_suggestion(action.into());
+                                        }
                                     }
-                                }
 
-                                let error = diag
-                                    .with_file_path(test.file_path())
-                                    .with_file_source_code(code);
-                                let res = write_diagnostic(buffer, error);
+                                    let error = diag
+                                        .with_file_path(test.file_path())
+                                        .with_file_source_code(code);
+                                    let res = write_diagnostic(buffer, error);
 
-                                // Abort the analysis on error
-                                if let Err(err) = res {
-                                    return ControlFlow::Break(err);
-                                }
-                            }
-                        }
-                        ToPrintKind::Actions => {
-                            for action in signal.actions(ActionFilter::all()) {
-                                if !action.is_suppression() {
-                                    let res = write_action(buffer, code, &test.file_path(), action);
                                     // Abort the analysis on error
                                     if let Err(err) = res {
                                         return ControlFlow::Break(err);
                                     }
                                 }
                             }
+                            ToPrintKind::Actions => {
+                                for action in signal.actions(ActionFilter::all()) {
+                                    if !action.is_suppression() {
+                                        let res =
+                                            write_action(buffer, code, &test.file_path(), action);
+                                        // Abort the analysis on error
+                                        if let Err(err) = res {
+                                            return ControlFlow::Break(err);
+                                        }
+                                    }
+                                }
+                            }
                         }
-                    }
 
-                    ControlFlow::Continue(())
-                });
+                        ControlFlow::Continue(())
+                    },
+                );
             }
         }
         DocumentFileSource::Grit(_) => todo!(),
