@@ -136,13 +136,13 @@ fn resolve_ts_type(
 ) -> String {
     if let Some(ref_str) = schema.get("$ref").and_then(|v| v.as_str()) {
         let name = ref_str.strip_prefix("#/$defs/").unwrap_or(ref_str);
-        if let Some(defs) = defs {
-            if let Some(def) = defs.get(name) {
-                if is_type_alias_to_primitive(def) {
-                    return resolve_ts_type(def, Some(defs), strip_null);
-                }
-            }
+        if let Some(defs) = defs
+            && let Some(def) = defs.get(name)
+            && is_type_alias_to_primitive(def)
+        {
+            return resolve_ts_type(def, Some(defs), strip_null);
         }
+
         return name.to_string();
     }
 
