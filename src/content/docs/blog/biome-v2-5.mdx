@@ -16,7 +16,7 @@ import Contributor from "@/components/Contributor.astro"
 
 ## 500 lint rules
 
-With this release, Biome has surpassed 500 rules! It took us a very long time, but we're thrilled about this milestone. The release also promotes over 70 rules spread among the Vue framework, type-aware rules, and more.
+With this release, Biome has surpassed **500 rules**! It took us a very long time, but we're thrilled about this milestone. The release also promotes over 70 rules spread among the Vue framework, type-aware rules, and more.
 
 However, I want to provide the spotlight to three particular rules.
 
@@ -349,7 +349,7 @@ If you like the technical aspects of the project, and you want to make your way 
 There are numerous aspects to explore; I assure you that you won't get bored. Here is a small list of the things you can start with:
 
 - Create new lint rules! We have so many rules that we haven't implemented yet (ESLint, ESLint plugins, Next.js, Solid, etc.). We have a very [extensive technical guide](https://github.com/biomejs/biome/blob/main/crates/biome_analyze/CONTRIBUTING.md).
-- [Help](https://github.com/biomejs/biome/blob/main/crates/biome_parser/CONTRIBUTING.md) [building](https://github.com/biomejs/biome/tree/main/crates/biome_yaml_parser) [Biome](https://github.com/biomejs/biome/tree/main/crates/biome_html_parser) [parsers](https://github.com/biomejs/biome/tree/main/crates/biome_markdown_parser)!
+- Help us build [Biome's parsers](https://github.com/biomejs/biome/blob/main/crates/biome_parser/CONTRIBUTING.md) for languages such as [YAML](https://github.com/biomejs/biome/tree/main/crates/biome_yaml_parser), [HTML](https://github.com/biomejs/biome/tree/main/crates/biome_html_parser), and [Markdown](https://github.com/biomejs/biome/tree/main/crates/biome_markdown_parser).
 One interesting fact about Biome parsers is that they are recoverable parsers ([error-resilient](/internals/architecture/#parser-and-cst)), which emit a [CST](https://en.wikipedia.org/wiki/Parse_tree) instead of a classic AST.
 - Implement new capabilities in our [LSP (Language Server Protocol)](https://github.com/biomejs/biome/tree/main/crates/biome_lsp), or add new features in one of our editor extensions: [VS Code](https://github.com/biomejs/biome-vscode), [Zed](https://github.com/biomejs/biome-zed), and [JetBrains IntelliJ](https://github.com/biomejs/biome-intellij).
 
