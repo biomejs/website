@@ -10,15 +10,13 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-:::caution
-This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
-:::
 :::note
 This rule belongs to the types domain. This means that its activation will activate the Biome Scanner to scan the files of your project, and enable the type inference engine. Read more about it in the [documentation page](/linter/domains#types)
 :::
 ## Summary
 - Rule available since: `v2.1.4`
-- Diagnostic Category: [`lint/nursery/noUnnecessaryConditions`](/reference/diagnostics#diagnostic-category)
+- Diagnostic Category: [`lint/suspicious/noUnnecessaryConditions`](/reference/diagnostics#diagnostic-category)
+- This rule isn't recommended, so you need to enable it.
 - This rule doesn't have a fix.
 - The default severity of this rule is [**warning**](/reference/diagnostics#warning).
 - This rule belongs to the following domains:
@@ -31,7 +29,7 @@ This rule belongs to the types domain. This means that its activation will activ
 {
 	"linter": {
 		"rules": {
-			"nursery": {
+			"suspicious": {
 				"noUnnecessaryConditions": "error"
 			}
 		}
@@ -154,8 +152,8 @@ if (greeting) {}
 - [Disable a rule](/linter/#disable-a-rule)
 - [Configure the code fix](/linter#configure-the-code-fix)
 - [Rule options](/linter/#rule-options)
-- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_unnecessary_conditions.rs)
-- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noUnnecessaryConditions)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_unnecessary_conditions.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noUnnecessaryConditions)
 
 </TabItem>
 </Tabs>

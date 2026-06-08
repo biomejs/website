@@ -21,6 +21,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | Rule name | Description | Properties |
 | --- | --- | --- |
 | [noAccessKey](/linter/rules/no-access-key) | Enforce that the `accesskey` attribute is not used on any HTML element. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [noAmbiguousAnchorText](/linter/rules/no-ambiguous-anchor-text) | Disallow ambiguous anchor descriptions. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
 | [noAriaHiddenOnFocusable](/linter/rules/no-aria-hidden-on-focusable) | Enforce that aria-hidden="true" is not set on focusable elements. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span><span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
 | [noAriaUnsupportedElements](/linter/rules/no-aria-unsupported-elements) | Enforce that elements that do not support ARIA roles, states, and properties do not have those attributes. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span><span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
 | [noAutofocus](/linter/rules/no-autofocus) | Enforce that the `autofocus` attribute is not used on elements. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
@@ -57,41 +58,61 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [useValidAutocomplete](/linter/rules/use-valid-autocomplete) | Use valid values for the `autocomplete` attribute on `input` elements. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
 | [useValidLang](/linter/rules/use-valid-lang) | Ensure that the attribute passed to the `lang` attribute is a correct ISO language and/or country. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
 
+## `correctness`
+
+| Rule name | Description | Properties |
+| --- | --- | --- |
+| [noDuplicateAttributes](/linter/rules/no-duplicate-attributes) | Disallow duplication of attributes. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [noVueVIfWithVFor](/linter/rules/no-vue-v-if-with-v-for) | Disallow using `v-if` and `v-for` directives on the same element. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [useVueVForKey](/linter/rules/use-vue-v-for-key) | Enforce that elements using `v-for` also specify a unique `key`. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [useVueValidTemplateRoot](/linter/rules/use-vue-valid-template-root) | Enforce valid Vue `<template>` root usage. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [useVueValidVBind](/linter/rules/use-vue-valid-v-bind) | Forbids `v-bind` directives with missing values or invalid modifiers. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [useVueValidVCloak](/linter/rules/use-vue-valid-v-cloak) | Enforce valid `v-cloak` Vue directives. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [useVueValidVElse](/linter/rules/use-vue-valid-v-else) | Enforce valid usage of v-else. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [useVueValidVElseIf](/linter/rules/use-vue-valid-v-else-if) | Enforce valid `v-else-if` directives. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [useVueValidVHtml](/linter/rules/use-vue-valid-v-html) | Enforce valid `v-html` directives. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [useVueValidVIf](/linter/rules/use-vue-valid-v-if) | Enforces valid `v-if` usage for Vue templates. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [useVueValidVOn](/linter/rules/use-vue-valid-v-on) | Enforce valid `v-on` directives with proper arguments, modifiers, and handlers. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [useVueValidVOnce](/linter/rules/use-vue-valid-v-once) | Enforce valid `v-once` Vue directives. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [useVueValidVPre](/linter/rules/use-vue-valid-v-pre) | Enforce valid `v-pre` Vue directives. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [useVueValidVText](/linter/rules/use-vue-valid-v-text) | Enforce valid `v-text` Vue directives. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+
 ## `nursery`
 
 | Rule name | Description | Properties |
 | --- | --- | --- |
-| [noAmbiguousAnchorText](/linter/rules/no-ambiguous-anchor-text) | Disallow ambiguous anchor descriptions. |  |
-| [noDuplicateAttributes](/linter/rules/no-duplicate-attributes) | Disallow duplication of attributes. |  |
-| [noExcessiveLinesPerFile](/linter/rules/no-excessive-lines-per-file) | Restrict the number of lines in a file. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
 | [noInlineStyles](/linter/rules/no-inline-styles) | Disallow the use of inline styles. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
-| [noScriptUrl](/linter/rules/no-script-url) | Disallow `javascript:` URLs in HTML. |  |
-| [noSyncScripts](/linter/rules/no-sync-scripts) | Prevent the usage of synchronous scripts. |  |
 | [noUndeclaredClasses](/linter/rules/no-undeclared-classes) | Reports CSS class names in HTML `class` attributes that are not defined | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
-| [noVueVIfWithVFor](/linter/rules/no-vue-v-if-with-v-for) | Disallow using `v-if` and `v-for` directives on the same element. |  |
 | [noVueVOnNumberValues](/linter/rules/no-vue-v-on-number-values) | Disallow deprecated number modifiers on Vue `v-on` directives. |  |
 | [useIframeSandbox](/linter/rules/use-iframe-sandbox) | Enforce the 'sandbox' attribute for 'iframe' elements. |  |
 | [useScopedStyles](/linter/rules/use-scoped-styles) | Enforce that `<style>` blocks in Vue SFCs have the `scoped` attribute and that `<style>` blocks in Astro components do not have the `is:global` directive. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useSvelteRequireEachKey](/linter/rules/use-svelte-require-each-key) | Require keyed `{#each}` blocks in Svelte templates. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
-| [useVueConsistentVBindStyle](/linter/rules/use-vue-consistent-v-bind-style) | Enforce a consistent style for `v-bind` in Vue templates. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
-| [useVueConsistentVOnStyle](/linter/rules/use-vue-consistent-v-on-style) | Enforce a consistent style for `v-on` in Vue templates. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
-| [useVueHyphenatedAttributes](/linter/rules/use-vue-hyphenated-attributes) | Enforce hyphenated (kebab-case) attribute names in Vue templates. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
-| [useVueVForKey](/linter/rules/use-vue-v-for-key) | Enforce that elements using `v-for` also specify a unique `key`. |  |
-| [useVueValidTemplateRoot](/linter/rules/use-vue-valid-template-root) | Enforce valid Vue `<template>` root usage. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
-| [useVueValidVBind](/linter/rules/use-vue-valid-v-bind) | Forbids `v-bind` directives with missing values or invalid modifiers. |  |
-| [useVueValidVCloak](/linter/rules/use-vue-valid-v-cloak) | Enforce valid `v-cloak` Vue directives. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
-| [useVueValidVElse](/linter/rules/use-vue-valid-v-else) | Enforce valid usage of v-else. |  |
-| [useVueValidVElseIf](/linter/rules/use-vue-valid-v-else-if) | Enforce valid `v-else-if` directives. |  |
 | [useVueValidVFor](/linter/rules/use-vue-valid-v-for) | Enforces valid `v-for` directives in Vue templates. |  |
-| [useVueValidVHtml](/linter/rules/use-vue-valid-v-html) | Enforce valid `v-html` directives. |  |
-| [useVueValidVIf](/linter/rules/use-vue-valid-v-if) | Enforces valid `v-if` usage for Vue templates. |  |
-| [useVueValidVOn](/linter/rules/use-vue-valid-v-on) | Enforce valid `v-on` directives with proper arguments, modifiers, and handlers. |  |
-| [useVueValidVOnce](/linter/rules/use-vue-valid-v-once) | Enforce valid `v-once` Vue directives. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
-| [useVueValidVPre](/linter/rules/use-vue-valid-v-pre) | Enforce valid `v-pre` Vue directives. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
-| [useVueValidVText](/linter/rules/use-vue-valid-v-text) | Enforce valid `v-text` Vue directives. |  |
+
+## `performance`
+
+| Rule name | Description | Properties |
+| --- | --- | --- |
+| [noSyncScripts](/linter/rules/no-sync-scripts) | Prevent the usage of synchronous scripts. |  |
 | [useVueVapor](/linter/rules/use-vue-vapor) | Enforce opting in to Vue Vapor mode in `<script setup>` blocks. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+
+## `security`
+
+| Rule name | Description | Properties |
+| --- | --- | --- |
+| [noScriptUrl](/linter/rules/no-script-url) | Disallow `javascript:` URLs in HTML. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+
+## `style`
+
+| Rule name | Description | Properties |
+| --- | --- | --- |
+| [noExcessiveLinesPerFile](/linter/rules/no-excessive-lines-per-file) | Restrict the number of lines in a file. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
+| [useVueConsistentVBindStyle](/linter/rules/use-vue-consistent-v-bind-style) | Enforce a consistent style for `v-bind` in Vue templates. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [useVueConsistentVOnStyle](/linter/rules/use-vue-consistent-v-on-style) | Enforce a consistent style for `v-on` in Vue templates. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [useVueHyphenatedAttributes](/linter/rules/use-vue-hyphenated-attributes) | Enforce hyphenated (kebab-case) attribute names in Vue templates. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 ## Recommended rules 
 - [noAccessKey](/linter/rules/no-access-key) (Severity: [error](/reference/diagnostics#error))
+- [noAmbiguousAnchorText](/linter/rules/no-ambiguous-anchor-text) (Severity: [error](/reference/diagnostics#error))
 - [noAriaHiddenOnFocusable](/linter/rules/no-aria-hidden-on-focusable) (Severity: [error](/reference/diagnostics#error))
 - [noAriaUnsupportedElements](/linter/rules/no-aria-unsupported-elements) (Severity: [error](/reference/diagnostics#error))
 - [noAutofocus](/linter/rules/no-autofocus) (Severity: [error](/reference/diagnostics#error))
@@ -126,5 +147,23 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 - [useValidAriaValues](/linter/rules/use-valid-aria-values) (Severity: [error](/reference/diagnostics#error))
 - [useValidAutocomplete](/linter/rules/use-valid-autocomplete) (Severity: [error](/reference/diagnostics#error))
 - [useValidLang](/linter/rules/use-valid-lang) (Severity: [error](/reference/diagnostics#error))
+- [noDuplicateAttributes](/linter/rules/no-duplicate-attributes) (Severity: [error](/reference/diagnostics#error))
+- [noVueVIfWithVFor](/linter/rules/no-vue-v-if-with-v-for) (Severity: [error](/reference/diagnostics#error))
+- [useVueVForKey](/linter/rules/use-vue-v-for-key) (Severity: [error](/reference/diagnostics#error))
+- [useVueValidTemplateRoot](/linter/rules/use-vue-valid-template-root) (Severity: [error](/reference/diagnostics#error))
+- [useVueValidVBind](/linter/rules/use-vue-valid-v-bind) (Severity: [error](/reference/diagnostics#error))
+- [useVueValidVCloak](/linter/rules/use-vue-valid-v-cloak) (Severity: [error](/reference/diagnostics#error))
+- [useVueValidVElse](/linter/rules/use-vue-valid-v-else) (Severity: [error](/reference/diagnostics#error))
+- [useVueValidVElseIf](/linter/rules/use-vue-valid-v-else-if) (Severity: [error](/reference/diagnostics#error))
+- [useVueValidVHtml](/linter/rules/use-vue-valid-v-html) (Severity: [error](/reference/diagnostics#error))
+- [useVueValidVIf](/linter/rules/use-vue-valid-v-if) (Severity: [error](/reference/diagnostics#error))
+- [useVueValidVOn](/linter/rules/use-vue-valid-v-on) (Severity: [error](/reference/diagnostics#error))
+- [useVueValidVOnce](/linter/rules/use-vue-valid-v-once) (Severity: [error](/reference/diagnostics#error))
+- [useVueValidVPre](/linter/rules/use-vue-valid-v-pre) (Severity: [error](/reference/diagnostics#error))
+- [useVueValidVText](/linter/rules/use-vue-valid-v-text) (Severity: [error](/reference/diagnostics#error))
+- [noScriptUrl](/linter/rules/no-script-url) (Severity: [error](/reference/diagnostics#error))
+- [useVueConsistentVBindStyle](/linter/rules/use-vue-consistent-v-bind-style) (Severity: [information](/reference/diagnostics#information))
+- [useVueConsistentVOnStyle](/linter/rules/use-vue-consistent-v-on-style) (Severity: [information](/reference/diagnostics#information))
+- [useVueHyphenatedAttributes](/linter/rules/use-vue-hyphenated-attributes) (Severity: [information](/reference/diagnostics#information))
 
 Missing a rule? Help us by [contributing](https://github.com/biomejs/biome/blob/main/CONTRIBUTING.md) to the [analyzer](https://github.com/biomejs/biome/blob/main/crates/biome_analyze/CONTRIBUTING.md) or create a rule suggestion [here](https://github.com/biomejs/biome/discussions/categories/rule-suggestion).

@@ -10,14 +10,12 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="HTML" icon="seti:html">
-:::caution
-This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
-:::
 ## Summary
 - Rule available since: `v2.3.11`
-- Diagnostic Category: [`lint/nursery/useVueVapor`](/reference/diagnostics#diagnostic-category)
+- Diagnostic Category: [`lint/performance/useVueVapor`](/reference/diagnostics#diagnostic-category)
+- This rule isn't recommended, so you need to enable it.
 - This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
-- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
 - This rule belongs to the following domains:
   - [`vue`](/linter/domains#vue)
 ## How to configure
@@ -25,7 +23,7 @@ This rule is part of the [nursery](/linter/#nursery) group. This means that it i
 {
 	"linter": {
 		"rules": {
-			"nursery": {
+			"performance": {
 				"useVueVapor": "error"
 			}
 		}
@@ -70,8 +68,8 @@ This rule reports `<script setup>` opening tags that are missing the `vapor` att
 - [Disable a rule](/linter/#disable-a-rule)
 - [Configure the code fix](/linter#configure-the-code-fix)
 - [Rule options](/linter/#rule-options)
-- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/use_vue_vapor.rs)
-- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/useVueVapor)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/performance/use_vue_vapor.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/performance/useVueVapor)
 
 </TabItem>
 </Tabs>

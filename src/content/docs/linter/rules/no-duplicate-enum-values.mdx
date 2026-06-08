@@ -10,14 +10,12 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-:::caution
-This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
-:::
 ## Summary
 - Rule available since: `v2.3.12`
-- Diagnostic Category: [`lint/nursery/noDuplicateEnumValues`](/reference/diagnostics#diagnostic-category)
+- Diagnostic Category: [`lint/suspicious/noDuplicateEnumValues`](/reference/diagnostics#diagnostic-category)
+- This rule is **recommended**, meaning it is enabled by default.
 - This rule doesn't have a fix.
-- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
 - Sources: 
   - Same as [`@typescript-eslint/no-duplicate-enum-values`](https://typescript-eslint.io/rules/no-duplicate-enum-values)
 
@@ -26,7 +24,7 @@ This rule is part of the [nursery](/linter/#nursery) group. This means that it i
 {
 	"linter": {
 		"rules": {
-			"nursery": {
+			"suspicious": {
 				"noDuplicateEnumValues": "error"
 			}
 		}
@@ -51,7 +49,7 @@ enum E {
 }
 ```
 
-<pre class="language-text"><code class="language-text">code-block.ts:3:3 <a href="https://biomejs.dev/linter/rules/no-duplicate-enum-values">lint/nursery/noDuplicateEnumValues</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Duplicate enum member value.</span><br />  <br />    <strong>1 │ </strong>enum E &#123;<br />    <strong>2 │ </strong>  A = 0,<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>  B = 0,<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>&#125;<br />    <strong>5 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Expected members to have unique values. Duplicate values can lead to bugs that are hard to track down.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.ts:3:3 <a href="https://biomejs.dev/linter/rules/no-duplicate-enum-values">lint/suspicious/noDuplicateEnumValues</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Duplicate enum member value.</span><br />  <br />    <strong>1 │ </strong>enum E &#123;<br />    <strong>2 │ </strong>  A = 0,<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>  B = 0,<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>&#125;<br />    <strong>5 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Expected members to have unique values. Duplicate values can lead to bugs that are hard to track down.</span><br />  <br /></code></pre>
 
 ```ts
 enum E {
@@ -61,7 +59,7 @@ enum E {
 }
 ```
 
-<pre class="language-text"><code class="language-text">code-block.ts:3:3 <a href="https://biomejs.dev/linter/rules/no-duplicate-enum-values">lint/nursery/noDuplicateEnumValues</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Duplicate enum member value.</span><br />  <br />    <strong>1 │ </strong>enum E &#123;<br />    <strong>2 │ </strong>  A = &quot;A&quot;,<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>  B = 'A',<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>  C = &#96;A&#96;,<br />    <strong>5 │ </strong>&#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Another duplicate enum member value.</span><br />  <br />    <strong>2 │ </strong>  A = &quot;A&quot;,<br />    <strong>3 │ </strong>  B = 'A',<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>  C = &#96;A&#96;,<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>5 │ </strong>&#125;<br />    <strong>6 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Expected members to have unique values. Duplicate values can lead to bugs that are hard to track down.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.ts:3:3 <a href="https://biomejs.dev/linter/rules/no-duplicate-enum-values">lint/suspicious/noDuplicateEnumValues</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Duplicate enum member value.</span><br />  <br />    <strong>1 │ </strong>enum E &#123;<br />    <strong>2 │ </strong>  A = &quot;A&quot;,<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>  B = 'A',<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>  C = &#96;A&#96;,<br />    <strong>5 │ </strong>&#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Another duplicate enum member value.</span><br />  <br />    <strong>2 │ </strong>  A = &quot;A&quot;,<br />    <strong>3 │ </strong>  B = 'A',<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>  C = &#96;A&#96;,<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>5 │ </strong>&#125;<br />    <strong>6 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Expected members to have unique values. Duplicate values can lead to bugs that are hard to track down.</span><br />  <br /></code></pre>
 
 ### Valid
 
@@ -85,8 +83,8 @@ enum E {
 - [Disable a rule](/linter/#disable-a-rule)
 - [Configure the code fix](/linter#configure-the-code-fix)
 - [Rule options](/linter/#rule-options)
-- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_duplicate_enum_values.rs)
-- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noDuplicateEnumValues)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_duplicate_enum_values.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noDuplicateEnumValues)
 
 </TabItem>
 </Tabs>
